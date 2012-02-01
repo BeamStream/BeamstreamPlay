@@ -8,6 +8,8 @@ object ApplicationBuild extends Build {
     val appVersion      = "1.0"
 
     val appDependencies = Seq(
+      "com.mongodb.casbah" %% "casbah" % "2.1.5-1",
+      "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT"
       // Add your project dependencies here,
     )
 
