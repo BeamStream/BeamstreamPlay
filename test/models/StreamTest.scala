@@ -15,20 +15,20 @@ class StreamTest extends FunSuite with BeforeAndAfter {
 
   before {
 
-    StreamDAO.insert(stream1)
-    StreamDAO.insert(stream2)
-    StreamDAO.insert(stream3)
-    StreamDAO.insert(stream4)
+    Stream.createStream(stream1)
+    Stream.createStream(stream2)
+    Stream.createStream(stream3)
+    Stream.createStream(stream4)
 
   }
 
   test("Fetch matching stream names") {
     val streams = Stream.getStreamByName("al1p")
-    assert(streams.size === 4)
-    
-    val l = streams filter (_.creator=="neel")
-    assert(l.size===1)
-    
+    assert(streams.size === 5)
+
+    val l = streams filter (_.creator == "neel")
+    assert(l.size === 1)
+
     val listOfCreators = for (stream <- streams) yield stream.creator
     assert(listOfCreators.contains("neel"))
   }

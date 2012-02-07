@@ -14,6 +14,10 @@ object Stream {
     val streams = StreamDAO.find(MongoDBObject("name" -> regexp))
     streams.toList
   }
+  
+  def createStream(stream:Stream):Option[Int] = {
+    StreamDAO.insert(stream)
+  }
 }
 
 object StreamType extends Enumeration {
