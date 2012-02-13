@@ -8,10 +8,11 @@ import com.mongodb.casbah.commons.MongoDBObject
 
 @RunWith(classOf[JUnitRunner])
 class StreamTest extends FunSuite with BeforeAndAfter {
-  val stream1 = Stream(100, "al1pha", "class", "vikas")
-  val stream2 = Stream(101, "al1pha", "class2", "meetu")
-  val stream3 = Stream(102, "al1pha", "class3", "neel")
-  val stream4 = Stream(103, "al1pha", "class423232323", "cee")
+
+  var stream1 = Stream(100, "al1pha", StreamType.Class, "vikas", List())
+  val stream2 = Stream(101, "al1pha", StreamType.Class, "meetu", List())
+  val stream3 = Stream(102, "al1pha", StreamType.Class, "neel", List())
+  val stream4 = Stream(103, "al1pha", StreamType.Class, "cee", List())
 
   before {
 
@@ -24,7 +25,7 @@ class StreamTest extends FunSuite with BeforeAndAfter {
 
   test("Fetch matching stream names") {
     val streams = Stream.getStreamByName("al1p")
-    assert(streams.size === 5)
+    assert(streams.size === 4)
 
     val l = streams filter (_.creator == "neel")
     assert(l.size === 1)
@@ -33,11 +34,11 @@ class StreamTest extends FunSuite with BeforeAndAfter {
     assert(listOfCreators.contains("neel"))
   }
 
-  test("Fetch1 matching stream names") {
-    Stream.getStreamByName("alpha").foreach {
-      x =>
-      //println(x)
-    }
+  test("Validating the stream join") {
+    Stream.joinStream(100, 900)
+    val stream = StreamDAO.findOneByID(id = 100)
+    stream1 = stream.get
+    assert(stream.get.users.size === 1)
   }
 
   after {

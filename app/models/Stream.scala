@@ -6,7 +6,7 @@ import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
 
-case class Stream(@Key("_id") id: Int, name: String, streamType: String, creator: String)
+case class Stream(@Key("_id") id: Int, name: String, streamType: StreamType.Value, creator: String, users:List[Int])
 
 object Stream {
   def getStreamByName(name: String): List[Stream] = {
@@ -17,6 +17,11 @@ object Stream {
   
   def createStream(stream:Stream):Option[Int] = {
     StreamDAO.insert(stream)
+  }
+  
+  def joinStream(streamId:Int, userId:Int){
+    val stream = StreamDAO.findOneByID(streamId)
+    StreamDAO.update(MongoDBObject("_id" -> streamId), stream.get.copy(users = (stream.get.users ++  List(userId))), false, false, new WriteConcern)
   }
 }
 
