@@ -6,7 +6,7 @@ import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
 
-case class Stream(@Key("_id") id: Int, name: String, streamType: StreamType.Value, creator: String, users:List[Int])
+case class Stream(@Key("_id") id: Int, name: String, streamType: StreamType.Value, creator: Int, users:List[Int])
 
 object Stream {
   def getStreamByName(name: String): List[Stream] = {

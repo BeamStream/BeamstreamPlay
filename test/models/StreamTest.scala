@@ -9,10 +9,10 @@ import com.mongodb.casbah.commons.MongoDBObject
 @RunWith(classOf[JUnitRunner])
 class StreamTest extends FunSuite with BeforeAndAfter {
 
-  var stream1 = Stream(100, "al1pha", StreamType.Class, "vikas", List())
-  val stream2 = Stream(101, "al1pha", StreamType.Class, "meetu", List())
-  val stream3 = Stream(102, "al1pha", StreamType.Class, "neel", List())
-  val stream4 = Stream(103, "al1pha", StreamType.Class, "cee", List())
+  var stream1 = Stream(100, "al1pha", StreamType.Class, 199, List())
+  val stream2 = Stream(101, "al1pha", StreamType.Class, 299, List())
+  val stream3 = Stream(102, "al1pha", StreamType.Class, 399, List())
+  val stream4 = Stream(103, "al1pha", StreamType.Class, 499, List())
 
   before {
 
@@ -27,11 +27,11 @@ class StreamTest extends FunSuite with BeforeAndAfter {
     val streams = Stream.getStreamByName("al1p")
     assert(streams.size === 4)
 
-    val l = streams filter (_.creator == "neel")
+    val l = streams filter (_.creator == 199)
     assert(l.size === 1)
 
     val listOfCreators = for (stream <- streams) yield stream.creator
-    assert(listOfCreators.contains("neel"))
+    assert(listOfCreators.contains(199))
   }
 
   test("Validating the stream join") {
@@ -42,10 +42,7 @@ class StreamTest extends FunSuite with BeforeAndAfter {
   }
 
   after {
-    StreamDAO.remove(stream1)
-    StreamDAO.remove(stream2)
-    StreamDAO.remove(stream3)
-    StreamDAO.remove(stream4)
+   StreamDAO.remove(MongoDBObject("name" -> ".*".r))
   }
 
 }

@@ -9,7 +9,7 @@ import com.mongodb.casbah.commons.MongoDBObject
 @RunWith(classOf[JUnitRunner])
 class SmallStreamTest extends FunSuite with BeforeAndAfter {
 
-  val stream1 = Stream(100, "al1pha", StreamType.Class, "vikas", List())
+  val stream1 = Stream(100, "al1pha", StreamType.Class, 199, List())
 
   before {
     StreamDAO.insert(stream1)
@@ -23,7 +23,7 @@ class SmallStreamTest extends FunSuite with BeforeAndAfter {
   }
 
   after {
-    StreamDAO.remove(stream1)
+     StreamDAO.remove(MongoDBObject("name" -> ".*".r))
   }
 
 }
