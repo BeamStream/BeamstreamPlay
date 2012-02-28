@@ -18,4 +18,11 @@ object User{
   }
 }
 
+
+object UserType extends Enumeration {
+  val Student = Value(0, "Student")
+  val Educator = Value(1, "Educator")
+  val Professional = Value(2, "Professional")
+}
+
 object UserDAO extends SalatDAO[User, Int](collection = MongoConnection()("beamstream")("user"))

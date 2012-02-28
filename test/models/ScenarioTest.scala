@@ -26,7 +26,7 @@ class ScenarioTest extends FunSuite with BeforeAndAfter {
     Stream.createStream(Stream(501, "Inphina stream", StreamType.Research, 100, List(100)))
 
     /* vikas hunts for a stream to join*/
-    val stream = Stream.getStreamByName("Beam")
+    val stream = Stream.getStreamByName("Bea")
     assert(stream.size === 1)
     assert(stream(0).name === "Beamstream stream")
 
@@ -42,6 +42,7 @@ class ScenarioTest extends FunSuite with BeforeAndAfter {
     Message.createMessage(Message(102, "message 3 on Beamstream", MessageType.Audio, MessageAccess.Public, "time", 100, 500))
     Message.createMessage(Message(103, "message 4 on Beamstream", MessageType.Audio, MessageAccess.Public, "time", 100, 500))
     Message.createMessage(Message(104, "message 5 on Beamstream", MessageType.Audio, MessageAccess.Private, "time", 100, 500))
+    Message.createMessage(Message(204, "message 15 on InphinaStream", MessageType.Audio, MessageAccess.Private, "time", 100, 501))
 
     /* if vikas has public access only, he would see 4 messages*/
     var messages = Message.getAllPublicMessagesForAStream(500)
@@ -60,13 +61,11 @@ class ScenarioTest extends FunSuite with BeforeAndAfter {
     /* since meetu has not joined the stream he can post to the stream*/
     result = Message.createMessage(Message(106, "message 8 on Beamstream", MessageType.Audio, MessageAccess.Public, "time", 102, 500))
     assert(result == (-1))
-    
-    
+
     /*total messages on stream = chris + vikas messages*/
-    
+
     messages = Message.getAllMessagesForAStream(500)
     assert(messages.size === 7)
-
 
   }
 
