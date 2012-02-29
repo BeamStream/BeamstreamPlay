@@ -23,6 +23,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
   test("Fetch if the user was inserted") {
     val user = UserDAO.findOneByID(id=100)
     assert(user.get.name === "user1")
+    
 
   }
 
