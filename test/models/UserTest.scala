@@ -12,7 +12,6 @@ class UserTest extends FunSuite with BeforeAndAfter {
   val user1 = User(100, "user1", "u@u.com", List())
   val user2 = User(101, "user2", "u2@u2.com", List())
 
-  
   before {
 
     User.createUser(user1)
@@ -21,9 +20,8 @@ class UserTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Fetch if the user was inserted") {
-    val user = UserDAO.findOneByID(id=100)
+    val user = UserDAO.findOneByID(id = 100)
     assert(user.get.name === "user1")
-    
 
   }
 

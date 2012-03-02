@@ -4,14 +4,20 @@ import org.scalatest.BeforeAndAfter
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import com.mongodb.casbah.commons.MongoDBObject
+import org.joda.time.DateTime
+import com.mongodb.casbah.commons.conversions.scala._
 
 @RunWith(classOf[JUnitRunner])
 class ClassTest extends FunSuite with BeforeAndAfter {
+  val myDate = DateTime.now
 
-  val class1 = Class(001, 201, "IT")
-  val class2 = Class(002, 202, "CSE")
-  val class3 = Class(003, 203, "ECE")
-  val class4 = Class(004, 204, "CSE")
+//  RegisterConversionHelpers
+//  RegisterJodaTimeConversionHelpers
+
+  val class1 = Class(001, 201, "IT", ClassType.Quarter, "23 feb")
+  val class2 = Class(002, 202, "CSE", ClassType.Quarter, "24 feb")
+  val class3 = Class(003, 203, "ECE", ClassType.Quarter, "25 feb")
+  val class4 = Class(004, 204, "CSE", ClassType.Yearly, "26 feb")
 
   before {
     Class.createClass(class1)
@@ -32,7 +38,7 @@ class ClassTest extends FunSuite with BeforeAndAfter {
     val classC = ClassDAO.find(MongoDBObject("className" -> "CSE"))
     assert(classC.size === 1)
 
-    Class.createClass(Class(005, 205, "ME"))
+    Class.createClass(Class(005, 205, "ME", ClassType.Quarter, "27 feb"))
 
     val classD = ClassDAO.findOneByID(005)
     assert(classD.get.classCode === 205)
