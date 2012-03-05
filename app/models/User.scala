@@ -6,7 +6,7 @@ import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
 
-case class User(@Key("_id") id: Int, name: String, email: String, streams:List[Int])//, media:List[ObjectId])
+case class User(@Key("_id") id: Int, userType:UserType.Value, email: String, firstName: String, lastName: String,orgName:String,location:Boolean,streams:List[Int], media:List[ObjectId])
 
 object User{
   def createUser(user:User){

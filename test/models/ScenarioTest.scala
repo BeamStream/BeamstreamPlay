@@ -9,9 +9,10 @@ import com.mongodb.casbah.commons.MongoDBObject
 @RunWith(classOf[JUnitRunner])
 class ScenarioTest extends FunSuite with BeforeAndAfter {
 
-  val chris = User(100, "Chris", "cox@beamstream.com", List())
-  val vikas = User(101, "Vikas", "vikas@inphina.com", List())
-  val meetu = User(102, "Meetu", "meetu@inphina.com", List())
+  val chris = User(100,UserType.Professional,"u@u.com","Neel" ,"Sachdeva" ,"Knoldus",true,List(),List())
+  val vikas = User(101,UserType.Professional,"u1@u1.com","Vikas" ,"Hazrati" ,"Knoldus",true,List(),List())
+  val meetu = User(101,UserType.Professional,"u1@u1.com","Meetu" ,"Maltiar" ,"Inphina",true,List(),List())
+
 
   before {
     User.createUser(chris)

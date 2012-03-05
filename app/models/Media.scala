@@ -11,7 +11,7 @@ import java.io.File
 import com.mongodb.gridfs.GridFSInputFile
 import org.bson.types.ObjectId
 
-case class Media(@Key("_id") id: Int, userId: Int, mediaName: String, mediaType: MediaType.Value , mediaId:ObjectId)
+case class Media(@Key("_id") id: Int, userId: Int, mediaName: String, mediaType: MediaType.Value, mediaId: ObjectId)
 
 object Media {
 
@@ -23,15 +23,6 @@ object Media {
   def deleteMedia(media: Media) {
     MediaDAO.remove(media)
   }
-
-//  def obtainFile(media: Media) {
-//
-//    MediaDAO.insert(media)
-//    val firstItem = MediaDAO.findOneByID(001)
-//    val cursor = firstItem.get
-//    print(firstItem)
-//
-//  }
 
 }
 
