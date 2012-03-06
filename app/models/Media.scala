@@ -24,6 +24,10 @@ object Media {
     MediaDAO.remove(media)
   }
 
+  def getAllMediaByUser(userId: Int): List[Media] = {
+    MediaDAO.find(MongoDBObject("userId" -> userId)).toList
+  }
+
 }
 
 object MediaType extends Enumeration {

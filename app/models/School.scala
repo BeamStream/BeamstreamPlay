@@ -7,7 +7,7 @@ import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
 
-case class School(@Key("_id") id: Int, schoolName: String)
+case class School(@Key("_id") id: ObjectId, schoolName: String)
 
 object School {
   
@@ -17,6 +17,11 @@ object School {
   
   def removeSchool(school:School){
     SchoolDAO.remove(school)
+  }
+  
+  def findSchoolsByName(name:String):List[String] = {
+    val regexp = (""".*""" + name + """.*""").r
+    for (school <- SchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList) yield school.schoolName 
   }
 
 }

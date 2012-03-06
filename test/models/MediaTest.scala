@@ -22,13 +22,11 @@ class MediaTest extends FunSuite with BeforeAndAfter {
     val gfsPhoto = new GridFS(db, "photo")
     val gfsFile = gfsPhoto.createFile(imageFile1)
     gfsFile.save
-    
-    val media_id=gfsFile.getId().asInstanceOf[ObjectId]
-    
 
-    val mediaA = Media(001, 901, "VikasImage", MediaType.Image,media_id)
+    val media_id = gfsFile.getId().asInstanceOf[ObjectId]
+
+    val mediaA = Media(001, 901, "VikasImage", MediaType.Image, media_id)
     Media.createMedia(mediaA)
-   
 
   }
 
@@ -39,8 +37,12 @@ class MediaTest extends FunSuite with BeforeAndAfter {
 
   }
 
+  test("fetching all media for a user") {
+    assert(Media.getAllMediaByUser(901).size === 1)
+  }
+
   after {
     MediaDAO.remove(MongoDBObject("mediaName" -> ".*".r))
-    
+
   }
 }

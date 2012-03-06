@@ -6,7 +6,10 @@ import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
 
-case class User(@Key("_id") id: Int, userType: UserType.Value, email: String, firstName: String, lastName: String, orgName: String, location: Boolean, streams: List[Int], media: List[ObjectId])
+case class User(@Key("_id") id: Int, userType: UserType.Value, email: String, val firstName: String, lastName: String, orgName: String,
+  location: Boolean, streams: List[Int], media: List[ObjectId], var schoolId: List[ObjectId], classId: List[Int]){
+}
+
 
 object User {
 
@@ -18,29 +21,40 @@ object User {
     UserDAO.remove(user)
   }
 
-  def validateEmail(emailId: String): Unit = {
+  def validateEmail(emailId: String): Boolean = {
+    var validationStatus = false
     val emailPart: List[String] = List("gmail.com", "yahoo.com", "rediff.com", "hotmail.com")
     val i: Int = emailId.lastIndexOf("@")
     val stringToMatch: String = emailId.substring(i + 1)
     val emailString: String = emailId.toUpperCase
 
-    if (!emailString.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
-      println(stringToMatch + " is not a correct Email Address")
-      return
+    (!emailString.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$") ||
+      emailPart.contains(stringToMatch)) match {
+        case true =>
+        case false =>
+          validationStatus = true
+      }
+    return validationStatus
+  }
 
-    } else if (emailPart.contains(stringToMatch)) {
-      println("Invalid Email Found, " + stringToMatch + " is a not a valid Email")
-      return
+  def registerUser(user: User): String = {
 
+    validateEmail(user.email) match {
+      case true =>
+        UserDAO.insert(user)
+        "Registration Successful"
+      case false =>
+        "Invalid email address"
     }
-  }
-
-  def registerUser(user: User): Unit = {
-
-    validateEmail(user.email)
-    UserDAO.insert(user)
 
   }
+  
+  def addSchoolToUser(userId:Int, schoolId:ObjectId){
+    val user = UserDAO.findOneByID(userId).get
+    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(schoolId = (user.schoolId ++  List(schoolId))), false, false, new WriteConcern)
+    
+  }
+  
 
 }
 object UserType extends Enumeration {
