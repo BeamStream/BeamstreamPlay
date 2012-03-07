@@ -11,17 +11,13 @@ import org.bson.types.ObjectId
 class UserTest extends FunSuite with BeforeAndAfter {
 
   val user1 = User(100, UserType.Professional, "neel@gmail.com", "Neel", "Sachdeva", "Knoldus", true, List(100, 101), List(), List(), List())
-  val user2 = User(101, UserType.Professional, "vikas@sapient.com", "Vikas", "Hazrati", "Knoldus", true, List(200, 201, 202), List(), List(), List())
+  val user2 = User(101, UserType.Professional, "vikas@sapient.com", "Vikas", "Hazrati", "Knoldus", true, List(200, 201, 202), List(new ObjectId,new ObjectId), List(), List())
 
   before {
 
     User.createUser(user1)
     User.createUser(user2)
-    //    User.validateEmail(user1.email)
-    //    User.validateEmail(user2.email)
-
-    User.registerUser(user1)
-
+  
   }
 
   test("Create User") {
@@ -33,7 +29,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
   }
 
   test("testing invalid email for common domain") {
-    assert("Invalid email address" === 
+    assert("Invalid email address" ===
       User.registerUser(new User(100, UserType.Professional, "neel@gmail.com", "Neel", "Sachdeva", "Knoldus", true, List(100, 101), List(), List(), List())))
   }
 
@@ -52,26 +48,27 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   }
 
-  test("Fetch if the user was inserted") {
+  test("add class to user") {
+    assert(UserDAO.findOneByID(100).get.classId.size === 0)
+    User.addClassToUser(100, 1001)
+    assert(UserDAO.findOneByID(100).get.classId.size === 1)
 
-    //    val user = UserDAO.findOneByID(id = 100)
-    //    assert(user.get.firstName === "Neel")
-    //    assert(user.get.streams.contains(101))
-    //    
-    //    val userA=UserDAO.find(MongoDBObject("orgName" -> "Knoldus"))
-    //    assert(userA.size===2)
-
-    //    val userA=UserDAO.find(MongoDBObject("orgName" -> "Knoldus"))
-    //    assert(userA.size===1)
-    //    
-
+  }
+  
+  
+  test("get user profile"){
+     val user = UserDAO.findOneByID(101)
+     assert(user.get.firstName==="Vikas")
+     assert(user.get.email.contains("sapient"))
+     assert(user.get.location===true)
+     assert(user.get.streams(0)===200)
+     assert(user.get.classId.size===1)
+    
   }
 
   after {
 
-    //    User.removeUser(user1)
-    //    User.removeUser(user2)
-
+    UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
   }
 
 }

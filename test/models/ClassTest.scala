@@ -49,6 +49,15 @@ class ClassTest extends FunSuite with BeforeAndAfter {
     assert(classD.get.className === "ME")
 
   }
+  
+   test("finding class by class name"){
+    assert(Class.findClassByName("SE").size===2)
+    assert(Class.findClassByName("E").size===3)
+     assert(Class.findClassByName("T").size===1)
+  
+  
+  }
+
 
   after {
     ClassDAO.remove(MongoDBObject("className" -> ".*".r))

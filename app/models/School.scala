@@ -19,9 +19,9 @@ object School {
     SchoolDAO.remove(school)
   }
   
-  def findSchoolsByName(name:String):List[String] = {
+  def findSchoolsByName(name:String):List[School] = {
     val regexp = (""".*""" + name + """.*""").r
-    for (school <- SchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList) yield school.schoolName 
+    for (school <- SchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList) yield school 
   }
 
 }

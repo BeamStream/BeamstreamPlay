@@ -7,9 +7,8 @@ import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
 
 case class User(@Key("_id") id: Int, userType: UserType.Value, email: String, val firstName: String, lastName: String, orgName: String,
-  location: Boolean, streams: List[Int], media: List[ObjectId], var schoolId: List[ObjectId], classId: List[Int]){
+  location: Boolean, streams: List[Int], media: List[ObjectId], schoolId: List[ObjectId], classId: List[Int]) {
 }
-
 
 object User {
 
@@ -23,7 +22,7 @@ object User {
 
   def validateEmail(emailId: String): Boolean = {
     var validationStatus = false
-    val emailPart: List[String] = List("gmail.com", "yahoo.com", "rediff.com", "hotmail.com")
+    val emailPart: List[String] = List("gmail.com", "yahoo.com", "rediff.com", "hotmail.com", "aol.com")
     val i: Int = emailId.lastIndexOf("@")
     val stringToMatch: String = emailId.substring(i + 1)
     val emailString: String = emailId.toUpperCase
@@ -48,13 +47,23 @@ object User {
     }
 
   }
-  
-  def addSchoolToUser(userId:Int, schoolId:ObjectId){
+
+  def addSchoolToUser(userId: Int, schoolId: ObjectId) {
     val user = UserDAO.findOneByID(userId).get
-    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(schoolId = (user.schoolId ++  List(schoolId))), false, false, new WriteConcern)
-    
+    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(schoolId = (user.schoolId ++ List(schoolId))), false, false, new WriteConcern)
+
   }
-  
+
+  def addClassToUser(userId: Int, classId: Int) {
+    val user = UserDAO.findOneByID(userId).get
+    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classId = (user.classId ++ List(classId))), false, false, new WriteConcern)
+  }
+
+  def getUserProfile(userId: Int): User = {
+    val user = UserDAO.findOneByID(userId)
+    return user.get
+
+  }
 
 }
 object UserType extends Enumeration {

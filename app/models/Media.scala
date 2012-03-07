@@ -16,6 +16,7 @@ case class Media(@Key("_id") id: Int, userId: Int, mediaName: String, mediaType:
 object Media {
 
   def createMedia(media: Media) {
+    
     MediaDAO.insert(media)
 
   }

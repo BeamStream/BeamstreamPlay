@@ -9,23 +9,23 @@ import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
 import com.mongodb.casbah.commons.conversions.scala._
 
-
 case class Class(@Key("_id") id: Int, classCode: Int, className: String, classType: ClassType.Value, classDate: String)
 
 object Class {
 
-  def main(args: Array[String]) {
-    RegisterConversionHelpers
-    RegisterJodaTimeConversionHelpers
-  }
+  //    RegisterConversionHelpers
+  //    RegisterJodaTimeConversionHelpers
 
   def createClass(myclass: Class) {
-
     ClassDAO.insert(myclass)
   }
 
   def deleteClass(myclass: Class) {
     ClassDAO.remove(myclass)
+  }
+  def findClassByName(name: String): List[Class] = {
+    val regexp = (""".*""" + name + """.*""").r
+    for (theclass <- ClassDAO.find(MongoDBObject("className" -> regexp)).toList) yield theclass
   }
 }
 
