@@ -9,32 +9,18 @@ import com.mongodb.casbah.commons.MongoDBObject
 import java.io.File
 import com.mongodb.Mongo
 import com.mongodb.gridfs.GridFS
+import java.io.FileInputStream
 
 @RunWith(classOf[JUnitRunner])
 class RegistrationScenarioTest extends FunSuite with BeforeAndAfter {
   val myDate = DateTime.now.toString()
-  val imageFile1 = new File("/home/neel/Desktop/Shiv.jpg")
-  val mongo = new Mongo("localhost", 27017)
-  val db = mongo.getDB("beamstream")
-  val collection = db.getCollection("media")
-  
-  val gfsPhoto = new GridFS(db, "photo")
-  
-  val gfsFile = gfsPhoto.createFile(imageFile1)
-  gfsFile.save
-  
-  val videoFile = new File("/home/neel/Downloads/Kyun.3gp")
-  val gfsVideoFile = gfsPhoto.createFile(videoFile)
-  gfsVideoFile.save
 
-  val picture = gfsFile.getId().asInstanceOf[ObjectId]
-  val video = gfsVideoFile.getId().asInstanceOf[ObjectId]
   before {
 
     val mpsSchool = School(new ObjectId, "MPS")
     val dpsSchool = School(new ObjectId, "DPS")
-    val classIT = Class(001, 1201, "IT", ClassType.Quarter, myDate)
-    val classHR = Class(003, 1202, "HR", ClassType.Quarter, myDate)
+    val classIT = Class(new ObjectId, 1201, "IT", ClassType.Quarter, myDate)
+    val classHR = Class(new ObjectId, 1202, "HR", ClassType.Quarter, myDate)
     School.createSchool(mpsSchool)
     School.createSchool(dpsSchool)
     Class.createClass(classIT)
@@ -46,17 +32,17 @@ class RegistrationScenarioTest extends FunSuite with BeforeAndAfter {
     /* Registering user with a common email address */
 
     assert("Invalid email address" ===
-      User.registerUser(new User(201, UserType.Professional, "neel@gmail.com", "Neel", "Sachdeva", "Knoldus", true, List(100, 101), List(), List(), List())))
+      User.registerUser(new User(201, UserType.Professional, "neel@gmail.com", "Neel", "Sachdeva", "Knoldus", true, List(100, 101), List(), List())))
 
     assert("Invalid email address" ===
-      User.registerUser(new User(201, UserType.Professional, "neel@aol.com", "Neel", "Sachdeva", "Knoldus", true, List(100, 101), List(), List(), List())))
+      User.registerUser(new User(201, UserType.Professional, "neel@aol.com", "Neel", "Sachdeva", "Knoldus", true, List(100, 101), List(), List())))
 
     assert("Invalid email address" ===
-      User.registerUser(new User(201, UserType.Professional, "neel@gmail...com", "Neel", "Sachdeva", "Knoldus", true, List(100, 101), List(), List(), List())))
+      User.registerUser(new User(201, UserType.Professional, "neel@gmail...com", "Neel", "Sachdeva", "Knoldus", true, List(100, 101), List(), List())))
 
     /* Register user with a valid email address */
     assert("Registration Successful" ===
-      User.registerUser(new User(201, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "Knoldus", true, List(100, 101), List(), List(), List())))
+      User.registerUser(new User(201, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "Knoldus", true, List(100, 101), List(), List())))
 
     /* User finds a school to add to his profile */
 
@@ -85,21 +71,17 @@ class RegistrationScenarioTest extends FunSuite with BeforeAndAfter {
     /* User adds media */
 
     assert(Media.getAllMediaByUser(201).size === 0)
-    val pictureMedia = Media(001, 201, "VikasImage", MediaType.Image, picture)
-    Media.createMedia(pictureMedia)
+    val imageFile1 = new File("/home/neel/Desktop/Shiv.jpg")
+    val mediaTransfer = MediaTransfer(201, MediaType.Image, false, new FileInputStream(imageFile1))
+    Media.createMedia(mediaTransfer)
+    assert(Media.getAllMediaByUser(201).size === 1)
 
-    val videoMedia = Media(002, 201, "video", MediaType.Video, video)
-    Media.createMedia(videoMedia)
-
-    /* user should get the media against his profile */
-    assert(Media.getAllMediaByUser(201).size === 2)
-    
     /*fetch User profile */
-    
+
     val userProfile = User.getUserProfile(201)
-    assert(userProfile.classId.size===1)
-    assert(userProfile.schoolId.size===2)
-    assert(userProfile.firstName==="Neel")
+    assert(userProfile.classId.size === 1)
+    assert(userProfile.schoolId.size === 2)
+    assert(userProfile.firstName === "Neel")
 
   }
 

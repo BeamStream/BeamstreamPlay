@@ -10,17 +10,19 @@ import com.mongodb.casbah.commons.conversions.scala._
 import org.joda.time.format.DateTimeFormatter
 import org.joda.time.base.BaseDateTime
 import org.joda.time.LocalDateTime
+import org.bson.types.ObjectId
 
 @RunWith(classOf[JUnitRunner])
 class ClassTest extends FunSuite with BeforeAndAfter {
-  val myDate = DateTime.now.toString()
+
   //  RegisterConversionHelpers
   //  RegisterJodaTimeConversionHelpers
+  val myDate = DateTime.now.toString()
 
-  val class1 = Class(001, 201, "IT", ClassType.Quarter, myDate)
-  val class2 = Class(002, 202, "CSE", ClassType.Quarter, myDate)
-  val class3 = Class(003, 203, "ECE", ClassType.Quarter, myDate)
-  val class4 = Class(004, 204, "CSE", ClassType.Yearly, myDate)
+  val class1 = Class(new ObjectId, 201, "IT", ClassType.Quarter, myDate)
+  val class2 = Class(new ObjectId, 202, "CSE", ClassType.Quarter, myDate)
+  val class3 = Class(new ObjectId, 203, "ECE", ClassType.Quarter, myDate)
+  val class4 = Class(new ObjectId, 204, "CSE", ClassType.Yearly, myDate)
 
   before {
 
@@ -31,33 +33,20 @@ class ClassTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Createing & Deleting Classes") {
-    val classA = ClassDAO.findOneByID(002)
-    assert(classA.get.className === "CSE")
+    val classA = ClassDAO.find(MongoDBObject("classCode" -> 201))
+    assert(classA.size === 1)
 
     val classB = ClassDAO.find(MongoDBObject("className" -> "CSE"))
     assert(classB.size === 2)
 
-    Class.deleteClass(class4)
-
-    val classC = ClassDAO.find(MongoDBObject("className" -> "CSE"))
-    assert(classC.size === 1)
-
-    Class.createClass(Class(005, 205, "ME", ClassType.Quarter, myDate))
-
-    val classD = ClassDAO.findOneByID(005)
-    assert(classD.get.classCode === 205)
-    assert(classD.get.className === "ME")
-
-  }
-  
-   test("finding class by class name"){
-    assert(Class.findClassByName("SE").size===2)
-    assert(Class.findClassByName("E").size===3)
-     assert(Class.findClassByName("T").size===1)
-  
-  
   }
 
+  test("finding class by class name") {
+    assert(Class.findClassByName("SE").size === 2)
+    assert(Class.findClassByName("E").size === 3)
+    assert(Class.findClassByName("T").size === 1)
+
+  }
 
   after {
     ClassDAO.remove(MongoDBObject("className" -> ".*".r))

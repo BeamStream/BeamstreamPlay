@@ -10,14 +10,29 @@ import com.mongodb.gridfs.GridFS
 import java.io.File
 import com.mongodb.gridfs.GridFSInputFile
 import org.bson.types.ObjectId
+import com.mongodb.Mongo
+import java.io.InputStream
 
-case class Media(@Key("_id") id: Int, userId: Int, mediaName: String, mediaType: MediaType.Value, mediaId: ObjectId)
+case class Media(@Key("_id") id: ObjectId, userId: Int, mediaType: MediaType.Value, showOnProfileView:Boolean, gridFsId:ObjectId)
+case class MediaTransfer(userId: Int, mediaType: MediaType.Value, showOnProfileView:Boolean, data:InputStream)
 
 object Media {
 
-  def createMedia(media: Media) {
+  def createMedia(mediaTransfer: MediaTransfer) {
     
-    MediaDAO.insert(media)
+    val mongo = new Mongo("localhost", 27017)
+    val db = mongo.getDB("beamstream")
+    val collection = db.getCollection("media")
+
+    val gfsPhoto = new GridFS(db, "photo")
+    
+    val gfsFile = gfsPhoto.createFile(mediaTransfer.data)
+    
+    gfsFile.save
+    
+    val gridFSMediaId = gfsFile.getId().asInstanceOf[ObjectId]
+    
+    MediaDAO.insert(new Media(new ObjectId, mediaTransfer.userId, mediaTransfer.mediaType, mediaTransfer.showOnProfileView, gridFSMediaId))
 
   }
 
@@ -28,6 +43,8 @@ object Media {
   def getAllMediaByUser(userId: Int): List[Media] = {
     MediaDAO.find(MongoDBObject("userId" -> userId)).toList
   }
+  
+ 
 
 }
 

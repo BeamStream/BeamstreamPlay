@@ -6,8 +6,8 @@ import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
 
-case class User(@Key("_id") id: Int, userType: UserType.Value, email: String, val firstName: String, lastName: String, orgName: String,
-  location: Boolean, streams: List[Int], media: List[ObjectId], schoolId: List[ObjectId], classId: List[Int]) {
+case class User(@Key("_id") id:Int, userType: UserType.Value, email: String, val firstName: String, lastName: String, orgName: String,
+  location: Boolean, streams: List[Int],schoolId: List[ObjectId], classId: List[ObjectId]) {
 }
 
 object User {
@@ -54,7 +54,7 @@ object User {
 
   }
 
-  def addClassToUser(userId: Int, classId: Int) {
+  def addClassToUser(userId: Int, classId: ObjectId) {
     val user = UserDAO.findOneByID(userId).get
     UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classId = (user.classId ++ List(classId))), false, false, new WriteConcern)
   }
