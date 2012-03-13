@@ -23,11 +23,8 @@ object Media {
     val mongo = new Mongo("localhost", 27017)
     val db = mongo.getDB("beamstream")
     val collection = db.getCollection("media")
-
     val gfsPhoto = new GridFS(db, "photo")
-    
     val gfsFile = gfsPhoto.createFile(mediaTransfer.data)
-    
     gfsFile.save
     
     val gridFSMediaId = gfsFile.getId().asInstanceOf[ObjectId]

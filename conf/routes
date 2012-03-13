@@ -5,5 +5,11 @@
 # Home page
 GET     /                           controllers.Application.index()
 
+
+#Streams
+
+GET    /streams                       controllers.Application.streams
+POST   /streams                       controllers.Application.newStream
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

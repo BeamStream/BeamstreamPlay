@@ -1,9 +1,39 @@
-@(message: String, quote: models.Quote)
+@(streams:List[Stream],streamForm:Form[StreamForm])
 
-@main("Welcome to Play 2.0 beta") {
 
-    @play20.welcome(message)
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap/bootstrap.min.css")" />
 
-    <p>@quote.text<em> - @quote.author</em></p>
+@import helper._
+@import helper.twitterBootstrap._
+@main("BeamStream Stream"){
+
+
+
+ <h2>Add a new Stream</h2>
+    
+    @form(routes.Application.newStream) {
+    
+     <fieldset>
+       
+        
+        @inputText(streamForm("name"), '_label->"Stream Name", 'id -> "name", 'size -> 10) 
+       
+       @select(
+       streamForm("streamType"),
+       Stream.streamtypes,
+      
+       '_label -> "Stream Type", '_default -> "-- Choose a Stream --",
+                '_showConstraints -> false
+       )
+        
+         @inputText(streamForm("creator"), '_label->"Stream Creator", 'id -> "creator", 'size -> 10) 
+         
+         
+         </fieldset>
+        <input type="submit" value="Create Stream">
+        
+    }
+
+
 
 }

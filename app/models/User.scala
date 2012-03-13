@@ -6,8 +6,8 @@ import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
 
-case class User(@Key("_id") id:Int, userType: UserType.Value, email: String, val firstName: String, lastName: String, orgName: String,
-  location: Boolean, streams: List[Int],schoolId: List[ObjectId], classId: List[ObjectId]) {
+case class User(@Key("_id") id: Int, userType: UserType.Value, email: String, val firstName: String, lastName: String, orgName: String,
+  location: Boolean, streams: List[Int], schoolId: List[ObjectId], classId: List[ObjectId]) {
 }
 
 object User {

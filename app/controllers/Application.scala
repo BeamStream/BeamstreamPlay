@@ -3,11 +3,35 @@ package controllers
 import play.api._
 import play.api.mvc._
 import models.Quote
+import models.Stream
+import play.api.data._
+import play.api.data.Forms._
+import models.StreamForm
+import models.StreamForm
 
 object Application extends Controller {
-  
+
+  val streamForm = Form(
+    mapping(
+      "name" -> nonEmptyText,
+      "streamType" -> nonEmptyText,
+      "creator" -> number)(StreamForm.apply)(StreamForm.unapply))
+
   def index = Action {
-    Ok(views.html.index("Your new application is ready.", new Quote("This test is specified by a honest person","vikas")))
+    Ok("This is BeamStream Application by Knoldus Software")
   }
-  
+  def streams = Action {
+    Ok(views.html.index(Stream.all(), streamForm))
+  }
+
+  def newStream = Action { implicit request =>
+    streamForm.bindFromRequest.fold(
+      errors => BadRequest(views.html.index(Stream.all(), errors)),
+      streamForm => {
+        Stream.create(streamForm)
+        Redirect(routes.Application.streams)
+
+      })
+  }
+
 }

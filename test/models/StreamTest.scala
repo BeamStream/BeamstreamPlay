@@ -40,6 +40,9 @@ class StreamTest extends FunSuite with BeforeAndAfter {
     stream1 = stream.get
     assert(stream.get.users.size === 1)
   }
+  
+
+  
 
   after {
    StreamDAO.remove(MongoDBObject("name" -> ".*".r))

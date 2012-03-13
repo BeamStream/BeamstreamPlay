@@ -20,6 +20,7 @@ object MessageAccess extends Enumeration {
 }
 
 //TODO use a datetime instead of string for timestamp
+
 case class Message(@Key("_id") id: Int, text: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated: String, userId: Int, streamId: Int)
 
 object Message {
