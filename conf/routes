@@ -8,8 +8,18 @@ GET     /                           controllers.Application.index()
 
 #Streams
 
+
+GET    /users                         controllers.UserController.users
+POST   /users                         controllers.UserController.findUser
+
 GET    /streams                       controllers.Application.streams
 POST   /streams                       controllers.Application.newStream
+
+GET    /messages                      controllers.MessageController.messages
+POST   /messages                      controllers.MessageController.newMessage
+
+GET    /joinstreams                   controllers.JoinStream.joinstreams
+POST   /joinstreams                   controllers.JoinStream.joinStream
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

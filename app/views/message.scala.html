@@ -1,0 +1,44 @@
+@(messages:List[Message],messageForm:Form[MessageForm])
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap/bootstrap.min.css")" />
+@import helper._
+@import helper.twitterBootstrap._
+  
+ <h2>Post a new Message</h2>
+ 
+ @form(routes.MessageController.newMessage) {
+    
+     <fieldset>
+        @textarea(messageForm("message"), '_label->"Message Text", 'id -> "message", 'size -> 98) 
+       
+       @select(
+       messageForm("messageType"),
+       Message.messagetypes,
+      
+       '_label -> "Message Type", '_default -> "-- Choose Access Level --",
+                '_showConstraints -> false
+       )
+        
+         </fieldset>
+        <input type="submit" value="Post Message">
+        
+    }
+    
+ @main("BeamStream Message"){
+ <style type="text/css">
+h2{color:Green;}
+</style>
+<h3>@messages.size messages in this stream</h3>
+   <ul>
+        @messages.map { message =>
+            <li>
+               <i><b> @message.text </b></i>
+                &nbsp  &nbsp  &nbsp
+                Posted By: @message.userId
+                on   @message.timeCreated         
+               
+                }
+            </li>
+            
+        }
+    </ul>
+

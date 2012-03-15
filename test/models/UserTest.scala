@@ -10,7 +10,7 @@ import org.bson.types.ObjectId
 @RunWith(classOf[JUnitRunner])
 class UserTest extends FunSuite with BeforeAndAfter {
 
-  val user1 = User(100, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "Knoldus", true, List(100, 101), List(), List())
+  val user1 = User(100, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "Neil","Neel","Knoldus", true, List(100, 101), List(), List())
 
   before {
 
@@ -26,15 +26,15 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   test("testing invalid email for common domain") {
     assert("Invalid email address" ===
-      User.registerUser(new User(101, UserType.Professional, "vikas@gmail.com", "Vikas", "Hazrati", "Knoldus", true, List(100, 101), List(), List())))
+      User.registerUser(new User(101, UserType.Professional, "vikas@gmail.com", "Vikas", "Hazrati","Vikki","Vikas", "Knoldus", true, List(100, 101), List(), List())))
   }
 
   test("testing invalid email for broken Email") {
-    assert("Invalid email address" === User.registerUser(new User(101, UserType.Professional, "vikas@gmail..com", "Vikas", "Hazrati", "Knoldus", true, List(100, 101), List(), List())))
+    assert("Invalid email address" === User.registerUser(new User(101, UserType.Professional, "vikas@gmail..com", "Vikas", "Hazrati","Vikki", "Vikas","Knoldus", true, List(100, 101), List(), List())))
   }
 
   test("testing valid email") {
-    assert("Registration Successful" === User.registerUser(new User(101, UserType.Professional, "vikas@knoldus.com", "Vikas", "Hazrati", "Knoldus", true, List(100, 101), List(), List())))
+    assert("Registration Successful" === User.registerUser(new User(101, UserType.Professional, "vikas@knoldus.com", "Vikas", "Hazrati","Vikki","Vikas", "Knoldus", true, List(100, 101), List(), List())))
   }
 
   test("add school to user") {

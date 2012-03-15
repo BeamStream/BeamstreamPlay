@@ -1,0 +1,39 @@
+@(users:List[User],userForm:Form[UserForm],errorMessage:String)
+
+
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap/bootstrap.min.css")" />
+
+@import helper._
+@import helper.twitterBootstrap._
+@main("BeamStream Users"){
+
+<style type="text/css">
+h3 {color:red;}
+h2{color:Green;}
+
+</style>
+
+<h3>@errorMessage</h3>
+
+ <h2>User Login Form</h2>
+    
+    @form(routes.UserController.findUser) {
+    
+     <fieldset>
+       
+        
+        @inputText(userForm("email"), '_label->"User Email", 'id -> "email", 'size -> 10) 
+       
+       
+        
+         @inputText(userForm("password"), '_label->"Password", 'id -> "password", 'size -> 10) 
+         
+         
+         </fieldset>
+        <input type="submit" value="Login">
+        
+    }
+
+
+
+}

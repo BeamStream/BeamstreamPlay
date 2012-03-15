@@ -14,8 +14,7 @@ object Application extends Controller {
   val streamForm = Form(
     mapping(
       "name" -> nonEmptyText,
-      "streamType" -> nonEmptyText,
-      "creator" -> number)(StreamForm.apply)(StreamForm.unapply))
+      "streamType" -> nonEmptyText)(StreamForm.apply)(StreamForm.unapply))
 
   def index = Action {
     Ok("This is BeamStream Application by Knoldus Software")
@@ -29,7 +28,7 @@ object Application extends Controller {
       errors => BadRequest(views.html.index(Stream.all(), errors)),
       streamForm => {
         Stream.create(streamForm)
-        Redirect(routes.Application.streams)
+        Redirect(routes.MessageController.messages)
 
       })
   }

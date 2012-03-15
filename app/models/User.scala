@@ -5,12 +5,34 @@ import com.novus.salat.annotations._
 import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
+import play.mvc._
+import play.api.mvc.Session
 
-case class User(@Key("_id") id: Int, userType: UserType.Value, email: String, val firstName: String, lastName: String, orgName: String,
+case class User(@Key("_id") id: Int, userType: UserType.Value, email: String, val firstName: String, lastName: String, alias: String, password: String, orgName: String,
   location: Boolean, streams: List[Int], schoolId: List[ObjectId], classId: List[ObjectId]) {
 }
 
+case class UserForm(email: String, password: String)
 object User {
+
+  //var messageString: String = ""
+
+  def allUsers(): List[User] = Nil
+  def findUser(userForm: UserForm):Option[User] ={
+    val authenticatedUser = UserDAO.find(MongoDBObject("email" -> userForm.email ,"password" -> userForm.password))
+    
+    (authenticatedUser.isEmpty) match {
+
+      case true =>  None
+      case false => Option(authenticatedUser.toList(0))
+      
+
+    }
+
+  }
+  def message(notification:String): String = {
+    notification
+  }
 
   def createUser(user: User) {
     UserDAO.insert(user)

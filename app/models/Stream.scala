@@ -8,17 +8,22 @@ import com.mongodb.casbah.MongoConnection
 import scala.collection.JavaConversions._
 
 case class Stream(@Key("_id") id: Int, name: String, streamType: StreamType.Value, creator: Int, users: List[Int])
-case class StreamForm(name: String, streamType: String, creator: Int)
+case class StreamForm(name: String, streamType: String)
+case class JoinStreamForm(streamId: Int)
 
 object Stream {
 
   def all(): List[Stream] = Nil
   def create(streamForm: StreamForm) {
-
-   Stream.createStream(new Stream((new ObjectId)._inc, streamForm.name,StreamType.apply(streamForm.streamType.toInt), streamForm.creator, List(21,22)))
-
+   Stream.createStream(new Stream(200, streamForm.name,StreamType.apply(streamForm.streamType.toInt), 21, List(21,22)))
   }
-
+  
+  def listall():List[Stream]=Nil
+  def join(streamId:Int, userId:Int) {
+    Stream.joinStream(streamId,userId)
+      }
+  
+  
   def streamtypes: Seq[(String, String)] = {
     val c = for (value <- StreamType.values) yield (value.id.toString, value.toString)  
     val v = c.toSeq

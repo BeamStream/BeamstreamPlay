@@ -1,0 +1,35 @@
+@(joinstreams:List[Stream],joinstreamForm:Form[JoinStreamForm])
+
+
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap/bootstrap.min.css")" />
+
+@import helper._
+@import helper.twitterBootstrap._
+@main("BeamStream JoinStream"){
+
+<style type="text/css">
+h2{color:Green;}
+</style>
+
+ <h2>Join a Stream</h2>
+    
+    @form(routes.JoinStream.joinStream) {
+    
+     <fieldset>
+       
+        
+        @inputText(joinstreamForm("streamid"), '_label->"Stream", 'id -> "streamid", 'size -> 10) 
+       
+       
+        
+         @inputText(joinstreamForm("userid"), '_label->"User", 'id -> "userid", 'size -> 10) 
+         
+         
+         </fieldset>
+        <input type="submit" value="Join Stream">
+        
+    }
+
+
+
+}

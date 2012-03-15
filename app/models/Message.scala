@@ -6,8 +6,10 @@ import com.novus.salat.annotations._
 import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
+import org.bson.types.ObjectId
 
 object MessageType extends Enumeration {
+  
   val Text = Value(0, "text")
   val Picture = Value(1, "Picture")
   val Video = Value(2, "Video")
@@ -15,6 +17,7 @@ object MessageType extends Enumeration {
 }
 
 object MessageAccess extends Enumeration {
+  type MessageAccess = Value
   val Private = Value(0, "Private")
   val Public = Value(1, "Public")
 }
@@ -22,9 +25,23 @@ object MessageAccess extends Enumeration {
 //TODO use a datetime instead of string for timestamp
 
 case class Message(@Key("_id") id: Int, text: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated: String, userId: Int, streamId: Int)
-
+case class MessageForm(message: String, messageAccess: String)
 object Message {
+  
+   def all(): List[Message] = getAllMessagesForAStream(200)
+   def create(messageForm: MessageForm) {
+   
+    Message.createMessage(new Message((new ObjectId)._inc,messageForm.message,MessageType.Audio,MessageAccess.apply(messageForm.messageAccess.toInt),"12PM",21,200))
+   }
+  
+   def messagetypes: Seq[(String, String)] = {
+    val c = for (value <- MessageAccess.values) yield (value.id.toString, value.toString)  
+    val v = c.toSeq
+    v
+  }
+  
   def createMessage(message: Message): Int = {
+   
     validateUserHasRightToPost(message.userId, message.streamId) match {
       case true => MessageDAO.insert(message).get
       case _ => -1
