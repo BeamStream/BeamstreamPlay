@@ -33,12 +33,9 @@ object UserController extends Controller {
 
             print(authenticatedUser.get.orgName)
             s = "Login Successful"
-            val aa = request.session + ("a" -> "b")
-            //(("userId", authenticatedUser.get.id.toString))
-
-            println(" sala khali hai kya? " + request.session)
-            println("coming from the session  ^^^^6" + request.session.get("userId").get)
-            Redirect(routes.JoinStream.joinstreams)
+            val aa = request.session + ("userId" -> authenticatedUser.get.id.toString )
+          
+            Redirect(routes.JoinStream.joinstreams).withSession(aa)
         }
 
       })
