@@ -11,7 +11,7 @@ import models.JoinStreamForm
 object JoinStream extends Controller {
   val joinstreamForm = Form(
     mapping(
-      "streamid" -> number)(JoinStreamForm.apply)(JoinStreamForm.unapply))
+      "streamname" -> nonEmptyText)(JoinStreamForm.apply)(JoinStreamForm.unapply))
       
       
     def joinstreams = Action {
@@ -22,8 +22,8 @@ object JoinStream extends Controller {
     joinstreamForm.bindFromRequest.fold(
       errors => BadRequest(views.html.joinstream(Stream.listall(), errors)),
       joinstreamForm => {
-        Stream.join(joinstreamForm.streamId, request.session.get("userId").get.toInt)
-        Redirect(routes.JoinStream.joinstreams)
+        Stream.join(joinstreamForm.streamname, request.session.get("userId").get.toInt)
+        Redirect(routes.MessageController.messages)
 
       })
   }

@@ -14,22 +14,30 @@ object MessageController extends Controller {
   val messageForm = Form(
     mapping(
       "message" -> nonEmptyText,
-      "messageType" -> nonEmptyText
+      //"messageType" -> nonEmptyText,
+      "access" -> optional(checked("Private")
+)  
       )(MessageForm.apply)(MessageForm.unapply))
 
 
-def messages = Action {
-    Ok(views.html.message(Message.all(), messageForm))
-  }
+var userName:String =""
 
 
 def newMessage = Action { implicit request =>
     messageForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.message(Message.all(), errors)),
+      errors => BadRequest(views.html.message(Message.all(), errors,"")),
       messageForm => {
-        Message.create(messageForm)
+        println(messageForm.access)
+        Message.create(messageForm, request.session.get("userId").get.toInt)
+         userName=  Message.findUser(request.session.get("userId").get.toInt).firstName
+        
         Redirect(routes.MessageController.messages)
 
       })
   }
+  
+  def messages = Action {
+    Ok(views.html.message(Message.all(), messageForm,userName))
+  }
 }
+

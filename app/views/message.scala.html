@@ -1,4 +1,4 @@
-@(messages:List[Message],messageForm:Form[MessageForm])
+@(messages:List[Message],messageForm:Form[MessageForm],userName:String)
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap/bootstrap.min.css")" />
 @import helper._
 @import helper.twitterBootstrap._
@@ -10,13 +10,15 @@
      <fieldset>
         @textarea(messageForm("message"), '_label->"Message Text", 'id -> "message", 'size -> 98) 
        
-       @select(
+      <!--  @select(
        messageForm("messageType"),
        Message.messagetypes,
       
        '_label -> "Message Type", '_default -> "-- Choose Access Level --",
                 '_showConstraints -> false
        )
+        -->
+       @checkbox(messageForm("access"), '_label->"Private", 'id -> "access", 'size -> 98) 
         
          </fieldset>
         <input type="submit" value="Post Message">
@@ -33,7 +35,7 @@ h2{color:Green;}
             <li>
                <i><b> @message.text </b></i>
                 &nbsp  &nbsp  &nbsp
-                Posted By: @message.userId
+                Posted By: @userName
                 on   @message.timeCreated         
                
                 }

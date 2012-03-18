@@ -33,16 +33,14 @@ object UserController extends Controller {
 
             print(authenticatedUser.get.orgName)
             s = "Login Successful"
-            val aa = request.session + ("userId" -> authenticatedUser.get.id.toString )
-          
-            Redirect(routes.JoinStream.joinstreams).withSession(aa)
+            val aa = request.session + ("userId" -> authenticatedUser.get.id.toString)
+
+            Redirect(routes.Application.streams).withSession(aa)
         }
 
       })
   }
-  
-  
-  
+
   def users = Action {
     Ok(views.html.user(User.allUsers(), userForm, User.message(s)))
   }

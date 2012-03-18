@@ -25,15 +25,18 @@ object MessageAccess extends Enumeration {
 //TODO use a datetime instead of string for timestamp
 
 case class Message(@Key("_id") id: Int, text: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated: String, userId: Int, streamId: Int)
-case class MessageForm(message: String, messageAccess: String)
+//case class MessageForm(message: String, messageAccess: String ,access:Option[Boolean])
+case class MessageForm(message: String,access:Option[Boolean])
 object Message {
   
    def all(): List[Message] = getAllMessagesForAStream(200)
-   def create(messageForm: MessageForm) {
-   
-    Message.createMessage(new Message((new ObjectId)._inc,messageForm.message,MessageType.Audio,MessageAccess.apply(messageForm.messageAccess.toInt),"12PM",21,200))
+   def create(messageForm: MessageForm,userId:Int) {
+     
+     (messageForm.access==None)match{
+       case true => Message.createMessage(new Message((new ObjectId)._inc,messageForm.message,MessageType.Audio,MessageAccess.Public,"12PM",userId,200))
+       case _=> Message.createMessage(new Message((new ObjectId)._inc,messageForm.message,MessageType.Audio,MessageAccess.Private,"12PM",userId,200))
+     }
    }
-  
    def messagetypes: Seq[(String, String)] = {
     val c = for (value <- MessageAccess.values) yield (value.id.toString, value.toString)  
     val v = c.toSeq
@@ -47,6 +50,10 @@ object Message {
       case _ => -1
     }
 
+  }
+  def findUser(userId:Int):User={
+    val user=UserDAO.findOneByID(userId)
+    user.get
   }
 
   private def validateUserHasRightToPost(userId: Int, streamId: Int): Boolean = {

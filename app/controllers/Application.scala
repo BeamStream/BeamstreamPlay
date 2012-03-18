@@ -27,8 +27,8 @@ object Application extends Controller {
     streamForm.bindFromRequest.fold(
       errors => BadRequest(views.html.index(Stream.all(), errors)),
       streamForm => {
-        Stream.create(streamForm)
-        Redirect(routes.MessageController.messages)
+        Stream.create(streamForm, request.session.get("userId").get.toInt)
+        Redirect(routes.JoinStream.joinstreams)
 
       })
   }

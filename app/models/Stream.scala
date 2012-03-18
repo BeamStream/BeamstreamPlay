@@ -9,18 +9,19 @@ import scala.collection.JavaConversions._
 
 case class Stream(@Key("_id") id: Int, name: String, streamType: StreamType.Value, creator: Int, users: List[Int])
 case class StreamForm(name: String, streamType: String)
-case class JoinStreamForm(streamId: Int)
+case class JoinStreamForm(streamname: String)
 
 object Stream {
 
   def all(): List[Stream] = Nil
-  def create(streamForm: StreamForm) {
-   Stream.createStream(new Stream(200, streamForm.name,StreamType.apply(streamForm.streamType.toInt), 21, List(21,22)))
+  def create(streamForm: StreamForm,userId:Int) {
+   Stream.createStream(new Stream(200, streamForm.name,StreamType.apply(streamForm.streamType.toInt), userId, List()))
   }
   
   def listall():List[Stream]=Nil
-  def join(streamId:Int, userId:Int) {
-    Stream.joinStream(streamId,userId)
+  def join(streamname:String, userId:Int) {
+   val stream= StreamDAO.find(MongoDBObject("name" ->streamname )).toList
+    Stream.joinStream(stream(0).id,userId)
       }
   
   
@@ -52,7 +53,7 @@ object StreamType extends Enumeration {
   val Study = Value(1, "Study")
   val Research = Value(2, "Research")
   val Friends = Value(3, "Friends")
-   val Scala = Value(4, "Scala")
+  val Projects = Value(4, "Projects")
 }
 
 object StreamDAO extends SalatDAO[Stream, Int](collection = MongoConnection()("beamstream")("stream"))
