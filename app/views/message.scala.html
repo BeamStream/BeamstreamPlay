@@ -23,6 +23,9 @@
          </fieldset>
         <input type="submit" value="Post Message">
         
+       
+      
+        
     }
     
  @main("BeamStream Message"){
@@ -41,6 +44,506 @@ h2{color:Green;}
                 }
             </li>
             
-        }
+        
     </ul>
+
+
+}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>BeamStream</title>
+     
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")"> 
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")"> 
+  
+    <link href="img/favicon.ico" rel="shortcut icon">
+    <!--[if lte IE 8]><link rel="stylesheet/less" type="text/css" href="less/ie8.less"><![endif]-->
+    <!--[if lte IE 7]><link rel="stylesheet/less" type="text/css" href="less/ie7.less"><![endif]-->
+
+    <script src="javascripts/less-1.2.1.min.js"></script>
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://jdbartlett.com/innershiv/innershiv.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://use.typekit.com/xgg5kcw.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    
+  </head>
+
+  <body>
+    <div class="navbar-fixed-top">
+      <header class="site_header">
+        <div class="container">
+          <h1 class="brand"><a href="#"><img src="@routes.Assets.at("images/layout/logo.png")" alt="BeamStream" width="106" height="27"></a></h1>
+          <h2><i>Evolving</i> Classroom &amp; Academic Interaction</h2>
+        </div>
+      </header>
+
+      <nav class="navbar main_menu">
+        <div class="navbar-inner">
+          <div class="container">
+            <div class="container-fluid">
+              <div class="nav-collapse">
+                <ul class="nav">
+                  <li><a href="#streams-and-groups">Streams &amp; Groups</a></li>
+                  <li><a href="#connections">Connections</a></li>
+                  <li class="active"><a href="#dms">Messages</a></li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#more">
+                      More
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#item1">item1</a></li>
+                      <li><a href="#item2">item2</a></li>
+                      <li><a href="#item3">item3</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <ul class="nav pull-right">
+                  <li>
+                    <div class="photo_container">
+                      <img src="@routes.Assets.at("images/placeholders/face5.png")" width="36" height="37">
+                    </div>
+                  </li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                      BeamStream <b class="arrow"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#settings">Settings</a></li>
+                      <li><a href="#help">Help</a></li>
+                      <li class="divider"></li>
+                      <li>
+                        <form method="post" action="/logout/">
+                          <a href="#">Sign out</a>
+                        </form>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <section class="site_search">
+      <div class="container">
+        <div class="container-inner">
+              <form method="post" action="/search/" class="form-inline">
+                <fieldset>
+                  <div class="input-append big-input">
+                    <input name="query" type="text" placeholder="Search by"><span class="add-on no-bg">
+                      <div class="actions with-tooltips tooltips-bottom btn-group">
+                        <a href="#user" class="btn" title="Search by Users"><i class="icon-user"></i><span class="popout_arrow"><span></span></span></a>
+                        <a href="#groups" class="btn" title="Search by Groups"><i class="icon-group"></i></a>
+                        <a href="#links" class="btn" title="Search by Links"><i class="icon-link"></i></a>
+                        <a href="#tag" class="btn" title="Search by Tags"><i class="icon-tag"></i></a>
+                        <a href="#links" class="btn" title="Save your Search"><i class="icon-disk"></i></a>
+                      </div>
+                    </span>
+                  </div>
+                  <button class="btn btn-primary btn-large" type="submit"><i class="icon-search"></i></button>
+                  <a class="search_advanced_link" href="#advanced">Advanced</a>
+                </fieldset>
+              </form>
+        </div>
+      </div>
+    </section>
+
+    <div class="container content_area wrapper_con">
+      <div class="container-inner">
+        <div class="row">
+
+          <div class="col left_column span2">
+            <section class="user_profile">
+              <section class="user_menu">
+                <div class="actions with-tooltips tooltips-top btn-group">
+                  <a href="#" class="btn btn-flat" title="Papers &amp; docs"><i class="icon-file"></i></a>
+                  <a href="#" class="btn btn-flat" title="Notes"><i class="icon-pencil"></i></a>
+                  <a href="#" class="btn btn-flat" title="Slides"><i class="icon-slides"></i></a>
+                  <a href="#" class="btn btn-flat" title="Links"><i class="icon-link"></i></a>
+                  <a href="#" class="btn btn-flat" title="Videos"><i class="icon-video"></i></a>
+                  <a href="#" class="btn btn-flat" title="Photos"><i class="icon-camera"></i></a>
+                </div>
+              </section>
+              <div class="photo_container">
+                <img src="@routes.Assets.at("images/placeholders/face1.png")" width="189" height="156" alt="username photo">
+              </div>
+              <section class="user_friends_mini">
+                <ul>
+                  <li class="prev"><a href="#prev"><i></i></a></li>
+                  <li class="item"><a href="#face1"><img src="@routes.Assets.at("images/placeholders/face_little.png")" width="32" height="31"></a></li>
+                  <li class="item"><a href="#face2"><img src="@routes.Assets.at("images/placeholders/face_little.png")" width="32" height="31"></a></li>
+                  <li class="item"><a href="#face3"><img src="@routes.Assets.at("images/placeholders/face_little.png")" width="32" height="31"></a></li>
+                  <li class="item"><a href="#face4"><img src="@routes.Assets.at("images/placeholders/face_little.png")" width="32" height="31"></a></li>
+                  <li class="next"><a href="#next"><i></i></a></li>
+                </ul>
+              </section>
+
+              <section class="user_profile_info">
+                <ul class="nav nav-list">
+                  <li class="screen_name">BeamStream</li>
+                  <li class="location"><i class="icon-location"></i>San Francisco</li>
+                  <li class="occupation"><i class="icon-silhouette"></i>Computer Science Student</li>
+                  <li class="social_links">
+                    <div class="btn-group">
+                      <a href="#" class="btn btn-flat"><i class="icon-twitter"></i></a>
+                      <a href="#" class="btn btn-flat"><i class="icon-facebook"></i></a>
+                      <a href="#" class="btn btn-flat"><i class="icon-linkedin"></i></a>
+                      <a href="#" class="btn btn-flat pull-right"><i class="icon-email"></i></a>
+                    </div>
+                  </li>
+                </ul>
+              </section>
+
+              <section class="import_or_invite">
+                <a class="btn plus" href="#import_or_invite"><i><b></b><span class="popout_arrow"><span></span></span></i>Import or Invite Contacts</a>
+              </section>
+            </section>
+            <section class="user_streams">
+              <div class="sort_container">
+                <label>Sort by:</label>
+                <ul class="sort">
+                  <li class="active"><a href="#all">All</a></li>
+                  <li><a href="#class">Class</a></li>
+                  <li><a href="#project">Project</a></li>
+                </ul>
+              </div>
+              <a class="btn prev"><i class="icon-up"></i></a>
+              <ul class="streams nav nav-list">
+                <li><span class="flag-piece"></span><a href="#calculus">Calculus <i class="icon stream-icon-apple"></i></a><span class="popout_arrow"><span></span></span></li>
+                <li><span class="flag-piece"></span><a href="#intro-to-java">Intro to Java</a><span class="popout_arrow"><span></span></span></li>
+                <li class="active">
+                  <span class="flag-piece"></span>
+                  <a href="#computer-networking">Computer Networking</a>
+                  <span class="popout_arrow"><span></span></span>
+                </li>
+                <li><span class="flag-piece"></span><a href="#intro-to-business">Intro to Business</a><span class="popout_arrow"><span></span></span></li>
+                <li><span class="flag-piece"></span><a href="#friendstream">FriendStream <i class="icon stream-icon-globe"></i></a><span class="popout_arrow"><span></span></span></li>
+                <li><span class="flag-piece"></span><a href="#research-team">Research Team</a><span class="popout_arrow"><span></span></span></li>
+                <li><span class="flag-piece"></span><a href="#c++-dev-project">C++ Dev Project <i class="icon stream-icon-apple"></i></a><span class="popout_arrow"><span></span></span></li>
+              </ul>
+              <a class="btn next"><i class="icon-down"></i></a>
+            </section>
+          <div class="create_stream">
+            <a class="btn plus" href="#create_stream"><i><b></b><span class="popout_arrow"><span></span></span></i>Create Stream</a>
+          </div>
+          </div>
+
+          <div class="col middle_column span6">
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a href="#intro-to-business" class="with-icon">
+                  <i class="icon-lock icon with-tooltip" title="Instructor verified Stream"></i>
+                  Intro to Business
+                </a>
+              </li>
+              <li><a href="#tasks">Tasks <span class="label label-important">5</span></a></li>
+              <li><a href="#questions">Questions <span class="label label-important">10</span></a></li>
+              <li><a href="#surveys">Surveys</a></li>
+              <li><a href="#idea-stream">Idea Stream</a></li>
+            </ul>
+
+            <section class="main_content">
+              <div class="sort_container">
+                <label>Sort by:</label>
+                <ul class="sort">
+                  <li class="active"><a href="#highest-rated">Highest Rated</a></li>
+                  <li><a href="#date">Date</a></li>
+                  <li><a href="#profile-relevance">Profile Relevance</a></li>
+                </ul>
+              </div>
+              <section class="new_message">
+               
+                <form method="post" action="." class="form-horizontal">
+                  <fieldset>
+                    <div class="control-group">
+                      <label class="control-label">
+                        <div class="photo_container">
+                          <img src="@routes.Assets.at("images/placeholders/face2.png")" width="99" height="75">
+                        </div>
+                        <span class="username">beamstream</span>
+                      </label>
+                      <div class="controls">
+                        <span class="popout_arrow"><span></span></span>
+                        <textarea></textarea>
+                        <ul class="additional_controls">
+                          <li class="comment"><a href="#comment" class="btn btn-flat"><i class="icon-middle-comment"></i></a></li>
+                          <li class="video"><a href="#video" class="btn btn-flat"><i class="icon-middle-video"></i></a></li>
+                          <li class="photo"><a href="#photo" class="btn btn-flat"><i class="icon-middle-camera"></i></a></li>
+                          <li class="tag"><a href="#tag" class="btn btn-flat"><i class="icon-middle-tag"></i></a></li>
+                          <li class="private">
+                            <label for="id-private" class="checkbox">
+                              <input id="id-private" type="checkbox">
+                              Private
+                            </label>
+                          </li>
+                          <li class="twitter"><a href="#twitter" class="btn btn-flat"><i class="icon-middle-twitter"></i></a></li>
+                          <li class="facebook"><a href="#facebook" class="btn btn-flat"><i class="icon-middle-facebook"></i></a></li>
+                          <li class="linkedin"><a href="#linkedin" class="btn btn-flat"><i class="icon-middle-linkedin"></i></a></li>
+                        </ul>
+                      </div>
+                      <div class="input-prepend-container">
+                        <div class="input-prepend url_shorter">
+                          <span class="add-on"><i class="icon-link"></i><span class="popout_arrow"><span></span></span></span><input type="text" placeholder="URL shorter">
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                </form>
+              </section>
+
+              <div class="double-line"></div>
+
+              <section class="timeline">
+                <ul class="timeline_items">
+                  <li>
+                    <article class="message_item">
+                      <div class="comment_wrapper">
+                        <div class="photo_container">
+                          <img src="@routes.Assets.at("images/placeholders/face3.png")" width="46" height="46">
+                        </div>
+                        <div class="content_container">
+                          <div class="meta_data">
+                            <span class="username"><a href="#user-profile">beamstream</a></span>
+                            <span class="separator">-</span>
+                            <time datetime="2011-12-01" pubdate>Dec 01, 2011</time>
+                            <span class="separator">-</span>
+                            <span class="visibility">Public</span>
+                          </div>
+                          <p>
+                            Check out Samsung's transparent and flexible concept tablet (video)
+                          </p>
+                          <div class="actions">
+                            <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
+                            <a class="rock" href="#rock">Rocked it!</a>
+                            <span class="separator">-</span>
+                            <a class="comment" href="#comment">Comment</a>
+                            <span class="separator">-</span>
+                            <a class="follow" href="#follow">Follow</a>
+                          </div>
+                        </div>
+                      </div>
+                      <header class="comments_info">
+                        <h5 class="pull-left"><span class="comments_number">3</span> Comments</h5>
+                        <div class="comment_actions pull-right">
+                          <a href="#hide">Hide</a> | <a class="disabled" href="#show">Show</a>
+                        </div>
+                      </header>
+                      <ul class="comments">
+                        <li>
+                          <article class="message_item">
+                            <div class="comment_wrapper">
+                              <div class="photo_container">
+                                <img src="@routes.Assets.at("images/placeholders/face4.png")" width="39" height="39">
+                              </div>
+                              <div class="content_container">
+                                <div class="meta_data">
+                                  <span class="username"><a href="#user-profile">beamstream</a></span>
+                                  <span class="separator">-</span>
+                                  <time datetime="2011-12-01" pubdate>Dec 01, 2011</time>
+                                  <span class="separator">-</span>
+                                  <span class="visibility">Public</span>
+                                </div>
+                                <p>
+                                  Professor Disrupting Lecture Hall with Best Use of Skype Ever
+                                  <a href="#external">http://linkd.in/rSpYMK</a>
+                                  <a href="#edtech">#edtech</a>
+                                  <a href="#edchat">#edchat</a>
+                                  <a href="#flippedclassroom">#flippedclassroom</a>
+                                </p>
+                                <div class="actions">
+                                  <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
+                                  <a class="rock" href="#rock">Rocked it!</a>
+                                  <span class="separator">-</span>
+                                  <a class="comment" href="#comment">Comment</a>
+                                  <span class="separator">-</span>
+                                  <a class="follow" href="#follow">Follow</a>
+                                </div>
+                              </div>
+                            </div>
+                          </article>
+                        </li>
+                        <li>
+                          <article class="message_item">
+                            <div class="comment_wrapper">
+                              <div class="photo_container">
+                                <img src="@routes.Assets.at("images/placeholders/face4.png")" width="39" height="39">
+                              </div>
+                              <div class="content_container">
+                                <div class="meta_data">
+                                  <span class="username"><a href="#user-profile">beamstream</a></span>
+                                  <span class="separator">-</span>
+                                  <time datetime="2011-12-01" pubdate>Dec 01, 2011</time>
+                                  <span class="separator">-</span>
+                                  <span class="visibility">Public</span>
+                                </div>
+                                <p>
+                                  Professor Disrupting Lecture Hall with Best Use of Skype Ever
+                                  <a href="#external">http://linkd.in/rSpYMK</a>
+                                  <a href="#edtech">#edtech</a>
+                                  <a href="#edchat">#edchat</a>
+                                  <a href="#flippedclassroom">#flippedclassroom</a>
+                                </p>
+                                <div class="actions">
+                                  <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
+                                  <a class="rock" href="#rock">Rocked it!</a>
+                                  <span class="separator">-</span>
+                                  <a class="comment" href="#comment">Comment</a>
+                                  <span class="separator">-</span>
+                                  <a class="follow" href="#follow">Follow</a>
+                                </div>
+                              </div>
+                            </div>
+                          </article>
+                        </li>
+                        <li>
+                          <article class="message_item">
+                            <div class="comment_wrapper">
+                              <div class="photo_container">
+                                <img src="@routes.Assets.at("images/placeholders/face4.png")" width="39" height="39">
+                              </div>
+                              <div class="content_container">
+                                <div class="meta_data">
+                                  <span class="username"><a href="#user-profile">beamstream</a></span>
+                                  <span class="separator">-</span>
+                                  <time datetime="2011-12-01" pubdate>Dec 01, 2011</time>
+                                  <span class="separator">-</span>
+                                  <span class="visibility">Public</span>
+                                </div>
+                                <p>
+                                  Professor Disrupting Lecture Hall with Best Use of Skype Ever
+                                  <a href="#external">http://linkd.in/rSpYMK</a>
+                                  <a href="#edtech">#edtech</a>
+                                  <a href="#edchat">#edchat</a>
+                                  <a href="#flippedclassroom">#flippedclassroom</a>
+                                </p>
+                                <div class="actions">
+                                  <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
+                                  <a class="rock" href="#rock">Rocked it!</a>
+                                  <span class="separator">-</span>
+                                  <a class="comment" href="#comment">Comment</a>
+                                  <span class="separator">-</span>
+                                  <a class="follow" href="#follow">Follow</a>
+                                </div>
+                              </div>
+                            </div>
+                          </article>
+                        </li>
+                      </ul>
+
+                      <section class="add_comment">
+                        <form method="post" action="." class="form-vertical">
+                          <fieldset>
+                            <div class="control-group">
+                              <div class="input-prepend-container">
+                                <div class="input-prepend">
+                                  <span class="add-on"><i class="icon-plus"></i><span class="popout_arrow"><span></span></span></span><input type="text" placeholder="Add a comment">
+                                </div>
+                              </div>
+                            </div>
+                          </fieldset>
+                        </form>
+                      </section>
+                    </article>
+                  </li>
+                </ul>
+              </section>
+            </section>
+          </div>
+
+          <div class="col right_column span2">
+            <section class="public_class_stream">
+              <h2>Public Class Stream</h2>
+              <ul class="nav nav-list">
+                <li class="active"><a href="#calculus">Calculus</a></li>
+                <li><a href="#intro-to-java">Intro to Java</a></li>
+                <li><a href="#computer-networking">Computer Networking</a></li>
+                <li><a href="#intro-to-business">Intro to Business</a></li>
+                <li><a href="#friendstream">FriendStream</a></li>
+                <li><a href="#research-team">Research Team</a></li>
+                <li><a href="#c++-dev-project">C++ Dev Project</a></li>
+              </ul>
+            </section>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="site_footer">
+        <p>Copyright &copy; 2012 BeamStream</p>
+        <ul class="pull-right">
+          <!-- WARNING: don't put newlines here, it breaks layout. -->
+          <li><a href="#submit-suggestion">Submit suggestion</a></li><li><a href="#report-issue">Report issue</a></li>
+        </ul>
+      </footer>
+    </div>
+
+    <script src="js/jquery-1.7.1.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+    <script>
+      $(document).ready(function() {
+            $('.with-tooltips a, .with-tooltip').each(function() {
+                var $this = $(this);
+                var placement = $this.parent().hasClass('tooltips-bottom') ? 'bottom' : 'top';
+                $(this).tooltip({placement: placement});
+            });
+
+            $('.comment_actions').each(function() {
+                var $this = $(this),
+                    $hide = $this.find('[href="#hide"]'),
+                    $show = $this.find('[href="#show"]'),
+                    $comments = $this.closest('.message_item').find('.comments');
+                $hide.click(function(event) {
+                    if ($comments.is(':visible')) {
+                        $show.removeClass('disabled');
+                        $hide.addClass('disabled');
+                        $comments.slideUp();
+                    }
+                    event.preventDefault();
+                });
+                $show.click(function(event) {
+                    if (!$comments.is(':visible')) {
+                        $hide.removeClass('disabled');
+                        $show.addClass('disabled');
+                        $comments.slideDown();
+                    }
+                    event.preventDefault();
+                });
+            });
+
+
+            // FIXME: this is temporary hack, remove it later.
+            $('.nav a').click(function() {
+                var $this = $(this);
+                if (!$this.is('.dropdown-toggle')) {
+                    $this
+                        .closest('ul')
+                            .find('li').removeClass('active').end()
+                        .end()
+                        .closest('li').addClass('active');
+                }
+            });
+        });
+    </script>
+    
+  </body>
+</html>
+
+
 

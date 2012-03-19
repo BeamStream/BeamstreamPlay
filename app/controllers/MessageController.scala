@@ -29,7 +29,7 @@ def newMessage = Action { implicit request =>
       messageForm => {
         println(messageForm.access)
         Message.create(messageForm, request.session.get("userId").get.toInt)
-         userName=  Message.findUser(request.session.get("userId").get.toInt).firstName
+        userName=  Message.findUser(request.session.get("userId").get.toInt).firstName
         
         Redirect(routes.MessageController.messages)
 
