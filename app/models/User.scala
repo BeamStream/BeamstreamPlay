@@ -13,20 +13,22 @@ case class User(@Key("_id") id: Int, userType: UserType.Value, email: String, va
 }
 
 case class UserForm(email: String, password: String)
+case class DetailedRegForm(schoolName: String)
 object User {
+  
+  def addInfo(detailed_regForm:DetailedRegForm,userId:Int){
+   
+    val school=SchoolDAO.find(MongoDBObject("schoolName" -> detailed_regForm.schoolName))
+     User.addSchoolToUser(userId,school.toList(0).id)
+  }
 
-  //var messageString: String = ""
-
+  
   def allUsers(): List[User] = Nil
   def findUser(userForm: UserForm):Option[User] ={
     val authenticatedUser = UserDAO.find(MongoDBObject("email" -> userForm.email ,"password" -> userForm.password))
-    
     (authenticatedUser.isEmpty) match {
-
       case true =>  None
       case false => Option(authenticatedUser.toList(0))
-      
-
     }
 
   }

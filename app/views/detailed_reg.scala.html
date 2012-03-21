@@ -1,0 +1,24 @@
+@(detailed_regForm:Form[DetailedRegForm])
+
+
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap/bootstrap.min.css")" />
+
+@import helper._
+@import helper.twitterBootstrap._
+@main("BeamStream Detailed Registration"){
+
+
+<h2>Add a School to User</h2>
+
+ @form(routes.DetailedRegistration.addInfo) {
+ 
+ 
+   <fieldset>
+        @inputText(detailed_regForm("schoolName"), '_label->"School Name", 'id -> "schoolName", 'size -> 10) 
+   </fieldset>
+        
+   <input type="submit" value="Add School To User">
+
+}
+
+}

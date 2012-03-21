@@ -12,6 +12,8 @@ case class StreamForm(name: String, streamType: String)
 case class JoinStreamForm(streamname: String)
 
 object Stream {
+  
+  var schoolId:Int=100
 
   def all(): List[Stream] = Nil
   def create(streamForm: StreamForm,userId:Int) {
@@ -29,6 +31,13 @@ object Stream {
     val c = for (value <- StreamType.values) yield (value.id.toString, value.toString)  
     val v = c.toSeq
     v
+  }
+  
+ def classes:Seq[(String, String)]={
+   val school= SchoolDAO.findOneByID(schoolId)
+   val classes=for(myclass <- school.get.classes) yield(myclass.id.toString,myclass.className)
+   classes.toSeq
+   
   }
 
   def getStreamByName(name: String): List[Stream] = {

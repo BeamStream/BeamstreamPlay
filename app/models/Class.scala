@@ -10,8 +10,13 @@ import com.mongodb.casbah.MongoConnection
 import com.mongodb.casbah.commons.conversions.scala._
 
 case class Class(@Key("_id") id: ObjectId, classCode: Int, className: String, classType: ClassType.Value, classDate: String)
+case class ClassForm(className:String,classCode:Int,classType:String,schoolName:String)
 
 object Class {
+  
+  def addClass(classForm:ClassForm){
+    print(classForm.classCode)
+  }
 
   //    RegisterConversionHelpers
   //    RegisterJodaTimeConversionHelpers

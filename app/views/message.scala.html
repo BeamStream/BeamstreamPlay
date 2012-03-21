@@ -3,36 +3,31 @@
 @import helper._
 @import helper.twitterBootstrap._
   
- <h2>Post a new Message</h2>
  
- @form(routes.MessageController.newMessage) {
-    
-     <fieldset>
-        @textarea(messageForm("message"), '_label->"Message Text", 'id -> "message", 'size -> 98) 
-       
-      <!--  @select(
-       messageForm("messageType"),
-       Message.messagetypes,
-      
-       '_label -> "Message Type", '_default -> "-- Choose Access Level --",
-                '_showConstraints -> false
-       )
-        -->
-       @checkbox(messageForm("access"), '_label->"Private", 'id -> "access", 'size -> 98) 
-        
-         </fieldset>
-        <input type="submit" value="Post Message">
-        
-       
-      
-        
-    }
     
  @main("BeamStream Message"){
- <style type="text/css">
-h2{color:Green;}
-</style>
-<h3>@messages.size messages in this stream</h3>
+ 
+
+
+<!-- <h2>Post a new Message</h2> -->
+ 
+ 
+    
+   <!--   <fieldset>
+        @textarea(messageForm("message"), '_label->"Message Text", 'id -> "message", 'size -> 98) 
+     
+        @checkbox(messageForm("access"), '_label->"Private", 'id -> "access", 'size -> 98) 
+         </fieldset>
+         
+          -->
+   <!--      <input type="submit" value="Post Message">    -->
+        
+       
+      
+        
+    <!-- 
+    
+    <h3>@messages.size messages in this stream</h3>
    <ul>
         @messages.map { message =>
             <li>
@@ -47,8 +42,7 @@ h2{color:Green;}
         
     </ul>
 
-
-}
+ -->
 
 <!DOCTYPE html>
 <html>
@@ -133,7 +127,8 @@ h2{color:Green;}
     <section class="site_search">
       <div class="container">
         <div class="container-inner">
-              <form method="post" action="/search/" class="form-inline">
+              
+              @form(routes.MessageController.newMessage) {
                 <fieldset>
                   <div class="input-append big-input">
                     <input name="query" type="text" placeholder="Search by"><span class="add-on no-bg">
@@ -149,7 +144,7 @@ h2{color:Green;}
                   <button class="btn btn-primary btn-large" type="submit"><i class="icon-search"></i></button>
                   <a class="search_advanced_link" href="#advanced">Advanced</a>
                 </fieldset>
-              </form>
+              
         </div>
       </div>
     </section>
@@ -230,7 +225,7 @@ h2{color:Green;}
               <a class="btn next"><i class="icon-down"></i></a>
             </section>
           <div class="create_stream">
-            <a class="btn plus" href="#create_stream"><i><b></b><span class="popout_arrow"><span></span></span></i>Create Stream</a>
+            <a class="btn plus" href="/streams"><i><b></b><span class="popout_arrow"><span></span></span></i>Create Stream</a>
           </div>
           </div>
 
@@ -270,7 +265,7 @@ h2{color:Green;}
                       </label>
                       <div class="controls">
                         <span class="popout_arrow"><span></span></span>
-                        <textarea></textarea>
+                         @textarea(messageForm("message"), '_label->"", 'id -> "message", 'size -> 98)
                         <ul class="additional_controls">
                           <li class="comment"><a href="#comment" class="btn btn-flat"><i class="icon-middle-comment"></i></a></li>
                           <li class="video"><a href="#video" class="btn btn-flat"><i class="icon-middle-video"></i></a></li>
@@ -278,10 +273,12 @@ h2{color:Green;}
                           <li class="tag"><a href="#tag" class="btn btn-flat"><i class="icon-middle-tag"></i></a></li>
                           <li class="private">
                             <label for="id-private" class="checkbox">
-                              <input id="id-private" type="checkbox">
+                               @checkbox(messageForm("access"), '_label->"", 'id -> "access", 'size -> 98) 
                               Private
                             </label>
+                            
                           </li>
+                          <input type="submit" value="Post Message">
                           <li class="twitter"><a href="#twitter" class="btn btn-flat"><i class="icon-middle-twitter"></i></a></li>
                           <li class="facebook"><a href="#facebook" class="btn btn-flat"><i class="icon-middle-facebook"></i></a></li>
                           <li class="linkedin"><a href="#linkedin" class="btn btn-flat"><i class="icon-middle-linkedin"></i></a></li>
@@ -301,6 +298,7 @@ h2{color:Green;}
 
               <section class="timeline">
                 <ul class="timeline_items">
+                 
                   <li>
                     <article class="message_item">
                       <div class="comment_wrapper">
@@ -313,10 +311,24 @@ h2{color:Green;}
                             <span class="separator">-</span>
                             <time datetime="2011-12-01" pubdate>Dec 01, 2011</time>
                             <span class="separator">-</span>
+                            
                             <span class="visibility">Public</span>
                           </div>
                           <p>
-                            Check out Samsung's transparent and flexible concept tablet (video)
+                           
+                           <ul>
+                          @messages.map { message =>
+                             <li>
+                         <i><b> @message.text </b></i>
+                            &nbsp  &nbsp  &nbsp
+                           Posted By: @userName
+                           on   @message.timeCreated  
+                           -- @message.messageAccess       
+               
+                         }
+                         
+                       </li>
+     </ul>
                           </p>
                           <div class="actions">
                             <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
@@ -335,6 +347,7 @@ h2{color:Green;}
                         </div>
                       </header>
                       <ul class="comments">
+                       
                         <li>
                           <article class="message_item">
                             <div class="comment_wrapper">
@@ -368,6 +381,7 @@ h2{color:Green;}
                             </div>
                           </article>
                         </li>
+                        
                         <li>
                           <article class="message_item">
                             <div class="comment_wrapper">
@@ -401,6 +415,8 @@ h2{color:Green;}
                             </div>
                           </article>
                         </li>
+                        
+                        
                         <li>
                           <article class="message_item">
                             <div class="comment_wrapper">
@@ -434,6 +450,7 @@ h2{color:Green;}
                             </div>
                           </article>
                         </li>
+                        
                       </ul>
 
                       <section class="add_comment">
@@ -546,4 +563,5 @@ h2{color:Green;}
 </html>
 
 
-
+}
+}

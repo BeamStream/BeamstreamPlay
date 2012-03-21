@@ -17,8 +17,8 @@ class RegistrationScenarioTest extends FunSuite with BeforeAndAfter {
 
   before {
 
-    val mpsSchool = School(new ObjectId, "MPS")
-    val dpsSchool = School(new ObjectId, "DPS")
+    val mpsSchool = School(new ObjectId, "MPS",List())
+    val dpsSchool = School(new ObjectId, "DPS",List())
     val classIT = Class(new ObjectId, 1201, "IT", ClassType.Quarter, myDate)
     val classHR = Class(new ObjectId, 1202, "HR", ClassType.Quarter, myDate)
     School.createSchool(mpsSchool)

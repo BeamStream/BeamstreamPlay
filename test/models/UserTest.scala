@@ -11,10 +11,11 @@ import org.bson.types.ObjectId
 class UserTest extends FunSuite with BeforeAndAfter {
 
   val user1 = User(100, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "Neil","Neel","Knoldus", true, List(100, 101), List(), List())
-
+  val user2 = User(102, UserType.Professional, "crizzcoxx@beamstream.com", "Crizz", "coxx", "Chris","Crizz","BeamStream", true, List(100, 101), List(), List())
   before {
 
     User.createUser(user1)
+    User.createUser(user2)
 
   }
 
@@ -60,7 +61,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   after {
 
-    UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+   UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
   }
 
 }

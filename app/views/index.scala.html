@@ -28,10 +28,16 @@ h2{color:Green;}
       
        '_label -> "Stream Type", '_default -> "-- Choose a Stream --",
                 '_showConstraints -> false
-       )
-        
        
-         
+       
+        
+       )
+       
+          @select(
+          streamForm("classname"), 
+           Seq(("", "")),
+           '_label -> "Class Name", '_default -> "-- Choose a Class --",
+                '_showConstraints -> false) 
          
          </fieldset>
         <input type="submit" value="Create Stream">

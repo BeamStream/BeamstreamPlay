@@ -33,8 +33,8 @@ object Message {
    def create(messageForm: MessageForm,userId:Int) {
      
      (messageForm.access==None)match{
-       case true => Message.createMessage(new Message((new ObjectId)._inc,messageForm.message,MessageType.Audio,MessageAccess.Public,"12PM",userId,200))
-       case _=> Message.createMessage(new Message((new ObjectId)._inc,messageForm.message,MessageType.Audio,MessageAccess.Private,"12PM",userId,200))
+       case true => Message.createMessage(new Message((new ObjectId)._inc,messageForm.message,MessageType.Audio,MessageAccess.Public,"Mar,20 10:12AM",userId,200))
+       case _=> Message.createMessage(new Message((new ObjectId)._inc,messageForm.message,MessageType.Audio,MessageAccess.Private,"Mar,20 10:12AM",userId,200))
      }
    }
    def messagetypes: Seq[(String, String)] = {
