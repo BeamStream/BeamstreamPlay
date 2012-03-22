@@ -33,7 +33,7 @@ POST   /detailed_reg                  controllers.DetailedRegistration.addInfo
 
 #Class
 
-GET   /class                 controllers.ClassController.classes
+GET   /class                   controllers.ClassController.classes
 POST   /class                  controllers.ClassController.addClass
 
 # Map static resources from the /public folder to the /assets URL path

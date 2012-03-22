@@ -20,7 +20,7 @@
        
        @select(
        classForm("classType"),
-       Seq(("","")),
+       Class.classtypes,
       
        '_label -> "Class Type", '_default -> "-- Choose a Class --",
                 '_showConstraints -> false
@@ -31,7 +31,7 @@
        
           @select(
           classForm("schoolName"), 
-           Seq(("", "")),
+           Class.schoolnames,
            '_label -> "School Name", '_default -> "-- Choose a School --",
                 '_showConstraints -> false) 
          
