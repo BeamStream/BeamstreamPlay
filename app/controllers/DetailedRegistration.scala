@@ -6,6 +6,7 @@ import play.api.data._
 import play.api.data.Forms._
 import models.DetailedRegForm
 import models.User
+import models.Stream
 
 
 object DetailedRegistration extends Controller {
@@ -22,7 +23,9 @@ object DetailedRegistration extends Controller {
       errors => BadRequest(views.html.detailed_reg(errors)),
       detailed_regForm => {
         User.addInfo(detailed_regForm,request.session.get("userId").get.toInt)
-        Redirect(routes.DetailedRegistration.users)
+        Stream.obtainUser(request.session.get("userId").get.toInt)
+        
+        Redirect(routes.Application.streams)
 
       })
   }

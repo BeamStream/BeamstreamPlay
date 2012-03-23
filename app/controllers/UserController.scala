@@ -35,7 +35,7 @@ object UserController extends Controller {
             s = "Login Successful"
             val aa = request.session + ("userId" -> authenticatedUser.get.id.toString)
 
-            Redirect(routes.Application.streams).withSession(aa)
+            Redirect(routes.DetailedRegistration.users).withSession(aa)
         }
 
       })

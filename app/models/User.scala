@@ -16,11 +16,11 @@ case class UserForm(email: String, password: String)
 case class DetailedRegForm(schoolName: String)
 object User {
   
-  def addInfo(detailed_regForm:DetailedRegForm,userId:Int){
+  def addInfo(detailed_regForm:DetailedRegForm,userId:Int)={
    
     val school=SchoolDAO.find(MongoDBObject("schoolName" -> detailed_regForm.schoolName))
      User.addSchoolToUser(userId,school.toList(0).id)
-  }
+    }
 
   
   def allUsers(): List[User] = Nil

@@ -6,38 +6,47 @@ import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
 import scala.collection.JavaConversions._
+import org.bson.types.ObjectId
 
 case class Stream(@Key("_id") id: Int, name: String, streamType: StreamType.Value, creator: Int, users: List[Int])
 case class StreamForm(name: String, streamType: String)
 case class JoinStreamForm(streamname: String)
 
 object Stream {
-  
-  var schoolId:Int=100
 
   def all(): List[Stream] = Nil
-  def create(streamForm: StreamForm,userId:Int) {
-   Stream.createStream(new Stream(200, streamForm.name,StreamType.apply(streamForm.streamType.toInt), userId, List()))
+  def create(streamForm: StreamForm, userId: Int) {
+    Stream.createStream(new Stream(200, streamForm.name, StreamType.apply(streamForm.streamType.toInt), userId, List()))
   }
-  
-  def listall():List[Stream]=Nil
-  def join(streamname:String, userId:Int) {
-   val stream= StreamDAO.find(MongoDBObject("name" ->streamname )).toList
-    Stream.joinStream(stream(0).id,userId)
-      }
-  
-  
+
+  def listall(): List[Stream] = Nil
+  def join(streamname: String, userId: Int) {
+    val stream = StreamDAO.find(MongoDBObject("name" -> streamname)).toList
+    Stream.joinStream(stream(0).id, userId)
+  }
+
   def streamtypes: Seq[(String, String)] = {
-    val c = for (value <- StreamType.values) yield (value.id.toString, value.toString)  
+    val c = for (value <- StreamType.values) yield (value.id.toString, value.toString)
     val v = c.toSeq
     v
   }
-  
- def classes:Seq[(String, String)]={
-   val school= SchoolDAO.findOneByID(schoolId)
-   val classes=for(myclass <- school.get.classes) yield(myclass.id.toString,myclass.className)
-   classes.toSeq
-   
+
+  var UserObtained: Int = 0
+  def obtainUser(userId: Int) = {
+    UserObtained = userId
+    getClassesforAUser
+
+  }
+
+  def getClassesforAUser: Seq[(String, String)] = {
+    var myClasses = Seq[(String, String)]()
+    print(UserObtained)
+    val user = UserDAO.findOneByID(UserObtained).get
+    for (schoolids <- user.schoolId) {
+      val school = SchoolDAO.find(MongoDBObject("_id" -> schoolids)).toList(0)
+      myClasses ++= (for (eachclass <- school.classes) yield (eachclass.id.toString, eachclass.className)).toSeq
+    }
+    myClasses
   }
 
   def getStreamByName(name: String): List[Stream] = {
