@@ -9,36 +9,48 @@ import com.mongodb.casbah.MongoConnection
 import org.joda.time.DateTime
 import org.bson.types.ObjectId
 
-case class School(@Key("_id") id: ObjectId, schoolName: String,classes:List[Class])
-case class SchoolForm(schoolName:String)
+case class School(@Key("_id") id: ObjectId, schoolName: String, classes: List[Class])
+case class SchoolForm(schoolName: String)
 object School {
-  
-   val myDate = DateTime.now.toString()
-   val class1 = Class(new ObjectId, 201, "IT", ClassType.Quarter, myDate,new ObjectId)
 
-  
-  def all(): List[School] = Nil
+  val myDate = DateTime.now.toString()
+
+  def allSchools(): List[School] = Nil
+  /*
+   * Will add a new School
+   */
   def addSchool(schoolForm: SchoolForm) {
-    School.createSchool(new School(new ObjectId,schoolForm.schoolName,List(class1)))
+    School.createSchool(new School(new ObjectId, schoolForm.schoolName, List()))
   }
 
-   def addClasstoSchool(schoolId: ObjectId, anotherclass: Class) {
-    val school = SchoolDAO.find(MongoDBObject("_id"-> schoolId)).toList(0)
+  /*
+   * Add a class to a school
+   */
+  def addClasstoSchool(schoolId: ObjectId, anotherclass: Class) {
+    val school = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0)
     SchoolDAO.update(MongoDBObject("_id" -> schoolId), school.copy(classes = (school.classes ++ List(anotherclass))), false, false, new WriteConcern)
   }
-   
-   
-  def createSchool(school:School){
+  /*
+    * Method for creating a school
+    */
+  def createSchool(school: School) {
     SchoolDAO.insert(school)
   }
-  
-  def removeSchool(school:School){
+
+  /*
+   * Removes a school
+   */
+  def removeSchool(school: School) {
     SchoolDAO.remove(school)
   }
-  
-  def findSchoolsByName(name:String):List[School] = {
+
+  /*
+   * Find a school by name
+   */
+
+  def findSchoolsByName(name: String): List[School] = {
     val regexp = (""".*""" + name + """.*""").r
-    for (school <- SchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList) yield school 
+    for (school <- SchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList) yield school
   }
 
 }

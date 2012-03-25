@@ -16,14 +16,20 @@ case class UserForm(email: String, password: String)
 case class DetailedRegForm(schoolName: String)
 object User {
   
+  /*
+   * Add info to a user
+   */
   def addInfo(detailed_regForm:DetailedRegForm,userId:Int)={
-   
     val school=SchoolDAO.find(MongoDBObject("schoolName" -> detailed_regForm.schoolName))
      User.addSchoolToUser(userId,school.toList(0).id)
     }
 
   
   def allUsers(): List[User] = Nil
+  
+  /*
+   * find the user for Authentication
+   */
   def findUser(userForm: UserForm):Option[User] ={
     val authenticatedUser = UserDAO.find(MongoDBObject("email" -> userForm.email ,"password" -> userForm.password))
     (authenticatedUser.isEmpty) match {
@@ -32,18 +38,31 @@ object User {
     }
 
   }
+  
+  /*
+   * displaying the message to user for notifying the authentication
+   */
+  
   def message(notification:String): String = {
     notification
   }
-
+/*
+ * Creates a User
+ */
   def createUser(user: User) {
     UserDAO.insert(user)
   }
-
+  
+/*
+ * removes a User
+ */
   def removeUser(user: User) {
     UserDAO.remove(user)
   }
 
+  /*
+   * Email Validation
+   */
   def validateEmail(emailId: String): Boolean = {
     var validationStatus = false
     val emailPart: List[String] = List("gmail.com", "yahoo.com", "rediff.com", "hotmail.com", "aol.com")
@@ -60,8 +79,10 @@ object User {
     return validationStatus
   }
 
+/*
+ * Registration For a User  
+ */
   def registerUser(user: User): String = {
-
     validateEmail(user.email) match {
       case true =>
         UserDAO.insert(user)
@@ -71,6 +92,10 @@ object User {
     }
 
   }
+  
+  /*
+   * Adds a school to User
+   */
 
   def addSchoolToUser(userId: Int, schoolId: ObjectId) {
     val user = UserDAO.findOneByID(userId).get
@@ -78,10 +103,17 @@ object User {
 
   }
 
+  /*
+   * Add a Class to user
+   */
   def addClassToUser(userId: Int, classId: ObjectId) {
     val user = UserDAO.findOneByID(userId).get
     UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classId = (user.classId ++ List(classId))), false, false, new WriteConcern)
   }
+  
+  /*
+   * Get the Details of a user
+   */
 
   def getUserProfile(userId: Int): User = {
     val user = UserDAO.findOneByID(userId)

@@ -15,12 +15,9 @@ object MessageController extends Controller {
     mapping(
       "message" -> nonEmptyText,
       //"messageType" -> nonEmptyText,
-      "access" -> optional(checked("Private")
-)  
-      )(MessageForm.apply)(MessageForm.unapply))
+      "access" -> optional(checked("Private")))(MessageForm.apply)(MessageForm.unapply))
 
-
-var userName:String =""
+      var userName:String =""
 
 
 def newMessage = Action { implicit request =>
@@ -30,7 +27,6 @@ def newMessage = Action { implicit request =>
         println(messageForm.access)
         Message.create(messageForm, request.session.get("userId").get.toInt)
         userName=  Message.findUser(request.session.get("userId").get.toInt).firstName
-        
         Redirect(routes.MessageController.messages)
 
       })

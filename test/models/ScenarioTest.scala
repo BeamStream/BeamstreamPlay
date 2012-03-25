@@ -23,8 +23,8 @@ class ScenarioTest extends FunSuite with BeforeAndAfter {
   test("Scenario to test the flow") {
 
     /* user chris creates a new stream*/
-    Stream.createStream(Stream(500, "Beamstream stream", StreamType.Class, 100, List(100)))
-    Stream.createStream(Stream(501, "Inphina stream", StreamType.Research, 100, List(100)))
+    Stream.createStream(Stream(500, "Beamstream stream", StreamType.Class, 100, List(100),true))
+    Stream.createStream(Stream(501, "Inphina stream", StreamType.Research, 100, List(100),true))
 
     /* vikas hunts for a stream to join*/
     val stream = Stream.getStreamByName("Bea")

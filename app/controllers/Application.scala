@@ -14,12 +14,18 @@ object Application extends Controller {
   val streamForm = Form(
     mapping(
       "name" -> nonEmptyText,
-      "streamType" -> nonEmptyText)(StreamForm.apply)(StreamForm.unapply))
+      "streamType" -> nonEmptyText,
+      "classname" -> nonEmptyText,
+      "posttoMystream" ->optional(checked("Post to My Profile")))(StreamForm.apply)(StreamForm.unapply))
 
   def index = Action {
     Ok("This is BeamStream Application by Knoldus Software")
   }
-  def streams = Action {
+  
+  def streams = Action { implicit request =>
+     print("jkhkjhjkhjk"+request.session.get("userId").get.toInt)
+  Stream.obtainUser(request.session.get("userId").get.toInt)
+  
     Ok(views.html.index(Stream.all(), streamForm))
   }
 
@@ -28,9 +34,12 @@ object Application extends Controller {
       errors => BadRequest(views.html.index(Stream.all(), errors)),
       streamForm => {
         Stream.create(streamForm, request.session.get("userId").get.toInt)
-        Redirect(routes.JoinStream.joinstreams)
+        Redirect(routes.MessageController.messages)
 
       })
   }
+  
+  
+  
 
 }

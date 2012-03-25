@@ -13,11 +13,18 @@ import models.User
 object UserController extends Controller {
 
   var s: String = ""
+
+  /*
+    * Map the fields value from html page 
+    */
   val userForm = Form(
     mapping(
       "email" -> nonEmptyText,
       "password" -> nonEmptyText)(UserForm.apply)(UserForm.unapply))
 
+  /*
+ * Find and Authenticate the user to proceed
+ */
   def findUser = Action { implicit request =>
     userForm.bindFromRequest.fold(
       errors => BadRequest(views.html.user(User.allUsers(), errors, "")),
@@ -33,9 +40,9 @@ object UserController extends Controller {
 
             print(authenticatedUser.get.orgName)
             s = "Login Successful"
+            /*Creates a Session*/
             val aa = request.session + ("userId" -> authenticatedUser.get.id.toString)
-
-            Redirect(routes.DetailedRegistration.users).withSession(aa)
+            Redirect(routes.MessageController.messages).withSession(aa)
         }
 
       })

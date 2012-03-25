@@ -35,11 +35,11 @@ h2{color:Green;}
        
           @select(
           streamForm("classname"), 
-           Stream.getClassesforAUser,
+          Stream.getClassesforAUser,
            '_label -> "Class Name", '_default -> "-- Choose a Class --",
                 '_showConstraints -> false) 
          
-          @checkbox(streamForm("posttoMystream"), '_label->"Post to My Stream", 'id -> "posttoMystream", 'size -> 98) 
+          @checkbox(streamForm("posttoMystream"), '_label->"Post to My Profile", 'id -> "posttoMystream", 'size -> 98) 
          </fieldset>
         <input type="submit" value="Create Stream">
         <br/>

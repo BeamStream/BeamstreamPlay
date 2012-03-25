@@ -8,15 +8,22 @@ import com.mongodb.casbah.MongoConnection
 import scala.collection.JavaConversions._
 import org.bson.types.ObjectId
 
-case class Stream(@Key("_id") id: Int, name: String, streamType: StreamType.Value, creator: Int, users: List[Int])
-case class StreamForm(name: String, streamType: String)
+case class Stream(@Key("_id") id: Int, name: String, streamType: StreamType.Value, creator: Int, users: List[Int], posttoMyprofile: Boolean)
+case class StreamForm(name: String, streamType: String, className: String, posttoMystream: Option[Boolean])
 case class JoinStreamForm(streamname: String)
 
 object Stream {
 
   def all(): List[Stream] = Nil
   def create(streamForm: StreamForm, userId: Int) {
-    Stream.createStream(new Stream(200, streamForm.name, StreamType.apply(streamForm.streamType.toInt), userId, List()))
+    (streamForm.posttoMystream == None) match {
+      case true =>
+        Stream.createStream(new Stream(200, streamForm.name, StreamType.apply(streamForm.streamType.toInt), userId, List(), false))
+      case false =>
+        Stream.createStream(new Stream(200, streamForm.name, StreamType.apply(streamForm.streamType.toInt), userId, List(), true))
+    }
+       print(streamForm.className)
+    
   }
 
   def listall(): List[Stream] = Nil

@@ -9,10 +9,10 @@ import com.mongodb.casbah.commons.MongoDBObject
 @RunWith(classOf[JUnitRunner])
 class StreamTest extends FunSuite with BeforeAndAfter {
 
-  var stream1 = Stream(100, "al1pha", StreamType.Class, 199, List())
-  val stream2 = Stream(101, "al1pha", StreamType.Class, 299, List())
-  val stream3 = Stream(102, "al1pha", StreamType.Class, 399, List())
-  val stream4 = Stream(103, "al1pha", StreamType.Class, 499, List())
+  var stream1 = Stream(100, "al1pha", StreamType.Class, 199, List(),true)
+  val stream2 = Stream(101, "al1pha", StreamType.Class, 299, List(),true)
+  val stream3 = Stream(102, "al1pha", StreamType.Class, 399, List(),true)
+  val stream4 = Stream(103, "al1pha", StreamType.Class, 499, List(),true)
 
   before {
 

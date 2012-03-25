@@ -14,7 +14,7 @@ class MessageTest extends FunSuite with BeforeAndAfter {
   val message3 = Message(102, "some message3", MessageType.Audio, MessageAccess.Private, "time", 190, 290)
 
   before {
-    Stream.createStream(Stream(290, "Beamstream stream", StreamType.Class, 190, List(190)))
+    Stream.createStream(Stream(290, "Beamstream stream", StreamType.Class, 190, List(190),true))
     Message.createMessage(message1)
     Message.createMessage(message2)
     Message.createMessage(message3)
