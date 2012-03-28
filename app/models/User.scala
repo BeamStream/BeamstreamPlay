@@ -15,45 +15,44 @@ case class User(@Key("_id") id: Int, userType: UserType.Value, email: String, va
 case class UserForm(email: String, password: String)
 case class DetailedRegForm(schoolName: String)
 object User {
-  
+
   /*
    * Add info to a user
    */
-  def addInfo(detailed_regForm:DetailedRegForm,userId:Int)={
-    val school=SchoolDAO.find(MongoDBObject("schoolName" -> detailed_regForm.schoolName))
-     User.addSchoolToUser(userId,school.toList(0).id)
-    }
+  def addInfo(detailed_regForm: DetailedRegForm, userId: Int) = {
+    print(detailed_regForm.schoolName)
+    User.addSchoolToUser(userId, new ObjectId(detailed_regForm.schoolName))
+  }
 
-  
   def allUsers(): List[User] = Nil
-  
+
   /*
    * find the user for Authentication
    */
-  def findUser(userForm: UserForm):Option[User] ={
-    val authenticatedUser = UserDAO.find(MongoDBObject("email" -> userForm.email ,"password" -> userForm.password))
+  def findUser(userForm: UserForm): Option[User] = {
+    val authenticatedUser = UserDAO.find(MongoDBObject("email" -> userForm.email, "password" -> userForm.password))
     (authenticatedUser.isEmpty) match {
-      case true =>  None
+      case true => None
       case false => Option(authenticatedUser.toList(0))
     }
 
   }
-  
+
   /*
    * displaying the message to user for notifying the authentication
    */
-  
-  def message(notification:String): String = {
+
+  def message(notification: String): String = {
     notification
   }
-/*
+  /*
  * Creates a User
  */
   def createUser(user: User) {
     UserDAO.insert(user)
   }
-  
-/*
+
+  /*
  * removes a User
  */
   def removeUser(user: User) {
@@ -79,7 +78,7 @@ object User {
     return validationStatus
   }
 
-/*
+  /*
  * Registration For a User  
  */
   def registerUser(user: User): String = {
@@ -92,7 +91,7 @@ object User {
     }
 
   }
-  
+
   /*
    * Adds a school to User
    */
@@ -110,7 +109,7 @@ object User {
     val user = UserDAO.findOneByID(userId).get
     UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classId = (user.classId ++ List(classId))), false, false, new WriteConcern)
   }
-  
+
   /*
    * Get the Details of a user
    */

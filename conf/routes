@@ -15,8 +15,10 @@ POST   /users                         controllers.UserController.findUser
 GET    /streams                       controllers.Application.streams
 POST   /streams                       controllers.Application.newStream
 
-GET    /messages                      controllers.MessageController.messages
-POST   /messages                      controllers.MessageController.newMessage
+
+GET    /messages                       controllers.MessageController.messages
+POST    /messages                      controllers.MessageController.newMessage
+GET   /messages/:id/streammessages     controllers.MessageController.streamMessages(id:String)
 
 GET    /joinstreams                   controllers.JoinStream.joinstreams
 POST   /joinstreams                   controllers.JoinStream.joinStream

@@ -31,7 +31,6 @@ object DetailedRegistration extends Controller {
       errors => BadRequest(views.html.detailed_reg(errors)),
       detailed_regForm => {
         User.addInfo(detailed_regForm,request.session.get("userId").get.toInt)
-        //Stream.obtainUser(request.session.get("userId").get.toInt)
         Redirect(routes.MessageController.messages)
 
       })

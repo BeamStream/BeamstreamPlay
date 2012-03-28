@@ -1,4 +1,5 @@
-@(messages:List[Message],messageForm:Form[MessageForm],userName:String)
+@(messages:List[Message],messageForm:Form[MessageForm],userName:String,streams:List[Stream])
+
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap/bootstrap.min.css")" />
 @import helper._
 @import helper.twitterBootstrap._
@@ -51,8 +52,9 @@
     <title>BeamStream</title>
      
     <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")"> 
-    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")"> 
-  
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/responsive.css")">
+  <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/sprites.css")">
     <link href="img/favicon.ico" rel="shortcut icon">
     <!--[if lte IE 8]><link rel="stylesheet/less" type="text/css" href="less/ie8.less"><![endif]-->
     <!--[if lte IE 7]><link rel="stylesheet/less" type="text/css" href="less/ie7.less"><![endif]-->
@@ -68,6 +70,7 @@
   </head>
 
   <body>
+  
     <div class="navbar-fixed-top">
       <header class="site_header">
         <div class="container">
@@ -103,7 +106,7 @@
                     </div>
                   </li>
                   <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="/detailed_reg">
                       BeamStream <b class="arrow"></b>
                     </a>
                     <ul class="dropdown-menu">
@@ -221,11 +224,20 @@
                 <li><span class="flag-piece"></span><a href="#friendstream">FriendStream <i class="icon stream-icon-globe"></i></a><span class="popout_arrow"><span></span></span></li>
                 <li><span class="flag-piece"></span><a href="#research-team">Research Team</a><span class="popout_arrow"><span></span></span></li>
                 <li><span class="flag-piece"></span><a href="#c++-dev-project">C++ Dev Project <i class="icon stream-icon-apple"></i></a><span class="popout_arrow"><span></span></span></li>
+             
+                 @streams.map { stream =>
+               <li><a href="/messages/@stream.id/streammessages" >@stream.name</a></li>
+              
+                }
+                
               </ul>
               <a class="btn next"><i class="icon-down"></i></a>
             </section>
           <div class="create_stream">
-            <a class="btn plus" href="/streams"><i><b></b><span class="popout_arrow"><span></span></span></i>Create Stream</a>
+            <a class="btn plus" href="/streams"><i><b></b><span class="popout_arrow"><span></span></span></i>Create Stream</a><br><br>
+            <a class="btn plus" href="/school"><i><b></b><span class="popout_arrow"><span></span></span></i>Create School</a><br><br>
+            <a class="btn plus" href="/class"><i><b></b><span class="popout_arrow"><span></span></span></i>Create Class</a><br><br>
+             <a class="btn plus" href="/joinstreams"><i><b></b><span class="popout_arrow"><span></span></span></i>Join Stream</a><br><br>
           </div>
           </div>
 
@@ -484,6 +496,14 @@
                 <li><a href="#friendstream">FriendStream</a></li>
                 <li><a href="#research-team">Research Team</a></li>
                 <li><a href="#c++-dev-project">C++ Dev Project</a></li>
+                
+               
+                 @streams.map { stream =>
+               <li><a href="#c++-dev-project">@stream.name</a></li>
+              
+                }
+                  
+                 
               </ul>
             </section>
           </div>
@@ -500,19 +520,19 @@
       </footer>
     </div>
 
-    <script src="js/jquery-1.7.1.js"></script>
-    <script src="js/bootstrap-transition.js"></script>
-    <script src="js/bootstrap-alert.js"></script>
-    <script src="js/bootstrap-modal.js"></script>
-    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="javascripts/jquery-1.7.1.js"></script>
+    <script src="javascripts/bootstrap-transition.js"></script>
+    <script src="javascripts/bootstrap-alert.js"></script>
+    <script src="javascripts/bootstrap-modal.js"></script>
+    <script src="javascripts/bootstrap-dropdown.js"></script>
     <script src="js/bootstrap-scrollspy.js"></script>
-    <script src="js/bootstrap-tab.js"></script>
-    <script src="js/bootstrap-tooltip.js"></script>
-    <script src="js/bootstrap-popover.js"></script>
-    <script src="js/bootstrap-button.js"></script>
-    <script src="js/bootstrap-collapse.js"></script>
-    <script src="js/bootstrap-carousel.js"></script>
-    <script src="js/bootstrap-typeahead.js"></script>
+    <script src="javascripts/bootstrap-tab.js"></script>
+    <script src="javascripts/bootstrap-tooltip.js"></script>
+    <script src="javascripts/bootstrap-popover.js"></script>
+    <script src="javascripts/bootstrap-button.js"></script>
+    <script src="javascripts/bootstrap-collapse.js"></script>
+    <script src="javascripts/bootstrap-carousel.js"></script>
+    <script src="javascripts/bootstrap-typeahead.js"></script>
     <script>
       $(document).ready(function() {
             $('.with-tooltips a, .with-tooltip').each(function() {
@@ -558,11 +578,13 @@
             });
         });
     </script>
+  
+  
+  
+           
+        
+   
     
-   <a href="/school"> Add a School </a> &nbsp &nbsp
-   <a href="/class"> Add a Class </a> &nbsp &nbsp
-    <a href="/detailed_reg"> Edit My Profile </a>&nbsp &nbsp
-     <a href="/joinstreams"> Join Stream</a> &nbsp &nbsp
   </body>
 </html>
 

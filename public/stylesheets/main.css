@@ -62,7 +62,7 @@
 .nav.nav-tabs li a.with-icon .icon-lock {
   width: 26px;
   height: 27px;
-  background: url(../img/icons/icon_lock.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_lock.png) 0 0 no-repeat;
 }
 .nav.nav-tabs li a:hover {
   border-width: 1px 1px 0px 1px;
@@ -174,62 +174,62 @@
   border-radius: 0px;
 }
 .btn.btn-flat .icon-file {
-  background: url(../img/icons/icon_file.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_file.png) 0 0 no-repeat;
   width: 14px;
 }
 .btn.btn-flat .icon-pencil {
-  background: url(../img/icons/icon_pencil.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_pencil.png) 0 0 no-repeat;
   width: 18px;
 }
 .btn.btn-flat .icon-slides {
-  background: url(../img/icons/icon_slides.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_slides.png) 0 0 no-repeat;
   width: 23px;
 }
 .btn.btn-flat .icon-link {
-  background: url(../img/icons/icon_link.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_link.png) 0 0 no-repeat;
   width: 18px;
 }
 .btn.btn-flat .icon-video {
-  background: url(../img/icons/icon_video.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_video.png) 0 0 no-repeat;
   width: 27px;
 }
 .btn.btn-flat .icon-camera {
-  background: url(../img/icons/icon_camera.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_camera.png) 0 0 no-repeat;
   width: 22px;
 }
 .btn.btn-flat .icon-facebook, .btn.btn-flat .icon-middle-facebook {
-  background: url(../img/icons/icon_facebook.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_facebook.png) 0 0 no-repeat;
   width: 10px;
 }
 .btn.btn-flat .icon-twitter, .btn.btn-flat .icon-middle-twitter {
-  background: url(../img/icons/icon_twitter.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_twitter.png) 0 0 no-repeat;
   width: 15px;
 }
 .btn.btn-flat .icon-email {
-  background: url(../img/icons/icon_email.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_email.png) 0 0 no-repeat;
   width: 17px;
 }
 .btn.btn-flat .icon-linkedin, .btn.btn-flat .icon-middle-linkedin {
-  background: url(../img/icons/icon_linkedin.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_linkedin.png) 0 0 no-repeat;
   width: 18px;
 }
 .btn.btn-flat .icon-middle-linkedin, .btn.btn-flat .icon-middle-twitter, .btn.btn-flat .icon-middle-facebook {
   background-position: 0 -1px;
 }
 .btn.btn-flat .icon-middle-comment {
-  background: url(../img/icons/icon_m_comment.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_m_comment.png) 0 0 no-repeat;
   width: 25px;
 }
 .btn.btn-flat .icon-middle-tag {
-  background: url(../img/icons/icon_m_tag.png) 0 1px no-repeat;
+  background: url(../images/icons/icon_m_tag.png) 0 1px no-repeat;
   width: 19px;
 }
 .btn.btn-flat .icon-middle-video {
-  background: url(../img/icons/icon_m_video.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_m_video.png) 0 0 no-repeat;
   width: 31px;
 }
 .btn.btn-flat .icon-middle-camera {
-  background: url(../img/icons/icon_m_camera.png) 0 1px no-repeat;
+  background: url(../images/icons/icon_m_camera.png) 0 1px no-repeat;
   width: 24px;
 }
 .input-append.big-input {
@@ -311,7 +311,7 @@ a.disabled {
   border-bottom: 1px solid #efefef;
 }
 body {
-  background: #82bbed url(../img/layout/background.png) center 0 no-repeat;
+  background: #82bbed url(../images/layout/background.png) center 0 no-repeat;
   min-width: 1024px;
   font-family: arial, Helvetica, sans-serif;
   padding-top: 96px;
@@ -352,7 +352,7 @@ body {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
-  background-image: url(../img/layout/navbar_background.png);
+  background-image: url(../images/layout/navbar_background.png);
   background-repeat: repeat-x;
   background-position: 0 0;
 }
@@ -394,7 +394,7 @@ body {
 }
 .main_menu.navbar .nav .dropdown .dropdown-toggle .arrow {
   position: absolute;
-  background: url(../img/icons/icon_arrow.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_arrow.png) 0 0 no-repeat;
   width: 13px;
   height: 9px;
   top: 21px;
@@ -556,23 +556,23 @@ body {
   height: 31px;
 }
 .site_search .input-append .btn-group .btn .icon-user {
-  background: url(../img/icons/icon_b_user.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_b_user.png) 0 0 no-repeat;
   width: 24px;
 }
 .site_search .input-append .btn-group .btn .icon-group {
-  background: url(../img/icons/icon_b_group.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_b_group.png) 0 0 no-repeat;
   width: 26px;
 }
 .site_search .input-append .btn-group .btn .icon-link {
-  background: url(../img/icons/icon_b_link.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_b_link.png) 0 0 no-repeat;
   width: 24px;
 }
 .site_search .input-append .btn-group .btn .icon-tag {
-  background: url(../img/icons/icon_b_tag.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_b_tag.png) 0 0 no-repeat;
   width: 25px;
 }
 .site_search .input-append .btn-group .btn .icon-disk {
-  background: url(../img/icons/icon_b_disk.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_b_disk.png) 0 0 no-repeat;
   width: 21px;
 }
 .site_search .input-append .btn-group .btn span.popout_arrow {
@@ -634,7 +634,7 @@ body {
   background-repeat: repeat-x;
 }
 .site_search .btn-primary .icon-search {
-  background: url(../img/icons/icon_loupe.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_loupe.png) 0 0 no-repeat;
   height: 33px;
   width: 33px;
 }
@@ -861,7 +861,7 @@ body {
   border: 1px solid #4c8cb3;
 }
 .btn.plus i b {
-  background: transparent url(../img/icons/icon_plus.png) no-repeat 9px 10px;
+  background: transparent url(../images/icons/icon_plus.png) no-repeat 9px 10px;
   height: 37px;
   width: 35px;
   display: block;
@@ -969,7 +969,7 @@ body {
   padding-left: 5px;
 }
 .user_profile .user_profile_info .nav-list li.location .icon-location {
-  background: url(../img/icons/icon_location.png) 50% 0 no-repeat;
+  background: url(../images/icons/icon_location.png) 50% 0 no-repeat;
   width: 21px;
   height: 22px;
 }
@@ -977,7 +977,7 @@ body {
   padding-left: 5px;
 }
 .user_profile .user_profile_info .nav-list li.occupation .icon-silhouette {
-  background: url(../img/icons/icon_silhouette.png) 50% 0 no-repeat;
+  background: url(../images/icons/icon_silhouette.png) 50% 0 no-repeat;
   width: 21px;
   height: 20px;
 }
@@ -1036,7 +1036,7 @@ body {
   border-radius: 0px;
 }
 .user_streams .btn.prev i {
-  background: url(../img/icons/icon_arrow_up.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_arrow_up.png) 0 0 no-repeat;
 }
 .user_streams .btn.next {
   -webkit-border-radius: 0px 0px 2px 2px;
@@ -1044,7 +1044,7 @@ body {
   border-radius: 0px 0px 2px 2px;
 }
 .user_streams .btn.next i {
-  background: url(../img/icons/icon_arrow_down.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_arrow_down.png) 0 0 no-repeat;
 }
 .user_streams .sort_container {
   background: #eef2f5;
@@ -1125,11 +1125,11 @@ body {
   background: transparent no-repeat 0 0;
 }
 .user_streams .nav-list li .icon.stream-icon-apple {
-  background-image: url(../img/icons/stream_icon_apple.png);
+  background-image: url(../images/icons/stream_icon_apple.png);
   background-position: 2px 0;
 }
 .user_streams .nav-list li .icon.stream-icon-globe {
-  background-image: url(../img/icons/stream_icon_globe.png);
+  background-image: url(../images/icons/stream_icon_globe.png);
 }
 .right_column.span2 {
   width: 191px;
@@ -1231,12 +1231,12 @@ body {
 .main_content .control-group .input-prepend-container .input-prepend .add-on .icon-link {
   height: 18px;
   width: 18px;
-  background: url(../img/icons/icon_link.png) 0 -2px no-repeat;
+  background: url(../images/icons/icon_link.png) 0 -2px no-repeat;
 }
 .main_content .control-group .input-prepend-container .input-prepend .add-on .icon-plus {
   height: 18px;
   width: 18px;
-  background: url(../img/icons/icon_plus_gray.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_plus_gray.png) 0 0 no-repeat;
 }
 .main_content .new_message {
   padding: 20px 25px 0 19px;
@@ -1475,7 +1475,7 @@ body {
   color: #ffffff;
 }
 .timeline .comment_wrapper .content_container .actions .rock .rocked i {
-  background: url(../img/icons/icon_rocked.png) 0 0 no-repeat;
+  background: url(../images/icons/icon_rocked.png) 0 0 no-repeat;
   display: block;
   padding-left: 3px;
   width: 25px;

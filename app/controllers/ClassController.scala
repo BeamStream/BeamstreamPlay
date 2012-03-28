@@ -14,7 +14,7 @@ object ClassController extends Controller {
   val classForm = Form(
     mapping(
       "className" -> nonEmptyText,
-      "classCode" -> number,
+      "classCode" -> nonEmptyText,
       "classType" -> nonEmptyText,
       "schoolName" -> nonEmptyText)(ClassForm.apply)(ClassForm.unapply))
 

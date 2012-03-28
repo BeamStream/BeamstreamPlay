@@ -19,10 +19,10 @@ class ClassTest extends FunSuite with BeforeAndAfter {
   //  RegisterJodaTimeConversionHelpers
   val myDate = DateTime.now.toString()
 
-  val class1 = Class(new ObjectId, 201, "IT", ClassType.Quarter, myDate,new ObjectId)
-  val class2 = Class(new ObjectId, 202, "CSE", ClassType.Quarter, myDate,new ObjectId)
-  val class3 = Class(new ObjectId, 203, "ECE", ClassType.Quarter, myDate,new ObjectId)
-  val class4 = Class(new ObjectId, 204, "CSE", ClassType.Yearly, myDate,new ObjectId)
+  val class1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, myDate,new ObjectId,List())
+  val class2 = Class(new ObjectId, "202", "CSE", ClassType.Quarter, myDate,new ObjectId,List())
+  val class3 = Class(new ObjectId, "203", "ECE", ClassType.Quarter, myDate,new ObjectId,List())
+  val class4 = Class(new ObjectId, "204", "CSE", ClassType.Yearly, myDate,new ObjectId,List())
 
   before {
 
@@ -33,7 +33,7 @@ class ClassTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Createing & Deleting Classes") {
-    val classA = ClassDAO.find(MongoDBObject("classCode" -> 201))
+    val classA = ClassDAO.find(MongoDBObject("classCode" -> "201"))
     assert(classA.size === 1)
 
     val classB = ClassDAO.find(MongoDBObject("className" -> "CSE"))

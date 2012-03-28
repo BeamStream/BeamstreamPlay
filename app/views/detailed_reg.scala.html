@@ -14,7 +14,14 @@
  
  
    <fieldset>
-        @inputText(detailed_regForm("schoolName"), '_label->"School Name", 'id -> "schoolName", 'size -> 10) 
+   
+    @select(
+          detailed_regForm("schoolName"), 
+           Class.schoolnames,
+           '_label -> "School Name", '_default -> "-- Choose a School --",
+                '_showConstraints -> false) 
+         
+        
    </fieldset>
         
    <input type="submit" value="Add School To User">

@@ -9,7 +9,7 @@ import com.mongodb.casbah.MongoConnection
 import org.bson.types.ObjectId
 
 object MessageType extends Enumeration {
-  
+
   val Text = Value(0, "text")
   val Picture = Value(1, "Picture")
   val Video = Value(2, "Video")
@@ -24,35 +24,37 @@ object MessageAccess extends Enumeration {
 
 //TODO use a datetime instead of string for timestamp
 
-case class Message(@Key("_id") id: Int, text: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated: String, userId: Int, streamId: Int)
+case class Message(@Key("_id") id: Int, text: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated: String, userId: Int, streamId: ObjectId)
 //case class MessageForm(message: String, messageAccess: String ,access:Option[Boolean])
-case class MessageForm(message: String,access:Option[Boolean])
+case class MessageForm(message: String, access: Option[Boolean])
+
 object Message {
-  
-   def all(): List[Message] = getAllMessagesForAStream(200)
-   def create(messageForm: MessageForm,userId:Int) {
-     
-     (messageForm.access==None)match{
-       case true => Message.createMessage(new Message((new ObjectId)._inc,messageForm.message,MessageType.Audio,MessageAccess.Public,"Mar,20 10:12AM",userId,200))
-       case _=> Message.createMessage(new Message((new ObjectId)._inc,messageForm.message,MessageType.Audio,MessageAccess.Private,"Mar,20 10:12AM",userId,200))
-     }
-   }
-   def messagetypes: Seq[(String, String)] = {
-    val c = for (value <- MessageAccess.values) yield (value.id.toString, value.toString)  
+
+  def create(messageForm: MessageForm, userId: Int, streamId: ObjectId):String= {
+    (messageForm.access == None) match {
+      case true => Message.createMessage(new Message((new ObjectId)._inc, messageForm.message, MessageType.Audio, MessageAccess.Public, "Mar,20 10:12AM", userId, streamId))
+      case _ => Message.createMessage(new Message((new ObjectId)._inc, messageForm.message, MessageType.Audio, MessageAccess.Private, "Mar,20 10:12AM", userId, streamId))
+    }
+     UserDAO.findOneByID(userId).get.firstName
+  }
+
+  def messagetypes: Seq[(String, String)] = {
+    val c = for (value <- MessageAccess.values) yield (value.id.toString, value.toString)
     val v = c.toSeq
     v
   }
-  
+
   def createMessage(message: Message): Int = {
-   
-    validateUserHasRightToPost(message.userId, message.streamId) match {
-      case true => MessageDAO.insert(message).get
-      case _ => -1
-    }
+
+    //    validateUserHasRightToPost(message.userId, message.streamId) match {
+    //      case true => MessageDAO.insert(message).get
+    //      case _ => -1
+    //    }
+    MessageDAO.insert(message).get
 
   }
-  def findUser(userId:Int):User={
-    val user=UserDAO.findOneByID(userId)
+  def findUser(userId: Int): User = {
+    val user = UserDAO.findOneByID(userId)
     user.get
   }
 
@@ -65,8 +67,9 @@ object Message {
     MessageDAO.remove(message)
   }
 
-  def getAllMessagesForAStream(streamId: Int): List[Message] = {
-    MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList
+  def getAllMessagesForAStream(streamId: ObjectId): List[Message] = {
+    val messsages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList
+    messsages
   }
 
   def getAllPublicMessagesForAStream(streamId: Int): List[Message] = {

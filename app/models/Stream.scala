@@ -8,7 +8,7 @@ import com.mongodb.casbah.MongoConnection
 import scala.collection.JavaConversions._
 import org.bson.types.ObjectId
 
-case class Stream(@Key("_id") id: Int, name: String, streamType: StreamType.Value, creator: Int, users: List[Int], posttoMyprofile: Boolean)
+case class Stream(@Key("_id") id: ObjectId, name: String, streamType: StreamType.Value, creator: Int, users: List[Int], posttoMyprofile: Boolean)
 case class StreamForm(name: String, streamType: String, className: String, posttoMystream: Option[Boolean])
 case class JoinStreamForm(streamname: String)
 
@@ -18,12 +18,13 @@ object Stream {
   def create(streamForm: StreamForm, userId: Int) {
     (streamForm.posttoMystream == None) match {
       case true =>
-        Stream.createStream(new Stream(200, streamForm.name, StreamType.apply(streamForm.streamType.toInt), userId, List(), false))
+        val stream=Stream.createStream(new Stream(new ObjectId, streamForm.name, StreamType.apply(streamForm.streamType.toInt), userId, List(userId), false))
+        Class.attachStreamtoClass(stream.id, new ObjectId(streamForm.className))
       case false =>
-        Stream.createStream(new Stream(200, streamForm.name, StreamType.apply(streamForm.streamType.toInt), userId, List(), true))
+        val stream=Stream.createStream(new Stream(new ObjectId, streamForm.name, StreamType.apply(streamForm.streamType.toInt), userId, List(userId), true))
+        Class.attachStreamtoClass(stream.id, new ObjectId(streamForm.className))
     }
-       print(streamForm.className)
-    
+   
   }
 
   def listall(): List[Stream] = Nil
@@ -62,13 +63,20 @@ object Stream {
     streams.toList
   }
 
-  def createStream(stream: Stream): Option[Int] = {
+  def createStream(stream: Stream): Stream = {
     StreamDAO.insert(stream)
+     stream
+  }
+  
+  
+  def getAllStream: List[Stream] = {
+    val streams = StreamDAO.find(MongoDBObject("name" -> ".*".r))
+    streams.toList
   }
 
-  def joinStream(streamId: Int, userId: Int) {
-    val stream = StreamDAO.findOneByID(streamId)
-    StreamDAO.update(MongoDBObject("_id" -> streamId), stream.get.copy(users = (stream.get.users ++ List(userId))), false, false, new WriteConcern)
+  def joinStream(streamId: ObjectId, userId: Int) {
+    val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
+    StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(users = (stream.users ++ List(userId))), false, false, new WriteConcern)
   }
 }
 
