@@ -7,6 +7,27 @@
 @import helper.twitterBootstrap._
 @main("BeamStream Users"){
 
+
+<script type="text/javascript">
+  var rpxJsHost = (("https:" == document.location.protocol) ? "https://" : "http://static.");
+  document.write(unescape("%3Cscript src='" + rpxJsHost + "rpxnow.com/js/lib/rpx.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript">
+  RPXNOW.init({appId: 'injmdlfnkgpdncddkloe',
+    xdReceiver: '/assets/rpx_xdcomm.html'});
+</script>      
+        
+   <script type="text/javascript">
+  RPXNOW.loadAndRun(['Social'], function () {
+    var activity = new RPXNOW.Social.Activity(
+       "Share your comment",
+       "commented on 'Like My New Perfume?' on cuteoverload.com",
+       "http://cuteoverload.com/2009/10/26/like-my-new-perfume/");
+    RPXNOW.Social.publishActivity(activity);
+  });
+</script>
+
 <style type="text/css">
 h3 {color:red;}
 h2{color:Green;}
