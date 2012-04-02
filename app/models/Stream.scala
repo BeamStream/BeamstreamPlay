@@ -73,6 +73,10 @@ object Stream {
     val streams = StreamDAO.find(MongoDBObject("name" -> ".*".r))
     streams.toList
   }
+  
+  def getAllStreamforAUser(userId:Int):List[Stream]={
+    StreamDAO.find(MongoDBObject("creator" -> userId)).toList
+    }
 
   def joinStream(streamId: ObjectId, userId: Int) {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)

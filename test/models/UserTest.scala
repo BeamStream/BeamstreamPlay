@@ -60,8 +60,8 @@ class UserTest extends FunSuite with BeforeAndAfter {
   }
 
   after {
-
-   UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+    
+    UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
   }
 
 }

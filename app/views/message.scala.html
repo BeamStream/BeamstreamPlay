@@ -1,4 +1,4 @@
-@(messages:List[Message],messageForm:Form[MessageForm],userName:String,streams:List[Stream])
+@(messages:List[Message],messageForm:Form[MessageForm],streams:List[Stream])
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap/bootstrap.min.css")" />
 @import helper._
@@ -10,40 +10,7 @@
  
 
 
-<!-- <h2>Post a new Message</h2> -->
- 
- 
-    
-   <!--   <fieldset>
-        @textarea(messageForm("message"), '_label->"Message Text", 'id -> "message", 'size -> 98) 
-     
-        @checkbox(messageForm("access"), '_label->"Private", 'id -> "access", 'size -> 98) 
-         </fieldset>
-         
-          -->
-   <!--      <input type="submit" value="Post Message">    -->
-        
-       
-      
-        
-    <!-- 
-    
-    <h3>@messages.size messages in this stream</h3>
-   <ul>
-        @messages.map { message =>
-            <li>
-               <i><b> @message.text </b></i>
-                &nbsp  &nbsp  &nbsp
-                Posted By: @userName
-                on   @message.timeCreated         
-               
-                }
-            </li>
-            
-        
-    </ul>
 
- -->
 
 <!DOCTYPE html>
 <html>
@@ -333,7 +300,9 @@
                              <li>
                          <i><b> @message.text </b></i>
                             &nbsp  &nbsp  &nbsp
-                           Posted By: @userName
+                           Posted By: @message.firstNameofMsgPoster
+                           
+                           
                            on   @message.timeCreated  
                            -- @message.messageAccess       
                

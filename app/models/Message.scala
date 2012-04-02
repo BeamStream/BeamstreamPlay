@@ -24,16 +24,16 @@ object MessageAccess extends Enumeration {
 
 //TODO use a datetime instead of string for timestamp
 
-case class Message(@Key("_id") id: Int, text: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated: String, userId: Int, streamId: ObjectId)
+case class Message(@Key("_id") id: Int, text: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated: String, userId: Int, streamId: ObjectId,firstNameofMsgPoster:String,lastNameofMsgPoster:String)
 //case class MessageForm(message: String, messageAccess: String ,access:Option[Boolean])
 case class MessageForm(message: String, access: Option[Boolean])
 
 object Message {
 
-  def create(messageForm: MessageForm, userId: Int, streamId: ObjectId):String= {
+  def create(messageForm: MessageForm, userId: Int, streamId: ObjectId,firstNameofMsgPoster:String,lastNameofMsgPoster:String):String= {
     (messageForm.access == None) match {
-      case true => Message.createMessage(new Message((new ObjectId)._inc, messageForm.message, MessageType.Audio, MessageAccess.Public, "Mar,20 10:12AM", userId, streamId))
-      case _ => Message.createMessage(new Message((new ObjectId)._inc, messageForm.message, MessageType.Audio, MessageAccess.Private, "Mar,20 10:12AM", userId, streamId))
+      case true => Message.createMessage(new Message((new ObjectId)._inc, messageForm.message, MessageType.Audio, MessageAccess.Public, "Mar,20 10:12AM", userId, streamId,firstNameofMsgPoster,lastNameofMsgPoster))
+      case _ => Message.createMessage(new Message((new ObjectId)._inc, messageForm.message, MessageType.Audio, MessageAccess.Private, "Mar,20 10:12AM", userId, streamId,firstNameofMsgPoster,lastNameofMsgPoster))
     }
      UserDAO.findOneByID(userId).get.firstName
   }
@@ -44,13 +44,13 @@ object Message {
     v
   }
 
-  def createMessage(message: Message): Int = {
+  def createMessage(message: Message): Unit = {
 
-    //    validateUserHasRightToPost(message.userId, message.streamId) match {
-    //      case true => MessageDAO.insert(message).get
-    //      case _ => -1
-    //    }
-    MessageDAO.insert(message).get
+        validateUserHasRightToPost(message.userId, message.streamId) match {
+          case true => MessageDAO.insert(message)
+          case _ => println("No rights to Post")
+        }
+    //MessageDAO.insert(message).get
 
   }
   def findUser(userId: Int): User = {
@@ -58,9 +58,9 @@ object Message {
     user.get
   }
 
-  private def validateUserHasRightToPost(userId: Int, streamId: Int): Boolean = {
-    val stream = StreamDAO.findOneByID(streamId)
-    stream.get.users.contains(userId)
+  private def validateUserHasRightToPost(userId: Int, streamId: ObjectId): Boolean = {
+    val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
+    stream.users.contains(userId)
   }
 
   def removeMessage(message: Message) {
