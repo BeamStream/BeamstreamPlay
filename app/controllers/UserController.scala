@@ -19,8 +19,10 @@ object UserController extends Controller {
     */
   val userForm = Form(
     mapping(
+      "iam" -> nonEmptyText,
       "email" -> nonEmptyText,
-      "password" -> nonEmptyText)(UserForm.apply)(UserForm.unapply))
+      "password" -> nonEmptyText,
+      "signup" -> nonEmptyText)(UserForm.apply)(UserForm.unapply))
 
   /*
  * Find and Authenticate the user to proceed
@@ -30,19 +32,27 @@ object UserController extends Controller {
       errors => BadRequest(views.html.user(User.allUsers(), errors, "")),
       userForm => {
 
-        val authenticatedUser = User.findUser(userForm)
-        authenticatedUser match {
-          case None =>
-            s = "No User Found"
-            Redirect(routes.UserController.users)
+        (userForm.signup == "0") match {
 
-          case _ =>
+          case true =>
+            val initialFlashObject = request.flash + ("email" -> userForm.email)
+            val FinalFlashObject = initialFlashObject + ("iam" -> userForm.iam)
+            Redirect(routes.BasicRegistration.basicRegistration).flashing(FinalFlashObject)
 
-            print(authenticatedUser.get.orgName)
-            s = "Login Successful"
-            /*Creates a Session*/
-            val aa = request.session + ("userId" -> authenticatedUser.get.id.toString)
-            Redirect(routes.MessageController.messages).withSession(aa)
+          case false =>
+            val authenticatedUser = User.findUser(userForm)
+            authenticatedUser match {
+              case None =>
+                s = "No User Found"
+                Redirect(routes.UserController.users)
+
+              case _ =>
+                s = "Login Successful"
+                /*Creates a Session*/
+                val aa = request.session + ("userId" -> authenticatedUser.get.id.toString)
+                Redirect(routes.MessageController.messages).withSession(aa)
+
+            }
         }
 
       })

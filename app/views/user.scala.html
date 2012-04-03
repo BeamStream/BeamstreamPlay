@@ -24,11 +24,18 @@ h2{color:Green;}
     
      <fieldset>
        
+       @select(
+        userForm("iam"), 
+         User.usertypes,
+           '_label -> "I'm", '_default -> "-- I'm --",
+                '_showConstraints -> false) 
         
         @inputText(userForm("email"), '_label->"User Email", 'id -> "email", 'size -> 10) 
-       
-       
         
+        <b>Do you have a Beam Stream password ?</b>
+        
+        @inputRadioGroup(userForm("signup"), options = options(("0", "No, help me log in"),("1", "Yes, I have a password")))
+       
          @inputPassword(userForm("password"), '_label->"Password", 'id -> "password", 'size -> 10) 
          
          

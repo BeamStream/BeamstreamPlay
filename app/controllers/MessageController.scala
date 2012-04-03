@@ -36,7 +36,7 @@ object MessageController extends Controller {
   }
 
   def messages = Action { implicit request =>
-    //val streams = Stream.getAllStream
+    
     val streams = Stream.getAllStreamforAUser((request.session.get("userId").get).toInt)
     Ok(views.html.message(Message.getAllMessagesForAStream(new ObjectId), messageForm, streams))
 

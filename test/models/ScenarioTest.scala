@@ -10,9 +10,9 @@ import org.bson.types.ObjectId
 @RunWith(classOf[JUnitRunner])
 class ScenarioTest extends FunSuite with BeforeAndAfter {
 
-  val chris = User(100,UserType.Professional,"u@u.com","Neel" ,"Sachdeva" ,"Neil","Neel","Knoldus",true,List(),List(),List())
-  val vikas = User(101,UserType.Professional,"u1@u1.com","Vikas" ,"Hazrati" ,"Vikki","Vikas","Knoldus",true,List(),List(),List())
-  val meetu = User(101,UserType.Professional,"u1@u1.com","Meetu" ,"Maltiar" ,"Meet","Meetu","Inphina",true,List(),List(),List())
+  val chris = User(100,UserType.Professional,"u@u.com","Neel" ,"Sachdeva" ,"","Neil","Neel","Knoldus","",List(),List(),List())
+  val vikas = User(101,UserType.Professional,"u1@u1.com","Vikas" ,"Hazrati" ,"","Vikki","Vikas","Knoldus","",List(),List(),List())
+  val meetu = User(101,UserType.Professional,"u1@u1.com","Meetu" ,"Maltiar" ,"","Meet","Meetu","Inphina","",List(),List(),List())
 
 
   before {

@@ -32,7 +32,6 @@ object SchoolController extends Controller {
       schoolForm => {
         School.addSchool(schoolForm)
         Redirect(routes.MessageController.messages)
-
       })
   }
 

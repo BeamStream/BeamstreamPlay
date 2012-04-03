@@ -8,11 +8,12 @@ import com.mongodb.casbah.MongoConnection
 import play.mvc._
 import play.api.mvc.Session
 
-case class User(@Key("_id") id: Int, userType: UserType.Value, email: String, val firstName: String, lastName: String, alias: String, password: String, orgName: String,
-  location: Boolean, streams: List[Int], schoolId: List[ObjectId], classId: List[ObjectId]) {
+case class User(@Key("_id") id: Int, userType: UserType.Value, email: String, val firstName: String, lastName: String, userName: String, alias: String, password: String, orgName: String,
+  location: String, streams: List[Int], schoolId: List[ObjectId], classId: List[ObjectId]) {
 }
 
-case class UserForm(email: String, password: String)
+case class UserForm(iam:String,email: String, password: String,signup:String)
+case class BasicRegForm(userName: String, password: String, orgName: String, firstName: String, lastName: String,email:String, location: String, useCurrentLocation: Option[Boolean])
 case class DetailedRegForm(schoolName: String)
 object User {
 
@@ -23,17 +24,31 @@ object User {
     print(detailed_regForm.schoolName)
     User.addSchoolToUser(userId, new ObjectId(detailed_regForm.schoolName))
   }
-
   def allUsers(): List[User] = Nil
 
   /*
    * find the user for Authentication
    */
   def findUser(userForm: UserForm): Option[User] = {
+    
     val authenticatedUser = UserDAO.find(MongoDBObject("email" -> userForm.email, "password" -> userForm.password))
     (authenticatedUser.isEmpty) match {
       case true => None
       case false => Option(authenticatedUser.toList(0))
+    }
+
+  }
+
+  /*
+   * function for adding a new user to the system
+   */
+  def createNewUser(basicRegForm: BasicRegForm) {
+    
+   // User.createUser(new User(101, UserType.Professional, basicRegForm.email, basicRegForm.firstName, basicRegForm.lastName, basicRegForm.userName, "Neil", basicRegForm.password, basicRegForm.orgName, basicRegForm.location, List(), List(), List()))
+
+    (basicRegForm.useCurrentLocation == None) match {
+      case true => User.createUser(new User(101, UserType.Professional,  basicRegForm.email, basicRegForm.firstName, basicRegForm.lastName, basicRegForm.userName, "Neil", basicRegForm.password, basicRegForm.orgName, basicRegForm.location, List(), List(), List()))
+      case false => User.createUser(new User(101, UserType.Professional, basicRegForm.email, basicRegForm.firstName, basicRegForm.lastName, basicRegForm.userName, "Neil", basicRegForm.password, basicRegForm.orgName, basicRegForm.location, List(), List(), List()))
     }
 
   }
@@ -118,6 +133,11 @@ object User {
     val user = UserDAO.findOneByID(userId)
     return user.get
 
+  }
+
+  def usertypes: Seq[(String, String)] = {
+    val usertype = for (value <- UserType.values) yield (value.id.toString, value.toString)
+    usertype.toSeq
   }
 
 }

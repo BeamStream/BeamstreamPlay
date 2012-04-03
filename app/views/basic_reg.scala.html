@@ -1,0 +1,39 @@
+@(basicRegForm:Form[BasicRegForm])
+
+
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap/bootstrap.min.css")" />
+
+@import helper._
+@import helper.twitterBootstrap._
+@main("BeamStream Registration"){
+
+
+ @form(routes.BasicRegistration.newUser) {
+
+<fieldset>
+
+ @inputText(basicRegForm("userName"), '_label->"User Name", 'id -> "userName", 'size -> 10) 
+  @inputPassword(basicRegForm("password"), '_label->"Password", 'id -> "password", 'size -> 10) 
+ 
+ @inputText(basicRegForm("orgName"), '_label->"School/Company Name", 'id -> "orgName", 'size -> 10) 
+ 
+  @inputText(basicRegForm("firstName"), '_label->"First Name", 'id -> "firstName", 'size -> 10) 
+  
+   @inputText(basicRegForm("lastName"), '_label->"Last Name", 'id -> "lastName", 'size -> 10) 
+   
+     @inputText(basicRegForm("email"), '_label->"E-Mail", 'id -> "email", 'size -> 10) 
+   
+   @inputText(basicRegForm("location"), '_label->"Location", 'id -> "location", 'size -> 10) 
+   
+   <b>Or</b>
+   
+   @checkbox(basicRegForm("useCurrentLocation"), '_label->"Use Current Location", 'id -> "useCurrentLocation", 'size -> 98) 
+   
+   
+</fieldset>
+
+  <input type="submit" value="Register Me">
+
+}
+
+}

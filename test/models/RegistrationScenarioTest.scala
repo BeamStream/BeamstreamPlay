@@ -32,17 +32,17 @@ class RegistrationScenarioTest extends FunSuite with BeforeAndAfter {
     /* Registering user with a common email address */
 
     assert("Invalid email address" ===
-      User.registerUser(new User(201, UserType.Professional, "neel@gmail.com", "Neel", "Sachdeva","Neil", "Neel","Knoldus", true, List(100, 101), List(), List())))
+      User.registerUser(new User(201, UserType.Professional, "neel@gmail.com", "Neel", "Sachdeva","","Neil", "Neel","Knoldus", "", List(100, 101), List(), List())))
 
     assert("Invalid email address" ===
-      User.registerUser(new User(201, UserType.Professional, "neel@aol.com", "Neel", "Sachdeva", "Neil","Neel","Knoldus", true, List(100, 101), List(), List())))
+      User.registerUser(new User(201, UserType.Professional, "neel@aol.com", "Neel", "Sachdeva","", "Neil","Neel","Knoldus", "", List(100, 101), List(), List())))
 
     assert("Invalid email address" ===
-      User.registerUser(new User(201, UserType.Professional, "neel@gmail...com", "Neel", "Sachdeva","Neil","Neel", "Knoldus", true, List(100, 101), List(), List())))
+      User.registerUser(new User(201, UserType.Professional, "neel@gmail...com", "Neel", "Sachdeva","","Neil","Neel", "Knoldus",  "", List(100, 101), List(), List())))
 
     /* Register user with a valid email address */
     assert("Registration Successful" ===
-      User.registerUser(new User(201, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "Neil","Neel","Knoldus", true, List(100, 101), List(), List())))
+      User.registerUser(new User(201, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva","", "Neil","Neel","Knoldus",  "", List(100, 101), List(), List())))
 
     /* User finds a school to add to his profile */
 
