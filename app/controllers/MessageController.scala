@@ -13,8 +13,6 @@ import org.bson.types.ObjectId
 import play.api.cache.Cache
 
 object MessageController extends Controller {
-  
-  
 
   val messageForm = Form(
     mapping(
@@ -22,13 +20,13 @@ object MessageController extends Controller {
       "access" -> optional(checked("Private")))(MessageForm.apply)(MessageForm.unapply))
 
   def newMessage = Action { implicit request =>
-    
+
     messageForm.bindFromRequest.fold(
       errors => BadRequest(views.html.message(Message.getAllMessagesForAStream(new ObjectId), errors, List())),
       messageForm => {
-      val messagePoster=User.getUserProfile(request.session.get("userId").get.toInt)
+        val messagePoster = User.getUserProfile(request.session.get("userId").get.toInt)
         Message.create(messageForm, request.session.get("userId").get.toInt, new ObjectId(request.session.get("streamId").get),
-            messagePoster.firstName,messagePoster.lastName)
+          messagePoster.firstName, messagePoster.lastName)
 
         Redirect(routes.MessageController.streamMessages(request.session.get("streamId").get))
 
@@ -36,7 +34,6 @@ object MessageController extends Controller {
   }
 
   def messages = Action { implicit request =>
-    
     val streams = Stream.getAllStreamforAUser((request.session.get("userId").get).toInt)
     Ok(views.html.message(Message.getAllMessagesForAStream(new ObjectId), messageForm, streams))
 

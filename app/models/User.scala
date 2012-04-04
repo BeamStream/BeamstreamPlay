@@ -12,8 +12,8 @@ case class User(@Key("_id") id: Int, userType: UserType.Value, email: String, va
   location: String, streams: List[Int], schoolId: List[ObjectId], classId: List[ObjectId]) {
 }
 
-case class UserForm(iam:String,email: String, password: String,signup:String)
-case class BasicRegForm(userName: String, password: String, orgName: String, firstName: String, lastName: String,email:String, location: String, useCurrentLocation: Option[Boolean])
+case class UserForm(iam: String, email: String, password: String, signup: String)
+case class BasicRegForm(userName: String, password: String, orgName: String, firstName: String, lastName: String, email: String, location: String,iam:String, useCurrentLocation: Option[Boolean])
 case class DetailedRegForm(schoolName: String)
 object User {
 
@@ -30,7 +30,7 @@ object User {
    * find the user for Authentication
    */
   def findUser(userForm: UserForm): Option[User] = {
-    
+
     val authenticatedUser = UserDAO.find(MongoDBObject("email" -> userForm.email, "password" -> userForm.password))
     (authenticatedUser.isEmpty) match {
       case true => None
@@ -42,15 +42,10 @@ object User {
   /*
    * function for adding a new user to the system
    */
-  def createNewUser(basicRegForm: BasicRegForm) {
+  def createNewUser(basicRegForm: BasicRegForm): Int = { 
+    val userCreated = User.createUser(new User(101, UserType.apply(basicRegForm.iam.toInt), basicRegForm.email, basicRegForm.firstName, basicRegForm.lastName, basicRegForm.userName, "Neil", basicRegForm.password, basicRegForm.orgName, basicRegForm.location, List(), List(), List()))
+    userCreated
     
-   // User.createUser(new User(101, UserType.Professional, basicRegForm.email, basicRegForm.firstName, basicRegForm.lastName, basicRegForm.userName, "Neil", basicRegForm.password, basicRegForm.orgName, basicRegForm.location, List(), List(), List()))
-
-    (basicRegForm.useCurrentLocation == None) match {
-      case true => User.createUser(new User(101, UserType.Professional,  basicRegForm.email, basicRegForm.firstName, basicRegForm.lastName, basicRegForm.userName, "Neil", basicRegForm.password, basicRegForm.orgName, basicRegForm.location, List(), List(), List()))
-      case false => User.createUser(new User(101, UserType.Professional, basicRegForm.email, basicRegForm.firstName, basicRegForm.lastName, basicRegForm.userName, "Neil", basicRegForm.password, basicRegForm.orgName, basicRegForm.location, List(), List(), List()))
-    }
-
   }
 
   /*
@@ -63,8 +58,9 @@ object User {
   /*
  * Creates a User
  */
-  def createUser(user: User) {
-    UserDAO.insert(user)
+  def createUser(user: User): Int = {
+    val userCretaed = UserDAO.insert(user)
+    userCretaed.get
   }
 
   /*

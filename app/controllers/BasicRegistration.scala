@@ -17,23 +17,26 @@ object BasicRegistration extends Controller {
       "orgName" -> nonEmptyText,
       "firstName" -> nonEmptyText,
       "lastName" -> nonEmptyText,
-      "lastName" -> nonEmptyText,
+      "email" -> nonEmptyText,
       "location" -> nonEmptyText,
+      "iam" -> nonEmptyText,
       "useCurrentLocation" -> optional(checked("")))(BasicRegForm.apply)(BasicRegForm.unapply))
 
   def basicRegistration = Action { implicit request =>
-    print("dfdffdfdf"+request.flash.get("email"))
-     print("dfdffdfdf"+request.flash.get("iam"))
-    Ok(views.html.basic_reg(basicRegForm))
+    val iAmValue = request.flash.get("iam").get.toString
+    Ok(views.html.basic_reg(basicRegForm, (request.flash.get("email")).get.toString)).flashing(request.flash + ("iam" -> iAmValue))
+
   }
 
   def newUser = Action { implicit request =>
-    basicRegForm.bindFromRequest.fold(
 
-      errors => BadRequest(views.html.basic_reg(errors)),
+    basicRegForm.bindFromRequest.fold(
+      errors => BadRequest(views.html.basic_reg(errors, "")),
       basicRegForm => {
-        User.createNewUser(basicRegForm)
-        Redirect(routes.BasicRegistration.basicRegistration)
+        println(basicRegForm.iam)
+        val IdOfUserCreted = User.createNewUser(basicRegForm)
+        val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
+        Redirect(routes.MessageController.messages).withSession(RegistrationSession)
       })
 
   }
