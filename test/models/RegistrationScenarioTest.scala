@@ -72,7 +72,7 @@ class RegistrationScenarioTest extends FunSuite with BeforeAndAfter {
 
     assert(Media.getAllMediaByUser(201).size === 0)
     val imageFile1 = new File("/home/neelkanth/Desktop/photo.jpg")
-    val mediaTransfer = MediaTransfer(201, MediaType.Image, false, new FileInputStream(imageFile1))
+    val mediaTransfer = MediaTransfer(201, MediaType.Image, false, new FileInputStream(imageFile1),"")
     Media.createMedia(mediaTransfer)
     assert(Media.getAllMediaByUser(201).size === 1)
 

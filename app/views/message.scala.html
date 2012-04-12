@@ -1,4 +1,4 @@
-@(messages:List[Message],messageForm:Form[MessageForm],streams:List[Stream])
+@(messages:List[Message],messageForm:Form[MessageForm],streams:List[Stream],userProfile:User,picture:com.mongodb.gridfs.GridFSDBFile)
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap/bootstrap.min.css")" />
 @import helper._
@@ -7,11 +7,6 @@
  
     
  @main("BeamStream Message"){
- 
-
-
-
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -74,7 +69,7 @@
                   </li>
                   <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="/detailed_reg">
-                      BeamStream <b class="arrow"></b>
+                    @userProfile.firstName @userProfile.lastName<b class="arrow"></b>
                     </a>
                     <ul class="dropdown-menu">
                       <li><a href="#settings">Settings</a></li>
@@ -136,7 +131,11 @@
                 </div>
               </section>
               <div class="photo_container">
-                <img src="@routes.Assets.at("images/placeholders/face1.png")" width="189" height="156" alt="username photo">
+                <script src="@routes.Assets.at("javascripts/profileImage.js")" type="text/javascript"></script>
+               <div id="Pic"></div>
+
+        
+               
               </div>
               <section class="user_friends_mini">
                 <ul>
@@ -151,9 +150,9 @@
 
               <section class="user_profile_info">
                 <ul class="nav nav-list">
-                  <li class="screen_name">BeamStream</li>
-                  <li class="location"><i class="icon-location"></i>San Francisco</li>
-                  <li class="occupation"><i class="icon-silhouette"></i>Computer Science Student</li>
+                  <li class="screen_name"><b>@userProfile.firstName @userProfile.lastName</b></li>
+                  <li class="location"><i class="icon-location"></i>@userProfile.location</li>
+                  <li class="occupation"><i class="icon-silhouette"></i>@userProfile.userType</li>
                   <li class="social_links">
                     <div class="btn-group">
                       <a href="#" class="btn btn-flat"><i class="icon-twitter"></i></a>
@@ -240,7 +239,7 @@
                         <div class="photo_container">
                           <img src="@routes.Assets.at("images/placeholders/face2.png")" width="99" height="75">
                         </div>
-                        <span class="username">beamstream</span>
+                        <span class="username">@userProfile.firstName @userProfile.lastName </span>
                       </label>
                       <div class="controls">
                         <span class="popout_arrow"><span></span></span>
@@ -286,7 +285,7 @@
                         </div>
                         <div class="content_container">
                           <div class="meta_data">
-                            <span class="username"><a href="#user-profile">beamstream</a></span>
+                            <span class="username"><a href="#user-profile">@userProfile.firstName @userProfile.lastName</a></span>
                             <span class="separator">-</span>
                             <time datetime="2011-12-01" pubdate>Dec 01, 2011</time>
                             <span class="separator">-</span>
@@ -310,7 +309,7 @@
                          
                        </li>
      </ul>
-                          </p>
+                         
                           <div class="actions">
                             <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
                             <a class="rock" href="#rock">Rocked it!</a>
@@ -322,13 +321,12 @@
                         </div>
                       </div>
                       <header class="comments_info">
-                        <h5 class="pull-left"><span class="comments_number">3</span> Comments</h5>
+                        <h5 class="pull-left"><span class="comments_number">1</span> Comments</h5>
                         <div class="comment_actions pull-right">
                           <a href="#hide">Hide</a> | <a class="disabled" href="#show">Show</a>
                         </div>
                       </header>
                       <ul class="comments">
-                       
                         <li>
                           <article class="message_item">
                             <div class="comment_wrapper">
@@ -337,7 +335,7 @@
                               </div>
                               <div class="content_container">
                                 <div class="meta_data">
-                                  <span class="username"><a href="#user-profile">beamstream</a></span>
+                                  <span class="username"><a href="#user-profile">Salena</a></span>
                                   <span class="separator">-</span>
                                   <time datetime="2011-12-01" pubdate>Dec 01, 2011</time>
                                   <span class="separator">-</span>
@@ -350,83 +348,7 @@
                                   <a href="#edchat">#edchat</a>
                                   <a href="#flippedclassroom">#flippedclassroom</a>
                                 </p>
-                                <div class="actions">
-                                  <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
-                                  <a class="rock" href="#rock">Rocked it!</a>
-                                  <span class="separator">-</span>
-                                  <a class="comment" href="#comment">Comment</a>
-                                  <span class="separator">-</span>
-                                  <a class="follow" href="#follow">Follow</a>
-                                </div>
-                              </div>
-                            </div>
-                          </article>
-                        </li>
-                        
-                        <li>
-                          <article class="message_item">
-                            <div class="comment_wrapper">
-                              <div class="photo_container">
-                                <img src="@routes.Assets.at("images/placeholders/face4.png")" width="39" height="39">
-                              </div>
-                              <div class="content_container">
-                                <div class="meta_data">
-                                  <span class="username"><a href="#user-profile">beamstream</a></span>
-                                  <span class="separator">-</span>
-                                  <time datetime="2011-12-01" pubdate>Dec 01, 2011</time>
-                                  <span class="separator">-</span>
-                                  <span class="visibility">Public</span>
-                                </div>
-                                <p>
-                                  Professor Disrupting Lecture Hall with Best Use of Skype Ever
-                                  <a href="#external">http://linkd.in/rSpYMK</a>
-                                  <a href="#edtech">#edtech</a>
-                                  <a href="#edchat">#edchat</a>
-                                  <a href="#flippedclassroom">#flippedclassroom</a>
-                                </p>
-                                <div class="actions">
-                                  <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
-                                  <a class="rock" href="#rock">Rocked it!</a>
-                                  <span class="separator">-</span>
-                                  <a class="comment" href="#comment">Comment</a>
-                                  <span class="separator">-</span>
-                                  <a class="follow" href="#follow">Follow</a>
-                                </div>
-                              </div>
-                            </div>
-                          </article>
-                        </li>
-                        
-                        
-                        <li>
-                          <article class="message_item">
-                            <div class="comment_wrapper">
-                              <div class="photo_container">
-                                <img src="@routes.Assets.at("images/placeholders/face4.png")" width="39" height="39">
-                              </div>
-                              <div class="content_container">
-                                <div class="meta_data">
-                                  <span class="username"><a href="#user-profile">beamstream</a></span>
-                                  <span class="separator">-</span>
-                                  <time datetime="2011-12-01" pubdate>Dec 01, 2011</time>
-                                  <span class="separator">-</span>
-                                  <span class="visibility">Public</span>
-                                </div>
-                                <p>
-                                  Professor Disrupting Lecture Hall with Best Use of Skype Ever
-                                  <a href="#external">http://linkd.in/rSpYMK</a>
-                                  <a href="#edtech">#edtech</a>
-                                  <a href="#edchat">#edchat</a>
-                                  <a href="#flippedclassroom">#flippedclassroom</a>
-                                </p>
-                                <div class="actions">
-                                  <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
-                                  <a class="rock" href="#rock">Rocked it!</a>
-                                  <span class="separator">-</span>
-                                  <a class="comment" href="#comment">Comment</a>
-                                  <span class="separator">-</span>
-                                  <a class="follow" href="#follow">Follow</a>
-                                </div>
+                               
                               </div>
                             </div>
                           </article>
@@ -465,12 +387,12 @@
                 <li><a href="#friendstream">FriendStream</a></li>
                 <li><a href="#research-team">Research Team</a></li>
                 <li><a href="#c++-dev-project">C++ Dev Project</a></li>
-                
-               
-                 @streams.map { stream =>
-               <li><a href="#c++-dev-project">@stream.name</a></li>
+                  @streams.map { stream =>
+               <li><a href="/messages/@stream.id/streammessages" >@stream.name</a></li>
               
                 }
+               
+            
                   
                  
               </ul>

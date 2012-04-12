@@ -10,7 +10,7 @@
 
 <h2>Detailed Registration Page</h2>
 
- @form(routes.DetailedRegistration.addInfo) {
+ @form(routes.DetailedRegistration.addInfo , 'enctype -> "multipart/form-data") {
  
  
    <fieldset>
@@ -21,10 +21,13 @@
            '_label -> "School Name", '_default -> "-- Choose a School --",
                 '_showConstraints -> false) 
          
+           @input(detailed_regForm("Upload Profile Picture")) { (id, name, value, args) =>
+            <input type="file" value="hhhh" name="picture" id="picture" @toHtmlArgs(args)>
+             }
         
    </fieldset>
         
-   <input type="submit" value="Add School To User">
+   <input type="submit" value="Update My Profile">
 
 }
 

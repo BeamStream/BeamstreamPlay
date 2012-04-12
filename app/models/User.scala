@@ -17,14 +17,17 @@ case class BasicRegForm(userName: String, password: String, orgName: String, fir
 case class DetailedRegForm(schoolName: String)
 object User {
 
+  
   /*
    * Add info to a user
    */
-  def addInfo(detailed_regForm: DetailedRegForm, userId: Int) = {
-    print(detailed_regForm.schoolName)
+  def addInfo(detailed_regForm: DetailedRegForm, userId: Int,inputStream:java.io.InputStream,profilePicName:String) = {
     User.addSchoolToUser(userId, new ObjectId(detailed_regForm.schoolName))
+    val mediaTransfer = MediaTransfer(userId, MediaType.Image, false, inputStream,profilePicName)
+    Media.createMedia(mediaTransfer)
   }
-  def allUsers(): List[User] = Nil
+ 
+   def allUsers(): List[User] = Nil
 
   /*
    * find the user for Authentication

@@ -28,7 +28,7 @@
     
    @inputText(basicRegForm("location"), '_label->"Location", 'id -> "location", 'size -> 10, 'placeholder -> "Location") 
    
-    @input(basicRegForm("iam")) { (id, name, value, args) =>
+    @input(basicRegForm("")) { (id, name, value, args) =>
     <input type="hidden" value=@flash.get("iam") name="iam" id="iam" @toHtmlArgs(args)>
    }
    <b>Or</b>

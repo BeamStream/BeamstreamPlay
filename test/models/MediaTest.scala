@@ -14,10 +14,10 @@ import java.io.FileInputStream
 @RunWith(classOf[JUnitRunner])
 class MediaTest extends FunSuite with BeforeAndAfter {
 
-  val imageFile1 = new File("/home/neelkanth/Desktop/photo.jpg")
+  val imageFile1 = new File("/home/neelkanth/jannat.jpg")
 
   test("Saving the media object") {
-    val mediaTransfer = MediaTransfer(901, MediaType.Image, false, new FileInputStream(imageFile1))
+    val mediaTransfer = MediaTransfer(901, MediaType.Image, false, new FileInputStream(imageFile1),"")
     Media.createMedia(mediaTransfer)
   }
 

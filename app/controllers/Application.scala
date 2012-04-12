@@ -8,6 +8,8 @@ import play.api.data._
 import play.api.data.Forms._
 import models.StreamForm
 import models.StreamForm
+import models.UserDAO
+import com.codahale.jerkson.Json
 
 object Application extends Controller {
 
@@ -23,10 +25,8 @@ object Application extends Controller {
   }
   
   def streams = Action { implicit request =>
-     print("jkhkjhjkhjk"+request.session.get("userId").get.toInt)
-  Stream.obtainUser(request.session.get("userId").get.toInt)
-  
-    Ok(views.html.index(Stream.all(), streamForm))
+     Stream.obtainUser(request.session.get("userId").get.toInt)
+     Ok(views.html.index(Stream.all(), streamForm))
   }
 
   def newStream = Action { implicit request =>
@@ -37,6 +37,15 @@ object Application extends Controller {
         Redirect(routes.MessageController.messages)
 
       })
+  }
+
+  def listUsers() = Action {
+    val user = UserDAO.findOneByID(101).toSeq
+
+    val json = Json.generate(user)
+
+    Ok(json).as("application/json")
+
   }
   
   

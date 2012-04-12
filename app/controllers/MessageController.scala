@@ -2,6 +2,7 @@ package controllers
 import play.api.mvc.Controller
 import play.api._
 import play.api.mvc._
+import play.api.mvc.Response
 import models.Quote
 import models.Stream
 import play.api.data._
@@ -11,6 +12,11 @@ import models.Message
 import models.User
 import org.bson.types.ObjectId
 import play.api.cache.Cache
+import models.Media
+import com.mongodb.gridfs.GridFSDBFile
+import models.UserType
+import java.io.File
+import play.api.libs.iteratee.Enumerator
 
 object MessageController extends Controller {
 
@@ -19,11 +25,19 @@ object MessageController extends Controller {
       "message" -> nonEmptyText,
       "access" -> optional(checked("Private")))(MessageForm.apply)(MessageForm.unapply))
 
+  //==========================//
+  //======Post a new message==//
+  //==========================//
+
+  val tempUser = User(100, UserType.Professional, "", "", "", "", "", "", "", "", List(100, 101), List(), List())
+
   def newMessage = Action { implicit request =>
 
     messageForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.message(Message.getAllMessagesForAStream(new ObjectId), errors, List())),
+
+      errors => BadRequest(views.html.message(Message.getAllMessagesForAStream(new ObjectId), errors, List(), tempUser, new GridFSDBFile)),
       messageForm => {
+
         val messagePoster = User.getUserProfile(request.session.get("userId").get.toInt)
         Message.create(messageForm, request.session.get("userId").get.toInt, new ObjectId(request.session.get("streamId").get),
           messagePoster.firstName, messagePoster.lastName)
@@ -34,18 +48,47 @@ object MessageController extends Controller {
   }
 
   def messages = Action { implicit request =>
+
+//        val media = Media.getAllMediaByUser((request.session.get("userId").get).toInt)
+//        val photoId: ObjectId = media(0).gridFsId
+//        val profileImage = Media.findMedia(photoId)
+
+    val profileName = User.getUserProfile(request.session.get("userId").get.toInt)
     val streams = Stream.getAllStreamforAUser((request.session.get("userId").get).toInt)
-    Ok(views.html.message(Message.getAllMessagesForAStream(new ObjectId), messageForm, streams))
+
+    Ok(views.html.message(Message.getAllMessagesForAStream(new ObjectId), messageForm, streams, profileName, new GridFSDBFile))
+
+//        val jfile = new java.io.File(profileImage.getFilename)
+//        profileImage.writeTo(jfile)
+//        Ok.sendFile(
+//          content = jfile,
+//          inline = true)
 
   }
 
+  //=================================================//
+  //======Displays all the messages within a Stram===//
+  //=================================================//
+
   def streamMessages(id: String) = Action { implicit request =>
-
-    //val streams = Stream.getAllStream
+    val profileName = User.getUserProfile(request.session.get("userId").get.toInt)
     val streams = Stream.getAllStreamforAUser((request.session.get("userId").get).toInt)
-
     val messagesListFound = Message.getAllMessagesForAStream(new ObjectId(id))
-    Ok(views.html.message(messagesListFound, messageForm, streams)).withSession(session + ("streamId" -> id))
+    Ok(views.html.message(messagesListFound, messageForm, streams, profileName, new GridFSDBFile)).withSession(session + ("streamId" -> id))
+
+  }
+
+  
+  /*
+   * get the profle pic for a User
+   */
+  def getProfilePic = Action { implicit request =>
+    
+    val media = Media.getAllMediaByUser((request.session.get("userId").get).toInt)
+    val photoId: ObjectId = media(0).gridFsId
+    val profileImage = Media.findMedia(photoId)
+    profileImage.writeTo("./public/temp/vikas")
+    Ok("http://localhost:9000/assets/temp/vikas").as("image/jpg")
 
   }
 

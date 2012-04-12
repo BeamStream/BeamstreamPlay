@@ -1,16 +1,17 @@
 package controllers
 
-import play.api.mvc._
-import play.api._
-import play.api.data._
-import play.api.data.Forms._
+import java.io.File
 import models.DetailedRegForm
 import models.User
-import models.Stream
-
+import play.api.data.Forms._
+import play.api.data._
+import play.api.mvc._
+import play.api._
+import java.io.InputStream
+import java.io.FileInputStream
 
 object DetailedRegistration extends Controller {
-  
+
   /*
    * Map the field values from html
    */
@@ -18,21 +19,33 @@ object DetailedRegistration extends Controller {
     mapping(
       "schoolName" -> nonEmptyText)(DetailedRegForm.apply)(DetailedRegForm.unapply))
 
+  
+
   def users = Action {
     Ok(views.html.detailed_reg(detailed_regForm))
   }
-  
+
   /*
-   * Sends the field values to User Model for adding the info of a User
+   * Sends the field values & profile related info to User Model for adding the info of a User
    */
 
-  def addInfo = Action { implicit request =>
+ 
+
+  def addInfo = Action(parse.multipartFormData) { implicit request =>
     detailed_regForm.bindFromRequest.fold(
       errors => BadRequest(views.html.detailed_reg(errors)),
-      detailed_regForm => {
-        User.addInfo(detailed_regForm,request.session.get("userId").get.toInt)
-        Redirect(routes.MessageController.messages)
 
+      detailed_regForm => {
+         
+        request.body.file("picture").map { picture =>
+          
+          val fileObtained: File = picture.ref.file.asInstanceOf[File]
+          val inputStream = new FileInputStream(fileObtained)
+          User.addInfo(detailed_regForm, request.session.get("userId").get.toInt ,inputStream,picture.filename)
+        }
+        Redirect(routes.MessageController.messages)
+        
+ 
       })
   }
 }
