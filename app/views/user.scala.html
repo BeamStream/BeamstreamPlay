@@ -34,7 +34,7 @@ h2{color:Green;}
         
         <b>Do you have a Beam Stream password ?</b>
         
-        @inputRadioGroup(userForm("signup"), options = options(("0", "No, help me log in"),("1", "Yes, I have a password")))
+        @inputRadioGroup(userForm("signup"), options = options(("0", "No, help me log in"),("1", "Yes, I have a password")),'_label->"")
        
          @inputPassword(userForm("password"), '_label->"Password", 'id -> "password", 'size -> 10) 
          
@@ -56,6 +56,11 @@ h2{color:Green;}
     xdReceiver: '/assets/rpx_xdcomm.html'});
 </script>      
         
+ <script type="text/javascript">
+  RPXNOW.overlay = true;
+  RPXNOW.language_preference = 'en';
+</script>
+        
    <script type="text/javascript">
   RPXNOW.loadAndRun(['Social'], function () {
     var activity = new RPXNOW.Social.Activity(
@@ -63,8 +68,13 @@ h2{color:Green;}
        "commented on 'Like My New Perfume?' on cuteoverload.com",
        "http://cuteoverload.com/2009/10/26/like-my-new-perfume/");
     RPXNOW.Social.publishActivity(activity);
+   
   });
 </script>
+<a class="rpxnow" onclick="return false;"
+href="https://beamstream-chris.rpxnow.com/twitter/v2/signin?token_url=47bfca4dbb79c5feb439d350931d0f2345d23ad9"> Sign In </a>
+
+
 </body>
 
 }

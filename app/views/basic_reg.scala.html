@@ -1,4 +1,4 @@
-@(basicRegForm:Form[BasicRegForm],email:String)(implicit flash: play.api.mvc.Flash)
+@(basicRegForm:Form[BasicRegForm],email:String,iam:String)
 
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap/bootstrap.min.css")" />
@@ -29,18 +29,11 @@
    @inputText(basicRegForm("location"), '_label->"Location", 'id -> "location", 'size -> 10, 'placeholder -> "Location") 
    
     @input(basicRegForm("")) { (id, name, value, args) =>
-    <input type="hidden" value=@flash.get("iam") name="iam" id="iam" @toHtmlArgs(args)>
+    <input type="hidden" value="@iam" name="iam" id="iam" @toHtmlArgs(args)>
    }
    <b>Or</b>
    
-  <!-- 
-    @flash.get("iam").map { message =>
-        <div class="alert-message warning">
-            <strong>Done!</strong> @message
-        </div>
-    }
-   
-    -->
+ 
    @checkbox(basicRegForm("useCurrentLocation"), '_label->"Use Current Location", 'id -> "useCurrentLocation", 'size -> 98) 
    
    

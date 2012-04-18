@@ -16,6 +16,7 @@ object ApplicationBuild extends Build {
     "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT", // Add your project dependencies here,
     "org.scalatest" %% "scalatest" % "1.6.1",
     "joda-time" % "joda-time" % "2.0",
+    "javax.mail" % "mail" % "1.4.1",
     "org.joda" % "joda-convert" % "1.1")
 
   def customLessEntryPoints(base: File): PathFinder = (

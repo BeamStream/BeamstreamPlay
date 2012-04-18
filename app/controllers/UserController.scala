@@ -35,9 +35,16 @@ object UserController extends Controller {
         (userForm.signup == "0") match {
 
           case true =>
+            
+             // val initialFlashObject = request.flash + ("email" -> userForm.email)
+            //val FinalFlashObject = initialFlashObject + ("iam" -> userForm.iam)
+            //Redirect(routes.BasicRegistration.basicRegistration).flashing(FinalFlashObject)
+            
+            
             val initialFlashObject = request.flash + ("email" -> userForm.email)
             val FinalFlashObject = initialFlashObject + ("iam" -> userForm.iam)
-            Redirect(routes.BasicRegistration.basicRegistration).flashing(FinalFlashObject)
+             Redirect(routes.BasicRegistration.emailSent).flashing(FinalFlashObject)
+             
 
           case false =>
             val authenticatedUser = User.findUser(userForm)

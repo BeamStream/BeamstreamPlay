@@ -1,12 +1,16 @@
 package controllers
-import play.api._
-import play.api.mvc._
-import models.Quote
-import models.Stream
-import play.api.data._
-import play.api.data.Forms._
+
 import models.BasicRegForm
+import models.Stream
 import models.User
+import play.api.data.Forms._
+import play.api.data._
+import play.api.mvc._
+import play.api._
+import utils.SendEmail
+import models.TokenDAO
+import com.mongodb.casbah.commons.MongoDBObject
+
 
 object BasicRegistration extends Controller {
 
@@ -22,22 +26,29 @@ object BasicRegistration extends Controller {
       "iam" -> nonEmptyText,
       "useCurrentLocation" -> optional(checked("")))(BasicRegForm.apply)(BasicRegForm.unapply))
 
-  def basicRegistration = Action { implicit request =>
-    val iAmValue = request.flash.get("iam").get.toString
-    Ok(views.html.basic_reg(basicRegForm, (request.flash.get("email")).get.toString)).flashing(request.flash + ("iam" -> iAmValue))
-
+  def basicRegistration(iam:String,emailId:String,token:String)= Action { implicit request =>
+    //val findToken=TokenDAO.find(MongoDBObject("tokenString" -> token))
+    
+     Ok(views.html.basic_reg(basicRegForm, emailId,iam))
   }
 
   def newUser = Action { implicit request =>
 
     basicRegForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.basic_reg(errors, "")),
+      errors => BadRequest(views.html.basic_reg(errors, "","")),
       basicRegForm => {
-        println(basicRegForm.iam)
         val IdOfUserCreted = User.createNewUser(basicRegForm)
         val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
         Redirect(routes.MessageController.messages).withSession(RegistrationSession)
       })
 
   }
+
+  def emailSent = Action { implicit request =>
+    
+    SendEmail.sendEmail((request.flash.get("email")).get.toString ,(request.flash.get("iam")).get.toString)
+    Ok(views.html.emailpopup())
+
+  }
+
 }

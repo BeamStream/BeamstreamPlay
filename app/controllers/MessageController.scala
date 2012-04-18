@@ -49,20 +49,10 @@ object MessageController extends Controller {
 
   def messages = Action { implicit request =>
 
-//        val media = Media.getAllMediaByUser((request.session.get("userId").get).toInt)
-//        val photoId: ObjectId = media(0).gridFsId
-//        val profileImage = Media.findMedia(photoId)
-
     val profileName = User.getUserProfile(request.session.get("userId").get.toInt)
     val streams = Stream.getAllStreamforAUser((request.session.get("userId").get).toInt)
 
     Ok(views.html.message(Message.getAllMessagesForAStream(new ObjectId), messageForm, streams, profileName, new GridFSDBFile))
-
-//        val jfile = new java.io.File(profileImage.getFilename)
-//        profileImage.writeTo(jfile)
-//        Ok.sendFile(
-//          content = jfile,
-//          inline = true)
 
   }
 
@@ -78,17 +68,23 @@ object MessageController extends Controller {
 
   }
 
-  
   /*
    * get the profle pic for a User
    */
   def getProfilePic = Action { implicit request =>
-    
+
     val media = Media.getAllMediaByUser((request.session.get("userId").get).toInt)
-    val photoId: ObjectId = media(0).gridFsId
-    val profileImage = Media.findMedia(photoId)
-    profileImage.writeTo("./public/temp/vikas")
-    Ok("http://localhost:9000/assets/temp/vikas").as("image/jpg")
+
+    (media.isEmpty) match {
+      case false =>
+        val photoId: ObjectId = media(0).gridFsId
+        val profileImage = Media.findMedia(photoId)
+        profileImage.writeTo("./public/temp/" + profileImage.getFilename)
+        Ok("http://localhost:9000/assets/temp/" + profileImage.getFilename).as("image/jpg")
+
+      case true =>
+        Ok("http://localhost:9000/assets/temp/noimage").as("image/jpg")
+    }
 
   }
 

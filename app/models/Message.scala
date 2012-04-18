@@ -7,7 +7,7 @@ import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
 import org.bson.types.ObjectId
-
+import utils.MongoHQConfig
 object MessageType extends Enumeration {
 
   val Text = Value(0, "text")
@@ -86,5 +86,5 @@ object Message {
 
 }
 
-object MessageDAO extends SalatDAO[Message, Int](collection = MongoConnection()("beamstream")("message"))
+object MessageDAO extends SalatDAO[Message, Int](collection =  MongoHQConfig.mongoDB("message"))
 

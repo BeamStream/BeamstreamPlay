@@ -7,7 +7,7 @@ import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
 import scala.collection.JavaConversions._
 import org.bson.types.ObjectId
-
+import utils.MongoHQConfig
 case class Stream(@Key("_id") id: ObjectId, name: String, streamType: StreamType.Value, creator: Int, users: List[Int], posttoMyprofile: Boolean)
 case class StreamForm(name: String, streamType: String, className: String, posttoMystream: Option[Boolean])
 case class JoinStreamForm(streamname: String)
@@ -93,4 +93,4 @@ object StreamType extends Enumeration {
   val Projects = Value(4, "Projects")
 }
 
-object StreamDAO extends SalatDAO[Stream, Int](collection = MongoConnection()("beamstream")("stream"))
+object StreamDAO extends SalatDAO[Stream, Int](collection =  MongoHQConfig.mongoDB("stream"))

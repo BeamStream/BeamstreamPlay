@@ -8,6 +8,7 @@ import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
 import org.joda.time.DateTime
 import org.bson.types.ObjectId
+import utils.MongoHQConfig
 
 case class School(@Key("_id") id: ObjectId, schoolName: String, classes: List[Class])
 case class SchoolForm(schoolName: String)
@@ -55,4 +56,4 @@ object School {
 
 }
 
-object SchoolDAO extends SalatDAO[School, Int](collection = MongoConnection()("beamstream")("school"))
+object SchoolDAO extends SalatDAO[School, Int](collection =  MongoHQConfig.mongoDB("school"))

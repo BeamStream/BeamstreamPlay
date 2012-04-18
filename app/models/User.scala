@@ -7,7 +7,7 @@ import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
 import play.mvc._
 import play.api.mvc.Session
-
+import utils.MongoHQConfig
 case class User(@Key("_id") id: Int, userType: UserType.Value, email: String, val firstName: String, lastName: String, userName: String, alias: String, password: String, orgName: String,
   location: String, streams: List[Int], schoolId: List[ObjectId], classId: List[ObjectId]) {
 }
@@ -146,4 +146,4 @@ object UserType extends Enumeration {
   val Professional = Value(2, "Professional")
 }
 
-object UserDAO extends SalatDAO[User, Int](collection = MongoConnection()("beamstream")("user"))
+object UserDAO extends SalatDAO[User, Int](collection =  MongoHQConfig.mongoDB("user"))

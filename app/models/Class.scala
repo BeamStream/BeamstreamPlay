@@ -9,7 +9,7 @@ import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
 import com.mongodb.casbah.commons.conversions.scala._
 import org.bson.types.ObjectId
-
+import utils.MongoHQConfig
 case class Class(@Key("_id") id: ObjectId, classCode: String, className: String, classType: ClassType.Value, classDate: String, schoolId: ObjectId,streams:List[ObjectId])
 case class ClassForm(className: String, classCode: String, classType: String, schoolId: String)
 
@@ -84,4 +84,4 @@ object ClassType extends Enumeration {
 
 }
 
-object ClassDAO extends SalatDAO[Class, Int](collection = MongoConnection()("beamstream")("class"))
+object ClassDAO extends SalatDAO[Class, Int](collection =  MongoHQConfig.mongoDB("class"))
