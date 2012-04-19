@@ -79,8 +79,8 @@ object MessageController extends Controller {
       case false =>
         val photoId: ObjectId = media(0).gridFsId
         val profileImage = Media.findMedia(photoId)
-        profileImage.writeTo("./public/temp/" + profileImage.getFilename)
-        Ok("http://localhost:9000/assets/temp/" + profileImage.getFilename).as("image/jpg")
+        profileImage.writeTo("./public/temp/" + profileImage.filename)
+        Ok("http://localhost:9000/assets/temp/" + profileImage.filename).as("image/jpg")
 
       case true =>
         Ok("http://localhost:9000/assets/temp/noimage").as("image/jpg")
