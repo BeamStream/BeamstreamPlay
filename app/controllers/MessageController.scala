@@ -29,7 +29,7 @@ object MessageController extends Controller {
   //======Post a new message==//
   //==========================//
 
-  val tempUser = User(100, UserType.Professional, "", "", "", "", "", "", "", "", List(100, 101), List(), List())
+  val tempUser = User(new ObjectId, UserType.Professional, "", "", "", "", "", "", "", "", List(100, 101), List(), List())
 
   def newMessage = Action { implicit request =>
 
@@ -38,8 +38,8 @@ object MessageController extends Controller {
       errors => BadRequest(views.html.message(Message.getAllMessagesForAStream(new ObjectId), errors, List(), tempUser, new GridFSDBFile)),
       messageForm => {
 
-        val messagePoster = User.getUserProfile(request.session.get("userId").get.toInt)
-        Message.create(messageForm, request.session.get("userId").get.toInt, new ObjectId(request.session.get("streamId").get),
+        val messagePoster = User.getUserProfile((new ObjectId(request.session.get("userId").get)))
+        Message.create(messageForm, new ObjectId(request.session.get("userId").get), new ObjectId(request.session.get("streamId").get),
           messagePoster.firstName, messagePoster.lastName)
 
         Redirect(routes.MessageController.streamMessages(request.session.get("streamId").get))
@@ -49,8 +49,8 @@ object MessageController extends Controller {
 
   def messages = Action { implicit request =>
 
-    val profileName = User.getUserProfile(request.session.get("userId").get.toInt)
-    val streams = Stream.getAllStreamforAUser((request.session.get("userId").get).toInt)
+    val profileName = User.getUserProfile((new ObjectId(request.session.get("userId").get)))
+    val streams = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
 
     Ok(views.html.message(Message.getAllMessagesForAStream(new ObjectId), messageForm, streams, profileName, new GridFSDBFile))
 
@@ -61,8 +61,8 @@ object MessageController extends Controller {
   //=================================================//
 
   def streamMessages(id: String) = Action { implicit request =>
-    val profileName = User.getUserProfile(request.session.get("userId").get.toInt)
-    val streams = Stream.getAllStreamforAUser((request.session.get("userId").get).toInt)
+    val profileName = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+    val streams = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
     val messagesListFound = Message.getAllMessagesForAStream(new ObjectId(id))
     Ok(views.html.message(messagesListFound, messageForm, streams, profileName, new GridFSDBFile)).withSession(session + ("streamId" -> id))
 
@@ -73,7 +73,7 @@ object MessageController extends Controller {
    */
   def getProfilePic = Action { implicit request =>
 
-    val media = Media.getAllMediaByUser((request.session.get("userId").get).toInt)
+    val media = Media.getAllMediaByUser(new ObjectId(request.session.get("userId").get))
 
     (media.isEmpty) match {
       case false =>

@@ -8,14 +8,14 @@ import com.mongodb.casbah.MongoConnection
 import scala.collection.JavaConversions._
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
-case class Stream(@Key("_id") id: ObjectId, name: String, streamType: StreamType.Value, creator: Int, users: List[Int], posttoMyprofile: Boolean)
+case class Stream(@Key("_id") id: ObjectId, name: String, streamType: StreamType.Value, creator: ObjectId, users: List[ObjectId], posttoMyprofile: Boolean)
 case class StreamForm(name: String, streamType: String, className: String, posttoMystream: Option[Boolean])
 case class JoinStreamForm(streamname: String)
 
 object Stream {
 
   def all(): List[Stream] = Nil
-  def create(streamForm: StreamForm, userId: Int) {
+  def create(streamForm: StreamForm, userId: ObjectId) {
     (streamForm.posttoMystream == None) match {
       case true =>
         val stream=Stream.createStream(new Stream(new ObjectId, streamForm.name, StreamType.apply(streamForm.streamType.toInt), userId, List(userId), false))
@@ -28,7 +28,7 @@ object Stream {
   }
 
   def listall(): List[Stream] = Nil
-  def join(streamname: String, userId: Int) {
+  def join(streamname: String, userId: ObjectId) {
     val stream = StreamDAO.find(MongoDBObject("name" -> streamname)).toList
     Stream.joinStream(stream(0).id, userId)
   }
@@ -39,8 +39,8 @@ object Stream {
     v
   }
 
-  var UserObtained: Int = 0
-  def obtainUser(userId: Int) = {
+  var UserObtained: ObjectId = new ObjectId
+  def obtainUser(userId: ObjectId) = {
     UserObtained = userId
     getClassesforAUser
 
@@ -49,7 +49,7 @@ object Stream {
   def getClassesforAUser: Seq[(String, String)] = {
     var myClasses = Seq[(String, String)]()
     print(UserObtained)
-    val user = UserDAO.findOneByID(UserObtained).get
+    val user = UserDAO.find(MongoDBObject("_id" -> UserObtained)).toList(0)
     for (schoolids <- user.schoolId) {
       val school = SchoolDAO.find(MongoDBObject("_id" -> schoolids)).toList(0)
       myClasses ++= (for (eachclass <- school.classes) yield (eachclass.id.toString, eachclass.className)).toSeq
@@ -74,11 +74,11 @@ object Stream {
     streams.toList
   }
   
-  def getAllStreamforAUser(userId:Int):List[Stream]={
+  def getAllStreamforAUser(userId:ObjectId):List[Stream]={
     StreamDAO.find(MongoDBObject("creator" -> userId)).toList
     }
 
-  def joinStream(streamId: ObjectId, userId: Int) {
+  def joinStream(streamId: ObjectId, userId: ObjectId) {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(users = (stream.users ++ List(userId))), false, false, new WriteConcern)
   }

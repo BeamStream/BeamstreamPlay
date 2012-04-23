@@ -10,7 +10,7 @@ import org.bson.types.ObjectId
 @RunWith(classOf[JUnitRunner])
 class SmallStreamTest extends FunSuite with BeforeAndAfter {
 
-  val stream1 = Stream(new ObjectId, "al1pha", StreamType.Class, 199, List(),true)
+  val stream1 = Stream(new ObjectId, "al1pha", StreamType.Class, new ObjectId, List(),true)
 
   before {
     StreamDAO.insert(stream1)

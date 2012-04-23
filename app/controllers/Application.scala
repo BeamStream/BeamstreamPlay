@@ -10,6 +10,8 @@ import models.StreamForm
 import models.StreamForm
 import models.UserDAO
 import com.codahale.jerkson.Json
+import org.bson.types.ObjectId
+
 
 object Application extends Controller {
 
@@ -25,7 +27,7 @@ object Application extends Controller {
   }
   
   def streams = Action { implicit request =>
-     Stream.obtainUser(request.session.get("userId").get.toInt)
+     Stream.obtainUser(new ObjectId(request.session.get("userId").get))
      Ok(views.html.index(Stream.all(), streamForm))
   }
 
@@ -33,7 +35,7 @@ object Application extends Controller {
     streamForm.bindFromRequest.fold(
       errors => BadRequest(views.html.index(Stream.all(), errors)),
       streamForm => {
-        Stream.create(streamForm, request.session.get("userId").get.toInt)
+        Stream.create(streamForm, new ObjectId(request.session.get("userId").get))
         Redirect(routes.MessageController.messages)
 
       })

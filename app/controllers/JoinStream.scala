@@ -7,6 +7,7 @@ import models.Stream
 import play.api.data._
 import play.api.data.Forms._
 import models.JoinStreamForm
+import org.bson.types.ObjectId
 
 object JoinStream extends Controller {
   val joinstreamForm = Form(
@@ -22,7 +23,7 @@ object JoinStream extends Controller {
     joinstreamForm.bindFromRequest.fold(
       errors => BadRequest(views.html.joinstream(Stream.listall(), errors)),
       joinstreamForm => {
-        Stream.join(joinstreamForm.streamname, request.session.get("userId").get.toInt)
+        Stream.join(joinstreamForm.streamname, new ObjectId(request.session.get("userId").get))
         Redirect(routes.MessageController.messages)
 
       })

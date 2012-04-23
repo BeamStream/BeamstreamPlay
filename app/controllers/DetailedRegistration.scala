@@ -9,6 +9,7 @@ import play.api.mvc._
 import play.api._
 import java.io.InputStream
 import java.io.FileInputStream
+import org.bson.types.ObjectId
 
 object DetailedRegistration extends Controller {
 
@@ -41,7 +42,7 @@ object DetailedRegistration extends Controller {
           
           val fileObtained: File = picture.ref.file.asInstanceOf[File]
           val inputStream = new FileInputStream(fileObtained)
-          User.addInfo(detailed_regForm, request.session.get("userId").get.toInt ,inputStream,picture.filename)
+          User.addInfo(detailed_regForm, new ObjectId(request.session.get("userId").get) ,inputStream,picture.filename)
         }
         Redirect(routes.MessageController.messages)
         

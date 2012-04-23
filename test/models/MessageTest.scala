@@ -10,12 +10,12 @@ import org.bson.types.ObjectId
 @RunWith(classOf[JUnitRunner])
 class MessageTest extends FunSuite with BeforeAndAfter {
 
-  val message1 = Message(100, "some message", MessageType.Audio, MessageAccess.Public, "time", 190, new ObjectId,"","")
-  val message2 = Message(101, "some message2", MessageType.Audio, MessageAccess.Public, "time", 190, new ObjectId,"","")
-  val message3 = Message(102, "some message3", MessageType.Audio, MessageAccess.Private, "time", 190, new ObjectId,"","")
+  val message1 = Message(new ObjectId, "some message", MessageType.Audio, MessageAccess.Public, "time", new ObjectId, new ObjectId,"","")
+  val message2 = Message(new ObjectId, "some message2", MessageType.Audio, MessageAccess.Public, "time", new ObjectId, new ObjectId,"","")
+  val message3 = Message(new ObjectId, "some message3", MessageType.Audio, MessageAccess.Private, "time", new ObjectId, new ObjectId,"","")
 
   before {
-    Stream.createStream(Stream(new ObjectId, "Beamstream stream", StreamType.Class, 190, List(190),true))
+    Stream.createStream(Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(new ObjectId),true))
     Message.createMessage(message1)
     Message.createMessage(message2)
     Message.createMessage(message3)

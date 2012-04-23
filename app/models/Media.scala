@@ -16,8 +16,8 @@ import utils.MongoHQConfig
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.gridfs.Imports._
 
-case class Media(@Key("_id") id: ObjectId, userId: Int, mediaType: MediaType.Value, showOnProfileView: Boolean, gridFsId: ObjectId)
-case class MediaTransfer(userId: Int, mediaType: MediaType.Value, showOnProfileView: Boolean, data: InputStream, profilePicName: String)
+case class Media(@Key("_id") id: ObjectId, userId: ObjectId, mediaType: MediaType.Value, showOnProfileView: Boolean, gridFsId: ObjectId)
+case class MediaTransfer(userId: ObjectId, mediaType: MediaType.Value, showOnProfileView: Boolean, data: InputStream, profilePicName: String)
 
 object Media {
 
@@ -44,7 +44,7 @@ object Media {
     MediaDAO.remove(media)
   }
 
-  def getAllMediaByUser(userId: Int): List[Media] = {
+  def getAllMediaByUser(userId: ObjectId): List[Media] = {
     MediaDAO.find(MongoDBObject("userId" -> userId)).toList
   }
 

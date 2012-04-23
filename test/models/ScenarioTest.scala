@@ -10,9 +10,9 @@ import org.bson.types.ObjectId
 @RunWith(classOf[JUnitRunner])
 class ScenarioTest extends FunSuite with BeforeAndAfter {
 
-  val chris = User(100,UserType.Professional,"u@u.com","Neel" ,"Sachdeva" ,"","Neil","Neel","Knoldus","",List(),List(),List())
-  val vikas = User(101,UserType.Professional,"u1@u1.com","Vikas" ,"Hazrati" ,"","Vikki","Vikas","Knoldus","",List(),List(),List())
-  val meetu = User(101,UserType.Professional,"u1@u1.com","Meetu" ,"Maltiar" ,"","Meet","Meetu","Inphina","",List(),List(),List())
+  val chris = User(new ObjectId,UserType.Professional,"u@u.com","Neel" ,"Sachdeva" ,"","Neil","Neel","Knoldus","",List(),List(),List())
+  val vikas = User(new ObjectId,UserType.Professional,"u1@u1.com","Vikas" ,"Hazrati" ,"","Vikki","Vikas","Knoldus","",List(),List(),List())
+  val meetu = User(new ObjectId,UserType.Professional,"u1@u1.com","Meetu" ,"Maltiar" ,"","Meet","Meetu","Inphina","",List(),List(),List())
 
 
   before {
@@ -24,8 +24,8 @@ class ScenarioTest extends FunSuite with BeforeAndAfter {
   test("Scenario to test the flow") {
 
     /* user chris creates a new stream*/
-    Stream.createStream(Stream(new ObjectId, "Beamstream stream", StreamType.Class, 100, List(100),true))
-    Stream.createStream(Stream(new ObjectId, "Inphina stream", StreamType.Research, 100, List(100),true))
+    Stream.createStream(Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(new ObjectId),true))
+    Stream.createStream(Stream(new ObjectId, "Inphina stream", StreamType.Research, new ObjectId, List(new ObjectId),true))
 
     /* vikas hunts for a stream to join*/
     val stream = Stream.getStreamByName("Bea")
@@ -33,7 +33,7 @@ class ScenarioTest extends FunSuite with BeforeAndAfter {
     assert(stream(0).name === "Beamstream stream")
 
     /*vikas joins this stream */
-    Stream.joinStream(stream(0).id, 101)
+    Stream.joinStream(stream(0).id, new ObjectId)
 
     /*total number of users on the stream must be 2*/
     assert(Stream.getStreamByName("Beam")(0).users.size === 2)

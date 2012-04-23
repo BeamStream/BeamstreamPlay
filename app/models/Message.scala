@@ -24,18 +24,18 @@ object MessageAccess extends Enumeration {
 
 //TODO use a datetime instead of string for timestamp
 
-case class Message(@Key("_id") id: Int, text: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated: String, userId: Int, streamId: ObjectId,firstNameofMsgPoster:String,lastNameofMsgPoster:String)
+case class Message(@Key("_id") id: ObjectId, text: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated: String, userId: ObjectId, streamId: ObjectId,firstNameofMsgPoster:String,lastNameofMsgPoster:String)
 //case class MessageForm(message: String, messageAccess: String ,access:Option[Boolean])
 case class MessageForm(message: String, access: Option[Boolean])
 
 object Message {
 
-  def create(messageForm: MessageForm, userId: Int, streamId: ObjectId,firstNameofMsgPoster:String,lastNameofMsgPoster:String):String= {
+  def create(messageForm: MessageForm, userId: ObjectId, streamId: ObjectId,firstNameofMsgPoster:String,lastNameofMsgPoster:String):String= {
     (messageForm.access == None) match {
-      case true => Message.createMessage(new Message((new ObjectId)._inc, messageForm.message, MessageType.Audio, MessageAccess.Public, "Mar,20 10:12AM", userId, streamId,firstNameofMsgPoster,lastNameofMsgPoster))
-      case _ => Message.createMessage(new Message((new ObjectId)._inc, messageForm.message, MessageType.Audio, MessageAccess.Private, "Mar,20 10:12AM", userId, streamId,firstNameofMsgPoster,lastNameofMsgPoster))
+      case true => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Public, "Mar,20 10:12AM", userId, streamId,firstNameofMsgPoster,lastNameofMsgPoster))
+      case _ => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Private, "Mar,20 10:12AM", userId, streamId,firstNameofMsgPoster,lastNameofMsgPoster))
     }
-     UserDAO.findOneByID(userId).get.firstName
+     UserDAO.find(MongoDBObject("_id"->userId)).toList(0).firstName
   }
 
   def messagetypes: Seq[(String, String)] = {
@@ -58,7 +58,7 @@ object Message {
     user.get
   }
 
-  private def validateUserHasRightToPost(userId: Int, streamId: ObjectId): Boolean = {
+  private def validateUserHasRightToPost(userId: ObjectId, streamId: ObjectId): Boolean = {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     stream.users.contains(userId)
   }

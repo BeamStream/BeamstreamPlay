@@ -8,7 +8,9 @@ import com.mongodb.casbah.MongoConnection
 import play.mvc._
 import play.api.mvc.Session
 import utils.MongoHQConfig
-case class User(@Key("_id") id: Int, userType: UserType.Value, email: String, val firstName: String, lastName: String, userName: String, alias: String, password: String, orgName: String,
+import org.bson.types.ObjectId
+
+case class User(@Key("_id") id: ObjectId, userType: UserType.Value, email: String, val firstName: String, lastName: String, userName: String, alias: String, password: String, orgName: String,
   location: String, streams: List[Int], schoolId: List[ObjectId], classId: List[ObjectId]) {
 }
 
@@ -21,7 +23,7 @@ object User {
   /*
    * Add info to a user
    */
-  def addInfo(detailed_regForm: DetailedRegForm, userId: Int,inputStream:java.io.InputStream,profilePicName:String) = {
+  def addInfo(detailed_regForm: DetailedRegForm, userId: ObjectId,inputStream:java.io.InputStream,profilePicName:String) = {
     User.addSchoolToUser(userId, new ObjectId(detailed_regForm.schoolName))
     val mediaTransfer = MediaTransfer(userId, MediaType.Image, false, inputStream,profilePicName)
     Media.createMedia(mediaTransfer)
@@ -45,8 +47,8 @@ object User {
   /*
    * function for adding a new user to the system
    */
-  def createNewUser(basicRegForm: BasicRegForm): Int = { 
-    val userCreated = User.createUser(new User(101, UserType.apply(basicRegForm.iam.toInt), basicRegForm.email, basicRegForm.firstName, basicRegForm.lastName, basicRegForm.userName, "Neil", basicRegForm.password, basicRegForm.orgName, basicRegForm.location, List(), List(), List()))
+  def createNewUser(basicRegForm: BasicRegForm): ObjectId = { 
+    val userCreated = User.createUser(new User(new ObjectId, UserType.apply(basicRegForm.iam.toInt), basicRegForm.email, basicRegForm.firstName, basicRegForm.lastName, basicRegForm.userName, "Neil", basicRegForm.password, basicRegForm.orgName, basicRegForm.location, List(), List(), List()))
     userCreated
     
   }
@@ -61,9 +63,10 @@ object User {
   /*
  * Creates a User
  */
-  def createUser(user: User): Int = {
+  def createUser(user: User): ObjectId = {
     val userCretaed = UserDAO.insert(user)
-    userCretaed.get
+   println( userCretaed.get)
+   userCretaed.get.asInstanceOf[ObjectId]
   }
 
   /*
@@ -110,8 +113,8 @@ object User {
    * Adds a school to User
    */
 
-  def addSchoolToUser(userId: Int, schoolId: ObjectId) {
-    val user = UserDAO.findOneByID(userId).get
+  def addSchoolToUser(userId: ObjectId, schoolId: ObjectId) {
+    val user = UserDAO.find(MongoDBObject("_id"->userId)).toList(0)
     UserDAO.update(MongoDBObject("_id" -> userId), user.copy(schoolId = (user.schoolId ++ List(schoolId))), false, false, new WriteConcern)
 
   }
@@ -119,8 +122,8 @@ object User {
   /*
    * Add a Class to user
    */
-  def addClassToUser(userId: Int, classId: ObjectId) {
-    val user = UserDAO.findOneByID(userId).get
+  def addClassToUser(userId: ObjectId, classId: ObjectId) {
+  val user = UserDAO.find(MongoDBObject("_id"->userId)).toList(0)
     UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classId = (user.classId ++ List(classId))), false, false, new WriteConcern)
   }
 
@@ -128,9 +131,9 @@ object User {
    * Get the Details of a user
    */
 
-  def getUserProfile(userId: Int): User = {
-    val user = UserDAO.findOneByID(userId)
-    return user.get
+  def getUserProfile(userId: ObjectId): User = {
+    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList
+    return user(0)
 
   }
 

@@ -43,6 +43,7 @@ object BasicRegistration extends Controller {
       basicRegForm => {
         val IdOfUserCreted = User.createNewUser(basicRegForm)
         val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
+        println("Registration Session"+RegistrationSession)
         Redirect(routes.MessageController.messages).withSession(RegistrationSession)
       })
 

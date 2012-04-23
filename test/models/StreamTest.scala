@@ -10,10 +10,10 @@ import org.bson.types.ObjectId
 @RunWith(classOf[JUnitRunner])
 class StreamTest extends FunSuite with BeforeAndAfter {
 
-  var stream1 = Stream(new ObjectId, "al1pha", StreamType.Class, 199, List(),true)
-  val stream2 = Stream(new ObjectId, "al1pha", StreamType.Class, 299, List(),true)
-  val stream3 = Stream(new ObjectId, "al1pha", StreamType.Class, 399, List(),true)
-  val stream4 = Stream(new ObjectId, "al1pha", StreamType.Class, 499, List(),true)
+  var stream1 = Stream(new ObjectId, "al1pha", StreamType.Class, new ObjectId, List(),true)
+  val stream2 = Stream(new ObjectId, "al1pha", StreamType.Class, new ObjectId, List(),true)
+  val stream3 = Stream(new ObjectId, "al1pha", StreamType.Class, new ObjectId, List(),true)
+  val stream4 = Stream(new ObjectId, "al1pha", StreamType.Class, new ObjectId, List(),true)
 
   before {
 

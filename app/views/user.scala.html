@@ -15,7 +15,7 @@
     if (typeof window.janrain !== 'object') window.janrain = {};
     if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
     
-    janrain.settings.tokenUrl = 'http://localhost:9000/users';
+    janrain.settings.tokenUrl = 'http://localhost:9000/users';		
 
     function isReady() { janrain.ready = true; };
     if (document.addEventListener) {
@@ -72,6 +72,8 @@ h2{color:Green;}
          
          </fieldset>
         <input type="submit" value="Login">
+        <br>
+        <b>OR</b>
         <div id="janrainEngageEmbed"></div>
         
     }
