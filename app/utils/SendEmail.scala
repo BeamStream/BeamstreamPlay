@@ -19,7 +19,7 @@ object SendEmail {
     props.setProperty("mail.smtp.starttls.enable", "true");
     props.setProperty("mail.host", "smtp.gmail.com");
     props.setProperty("mail.user", "neelkanth@knoldus.com");
-    props.setProperty("mail.password", "seatknoldus");
+    props.setProperty("mail.password", "***********");
 
     val session = Session.getDefaultInstance(props, null);
     val msg = new MimeMessage(session)
