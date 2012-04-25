@@ -238,7 +238,7 @@
 }
 .input-append.big-input input {
   font-size: 18px;
-  height: 22px;
+  height: 40px;
   line-height: 22px;
   padding: 8px 15px;
 }
@@ -1177,9 +1177,11 @@ body {
   border-radius: 4px;
 }
 .main_content .control-group .input-prepend-container .input-prepend input {
-  width: 347px;
+  width: 367px;
   padding: 7px 9px;
   margin: 0;
+  height: 34px;
+  
 }
 .main_content .control-group .input-prepend-container .input-prepend .add-on {
   border: 1px solid #abaeb1;
@@ -1526,3 +1528,4 @@ body {
   font-size: 11px;
   color: #8a8a8a;
 }
+
