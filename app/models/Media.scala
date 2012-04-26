@@ -37,6 +37,7 @@ object Media {
 
   def findMedia(mediaId: ObjectId): GridFSDBFile = {
     val myMedia = gridFS.findOne(mediaId)
+    println(myMedia.get.chunkSize+"HOHOChunksize")
     myMedia.get
   }
 

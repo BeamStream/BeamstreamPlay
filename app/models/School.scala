@@ -9,8 +9,12 @@ import com.mongodb.casbah.MongoConnection
 import org.joda.time.DateTime
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
+import java.util.Date
 
-case class School(@Key("_id") id: ObjectId, schoolName: String, classes: List[Class])
+case class School(@Key("_id") id: ObjectId,  schoolName: String,year:Year.Value,degreeExpected:DegreeExpected.Value,
+    major:String,degree:Degree.Value,previousSchool:String,graduated:Boolean,graduationDate:String,
+    previousMajor:String,previousDegree:PreviousDegree.Value,classes: List[Class])
+
 case class SchoolForm(schoolName: String)
 object School {
 
@@ -21,7 +25,8 @@ object School {
    * Will add a new School
    */
   def addSchool(schoolForm: SchoolForm) {
-    School.createSchool(new School(new ObjectId, schoolForm.schoolName, List()))
+    School.createSchool(new School(new ObjectId, schoolForm.schoolName,Year.FirstYear,DegreeExpected.Spring2012,
+        "CSE",Degree.Masters,"Cambridge",true,"12/09/12","CSE",PreviousDegree.Masters,List()))
   }
 
   /*
@@ -56,4 +61,31 @@ object School {
 
 }
 
-object SchoolDAO extends SalatDAO[School, Int](collection =  MongoHQConfig.mongoDB("school"))
+object Year extends Enumeration {
+  val FirstYear = Value(0, "1st Year")
+  val SecondYear = Value(1, "2nd Year")
+  val ThirdYear = Value(2, "3rd Year")
+  val FourthYear = Value(3, "4th Year")
+}
+
+
+object DegreeExpected extends Enumeration {
+  val Spring2012 = Value(0, "Spring 2012")
+  val Summer2012 = Value(1, "Summer 2012")
+  val Spring2013 = Value(2, "Spring 2013")
+  val Summer2013 = Value(3, "Summer 2013")
+}
+
+object Degree extends Enumeration {
+  val Bachelors = Value(0, "Bachelors")
+  val Masters = Value(1, "Masters")
+  
+}
+
+object PreviousDegree extends Enumeration {
+  val Bachelors = Value(0, "Bachelors")
+  val Masters = Value(1, "Masters")
+  
+}
+
+object SchoolDAO extends SalatDAO[School, Int](collection = MongoHQConfig.mongoDB("school"))

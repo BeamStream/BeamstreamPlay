@@ -56,9 +56,9 @@ object MessageController extends Controller {
 
   }
 
-  //=================================================//
-  //======Displays all the messages within a Stram===//
-  //=================================================//
+  //==================================================//
+  //======Displays all the messages within a Stream===//
+  //==================================================//
 
   def streamMessages(id: String) = Action { implicit request =>
     val profileName = User.getUserProfile(new ObjectId(request.session.get("userId").get))

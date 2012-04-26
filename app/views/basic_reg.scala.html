@@ -1,4 +1,4 @@
-@(basicRegForm:Form[BasicRegForm],email:String,iam:String)
+@(basicRegForm:Form[BasicRegForm],email:String,iam:String,userName:String,firstName:String)
 
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap/bootstrap.min.css")" />
@@ -12,12 +12,19 @@
 
 <fieldset>
 
- @inputText(basicRegForm("userName"), '_label->"User Name", 'id -> "userName", 'size -> 10, 'placeholder -> "User Name") 
+<p>User Name</p>
+ @input(basicRegForm("")) { (id, name, value, args) =>
+    <input type="text" value="@userName" name="userName" id="userName" @toHtmlArgs(args)>
+   } 
+ 
   @inputPassword(basicRegForm("password"), '_label->"Password", 'id -> "password", 'size -> 10, 'placeholder -> "Password") 
  
  @inputText(basicRegForm("orgName"), '_label->"School/Company Name", 'id -> "orgName", 'size -> 10, 'placeholder -> "Organization") 
  
-  @inputText(basicRegForm("firstName"), '_label->"First Name", 'id -> "firstName", 'size -> 10, 'placeholder -> "First Name") 
+ <p>First Name</p>
+ @input(basicRegForm("")) { (id, name, value, args) =>
+    <input type="text" value="@firstName" name="firstName" id="firstName" @toHtmlArgs(args)>
+   } 
   
    @inputText(basicRegForm("lastName"), '_label->"Last Name", 'id -> "lastName", 'size -> 10, 'placeholder -> "Last Name") 
    
@@ -39,7 +46,7 @@
    
 </fieldset>
 
-  <input type="submit" value="Register Me">
+  <input type="submit" value="Show me the magic">
 
 }
 

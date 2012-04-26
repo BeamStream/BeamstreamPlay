@@ -9,13 +9,12 @@
 <html>
 
 <head>
-
 <script type="text/javascript">
 (function() {
     if (typeof window.janrain !== 'object') window.janrain = {};
     if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
     
-    janrain.settings.tokenUrl = 'http://localhost:9000/users';		
+    janrain.settings.tokenUrl = 'http://localhost:9000/userPage';
 
     function isReady() { janrain.ready = true; };
     if (document.addEventListener) {
@@ -29,15 +28,16 @@
     e.id = 'janrainAuthWidget';
 
     if (document.location.protocol === 'https:') {
-      e.src = 'https://rpxnow.com/js/lib/beamstream-chris/engage.js';
+      e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
     } else {
-      e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream-chris/engage.js';
+      e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
     }
 
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(e, s);
 })();
 </script>
+ 
 </head>
 
 @main("BeamStream Users"){

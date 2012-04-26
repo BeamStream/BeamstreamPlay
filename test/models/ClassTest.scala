@@ -19,10 +19,10 @@ class ClassTest extends FunSuite with BeforeAndAfter {
   //  RegisterJodaTimeConversionHelpers
   val myDate = DateTime.now.toString()
 
-  val class1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, myDate,new ObjectId,List())
-  val class2 = Class(new ObjectId, "202", "CSE", ClassType.Quarter, myDate,new ObjectId,List())
-  val class3 = Class(new ObjectId, "203", "ECE", ClassType.Quarter, myDate,new ObjectId,List())
-  val class4 = Class(new ObjectId, "204", "CSE", ClassType.Yearly, myDate,new ObjectId,List())
+  val class1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, myDate,myDate,new ObjectId,List())
+  val class2 = Class(new ObjectId, "202", "CSE", ClassType.Quarter, myDate,myDate,new ObjectId,List())
+  val class3 = Class(new ObjectId, "203", "ECE", ClassType.Quarter, myDate,myDate,new ObjectId,List())
+  val class4 = Class(new ObjectId, "204", "CSE", ClassType.Yearly, myDate,myDate,new ObjectId,List())
 
   before {
 
