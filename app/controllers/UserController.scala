@@ -11,7 +11,8 @@ import models.User
 import models.User
 import play.mvc.Http.Request
 import play.libs._
-import com.ning.http.client.Realm;
+import com.ning.http.client.Realm
+import utils._
 
 
 object UserController extends Controller {
@@ -33,16 +34,6 @@ object UserController extends Controller {
  */
   def findUser = Action { implicit request =>
     
-//     val tokenList=request.body.asFormUrlEncoded.get.values.toList(0)
-//     val token=tokenList(0)
-//      val apiKey="47bfca4dbb79c5feb439d350931d0f2345d23ad9"
-//       val URL="https://rpxnow.com/api/v2/auth_info"
-//    
-//      val promise = WS.url( URL ).setQueryParameter("format","json").setQueryParameter("token",token).setQueryParameter("apiKey",apiKey).get
-//      val res = promise.get
-//      val body = res.getBody
-//      print(body)
-
  
     userForm.bindFromRequest.fold(
       errors => BadRequest(views.html.user(User.allUsers(), errors, "")),
@@ -80,5 +71,15 @@ object UserController extends Controller {
 
     Ok(views.html.user(User.allUsers(), userForm, User.message(s)))
   }
+  
+  
+   def registerUserViaSocialSite = Action { implicit request =>
+     
+     val tokenList=request.body.asFormUrlEncoded.get.values.toList(0)
+     val token=tokenList(0)
+     Authentication.Auth(token)
+
+     
+   }
 
 }

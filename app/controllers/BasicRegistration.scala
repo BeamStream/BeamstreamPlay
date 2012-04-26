@@ -29,25 +29,32 @@ object BasicRegistration extends Controller {
   def basicRegistration(iam:String,emailId:String,token:String)= Action { implicit request =>
     val findToken=TokenDAO.find(MongoDBObject("tokenString" -> token)).toList
     (findToken.size==0) match {
-      case false => Ok(views.html.basic_reg(basicRegForm, emailId,iam))
+      case false => Ok(views.html.basic_reg(basicRegForm, emailId,iam,"",""))
       case true => Ok("Token Not Valid")
     }
     
     
   }
+  
+  def basicRegistrationViaSocialSites(email:String,userName:String,firstName:String) =  Action { implicit request =>
+
+      Ok(views.html.basic_reg(basicRegForm, email,"1",userName,firstName))
+    }
 
   def newUser = Action { implicit request =>
-
     basicRegForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.basic_reg(errors, "","")),
+      errors => BadRequest(views.html.basic_reg(errors, "","","","")),
       basicRegForm => {
+       
         val IdOfUserCreted = User.createNewUser(basicRegForm)
         val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
-        println("Registration Session"+RegistrationSession)
         Redirect(routes.MessageController.messages).withSession(RegistrationSession)
       })
 
   }
+  
+  
+  
 
   def emailSent = Action { implicit request =>
     

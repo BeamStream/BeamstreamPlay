@@ -9,9 +9,12 @@ import org.bson.types.ObjectId
 @RunWith(classOf[JUnitRunner])
 class SchoolTest extends FunSuite with BeforeAndAfter {
 
-  val myschool1 = School(new ObjectId, "MPS",List())
-  val myschool2 = School(new ObjectId, "DPS",List())
-  val myschool3 = School(new ObjectId, "DPS",List())
+  val myschool1 = School(new ObjectId, "MPS",Year.FirstYear,DegreeExpected.Spring2012,
+        "CSE",Degree.Masters,"Cambridge",true,"12/09/12","CSE",PreviousDegree.Masters,List())
+  val myschool2 = School(new ObjectId, "DPS",Year.FirstYear,DegreeExpected.Spring2012,
+        "CSE",Degree.Masters,"Cambridge",true,"12/09/12","CSE",PreviousDegree.Masters,List())
+  val myschool3 = School(new ObjectId, "DPS",Year.FirstYear,DegreeExpected.Spring2012,
+        "CSE",Degree.Masters,"Cambridge",true,"12/09/12","CSE",PreviousDegree.Masters,List())
 
   before {
     School.createSchool(myschool1)
