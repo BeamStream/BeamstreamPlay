@@ -1256,6 +1256,8 @@ body {
   color: #2e2d2d;
   font-weight: bold;
   padding-top: 0;
+  
+  float:left;
 }
 .main_content .new_message .controls {
   margin-left: 117px;

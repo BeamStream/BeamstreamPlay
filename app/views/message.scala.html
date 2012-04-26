@@ -248,18 +248,19 @@
                           <li class="comment"><a href="#comment" class="btn btn-flat"><i class="icon-middle-comment"></i></a></li>
                           <li class="video"><a href="#video" class="btn btn-flat"><i class="icon-middle-video"></i></a></li>
                           <li class="photo"><a href="#photo" class="btn btn-flat"><i class="icon-middle-camera"></i></a></li>
-                          <li class="tag"><a href="#tag" class="btn btn-flat"><i class="icon-middle-tag"></i></a></li>
-                          <li class="private">
+                          <li class="tag" style="margin-left: 28px !important;"><a href="#tag" class="btn btn-flat"><i class="icon-middle-tag"></i></a></li>
+                          <li class="private" style="margin: 0 8px 0 8px !important;">
                             <label for="id-private" class="checkbox">
                                @checkbox(messageForm("access"), '_label->"", 'id -> "access", 'size -> 98) 
                               Private
                             </label>
                             
                           </li>
-                          <input type="submit" value="Post Message">
+                          
                           <li class="twitter"><a href="#twitter" class="btn btn-flat"><i class="icon-middle-twitter"></i></a></li>
                           <li class="facebook"><a href="#facebook" class="btn btn-flat"><i class="icon-middle-facebook"></i></a></li>
                           <li class="linkedin"><a href="#linkedin" class="btn btn-flat"><i class="icon-middle-linkedin"></i></a></li>
+                          <input type="submit" value="Post Message">
                         </ul>
                       </div>
                       <div class="input-prepend-container">
@@ -275,6 +276,11 @@
               <div class="double-line"></div>
 
               <section class="timeline">
+
+               <ul>
+                 @messages.map { message =>
+                <li>
+               
                 <ul class="timeline_items">
                  
                   <li>
@@ -294,21 +300,13 @@
                           </div>
                           <p>
                            
-                           <ul>
-                          @messages.map { message =>
-                             <li>
-                         <i><b> @message.text </b></i>
+                          <i><b> @message.text </b></i>
                             &nbsp  &nbsp  &nbsp
                            Posted By: @message.firstNameofMsgPoster
                            
                            
                            on   @message.timeCreated  
-                           -- @message.messageAccess       
-               
-                         }
-                         
-                       </li>
-     </ul>
+                          -- @message.messageAccess    
                          
                           <div class="actions">
                             <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
@@ -318,7 +316,9 @@
                             <span class="separator">-</span>
                             <a class="follow" href="#follow">Follow</a>
                           </div>
+                          
                         </div>
+                        
                       </div>
                       <header class="comments_info">
                         <h5 class="pull-left"><span class="comments_number">1</span> Comments</h5>
@@ -355,6 +355,7 @@
                         </li>
                         
                       </ul>
+                      
 
                       <section class="add_comment">
                         <form method="post" action="." class="form-vertical">
@@ -372,6 +373,11 @@
                     </article>
                   </li>
                 </ul>
+                
+                 }
+                         
+                       </li>  
+     </ul>
               </section>
             </section>
           </div>
@@ -480,3 +486,4 @@
 
 }
 }
+
