@@ -64,14 +64,15 @@
                 <ul class="nav pull-right">
                   <li>
                     <div class="photo_container">
-                      <img src="@routes.Assets.at("images/placeholders/face5.png")" width="36" height="37">
+                     <a style= "padding:0px;" href="/detailed_reg"><img src="@routes.Assets.at("images/placeholders/face5.png")"   width="36" height="37"></a> 
                     </div>
                   </li>
                   <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="/detailed_reg">
-                    @userProfile.firstName @userProfile.lastName<b class="arrow"></b>
+                    <a style= "padding: 0 20px 0 7px;"class="dropdown-toggle" data-toggle="dropdown">
+                   <b class="arrow"></b>
                     </a>
                     <ul class="dropdown-menu">
+                      <li><a href="/detailed_reg">@userProfile.firstName @userProfile.lastName</a>
                       <li><a href="#settings">Settings</a></li>
                       <li><a href="#help">Help</a></li>
                       <li class="divider"></li>
@@ -398,10 +399,7 @@
                <li><a href="/messages/@stream.id/streammessages" >@stream.name</a></li>
               
                 }
-               
-            
-                  
-                 
+     
               </ul>
             </section>
           </div>
@@ -477,7 +475,7 @@
             
            
         });
- 
+      
       function setSelected(streamid){
        	  var id='#'+streamid;
     	  $.get('/messages/'+streamid+'/streammessages', function(data) {   		
@@ -485,19 +483,24 @@
  		     $('.timeline').html(result);
  		     $('.active').removeClass("active");
  		     $(id).addClass('active');
- 		  
-	   
+ 		  	   
     	});
       }
- 
-    	 
+      
+      // Show / hide Submenus
+      $('.dropdown').hover(
+    			function () { 
+    				//show its submenu
+    				$('ul', this).slideDown(100);
+    			}, 
+    			function () {
+    				//hide its submenu
+    				$('ul', this).slideUp(100);			
+    			}
+       );
 
     </script>
-    
-  
-  
-     
-    
+ 
   </body>
 </html>
 
