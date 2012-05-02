@@ -191,9 +191,10 @@
                 <li><span class="flag-piece"></span><a href="#research-team">Research Team</a><span class="popout_arrow"><span></span></span></li>
                 <li><span class="flag-piece"></span><a href="#c++-dev-project">C++ Dev Project <i class="icon stream-icon-apple"></i></a><span class="popout_arrow"><span></span></span></li>
              
-                 @streams.map { stream =>
-               <li><a href="/messages/@stream.id/streammessages" >@stream.name</a></li>
-              
+                 @streams.map { stream => 
+<!--  						"/messages/@stream.id/streammessages" -->
+               <li id=@stream.id><span class="flag-piece"></span><a href="#@stream.id/streammessages" onClick="setSelected('@stream.id');" >@stream.name</a><span class="popout_arrow"><span></span></span></li>
+ 
                 }
                 
               </ul>
@@ -473,9 +474,26 @@
                         .closest('li').addClass('active');
                 }
             });
+            
+           
         });
+ 
+      function setSelected(streamid){
+       	  var id='#'+streamid;
+    	  $.get('/messages/'+streamid+'/streammessages', function(data) {   		
+ 		     result = $(data).find(".timeline");
+ 		     $('.timeline').html(result);
+ 		     $('.active').removeClass("active");
+ 		     $(id).addClass('active');
+ 		  
+	   
+    	});
+      }
+ 
+    	 
+
     </script>
-  
+    
   
   
      
