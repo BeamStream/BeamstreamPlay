@@ -15,8 +15,7 @@ import org.bson.types.ObjectId
 @RunWith(classOf[JUnitRunner])
 class ClassTest extends FunSuite with BeforeAndAfter {
 
-  //  RegisterConversionHelpers
-  //  RegisterJodaTimeConversionHelpers
+ 
   val myDate = DateTime.now.toString()
 
   val class1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, myDate,myDate,new ObjectId,List())

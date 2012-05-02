@@ -67,6 +67,9 @@ object MessageController extends Controller {
     Ok(views.html.message(messagesListFound, messageForm, streams, profileName, new GridFSDBFile)).withSession(session + ("streamId" -> id))
 
   }
+  
+  
+ 
 
   /*
    * get the profle pic for a User
