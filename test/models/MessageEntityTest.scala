@@ -9,10 +9,10 @@ import org.bson.types.ObjectId
 @RunWith(classOf[JUnitRunner])
 class MessageEntityTest extends FunSuite with BeforeAndAfter {
 
-  before{
-    
+  before {
+
   }
-  
+
   test("Message Creation") {
     val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List())
     User.createUser(user)
@@ -25,11 +25,12 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     assert(rocksBefore === 0)
 
     val Rockers = Message.rockedIt(message.id, user.id)
-    assert(Rockers.size==1)
+    assert(Rockers.size == 1)
 
     val messageAfterRocking = MessageDAO.find(MongoDBObject("_id" -> message.id)).toList(0)
-    assert(messageAfterRocking.rocks==1)
+    assert(messageAfterRocking.rocks == 1)
 
+   
   }
 
   after {
