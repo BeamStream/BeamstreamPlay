@@ -16,10 +16,7 @@ class MediaTest extends FunSuite with BeforeAndAfter {
 
   val imageFile1 = new File("/home/neelkanth/jannat.jpg")
 
-//  test("Saving the media object") {
-//    val mediaTransfer = MediaTransfer(901, MediaType.Image, false, new FileInputStream(imageFile1),"")
-//    Media.createMedia(mediaTransfer)
-//  }
+
 
   after {
     MediaDAO.remove(MongoDBObject("mediaType" -> ".*".r))

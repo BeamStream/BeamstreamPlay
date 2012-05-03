@@ -109,22 +109,8 @@ object Message {
 
   }
 
- 
-  
+
   /*
-   * Counting the No. of User with a particular Role
-   */
-  def countRoles(usersList: List[ObjectId]){
-    
-    val users=UserDAO.find(MongoDBObject("userType" -> UserType.Professional))
-  
-    
-    
-    
-    
-  }
-  
- /*
   def countRoles(usersList: List[ObjectId]): Map[String, Int] = {
 
     var students, professionals, educators: Int = 0

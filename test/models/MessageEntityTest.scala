@@ -29,8 +29,8 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
 
     val messageAfterRocking = MessageDAO.find(MongoDBObject("_id" -> message.id)).toList(0)
     assert(messageAfterRocking.rocks == 1)
+    User.countRoles(List(user.id))
 
-   
   }
 
   after {

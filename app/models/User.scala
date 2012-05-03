@@ -15,21 +15,20 @@ case class User(@Key("_id") id: ObjectId, userType: UserType.Value, email: Strin
 }
 
 case class UserForm(iam: String, email: String, password: String, signup: String)
-case class BasicRegForm(userName: String, password: String, orgName: String, firstName: String, lastName: String, email: String, location: String,iam:String, useCurrentLocation: Option[Boolean])
+case class BasicRegForm(userName: String, password: String, orgName: String, firstName: String, lastName: String, email: String, location: String, iam: String, useCurrentLocation: Option[Boolean])
 case class DetailedRegForm(schoolName: String)
 object User {
 
-  
   /*
    * Add info to a user
    */
-  def addInfo(detailed_regForm: DetailedRegForm, userId: ObjectId,inputStream:java.io.InputStream,profilePicName:String) = {
+  def addInfo(detailed_regForm: DetailedRegForm, userId: ObjectId, inputStream: java.io.InputStream, profilePicName: String) = {
     User.addSchoolToUser(userId, new ObjectId(detailed_regForm.schoolName))
-    val mediaTransfer = MediaTransfer(userId, MediaType.Image, false, inputStream,profilePicName)
+    val mediaTransfer = MediaTransfer(userId, MediaType.Image, false, inputStream, profilePicName)
     Media.createMedia(mediaTransfer)
   }
- 
-   def allUsers(): List[User] = Nil
+
+  def allUsers(): List[User] = Nil
 
   /*
    * find the user for Authentication
@@ -47,10 +46,10 @@ object User {
   /*
    * function for adding a new user to the system
    */
-  def createNewUser(basicRegForm: BasicRegForm): ObjectId = { 
+  def createNewUser(basicRegForm: BasicRegForm): ObjectId = {
     val userCreated = User.createUser(new User(new ObjectId, UserType.apply(basicRegForm.iam.toInt), basicRegForm.email, basicRegForm.firstName, basicRegForm.lastName, basicRegForm.userName, "Neil", basicRegForm.password, basicRegForm.orgName, basicRegForm.location, List(), List(), List()))
     userCreated
-    
+
   }
 
   /*
@@ -65,8 +64,8 @@ object User {
  */
   def createUser(user: User): ObjectId = {
     val userCretaed = UserDAO.insert(user)
-   println( userCretaed.get)
-   userCretaed.get.asInstanceOf[ObjectId]
+    println(userCretaed.get)
+    userCretaed.get.asInstanceOf[ObjectId]
   }
 
   /*
@@ -114,7 +113,7 @@ object User {
    */
 
   def addSchoolToUser(userId: ObjectId, schoolId: ObjectId) {
-    val user = UserDAO.find(MongoDBObject("_id"->userId)).toList(0)
+    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
     UserDAO.update(MongoDBObject("_id" -> userId), user.copy(schoolId = (user.schoolId ++ List(schoolId))), false, false, new WriteConcern)
 
   }
@@ -123,7 +122,7 @@ object User {
    * Add a Class to user
    */
   def addClassToUser(userId: ObjectId, classId: ObjectId) {
-  val user = UserDAO.find(MongoDBObject("_id"->userId)).toList(0)
+    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
     UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classId = (user.classId ++ List(classId))), false, false, new WriteConcern)
   }
 
@@ -134,6 +133,23 @@ object User {
   def getUserProfile(userId: ObjectId): User = {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList
     return user(0)
+
+  }
+
+  /*
+   * Counting the No. of User with a particular Role
+   */
+  def countRoles(usersList: List[ObjectId]): Map[String, Int] = {
+
+    var map: Map[String, Int] = Map()
+    var count: Int = 0
+
+    for (value <- UserType.values) {
+      val users = UserDAO.find(MongoDBObject("userType" -> value.toString)).toList.filter(user => usersList.contains(user.id))
+      count = users.size
+      map += (value.toString -> count)
+    }
+    map
 
   }
 
@@ -149,4 +165,4 @@ object UserType extends Enumeration {
   val Professional = Value(2, "Professional")
 }
 
-object UserDAO extends SalatDAO[User, Int](collection =  MongoHQConfig.mongoDB("user"))
+object UserDAO extends SalatDAO[User, Int](collection = MongoHQConfig.mongoDB("user"))
