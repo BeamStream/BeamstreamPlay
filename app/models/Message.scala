@@ -8,6 +8,10 @@ import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
+import java.util.Date
+import java.text.DateFormat
+
+
 object MessageType extends Enumeration {
 
   val Text = Value(0, "text")
@@ -24,17 +28,19 @@ object MessageAccess extends Enumeration {
 
 //TODO use a datetime instead of string for timestamp
 
-case class Message(@Key("_id") id: ObjectId, text: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated: String, userId: ObjectId, streamId: ObjectId, firstNameofMsgPoster: String,
+case class Message(@Key("_id") id: ObjectId, text: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated:Date , userId: ObjectId, streamId: ObjectId, firstNameofMsgPoster: String,
   lastNameofMsgPoster: String, rocks: Int, rockers: List[ObjectId])
 //case class MessageForm(message: String, messageAccess: String ,access:Option[Boolean])
 case class MessageForm(message: String, access: Option[Boolean])
 
 object Message {
+  
+  val formatter : DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
   def create(messageForm: MessageForm, userId: ObjectId, streamId: ObjectId, firstNameofMsgPoster: String, lastNameofMsgPoster: String): String = {
     (messageForm.access == None) match {
-      case true => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Public, "Mar,20 10:12AM", userId, streamId, firstNameofMsgPoster, lastNameofMsgPoster, 0, List()))
-      case _ => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Private, "Mar,20 10:12AM", userId, streamId, firstNameofMsgPoster, lastNameofMsgPoster, 0, List()))
+      case true => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Public, formatter.parse("21-07-12"), userId, streamId, firstNameofMsgPoster, lastNameofMsgPoster, 0, List()))
+      case _ => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Private, formatter.parse("21-07-12"), userId, streamId, firstNameofMsgPoster, lastNameofMsgPoster, 0, List()))
     }
     UserDAO.find(MongoDBObject("_id" -> userId)).toList(0).firstName
   }
@@ -111,28 +117,13 @@ object Message {
 
 
   /*
-  def countRoles(usersList: List[ObjectId]): Map[String, Int] = {
+   * Sort messages within a stream on the basis of total rocks
+   */
 
-    var students, professionals, educators: Int = 0
-    
-    val users = UserDAO.find(MongoDBObject()).toList
-
-    for (user <- users) {
-
-      if (user.userType == UserType.Student && usersList.contains(user.id)) {
-        students += 1
-      } else if (user.userType == UserType.Professional && usersList.contains(user.id)) {
-        professionals += 1
-      } else if (user.userType == UserType.Educator && usersList.contains(user.id)) {
-        educators += 1
-      }
-
-    }
-
-    Map("Student" -> students, "Professional" -> professionals, "Educator" -> educators)
-
-  } */
-
+   def getAllMessagesForAStreamSortedbyRocks(streamId: ObjectId): List[Message] = {
+    val messsages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList.sortBy(message => message.rocks)
+    messsages
+  }
 }
 
 object MessageDAO extends SalatDAO[Message, Int](collection = MongoHQConfig.mongoDB("message"))
