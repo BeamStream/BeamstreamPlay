@@ -27,20 +27,9 @@ class StreamTest extends FunSuite with BeforeAndAfter {
   test("Fetch matching stream names") {
     val streams = Stream.getStreamByName("al1p")
     assert(streams.size === 4)
-
-    val l = streams filter (_.creator == 199)
-    assert(l.size === 1)
-
-    val listOfCreators = for (stream <- streams) yield stream.creator
-    assert(listOfCreators.contains(199))
   }
 
-//  test("Validating the stream join") {
-//    Stream.joinStream(100, 900)
-//    val stream = StreamDAO.findOneByID(id = 100)
-//    stream1 = stream.get
-//    assert(stream.get.users.size === 1)
-//  }
+
   
 
   

@@ -19,7 +19,7 @@ object SendEmail {
     props.setProperty("mail.smtp.starttls.enable", "true");
     props.setProperty("mail.host", "smtp.gmail.com");
     props.setProperty("mail.user", "neelkanth@knoldus.com");
-    props.setProperty("mail.password", "***********");
+    props.setProperty("mail.password", "neelknoldus");
 
     val session = Session.getDefaultInstance(props, null);
     val msg = new MimeMessage(session)
@@ -36,7 +36,7 @@ object SendEmail {
         +"<br>" +"<br>" +"<br>"+"Regards | Beamstream Team , US"
         , "text/html");
     val transport = session.getTransport("smtp");
-    transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", "*************")
+    transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", "neelknoldus")
     transport.sendMessage(msg, msg.getAllRecipients)
     
     val token=new Token((new ObjectId),authToken)

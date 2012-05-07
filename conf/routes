@@ -23,6 +23,8 @@ GET    /messages                       controllers.MessageController.messages
 POST    /messages                      controllers.MessageController.newMessage
 GET   /messages/:id/streammessages     controllers.MessageController.streamMessages(id:String)
 
+
+
 GET    /joinstreams                   controllers.JoinStream.joinstreams
 POST   /joinstreams                   controllers.JoinStream.joinStream
 

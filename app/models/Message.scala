@@ -8,6 +8,10 @@ import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
+import java.util.Date
+import java.text.DateFormat
+
+
 object MessageType extends Enumeration {
 
   val Text = Value(0, "text")
@@ -24,18 +28,21 @@ object MessageAccess extends Enumeration {
 
 //TODO use a datetime instead of string for timestamp
 
-case class Message(@Key("_id") id: ObjectId, text: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated: String, userId: ObjectId, streamId: ObjectId,firstNameofMsgPoster:String,lastNameofMsgPoster:String)
+case class Message(@Key("_id") id: ObjectId, text: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated:Date , userId: ObjectId, streamId: ObjectId, firstNameofMsgPoster: String,
+  lastNameofMsgPoster: String, rocks: Int, rockers: List[ObjectId])
 //case class MessageForm(message: String, messageAccess: String ,access:Option[Boolean])
 case class MessageForm(message: String, access: Option[Boolean])
 
 object Message {
+  
+  val formatter : DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
-  def create(messageForm: MessageForm, userId: ObjectId, streamId: ObjectId,firstNameofMsgPoster:String,lastNameofMsgPoster:String):String= {
+  def create(messageForm: MessageForm, userId: ObjectId, streamId: ObjectId, firstNameofMsgPoster: String, lastNameofMsgPoster: String): String = {
     (messageForm.access == None) match {
-      case true => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Public, "Mar,20 10:12AM", userId, streamId,firstNameofMsgPoster,lastNameofMsgPoster))
-      case _ => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Private, "Mar,20 10:12AM", userId, streamId,firstNameofMsgPoster,lastNameofMsgPoster))
+      case true => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Public, formatter.parse("21-07-12"), userId, streamId, firstNameofMsgPoster, lastNameofMsgPoster, 0, List()))
+      case _ => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Private, formatter.parse("21-07-12"), userId, streamId, firstNameofMsgPoster, lastNameofMsgPoster, 0, List()))
     }
-     UserDAO.find(MongoDBObject("_id"->userId)).toList(0).firstName
+    UserDAO.find(MongoDBObject("_id" -> userId)).toList(0).firstName
   }
 
   def messagetypes: Seq[(String, String)] = {
@@ -46,10 +53,10 @@ object Message {
 
   def createMessage(message: Message): Unit = {
 
-        validateUserHasRightToPost(message.userId, message.streamId) match {
-          case true => MessageDAO.insert(message)
-          case _ => println("No rights to Post")
-        }
+    validateUserHasRightToPost(message.userId, message.streamId) match {
+      case true => MessageDAO.insert(message)
+      case _ => println("No rights to Post")
+    }
     //MessageDAO.insert(message).get
 
   }
@@ -84,7 +91,42 @@ object Message {
     MessageDAO.find(MongoDBObject("userId" -> userId, "messageAccess" -> "Public")).toList
   }
 
+  /*
+   *  Increase the no. of counts
+   */
+  def totalRocks(messageId: ObjectId): Int = {
+    val messageRocked = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+    messageRocked.rocks
+  }
+
+  /*
+   *  Update the Rockers List and increase the count by one 
+   */
+
+  def rockedIt(messageId: ObjectId, userId: ObjectId): List[ObjectId] = {
+    val SelectedmessagetoRock = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+    MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(rockers = (SelectedmessagetoRock.rockers ++ List(userId))), false, false, new WriteConcern)
+
+    val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+    MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(rocks = (updatedMessage.rocks + 1)), false, false, new WriteConcern)
+
+    val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+    finalMessage.rockers
+
+  }
+
+
+  /*
+   * Sort messages within a stream on the basis of total rocks
+   */
+
+   def getAllMessagesForAStreamSortedbyRocks(streamId: ObjectId): List[Message] = {
+    val messsages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList.sortBy(message => message.rocks)
+    messsages
+  }
 }
 
-object MessageDAO extends SalatDAO[Message, Int](collection =  MongoHQConfig.mongoDB("message"))
+object MessageDAO extends SalatDAO[Message, Int](collection = MongoHQConfig.mongoDB("message"))
+
+
 

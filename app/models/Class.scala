@@ -10,16 +10,20 @@ import com.mongodb.casbah.MongoConnection
 import com.mongodb.casbah.commons.conversions.scala._
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
-case class Class(@Key("_id") id: ObjectId, classCode: String, className: String, classType: ClassType.Value, classDate: String,startingDate:String, schoolId: ObjectId,streams:List[ObjectId])
+import java.util.Date
+import java.text._
+
+case class Class(@Key("_id") id: ObjectId, classCode: String, className: String, classType: ClassType.Value, classDate: Date,startingDate:Date, schoolId: ObjectId,streams:List[ObjectId])
 case class ClassForm(className: String, classCode: String, classType: String, schoolId: String)
 
 object Class {
 
+  val formatter : DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
   /*
    * Add a new class and make an entry of the same in the coming School's classes list
    */
   def addClass(classForm: ClassForm) {
-    val myClass = Class(new ObjectId, classForm.classCode, classForm.className, ClassType.apply(classForm.classType.toInt), "12 Mar","12 Jan", new ObjectId(classForm.schoolId),List())
+    val myClass = Class(new ObjectId, classForm.classCode, classForm.className, ClassType.apply(classForm.classType.toInt), formatter.parse("12-07-2911"),formatter.parse("12-07-2911"), new ObjectId(classForm.schoolId),List())
     Class.createClass(myClass)
     School.addClasstoSchool(new ObjectId(classForm.schoolId), myClass)
 

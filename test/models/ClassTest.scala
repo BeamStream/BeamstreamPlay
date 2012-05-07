@@ -11,18 +11,18 @@ import org.joda.time.format.DateTimeFormatter
 import org.joda.time.base.BaseDateTime
 import org.joda.time.LocalDateTime
 import org.bson.types.ObjectId
+import java.text.DateFormat
 
 @RunWith(classOf[JUnitRunner])
 class ClassTest extends FunSuite with BeforeAndAfter {
 
-  //  RegisterConversionHelpers
-  //  RegisterJodaTimeConversionHelpers
-  val myDate = DateTime.now.toString()
+ 
+ val formatter : DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
-  val class1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, myDate,myDate,new ObjectId,List())
-  val class2 = Class(new ObjectId, "202", "CSE", ClassType.Quarter, myDate,myDate,new ObjectId,List())
-  val class3 = Class(new ObjectId, "203", "ECE", ClassType.Quarter, myDate,myDate,new ObjectId,List())
-  val class4 = Class(new ObjectId, "204", "CSE", ClassType.Yearly, myDate,myDate,new ObjectId,List())
+  val class1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, formatter.parse("12-07-2911"),formatter.parse("12-07-2911"),new ObjectId,List())
+  val class2 = Class(new ObjectId, "202", "CSE", ClassType.Quarter, formatter.parse("12-07-2911"),formatter.parse("12-07-2911"),new ObjectId,List())
+  val class3 = Class(new ObjectId, "203", "ECE", ClassType.Quarter, formatter.parse("12-07-2911"),formatter.parse("12-07-2911"),new ObjectId,List())
+  val class4 = Class(new ObjectId, "204", "CSE", ClassType.Yearly, formatter.parse("12-07-2911"),formatter.parse("12-07-2911"),new ObjectId,List())
 
   before {
 

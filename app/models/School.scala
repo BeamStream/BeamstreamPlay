@@ -10,15 +10,16 @@ import org.joda.time.DateTime
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import java.util.Date
+import java.text.DateFormat
 
 case class School(@Key("_id") id: ObjectId,  schoolName: String,year:Year.Value,degreeExpected:DegreeExpected.Value,
-    major:String,degree:Degree.Value,previousSchool:String,graduated:Boolean,graduationDate:String,
+    major:String,degree:Degree.Value,previousSchool:String,graduated:Boolean,graduationDate:Date,
     previousMajor:String,previousDegree:PreviousDegree.Value,classes: List[Class])
 
 case class SchoolForm(schoolName: String)
 object School {
 
-  val myDate = DateTime.now.toString()
+ val formatter : DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
   def allSchools(): List[School] = Nil
   /*
@@ -26,7 +27,7 @@ object School {
    */
   def addSchool(schoolForm: SchoolForm) {
     School.createSchool(new School(new ObjectId, schoolForm.schoolName,Year.FirstYear,DegreeExpected.Spring2012,
-        "CSE",Degree.Masters,"Cambridge",true,"12/09/12","CSE",PreviousDegree.Masters,List()))
+        "CSE",Degree.Masters,"Cambridge",true,formatter.parse("12-07-2011"),"CSE",PreviousDegree.Masters,List()))
   }
 
   /*
