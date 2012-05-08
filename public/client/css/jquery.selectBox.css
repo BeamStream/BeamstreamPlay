@@ -1,0 +1,183 @@
+/* Dropdown control */
+.selectBox-dropdown {
+	min-width: 150px;
+	position: relative;
+	text-decoration: none;
+	text-align: left;
+	outline: none;
+	vertical-align: middle;
+	background: #FFF;
+	display: inline-block;
+	cursor: default;
+
+
+    font-family: UbuntuBold;
+    border: 1px #2a8eba solid;
+    color: #5d9ab6;
+    font-size: 18px;
+    padding: 6px 15px 3px 10px;
+    margin: 0;
+    height: 35px;
+    line-height: 35px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 1px 1px 1px rgba(51, 51, 51, 0.2), 0 0 2px rgba(255, 255, 255, 0.2);
+    -moz-box-shadow: inset 0 1px 1px rgba(51, 51, 51, 0.5), 0 0 2px rgba(51, 51, 51, 0.2);
+    box-shadow: inset 0 1px 1px rgba(51, 51, 51, 0.5), 0 0 2px rgba(255, 255, 255, 0.5);
+}
+a.selectBox-dropdown:hover {
+    color: #5d9ab6;
+}
+
+.selectBox-dropdown:focus,
+.selectBox-dropdown:focus .selectBox-arrow {
+	/*border-color: #666;*/
+}
+
+.selectBox-dropdown.selectBox-menuShowing {
+	-moz-border-radius-bottomleft: 0;
+	-moz-border-radius-bottomright: 0;
+	-webkit-border-bottom-left-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.selectBox-dropdown .selectBox-label {
+	padding: 2px 8px;
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.selectBox-dropdown .selectBox-arrow {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 50px;
+	height: 100%;
+	background: url(../images/select-arrow.png) 50% center no-repeat;
+	border-left: solid 1px #BBB;
+
+
+}
+
+
+/* Dropdown menu */
+.selectBox-dropdown-menu {
+	position: absolute;
+	z-index: 99999;
+	max-height: 200px;
+	min-height: 1em;
+	border: solid 1px #BBB; /* should be the same border width as .selectBox-dropdown */
+	background: #FFF;
+	-moz-box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+	-webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+	overflow: auto;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px
+}
+
+
+/* Inline control */
+.selectBox-inline {
+	min-width: 150px;
+	outline: none;
+	border: solid 1px #BBB;
+	background: #FFF;
+	display: inline-block;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	overflow: auto;
+}
+
+.selectBox-inline:focus {
+	/*border-color: #666;*/
+}
+
+
+/* Options */
+
+.selectBox-options,
+.selectBox-options LI,
+.selectBox-options LI A {
+	list-style: none;
+	display: block;
+	cursor: default;
+	margin: 0;
+
+}
+
+.selectBox-options LI A {
+	line-height: 1.5;
+	padding: 8px 15px 4px 15px;
+	white-space: nowrap;
+	overflow: hidden;
+	background: #eee 6px center no-repeat;
+    font-family: UbuntuBold;
+    border: 1px #eee solid;
+    color: #5d9ab6;
+    font-size: 18px;
+}
+
+.selectBox-options LI.selectBox-hover A {
+	background-color: #FFF;
+    text-decoration: none;
+    border-color: #eee;
+}
+
+.selectBox-options LI.selectBox-disabled A {
+	color: #888;
+	background-color: transparent;
+}
+
+.selectBox-options LI.selectBox-selected A {
+	/*background-color: #C8DEF4;*/
+    color: #000;
+
+}
+
+.selectBox-options .selectBox-optgroup {
+	color: #666;
+	background: #EEE;
+	font-weight: bold;
+	line-height: 1.5;
+	padding: 0 .3em;
+	white-space: nowrap;
+}
+
+
+/* Disabled state */
+.selectBox.selectBox-disabled {
+	color: #888 !important;
+}
+
+.selectBox-dropdown.selectBox-disabled .selectBox-arrow {
+	opacity: .5;
+	filter: alpha(opacity=50);
+	border-color: #666;
+}
+
+.selectBox-inline.selectBox-disabled {
+	color: #888 !important;
+}
+
+.selectBox-inline.selectBox-disabled .selectBox-options A {
+	background-color: transparent !important;
+}
+
+.selectBox-active {
+    border-color: rgba(59, 164, 27, 1);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2), 0 0 8px rgba(59, 164, 27, 0.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2), 0 0 8px rgba(59, 164, 27, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2), 0 0 8px rgba(59, 164, 27, 0.6);
+    outline: 0;
+    outline: thin dotted \9;
+}
