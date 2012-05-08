@@ -9,6 +9,8 @@ import com.mongodb.casbah.MongoConnection
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import java.util.Date
+
+import java.util.Calendar
 import java.text.DateFormat
 
 
@@ -26,28 +28,36 @@ object MessageAccess extends Enumeration {
   val Public = Value(1, "Public")
 }
 
-//TODO use a datetime instead of string for timestamp
+
 
 case class Message(@Key("_id") id: ObjectId, text: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated:Date , userId: ObjectId, streamId: ObjectId, firstNameofMsgPoster: String,
   lastNameofMsgPoster: String, rocks: Int, rockers: List[ObjectId])
-//case class MessageForm(message: String, messageAccess: String ,access:Option[Boolean])
+
 case class MessageForm(message: String, access: Option[Boolean])
 
 object Message {
   
-  val formatter : DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
-
+  val formatter : DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
+   
+   
+//  val currentDate=Calendar.getInstance
+//  val dateNow = formatter.parse(currentDate.getTime.toString)
+  
+  
   def create(messageForm: MessageForm, userId: ObjectId, streamId: ObjectId, firstNameofMsgPoster: String, lastNameofMsgPoster: String): String = {
+    
     (messageForm.access == None) match {
-      case true => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Public, formatter.parse("21-07-12"), userId, streamId, firstNameofMsgPoster, lastNameofMsgPoster, 0, List()))
-      case _ => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Private, formatter.parse("21-07-12"), userId, streamId, firstNameofMsgPoster, lastNameofMsgPoster, 0, List()))
+      case true => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Public, formatter.parse("21-07-12 12:22:23"), userId, streamId, firstNameofMsgPoster, lastNameofMsgPoster, 0, List()))
+      case _ => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Private, formatter.parse("21-07-12 12:22:23"), userId, streamId, firstNameofMsgPoster, lastNameofMsgPoster, 0, List()))
     }
+    
+  
     UserDAO.find(MongoDBObject("_id" -> userId)).toList(0).firstName
   }
 
   def messagetypes: Seq[(String, String)] = {
-    val c = for (value <- MessageAccess.values) yield (value.id.toString, value.toString)
-    val v = c.toSeq
+    val messageType = for (value <- MessageAccess.values) yield (value.id.toString, value.toString)
+    val v = messageType.toSeq
     v
   }
 
@@ -75,6 +85,7 @@ object Message {
   }
 
   def getAllMessagesForAStream(streamId: ObjectId): List[Message] = {
+    
     val messsages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList
     messsages
   }
@@ -122,6 +133,11 @@ object Message {
 
    def getAllMessagesForAStreamSortedbyRocks(streamId: ObjectId): List[Message] = {
     val messsages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList.sortBy(message => message.rocks)
+    messsages
+  }
+   
+   def getAllMessagesForAStreamSortedbyTime(streamId: ObjectId): List[Message] = {
+    val messsages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList.sortBy(message => message.timeCreated)
     messsages
   }
 }
