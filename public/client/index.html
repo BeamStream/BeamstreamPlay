@@ -116,9 +116,9 @@
                     <div class="element">
                         <label for="degree-expected">Degree expected</label>
                         <select name="degree-expected" class="span3">
-                            <option value="2012">Summer 2012</option>
-                            <option value="2011">Summer 2011</option>
-                            <option value="2010">Summer 2010</option>
+                            <option value="degree-2012">Summer 2012</option>
+                            <option value="degree-2011">Summer 2011</option>
+                            <option value="degree-2010">Summer 2010</option>
                         </select>
                     </div>
                 </div>
@@ -129,9 +129,9 @@
                     </div>
                     <div class="element">
                         <label for="degree-program">Degree program</label>
-                        <select name="degree-program" class="span2">
-                            <option value="2002">Bachelor's</option>
-                            <option value="2001">Master's</option>
+                        <select name="degreeprogram" class="span2">
+                            <option value="program-2002">Bachelor's</option>
+                            <option value="program-2001">Master's</option>
                         </select>
                     </div>
                 </div>
@@ -148,7 +148,7 @@
                 <div class="form-row">
                     <div class="element">
                         <label for="school-name-1">School name</label>
-                        <input type="text" name="school-name-1" class="span3">
+                        <input type="text" name="school-name" class="span3">
                     </div>
                     <div class="element">
                         <label for="year">Year</label>
@@ -161,9 +161,9 @@
                     <div class="element">
                         <label for="degree-expected-1">Degree expected</label>
                         <select name="degree-expected" class="span3">
-                            <option value="2012">Summer 2012</option>
-                            <option value="2011">Summer 2011</option>
-                            <option value="2010">Summer 2010</option>
+                            <option value="degree_2012">Summer 2012</option>
+                            <option value="degree_2011">Summer 2011</option>
+                            <option value="degree_2010">Summer 2010</option>
                         </select>
                     </div>
                 </div>
@@ -175,9 +175,9 @@
                     
                     <div class="element">
                         <label for="degree-program-1">Degree program</label>
-                        <select name="degree-program" class="span2">
-                            <option value="2002">Bachelor's</option>
-                            <option value="2001">Master's</option>
+                        <select name="degreeprogram" class="span2">
+                            <option value="program-2002">Bachelor's</option>
+                            <option value="program-2001">Master's</option>
                         </select>
                     </div>
                 </div>
@@ -190,7 +190,7 @@
     </div>
     <div class="modal-footer">
         <a href="#" id ="save" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a>
-        <a href="#school-next" id ="continue" class="btn btn-success pull-right">Continue</a>
+        <a href="#" id ="continue" class="btn btn-success pull-right">Continue</a>
     </div>
 
 	</script>
@@ -412,8 +412,8 @@
         </form>
     </div>
     <div class="modal-footer">
-        <a href="#" class="btn btn-success pull-left" data-dismiss="modal">Save & Exit</a>
-        <a href="#" class="btn btn-danger pull-right">Complete</a>
+        <a href="#" id = "save" class="btn btn-success pull-left" data-dismiss="modal">Save & Exit</a>
+        <a href="#" id = "complete" class="btn btn-danger pull-right">Complete</a>
     </div>
     </script>
 
@@ -424,6 +424,7 @@
 <script src="js/models/schoolmodel.js"></script>	
 <script src="js/views/classview.js"></script>
 <script src="js/models/classmodel.js"></script>
+<script src="js/models/profilemodel.js"></script>
 <script src="js/views/profileview.js"></script>
 <script src="js/main.js"></script>
 	

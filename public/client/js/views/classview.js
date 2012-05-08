@@ -8,7 +8,7 @@ window.ClassView = Backbone.View.extend({
 	
     initialize:function () {
     	this.classes = new Class();  
-        console.log('Initializing School View');
+        console.log('Initializing Class View');
         this.template= _.template($("#tpl-class-reg").html());
      },
 
@@ -16,6 +16,7 @@ window.ClassView = Backbone.View.extend({
     
     
     saveclass:function (eventName) {
+    	
     	
     	console.log("Saving classes");
 
@@ -28,7 +29,6 @@ window.ClassView = Backbone.View.extend({
              self.render();
         }});
         
-   
         
      },
       
@@ -40,7 +40,14 @@ window.ClassView = Backbone.View.extend({
      },
      
     toprofile:function (eventName) {
- 	
+    	
+    	/* TODO set local storage */
+    	localStorage['classcode'] = "class1";
+    	localStorage['classtime'] = "10pm"; 
+    	var localStorageKey = "notes"; 
+	    localStorage.setItem(localStorageKey,localStorage);     
+    	
+    	/* TODO naviage to profile page */
     	console.log("to profile");
     	eventName.preventDefault();        
     	app.navigate("profile", {trigger: true, replace: true});

@@ -4,15 +4,16 @@ window.School = Backbone.Model.extend({
             schoolname :null,
             major:null,
             year:null,
-            exoedtedDegree:null,
-            degreeProgram:null,
-        },        
-        url:"api.php"
+            expedteddegree:null,
+            degreeprogram:null,
+        }
+        
+        
 });
 
 window.SchoolCollection = Backbone.Collection.extend({
 
     model:School, 
-	
+   url:"api.php"
 
 });
