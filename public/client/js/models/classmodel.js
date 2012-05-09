@@ -15,7 +15,4 @@ window.ClassCollection = Backbone.Collection.extend({
 
     model:Class, 
 	
-    //url:"api.php"
-
-
 });

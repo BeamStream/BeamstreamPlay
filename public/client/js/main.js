@@ -32,7 +32,9 @@ var AppRouter = Backbone.Router.extend({
              this.schoolView.render();
              
          }
-         $('#register-step-school').html(this.schoolView.el);   
+         $('#register-step-school').html(this.schoolView.el);  
+//         $('#success').html(template);
+         
     },
 
     
