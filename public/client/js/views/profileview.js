@@ -10,7 +10,7 @@ window.ProfileView = Backbone.View.extend({
         this.template= _.template($("#tpl-profile-reg").html());
         
         
-        /* get locally stored data */
+        /* TODO get locally stored data */
         var localStorageKey = "notes"; 
 	    var data = localStorage.getItem(localStorageKey);
 		if (data == null) {
@@ -24,9 +24,6 @@ window.ProfileView = Backbone.View.extend({
 			console.log(localStorage['classcode']);
 		}
 		  	   
-	  	  
-        
-        
         
     },
 

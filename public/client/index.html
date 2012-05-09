@@ -81,8 +81,8 @@
 	<div class="modal" id="register-step-school"></div>
    
     <!-- success regitration -->
-    <script id="tpl-success" type="text/x-handlebars-template">
-        {{status}}
+    <script id="tpl-success" type="text/template">
+        Status : <%= status %>
     </script>
 
 	<!-- School Registration template-->
@@ -139,7 +139,7 @@
             </fieldset>
 
             <a href="#" class="legend legend-add">Add another school</a>
-            
+           </form> 
             <div id="add-school-fieldset">
             <fieldset>
                 <legend class="legend legend-add">Another school</legend>

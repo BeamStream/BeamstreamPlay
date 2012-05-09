@@ -1,4 +1,4 @@
-window.School = Backbone.Model.extend({
+ window.School = Backbone.Model.extend({
      
         defaults: {
             schoolname :null,
@@ -14,6 +14,7 @@ window.School = Backbone.Model.extend({
 window.SchoolCollection = Backbone.Collection.extend({
 
     model:School, 
-   url:"api.php"
 
-});
+});    
+
+ 
