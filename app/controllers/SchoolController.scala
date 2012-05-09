@@ -27,6 +27,8 @@ object SchoolController extends Controller {
    */
   
   def addSchool = Action { implicit request =>
+    println("Neel")
+    print(request.body)
     schoolForm.bindFromRequest.fold(
       errors => BadRequest(views.html.school(School.allSchools(), errors)),
       schoolForm => {

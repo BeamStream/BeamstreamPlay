@@ -46,7 +46,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     User.countRoles(List(user.id))
 
     val secondmessage = Message(new ObjectId, "some message", MessageType.Audio, MessageAccess.Public, formatter.parse("23-07-10"), user.id, stream.id, "", "", 16, List())
-    val thirdmessage = Message(new ObjectId, "some message", MessageType.Audio, MessageAccess.Public, formatter.parse("23-07-11"), user.id, stream.id, "", "", 10, List())
+    val thirdmessage = Message(new ObjectId, "som message", MessageType.Audio, MessageAccess.Public, formatter.parse("23-07-11"), user.id, stream.id, "", "", 10, List())
     Message.createMessage(secondmessage)
     Message.createMessage(thirdmessage)
 
@@ -60,7 +60,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
      */
     assert(Message.getAllMessagesForAStreamSortedbyRocks(stream.id).indexOf(secondmessage) === 2)
     assert(Message.getAllMessagesForAStreamSortedbyRocks(stream.id).indexOf(messageAfterRocking) === 0)
-    print(Message.getAllMessagesForAStreamSortedbyTime(stream.id))
+   assert(Message.getAllMessagesForAKeyword("some").size===2)
 
   }
 

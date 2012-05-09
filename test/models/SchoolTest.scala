@@ -13,12 +13,11 @@ class SchoolTest extends FunSuite with BeforeAndAfter {
   val formatter : DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
   
   val myschool1 = School(new ObjectId, "MPS", Year.FirstYear, DegreeExpected.Spring2012,
-    "CSE", Degree.Masters, "Cambridge", true, formatter.parse("12-07-2011"), "CSE", PreviousDegree.Masters, List())
+    "CSE", Degree.Masters, Option("Cambridge"),Option( true), Option(formatter.parse("12-07-2011")), Option("CSE"),Option( PreviousDegree.Masters), List())
   val myschool2 = School(new ObjectId, "DPS", Year.FirstYear, DegreeExpected.Spring2012,
-    "CSE", Degree.Masters, "Cambridge", true, formatter.parse("12-07-2011"), "CSE", PreviousDegree.Masters, List())
+    "CSE", Degree.Masters,  Option("Cambridge"),Option( true), Option(formatter.parse("12-07-2011")), Option("CSE"),Option( PreviousDegree.Masters), List())
   val myschool3 = School(new ObjectId, "DPS", Year.FirstYear, DegreeExpected.Spring2012,
-    "CSE", Degree.Masters, "Cambridge", true, formatter.parse("12-07-2011"), "CSE", PreviousDegree.Masters, List())
-
+    "CSE", Degree.Masters,  Option("Cambridge"),Option( true), Option(formatter.parse("12-07-2011")), Option("CSE"),Option( PreviousDegree.Masters), List())
   before {
     School.createSchool(myschool1)
     School.createSchool(myschool2)
@@ -46,6 +45,6 @@ class SchoolTest extends FunSuite with BeforeAndAfter {
   }
 
   after {
-    //SchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))
+    SchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))
   }
 }

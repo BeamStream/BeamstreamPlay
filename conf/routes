@@ -54,7 +54,7 @@ POST  /basicRegistration                                   controllers.BasicRegi
 GET   /basicRegistrationViaSocialSites   controllers.BasicRegistration.basicRegistrationViaSocialSites(email:String,userName:String,name:String)
 POST  /basicRegistrationViaSocialSites   controllers.BasicRegistration.newUser
 
-POST   /userPage                                            controllers.UserController.registerUserViaSocialSite
+POST   /userPage                         controllers.UserController.registerUserViaSocialSite
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
