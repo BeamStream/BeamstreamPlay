@@ -21,75 +21,37 @@ window.SchoolView = Backbone.View.extend({
     
     /* save school info. */ 
     saveschool:function () {
-    	
-    	var schoolnames = new Array();
-    	var  years = new Array();
-    	var  degrees = new Array();
-    	var majors = new Array();
-    	var degreepgms = new Array();
+    	var schoolDetails = new Array();
     	var i;
     	
     	var schools = new SchoolCollection();
     	
-    	var queryString = $('#school-form').serialize();
-    	var fieldValuePairs = $('#school-form').serializeArray();
-    	$.each(fieldValuePairs, function(index, fieldValuePair) {
+    	for(i=1; i <= current; i++){
     		
-    	    if(fieldValuePair.name == "school-name")
-    	    {
-    	    	schoolnames.push(fieldValuePair.value)
-    	    }
-    	    if(fieldValuePair.name == "year")
-    	    {
-    	    	years.push(fieldValuePair.value)
-    	    }
-    	    if(fieldValuePair.name == "degree-expected")
-    	    {
-    	    	degrees.push(fieldValuePair.value)
-    	    }
-    	    if(fieldValuePair.name == "major")
-    	    {
-    	    	majors.push(fieldValuePair.value)
-    	    }
-    	    if(fieldValuePair.name == "degreeprogram")
-    	    {
-    	    	degreepgms.push(fieldValuePair.value)
-    	    }
-    	    
-    	});
-    	 var schoolcount = schoolnames.length;
-    	 
-    	 for(i=0; i < schoolcount; i++)
-    	 {
-    		 var schoolname =  schoolnames.shift();
-             var major = majors.shift();
-             var year = years.shift();
-             var expedteddegree = degrees.shift();
-             var degreeprogram =  degreepgms.shift();
-             var school = new School();
-             school.set({schoolname: schoolname, major: major, year: year, expedteddegree: expedteddegree, degreeprogram: degreeprogram});
-             schools.add(school);
-    		 
-    	 }
-    	 var collectiondata = JSON.stringify(schools);
+    		schoolDetails.push({"school-name": $('#school-name-'+i).val(),
+    							"year": $('#year-'+i).val(),
+    							"degree-expected":$('#degree-expected-'+i).val(),
+    							"major":$('#major-'+i).val(),
+    							"degreeprogram":$('#degreeprogram-'+i).val(),
+    							});
 
-	    	
-	    	$.ajax({
-                type: 'POST',
-                url:"http://localhost/client/api.php",
-                data:collectiondata,
-                dataType:"json",
-                success:function(data){
-                	
-	                var template = _.template( $("#tpl-success").html(), data );
-	                $('#success').html(template);
-	                
-                }
-        });
+    	}
+
+    	
+    	$.ajax({
+            type: 'POST',
+            url:"http://localhost/client/api.php",
+            data:{ data:schoolDetails },
+            dataType:"json",
+            success:function(data){
+                var template = _.template( $("#tpl-success").html(), data );
+                $('#success').html(template);
+            }
+         });
     	 
       },
       
-   
+      
       continuetoclass:function (eventName) {
     	  eventName.preventDefault();        
     	  app.navigate("class", {trigger: true });
