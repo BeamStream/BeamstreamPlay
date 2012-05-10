@@ -103,11 +103,11 @@
                 <div class="form-row">
                     <div class="element">
                         <label for="school-name">School name</label>
-                        <input type="text" name="school-name" class="span3">
+                        <input type="text" name="school-name-1" id="school-name-1" class="span3">
                     </div>
                     <div class="element">
                         <label for="year">Year</label>
-                        <select name="year" class="span2">
+                        <select name="year-1" id="year-1" class="span2">
                             <option value="2002">2002</option>
                             <option value="2001">2001</option>
                             <option value="2000">2000</option>
@@ -115,7 +115,7 @@
                     </div>
                     <div class="element">
                         <label for="degree-expected">Degree expected</label>
-                        <select name="degree-expected" class="span3">
+                        <select name="degree-expected-1" id="degree-expected-1" class="span3">
                             <option value="degree-2012">Summer 2012</option>
                             <option value="degree-2011">Summer 2011</option>
                             <option value="degree-2010">Summer 2010</option>
@@ -125,11 +125,11 @@
                 <div class="form-row">
                     <div class="element">
                         <label for="major">Major</label>
-                        <input type="text" name="major" class="span3">
+                        <input type="text" name="major-1" id="major-1" class="span3">
                     </div>
                     <div class="element">
                         <label for="degree-program">Degree program</label>
-                        <select name="degreeprogram" class="span2">
+                        <select name="degreeprogram-1" id="degreeprogram-1" class="span2">
                             <option value="program-2002">Bachelor's</option>
                             <option value="program-2001">Master's</option>
                         </select>
@@ -139,52 +139,6 @@
             </fieldset>
 
             <a href="#" class="legend legend-add">Add another school</a>
-           </form> 
-            <div id="add-school-fieldset">
-            <fieldset>
-                <legend class="legend legend-add">Another school</legend>
-
-			<div class="school-registration">
-                <div class="form-row">
-                    <div class="element">
-                        <label for="school-name-1">School name</label>
-                        <input type="text" name="school-name" class="span3">
-                    </div>
-                    <div class="element">
-                        <label for="year">Year</label>
-                        <select name="year" class="span2">
-                            <option value="2002">2002</option>
-                            <option value="2001">2001</option>
-                            <option value="2000">2000</option>
-                        </select>
-                    </div>
-                    <div class="element">
-                        <label for="degree-expected-1">Degree expected</label>
-                        <select name="degree-expected" class="span3">
-                            <option value="degree_2012">Summer 2012</option>
-                            <option value="degree_2011">Summer 2011</option>
-                            <option value="degree_2010">Summer 2010</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="element">
-                        <label for="major-1">Major</label>
-                        <input type="text" name="major" class="span3">
-                    </div>
-                    
-                    <div class="element">
-                        <label for="degree-program-1">Degree program</label>
-                        <select name="degreeprogram" class="span2">
-                            <option value="program-2002">Bachelor's</option>
-                            <option value="program-2001">Master's</option>
-                        </select>
-                    </div>
-                </div>
-			</div>
-            </fieldset>
-            </div>
-      
 
         </form>
     </div>
@@ -351,7 +305,7 @@
  
 	</script>
 	
-	
+            
 	<!-- Profile Registration template-->
 	<script type="text/template" id="tpl-profile-reg">
 <div class="modal-header">
@@ -418,6 +372,37 @@
     </script>
 
 
+	<!-- Le javascript
+================================================== -->
+<script type="text/javascript">
+	var current = 1; //current keeps track of how many schools we have @default =1 
+    $(function(){
+    	
+        $("#register-step-school").modal();
+
+        $(".modal select:visible").selectBox();
+        $('.modal .datepicker').datepicker();
+
+        $("a.legend-add").click(function(e){
+        	 
+            e.preventDefault();
+           	addSchool();
+//             $(this).before($('#add-school-fieldset').html());
+            
+            $(".modal select:visible").selectBox();
+            $('.modal .datepicker:visible').datepicker();
+            $(".modal").addClass('modal-pull-top');
+        });
+        
+        function addSchool(){
+        	//current keeps track of how many schools we have.
+        	current ++;
+        	var strToAdd = '<fieldset><legend class="legend legend-add">Another school</legend><div class="school-registration"><div class="form-row"><div class="element"><label for="school-name-'+current+'">School name</label><input type="text" id="school-name-'+current+'" name="school-name-'+current+'" class="span3"></div><div class="element"><label for="year">Year</label><select name="year-'+current+'" id="year-'+current+'" class="span2"><option value="2002">2002</option><option value="2001">2001</option><option value="2000">2000</option> </select></div><div class="element"><label for="degree-expected-'+current+'">Degree expected</label> <select name="degree-expected-'+current+'" id="degree-expected-'+current+'" class="span3"><option value="degree_2012">Summer 2012</option><option value="degree_2011">Summer 2011</option><option value="degree_2010">Summer 2010</option> </select></div> </div> <div class="form-row"> <div class="element"> <label for="major-'+current+'">Major</label><input type="text" name="major-'+current+'" id="major-'+current+'" class="span3"></div><div class="element"><label for="degree-program-'+current+'">Degree program</label><select name="degreeprogram-'+current+'" id="degreeprogram-'+current+'" class="span2"><option value="program-2002">Bachelor\'s</option><option value="program-2001">Master\'s</option> </select> </div></div></div></fieldset>';
+        	$("a.legend-add").before(strToAdd);
+       	}
+    });
+</script>
+
 <!--  Backbone.js files -->
 <script src="js/views/homeview.js"></script>	
 <script src="js/views/schoolview.js"></script>	
@@ -429,28 +414,11 @@
 <script src="js/main.js"></script>
 	
 	
-	<!-- Le javascript
-================================================== -->
+
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery.selectBox.js"></script>
 <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
-<script type="text/javascript">
-    $(function(){
-        $("#register-step-school").modal();
-
-        $(".modal select:visible").selectBox();
-        $('.modal .datepicker').datepicker();
-
-        $("a.legend-add").click(function(e){
-            e.preventDefault();
-            $(this).before($('#add-school-fieldset').html());
-            $(".modal select:visible").selectBox();
-            $('.modal .datepicker:visible').datepicker();
-            $(".modal").addClass('modal-pull-top');
-        });
-    });
-</script>
 
 </body>
 </html>
