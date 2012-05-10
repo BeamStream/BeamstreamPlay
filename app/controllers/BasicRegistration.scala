@@ -41,7 +41,7 @@ object BasicRegistration extends Controller {
   
 
   def newUser = Action { implicit request =>
-       println("Getting the values from post request [" + request.body+"]")
+       //println("Getting the values from post request [" + request.body+"]")
     basicRegForm.bindFromRequest.fold(
       errors => BadRequest(views.html.basic_reg(errors, "", "", "", "")),
       basicRegForm => {

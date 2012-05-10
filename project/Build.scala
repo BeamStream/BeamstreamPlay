@@ -18,7 +18,8 @@ object ApplicationBuild extends Build {
     "joda-time" % "joda-time" % "2.0",
     "javax.mail" % "mail" % "1.4.1",
     "org.scalatra" %% "scalatra-lift-json" % "2.0.4",
-    "org.joda" % "joda-convert" % "1.1")
+    "org.joda" % "joda-convert" % "1.1"
+   )
 
   def customLessEntryPoints(base: File): PathFinder = (
     (base / "app" / "assets" / "stylesheets" / "bootstrap" * "bootstrap.less") +++

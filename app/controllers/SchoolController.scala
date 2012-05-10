@@ -17,18 +17,17 @@ object SchoolController extends Controller {
   /*
    * Will display all the Schools
    */
- 
-  def schools = Action {
+
+  def schools = Action { implicit request =>
     Ok(views.html.school(School.allSchools(), schoolForm))
   }
 
   /*
    * Sends the obtained fields value from html to model for saving it
    */
-  
+
   def addSchool = Action { implicit request =>
-    println("Neel")
-    print(request.body)
+    println("Request Body :" + request.body)
     schoolForm.bindFromRequest.fold(
       errors => BadRequest(views.html.school(School.allSchools(), errors)),
       schoolForm => {
