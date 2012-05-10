@@ -28,26 +28,27 @@ window.SchoolView = Backbone.View.extend({
     	
     	for(i=1; i <= current; i++){
     		
-    		schoolDetails.push({"school-name": $('#school-name-'+i).val(),
-    							"year": $('#year-'+i).val(),
-    							"degree-expected":$('#degree-expected-'+i).val(),
-    							"major":$('#major-'+i).val(),
-    							"degreeprogram":$('#degreeprogram-'+i).val(),
-    							});
-
+    		var school = new School();
+    		school.set({schoolName: $('#school-name-'+i).val(), major: $('#major-'+i).val(), year: $('#year-'+i).val(), degreeExpected: $('#degree-expected-'+i).val(), degree: $('#degreeprogram-'+i).val()});
+            schools.add(school);
     	}
 
-    	
+    	var schoolinfo = JSON.stringify(schools);
+
     	$.ajax({
             type: 'POST',
             url:"http://localhost/client/api.php",
-            data:{ data:schoolDetails },
+            data:{data:schoolinfo},
             dataType:"json",
             success:function(data){
                 var template = _.template( $("#tpl-success").html(), data );
                 $('#success').html(template);
             }
          });
+    	
+    	
+    	
+    	
     	 
       },
       

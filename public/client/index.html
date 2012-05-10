@@ -158,12 +158,14 @@
         <img src="images/registration-progress-50.png" alt="Registration progress - 50%" class="registration-progress pull-right">
     </div>
     <div class="modal-body">
-        <form>
+        <form id="class-form">
 			
-            <fieldset>
+            <fieldset id = "class-fieldset">
 			
                 <legend class="legend legend-add">import school catalogue</legend>
                 <div class="form-row-label">1<sup>st</sup> class</div>
+
+               <div id="test"></div>
                 <div class="form-row short">
                     <div class="element">
                         <label for="class-code-1">Class code</label>
@@ -246,28 +248,49 @@
                 </div>
 			
             </fieldset>
-
-
-            <fieldset style="margin-bottom: 0">
+                 <a href="#" id ="addclass" class="legend legend-add1">Add class or school</a>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" id="save" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a>
+        <a href="#" id="continue" class="btn btn-success pull-right">Continue</a>
+    </div>
+ 
+	</script>
+	
+	
+	<!-- ADD SCHOOL FOR CLASS REGISTRATION -->
+	<script type="text/template" id="add_class_or_school">
+	
+	     <fieldset>
                 <legend class="legend legend-add">Add class or school</legend>
                 <div class="form-row short">
                     <div class="element">
                         <label for="school">School</label>
                         <select id="school" class="large">
+ 							<option value="same">Some school</option>
                             <option value="diff">Different school</option>
-                            <option value="same">Some school</option>
                         </select>
                     </div>
                     <div class="element">
-                        <label for="school-name-1">School name</label>
-                        <input type="text" id="school-name-1" class="large">
+                        <div id="add-schoolname"></div>
                     </div>
                     <div class="element">
-                        <a href="#" class="btn btn-success">Add school</a>
+                        <a href="#" id="add-school" class="btn btn-success">Add school</a>
                     </div>
                 </div>
-
-                <div class="form-row-label">1<sup>st</sup> class</div>
+            </fieldset>
+         </script>
+            
+        <!-- template for scholl name -->
+	    <script type="text/template" id="tpl_add_schoolname">
+           <label for="school-name-1">School name</label>
+           <input type="text" id="school-name-1" class="large">
+        </script>
+            
+        <!-- template for entering class detilas for another scholl  -->
+	    <script type="text/template" id="tpl_another_class">
+            <div class="form-row-label">1<sup>st</sup> class</div>
                 <div class="form-row short">
                     <div class="element">
                         <label for="class-code-4">Class code</label>
@@ -293,22 +316,15 @@
                         </select>
                     </div>
                 </div>
-            </fieldset>
-
-
-        </form>
-    </div>
-    <div class="modal-footer">
-        <a href="#" id="save" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a>
-        <a href="#" id="continue" class="btn btn-success pull-right">Continue</a>
-    </div>
- 
-	</script>
-	
+         </script>
+            
+            
+            
+            
             
 	<!-- Profile Registration template-->
 	<script type="text/template" id="tpl-profile-reg">
-<div class="modal-header">
+   <div class="modal-header">
         <h1 class="pull-left">Social profile</h1>
         <img src="images/registration-progress-75.png" alt="Registration progress - 75%" class="registration-progress pull-right">
     </div>
