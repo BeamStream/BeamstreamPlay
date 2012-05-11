@@ -7,9 +7,12 @@ import models.SchoolForm
 import models.School
 
 object SchoolController extends Controller {
+  
   /*
    * Map the fields from the html page
    */
+  
+  
   val schoolForm = Form(
     mapping(
       "schoolName" -> nonEmptyText)(SchoolForm.apply)(SchoolForm.unapply))
@@ -27,7 +30,7 @@ object SchoolController extends Controller {
    */
 
   def addSchool = Action { implicit request =>
-    println("Request Body :" + request.body)
+    println("Request Body :" + request.body.asFormUrlEncoded.get)
     schoolForm.bindFromRequest.fold(
       errors => BadRequest(views.html.school(School.allSchools(), errors)),
       schoolForm => {
