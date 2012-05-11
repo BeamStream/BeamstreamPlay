@@ -1,11 +1,11 @@
  window.School = Backbone.Model.extend({
      
         defaults: {
-            schoolname :null,
+            schoolName :null,
             major:null,
             year:null,
-            expedteddegree:null,
-            degreeprogram:null,
+            degreeExpected:null,
+            degree:null,
         }
         
         
@@ -18,3 +18,4 @@ window.SchoolCollection = Backbone.Collection.extend({
 });    
 
  
+
