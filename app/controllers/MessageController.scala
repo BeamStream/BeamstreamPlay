@@ -7,6 +7,7 @@ import models.Quote
 import models.Stream
 import play.api.data._
 import play.api.data.Forms._
+import play.api.Play.current
 import models.MessageForm
 import models.Message
 import models.User
@@ -48,10 +49,8 @@ object MessageController extends Controller {
   }
 
   def messages = Action { implicit request =>
-
     val profileName = User.getUserProfile((new ObjectId(request.session.get("userId").get)))
     val streams = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
-
     Ok(views.html.message(Message.getAllMessagesForAStream(new ObjectId), messageForm, streams, profileName, new GridFSDBFile))
 
   }
@@ -69,13 +68,11 @@ object MessageController extends Controller {
   }
   
   
- 
 
   /*
    * get the profle pic for a User
    */
   def getProfilePic = Action { implicit request =>
-
     val media = Media.getAllMediaByUser(new ObjectId(request.session.get("userId").get))
 
     (media.isEmpty) match {

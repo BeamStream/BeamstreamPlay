@@ -21,14 +21,12 @@ case class MediaTransfer(userId: ObjectId, mediaType: MediaType.Value, showOnPro
 
 object Media {
 
- 
   val gridFS = GridFS(MongoHQConfig.mongoDB)
-  
-  
+
   def createMedia(mediaTransfer: MediaTransfer) {
 
     val gfsFile = gridFS.createFile(mediaTransfer.data)
-    gfsFile.filename=mediaTransfer.profilePicName
+    gfsFile.filename = mediaTransfer.profilePicName
     gfsFile.save
     val gridFSMediaId = gfsFile.id.asInstanceOf[ObjectId]
     MediaDAO.insert(new Media(new ObjectId, mediaTransfer.userId, mediaTransfer.mediaType, mediaTransfer.showOnProfileView, gridFSMediaId))
@@ -37,7 +35,6 @@ object Media {
 
   def findMedia(mediaId: ObjectId): GridFSDBFile = {
     val myMedia = gridFS.findOne(mediaId)
-    println(myMedia.get.chunkSize+"HOHOChunksize")
     myMedia.get
   }
 
@@ -56,4 +53,4 @@ object MediaType extends Enumeration {
   val Video = Value(1, "Video")
   val Pdf = Value(2, "Pdf")
 }
-object MediaDAO extends SalatDAO[Media, Int](collection =  MongoHQConfig.mongoDB("media"))
+object MediaDAO extends SalatDAO[Media, Int](collection = MongoHQConfig.mongoDB("media"))

@@ -9,6 +9,7 @@ import play.mvc._
 import play.api.mvc.Session
 import utils.MongoHQConfig
 import org.bson.types.ObjectId
+import play.cache.Cache
 
 case class User(@Key("_id") id: ObjectId, userType: UserType.Value, email: String, val firstName: String, lastName: String, userName: String, alias: String, password: String, orgName: String,
   location: String, streams: List[Int], schoolId: List[ObjectId], classId: List[ObjectId]) {
@@ -18,6 +19,8 @@ case class UserForm(iam: String, email: String, password: String, signup: String
 case class BasicRegForm(userName: String, password: String, orgName: String, firstName: String, lastName: String, email: String, location: String, iam: String, useCurrentLocation: Option[Boolean])
 case class DetailedRegForm(schoolName: String)
 object User {
+  
+  var activeUsersList: List[String] = List()
 
   /*
    * Add info to a user
@@ -64,7 +67,6 @@ object User {
  */
   def createUser(user: User): ObjectId = {
     val userCretaed = UserDAO.insert(user)
-    println(userCretaed.get)
     userCretaed.get.asInstanceOf[ObjectId]
   }
 
@@ -152,7 +154,27 @@ object User {
     map
 
   }
+  
+  /*
+   * Adding Active User
+   */
 
+  def activeUsers(activeUserId:String)={
+    activeUsersList ++= List(activeUserId)
+    Cache.set("userIds", activeUsersList)
+    
+  }
+  /*
+   * Removing inactiveUser
+   */
+  
+  def InactiveUsers(InactiveUserId:String)={
+    activeUsersList --= List(InactiveUserId)
+    Cache.set("userIds", activeUsersList)
+    
+  }
+  
+  
   def usertypes: Seq[(String, String)] = {
     val usertype = for (value <- UserType.values) yield (value.id.toString, value.toString)
     usertype.toSeq

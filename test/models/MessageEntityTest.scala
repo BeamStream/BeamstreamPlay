@@ -9,11 +9,11 @@ import java.text.DateFormat
 
 @RunWith(classOf[JUnitRunner])
 class MessageEntityTest extends FunSuite with BeforeAndAfter {
-  
-  val formatter : DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
+
+  val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
   val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List())
   val stream = Stream.createStream(Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(user.id), true))
-  val message = Message(new ObjectId, "some message", MessageType.Audio, MessageAccess.Public, formatter.parse("21-07-12"), user.id, stream.id, "", "", 0, List())
+  val message = Message(new ObjectId, "some message", MessageType.Audio, MessageAccess.Public, formatter.parse("23-07-12"), user.id, stream.id, "", "", 0, List())
 
   before {
     User.createUser(user)
@@ -45,8 +45,8 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     assert(messageAfterRocking.rocks === 1)
     User.countRoles(List(user.id))
 
-    val secondmessage = Message(new ObjectId, "some message", MessageType.Audio, MessageAccess.Public, formatter.parse("21-07-12"), user.id, stream.id, "", "", 16, List())
-    val thirdmessage = Message(new ObjectId, "some message", MessageType.Audio, MessageAccess.Public, formatter.parse("21-07-12"), user.id, stream.id, "", "", 10, List())
+    val secondmessage = Message(new ObjectId, "some message", MessageType.Audio, MessageAccess.Public, formatter.parse("23-07-10"), user.id, stream.id, "", "", 16, List())
+    val thirdmessage = Message(new ObjectId, "som message", MessageType.Audio, MessageAccess.Public, formatter.parse("23-07-11"), user.id, stream.id, "", "", 10, List())
     Message.createMessage(secondmessage)
     Message.createMessage(thirdmessage)
 
@@ -60,6 +60,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
      */
     assert(Message.getAllMessagesForAStreamSortedbyRocks(stream.id).indexOf(secondmessage) === 2)
     assert(Message.getAllMessagesForAStreamSortedbyRocks(stream.id).indexOf(messageAfterRocking) === 0)
+   assert(Message.getAllMessagesForAKeyword("some").size===2)
 
   }
 

@@ -38,8 +38,10 @@ class ScenarioTest extends FunSuite with BeforeAndAfter {
     /*total number of users on the stream must be 2*/
     assert(Stream.getStreamByName("Beam")(0).users.size === 2)
     
+  
     
-/* 
+    
+/* Omitted due to change in methods
     
     /*chris posts 5 messages on the stream*/
     Message.createMessage(Message(100, "message 1 on Beamstream", MessageType.Audio, MessageAccess.Public, "time", 100, 500))
