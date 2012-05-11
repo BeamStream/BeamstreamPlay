@@ -2,8 +2,10 @@ window.ClassView = Backbone.View.extend({
 
 	events: {
 	      "click #save": "saveclass",
-	      "click #continue": "toprofile"
-	      
+	      "click #continue": "toprofile",
+	      "click #addclass" : "addschool",
+	      "change #school": "addschoolfield",
+	      "click #add-school": "addclassinfo"
 	 },
 	
     initialize:function () {
@@ -53,7 +55,43 @@ window.ClassView = Backbone.View.extend({
     	app.navigate("profile", {trigger: true, replace: true});
     	
           
-    }
+    },
+     
+     /* “ADD CLASS OR SCHOOL” button clicked -  school's section shows up */
+     addschool:function (eventName) {
+    	 eventName.preventDefault();
+    	 $('#addclass').hide();
+    	 var template = _.template( $("#add_class_or_school").html());
+    	 $('#class-form').append(template)
+     },
+    
+     
+     /* add school field when select school as "Different" */
+     
+     addschoolfield:function (eventName) {
+    	var selected = $("#school option:selected").val();
+         
+        if(selected == "diff")
+        {
+        	$('#add-schoolname').show();
+        	var template1 = _.template( $("#tpl_add_schoolname").html());
+        	$('#add-schoolname').html(template1);
+        }
+        else if(selected == "same")
+        {
+        	$('#add-schoolname').hide();
+        }
+    	
+     },
+     
+     
+     /* add class details */
+     addclassinfo:function (eventName) {
+    	 alert(435);
+    	 eventName.preventDefault();
+    	 
+
+     },
     
 
 });

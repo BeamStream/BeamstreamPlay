@@ -42,6 +42,33 @@
  
 
 </head>
+<script type="text/javascript">
+
+// to display 'dedree expected' or 'date' filed 
+function showFields(id)
+{
+	  var dat='#'+id;
+	  var currentid = $(dat).closest('fieldset').attr('id');
+	  var value = $('#graduated-'+currentid).val();
+	  if(value == "attending" || value == "no")
+	  {
+			$('#cal-'+currentid).hide();
+			$('#degree-exp-'+currentid).show();
+			$(".modal select:visible").selectBox();
+	  }
+	  else if(value == "yes")
+	  {
+			$('#degree-exp-'+currentid).hide();
+			$('#cal-'+currentid).show();
+			$('.modal .datepicker:visible').datepicker();
+	  }
+	  else
+	  {
+			$('#degree-exp-'+currentid).hide();
+			$('#cal-'+currentid).hide();
+	  }
+}
+</script>
 
 <body>
 	<div class="navbar navbar-fixed-top">
@@ -96,44 +123,78 @@
     <div class="modal-body">
         <form name="school-form" id="school-form">
 			
-            <fieldset>
+            <fieldset id ="1" >
                 <legend class="legend">school info</legend>
 
 				<div class="school-registration">
                 <div class="form-row">
                     <div class="element">
                         <label for="school-name">School name</label>
-                        <input type="text" name="school-name-1" id="school-name-1" class="span3">
+                        <input type="text" name="school-name-1" id="school-name-1" class="span3" value="previous school name">
                     </div>
                     <div class="element">
                         <label for="year">Year</label>
                         <select name="year-1" id="year-1" class="span2">
-                            <option value="2002">2002</option>
-                            <option value="2001">2001</option>
-                            <option value="2000">2000</option>
+                            <option value="freshman">Freshman</option>
+                            <option value="sophomore">Sophomore</option>
+                            <option value="junior">Junior</option>
+							<option value="senior">Senior</option>
+							<option value="GM">Graduate (Master's)</option>
+							<option value="GP">Graduate (PhD)</option>
+							<option value="other">Other</option>
                         </select>
                     </div>
-                    <div class="element">
-                        <label for="degree-expected">Degree expected</label>
-                        <select name="degree-expected-1" id="degree-expected-1" class="span3">
-                            <option value="degree-2012">Summer 2012</option>
-                            <option value="degree-2011">Summer 2011</option>
-                            <option value="degree-2010">Summer 2010</option>
+                     <div class="element">
+                        <label for="degree-program">Degree program</label>
+                        <select name="degreeprogram-1" id="degreeprogram-1" class="span2">
+                            <option value="associates">Associates (AA)</option>
+                            <option value="bachelor">Bachelor's</option>
+                            <option value="master">Master's</option>
+							<option value="doctorate">Doctorate (PhD)</option>
+                            <option value="other">Other</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="element">
                         <label for="major">Major</label>
-                        <input type="text" name="major-1" id="major-1" class="span3">
+                        <input type="text" name="major-1" id="major-1" class="span3" placeholder="Your Major" >
                     </div>
-                    <div class="element">
-                        <label for="degree-program">Degree program</label>
-                        <select name="degreeprogram-1" id="degreeprogram-1" class="span2">
-                            <option value="program-2002">Bachelor's</option>
-                            <option value="program-2001">Master's</option>
+					<div class="element">
+                        <label for="graduated">Graduated?</label>
+                        <select id="graduated-1" name ="graduated"  class="graduated span2" onchange="showFields(this.id);" >
+ 							<option> </option>
+                            <option value="attending">Still Attending</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
                         </select>
                     </div>
+					<div class="element" id="cal-1">
+                        <label for="calendar-1">Calendar</label>
+                        <input class="span2 datepicker cal" type="text" value="01/05/2011" id="calendar-1"/>
+                    </div>
+
+
+                      <div class="element" id="degree-exp-1">
+                        <label for="degree-expected-1">Degree expected</label>
+                        <select id="degree-expected-1"  name="degree-expected-1" class="span3" >
+                            <option value="winter-2012">Winter 2012</option>
+                            <option value="summer-2013">Summer 2013</option>
+                            <option value="winter-2013">Winter 2013</option>
+							<option value="summer-2014">Summer 2014</option>
+                            <option value="winter-2014">Winter 2014</option>
+                            <option value="summer-2015">Summer 2015</option>
+							<option value="winter-2015">Winter 2015</option>
+                            <option value="summer-2016">Summer 2016</option>
+                            <option value="winter-2016">Winter 2016</option>
+							<option value="summer-2017">Summer 2017</option>
+                            <option value="winter-2017">Winter 2017</option>
+                            <option value="summer-2018">Summer 2018</option>
+							<option value="winter-2018">Winter 2018</option>
+                            <option value="nodegree">No Degree Expected</option>
+                        </select>
+                    </div>
+                       
                 </div>
 			 </div>
             </fieldset>
@@ -160,7 +221,7 @@
     <div class="modal-body">
         <form id="class-form">
 			
-            <fieldset id = "class-fieldset">
+            <fieldset id = "class-fieldset" >
 			
                 <legend class="legend legend-add">import school catalogue</legend>
                 <div class="form-row-label">1<sup>st</sup> class</div>
@@ -394,8 +455,10 @@
 	var current = 1; //current keeps track of how many schools we have @default =1 
     $(function(){
     	
+    	$('#degree-exp-'+current).hide();
+    	$('#cal-'+current).hide();
         $("#register-step-school").modal();
-
+        
         $(".modal select:visible").selectBox();
         $('.modal .datepicker').datepicker();
 
@@ -403,20 +466,23 @@
         	 
             e.preventDefault();
            	addSchool();
-//             $(this).before($('#add-school-fieldset').html());
-            
+           	
             $(".modal select:visible").selectBox();
             $('.modal .datepicker:visible').datepicker();
             $(".modal").addClass('modal-pull-top');
         });
         
         function addSchool(){
-        	//current keeps track of how many schools we have.
+        	//current keeps track of how many schools we have
         	current ++;
-        	var strToAdd = '<fieldset><legend class="legend legend-add">Another school</legend><div class="school-registration"><div class="form-row"><div class="element"><label for="school-name-'+current+'">School name</label><input type="text" id="school-name-'+current+'" name="school-name-'+current+'" class="span3"></div><div class="element"><label for="year">Year</label><select name="year-'+current+'" id="year-'+current+'" class="span2"><option value="2002">2002</option><option value="2001">2001</option><option value="2000">2000</option> </select></div><div class="element"><label for="degree-expected-'+current+'">Degree expected</label> <select name="degree-expected-'+current+'" id="degree-expected-'+current+'" class="span3"><option value="degree_2012">Summer 2012</option><option value="degree_2011">Summer 2011</option><option value="degree_2010">Summer 2010</option> </select></div> </div> <div class="form-row"> <div class="element"> <label for="major-'+current+'">Major</label><input type="text" name="major-'+current+'" id="major-'+current+'" class="span3"></div><div class="element"><label for="degree-program-'+current+'">Degree program</label><select name="degreeprogram-'+current+'" id="degreeprogram-'+current+'" class="span2"><option value="program-2002">Bachelor\'s</option><option value="program-2001">Master\'s</option> </select> </div></div></div></fieldset>';
+        	var strToAdd = '<fieldset id="'+current+'" ><legend class="legend legend-add">Another school</legend><div class="school-registration"><div class="form-row"><div class="element"><label for="school-name-'+current+'">School name</label><input type="text" id="school-name-'+current+'" name="school-name-'+current+'" class="span3"></div><div class="element"><label for="year">Year</label><select name="year-'+current+'" id="year-'+current+'" class="span2"><option value="freshman">Freshman</option><option value="sophomore">Sophomore</option><option value="junior">Junior</option><option value="senior">Senior</option><option value="GM">Graduate (Master\'s)</option><option value="GP">Graduate (PhD)</option><option value="other">Other</option></select></div><div class="element"><label for="degree-program-'+current+'">Degree program</label><select name="degreeprogram-'+current+'" id="degreeprogram-'+current+'" class="span2"><option value="associates">Associates (AA)</option><option value="bachelor">Bachelor\'s</option><option value="master">Master\'s</option><option value="doctorate">Doctorate (PhD)</option><option value="other">Other</option></select></div></div><div class="form-row"><div class="element"><label for="major-'+current+'">Major</label><input type="text" name="major-'+current+'" id="major-'+current+'" class="span3" placeholder="Your Major"></div><div class="element"><label for="graduated" name="graduated-'+current+'">Graduated?</label><select name="graduated" id="graduated-'+current+'" class="graduated span2"  onchange="showFields(this.id);"><option> </option><option value="attending">Still Attending</option><option value="yes">Yes</option><option value="no">No</option></select></div><div class="element" id="cal-'+current+'"><label for="calendar-'+current+'">Calendar</label><input class="span2 datepicker cal" type="text" value="01/05/2011" id="calendar-'+current+'" name="calendar-'+current+'"/></div><div class="element" ><div class="element" id="degree-exp-'+current+'"><label for="degree-expected-'+current+'">Degree expected</label><select name="degree-expected-'+current+'" id="degree-expected-'+current+'" class="span3"><option value="winter-2012">Winter 2012</option><option value="summer-2013">Summer 2013</option><option value="winter-2013">Winter 2013</option><option value="summer-2014">Summer 2014</option><option value="winter-2014">Winter 2014</option><option value="summer-2015">Summer 2015</option><option value="winter-2015">Winter 2015</option><option value="summer-2016">Summer 2016</option><option value="winter-2016">Winter 2016</option><option value="summer-2017">Summer 2017</option><option value="winter-2017">Winter 2017</option><option value="summer-2018">Summer 2018</option><option value="winter-2018">Winter 2018</option><option value="nodegree">No Degree Expected</option></select></div></div> </div></div></fieldset>';       	
         	$("a.legend-add").before(strToAdd);
+        	$('#degree-exp-'+current).hide();
+        	$('#cal-'+current).hide();
        	}
+        
     });
+	
 </script>
 
 <!--  Backbone.js files -->

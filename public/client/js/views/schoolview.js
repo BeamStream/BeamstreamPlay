@@ -25,16 +25,32 @@ window.SchoolView = Backbone.View.extend({
     	var i;
     	
     	var schools = new SchoolCollection();
-    	
     	for(i=1; i <= current; i++){
     		
+    		var degreeexp,degdate;
+    		if($('#graduated-'+i).val()== "attending" || $('#graduated-'+i).val()== "no")
+    	    {
+    			  degreeexp = $('#degree-expected-'+i).val();
+    			  degdate = "";
+    	    }
+    		else if($('#graduated-'+i).val() == "yes")
+    		{
+    			  degreeexp = "";
+    			  degdate = $('#calendar-'+i).val();
+    		}
+    		else
+    	    {
+    			  graduated = "";
+    			  degreeexp= "";
+    	    }
     		var school = new School();
-    		school.set({schoolName: $('#school-name-'+i).val(), major: $('#major-'+i).val(), year: $('#year-'+i).val(), degreeExpected: $('#degree-expected-'+i).val(), degree: $('#degreeprogram-'+i).val()});
+    		
+    		school.set({id:i,schoolName: $('#school-name-'+i).val(),year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val()}, graduated: $('#graduated-'+i).val(), graduationDate: degdate});
+
             schools.add(school);
     	}
 
     	var schoolinfo = JSON.stringify(schools);
-
     	$.ajax({
             type: 'POST',
             url:"http://localhost/client/api.php",
