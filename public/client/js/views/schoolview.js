@@ -61,10 +61,6 @@ window.SchoolView = Backbone.View.extend({
                 $('#success').html(template);
             }
          });
-    	
-    	
-    	
-    	
     	 
       },
       
