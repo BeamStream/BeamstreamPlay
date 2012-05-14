@@ -10,13 +10,7 @@ var AppRouter = Backbone.Router.extend({
     },
 
     initialize:function () {
-       /* this.headerView = new HeaderView();
-        $('.header').html(this.headerView.render().el);
-
-        // Close the search dropdown on click anywhere in the UI
-        $('body').click(function () {
-            $('.dropdown').removeClass("open");
-        });*/
+       
     },
 
     home: function() {
@@ -32,19 +26,29 @@ var AppRouter = Backbone.Router.extend({
              this.schoolView.render();
              
          }
-         $('#register-step-school').html(this.schoolView.el);   
+         $('#register-step-school').html(this.schoolView.el);  
+         
+         // hide some fields on page load
+         $('#degree-exp-'+current).hide();
+     	 $('#cal-'+current).hide();
+//         $("#register-step-school").modal();
+         
+//         $(".modal select:visible").selectBox();
+//         $('.modal .datepicker:visible').datepicker();
+         
     },
 
     
     
     classreg:function () {
-    	 
+    
    	 if (!this.classView) {
             this.classView = new ClassView();
             this.classView.render();
             
         }
         $('#register-step-school').html(this.classView.el);   
+        
    },
     
     

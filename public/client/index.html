@@ -42,6 +42,11 @@
  
 
 </head>
+<script type="text/javascript">
+     var s1Classes = 3;
+     var s2Classes = 0; 
+	
+</script>
 
 <body>
 	<div class="navbar navbar-fixed-top">
@@ -82,7 +87,7 @@
    
     <!-- success regitration -->
     <script id="tpl-success" type="text/x-handlebars-template">
-        {{status}}
+        Status : {{status}}
     </script>
 
 	<!-- School Registration template-->
@@ -96,101 +101,88 @@
     <div class="modal-body">
         <form name="school-form" id="school-form">
 			
-            <fieldset>
+            <fieldset id ="1" >
                 <legend class="legend">school info</legend>
 
 				<div class="school-registration">
                 <div class="form-row">
                     <div class="element">
                         <label for="school-name">School name</label>
-                        <input type="text" name="school-name" class="span3">
+                        <input type="text" name="school-name-1" id="school-name-1" class="span3" value="previous school name">
                     </div>
                     <div class="element">
                         <label for="year">Year</label>
-                        <select name="year" class="span2">
-                            <option value="2002">2002</option>
-                            <option value="2001">2001</option>
-                            <option value="2000">2000</option>
+                        <select name="year-1" id="year-1" class="span2">
+                            <option value="freshman">Freshman</option>
+                            <option value="sophomore">Sophomore</option>
+                            <option value="junior">Junior</option>
+							<option value="senior">Senior</option>
+							<option value="GM">Graduate (Master's)</option>
+							<option value="GP">Graduate (PhD)</option>
+							<option value="other">Other</option>
                         </select>
                     </div>
-                    <div class="element">
-                        <label for="degree-expected">Degree expected</label>
-                        <select name="degree-expected" class="span3">
-                            <option value="2012">Summer 2012</option>
-                            <option value="2011">Summer 2011</option>
-                            <option value="2010">Summer 2010</option>
+                     <div class="element">
+                        <label for="degree-program">Degree program</label>
+                        <select name="degreeprogram-1" id="degreeprogram-1" class="span2">
+                            <option value="associates">Associates (AA)</option>
+                            <option value="bachelor">Bachelor's</option>
+                            <option value="master">Master's</option>
+							<option value="doctorate">Doctorate (PhD)</option>
+                            <option value="other">Other</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="element">
                         <label for="major">Major</label>
-                        <input type="text" name="major" class="span3">
+                        <input type="text" name="major-1" id="major-1" class="span3" placeholder="Your Major" >
                     </div>
-                    <div class="element">
-                        <label for="degree-program">Degree program</label>
-                        <select name="degree-program" class="span2">
-                            <option value="2002">Bachelor's</option>
-                            <option value="2001">Master's</option>
+					<div class="element">
+                        <label for="graduated">Graduated?</label>
+                        <select id="graduated-1" name ="graduated"  class="graduated span2"   >
+ 							<option> </option>
+                            <option value="attending">Still Attending</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
                         </select>
                     </div>
+					<div class="element" id="cal-1">
+                        <label for="calendar-1">Calendar</label>
+                        <input class="span2 datepicker cal" type="text" value="01/05/2011" id="calendar-1"/>
+                    </div>
+
+                      <div class="element" id="degree-exp-1">
+                        <label for="degree-expected-1">Degree expected</label>
+                        <select id="degree-expected-1"  name="degree-expected-1" class="span3" >
+                            <option value="winter-2012">Winter 2012</option>
+                            <option value="summer-2013">Summer 2013</option>
+                            <option value="winter-2013">Winter 2013</option>
+							<option value="summer-2014">Summer 2014</option>
+                            <option value="winter-2014">Winter 2014</option>
+                            <option value="summer-2015">Summer 2015</option>
+							<option value="winter-2015">Winter 2015</option>
+                            <option value="summer-2016">Summer 2016</option>
+                            <option value="winter-2016">Winter 2016</option>
+							<option value="summer-2017">Summer 2017</option>
+                            <option value="winter-2017">Winter 2017</option>
+                            <option value="summer-2018">Summer 2018</option>
+							<option value="winter-2018">Winter 2018</option>
+                            <option value="nodegree">No Degree Expected</option>
+                        </select>
+                    </div>
+                       
                 </div>
 			 </div>
             </fieldset>
 
             <a href="#" class="legend legend-add">Add another school</a>
-            
-            <div id="add-school-fieldset">
-            <fieldset>
-                <legend class="legend legend-add">Another school</legend>
-
-			<div class="school-registration">
-                <div class="form-row">
-                    <div class="element">
-                        <label for="school-name-1">School name</label>
-                        <input type="text" name="school-name-1" class="span3">
-                    </div>
-                    <div class="element">
-                        <label for="year">Year</label>
-                        <select name="year" class="span2">
-                            <option value="2002">2002</option>
-                            <option value="2001">2001</option>
-                            <option value="2000">2000</option>
-                        </select>
-                    </div>
-                    <div class="element">
-                        <label for="degree-expected-1">Degree expected</label>
-                        <select name="degree-expected" class="span3">
-                            <option value="2012">Summer 2012</option>
-                            <option value="2011">Summer 2011</option>
-                            <option value="2010">Summer 2010</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="element">
-                        <label for="major-1">Major</label>
-                        <input type="text" name="major" class="span3">
-                    </div>
-                    
-                    <div class="element">
-                        <label for="degree-program-1">Degree program</label>
-                        <select name="degree-program" class="span2">
-                            <option value="2002">Bachelor's</option>
-                            <option value="2001">Master's</option>
-                        </select>
-                    </div>
-                </div>
-			</div>
-            </fieldset>
-            </div>
-      
 
         </form>
     </div>
     <div class="modal-footer">
         <a href="#" id ="save" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a>
-        <a href="#school-next" id ="continue" class="btn btn-success pull-right">Continue</a>
+        <a href="#" id ="continue" class="btn btn-success pull-right">Continue</a>
     </div>
 
 	</script>
@@ -198,34 +190,31 @@
   	<!-- Class Registration template-->
 	<script type="text/template" id="tpl-class-reg">
 
-
     <div class="modal-header">
         <h1 class="pull-left">Class info</h1>
         <img src="images/registration-progress-50.png" alt="Registration progress - 50%" class="registration-progress pull-right">
     </div>
     <div class="modal-body">
-        <form>
-			
-            <fieldset>
-			
+        <form id="class-form">
+            <fieldset id="same-school-classes">
                 <legend class="legend legend-add">import school catalogue</legend>
                 <div class="form-row-label">1<sup>st</sup> class</div>
                 <div class="form-row short">
                     <div class="element">
                         <label for="class-code-1">Class code</label>
-                        <input type="text" id="class-code-1" class="small" value="Class 1 code">
+                        <input type="text" id="class-code-1" class="small" placeholder="Class 1 code">
                     </div>
                     <div class="element">
                         <label for="class-time-1">Class time</label>
-                        <input type="text" id="class-time-1" class="tiny" value="3:30 PM">
+                        <input type="text" id="class-time-1" class="tiny" placeholder="3:30 PM">
                     </div>
                     <div class="element">
                         <label for="class-name-1">Class name</label>
-                        <input type="text" id="class-name-1" class="medium" value="Class 1 name">
+                        <input type="text" id="class-name-1" class="medium" placeholder="Class 1 name">
                     </div>
                     <div class="element">
                         <label for="date-started-1">Calendar</label>
-                        <input class="small datepicker cal" type="text" value="01/05/2011" id="date-started-1"/>
+                        <input class="small datepicker cal" type="text" placeholder="01/05/2011" id="date-started-1"/>
                     </div>
                     <div class="element">
                         <label for="semester-1">Semester or Quarter</label>
@@ -240,19 +229,19 @@
                 <div class="form-row short">
                     <div class="element">
                         <label for="class-code-2">Class code</label>
-                        <input type="text" id="class-code-2" class="small" value="Class 2 code">
+                        <input type="text" id="class-code-2" class="small" placeholder="Class 2 code">
                     </div>
                     <div class="element">
                         <label for="class-time-2">Class time</label>
-                        <input type="text" id="class-time-2" class="tiny" value="3:30 PM">
+                        <input type="text" id="class-time-2" class="tiny" placeholder="3:30 PM">
                     </div>
                     <div class="element">
                         <label for="class-name-2">Class name</label>
-                        <input type="text" id="class-name-2" class="medium" value="Class 2 name">
+                        <input type="text" id="class-name-2" class="medium" placeholder="Class 2 name">
                     </div>
                     <div class="element">
                         <label for="date-started-2">Calendar</label>
-                        <input class="small datepicker cal" type="text" value="01/05/2011" id="date-started-2"/>
+                        <input class="small datepicker cal" type="text" placeholder="01/05/2011" id="date-started-2"/>
                     </div>
                     <div class="element">
                         <label for="semester-2">Semester or Quarter</label>
@@ -268,19 +257,19 @@
                 <div class="form-row short">
                     <div class="element">
                         <label for="class-code-3">Class code</label>
-                        <input type="text" id="class-code-3" class="small" value="Class 3 code">
+                        <input type="text" id="class-code-3" class="small" placeholder="Class 3 code">
                     </div>
                     <div class="element">
                         <label for="class-time-3">Class time</label>
-                        <input type="text" id="class-time-3" class="tiny" value="3:30 PM">
+                        <input type="text" id="class-time-3" class="tiny" placeholder="3:30 PM">
                     </div>
                     <div class="element">
                         <label for="class-name-3">Class name</label>
-                        <input type="text" id="class-name-3" class="medium" value="Class 3 name">
+                        <input type="text" id="class-name-3" class="medium" placeholder="Class 3 name">
                     </div>
                     <div class="element">
-                        <label for="date-started-1">Calendar</label>
-                        <input class="small datepicker cal" type="text" value="01/05/2011" id="date-started-3"/>
+                        <label for="date-started-3">Calendar</label>
+                        <input class="small datepicker cal" type="text" placeholder="01/05/2011" id="date-started-3"/>
                     </div>
                     <div class="element">
                         <label for="semester-3">Semester or Quarter</label>
@@ -290,133 +279,86 @@
                         </select>
                     </div>
                 </div>
-			
             </fieldset>
-
-
-            <fieldset style="margin-bottom: 0">
-                <legend class="legend legend-add">Add class or school</legend>
-                <div class="form-row short">
-                    <div class="element">
-                        <label for="school">School</label>
-                        <select id="school" class="large">
-                            <option value="diff">Different school</option>
-                            <option value="same">Some school</option>
-                        </select>
-                    </div>
-                    <div class="element">
-                        <label for="school-name-1">School name</label>
-                        <input type="text" id="school-name-1" class="large">
-                    </div>
-                    <div class="element">
-                        <a href="#" class="btn btn-success">Add school</a>
-                    </div>
-                </div>
-
-                <div class="form-row-label">1<sup>st</sup> class</div>
-                <div class="form-row short">
-                    <div class="element">
-                        <label for="class-code-4">Class code</label>
-                        <input type="text" id="class-code-4" class="small" value="Class 3 code">
-                    </div>
-                    <div class="element">
-                        <label for="class-time-4">Class time</label>
-                        <input type="text" id="class-time-4" class="tiny" value="3:30 PM">
-                    </div>
-                    <div class="element">
-                        <label for="class-name-4">Class name</label>
-                        <input type="text" id="class-name-4" class="medium" value="Class 3 name">
-                    </div>
-                    <div class="element">
-                        <label for="date-started-1">Calendar</label>
-                        <input class="small datepicker cal" type="text" value="01/05/2011" id="date-started-4"/>
-                    </div>
-                    <div class="element">
-                        <label for="semester-4">Semester or Quarter</label>
-                        <select id="semester-4" class="small">
-                            <option value="semester">Semester</option>
-                            <option value="quarter">Quarter</option>
-                        </select>
-                    </div>
-                </div>
-            </fieldset>
-
+				<a  href="#" class="legend legend-addclass">Add class or school</a>
 
         </form>
     </div>
     <div class="modal-footer">
-        <a href="#" id="save" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a>
-        <a href="#" id="continue" class="btn btn-success pull-right">Continue</a>
-    </div>
- 
-	</script>
-	
-	
-	<!-- Profile Registration template-->
-	<script type="text/template" id="tpl-profile-reg">
-<div class="modal-header">
-        <h1 class="pull-left">Social profile</h1>
-        <img src="images/registration-progress-75.png" alt="Registration progress - 75%" class="registration-progress pull-right">
-    </div>
-    <div class="modal-body">
-        <form>
-            <fieldset>
-                <legend class="legend">Profile info</legend>
-
-                <div class="social-block">
-                    Click the icon below to invite<br>
-                    <a class="facebook" href="#"></a>
-                    <a class="twitter" href="#"></a>
-                    <a class="linkedin" href="#"></a>
-                    <a class="google" href="#"></a>
-                    <a class="mail" href="#"></a>
-                    <br>
-                    to BeamSteam Beta
-                </div>
-
-                <div class="form-row-label"></div>
-                <div class="form-row">
-                    <div class="element">
-                        <label for="profile-photo">Profile photo</label>
-                        <span class="profile-thumb"><img src="images/no-photo.png" alt="no photo"></span>
-                        <div class="profile-upload-box">
-                            <span class="profile-upload" id="profile-photo"></span>
-                        </div>
-                    </div>
-                    <div class="element last">
-                        <label for="profile-video">Profile video</label>
-                        <span class="profile-thumb"><img src="images/no-video.png" alt="no video"></span>
-                        <div class="profile-upload-box">
-                            <span class="profile-upload" id="profile-video"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-row-label">&nbsp;</div>
-                <div class="form-row">
-                    <div class="element">
-                        <label for="mobile">Mobile</label>
-                        <input type="text" id="mobile" class="large" value="() -">
-                    </div>
-                    <div class="element">
-                        <label for="upload">Upload</label>
-                        <select id="upload" class="large">
-                            <option value="Presentation">Presentation</option>
-                            <option value="File">File</option>
-                        </select>
-                    </div>
-                </div>
-
-
-            </fieldset>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <a href="#" class="btn btn-success pull-left" data-dismiss="modal">Save & Exit</a>
-        <a href="#" class="btn btn-danger pull-right">Complete</a>
+        <a href="#" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a>
+        <a href="#" class="btn btn-success pull-right">Continue</a>
     </div>
     </script>
+    
+    
+    <!-- ADD SCHOOL FOR CLASS REGISTRATION -->
+	<script type="text/template" id="add_class_or_school">
+	  <fieldset style="margin-bottom: 0" id="diff-school-classes">
+      <legend class="legend legend-add">Add class or school</legend>
+		<div class="form-row short">
+			<div class="element">
+				<label for="school">School</label>
+				<select id="school" class="large"   >
+					<option value="same">Same school</option>
+					<option value="diff">Different school</option>
+				</select>
+            </div>
+ 			<div class="element" id="another-school">
+				<label for="school-name-1">School name</label>
+				<input type="text" id="school-name-1" class="large">
+			</div>
+			<div class="element">
+				<a  class="btn btn-success" id="add-class"  >Add Class</a>
+			</div>
+		</div>
+	 </fieldset>
+    </script>
+    
+     <!-- ADD CLASSES -->
+	<script type="text/x-handlebars-template" id="tpl_add_classes">
+    	<div class="form-row-label">{{count}}<sup>st</sup> class</div>
+		<div class="form-row short">
+			<div class="element">
+				<label for="class-code- {{count}} ">Class code</label>
+				<input type="text" id="class-code-{{count}}" class="small" placeholder="Class {{count}} code">
+			</div>
+			<div class="element">
+				<label for="class-time-{{count}}">Class time</label>
+				<input type="text" id="class-time-{{count}}" class="tiny" placeholder="3:30 PM">
+			</div>
+			<div class="element">
+				<label for="class-name-{{count}}">Class name</label>
+				<input type="text" id="class-name-{{count}}" class="medium" placeholder="Class {{count}} name">
+			</div>
+			<div class="element">
+				<label for="date-started-{{count}}">Calendar</label>
+				<input class="small datepicker cal" type="text" placeholder="01/05/2011" id="date-started-{{count}}"/>
+			</div>
+			<div class="element">
+				<label for="semester-{{count}}">Semester or Quarter</label>
+				<select id="semester-{{count}}" class="small">
+					<option value="semester">Semester</option>
+					<option value="quarter">Quarter</option>
+				</select>
+			</div>
+		</div>
+  </script>
 
+	<!-- Le javascript
+================================================== -->
+<script type="text/javascript">
+	var current = 1; //current keeps track of how many schools we have @default =1 
+    $(function(){
+    	
+    	   	
+        $("#register-step-school").modal();
+
+        $(".modal select:visible").selectBox();
+        $('.modal .datepicker').datepicker();
+
+    });
+	
+</script>
 
 <!--  Backbone.js files -->
 <script src="js/views/homeview.js"></script>	
@@ -424,32 +366,16 @@
 <script src="js/models/schoolmodel.js"></script>	
 <script src="js/views/classview.js"></script>
 <script src="js/models/classmodel.js"></script>
+<script src="js/models/profilemodel.js"></script>
 <script src="js/views/profileview.js"></script>
 <script src="js/main.js"></script>
 	
 	
-	<!-- Le javascript
-================================================== -->
+
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery.selectBox.js"></script>
 <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
-<script type="text/javascript">
-    $(function(){
-        $("#register-step-school").modal();
-
-        $(".modal select:visible").selectBox();
-        $('.modal .datepicker').datepicker();
-
-        $("a.legend-add").click(function(e){
-            e.preventDefault();
-            $(this).before($('#add-school-fieldset').html());
-            $(".modal select:visible").selectBox();
-            $('.modal .datepicker:visible').datepicker();
-            $(".modal").addClass('modal-pull-top');
-        });
-    });
-</script>
 
 </body>
 </html>
