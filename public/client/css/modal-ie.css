@@ -1,0 +1,56 @@
+.modal {
+    border: none;
+    border-width: 0;
+}
+
+.modal .btn-primary {
+    padding: 13px 34px 10px 34px;
+    border: none;
+    background: url(../images/button-blue.png) top left no-repeat;
+    box-shadow: none!important;
+}
+.modal .btn-primary:hover,
+.modal .btn-primary:active,
+.modal .btn-primary.active,
+.modal .btn-primary.disabled,
+.modal .btn-primary[disabled] {
+    background: url(../images/button-blue.png) top left no-repeat;
+}
+.modal .btn-primary:active,
+.modal .btn-primary.active {
+    background: url(../images/button-blue.png) top left no-repeat;
+}
+
+
+.btn-success {
+    padding: 13px 41px 10px 41px!important;
+    border: none!important;
+    box-shadow: none!important;
+    background: url(../images/button-green.png) top left no-repeat;
+}
+.btn-success:hover,
+.btn-success:active,
+.btn-success.active,
+.btn-success.disabled,
+.btn-success[disabled] {
+    background: url(../images/button-green.png) top left no-repeat;
+}
+.btn-success:active,
+.btn-success.active {
+    background: url(../images/button-green.png) top left no-repeat;
+}
+
+
+.modal form fieldset {
+    position: relative;
+    padding-top: 20px;
+}
+.modal form legend {
+    position: absolute;
+    top: -15px;
+    left: 25px;
+}
+
+.datepicker table {
+    width: auto;
+}
