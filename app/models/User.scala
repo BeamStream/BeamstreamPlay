@@ -10,6 +10,8 @@ import play.api.mvc.Session
 import utils.MongoHQConfig
 import org.bson.types.ObjectId
 import play.cache.Cache
+import net.liftweb.json.{ parse, DefaultFormats }
+import net.liftweb.json.Serialization.{ read, write }
 
 case class User(@Key("_id") id: ObjectId, userType: UserType.Value, email: String, val firstName: String, lastName: String, userName: String, alias: String, password: String, orgName: String,
   location: String, streams: List[Int], schoolId: List[ObjectId], classId: List[ObjectId]) {
@@ -19,22 +21,28 @@ case class UserForm(iam: String, email: String, password: String, signup: String
 case class BasicRegForm(userName: String, password: String, orgName: String, firstName: String, lastName: String, email: String, location: String, iam: String, useCurrentLocation: Option[Boolean])
 case class DetailedRegForm(schoolName: String)
 object User {
-  
+
+  implicit val formats = DefaultFormats
+
   var activeUsersList: List[String] = List()
 
   /*
    * Add info to a user
    */
-  def addInfo(detailed_regForm: DetailedRegForm, userId: ObjectId, inputStream: java.io.InputStream, profilePicName: String) = {
-    User.addSchoolToUser(userId, new ObjectId(detailed_regForm.schoolName))
-    val mediaTransfer = MediaTransfer(userId, MediaType.Image, false, inputStream, profilePicName)
-    Media.createMedia(mediaTransfer)
+  def addInfo(schoolList: List[School], userid: ObjectId) = {
+    for (school <- schoolList) {
+      User.addSchoolToUser(userid, school.id)
+    }
+    val jsonData = write(schoolList)
+   
+
   }
 
   def allUsers(): List[User] = Nil
 
   /*
    * find the user for Authentication
+   * 
    */
   def findUser(userForm: UserForm): Option[User] = {
 
@@ -117,7 +125,6 @@ object User {
   def addSchoolToUser(userId: ObjectId, schoolId: ObjectId) {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
     UserDAO.update(MongoDBObject("_id" -> userId), user.copy(schoolId = (user.schoolId ++ List(schoolId))), false, false, new WriteConcern)
-
   }
 
   /*
@@ -154,27 +161,26 @@ object User {
     map
 
   }
-  
+
   /*
    * Adding Active User
    */
 
-  def activeUsers(activeUserId:String)={
+  def activeUsers(activeUserId: String) = {
     activeUsersList ++= List(activeUserId)
     Cache.set("userIds", activeUsersList)
-    
+
   }
   /*
    * Removing inactiveUser
    */
-  
-  def InactiveUsers(InactiveUserId:String)={
+
+  def InactiveUsers(InactiveUserId: String) = {
     activeUsersList --= List(InactiveUserId)
     Cache.set("userIds", activeUsersList)
-    
+
   }
-  
-  
+
   def usertypes: Seq[(String, String)] = {
     val usertype = for (value <- UserType.values) yield (value.id.toString, value.toString)
     usertype.toSeq

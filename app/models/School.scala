@@ -45,8 +45,8 @@ object School {
     */
   def createSchool(school: School) {
     SchoolDAO.insert(school)
-//    val s=write(school)
-//    println(s) 
+    val s=write(school)
+    println(s) 
     
   }
 

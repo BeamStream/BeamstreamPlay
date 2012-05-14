@@ -10,17 +10,24 @@ import play.api._
 import java.io.InputStream
 import java.io.FileInputStream
 import org.bson.types.ObjectId
+import models.School
+import models.Year
+import models.DegreeExpected
+import models.Degree
+import java.text.DateFormat
+import net.liftweb.json.{ parse, DefaultFormats }
+import net.liftweb.json.Serialization.{ read, write }
 
 object DetailedRegistration extends Controller {
 
+   implicit val formats = DefaultFormats
   /*
    * Map the field values from html
    */
+  
   val detailed_regForm = Form(
     mapping(
       "schoolName" -> nonEmptyText)(DetailedRegForm.apply)(DetailedRegForm.unapply))
-
-  
 
   def users = Action {
     Ok(views.html.detailed_reg(detailed_regForm))
@@ -30,23 +37,28 @@ object DetailedRegistration extends Controller {
    * Sends the field values & profile related info to User Model for adding the info of a User
    */
 
- 
+  def addInfo = Action { implicit request =>
+    
+    println("Here's the JSON from Curl request"+ request.body )
+    
+    val schoolListJson=request.body.asJson.get.toString
+   val s = net.liftweb.json.parse(schoolListJson).extract[List[School]]
+   
+    println("My Objects"+s)
+   
 
-  def addInfo = Action(parse.multipartFormData) { implicit request =>
-    detailed_regForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.detailed_reg(errors)),
+    val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
+    var schools: List[School] = List()
 
-      detailed_regForm => {
-         
-        request.body.file("picture").map { picture =>
-          
-          val fileObtained: File = picture.ref.file.asInstanceOf[File]
-          val inputStream = new FileInputStream(fileObtained)
-          User.addInfo(detailed_regForm, new ObjectId(request.session.get("userId").get) ,inputStream,picture.filename)
-        }
-        Redirect(routes.MessageController.messages)
-        
- 
-      })
+    val myschool1 = School(new ObjectId, "MPS", Year.FirstYear, DegreeExpected.Spring2012,
+      "CSE", Degree.Masters, Option(true), Option(formatter.parse("12-07-2011")), List())
+    val myschool2 = School(new ObjectId, "DPS", Year.FirstYear, DegreeExpected.Spring2012,
+      "CSE", Degree.Masters, Option(true), Option(formatter.parse("12-07-2011")), List())
+
+    schools ++= List(myschool1, myschool2)
+    User.addInfo(schools, new ObjectId("4facd5a984ae36dc1534d49a"))
+
+     Ok("Executed the Function")
+   
   }
 }
