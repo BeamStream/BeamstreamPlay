@@ -17,6 +17,9 @@ import models.Degree
 import java.text.DateFormat
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
+import net.liftweb.json.Extraction._
+import net.liftweb.json.JsonDSL._
+import net.liftweb.json.JsonAST.JObject
 
 object DetailedRegistration extends Controller {
 
@@ -39,10 +42,12 @@ object DetailedRegistration extends Controller {
 
   def addInfo = Action { implicit request =>
     
-    println("Here's the JSON from Curl request"+ request.body )
+   println("Here's the JSON from Curl request"+ request.body )
     
-    val schoolListJson=request.body.asJson.get.toString
-   val s = net.liftweb.json.parse(schoolListJson).extract[List[School]]
+   val schoolListJson=request.body.asJson.get.toString
+   println("Here's the JSON String extracted"+ schoolListJson) 
+    
+    val s = net.liftweb.json.parse(schoolListJson).extract[List[School]]
    
     println("My Objects"+s)
    
@@ -56,7 +61,7 @@ object DetailedRegistration extends Controller {
       "CSE", Degree.Masters, Option(true), Option(formatter.parse("12-07-2011")), List())
 
     schools ++= List(myschool1, myschool2)
-    User.addInfo(schools, new ObjectId("4facd5a984ae36dc1534d49a"))
+    User.addInfo(schools, new ObjectId("4fb089e784ae623e5e02ef07"))
 
      Ok("Executed the Function")
    

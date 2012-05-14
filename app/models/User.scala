@@ -27,14 +27,15 @@ object User {
   var activeUsersList: List[String] = List()
 
   /*
-   * Add info to a user
+   * Add info to a user(Intact)
    */
   def addInfo(schoolList: List[School], userid: ObjectId) = {
     for (school <- schoolList) {
       User.addSchoolToUser(userid, school.id)
     }
-    val jsonData = write(schoolList)
-   
+
+//    val jsonData = write(schoolList)
+//    println("Have your JSON from my side"+jsonData)
 
   }
 
@@ -119,7 +120,7 @@ object User {
   }
 
   /*
-   * Adds a school to User
+   * Adds a school to User (Intact)
    */
 
   def addSchoolToUser(userId: ObjectId, schoolId: ObjectId) {
