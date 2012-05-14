@@ -1,6 +1,8 @@
 window.Class = Backbone.Model.extend({
      
         defaults: {
+        	schoolid:null,
+        	classid:null,
             classcode:null,
             classtime:null,
             classname:null,
@@ -15,7 +17,4 @@ window.ClassCollection = Backbone.Collection.extend({
 
     model:Class, 
 	
-    //url:"api.php"
-
-
 });

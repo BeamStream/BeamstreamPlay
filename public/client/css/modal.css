@@ -391,3 +391,19 @@
     width: 311px;
     height: 44px;
 }
+
+
+
+
+/* css from Toobler..*/
+
+/* for 'ADD CLASS OR SCHOOL' in class Info screen */ 
+.modal form a.legend-addclass {
+    margin: 20px 0 0 26px;
+    display: inline-block;
+}
+.modal form .legend-addclass {
+    background: #a4cae8 url("../images/legend-plus.png") 1px 100% no-repeat;
+    padding-left: 40px;
+    cursor: pointer;
+}
