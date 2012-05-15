@@ -9,6 +9,8 @@ class Api
 		echo json_encode($arr);
 	}
 }
+
+$print_r($_REQUEST);
 $Api = new Api();
 
 $Api->save();

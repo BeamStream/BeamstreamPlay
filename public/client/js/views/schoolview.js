@@ -1,62 +1,38 @@
 window.SchoolView = Backbone.View.extend({
 
 	events: {
-	      "click #save": "saveschool",
-	      "click #continue": "continuetoclass",
-	      "click a.legend-add": "addschools",
+	      "click #save": "saveSchool",
+	      "click #continue": "continueToClass",
+	      "click a.legend-add": "addSchools",
 	      "change select.graduated": "showFields"
 	    },
 	
     initialize:function () {
     	
         console.log('Initializing School View');
-//        var current = 1; //current keeps track of how many schools we have @default =1 
         this.template= _.template($("#tpl-school-reg").html());
-       
+        
     },
 
+    /**
+     * render school Info screen
+     */
     render:function (eventName) {
 
         $(this.el).html(this.template());
         return this;
     },
     
-    /* save/post school info. */ 
-    saveschool:function () {
-    	var schoolDetails = new Array();
-    	var i;
+    /**
+     * save/post school info details.
+     */
+    saveSchool:function () {
     	
-    	var schools = new SchoolCollection();
-    	for(i=1; i <= current; i++){
-    		
-    		var degreeexp,degdate;
-    		if($('#graduated-'+i).val()== "attending" || $('#graduated-'+i).val()== "no")
-    	    {
-    			  degreeexp = $('#degree-expected-'+i).val();
-    			  degdate = "";
-    	    }
-    		else if($('#graduated-'+i).val() == "yes")
-    		{
-    			  degreeexp = "";
-    			  degdate = $('#calendar-'+i).val();
-    		}
-    		else
-    	    {
-    			  graduated = "";
-    			  degreeexp= "";
-    	    }
-    		var school = new School();
-    		
-    		school.set({id:i,schoolName: $('#school-name-'+i).val(),year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val()}, graduated: $('#graduated-'+i).val(), graduationDate: degdate});
-
-            schools.add(school);
-    	}
-
-    	var schoolinfo = JSON.stringify(schools);
+    	var  schoolDetails = this.getSchoolInfo();
     	$.ajax({
             type: 'POST',
             url:"http://localhost/client/api.php",
-            data:{data:schoolinfo},
+            data:{data:schoolDetails},
             dataType:"json",
             success:function(data){
                 var source   = $("#tpl-success").html();
@@ -69,18 +45,29 @@ window.SchoolView = Backbone.View.extend({
       },
       
       
-      continuetoclass:function (eventName) {
-    	  eventName.preventDefault();        
+      /**
+       *  function to navigate to Class Registration when click on 'Continue' button 
+       */
+      continueToClass:function (eventName) {
+    	  
+    	  eventName.preventDefault();      
+    	  
+    	  /* save School details in local storage */ 
+          var localStorageKey = "registration"; 
+    	  localStorage.setItem(localStorageKey,this.getSchoolInfo());  
+    	  
     	  app.navigate("class", {trigger: true, replace: true});
       },
       
-       
-      /* add another school*/
-      addschools:function (eventName) {
+      
+     /**
+      *  add another school details 
+      */
+      addSchools:function (eventName) {
 
           eventName.preventDefault();
-          //current keeps track of how many schools we have
-      	  current ++;
+      	  current ++;  //current keeps track of how many schools we have
+      	  
       	  var strToAdd = '<fieldset id="'+current+'" ><legend class="legend legend-add">Another school</legend><div class="school-registration"><div class="form-row"><div class="element"><label for="school-name-'+current+'">School name</label><input type="text" id="school-name-'+current+'" name="school-name-'+current+'" class="span3"></div><div class="element"><label for="year">Year</label><select name="year-'+current+'" id="year-'+current+'" class="span2"><option value="freshman">Freshman</option><option value="sophomore">Sophomore</option><option value="junior">Junior</option><option value="senior">Senior</option><option value="GM">Graduate (Master\'s)</option><option value="GP">Graduate (PhD)</option><option value="other">Other</option></select></div><div class="element"><label for="degree-program-'+current+'">Degree program</label><select name="degreeprogram-'+current+'" id="degreeprogram-'+current+'" class="span2"><option value="associates">Associates (AA)</option><option value="bachelor">Bachelor\'s</option><option value="master">Master\'s</option><option value="doctorate">Doctorate (PhD)</option><option value="other">Other</option></select></div></div><div class="form-row"><div class="element"><label for="major-'+current+'">Major</label><input type="text" name="major-'+current+'" id="major-'+current+'" class="span3" placeholder="Your Major"></div><div class="element"><label for="graduated" name="graduated-'+current+'">Graduated?</label><select name="graduated" id="graduated-'+current+'" class="graduated span2" ><option> </option><option value="attending">Still Attending</option><option value="yes">Yes</option><option value="no">No</option></select></div><div class="element" id="cal-'+current+'"><label for="calendar-'+current+'">Calendar</label><input class="span2 datepicker cal" type="text" value="01/05/2011" id="calendar-'+current+'" name="calendar-'+current+'"/></div><div class="element" ><div class="element" id="degree-exp-'+current+'"><label for="degree-expected-'+current+'">Degree expected</label><select name="degree-expected-'+current+'" id="degree-expected-'+current+'" class="span3"><option value="winter-2012">Winter 2012</option><option value="summer-2013">Summer 2013</option><option value="winter-2013">Winter 2013</option><option value="summer-2014">Summer 2014</option><option value="winter-2014">Winter 2014</option><option value="summer-2015">Summer 2015</option><option value="winter-2015">Winter 2015</option><option value="summer-2016">Summer 2016</option><option value="winter-2016">Winter 2016</option><option value="summer-2017">Summer 2017</option><option value="winter-2017">Winter 2017</option><option value="summer-2018">Summer 2018</option><option value="winter-2018">Winter 2018</option><option value="nodegree">No Degree Expected</option></select></div></div> </div></div></fieldset>';       	
       	  $("a.legend-add").before(strToAdd);
           $('#degree-exp-'+current).hide();
@@ -91,7 +78,10 @@ window.SchoolView = Backbone.View.extend({
           $(".modal").addClass('modal-pull-top');
       },
       
-     /* to display 'degree expected' or 'date' field */
+      
+     /**
+      * to display 'degree expected' or 'date' field
+      */
       showFields:function (eventName) {
  
     	  var id = eventName.target.id;
@@ -117,8 +107,49 @@ window.SchoolView = Backbone.View.extend({
 		  }
       },
       
-     
+      /**
+       * get school details from the form 
+       * @return School details as  JSON string
+       */
       
+      getSchoolInfo:function (eventName) {
+    	  
+	    	var schoolDetails = new Array();
+	      	var i;
+	      	
+	      	var schools = new SchoolCollection();
+	      	for(i=1; i <= current; i++)
+	      	{
+	      		
+		      	var degreeexp,degdate;
+		      		
+		     	/* display degree expected when selecting graduated as 'attending' or 'no' */
+		      	if($('#graduated-'+i).val()== "attending" || $('#graduated-'+i).val()== "no")
+		        {
+		   			  degreeexp = $('#degree-expected-'+i).val();
+		   			  degdate = "";
+		   	    }
+		   		/* display degree expected when selecting graduated as 'yes' */
+		   		else if($('#graduated-'+i).val() == "yes")
+		   		{
+		   			  degreeexp = "";
+		    		  degdate = $('#calendar-'+i).val();
+		     	}
+		   		else
+		   	    {
+		   			  graduated = "";
+		   			  degreeexp= "";
+		   	    }
+		   		var school = new School();
+		      		
+		   		school.set({schoolId:i,schoolName: $('#school-name-'+i).val(),year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val()}, graduated: $('#graduated-'+i).val(), graduationDate: degdate });
+		
+		        schools.add(school);
+	         }
+	   
+	         var schoolinfo = JSON.stringify(schools);
+	         return schoolinfo;
+	      },
       
 
 });

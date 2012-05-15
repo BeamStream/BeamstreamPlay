@@ -23,7 +23,6 @@ window.ProfileView = Backbone.View.extend({
 		{
 			console.log(localStorage['classcode']);
 		}
-		  	   
         
     },
 
