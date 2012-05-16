@@ -362,6 +362,8 @@ if(jQuery) (function($) {
 					select.triggerHandler('open', { _selectBox: true });
 				};
 				
+				
+				
 				// Show menu
 				switch( settings.menuTransition ) {
 
@@ -397,7 +399,7 @@ if(jQuery) (function($) {
 
 
 			var hideMenus = function() {
-
+			
 				if( $(".selectBox-dropdown-menu:visible").length === 0 ) return;
 				$(document).unbind('mousedown.selectBox');
 

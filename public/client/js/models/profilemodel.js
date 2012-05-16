@@ -1,8 +1,8 @@
 window.Profile = Backbone.Model.extend({
      
         defaults: {
-            photourl:null,
-            videourl:null,
+            photoUrl:null,
+            videoUrl:null,
             mobile:null,
             upload:null
         },

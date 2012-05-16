@@ -1,7 +1,9 @@
 window.ProfileView = Backbone.View.extend({
 
 	events: {
-	      "click #save": "saveprofile",
+	      "click #save": "saveProfile",
+	      "click #complete": "complete",
+//	      "click #profile-photo": "uploadPhoto",
 	 },
 	 
     initialize:function () {
@@ -32,22 +34,95 @@ window.ProfileView = Backbone.View.extend({
         return this;
     },
     
-    /* save profile details */
-    saveprofile:function (eventName) {
+    /**
+     * save / post profile details
+     */
+    saveProfile:function (eventName) {
     	
-    	var photoUrl =  "http://localhost/client/images/no-photo.png";//$('#my_image').attr('src','second.jpg');
-        var videoUrl = "http://localhost/client/images/video.mp3";
-        var mobile = $('#mobile').val(); 
-        var upload = $("#upload option:selected").text();
-        
-        var profile = new Profile();
-        profile.set({photourl: photoUrl, videourl: videoUrl, mobile: mobile, upload: upload});
-        profile.save();
-        
-        
-       
-    }
+    	eventName.preventDefault();
+    	var regDetails = this.getRegDetails();
+    	
+    	/* post data with school,class & profile details */
+		$.ajax({
+			type : 'POST',
+			url : "http://192.168.10.10/client/api.php",
+			data : {
+				data : regDetails
+			},
+			dataType : "json",
+			success : function(data) {
+				var source = $("#tpl-success").html();
+				var template = Handlebars.compile(source);
+				$("#success").html(template(data));
+			}
+		});
+
+		
+    },
     
+    /**
+     * save whole details when click on 'COMPLETE' button
+     */
+    complete:function (eventName) {
+    	
+    	eventName.preventDefault();
+    	
+//    	var regDetails = this.getRegDetails();
+//    	
+//    	/* post data with school,class & profile details */
+//		$.ajax({
+//			type : 'POST',
+//			url : "http://192.168.10.10/client/api.php",
+//			data : {
+//				data : regDetails
+//			},
+//			dataType : "json",
+//			success : function(data) {
+//				var source = $("#tpl-success").html();
+//				var template = Handlebars.compile(source);
+//				$("#success").html(template(data));
+//			}
+//		});
+    },
+    
+    /**
+     * upload profile photo
+     */
+    uploadPhoto:function (eventName) {
+    	eventName.preventDefault();
+        console.log("34534");
+        console.log($('#profile-photo').val());
+    },		
+    
+    
+    getRegDetails:function (eventName) {
+    	var i;
+	    var profileModel = new Profile();
+	    profileModel.set({
+	    	photoUrl : "http://localhost/client/images/no-photo.png",
+	    	videoUrl :"http://localhost/client/images/video.mp3",
+	    	mobile : $('#mobile').val(),
+	    	upload : $('#upload').val(),
+		});
+		 
+		var profileDetails = JSON.stringify(profileModel);
+
+		/* get local stored registration details */
+		var localStorageKey = "registration";
+		var data = localStorage.getItem(localStorageKey);
+
+		var regData = jQuery.parseJSON(data);
+
+		// add profile details to local
+		regData[0].profile = jQuery.parseJSON(profileDetails);
+
+		var regDetails = JSON.stringify(regData);
+		localStorage.setItem(localStorageKey, regDetails);
+
+		console.log(regDetails);
+		return regDetails;
+
+    },	
    
     
 });
