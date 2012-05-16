@@ -32,10 +32,10 @@ object User {
   def addInfo(schoolList: List[School], userid: ObjectId) = {
     for (school <- schoolList) {
       User.addSchoolToUser(userid, school.id)
+     // School.createSchool(school)
     }
 
-//    val jsonData = write(schoolList)
-//    println("Have your JSON from my side"+jsonData)
+
 
   }
 

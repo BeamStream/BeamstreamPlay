@@ -12,26 +12,25 @@ import utils.MongoHQConfig
 import java.util.Date
 import java.text.DateFormat
 import net.liftweb.json.{ parse, DefaultFormats }
-import net.liftweb.json.Serialization.{read, write}
+import net.liftweb.json.Serialization.{ read, write }
 
-case class School(@Key("_id") id: ObjectId, schoolName: String, year: Year.Value, degreeExpected: DegreeExpected.Value,
-  major: String, degree: Degree.Value, graduated: Option[Boolean], graduationDate: Option[Date], classes: List[Class])
+case class School(@Key("_id") id: ObjectId, schoolName: String, year: Year.Value, degree: Degree.Value, major: String,
+  graduated: Graduated.Value, graduationDate: Option[Date], degreeExpected: Option[DegreeExpected.Value], classes: List[Class])
 
 case class SchoolForm(schoolName: String)
 object School {
-  
-   implicit val formats = DefaultFormats
 
-  val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
+  implicit val formats = DefaultFormats
+
 
   def allSchools(): List[School] = Nil
   /*
    * Will add a new School
    */
-  def addSchool(schoolForm: SchoolForm) {
-    School.createSchool(new School(new ObjectId, schoolForm.schoolName, Year.FirstYear, DegreeExpected.Spring2012,
-      "CSE", Degree.Masters, Option( true), Option(formatter.parse("12-07-2011")), List()))
-  }
+//  def addSchool(schoolForm: SchoolForm) {
+//    School.createSchool(new School(new ObjectId, schoolForm.schoolName, Year.Freshman, 
+//      "CSE", Degree.Masters, Graduated.No, Option(formatter.parse("12-07-2011")),DegreeExpected.Summer2013 List()))
+//  }
 
   /*
    * Add a class to a school
@@ -45,17 +44,14 @@ object School {
     */
   def createSchool(school: School) {
     SchoolDAO.insert(school)
-    val s=write(school)
-    println(s) 
-    
-  }
+   }
 
   /*
    * Removes a school
    */
   def removeSchool(school: School) {
     SchoolDAO.remove(school)
-   
+
   }
 
   /*
@@ -70,25 +66,46 @@ object School {
 }
 
 object Year extends Enumeration {
-  val FirstYear = Value(0, "1st Year")
-  val SecondYear = Value(1, "2nd Year")
-  val ThirdYear = Value(2, "3rd Year")
-  val FourthYear = Value(3, "4th Year")
+  val Freshman = Value(0, "Freshman")
+  val Sophomore = Value(1, "Sophomore")
+  val Junior = Value(2, "Junior")
+  val Senior = Value(3, "Senior")
+  val Graduated_Masters = Value(4, "Graduated(Master's)")
+  val Graduated_Phd = Value(5, "Graduated(Phd)")
+  val Other = Value(6, "Other")
 }
 
 object DegreeExpected extends Enumeration {
-  val Spring2012 = Value(0, "Spring 2012")
-  val Summer2012 = Value(1, "Summer 2012")
-  val Spring2013 = Value(2, "Spring 2013")
-  val Summer2013 = Value(3, "Summer 2013")
+  val Winter2012 = Value(0, "Winter 2012")
+  val Summer2013 = Value(1, "Summer 2013")
+  val Winter2013 = Value(2, "Winter 2013")
+  val Summer2014 = Value(3, "Summer 2014")
+  val Winter2014 = Value(4, "Winter 2014")
+  val Summer2015 = Value(5, "Summer 2015")
+  val Winter2015 = Value(6, "Winter 2015")
+  val NoDegreeExpected = Value(7, "No Degree Expected")
 }
 
 object Degree extends Enumeration {
-  val Bachelors = Value(0, "Bachelors")
-  val Masters = Value(1, "Masters")
+  val Bachelors = Value(0, "Bachelor's")
+  val Masters = Value(1, "Master's")
+  val Assosiates = Value(2, "Assosiates(AA)")
+  val Doctorate = Value(3, "Doctorate(Phd)")
+  val Other = Value(4, "Other")
 
 }
 
+object Graduated extends Enumeration {
+  val Yes = Value(0, "yes")
+  val No = Value(1, "no")
+  val StillAttending = Value(2, "attending")
 
+}
 
 object SchoolDAO extends SalatDAO[School, Int](collection = MongoHQConfig.mongoDB("school"))
+
+object test extends App{
+    for (value <- Year.values){
+       println(value.toString==("Freshman"))
+     }
+}

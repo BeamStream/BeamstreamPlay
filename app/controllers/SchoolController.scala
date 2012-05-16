@@ -34,7 +34,7 @@ object SchoolController extends Controller {
     schoolForm.bindFromRequest.fold(
       errors => BadRequest(views.html.school(School.allSchools(), errors)),
       schoolForm => {
-        School.addSchool(schoolForm)
+        //School.addSchool(schoolForm)
         Redirect(routes.MessageController.messages)
       })
   }
