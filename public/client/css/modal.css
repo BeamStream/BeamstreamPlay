@@ -407,3 +407,11 @@
     padding-left: 40px;
     cursor: pointer;
 }
+/* to display School name in the top position of class Info screen */
+.school-name {
+    font-size: 25px;
+    padding-top:30px;
+   /* padding: 20px 0;*/
+    text-shadow: 1px 1px 2px #006196;
+  
+}

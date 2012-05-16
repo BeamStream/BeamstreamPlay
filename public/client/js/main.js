@@ -3,9 +3,9 @@ var AppRouter = Backbone.Router.extend({
     routes:{
     	
         "":"home",
-        "school":"schoolreg",
-        "class":"classreg",
-        "profile":"profilereg"
+        "school":"schoolReg",
+        "class":"classReg",
+        "profile":"profileReg"
         
     },
 
@@ -18,8 +18,10 @@ var AppRouter = Backbone.Router.extend({
     },
 
    
-    // School registration
-    schoolreg:function () {
+    /**
+     * display School Info screen
+     */
+    schoolReg:function () {
     	
     	 if (!this.schoolView) {
              this.schoolView = new SchoolView();
@@ -28,46 +30,48 @@ var AppRouter = Backbone.Router.extend({
          }
          $('#register-step-school').html(this.schoolView.el);  
          
-         // hide some fields on page load
+         /* hide some fields on page load */
          $('#degree-exp-'+current).hide();
      	 $('#cal-'+current).hide();
-//         $("#register-step-school").modal();
-         
-//         $(".modal select:visible").selectBox();
-//         $('.modal .datepicker:visible').datepicker();
-         
+     	 
+     	 $(".modal select:visible").selectBox();
+         $('.modal .datepicker').datepicker();
     },
 
     
+    /**
+     * display Class Info screen
+     */
+    classReg:function () {
     
-    classreg:function () {
-    
-   	 if (!this.classView) {
+   	    if (!this.classView) {
             this.classView = new ClassView();
             this.classView.render();
             
         }
         $('#register-step-school').html(this.classView.el);   
         
+       $(".modal select:visible").selectBox();
+       $('.modal .datepicker').datepicker();
+        
    },
     
-    
-   profilereg:function () {
+   /**
+    * display Profile Info screen
+    */
+   profileReg:function () {
     	 
-   	 if (!this.profileView) {
+   	  if (!this.profileView) {
             this.profileView = new ProfileView();
             this.profileView.render();
             
-        }
-        $('#register-step-school').html(this.profileView.el);   
+      }
+      $('#register-step-school').html(this.profileView.el);   
    }
   
 });
- app = new AppRouter();
+
+
+app = new AppRouter();
 Backbone.history.start();
 
-/*tpl.loadTemplates(['home', 'contact', 'header', 'employee-full', 'employee-details', 'employee-list-item','school'],
-    function () {
-        app = new AppRouter();
-        Backbone.history.start();
-    });*/

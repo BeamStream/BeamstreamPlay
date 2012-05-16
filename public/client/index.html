@@ -11,6 +11,10 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
     
+    <link href="css/modal.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/jquery.selectBox.css" />
+    <link type="text/css" rel="stylesheet" href="css/datepicker.css" />
+    
     <style>
         body {
             padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -18,10 +22,6 @@
 
     </style>
     
-    
-    <link href="css/modal.css" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="css/jquery.selectBox.css" />
-    <link type="text/css" rel="stylesheet" href="css/datepicker.css" />
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -34,6 +34,7 @@
     
 
 	<!-- scripts -->
+	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>	
 	
 	<script src="lib/underscore-min.js"></script>
@@ -42,11 +43,6 @@
  
 
 </head>
-<script type="text/javascript">
-     var s1Classes = 3;
-     var s2Classes = 0; 
-	
-</script>
 
 <body>
 	<div class="navbar navbar-fixed-top">
@@ -191,7 +187,8 @@
 	<script type="text/template" id="tpl-class-reg">
 
     <div class="modal-header">
-        <h1 class="pull-left">Class info</h1>
+        <h2 class="school-name">Previous Schoolname </h2>
+        <h1 class="pull-left" >Class info</h2>
         <img src="images/registration-progress-50.png" alt="Registration progress - 50%" class="registration-progress pull-right">
     </div>
     <div class="modal-body">
@@ -202,7 +199,7 @@
                 <div class="form-row short">
                     <div class="element">
                         <label for="class-code-1">Class code</label>
-                        <input type="text" id="class-code-1" class="small" placeholder="Class 1 code">
+                        <input type="text" id="class-code-1" class="small" placeholder="Class 1 code" >
                     </div>
                     <div class="element">
                         <label for="class-time-1">Class time</label>
@@ -285,8 +282,8 @@
         </form>
     </div>
     <div class="modal-footer">
-        <a href="#" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a>
-        <a href="#" class="btn btn-success pull-right">Continue</a>
+        <a href="#" class="btn btn-primary pull-left" data-dismiss="modal" id="save">Save & Exit</a>
+        <a href="#" class="btn btn-success pull-right" id="continue">Continue</a>
     </div>
     </script>
     
@@ -305,13 +302,12 @@
             </div>
  			<div class="element" id="another-school">
 				<label for="school-name-1">School name</label>
-				<input type="text" id="school-name-1" class="large">
+				<input type="text" id="school-name-1" class="large" >
 			</div>
-			<div class="element">
-				<a  class="btn btn-success" id="add-class"  >Add Class</a>
-			</div>
+			
 		</div>
 	 </fieldset>
+
     </script>
     
      <!-- ADD CLASSES -->
@@ -343,14 +339,90 @@
 			</div>
 		</div>
   </script>
+  
+  
+  <!-- profile Registration template-->
+  <script type="text/template" id="tpl-profile-reg">
+  
+    <div class="modal-header">
+        <h1 class="pull-left">Social profile</h1>
+        <img src="images/registration-progress-75.png" alt="Registration progress - 75%" class="registration-progress pull-right">
+    </div>
+    <div class="modal-body">
+        <form>
+            <fieldset>
+                <legend class="legend">Profile info</legend>
+
+                <div class="social-block">
+                    Click the icon below to invite<br>
+                    <a class="facebook" href="#"></a>
+                    <a class="twitter" href="#"></a>
+                    <a class="linkedin" href="#"></a>
+                    <a class="google" href="#"></a>
+                    <a class="mail" href="#"></a>
+                    <br>
+                    to BeamSteam Beta
+                </div>
+
+                <div class="form-row-label"></div>
+                <div class="form-row">
+                    <div class="element">
+                        <label for="profile-photo">Profile photo</label>
+                        <span class="profile-thumb"><img src="images/no-photo.png" alt="no photo"></span>
+                        <div class="profile-upload-box">
+                            <span class="profile-upload" id="profile-photo"></span>
+                        </div>
+                    </div>
+                    <div class="element last">
+                        <label for="profile-video">Profile video</label>
+                        <span class="profile-thumb"><img src="images/no-video.png" alt="no video"></span>
+                        <div class="profile-upload-box">
+                            <span class="profile-upload" id="profile-video"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row-label">&nbsp;</div>
+                <div class="form-row">
+                    <div class="element">
+                        <label for="mobile">Mobile</label>
+                        <input type="text" id="mobile" class="large" value="() -">
+                    </div>
+                    <div class="element">
+                        <label for="upload">Upload</label>
+                        <select id="upload" class="large">
+                            <option value="Presentation">Presentation</option>
+                            <option value="File">File</option>
+                        </select>
+                    </div>
+                </div>
+
+
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn btn-success pull-left" data-dismiss="modal" id ="save">Save & Exit</a>
+        <a href="#" class="btn btn-danger pull-right" >Complete</a>
+    </div>
+  </script>
+
 
 	<!-- Le javascript
 ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.selectBox.js"></script>
+<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+
 <script type="text/javascript">
 	var current = 1; //current keeps track of how many schools we have @default =1 
+	
+	var s1Classes = 3;  // s1Classes keeps how many classes are there under same school
+    var s2Classes = 0;  // s2Classes keeps how many classes are there under different school
+	
     $(function(){
     	
-    	   	
         $("#register-step-school").modal();
 
         $(".modal select:visible").selectBox();
@@ -369,13 +441,6 @@
 <script src="js/models/profilemodel.js"></script>
 <script src="js/views/profileview.js"></script>
 <script src="js/main.js"></script>
-	
-	
-
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/jquery.selectBox.js"></script>
-<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
 
 </body>
 </html>

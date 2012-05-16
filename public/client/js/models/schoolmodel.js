@@ -1,14 +1,14 @@
  window.School = Backbone.Model.extend({
      
         defaults: {
-        	id: null,
+        	schoolId: null,
             schoolName: null,
             year: null,
             degreeExpected: null,
             major: null,
             degree: null,
             graduated: null,
-            graduationDate: null,
+            graduationDate: null
             
         }
         
