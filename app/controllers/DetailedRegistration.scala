@@ -1,26 +1,41 @@
 package controllers
 
-import java.io.File
-import models.DetailedRegForm
-import models.User
-import play.api.data.Forms._
-import play.api.data._
-import play.api.mvc._
-import play.api._
-import java.io.InputStream
-import java.io.FileInputStream
+import java.text.SimpleDateFormat
+
 import org.bson.types.ObjectId
 
+import models.Degree
+import models.DegreeExpected
+import models.DetailedRegForm
+import models.Graduated
+import models.School
+import models.User
+import models.Year
+import play.api.data.Forms.mapping
+import play.api.data.Forms.nonEmptyText
+import play.api.data.Form
+import play.api.mvc.Action
+import play.api.mvc.Controller
+import utils.EnumerationSerializer
+import utils.ObjectIdSerializer
+
 object DetailedRegistration extends Controller {
+
+  val cc: List[Enumeration] = List(Year, Degree, DegreeExpected, Graduated)
+
+  implicit val formats = new net.liftweb.json.DefaultFormats{
+    override def dateFormatter = new SimpleDateFormat("dd/MM/yyyy")
+  } + new EnumerationSerializer(cc) +  new ObjectIdSerializer
+  	
+//implicit val formats = Serialization.formats(NoTypeHints) + net.liftweb.json.DefaultFormats +  new EnumerationSerializer(cc) + new ObjectIdSerializer 
 
   /*
    * Map the field values from html
    */
+
   val detailed_regForm = Form(
     mapping(
       "schoolName" -> nonEmptyText)(DetailedRegForm.apply)(DetailedRegForm.unapply))
-
-  
 
   def users = Action {
     Ok(views.html.detailed_reg(detailed_regForm))
@@ -30,23 +45,38 @@ object DetailedRegistration extends Controller {
    * Sends the field values & profile related info to User Model for adding the info of a User
    */
 
- 
+  def addInfo = Action { implicit request =>
 
-  def addInfo = Action(parse.multipartFormData) { implicit request =>
-    detailed_regForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.detailed_reg(errors)),
 
-      detailed_regForm => {
-         
-        request.body.file("picture").map { picture =>
-          
-          val fileObtained: File = picture.ref.file.asInstanceOf[File]
-          val inputStream = new FileInputStream(fileObtained)
-          User.addInfo(detailed_regForm, new ObjectId(request.session.get("userId").get) ,inputStream,picture.filename)
-        }
-        Redirect(routes.MessageController.messages)
-        
- 
-      })
+    val schoolListJsonMap = request.body.asFormUrlEncoded.get
+    val schoolListJson = schoolListJsonMap("data").toList
+    println("Here's the JSON String extracted" + schoolListJson(0))
+    val s = net.liftweb.json.parse(schoolListJson(0)).extract[List[School]]
+    println("My School List is " +s)
+
+    User.addInfo(s, new ObjectId("4fb3314084aecadc9b7e5172"))
+    for (school <- s) {
+      School.createSchool(school)
+    }
+
+    /*
+
+    val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
+    var schools: List[School] = List()
+
+    val myschool1 = School(new ObjectId, "MPS", Year.Graduated_Masters, Degree.Assosiates,
+      "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), List())
+
+    val myschool2 = School(new ObjectId, "MPS", Year.Graduated_Phd, Degree.Assosiates,
+      "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), List())
+
+    schools ++= List(myschool1, myschool2)
+
+    User.addInfo(schools, new ObjectId("4fb089e784ae623e5e02ef07"))
+    
+    */
+
+    Ok("Executed the Function")
+
   }
 }

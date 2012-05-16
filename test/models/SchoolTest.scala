@@ -10,14 +10,17 @@ import java.text.DateFormat
 @RunWith(classOf[JUnitRunner])
 class SchoolTest extends FunSuite with BeforeAndAfter {
 
-  val formatter : DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
-  
-  val myschool1 = School(new ObjectId, "MPS", Year.FirstYear, DegreeExpected.Spring2012,
-    "CSE", Degree.Masters,Option( true), Option(formatter.parse("12-07-2011")),  List())
-  val myschool2 = School(new ObjectId, "DPS", Year.FirstYear, DegreeExpected.Spring2012,
-    "CSE", Degree.Masters,  Option( true), Option(formatter.parse("12-07-2011")), List())
-  val myschool3 = School(new ObjectId, "DPS", Year.FirstYear, DegreeExpected.Spring2012,
-    "CSE", Degree.Masters,  Option( true), Option(formatter.parse("12-07-2011")), List())
+  val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
+
+  val myschool1 = School(new ObjectId, "MPS", Year.Freshman, Degree.Assosiates,
+    "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), List())
+
+  val myschool2 = School(new ObjectId, "DPS", Year.Freshman, Degree.Assosiates,
+    "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), List())
+
+  val myschool3 = School(new ObjectId, "DPS", Year.Freshman, Degree.Assosiates,
+    "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), List())
+
   before {
     School.createSchool(myschool1)
     School.createSchool(myschool2)

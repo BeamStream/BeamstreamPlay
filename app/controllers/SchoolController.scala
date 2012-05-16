@@ -30,11 +30,11 @@ object SchoolController extends Controller {
    */
 
   def addSchool = Action { implicit request =>
-    println("Request Body :" + request.body.asFormUrlEncoded.get)
+   
     schoolForm.bindFromRequest.fold(
       errors => BadRequest(views.html.school(School.allSchools(), errors)),
       schoolForm => {
-        School.addSchool(schoolForm)
+        //School.addSchool(schoolForm)
         Redirect(routes.MessageController.messages)
       })
   }
