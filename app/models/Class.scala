@@ -24,11 +24,11 @@ object Class {
    * Add a new class and make an entry of the same in the coming School's classes list
    */
   
-  def addClass(classForm: ClassForm) {
-    val myClass = Class(new ObjectId, classForm.classCode, classForm.className, ClassType.apply(classForm.classType.toInt), formatter.parse("12-07-2911"),formatter.parse("12-07-2911"), new ObjectId(classForm.schoolId),List())
-    Class.createClass(myClass)
-    School.addClasstoSchool(new ObjectId(classForm.schoolId), myClass)
-  }
+//  def addClass(classForm: ClassForm) {
+//    val myClass = Class(new ObjectId, classForm.classCode, classForm.className, ClassType.apply(classForm.classType.toInt), formatter.parse("12-07-2911"),formatter.parse("12-07-2911"), new ObjectId(classForm.schoolId),List())
+//    Class.createClass(myClass)
+//    School.addClasstoSchool(new ObjectId(classForm.schoolId), myClass)
+//  }
   
   
   /*
@@ -51,10 +51,13 @@ object Class {
   }
 
   /*
-   * Create a new Class
+   * Create the new Classes
    */
-  def createClass(myclass: Class) {
-    ClassDAO.insert(myclass)
+  def createClass(classList: List[Class]) {
+    for(eachclass <- classList){
+       ClassDAO.insert(eachclass)
+    }
+   
   }
 
   /*

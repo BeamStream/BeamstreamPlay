@@ -28,15 +28,23 @@ object ClassController extends Controller {
   /*
    * Sends the value of fields to the model for saving
    */
-
+//
+//  def addClass = Action { implicit request =>
+//    classForm.bindFromRequest.fold(
+//      errors => BadRequest(views.html.classes(errors)),
+//      classForm => {
+//        Class.addClass(classForm)
+//        Redirect(routes.MessageController.messages)
+//
+//      })
+//  }
+  
   def addClass = Action { implicit request =>
-    classForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.classes(errors)),
-      classForm => {
-        Class.addClass(classForm)
-        Redirect(routes.MessageController.messages)
-
-      })
+    println("Class JSON is ready too"+request.body)
+    
+    Class.createClass(List())
+    Ok
   }
+  
 
 }

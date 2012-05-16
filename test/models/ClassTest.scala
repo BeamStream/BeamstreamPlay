@@ -26,10 +26,8 @@ class ClassTest extends FunSuite with BeforeAndAfter {
 
   before {
 
-    Class.createClass(class1)
-    Class.createClass(class2)
-    Class.createClass(class3)
-    Class.createClass(class4)
+    Class.createClass(List(class1,class2,class3,class4))
+   
   }
 
   test("Createing & Deleting Classes") {

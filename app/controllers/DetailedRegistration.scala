@@ -23,11 +23,11 @@ object DetailedRegistration extends Controller {
 
   val cc: List[Enumeration] = List(Year, Degree, DegreeExpected, Graduated)
 
-  implicit val formats = new net.liftweb.json.DefaultFormats{
+  implicit val formats = new net.liftweb.json.DefaultFormats {
     override def dateFormatter = new SimpleDateFormat("dd/MM/yyyy")
-  } + new EnumerationSerializer(cc) +  new ObjectIdSerializer
-  	
-//implicit val formats = Serialization.formats(NoTypeHints) + net.liftweb.json.DefaultFormats +  new EnumerationSerializer(cc) + new ObjectIdSerializer 
+  } + new EnumerationSerializer(cc) + new ObjectIdSerializer
+
+  //implicit val formats = Serialization.formats(NoTypeHints) + net.liftweb.json.DefaultFormats +  new EnumerationSerializer(cc) + new ObjectIdSerializer 
 
   /*
    * Map the field values from html
@@ -47,17 +47,15 @@ object DetailedRegistration extends Controller {
 
   def addInfo = Action { implicit request =>
 
-
     val schoolListJsonMap = request.body.asFormUrlEncoded.get
     val schoolListJson = schoolListJsonMap("data").toList
     println("Here's the JSON String extracted" + schoolListJson(0))
-    val s = net.liftweb.json.parse(schoolListJson(0)).extract[List[School]]
-    println("My School List is " +s)
+    val schoolList = net.liftweb.json.parse(schoolListJson(0)).extract[List[School]]
+    println("My School List is " + schoolList)
 
-    User.addInfo(s, new ObjectId("4fb3314084aecadc9b7e5172"))
-    for (school <- s) {
-      School.createSchool(school)
-    }
+    User.addInfo(schoolList, new ObjectId("4fb3314084aecadc9b7e5172"))
+
+    School.createSchool(schoolList)
 
     /*
 

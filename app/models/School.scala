@@ -22,15 +22,7 @@ object School {
 
   implicit val formats = DefaultFormats
 
-
   def allSchools(): List[School] = Nil
-  /*
-   * Will add a new School
-   */
-//  def addSchool(schoolForm: SchoolForm) {
-//    School.createSchool(new School(new ObjectId, schoolForm.schoolName, Year.Freshman, 
-//      "CSE", Degree.Masters, Graduated.No, Option(formatter.parse("12-07-2011")),DegreeExpected.Summer2013 List()))
-//  }
 
   /*
    * Add a class to a school
@@ -42,9 +34,11 @@ object School {
   /*
     * Method for creating a school
     */
-  def createSchool(school: School) {
-    SchoolDAO.insert(school)
-   }
+  def createSchool(schools: List[School]) {
+    for (school <- schools) {
+      SchoolDAO.insert(school)
+    }
+  }
 
   /*
    * Removes a school
@@ -104,8 +98,8 @@ object Graduated extends Enumeration {
 
 object SchoolDAO extends SalatDAO[School, Int](collection = MongoHQConfig.mongoDB("school"))
 
-object test extends App{
-    for (value <- Year.values){
-       println(value.toString==("Freshman"))
-     }
+object test extends App {
+  for (value <- Year.values) {
+    println(value.toString == ("Freshman"))
+  }
 }

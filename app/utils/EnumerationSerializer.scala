@@ -70,13 +70,13 @@ class ObjectIdSerializer extends Serializer[ObjectId] {
 
   def deserialize(implicit format: Formats) = {
     case (TypeInfo(Class, _), json) => json match {
-      case JInt(s) => println("coming to new object id case"); new ObjectId
+      case JInt(s) =>  new ObjectId
       case x => throw new MappingException("Can't convert " + x + " to ObjectId")
     }
   }
 
   def serialize(implicit format: Formats) = {
-    case x: ObjectId => JObject(JField("_	id", JString(x.toString)) :: Nil)
+    case x: ObjectId => JObject(JField("schoolId", JString(x.toString)) :: Nil)
   }
 }
 
