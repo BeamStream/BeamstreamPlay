@@ -10,7 +10,7 @@ class Api
 	}
 }
 
- 
+$print_r($_REQUEST);
 $Api = new Api();
 
 $Api->save();
