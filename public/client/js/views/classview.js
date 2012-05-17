@@ -55,11 +55,25 @@ window.ClassView = Backbone.View.extend({
 
 		console.log("to profile");
 		eventName.preventDefault();
-		var regDetails = this.getClassInfo();
-		app.navigate("profile", {
-			trigger : true,
-			replace : true
+		var classDetails = this.getClassInfo();
+
+		/* post data with school and class details */
+		$.ajax({
+			type : 'POST',
+			url : "http://localhost/client/api.php",
+			data : {
+				data : classDetails
+			},
+			dataType : "json",
+			success : function(data) {
+				app.navigate("profile", {
+					trigger : true,
+					replace : true
+				});
+			}
 		});
+		
+		
 
 	},
 
@@ -136,11 +150,13 @@ window.ClassView = Backbone.View.extend({
 
 	getClassInfo : function() {
 
-		var i;
+		var i,j;
 		var classes = new ClassCollection();
+		
 		for (i = 1; i <= s1Classes; i++) {
 			var classModel = new Class();
 			classModel.set({
+				id : i,
 				classCode : $('#class-code-' + i).val(),
 				classTime : $('#class-time-' + i).val(),
 				className : $('#class-name-' + i).val(),
@@ -148,32 +164,13 @@ window.ClassView = Backbone.View.extend({
 				semster : $('#semester-' + i).val()
 			});
 			classes.add(classModel);
+			
 		}
 
 		var classDetails = JSON.stringify(classes);
 
-		/* get local stored School details */
-		var localStorageKey = "registration";
-		var data = localStorage.getItem(localStorageKey);
 
-		var regData = jQuery.parseJSON(data);
-
-		// add class details to local
-		regData[0].classes = jQuery.parseJSON(classDetails);
-
-		// add schoo type ,same / different school
-		var schoolType = $('#school').val();
-		var schoolName = $('#school-name-1').val();
-		var schoolStatus = {
-			"status" : schoolType,
-			"name" : schoolName
-		}
-		regData[0].SchoolType = schoolStatus;
-
-		var regDetails = JSON.stringify(regData);
-		localStorage.setItem(localStorageKey, regDetails);
-
-		return regDetails;
+		return classDetails;
 	},
 
 });
