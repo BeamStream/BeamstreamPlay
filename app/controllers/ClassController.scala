@@ -6,8 +6,15 @@ import play.api.data._
 import play.api.data.Forms._
 import models.ClassForm
 import models.Class
+import org.bson.types.ObjectId
+import models.ClassType
+import java.text.DateFormat
+import net.liftweb.json.{ parse, DefaultFormats }
+import net.liftweb.json.Serialization.{ read, write }
 
 object ClassController extends Controller {
+
+  implicit val formats = DefaultFormats
   /*
  * Map the fields value from html form
  */
@@ -21,30 +28,20 @@ object ClassController extends Controller {
   /*
   * Displays all the classes        
   */
+      
   def classes = Action {
     Ok(views.html.classes(classForm))
   }
 
-  /*
-   * Sends the value of fields to the model for saving
-   */
-//
-//  def addClass = Action { implicit request =>
-//    classForm.bindFromRequest.fold(
-//      errors => BadRequest(views.html.classes(errors)),
-//      classForm => {
-//        Class.addClass(classForm)
-//        Redirect(routes.MessageController.messages)
-//
-//      })
-//  }
   
+
   def addClass = Action { implicit request =>
-    println("Class JSON is ready too"+request.body)
-    
+
+    val classListJsonMap = request.body.asFormUrlEncoded.get
+    val classJsonList = classListJsonMap("data").toList
+    println("Here's the JSON String extracted for class" + classJsonList(0))
     Class.createClass(List())
     Ok
   }
-  
 
 }
