@@ -23,7 +23,7 @@ window.SchoolView = Backbone.View.extend({
         return this;
     },
     
-    /**
+    /** TODO
      * save/post school info details.
      */
     saveSchool:function () {
@@ -45,18 +45,26 @@ window.SchoolView = Backbone.View.extend({
       },
       
       
-      /**
+      /** TODO
        *  function to navigate to Class Registration when click on 'Continue' button 
        */
       continueToClass:function (eventName) {
     	  
     	  eventName.preventDefault();      
+    	  var  schoolDetails = this.getSchoolInfo();
+  
+    	  $.ajax({
+              type: 'POST',
+              url:"http://localhost/client/api.php",
+              data:{data:schoolDetails},
+              dataType:"json",
+              success:function(data){
+            	  app.navigate("class", {trigger: true, replace: true});
+                  
+              }
+           });
     	  
-    	  /* save School details in local storage */ 
-          var localStorageKey = "registration"; 
-    	  localStorage.setItem(localStorageKey,this.getSchoolInfo());  
     	  
-    	  app.navigate("class", {trigger: true, replace: true});
       },
       
       

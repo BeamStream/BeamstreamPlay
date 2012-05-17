@@ -67,6 +67,8 @@ var AppRouter = Backbone.Router.extend({
             
       }
       $('#register-step-school').html(this.profileView.el);   
+      $(".modal select:visible").selectBox();
+      $('.modal .datepicker').datepicker();
    }
   
 });
