@@ -53,7 +53,7 @@ object DetailedRegistration extends Controller {
     val schoolList = net.liftweb.json.parse(schoolListJson(0)).extract[List[School]]
     println("My School List is " + schoolList)
 
-    User.addInfo(schoolList, new ObjectId("4fb4838e84aec6fb74569f9d"))
+    User.addInfo(schoolList, new ObjectId("4fb5d52c84ae54c8a1d846b0"))
 
     School.createSchool(schoolList)
 

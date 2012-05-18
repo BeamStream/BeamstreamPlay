@@ -28,12 +28,15 @@ object ClassController extends Controller {
   /*
   * Displays all the classes        
   */
-      
+     
   def classes = Action {
     Ok(views.html.classes(classForm))
   }
 
   
+  /*
+   * Add a class to a user (Intact)
+   */
 
   def addClass = Action { implicit request =>
 
