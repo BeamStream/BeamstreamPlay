@@ -50,7 +50,6 @@ var AppRouter = Backbone.Router.extend({
             
         }
         $('#register-step-school').html(this.classView.el);
-        
         $(".modal select:visible").selectBox();
         $('.modal .datepicker').datepicker();
        

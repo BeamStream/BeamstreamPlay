@@ -39,10 +39,15 @@ window.ProfileView = Backbone.View.extend({
      */
     saveProfile:function (eventName) {
     	
+    
+    	//TODO: Test f
+    	
+    	/*
     	eventName.preventDefault();
-    	var regDetails = this.getRegDetails();
+    	var regDetails = this.getRegDetails();*/
     	
     	/* post data with school,class & profile details */
+    	/*
 		$.ajax({
 			type : 'POST',
 			url : "http://192.168.10.10/client/api.php",
@@ -57,7 +62,7 @@ window.ProfileView = Backbone.View.extend({
 			}
 		});
 
-		
+		*/
     },
     
     /**
