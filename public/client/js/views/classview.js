@@ -20,23 +20,36 @@ window.ClassView = Backbone.View.extend({
 	 * save/post class info details.
 	 */
 	saveClass : function(eventName) {
+		
 		eventName.preventDefault();
-		var classDetails = this.getClassInfo();
-
-		/* post data with school and class details */
-		$.ajax({
-			type : 'POST',
-			url : "http://192.168.10.10/client/api.php",
-			data : {
-				data : classDetails
-			},
-			dataType : "json",
-			success : function(data) {
-				var source = $("#tpl-success").html();
-				var template = Handlebars.compile(source);
-				$("#success").html(template(data));
-			}
-		});
+		var validate = jQuery('#class-form').validationEngine('validate');
+		if(validate == true)
+	    {
+			$('#save').attr('data-dismiss','modal');
+			
+			var classDetails = this.getClassInfo();
+		    
+			/* post data with school and class details */
+			$.ajax({
+				type : 'POST',
+				url : "http://localhost/client/api.php",
+				data : {
+					data : classDetails
+				},
+				dataType : "json",
+				success : function(data) {
+					var source = $("#tpl-success").html();
+					var template = Handlebars.compile(source);
+					$("#success").html(template(data));
+				}
+			});
+	   }
+		else
+	    {    
+			alert("Please enter required fields and should be in correct format");
+			 
+	    }
+		
 
 	},
 
@@ -55,23 +68,33 @@ window.ClassView = Backbone.View.extend({
 
 		console.log("to profile");
 		eventName.preventDefault();
-		var classDetails = this.getClassInfo();
-
-		/* post data with school and class details */
-		$.ajax({
-			type : 'POST',
-			url : "http://localhost/client/api.php",
-			data : {
-				data : classDetails
-			},
-			dataType : "json",
-			success : function(data) {
-				app.navigate("profile", {
-					trigger : true,
-					replace : true
-				});
-			}
-		});
+		
+		var validate = jQuery('#class-form').validationEngine('validate');
+		if(validate == true)
+	    {
+			var classDetails = this.getClassInfo();
+	      
+			/* post data with school and class details */
+			$.ajax({
+				type : 'POST',
+				url : "http://localhost/client/api.php",
+				data : {
+					data : classDetails
+				},
+				dataType : "json",
+				success : function(data) {
+					app.navigate("profile", {
+						trigger : true,
+						replace : true
+					});
+				}
+			});
+	   }
+		else
+	    { 
+			alert("Please enter required fields and should be in correct format");
+	      	 
+	    }
 		
 		
 
@@ -155,15 +178,19 @@ window.ClassView = Backbone.View.extend({
 		
 		for (i = 1; i <= s1Classes; i++) {
 			var classModel = new Class();
-			classModel.set({
-				id : i,
-				classCode : $('#class-code-' + i).val(),
-				classTime : $('#class-time-' + i).val(),
-				className : $('#class-name-' + i).val(),
-				startDate : $('#date-started-' + i).val(),
-				semster : $('#semester-' + i).val()
-			});
-			classes.add(classModel);
+			if($('#class-code-' + i).val()!= "")
+			{
+				classModel.set({
+					id : i,
+					classCode : $('#class-code-' + i).val(),
+					classTime : $('#class-time-' + i).val(),
+					className : $('#class-name-' + i).val(),
+					startDate : $('#date-started-' + i).val(),
+					semster : $('#semester-' + i).val()
+				});
+				classes.add(classModel);
+			}
+			
 			
 		}
 
