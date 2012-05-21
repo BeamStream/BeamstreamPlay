@@ -3,7 +3,7 @@
 
 
 /* Z-INDEX */
- .formError { z-index: 990; }
+ .formError { z-index: 1050;}
     .formError .formErrorContent { z-index: 991; }
     .formError .formErrorArrow { z-index: 996; }
     
@@ -36,7 +36,7 @@
 
 .formError .formErrorContent {
 	width: 100%;
-	background: #ee0101;
+	background: #235e88;
 	position:relative;
 	color: #fff;
 	width: 150px;
@@ -86,7 +86,7 @@ body.rtl .formError .formErrorArrow {
 	-webkit-box-shadow: 0 2px 3px #444;
 	font-size: 0px;
 	height: 1px;
-	background: #ee0101;
+	background: .formError .formErrorArrow div;
 	margin: 0 auto;
 	line-height: 0;
 	font-size: 0;

@@ -3,17 +3,28 @@ window.ClassView = Backbone.View.extend({
 	events : {
 		"click #save" : "saveClass",
 		"click #continue" : "toProfile",
+		"click a.addclass": "addClasses",
 		"click a.legend-addclass" : "addSchool",
-		"click #add-class" : "addClasses",
-		"change #school" : "addAnotherSchool",
+		
+		
+		
+//		"click #add-class" : "addClasses",
+//		"change #school" : "addAnotherSchool",
 	},
 
 	initialize : function() {
+		
+		/* get local stored School details  and save school names to an array*/
+		var localStorageKey = "registration";
+		var data = localStorage.getItem(localStorageKey);
+		this.schools = jQuery.parseJSON(data);
 
+		
 		this.classes = new Class();
 		console.log('Initializing Class View');
-		this.template = _.template($("#tpl-class-reg").html());
-
+//		this.template = _.template($("#tpl-class-reg").html());
+		this.source = $("#tpl-class-reg").html();
+		this.template = Handlebars.compile(this.source);
 	},
 
 	/**
@@ -26,7 +37,6 @@ window.ClassView = Backbone.View.extend({
 		if(validate == true)
 	    {
 			$('#save').attr('data-dismiss','modal');
-			
 			var classDetails = this.getClassInfo();
 		    
 			/* post data with school and class details */
@@ -46,8 +56,7 @@ window.ClassView = Backbone.View.extend({
 	   }
 		else
 	    {    
-			alert("Please enter required fields and should be in correct format");
-			 
+			console.log($.validationEngine.defaults.autoHidePrompt);
 	    }
 		
 
@@ -57,10 +66,16 @@ window.ClassView = Backbone.View.extend({
 	 * render class Info screen
 	 */
 	render : function(eventName) {
-		$(this.el).html(this.template(this.classes.toJSON()));
+		
+		var sCount = {
+				"sCount" : sClasses,
+				"schools": this.schools 
+		}
+		$(this.el).html(this.template(sCount));
 		return this;
 	},
 
+	
 	/**
 	 * navigate to profile screen
 	 */
@@ -68,12 +83,11 @@ window.ClassView = Backbone.View.extend({
 
 		console.log("to profile");
 		eventName.preventDefault();
-		
 		var validate = jQuery('#class-form').validationEngine('validate');
 		if(validate == true)
 	    {
 			var classDetails = this.getClassInfo();
-	      
+	        
 			/* post data with school and class details */
 			$.ajax({
 				type : 'POST',
@@ -92,78 +106,50 @@ window.ClassView = Backbone.View.extend({
 	   }
 		else
 	    { 
-			alert("Please enter required fields and should be in correct format");
 	      	 
 	    }
-		
-		
-
 	},
 
 	/**
-	 * add another school/ class
-	 */
-	addSchool : function(eventName) {
-
-		eventName.preventDefault();
-		$('a.legend-addclass').hide();
-		var template1 = _.template($("#add_class_or_school").html());
-		$('#class-form').append(template1);
-		$(".modal select:visible").selectBox();
-
-		/* set School name as prevois school's name */
-		$('#school-name-1').val("Previous Schoolname");
-		$('#school-name-1').attr("disabled", true);
-
-	},
-
-	/**
-	 * add classes for same school or for different school
+	 * Add 3 classes for schools
 	 */
 	addClasses : function(eventName) {
-
+		
 		eventName.preventDefault();
-		var text = $('#add-class').text();
-		if (text == "Add Class") {
-			s1Classes++;
-			var count = {
-				"count" : s1Classes
-			}
-			var source = $("#tpl_add_classes").html();
-			var template = Handlebars.compile(source);
-			$("#same-school-classes").append(template(count));
-		} else if (text == "Add School") {
-			s2Classes++;
-			var count = {
-				"count" : s2Classes
-			}
-			var source = $("#tpl_add_classes").html();
-			var template = Handlebars.compile(source);
-			$("#diff-school-classes").append(template(count));
-		} else {
-
+		var id = eventName.target.id;
+  	    var dat='#'+id;
+		var parentId =  $(dat).parents('fieldset').attr('id')
+		var parent = '#'+parentId;
+		var sCount = {
+				"sCount" : sClasses
 		}
+		var source = $("#classes").html();
+		var template = Handlebars.compile(source);
+		$(parent).append(template(sCount));
+		$(".modal select:visible").selectBox();
+	    $('.modal .datepicker').datepicker();
 
 	},
-
+	
 	/**
-	 * to add another school when select "Different school"
+	 * Add classes for another school
 	 */
-	addAnotherSchool : function() {
-
-		var value = $('#school').val();
-		if (value == "diff") {
-			$('#school-name-1').val("");
-			$('#school-name-1').attr("disabled", false);
-		} else if (value == "same") {
-
-			$('#school-name-1').val("Previous Schoolname");
-			$('#school-name-1').attr("disabled", true);
-		} else {
-			$('#school-name-1').val("Previous Schoolname");
-			$('#school-name-1').attr("disabled", true);
+	addSchool : function(eventName) {
+		
+		sClasses++;
+		eventName.preventDefault();
+    	$('a.legend-addclass').hide();
+    	var sCount = {
+				"sCount" : sClasses,
+				"schools": this.schools
 		}
+    	var source = $("#add-school").html();
+		var template = Handlebars.compile(source);
+		$('#class-form').append(template(sCount));
+        $('#another-school').hide();
+        $(".modal select:visible").selectBox();
 	},
+	
 
 	/**
 	 * get class details from the form
@@ -176,26 +162,26 @@ window.ClassView = Backbone.View.extend({
 		var i,j;
 		var classes = new ClassCollection();
 		
-		for (i = 1; i <= s1Classes; i++) {
-			var classModel = new Class();
-			if($('#class-code-' + i).val()!= "")
+		for (i = 1; i <= sClasses; i++) 
+		{
+			for(j=1 ; j<=3 ; j++)
 			{
+				var classModel = new Class();
 				classModel.set({
-					id : i,
-					classCode : $('#class-code-' + i).val(),
-					classTime : $('#class-time-' + i).val(),
-					className : $('#class-name-' + i).val(),
-					startDate : $('#date-started-' + i).val(),
-					semster : $('#semester-' + i).val()
+					id : j,
+					schoolId :  $('#school-' + i).val(),
+					classCode : $('#class-code-' + i + '-' + j).val(),
+					classTime : $('#class-time-' + i + '-' + j).val(),
+					className : $('#class-name-' + i + '-' + j).val(),
+					startDate : $('#date-started-' + i + '-' + j).val(),
+					classType : $('#semester-' + i + '-' + j).val()
 				});
 				classes.add(classModel);
 			}
-			
-			
+			 
 		}
 
 		var classDetails = JSON.stringify(classes);
-
 
 		return classDetails;
 	},

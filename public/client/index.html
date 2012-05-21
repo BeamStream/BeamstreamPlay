@@ -192,165 +192,150 @@
 
 	</script>
 
-  	<!-- Class Registration template-->
-	<script type="text/template" id="tpl-class-reg">
+    <!-- Class registration  -->
+    <script type="text/x-handlebars-template" id="tpl-class-reg">
 
-    <div class="modal-header">
+     <div class="modal-header">
         <h2 class="school-name">Previous Schoolname </h2>
         <h1 class="pull-left" >Class info</h2>
         <img src="images/registration-progress-50.png" alt="Registration progress - 50%" class="registration-progress pull-right">
-    </div>
+     </div>
     <div id="validation-error"></div> 
     <div class="modal-body">
         <form id="class-form">
-            <fieldset id="same-school-classes">
-
-                <div class="form-row-label">1<sup>st</sup> class</div>
+            <fieldset id="classes-{{sCount}}">
                 <div class="form-row short">
+					<div class="element">
+						<label for="school-{{sCount}}">School</label>
+						<select id="school-{{sCount}}" class="large"   >
+							{{#each schools}}
+                               <option value="{{this.id}}">{{this.schoolName}}</option>
+                           {{/each}}
+						</select>
+           			 </div>
                     <div class="element">
-                        <label for="class-code-1">Class code</label>
-                        <input type="text"  id="class-code-1" class="validate[required] small" placeholder="Class 1 code" >
+                        <a href="#" name="add-class-{{sCount}}" id="add-class-{{sCount}}" class="addclass btn btn-success">Add Class</a>
                     </div>
-                    <div class="element">
-                        <label for="class-time-1">Class time</label>
-                        <input type="text"   id="class-time-1" class="validate[[required],custom[time]] tiny" placeholder="3:30 PM">
-                    </div>
-                    <div class="element">
-                        <label for="class-name-1">Class name</label>
-                        <input type="text" id="class-name-1" class="validate[required] medium" placeholder="Class 1 name">
-                    </div>
-                    <div class="element">
-                        <label for="date-started-1">Calendar</label>
-                        <input class="validate[required] small datepicker cal" type="text" placeholder="Date1" id="date-started-1"/>
-                    </div>
-                    <div class="element">
-                        <label for="semester-1">Semester or Quarter</label>
-                        <select id="semester-1" class="small">
-                            <option value="semester">Semester</option>
-                            <option value="quarter">Quarter</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-row-label">2<sup>nd</sup> class</div>
-                <div class="form-row short">
-                    <div class="element">
-                        <label for="class-code-2">Class code</label>
-                        <input type="text" id="class-code-2" class="validate[required] small" placeholder="Class 2 code">
-                    </div>
-                    <div class="element">
-                        <label for="class-time-2">Class time</label>
-                        <input type="text" id="class-time-2" class="validate[[required],custom[time]] tiny" placeholder="3:30 PM">
-                    </div>
-                    <div class="element">
-                        <label for="class-name-2">Class name</label>
-                        <input type="text" id="class-name-2" class="validate[required] medium" placeholder="Class 2 name">
-                    </div>
-                    <div class="element">
-                        <label for="date-started-2">Calendar</label>
-                        <input class="validate[required] small datepicker cal" type="text" placeholder="Date2" id="date-started-2"/>
-                    </div>
-                    <div class="element">
-                        <label for="semester-2">Semester or Quarter</label>
-                        <select id="semester-2" class="small">
-                            <option value="semester">Semester</option>
-                            <option value="quarter">Quarter</option>
-                        </select>
-                    </div>
-                </div>
-
-
-                <div class="form-row-label">3<sup>rd</sup> class</div>
-                <div class="form-row short">
-                    <div class="element">
-                        <label for="class-code-3">Class code</label>
-                        <input type="text" id="class-code-3" class="validate[required] small" placeholder="Class 3 code">
-                    </div>
-                    <div class="element">
-                        <label for="class-time-3">Class time</label>
-                        <input type="text" id="class-time-3" class="validate[[required],custom[time]] tiny" placeholder="3:30 PM">
-                    </div>
-                    <div class="element">
-                        <label for="class-name-3">Class name</label>
-                        <input type="text" id="class-name-3" class="validate[required] medium" placeholder="Class 3 name">
-                    </div>
-                    <div class="element">
-                        <label for="date-started-3">Calendar</label>
-                        <input class="validate[required] small datepicker cal" type="text" placeholder="Date3" id="date-started-3"/>
-                    </div>
-                    <div class="element">
-                        <label for="semester-3">Semester or Quarter</label>
-                        <select id="semester-3" class="small">
-                            <option value="semester">Semester</option>
-                            <option value="quarter">Quarter</option>
-                        </select>
-                    </div>
-                </div>
+				</div>
             </fieldset>
 				<a  href="#" class="legend legend-addclass">Add class or school</a>
 
         </form>
     </div>
     <div class="modal-footer">
-        <a href="#" class="btn btn-primary pull-left"   id="save" >Save & Exit</a>
+        <a href="#" class="btn btn-primary pull-left"  id="save" >Save & Exit</a>
         <a href="#" class="btn btn-success pull-right" id="continue" >Continue</a>
     </div>
+
+
+   </script>
+  	<!-- add 3 classes-->
+	<script type="text/x-handlebars-template" id="classes">
+ 
+       <div class="form-row-label">1<sup>st</sup> class</div>
+       <div class="form-row short">
+          <div class="element">
+              <label for="class-code-{{sCount}}-1">Class code</label>
+              <input type="text"  id="class-code-{{sCount}}-1" class="validate[required] small" placeholder="Class 1 code" >
+          </div>
+          <div class="element">
+              <label for="class-time-{{sCount}}-1">Class time</label>
+              <input type="text"   id="class-time-{{sCount}}-1" class="validate[[required],custom[time]] tiny" placeholder="3:30 PM">
+          </div>
+          <div class="element">
+              <label for="class-name-{{sCount}}-1">Class name</label>
+              <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium" placeholder="Class 1 name">
+          </div>
+          <div class="element">
+              <label for="date-started-{{sCount}}-1">Calendar</label>
+              <input class="validate[required] small datepicker cal" type="text" placeholder="Date1" id="date-started-{{sCount}}-1"/>
+          </div>
+           <div class="element">
+               <label for="semester-{{sCount}}-1">Semester or Quarter</label>
+               <select id="semester-{{sCount}}-1" class="small">
+                     <option value="semester">Semester</option>
+                     <option value="quarter">Quarter</option>
+               </select>
+          </div>
+      </div>
+
+      <div class="form-row-label">2<sup>nd</sup> class</div>
+      <div class="form-row short">
+         <div class="element">
+              <label for="class-code-{{sCount}}-2">Class code</label>
+              <input type="text" id="class-code-{{sCount}}-2" class="validate[required] small" placeholder="Class 2 code">
+         </div>
+         <div class="element">
+              <label for="class-time-2">Class time</label>
+              <input type="text" id="class-time-{{sCount}}-2" class="validate[[required],custom[time]] tiny" placeholder="3:30 PM">
+         </div>
+         <div class="element">
+              <label for="class-name-2">Class name</label>
+              <input type="text" id="class-name-{{sCount}}-2" class="validate[required] medium" placeholder="Class 2 name">
+         </div>
+         <div class="element">
+              <label for="date-started-2">Calendar</label>
+              <input class="validate[required] small datepicker cal" type="text" placeholder="Date2" id="date-started-{{sCount}}-2"/>
+         </div>
+         <div class="element">
+              <label for="semester-{{sCount}}-2">Semester or Quarter</label>
+              <select id="semester-{{sCount}}-2" class="small">
+                    <option value="semester">Semester</option>
+                    <option value="quarter">Quarter</option>
+              </select>
+          </div>
+       </div>
+
+       <div class="form-row-label">3<sup>rd</sup> class</div>
+       <div class="form-row short">
+          <div class="element">
+               <label for="class-code-{{sCount}}-3">Class code</label>
+               <input type="text" id="class-code-{{sCount}}-3" class="validate[required] small" placeholder="Class 3 code">
+          </div>
+          <div class="element">
+               <label for="class-time-3">Class time</label>
+               <input type="text" id="class-time-{{sCount}}-3" class="validate[[required],custom[time]] tiny" placeholder="3:30 PM">
+          </div>
+          <div class="element">
+               <label for="class-name-3">Class name</label>
+               <input type="text" id="class-name-{{sCount}}-3" class="validate[required] medium" placeholder="Class 3 name">
+           </div>
+           <div class="element">
+                <label for="date-started-{{sCount}}-3">Calendar</label>
+                <input class="validate[required] small datepicker cal" type="text" placeholder="Date3" id="date-started-{{sCount}}-3"/>
+           </div>
+           <div class="element">
+                <label for="semester-{{sCount}}-3">Semester or Quarter</label>
+                <select id="semester-{{sCount}}-3" class="small">
+                     <option value="semester">Semester</option>
+                     <option value="quarter">Quarter</option>
+                 </select>
+           </div>
+        </div>
  
     </script>
     
-    
-    <!-- ADD SCHOOL FOR CLASS REGISTRATION -->
-	<script type="text/template" id="add_class_or_school">
-	  <fieldset style="margin-bottom: 0" id="diff-school-classes">
-      <legend class="legend legend-add">Add class or school</legend>
-		<div class="form-row short">
-			<div class="element">
-				<label for="school">School</label>
-				<select id="school" class="large"   >
-					<option value="same">Same school</option>
-					<option value="diff">Different school</option>
-				</select>
-            </div>
- 			<div class="element" id="another-school">
-				<label for="school-name-1">School name</label>
-				<input type="text" id="school-name-1" class="large" >
+    <!-- add another school  -->
+    <script type="text/x-handlebars-template" id="add-school">
+       <fieldset style="margin-bottom: 30px;" id="classes-{{sCount}}" >
+       		<legend class="legend legend-add">Add class or school</legend>
+       		<div class="form-row short">
+          		 <div class="element">
+             		  <label for="school-{{sCount}}">School</label>
+					  <select id="school-{{sCount}}" class="large"  >
+						{{#each schools}}
+                          <option value="{{this.id}}">{{this.schoolName}}</option>
+                        {{/each}}
+					  </select>
+				 </div>
+    			 <div class="element">
+						<a class="addclass btn btn-success" name=name="add-class-{{sCount}}" id="add-class-{{sCount}}"   >Add Class</a>
+				 </div>
 			</div>
-			
-		</div>
-	 </fieldset>
-
+		</fieldset>
+		<a  href="#" class="legend legend-addclass">Add class or school</a>
     </script>
     
-     <!-- ADD CLASSES -->
-	<script type="text/x-handlebars-template" id="tpl_add_classes">
-    	<div class="form-row-label">{{count}}<sup>st</sup> class</div>
-		<div class="form-row short">
-			<div class="element">
-				<label for="class-code- {{count}} ">Class code</label>
-				<input type="text" id="class-code-{{count}}" class="small" placeholder="Class {{count}} code">
-			</div>
-			<div class="element">
-				<label for="class-time-{{count}}">Class time</label>
-				<input type="text" id="class-time-{{count}}" class="tiny" placeholder="3:30 PM">
-			</div>
-			<div class="element">
-				<label for="class-name-{{count}}">Class name</label>
-				<input type="text" id="class-name-{{count}}" class="medium" placeholder="Class {{count}} name">
-			</div>
-			<div class="element">
-				<label for="date-started-{{count}}">Calendar</label>
-				<input class="small datepicker cal" type="text" placeholder="01/05/2011" id="date-started-{{count}}"/>
-			</div>
-			<div class="element">
-				<label for="semester-{{count}}">Semester or Quarter</label>
-				<select id="semester-{{count}}" class="small">
-					<option value="semester">Semester</option>
-					<option value="quarter">Quarter</option>
-				</select>
-			</div>
-		</div>
-  </script>
-  
   
   <!-- profile Registration template-->
   <script type="text/template" id="tpl-profile-reg">
@@ -434,9 +419,9 @@
 <script type="text/javascript">
 	var current = 1; //current keeps track of how many schools we have @default =1 
 	
-	var s1Classes = 3;  // s1Classes keeps how many classes are there under same school
-    var s2Classes = 0;  // s2Classes keeps how many classes are there under different school
-	
+// 	var s1Classes = 3;  // s1Classes keeps how many classes are there under same school
+//     var s2Classes = 0;  // s2Classes keeps how many classes are there under different school
+	var sClasses = 1; // sClasses keeps number of schools under which we added classes 
     $(function(){
     	
         $("#register-step-school").modal();

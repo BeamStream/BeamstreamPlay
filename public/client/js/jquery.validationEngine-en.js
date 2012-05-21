@@ -166,7 +166,7 @@
 	            
 	            "time": {
                     "regex": /^(([0-1]?[0-9])|([2][0-3])):([0-5]?[0-9])(:([0-5]?[0-9]))?$/i,
-                    "alertText": "* Invalid time, Expected format : hh:mm"
+                    "alertText": "* Invalid Time. Expected format hh:mm",
                 },
             };
             
