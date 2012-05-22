@@ -100,6 +100,67 @@
     <script id="tpl-success" type="text/x-handlebars-template">
         Status : {{status}}
     </script>
+    
+    
+    <!-- template for login-->
+	<script type="text/template" id="tpl-login">
+   	 
+ <div class="modal-header">
+        <h1 class="pull-left">User Login Form</h1>
+</div>
+	<div class="modal-body">
+	  <form id="login-form">
+		   <fieldset>
+			<div class="element">
+				<label for="iam">I'm</label>
+					<select id="iam"  class="validate[required]">
+						<option class="blank" value = "">-- I'm --</option>
+						<option value="0">Student</option>
+						<option value="1">Educator</option>
+						<option value="2">Professional</option>
+					</select>
+				
+			</div>
+			<br>
+			<div class="form-row">
+					<div class="element">
+				<label for="email">User Email *</label>
+					<input id="email" type="text" size="10"  name="email" class="span3 validate[required]">
+				</div>
+			</div>
+			<div class="form-row">
+				<b>Do you have a Beam Stream password ? *</b><br><br>
+			<div class="element">
+				<label for="signup"></label>
+				
+					<span id="signup" class="buttonset">
+					<input id="signup_0" type="radio" value="0" name="signup">
+					<label for="signup_0">No, help me log in</label><br>
+					<input id="signup_1" type="radio" value="1" name="signup">
+					<label for="signup_1">Yes, I have a password</label>
+					</span>
+					<span class="help-inline"></span>
+				
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="element ">
+				<label for="password">Password *</label>
+					<input id="password" type="password" size="10"  name="password" class="span3 validate[required]">
+					<span class="help-inline"></span>
+				
+			</div>
+	</div>
+		</fieldset>
+		<br>
+         <a href="#" class="btn btn-primary pull-left"  id="login" >Login</a>
+		
+		<br>
+		 
+	</form>
+    	</div>	
+  </script>
+    
 
 	<!-- School Registration template-->
 	<script type="text/template" id="tpl-school-reg">
@@ -444,6 +505,8 @@
 <script src="js/models/classmodel.js"></script>
 <script src="js/models/profilemodel.js"></script>
 <script src="js/views/profileview.js"></script>
+<script src="js/views/loginview.js"></script>
+<script src="js/models/loginmodel.js"></script>
 <script src="js/main.js"></script>
 
 </body>

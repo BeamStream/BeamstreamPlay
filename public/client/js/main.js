@@ -3,6 +3,7 @@ var AppRouter = Backbone.Router.extend({
     routes:{
     	
         "":"home",
+        "login":"login",
         "school":"schoolReg",
         "class":"classReg",
         "profile":"profileReg"
@@ -15,8 +16,24 @@ var AppRouter = Backbone.Router.extend({
 
     home: function() {
     	console.log('Here');
+    	
     },
 
+    /**
+     * display login form
+     */
+    
+    login: function() {
+    	 
+    	 if (!this.loginView) {
+             this.loginView = new LoginView();
+             this.loginView.render();
+         }
+    	 
+         $('#register-step-school').html(this.loginView.el);  
+         
+         
+    },
    
     /**
      * display School Info screen
