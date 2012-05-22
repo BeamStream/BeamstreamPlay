@@ -1,0 +1,431 @@
+@font-face {
+    font-family: 'UbuntuBold';
+    src: url('fonts/ubuntu-b-webfont.eot');
+    src: url('fonts/ubuntu-b-webfont.eot?#iefix') format('embedded-opentype'),
+    url('fonts/ubuntu-b-webfont.woff') format('woff'),
+    url('fonts/ubuntu-b-webfont.ttf') format('truetype'),
+    url('fonts/ubuntu-b-webfont.svg#UbuntuBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'UbuntuRegular';
+    src: url('fonts/ubuntu-r-webfont.eot');
+    src: url('fonts/ubuntu-r-webfont.eot?#iefix') format('embedded-opentype'),
+    url('fonts/ubuntu-r-webfont.woff') format('woff'),
+    url('fonts/ubuntu-r-webfont.ttf') format('truetype'),
+    url('fonts/ubuntu-r-webfont.svg#UbuntuRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.modal-pull-top {
+    top: 30%;
+}
+
+#register-step-school {
+    width: 982px;
+    margin: -250px 0 0 -491px
+}
+#register-step-class {
+    width: 982px;
+    margin: -250px 0 0 -491px
+}
+#register-step-profile {
+    width: 982px;
+    margin: -250px 0 0 -491px
+}
+
+
+.modal {
+    font-family: UbuntuRegular;
+    color: #fff;
+    display: none;
+    top: 45%;
+    background: #72addc;
+    behavior: url(css/PIE.htc);
+    position: absolute;
+}
+
+
+.modal .modal-body {
+    max-height: 55%;
+}
+
+.modal form fieldset {
+    background: url(../images/fieldset-bg.png);
+}
+
+.modal .modal-header {
+    border: none;
+    overflow: hidden;
+}
+.modal .modal-header h1 {
+    font-size: 45px;
+    padding: 30px 0;
+    /*-moz-text-shadow: 1px 1px 1px #000;*/
+    /*-webkit-text-shadow: 1px 1px 1px #000;*/
+    text-shadow: 1px 1px 2px #006196;
+    /* For IE 8 */
+    /*-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color='#000000')";*/
+    /* For IE 5.5 - 7 */
+    /*filter: progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color='#000000');*/
+}
+.modal .modal-header .registration-progress {
+    float: right;
+}
+
+.modal .modal-footer {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+
+.modal .btn {
+    font-family: UbuntuBold;
+    text-transform: uppercase;
+    font-size: 16px;
+    line-height: 18px;
+    padding: 12px 30px 8px 25px;
+
+    text-shadow: 0 1px 1px #333;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 1px 1px 1px rgba(51, 51, 51, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 1px 1px 1px rgba(51, 51, 51, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 1px 1px 1px rgba(51, 51, 51, 0.2);
+}
+.modal .btn:before {
+
+}
+
+.modal .btn-primary {
+    background-color: #359cf6;
+    background-image: -moz-linear-gradient(top, #359cf6, #0a7cd5);
+    background-image: -ms-linear-gradient(top, #359cf6, #0a7cd5);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#359cf6), to(#0a7cd5));
+    background-image: -webkit-linear-gradient(top, #359cf6, #0a7cd5);
+    background-image: -o-linear-gradient(top, #359cf6, #0a7cd5);
+    background-image: linear-gradient(top, #359cf6, #0a7cd5);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#359cf6', endColorstr='#0a7cd5', GradientType=0);
+    border-color: #4476a5 #4476a5 #4476a5;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+.modal .btn-primary:hover,
+.modal .btn-primary:active,
+.modal .btn-primary.active,
+.modal .btn-primary.disabled,
+.modal .btn-primary[disabled] {
+    background-color: #0a7cd5;
+}
+.modal .btn-primary:active,
+.modal .btn-primary.active {
+    background-color: #004099 \9;
+}
+
+
+.btn-success {
+    background-color: #49b529;
+    background-image: -moz-linear-gradient(top, #49b529, #2e9a11);
+    background-image: -ms-linear-gradient(top, #49b529, #2e9a11);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#49b529), to(#2e9a11));
+    background-image: -webkit-linear-gradient(top, #49b529, #2e9a11);
+    background-image: -o-linear-gradient(top, #49b529, #2e9a11);
+    background-image: linear-gradient(top, #49b529, #2e9a11);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#49b529', endColorstr='#2e9a11', GradientType=0);
+    border-color: #2e9a11 #2e9a11 #288c05;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+.btn-success:hover,
+.btn-success:active,
+.btn-success.active,
+.btn-success.disabled,
+.btn-success[disabled] {
+    background-color: #2e9a11;
+}
+.btn-success:active,
+.btn-success.active {
+    background-color: #408140 \9;
+}
+
+/* Form */
+
+.modal form {
+    margin: 0;
+}
+
+.modal form .tiny {
+    width: 100px;
+}
+.modal form .small {
+    width: 140px;
+}
+.modal form .medium {
+    width: 190px;
+}
+.modal form .large {
+    width: 230px;
+}
+
+.modal form .form-row {
+    clear: both;
+    margin-top: 15px;
+}
+.modal form .form-row-label {
+    clear: both;
+    color: #01588e;
+    font-size: 20px;
+    margin-top: 5px;
+    padding: 5px 0;
+    border-bottom: 1px #01588e dashed;
+}
+.modal form fieldset {
+    background: url("../images/fieldset-bg.png");
+    border: 1px #FFF dashed;
+    margin-bottom: 30px;
+    padding: 10px 20px 30px 25px;
+    *padding: 0 20px 30px 25px;
+}
+
+
+
+.modal form .legend {
+    font-family: UbuntuBold;
+    text-transform: uppercase;
+    border: none;
+    width: auto;
+    display: block;
+    *display: inline;
+    color: #1e6c9c;
+    margin: 0;
+    font-size: 20px;
+    padding: 3px 18px 0 18px;
+    line-height: normal;
+    background: #a4cae8;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 1px 1px 1px rgba(51, 51, 51, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 1px 1px 1px rgba(51, 51, 51, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 1px 1px 1px rgba(51, 51, 51, 0.2);
+}
+
+
+.modal form .legend-add {
+    background: #a4cae8 url("../images/legend-plus.png") 1px 100% no-repeat;
+    padding-left: 40px;
+    cursor: pointer;
+}
+
+.modal form a.legend-add {
+    margin: 20px 0 0 26px;
+    display: inline-block;
+}
+.modal form a.legend-add:hover {
+    text-decoration: none;
+}
+
+
+.modal form .element {
+    display: block;
+    float: left;
+    margin-right: 35px;
+    position: relative;
+}
+.modal form .short .element {
+    margin-right: 10px;
+}
+.modal form .element label {
+    display: block;
+    font-family: UbuntuBold;
+    font-size: 14px;
+    color: #FFF;
+
+}
+.modal form .element .btn {
+    margin-top: 25px;
+}
+.modal form .element input[type="text"] {
+    font-family: UbuntuBold;
+    border: 1px #2a8eba solid;
+    color: #5d9ab6;
+    font-size: 18px;
+    padding: 6px 15px 3px 10px;
+    height: 35px;
+    line-height: 35px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 1px 1px 1px rgba(51, 51, 51, 0.2), 0 0 2px rgba(255, 255, 255, 0.2);
+    -moz-box-shadow: inset 0 1px 1px rgba(51, 51, 51, 0.5), 0 0 2px rgba(51, 51, 51, 0.2);
+    box-shadow: inset 0 1px 1px rgba(51, 51, 51, 0.5), 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+.modal form .element .input-append input,
+.modal form .element .input-append select .uneditable-input {
+    -webkit-border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    border-radius: 5px 0 0 5px;
+}
+
+.modal form .element input:focus,
+.modal form .element textarea:focus {
+    border-color: rgba(59, 164, 27, 1);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2), 0 0 8px rgba(59, 164, 27, 0.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2), 0 0 8px rgba(59, 164, 27, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2), 0 0 8px rgba(59, 164, 27, 0.6);
+    outline: 0;
+    outline: thin dotted \9;
+    /* IE6-9 */
+}
+
+
+.modal .input-prepend .add-on,
+.modal .input-append .add-on {
+    display: inline-block;
+    width: auto;
+    min-width: 16px;
+    height: 18px;
+    padding: 4px 5px;
+    font-weight: normal;
+    line-height: 18px;
+    text-align: center;
+    text-shadow: 0 1px 0 #ffffff;
+    vertical-align: middle;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.modal input.cal {
+    background: #fff url("../images/calendar-icon.png") 97% 70% no-repeat;
+}
+
+.modal form .last {
+    margin-right: 0;
+}
+
+
+/*.modal form .shadow_select {*/
+    /*-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);*/
+    /*-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);*/
+    /*box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);*/
+    /*-webkit-transition: border linear 0.2s, box-shadow linear 0.2s;*/
+    /*-moz-transition: border linear 0.2s, box-shadow linear 0.2s;*/
+    /*-ms-transition: border linear 0.2s, box-shadow linear 0.2s;*/
+    /*-o-transition: border linear 0.2s, box-shadow linear 0.2s;*/
+    /*transition: border linear 0.2s, box-shadow linear 0.2s;*/
+/*}*/
+/*.modal form .shadow_select:focus {*/
+    /*border-color: rgba(82, 168, 236, 0.8);*/
+    /*-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);*/
+    /*-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);*/
+    /*box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);*/
+    /*outline: 0;*/
+    /*outline: thin dotted \9;*/
+ /**/
+
+/*}*/
+
+#add-school-fieldset {
+    display: none;
+}
+
+/* Social buttons */
+
+.social-block {
+    text-align: center;
+    padding-top: 30px;
+    font-family: UbuntuBold;
+    line-height: 30px;
+}
+
+.social-block a {
+    margin-top: 5px;
+    margin-right: 8px;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background: url(../images/social-buttons.png) no-repeat;
+}
+.social-block .facebook {
+    background-position: 0 0;
+}
+.social-block .twitter {
+    background-position: -40px 0
+}
+.social-block .linkedin {
+    background-position: -80px 0
+}
+.social-block .google {
+    background-position: -119px 0
+}
+.social-block .mail {
+    background-position: -159px 0
+}
+
+/* File Element */
+
+.modal form .element .profile-thumb {
+    display: block;
+    float: left;
+}
+.modal form .element .profile-upload-box {
+    display: block;
+    float: left;
+    margin: 0 0 0 20px;
+    padding-top: 20px;
+}
+.modal form .element .profile-upload-box:after {
+    clear: both;
+}
+.modal form .element .profile-upload {
+    display: inline-block;
+    background: url(../images/file-field.png) top left no-repeat;
+    width: 311px;
+    height: 44px;
+}
+
+
+
+
+/* css from Toobler..*/
+
+/* for 'ADD CLASS OR SCHOOL' in class Info screen */ 
+.modal form a.legend-addclass {
+    margin: 20px 0 0 26px;
+    display: inline-block;
+}
+.modal form .legend-addclass {
+    background: #a4cae8 url("../images/legend-plus.png") 1px 100% no-repeat;
+    padding-left: 40px;
+    cursor: pointer;
+}
+/* to display School name in the top position of class Info screen */
+.school-name {
+    font-size: 25px;
+    padding-top:30px;
+   /* padding: 20px 0;*/
+    text-shadow: 1px 1px 2px #006196;
+  
+}
+
+/* display validation error message */
+.error-msg{
+	 background: none repeat scroll 0 0 #EE0101;
+    border: 2px solid #DDDDDD;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 0 6px #000000;
+    color: #FFFFFF;
+    font-size: 15px;
+    margin-left: 20px;
+    padding: 4px 10px;
+    position: relative;
+    width: 236px;
+}
