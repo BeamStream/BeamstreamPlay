@@ -1,5 +1,6 @@
 package controllers
 import play.api.mvc.Controller
+
 import play.api._
 import play.api.mvc._
 import models.Quote
@@ -14,8 +15,12 @@ import play.libs._
 import com.ning.http.client.Realm
 import utils._
 import org.bson.types.ObjectId
+import net.liftweb.json.{ parse, DefaultFormats }
+import net.liftweb.json.Serialization.{ read, write }
 
 object UserController extends Controller {
+
+  implicit val formats = DefaultFormats
 
   var s: String = ""
 
@@ -33,38 +38,47 @@ object UserController extends Controller {
  * Find and Authenticate the user to proceed
  */
   def findUser = Action { implicit request =>
+    val userJsonMap = request.body.asFormUrlEncoded.get
+    val user = userJsonMap("data").toList(0)
 
-    userForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.user(User.allUsers(), errors, "")),
-      userForm => {
+    val userJson = net.liftweb.json.parse(user)
+    val userEmail = userJson \ "email"
+    val userPassword = userJson \ "password"
+    
+    
 
-        (userForm.signup == "0") match {
-
-          case true =>
-
-            val initialFlashObject = request.flash + ("email" -> userForm.email)
-            val FinalFlashObject = initialFlashObject + ("iam" -> userForm.iam)
-            Redirect(routes.BasicRegistration.emailSent).flashing(FinalFlashObject)
-
-          case false =>
-            val authenticatedUser = User.findUser(userForm)
-            authenticatedUser match {
-              case None =>
-                s = "No User Found"
-                Redirect(routes.UserController.users)
-
-              case _ =>
-                s = "Login Successful"
-
-                /*Creates a Session*/
-                val aa = request.session + ("userId" -> authenticatedUser.get.id.toString)
-                User.activeUsers(authenticatedUser.get.id.toString)
-                Redirect(routes.MessageController.messages).withSession(aa)
-
-            }
-        }
-
-      })
+    //    userForm.bindFromRequest.fold(
+    //      errors => BadRequest(views.html.user(User.allUsers(), errors, "")),
+    //      userForm => {
+    //
+    //        (userForm.signup == "0") match {
+    //
+    //          case true =>
+    //
+    //            val initialFlashObject = request.flash + ("email" -> userForm.email)
+    //            val FinalFlashObject = initialFlashObject + ("iam" -> userForm.iam)
+    //            Redirect(routes.BasicRegistration.emailSent).flashing(FinalFlashObject)
+    //
+    //          case false =>
+    //            val authenticatedUser = User.findUser(userForm)
+    //            authenticatedUser match {
+    //              case None =>
+    //                s = "No User Found"
+    //                Redirect(routes.UserController.users)
+    //
+    //              case _ =>
+    //                s = "Login Successful"
+    //
+    //                /*Creates a Session*/
+    //                val aa = request.session + ("userId" -> authenticatedUser.get.id.toString)
+    //                User.activeUsers(authenticatedUser.get.id.toString)
+    //                Redirect(routes.MessageController.messages).withSession(aa)
+    //
+    //            }
+    //        }
+    //
+    //      })
+    Ok
   }
 
   def users = Action { implicit request =>

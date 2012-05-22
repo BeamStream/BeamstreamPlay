@@ -53,7 +53,7 @@ object ClassController extends Controller {
     println("Here's the JSON String extracted for class" + classJsonList(0))
      val classList = net.liftweb.json.parse(classJsonList(0)).extract[List[Class]]
     println("Here is the class List"+ classList)
-    //Class.createClass(classList)
+    Class.createClass(classList)
     Ok
   }
 

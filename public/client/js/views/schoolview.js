@@ -30,7 +30,7 @@ window.SchoolView = Backbone.View.extend({
     	var  schoolDetails = this.getSchoolInfo();
     	$.ajax({
             type: 'POST',
-            url:"http://localhost/client/api.php",
+            url:"http://localhost:9000/detailed_reg",
             data:{data:schoolDetails},
             dataType:"json",
             success:function(data){
@@ -57,7 +57,7 @@ window.SchoolView = Backbone.View.extend({
   
     	  $.ajax({
               type: 'POST',
-              url:"http://localhost/client/api.php",
+              url:"http://localhost:9000/detailed_reg",
               data:{data:schoolDetails},
               dataType:"json",
               success:function(data){

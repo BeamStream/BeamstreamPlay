@@ -4,11 +4,11 @@ window.Class = Backbone.Model.extend({
         defaults: {
         	
         	schoolId:null,
-        	classId:null,
+        	id:null,
             classCode:null,
             classTime:null,
             className:null,
-            startDate:null,
+            startingDate:null,
             classType:null
 
         },

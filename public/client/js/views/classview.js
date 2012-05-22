@@ -37,7 +37,7 @@ window.ClassView = Backbone.View.extend({
 			/* post data with school and class details */
 			$.ajax({
 				type : 'POST',
-				url : "http://localhost/client/api.php",
+				url : "http://localhost:9000/class",
 				data : {
 					data : classDetails
 				},
@@ -84,7 +84,7 @@ window.ClassView = Backbone.View.extend({
 			/* post data with school and class details */
 			$.ajax({
 				type : 'POST',
-				url : "http://localhost/client/api.php",
+				url : "http://localhost:9000/class",
 				data : {
 					data : classDetails
 				},
@@ -162,11 +162,11 @@ window.ClassView = Backbone.View.extend({
 				classModel.set({
 					
 					schoolId :  $('#school-' + i).val(),
-					classId : j,
+					id : j,
 					classCode : $('#class-code-' + i + '-' + j).val(),
 					classTime : $('#class-time-' + i + '-' + j).val(),
 					className : $('#class-name-' + i + '-' + j).val(),
-					startDate : $('#date-started-' + i + '-' + j).val(),
+					startingDate : $('#date-started-' + i + '-' + j).val(),
 					classType : $('#semester-' + i + '-' + j).val()
 				});
 				classes.add(classModel);

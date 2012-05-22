@@ -15,7 +15,7 @@ import java.text._
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 
-case class Class(@Key("_id") id: ObjectId, classCode: String, className: String, classType: ClassType.Value, classTime: String, startingDate: Date, schoolId: ObjectId, streams: List[ObjectId])
+case class Class(@Key("_id") id: ObjectId, classCode: String, className: String, classType: ClassType.Value, classTime: String, startingDate: String, schoolId: ObjectId, streams: List[ObjectId])
 
 case class ClassForm(className: String, classCode: String, classType: String, schoolId: String)
 
