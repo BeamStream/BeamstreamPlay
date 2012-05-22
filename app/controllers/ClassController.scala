@@ -6,8 +6,23 @@ import play.api.data._
 import play.api.data.Forms._
 import models.ClassForm
 import models.Class
+import org.bson.types.ObjectId
+import models.ClassType
+import java.text.DateFormat
+import net.liftweb.json.{ parse, DefaultFormats }
+import net.liftweb.json.Serialization.{ read, write }
+import java.text.SimpleDateFormat
+import utils.EnumerationSerializer
+import utils.ObjectIdSerializer
 
 object ClassController extends Controller {
+
+  val EnumList: List[Enumeration] = List(ClassType)
+  
+  implicit val formats = new net.liftweb.json.DefaultFormats {
+    override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
+  } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
+
   /*
  * Map the fields value from html form
  */
@@ -21,22 +36,25 @@ object ClassController extends Controller {
   /*
   * Displays all the classes        
   */
+     
   def classes = Action {
     Ok(views.html.classes(classForm))
   }
 
+  
   /*
-   * Sends the value of fields to the model for saving
+   * Add a class to a user (Intact)
    */
 
   def addClass = Action { implicit request =>
-    classForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.classes(errors)),
-      classForm => {
-        Class.addClass(classForm)
-        Redirect(routes.MessageController.messages)
 
-      })
+    val classListJsonMap = request.body.asFormUrlEncoded.get
+    val classJsonList = classListJsonMap("data").toList
+    println("Here's the JSON String extracted for class" + classJsonList(0))
+     val classList = net.liftweb.json.parse(classJsonList(0)).extract[List[Class]]
+    println("Here is the class List"+ classList)
+    //Class.createClass(classList)
+    Ok
   }
 
 }

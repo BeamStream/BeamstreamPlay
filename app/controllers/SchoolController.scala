@@ -22,7 +22,7 @@ object SchoolController extends Controller {
    */
 
   def schools = Action { implicit request =>
-    Ok(views.html.school(School.allSchools(), schoolForm))
+    Ok(views.html.school(School.allSchools, schoolForm))
   }
 
   /*

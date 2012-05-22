@@ -22,9 +22,8 @@ class SchoolTest extends FunSuite with BeforeAndAfter {
     "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), List())
 
   before {
-    School.createSchool(myschool1)
-    School.createSchool(myschool2)
-    School.createSchool(myschool3)
+    School.createSchool(List(myschool1,myschool2,myschool3))
+    
   }
 
   test("Check the School Creation") {

@@ -30,18 +30,19 @@ POST   /joinstreams                   controllers.JoinStream.joinStream
 
 
 #Schools
-GET    /school                   controllers.SchoolController.schools
+#GET    /school                   controllers.SchoolController.schools
 POST   /school                   controllers.SchoolController.addSchool
 
 #UpdateUserInfo
 
 GET   /detailed_reg                   controllers.DetailedRegistration.users
-POST   /detailed_reg                  controllers.DetailedRegistration.addInfo
+POST   /detailed_reg                 controllers.DetailedRegistration.addInfo
 
 #Class
 
 GET   /class                   controllers.ClassController.classes
 POST   /class                  controllers.ClassController.addClass
+
 
 
 
@@ -57,7 +58,9 @@ POST  /basicRegistrationViaSocialSites   controllers.BasicRegistration.newUser
 POST   /userPage                         controllers.UserController.registerUserViaSocialSite
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+#GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /beamstream/*file                 controllers.Assets.at(path="/public/client", file)
+
 
 
 
