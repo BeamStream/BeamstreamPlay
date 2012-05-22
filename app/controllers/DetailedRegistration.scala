@@ -21,13 +21,12 @@ import utils.ObjectIdSerializer
 
 object DetailedRegistration extends Controller {
 
-  val cc: List[Enumeration] = List(Year, Degree, DegreeExpected, Graduated)
+  val EnumList: List[Enumeration] = List(Year, Degree, DegreeExpected, Graduated)
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
     override def dateFormatter = new SimpleDateFormat("dd/MM/yyyy")
-  } + new EnumerationSerializer(cc) + new ObjectIdSerializer
+  } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
-  //implicit val formats = Serialization.formats(NoTypeHints) + net.liftweb.json.DefaultFormats +  new EnumerationSerializer(cc) + new ObjectIdSerializer 
 
   /*
    * Map the field values from html
@@ -53,7 +52,7 @@ object DetailedRegistration extends Controller {
     val schoolList = net.liftweb.json.parse(schoolListJson(0)).extract[List[School]]
     println("My School List is " + schoolList)
 
-    User.addInfo(schoolList, new ObjectId("4fb5d52c84ae54c8a1d846b0"))
+    User.addInfo(schoolList, new ObjectId("4fb9c69984ae62a8e92c037e"))
 
     School.createSchool(schoolList)
 

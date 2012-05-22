@@ -18,7 +18,7 @@ import models.Year
 import net.liftweb.json.TypeInfo
 import java.text.DateFormat
 import java.util.Date
-
+import javassist.expr.Instanceof
 
 /*
  * Enumeration Serialization
@@ -60,7 +60,6 @@ class EnumerationSerializer(enumList: List[Enumeration]) extends net.liftweb.jso
 
 }
 
-
 /*
  * ObjectId Serialization
  */
@@ -70,7 +69,7 @@ class ObjectIdSerializer extends Serializer[ObjectId] {
 
   def deserialize(implicit format: Formats) = {
     case (TypeInfo(Class, _), json) => json match {
-      case JInt(s) =>  new ObjectId
+      case JInt(s) => new ObjectId
       case x => throw new MappingException("Can't convert " + x + " to ObjectId")
     }
   }
@@ -80,17 +79,15 @@ class ObjectIdSerializer extends Serializer[ObjectId] {
   }
 }
 
-
 /*
  * Date Time serialization
  */
 
 object DateTimeSerializer extends Serializer[Option[Date]] {
-  
+
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd/MM/yyyy")
   println("Datetime serializer invoked ....")
 
-  
   private val MyDateClass = classOf[Option[Date]]
 
   def deserialize(implicit format: Formats): PartialFunction[(TypeInfo, JValue), Option[Date]] = {

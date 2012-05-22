@@ -11,10 +11,18 @@ import models.ClassType
 import java.text.DateFormat
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
+import java.text.SimpleDateFormat
+import utils.EnumerationSerializer
+import utils.ObjectIdSerializer
 
 object ClassController extends Controller {
 
-  implicit val formats = DefaultFormats
+  val EnumList: List[Enumeration] = List(ClassType)
+  
+  implicit val formats = new net.liftweb.json.DefaultFormats {
+    override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
+  } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
+
   /*
  * Map the fields value from html form
  */
@@ -43,7 +51,9 @@ object ClassController extends Controller {
     val classListJsonMap = request.body.asFormUrlEncoded.get
     val classJsonList = classListJsonMap("data").toList
     println("Here's the JSON String extracted for class" + classJsonList(0))
-    Class.createClass(List())
+     val classList = net.liftweb.json.parse(classJsonList(0)).extract[List[Class]]
+    println("Here is the class List"+ classList)
+    //Class.createClass(classList)
     Ok
   }
 

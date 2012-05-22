@@ -18,10 +18,10 @@ class ClassTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
-  val class1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, formatter.parse("12-07-2911"), formatter.parse("12-07-2911"), new ObjectId, List())
-  val class2 = Class(new ObjectId, "202", "CSE", ClassType.Quarter, formatter.parse("12-07-2911"), formatter.parse("12-07-2911"), new ObjectId, List())
-  val class3 = Class(new ObjectId, "203", "ECE", ClassType.Quarter, formatter.parse("12-07-2911"), formatter.parse("12-07-2911"), new ObjectId, List())
-  val class4 = Class(new ObjectId, "204", "CSE", ClassType.Yearly, formatter.parse("12-07-2911"), formatter.parse("12-07-2911"), new ObjectId, List())
+  val class1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("12-07-2911"), new ObjectId, List())
+  val class2 = Class(new ObjectId, "202", "CSE", ClassType.Quarter, "3:30", formatter.parse("12-07-2911"), new ObjectId, List())
+  val class3 = Class(new ObjectId, "203", "ECE", ClassType.Quarter, "3:30", formatter.parse("12-07-2911"), new ObjectId, List())
+  val class4 = Class(new ObjectId, "204", "CSE", ClassType.Yearly, "3:30", formatter.parse("12-07-2911"), new ObjectId, List())
 
   before {
 
