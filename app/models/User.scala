@@ -45,9 +45,9 @@ object User {
    * find the user for Authentication
    * 
    */
-  def findUser(userForm: UserForm): Option[User] = {
+  def findUser(userEmail:String ,password :String): Option[User] = {
 
-    val authenticatedUser = UserDAO.find(MongoDBObject("email" -> userForm.email, "password" -> userForm.password))
+    val authenticatedUser = UserDAO.find(MongoDBObject("email" -> userEmail, "password" -> password))
     (authenticatedUser.isEmpty) match {
       case true => None
       case false => Option(authenticatedUser.toList(0))

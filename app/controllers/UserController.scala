@@ -42,8 +42,17 @@ object UserController extends Controller {
     val user = userJsonMap("data").toList(0)
 
     val userJson = net.liftweb.json.parse(user)
-    val userEmail = userJson \ "email"
-    val userPassword = userJson \ "password"
+    val userEmail = (userJson \ "email").extract[String]
+    val userPassword = (userJson \ "password").extract[String]
+    
+    val authenticatedUser=User.findUser(userEmail ,userPassword) match {
+      case Some(user) => 
+        val aa = request.session + ("userId" -> user.id.toString)
+        Ok
+       
+        
+      case None => Redirect(routes.UserController.users)
+    }
     
     
 
