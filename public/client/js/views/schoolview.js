@@ -11,7 +11,6 @@ window.SchoolView = Backbone.View.extend({
     	
         console.log('Initializing School View');
         this.template= _.template($("#tpl-school-reg").html());
-        
     },
 
     /**
@@ -41,7 +40,6 @@ window.SchoolView = Backbone.View.extend({
                 
             }
          });
-    	 
       },
       
       
@@ -52,7 +50,6 @@ window.SchoolView = Backbone.View.extend({
     	  
     	  eventName.preventDefault();      
     	  var  schoolDetails = this.getSchoolInfo();
-    	  
     	  
     	  /* save School details in local storage */ 
           var localStorageKey = "registration"; 
@@ -65,11 +62,8 @@ window.SchoolView = Backbone.View.extend({
               dataType:"json",
               success:function(data){
             	  app.navigate("class", {trigger: true, replace: true});
-                  
               }
            });
-    	  
-    	  
       },
       
       
@@ -134,7 +128,6 @@ window.SchoolView = Backbone.View.extend({
 	      	var schools = new SchoolCollection();
 	      	for(i=1; i <= current; i++)
 	      	{
-	      		
 		      	var degreeexp,degdate;
 		      		
 		     	/* display degree expected when selecting graduated as 'attending' or 'no' */
@@ -160,10 +153,8 @@ window.SchoolView = Backbone.View.extend({
 		
 		        schools.add(school);
 	         }
-	   
 	         var schoolinfo = JSON.stringify(schools);
 	         return schoolinfo;
 	      },
-      
 
 });

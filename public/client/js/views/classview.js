@@ -5,24 +5,19 @@ window.ClassView = Backbone.View.extend({
 		"click #continue" : "toProfile",
 		"click a.addclass": "addClasses",
 		"click a.legend-addclass" : "addSchool",
-		
-		
-		
-//		"click #add-class" : "addClasses",
-//		"change #school" : "addAnotherSchool",
+
 	},
 
 	initialize : function() {
+		
+		console.log('Initializing Class View');
 		
 		/* get local stored School details  and save school names to an array*/
 		var localStorageKey = "registration";
 		var data = localStorage.getItem(localStorageKey);
 		this.schools = jQuery.parseJSON(data);
 
-		
 		this.classes = new Class();
-		console.log('Initializing Class View');
-//		this.template = _.template($("#tpl-class-reg").html());
 		this.source = $("#tpl-class-reg").html();
 		this.template = Handlebars.compile(this.source);
 	},
@@ -56,10 +51,8 @@ window.ClassView = Backbone.View.extend({
 	   }
 		else
 	    {    
-			console.log($.validationEngine.defaults.autoHidePrompt);
+			console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
 	    }
-		
-
 	},
 
 	/**
@@ -116,6 +109,7 @@ window.ClassView = Backbone.View.extend({
 	addClasses : function(eventName) {
 		
 		eventName.preventDefault();
+		$('a.addclass').hide();
 		var id = eventName.target.id;
   	    var dat='#'+id;
 		var parentId =  $(dat).parents('fieldset').attr('id')
@@ -159,17 +153,16 @@ window.ClassView = Backbone.View.extend({
 
 	getClassInfo : function() {
 
-		var i,j;
 		var classes = new ClassCollection();
-		
-		for (i = 1; i <= sClasses; i++) 
+		for (var i=1; i<=sClasses; i++) 
 		{
-			for(j=1 ; j<=3 ; j++)
+			for(var j=1; j<=3; j++)
 			{
 				var classModel = new Class();
 				classModel.set({
-					id : j,
+					
 					schoolId :  $('#school-' + i).val(),
+					classId : j,
 					classCode : $('#class-code-' + i + '-' + j).val(),
 					classTime : $('#class-time-' + i + '-' + j).val(),
 					className : $('#class-name-' + i + '-' + j).val(),
@@ -178,11 +171,9 @@ window.ClassView = Backbone.View.extend({
 				});
 				classes.add(classModel);
 			}
-			 
 		}
-
+		
 		var classDetails = JSON.stringify(classes);
-
 		return classDetails;
 	},
 
