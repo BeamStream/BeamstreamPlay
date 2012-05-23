@@ -57,6 +57,12 @@ object School {
     for (school <- SchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList) yield school
   }
 
+  def getAllSchoolfromDatabase : List[School] = {
+    println("got the method")
+    val allSchools = SchoolDAO.find(MongoDBObject())
+    List()
+  }
+
 }
 
 object Year extends Enumeration {

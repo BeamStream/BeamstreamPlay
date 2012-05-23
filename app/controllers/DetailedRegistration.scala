@@ -18,6 +18,8 @@ import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
+import net.liftweb.json.{ parse, DefaultFormats }
+import net.liftweb.json.Serialization.{ read, write }
 
 object DetailedRegistration extends Controller {
 
@@ -51,10 +53,10 @@ object DetailedRegistration extends Controller {
     println("Here's the JSON String extracted" + schoolListJson(0))
     val schoolList = net.liftweb.json.parse(schoolListJson(0)).extract[List[School]]
     println("My School List is " + schoolList)
-    println("Session value User"+request.session.get("userId"))
     User.addInfo(schoolList, new ObjectId(request.session.get("userId").get))
     School.createSchool(schoolList)
-
+    println(School.getAllSchoolfromDatabase)
+    
     Ok
   }
 }

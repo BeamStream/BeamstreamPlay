@@ -26,11 +26,12 @@ object BasicRegistration extends Controller {
       "useCurrentLocation" -> optional(checked("")))(BasicRegForm.apply)(BasicRegForm.unapply))
 
   def basicRegistration(iam: String, emailId: String, token: String) = Action { implicit request =>
-    val findToken = TokenDAO.find(MongoDBObject("tokenString" -> token)).toList
-    (findToken.size == 0) match {
-      case false => Ok(views.html.basic_reg(basicRegForm, emailId, iam, "", ""))
-      case true => Ok("Token Not Valid")
-    }
+    Ok(views.html.basic_reg(basicRegForm, emailId, iam, "", ""))
+//    val findToken = TokenDAO.find(MongoDBObject("tokenString" -> token)).toList
+//    (findToken.size == 0) match {
+//      case false => Ok(views.html.basic_reg(basicRegForm, emailId, iam, "", ""))
+//      case true => Ok("Token Not Valid")
+//    }
 
   }
 

@@ -39,38 +39,35 @@ object UserController extends Controller {
   /*
  * Find and Authenticate the user to proceed
  */
-  def findUser  = Action { implicit request =>
+  def findUser = Action { implicit request =>
     val userJsonMap = request.body.asFormUrlEncoded.get
     val user = userJsonMap("data").toList(0)
 
     val userJson = net.liftweb.json.parse(user)
     val userEmail = (userJson \ "email").extract[String]
     val userPassword = (userJson \ "password").extract[String]
-    
-    val authenticatedUser=User.findUser(userEmail ,userPassword)
-    println(authenticatedUser)
-    
-    authenticatedUser match {
-      case Some(user) =>   
-        val jsonStatus=new ResultantJson("success" , "Login Successfull")
-        val statusToSend= write(jsonStatus)
-        Ok(statusToSend).as("application/json")
 
-      case None => 
-         val jsonStatus=new ResultantJson("failure" , "Login Unsuccessfull")
-        val statusToSend= write(jsonStatus)
+    val authenticatedUser = User.findUser(userEmail, userPassword)
+
+    authenticatedUser match {
+      case Some(user) =>
+
+        val jsonStatus = new ResultantJson("success", "Login Successfull")
+        val statusToSend = write(jsonStatus)
+        val userSession = request.session + ("userId" -> user.id.toString)
+        Ok(statusToSend).as("application/json").withSession(userSession)
+
+      case None =>
+
+        val jsonStatus = new ResultantJson("failure", "Login Unsuccessfull")
+        val statusToSend = write(jsonStatus)
         Ok(statusToSend).as("application/json")
     }
-    
-     
-//      case Some(user) =>  val aa = request.session + ("userId" -> user.id.toString)
-//      
-//     
-//      case None => Redirect(routes.UserController.users)
-      
-    
-    
-    
+
+    //      case Some(user) =>  val aa = request.session + ("userId" -> user.id.toString)
+    //      
+    //     
+    //      case None => Redirect(routes.UserController.users)
 
     //    userForm.bindFromRequest.fold(
     //      errors => BadRequest(views.html.user(User.allUsers(), errors, "")),
@@ -103,8 +100,7 @@ object UserController extends Controller {
     //        }
     //
     //      })
-  
-   
+
   }
 
   def users = Action { implicit request =>
