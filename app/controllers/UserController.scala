@@ -1,6 +1,5 @@
 package controllers
 import play.api.mvc.Controller
-
 import play.api._
 import play.api.mvc._
 import models.Quote
@@ -17,6 +16,9 @@ import utils._
 import org.bson.types.ObjectId
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
+import models.ResultantJson
+import play.libs.Json._
+import play.libs.Json
 
 object UserController extends Controller {
 
@@ -37,7 +39,7 @@ object UserController extends Controller {
   /*
  * Find and Authenticate the user to proceed
  */
-  def findUser = Action { implicit request =>
+  def findUser  = Action { implicit request =>
     val userJsonMap = request.body.asFormUrlEncoded.get
     val user = userJsonMap("data").toList(0)
 
@@ -45,14 +47,28 @@ object UserController extends Controller {
     val userEmail = (userJson \ "email").extract[String]
     val userPassword = (userJson \ "password").extract[String]
     
-    val authenticatedUser=User.findUser(userEmail ,userPassword) match {
-      case Some(user) => 
-        val aa = request.session + ("userId" -> user.id.toString)
-        Ok
-       
-        
-      case None => Redirect(routes.UserController.users)
+    val authenticatedUser=User.findUser(userEmail ,userPassword)
+    println(authenticatedUser)
+    
+    authenticatedUser match {
+      case Some(user) =>   
+        val jsonStatus=new ResultantJson("success" , "Login Successfull")
+        val statusToSend= write(jsonStatus)
+        Ok(statusToSend).as("application/json")
+
+      case None => 
+         val jsonStatus=new ResultantJson("failure" , "Login Unsuccessfull")
+        val statusToSend= write(jsonStatus)
+        Ok(statusToSend).as("application/json")
     }
+    
+     
+//      case Some(user) =>  val aa = request.session + ("userId" -> user.id.toString)
+//      
+//     
+//      case None => Redirect(routes.UserController.users)
+      
+    
     
     
 
@@ -87,7 +103,8 @@ object UserController extends Controller {
     //        }
     //
     //      })
-    Ok
+  
+   
   }
 
   def users = Action { implicit request =>
