@@ -87,6 +87,9 @@ object Class {
     val regexp = (""".*""" + name + """.*""").r
     for (theclass <- ClassDAO.find(MongoDBObject("className" -> regexp)).toList) yield theclass
   }
+  
+  
+  
 }
 
 object ClassType extends Enumeration {

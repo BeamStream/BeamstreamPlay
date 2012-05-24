@@ -57,10 +57,28 @@ object School {
     for (school <- SchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList) yield school
   }
 
-  def getAllSchoolfromDatabase : List[School] = {
-    println("got the method")
-    val allSchools = SchoolDAO.find(MongoDBObject())
-    List()
+  /*
+   * Get all school for a user
+   */
+  def getAllSchoolforAUser(userId: ObjectId): List[ObjectId] = {
+
+    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
+    user.schoolId
+
+  }
+
+  /*
+   * get all schools List
+   */
+
+  def getAllSchools(schoolsIdList: List[ObjectId]): List[School] = {
+    var schoolList: List[School] = List()
+
+    for (schoolId <- schoolsIdList) {
+      val schoolObtained = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList
+      schoolList ++= schoolObtained
+    }
+    schoolList
   }
 
 }
@@ -102,10 +120,4 @@ object Graduated extends Enumeration {
 
 }
 
-object SchoolDAO extends SalatDAO[School, Int](collection = MongoHQConfig.mongoDB("school"))
-
-object test extends App {
-  for (value <- Year.values) {
-    println(value.toString == ("Freshman"))
-  }
-}
+object SchoolDAO extends SalatDAO[School, ObjectId](collection = MongoHQConfig.mongoDB("school"))

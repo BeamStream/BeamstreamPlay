@@ -18,6 +18,7 @@ import models.Year
 import net.liftweb.json.TypeInfo
 import java.text.DateFormat
 import java.util.Date
+import models.DegreeExpected
 
 
 /*
@@ -42,7 +43,7 @@ class EnumerationSerializer(enumList: List[Enumeration]) extends net.liftweb.jso
   }
 
   private def fetchEnumValue(enumList: List[Enumeration], value: String): Enumeration#Value = {
-    var defaultEnumValue: Enumeration#Value = Year.withName("Freshman")
+    var defaultEnumValue: Enumeration#Value = DegreeExpected.withName("Winter 2013")
     for (enumItem <- enumList) {
       for (enumValue <- enumItem.values) {
         enumValue.toString == value match {

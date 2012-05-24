@@ -1,9 +1,7 @@
 package controllers
 
 import java.text.SimpleDateFormat
-
 import org.bson.types.ObjectId
-
 import models.Degree
 import models.DegreeExpected
 import models.DetailedRegForm
@@ -20,6 +18,8 @@ import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
+import models.School
+import models.ResulttoSent
 
 object DetailedRegistration extends Controller {
 
@@ -28,7 +28,6 @@ object DetailedRegistration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
     override def dateFormatter = new SimpleDateFormat("dd/MM/yyyy")
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
-
 
   /*
    * Map the field values from html
@@ -50,13 +49,25 @@ object DetailedRegistration extends Controller {
 
     val schoolListJsonMap = request.body.asFormUrlEncoded.get
     val schoolListJson = schoolListJsonMap("data").toList
-    println("Here's the JSON String extracted" + schoolListJson(0))
     val schoolList = net.liftweb.json.parse(schoolListJson(0)).extract[List[School]]
-    println("My School List is " + schoolList)
     User.addInfo(schoolList, new ObjectId(request.session.get("userId").get))
     School.createSchool(schoolList)
-    println(School.getAllSchoolfromDatabase)
-    
-    Ok
+    val responseString = new ResulttoSent("success", "")
+    val responseJsontosent = write(responseString)
+    Ok(responseJsontosent).as("application/json")
   }
+  
+  /*
+   * Returns the Schools with their respective school Ids
+   */
+
+  private def getSchoolsForLoggedInUser = Action { implicit request =>
+
+    val schoolIdList = School.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
+    val finalSchooList = School.getAllSchools(schoolIdList)
+    val schoolListJSON = write(finalSchooList)
+
+    Ok(schoolListJSON).as("application/json")
+  }
+
 }

@@ -16,7 +16,7 @@ import utils._
 import org.bson.types.ObjectId
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
-import models.ResultantJson
+import models.ResulttoSent
 import play.libs.Json._
 import play.libs.Json
 
@@ -52,14 +52,14 @@ object UserController extends Controller {
     authenticatedUser match {
       case Some(user) =>
 
-        val jsonStatus = new ResultantJson("success", "Login Successfull")
+        val jsonStatus = new ResulttoSent("success", "Login Successfull")
         val statusToSend = write(jsonStatus)
         val userSession = request.session + ("userId" -> user.id.toString)
         Ok(statusToSend).as("application/json").withSession(userSession)
 
       case None =>
 
-        val jsonStatus = new ResultantJson("failure", "Login Unsuccessfull")
+        val jsonStatus = new ResulttoSent("failure", "Login Unsuccessfull")
         val statusToSend = write(jsonStatus)
         Ok(statusToSend).as("application/json")
     }
