@@ -23,7 +23,7 @@ window.ClassView = Backbone.View.extend({
 				
           	  /* save School details in local storage */
           	  var schools = JSON.stringify(data);
-              var localStorageKey = "registration"; 
+                  var localStorageKey = "registration"; 
           	  localStorage.setItem(localStorageKey,schools); 
 			}
 		});
