@@ -14,6 +14,7 @@ import net.liftweb.json.Serialization.{ read, write }
 import java.text.SimpleDateFormat
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
+import models.School
 
 object ClassController extends Controller {
 
@@ -53,7 +54,8 @@ object ClassController extends Controller {
     println("Here's the JSON String extracted for class" + classJsonList(0))
      val classList = net.liftweb.json.parse(classJsonList(0)).extract[List[Class]]
     println("Here is the class List"+ classList)
-    //Class.createClass(classList)
+    Class.createClass(classList)
+    //School.addClasstoSchool(classList(0).schoolId , classList )
     Ok
   }
 
