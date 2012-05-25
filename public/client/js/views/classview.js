@@ -12,11 +12,28 @@ window.ClassView = Backbone.View.extend({
 		
 		console.log('Initializing Class View');
 		
+		
+		/* get the school details from server */
+		
+		$.ajax({
+			type : 'GET',
+			url : "http://localhost:9000/schoolJson",
+			dataType : "json",
+			success : function(data) {
+				
+          	  /* save School details in local storage */
+          	  var schools = JSON.stringify(data);
+              var localStorageKey = "registration"; 
+          	  localStorage.setItem(localStorageKey,schools); 
+			}
+		});
+		
+		
 		/* get local stored School details  and save school names to an array*/
 		var localStorageKey = "registration";
-		var data = localStorage.getItem(localStorageKey);
-		this.schools = jQuery.parseJSON(data);
-
+		var schoolData = localStorage.getItem(localStorageKey);
+		this.schools = jQuery.parseJSON(schoolData);
+		
 		this.classes = new Class();
 		this.source = $("#tpl-class-reg").html();
 		this.template = Handlebars.compile(this.source);

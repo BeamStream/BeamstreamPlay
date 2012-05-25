@@ -271,8 +271,8 @@
 						<label for="school-{{sCount}}">School</label>
 						<select id="school-{{sCount}}" class="large"   >
 							{{#each schools}}
-                               <option value="{{this.id}}">{{this.schoolName}}</option>
-                           {{/each}}
+                               <option value="{{this.id.schoolId}}">{{this.schoolName}}</option>
+                            {{/each}}
 						</select>
            			 </div>
                     <div class="element">
@@ -386,7 +386,7 @@
              		  <label for="school-{{sCount}}">School</label>
 					  <select id="school-{{sCount}}" class="large"  >
 						{{#each schools}}
-                          <option value="{{this.id}}">{{this.schoolName}}</option>
+                        		  <option value="{{this.id.schoolId}}">{{this.schoolName}}</option>
                         {{/each}}
 					  </select>
 				 </div>
