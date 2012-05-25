@@ -19,7 +19,7 @@ import models.School
 object ClassController extends Controller {
 
   val EnumList: List[Enumeration] = List(ClassType)
-  
+
   implicit val formats = new net.liftweb.json.DefaultFormats {
     override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
@@ -37,12 +37,11 @@ object ClassController extends Controller {
   /*
   * Displays all the classes        
   */
-     
+
   def classes = Action {
     Ok(views.html.classes(classForm))
   }
 
-  
   /*
    * Add a class to a user (Intact)
    */
@@ -52,9 +51,9 @@ object ClassController extends Controller {
     val classListJsonMap = request.body.asFormUrlEncoded.get
     val classJsonList = classListJsonMap("data").toList
     println("Here's the JSON String extracted for class" + classJsonList(0))
-     val classList = net.liftweb.json.parse(classJsonList(0)).extract[List[Class]]
-    println("Here is the class List"+ classList)
-   // Class.createClass(classList)
+    val classList = net.liftweb.json.parse(classJsonList(0)).extract[List[Class]]
+    println("Here is the class List" + classList)
+    Class.createClass(classList)
     //School.addClasstoSchool(classList(0).schoolId , classList )
     Ok
   }
