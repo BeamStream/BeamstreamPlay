@@ -51,9 +51,6 @@ window.SchoolView = Backbone.View.extend({
     	  eventName.preventDefault();      
     	  var  schoolDetails = this.getSchoolInfo();
     	  
-    	  /* save School details in local storage */ 
-          var localStorageKey = "registration"; 
-    	  localStorage.setItem(localStorageKey,schoolDetails);  
   
     	  $.ajax({
               type: 'POST',
