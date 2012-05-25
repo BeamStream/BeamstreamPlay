@@ -43,7 +43,9 @@ POST   /detailed_reg                 controllers.DetailedRegistration.addInfo
 GET   /class                   controllers.ClassController.classes
 POST   /class                  controllers.ClassController.addClass
 
+#Getting the School JSON
 
+GET   /schoolJson              controllers.DetailedRegistration.getSchoolsForLoggedInUser
 
 
 #Basic Registration

@@ -61,7 +61,8 @@ object DetailedRegistration extends Controller {
    * Returns the Schools with their respective school Ids
    */
 
-  private def getSchoolsForLoggedInUser = Action { implicit request =>
+   def getSchoolsForLoggedInUser = Action { implicit request =>
+     println("HAHAHAHAHAHAHAHAHA")
 
     val schoolIdList = School.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
     val finalSchooList = School.getAllSchools(schoolIdList)
