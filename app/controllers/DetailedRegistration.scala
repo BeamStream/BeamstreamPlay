@@ -56,18 +56,15 @@ object DetailedRegistration extends Controller {
     val responseJsontosent = write(responseString)
     Ok(responseJsontosent).as("application/json")
   }
-  
+
   /*
    * Returns the Schools with their respective school Ids
    */
 
-   def getSchoolsForLoggedInUser = Action { implicit request =>
-     println("HAHAHAHAHAHAHAHAHA")
-
+  def getSchoolsForLoggedInUser = Action { implicit request =>
     val schoolIdList = School.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
     val finalSchooList = School.getAllSchools(schoolIdList)
     val schoolListJSON = write(finalSchooList)
-
     Ok(schoolListJSON).as("application/json")
   }
 
