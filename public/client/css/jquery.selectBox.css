@@ -181,3 +181,12 @@ a.selectBox-dropdown:hover {
     outline: 0;
     outline: thin dotted \9;
 }
+
+/* toobler css */
+/* for time select box */
+.time {
+    width: 130px !important;
+    float:left;
+    min-width: 110px !important;
+    padding : 6px 2px 3px !important;
+}

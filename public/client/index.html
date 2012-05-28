@@ -296,7 +296,7 @@
   	<!-- add 3 classes-->
 	<script type="text/x-handlebars-template" id="classes">
  
-       <div class="form-row-label">1<sup>st</sup> class</div>
+        <div class="form-row-label">1<sup>st</sup> class</div>
        <div class="form-row short">
           <div class="element">
               <label for="class-code-{{sCount}}-1">Class code</label>
@@ -304,7 +304,11 @@
           </div>
           <div class="element">
               <label for="class-time-{{sCount}}-1">Class time</label>
-              <input type="text"   id="class-time-{{sCount}}-1" class="validate[[required],custom[time]] tiny" placeholder="3:30 PM">
+              <select id="class-time-{{sCount}}-1" class="time">
+				  {{#each times}}
+                        <option value="{{this.time}}">{{this.time}}</option>
+                  {{/each}}
+              </select>
           </div>
           <div class="element">
               <label for="class-name-{{sCount}}-1">Class name</label>
@@ -331,7 +335,11 @@
          </div>
          <div class="element">
               <label for="class-time-2">Class time</label>
-              <input type="text" id="class-time-{{sCount}}-2" class="validate[[required],custom[time]] tiny" placeholder="3:30 PM">
+			  <select id="class-time-{{sCount}}-2" class="small time">
+			      {{#each times}}
+                        <option value="{{this.time}}">{{this.time}}</option>
+                  {{/each}}
+             </select>
          </div>
          <div class="element">
               <label for="class-name-2">Class name</label>
@@ -358,7 +366,11 @@
           </div>
           <div class="element">
                <label for="class-time-3">Class time</label>
-               <input type="text" id="class-time-{{sCount}}-3" class="validate[[required],custom[time]] tiny" placeholder="3:30 PM">
+			   <select id="class-time-{{sCount}}-3" class="small time ">
+				  {{#each times}}
+                        <option value="{{this.time}}">{{this.time}}</option>
+                  {{/each}}
+               </select>
           </div>
           <div class="element">
                <label for="class-name-3">Class name</label>
