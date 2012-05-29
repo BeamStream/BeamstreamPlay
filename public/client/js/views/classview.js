@@ -82,9 +82,7 @@ window.ClassView = Backbone.View.extend({
 				},
 				dataType : "json",
 				success : function(data) {
-					var source = $("#tpl-success").html();
-					var template = Handlebars.compile(source);
-					$("#success").html(template(data));
+					window.location.href = "http://localhost:9000/messages";
 				}
 			});
 	   }

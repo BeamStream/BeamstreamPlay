@@ -39,7 +39,7 @@ window.ProfileView = Backbone.View.extend({
      */
     saveProfile:function (eventName) {
     	
-    
+        window.location.href = "http://localhost:9000/messages";
     	//TODO: Test f
     	
     	/*
@@ -71,7 +71,7 @@ window.ProfileView = Backbone.View.extend({
     complete:function (eventName) {
     	
     	eventName.preventDefault();
-    	
+    	window.location.href = "http://localhost:9000/messages";
 //    	var regDetails = this.getRegDetails();
 //    	
 //    	/* post data with school,class & profile details */
