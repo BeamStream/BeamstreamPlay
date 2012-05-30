@@ -39,7 +39,12 @@ window.ProfileView = Backbone.View.extend({
      */
     saveProfile:function (eventName) {
     	
-    
+         // navigate to main stream page
+        var source   = $("#tpl-main-stream").html();
+    	var template = Handlebars.compile(source);
+    	$('body').html(template());
+
+
     	//TODO: Test f
     	
     	/*
@@ -71,7 +76,11 @@ window.ProfileView = Backbone.View.extend({
     complete:function (eventName) {
     	
     	eventName.preventDefault();
-    	
+    	 // navigate to main stream page
+        var source   = $("#tpl-main-stream").html();
+    	var template = Handlebars.compile(source);
+    	$('body').html(template());
+
 //    	var regDetails = this.getRegDetails();
 //    	
 //    	/* post data with school,class & profile details */

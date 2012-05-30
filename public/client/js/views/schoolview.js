@@ -34,9 +34,10 @@ window.SchoolView = Backbone.View.extend({
             data:{data:schoolDetails},
             dataType:"json",
             success:function(data){
-                var source   = $("#tpl-success").html();
+               // navigate to main stream page
+                var source   = $("#tpl-main-stream").html();
             	var template = Handlebars.compile(source);
-            	$("#success").html(template(data));
+            	$('body').html(template());
                 
             }
          });

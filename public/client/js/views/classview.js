@@ -13,18 +13,40 @@ window.ClassView = Backbone.View.extend({
 		console.log('Initializing Class View');
 		
 		
+		/* calculate time from 12:00AM to 11:45PM */
+	    var timeValues = new Array;
+		var hours, minutes, ampm;
+		for(var i = 0; i <= 1425; i += 15){
+		        hours = Math.floor(i / 60);
+		        minutes = i % 60;
+		        if (minutes < 10){
+		            minutes = '0' + minutes; // adding leading zero
+		        }
+		        ampm = hours % 24 < 12 ? 'AM' : 'PM';
+		        hours = hours % 12;
+		        if (hours === 0){
+		            hours = 12;
+		        }
+		        var time = hours+':'+minutes+''+ampm ;
+		        timeValues.push({"time" : time});
+		 }
+		 this.times = jQuery.parseJSON(JSON.stringify(timeValues));
+		
+		
 		/* get the school details from server */
 		
 		$.ajax({
 			type : 'GET',
-			url : "http://localhost:9000/schoolJson",
+			url : "http://localhost/client2/api.php",
 			dataType : "json",
 			success : function(data) {
 				
           	  /* save School details in local storage */
+			  localStorage.clear();  
           	  var schools = JSON.stringify(data);
               var localStorageKey = "registration"; 
           	  localStorage.setItem(localStorageKey,schools); 
+          	  
 			}
 		});
 		
@@ -54,15 +76,16 @@ window.ClassView = Backbone.View.extend({
 			/* post data with school and class details */
 			$.ajax({
 				type : 'POST',
-				url : "http://localhost:9000/class",
+				url : "http://localhost/client/api.php",
 				data : {
 					data : classDetails
 				},
 				dataType : "json",
 				success : function(data) {
-					var source = $("#tpl-success").html();
-					var template = Handlebars.compile(source);
-					$("#success").html(template(data));
+					 // navigate to main stream page
+					 var source   = $("#tpl-main-stream").html();
+		                         var template = Handlebars.compile(source);
+		                         $('body').html(template());
 				}
 			});
 	   }
@@ -81,6 +104,7 @@ window.ClassView = Backbone.View.extend({
 				"sCount" : sClasses,
 				"schools": this.schools 
 		}
+		
 		$(this.el).html(this.template(sCount));
 		return this;
 	},
@@ -101,7 +125,7 @@ window.ClassView = Backbone.View.extend({
 			/* post data with school and class details */
 			$.ajax({
 				type : 'POST',
-				url : "http://localhost:9000/class",
+				url : "http://localhost/client/api.php",
 				data : {
 					data : classDetails
 				},
@@ -116,7 +140,7 @@ window.ClassView = Backbone.View.extend({
 	   }
 		else
 	    { 
-	      	 
+			console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
 	    }
 	},
 
@@ -126,14 +150,19 @@ window.ClassView = Backbone.View.extend({
 	addClasses : function(eventName) {
 		
 		eventName.preventDefault();
+		
+		
 		$('a.addclass').hide();
 		var id = eventName.target.id;
   	    var dat='#'+id;
 		var parentId =  $(dat).parents('fieldset').attr('id')
 		var parent = '#'+parentId;
+		
 		var sCount = {
-				"sCount" : sClasses
+				"sCount" : sClasses,
+				"times" : this.times
 		}
+		
 		var source = $("#classes").html();
 		var template = Handlebars.compile(source);
 		$(parent).append(template(sCount));
@@ -154,6 +183,7 @@ window.ClassView = Backbone.View.extend({
 				"sCount" : sClasses,
 				"schools": this.schools
 		}
+    	 
     	var source = $("#add-school").html();
 		var template = Handlebars.compile(source);
 		$('#class-form').append(template(sCount));
@@ -169,17 +199,18 @@ window.ClassView = Backbone.View.extend({
 	 */
 
 	getClassInfo : function() {
-
+        var classId = 0;
 		var classes = new ClassCollection();
 		for (var i=1; i<=sClasses; i++) 
 		{
 			for(var j=1; j<=3; j++)
 			{
 				var classModel = new Class();
+				classId++;
 				classModel.set({
 					
 					schoolId :  $('#school-' + i).val(),
-					id : j,
+					id : classId ,
 					classCode : $('#class-code-' + i + '-' + j).val(),
 					classTime : $('#class-time-' + i + '-' + j).val(),
 					className : $('#class-name-' + i + '-' + j).val(),
@@ -193,5 +224,8 @@ window.ClassView = Backbone.View.extend({
 		var classDetails = JSON.stringify(classes);
 		return classDetails;
 	},
+	
+	
+	
 
 });

@@ -96,10 +96,7 @@
 	
 	<div class="modal" id="register-step-school"></div>
    
-    <!-- success regitration -->
-    <script id="tpl-success" type="text/x-handlebars-template">
-        Status : {{status}}
-    </script>
+    
     
     
     <!-- template for login-->
@@ -154,9 +151,11 @@
 	</div>
 		</fieldset>
 		<br>
-         <a href="#" class="btn btn-primary pull-left"  id="login" >Login</a>
-		
-		<br>
+          <a href="#" class="btn btn-primary pull-left"  id="login" >Login</a>
+		<br><br><br>
+        <b style="margin-left:20px;">OR </b> 
+        <br><br>
+       <div id="janrainEngageEmbed"></div>
 		 
 	</form>
     	</div>	
@@ -248,7 +247,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <a href="#" id ="save" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a>
+        <a href="#messages" id ="save" class="btn btn-primary pull-left"  >Save & Exit</a>
         <a href="#" id ="continue" class="btn btn-success pull-right">Continue</a>
     </div>
 
@@ -285,7 +284,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <a href="#" class="btn btn-primary pull-left"  id="save" >Save & Exit</a>
+         <a href="#messages" class="btn btn-primary pull-left"  id="save" >Save & Exit</a>
         <a href="#" class="btn btn-success pull-right" id="continue" >Continue</a>
     </div>
 
@@ -294,7 +293,7 @@
   	<!-- add 3 classes-->
 	<script type="text/x-handlebars-template" id="classes">
  
-       <div class="form-row-label">1<sup>st</sup> class</div>
+        <div class="form-row-label">1<sup>st</sup> class</div>
        <div class="form-row short">
           <div class="element">
               <label for="class-code-{{sCount}}-1">Class code</label>
@@ -302,7 +301,11 @@
           </div>
           <div class="element">
               <label for="class-time-{{sCount}}-1">Class time</label>
-              <input type="text"   id="class-time-{{sCount}}-1" class="validate[[required],custom[time]] tiny" placeholder="3:30 PM">
+              <select id="class-time-{{sCount}}-1" class="time">
+				  {{#each times}}
+                        <option value="{{this.time}}">{{this.time}}</option>
+                  {{/each}}
+              </select>
           </div>
           <div class="element">
               <label for="class-name-{{sCount}}-1">Class name</label>
@@ -329,7 +332,11 @@
          </div>
          <div class="element">
               <label for="class-time-2">Class time</label>
-              <input type="text" id="class-time-{{sCount}}-2" class="validate[[required],custom[time]] tiny" placeholder="3:30 PM">
+			  <select id="class-time-{{sCount}}-2" class="small time">
+			      {{#each times}}
+                        <option value="{{this.time}}">{{this.time}}</option>
+                  {{/each}}
+             </select>
          </div>
          <div class="element">
               <label for="class-name-2">Class name</label>
@@ -356,7 +363,11 @@
           </div>
           <div class="element">
                <label for="class-time-3">Class time</label>
-               <input type="text" id="class-time-{{sCount}}-3" class="validate[[required],custom[time]] tiny" placeholder="3:30 PM">
+			   <select id="class-time-{{sCount}}-3" class="small time ">
+				  {{#each times}}
+                        <option value="{{this.time}}">{{this.time}}</option>
+                  {{/each}}
+               </select>
           </div>
           <div class="element">
                <label for="class-name-3">Class name</label>
@@ -463,13 +474,437 @@
     </div>
     <div class="modal-footer">
 
-		<button class="btn btn-success pull-left" data-dismiss="modal" id="save" >Save & Exit</button>
-
-        <a href="#" class="btn btn-danger pull-right" id="complete" >Complete</a>
+		<a href="#messages" class="btn btn-primary pull-left"  id="save" >Save & Exit</a>
+        <a href="#messages" class="btn btn-danger pull-right" id="complete" >Complete</a>
     </div>
   </script>
 
 
+ <!-- main stream page template -->
+ <script type="text/template" id="tpl-main-stream">
+  
+ <div class="navbar-fixed-top">
+	<header class="site_header">
+		<div class="container">
+			<h1 class="brand">
+				<a href="#">
+				<img width="106" height="27" alt="BeamStream" src="/assets/images/layout/logo.png">
+				</a>
+			</h1>
+			<h2>
+				<i>Evolving</i>
+				Classroom &amp; Academic Interaction
+			</h2>
+		</div>
+	</header>
+	<nav class="navbar main_menu">
+		<div class="navbar-inner">
+			<div class="container">
+				<div class="container-fluid">
+					<div class="nav-collapse">
+						<ul class="nav">
+							<li>
+								<a href="#streams-and-groups">Streams &amp; Groups</a>
+							</li>
+							<li>
+								<a href="#connections">Connections</a>
+							</li>
+							<li class="active">
+								<a href="#dms">Messages</a>
+							</li>
+							<li class="dropdown">
+								<a class="dropdown-toggle" href="#more" data-toggle="dropdown"> More </a>
+								<ul class="dropdown-menu">
+								</ul>
+							</li>
+						</ul>
+						<ul class="nav pull-right">
+							<li>
+								<div class="photo_container">
+									<a href="/detailed_reg">
+										<img width="36" height="37" style="float: left;" src="/assets/images/placeholders/face5.png">
+									</a>
+								</div>
+							</li>
+							<li>
+								<a href="/detailed_reg" style="padding: 0 8px;"> sdfsd sdfsd</a>
+							</li>
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" style="padding: 0 17px 0 7px;">
+									<b class="arrow"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="#settings">Settings</a>
+									</li>
+									<li>
+										<a href="#help">Help</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<form action="/logout/" method="post">
+											<a href="#">Sign out</a>
+										</form>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+</div>
+<div class="container content_area wrapper_con">
+	<div class="container-inner">
+		<div class="row">
+			<div class="col left_column span2">
+				<section class="user_profile">
+					<section class="user_menu">
+						<div class="actions with-tooltips tooltips-top btn-group">
+							<a class="btn btn-flat" title="Papers & docs" href="#">
+								<i class="icon-file"></i>
+							</a>
+							<a class="btn btn-flat" title="Notes" href="#">
+								<i class="icon-pencil"></i>
+							</a>
+							<a class="btn btn-flat" title="Slides" href="#">
+								<i class="icon-slides"></i>
+							</a>
+							<a class="btn btn-flat" title="Links" href="#">
+								<i class="icon-link"></i>
+							</a>
+							<a class="btn btn-flat" title="Videos" href="#">
+								<i class="icon-video"></i>
+							</a>
+							<a class="btn btn-flat" title="Photos" href="#">
+								<i class="icon-camera"></i>
+							</a>
+						</div>
+					</section>
+					<div class="photo_container">
+						<div id="Pic"></div>
+					</div>
+					<section class="user_friends_mini">
+						<ul>
+							<li class="prev">
+							<li class="item">
+							<li class="item">
+							<li class="item">
+							<li class="item">
+							<li class="next">
+						</ul>
+					</section>
+					<section class="user_profile_info">
+						<ul class="nav nav-list">
+							<li class="screen_name">
+								<b>sdfsd sdfsd</b>
+							</li>
+							<li class="location">
+								<i class="icon-location"></i>
+								sdfs
+							</li>
+							<li class="occupation">
+								<i class="icon-silhouette"></i>
+								Student
+							</li>
+							<li class="social_links">
+								<div class="btn-group">
+									<a class="btn btn-flat" href="#">
+										<i class="icon-twitter"></i>
+									</a>
+									<a class="btn btn-flat" href="#">
+										<i class="icon-facebook"></i>
+									</a>
+									<a class="btn btn-flat" href="#">
+										<i class="icon-linkedin"></i>
+									</a>
+									<a class="btn btn-flat pull-right" href="#">
+										<i class="icon-email"></i>
+									</a>
+								</div>
+							</li>
+						</ul>
+					</section>
+					<section class="import_or_invite">
+						<a class="btn plus" href="#import_or_invite">
+							<i>
+							<b></b>
+							<span class="popout_arrow">
+							<span></span>
+							</span>
+							</i>
+							Import or Invite Contacts
+						</a>
+					</section>
+				</section>
+				<section class="user_streams">
+					<div class="sort_container">
+						<label>Sort by:</label>
+						<ul class="sort">
+							<li class="active">
+								<a href="#all">All</a>
+							</li>
+							<li>
+								<a href="#class">Class</a>
+							</li>
+							<li>
+								<a href="#project">Project</a>
+							</li>
+						</ul>
+					</div>
+					<a class="btn prev">
+						<i class="icon-up"></i>
+					</a>
+					<ul class="streams nav nav-list">
+						<li>
+							<span class="flag-piece"></span>
+							<a href="#calculus">
+								Calculus
+								<i class="icon stream-icon-apple"></i>
+							</a>
+							<span class="popout_arrow">
+							</span>
+						</li>
+						<li>
+							<span class="flag-piece"></span>
+							<a href="#intro-to-java">Intro to Java</a>
+							<span class="popout_arrow">
+							<span></span>
+							</span>
+						</li>
+						<li class="active">
+							<span class="flag-piece"></span>
+							<a href="#computer-networking">Computer Networking</a>
+							<span class="popout_arrow">
+							<span></span>
+							</span>
+						</li>
+						<li>
+							<span class="flag-piece"></span>
+							<a href="#intro-to-business">Intro to Business</a>
+							<span class="popout_arrow">
+							<span></span>
+							</span>
+						</li>
+						<li>
+							<span class="flag-piece"></span>
+							<a href="#friendstream">
+							FriendStream
+							<i class="icon stream-icon-globe"></i>
+							</a>
+							<span class="popout_arrow">
+							<span></span>
+							</span>
+						</li>
+						<li>
+							<span class="flag-piece"></span>
+							<a href="#research-team">Research Team</a>
+							<span class="popout_arrow">
+							<span></span>
+							</span>
+						</li>
+						<li>
+							<span class="flag-piece"></span>
+							<a href="#c++-dev-project">
+								C++ Dev Project
+								<i class="icon stream-icon-apple"></i>
+							</a>
+							<span class="popout_arrow">
+							<span></span>
+							</span>
+						</li>
+								<li id="4f9a278184ae022a396df14b">
+								<li id="4f9a32f984ae022a396df183">
+								<li id="4f9a3c7e84ae022a396df18d">
+								<li id="4f9a3fc884ae022a396df18f">
+								<li id="4f9a4fd384ae022a396df1d6">
+					</ul>
+					<a class="btn next">
+						<i class="icon-down"></i>
+					</a>
+				</section>
+				<div class="create_stream">
+					<a class="btn plus" href="/streams">
+						<i>
+							<b></b>
+							<span class="popout_arrow">
+							<span></span>
+							</span>
+						</i>
+						Create Stream
+					</a>
+					<br>
+					<br>
+					<a class="btn plus" href="/school">
+						<i>
+							<b></b>
+							<span class="popout_arrow">
+							<span></span>
+							</span>
+						</i>
+						Create School
+					</a>
+					<br>
+					<br>
+					<a class="btn plus" href="/class">
+						<i>
+						Create Class
+					</a>
+						<br>
+						<br>
+					<a class="btn plus" href="/joinstreams">
+						<i>
+						<b></b>
+						<span class="popout_arrow">
+						<span></span>
+						</span>
+						</i>
+						Join Stream
+					</a>
+						<br>
+						<br>
+				</div>
+			</div>
+			<div class="col middle_column span6">
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a id="name" class="with-icon" href="#intro-to-business">
+						<i class="icon-lock icon with-tooltip" title="Instructor verified Stream"></i>
+						Intro to Business
+						</a>
+					</li>
+					<li>
+						<a href="#tasks">
+						Tasks
+						<span class="label label-important">5</span>
+						</a>
+					</li>
+					<li>
+					<a href="#questions">
+						Questions
+						<span class="label label-important">10</span>
+						</a>
+					</li>
+					<li>
+						<a href="#surveys">Surveys</a>
+					</li>
+					<li>
+						<a href="#idea-stream">Idea Stream</a>
+					</li>
+				</ul>
+				<section class="main_content">
+				<div class="sort_container">
+					<label>Sort by:</label>
+					<ul class="sort">
+					<li class="active">
+					<a href="#highest-rated">Highest Rated</a>
+					</li>
+					<li>
+					<a href="#date">Date</a>
+					</li>
+					<li>
+					<a href="#profile-relevance">Profile Relevance</a>
+					</li>
+					</ul>
+				</div>
+				<section class="new_message">
+					<fieldset>
+						<div class="control-group">
+							<label class="control-label">
+								<div class="photo_container">
+								<img width="99" height="75" src="/assets/images/placeholders/face2.png">
+								</div>
+								<span class="username">sdfsd sdfsd </span>
+							</label>
+							<div class="controls">
+								<span class="popout_arrow">
+								<span></span>
+								</span>
+								<div id="message_field" class="clearfix ">
+								<label for="message"></label>
+								<div class="input">
+								<textarea id="message" size="98" name="message"></textarea>
+								<span class="help-inline"></span>
+								<span class="help-block">Required</span>
+								</div>
+								</div>
+								<ul class="additional_controls">
+								<li class="comment">
+								<a class="btn btn-flat" href="#comment">
+								<i class="icon-middle-comment"></i>
+								</a>
+								</li>
+								<li class="video">
+								<a class="btn btn-flat" href="#video">
+								<i class="icon-middle-video"></i>
+								</a>
+								</li>
+								<li class="photo">
+								<a class="btn btn-flat" href="#photo">
+								<i class="icon-middle-camera"></i>
+								</a>
+								</li>
+								<li class="tag" style="margin-left: 28px !important;">
+								<a class="btn btn-flat" href="#tag">
+								<i class="icon-middle-tag"></i>
+								</a>
+								</li>
+								<li class="private" style="margin: 0 8px 0 8px !important;">
+								<label class="checkbox" for="id-private">
+								<div id="access_field" class="clearfix ">
+								<label for="access"></label>
+								<div class="input">
+								<input id="access" type="checkbox" value="true" name="access">
+								<span></span>
+								<span class="help-inline"></span>
+								<span class="help-block">format.boolean</span>
+								</div>
+								</div>
+								Private
+								</label>
+								</li>
+								<li class="twitter">
+								<a class="btn btn-flat" href="#twitter">
+								<i class="icon-middle-twitter"></i>
+								</a>
+								</li>
+								<li class="facebook">
+								<a class="btn btn-flat" href="#facebook">
+								<i class="icon-middle-facebook"></i>
+								</a>
+								</li>
+								<li class="linkedin">
+								<a class="btn btn-flat" href="#linkedin">
+								<i class="icon-middle-linkedin"></i>
+								</a>
+								</li>
+								<input type="submit" value="Post Message">
+								</ul>
+							</div>
+							<div class="input-prepend-container">
+							<div class="input-prepend url_shorter">
+							<span class="add-on">
+							<i class="icon-link"></i>
+							<span class="popout_arrow">
+							<span></span>
+							</span>
+							</span>
+							<input type="text" placeholder="URL shorter">
+							</div>
+							</div>
+						</div>
+				  </fieldset>
+				</section>
+				<div class="double-line"></div>
+				<section class="timeline">
+				</section>
+				</section>
+          </div>
+		</div>
+	</div>
+</div>
+ </script>
 	<!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -480,9 +915,7 @@
 
 <script type="text/javascript">
 	var current = 1; //current keeps track of how many schools we have @default =1 
-	
-// 	var s1Classes = 3;  // s1Classes keeps how many classes are there under same school
-//     var s2Classes = 0;  // s2Classes keeps how many classes are there under different school
+ 
 	var sClasses = 1; // sClasses keeps number of schools under which we added classes 
     $(function(){
     	
@@ -493,7 +926,33 @@
 
     });
 	
-    
+    /*  For JanRain component*/
+	(function() {
+	    if (typeof window.janrain !== 'object') window.janrain = {};
+	    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+	    
+	    janrain.settings.tokenUrl = 'http://localhost:9000/userPage';
+
+	    function isReady() { janrain.ready = true; };
+	    if (document.addEventListener) {
+	      document.addEventListener("DOMContentLoaded", isReady, false);
+	    } else {
+	      window.attachEvent('onload', isReady);
+	    }
+
+	    var e = document.createElement('script');
+	    e.type = 'text/javascript';
+	    e.id = 'janrainAuthWidget';
+
+	    if (document.location.protocol === 'https:') {
+	      e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
+	    } else {
+	      e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
+	    }
+
+	    var s = document.getElementsByTagName('script')[0];
+	    s.parentNode.insertBefore(e, s);
+	})();
     
     
 </script>
