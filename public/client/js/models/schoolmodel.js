@@ -1,5 +1,6 @@
  window.School = Backbone.Model.extend({
      
+	 idAttribute: "_id",
         defaults: {
         	id: null,
             schoolName: null,
@@ -15,9 +16,12 @@
 });
 
 window.SchoolCollection = Backbone.Collection.extend({
-
-    model:School, 
+	
+    model:School,
+    url: "http://localhost/client2/api.php"
 
 });    
+ 
 
  
+
