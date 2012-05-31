@@ -60,7 +60,7 @@ window.ClassView = Backbone.View.extend({
 			/* post data with school and class details */
 			$.ajax({
 				type : 'POST',
-				url : "http://localhost/client/api.php",
+				url : "http://localhost:9000/class",
 				data : {
 					data : classDetails
 				},
@@ -129,7 +129,7 @@ window.ClassView = Backbone.View.extend({
 			/* post data with school and class details */
 			$.ajax({
 				type : 'POST',
-				url : "http://localhost/client/api.php",
+				url : "http://localhost:9000/class",
 				data : {
 					data : classDetails
 				},
