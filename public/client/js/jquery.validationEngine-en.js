@@ -163,10 +163,16 @@
                     "alertText3": "mm/dd/yyyy hh:mm:ss AM|PM or ", 
                     "alertText4": "yyyy-mm-dd hh:mm:ss AM|PM"
 	            },
-	            
+	            /* Edited by Aswathy -Toobler */
+	            //  for time validation 
 	            "time": {
                     "regex": /^(([0-1]?[0-9])|([2][0-3])):([0-5]?[0-9])(:([0-5]?[0-9]))?$/i,
                     "alertText": "* Invalid Time. Expected format hh:mm",
+                },
+                // for mobile number  validation 
+	            "mobile": {
+                    "regex": /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s]{0,1}[0-9]{3}[-\s]{0,1}[0-9]{4}$/,
+                    "alertText": "* Invalid format. Expected format (999)999-9999",
                 },
             };
             
