@@ -25,22 +25,46 @@ window.ProfileView = Backbone.View.extend({
      */
     saveProfile:function (eventName) {
     	
-    	this.model = new Profile();
-    	 
-    	this.model.set('imageData',$('#imagedata').val());
-    	this.model.set('imageName',$('#imagedata').attr("name"));
-    	this.model.set('videoData',$('#videodata').val());
-    	this.model.set('videoName',$('#videodata').attr("name"));
-    	this.model.set('mobile',$('#mobile').val());
-    	this.model.set('upload',$('#upload').val());
-    	
-    	this.model.save();
-    	
-    	//navigate to main stream page
-        var source   = $("#tpl-main-stream").html();
-    	var template = Handlebars.compile(source);
-    	$('body').html(template());
-    	 
+    	eventName.preventDefault();
+    	var validate = jQuery('#profile-form').validationEngine('validate');
+    	if(validate == true)
+    	{
+    		this.model = new Profile();
+       	 
+        	this.model.set('imageData',$('#imagedata').val());
+        	this.model.set('imageName',$('#imagedata').attr("name"));
+        	this.model.set('videoData',$('#videodata').val());
+        	this.model.set('videoName',$('#videodata').attr("name"));
+        	this.model.set('mobile',$('#mobile').val());
+        	this.model.set('upload',$('#upload').val());
+        	
+        	var profileDetails = JSON.stringify(this.model);
+//        	console.log(profileDetails);
+        	
+        	/* post profile page details */
+        	$.ajax({
+				type : 'POST',
+				url : "http://localhost/client2/image.php",
+				data : {
+					data :profileDetails
+				},
+				success : function(data) {
+					
+					//navigate to main stream page
+		            var source   = $("#tpl-main-stream").html();
+		        	var template = Handlebars.compile(source);
+		        	$('body').html(template());
+				}
+			});
+        	
+        	
+    	}
+    	else
+    	{
+    		
+    		console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
+    		
+    	}
     	 
     },
    
