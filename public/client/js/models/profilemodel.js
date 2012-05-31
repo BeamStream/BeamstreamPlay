@@ -1,20 +1,19 @@
 window.Profile = Backbone.Model.extend({
      
         defaults: {
-            photoUrl:null,
-            videoUrl:null,
+        	imageData:null,
+        	imageName:null,
+        	videoData:null,
+        	videoName:null,
             mobile:null,
             upload:null
         },
         
-        url:"api.php"
+        url:"image.php"
        
 });
 
-//window.ProfileCollection = Backbone.Collection.extend({
-//
-//    model:Class, 
-// 
-//}); 
+ 
 
  
+
