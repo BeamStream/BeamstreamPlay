@@ -12,7 +12,6 @@ window.ClassView = Backbone.View.extend({
 		
 		console.log('Initializing Class View');
 		
-		
 		/* calculate time from 12:00AM to 11:45PM */
 	    var timeValues = new Array;
 		var hours, minutes, ampm;
@@ -30,37 +29,22 @@ window.ClassView = Backbone.View.extend({
 		        var time = hours+':'+minutes+''+ampm ;
 		        timeValues.push({"time" : time});
 		 }
-		 this.times = jQuery.parseJSON(JSON.stringify(timeValues));
+		this.times = jQuery.parseJSON(JSON.stringify(timeValues));
+		 
+		this.schools = new SchoolCollection();
+		this.schools.bind("reset", this.renderSchools, this);
 		
-		
-		/* get the school details from server */
-		
-		$.ajax({
-			type : 'GET',
-			url : "http://localhost/client2/api.php",
-			dataType : "json",
-			success : function(data) {
-				
-          	  /* save School details in local storage */
-			  localStorage.clear();  
-          	  var schools = JSON.stringify(data);
-              var localStorageKey = "registration"; 
-          	  localStorage.setItem(localStorageKey,schools); 
-          	  
-			}
-		});
-		
-		
-		/* get local stored School details  and save school names to an array*/
-		var localStorageKey = "registration";
-		var schoolData = localStorage.getItem(localStorageKey);
-		this.schools = jQuery.parseJSON(schoolData);
-		
+		this.schools.fetch({success: function(e) {  
+//			console.log(e);
+		}});
+ 
 		this.classes = new Class();
 		this.source = $("#tpl-class-reg").html();
 		this.template = Handlebars.compile(this.source);
+		
 	},
 
+	
 	/**
 	 * save/post class info details.
 	 */
@@ -84,8 +68,8 @@ window.ClassView = Backbone.View.extend({
 				success : function(data) {
 					 // navigate to main stream page
 					 var source   = $("#tpl-main-stream").html();
-		                         var template = Handlebars.compile(source);
-		                         $('body').html(template());
+		             var template = Handlebars.compile(source);
+		             $('body').html(template());
 				}
 			});
 	   }
@@ -104,11 +88,30 @@ window.ClassView = Backbone.View.extend({
 				"sCount" : sClasses,
 				"schools": this.schools 
 		}
-		
 		$(this.el).html(this.template(sCount));
 		return this;
 	},
-
+	
+	
+    /**
+     * render school name drop down
+     */
+	renderSchools: function(e)
+	{
+		var select = '<select id="school-'+sClasses+'" class="large">';
+		 _.each(e.models, function(model) {
+		        var name = model.get('schoolName');
+		        var id = model.get('id')
+		         
+		        options+= '<option value ="'+id.schoolId+'">'+name+'</option>';
+		        select+= '<option value ="'+id.schoolId+'">'+name+'</option>';
+            
+		      });
+		 select+= '</select>';
+		 
+		 $('#school-list-'+sClasses).html(select);
+		 $(".modal select:visible").selectBox();
+	},
 	
 	/**
 	 * navigate to profile screen
@@ -118,6 +121,7 @@ window.ClassView = Backbone.View.extend({
 		console.log("to profile");
 		eventName.preventDefault();
 		var validate = jQuery('#class-form').validationEngine('validate');
+		console.log(validate);
 		if(validate == true)
 	    {
 			var classDetails = this.getClassInfo();
@@ -176,17 +180,24 @@ window.ClassView = Backbone.View.extend({
 	 */
 	addSchool : function(eventName) {
 		
+		 
 		sClasses++;
 		eventName.preventDefault();
+		
+		
+		var selectAnother = '<select id="school-'+sClasses+'" class="large">'+options+'</select>'; 
+		 
     	$('a.legend-addclass').hide();
+    	
     	var sCount = {
 				"sCount" : sClasses,
-				"schools": this.schools
 		}
     	 
     	var source = $("#add-school").html();
 		var template = Handlebars.compile(source);
 		$('#class-form').append(template(sCount));
+		
+		$('#school-list-'+sClasses).html(selectAnother);
         $('#another-school').hide();
         $(".modal select:visible").selectBox();
 	},
