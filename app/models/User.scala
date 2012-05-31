@@ -194,4 +194,9 @@ object UserType extends Enumeration {
   val Professional = Value(2, "Professional")
 }
 
+object TrashEnum extends Enumeration {
+  val Trash = Value(0, "Trash")
+  
+}
+
 object UserDAO extends SalatDAO[User, Int](collection = MongoHQConfig.mongoDB("user"))

@@ -27,7 +27,7 @@ object School {
   /*
    * Add a class to a school
    */
-  def addClasstoSchool(schoolId: ObjectId, classList:List[Class]) {
+  def addClasstoSchool(schoolId: ObjectId, classList: List[Class]) {
     val school = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0)
     SchoolDAO.update(MongoDBObject("_id" -> schoolId), school.copy(classes = (school.classes ++ classList)), false, false, new WriteConcern)
   }
@@ -78,6 +78,7 @@ object School {
       val schoolObtained = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList
       schoolList ++= schoolObtained
     }
+
     schoolList
   }
 

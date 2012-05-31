@@ -9,7 +9,7 @@ window.Profile = Backbone.Model.extend({
             upload:null
         },
         
-        url:"image.php"
+        url:"http://localhost:9000/getMediafromPost"
        
 });
 

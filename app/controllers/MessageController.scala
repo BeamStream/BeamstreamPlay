@@ -72,21 +72,21 @@ object MessageController extends Controller {
   /*
    * get the profle pic for a User
    */
-  def getProfilePic = Action { implicit request =>
-    val media = Media.getAllMediaByUser(new ObjectId(request.session.get("userId").get))
-
-    (media.isEmpty) match {
-      case false =>
-        val photoId: ObjectId = media(0).gridFsId
-        val profileImage = Media.findMedia(photoId)
-        profileImage.writeTo("./public/temp/" + profileImage.filename)
-        Ok("http://localhost:9000/assets/temp/" + profileImage.filename).as("image/jpg")
-
-      case true =>
-        Ok("http://localhost:9000/assets/temp/noimage").as("image/jpg")
-    }
-
-  }
+//  def getProfilePic = Action { implicit request =>
+//    val media = Media.getAllMediaByUser(new ObjectId(request.session.get("userId").get))
+//
+//    (media.isEmpty) match {
+//      case false =>
+//        val photoId: ObjectId = media(0).gridFsId
+//        val profileImage = Media.findMedia(photoId)
+//        profileImage.writeTo("./public/temp/" + profileImage.filename)
+//        Ok("http://localhost:9000/assets/temp/" + profileImage.filename).as("image/jpg")
+//
+//      case true =>
+//        Ok("http://localhost:9000/assets/temp/noimage").as("image/jpg")
+//    }
+//
+//  }
 
 }
 

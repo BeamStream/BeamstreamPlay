@@ -16,8 +16,10 @@ import utils.MongoHQConfig
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.gridfs.Imports._
 
-case class Media(@Key("_id") id: ObjectId, userId: ObjectId, mediaType: MediaType.Value, showOnProfileView: Boolean, gridFsId: ObjectId)
-case class MediaTransfer(userId: ObjectId, mediaType: MediaType.Value, showOnProfileView: Boolean, data: InputStream, profilePicName: String)
+case class Media(@Key("_id") id: ObjectId, userId: ObjectId, mediaType: MediaType.Value, showOnProfileView: Boolean, userProfileImageId: ObjectId,
+  userProfileVideoId: ObjectId,mobile:String)
+case class MediaTransfer(userId: ObjectId, mediaType: MediaType.Value, showOnProfileView: Boolean, profileImage: InputStream, profilePicName: String,
+  profileVideo: InputStream, profileVideoName: String,mobile:String)
 
 object Media {
 
@@ -25,11 +27,18 @@ object Media {
 
   def createMedia(mediaTransfer: MediaTransfer) {
 
-    val gfsFile = gridFS.createFile(mediaTransfer.data)
-    gfsFile.filename = mediaTransfer.profilePicName
-    gfsFile.save
-    val gridFSMediaId = gfsFile.id.asInstanceOf[ObjectId]
-    MediaDAO.insert(new Media(new ObjectId, mediaTransfer.userId, mediaTransfer.mediaType, mediaTransfer.showOnProfileView, gridFSMediaId))
+    val userProfileImage = gridFS.createFile(mediaTransfer.profileImage)
+    userProfileImage.filename = mediaTransfer.profilePicName
+    userProfileImage.save
+
+    val userProfileVideo = gridFS.createFile(mediaTransfer.profileVideo)
+    userProfileVideo.filename = mediaTransfer.profileVideoName
+    userProfileVideo.save
+
+    val userProfileImageId = userProfileImage.id.asInstanceOf[ObjectId]
+    val userProfileVideoId = userProfileVideo.id.asInstanceOf[ObjectId]
+
+    MediaDAO.insert(new Media(new ObjectId, mediaTransfer.userId, mediaTransfer.mediaType, mediaTransfer.showOnProfileView, userProfileImageId,userProfileVideoId,mediaTransfer.mobile))
 
   }
 
@@ -52,5 +61,8 @@ object MediaType extends Enumeration {
   val Image = Value(0, "Image")
   val Video = Value(1, "Video")
   val Pdf = Value(2, "Pdf")
+  val File = Value(3, "File")
+  val Presentation = Value(4, "Presentation")
+
 }
 object MediaDAO extends SalatDAO[Media, Int](collection = MongoHQConfig.mongoDB("media"))
