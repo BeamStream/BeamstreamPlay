@@ -25,7 +25,6 @@ window.ProfileView = Backbone.View.extend({
      */
     saveProfile:function (eventName) {
     	
-    	eventName.preventDefault();
     	var validate = jQuery('#profile-form').validationEngine('validate');
     	if(validate == true)
     	{
@@ -37,12 +36,19 @@ window.ProfileView = Backbone.View.extend({
         	this.model.set('videoName',$('#videodata').attr("name"));
         	this.model.set('mobile',$('#mobile').val());
         	this.model.set('upload',$('#upload').val());
-        	
-        	var profileDetails = JSON.stringify(this.model);
-//        	console.log(profileDetails);
-        	
+    		
+    		var data;
+
+    	    data = new FormData();
+    	    data.append('image', $('#profile-image')[0].files[0] );
+    	    data.append('video', $('#my-video')[0].files[0] );
+    		data.append('mobile',$('#mobile').val());
+    		data.append('upload',$('#upload').val());
+    		
+    		
         	/* post profile page details */
         	$.ajax({
+<<<<<<< HEAD
 				type : 'POST',
 				url : "http://localhost:9000/getMediafromPost",
 				data : {
@@ -51,12 +57,21 @@ window.ProfileView = Backbone.View.extend({
 				success : function(data) {
 					
 					//navigate to main stream page
+=======
+        	    type: 'POST',
+        	    data: data,
+        	    url: "http://localhost/client2/image.php",
+        	    cache: false,
+        	    contentType: false,
+        	    processData: false,
+        	    success: function(data){
+        	    	//navigate to main stream page
+>>>>>>> 441daff32245dba937bef912c03e1b88a49df5fb
 		            var source   = $("#tpl-main-stream").html();
 		        	var template = Handlebars.compile(source);
 		        	$('body').html(template());
-				}
-			});
-        	
+        	    }
+        	});
         	
     	}
     	else
@@ -99,7 +114,7 @@ window.ProfileView = Backbone.View.extend({
         		     $('#profile-photo').attr("src",e.target.result);
         		     $('#profile-photo').attr("name", f.name);
         			 
-        		     $('#imagedata').val(e.target.result);
+        		     //$('#imagedata').val(e.target.result);
         		     $('#imagedata').attr("name", f.name);
         			 
         		 };
@@ -141,9 +156,8 @@ window.ProfileView = Backbone.View.extend({
         		     $('#profile-video').attr("src",e.target.result);
         		     $('#profile-video').attr("name", f.name);
         		     
-        		     $('#videodata').val(e.target.result);
+//        		     $('#videodata').val(e.target.result);
         		     $('#videodata').attr("name", f.name);
-        			 
         			 
         		 };
             })(file);
