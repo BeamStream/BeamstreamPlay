@@ -410,7 +410,7 @@
     </script>
     
   
-  <!-- profile Registration template-->
+   <!-- profile Registration template-->
   <script type="text/template" id="tpl-profile-reg">
   
     <div class="modal-header">
@@ -418,7 +418,7 @@
         <img src="images/registration-progress-75.png" alt="Registration progress - 75%" class="registration-progress pull-right">
     </div>
     <div class="modal-body">
-        <form name="profile-form" id ="profile-form" action="" method="POST" enctype="multipart/form-data">
+        <form name="profile-form" id ="profile-form"  method="POST" enctype="multipart/form-data">
             <fieldset>
                 <legend class="legend">Profile info</legend>
 
@@ -461,12 +461,11 @@
                 <div class="form-row">
                     <div class="element">
                         <label for="mobile">Mobile</label>
-                        <input type="text" id="mobile" class="validate[required,custom[mobile]] large" placeholder="(999)999-9999">
-
+                        <input type="text" id="mobile" name="mobile" class="validate[required,custom[mobile]] large" placeholder="(999)999-9999">
                     </div>
                     <div class="element">
                         <label for="upload">Upload</label>
-                        <select id="upload" class="large">
+                        <select id="upload" class="large" name="upload">
                             <option value="Presentation">Presentation</option>
                             <option value="File">File</option>
                         </select>
