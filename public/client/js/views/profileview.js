@@ -47,17 +47,7 @@ window.ProfileView = Backbone.View.extend({
     		
     		
         	/* post profile page details */
-        	$.ajax({
-<<<<<<< HEAD
-				type : 'POST',
-				url : "http://localhost:9000/getMediafromPost",
-				data : {
-					data :profileDetails
-				},
-				success : function(data) {
-					
-					//navigate to main stream page
-=======
+    		$.ajax({
         	    type: 'POST',
         	    data: data,
         	    url: "http://localhost/client2/image.php",
@@ -66,7 +56,6 @@ window.ProfileView = Backbone.View.extend({
         	    processData: false,
         	    success: function(data){
         	    	//navigate to main stream page
->>>>>>> 441daff32245dba937bef912c03e1b88a49df5fb
 		            var source   = $("#tpl-main-stream").html();
 		        	var template = Handlebars.compile(source);
 		        	$('body').html(template());
