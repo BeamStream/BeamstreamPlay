@@ -6,8 +6,8 @@ object MediaController extends Controller {
 
   def getMedia = Action { implicit request =>
     println("M here")
-
-    println(request.body)
+ val data=request.body.asMultipartFormData.get
+    println(data)
 
     Ok
 
