@@ -44,7 +44,7 @@ window.ProfileView = Backbone.View.extend({
         	/* post profile page details */
         	$.ajax({
 				type : 'POST',
-				url : "http://localhost/client2/image.php",
+				url : "http://localhost:9000/getMediafromPost",
 				data : {
 					data :profileDetails
 				},

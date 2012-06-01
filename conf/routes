@@ -7,7 +7,7 @@ GET     /                           controllers.Application.index()
 GET     /emailpopup                 controllers.BasicRegistration.emailSent
 
 GET    /listUsers                   controllers.Application.listUsers
-GET    /getProfilePic               controllers.MessageController.getProfilePic
+#GET    /getProfilePic               controllers.MessageController.getProfilePic
 
 #Streams
 
