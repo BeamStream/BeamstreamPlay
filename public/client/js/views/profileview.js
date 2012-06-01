@@ -40,8 +40,10 @@ window.ProfileView = Backbone.View.extend({
     		var data;
 
     	    data = new FormData();
-    	    data.append('image', $('#profile-image')[0].files[0] );
-    	    data.append('video', $('#my-video')[0].files[0] );
+    	    data.append('imageName',$('#imagedata').attr("name"));
+    	    data.append('imageData',$('#imagedata').val());
+    	    data.append('videoName', $('#videodata').attr("name"));
+    	    data.append('videoData', $('#videodata').val());
     		data.append('mobile',$('#mobile').val());
     		data.append('upload',$('#upload').val());
     		
@@ -103,7 +105,7 @@ window.ProfileView = Backbone.View.extend({
         		     $('#profile-photo').attr("src",e.target.result);
         		     $('#profile-photo').attr("name", f.name);
         			 
-        		     //$('#imagedata').val(e.target.result);
+        		     $('#imagedata').val(e.target.result);
         		     $('#imagedata').attr("name", f.name);
         			 
         		 };
@@ -145,7 +147,7 @@ window.ProfileView = Backbone.View.extend({
         		     $('#profile-video').attr("src",e.target.result);
         		     $('#profile-video').attr("name", f.name);
         		     
-//        		     $('#videodata').val(e.target.result);
+        		     $('#videodata').val(e.target.result);
         		     $('#videodata').attr("name", f.name);
         			 
         		 };
