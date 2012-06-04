@@ -25,8 +25,8 @@ window.SchoolView = Backbone.View.extend({
     /** TODO
      * save/post school info details.
      */
-    saveSchool:function () {
-    	
+    saveSchool:function (eventName) {
+    	eventName.preventDefault();  
     	var  schoolDetails = this.getSchoolInfo();
     	$.ajax({
             type: 'POST',
@@ -34,10 +34,10 @@ window.SchoolView = Backbone.View.extend({
             data:{data:schoolDetails},
             dataType:"json",
             success:function(data){
-               // navigate to main stream page
-                var source   = $("#tpl-main-stream").html();
-            	var template = Handlebars.compile(source);
-            	$('body').html(template());
+
+				 // navigate to main stream page
+            	 app.navigate("streams", {trigger: true, replace: true});
+
                 
             }
          });
@@ -49,17 +49,18 @@ window.SchoolView = Backbone.View.extend({
        */
       continueToClass:function (eventName) {
     	  
-    	  eventName.preventDefault();      
+    	  eventName.preventDefault();   
     	  var  schoolDetails = this.getSchoolInfo();
-    	  
-  
+      	  
     	  $.ajax({
               type: 'POST',
               url:"http://localhost:9000/detailed_reg",
               data:{data:schoolDetails},
               dataType:"json",
               success:function(data){
+            	  
             	  app.navigate("class", {trigger: true, replace: true});
+            	  
               }
            });
       },
@@ -111,6 +112,7 @@ window.SchoolView = Backbone.View.extend({
 				$('#degree-exp-'+currentid).hide();
 				$('#cal-'+currentid).hide();
 		  }
+    	     
       },
       
       /**

@@ -338,11 +338,13 @@ if(jQuery) (function($) {
 
 			
 			var showMenu = function(select) {
-
+                
 				select = $(select);
+				 
 				var control = select.data('selectBox-control'),
 					settings = select.data('selectBox-settings'),
 					options = control.data('selectBox-options');
+				
 				if( control.hasClass('selectBox-disabled') ) return false;
 
 				hideMenus();
@@ -380,7 +382,6 @@ if(jQuery) (function($) {
 						break;
 
 				}
-				
 				if( !settings.menuSpeed ) dispatchOpenEvent();
 				
 				// Center on selected option

@@ -395,7 +395,7 @@
 
 
 
-/* TOOBLER CSS..*/
+/* TOOBLER CSS ..*/
 
 /* for 'ADD CLASS OR SCHOOL' in class Info screen */ 
 .modal form a.legend-addclass {
@@ -438,7 +438,6 @@
     margin-bottom: 10px;
     margin-top: 15px;
 }
-
 
 
 /* from beamstream css */
@@ -1975,3 +1974,126 @@ body {
   color: #8a8a8a;
 }
 
+
+/* for basic registration form */
+
+/* @charset "utf-8"; */
+/* CSS Document */
+
+.center_form{
+	width:630px;
+	display:block;
+	overflow:hidden;
+	float:left;
+	margin:100px 0 0px 0;
+	text-align:center;
+}
+.center_form label{
+	float:left;
+	line-height:20px;
+	width:260px;
+	text-align:right;
+	margin:12px 15px 0 0;	
+}
+.center_form label{
+	float:left;
+}
+.center_form .element input[type="text"]{
+	margin:0 0 25px 0;
+}
+.checkbox_wrapper{
+	float:left;
+	font-size:14px;
+	line-height:32px;
+	font-family: UbuntuBold;
+}
+
+/* Added for checkbox styling*/
+.checkbox {
+	height: 32px;
+	width: 35px;
+	clear:left;
+	float:left;
+	margin: 0 0 3px;
+	padding: 0 0 0 26px;
+	background: url("../images/checkbox-big.png") no-repeat ;
+	cursor: default;
+	text-align:left;
+}
+.checkbox input {
+	display: none;
+}
+.checkbox input.show {
+	display: inline;
+}
+
+/*--------*/
+.basic_profile_form2 {
+	width:280px;
+	display:block;
+	overflow:hidden;
+	float:left;
+	margin:145px 0 0 0;
+}
+.basic_profile_form2 h3 {
+	font-family: 'Ubuntu', sans-serif;
+	font-size:14px;
+	line-height:18px;
+	font-weight:bold;
+}
+.basic_profile_form2 p {
+	width:170px;
+	float:left;
+	font-size:14px;
+	line-height:18px;
+	font-weight:bold;
+	font-family: 'Ubuntu', sans-serif;
+	margin:0 20px 10px 0;
+}
+.textarea {
+	width:263px;
+	height:114px;
+}
+.hand_button {
+	width:39px;
+	height:30px;
+	background:url(../images/hand.png) no-repeat;
+	float:left;
+	margin:10px 0 0 0;
+}
+.basic_profile_form .large {
+	width:260px !important;
+	margin: 0 0 25px 0;
+}
+.file-upload-box {
+	width:255px;
+	background:#73addc;
+	display: block;
+	float: left;
+	margin:5px 0 0 0;
+	padding:4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+.file-upload-button {
+	width:126px;
+	height:37px;
+	display:block;
+	float:left;
+	background:url(../images/choose_file.png) no-repeat;
+	margin:0 10px 0 0;
+}
+.file-upload-box span {
+	font-family: 'Ubuntu', sans-serif;
+	color:#366eaa;
+	font-size:14px;
+	float:left;
+	line-height:37px;
+	font-weight:500;
+}
+.email_textarea{
+	width:831px;
+	height:114px;
+}
+ 

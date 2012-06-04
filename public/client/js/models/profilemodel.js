@@ -9,13 +9,11 @@ window.Profile = Backbone.Model.extend({
             mobile:null,
             upload:null
         },
-
-       // url:"http://localhost:9000/getMediafromPost"
-
+        
+//        url:"api.php"
        
 });
 
  
 
  
-
