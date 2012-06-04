@@ -980,17 +980,19 @@
         <fieldset style="margin-bottom: 0">
           <div class="form-row short">
               <div class="element">
-                <label for="school">I'm a</label>
-                <select id="school" class="large">
-                  <option value="diff">Student</option>
-                  <option value="same">Student</option>
+                <label for="iam">I'm a</label>
+                <select id="iam" class="large">
+                  <option value= "">-- I'm --</option>
+						<option value="0">Student</option>
+						<option value="1">Educator</option>
+						<option value="2">Professional</option>
                 </select>
               </div>
               <div class="element" >
-                <label for="school-name-1">Scholl or Work  E-mail</label>
-                <input type="text" id="school-name-1" value="School or work email address" class="large">
+                <label for="email">School or Work  E-mail</label>
+                <input type="text" id="email" placeholder="School or work email address" class="large">
              </div>
-              <div class="element"> <a href="#" class="btn btn-success">Register Now</a> </div>
+              <div class="element"> <a id="register" href="#" class="btn btn-success">Register Now</a> </div>
           </div>
           <div class="form-row short">
               <div class="checkbox_wrapper">
@@ -1002,24 +1004,24 @@
            <div class="form-row-label"></div>
            <div class="form-row short">
              <div class="element" id="school-email" style="display:none;">
-                <label for="school-name-1">What school do you attent?</label>
-                <input type="text" id="school-name-1" value="School Name" class="large">
+                <label for="school-name">What school do you attent?</label>
+                <input type="text" id="school-name" placeholder="School Name" class="large">
             </div>
              <div class="form-row short"><div class="element">
-                <label for="school-name-1">Tell us why you don't use a school email address?</label>
-               <textarea class="email_textarea"></textarea>
+                <label for="school-info">Tell us why you don't use a school email address?</label>
+               <textarea id ="school-info" class="email_textarea"></textarea>
              </div></div>
              <div class="form-row short"> <div class="element">
-                <label for="school-name-1">Attach a school record (ensures speedy approval)</label>
-                <div class="file-upload-box"><input type="file"></div>
+                <label for="school-record">Attach a school record (ensures speedy approval)</label>
+                <div class="file-upload-box"><input id="school-record" type="file"></div>
               </div></div>
-             <div class="form-row short"><div class="element"> <a href="#" class="btn btn-success">Request approval</a> </div>  </div>
+             <div class="form-row short"><div class="element"> <a id="approval" href="#" class="btn btn-success">Request approval</a> </div>  </div>
              <div class="form-row-label"></div> 
             </div>
       </fieldset>
       </form>
   </div>
-  <div class="modal-footer"> <a href="#" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a> <a href="#" class="btn btn-success pull-right">Continue</a> </div>
+  <div class="modal-footer"> <a id="save" href="#" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a> <a href="#" class="btn btn-success pull-right">Continue</a> </div>
 </script>
 
 
@@ -1128,6 +1130,7 @@
 <script src="js/views/loginview.js"></script>
 <script src="js/models/loginmodel.js"></script>
 <script src="js/views/verifyemailview.js"></script>
+<script src="js/models/emailverificationmodel.js"></script>
 <script src="js/views/registrationview.js"></script>
 <script src="js/views/homeview.js"></script>	
 <script src="js/views/schoolview.js"></script>	
@@ -1143,3 +1146,4 @@
 
 </body>
 </html>
+

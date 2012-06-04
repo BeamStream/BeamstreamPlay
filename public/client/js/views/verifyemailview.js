@@ -1,7 +1,8 @@
 window.verifyEmailView = Backbone.View.extend({
 
 	events: {
-		 "click #no-schoolmail" : "addSchoolEmail"
+		 "click #no-schoolmail" : "addSchoolEmail",
+		 "click #register" : "registration"
 	      
 	 },
 	
@@ -35,5 +36,50 @@ window.verifyEmailView = Backbone.View.extend({
     },
      
    
+    /**
+     * verify email 
+     */
+    registration:function (eventName) {
+    	
+    	eventName.preventDefault();
+    	var mailDetails = this.getdata();
+    	 
+    	/* post email verification details */
+		$.ajax({
+			type : 'POST',
+			url : "http://localhost/client2/api.php",
+			data : {
+				data : mailDetails
+			},
+			dataType : "json",
+			success : function(data) {
+				  
+			}
+	     });
+			 
+		 
+         
+    },
+    
+    
+    /**
+     * get form data 
+     */
+    getdata:function(){
+    	
+    	var iam = $("#iam").val();
+    	var wEmail =$('#email').val();
+    	var emailModel = new EmailVerification();
+    	emailModel.set({
+			
+    		iam :  iam,
+    		email : wEmail,
+    	 
+			 
+		});
+    	var mailDetails = JSON.stringify(emailModel);
+    	return mailDetails;
+    	
+    }
     
 });
