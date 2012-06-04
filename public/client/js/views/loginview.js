@@ -22,59 +22,70 @@ window.LoginView = Backbone.View.extend({
     /**
      * login -verification
      */
-    
     login:function (eventName) {
+    	
     	    eventName.preventDefault();
-
+//    	    var validate = jQuery('#login-form').validationEngine('validate');
 			var loginDetails = this.getLoginInfo();
-		    
-		    if(loginDetails != false)
-		    {
+			    		    
+			if(loginDetails != false)
+			{
+    	    
+			    pwdStatus = $("input[name=signup]:checked").val();
+			    if(pwdStatus == 0)
+			    {
+			    	   app.navigate("emailVerification", {
+						    trigger : true,
+							replace : true
+					    });
+			    }
+			    else if(pwdStatus == 1)
+			    {
+			    	    	
+			    	  /* post data with school and class details */
+			          $.ajax({
+			    			 type : 'POST',
+			    			 url : "http://localhost:9000/users",
+			    			 data : {
+			    						data : loginDetails
+			    			  },
+			    			 dataType : "json",
+			    			 success : function(data) {
+			    						 
+				    			 if(data.status == "success") 
+				    			 {
+				    					 console.log(data.status + " : " + data.message);
+				    					 app.navigate("school", {
+				    							 trigger : true,
+				    							 replace : true
+				    					 });
+				    			 }
+				    			 else 
+				    			 {
+				    					 console.log(data.status + " : " + data.message);
+				    					 $('#error').html(data.message);
+				    							
+				    					 /* clear email and password text box and get highlighted */
+				    					 $('#email').val("");
+				    					 $('#password').val("");
+				    					 $('#email').focus();
+				    							
+				    			 }
+			    		      },
+			    			  error : function(error){
+			    						console.log("Error");
+			    			  }
+			    		 });
+			     	
+			     }
+		     }
+			 else
+		     {
+		        alert("Fill required fileds.." );
+		        console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
+		     }
 
-		    	/* post data with school and class details */
-				$.ajax({
-					type : 'POST',
-					url : "http://localhost:9000/users",
-					data : {
-						data : loginDetails
-					},
-					dataType : "json",
-					success : function(data) {
-						 
-						if(data.status == "success") 
-						{
-							console.log(data.status + " : " + data.message);
-							app.navigate("school", {
-							trigger : true,
-									replace : true
-								});
-						}
-						else 
-						{
-							console.log(data.status + " : " + data.message);
-							$('#error').html(data.message);
-							
-							/* clear email and password textbox and get highlighted */
-							$('#email').val("");
-							$('#password').val("");
-							$('#email').focus();
-//							$("#email").css({"border": "1px solid #DD4B39"});
-//							$("#password").css({"border": "1px solid #DD4B39"});
-
-						}
-					},
-					error : function(error){
-						console.log("Error");
-					}
-				});
-			}
-		    else
-		    {
-				 alert("Fille required fileds.." );
-				 console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
-		    }
-		
-		    },
+	},
     /**
      * get login form details
      */
@@ -84,8 +95,9 @@ window.LoginView = Backbone.View.extend({
     	var iam = $("#iam").val();
         var email = $("#email").val();
     	var status = $("input[name=signup]:checked").val();
+    	 
         var pwd = $("#password").val();
-        if(iam !="" && email !== "" && status != "" && pwd != "")
+        if(iam !="" && email !== "" && status != "" )
         {
         	loginModel.set({
     			
@@ -102,7 +114,6 @@ window.LoginView = Backbone.View.extend({
         {
         	return false;
         }
-    	
     	
     },
      

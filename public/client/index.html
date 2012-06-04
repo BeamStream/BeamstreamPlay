@@ -48,15 +48,18 @@
 	<script src="js/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
  
+ 
 
 </head>
 <!--  for form validation -->
 <script type="text/javascript">
 		$(document).ready(function(){
+			
 			// binds form submission and fields to the validation engine
 			jQuery("#class-form").validationEngine();
 			jQuery("#login-form").validationEngine();
-                       jQuery("#profile-form").validationEngine();
+			jQuery("#profile-form").validationEngine();
+			 
 		});
 
 		
@@ -129,7 +132,7 @@
 			<div class="form-row">
 					<div class="element">
 				<label for="email">User Email *</label>
-					<input id="email" type="text" size="10"  name="email" class="span3 validate[required]">
+					<input id="email" type="text" size="10"  name="email" class="validate[required] span3">
 				</div>
 			</div>
 			<div class="form-row">
@@ -138,7 +141,7 @@
 				<label for="signup"></label>
 				
 					<span id="signup" class="buttonset">
-					<input id="signup_0" type="radio" value="0" name="signup" class="validate[required]">
+					<input id="signup_0" type="radio" value="0" name="signup" checked="checked" class="validate[required]">
 					<label for="signup_0">No, help me log in</label><br>
 					<input id="signup_1" type="radio" value="1" name="signup" class="validate[required]">
 					<label for="signup_1">Yes, I have a password</label>
@@ -150,7 +153,7 @@
 		<div class="form-row">
 			<div class="element ">
 				<label for="password">Password *</label>
-					<input id="password" type="password" size="10"  name="password" class="span3 validate[required]">
+					<input id="password" type="password" size="10"  name="password" class="span3">
 					<span class="help-inline"></span>
 				
 			</div>
@@ -186,7 +189,7 @@
                 <div class="form-row">
                     <div class="element">
                         <label for="school-name">School name</label>
-                        <input type="text" name="school-name-1" id="school-name-1" class="span3" placeholder="School Name">
+                        <input type="text" name="school-name-1" id="school-name-1" class="span3" value="previous school name">
                     </div>
 
                     <div class="element">
@@ -204,10 +207,10 @@
                      <div class="element">
                         <label for="degree-program">Degree program</label>
                         <select name="degreeprogram-1" id="degreeprogram-1" class="span2">
-                            <option value="Assosiates(AA))">Associates (AA)</option>
+                            <option value="Associates(AA)">Associates (AA)</option>
                             <option value="Bachelor's"">Bachelor's</option>
                             <option value="Master's">Master's</option>
-							<option value="Doctorate(Phd)">Doctorate (PhD)</option>
+                            <option value="Doctorate(Phd)">Doctorate (PhD)</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
@@ -410,7 +413,7 @@
     </script>
     
   
-   <!-- profile Registration template-->
+  <!-- profile Registration template-->
   <script type="text/template" id="tpl-profile-reg">
   
     <div class="modal-header">
@@ -509,9 +512,9 @@
             <div class="container-fluid">
               <div class="nav-collapse">
                 <ul class="nav">
-                  <li><a href="#streams-and-groups">Streams &amp; Groups</a></li>
+                  <li  class="active"><a href="#streams-and-groups">Streams &amp; Groups</a></li>
                   <li><a href="#connections">Connections</a></li>
-                  <li class="active"><a href="#dms">Messages</a></li>
+                  <li><a href="#dms">Messages</a></li>
                   <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#more">
                       More
@@ -651,7 +654,18 @@
               <a class="btn next"><i class="icon-down"></i></a>
             </section>
           <div class="create_stream">
-            <a class="btn plus" href="#create_stream"><i><b></b><span class="popout_arrow"><span></span></span></i>Create Stream</a>
+	             <a class="btn plus" href="#create_stream"><i><b></b><span class="popout_arrow"><span></span></span></i>Create Stream</a>
+	            <br>
+				<br>
+				 <a id="create-school" class="btn plus" href="#school"><i><b></b><span class="popout_arrow"><span></span></span></i>Create School</a>
+				<br>
+				<br>
+				 <a class="btn plus" href="#class"><i><b></b><span class="popout_arrow"><span></span></span></i>Create Class</a>
+				<br>
+				<br>
+				 <a class="btn plus" href="#joinstreams"><i><b></b><span class="popout_arrow"><span></span></span></i>Join Stream</a>
+				<br>
+				<br>
           </div>
           </div>
 
@@ -902,18 +916,125 @@
       </footer>
     </div>
  </script>
+ 
+ 
+ 
+ 
+ <!-- basic profile registration -->
+ <script type="text/template" id="tpl-basic-profile">
+  <div class="modal-header">
+    <h1 class="pull-left">Basic Profile</h1>
+    <img src="images/registration-progress-25.png" alt="Registration progress - 25%" class="registration-progress pull-right"> </div>
+      <div class="modal-body">
+      <form>
+    <fieldset>
+          <div class="center_form">
+        <div class="element">
+              <label for="school-name">School name</label>
+              <input type="text" id="school-name" placeholder=" School Name" class="span3">
+            </div>
+        <div class="element">
+              <label for="school-name">User Name<br/>
+            http://www.beamstream.com/</label>
+              <input type="text" id="school-name" placeholder="@UserName" class="span3">
+            </div>
+        <div class="element">
+              <label for="school-name">First Name</label>
+              <input type="text" id="school-name" placeholder="First Name" class="span3">
+            </div>
+        <div class="element">
+              <label for="school-name">Last Name</label>
+              <input type="text" id="school-name" placeholder="Last Name" class="span3">
+            </div>
+        <div class="element">
+              <label for="school-name">Zip code</label>
+              <input type="text" id="school-name" placeholder="Your Zip Code" class="span3">
+            </div>
+        <div class="element">
+              <label for="date-started-1"></label>
+            
+        <div class="checkbox_wrapper">
+              <h3>OR</h3>
+		      <div class="checkbox">
+				<input type="checkbox">
+			</div>
+              Use Current Location </div>
+      </div>
+        </div>  
+          <div class="form-row-label">
+        <div class="modal-footer"> <a href="#" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a> <a href="#" class="btn btn-success pull-right">Continue</a> </div>
+      </div>
+        </fieldset>
+  </form>
+  </div>
+</script>
+
+<!-- verify emails -->
+ <script type="text/template" id="tpl-verify-email">
+
+  <div class="modal-header">
+    <h1 class="pull-left">Verify your email</h1>
+  </div>
+  <div class="modal-body">
+    <form>
+        <fieldset style="margin-bottom: 0">
+          <div class="form-row short">
+              <div class="element">
+                <label for="school">I'm a</label>
+                <select id="school" class="large">
+                  <option value="diff">Student</option>
+                  <option value="same">Student</option>
+                </select>
+              </div>
+              <div class="element" >
+                <label for="school-name-1">Scholl or Work  E-mail</label>
+                <input type="text" id="school-name-1" value="School or work email address" class="large">
+             </div>
+              <div class="element"> <a href="#" class="btn btn-success">Register Now</a> </div>
+          </div>
+          <div class="form-row short">
+              <div class="checkbox_wrapper">
+              <div id ="no-schoolmail" class="checkbox">
+                  <input id="schoolmail" type="checkbox">
+              </div>
+              I don't have a school email </div>
+           </div>
+           <div class="form-row-label"></div>
+           <div class="form-row short">
+             <div class="element" id="school-email" style="display:none;">
+                <label for="school-name-1">What school do you attent?</label>
+                <input type="text" id="school-name-1" value="School Name" class="large">
+            </div>
+             <div class="form-row short"><div class="element">
+                <label for="school-name-1">Tell us why you don't use a school email address?</label>
+               <textarea class="email_textarea"></textarea>
+             </div></div>
+             <div class="form-row short"> <div class="element">
+                <label for="school-name-1">Attach a school record (ensures speedy approval)</label>
+                <div class="file-upload-box"><input type="file"></div>
+              </div></div>
+             <div class="form-row short"><div class="element"> <a href="#" class="btn btn-success">Request approval</a> </div>  </div>
+             <div class="form-row-label"></div> 
+            </div>
+      </fieldset>
+      </form>
+  </div>
+  <div class="modal-footer"> <a href="#" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a> <a href="#" class="btn btn-success pull-right">Continue</a> </div>
+</script>
+
 
 	<!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script type="text/javascript" src="lib/ajaxfileupload.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery.selectBox.js"></script>
 <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
-
+<script type="text/javascript" src="lib/jquery.custom_radio_checkbox.js"></script>  
 
 <script>
         $(document).ready(function() {
+        	
+        	
             $('.with-tooltips a, .with-tooltip').each(function() {
                 var $this = $(this);
                 var placement = $this.parent().hasClass('tooltips-bottom') ? 'bottom' : 'top';
@@ -964,6 +1085,7 @@
 	var sClasses = 1; // sClasses keeps number of schools under which we added classes 
     $(function(){
     	
+    	$(".checkbox").dgStyle();
         $("#register-step-school").modal();
 
         $(".modal select:visible").selectBox();
@@ -1005,6 +1127,8 @@
 <!--  Backbone.js files -->
 <script src="js/views/loginview.js"></script>
 <script src="js/models/loginmodel.js"></script>
+<script src="js/views/verifyemailview.js"></script>
+<script src="js/views/registrationview.js"></script>
 <script src="js/views/homeview.js"></script>	
 <script src="js/views/schoolview.js"></script>	
 <script src="js/models/schoolmodel.js"></script>	
@@ -1012,6 +1136,7 @@
 <script src="js/models/classmodel.js"></script>
 <script src="js/models/profilemodel.js"></script>
 <script src="js/views/profileview.js"></script>
+<script src="js/views/streamview.js"></script>
 
 <script src="js/main.js"></script>
 

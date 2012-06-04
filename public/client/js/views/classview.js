@@ -66,10 +66,8 @@ window.ClassView = Backbone.View.extend({
 				},
 				dataType : "json",
 				success : function(data) {
-					 // navigate to main stream page
-					 var source   = $("#tpl-main-stream").html();
-		             var template = Handlebars.compile(source);
-		             $('body').html(template());
+					// navigate to main stream page
+	            	 app.navigate("streams", {trigger: true, replace: true});
 				}
 			});
 	   }
@@ -121,7 +119,6 @@ window.ClassView = Backbone.View.extend({
 		console.log("to profile");
 		eventName.preventDefault();
 		var validate = jQuery('#class-form').validationEngine('validate');
-		console.log(validate);
 		if(validate == true)
 	    {
 			var classDetails = this.getClassInfo();
@@ -192,7 +189,7 @@ window.ClassView = Backbone.View.extend({
     	var sCount = {
 				"sCount" : sClasses,
 		}
-    	 
+    	console.log(selectAnother);
     	var source = $("#add-school").html();
 		var template = Handlebars.compile(source);
 		$('#class-form').append(template(sCount));

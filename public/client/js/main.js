@@ -4,14 +4,13 @@ var AppRouter = Backbone.Router.extend({
     	
         "":"home",
         "login":"login",
+        "emailVerification": "emailVerification",
+        "basicRegistration" :'basicRegistration',
         "school":"schoolReg",
         "class":"classReg",
-        "profile":"profileReg"
+        "profile":"profileReg",
+        "streams":"maisStream"
         
-    },
-
-    initialize:function () {
-       
     },
 
     home: function() {
@@ -24,7 +23,7 @@ var AppRouter = Backbone.Router.extend({
      */
     
     login: function() {
-    	 
+    	 this.loginView = null;
     	 if (!this.loginView) {
              this.loginView = new LoginView();
              this.loginView.render();
@@ -86,7 +85,54 @@ var AppRouter = Backbone.Router.extend({
       $('#register-step-school').html(this.profileView.el);   
       $(".modal select:visible").selectBox();
       $('.modal .datepicker').datepicker();
-   }
+   },
+   
+   
+   
+   /**
+    * display main stream page
+    */
+   maisStream:function () {
+    	 
+   	  if (!this.streamView) {
+            this.streamView = new StreamView();
+            this.streamView.render();
+            
+      }
+      $('body').html(this.streamView.el);
+      
+   },
+   
+   /**
+    * registration after email verification
+    */
+   basicRegistration: function() {
+  	 this.registrationView = null;
+  	 if (!this.registrationView) {
+           this.registrationView = new RegistrationView();
+           this.registrationView.render();
+       }
+  	 
+       $('#register-step-school').html(this.registrationView.el);  
+       
+       
+  },
+  
+  
+  /**
+   * for email verification
+   */
+  emailVerification: function() {
+ 	 this.emailView = null;
+ 	 if (!this.emailView) {
+          this.emailView = new verifyEmailView();
+          this.emailView.render();
+      }
+ 	 
+      $('#register-step-school').html(this.emailView.el);  
+      
+      
+ },
   
 });
 

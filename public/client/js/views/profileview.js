@@ -24,7 +24,7 @@ window.ProfileView = Backbone.View.extend({
      * save / post profile details
      */
     saveProfile:function (eventName) {
-    	
+    	eventName.preventDefault();
     	var validate = jQuery('#profile-form').validationEngine('validate');
     	if(validate == true)
     	{
@@ -39,17 +39,19 @@ window.ProfileView = Backbone.View.extend({
     		
     		var data;
 
-    	    data = new FormData();
-    	   // data.append('imageName',$('#imagedata').attr("name"));
-    	    data.append('imageData',$('#imagedata').val());
-    	  //  data.append('videoName', $('#videodata').attr("name"));
-    	   // data.append('videoData', $('#videodata').val());
-    		//data.append('mobile',$('#mobile').val());
-    		//data.append('upload',$('#upload').val());
+    		
+    		data = new FormData();
+     	   // data.append('imageName',$('#imagedata').attr("name"));
+     	    data.append('imageData',$('#imagedata').val());
+     	  //  data.append('videoName', $('#videodata').attr("name"));
+     	   // data.append('videoData', $('#videodata').val());
+     	//	data.append('mobile',$('#mobile').val());
+     	//	data.append('upload',$('#upload').val());
+ 
     		
     		
         	/* post profile page details */
-    		$.ajax({
+        	$.ajax({
         	    type: 'POST',
         	    data: data,
         	    url: "http://localhost:9000/getMediafromPost",
@@ -57,19 +59,15 @@ window.ProfileView = Backbone.View.extend({
         	    contentType: false,
         	    processData: false,
         	    success: function(data){
-        	    	//navigate to main stream page
-		            var source   = $("#tpl-main-stream").html();
-		        	var template = Handlebars.compile(source);
-		        	$('body').html(template());
+        	    	// navigate to main stream page
+               	   app.navigate("streams", {trigger: true, replace: true});
         	    }
         	});
         	
     	}
     	else
     	{
-    		
     		console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
-    		
     	}
     	 
     },
@@ -104,7 +102,6 @@ window.ProfileView = Backbone.View.extend({
         			 
         		     $('#profile-photo').attr("src",e.target.result);
         		     $('#profile-photo').attr("name", f.name);
-        			 
         		     $('#imagedata').val(e.target.result);
         		     $('#imagedata').attr("name", f.name);
         			 
