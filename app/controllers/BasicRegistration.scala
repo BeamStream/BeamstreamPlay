@@ -10,8 +10,12 @@ import play.api._
 import utils.SendEmail
 import models.TokenDAO
 import com.mongodb.casbah.commons.MongoDBObject
+import net.liftweb.json.{ parse, DefaultFormats }
+import net.liftweb.json.Serialization.{ read, write }
 
 object BasicRegistration extends Controller {
+
+  implicit val formats = DefaultFormats
 
   val basicRegForm = Form(
     mapping(
@@ -27,22 +31,20 @@ object BasicRegistration extends Controller {
 
   def basicRegistration(iam: String, emailId: String, token: String) = Action { implicit request =>
     Ok(views.html.basic_reg(basicRegForm, emailId, iam, "", ""))
-//    val findToken = TokenDAO.find(MongoDBObject("tokenString" -> token)).toList
-//    (findToken.size == 0) match {
-//      case false => Ok(views.html.basic_reg(basicRegForm, emailId, iam, "", ""))
-//      case true => Ok("Token Not Valid")
-//    }
+    //    val findToken = TokenDAO.find(MongoDBObject("tokenString" -> token)).toList
+    //    (findToken.size == 0) match {
+    //      case false => Ok(views.html.basic_reg(basicRegForm, emailId, iam, "", ""))
+    //      case true => Ok("Token Not Valid")
+    //    }
 
   }
 
   def basicRegistrationViaSocialSites(email: String, userName: String, firstName: String) = Action { implicit request =>
     Ok(views.html.basic_reg(basicRegForm, email, "1", userName, firstName))
   }
-  
-  
 
   def newUser = Action { implicit request =>
-       //println("Getting the values from post request [" + request.body+"]")
+    //println("Getting the values from post request [" + request.body+"]")
     basicRegForm.bindFromRequest.fold(
       errors => BadRequest(views.html.basic_reg(errors, "", "", "", "")),
       basicRegForm => {
@@ -55,10 +57,18 @@ object BasicRegistration extends Controller {
   }
 
   def emailSent = Action { implicit request =>
+    val userInformationMap = request.body.asFormUrlEncoded.get
+    val tempUserInformationJson = userInformationMap("data").toList(0)
+    val userInformationJson = net.liftweb.json.parse(tempUserInformationJson)
 
-    SendEmail.sendEmail((request.flash.get("email")).get.toString, (request.flash.get("iam")).get.toString)
-    Ok(views.html.emailpopup())
-
+    val iam = (userInformationJson \ "iam").extract[String]
+    val emailId = (userInformationJson \ "email").extract[String]
+    println(emailId)
+    println(iam)
+    
+    SendEmail.sendEmail(emailId,iam)
+   
+    Ok
   }
 
 }
