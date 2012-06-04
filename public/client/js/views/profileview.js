@@ -54,7 +54,7 @@ window.ProfileView = Backbone.View.extend({
         	    data: data,
         	    url: "http://localhost:9000/getMediafromPost",
         	    cache: false,
-        	    contentType: 'multipart/form-data',
+        	    contentType: false,
         	    processData: false,
         	    success: function(data){
         	    	//navigate to main stream page
