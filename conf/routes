@@ -54,6 +54,8 @@ GET   /basicRegistration/:iam/mail/:emailId/token/:token   controllers.BasicRegi
        
 POST  /basicRegistration                                   controllers.BasicRegistration.newUser
 
+POST  /getEmailforNewUser                                   controllers.BasicRegistration.emailSent
+
 GET   /basicRegistrationViaSocialSites   controllers.BasicRegistration.basicRegistrationViaSocialSites(email:String,userName:String,name:String)
 POST  /basicRegistrationViaSocialSites   controllers.BasicRegistration.newUser
 

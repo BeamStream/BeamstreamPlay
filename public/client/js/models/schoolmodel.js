@@ -18,7 +18,7 @@
 window.SchoolCollection = Backbone.Collection.extend({
 	
     model:School,
-    url: "http://localhost/client2/api.php"
+    url: "http://localhost:9000/schoolJson"
 
 });    
  
