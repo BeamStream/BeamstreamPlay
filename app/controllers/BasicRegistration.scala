@@ -12,6 +12,9 @@ import models.TokenDAO
 import com.mongodb.casbah.commons.MongoDBObject
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
+import models.ResulttoSent
+import models.ResulttoSent
+import models.ResulttoSentForBasicRegistration
 
 object BasicRegistration extends Controller {
 
@@ -29,13 +32,24 @@ object BasicRegistration extends Controller {
       "iam" -> nonEmptyText,
       "useCurrentLocation" -> optional(checked("")))(BasicRegForm.apply)(BasicRegForm.unapply))
 
+  /*
+  * Basic Registration Permissions for a User     
+  */
+
   def basicRegistration(iam: String, emailId: String, token: String) = Action { implicit request =>
-    Ok(views.html.basic_reg(basicRegForm, emailId, iam, "", ""))
-    //    val findToken = TokenDAO.find(MongoDBObject("tokenString" -> token)).toList
-    //    (findToken.size == 0) match {
-    //      case false => Ok(views.html.basic_reg(basicRegForm, emailId, iam, "", ""))
-    //      case true => Ok("Token Not Valid")
-    //    }
+
+    val findToken = TokenDAO.find(MongoDBObject("tokenString" -> token)).toList
+
+    val successJson = write(new ResulttoSentForBasicRegistration("Success", "Allow To SignUp", iam, emailId))
+    val failureJson = write(new ResulttoSentForBasicRegistration("Failure", "Do Not Allow To SignUp", iam, emailId))
+
+    (findToken.size == 0) match {
+      case false => 
+        //Redirect("http://localhost:9000/beamstream/index.html#basicRegistration")
+        Ok(successJson).as("application/json")
+
+      case true => Ok(failureJson).as("application/json")
+    }
 
   }
 
@@ -44,7 +58,7 @@ object BasicRegistration extends Controller {
   }
 
   def newUser = Action { implicit request =>
-    //println("Getting the values from post request [" + request.body+"]")
+
     basicRegForm.bindFromRequest.fold(
       errors => BadRequest(views.html.basic_reg(errors, "", "", "", "")),
       basicRegForm => {
@@ -55,6 +69,9 @@ object BasicRegistration extends Controller {
       })
 
   }
+  /*
+   * Send the verification mail to the User
+   */
 
   def emailSent = Action { implicit request =>
     val userInformationMap = request.body.asFormUrlEncoded.get
@@ -65,10 +82,12 @@ object BasicRegistration extends Controller {
     val emailId = (userInformationJson \ "email").extract[String]
     println(emailId)
     println(iam)
-    
-    SendEmail.sendEmail(emailId,iam)
-   
-    Ok
+    SendEmail.sendEmail(emailId, iam)
+
+    val jsonResponseToSent = new ResulttoSent("Success", "Email Sent Successfully")
+    val finalJson = write(jsonResponseToSent)
+
+    Ok(finalJson).as("application/json")
   }
 
 }
