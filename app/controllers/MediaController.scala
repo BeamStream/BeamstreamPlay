@@ -6,9 +6,10 @@ import java.io.File
 
 object MediaController extends Controller {
 
-  def getMedia = Action(parse.multipartFormData) { implicit request =>
+  def getMedia = Action(parse multipartFormData) { implicit request =>
 
     println("I M here")
+
 
     //     val body = request.body.asMultipartFormData
     //      val picture = body.get.file("imageData")
@@ -26,10 +27,12 @@ object MediaController extends Controller {
     //     val inputStream = new FileInputStream(fileObtained)
     //    println(inputStream)
     
-    val aa = request.body.files
+//    val aa = request.body.files
+//    
+//    println("Number of files sent: " + aa.size)
     
-    println("Number of files sent: " + aa.size)
-    
+   
+//    
     request.body.file("imageData").map { picture =>
 
       picture.ref.moveTo(new File("/home/neelkanth/Desktop"))
@@ -39,5 +42,6 @@ object MediaController extends Controller {
       println("No Result")
       Ok
     }
+   
   }
 }
