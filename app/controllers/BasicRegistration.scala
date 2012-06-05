@@ -45,7 +45,7 @@ object BasicRegistration extends Controller {
 
     (findToken.size == 0) match {
       case false => 
-        //Redirect("http://localhost:9000/beamstream/index.html#basicRegistration")
+        Redirect("http://localhost:9000/beamstream/index.html#basicRegistration")
         Ok(successJson).as("application/json")
 
       case true => Ok(failureJson).as("application/json")
