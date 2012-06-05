@@ -127,10 +127,12 @@ var AppRouter = Backbone.Router.extend({
 					 this.registrationView = null;
 				  	 if (!this.registrationView) {
 				           this.registrationView = new RegistrationView();
-				           this.registrationView.render(data.emailId);
+				           var mailInfo = {iam : data.iam , mail:data.emailId};
+				           this.registrationView.render(mailInfo);
 				     }
 				  	 
 				     $('#register-step-school').html(this.registrationView.el);  
+				     $(".checkbox").dgStyle();
 			    }
 				else
 				{
@@ -139,7 +141,7 @@ var AppRouter = Backbone.Router.extend({
 				  
 			}
 	     });
- 
+         
   },
   
   

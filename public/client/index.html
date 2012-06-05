@@ -60,8 +60,8 @@
 			jQuery("#login-form").validationEngine();
 			jQuery("#profile-form").validationEngine();
 			jQuery("#email-verify").validationEngine();
-			
-			 
+			jQuery("#registration-form").validationEngine();
+		 
 		});
 
 		
@@ -925,32 +925,36 @@
  <!-- basic profile registration -->
  <script type="text/x-handlebars-template" id="tpl-basic-profile">
   <div class="modal-header">
-    <h1 class="pull-left">Basic Profile {{sCount}} </h1>
+    <h1 class="pull-left">Basic Profile </h1>
     <img src="images/registration-progress-25.png" alt="Registration progress - 25%" class="registration-progress pull-right"> </div>
       <div class="modal-body">
-      <form>
+      <form id="registration-form">
       <fieldset>
           <div class="center_form">
         <div class="element">
               <label for="school-name">School name</label>
-              <input type="text" id="school-name" placeholder=" School Name" class="span3">
+              <input type="text" id="school-name" placeholder=" School Name" class="validate[required] span3">
             </div>
         <div class="element">
               <label for="user-name">User Name<br/>
             http://www.beamstream.com/</label>
-              <input type="text" id="user-name" placeholder="@UserName" class="span3">
+              <input type="text" id="user-name" placeholder="@UserName" value ="{{mailId}}" class="validate[required] span3">
+            </div>
+          <div class="element">
+              <label for="password">Password<br/></label>
+              <input type="password" id="password" placeholder="password" class="validate[required] span3"> 
             </div>
         <div class="element">
               <label for="first-name">First Name</label>
-              <input type="text" id="first-name" placeholder="First Name" class="span3">
+              <input type="text" id="first-name" placeholder="First Name" class="validate[required] span3">
             </div>
         <div class="element">
               <label for="last-name">Last Name</label>
-              <input type="text" id="last-name" placeholder="Last Name" class="span3">
+              <input type="text" id="last-name" placeholder="Last Name" class="validate[required] span3">
             </div>
         <div class="element">
               <label for="zip-code">Zip code</label>
-              <input type="text" id="zip-code" placeholder="Your Zip Code" class="span3">
+              <input type="text" id="zip-code" placeholder="Your Zip Code" class="validate[required] span3">
             </div>
         <div class="element">
               <label for="current-location"></label>
@@ -958,7 +962,7 @@
         <div class="checkbox_wrapper">
               <h3>OR</h3>
 		      <div class="checkbox">
-				<input type="checkbox">
+				<input id="loaction" type="checkbox">
 			</div>
               Use Current Location </div>
       </div>
@@ -966,7 +970,7 @@
           <div class="form-row-label">
         <div class="modal-footer"> 
           <a href="#" id="save" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a> 
-          <a href="#" id="continue" class="btn btn-success pull-right">Continue</a> </div>
+          <a href="#" id="continue" class="btn btn-success pull-right" data-dismiss="modal">Continue</a> </div>
       </div>
         </fieldset>
   </form>
