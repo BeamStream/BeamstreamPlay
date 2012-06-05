@@ -28,14 +28,14 @@ object User {
 
   /*
    * Add info to a user(Intact)
+   * 
    */
+  
   def addInfo(schoolList: List[School], userid: ObjectId) = {
     for (school <- schoolList) {
       User.addSchoolToUser(userid, school.id)
-     // School.createSchool(school)
+      
     }
-
-
 
   }
 
@@ -45,7 +45,7 @@ object User {
    * find the user for Authentication
    * 
    */
-  def findUser(userEmail:String ,password :String): Option[User] = {
+  def findUser(userEmail: String, password: String): Option[User] = {
 
     val authenticatedUser = UserDAO.find(MongoDBObject("email" -> userEmail, "password" -> password))
     (authenticatedUser.isEmpty) match {
@@ -196,7 +196,7 @@ object UserType extends Enumeration {
 
 object TrashEnum extends Enumeration {
   val Trash = Value(0, "Trash")
-  
+
 }
 
 object UserDAO extends SalatDAO[User, Int](collection = MongoHQConfig.mongoDB("user"))

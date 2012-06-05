@@ -30,7 +30,7 @@ object SendEmail {
     msg.setSubject("Registration Process On BeamStream");
     
     msg.setContent("Hi User, Follow the Link to Complete Registration "+
-        "<a href="+ "'http://localhost:9000/beamstream/index.html#basicRegistration"+"/token/"+authToken +"'> Register On BeamStream</a>"
+        "<a href="+ "'http://localhost:9000/beamstream/index.html#basicRegistration"+"/token/"+authToken +"/iam/"+iam+"/emailId/"+emailId+"'> Register On BeamStream</a>"
         
         
         +"<br>" +"<br>" +"<br>"+"Regards | Beamstream Team , US"

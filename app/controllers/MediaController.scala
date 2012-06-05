@@ -6,9 +6,11 @@ import java.io.File
 
 object MediaController extends Controller {
 
-  def getMedia = Action(parse multipartFormData) { implicit request =>
+  def getMedia = Action(parse.multipartFormData) { implicit request =>
 
     println("I M here")
+      println(request.body)
+  
 
 
     //     val body = request.body.asMultipartFormData
@@ -33,9 +35,9 @@ object MediaController extends Controller {
     
    
 //    
-    request.body.file("imageData").map { picture =>
-
-      picture.ref.moveTo(new File("/home/neelkanth/Desktop"))
+    request.body.file("imageData").map { imageData =>
+    
+      imageData.ref.moveTo(new File("/home/neelkanth/Desktop"))
       println("FileUploaded")
       Ok
     }.getOrElse {

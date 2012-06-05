@@ -54,7 +54,7 @@ GET   /schoolJson              controllers.DetailedRegistration.getSchoolsForLog
 POST   /verifyToken                                           controllers.BasicRegistration.basicRegistration
 
      
-POST  /basicRegistration                                   controllers.BasicRegistration.newUser
+POST  /registerNewUser                                       controllers.BasicRegistration.newUser
 
 POST  /getEmailforNewUser                                   controllers.BasicRegistration.emailSent
 

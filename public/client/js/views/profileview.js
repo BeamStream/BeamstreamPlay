@@ -44,9 +44,11 @@ window.ProfileView = Backbone.View.extend({
      	    data.append('imageName',$('#imagedata').attr("name"));
      	    data.append('imageData',$('#imagedata').val());
      	    data.append('videoName', $('#videodata').attr("name"));
-     	    data.append('videoData', $('#videodata').val());
+ 
+     	   data.append('videoData', $('#videodata').val());
      		data.append('mobile',$('#mobile').val());
-     		data.append('upload',$('#upload').val());
+     	   data.append('upload',$('#upload').val());
+ 
  
     		 
     		
