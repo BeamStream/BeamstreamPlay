@@ -112,8 +112,10 @@ var AppRouter = Backbone.Router.extend({
 	   // verify the token
 	   $.ajax({
 			type : 'POST',
+ 
 //			url : "http://localhost/BeamstreamPlay/public/client/api.php",
 			url :"http://localhost:9000/verifyToken",
+
 			data : {
 				token : e
 			},

@@ -13,8 +13,16 @@ window.RegistrationView = Backbone.View.extend({
     },
 
     render:function (eventName) {
-    	
-        $(this.el).html(this.template());
+    	alert(eventName);
+    	 
+//		 var emailId = {
+//					"emailId" :eventName 
+//			}
+    	var sCount = {
+				"sCount" : "dfdd",
+				"schools": "fgdfg" 
+		}
+        $(this.el).html(this.template(sCount));
         return this;
     },
     
