@@ -51,7 +51,9 @@ GET   /schoolJson              controllers.DetailedRegistration.getSchoolsForLog
 #Basic Registration
 
 GET   /verify/:iam/mail/:emailId/token/:token              controllers.BasicRegistration.basicRegistration(iam:String,emailId:String,token:String)
-       
+
+
+     
 POST  /basicRegistration                                   controllers.BasicRegistration.newUser
 
 POST  /getEmailforNewUser                                   controllers.BasicRegistration.emailSent
