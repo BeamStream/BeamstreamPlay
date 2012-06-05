@@ -59,6 +59,8 @@
 			jQuery("#class-form").validationEngine();
 			jQuery("#login-form").validationEngine();
 			jQuery("#profile-form").validationEngine();
+			jQuery("#email-verify").validationEngine();
+			
 			 
 		});
 
@@ -927,31 +929,31 @@
     <img src="images/registration-progress-25.png" alt="Registration progress - 25%" class="registration-progress pull-right"> </div>
       <div class="modal-body">
       <form>
-    <fieldset>
+      <fieldset>
           <div class="center_form">
         <div class="element">
               <label for="school-name">School name</label>
               <input type="text" id="school-name" placeholder=" School Name" class="span3">
             </div>
         <div class="element">
-              <label for="school-name">User Name<br/>
+              <label for="user-name">User Name<br/>
             http://www.beamstream.com/</label>
-              <input type="text" id="school-name" placeholder="@UserName" class="span3">
+              <input type="text" id="user-name" placeholder="@UserName" class="span3">
             </div>
         <div class="element">
-              <label for="school-name">First Name</label>
-              <input type="text" id="school-name" placeholder="First Name" class="span3">
+              <label for="first-name">First Name</label>
+              <input type="text" id="first-name" placeholder="First Name" class="span3">
             </div>
         <div class="element">
-              <label for="school-name">Last Name</label>
-              <input type="text" id="school-name" placeholder="Last Name" class="span3">
+              <label for="last-name">Last Name</label>
+              <input type="text" id="last-name" placeholder="Last Name" class="span3">
             </div>
         <div class="element">
-              <label for="school-name">Zip code</label>
-              <input type="text" id="school-name" placeholder="Your Zip Code" class="span3">
+              <label for="zip-code">Zip code</label>
+              <input type="text" id="zip-code" placeholder="Your Zip Code" class="span3">
             </div>
         <div class="element">
-              <label for="date-started-1"></label>
+              <label for="current-location"></label>
             
         <div class="checkbox_wrapper">
               <h3>OR</h3>
@@ -962,7 +964,9 @@
       </div>
         </div>  
           <div class="form-row-label">
-        <div class="modal-footer"> <a href="#" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a> <a href="#" class="btn btn-success pull-right">Continue</a> </div>
+        <div class="modal-footer"> 
+          <a href="#" id="save" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a> 
+          <a href="#" id="continue" class="btn btn-success pull-right">Continue</a> </div>
       </div>
         </fieldset>
   </form>
@@ -976,7 +980,7 @@
     <h1 class="pull-left">Register Here</h1>
   </div>
   <div class="modal-body">
-    <form>
+    <form id="email-verify">
         <fieldset style="margin-bottom: 0">
           <div class="form-row short">
               <div class="element">
@@ -990,7 +994,7 @@
               </div>
               <div class="element" >
                 <label for="email">School or Work  E-mail</label>
-                <input type="text" id="email" placeholder="School or work email address" class="large">
+                <input type="text" id="email" placeholder="School or work email address" class="validate[required , custom[email]] large">
              </div>
               <div class="element"> <a id="register" href="#" class="btn btn-success">Register Now</a> </div>
           </div>
@@ -1024,6 +1028,21 @@
   <div class="modal-footer"> <a id="save" href="#" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a> <a href="#" class="btn btn-success pull-right">Continue</a> </div>
 </script>
 
+
+<!--pop up from emai verification -->
+ <script type="text/template" id="tpl-verify-popup">
+  <div style="width:250px; height:250px;">
+  <div class="modal-header">
+    
+  </div>
+  <div class="modal-body" style="width:800px;">
+      <h2>Email sent you ,Register & be ready to Rock!</h2>
+  </div>
+  <div class="modal-footer" style="width:800px;"> 
+    <a id="save" href="#" class="btn btn-primary pull-right" data-dismiss="modal">OK</a>
+</div>
+</div>
+</script>
 
 	<!-- Le javascript
 ================================================== -->
@@ -1132,6 +1151,7 @@
 <script src="js/views/verifyemailview.js"></script>
 <script src="js/models/emailverificationmodel.js"></script>
 <script src="js/views/registrationview.js"></script>
+<script src="js/models/basicprofilemodel.js"></script>
 <script src="js/views/homeview.js"></script>	
 <script src="js/views/schoolview.js"></script>	
 <script src="js/models/schoolmodel.js"></script>	

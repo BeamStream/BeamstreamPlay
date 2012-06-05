@@ -5,11 +5,12 @@ var AppRouter = Backbone.Router.extend({
         "":"home",
         "login":"login",
         "emailVerification": "emailVerification",
-        "basicRegistration" :'basicRegistration',
         "school":"schoolReg",
         "class":"classReg",
         "profile":"profileReg",
-        "streams":"maisStream"
+        "streams":"maisStream",
+        "basicRegistration/token/:token":"basicRegistration",
+
         
     },
 
@@ -106,16 +107,36 @@ var AppRouter = Backbone.Router.extend({
    /**
     * registration after email verification
     */
-   basicRegistration: function() {
-  	 this.registrationView = null;
-  	 if (!this.registrationView) {
-           this.registrationView = new RegistrationView();
-           this.registrationView.render();
-       }
-  	 
-       $('#register-step-school').html(this.registrationView.el);  
-       
-       
+   basicRegistration: function(e) {
+	    
+	   // verify the token
+	   $.ajax({
+			type : 'POST',
+			url : "http://localhost/BeamstreamPlay/public/client/api.php",
+			data : {
+				token : e
+			},
+			dataType : "json",
+			success : function(data) {
+				if(data.status == "Success") 
+			    {
+					 
+					 this.registrationView = null;
+				  	 if (!this.registrationView) {
+				           this.registrationView = new RegistrationView();
+				           this.registrationView.render();
+				     }
+				  	 
+				     $('#register-step-school').html(this.registrationView.el);  
+			    }
+				else
+				{
+					 alert("Token Expired");
+				}
+				  
+			}
+	     });
+ 
   },
   
   
@@ -133,6 +154,7 @@ var AppRouter = Backbone.Router.extend({
       
       
  },
+ 
   
 });
 

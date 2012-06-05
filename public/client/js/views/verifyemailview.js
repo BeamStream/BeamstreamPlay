@@ -42,21 +42,40 @@ window.verifyEmailView = Backbone.View.extend({
     registration:function (eventName) {
     	
     	eventName.preventDefault();
-    	var mailDetails = this.getdata();
-    	 
-    	/* post email verification details */
-		$.ajax({
-			type : 'POST',
-			url : "http://localhost:9000/getEmailforNewUser",
-			data : {
-				data : mailDetails
-			},
-			dataType : "json",
-			success : function(data) {
-				  
-			}
-	     });
-			 
+    	var validate = jQuery('#email-verify').validationEngine('validate');
+    	if(validate == true)
+	    {
+	    	var mailDetails = this.getdata();
+	    	 
+	    	/* post email verification details */
+			$.ajax({
+				type : 'POST',
+	//			url : "http://localhost:9000/getEmailforNewUser",
+				url : "http://localhost/BeamstreamPlay/public/client/api.php",
+				data : {
+					data : mailDetails
+				},
+				dataType : "json",
+				success : function(data) {
+					if(data.status == "success") 
+	   			    {
+						 
+							var source = $("#tpl-verify-popup").html();
+							var template = Handlebars.compile(source);
+							$("#register-step-school").html(template);
+	   			     }
+					 else
+					 {
+						 alert("Token Expired");
+					 }
+					  
+				}
+		     });
+	    }
+    	else
+    	{
+    		console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
+    	}
 		 
          
     },
