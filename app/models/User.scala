@@ -58,10 +58,9 @@ object User {
   /*
    * function for adding a new user to the system
    */
-  def createNewUser(basicRegForm: BasicRegForm): ObjectId = {
-    val userCreated = User.createUser(new User(new ObjectId, UserType.apply(basicRegForm.iam.toInt), basicRegForm.email, basicRegForm.firstName, basicRegForm.lastName, basicRegForm.userName, "Neil", basicRegForm.password, basicRegForm.orgName, basicRegForm.location, List(), List(), List()))
+  def createNewUser(user: User): ObjectId = {
+    val userCreated = User.createUser(user)
     userCreated
-
   }
 
   /*

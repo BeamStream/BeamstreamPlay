@@ -55,32 +55,22 @@ object BasicRegistration extends Controller {
 
     val userJSONMap = request.body.asFormUrlEncoded.get
     val userJson = userJSONMap("data").toList(0)
-    val parsedUserJson=net.liftweb.json.parse(userJson)
-    
+    val parsedUserJson = net.liftweb.json.parse(userJson)
+
     val iam = (parsedUserJson \ "iam").extract[String]
-    val emailId= (parsedUserJson \ "email").extract[String]
-    val schoolName=(parsedUserJson \ "schoolName").extract[String]
-    val userName=(parsedUserJson \ "userName").extract[String]
-    val password=(parsedUserJson \ "password").extract[String]
-    val firstName=(parsedUserJson \ "firstName").extract[String]
-    val lastName=(parsedUserJson \ "lastName").extract[String]
-    val location=(parsedUserJson \ "zipCode").extract[String]
-    val useCurrentLocation=(parsedUserJson \ "location").extract[Boolean]
-    
-    val user=new User(new ObjectId,UserType.apply(iam.toInt),emailId,firstName,lastName,userName,"",password,schoolName,location,List(),List(),List())
-    println(user)
-   // println(iam+""+emailId+""+schoolName+""+userName+""+password+""+firstName+""+lastName+""+location+""+useCurrentLocation)
+    val emailId = (parsedUserJson \ "email").extract[String]
+    val schoolName = (parsedUserJson \ "schoolName").extract[String]
+    val userName = (parsedUserJson \ "userName").extract[String]
+    val password = (parsedUserJson \ "password").extract[String]
+    val firstName = (parsedUserJson \ "firstName").extract[String]
+    val lastName = (parsedUserJson \ "lastName").extract[String]
+    val location = (parsedUserJson \ "zipCode").extract[String]
+    val useCurrentLocation = (parsedUserJson \ "location").extract[Boolean]
 
-    //    basicRegForm.bindFromRequest.fold(
-    //      errors => BadRequest(views.html.basic_reg(errors, "", "", "", "")),
-    //      basicRegForm => {
-    //
-    //        val IdOfUserCreted = User.createNewUser(basicRegForm)
-    //        val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
-    //        Redirect(routes.MessageController.messages).withSession(RegistrationSession)
-    //      })
-
-    Ok
+    val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, "", password, schoolName, location, List(), List(), List())
+    val IdOfUserCreted = User.createNewUser(userToCreate)
+    val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
+    Ok(write(new ResulttoSent("Success", "SignUp Successfully"))).withSession(RegistrationSession)
   }
   /*
    * Send the verification mail to the User
