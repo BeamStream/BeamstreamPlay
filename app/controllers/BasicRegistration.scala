@@ -36,17 +36,19 @@ object BasicRegistration extends Controller {
   * Basic Registration Permissions for a User     
   */
 
-  def basicRegistration(iam: String, emailId: String, token: String) = Action { implicit request =>
+  //(iam: String, emailId: String, token: String)
+  def basicRegistration = Action { implicit request =>
 
-    val findToken = TokenDAO.find(MongoDBObject("tokenString" -> token)).toList
+    val tokenJSON = request.body.asFormUrlEncoded.get
+    val tokenString = tokenJSON("token").toList(0)
 
-    val successJson = write(new ResulttoSentForBasicRegistration("Success", "Allow To SignUp", iam, emailId))
-    val failureJson = write(new ResulttoSentForBasicRegistration("Failure", "Do Not Allow To SignUp", iam, emailId))
+    val findToken = TokenDAO.find(MongoDBObject("tokenString" -> tokenString)).toList
+
+    val successJson = write(new ResulttoSent("Success", "Allow To SignUp"))
+    val failureJson = write(new ResulttoSent("Failure", "Do Not Allow To SignUp"))
 
     (findToken.size == 0) match {
-      case false => 
-        Redirect("http://localhost:9000/beamstream/index.html#basicRegistration")
-        Ok(successJson).as("application/json")
+      case false => Ok(successJson).as("application/json")
 
       case true => Ok(failureJson).as("application/json")
     }
@@ -74,6 +76,7 @@ object BasicRegistration extends Controller {
    */
 
   def emailSent = Action { implicit request =>
+
     val userInformationMap = request.body.asFormUrlEncoded.get
     val tempUserInformationJson = userInformationMap("data").toList(0)
     val userInformationJson = net.liftweb.json.parse(tempUserInformationJson)

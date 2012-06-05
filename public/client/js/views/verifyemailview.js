@@ -51,7 +51,7 @@ window.verifyEmailView = Backbone.View.extend({
 			$.ajax({
 				type : 'POST',
 	//			url : "http://localhost:9000/getEmailforNewUser",
-				url : "http://localhost/BeamstreamPlay/public/client/api.php",
+				url : "http://localhost:9000/getEmailforNewUser",
 				data : {
 					data : mailDetails
 				},

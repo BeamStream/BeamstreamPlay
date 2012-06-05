@@ -64,7 +64,6 @@ object DetailedRegistration extends Controller {
    */
 
   def getSchoolsForLoggedInUser = Action { implicit request =>
-    println("msvhdsf")
     val schoolIdList = School.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
     val finalSchooList = School.getAllSchools(schoolIdList)
     val schoolListJSON = write(finalSchooList)
