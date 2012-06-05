@@ -55,7 +55,8 @@ object BasicRegistration extends Controller {
 
   def newUser = Action { implicit request =>
     
-    
+   val userJSON = request.body.asFormUrlEncoded.get
+   println(userJSON)
 
 //    basicRegForm.bindFromRequest.fold(
 //      errors => BadRequest(views.html.basic_reg(errors, "", "", "", "")),
@@ -80,8 +81,7 @@ Ok
 
     val iam = (userInformationJson \ "iam").extract[String]
     val emailId = (userInformationJson \ "email").extract[String]
-    println(emailId)
-    println(iam)
+   
     SendEmail.sendEmail(emailId, iam)
 
     val jsonResponseToSent = new ResulttoSent("Success", "Email Sent Successfully")

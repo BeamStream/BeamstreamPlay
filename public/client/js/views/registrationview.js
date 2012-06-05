@@ -40,7 +40,7 @@ window.RegistrationView = Backbone.View.extend({
     	/* post basic profile registration details */
 		$.ajax({
 			type : 'POST',
-			url : "http://localhost/client2/api.php",
+			url : "http://localhost:9000/registerNewUser",
 			data : {
 				data : regDetails
 			},
@@ -99,7 +99,7 @@ window.RegistrationView = Backbone.View.extend({
     	/* post basic profile registration details */
 		$.ajax({
 			type : 'POST',
-			url : "http://localhost/client2/api.php",
+			url : "http://localhost:9000/registerNewUser",
 			data : {
 				data : regDetails
 			},
