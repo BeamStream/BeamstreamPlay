@@ -112,7 +112,8 @@ var AppRouter = Backbone.Router.extend({
 	   // verify the token
 	   $.ajax({
 			type : 'POST',
-			url : "http://localhost/BeamstreamPlay/public/client/api.php",
+//			url : "http://localhost/BeamstreamPlay/public/client/api.php",
+			url :"http://localhost:9000/verifyToken",
 			data : {
 				token : e
 			},
@@ -124,7 +125,7 @@ var AppRouter = Backbone.Router.extend({
 					 this.registrationView = null;
 				  	 if (!this.registrationView) {
 				           this.registrationView = new RegistrationView();
-				           this.registrationView.render();
+				           this.registrationView.render(data.emailId);
 				     }
 				  	 
 				     $('#register-step-school').html(this.registrationView.el);  
