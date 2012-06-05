@@ -9,7 +9,7 @@ var AppRouter = Backbone.Router.extend({
         "class":"classReg",
         "profile":"profileReg",
         "streams":"maisStream",
-        "basicRegistration/token/:token":"basicRegistration",
+        "basicRegistration/token/:token/iam/:iam/emailId/:email":"basicRegistration",
 
         
     },
@@ -107,7 +107,8 @@ var AppRouter = Backbone.Router.extend({
    /**
     * registration after email verification
     */
-   basicRegistration: function(e) {
+   basicRegistration: function(token,iam,email) {
+	    
 	    
 	   // verify the token
 	   $.ajax({
@@ -117,7 +118,7 @@ var AppRouter = Backbone.Router.extend({
 			url :"http://localhost:9000/verifyToken",
 
 			data : {
-				token : e
+				token : token
 			},
 			dataType : "json",
 			success : function(data) {
@@ -127,7 +128,7 @@ var AppRouter = Backbone.Router.extend({
 					 this.registrationView = null;
 				  	 if (!this.registrationView) {
 				           this.registrationView = new RegistrationView();
-				           var mailInfo = {iam : data.iam , mail:data.emailId};
+				           var mailInfo = {iam : iam , mail:email};
 				           this.registrationView.render(mailInfo);
 				     }
 				  	 

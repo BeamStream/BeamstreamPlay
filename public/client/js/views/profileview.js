@@ -41,20 +41,21 @@ window.ProfileView = Backbone.View.extend({
 
     		
     		data = new FormData();
-     	   // data.append('imageName',$('#imagedata').attr("name"));
+     	    data.append('imageName',$('#imagedata').attr("name"));
      	    data.append('imageData',$('#imagedata').val());
-     	  //  data.append('videoName', $('#videodata').attr("name"));
-     	   // data.append('videoData', $('#videodata').val());
-     	//	data.append('mobile',$('#mobile').val());
-     	//	data.append('upload',$('#upload').val());
+     	    data.append('videoName', $('#videodata').attr("name"));
+     	    data.append('videoData', $('#videodata').val());
+     		data.append('mobile',$('#mobile').val());
+     		data.append('upload',$('#upload').val());
  
-    		
+    		 
     		
         	/* post profile page details */
         	$.ajax({
         	    type: 'POST',
         	    data: data,
         	    url: "http://localhost:9000/getMediafromPost",
+//        	    url: "http://localhost/client2/image.php",
         	    cache: false,
         	    contentType: false,
         	    processData: false,

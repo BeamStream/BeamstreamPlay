@@ -34,13 +34,14 @@ window.RegistrationView = Backbone.View.extend({
     
     save:function (eventName) {
     	eventName.preventDefault();
-//    	var validate = jQuery('#registration-form').validationEngine('validate');
+    	var validate = jQuery('#registration-form').validationEngine('validate');
+    	 
     	var regDetails = this.getFormData();
     	
     	/* post basic profile registration details */
 		$.ajax({
 			type : 'POST',
-			url : "http://localhost/client2/api.php",
+			url : "http://localhost:9000/registerNewUser",
 			data : {
 				data : regDetails
 			},
@@ -70,6 +71,7 @@ window.RegistrationView = Backbone.View.extend({
     	 
     	basicProfile.set({
     		iam: this.iam,
+    		email:this.mailId,
     		schoolName: $('#school-name').val(),
     		userName: $('#user-name').val(),
     		password: $('#password').val(),
@@ -99,7 +101,7 @@ window.RegistrationView = Backbone.View.extend({
     	/* post basic profile registration details */
 		$.ajax({
 			type : 'POST',
-			url : "http://localhost/client2/api.php",
+			url : "http://localhost:9000/registerNewUser",
 			data : {
 				data : regDetails
 			},
