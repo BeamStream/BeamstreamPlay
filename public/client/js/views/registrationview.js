@@ -23,7 +23,7 @@ window.RegistrationView = Backbone.View.extend({
     	var mailInfo = {
 				"mailId" : eventName.mail
 		}
-        $(this.el).html(this.template(mailInfo));
+        $(this.el).html(this.template);
         return this;
     },
     
@@ -42,6 +42,7 @@ window.RegistrationView = Backbone.View.extend({
 		$.ajax({
 			type : 'POST',
 			url : "http://localhost:9000/registerNewUser",
+//			url : "http://localhost/client2/api.php",
 			data : {
 				data : regDetails
 			},
@@ -102,6 +103,7 @@ window.RegistrationView = Backbone.View.extend({
 		$.ajax({
 			type : 'POST',
 			url : "http://localhost:9000/registerNewUser",
+//			url : "http://localhost/client2/api.php",
 			data : {
 				data : regDetails
 			},
