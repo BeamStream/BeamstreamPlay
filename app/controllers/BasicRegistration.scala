@@ -14,29 +14,18 @@ import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 import models.ResulttoSent
 import models.ResulttoSent
-import models.ResulttoSentForBasicRegistration
+
 
 object BasicRegistration extends Controller {
 
   implicit val formats = DefaultFormats
 
-  val basicRegForm = Form(
-    mapping(
-      "userName" -> nonEmptyText,
-      "password" -> nonEmptyText,
-      "orgName" -> nonEmptyText,
-      "firstName" -> nonEmptyText,
-      "lastName" -> nonEmptyText,
-      "email" -> nonEmptyText,
-      "location" -> nonEmptyText,
-      "iam" -> nonEmptyText,
-      "useCurrentLocation" -> optional(checked("")))(BasicRegForm.apply)(BasicRegForm.unapply))
-
+ 
   /*
-  * Basic Registration Permissions for a User     
+  * Basic Registration Permissions for a User  via Token authentication   
   */
 
-  //(iam: String, emailId: String, token: String)
+ 
   def basicRegistration = Action { implicit request =>
 
     val tokenJSON = request.body.asFormUrlEncoded.get
@@ -49,27 +38,35 @@ object BasicRegistration extends Controller {
 
     (findToken.size == 0) match {
       case false => Ok(successJson).as("application/json")
-
       case true => Ok(failureJson).as("application/json")
     }
 
   }
 
   def basicRegistrationViaSocialSites(email: String, userName: String, firstName: String) = Action { implicit request =>
-    Ok(views.html.basic_reg(basicRegForm, email, "1", userName, firstName))
+   // Ok(views.html.basic_reg(basicRegForm, email, "1", userName, firstName))
+    Ok
   }
+  
+  
+  /*
+   * Registering a new User to Beamstream
+   */
 
   def newUser = Action { implicit request =>
+    
+    
 
-    basicRegForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.basic_reg(errors, "", "", "", "")),
-      basicRegForm => {
-
-        val IdOfUserCreted = User.createNewUser(basicRegForm)
-        val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
-        Redirect(routes.MessageController.messages).withSession(RegistrationSession)
-      })
-
+//    basicRegForm.bindFromRequest.fold(
+//      errors => BadRequest(views.html.basic_reg(errors, "", "", "", "")),
+//      basicRegForm => {
+//
+//        val IdOfUserCreted = User.createNewUser(basicRegForm)
+//        val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
+//        Redirect(routes.MessageController.messages).withSession(RegistrationSession)
+//      })
+    
+Ok
   }
   /*
    * Send the verification mail to the User
