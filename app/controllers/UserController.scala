@@ -55,7 +55,9 @@ object UserController extends Controller {
         val jsonStatus = new ResulttoSent("success", "Login Successfull")
         val statusToSend = write(jsonStatus)
         val userSession = request.session + ("userId" -> user.id.toString)
-        Ok(statusToSend).as("application/json").withSession(userSession)
+        val authenticatedUserJson=write(user)
+        //Ok(statusToSend).as("application/json").withSession(userSession)
+        Ok(authenticatedUserJson).as("application/json").withSession(userSession)
 
       case None =>
 
