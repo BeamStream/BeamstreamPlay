@@ -661,15 +661,7 @@
 	             <a class="btn plus" href="#create_stream"><i><b></b><span class="popout_arrow"><span></span></span></i>Create Stream</a>
 	            <br>
 				<br>
-				 <a id="create-school" class="btn plus" href="#school"><i><b></b><span class="popout_arrow"><span></span></span></i>Create School</a>
-				<br>
-				<br>
-				 <a class="btn plus" href="#class"><i><b></b><span class="popout_arrow"><span></span></span></i>Create Class</a>
-				<br>
-				<br>
-				 <a class="btn plus" href="#joinstreams"><i><b></b><span class="popout_arrow"><span></span></span></i>Join Stream</a>
-				<br>
-				<br>
+				  
           </div>
           </div>
 
@@ -1037,17 +1029,25 @@
 
 <!--pop up from emai verification -->
  <script type="text/template" id="tpl-verify-popup">
-  <div style="width:250px; height:250px;">
-  <div class="modal-header">
+  <div class="modal-body">
+      <form>
+    <fieldset class="verify-account">
     
-  </div>
-  <div class="modal-body" style="width:575px; margin-top: 25px;">
-      <h2>Email sent you ,Register & be ready to Rock!</h2>
-  </div>
-  <div class="modal-footer" style="width:550px;"> 
-    <a id="save" href="#" class="btn btn-primary pull-right" data-dismiss="modal">OK</a>
-</div>
-</div>
+          <div class="form-row-label">
+          <ul class="verify_buttons">
+          <li><div class="arrow-bottom"></div><span><a href="#">Check your email</a></span><a href="#"><img src="images/email_icon.png"></a></li>
+          <li><span><a href="#">Click on the link</a></span><a href="#"><img src="images/link_icon.png"></a><div class="arrow-bottom"></div></li>
+          <li><span><a href="#">VERIFY YOUR ACCOUNT </a></span><a href="#"><img src="images/account_icon.png"></a><div class="arrow-bottom"></div></li>
+           <div class="and-icon"><img src="images/and.png"></div>
+          </ul>      
+       
+      </div>
+      <ul class="rockit">
+          <li><div class="arrow-top"></div><span><a href="#">ROCK IT WITH COLLABORATION</a></span><a href="#"><img src="images/hand_icon.png"></a></li>
+          </ul>
+        </fieldset>
+  </form>
+    </div>
 </script>
 
  
