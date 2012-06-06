@@ -42,7 +42,7 @@ window.RegistrationView = Backbone.View.extend({
 		$.ajax({
 			type : 'POST',
 			url : "http://localhost:9000/registerNewUser",
-//			url : "http://localhost/client2/api.php",
+//			url : "http://localhost/BeamstreamPlay/public/client/api.php",
 			data : {
 				data : regDetails
 			},
@@ -112,7 +112,7 @@ window.RegistrationView = Backbone.View.extend({
 		$.ajax({
 			type : 'POST',
 			url : "http://localhost:9000/registerNewUser",
-//			url : "http://localhost/client2/api.php",
+//			url : "http://localhost/BeamstreamPlay/public/client/api.php",
 			data : {
 				data : regDetails
 			},

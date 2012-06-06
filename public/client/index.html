@@ -204,17 +204,17 @@
                             <option value="Junior">Junior</option>
                             <option value="Senior">Senior</option>
                             <option value="Graduated(Master's)">Graduate (Master's)</option>
-                            <option value="Graduated(Phd)">Graduate (Phd)</option>
+                            <option value="Graduated(Phd)">Graduated(Phd)</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
                      <div class="element">
                         <label for="degree-program">Degree program</label>
                         <select name="degreeprogram-1" id="degreeprogram-1" class="span2">
-                            <option value="Associates(AA)">Associates (AA)</option>
-                            <option value="Bachelor's"">Bachelor's</option>
+                             <option value="Assosiates(AA)">Associates(AA)</option>
+                            <option value="Bachelor's">Bachelor's</option>
                             <option value="Master's">Master's</option>
-                            <option value="Doctorate(Phd)">Doctorate (PhD)</option>
+                            <option value="Doctorate(Phd)">Doctorate(PhD)</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
@@ -500,7 +500,7 @@
    </script>
   
  <!-- main stream page template -->
- <script type="text/template" id="tpl-main-stream">
+ <script type="text/x-handlebars-template" id="tpl-main-stream">
   
  <div class="navbar-fixed-top">
       <header class="site_header">
@@ -516,9 +516,9 @@
             <div class="container-fluid">
               <div class="nav-collapse">
                 <ul class="nav">
-                  <li  class="active"><a href="#streams-and-groups">Streams &amp; Groups</a></li>
+                  <li  ><a href="#streams-and-groups">Streams &amp; Groups</a></li>
                   <li><a href="#connections">Connections</a></li>
-                  <li><a href="#dms">Messages</a></li>
+                  <li class="active"><a href="#dms">Messages</a></li>
                   <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#more">
                       More
@@ -1168,6 +1168,7 @@
 <script src="js/models/profilemodel.js"></script>
 <script src="js/views/profileview.js"></script>
 <script src="js/views/streamview.js"></script>
+<script src="js/models/singleusermodel.js"></script>
 
 <script src="js/main.js"></script>
 
