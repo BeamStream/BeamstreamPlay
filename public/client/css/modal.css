@@ -2117,3 +2117,218 @@ body {
 .center_form .element input[type="password"]{
 	margin:0 0 25px 0;
 }
+
+
+/* for email pop up */
+@charset "utf-8";
+/* CSS Document */
+
+.basic_profile_form_wrapper1 {
+	display:block;
+	margin:120px 0 0px 0;
+}
+.basic_profile_form_wrapper2 {
+	display:block;
+	margin:55px 0 0px 0;
+}
+.basic_profile_form {
+	width:572px;
+	display:block;
+	overflow:hidden;
+	float:left;
+	text-align:center;
+}
+.basic_profile_form label {
+	float:left;
+	line-height:20px;
+	width:260px;
+	text-align:right;
+	margin:12px 15px 0 0;
+}
+.basic_profile_form label {
+	float:left;
+}
+.basic_profile_form .element input[type="text"] {
+	margin:0 0 25px 0;
+}
+.modal form .element {
+	margin-right: 10px;
+}
+.checkbox_wrapper {
+	width:263px;
+	float:left;
+	font-size:18px;
+	line-height:37px;
+	font-family: UbuntuBold;
+}
+/* Added for checkbox styling*/
+.checkbox {
+	height: 32px;
+	width: 35px;
+	clear:left;
+	float:left;
+	margin: 0 0 3px;
+	padding: 0 0 0 0;
+	background: url("../images/checkbox-big.png") no-repeat;
+	cursor: default;
+	text-align:left;
+}
+.checkbox input {
+	display: none;
+}
+.checkbox input.show {
+	display: inline;
+}
+/*--------*/
+.basic_profile_form2 {
+	width:280px;
+	display:block;
+	overflow:hidden;
+	float:left;
+	margin:145px 0 0 0;
+}
+.basic_profile_form2 h3 {
+	font-family: 'Ubuntu', sans-serif;
+	font-size:14px;
+	line-height:18px;
+	font-weight:bold;
+}
+.basic_profile_form2 p {
+	width:170px;
+	float:left;
+	font-size:14px;
+	line-height:18px;
+	font-weight:bold;
+	font-family: 'Ubuntu', sans-serif;
+	margin:0 20px 10px 0;
+}
+.textarea {
+	width:263px;
+	height:114px;
+}
+.hand_button {
+	width:39px;
+	height:30px;
+	background:url(../images/hand.png) no-repeat;
+	float:left;
+	margin:10px 0 0 0;
+}
+.basic_profile_form .large {
+	width:260px !important;
+	margin: 0 0 25px 0;
+}
+.file-upload-box {
+	width:255px;
+	background:#73addc;
+	display: block;
+	float: left;
+	margin:5px 0 0 0;
+	padding:4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+.file-upload-button {
+	width:126px;
+	height:37px;
+	display:block;
+	float:left;
+	background:url(../images/choose_file.png) no-repeat;
+	margin:0 10px 0 0;
+}
+.file-upload-box span {
+	font-family: 'Ubuntu', sans-serif;
+	color:#366eaa;
+	font-size:14px;
+	float:left;
+	line-height:37px;
+	font-weight:500;
+}
+.email_textarea {
+	width:831px;
+	height:114px;
+}
+/*--------------verify_account-------------*/
+ul.rockit {
+	width:223px;
+	height:130px;
+	list-style:none;
+	display: block;
+	margin:70px auto 20px auto;
+}
+ul.verify_buttons {
+	width: 90.5%;
+	height: 153px;
+	list-style: none;
+	margin: 27px auto 0 auto;
+	display: block;
+	padding: 15px 0 50px 0;
+	position:relative;
+	background: url(../images/next.png) 137px 165px no-repeat;
+}
+ul.verify_buttons li, ul.rockit li {
+	width:223px;
+	height:128px;
+	float:left;
+	text-align:center;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	position:relative;
+	background:#f3f4f7;
+	padding:15px 0 0 0;
+	-webkit-box-shadow: 0px 0px 6px 1px #3c7db0;
+box-shadow: 0px 0px 6px 1px #3c7db0;
+}
+ul.verify_buttons li+li {
+	margin-left:70px;
+}
+ul.verify_buttons span a, ul.rockit li span a {
+	width:223px;
+	text-align:center;
+	font-size:18px;
+	font-size:700;
+	font-family: 'Ubuntu', sans-serif;
+	color:#fff;
+	text-transform:uppercase;
+	position:absolute;
+	top:-30px;
+	left:0;
+	text-decoration:none;
+}
+ul.rockit li span a {
+	width: 263px;
+	top: -40px;
+	left: -20px;
+}
+.arrow-top {
+	width: 28px;
+	height: 10px;
+	background: url(../images/liarrow_top.png);
+	display: block;
+	z-index: 1000;
+	position: absolute;
+	top: -10px;
+	left: 96px;
+}
+.arrow-bottom {
+	width:24px;
+	height:12px;
+	background:url(../images/liarrow.png);
+	display:block;
+	z-index:1000;
+	position:absolute;
+	bottom:-12px;
+	left:96px;
+}
+.and-icon {
+	width: 76px;
+	height: 37px;
+	position: absolute;
+	left: 362px;
+	bottom: -24px;
+	background: url(../images/fieldset-bg.png) repeat;
+}
+.verify-account{
+	margin:0 !important;
+}
