@@ -32,7 +32,6 @@ var AppRouter = Backbone.Router.extend({
     	 
          $('#register-step-school').html(this.loginView.el);  
          
-         
     },
    
     /**
@@ -114,8 +113,8 @@ var AppRouter = Backbone.Router.extend({
 	   $.ajax({
 			type : 'POST',
  
-			url : "http://localhost/client2/api.php",
-//			url :"http://localhost:9000/verifyToken",
+//			url : "http://localhost/client2/api.php",
+			url :"http://localhost:9000/verifyToken",
 
 			data : {
 				token : token
