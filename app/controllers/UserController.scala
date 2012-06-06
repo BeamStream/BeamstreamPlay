@@ -120,5 +120,17 @@ object UserController extends Controller {
     User.InactiveUsers(request.session.get("userId").get)
     Ok(views.html.user(User.allUsers(), userForm, User.message(s)))
   }
+  
+  /*
+   *  Returns the user Json on Stream page load
+   */
+  
+   def returnUserJson = Action { implicit request => 
+     val loggedInUserId=new ObjectId(request.session.get("userId").get)
+     val loggedInUser=User.findUserbyId(loggedInUserId)
+     val loggedInUserJson=write(loggedInUser)
+     Ok(loggedInUserJson).as("application/json")
+   }
+  
 
 }
