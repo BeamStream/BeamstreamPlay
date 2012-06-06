@@ -57,7 +57,7 @@ window.verifyEmailView = Backbone.View.extend({
 				},
 				dataType : "json",
 				success : function(data) {
-					if(data.status == "success") 
+					if(data.status == "Success") 
 	   			    {
 						 
 							var source = $("#tpl-verify-popup").html();

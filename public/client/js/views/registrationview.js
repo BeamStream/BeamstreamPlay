@@ -48,7 +48,7 @@ window.RegistrationView = Backbone.View.extend({
 			},
 			dataType : "json",
 			success : function(data) {
-				if(data.status == "success") 
+				if(data.status == "Success") 
    			    {
 					// navigate to main stream page
 	            	 app.navigate("streams", {trigger: true, replace: true});
@@ -118,7 +118,7 @@ window.RegistrationView = Backbone.View.extend({
 			},
 			dataType : "json",
 			success : function(data) {
-				if(data.status == "success") 
+				if(data.status == "Success") 
    			    {
 					// navigate to main stream page
 	            	 app.navigate("streams", {trigger: true, replace: true});
