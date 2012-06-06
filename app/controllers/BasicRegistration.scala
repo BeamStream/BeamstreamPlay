@@ -70,7 +70,9 @@ object BasicRegistration extends Controller {
     val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, "", password, schoolName, location, List(), List(), List())
     val IdOfUserCreted = User.createNewUser(userToCreate)
     val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
-    Ok(write(new ResulttoSent("Success", "SignUp Successfully"))).withSession(RegistrationSession)
+    val userJsonToReturn = write(userToCreate)
+    //  Ok(write(new ResulttoSent("Success", "SignUp Successfully"))).withSession(RegistrationSession)
+    Ok(userJsonToReturn).withSession(RegistrationSession)
   }
   /*
    * Send the verification mail to the User

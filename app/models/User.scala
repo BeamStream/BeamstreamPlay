@@ -30,11 +30,11 @@ object User {
    * Add info to a user(Intact)
    * 
    */
-  
+
   def addInfo(schoolList: List[School], userid: ObjectId) = {
     for (school <- schoolList) {
       User.addSchoolToUser(userid, school.id)
-      
+
     }
 
   }
@@ -184,6 +184,15 @@ object User {
   def usertypes: Seq[(String, String)] = {
     val usertype = for (value <- UserType.values) yield (value.id.toString, value.toString)
     usertype.toSeq
+  }
+
+ /*
+  * Find User By Id
+  */
+  
+  def findUserbyId(userId: ObjectId): User = {
+    val userFound = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
+    userFound
   }
 
 }
