@@ -48,6 +48,16 @@ window.RegistrationView = Backbone.View.extend({
 			},
 			dataType : "json",
 			success : function(data) {
+				if(data.status == "success") 
+   			    {
+					// navigate to main stream page
+	            	 app.navigate("streams", {trigger: true, replace: true});
+	            	 console.log(data.message);
+   			    }
+				else
+				{
+					 console.log(data.message);
+				}
 				  
 				  
 			}
@@ -96,7 +106,6 @@ window.RegistrationView = Backbone.View.extend({
     toNextPage:function (eventName) {
     	 
     	eventName.preventDefault();
-//    	var validate = jQuery('#registration-form').validationEngine('validate');
     	var regDetails = this.getFormData();
     	
     	/* post basic profile registration details */
@@ -109,7 +118,16 @@ window.RegistrationView = Backbone.View.extend({
 			},
 			dataType : "json",
 			success : function(data) {
-				  
+				if(data.status == "success") 
+   			    {
+					// navigate to main stream page
+	            	 app.navigate("streams", {trigger: true, replace: true});
+	            	 console.log(data.message);
+   			    }
+				else
+				{
+					 console.log(data.message);
+				}  
 				  
 			}
 	     });

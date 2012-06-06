@@ -50,7 +50,7 @@ window.verifyEmailView = Backbone.View.extend({
 	    	/* post email verification details */
 			$.ajax({
 				type : 'POST',
-	//			url : "http://localhost:9000/getEmailforNewUser",
+//				url : "http://localhost/client2/api.php",
 				url : "http://localhost:9000/getEmailforNewUser",
 				data : {
 					data : mailDetails
@@ -62,6 +62,9 @@ window.verifyEmailView = Backbone.View.extend({
 						 
 							var source = $("#tpl-verify-popup").html();
 							var template = Handlebars.compile(source);
+							$("#register-step-school").css('top','65%');
+							$("#register-step-school").css('margin-left','-332px');
+							$("#register-step-school").css('width','620px');
 							$("#register-step-school").html(template);
 	   			     }
 					 else

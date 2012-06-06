@@ -45,6 +45,7 @@ window.LoginView = Backbone.View.extend({
 			    	  /* post data with school and class details */
 			          $.ajax({
 			    			 type : 'POST',
+//			    			  url : "http://localhost/client2/api.php",
 			    			 url : "http://localhost:9000/users",
 			    			 data : {
 			    						data : loginDetails
@@ -55,10 +56,7 @@ window.LoginView = Backbone.View.extend({
 				    			 if(data.status == "success") 
 				    			 {
 				    					 console.log(data.status + " : " + data.message);
-				    					 app.navigate("school", {
-				    							 trigger : true,
-				    							 replace : true
-				    					 });
+				    					 app.navigate("streams", {trigger: true, replace: true});
 				    			 }
 				    			 else 
 				    			 {
