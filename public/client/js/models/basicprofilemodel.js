@@ -9,8 +9,8 @@ window.BasicProfile = Backbone.Model.extend({
             password:null,
             firstName:null,
             lastName:null,
-            zipCode:null,
             location:null,
+            useCurrentLocation:null,
         },
         
 });
