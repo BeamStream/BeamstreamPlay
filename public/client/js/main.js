@@ -13,6 +13,8 @@ var AppRouter = Backbone.Router.extend({
 
         
     },
+    
+ 
 
     home: function() {
     	console.log('Here');
