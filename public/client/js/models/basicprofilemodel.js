@@ -13,8 +13,6 @@ window.BasicProfile = Backbone.Model.extend({
             location:null,
         },
         
-        
-       
 });
 
  

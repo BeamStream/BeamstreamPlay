@@ -8,8 +8,6 @@ window.Login = Backbone.Model.extend({
             password:null
         },
         
-        
-       
 });
 
  

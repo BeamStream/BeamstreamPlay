@@ -9,8 +9,6 @@ window.EmailVerification = Backbone.Model.extend({
 //            schoolRecord:null
         },
         
-        
-       
 });
 
  

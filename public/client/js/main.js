@@ -32,7 +32,6 @@ var AppRouter = Backbone.Router.extend({
     	 
          $('#register-step-school').html(this.loginView.el);  
          
-         
     },
    
     /**
