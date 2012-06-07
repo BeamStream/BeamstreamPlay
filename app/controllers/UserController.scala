@@ -55,9 +55,8 @@ object UserController extends Controller {
         val jsonStatus = new ResulttoSent("success", "Login Successfull")
         val statusToSend = write(jsonStatus)
         val userSession = request.session + ("userId" -> user.id.toString)
-        val authenticatedUserJson=write(user)
+        val authenticatedUserJson = write(user)
         Ok(statusToSend).as("application/json").withSession(userSession)
-        //Ok(authenticatedUserJson).as("application/json").withSession(userSession)
 
       case None =>
 
@@ -65,49 +64,11 @@ object UserController extends Controller {
         val statusToSend = write(jsonStatus)
         Ok(statusToSend).as("application/json")
     }
-
-    //      case Some(user) =>  val aa = request.session + ("userId" -> user.id.toString)
-    //      
-    //     
-    //      case None => Redirect(routes.UserController.users)
-
-    //    userForm.bindFromRequest.fold(
-    //      errors => BadRequest(views.html.user(User.allUsers(), errors, "")),
-    //      userForm => {
-    //
-    //        (userForm.signup == "0") match {
-    //
-    //          case true =>
-    //
-    //            val initialFlashObject = request.flash + ("email" -> userForm.email)
-    //            val FinalFlashObject = initialFlashObject + ("iam" -> userForm.iam)
-    //            Redirect(routes.BasicRegistration.emailSent).flashing(FinalFlashObject)
-    //
-    //          case false =>
-    //            val authenticatedUser = User.findUser(userForm)
-    //            authenticatedUser match {
-    //              case None =>
-    //                s = "No User Found"
-    //                Redirect(routes.UserController.users)
-    //
-    //              case _ =>
-    //                s = "Login Successful"
-    //
-    //                /*Creates a Session*/
-    //                val aa = request.session + ("userId" -> authenticatedUser.get.id.toString)
-    //                User.activeUsers(authenticatedUser.get.id.toString)
-    //                Redirect(routes.MessageController.messages).withSession(aa)
-    //
-    //            }
-    //        }
-    //
-    //      })
-
   }
 
-  def users = Action { implicit request =>
-    Ok(views.html.user(User.allUsers(), userForm, User.message(s)))
-  }
+  /*
+   * Register User via social sites
+   */
 
   def registerUserViaSocialSite = Action { implicit request =>
     val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
@@ -116,21 +77,24 @@ object UserController extends Controller {
 
   }
 
+  /*
+   * Reducing active user on sign Out
+   */
+
   def signOut = Action { implicit request =>
     User.InactiveUsers(request.session.get("userId").get)
     Ok(views.html.user(User.allUsers(), userForm, User.message(s)))
   }
-  
+
   /*
    *  Returns the user Json on Stream page load
    */
-  
-   def returnUserJson = Action { implicit request => 
-     val loggedInUserId=new ObjectId(request.session.get("userId").get)
-     val loggedInUser=User.findUserbyId(loggedInUserId)
-     val loggedInUserJson=write(loggedInUser)
-     Ok(loggedInUserJson).as("application/json")
-   }
-  
+
+  def returnUserJson = Action { implicit request =>
+    val loggedInUserId = new ObjectId(request.session.get("userId").get)
+    val loggedInUser = User.findUserbyId(loggedInUserId)
+    val loggedInUserJson = write(loggedInUser)
+    Ok(loggedInUserJson).as("application/json")
+  }
 
 }
