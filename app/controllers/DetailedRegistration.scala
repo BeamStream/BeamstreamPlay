@@ -37,9 +37,7 @@ object DetailedRegistration extends Controller {
     mapping(
       "schoolName" -> nonEmptyText)(DetailedRegForm.apply)(DetailedRegForm.unapply))
 
-  def users = Action {
-    Ok(views.html.detailed_reg(detailed_regForm))
-  }
+ 
 
   /*
    * Sends the field values & profile related info to User Model for adding the info of a User

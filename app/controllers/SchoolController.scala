@@ -17,13 +17,9 @@ object SchoolController extends Controller {
     mapping(
       "schoolName" -> nonEmptyText)(SchoolForm.apply)(SchoolForm.unapply))
 
-  /*
-   * Will display all the Schools
-   */
+ 
 
-  def schools = Action { implicit request =>
-    Ok(views.html.school(School.allSchools, schoolForm))
-  }
+ 
 
   /*
    * Sends the obtained fields value from html to model for saving it
@@ -31,12 +27,14 @@ object SchoolController extends Controller {
 
   def addSchool = Action { implicit request =>
    
-    schoolForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.school(School.allSchools(), errors)),
-      schoolForm => {
-        //School.addSchool(schoolForm)
-        Redirect(routes.MessageController.messages)
-      })
+//    schoolForm.bindFromRequest.fold(
+//      errors => BadRequest(views.html.school(School.allSchools(), errors)),
+//      schoolForm => {
+//        School.addSchool(schoolForm)
+//        Redirect(routes.MessageController.messages)
+//      Ok
+//      })
+    Ok
   }
 
 }

@@ -4,29 +4,25 @@
 
 # Home page
 GET     /                           controllers.Application.index()
-GET     /emailpopup                 controllers.BasicRegistration.emailSent
 
-GET    /listUsers                   controllers.Application.listUsers
-#GET    /getProfilePic               controllers.MessageController.getProfilePic
 
 #Streams
 
 
-#GET    /users                         controllers.UserController.users
 POST   /users                         controllers.UserController.findUser
 
-GET    /streams                       controllers.Application.streams
-POST   /streams                       controllers.Application.newStream
+#GET    /streams                       controllers.Application.streams
+#POST   /streams                       controllers.Application.newStream
 
 
-GET    /messages                       controllers.MessageController.messages
-POST    /messages                      controllers.MessageController.newMessage
-GET   /messages/:id/streammessages     controllers.MessageController.streamMessages(id:String)
+#GET    /messages                       controllers.MessageController.messages
+#POST    /messages                      controllers.MessageController.newMessage
+#GET   /messages/:id/streammessages     controllers.MessageController.streamMessages(id:String)
 
 
 
-GET    /joinstreams                   controllers.JoinStream.joinstreams
-POST   /joinstreams                   controllers.JoinStream.joinStream
+#GET    /joinstreams                   controllers.JoinStream.joinstreams
+#POST   /joinstreams                   controllers.JoinStream.joinStream
 
 
 #Schools
@@ -35,12 +31,12 @@ POST   /school                   controllers.SchoolController.addSchool
 
 #UpdateUserInfo
 
-GET   /detailed_reg                   controllers.DetailedRegistration.users
+#GET   /detailed_reg                   controllers.DetailedRegistration.users
 POST   /detailed_reg                 controllers.DetailedRegistration.addInfo
 
 #Class
 
-GET   /class                   controllers.ClassController.classes
+#GET   /class                   controllers.ClassController.classes
 POST   /class                  controllers.ClassController.addClass
 
 #Getting the School JSON
@@ -50,18 +46,16 @@ GET   /loggedInUserJson        controllers.UserController.returnUserJson
 
 #Basic Registration
 
-#GET   /verify/:iam/mail/:emailId/token/:token              controllers.BasicRegistration.basicRegistration(iam:String,emailId:String,token:String)
 POST   /verifyToken                                           controllers.BasicRegistration.basicRegistration
-
      
 POST  /registerNewUser                                       controllers.BasicRegistration.newUser
 
 POST  /getEmailforNewUser                                   controllers.BasicRegistration.emailSent
 
-GET   /basicRegistrationViaSocialSites   controllers.BasicRegistration.basicRegistrationViaSocialSites(email:String,userName:String,name:String)
-POST  /basicRegistrationViaSocialSites   controllers.BasicRegistration.newUser
+#GET   /basicRegistrationViaSocialSites   controllers.BasicRegistration.basicRegistrationViaSocialSites(email:String,userName:String,name:String)
+#POST  /basicRegistrationViaSocialSites   controllers.BasicRegistration.newUser
 
-POST   /userPage                         controllers.UserController.registerUserViaSocialSite
+#POST   /userPage                         controllers.UserController.registerUserViaSocialSite
 
 #Media
 

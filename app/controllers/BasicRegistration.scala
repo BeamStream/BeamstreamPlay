@@ -43,7 +43,6 @@ object BasicRegistration extends Controller {
   }
 
   def basicRegistrationViaSocialSites(email: String, userName: String, firstName: String) = Action { implicit request =>
-    // Ok(views.html.basic_reg(basicRegForm, email, "1", userName, firstName))
     Ok
   }
 

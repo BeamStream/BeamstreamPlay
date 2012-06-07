@@ -82,7 +82,8 @@ object UserController extends Controller {
 
   def signOut = Action { implicit request =>
     User.InactiveUsers(request.session.get("userId").get)
-    Ok(views.html.user(User.allUsers(), userForm, User.message(s)))
+    //Ok(views.html.user(User.allUsers(), userForm, User.message(s)))
+    Ok
   }
 
   /*
@@ -90,7 +91,6 @@ object UserController extends Controller {
    */
 
   def returnUserJson = Action { implicit request =>
-    println("Hitting the method")
     val loggedInUserId = new ObjectId(request.session.get("userId").get)
     val loggedInUser = User.findUserbyId(loggedInUserId)
     val loggedInUserJson = write(loggedInUser)

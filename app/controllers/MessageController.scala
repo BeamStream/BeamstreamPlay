@@ -33,25 +33,26 @@ object MessageController extends Controller {
 
   def newMessage = Action { implicit request =>
 
-    messageForm.bindFromRequest.fold(
-
-      errors => BadRequest(views.html.message(Message.getAllMessagesForAStream(new ObjectId), errors, List(), tempUser, new GridFSDBFile)),
-      messageForm => {
-
-        val messagePoster = User.getUserProfile((new ObjectId(request.session.get("userId").get)))
-        Message.create(messageForm, new ObjectId(request.session.get("userId").get), new ObjectId(request.session.get("streamId").get),
-          messagePoster.firstName, messagePoster.lastName)
-
-        Redirect(routes.MessageController.streamMessages(request.session.get("streamId").get))
-
-      })
+    //    messageForm.bindFromRequest.fold(
+    //
+    //      errors => BadRequest(views.html.message(Message.getAllMessagesForAStream(new ObjectId), errors, List(), tempUser, new GridFSDBFile)),
+    //      messageForm => {
+    //
+    //        val messagePoster = User.getUserProfile((new ObjectId(request.session.get("userId").get)))
+    //        Message.create(messageForm, new ObjectId(request.session.get("userId").get), new ObjectId(request.session.get("streamId").get),
+    //          messagePoster.firstName, messagePoster.lastName)
+    //
+    //        Redirect(routes.MessageController.streamMessages(request.session.get("streamId").get))
+    //        Ok
+    //      })
+    Ok
   }
 
   def messages = Action { implicit request =>
     val profileName = User.getUserProfile((new ObjectId(request.session.get("userId").get)))
     val streams = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
-    Ok(views.html.message(Message.getAllMessagesForAStream(new ObjectId), messageForm, streams, profileName, new GridFSDBFile))
-
+    //Ok(views.html.message(Message.getAllMessagesForAStream(new ObjectId), messageForm, streams, profileName, new GridFSDBFile))
+    Ok
   }
 
   //==================================================//
@@ -62,30 +63,9 @@ object MessageController extends Controller {
     val profileName = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val streams = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
     val messagesListFound = Message.getAllMessagesForAStream(new ObjectId(id))
-    Ok(views.html.message(messagesListFound, messageForm, streams, profileName, new GridFSDBFile)).withSession(session + ("streamId" -> id))
-
+    //Ok(views.html.message(messagesListFound, messageForm, streams, profileName, new GridFSDBFile)).withSession(session + ("streamId" -> id))
+    Ok
   }
-  
-  
-
-  /*
-   * get the profle pic for a User
-   */
-//  def getProfilePic = Action { implicit request =>
-//    val media = Media.getAllMediaByUser(new ObjectId(request.session.get("userId").get))
-//
-//    (media.isEmpty) match {
-//      case false =>
-//        val photoId: ObjectId = media(0).gridFsId
-//        val profileImage = Media.findMedia(photoId)
-//        profileImage.writeTo("./public/temp/" + profileImage.filename)
-//        Ok("http://localhost:9000/assets/temp/" + profileImage.filename).as("image/jpg")
-//
-//      case true =>
-//        Ok("http://localhost:9000/assets/temp/noimage").as("image/jpg")
-//    }
-//
-//  }
 
 }
 

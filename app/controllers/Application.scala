@@ -27,27 +27,21 @@ object Application extends Controller {
   
   def streams = Action { implicit request =>
      Stream.obtainUser(new ObjectId(request.session.get("userId").get))
-     Ok(views.html.index(Stream.all(), streamForm))
+    // Ok(views.html.index(Stream.all(), streamForm))
+     Ok
   }
 
   def newStream = Action { implicit request =>
-    streamForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.index(Stream.all(), errors)),
-      streamForm => {
-        Stream.create(streamForm, new ObjectId(request.session.get("userId").get))
-        Redirect(routes.MessageController.messages)
-
-      })
+//    streamForm.bindFromRequest.fold(
+//      errors => BadRequest(views.html.index(Stream.all(), errors)),
+//      streamForm => {
+//        Stream.create(streamForm, new ObjectId(request.session.get("userId").get))
+//        //Redirect(routes.MessageController.messages)
+//         Ok
+//      })
+    Ok
   }
 
-  def listUsers() = Action {
-    val user = UserDAO.findOneByID(101).toSeq
-
-    val json = Json.generate(user)
-
-    Ok(json).as("application/json")
-
-  }
   
   
   

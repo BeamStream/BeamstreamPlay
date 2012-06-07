@@ -22,14 +22,11 @@ object Authentication extends Controller {
 
     val jsonData = net.liftweb.json.parse(body)
 
-    //jsonData.children.contains("email")
     println(jsonData)
 
     val userName = (jsonData \\ "profile" \\ "preferredUsername").extract[String]
     val name = (jsonData \\ "profile" \\ "displayName").extract[String]
-    //val email=(jsonData \\ "profile" \\ "email").extract[String]
-
-    Redirect(routes.BasicRegistration.basicRegistrationViaSocialSites("", userName, name))
+    Ok
 
   }
 

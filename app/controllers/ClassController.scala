@@ -39,7 +39,7 @@ object ClassController extends Controller {
   */
 
   def classes = Action {
-    Ok(views.html.classes(classForm))
+Ok
   }
 
   /*
