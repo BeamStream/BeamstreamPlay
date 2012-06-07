@@ -156,7 +156,7 @@ var AppRouter = Backbone.Router.extend({
       }
  	 
       $('#register-step-school').html(this.emailView.el);  
-      
+      $(".modal select:visible").selectBox();
       
  },
  
