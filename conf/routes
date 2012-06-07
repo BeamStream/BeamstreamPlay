@@ -12,7 +12,7 @@ GET    /listUsers                   controllers.Application.listUsers
 #Streams
 
 
-GET    /users                         controllers.UserController.users
+#GET    /users                         controllers.UserController.users
 POST   /users                         controllers.UserController.findUser
 
 GET    /streams                       controllers.Application.streams

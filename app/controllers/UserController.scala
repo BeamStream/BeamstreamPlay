@@ -2,7 +2,6 @@ package controllers
 import play.api.mvc.Controller
 import play.api._
 import play.api.mvc._
-import models.Quote
 import models.Stream
 import play.api.data._
 import play.api.data.Forms._
@@ -91,6 +90,7 @@ object UserController extends Controller {
    */
 
   def returnUserJson = Action { implicit request =>
+    println("Hitting the method")
     val loggedInUserId = new ObjectId(request.session.get("userId").get)
     val loggedInUser = User.findUserbyId(loggedInUserId)
     val loggedInUserJson = write(loggedInUser)
