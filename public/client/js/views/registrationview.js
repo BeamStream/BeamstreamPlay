@@ -70,14 +70,14 @@ window.RegistrationView = Backbone.View.extend({
     getFormData:function(){
     	
     	var  basicProfile =new BasicProfile();
-    	var location;
-    	if($('#loaction').attr('checked') == "checked")
+    	var useCurrentLocation;
+    	if($('#useCurrentLocation').attr('checked') == "checked")
     	{
-    		location = true;
+    		useCurrentLocation = true;
     	}
     	else
     	{
-    		location = false;
+    		useCurrentLocation = false;
     	}
     	 
     	basicProfile.set({
@@ -88,8 +88,8 @@ window.RegistrationView = Backbone.View.extend({
     		password: $('#password').val(),
     		firstName: $('#first-name').val(),
     		lastName: $('#last-name').val(),
-    		zipCode: $('#zip-code').val(),
-    		location:location,
+    		location: $('#location').val(),
+    		useCurrentLocation:useCurrentLocation,
 			 
 		});
     	var regDetails = JSON.stringify(basicProfile);
@@ -112,7 +112,7 @@ window.RegistrationView = Backbone.View.extend({
 		$.ajax({
 			type : 'POST',
 			url : "http://localhost:9000/registerNewUser",
-//			url : "http://localhost/BeamstreamPlay/public/client/api.php",
+//			url : "http://localhost/client2/api.php",
 			data : {
 				data : regDetails
 			},
