@@ -1,6 +1,7 @@
 window.StreamView = Backbone.View.extend({
 
 	 events :{
+ 
 		  
 	 },
 	
@@ -26,6 +27,9 @@ window.StreamView = Backbone.View.extend({
         $(this.el).html(this.template);
         return this;
     },
+    
+    
+     
     
     
     
