@@ -100,6 +100,7 @@ var AppRouter = Backbone.Router.extend({
             this.streamView.render();
             
       }
+   	 
       $('body').html(this.streamView.el);
       
    },

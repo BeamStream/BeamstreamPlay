@@ -66,7 +66,7 @@ window.verifyEmailView = Backbone.View.extend({
 	   			     }
 					 else
 					 {
-						 alert("Token Expired");
+							alert("Token Expired");
 					 }
 					  
 				}
@@ -74,6 +74,7 @@ window.verifyEmailView = Backbone.View.extend({
 	    }
     	else
     	{
+    		alert("Only use emails that are assosiated with schools and organozations");
     		console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
     	}
 		 
