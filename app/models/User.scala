@@ -89,21 +89,20 @@ object User {
    * Email Validation
    */
   def validateEmail(emailId: String): Boolean = {
-    var validationStatus = false
     val emailPart: List[String] = List("gmail.com", "yahoo.com", "rediff.com", "hotmail.com", "aol.com")
     val i: Int = emailId.lastIndexOf("@")
     val stringToMatch: String = emailId.substring(i + 1)
     val emailString: String = emailId.toUpperCase
 
-    (!emailString.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$") ||
-      emailPart.contains(stringToMatch)) match {
-        case true =>
-        case false =>
-          validationStatus = true
-      }
-    return validationStatus
+    (emailString.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$") &&
+        !emailPart.contains(stringToMatch)) match {
+      case true => true
+      case false => false
+    }
   }
 
+  //     !emailString.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
+                                                
   /*
  * Registration For a User  
  */
@@ -186,10 +185,10 @@ object User {
     usertype.toSeq
   }
 
- /*
+  /*
   * Find User By Id
   */
-  
+
   def findUserbyId(userId: ObjectId): User = {
     val userFound = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
     userFound
