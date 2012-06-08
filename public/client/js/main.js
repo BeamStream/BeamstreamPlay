@@ -14,16 +14,6 @@ var AppRouter = Backbone.Router.extend({
         
     },
     
-    initialize :function(){
-    	var self = this;
-    	
-    	window.user = new SingleUser();
-        window.user.fetch({success: function(e) {  
- 
-		}});
-        
-    },
- 
 
     home: function() {
     	console.log('Here');
