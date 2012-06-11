@@ -2351,3 +2351,38 @@ ul.rockit li span a {
 {
 	height: 58px !important;
 }
+
+/* for testing - hover over */
+.bubbleInfo {
+    position: relative;
+}
+
+.popup {
+    position: absolute;
+    display: none; /* keeps the popup hidden if no JS available */
+    z-index :999;
+}
+.block{
+	color: #FFFFFF;
+	padding:30px 40px 40px 40px;
+	width:630px;
+	height:100px;
+	background:#2288C8;
+	border-radius: 5px 5px 5px 5px;
+}
+.block a{
+	color: #FFFFFF;
+	font-size: 15px;
+    font-weight: bold;
+    
+}
+.block ul li {
+	float:left;
+}
+.block ul li a{
+	text-decoration:none;
+	
+}
+.block ul li a:hover{
+	text-decoration:underline;
+}
