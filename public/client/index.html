@@ -90,12 +90,17 @@
 	</div>
 	
 	<div class="container">
+	    
+	  
+	    
+	    
+	    
 	    <h1>Registration form</h1>
 	    <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
 	    <p>
 	        <a class="btn btn-primary" data-toggle="modal" href="#register-1" >Click to open modal</a>
 	    </p>
-	    
+	   
 	</div> <!-- /container -->
 	
 	<!--  Success Message -->
@@ -660,8 +665,20 @@
               </ul>
               <a class="btn next"><i class="icon-down"></i></a>
             </section>
-          <div class="create_stream">
-	             <a class="btn plus" href="#create_stream"><i><b></b><span class="popout_arrow"><span></span></span></i>Create Stream</a>
+          <div class="create_stream trigger">
+	           <a id="create_stream" class="btn plus" href="#create_stream"><i><b></b><span class="popout_arrow"><span></span></span></i>Create Stream</a>
+                    <div class="popup">                   
+                       <div class="block">
+                        <ul>
+                         <li><a href="#classstream">ClassStream </a>- Collaborate within your class</li>
+						 <li><a href="#projectstream">ProjectStream </a>- Shortterm  projects w/ an end date - choose to add to your profile upon completion</li>
+                         <li><a href="#studystream">StudyStream  </a>- Study Group of students from your class, degree program, school and beyond</li>
+					 	 <li><a href="#gruopstream">GroupStream </a>-Ongoing groups about anything, make them public or private </li>
+						 <li><a href="#peerstream">PeerStream  </a>-Students or Professors:Stay connected w/ your peer</li>
+						 <li><a href="#friendstream">FriendStream  </a>-Collaborate and stay in touch w/ your friends</li>
+                        <ul>
+                 </div>
+                  </div>
 	            <br>
 				<br>
 				  
@@ -676,7 +693,7 @@
                   Intro to Business
                 </a>
               </li>
-              <li><a href="#tasks">Tasks <span class="label label-important">5</span></a></li>
+              <li><a id="tasks" href="#tasks">Tasks <span class="label label-important">5</span></a></li>
               <li><a href="#questions">Questions <span class="label label-important">10</span></a></li>
               <li><a href="#surveys">Surveys</a></li>
               <li><a href="#idea-stream">Idea Stream</a></li>
@@ -1153,6 +1170,7 @@
 	    s.parentNode.insertBefore(e, s);
 	})();
     
+ 
 	
 </script>
  
