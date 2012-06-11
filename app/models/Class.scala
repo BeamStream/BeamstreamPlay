@@ -56,12 +56,15 @@ object Class {
   /*
    * Create the new Classes
    */
-  def createClass(classList: List[Class]) {
+  def createClass(classList: List[Class]): List[ObjectId] = {
+    var classIdList: List[ObjectId] = List()
     for (eachclass <- classList) {
-      ClassDAO.insert(eachclass)
-    }
-    
+      val classId = ClassDAO.insert(eachclass)
+      val classObjectId = new ObjectId(classId.get.toString)
+      classIdList ++= List(classObjectId)
 
+    }
+    classIdList
   }
 
   /*
@@ -87,9 +90,7 @@ object Class {
     val regexp = (""".*""" + name + """.*""").r
     for (theclass <- ClassDAO.find(MongoDBObject("className" -> regexp)).toList) yield theclass
   }
-  
-  
-  
+
 }
 
 object ClassType extends Enumeration {

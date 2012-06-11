@@ -129,9 +129,9 @@ object User {
   /*
    * Add a Class to user
    */
-  def addClassToUser(userId: ObjectId, classId: ObjectId) {
+  def addClassToUser(userId: ObjectId, classId: List[ObjectId]) {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classId = (user.classId ++ List(classId))), false, false, new WriteConcern)
+    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classId = (user.classId ++ classId)), false, false, new WriteConcern)
   }
 
   /*
