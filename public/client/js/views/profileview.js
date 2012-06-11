@@ -13,7 +13,6 @@ window.ProfileView = Backbone.View.extend({
         this.template= _.template($("#tpl-profile-reg").html());
         
     },
-
     render:function (eventName) {
     	
         $(this.el).html(this.template());
@@ -38,7 +37,6 @@ window.ProfileView = Backbone.View.extend({
         	this.model.set('upload',$('#upload').val());
     		
     		var data;
-
     		
     		data = new FormData();
      	    data.append('imageName',$('#imagedata').attr("name"));
@@ -50,8 +48,6 @@ window.ProfileView = Backbone.View.extend({
      	   data.append('upload',$('#upload').val());
  
  
-    		 
-    		
         	/* post profile page details */
         	$.ajax({
         	    type: 'POST',

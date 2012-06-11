@@ -25,7 +25,7 @@ window.LoginView = Backbone.View.extend({
     login:function (eventName) {
     	
     	    eventName.preventDefault();
-//    	    var validate = jQuery('#login-form').validationEngine('validate');
+ 
 			var loginDetails = this.getLoginInfo();
 			
 			  if(loginDetails != false)
