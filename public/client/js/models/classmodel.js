@@ -1,4 +1,4 @@
-window.Class = Backbone.Model.extend({
+BS.Class = Backbone.Model.extend({
 	
 	
         defaults: {
@@ -15,8 +15,8 @@ window.Class = Backbone.Model.extend({
         
 });
 
-window.ClassCollection = Backbone.Collection.extend({
+BS.ClassCollection = Backbone.Collection.extend({
 
-    model:Class, 
+    model:BS.Class, 
 	
 });

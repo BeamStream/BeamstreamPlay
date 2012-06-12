@@ -1,4 +1,4 @@
-window.Login = Backbone.Model.extend({
+BS.Login = Backbone.Model.extend({
      
         defaults: {
         	

@@ -1,4 +1,4 @@
-window.LoginView = Backbone.View.extend({
+BS.LoginView = Backbone.View.extend({
 
 	events: {
 	      "click #login": "login",
@@ -6,7 +6,7 @@ window.LoginView = Backbone.View.extend({
 	 },
 	
     initialize:function () {
-    	
+    	jQuery("#login-form").validationEngine();
         console.log('Initializing Login View');
         this.template= _.template($("#tpl-login").html());
         
@@ -25,60 +25,71 @@ window.LoginView = Backbone.View.extend({
     login:function (eventName) {
     	
     	    eventName.preventDefault();
-//    	    var validate = jQuery('#login-form').validationEngine('validate');
+    	    
+    	    var validate = jQuery('#login-form').validationEngine('validate');
 			var loginDetails = this.getLoginInfo();
 			
 			  if(loginDetails != false)
 			  {
 			    if(loginDetails == 1)
 			    {
-						alert("Only use emails that are assosiated with schools and organozations");
+						console.log("Only use emails that are assosiated with schools and organozations");
+						$('#error').html("Only use emails that are assosiated with schools and organozations");
 				} 
 			    else
 			    {
 			    	 pwdStatus = $("input[name=signup]:checked").val();
 					    if(pwdStatus == 0)
 					    {
-					    	   app.navigate("emailVerification", {
+					    	BS.AppRouter.navigate("emailVerification", {
 								    trigger : true,
 									replace : true
 							    });
 					    }
 					    else if(pwdStatus == 1)
-					    {
-					    	    	
-					    	  /* post data with school and class details */
-					          $.ajax({
-					    			 type : 'POST',
-//					    			  url : "http://localhost/client2/api.php",
-					    			 url : "http://localhost:9000/users",
-					    			 data : {
-					    						data : loginDetails
-					    			  },
-					    			 dataType : "json",
-					    			 success : function(data) {
-					    						 
-						    			 if(data.status == "success") 
-						    			 {
-						    					 console.log(data.status + " : " + data.message);
-						    					 app.navigate("streams", {trigger: true, replace: true});
-						    			 }
-						    			 else 
-						    			 {
-						    					 console.log(data.status + " : " + data.message);
-						    					 $('#error').html(data.message);
-						    							
-						    					 /* clear email and password text box and get highlighted */
-						    					 $('#email').val("");
-						    					 $('#password').val("");
-						    					 $('#email').focus();
-						    							
-						    			 }
-					    		      },
-					    			  error : function(error){
-					    						console.log("Error");
-					    			  }
-					    		 });
+					    { 
+					    	 
+					    	if($('#password').val() == "")
+					    	{
+					    		$('#error').html("Password is required");
+					    		$('#password').focus();
+					    	}
+					    	else
+					    	{
+					    		/* post data with school and class details */
+						          $.ajax({
+						    			 type : 'POST',
+//						    			  url : "http://localhost/client2/api.php",
+						    			 url : "http://localhost:9000/users",
+						    			 data : {
+						    						data : loginDetails
+						    			  },
+						    			 dataType : "json",
+						    			 success : function(data) {
+						    						 
+							    			 if(data.status == "success") 
+							    			 {
+							    					 console.log(data.status + " : " + data.message);
+							    					 BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+							    			 }
+							    			 else 
+							    			 {
+							    					 console.log(data.status + " : " + data.message);
+							    					 $('#error').html(data.message);
+							    							
+							    					 /* clear email and password text box and get highlighted */
+							    					 $('#email').val("");
+							    					 $('#password').val("");
+							    					 $('#email').focus();
+							    							
+							    			 }
+						    		      },
+						    			  error : function(error){
+						    						console.log("Error");
+						    			  }
+						    		 });
+					    	}
+					    	  
 					     	
 					     }
 			    }
@@ -86,8 +97,9 @@ window.LoginView = Backbone.View.extend({
 		     }
 			 else
 		     {
-		        alert("Fill required fileds.." );
-		        console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
+				  
+		        console.log("fileds are not completely filled");
+		        $('#error').html("fileds are not completely filled");
 		     }
 
 	},
@@ -96,7 +108,7 @@ window.LoginView = Backbone.View.extend({
      */
     getLoginInfo:function (eventName) {
     	
-    	var loginModel = new Login();
+    	var loginModel = new BS.Login();
     	var iam = $("#iam").val();
         var email = $("#email").val();
     	var status = $("input[name=signup]:checked").val();

@@ -1,4 +1,4 @@
-window.ProfileView = Backbone.View.extend({
+BS.ProfileView = Backbone.View.extend({
 
 	events: {
 	      "click #save": "saveProfile",
@@ -28,7 +28,7 @@ window.ProfileView = Backbone.View.extend({
     	var validate = jQuery('#profile-form').validationEngine('validate');
     	if(validate == true)
     	{
-    		this.model = new Profile();
+    		this.model = new BS.Profile();
        	 
         	this.model.set('imageData',$('#imagedata').val());
         	this.model.set('imageName',$('#imagedata').attr("name"));
@@ -63,7 +63,7 @@ window.ProfileView = Backbone.View.extend({
         	    processData: false,
         	    success: function(data){
         	    	// navigate to main stream page
-               	   app.navigate("streams", {trigger: true, replace: true});
+        	    	BS.AppRouter.navigate("streams", {trigger: true, replace: true});
         	    }
         	});
         	

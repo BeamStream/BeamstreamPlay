@@ -1219,7 +1219,7 @@
 			if (ajaxed)
 				prompt.addClass("ajaxed");
 
-			// create the prompt content
+			// create the prompt content            //*****
 //			var promptContent = $('<div>').addClass("formErrorContent").html(promptText).appendTo(prompt);
 			// create the css arrow pointing at the field
 			// note that there is no triangle on max-checkbox and radio
@@ -1242,7 +1242,7 @@
 						arrow.addClass("formErrorArrowBottom").html('<div class="line1"><!-- --></div><div class="line2"><!-- --></div><div class="line3"><!-- --></div><div class="line4"><!-- --></div><div class="line5"><!-- --></div><div class="line6"><!-- --></div><div class="line7"><!-- --></div><div class="line8"><!-- --></div><div class="line9"><!-- --></div><div class="line10"><!-- --></div>');
 						break;
 					case "topLeft":
-					case "topRight":
+					case "topRight":   //*****
 //						arrow.html('<div class="line10"><!-- --></div><div class="line9"><!-- --></div><div class="line8"><!-- --></div><div class="line7"><!-- --></div><div class="line6"><!-- --></div><div class="line5"><!-- --></div><div class="line4"><!-- --></div><div class="line3"><!-- --></div><div class="line2"><!-- --></div><div class="line1"><!-- --></div>');
 //						prompt.append(arrow);
 						break;
