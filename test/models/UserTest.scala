@@ -19,11 +19,6 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   }
 
-  test("Checking the User Crreation") {
-    val user = UserDAO.findOneByID(100)
-    assert(user.get.firstName === "Neel")
-    assert(user.get.streams.contains(101))
-  }
 
   test("testing invalid email for common domain") {
     assert("Invalid email address" ===

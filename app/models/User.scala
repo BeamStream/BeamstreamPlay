@@ -35,19 +35,14 @@ object User {
   def addInfo(schoolList: List[School], userid: ObjectId) = {
     for (school <- schoolList) {
       User.addSchoolToUser(userid, school.id)
-
     }
-
   }
-
-  def allUsers(): List[User] = Nil
 
   /*
    * find the user for Authentication
    * 
    */
   def findUser(userEmail: String, password: String): Option[User] = {
-
     val authenticatedUser = UserDAO.find(MongoDBObject("email" -> userEmail, "password" -> password))
     (authenticatedUser.isEmpty) match {
       case true => None
@@ -102,8 +97,6 @@ object User {
     }
   }
 
-  //     !emailString.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
-                                                
   /*
  * Registration For a User  
  */
