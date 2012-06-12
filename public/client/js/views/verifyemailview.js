@@ -1,4 +1,4 @@
-window.verifyEmailView = Backbone.View.extend({
+BS.verifyEmailView = Backbone.View.extend({
 
 	events: {
 		 "click #no-schoolmail" : "addSchoolEmail",
@@ -89,7 +89,7 @@ window.verifyEmailView = Backbone.View.extend({
     	
     	var iam = $("#iam").val();
     	var wEmail =$('#email').val();
-    	var emailModel = new EmailVerification();
+    	var emailModel = new BS.EmailVerification();
     	emailModel.set({
 			
     		iam :  iam,

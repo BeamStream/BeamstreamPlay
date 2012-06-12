@@ -1,4 +1,4 @@
-window.EmailVerification = Backbone.Model.extend({
+BS.EmailVerification = Backbone.Model.extend({
      
         defaults: {
         	

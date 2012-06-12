@@ -1,4 +1,4 @@
-window.Profile = Backbone.Model.extend({
+BS.Profile = Backbone.Model.extend({
      
         defaults: {
         	

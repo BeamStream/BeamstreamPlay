@@ -1,4 +1,4 @@
-window.SingleUser = Backbone.Model.extend({
+BS.SingleUser = Backbone.Model.extend({
      
 	 idAttribute: "_id",
         defaults: {

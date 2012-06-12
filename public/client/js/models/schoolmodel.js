@@ -1,4 +1,4 @@
- window.School = Backbone.Model.extend({
+ BS.School = Backbone.Model.extend({
      
 	 idAttribute: "_id",
         defaults: {
@@ -15,11 +15,11 @@
         
 });
 
-window.SchoolCollection = Backbone.Collection.extend({
+ BS.SchoolCollection = Backbone.Collection.extend({
 	
-    model:School,
+    model:BS.School,
     url: "http://localhost:9000/schoolJson"
-//    url: "http://localhost/BeamstreamPlay/public/client/api.php"
+//      url : "http://localhost/client2/api.php",
 
 });    
  

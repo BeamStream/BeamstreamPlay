@@ -1,4 +1,4 @@
-window.RegistrationView = Backbone.View.extend({
+BS.RegistrationView = Backbone.View.extend({
 
 	events:{
 		"click #save" : "save",
@@ -51,7 +51,7 @@ window.RegistrationView = Backbone.View.extend({
 				if(data.status == "Success") 
    			    {
 					// navigate to main stream page
-	            	 app.navigate("streams", {trigger: true, replace: true});
+					BS.AppRouter.navigate("streams", {trigger: true, replace: true});
 	            	 console.log(data.message);
    			    }
 				else
@@ -69,7 +69,7 @@ window.RegistrationView = Backbone.View.extend({
      */
     getFormData:function(){
     	
-    	var  basicProfile =new BasicProfile();
+    	var  basicProfile =new BS.BasicProfile();
     	var useCurrentLocation;
     	if($('#useCurrentLocation').attr('checked') == "checked")
     	{
@@ -121,7 +121,7 @@ window.RegistrationView = Backbone.View.extend({
 				if(data.status == "Success") 
    			    {
 					// navigate to main stream page
-	            	 app.navigate("streams", {trigger: true, replace: true});
+					BS.AppRouter.navigate("streams", {trigger: true, replace: true});
 	            	 console.log(data.message);
    			    }
 				else

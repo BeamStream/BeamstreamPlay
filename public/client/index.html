@@ -69,48 +69,26 @@
 </script>
 
 <body style="padding-top: 96px !important;">
-	<div class="navbar navbar-fixed-top">
-	    <div class="navbar-inner">
-	        <div class="container">
-	            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-	                <span class="icon-bar"></span>
-	                <span class="icon-bar"></span>
-	                <span class="icon-bar"></span>
-	            </a>
-	            <a class="brand" href="#">Beamstream</a>
-	            <div class="nav-collapse">
-	                <ul class="nav">
-	                    <li class="active"><a href="#">Home</a></li>
-	                    <li><a href="#about">About</a></li>
-	                    <li><a href="#contact">Contact</a></li>
-	                </ul>
-	            </div><!--/.nav-collapse -->
-	        </div>
-	    </div>
-	</div>
+	  <div class="navbar-fixed-top">
+       <header class="site_header">
+        <div class="container">
+          <h1 class="brand"><a href="#"><img src="images/layout/logo.png" alt="BeamStream" width="106" height="27"></a></h1>
+          <h2><i>Evolving</i> Classroom &amp; Academic Interaction</h2>
+        </div>
+      </header>
+
+      <nav class="navbar main_menu"> </nav>
+    </div>
 	
 	<div class="container">
 	    
-	  
+	  <div id="content"></div>
 	    
-	    
-	    
-	    <h1>Registration form</h1>
-	    <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
-	    <p>
-	        <a class="btn btn-primary" data-toggle="modal" href="#register-1" >Click to open modal</a>
-	    </p>
 	   
 	</div> <!-- /container -->
-	
-	<!--  Success Message -->
-	<h3 align="center">
-		<div id="success"> </div>
-	</h3>
-	
-	<div class="modal" id="register-step-school"></div>
-	
- 
+	 
+  <div class="modal" id="register-step-school"></div>
+
      
     <!-- success regitration -->
     <script id="tpl-success" type="text/x-handlebars-template">
@@ -199,7 +177,9 @@
                 <div class="form-row">
                     <div class="element">
                         <label for="school-name">School name</label>
+ 
                         <input type="text" name="school-name-1" id="school-name-1" class="span3" placeholder="School Name">
+ 
                     </div>
 
                     <div class="element">
@@ -209,7 +189,7 @@
                             <option value="Sophomore">Sophomore</option>
                             <option value="Junior">Junior</option>
                             <option value="Senior">Senior</option>
-                            <option value="Graduated(Master's)">Graduate (Master's)</option>
+                            <option value="Graduated(Master's)">Graduated(Master's)</option>
                             <option value="Graduated(Phd)">Graduated(Phd)</option>
                             <option value="Other">Other</option>
                         </select>
@@ -217,10 +197,10 @@
                      <div class="element">
                         <label for="degree-program">Degree program</label>
                         <select name="degreeprogram-1" id="degreeprogram-1" class="span2">
-                            <option value="Assosiates(AA)">Associates(AA)</option>
+                            <option value="Assosiates(AA)">Assosiates(AA)</option>
                             <option value="Bachelor's">Bachelor's</option>
                             <option value="Master's">Master's</option>
-                            <option value="Doctorate(Phd)">Doctorate(PhD)</option>
+                            <option value="Doctorate(Phd)">Doctorate(Phd)</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
@@ -590,7 +570,7 @@
       </div>
     </section>
 
-    <div class="container content_area wrapper_con">
+    <div id ="middle-part" class="container content_area wrapper_con">
       <div class="container-inner">
         <div class="row">
 
@@ -670,7 +650,7 @@
                     <div class="popup">                   
                        <div class="block">
                         <ul>
-                         <li><a href="#classstream">ClassStream </a>- Collaborate within your class</li>
+                         <li><a  id ="classstream" href="#classstream">ClassStream </a>- Collaborate within your class</li>
 						 <li><a href="#projectstream">ProjectStream </a>- Shortterm  projects w/ an end date - choose to add to your profile upon completion</li>
                          <li><a href="#studystream">StudyStream  </a>- Study Group of students from your class, degree program, school and beyond</li>
 					 	 <li><a href="#gruopstream">GroupStream </a>-Ongoing groups about anything, make them public or private </li>
@@ -1126,7 +1106,7 @@
                 }
             });
         });
-    </script>
+</script>
 
 <script type="text/javascript">
 	var current = 1; //current keeps track of how many schools we have @default =1 
@@ -1177,6 +1157,8 @@
     
     
 <!--  Backbone.js files -->
+
+<script src="js/app.js"></script>
 <script src="js/views/loginview.js"></script>
 <script src="js/models/loginmodel.js"></script>
 <script src="js/views/verifyemailview.js"></script>
@@ -1192,9 +1174,8 @@
 <script src="js/views/profileview.js"></script>
 <script src="js/views/streamview.js"></script>
 <script src="js/models/singleusermodel.js"></script>
-
-<script src="js/main.js"></script>
-
+<script src="js/router.js"></script>
+<script src="js/setup.js"></script>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-window.ClassView = Backbone.View.extend({
+BS.ClassView = Backbone.View.extend({
 
 	events : {
 		"click #save" : "saveClass",
@@ -31,14 +31,14 @@ window.ClassView = Backbone.View.extend({
 		 }
 		this.times = jQuery.parseJSON(JSON.stringify(timeValues));
 		 
-		this.schools = new SchoolCollection();
+		this.schools = new BS.SchoolCollection();
 		this.schools.bind("reset", this.renderSchools, this);
 		
 		this.schools.fetch({success: function(e) {  
 //			console.log(e);
 		}});
  
-		this.classes = new Class();
+		this.classes = new BS.Class();
 		this.source = $("#tpl-class-reg").html();
 		this.template = Handlebars.compile(this.source);
 		
@@ -52,6 +52,7 @@ window.ClassView = Backbone.View.extend({
 		
 		eventName.preventDefault();
 		var validate = jQuery('#class-form').validationEngine('validate');
+		 
 		if(validate == true)
 	    {
 			$('#save').attr('data-dismiss','modal');
@@ -61,13 +62,14 @@ window.ClassView = Backbone.View.extend({
 			$.ajax({
 				type : 'POST',
 				url : "http://localhost:9000/class",
+//				url : "http://localhost/client2/api.php",
 				data : {
 					data : classDetails
 				},
 				dataType : "json",
 				success : function(data) {
 					// navigate to main stream page
-	            	 app.navigate("streams", {trigger: true, replace: true});
+					BS.AppRouter.navigate("streams", {trigger: true, replace: true});
 				}
 			});
 	   }
@@ -127,12 +129,13 @@ window.ClassView = Backbone.View.extend({
 			$.ajax({
 				type : 'POST',
 				url : "http://localhost:9000/class",
+//				 url : "http://localhost/client2/api.php",
 				data : {
 					data : classDetails
 				},
 				dataType : "json",
 				success : function(data) {
-					app.navigate("profile", {
+					BS.AppRouter.navigate("profile", {
 						trigger : true,
 						replace : true
 					});
@@ -152,10 +155,10 @@ window.ClassView = Backbone.View.extend({
 		
 		eventName.preventDefault();
 		
-		
-		$('a.addclass').hide();
 		var id = eventName.target.id;
-  	    var dat='#'+id;
+		var dat='#'+id;
+		$(dat).hide();
+  	    
 		var parentId =  $(dat).parents('fieldset').attr('id')
 		var parent = '#'+parentId;
 		
@@ -208,12 +211,12 @@ window.ClassView = Backbone.View.extend({
 
 	getClassInfo : function() {
         var classId = 0;
-		var classes = new ClassCollection();
+		var classes = new BS.ClassCollection();
 		for (var i=1; i<=sClasses; i++) 
 		{
 			for(var j=1; j<=3; j++)
 			{
-				var classModel = new Class();
+				var classModel = new BS.Class();
 				classId++;
 				classModel.set({
 					

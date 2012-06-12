@@ -1,8 +1,9 @@
-window.StreamView = Backbone.View.extend({
+BS.StreamView = Backbone.View.extend({
 
 	 events :{
            "mouseenter .trigger" : "mouseOver",
-           "mouseleave .trigger" : "mouseOut"
+           "mouseleave .trigger" : "mouseOut",
+ 
 		  
 	 },
 	
@@ -28,7 +29,7 @@ window.StreamView = Backbone.View.extend({
 
     render:function (eventName) {
     	
-    	this.newUser = new SingleUser();
+    	this.newUser = new BS.SingleUser();
         this.newUser.fetch({success: function(e) {  
         	
 			 $('.username').text(e.attributes.firstName + ' ' + e.attributes.lastName);
@@ -48,30 +49,29 @@ window.StreamView = Backbone.View.extend({
     mouseOver:function () {
     	 
     	 // stops the hide event if we move from the trigger to the popup element
-	      if (this.hideDelayTimer) clearTimeout(this.hideDelayTimer);
+	     if (this.hideDelayTimer) clearTimeout(this.hideDelayTimer);
            
-	      // don't trigger the animation again if we're being shown, or already visible
-	      if (this.shown) {
+	     // don't trigger the animation again if we're being shown, or already visible
+	     if (this.shown) {
 	        return;
-	      } else 
-	      {
-	    	 this.beingShown = true;
+	     } else 
+	     {
+	    	this.beingShown = true;
                
 	        // reset position of popup box
-	    	 $('.popup').css({
-	         top:  810,
-	         left: 380,
-	         display: 'block' // brings the popup back in to view
+	    	$('.popup').css({
+		        top:  810,
+		        left: 380,
+		        display: 'block' // brings the popup back in to view
 	        })
-
 	        // (we're using chaining on the popup) now animate it's opacity and position
 	        .animate({
-	         top: '-=' + this.distance + 'px',
-	         opacity: 1
+		        top: '-=' + this.distance + 'px',
+		        opacity: 1
 	        },this.time, 'swing', function() {  
-	          // once the animation is complete, set the tracker variables
-	          this.beingShown = false;
-	          this. shown = true;
+		        // once the animation is complete, set the tracker variables
+		        this.beingShown = false;
+		        this. shown = true;
 	        });
 	      }
     },
@@ -87,16 +87,17 @@ window.StreamView = Backbone.View.extend({
 	    	  
 	    	  this.hideDelayTimer = null;
 	    	  $('.popup').animate({
-	            top: '-=' + this.distance + 'px',
-	            opacity: 0
+		          top: '-=' + this.distance + 'px',
+		          opacity: 0
 	          }, this.time, 'swing', function () {
-	          // once the animate is complete, set the tracker variables
-	        	   
-	        	  this.shown = false;
-	          // hide the popup entirely after the effect (opacity alone doesn't do the job)
-	          $('.popup').css('display', 'none');
+		          // once the animate is complete, set the tracker variables
+		          this.shown = false;
+		          // hide the popup entirely after the effect (opacity alone doesn't do the job)
+		          $('.popup').css('display', 'none');
 	        });
 	      }, this.hideDelay);
-    }
+    },
+ 
+    
     
 });

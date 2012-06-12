@@ -1,4 +1,4 @@
-var AppRouter = Backbone.Router.extend({
+BS.AppRouter = Backbone.Router.extend({
 
     routes:{
     	
@@ -13,7 +13,9 @@ var AppRouter = Backbone.Router.extend({
 
         
     },
-    
+    initialize :function() {
+    	
+    },
 
     home: function() {
     	console.log('Here');
@@ -27,12 +29,14 @@ var AppRouter = Backbone.Router.extend({
     login: function() {
     	 this.loginView = null;
     	 if (!this.loginView) {
-             this.loginView = new LoginView();
+             this.loginView = new BS.LoginView();
              this.loginView.render();
          }
-    	 
+    	
          $('#register-step-school').html(this.loginView.el);  
-         
+         $(".modal select:visible").selectBox();
+         jQuery("#login-form").validationEngine();
+        
     },
    
     /**
@@ -41,7 +45,7 @@ var AppRouter = Backbone.Router.extend({
     schoolReg:function () {
     	
     	 if (!this.schoolView) {
-             this.schoolView = new SchoolView();
+             this.schoolView = new BS.SchoolView();
              this.schoolView.render();
              
          }
@@ -62,14 +66,15 @@ var AppRouter = Backbone.Router.extend({
     classReg:function () {
     
    	    if (!this.classView) {
-            this.classView = new ClassView();
+            this.classView = new BS.ClassView();
             this.classView.render();
             
         }
-   	    
+    
         $('#register-step-school').html( this.classView.el);
         $(".modal select:visible").selectBox();
         $('.modal .datepicker').datepicker();
+        jQuery("#class-form").validationEngine();
        
    },
     
@@ -79,13 +84,14 @@ var AppRouter = Backbone.Router.extend({
    profileReg:function () {
     	 
    	  if (!this.profileView) {
-            this.profileView = new ProfileView();
+            this.profileView = new BS.ProfileView();
             this.profileView.render();
             
       }
       $('#register-step-school').html(this.profileView.el);   
       $(".modal select:visible").selectBox();
       $('.modal .datepicker').datepicker();
+      jQuery("#profile-form").validationEngine();
    },
    
    
@@ -94,9 +100,9 @@ var AppRouter = Backbone.Router.extend({
     * display main stream page
     */
    maisStream:function () {
-    	 
+	   $('.modal').css('display','none');
    	  if (!this.streamView) {
-            this.streamView = new StreamView();
+            this.streamView = new BS.StreamView();
             this.streamView.render();
             
       }
@@ -128,13 +134,14 @@ var AppRouter = Backbone.Router.extend({
 					 
 					 this.registrationView = null;
 				  	 if (!this.registrationView) {
-				           this.registrationView = new RegistrationView();
+				           this.registrationView = new BS.RegistrationView();
 				           var mailInfo = {iam : iam , mail:email};
 				           this.registrationView.render(mailInfo);
 				     }
 				  	 
 				     $('#register-step-school').html(this.registrationView.el);  
 				     $(".checkbox").dgStyle();
+				     jQuery("#registration-form").validationEngine();
 			    }
 				else
 				{
@@ -153,19 +160,18 @@ var AppRouter = Backbone.Router.extend({
   emailVerification: function() {
  	 this.emailView = null;
  	 if (!this.emailView) {
-          this.emailView = new verifyEmailView();
+          this.emailView = new BS.verifyEmailView();
           this.emailView.render();
       }
  	 
       $('#register-step-school').html(this.emailView.el);  
       $(".modal select:visible").selectBox();
+      jQuery("#email-verify").validationEngine();
       
  },
  
   
 });
 
-
-app = new AppRouter();
-Backbone.history.start();
+ 
 
