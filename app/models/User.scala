@@ -134,8 +134,8 @@ object User {
    */
 
   def getUserProfile(userId: ObjectId): User = {
-    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList
-    return user(0)
+    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
+    return user
 
   }
 
