@@ -197,6 +197,10 @@ object User {
   }
 
 }
+
+/*
+ * User Types
+ */
 object UserType extends Enumeration {
   val Student = Value(0, "Student")
   val Educator = Value(1, "Educator")
