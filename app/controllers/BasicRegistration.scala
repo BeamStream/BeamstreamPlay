@@ -80,7 +80,7 @@ object BasicRegistration extends Controller {
     val userInformationMap = request.body.asFormUrlEncoded.get
     val tempUserInformationJson = userInformationMap("data").toList(0)
     val userInformationJson = net.liftweb.json.parse(tempUserInformationJson)
-
+println(userInformationJson)
     val iam = (userInformationJson \ "iam").extract[String]
     val emailId = (userInformationJson \ "email").extract[String]
 

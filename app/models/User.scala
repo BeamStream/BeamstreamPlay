@@ -12,6 +12,7 @@ import org.bson.types.ObjectId
 import play.cache.Cache
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
+import com.mongodb.casbah.WriteConcern
 
 case class User(@Key("_id") id: ObjectId, userType: UserType.Value, email: String, val firstName: String, lastName: String, userName: String, alias: String, password: String, orgName: String,
   location: String, streams: List[Int], schoolId: List[ObjectId], classId: List[ObjectId]) {
@@ -121,6 +122,7 @@ object User {
    * Adds a school to User (Intact)
    */
 
+
   def addSchoolToUser(userId: ObjectId, schoolId: ObjectId) {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
     UserDAO.update(MongoDBObject("_id" -> userId), user.copy(schoolId = (user.schoolId ++ List(schoolId))), false, false, new WriteConcern)
@@ -201,9 +203,5 @@ object UserType extends Enumeration {
   val Professional = Value(2, "Professional")
 }
 
-object TrashEnum extends Enumeration {
-  val Trash = Value(0, "Trash")
-
-}
 
 object UserDAO extends SalatDAO[User, Int](collection = MongoHQConfig.mongoDB("user"))

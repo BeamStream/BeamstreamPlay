@@ -15,6 +15,7 @@ import java.text._
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 
+
 case class Class(@Key("_id") id: ObjectId, classCode: String, className: String, classType: ClassType.Value, classTime: String, startingDate: String, schoolId: ObjectId, streams: List[ObjectId])
 
 case class ClassForm(className: String, classCode: String, classType: String, schoolId: String)
@@ -77,7 +78,7 @@ object Class {
   /*
    * Attach a Stream to a Class
    */
-  def attachStreamtoClass(streamId: ObjectId, classId: ObjectId) {
+   def attachStreamtoClass(streamId: ObjectId, classId: ObjectId) {
     val expectedClass = ClassDAO.find(MongoDBObject("_id" -> classId)).toList(0)
     ClassDAO.update(MongoDBObject("_id" -> classId), expectedClass.copy(streams = (expectedClass.streams ++ List(streamId))), false, false, new WriteConcern)
   }
