@@ -69,9 +69,7 @@ object BasicRegistration extends Controller {
     val IdOfUserCreted = User.createNewUser(userToCreate)
     val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
     Ok(write(new ResulttoSent("Success", "SignUp Successfully"))).withSession(RegistrationSession)
-    
-    
-    
+
   }
   /*
    * Send the verification mail to the User
@@ -82,16 +80,31 @@ object BasicRegistration extends Controller {
     val userInformationMap = request.body.asFormUrlEncoded.get
     val tempUserInformationJson = userInformationMap("data").toList(0)
     val userInformationJson = net.liftweb.json.parse(tempUserInformationJson)
-
+println(userInformationJson)
     val iam = (userInformationJson \ "iam").extract[String]
     val emailId = (userInformationJson \ "email").extract[String]
 
     SendEmail.sendEmail(emailId, iam)
-
     val jsonResponseToSent = new ResulttoSent("Success", "Email Sent Successfully")
     val finalJson = write(jsonResponseToSent)
-
     Ok(finalJson).as("application/json")
+    
+    //TODO : User would be able to use the organization emailid  
+
+    //    (User.validateEmail(emailId)) match {
+    //      case false =>
+    //      
+    //        val failureJsonResponseToSent = new ResulttoSent("Failure", "Use emails assosiated with schools and organizations")
+    //          println(write(failureJsonResponseToSent))
+    //        Ok(write(failureJsonResponseToSent)).as("application/json")
+    //
+    //      case true =>
+    //        SendEmail.sendEmail(emailId, iam)
+    //        val jsonResponseToSent = new ResulttoSent("Success", "Email Sent Successfully")
+    //        val finalJson = write(jsonResponseToSent)
+    //        Ok(finalJson).as("application/json")
+    //
+    //    }
   }
 
 }

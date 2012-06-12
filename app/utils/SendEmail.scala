@@ -9,6 +9,8 @@ import javax.mail.Transport
 import models.Token
 import org.bson.types.ObjectId
 object SendEmail {
+  
+
 
   def sendEmail(emailId:String,iam:String) = {
      

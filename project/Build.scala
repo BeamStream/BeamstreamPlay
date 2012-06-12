@@ -7,9 +7,10 @@ object ApplicationBuild extends Build {
   val appName = "BeamstreamPlay"
   val appVersion = "1.0"
 
- 
-
   resolvers += "Scala-Tools Sona  Repository" at "http://oss.sonatype.org/content/groups/scala-tools/"
+  resolvers += "repo.novus snaps" at "http://repo.novus.com/snapshots/"
+  resolvers += "Novus Release Repository" at "http://repo.novus.com/releases/"
+  
 
   val appDependencies = Seq(
     "com.mongodb.casbah" %% "casbah" % "2.1.5-1",
@@ -18,15 +19,14 @@ object ApplicationBuild extends Build {
     "joda-time" % "joda-time" % "2.0",
     "javax.mail" % "mail" % "1.4.1",
     "org.scalatra" %% "scalatra-lift-json" % "2.0.4",
-    "org.joda" % "joda-convert" % "1.1"
-   )
+    "org.joda" % "joda-convert" % "1.1")
 
   def customLessEntryPoints(base: File): PathFinder = (
     (base / "app" / "assets" / "stylesheets" / "bootstrap" * "bootstrap.less") +++
     (base / "app" / "assets" / "stylesheets" / "bootstrap" * "main.less") +++
-     (base / "app" / "assets" / "stylesheets" / "bootstrap" * "sprites.less") +++
-    (base / "app" / "assets" / "stylesheets" * "*.less") )
-    
+    (base / "app" / "assets" / "stylesheets" / "bootstrap" * "sprites.less") +++
+    (base / "app" / "assets" / "stylesheets" * "*.less"))
+
   val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
     lessEntryPoints <<= baseDirectory(customLessEntryPoints))
 }

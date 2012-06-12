@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
 import models.School
+import models.User
 
 object ClassController extends Controller {
 
@@ -39,7 +40,7 @@ object ClassController extends Controller {
   */
 
   def classes = Action {
-Ok
+    Ok
   }
 
   /*
@@ -52,9 +53,8 @@ Ok
     val classJsonList = classListJsonMap("data").toList
     println("Here's the JSON String extracted for class" + classJsonList(0))
     val classList = net.liftweb.json.parse(classJsonList(0)).extract[List[Class]]
-    println("Here is the class List" + classList)
-    Class.createClass(classList)
-    //School.addClasstoSchool(classList(0).schoolId , classList )
+    val listOfClassIds = Class.createClass(classList)
+    User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
     Ok
   }
 

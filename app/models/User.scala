@@ -12,6 +12,7 @@ import org.bson.types.ObjectId
 import play.cache.Cache
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
+import com.mongodb.casbah.WriteConcern
 
 case class User(@Key("_id") id: ObjectId, userType: UserType.Value, email: String, val firstName: String, lastName: String, userName: String, alias: String, password: String, orgName: String,
   location: String, streams: List[Int], schoolId: List[ObjectId], classId: List[ObjectId]) {
@@ -89,21 +90,20 @@ object User {
    * Email Validation
    */
   def validateEmail(emailId: String): Boolean = {
-    var validationStatus = false
     val emailPart: List[String] = List("gmail.com", "yahoo.com", "rediff.com", "hotmail.com", "aol.com")
     val i: Int = emailId.lastIndexOf("@")
     val stringToMatch: String = emailId.substring(i + 1)
     val emailString: String = emailId.toUpperCase
 
-    (!emailString.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$") ||
-      emailPart.contains(stringToMatch)) match {
-        case true =>
-        case false =>
-          validationStatus = true
-      }
-    return validationStatus
+    (emailString.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$") &&
+        !emailPart.contains(stringToMatch)) match {
+      case true => true
+      case false => false
+    }
   }
 
+  //     !emailString.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
+                                                
   /*
  * Registration For a User  
  */
@@ -122,6 +122,7 @@ object User {
    * Adds a school to User (Intact)
    */
 
+
   def addSchoolToUser(userId: ObjectId, schoolId: ObjectId) {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
     UserDAO.update(MongoDBObject("_id" -> userId), user.copy(schoolId = (user.schoolId ++ List(schoolId))), false, false, new WriteConcern)
@@ -130,9 +131,9 @@ object User {
   /*
    * Add a Class to user
    */
-  def addClassToUser(userId: ObjectId, classId: ObjectId) {
+  def addClassToUser(userId: ObjectId, classId: List[ObjectId]) {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classId = (user.classId ++ List(classId))), false, false, new WriteConcern)
+    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classId = (user.classId ++ classId)), false, false, new WriteConcern)
   }
 
   /*
@@ -186,10 +187,10 @@ object User {
     usertype.toSeq
   }
 
- /*
+  /*
   * Find User By Id
   */
-  
+
   def findUserbyId(userId: ObjectId): User = {
     val userFound = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
     userFound
@@ -202,9 +203,5 @@ object UserType extends Enumeration {
   val Professional = Value(2, "Professional")
 }
 
-object TrashEnum extends Enumeration {
-  val Trash = Value(0, "Trash")
-
-}
 
 object UserDAO extends SalatDAO[User, Int](collection = MongoHQConfig.mongoDB("user"))
