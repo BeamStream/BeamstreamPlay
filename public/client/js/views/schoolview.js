@@ -108,6 +108,7 @@ BS.SchoolView = Backbone.View.extend({
 		  else if(value == "yes")
 		  {
 				$('#degree-exp-'+currentid).hide();
+				$('.datepicker').css('z-index','9999');
 				$('#cal-'+currentid).show();
 				$('.modal .datepicker:visible').datepicker();
 		  }
