@@ -10,15 +10,17 @@ BS.SchoolView = Backbone.View.extend({
     initialize:function () {
     	
         console.log('Initializing School View');
-        this.template= _.template($("#tpl-school-reg").html());
+        //this.template= _.template($("#tpl-school-reg").html());
+		this.source = $("#tpl-school-reg").html();
+		this.template = Handlebars.compile(this.source);
     },
 
     /**
      * render school Info screen
      */
     render:function (eventName) {
-         
-        $(this.el).html(this.template());
+        
+        $(this.el).html(this.template);
         return this;
     },
     
@@ -35,7 +37,7 @@ BS.SchoolView = Backbone.View.extend({
             data:{data:schoolDetails},
             dataType:"json",
             success:function(data){
-
+                
 				 // navigate to main stream page
             	BS.AppRouter.navigate("streams", {trigger: true, replace: true});
 

@@ -68,101 +68,11 @@
 		
 </script>
 
-<body style="padding-top: 96px !important;">
-	  <div class="navbar-fixed-top">
-       <header class="site_header">
-        <div class="container">
-          <h1 class="brand"><a href="#"><img src="images/layout/logo.png" alt="BeamStream" width="106" height="27"></a></h1>
-          <h2><i>Evolving</i> Classroom &amp; Academic Interaction</h2>
-        </div>
-      </header>
-
-      <nav class="navbar main_menu"> </nav>
-    </div>
-	
-	<div class="container">
-	    
-	  <div id="content"></div>
-	    
-	   
-	</div> <!-- /container -->
-	 
-  <div class="modal" id="register-step-school"></div>
-
-     
-    <!-- success regitration -->
-    <script id="tpl-success" type="text/x-handlebars-template">
-        Status : {{status}}
-    </script>
-    
-    
-    <!-- template for login-->
-	<script type="text/template" id="tpl-login">
-   	 
- <div class="modal-header">
-        <h1 class="pull-left">User Login Form</h1>
-</div>
-	<div class="modal-body">
-	  <form id="login-form">
-		   <fieldset>
-            <div id="error" class="invalid-login"></div>
-			<div class="element">
-				<label for="iam">I'm</label>
-					<select id="iam"  name="iam" >
-						<option value= "">-- I'm --</option>
-						<option value="0">Student</option>
-						<option value="1">Educator</option>
-						<option value="2">Professional</option>
-					</select>
-			</div>
-             <div id="error" style="color:red; "></div>
-			<br>
-			<div class="form-row">
-					<div class="element">
-				<label for="email">User Email *</label>
-					<input id="email" type="text" size="10"  name="email" class="validate[required, custom[email]] span3">
-				</div>
-			</div>
-			<div class="form-row">
-				<b>Do you have a Beam Stream password ? *</b><br><br>
-			<div class="element">
-				<label for="signup"></label>
-				
-					<span id="signup" class="buttonset">
-					<input id="signup_0" type="radio" value="0" name="signup" checked="checked" class="validate[required]">
-					<label for="signup_0">No, help me log in</label><br>
-					<input id="signup_1" type="radio" value="1" name="signup" class="validate[required]">
-					<label for="signup_1">Yes, I have a password</label>
-					</span>
-					<span class="help-inline"></span>
-				
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="element ">
-				<label for="password">Password *</label>
-					<input id="password" type="password" size="10"  name="password" class="span3">
-					<span class="help-inline"></span>
-				
-			</div>
-	    </div>
-		</fieldset>
-		<br>
-          <a href="#" class="btn btn-primary pull-left"  id="login" >Login</a>
-		<br><br><br>
-        <b style="margin-left:20px;">OR </b> 
-        <br><br>
-       <div id="janrainEngageEmbed"></div>
-		 
-	</form>
-    	</div>	
-  </script>
-    
-
-	<!-- School Registration template-->
-	<script type="text/template" id="tpl-school-reg">
-
-    <div class="modal-header">
+<!-- School Registration template-->
+	<script type="text/x-handlebars-template" id="tpl-school-reg">
+  <div class="modal-backdrop in"></div>
+    <div class="modal   modal-popups" style="display:block;">
+     <div class="modal-header">
         <h1 class="pull-left">School info</h1>
         <img src="images/registration-progress-25.png" alt="Registration progress - 25%" class="registration-progress pull-right">
     </div>
@@ -250,13 +160,111 @@
         <a href="#messages" id ="save" class="btn btn-primary pull-left"  >Save & Exit</a>
         <a href="#" id ="continue" class="btn btn-success pull-right">Continue</a>
     </div>
-
+ </div>
 	</script>
+	
+<body style="padding-top: 96px !important;">
+	  <div class="navbar-fixed-top">
+       <header class="site_header">
+        <div class="container">
+          <h1 class="brand"><a href="#"><img src="images/layout/logo.png" alt="BeamStream" width="106" height="27"></a></h1>
+          <h2><i>Evolving</i> Classroom &amp; Academic Interaction</h2>
+        </div>
+      </header>
+
+      <nav class="navbar main_menu"> </nav>
+    </div>
+	
+	<div class="container" id="container">
+	    
+	  <div id="content"></div>
+	    <div class="" id="school-popup"></div>
+	   
+	</div> <!-- /container -->
+ 
+ <div id="main-popups"></div>
+        
+    
+     
+    <!-- success regitration -->
+    <script id="tpl-success" type="text/x-handlebars-template">
+        Status : {{status}}
+    </script>
+    
+    
+    <!-- template for login-->
+	<script type="text/template" id="tpl-login">
+ <div class="modal-backdrop in"></div>
+   	<div class="modal modal-pull-top in modal-popups" style="display:block;">
+    <div class="modal-header">
+        <h1 class="pull-left">User Login Form</h1>
+    </div>
+	<div class="modal-body">
+	  <form id="login-form">
+		   <fieldset>
+            <div id="error" class="invalid-login"></div>
+			<div class="element">
+				<label for="iam">I'm</label>
+					<select id="iam"  name="iam" >
+						<option value= "">-- I'm --</option>
+						<option value="0">Student</option>
+						<option value="1">Educator</option>
+						<option value="2">Professional</option>
+					</select>
+			</div>
+             <div id="error" style="color:red; "></div>
+			<br>
+			<div class="form-row">
+					<div class="element">
+				<label for="email">User Email *</label>
+					<input id="email" type="text" size="10"  name="email" class="validate[required, custom[email]] span3">
+				</div>
+			</div>
+			<div class="form-row">
+				<b>Do you have a Beam Stream password ? *</b><br><br>
+			<div class="element">
+				<label for="signup"></label>
+				
+					<span id="signup" class="buttonset">
+					<input id="signup_0" type="radio" value="0" name="signup" checked="checked" class="validate[required]">
+					<label for="signup_0">No, help me log in</label><br>
+					<input id="signup_1" type="radio" value="1" name="signup" class="validate[required]">
+					<label for="signup_1">Yes, I have a password</label>
+					</span>
+					<span class="help-inline"></span>
+				
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="element ">
+				<label for="password">Password *</label>
+					<input id="password" type="password" size="10"  name="password" class="span3">
+					<span class="help-inline"></span>
+				
+			</div>
+	    </div>
+		</fieldset>
+		<br>
+          <a href="#" class="btn btn-primary pull-left"  id="login" >Login</a>
+		<br><br><br>
+        <b style="margin-left:20px;">OR </b> 
+        <br><br>
+       <div id="janrainEngageEmbed"></div>
+		 
+	</form>
+    	</div>	
+   </div>
+  </script>
+    
+
+
 
     <!-- Class registration  -->
     <script type="text/x-handlebars-template" id="tpl-class-reg">
-
-     <div class="modal-header">
+ 
+  <div class="modal-backdrop in"></div>
+    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+    <div class="modal-header">
         <h2 class="school-name">Previous Schoolname </h2>
         <h1 class="pull-left" >Class info</h2>
         <img src="images/registration-progress-50.png" alt="Registration progress - 50%" class="registration-progress pull-right">
@@ -284,7 +292,7 @@
         <a href="#messages" class="btn btn-primary pull-left"  id="save" >Save & Exit</a>
         <a href="#" class="btn btn-success pull-right" id="continue" >Continue</a>
     </div>
-
+  <div>
 
    </script>
   	<!-- add 3 classes-->
@@ -405,7 +413,8 @@
   
   <!-- profile Registration template-->
   <script type="text/template" id="tpl-profile-reg">
-  
+  <div class="modal-backdrop in"></div>
+    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
     <div class="modal-header">
         <h1 class="pull-left">Social profile</h1>
         <img src="images/registration-progress-75.png" alt="Registration progress - 75%" class="registration-progress pull-right">
@@ -474,6 +483,7 @@
         <a href="#messages" class="btn btn-primary pull-left"  id="save" >Save & Exit</a>
         <a href="#messages" class="btn btn-danger pull-right" id="complete" >Complete</a>
     </div>
+</div>
   </script>
   
   
@@ -487,7 +497,7 @@
   
  <!-- main stream page template -->
  <script type="text/x-handlebars-template" id="tpl-main-stream">
-  
+
  <div class="navbar-fixed-top">
       <header class="site_header">
         <div class="container">
@@ -529,7 +539,7 @@
                     </a>
                     <ul class="dropdown-menu">
                       <li><a href="#settings">Settings</a></li>
-                     <li><a href="#edit-profile">Edit Profile</a></li>
+                     <li><a href="#school">Edit Profile</a></li>
                       <li><a href="#help">Help</a></li>
                       <li class="divider"></li>
                       <li>
@@ -569,7 +579,7 @@
         </div>
       </div>
     </section>
-
+    
     <div id ="middle-part" class="container content_area wrapper_con">
       <div class="container-inner">
         <div class="row">
@@ -918,6 +928,8 @@
  
  <!-- basic profile registration -->
  <script type="text/x-handlebars-template" id="tpl-basic-profile">
+<div class="modal-backdrop in"></div>
+    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
   <div class="modal-header">
     <h1 class="pull-left">Basic Profile </h1>
     <img src="images/registration-progress-25.png" alt="Registration progress - 25%" class="registration-progress pull-right"> </div>
@@ -969,11 +981,13 @@
         </fieldset>
   </form>
   </div>
+<div>
 </script>
 
 <!-- verify emails -->
  <script type="text/template" id="tpl-verify-email">
-
+<div class="modal-backdrop in"></div>
+    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
   <div class="modal-header">
     <h1 class="pull-left">Register Here</h1>
   </div>
@@ -1024,11 +1038,14 @@
       </form>
   </div>
   <div class="modal-footer"> <a id="save" href="#" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a> <a href="#" class="btn btn-success pull-right">Continue</a> </div>
+</div>
 </script>
 
 
 <!--pop up from emai verification -->
  <script type="text/template" id="tpl-verify-popup">
+<div class="modal-backdrop in"></div>
+    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
   <div class="modal-body">
       <form>
     <fieldset class="verify-account">
@@ -1048,6 +1065,7 @@
         </fieldset>
   </form>
     </div>
+</div>
 </script>
 
  
@@ -1115,8 +1133,8 @@
     $(function(){
     	
     	$(".checkbox").dgStyle();
-        $("#register-step-school").modal();
-
+//         $("#register-step-school").modal();
+//          $("#main-popups").modal();
         $(".modal select:visible").selectBox();
         $('.modal .datepicker').datepicker();
 
@@ -1154,8 +1172,7 @@
 	
 </script>
  
-    
-    
+	
 <!--  Backbone.js files -->
 
 <script src="js/app.js"></script>

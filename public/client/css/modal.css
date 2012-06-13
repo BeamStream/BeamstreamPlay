@@ -26,10 +26,7 @@
     top: 30%;
 }
 
-#register-step-school {
-    width: 982px;
-    margin: -250px 0 0 -491px
-}
+ 
 #register-step-class {
     width: 982px;
     margin: -250px 0 0 -491px
@@ -38,7 +35,12 @@
     width: 982px;
     margin: -250px 0 0 -491px
 }
+/*for modal popups*/
 
+.modal-popups{
+	width: 982px;
+    margin: -250px 0 0 -491px
+}
 
 .modal {
     font-family: UbuntuRegular;

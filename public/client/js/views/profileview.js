@@ -53,7 +53,7 @@ BS.ProfileView = Backbone.View.extend({
         	    type: 'POST',
         	    data: data,
         	    url: "http://localhost:9000/getMediafromPost",
-//        	    url: "http://192.168.10.10/BeamstreamPlay/public/client/image.php",
+//        	    url : "http://localhost/client2/api.php",
         	    cache: false,
         	    contentType: false,
         	    processData: false,

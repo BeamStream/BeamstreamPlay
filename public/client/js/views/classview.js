@@ -41,7 +41,7 @@ BS.ClassView = Backbone.View.extend({
 		this.classes = new BS.Class();
 		this.source = $("#tpl-class-reg").html();
 		this.template = Handlebars.compile(this.source);
-		
+		 
 	},
 
 	
@@ -83,12 +83,14 @@ BS.ClassView = Backbone.View.extend({
 	 * render class Info screen
 	 */
 	render : function(eventName) {
-		
+	 
 		var sCount = {
 				"sCount" : sClasses,
 				"schools": this.schools 
 		}
+		 
 		$(this.el).html(this.template(sCount));
+		 
 		return this;
 	},
 	

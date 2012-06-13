@@ -19,7 +19,7 @@
 	
     model:BS.School,
     url: "http://localhost:9000/schoolJson"
-//      url : "http://localhost/client2/api.php",
+//      url : "http://localhost/client/api.php",
 
 });    
  

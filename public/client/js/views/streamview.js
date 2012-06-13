@@ -3,6 +3,8 @@ BS.StreamView = Backbone.View.extend({
 	 events :{
            "mouseenter .trigger" : "mouseOver",
            "mouseleave .trigger" : "mouseOut",
+           "click #school" : "renderPopups",
+           "click #hide" : "hideComments"
  
 		  
 	 },
@@ -98,6 +100,26 @@ BS.StreamView = Backbone.View.extend({
 	      }, this.hideDelay);
     },
  
+    
+    renderPopups: function(){
+    	
+    	 $('.modal-backdrop').show();
+    	this.school1 = new BS.SchoolView();
+    	this.school1.render();
+    	$('#school-popup').html(this.school1.el);
+    	$(".modal select:visible").selectBox();
+        jQuery("#login-form").validationEngine();
+    	
+ 
+    	
+    },
+    /*
+     * hide comment section 
+     */
+    hideComments :function(eventName) {
+    	eventName.preventDefault();   
+    	 
+    }
     
     
 });
