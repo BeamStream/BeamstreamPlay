@@ -1,4 +1,4 @@
-package models
+	package models
 
 import com.novus.salat._
 import com.novus.salat.global._
