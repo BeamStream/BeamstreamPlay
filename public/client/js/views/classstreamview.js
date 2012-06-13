@@ -30,6 +30,10 @@ BS.ClassStreamView = Backbone.View.extend({
 	 * 
 	 */
 	populateClasses :function(){
+		var classCodes = [];
+
+		 
+		
 		var text = $('#class-code').val();
 		 $.ajax({
 			type : 'POST',
@@ -39,9 +43,13 @@ BS.ClassStreamView = Backbone.View.extend({
 				data : text
 			},
 			dataType : "json",
-			success : function(data) {
-				 console.log($('#class-code').val());
-				  
+			success : function(datas) {
+				var codes = '';
+				_.each(datas, function(data) {
+					classCodes.push(data.classCode);
+		        });
+				$('.ac_results').css('width', '160px');
+				$("#class-code").autocomplete(classCodes);
 			}
 		});
 	}
