@@ -24,10 +24,6 @@ object ClassController extends Controller {
     override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
- 
-
- 
-
   /*
    * Add a class to a user (Intact)
    */
@@ -42,15 +38,18 @@ object ClassController extends Controller {
     User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
     Ok
   }
-  
+
   /*
    *  Auto populate the class
    */
-  
-  def findClasstoAutoPopulate  = Action  { implicit request =>
-    val classList=Class.findClassByCode("")
-    val classListJson=write(classList)
+
+  def findClasstoAutoPopulate = Action { implicit request =>
+    val classCodeMap = request.body.asFormUrlEncoded.get
+    val classCode = classCodeMap("data").toList(0)
+    val classList = Class.findClassByCode(classCode)
+    val classListJson = write(classList)
     Ok(classListJson).as("application/json")
+
   }
 
 }
