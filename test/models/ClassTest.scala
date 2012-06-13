@@ -18,10 +18,10 @@ class ClassTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
-  val class1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", "4:45", new ObjectId, List())
-  val class2 = Class(new ObjectId, "202", "CSE", ClassType.Quarter, "3:30", "4:45", new ObjectId, List())
-  val class3 = Class(new ObjectId, "203", "ECE", ClassType.Quarter, "3:30", "4:45", new ObjectId, List())
-  val class4 = Class(new ObjectId, "204", "CSE", ClassType.Yearly, "3:30", "4:45", new ObjectId, List())
+  val class1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
+  val class2 = Class(new ObjectId, "202", "CSE", ClassType.Quarter, "3:34", formatter.parse("31-01-2010"), new ObjectId, List())
+  val class3 = Class(new ObjectId, "203", "ECE", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
+  val class4 = Class(new ObjectId, "204", "CSE", ClassType.Yearly, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
 
   before {
     Class.createClass(List(class1, class2, class3, class4))
@@ -45,15 +45,26 @@ class ClassTest extends FunSuite with BeforeAndAfter {
     assert(Class.findClassByName("T").size === 1)
 
   }
-  
-  test("Deleting a class"){
+
+  test("finding class by class code") {
+    assert(Class.findClassByCode("20").size === 4)
+    assert(Class.findClassByCode("0").size === 4)
+    assert(Class.findClassByCode("04").size === 1)
+
+  }
+
+  test("finding class by class time") {
+    assert(Class.findClassByTime("3:30").size === 3)
+
+  }
+
+  test("Deleting a class") {
     Class.deleteClass(class1)
-    assert(ClassDAO.find(MongoDBObject()).size===3)
-     Class.deleteClass(class2)
-    assert(ClassDAO.find(MongoDBObject()).size===2)
-    
-  } 
-  
+    assert(ClassDAO.find(MongoDBObject()).size === 3)
+    Class.deleteClass(class2)
+    assert(ClassDAO.find(MongoDBObject()).size === 2)
+
+  }
 
   after {
     ClassDAO.remove(MongoDBObject("className" -> ".*".r))
