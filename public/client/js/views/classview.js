@@ -13,23 +13,23 @@ BS.ClassView = Backbone.View.extend({
 		console.log('Initializing Class View');
 		
 		/* calculate time from 12:00AM to 11:45PM */
-	    var timeValues = new Array;
-		var hours, minutes, ampm;
-		for(var i = 0; i <= 1425; i += 15){
-		        hours = Math.floor(i / 60);
-		        minutes = i % 60;
-		        if (minutes < 10){
-		            minutes = '0' + minutes; // adding leading zero
-		        }
-		        ampm = hours % 24 < 12 ? 'AM' : 'PM';
-		        hours = hours % 12;
-		        if (hours === 0){
-		            hours = 12;
-		        }
-		        var time = hours+':'+minutes+''+ampm ;
-		        timeValues.push({"time" : time});
-		 }
-		this.times = jQuery.parseJSON(JSON.stringify(timeValues));
+//	    var timeValues = new Array;
+//		var hours, minutes, ampm;
+//		for(var i = 0; i <= 1425; i += 15){
+//		        hours = Math.floor(i / 60);
+//		        minutes = i % 60;
+//		        if (minutes < 10){
+//		            minutes = '0' + minutes; // adding leading zero
+//		        }
+//		        ampm = hours % 24 < 12 ? 'AM' : 'PM';
+//		        hours = hours % 12;
+//		        if (hours === 0){
+//		            hours = 12;
+//		        }
+//		        var time = hours+':'+minutes+''+ampm ;
+//		        timeValues.push({"time" : time});
+//		 }
+//		this.times = jQuery.parseJSON(JSON.stringify(timeValues));
 		 
 		this.schools = new BS.SchoolCollection();
 		this.schools.bind("reset", this.renderSchools, this);
@@ -166,7 +166,7 @@ BS.ClassView = Backbone.View.extend({
 		
 		var sCount = {
 				"sCount" : sClasses,
-				"times" : this.times
+				"times" : BS.times
 		}
 		
 		var source = $("#classes").html();

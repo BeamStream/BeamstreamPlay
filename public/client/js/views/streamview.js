@@ -4,7 +4,7 @@ BS.StreamView = Backbone.View.extend({
            "mouseenter .trigger" : "mouseOver",
            "mouseleave .trigger" : "mouseOut",
            "click #school" : "renderPopups",
-           "click #hide" : "hideComments"
+           "click #classstream" :"classStream"
  
 		  
 	 },
@@ -107,18 +107,20 @@ BS.StreamView = Backbone.View.extend({
     	this.school1 = new BS.SchoolView();
     	this.school1.render();
     	$('#school-popup').html(this.school1.el);
-    	$(".modal select:visible").selectBox();
-        jQuery("#login-form").validationEngine();
-    	
- 
-    	
+//    	$(".modal select:visible").selectBox();
+        $('.modal .datepicker').datepicker();
+  
     },
     /*
-     * hide comment section 
+     * display class stream
      */
-    hideComments :function(eventName) {
-    	eventName.preventDefault();   
+    classStream :function(eventName) {
     	 
+    	$('.modal-backdrop').show();
+    	this.classStream = new BS.ClassStreamView();
+    	this.classStream.render();
+    	$('#school-popup').html(this.classStream.el);
+    
     }
     
     
