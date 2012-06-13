@@ -9,12 +9,10 @@ import scala.collection.JavaConversions._
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
 case class Stream(@Key("_id") id: ObjectId, name: String, streamType: StreamType.Value, creator: ObjectId, users: List[ObjectId], posttoMyprofile: Boolean)
-case class StreamForm(name: String, streamType: String, className: String, posttoMystream: Option[Boolean])
-case class JoinStreamForm(streamname: String)
 
 object Stream {
 
-  def all(): List[Stream] = Nil
+/*  
   def create(streamForm: StreamForm, userId: ObjectId) {
     (streamForm.posttoMystream == None) match {
       case true =>
@@ -27,7 +25,8 @@ object Stream {
    
   }
 
-  def listall(): List[Stream] = Nil
+*/  
+  
   def join(streamname: String, userId: ObjectId) {
     val stream = StreamDAO.find(MongoDBObject("name" -> streamname)).toList
     Stream.joinStream(stream(0).id, userId)

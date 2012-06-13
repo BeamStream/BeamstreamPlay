@@ -4,7 +4,6 @@ import play.api.mvc._
 import play.api._
 import play.api.data._
 import play.api.data.Forms._
-import models.ClassForm
 import models.Class
 import org.bson.types.ObjectId
 import models.ClassType
@@ -25,15 +24,7 @@ object ClassController extends Controller {
     override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
-  /*
- * Map the fields value from html form
- */
-  val classForm = Form(
-    mapping(
-      "className" -> nonEmptyText,
-      "classCode" -> nonEmptyText,
-      "classType" -> nonEmptyText,
-      "schoolName" -> nonEmptyText)(ClassForm.apply)(ClassForm.unapply))
+ 
 
  
 
@@ -50,6 +41,16 @@ object ClassController extends Controller {
     val listOfClassIds = Class.createClass(classList)
     User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
     Ok
+  }
+  
+  /*
+   *  Auto populate the class
+   */
+  
+  def findClasstoAutoPopulate  = Action  { implicit request =>
+    val classList=Class.findClassByCode("")
+    val classListJson=write(classList)
+    Ok(classListJson).as("application/json")
   }
 
 }

@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                           controllers.Application.index
 
 
 #Streams
@@ -26,18 +26,22 @@ POST   /users                         controllers.UserController.findUser
 
 
 #Schools
-#GET    /school                   controllers.SchoolController.schools
+
 POST   /school                   controllers.SchoolController.addSchool
 
 #UpdateUserInfo
 
-#GET   /detailed_reg                   controllers.DetailedRegistration.users
+
 POST   /detailed_reg                 controllers.DetailedRegistration.addInfo
 
 #Class
 
-#GET   /class                   controllers.ClassController.classes
+
 POST   /class                  controllers.ClassController.addClass
+
+#Auto populate class
+
+POST  /autoPopulateClasses     controllers.ClassController.findClasstoAutoPopulate
 
 #Getting the School JSON
 

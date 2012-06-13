@@ -18,22 +18,12 @@ import net.liftweb.json.Serialization.{ read, write }
 
 case class Class(@Key("_id") id: ObjectId, classCode: String, className: String, classType: ClassType.Value, classTime: String, startingDate: Date, schoolId: ObjectId, streams: List[ObjectId])
 
-case class ClassForm(className: String, classCode: String, classType: String, schoolId: String)
 
 object Class {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
   implicit val formats = DefaultFormats
 
-  /*
-   * Add a new class and make an entry of the same in the coming School's classes list
-   */
-
-  //  def addClass(classForm: ClassForm) {
-  //    val myClass = Class(new ObjectId, classForm.classCode, classForm.className, ClassType.apply(classForm.classType.toInt), formatter.parse("12-07-2911"),formatter.parse("12-07-2911"), new ObjectId(classForm.schoolId),List())
-  //    Class.createClass(myClass)
-  //    School.addClasstoSchool(new ObjectId(classForm.schoolId), myClass)
-  //  }
 
   /*
  * Will display all class types on html form
