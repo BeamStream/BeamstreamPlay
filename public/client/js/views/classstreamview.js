@@ -1,7 +1,7 @@
 BS.ClassStreamView = Backbone.View.extend({
 
 	events : {
-
+       "keyup #class-code" : "populateClasses"
 	},
 
 	initialize : function() {
@@ -25,5 +25,26 @@ BS.ClassStreamView = Backbone.View.extend({
 		return this;
 	},
 	
-
+	/*
+	 * populate  List of classes matching that code
+	 * 
+	 */
+	populateClasses :function(){
+		var text = $('#class-code').val();
+		 $.ajax({
+			type : 'POST',
+//			url : "http://localhost/Beam2/BeamstreamPlay/public/client/api.php",
+			url : "http://localhost:9000/autoPopulateClasses",
+			data : {
+				data : text
+			},
+			dataType : "json",
+			success : function(data) {
+				 console.log($('#class-code').val());
+				  
+			}
+		});
+	}
+   
+	 
 });
