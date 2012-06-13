@@ -4,6 +4,7 @@ BS.ClassView = Backbone.View.extend({
 		"click #save" : "saveClass",
 		"click #continue" : "toProfile",
 		"click a.addclass": "addClasses",
+		"click .datepicker" :"setIndex",
 		"click a.legend-addclass" : "addSchool",
 
 	},
@@ -237,6 +238,10 @@ BS.ClassView = Backbone.View.extend({
 		var classDetails = JSON.stringify(classes);
 		return classDetails;
 	},
+	
+	setIndex:function(){
+		$('.datepicker').css('z-index','9999');
+	}
 	
 	
 	
