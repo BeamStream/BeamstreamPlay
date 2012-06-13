@@ -16,7 +16,7 @@ import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 
 
-case class Class(@Key("_id") id: ObjectId, classCode: String, className: String, classType: ClassType.Value, classTime: String, startingDate: String, schoolId: ObjectId, streams: List[ObjectId])
+case class Class(@Key("_id") id: ObjectId, classCode: String, className: String, classType: ClassType.Value, classTime: String, startingDate: Date, schoolId: ObjectId, streams: List[ObjectId])
 
 case class ClassForm(className: String, classCode: String, classType: String, schoolId: String)
 
@@ -92,13 +92,33 @@ object Class {
     for (theclass <- ClassDAO.find(MongoDBObject("className" -> regexp)).toList) yield theclass
   }
 
+  
+  /*
+   * Finding the class by Code
+   */
+
+  def findClassByCode(code : String): List[Class] = {
+    val regexp = (""".*""" + code + """.*""").r
+    for (theclass <- ClassDAO.find(MongoDBObject("classCode" -> regexp)).toList) yield theclass
+  }
+  
+  
+   /*
+   * Finding the class by Time
+   */
+
+  def findClassByTime(time : String): List[Class] = {
+    val regexp = (""".*""" + time + """.*""").r
+    for (theclass <- ClassDAO.find(MongoDBObject("classTime" -> regexp)).toList) yield theclass
+  }
+
+  
 }
 
 object ClassType extends Enumeration {
   val Semester = Value(0, "semester")
   val Quarter = Value(1, "quarter")
   val Yearly = Value(2, "yearly")
-
 }
 
 object ClassDAO extends SalatDAO[Class, Int](collection = MongoHQConfig.mongoDB("class"))

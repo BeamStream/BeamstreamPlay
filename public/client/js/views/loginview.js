@@ -34,8 +34,8 @@ BS.LoginView = Backbone.View.extend({
 			  {
 			    if(loginDetails == 1)
 			    {
-						console.log("Only use emails that are assosiated with schools and organozations");
-						$('#error').html("Only use emails that are assosiated with schools and organozations");
+						console.log("Only use emails that are assosiated with schools and organizations");
+						$('#error').html("Only use emails that are assosiated with schools and organizations");
 				} 
 			    else
 			    {

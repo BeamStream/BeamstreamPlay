@@ -19,7 +19,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
    val myschool1 = School(new ObjectId, "MPS", Year.Freshman, Degree.Assosiates,
     "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), List())
   
-    val class1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", "4:45", new ObjectId, List())
+    val class1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
     
   before {
 
