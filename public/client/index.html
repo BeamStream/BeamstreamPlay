@@ -65,28 +65,28 @@
      <fieldset>
      <div class="form-row short">
           <div class="element">
-              <label for="class-code-{{sCount}}-1">Class code</label>
-              <input type="text"  id="class-code-1" class="validate[required] small" placeholder="Class 1 code" >
+              <label for="class-code">Class code</label>
+              <input type="text"  id="class-code" class="validate[required] small" placeholder="Class 1 code" >
           </div>
           <div class="element">
-              <label for="class-time-1">Class time</label>
-              <select id="class-time-1" class="time">
+              <label for="class-time">Class time</label>
+              <select id="class-time" class="time">
 				  {{#each times}}
                         <option value="{{this.time}}">{{this.time}}</option>
                   {{/each}}
               </select>
           </div>
           <div class="element">
-              <label for="class-name-1">Class name</label>
-              <input type="text" id="class-name-1" class="validate[required] medium" placeholder="Class 1 name">
+              <label for="class-name">Class name</label>
+              <input type="text" id="class-name" class="validate[required] medium" placeholder="Class 1 name">
           </div>
           <div class="element">
-              <label for="date-started-1">Month/Year started</label>
+              <label for="date-started">Month/Year started</label>
               <input class="validate[required] small datepicker cal" type="text" placeholder="Date1" id="date-started-{{sCount}}-1"/>
           </div>
            <div class="element">
-               <label for="semester-1">Semester or Quarter</label>
-               <select id="semester-1" class="small">
+               <label for="semester">Semester or Quarter</label>
+               <select id="semester" class="small">
                      <option value="semester">Semester</option>
                      <option value="quarter">Quarter</option>
                </select>
@@ -95,7 +95,7 @@
       
       <div class="form-row">
           <div class="element">
-               <label for="semester-1">School</label>
+               <label for="semester">School</label>
                <select id="schools" class="small">
                      <option value="semester">Current School</option>
                      <option value="quarter">Chnage School</option>
