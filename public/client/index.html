@@ -52,6 +52,100 @@
  
 
 </head>
+
+<!--  Class stream template -->
+<script type="text/x-handlebars-template" id="tpl-class-stream">
+ 
+  <div class="modal-backdrop in"></div>
+    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+      <div class="modal-header">
+      </div>
+    <div class="modal-body"> 
+    <form>
+     <fieldset>
+     <div class="form-row short">
+          <div class="element">
+              <label for="class-code-{{sCount}}-1">Class code</label>
+              <input type="text"  id="class-code-1" class="validate[required] small" placeholder="Class 1 code" >
+          </div>
+          <div class="element">
+              <label for="class-time-1">Class time</label>
+              <select id="class-time-1" class="time">
+				  {{#each times}}
+                        <option value="{{this.time}}">{{this.time}}</option>
+                  {{/each}}
+              </select>
+          </div>
+          <div class="element">
+              <label for="class-name-1">Class name</label>
+              <input type="text" id="class-name-1" class="validate[required] medium" placeholder="Class 1 name">
+          </div>
+          <div class="element">
+              <label for="date-started-1">Month/Year started</label>
+              <input class="validate[required] small datepicker cal" type="text" placeholder="Date1" id="date-started-{{sCount}}-1"/>
+          </div>
+           <div class="element">
+               <label for="semester-1">Semester or Quarter</label>
+               <select id="semester-1" class="small">
+                     <option value="semester">Semester</option>
+                     <option value="quarter">Quarter</option>
+               </select>
+          </div>
+      </div>
+      
+      <div class="form-row">
+          <div class="element">
+               <label for="semester-1">School</label>
+               <select id="schools" class="small">
+                     <option value="semester">Current School</option>
+                     <option value="quarter">Chnage School</option>
+                     <option value="quarter">No School associated</option>
+               </select>
+          </div>
+          <div class="element" >
+                <label for="add-class-tag">Add Class Tag</label></li>
+                <input type="text"  class="validate[required] medium" placeholder="Computer Science"></li>
+           </div>
+       </div>
+       <div class="form-row-label">&nbsp;</div>
+		 <div class="form-row">
+			<div class="element">
+				<ul class="radio">
+					<li><input type="radio" name="add-type" />Add Professor</li>
+					<li><input type="radio" name="add-type" />Add Student's</li>
+					<li><input type="radio" name="add-type" />Add Professional's</li>
+				</ul>
+			 </div>
+			<div class="element">
+				<label for="project-name">Via Email</label>
+                        	<input type="text" id="project-name" class="span3" placeholder="email@gmail.com">
+					<span>OR</span>
+				<div class="social-block">
+
+					    <a class="facebook" href="#"></a>
+					    <a class="twitter" href="#"></a>
+					    <a class="linkedin" href="#"></a>
+					    <a class="google" href="#"></a>
+					    <a class="mail" href="#"></a>
+                </div>
+			</div>
+		</div>
+        <div class="form-row">
+			<input type="radio" checked="checked"/>Make this an OPEN CLASS (Learn $ Teach with the WORLD)
+		</div>
+     
+      </fieldset>
+     </form>
+     </div>
+    <div class="modal-footer">
+        <a href="#joinClass" id ="joinClass" class="btn btn-primary pull-left"  >Join a Class</a>
+        <a href="#createClass" id ="createClass" class="btn btn-success pull-right">Create a Class</a>
+    </div>
+    
+   </div>
+   </script> 
+
+
 <!--  for form validation -->
 <script type="text/javascript">
 		$(document).ready(function(){
@@ -157,7 +251,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <a href="#messages" id ="save" class="btn btn-primary pull-left"  >Save & Exit</a>
+        <a href="#" id ="save" class="btn btn-primary pull-left"  >Save & Exit</a>
         <a href="#" id ="continue" class="btn btn-success pull-right">Continue</a>
     </div>
  </div>
@@ -292,7 +386,7 @@
         <a href="#messages" class="btn btn-primary pull-left"  id="save" >Save & Exit</a>
         <a href="#" class="btn btn-success pull-right" id="continue" >Continue</a>
     </div>
-  <div>
+  </div>
 
    </script>
   	<!-- add 3 classes-->
@@ -660,7 +754,7 @@
                     <div class="popup">                   
                        <div class="block">
                         <ul>
-                         <li><a  id ="classstream" href="#classstream">ClassStream </a>- Collaborate within your class</li>
+                         <li><a  id ="classstream" href="#classStream">ClassStream </a>- Collaborate within your class</li>
 						 <li><a href="#projectstream">ProjectStream </a>- Shortterm  projects w/ an end date - choose to add to your profile upon completion</li>
                          <li><a href="#studystream">StudyStream  </a>- Study Group of students from your class, degree program, school and beyond</li>
 					 	 <li><a href="#gruopstream">GroupStream </a>-Ongoing groups about anything, make them public or private </li>
@@ -1044,6 +1138,7 @@
 
 <!--pop up from emai verification -->
  <script type="text/template" id="tpl-verify-popup">
+
 <div class="modal-backdrop in"></div>
     <div class="modal  modal-pull-top in modal-popups" style="display:block;">
   <div class="modal-body">
@@ -1077,7 +1172,51 @@
 <script type="text/javascript" src="js/jquery.selectBox.js"></script>
 <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="lib/jquery.custom_radio_checkbox.js"></script>  
+<script type="text/javascript">
+	var current = 1; //current keeps track of how many schools we have @default =1 
+    var options ='';
+	var sClasses = 1; // sClasses keeps number of schools under which we added classes 
+    $(function(){
+    	
+    	$(".checkbox").dgStyle();
+//         $("#register-step-school").modal();
+//          $("#main-popups").modal();
+        $(".modal select:visible").selectBox();
+        $('.modal .datepicker').datepicker();
 
+    });
+	
+	/*  For JanRain component*/
+	(function() {
+	    if (typeof window.janrain !== 'object') window.janrain = {};
+	    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+	    
+	    janrain.settings.tokenUrl = 'http://localhost:9000/userPage';
+
+	    function isReady() { janrain.ready = true; };
+	    if (document.addEventListener) {
+	      document.addEventListener("DOMContentLoaded", isReady, false);
+	    } else {
+	      window.attachEvent('onload', isReady);
+	    }
+
+	    var e = document.createElement('script');
+	    e.type = 'text/javascript';
+	    e.id = 'janrainAuthWidget';
+
+	    if (document.location.protocol === 'https:') {
+	      e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
+	    } else {
+	      e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
+	    }
+
+	    var s = document.getElementsByTagName('script')[0];
+	    s.parentNode.insertBefore(e, s);
+	})();
+    
+ 
+	
+</script>
 <script>
         $(document).ready(function() {
         	
@@ -1126,57 +1265,14 @@
         });
 </script>
 
-<script type="text/javascript">
-	var current = 1; //current keeps track of how many schools we have @default =1 
-    var options ='';
-	var sClasses = 1; // sClasses keeps number of schools under which we added classes 
-    $(function(){
-    	
-    	$(".checkbox").dgStyle();
-//         $("#register-step-school").modal();
-//          $("#main-popups").modal();
-        $(".modal select:visible").selectBox();
-        $('.modal .datepicker').datepicker();
 
-    });
-	
-	/*  For JanRain component*/
-	(function() {
-	    if (typeof window.janrain !== 'object') window.janrain = {};
-	    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
-	    
-	    janrain.settings.tokenUrl = 'http://localhost:9000/userPage';
-
-	    function isReady() { janrain.ready = true; };
-	    if (document.addEventListener) {
-	      document.addEventListener("DOMContentLoaded", isReady, false);
-	    } else {
-	      window.attachEvent('onload', isReady);
-	    }
-
-	    var e = document.createElement('script');
-	    e.type = 'text/javascript';
-	    e.id = 'janrainAuthWidget';
-
-	    if (document.location.protocol === 'https:') {
-	      e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
-	    } else {
-	      e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
-	    }
-
-	    var s = document.getElementsByTagName('script')[0];
-	    s.parentNode.insertBefore(e, s);
-	})();
-    
- 
-	
-</script>
  
 	
 <!--  Backbone.js files -->
 
 <script src="js/app.js"></script>
 <script src="js/views/loginview.js"></script>
+<script src="js/views/classstreamview.js"></script>
 <script src="js/models/loginmodel.js"></script>
 <script src="js/views/verifyemailview.js"></script>
 <script src="js/models/emailverificationmodel.js"></script>
@@ -1191,6 +1287,7 @@
 <script src="js/views/profileview.js"></script>
 <script src="js/views/streamview.js"></script>
 <script src="js/models/singleusermodel.js"></script>
+
 <script src="js/router.js"></script>
 <script src="js/setup.js"></script>
 
