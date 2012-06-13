@@ -35,13 +35,7 @@ object ClassController extends Controller {
       "classType" -> nonEmptyText,
       "schoolName" -> nonEmptyText)(ClassForm.apply)(ClassForm.unapply))
 
-  /*
-  * Displays all the classes        
-  */
-
-  def classes = Action {
-    Ok
-  }
+ 
 
   /*
    * Add a class to a user (Intact)
