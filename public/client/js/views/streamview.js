@@ -109,10 +109,7 @@ BS.StreamView = Backbone.View.extend({
     	$('#school-popup').html(this.school1.el);
 //    	$(".modal select:visible").selectBox();
         $('.modal .datepicker').datepicker();
-        
-    	
- 
-    	
+  
     },
     /*
      * display class stream
@@ -123,8 +120,7 @@ BS.StreamView = Backbone.View.extend({
     	this.classStream = new BS.ClassStreamView();
     	this.classStream.render();
     	$('#school-popup').html(this.classStream.el);
-    	 
-    	 
+    
     }
     
     
