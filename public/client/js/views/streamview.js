@@ -5,7 +5,11 @@ BS.StreamView = Backbone.View.extend({
            "mouseleave .trigger" : "mouseOut",
            "click #school" : "renderPopups",
            "click #classstream" :"classStream",
-           "click #projectStream" :"projectstream"
+           "click #projectStream" :"projectstream",
+           "click #studyStream" :"studyStream",
+           "click #groupStream" :"groupStream",
+           "click #peerStream" : "peerStream",
+           "click #friendStream" :"friendStream"
  
 		  
 	 },
@@ -134,6 +138,51 @@ BS.StreamView = Backbone.View.extend({
     	$('#school-popup').html(this.projectStream.el);
     
     },
+    /*
+     * display Study stream
+     */
+    studyStream :function(eventName) {
+    	 
+    	$('.modal-backdrop').show();
+    	this.studytStream = new BS.StudyStreamView();
+    	this.studytStream.render();
+    	$('#school-popup').html(this.studytStream.el);
     
+    },
     
+    /*
+     * display Group stream
+     */
+    groupStream :function(eventName) {
+    	 
+    	$('.modal-backdrop').show();
+    	this.grouptStream = new BS.GroupStreamView();
+    	this.grouptStream.render();
+    	$('#school-popup').html(this.grouptStream.el);
+    
+    },
+    
+    /*
+     * display Peer stream
+     */
+    peerStream :function(eventName) {
+    	 
+    	$('.modal-backdrop').show();
+    	this.peertStream = new BS.PeerStreamView();
+    	this.peertStream.render();
+    	$('#school-popup').html(this.peertStream.el);
+    
+    },
+    
+    /*
+     * display friend stream
+     */
+    friendStream :function(eventName) {
+    	 
+    	$('.modal-backdrop').show();
+    	this.friendStream = new BS.FriendStreamView();
+    	this.friendStream.render();
+    	$('#school-popup').html(this.friendStream.el);
+    
+    },
 });

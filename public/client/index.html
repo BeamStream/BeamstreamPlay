@@ -67,13 +67,14 @@
     <div class="modal-body"> 
     <form>
      <fieldset>
+   <legend class="legend">Add a class stream</legend>
      <div class="form-row short">
           <div class="element">
               <label for="class-code">Class code</label>
-              <input type="text"  id="class-code" class="validate[required] small " placeholder="Class 1 code" >
+              <input type="text"  id="class-code" class="validate[required] small " placeholder="Class code" >
               
           </div>
-          <div class="element">
+          <div class="element" id="div-time">
               <label for="class-time">Class time</label>
               <select id="class-time" class="time">
 				  {{#each times}}
@@ -81,30 +82,28 @@
                   {{/each}}
               </select>
           </div>
-          <div class="element">
+          <div class="element" >
               <label for="class-name">Class name</label>
-              <input type="text" id="class-name" class="validate[required] medium" placeholder="Class 1 name">
+              <input type="text" id="class-name" class="validate[required] medium" placeholder="Class  name">
           </div>
           <div class="element">
               <label for="date-started">Month/Year started</label>
-              <input class="validate[required] small datepicker cal" type="text" placeholder="Date1" id="date-started-{{sCount}}-1"/>
+              <input class="validate[required] small datepicker cal" type="text" placeholder="Date1" id="date-started"/>
           </div>
-           <div class="element">
+           <div class="element" id="div-school-type">
                <label for="semester">Semester or Quarter</label>
                <select id="semester" class="small">
                      <option value="semester">Semester</option>
-                     <option value="quarter">Quarter</option>
+                     <option value="quarter" >Quarter</option>
                </select>
           </div>
       </div>
       
       <div class="form-row">
-          <div class="element">
+          <div class="element" id="div-school">
                <label for="semester">School</label>
                <select id="schools" class="small">
-                     <option value="semester">Current School</option>
-                     <option value="quarter">Chnage School</option>
-                     <option value="quarter">No School associated</option>
+                     
                </select>
           </div>
           <div class="element" >
@@ -239,13 +238,334 @@
         </form>
      </div>
     <div class="modal-footer">
-        <a href="#joinClass" id ="joinClass" class="btn btn-primary pull-left"  >Join a Class</a>
-        <a href="#createClass" id ="createClass" class="btn btn-success pull-right">Create a Class</a>
+        <a href="#" class="btn btn-success pull-right">Create ProjectStream</a>
     </div>
     
    </div>
    </script> 
 
+
+<!--  study stream template -->
+<script type="text/x-handlebars-template" id="tpl-study-stream">
+ 
+  <div class="modal-backdrop in"></div>
+    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+      <div class="modal-header">
+      </div>
+    <div class="modal-body"> 
+    <form>
+            <fieldset>
+                <legend class="legend">Add a study stream</legend>
+                <div class="form-row short">
+                    <div class="element">
+                        <label for="project-name">StudyStream Name </label>
+                        <input type="text" id="study-name" class="span3" placeholder="StudyStream Name">
+                    </div>
+                    <div class="element">
+                        <label for="year">Assign to Class</label>
+                        <select id="year" class="span2">
+                            <option value="2002">Class 1</option>
+                            <option value="2001">Class 2</option>
+                            <option value="2000">Don't asign/No Class</option>
+                        </select>
+                    </div>
+			<div class="element">
+                        <label for="calendar-1">Set End date</label>
+                        <input class="span2 datepicker cal" type="text" value="01/05/2011" id="calendar-1"/>
+                    </div>
+                </div>
+             
+
+		 <div class="form-row">
+
+			<div class="element">
+                        <label for="project-name">Add StudyStream Tags</label>
+                        <input type="text" id="project-name" class="span3">
+                    </div>
+			<div class="element">
+                        <label for="profile-photo">Profile photo</label>
+                        <span class="profile-thumb"><img src="images/no-photo.png" alt="no photo"></span>
+                        <div class="profile-upload-box">
+                            <span class="profile-upload" id="profile-photo"></span>
+                        </div>
+                    </div>
+	
+  		</div>
+		<div class="form-row-label">&nbsp;</div>
+		 <div class="form-row">
+			<div class="element">
+				
+				<ul class="add-type">
+					<li><div class="radio"><input type="radio" name="add-type" /></div><span>Add Professor</span></li>
+					<li><div class="radio"><input type="radio" name="add-type" /></div><span>Add Student's</span></li>
+					<li><div class="radio"><input type="radio" name="add-type" /></div><span>Add Professional's</span></li>
+				</ul>
+			 </div>
+			<div class="element">
+				<label for="project-name">Via Email</label>
+                        	<input type="text" id="project-name" class="span3" placeholder="email@gmail.com">
+					<span>OR</span>
+				<div class="social-block social-network">
+
+					    <a class="facebook" href="#"></a>
+					    <a class="twitter" href="#"></a>
+					    <a class="linkedin" href="#"></a>
+					    <a class="google" href="#"></a>
+					    <a class="mail" href="#"></a>
+                		</div>
+			</div>
+		</div>
+
+		 <div class="form-row project-name">
+			<div class="radio"><input type="radio" class="radio" checked="checked"/></div><p>Make StudyStream Public </p>
+		</div>
+            </fieldset>
+
+        </form>
+     </div>
+    <div class="modal-footer">
+        <a href="#createstudy" id ="createstudy" class="btn btn-success pull-right">Create StudyStream</a>
+    </div>
+    
+   </div>
+   </script> 
+   
+   
+	   <!--  group stream template -->
+	<script type="text/x-handlebars-template" id="tpl-group-stream">
+ 
+  <div class="modal-backdrop in"></div>
+    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+      <div class="modal-header">
+      </div>
+    <div class="modal-body"> 
+    <form>
+            <fieldset>
+                <legend class="legend">Add a group stream</legend>
+                <div class="form-row short">
+                    <div class="element">
+                        <label for="project-name">GroupStream Name </label>
+                        <input type="text" id="group-name" class="span3" placeholder="GroupStream Name">
+                    </div>
+                    <div class="element">
+                        <label for="year">Group Access</label>
+                        <select id="year" class="span2">
+                            <option value="2002">Classmembers Only</option>
+                            <option value="2001">School Only</option>
+                            <option value="2000">User Request Access</option>
+							<option value="2000">Invite Only</option>
+							<option value="2000">Open (Public)</option>
+                        </select>
+                    </div>
+                </div>
+             
+
+		 <div class="form-row">
+
+			<div class="element">
+                        <label for="group-name">Add Group Tags</label>
+                        <input type="text" id="group-name" class="span3">
+                    </div>
+			<div class="element">
+                        <label for="profile-photo">Profile photo</label>
+                        <span class="profile-thumb"><img src="images/no-photo.png" alt="no photo"></span>
+                        <div class="profile-upload-box">
+                            <span class="profile-upload" id="profile-photo"></span>
+                        </div>
+                    </div>
+	
+  		</div>
+		<div class="form-row-label">&nbsp;</div>
+		 <div class="form-row">
+			<div class="element">
+				
+				<ul class="add-type">
+					<li><div class="radio"><input type="radio" name="add-type" /></div><span>Add Professor</span></li>
+					<li><div class="radio"><input type="radio" name="add-type" /></div><span>Add Student's</span></li>
+					<li><div class="radio"><input type="radio" name="add-type" /></div><span>Add Professional's</span></li>
+				</ul>
+			 </div>
+			<div class="element">
+				<label for="project-name">Via Email</label>
+                        	<input type="text" id="project-name" class="span3" placeholder="email@gmail.com">
+					<span>OR</span>
+				<div class="social-block social-network">
+
+					    <a class="facebook" href="#"></a>
+					    <a class="twitter" href="#"></a>
+					    <a class="linkedin" href="#"></a>
+					    <a class="google" href="#"></a>
+					    <a class="mail" href="#"></a>
+                		</div>
+			</div>
+		</div>
+
+		  
+            </fieldset>
+
+        </form>
+     </div>
+    <div class="modal-footer">
+        <a href="#creategroup" id ="creategroup" class="btn btn-success pull-right">Create GroupStream</a>
+    </div>
+    
+   </div>
+   </script>	
+   
+   
+     <!--  peer stream template -->
+	<script type="text/x-handlebars-template" id="tpl-peer-stream">
+ 
+  <div class="modal-backdrop in"></div>
+    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+      <div class="modal-header">
+      </div>
+    <div class="modal-body"> 
+    <form>
+            <fieldset>
+                <legend class="legend">Add a peer stream</legend>
+                <div class="form-row short">
+                    <div class="element">
+                        <label for="project-name">PeerStream Name </label>
+                        <input type="text" id="peer-name" class="span3" placeholder="PeerStream Name">
+                    </div>
+                    <div class="element">
+                        <label for="year">PeerStream Access</label>
+                        <select id="year" class="span2">
+                            <option value="2002">Classmembers Only</option>
+                            <option value="2001">School Only</option>
+                            <option value="2000">User Request Access</option>
+							<option value="2000">Invite Only</option>
+							<option value="2000">Open (Public)</option>
+                        </select>
+                    </div>
+                </div>
+             
+
+		 <div class="form-row">
+
+			<div class="element">
+                        <label for="group-name">Add PeerStream Tags</label>
+                        <input type="text" id="peer-name" class="span3">
+                    </div>
+			<div class="element">
+                        <label for="profile-photo">Profile photo</label>
+                        <span class="profile-thumb"><img src="images/no-photo.png" alt="no photo"></span>
+                        <div class="profile-upload-box">
+                            <span class="profile-upload" id="profile-photo"></span>
+                        </div>
+                    </div>
+	
+  		</div>
+		<div class="form-row-label">&nbsp;</div>
+		 <div class="form-row">
+			<div class="element">
+				
+				<ul class="add-type">
+					<li><div class="radio"><input type="radio" name="add-type" /></div><span>Add Professor</span></li>
+					<li><div class="radio"><input type="radio" name="add-type" /></div><span>Add Student's</span></li>
+					<li><div class="radio"><input type="radio" name="add-type" /></div><span>Add Professional's</span></li>
+				</ul>
+			 </div>
+			<div class="element">
+				<label for="project-name">Via Email</label>
+                        	<input type="text" id="project-name" class="span3" placeholder="email@gmail.com">
+					<span>OR</span>
+				<div class="social-block social-network">
+
+					    <a class="facebook" href="#"></a>
+					    <a class="twitter" href="#"></a>
+					    <a class="linkedin" href="#"></a>
+					    <a class="google" href="#"></a>
+					    <a class="mail" href="#"></a>
+                		</div>
+			</div>
+		</div>
+
+		  
+            </fieldset>
+
+        </form>
+     </div>
+    <div class="modal-footer">
+        <a href="#creategroup" id ="creategroup" class="btn btn-success pull-right">Create PeerStream</a>
+    </div>
+    
+   </div>
+   </script>		
+   
+   
+   
+     <!--  friend stream template -->
+	<script type="text/x-handlebars-template" id="tpl-friend-stream">
+ 
+  <div class="modal-backdrop in"></div>
+    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+      <div class="modal-header">
+      </div>
+    <div class="modal-body"> 
+    <form>
+            <fieldset>
+                <legend class="legend">Add a friend stream</legend>
+                <div class="form-row short">
+                    <div class="element">
+                        <label for="friend-name">FriendStream Name </label>
+                        <input type="text" id="friend-name" class="span3" placeholder="FriendStream Name">
+                    </div>
+                    <div class="element">
+                        <label for="year">FriendStream Access</label>
+                        <select id="year" class="span2">
+							<option value="2000">Private</option>
+							<option value="2000">Open (Public)</option>
+                        </select>
+                    </div>
+                </div>
+             
+
+		 <div class="form-row">
+
+			<div class="element">
+                        <label for="friend-name">Add FriendStream Tags</label>
+                        <input type="text" id="friend-name" class="span3">
+                    </div>
+	
+  		</div>
+		<div class="form-row-label">&nbsp;</div>
+		 <div class="form-row">
+			<div class="element">
+				
+				<ul class="add-type">
+					<li><div class="radio"><input type="radio" name="add-type" /></div><span>Add Professor</span></li>
+					<li><div class="radio"><input type="radio" name="add-type" /></div><span>Add Student's</span></li>
+					<li><div class="radio"><input type="radio" name="add-type" /></div><span>Add Professional's</span></li>
+				</ul>
+			 </div>
+			<div class="element">
+				<label for="project-name">Via Email</label>
+                        	<input type="text" id="project-name" class="span3" placeholder="email@gmail.com">
+					<span>OR</span>
+				<div class="social-block social-network">
+
+					    <a class="facebook" href="#"></a>
+					    <a class="twitter" href="#"></a>
+					    <a class="linkedin" href="#"></a>
+					    <a class="google" href="#"></a>
+					    <a class="mail" href="#"></a>
+                		</div>
+			</div>
+		</div>
+
+		  
+            </fieldset>
+
+        </form>
+     </div>
+    <div class="modal-footer">
+        <a href="#createfriend" id ="createfriend" class="btn btn-success pull-right">Create FriendStream</a>
+    </div>
+    
+   </div>
+   </script>	
 <!--  for form validation -->
 <script type="text/javascript">
 		$(document).ready(function(){
@@ -855,11 +1175,11 @@
                        <div class="block">
                         <ul>
                          <li><a  id ="classstream" href="#classStream">ClassStream </a>- Collaborate within your class</li>
-						 <li><a href="#projectStream">ProjectStream </a>- Shortterm  projects w/ an end date - choose to add to your profile upon completion</li>
-                         <li><a href="#studystream">StudyStream  </a>- Study Group of students from your class, degree program, school and beyond</li>
-					 	 <li><a href="#gruopstream">GroupStream </a>-Ongoing groups about anything, make them public or private </li>
-						 <li><a href="#peerstream">PeerStream  </a>-Students or Professors:Stay connected w/ your peer</li>
-						 <li><a href="#friendstream">FriendStream  </a>-Collaborate and stay in touch w/ your friends</li>
+						 <li><a id="projectStream" href="#projectStream">ProjectStream </a>- Shortterm  projects w/ an end date - choose to add to your profile upon completion</li>
+                         <li><a id="studyStream" href="#studyStream">StudyStream  </a>- Study Group of students from your class, degree program, school and beyond</li>
+					 	 <li><a id ="groupStream" href="#groupStream">GroupStream </a>-Ongoing groups about anything, make them public or private </li>
+						 <li><a id="peerStream" href="#peerStream">PeerStream  </a>-Students or Professors:Stay connected w/ your peer</li>
+						 <li><a id ="friendStream" href="#friendStream">FriendStream  </a>-Collaborate and stay in touch w/ your friends</li>
                         <ul>
                  </div>
                   </div>
@@ -1374,6 +1694,10 @@
 <script src="js/views/loginview.js"></script>
 <script src="js/views/classstreamview.js"></script>
 <script src="js/views/projectstreamview.js"></script>
+<script src="js/views/studystreamview.js"></script>
+<script src="js/views/groupstreamview.js"></script>
+<script src="js/views/peerstreamview.js"></script>
+<script src="js/views/friendstreamview.js"></script>
 <script src="js/models/loginmodel.js"></script>
 <script src="js/views/verifyemailview.js"></script>
 <script src="js/models/emailverificationmodel.js"></script>
