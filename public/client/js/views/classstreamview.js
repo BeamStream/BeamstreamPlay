@@ -4,6 +4,7 @@ BS.ClassStreamView = Backbone.View.extend({
        "keyup #class-code" : "populateClasses",
        "click .datepicker" :"setIndex",
        "focus  #class-code" : "selectCode",
+       "keypress  #class-code" : "selectCode",
         
 	},
 
