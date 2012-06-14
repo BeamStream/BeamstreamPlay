@@ -1,7 +1,8 @@
 BS.ClassStreamView = Backbone.View.extend({
 
 	events : {
-       "keyup #class-code" : "populateClasses"
+       "keyup #class-code" : "populateClasses",
+       "click .datepicker" :"setIndex",
 	},
 
 	initialize : function() {
@@ -21,7 +22,6 @@ BS.ClassStreamView = Backbone.View.extend({
 				"times" : BS.times
 		}
 		$(this.el).html(this.template(sCount));
-		 
 		return this;
 	},
 	
@@ -31,7 +31,7 @@ BS.ClassStreamView = Backbone.View.extend({
 	 */
 	populateClasses :function(){
 		var classCodes = [];
-
+//		$('#class-code').css('background','white url("../images/loading.gif") right center no-repeat');
 		 
 		
 		var text = $('#class-code').val();
@@ -52,6 +52,9 @@ BS.ClassStreamView = Backbone.View.extend({
 				$("#class-code").autocomplete(classCodes);
 			}
 		});
+	},
+	setIndex:function(){
+		$('.datepicker').css('z-index','9999');
 	}
    
 	 

@@ -10,7 +10,8 @@ BS.AppRouter = Backbone.Router.extend({
         "profile":"profileReg",
         "streams":"maisStream",
         "basicRegistration/token/:token/iam/:iam/emailId/:email":"basicRegistration",
-        "classStream":"classStream"
+        "classStream":"classStream",
+        "projectStream" : "projectStream"
 
         
     },
@@ -205,11 +206,29 @@ BS.AppRouter = Backbone.Router.extend({
      }
   
      $('#school-popup').html(this.ClassStreamView.el);
-     
+     $(".radio").dgStyle();
      $(".modal select:visible").selectBox();
      $('.modal .datepicker').datepicker();
      
     
+},
+/**
+ * display project stream screen
+ */
+projectStream:function () {
+
+	    if (!this.projectStreamView) {
+        this.projectStreamView = new BS.ProjectStreamView();
+        this.projectStreamView.render();
+        
+    }
+ 
+    $('#school-popup').html(this.projectStreamView.el);
+    $(".radio").dgStyle();
+    $(".modal select:visible").selectBox();
+    $('.modal .datepicker').datepicker();
+    
+   
 },
  
   

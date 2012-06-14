@@ -2388,3 +2388,53 @@ ul.rockit li span a {
 .block ul li a:hover{
 	text-decoration:underline;
 }
+
+.radio {
+	height: 30px;
+	width: 35px;
+	display:block;
+	float:left;
+	padding: 0;
+	background: url("../images/radio.png") left no-repeat;
+	cursor: default;
+	text-align:left;
+}
+.radio input {
+	display: none;
+}
+.radio input.show {
+	display: inline;
+}
+ul.add-type {
+	width:285px;
+	list-style:none;
+	margin:10px 0 0 0;
+}
+ul.add-type li {
+	display:block;
+	float:left;
+	clear:both;
+	font-family: UbuntuBold;
+	line-height:38px;
+	margin:0;
+}
+ul.add-type li span{
+	float:left;
+}
+.social-network {
+	margin:0;
+	text-align:left;
+	padding-top: 20px;
+}
+.modal form .form-row {
+	font-family: UbuntuBold;
+	line-height:25px;
+	margin:30px 0 0 0;
+}
+.project-name p {
+	display:block;
+	float:left;
+	font-family: UbuntuBold;
+	line-height:38px;
+	margin:0;
+}

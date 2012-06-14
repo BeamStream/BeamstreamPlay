@@ -4,7 +4,8 @@ BS.StreamView = Backbone.View.extend({
            "mouseenter .trigger" : "mouseOver",
            "mouseleave .trigger" : "mouseOut",
            "click #school" : "renderPopups",
-           "click #classstream" :"classStream"
+           "click #classstream" :"classStream",
+           "click #projectStream" :"projectstream"
  
 		  
 	 },
@@ -121,7 +122,18 @@ BS.StreamView = Backbone.View.extend({
     	this.classStream.render();
     	$('#school-popup').html(this.classStream.el);
     
-    }
+    },
+    /*
+     * display Project stream screen
+     */
+    projectstream :function(eventName) {
+    	 
+    	$('.modal-backdrop').show();
+    	this.projectStream = new BS.ProjectStreamView();
+    	this.projectStream.render();
+    	$('#school-popup').html(this.projectStream.el);
+    
+    },
     
     
 });

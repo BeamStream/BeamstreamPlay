@@ -70,7 +70,7 @@
      <div class="form-row short">
           <div class="element">
               <label for="class-code">Class code</label>
-              <input type="text"  id="class-code" class="validate[required] small" placeholder="Class 1 code" >
+              <input type="text"  id="class-code" class="validate[required] small " placeholder="Class 1 code" >
               
           </div>
           <div class="element">
@@ -113,30 +113,31 @@
            </div>
        </div>
        <div class="form-row-label">&nbsp;</div>
-		 <div class="form-row">
+		  <div class="form-row">
 			<div class="element">
-				<ul class="radio">
-					<li><input type="radio" name="add-type" />Add Professor</li>
-					<li><input type="radio" name="add-type" />Add Student's</li>
-					<li><input type="radio" name="add-type" />Add Professional's</li>
+				
+				<ul class="add-type">
+					<li><div class="radio"><input type="radio" name="add-type"  /></div><span>Add Professor</span></li>
+					<li><div class="radio"><input  type="radio" name="add-type" /></div><span>Add Student's</span></li>
+					<li><div class="radio"><input type="radio" name="add-type" /></div><span>Add Professional's</span></li>
 				</ul>
 			 </div>
 			<div class="element">
 				<label for="project-name">Via Email</label>
                         	<input type="text" id="project-name" class="span3" placeholder="email@gmail.com">
 					<span>OR</span>
-				<div class="social-block">
+				<div class="social-block social-network">
 
 					    <a class="facebook" href="#"></a>
 					    <a class="twitter" href="#"></a>
 					    <a class="linkedin" href="#"></a>
 					    <a class="google" href="#"></a>
 					    <a class="mail" href="#"></a>
-                </div>
+                		</div>
 			</div>
 		</div>
-        <div class="form-row">
-			<input type="radio" checked="checked"/>Make this an OPEN CLASS (Learn $ Teach with the WORLD)
+        <div class="form-row project-name">
+			<div class="radio"><input type="radio" class="radio" checked="checked"/></div><p>Make this an OPEN CLASS (Learn $ Teach with the WORLD)</p>
 		</div>
      
       </fieldset>
@@ -150,6 +151,100 @@
    </div>
    </script> 
 
+
+<!--  project stream template -->
+<script type="text/x-handlebars-template" id="tpl-project-stream">
+ 
+  <div class="modal-backdrop in"></div>
+    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+      <div class="modal-header">
+      </div>
+    <div class="modal-body"> 
+    <form>
+            <fieldset>
+                <legend class="legend">Add a project stream</legend>
+                <div class="form-row short">
+                    <div class="element">
+                        <label for="project-name">Project name</label>
+                        <input type="text" id="project-name" class="span3" placeholder="project name">
+                    </div>
+                    <div class="element">
+                        <label for="year">Assign to Class</label>
+                        <select id="year" class="span2">
+                            <option value="2002">Class 1</option>
+                            <option value="2001">Class 2</option>
+                            <option value="2000">Don't asign/No Class</option>
+                        </select>
+                    </div>
+			<div class="element">
+                        <label for="calendar-1">Set End date</label>
+                        <input class="span2 datepicker cal" type="text" value="01/05/2011" id="calendar-1"/>
+                    </div>
+			<div class="element">
+		                <label for="degree-program">Class Project</label>
+		                <select id="degree-program" class="span2">
+		                    <option value="2002">Professional Collaboration</option>
+		                    <option value="2001"></option>
+		                </select>
+		            </div>
+                 
+                </div>
+             
+
+		 <div class="form-row">
+
+			<div class="element">
+                        <label for="project-name">Add Project Tags</label>
+                        <input type="text" id="project-name" class="span3">
+                    </div>
+			<div class="element">
+                        <label for="profile-photo">Profile photo</label>
+                        <span class="profile-thumb"><img src="images/no-photo.png" alt="no photo"></span>
+                        <div class="profile-upload-box">
+                            <span class="profile-upload" id="profile-photo"></span>
+                        </div>
+                    </div>
+	
+  		</div>
+		<div class="form-row-label">&nbsp;</div>
+		 <div class="form-row">
+			<div class="element">
+				
+				<ul class="add-type">
+					<li><div class="radio"><input type="radio" name="add-type" /></div><span>Add Professor</span></li>
+					<li><div class="radio"><input type="radio" name="add-type" /></div><span>Add Student's</span></li>
+					<li><div class="radio"><input type="radio" name="add-type" /></div><span>Add Professional's</span></li>
+				</ul>
+			 </div>
+			<div class="element">
+				<label for="project-name">Via Email</label>
+                        	<input type="text" id="project-name" class="span3" placeholder="email@gmail.com">
+					<span>OR</span>
+				<div class="social-block social-network">
+
+					    <a class="facebook" href="#"></a>
+					    <a class="twitter" href="#"></a>
+					    <a class="linkedin" href="#"></a>
+					    <a class="google" href="#"></a>
+					    <a class="mail" href="#"></a>
+                		</div>
+			</div>
+		</div>
+
+		 <div class="form-row project-name">
+			<div class="radio"><input type="radio" class="radio" checked="checked"/></div><p>Add Project NAme & Details to my profile (public)	</p>
+		</div>
+            </fieldset>
+
+        </form>
+     </div>
+    <div class="modal-footer">
+        <a href="#joinClass" id ="joinClass" class="btn btn-primary pull-left"  >Join a Class</a>
+        <a href="#createClass" id ="createClass" class="btn btn-success pull-right">Create a Class</a>
+    </div>
+    
+   </div>
+   </script> 
 
 <!--  for form validation -->
 <script type="text/javascript">
@@ -760,7 +855,7 @@
                        <div class="block">
                         <ul>
                          <li><a  id ="classstream" href="#classStream">ClassStream </a>- Collaborate within your class</li>
-						 <li><a href="#projectstream">ProjectStream </a>- Shortterm  projects w/ an end date - choose to add to your profile upon completion</li>
+						 <li><a href="#projectStream">ProjectStream </a>- Shortterm  projects w/ an end date - choose to add to your profile upon completion</li>
                          <li><a href="#studystream">StudyStream  </a>- Study Group of students from your class, degree program, school and beyond</li>
 					 	 <li><a href="#gruopstream">GroupStream </a>-Ongoing groups about anything, make them public or private </li>
 						 <li><a href="#peerstream">PeerStream  </a>-Students or Professors:Stay connected w/ your peer</li>
@@ -1182,7 +1277,7 @@
     var options ='';
 	var sClasses = 1; // sClasses keeps number of schools under which we added classes 
     $(function(){
-    	
+    	$(".radio").dgStyle();
     	$(".checkbox").dgStyle();
 //         $("#register-step-school").modal();
 //          $("#main-popups").modal();
@@ -1278,6 +1373,7 @@
 <script src="js/app.js"></script>
 <script src="js/views/loginview.js"></script>
 <script src="js/views/classstreamview.js"></script>
+<script src="js/views/projectstreamview.js"></script>
 <script src="js/models/loginmodel.js"></script>
 <script src="js/views/verifyemailview.js"></script>
 <script src="js/models/emailverificationmodel.js"></script>
