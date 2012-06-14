@@ -30,13 +30,13 @@ class ScenarioTest extends FunSuite with BeforeAndAfter {
     /* vikas hunts for a stream to join*/
     val stream = Stream.getStreamByName("Bea")
     assert(stream.size === 1)
-    assert(stream(0).name === "Beamstream stream")
+    assert(stream(0).streamName === "Beamstream stream")
 
     /*vikas joins this stream */
     Stream.joinStream(stream(0).id, new ObjectId)
 
     /*total number of users on the stream must be 2*/
-    assert(Stream.getStreamByName("Beam")(0).users.size === 2)
+    assert(Stream.getStreamByName("Beam")(0).usersOfStream.size === 2)
     
   
     

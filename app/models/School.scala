@@ -1,4 +1,4 @@
-	package models
+package models
 
 import com.novus.salat._
 import com.novus.salat.global._
@@ -16,7 +16,6 @@ import net.liftweb.json.Serialization.{ read, write }
 
 case class School(@Key("_id") id: ObjectId, schoolName: String, year: Year.Value, degree: Degree.Value, major: String,
   graduated: Graduated.Value, graduationDate: Option[Date], degreeExpected: Option[DegreeExpected.Value], classes: List[Class])
-
 
 object School {
 
@@ -57,21 +56,19 @@ object School {
     for (school <- SchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList) yield school
   }
 
-  
-   /*
+  /*
    * Find a school by Id
    */
 
   def findSchoolsById(schoolId: ObjectId): String = {
-  val schoolName=SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0).schoolName
-   schoolName
+    val schoolName = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0).schoolName
+    schoolName
   }
-  
+
   /*
    * Get all school for a user
    */
   def getAllSchoolforAUser(userId: ObjectId): List[ObjectId] = {
-
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
     user.schoolId
 
@@ -83,18 +80,16 @@ object School {
 
   def getAllSchools(schoolsIdList: List[ObjectId]): List[School] = {
     var schoolList: List[School] = List()
-
     for (schoolId <- schoolsIdList) {
       val schoolObtained = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList
       schoolList ++= schoolObtained
     }
-
     schoolList
   }
-
 }
 
 object Year extends Enumeration {
+
   val Freshman = Value(0, "Freshman")
   val Sophomore = Value(1, "Sophomore")
   val Junior = Value(2, "Junior")

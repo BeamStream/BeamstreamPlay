@@ -8,7 +8,7 @@ import com.mongodb.casbah.MongoConnection
 import scala.collection.JavaConversions._
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
-case class Stream(@Key("_id") id: ObjectId, name: String, streamType: StreamType.Value, creator: ObjectId, users: List[ObjectId], posttoMyprofile: Boolean)
+case class Stream(@Key("_id") id: ObjectId, streamName: String, streamType: StreamType.Value, creatorOfStream: ObjectId, usersOfStream: List[ObjectId], postToMyProfile: Boolean)
 
 object Stream {
 
@@ -79,7 +79,7 @@ object Stream {
 
   def joinStream(streamId: ObjectId, userId: ObjectId) {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
-    StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(users = (stream.users ++ List(userId))), false, false, new WriteConcern)
+    StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream ++ List(userId))), false, false, new WriteConcern)
   }
 }
 
