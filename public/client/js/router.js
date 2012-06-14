@@ -11,7 +11,11 @@ BS.AppRouter = Backbone.Router.extend({
         "streams":"maisStream",
         "basicRegistration/token/:token/iam/:iam/emailId/:email":"basicRegistration",
         "classStream":"classStream",
-        "projectStream" : "projectStream"
+        "projectStream" : "projectStream",
+        "studyStream": "studyStream",
+        "groupStream": "groupStream",
+        "peerStream" : "peerStream",
+        "friendStream" :"friendStream"
 
         
     },
@@ -177,10 +181,10 @@ BS.AppRouter = Backbone.Router.extend({
   },
   
   
-  /**
+   /**
    * for email verification
    */
-  emailVerification: function() {
+   emailVerification: function() {
  	 this.emailView = null;
  	 if (!this.emailView) {
           this.emailView = new BS.verifyEmailView();
@@ -191,47 +195,117 @@ BS.AppRouter = Backbone.Router.extend({
       $(".modal select:visible").selectBox();
       jQuery("#email-verify").validationEngine();
       
- },
+  },
  
  
- /**
-  * display class stream screen
-  */
- classStream:function () {
- 
-	    if (!this.ClassStreamView) {
-         this.ClassStreamView = new BS.ClassStreamView();
-         this.ClassStreamView.render();
-         
-     }
-  
-     $('#school-popup').html(this.ClassStreamView.el);
-     $(".radio").dgStyle();
-     $(".modal select:visible").selectBox();
-     $('.modal .datepicker').datepicker();
-     
-    
-},
-/**
- * display project stream screen
- */
-projectStream:function () {
+	 /**
+	  * display class stream screen
+	  */
+	 classStream:function () {
+	 
+		    if (!this.ClassStreamView) {
+	         this.ClassStreamView = new BS.ClassStreamView();
+	         this.ClassStreamView.render();
+	         
+	     }
+	  
+	     $('#school-popup').html(this.ClassStreamView.el);
+	     $(".radio").dgStyle();
+	     $(".modal select:visible").selectBox();
+	     $('.modal .datepicker').datepicker();
+	     
+	    
+	},
+	/**
+	 * display project stream screen
+	 */
+	projectStream:function () {
+	
+		    if (!this.projectStreamView) {
+	        this.projectStreamView = new BS.ProjectStreamView();
+	        this.projectStreamView.render();
+	        
+	    }
+	 
+	    $('#school-popup').html(this.projectStreamView.el);
+	    $(".radio").dgStyle();
+	    $(".modal select:visible").selectBox();
+	    $('.modal .datepicker').datepicker();
+	    
+	   
+	},
+	
+	/*
+	 * display study stream screen
+	 */
+	studyStream :function () {
+	
+		    if (!this.studyStreamView) {
+		    this.studyStreamView = new BS.StudyStreamView();
+		    this.studyStreamView.render();
+		    
+		}
+	
+		$('#school-popup').html(this.studyStreamView.el);
+		$(".radio").dgStyle();
+		$(".modal select:visible").selectBox();
+		$('.modal .datepicker').datepicker();
+	
+	
+	},
+	/*
+	 * display group stream screen
+	 */
+	groupStream:function () {
+		
+		    if (!this.groupStreamView) {
+		    this.groupStreamView = new BS.GroupStreamView();
+		    this.groupStreamView.render();
+		    
+		}
+	
+		$('#school-popup').html(this.groupStreamView.el);
+		$(".radio").dgStyle();
+		$(".modal select:visible").selectBox();
+		$('.modal .datepicker').datepicker();
 
-	    if (!this.projectStreamView) {
-        this.projectStreamView = new BS.ProjectStreamView();
-        this.projectStreamView.render();
-        
-    }
- 
-    $('#school-popup').html(this.projectStreamView.el);
-    $(".radio").dgStyle();
-    $(".modal select:visible").selectBox();
-    $('.modal .datepicker').datepicker();
-    
-   
+	},
+	
+	/*
+	 * display peer stream screen
+	 */
+	peerStream:function () {
+		
+		    if (!this.peerStreamView) {
+		    this.peerStreamView = new BS.PeerStreamView();
+		    this.peerStreamView.render();
+		}
+	
+		$('#school-popup').html(this.peerStreamView.el);
+		$(".radio").dgStyle();
+		$(".modal select:visible").selectBox();
+		$('.modal .datepicker').datepicker();
+
+
+	},
+	/*
+	 * display friend stream screen
+	 */
+	friendStream:function () {
+		
+	    if (!this.friendStreamView) {
+	    this.friendStreamView = new BS.FriendStreamView();
+	    this.friendStreamView.render();
+	}
+
+	$('#school-popup').html(this.friendStreamView.el);
+	$(".radio").dgStyle();
+	$(".modal select:visible").selectBox();
+	$('.modal .datepicker').datepicker();
+
+
 },
- 
-  
+
 });
 
  
