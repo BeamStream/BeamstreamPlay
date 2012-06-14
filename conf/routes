@@ -28,6 +28,9 @@ POST   /users                         controllers.UserController.findUser
 #Schools
 
 POST   /school                   controllers.SchoolController.addSchool
+GET   /getAllSchoolForAUser      controllers.SchoolController.getAllSchoolForAUser
+POST  /getSchoolNamebyId          controllers.SchoolController.getSchoolName
+
 
 #UpdateUserInfo
 

@@ -17,7 +17,7 @@ import net.liftweb.json.Serialization.{ read, write }
 case class School(@Key("_id") id: ObjectId, schoolName: String, year: Year.Value, degree: Degree.Value, major: String,
   graduated: Graduated.Value, graduationDate: Option[Date], degreeExpected: Option[DegreeExpected.Value], classes: List[Class])
 
-case class SchoolForm(schoolName: String)
+
 object School {
 
   implicit val formats = DefaultFormats
@@ -57,6 +57,16 @@ object School {
     for (school <- SchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList) yield school
   }
 
+  
+   /*
+   * Find a school by Id
+   */
+
+  def findSchoolsById(schoolId: ObjectId): String = {
+  val schoolName=SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0).schoolName
+   schoolName
+  }
+  
   /*
    * Get all school for a user
    */
