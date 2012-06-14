@@ -1,7 +1,7 @@
 BS.ProjectStreamView = Backbone.View.extend({
 
 	events : {
-
+		 "click .datepicker" :"setIndex",
 	},
 
 	initialize : function() {
@@ -27,7 +27,9 @@ BS.ProjectStreamView = Backbone.View.extend({
 	},
 	
 	
-    
+	setIndex:function(){
+		$('.datepicker').css('z-index','9999');
+	}
 	
 	
 
