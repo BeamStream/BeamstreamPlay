@@ -106,10 +106,9 @@ BS.ClassStreamView = Backbone.View.extend({
 					data : {
 						schoolId : schoolId
 					},
-					dataType : "json",
 					success : function(data) {
-						$('#schools').html('<option id= "'+data.schoolId+'">"'+data.schoolName+'"</option>');
-						$('#div-school a span.selectBox-label').html(data.schoolName);
+						$('#schools').html('<option id= "'+schoolId+'">"'+data+'"</option>');
+						$('#div-school a span.selectBox-label').html(data);
 					}
 			 });
 			 
