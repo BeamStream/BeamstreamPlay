@@ -32,8 +32,9 @@ BS.SchoolView = Backbone.View.extend({
     	var  schoolDetails = this.getSchoolInfo();
     	$.ajax({
             type: 'POST',
-            url:"http://localhost:9000/detailed_reg",
+//            url:"http://localhost:9000/detailed_reg",
 //            url : "http://localhost/client2/api.php",
+            url:"http://beamstream-v3.herokuapp.com/detailed_reg",
             data:{data:schoolDetails},
             dataType:"json",
             success:function(data){
@@ -57,8 +58,9 @@ BS.SchoolView = Backbone.View.extend({
       	  
     	  $.ajax({
               type: 'POST',
-              url:"http://localhost:9000/detailed_reg",
+//              url:"http://localhost:9000/detailed_reg",
 //              url : "http://localhost/client2/api.php",
+              url:"http://beamstream-v3.herokuapp.com/detailed_reg",
               data:{data:schoolDetails},
               dataType:"json",
               success:function(data){

@@ -32,9 +32,7 @@ object ClassController extends Controller {
 
     val classListJsonMap = request.body.asFormUrlEncoded.get
     val classJsonList = classListJsonMap("data").toList
-    println(classJsonList)
     val classList = net.liftweb.json.parse(classJsonList(0)).extract[List[Class]]
-    println(classList)
     val listOfClassIds = Class.createClass(classList)
     User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
     Ok

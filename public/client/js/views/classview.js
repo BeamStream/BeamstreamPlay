@@ -62,8 +62,9 @@ BS.ClassView = Backbone.View.extend({
 			/* post data with school and class details */
 			$.ajax({
 				type : 'POST',
-				url : "http://localhost:9000/class",
+		//		url : "http://localhost:9000/class",
 //				url : "http://localhost/client2/api.php",
+				url : "http://beamstream-v3.herokuapp.com/class",
 				data : {
 					data : classDetails
 				},
@@ -131,8 +132,9 @@ BS.ClassView = Backbone.View.extend({
 			/* post data with school and class details */
 			$.ajax({
 				type : 'POST',
-				url : "http://localhost:9000/class",
+//				url : "http://localhost:9000/class",
 //				 url : "http://localhost/client2/api.php",
+				url : "http://beamstream-v3.herokuapp.com/class",
 				data : {
 					data : classDetails
 				},
