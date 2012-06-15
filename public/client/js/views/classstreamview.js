@@ -52,7 +52,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		        });
 				$('.ac_results').css('width', '160px');
 				$("#class-code").autocomplete(BS.classCodes);
-				$('#class-code').focus();
+//				$('#class-code').focus();
 				 
 			}
 		});
@@ -88,7 +88,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		     }
 			 
          });
-		 // populate other class fields
+		 /* populate other class fields*/
 		 if(classStatus == true)
 		 {
 			 $('#class-name').val(className);
@@ -98,7 +98,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			 $('#div-school-type a span.selectBox-label').html(classType);
 			 $('#div-time a span.selectBox-label').html(classTime);
  
-			 // Post scholId to get the school name
+			 /* Post scholId to get the school name*/
 			 $.ajax({
 					type : 'POST',
 //					url : "http://localhost/client2/api.php",
@@ -127,7 +127,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			 $('#div-school a span.selectBox-label').html("");
 			 
 			 
-			// get all schoolIds under a class
+			/* get all schoolIds under a class */
 			 $.ajax({
 					type : 'GET',
 //					url : "http://localhost/client2/api.php",
