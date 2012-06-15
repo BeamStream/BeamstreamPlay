@@ -27,17 +27,22 @@ object BasicRegistration extends Controller {
 
   def basicRegistration = Action { implicit request =>
 
+     println("HittttttttttttttttttttttttttttttYYYYYY")
     val tokenJSON = request.body.asFormUrlEncoded.get
     val tokenString = tokenJSON("token").toList(0)
-
+     println(tokenString)
     val findToken = TokenDAO.find(MongoDBObject("tokenString" -> tokenString)).toList
 
     val successJson = write(new ResulttoSent("Success", "Allow To SignUp"))
     val failureJson = write(new ResulttoSent("Failure", "Do Not Allow To SignUp"))
 
     (findToken.size == 0) match {
-      case false => Ok(successJson).as("application/json")
-      case true => Ok(failureJson).as("application/json")
+      case false => 
+        println(successJson)
+        Ok(successJson).as("application/json")
+      case true => 
+        println(failureJson)
+        Ok(failureJson).as("application/json")
     }
 
   }
@@ -76,11 +81,11 @@ object BasicRegistration extends Controller {
    */
 
   def emailSent = Action { implicit request =>
-  println("Hittttttttttttttttttttttttttttt")
+ 
     val userInformationMap = request.body.asFormUrlEncoded.get
     val tempUserInformationJson = userInformationMap("data").toList(0)
     val userInformationJson = net.liftweb.json.parse(tempUserInformationJson)
-    println(userInformationJson)
+    
     val iam = (userInformationJson \ "iam").extract[String]
     val emailId = (userInformationJson \ "email").extract[String]
 
