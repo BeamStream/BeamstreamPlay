@@ -70,7 +70,7 @@ object Message {
 
   private def validateUserHasRightToPost(userId: ObjectId, streamId: ObjectId): Boolean = {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
-    stream.users.contains(userId)
+    stream.usersOfStream.contains(userId)
   }
 
   def removeMessage(message: Message) {
