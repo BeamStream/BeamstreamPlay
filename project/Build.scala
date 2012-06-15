@@ -9,7 +9,7 @@ object ApplicationBuild extends Build {
 
   val appDependencies = Seq(
     "com.mongodb.casbah" %% "casbah" % "2.1.5-1",
-    "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT", // Add your project dependencies here,
+    "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT",
     "org.scalatest" %% "scalatest" % "1.6.1",
     "joda-time" % "joda-time" % "2.0",
     "javax.mail" % "mail" % "1.4.1",
@@ -17,14 +17,7 @@ object ApplicationBuild extends Build {
     "org.joda" % "joda-convert" % "1.1")
 
   resolvers += "repo.novus snaps" at "http://repo.novus.com/snapshots/"
-
-  resolvers += "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
-
-  resolvers += "Central Repo" at "http://repo1.maven.org/maven2"
-
-  resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
-
-  resolvers += "repo.novus rels" at "http://repo.novus.com/releases/"
+  resolvers += "Novus Release Repository" at "http://repo.novus.com/releases/"
 
   def customLessEntryPoints(base: File): PathFinder = (
     (base / "app" / "assets" / "stylesheets" / "bootstrap" * "bootstrap.less") +++
