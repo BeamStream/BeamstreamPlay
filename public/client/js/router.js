@@ -149,7 +149,8 @@ BS.AppRouter = Backbone.Router.extend({
 			type : 'POST',
  
 //			url : "http://localhost/client2/api.php",
-			url :"http://localhost:9000/verifyToken",
+//			url :"http://localhost:9000/verifyToken",
+			url :"http://beamstream-v3.herokuapp.com/verifyToken",
 
 			data : {
 				token : token
