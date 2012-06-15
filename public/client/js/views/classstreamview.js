@@ -3,16 +3,13 @@ BS.ClassStreamView = Backbone.View.extend({
 	events : {
        "keyup #class-code" : "populateClasses",
        "click .datepicker" :"setIndex",
-       "focus  #class-code" : "selectCode",
-       "keypress  #class-code" : "selectCode",
-        
+       "focusin  #class-code" : "populateClasses",
 	},
 
 	initialize : function() {
 		console.log('Initializing Class Stream View');
 		this.source = $("#tpl-class-stream").html();
 		this.template = Handlebars.compile(this.source);
-		 
 	},
 
 	/**
@@ -33,8 +30,7 @@ BS.ClassStreamView = Backbone.View.extend({
 	 */
 	populateClasses :function(){
 		BS.classCodes = []; 
-		
-//		$('#class-code').css('background','white url("images/loading.gif") right center no-repeat');
+		BS.selectedCode = $('#class-code').val(); 
 		var text = $('#class-code').val();
 		 $.ajax({
 			type : 'POST',
@@ -52,32 +48,18 @@ BS.ClassStreamView = Backbone.View.extend({
 		        });
 				$('.ac_results').css('width', '160px');
 				$("#class-code").autocomplete(BS.classCodes);
-//				$('#class-code').focus();
-				 
 			}
 		});
 		 
-	},
-	/**
-	 * set date picker display
-	 */
-	setIndex:function(){
-		$('.datepicker').css('z-index','9999');
-	},
-	
-	/**
-	 * select a class code
-	 */
-	selectCode :function(){
 		 var classStatus = false; 
 		 var classTime ,className,date ,classType,schoolId;
 		 
-		 var selectedCode = $('#class-code').val(); 
+		
          var datas = JSON.stringify(BS.classInfo);
          
          /* get details of selected class */
 		 _.each(BS.classInfo, function(data) {
-		 	 if(data.classCode == selectedCode)
+		 	 if(data.classCode == BS.selectedCode)
 		     {
 				 classStatus = true;
 				 classTime = data.classTime;
@@ -107,8 +89,10 @@ BS.ClassStreamView = Backbone.View.extend({
 						schoolId : schoolId
 					},
 					success : function(data) {
-						$('#schools').html('<option id= "'+schoolId+'">"'+data+'"</option>');
-						$('#div-school a span.selectBox-label').html(data);
+						 var sSelect = '<select id="schools" class="small selectBox"><option value ="'+schoolId+'" >'+data+'</option>';
+						 $('#sShool').html(sSelect);
+						 $(".modal select:visible").selectBox();
+
 					}
 			 });
 			 
@@ -125,26 +109,40 @@ BS.ClassStreamView = Backbone.View.extend({
 			 $('#div-school-type a span.selectBox-label').html("");
 			 $('#div-time a span.selectBox-label').html("");
 			 $('#div-school a span.selectBox-label').html("");
-			 
+			 $(".modal select:visible").selectBox();
 			 
 			/* get all schoolIds under a class */
 			 $.ajax({
 					type : 'GET',
-//					url : "http://localhost/client2/api.php",
+//					url : "http://localhost/client/api.php",
 					url : "http://localhost:9000/getAllSchoolForAUser",
 					dataType : "json",
 					success : function(datas) {
+						
+						 var sSelect = '<select id="schools" class="small selectBox">';
 						_.each(datas, function(data) {
-							$('#schools').append('<option id= "'+data.schoollId+'">"'+data.schoolName+'"</option>');
+							sSelect+= '<option value ="'+data.schoolName+'" > '+data.schoolName+'</option>';
 				        });
+						sSelect+= '</select>';
+						$('#sShool').html(sSelect);
+						$(".modal select:visible").selectBox();
 					}
 			 });
-			 
+			
 			 $('#createClass').show(); 
 			 $('#joinClass').hide();
 		 }
 		 
+		 
 	},
+	/**
+	 * set date picker display
+	 */
+	setIndex:function(){
+		$('.datepicker').css('z-index','9999');
+	},
+	
+	 
  
 	 
 });
