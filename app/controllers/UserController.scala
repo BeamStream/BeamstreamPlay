@@ -23,17 +23,6 @@ object UserController extends Controller {
 
   implicit val formats = DefaultFormats
 
-  var s: String = ""
-
-  /*
-    * Map the fields value from html page 
-    */
-  val userForm = Form(
-    mapping(
-      "iam" -> nonEmptyText,
-      "email" -> nonEmptyText,
-      "password" -> nonEmptyText,
-      "signup" -> nonEmptyText)(UserForm.apply)(UserForm.unapply))
 
   /*
  * Find and Authenticate the user to proceed
