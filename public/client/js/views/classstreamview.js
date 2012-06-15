@@ -107,7 +107,6 @@ BS.ClassStreamView = Backbone.View.extend({
 						schoolId : schoolId
 					},
 					success : function(data) {
-						console.log(data);
 						$('#schools').html('<option id= "'+schoolId+'">"'+data+'"</option>');
 						$('#div-school a span.selectBox-label').html(data);
 					}
@@ -131,8 +130,8 @@ BS.ClassStreamView = Backbone.View.extend({
 			// get all schoolIds under a class
 			 $.ajax({
 					type : 'GET',
-					url : "http://localhost/client2/api.php",
-//					url : "http://localhost:9000/getAllSchoolForAUser",
+//					url : "http://localhost/client2/api.php",
+					url : "http://localhost:9000/getAllSchoolForAUser",
 					dataType : "json",
 					success : function(datas) {
 						_.each(datas, function(data) {
