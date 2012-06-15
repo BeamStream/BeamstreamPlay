@@ -7,8 +7,8 @@ object ApplicationBuild extends Build {
   val appName = "BeamstreamPlay"
   val appVersion = "1.0"
 
-  resolvers += "Scala-Tools Sona  Repository" at "http://oss.sonatype.org/content/groups/scala-tools/"
   resolvers += "repo.novus snaps" at "http://repo.novus.com/snapshots/"
+  resolvers += "Scala-Tools Sona  Repository" at "http://oss.sonatype.org/content/groups/scala-tools/"
   resolvers += "Novus Release Repository" at "http://repo.novus.com/releases/"
   
 
