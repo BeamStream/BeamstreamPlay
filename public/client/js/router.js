@@ -210,10 +210,11 @@ BS.AppRouter = Backbone.Router.extend({
 	     }
 	  
 	     $('#school-popup').html(this.ClassStreamView.el);
+	   
 	     $(".radio").dgStyle();
 	     $(".modal select:visible").selectBox();
 	     $('.modal .datepicker').datepicker();
-	     
+	 	 
 	    
 	},
 	/**
