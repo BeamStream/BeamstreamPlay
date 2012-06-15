@@ -7,11 +7,6 @@ object ApplicationBuild extends Build {
   val appName = "BeamstreamPlay"
   val appVersion = "1.0"
 
-  resolvers += "repo.novus snaps" at "http://repo.novus.com/snapshots/"
-  resolvers += "Scala-Tools Sona  Repository" at "http://oss.sonatype.org/content/groups/scala-tools/"
-  resolvers += "Novus Release Repository" at "http://repo.novus.com/releases/"
-  
-
   val appDependencies = Seq(
     "com.mongodb.casbah" %% "casbah" % "2.1.5-1",
     "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT", // Add your project dependencies here,
@@ -20,6 +15,16 @@ object ApplicationBuild extends Build {
     "javax.mail" % "mail" % "1.4.1",
     "org.scalatra" %% "scalatra-lift-json" % "2.0.4",
     "org.joda" % "joda-convert" % "1.1")
+
+  resolvers += "repo.novus snaps" at "http://repo.novus.com/snapshots/"
+
+  resolvers += "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
+
+  resolvers += "Central Repo" at "http://repo1.maven.org/maven2"
+
+  resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
+
+  resolvers += "repo.novus rels" at "http://repo.novus.com/releases/"
 
   def customLessEntryPoints(base: File): PathFinder = (
     (base / "app" / "assets" / "stylesheets" / "bootstrap" * "bootstrap.less") +++
