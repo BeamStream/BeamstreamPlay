@@ -21,7 +21,6 @@ BS.ClassStreamView = Backbone.View.extend({
 	render : function(eventName) {
 		 
 		var sCount = {
-				
 				"times" : BS.times
 		}
 		$(this.el).html(this.template(sCount));
@@ -33,10 +32,9 @@ BS.ClassStreamView = Backbone.View.extend({
 	 * 
 	 */
 	populateClasses :function(){
-		var classCodes = [];
-//		$('#class-code').css('background','white url("../images/loading.gif") right center no-repeat');
-		 
+		BS.classCodes = []; 
 		
+//		$('#class-code').css('background','white url("images/loading.gif") right center no-repeat');
 		var text = $('#class-code').val();
 		 $.ajax({
 			type : 'POST',
@@ -50,13 +48,15 @@ BS.ClassStreamView = Backbone.View.extend({
 				var codes = '';
 				BS.classInfo = datas;
 				_.each(datas, function(data) {
-					classCodes.push(data.classCode);
+					BS.classCodes.push(data.classCode);
 		        });
 				$('.ac_results').css('width', '160px');
-				$("#class-code").autocomplete(classCodes);
-				
+				$("#class-code").autocomplete(BS.classCodes);
+//				$('#class-code').focus();
+				 
 			}
 		});
+		 
 	},
 	/**
 	 * set date picker display
@@ -88,7 +88,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		     }
 			 
          });
-		 // populate other class fields
+		 /* populate other class fields*/
 		 if(classStatus == true)
 		 {
 			 $('#class-name').val(className);
@@ -98,7 +98,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			 $('#div-school-type a span.selectBox-label').html(classType);
 			 $('#div-time a span.selectBox-label').html(classTime);
  
-			 // Post scholId to get the school name
+			 /* Post scholId to get the school name*/
 			 $.ajax({
 					type : 'POST',
 //					url : "http://localhost/client2/api.php",
@@ -127,7 +127,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			 $('#div-school a span.selectBox-label').html("");
 			 
 			 
-			// get all schoolIds under a class
+			/* get all schoolIds under a class */
 			 $.ajax({
 					type : 'GET',
 //					url : "http://localhost/client2/api.php",
