@@ -9,8 +9,8 @@ object ApplicationBuild extends Build {
 
   val appDependencies = Seq(
     "com.mongodb.casbah" %% "casbah" % "2.1.5-1",
-    //"com.novus" %% "salat-core" % "0.0.8-SNAPSHOT",
-    "com.novus" %% "salat-core" % "0.0.8-20120223",
+    "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT",
+    //"com.novus" %% "salat-core" % "0.0.8-20120223",
     "org.scalatest" %% "scalatest" % "1.6.1",
     "joda-time" % "joda-time" % "2.0",
     "javax.mail" % "mail" % "1.4.1",
