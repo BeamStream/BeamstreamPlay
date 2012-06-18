@@ -45,40 +45,40 @@ BS.schoolNamebyId = "http://localhost:9000/getSchoolNamebyId";
 BS.allSchoolForAUser = "http://localhost:9000/getAllSchoolForAUser";
 
 //For new class in class stream
-BS.newClass = ;
+BS.newClass = "http://localhost:9000/newStream";
 
  
-/**
- * for testing in local
- *  */
-/* 
-BS.login = "http://localhost/client2/api.php";
-
+///**
+// * for testing in local
+// *  */
+// 
+//BS.login = "http://localhost/client2/api.php";
+//
+// 
+//BS.verifyToken ="http://localhost/client2/api.php";
+//
+// 
+//BS.verifyEmail = "http://localhost/client2/api.php";
+// 
+//BS.registerNewUser = "http://localhost/client2/api.php";
+//
+// 
+//BS.loggedInUserJson = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
+//
+// 
+//BS.saveSchool = "http://localhost/client2/api.php";
+//
+// 
+//BS.schoolJson = "http://localhost/client/api.php";
+//
+// 
+//BS.saveClass = "http://localhost/client2/api.php";
+//
+// 
+//BS.saveProfile = "http://localhost/client2/api.php";
+//
+//BS.autoPopulateClass = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
+//BS.schoolNamebyId = "http://localhost/client2/api.php";
+//BS.allSchoolForAUser = "http://localhost/client/api.php";
+//BS.newClass = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
  
-BS.verifyToken ="http://localhost/client2/api.php";
-
- 
-BS.verifyEmail = "http://localhost/client2/api.php";
- 
-BS.registerNewUser = "http://localhost/client2/api.php";
-
- 
-BS.loggedInUserJson = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
-
- 
-BS.saveSchool = "http://localhost/client2/api.php";
-
- 
-BS.schoolJson = "http://localhost/client/api.php";
-
- 
-BS.saveClass = "http://localhost/client2/api.php";
-
- 
-BS.saveProfile = "http://localhost/client2/api.php";
-
-BS.autoPopulateClass = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
-BS.schoolNamebyId = "http://localhost/client2/api.php";
-BS.allSchoolForAUser = "http://localhost/client/api.php";
-BS.newClass = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
- */
