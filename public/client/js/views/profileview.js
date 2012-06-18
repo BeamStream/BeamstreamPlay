@@ -35,9 +35,10 @@ BS.ProfileView = Backbone.View.extend({
         	this.model.set('videoName',$('#videodata').attr("name"));
         	this.model.set('mobile',$('#mobile').val());
         	this.model.set('upload',$('#upload').val());
-    		
+        	
     		var data;
-    		
+
+        	/*
     		data = new FormData();
      	    data.append('imageName',$('#imagedata').attr("name"));
      	    data.append('imageData',$('#imagedata').val());
@@ -46,6 +47,15 @@ BS.ProfileView = Backbone.View.extend({
      	   data.append('videoData', $('#videodata').val());
      		data.append('mobile',$('#mobile').val());
      	   data.append('upload',$('#upload').val());
+     	   
+     	   */
+        	
+        	data = new FormData();
+     	    data.append('image', $('#profile-image')[0].files[0]);
+     	    data.append('video', $('#my-video')[0].files[0] );
+     		data.append('mobile',$('#mobile').val());
+     		data.append('upload',$('#upload').val());
+     		
  
  
         	/* post profile page details */
