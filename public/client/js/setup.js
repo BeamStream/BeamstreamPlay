@@ -35,6 +35,9 @@ BS.saveClass = "http://localhost:9000/class";
 //For Profile Page Post Data
 BS.saveProfile = "http://localhost:9000/getMediafromPost";
 
+//for local
+BS.saveProfile = "http://192.168.10.10/Beam2/BeamstreamPlay/public/client/image.php";
+
 //For populate list of class code
 BS.autoPopulateClass  = "http://localhost:9000/autoPopulateClasses";
 
