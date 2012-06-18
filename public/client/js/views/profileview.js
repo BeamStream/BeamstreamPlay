@@ -51,7 +51,7 @@ BS.ProfileView = Backbone.View.extend({
      	   */
         	
         	data = new FormData();
-     	    data.append('image', $('#profile-image')[0].files[0]);
+     	    data.append('imageData', $('#profile-image')[0].files[0]);
      	    data.append('video', $('#my-video')[0].files[0] );
      		data.append('mobile',$('#mobile').val());
      		data.append('upload',$('#upload').val());
