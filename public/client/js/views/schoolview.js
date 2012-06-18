@@ -24,51 +24,87 @@ BS.SchoolView = Backbone.View.extend({
         return this;
     },
     
-    /** TODO
+     /** TODO
      * save/post school info details.
      */
     saveSchool:function (eventName) {
     	eventName.preventDefault();  
-    	var  schoolDetails = this.getSchoolInfo();
-    	$.ajax({
-            type: 'POST',
-            url:"http://localhost:9000/detailed_reg",
-//            url : "http://localhost/client2/api.php",
-            data:{data:schoolDetails},
-            dataType:"json",
-            success:function(data){
-                
-				 // navigate to main stream page
-            	BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+    	var gStatus = true;
+    	$('select.graduated').each(function(index,item) {
+    		  
+    		 var Id='#'+item.id;
+    	     if($(Id).val() == "")
+    	     {
+    	       gStatus = false;
+    	        
+    	     }
+    	}); 
+    	if(gStatus == false)
+    	{
+    		$('#error').html("Please select your Graduation");
+    		
+    	}
+    	else
+    	{
+        	var  schoolDetails = this.getSchoolInfo();
+        	$.ajax({
+                type: 'POST',
+                url:"http://localhost:9000/detailed_reg",
+//                url : "http://localhost/client2/api.php",
+                data:{data:schoolDetails},
+                dataType:"json",
+                success:function(data){
+                    
+    				 // navigate to main stream page
+                	BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+    
+                    
+                }
+             });
+    	}
+    	
 
-                
-            }
-         });
       },
-      
       
       /** TODO
        *  function to navigate to Class Registration when click on 'Continue' button 
        */
       continueToClass:function (eventName) {
     	  
-    	  eventName.preventDefault();   
+    	  eventName.preventDefault();  
+    	  var gStatus = true;
+      	$('select.graduated').each(function(index,item) {
+      		  
+      		 var Id='#'+item.id;
+      	     if($(Id).val() == "")
+      	     {
+      	       gStatus = false;
+      	        
+      	     }
+      	}); 
+      	if(gStatus == false)
+      	{
+      		$('#error').html("Please select your Graduation");
+      		
+      	}
+      	else
+      	{
     	  var  schoolDetails = this.getSchoolInfo();
       	  
     	  $.ajax({
               type: 'POST',
               url:"http://localhost:9000/detailed_reg",
-//              url : "http://localhost/client2/api.php",
+//              url : "http://localhost/client/api.php",
               data:{data:schoolDetails},
               dataType:"json",
               success:function(data){
-            	  
+            	   
             	  BS.AppRouter.navigate("class", {trigger: true, replace: true});
             	  
               }
            });
+      	}
       },
-      
       
      /**
       *  add another school details 
