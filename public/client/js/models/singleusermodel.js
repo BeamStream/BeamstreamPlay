@@ -18,6 +18,7 @@ BS.SingleUser = Backbone.Model.extend({
         	classId:null
         },
         url :BS.loggedInUserJson,
+ 
         
        
 });

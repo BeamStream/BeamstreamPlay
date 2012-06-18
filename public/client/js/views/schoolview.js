@@ -25,13 +25,14 @@ BS.SchoolView = Backbone.View.extend({
         return this;
     },
     
-    /** TODO
+     /** TODO
      * save/post school info details.
      */
     saveSchool:function (eventName) {
     	eventName.preventDefault();  
-    	
+ 
     	/* put validation on "Graduated?" filed */
+ 
     	var gStatus = true;
     	$('select.graduated').each(function(index,item) {
     		  
@@ -68,18 +69,17 @@ BS.SchoolView = Backbone.View.extend({
 
       },
       
-      
       /** TODO
        *  function to navigate to Class Registration when click on 'Continue' button 
        */
       continueToClass:function (eventName) {
     	  
     	  eventName.preventDefault();  
-    	  
+ 
     	 /* put validation on "Graduated?" filed */
     	 var gStatus = true;
       	 $('select.graduated').each(function(index,item) {
-      		  
+ 
       		 var Id='#'+item.id;
       	     if($(Id).val() == "")
       	     {
@@ -109,7 +109,6 @@ BS.SchoolView = Backbone.View.extend({
            });
       	}
       },
-      
       
      /**
       *  add another school details 

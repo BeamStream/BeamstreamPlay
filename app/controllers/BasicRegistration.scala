@@ -37,7 +37,9 @@ object BasicRegistration extends Controller {
 
     (findToken.size == 0) match {
       case false => Ok(successJson).as("application/json")
+
       case true => Ok(failureJson).as("application/json")
+
     }
 
   }
@@ -80,7 +82,7 @@ object BasicRegistration extends Controller {
     val userInformationMap = request.body.asFormUrlEncoded.get
     val tempUserInformationJson = userInformationMap("data").toList(0)
     val userInformationJson = net.liftweb.json.parse(tempUserInformationJson)
-println(userInformationJson)
+
     val iam = (userInformationJson \ "iam").extract[String]
     val emailId = (userInformationJson \ "email").extract[String]
 
@@ -88,7 +90,7 @@ println(userInformationJson)
     val jsonResponseToSent = new ResulttoSent("Success", "Email Sent Successfully")
     val finalJson = write(jsonResponseToSent)
     Ok(finalJson).as("application/json")
-    
+
     //TODO : User would be able to use the organization emailid  
 
     //    (User.validateEmail(emailId)) match {

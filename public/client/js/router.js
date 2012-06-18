@@ -147,9 +147,7 @@ BS.AppRouter = Backbone.Router.extend({
 	   // verify the token
 	   $.ajax({
 			type : 'POST',
- 
 			url : BS.verifyToken,
-
 			data : {
 				token : token
 			},
@@ -171,7 +169,7 @@ BS.AppRouter = Backbone.Router.extend({
 			    }
 				else
 				{
-					 alert("Token Expired");
+					 alert("Token Expiredd");
 				}
 				  
 			}

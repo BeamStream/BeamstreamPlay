@@ -86,6 +86,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			 $.ajax({
 					type : 'POST',
 					url : BS.schoolNamebyId,
+ 
 					data : {
 						schoolId : schoolId
 					},

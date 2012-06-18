@@ -6,10 +6,12 @@
 GET     /                           controllers.Application.index
 
 
-#Streams
 
+#User
 
 POST   /users                         controllers.UserController.findUser
+
+#Streams
 
 #GET    /streams                       controllers.Application.streams
 #POST   /streams                       controllers.Application.newStream
@@ -49,20 +51,21 @@ POST  /autoPopulateClasses     controllers.ClassController.findClasstoAutoPopula
 #Getting the School JSON
 
 GET   /schoolJson              controllers.DetailedRegistration.getSchoolsForLoggedInUser
+
 GET   /loggedInUserJson        controllers.UserController.returnUserJson
 
 #Basic Registration
 
-POST   /verifyToken                                           controllers.BasicRegistration.basicRegistration
+POST   /verifyToken           controllers.BasicRegistration.basicRegistration
      
-POST  /registerNewUser                                       controllers.BasicRegistration.newUser
+POST  /registerNewUser       controllers.BasicRegistration.newUser
 
-POST  /getEmailforNewUser                                   controllers.BasicRegistration.emailSent
+POST  /getEmailforNewUser    controllers.BasicRegistration.emailSent
 
 #GET   /basicRegistrationViaSocialSites   controllers.BasicRegistration.basicRegistrationViaSocialSites(email:String,userName:String,name:String)
 #POST  /basicRegistrationViaSocialSites   controllers.BasicRegistration.newUser
 
-#POST   /userPage                         controllers.UserController.registerUserViaSocialSite
+
 
 #Media
 

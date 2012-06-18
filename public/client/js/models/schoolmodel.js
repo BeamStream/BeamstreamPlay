@@ -19,6 +19,7 @@
  
     model:BS.School,
     url: BS.schoolJson,
+ 
 
 });    
  
