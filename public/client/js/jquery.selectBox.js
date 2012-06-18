@@ -406,37 +406,39 @@ if(jQuery) (function($) {
 
 				$(".selectBox-dropdown-menu").each( function() {
 
-					var options = $(this),
-						select = options.data('selectBox-select'),
-						control = select.data('selectBox-control'),
-						settings = select.data('selectBox-settings');
-					
-					if( select.triggerHandler('beforeclose') ) return false;
-					
-					var dispatchCloseEvent = function() {
-						select.triggerHandler('close', { _selectBox: true });
-					};					
-					
-					switch( settings.menuTransition ) {
-
-						case 'fade':
-							options.fadeOut(settings.menuSpeed, dispatchCloseEvent);
-							break;
-
-						case 'slide':
-							options.slideUp(settings.menuSpeed, dispatchCloseEvent);
-							break;
-
-						default:
-							options.hide(settings.menuSpeed, dispatchCloseEvent);
-							break;
-
+					if($(this).is(":visible")) 
+					{
+						var options = $(this),
+							select = options.data('selectBox-select'),
+							control = select.data('selectBox-control'),
+							settings = select.data('selectBox-settings');
+						
+						if( select.triggerHandler('beforeclose') ) return false;
+						
+						var dispatchCloseEvent = function() {
+							select.triggerHandler('close', { _selectBox: true });
+						};					
+						
+						switch( settings.menuTransition ) {
+	
+							case 'fade':
+								options.fadeOut(settings.menuSpeed, dispatchCloseEvent);
+								break;
+	
+							case 'slide':
+								options.slideUp(settings.menuSpeed, dispatchCloseEvent);
+								break;
+	
+							default:
+								options.hide(settings.menuSpeed, dispatchCloseEvent);
+								break;
+	
+						}
+						
+						if( !settings.menuSpeed ) dispatchCloseEvent();
+						
+						control.removeClass('selectBox-menuShowing');
 					}
-					
-					if( !settings.menuSpeed ) dispatchCloseEvent();
-					
-					control.removeClass('selectBox-menuShowing');
-
 				});
 
 			};

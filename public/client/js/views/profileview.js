@@ -52,8 +52,7 @@ BS.ProfileView = Backbone.View.extend({
         	$.ajax({
         	    type: 'POST',
         	    data: data,
-        	    url: "http://localhost:9000/getMediafromPost",
-//        	    url : "http://localhost/client2/api.php",
+        	    url: BS.saveProfile,
         	    cache: false,
         	    contentType: false,
         	    processData: false,

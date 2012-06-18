@@ -16,10 +16,9 @@
 });
 
  BS.SchoolCollection = Backbone.Collection.extend({
-	
+ 
     model:BS.School,
-    url: "http://localhost:9000/schoolJson"
-//      url : "http://localhost/client/api.php",
+    url: BS.schoolJson,
 
 });    
  

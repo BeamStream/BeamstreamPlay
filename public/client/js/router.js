@@ -66,7 +66,7 @@ BS.AppRouter = Backbone.Router.extend({
      * display School Info screen
      */
     schoolReg:function () {
-     
+       
     	   
     	 if (!this.schoolView) {
              this.schoolView = new BS.SchoolView();
@@ -80,7 +80,7 @@ BS.AppRouter = Backbone.Router.extend({
          /* hide some fields on page load */
          $('#degree-exp-'+current).hide();
      	 $('#cal-'+current).hide();
-     	 
+      
      	
     },
 
@@ -148,8 +148,7 @@ BS.AppRouter = Backbone.Router.extend({
 	   $.ajax({
 			type : 'POST',
  
-//			url : "http://localhost/client2/api.php",
-			url :"http://localhost:9000/verifyToken",
+			url : BS.verifyToken,
 
 			data : {
 				token : token

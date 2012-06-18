@@ -10,6 +10,7 @@ BS.SchoolView = Backbone.View.extend({
     initialize:function () {
     	
         console.log('Initializing School View');
+       
         //this.template= _.template($("#tpl-school-reg").html());
 		this.source = $("#tpl-school-reg").html();
 		this.template = Handlebars.compile(this.source);
@@ -29,21 +30,42 @@ BS.SchoolView = Backbone.View.extend({
      */
     saveSchool:function (eventName) {
     	eventName.preventDefault();  
-    	var  schoolDetails = this.getSchoolInfo();
-    	$.ajax({
-            type: 'POST',
-            url:"http://localhost:9000/detailed_reg",
-//            url : "http://localhost/client2/api.php",
-            data:{data:schoolDetails},
-            dataType:"json",
-            success:function(data){
-                
-				 // navigate to main stream page
-            	BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+    	
+    	/* put validation on "Graduated?" filed */
+    	var gStatus = true;
+    	$('select.graduated').each(function(index,item) {
+    		  
+    		 var Id='#'+item.id;
+    	     if($(Id).val() == "")
+    	     {
+    	       gStatus = false;
+    	        
+    	     }
+    	}); 
+    	if(gStatus == false)
+    	{
+    		$('#error').html("Please select your Graduation");
+    		
+    	}
+    	else
+    	{
+        	var  schoolDetails = this.getSchoolInfo();
+        	$.ajax({
+                type: 'POST',
+                url:BS.saveSchool,
+                data:{data:schoolDetails},
+                dataType:"json",
+                success:function(data){
+                    
+    				 // navigate to main stream page
+                	BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+    
+                    
+                }
+             });
+    	}
+    	
 
-                
-            }
-         });
       },
       
       
@@ -52,21 +74,40 @@ BS.SchoolView = Backbone.View.extend({
        */
       continueToClass:function (eventName) {
     	  
-    	  eventName.preventDefault();   
+    	  eventName.preventDefault();  
+    	  
+    	 /* put validation on "Graduated?" filed */
+    	 var gStatus = true;
+      	 $('select.graduated').each(function(index,item) {
+      		  
+      		 var Id='#'+item.id;
+      	     if($(Id).val() == "")
+      	     {
+      	       gStatus = false;
+      	        
+      	     }
+      	}); 
+      	if(gStatus == false)
+      	{
+      		$('#error').html("Please select your Graduation");
+      		
+      	}
+      	else
+      	{
     	  var  schoolDetails = this.getSchoolInfo();
       	  
     	  $.ajax({
               type: 'POST',
-              url:"http://localhost:9000/detailed_reg",
-//              url : "http://localhost/client2/api.php",
+              url:BS.saveSchool,
               data:{data:schoolDetails},
               dataType:"json",
               success:function(data){
-            	  
+            	   
             	  BS.AppRouter.navigate("class", {trigger: true, replace: true});
             	  
               }
            });
+      	}
       },
       
       
@@ -109,7 +150,7 @@ BS.SchoolView = Backbone.View.extend({
 		  {
 				$('#degree-exp-'+currentid).hide();
 				
-				$('.datepicker').css('z-index','9999');
+				$('.datepicker').css('z-index','99999');
 				$('#cal-'+currentid).show();
 				$('.modal .datepicker:visible').datepicker();
 		  }

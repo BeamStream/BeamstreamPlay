@@ -50,8 +50,7 @@ BS.verifyEmailView = Backbone.View.extend({
 	    	/* post email verification details */
 			$.ajax({
 				type : 'POST',
-//				url : "http://localhost/client2/api.php",
-				url : "http://localhost:9000/getEmailforNewUser",
+				url : BS.verifyEmail,
 				data : {
 					data : mailDetails
 				},

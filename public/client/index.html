@@ -102,7 +102,7 @@
       
       <div class="form-row">
           <div class="element" id="div-school">
-               <label for="semester">School</label>
+               <label for="schools">School</label>
                <div id ="sShool" > 
                <select id="schools" class="small">
                       
@@ -111,7 +111,7 @@
           </div>
           <div class="element" >
                 <label for="add-class-tag">Add Class Tag</label></li>
-                <input type="text"  class="validate[required] medium" placeholder="Computer Science"></li>
+                <input type="text" id="class-tag" class="validate[required] medium" placeholder="Computer Science"></li>
            </div>
        </div>
        <div class="form-row-label">&nbsp;</div>
@@ -579,7 +579,6 @@
 			jQuery("#profile-form").validationEngine();
 			jQuery("#email-verify").validationEngine();
 			jQuery("#registration-form").validationEngine();
-		    
 		});
 
 		
@@ -593,7 +592,7 @@
         <h1 class="pull-left">School info</h1>
         <img src="images/registration-progress-25.png" alt="Registration progress - 25%" class="registration-progress pull-right">
     </div>
-
+    <div id="error" style="margin-left:20px; color:red;"></div>
     <div class="modal-body">
         <form name="school-form" id="school-form">
 			
@@ -635,7 +634,7 @@
                 <div class="form-row">
                     <div class="element">
                         <label for="major">Major</label>
-                        <input type="text" name="major-1" id="major-1" class="span3" placeholder="Your Major" >
+                        <input type="text" name="major-1" id="major-1" class=" span3" placeholder="Your Major" >
                     </div>
 					<div class="element">
                         <label for="graduated">Graduated?</label>
@@ -786,7 +785,7 @@
         <h1 class="pull-left" >Class info</h2>
         <img src="images/registration-progress-50.png" alt="Registration progress - 50%" class="registration-progress pull-right">
      </div>
-    <div id="validation-error"></div> 
+    <div id="validation-error" ></div> 
     <div class="modal-body">
         <form id="class-form">
             <fieldset id="classes-{{sCount}}">
@@ -1694,6 +1693,8 @@
 <!--  Backbone.js files -->
 
 <script src="js/app.js"></script>
+<script src="js/setup.js"></script>
+
 <script src="js/views/loginview.js"></script>
 <script src="js/views/classstreamview.js"></script>
 <script src="js/views/projectstreamview.js"></script>
@@ -1717,7 +1718,7 @@
 <script src="js/models/singleusermodel.js"></script>
 
 <script src="js/router.js"></script>
-<script src="js/setup.js"></script>
+
 
 </body>
 </html>
