@@ -61,8 +61,8 @@ BS.LoginView = Backbone.View.extend({
 						          $.ajax({
 						    			 type : 'POST',
 //						    			  url : "http://localhost/client2/api.php",
-//						    			 url : "http://localhost:9000/users",
-						    			 url : "http://beamstream-v3.herokuapp.com/users",
+						    			 url : "http://localhost:9000/users",
+						    			// url : "http://beamstream-v3.herokuapp.com/users",
 						    			 data : {
 						    						data : loginDetails
 						    			  },

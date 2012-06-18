@@ -35,8 +35,8 @@ BS.ClassStreamView = Backbone.View.extend({
 		 $.ajax({
 			type : 'POST',
 //			url : "http://localhost/Beam2/BeamstreamPlay/public/client/api.php",
-			//url : "http://localhost:9000/autoPopulateClasses",
-			url : "http://beamstream-v3.herokuapp.com/autoPopulateClasses",
+			url : "http://localhost:9000/autoPopulateClasses",
+			//url : "http://beamstream-v3.herokuapp.com/autoPopulateClasses",
 			data : {
 				data : text
 			},
@@ -85,8 +85,8 @@ BS.ClassStreamView = Backbone.View.extend({
 			 $.ajax({
 					type : 'POST',
 //					url : "http://localhost/client2/api.php",
-	//				url : "http://localhost:9000/getSchoolNamebyId",
-					url : "http://beamstream-v3.herokuapp.com/getSchoolNamebyId",
+					url : "http://localhost:9000/getSchoolNamebyId",
+					//url : "http://beamstream-v3.herokuapp.com/getSchoolNamebyId",
 					data : {
 						schoolId : schoolId
 					},
@@ -117,8 +117,8 @@ BS.ClassStreamView = Backbone.View.extend({
 			 $.ajax({
 					type : 'GET',
 //					url : "http://localhost/client/api.php",
-				//	url : "http://localhost:9000/getAllSchoolForAUser",
-					url : "http://beamstream-v3.herokuapp.com/getAllSchoolForAUser",
+					url : "http://localhost:9000/getAllSchoolForAUser",
+				//	url : "http://beamstream-v3.herokuapp.com/getAllSchoolForAUser",
 					dataType : "json",
 					success : function(datas) {
 						

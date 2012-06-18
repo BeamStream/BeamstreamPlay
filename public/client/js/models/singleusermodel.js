@@ -17,8 +17,8 @@ BS.SingleUser = Backbone.Model.extend({
         	schoolId:null,
         	classId:null
         },
-        url : "http://beamstream-v3.herokuapp.com/loggedInUserJson"
-      //  url : "http://localhost:9000/loggedInUserJson",
+//        url : "http://beamstream-v3.herokuapp.com/loggedInUserJson"
+        url : "http://localhost:9000/loggedInUserJson",
         
        
 });

@@ -41,9 +41,9 @@ BS.RegistrationView = Backbone.View.extend({
     	/* post basic profile registration details */
 		$.ajax({
 			type : 'POST',
-//			url : "http://localhost:9000/registerNewUser",
+			url : "http://localhost:9000/registerNewUser",
 //			url : "http://localhost/client2/api.php",
-			url : "http://beamstream-v3.herokuapp.com/registerNewUser",
+//			url : "http://beamstream-v3.herokuapp.com/registerNewUser",
 			data : {
 				data : regDetails
 			},
@@ -112,9 +112,9 @@ BS.RegistrationView = Backbone.View.extend({
     	/* post basic profile registration details */
 		$.ajax({
 			type : 'POST',
-//			url : "http://localhost:9000/registerNewUser",
+			url : "http://localhost:9000/registerNewUser",
 //			url : "http://localhost/client2/api.php",
-			url : "http://beamstream-v3.herokuapp.com/registerNewUser",
+//			url : "http://beamstream-v3.herokuapp.com/registerNewUser",
 			data : {
 				data : regDetails
 			},
