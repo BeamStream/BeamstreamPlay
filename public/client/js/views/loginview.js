@@ -6,6 +6,7 @@ BS.LoginView = Backbone.View.extend({
 	 },
 	
     initialize:function () {
+    	
     	jQuery("#login-form").validationEngine();
         console.log('Initializing Login View');
         this.template= _.template($("#tpl-login").html());
@@ -60,9 +61,7 @@ BS.LoginView = Backbone.View.extend({
 					    		/* post data with school and class details */
 						          $.ajax({
 						    			 type : 'POST',
-//						    			  url : "http://localhost/client2/api.php",
-						    			 url : "http://localhost:9000/users",
-						    			// url : "http://beamstream-v3.herokuapp.com/users",
+						    			 url : BS.login,
 						    			 data : {
 						    						data : loginDetails
 						    			  },

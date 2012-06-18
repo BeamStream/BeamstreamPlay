@@ -16,10 +16,10 @@
 });
 
  BS.SchoolCollection = Backbone.Collection.extend({
-	
+ 
     model:BS.School,
-    url: "http://localhost:9000/schoolJson"
-//   url : "http://beamstream-v3.herokuapp.com/schoolJson"
+    url: BS.schoolJson,
+ 
 
 });    
  

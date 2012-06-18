@@ -3,13 +3,15 @@ BS.ClassStreamView = Backbone.View.extend({
 	events : {
        "keyup #class-code" : "populateClasses",
        "click .datepicker" :"setIndex",
-       "focusin  #class-code" : "populateClasses",
+       "focusin #class-code" : "populateClasses",
+       "click #createClass" : "createClass"
 	},
 
 	initialize : function() {
 		console.log('Initializing Class Stream View');
 		this.source = $("#tpl-class-stream").html();
 		this.template = Handlebars.compile(this.source);
+		 
 	},
 
 	/**
@@ -34,9 +36,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		var text = $('#class-code').val();
 		 $.ajax({
 			type : 'POST',
-//			url : "http://localhost/Beam2/BeamstreamPlay/public/client/api.php",
-			url : "http://localhost:9000/autoPopulateClasses",
-			//url : "http://beamstream-v3.herokuapp.com/autoPopulateClasses",
+			url : BS.autoPopulateClass,
 			data : {
 				data : text
 			},
@@ -49,6 +49,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		        });
 				$('.ac_results').css('width', '160px');
 				$("#class-code").autocomplete(BS.classCodes);
+			 
 			}
 		});
 		 
@@ -84,9 +85,8 @@ BS.ClassStreamView = Backbone.View.extend({
 			 /* Post scholId to get the school name*/
 			 $.ajax({
 					type : 'POST',
-//					url : "http://localhost/client2/api.php",
-					url : "http://localhost:9000/getSchoolNamebyId",
-					//url : "http://beamstream-v3.herokuapp.com/getSchoolNamebyId",
+					url : BS.schoolNamebyId,
+ 
 					data : {
 						schoolId : schoolId
 					},
@@ -101,7 +101,6 @@ BS.ClassStreamView = Backbone.View.extend({
 			/*  disable/enable Buttons*/
 			$('#createClass').hide(); 
 			$('#joinClass').show();
-			 
 
 		 }
 		 else
@@ -116,15 +115,13 @@ BS.ClassStreamView = Backbone.View.extend({
 			/* get all schoolIds under a class */
 			 $.ajax({
 					type : 'GET',
-//					url : "http://localhost/client/api.php",
-					url : "http://localhost:9000/getAllSchoolForAUser",
-				//	url : "http://beamstream-v3.herokuapp.com/getAllSchoolForAUser",
+					url : BS.allSchoolForAUser,
 					dataType : "json",
 					success : function(datas) {
 						
 						 var sSelect = '<select id="schools" class="small selectBox">';
 						_.each(datas, function(data) {
-							sSelect+= '<option value ="'+data.schoolName+'" > '+data.schoolName+'</option>';
+							sSelect+= '<option value ="'+data.id.schoolId+'" > '+data.schoolName+'</option>';
 				        });
 						sSelect+= '</select>';
 						$('#sShool').html(sSelect);
@@ -145,7 +142,61 @@ BS.ClassStreamView = Backbone.View.extend({
 		$('.datepicker').css('z-index','9999');
 	},
 	
-	 
- 
+	/**
+	 * Post new class details..
+	 */
+	
+	createClass :function(eventName) {
+		eventName.preventDefault();
+		var newClassInfo = this.getNewClass();
+		
+		/* post new class details */
+		$.ajax({
+			type : 'POST',
+			url : BS.newClass,
+			data : {
+				data : newClassInfo
+			},
+			dataType : "json",
+			success : function(data) {
+				alert("succes);
+				console.log("succes");
+			}
+		});
+		
+	},
+	
+	/**
+	 * get  new class details  from form  
+	 */
+	getNewClass :function(){
+		 
+		var classCode = $('#class-code').val();
+		var classTime = $('#class-time').val();
+		var className = $('#class-name').val();
+		var date = $('#date-started').val();
+		var type = $('#semester').val();
+		var school = $('#schools').val();
+		var classTag = $('#class-tag').val();
+		
+		var classes = new BS.ClassCollection();
+		var classModel = new BS.Class();
+		classModel.set({
+			
+			schoolId :  school, // need Id value
+			id : 1 ,     
+			classCode : classCode,
+			classTime : classTime,
+			className : className,
+			startingDate : date,
+			classType : type,
+			classTag : classTag
+		});
+		classes.add(classModel);
+		var newClassInfo = JSON.stringify(classes);
+		console.log(newClassInfo);
+		return newClassInfo;
+		
+	}
 	 
 });
