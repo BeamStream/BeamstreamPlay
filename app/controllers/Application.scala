@@ -22,6 +22,8 @@ object Application extends Controller {
   }
 
   def newStream = Action { implicit request =>
+    
+    println(request.body)
 
     Ok
   }

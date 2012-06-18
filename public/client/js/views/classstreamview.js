@@ -1,4 +1,4 @@
-BS.ClassStreamView = Backbone.View.extend({
+z`BS.ClassStreamView = Backbone.View.extend({
 
 	events : {
        "keyup #class-code" : "populateClasses",
@@ -159,7 +159,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			},
 			dataType : "json",
 			success : function(data) {
-				alert("succes);
+				alert("succes");
 				console.log("succes");
 			}
 		});

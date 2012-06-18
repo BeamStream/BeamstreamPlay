@@ -14,7 +14,7 @@ POST   /users                         controllers.UserController.findUser
 #Streams
 
 #GET    /streams                       controllers.Application.streams
-#POST   /streams                       controllers.Application.newStream
+POST   /newStream                       controllers.Application.newStream
 
 
 #GET    /messages                       controllers.MessageController.messages

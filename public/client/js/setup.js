@@ -45,7 +45,7 @@ BS.schoolNamebyId = "http://localhost:9000/getSchoolNamebyId";
 BS.allSchoolForAUser = "http://localhost:9000/getAllSchoolForAUser";
 
 //For new class in class stream
-BS.newClass = ;
+BS.newClass = "http://localhost:9000/newStream"  ;
 
  
 /**
