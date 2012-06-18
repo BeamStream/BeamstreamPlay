@@ -21,8 +21,6 @@ object School {
 
   implicit val formats = DefaultFormats
 
-  def allSchools(): List[School] = Nil
-
   /*
    * Add a class to a school
    */
