@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
 import models.ClassType
+import models.User
 
 object Application extends Controller {
 
@@ -34,12 +35,17 @@ object Application extends Controller {
     Ok
   }
 
+  /*
+   * Creates a class and a new Stream
+   */
+  
   def newStream = Action { implicit request =>
 
     val classListJsonMap = request.body.asFormUrlEncoded.get
     val classJsonList = classListJsonMap("data").toList(0)
     val classList = net.liftweb.json.parse(classJsonList).extract[List[Class]]
-    println(classList)
+    val listOfClassIds = Class.createClass(classList)
+    User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
 
     val classJson = net.liftweb.json.parse(classJsonList)
     val classTag = (classJson \ "classTag").extract[String]
