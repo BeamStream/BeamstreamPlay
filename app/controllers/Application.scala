@@ -30,16 +30,20 @@ object Application extends Controller {
     Ok("This is BeamStream Application by Knoldus Software")
   }
 
-  def streams = Action { implicit request =>
-    Stream.obtainUser(new ObjectId(request.session.get("userId").get))
-
-    Ok
+  /*
+   * Get All Stream for a user
+   * 
+   */
+  def getAllStreamForAUser = Action { implicit request =>
+    val allStreamsForAUser = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
+    val allStreamsForAUserJson=write(allStreamsForAUser)
+    Ok(allStreamsForAUserJson).as("application/json")
   }
 
   /*
    * Creates a class and a new Stream
    */
-  
+
   def newStream = Action { implicit request =>
 
     val classListJsonMap = request.body.asFormUrlEncoded.get
@@ -47,18 +51,16 @@ object Application extends Controller {
     val classList = net.liftweb.json.parse(classJsonList).extract[List[Class]]
     val listOfClassIds = Class.createClass(classList)
     User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
-   
-    
-    
+
     val classJson = net.liftweb.json.parse(classJsonList)
     val classTag = (classJson \ "classTag").extract[String]
     val className = (classJson \ "className").extract[String]
-   
+
     // Creating the streams
-    val streamToCreate = new Stream(new ObjectId,className,StreamType.Class,new ObjectId(request.session.get("userId").get),List(),true,List(classTag))
-    val streamId=Stream.createStream(streamToCreate)
-    Stream.attachStreamtoClass(streamId,listOfClassIds(0))
-    
+    val streamToCreate = new Stream(new ObjectId, className, StreamType.Class, new ObjectId(request.session.get("userId").get), List(new ObjectId(request.session.get("userId").get)), true, List(classTag))
+    val streamId = Stream.createStream(streamToCreate)
+    Stream.attachStreamtoClass(streamId, listOfClassIds(0))
+    //Stream.attachStreamToUser(streamId,new ObjectId(request.session.get("userId").get))  // We can do if needed
     Ok
   }
 

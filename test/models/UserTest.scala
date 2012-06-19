@@ -13,8 +13,8 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
   
-  val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(100, 101), List(), List())
-  val user2 = User(new ObjectId, UserType.Professional, "crizzcoxx@beamstream.com", "Crizz", "coxx", "", "Chris", "Crizz", "BeamStream", "", List(100, 101), List(), List())
+  val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List())
+  val user2 = User(new ObjectId, UserType.Professional, "crizzcoxx@beamstream.com", "Crizz", "coxx", "", "Chris", "Crizz", "BeamStream", "", List(), List(), List())
   
    val myschool1 = School(new ObjectId, "MPS", Year.Freshman, Degree.Assosiates,
     "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), List())
@@ -30,15 +30,15 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   test("testing invalid email for common domain") {
     assert("Invalid email address" ===
-      User.registerUser(new User(new ObjectId, UserType.Professional, "vikas@gmail.com", "Vikas", "Hazrati", "", "Vikki", "Vikas", "Knoldus", "", List(100, 101), List(), List())))
+      User.registerUser(new User(new ObjectId, UserType.Professional, "vikas@gmail.com", "Vikas", "Hazrati", "", "Vikki", "Vikas", "Knoldus", "", List(), List(), List())))
   }
 
   test("testing invalid email for broken Email") {
-    assert("Invalid email address" === User.registerUser(new User(new ObjectId, UserType.Professional, "vikas@gmail..com", "Vikas", "Hazrati", "", "Vikki", "Vikas", "Knoldus", "", List(100, 101), List(), List())))
+    assert("Invalid email address" === User.registerUser(new User(new ObjectId, UserType.Professional, "vikas@gmail..com", "Vikas", "Hazrati", "", "Vikki", "Vikas", "Knoldus", "", List(), List(), List())))
   }
 
   test("testing valid email") {
-    assert("Registration Successful" === User.registerUser(new User(new ObjectId, UserType.Professional, "vikas@knoldus.com", "Vikas", "Hazrati", "", "Vikki", "Vikas", "Knoldus", "", List(100, 101), List(), List())))
+    assert("Registration Successful" === User.registerUser(new User(new ObjectId, UserType.Professional, "vikas@knoldus.com", "Vikas", "Hazrati", "", "Vikki", "Vikas", "Knoldus", "", List(), List(), List())))
   }
   
   

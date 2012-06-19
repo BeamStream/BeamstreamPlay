@@ -13,7 +13,7 @@ POST   /users                         controllers.UserController.findUser
 
 #Streams
 
-#GET    /streams                       controllers.Application.streams
+GET    /allStreamsForAUser              controllers.Application.getAllStreamForAUser
 POST   /newStream                       controllers.Application.newStream
 
 

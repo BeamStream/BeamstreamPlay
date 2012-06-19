@@ -29,7 +29,7 @@ object MessageController extends Controller {
   //======Post a new message==//
   //==========================//
 
-  val tempUser = User(new ObjectId, UserType.Professional, "", "", "", "", "", "", "", "", List(100, 101), List(), List())
+  val tempUser = User(new ObjectId, UserType.Professional, "", "", "", "", "", "", "", "", List(), List(), List())
 
   def newMessage = Action { implicit request =>
 
