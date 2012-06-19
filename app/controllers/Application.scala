@@ -8,8 +8,21 @@ import play.api.data.Forms._
 import models.UserDAO
 import com.codahale.jerkson.Json
 import org.bson.types.ObjectId
+import net.liftweb.json.DefaultFormats
+import net.liftweb.json.{ parse, DefaultFormats }
+import net.liftweb.json.Serialization.{ read, write }
+import models.Class
+import java.text.SimpleDateFormat
+import utils.EnumerationSerializer
+import utils.ObjectIdSerializer
+import models.ClassType
 
 object Application extends Controller {
+
+  val EnumList: List[Enumeration] = List(ClassType)
+  implicit val formats = new net.liftweb.json.DefaultFormats {
+    override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
+  } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
   def index = Action {
     Ok("This is BeamStream Application by Knoldus Software")
@@ -22,9 +35,15 @@ object Application extends Controller {
   }
 
   def newStream = Action { implicit request =>
-    
-    println(request.body)
 
+    val classListJsonMap = request.body.asFormUrlEncoded.get
+    val classJsonList = classListJsonMap("data").toList(0)
+    val classList = net.liftweb.json.parse(classJsonList).extract[List[Class]]
+    println(classList)
+
+    val classJson = net.liftweb.json.parse(classJsonList)
+    val classTag = (classJson \ "classTag").extract[String]
+    println(classTag)
     Ok
   }
 
