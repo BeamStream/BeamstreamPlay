@@ -8,7 +8,8 @@ import com.mongodb.casbah.MongoConnection
 import scala.collection.JavaConversions._
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
-case class Stream(@Key("_id") id: ObjectId, streamName: String, streamType: StreamType.Value, creatorOfStream: ObjectId, usersOfStream: List[ObjectId], postToMyProfile: Boolean)
+
+case class Stream(@Key("_id") id: ObjectId, streamName: String, streamType: StreamType.Value, creatorOfStream: ObjectId, usersOfStream: List[ObjectId],postToMyProfile: Boolean, streamTag : List[String])
 
 object Stream {
 
@@ -62,9 +63,21 @@ object Stream {
     streams.toList
   }
 
-  def createStream(stream: Stream): Stream = {
-    StreamDAO.insert(stream)
-     stream
+  /*
+   * Create the New Stream
+   */
+  
+  def createStream(stream: Stream): ObjectId = {
+    val streamId=StreamDAO.insert(stream)
+    streamId.get.asInstanceOf[ObjectId]
+  }
+  
+  /*
+   * Attach a Stream to a Class
+   */
+   def attachStreamtoClass(streamId: ObjectId, classId: ObjectId) {
+    val expectedClass = ClassDAO.find(MongoDBObject("_id" -> classId)).toList(0)
+    ClassDAO.update(MongoDBObject("_id" -> classId), expectedClass.copy(streams = (expectedClass.streams ++ List(streamId))), false, false, new WriteConcern)
   }
   
   

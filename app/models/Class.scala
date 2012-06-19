@@ -65,13 +65,7 @@ object Class {
     ClassDAO.remove(myclass)
   }
 
-  /*
-   * Attach a Stream to a Class
-   */
-   def attachStreamtoClass(streamId: ObjectId, classId: ObjectId) {
-    val expectedClass = ClassDAO.find(MongoDBObject("_id" -> classId)).toList(0)
-    ClassDAO.update(MongoDBObject("_id" -> classId), expectedClass.copy(streams = (expectedClass.streams ++ List(streamId))), false, false, new WriteConcern)
-  }
+  
 
   /*
    * Finding the class by Name

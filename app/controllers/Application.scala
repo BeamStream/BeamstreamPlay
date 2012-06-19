@@ -17,6 +17,7 @@ import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
 import models.ClassType
 import models.User
+import models.StreamType
 
 object Application extends Controller {
 
@@ -46,10 +47,18 @@ object Application extends Controller {
     val classList = net.liftweb.json.parse(classJsonList).extract[List[Class]]
     val listOfClassIds = Class.createClass(classList)
     User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
-
+   
+    
+    
     val classJson = net.liftweb.json.parse(classJsonList)
     val classTag = (classJson \ "classTag").extract[String]
-    println(classTag)
+    val className = (classJson \ "className").extract[String]
+   
+    // Creating the streams
+    val streamToCreate = new Stream(new ObjectId,className,StreamType.Class,new ObjectId(request.session.get("userId").get),List(),true,List(classTag))
+    val streamId=Stream.createStream(streamToCreate)
+    Stream.attachStreamtoClass(streamId,listOfClassIds(0))
+    
     Ok
   }
 
