@@ -7,9 +7,14 @@ import models.School
 import org.bson.types.ObjectId
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
+import java.text.SimpleDateFormat
+import utils.EnumerationSerializer
+import utils.ObjectIdSerializer
 
 object SchoolController extends Controller {
-  implicit val formats = DefaultFormats
+  implicit val formats = new net.liftweb.json.DefaultFormats {
+    override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
+  } + new ObjectIdSerializer
 
   /*
  * Provides All School For a User
