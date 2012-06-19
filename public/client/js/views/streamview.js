@@ -17,7 +17,7 @@ BS.StreamView = Backbone.View.extend({
     initialize:function () {
     	
     	 console.log('Initializing Stream View');
-    	 
+    
     	/* for hover over */
 	    this.distance = 10;
 	    this.time = 250;
@@ -37,6 +37,7 @@ BS.StreamView = Backbone.View.extend({
     render:function (eventName) {
     	
     	this.newUser = new BS.SingleUser();
+    	 
         this.newUser.fetch({success: function(e) {  
         	
 			 $('.username').text(e.attributes.firstName + ' ' + e.attributes.lastName);

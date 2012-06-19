@@ -126,7 +126,8 @@ BS.AppRouter = Backbone.Router.extend({
     * display main stream page
     */
    maisStream:function () {
-	   $('.modal').css('display','none');
+	  $('.modal').css('display','none');
+	   
    	  if (!this.streamView) {
             this.streamView = new BS.StreamView();
             this.streamView.render();
@@ -138,6 +139,7 @@ BS.AppRouter = Backbone.Router.extend({
       
    },
    
+  
    /**
     * registration after email verification
     */
