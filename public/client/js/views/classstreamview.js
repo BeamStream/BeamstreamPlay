@@ -58,7 +58,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		 
 		
          var datas = JSON.stringify(BS.classInfo);
-         
+          
          /* get details of selected class */
 		 _.each(BS.classInfo, function(data) {
 		 	 if(data.classCode == BS.selectedCode)
@@ -68,7 +68,7 @@ BS.ClassStreamView = Backbone.View.extend({
 				 className = data.className;
 				 date = data.startingDate;
 				 classType = data.classType;
-				 schoolId = data.schoolId.schoolId;
+				 schoolId = data.schoolId.id;
 		     }
 			 
          });
