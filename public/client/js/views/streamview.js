@@ -9,7 +9,9 @@ BS.StreamView = Backbone.View.extend({
            "click #studyStream" :"studyStream",
            "click #groupStream" :"groupStream",
            "click #peerStream" : "peerStream",
-           "click #friendStream" :"friendStream"
+           "click #friendStream" :"friendStream",
+           "click #all-streams" : "showAllStreams",
+           "click #classStreams-list" : "showClassStreams"
  
 		  
 	 },
@@ -35,9 +37,10 @@ BS.StreamView = Backbone.View.extend({
     },
 
     render:function (eventName) {
+    	 
+    	 
     	
     	this.newUser = new BS.SingleUser();
-    	 
         this.newUser.fetch({success: function(e) {  
         	
 			 $('.username').text(e.attributes.firstName + ' ' + e.attributes.lastName);
@@ -46,7 +49,25 @@ BS.StreamView = Backbone.View.extend({
 			 $('#user-dropdown .arrow').before(e.attributes.firstName + ' ' + e.attributes.lastName);
 			 $('li.screen_name').text(e.attributes.firstName + ' ' + e.attributes.lastName);
 		}});
+     
         
+        /* get all schoolIds under a class */
+		 $.ajax({
+				type : 'GET',
+				url : BS.allStreamsForAUser,
+				dataType : "json",
+				success : function(datas) {
+					
+					var streams ='';
+					 _.each(datas, function(data) {
+							 
+							streams+= '<li><span class="flag-piece"></span><a href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
+					 });
+					 $('#streams-list').html(streams);
+				}
+		 });
+		 
+		 
         $(this.el).html(this.template);
         return this;
     },
@@ -175,7 +196,7 @@ BS.StreamView = Backbone.View.extend({
     
     },
     
-    /*
+    /**
      * display friend stream
      */
     friendStream :function(eventName) {
@@ -186,4 +207,21 @@ BS.StreamView = Backbone.View.extend({
     	$('#school-popup').html(this.friendStream.el);
     
     },
+    
+    /**
+     *  Show all streams
+     */
+    showAllStreams :function(eventName){
+    	eventName.preventDefault();
+    	 
+    	
+    },
+    
+    /**
+     * list all class streams
+     */
+    
+    showClassStreams :function(eventName){
+    	eventName.preventDefault();
+    }
 });

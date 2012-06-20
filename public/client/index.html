@@ -592,7 +592,7 @@
         <h1 class="pull-left">School info</h1>
         <img src="images/registration-progress-25.png" alt="Registration progress - 25%" class="registration-progress pull-right">
     </div>
-    <div id="error" style="margin-left:20px; color:red;"></div>
+    <div id="error" class="invalid-validation" style="margin-left:20px; color:red;"></div>
     <div class="modal-body">
         <form name="school-form" id="school-form">
 			
@@ -602,9 +602,9 @@
 				<div class="school-registration">
                 <div class="form-row">
                     <div class="element">
-                        <label for="school-name">School name</label>
+                        <label for="school-name">School name *</label>
  
-                        <input type="text" name="school-name-1" id="school-name-1" class="span3" placeholder="School Name">
+                        <input type="text" name="school-name-1" id="school-name-1" class="validate[required] span3" placeholder="School Name">
  
                     </div>
 
@@ -633,11 +633,11 @@
                 </div>
                 <div class="form-row">
                     <div class="element">
-                        <label for="major">Major</label>
-                        <input type="text" name="major-1" id="major-1" class=" span3" placeholder="Your Major" >
+                        <label for="major">Major *</label>
+                        <input type="text" name="major-1" id="major-1" class="validate[required] span3" placeholder="Your Major" >
                     </div>
 					<div class="element">
-                        <label for="graduated">Graduated?</label>
+                        <label for="graduated">Graduated? *</label>
                         <select id="graduated-1" name ="graduated"  class="graduated span2"   >
  							<option> </option>
                             <option value="attending">Still Attending</option>
@@ -718,9 +718,9 @@
 	<div class="modal-body">
 	  <form id="login-form">
 		   <fieldset>
-            <div id="error" class="invalid-login"></div>
+            <div id="error" class="invalid-validation"></div>
 			<div class="element">
-				<label for="iam">I'm</label>
+				<label for="iam">I'm *</label>
 					<select id="iam"  name="iam" >
 						<option value= "">-- I'm --</option>
 						<option value="0">Student</option>
@@ -785,7 +785,7 @@
         <h1 class="pull-left" >Class info</h2>
         <img src="images/registration-progress-50.png" alt="Registration progress - 50%" class="registration-progress pull-right">
      </div>
-    <div id="validation-error" ></div> 
+    <div id="error" class="invalid-validation" style="margin-left: 22px;"></div> 
     <div class="modal-body">
         <form id="class-form">
             <fieldset id="classes-{{sCount}}">
@@ -817,11 +817,11 @@
        <div class="form-row-label">1<sup>st</sup> class</div>
        <div class="form-row short">
           <div class="element">
-              <label for="class-code-{{sCount}}-1">Class code</label>
+              <label for="class-code-{{sCount}}-1">Class code *</label>
               <input type="text"  id="class-code-{{sCount}}-1" class="validate[required] small" placeholder="Class 1 code" >
           </div>
           <div class="element">
-              <label for="class-time-{{sCount}}-1">Class time</label>
+              <label for="class-time-{{sCount}}-1">Class time *</label>
               <select id="class-time-{{sCount}}-1" class="time">
 				  {{#each times}}
                         <option value="{{this.time}}">{{this.time}}</option>
@@ -829,15 +829,15 @@
               </select>
           </div>
           <div class="element">
-              <label for="class-name-{{sCount}}-1">Class name</label>
+              <label for="class-name-{{sCount}}-1">Class name *</label>
               <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium" placeholder="Class 1 name">
           </div>
           <div class="element">
-              <label for="date-started-{{sCount}}-1">Calendar</label>
+              <label for="date-started-{{sCount}}-1">Calendar *</label>
               <input class="validate[required] small datepicker cal" type="text" placeholder="Date1" id="date-started-{{sCount}}-1"/>
           </div>
            <div class="element">
-               <label for="semester-{{sCount}}-1">Semester or Quarter</label>
+               <label for="semester-{{sCount}}-1">Semester or Quarter *</label>
                <select id="semester-{{sCount}}-1" class="small">
                      <option value="semester">Semester</option>
                      <option value="quarter">Quarter</option>
@@ -849,7 +849,7 @@
       <div class="form-row short">
          <div class="element">
               <label for="class-code-{{sCount}}-2">Class code</label>
-              <input type="text" id="class-code-{{sCount}}-2" class="validate[required] small" placeholder="Class 2 code">
+              <input type="text" id="class-code-{{sCount}}-2" class="small" placeholder="Class 2 code">
          </div>
          <div class="element">
               <label for="class-time-2">Class time</label>
@@ -861,11 +861,11 @@
          </div>
          <div class="element">
               <label for="class-name-2">Class name</label>
-              <input type="text" id="class-name-{{sCount}}-2" class="validate[required] medium" placeholder="Class 2 name">
+              <input type="text" id="class-name-{{sCount}}-2" class="medium" placeholder="Class 2 name">
          </div>
          <div class="element">
               <label for="date-started-2">Calendar</label>
-              <input class="validate[required] small datepicker cal" type="text" placeholder="Date2" id="date-started-{{sCount}}-2"/>
+              <input class="small datepicker cal" type="text" placeholder="Date2" id="date-started-{{sCount}}-2"/>
          </div>
          <div class="element">
               <label for="semester-{{sCount}}-2">Semester or Quarter</label>
@@ -880,7 +880,7 @@
        <div class="form-row short">
           <div class="element">
                <label for="class-code-{{sCount}}-3">Class code</label>
-               <input type="text" id="class-code-{{sCount}}-3" class="validate[required] small" placeholder="Class 3 code">
+               <input type="text" id="class-code-{{sCount}}-3" class="small" placeholder="Class 3 code">
           </div>
           <div class="element">
                <label for="class-time-3">Class time</label>
@@ -892,11 +892,11 @@
           </div>
           <div class="element">
                <label for="class-name-3">Class name</label>
-               <input type="text" id="class-name-{{sCount}}-3" class="validate[required] medium" placeholder="Class 3 name">
+               <input type="text" id="class-name-{{sCount}}-3" class="medium" placeholder="Class 3 name">
            </div>
            <div class="element">
                 <label for="date-started-{{sCount}}-3">Calendar</label>
-                <input class="validate[required] small datepicker cal" type="text" placeholder="Date3" id="date-started-{{sCount}}-3"/>
+                <input class="small datepicker cal" type="text" placeholder="Date3" id="date-started-{{sCount}}-3"/>
            </div>
            <div class="element">
                 <label for="semester-{{sCount}}-3">Semester or Quarter</label>
@@ -978,14 +978,19 @@
                 <div class="form-row-label">&nbsp;</div>
                 <div class="form-row">
                     <div class="element">
-                        <label for="mobile">Mobile</label>
+                        <label for="mobile">Mobile *</label>
                         <input type="text" id="mobile" name="mobile" class="validate[required,custom[mobile]] large" placeholder="(999)999-9999">
                     </div>
                     <div class="element">
                         <label for="upload">Upload</label>
                         <select id="upload" class="large" name="upload">
+							<option value="Links">Links</option>
+							<option value="Documents">Documents</option>
+							<option value="PDF's">PDF's</option>
+							<option value="Videos">Videos</option>
                             <option value="Presentation">Presentation</option>
-                            <option value="File">File</option>
+                            <option value="Audio">Audio</option>
+ 							<option value="Spredsheets">Spredsheets</option>
                         </select>
                     </div>
                 </div>
@@ -997,7 +1002,7 @@
     <div class="modal-footer">
 
         <a href="#messages" class="btn btn-primary pull-left"  id="save" >Save & Exit</a>
-        <a href="#messages" class="btn btn-danger pull-right" id="complete" >Complete</a>
+        <a href="#messages" class="btn btn-success pull-right" id="complete" >Complete</a>
     </div>
 </div>
   </script>
@@ -1150,21 +1155,20 @@
               <div class="sort_container">
                 <label>Sort by:</label>
                 <ul class="sort">
-                  <li class="active"><a href="#all">All</a></li>
-                  <li><a href="#class">Class</a></li>
-                  <li><a href="#project">Project</a></li>
+                  <li class="active"><a id="all-streams" href="#all">All</a></li>
+                  <li><a id="classStreams-list" href="#">Class</a></li>
+                  <li><a id= "projectStreams-list" href="#">Project</a></li>
                 </ul>
               </div>
               <a class="btn prev"><i class="icon-up"></i></a>
-              <ul class="streams nav nav-list">
-                <li><span class="flag-piece"></span><a href="#calculus">Calculus <i class="icon stream-icon-apple"></i></a><span class="popout_arrow"><span></span></span></li>
+              <ul id="streams-list" class="streams nav nav-list">
+                <li><span class="flag-piece"></span><a href="#calculus">{{classCode}} <i class="icon stream-icon-apple"></i></a><span class="popout_arrow"><span></span></span></li>
                 <li><span class="flag-piece"></span><a href="#intro-to-java">Intro to Java</a><span class="popout_arrow"><span></span></span></li>
                 <li class="active">
                   <span class="flag-piece"></span>
                   <a href="#computer-networking">Computer Networking</a>
                   <span class="popout_arrow"><span></span></span>
                 </li>
-                <li><span class="flag-piece"></span><a href="#intro-to-business">Intro to Business</a><span class="popout_arrow"><span></span></span></li>
                 <li><span class="flag-piece"></span><a href="#friendstream">FriendStream <i class="icon stream-icon-globe"></i></a><span class="popout_arrow"><span></span></span></li>
                 <li><span class="flag-piece"></span><a href="#research-team">Research Team</a><span class="popout_arrow"><span></span></span></li>
                 <li><span class="flag-piece"></span><a href="#c++-dev-project">C++ Dev Project <i class="icon stream-icon-apple"></i></a><span class="popout_arrow"><span></span></span></li>
@@ -1452,30 +1456,32 @@
       <div class="modal-body">
       <form id="registration-form">
       <fieldset>
+         
           <div class="center_form">
+ 			<div id="error" class= "invalid-validation"  style=" margin-bottom: 18px !important; margin-left: 152px;"></div>
         <div class="element">
-              <label for="school-name">School name</label>
+              <label for="school-name">School name *</label>
               <input type="text" id="school-name" placeholder=" School Name" class="validate[required] span3">
             </div>
         <div class="element">
-              <label for="user-name">User Name<br/>
+              <label for="user-name">User Name *<br/>
             http://www.beamstream.com/</label>
               <input type="text" id="user-name" placeholder="@UserName" value ="{{mailId}}" class="validate[required] span3">
             </div>
           <div class="element">
-              <label for="password">Password<br/></label>
+              <label for="password">Password *<br/></label>
               <input type="password" id="password" placeholder="password" class="validate[required] span3"> 
             </div>
         <div class="element">
-              <label for="first-name">First Name</label>
+              <label for="first-name">First Name *</label>
               <input type="text" id="first-name" placeholder="First Name" class="validate[required] span3">
             </div>
         <div class="element">
-              <label for="last-name">Last Name</label>
+              <label for="last-name">Last Name *</label>
               <input type="text" id="last-name" placeholder="Last Name" class="validate[required] span3">
             </div>
         <div class="element">
-              <label for="location">Location</label>
+              <label for="location">Location *</label>
               <input type="text" id="location" placeholder="Location" class="validate[required] span3">
             </div>
         <div class="element">
@@ -1510,9 +1516,10 @@
   <div class="modal-body">
     <form id="email-verify">
         <fieldset style="margin-bottom: 0">
+         <div id="error" class="invalid-validation"></div>
           <div class="form-row short">
               <div class="element">
-                <label for="iam">I'm a</label>
+                <label for="iam">I'm *</label>
                 <select id="iam" class="large">
                   <option value= "">-- I'm --</option>
 						<option value="0">Student</option>
@@ -1521,7 +1528,7 @@
                 </select>
               </div>
               <div class="element" >
-                <label for="email">School or Work  E-mail</label>
+                <label for="email">School or Work  E-mail *</label>
                 <input type="text" id="email" placeholder="School or work email address" class="validate[required , custom[email]] large">
              </div>
               <div class="element"> <a id="register" href="#" class="btn btn-success">Register Now</a> </div>
@@ -1533,9 +1540,9 @@
               </div>
               I don't have a school email </div>
            </div>
-           <div class="form-row-label"></div>
-           <div class="form-row short">
-             <div class="element" id="school-email" style="display:none;">
+           <div id="row-line" style="display:none;" class="form-row-label"></div>
+           <div id="schoolmail-info" class="form-row short" style="display:none;">
+             <div class="element" id="school-email"  >
                 <label for="school-name">What school do you attent?</label>
                 <input type="text" id="school-name" placeholder="School Name" class="large">
             </div>
