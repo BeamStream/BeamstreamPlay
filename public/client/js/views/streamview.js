@@ -11,8 +11,11 @@ BS.StreamView = Backbone.View.extend({
            "click #peerStream" : "peerStream",
            "click #friendStream" :"friendStream",
            "click #all-streams" : "showAllStreams",
-           "click #classStreams-list" : "showClassStreams"
- 
+           "click #classStreams-list" : "showClassStreams",
+           "click #projectStreams-list" : "showProjectStreams",
+           "click #streams-list li" : "selectOneStream"
+           
+        	   
 		  
 	 },
 	
@@ -37,8 +40,6 @@ BS.StreamView = Backbone.View.extend({
     },
 
     render:function (eventName) {
-    	 
-    	 
     	
     	this.newUser = new BS.SingleUser();
         this.newUser.fetch({success: function(e) {  
@@ -50,8 +51,19 @@ BS.StreamView = Backbone.View.extend({
 			 $('li.screen_name').text(e.attributes.firstName + ' ' + e.attributes.lastName);
 		}});
      
-        
-        /* get all schoolIds under a class */
+       this.getStreams();
+		 
+        $(this.el).html(this.template);
+        return this;
+    },
+    
+    /**
+     * get all streams
+     */
+    getStreams :function(){
+    	
+    	 
+        /* get all streams  */
 		 $.ajax({
 				type : 'GET',
 				url : BS.allStreamsForAUser,
@@ -61,17 +73,13 @@ BS.StreamView = Backbone.View.extend({
 					var streams ='';
 					 _.each(datas, function(data) {
 							 
-							streams+= '<li><span class="flag-piece"></span><a href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
+							streams+= '<li><span class="flag-piece"></span><a id ="'+data.id.id+'" href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
 					 });
+					  
 					 $('#streams-list').html(streams);
 				}
 		 });
-		 
-		 
-        $(this.el).html(this.template);
-        return this;
     },
-    
     /*
      *  hover over for Create Stream button
      */
@@ -213,7 +221,10 @@ BS.StreamView = Backbone.View.extend({
      */
     showAllStreams :function(eventName){
     	eventName.preventDefault();
-    	 
+    	var id = eventName.target.id;
+    	$('#select-streams li.active').removeClass('active');
+   	    $('#'+id).parents('li').addClass('active');
+    	this.getStreams();
     	
     },
     
@@ -223,5 +234,28 @@ BS.StreamView = Backbone.View.extend({
     
     showClassStreams :function(eventName){
     	eventName.preventDefault();
+    	var id = eventName.target.id;
+    	$('#select-streams li.active').removeClass('active');
+  	    $('#'+id).parents('li').addClass('active');
+    	$('#streams-list').html('');
+    },
+    /**
+     * show all project streams
+     */
+    showProjectStreams:function(eventName){
+    	eventName.preventDefault();
+    	var id = eventName.target.id;
+    	$('#select-streams li.active').removeClass('active');
+  	    $('#'+id).parents('li').addClass('active');
+    	$('#streams-list').html('');
+    },
+    /**
+     * select one stream from stream list
+     */
+    selectOneStream :function(eventName){
+      eventName.preventDefault();
+      var id = eventName.target.id;
+      $('#streams-list li.active').removeClass('active');
+      $('#'+id).parents('li').addClass('active');
     }
 });
