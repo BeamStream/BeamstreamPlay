@@ -13,7 +13,8 @@ BS.StreamView = Backbone.View.extend({
            "click #all-streams" : "showAllStreams",
            "click #classStreams-list" : "showClassStreams",
            "click #projectStreams-list" : "showProjectStreams",
-           "click #streams-list li" : "selectOneStream"
+           "click #streams-list li" : "selectOneStream",
+           "click #post-msg": "postMessage"
            
         	   
 		  
@@ -77,6 +78,7 @@ BS.StreamView = Backbone.View.extend({
 					 });
 					  
 					 $('#streams-list').html(streams);
+					 $('#streams-list li:first').addClass('active');
 				}
 		 });
     },
@@ -257,5 +259,53 @@ BS.StreamView = Backbone.View.extend({
       var id = eventName.target.id;
       $('#streams-list li.active').removeClass('active');
       $('#'+id).parents('li').addClass('active');
+    },
+    /**
+     * post a message
+     */
+    postMessage :function(eventName){
+      eventName.preventDefault();
+      
+      /* get message details from form */
+      var messageAccess;
+      var streamId = $('#streams-list li.active a').attr('id');
+      var message = $('#msg').val();
+     
+      var msgAccess =  $('#id-private').attr('checked');
+  	  if(msgAccess == "checked")
+  	  {
+  		messageAccess = "Private";
+  	  }
+  	  else
+  	  {
+  		messageAccess = "Public";
+  	  }
+      
+  	  /* post message inforamtion */
+      $.ajax({
+			type : 'POST',
+			url : BS.postMessage,
+			data : {
+				message : message,
+				streamId : streamId,
+				messageAccess :messageAccess
+			},
+			dataType : "json",
+			success : function(data) {
+				 
+			}
+		});
+      
+      /* for testing  TODO */ 
+      var messageInfo = {
+				"message" : message,
+				"messageAccess" : messageAccess
+				 
+	  }
+		
+	  var source = $("#tpl-messages").html();
+	  var template = Handlebars.compile(source);
+	  $('.timeline_items').append(template(messageInfo));
+	  $('#msg').val("");
     }
 });

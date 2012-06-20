@@ -1801,10 +1801,12 @@ body {
   margin-left: 3px;
 }
 .main_content .additional_controls li.tag {
-  margin-left: 45px;
+/*   margin-left: 45px; */ 
+  margin-left :10px;  
 }
 .main_content .additional_controls li.private {
-  margin: 0 20px 0 30px;
+/*   margin: 0 20px 0 30px; */
+ margin: 0 12px 0 16px;
 }
 .main_content .additional_controls li.private label {
   margin-top: 4px;
@@ -1855,6 +1857,7 @@ body {
   margin-left: 60px;
   font-size: 11px;
   line-height: normal;
+  margin-bottom: 15px;
 }
 .timeline .comment_wrapper .content_container p {
   font-size: 11px;

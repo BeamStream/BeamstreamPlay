@@ -1162,16 +1162,6 @@
               </div>
               <a class="btn prev"><i class="icon-up"></i></a>
               <ul id="streams-list" class="streams nav nav-list">
-                <li><span class="flag-piece"></span><a href="#calculus">{{classCode}} <i class="icon stream-icon-apple"></i></a><span class="popout_arrow"><span></span></span></li>
-                <li><span class="flag-piece"></span><a href="#intro-to-java">Intro to Java</a><span class="popout_arrow"><span></span></span></li>
-                <li class="active">
-                  <span class="flag-piece"></span>
-                  <a href="#computer-networking">Computer Networking</a>
-                  <span class="popout_arrow"><span></span></span>
-                </li>
-                <li><span class="flag-piece"></span><a href="#friendstream">FriendStream <i class="icon stream-icon-globe"></i></a><span class="popout_arrow"><span></span></span></li>
-                <li><span class="flag-piece"></span><a href="#research-team">Research Team</a><span class="popout_arrow"><span></span></span></li>
-                <li><span class="flag-piece"></span><a href="#c++-dev-project">C++ Dev Project <i class="icon stream-icon-apple"></i></a><span class="popout_arrow"><span></span></span></li>
               </ul>
               <a class="btn next"><i class="icon-down"></i></a>
             </section>
@@ -1230,14 +1220,14 @@
                       </label>
                       <div class="controls">
                         <span class="popout_arrow"><span></span></span>
-                        <textarea></textarea>
+                        <textarea id="msg"></textarea>
                         <ul class="additional_controls">
                           <li class="comment"><a href="#comment" class="btn btn-flat"><i class="icon-middle-comment"></i></a></li>
                           <li class="video"><a href="#video" class="btn btn-flat"><i class="icon-middle-video"></i></a></li>
                           <li class="photo"><a href="#photo" class="btn btn-flat"><i class="icon-middle-camera"></i></a></li>
                           <li class="tag"><a href="#tag" class="btn btn-flat"><i class="icon-middle-tag"></i></a></li>
                           <li class="private">
-                            <label for="id-private" class="checkbox">
+                            <label for="id-private"  >
                               <input id="id-private" type="checkbox">
                               Private
                             </label>
@@ -1245,6 +1235,7 @@
                           <li class="twitter"><a href="#twitter" class="btn btn-flat"><i class="icon-middle-twitter"></i></a></li>
                           <li class="facebook"><a href="#facebook" class="btn btn-flat"><i class="icon-middle-facebook"></i></a></li>
                           <li class="linkedin"><a href="#linkedin" class="btn btn-flat"><i class="icon-middle-linkedin"></i></a></li>
+						  <li><input id="post-msg" type="button" value="POST"> </input></li>
                         </ul>
                       </div>
                       <div class="input-prepend-container">
@@ -1261,156 +1252,7 @@
 
               <section class="timeline">
                 <ul class="timeline_items">
-                  <li>
-                    <article class="message_item">
-                      <div class="comment_wrapper">
-                        <div class="photo_container">
-                          <img src="images/placeholders/face3.png" width="46" height="46">
-                        </div>
-                        <div class="content_container">
-                          <div class="meta_data">
-                            <span class="username"><a href="#user-profile"> {{firstName}} {{lastName}}</a></span>
-                            <span class="separator">-</span>
-                            <time datetime="2011-12-01" pubdate>Dec 01, 2011</time>
-                            <span class="separator">-</span>
-                            <span class="visibility">Public</span>
-                          </div>
-                          <p>
-                            Check out Samsung's transparent and flexible concept tablet (video)
-                          </p>
-                          <div class="actions">
-                            <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
-                            <a class="rock" href="#rock">Rocked it!</a>
-                            <span class="separator">-</span>
-                            <a class="comment" href="#comment">Comment</a>
-                            <span class="separator">-</span>
-                            <a class="follow" href="#follow">Follow</a>
-                          </div>
-                        </div>
-                      </div>
-                      <header class="comments_info">
-                        <h5 class="pull-left"><span class="comments_number">3</span> Comments</h5>
-                        <div class="comment_actions pull-right">
-                          <a href="#hide">Hide</a> | <a class="disabled" href="#show">Show</a>
-                        </div>
-                      </header>
-                      <ul class="comments">
-                        <li>
-                          <article class="message_item">
-                            <div class="comment_wrapper">
-                              <div class="photo_container">
-                                <img src="images/placeholders/face4.png" width="39" height="39">
-                              </div>
-                              <div class="content_container">
-                                <div class="meta_data">
-                                  <span class="username"><a href="#user-profile">{{firstName}} {{lastName}} </a></span>
-                                  <span class="separator">-</span>
-                                  <time datetime="2011-12-01" pubdate>Dec 01, 2011</time>
-                                  <span class="separator">-</span>
-                                  <span class="visibility">Public</span>
-                                </div>
-                                <p>
-                                  Professor Disrupting Lecture Hall with Best Use of Skype Ever
-                                  <a href="#external">http://linkd.in/rSpYMK</a>
-                                  <a href="#edtech">#edtech</a>
-                                  <a href="#edchat">#edchat</a>
-                                  <a href="#flippedclassroom">#flippedclassroom</a>
-                                </p>
-                                <div class="actions">
-                                  <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
-                                  <a class="rock" href="#rock">Rocked it!</a>
-                                  <span class="separator">-</span>
-                                  <a class="comment" href="#comment">Comment</a>
-                                  <span class="separator">-</span>
-                                  <a class="follow" href="#follow">Follow</a>
-                                </div>
-                              </div>
-                            </div>
-                          </article>
-                        </li>
-                        <li>
-                          <article class="message_item">
-                            <div class="comment_wrapper">
-                              <div class="photo_container">
-                                <img src="images/placeholders/face4.png" width="39" height="39">
-                              </div>
-                              <div class="content_container">
-                                <div class="meta_data">
-                                  <span class="username"><a href="#user-profile">{{firstName}} {{lastName}} </a></span>
-                                  <span class="separator">-</span>
-                                  <time datetime="2011-12-01" pubdate>Dec 01, 2011</time>
-                                  <span class="separator">-</span>
-                                  <span class="visibility">Public</span>
-                                </div>
-                                <p>
-                                  Professor Disrupting Lecture Hall with Best Use of Skype Ever
-                                  <a href="#external">http://linkd.in/rSpYMK</a>
-                                  <a href="#edtech">#edtech</a>
-                                  <a href="#edchat">#edchat</a>
-                                  <a href="#flippedclassroom">#flippedclassroom</a>
-                                </p>
-                                <div class="actions">
-                                  <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
-                                  <a class="rock" href="#rock">Rocked it!</a>
-                                  <span class="separator">-</span>
-                                  <a class="comment" href="#comment">Comment</a>
-                                  <span class="separator">-</span>
-                                  <a class="follow" href="#follow">Follow</a>
-                                </div>
-                              </div>
-                            </div>
-                          </article>
-                        </li>
-                        <li>
-                          <article class="message_item">
-                            <div class="comment_wrapper">
-                              <div class="photo_container">
-                                <img src="images/placeholders/face4.png" width="39" height="39">
-                              </div>
-                              <div class="content_container">
-                                <div class="meta_data">
-                                  <span class="username"><a href="#user-profile"> {{firstName}} {{lastName}}</a></span>
-                                  <span class="separator">-</span>
-                                  <time datetime="2011-12-01" pubdate>Dec 01, 2011</time>
-                                  <span class="separator">-</span>
-                                  <span class="visibility">Public</span>
-                                </div>
-                                <p>
-                                  Professor Disrupting Lecture Hall with Best Use of Skype Ever
-                                  <a href="#external">http://linkd.in/rSpYMK</a>
-                                  <a href="#edtech">#edtech</a>
-                                  <a href="#edchat">#edchat</a>
-                                  <a href="#flippedclassroom">#flippedclassroom</a>
-                                </p>
-                                <div class="actions">
-                                  <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
-                                  <a class="rock" href="#rock">Rocked it!</a>
-                                  <span class="separator">-</span>
-                                  <a class="comment" href="#comment">Comment</a>
-                                  <span class="separator">-</span>
-                                  <a class="follow" href="#follow">Follow</a>
-                                </div>
-                              </div>
-                            </div>
-                          </article>
-                        </li>
-                      </ul>
-
-                      <section class="add_comment">
-                        <form method="post" action="." class="form-vertical">
-                          <fieldset>
-                            <div class="control-group">
-                              <div class="input-prepend-container">
-                                <div class="input-prepend">
-                                  <span class="add-on"><i class="icon-plus"></i><span class="popout_arrow"><span></span></span></span><input type="text" placeholder="Add a comment">
-                                </div>
-                              </div>
-                            </div>
-                          </fieldset>
-                        </form>
-                      </section>
-                    </article>
-                  </li>
+                
                 </ul>
               </section>
             </section>
@@ -1443,7 +1285,37 @@
     </div>
  </script>
  
- 
+ <script type="text/x-handlebars-template" id="tpl-messages">
+ <li>
+ <article class="message_item">
+   <div class="comment_wrapper">
+     <div class="photo_container">
+       <img src="images/placeholders/face3.png" width="46" height="46">
+     </div>
+     <div class="content_container">
+       <div class="meta_data">
+         <span class="username"><a href="#user-profile"> </a></span>
+         <span class="separator">-</span>
+         <time datetime="2011-12-01" pubdate>Dec 01, 2011</time>
+         <span class="separator">-</span>
+         <span class="visibility">{{messageAccess}}</span>
+       </div>
+       <p>
+         {{message}}
+       </p>
+       <div class="actions">
+         <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
+         <a class="rock" href="#rock">Rocked it!</a>
+         <span class="separator">-</span>
+         <a class="comment" href="#comment">Comment</a>
+         <span class="separator">-</span>
+         <a class="follow" href="#follow">Follow</a>
+       </div>
+     </div>
+   </div>
+   
+</li>
+ </script>
  
  
  <!-- basic profile registration -->

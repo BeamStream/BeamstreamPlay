@@ -50,6 +50,8 @@ BS.newClass = "http://localhost:9000/newStream";
 //Gel all streams of a user
  BS.allStreamsForAUser ="http://localhost:9000/allStreamsForAUser";
 
+//Post message info
+ BS.postMessage ="";
 
 /* 
  * for testing in local
@@ -68,4 +70,5 @@ BS.newClass = "http://localhost:9000/newStream";
 //BS.allSchoolForAUser = "http://localhost/client/api.php";
 //BS.newClass = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
 //BS.allStreamsForAUser ="http://localhost/client2/api.php";
+//BS.postMessage ="http://localhost/client/api.php";
  
