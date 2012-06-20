@@ -7,7 +7,6 @@ import models.Stream
 import play.api.data._
 import play.api.data.Forms._
 import play.api.Play.current
-import models.MessageForm
 import models.Message
 import models.User
 import org.bson.types.ObjectId
@@ -17,41 +16,38 @@ import com.mongodb.gridfs.GridFSDBFile
 import models.UserType
 import java.io.File
 import play.api.libs.iteratee.Enumerator
+import java.util.Date
+import models.MessageAccess
+import models.MessageType
+import net.liftweb.json.{ parse, DefaultFormats }
+import net.liftweb.json.Serialization.{ read, write }
 
 object MessageController extends Controller {
 
-  val messageForm = Form(
-    mapping(
-      "message" -> nonEmptyText,
-      "access" -> optional(checked("Private")))(MessageForm.apply)(MessageForm.unapply))
-
+  
+  implicit val formats=DefaultFormats
+  
   //==========================//
   //======Post a new message==//
   //==========================//
 
-  val tempUser = User(new ObjectId, UserType.Professional, "", "", "", "", "", "", "", "", List(), List(), List())
-
   def newMessage = Action { implicit request =>
-
-    //    messageForm.bindFromRequest.fold(
-    //
-    //      errors => BadRequest(views.html.message(Message.getAllMessagesForAStream(new ObjectId), errors, List(), tempUser, new GridFSDBFile)),
-    //      messageForm => {
-    //
-    //        val messagePoster = User.getUserProfile((new ObjectId(request.session.get("userId").get)))
-    //        Message.create(messageForm, new ObjectId(request.session.get("userId").get), new ObjectId(request.session.get("streamId").get),
-    //          messagePoster.firstName, messagePoster.lastName)
-    //
-    //        Redirect(routes.MessageController.streamMessages(request.session.get("streamId").get))
-    //        Ok
-    //      })
-    Ok
+     val messageListJsonMap = request.body.asFormUrlEncoded.get
+     val streamId = messageListJsonMap("streamId").toList(0)
+     val messageAccess = messageListJsonMap("messageAccess").toList(0)
+     val messageBody = messageListJsonMap("message").toList(0)
+     val messagePoster=User.getUserProfile(new ObjectId(request.session.get("userId").get))
+     val messageToCreate = new Message (new ObjectId , messageBody , MessageType.Audio, MessageAccess.withName(messageAccess) , new Date , new ObjectId(request.session.get("userId").get),new ObjectId(streamId),
+     messagePoster.firstName,messagePoster.lastName,0,List())
+     Message.createMessage(messageToCreate)
+     
+     val messageJson=write(messageToCreate)
+     Ok(messageJson).as("application/json")
   }
 
   def messages = Action { implicit request =>
     val profileName = User.getUserProfile((new ObjectId(request.session.get("userId").get)))
     val streams = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
-    //Ok(views.html.message(Message.getAllMessagesForAStream(new ObjectId), messageForm, streams, profileName, new GridFSDBFile))
     Ok
   }
 
@@ -63,7 +59,6 @@ object MessageController extends Controller {
     val profileName = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val streams = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
     val messagesListFound = Message.getAllMessagesForAStream(new ObjectId(id))
-    //Ok(views.html.message(messagesListFound, messageForm, streams, profileName, new GridFSDBFile)).withSession(session + ("streamId" -> id))
     Ok
   }
 

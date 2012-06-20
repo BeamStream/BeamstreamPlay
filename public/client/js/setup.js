@@ -51,7 +51,7 @@ BS.newClass = "http://localhost:9000/newStream";
  BS.allStreamsForAUser ="http://localhost:9000/allStreamsForAUser";
 
 //Post message info
- BS.postMessage ="";
+ BS.postMessage ="http://localhost:9000/newMessage";
 
 /* 
  * for testing in local

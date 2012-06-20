@@ -18,7 +18,7 @@ POST   /newStream                       controllers.Application.newStream
 
 
 #GET    /messages                       controllers.MessageController.messages
-#POST    /messages                      controllers.MessageController.newMessage
+POST    /newMessage                      controllers.MessageController.newMessage
 #GET   /messages/:id/streammessages     controllers.MessageController.streamMessages(id:String)
 
 
