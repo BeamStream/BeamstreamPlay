@@ -78,7 +78,7 @@ class ObjectIdSerializer extends Serializer[ObjectId] {
   }
 
  def serialize(implicit format: Formats) = {
-    case x: ObjectId => JObject(JField("schoolId", JString(x.toString)) :: Nil)
+    case x: ObjectId => JObject(JField("id", JString(x.toString)) :: Nil)
     
   }
 }
