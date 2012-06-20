@@ -140,7 +140,7 @@ BS.AppRouter = Backbone.Router.extend({
    	  $('.modal-backdrop').hide();
    	   
       $('#content').html(this.streamView.el);
-      
+      $(".checkbox").dgStyle();
    },
    
   
