@@ -61,6 +61,7 @@ object UserController extends Controller {
   def registerUserViaSocialSite = Action { implicit request =>
     val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
     val token = tokenList(0)
+    println(token+"ahhhhhhh")
     Authentication.Auth(token)
 
   }
