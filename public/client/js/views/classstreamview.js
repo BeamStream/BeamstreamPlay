@@ -121,7 +121,7 @@ BS.ClassStreamView = Backbone.View.extend({
 						
 						 var sSelect = '<select id="schools" class="small selectBox">';
 						_.each(datas, function(data) {
-							sSelect+= '<option value ="'+data.id.schoolId+'" > '+data.schoolName+'</option>';
+							sSelect+= '<option value ="'+data.id.id+'" > '+data.schoolName+'</option>';
 				        });
 						sSelect+= '</select>';
 						$('#sShool').html(sSelect);
