@@ -32,40 +32,49 @@ BS.RegistrationView = Backbone.View.extend({
 
 	save : function(eventName) {
 		eventName.preventDefault();
-		var validate = jQuery('#registration-form')
-				.validationEngine('validate');
+		var validate = jQuery('#registration-form').validationEngine('validate');
+        
+        if(validate == true){
+    	   var regDetails = this.getFormData();
 
-		var regDetails = this.getFormData();
-
-		/* post basic profile registration details */
-		$.ajax({
-			type : 'POST',
-			url : BS.registerNewUser,
-			data : {
-				data : regDetails
-			},
-			dataType : "json",
-			success : function(data) {
-				if (data.status == "Success") {
-					// navigate to main stream page
-					BS.AppRouter.navigate("streams", {
-						trigger : true,
-						replace : true
-					});
-					console.log(data.message);
-				} else {
-					console.log(data.message);
-				}
-
-			}
-		});
+   			/* post basic profile registration details */
+   			$.ajax({
+	   			type : 'POST',
+	   			url : BS.registerNewUser,
+	   			data : {
+	   				data : regDetails
+	   			},
+	   			dataType : "json",
+	   			success : function(data) {
+	   				if (data.status == "Success") {
+	   					// navigate to main stream page
+	   					BS.AppRouter.navigate("streams", {
+	   						trigger : true,
+	   						replace : true
+	   					});
+	   					console.log(data.message);
+	   				} else {
+	   					console.log(data.message);
+	   				}
+	
+	   			}
+   		 });
+    	   
+        }
+        else
+        {
+        	console.log("Fields are not completely filled");
+        	$('#error').html("Fields are not completely filled");
+        }
+       
+		
 	},
 
 	/**
 	 * get all form data
 	 */
 	getFormData : function() {
-
+      
 		var basicProfile = new BS.BasicProfile();
 		var useCurrentLocation;
 		if ($('#useCurrentLocation').attr('checked') == "checked") {
@@ -99,30 +108,40 @@ BS.RegistrationView = Backbone.View.extend({
 	toNextPage : function(eventName) {
 
 		eventName.preventDefault();
-		var regDetails = this.getFormData();
-
-		/* post basic profile registration details */
-		$.ajax({
-			type : 'POST',
-			url : BS.registerNewUser,
-			data : {
-				data : regDetails
-			},
-			dataType : "json",
-			success : function(data) {
-				if (data.status == "Success") {
-					// navigate to main stream page
-					BS.AppRouter.navigate("streams", {
-						trigger : true,
-						replace : true
-					});
-					console.log(data.message);
-				} else {
-					console.log(data.message);
+        var validate = jQuery('#registration-form').validationEngine('validate');
+        
+        if(validate == true){
+        
+			var regDetails = this.getFormData();
+	
+			/* post basic profile registration details */
+			$.ajax({
+				type : 'POST',
+				url : BS.registerNewUser,
+				data : {
+					data : regDetails
+				},
+				dataType : "json",
+				success : function(data) {
+					if (data.status == "Success") {
+						// navigate to main stream page
+						BS.AppRouter.navigate("school", {
+							trigger : true,
+							replace : true
+						});
+						console.log(data.message);
+					} else {
+						console.log(data.message);
+					}
+	
 				}
-
-			}
-		});
+			});
+        }
+        else
+        {
+        	console.log("Fields are not completly filled");
+        	$('#error').html("Fields are not completly filled");
+        }
 	},
 
 });

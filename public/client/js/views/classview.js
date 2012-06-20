@@ -6,6 +6,7 @@ BS.ClassView = Backbone.View.extend({
 		"click a.addclass": "addClasses",
 		"click .datepicker" :"setIndex",
 		"click a.legend-addclass" : "addSchool",
+		"click div.datepicker dropdown-menu" :"closeCalender"
 
 	},
 
@@ -26,7 +27,14 @@ BS.ClassView = Backbone.View.extend({
 		 
 	},
 
+	/**
+	 * close calendar
+	 */
 	
+	closeCalender :function(){
+		
+		console.log(333);
+	},
 	/**
 	 * save/post class info details.
 	 */
@@ -34,29 +42,38 @@ BS.ClassView = Backbone.View.extend({
 		
 		eventName.preventDefault();
 		var validate = jQuery('#class-form').validationEngine('validate');
-		 
+		
 		if(validate == true)
 	    {
 			$('#save').attr('data-dismiss','modal');
 			var classDetails = this.getClassInfo();
-		    
-			/* post data with school and class details */
-			$.ajax({
-				type : 'POST',
-				url : BS.saveClass,
-				data : {
-					data : classDetails
-				},
-				dataType : "json",
-				success : function(data) {
-					// navigate to main stream page
-					BS.AppRouter.navigate("streams", {trigger: true, replace: true});
-				}
-			});
+			if(classDetails != false)
+			{
+				/* post data with school and class details */
+				$.ajax({
+					type : 'POST',
+					url : BS.saveClass,
+					data : {
+						data : classDetails
+					},
+					dataType : "json",
+					success : function(data) {
+						// navigate to main stream page
+						BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+					}
+				});
+			}
+			else
+			{
+//			    $('#'+BS.invalidItem).focus();
+				$('#error').html("Please fill all details for a class");
+			}
+			
 	   }
 		else
 	    {    
 			console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
+			$('#error').html("You must enter atleast one class");
 	    }
 	},
 
@@ -86,8 +103,8 @@ BS.ClassView = Backbone.View.extend({
 		        var name = model.get('schoolName');
 		        var id = model.get('id')
 		         
-		        options+= '<option value ="'+id.schoolId+'">'+name+'</option>';
-		        select+= '<option value ="'+id.schoolId+'">'+name+'</option>';
+		        options+= '<option value ="'+id.id+'">'+name+'</option>';
+		        select+= '<option value ="'+id.id+'">'+name+'</option>';
             
 		      });
 		 select+= '</select>';
@@ -107,7 +124,7 @@ BS.ClassView = Backbone.View.extend({
 		if(validate == true)
 	    {
 			var classDetails = this.getClassInfo();
-	        
+	       
 			/* post data with school and class details */
 			$.ajax({
 				type : 'POST',
@@ -127,6 +144,7 @@ BS.ClassView = Backbone.View.extend({
 		else
 	    { 
 			console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
+			$('#error').html("You must enter atleast one class");
 	    }
 	},
 
@@ -154,6 +172,8 @@ BS.ClassView = Backbone.View.extend({
 		$(parent).append(template(sCount));
 		$(".modal select:visible").selectBox();
 	    $('.modal .datepicker').datepicker();
+ 
+//	    $('.datepicker').css('z-index','99999');
 
 	},
 	
@@ -193,29 +213,51 @@ BS.ClassView = Backbone.View.extend({
 
 	getClassInfo : function() {
         var classId = 0;
+        BS.invalidItem ='';
+        var validClass = true;
 		var classes = new BS.ClassCollection();
 		for (var i=1; i<=sClasses; i++) 
 		{
 			for(var j=1; j<=3; j++)
 			{
 				var classModel = new BS.Class();
-				classId++;
-				classModel.set({
-					
-					schoolId :  $('#school-' + i).val(),
-					id : classId ,
-					classCode : $('#class-code-' + i + '-' + j).val(),
-					classTime : $('#class-time-' + i + '-' + j).val(),
-					className : $('#class-name-' + i + '-' + j).val(),
-					startingDate : $('#date-started-' + i + '-' + j).val(),
-					classType : $('#semester-' + i + '-' + j).val()
-				});
-				classes.add(classModel);
+				
+				if($('#class-code-' + i + '-' + j).val() !="" && $('#class-name-' + i + '-' + j).val() !="" && $('#date-started-' + i + '-' + j).val() != "")
+				{
+					classId++;
+					classModel.set({
+						
+						schoolId :  $('#school-' + i).val(),
+						id : classId ,
+						classCode : $('#class-code-' + i + '-' + j).val(),
+						classTime : $('#class-time-' + i + '-' + j).val(),
+						className : $('#class-name-' + i + '-' + j).val(),
+						startingDate : $('#date-started-' + i + '-' + j).val(),
+						classType : $('#semester-' + i + '-' + j).val()
+					});
+					classes.add(classModel);
+				}
+				else if($('#class-code-' + i + '-' + j).val() !="" && $('#class-name-' + i + '-' + j).val() !="")
+				{  
+					validClass = false;
+					BS.invalidItem = "date-started-" + i + "-" + j ;
+				}
+				else
+				{
+					console.log("Not selected any fileds");
+				}
 			}
 		}
+		if(validClass == true)
+		{
+			var classDetails = JSON.stringify(classes);
+			return classDetails;
+		}
+		else
+		{
+			return false;
+		}
 		
-		var classDetails = JSON.stringify(classes);
-		return classDetails;
 	},
 	
 	setIndex:function(){

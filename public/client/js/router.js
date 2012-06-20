@@ -20,6 +20,7 @@ BS.AppRouter = Backbone.Router.extend({
         
     },
     initialize :function() {
+    	 
     	/* calculate time from 12:00AM to 11:45PM */
     	var timeValues = new Array;
   		var hours, minutes, ampm;
@@ -38,6 +39,8 @@ BS.AppRouter = Backbone.Router.extend({
   		        timeValues.push({"time" : time});
   		 }
   		BS.times = jQuery.parseJSON(JSON.stringify(timeValues));
+  		
+  		
     },
 
     home: function() {
@@ -80,7 +83,7 @@ BS.AppRouter = Backbone.Router.extend({
          /* hide some fields on page load */
          $('#degree-exp-'+current).hide();
      	 $('#cal-'+current).hide();
-      
+     	 jQuery("#school-form").validationEngine();
      	
     },
 
@@ -126,15 +129,16 @@ BS.AppRouter = Backbone.Router.extend({
     * display main stream page
     */
    maisStream:function () {
-	  $('.modal').css('display','none');
 	   
+	  $('.modal').css('display','none');
+	 
    	  if (!this.streamView) {
             this.streamView = new BS.StreamView();
             this.streamView.render();
             this.onstream = true; 
       }
    	  $('.modal-backdrop').hide();
-   	  
+   	   
       $('#content').html(this.streamView.el);
       
    },
@@ -192,6 +196,7 @@ BS.AppRouter = Backbone.Router.extend({
  	 
       $('#main-popups').html(this.emailView.el);  
       $(".modal select:visible").selectBox();
+      $(".checkbox").dgStyle();
       jQuery("#email-verify").validationEngine();
       
   },

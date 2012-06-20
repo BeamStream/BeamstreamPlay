@@ -433,7 +433,7 @@
 }
 
 /* display error when enter wrong username or password */
-.invalid-login
+.invalid-validation
 {
 	color: red;
     font-size: 17px;

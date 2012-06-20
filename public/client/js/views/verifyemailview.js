@@ -26,11 +26,13 @@ BS.verifyEmailView = Backbone.View.extend({
     	var  checked = $('#schoolmail').attr('checked');
     	if(checked == "checked")
     	{
-    		$('#school-email').show();
+    		$('#row-line').show();
+    		$('#schoolmail-info').show();
     	}
     	else
     	{
-    		$('#school-email').hide();
+    		$('#schoolmail-info').hide();
+    		$('#row-line').hide();
     	}
          
     },
@@ -45,35 +47,45 @@ BS.verifyEmailView = Backbone.View.extend({
     	var validate = jQuery('#email-verify').validationEngine('validate');
     	if(validate == true)
 	    {
-	    	var mailDetails = this.getdata();
-	    	 
-	    	/* post email verification details */
-			$.ajax({
-				type : 'POST',
-				url : BS.verifyEmail,
-				data : {
-					data : mailDetails
-				},
-				dataType : "json",
-				success : function(data) {
-					if(data.status == "Success") 
-	   			    {
-						 
-							var source = $("#tpl-verify-popup").html();
-							var template = Handlebars.compile(source);
-							$("#main-popups").html(template);
-	   			     }
-					 else
-					 {
-							alert("Token Expired");
-					 }
-					  
-				}
-		     });
+    		if($('#iam').val() == "")
+    		{
+    			$('#error').html("Please select I'm field");
+    		}
+    		else
+    		{
+    			
+	    		 
+		    	var mailDetails = this.getdata();
+		    	 
+		    	/* post email verification details */
+				$.ajax({
+					type : 'POST',
+					url : BS.verifyEmail,
+					data : {
+						data : mailDetails
+					},
+					dataType : "json",
+					success : function(data) {
+						if(data.status == "Success") 
+		   			    {
+							 
+								var source = $("#tpl-verify-popup").html();
+								var template = Handlebars.compile(source);
+								$("#main-popups").html(template);
+		   			     }
+						 else
+						 {
+								alert("Token Expired");
+						 }
+						  
+					}
+			     });
+    		}
 	    }
     	else
     	{
-    		alert("Only use emails that are assosiated with schools and organozations");
+//    		alert("Only use emails that are assosiated with schools and organozations");
+    		$('#error').html("Only use emails that are assosiated with schools and organozations");
     		console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
     	}
 		 
