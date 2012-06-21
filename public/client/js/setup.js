@@ -8,7 +8,7 @@
   * Config Variables for Url externalization
   */
  
-//For Login Page
+For Login Page
 BS.login = "http://localhost:9000/users";
 
 //For Verify Token
@@ -52,18 +52,19 @@ BS.newClass = "http://localhost:9000/newStream";
 
 //Post message info
  BS.postMessage ="http://localhost:9000/newMessage";
-
+//Get all messages of a stream
+ BS.streamMessages = "http://localhost:9000/getAllMessagesForAStream";
 /* 
  * for testing in local
  */
-//BS.login = "http://localhost/client2/api.php";
+//BS.login = "http://localhost/Beam2/BeamstreamPlay/public/client/image.php";
 //BS.verifyToken ="http://localhost/client2/api.php";
 //BS.verifyEmail = "http://localhost/client2/api.php";
 //BS.registerNewUser = "http://localhost/client2/api.php";
 //BS.loggedInUserJson = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
 //BS.saveSchool = "http://localhost/client2/api.php";
 //BS.schoolJson = "http://localhost/client/api.php";
-//BS.saveClass = "http://192.168.10.10/client2/api.php";
+//BS.saveClass = "http://localhost/client2/api.php";
 //BS.saveProfile = "http://localhost/client2/api.php";
 //BS.autoPopulateClass = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
 //BS.schoolNamebyId = "http://localhost/client2/api.php";
@@ -71,4 +72,4 @@ BS.newClass = "http://localhost:9000/newStream";
 //BS.newClass = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
 //BS.allStreamsForAUser ="http://localhost/client2/api.php";
 //BS.postMessage ="http://localhost/client/api.php";
-// 
+//BS.streamMessages = "http://localhost/Beam2/BeamstreamPlay/public/client/image.php";

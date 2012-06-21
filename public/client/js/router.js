@@ -98,9 +98,7 @@ BS.AppRouter = Backbone.Router.extend({
             this.classView.render();
             
         }
-     
         $('#school-popup').html(this.classView.el);
-       
         $(".modal select:visible").selectBox();
         $('.modal .datepicker').datepicker();
         jQuery("#class-form").validationEngine();
@@ -112,15 +110,14 @@ BS.AppRouter = Backbone.Router.extend({
     */
    profileReg:function () {
     	 
-   	  if (!this.profileView) {
+   	   if (!this.profileView) {
             this.profileView = new BS.ProfileView();
             this.profileView.render();
-            
-      }
-      $('#school-popup').html(this.profileView.el);   
-      $(".modal select:visible").selectBox();
-      $('.modal .datepicker').datepicker();
-      jQuery("#profile-form").validationEngine();
+       }
+       $('#school-popup').html(this.profileView.el);   
+       $(".modal select:visible").selectBox();
+       $('.modal .datepicker').datepicker();
+       jQuery("#profile-form").validationEngine();
    },
    
    
@@ -130,26 +127,23 @@ BS.AppRouter = Backbone.Router.extend({
     */
    maisStream:function () {
 	   
-	  $('.modal').css('display','none');
-	 
-   	  if (!this.streamView) {
+	   $('.modal').css('display','none');
+   	   if (!this.streamView) {
             this.streamView = new BS.StreamView();
             this.streamView.render();
             this.onstream = true; 
-      }
-   	  $('.modal-backdrop').hide();
-   	   
-      $('#content').html(this.streamView.el);
-      $(".checkbox").dgStyle();
+       }
+   	   $('.modal-backdrop').hide();
+       $('#content').html(this.streamView.el);
+       $(".checkbox").dgStyle();
    },
    
   
-   /**
+    /**
     * registration after email verification
     */
-   basicRegistration: function(token,iam,email) {
-	    
-	    
+    basicRegistration: function(token,iam,email) {
+	     
 	   // verify the token
 	   $.ajax({
 			type : 'POST',
@@ -181,25 +175,25 @@ BS.AppRouter = Backbone.Router.extend({
 			}
 	     });
          
-  },
+    },
   
   
-   /**
-   * for email verification
-   */
-   emailVerification: function() {
- 	 this.emailView = null;
- 	 if (!this.emailView) {
-          this.emailView = new BS.verifyEmailView();
-          this.emailView.render();
-      }
+    /**
+    * for email verification
+    */
+    emailVerification: function() {
+ 	   this.emailView = null;
+ 	   if (!this.emailView) {
+           this.emailView = new BS.verifyEmailView();
+           this.emailView.render();
+       }
  	 
-      $('#main-popups').html(this.emailView.el);  
-      $(".modal select:visible").selectBox();
-      $(".checkbox").dgStyle();
-      jQuery("#email-verify").validationEngine();
+       $('#main-popups').html(this.emailView.el);  
+       $(".modal select:visible").selectBox();
+       $(".checkbox").dgStyle();
+       jQuery("#email-verify").validationEngine();
       
-  },
+     },
  
  
 	 /**
@@ -207,50 +201,40 @@ BS.AppRouter = Backbone.Router.extend({
 	  */
 	 classStream:function () {
 	 
-		    if (!this.ClassStreamView) {
+		 if (!this.ClassStreamView) {
 	         this.ClassStreamView = new BS.ClassStreamView();
 	         this.ClassStreamView.render();
-	         
 	     }
-	  
 	     $('#school-popup').html(this.ClassStreamView.el);
-	   
 	     $(".radio").dgStyle();
 	     $(".modal select:visible").selectBox();
 	     $('.modal .datepicker').datepicker();
-	 	 
-	    
 	},
+	
 	/**
 	 * display project stream screen
 	 */
 	projectStream:function () {
 	
-		    if (!this.projectStreamView) {
+		if(!this.projectStreamView) {
 	        this.projectStreamView = new BS.ProjectStreamView();
 	        this.projectStreamView.render();
-	        
 	    }
-	 
 	    $('#school-popup').html(this.projectStreamView.el);
 	    $(".radio").dgStyle();
 	    $(".modal select:visible").selectBox();
 	    $('.modal .datepicker').datepicker();
-	    
-	   
 	},
 	
-	/*
+	/**
 	 * display study stream screen
 	 */
-	studyStream :function () {
+	 studyStream :function () {
 	
-		    if (!this.studyStreamView) {
+		 if (!this.studyStreamView) {
 		    this.studyStreamView = new BS.StudyStreamView();
 		    this.studyStreamView.render();
-		    
-		}
-	
+		 }
 		$('#school-popup').html(this.studyStreamView.el);
 		$(".radio").dgStyle();
 		$(".modal select:visible").selectBox();
@@ -258,17 +242,16 @@ BS.AppRouter = Backbone.Router.extend({
 	
 	
 	},
-	/*
+	
+	/**
 	 * display group stream screen
 	 */
 	groupStream:function () {
 		
-		    if (!this.groupStreamView) {
+		if (!this.groupStreamView) {
 		    this.groupStreamView = new BS.GroupStreamView();
 		    this.groupStreamView.render();
-		    
 		}
-	
 		$('#school-popup').html(this.groupStreamView.el);
 		$(".radio").dgStyle();
 		$(".modal select:visible").selectBox();
@@ -276,40 +259,36 @@ BS.AppRouter = Backbone.Router.extend({
 
 	},
 	
-	/*
+	/**
 	 * display peer stream screen
 	 */
 	peerStream:function () {
 		
-		    if (!this.peerStreamView) {
+		if (!this.peerStreamView) {
 		    this.peerStreamView = new BS.PeerStreamView();
 		    this.peerStreamView.render();
 		}
-	
 		$('#school-popup').html(this.peerStreamView.el);
 		$(".radio").dgStyle();
 		$(".modal select:visible").selectBox();
 		$('.modal .datepicker').datepicker();
-
-
 	},
-	/*
+	
+	/**
 	 * display friend stream screen
 	 */
 	friendStream:function () {
 		
-	    if (!this.friendStreamView) {
-	    this.friendStreamView = new BS.FriendStreamView();
-	    this.friendStreamView.render();
-	}
+	   if (!this.friendStreamView) {
+	     this.friendStreamView = new BS.FriendStreamView();
+	     this.friendStreamView.render();
+	   }
 
-	$('#school-popup').html(this.friendStreamView.el);
-	$(".radio").dgStyle();
-	$(".modal select:visible").selectBox();
-	$('.modal .datepicker').datepicker();
-
-
-},
+	   $('#school-popup').html(this.friendStreamView.el);
+	   $(".radio").dgStyle();
+	   $(".modal select:visible").selectBox();
+	   $('.modal .datepicker').datepicker();
+    },
 
 });
 

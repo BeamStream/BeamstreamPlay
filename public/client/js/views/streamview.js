@@ -11,16 +11,14 @@ BS.StreamView = Backbone.View.extend({
            "click #groupStream" :"groupStream",
            "click #peerStream" : "peerStream",
            "click #friendStream" :"friendStream",
-           "click #all-streams" : "showAllStreams",
-           "click #classStreams-list" : "showClassStreams",
-           "click #projectStreams-list" : "showProjectStreams",
            "click #streams-list li" : "selectOneStream",
-           "click #post-msg": "postMessage"
-           
+           "click #post-msg": "postMessage",
+           "click ul#select-streams li a" : "showStreamList"
         	   
 		  
 	 },
 	
+
     initialize:function () {
     	
     	 console.log('Initializing Stream View');
@@ -54,9 +52,10 @@ BS.StreamView = Backbone.View.extend({
 		}});
      
        this.getStreams();
-		 
-        $(this.el).html(this.template);
-        return this;
+ 
+       $(this.el).html(this.template);
+        
+       return this;
     },
     
     /**
@@ -64,7 +63,7 @@ BS.StreamView = Backbone.View.extend({
      */
     getStreams :function(){
     	
-    	 
+    	 var self =this;
         /* get all streams  */
 		 $.ajax({
 				type : 'GET',
@@ -80,11 +79,18 @@ BS.StreamView = Backbone.View.extend({
 					  
 					 $('#streams-list').html(streams);
 					 $('#streams-list li:first').addClass('active');
- 
+					 
+					 // display the messages of the first stream in the stream list by default
+                     var streamId = $('#streams-list li.active a').attr('id');
+                     if(streamId)
+                      self.getMessageInfo(streamId);
+             
 				}
 		 });
     },
-    /*
+    
+   
+    /**
      *  hover over for Create Stream button
      */
     mouseOver:function () {
@@ -220,39 +226,6 @@ BS.StreamView = Backbone.View.extend({
     },
     
     /**
-     *  Show all streams
-     */
-    showAllStreams :function(eventName){
-    	eventName.preventDefault();
-    	var id = eventName.target.id;
-    	$('#select-streams li.active').removeClass('active');
-   	    $('#'+id).parents('li').addClass('active');
-    	this.getStreams();
-    	
-    },
-    
-    /**
-     * list all class streams
-     */
-    
-    showClassStreams :function(eventName){
-    	eventName.preventDefault();
-    	var id = eventName.target.id;
-    	$('#select-streams li.active').removeClass('active');
-  	    $('#'+id).parents('li').addClass('active');
-    	$('#streams-list').html('');
-    },
-    /**
-     * show all project streams
-     */
-    showProjectStreams:function(eventName){
-    	eventName.preventDefault();
-    	var id = eventName.target.id;
-    	$('#select-streams li.active').removeClass('active');
-  	    $('#'+id).parents('li').addClass('active');
-    	$('#streams-list').html('');
-    },
-    /**
      * select one stream from stream list
      */
     selectOneStream :function(eventName){
@@ -260,6 +233,10 @@ BS.StreamView = Backbone.View.extend({
       var id = eventName.target.id;
       $('#streams-list li.active').removeClass('active');
       $('#'+id).parents('li').addClass('active');
+      
+      // call the method to display the messages of the selected stream
+      this.getMessageInfo(id);
+       
     },
     /**
      * post a message
@@ -302,5 +279,61 @@ BS.StreamView = Backbone.View.extend({
 			}
 		});
  
-    }
+    },
+    
+    /**
+     * get all details about messages and its comments of a stream
+     */
+    getMessageInfo :function(streamid){
+ 
+         
+         /* get all messages of a stream  */
+		 $.ajax({
+				type : 'POST',
+				url : BS.streamMessages,
+				data :streamid,
+				dataType : "json",
+				success : function(datas) {
+					
+					 
+                    
+             
+				}
+		 });
+    	
+    	
+    },
+    
+    /**
+     * show stream list corresponds to each streamtype
+     */
+    showStreamList:function(eventName){
+    	
+     	eventName.preventDefault();
+    	var id = eventName.target.id;
+    	$('#select-streams li.active').removeClass('active');
+  	    $('#'+id).parents('li').addClass('active');
+  	    $('#streams-list').slideUp();
+  	    // show all streams
+  	    if(id == 'all-streams')
+  	    {
+  	    	 this.getStreams();
+  	    	
+  	    }
+  	    // show all classStreams
+  	    else if(id == 'classStreams-list')
+  	    {
+  	    	$('#streams-list').html('');
+  	    }
+  	    // show all projectStreams
+  	    else if(id == 'projectStreams-list')
+  	    {
+  	    	$('#streams-list').html('');
+  	    }
+  	    else
+  	    {
+  	    	
+  	    }
+  	   $('#streams-list').slideDown();
+	},
 });
