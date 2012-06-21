@@ -5,6 +5,7 @@ BS.StreamView = Backbone.View.extend({
            "mouseenter .trigger" : "mouseOver",
            "mouseleave .trigger" : "mouseOut",
            "click #school" : "renderPopups",
+           "click #sign-out" : "signOut",
            "click #classstream" :"classStream",
            "click #projectStream" :"projectstream",
            "click #studyStream" :"studyStream",
@@ -277,7 +278,7 @@ BS.StreamView = Backbone.View.extend({
 				  }
 				  var source = $("#tpl-messages").html();
 				  var template = Handlebars.compile(source);
-				  $('.timeline_items').append(template(datas));
+				  $('.timeline_items').prepend(template(datas));
 				  $('#msg').val("");
 			}
 		});
@@ -347,4 +348,12 @@ BS.StreamView = Backbone.View.extend({
   	    }
   	   $('#streams-list').slideDown();
 	},
+	
+	 /**
+	 * function for sign out
+	 */
+	 signOut :function(eventName){
+		 eventName.preventDefault();
+		 BS.AppRouter.navigate("login", {trigger: true, replace: true});
+	 }
 });
