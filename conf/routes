@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
+GET     /                           controllers.StreamController.index
 
 
 
@@ -13,12 +13,15 @@ POST   /users                         controllers.UserController.findUser
 
 #Streams
 
-GET    /allStreamsForAUser              controllers.Application.getAllStreamForAUser
-POST   /newStream                       controllers.Application.newStream
-POST   /getAllMessagesForAStream        controllers.Application.getAllMessagesForAStream
+GET    /allStreamsForAUser              controllers.StreamController.getAllStreamForAUser
+POST   /newStream                       controllers.StreamController.newStream
+
+
 
 #GET    /messages                       controllers.MessageController.messages
 POST    /newMessage                      controllers.MessageController.newMessage
+POST   /getAllMessagesForAStream        controllers.MessageController.getAllMessagesForAStream
+
 #GET   /messages/:id/streammessages     controllers.MessageController.streamMessages(id:String)
 
 
