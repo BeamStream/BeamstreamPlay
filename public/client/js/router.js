@@ -100,7 +100,7 @@ BS.AppRouter = Backbone.Router.extend({
         }
      
         $('#school-popup').html(this.classView.el);
-        
+       
         $(".modal select:visible").selectBox();
         $('.modal .datepicker').datepicker();
         jQuery("#class-form").validationEngine();
