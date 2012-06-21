@@ -165,7 +165,6 @@ BS.StreamView = Backbone.View.extend({
     	this.classStream = new BS.ClassStreamView();
     	this.classStream.render();
     	$('#school-popup').html(this.classStream.el);
-    
     },
     /*
      * display Project stream screen
