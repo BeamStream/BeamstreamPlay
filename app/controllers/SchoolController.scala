@@ -27,27 +27,15 @@ object SchoolController extends Controller {
     Ok(SchoolListJson).as("application/json")
   }
 
+  /*
+   * Returns school name by schoolId
+   */
+  
   def getSchoolName = Action { implicit request =>
     val schoolIdJsonMap = request.body.asFormUrlEncoded.get
     val schoolId = schoolIdJsonMap("schoolId").toList(0)
     val schoolName = School.findSchoolsById(new ObjectId(schoolId))
     Ok(write(schoolName)).as("application/json")
-  }
-
-  /*
-   * Sends the obtained fields value from html to model for saving it
-   */
-
-  def addSchool = Action { implicit request =>
-
-    //    schoolForm.bindFromRequest.fold(
-    //      errors => BadRequest(views.html.school(School.allSchools(), errors)),
-    //      schoolForm => {
-    //        School.addSchool(schoolForm)
-    //        Redirect(routes.MessageController.messages)
-    //      Ok
-    //      })
-    Ok
   }
 
 }

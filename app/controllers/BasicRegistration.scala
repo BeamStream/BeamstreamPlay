@@ -29,19 +29,14 @@ object BasicRegistration extends Controller {
 
     val tokenJSON = request.body.asFormUrlEncoded.get
     val tokenString = tokenJSON("token").toList(0)
-
     val findToken = TokenDAO.find(MongoDBObject("tokenString" -> tokenString)).toList
-
     val successJson = write(new ResulttoSent("Success", "Allow To SignUp"))
     val failureJson = write(new ResulttoSent("Failure", "Do Not Allow To SignUp"))
 
     (findToken.size == 0) match {
       case false => Ok(successJson).as("application/json")
-
       case true => Ok(failureJson).as("application/json")
-
     }
-
   }
 
   def basicRegistrationViaSocialSites(email: String, userName: String, firstName: String) = Action { implicit request =>

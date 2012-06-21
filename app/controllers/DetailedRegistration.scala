@@ -29,13 +29,7 @@ object DetailedRegistration extends Controller {
     override def dateFormatter = new SimpleDateFormat("dd/MM/yyyy")
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
-  /*
-   * Map the field values from html
-   */
-
-  val detailed_regForm = Form(
-    mapping(
-      "schoolName" -> nonEmptyText)(DetailedRegForm.apply)(DetailedRegForm.unapply))
+  
 
  
 

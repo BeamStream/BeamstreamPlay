@@ -32,7 +32,7 @@ POST   /getAllMessagesForAStream        controllers.MessageController.getAllMess
 
 #Schools
 
-POST   /school                   controllers.SchoolController.addSchool
+#POST   /school                   controllers.SchoolController.addSchool
 GET   /getAllSchoolForAUser      controllers.SchoolController.getAllSchoolForAUser
 POST  /getSchoolNamebyId          controllers.SchoolController.getSchoolName
 
