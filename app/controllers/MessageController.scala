@@ -51,14 +51,22 @@ object MessageController extends Controller {
     Ok
   }
 
-  //==================================================//
-  //======Displays all the messages within a Stream===//
-  //==================================================//
+ 
 
   def streamMessages(id: String) = Action { implicit request =>
     val profileName = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val streams = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
     val messagesListFound = Message.getAllMessagesForAStream(new ObjectId(id))
+    Ok
+  }
+  
+   //==================================================//
+  //======Displays all the messages within a Stream===//
+  //==================================================//
+  def getAllMessagesForAStream = Action { implicit request =>
+    println(request.body)
+    //Message.getAllMessagesForAStream()
+    
     Ok
   }
 

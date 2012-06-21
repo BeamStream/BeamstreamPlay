@@ -15,7 +15,7 @@ POST   /users                         controllers.UserController.findUser
 
 GET    /allStreamsForAUser              controllers.Application.getAllStreamForAUser
 POST   /newStream                       controllers.Application.newStream
-
+POST   /getAllMessagesForAStream        controllers.Application.getAllMessagesForAStream
 
 #GET    /messages                       controllers.MessageController.messages
 POST    /newMessage                      controllers.MessageController.newMessage

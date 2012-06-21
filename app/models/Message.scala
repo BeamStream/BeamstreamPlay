@@ -75,6 +75,11 @@ object Message {
     MessageDAO.remove(message)
   }
 
+  
+  /*
+   * Get all messages fro a stream
+   */
+  
   def getAllMessagesForAStream(streamId: ObjectId): List[Message] = {
 
     val messsages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList
