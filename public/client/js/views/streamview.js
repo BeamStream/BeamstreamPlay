@@ -72,7 +72,7 @@ BS.StreamView = Backbone.View.extend({
 				dataType : "json",
 				success : function(datas) {
 					
-					var streams ='';
+					 var streams ='';
 					 _.each(datas, function(data) {
 							 
 							streams+= '<li><span class="flag-piece"></span><a id ="'+data.id.id+'" href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';

@@ -162,19 +162,11 @@ BS.ClassStreamView = Backbone.View.extend({
 			dataType : "json",
 			success : function(data) {
 				 
-				console.log("success");
-//				// add newly created class stream
-//				this.streams = new BS.StreamCollection();
-//		        this.streams.fetch({success: function(e) {  
-//		        	
-//		             var streams ='';
-//		        	 _.each(e.models, function(data) {
-//					    	streams+= '<li><span class="flag-piece"></span><a id ="'+data.attributes.id.id+'" href="#">'+data.attributes.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
-//					 });
-//					  
-//					 $('#streams-list').html(streams);
-//				}});
-				BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+				 console.log("success");
+				 // get all streams with newly created one
+				 var mainView = new BS.StreamView();
+				 mainView.getStreams();
+				 BS.AppRouter.navigate("streams", {trigger: true, replace: true});
 			}
 		});
 		

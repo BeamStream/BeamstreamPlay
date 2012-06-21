@@ -55,7 +55,6 @@ BS.newClass = "http://localhost:9000/newStream";
  
 //Get all messages of a stream
  BS.streamMessages = "http://localhost:9000/getAllMessagesForAStream";
- 
  //expires the usersession
  BS.signOut ="http://localhost:9000/signOut";
 /* 
