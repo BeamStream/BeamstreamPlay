@@ -27,13 +27,15 @@ BS.ClassStreamView = Backbone.View.extend({
 	},
 	
 	/**
-	 * populate  List of classes matching that code
+	 * populate  List of classes matching a class code
 	 * 
 	 */
 	populateClasses :function(){
 		BS.classCodes = []; 
 		BS.selectedCode = $('#class-code').val(); 
 		var text = $('#class-code').val();
+		
+		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
 			url : BS.autoPopulateClass,
@@ -48,6 +50,8 @@ BS.ClassStreamView = Backbone.View.extend({
 					BS.classCodes.push(data.classCode);
 		        });
 				$('.ac_results').css('width', '160px');
+				
+				//set auto populate functionality for class code
 				$("#class-code").autocomplete(BS.classCodes);
 			 
 			}
@@ -55,8 +59,6 @@ BS.ClassStreamView = Backbone.View.extend({
 		 
 		 var classStatus = false; 
 		 var classTime ,className,date ,classType,schoolId;
-		 
-		
          var datas = JSON.stringify(BS.classInfo);
           
          /* get details of selected class */
@@ -82,7 +84,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			 $('#div-school-type a span.selectBox-label').html(classType);
 			 $('#div-time a span.selectBox-label').html(classTime);
  
-			 /* Post scholId to get the school name*/
+			 /* Post scholId to get its school name*/
 			 $.ajax({
 					type : 'POST',
 					url : BS.schoolNamebyId,
@@ -98,7 +100,7 @@ BS.ClassStreamView = Backbone.View.extend({
 					}
 			 });
 			 
-			/*  disable/enable Buttons*/
+			/*  disable/enable buttons*/
 			$('#createClass').hide(); 
 			$('#joinClass').show();
 

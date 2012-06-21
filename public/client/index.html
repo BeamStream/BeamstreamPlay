@@ -1188,7 +1188,7 @@
           <div class="col middle_column span6" style="margin-left: 10px !important;">
             <ul class="nav nav-tabs">
               <li class="active">
-                <a href="#intro-to-business" class="with-icon">
+                <a href="#intro-to-business" id="stream-name" class="with-icon">
                   <i class="icon-lock icon with-tooltip" title="Instructor verified Stream"></i>
                   Intro to Business
                 </a>
@@ -1294,17 +1294,17 @@
      </div>
      <div class="content_container">
        <div class="meta_data">
-         <span class="username"><a href="#user-profile"> </a></span>
+         <span class="username"><a href="#user-profile">{{firstNameofMsgPoster}} {{lastNameofMsgPoster}} </a></span>
          <span class="separator">-</span>
-         <time datetime="2011-12-01" pubdate>Dec 01, 2011</time>
+         <time datetime="2011-12-01" pubdate>{{timeCreated}}</time>
          <span class="separator">-</span>
-         <span class="visibility">{{messageAccess}}</span>
+         <span class="visibility">{{messageAccess.name}}</span>
        </div>
        <p>
-         {{message}}
+         {{messageBody}}
        </p>
        <div class="actions">
-         <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
+         <a class="rock" href="#rock"><i class="rocked"><i>{{rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
          <a class="rock" href="#rock">Rocked it!</a>
          <span class="separator">-</span>
          <a class="comment" href="#comment">Comment</a>

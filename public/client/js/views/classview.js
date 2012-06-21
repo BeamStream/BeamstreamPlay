@@ -6,7 +6,7 @@ BS.ClassView = Backbone.View.extend({
 		"click a.addclass": "addClasses",
 		"click .datepicker" :"setIndex",
 		"click a.legend-addclass" : "addSchool",
-		"click div.datepicker dropdown-menu" :"closeCalender"
+		 
 
 	},
 
@@ -27,14 +27,7 @@ BS.ClassView = Backbone.View.extend({
 		 
 	},
 
-	/**
-	 * close calendar
-	 */
-	
-	closeCalender :function(){
-		
-		console.log(333);
-	},
+ 
 	/**
 	 * save/post class info details.
 	 */
@@ -65,7 +58,7 @@ BS.ClassView = Backbone.View.extend({
 			}
 			else
 			{
-//			    $('#'+BS.invalidItem).focus();
+//			    $('#'+BS.invalidItem).focus();  // set focus to calebdar 
 				$('#error').html("Please fill all details for a class");
 			}
 			
@@ -111,6 +104,7 @@ BS.ClassView = Backbone.View.extend({
 		 
 		 $('#school-list-'+sClasses).html(select);
 		 $(".modal select:visible").selectBox();
+		 
 	},
 	
 	/**
@@ -261,6 +255,7 @@ BS.ClassView = Backbone.View.extend({
 	},
 	
 	setIndex:function(){
+		 
 		$('.datepicker').css('z-index','9999');
 	}
 	

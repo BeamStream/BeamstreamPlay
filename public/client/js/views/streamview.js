@@ -1,3 +1,4 @@
+ 
 BS.StreamView = Backbone.View.extend({
 
 	 events :{
@@ -44,7 +45,7 @@ BS.StreamView = Backbone.View.extend({
     	
     	this.newUser = new BS.SingleUser();
         this.newUser.fetch({success: function(e) {  
-        	
+        	 
 			 $('.username').text(e.attributes.firstName + ' ' + e.attributes.lastName);
 			 $('li.location .icon-location').after(e.attributes.location);
 			 $('li.occupation .icon-silhouette').after(e.attributes.userType.name);
@@ -79,6 +80,7 @@ BS.StreamView = Backbone.View.extend({
 					  
 					 $('#streams-list').html(streams);
 					 $('#streams-list li:first').addClass('active');
+ 
 				}
 		 });
     },
@@ -99,7 +101,7 @@ BS.StreamView = Backbone.View.extend({
                
 	        // reset position of popup box
 	    	$('.popup').css({
-		        top:  810,
+		        top:  750,
 		        left: 380,
 		        display: 'block' // brings the popup back in to view
 	        })
@@ -140,11 +142,10 @@ BS.StreamView = Backbone.View.extend({
     
     renderPopups: function(){
     	
-    	 $('.modal-backdrop').show();
+    	$('.modal-backdrop').show();
     	this.school1 = new BS.SchoolView();
     	this.school1.render();
     	$('#school-popup').html(this.school1.el);
-//    	$(".modal select:visible").selectBox();
         $('.modal .datepicker').datepicker();
   
     },
@@ -281,7 +282,7 @@ BS.StreamView = Backbone.View.extend({
   		messageAccess = "Public";
   	  }
       
-  	  /* post message inforamtion */
+  	  /* post message information */
       $.ajax({
 			type : 'POST',
 			url : BS.postMessage,
@@ -291,21 +292,15 @@ BS.StreamView = Backbone.View.extend({
 				messageAccess :messageAccess
 			},
 			dataType : "json",
-			success : function(data) {
-				 
+			success : function(datas) {
+				   
+				  // append the message to message list
+				  var source = $("#tpl-messages").html();
+				  var template = Handlebars.compile(source);
+				  $('.timeline_items').append(template(datas));
+				  $('#msg').val("");
 			}
 		});
-      
-      /* for testing  TODO */ 
-      var messageInfo = {
-				"message" : message,
-				"messageAccess" : messageAccess
-				 
-	  }
-		
-	  var source = $("#tpl-messages").html();
-	  var template = Handlebars.compile(source);
-	  $('.timeline_items').append(template(messageInfo));
-	  $('#msg').val("");
+ 
     }
 });
