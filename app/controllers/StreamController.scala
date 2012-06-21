@@ -19,7 +19,7 @@ import models.ClassType
 import models.User
 import models.StreamType
 
-object Application extends Controller {
+object StreamController extends Controller {
 
   val EnumList: List[Enumeration] = List(ClassType)
   implicit val formats = new net.liftweb.json.DefaultFormats {
