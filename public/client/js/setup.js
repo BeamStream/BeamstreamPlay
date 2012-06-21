@@ -55,6 +55,9 @@ BS.newClass = "http://localhost:9000/newStream";
  
 //Get all messages of a stream
  BS.streamMessages = "http://localhost:9000/getAllMessagesForAStream";
+ 
+ //expires the usersession
+ BS.signOut ="http://localhost:9000/signOut";
 /* 
  * for testing in local
  */
@@ -74,3 +77,4 @@ BS.newClass = "http://localhost:9000/newStream";
 //BS.allStreamsForAUser ="http://localhost/client2/api.php";
 //BS.postMessage ="http://localhost/client/api.php";
 //BS.streamMessages = "http://localhost/client/api.php";
+//BS.signOut ="http://localhost/client/api.php";
