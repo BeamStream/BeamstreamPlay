@@ -35,6 +35,7 @@ object StreamController extends Controller {
    * 
    */
   def getAllStreamForAUser = Action { implicit request =>
+    println("Karlo Test"+request.session.get("userId").get)
     val allStreamsForAUser = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
     val allStreamsForAUserJson=write(allStreamsForAUser)
     Ok(allStreamsForAUserJson).as("application/json")

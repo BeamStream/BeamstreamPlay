@@ -61,7 +61,6 @@ object UserController extends Controller {
   def registerUserViaSocialSite = Action { implicit request =>
     val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
     val token = tokenList(0)
-    println(token+"ahhhhhhh")
     Authentication.Auth(token)
 
   }
@@ -71,11 +70,8 @@ object UserController extends Controller {
    */
 
   def signOut = Action { implicit request =>
-    
-   
- 
 //    User.InactiveUsers(request.session.get("userId").get)
-    Ok
+   Ok.withNewSession
   }
 
   /*
