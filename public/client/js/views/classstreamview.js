@@ -163,13 +163,17 @@ BS.ClassStreamView = Backbone.View.extend({
 			success : function(data) {
 				 
 				console.log("success");
-//				// append newly created stream to stream list
-//				var selected = $('#select-streams li.active a').attr('id');
-//				if(selected == 'all-streams' || selected == 'classStreams-list')
-//				{
-//					var li ='<li><span class="flag-piece"></span><a id="'+data.id.id'+" href="#">'+data.streamName+'<i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
-//					$('#streams-list').append(li);
-//				}
+//				// add newly created class stream
+//				this.streams = new BS.StreamCollection();
+//		        this.streams.fetch({success: function(e) {  
+//		        	
+//		             var streams ='';
+//		        	 _.each(e.models, function(data) {
+//					    	streams+= '<li><span class="flag-piece"></span><a id ="'+data.attributes.id.id+'" href="#">'+data.attributes.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
+//					 });
+//					  
+//					 $('#streams-list').html(streams);
+//				}});
 				BS.AppRouter.navigate("streams", {trigger: true, replace: true});
 			}
 		});
@@ -204,7 +208,6 @@ BS.ClassStreamView = Backbone.View.extend({
 		});
 		classes.add(classModel);
 		var newClassInfo = JSON.stringify(classes);
-		console.log(newClassInfo);
 		return newClassInfo;
 		
 	}

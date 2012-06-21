@@ -63,7 +63,7 @@ BS.StreamView = Backbone.View.extend({
      * get all streams
      */
     getStreams :function(){
-    	
+    	 
     	 var self =this;
         /* get all streams  */
 		 $.ajax({
@@ -354,6 +354,16 @@ BS.StreamView = Backbone.View.extend({
 	 */
 	 signOut :function(eventName){
 		 eventName.preventDefault();
-		 BS.AppRouter.navigate("login", {trigger: true, replace: true});
+		 
+		 /* expires the usersession  */
+		 $.ajax({
+				type : 'GET',
+				url : BS.signOut,
+				dataType : "json",
+				success : function(datas) {
+					 BS.AppRouter.navigate("login", {trigger: true, replace: true});
+				}
+		 });
+		
 	 }
 });
