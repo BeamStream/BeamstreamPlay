@@ -70,7 +70,7 @@ BS.AppRouter = Backbone.Router.extend({
      */
     schoolReg:function () {
        
-//    	 $('#school-popup').children().detach();  
+    	 
     	 if (!this.schoolView) {
              this.schoolView = new BS.SchoolView();
              this.schoolView.render();
@@ -93,7 +93,6 @@ BS.AppRouter = Backbone.Router.extend({
      */
     classReg:function () {
     
-    	
    	    if (!this.classView) {
             this.classView = new BS.ClassView();
             this.classView.render();
@@ -110,7 +109,7 @@ BS.AppRouter = Backbone.Router.extend({
     * display Profile Info screen
     */
    profileReg:function () {
-    	 
+	    
    	   if (!this.profileView) {
             this.profileView = new BS.ProfileView();
             this.profileView.render();
@@ -128,8 +127,9 @@ BS.AppRouter = Backbone.Router.extend({
     */
    maisStream:function () {
 	   
+	   $('#school-popup').children().detach(); 
 	   $('#content').children().detach();
-	   $('#school-popup').children().detach();  
+	   
 	   $('.modal').css('display','none');
    	   if (!this.streamView) {
             this.streamView = new BS.StreamView();
@@ -203,7 +203,7 @@ BS.AppRouter = Backbone.Router.extend({
 	  * display class stream screen
 	  */
 	 classStream:function () {
-//		 $('#school-popup').children().detach();  
+		 
 		 if (!this.ClassStreamView) {
 	         this.ClassStreamView = new BS.ClassStreamView();
 	         this.ClassStreamView.render();

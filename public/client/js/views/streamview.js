@@ -14,7 +14,9 @@ BS.StreamView = Backbone.View.extend({
            "click #friendStream" :"friendStream",
            "click #streams-list li" : "selectOneStream",
            "click #post-msg": "postMessage",
-           "click ul#select-streams li a" : "showStreamList"
+           "click ul#select-streams li a" : "showStreamList",
+           "click #icon-up" :"slideUp",
+           "click #icon-down" : "slideDown"
         	   
 		  
 	 },
@@ -364,5 +366,20 @@ BS.StreamView = Backbone.View.extend({
 				}
 		 });
 		
+	 },
+	 /**
+	  * slide up for left most stream list
+	  */
+	 slideUp :function(eventName){
+		 eventName.preventDefault();
+		 $('#streams-list').slideUp();
+		 
+	 },
+	 /**
+	  * slide down for left most stream list
+	  */
+	 slideDown:function(eventName){
+		 eventName.preventDefault();
+		 $('#streams-list').slideDown();
 	 }
 });
