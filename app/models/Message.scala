@@ -23,14 +23,15 @@ object MessageType extends Enumeration {
 
 object MessageAccess extends Enumeration {
   type MessageAccess = Value
+  
   val Private = Value(0, "Private")
   val Public = Value(1, "Public")
 }
 
-case class Message(@Key("_id") id: ObjectId, text: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated: Date, userId: ObjectId, streamId: ObjectId, firstNameofMsgPoster: String,
+case class Message(@Key("_id") id: ObjectId, messageBody: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated: Date, userId: ObjectId, streamId: ObjectId, firstNameofMsgPoster: String,
   lastNameofMsgPoster: String, rocks: Int, rockers: List[ObjectId])
 
-case class MessageForm(message: String, access: Option[Boolean])
+
 
 object Message {
 
@@ -38,35 +39,32 @@ object Message {
 
  
 
-  def create(messageForm: MessageForm, userId: ObjectId, streamId: ObjectId, firstNameofMsgPoster: String, lastNameofMsgPoster: String): String = {
+//  def create(messageForm: MessageForm, userId: ObjectId, streamId: ObjectId, firstNameofMsgPoster: String, lastNameofMsgPoster: String): String = {
+//
+//    (messageForm.access == None) match {
+//      case true => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Public, new Date, userId, streamId, firstNameofMsgPoster, lastNameofMsgPoster, 0, List()))
+//      case _ => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Private, new Date, userId, streamId, firstNameofMsgPoster, lastNameofMsgPoster, 0, List()))
+//    }
+//
+//    UserDAO.find(MongoDBObject("_id" -> userId)).toList(0).firstName
+//  }
 
-    (messageForm.access == None) match {
-      case true => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Public, new Date, userId, streamId, firstNameofMsgPoster, lastNameofMsgPoster, 0, List()))
-      case _ => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Private, new Date, userId, streamId, firstNameofMsgPoster, lastNameofMsgPoster, 0, List()))
-    }
+ 
+  
+  /*
+   * Create a new message
+   */
 
-    UserDAO.find(MongoDBObject("_id" -> userId)).toList(0).firstName
+  def createMessage(message: Message) = {
+
+//    validateUserHasRightToPost(message.userId, message.streamId) match {
+//      case true => MessageDAO.insert(message)
+//      case _ => println("No rights to Post")
+//    }
+    MessageDAO.insert(message)
+
   }
-
-  def messagetypes: Seq[(String, String)] = {
-    val messageType = for (value <- MessageAccess.values) yield (value.id.toString, value.toString)
-    val v = messageType.toSeq
-    v
-  }
-
-  def createMessage(message: Message): Unit = {
-
-    validateUserHasRightToPost(message.userId, message.streamId) match {
-      case true => MessageDAO.insert(message)
-      case _ => println("No rights to Post")
-    }
-    //MessageDAO.insert(message).get
-
-  }
-  def findUser(userId: Int): User = {
-    val user = UserDAO.findOneByID(userId)
-    user.get
-  }
+  
 
   private def validateUserHasRightToPost(userId: ObjectId, streamId: ObjectId): Boolean = {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
@@ -134,7 +132,7 @@ object Message {
   }
 
   def getAllMessagesForAKeyword(keyword: String): List[Message] = {
-    val messages = MessageDAO.find(MongoDBObject()).toList.filter(message => message.text.contains(keyword))
+    val messages = MessageDAO.find(MongoDBObject()).toList.filter(message => message.messageBody.contains(keyword))
     messages
   }
 }
