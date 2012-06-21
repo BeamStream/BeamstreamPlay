@@ -8,7 +8,7 @@
   * Config Variables for Url externalization
   */
  
-For Login Page
+//For Login Page
 BS.login = "http://localhost:9000/users";
 
 //For Verify Token
