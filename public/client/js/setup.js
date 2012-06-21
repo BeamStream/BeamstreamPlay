@@ -73,4 +73,4 @@ BS.newClass = "http://localhost:9000/newStream";
 //BS.newClass = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
 //BS.allStreamsForAUser ="http://localhost/client2/api.php";
 //BS.postMessage ="http://localhost/client/api.php";
-//BS.streamMessages = "http://localhost/Beam2/BeamstreamPlay/public/client/image.php";
+//BS.streamMessages = "http://localhost/client/api.php";

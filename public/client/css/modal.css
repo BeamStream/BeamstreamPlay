@@ -2441,3 +2441,10 @@ ul.add-type li span{
 	line-height:38px;
 	margin:0;
 }
+/* set the color of POST button in stream page blue*/ 
+.msg-post_button{
+	 background-image: -moz-linear-gradient(center top , #108BC6, #1B7CB7);
+	 color: #FFFFFF;
+	 font-weight: bold;
+	
+}

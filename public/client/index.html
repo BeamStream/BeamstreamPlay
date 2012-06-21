@@ -1235,7 +1235,7 @@
                           <li class="twitter"><a href="#twitter" class="btn btn-flat"><i class="icon-middle-twitter"></i></a></li>
                           <li class="facebook"><a href="#facebook" class="btn btn-flat"><i class="icon-middle-facebook"></i></a></li>
                           <li class="linkedin"><a href="#linkedin" class="btn btn-flat"><i class="icon-middle-linkedin"></i></a></li>
-						  <li><input id="post-msg" type="button" value="POST"> </input></li>
+						  <li><input class ="msg-post_button" id="post-msg" type="button" value="POST"> </input></li>
                         </ul>
                       </div>
                       <div class="input-prepend-container">
@@ -1252,7 +1252,7 @@
 
               <section class="timeline">
                 <ul class="timeline_items">
-                
+                  
                 </ul>
               </section>
             </section>
@@ -1286,6 +1286,7 @@
  </script>
  
  <script type="text/x-handlebars-template" id="tpl-messages">
+{{#each datas}}
  <li>
  <article class="message_item">
    <div class="comment_wrapper">
@@ -1294,17 +1295,17 @@
      </div>
      <div class="content_container">
        <div class="meta_data">
-         <span class="username"><a href="#user-profile">{{firstNameofMsgPoster}} {{lastNameofMsgPoster}} </a></span>
+         <span class="username"><a href="#user-profile">{{this.firstNameofMsgPoster}} {{this.lastNameofMsgPoster}} </a></span>
          <span class="separator">-</span>
-         <time datetime="2011-12-01" pubdate>{{timeCreated}}</time>
+         <time datetime="2011-12-01" pubdate>{{this.timeCreated}}</time>
          <span class="separator">-</span>
-         <span class="visibility">{{messageAccess.name}}</span>
+         <span class="visibility">{{this.messageAccess.name}}</span>
        </div>
        <p>
-         {{messageBody}}
+         {{this.messageBody}}
        </p>
        <div class="actions">
-         <a class="rock" href="#rock"><i class="rocked"><i>{{rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
+         <a class="rock" href="#rock"><i class="rocked"><i>{{this.rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
          <a class="rock" href="#rock">Rocked it!</a>
          <span class="separator">-</span>
          <a class="comment" href="#comment">Comment</a>
@@ -1315,6 +1316,7 @@
    </div>
    
 </li>
+ {{/each}}
  </script>
  
  

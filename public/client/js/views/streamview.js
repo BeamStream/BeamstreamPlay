@@ -269,9 +269,12 @@ BS.StreamView = Backbone.View.extend({
 				messageAccess :messageAccess
 			},
 			dataType : "json",
-			success : function(datas) {
+			success : function(data) {
 				   
 				  // append the message to message list
+				  var datas = {
+					 		"datas" : data
+				  }
 				  var source = $("#tpl-messages").html();
 				  var template = Handlebars.compile(source);
 				  $('.timeline_items').append(template(datas));
@@ -295,10 +298,16 @@ BS.StreamView = Backbone.View.extend({
 					streamId :streamid
 				},
 				dataType : "json",
-				success : function(datas) {
-					
+				success : function(data) {
 					 
-                    
+					  //display the messages
+					  var datas = {
+					 		"datas" : data
+					  }
+					 
+					  var source = $("#tpl-messages").html();
+					  var template = Handlebars.compile(source);
+					  $('.timeline_items').html(template(datas));
              
 				}
 		 });
