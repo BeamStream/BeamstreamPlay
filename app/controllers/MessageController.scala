@@ -37,10 +37,9 @@ object MessageController extends Controller {
     val messageBody = messageListJsonMap("message").toList(0)
     val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val messageToCreate = new Message(new ObjectId, messageBody, MessageType.Audio, MessageAccess.withName(messageAccess), new Date, new ObjectId(request.session.get("userId").get), new ObjectId(streamId),
-      messagePoster.firstName, messagePoster.lastName, 0, List())
+    messagePoster.firstName, messagePoster.lastName, 0, List())
     Message.createMessage(messageToCreate)
-
-    val messageJson = write(messageToCreate)
+    val messageJson = write(List(messageToCreate))
     Ok(messageJson).as("application/json")
   }
 

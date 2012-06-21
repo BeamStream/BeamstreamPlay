@@ -71,8 +71,10 @@ object UserController extends Controller {
    */
 
   def signOut = Action { implicit request =>
-    User.InactiveUsers(request.session.get("userId").get)
-    //Ok(views.html.user(User.allUsers(), userForm, User.message(s)))
+    
+   
+ 
+//    User.InactiveUsers(request.session.get("userId").get)
     Ok
   }
 
