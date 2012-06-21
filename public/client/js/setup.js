@@ -52,6 +52,7 @@ BS.newClass = "http://localhost:9000/newStream";
 
 //Post message info
  BS.postMessage ="http://localhost:9000/newMessage";
+ 
 //Get all messages of a stream
  BS.streamMessages = "http://localhost:9000/getAllMessagesForAStream";
 /* 

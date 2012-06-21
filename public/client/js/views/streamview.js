@@ -291,7 +291,9 @@ BS.StreamView = Backbone.View.extend({
 		 $.ajax({
 				type : 'POST',
 				url : BS.streamMessages,
-				data :streamid,
+				data :{
+					streamId :streamid
+				},
 				dataType : "json",
 				success : function(datas) {
 					
