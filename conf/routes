@@ -22,9 +22,6 @@ POST   /newStream                       controllers.StreamController.newStream
 POST    /newMessage                      controllers.MessageController.newMessage
 POST   /getAllMessagesForAStream        controllers.MessageController.getAllMessagesForAStream
 
-#GET   /messages/:id/streammessages     controllers.MessageController.streamMessages(id:String)
-
-
 
 #GET    /joinstreams                   controllers.JoinStream.joinstreams
 #POST   /joinstreams                   controllers.JoinStream.joinStream
@@ -65,7 +62,7 @@ POST  /registerNewUser       controllers.BasicRegistration.newUser
 
 POST  /getEmailforNewUser    controllers.BasicRegistration.emailSent
 
-#GET   /basicRegistrationViaSocialSites   controllers.BasicRegistration.basicRegistrationViaSocialSites(email:String,userName:String,name:String)
+#GET   /basicRegistrationViaSocialSites   controllers.BasicRegistration.basicRegistrationViaSocialSites
 #POST  /basicRegistrationViaSocialSites   controllers.BasicRegistration.newUser
 
 

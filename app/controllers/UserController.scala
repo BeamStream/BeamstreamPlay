@@ -68,8 +68,7 @@ object UserController extends Controller {
     val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
     val res = promise.get
     val body = res.getBody
-    
-    Ok(body).as("application/json")
+    Redirect(URLExternalizer.JanRainRedirectURL)
 
   }
 
