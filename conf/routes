@@ -77,7 +77,9 @@ GET  /signOut                              controllers.UserController.signOut
 
 #Janrain 
 
-POST /userPage                  controllers.UserController.registerUserViaSocialSite
+POST /userPage                            controllers.UserController.registerUserViaSocialSite
+GET  /getJSONviaJanrain                   controllers.UserController.registerUserViaSocialSite
+
 #Media
 
 POST  /getMediafromPost                                   controllers.MediaController.getMedia
