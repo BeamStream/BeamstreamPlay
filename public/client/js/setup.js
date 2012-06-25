@@ -148,6 +148,6 @@ BS.newClass = "http://localhost:9000/newStream";
 //BS.streamMessages = "http://localhost/client/api.php";
 //BS.signOut ="http://localhost/client/api.php";
 //  //For JanRain component        "http://localhost/Beam2/BeamstreamPlay/public/client/#basicRegistration/token/fh2w34234/iam/0/emailId/aswathy@toobler.com"
-// BS.userPage ="http://localhost/Beam2/BeamstreamPlay/public/client/#basicRegistration";
+// BS.userPage ="http://localhost:9000/beamstream/index.html#basicRegistration";
 //                  
 // BS.userInfoViaJanRain ="http://localhost/client/api.php"

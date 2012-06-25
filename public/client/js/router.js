@@ -186,7 +186,7 @@ BS.AppRouter = Backbone.Router.extend({
      * basicRegistrationViaJanRain
      */
     basicRegistrationViaJanRain :function(event){
-    	
+    	  
     	  this.registrationView = new BS.RegistrationView();
           
           this.registrationView.render();
