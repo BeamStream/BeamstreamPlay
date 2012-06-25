@@ -87,8 +87,7 @@ object Document {
   def getAllDocumentsforAUser(userId: ObjectId): List[Document] = {
 
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    //user.documents
-    null
+    getAllDocuments(user.documents)
   }
 
   /*
