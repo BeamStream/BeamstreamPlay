@@ -26,13 +26,14 @@ import java.net.URL
  * Private - Only available for the owner
  * Public - Available to all
  * Restricted - Available to a restricted list of users
+ * Stream - Available to all the Sub-streams and current members of this stream
  */
 object DocumentAccess extends Enumeration {
   type DocumentAccess = Value
   val Private = Value(0, "Private")
   val Public = Value(1, "Public")
-  val Restricted = Value(1, "Restricted")
-  val Stream = Value(1,"Stream")
+  val Restricted = Value(2, "Restricted")
+  val Stream = Value(3,"Stream")
 
 }
 
@@ -46,10 +47,6 @@ object DocType extends Enumeration {
   val Other = Value(3, "Other")
 }
 
-//Rockit
-//Document Type
-//Access 
-//Sorting 
 case class Document(@Key("_id") id: ObjectId, name: String, url: URL, docType: DocType.Value, userId: ObjectId, access: DocumentAccess.Value, streamId: ObjectId,
   creationDate: Option[Date], lastUpdateDate: Option[Date], rocks: Int, rockers: List[ObjectId], comments : List[Message])
 
