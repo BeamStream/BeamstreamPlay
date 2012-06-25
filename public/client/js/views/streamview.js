@@ -107,10 +107,11 @@ BS.StreamView = Backbone.View.extend({
 	     } else 
 	     {
 	    	this.beingShown = true;
-               
+            var x= $('#create_stream').position();
+            var top = x.top - 150;
 	        // reset position of popup box
 	    	$('.popup').css({
-		        top:  750,
+		        top:  top,
 		        left: 380,
 		        display: 'block' // brings the popup back in to view
 	        })
@@ -362,6 +363,7 @@ BS.StreamView = Backbone.View.extend({
 				url : BS.signOut,
 				dataType : "json",
 				success : function(datas) {
+				
 					 BS.AppRouter.navigate("login", {trigger: true, replace: true});
 				}
 		 });
