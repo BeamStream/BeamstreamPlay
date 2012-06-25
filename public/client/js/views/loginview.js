@@ -3,6 +3,7 @@ BS.LoginView = Backbone.View.extend({
 	events: {
 	      "click #login": "login",
 	      
+	      
 	 },
 	
     initialize:function () {
@@ -145,7 +146,6 @@ BS.LoginView = Backbone.View.extend({
         }
     	
     },
-     
-   
+    
     
 });

@@ -60,7 +60,10 @@ BS.newClass = "http://localhost:9000/newStream";
  BS.signOut ="http://localhost:9000/signOut";
  
  // For JanRain component
- BS.userPage ="http://localhost:9000/userPage";
+ BS.userPage ="http://localhost:9000/public/client/#basicRegistration";
+ 
+ // Get user details vai janRain
+ BS.USERINFOVIAJANRAIN ="HTTP://LOCALHOST:9000/GETJSONVIAJANRAIN"
  
  
  
@@ -144,5 +147,7 @@ BS.newClass = "http://localhost:9000/newStream";
 //BS.postMessage ="http://localhost/client/api.php";
 //BS.streamMessages = "http://localhost/client/api.php";
 //BS.signOut ="http://localhost/client/api.php";
-//  //For JanRain component
-// BS.userPage ="http://localhost:9000/userPage";
+//  //For JanRain component        "http://localhost/Beam2/BeamstreamPlay/public/client/#basicRegistration/token/fh2w34234/iam/0/emailId/aswathy@toobler.com"
+// BS.userPage ="http://localhost/Beam2/BeamstreamPlay/public/client/#basicRegistration";
+//                  
+// BS.userInfoViaJanRain ="http://localhost/client/api.php"

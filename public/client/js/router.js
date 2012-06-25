@@ -10,6 +10,7 @@ BS.AppRouter = Backbone.Router.extend({
         "profile":"profileReg",
         "streams":"maisStream",
         "basicRegistration/token/:token/iam/:iam/emailId/:email":"basicRegistration",
+        "basicRegistration":"basicRegistration",
         "classStream":"classStream",
         "projectStream" : "projectStream",
         "studyStream": "studyStream",

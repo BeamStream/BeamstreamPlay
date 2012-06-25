@@ -22,6 +22,21 @@ BS.RegistrationView = Backbone.View.extend({
 		var mailInfo = {
 			"mailId" : eventName.mail
 		}
+		
+		  /* get user details from janRain component accounts */
+		 $.ajax({
+				type : 'GET',
+				url :  BS.userInfoViaJanRain,
+				dataType : "json",
+				success : function(datas) {
+					
+					 $("#user-name").val(datas.profile.preferredUsername);
+					 $('#first-name').val(datas.profile.name.givenName);
+					 $('#last-name').val(datas.profile.name.familyName);
+					 $('#location').val(datas.profile.address.formatted);
+					 
+				}
+		 });
 		$(this.el).html(this.template);
 		return this;
 	},
