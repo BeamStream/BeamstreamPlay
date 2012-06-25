@@ -7,7 +7,7 @@
  /*
   * Config Variables for Url externalization
   */
- /*
+ 
 //For Login Page
 BS.login = "http://localhost:9000/users";
 
@@ -58,11 +58,13 @@ BS.newClass = "http://localhost:9000/newStream";
  //expires the usersession
  BS.signOut ="http://localhost:9000/signOut";
  
- */
+ 
  
  /*
   * For Cloud
   */
+ 
+ /*
 //For Login Page
  BS.login = "http://beamstream-v3.herokuapp.com/users";
 
@@ -113,6 +115,7 @@ BS.newClass = "http://localhost:9000/newStream";
   //expires the usersession
   BS.signOut ="http://beamstream-v3.herokuapp.com/signOut";
  
+ */
 /* 
  * for testing in local
  */

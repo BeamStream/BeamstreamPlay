@@ -46,7 +46,9 @@ object ClassController extends Controller {
   def findClasstoAutoPopulate = Action { implicit request =>
     val classCodeMap = request.body.asFormUrlEncoded.get
     val classCode = classCodeMap("data").toList(0)
-    val classList = Class.findClassByCode(classCode)
+     val schoolIdList=School.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
+    
+    val classList = Class.findClassByCode(classCode , schoolIdList)
     val classListJson = write(classList)
     Ok(classListJson).as("application/json")
 
