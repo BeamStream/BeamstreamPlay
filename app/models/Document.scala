@@ -16,8 +16,8 @@ import java.net.URL
 
 /**
  * This class is used to store and retrieve all the information about documents.
- * 
- * @author Kishen 
+ *
+ * @author Kishen
  */
 
 /*
@@ -33,7 +33,7 @@ object DocumentAccess extends Enumeration {
   val Private = Value(0, "Private")
   val Public = Value(1, "Public")
   val Restricted = Value(2, "Restricted")
-  val Stream = Value(3,"Stream")
+  val Stream = Value(3, "Stream")
 
 }
 
@@ -48,7 +48,7 @@ object DocType extends Enumeration {
 }
 
 case class Document(@Key("_id") id: ObjectId, name: String, url: URL, docType: DocType.Value, userId: ObjectId, access: DocumentAccess.Value, streamId: ObjectId,
-  creationDate: Option[Date], lastUpdateDate: Option[Date], rocks: Int, rockers: List[ObjectId], comments : List[Message])
+  creationDate: Option[Date], lastUpdateDate: Option[Date], rocks: Int, rockers: List[ObjectId], comments: List[Message])
 
 case class DocumentForm(name: String)
 object Document {
@@ -57,17 +57,17 @@ object Document {
 
   def allDocuments(): List[Document] = Nil
 
-/*
+  /*
  * Add a document
  */
-  def addDocument(document : Document) {
-      DocumentDAO.insert(document)
-   }
+  def addDocument(document: Document) {
+    DocumentDAO.insert(document)
+  }
 
   /*
    * Remove document
    */
-  def removeDocument(document : Document) {
+  def removeDocument(document: Document) {
     DocumentDAO.remove(document)
 
   }

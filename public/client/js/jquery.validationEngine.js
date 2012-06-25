@@ -361,6 +361,7 @@
 
 				} else if(options.focusFirstField)
 					first_err.focus();
+				    
 				return false;
 			}
 			return true;

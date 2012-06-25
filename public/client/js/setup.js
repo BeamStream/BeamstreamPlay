@@ -7,7 +7,7 @@
  /*
   * Config Variables for Url externalization
   */
- /*
+ 
 //For Login Page
 BS.login = "http://localhost:9000/users";
 
@@ -55,14 +55,21 @@ BS.newClass = "http://localhost:9000/newStream";
  
 //Get all messages of a stream
  BS.streamMessages = "http://localhost:9000/getAllMessagesForAStream";
+ 
  //expires the usersession
  BS.signOut ="http://localhost:9000/signOut";
  
- */
+ // For JanRain component
+ BS.userPage ="http://localhost:9000/userPage";
+ 
+ 
  
  /*
   * For Cloud
   */
+ 
+   
+ /*
 //For Login Page
  BS.login = "http://beamstream-v3.herokuapp.com/users";
 
@@ -113,6 +120,10 @@ BS.newClass = "http://localhost:9000/newStream";
   //expires the usersession
   BS.signOut ="http://beamstream-v3.herokuapp.com/signOut";
  
+ */
+ 
+ 
+ 
 /* 
  * for testing in local
  */
@@ -133,3 +144,5 @@ BS.newClass = "http://localhost:9000/newStream";
 //BS.postMessage ="http://localhost/client/api.php";
 //BS.streamMessages = "http://localhost/client/api.php";
 //BS.signOut ="http://localhost/client/api.php";
+//  //For JanRain component
+// BS.userPage ="http://localhost:9000/userPage";

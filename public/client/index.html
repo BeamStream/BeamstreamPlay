@@ -1475,6 +1475,11 @@
 <script type="text/javascript" src="js/jquery.selectBox.js"></script>
 <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="lib/jquery.custom_radio_checkbox.js"></script>  
+
+
+<script src="js/app.js"></script>
+<script src="js/setup.js"></script>
+
 <script type="text/javascript">
 	var current = 1; //current keeps track of how many schools we have @default =1 
     var options ='';
@@ -1492,7 +1497,7 @@
 	    if (typeof window.janrain !== 'object') window.janrain = {};
 	    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
 	    
-	    janrain.settings.tokenUrl = 'http://localhost:9000/userPage';
+	    janrain.settings.tokenUrl =  BS.userPage ;
 
 	    function isReady() { janrain.ready = true; };
 	    if (document.addEventListener) {
@@ -1571,8 +1576,7 @@
 	
 <!--  Backbone.js files -->
 
-<script src="js/app.js"></script>
-<script src="js/setup.js"></script>
+
 
 <script src="js/views/loginview.js"></script>
 <script src="js/views/classstreamview.js"></script>

@@ -54,6 +54,7 @@ BS.AppRouter = Backbone.Router.extend({
      */
     
     login: function() {
+    	
     	 this.loginView = null;
     	 if (!this.loginView) {
              this.loginView = new BS.LoginView();
@@ -71,11 +72,10 @@ BS.AppRouter = Backbone.Router.extend({
     schoolReg:function () {
        
     	 
-    	 if (!this.schoolView) {
+//    	 if (!this.schoolView) {
              this.schoolView = new BS.SchoolView();
              this.schoolView.render();
-             
-         }
+//         }
  
          $('#school-popup').html(this.schoolView.el);  
          $(".modal select:visible").selectBox();
@@ -93,11 +93,11 @@ BS.AppRouter = Backbone.Router.extend({
      */
     classReg:function () {
     
-   	    if (!this.classView) {
+//   	    if (!this.classView) {
             this.classView = new BS.ClassView();
             this.classView.render();
             
-        }
+//        }
         $('#school-popup').html(this.classView.el);
         $(".modal select:visible").selectBox();
         $('.modal .datepicker').datepicker();
@@ -110,10 +110,10 @@ BS.AppRouter = Backbone.Router.extend({
     */
    profileReg:function () {
 	    
-   	   if (!this.profileView) {
+//   	   if (!this.profileView) {
             this.profileView = new BS.ProfileView();
             this.profileView.render();
-       }
+//       }
        $('#school-popup').html(this.profileView.el);   
        $(".modal select:visible").selectBox();
        $('.modal .datepicker').datepicker();
@@ -126,7 +126,7 @@ BS.AppRouter = Backbone.Router.extend({
     * display main stream page
     */
    maisStream:function () {
-	   
+	 
 	   $('#school-popup').children().detach(); 
 	   $('#content').children().detach();
 	   
@@ -203,11 +203,11 @@ BS.AppRouter = Backbone.Router.extend({
 	  * display class stream screen
 	  */
 	 classStream:function () {
-		 
-		 if (!this.ClassStreamView) {
+		  
+//		 if (!this.ClassStreamView) {
 	         this.ClassStreamView = new BS.ClassStreamView();
 	         this.ClassStreamView.render();
-	     }
+//	     }
 	     $('#school-popup').html(this.ClassStreamView.el);
 	     $(".radio").dgStyle();
 	     $(".modal select:visible").selectBox();

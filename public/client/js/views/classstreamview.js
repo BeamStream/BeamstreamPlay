@@ -71,6 +71,7 @@ BS.ClassStreamView = Backbone.View.extend({
 				 date = data.startingDate;
 				 classType = data.classType;
 				 schoolId = data.schoolId.id;
+				 
 		     }
 			 
          });
