@@ -15,7 +15,7 @@ import net.liftweb.json.Serialization.{ read, write }
 import com.mongodb.casbah.WriteConcern
 
 case class User(@Key("_id") id: ObjectId, userType: UserType.Value, email: String, val firstName: String, lastName: String, userName: String, alias: String, password: String, orgName: String,
-  location: String, streams: List[ObjectId], schoolId: List[ObjectId], classId: List[ObjectId]) {
+  location: String, streams: List[ObjectId], schoolId: List[ObjectId], classId: List[ObjectId], documents: List[ObjectId]) {
 }
 
 case class UserForm(iam: String, email: String, password: String, signup: String)
@@ -189,6 +189,13 @@ object User {
     userFound
   }
 
+   /*
+   * Add Document to user
+   */
+  def addDocumentToUser(userId: ObjectId, document : ObjectId) {
+    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
+    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(documents = user.documents ++ List(document) ), false, false, new WriteConcern)
+  }
 }
 
 /*
@@ -200,5 +207,5 @@ object UserType extends Enumeration {
   val Professional = Value(2, "Professional")
 }
 
-
+ 
 object UserDAO extends SalatDAO[User, Int](collection = MongoHQConfig.mongoDB("user"))
