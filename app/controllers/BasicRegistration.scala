@@ -62,7 +62,7 @@ object BasicRegistration extends Controller {
     val location = (parsedUserJson \ "location").extract[String]
     val useCurrentLocation = (parsedUserJson \ "useCurrentLocation").extract[Boolean]
 
-    val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, "", password, schoolName, location, List(), List(), List())
+    val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, "", password, schoolName, location, List(), List(), List(),List())
     val IdOfUserCreted = User.createNewUser(userToCreate)
     val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
     Ok(write(new ResulttoSent("Success", "SignUp Successfully"))).withSession(RegistrationSession)
