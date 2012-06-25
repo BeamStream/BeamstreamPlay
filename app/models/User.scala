@@ -15,7 +15,7 @@ import net.liftweb.json.Serialization.{ read, write }
 import com.mongodb.casbah.WriteConcern
 
 case class User(@Key("_id") id: ObjectId, userType: UserType.Value, email: String, val firstName: String, lastName: String, userName: String, alias: String, password: String, orgName: String,
-  location: String, streams: List[ObjectId], schoolId: List[ObjectId], classId: List[ObjectId]) {
+  location: String, streams: List[ObjectId], schoolId: List[ObjectId], classId: List[ObjectId], documents: List[ObjectId]) {
 }
 
 case class UserForm(iam: String, email: String, password: String, signup: String)
@@ -189,6 +189,7 @@ object User {
     userFound
   }
 
+
 }
 
 /*
@@ -200,5 +201,5 @@ object UserType extends Enumeration {
   val Professional = Value(2, "Professional")
 }
 
-
+ 
 object UserDAO extends SalatDAO[User, Int](collection = MongoHQConfig.mongoDB("user"))
