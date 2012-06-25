@@ -104,7 +104,39 @@ object Document {
 
     documentList
   }
+  
+   /*
+   *  Update the Rockers List and increase the count by one 
+   */
 
+  def rockedIt(documentId: ObjectId, userId: ObjectId): List[ObjectId] = {
+    val documentToRock = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
+    DocumentDAO.update(MongoDBObject("_id" -> documentId), documentToRock.copy(rockers = (documentToRock.rockers ++ List(userId))), false, false, new WriteConcern)
+
+    val updatedDocument = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
+    DocumentDAO.update(MongoDBObject("_id" -> documentId), updatedDocument.copy(rocks = (updatedDocument.rocks + 1)), false, false, new WriteConcern)
+
+    val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
+    document.rockers
+
+  }
+  
+  /*
+   * Change the access of a document
+   */
+   def changeAccess(documentId: ObjectId, newAccess: DocumentAccess.Value) = {
+    val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
+    DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(access = newAccess), false, false, new WriteConcern)
+  }
+
+  /*
+   * Total number of rocks for a particular document
+   */
+   def totalRocks(documentId: ObjectId): Int = {
+    val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
+    document.rocks
+  }
+   
 }
 
 object DocumentDAO extends SalatDAO[Document, ObjectId](collection = MongoHQConfig.mongoDB("document"))
