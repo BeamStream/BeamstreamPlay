@@ -10,7 +10,7 @@ BS.AppRouter = Backbone.Router.extend({
         "profile":"profileReg",
         "streams":"maisStream",
         "basicRegistration/token/:token/iam/:iam/emailId/:email":"basicRegistration",
-        "basicRegistration":"basicRegistration",
+        "basicRegistration":"basicRegistrationViaJanRain",
         "classStream":"classStream",
         "projectStream" : "projectStream",
         "studyStream": "studyStream",
@@ -181,6 +181,20 @@ BS.AppRouter = Backbone.Router.extend({
          
     },
   
+    
+    /**
+     * basicRegistrationViaJanRain
+     */
+    basicRegistrationViaJanRain :function(event){
+    	
+    	  this.registrationView = new BS.RegistrationView();
+          
+          this.registrationView.render();
+          $('#school-popup').html(this.registrationView.el);  
+		  $(".checkbox").dgStyle();
+		  jQuery("#registration-form").validationEngine();
+    	
+    },
   
     /**
     * for email verification
