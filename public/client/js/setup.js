@@ -60,10 +60,10 @@ BS.newClass = "http://localhost:9000/newStream";
  BS.signOut ="http://localhost:9000/signOut";
  
  // For JanRain component
- BS.userPage ="http://localhost:9000/public/client/#basicRegistration";
+ BS.userPage ="http://localhost:9000/beamstream/index.html#basicRegistration";
  
- // Get user details vai janRain
- BS.USERINFOVIAJANRAIN ="HTTP://LOCALHOST:9000/GETJSONVIAJANRAIN"
+// Get user details vai janRain
+ BS.userInfoViaJanRain ="http://localhost:9000/getJSONviaJanrain"
  
  
  
