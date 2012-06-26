@@ -14,16 +14,13 @@ BS.RegistrationView = Backbone.View.extend({
 	},
 
 	render : function(eventName) {
-
-		// get mail informations
-//		this.iam = eventName.iam;
-//		this.mailId = eventName.mail;
-//
-//		var mailInfo = {
-//			"mailId" : eventName.mail
-//		}
 		
-		  /* get user details from janRain component accounts */
+		  //get mail informations
+		 this.iam = eventName.iam;
+		 this.mailId = eventName.mail;
+		
+		 
+//		  /* get user details from janRain component accounts */
 //		 $.ajax({
 //				type : 'GET',
 //				url :  BS.userInfoViaJanRain,
