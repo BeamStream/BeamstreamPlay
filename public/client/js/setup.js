@@ -63,8 +63,10 @@ BS.newClass = "http://localhost:9000/newStream";
  BS.userPage ="http://localhost:9000/userPage";
  
 // Get user details vai janRain
- BS.userInfoViaJanRain ="http://localhost:9000/getJSONviaJanrain"
+ BS.userInfoViaJanRain ="http://localhost:9000/getJSONviaJanrain";
  
+// For auto populate case -join a class
+ BS.joinClass = "";
  
  
  /*
@@ -130,7 +132,7 @@ BS.newClass = "http://localhost:9000/newStream";
 /* 
  * for testing in local
  */
-//BS.login = "http://localhost/Beam2/BeamstreamPlay/public/client/image.php";
+//BS.login = "http://localhost/client2/api.php";
 //BS.verifyToken ="http://localhost/client2/api.php";
 //BS.verifyEmail = "http://localhost/client2/api.php";
 //BS.registerNewUser = "http://localhost/client2/api.php";
@@ -147,7 +149,6 @@ BS.newClass = "http://localhost:9000/newStream";
 //BS.postMessage ="http://localhost/client/api.php";
 //BS.streamMessages = "http://localhost/client/api.php";
 //BS.signOut ="http://localhost/client/api.php";
-//  //For JanRain component        "http://localhost/Beam2/BeamstreamPlay/public/client/#basicRegistration/token/fh2w34234/iam/0/emailId/aswathy@toobler.com"
-// BS.userPage ="http://localhost/Beam2/BeamstreamPlay/public/client/#basicRegistration";
-//                  
-// BS.userInfoViaJanRain ="http://localhost/client/api.php"
+//BS.userPage ="http://localhost:9000/userPage";
+//BS.userInfoViaJanRain ="http://localhost/client/api.php";
+//BS.joinClass = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php"

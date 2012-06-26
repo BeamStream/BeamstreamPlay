@@ -165,9 +165,11 @@ BS.AppRouter = Backbone.Router.extend({
 				           this.registrationView = new BS.RegistrationView();
 				           var mailInfo = {iam : iam , mail:email};
 				           this.registrationView.render(mailInfo);
+				          
 				     }
 				  	 
-				     $('#school-popup').html(this.registrationView.el);  
+				     $('#school-popup').html(this.registrationView.el); 
+				     $('#jan-iam').hide();
 				     $(".checkbox").dgStyle();
 				     jQuery("#registration-form").validationEngine();
 			    }
@@ -192,6 +194,8 @@ BS.AppRouter = Backbone.Router.extend({
           this.registrationView.render(janRain);
           $('#school-popup').html(this.registrationView.el);  
 		  $(".checkbox").dgStyle();
+		  $('#jan-iam').show();
+		  $(".modal select:visible").selectBox();
 		  jQuery("#registration-form").validationEngine();
     	
     },

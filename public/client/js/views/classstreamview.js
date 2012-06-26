@@ -4,7 +4,8 @@ BS.ClassStreamView = Backbone.View.extend({
        "keyup #class-code" : "populateClasses",
        "click .datepicker" :"setIndex",
        "focusin #class-code" : "populateClasses",
-       "click #createClass" : "createClass"
+       "click #createClass" : "createClass",
+       "click #joinClass" :"joinClass"
 	},
 
 	initialize : function() {
@@ -202,6 +203,32 @@ BS.ClassStreamView = Backbone.View.extend({
 		var newClassInfo = JSON.stringify(classes);
 		return newClassInfo;
 		
+	},
+	/**
+	 * join a class for auto populate case
+	 */
+	joinClass :function(eventName){
+		eventName.preventDefault();
+		var newClassInfo = this.getNewClass();
+		
+		/* post new class details */
+		$.ajax({
+			type : 'POST',
+			url : BS.joinClass,
+			data : {
+				data : newClassInfo
+			},
+			dataType : "json",
+			success : function(data) {
+				 
+				 console.log("success");
+//				 // get all streams with newly created one
+//				 var mainView = new BS.StreamView();
+//				 mainView.getStreams();
+//
+//				 BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+			}
+		});
 	}
 	 
 });

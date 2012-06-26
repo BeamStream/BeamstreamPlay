@@ -6,7 +6,7 @@ BS.RegistrationView = Backbone.View.extend({
 	},
 
 	initialize : function() {
-
+		this.janRain = false;
 		console.log('Initializing Basic Registration View');
 		this.source = $("#tpl-basic-profile").html();
 		this.template = Handlebars.compile(this.source);
@@ -14,19 +14,19 @@ BS.RegistrationView = Backbone.View.extend({
 	},
 
 	render : function(eventName) {
-		 
-		var self = this;
+		
 		 //  from janRain components
 		 if(eventName == true)
 		 {
-			 
-//			  /* get user details from janRain component accounts */
+			this.janRain = true;
+			
+			  /* get user details from janRain component accounts */
 //			 $.ajax({
 //					type : 'GET',
 //					url :  BS.userInfoViaJanRain,
 //					dataType : "json",
 //					success : function(datas) {
-//						
+//						  
 //						 $("#user-name").val(datas.profile.preferredUsername);
 //						 $('#first-name').val(datas.profile.name.givenName);
 //						 $('#last-name').val(datas.profile.name.familyName);
@@ -35,14 +35,14 @@ BS.RegistrationView = Backbone.View.extend({
 //						 
 //					}
 //			 });
-			 
-//			 
-			 
+ 	 
 			 
 			 
 		 }
 		 else
 		 {
+			 
+			 
 			//get mail informations
 			 this.iam = eventName.iam;
 			 this.mailId = eventName.mail;
@@ -63,30 +63,38 @@ BS.RegistrationView = Backbone.View.extend({
 		var validate = jQuery('#registration-form').validationEngine('validate');
         
         if(validate == true){
-    	   var regDetails = this.getFormData();
-
-   			/* post basic profile registration details */
-   			$.ajax({
-	   			type : 'POST',
-	   			url : BS.registerNewUser,
-	   			data : {
-	   				data : regDetails
-	   			},
-	   			dataType : "json",
-	   			success : function(data) {
-	   				if (data.status == "Success") {
-	   					// navigate to main stream page
-	   					BS.AppRouter.navigate("streams", {
-	   						trigger : true,
-	   						replace : true
-	   					});
-	   					console.log(data.message);
-	   				} else {
-	   					console.log(data.message);
-	   				}
-	
-	   			}
-   		 });
+    	    var regDetails = this.getFormData();
+    	    // valid I'm field
+            if(regDetails == false)
+            {
+            	console.log("Fields are not completely filled");
+            	$('#error').html("Please select  I'm field");
+            }
+            else
+            {
+            	/* post basic profile registration details */
+       			$.ajax({
+    	   			type : 'POST',
+    	   			url : BS.registerNewUser,
+    	   			data : {
+    	   				data : regDetails
+    	   			},
+    	   			dataType : "json",
+    	   			success : function(data) {
+    	   				if (data.status == "Success") {
+    	   					// navigate to main stream page
+    	   					BS.AppRouter.navigate("streams", {
+    	   						trigger : true,
+    	   						replace : true
+    	   					});
+    	   					console.log(data.message);
+    	   				} else {
+    	   					console.log(data.message);
+    	   				}
+    	
+    	   			}
+       		    });
+            }
     	   
         }
         else
@@ -110,7 +118,21 @@ BS.RegistrationView = Backbone.View.extend({
 		} else {
 			useCurrentLocation = false;
 		}
-
+		//get values of 'I'm' and email for janRain Login
+        if(this.janRain == true)
+        {
+        	if($('#iam').val() == "" )
+        	{
+        		return false;
+        	}
+        	else
+        	{
+        		this.iam = $('#iam').val();
+            	this.mailId = "";
+        	}
+        	
+        }
+        
 		basicProfile.set({
 			iam : this.iam,
 			email : this.mailId,
