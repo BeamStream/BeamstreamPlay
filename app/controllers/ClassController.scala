@@ -33,7 +33,6 @@ object ClassController extends Controller {
     val classListJsonMap = request.body.asFormUrlEncoded.get
     val classJsonList = classListJsonMap("data").toList
     val classList = net.liftweb.json.parse(classJsonList(0)).extract[List[Class]]
-     println(classList)
     val listOfClassIds = Class.createClass(classList)
     User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
     Ok
@@ -46,9 +45,8 @@ object ClassController extends Controller {
   def findClasstoAutoPopulate = Action { implicit request =>
     val classCodeMap = request.body.asFormUrlEncoded.get
     val classCode = classCodeMap("data").toList(0)
-     val schoolIdList=School.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
-    
-    val classList = Class.findClassByCode(classCode , schoolIdList)
+    val schoolIdList = School.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
+    val classList = Class.findClassByCode(classCode, schoolIdList)
     val classListJson = write(classList)
     Ok(classListJson).as("application/json")
 

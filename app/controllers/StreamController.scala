@@ -60,7 +60,6 @@ object StreamController extends Controller {
     val streamToCreate = new Stream(new ObjectId, className, StreamType.Class, new ObjectId(request.session.get("userId").get), List(new ObjectId(request.session.get("userId").get)), true, List(classTag))
     val streamId = Stream.createStream(streamToCreate)
     Stream.attachStreamtoClass(streamId, listOfClassIds(0))
-    //Stream.attachStreamToUser(streamId,new ObjectId(request.session.get("userId").get))  // We can do if needed
     Ok
   }
 

@@ -47,6 +47,8 @@ object Class {
   def createClass(classList: List[Class]): List[ObjectId] = {
     var classIdList: List[ObjectId] = List()
     for (eachclass <- classList) {
+
+      //Insert then class
       val classId = ClassDAO.insert(eachclass)
       val classObjectId = new ObjectId(classId.get.toString)
       classIdList ++= List(classObjectId)
@@ -54,6 +56,8 @@ object Class {
     }
     classIdList
   }
+
+ 
 
   /*
    * Removes a class
@@ -88,12 +92,12 @@ object Class {
     var classes: List[Class] = List()
     for (schoolId <- schoolIdList) {
       val classFound = ClassDAO.findOne(MongoDBObject("schoolId" -> schoolId))
-      
+
       (classFound.isEmpty) match {
-        case true => 
-        case false =>  classes ++= classFound
+        case true =>
+        case false => classes ++= classFound
       }
-     
+
     }
     classes
   }
