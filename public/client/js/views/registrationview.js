@@ -35,6 +35,8 @@ BS.RegistrationView = Backbone.View.extend({
 //						 
 //					}
 //			 });
+			 
+//			 
 		 }
 		 else
 		 {
