@@ -188,8 +188,8 @@ BS.AppRouter = Backbone.Router.extend({
     basicRegistrationViaJanRain :function(event){
     	  
     	  this.registrationView = new BS.RegistrationView();
-//          var janRain = true;
-          this.registrationView.render();
+          var janRain = true;
+          this.registrationView.render(janRain);
           $('#school-popup').html(this.registrationView.el);  
 		  $(".checkbox").dgStyle();
 		  jQuery("#registration-form").validationEngine();

@@ -14,28 +14,39 @@ BS.RegistrationView = Backbone.View.extend({
 	},
 
 	render : function(eventName) {
-		
-		  //get mail informations
-		 this.iam = eventName.iam;
-		 this.mailId = eventName.mail;
-		
 		 
-//		  /* get user details from janRain component accounts */
-//		 $.ajax({
-//				type : 'GET',
-//				url :  BS.userInfoViaJanRain,
-//				dataType : "json",
-//				success : function(datas) {
-//					
-//					 $("#user-name").val(datas.profile.preferredUsername);
-//					 $('#first-name').val(datas.profile.name.givenName);
-//					 $('#last-name').val(datas.profile.name.familyName);
-//					 $('#location').val(datas.profile.address.formatted);
-//					 
-//				}
-//		 });
-		$(this.el).html(this.template);
-		return this;
+		var self = this;
+		 //  from janRain components
+		 if(eventName == true)
+		 {
+			 
+//			  /* get user details from janRain component accounts */
+//			 $.ajax({
+//					type : 'GET',
+//					url :  BS.userInfoViaJanRain,
+//					dataType : "json",
+//					success : function(datas) {
+//						
+//						 $("#user-name").val(datas.profile.preferredUsername);
+//						 $('#first-name').val(datas.profile.name.givenName);
+//						 $('#last-name').val(datas.profile.name.familyName);
+//						 $('#location').val(datas.profile.address.formatted);
+//						 
+//						 
+//					}
+//			 });
+		 }
+		 else
+		 {
+			//get mail informations
+			 this.iam = eventName.iam;
+			 this.mailId = eventName.mail;
+			
+		 }
+		 
+		 $(this.el).html(this.template);
+		 return this;
+		
 	},
 
 	/**
