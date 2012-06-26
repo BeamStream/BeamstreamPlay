@@ -39,11 +39,11 @@ object BasicRegistration extends Controller {
     }
   }
 
-//  def basicRegistrationViaSocialSites = Action { implicit request =>
-//  
-//    
-//    Ok
-//  }
+  //  def basicRegistrationViaSocialSites = Action { implicit request =>
+  //  
+  //    
+  //    Ok
+  //  }
 
   /*
    * Registering a new User to Beamstream
@@ -64,7 +64,7 @@ object BasicRegistration extends Controller {
     val location = (parsedUserJson \ "location").extract[String]
     val useCurrentLocation = (parsedUserJson \ "useCurrentLocation").extract[Boolean]
 
-    val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, "", password, schoolName, location, List(), List(), List(),List())
+    val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, "", password, schoolName, location, List(), List(), List(), List())
     val IdOfUserCreted = User.createNewUser(userToCreate)
     val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
     Ok(write(new ResulttoSent("Success", "SignUp Successfully"))).withSession(RegistrationSession)
@@ -79,7 +79,6 @@ object BasicRegistration extends Controller {
     val userInformationMap = request.body.asFormUrlEncoded.get
     val tempUserInformationJson = userInformationMap("data").toList(0)
     val userInformationJson = net.liftweb.json.parse(tempUserInformationJson)
-
     val iam = (userInformationJson \ "iam").extract[String]
     val emailId = (userInformationJson \ "email").extract[String]
 
