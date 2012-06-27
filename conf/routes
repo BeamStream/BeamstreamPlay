@@ -23,8 +23,8 @@ POST    /newMessage                      controllers.MessageController.newMessag
 POST   /getAllMessagesForAStream        controllers.MessageController.getAllMessagesForAStream
 
 
-#GET    /joinstreams                   controllers.JoinStream.joinstreams
-#POST   /joinstreams                   controllers.JoinStream.joinStream
+#GET    /joinStreams                   controllers.JoinStream.joinstreams
+POST   /joinStreams                   controllers.JoinStream.joinStream
 
 
 #Schools

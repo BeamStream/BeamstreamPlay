@@ -9,13 +9,8 @@ import org.bson.types.ObjectId
 
 object JoinStream extends Controller {
 
-  def joinstreams = Action {
-
-    Ok
-  }
-
   def joinStream = Action { implicit request =>
-
+    println(request.body)
     Ok
   }
 
