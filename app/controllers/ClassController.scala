@@ -49,7 +49,6 @@ object ClassController extends Controller {
     val classList = Class.findClassByCode(classCode, schoolIdList)
     val classListJson = write(classList)
     Ok(classListJson).as("application/json")
-
   }
 
 }

@@ -69,11 +69,12 @@ object UserController extends Controller {
     val res = promise.get
     val body = res.getBody
     
-     val SocialJsonFlashObject = request.flash + ("SocialJson" -> body)
-     Redirect(URLExternalizer.JanRainRedirectURL).flashing(SocialJsonFlashObject)
-
+     Ok(body).as("applicatio/json")
+     Redirect(URLExternalizer.JanRainRedirectURL)
   }
 
+// 
+  
   /*
    * Reducing active user on sign Out
    */
