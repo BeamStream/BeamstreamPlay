@@ -68,13 +68,21 @@ object Stream {
    * Get all stream for a user
    */
   
-  
-  
-
   def joinStream(streamId: ObjectId, userId: ObjectId) {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream ++ List(userId))), false, false, new WriteConcern)
   }
+  
+  
+  /*
+   * Add tag to stream
+   */
+  
+  def addTagsToStream(tags: List[String],streamId:ObjectId){
+    val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
+    StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(streamTag = (stream.streamTag ++ tags)), false, false, new WriteConcern)
+  }
+  
 }
 
 object StreamType extends Enumeration {

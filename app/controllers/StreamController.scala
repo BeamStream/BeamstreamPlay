@@ -18,6 +18,7 @@ import utils.ObjectIdSerializer
 import models.ClassType
 import models.User
 import models.StreamType
+import models.Class
 
 object StreamController extends Controller {
 
@@ -54,7 +55,11 @@ def newStream = Action { implicit request =>
 
     val classJson = net.liftweb.json.parse(classJsonList)
     val classTag = (classJson \ "classTag").extract[String]
-    
+    		
+    //updating Tags 
+    val classToUpdateWithTags=Class.findClasssById(listOfClassIds(0))
+    val streamId=classToUpdateWithTags.streams(0)
+    Stream.addTagsToStream(List(classTag),streamId)
     Ok
   }
 

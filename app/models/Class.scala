@@ -113,8 +113,22 @@ object Class {
     val regexp = (""".*""" + time + """.*""").r
     for (theclass <- ClassDAO.find(MongoDBObject("classTime" -> regexp)).toList) yield theclass
   }
+  
+  /*
+   * Find a class by Id
+   */
+
+  def findClasssById(classId: ObjectId) : Class = {
+    val classObtained = ClassDAO.find(MongoDBObject("_id" -> classId)).toList(0)
+    classObtained
+  }
+  
+  
 
 }
+
+ 
+
 
 object ClassType extends Enumeration {
   val Semester = Value(0, "semester")
