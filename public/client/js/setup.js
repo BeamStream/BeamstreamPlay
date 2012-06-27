@@ -66,8 +66,8 @@ BS.newClass = "http://localhost:9000/newStream";
  BS.userInfoViaJanRain ="http://localhost:9000/getJSONviaJanrain";
  
 // For auto populate case -join a class
- BS.joinClass = "";
- 
+ BS.joinClass = "http://localhost:9000/joinStreams";
+// 
  
  /*
   * For Cloud
