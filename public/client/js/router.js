@@ -61,7 +61,7 @@ BS.AppRouter = Backbone.Router.extend({
              this.loginView = new BS.LoginView();
              this.loginView.render();
          }
-         $('#main-popups').html(this.loginView.el);  
+         $('#school-popup').html(this.loginView.el);  
          $(".modal select:visible").selectBox();
          jQuery("#login-form").validationEngine();
         
@@ -189,14 +189,25 @@ BS.AppRouter = Backbone.Router.extend({
      */
     basicRegistrationViaJanRain :function(event){
     	  
-    	  this.registrationView = new BS.RegistrationView();
+    	  var signUpView = new BS.RegistrationView();
           var janRain = true;
-          this.registrationView.render(janRain);
-          $('#school-popup').html(this.registrationView.el);  
+          signUpView.render(janRain);
+          $('#school-popup').html(signUpView.el);  
 		  $(".checkbox").dgStyle();
 		  $('#jan-iam').show();
 		  $(".modal select:visible").selectBox();
+		  $(".checkbox").dgStyle();
 		  jQuery("#registration-form").validationEngine();
+		  
+		  // display values
+		  var datas = BS.JsonFromSocialSite;
+		  
+		  $("#user-name").val(datas.profile.preferredUsername);
+		  $('#first-name').val(datas.profile.name.givenName);
+		  $('#last-name').val(datas.profile.name.familyName);
+	      $('#location').val(datas.profile.address.formatted);
+		  
+		  
     	
     },
   
