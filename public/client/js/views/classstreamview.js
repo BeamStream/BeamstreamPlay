@@ -59,7 +59,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		});
 		 
 		 var classStatus = false; 
-		 var classTime ,className,date ,classType,schoolId;
+		 var classTime ,className,date ,classType,schoolId,classId;
          var datas = JSON.stringify(BS.classInfo);
           
          /* get details of selected class */
@@ -72,13 +72,14 @@ BS.ClassStreamView = Backbone.View.extend({
 				 date = data.startingDate;
 				 classType = data.classType;
 				 schoolId = data.schoolId.id;
-				 
+				 classId = data.id.id;
 		     }
 			 
          });
 		 /* populate other class fields*/
 		 if(classStatus == true)
 		 {
+			 this.classId = classId;
 			 $('#class-name').val(className);
 			 $('#date-started').val(date);
 			 $('#semester option:selected').attr('selected', false);
@@ -109,6 +110,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		 }
 		 else
 		 {
+			 this.classId =1;
 			 $('#class-name').val("");
 			 $('#date-started').val("");
 			 $('#div-school-type a span.selectBox-label').html("");
@@ -191,7 +193,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		classModel.set({
 			
 			schoolId :  school, // need Id value
-			id : 1 ,     
+			id : this.classId ,     
 			classCode : classCode,
 			classTime : classTime,
 			className : className,
