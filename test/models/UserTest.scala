@@ -65,7 +65,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
     val createdUser=UserDAO.find(MongoDBObject("email" -> "john@knoldus.com")).toList(0)
     assert(createdUser.classId.size==0)
     
-    val classIdList=Class.createClass(List(class1))
+    val classIdList=Class.createClass(List(class1),new ObjectId)
     
     User.addClassToUser(userId,classIdList)
     val createdUserAfteraddingSchool=UserDAO.find(MongoDBObject("email" -> "john@knoldus.com")).toList(0)

@@ -44,22 +44,17 @@ object StreamController extends Controller {
    * Creates a class and a new Stream
    */
 
-  def newStream = Action { implicit request =>
+def newStream = Action { implicit request =>
 
     val classListJsonMap = request.body.asFormUrlEncoded.get
     val classJsonList = classListJsonMap("data").toList(0)
     val classList = net.liftweb.json.parse(classJsonList).extract[List[Class]]
-    val listOfClassIds = Class.createClass(classList)
+    val listOfClassIds = Class.createClass(classList,new ObjectId(request.session.get("userId").get))
     User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
 
     val classJson = net.liftweb.json.parse(classJsonList)
     val classTag = (classJson \ "classTag").extract[String]
-    val className = (classJson \ "className").extract[String]
-
-    // Creating the streams
-    val streamToCreate = new Stream(new ObjectId, className, StreamType.Class, new ObjectId(request.session.get("userId").get), List(new ObjectId(request.session.get("userId").get)), true, List(classTag))
-    val streamId = Stream.createStream(streamToCreate)
-    Stream.attachStreamtoClass(streamId, listOfClassIds(0))
+    
     Ok
   }
 

@@ -44,20 +44,23 @@ object Class {
   /*
    * Create the new Classes
    */
-  def createClass(classList: List[Class]): List[ObjectId] = {
+  def createClass(classList: List[Class], userId: ObjectId): List[ObjectId] = {
     var classIdList: List[ObjectId] = List()
     for (eachclass <- classList) {
 
       //Insert then class
       val classId = ClassDAO.insert(eachclass)
-      val classObjectId = new ObjectId(classId.get.toString)
-      classIdList ++= List(classObjectId)
+      classIdList ++= List(new ObjectId(classId.get.toString))
+
+      
+      // Create the Stream for this class
+      val streamToCreate = new Stream(new ObjectId, eachclass.className, StreamType.Class, userId, List(userId), true, List())
+      val streamId = Stream.createStream(streamToCreate)
+      Stream.attachStreamtoClass(streamId, new ObjectId(classId.get.toString))
 
     }
     classIdList
   }
-
- 
 
   /*
    * Removes a class

@@ -69,7 +69,7 @@ object UserController extends Controller {
     val res = promise.get
     val body = res.getBody
     Ok(body).as("application/json")
-    Redirect(URLExternalizer.JanRainRedirectURL)
+   // Redirect(URLExternalizer.JanRainRedirectURL)
     
   }
 

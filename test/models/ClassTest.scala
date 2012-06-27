@@ -24,7 +24,7 @@ class ClassTest extends FunSuite with BeforeAndAfter {
   val class4 = Class(new ObjectId, "204", "CSE", ClassType.Yearly, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
 
   before {
-    Class.createClass(List(class1, class2, class3, class4))
+    Class.createClass(List(class1, class2, class3, class4),new ObjectId)
   }
 
   /*
