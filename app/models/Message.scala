@@ -37,20 +37,6 @@ object Message {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
 
- 
-
-//  def create(messageForm: MessageForm, userId: ObjectId, streamId: ObjectId, firstNameofMsgPoster: String, lastNameofMsgPoster: String): String = {
-//
-//    (messageForm.access == None) match {
-//      case true => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Public, new Date, userId, streamId, firstNameofMsgPoster, lastNameofMsgPoster, 0, List()))
-//      case _ => Message.createMessage(new Message((new ObjectId), messageForm.message, MessageType.Audio, MessageAccess.Private, new Date, userId, streamId, firstNameofMsgPoster, lastNameofMsgPoster, 0, List()))
-//    }
-//
-//    UserDAO.find(MongoDBObject("_id" -> userId)).toList(0).firstName
-//  }
-
- 
-  
   /*
    * Create a new message
    */
@@ -81,7 +67,6 @@ object Message {
    */
   
   def getAllMessagesForAStream(streamId: ObjectId): List[Message] = {
-
     val messsages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList
     messsages
   }

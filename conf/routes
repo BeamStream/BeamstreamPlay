@@ -83,6 +83,16 @@ POST  /getMediafromPost                                   controllers.MediaContr
 
 
 
+
+
+
+
+#Message Rocks
+
+POST /rockedIt                                        controllers.MessageController.rockedTheMessage
+
+
+
 # Map static resources from the /public folder to the /assets URL path
 #GET     /assets/*file               controllers.Assets.at(path="/public", file)
 GET     /beamstream/*file                 controllers.Assets.at(path="/public/client", file)

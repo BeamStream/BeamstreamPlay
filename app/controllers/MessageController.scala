@@ -67,6 +67,14 @@ object MessageController extends Controller {
     val allMessagesForAStreamJson = write(allMessagesForAStream)
     Ok(allMessagesForAStreamJson).as("application/json")
   }
+  
+  /*
+   * Rock the message
+   */
+   def rockedTheMessage = Action { implicit request =>
+     println(request.body)
+     Ok
+   }
 
 }
 
