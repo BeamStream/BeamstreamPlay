@@ -1505,15 +1505,18 @@
 	
 	/*  For JanRain component*/
 	(function() {
+		
 	    if (typeof window.janrain !== 'object') window.janrain = {};
 	    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
 	    
 	    janrain.settings.tokenUrl =  BS.userPage ;
+	    
+	    janrain.settings.tokenAction = 'event'; 
 
-	    function isReady() { janrain.ready = true; };
-	    if (document.addEventListener) {
+	    function isReady() {  janrain.ready = true; };
+	    if (document.addEventListener) { 
 	      document.addEventListener("DOMContentLoaded", isReady, false);
-	    } else {
+	    } else { 
 	      window.attachEvent('onload', isReady);
 	    }
 
@@ -1530,6 +1533,29 @@
 	    var s = document.getElementsByTagName('script')[0];
 	    s.parentNode.insertBefore(e, s);
 	})();
+	
+	function janrainWidgetOnload() {
+
+        janrain.events.onProviderLoginToken.addHandler(function(response) {
+               $.ajax({
+                      type: "POST",
+                      url: BS.userPage,
+                      data: "token=" + response.token,
+                      success: function(res) {
+                          if(res != null)
+                          {
+                        	  BS.JsonFromSocialSite = res;
+                        	  BS.AppRouter.navigate("basicRegistration", {
+      	   						trigger : true,
+      	   						replace : true
+      	   					  });
+                          }
+                            
+                      }
+               });
+        });
+ }
+
     
  
 	
