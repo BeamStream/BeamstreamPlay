@@ -71,7 +71,7 @@ BS.verifyEmailView = Backbone.View.extend({
 							 
 								var source = $("#tpl-verify-popup").html();
 								var template = Handlebars.compile(source);
-								$("#main-popups").html(template);
+								$("#school-popup").html(template);
 		   			     }
 						 else
 						 {

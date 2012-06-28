@@ -228,5 +228,5 @@ BS.ClassStreamView = Backbone.View.extend({
 			}
 		});
 	}
-	 
+	
 });

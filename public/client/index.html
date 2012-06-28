@@ -7,15 +7,44 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-      <!-- Le styles -->
+    <!-- less files -->
+    <link rel="stylesheet/less" type="text/css" href="less/bootstrap.less">
+    <!-- <link rel="stylesheet/less" type="text/css" href="less/responsive.less"> -->
+    <link rel="stylesheet/less" type="text/css" href="less/main.less">
+    <!-- End of less files -->
+    
+    <!-- Le styles -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
-    
     <link href="css/modal.css" rel="stylesheet">
+     <link href="css/style.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/jquery.selectBox.css" />
     <link type="text/css" rel="stylesheet" href="css/datepicker.css" />
+    <!-- End of Le styles -->
     
-    <!--  autocomplete  -->
+    <link href="images/favicon.ico" rel="shortcut icon">
+    
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+    <!--End of Le fav and touch icons -->
+
+    <!--[if lte IE 8]><link rel="stylesheet/less" type="text/css" href="less/ie8.less"><![endif]-->
+    <!--[if lte IE 7]><link rel="stylesheet/less" type="text/css" href="less/ie7.less"><![endif]-->
+    
+    <script src="lib/less-1.2.1.min.js"></script>
+    
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://jdbartlett.com/innershiv/innershiv.js"></script>
+    <![endif]-->
+    
+    <script type="text/javascript" src="http://use.typekit.com/xgg5kcw.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    
+    <!--  auto complete  -->
     <link rel="stylesheet" href="css/jquery.autocomplete.css" type="text/css" />
     
     
@@ -43,7 +72,7 @@
 	<!-- scripts -->
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>	
-	<script type="text/javascript" src="js/jquery.selectBox.js"></script>
+	<script type="text/javascript" src="lib/jquery.selectBox.js"></script>
 	<script src="lib/underscore-min.js"></script>
 	<script src="lib/backbone.js"></script>
 	<script src="lib/handlebars-1.0.0.beta.6.js"></script>
@@ -51,8 +80,8 @@
 	<!--  auto complete -->
 	<script type="text/javascript" src="lib/jquery.autocomplete.js"></script>
 	<!--  for validation  -->
-	<script src="js/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+	<script src="lib/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
+	<script src="lib/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
  
  
 
@@ -62,7 +91,7 @@
 <script type="text/x-handlebars-template" id="tpl-class-stream">
  
   <div class="modal-backdrop in"></div>
-    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+    <div class="modal school-popup modal-pull-top in modal-popups" style="display:block;">
       <div class="modal-header">
       </div>
     <div class="modal-body"> 
@@ -158,7 +187,7 @@
 <script type="text/x-handlebars-template" id="tpl-project-stream">
  
   <div class="modal-backdrop in"></div>
-    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+    <div class="modal school-popup modal-pull-top in modal-popups" style="display:block;">
       <div class="modal-header">
       </div>
     <div class="modal-body"> 
@@ -252,7 +281,7 @@
 <script type="text/x-handlebars-template" id="tpl-study-stream">
  
   <div class="modal-backdrop in"></div>
-    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+    <div class="modal school-popup modal-pull-top in modal-popups" style="display:block;">
       <div class="modal-header">
       </div>
     <div class="modal-body"> 
@@ -338,7 +367,7 @@
 	<script type="text/x-handlebars-template" id="tpl-group-stream">
  
   <div class="modal-backdrop in"></div>
-    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+    <div class="modal school-popup modal-pull-top in modal-popups" style="display:block;">
       <div class="modal-header">
       </div>
     <div class="modal-body"> 
@@ -420,7 +449,7 @@
 	<script type="text/x-handlebars-template" id="tpl-peer-stream">
  
   <div class="modal-backdrop in"></div>
-    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+    <div class="modal school-popup modal-pull-top in modal-popups" style="display:block;">
       <div class="modal-header">
       </div>
     <div class="modal-body"> 
@@ -503,7 +532,7 @@
 	<script type="text/x-handlebars-template" id="tpl-friend-stream">
  
   <div class="modal-backdrop in"></div>
-    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+    <div class="modal school-popup modal-pull-top in modal-popups" style="display:block;">
       <div class="modal-header">
       </div>
     <div class="modal-body"> 
@@ -587,7 +616,7 @@
 <!-- School Registration template-->
 	<script type="text/x-handlebars-template" id="tpl-school-reg">
   <div class="modal-backdrop in"></div>
-    <div class="modal   modal-popups" style="display:block;">
+    <div class="modal school-popup  modal-popups" style="display:block;">
      <div class="modal-header">
         <h1 class="pull-left">School info</h1>
         <img src="images/registration-progress-25.png" alt="Registration progress - 25%" class="registration-progress pull-right">
@@ -691,12 +720,12 @@
       <nav class="navbar main_menu"> </nav>
     </div>
 	
-	<div class="container" id="container">
+<!-- 	<div class="container" id="container"> -->
 	    
 	  <div id="content"></div>
-	    <div class="" id="school-popup"></div>
+	    <div id="school-popup" ></div>
 	   
-	</div> <!-- /container -->
+<!-- 	</div> /container -->
  
  <div id="main-popups"></div>
         
@@ -711,7 +740,7 @@
     <!-- template for login-->
 	<script type="text/template" id="tpl-login">
  <div class="modal-backdrop in"></div>
-   	<div class="modal modal-pull-top in modal-popups" style="display:block;">
+   	<div class="modal main-popups modal-pull-top in modal-popups" style="display:block;">
     <div class="modal-header">
         <h1 class="pull-left">User Login Form</h1>
     </div>
@@ -779,7 +808,7 @@
     <script type="text/x-handlebars-template" id="tpl-class-reg">
  
   <div class="modal-backdrop in"></div>
-    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+    <div class="modal  school-popup modal-pull-top in modal-popups" style="display:block;">
     <div class="modal-header">
         <h2 class="school-name">Previous Schoolname </h2>
         <h1 class="pull-left" >Class info</h2>
@@ -930,7 +959,7 @@
   <!-- profile Registration template-->
   <script type="text/template" id="tpl-profile-reg">
   <div class="modal-backdrop in"></div>
-    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+    <div class="modal school-popup modal-pull-top in modal-popups" style="display:block;">
     <div class="modal-header">
         <h1 class="pull-left">Social profile</h1>
         <img src="images/registration-progress-75.png" alt="Registration progress - 75%" class="registration-progress pull-right">
@@ -1021,15 +1050,15 @@
 
  <div class="navbar-fixed-top">
       <header class="site_header">
-        <div class="container">
-          <h1 class="brand"><a href="#"><img src="images/layout/logo.png" alt="BeamStream" width="106" height="27"></a></h1>
+        <div class="container top-head">
+          <h1 class="brand logo"><a href="#"><img src="images/layout/logo.png" alt="BeamStream" width="106" height="27"></a></h1>
           <h2><i>Evolving</i> Classroom &amp; Academic Interaction  </h2> 
         </div>
       </header>
 
       <nav class="navbar main_menu">
         <div class="navbar-inner">
-          <div class="container">
+          <div class="container top-head">
             <div class="container-fluid">
               <div class="nav-collapse">
                 <ul class="nav">
@@ -1105,7 +1134,7 @@
       <div class="container-inner">
         <div class="row">
 
-          <div class="col left_column span2" style="margin-left: 10px !important;">
+          <div class="col span2 left_column" style="margin-left: 10px !important;">
             <section class="user_profile">
               <section class="user_menu">
                 <div class="actions with-tooltips tooltips-top btn-group">
@@ -1238,11 +1267,7 @@
 						  <li><input class ="msg-post_button" id="post-msg" type="button" value="POST"> </input></li>
                         </ul>
                       </div>
-                      <div class="input-prepend-container">
-                        <div class="input-prepend url_shorter">
-                          <span class="add-on"><i class="icon-link"></i><span class="popout_arrow"><span></span></span></span><input type="text" placeholder="URL shorter">
-                        </div>
-                      </div>
+                      
                     </div>
                   </fieldset>
                 </form>
@@ -1323,7 +1348,7 @@
  <!-- basic profile registration -->
  <script type="text/x-handlebars-template" id="tpl-basic-profile">
 <div class="modal-backdrop in"></div>
-    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+    <div class="modal main-popups  modal-pull-top in modal-popups" style="display:block;">
   <div class="modal-header">
     <h1 class="pull-left">Basic Profile </h1>
     <img src="images/registration-progress-25.png" alt="Registration progress - 25%" class="registration-progress pull-right"> </div>
@@ -1351,7 +1376,7 @@
         <div class="element">
               <label for="user-name">User Name *<br/>
             http://www.beamstream.com/</label>
-              <input type="text" id="user-name" placeholder="@UserName" value ="{{mailId}}" class="validate[required] span3">
+              <input type="text" id="user-name" placeholder="@UserName"   class="validate[required] span3">
             </div>
           <div class="element">
               <label for="password">Password *<br/></label>
@@ -1394,7 +1419,7 @@
 <!-- verify emails -->
  <script type="text/template" id="tpl-verify-email">
 <div class="modal-backdrop in"></div>
-    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+    <div class="modal main-popups modal-pull-top in modal-popups" style="display:block;">
   <div class="modal-header">
     <h1 class="pull-left">Register Here</h1>
   </div>
@@ -1454,7 +1479,7 @@
  <script type="text/template" id="tpl-verify-popup">
 
 <div class="modal-backdrop in"></div>
-    <div class="modal  modal-pull-top in modal-popups" style="display:block;">
+    <div class="modal main-popups modal-pull-top in modal-popups" style="display:block;">
   <div class="modal-body">
       <form>
     <fieldset class="verify-account">
@@ -1477,14 +1502,27 @@
 </div>
 </script>
 
+
+    <script src="lib/bootstrap-transition.js"></script>
+    <script src="lib/bootstrap-alert.js"></script>
+    <script src="lib/bootstrap-modal.js"></script>
+    <script src="lib/bootstrap-dropdown.js"></script>
+    <script src="lib/bootstrap-scrollspy.js"></script>
+    <script src="lib/bootstrap-tab.js"></script>
+    <script src="lib/bootstrap-tooltip.js"></script>
+    <script src="lib/bootstrap-popover.js"></script>
+    <script src="lib/bootstrap-button.js"></script>
+    <script src="lib/bootstrap-collapse.js"></script>
+    <script src="lib/bootstrap-carousel.js"></script>
+    <script src="lib/bootstrap-typeahead.js"></script>
  
 
 	<!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/jquery.selectBox.js"></script>
-<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+<script src="lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/jquery.selectBox.js"></script>
+<script type="text/javascript" src="lib/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="lib/jquery.custom_radio_checkbox.js"></script>  
 
 
@@ -1556,10 +1594,15 @@
         });
  }
 
-    
+ 
  
 	
 </script>
+
+
+
+
+
 <script>
         $(document).ready(function() {
         	
@@ -1596,6 +1639,7 @@
 
             // FIXME: this is temporary hack, remove it later.
             $('.nav a').click(function() {
+            	 
                 var $this = $(this);
                 if (!$this.is('.dropdown-toggle')) {
                     $this
