@@ -666,13 +666,17 @@
                     </div>
                      <div class="element">
                         <label for="degree-program">Degree program</label>
-                        <select name="degreeprogram-1" id="degreeprogram-1" class="span2">
+                        <select name="degreeprogram-1" id="degreeprogram-1" class="degreepgm span2">
                             <option value="Assosiates(AA)">Assosiates(AA)</option>
                             <option value="Bachelor's">Bachelor's</option>
                             <option value="Master's">Master's</option>
                             <option value="Doctorate(Phd)">Doctorate(Phd)</option>
                             <option value="Other">Other</option>
                         </select>
+                    </div>
+					<div class="element" id="other-degrees-1">
+                        <label for="other-degree">Degree *</label>
+                        <input type="text" name="other-degree-1" id="other-degree-1" class="small" placeholder="Degree">
                     </div>
                 </div>
                 <div class="form-row">
@@ -1229,7 +1233,7 @@
           </div>
           </div>
 
-          <div class="col middle_column span6" style="margin-left: 10px !important;">
+          <div class="actions with-tooltips tooltips-top btn-group col middle_column span6" style="margin-left: 10px !important;">
             <ul class="nav nav-tabs">
               <li class="active">
                 <a href="#intro-to-business" id="stream-name" class="with-icon">
@@ -1237,10 +1241,10 @@
                   Intro to Business
                 </a>
               </li>
-              <li><a id="tasks" href="#tasks">Tasks <span class="label label-important">5</span></a></li>
+              <li><a id="tasks" data-original-title="Feature coming soon" href="#tasks">Tasks <span class="label label-important">5</span></a></li>
               <li><a href="#questions">Questions <span class="label label-important">10</span></a></li>
-              <li><a href="#surveys">Surveys</a></li>
-              <li><a href="#idea-stream">Idea Stream</a></li>
+              <li><a href="#surveys" data-original-title="Feature coming soon">Surveys</a></li>
+              <li><a href="#idea-stream" data-original-title="Feature coming soon" >Idea Stream</a></li>
             </ul>
 
             <section class="main_content">
@@ -1327,7 +1331,7 @@
  
  <script type="text/x-handlebars-template" id="tpl-messages">
 {{#each datas}}
- <li>
+ <li id= "{{this.id.id}}">
  <article class="message_item">
    <div class="comment_wrapper">
      <div class="photo_container">
@@ -1573,7 +1577,7 @@
       </fieldset>
       </form>
   </div>
-  <div class="modal-footer"> <a id="save" href="#" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a> <a href="#" class="btn btn-success pull-right">Continue</a> </div>
+   
 </div>
 </script>
 

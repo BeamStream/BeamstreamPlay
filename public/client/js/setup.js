@@ -68,6 +68,9 @@ BS.newClass = "http://localhost:9000/newStream";
 // For auto populate case -join a class
  BS.joinClass = "http://localhost:9000/joinStreams";
  
+ // For Rocked It 
+ BS.rockedIt = "http://localhost:9000/rockedIt"
+ 
  
  /*
   * For Cloud
@@ -151,4 +154,5 @@ BS.newClass = "http://localhost:9000/newStream";
 //BS.signOut ="http://localhost/client/api.php";
 //BS.userPage ="http://localhost:9000/userPage";
 //BS.userInfoViaJanRain ="http://localhost/client/api.php";
-//BS.joinClass = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php"
+//BS.joinClass = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
+//BS.rockedIt = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php"

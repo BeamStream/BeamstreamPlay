@@ -189,7 +189,7 @@
 .modal form fieldset,.modal2 form fieldset {
     background: url("../images/fieldset-bg.png");
     border: 1px #FFF dashed;
-/*     margin-bottom: 30px;  TODO*/
+    margin-bottom: 30px;  
     padding: 10px 20px 30px 25px;
     *padding: 0 20px 30px 25px;
 }
