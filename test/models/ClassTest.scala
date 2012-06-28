@@ -62,6 +62,7 @@ class ClassTest extends FunSuite with BeforeAndAfter {
 
   after {
     ClassDAO.remove(MongoDBObject("className" -> ".*".r))
+    StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
   }
 
 }
