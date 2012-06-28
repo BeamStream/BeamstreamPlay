@@ -134,9 +134,9 @@
 	float:left;
 	margin:10px 0 0 0;
 }
-.basic_profile_form .large {
+.basic_profile_form .large ,.social-media-signup .large {
 	width:260px !important;
-	margin: 0 0 25px 0;
+	margin: 0 0 25px 0 !important;
 }
 .file-upload-box {
 	width:255px;
@@ -385,10 +385,10 @@ ul.verify_buttons span a, ul.rockit li span a {
 }
 .block{
 	color: #FFFFFF;
-	padding:30px 40px 40px 40px;
+	 padding: 15px 20px 45px 0;
 	width:630px;
 	height:100px;
-	background:#2288C8;
+	background:#5a636b;
 	border-radius: 5px 5px 5px 5px;
 }
 .block a{
@@ -397,11 +397,15 @@ ul.verify_buttons span a, ul.rockit li span a {
     font-weight: bold;
     
 }
+.block ul{
+    list-style: none;
+}
 .block ul li {
 	float:left;
 }
 .block ul li a{
 	text-decoration:none;
+	line-height:21px;
 	
 }
 .block ul li a:hover{

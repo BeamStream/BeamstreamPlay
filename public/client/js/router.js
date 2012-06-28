@@ -189,16 +189,31 @@ BS.AppRouter = Backbone.Router.extend({
      */
     basicRegistrationViaJanRain :function(event){
     	  
-    	  var signUpView = new BS.RegistrationView();
-          var janRain = true;
-          signUpView.render(janRain);
-          $('#school-popup').html(signUpView.el);  
-		  $(".checkbox").dgStyle();
-		  $('#jan-iam').show();
-		  $(".modal select:visible").selectBox();
-		  $(".checkbox").dgStyle();
-		  jQuery("#registration-form").validationEngine();
-		  
+//    	  var signUpView = new BS.RegistrationView();
+//          var janRain = true;
+//          signUpView.render(janRain);
+//          $('#school-popup').html(signUpView.el);  
+//		  $(".checkbox").dgStyle();
+//		  $('#jan-iam').show();
+//		  $(".modal select:visible").selectBox();
+//		  $(".checkbox").dgStyle();
+//		  jQuery("#registration-form").validationEngine();
+//		  
+
+    	
+    	
+        $('#school-popup').children().detach(); 
+   	    this.mediaRegistrationView = null;
+   	    if (!this.mediaRegistrationView) {
+             this.mediaRegistrationView = new BS.MediaRegistrationView();
+             this.mediaRegistrationView.render();
+         }
+   	 
+         $('#school-popup').html(this.mediaRegistrationView.el);  
+         $(".modal select:visible").selectBox();
+         $(".checkbox").dgStyle();
+         jQuery("#social-media-signup").validationEngine();
+         
 		  // display values
 		  var datas = BS.JsonFromSocialSite;
 		  
@@ -206,7 +221,6 @@ BS.AppRouter = Backbone.Router.extend({
 		  $('#first-name').val(datas.profile.name.givenName);
 		  $('#last-name').val(datas.profile.name.familyName);
 	      $('#location').val(datas.profile.address.formatted);
-		  
 		  
     	
     },

@@ -6,7 +6,7 @@ BS.RegistrationView = Backbone.View.extend({
 	},
 
 	initialize : function() {
-		this.janRain = false;
+		 
 		console.log('Initializing Basic Registration View');
 		this.source = $("#tpl-basic-profile").html();
 		this.template = Handlebars.compile(this.source);
@@ -15,23 +15,12 @@ BS.RegistrationView = Backbone.View.extend({
 
 	render : function(eventName) {
 	   
-		 //  from janRain components
-		 if(eventName == true)
-		 {
-			this.janRain = true;
-			
-		 }
-		 else
-		 {
-			 
-			//get mail informations
-			 this.iam = eventName.iam;
-			 this.mailId = eventName.mail;
-			
-		 }
+		 
+		//get mail informations
+		 this.iam = eventName.iam;
+		 this.mailId = eventName.mail;
 		 
 		 $(this.el).html(this.template);
-		 
 		 return this;
 		
 	},
@@ -46,14 +35,7 @@ BS.RegistrationView = Backbone.View.extend({
         
         if(validate == true){
     	    var regDetails = this.getFormData();
-    	    // valid I'm field
-            if(regDetails == false)
-            {
-            	console.log("Fields are not completely filled");
-            	$('#error').html("Please select  I'm field");
-            }
-            else
-            {
+    	  
             	/* post basic profile registration details */
        			$.ajax({
     	   			type : 'POST',
@@ -76,7 +58,7 @@ BS.RegistrationView = Backbone.View.extend({
     	
     	   			}
        		    });
-            }
+           
     	   
         }
         else
@@ -100,20 +82,6 @@ BS.RegistrationView = Backbone.View.extend({
 		} else {
 			useCurrentLocation = false;
 		}
-		//get values of 'I'm' and email for janRain Login
-        if(this.janRain == true)
-        {
-        	if($('#iam').val() == "" )
-        	{
-        		return false;
-        	}
-        	else
-        	{
-        		this.iam = $('#iam').val();
-            	this.mailId = "";
-        	}
-        	
-        }
         
 		basicProfile.set({
 			iam : this.iam,

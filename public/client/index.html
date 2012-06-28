@@ -154,7 +154,7 @@
           <div class="element" >
               
                <label for="add-class-tag">Add Class Tag</label>
-               <input type="text" id="class-tag" class="validate[required] medium tag-position" placeholder="icon tag , tag , .."/><i class="icon-middle-tag tag-place"></i>
+               <input type="text" id="class-tag" class="validate[required] medium tag-position" placeholder="tag , tag , ..."/><i class="icon-middle-tag tag-place"></i>
                
            </div>
        </div>
@@ -1373,16 +1373,7 @@
          
           <div class="center_form">
  			<div id="error" class= "invalid-validation"  style=" margin-bottom: 18px !important; margin-left: 152px;"></div>
-
-            <div id="jan-iam" class="element" >
-                <label for="iam">I'm *</label>
-                <select id="iam" class="large">
-                  <option value= "">-- I'm --</option>
-						<option value="0">Student</option>
-						<option value="1">Educator</option>
-						<option value="2">Professional</option>
-                </select>
-              </div>
+ 
       
         <div class="element" style="margin-top:25px;" >
               <label for="school-name">School name *</label>
@@ -1428,7 +1419,104 @@
         </fieldset>
   </form>
   </div>
-<div>
+ 
+</div>
+</script>
+
+
+<!-- basic profile registration -->
+ <script type="text/x-handlebars-template" id="tpl-profile-socialmedia">
+<div class="modal-backdrop in"></div>
+    <div class="modal main-popups  modal-pull-top in modal-popups" style="display:block;">
+<div class="modal-header">
+    <h1 class="pull-left">Basic Profile</h1>
+    <img src="images/registration-progress-0.png" alt="Registration progress - 25%" class="registration-progress pull-right"> </div>
+  <div class="modal-body">
+    <form id="social-media-signup">
+      <fieldset>
+        <div class="basic_profile_form_wrapper2">
+          <div class="basic_profile_form">
+
+<div id="error" class= "invalid-validation"  style=" margin-bottom: 18px !important; margin-left: 152px;"></div>
+ 
+            <div class="element">
+             <label for="iam">I'm *</label>
+                <select id="iam" class="large">
+                  <option value= "">-- I'm --</option>
+						<option value="0">Student</option>
+						<option value="1">Educator</option>
+						<option value="2">Professional</option>
+                </select>
+            </div>
+            <div class="element">
+              <label for="school-name">School Name *</label>
+              <input type="text" id="school-name" placeholder="School Name" class="validate[required] span3">
+            </div>
+            <div class="element">
+              <label for="school-email">School Email *</label>
+              <input type="text" id="school-email" placeholder="School Email" class="validate[required] span3">
+            </div>
+            <div class="element">
+              <label for="user-name">User Name *<br/>
+                http://www.beamstream.com/</label>
+              <input type="text" id="user-name" placeholder="@UserName" class="validate[required] span3">
+            </div>
+            <div class="element">
+              <label for="first-name">First Name</label>
+              <input type="text" id="first-name" placeholder=" Imported 1st Name from API" class="validate[required] span3">
+            </div>
+            <div class="element">
+              <label for="last-name">Last Name *</label>
+              <input type="text" id="last-name" placeholder=" Imported Last Name from API" class="validate[required] span3">
+            </div>
+            <div class="element">
+              <label for="location">Location *</label>
+              <input type="text" id="location" placeholder="Location" class="validate[required] span3">
+            </div>
+            <div class="element">
+              <label for="location"></label>
+              <div class="checkbox_wrapper">
+                <h3>OR</h3>
+                <div class="checkbox">
+                  <input id="useCurrentLocation" type="checkbox">
+                </div>
+                Use Current Location </div>
+            </div>
+          </div>
+          <div class="basic_profile_form2">
+            <div class="element">
+              <label for="school-mail"></label>
+              <div class="checkbox_wrapper">
+                <div class="checkbox">
+                  <input type="checkbox">
+                </div>
+                I don't have a school email </div>
+              <div class="element">
+                <p>No school email address?
+                  For Security Reasons,
+                  tell us why & how to verify.</p>
+                <a class="hand_button" href="#"></a> </div>
+              <div class="element">
+                <textarea class="textarea"></textarea>
+              </div>
+              <div class="element">
+                <h3>Attach a school record.</h3>
+                <h3>This ensures speedy approval.</h3>
+              </div>
+              <div class="element">
+                <div class="file-upload-box"><input type="file"></div>
+              </div>
+              <div class="element"> <a href="#" class="btn btn-success pull-right">Request approval</a> </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row-label">
+          <div class="modal-footer"> <a href="#" id ="save" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a> <a href="#" class="btn btn-success pull-right">Continue</a> </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
 </script>
 
 <!-- verify emails -->
@@ -1674,6 +1762,7 @@
 <script src="js/views/verifyemailview.js"></script>
 <script src="js/models/emailverificationmodel.js"></script>
 <script src="js/views/registrationview.js"></script>
+<script src="js/views/mediaregistrationview.js"></script>
 <script src="js/models/basicprofilemodel.js"></script>
 <script src="js/views/homeview.js"></script>	
 <script src="js/views/schoolview.js"></script>	
