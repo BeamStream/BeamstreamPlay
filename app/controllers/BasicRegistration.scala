@@ -39,12 +39,6 @@ object BasicRegistration extends Controller {
     }
   }
 
-  //  def basicRegistrationViaSocialSites = Action { implicit request =>
-  //  
-  //    
-  //    Ok
-  //  }
-
   /*
    * Registering a new User to Beamstream
    */
