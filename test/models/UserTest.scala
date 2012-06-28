@@ -47,7 +47,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   test("Add Info to User") {
     val user3 = User(new ObjectId, UserType.Professional, "john@knoldus.com", "John", "Sachdeva", "", "John", "John", "Knoldus", "", List(), List(), List(), List())
-    val userId = User.createNewUser(user3)
+    val userId = User.createUser(user3)
     assert(UserDAO.find(MongoDBObject()).size === 3)
     
     val createdUser = UserDAO.find(MongoDBObject("email" -> "john@knoldus.com")).toList(0)
@@ -61,7 +61,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   test("Add Class to User") {
     val user3 = User(new ObjectId, UserType.Professional, "john@knoldus.com", "John", "Sachdeva", "", "John", "John", "Knoldus", "", List(), List(), List(), List())
-    val userId = User.createNewUser(user3)
+    val userId = User.createUser(user3)
     assert(UserDAO.find(MongoDBObject()).size === 3)
     
     val createdUser = UserDAO.find(MongoDBObject("email" -> "john@knoldus.com")).toList(0)
@@ -77,7 +77,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   test("Get User Profile") {
     val user3 = User(new ObjectId, UserType.Professional, "john@knoldus.com", "John", "Sachdeva", "", "John", "John", "Knoldus", "", List(), List(), List(), List())
-    val userId = User.createNewUser(user3)
+    val userId = User.createUser(user3)
     val userObtained = User.getUserProfile(userId)
     assert(userObtained.email === "john@knoldus.com")
 

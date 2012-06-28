@@ -51,13 +51,6 @@ object User {
 
   }
 
-  /*
-   * function for adding a new user to the system
-   */
-  def createNewUser(user: User): ObjectId = {
-    val userCreated = User.createUser(user)
-    userCreated
-  }
 
   /*
    * displaying the message to user for notifying the authentication
@@ -70,8 +63,8 @@ object User {
  * Creates a User
  */
   def createUser(user: User): ObjectId = {
-    val userCretaed = UserDAO.insert(user)
-    userCretaed.get.asInstanceOf[ObjectId]
+    val userCreated = UserDAO.insert(user)
+    userCreated.get.asInstanceOf[ObjectId]
   }
 
   /*

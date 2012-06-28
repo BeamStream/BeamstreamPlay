@@ -21,10 +21,16 @@ import models.MessageAccess
 import models.MessageType
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
+import java.text.SimpleDateFormat
+import utils.EnumerationSerializer
+import utils.ObjectIdSerializer
 
 object MessageController extends Controller {
 
-  implicit val formats = DefaultFormats
+//  implicit val formats = DefaultFormats
+   implicit val formats = new net.liftweb.json.DefaultFormats {
+    override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
+  }  + new ObjectIdSerializer
 
   //==========================//
   //======Post a new message==//
@@ -38,8 +44,10 @@ object MessageController extends Controller {
     val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val messageToCreate = new Message(new ObjectId, messageBody, MessageType.Audio, MessageAccess.withName(messageAccess), new Date, new ObjectId(request.session.get("userId").get), new ObjectId(streamId),
     messagePoster.firstName, messagePoster.lastName, 0, List())
-    Message.createMessage(messageToCreate)
-    val messageJson = write(List(messageToCreate))
+    val messageId=Message.createMessage(messageToCreate)
+    val messageObtained = Message.findMessageById(messageId)
+    val messageJson = write(List(messageObtained))
+    println(messageJson)
     Ok(messageJson).as("application/json")
   }
 
@@ -60,11 +68,11 @@ object MessageController extends Controller {
   //======Displays all the messages within a Stream===//
   //==================================================//
   def getAllMessagesForAStream = Action { implicit request =>
-    
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
     val allMessagesForAStream = Message.getAllMessagesForAStream(new ObjectId(streamId))
     val allMessagesForAStreamJson = write(allMessagesForAStream)
+    println(allMessagesForAStreamJson)
     Ok(allMessagesForAStreamJson).as("application/json")
   }
   
