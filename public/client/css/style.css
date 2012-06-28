@@ -551,3 +551,183 @@ ul.rockit li span a {
 	top: -40px;
 	left: -20px;
 }
+
+/* drop down menu */
+
+.main_menu.navbar {
+  position: relative;
+  z-index: 1000;
+}
+.main_menu.navbar .navbar-inner {
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  background-image: url(../images/layout/navbar_background.png);
+  background-repeat: repeat-x;
+  background-position: 0 0;
+}
+.main_menu.navbar .navbar-inner .container-fluid {
+  padding: 0px;
+}
+.main_menu.navbar .nav {
+  padding-left: 1px;
+}
+.main_menu.navbar .nav .dropdown.open .dropdown-toggle {
+  background-color: #42484f;
+  background-image: -moz-linear-gradient(top, #464c53, #3c4248);
+  background-image: -ms-linear-gradient(top, #464c53, #3c4248);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#464c53), to(#3c4248));
+  background-image: -webkit-linear-gradient(top, #464c53, #3c4248);
+  background-image: -o-linear-gradient(top, #464c53, #3c4248);
+  background-image: linear-gradient(top, #464c53, #3c4248);
+  background-repeat: repeat-x;
+}
+.main_menu.navbar .nav .dropdown li {
+  background-image: none;
+}
+.main_menu.navbar .nav .dropdown .dropdown-toggle {
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 11px;
+  position: relative;
+}
+.main_menu.navbar .nav .dropdown .dropdown-toggle:hover {
+  background-color: #42484f;
+  background-image: -moz-linear-gradient(top, #464c53, #3c4248);
+  background-image: -ms-linear-gradient(top, #464c53, #3c4248);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#464c53), to(#3c4248));
+  background-image: -webkit-linear-gradient(top, #464c53, #3c4248);
+  background-image: -o-linear-gradient(top, #464c53, #3c4248);
+  background-image: linear-gradient(top, #464c53, #3c4248);
+  background-repeat: repeat-x;
+}
+.main_menu.navbar .nav .dropdown .dropdown-toggle .arrow {
+  position: absolute;
+  background: url(../images/icons/icon_arrow.png) 0 0 no-repeat;
+  width: 13px;
+  height: 9px;
+  top: 21px;
+  right: 6px;
+}
+.main_menu.navbar .nav .dropdown .dropdown-menu {
+  border-radius: 0 0 4px 4px;
+  margin-top: 0px;
+  background-color: #3a4046;
+  background-image: -moz-linear-gradient(top, #3c4248, #363d44);
+  background-image: -ms-linear-gradient(top, #3c4248, #363d44);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3c4248), to(#363d44));
+  background-image: -webkit-linear-gradient(top, #3c4248, #363d44);
+  background-image: -o-linear-gradient(top, #3c4248, #363d44);
+  background-image: linear-gradient(top, #3c4248, #363d44);
+  background-repeat: repeat-x;
+  border: 0px;
+  padding: 10px 0;
+}
+.main_menu.navbar .nav .dropdown .dropdown-menu li {
+  margin: 0;
+  padding: 0;
+}
+.main_menu.navbar .nav .dropdown .dropdown-menu li a {
+  height: auto;
+  line-height: normal;
+  padding: 7px 19px;
+  font-weight: normal;
+}
+.main_menu.navbar .nav .dropdown .dropdown-menu li form {
+  margin-bottom: 0px;
+}
+.main_menu.navbar .nav .dropdown .dropdown-menu li form a:hover {
+  text-decoration: none;
+}
+.main_menu.navbar .nav .dropdown .dropdown-menu:after {
+  display: none;
+}
+.main_menu.navbar .nav .dropdown .dropdown-menu:before {
+  display: none;
+}
+.main_menu.navbar .nav .dropdown .dropdown-menu .divider {
+  display: none;
+}
+.main_menu.navbar .nav li {
+  margin-left: -1px;
+  background-color: #7b8289;
+  background-color: transparent;
+  background-image: -moz-linear-gradient(top, #9da3a9, #485159), -moz-linear-gradient(top, #9da3a9, #485159);
+  background-image: -ms-linear-gradient(top, #9da3a9, #485159), -ms-linear-gradient(top, #9da3a9, #485159);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#9da3a9), to(#485159)), -webkit-gradient(linear, 0 0, 0 100%, from(#9da3a9), to(#485159));
+  background-image: -webkit-linear-gradient(top, #9da3a9, #485159), -webkit-linear-gradient(top, #9da3a9, #485159);
+  background-image: -o-linear-gradient(top, #9da3a9, #485159), -o-linear-gradient(top, #9da3a9, #485159);
+  background-image: linear-gradient(top, #9da3a9, #485159), linear-gradient(top, #9da3a9, #485159);
+  background-repeat: repeat-x, repeat-x;
+  background-size: 1px 100%, 1px 100%;
+  background-position: 0 0, 100% 0;
+  background-repeat: no-repeat;
+  padding: 0px 1px 0px 1px;
+  position: relative;
+  z-index: 1;
+}
+.main_menu.navbar .nav li a {
+  padding: 0 32px;
+  height: 55px;
+  line-height: 55px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  text-shadow: 0 -1px 0 #43494f;
+}
+.main_menu.navbar .nav li a:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.main_menu.navbar .nav li.active {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(transparent)), -webkit-gradient(linear, left top, left bottom, from(transparent), to(transparent));
+  background-image: -webkit-radial-gradient(0 0, ellipse farthest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 30%, transparent 100%), -webkit-radial-gradient(100% 0, ellipse farthest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 30%, transparent 100%);
+  background-image: -moz-radial-gradient(0 0, ellipse farthest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 30%, transparent 100%), -moz-radial-gradient(100% 0, ellipse farthest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 30%, transparent 100%);
+  background-image: -ms-radial-gradient(0 0, ellipse farthest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 30%, transparent 100%), -ms-radial-gradient(100% 0, ellipse farthest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 30%, transparent 100%);
+  background-image: -o-radial-gradient(0 0, ellipse farthest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 30%, transparent 100%), -o-radial-gradient(100% 0, ellipse farthest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 30%, transparent 100%);
+  background-size: 50% 200%;
+  z-index: 2;
+}
+.main_menu.navbar .nav li.active a {
+  background-color: transparent;
+  background-image: -moz-linear-gradient(top, #363c42, transparent), -moz-linear-gradient(top, #363c42, transparent);
+  background-image: -ms-linear-gradient(top, #363c42, transparent), -ms-linear-gradient(top, #363c42, transparent);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#363c42), to(transparent)), -webkit-gradient(linear, 0 0, 0 100%, from(#363c42), to(transparent));
+  background-image: -webkit-linear-gradient(top, #363c42, transparent), -webkit-linear-gradient(top, #363c42, transparent);
+  background-image: -o-linear-gradient(top, #363c42, transparent), -o-linear-gradient(top, #363c42, transparent);
+  background-image: linear-gradient(top, #363c42, transparent), linear-gradient(top, #363c42, transparent);
+  background-repeat: repeat-x, repeat-x;
+  background-color: rgba(0, 0, 0, 0.2);
+  background-size: 1px 100%, 1px 100%;
+  background-position: 0 0, 100% 0;
+  background-repeat: no-repeat;
+}
+.main_menu.navbar .nav li.active a:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.main_menu.navbar .nav.pull-right .dropdown .dropdown-toggle {
+  padding: 0px 29px 0 7px;
+}
+.main_menu.navbar .nav.pull-right li {
+  background-image: none;
+  margin-left: 7px;
+  padding: 0;
+}
+.main_menu.navbar .nav.pull-right li .photo_container {
+  height: 36px;
+  width: 36px;
+  margin-top: 8px;
+}
+/* place holder tag */
+.tag-place{
+	background: url("../images/icons/icon_m_tag.png") no-repeat scroll 0 1px transparent !important; 
+    width: 19px !important;
+    height:19px !important;
+	position:absolute;
+	top:36px;
+	left:10px;
+	
+}
+.tag-position{
+	padding:6px 15px 3px 35px !important;
+}
