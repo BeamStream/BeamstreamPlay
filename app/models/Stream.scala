@@ -73,6 +73,16 @@ object Stream {
     StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream ++ List(userId))), false, false, new WriteConcern)
   }
   
+  /*
+   * Find a class by Id
+   */
+
+  def findStreamById(streamId: ObjectId) : Stream = {
+    val streamObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
+    streamObtained
+  }
+  
+  
   
   /*
    * Add tag to stream

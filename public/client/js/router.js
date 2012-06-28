@@ -215,13 +215,14 @@ BS.AppRouter = Backbone.Router.extend({
     * for email verification
     */
     emailVerification: function() {
+       $('#school-popup').children().detach(); 
  	   this.emailView = null;
  	   if (!this.emailView) {
            this.emailView = new BS.verifyEmailView();
            this.emailView.render();
        }
  	 
-       $('#main-popups').html(this.emailView.el);  
+       $('#school-popup').html(this.emailView.el);  
        $(".modal select:visible").selectBox();
        $(".checkbox").dgStyle();
        jQuery("#email-verify").validationEngine();

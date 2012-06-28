@@ -16,7 +16,7 @@
     color: #5d9ab6;
     font-size: 18px;
     padding: 6px 15px 3px 10px;
-    margin: 0;
+    margin: 0 !important;
     height: 35px;
     line-height: 35px;
     -webkit-border-radius: 5px;
@@ -82,6 +82,7 @@ a.selectBox-dropdown:hover {
     -moz-border-radius-bottomright: 5px;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px
+
 }
 
 
@@ -112,7 +113,7 @@ a.selectBox-dropdown:hover {
 	display: block;
 	cursor: default;
 	margin: 0;
-
+	margin-left:0 !important;
 }
 
 .selectBox-options LI A {
@@ -180,13 +181,4 @@ a.selectBox-dropdown:hover {
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2), 0 0 8px rgba(59, 164, 27, 0.6);
     outline: 0;
     outline: thin dotted \9;
-}
-
-/* toobler css */
-/* for time select box */
-.time {
-    width: 130px !important;
-    float:left;
-    min-width: 110px !important;
-    padding : 6px 2px 3px !important;
 }
