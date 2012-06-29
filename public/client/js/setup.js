@@ -71,13 +71,12 @@ BS.newClass = "http://localhost:9000/newStream";
  // For Rocked It 
  BS.rockedIt = "http://localhost:9000/rockedIt"
  
- 
  /*
   * For Cloud
   */
  
-   
- /*
+   /*
+
 //For Login Page
  BS.login = "http://beamstream-v3.herokuapp.com/users";
 
@@ -128,8 +127,8 @@ BS.newClass = "http://localhost:9000/newStream";
   //expires the usersession
   BS.signOut ="http://beamstream-v3.herokuapp.com/signOut";
  
+
  */
- 
  
  
 /* 
