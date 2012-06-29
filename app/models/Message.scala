@@ -46,7 +46,7 @@ object Message {
     //      case _ => println("No rights to Post")
     //    }
     val messageId = MessageDAO.insert(message)
-   messageId.get
+    messageId.get
 
   }
 
@@ -83,24 +83,23 @@ object Message {
   /*
    *  Increase the no. of counts
    */
-  def totalRocks(messageId: ObjectId): Int = {
+  def rockersNames(messageId: ObjectId): List[String] = {
     val messageRocked = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-    messageRocked.rocks
+    val rockersName = User.giveMeTheRockers(messageRocked.rockers)
+    rockersName
   }
 
   /*
    *  Update the Rockers List and increase the count by one 
    */
 
-  def rockedIt(messageId: ObjectId, userId: ObjectId): List[ObjectId] = {
+  def rockedIt(messageId: ObjectId, userId: ObjectId): Int = {
     val SelectedmessagetoRock = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
     MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(rockers = (SelectedmessagetoRock.rockers ++ List(userId))), false, false, new WriteConcern)
-
     val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
     MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(rocks = (updatedMessage.rocks + 1)), false, false, new WriteConcern)
-
     val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-    finalMessage.rockers
+    finalMessage.rocks
 
   }
 
@@ -122,14 +121,13 @@ object Message {
     val messages = MessageDAO.find(MongoDBObject()).toList.filter(message => message.messageBody.contains(keyword))
     messages
   }
-  
-  
+
   /*
    * Find Message by Id
    */
-  
-  def findMessageById(messageId:ObjectId) : Message = {
-    val messageObtained=MessageDAO.findOneByID(messageId)
+
+  def findMessageById(messageId: ObjectId): Message = {
+    val messageObtained = MessageDAO.findOneByID(messageId)
     messageObtained.get
   }
 }

@@ -11,56 +11,35 @@ import java.text.DateFormat
 class MessageEntityTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(),List())
-  val stream = Stream.createStream(Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(user.id), true, List()))
-  val message = Message(new ObjectId, "some message", MessageType.Audio, MessageAccess.Public, formatter.parse("23-07-12"), user.id, stream, "", "", 0, List())
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List())
+  val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(user.id), true, List())
 
   before {
     User.createUser(user)
-    Message.createMessage(message)
-
+    Stream.createStream(stream)
   }
 
   test("Message Creation") {
 
-    /*
-     * Checking Rocks in original message
-     */
+    val stream = StreamDAO.find(MongoDBObject()).toList(0)
+    val user = UserDAO.find(MongoDBObject()).toList(0)
 
-    val rocksBefore = Message.totalRocks(message.id)
-    assert(rocksBefore === 0)
+    val message = Message(new ObjectId, "some message", MessageType.Audio, MessageAccess.Public, formatter.parse("23-07-12"), user.id, stream.id, "", "", 0, List())
 
-    /*
- * Rock the message
- */
+    val messageId = Message.createMessage(message)
 
-    val Rockers = Message.rockedIt(message.id, user.id)
-    assert(Rockers.size === 1)
+    val messageBefore = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
 
-    /*
-     * Checking Rocks after rocking the message
-     */
+    //Rocks Before
+    assert(messageBefore.rocks === 0)
 
-    val messageAfterRocking = MessageDAO.find(MongoDBObject("_id" -> message.id)).toList(0)
-    assert(messageAfterRocking.rocks === 1)
-    User.countRoles(List(user.id))
+    Message.rockedIt(messageId, user.id)
 
-    val secondmessage = Message(new ObjectId, "some message", MessageType.Audio, MessageAccess.Public, formatter.parse("23-07-10"), user.id, stream, "", "", 16, List())
-    val thirdmessage = Message(new ObjectId, "som message", MessageType.Audio, MessageAccess.Public, formatter.parse("23-07-11"), user.id, stream, "", "", 10, List())
-    Message.createMessage(secondmessage)
-    Message.createMessage(thirdmessage)
-
-    /*
-     * getting all messages for a stream
-     */
-    assert(Message.getAllMessagesForAStream(stream).size === 3)
-
-    /*
-     * Sorting all messages for a stream
-     */
-    assert(Message.getAllMessagesForAStreamSortedbyRocks(stream).indexOf(secondmessage) === 2)
-    assert(Message.getAllMessagesForAStreamSortedbyRocks(stream).indexOf(messageAfterRocking) === 0)
-    assert(Message.getAllMessagesForAKeyword("some").size === 2)
+    val messageAfter = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+    //Rocks After
+    assert(messageAfter.rocks === 1)
+    assert(messageAfter.rockers.size === 1)
+    assert(messageAfter.rockers(0) === user.id)
 
   }
 
