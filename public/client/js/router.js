@@ -84,6 +84,7 @@ BS.AppRouter = Backbone.Router.extend({
          /* hide some fields on page load */
          $('#degree-exp-'+current).hide();
      	 $('#cal-'+current).hide();
+     	 $('#other-degrees-'+current).hide();
      	 jQuery("#school-form").validationEngine();
      	
     },
@@ -188,19 +189,6 @@ BS.AppRouter = Backbone.Router.extend({
      * basicRegistrationViaJanRain
      */
     basicRegistrationViaJanRain :function(event){
-    	  
-//    	  var signUpView = new BS.RegistrationView();
-//          var janRain = true;
-//          signUpView.render(janRain);
-//          $('#school-popup').html(signUpView.el);  
-//		  $(".checkbox").dgStyle();
-//		  $('#jan-iam').show();
-//		  $(".modal select:visible").selectBox();
-//		  $(".checkbox").dgStyle();
-//		  jQuery("#registration-form").validationEngine();
-//		  
-
-    	
     	
         $('#school-popup').children().detach(); 
    	    this.mediaRegistrationView = null;
@@ -209,18 +197,18 @@ BS.AppRouter = Backbone.Router.extend({
              this.mediaRegistrationView.render();
          }
    	 
-         $('#school-popup').html(this.mediaRegistrationView.el);  
-         $(".modal select:visible").selectBox();
-         $(".checkbox").dgStyle();
-         jQuery("#social-media-signup").validationEngine();
+        $('#school-popup').html(this.mediaRegistrationView.el);  
+        $(".modal select:visible").selectBox();
+        $(".checkbox").dgStyle();
+        jQuery("#social-media-signup").validationEngine();
          
-		  // display values
-		  var datas = BS.JsonFromSocialSite;
+		 // display values
+		var datas = BS.JsonFromSocialSite;
 		  
-		  $("#user-name").val(datas.profile.preferredUsername);
-		  $('#first-name').val(datas.profile.name.givenName);
-		  $('#last-name').val(datas.profile.name.familyName);
-	      $('#location').val(datas.profile.address.formatted);
+		$("#user-name").val(datas.profile.preferredUsername);
+	    $('#first-name').val(datas.profile.name.givenName);
+		$('#last-name').val(datas.profile.name.familyName);
+	    $('#location').val(datas.profile.address.formatted);
 		  
     	
     },

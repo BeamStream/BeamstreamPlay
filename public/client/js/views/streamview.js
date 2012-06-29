@@ -16,7 +16,8 @@ BS.StreamView = Backbone.View.extend({
            "click #post-msg": "postMessage",
            "click ul#select-streams li a" : "showStreamList",
            "click #icon-up" :"slideUp",
-           "click #icon-down" : "slideDown"
+           "click #icon-down" : "slideDown",
+           "click a.rock" : "rockedIt"
         	   
 		  
 	 },
@@ -383,5 +384,33 @@ BS.StreamView = Backbone.View.extend({
 	 slideDown:function(eventName){
 		 eventName.preventDefault();
 		 $('#streams-list').slideDown();
+	 },
+	 
+	 /**
+	  * get Rocked count
+	  */
+	 
+	 rockedIt :function(eventName){
+		 
+		 eventName.preventDefault();
+		 var element = eventName.target.parentElement;
+		 var msgId =$(element).closest('li').attr('id');
+		 
+		 $.ajax({
+             type: 'POST',
+             url:BS.rockedIt,
+             data:{
+            	  messageId:msgId
+            	 },
+            	 
+             dataType:"json",
+             success:function(data){
+            	 
+            	// display the count in icon
+            	$('li#'+msgId+'').find('i').find('i').html(data);
+           	   
+             }
+          });
+		  
 	 }
 });
