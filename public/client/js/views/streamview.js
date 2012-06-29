@@ -405,7 +405,6 @@ BS.StreamView = Backbone.View.extend({
             	 
              dataType:"json",
              success:function(data){
-            	 
             	// display the count in icon
             	$('li#'+msgId+'').find('i').find('i').html(data);
            	   

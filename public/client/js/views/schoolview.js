@@ -5,7 +5,7 @@ BS.SchoolView = Backbone.View.extend({
 	      "click #continue": "continueToClass",
 	      "click a.legend-add": "addSchools",
 	      "change select.graduated": "showFields",
-	       
+	      "change select.degreepgm" : "addOtherDegree"
 	       
 	    },
 	
@@ -32,7 +32,7 @@ BS.SchoolView = Backbone.View.extend({
      */
     saveSchool:function (eventName) {
     	eventName.preventDefault();  
-        
+    	 
     	/* validation on other fields */
     	var validate = jQuery('#school-form').validationEngine('validate');
     	if(validate == true)
@@ -177,6 +177,7 @@ BS.SchoolView = Backbone.View.extend({
 				$('#degree-exp-'+currentid).hide();
 				$('#cal-'+currentid).hide();
 		  }
+		  
     	     
       },
       
@@ -193,7 +194,7 @@ BS.SchoolView = Backbone.View.extend({
 	      	var schools = new BS.SchoolCollection();
 	      	for(i=1; i <= current; i++)
 	      	{
-		      	var degreeexp,degdate;
+		      	var degreeexp,degdate,otherDegree;
 		      		
 		     	/* display degree expected when selecting graduated as 'attending' or 'no' */
 		      	if($('#graduated-'+i).val()== "attending" || $('#graduated-'+i).val()== "no")
@@ -212,14 +213,41 @@ BS.SchoolView = Backbone.View.extend({
 		   			  graduated = "";
 		   			  degreeexp= "";
 		   	    }
+		      	if($('#degreeprogram-'+i).val() == "Other")
+		      	{
+		      		 
+		      		otherDegree = $('#other-degree-'+i).val();
+		      		console.log(otherDegree);
+		      	}
+		      	else
+		      	{   
+		      		otherDegree ="";
+		      	}
 		   		var school = new BS.School();
 		      		
-		   		school.set({id:i,schoolName: $('#school-name-'+i).val(),year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val()}, graduated: $('#graduated-'+i).val(), graduationDate: degdate });
+		   		school.set({id:i,schoolName: $('#school-name-'+i).val(),year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val() , value: otherDegree}, graduated: $('#graduated-'+i).val(), graduationDate: degdate });
 		
 		        schools.add(school);
 	         }
 	         var schoolinfo = JSON.stringify(schools);
 	         return schoolinfo;
 	      },
+	      /**
+	       * add text box field a enter degree when we choose 'Other' from  Degre Program  
+	       */
+	      addOtherDegree:function(eventName){
+	    	  var id = eventName.target.id;
+	    	  var currentid = $('#'+id).closest('fieldset').attr('id');
+	    	  if($('#'+id).val()== "Other")
+	    	  {
+	    		  $('#other-degrees-'+currentid).show();
+	    	  }
+	    	  else
+	    	  {
+	    		  $('#other-degrees-'+currentid).hide();
+	    	  }
+	    	  
+	    	  
+	      }
 
 });
