@@ -75,7 +75,7 @@ BS.ClassView = Backbone.View.extend({
 		}
 		else
 		{
-			$('#error').html("You must enter atleast one class");
+			BS.AppRouter.navigate("streams", {trigger: true, replace: true});
 		}
 	},
 
@@ -155,7 +155,10 @@ BS.ClassView = Backbone.View.extend({
 		}
 		else
 		{
-			$('#error').html("You must enter atleast one class");
+			BS.AppRouter.navigate("profile", {
+				trigger : true,
+				replace : true
+			});
 		}
 	},
 
