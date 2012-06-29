@@ -13,7 +13,7 @@ BS.ClassView = Backbone.View.extend({
 	initialize : function() {
 		
 		console.log('Initializing Class View');
-		 
+		BS.saveStatus = false;
 		this.schools = new BS.SchoolCollection();
 		this.schools.bind("reset", this.renderSchools, this);
 		 
@@ -34,40 +34,49 @@ BS.ClassView = Backbone.View.extend({
 	saveClass : function(eventName) {
 		
 		eventName.preventDefault();
-		var validate = jQuery('#class-form').validationEngine('validate');
-		
-		if(validate == true)
-	    {
-			$('#save').attr('data-dismiss','modal');
-			var classDetails = this.getClassInfo();
-			if(classDetails != false)
-			{
-				/* post data with school and class details */
-				$.ajax({
-					type : 'POST',
-					url : BS.saveClass,
-					data : {
-						data : classDetails
-					},
-					dataType : "json",
-					success : function(data) {
-						// navigate to main stream page
-						BS.AppRouter.navigate("streams", {trigger: true, replace: true});
-					}
-				});
-			}
-			else
-			{
-//			    $('#'+BS.invalidItem).focus();  // set focus to calebdar 
-				$('#error').html("Please fill all details for a class");
-			}
+		 
+		if(BS.saveStatus == true)
+		{
+	
+			var validate = jQuery('#class-form').validationEngine('validate');
 			
-	   }
+			if(validate == true)
+		    {
+				$('#save').attr('data-dismiss','modal');
+				var classDetails = this.getClassInfo();
+				if(classDetails != false)
+				{
+					/* post data with school and class details */
+					$.ajax({
+						type : 'POST',
+						url : BS.saveClass,
+						data : {
+							data : classDetails
+						},
+						dataType : "json",
+						success : function(data) {
+							// navigate to main stream page
+							BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+						}
+					});
+				}
+				else
+				{
+	//			    $('#'+BS.invalidItem).focus();  // set focus to calebdar 
+					$('#error').html("Please fill all details for a class");
+				}
+				
+		   }
+			else
+		    {    
+				console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
+				$('#error').html("You must enter atleast one class");
+		    }
+		}
 		else
-	    {    
-			console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
+		{
 			$('#error').html("You must enter atleast one class");
-	    }
+		}
 	},
 
 	/**
@@ -114,32 +123,40 @@ BS.ClassView = Backbone.View.extend({
 
 		console.log("to profile");
 		eventName.preventDefault();
-		var validate = jQuery('#class-form').validationEngine('validate');
-		if(validate == true)
-	    {
-			var classDetails = this.getClassInfo();
-	       
-			/* post data with school and class details */
-			$.ajax({
-				type : 'POST',
-				url : BS.saveClass,
-				data : {
-					data : classDetails
-				},
-				dataType : "json",
-				success : function(data) {
-					BS.AppRouter.navigate("profile", {
-						trigger : true,
-						replace : true
-					});
-				}
-			});
-	   }
+		 
+		if(BS.saveStatus == true)
+		{
+			var validate = jQuery('#class-form').validationEngine('validate');
+			if(validate == true)
+		    {
+				var classDetails = this.getClassInfo();
+		       
+				/* post data with school and class details */
+				$.ajax({
+					type : 'POST',
+					url : BS.saveClass,
+					data : {
+						data : classDetails
+					},
+					dataType : "json",
+					success : function(data) {
+						BS.AppRouter.navigate("profile", {
+							trigger : true,
+							replace : true
+						});
+					}
+				});
+		   }
+			else
+		    { 
+				console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
+				$('#error').html("You must enter atleast one class");
+		    }
+		}
 		else
-	    { 
-			console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
+		{
 			$('#error').html("You must enter atleast one class");
-	    }
+		}
 	},
 
 	/**
@@ -148,7 +165,7 @@ BS.ClassView = Backbone.View.extend({
 	addClasses : function(eventName) {
 		
 		eventName.preventDefault();
-		
+		BS.saveStatus = true;
 		var id = eventName.target.id;
 		var dat='#'+id;
 		$(dat).hide();
