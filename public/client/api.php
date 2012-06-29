@@ -3,8 +3,8 @@ class Api
 {
 	function save()
 	{
-		 $arr =  "3";
-		  echo $arr;
+		 $arr =  array('totalroks' => 3 ,'rockers' => array('Neel' , 'Aswathy' ,'Cuckoo'));
+		   
 //   				$arr = array('id' => 1, 'status' => 'Success' ,'iam' => '1', 'message'=>'Login suscces.', 'emailId' => 'aswathy@toobler.com');
 // // 				$arr = array('id' => 1, 'status' => 'fail' , 'message'=>'The username or password you entered is incorrect.');
 	  	 // $arr = array('id' => array(), 'userType' => array('name' => 'Educator'),'email' => 'ayush@knoldus.com' ,'firstName' => 'Ayush', 'lastName' => 'Mishra' ,'userName' => 'ayush' ,'alias' => ' ' , 'password' => 'ayush', 'orgName' => 'Ayush' ,'location' => 'India','streams' => array( ), 'schoolId' => array(),'classId' => array());
@@ -16,7 +16,7 @@ class Api
 		  // $arr = array(array('id' => array('id' => '4fd8682c84aefd97fa529b2b'), 'classCode' => '001', 'className' => 'phy' ,'classType' => 'quarter', 'classTime' => '11:00AM' , 'startingDate' => '10/11/1970' ,'schoolId' => array('id' => '4fd867a384aefd97fa529b2a') ,'streams' => array()) ,array('id' => array('id' => '12121'), 'classCode' => '002', 'className' => '121' ,'classType' => 'semester', 'classTime' => '12:00AM' , 'startingDate' => '02/12/1970' ,'schoolId' => array('id' => '121') ,'streams' => array()),array('id' => array('id' => '444'), 'classCode' => '003', 'className' => 'ddd' ,'classType' => 'semester', 'classTime' => '09:00AM' , 'startingDate' => '11/11/1970' ,'schoolId' => array('id' => '4fd867a384aefd97fa529b2a') ,'streams' => array()));
 		
 		
-		//echo json_encode($arr);
+		 echo json_encode($arr);
 	}
 }
 

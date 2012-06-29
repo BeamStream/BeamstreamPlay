@@ -1348,13 +1348,16 @@
        <p>
          {{this.messageBody}}
        </p>
-       <div class="actions">
-         <a class="rock" href="#rock"><i class="rocked"><i>{{this.rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
+       <div class="actions actions with-tooltips tooltips-top btn-group">
+         <a class="rock " href="#rock" data-original-title="hello"><i class="rocked"><i>{{this.rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
          <a class="rock" href="#rock">Rocked it!</a>
          <span class="separator">-</span>
          <a class="comment" href="#comment">Comment</a>
          <span class="separator">-</span>
          <a class="follow" href="#follow">Follow</a>
+       </div>
+       <div id ="{{this.id.id}}-rockers" class="actions with-tooltips tooltips-top btn-group">
+          
        </div>
      </div>
    </div>
@@ -1464,6 +1467,10 @@
               <label for="user-name">User Name *<br/>
                 http://www.beamstream.com/</label>
               <input type="text" id="user-name" placeholder="@UserName" class="validate[required] span3">
+            </div>
+			<div class="element">
+              <label for="password">Password *<br/></label>
+              <input type="password" style="margin: 0 0 25px;" id="password" placeholder="password" class="validate[required] span3"> 
             </div>
             <div class="element">
               <label for="first-name">First Name</label>
@@ -1777,6 +1784,7 @@
 <script src="js/views/profileview.js"></script>
 <script src="js/views/streamview.js"></script>
 <script src="js/models/singleusermodel.js"></script>
+ 
 <script src="js/router.js"></script>
 
 
