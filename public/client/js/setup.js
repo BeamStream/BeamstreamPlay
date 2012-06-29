@@ -128,6 +128,19 @@ BS.newClass = "http://localhost:9000/newStream";
   BS.streamMessages = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStream";
   //expires the usersession
   BS.signOut ="http://beamstream-v3.herokuapp.com/signOut";
+  
+  // For JanRain component
+  BS.userPage ="http://beamstream-v3.herokuapp.com/userPage";
+  
+ // Get user details vai janRain
+  BS.userInfoViaJanRain ="http://beamstream-v3.herokuapp.com/getJSONviaJanrain";
+  
+ // For auto populate case -join a class
+  BS.joinClass = "http://beamstream-v3.herokuapp.com/joinStreams";
+  
+  // For Rocked It 
+  BS.rockedIt = "http://beamstream-v3.herokuapp.com/rockedIt"
+ // 
  
 
  
