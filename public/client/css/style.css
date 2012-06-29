@@ -410,6 +410,7 @@ ul.verify_buttons span a, ul.rockit li span a {
 }
 .block ul li a:hover{
 	text-decoration:underline;
+	color:#49a7d3;
 }
 
 .radio {
