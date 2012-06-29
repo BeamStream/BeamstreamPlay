@@ -47,7 +47,6 @@ object MessageController extends Controller {
     val messageId=Message.createMessage(messageToCreate)
     val messageObtained = Message.findMessageById(messageId)
     val messageJson = write(List(messageObtained))
-    println(messageJson)
     Ok(messageJson).as("application/json")
   }
 
@@ -72,7 +71,6 @@ object MessageController extends Controller {
     val streamId = streamIdJsonMap("streamId").toList(0)
     val allMessagesForAStream = Message.getAllMessagesForAStream(new ObjectId(streamId))
     val allMessagesForAStreamJson = write(allMessagesForAStream)
-    println(allMessagesForAStreamJson)
     Ok(allMessagesForAStreamJson).as("application/json")
   }
   
