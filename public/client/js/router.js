@@ -141,6 +141,13 @@ BS.AppRouter = Backbone.Router.extend({
    	   $('.modal-backdrop').hide();
        $('#content').html(this.streamView.el);
        $(".checkbox").dgStyle();
+       
+       $('.with-tooltips a, .with-tooltip').each(function() {
+           var $this = $(this);
+           var placement = $this.parent().hasClass('tooltips-bottom') ? 'bottom' : 'top';
+           $(this).tooltip({placement: placement});
+       });
+       
    },
    
   
