@@ -47,7 +47,6 @@ object MessageController extends Controller {
     val messageId=Message.createMessage(messageToCreate)
     val messageObtained = Message.findMessageById(messageId)
     val messageJson = write(List(messageObtained))
-    println(messageJson)
     Ok(messageJson).as("application/json")
   }
 
@@ -72,7 +71,6 @@ object MessageController extends Controller {
     val streamId = streamIdJsonMap("streamId").toList(0)
     val allMessagesForAStream = Message.getAllMessagesForAStream(new ObjectId(streamId))
     val allMessagesForAStreamJson = write(allMessagesForAStream)
-    println(allMessagesForAStreamJson)
     Ok(allMessagesForAStreamJson).as("application/json")
   }
   
@@ -80,9 +78,23 @@ object MessageController extends Controller {
    * Rock the message
    */
    def rockedTheMessage = Action { implicit request =>
-     println(request.body)
+     val messageIdJsonMap = request.body.asFormUrlEncoded.get
+     val messageId = messageIdJsonMap("messageId").toList(0)
+     val totalRocks=Message.rockedIt(new ObjectId(messageId),new ObjectId(request.session.get("userId").get))
+     val totalRocksJson=write(totalRocks.toString)
+     Ok(totalRocksJson).as("application/json")
+   }
+   
+   /*
+    * Rockers of message
+    */
+   def giveMeRockers =  Action { implicit request =>
+     val messageIdJsonMap = request.body.asFormUrlEncoded.get
+     val messageId = messageIdJsonMap("messageId").toList(0)
+     Message.rockersNames(new ObjectId(messageId))
      Ok
    }
+   
 
 }
 

@@ -26,6 +26,6 @@ object ApplicationBuild extends Build {
     (base / "app" / "assets" / "stylesheets" / "bootstrap" * "sprites.less") +++
     (base / "app" / "assets" / "stylesheets" * "*.less"))
 
-  val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
+    val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
     lessEntryPoints <<= baseDirectory(customLessEntryPoints))
 }

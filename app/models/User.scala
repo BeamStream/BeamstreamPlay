@@ -51,7 +51,6 @@ object User {
 
   }
 
-
   /*
    * displaying the message to user for notifying the authentication
    */
@@ -84,10 +83,10 @@ object User {
     val emailString: String = emailId.toUpperCase
 
     (emailString.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$") &&
-        !emailPart.contains(stringToMatch)) match {
-      case true => true
-      case false => false
-    }
+      !emailPart.contains(stringToMatch)) match {
+        case true => true
+        case false => false
+      }
   }
 
   /*
@@ -107,7 +106,6 @@ object User {
   /*
    * Adds a school to User (Intact)
    */
-
 
   def addSchoolToUser(userId: ObjectId, schoolId: ObjectId) {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
@@ -182,13 +180,24 @@ object User {
     userFound
   }
 
-   /*
+  /*
    * Add Document to user
    */
-  def addDocumentToUser(userId: ObjectId, document : ObjectId) {
+  def addDocumentToUser(userId: ObjectId, document: ObjectId) {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(documents = user.documents ++ List(document) ), false, false, new WriteConcern)
+    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(documents = user.documents ++ List(document)), false, false, new WriteConcern)
   }
+
+  /*
+   * Rockers name of a message
+   */
+
+  def giveMeTheRockers(users: List[ObjectId]): List[String] = {
+//  for (user <- users) yield (UserDAO.findOne(MongoDBObject("id" -> user)).get.firstName)
+   users map { user => UserDAO.findOne(MongoDBObject("id" -> user)).get.firstName }
+
+  }
+
 }
 
 /*
@@ -200,5 +209,4 @@ object UserType extends Enumeration {
   val Professional = Value(2, "Professional")
 }
 
- 
 object UserDAO extends SalatDAO[User, Int](collection = MongoHQConfig.mongoDB("user"))
