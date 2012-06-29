@@ -70,7 +70,7 @@ BS.newClass = "http://localhost:9000/newStream";
  
  // For Rocked It 
  BS.rockedIt = "http://localhost:9000/rockedIt"
- 
+// 
  
  /*
   * For Cloud
@@ -155,4 +155,4 @@ BS.newClass = "http://localhost:9000/newStream";
 //BS.userPage ="http://localhost:9000/userPage";
 //BS.userInfoViaJanRain ="http://localhost/client/api.php";
 //BS.joinClass = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
-//BS.rockedIt = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php"
+//BS.rockedIt = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";

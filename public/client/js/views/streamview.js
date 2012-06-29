@@ -17,7 +17,9 @@ BS.StreamView = Backbone.View.extend({
            "click ul#select-streams li a" : "showStreamList",
            "click #icon-up" :"slideUp",
            "click #icon-down" : "slideDown",
-           "click a.rock" : "rockedIt"
+           "click a.rock" : "rockedIt",
+//           "mouseenter i.rocked" : "showRockers",
+//           "mouseleave  i.rocked" : "hideRockers"
         	   
 		  
 	 },
@@ -247,7 +249,7 @@ BS.StreamView = Backbone.View.extend({
      */
     postMessage :function(eventName){
       eventName.preventDefault();
-      
+      var self= this;
       /* get message details from form */
       var messageAccess;
       var streamId = $('#streams-list li.active a').attr('id');
@@ -279,6 +281,11 @@ BS.StreamView = Backbone.View.extend({
 				  var datas = {
 					 		"datas" : data
 				  }
+				  
+//				// get all rockers list
+//				  _.each(data, function(msg) {
+//					  self.getRockers(msg.id.id);
+//				  });
 				  var source = $("#tpl-messages").html();
 				  var template = Handlebars.compile(source);
 				  $('.timeline_items').prepend(template(datas));
@@ -293,7 +300,7 @@ BS.StreamView = Backbone.View.extend({
      */
     getMessageInfo :function(streamid){
  
-         
+         var self = this;
          /* get all messages of a stream  */
 		 $.ajax({
 				type : 'POST',
@@ -308,7 +315,11 @@ BS.StreamView = Backbone.View.extend({
 					  var datas = {
 					 		"datas" : data
 					  }
-					 
+					  
+//					  // get all rockers list
+//					  _.each(data, function(msg) {
+//						  self.getRockers(msg.id.id);
+//					  });
 					  var source = $("#tpl-messages").html();
 					  var template = Handlebars.compile(source);
 					  $('.timeline_items').html(template(datas));
@@ -396,6 +407,15 @@ BS.StreamView = Backbone.View.extend({
 		 var element = eventName.target.parentElement;
 		 var msgId =$(element).closest('li').attr('id');
 		 
+		 // get all rockers list
+		 this.getRockers(msgId);
+ 
+	 },
+	 /**
+	  * get rockers 
+	  */
+	 getRockers :function(msgId){
+		 
 		 $.ajax({
              type: 'POST',
              url:BS.rockedIt,
@@ -405,12 +425,43 @@ BS.StreamView = Backbone.View.extend({
             	 
              dataType:"json",
              success:function(data){
-            	 
             	// display the count in icon
-            	$('li#'+msgId+'').find('i').find('i').html(data);
-           	   
+            	$('li#'+msgId+'').find('i').find('i').html(data.totalroks);
+//            	  var ul = '<ul>';
+//            	_.each(data.rockers, function(rocker) {
+//					 
+//            		ul+= '<li>'+rocker+'</li>';
+//			    });
+//            	ul+='</ul>';
+//                $('#'+msgId+'-rockers').html(ul);
+//                $('#'+msgId+'-rockers').hide();
              }
           });
+		 
+	 },
+	 
+	 /**
+	  * show rockers list on hover over
+	  */
+	 
+	 showRockers:function(eventName){
+		 
+		 eventName.preventDefault();
 		  
-	 }
+		 $(eventName.target).attr('data-original-title', 'hello') ;
+		 var element = eventName.target.parentElement;
+		 var msgId =$(element).closest('li').attr('id');
+		 
+		 $('#'+msgId+'-rockers').show();
+	 },
+	 
+	 /**
+	  * hide rockers list
+	  */
+	 hideRockers:function(eventName){
+		 eventName.preventDefault();
+		 var element = eventName.target.parentElement;
+		 var msgId =$(element).closest('li').attr('id');
+		 $('#'+msgId+'-rockers').hide();
+	 },
 });
