@@ -92,7 +92,6 @@ object MessageController extends Controller {
      val messageIdJsonMap = request.body.asFormUrlEncoded.get
      val messageId = messageIdJsonMap("messageId").toList(0)
      val weAreRockers=Message.rockersNames(new ObjectId(messageId))
-     println(weAreRockers)
      val WeAreRockersJson=write(weAreRockers)
      Ok(WeAreRockersJson).as("application/json")
    }

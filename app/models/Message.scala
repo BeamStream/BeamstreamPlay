@@ -95,11 +95,22 @@ object Message {
 
   def rockedIt(messageId: ObjectId, userId: ObjectId): Int = {
     val SelectedmessagetoRock = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+    
+    (SelectedmessagetoRock.rockers.contains(userId)) match {
+      
+    case true => 
+    SelectedmessagetoRock.rocks
+        
+    case false => 
     MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(rockers = (SelectedmessagetoRock.rockers ++ List(userId))), false, false, new WriteConcern)
     val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
     MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(rocks = (updatedMessage.rocks + 1)), false, false, new WriteConcern)
     val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
     finalMessage.rocks
+    }
+    
+    
+   
 
   }
 
