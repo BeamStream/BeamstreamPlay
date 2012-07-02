@@ -41,6 +41,9 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     assert(messageAfter.rockers.size === 1)
     assert(messageAfter.rockers(0) === user.id)
 
+    val rockersList = Message.rockersNames(messageAfter.id)
+    assert(rockersList === List("Neel"))
+
   }
 
   after {
