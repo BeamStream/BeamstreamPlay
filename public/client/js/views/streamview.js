@@ -444,18 +444,15 @@ BS.StreamView = Backbone.View.extend({
              success:function(data){
             	 
             	  // prepair rockers list
-            	  var ul = '<ul>';
+            	  var ul = '<ul class="rock-list">';
             	_.each(data, function(rocker) {
 					 
             		ul+= '<li>'+rocker+'</li>';
 			    });
             	ul+='</ul>';
-                
-                var source = $("#tpl-rockers-list").html();
-        		var template = Handlebars.compile(source);
-        		$('#list-popups').show();
-        		$('#list-popups').html(template);
-        		$('#lists').html(ul);
+ 
+        		$('#hover-lists-'+msgId+'').fadeIn("slow");
+        		$('#hover-lists-'+msgId+'').html(ul);
  
  
              }
@@ -486,7 +483,7 @@ BS.StreamView = Backbone.View.extend({
 		 eventName.preventDefault();
 		 var element = eventName.target.parentElement;
 		 var msgId =$(element).closest('li').attr('id');
-		 $('#list-popups').hide();
-//		 $('#'+msgId+'-rockers').hide();
+		 $('#hover-lists-'+msgId+'').fadeOut("slow");
+ 
 	 },
 });

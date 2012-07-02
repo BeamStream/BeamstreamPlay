@@ -388,7 +388,7 @@ ul.verify_buttons span a, ul.rockit li span a {
 	 padding: 15px 20px 45px 0;
 	width:630px;
 	height:100px;
-	background:#5a636b;
+	background:#3A4046;
 	border-radius: 5px 5px 5px 5px;
 }
 .block a{
@@ -738,21 +738,31 @@ ul.rockit li span a {
 	padding:6px 15px 3px 35px !important;
 }
 
-/* list in popups */
+/* rockers list in popups */
 .list-popup{
 
   padding : 10px;
   z-index: 1050;
-  width: 110px;
-  min-height: 100px;
-  background-color: #5A636B;
+  width: 100px;
+  line-height:20px;
+  background-color: #3A4046;
   border: 1px solid #999;
   border: 1px solid rgba(0, 0, 0, 0.3);
   *border: 1px solid #999;
   font-family: UbuntuRegular;
   color: #fff;
   display: none ;
-  left: 45%;
+  left: 25%;
+  top:43px;
   position: absolute !important;
+  border-radius: 4px 4px 4px 4px;
+	
+}
+.timeline ul li
+{
+	 position: relative !important;
+}
+.rock-list{
+	 margin: 0px !important;
 	
 }
