@@ -124,12 +124,14 @@ BS.RegistrationView = Backbone.View.extend({
 				dataType : "json",
 				success : function(data) {
 					if (data.status == "Success") {
+						
+						 
 						// navigate to main stream page
 						BS.AppRouter.navigate("school", {
 							trigger : true,
 							replace : true
 						});
-						console.log(data.message);
+						 
 					} else {
 						console.log(data.message);
 					}

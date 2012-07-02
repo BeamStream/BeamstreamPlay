@@ -22,7 +22,8 @@ BS.SchoolView = Backbone.View.extend({
      * render school Info screen
      */
     render:function (eventName) {
-        
+     
+    	
         $(this.el).html(this.template);
         return this;
     },
