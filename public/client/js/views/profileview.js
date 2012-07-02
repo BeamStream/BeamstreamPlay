@@ -87,7 +87,7 @@ BS.ProfileView = Backbone.View.extend({
         	    },
         	    url: BS.saveProfile,
         	   // cache: false,
-        	    contentType: 'json',
+        	    contentType: 'multipart/form-data',
         	   // processData: false,
         	    success: function(data){
         	    	// navigate to main stream page
