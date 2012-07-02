@@ -285,10 +285,10 @@ BS.StreamView = Backbone.View.extend({
 					 		"datas" : data
 				  }
 				  
-				// get all rockers list
-				  _.each(data, function(msg) {
-					  self.getRockers(msg.id.id);
-				  });
+//				// get all rockers list
+//				  _.each(data, function(msg) {
+//					  self.getRockers(msg.id.id);
+//				  });
 				  var source = $("#tpl-messages").html();
 				  var template = Handlebars.compile(source);
 				  $('.timeline_items').prepend(template(datas));
@@ -319,10 +319,10 @@ BS.StreamView = Backbone.View.extend({
 					 		"datas" : data
 					  }
 					  
-					  // get all rockers list
-					  _.each(data, function(msg) {
-						  self.getRockers(msg.id.id);
-					  });
+//					  // get all rockers list
+//					  _.each(data, function(msg) {
+//						  self.getRockers(msg.id.id);
+//					  });
 					  var source = $("#tpl-messages").html();
 					  var template = Handlebars.compile(source);
 					  $('.timeline_items').html(template(datas));
@@ -431,7 +431,7 @@ BS.StreamView = Backbone.View.extend({
 	 /**
 	  * get rockers 
 	  */
-	 getRockers :function(msgId){
+	 getRockers :function(msgId,position){
 		  
 		 $.ajax({
              type: 'POST',
@@ -443,15 +443,21 @@ BS.StreamView = Backbone.View.extend({
              dataType:"json",
              success:function(data){
             	 
-//            	  // prepair rockers list
-//            	  var ul = '<ul>';
-//            	_.each(data, function(rocker) {
-//					 
-//            		ul+= '<li>'+rocker+'</li>';
-//			    });
-//            	ul+='</ul>';
-//                $('#'+msgId+'-rockers').html(ul);
-//                $('#'+msgId+'-rockers').hide();
+            	  // prepair rockers list
+            	  var ul = '<ul>';
+            	_.each(data, function(rocker) {
+					 
+            		ul+= '<li>'+rocker+'</li>';
+			    });
+            	ul+='</ul>';
+                
+                var source = $("#tpl-rockers-list").html();
+        		var template = Handlebars.compile(source);
+        		$('#list-popups').show();
+        		$('#list-popups').html(template);
+        		$('#lists').html(ul);
+ 
+ 
              }
           });
 		 
@@ -467,8 +473,10 @@ BS.StreamView = Backbone.View.extend({
 		 
 		 var element = eventName.target.parentElement;
 		 var msgId =$(element).closest('li').attr('id');
-		 this.getRockers(msgId);
-		 $('#'+msgId+'-rockers').show();
+		 var position = $('li#'+msgId+'').find('i').position();
+		  
+		 this.getRockers(msgId,position);
+ 
 	 },
 	 
 	 /**
@@ -478,6 +486,7 @@ BS.StreamView = Backbone.View.extend({
 		 eventName.preventDefault();
 		 var element = eventName.target.parentElement;
 		 var msgId =$(element).closest('li').attr('id');
-		 $('#'+msgId+'-rockers').hide();
+		 $('#list-popups').hide();
+//		 $('#'+msgId+'-rockers').hide();
 	 },
 });

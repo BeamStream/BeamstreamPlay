@@ -737,3 +737,22 @@ ul.rockit li span a {
 .tag-position{
 	padding:6px 15px 3px 35px !important;
 }
+
+/* list in popups */
+.list-popup{
+
+  padding : 10px;
+  z-index: 1050;
+  width: 110px;
+  min-height: 100px;
+  background-color: #5A636B;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+  font-family: UbuntuRegular;
+  color: #fff;
+  display: none ;
+  left: 45%;
+  position: absolute !important;
+	
+}
