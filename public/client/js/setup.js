@@ -7,7 +7,8 @@
  /*
   * Config Variables for Url externalization
   */
- /*
+ 
+  
 //For Login Page
 BS.login = "http://localhost:9000/users";
 
@@ -72,12 +73,12 @@ BS.newClass = "http://localhost:9000/newStream";
  BS.rockedIt = "http://localhost:9000/rockedIt"
 // 
  
- */
+ 
  /*
   * For Cloud
   */
  
-   
+   /*
 
 //For Login Page
  BS.login = "http://beamstream-v3.herokuapp.com/users";
@@ -143,7 +144,7 @@ BS.newClass = "http://localhost:9000/newStream";
  // 
  
 
- 
+ */
  
  
 /* 
