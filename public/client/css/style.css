@@ -228,7 +228,7 @@
 	margin-right: 10px;
 }
 .checkbox_wrapper {
-/* 	width:263px; */
+	width:283px;
 	float:left;
 	font-size:18px;
 	line-height:37px;
@@ -717,6 +717,7 @@ ul.rockit li span a {
   background-image: none;
   margin-left: 7px;
   padding: 0;
+ 
 }
 .main_menu.navbar .nav.pull-right li .photo_container {
   height: 36px;

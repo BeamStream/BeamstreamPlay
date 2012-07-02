@@ -78,6 +78,8 @@ BS.AppRouter = Backbone.Router.extend({
              this.schoolView.render();
 //         }
  
+       
+         
          $('#school-popup').html(this.schoolView.el);  
          $(".modal select:visible").selectBox();
          $('.modal .datepicker').datepicker();
@@ -141,6 +143,13 @@ BS.AppRouter = Backbone.Router.extend({
    	   $('.modal-backdrop').hide();
        $('#content').html(this.streamView.el);
        $(".checkbox").dgStyle();
+       
+       $('.with-tooltips a, .with-tooltip').each(function() {
+           var $this = $(this);
+           var placement = $this.parent().hasClass('tooltips-bottom') ? 'bottom' : 'top';
+           $(this).tooltip({placement: placement});
+       });
+       
    },
    
   
@@ -223,7 +232,7 @@ BS.AppRouter = Backbone.Router.extend({
            this.emailView = new BS.verifyEmailView();
            this.emailView.render();
        }
- 	 
+  	
        $('#school-popup').html(this.emailView.el);  
        $(".modal select:visible").selectBox();
        $(".checkbox").dgStyle();

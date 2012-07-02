@@ -137,34 +137,56 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	toNextPage : function(eventName) {
 
 		eventName.preventDefault();
-        var validate = jQuery('#registration-form').validationEngine('validate');
+        var validate = jQuery('#social-media-signup').validationEngine('validate');
         
         if(validate == true){
         
 			var regDetails = this.getFormData();
 	
-			/* post basic profile registration details */
-			$.ajax({
-				type : 'POST',
-				url : BS.registerNewUser,
-				data : {
-					data : regDetails
-				},
-				dataType : "json",
-				success : function(data) {
-					if (data.status == "Success") {
-						// navigate to main stream page
-						BS.AppRouter.navigate("school", {
-							trigger : true,
-							replace : true
-						});
-						console.log(data.message);
-					} else {
-						console.log(data.message);
-					}
-	
-				}
-			});
+			 // valid I'm field
+            if(regDetails == false)
+            {
+            	console.log("Please fill I'm field");
+            	$('#error').html("Please select  I'm field");
+            }
+            else
+            {
+            	if(regDetails == 1)
+            	{
+            		$('#school-email').val("");
+            		$('#school-email').focus();
+                	$('#error').html("Invalid Email address");
+            	}
+            	else
+            	{
+            	
+			
+					/* post basic profile registration details */
+					$.ajax({
+						type : 'POST',
+						url : BS.registerNewUser,
+						data : {
+							data : regDetails
+						},
+						dataType : "json",
+						success : function(data) {
+							if (data.status == "Success") {
+								
+								
+								// navigate to main stream page
+								BS.AppRouter.navigate("school", {
+									trigger : true,
+									replace : true
+								});
+								console.log(data.message);
+							} else {
+								console.log(data.message);
+							}
+			
+						}
+					});
+            	}
+            }
         }
         else
         {

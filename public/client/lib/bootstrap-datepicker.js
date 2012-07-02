@@ -135,15 +135,19 @@
 		},
 		
 		setValue: function() {
+			 
 			var formated = DPGlobal.formatDate(this.date, this.format);
 			if (!this.isInput) {
 				if (this.component){
+					
 					this.element.find('input').prop('value', formated);
 				}
+				alert(34);
 				this.element.data('date', formated);
 			} else {
 				this.element.prop('value', formated);
 			}
+			 
 		},
 		
 		place: function(){
@@ -155,11 +159,14 @@
 		},
 		
 		update: function(){
+			 
 			this.date = DPGlobal.parseDate(
 				this.isInput ? this.element.prop('value') : this.element.data('date'),
 				this.format
 			);
+			 
 			this.viewDate = new Date(this.date);
+			 
 			this.fill();
 		},
 		
@@ -187,6 +194,7 @@
 				year = d.getFullYear(),
 				month = d.getMonth(),
 				currentDate = this.date.valueOf();
+		 
 			this.picker.find('.datepicker-days th:eq(1)')
 						.text(DPGlobal.dates.months[month]+' '+year);
 			var prevMonth = new Date(year, month-1, 28,0,0,0,0),
@@ -369,8 +377,9 @@
 			return {separator: separator, parts: parts};
 		},
 		parseDate: function(date, format) {
+			 
 			var parts = date.split(format.separator),
-				date = new Date(1970, 1, 1, 0, 0, 0),
+				date = new Date(),
 				val;
 			if (parts.length == format.parts.length) {
 				for (var i=0, cnt = format.parts.length; i < cnt; i++) {
@@ -393,6 +402,7 @@
 					}
 				}
 			}
+		 
 			return date;
 		},
 		formatDate: function(date, format){
@@ -408,6 +418,7 @@
 			for (var i=0, cnt = format.parts.length; i < cnt; i++) {
 				date.push(val[format.parts[i]]);
 			}
+			 
 			return date.join(format.separator);
 		},
 		headTemplate: '<thead>'+

@@ -71,8 +71,7 @@ BS.newClass = "http://localhost:9000/newStream";
  
  // For Rocked It 
  BS.rockedIt = "http://localhost:9000/rockedIt"
-// 
- 
+
  
  /*
   * For Cloud

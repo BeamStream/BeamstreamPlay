@@ -237,6 +237,11 @@ BS.StreamView = Backbone.View.extend({
     selectOneStream :function(eventName){
       eventName.preventDefault();
       var id = eventName.target.id;
+      streamName = $('#'+id+'').text();
+     
+////      $('#stream-name').after().html(454);
+//      $('#stream-name').find('i').insertAfter('.icon-lock');
+      
       $('#streams-list li.active').removeClass('active');
       $('#'+id).parents('li').addClass('active');
       
@@ -407,8 +412,22 @@ BS.StreamView = Backbone.View.extend({
 		 var element = eventName.target.parentElement;
 		 var msgId =$(element).closest('li').attr('id');
 		 
-		 // get all rockers list
-		 this.getRockers(msgId);
+		 $.ajax({
+             type: 'POST',
+             url:BS.rockedIt,
+             data:{
+            	  messageId:msgId
+            	 },
+            	 
+             dataType:"json",
+             success:function(data){
+            	 
+            	// display the count in icon
+            	$('li#'+msgId+'').find('i').find('i').html(data);
+ 
+             }
+          });
+ 
  
 	 },
 	 /**
