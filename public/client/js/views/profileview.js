@@ -38,24 +38,24 @@ BS.ProfileView = Backbone.View.extend({
         	
     		var data;
 
-        	/*
+        	 
     		data = new FormData();
      	    data.append('imageName',$('#imagedata').attr("name"));
      	    data.append('imageData',$('#imagedata').val());
      	    data.append('videoName', $('#videodata').attr("name"));
  
-     	   data.append('videoData', $('#videodata').val());
+     	    data.append('videoData', $('#videodata').val());
      		data.append('mobile',$('#mobile').val());
-     	   data.append('upload',$('#upload').val());
+     	    data.append('upload',$('#upload').val());
      	   
-     	   */
+     	    
         	
-        	data = new FormData();
-     	    data.append('imageData', $('#profile-image')[0].files[0]);
-     	    data.append('video', $('#my-video')[0].files[0] );
-     		data.append('mobile',$('#mobile').val());
-     		data.append('upload',$('#upload').val());
-     		
+//        	data = new FormData();
+//     	    data.append('imageData', $('#profile-image')[0].files[0]);
+//     	    data.append('video', $('#my-video')[0].files[0]);
+//     		data.append('mobile',$('#mobile').val());
+//     		data.append('upload',$('#upload').val());
+//     		
  
  
         	/* post profile page details */
