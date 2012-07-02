@@ -90,7 +90,7 @@ POST  /getMediafromPost                                   controllers.MediaContr
 #Message Rocks
 
 POST /rockedIt                                        controllers.MessageController.rockedTheMessage
-
+POST /returnRockers                                   controllers.MessageController.giveMeRockers
 
 
 # Map static resources from the /public folder to the /assets URL path
