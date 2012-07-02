@@ -70,7 +70,9 @@ BS.newClass = "http://localhost:9000/newStream";
  BS.joinClass = "http://localhost:9000/joinStreams";
  
  // For Rocked It 
- BS.rockedIt = "http://localhost:9000/rockedIt"
+ BS.rockedIt = "http://localhost:9000/rockedIt";
+ // Get Rockers list
+ BS.rockersList  = "http://localhost:9000/returnRockers";
 
  
  /*
@@ -170,3 +172,5 @@ BS.newClass = "http://localhost:9000/newStream";
 //BS.userInfoViaJanRain ="http://localhost/client/api.php";
 //BS.joinClass = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
 //BS.rockedIt = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
+//BS.rockersList  = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
+
