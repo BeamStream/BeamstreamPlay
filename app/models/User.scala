@@ -193,9 +193,10 @@ object User {
    */
 
   def giveMeTheRockers(users: List[ObjectId]): List[String] = {
-//  for (user <- users) yield (UserDAO.findOne(MongoDBObject("id" -> user)).get.firstName)
-   users map { user => UserDAO.findOne(MongoDBObject("id" -> user)).get.firstName }
-
+  
+ //for (user <- users) yield (UserDAO.findOne(MongoDBObject("_id" -> user)).get.firstName)
+   users map { user => UserDAO.findOne(MongoDBObject("_id" -> user)).get.firstName }
+ 
   }
 
 }
