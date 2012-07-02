@@ -18,8 +18,8 @@ BS.StreamView = Backbone.View.extend({
            "click #icon-up" :"slideUp",
            "click #icon-down" : "slideDown",
            "click a.rock" : "rockedIt",
-           "mouseenter i.rocked" : "showRockers",
-           "mouseleave  i.rocked" : "hideRockers"
+           "mouseenter a#rocks" : "showRockers",
+           "mouseleave a#rocks" : "hideRockers"
         	   
 		  
 	 },
@@ -444,7 +444,7 @@ BS.StreamView = Backbone.View.extend({
              success:function(data){
             	 
             	  // prepair rockers list
-            	  var ul = '<ul class="rock-list">';
+            	  var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">Who Rocked it ?</div><ul class="rock-list">';
             	_.each(data, function(rocker) {
 					 
             		ul+= '<li>'+rocker+'</li>';

@@ -743,7 +743,7 @@ ul.rockit li span a {
 
   padding : 10px;
   z-index: 1050;
-  width: 100px;
+  width: 110px;
   line-height:20px;
   background-color: #3A4046;
   border: 1px solid #999;
@@ -752,8 +752,8 @@ ul.rockit li span a {
   font-family: UbuntuRegular;
   color: #fff;
   display: none ;
-  left: 25%;
-  top:43px;
+  left: 35%;
+  top:50px;
   position: absolute !important;
   border-radius: 4px 4px 4px 4px;
 	
