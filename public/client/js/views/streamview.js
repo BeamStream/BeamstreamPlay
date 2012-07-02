@@ -18,8 +18,8 @@ BS.StreamView = Backbone.View.extend({
            "click #icon-up" :"slideUp",
            "click #icon-down" : "slideDown",
            "click a.rock" : "rockedIt",
-//           "mouseenter i.rocked" : "showRockers",
-//           "mouseleave  i.rocked" : "hideRockers"
+           "mouseenter i.rocked" : "showRockers",
+           "mouseleave  i.rocked" : "hideRockers"
         	   
 		  
 	 },
@@ -238,9 +238,7 @@ BS.StreamView = Backbone.View.extend({
       eventName.preventDefault();
       var id = eventName.target.id;
       streamName = $('#'+id+'').text();
-     
-////      $('#stream-name').after().html(454);
-//      $('#stream-name').find('i').insertAfter('.icon-lock');
+
       
       $('#streams-list li.active').removeClass('active');
       $('#'+id).parents('li').addClass('active');
@@ -287,10 +285,10 @@ BS.StreamView = Backbone.View.extend({
 					 		"datas" : data
 				  }
 				  
-//				// get all rockers list
-//				  _.each(data, function(msg) {
-//					  self.getRockers(msg.id.id);
-//				  });
+				// get all rockers list
+				  _.each(data, function(msg) {
+					  self.getRockers(msg.id.id);
+				  });
 				  var source = $("#tpl-messages").html();
 				  var template = Handlebars.compile(source);
 				  $('.timeline_items').prepend(template(datas));
@@ -321,10 +319,10 @@ BS.StreamView = Backbone.View.extend({
 					 		"datas" : data
 					  }
 					  
-//					  // get all rockers list
-//					  _.each(data, function(msg) {
-//						  self.getRockers(msg.id.id);
-//					  });
+					  // get all rockers list
+					  _.each(data, function(msg) {
+						  self.getRockers(msg.id.id);
+					  });
 					  var source = $("#tpl-messages").html();
 					  var template = Handlebars.compile(source);
 					  $('.timeline_items').html(template(datas));
@@ -434,20 +432,20 @@ BS.StreamView = Backbone.View.extend({
 	  * get rockers 
 	  */
 	 getRockers :function(msgId){
-		 
+		  
 		 $.ajax({
              type: 'POST',
-             url:BS.rockedIt,
+             url:BS.rockersList,
              data:{
             	  messageId:msgId
             	 },
             	 
              dataType:"json",
              success:function(data){
-            	// display the count in icon
-            	$('li#'+msgId+'').find('i').find('i').html(data.totalroks);
+            	 
+//            	  // prepair rockers list
 //            	  var ul = '<ul>';
-//            	_.each(data.rockers, function(rocker) {
+//            	_.each(data, function(rocker) {
 //					 
 //            		ul+= '<li>'+rocker+'</li>';
 //			    });
@@ -466,11 +464,10 @@ BS.StreamView = Backbone.View.extend({
 	 showRockers:function(eventName){
 		 
 		 eventName.preventDefault();
-		  
-		 $(eventName.target).attr('data-original-title', 'hello') ;
+		 
 		 var element = eventName.target.parentElement;
 		 var msgId =$(element).closest('li').attr('id');
-		 
+		 this.getRockers(msgId);
 		 $('#'+msgId+'-rockers').show();
 	 },
 	 
