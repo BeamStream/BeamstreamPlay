@@ -16,13 +16,10 @@ class UserTest extends FunSuite with BeforeAndAfter {
   val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List())
   val user2 = User(new ObjectId, UserType.Professional, "crizzcoxx@beamstream.com", "Crizz", "coxx", "", "Chris", "Crizz", "BeamStream", "", List(), List(), List(), List())
 
-  val mySchool1 = School(new ObjectId, "MPS", Year.Freshman, Degree.Assosiates,
-    "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013),"", List())
-
+  val mySchool1 = School(new ObjectId, "MPS", Year.Freshman, Degree.Assosiates, "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), "", List())
   val class1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
 
   before {
-
     User.createUser(user1)
     User.createUser(user2)
 
@@ -49,21 +46,20 @@ class UserTest extends FunSuite with BeforeAndAfter {
     val user3 = User(new ObjectId, UserType.Professional, "john@knoldus.com", "John", "Sachdeva", "", "John", "John", "Knoldus", "", List(), List(), List(), List())
     val userId = User.createUser(user3)
     assert(UserDAO.find(MongoDBObject()).size === 3)
-    
+
     val createdUser = UserDAO.find(MongoDBObject("email" -> "john@knoldus.com")).toList(0)
     assert(createdUser.schoolId.size == 0)
-    
+
     User.addInfo(List(mySchool1), userId)
     val createdUserAfteraddingSchool = UserDAO.find(MongoDBObject("email" -> "john@knoldus.com")).toList(0)
     assert(createdUserAfteraddingSchool.schoolId.size === 1)
-
   }
 
   test("Add Class to User") {
     val user3 = User(new ObjectId, UserType.Professional, "john@knoldus.com", "John", "Sachdeva", "", "John", "John", "Knoldus", "", List(), List(), List(), List())
     val userId = User.createUser(user3)
     assert(UserDAO.find(MongoDBObject()).size === 3)
-    
+
     val createdUser = UserDAO.find(MongoDBObject("email" -> "john@knoldus.com")).toList(0)
     assert(createdUser.classId.size == 0)
 
@@ -80,6 +76,18 @@ class UserTest extends FunSuite with BeforeAndAfter {
     val userId = User.createUser(user3)
     val userObtained = User.getUserProfile(userId)
     assert(userObtained.email === "john@knoldus.com")
+  }
+
+  test("Is User already registered ?") {
+    val user3 = User(new ObjectId, UserType.Professional, "john@knoldus.com", "John", "Sachdeva", "Johny", "John", "John", "Knoldus", "", List(), List(), List(), List())
+    val userId = User.createUser(user3)
+    // Checking for user name
+    val isUseralreadyregistered = User.isAlreadyRegistered("john@knoldus.com", "Johny")
+    assert(isUseralreadyregistered === false)
+
+    // Checking for user Email
+    val isUseralreadyregistered1 = User.isAlreadyRegistered("john@gmail.com", "Johny")
+    assert(isUseralreadyregistered1 === false)
 
   }
 

@@ -51,13 +51,14 @@ object User {
 
   }
 
-  /*
-   * displaying the message to user for notifying the authentication
-   */
+//  /*
+//   * displaying the message to user for notifying the authentication
+//   */
+//
+//  def message(notification: String): String = {
+//    notification
+//  }
 
-  def message(notification: String): String = {
-    notification
-  }
   /*
  * Creates a User
  */
@@ -180,10 +181,7 @@ object User {
 
   }
 
-  def usertypes: Seq[(String, String)] = {
-    val usertype = for (value <- UserType.values) yield (value.id.toString, value.toString)
-    usertype.toSeq
-  }
+ 
 
   /*
   * Find User By Id
