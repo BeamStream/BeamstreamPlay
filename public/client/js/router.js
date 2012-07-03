@@ -78,9 +78,9 @@ BS.AppRouter = Backbone.Router.extend({
              this.schoolView.render();
 //         }
  
-       
-         
          $('#school-popup').html(this.schoolView.el);  
+         if(BS.schoolFromPrev)
+            $('#school-name-1').val(BS.schoolFromPrev);
          $(".modal select:visible").selectBox();
          $('.modal .datepicker').datepicker();
          /* hide some fields on page load */

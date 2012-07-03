@@ -17,7 +17,7 @@ BS.StreamView = Backbone.View.extend({
            "click ul#select-streams li a" : "showStreamList",
            "click #icon-up" :"slideUp",
            "click #icon-down" : "slideDown",
-           "click a.rock" : "rockedIt",
+           "click i.rocked" : "rockedIt",
            "mouseenter a#rocks" : "showRockers",
            "mouseleave a#rocks" : "hideRockers"
         	   

@@ -172,6 +172,8 @@ BS.MediaRegistrationView = Backbone.View.extend({
 						success : function(data) {
 							if (data.status == "Success") {
 								
+								// save school name 
+								BS.schoolFromPrev =  $('#school-name').val();
 								
 								// navigate to main stream page
 								BS.AppRouter.navigate("school", {

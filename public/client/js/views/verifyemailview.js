@@ -2,7 +2,8 @@ BS.verifyEmailView = Backbone.View.extend({
 
 	events: {
 		 "click #no-schoolmail" : "addSchoolEmail",
-		 "click #register" : "registration"
+		 "click #register" : "registration",
+		 "change #iam" : "changeEmailText"
 	      
 	 },
 	
@@ -111,6 +112,31 @@ BS.verifyEmailView = Backbone.View.extend({
     	var mailDetails = JSON.stringify(emailModel);
     	return mailDetails;
     	
+    },
+    
+    /**
+     * change Email title depending on I'm field
+     */
+    changeEmailText :function(eventName){
+    	var id = eventName.target.id;
+  	    var dat='#'+id;
+  	    var iam = $('#iam').val();
+  	    
+  	    // if select "Professional"  change Email to  "Work email"
+  	    if(iam == 2)
+  	    {
+  	    	$('#email-label').text("Work email *");
+  	    	
+  	    }
+  	    // if select "Student" or "Educator" change Email to  "School email"
+  	    else if(iam == 0 || iam == 1)
+  	    {
+  	    	$('#email-label').text("School email *");
+  	    }
+  	    else
+  	    {
+  	    	$('#email-label').text("Email *");
+  	    }
     }
     
 });

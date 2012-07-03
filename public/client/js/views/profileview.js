@@ -39,56 +39,32 @@ BS.ProfileView = Backbone.View.extend({
     		var data;
 
         	 
-//    		data = new FormData();
-//     	    data.append('imageName',$('#imagedata').attr("name"));
-//     	    data.append('imageData',$('#imagedata').val());
-//     	    data.append('videoName', $('#videodata').attr("name"));
-// 
-//     	    data.append('videoData', $('#videodata').val());
-//     		data.append('mobile',$('#mobile').val());
-//     	    data.append('upload',$('#upload').val());
+    		data = new FormData();
+     	    data.append('imageName',$('#imagedata').attr("name"));
+     	    data.append('imageData',$('#imagedata').val());
+     	    data.append('videoName', $('#videodata').attr("name"));
+ 
+     	    data.append('videoData', $('#videodata').val());
+     		data.append('mobile',$('#mobile').val());
+     	    data.append('upload',$('#upload').val());
      	   
-     	    data = {
-     	    		imageName : $('#imagedata').attr("name"),
-     	    		imageData :$('#imagedata').val(),
-     	    		videoName : $('#videodata').attr("name"),
-     	    		videoData : $('#videodata').val(),
-     	    		mobile :$('#mobile').val(),
-     	    		upload :$('#upload').val()
-     	    }
-        	 
-     	    var a1 =  $('#imagedata').attr("name");
-     	   var a2 = $('#imagedata').val();
-     	  var a3 =$('#videodata').attr("name");
-     	 var a4 =$('#videodata').val();
-     	var a5 =$('#mobile').val();
-     	var a6 =$('#upload').val();
-     	
+     	    
 //        	data = new FormData();
 //     	    data.append('imageData', $('#profile-image')[0].files[0]);
 //     	    data.append('video', $('#my-video')[0].files[0]);
 //     		data.append('mobile',$('#mobile').val());
 //     		data.append('upload',$('#upload').val());
-//     		
+     		
  
  
         	/* post profile page details */
         	$.ajax({
         	    type: 'POST',
-        	    data: {
-        	    	
-        	    	
-     	    		videoName : a3,
-     	    		videoData : a4,
-     	    		mobile : a5,
-        	    	imageName : a1,
-        	    	imageData :a2,
-     	    		upload : a6,
-        	    },
+        	    data: data,
         	    url: BS.saveProfile,
-        	   // cache: false,
-        	    contentType: 'multipart/form-data',
-        	   // processData: false,
+        	    cache: false,
+        	    contentType: false,
+        	    processData: false,
         	    success: function(data){
         	    	// navigate to main stream page
         	    	BS.AppRouter.navigate("streams", {trigger: true, replace: true});
