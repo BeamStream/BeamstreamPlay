@@ -28,6 +28,7 @@ object UserController extends Controller {
  * Find and Authenticate the user to proceed
  */
   def findUser = Action { implicit request =>
+    
     val userJsonMap = request.body.asFormUrlEncoded.get
     val user = userJsonMap("data").toList(0)
 
@@ -39,7 +40,6 @@ object UserController extends Controller {
 
     authenticatedUser match {
       case Some(user) =>
-
         val jsonStatus = new ResulttoSent("success", "Login Successfull")
         val statusToSend = write(jsonStatus)
         val userSession = request.session + ("userId" -> user.id.toString)
@@ -47,7 +47,6 @@ object UserController extends Controller {
         Ok(statusToSend).as("application/json").withSession(userSession)
 
       case None =>
-
         val jsonStatus = new ResulttoSent("failure", "Login Unsuccessfull")
         val statusToSend = write(jsonStatus)
         Ok(statusToSend).as("application/json")
