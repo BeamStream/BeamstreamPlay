@@ -15,7 +15,7 @@ import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 
 case class School(@Key("_id") id: ObjectId, schoolName: String, year: Year.Value, degree: Degree.Value, major: String,
-  graduated: Graduated.Value, graduationDate: Option[Date], degreeExpected: Option[DegreeExpected.Value], classes: List[Class])
+  graduated: Graduated.Value, graduationDate: Option[Date], degreeExpected: Option[DegreeExpected.Value],otherDegree:String, classes: List[Class])
 
 object School {
 

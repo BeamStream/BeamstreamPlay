@@ -13,13 +13,13 @@ class SchoolTest extends FunSuite with BeforeAndAfter {
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
   val myschool1 = School(new ObjectId, "MPS", Year.Freshman, Degree.Assosiates,
-    "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), List())
+    "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013),"", List())
 
   val myschool2 = School(new ObjectId, "DPS", Year.Freshman, Degree.Assosiates,
-    "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), List())
+    "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013),"", List())
 
   val myschool3 = School(new ObjectId, "DPS", Year.Freshman, Degree.Assosiates,
-    "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), List())
+    "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), "",List())
 
   before {
     School.createSchool(List(myschool1, myschool2, myschool3))
