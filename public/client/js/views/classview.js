@@ -11,9 +11,9 @@ BS.ClassView = Backbone.View.extend({
 	},
 
 	initialize : function() {
-		
+		sClasses = 1;
 		console.log('Initializing Class View');
-		BS.saveStatus = false;
+//		BS.saveStatus = false;
 		this.schools = new BS.SchoolCollection();
 		this.schools.bind("reset", this.renderSchools, this);
 		 
@@ -35,11 +35,11 @@ BS.ClassView = Backbone.View.extend({
 		
 		eventName.preventDefault();
 		 
-		if(BS.saveStatus == true)
-		{
-	
+//		if(BS.saveStatus == true)
+//		{
+//	
 			var validate = jQuery('#class-form').validationEngine('validate');
-			
+			 
 			if(validate == true)
 		    {
 				$('#save').attr('data-dismiss','modal');
@@ -62,7 +62,6 @@ BS.ClassView = Backbone.View.extend({
 				}
 				else
 				{
-	//			    $('#'+BS.invalidItem).focus();  // set focus to calebdar 
 					$('#error').html("Please fill all details for a class");
 				}
 				
@@ -72,21 +71,22 @@ BS.ClassView = Backbone.View.extend({
 				console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
 				$('#error').html("You must enter atleast one class");
 		    }
-		}
-		else
-		{
-			BS.AppRouter.navigate("streams", {trigger: true, replace: true});
-		}
+//		}
+//		else
+//		{
+//			BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+//		}
 	},
 
 	/**
 	 * render class Info screen
 	 */
 	render : function(eventName) {
-	 
+	    
 		var sCount = {
 				"sCount" : sClasses,
-				"schools": this.schools 
+				"schools": this.schools,
+				"times" : BS.times
 		}
 		 
 		$(this.el).html(this.template(sCount));
@@ -124,8 +124,8 @@ BS.ClassView = Backbone.View.extend({
 		console.log("to profile");
 		eventName.preventDefault();
 		 
-		if(BS.saveStatus == true)
-		{
+//		if(BS.saveStatus == true)
+//		{
 			var validate = jQuery('#class-form').validationEngine('validate');
 			if(validate == true)
 		    {
@@ -152,14 +152,14 @@ BS.ClassView = Backbone.View.extend({
 				console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
 				$('#error').html("You must enter atleast one class");
 		    }
-		}
-		else
-		{
-			BS.AppRouter.navigate("profile", {
-				trigger : true,
-				replace : true
-			});
-		}
+//		}
+//		else
+//		{
+//			BS.AppRouter.navigate("profile", {
+//				trigger : true,
+//				replace : true
+//			});
+//		}
 	},
 
 	/**
@@ -168,7 +168,7 @@ BS.ClassView = Backbone.View.extend({
 	addClasses : function(eventName) {
 		
 		eventName.preventDefault();
-		BS.saveStatus = true;
+//		BS.saveStatus = true;
 		var id = eventName.target.id;
 		var dat='#'+id;
 		$(dat).hide();
@@ -208,7 +208,7 @@ BS.ClassView = Backbone.View.extend({
     	var sCount = {
 				"sCount" : sClasses,
 		}
-    	console.log(selectAnother);
+    	 
     	var source = $("#add-school").html();
 		var template = Handlebars.compile(source);
 		$('#class-form').append(template(sCount));
