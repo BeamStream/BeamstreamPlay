@@ -122,6 +122,7 @@ BS.verifyEmailView = Backbone.View.extend({
   	    var dat='#'+id;
   	    var iam = $('#iam').val();
   	    
+  	    
   	    // if select "Professional"  change Email to  "Work email"
   	    if(iam == 2)
   	    {
