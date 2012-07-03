@@ -134,7 +134,7 @@ BS.RegistrationView = Backbone.View.extend({
 						});
 						 
 					} else {
-						console.log(data.message);
+						$('#error').html("This User Email or Name is already taken");
 					}
 	
 				}

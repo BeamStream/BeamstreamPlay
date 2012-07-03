@@ -182,7 +182,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 								});
 								console.log(data.message);
 							} else {
-								console.log(data.message);
+								$('#error').html("This User Email or Name is already taken");
 							}
 			
 						}
