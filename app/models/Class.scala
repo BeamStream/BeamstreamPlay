@@ -22,24 +22,8 @@ object Class {
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
   implicit val formats = DefaultFormats
 
-  /*
- * Will display all class types on html form
- */
-
-  def classtypes: Seq[(String, String)] = {
-    val classes = for (value <- ClassType.values) yield (value.id.toString, value.toString)
-    classes.toSeq
-  }
-
-  /*
- * Displays the all existing School list
- */
-
-  def schoolnames: Seq[(String, String)] = {
-    val school = SchoolDAO.find(MongoDBObject("schoolName" -> ".*".r))
-    val schools = for (value <- school) yield (value.id.toString, value.schoolName)
-    schools.toSeq
-  }
+ 
+ 
 
   /*
    * Create the new Classes

@@ -38,6 +38,7 @@ object MediaController extends Controller {
   def getMedia = Action(parse.multipartFormData) { request =>
      println("%%%%%%%%%%%%%%%%%%%%%%%")
      println(request.body)
+  
     request.body.file("imageData").map { imageData =>
       println("i am here")
       import java.io.File

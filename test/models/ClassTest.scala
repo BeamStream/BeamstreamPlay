@@ -22,9 +22,11 @@ class ClassTest extends FunSuite with BeforeAndAfter {
   val class2 = Class(new ObjectId, "202", "CSE", ClassType.Quarter, "3:34", formatter.parse("31-01-2010"), new ObjectId, List())
   val class3 = Class(new ObjectId, "203", "ECE", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
   val class4 = Class(new ObjectId, "204", "CSE", ClassType.Yearly, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
+  val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List())
 
   before {
-    Class.createClass(List(class1, class2, class3, class4),new ObjectId)
+    val userId = User.createUser(user1)
+    Class.createClass(List(class1, class2, class3, class4), userId)
   }
 
   /*
@@ -46,19 +48,12 @@ class ClassTest extends FunSuite with BeforeAndAfter {
 
   }
 
-
   test("finding class by class time") {
     assert(Class.findClassByTime("3:30").size === 3)
 
   }
 
-  test("Deleting a class") {
-    Class.deleteClass(class1)
-    assert(ClassDAO.find(MongoDBObject()).size === 3)
-    Class.deleteClass(class2)
-    assert(ClassDAO.find(MongoDBObject()).size === 2)
-
-  }
+  
 
   after {
     ClassDAO.remove(MongoDBObject("className" -> ".*".r))
