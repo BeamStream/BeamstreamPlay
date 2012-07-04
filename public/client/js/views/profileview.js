@@ -9,6 +9,7 @@ BS.ProfileView = Backbone.View.extend({
 	 
     initialize:function () {
     	
+    	this.data = new FormData();
         console.log('Initializing Profile View');
         this.template= _.template($("#tpl-profile-reg").html());
         
@@ -36,17 +37,22 @@ BS.ProfileView = Backbone.View.extend({
         	this.model.set('mobile',$('#mobile').val());
         	this.model.set('upload',$('#upload').val());
         	
-    		var data;
+//    		var data;
 
         	 
-    		data = new FormData();
-     	    data.append('imageName',$('#imagedata').attr("name"));
-     	    data.append('imageData',$('#imagedata').val());
-     	    data.append('videoName', $('#videodata').attr("name"));
- 
-     	    data.append('videoData', $('#videodata').val());
-     		data.append('mobile',$('#mobile').val());
-     	    data.append('upload',$('#upload').val());
+//    		data = new FormData();
+//     	    data.append('imageName',$('#imagedata').attr("name"));
+    		
+    		
+//     	    data.append('imageData',$('#imagedata').val());
+     	    
+     	    
+     	    
+//     	    data.append('videoName', $('#videodata').attr("name"));
+// 
+//     	    data.append('videoData', $('#videodata').val());
+//     		data.append('mobile',$('#mobile').val());
+//     	    data.append('upload',$('#upload').val());
      	   
      	    
 //        	data = new FormData();
@@ -60,7 +66,7 @@ BS.ProfileView = Backbone.View.extend({
         	/* post profile page details */
         	$.ajax({
         	    type: 'POST',
-        	    data: data,
+        	    data: this.data,
         	    url: BS.saveProfile,
         	    cache: false,
         	    contentType: false,
@@ -89,7 +95,7 @@ BS.ProfileView = Backbone.View.extend({
     	 var file = e.target.files[0];
          var reader = new FileReader();
          
-         
+         var self =this;
          /* Only process image files. */
          if (!file.type.match('image.*')) {
         	 
@@ -111,6 +117,8 @@ BS.ProfileView = Backbone.View.extend({
         		     $('#profile-photo').attr("name", f.name);
         		     $('#imagedata').val(e.target.result);
         		     $('#imagedata').attr("name", f.name);
+        		     
+        		     self.data.append('imageData',e.target.result);
         			 
         		 };
             })(file);
