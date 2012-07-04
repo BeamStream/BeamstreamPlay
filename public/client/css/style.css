@@ -766,3 +766,80 @@ ul.rockit li span a {
 	 margin: 0px !important;
 	
 }
+/* for new login page */
+
+.signin_check{
+	margin-right: 10px;
+	clear:both;
+}
+
+  /* Added for checkbox styling*/ */
+
+.form-row-left .element{
+ 
+	clear:both !important;
+}
+.modal form .form-row-left .element{
+ 
+	clear:both !important;
+
+}
+.hand_button {
+	width:39px;
+	height:30px;
+	background:url(../images/hand.png) no-repeat;
+	float:left;
+	margin:10px 20px 0 0;
+}
+.form-row h2 {
+	width: 514px;
+	font-family: 'Ubuntu', sans-serif;
+	font-weight:700;
+	font-size:20px;
+	line-height:48px;
+	float:left;
+	text-align:left;
+}
+.form-row-left{
+	display:block;
+	float:left;
+	 padding: 0 50px 0 30px;
+	position:relative;
+/* 	text-align:center; */
+}
+.form-row-right{
+	display:block;
+	float:left;
+	margin: 5px 0 0;
+    padding: 34px 0 45px 60px;
+	background:url(../images/form_left_bg.jpg) repeat-y left;
+}
+.or-icon {
+	width: 42px;
+	height: 18px;
+	position: absolute;
+	left: 438px;
+	top:57px;
+	bottom: 105px;
+	background:url(../images/fieldset-bg.png) repeat;
+	padding:20px 0;
+}
+ .signin_body{
+     padding:0px 50px 50px;
+ }
+ .signin_check{
+     padding-left: 0px !important;
+ }
+.remeber_form_row{
+	padding:0 0 0 30px;
+}
+.signin_header{
+	margin-left: 35px;
+    margin-top: 15px;
+    padding: 10px;
+}
+/* for email text  box */
+.email_text{
+	
+	width: 337px !important;
+}
