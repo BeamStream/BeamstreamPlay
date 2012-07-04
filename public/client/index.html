@@ -1652,7 +1652,7 @@
 </script>
  
     <!-- template for login-->
-	<script type="text/template" id="tpl-login">
+	<script type="text/x-handlebars-template" id="tpl-login">
  <div class="modal-backdrop in"></div>
    	<div class="modal main-popups modal-pull-top in modal-popups" style="display:block;">
     <div class="modal-header signin_header">
@@ -1682,8 +1682,7 @@
                         <div class="or-icon"><img src="images/or.png"></div>
           </div>
           <div class="form-row-right">
-            <div class="social-block"> <a class="facebook" href="#"></a> <a class="twitter" href="#"></a> <a class="linkedin" href="#"></a> <a class="google" href="#"></a> <a class="mail" href="#"></a> </div>
-
+             <div id="janrainEngageEmbed"></div>
           </div>
           <div class="form-row-label"></div>
         </div>
@@ -1692,7 +1691,9 @@
             <h2>Forgot password?</h2>
           </div>
           <div class="element"><a class="hand_button" href="#"></a>
-            <h2>Don't have an account?  REGISTER HERE!</h2>
+            <h2>Don't have an account? </h2>
+             <a id="register" href="#" class="btn btn-success signin_reg">REGISTER HERE!</a>
+            
           </div>
         </div>
       </fieldset>

@@ -2,6 +2,7 @@ BS.LoginView = Backbone.View.extend({
 
 	events: {
 	      "click #login": "login",
+	      "click #register" :"registration"
 	      
 	      
 	 },
@@ -106,6 +107,11 @@ BS.LoginView = Backbone.View.extend({
               }
         	
     },
-    
-    
+    /**
+     * move to regisration page
+     */
+    registration :function(eventName){
+    	 eventName.preventDefault();
+    	 BS.AppRouter.navigate("emailVerification", {trigger: true, replace: true});
+    }
 });
