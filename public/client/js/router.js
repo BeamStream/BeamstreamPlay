@@ -55,8 +55,8 @@ BS.AppRouter = Backbone.Router.extend({
      */
     
     login: function() {
-    	
-    	 this.loginView = null;
+    	$('#school-popup').children().detach(); 
+    	 
     	 if (!this.loginView) {
              this.loginView = new BS.LoginView();
              this.loginView.render();
@@ -64,6 +64,9 @@ BS.AppRouter = Backbone.Router.extend({
          $('#school-popup').html(this.loginView.el);  
          $(".modal select:visible").selectBox();
          jQuery("#login-form").validationEngine();
+         $(".checkbox").dgStyle();
+         $(".signin_check").dgStyle();
+        
         
     },
    
@@ -80,7 +83,7 @@ BS.AppRouter = Backbone.Router.extend({
  
          $('#school-popup').html(this.schoolView.el);  
          if(BS.schoolFromPrev)
-            $('#school-name-1').val(BS.schoolFromPrev);
+         $('#school-name-1').val(BS.schoolFromPrev);
          $(".modal select:visible").selectBox();
          $('.modal .datepicker').datepicker();
          /* hide some fields on page load */
