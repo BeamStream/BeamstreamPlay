@@ -102,6 +102,8 @@
 
 </head>
 
+
+
 <!--  Class stream template -->
 <script type="text/x-handlebars-template" id="tpl-class-stream">
  
@@ -758,69 +760,7 @@
     </script>
     
     
-    <!-- template for login-->
-	<script type="text/template" id="tpl-login">
- <div class="modal-backdrop in"></div>
-   	<div class="modal main-popups modal-pull-top in modal-popups" style="display:block;">
-    <div class="modal-header">
-        <h1 class="pull-left">User Login Form</h1>
-    </div>
-	<div class="modal-body">
-	  <form id="login-form">
-		   <fieldset>
-            <div id="error" class="invalid-validation"></div>
-			<div class="element">
-				<label for="iam">I'm *</label>
-					<select id="iam"  name="iam" >
-						<option value= "">-- I'm --</option>
-						<option value="0">Student</option>
-						<option value="1">Educator</option>
-						<option value="2">Professional</option>
-					</select>
-			</div>
-             <div id="error" style="color:red; "></div>
-			<br>
-			<div class="form-row">
-					<div class="element">
-				<label for="email">User Email *</label>
-					<input id="email" type="text" size="10"  name="email" class="validate[required, custom[email]] span3">
-				</div>
-			</div>
-			<div class="form-row">
-				<b>Do you have a Beam Stream password ? *</b><br><br>
-			<div class="element">
-				<label for="signup"></label>
-				
-					<span id="signup" class="buttonset">
-					<input id="signup_0" type="radio" value="0" name="signup" checked="checked" class="validate[required]">
-					<label for="signup_0">No, help me log in</label><br>
-					<input id="signup_1" type="radio" value="1" name="signup" class="validate[required]">
-					<label for="signup_1">Yes, I have a password</label>
-					</span>
-					<span class="help-inline"></span>
-				
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="element ">
-				<label for="password">Password *</label>
-					<input id="password" type="password" size="10"  name="password" class="span3">
-					<span class="help-inline"></span>
-				
-			</div>
-	    </div>
-		</fieldset>
-		<br>
-          <a href="#" class="btn btn-primary pull-left"  id="login" >Login</a>
-		<br><br><br>
-        <b style="margin-left:20px;">OR </b> 
-        <br><br>
-       <div id="janrainEngageEmbed"></div>
-		 
-	</form>
-    	</div>	
-   </div>
-  </script>
+    
     
 
 
@@ -1648,7 +1588,7 @@
               </div>
               <div class="element" >
                 <label for="email" id="email-label" >E-mail *</label>
-                <input type="text" id="email" placeholder="School or work email address" class="validate[required , custom[email]] large">
+                <input type="text" id="email" placeholder="School email" class="validate[required , custom[email]] large email_text">
              </div>
               <div class="element"> <a id="register" href="#" class="btn btn-success">Register Now</a> </div>
           </div>
@@ -1711,7 +1651,55 @@
 </div>
 </script>
  
-    
+    <!-- template for login-->
+	<script type="text/template" id="tpl-login">
+ <div class="modal-backdrop in"></div>
+   	<div class="modal main-popups modal-pull-top in modal-popups" style="display:block;">
+    <div class="modal-header signin_header">
+    <h1 class="pull-left">Login</h1>
+  </div>
+  <div class="modal-body signin_body">
+    <form id="login-form"> 
+      <fieldset>
+     <div id="error" class="invalid-validation"></div>
+        <div class="form-row">
+          <div class="form-row-left">
+            <div class="element">
+              <label for="email">Email Address</label>
+              <input type="text" id="email" class="validate[required] large email_text" value="">
+            </div>
+            <div class="element">
+              <label for="password">Password</label>
+              <input type="password" id="password" class="validate[required] large email_text" value="">
+            </div>
+            <div class="checkbox_wrapper signin_check">
+              <div class="checkbox signin_check">
+                <input type="checkbox">
+                 </div>
+				Rememeber me
+            </div>
+            <div class="element"><a href="#" id="login" class="btn btn-success pull-left" data-dismiss="modal">Sign in</a> </div>
+                        <div class="or-icon"><img src="images/or.png"></div>
+          </div>
+          <div class="form-row-right">
+            <div class="social-block"> <a class="facebook" href="#"></a> <a class="twitter" href="#"></a> <a class="linkedin" href="#"></a> <a class="google" href="#"></a> <a class="mail" href="#"></a> </div>
+
+          </div>
+          <div class="form-row-label"></div>
+        </div>
+        <div class="form-row remeber_form_row">
+          <div class="element"> <a class="hand_button" href="#"></a>
+            <h2>Forgot password?</h2>
+          </div>
+          <div class="element"><a class="hand_button" href="#"></a>
+            <h2>Don't have an account?  REGISTER HERE!</h2>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+   </div>
+  </script>
  
 
 	<!-- Le javascript
@@ -1729,7 +1717,7 @@
 <script type="text/javascript">
 	var current = 1; //current keeps track of how many schools we have @default =1 
     var options ='';
-// 	var sClasses = 1; // sClasses keeps number of schools under which we added classes 
+	var sClasses = 1; // sClasses keeps number of schools under which we added classes 
     $(function(){
     	$(".radio").dgStyle();
     	$(".checkbox").dgStyle();
