@@ -80,7 +80,7 @@ GET  /getJSONviaJanrain                   controllers.UserController.registerUse
 #Media
 
 POST  /getMediafromPost                                   controllers.MediaController.getMedia
-
+GET   /getMediaForAUser                                   controllers.UserController.getMediaForAUser
 
 
 
