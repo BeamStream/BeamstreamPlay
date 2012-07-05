@@ -36,21 +36,22 @@ object MediaController extends Controller {
   //  }
 
   def getMedia = Action(parse.multipartFormData) { request =>
-     println("%%%%%%%%%%%%%%%%%%%%%%%")
+    
      println(request.body)
   
     request.body.file("imageData").map { imageData =>
-      println("i am here")
       import java.io.File
+      
       val filename = imageData.filename
       val contentType = imageData.contentType
       
       println(filename + "******" + contentType)
-      imageData.ref.moveTo(new File("/home/neelkanth/Desktop"))
-      Ok("File uploaded")
+      imageData.ref.moveTo(new File("./app/neel.jpg"))
+      println("File uploaded")
+      Ok
     }.getOrElse {
        println("i am here with no result")
-      Ok
+       Ok
 
     }
   }
