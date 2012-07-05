@@ -19,7 +19,8 @@ BS.StreamView = Backbone.View.extend({
            "click #icon-down" : "slideDown",
            "click i.rocked" : "rockedIt",
            "mouseenter a#rocks" : "showRockers",
-           "mouseleave a#rocks" : "hideRockers"
+           "mouseleave a#rocks" : "hideRockers",
+           "click #file-media" : "showFileMedias"
         	   
 		  
 	 },
@@ -56,7 +57,10 @@ BS.StreamView = Backbone.View.extend({
 			 $('#user-dropdown .arrow').before(e.attributes.firstName + ' ' + e.attributes.lastName);
 			 $('li.screen_name').text(e.attributes.firstName + ' ' + e.attributes.lastName);
 		}});
-     
+        
+         
+        
+        
        this.getStreams();
  
        $(this.el).html(this.template);
@@ -318,11 +322,7 @@ BS.StreamView = Backbone.View.extend({
 					  var datas = {
 					 		"datas" : data
 					  }
-					  
-//					  // get all rockers list
-//					  _.each(data, function(msg) {
-//						  self.getRockers(msg.id.id);
-//					  });
+ 
 					  var source = $("#tpl-messages").html();
 					  var template = Handlebars.compile(source);
 					  $('.timeline_items').html(template(datas));
@@ -378,10 +378,11 @@ BS.StreamView = Backbone.View.extend({
 				url : BS.signOut,
 				dataType : "json",
 				success : function(datas) {
-				
+					 BS.singleUser.set('loggedin', false);
 					 BS.AppRouter.navigate("login", {trigger: true, replace: true});
 				}
 		 });
+		
 		
 	 },
 	 /**
@@ -486,4 +487,21 @@ BS.StreamView = Backbone.View.extend({
 		 $('#hover-lists-'+msgId+'').fadeOut("slow");
  
 	 },
+	 
+	 /**
+	  * show files  & Media page
+	  * 
+	  */
+	 
+	 showFileMedias : function(eventName){
+		
+		 eventName.preventDefault();
+		 if (!this.filesMediaView) {
+	   	     this.filesMediaView = new BS.FilesMediaView();
+	   	     this.filesMediaView.render();
+	   	   }
+
+	   	   $('#middle-content').html(this.filesMediaView.el);
+//		 BS.AppRouter.navigate("filesMedia", {trigger: true, replace: true});
+	 }
 });

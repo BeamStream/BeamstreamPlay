@@ -73,7 +73,8 @@ BS.newClass = "http://localhost:9000/newStream";
  BS.rockedIt = "http://localhost:9000/rockedIt";
  // Get Rockers list
  BS.rockersList  = "http://localhost:9000/returnRockers";
-
+// profile images and videos
+ BS.profileImage = "http://localhost:9000/getMediaForAUser";
  
  /*
   * For Cloud
@@ -159,7 +160,8 @@ BS.newClass = "http://localhost:9000/newStream";
 //BS.saveSchool = "http://localhost/client2/api.php";
 //BS.schoolJson = "http://localhost/client/api.php";
 //BS.saveClass = "http://localhost/client2/api.php";
-//BS.saveProfile = "http://localhost:9000/getMediafromPost";
+////BS.saveProfile = "http://localhost:9000/getMediafromPost";
+//BS.saveProfile = "http://localhost/client2/api.php";
 //BS.autoPopulateClass = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
 //BS.schoolNamebyId = "http://localhost/client2/api.php";
 //BS.allSchoolForAUser = "http://localhost/client/api.php";
@@ -173,4 +175,5 @@ BS.newClass = "http://localhost:9000/newStream";
 //BS.joinClass = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
 //BS.rockedIt = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
 //BS.rockersList  = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
+//BS.profileImage = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
 

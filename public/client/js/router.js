@@ -16,11 +16,14 @@ BS.AppRouter = Backbone.Router.extend({
         "studyStream": "studyStream",
         "groupStream": "groupStream",
         "peerStream" : "peerStream",
-        "friendStream" :"friendStream"
+        "friendStream" :"friendStream",
+//        "filesMedia" : "filesMedia"
 
         
     },
     initialize :function() {
+    	
+    	
     	 
     	/* calculate time from 12:00AM to 11:45PM */
     	var timeValues = new Array;
@@ -41,6 +44,24 @@ BS.AppRouter = Backbone.Router.extend({
   		 }
   		BS.times = jQuery.parseJSON(JSON.stringify(timeValues));
   		
+  	
+  		BS.singleUser = new BS.SingleUser();
+		var self = this;
+		/*
+		BS.singleUser.on("change:loggedin", function(e) {
+			if(e.get('loggedin') == false) {
+				BS.AppRouter.navigate("login", {trigger: true});
+				self.login();
+			}
+			else {
+				 
+				BS.AppRouter.navigate("streams", {trigger: true});
+//				self.home(true);
+			}
+			
+		});
+		*/
+		 
   		
     },
 
@@ -133,25 +154,56 @@ BS.AppRouter = Backbone.Router.extend({
     * display main stream page
     */
    maisStream:function () {
-	 
-	   $('#school-popup').children().detach(); 
-	   $('#content').children().detach();
 	   
-	   $('.modal').css('display','none');
-   	   if (!this.streamView) {
-            this.streamView = new BS.StreamView();
-            this.streamView.render();
-            this.onstream = true; 
-       }
-   	   $('.modal-backdrop').hide();
-       $('#content').html(this.streamView.el);
-       $(".checkbox").dgStyle();
-       
-       $('.with-tooltips a, .with-tooltip').each(function() {
-           var $this = $(this);
-           var placement = $this.parent().hasClass('tooltips-bottom') ? 'bottom' : 'top';
-           $(this).tooltip({placement: placement});
-       });
+	   if(!BS.singleUser )
+ 			BS.singleUser = new BS.SingleUser();
+   	
+   		//For Authentication
+		 BS.singleUser.authenticate();
+
+	    
+	   if(BS.singleUser.get('loggedin') == true) { 
+		   $('#school-popup').children().detach(); 
+		   $('#content').children().detach();
+		   
+		   $('.modal').css('display','none');
+	   	   if (!this.streamView) {
+	            this.streamView = new BS.StreamView();
+	            this.streamView.render();
+	            this.onstream = true; 
+	       }
+	   	   
+	   	   //to show the profile image
+	   	    var profileModel = new BS.Profile();
+	        profileModel.fetch({success: function(e) {  
+	        	
+	        	BS.profileImageUrl = e.attributes.profileImageUrl;
+	        	BS.profileVideoUrl = e.attributes.profileVideoUrl;
+	        	$('#main-photo').attr("src",BS.profileImageUrl);
+	        	$('#right-photo').attr("src",BS.profileImageUrl);
+	        	$('#msg-photo').attr("src",BS.profileImageUrl);
+	        	
+				 
+			}});
+	        
+	        
+	   	   $('.modal-backdrop').hide();
+	       $('#content').html(this.streamView.el);
+	       $(".checkbox").dgStyle();
+	       
+	       
+	        
+	       $('.with-tooltips a, .with-tooltip').each(function() {
+	           var $this = $(this);
+	           var placement = $this.parent().hasClass('tooltips-bottom') ? 'bottom' : 'top';
+	           $(this).tooltip({placement: placement});
+	       });
+	   }
+	   else
+		{
+//		    this.login();
+		   BS.AppRouter.navigate("login", {trigger: true, replace: true});
+		}
        
    },
    
@@ -338,6 +390,19 @@ BS.AppRouter = Backbone.Router.extend({
 	   $('.modal .datepicker').datepicker();
     },
 
+    /**
+     *  display Files & Media page
+     */
+    
+//    filesMedia :function() {
+//  
+//      if (!this.filesMediaView) {
+//   	     this.filesMediaView = new BS.FilesMediaView();
+//   	     this.filesMediaView.render();
+//   	   }
+//
+//   	   $('#middle-content').html(this.filesMediaView.el);
+//   	}
 });
 
  

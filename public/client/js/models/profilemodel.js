@@ -10,7 +10,7 @@ BS.Profile = Backbone.Model.extend({
             upload:null
         },
         
-//        url:"api.php"
+        url:BS.profileImage,
        
 });
 
