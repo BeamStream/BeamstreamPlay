@@ -3,84 +3,84 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.StreamController.index
+GET / controllers.StreamController.index
 
 
 
 #User
 
-POST   /users                         controllers.UserController.findUser
+POST /users controllers.UserController.findUser
 
 #Streams
 
-GET    /allStreamsForAUser              controllers.StreamController.getAllStreamForAUser
-POST   /newStream                       controllers.StreamController.newStream
+GET /allStreamsForAUser controllers.StreamController.getAllStreamForAUser
+POST /newStream controllers.StreamController.newStream
 
 
 
-#GET    /messages                       controllers.MessageController.messages
-POST    /newMessage                      controllers.MessageController.newMessage
-POST   /getAllMessagesForAStream        controllers.MessageController.getAllMessagesForAStream
+#GET /messages controllers.MessageController.messages
+POST /newMessage controllers.MessageController.newMessage
+POST /getAllMessagesForAStream controllers.MessageController.getAllMessagesForAStream
 
 
-#GET    /joinStreams                   controllers.JoinStream.joinstreams
-POST   /joinStreams                   controllers.JoinStream.joinStream
+#GET /joinStreams controllers.JoinStream.joinstreams
+POST /joinStreams controllers.JoinStream.joinStream
 
 
 #Schools
 
-#POST   /school                   controllers.SchoolController.addSchool
-GET   /getAllSchoolForAUser      controllers.SchoolController.getAllSchoolForAUser
-POST  /getSchoolNamebyId          controllers.SchoolController.getSchoolName
+#POST /school controllers.SchoolController.addSchool
+GET /getAllSchoolForAUser controllers.SchoolController.getAllSchoolForAUser
+POST /getSchoolNamebyId controllers.SchoolController.getSchoolName
 
 
 #UpdateUserInfo
 
 
-POST   /detailed_reg                 controllers.DetailedRegistration.addInfo
+POST /detailed_reg controllers.DetailedRegistration.addInfo
 
 #Class
 
 
-POST   /class                  controllers.ClassController.addClass
+POST /class controllers.ClassController.addClass
 
 #Auto populate class
 
-POST  /autoPopulateClasses     controllers.ClassController.findClasstoAutoPopulate
+POST /autoPopulateClasses controllers.ClassController.findClasstoAutoPopulate
 
 #Getting the School JSON
 
-GET   /schoolJson              controllers.DetailedRegistration.getSchoolsForLoggedInUser
+GET /schoolJson controllers.DetailedRegistration.getSchoolsForLoggedInUser
 
-GET   /loggedInUserJson        controllers.UserController.returnUserJson
+GET /loggedInUserJson controllers.UserController.returnUserJson
 
 #Basic Registration
 
-POST   /verifyToken           controllers.BasicRegistration.basicRegistration
+POST /verifyToken controllers.BasicRegistration.basicRegistration
      
-POST  /registerNewUser       controllers.BasicRegistration.newUser
+POST /registerNewUser controllers.BasicRegistration.newUser
 
-POST  /getEmailforNewUser    controllers.BasicRegistration.emailSent
+POST /getEmailforNewUser controllers.BasicRegistration.emailSent
 
-#GET   /basicRegistrationViaSocialSites   controllers.BasicRegistration.basicRegistrationViaSocialSites
-#POST  /basicRegistrationViaSocialSites   controllers.BasicRegistration.newUser
+#GET /basicRegistrationViaSocialSites controllers.BasicRegistration.basicRegistrationViaSocialSites
+#POST /basicRegistrationViaSocialSites controllers.BasicRegistration.newUser
 
 
 
 #Destroy session
 
-GET  /signOut                              controllers.UserController.signOut
+GET /signOut controllers.UserController.signOut
 
 
-#Janrain 
+#Janrain
 
-POST /userPage                            controllers.UserController.registerUserViaSocialSite
-GET  /getJSONviaJanrain                   controllers.UserController.registerUserViaSocialSite
+POST /userPage controllers.UserController.registerUserViaSocialSite
+GET /getJSONviaJanrain controllers.UserController.registerUserViaSocialSite
 
 #Media
 
-POST  /getMediafromPost                                   controllers.MediaController.getMedia
-
+POST /getMediafromPost controllers.MediaController.getMedia
+GET /getMediaForAUser controllers.UserController.getMediaForAUser
 
 
 
@@ -89,14 +89,13 @@ POST  /getMediafromPost                                   controllers.MediaContr
 
 #Message Rocks
 
-POST /rockedIt                                        controllers.MessageController.rockedTheMessage
-POST /returnRockers                                   controllers.MessageController.giveMeRockers
+POST /rockedIt controllers.MessageController.rockedTheMessage
+POST /returnRockers controllers.MessageController.giveMeRockers
 
 
 # Map static resources from the /public folder to the /assets URL path
-#GET     /assets/*file               controllers.Assets.at(path="/public", file)
-GET     /beamstream/*file                 controllers.Assets.at(path="/public/client", file)
-
-
+#GET /assets/*file controllers.Assets.at(path="/public", file)
+GET /beamstream/*file controllers.Assets.at(path="/public/client", file)
+GET /profilePic/*file controllers.Assets.at(path="/public/CDNFolder", file)
 
 
