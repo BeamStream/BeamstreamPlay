@@ -11,6 +11,7 @@ import models.MediaType
 import org.bson.types.ObjectId
 import java.io.InputStream
 import models.mediaComposite
+import models.Profile
 
 object MediaController extends Controller {
   
@@ -41,13 +42,13 @@ object MediaController extends Controller {
     }.get
   
      val mediaJsonMap=request.body.asFormUrlEncoded.toList
-     val upload =mediaJsonMap(0)._2.toList(0)
+     val uploadType =mediaJsonMap(0)._2.toList(0)
      val mobileNo =mediaJsonMap(1)._2.toList(0)
     
     
     val mediaTransfrerObject = new MediaTransfer(new ObjectId(request.session.get("userId").get), MediaType.Image, true,
-    imageComposite.inputStream, imageComposite.name, videoComposite.inputStream, videoComposite.name, mobileNo,upload)
-    
+    imageComposite.inputStream, imageComposite.name, videoComposite.inputStream, videoComposite.name, mobileNo,uploadType)
+    Profile.createMedia(mediaTransfrerObject)
     
     Ok
   }

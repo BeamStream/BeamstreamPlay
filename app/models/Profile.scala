@@ -17,11 +17,11 @@ import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.gridfs.Imports._
 
 case class Media(@Key("_id") id: ObjectId, userId: ObjectId, mediaType: MediaType.Value, showOnProfileView: Boolean, userProfileImageId: ObjectId,
-  userProfileVideoId: ObjectId,mobile:String)
+  userProfileVideoId: ObjectId, mobile: String, uploadType: String)
 case class MediaTransfer(userId: ObjectId, mediaType: MediaType.Value, showOnProfileView: Boolean, profileImage: InputStream, profilePicName: String,
-  profileVideo: InputStream, profileVideoName: String,mobile:String,upload:String)
+  profileVideo: InputStream, profileVideoName: String, mobile: String, uploadType: String)
 
-object Media {
+object Profile {
 
   val gridFS = GridFS(MongoHQConfig.mongoDB)
 
@@ -38,7 +38,7 @@ object Media {
     val userProfileImageId = userProfileImage.id.asInstanceOf[ObjectId]
     val userProfileVideoId = userProfileVideo.id.asInstanceOf[ObjectId]
 
-    MediaDAO.insert(new Media(new ObjectId, mediaTransfer.userId, mediaTransfer.mediaType, mediaTransfer.showOnProfileView, userProfileImageId,userProfileVideoId,mediaTransfer.mobile))
+    MediaDAO.insert(new Media(new ObjectId, mediaTransfer.userId, mediaTransfer.mediaType, mediaTransfer.showOnProfileView, userProfileImageId, userProfileVideoId, mediaTransfer.mobile, mediaTransfer.uploadType))
 
   }
 
