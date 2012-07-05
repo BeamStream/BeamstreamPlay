@@ -792,7 +792,7 @@ ul.rockit li span a {
 	margin:10px 20px 0 0;
 }
 .form-row h2 {
-	width: 514px;
+	width: 260px;
 	font-family: 'Ubuntu', sans-serif;
 	font-weight:700;
 	font-size:20px;
@@ -837,6 +837,10 @@ ul.rockit li span a {
 	margin-left: 35px;
     margin-top: 15px;
     padding: 10px;
+}
+.signin_reg
+{
+	margin :0px !important;
 }
 /* for email text  box */
 .email_text{

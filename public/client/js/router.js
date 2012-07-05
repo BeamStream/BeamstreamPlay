@@ -57,10 +57,10 @@ BS.AppRouter = Backbone.Router.extend({
     login: function() {
     	$('#school-popup').children().detach(); 
     	 
-    	 if (!this.loginView) {
+    	// if (!this.loginView) {
              this.loginView = new BS.LoginView();
              this.loginView.render();
-         }
+        // }
          $('#school-popup').html(this.loginView.el);  
          $(".modal select:visible").selectBox();
          jQuery("#login-form").validationEngine();
