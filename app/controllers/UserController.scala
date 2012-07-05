@@ -18,6 +18,7 @@ import net.liftweb.json.Serialization.{ read, write }
 import models.ResulttoSent
 import play.libs.Json._
 import play.libs.Json
+import models.ProfileMedia
 
 object UserController extends Controller {
 
@@ -68,7 +69,6 @@ object UserController extends Controller {
     val res = promise.get
     val body = res.getBody
     Ok(body).as("application/json")
-   // Redirect(URLExternalizer.JanRainRedirectURL)
     
   }
 
@@ -94,5 +94,16 @@ object UserController extends Controller {
     val loggedInUserJson = write(loggedInUser)
     Ok(loggedInUserJson).as("application/json")
   }
+  
+  /*
+   * obtaining the profile video and Audio
+   */
+  
+  def getMediaForAUser = Action { implicit request =>
+    val mediaObtained=ProfileMedia.getMediaForAUser(new ObjectId(request.session.get("userId").get))
+    val MediaJson=write(mediaObtained)
+    Ok(MediaJson).as("application/json")
+  }
+  
 
 }
