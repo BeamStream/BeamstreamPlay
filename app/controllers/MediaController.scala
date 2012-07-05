@@ -6,6 +6,11 @@ import java.io.File
 import com.mongodb.casbah.gridfs.GridFS
 import utils.MongoHQConfig
 import java.io.FileOutputStream
+import models.MediaTransfer
+import java.awt.MediaType
+import models.MediaType
+import org.bson.types.ObjectId
+import java.io.InputStream
 
 object MediaController extends Controller {
 
@@ -36,23 +41,20 @@ object MediaController extends Controller {
   //  }
 
   def getMedia = Action(parse.multipartFormData) { request =>
-    
-     println(request.body)
-  
-    request.body.file("imageData").map { imageData =>
-      import java.io.File
-      
-      val filename = imageData.filename
-      val contentType = imageData.contentType
-      
-      println(filename + "******" + contentType)
-      imageData.ref.moveTo(new File("./app/neel.jpg"))
-      println("File uploaded")
-      Ok
-    }.getOrElse {
-       println("i am here with no result")
-       Ok
 
+    request.body.file("imageData").map { imageData =>
+
+      val imageFilename = imageData.filename
+      val contentType = imageData.contentType
+      val profileImage: File = imageData.ref.file.asInstanceOf[File]
+      val profileImageInputStream = new FileInputStream(profileImage)
+      val mediaTransfrerObject = new MediaTransfer(new ObjectId(request.session.get("userId").get), MediaType.Image, true, profileImageInputStream, imageFilename, profileImageInputStream, imageFilename, "")
+      Ok
     }
+      .getOrElse {
+        println("i am here with no result")
+        Ok
+
+      }
   }
 }
