@@ -19,7 +19,7 @@ import com.mongodb.casbah.gridfs.Imports._
 case class Media(@Key("_id") id: ObjectId, userId: ObjectId, mediaType: MediaType.Value, showOnProfileView: Boolean, userProfileImageId: ObjectId,
   userProfileVideoId: ObjectId,mobile:String)
 case class MediaTransfer(userId: ObjectId, mediaType: MediaType.Value, showOnProfileView: Boolean, profileImage: InputStream, profilePicName: String,
-  profileVideo: InputStream, profileVideoName: String,mobile:String)
+  profileVideo: InputStream, profileVideoName: String,mobile:String,upload:String)
 
 object Media {
 
