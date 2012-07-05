@@ -378,7 +378,7 @@ BS.StreamView = Backbone.View.extend({
 				url : BS.signOut,
 				dataType : "json",
 				success : function(datas) {
-					 BS.singleUser.set('loggedin', false);
+//					 BS.singleUser.set('loggedin', false);
 					 BS.AppRouter.navigate("login", {trigger: true, replace: true});
 				}
 		 });

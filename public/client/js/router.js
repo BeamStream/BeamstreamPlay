@@ -45,8 +45,8 @@ BS.AppRouter = Backbone.Router.extend({
   		BS.times = jQuery.parseJSON(JSON.stringify(timeValues));
   		
   	
-  		BS.singleUser = new BS.SingleUser();
-		var self = this;
+//  		BS.singleUser = new BS.SingleUser();
+//		var self = this;
 		/*
 		BS.singleUser.on("change:loggedin", function(e) {
 			if(e.get('loggedin') == false) {
@@ -155,14 +155,14 @@ BS.AppRouter = Backbone.Router.extend({
     */
    maisStream:function () {
 	   
-	   if(!BS.singleUser )
- 			BS.singleUser = new BS.SingleUser();
-   	
-   		//For Authentication
-		 BS.singleUser.authenticate();
+//	   if(!BS.singleUser )
+// 			BS.singleUser = new BS.SingleUser();
+//   	
+//   		//For Authentication
+//		 BS.singleUser.authenticate();
 
 	    
-	   if(BS.singleUser.get('loggedin') == true) { 
+//	   if(BS.singleUser.get('loggedin') == true) { 
 		   $('#school-popup').children().detach(); 
 		   $('#content').children().detach();
 		   
@@ -198,12 +198,12 @@ BS.AppRouter = Backbone.Router.extend({
 	           var placement = $this.parent().hasClass('tooltips-bottom') ? 'bottom' : 'top';
 	           $(this).tooltip({placement: placement});
 	       });
-	   }
-	   else
-		{
-//		    this.login();
-		   BS.AppRouter.navigate("login", {trigger: true, replace: true});
-		}
+//	   }
+//	   else
+//		{
+////		    this.login();
+//		   BS.AppRouter.navigate("login", {trigger: true, replace: true});
+//		}
        
    },
    
