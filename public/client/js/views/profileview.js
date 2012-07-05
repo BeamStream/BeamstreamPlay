@@ -10,6 +10,8 @@ BS.ProfileView = Backbone.View.extend({
     initialize:function () {
     	
         console.log('Initializing Profile View');
+        this.image = null;
+    	this.video = null;
         this.template= _.template($("#tpl-profile-reg").html());
         
     },
@@ -50,13 +52,12 @@ BS.ProfileView = Backbone.View.extend({
      	   
      	    
         	data = new FormData();
-     	    data.append('imageData', this.file);
-     	    data.append('video', $('#my-video')[0].files[0]);
+     	    data.append('imageData', this.image);
+     	    data.append('videoData', this.video);
      		data.append('mobile',$('#mobile').val());
      		data.append('upload',$('#upload').val());
      		
-//     		 var file = e.target.files[0];
- 
+     		 
         	/* post profile page details */
         	$.ajax({
         	    type: 'POST',
@@ -87,7 +88,7 @@ BS.ProfileView = Backbone.View.extend({
     displayImage:function (e) {
     	
     	  file = e.target.files[0];
-    	  this.file = e.target.files[0];
+    	 this.image = file;
          var reader = new FileReader();
          
          
@@ -130,6 +131,7 @@ BS.ProfileView = Backbone.View.extend({
     	
     	 
     	 var file = e.target.files[0];
+    	 this.video = file;
          var reader = new FileReader();
          
          /* Only process video files. */
