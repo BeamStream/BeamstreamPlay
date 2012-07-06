@@ -70,6 +70,7 @@ object MediaController extends Controller {
     imageComposite.inputStream, imageComposite.name, videoComposite.inputStream, videoComposite.name, mobileNo, uploadType)
     Profile.createMedia(mediaTransfrerObject)
     */
-    Ok(write(new ResulttoSent("Success","Profile Photo Uploaded Successfully")))
+ 
+    Ok(write(new ResulttoSent("Success","Profile Photo Uploaded Successfully"))).as("application/json")
   }
 }
