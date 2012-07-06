@@ -14,9 +14,12 @@ import models.mediaComposite
 import models.Profile
 import models.ProfileMedia
 import utils.tokenEmail
-
+import models.ResulttoSent
+import net.liftweb.json.{ parse, DefaultFormats }
+import net.liftweb.json.Serialization.{ read, write }
 object MediaController extends Controller {
   
+  implicit val formats=DefaultFormats
   var imageURL:String=""
   var videoURL:String=""
 
@@ -67,6 +70,6 @@ object MediaController extends Controller {
     imageComposite.inputStream, imageComposite.name, videoComposite.inputStream, videoComposite.name, mobileNo, uploadType)
     Profile.createMedia(mediaTransfrerObject)
     */
-    Ok
+    Ok(write(new ResulttoSent("Success","Profile Photo Uploaded Successfully")))
   }
 }
