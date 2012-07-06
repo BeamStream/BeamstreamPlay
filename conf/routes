@@ -98,6 +98,10 @@ GET /getMediaForAUser controllers.UserController.getMediaForAUser
 POST /rockedIt controllers.MessageController.rockedTheMessage
 POST /returnRockers controllers.MessageController.giveMeRockers
 
+#Document Rocks
+
+POST /rockedIt controllers.DocumentController.rockTheDocument
+POST /getRockers controllers.DocumentController.giveMeRockers
 
 # Map static resources from the /public folder to the /assets URL path
 
