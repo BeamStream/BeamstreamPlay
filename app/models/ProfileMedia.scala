@@ -19,8 +19,8 @@ object ProfileMedia {
  * Get Media for a user
  */
   def getMediaForAUser(userId: ObjectId): ProfileMedia = {
-  val mediaObtained=ProfileMediaDAO.find(MongoDBObject("userId" -> userId)).toList(0)
-  mediaObtained
+  val mediaObtained=ProfileMediaDAO.find(MongoDBObject("userId" -> userId)).toList
+  mediaObtained(0)
   }
 
 }
