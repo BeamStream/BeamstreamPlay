@@ -26,6 +26,11 @@ POST /getAllMessagesForAStream controllers.MessageController.getAllMessagesForAS
 #GET /joinStreams controllers.JoinStream.joinstreams
 POST /joinStreams controllers.JoinStream.joinStream
 
+#Documents
+
+GET /documents controllers.DocumentController.documents
+POST /newDocument controllers.DocumentController.newDocument
+POST /getAllDocumentsForAUser controllers.MessageController.getAllDocumentsForAUser
 
 #Schools
 
@@ -93,6 +98,10 @@ GET /getMediaForAUser controllers.UserController.getMediaForAUser
 POST /rockedIt controllers.MessageController.rockedTheMessage
 POST /returnRockers controllers.MessageController.giveMeRockers
 
+#Document Rocks
+
+POST /rockedIt controllers.DocumentController.rockTheDocument
+POST /getRockers controllers.DocumentController.giveMeRockers
 
 # Map static resources from the /public folder to the /assets URL path
 

@@ -8,7 +8,7 @@ BS.AppRouter = Backbone.Router.extend({
         "school":"schoolReg",
         "class":"classReg",
         "profile":"profileReg",
-        "streams":"maisStream",
+        "streams":"mainStream",
         "basicRegistration/token/:token/iam/:iam/emailId/:email":"basicRegistration",
         "basicRegistration":"basicRegistrationViaJanRain",
         "classStream":"classStream",
@@ -17,7 +17,7 @@ BS.AppRouter = Backbone.Router.extend({
         "groupStream": "groupStream",
         "peerStream" : "peerStream",
         "friendStream" :"friendStream",
-//        "filesMedia" : "filesMedia"
+        "filesMedia" : "filesMedia"
 
         
     },
@@ -76,12 +76,10 @@ BS.AppRouter = Backbone.Router.extend({
      */
     
     login: function() {
-    	$('#school-popup').children().detach(); 
+    	 $('#school-popup').children().detach(); 
     	 
-    	// if (!this.loginView) {
-             this.loginView = new BS.LoginView();
-             this.loginView.render();
-        // }
+         this.loginView = new BS.LoginView();
+         this.loginView.render();
          $('#school-popup').html(this.loginView.el);  
          $(".modal select:visible").selectBox();
          jQuery("#login-form").validationEngine();
@@ -97,10 +95,8 @@ BS.AppRouter = Backbone.Router.extend({
     schoolReg:function () {
        
     	 
-//    	 if (!this.schoolView) {
-             this.schoolView = new BS.SchoolView();
-             this.schoolView.render();
-//         }
+         this.schoolView = new BS.SchoolView();
+         this.schoolView.render();
  
          $('#school-popup').html(this.schoolView.el);  
          if(BS.schoolFromPrev)
@@ -121,11 +117,8 @@ BS.AppRouter = Backbone.Router.extend({
      */
     classReg:function () {
     
-//   	    if (!this.classView) {
-            this.classView = new BS.ClassView();
-            this.classView.render();
-            
-//        }
+        this.classView = new BS.ClassView();
+        this.classView.render();
         $('#school-popup').html(this.classView.el);
         $(".modal select:visible").selectBox();
         $('.modal .datepicker').datepicker();
@@ -138,10 +131,8 @@ BS.AppRouter = Backbone.Router.extend({
     */
    profileReg:function () {
 	    
-//   	   if (!this.profileView) {
-            this.profileView = new BS.ProfileView();
-            this.profileView.render();
-//       }
+       this.profileView = new BS.ProfileView();
+       this.profileView.render();
        $('#school-popup').html(this.profileView.el);   
        $(".modal select:visible").selectBox();
        $('.modal .datepicker').datepicker();
@@ -153,8 +144,9 @@ BS.AppRouter = Backbone.Router.extend({
    /**
     * display main stream page
     */
-   maisStream:function () {
+   mainStream:function () {
 	   
+	   $('#middle-content').children().detach();
 //	   if(!BS.singleUser )
 // 			BS.singleUser = new BS.SingleUser();
 //   	
@@ -167,31 +159,27 @@ BS.AppRouter = Backbone.Router.extend({
 		   $('#content').children().detach();
 		   
 		   $('.modal').css('display','none');
-	   	   if (!this.streamView) {
+	   	  // if (!this.streamView) {
 	            this.streamView = new BS.StreamView();
 	            this.streamView.render();
 	            this.onstream = true; 
-	       }
+	       //}
 	   	   
 	   	   //to show the profile image
 	   	    var profileModel = new BS.Profile();
 	        profileModel.fetch({success: function(e) {  
-	        	
+	        	 
 	        	BS.profileImageUrl = e.attributes.profileImageUrl;
 	        	BS.profileVideoUrl = e.attributes.profileVideoUrl;
 	        	$('#main-photo').attr("src",BS.profileImageUrl);
 	        	$('#right-photo').attr("src",BS.profileImageUrl);
 	        	$('#msg-photo').attr("src",BS.profileImageUrl);
-	        	
 				 
 			}});
-	        
 	        
 	   	   $('.modal-backdrop').hide();
 	       $('#content').html(this.streamView.el);
 	       $(".checkbox").dgStyle();
-	       
-	       
 	        
 	       $('.with-tooltips a, .with-tooltip').each(function() {
 	           var $this = $(this);
@@ -301,10 +289,8 @@ BS.AppRouter = Backbone.Router.extend({
 	  */
 	 classStream:function () {
 		  
-//		 if (!this.ClassStreamView) {
-	         this.ClassStreamView = new BS.ClassStreamView();
-	         this.ClassStreamView.render();
-//	     }
+	     this.ClassStreamView = new BS.ClassStreamView();
+	     this.ClassStreamView.render();
 	     $('#school-popup').html(this.ClassStreamView.el);
 	     $(".radio").dgStyle();
 	     $(".modal select:visible").selectBox();
@@ -393,16 +379,13 @@ BS.AppRouter = Backbone.Router.extend({
     /**
      *  display Files & Media page
      */
-    
-//    filesMedia :function() {
-//  
-//      if (!this.filesMediaView) {
-//   	     this.filesMediaView = new BS.FilesMediaView();
-//   	     this.filesMediaView.render();
-//   	   }
-//
-//   	   $('#middle-content').html(this.filesMediaView.el);
-//   	}
+    //TODO 
+    filesMedia :function() {
+ 
+    	this.mainStream();
+    	this.streamView.showFileMedias();
+    	$('.file-type').hide();
+   	}
 });
 
  

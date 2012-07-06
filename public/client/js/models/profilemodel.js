@@ -11,7 +11,7 @@ BS.Profile = Backbone.Model.extend({
         },
         
         url:BS.profileImage,
-       
+        
 });
 
  
