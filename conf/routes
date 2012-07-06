@@ -30,7 +30,7 @@ POST /joinStreams controllers.JoinStream.joinStream
 
 GET /documents controllers.DocumentController.documents
 POST /newDocument controllers.DocumentController.newDocument
-POST /getAllDocumentsForAUser controllers.MessageController.getAllDocumentsForAUser
+POST /getAllDocumentsForAUser    controllers.DocumentController.getAllDocumentsForAUser
 
 #Schools
 
