@@ -29,34 +29,21 @@ BS.ProfileView = Backbone.View.extend({
     	var validate = jQuery('#profile-form').validationEngine('validate');
     	if(validate == true)
     	{
-    		this.model = new BS.Profile();
-       	 
-        	this.model.set('imageData',$('#imagedata').val());
-        	this.model.set('imageName',$('#imagedata').attr("name"));
-        	this.model.set('videoData',$('#videodata').val());
-        	this.model.set('videoName',$('#videodata').attr("name"));
-        	this.model.set('mobile',$('#mobile').val());
-        	this.model.set('upload',$('#upload').val());
+//    		this.model = new BS.Profile();
+//       	 
+//        	this.model.set('imageData',$('#imagedata').val());
+//        	this.model.set('imageName',$('#imagedata').attr("name"));
+//        	this.model.set('videoData',$('#videodata').val());
+//        	this.model.set('videoName',$('#videodata').attr("name"));
+//        	this.model.set('mobile',$('#mobile').val());
+//        	this.model.set('upload',$('#upload').val());
         	
     		var data;
-
-        	 
-//    		data = new FormData();
-//     	    data.append('imageName',$('#imagedata').attr("name"));
-//     	    data.append('imageData',$('#imagedata').val());
-//     	    data.append('videoName', $('#videodata').attr("name"));
-// 
-//     	    data.append('videoData', $('#videodata').val());
-//     		data.append('mobile',$('#mobile').val());
-//     	    data.append('upload',$('#upload').val());
-     	   
-     	    
         	data = new FormData();
      	    data.append('imageData', this.image);
      	    data.append('videoData', this.video);
      		data.append('mobile',$('#mobile').val());
      		data.append('upload',$('#upload').val());
-     		
      		 
         	/* post profile page details */
         	$.ajax({
@@ -67,8 +54,11 @@ BS.ProfileView = Backbone.View.extend({
         	    contentType: false,
         	    processData: false,
         	    success: function(data){
-        	    	// navigate to main stream page
-        	    	BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+        	    	if(data.status == "Success") 
+	   			    {
+	        	    	// navigate to main stream page
+	        	    	BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+	   			    }
         	    }
         	});
         	
@@ -87,10 +77,9 @@ BS.ProfileView = Backbone.View.extend({
     
     displayImage:function (e) {
     	
-    	  file = e.target.files[0];
+    	 file = e.target.files[0];
     	 this.image = file;
          var reader = new FileReader();
-         
          
          /* Only process image files. */
          if (!file.type.match('image.*')) {
@@ -104,7 +93,6 @@ BS.ProfileView = Backbone.View.extend({
          else
          {
         	 $('#image-error').hide();
-        	 
         	 /* capture the file informations */
              reader.onload = (function(f){
             	 return function(e){ 
@@ -126,9 +114,7 @@ BS.ProfileView = Backbone.View.extend({
     /**
      * display profile video
      */
-    
     displayVideo:function (e) {
-    	
     	 
     	 var file = e.target.files[0];
     	 this.video = file;

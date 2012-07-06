@@ -20,15 +20,17 @@ BS.StreamView = Backbone.View.extend({
            "click i.rocked" : "rockedIt",
            "mouseenter a#rocks" : "showRockers",
            "mouseleave a#rocks" : "hideRockers",
-           "click #file-media" : "showFileMedias"
-        	   
+           
+           "click #file-media" : "showFileMedias",
+           "click #messages" : "showStreamPage",
+           "click '.nav a" : "addActive"
 		  
 	 },
 	
 
     initialize:function () {
     	
-    	 console.log('Initializing Stream View');
+    	console.log('Initializing Stream View');
     
     	/* for hover over */
 	    this.distance = 10;
@@ -41,7 +43,6 @@ BS.StreamView = Backbone.View.extend({
 	    this.trigger = $('.trigger');
 	    this.popup = $('.popup').css('opacity', 0);
     	 
-       
 		this.source = $("#tpl-main-stream").html();
 		this.template = Handlebars.compile(this.source);
     },
@@ -59,8 +60,6 @@ BS.StreamView = Backbone.View.extend({
 		}});
         
          
-        
-        
        this.getStreams();
  
        $(this.el).html(this.template);
@@ -243,7 +242,6 @@ BS.StreamView = Backbone.View.extend({
       var id = eventName.target.id;
       streamName = $('#'+id+'').text();
 
-      
       $('#streams-list li.active').removeClass('active');
       $('#'+id).parents('li').addClass('active');
       
@@ -288,11 +286,6 @@ BS.StreamView = Backbone.View.extend({
 				  var datas = {
 					 		"datas" : data
 				  }
-				  
-//				// get all rockers list
-//				  _.each(data, function(msg) {
-//					  self.getRockers(msg.id.id);
-//				  });
 				  var source = $("#tpl-messages").html();
 				  var template = Handlebars.compile(source);
 				  $('.timeline_items').prepend(template(datas));
@@ -322,14 +315,11 @@ BS.StreamView = Backbone.View.extend({
 					  var datas = {
 					 		"datas" : data
 					  }
- 
 					  var source = $("#tpl-messages").html();
 					  var template = Handlebars.compile(source);
 					  $('.timeline_items').html(template(datas));
-             
 				}
 		 });
-    	
     	
     },
     
@@ -416,8 +406,7 @@ BS.StreamView = Backbone.View.extend({
              url:BS.rockedIt,
              data:{
             	  messageId:msgId
-            	 },
-            	 
+             },
              dataType:"json",
              success:function(data){
             	 
@@ -426,9 +415,8 @@ BS.StreamView = Backbone.View.extend({
  
              }
           });
- 
- 
 	 },
+	 
 	 /**
 	  * get rockers 
 	  */
@@ -439,8 +427,7 @@ BS.StreamView = Backbone.View.extend({
              url:BS.rockersList,
              data:{
             	  messageId:msgId
-            	 },
-            	 
+             },
              dataType:"json",
              success:function(data){
             	 
@@ -454,25 +441,19 @@ BS.StreamView = Backbone.View.extend({
  
         		$('#hover-lists-'+msgId+'').fadeIn("slow");
         		$('#hover-lists-'+msgId+'').html(ul);
- 
- 
              }
           });
-		 
 	 },
 	 
 	 /**
 	  * show rockers list on hover over
 	  */
-	 
 	 showRockers:function(eventName){
 		 
 		 eventName.preventDefault();
-		 
 		 var element = eventName.target.parentElement;
 		 var msgId =$(element).closest('li').attr('id');
 		 var position = $('li#'+msgId+'').find('i').position();
-		  
 		 this.getRockers(msgId,position);
  
 	 },
@@ -488,20 +469,42 @@ BS.StreamView = Backbone.View.extend({
  
 	 },
 	 
+	 
+	 // TODO
 	 /**
 	  * show files  & Media page
 	  * 
 	  */
 	 
 	 showFileMedias : function(eventName){
-		
+ 
+	   	  this.filesMediaView = new BS.FilesMediaView();
+	   	  this.filesMediaView.render();
+	   	 
+	   	  $('#middle-content').html(this.filesMediaView.el);
+	   	  $('#messages').closest('li').removeClass('active');
+	   	  $('#file-media').closest('li').addClass('active');
+	   	  $('.file-type').hide();
+	 },
+	 /**
+	  * TODO show stream page again
+	  */
+	 showStreamPage : function(eventName){
+		 
 		 eventName.preventDefault();
-		 if (!this.filesMediaView) {
-	   	     this.filesMediaView = new BS.FilesMediaView();
-	   	     this.filesMediaView.render();
-	   	   }
-
-	   	   $('#middle-content').html(this.filesMediaView.el);
-//		 BS.AppRouter.navigate("filesMedia", {trigger: true, replace: true});
+		 BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+	 },
+ 
+	 addActive : function(eventName){
+		 var id = eventName.target;
+		 var $this = $(id);
+		console.log( $this);
+	     if (!$this.is('.dropdown-toggle')) {
+	         $this
+	             .closest('ul')
+	                 .find('li').removeClass('active').end()
+	             .end()
+	             .closest('li').addClass('active');
+	     }
 	 }
 });

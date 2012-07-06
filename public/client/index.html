@@ -532,8 +532,6 @@
                 		</div>
 			</div>
 		</div>
-
-		  
             </fieldset>
 
         </form>
@@ -571,15 +569,12 @@
                         </select>
                     </div>
                 </div>
-             
-
 		 <div class="form-row">
 
 			<div class="element">
                         <label for="friend-name">Add FriendStream Tags</label>
                         <input type="text" id="friend-name" class="span3">
                     </div>
-	
   		</div>
 		<div class="form-row-label">&nbsp;</div>
 		 <div class="form-row">
@@ -605,8 +600,6 @@
                 		</div>
 			</div>
 		</div>
-
-		  
             </fieldset>
 
         </form>
@@ -719,9 +712,7 @@
                 </div>
 			 </div>
             </fieldset>
-
             <a href="#" class="legend legend-add">Add another school</a>
-
         </form>
     </div>
     <div class="modal-footer">
@@ -732,25 +723,11 @@
 	</script>
 	
 <body style="padding-top: 96px !important;">
-	  <div class="navbar-fixed-top">
-       <header class="site_header">
-        <div class="container">
-          <h1 class="brand"><a href="#"><img src="images/layout/logo.png" alt="BeamStream" width="106" height="27"></a></h1>
-          <h2><i>Evolving</i> Classroom &amp; Academic Interaction</h2>
-        </div>
-      </header>
-
-      <nav class="navbar main_menu"> </nav>
-    </div>
-	
-<!-- 	<div class="container" id="container"> -->
-	    
-	  <div id="content"></div>
-	    <div id="school-popup" ></div>
-	    <div id="list-popups"></div>
-<!-- 	</div> /container -->
  
- <div id="main-popups"></div>
+	  <div id="content"></div>
+	  <div id="school-popup" ></div>
+	  <div id="list-popups"></div>
+      <div id="main-popups"></div>
         
     
      
@@ -759,12 +736,6 @@
         Status : {{status}}
     </script>
     
-    
-    
-    
-
-
-
     <!-- Class registration  -->
     <script type="text/x-handlebars-template" id="tpl-class-reg">
  
@@ -1116,8 +1087,8 @@
                 <ul class="nav">
                   <li  ><a href="#streams-and-groups">Streams &amp; Groups</a></li>
                   <li><a href="#connections">Connections</a></li>
-                  <li class="active"><a href="#dms">Messages</a></li>
-                  <li id ="file-media" ><a href="#files">Files & Media</a></li>
+                  <li id ="messages" class="active"><a href="#dms">Messages</a></li>
+                  <li id ="file-media" ><a href="#filesMedia">Files & Media</a></li>
                   <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#more">
                       More
@@ -1646,7 +1617,7 @@
        
       </div>
       <ul class="rockit">
-          <li><div class="arrow-top"></div><span><a href="#">ROCK IT WITH COLLABORATION</a></span><a href="#"><img src="images/hand_icon.png"></a></li>
+          <li><div class="arrow-top-big"></div><span><a href="#">ROCK IT WITH COLLABORATION</a></span><a href="#"><img src="images/hand_icon1.png"></a></li>
           </ul>
         </fieldset>
   </form>
@@ -1743,7 +1714,7 @@
             <li><a href="#">Spreadsheets</a> </li>
           </ul>
         <label>Sort by:</label>
-        <a href="#">File Type</a>
+        <a id="file-type" href="#" data-toggle="dropdown" >File Type</a>
         <ul>
           <li><a href="#">Rock on Votes</a></li>
           <li><a href="#">Tags</a> </li>
@@ -2021,26 +1992,11 @@
                });
         });
  }
-
- 
- 
-	
 </script>
-
-
-
-
 
 <script>
         $(document).ready(function() {
-        	
-        	
-//             $('.with-tooltips a, .with-tooltip').each(function() {
-//                 var $this = $(this);
-//                 var placement = $this.parent().hasClass('tooltips-bottom') ? 'bottom' : 'top';
-//                 $(this).tooltip({placement: placement});
-//             });
-
+ 
             $('.comment_actions').each(function() {
                 var $this = $(this),
                     $hide = $this.find('[href="#hide"]'),
@@ -2079,14 +2035,8 @@
             });
         });
 </script>
-
-
- 
 	
 <!--  Backbone.js files -->
-
-
-
 <script src="js/views/loginview.js"></script>
 <script src="js/views/classstreamview.js"></script>
 <script src="js/views/projectstreamview.js"></script>
@@ -2110,9 +2060,7 @@
 <script src="js/views/streamview.js"></script>
 <script src="js/views/filesmediaview.js"></script>
 <script src="js/models/singleusermodel.js"></script>
- 
 <script src="js/router.js"></script>
-
 
 </body>
 </html>
