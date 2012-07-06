@@ -51,10 +51,11 @@ object DocumentController extends Controller {
     val name = documentListJsonMap("docName").toList(0)
     val url = new URL(documentListJsonMap("docURL").toList(0))
     val access = documentListJsonMap("docAccess").toList(0)
+    val docType = documentListJsonMap("docType").toList(0)
     val doc = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val date = new Date
     val documentToCreate = new Document(new ObjectId(id), name, url, 
-        DocType.GoogleDocs,new ObjectId(request.session.get("userId").get),
+        DocType.withName(docType),new ObjectId(request.session.get("userId").get),
         DocumentAccess.withName(access), null, date, date, 0, List(), List())
     val docId=Document.addDocument(documentToCreate)
     val docObtained = Document.findDocumentById(docId)
