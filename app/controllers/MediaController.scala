@@ -41,7 +41,7 @@ object MediaController extends Controller {
       new mediaComposite(imageFilename, contentType.get, profileImageInputStream)
       */
     }.get
-
+    println("1111111111111111111111111111111111111111111111111111111111111111111111111")
     // Fetch the video stream and details
     val videoComposite = request.body.file("videoData").map { videoData =>
        val videoAuthenticationToken=tokenEmail.securityToken
@@ -56,7 +56,7 @@ object MediaController extends Controller {
       new mediaComposite(videoFilename, contentType.get, profileVideoInputStream)
     */
     }.get
-
+    println("22222222222222222222222222222222222222222222222222222222222222222222222222*")
     val mediaJsonMap = request.body.asFormUrlEncoded.toList
     val uploadType = mediaJsonMap(0)._2.toList(0)
     val mobileNo = mediaJsonMap(1)._2.toList(0)
@@ -70,7 +70,7 @@ object MediaController extends Controller {
     imageComposite.inputStream, imageComposite.name, videoComposite.inputStream, videoComposite.name, mobileNo, uploadType)
     Profile.createMedia(mediaTransfrerObject)
     */
- 
+    println("*****************************************************************")
     Ok(write(new ResulttoSent("Success","Profile Photo Uploaded Successfully"))).as("application/json")
   }
 }
