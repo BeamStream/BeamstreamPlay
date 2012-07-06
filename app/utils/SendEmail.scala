@@ -27,7 +27,7 @@ object SendEmail {
     val msg = new MimeMessage(session)
     val recepientAddress = new InternetAddress(emailId)
 
-    msg.setFrom(new InternetAddress("neelkanth@knoldus.com"))
+    msg.setFrom(new InternetAddress("beamteam@beamstream.com","beamteam@beamstream.com"))
     msg.addRecipient(Message.RecipientType.TO, recepientAddress);
     msg.setSubject("Registration Process On BeamStream");
     
