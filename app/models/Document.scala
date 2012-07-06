@@ -48,7 +48,7 @@ object DocType extends Enumeration {
 }
 
 case class Document(@Key("_id") id: ObjectId, name: String, url: URL, docType: DocType.Value, userId: ObjectId, access: DocumentAccess.Value, streamId: ObjectId,
-  creationDate: Option[Date], lastUpdateDate: Option[Date], rocks: Int, rockers: List[ObjectId], comments : List[Message])
+  creationDate: Date, lastUpdateDate: Date, rocks: Int, rockers: List[ObjectId], comments : List[Message])
 
 case class DocumentForm(name: String)
 object Document {
@@ -60,8 +60,9 @@ object Document {
 /*
  * Add a document
  */
-  def addDocument(document : Document) {
-      DocumentDAO.insert(document)
+  def addDocument(document : Document) : ObjectId = {
+      val docId = DocumentDAO.insert(document)
+      docId.get
    }
 
   /*
@@ -72,6 +73,15 @@ object Document {
 
   }
 
+ /*
+  * Names of a rockers for a document
+  */
+  def rockersNames(docId: ObjectId): List[String] = {
+    val docRocked = DocumentDAO.find(MongoDBObject("_id" -> docId)).toList(0)
+    val rockersName = User.giveMeTheRockers(docRocked.rockers)
+    rockersName
+  }
+    
   /*
    * Find document by name
    */
@@ -84,7 +94,7 @@ object Document {
   /*
    * Get all documents for a user
    */
-  def getAllDocumentsforAUser(userId: ObjectId): List[Document] = {
+  def getAllDocumentsForAUser(userId: ObjectId): List[Document] = {
 
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
     getAllDocuments(user.documents)
@@ -135,6 +145,11 @@ object Document {
    def totalRocks(documentId: ObjectId): Int = {
     val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
     document.rocks
+  }
+   
+   def findDocumentById(docId: ObjectId): Document = {
+    val doc = DocumentDAO.findOneByID(docId)
+    doc.get
   }
    
 }
