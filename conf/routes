@@ -26,6 +26,11 @@ POST /getAllMessagesForAStream controllers.MessageController.getAllMessagesForAS
 #GET /joinStreams controllers.JoinStream.joinstreams
 POST /joinStreams controllers.JoinStream.joinStream
 
+#Documents
+
+GET /documents controllers.DocumentController.documents
+POST /newDocument controllers.DocumentController.newDocument
+POST /getAllDocumentsForAUser controllers.MessageController.getAllDocumentsForAUser
 
 #Schools
 
