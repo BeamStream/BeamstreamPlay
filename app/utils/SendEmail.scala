@@ -31,12 +31,18 @@ object SendEmail {
     msg.addRecipient(Message.RecipientType.TO, recepientAddress);
     msg.setSubject("Registration Process On BeamStream");
     
-    msg.setContent("Hi User, Follow the Link to Complete Registration "+
+    msg.setContent(
+        
+       
+		"Thank you for registering at <b>Beamstream</b>. We're stoked!."+
+        " Please validate your identity and complete your registration by clicking on this link "+
        "<a href="+ "'http://localhost:9000/beamstream/index.html#basicRegistration"+"/token/"+authToken +"/iam/"+iam+"/emailId/"+emailId+"'> Register On BeamStream</a>"
       //"<a href="+ "'http://beamstream-v3.herokuapp.com/beamstream/index.html#basicRegistration"+"/token/"+authToken +"/iam/"+iam+"/emailId/"+emailId+"'> Register On BeamStream</a>"
        
+        +"<br>" +"<br>" +"<br>"+
+        "Cheers,"+"<br>"+
+		"The Really Nice Beamstream Folks , US"+"<br>"
         
-        +"<br>" +"<br>" +"<br>"+"Regards | Beamstream Team , US"
         , "text/html");
     val transport = session.getTransport("smtp");
     transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", "neelknoldus")
