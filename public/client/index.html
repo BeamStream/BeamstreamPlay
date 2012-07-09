@@ -1103,6 +1103,7 @@
                 <ul class="nav pull-right">
                   <li>
                     <div class="photo_container">
+					   
                       <img id="right-photo" src="images/placeholders/face5.png" width="36" height="37">
                     </div>
                   </li>
@@ -1171,7 +1172,11 @@
                   <a href="#" class="btn btn-flat" title="Photos"><i class="icon-camera"></i></a>
                 </div>
               </section>
-              <div  class="photo_container">
+              <div  class="photo_container" id="main-photo-container">
+					<a class="edit_profilepicture">
+						Edit Picture
+						<span class="edit_profilepicture_icon"></span>
+						</a>
                 <img id ="main-photo" src="images/placeholders/face1.png" width="189" height="156" alt="username photo">
               </div>
               <section class="user_friends_mini">
@@ -1507,10 +1512,11 @@
             <div class="element">
               <label for="school-mail"></label>
               <div class="checkbox_wrapper">
-                <div class="checkbox">
-                  <input type="checkbox">
+                <div id ="no-schoolmail" class="checkbox">
+                  <input id="schoolmail" type="checkbox">
                 </div>
                 I don't have a school email </div>
+              <div id ="school-record">
               <div class="element">
                 <p>No school email address?
                   For Security Reasons,
@@ -1527,6 +1533,7 @@
                 <div class="file-upload-box"><input type="file"></div>
               </div>
               <div class="element"> <a href="#" class="btn btn-success pull-right">Request approval</a> </div>
+              </div>
             </div>
           </div>
         </div>
