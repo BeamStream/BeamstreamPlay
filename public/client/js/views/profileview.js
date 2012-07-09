@@ -26,18 +26,11 @@ BS.ProfileView = Backbone.View.extend({
      */
     saveProfile:function (eventName) {
     	eventName.preventDefault();
+    	
     	var validate = jQuery('#profile-form').validationEngine('validate');
     	if(validate == true)
     	{
-//    		this.model = new BS.Profile();
-//       	 
-//        	this.model.set('imageData',$('#imagedata').val());
-//        	this.model.set('imageName',$('#imagedata').attr("name"));
-//        	this.model.set('videoData',$('#videodata').val());
-//        	this.model.set('videoName',$('#videodata').attr("name"));
-//        	this.model.set('mobile',$('#mobile').val());
-//        	this.model.set('upload',$('#upload').val());
-        	
+    		$('#loading').css('display','block');
     		var data;
         	data = new FormData();
      	    data.append('imageData', this.image);
@@ -54,8 +47,10 @@ BS.ProfileView = Backbone.View.extend({
         	    contentType: false,
         	    processData: false,
         	    success: function(data){
+        	    	 
         	    	if(data.status == "Success") 
 	   			    {
+        	    		$('#loading').css('display','none');
 	        	    	// navigate to main stream page
 	        	    	BS.AppRouter.navigate("streams", {trigger: true, replace: true});
 	   			    }

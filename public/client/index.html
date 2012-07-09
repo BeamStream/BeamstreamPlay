@@ -723,7 +723,26 @@
 	</script>
 	
 <body style="padding-top: 96px !important;">
- 
+   <div class="navbar-fixed-top">
+       <header class="site_header">
+        <div class="container">
+          <h1 class="brand"><a href="#"><img src="images/layout/logo.png" alt="BeamStream" width="106" height="27"></a></h1>
+          <h2><i>Evolving</i> Classroom &amp; Academic Interaction</h2>
+        </div>
+      </header>
+
+      <nav class="navbar main_menu">
+		<div class="navbar-inner">
+			<div class="container top-head">
+				<div class="container-fluid">
+					<div class="nav-collapse">
+					
+				</div>
+			</div>
+		</div>
+	 </div>
+	 </nav>
+    </div>
 	  <div id="content"></div>
 	  <div id="school-popup" ></div>
 	  <div id="list-popups"></div>
@@ -1029,6 +1048,7 @@
 
                 <div class="form-row-label">&nbsp;</div>
                 <div class="form-row">
+                  
                     <div class="element">
                         <label for="mobile">Mobile *</label>
                         <input type="text" id="mobile" name="mobile" class="validate[required,custom[mobile]] large" placeholder="(999)999-9999">
@@ -1047,17 +1067,20 @@
                     </div>
                 </div>
             </fieldset>
+              
 			<input type="hidden"   id="imagedata" />
+             
             <input type="hidden"   id="videodata" />
         </form>
     </div>
     <div class="modal-footer">
-
+        <div style= "display:none; margin-right: 480px;" id ="loading"><img src ="images/loading.gif"></div> 
         <a href="#messages" class="btn btn-primary pull-left"  id="save" >Save & Exit</a>
+
         <a href="#messages" class="btn btn-success pull-right" id="complete" >Complete</a>
     </div>
 </div>
-  </script>
+ </script>
   
   
   
