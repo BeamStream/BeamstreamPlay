@@ -56,7 +56,7 @@ object MediaController extends Controller {
       new mediaComposite(videoFilename, contentType.get, profileVideoInputStream)
     */
     }.get
-    println("22222222222222222222222222222222222222222222222222222222222222222222222222*")
+    println("22222222222222222222222222222222222222222222222222222222222222222222222222")
     val mediaJsonMap = request.body.asFormUrlEncoded.toList
     val uploadType = mediaJsonMap(0)._2.toList(0)
     val mobileNo = mediaJsonMap(1)._2.toList(0)
