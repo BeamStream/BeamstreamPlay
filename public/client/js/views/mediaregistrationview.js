@@ -3,6 +3,8 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	events : {
 		"click #save" : "save",
 		"click #continue" : "toNextPage",
+		"click #no-schoolmail" : "addSchoolEmail",
+		
 	},
 
 	initialize : function() {
@@ -18,6 +20,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 		
 		
 		 $(this.el).html(this.template);
+		
 		 return this;
 		
 	},
@@ -196,5 +199,19 @@ BS.MediaRegistrationView = Backbone.View.extend({
         	$('#error').html("Fields are not completly filled");
         }
 	},
-
+	
+	/**
+	 * show fields to enter school record
+	 */
+	addSchoolEmail : function () {
+		var  checked = $('#schoolmail').attr('checked');
+    	if(checked == "checked")
+    	{
+    		 $('#school-record').show();
+    	}
+    	else
+    	{
+    		 $('#school-record').hide();
+    	}
+	}
 });

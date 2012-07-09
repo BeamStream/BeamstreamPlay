@@ -20,6 +20,9 @@ BS.StreamView = Backbone.View.extend({
            "click i.rocked" : "rockedIt",
            "mouseenter a#rocks" : "showRockers",
            "mouseleave a#rocks" : "hideRockers",
+           "click .edit_profilepicture" : "showProfilePage",
+ 
+           
            
            "click #file-media" : "showFileMedias",
            "click #messages" : "showStreamPage",
@@ -498,7 +501,7 @@ BS.StreamView = Backbone.View.extend({
 	 addActive : function(eventName){
 		 var id = eventName.target;
 		 var $this = $(id);
-		console.log( $this);
+		 
 	     if (!$this.is('.dropdown-toggle')) {
 	         $this
 	             .closest('ul')
@@ -506,5 +509,13 @@ BS.StreamView = Backbone.View.extend({
 	             .end()
 	             .closest('li').addClass('active');
 	     }
+	 },
+	 /**
+	  * navigate to profile page to edit profile pic
+	  */
+	 showProfilePage : function(eventName){
+		  
+		 eventName.preventDefault();
+		 BS.AppRouter.navigate("profile", {trigger: true, replace: true});
 	 }
 });

@@ -1292,3 +1292,39 @@ ul.file-type li a:hover{
 	background:url(../images/file_type_icon.png) 5px 0 no-repeat;
 	margin:-13px 0 0 0;
 }
+/** Edit profilr pic */
+.edit_profilepicture
+{
+	background: none repeat scroll 0 0 #000000;
+    color: #FFFFFF;
+    display: none;
+    height: 20px;
+    opacity: 0.7;
+    padding: 6px 7px 0 23px;
+    position: absolute;
+    right: 961px;
+    top: 210px;
+    cursor:pointer;
+    line-height: 13px;
+	
+}
+span.edit_profilepicture_icon{
+	background: url("http://static.ak.fbcdn.net/rsrc.php/v2/yA/r/QbfalTL4SQ2.png") no-repeat scroll left 4px transparent;
+    height: 18px;
+    left: 7px;
+    opacity: 0.95;
+    position: absolute;
+    top: 4px;
+    width: 18px;
+	
+}
+.edit_profilepicture:hover  
+{
+	text-decoration: underline;
+	color: #FFFFFF !important;
+	
+}
+#main-photo-container:hover .edit_profilepicture
+{
+	display :block;
+}
