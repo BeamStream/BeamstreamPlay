@@ -3,7 +3,8 @@ BS.FilesMediaView = Backbone.View.extend({
 	events: {
 	       "click a#file-type" : "showFilesTypes",
 	       "click ul.file-type li a" : "hideList",
-	       "click '.nav a" : "addActive"
+	       "click '.nav a" : "addActive",
+               "click #go_button" : "uploadFile"
 	      
 	 },
 	
@@ -51,5 +52,37 @@ BS.FilesMediaView = Backbone.View.extend({
 	             .end()
 	             .closest('li').addClass('active');
 	     }
-	 }
+	 },
+         
+       /*
+        * Author:Cuckoo Anna on 09July2012
+        * For Uploading docs
+        * docType can be one of "GoogleDocs", "YoutubeVideo", "Other".
+        * docAccess can be one of "Private", "Public", "Restricted", "Stream".
+        */  
+     uploadFile : function()
+     {
+         /* post the documents details */
+         
+         var fileModel = new BS.File();
+         fileModel.set({
+              		docName : 'doc1',
+              		docURL : $("#upload-media").val(),
+                        docAccess: 'Public',
+                        docType: 'GoogleDocs'
+          		});
+              	var fileData = JSON.stringify(fileModel);
+         
+            $.ajax({
+                    type : 'POST',
+                    url : BS.docUpload,
+                    data : {
+                            data : fileData
+                    },
+                    dataType : "json",
+                    success : function(data) {
+                            alert("Doc Uploaded Successfully");
+                    }
+            });
+     }
 });
