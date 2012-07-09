@@ -15,6 +15,7 @@ object ApplicationBuild extends Build {
     "joda-time" % "joda-time" % "2.0",
     "javax.mail" % "mail" % "1.4.1",
     "org.scalatra" %% "scalatra-lift-json" % "2.0.4",
+    "com.amazonaws" % "aws-java-sdk" % "1.0.002",
     "org.joda" % "joda-convert" % "1.1")
 
   resolvers += "repo.novus snaps" at "http://repo.novus.com/snapshots/"
