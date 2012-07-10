@@ -8,7 +8,6 @@ import com.novus.salat.annotations._
 import org.bson.types.ObjectId
 import com.mongodb.casbah.commons.MongoDBObject
 
-
 case class ProfileMedia(@Key("_id") id: ObjectId, userId: ObjectId, profileImageUrl: String, profileVideoUrl: String, mobile: String, uploadType: String, isProfilePicture: Boolean)
 object ProfileMedia {
 
@@ -28,8 +27,8 @@ object ProfileMedia {
    * Mark other picture as "not profile picture"
    */
   def isNotProfilePic(userId: ObjectId) {
-    val mediaObtained = ProfileMediaDAO.find(MongoDBObject("userId" -> userId)).toList
-//    mediaObtained.foreach(media => media.isProfilePicture==false)
+
+    ProfileMediaDAO.update(MongoDBObject("userId" -> userId), MongoDBObject("isProfilePicture" -> false), false, false)
 
   }
 

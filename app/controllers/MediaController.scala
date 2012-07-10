@@ -43,19 +43,19 @@ object MediaController extends Controller {
     }.get
 
     // Fetch the video stream and details
-//      val videoComposite = request.body.file("videoData").map { videoData =>
-//      val videoAuthenticationToken = tokenEmail.securityToken
-//      val videoFilename = videoData.filename
-//      val contentType = videoData.contentType
-//      val videoFileObtained: File = videoData.ref.file.asInstanceOf[File]
-//      AmazonUpload.uploadFileToAmazon(videoFilename, videoFileObtained)
-//      videoURL="https://s3.amazonaws.com/Beamstream/"+videoFilename
+      val videoComposite = request.body.file("videoData").map { videoData =>
+      val videoAuthenticationToken = tokenEmail.securityToken
+      val videoFilename = videoData.filename
+      val contentType = videoData.contentType
+      val videoFileObtained: File = videoData.ref.file.asInstanceOf[File]
+      AmazonUpload.uploadFileToAmazon(videoFilename, videoFileObtained)
+      videoURL="https://s3.amazonaws.com/Beamstream/"+videoFilename
       /*
       val profileVideo: File = videoData.ref.file.asInstanceOf[File]
       val profileVideoInputStream = new FileInputStream(profileVideo)
       new mediaComposite(videoFilename, contentType.get, profileVideoInputStream)
     */
-   // }.get
+    }.get
 
     val mediaJsonMap = request.body.asFormUrlEncoded.toList
     val uploadType = mediaJsonMap(0)._2.toList(0)
@@ -63,14 +63,15 @@ object MediaController extends Controller {
 
     // Save the profile picture for a user
     val media = new ProfileMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, videoURL, mobileNo, uploadType,true)
+    ProfileMedia.isNotProfilePic(new ObjectId(request.session.get("userId").get))
     ProfileMedia.saveMediaForUser(media)
-    //ProfileMedia.isNotProfilePic( new ObjectId(request.session.get("userId").get))
+   
     /*
     val mediaTransfrerObject = new MediaTransfer(new ObjectId(request.session.get("userId").get), MediaType.Image, true,
     imageComposite.inputStream, imageComposite.name, videoComposite.inputStream, videoComposite.name, mobileNo, uploadType)
     Profile.createMedia(mediaTransfrerObject)
     */
-    println("*****************************************************************")
+    
     Ok(write(new ResulttoSent("Success", "Profile Photo Uploaded Successfully"))).as("application/json")
   }
 }
