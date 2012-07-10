@@ -4,8 +4,6 @@ BS.StreamView = Backbone.View.extend({
 	 events :{
            "mouseenter .trigger" : "mouseOver",
            "mouseleave .trigger" : "mouseOut",
-           "click #school" : "renderPopups",
-           "click #sign-out" : "signOut",
            "click #classstream" :"classStream",
            "click #projectStream" :"projectstream",
            "click #studyStream" :"studyStream",
@@ -21,13 +19,9 @@ BS.StreamView = Backbone.View.extend({
            "mouseenter a#rocks" : "showRockers",
            "mouseleave a#rocks" : "hideRockers",
            "click .edit_profilepicture" : "showProfilePage",
+           "click .nav-tabs li" : "showActive",
+           "click .class-nav-list li" :"showListActive"
  
-           
-           
-           "click #file-media" : "showFileMedias",
-           "click #messages" : "showStreamPage",
-           "click '.nav a" : "addActive"
-		  
 	 },
 	
 
@@ -51,21 +45,10 @@ BS.StreamView = Backbone.View.extend({
     },
 
     render:function (eventName) {
-    	
-    	this.newUser = new BS.SingleUser();
-        this.newUser.fetch({success: function(e) {  
-        	 
-			 $('.username').text(e.attributes.firstName + ' ' + e.attributes.lastName);
-			 $('li.location .icon-location').after(e.attributes.location);
-			 $('li.occupation .icon-silhouette').after(e.attributes.userType.name);
-			 $('#user-dropdown .arrow').before(e.attributes.firstName + ' ' + e.attributes.lastName);
-			 $('li.screen_name').text(e.attributes.firstName + ' ' + e.attributes.lastName);
-		}});
-        
-         
+
        this.getStreams();
  
-       $(this.el).html(this.template);
+       $(this.el).html(this.template(this.model.toJSON()));
         
        return this;
     },
@@ -86,7 +69,7 @@ BS.StreamView = Backbone.View.extend({
 					 var streams ='';
 					 _.each(datas, function(data) {
 							 
-							streams+= '<li><span class="flag-piece"></span><a id ="'+data.id.id+'" href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
+							streams+= '<li><span class="flag-piece"></span><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
 					 });
 					  
 					 $('#streams-list').html(streams);
@@ -94,6 +77,15 @@ BS.StreamView = Backbone.View.extend({
 					 
 					 // display the messages of the first stream in the stream list by default
                      var streamId = $('#streams-list li.active a').attr('id');
+                     var streamName = $('#streams-list li.active a').attr('name');
+                     
+//                     // render sub menus in stream page
+//                     var source = $("#tpl-stream-page-menus").html();
+//             		 var template = Handlebars.compile(source);
+//             		 $('#sub-menus').html(template({streamName : streamName}));
+             	 
+             		
+             		
                      if(streamId)
                       self.getMessageInfo(streamId);
              
@@ -158,16 +150,6 @@ BS.StreamView = Backbone.View.extend({
 	      }, this.hideDelay);
     },
  
-    
-    renderPopups: function(){
-    	
-    	$('.modal-backdrop').show();
-    	this.school1 = new BS.SchoolView();
-    	this.school1.render();
-    	$('#school-popup').html(this.school1.el);
-        $('.modal .datepicker').datepicker();
-  
-    },
     /*
      * display class stream
      */
@@ -243,11 +225,18 @@ BS.StreamView = Backbone.View.extend({
     selectOneStream :function(eventName){
       eventName.preventDefault();
       var id = eventName.target.id;
+      var streamName = eventName.target.name;
+      
       streamName = $('#'+id+'').text();
 
       $('#streams-list li.active').removeClass('active');
       $('#'+id).parents('li').addClass('active');
       
+//      // render sub menus in stream page
+//      var source = $("#tpl-stream-page-menus").html();
+//	  var template = Handlebars.compile(source);
+//	  $('#sub-menus').html(template({streamName : streamName}));
+		 
       // call the method to display the messages of the selected stream
       this.getMessageInfo(id);
        
@@ -359,25 +348,7 @@ BS.StreamView = Backbone.View.extend({
   	   $('#streams-list').slideDown();
 	},
 	
-	 /**
-	 * function for sign out
-	 */
-	 signOut :function(eventName){
-		 eventName.preventDefault();
-		 
-		 /* expires the usersession  */
-		 $.ajax({
-				type : 'GET',
-				url : BS.signOut,
-				dataType : "json",
-				success : function(datas) {
-//					 BS.singleUser.set('loggedin', false);
-					 BS.AppRouter.navigate("login", {trigger: true, replace: true});
-				}
-		 });
-		
-		
-	 },
+ 
 	 /**
 	  * slide up for left most stream list
 	  */
@@ -472,44 +443,7 @@ BS.StreamView = Backbone.View.extend({
  
 	 },
 	 
-	 
-	 // TODO
-	 /**
-	  * show files  & Media page
-	  * 
-	  */
-	 
-	 showFileMedias : function(eventName){
- 
-	   	  this.filesMediaView = new BS.FilesMediaView();
-	   	  this.filesMediaView.render();
-	   	 
-	   	  $('#middle-content').html(this.filesMediaView.el);
-	   	  $('#messages').closest('li').removeClass('active');
-	   	  $('#file-media').closest('li').addClass('active');
-	   	  $('.file-type').hide();
-	 },
-	 /**
-	  * TODO show stream page again
-	  */
-	 showStreamPage : function(eventName){
-		 
-		 eventName.preventDefault();
-		 BS.AppRouter.navigate("streams", {trigger: true, replace: true});
-	 },
- 
-	 addActive : function(eventName){
-		 var id = eventName.target;
-		 var $this = $(id);
-		 
-	     if (!$this.is('.dropdown-toggle')) {
-	         $this
-	             .closest('ul')
-	                 .find('li').removeClass('active').end()
-	             .end()
-	             .closest('li').addClass('active');
-	     }
-	 },
+  
 	 /**
 	  * navigate to profile page to edit profile pic
 	  */
@@ -517,5 +451,21 @@ BS.StreamView = Backbone.View.extend({
 		  
 		 eventName.preventDefault();
 		 BS.AppRouter.navigate("profile", {trigger: true, replace: true});
-	 }
+	 },
+	 
+	 /**
+	  * show as active 
+	  */
+	 
+	 showActive :  function(eventName){
+		  
+		 
+		 $('.nav-tabs li.active').removeClass('active');
+		 $(eventName.target).parents('li').addClass('active');
+	 },
+	 showListActive : function(eventName){
+		  
+		 $('.class-nav-list li.active').removeClass('active');
+		 $(eventName.target).parents('li').addClass('active');
+	 },
 });

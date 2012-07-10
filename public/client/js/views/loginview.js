@@ -6,7 +6,7 @@ BS.LoginView = Backbone.View.extend({
 	 },
 	
     initialize:function () {
-    	
+  
     	jQuery("#login-form").validationEngine();
         console.log('Initializing Login View');
         this.template= _.template($("#tpl-login").html());
@@ -50,14 +50,13 @@ BS.LoginView = Backbone.View.extend({
 							    		if(data.status == "success") 
 							    		{
 							    			 console.log(data.status + " : " + data.message);
-//							    			 BS.singleUser.set('loggedin', true);
 							    			 BS.AppRouter.navigate("streams", {trigger: true, replace: true});
 							    		}
 							    		else 
 							    		{
 							    			 console.log(data.status + " : " + data.message);
-//							    			 BS.singleUser.set('loggedin', false);
 							    			 $('#error').html(data.message);
+							    			 
 							    			 /* clear email and password text box and get highlighted */
 							    			  $('#email').val("");
 							    			  $('#password').val("");

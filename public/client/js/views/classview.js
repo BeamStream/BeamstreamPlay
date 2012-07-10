@@ -34,10 +34,7 @@ BS.ClassView = Backbone.View.extend({
 	saveClass : function(eventName) {
 		
 		eventName.preventDefault();
-		 
-//		if(BS.saveStatus == true)
-//		{
-//	
+ 
 			var validate = jQuery('#class-form').validationEngine('validate');
 			 
 			if(validate == true)
@@ -71,11 +68,7 @@ BS.ClassView = Backbone.View.extend({
 				console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
 				$('#error').html("You must enter atleast one class");
 		    }
-//		}
-//		else
-//		{
-//			BS.AppRouter.navigate("streams", {trigger: true, replace: true});
-//		}
+ 
 	},
 
 	/**
@@ -123,9 +116,7 @@ BS.ClassView = Backbone.View.extend({
 
 		console.log("to profile");
 		eventName.preventDefault();
-		 
-//		if(BS.saveStatus == true)
-//		{
+ 
 			var validate = jQuery('#class-form').validationEngine('validate');
 			if(validate == true)
 		    {
@@ -152,14 +143,7 @@ BS.ClassView = Backbone.View.extend({
 				console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
 				$('#error').html("You must enter atleast one class");
 		    }
-//		}
-//		else
-//		{
-//			BS.AppRouter.navigate("profile", {
-//				trigger : true,
-//				replace : true
-//			});
-//		}
+ 
 	},
 
 	/**
@@ -168,7 +152,7 @@ BS.ClassView = Backbone.View.extend({
 	addClasses : function(eventName) {
 		
 		eventName.preventDefault();
-//		BS.saveStatus = true;
+ 
 		var id = eventName.target.id;
 		var dat='#'+id;
 		$(dat).hide();

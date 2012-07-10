@@ -1328,3 +1328,22 @@ span.edit_profilepicture_icon{
 {
 	display :block;
 }
+/** for back button */
+.back-button{
+	margin:20px 0 0 20px;
+	display :block;
+}
+/* for close button */
+.close-button{
+	margin:20px 20px 0 0;
+	display :block;
+	float:right;
+	position: absolute;
+    right: 0;
+    top: 0;
+}
+/** for stars */
+.star{
+	color:red;
+	margin-left: 2px;
+}

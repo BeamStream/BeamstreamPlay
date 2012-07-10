@@ -45,22 +45,25 @@ BS.AppRouter = Backbone.Router.extend({
   		BS.times = jQuery.parseJSON(JSON.stringify(timeValues));
   		
   	
-//  		BS.singleUser = new BS.SingleUser();
-//		var self = this;
-		/*
-		BS.singleUser.on("change:loggedin", function(e) {
-			if(e.get('loggedin') == false) {
-				BS.AppRouter.navigate("login", {trigger: true});
-				self.login();
+  		var self = this;
+        BS.user = new BS.SingleUser();
+		 
+        /** for authentication  */
+        BS.user.fetch({ success:function(e) {
+    		if(e.get('firstName') != null) { 
+				e.set('loggedin', true);
 			}
-			else {
-				 
-				BS.AppRouter.navigate("streams", {trigger: true});
-//				self.home(true);
+			else { 
+				e.set('loggedin', false);				
 			}
-			
-		});
-		*/
+			 
+			/**
+			 * Create the navigation view with user model.
+			 */
+			this.navView = new BS.NavView({ model: BS.user });
+			$('.nav-collapse').html(this.navView.render().el);
+
+    	}}, this);
 		 
   		
     },
@@ -146,24 +149,20 @@ BS.AppRouter = Backbone.Router.extend({
     */
    mainStream:function () {
 	   
+	   $('nav li.active').removeClass('active');
+	   $('nav li a#messages').parents('li').addClass('active');
+	   var self = this;
 	   $('#middle-content').children().detach();
-//	   if(!BS.singleUser )
-// 			BS.singleUser = new BS.SingleUser();
-//   	
-//   		//For Authentication
-//		 BS.singleUser.authenticate();
-
-	    
-//	   if(BS.singleUser.get('loggedin') == true) { 
+ 
 		   $('#school-popup').children().detach(); 
 		   $('#content').children().detach();
 		   
 		   $('.modal').css('display','none');
-	   	  // if (!this.streamView) {
-	            this.streamView = new BS.StreamView();
-	            this.streamView.render();
-	            this.onstream = true; 
-	       //}
+		   BS.user.fetch({ success:function(e) {
+		    
+			   self.streamView = new BS.StreamView({ model: BS.user });
+			   self.streamView.render();
+			   self.onstream = true; 
 	   	   
 	   	   //to show the profile image
 	   	    var profileModel = new BS.Profile();
@@ -178,7 +177,7 @@ BS.AppRouter = Backbone.Router.extend({
 			}});
 	        
 	   	   $('.modal-backdrop').hide();
-	       $('#content').html(this.streamView.el);
+	       $('#content').html(self.streamView.el);
 	       $(".checkbox").dgStyle();
 	        
 	       $('.with-tooltips a, .with-tooltip').each(function() {
@@ -186,12 +185,9 @@ BS.AppRouter = Backbone.Router.extend({
 	           var placement = $this.parent().hasClass('tooltips-bottom') ? 'bottom' : 'top';
 	           $(this).tooltip({placement: placement});
 	       });
-//	   }
-//	   else
-//		{
-////		    this.login();
-//		   BS.AppRouter.navigate("login", {trigger: true, replace: true});
-//		}
+	       
+		 }});
+ 
        
    },
    
@@ -382,10 +378,21 @@ BS.AppRouter = Backbone.Router.extend({
      */
     //TODO 
     filesMedia :function() {
- 
-    	this.mainStream();
-    	this.streamView.showFileMedias();
-    	$('.file-type').hide();
+    	
+      
+   	  
+      var self = this;
+  	  $('#school-popup').children().detach(); 
+      $('#content').children().detach();
+      
+  	  this.filesMediaView = new BS.FilesMediaView({ model: BS.user });
+  	  this.filesMediaView.render();
+  	  
+  	  $('#content').html(self.filesMediaView.el);
+  	  $('.file-type').hide();
+  	  $(".checkbox").dgStyle();
+  	     
+  	     
    	}
 });
 

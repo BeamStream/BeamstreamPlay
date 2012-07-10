@@ -159,7 +159,7 @@ BS.newClass = "http://localhost:9000/newStream";
 /* 
  * for testing in local
  */
-//BS.login = "http://localhost/client2/api.php";
+//BS.login = "http://localhost/client/api.php";
 //BS.verifyToken ="http://localhost/client2/api.php";
 //BS.verifyEmail = "http://localhost/client2/api.php";
 //BS.registerNewUser = "http://localhost/client2/api.php";
