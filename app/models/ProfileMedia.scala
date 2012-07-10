@@ -27,7 +27,6 @@ object ProfileMedia {
    * Mark other picture as "not profile picture"
    */
   def isNotProfilePic(userId: ObjectId) {
-
     ProfileMediaDAO.update(MongoDBObject("userId" -> userId), MongoDBObject("isProfilePicture" -> false), false, false)
 
   }
