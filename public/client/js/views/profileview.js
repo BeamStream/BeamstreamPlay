@@ -26,7 +26,6 @@ BS.ProfileView = Backbone.View.extend({
      */
     saveProfile:function (eventName) {
     	eventName.preventDefault();
-    	
     	var validate = jQuery('#profile-form').validationEngine('validate');
     	if(validate == true)
     	{
@@ -47,7 +46,7 @@ BS.ProfileView = Backbone.View.extend({
         	    contentType: false,
         	    processData: false,
         	    success: function(data){
-        	    	 
+        	    	console.log(data.status);
         	    	if(data.status == "Success") 
 	   			    {
         	    		$('#loading').css('display','none');

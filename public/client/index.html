@@ -109,6 +109,7 @@
  
   <div class="modal-backdrop in"></div>
     <div class="modal school-popup modal-pull-top in modal-popups" style="display:block;">
+ 
       <div class="modal-header">
       </div>
     <div class="modal-body"> 
@@ -643,7 +644,7 @@
 				<div class="school-registration">
                 <div class="form-row">
                     <div class="element">
-                        <label for="school-name">School name *</label>
+                        <label for="school-name">School name <span class="star"> *</span></label>
  
                         <input type="text" name="school-name-1" id="school-name-1" class="validate[required] span3" placeholder="School Name">
  
@@ -672,17 +673,17 @@
                         </select>
                     </div>
 					<div class="element" id="other-degrees-1">
-                        <label for="other-degree">Degree *</label>
+                        <label for="other-degree">Degree <span class="star"> *</span></label>
                         <input type="text" name="other-degree-1" id="other-degree-1" class="small" placeholder="Degree">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="element">
-                        <label for="major">Major *</label>
+                        <label for="major">Major <span class="star"> *</span></label>
                         <input type="text" name="major-1" id="major-1" class="validate[required] span3" placeholder="Your Major" >
                     </div>
 					<div class="element">
-                        <label for="graduated">Graduated? *</label>
+                        <label for="graduated">Graduated? <span class="star"> *</span></label>
                         <select id="graduated-1" name ="graduated"  class="graduated span2"   >
  							<option> </option>
                             <option value="attending">Still Attending</option>
@@ -750,6 +751,53 @@
         
     
      
+     <!--  main menu  -->
+     <script type="text/x-handlebars-template" id="tpl-navs">
+
+        <ul class="nav">
+                  <li   id ="streamsGroups"><a  id ="streamsGroups" href="#streams-and-groups">Streams &amp; Groups</a></li>
+                  <li id ="connections"><a id ="connections" href="#connections">Connections</a></li>
+                  <li id ="messages"><a id ="messages" href="#dms">Messages</a></li>
+                  <li id ="file-media" ><a  id ="file-media" href="#filesMedia">Files & Media</a></li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#more">
+                      More
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#item1">item1</a></li>
+                      <li><a href="#item2">item2</a></li>
+                      <li><a href="#item3">item3</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <ul class="nav pull-right">
+                  <li>
+                    <div class="photo_container">
+					   
+                      <img id="right-photo" src="images/placeholders/face5.png" width="36" height="37">
+                    </div>
+                  </li>
+                  <li class="dropdown">
+                    <a id ="user-dropdown" class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        {{firstName}} {{lastName}}
+                       <b class="arrow"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#settings">Settings</a></li>
+                     <li id="school-pop" ><a href="#school">Edit Profile</a></li>
+                      <li><a href="#help">Help</a></li>
+                      <li class="divider"></li>
+                      <li>
+                        <form method="post" action="/logout/">
+                          <a id="sign-out" href="#">Sign out</a>
+                        </form>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+    </script>
+     
+     
     <!-- success regitration -->
     <script id="tpl-success" type="text/x-handlebars-template">
         Status : {{status}}
@@ -761,7 +809,7 @@
   <div class="modal-backdrop in"></div>
     <div class="modal  school-popup modal-pull-top in modal-popups" style="display:block;">
     <div class="modal-header">
-        <h2 class="school-name">Previous Schoolname </h2>
+        
         <h1 class="pull-left" >Class info</h2>
         <img src="images/registration-progress-50.png" alt="Registration progress - 50%" class="registration-progress pull-right">
      </div>
@@ -780,11 +828,11 @@
                       <div class="form-row short">
 
                        <div class="element">
-                <label for="class-code-{{sCount}}-1">Class code *</label>
+                <label for="class-code-{{sCount}}-1">Class code <span class="star"> *</span></label>
               <input type="text"  id="class-code-{{sCount}}-1" class="validate[required] small" placeholder="Class 1 code" >
           </div>
           <div class="element">
-              <label for="class-time-{{sCount}}-1">Class time *</label>
+              <label for="class-time-{{sCount}}-1">Class time <span class="star"> *</span></label>
               <select id="class-time-{{sCount}}-1" class="time">
 				  {{#each times}}
                         <option value="{{this.time}}">{{this.time}}</option>
@@ -792,15 +840,15 @@
               </select>
           </div>
           <div class="element">
-              <label for="class-name-{{sCount}}-1">Class name *</label>
+              <label for="class-name-{{sCount}}-1">Class name <span class="star"> *</span></label>
               <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium" placeholder="Class 1 name">
           </div>
           <div class="element">
-              <label for="date-started-{{sCount}}-1">Calendar *</label>
+              <label for="date-started-{{sCount}}-1">Calendar <span class="star"> *</span></label>
               <input class="validate[required] small datepicker cal" type="text" placeholder="Date1" id="date-started-{{sCount}}-1"/>
           </div>
            <div class="element">
-               <label for="semester-{{sCount}}-1">Semester or Quarter *</label>
+               <label for="semester-{{sCount}}-1">Semester or Quarter <span class="star"> *</span></label>
                <select id="semester-{{sCount}}-1" class="small">
                      <option value="semester">Semester</option>
                      <option value="quarter">Quarter</option>
@@ -888,11 +936,11 @@
        <div class="form-row-label">1<sup>st</sup> class</div>
        <div class="form-row short">
           <div class="element">
-              <label for="class-code-{{sCount}}-1">Class code *</label>
+              <label for="class-code-{{sCount}}-1">Class code <span class="star"> *</span></label>
               <input type="text"  id="class-code-{{sCount}}-1" class="validate[required] small" placeholder="Class 1 code" >
           </div>
           <div class="element">
-              <label for="class-time-{{sCount}}-1">Class time *</label>
+              <label for="class-time-{{sCount}}-1">Class time <span class="star"> *</span></label>
               <select id="class-time-{{sCount}}-1" class="time">
 				  {{#each times}}
                         <option value="{{this.time}}">{{this.time}}</option>
@@ -900,15 +948,15 @@
               </select>
           </div>
           <div class="element">
-              <label for="class-name-{{sCount}}-1">Class name *</label>
+              <label for="class-name-{{sCount}}-1">Class name <span class="star"> *</span></label>
               <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium" placeholder="Class 1 name">
           </div>
           <div class="element">
-              <label for="date-started-{{sCount}}-1">Calendar *</label>
+              <label for="date-started-{{sCount}}-1">Calendar <span class="star"> *</span></label>
               <input class="validate[required] small datepicker cal" type="text" placeholder="Date1" id="date-started-{{sCount}}-1"/>
           </div>
            <div class="element">
-               <label for="semester-{{sCount}}-1">Semester or Quarter *</label>
+               <label for="semester-{{sCount}}-1">Semester or Quarter <span class="star"> *</span></label>
                <select id="semester-{{sCount}}-1" class="small">
                      <option value="semester">Semester</option>
                      <option value="quarter">Quarter</option>
@@ -1048,9 +1096,8 @@
 
                 <div class="form-row-label">&nbsp;</div>
                 <div class="form-row">
-                  
                     <div class="element">
-                        <label for="mobile">Mobile *</label>
+                        <label for="mobile">Mobile <span class="star"> *</span></label>
                         <input type="text" id="mobile" name="mobile" class="validate[required,custom[mobile]] large" placeholder="(999)999-9999">
                     </div>
                     <div class="element">
@@ -1067,20 +1114,17 @@
                     </div>
                 </div>
             </fieldset>
-              
 			<input type="hidden"   id="imagedata" />
-             
             <input type="hidden"   id="videodata" />
         </form>
     </div>
     <div class="modal-footer">
-        <div style= "display:none; margin-right: 480px;" id ="loading"><img src ="images/ajax-loader1.gif"></div> 
+         <div style= "display:none; margin-right: 480px;" id ="loading"><img src ="images/ajax-loader1.gif"></div> 
         <a href="#messages" class="btn btn-primary pull-left"  id="save" >Save & Exit</a>
-
         <a href="#messages" class="btn btn-success pull-right" id="complete" >Complete</a>
     </div>
 </div>
- </script>
+  </script>
   
   
   
@@ -1093,67 +1137,7 @@
   
  <!-- main stream page template -->
  <script type="text/x-handlebars-template" id="tpl-main-stream">
-
- <div class="navbar-fixed-top">
-      <header class="site_header">
-        <div class="container top-head">
-          <h1 class="brand logo"><a href="#"><img src="images/layout/logo.png" alt="BeamStream" width="106" height="27"></a></h1>
-          <h2><i>Evolving</i> Classroom &amp; Academic Interaction  </h2> 
-        </div>
-      </header>
-
-      <nav class="navbar main_menu">
-        <div class="navbar-inner">
-          <div class="container top-head">
-            <div class="container-fluid">
-              <div class="nav-collapse">
-                <ul class="nav">
-                  <li  ><a href="#streams-and-groups">Streams &amp; Groups</a></li>
-                  <li><a href="#connections">Connections</a></li>
-                  <li id ="messages" class="active"><a href="#dms">Messages</a></li>
-                  <li id ="file-media" ><a href="#filesMedia">Files & Media</a></li>
-                  <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#more">
-                      More
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#item1">item1</a></li>
-                      <li><a href="#item2">item2</a></li>
-                      <li><a href="#item3">item3</a></li>
-                    </ul>
-                  </li>
-                </ul>
-                <ul class="nav pull-right">
-                  <li>
-                    <div class="photo_container">
-					   
-                      <img id="right-photo" src="images/placeholders/face5.png" width="36" height="37">
-                    </div>
-                  </li>
-                  <li class="dropdown">
-                    <a id ="user-dropdown" class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        {{firstName}} {{lastName}}
-                       <b class="arrow"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#settings">Settings</a></li>
-                     <li><a href="#school">Edit Profile</a></li>
-                      <li><a href="#help">Help</a></li>
-                      <li class="divider"></li>
-                      <li>
-                        <form method="post" action="/logout/">
-                          <a id="sign-out" href="#">Sign out</a>
-                        </form>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </div>
+ 
     <div id = "middle-content">
     <section class="site_search">
       <div class="container">
@@ -1267,12 +1251,14 @@
           </div>
           </div>
 
-          <div class="actions with-tooltips tooltips-top btn-group col middle_column span6" style="margin-left: 10px !important;">
+          <div class="actions with-tooltips tooltips-bottom btn-group col middle_column span6" style="margin-left: 10px !important;">
+          <div id="sub-menus" >
+           <div class="with-tooltips tooltips-bottom">
             <ul class="nav nav-tabs">
               <li class="active">
                 <a href="#intro-to-business" id="stream-name" class="with-icon">
                   <i class="icon-lock icon with-tooltip" title="Instructor verified Stream"></i>
-                  Intro to Business
+                    Business
                 </a>
               </li>
               <li><a id="tasks" data-original-title="Feature coming soon" href="#tasks">Tasks <span class="label label-important">5</span></a></li>
@@ -1280,7 +1266,8 @@
               <li><a href="#surveys" data-original-title="Feature coming soon">Surveys</a></li>
               <li><a href="#idea-stream" data-original-title="Feature coming soon" >Idea Stream</a></li>
             </ul>
-
+			</div>
+           </div>
             <section class="main_content">
               <div class="sort_container">
                 <label>Sort by:</label>
@@ -1339,7 +1326,7 @@
           <div class="col right_column span2" style="margin-left: 10px !important;">
             <section class="public_class_stream">
               <h2>Public Class Stream</h2>
-              <ul class="nav nav-list">
+              <ul class="nav nav-list class-nav-list">
                 <li class="active"><a href="#calculus">Calculus</a></li>
                 <li><a href="#intro-to-java">Intro to Java</a></li>
                 <li><a href="#computer-networking">Computer Networking</a></li>
@@ -1364,13 +1351,39 @@
    </div>
  </script>
  
+ 
+  <!--  for stream page menu view -->
+  <script type="text/x-handlebars-template" id="tpl-stream-page-menus">
+            <div class="with-tooltips tooltips-bottom">
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a href="#intro-to-business" id="stream-name" class="with-icon">
+                  <i class="icon-lock icon with-tooltip" title="Instructor verified Stream"></i>
+                   {{#if streamName}}
+                      {{streamName}}
+				   {{else}}
+                      Intro to Busiddness
+                   {{/if}}
+ 				 
+                </a>
+              </li>
+              <li><a id="tasks" data-original-title="Feature coming soon" href="#tasks">Tasks <span class="label label-important">5</span></a></li>
+              <li><a href="#questions">Questions <span class="label label-important">10</span></a></li>
+              <li><a href="#surveys" data-original-title="Feature coming soon">Surveys</a></li>
+              <li><a href="#idea-stream" data-original-title="Feature coming soon" >Idea Stream</a></li>
+  </ul>
+ </div>
+ </script>
+
+ 
+ <!--  for messages  -->
  <script type="text/x-handlebars-template" id="tpl-messages">
 {{#each datas}}
  <li id= "{{this.id.id}}">
  <article class="message_item">
    <div class="comment_wrapper">
      <div class="photo_container">
-       <img src="images/placeholders/face3.png" width="46" height="46">
+       <img src="{{this.imageUrl}}" width="46" height="46">
      </div>
      <div class="content_container">
        <div class="meta_data">
@@ -1410,7 +1423,7 @@
     <div class="modal main-popups  modal-pull-top in modal-popups" style="display:block;">
   <div class="modal-header">
     <h1 class="pull-left">Basic Profile </h1>
-    <img src="images/registration-progress-25.png" alt="Registration progress - 25%" class="registration-progress pull-right"> </div>
+    <img src="images/registration-progress-0.png" alt="Registration progress - 25%" class="registration-progress pull-right"> </div>
       <div class="modal-body">
       <form id="registration-form">
       <fieldset>
@@ -1420,28 +1433,28 @@
  
       
         <div class="element" style="margin-top:25px;" >
-              <label for="school-name">School name *</label>
+              <label for="school-name">School name <span class="star"> *</span></label>
               <input type="text" id="school-name" placeholder=" School Name" class="validate[required] span3">
             </div>
         <div class="element">
-              <label for="user-name">User Name *<br/>
+              <label for="user-name">User Name <span class="star"> *</span><br/>
             http://www.beamstream.com/</label>
               <input type="text" id="user-name" placeholder="@UserName"   class="validate[required] span3">
             </div>
           <div class="element">
-              <label for="password">Password *<br/></label>
+              <label for="password">Password <span class="star"> *</span><br/></label>
               <input type="password" id="password" placeholder="password" class="validate[required] span3"> 
             </div>
         <div class="element">
-              <label for="first-name">First Name *</label>
+              <label for="first-name">First Name <span class="star"> *</span></label>
               <input type="text" id="first-name" placeholder="First Name" class="validate[required] span3">
             </div>
         <div class="element">
-              <label for="last-name">Last Name *</label>
+              <label for="last-name">Last Name <span class="star"> *</span></label>
               <input type="text" id="last-name" placeholder="Last Name" class="validate[required] span3">
             </div>
         <div class="element">
-              <label for="location">Location *</label>
+              <label for="location">Location <span class="star"> *</span></label>
               <input type="text" id="location" placeholder="Location" class="validate[required] span3">
             </div>
         <div class="element">
@@ -1484,7 +1497,7 @@
 <div id="error" class= "invalid-validation"  style=" margin-bottom: 18px !important; margin-left: 152px;"></div>
  
             <div class="element">
-             <label for="iam">I'm *</label>
+             <label for="iam">I'm <span class="star"> *</span></label>
                 <select id="iam" class="large">
                   <option value= "">-- I'm --</option>
 						<option value="0">Student</option>
@@ -1493,32 +1506,32 @@
                 </select>
             </div>
             <div class="element">
-              <label for="school-name">School Name *</label>
+              <label for="school-name">School Name <span class="star"> *</span></label>
               <input type="text" id="school-name" placeholder="School Name" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="school-email">School Email *</label>
+              <label for="school-email">School Email <span class="star"> *</span></label>
               <input type="text" id="school-email" placeholder="School Email" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="user-name">User Name *<br/>
+              <label for="user-name">User Name <span class="star"> *</span><br/>
                 http://www.beamstream.com/</label>
               <input type="text" id="user-name" placeholder="@UserName" class="validate[required] span3">
             </div>
 			<div class="element">
-              <label for="password">Password *<br/></label>
+              <label for="password">Password <span class="star"> *</span><br/></label>
               <input type="password" style="margin: 0 0 25px;" id="password" placeholder="password" class="validate[required] span3"> 
             </div>
             <div class="element">
-              <label for="first-name">First Name</label>
-              <input type="text" id="first-name" placeholder=" Imported 1st Name from API" class="validate[required] span3">
+              <label for="first-name">First Name <span class="star"> *</span></label>
+              <input type="text" id="first-name" placeholder="First Name" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="last-name">Last Name *</label>
-              <input type="text" id="last-name" placeholder=" Imported Last Name from API" class="validate[required] span3">
+              <label for="last-name">Last Name <span class="star"> *</span></label>
+              <input type="text" id="last-name" placeholder="Last Name" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="location">Location *</label>
+              <label for="location">Location <span class="star"> *</span></label>
               <input type="text" id="location" placeholder="Location" class="validate[required] span3">
             </div>
             <div class="element">
@@ -1582,7 +1595,7 @@
          <div id="error" class="invalid-validation"></div>
           <div class="form-row short">
               <div class="element">
-                <label for="iam">I'm *</label>
+                <label for="iam">I'm <span class="star"> *</span></label>
                 <select id="iam" class="large">
                   <option value= "">-- I'm --</option>
 						<option value="0">Student</option>
@@ -1591,7 +1604,7 @@
                 </select>
               </div>
               <div class="element" >
-                <label for="email" id="email-label" >E-mail *</label>
+                <label for="email" id="email-label" >E-mail <span class="star"> *</span></label>
                 <input type="text" id="email" placeholder="School email" class="validate[required , custom[email]] large email_text">
              </div>
               <div class="element"> <a id="register" href="#" class="btn btn-success">Register Now</a> </div>
@@ -1669,11 +1682,11 @@
         <div class="form-row">
           <div class="form-row-left">
             <div class="element">
-              <label for="email">Email Address</label>
+              <label for="email">Email Address<span class="star"> *</span></label>
               <input type="text" id="email" placeholder= "email" class="validate[required] large email_text" value="">
             </div>
             <div class="element">
-              <label for="password">Password</label>
+              <label for="password">Password<span class="star"> *</span></label>
               <input type="password" id="password" placeholder= "password" class="validate[required] large email_text" value="">
             </div>
             <div class="checkbox_wrapper signin_check">
