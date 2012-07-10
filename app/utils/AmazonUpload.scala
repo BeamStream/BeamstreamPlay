@@ -18,8 +18,8 @@ object AmazonUpload {
    */
   def uploadFileToAmazon(profilePicName: String, profilePic: File) {
     val bucketName = "Beamstream"
-    val AWS_ACCESS_KEY = "AKIAJZX7II4LFBTVC65A"
-    val AWS_SECRET_KEY = "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"
+    val AWS_ACCESS_KEY = ""
+    val AWS_SECRET_KEY = ""
     val awsCredentials = new BasicAWSCredentials(AWS_ACCESS_KEY, AWS_SECRET_KEY);
     val s3Client = new AmazonS3Client(awsCredentials);
     s3Client.putObject(bucketName, profilePicName, profilePic)
