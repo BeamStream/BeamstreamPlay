@@ -16,6 +16,8 @@ object ApplicationBuild extends Build {
     "javax.mail" % "mail" % "1.4.1",
     "org.scalatra" %% "scalatra-lift-json" % "2.0.4",
     "com.amazonaws" % "aws-java-sdk" % "1.0.002",
+    "org.skife.com.typesafe.config" % "typesafe-config" % "0.3.0",
+    "commons-codec" % "commons-codec" % "1.6",
     "org.joda" % "joda-convert" % "1.1")
 
   resolvers += "repo.novus snaps" at "http://repo.novus.com/snapshots/"

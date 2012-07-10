@@ -29,7 +29,7 @@ object MessageAccess extends Enumeration {
 }
 
 case class Message(@Key("_id") id: ObjectId, messageBody: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated: Date, userId: ObjectId, streamId: ObjectId, firstNameofMsgPoster: String,
-  lastNameofMsgPoster: String, rocks: Int, rockers: List[ObjectId])
+  lastNameofMsgPoster: String, rocks: Int, rockers: List[ObjectId], comments :  List[ObjectId])
 
 object Message {
 
