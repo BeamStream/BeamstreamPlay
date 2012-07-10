@@ -24,12 +24,11 @@ object UserController extends Controller {
 
   implicit val formats = DefaultFormats
 
-
   /*
  * Find and Authenticate the user to proceed
  */
   def findUser = Action { implicit request =>
-    
+
     val userJsonMap = request.body.asFormUrlEncoded.get
     val user = userJsonMap("data").toList(0)
 
@@ -61,7 +60,7 @@ object UserController extends Controller {
   def registerUserViaSocialSite = Action { implicit request =>
     val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
     val token = tokenList(0)
-    
+
     val apiKey = "cc38e5cc0a71f8795733254be3cc28d8b0678a69"
     val URL = "https://rpxnow.com/api/v2/auth_info"
 
@@ -69,18 +68,18 @@ object UserController extends Controller {
     val res = promise.get
     val body = res.getBody
     Ok(body).as("application/json")
-    
+
   }
 
-// 
-  
+  // 
+
   /*
    * Reducing active user on sign Out
    */
 
   def signOut = Action { implicit request =>
-//    User.InactiveUsers(request.session.get("userId").get)
-   Ok.withNewSession
+    //    User.InactiveUsers(request.session.get("userId").get)
+    Ok.withNewSession
   }
 
   /*
@@ -94,16 +93,15 @@ object UserController extends Controller {
     val loggedInUserJson = write(loggedInUser)
     Ok(loggedInUserJson).as("application/json")
   }
-  
+
   /*
    * obtaining the profile video and Audio
    */
-  
+
   def getMediaForAUser = Action { implicit request =>
-    val mediaObtained=ProfileMedia.getMediaForAUser(new ObjectId(request.session.get("userId").get))
-    val MediaJson=write(mediaObtained)
+    val mediaObtained = ProfileMedia.getMediaForAUser(new ObjectId(request.session.get("userId").get))
+    val MediaJson = write(mediaObtained)
     Ok(MediaJson).as("application/json")
   }
-  
 
 }

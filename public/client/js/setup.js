@@ -76,6 +76,9 @@ BS.newClass = "http://localhost:9000/newStream";
 // profile images and videos
  BS.profileImage = "http://localhost:9000/getMediaForAUser";
  
+ //For File Upload
+ BS.docUpload = "http://localhost:9000/newDocument";
+ 
  /*
   * For Cloud
   */

@@ -17,23 +17,25 @@ import utils.tokenEmail
 import models.ResulttoSent
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
+import utils.AmazonUpload
 object MediaController extends Controller {
-  
-  implicit val formats=DefaultFormats
-  var imageURL:String=""
-  var videoURL:String=""
+
+  implicit val formats = DefaultFormats
+  var imageURL: String = ""
+  var videoURL: String = ""
 
   def getMedia = Action(parse.multipartFormData) { request =>
 
     // Fetch the image stream and details
     val imageComposite = request.body.file("imageData").map { imageData =>
-      val imageAuthenticationToken=tokenEmail.securityToken
+      val imageAuthenticationToken = tokenEmail.securityToken
       val imageFilename = imageData.filename
       val contentType = imageData.contentType
-      val imageNameWithToken = imageAuthenticationToken+ imageFilename
-      imageData.ref.moveTo(new File("./public/CDNFolder/" +imageNameWithToken ))
-      imageURL=URLExternalizer.MediaLocationURL+"profilePic/"+imageNameWithToken
-      
+      val uniqueString = tokenEmail.securityToken
+      val imageFileObtained: File = imageData.ref.file.asInstanceOf[File]
+      val imageNameOnAmazon=uniqueString + imageFilename                     // Security Over the images files
+      AmazonUpload.uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
+      imageURL = "https://s3.amazonaws.com/Beamstream/" + imageNameOnAmazon
       // For MongoDB
       /*
       val profileImage: File = imageData.ref.file.asInstanceOf[File]
@@ -41,36 +43,39 @@ object MediaController extends Controller {
       new mediaComposite(imageFilename, contentType.get, profileImageInputStream)
       */
     }.get
-    println("1111111111111111111111111111111111111111111111111111111111111111111111111")
+
     // Fetch the video stream and details
     val videoComposite = request.body.file("videoData").map { videoData =>
-       val videoAuthenticationToken=tokenEmail.securityToken
+      val videoAuthenticationToken = tokenEmail.securityToken
       val videoFilename = videoData.filename
       val contentType = videoData.contentType
-      val videoNameWithToken=videoAuthenticationToken+ videoFilename
-      videoData.ref.moveTo(new File("./public/CDNFolder/" +videoNameWithToken))
-      videoURL= URLExternalizer.MediaLocationURL +"profilePic/"+videoNameWithToken
-    /*
+      val uniqueString = tokenEmail.securityToken
+      val videoFileObtained: File = videoData.ref.file.asInstanceOf[File]
+      val videoFileNameOnnAmazon=uniqueString+videoFilename                  // Security Over the videos files
+      AmazonUpload.uploadFileToAmazon(videoFileNameOnnAmazon, videoFileObtained)
+      videoURL = "https://s3.amazonaws.com/Beamstream/" + videoFileNameOnnAmazon
+      /*
       val profileVideo: File = videoData.ref.file.asInstanceOf[File]
       val profileVideoInputStream = new FileInputStream(profileVideo)
       new mediaComposite(videoFilename, contentType.get, profileVideoInputStream)
     */
     }.get
-    println("22222222222222222222222222222222222222222222222222222222222222222222222222")
+
     val mediaJsonMap = request.body.asFormUrlEncoded.toList
     val uploadType = mediaJsonMap(0)._2.toList(0)
     val mobileNo = mediaJsonMap(1)._2.toList(0)
-    
-    
+
     // Save the profile picture for a user
-    val media=new ProfileMedia(new ObjectId,new ObjectId(request.session.get("userId").get),imageURL,videoURL,mobileNo,uploadType)
+    val media = new ProfileMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, videoURL, mobileNo, uploadType, true)
+    ProfileMedia.isNotProfilePic(new ObjectId(request.session.get("userId").get))
     ProfileMedia.saveMediaForUser(media)
+
     /*
     val mediaTransfrerObject = new MediaTransfer(new ObjectId(request.session.get("userId").get), MediaType.Image, true,
     imageComposite.inputStream, imageComposite.name, videoComposite.inputStream, videoComposite.name, mobileNo, uploadType)
     Profile.createMedia(mediaTransfrerObject)
     */
-    println("*****************************************************************")
-    Ok(write(new ResulttoSent("Success","Profile Photo Uploaded Successfully"))).as("application/json")
+
+    Ok(write(new ResulttoSent("Success", "Profile Photo Uploaded Successfully"))).as("application/json")
   }
 }
