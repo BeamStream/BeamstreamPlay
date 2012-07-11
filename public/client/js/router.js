@@ -23,6 +23,26 @@ BS.AppRouter = Backbone.Router.extend({
     },
     initialize :function() {
     	
+    	var self = this;
+        BS.user = new BS.SingleUser();
+		 
+        /** for authentication  */
+        BS.user.fetch({ success:function(e) {
+    		if(e.get('firstName') != null) { 
+				e.set('loggedin', true);
+			}
+			else { 
+				e.set('loggedin', false);				
+			}
+			  
+			/**
+			 * Create the navigation view with user model.
+			 */
+			this.navView = new BS.NavView({ model: BS.user });
+			$('.nav-collapse').html(this.navView.render().el);
+
+    	}}, this);
+		 
     	
     	 
     	/* calculate time from 12:00AM to 11:45PM */
@@ -45,26 +65,7 @@ BS.AppRouter = Backbone.Router.extend({
   		BS.times = jQuery.parseJSON(JSON.stringify(timeValues));
   		
   	
-  		var self = this;
-        BS.user = new BS.SingleUser();
-		 
-        /** for authentication  */
-        BS.user.fetch({ success:function(e) {
-    		if(e.get('firstName') != null) { 
-				e.set('loggedin', true);
-			}
-			else { 
-				e.set('loggedin', false);				
-			}
-			 
-			/**
-			 * Create the navigation view with user model.
-			 */
-			this.navView = new BS.NavView({ model: BS.user });
-			$('.nav-collapse').html(this.navView.render().el);
-
-    	}}, this);
-		 
+  		
   		
     },
 
@@ -134,9 +135,9 @@ BS.AppRouter = Backbone.Router.extend({
     */
    profileReg:function () {
 	    
-       this.profileView = new BS.ProfileView();
-       this.profileView.render();
-       $('#school-popup').html(this.profileView.el);   
+       BS.profileView = new BS.ProfileView();
+       BS.profileView.render();
+       $('#school-popup').html(BS.profileView.el);   
        $(".modal select:visible").selectBox();
        $('.modal .datepicker').datepicker();
        jQuery("#profile-form").validationEngine();
@@ -148,11 +149,12 @@ BS.AppRouter = Backbone.Router.extend({
     * display main stream page
     */
    mainStream:function () {
-	   
+	   BS.mainImageUrl = $('#right-photo').attr('src');
+	   $('#middle-content').children().detach();
 	   $('nav li.active').removeClass('active');
 	   $('nav li a#messages').parents('li').addClass('active');
 	   var self = this;
-	   $('#middle-content').children().detach();
+	  
  
 		   $('#school-popup').children().detach(); 
 		   $('#content').children().detach();
@@ -168,8 +170,7 @@ BS.AppRouter = Backbone.Router.extend({
 	   	    var profileModel = new BS.Profile();
 	        profileModel.fetch({success: function(e) {  
 	        	 
-	        	BS.profileImageUrl = e.attributes.profileImageUrl;
-	        	BS.profileVideoUrl = e.attributes.profileVideoUrl;
+	        	BS.profileImageUrl = e.attributes.mediaUrl;
 	        	$('#main-photo').attr("src",BS.profileImageUrl);
 	        	$('#right-photo').attr("src",BS.profileImageUrl);
 	        	$('#msg-photo').attr("src",BS.profileImageUrl);
@@ -380,10 +381,11 @@ BS.AppRouter = Backbone.Router.extend({
     filesMedia :function() {
     	
       
-   	  
-      var self = this;
-  	  $('#school-popup').children().detach(); 
       $('#content').children().detach();
+      $('#school-popup').children().detach(); 
+      var self = this;
+  	 
+      //$('#right-photo').attr("src",BS.profileImageUrl);
       
   	  this.filesMediaView = new BS.FilesMediaView({ model: BS.user });
   	  this.filesMediaView.render();

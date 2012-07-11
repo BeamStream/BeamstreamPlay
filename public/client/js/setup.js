@@ -74,10 +74,12 @@ BS.newClass = "http://localhost:9000/newStream";
  // Get Rockers list
  BS.rockersList  = "http://localhost:9000/returnRockers";
 // profile images and videos
- BS.profileImage = "http://localhost:9000/getMediaForAUser";
  
- //For File Upload
- BS.docUpload = "http://localhost:9000/newDocument";
+ //BS.profileImage = "http://localhost:9000/getMediaForAUser";
+BS.profileImage = "http://localhost:9000/getProfilePicForAUser";
+ //Gel all profile images
+ BS.allProfileImages ="http://localhost:9000/getAllProfilePicForAUser";
+ 
  
  /*
   * For Cloud
@@ -184,4 +186,4 @@ BS.newClass = "http://localhost:9000/newStream";
 //BS.rockedIt = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
 //BS.rockersList  = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
 //BS.profileImage = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
-
+//BS.allProfileImages ="http://localhost/client/api.php";
