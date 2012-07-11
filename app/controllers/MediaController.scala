@@ -12,14 +12,14 @@ import org.bson.types.ObjectId
 import java.io.InputStream
 import models.mediaComposite
 import models.Profile
-import models.ProfileMedia
 import utils.tokenEmail
 import models.ResulttoSent
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 import utils.AmazonUpload
 import utils.ObjectIdSerializer
-import models.ProfileMediaType
+import models.UserMedia
+import models.UserMediaType
 object MediaController extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -29,9 +29,8 @@ object MediaController extends Controller {
 
     (request.body.file("imageData").isEmpty) match {
 
-      case true => println("No Image Found")
+      case true => // No Image Found
       case false =>
-        println("Found an image")
         // Fetch the image stream and details
         request.body.file("imageData").map { imageData =>
           val imageAuthenticationToken = tokenEmail.securityToken
@@ -42,8 +41,8 @@ object MediaController extends Controller {
           val imageNameOnAmazon = uniqueString + imageFilename // Security Over the images files
           AmazonUpload.uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
           val imageURL = "https://s3.amazonaws.com/Beamstream/" + imageNameOnAmazon
-          val media = new ProfileMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, ProfileMediaType.Image, true)
-          ProfileMedia.saveMediaForUser(media)
+          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, UserMediaType.Image, true)
+          UserMedia.saveMediaForUser(media)
           // For MongoDB
           /*
       val profileImage: File = imageData.ref.file.asInstanceOf[File]
@@ -55,9 +54,8 @@ object MediaController extends Controller {
     }
 
     (request.body.file("videoData").isEmpty) match {
-      case true => println("No Video Found")
+      case true => // No Video Found
       case false =>
-        println("Found an video")
         // Fetch the video stream and details
         request.body.file("videoData").map { videoData =>
           val videoAuthenticationToken = tokenEmail.securityToken
@@ -68,8 +66,8 @@ object MediaController extends Controller {
           val videoFileNameOnnAmazon = uniqueString + videoFilename // Security Over the videos files
           AmazonUpload.uploadFileToAmazon(videoFileNameOnnAmazon, videoFileObtained)
           val videoURL = "https://s3.amazonaws.com/Beamstream/" + videoFileNameOnnAmazon
-          val media = new ProfileMedia(new ObjectId, new ObjectId(request.session.get("userId").get), videoURL, ProfileMediaType.Video, true)
-          ProfileMedia.saveMediaForUser(media)
+          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), videoURL, UserMediaType.Video, true)
+          UserMedia.saveMediaForUser(media)
           /*
       val profileVideo: File = videoData.ref.file.asInstanceOf[File]
       val profileVideoInputStream = new FileInputStream(profileVideo)
@@ -97,7 +95,7 @@ object MediaController extends Controller {
    * Get All Photos for a user
    */
     def getAllProfilePicForAUser = Action { implicit request =>
-      val allProfileMediaForAUser = ProfileMedia.getAllProfilePicForAUser(new ObjectId(request.session.get("userId").get))
+      val allProfileMediaForAUser = UserMedia.getAllProfilePicForAUser(new ObjectId(request.session.get("userId").get))
       Ok(write(allProfileMediaForAUser)).as("application/json")
     }
 }

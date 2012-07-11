@@ -18,7 +18,7 @@ import net.liftweb.json.Serialization.{ read, write }
 import models.ResulttoSent
 import play.libs.Json._
 import play.libs.Json
-import models.ProfileMedia
+import models.UserMedia
 
 object UserController extends Controller {
 
@@ -100,7 +100,7 @@ object UserController extends Controller {
    */
 
   def getProfilePicForAUser = Action { implicit request =>
-    val mediaObtained = ProfileMedia.getProfilePicForAUser(new ObjectId(request.session.get("userId").get))
+    val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(request.session.get("userId").get))
     val MediaJson = write(mediaObtained)
     Ok(MediaJson).as("application/json")
   }

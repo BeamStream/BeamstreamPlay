@@ -7,32 +7,32 @@ import org.bson.types.ObjectId
 import com.mongodb.casbah.commons.MongoDBObject
 
 @RunWith(classOf[JUnitRunner])
-class ProfileMediaTest extends FunSuite with BeforeAndAfter {
+class UserMediaTest extends FunSuite with BeforeAndAfter {
 
   val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List())
 
   test("Get all media for a user") {
     val userId = User.createUser(user)
-    val profileMediaObj = new ProfileMedia(new ObjectId, userId, "http://beamstream.com/Neel.png", ProfileMediaType.Image, true)
-    ProfileMedia.saveMediaForUser(profileMediaObj)
-    val profileMediaForAUser = ProfileMediaDAO.find(MongoDBObject())
-    assert(profileMediaForAUser.toList(0).mediaUrl === "http://beamstream.com/Neel.png")
+    val UserMediaObj = new UserMedia(new ObjectId, userId, "http://beamstream.com/Neel.png", UserMediaType.Image, true)
+    UserMedia.saveMediaForUser(UserMediaObj)
+    val UserMediaForAUser = UserMediaDAO.find(MongoDBObject())
+    assert(UserMediaForAUser.toList(0).mediaUrl === "http://beamstream.com/Neel.png")
 
   }
 
   test("get all media for a user") {
     val userId = User.createUser(user)
-    val profileMediaObj1 = new ProfileMedia(new ObjectId, userId, "http://beamstream.com/Neel.png", ProfileMediaType.Image, true)
-    val profileMediaObj2 = new ProfileMedia(new ObjectId, userId, "http://beamstream.com/Neel.png", ProfileMediaType.Image, true)
-    ProfileMedia.saveMediaForUser(profileMediaObj1)
-    ProfileMedia.saveMediaForUser(profileMediaObj2)
-    val mediaForAUser = ProfileMedia.getProfilePicForAUser(userId)
+    val UserMediaObj1 = new UserMedia(new ObjectId, userId, "http://beamstream.com/Neel.png", UserMediaType.Image, true)
+    val UserMediaObj2 = new UserMedia(new ObjectId, userId, "http://beamstream.com/Neel.png", UserMediaType.Image, true)
+    UserMedia.saveMediaForUser(UserMediaObj1)
+    UserMedia.saveMediaForUser(UserMediaObj2)
+    val mediaForAUser = UserMedia.getProfilePicForAUser(userId)
    
 
   }
 
   after {
-    ProfileMediaDAO.remove(MongoDBObject("profileImageUrl" -> ".*".r))
+    UserMediaDAO.remove(MongoDBObject("profileImageUrl" -> ".*".r))
   }
 
 }
