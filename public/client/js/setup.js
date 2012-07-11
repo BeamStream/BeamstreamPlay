@@ -7,8 +7,7 @@
  /*
   * Config Variables for Url externalization
   */
- 
-  
+
 //For Login Page
 BS.login = "http://localhost:9000/users";
 
@@ -85,7 +84,7 @@ BS.profileImage = "http://localhost:9000/getProfilePicForAUser";
   * For Cloud
   */
  
- /*
+/*
 
 //For Login Page
  BS.login = "http://beamstream-v3.herokuapp.com/users";

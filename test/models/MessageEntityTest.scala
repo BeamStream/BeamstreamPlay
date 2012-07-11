@@ -24,7 +24,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
 
-    val message = Message(new ObjectId, "some message", MessageType.Audio, MessageAccess.Public, formatter.parse("23-07-12"), user.id, stream.id, "", "", 0, List())
+    val message = Message(new ObjectId, "some message", MessageType.Audio, MessageAccess.Public, formatter.parse("23-07-12"), user.id, stream.id, "", "", 0, List(), List())
 
     val messageId = Message.createMessage(message)
 

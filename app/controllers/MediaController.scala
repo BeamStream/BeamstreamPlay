@@ -26,40 +26,51 @@ object MediaController extends Controller {
 
   def getMedia = Action(parse.multipartFormData) { request =>
 
-    // Fetch the image stream and details
-    val imageComposite = request.body.file("imageData").map { imageData =>
-      val imageAuthenticationToken = tokenEmail.securityToken
-      val imageFilename = imageData.filename
-      val contentType = imageData.contentType
-      val uniqueString = tokenEmail.securityToken
-      val imageFileObtained: File = imageData.ref.file.asInstanceOf[File]
-      val imageNameOnAmazon=uniqueString + imageFilename                     // Security Over the images files
-      AmazonUpload.uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
-      imageURL = "https://s3.amazonaws.com/Beamstream/" + imageNameOnAmazon
-      // For MongoDB
-      /*
+    (request.body.file("imageData").isEmpty) match {
+      case true => println("No Image Found")
+      case false =>
+        println("Found an image")
+        // Fetch the image stream and details
+        request.body.file("imageData").map { imageData =>
+          val imageAuthenticationToken = tokenEmail.securityToken
+          val imageFilename = imageData.filename
+          val contentType = imageData.contentType
+          val uniqueString = tokenEmail.securityToken
+          val imageFileObtained: File = imageData.ref.file.asInstanceOf[File]
+          val imageNameOnAmazon = uniqueString + imageFilename // Security Over the images files
+          AmazonUpload.uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
+          imageURL = "https://s3.amazonaws.com/Beamstream/" + imageNameOnAmazon
+          // For MongoDB
+          /*
       val profileImage: File = imageData.ref.file.asInstanceOf[File]
       val profileImageInputStream = new FileInputStream(profileImage)
       new mediaComposite(imageFilename, contentType.get, profileImageInputStream)
       */
-    }.get
+        }.get
 
-    // Fetch the video stream and details
-    val videoComposite = request.body.file("videoData").map { videoData =>
-      val videoAuthenticationToken = tokenEmail.securityToken
-      val videoFilename = videoData.filename
-      val contentType = videoData.contentType
-      val uniqueString = tokenEmail.securityToken
-      val videoFileObtained: File = videoData.ref.file.asInstanceOf[File]
-      val videoFileNameOnnAmazon=uniqueString+videoFilename                  // Security Over the videos files
-      AmazonUpload.uploadFileToAmazon(videoFileNameOnnAmazon, videoFileObtained)
-      videoURL = "https://s3.amazonaws.com/Beamstream/" + videoFileNameOnnAmazon
-      /*
+    }
+
+    (request.body.file("videoData").isEmpty) match {
+      case true => println("No Video Found")
+      case false =>
+       println("Found an video")
+        // Fetch the video stream and details
+        request.body.file("videoData").map { videoData =>
+          val videoAuthenticationToken = tokenEmail.securityToken
+          val videoFilename = videoData.filename
+          val contentType = videoData.contentType
+          val uniqueString = tokenEmail.securityToken
+          val videoFileObtained: File = videoData.ref.file.asInstanceOf[File]
+          val videoFileNameOnnAmazon = uniqueString + videoFilename // Security Over the videos files
+          AmazonUpload.uploadFileToAmazon(videoFileNameOnnAmazon, videoFileObtained)
+          videoURL = "https://s3.amazonaws.com/Beamstream/" + videoFileNameOnnAmazon
+          /*
       val profileVideo: File = videoData.ref.file.asInstanceOf[File]
       val profileVideoInputStream = new FileInputStream(profileVideo)
       new mediaComposite(videoFilename, contentType.get, profileVideoInputStream)
     */
-    }.get
+        }.get
+    }
 
     val mediaJsonMap = request.body.asFormUrlEncoded.toList
     val uploadType = mediaJsonMap(0)._2.toList(0)
