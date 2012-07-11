@@ -98,4 +98,12 @@ object MediaController extends Controller {
       val allProfileMediaForAUser = UserMedia.getAllProfilePicForAUser(new ObjectId(request.session.get("userId").get))
       Ok(write(allProfileMediaForAUser)).as("application/json")
     }
+    
+    /*
+   * Get All Photos for a user
+   */
+    def getAllProfileVideoForAUser = Action { implicit request =>
+      val allProfileMediaForAUser = UserMedia.getAllProfileVideoForAUser(new ObjectId(request.session.get("userId").get))
+      Ok(write(allProfileMediaForAUser)).as("application/json")
+    }
 }
