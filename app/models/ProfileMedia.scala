@@ -8,21 +8,34 @@ import com.novus.salat.annotations._
 import org.bson.types.ObjectId
 import com.mongodb.casbah.commons.MongoDBObject
 
-case class ProfileMedia(@Key("_id") id: ObjectId, userId: ObjectId, profileImageUrl: String, profileVideoUrl: String, mobile: String, uploadType: String, isProfilePicture: Boolean)
+case class ProfileMedia(@Key("_id") id: ObjectId, userId: ObjectId, mediaUrl: String, contentType: ProfileMediaType.Value, isProfile: Boolean)
+
+object ProfileMediaType extends Enumeration {
+  val Image = Value(0, "Image")
+  val Video = Value(1, "Video")
+  val Pdf = Value(2, "Pdf")
+  val File = Value(3, "File")
+  val Presentation = Value(4, "Presentation")
+
+}
 object ProfileMedia {
 
   def saveMediaForUser(media: ProfileMedia) {
     val mediaId = ProfileMediaDAO.insert(media)
   }
 
+ 
+  
   /*
- * Get Media for a user
+ * Get profile picture for a user
  */
-  def getMediaForAUser(userId: ObjectId): ProfileMedia = {
-    val mediaObtained = ProfileMediaDAO.find(MongoDBObject("userId" -> userId, "isProfilePicture" -> true)).toList
+  def getProfilePicForAUser(userId: ObjectId): ProfileMedia = {
+    val mediaObtained = ProfileMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Image")).toList
     mediaObtained(0)
   }
 
+  
+   /*
   /*
    * Mark other picture as "not profile picture"
    */
@@ -31,5 +44,14 @@ object ProfileMedia {
 
   }
 
+  /*
+ * Get All picture for a user
+ */
+  def getAllMediaForAUser(userId: ObjectId): List[ProfileMedia] = {
+    val mediaObtained = ProfileMediaDAO.find(MongoDBObject("userId" -> userId)).toList
+    mediaObtained
+  }
+
+*/
 }
 object ProfileMediaDAO extends SalatDAO[ProfileMedia, ObjectId](collection = MongoHQConfig.mongoDB("profileMedia"))

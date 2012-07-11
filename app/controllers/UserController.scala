@@ -22,7 +22,8 @@ import models.ProfileMedia
 
 object UserController extends Controller {
 
-  implicit val formats = DefaultFormats
+  implicit val formats = new net.liftweb.json.DefaultFormats {
+  } + new ObjectIdSerializer
 
   /*
  * Find and Authenticate the user to proceed
@@ -98,8 +99,8 @@ object UserController extends Controller {
    * obtaining the profile video and Audio
    */
 
-  def getMediaForAUser = Action { implicit request =>
-    val mediaObtained = ProfileMedia.getMediaForAUser(new ObjectId(request.session.get("userId").get))
+  def getProfilePicForAUser = Action { implicit request =>
+    val mediaObtained = ProfileMedia.getProfilePicForAUser(new ObjectId(request.session.get("userId").get))
     val MediaJson = write(mediaObtained)
     Ok(MediaJson).as("application/json")
   }
