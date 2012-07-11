@@ -47,6 +47,7 @@ BS.RegistrationView = Backbone.View.extend({
     	   			success : function(data) {
     	   				if (data.status == "Success") {
     	   					// navigate to main stream page
+    	   					 
     	   					BS.AppRouter.navigate("streams", {
     	   						trigger : true,
     	   						replace : true

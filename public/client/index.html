@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -33,6 +33,10 @@
 
     <!--[if lte IE 8]><link rel="stylesheet/less" type="text/css" href="less/ie8.less"><![endif]-->
     <!--[if lte IE 7]><link rel="stylesheet/less" type="text/css" href="less/ie7.less"><![endif]-->
+    
+    <!--  for image popups -lytebox -->
+    <script type="text/javascript" language="javascript" src="lib/lytebox.js"></script>
+    <link rel="stylesheet" href="css/lytebox.css" type="text/css" media="screen" />
     
     <script src="lib/less-1.2.1.min.js"></script>
     
@@ -1075,12 +1079,16 @@
                     <div class="element">
                         <label for="profile-photo">Profile photo</label>
                         <span class="profile-thumb">
+                           
                            <img id="profile-photo" src="images/no-photo.png" style="width:95px; height:90px;" alt="no photo" name="profile-photo" >
                         </span>
                         <div class="profile-upload-box">
 							<input id="profile-image" type="file"  name="profile-image" >
-                            <p id="image-error" style="display:none;" >File type not allowed</p>
+                             <div style="margin-top:10px;" id="remove-image" ><div id="image-info" style="display:none;"></div><a style="display:none;" class ="delete-image" href="#" ><img src="images/close button1.png"></a> </div>
+                              
+                            
                         </div>
+                        
                     </div>
                     <div class="element last">
                         <label for="profile-video">Profile video</label>
@@ -1089,7 +1097,9 @@
 						</span>
                         <div class="profile-upload-box">
 							<input type="file" name="my-video" id="my-video"/>
-                             <p id="video-error" style="display:none;" >File type not allowed</p>
+                             <div style="margin-top:10px;" id="remove-video" ><div id="video-info" style="display:none;"></div> <a style="display:none;" class ="delete-video" href="#" ><img src="images/close button1.png"></a> </div>
+                           
+                               
                         </div>
                     </div>
                 </div>
@@ -1184,7 +1194,9 @@
 						Edit Picture
 						<span class="edit_profilepicture_icon"></span>
 						</a>
-                <img id ="main-photo" src="images/placeholders/face1.png" width="189" height="156" alt="username photo">
+                       <div id="profile-images">
+                    <img id ="main-photo" src="images/placeholders/face1.png" width="189" height="156" alt="username photo"> 
+                </div>
               </div>
               <section class="user_friends_mini">
                 <ul>
@@ -1196,7 +1208,7 @@
                   <li class="next"><a href="#next"><i></i></a></li>
                 </ul>
               </section>
-
+ 
               <section class="user_profile_info">
                 <ul class="nav nav-list">
                   <li class="screen_name">{{firstName}} {{lastName}}</li>
@@ -1375,7 +1387,12 @@
  </div>
  </script>
 
- 
+  <!--  for image popups  -->
+ <script type="text/x-handlebars-template" id="tpl-messages">
+ <a href="images/image4.jpg" class="lytebox" data-lyte-options="group:vacation" data-title="My Sister"></a>
+  </script>
+  
+  
  <!--  for messages  -->
  <script type="text/x-handlebars-template" id="tpl-messages">
 {{#each datas}}
@@ -1895,7 +1912,7 @@
           </div>
         </li>
         <li>
-          <div class="image-wrapper1"><img src="images/pictures_image.png"></div>
+          <div class="image-wrapper1"><div id="profile-images"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -2082,6 +2099,7 @@
 <!--  Backbone.js files -->
 <script src="js/views/loginview.js"></script>
 <script src="js/views/classstreamview.js"></script>
+<script src="js/views/profileview.js"></script>
 <script src="js/views/projectstreamview.js"></script>
 <script src="js/views/studystreamview.js"></script>
 <script src="js/views/groupstreamview.js"></script>
@@ -2099,7 +2117,6 @@
 <script src="js/views/classview.js"></script>
 <script src="js/models/classmodel.js"></script>
 <script src="js/models/profilemodel.js"></script>
-<script src="js/views/profileview.js"></script>
 <script src="js/views/streamview.js"></script>
 <script src="js/views/filesmediaview.js"></script>
 <script src="js/models/singleusermodel.js"></script>

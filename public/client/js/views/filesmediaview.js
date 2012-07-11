@@ -4,14 +4,21 @@ BS.FilesMediaView = Backbone.View.extend({
 	       "click a#file-type" : "showFilesTypes",
 	       "click ul.file-type li a" : "hideList",
 	       "click '.nav a" : "addActive",
-               "click #go_button" : "uploadFile"
+               "click #go_button" : "uploadFile",
+//               "click #profile-images":"listProfileImages"
 	      
 	 },
 	
     initialize:function () {
     	 
+ 				
+    	var type = "files";
+   	    var profileView = new BS.ProfileView();
+     	profileView.getProfileImages(type);
         console.log('Initializing Files and Media  View');
         this.template= _.template($("#tpl-files-media").html());
+        
+        
         
     },
 
@@ -68,8 +75,8 @@ BS.FilesMediaView = Backbone.View.extend({
          fileModel.set({
               		docName : 'doc1',
               		docURL : $("#upload-media").val(),
-                        docAccess: 'Public',
-                        docType: 'GoogleDocs'
+                    docAccess: 'Public',
+                    docType: 'GoogleDocs'
           		});
               	var fileData = JSON.stringify(fileModel);
          
@@ -84,5 +91,7 @@ BS.FilesMediaView = Backbone.View.extend({
                             alert("Doc Uploaded Successfully");
                     }
             });
-     }
+     },
+     
+      
 });

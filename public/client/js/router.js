@@ -25,7 +25,7 @@ BS.AppRouter = Backbone.Router.extend({
     	
     	var self = this;
         BS.user = new BS.SingleUser();
-		 
+        
         /** for authentication  */
         BS.user.fetch({ success:function(e) {
     		if(e.get('firstName') != null) { 
@@ -179,6 +179,8 @@ BS.AppRouter = Backbone.Router.extend({
 	        
 	   	   $('.modal-backdrop').hide();
 	       $('#content').html(self.streamView.el);
+	       
+      	
 	       $(".checkbox").dgStyle();
 	        
 	       $('.with-tooltips a, .with-tooltip').each(function() {

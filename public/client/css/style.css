@@ -1347,3 +1347,14 @@ span.edit_profilepicture_icon{
 	color:red;
 	margin-left: 2px;
 }
+/* to delete uploaded images and videos */
+.delete-image ,.delete-video{
+	float: right;
+    margin-left: 10px;
+    position: relative;
+    margin-right: 15px;
+}
+#image-info , #video-info{
+	position: absolute;
+	width: 225px;
+}

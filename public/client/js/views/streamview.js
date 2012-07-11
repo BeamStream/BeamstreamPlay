@@ -26,7 +26,13 @@ BS.StreamView = Backbone.View.extend({
 	
 
     initialize:function () {
-    	
+//    	var type = "stream";
+//        var profileView = new BS.ProfileView ();
+//      	profileView.getProfileImages(type);
+      	
+      
+    	 
+      	
     	console.log('Initializing Stream View');
     
     	/* for hover over */

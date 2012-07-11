@@ -70,8 +70,10 @@ BS.ProfileView = Backbone.View.extend({
      */
     
     displayImage:function (e) {
-    	
+    	 
+    	 $('#image-info').show();
     	 file = e.target.files[0];
+    	 
     	 this.image = file;
          var reader = new FileReader();
          
@@ -81,16 +83,19 @@ BS.ProfileView = Backbone.View.extend({
         	 console.log("Error: file type not allowed");
         	 $('#profile-photo').attr("src","images/no-photo.png");
 		     $('#profile-photo').attr("name", "profile-photo");
-		     $('#image-error').show();
+		     $('.delete-image').hide();
+		     $('#image-info').html('File type not allowed');
  
          }
          else
          {
-        	 $('#image-error').hide();
+        	 
         	 /* capture the file informations */
              reader.onload = (function(f){
             	 return function(e){ 
-        			 
+            		
+            		 $('#image-info').html(f.name);
+            		  $('.delete-image').show();
         		     $('#profile-photo').attr("src",e.target.result);
         		     $('#profile-photo').attr("name", f.name);
         		     $('#imagedata').val(e.target.result);
@@ -110,6 +115,8 @@ BS.ProfileView = Backbone.View.extend({
      */
     displayVideo:function (e) {
     	 
+    	$('#video-info').show();
+    	
     	 var file = e.target.files[0];
     	 this.video = file;
          var reader = new FileReader();
@@ -118,20 +125,24 @@ BS.ProfileView = Backbone.View.extend({
          if (!file.type.match('video.*')) {
         	 
         	 console.log("Error: file type not allowed");
-        	 $('#profile-video').attr("src","images/no-photo.png");
+        	 $('#profile-video').attr("src","images/no-video.png");
 		     $('#profile-video').attr("name", "profile-photo");
-		     $('#video-error').show();
+		     $('#video-error').html('File type not allowed');
+		     $('.delete-video').hide();
+		     $('#video-info').html('File type not allowed');
  
          }
          else
          {
-        	 $('#video-error').hide();
-        	 
+        	  
         	 /* capture the file informations */
              reader.onload = (function(f){
             	 return function(e){ 
-        					
-        		     $('#profile-video').attr("src",e.target.result);
+            		 
+            		 $('#video-info').html(f.name);
+           		     $('.delete-video').show();
+        		   
+        		     $('#profile-video').attr("src","images/no-video.png");
         		     $('#profile-video').attr("name", f.name);
         		     
         		     $('#videodata').val(e.target.result);
@@ -145,6 +156,41 @@ BS.ProfileView = Backbone.View.extend({
          }
     },
     
-  
+   /**
+    * get all profile image urls
+    */
+    
+    getProfileImages : function(page){
+    	var first =false;
+    	BS.content = '';
+   	    $.ajax({
+				type : 'GET',
+				url : BS.allProfileImages,
+				dataType : "json",
+				success : function(datas) {
+					 
+					_.each(datas, function(data) {
+						if(first == false)
+						{
+							if(page == "files")
+							   BS.content+= '<a href="'+data+'" class="lytebox" data-lyte-options="group:vacation" data-title="Profile Images"><img id ="main-photo" src="'+data+'"  alt="username photo"></a>';
+							else
+								BS.content+= '<a href="'+data+'" class="lytebox" data-lyte-options="group:vacation" data-title="Profile Images"><img id ="main-photo" src="'+data+'"  width="189" height="156"  alt="username photo"></a>';
+ 
+							first =true;
+						}
+						else
+						{
+							BS.content+= '<a href="'+data+'" class="lytebox" data-lyte-options="group:vacation" data-title=""></a>';
+						}
+						 
+			        });
+					BS.content+= '';
+			    	 $('#profile-images').html(BS.content);					 
+				},
+				 
+		 });
+		 
+    }
     
 });
