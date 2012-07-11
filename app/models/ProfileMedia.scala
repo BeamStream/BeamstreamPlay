@@ -24,8 +24,6 @@ object ProfileMedia {
     val mediaId = ProfileMediaDAO.insert(media)
   }
 
- 
-  
   /*
  * Get profile picture for a user
  */
@@ -34,8 +32,7 @@ object ProfileMedia {
     mediaObtained(0)
   }
 
-  
-   /*
+  /*
   /*
    * Mark other picture as "not profile picture"
    */
@@ -44,14 +41,17 @@ object ProfileMedia {
 
   }
 
-  /*
+
  * Get All picture for a user
  */
-  def getAllMediaForAUser(userId: ObjectId): List[ProfileMedia] = {
-    val mediaObtained = ProfileMediaDAO.find(MongoDBObject("userId" -> userId)).toList
-    mediaObtained
+  def getAllProfilePicForAUser(userId: ObjectId): List[String] = {
+    var userPhotos: List[String] = List()
+    val mediaObtained = ProfileMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Image")).toList
+    for (media <- mediaObtained) {
+      userPhotos ++= List(media.mediaUrl)
+    }
+    userPhotos
   }
 
-*/
 }
 object ProfileMediaDAO extends SalatDAO[ProfileMedia, ObjectId](collection = MongoHQConfig.mongoDB("profileMedia"))

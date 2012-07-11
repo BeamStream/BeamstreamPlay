@@ -92,9 +92,12 @@ object MediaController extends Controller {
     Ok(write(new ResulttoSent("Success", "Profile Photo Uploaded Successfully"))).as("application/json")
   }
 
-  //  def getAllMediaForAUser = Action { implicit request =>
-  //    val allProfileMediaForAUser = ProfileMedia.getAllMediaForAUser(new ObjectId(request.session.get("userId").get))
-  //    println(allProfileMediaForAUser.size)
-  //    Ok(write(allProfileMediaForAUser)).as("application/json")
-  //  }
+  
+  /*
+   * Get All Photos for a user
+   */
+    def getAllProfilePicForAUser = Action { implicit request =>
+      val allProfileMediaForAUser = ProfileMedia.getAllProfilePicForAUser(new ObjectId(request.session.get("userId").get))
+      Ok(write(allProfileMediaForAUser)).as("application/json")
+    }
 }
