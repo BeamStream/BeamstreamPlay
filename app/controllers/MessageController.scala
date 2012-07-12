@@ -24,13 +24,14 @@ import net.liftweb.json.Serialization.{ read, write }
 import java.text.SimpleDateFormat
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
+import models.ResulttoSent
 
 object MessageController extends Controller {
 
-//  implicit val formats = DefaultFormats
-   implicit val formats = new net.liftweb.json.DefaultFormats {
+  //  implicit val formats = DefaultFormats
+  implicit val formats = new net.liftweb.json.DefaultFormats {
     override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
-  }  + new ObjectIdSerializer
+  } + new ObjectIdSerializer
 
   //==========================//
   //======Post a new message==//
@@ -38,16 +39,23 @@ object MessageController extends Controller {
 
   def newMessage = Action { implicit request =>
     val messageListJsonMap = request.body.asFormUrlEncoded.get
-    val streamId = messageListJsonMap("streamId").toList(0)
-    val messageAccess = messageListJsonMap("messageAccess").toList(0)
-    val messageBody = messageListJsonMap("message").toList(0)
-    val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-    val messageToCreate = new Message(new ObjectId, messageBody, MessageType.Audio, MessageAccess.withName(messageAccess), new Date, new ObjectId(request.session.get("userId").get), new ObjectId(streamId),
-    messagePoster.firstName, messagePoster.lastName, 0, List(),List())
-    val messageId=Message.createMessage(messageToCreate)
-    val messageObtained = Message.findMessageById(messageId)
-    val messageJson = write(List(messageObtained))
-    Ok(messageJson).as("application/json")
+    (messageListJsonMap.contains(("streamId"))) match {
+      case false => 
+        Ok(write(new ResulttoSent("Failure", "StreamIdNotFound")))
+      case true =>
+        val streamId = messageListJsonMap("streamId").toList(0)
+        val messageAccess = messageListJsonMap("messageAccess").toList(0)
+        val messageBody = messageListJsonMap("message").toList(0)
+        val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+        val messageToCreate = new Message(new ObjectId, messageBody, MessageType.Audio, MessageAccess.withName(messageAccess), new Date, new ObjectId(request.session.get("userId").get), new ObjectId(streamId),
+        messagePoster.firstName, messagePoster.lastName, 0, List(), List())
+        val messageId = Message.createMessage(messageToCreate)
+        val messageObtained = Message.findMessageById(messageId)
+        val messageJson = write(List(messageObtained))
+        Ok(messageJson).as("application/json")
+
+    }
+
   }
 
   def messages = Action { implicit request =>
@@ -73,29 +81,28 @@ object MessageController extends Controller {
     val allMessagesForAStreamJson = write(allMessagesForAStream)
     Ok(allMessagesForAStreamJson).as("application/json")
   }
-  
+
   /*
    * Rock the message
    */
-   def rockedTheMessage = Action { implicit request =>
-     val messageIdJsonMap = request.body.asFormUrlEncoded.get
-     val messageId = messageIdJsonMap("messageId").toList(0)
-     val totalRocks=Message.rockedIt(new ObjectId(messageId),new ObjectId(request.session.get("userId").get))
-     val totalRocksJson=write(totalRocks.toString)
-     Ok(totalRocksJson).as("application/json")
-   }
-   
-   /*
+  def rockedTheMessage = Action { implicit request =>
+    val messageIdJsonMap = request.body.asFormUrlEncoded.get
+    val messageId = messageIdJsonMap("messageId").toList(0)
+    val totalRocks = Message.rockedIt(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
+    val totalRocksJson = write(totalRocks.toString)
+    Ok(totalRocksJson).as("application/json")
+  }
+
+  /*
     * Rockers of message
     */
-   def giveMeRockers =  Action { implicit request =>
-     val messageIdJsonMap = request.body.asFormUrlEncoded.get
-     val messageId = messageIdJsonMap("messageId").toList(0)
-     val weAreRockers=Message.rockersNames(new ObjectId(messageId))
-     val WeAreRockersJson=write(weAreRockers)
-     Ok(WeAreRockersJson).as("application/json")
-   }
-   
+  def giveMeRockers = Action { implicit request =>
+    val messageIdJsonMap = request.body.asFormUrlEncoded.get
+    val messageId = messageIdJsonMap("messageId").toList(0)
+    val weAreRockers = Message.rockersNames(new ObjectId(messageId))
+    val WeAreRockersJson = write(weAreRockers)
+    Ok(WeAreRockersJson).as("application/json")
+  }
 
 }
 
