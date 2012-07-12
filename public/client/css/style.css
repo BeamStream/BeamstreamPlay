@@ -791,6 +791,29 @@ ul.rockit li span a {
 	float:left;
 	margin:10px 20px 0 0;
 }
+.hand_buttonnew {
+	height:30px;
+	background:url(../images/hand.png) no-repeat;
+	float:left;
+	margin:10px 20px 0 0;
+	font-family: 'Ubuntu',sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 26px;
+    text-align: left;
+    padding-left:46px; 
+    color:#fff !important;
+	
+	
+	
+}
+.hand_buttonnew:hover {
+    color:#333333 !important;
+    text-decoration: underline;
+}
+
+
+ 
 .form-row h2 {
 	width: 260px;
 	font-family: 'Ubuntu', sans-serif;
@@ -799,7 +822,10 @@ ul.rockit li span a {
 	line-height:48px;
 	float:left;
 	text-align:left;
+	
 }
+
+
 .form-row-left{
 	display:block;
 	float:left;

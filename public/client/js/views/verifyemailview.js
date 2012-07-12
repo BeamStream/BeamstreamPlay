@@ -74,9 +74,13 @@ BS.verifyEmailView = Backbone.View.extend({
 								var template = Handlebars.compile(source);
 								$("#school-popup").html(template);
 		   			     }
+						 else if(data.status == "Failure")
+						 {
+							 $('#error').html("Email is already taken");
+						 }
 						 else
 						 {
-								alert("Token Expired");
+							 console.log("Error");
 						 }
 						  
 					}
@@ -85,7 +89,6 @@ BS.verifyEmailView = Backbone.View.extend({
 	    }
     	else
     	{
-//    		alert("Only use emails that are assosiated with schools and organozations");
     		$('#error').html("Only use emails that are assosiated with schools and organozations");
     		console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
     	}
