@@ -292,6 +292,24 @@ BS.AppRouter = Backbone.Router.extend({
 	     this.ClassStreamView = new BS.ClassStreamView();
 	     this.ClassStreamView.render();
 	     $('#school-popup').html(this.ClassStreamView.el);
+	     
+	     /* get all schoolIds under a class */
+		 $.ajax({
+				type : 'GET',
+				url : BS.allSchoolForAUser,
+				dataType : "json",
+				success : function(datas) {
+					
+					 var sSelect = '<select id="schools" class="small selectBox">';
+					_.each(datas, function(data) {
+						sSelect+= '<option value ="'+data.id.id+'" > '+data.schoolName+'</option>';
+			        });
+					sSelect+= '</select>';
+					$('#sShool').html(sSelect);
+					$(".modal select:visible").selectBox();
+				}
+		 });
+	     
 	     $(".radio").dgStyle();
 	     $(".modal select:visible").selectBox();
 	     $('.modal .datepicker').datepicker();
