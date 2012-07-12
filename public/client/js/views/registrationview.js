@@ -47,7 +47,7 @@ BS.RegistrationView = Backbone.View.extend({
     	   			success : function(data) {
     	   				if (data.status == "Success") {
     	   					// navigate to main stream page
-    	   					 
+    	   					BS.schoolFromPrev =  $('#school-name').val();
     	   					BS.AppRouter.navigate("streams", {
     	   						trigger : true,
     	   						replace : true

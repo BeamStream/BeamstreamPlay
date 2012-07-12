@@ -63,6 +63,8 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	    	   			dataType : "json",
 	    	   			success : function(data) {
 	    	   				if (data.status == "Success") {
+	    	   					
+	    	   					BS.schoolFromPrev =  $('#school-name').val();
 	    	   					// navigate to main stream page
 	    	   					BS.AppRouter.navigate("streams", {
 	    	   						trigger : true,
