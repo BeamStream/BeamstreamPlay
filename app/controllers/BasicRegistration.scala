@@ -69,7 +69,7 @@ object BasicRegistration extends Controller {
         Ok(write(new ResulttoSent("Success", "SignUp Successfully"))).withSession(RegistrationSession)
 
       case false =>
-        
+
         Ok(write(new ResulttoSent("Failure", "Already registered")))
     }
 
@@ -86,10 +86,19 @@ object BasicRegistration extends Controller {
     val iam = (userInformationJson \ "iam").extract[String]
     val emailId = (userInformationJson \ "email").extract[String]
 
-    SendEmail.sendEmail(emailId, iam)
-    val jsonResponseToSent = new ResulttoSent("Success", "Email Sent Successfully")
-    val finalJson = write(jsonResponseToSent)
-    Ok(finalJson).as("application/json")
+    val canUserRegister = User.isAlreadyRegistered(emailId, "")
+
+    (canUserRegister == true) match {
+      case true =>
+        SendEmail.sendEmail(emailId, iam)
+        val jsonResponseToSent = new ResulttoSent("Success", "Email Sent Successfully")
+        val finalJson = write(jsonResponseToSent)
+        Ok(finalJson).as("application/json")
+
+      case false =>
+        Ok(write(new ResulttoSent("Failure", "Already registered")))
+
+    }
 
     //TODO : User would be able to use the organization emailid  
 
