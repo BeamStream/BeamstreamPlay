@@ -251,6 +251,7 @@ BS.StreamView = Backbone.View.extend({
      * post a message
      */
     postMessage :function(eventName){
+    	 
       eventName.preventDefault();
       var self= this;
       /* get message details from form */
@@ -279,15 +280,23 @@ BS.StreamView = Backbone.View.extend({
 			},
 			dataType : "json",
 			success : function(data) {
-				   
-				  // append the message to message list
-				  var datas = {
-					 		"datas" : data
-				  }
-				  var source = $("#tpl-messages").html();
-				  var template = Handlebars.compile(source);
-				  $('.timeline_items').prepend(template(datas));
-				  $('#msg').val("");
+				   if(data.status == "Failure")
+				   {
+					   alert("Enter School & Class to post a message in a stream");
+				   }
+				   else
+				   {
+					   // append the message to message list
+						  var datas = {
+							 		"datas" : data
+						  }
+						  var source = $("#tpl-messages").html();
+						  var template = Handlebars.compile(source);
+						  $('.timeline_items').prepend(template(datas));
+						 
+				   }
+				   $('#msg').val("");
+				 
 			}
 		});
  
@@ -469,6 +478,7 @@ BS.StreamView = Backbone.View.extend({
 		 $('.nav-tabs li.active').removeClass('active');
 		 $(eventName.target).parents('li').addClass('active');
 	 },
+	 
 	 showListActive : function(eventName){
 		  
 		 $('.class-nav-list li.active').removeClass('active');
