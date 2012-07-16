@@ -19,6 +19,8 @@ import models.ResulttoSent
 import play.libs.Json._
 import play.libs.Json
 import models.UserMedia
+import play.api.mvc.Response
+import play.api.mvc.Response
 
 object UserController extends Controller {
 
@@ -45,13 +47,15 @@ object UserController extends Controller {
         val statusToSend = write(jsonStatus)
         val userSession = request.session + ("userId" -> user.id.toString)
         val authenticatedUserJson = write(user)
+        Ok.withCookies(Cookie("userName",user.email),Cookie("password",user.password))
         Ok(statusToSend).as("application/json").withSession(userSession)
-
+        
       case None =>
         val jsonStatus = new ResulttoSent("failure", "Login Unsuccessfull")
         val statusToSend = write(jsonStatus)
         Ok(statusToSend).as("application/json")
     }
+   
   }
 
   /*
@@ -61,7 +65,6 @@ object UserController extends Controller {
   def registerUserViaSocialSite = Action { implicit request =>
     val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
     val token = tokenList(0)
-
     val apiKey = "cc38e5cc0a71f8795733254be3cc28d8b0678a69"
     val URL = "https://rpxnow.com/api/v2/auth_info"
 
@@ -99,6 +102,7 @@ object UserController extends Controller {
    */
 
   def getProfilePicForAUser = Action { implicit request =>
+  println(    request.cookies.get("userName").get.value + "," + request.cookies.get("password").get.value)
     val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(request.session.get("userId").get))
     val MediaJson = write(mediaObtained)
     Ok(MediaJson).as("application/json")
