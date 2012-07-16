@@ -11,6 +11,7 @@ GET / controllers.StreamController.index
 
 POST /users controllers.UserController.findUser
 
+
 #Streams
 
 GET /allStreamsForAUser controllers.StreamController.getAllStreamForAUser

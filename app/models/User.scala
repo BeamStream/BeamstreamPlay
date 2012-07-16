@@ -42,22 +42,20 @@ object User {
    * find the user for Authentication
    * 
    */
-  def findUser(userEmail: String, password: String): Option[User] = {
-    val authenticatedUser = UserDAO.find(MongoDBObject("email" -> userEmail, "password" -> password))
-    (authenticatedUser.isEmpty) match {
-      case true => None
-      case false => Option(authenticatedUser.toList(0))
+  def findUser(userEmailorName: String, password: String): Option[User] = {
+    val authenticatedUserviaEmail = UserDAO.find(MongoDBObject("email" -> userEmailorName, "password" -> password))
+    val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userEmailorName, "password" -> password))
+    
+     (authenticatedUserviaEmail.isEmpty && authenticatedUserviaName.isEmpty) match {
+      case true =>   // No user
+        None
+      case false => 
+        if(authenticatedUserviaEmail.isEmpty)  Option(authenticatedUserviaName.toList(0))
+        else Option(authenticatedUserviaEmail.toList(0))
     }
 
   }
 
-//  /*
-//   * displaying the message to user for notifying the authentication
-//   */
-//
-//  def message(notification: String): String = {
-//    notification
-//  }
 
   /*
  * Creates a User
