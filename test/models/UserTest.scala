@@ -42,7 +42,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
     assert(User.findUser("crizzcoxx@beamstream.com", "Crizz").size === 1)
   }
 
-  test("Add Info to User") {
+  test("Add School to User") {
     val user3 = User(new ObjectId, UserType.Professional, "john@knoldus.com", "John", "Sachdeva", "", "John", "John", "Knoldus", "", List(), List(), List(), List())
     val userId = User.createUser(user3)
     assert(UserDAO.find(MongoDBObject()).size === 3)
