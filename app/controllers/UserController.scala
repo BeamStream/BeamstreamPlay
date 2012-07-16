@@ -88,7 +88,6 @@ object UserController extends Controller {
    */
 
   def returnUserJson = Action { implicit request =>
-
     val loggedInUserId = new ObjectId(request.session.get("userId").get)
     val loggedInUser = User.findUserbyId(loggedInUserId)
     val loggedInUserJson = write(loggedInUser)
