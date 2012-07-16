@@ -34,10 +34,10 @@ object UserController extends Controller {
     val user = userJsonMap("data").toList(0)
 
     val userJson = net.liftweb.json.parse(user)
-    val userEmail = (userJson \ "email").extract[String]
+    val userEmailorName = (userJson \ "email").extract[String]
     val userPassword = (userJson \ "password").extract[String]
 
-    val authenticatedUser = User.findUser(userEmail, userPassword)
+    val authenticatedUser = User.findUser(userEmailorName, userPassword)
 
     authenticatedUser match {
       case Some(user) =>
