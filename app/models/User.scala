@@ -43,14 +43,13 @@ object User {
    * 
    */
   def findUser(userEmailorName: String, password: String): Option[User] = {
-    println("jfgdfughdklfjgd")
     val authenticatedUserviaEmail = UserDAO.find(MongoDBObject("email" -> userEmailorName, "password" -> password))
     val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userEmailorName, "password" -> password))
     
      (authenticatedUserviaEmail.isEmpty && authenticatedUserviaName.isEmpty) match {
-      case true => println("Here first")
+      case true =>   // No user
         None
-      case false => println("i m here")
+      case false => 
         if(authenticatedUserviaEmail.isEmpty)  Option(authenticatedUserviaName.toList(0))
         else Option(authenticatedUserviaEmail.toList(0))
     }

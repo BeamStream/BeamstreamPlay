@@ -84,71 +84,71 @@ BS.allProfileImages = "http://localhost:9000/getAllProfilePicForAUser";
  * For Cloud
  */
  
-  //For Login Page 
-   BS.login = "http://beamstream-v3.herokuapp.com/users";
-  
-  //For Verify Token
-   BS.verifyToken ="http://beamstream-v3.herokuapp.com/verifyToken";
-  
-  //For Email Verification Page 
-   BS.verifyEmail = "http://beamstream-v3.herokuapp.com/getEmailforNewUser";
-  
-  //For Register New User Page 
-   BS.registerNewUser = "http://beamstream-v3.herokuapp.com/registerNewUser";
-  
-  //For Getting Logged in users basic details 
-   BS.loggedInUserJson ="http://beamstream-v3.herokuapp.com/loggedInUserJson";
-  
-  //For School registration Post Data 
-   BS.saveSchool ="http://beamstream-v3.herokuapp.com/detailed_reg";
-  
-  //GET school details 
-   BS.schoolJson ="http://beamstream-v3.herokuapp.com/schoolJson";
-  
-  //For Class registration Post Data 
-   BS.saveClass = "http://beamstream-v3.herokuapp.com/class";
-  
-  //For Profile Page Post Data 
-   BS.saveProfile ="http://beamstream-v3.herokuapp.com/getMediafromPost";
-  
-  //For populate list of class code 
-   BS.autoPopulateClass = "http://beamstream-v3.herokuapp.com/autoPopulateClasses";
-  
-  //Get School name for a SchoolId 
- BS.schoolNamebyId = "http://beamstream-v3.herokuapp.com/getSchoolNamebyId";
-  
- //Get all schools under a user 
- BS.allSchoolForAUser ="http://beamstream-v3.herokuapp.com/getAllSchoolForAUser";
- 
-  //For new class in class stream 
-  BS.newClass ="http://beamstream-v3.herokuapp.com/newStream";
-  
-  //Gel all streams of a user 
-  BS.allStreamsForAUser="http://beamstream-v3.herokuapp.com/allStreamsForAUser";
-  
- //Post message info 
-  BS.postMessage ="http://beamstream-v3.herokuapp.com/newMessage";
-  
-  //Get all messages of a stream 
-  BS.streamMessages ="http://beamstream-v3.herokuapp.com/getAllMessagesForAStream";
-
- //expires the usersession 
-  BS.signOut ="http://beamstream-v3.herokuapp.com/signOut";
-   // For JanRain component 
-  BS.userPage="http://beamstream-v3.herokuapp.com/userPage";
-  // Get user details vai janRain 
-  BS.userInfoViaJanRain="http://beamstream-v3.herokuapp.com/getJSONviaJanrain";
-  // For auto populate case -join a class 
-  BS.joinClass ="http://beamstream-v3.herokuapp.com/joinStreams";
-   // For Rocked It 
-  BS.rockedIt = "http://beamstream-v3.herokuapp.com/rockedIt"
- // Get Rockers list 
- BS.rockersList ="http://beamstream-v3.herokuapp.com/returnRockers";
-  //profile images and videos 
- BS.profileImage ="http://beamstream-v3.herokuapp.com/getProfilePicForAUser";
- 
-  // get all images
-  BS.allProfileImages ="http://beamstream-v3.herokuapp.com/getAllProfilePicForAUser";
+//  //For Login Page 
+//   BS.login = "http://beamstream-v3.herokuapp.com/users";
+//  
+//  //For Verify Token
+//   BS.verifyToken ="http://beamstream-v3.herokuapp.com/verifyToken";
+//  
+//  //For Email Verification Page 
+//   BS.verifyEmail = "http://beamstream-v3.herokuapp.com/getEmailforNewUser";
+//  
+//  //For Register New User Page 
+//   BS.registerNewUser = "http://beamstream-v3.herokuapp.com/registerNewUser";
+//  
+//  //For Getting Logged in users basic details 
+//   BS.loggedInUserJson ="http://beamstream-v3.herokuapp.com/loggedInUserJson";
+//  
+//  //For School registration Post Data 
+//   BS.saveSchool ="http://beamstream-v3.herokuapp.com/detailed_reg";
+//  
+//  //GET school details 
+//   BS.schoolJson ="http://beamstream-v3.herokuapp.com/schoolJson";
+//  
+//  //For Class registration Post Data 
+//   BS.saveClass = "http://beamstream-v3.herokuapp.com/class";
+//  
+//  //For Profile Page Post Data 
+//   BS.saveProfile ="http://beamstream-v3.herokuapp.com/getMediafromPost";
+//  
+//  //For populate list of class code 
+//   BS.autoPopulateClass = "http://beamstream-v3.herokuapp.com/autoPopulateClasses";
+//  
+//  //Get School name for a SchoolId 
+// BS.schoolNamebyId = "http://beamstream-v3.herokuapp.com/getSchoolNamebyId";
+//  
+// //Get all schools under a user 
+// BS.allSchoolForAUser ="http://beamstream-v3.herokuapp.com/getAllSchoolForAUser";
+// 
+//  //For new class in class stream 
+//  BS.newClass ="http://beamstream-v3.herokuapp.com/newStream";
+//  
+//  //Gel all streams of a user 
+//  BS.allStreamsForAUser="http://beamstream-v3.herokuapp.com/allStreamsForAUser";
+//  
+// //Post message info 
+//  BS.postMessage ="http://beamstream-v3.herokuapp.com/newMessage";
+//  
+//  //Get all messages of a stream 
+//  BS.streamMessages ="http://beamstream-v3.herokuapp.com/getAllMessagesForAStream";
+//
+// //expires the usersession 
+//  BS.signOut ="http://beamstream-v3.herokuapp.com/signOut";
+//   // For JanRain component 
+//  BS.userPage="http://beamstream-v3.herokuapp.com/userPage";
+//  // Get user details vai janRain 
+//  BS.userInfoViaJanRain="http://beamstream-v3.herokuapp.com/getJSONviaJanrain";
+//  // For auto populate case -join a class 
+//  BS.joinClass ="http://beamstream-v3.herokuapp.com/joinStreams";
+//   // For Rocked It 
+//  BS.rockedIt = "http://beamstream-v3.herokuapp.com/rockedIt"
+// // Get Rockers list 
+// BS.rockersList ="http://beamstream-v3.herokuapp.com/returnRockers";
+//  //profile images and videos 
+// BS.profileImage ="http://beamstream-v3.herokuapp.com/getProfilePicForAUser";
+// 
+//  // get all images
+//  BS.allProfileImages ="http://beamstream-v3.herokuapp.com/getAllProfilePicForAUser";
 
 /*
  * for testing in local
