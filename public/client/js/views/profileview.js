@@ -1,10 +1,12 @@
 BS.ProfileView = Backbone.View.extend({
 
 	events: {
-	      "click #save": "saveProfile",
-	      "click #complete": "saveProfile",
+	      'click #save': 'saveProfile',
+	      'click #complete': 'saveProfile',
 	      'change #profile-image' :'displayImage',
-	      'change #my-video' :'displayVideo'
+	      'change #my-video' :'displayVideo',
+	      'click .delete-image' :'deleteSelectedImage',
+	      'click .delete-video' :'deleteSelectedVideo'
 	 },
 	 
     initialize:function () {
@@ -46,7 +48,7 @@ BS.ProfileView = Backbone.View.extend({
         	    contentType: false,
         	    processData: false,
         	    success: function(data){
-        	    	console.log(data.status);
+        	    	 
         	    	if(data.status == "Success") 
 	   			    {
         	    		$('#loading').css('display','none');
@@ -71,10 +73,11 @@ BS.ProfileView = Backbone.View.extend({
     
     displayImage:function (e) {
     	 
+    	 var self = this;;
     	 $('#image-info').show();
     	 file = e.target.files[0];
     	 
-    	 this.image = file;
+    	
          var reader = new FileReader();
          
          /* Only process image files. */
@@ -92,10 +95,12 @@ BS.ProfileView = Backbone.View.extend({
         	 
         	 /* capture the file informations */
              reader.onload = (function(f){
+            	 
+            	 self.image = file;
             	 return function(e){ 
             		
             		 $('#image-info').html(f.name);
-            		  $('.delete-image').show();
+            		 $('.delete-image').show();
         		     $('#profile-photo').attr("src",e.target.result);
         		     $('#profile-photo').attr("name", f.name);
         		     $('#imagedata').val(e.target.result);
@@ -114,11 +119,11 @@ BS.ProfileView = Backbone.View.extend({
      * display profile video
      */
     displayVideo:function (e) {
-    	 
+    	var self = this;;
     	$('#video-info').show();
     	
     	 var file = e.target.files[0];
-    	 this.video = file;
+    	 
          var reader = new FileReader();
          
          /* Only process video files. */
@@ -137,6 +142,7 @@ BS.ProfileView = Backbone.View.extend({
         	  
         	 /* capture the file informations */
              reader.onload = (function(f){
+            	 self.video = file;
             	 return function(e){ 
             		 
             		 $('#video-info').html(f.name);
@@ -191,6 +197,30 @@ BS.ProfileView = Backbone.View.extend({
 				 
 		 });
 		 
+    },
+    /**
+     * delete selected/uploaded images
+     */
+    deleteSelectedImage :function(eventName){
+    	eventName.preventDefault();
+    	this.image='';
+    	$('#profile-image').val('');
+    	$('#image-info').hide();
+    	$('.delete-image').hide();
+    	$('#profile-photo').attr("src","images/no-photo.png");
+	    $('#profile-photo').attr("name", "profile-photo");
+    },
+    /**
+     * delete selected/uploaded videos
+     */
+    deleteSelectedVideo :function(eventName){
+    	eventName.preventDefault();
+    	this.video='';
+    	$('#my-video').val('');
+    	$('#video-info').hide();
+    	$('.delete-video').hide();
+    	$('#profile-video').attr("src","images/no-video.png");
+	    $('#profile-video').attr("name", "profile-photo");
     }
     
 });

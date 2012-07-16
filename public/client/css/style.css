@@ -176,9 +176,11 @@
     border: 1px #2a8eba solid;
     color: #5d9ab6;
     font-size: 18px;
-    padding: 6px 12px 3px 10px;
-    height: 35px;
-    line-height: 35px;
+/*     padding: 6px 12px 3px 10px; */
+/*     height: 35px; */
+/*     line-height: 35px; */
+ padding:4px 10px 0px 10px;
+    height:40px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -731,11 +733,13 @@ ul.rockit li span a {
     height:19px !important;
 	position:absolute;
 	top:36px;
-	left:10px;
+/* 	left:10px; */
+    left: 209px;
 	
 }
 .tag-position{
-	padding:6px 15px 3px 35px !important;
+/* 	padding:6px 15px 3px 35px !important; */
+    padding-right: 35px !important;
 }
 
 /* rockers list in popups */
@@ -1350,7 +1354,8 @@ span.edit_profilepicture_icon{
 	color: #FFFFFF !important;
 	
 }
-#main-photo-container:hover .edit_profilepicture
+
+#main-photo-container:hover .edit_profilepicture  
 {
 	display :block;
 }
@@ -1370,8 +1375,9 @@ span.edit_profilepicture_icon{
 }
 /** for stars */
 .star{
-	color:red;
-	margin-left: 2px;
+	color: #FF0000;
+    font-size: 17px;
+    margin-left: 0;
 }
 /* to delete uploaded images and videos */
 .delete-image ,.delete-video{
@@ -1391,4 +1397,24 @@ span.edit_profilepicture_icon{
 .forgot-pass a{
 	margin-top:4px !important;
 	font-size: 18px !important;
+}
+/* for basic profile page place holders */
+/* form#registration-form input[type="text"] ,form#registration-form input[type="password"] { */
+/* 	 padding:6px !important; */
+/*     height:32px !important; */
+/*      line-height: 0px !important; */
+/* } */
+
+
+/*  for google plus icon */
+.icon-google-plus{
+	
+	background: url("../images/1-icon.png") no-repeat scroll 0 0 transparent !important;
+    width: 34px !important;
+    height: 34px !important;
+}
+.icon-pinterest{
+	background: url("../images/Pinterest-icon.png") no-repeat scroll 0 0 transparent !important;
+    width: 34px !important;
+    height: 34px !important;
 }

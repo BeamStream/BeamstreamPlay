@@ -20,8 +20,8 @@ BS.StreamView = Backbone.View.extend({
            "mouseleave a#rocks" : "hideRockers",
            "click .edit_profilepicture" : "showProfilePage",
            "click .nav-tabs li" : "showActive",
-           "click .class-nav-list li" :"showListActive"
- 
+           "click .class-nav-list li" :"showListActive",
+           "keypress #msg" : "postMessageOnEnterKey"
 	 },
 	
 
@@ -85,10 +85,10 @@ BS.StreamView = Backbone.View.extend({
                      var streamId = $('#streams-list li.active a').attr('id');
                      var streamName = $('#streams-list li.active a').attr('name');
                      
-//                     // render sub menus in stream page
-//                     var source = $("#tpl-stream-page-menus").html();
-//             		 var template = Handlebars.compile(source);
-//             		 $('#sub-menus').html(template({streamName : streamName}));
+                     // render sub menus in stream page
+                     var source = $("#tpl-stream-page-menus").html();
+             		 var template = Handlebars.compile(source);
+             		 $('#sub-menus').html(template({streamName : streamName}));
              	 
              		
              		
@@ -238,10 +238,10 @@ BS.StreamView = Backbone.View.extend({
       $('#streams-list li.active').removeClass('active');
       $('#'+id).parents('li').addClass('active');
       
-//      // render sub menus in stream page
-//      var source = $("#tpl-stream-page-menus").html();
-//	  var template = Handlebars.compile(source);
-//	  $('#sub-menus').html(template({streamName : streamName}));
+      // render sub menus in stream page
+      var source = $("#tpl-stream-page-menus").html();
+	  var template = Handlebars.compile(source);
+	  $('#sub-menus').html(template({streamName : streamName}));
 		 
       // call the method to display the messages of the selected stream
       this.getMessageInfo(id);
@@ -252,7 +252,7 @@ BS.StreamView = Backbone.View.extend({
      */
     postMessage :function(eventName){
     	 
-      eventName.preventDefault();
+   //   eventName.preventDefault();
       var self= this;
       /* get message details from form */
       var messageAccess;
@@ -484,4 +484,12 @@ BS.StreamView = Backbone.View.extend({
 		 $('.class-nav-list li.active').removeClass('active');
 		 $(eventName.target).parents('li').addClass('active');
 	 },
+	 
+	 postMessageOnEnterKey : function(eventName){
+		 var self = this;
+		 if(eventName.which == 13) {
+			 self.postMessage(); 
+		 }
+
+	 }
 });

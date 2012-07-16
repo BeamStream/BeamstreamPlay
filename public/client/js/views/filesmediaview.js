@@ -4,14 +4,15 @@ BS.FilesMediaView = Backbone.View.extend({
 	       "click a#file-type" : "showFilesTypes",
 	       "click ul.file-type li a" : "hideList",
 	       "click '.nav a" : "addActive",
-               "click #go_button" : "uploadFile",
+           "click #go_button" : "uploadFile",
 //               "click #profile-images":"listProfileImages"
 	      
 	 },
 	
     initialize:function () {
     	 
- 				
+    	window.onload = function() {initLytebox();}
+    	 
     	var type = "files";
    	    var profileView = new BS.ProfileView();
      	profileView.getProfileImages(type);
