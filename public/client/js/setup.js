@@ -179,6 +179,8 @@ $(function() {
 // BS.rockersList = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
 // BS.profileImage = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
 // BS.allProfileImages ="http://localhost/client/api.php";
+ 
+ 
 // 
  
  
