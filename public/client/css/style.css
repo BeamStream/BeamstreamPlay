@@ -811,7 +811,7 @@ ul.rockit li span a {
 	
 	
 }
-.hand_buttonnew:hover {
+.hand_buttonnew:hover ,.log-in:hover{
     color:#333333 !important;
     text-decoration: underline;
 }
@@ -1391,7 +1391,8 @@ span.edit_profilepicture_icon{
 	width: 225px;
 }
 .forgot-pass{
-	margin-left: 320px;
+/* 	margin-left: 320px; */
+    margin-left: 145px;
 	
 }
 .forgot-pass a{
@@ -1418,3 +1419,16 @@ span.edit_profilepicture_icon{
     width: 34px !important;
     height: 34px !important;
 }
+.log-in{
+	color: #FFFFFF !important;
+    float: left;
+    font-family: 'Ubuntu',sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    height: 30px;
+    line-height: 26px;
+    margin: 10px 20px 0 0;
+    padding-left: 8px;
+    text-align: left;
+}
+ 
