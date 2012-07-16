@@ -43,6 +43,7 @@ object User {
    * 
    */
   def findUser(userEmailorName: String, password: String): Option[User] = {
+    println("jfgdfughdklfjgd")
     val authenticatedUserviaEmail = UserDAO.find(MongoDBObject("email" -> userEmailorName, "password" -> password))
     val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userEmailorName, "password" -> password))
     
