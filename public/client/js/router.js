@@ -279,6 +279,7 @@ BS.AppRouter = Backbone.Router.extend({
        $('#school-popup').html(this.emailView.el);  
        $(".modal select:visible").selectBox();
        $(".checkbox").dgStyle();
+       $('.forgot-pass').hide();
        jQuery("#email-verify").validationEngine();
       
      },

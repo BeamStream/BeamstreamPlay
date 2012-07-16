@@ -69,7 +69,7 @@ BS.verifyEmailView = Backbone.View.extend({
 					success : function(data) {
 						if(data.status == "Success") 
 		   			    {
-							 
+							    $('.forgot-pass').hide();
 								var source = $("#tpl-verify-popup").html();
 								var template = Handlebars.compile(source);
 								$("#school-popup").html(template);
@@ -77,6 +77,7 @@ BS.verifyEmailView = Backbone.View.extend({
 						 else if(data.status == "Failure")
 						 {
 							 $('#error').html("Email is already taken");
+							 $('.forgot-pass').show();
 						 }
 						 else
 						 {
