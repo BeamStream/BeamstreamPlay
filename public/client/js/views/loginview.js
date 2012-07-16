@@ -29,11 +29,12 @@ BS.LoginView = Backbone.View.extend({
     	    var validate = jQuery('#login-form').validationEngine('validate');
 			if(validate == true)
 			{
+				 
 				var loginDetails = this.getLoginInfo();
 				if(loginDetails == 1)
 			    {
-						console.log("Only use emails that are assosiated with schools and organizations");
-						$('#error').html("Only use emails that are assosiated with schools and organizations");
+						console.log("Invalid User name and Login");
+						$('#error').html("Invalid User name and Login");
 				} 
 			    else
 			    {
@@ -55,7 +56,7 @@ BS.LoginView = Backbone.View.extend({
 							    		else 
 							    		{
 							    			 console.log(data.status + " : " + data.message);
-							    			 $('#error').html(data.message);
+							    			 $('#error').html("Invalid User name and Login");
 							    			 
 							    			 /* clear email and password text box and get highlighted */
 							    			  $('#email').val("");
@@ -95,8 +96,8 @@ BS.LoginView = Backbone.View.extend({
 		}
         var pwd = $("#password").val();
         	
-        	  if(email.match(emailregex))
-              {
+//        	  if(email.match(emailregex))
+//              {
         		  loginModel.set({
               		email : $("#email").val(),
               		password : $("#password").val(),
@@ -104,11 +105,11 @@ BS.LoginView = Backbone.View.extend({
           		});
               	var loginDetails = JSON.stringify(loginModel);
               	return loginDetails;              	
-              }
-              else
-              {
-              	return 1;
-              }
+//              }
+//              else
+//              {
+//              	return 1;
+//              }
         	
     },
     /**
