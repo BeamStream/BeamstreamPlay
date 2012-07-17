@@ -80,6 +80,11 @@ BS.profileImage = "http://localhost:9000/getProfilePicForAUser";
 // Gel all profile images
 BS.allProfileImages = "http://localhost:9000/getAllProfilePicForAUser";
 
+//Get all class streams of a user
+BS.classStreamsForUser = "http://localhost:9000/allClassStreamsForAUser;
+
+
+
 /*
  * For Cloud
  */
@@ -179,7 +184,8 @@ BS.allProfileImages = "http://localhost:9000/getAllProfilePicForAUser";
 // BS.rockersList = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
 // BS.profileImage = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
 // BS.allProfileImages ="http://localhost/client/api.php";
- 
+// BS.classStreamsForUser = "http://localhost/client/api.php";
+// 
  
 // 
  

@@ -1431,4 +1431,17 @@ span.edit_profilepicture_icon{
     padding-left: 8px;
     text-align: left;
 }
+/* JanRain classes */
+ .janrainContent{ 
  
+ background: url("../images/fieldset-bg.png") repeat scroll 0 0 transparent !important;
+ border: medium none !important;
+ }
+.janrainHeader {
+ background: url("../images/fieldset-bg.png") repeat scroll 0 0 transparent !important;
+}
+#janrain-twitter img{
+/* 	 background: url("../images/fieldset-bg.png") repeat scroll 0 0 transparent !important; */
+	 background: url("../images/twitter.png") repeat scroll 0 0 transparent !important;
+	 background-repeat: no-repeat;
+}

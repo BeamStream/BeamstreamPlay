@@ -46,8 +46,7 @@
     behavior: url(css/PIE.htc);
     position: absolute !important;
 }
-
-
+ 
 .modal .modal-body,.modal2 .modal-body {
     max-height: 55%;
 }
