@@ -149,6 +149,7 @@ BS.AppRouter = Backbone.Router.extend({
          
          var username=this.getCookie("userName") ;
          var password = this.getCookie("password") ;
+         console.log(username);
          if(username != null && username != "" && password !=null && password != "") 
          {
         	 $('#email').val(username);
