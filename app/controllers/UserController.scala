@@ -48,7 +48,7 @@ object UserController extends Controller {
         val statusToSend = write(jsonStatus)
         val userSession = request.session + ("userId" -> user.id.toString)
         val authenticatedUserJson = write(user)
-        if(rememberMe==true) Ok(statusToSend).as("application/json").withCookies(Cookie("userName",user.email),Cookie("password",user.password))
+        if(rememberMe==true) Ok(statusToSend).as("application/json").withCookies(Cookie("userName",user.email),Cookie("password",user.password)).withSession(userSession)
         else  Ok(statusToSend).as("application/json").withSession(userSession)
         
       case None =>
