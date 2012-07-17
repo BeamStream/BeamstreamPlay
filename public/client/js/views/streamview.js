@@ -51,9 +51,9 @@ BS.StreamView = Backbone.View.extend({
     },
 
     render:function (eventName) {
-
+        
        this.getStreams();
- 
+       this.getClassStreams("public");
        $(this.el).html(this.template(this.model.toJSON()));
         
        return this;
@@ -74,10 +74,10 @@ BS.StreamView = Backbone.View.extend({
 					
 					 var streams ='';
 					 _.each(datas, function(data) {
-							 
+						 
 							streams+= '<li><span class="flag-piece"></span><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
 					 });
-					  
+					 
 					 $('#streams-list').html(streams);
 					 $('#streams-list li:first').addClass('active');
 					 
@@ -98,7 +98,53 @@ BS.StreamView = Backbone.View.extend({
 				}
 		 });
     },
-    
+    /**
+     * get all class streams of a user
+     */
+    getClassStreams : function(type){
+    	 
+    	 var self =this;
+         /* get all streams  */
+ 		 $.ajax({
+ 				type : 'GET',
+ 				url : BS.classStreamsForUser,
+ 				dataType : "json",
+ 				success : function(datas) {
+ 					
+ 					 var classStreams ='';
+ 					 var streams ='';
+ 					 _.each(datas, function(data) {
+ 						 
+ 						streams+= '<li><span class="flag-piece"></span><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
+ 						classStreams+= '<li ><a id="'+data.id.id+'" href="# '+data.streamName+'">'+data.streamName+'</a></li>';
+ 					 });
+ 					 if(type == 'sort')
+ 					 {
+ 						 $('#streams-list').html(streams);
+ 						 $('#streams-list li:first').addClass('active');
+ 						 
+ 						 // display the messages of the first stream in the stream list by default
+ 	                     var streamId = $('#streams-list li.active a').attr('id');
+ 	                     var streamName = $('#streams-list li.active a').attr('name');
+ 	                     
+ 	                     // render sub menus in stream page
+ 	                     var source = $("#tpl-stream-page-menus").html();
+ 	             		 var template = Handlebars.compile(source);
+ 	             		 $('#sub-menus').html(template({streamName : streamName}));
+ 	             	 
+ 	                     if(streamId)
+ 	                      self.getMessageInfo(streamId);
+ 					 }
+ 					 else if(type == "public")
+ 					 {
+ 						 $('#public-classes').html(classStreams);
+ 	 					 $('#public-classes').html(classStreams);
+ 	 					 $('#public-classes li:first').addClass('active');
+ 					 }
+ 					 
+ 				}
+ 		 });
+    },
    
     /**
      *  hover over for Create Stream button
@@ -349,7 +395,8 @@ BS.StreamView = Backbone.View.extend({
   	    // show all classStreams
   	    else if(id == 'classStreams-list')
   	    {
-  	    	$('#streams-list').html('');
+//  	    	$('#streams-list').html('');
+  	    	this.getClassStreams("sort");
   	    }
   	    // show all projectStreams
   	    else if(id == 'projectStreams-list')

@@ -50,10 +50,10 @@ BS.LoginView = Backbone.View.extend({
 						    						 
 							    		if(data.status == "success") 
 							    		{
-							    			 
+							    			// set cookies 
 							    			if($('#remember').attr('checked') == "checked"){
-							    				$.cookie('userName', $("#email").val(),{ expires: 30 });
-										    	$.cookie('password', $("#password").val(),{ expires: 30 });
+							    				$.cookie('userName', $("#email").val());
+										    	$.cookie('password', $("#password").val());
 							    			}
 							    			
 							    			 console.log(data.status + " : " + data.message);
