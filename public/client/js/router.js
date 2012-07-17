@@ -36,9 +36,6 @@ BS.AppRouter = Backbone.Router.extend({
 				e.set('loggedin', false);				
 			}
 			  
-			/**
-			 * Create the navigation view with user model.
-			 */
 			this.navView = new BS.NavView({ model: BS.user });
 			$('.nav-collapse').html(this.navView.render().el);
 
@@ -64,22 +61,14 @@ BS.AppRouter = Backbone.Router.extend({
   		        timeValues.push({"time" : time});
   		 }
   		BS.times = jQuery.parseJSON(JSON.stringify(timeValues));
-  		
-  	
-  		
-  		
+   
     },
-    
-    
  
-
     home: function() {
     	console.log('Here');
     	
-    	
     },
 
-     
     
     /**
      * display login form
@@ -222,219 +211,215 @@ BS.AppRouter = Backbone.Router.extend({
 			url : BS.verifyToken,
 			data : {
 				token : token
-			},
+                 },
 			dataType : "json",
 			success : function(data) {
-				if(data.status == "Success") 
-			    {
-					
-					 this.registrationView = null;
-				  	 if (!this.registrationView) {
-				           this.registrationView = new BS.RegistrationView();
-				           var mailInfo = {iam : iam , mail:email};
-				           this.registrationView.render(mailInfo);
-				          
-				     }
-				  	 
-				     $('#school-popup').html(this.registrationView.el); 
-				     $('#jan-iam').hide();
-				     $(".checkbox").dgStyle();
-				     jQuery("#registration-form").validationEngine();
-			    }
-				else
-				{
-					 alert("Token Expiredd");
+					if (data.status == "Success") {
+
+						this.registrationView = null;
+						if (!this.registrationView) {
+							this.registrationView = new BS.RegistrationView();
+							var mailInfo = {
+									iam : iam,
+									mail : email
+							};
+							his.registrationView.render(mailInfo);
+
+						}
+
+						$('#school-popup').html(
+						this.registrationView.el);
+						$('#jan-iam').hide();
+						$(".checkbox").dgStyle();
+						jQuery("#registration-form").validationEngine();
+				     } else {
+						alert("Token Expiredd");
+					  }
+
 				}
-				  
+			});
+
+			},
+
+			/**
+			 * basicRegistrationViaJanRain
+			 */
+			basicRegistrationViaJanRain : function(event) {
+
+				$('#school-popup').children().detach();
+				this.mediaRegistrationView = null;
+				if (!this.mediaRegistrationView) {
+					this.mediaRegistrationView = new BS.MediaRegistrationView();
+					this.mediaRegistrationView.render();
+				}
+
+				$('#school-popup').html(this.mediaRegistrationView.el);
+				$('#school-record').hide();
+				$(".modal select:visible").selectBox();
+				$(".checkbox").dgStyle();
+				jQuery("#social-media-signup").validationEngine();
+
+				// display values
+				var datas = BS.JsonFromSocialSite;
+
+				$("#user-name").val(datas.profile.preferredUsername);
+				$('#first-name').val(datas.profile.name.givenName);
+				$('#last-name').val(datas.profile.name.familyName);
+				$('#location').val(datas.profile.address.formatted);
+
+			},
+
+			/**
+			 * for email verification
+			 */
+			emailVerification : function() {
+				$('#school-popup').children().detach();
+				this.emailView = null;
+				if (!this.emailView) {
+					this.emailView = new BS.verifyEmailView();
+					this.emailView.render();
+				}
+
+				$('#school-popup').html(this.emailView.el);
+				$(".modal select:visible").selectBox();
+				$(".checkbox").dgStyle();
+				$('.forgot-pass').hide();
+				jQuery("#email-verify").validationEngine();
+
+			},
+
+			/**
+			 * display class stream screen
+			 */
+			classStream : function() {
+
+				this.ClassStreamView = new BS.ClassStreamView();
+				this.ClassStreamView.render();
+				$('#school-popup').html(this.ClassStreamView.el);
+
+				/* get all schoolIds under a class */
+				$
+						.ajax({
+							type : 'GET',
+							url : BS.allSchoolForAUser,
+							dataType : "json",
+							success : function(datas) {
+
+								var sSelect = '<select id="schools" class="small selectBox">';
+								_.each(datas, function(data) {
+									sSelect += '<option value ="' + data.id.id
+											+ '" > ' + data.schoolName
+											+ '</option>';
+								});
+								sSelect += '</select>';
+								$('#sShool').html(sSelect);
+								$(".modal select:visible").selectBox();
+							}
+						});
+
+				$(".radio").dgStyle();
+				$(".modal select:visible").selectBox();
+				$('.modal .datepicker').datepicker();
+			},
+
+			/**
+			 * display project stream screen
+			 */
+			projectStream : function() {
+
+				if (!this.projectStreamView) {
+					this.projectStreamView = new BS.ProjectStreamView();
+					this.projectStreamView.render();
+				}
+				$('#school-popup').html(this.projectStreamView.el);
+				$(".radio").dgStyle();
+				$(".modal select:visible").selectBox();
+				$('.modal .datepicker').datepicker();
+			},
+
+			/**
+			 * display study stream screen
+			 */
+			studyStream : function() {
+
+				if (!this.studyStreamView) {
+					this.studyStreamView = new BS.StudyStreamView();
+					this.studyStreamView.render();
+				}
+				$('#school-popup').html(this.studyStreamView.el);
+				$(".radio").dgStyle();
+				$(".modal select:visible").selectBox();
+				$('.modal .datepicker').datepicker();
+
+			},
+
+			/**
+			 * display group stream screen
+			 */
+			groupStream : function() {
+
+				if (!this.groupStreamView) {
+					this.groupStreamView = new BS.GroupStreamView();
+					this.groupStreamView.render();
+				}
+				$('#school-popup').html(this.groupStreamView.el);
+				$(".radio").dgStyle();
+				$(".modal select:visible").selectBox();
+				$('.modal .datepicker').datepicker();
+
+			},
+
+			/**
+			 * display peer stream screen
+			 */
+			peerStream : function() {
+
+				if (!this.peerStreamView) {
+					this.peerStreamView = new BS.PeerStreamView();
+					this.peerStreamView.render();
+				}
+				$('#school-popup').html(this.peerStreamView.el);
+				$(".radio").dgStyle();
+				$(".modal select:visible").selectBox();
+				$('.modal .datepicker').datepicker();
+			},
+
+			/**
+			 * display friend stream screen
+			 */
+			friendStream : function() {
+
+				if (!this.friendStreamView) {
+					this.friendStreamView = new BS.FriendStreamView();
+					this.friendStreamView.render();
+				}
+
+				$('#school-popup').html(this.friendStreamView.el);
+				$(".radio").dgStyle();
+				$(".modal select:visible").selectBox();
+				$('.modal .datepicker').datepicker();
+			},
+
+			/**
+			 * display Files & Media page
+			 */
+			// TODO
+			filesMedia : function() {
+
+				$('#content').children().detach();
+				$('#school-popup').children().detach();
+				var self = this;
+
+				// $('#right-photo').attr("src",BS.profileImageUrl);
+
+				this.filesMediaView = new BS.FilesMediaView({
+					model : BS.user
+				});
+				this.filesMediaView.render();
+
+				$('#content').html(self.filesMediaView.el);
+				$('.file-type').hide();
+				$(".checkbox").dgStyle();
+
 			}
-	     });
-         
-    },
-  
-    
-    /**
-     * basicRegistrationViaJanRain
-     */
-    basicRegistrationViaJanRain :function(event){
-    	
-        $('#school-popup').children().detach(); 
-   	    this.mediaRegistrationView = null;
-   	    if (!this.mediaRegistrationView) {
-             this.mediaRegistrationView = new BS.MediaRegistrationView();
-             this.mediaRegistrationView.render();
-         }
-   	 
-        $('#school-popup').html(this.mediaRegistrationView.el); 
-        $('#school-record').hide();
-        $(".modal select:visible").selectBox();
-        $(".checkbox").dgStyle();
-        jQuery("#social-media-signup").validationEngine();
-         
-		 // display values
-		var datas = BS.JsonFromSocialSite;
-		  
-		$("#user-name").val(datas.profile.preferredUsername);
-	    $('#first-name').val(datas.profile.name.givenName);
-		$('#last-name').val(datas.profile.name.familyName);
-	    $('#location').val(datas.profile.address.formatted);
-		  
-    	
-    },
-  
-    /**
-    * for email verification
-    */
-    emailVerification: function() {
-       $('#school-popup').children().detach(); 
- 	   this.emailView = null;
- 	   if (!this.emailView) {
-           this.emailView = new BS.verifyEmailView();
-           this.emailView.render();
-       }
-  	
-       $('#school-popup').html(this.emailView.el);  
-       $(".modal select:visible").selectBox();
-       $(".checkbox").dgStyle();
-       $('.forgot-pass').hide();
-       jQuery("#email-verify").validationEngine();
-      
-     },
- 
- 
-	 /**
-	  * display class stream screen
-	  */
-	 classStream:function () {
-		  
-	     this.ClassStreamView = new BS.ClassStreamView();
-	     this.ClassStreamView.render();
-	     $('#school-popup').html(this.ClassStreamView.el);
-	     
-	     /* get all schoolIds under a class */
-		 $.ajax({
-				type : 'GET',
-				url : BS.allSchoolForAUser,
-				dataType : "json",
-				success : function(datas) {
-					
-					 var sSelect = '<select id="schools" class="small selectBox">';
-					_.each(datas, function(data) {
-						sSelect+= '<option value ="'+data.id.id+'" > '+data.schoolName+'</option>';
-			        });
-					sSelect+= '</select>';
-					$('#sShool').html(sSelect);
-					$(".modal select:visible").selectBox();
-				}
-		 });
-	     
-	     $(".radio").dgStyle();
-	     $(".modal select:visible").selectBox();
-	     $('.modal .datepicker').datepicker();
-	},
-	
-	/**
-	 * display project stream screen
-	 */
-	projectStream:function () {
-	
-		if(!this.projectStreamView) {
-	        this.projectStreamView = new BS.ProjectStreamView();
-	        this.projectStreamView.render();
-	    }
-	    $('#school-popup').html(this.projectStreamView.el);
-	    $(".radio").dgStyle();
-	    $(".modal select:visible").selectBox();
-	    $('.modal .datepicker').datepicker();
-	},
-	
-	/**
-	 * display study stream screen
-	 */
-	 studyStream :function () {
-	
-		 if (!this.studyStreamView) {
-		    this.studyStreamView = new BS.StudyStreamView();
-		    this.studyStreamView.render();
-		 }
-		$('#school-popup').html(this.studyStreamView.el);
-		$(".radio").dgStyle();
-		$(".modal select:visible").selectBox();
-		$('.modal .datepicker').datepicker();
-	
-	
-	},
-	
-	/**
-	 * display group stream screen
-	 */
-	groupStream:function () {
-		
-		if (!this.groupStreamView) {
-		    this.groupStreamView = new BS.GroupStreamView();
-		    this.groupStreamView.render();
-		}
-		$('#school-popup').html(this.groupStreamView.el);
-		$(".radio").dgStyle();
-		$(".modal select:visible").selectBox();
-		$('.modal .datepicker').datepicker();
-
-	},
-	
-	/**
-	 * display peer stream screen
-	 */
-	peerStream:function () {
-		
-		if (!this.peerStreamView) {
-		    this.peerStreamView = new BS.PeerStreamView();
-		    this.peerStreamView.render();
-		}
-		$('#school-popup').html(this.peerStreamView.el);
-		$(".radio").dgStyle();
-		$(".modal select:visible").selectBox();
-		$('.modal .datepicker').datepicker();
-	},
-	
-	/**
-	 * display friend stream screen
-	 */
-	friendStream:function () {
-		
-	   if (!this.friendStreamView) {
-	     this.friendStreamView = new BS.FriendStreamView();
-	     this.friendStreamView.render();
-	   }
-
-	   $('#school-popup').html(this.friendStreamView.el);
-	   $(".radio").dgStyle();
-	   $(".modal select:visible").selectBox();
-	   $('.modal .datepicker').datepicker();
-    },
-
-    /**
-     *  display Files & Media page
-     */
-    //TODO 
-    filesMedia :function() {
-    	
-      
-      $('#content').children().detach();
-      $('#school-popup').children().detach(); 
-      var self = this;
-  	 
-      //$('#right-photo').attr("src",BS.profileImageUrl);
-      
-  	  this.filesMediaView = new BS.FilesMediaView({ model: BS.user });
-  	  this.filesMediaView.render();
-  	  
-  	  $('#content').html(self.filesMediaView.el);
-  	  $('.file-type').hide();
-  	  $(".checkbox").dgStyle();
-  	     
-  	     
-   	}
-});
-
- 
-
-
+		});
