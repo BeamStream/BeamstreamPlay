@@ -13,11 +13,6 @@ case class Stream(@Key("_id") id: ObjectId, streamName: String, streamType: Stre
 
 object Stream {
 
-  def join(streamname: String, userId: ObjectId) {
-    val stream = StreamDAO.find(MongoDBObject("name" -> streamname)).toList
-    Stream.joinStream(stream(0).id, userId)
-  }
-
   def getStreamByName(name: String): List[Stream] = {
     val regexp = (""".*""" + name + """.*""").r
     val streams = StreamDAO.find(MongoDBObject("streamName" -> regexp))
@@ -41,26 +36,22 @@ object Stream {
     ClassDAO.update(MongoDBObject("_id" -> classId), expectedClass.copy(streams = (expectedClass.streams ++ List(streamId))), false, false, new WriteConcern)
   }
 
-  /*
-   * Attach a Stream to a User
-   */
+//  /*
+//   * Attach a Stream to a User
+//   */
+////
+////  def attachStreamToUser(streamId: ObjectId, userId: ObjectId) {
+////    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
+////    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(streams = (user.streams ++ List(streamId))), false, false, new WriteConcern)
+////
+////  }
 
-  def attachStreamToUser(streamId: ObjectId, userId: ObjectId) {
-    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(streams = (user.streams ++ List(streamId))), false, false, new WriteConcern)
-
-  }
-
-  def getAllStream: List[Stream] = {
-    val streams = StreamDAO.find(MongoDBObject("name" -> ".*".r))
-    streams.toList
-  }
 
   /*
    * Get all streams for a user
    */
   def getAllStreamforAUser(userId: ObjectId): List[Stream] = {
-    val streamsForAUser=StreamDAO.find(MongoDBObject("creatorOfStream" -> userId ,  "usersOfStream" -> MongoDBObject("$exists" -> userId))).toList
+    val streamsForAUser=StreamDAO.find(MongoDBObject( "usersOfStream" -> MongoDBObject("$exists" -> userId))).toList
     streamsForAUser
   }
   
@@ -77,7 +68,7 @@ object Stream {
    * Get all Project streams for a user
    */
   def allProjectStreamsForAUser(userId: ObjectId): List[Stream] = {
-    val allProjectStreamsForAUser=StreamDAO.find(MongoDBObject("usersOfStream" -> MongoDBObject("$exists" -> userId) ,"streamType" -> "Project")).toList
+    val allProjectStreamsForAUser=StreamDAO.find(MongoDBObject("usersOfStream" -> MongoDBObject("$exists" -> userId) ,"streamType" -> "Projects")).toList
     allProjectStreamsForAUser
   }
   
