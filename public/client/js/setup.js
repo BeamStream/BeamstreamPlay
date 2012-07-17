@@ -88,7 +88,7 @@ BS.classStreamsForUser = "http://localhost:9000/allClassStreamsForAUser";
 /*
  * For Cloud
  */
-// 
+ 
 //  //For Login Page 
 //   BS.login = "http://beamstream-v3.herokuapp.com/users";
 //  
