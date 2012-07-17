@@ -12,21 +12,16 @@ class StreamTest extends FunSuite with BeforeAndAfter {
 
   var stream1 = Stream(new ObjectId, "al1pha", StreamType.Class, new ObjectId, List(),true,List())
   val stream2 = Stream(new ObjectId, "al1pha", StreamType.Class, new ObjectId, List(),true,List())
-  val stream3 = Stream(new ObjectId, "al1pha", StreamType.Class, new ObjectId, List(),true,List())
-  val stream4 = Stream(new ObjectId, "al1pha", StreamType.Class, new ObjectId, List(),true,List())
+ 
 
   before {
-
     Stream.createStream(stream1)
     Stream.createStream(stream2)
-    Stream.createStream(stream3)
-    Stream.createStream(stream4)
-
   }
 
   test("Fetch matching stream names") {
-    val streams = Stream.getStreamByName("al1p")
-    assert(streams.size === 4)
+    val streams = Stream.getStreamByName("al1ph")
+    assert(streams.size === 2)
   }
 
 
@@ -35,7 +30,7 @@ class StreamTest extends FunSuite with BeforeAndAfter {
   
 
   after {
-   StreamDAO.remove(MongoDBObject("name" -> ".*".r))
+   StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
   }
 
 }

@@ -20,7 +20,7 @@ object Stream {
 
   def getStreamByName(name: String): List[Stream] = {
     val regexp = (""".*""" + name + """.*""").r
-    val streams = StreamDAO.find(MongoDBObject("name" -> regexp))
+    val streams = StreamDAO.find(MongoDBObject("streamName" -> regexp))
     streams.toList
   }
 
