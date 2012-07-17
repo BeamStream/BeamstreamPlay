@@ -24,6 +24,8 @@ BS.AppRouter = Backbone.Router.extend({
     initialize :function() {
     	
     	
+    	// Cookies 
+    	
     	if (typeof String.prototype.trimLeft !== "function") {
     	    String.prototype.trimLeft = function() {
     	        return this.replace(/^\s+/, "");
@@ -149,6 +151,7 @@ BS.AppRouter = Backbone.Router.extend({
          
          var username=this.getCookie("userName") ;
          var password = this.getCookie("password") ;
+         
          if(username != null && username != "" && password !=null && password != "") 
          {
         	 $('#email').val(username);
@@ -276,7 +279,7 @@ BS.AppRouter = Backbone.Router.extend({
 			success : function(data) {
 				if(data.status == "Success") 
 			    {
-					 
+					
 					 this.registrationView = null;
 				  	 if (!this.registrationView) {
 				           this.registrationView = new BS.RegistrationView();

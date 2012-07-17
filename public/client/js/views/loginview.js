@@ -50,6 +50,12 @@ BS.LoginView = Backbone.View.extend({
 						    						 
 							    		if(data.status == "success") 
 							    		{
+							    			 
+							    			if($('#remember').attr('checked') == "checked"){
+							    				$.cookie('userName', $("#email").val());
+										    	$.cookie('password', $("#password").val());
+							    			}
+							    			
 							    			 console.log(data.status + " : " + data.message);
 							    			 BS.AppRouter.navigate("streams", {trigger: true, replace: true});
 							    		}
