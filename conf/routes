@@ -15,6 +15,7 @@ POST /users controllers.UserController.findUser
 #Streams
 
 GET /allStreamsForAUser controllers.StreamController.getAllStreamForAUser
+GET /allClassStreamsForAUser controllers.StreamController.allClassStreamsForAUser
 POST /newStream controllers.StreamController.newStream
 
 

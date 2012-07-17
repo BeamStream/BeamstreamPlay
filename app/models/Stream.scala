@@ -64,8 +64,19 @@ object Stream {
     streamsForAUser
   }
   
+  
   /*
-   * Get all stream for a user
+   * Get all streams for a user
+   */
+  def allClassStreamsForAUser(userId: ObjectId): List[Stream] = {
+    val allClassStreamsForAUser=StreamDAO.find(MongoDBObject("creatorOfStream" -> userId ,  "usersOfStream" -> MongoDBObject("$exists" -> userId) ,"streamType" -> "Class")).toList
+    allClassStreamsForAUser
+  }
+  
+  
+  
+  /*
+   * join stream
    */
   
   def joinStream(streamId: ObjectId, userId: ObjectId) {

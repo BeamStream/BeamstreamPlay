@@ -42,6 +42,16 @@ object StreamController extends Controller {
     val allStreamsForAUserJson=write(allStreamsForAUser)
     Ok(allStreamsForAUserJson).as("application/json")
   }
+  
+   /*
+   * Get All Class Stream for a user
+   * 
+   */
+  def allClassStreamsForAUser = Action { implicit request =>
+    val allClassStreamsForAUser = Stream.allClassStreamsForAUser(new ObjectId(request.session.get("userId").get))
+    val allStreamsForAUserJson=write(allClassStreamsForAUser)
+    Ok(allStreamsForAUserJson).as("application/json")
+  }
 
   /*
    * Creates a class and a new Stream
