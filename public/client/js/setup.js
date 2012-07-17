@@ -81,7 +81,7 @@ BS.profileImage = "http://localhost:9000/getProfilePicForAUser";
 BS.allProfileImages = "http://localhost:9000/getAllProfilePicForAUser";
 
 //Get all class streams of a user
-BS.classStreamsForUser = "http://localhost:9000/allClassStreamsForAUser;
+BS.classStreamsForUser = "http://localhost:9000/allClassStreamsForAUser";
 
 
 

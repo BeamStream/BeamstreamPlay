@@ -66,11 +66,19 @@ object Stream {
   
   
   /*
-   * Get all streams for a user
+   * Get all class streams for a user
    */
   def allClassStreamsForAUser(userId: ObjectId): List[Stream] = {
-    val allClassStreamsForAUser=StreamDAO.find(MongoDBObject("creatorOfStream" -> userId ,  "usersOfStream" -> MongoDBObject("$exists" -> userId) ,"streamType" -> "Class")).toList
+    val allClassStreamsForAUser=StreamDAO.find(MongoDBObject("usersOfStream" -> MongoDBObject("$exists" -> userId) ,"streamType" -> "Class")).toList
     allClassStreamsForAUser
+  }
+  
+  /*
+   * Get all Project streams for a user
+   */
+  def allProjectStreamsForAUser(userId: ObjectId): List[Stream] = {
+    val allProjectStreamsForAUser=StreamDAO.find(MongoDBObject("usersOfStream" -> MongoDBObject("$exists" -> userId) ,"streamType" -> "Project")).toList
+    allProjectStreamsForAUser
   }
   
   
