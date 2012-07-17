@@ -116,7 +116,7 @@ BS.StreamView = Backbone.View.extend({
  					 _.each(datas, function(data) {
  						 
  						streams+= '<li><span class="flag-piece"></span><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
- 						classStreams+= '<li ><a id="'+data.id.id+'" href="# '+data.streamName+'">'+data.streamName+'</a></li>';
+ 						classStreams+= '<li ><a id="'+data.id.id+'" href="#">'+data.streamName+'</a></li>';
  					 });
  					 if(type == 'sort')
  					 {
@@ -527,7 +527,7 @@ BS.StreamView = Backbone.View.extend({
 	 },
 	 
 	 showListActive : function(eventName){
-		  
+		 eventName.preventDefault();
 		 $('.class-nav-list li.active').removeClass('active');
 		 $(eventName.target).parents('li').addClass('active');
 	 },
