@@ -113,7 +113,7 @@
 
 
 <!--  Class stream template -->
-<script type="text/x-handlebars-template" id="tpl-class-stream">
+<script type="text/x-handlebars-template" id="tpl-class-stream1s">
  
   <div class="modal-backdrop in"></div>
     <div class="modal school-popup modal-pull-top in modal-popups" style="display:block;">
@@ -209,7 +209,108 @@
     
    </div>
    </script> 
+   
 
+
+<!--  Class stream template -->
+<script type="text/x-handlebars-template" id="tpl-class-stream">
+<div class="modal-backdrop in"></div>
+    <div class="modal school-popup modal-pull-top in modal-popups" style="display:block;">
+     <div class="modal-header">
+    <h1 class="pull-left">Create a class stream</h1>
+  </div>
+  <div class="modal-body">
+    <form>
+      <fieldset>
+        <div class="form-row class-row">
+          <div class="element">
+            <label for="school">School</label>
+            <select id="school" class="large">
+              <option value="diff">Different school</option>
+              <option value="same">Some school</option>
+            </select>
+          </div>
+          <div class="element">
+            <label for="school-name-1">School name</label>
+            <input type="text" id="school-name-1" placeholder="School Name" class="large">
+          </div>
+        </div>
+        <div class="form-row class-row">
+          <div class="element">
+            <label for="class-code">Class code</label>
+            <input type="text" id="class-code" class="validate[required] small" placeholder="Class code">
+          </div>
+            <div class="element" id="div-time">
+              <label for="class-time">Class time</label>
+              <select id="class-time" class="time">
+				  {{#each times}}
+                        <option value="{{this.time}}">{{this.time}}</option>
+                  {{/each}}
+              </select>
+          </div>
+          <div class="element">
+            <label for="class-name">Class name</label>
+            <input type="text" id="class-name" class="validate[required] medium" placeholder="Class name">
+          </div>
+          <div class="element">
+            <label for="date-started">Month/Year started</label>
+            <input class="small datepicker cal" type="text" value="08/03/2012" id="date-started"/>
+          </div>
+          <div class="element">
+            <label for="semester">Semester or Quarter</label>
+            <select id="semester" class="small">
+              <option value="semester">Semester</option>
+              <option value="quarter">Quarter</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row class-row">
+          <div class="element">
+            <label for="educator-mail" class="plus-sign">Add Educators via Email</label>
+            <input type="text" id="educator-mail" placeholder="Educator's Email" class="large">
+          </div>
+          <div class="element">
+           <label class="plus-sign align-middle">Add Classmates & Friends</label>
+          <div class="social-block class-social">
+                    <a class="facebook" href="#"></a>
+                    <a class="twitter" href="#"></a>
+                    <a class="linkedin" href="#"></a>
+                    <a class="google" href="#"></a>
+                    <a class="mail" href="#"></a>
+                    <img src="images/or_email.png">
+                 </div>
+                 
+           </div>
+          <div class="element">
+            <label for="classmates-mail">(seperate by comma)</label>
+            <input type="text" id="classmates-mail" placeholder="Classmates Email, Friend's" class="large">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="element">
+            <label for="tag1"  class="plus-sign">Add Class Tag 1</label>
+            <input type="text" id="tag1" placeholder="Tag 1" class="large">
+          </div>
+          <div class="element">
+            <label for="tag2" class="plus-sign">Add Class Tag 2</label>
+            <input type="text" id="tag2" placeholder="Tag 2" class="large">
+          </div>
+          <div class="element">
+            <label for="tag3" class="plus-sign">Add Class Tag 3</label>
+            <input type="text" id="tag3" placeholder="Tag 3" class="large">
+          </div>
+        </div>
+        <div class="form-row class-row">
+         <legend class="legend legend-add">ADD MORE TAGS</legend>
+         </div>
+        <div class="form-row">
+        <a  id="save" href="#" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a> <a id="continue" href="#" class="btn btn-success pull-right">Continue</a>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+</script> 
 
 <!--  project stream template -->
 <script type="text/x-handlebars-template" id="tpl-project-stream">

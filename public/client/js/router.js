@@ -223,7 +223,7 @@ BS.AppRouter = Backbone.Router.extend({
 									iam : iam,
 									mail : email
 							};
-							his.registrationView.render(mailInfo);
+							this.registrationView.render(mailInfo);
 
 						}
 
