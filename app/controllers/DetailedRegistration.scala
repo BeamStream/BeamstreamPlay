@@ -42,12 +42,13 @@ object DetailedRegistration extends Controller {
     val schoolListJson = schoolListJsonMap("data").toList
     val schoolList = net.liftweb.json.parse(schoolListJson(0)).extract[List[UserSchool]]
     println("Here is the Schools" + schoolList)
-
+    
     User.addInfo(schoolList, new ObjectId(request.session.get("userId").get))
     UserSchool.createSchool(schoolList)
     val responseString = new ResulttoSent("success", "")
     val responseJsontosent = write(responseString)
     Ok(responseJsontosent).as("application/json")
+    
   }
 
   /*
