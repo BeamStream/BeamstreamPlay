@@ -3,7 +3,7 @@ import play.api.mvc._
 import play.api._
 import play.api.data._
 import play.api.data.Forms._
-import models.School
+import models.UserSchool
 import org.bson.types.ObjectId
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
@@ -21,8 +21,8 @@ object SchoolController extends Controller {
  */
   def getAllSchoolForAUser = Action { implicit request =>
     val userId = new ObjectId(request.session.get("userId").get)
-    val schoolIdList = School.getAllSchoolforAUser(userId)
-    val getAllSchoolsForAUser = School.getAllSchools(schoolIdList)
+    val schoolIdList = UserSchool.getAllSchoolforAUser(userId)
+    val getAllSchoolsForAUser = UserSchool.getAllSchools(schoolIdList)
     val SchoolListJson = write(getAllSchoolsForAUser)
     Ok(SchoolListJson).as("application/json")
   }
@@ -35,7 +35,7 @@ object SchoolController extends Controller {
     val schoolIdJsonMap = request.body.asFormUrlEncoded.get
     val schoolId = schoolIdJsonMap("schoolId").toList(0)
     
-    val schoolName = School.findSchoolsById(new ObjectId(schoolId))
+    val schoolName = UserSchool.findSchoolsById(new ObjectId(schoolId))
     Ok(write(schoolName)).as("application/json")
   }
 
