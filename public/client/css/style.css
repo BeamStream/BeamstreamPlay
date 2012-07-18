@@ -1460,3 +1460,23 @@ span.edit_profilepicture_icon{
 	 background: url("../images/twitter.png") repeat scroll 0 0 transparent !important;
 	 background-repeat: no-repeat;
 }
+/** for new class stream*/
+.class-social{
+	padding:0 0 0 45px;
+	float:left;
+}
+.class-social img{
+	margin:-20px 14px 0 14px;
+}
+.plus-sign{
+	padding:2px 0 0 25px;
+	background:url(../images/greenplus_sign.png) no-repeat 0 0;
+}
+.class-row{
+	display:block;
+	overflow:hidden;
+    margin:15px 0 0 0 !important;
+}
+.align-middle{
+	margin:0 0 0 80px;
+}
