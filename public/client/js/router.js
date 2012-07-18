@@ -157,7 +157,7 @@ BS.AppRouter = Backbone.Router.extend({
 	   BS.mainImageUrl = $('#right-photo').attr('src');
 	   $('#middle-content').children().detach();
 	   $('nav li.active').removeClass('active');
-	   $('nav li a#messages').parents('li').addClass('active');
+	   $('nav li a#streamsGroups').parents('li').addClass('active');
 	   var self = this;
 	  
  

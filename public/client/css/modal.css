@@ -215,7 +215,7 @@
     background: #a4cae8 url("../images/legend-plus.png") 1px 100% no-repeat;
     padding-left: 40px;
     cursor: pointer;
-    float: left;
+    
 }
 
 .modal form a.legend-add,.modal2 form a.legend-add {

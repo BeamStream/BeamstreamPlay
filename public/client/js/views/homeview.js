@@ -66,7 +66,7 @@ BS.NavView = Backbone.View.extend({
 	    	 BS.AppRouter.navigate("filesMedia", {trigger: true, replace: true});
 		   	
 	     }
-	     else if(id == "messages")
+	     else if(id == "streamsGroups")
 	     {
 	    	 BS.AppRouter.navigate("streams", {trigger: true, replace: true});
 	     }

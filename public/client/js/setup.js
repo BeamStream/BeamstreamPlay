@@ -83,6 +83,9 @@ BS.allProfileImages = "http://localhost:9000/getAllProfilePicForAUser";
 //Get all class streams of a user
 BS.classStreamsForUser = "http://localhost:9000/allClassStreamsForAUser";
 
+//Get all school for autopopulate
+BS.autoPopulateSchools = "http://localhost:9000/getAllSchoolsForAutopopulate";
+
 
 
 /*
@@ -185,6 +188,7 @@ BS.classStreamsForUser = "http://localhost:9000/allClassStreamsForAUser";
 // BS.profileImage = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php";
 // BS.allProfileImages ="http://localhost/client/api.php";
 // BS.classStreamsForUser = "http://localhost/client/api.php";
+// BS.autoPopulateSchools = "http://localhost/client/api.php";
 // 
  
 // 
