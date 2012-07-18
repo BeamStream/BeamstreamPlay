@@ -10,6 +10,7 @@ import net.liftweb.json.Serialization.{ read, write }
 import java.text.SimpleDateFormat
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
+import models.School
 
 object SchoolController extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -30,13 +31,17 @@ object SchoolController extends Controller {
   /*
    * Returns school name by schoolId
    */
-  
+
   def getSchoolName = Action { implicit request =>
     val schoolIdJsonMap = request.body.asFormUrlEncoded.get
     val schoolId = schoolIdJsonMap("schoolId").toList(0)
-    
     val schoolName = UserSchool.findSchoolsById(new ObjectId(schoolId))
     Ok(write(schoolName)).as("application/json")
+  }
+
+  def getAllSchoolsForAutopopulate = Action { implicit request =>
+    val allSchools = School.getAllSchools
+    Ok(write(allSchools)).as("application/json")
   }
 
 }
