@@ -386,28 +386,50 @@ ul.verify_buttons span a, ul.rockit li span a {
     z-index :999;
 }
 .block{
+	display:block;
 	color: #FFFFFF;
-	 padding: 15px 20px 45px 0;
-	width:630px;
-	height:100px;
+	 padding: 5px 0px 5px 15px;
+	width:610px;
+	height:145px;
 	background:#3A4046;
 	border-radius: 5px 5px 5px 5px;
+	position:relative;
 }
-.block a{
-	color: #FFFFFF;
-	font-size: 15px;
-    font-weight: bold;
-    
+.block span{
+	position:absolute;
+	left:-10px;
+	top:65px;
+/*     background:url("../images/arrow-left.png") no-repeat left center; */
 }
 .block ul{
     list-style: none;
+    margin:0px;
 }
 .block ul li {
+	width:590px;
+	display:block;
+	text-align: left;
+	overflow:hidden;
+	float:left;
+/* 	border-bottom:1px dotted #908e8f; */
+	padding:3px 0 0px 0;
+}
+.block ul li+li {
+	background:url("../images/dotted_bg.png") repeat-x top;
+}
+.block ul li img{
+	margin:0 10px;
 	float:left;
 }
 .block ul li a{
-	text-decoration:none;
-	line-height:21px;
+	color: #FFFFFF;
+    display: block;
+    float: left;
+    font-weight: normal;
+    line-height: 21px;
+
+    text-decoration: none;
+    width: 82px !important;
 	
 }
 .block ul li a:hover{
@@ -1361,7 +1383,7 @@ span.edit_profilepicture_icon{
 }
 /** for back button */
 .back-button{
-	margin:20px 0 0 20px;
+	margin:10px 0 0 3px;
 	display :block;
 }
 /* for close button */
@@ -1399,13 +1421,6 @@ span.edit_profilepicture_icon{
 	margin-top:4px !important;
 	font-size: 18px !important;
 }
-/* for basic profile page place holders */
-/* form#registration-form input[type="text"] ,form#registration-form input[type="password"] { */
-/* 	 padding:6px !important; */
-/*     height:32px !important; */
-/*      line-height: 0px !important; */
-/* } */
-
 
 /*  for google plus icon */
 .icon-google-plus{

@@ -75,15 +75,19 @@ BS.StreamView = Backbone.View.extend({
 					 var streams ='';
 					 _.each(datas, function(data) {
 						 
-							streams+= '<li><span class="flag-piece"></span><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
+							streams+= '<li ><span class="flag-piece"></span><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
 					 });
 					 
 					 $('#streams-list').html(streams);
 					 $('#streams-list li:first').addClass('active');
 					 
+					 
+					 
 					 // display the messages of the first stream in the stream list by default
                      var streamId = $('#streams-list li.active a').attr('id');
                      var streamName = $('#streams-list li.active a').attr('name');
+                     
+      
                      
                      // render sub menus in stream page
                      var source = $("#tpl-stream-page-menus").html();
@@ -115,8 +119,8 @@ BS.StreamView = Backbone.View.extend({
  					 var streams ='';
  					 _.each(datas, function(data) {
  						 
- 						streams+= '<li><span class="flag-piece"></span><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
- 						classStreams+= '<li ><a id="'+data.id.id+'" href="#">'+data.streamName+'</a></li>';
+ 						streams+= '<li  ><span class="flag-piece"></span><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
+ 						classStreams+= '<li  id="'+data.id.id+'"><a id="'+data.id.id+'"  href="#">'+data.streamName+'</a></li>';
  					 });
  					 if(type == 'sort')
  					 {
@@ -127,19 +131,27 @@ BS.StreamView = Backbone.View.extend({
  	                     var streamId = $('#streams-list li.active a').attr('id');
  	                     var streamName = $('#streams-list li.active a').attr('name');
  	                     
+ 	                     //set active class on right top
+ 	                     $('#public-classes').find('li.active').removeClass('active');
+ 	              	     $('#public-classes').find('li#'+streamId+'').addClass('active');
+ 	                     
  	                     // render sub menus in stream page
  	                     var source = $("#tpl-stream-page-menus").html();
  	             		 var template = Handlebars.compile(source);
  	             		 $('#sub-menus').html(template({streamName : streamName}));
+ 	             		 
+ 	             		 if(streamId)
+ 	                        self.getMessageInfo(streamId);
  	             	 
- 	                     if(streamId)
- 	                      self.getMessageInfo(streamId);
+ 	                     
  					 }
  					 else if(type == "public")
  					 {
  						 $('#public-classes').html(classStreams);
- 	 					 $('#public-classes').html(classStreams);
- 	 					 $('#public-classes li:first').addClass('active');
+ 						 
+ 						 //set active  for the same activated class at left 
+ 						 var sId = $('#streams-list li.active a').attr('id');
+ 						 $('#public-classes').find('li#'+sId+'').addClass('active');
  					 }
  					 
  				}
@@ -161,7 +173,7 @@ BS.StreamView = Backbone.View.extend({
 	     {
 	    	this.beingShown = true;
             var x= $('#create_stream').position();
-            var top = x.top - 150;
+            var top = x.top - 45;
 	        // reset position of popup box
 	    	$('.popup').css({
 		        top:  top,
@@ -284,6 +296,10 @@ BS.StreamView = Backbone.View.extend({
       $('#streams-list li.active').removeClass('active');
       $('#'+id).parents('li').addClass('active');
       
+      //set active class on right top
+      $('#public-classes').find('li.active').removeClass('active');
+	  $('#public-classes').find('li#'+id+'').addClass('active');
+      
       // render sub menus in stream page
       var source = $("#tpl-stream-page-menus").html();
 	  var template = Handlebars.compile(source);
@@ -390,6 +406,7 @@ BS.StreamView = Backbone.View.extend({
   	    if(id == 'all-streams')
   	    {
   	    	 this.getStreams();
+  	    	 this.getClassStreams("public");
   	    	
   	    }
   	    // show all classStreams
@@ -521,15 +538,26 @@ BS.StreamView = Backbone.View.extend({
 	 
 	 showActive :  function(eventName){
 		  
-		 
 		 $('.nav-tabs li.active').removeClass('active');
 		 $(eventName.target).parents('li').addClass('active');
 	 },
 	 
 	 showListActive : function(eventName){
 		 eventName.preventDefault();
+		 
+		 var streamId = eventName.target.id;
 		 $('.class-nav-list li.active').removeClass('active');
 		 $(eventName.target).parents('li').addClass('active');
+		 
+		 
+		 
+		 //set active class on right top
+         $('#streams-list').find('li.active').removeClass('active');
+   	     $('#streams-list').find('a#'+streamId+'').parent('li').addClass('active');
+   	     
+   	    // call the method to display the messages of the selected stream
+         this.getMessageInfo(streamId);
+		 
 	 },
 	 
 	 postMessageOnEnterKey : function(eventName){
