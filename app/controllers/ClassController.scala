@@ -13,7 +13,7 @@ import net.liftweb.json.Serialization.{ read, write }
 import java.text.SimpleDateFormat
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
-import models.School
+import models.UserSchool
 import models.User
 
 object ClassController extends Controller {
@@ -45,7 +45,7 @@ object ClassController extends Controller {
   def findClasstoAutoPopulate = Action { implicit request =>
     val classCodeMap = request.body.asFormUrlEncoded.get
     val classCode = classCodeMap("data").toList(0)
-    val schoolIdList = School.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
+    val schoolIdList = UserSchool.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
     val classList = Class.findClassByCode(classCode, schoolIdList)
     val classListJson = write(classList)
     Ok(classListJson).as("application/json")

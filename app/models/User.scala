@@ -32,7 +32,7 @@ object User {
    * 
    */
 
-  def addInfo(schoolList: List[School], userid: ObjectId) = {
+  def addInfo(schoolList: List[UserSchool], userid: ObjectId) = {
     for (school <- schoolList) {
       User.addSchoolToUser(userid, school.id)
     }
