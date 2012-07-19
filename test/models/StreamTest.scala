@@ -40,9 +40,8 @@ class StreamTest extends FunSuite with BeforeAndAfter {
     val streamOneId = Stream.createStream(stream1)
     val streamTwoId = Stream.createStream(stream2)
     val streamThreeId = Stream.createStream(stream3)
-
     val streams = Stream.getAllStreamforAUser(userId)
-    assert(streams.size === 3)
+    assert(streams.size === 2)
 
   }
 
