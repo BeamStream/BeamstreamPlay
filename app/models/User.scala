@@ -28,7 +28,7 @@ object User {
   var activeUsersList: List[String] = List()
 
   /*
-   * Add info to a user(Intact)
+   * Add info to a user((For SchoolAutopoulate thing))
    * 
    */
 

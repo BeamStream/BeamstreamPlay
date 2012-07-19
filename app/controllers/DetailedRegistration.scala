@@ -19,6 +19,7 @@ import utils.ObjectIdSerializer
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 import models.ResulttoSent
+import models.School
 
 object DetailedRegistration extends Controller {
 
@@ -28,10 +29,6 @@ object DetailedRegistration extends Controller {
     override def dateFormatter = new SimpleDateFormat("dd/MM/yyyy")
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
-  
-
- 
-
   /*
    * Sends the field values & profile related info to User Model for adding the info of a User
    */
@@ -40,15 +37,16 @@ object DetailedRegistration extends Controller {
 
     val schoolListJsonMap = request.body.asFormUrlEncoded.get
     val schoolListJson = schoolListJsonMap("data").toList
+    println(schoolListJson)
     val schoolList = net.liftweb.json.parse(schoolListJson(0)).extract[List[UserSchool]]
     println("Here is the Schools" + schoolList)
-    
     User.addInfo(schoolList, new ObjectId(request.session.get("userId").get))
+    println("executed Ok")
     UserSchool.createSchool(schoolList)
     val responseString = new ResulttoSent("success", "")
     val responseJsontosent = write(responseString)
     Ok(responseJsontosent).as("application/json")
-    
+
   }
 
   /*

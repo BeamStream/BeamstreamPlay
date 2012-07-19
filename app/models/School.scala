@@ -27,7 +27,6 @@ object School {
     SchoolDAO.find(MongoDBObject()).toList
   }
   
-  
 }
 
 object SchoolDAO extends SalatDAO[School, ObjectId](collection = MongoHQConfig.mongoDB("school"))

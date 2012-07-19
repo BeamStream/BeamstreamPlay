@@ -14,8 +14,8 @@ import java.text.DateFormat
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 
-case class UserSchool(@Key("_id") id: ObjectId, schoolName: String,assosiatedSchoolId:ObjectId, year: Year.Value, degree: Degree.Value, major: String,
-  graduated: Graduated.Value, graduationDate: Option[Date], degreeExpected: Option[DegreeExpected.Value],otherDegree:String, classes: List[Class])
+case class UserSchool(@Key("_id") id: ObjectId, schoolName: String, assosiatedSchoolId: ObjectId, year: Year.Value, degree: Degree.Value, major: String,
+  graduated: Graduated.Value, graduationDate: Option[Date], degreeExpected: Option[DegreeExpected.Value], otherDegree: String, classes: List[Class])
 
 object UserSchool {
 
@@ -28,16 +28,36 @@ object UserSchool {
     val school = UserSchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0)
     UserSchoolDAO.update(MongoDBObject("_id" -> schoolId), school.copy(classes = (school.classes ++ classList)), false, false, new WriteConcern)
   }
+
   /*
-    * Method for creating a school
+   * Get UserSchoolById
+   */
+
+  def getUserSchoolById(userSchoolId: ObjectId): UserSchool = {
+    val userSchool = UserSchoolDAO.find(MongoDBObject("_id" -> userSchoolId)).toList(0)
+    userSchool
+
+  }
+
+  /*
+    * Method for creating a school (For SchoolAutopoulate thing)
     */
   def createSchool(schools: List[UserSchool]) {
     for (school <- schools) {
-      val userSchoolId=UserSchoolDAO.insert(school)
-       //Creates a new School and set the proper schoolId in the inserted school
-      val schoolIdForUpdatingUserSchool=School.addNewSchool(new School(new ObjectId,school.schoolName))    
-      UserSchool.updateUserSchoolWithOriginalSchoolId(userSchoolId.get,schoolIdForUpdatingUserSchool)
+      val userSchoolId = UserSchoolDAO.insert(school)
+      val userSchoolObtained = UserSchool.getUserSchoolById(userSchoolId.get)
+      println(userSchoolObtained+"I am the User School")
       
+      val schoolsInDatabase = UserSchool.isSchoolinDatabaseAlready(userSchoolObtained.assosiatedSchoolId)
+
+      if (schoolsInDatabase.size == 0) {
+        //Creates a new School and set the proper schoolId in the inserted school
+        val schoolIdForUpdatingUserSchool = School.addNewSchool(new School(new ObjectId, school.schoolName))
+        UserSchool.updateUserSchoolWithOriginalSchoolId(userSchoolId.get, schoolIdForUpdatingUserSchool)
+      }
+      else{
+        println("School Already Exist")
+      }
     }
   }
 
@@ -55,7 +75,7 @@ object UserSchool {
 
   def findSchoolsByName(name: String): List[UserSchool] = {
     val regexp = (""".*""" + name + """.*""").r
-    for (school <-UserSchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList) yield school
+    for (school <- UserSchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList) yield school
   }
 
   /*
@@ -75,14 +95,22 @@ object UserSchool {
     user.schoolId
 
   }
-  
-  
+
   /*
-   * Update User School
+   * Update User School(For SchoolAutopoulate thing)
    */
   def updateUserSchoolWithOriginalSchoolId(userSchoolToUpdate: ObjectId, originalSchoolId: ObjectId) {
     val userSchool = UserSchoolDAO.find(MongoDBObject("_id" -> userSchoolToUpdate)).toList(0)
     UserSchoolDAO.update(MongoDBObject("_id" -> userSchoolToUpdate), userSchool.copy(assosiatedSchoolId = originalSchoolId), false, false, new WriteConcern)
+  }
+
+  /*
+   * is School already in database
+   */
+
+  def isSchoolinDatabaseAlready(schoolId: ObjectId): List[School] = {
+    val schoolsInDatabase = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList
+    schoolsInDatabase
   }
 
   /*
