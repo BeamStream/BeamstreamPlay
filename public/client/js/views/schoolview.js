@@ -43,7 +43,7 @@ BS.SchoolView = Backbone.View.extend({
    	    BS.selectedSchool = $(dat).val(); 
    	    BS.allSchools = []; 
     	
-    	/* post the text that we type to get matched classes */
+    	/* get all schools of a user */
 		 $.ajax({
 			type : 'GET',
 			url : BS.autoPopulateSchools,
@@ -261,8 +261,8 @@ BS.SchoolView = Backbone.View.extend({
 		      		otherDegree ="";
 		      	}
 		      	
+		      	/* get Id of auto populated schools  */
 		      	var sId = '';
-		      	/* get details of selected class */
 				 _.each(BS.allSchoolInfo, function(data) {
 				 	 if(data.schoolName == $('#school-name-'+i).val())
 				     {

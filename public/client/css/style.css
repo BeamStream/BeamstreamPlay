@@ -877,7 +877,7 @@ ul.rockit li span a {
 	padding:20px 0;
 }
  .signin_body{
-     padding:0px 50px 50px;
+     padding: 0 50px 20px;
  }
  .signin_check{
      padding-left: 0px !important;
@@ -887,9 +887,10 @@ ul.rockit li span a {
 }
 .signin_header{
 	margin-left: 35px;
-    margin-top: 15px;
+     
     padding: 10px;
 }
+ 
 .signin_reg
 {
 	margin :0px !important;
