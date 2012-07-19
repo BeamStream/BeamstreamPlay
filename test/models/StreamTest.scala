@@ -30,6 +30,22 @@ class StreamTest extends FunSuite with BeforeAndAfter {
     assert(streamsForAUser(0).usersOfStream.size == 1)
   }
 
+  test("get all stream for a user") {
+
+    val userId = User.createUser(user)
+
+    var stream1 = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List())
+    val stream2 = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List())
+    val stream3 = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(), true, List())
+    val streamOneId = Stream.createStream(stream1)
+    val streamTwoId = Stream.createStream(stream2)
+    val streamThreeId = Stream.createStream(stream3)
+
+    val streams = Stream.getAllStreamforAUser(userId)
+    assert(streams.size === 3)
+
+  }
+
   test("Get All Class stream for a user") {
     val userId = User.createUser(user)
     var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List())

@@ -36,73 +36,64 @@ object Stream {
     ClassDAO.update(MongoDBObject("_id" -> classId), expectedClass.copy(streams = (expectedClass.streams ++ List(streamId))), false, false, new WriteConcern)
   }
 
-//  /*
-//   * Attach a Stream to a User
-//   */
-////
-////  def attachStreamToUser(streamId: ObjectId, userId: ObjectId) {
-////    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-////    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(streams = (user.streams ++ List(streamId))), false, false, new WriteConcern)
-////
-////  }
-
-
   /*
    * Get all streams for a user
    */
   def getAllStreamforAUser(userId: ObjectId): List[Stream] = {
-    val streamsForAUser=StreamDAO.find(MongoDBObject( "usersOfStream" -> MongoDBObject("$exists" -> userId))).toList
-    streamsForAUser
+
+    //    val streamsForAUser = StreamDAO.find(MongoDBObject("usersOfStream" -> MongoDBObject("$exists" -> userId))).toList
+    //    streamsForAUser
+    var allStreamForAUser: List[Stream] = List()
+    val streams = StreamDAO.find(MongoDBObject())
+    for (stream <- streams) {
+      if (stream.usersOfStream.contains(userId)) allStreamForAUser ++= List(stream)
+    }
+    allStreamForAUser
   }
-  
-  
+
   /*
    * Get all class streams for a user
    */
   def allClassStreamsForAUser(userId: ObjectId): List[Stream] = {
-    val allClassStreamsForAUser=StreamDAO.find(MongoDBObject("usersOfStream" -> MongoDBObject("$exists" -> userId) ,"streamType" -> "Class")).toList
+    val allClassStreamsForAUser = StreamDAO.find(MongoDBObject("usersOfStream" -> MongoDBObject("$exists" -> userId), "streamType" -> "Class")).toList
     allClassStreamsForAUser
   }
-  
+
   /*
    * Get all Project streams for a user
    */
   def allProjectStreamsForAUser(userId: ObjectId): List[Stream] = {
-    val allProjectStreamsForAUser=StreamDAO.find(MongoDBObject("usersOfStream" -> MongoDBObject("$exists" -> userId) ,"streamType" -> "Projects")).toList
+    val allProjectStreamsForAUser = StreamDAO.find(MongoDBObject("usersOfStream" -> MongoDBObject("$exists" -> userId), "streamType" -> "Projects")).toList
     allProjectStreamsForAUser
   }
-  
-  
-  
+
   /*
    * join stream
    */
-  
+
   def joinStream(streamId: ObjectId, userId: ObjectId) {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream ++ List(userId))), false, false, new WriteConcern)
   }
-  
+
   /*
    * Find a class by Id
    */
 
-  def findStreamById(streamId: ObjectId) : Stream = {
+  def findStreamById(streamId: ObjectId): Stream = {
     val streamObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     streamObtained
   }
-  
-  
-  
+
   /*
    * Add tag to stream
    */
-  
-  def addTagsToStream(tags: List[String],streamId:ObjectId){
+
+  def addTagsToStream(tags: List[String], streamId: ObjectId) {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(streamTag = (stream.streamTag ++ tags)), false, false, new WriteConcern)
   }
-  
+
 }
 
 object StreamType extends Enumeration {
@@ -115,3 +106,8 @@ object StreamType extends Enumeration {
 }
 
 object StreamDAO extends SalatDAO[Stream, Int](collection = MongoHQConfig.mongoDB("stream"))
+
+object GG extends App {
+  val streamsForAUser = StreamDAO.find(MongoDBObject("usersOfStream" -> MongoDBObject("$exists" -> new ObjectId("5007cc5d84ae72bc3e25cc19")))).toList
+  println(streamsForAUser)
+}

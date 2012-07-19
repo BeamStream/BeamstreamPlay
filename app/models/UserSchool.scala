@@ -46,16 +46,15 @@ object UserSchool {
     for (school <- schools) {
       val userSchoolId = UserSchoolDAO.insert(school)
       val userSchoolObtained = UserSchool.getUserSchoolById(userSchoolId.get)
-      println(userSchoolObtained+"I am the User School")
-      
+      println(userSchoolObtained + "I am the User School")
+
       val schoolsInDatabase = UserSchool.isSchoolinDatabaseAlready(userSchoolObtained.assosiatedSchoolId)
 
       if (schoolsInDatabase.size == 0) {
         //Creates a new School and set the proper schoolId in the inserted school
         val schoolIdForUpdatingUserSchool = School.addNewSchool(new School(new ObjectId, school.schoolName))
         UserSchool.updateUserSchoolWithOriginalSchoolId(userSchoolId.get, schoolIdForUpdatingUserSchool)
-      }
-      else{
+      } else {
         println("School Already Exist")
       }
     }
