@@ -227,7 +227,7 @@
             <label for="school">School</label>
             <select id="school" class="large">
               <option value="diff">Different school</option>
-              <option value="same">Some school</option>
+              <option value="same">Same school</option>
             </select>
           </div>
           <div class="element">
@@ -287,28 +287,35 @@
           </div>
         </div>
         <div class="form-row">
+          <div id="class-tags">
           <div class="element">
             <label for="tag1"  class="plus-sign">Add Class Tag 1</label>
-            <input type="text" id="tag1" placeholder="Tag 1" class="large">
+            <input type="text" id="tag1" placeholder="Tag 1" class="large tag-position">
+            <i class="icon-middle-tag tag-place"></i>
           </div>
           <div class="element">
             <label for="tag2" class="plus-sign">Add Class Tag 2</label>
-            <input type="text" id="tag2" placeholder="Tag 2" class="large">
+            <input type="text" id="tag2" placeholder="Tag 2" class="large tag-position">
+			<i class="icon-middle-tag tag-place"></i>
           </div>
           <div class="element">
             <label for="tag3" class="plus-sign">Add Class Tag 3</label>
-            <input type="text" id="tag3" placeholder="Tag 3" class="large">
+            <input type="text" id="tag3" placeholder="Tag 3" class="large tag-position">
+			<i class="icon-middle-tag tag-place"></i>
           </div>
+         </div>
         </div>
         <div class="form-row class-row">
-         <legend style="float:left !important;"class="legend legend-add">ADD MORE TAGS</legend>
+         <legend style="float:left !important;"class="legend legend-add" id="add-tags">ADD MORE TAGS</legend>
          </div>
-        <div class="form-row">
-        <a  id="save" href="#" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a> <a id="continue" href="#" class="btn btn-success pull-right">Continue</a>
-        </div>
+         
       </fieldset>
     </form>
   </div>
+<div class="modal-footer">
+<a id="joinClass" class="btn btn-primary pull-left" href="#joinClass">Join a Class</a>
+<a id="createClass" class="btn btn-success pull-right" href="#createClass">Create a Class</a>
+</div>
 </div>
 </script> 
 
@@ -2104,6 +2111,7 @@
 
 <script type="text/javascript">
 	var current = 1; //current keeps track of how many schools we have @default =1 
+	var tagCount = 3 ; // tag keeps track of how many tags we have in class stream
     var options ='';
 	var sClasses = 1; // sClasses keeps number of schools under which we added classes 
     $(function(){

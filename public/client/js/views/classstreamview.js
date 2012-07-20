@@ -5,7 +5,8 @@ BS.ClassStreamView = Backbone.View.extend({
        "click .datepicker" :"setIndex",
        "focusin #class-code" : "populateClasses",
        "click #createClass" : "createClass",
-       "click #joinClass" :"joinClass"
+       "click #joinClass" :"joinClass",
+       "click #add-tags" : "addTags"
 	},
 
 	initialize : function() {
@@ -227,6 +228,16 @@ BS.ClassStreamView = Backbone.View.extend({
 				 BS.AppRouter.navigate("streams", {trigger: true});
 			}
 		});
-	}
+	},
 	
+	/**
+	 * add more tags
+	 */
+	addTags :function(eventName){
+		eventName.preventDefault();
+		tagCount ++;
+		 
+		var tag = '<div class="element"><label for="tag '+tagCount+'" class="plus-sign">Add Class Tag '+tagCount+'</label><input type="text" id="tag'+tagCount+'" placeholder="Tag '+tagCount+'" class="large tag-position"><i class="icon-middle-tag tag-place"></i></div>';
+		$('#class-tags').append(tag);
+	}
 });

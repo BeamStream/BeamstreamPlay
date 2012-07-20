@@ -756,12 +756,12 @@ ul.rockit li span a {
 	position:absolute;
 	top:36px;
 /* 	left:10px; */
-    left: 209px;
+    left: 246px;
 	
 }
 .tag-position{
 /* 	padding:6px 15px 3px 35px !important; */
-    padding-right: 35px !important;
+    padding-right: 30px !important;
 }
 
 /* rockers list in popups */
