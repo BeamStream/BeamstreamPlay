@@ -77,9 +77,9 @@ object Class {
 
   def findClassByCode(code: String, userSchoolIdList: List[ObjectId]): List[Class] = {
     var classes: List[Class] = List()
-    for (schoolId <- userSchoolIdList) {
-      val classFound = ClassDAO.findOne(MongoDBObject("schoolId" -> schoolId))
-
+    for (userSchoolId <- userSchoolIdList) {
+      val userSchool=UserSchool.getUserSchoolById(userSchoolId)
+      val classFound = ClassDAO.findOne(MongoDBObject("schoolId" -> userSchool.assosiatedSchoolId))
       (classFound.isEmpty) match {
         case true =>
         case false => classes ++= classFound

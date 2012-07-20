@@ -25,7 +25,7 @@ POST /newMessage controllers.MessageController.newMessage
 POST /getAllMessagesForAStream controllers.MessageController.getAllMessagesForAStream
 
 
-#GET /joinStreams controllers.JoinStream.joinstreams
+
 POST /joinStreams controllers.JoinStream.joinStream
 
 #Documents
