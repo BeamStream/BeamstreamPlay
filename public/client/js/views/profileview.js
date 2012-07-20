@@ -6,7 +6,8 @@ BS.ProfileView = Backbone.View.extend({
 	      'change #profile-image' :'displayImage',
 	      'change #my-video' :'displayVideo',
 	      'click .delete-image' :'deleteSelectedImage',
-	      'click .delete-video' :'deleteSelectedVideo'
+	      'click .delete-video' :'deleteSelectedVideo',
+//	      'click .back-button' :'backToPrevious'
 	 },
 	 
     initialize:function () {
@@ -53,7 +54,7 @@ BS.ProfileView = Backbone.View.extend({
 	   			    {
         	    		$('#loading').css('display','none');
 	        	    	// navigate to main stream page
-	        	    	BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+	        	    	BS.AppRouter.navigate("streams", {trigger: true});
 	   			    }
         	    }
         	});
@@ -221,6 +222,14 @@ BS.ProfileView = Backbone.View.extend({
     	$('.delete-video').hide();
     	$('#profile-video').attr("src","images/no-video.png");
 	    $('#profile-video').attr("name", "profile-photo");
+    },
+    
+    /**
+     * back button function
+     */
+    backToPrevious :function(){
+  	  BS.AppRouter.navigate("class", {trigger: true});
     }
+	
     
 });

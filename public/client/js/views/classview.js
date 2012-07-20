@@ -6,6 +6,7 @@ BS.ClassView = Backbone.View.extend({
 		"click a.addclass": "addClasses",
 		"click .datepicker" :"setIndex",
 		"click a.legend-addclass" : "addSchool",
+//		"click .back-button" :"backToPrevious"
 		 
 
 	},
@@ -53,7 +54,7 @@ BS.ClassView = Backbone.View.extend({
 						dataType : "json",
 						success : function(data) {
 							// navigate to main stream page
-							BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+							BS.AppRouter.navigate("streams", {trigger: true});
 						}
 					});
 				}
@@ -133,7 +134,7 @@ BS.ClassView = Backbone.View.extend({
 					success : function(data) {
 						BS.AppRouter.navigate("profile", {
 							trigger : true,
-							replace : true
+							 
 						});
 					}
 				});
@@ -261,7 +262,15 @@ BS.ClassView = Backbone.View.extend({
 	setIndex:function(){
 		 
 		$('.datepicker').css('z-index','9999');
-	}
+	},
+	
+	 /**
+     * back button function
+     */
+    backToPrevious :function(eventName){
+      eventName.preventDefault();
+      BS.AppRouter.navigate("school", {trigger: true});
+    }
 	
 	
 	

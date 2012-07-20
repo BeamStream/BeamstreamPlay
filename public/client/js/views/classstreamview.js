@@ -169,7 +169,7 @@ BS.ClassStreamView = Backbone.View.extend({
 				 var mainView = new BS.StreamView();
 				 mainView.getStreams();
 
-				 BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+				 BS.AppRouter.navigate("streams", {trigger: true});
 			}
 		});
 		
@@ -224,7 +224,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			success : function(data) {
 				 
 				 console.log("success");
-				 BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+				 BS.AppRouter.navigate("streams", {trigger: true});
 			}
 		});
 	}

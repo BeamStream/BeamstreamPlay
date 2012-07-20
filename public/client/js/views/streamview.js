@@ -21,7 +21,8 @@ BS.StreamView = Backbone.View.extend({
            "click .edit_profilepicture" : "showProfilePage",
            "click .nav-tabs li" : "showActive",
            "click .class-nav-list li" :"showListActive",
-           "keypress #msg" : "postMessageOnEnterKey"
+           "keypress #msg" : "postMessageOnEnterKey",
+ 
 	 },
 	
 
@@ -529,7 +530,7 @@ BS.StreamView = Backbone.View.extend({
 	 showProfilePage : function(eventName){
 		  
 		 eventName.preventDefault();
-		 BS.AppRouter.navigate("profile", {trigger: true, replace: true});
+		 BS.AppRouter.navigate("profile", {trigger: true});
 	 },
 	 
 	 /**
@@ -566,5 +567,8 @@ BS.StreamView = Backbone.View.extend({
 			 self.postMessage(); 
 		 }
 
-	 }
+	 },
+	 
+ 
+	 
 });

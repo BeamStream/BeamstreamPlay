@@ -68,7 +68,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	    	   					// navigate to main stream page
 	    	   					BS.AppRouter.navigate("streams", {
 	    	   						trigger : true,
-	    	   						replace : true
+	    	   						 
 	    	   					});
 	    	   					console.log(data.message);
 	    	   				} else {
@@ -177,15 +177,20 @@ BS.MediaRegistrationView = Backbone.View.extend({
 						success : function(data) {
 							if (data.status == "Success") {
 								
+								// for back button functionalty
+//								BS.resgistration = "media";
+//								BS.regBack = true;
+								
+
 								// save school name 
 								BS.schoolFromPrev =  $('#school-name').val();
 								
 								// navigate to main stream page
 								BS.AppRouter.navigate("school", {
 									trigger : true,
-									replace : true
+									 
 								});
-								console.log(data.message);
+								
 							} else {
 								$('#error').html("This User Email or Name is already taken");
 							}

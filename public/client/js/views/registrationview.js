@@ -46,11 +46,13 @@ BS.RegistrationView = Backbone.View.extend({
     	   			dataType : "json",
     	   			success : function(data) {
     	   				if (data.status == "Success") {
+    	   					
+    	   					
     	   					// navigate to main stream page
     	   					BS.schoolFromPrev =  $('#school-name').val();
     	   					BS.AppRouter.navigate("streams", {
     	   						trigger : true,
-    	   						replace : true
+    	   						 
     	   					});
     	   					console.log(data.message);
     	   				} else {
@@ -126,12 +128,15 @@ BS.RegistrationView = Backbone.View.extend({
 				success : function(data) {
 					if (data.status == "Success") {
 						
-						BS.schoolFromPrev =  $('#school-name').val();
+//						BS.resgistration = "nomedia";
+//						BS.regBack = true;
 						 
+	   					 
+						BS.schoolFromPrev =  $('#school-name').val();
+						
 						// navigate to main stream page
 						BS.AppRouter.navigate("school", {
 							trigger : true,
-							replace : true
 						});
 						 
 					} else {
