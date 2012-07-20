@@ -309,7 +309,7 @@ BS.AppRouter = Backbone.Router.extend({
 
 								var sSelect = '<select id="schools" class="small selectBox">';
 								_.each(datas, function(data) {
-									sSelect += '<option value ="' + data.id.id
+									sSelect += '<option value ="' + data.assosiatedSchoolId.id
 											+ '" > ' + data.schoolName
 											+ '</option>';
 								});

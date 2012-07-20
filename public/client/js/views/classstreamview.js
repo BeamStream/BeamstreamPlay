@@ -128,7 +128,7 @@ BS.ClassStreamView = Backbone.View.extend({
 						
 						 var sSelect = '<select id="schools" class="small selectBox">';
 						_.each(datas, function(data) {
-							sSelect+= '<option value ="'+data.id.id+'" > '+data.schoolName+'</option>';
+							sSelect+= '<option value ="'+data.assosiatedSchoolId.id+'" > '+data.schoolName+'</option>';
 				        });
 						sSelect+= '</select>';
 						$('#sShool').html(sSelect);
@@ -187,8 +187,15 @@ BS.ClassStreamView = Backbone.View.extend({
 		var date = $('#date-started').val();
 		var type = $('#semester').val();
 		var school = $('#schools').val();
-		var classTag = $('#class-tag').val();
 		
+		// get all tags seperated by commas
+		var classTag =[];
+		for(var i=1 ;i<=tagCount; i++)
+		{
+			classTag.push($('#tag'+i+'').val());
+
+		}
+		var classTags= classTag.join(', ');
 		var classes = new BS.ClassCollection();
 		var classModel = new BS.Class();
 		classModel.set({
@@ -200,7 +207,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			className : className,
 			startingDate : date,
 			classType : type,
-			classTag : classTag
+			classTag : classTags
 		});
 		classes.add(classModel);
 		var newClassInfo = JSON.stringify(classes);
