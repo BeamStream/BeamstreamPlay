@@ -29,7 +29,7 @@ BS.NavView = Backbone.View.extend({
     renderPopups: function(eventName){
     	  
     	 eventName.preventDefault();
-    	 BS.AppRouter.navigate("school", {trigger: true, replace: true});
+    	 BS.AppRouter.navigate("school", {trigger: true});
   
     },
     
@@ -45,7 +45,7 @@ BS.NavView = Backbone.View.extend({
 				url : BS.signOut,
 				dataType : "json",
 				success : function(datas) {
-					 BS.AppRouter.navigate("login", {trigger: true, replace: true});
+					 BS.AppRouter.navigate("login", {trigger: true});
 				}
 		 });
 	 },
@@ -63,12 +63,12 @@ BS.NavView = Backbone.View.extend({
 	     $('#'+id).addClass('active');
 	     if(id == "file-media")
 	     {
-	    	 BS.AppRouter.navigate("filesMedia", {trigger: true, replace: true});
+	    	 BS.AppRouter.navigate("filesMedia", {trigger: true});
 		   	
 	     }
 	     else if(id == "streamsGroups")
 	     {
-	    	 BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+	    	 BS.AppRouter.navigate("streams", {trigger: true});
 	     }
 		 
 	 }

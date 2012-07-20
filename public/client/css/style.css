@@ -1481,3 +1481,69 @@ span.edit_profilepicture_icon{
 .align-middle{
 	margin:0 0 0 80px;
 }
+/* for  Icons in message*/
+.icon-middle-doc {
+    background: url("../images/upload_icon.png") no-repeat scroll 0px 2px #F5F5F5 !important;
+    width: 22px !important;
+}
+.icon-middle-plus {
+    background: url("../images/1.png") no-repeat scroll 0px 0px #F5F5F5 !important;
+    width: 23px !important;
+}
+.icon-middle-pinterect {
+    background: url("../images/p.png") no-repeat scroll 0px 0px #F5F5F5 !important;
+    width: 18px !important;
+}
+.doc{
+	position:relative;
+}
+.doc-hover{
+	background: none repeat scroll 0 0 #3A4046;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: none;
+    line-height: 13px;
+/*     opacity: 0.7; */
+    padding: 6px 7px 0 23px;
+    position: absolute !important;
+    right: -48px;
+    top: 34px;
+    padding:5px;
+    height:auto;
+    border-radius:5px 5px 5px 5px;
+}
+.doc-hover span.arrow{
+	left: 53px;
+    position: absolute;
+    top: -13px;
+}
+
+.doc-hover li{
+    list-style:none;
+    float:left;
+    clear:both;
+    padding:2px 5px 2px 35px;
+}
+.doc-hover li span{
+	font-weight:bold;
+	margin:0 0 0 -35px;
+}
+.doc:hover .doc-hover{
+	display:block;
+}
+.doc-video{
+	background:url("../images/doc-video.png")left no-repeat;
+	margin-left: 0 !important;
+}
+.doc-docs{
+	background:url("../images/doc-docs.png")left no-repeat;
+}
+.doc-notes{
+	background:url("../images/doc-notes.png")left no-repeat;
+}
+.doc-audio{
+	background:url("../images/audio.png")left no-repeat;
+}
+.doc-presentation{
+	background:url("../images/doc-presentation.png")left no-repeat;
+}

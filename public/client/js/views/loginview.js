@@ -57,7 +57,7 @@ BS.LoginView = Backbone.View.extend({
 							    			}
 							    			
 							    			 console.log(data.status + " : " + data.message);
-							    			 BS.AppRouter.navigate("streams", {trigger: true, replace: true});
+							    			 BS.AppRouter.navigate("streams", {trigger: true});
 							    		}
 							    		else 
 							    		{
@@ -123,6 +123,6 @@ BS.LoginView = Backbone.View.extend({
      */
     registration :function(eventName){
     	 eventName.preventDefault();
-    	 BS.AppRouter.navigate("emailVerification", {trigger: true, replace: true});
+    	 BS.AppRouter.navigate("emailVerification", {trigger: true});
     }
 });
