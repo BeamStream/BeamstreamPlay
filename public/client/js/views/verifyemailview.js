@@ -125,22 +125,21 @@ BS.verifyEmailView = Backbone.View.extend({
     	var id = eventName.target.id;
   	    var dat='#'+id;
   	    var iam = $('#iam').val();
-  	    
-  	    
+  	     
   	    // if select "Professional"  change Email to  "Work email"
   	    if(iam == 2)
   	    {
-  	    	$('#email-label').text("Work email *");
+  	    	$('#email-label').html('Work email<span class="star"> *</span>');
   	    	
   	    }
   	    // if select "Student" or "Educator" change Email to  "School email"
   	    else if(iam == 0 || iam == 1)
   	    {
-  	    	$('#email-label').text("School email *");
+  	    	$('#email-label').html('School email<span class="star"> *</span>');
   	    }
-  	    else
+  	    else  
   	    {
-  	    	$('#email-label').text("Email *");
+  	    	$('#email-label').html('Email <span class="star"> *</span>');
   	    }
     }
     
