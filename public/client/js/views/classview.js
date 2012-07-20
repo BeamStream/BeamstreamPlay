@@ -97,8 +97,8 @@ BS.ClassView = Backbone.View.extend({
 		var select = '<select id="school-'+sClasses+'" class="large">';
 		 _.each(e.models, function(model) {
 		        var name = model.get('schoolName');
-		        var id = model.get('id')
-		         
+		        var id = model.get('assosiatedSchoolId')
+		          
 		        options+= '<option value ="'+id.id+'">'+name+'</option>';
 		        select+= '<option value ="'+id.id+'">'+name+'</option>';
             
