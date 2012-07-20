@@ -50,7 +50,7 @@ POST /detailed_reg controllers.DetailedRegistration.addInfo
 #Class
 
 
-POST /class controllers.ClassController.addClass
+POST /class        controllers.ClassController.addClass
 
 #Auto populate class
 
