@@ -27,13 +27,6 @@ BS.StreamView = Backbone.View.extend({
 	
 
     initialize:function () {
-//    	var type = "stream";
-//        var profileView = new BS.ProfileView ();
-//      	profileView.getProfileImages(type);
-      	
-      
-    	 
-      	
     	console.log('Initializing Stream View');
     
     	/* for hover over */
@@ -54,7 +47,7 @@ BS.StreamView = Backbone.View.extend({
     render:function (eventName) {
         
        this.getStreams();
-       this.getClassStreams("public");
+//       this.getClassStreams("public");
        $(this.el).html(this.template(this.model.toJSON()));
         
        return this;
@@ -74,9 +67,12 @@ BS.StreamView = Backbone.View.extend({
 				success : function(datas) {
 					
 					 var streams ='';
+					 var classStreams ='';
 					 _.each(datas, function(data) {
 						 
 							streams+= '<li ><span class="flag-piece"></span><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
+	 						classStreams+= '<li  id="'+data.id.id+'"><a id="'+data.id.id+'"  href="#">'+data.streamName+'</a></li>';
+
 					 });
 					 
 					 $('#streams-list').html(streams);
@@ -94,8 +90,14 @@ BS.StreamView = Backbone.View.extend({
                      var source = $("#tpl-stream-page-menus").html();
              		 var template = Handlebars.compile(source);
              		 $('#sub-menus').html(template({streamName : streamName}));
-             	 
-             		
+             		 
+             	     // right one list
+             		 $('#public-classes').html(classStreams);
+             		 
+             		 
+             		//set active class on right top
+	                 $('#public-classes').find('li.active').removeClass('active');
+	              	 $('#public-classes').find('li#'+streamId+'').addClass('active');
              		
                      if(streamId)
                       self.getMessageInfo(streamId);
@@ -132,6 +134,10 @@ BS.StreamView = Backbone.View.extend({
  	                     var streamId = $('#streams-list li.active a').attr('id');
  	                     var streamName = $('#streams-list li.active a').attr('name');
  	                     
+ 	                    //right one list
+ 	             		 $('#public-classes').html(classStreams);
+
+ 	                     
  	                     //set active class on right top
  	                     $('#public-classes').find('li.active').removeClass('active');
  	              	     $('#public-classes').find('li#'+streamId+'').addClass('active');
@@ -141,6 +147,7 @@ BS.StreamView = Backbone.View.extend({
  	             		 var template = Handlebars.compile(source);
  	             		 $('#sub-menus').html(template({streamName : streamName}));
  	             		 
+ 	             		  	             		 
  	             		 if(streamId)
  	                        self.getMessageInfo(streamId);
  	             	 
@@ -407,7 +414,7 @@ BS.StreamView = Backbone.View.extend({
   	    if(id == 'all-streams')
   	    {
   	    	 this.getStreams();
-  	    	 this.getClassStreams("public");
+  	    	// this.getClassStreams("public");
   	    	
   	    }
   	    // show all classStreams
@@ -420,6 +427,7 @@ BS.StreamView = Backbone.View.extend({
   	    else if(id == 'projectStreams-list')
   	    {
   	    	$('#streams-list').html('');
+  	    	 $('#public-classes').html('');
   	    }
   	    else
   	    {

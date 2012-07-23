@@ -1547,39 +1547,10 @@ span.edit_profilepicture_icon{
 .doc-presentation{
 	background:url("../images/doc-presentation.png")left no-repeat;
 }
-/* progress bar container */
-#progressbar{
-        border:1px solid black;
-        width:200px;
-        height:20px;
-        position:relative;
-        color:black; 
-}
-/* color bar */
-#progressbar div.progress{
-        position:absolute;
-        width:0;
-        height:100%;
-        overflow:hidden;
-        background-color:#369;
-}
-/* text on bar */
-#progressbar div.progress .text{
-        position:absolute;
-        text-align:center;
-        color:white;
-}
-/* text off bar */
-#progressbar div.text{
-        position:absolute;
-        width:100%;
-        height:100%;
-        text-align:center;
-}
-
+/* progress bar */
 .progress-container
 {
 	margin-left: 250px;
-    margin-top: 30px;
+    margin-top: 5px;
     width: 400px;
 }

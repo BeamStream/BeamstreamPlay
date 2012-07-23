@@ -3,6 +3,7 @@ BS.NavView = Backbone.View.extend({
 	events:{
 		
    	 "click #school-pop" : "renderPopups",
+   	 "click #class-pop" : "renderClassPopups",
    	 "click #sign-out" : "signOut",
    	 "click nav li" : "showActiveClass",
      
@@ -32,7 +33,13 @@ BS.NavView = Backbone.View.extend({
     	 BS.AppRouter.navigate("school", {trigger: true});
   
     },
-    
+    /**
+     * render class popup
+     */
+    renderClassPopups :function(eventName){
+    	eventName.preventDefault();
+    	BS.AppRouter.navigate("class", {trigger: true});
+    },
     /**
 	 * function for sign out
 	 */

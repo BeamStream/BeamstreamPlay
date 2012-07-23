@@ -34,13 +34,13 @@ BS.ProfileView = Backbone.View.extend({
     	var validate = jQuery('#profile-form').validationEngine('validate');
     	if(validate == true)
     	{
-//    		$('#loading').css('display','block');
     		 
+    		// for progress bar for file uploading
             $('.progress-container').show();
     		BS.progress = setInterval(function() {
     			 BS.bar = $('.bar');
     		   
-    		    if ( BS.bar.width()==380) {
+    		    if (BS.bar.width()==380) {
     		        clearInterval(BS.progress);
     		        $('.progress').removeClass('active');
     		    } else {
@@ -69,12 +69,11 @@ BS.ProfileView = Backbone.View.extend({
         	    	
         	    	if(data.status == "Success") 
 	   			    {
-        	    	 
+        	    		//BS.bar = $('.bar');
         	    	    BS.bar.width(400);
         	    	    BS.bar.text("100%");
         	    	    clearInterval(BS.progress);
-//        	    		$('#loading').css('display','none');
-        	    		 
+        	    	  
 	        	    	// navigate to main stream page
 	        	    	BS.AppRouter.navigate("streams", {trigger: true});
 	   			    }
