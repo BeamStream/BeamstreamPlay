@@ -21,6 +21,7 @@ class StreamTest extends FunSuite with BeforeAndAfter {
     assert(streams.size === 2)
   }
 
+  
   test("attach user to stream") {
     val userId = User.createUser(user)
     var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List())
