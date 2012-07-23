@@ -17,6 +17,8 @@ BS.ProfileView = Backbone.View.extend({
     	this.video = null;
         this.template= _.template($("#tpl-profile-reg").html());
         
+         BS.bar = $('.bar');
+        
     },
     render:function (eventName) {
     	
@@ -32,7 +34,22 @@ BS.ProfileView = Backbone.View.extend({
     	var validate = jQuery('#profile-form').validationEngine('validate');
     	if(validate == true)
     	{
-    		$('#loading').css('display','block');
+//    		$('#loading').css('display','block');
+    		 
+            $('.progress-container').show();
+    		BS.progress = setInterval(function() {
+    			 BS.bar = $('.bar');
+    		   
+    		    if ( BS.bar.width()==380) {
+    		        clearInterval(BS.progress);
+    		        $('.progress').removeClass('active');
+    		    } else {
+    		    	 BS.bar.width( BS.bar.width()+20);
+    		    }
+    		    BS.bar.text( BS.bar.width()/4 + "%");
+    		}, 800);
+         
+    		
     		var data;
         	data = new FormData();
      	    data.append('imageData', this.image);
@@ -49,10 +66,15 @@ BS.ProfileView = Backbone.View.extend({
         	    contentType: false,
         	    processData: false,
         	    success: function(data){
-        	    	 
+        	    	
         	    	if(data.status == "Success") 
 	   			    {
-        	    		$('#loading').css('display','none');
+        	    	 
+        	    	    BS.bar.width(400);
+        	    	    BS.bar.text("100%");
+        	    	    clearInterval(BS.progress);
+//        	    		$('#loading').css('display','none');
+        	    		 
 	        	    	// navigate to main stream page
 	        	    	BS.AppRouter.navigate("streams", {trigger: true});
 	   			    }
