@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
 import models.ResulttoSent
+import utils.bitlyAuth
 
 object MessageController extends Controller {
 
@@ -40,7 +41,7 @@ object MessageController extends Controller {
   def newMessage = Action { implicit request =>
     val messageListJsonMap = request.body.asFormUrlEncoded.get
     (messageListJsonMap.contains(("streamId"))) match {
-      case false => 
+      case false =>
         Ok(write(new ResulttoSent("Failure", "StreamIdNotFound")))
       case true =>
         val streamId = messageListJsonMap("streamId").toList(0)
@@ -48,7 +49,7 @@ object MessageController extends Controller {
         val messageBody = messageListJsonMap("message").toList(0)
         val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
         val messageToCreate = new Message(new ObjectId, messageBody, MessageType.Audio, MessageAccess.withName(messageAccess), new Date, new ObjectId(request.session.get("userId").get), new ObjectId(streamId),
-        messagePoster.firstName, messagePoster.lastName, 0, List(), List())
+          messagePoster.firstName, messagePoster.lastName, 0, List(), List())
         val messageId = Message.createMessage(messageToCreate)
         val messageObtained = Message.findMessageById(messageId)
         val messageJson = write(List(messageObtained))
@@ -103,15 +104,17 @@ object MessageController extends Controller {
     val WeAreRockersJson = write(weAreRockers)
     Ok(WeAreRockersJson).as("application/json")
   }
-  
+
   /*
    * Give Short Url Json Via bitly
    */
-  
-   def getShortUrlViabitly = Action { implicit request =>
-     
-     Ok
-   }
+
+  def getShortUrlViabitly = Action { implicit request =>
+    val longUrlMap = request.body.asFormUrlEncoded.get
+    val longUrl = longUrlMap("link").toList(0)
+    val shortUrlJson = bitlyAuth.returnShortUrlViabitly(longUrl)
+    Ok(shortUrlJson).as("application/json")
+  }
 
 }
 
