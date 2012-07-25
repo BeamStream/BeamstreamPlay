@@ -103,6 +103,15 @@ object MessageController extends Controller {
     val WeAreRockersJson = write(weAreRockers)
     Ok(WeAreRockersJson).as("application/json")
   }
+  
+  /*
+   * Give Short Url Json Via bitly
+   */
+  
+   def getShortUrlViabitly = Action { implicit request =>
+     
+     Ok
+   }
 
 }
 

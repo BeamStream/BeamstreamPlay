@@ -111,7 +111,7 @@ POST /getRockers controllers.DocumentController.giveMeRockers
 
 #bitly
 
-POST /bitly   controllers.UserController.bitly            
+POST /bitly   controllers.MessageController.getShortUrlViabitly            
 
 # Map static resources from the /public folder to the /assets URL path
 
