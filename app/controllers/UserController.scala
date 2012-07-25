@@ -109,13 +109,6 @@ object UserController extends Controller {
     Ok(MediaJson).as("application/json")
   }
 
-  /*
-   * URL Shortner 
-   */
-  def shortTheUrl = Action { implicit request =>
-
-    Ok
-
-  }
+  
 
 }
