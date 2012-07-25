@@ -507,7 +507,8 @@
   .container,
   .navbar-fixed-top .container,
   .navbar-fixed-bottom .container {
-    width: 1170px;
+/* ATN  width: 1170px; */ 
+    width: 980px
   }
   .span12 {
     width: 1170px;
@@ -684,3 +685,5 @@
     margin-left: 30px;
   }
 }
+
+.navbar-inner{ background:none;}

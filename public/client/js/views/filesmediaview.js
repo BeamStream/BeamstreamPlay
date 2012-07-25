@@ -11,11 +11,13 @@ BS.FilesMediaView = Backbone.View.extend({
 	
     initialize:function () {
     	 
-    	window.onload = function() {initLytebox();}
+    	//Lytebox(false);
     	 
+    	//initLytebox();
     	var type = "files";
    	    var profileView = new BS.ProfileView();
      	profileView.getProfileImages(type);
+     	  
         console.log('Initializing Files and Media  View');
         this.template= _.template($("#tpl-files-media").html());
         
@@ -28,6 +30,9 @@ BS.FilesMediaView = Backbone.View.extend({
         $(this.el).html(this.template());
         return this;
     },
+    
+    
+    
     
     /**
      * show file types

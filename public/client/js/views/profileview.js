@@ -191,6 +191,8 @@ BS.ProfileView = Backbone.View.extend({
     getProfileImages : function(page){
     	var first =false;
     	BS.content = '';
+//    	BS.content = '<ul class="gallery clearfix"></ul><ul class="gallery clearfix">';
+    	
    	    $.ajax({
 				type : 'GET',
 				url : BS.allProfileImages,
@@ -202,6 +204,8 @@ BS.ProfileView = Backbone.View.extend({
 						{
 							if(page == "files")
 							   BS.content+= '<a href="'+data+'" class="lytebox" data-lyte-options="group:vacation" data-title="Profile Images"><img id ="main-photo" src="'+data+'"  alt="username photo"></a>';
+//							   BS.content+= '<a href="'+data+'" rel="prettyPhoto[gallery2]"  ><img src="'+data+'" width="60" height="60" alt="This is a pretty long title" /></a>';
+ 
 							else
 								BS.content+= '<a href="'+data+'" class="lytebox" data-lyte-options="group:vacation" data-title="Profile Images"><img id ="main-photo" src="'+data+'"  width="189" height="156"  alt="username photo"></a>';
  
@@ -214,7 +218,8 @@ BS.ProfileView = Backbone.View.extend({
 						 
 			        });
 					BS.content+= '';
-			    	 $('#profile-images').html(BS.content);					 
+//					BS.content+= '</ul>';
+			    	$('#profile-images').html(BS.content);					 
 				},
 				 
 		 });

@@ -160,6 +160,7 @@ BS.AppRouter = Backbone.Router.extend({
     * display main stream page
     */
    mainStream:function () {
+	   
 	   BS.mainImageUrl = $('#right-photo').attr('src');
 	   $('#middle-content').children().detach();
 	   $('nav li.active').removeClass('active');
@@ -194,13 +195,14 @@ BS.AppRouter = Backbone.Router.extend({
       	
 	       $(".checkbox").dgStyle();
 	        
-	       $('ul.timeline_items').embedly({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+	      // $('ul.timeline_items').embedly({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 	       
 	       $('.with-tooltips a, .with-tooltip').each(function() {
 	           var $this = $(this);
 	           var placement = $this.parent().hasClass('tooltips-bottom') ? 'bottom' : 'top';
 	           $(this).tooltip({placement: placement});
 	       });
+	       
 	       
 		 }});
  

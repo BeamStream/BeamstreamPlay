@@ -9,9 +9,9 @@
     <meta name="author" content="">
     
     <!-- less files -->
-    <link rel="stylesheet/less" type="text/css" href="less/bootstrap.less">
-    <link rel="stylesheet/less" type="text/css" href="less/responsive.less">
-    <link rel="stylesheet/less" type="text/css" href="less/main.less">
+  <link href="css/less.css" rel="stylesheet">
+     <link href="css/less-responsive.css" rel="stylesheet">
+      <link href="css/main.css" rel="stylesheet">
     <!-- End of less files -->
 <!--      <link href="css/less.css" rel="stylesheet"> -->
 <!--       <link href="css/main.css" rel="stylesheet"> -->
@@ -37,12 +37,14 @@
     <!--[if lte IE 8]><link rel="stylesheet/less" type="text/css" href="less/ie8.less"><![endif]-->
     <!--[if lte IE 7]><link rel="stylesheet/less" type="text/css" href="less/ie7.less"><![endif]-->
     
+       <style type="text/css">.tk-ubuntu,body{font-family:"ubuntu",sans-serif;}</style>
+    
+    
     <!--  for image popups -lytebox -->
      <link rel="stylesheet" href="css/lytebox.css" type="text/css" media="screen" />
     <script type="text/javascript" language="javascript" src="lib/lytebox.js"></script>
    
     
-    <script src="lib/less-1.2.1.min.js"></script>
     
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -83,6 +85,9 @@
 	<!-- scripts -->
 	  
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>	
+	
+	 <script src="http://scripts.embed.ly/jquery.embedly.min.js"></script>
+	 
 	<script type="text/javascript" src="lib/jquery.selectBox.js"></script>
 	<script src="lib/underscore-min.js"></script>
 	<script src="lib/backbone.js"></script>
@@ -100,70 +105,13 @@
 	<script src="lib/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
 	
     <script src="lib/bootstrap.min.js"></script>
-<!--     <script src=" http://nchc.dl.sourceforge.net/project/iframepostform/jquery.iframe-post-form.js"></script>	 -->
   
-    
     <!-- Cookies -->
     <script src="lib/jquery.cookie.js"></script>
-    
-    
-<!--    <script src="lib/bootstrap-transition.js"></script> -->
-<!--     <script src="lib/bootstrap-alert.js"></script> -->
-<!--     <script src="lib/bootstrap-modal.js"></script> -->
-<!--     <script src="lib/bootstrap-dropdown.js"></script> -->
-<!--     <script src="lib/bootstrap-scrollspy.js"></script> -->
-<!--     <script src="lib/bootstrap-tab.js"></script> -->
-<!--     <script src="lib/bootstrap-tooltip.js"></script> -->
-<!--     <script src="lib/bootstrap-popover.js"></script> -->
-<!--     <script src="lib/bootstrap-button.js"></script> -->
-<!--     <script src="lib/bootstrap-collapse.js"></script> -->
-<!--     <script src="lib/bootstrap-carousel.js"></script> -->
-<!--     <script src="lib/bootstrap-typeahead.js"></script> -->
 
 
- <script src="http://scripts.embed.ly/jquery.embedly.min.js"></script>
 
-			
-			
 
-<script type="text/javascript">
-// (function() {
-//     if (typeof window.janrain !== 'object') window.janrain = {};
-//     if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
-//     if (typeof window.janrain.settings.share !== 'object') window.janrain.settings.share = {};
-//     if (typeof window.janrain.settings.packages !== 'object') janrain.settings.packages = [];
-//     janrain.settings.packages.push('share');
-
-//     /* _______________ can edit below this line _______________ */
-
-//     janrain.settings.share.message = "Testing social sharing!";
-//     janrain.settings.share.title = "Social Profile";
-//     janrain.settings.share.url = "www.yahoo.com";
-//     janrain.settings.share.description = "Share with my network";
-
-//     /* _______________ can edit above this line _______________ */
-
-//     function isReady() { janrain.ready = true; };
-//     if (document.addEventListener) {
-//         document.addEventListener("DOMContentLoaded", isReady, false);
-//     } else {
-//         window.attachEvent('onload', isReady);
-//     }
-
-//     var e = document.createElement('script');
-//     e.type = 'text/javascript';
-//     e.id = 'janrainWidgets';
-
-//     if (document.location.protocol === 'https:') {
-//       e.src = 'https://rpxnow.com/js/lib/beamstream/widget.js';
-//     } else {
-//       e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/widget.js';
-//     }
-
-//     var s = document.getElementsByTagName('script')[0];
-//     s.parentNode.insertBefore(e, s);
-// })();
-</script>
 
 </head>
 
@@ -1523,6 +1471,8 @@
 
               <div class="double-line"></div>
 
+
+
               <section class="timeline">
                 <ul class="timeline_items">
                   
@@ -1595,10 +1545,10 @@
          <span class="separator">-</span>
          <span class="visibility">{{datas.messageAccess.name}}</span>
        </div>
-       <p id="{{datas.id.id}}-id" class="ss" >
+       <div id="{{datas.id.id}}-id" class="bitly" >
          {{datas.messageBody}}
-       </p>
-        
+       </div>
+		 
        <div class="actions actions with-tooltips tooltips-top btn-group">
          <a class="rock " href="#rock" data-original-title="hello"><i class="rocked"><i>{{datas.rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
          <a class="rock" id="rocks" href="#rock">Rocked it!</a>
@@ -1616,6 +1566,8 @@
    <div id="hover-lists-{{datas.id.id}}" class="list-popup">
    </div>
 </li>
+
+
  
  </script>
  

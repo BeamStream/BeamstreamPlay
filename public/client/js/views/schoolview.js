@@ -3,8 +3,8 @@ BS.SchoolView = Backbone.View.extend({
 	events: {
 	      "click #save": "saveSchool",
 	      "click #continue": "continueToClass",
-	      "click a.legend-add": "addSchools",
-	      "change select.graduated": "showFields",
+	      "click a.legend-add" : "addSchools",
+	      "change select.graduated" : "showFields",
 	      "change select.degreepgm" : "addOtherDegree",
 	      
 	      "keyup .school" : "populateSchools",
@@ -21,6 +21,8 @@ BS.SchoolView = Backbone.View.extend({
 		this.template = Handlebars.compile(this.source);
     },
 
+     
+    
     /**
      * render school Info screen
      */
@@ -194,7 +196,7 @@ BS.SchoolView = Backbone.View.extend({
       * to display 'degree expected' or 'date' field
       */
       showFields:function (eventName) {
- 
+         
     	  var id = eventName.target.id;
     	  var dat='#'+id;
 		  var currentid = $(dat).closest('fieldset').attr('id');

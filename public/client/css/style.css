@@ -582,7 +582,7 @@ ul.rockit li span a {
 }
 
 /* drop down menu */
-
+/*
 .main_menu.navbar {
   position: relative;
   z-index: 1000;
@@ -864,6 +864,7 @@ ul.rockit li span a {
 	float:left;
 	margin: 5px 0 0;
     padding: 50px 0 50px 60px;
+    height: 68px;
 	background:url(../images/form_left_bg.jpg) repeat-y left;
 }
 .or-icon {
@@ -1511,6 +1512,7 @@ span.edit_profilepicture_icon{
     padding:5px;
     height:auto;
     border-radius:5px 5px 5px 5px;
+    z-index: 99;
 }
 .doc-hover span.arrow{
 	left: 53px;
@@ -1554,3 +1556,9 @@ span.edit_profilepicture_icon{
     margin-top: 5px;
     width: 400px;
 }
+#right-photo{
+	height:36px;
+}
+
+
+

@@ -396,13 +396,22 @@ BS.StreamView = Backbone.View.extend({
   							  
   							var datas = {
    							 	 "datas" : data,
-   						     }
+   						    }
   							  
-  							 var source = $("#tpl-messages").html();
-  	  						 var template = Handlebars.compile(source);
-  	  						 $('.timeline_items').prepend(template(datas));
-  	  						 if(linkTag)
-  	  						  $('p#'+data.id.id+'-id').html(linkTag);
+  							var source = $("#tpl-messages").html();
+  	  						var template = Handlebars.compile(source);
+  	  						$('.timeline_items').prepend(template(datas));
+  	  						if(linkTag)
+  	  						  $('div#'+data.id.id+'-id').html(linkTag);
+  	  						
+  	  						 // embedly
+	  	  					 $('div#'+data.id.id+'-id').embedly({
+	 					   	  maxWidth: 450,
+	 				          wmode: 'transparent',
+	 				          method: 'after',
+	 					      key:'4d205b6a796b11e1871a4040d3dc5c07'
+ 				   });
+  	  						
   				         });
   						 
   				   }
@@ -446,7 +455,15 @@ BS.StreamView = Backbone.View.extend({
 	  						 var template = Handlebars.compile(source);
 	  						 $('.timeline_items').prepend(template(datas));
 	  						 if(linkTag)
-	  						  $('p#'+data.id.id+'-id').html(linkTag);
+	  						  $('div#'+data.id.id+'-id').html(linkTag);
+	  						 
+	  					    // embedly
+	  						$('div#'+data.id.id+'-id').embedly({
+		  					   	  maxWidth: 450,
+		  				          wmode: 'transparent',
+		  				          method: 'after',
+		  					      key:'4d205b6a796b11e1871a4040d3dc5c07'
+	  				         });
 				         });
 						 
 				}
