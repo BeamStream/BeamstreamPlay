@@ -40,11 +40,6 @@ object Message {
    */
 
   def createMessage(message: Message): ObjectId = {
-
-    //    validateUserHasRightToPost(message.userId, message.streamId) match {
-    //      case true => MessageDAO.insert(message)
-    //      case _ => println("No rights to Post")
-    //    }
     val messageId = MessageDAO.insert(message)
     messageId.get
 
