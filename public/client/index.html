@@ -19,7 +19,7 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
     <link href="css/modal.css" rel="stylesheet">
-     <link href="css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/jquery.selectBox.css" />
     <link type="text/css" rel="stylesheet" href="css/datepicker.css" />
     <!-- End of Le styles -->
@@ -87,12 +87,11 @@
 	<script src="lib/backbone.js"></script>
 	<script src="lib/handlebars-1.0.0.beta.6.js"></script>
 	
+	<!--  pretty photo -->
+	<link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+	<script src="lib/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
 	
-	 <!--  for progress bar -->
-<!-- 	<script type="text/javascript" src="lib/jquery-1.7.2.min.js"></script> -->
-
-    
-	
+  
 	<!--  auto complete -->
 	<script type="text/javascript" src="lib/jquery.autocomplete.js"></script>
 	<!--  for validation  -->
@@ -120,43 +119,49 @@
 <!--     <script src="lib/bootstrap-carousel.js"></script> -->
 <!--     <script src="lib/bootstrap-typeahead.js"></script> -->
 
+
+ <script src="http://scripts.embed.ly/jquery.embedly.min.js"></script>
+
+			
+			
+
 <script type="text/javascript">
-(function() {
-    if (typeof window.janrain !== 'object') window.janrain = {};
-    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
-    if (typeof window.janrain.settings.share !== 'object') window.janrain.settings.share = {};
-    if (typeof window.janrain.settings.packages !== 'object') janrain.settings.packages = [];
-    janrain.settings.packages.push('share');
+// (function() {
+//     if (typeof window.janrain !== 'object') window.janrain = {};
+//     if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+//     if (typeof window.janrain.settings.share !== 'object') window.janrain.settings.share = {};
+//     if (typeof window.janrain.settings.packages !== 'object') janrain.settings.packages = [];
+//     janrain.settings.packages.push('share');
 
-    /* _______________ can edit below this line _______________ */
+//     /* _______________ can edit below this line _______________ */
 
-    janrain.settings.share.message = "Testing social sharing!";
-    janrain.settings.share.title = "Social Profile";
-    janrain.settings.share.url = "www.yahoo.com";
-    janrain.settings.share.description = "Share with my network";
+//     janrain.settings.share.message = "Testing social sharing!";
+//     janrain.settings.share.title = "Social Profile";
+//     janrain.settings.share.url = "www.yahoo.com";
+//     janrain.settings.share.description = "Share with my network";
 
-    /* _______________ can edit above this line _______________ */
+//     /* _______________ can edit above this line _______________ */
 
-    function isReady() { janrain.ready = true; };
-    if (document.addEventListener) {
-        document.addEventListener("DOMContentLoaded", isReady, false);
-    } else {
-        window.attachEvent('onload', isReady);
-    }
+//     function isReady() { janrain.ready = true; };
+//     if (document.addEventListener) {
+//         document.addEventListener("DOMContentLoaded", isReady, false);
+//     } else {
+//         window.attachEvent('onload', isReady);
+//     }
 
-    var e = document.createElement('script');
-    e.type = 'text/javascript';
-    e.id = 'janrainWidgets';
+//     var e = document.createElement('script');
+//     e.type = 'text/javascript';
+//     e.id = 'janrainWidgets';
 
-    if (document.location.protocol === 'https:') {
-      e.src = 'https://rpxnow.com/js/lib/beamstream/widget.js';
-    } else {
-      e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/widget.js';
-    }
+//     if (document.location.protocol === 'https:') {
+//       e.src = 'https://rpxnow.com/js/lib/beamstream/widget.js';
+//     } else {
+//       e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/widget.js';
+//     }
 
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(e, s);
-})();
+//     var s = document.getElementsByTagName('script')[0];
+//     s.parentNode.insertBefore(e, s);
+// })();
 </script>
 
 </head>
@@ -1572,46 +1577,47 @@
  </script>
 
    
-  
- <!--  for messages  -->
+ 
  <script type="text/x-handlebars-template" id="tpl-messages">
-{{#each datas}}
- <li id= "{{this.id.id}}">
+ 
+ <li id= "{{datas.id.id}}">
  <article class="message_item">
    <div class="comment_wrapper">
      <div class="photo_container">
-       <img src="{{this.imageUrl}}" width="46" height="46">
+       <img src="{{datas.imageUrl}}" width="46" height="46">
      </div>
      <div class="content_container">
        <div class="meta_data">
-         <span class="username"><a href="#user-profile">{{this.firstNameofMsgPoster}} {{this.lastNameofMsgPoster}} </a></span>
+         <span class="username"><a href="#user-profile">{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </a></span>
          <span class="separator">-</span>
-         <time datetime="2011-12-01" pubdate>{{this.timeCreated}}</time>
+         <time datetime="2011-12-01" pubdate>{{datas.timeCreated}}</time>
          <span class="separator">-</span>
-         <span class="visibility">{{this.messageAccess.name}}</span>
+         <span class="visibility">{{datas.messageAccess.name}}</span>
        </div>
-       <p>
-         {{this.messageBody}}
+       <p id="{{datas.id.id}}-id" class="ss" >
+         {{datas.messageBody}}
        </p>
+        
        <div class="actions actions with-tooltips tooltips-top btn-group">
-         <a class="rock " href="#rock" data-original-title="hello"><i class="rocked"><i>{{this.rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
+         <a class="rock " href="#rock" data-original-title="hello"><i class="rocked"><i>{{datas.rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
          <a class="rock" id="rocks" href="#rock">Rocked it!</a>
          <span class="separator">-</span>
          <a class="comment" href="#comment">Comment</a>
          <span class="separator">-</span>
          <a class="follow" href="#follow">Follow</a>
        </div>
-       <div id ="{{this.id.id}}-rockers" class="actions with-tooltips tooltips-top btn-group">
+       <div id ="{{datas.id.id}}-rockers" class="actions with-tooltips tooltips-top btn-group">
           
        </div>
      </div>
    </div>
    </article>
-   <div id="hover-lists-{{this.id.id}}" class="list-popup">
+   <div id="hover-lists-{{datas.id.id}}" class="list-popup">
    </div>
 </li>
- {{/each}}
+ 
  </script>
+ 
  
  
  <!-- basic profile registration -->
@@ -2192,32 +2198,49 @@
 	    
 	    janrain.settings.tokenUrl =  BS.userPage ;
 	    
+	    
 	    janrain.settings.tokenAction = 'event'; 
-
+	    
+	    /* Editted by Aswathy */
+	    
+	    janrain.settings.actionText = "";
+	    janrain.settings.fontColor = "#4599d2";
+	    janrain.settings.providers = ["facebook","twitter","linkedin","google"];
+	    janrain.settings.width ="160";
+	    
+	    
+        
+	    
+	    /* End */
 	    function isReady() {  janrain.ready = true; };
 	    if (document.addEventListener) { 
+	    	 
 	      document.addEventListener("DOMContentLoaded", isReady, false);
-	    } else { 
+	    } else {  
 	      window.attachEvent('onload', isReady);
 	    }
 
 	    var e = document.createElement('script');
 	    e.type = 'text/javascript';
 	    e.id = 'janrainAuthWidget';
-
+        
 	    if (document.location.protocol === 'https:') {
 	      e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
+// 	     e.src = 'lib/rpxnow_engage.js';
 	    } else {
 	      e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
+// 	    	 e.src = 'lib/widget_engage.js';
 	    }
-
+	    
 	    var s = document.getElementsByTagName('script')[0];
 	    s.parentNode.insertBefore(e, s);
+	   
 	})();
 	
 	function janrainWidgetOnload() {
 
         janrain.events.onProviderLoginToken.addHandler(function(response) {
+        	  
                $.ajax({
                       type: "POST",
                       url: BS.userPage,
@@ -2279,6 +2302,12 @@
             });
         });
 </script>
+
+  <script type="text/javascript">
+    $('document').ready(function(){
+      $('div.test').embedly({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+    });
+  </script>
 	
 <!--  Backbone.js files -->
 <script src="js/views/loginview.js"></script>

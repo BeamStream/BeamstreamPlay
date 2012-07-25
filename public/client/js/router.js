@@ -79,11 +79,13 @@ BS.AppRouter = Backbone.Router.extend({
     	 
     	 BS.loginView = new BS.LoginView();
     	 BS.loginView.render();
+     
          $('#school-popup').html(BS.loginView.el);  
          $(".modal select:visible").selectBox();
          jQuery("#login-form").validationEngine();
          $(".checkbox").dgStyle();
          $(".signin_check").dgStyle();
+         
         
          //get cookies
          var username= $.cookie('userName');
@@ -94,7 +96,8 @@ BS.AppRouter = Backbone.Router.extend({
         	 $('#email').val(username);
         	 $('#password').val(password);
          }
-    
+       
+         
         
     },
    
@@ -191,6 +194,8 @@ BS.AppRouter = Backbone.Router.extend({
       	
 	       $(".checkbox").dgStyle();
 	        
+	       $('ul.timeline_items').embedly({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+	       
 	       $('.with-tooltips a, .with-tooltip').each(function() {
 	           var $this = $(this);
 	           var placement = $this.parent().hasClass('tooltips-bottom') ? 'bottom' : 'top';
@@ -423,6 +428,9 @@ BS.AppRouter = Backbone.Router.extend({
 				$('#content').html(BS.filesMediaView.el);
 				$('.file-type').hide();
 				$(".checkbox").dgStyle();
+				
+				
+				
 
 			}
 		});

@@ -350,8 +350,9 @@ BS.StreamView = Backbone.View.extend({
     			data : {
     				 link : link[0]
     			},
+    			dataType : "json",
     			success : function(data) {
-    				 message = message.replace(link[0],data );
+    				 message = message.replace(link[0],data.data.url);
     				 self.postMsg(message,streamId,messageAccess);
     			}
     		});
@@ -385,15 +386,24 @@ BS.StreamView = Backbone.View.extend({
   				   }
   				   else
   				   {
-  					   
- 				      // append the message to message list
-  						  var datas = {
-  							 		"datas" : data
-  						  }
-  						  
-  						  var source = $("#tpl-messages").html();
-  						  var template = Handlebars.compile(source);
-  						  $('.timeline_items').prepend(template(datas));
+  					      // append the message to message list
+  						_.each(data, function(data) {
+  							
+  							var msgBody = data.messageBody;
+  							var linkTag =  msgBody.replace(BS.urlRegex, function(url) {
+					             return '<a href="' + url + '">' + url + '</a>';
+					        });
+  							  
+  							var datas = {
+   							 	 "datas" : data,
+   						     }
+  							  
+  							 var source = $("#tpl-messages").html();
+  	  						 var template = Handlebars.compile(source);
+  	  						 $('.timeline_items').prepend(template(datas));
+  	  						 if(linkTag)
+  	  						  $('p#'+data.id.id+'-id').html(linkTag);
+  				         });
   						 
   				   }
   				   $('#msg').val("");
@@ -420,12 +430,25 @@ BS.StreamView = Backbone.View.extend({
 				success : function(data) {
 					 
 					  //display the messages
-					  var datas = {
-					 		"datas" : data
-					  }
-					  var source = $("#tpl-messages").html();
-					  var template = Handlebars.compile(source);
-					  $('.timeline_items').html(template(datas));
+ 
+					  _.each(data, function(data) {
+							
+							var msgBody = data.messageBody;
+							var linkTag =  msgBody.replace(BS.urlRegex, function(url) {
+					             return '<a href="' + url + '">' + url + '</a>';
+					        });
+							  
+							var datas = {
+ 							 	 "datas" : data,
+ 						     }
+							  
+							 var source = $("#tpl-messages").html();
+	  						 var template = Handlebars.compile(source);
+	  						 $('.timeline_items').prepend(template(datas));
+	  						 if(linkTag)
+	  						  $('p#'+data.id.id+'-id').html(linkTag);
+				         });
+						 
 				}
 		 });
     	
