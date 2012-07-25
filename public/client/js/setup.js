@@ -86,6 +86,9 @@ BS.classStreamsForUser = "http://localhost:9000/allClassStreamsForAUser";
 //Get all school for autopopulate
 BS.autoPopulateSchools = "http://localhost:9000/getAllSchoolsForAutopopulate";
 
+//POST bitly
+BS.bitly =  "http://localhost:9000/bitly";
+
 
 
 /*
@@ -144,6 +147,8 @@ BS.autoPopulateSchools = "http://localhost:9000/getAllSchoolsForAutopopulate";
 //  BS.classStreamsForUser = "http://beamstream-v3.herokuapp.com/allClassStreamsForAUser";
 //  //Get all school for autopopulate
 //  BS.autoPopulateSchools = "http://beamstream-v3.herokuapp.com/getAllSchoolsForAutopopulate";
+//  //POST bitly
+//  BS.bitly =  "http://beamstream-v3.herokuapp.com/bitly";
 
 /*
  * for testing in local
@@ -176,6 +181,7 @@ BS.autoPopulateSchools = "http://localhost:9000/getAllSchoolsForAutopopulate";
 // BS.allProfileImages ="http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=allProfileImages";
 // BS.classStreamsForUser = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=classStreamsForUser";
 // BS.autoPopulateSchools = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=autoPopulateSchools";
+// BS.bitly =  "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=bitly";
 //// 
  
 //// 
@@ -206,5 +212,6 @@ BS.autoPopulateSchools = "http://localhost:9000/getAllSchoolsForAutopopulate";
 // BS.allProfileImages ="http://192.168.10.10/Beam2/BeamstreamPlay/public/client/api.php?run=allProfileImages";
 // BS.classStreamsForUser = "http://192.168.10.10/Beam2/BeamstreamPlay/public/client/api.php?run=classStreamsForUser";
 // BS.autoPopulateSchools = "http://192.168.10.10/Beam2/BeamstreamPlay/public/client/api.php?run=autoPopulateSchools";
+// BS.bitly =  "http://192.168.10.10/Beam2/BeamstreamPlay/public/client/api.php?run=bitly";
 // 
 // 

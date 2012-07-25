@@ -28,7 +28,7 @@ BS.StreamView = Backbone.View.extend({
 
     initialize:function () {
     	console.log('Initializing Stream View');
-    
+    	BS.urlRegex = /(https?:\/\/[^\s]+)/g;
     	/* for hover over */
 	    this.distance = 10;
 	    this.time = 250;
@@ -328,7 +328,7 @@ BS.StreamView = Backbone.View.extend({
       var messageAccess;
       var streamId = $('#streams-list li.active a').attr('id');
       var message = $('#msg').val();
-     
+      
       var msgAccess =  $('#id-private').attr('checked');
   	  if(msgAccess == "checked")
   	  {
@@ -338,39 +338,70 @@ BS.StreamView = Backbone.View.extend({
   	  {
   		messageAccess = "Public";
   	  }
-      
-  	  /* post message information */
-      $.ajax({
-			type : 'POST',
-			url : BS.postMessage,
-			data : {
-				message : message,
-				streamId : streamId,
-				messageAccess :messageAccess
-			},
-			dataType : "json",
-			success : function(data) {
-				   if(data.status == "Failure")
-				   {
-					   alert("Enter School & Class to post a message in a stream");
-				   }
-				   else
-				   {
-					   // append the message to message list
-						  var datas = {
-							 		"datas" : data
-						  }
-						  var source = $("#tpl-messages").html();
-						  var template = Handlebars.compile(source);
-						  $('.timeline_items').prepend(template(datas));
-						 
-				   }
-				   $('#msg').val("");
-				 
-			}
-		});
- 
+  	  
+  	  //find link part from the message
+      var link =  message.match(BS.urlRegex); 
+      if(link)
+      {
+    	  /* post url information */
+          $.ajax({
+    			type : 'POST',
+    			url : BS.bitly,
+    			data : {
+    				 link : link[0]
+    			},
+    			success : function(data) {
+    				 message = message.replace(link[0],data );
+    				 self.postMsg(message,streamId,messageAccess);
+    			}
+    		});
+      }
+      //if link not present
+      else
+      {
+    	  self.postMsg(message,streamId,messageAccess);
+      }
+  	  
     },
+    /**
+     * post message with shortURL if present
+     */
+    postMsg:function(message,streamId,messageAccess){
+    	
+    	/* post message information */
+        $.ajax({
+  			type : 'POST',
+  			url : BS.postMessage,
+  			data : {
+  				message : message,
+  				streamId : streamId,
+  				messageAccess :messageAccess
+  			},
+  			dataType : "json",
+  			success : function(data) {
+  				   if(data.status == "Failure")
+  				   {
+  					   alert("Enter School & Class to post a message in a stream");
+  				   }
+  				   else
+  				   {
+  					   
+ 				      // append the message to message list
+  						  var datas = {
+  							 		"datas" : data
+  						  }
+  						  
+  						  var source = $("#tpl-messages").html();
+  						  var template = Handlebars.compile(source);
+  						  $('.timeline_items').prepend(template(datas));
+  						 
+  				   }
+  				   $('#msg').val("");
+  				 
+  			}
+  		});
+    	
+    } ,
     
     /**
      * get all details about messages and its comments of a stream
