@@ -406,7 +406,7 @@ BS.StreamView = Backbone.View.extend({
   	  						
   	  						 // embedly
 	  	  					 $('div#'+data.id.id+'-id').embedly({
-	 					   	  maxWidth: 450,
+	 					   	  maxWidth: 200,
 	 				          wmode: 'transparent',
 	 				          method: 'after',
 	 					      key:'4d205b6a796b11e1871a4040d3dc5c07'
@@ -459,7 +459,7 @@ BS.StreamView = Backbone.View.extend({
 	  						 
 	  					    // embedly
 	  						$('div#'+data.id.id+'-id').embedly({
-		  					   	  maxWidth: 450,
+		  					   	  maxWidth: 200,
 		  				          wmode: 'transparent',
 		  				          method: 'after',
 		  					      key:'4d205b6a796b11e1871a4040d3dc5c07'
