@@ -388,7 +388,7 @@ BS.StreamView = Backbone.View.extend({
   				   {
   					      // append the message to message list
   						_.each(data, function(data) {
-  							
+  							 
   							var msgBody = data.messageBody;
   							var linkTag =  msgBody.replace(BS.urlRegex, function(url) {
 					             return '<a href="' + url + '">' + url + '</a>';
@@ -401,16 +401,20 @@ BS.StreamView = Backbone.View.extend({
   							var source = $("#tpl-messages").html();
   	  						var template = Handlebars.compile(source);
   	  						$('.timeline_items').prepend(template(datas));
+  	  						
+  	  						//get profile image of logged user
+  	  					    $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
+  	  					    
   	  						if(linkTag)
   	  						  $('div#'+data.id.id+'-id').html(linkTag);
   	  						
   	  						 // embedly
 	  	  					 $('div#'+data.id.id+'-id').embedly({
-	 					   	  maxWidth: 200,
-	 				          wmode: 'transparent',
-	 				          method: 'after',
-	 					      key:'4d205b6a796b11e1871a4040d3dc5c07'
- 				   });
+		 					   	  maxWidth: 200,
+		 				          wmode: 'transparent',
+		 				          method: 'after',
+		 					      key:'4d205b6a796b11e1871a4040d3dc5c07'
+	  	  					 });
   	  						
   				         });
   						 
@@ -454,11 +458,27 @@ BS.StreamView = Backbone.View.extend({
 							 var source = $("#tpl-messages").html();
 	  						 var template = Handlebars.compile(source);
 	  						 $('.timeline_items').prepend(template(datas));
+	  						 
+	  						 
+	  						 /* get profile images for messages */
+	  				          $.ajax({
+	  				    			type : 'POST',
+	  				    			url : BS.profileImage,
+	  				    			data : {
+	  				    				 userId :  data.userId.id
+	  				    			},
+	  				    			dataType : "json",
+	  				    			success : function(imgUrl) {
+	  				    				 $('img#'+data.id.id+'-img').attr("src", imgUrl);
+	  				    			}
+	  				    		});
+	  				          
+	  				          
 	  						 if(linkTag)
 	  						  $('div#'+data.id.id+'-id').html(linkTag);
 	  						 
-	  					    // embedly
-	  						$('div#'+data.id.id+'-id').embedly({
+	  					     // embedly
+	  						 $('div#'+data.id.id+'-id').embedly({
 		  					   	  maxWidth: 200,
 		  				          wmode: 'transparent',
 		  				          method: 'after',
@@ -598,7 +618,7 @@ BS.StreamView = Backbone.View.extend({
 		 eventName.preventDefault();
 		 var element = eventName.target.parentElement;
 		 var msgId =$(element).closest('li').attr('id');
-		 $('#hover-lists-'+msgId+'').fadeOut("slow");
+		 $('#hover-lists-'+msgId+'').fadeOut("medium");
  
 	 },
 	 

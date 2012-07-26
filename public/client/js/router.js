@@ -179,15 +179,34 @@ BS.AppRouter = Backbone.Router.extend({
 			   self.onstream = true; 
 	   	   
 	   	   //to show the profile image
-	   	    var profileModel = new BS.Profile();
-	        profileModel.fetch({success: function(e) {  
-	        	BS.profileImageUrl = e.attributes[0];
-	        	$('#main-photo').attr("src",BS.profileImageUrl);
-	        	$('#right-photo').attr("src",BS.profileImageUrl);
-	        	$('#msg-photo').attr("src",BS.profileImageUrl);
-				 
-			}});
-	        
+//	   	    var profileModel = new BS.Profile();
+//	        profileModel.fetch({success: function(e) { 
+//	        	console.log(45);
+//	            console.log(e);
+//	        	BS.profileImageUrl = e.attributes;
+//	        	 
+//	        	$('#main-photo').attr("src",BS.profileImageUrl);
+//	        	$('#right-photo').attr("src",BS.profileImageUrl);
+//	        	$('#msg-photo').attr("src",BS.profileImageUrl);
+//				 
+//			}});
+			   
+			     /* get profile images for user */
+		          $.ajax({
+		    			type : 'GET',
+		    			url : BS.profileImage,
+		    			dataType : "json",
+		    			success : function(data) {
+		    				
+		    	        	BS.profileImageUrl = data;
+		    	        	$('#main-photo').attr("src",BS.profileImageUrl);
+		    	        	$('#right-photo').attr("src",BS.profileImageUrl);
+		    	        	$('#msg-photo').attr("src",BS.profileImageUrl);
+		    			}
+		    	   });
+		          
+		          
+		          
 	   	   $('.modal-backdrop').hide();
 	       $('#content').html(BS.streamView.el);
 	       

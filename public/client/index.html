@@ -1574,7 +1574,7 @@
  <article class="message_item">
    <div class="comment_wrapper">
      <div class="photo_container">
-       <img src="{{datas.imageUrl}}" width="46" height="46">
+       <img id="{{datas.id.id}}-img" src="{{datas.imageUrl}}" width="46" height="46">
      </div>
      <div class="content_container">
        <div class="meta_data">
@@ -2195,21 +2195,19 @@
 	    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
 	    
 	    janrain.settings.tokenUrl =  BS.userPage ;
-	    
-	    
 	    janrain.settings.tokenAction = 'event'; 
 	    
-	    /* Editted by Aswathy */
+	    
+	    /* ----Editted by Aswathy---- */
 	    
 	    janrain.settings.actionText = "";
 	    janrain.settings.fontColor = "#4599d2";
 	    janrain.settings.providers = ["facebook","twitter","linkedin","google"];
 	    janrain.settings.width ="160";
+	   
+	    /* ----End---- */
 	    
 	    
-        
-	    
-	    /* End */
 	    function isReady() {  janrain.ready = true; };
 	    if (document.addEventListener) { 
 	    	 
