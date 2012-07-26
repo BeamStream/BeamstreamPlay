@@ -161,6 +161,7 @@ BS.AppRouter = Backbone.Router.extend({
     */
    mainStream:function () {
 	   
+	   
 	   BS.mainImageUrl = $('#right-photo').attr('src');
 	   $('#middle-content').children().detach();
 	   $('nav li.active').removeClass('active');
@@ -178,6 +179,10 @@ BS.AppRouter = Backbone.Router.extend({
 			   BS.streamView.render();
 			   self.onstream = true; 
 	   	   
+			   //get main menu
+			   this.navView = new BS.NavView({ model: BS.user });
+			   $('.nav-collapse').html(this.navView.render().el);
+			   
 	   	   //to show the profile image
 //	   	    var profileModel = new BS.Profile();
 //	        profileModel.fetch({success: function(e) { 
