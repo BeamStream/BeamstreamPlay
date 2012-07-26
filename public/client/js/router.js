@@ -174,7 +174,7 @@ BS.AppRouter = Backbone.Router.extend({
 		   
 		   $('.modal').css('display','none');
 		   BS.user.fetch({ success:function(e) {
-		    
+		      
 			   BS.streamView = new BS.StreamView({ model: BS.user });
 			   BS.streamView.render();
 			   self.onstream = true; 
@@ -198,9 +198,12 @@ BS.AppRouter = Backbone.Router.extend({
 			   
 			     /* get profile images for user */
 		          $.ajax({
-		    			type : 'GET',
+		    			type : 'POST',
 		    			url : BS.profileImage,
 		    			dataType : "json",
+		    			data : {
+			    				 userId :  e.attributes.id.id
+			    			},
 		    			success : function(data) {
 		    				
 		    	        	BS.profileImageUrl = data;

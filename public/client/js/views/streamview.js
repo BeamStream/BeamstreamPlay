@@ -469,7 +469,8 @@ BS.StreamView = Backbone.View.extend({
 	  				    			},
 	  				    			dataType : "json",
 	  				    			success : function(imgUrl) {
-	  				    				 $('img#'+data.id.id+'-img').attr("src", imgUrl);
+	  				    				 
+	  				    				$('img#'+data.id.id+'-img').attr("src", imgUrl);
 	  				    			}
 	  				    		});
 	  				          
