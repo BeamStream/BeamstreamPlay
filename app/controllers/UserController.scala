@@ -104,12 +104,20 @@ object UserController extends Controller {
    */
 
   def getProfilePicForAUser = Action { implicit request =>
-    //println(request.cookies.get("userName").get.value + "," + request.cookies.get("password").get.value)
-    //    val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(request.session.get("userId").get))
-    //    val MediaJson = write(mediaObtained)
-    //    Ok(MediaJson).as("application/json")
-    val profilePicUrl = ProfileImageProviderCache.getImage(new ObjectId(request.session.get("userId").get))
-    Ok(profilePicUrl).as("application/json")
+  
+     val userIdJsonMap = request.body.asFormUrlEncoded.get
+     val userIdReceived = userIdJsonMap("userId").toList(0)
+     
+    if (ProfileImageProviderCache.profileImageMap.isDefinedAt(userIdReceived)) {
+      val profilePicUrl = ProfileImageProviderCache.getImage(userIdReceived)
+      Ok(write(profilePicUrl)).as("application/json")
+    } else {
+      println("Profile map is empty")
+      val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userIdReceived))
+      val MediaJson = write(mediaObtained.mediaUrl)
+      Ok(MediaJson).as("application/json")
+    }
+
   }
 
 }
