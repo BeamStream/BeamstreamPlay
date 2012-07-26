@@ -21,6 +21,7 @@ import play.libs.Json
 import models.UserMedia
 import play.api.mvc.Response
 import play.api.mvc.Response
+import models.ProfileImageProviderCache
 
 object UserController extends Controller {
 
@@ -104,11 +105,11 @@ object UserController extends Controller {
 
   def getProfilePicForAUser = Action { implicit request =>
     //println(request.cookies.get("userName").get.value + "," + request.cookies.get("password").get.value)
-    val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(request.session.get("userId").get))
-    val MediaJson = write(mediaObtained)
-    Ok(MediaJson).as("application/json")
+    //    val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(request.session.get("userId").get))
+    //    val MediaJson = write(mediaObtained)
+    //    Ok(MediaJson).as("application/json")
+    val profilePicUrl = ProfileImageProviderCache.getImage(new ObjectId(request.session.get("userId").get))
+    Ok(profilePicUrl).as("application/json")
   }
-
-  
 
 }

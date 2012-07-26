@@ -20,6 +20,7 @@ import utils.AmazonUpload
 import utils.ObjectIdSerializer
 import models.UserMedia
 import models.UserMediaType
+import models.ProfileImageProviderCache
 object MediaController extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -43,6 +44,8 @@ object MediaController extends Controller {
           val imageURL = "https://s3.amazonaws.com/Beamstream/" + imageNameOnAmazon
           val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, UserMediaType.Image, true)
           UserMedia.saveMediaForUser(media)
+          
+          ProfileImageProviderCache.setImage(media.userId,media.mediaUrl)
           // For MongoDB
           /*
       val profileImage: File = imageData.ref.file.asInstanceOf[File]

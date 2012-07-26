@@ -22,7 +22,6 @@ object UserMedia {
 
   def saveMediaForUser(media: UserMedia) {
     val mediaId = UserMediaDAO.insert(media)
-    //ProfileImageProvider.profileImageMap += media.userId -> media.mediaUrl
   }
 
   /*

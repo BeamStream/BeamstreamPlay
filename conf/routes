@@ -89,7 +89,7 @@ GET /getJSONviaJanrain controllers.UserController.registerUserViaSocialSite
 
 
 POST /getMediafromPost controllers.MediaController.getMedia
-GET /getProfilePicForAUser controllers.UserController.getProfilePicForAUser
+GET /getProfilePicForAUser      controllers.UserController.getProfilePicForAUser
 GET /getAllProfilePicForAUser   controllers.MediaController.getAllProfilePicForAUser
 GET /getAllProfileVideoForAUser   controllers.MediaController.getAllProfileVideoForAUser
 
