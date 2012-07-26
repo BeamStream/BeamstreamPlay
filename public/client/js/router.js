@@ -181,8 +181,7 @@ BS.AppRouter = Backbone.Router.extend({
 	   	   //to show the profile image
 	   	    var profileModel = new BS.Profile();
 	        profileModel.fetch({success: function(e) {  
-	        	 
-	        	BS.profileImageUrl = e.attributes.mediaUrl;
+	        	BS.profileImageUrl = e.attributes[0];
 	        	$('#main-photo').attr("src",BS.profileImageUrl);
 	        	$('#right-photo').attr("src",BS.profileImageUrl);
 	        	$('#msg-photo').attr("src",BS.profileImageUrl);
@@ -195,8 +194,6 @@ BS.AppRouter = Backbone.Router.extend({
       	
 	       $(".checkbox").dgStyle();
 	        
-	      // $('ul.timeline_items').embedly({key:'4d205b6a796b11e1871a4040d3dc5c07'});
-	       
 	       $('.with-tooltips a, .with-tooltip').each(function() {
 	           var $this = $(this);
 	           var placement = $this.parent().hasClass('tooltips-bottom') ? 'bottom' : 'top';
