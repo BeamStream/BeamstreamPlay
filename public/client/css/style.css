@@ -1573,5 +1573,8 @@ border: 1px solid rgba(0, 0, 0, 0.15);
     margin-top: 10px;
     padding: 8px;
 }
+.janrain-share-landscape{
+	z-index:1111 !important;
+}
 
 
