@@ -1,11 +1,13 @@
 package models
+
 import org.bson.types.ObjectId
 
 object ProfileImageProviderCache {
 
-  var profileImageMap = Map[ObjectId, String]()
+  var profileImageMap = Map[String, String]()
 
-  def getImage(userIdkey: ObjectId): String = profileImageMap.get(userIdkey).get
-  def setImage(userIdkey: ObjectId, mediaUrl: String) = profileImageMap += userIdkey -> mediaUrl
+  def getImage(userIdkey: String): String = profileImageMap.get(userIdkey).get
+  def setImage(userIdkey: String, mediaUrl: String) = profileImageMap += userIdkey -> mediaUrl
 
 }
+
