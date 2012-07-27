@@ -36,8 +36,8 @@ object SendEmail {
        
 		"Thank you for registering at <b>Beamstream</b>. We're stoked!."+
         " Please validate your identity and complete your registration by clicking on this link "+
-       "<a href="+ "'http://localhost:9000/beamstream/index.html#basicRegistration"+"/token/"+authToken +"/iam/"+iam+"/emailId/"+emailId+"'> Register On BeamStream</a>"
-       //"<a href="+ "'http://beamstream-v3.herokuapp.com/beamstream/index.html#basicRegistration"+"/token/"+authToken +"/iam/"+iam+"/emailId/"+emailId+"'> Register On BeamStream</a>"
+       //"<a href="+ "'http://localhost:9000/beamstream/index.html#basicRegistration"+"/token/"+authToken +"/iam/"+iam+"/emailId/"+emailId+"'> Register On BeamStream</a>"
+       "<a href="+ "'http://beamstream-v3.herokuapp.com/beamstream/index.html#basicRegistration"+"/token/"+authToken +"/iam/"+iam+"/emailId/"+emailId+"'> Register On BeamStream</a>"
        
         +"<br>" +"<br>" +"<br>"+
         "Cheers,"+"<br>"+
@@ -55,4 +55,3 @@ object SendEmail {
 
 }
 
-//http://high-wind-5226.herokuapp.com/basicRegistration?iam=jhskjhds&mailId=neelkanth@knoldus.com
