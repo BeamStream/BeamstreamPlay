@@ -23,6 +23,7 @@ import play.api.mvc.Response
 import play.api.mvc.Response
 import models.ProfileImageProviderCache
 
+ 
 object UserController extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
