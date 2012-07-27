@@ -24,7 +24,7 @@ BS.StreamView = Backbone.View.extend({
            "keypress #msg" : "postMessageOnEnterKey",
  
 	 },
-	
+	 
 
     initialize:function () {
     	console.log('Initializing Stream View');
@@ -594,7 +594,8 @@ BS.StreamView = Backbone.View.extend({
 			    });
             	ul+='</ul>';
  
-        		$('#hover-lists-'+msgId+'').fadeIn("fast");
+//        		$('#hover-lists-'+msgId+'').fadeIn("fast");
+        		$('#hover-lists-'+msgId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
         		$('#hover-lists-'+msgId+'').html(ul);
              }
           });
@@ -606,6 +607,7 @@ BS.StreamView = Backbone.View.extend({
 	 showRockers:function(eventName){
 		 
 		 eventName.preventDefault();
+		
 		 var element = eventName.target.parentElement;
 		 var msgId =$(element).closest('li').attr('id');
 		 var position = $('li#'+msgId+'').find('i').position();
@@ -617,10 +619,12 @@ BS.StreamView = Backbone.View.extend({
 	  * hide rockers list
 	  */
 	 hideRockers:function(eventName){
-		 eventName.preventDefault();
-		 var element = eventName.target.parentElement;
-		 var msgId =$(element).closest('li').attr('id');
-		 $('#hover-lists-'+msgId+'').fadeOut("fast");
+//		 eventName.preventDefault();
+//		 var element = eventName.target.parentElement;
+//		 var msgId =$(element).closest('li').attr('id');
+//		 $('#hover-lists-'+msgId+'').fadeOut("fast");
+//		 
+//		// setTimeout(function(){ ('#hover-lists-'+msgId+'').fadeOut("fast"); }, 3000);
  
 	 },
 	 
