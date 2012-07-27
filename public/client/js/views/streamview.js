@@ -314,6 +314,7 @@ BS.StreamView = Backbone.View.extend({
 	  $('#sub-menus').html(template({streamName : streamName}));
 		 
       // call the method to display the messages of the selected stream
+	  $('.timeline_items').html("");
       this.getMessageInfo(id);
        
     },

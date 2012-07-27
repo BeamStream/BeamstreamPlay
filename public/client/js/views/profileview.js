@@ -7,6 +7,7 @@ BS.ProfileView = Backbone.View.extend({
 	      'change #my-video' :'displayVideo',
 	      'click .delete-image' :'deleteSelectedImage',
 	      'click .delete-video' :'deleteSelectedVideo',
+	      "keyup #mobile" : "arragePhone"
 //	      'click .back-button' :'backToPrevious'
 	 },
 	 
@@ -16,7 +17,7 @@ BS.ProfileView = Backbone.View.extend({
         this.image = null;
     	this.video = null;
         this.template= _.template($("#tpl-profile-reg").html());
-        
+        BS.num = {};
          BS.bar = $('.bar');
         
     },
@@ -25,7 +26,50 @@ BS.ProfileView = Backbone.View.extend({
         $(this.el).html(this.template());
         return this;
     },
-    
+    /**
+     * arrange phone number
+     */
+    arragePhone :function (){
+    	var realFormat = '';
+    	$('#num-validation').html(" ");
+    	var numCount = $('#mobile').val().length;
+    	var  num = $('#mobile').val();
+    	if(numCount == 1)
+    	{
+    		if(num != '(')
+    		  $('#mobile').val('('+num) ;
+    	}
+    	if(numCount == 4)
+    	{
+    		if(num != ')')
+    		   $('#mobile').val(num +')') ;
+    	}
+    	if(numCount == 8)
+    	{
+    		if(num != '-')
+    		   $('#mobile').val(num +'-') ;
+    	}
+    	var reg =/^[(][0-9]{3}[)][0-9]{3}[-][0-9]{4}$/;
+    	 
+    	if(numCount > 13)
+    	{   
+    		 
+    		realFormat = num.substring(0,13);
+    		if(realFormat.match(reg))
+    		{
+    			$('#mobile').val(realFormat);
+    			
+    		}
+    		else
+    		{
+    			 
+    			$('#mobile').val(realFormat);
+    			$('#num-validation').html("Invalid format");
+    			$('#mobile').focus();
+    		}
+    		 
+    	}
+    },
     /**
      * save / post profile details
      */
@@ -254,6 +298,7 @@ BS.ProfileView = Backbone.View.extend({
      * back button function
      */
     backToPrevious :function(){
+      eventName.preventDefault();
   	  BS.AppRouter.navigate("class", {trigger: true});
     }
 	
