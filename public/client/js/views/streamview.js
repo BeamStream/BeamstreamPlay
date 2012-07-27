@@ -594,7 +594,7 @@ BS.StreamView = Backbone.View.extend({
 			    });
             	ul+='</ul>';
  
-        		$('#hover-lists-'+msgId+'').fadeIn("slow");
+        		$('#hover-lists-'+msgId+'').fadeIn("fast");
         		$('#hover-lists-'+msgId+'').html(ul);
              }
           });
@@ -620,7 +620,7 @@ BS.StreamView = Backbone.View.extend({
 		 eventName.preventDefault();
 		 var element = eventName.target.parentElement;
 		 var msgId =$(element).closest('li').attr('id');
-		 $('#hover-lists-'+msgId+'').fadeOut("medium");
+		 $('#hover-lists-'+msgId+'').fadeOut("fast");
  
 	 },
 	 
