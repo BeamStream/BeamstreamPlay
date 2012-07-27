@@ -7,7 +7,8 @@ BS.ProfileView = Backbone.View.extend({
 	      'change #my-video' :'displayVideo',
 	      'click .delete-image' :'deleteSelectedImage',
 	      'click .delete-video' :'deleteSelectedVideo',
-	      "keyup #mobile" : "arragePhone"
+//	      "keyup #mobile" : "arragePhone",
+	      "focusout #mobile" : "arragePhone"
 //	      'click .back-button' :'backToPrevious'
 	 },
 	 
@@ -17,113 +18,123 @@ BS.ProfileView = Backbone.View.extend({
         this.image = null;
     	this.video = null;
         this.template= _.template($("#tpl-profile-reg").html());
+        BS.phReg =/^[(][0-9]{3}[)][0-9]{3}[-][0-9]{4}$/;
         BS.num = {};
-         BS.bar = $('.bar');
+        BS.bar = $('.bar');
         
     },
+  
     render:function (eventName) {
     	
         $(this.el).html(this.template());
         return this;
     },
+    
+    
     /**
      * arrange phone number
      */
-    arragePhone :function (){
-    	var realFormat = '';
-    	$('#num-validation').html(" ");
-    	var numCount = $('#mobile').val().length;
-    	var  num = $('#mobile').val();
-    	if(numCount == 1)
-    	{
-    		if(num != '(')
-    		  $('#mobile').val('('+num) ;
-    	}
-    	if(numCount == 4)
-    	{
-    		if(num != ')')
-    		   $('#mobile').val(num +')') ;
-    	}
-    	if(numCount == 8)
-    	{
-    		if(num != '-')
-    		   $('#mobile').val(num +'-') ;
-    	}
-    	var reg =/^[(][0-9]{3}[)][0-9]{3}[-][0-9]{4}$/;
-    	 
-    	if(numCount > 13)
-    	{   
-    		 
-    		realFormat = num.substring(0,13);
-    		if(realFormat.match(reg))
-    		{
-    			$('#mobile').val(realFormat);
-    			
-    		}
-    		else
-    		{
-    			 
-    			$('#mobile').val(realFormat);
-    			$('#num-validation').html("Invalid format");
-    			$('#mobile').focus();
-    		}
-    		 
-    	}
-    },
+       arragePhone :function(){
+       	
+       	var phno = '';
+       	var numCount = $('#mobile').val().length;
+       	var  num = $('#mobile').val();
+       	 
+       	if(!num.match(BS.phReg))
+       	{  
+       		phno ='('+ num.substring(0,3) + ')' + num.substring(3,6) + '-' + num.substring(6);
+       		if(!phno.match(BS.phReg))
+       		{
+       			$('#num-validation').html("Invalid format");
+       		}
+       		else
+       		{
+       			
+       			$('#num-validation').html("");
+       			$('#mobile').val(phno);
+       		}
+       	}
+       	else
+       	{
+       		$('#num-validation').html("");
+       	}
+       	 
+       	
+       	
+       },
+       
+       
+
     /**
      * save / post profile details
      */
     saveProfile:function (eventName) {
     	eventName.preventDefault();
+    	var status = true;
     	var validate = jQuery('#profile-form').validationEngine('validate');
     	if(validate == true)
     	{
-    		 
-    		// for progress bar for file uploading
-            $('.progress-container').show();
-    		BS.progress = setInterval(function() {
-    			 BS.bar = $('.bar');
-    		   
-    		    if (BS.bar.width()==380) {
-    		        clearInterval(BS.progress);
-    		        $('.progress').removeClass('active');
-    		    } else {
-    		    	 BS.bar.width( BS.bar.width()+20);
-    		    }
-    		    BS.bar.text( BS.bar.width()/4 + "%");
-    		}, 800);
-         
-    		
-    		var data;
-        	data = new FormData();
-     	    data.append('imageData', this.image);
-     	    data.append('videoData', this.video);
-     		data.append('mobile',$('#mobile').val());
-     		data.append('upload',$('#upload').val());
-     		 
-        	/* post profile page details */
-        	$.ajax({
-        	    type: 'POST',
-        	    data: data,
-        	    url: BS.saveProfile,
-        	    cache: false,
-        	    contentType: false,
-        	    processData: false,
-        	    success: function(data){
-        	    	
-        	    	if(data.status == "Success") 
-	   			    {
-        	    		//BS.bar = $('.bar');
-        	    	    BS.bar.width(400);
-        	    	    BS.bar.text("100%");
-        	    	    clearInterval(BS.progress);
-        	    	  
-	        	    	// navigate to main stream page
-	        	    	BS.AppRouter.navigate("streams", {trigger: true});
-	   			    }
-        	    }
-        	});
-        	
+    	   if($('#mobile').val())
+    	   {
+    		   if(!($('#mobile').val().match(BS.phReg)))
+    		   {
+    			   status = false;
+    		   }
+    	   }
+    	   if(status == true)
+    	   {
+    	 
+	    		// for progress bar for file uploading
+	            $('.progress-container').show();
+	    		BS.progress = setInterval(function() {
+	    			 BS.bar = $('.bar');
+	    		   
+	    		    if (BS.bar.width()==380) {
+	    		        clearInterval(BS.progress);
+	    		        $('.progress').removeClass('active');
+	    		    } else {
+	    		    	 BS.bar.width( BS.bar.width()+20);
+	    		    }
+	    		    BS.bar.text( BS.bar.width()/4 + "%");
+	    		}, 800);
+	         
+	    		 
+	    		var data;
+	        	data = new FormData();
+	     	    data.append('imageData', this.image);
+	     	    data.append('videoData', this.video);
+	     		data.append('mobile',$('#mobile').val());
+	     		data.append('upload',$('#upload').val());
+	     		 
+	     		
+	        	/* post profile page details */
+	        	$.ajax({
+	        	    type: 'POST',
+	        	    data: data,
+	        	    url: BS.saveProfile,
+	        	    cache: false,
+	        	    contentType: false,
+	        	    processData: false,
+	        	    success: function(data){
+	        	    	
+	        	    	if(data.status == "Success") 
+		   			    {
+	        	    		//BS.bar = $('.bar');
+	        	    	    BS.bar.width(400);
+	        	    	    BS.bar.text("100%");
+	        	    	    clearInterval(BS.progress);
+	        	    	  
+		        	    	// navigate to main stream page
+		        	    	BS.AppRouter.navigate("streams", {trigger: true});
+		   			    }
+	        	    }
+	        	});
+    	   }
+    	   else
+    	   {
+    		   $('#num-validation').html("Invalid format");
+    		   $('#mobile').focus();
+    	   }
     	}
     	else
     	{
