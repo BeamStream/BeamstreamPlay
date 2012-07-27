@@ -29,7 +29,7 @@ object UserMedia {
  */
   def getProfilePicForAUser(userId: ObjectId): UserMedia = {
     val mediaObtained = UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Image")).toList
-    mediaObtained(0)
+    mediaObtained.last
   }
 
   /*

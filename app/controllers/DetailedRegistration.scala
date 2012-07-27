@@ -37,11 +37,8 @@ object DetailedRegistration extends Controller {
 
     val schoolListJsonMap = request.body.asFormUrlEncoded.get
     val schoolListJson = schoolListJsonMap("data").toList
-    println(schoolListJson)
     val schoolList = net.liftweb.json.parse(schoolListJson(0)).extract[List[UserSchool]]
-    println("Here is the Schools" + schoolList)
     User.addInfo(schoolList, new ObjectId(request.session.get("userId").get))
-    println("executed Ok")
     UserSchool.createSchool(schoolList)
     val responseString = new ResulttoSent("success", "")
     val responseJsontosent = write(responseString)
@@ -57,7 +54,6 @@ object DetailedRegistration extends Controller {
     val schoolIdList = UserSchool.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
     val finalSchooList = UserSchool.getAllSchools(schoolIdList)
     val schoolListJSON = write(finalSchooList)
-    println(schoolListJSON)
     Ok(schoolListJSON).as("application/json")
   }
 

@@ -20,7 +20,6 @@ object JoinStream extends Controller {
   def joinStream = Action { implicit request =>
     val classListJsonMap = request.body.asFormUrlEncoded.get
     val classJsonList = classListJsonMap("data").toList(0)
-    println(classJsonList)
     val classJson = net.liftweb.json.parse(classJsonList)
     val classId = (classJson \ "id").extract[String]
     val streamId=Class.findClasssById(new ObjectId(classId)).streams(0)
