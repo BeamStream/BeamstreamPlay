@@ -9,6 +9,7 @@ BS.SchoolView = Backbone.View.extend({
 	      
 	      "keyup .school" : "populateSchools",
 	      "focusin .school" : "populateSchools",
+	      "click .close-button" : "closeScreen"
 //	      "click .back-button" :"backToPrevious"
 	       
 	    },
@@ -156,8 +157,8 @@ BS.SchoolView = Backbone.View.extend({
 	              dataType:"json",
 	              success:function(data){
 	            	   
-	            	  // for backbutton functioanality
-//	            	  BS.schoolBack = true;
+	            	  // for back button functionality
+	            	  BS.schoolBack = true;
 	            	  
 	            	  BS.AppRouter.navigate("class", {trigger: true});
 	            	  
@@ -316,15 +317,25 @@ BS.SchoolView = Backbone.View.extend({
 	       */
 	      backToPrevious :function(eventName){
 	    	  eventName.preventDefault();  
-              if(BS.resgistration == "media")
-              {
-            	  BS.AppRouter.navigate("basicRegistration", {trigger: true});
-              }
-              else if(BS.resgistration == "nomedia")
-              {
-            	  BS.AppRouter.navigate("class", {trigger: true});
-              }
+//	    	  alert(BS.back);
+	    	  BS.AppRouter.navigate(BS.back, {trigger: true});
+//              if(BS.resgistration == "media")
+//              {
+//            	  BS.AppRouter.navigate(BS.back, {trigger: true});
+//              }
+//              else if(BS.resgistration == "nomedia")
+//              {
+//            	  BS.AppRouter.navigate("class", {trigger: true});
+//              }
 	    	 
+	      },
+	      /**
+	       * close school screen
+	       */
+	      
+	      closeScreen :function(eventName){
+	    	  eventName.preventDefault();  
+          	  BS.AppRouter.navigate("streams", {trigger: true});
 	      }
 
 });

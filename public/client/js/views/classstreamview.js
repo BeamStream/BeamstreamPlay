@@ -6,7 +6,8 @@ BS.ClassStreamView = Backbone.View.extend({
        "focusin #class-code" : "populateClasses",
        "click #createClass" : "createClass",
        "click #joinClass" :"joinClass",
-       "click #add-tags" : "addTags"
+       "click #add-tags" : "addTags",
+       "click .close-button" : "closeScreen"
 	},
 
 	initialize : function() {
@@ -246,5 +247,13 @@ BS.ClassStreamView = Backbone.View.extend({
 		 
 		var tag = '<div class="element"><label for="tag '+tagCount+'" class="plus-sign">Add Class Tag '+tagCount+'</label><input type="text" id="tag'+tagCount+'" placeholder="Tag '+tagCount+'" class="large tag-position"><i class="icon-middle-tag tag-place"></i></div>';
 		$('#class-tags').append(tag);
-	}
+	},
+	
+	/**
+     * close class stream screen
+     */
+    closeScreen :function(eventName){
+  	  eventName.preventDefault();  
+      BS.AppRouter.navigate("streams", {trigger: true});
+    }
 });

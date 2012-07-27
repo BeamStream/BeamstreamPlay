@@ -8,7 +8,8 @@ BS.ProfileView = Backbone.View.extend({
 	      'click .delete-image' :'deleteSelectedImage',
 	      'click .delete-video' :'deleteSelectedVideo',
 //	      "keyup #mobile" : "arragePhone",
-	      "focusout #mobile" : "arragePhone"
+	      "focusout #mobile" : "arragePhone",
+	      "click .close-button" : "closeScreen"
 //	      'click .back-button' :'backToPrevious'
 	 },
 	 
@@ -45,7 +46,7 @@ BS.ProfileView = Backbone.View.extend({
        		phno ='('+ num.substring(0,3) + ')' + num.substring(3,6) + '-' + num.substring(6);
        		if(!phno.match(BS.phReg))
        		{
-       			$('#num-validation').html("Invalid format");
+       			$('#num-validation').html("Invalid Phone number");
        		}
        		else
        		{
@@ -132,7 +133,7 @@ BS.ProfileView = Backbone.View.extend({
     	   }
     	   else
     	   {
-    		   $('#num-validation').html("Invalid format");
+    		   $('#num-validation').html("Invalid Phone number");
     		   $('#mobile').focus();
     	   }
     	}
@@ -311,7 +312,16 @@ BS.ProfileView = Backbone.View.extend({
     backToPrevious :function(){
       eventName.preventDefault();
   	  BS.AppRouter.navigate("class", {trigger: true});
+    },
+    
+    /**
+     * close profile screen
+     */
+    closeScreen :function(eventName){
+  	  eventName.preventDefault();  
+      BS.AppRouter.navigate("streams", {trigger: true});
     }
+	
 	
     
 });

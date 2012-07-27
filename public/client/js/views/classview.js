@@ -6,7 +6,8 @@ BS.ClassView = Backbone.View.extend({
 		"click a.addclass": "addClasses",
 		"click .datepicker" :"setIndex",
 		"click a.legend-addclass" : "addSchool",
-//		"click .back-button" :"backToPrevious"
+		"click .back-button" :"backToPrevious",
+		"click .close-button" : "closeScreen"
 		 
 
 	},
@@ -172,8 +173,6 @@ BS.ClassView = Backbone.View.extend({
 		$(".modal select:visible").selectBox();
 	    $('.modal .datepicker').datepicker();
  
-//	    $('.datepicker').css('z-index','99999');
-
 	},
 	
 	/**
@@ -270,6 +269,14 @@ BS.ClassView = Backbone.View.extend({
     backToPrevious :function(eventName){
       eventName.preventDefault();
       BS.AppRouter.navigate("school", {trigger: true});
+    },
+    
+    /**
+     * close class screen
+     */
+    closeScreen :function(eventName){
+  	  eventName.preventDefault();  
+      BS.AppRouter.navigate("streams", {trigger: true});
     }
 	
 	
