@@ -8,7 +8,6 @@ tmp
 .cache
 .target/
 bin
-project
 .settings
 .gitignore
 project/plugins.sbt
