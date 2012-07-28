@@ -12,4 +12,3 @@ bin
 .gitignore
 project/plugins.sbt
 project/build.properties
-project/plugins.sbt
