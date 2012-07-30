@@ -88,6 +88,8 @@ BS.autoPopulateSchools = "http://localhost:9000/getAllSchoolsForAutopopulate";
 
 //POST bitly
 BS.bitly =  "http://localhost:9000/bitly";
+//POST comment
+BS.newComment = "http://localhost:9000/newComment";
 
 
 
@@ -149,6 +151,8 @@ BS.bitly =  "http://localhost:9000/bitly";
 //  BS.autoPopulateSchools = "http://beamstream-v3.herokuapp.com/getAllSchoolsForAutopopulate";
 //  //POST bitly
 //  BS.bitly =  "http://beamstream-v3.herokuapp.com/bitly";
+//  //POST comment
+//BS.newComment = "http://beamstream-v3.herokuapp.com/newComment";
 
 /*
  * for testing in local
@@ -182,6 +186,7 @@ BS.bitly =  "http://localhost:9000/bitly";
 // BS.classStreamsForUser = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=classStreamsForUser";
 // BS.autoPopulateSchools = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=autoPopulateSchools";
 // BS.bitly =  "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=bitly";
+// BS.newComment = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=newComment"; 
 //// 
  
 //// 

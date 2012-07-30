@@ -154,7 +154,245 @@
 
 </head>
 
-
+ <!-- template for Files and Media-->
+  <script type="text/x-handlebars-template" id="tpl-files-media">
+<section class="site_search">
+  <div class="container docs">
+  <div class="pre-arrow-wrapper"><a class="pre-arrow" href="#"></a></div>
+  <div class="next-arrow-wrapper"><a class="next-arrow" href="#"></a></div>
+    <div class="container-inner">
+      <form method="post" action="/search/" class="form-inline">
+        <fieldset>
+          <div class="left-wrapper">
+            <label>Upload Media/Docs:</label>
+            <div class="upload-media-wrapper"> <span class="upload-media-icon"><div class="upload-media-arrow"></div></span>
+              <input type="text" id="upload-media" class="upload-media" placeholder="Upload Media/Docs">
+            </div>
+            <input type="button" class="go_button" id="go_button">
+          </div>
+          <div class="right-wrapper">
+            <label>View as:</label>
+            <a class="visual-files" href="#">Visual Files</a> <a class="files_folder" href="#">Files Folder</a> </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</section>
+<div class="container docs content_area wrapper_con">
+  <div class="container-inner">
+    <div class="row">
+      <div class="top-wrapper">
+      <ul class="file-type">
+      <span class="arrow-top"></span>
+            <li><a href="#">Links</a> </li>
+            <li><a href="#">Documentss</a> </li>
+            <li><a href="#">PDF's</a> </li>
+            <li><a class="active" href="#">Videos</a> </li>
+            <li><a href="#">Presentation</a> </li>
+            <li><a href="#">Audio</a> </li>
+            <li><a href="#">Spreadsheets</a> </li>
+          </ul>
+        <label>Sort by:</label>
+        <a id="file-type" href="#" data-toggle="dropdown" >File Type</a>
+        <ul>
+          <li><a href="#">Rock on Votes</a></li>
+          <li><a href="#">Tags</a> </li>
+          <li><a href="#">Category</a> </li>
+          <li><a href="#">by Class/School</a></li>
+        </ul>
+        <label>Then by:</label>
+        <a href="#">Date </a>
+        <ul>
+          <li><a href="#">Most Recent</a></li>
+          <li><a href="#"> Oldest</a> </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <ul class="file-list">
+        <li>
+          <div class="image-wrapper"><img src="images/image1.jpg"></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="image-wrapper"><img src="images/image1.jpg"></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="image-wrapper">
+            <div class="comment-wrapper comment-wrapper2">
+                <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
+                <a href="#" class="hand-icon"></a>
+                <a href="#" class="message-icon"></a>
+                <a href="#" class="share-icon"></a>
+            </div>
+            <h4>Docs Title</h4>
+            <p>The Power of The Platform Behance Network Join The Leading Platform For </p>
+            <h5> Title & Description</h5>
+            <span>State</span><span class="date">25 May, 2012</span> </div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="image-wrapper"><img src="images/image1.jpg"></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="image-wrapper1"><img src="images/video_image.png"></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="image-wrapper1"><img src="images/audio_image.png"></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon music" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="image-wrapper1"><img src="images/spreadsheets_image.png"></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="image-wrapper1"><img src="images/docs_image.png"></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="image-wrapper1"><img src="images/presentations_image.png"></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon presentation" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="image-wrapper1"><img src="images/pdp_image.png"></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon pdf" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="image-wrapper1"><img src="images/links_image.png"></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="image-wrapper1"><div id="profile-images"></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="image-wrapper"><img src="images/image2.jpg"></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="image-wrapper"><img src="images/image3.jpg"></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon music" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="image-wrapper"><img src="images/image4.jpg"></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="image-wrapper"><img src="images/image5.jpg"></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <footer class="site_footer">
+    <p>Copyright &copy; 2012 BeamStream</p>
+    <ul class="pull-right">
+      <!-- WARNING: don't put newlines here, it breaks layout. -->
+      <li><a href="#submit-suggestion">Submit suggestion</a></li>
+      <li><a href="#report-issue">Report issue</a></li>
+    </ul>
+  </footer>
+</div>
+ </script>
 
 
 <!--  Class stream template -->
@@ -1570,9 +1808,80 @@
   </ul>
  </div>
  </script>
-
-   
  
+<script type="text/x-handlebars-template" id="comment-box">
+	<section class="add_comment">
+		<form class="form-vertical" action="." method="post">
+			<fieldset>
+				<div class="control-group">
+					<div class="input-prepend-container">
+						<div class="input-prepend">
+							<span class="add-on">
+								<i class="icon-plus"></i>
+								<span class="popout_arrow">
+									<span></span>
+								</span>
+							</span>
+							<input type="text" id="{{parentId}}-cmtBox" placeholder="Add a comment" class="add_message_comment">
+						</div>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</section>
+  </script>  
+  
+   <script type="text/x-handlebars-template" id="tpl-comments">
+  <ul class="comments">
+       <li>
+          <article class="message_item">
+            <div class="comment_wrapper">
+              <div class="photo_container">
+                 <img src="{{image}}" width="39" height="39">
+               </div>
+                    <div class="content_container">
+                     <div class="meta_data">
+                         <span class="username"><a href="#user-profile">@beamstream</a></span>
+                          <span class="separator">-</span>
+                           <time datetime="2011-12-01" pubdate>Dec 01, 2011</time>
+                           <span class="separator">-</span>
+                              span class="visibility">Public</span>
+                      </div>
+                           <p>
+                              Professor Disrupting Lecture Hall with Best Use of Skype Ever
+                              <a href="#external">http://linkd.in/rSpYMK</a>
+                               <a href="#edtech">#edtech</a>
+                                <a href="#edchat">#edchat</a>
+                                <a href="#flippedclassroom">#flippedclassroom</a>
+                              </p>
+                             <div class="actions">
+                              <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
+                             <a class="rock" href="#rock">Rocked it!</a>
+                             <span class="separator">-</span>
+                            <a class="comment" href="#comment">Comment</a>
+                            <span class="separator">-</span>
+                           <a class="follow" href="#follow">Follow</a>
+                      </div>
+                    </div>
+                 </div>
+              </article>
+          </li>
+   </script> 
+   
+ <script type="text/x-handlebars-template" id="tpl-comment-header"> 
+   <header class="comments_info">
+	<h5 class="pull-left">
+		<span class="comments_number">3</span>
+		Comments
+	</h5>
+	<div class="comment_actions pull-right">
+		<a href="#hide">Hide</a>
+		|
+		<a class="disabled" href="#show">Show</a>
+	</div>
+</header>
+</script> 
+   
  <script type="text/x-handlebars-template" id="tpl-messages">
  
  <li id= "{{datas.id.id}}">
@@ -1597,7 +1906,7 @@
          <a class="rock " href="#rock" data-original-title="hello"><i class="rocked"><i>{{datas.rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
          <a class="rock" id="rocks" href="#rock">Rocked it!</a>
          <span class="separator">-</span>
-         <a class="comment" href="#comment">Comment</a>
+         <a class="comment" id ="{{datas.id.id}}-comment" href="#comment">Comment</a>
          <span class="separator">-</span>
          <a class="follow" href="#follow">Follow</a>
        </div>
@@ -1606,6 +1915,9 @@
        </div>
      </div>
    </div>
+   <div id="{{datas.id.id}}-header"> </div>
+   <div id="{{datas.id.id}}-commentlists"></div>
+   <div id="{{datas.id.id}}-add-comment"></div>
    </article>
    <div id="hover-lists-{{datas.id.id}}" class="list-popup">
    </div>
@@ -1921,245 +2233,7 @@
   </div>
    </div>
   </script>
-  <!-- template for Files and Media-->
-  <script type="text/x-handlebars-template" id="tpl-files-media">
-<section class="site_search">
-  <div class="container docs">
-  <div class="pre-arrow-wrapper"><a class="pre-arrow" href="#"></a></div>
-  <div class="next-arrow-wrapper"><a class="next-arrow" href="#"></a></div> 
-    <div class="container-inner">
-      <form method="post" action="/search/" class="form-inline">
-        <fieldset>
-          <div class="left-wrapper">
-            <label>Upload Media/Docs:</label>
-            <div class="upload-media-wrapper"> <span class="upload-media-icon"><div class="upload-media-arrow"></div></span>
-              <input type="text" id="upload-media" class="upload-media" placeholder="Upload Media/Docs">
-            </div>
-            <input type="button" class="go_button" id="go_button">
-          </div>
-          <div class="right-wrapper">
-            <label>View as:</label>
-            <a class="visual-files" href="#">Visual Files</a> <a class="files_folder" href="#">Files Folder</a> </div>
-        </fieldset>
-      </form>
-    </div>
-  </div>
-</section>
-<div class="container docs content_area wrapper_con">
-  <div class="container-inner">
-    <div class="row">
-      <div class="top-wrapper">
-      <ul class="file-type">
-      <span class="arrow-top"></span>
-            <li><a href="#">Links</a> </li>
-            <li><a href="#">Documentss</a> </li>
-            <li><a href="#">PDF's</a> </li>
-            <li><a class="active" href="#">Videos</a> </li>
-            <li><a href="#">Presentation</a> </li>
-            <li><a href="#">Audio</a> </li>
-            <li><a href="#">Spreadsheets</a> </li>
-          </ul>
-        <label>Sort by:</label>
-        <a id="file-type" href="#" data-toggle="dropdown" >File Type</a>
-        <ul>
-          <li><a href="#">Rock on Votes</a></li>
-          <li><a href="#">Tags</a> </li>
-          <li><a href="#">Category</a> </li>
-          <li><a href="#">by Class/School</a></li>
-        </ul>
-        <label>Then by:</label>
-        <a href="#">Date </a>
-        <ul>
-          <li><a href="#">Most Recent</a></li>
-          <li><a href="#"> Oldest</a> </li>
-        </ul>
-      </div>
-    </div>
-    <div class="row">
-      <ul class="file-list">
-        <li>
-          <div class="image-wrapper"><img src="images/image1.jpg"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="image-wrapper"><img src="images/image1.jpg"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="image-wrapper">
-            <div class="comment-wrapper comment-wrapper2">           
-                <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
-                <a href="#" class="hand-icon"></a>
-                <a href="#" class="message-icon"></a>
-                <a href="#" class="share-icon"></a>           
-            </div>
-            <h4>Docs Title</h4>
-            <p>The Power of The Platform Behance Network Join The Leading Platform For </p>
-            <h5> Title & Description</h5>
-            <span>State</span><span class="date">25 May, 2012</span> </div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="image-wrapper"><img src="images/image1.jpg"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="image-wrapper1"><img src="images/video_image.png"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="image-wrapper1"><img src="images/audio_image.png"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon music" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="image-wrapper1"><img src="images/spreadsheets_image.png"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="image-wrapper1"><img src="images/docs_image.png"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="image-wrapper1"><img src="images/presentations_image.png"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon presentation" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="image-wrapper1"><img src="images/pdp_image.png"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon pdf" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="image-wrapper1"><img src="images/links_image.png"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="image-wrapper1"><div id="profile-images"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="image-wrapper"><img src="images/image2.jpg"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="image-wrapper"><img src="images/image3.jpg"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon music" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="image-wrapper"><img src="images/image4.jpg"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="image-wrapper"><img src="images/image5.jpg"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <footer class="site_footer">
-    <p>Copyright &copy; 2012 BeamStream</p>
-    <ul class="pull-right">
-      <!-- WARNING: don't put newlines here, it breaks layout. -->
-      <li><a href="#submit-suggestion">Submit suggestion</a></li>
-      <li><a href="#report-issue">Report issue</a></li>
-    </ul>
-  </footer>
-</div>
- </script>
+ 
 
 
 	<!-- Le javascript
@@ -2312,6 +2386,7 @@
 	
 <!--  Backbone.js files -->
 <script src="js/views/loginview.js"></script>
+<script src="js/views/streamview.js"></script>
 <script src="js/views/classstreamview.js"></script>
 <script src="js/views/profileview.js"></script>
 <script src="js/views/projectstreamview.js"></script>
@@ -2331,7 +2406,7 @@
 <script src="js/views/classview.js"></script>
 <script src="js/models/classmodel.js"></script>
 <script src="js/models/profilemodel.js"></script>
-<script src="js/views/streamview.js"></script>
+
 <script src="js/views/filesmediaview.js"></script>
 <script src="js/models/singleusermodel.js"></script>
 <script src="js/models/filemodel.js"></script>

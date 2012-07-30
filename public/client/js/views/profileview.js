@@ -7,7 +7,7 @@ BS.ProfileView = Backbone.View.extend({
 	      'change #my-video' :'displayVideo',
 	      'click .delete-image' :'deleteSelectedImage',
 	      'click .delete-video' :'deleteSelectedVideo',
-//	      "keyup #mobile" : "arragePhone",
+	       "keyup #mobile" : "checkNumber",
 	      "focusout #mobile" : "arragePhone",
 	      "click .close-button" : "closeScreen"
 //	      'click .back-button' :'backToPrevious'
@@ -19,8 +19,10 @@ BS.ProfileView = Backbone.View.extend({
         this.image = null;
     	this.video = null;
         this.template= _.template($("#tpl-profile-reg").html());
-        BS.phReg =/^[(][0-9]{3}[)][0-9]{3}[-][0-9]{4}$/;
+       
+        BS.phReg =/^[(][0-9]{3}[)][\s][0-9]{3}[-][0-9]{4}$/;
         BS.num = {};
+        BS.digits = 0;
         BS.bar = $('.bar');
         
     },
@@ -31,36 +33,50 @@ BS.ProfileView = Backbone.View.extend({
         return this;
     },
     
-    
+    checkNumber : function(){
+    	
+    	var  num = $('#mobile').val();
+    	var numText = num.replace(/\D/g,"");
+       	
+    	var length = num.replace(/\D/g,"").length;
+        if(length > 9)
+        {
+        	phno ='('+ numText.substring(0,3) + ') ' + numText.substring(3,6) + '-' + numText.substring(6,10);
+        	$('#mobile').val(phno);
+        	$('#num-validation').html("allow 10 digits only");
+        }
+        
+    },
     /**
      * arrange phone number
      */
        arragePhone :function(){
-       	
+       	 
        	var phno = '';
        	var numCount = $('#mobile').val().length;
        	var  num = $('#mobile').val();
-       	 
+       	if(!num)
+       	  return;
        	if(!num.match(BS.phReg))
        	{  
-       		phno ='('+ num.substring(0,3) + ')' + num.substring(3,6) + '-' + num.substring(6);
-       		if(!phno.match(BS.phReg))
-       		{
-       			$('#num-validation').html("Invalid Phone number");
-       		}
-       		else
-       		{
+       		//phno ='('+ num.substring(0,3) + ')' + num.substring(3,6) + '-' + num.substring(6);
+//       		if(!phno.match(BS.phReg))
+//       		{
+       			$('#num-validation').html("Invalid number");
+////       		}
+//       		else
+//       		{
        			
-       			$('#num-validation').html("");
-       			$('#mobile').val(phno);
-       		}
+//       			$('#num-validation').html("");
+//       			$('#mobile').val(phno);
+//       		}
        	}
        	else
        	{
        		$('#num-validation').html("");
        	}
        	 
-       	
+//    	   $('#num-validation').html("");
        	
        },
        
@@ -133,7 +149,7 @@ BS.ProfileView = Backbone.View.extend({
     	   }
     	   else
     	   {
-    		   $('#num-validation').html("Invalid Phone number");
+    		   $('#num-validation').html("Invalid  number");
     		   $('#mobile').focus();
     	   }
     	}

@@ -22,6 +22,8 @@ BS.StreamView = Backbone.View.extend({
            "click .nav-tabs li" : "showActive",
            "click .class-nav-list li" :"showListActive",
            "keypress #msg" : "postMessageOnEnterKey",
+           "click .comment": "showCommentSection",
+            "keypress .add_message_comment" : "addComment"
  
 	 },
 	 
@@ -226,11 +228,8 @@ BS.StreamView = Backbone.View.extend({
      * display class stream
      */
     classStream :function(eventName) {
-    	 
-    	$('.modal-backdrop').show();
-    	this.classStream = new BS.ClassStreamView();
-    	this.classStream.render();
-    	$('#school-popup').html(this.classStream.el);
+    	eventName.preventDefault();
+    	BS.AppRouter.navigate("classStream", {trigger: true});
     },
     /*
      * display Project stream screen
@@ -662,6 +661,7 @@ BS.StreamView = Backbone.View.extend({
    	     $('#streams-list').find('a#'+streamId+'').parent('li').addClass('active');
    	     
    	    // call the method to display the messages of the selected stream
+   	     $('.timeline_items').html("");
          this.getMessageInfo(streamId);
 		 
 	 },
@@ -672,6 +672,78 @@ BS.StreamView = Backbone.View.extend({
 			 self.postMessage(); 
 		 }
 
+	 },
+	 /**
+	  * show comment section
+	  */
+	 showCommentSection : function(eventName){
+		 eventName.preventDefault();
+		 var parentMsg = eventName.target.id;
+		 var parent =$('#'+parentMsg+'').closest('li').attr('id');
+		 
+		 /* for comment box */
+		 var commentBox = $("#comment-box").html();
+		 var cmtBoxTemplate = Handlebars.compile(commentBox);
+		 $('#'+parent+'-add-comment').html(cmtBoxTemplate({parentId : parent}));
+		 
+		 var test = false;
+		 if(test == true)
+		 {
+			 /* for comment list */
+			 var comments = $("#tpl-comments").html();
+			 var commentsTemplate = Handlebars.compile(comments);
+			 $('#'+parent+'-commentlists').html(commentsTemplate);
+			 
+			 /* for comment Header   */
+			 var cmdHead = $("#tpl-comment-header").html();
+			 var cmdHeadTemplate = Handlebars.compile(cmdHead);
+			 $('#'+parent+'-header').html(cmdHeadTemplate);
+		 }
+		 
+		
+		 
+	 },
+	 
+	 /**
+	  * add comments for messages
+	  */
+	 addComment : function(eventName){
+		 
+		 var parentMsg = eventName.target.id;
+		 
+		 var parent =$('#'+parentMsg+'').closest('li').attr('id');
+		 
+		 /* post comments on enter key press */
+		 if(eventName.which == 13) {
+			 
+			 eventName.preventDefault(); 
+			 var commentText = $('#'+parent+'-cmtBox').val();
+			  
+			 /* post comments information */
+		        $.ajax({
+		  			type : 'POST',
+		  			url : BS.newComment,
+		  			data : {
+		  				messageId : parent,
+		  				comment : commentText
+		  			},
+		  			dataType : "json",
+				  	success : function(data) { 
+				  				 
+//				  				 var commentInfo = {
+//								 image : BS.profileImageUrl,
+//								 
+//						 }
+//						 /* for comment list */
+//						 var comments = $("#tpl-comments").html();
+//						 var commentsTemplate = Handlebars.compile(comments);
+//						 $('#'+parent+'-commentlists').html(commentsTemplate(commentInfo));
+				  				
+				  	}
+		  		});
+
+			 
+		 }
 	 },
 	 
  
