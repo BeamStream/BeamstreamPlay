@@ -38,7 +38,8 @@ case class Message(@Key("_id") id: ObjectId,
   firstNameofMsgPoster: String,
   lastNameofMsgPoster: String,
   rocks: Int,
-  rockers: List[ObjectId])
+  rockers: List[ObjectId],
+  comments: List[ObjectId])
 
 object Message {
 
@@ -142,6 +143,15 @@ object Message {
     val messageObtained = MessageDAO.findOneByID(messageId)
     messageObtained.get
   }
+
+  /*
+ * add Comment to message
+ */
+  def addCommentToMessage(commentId: ObjectId, messageId: ObjectId) {
+    val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+    MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments ++ List(commentId))), false, false, new WriteConcern)
+  }
+
 }
 
 object MessageDAO extends SalatDAO[Message, ObjectId](collection = MongoHQConfig.mongoDB("message"))

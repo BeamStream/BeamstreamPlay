@@ -49,7 +49,7 @@ object MessageController extends Controller {
         val messageBody = messageListJsonMap("message").toList(0)
         val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
         val messageToCreate = new Message(new ObjectId, messageBody, None, Option(MessageAccess.withName(messageAccess)), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)),
-          messagePoster.firstName, messagePoster.lastName, 0, List())
+          messagePoster.firstName, messagePoster.lastName, 0, List(), List())
         val messageId = Message.createMessage(messageToCreate)
         val messageObtained = Message.findMessageById(messageId)
         val messageJson = write(List(messageObtained))

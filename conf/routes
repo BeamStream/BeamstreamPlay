@@ -26,7 +26,8 @@ POST /getAllMessagesForAStream controllers.MessageController.getAllMessagesForAS
 
 
 #Comments
-POST   /newComment  controllers.CommentController.newComment
+POST   /newComment                   controllers.CommentController.newComment
+GET    /allCommentsForAMessage       controllers.CommentController.allCommentsForAMessage
 
 
 #Join Streams

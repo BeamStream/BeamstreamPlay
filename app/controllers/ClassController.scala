@@ -15,6 +15,7 @@ import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
 import models.UserSchool
 import models.User
+import models.ResulttoSent
 
 object ClassController extends Controller {
 
@@ -35,7 +36,7 @@ object ClassController extends Controller {
     val classList = net.liftweb.json.parse(classJsonList(0)).extract[List[Class]]
     val listOfClassIds = Class.createClass(classList,new ObjectId(request.session.get("userId").get))
     User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
-    Ok
+    Ok(write(new ResulttoSent("Success","Class added")))
   }
 
   /*
