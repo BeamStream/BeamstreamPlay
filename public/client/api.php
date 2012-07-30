@@ -25,7 +25,7 @@ class Api {
 		echo json_encode($arr);
 	}
 	function loggedInUserJson(){
-		$arr = array('id' => array(), 'userType' => array('name' => 'Educator'),'email' => 'ayush@knoldus.com' ,'firstName' => 'Ayush', 'lastName' => 'Mishra' ,'userName' => 'ayush' ,'alias' => ' ' , 'password' => 'ayush', 'orgName' => 'Ayush' ,'location' => 'India','streams' => array( ), 'schoolId' => array(),'classId' => array());
+		$arr = array('id' => array('id' => "10000"), 'userType' => array('name' => 'Educator'),'email' => 'ayush@knoldus.com' ,'firstName' => 'Ayush', 'lastName' => 'Mishra' ,'userName' => 'ayush' ,'alias' => ' ' , 'password' => 'ayush', 'orgName' => 'Ayush' ,'location' => 'India','streams' => array( ), 'schoolId' => array(),'classId' => array());
 		echo json_encode($arr);
 	}
 	function saveSchool(){
@@ -70,7 +70,7 @@ class Api {
 		echo json_encode($arr);
 	}
 	function streamMessages(){
-		$arr = array(array('id' => array('id' => '111'),'messageBody' => 'http://bit.ly/Q0uyK6' ,'messageType' => array('name' => 'Audio'),'messageAccess' => array('name' => 'Public'), 'timeCreated' => '2012-12-20T11:53:44Z' , 'userId' => array('id' => '121212' ),'imageUrl' => 'images/back.png','streamId' =>array(),'firstNameofMsgPoster' => 'Neelkanth', 'lastNameofMsgPoster' => 'Sachdeva', 'rocks' => '0','rockers' =>array()),array('id' => array('id' => '222'),'messageBody' => 'All the Best' ,'messageType' => array('name' => 'Audio'),'messageAccess' => array('name' => 'Private'), 'timeCreated' => '2012-06-20T11:53:44Z' , 'userId' => array('id' => '2323222' ),'imageUrl' => 'images/and.png', 'streamId' =>array(),'firstNameofMsgPoster' => 'Neelkanth', 'lastNameofMsgPoster' => 'Sachdeva', 'rocks' => '0','rockers' =>array()),array('id' => array('id' => '333'),'messageBody' => 'Hi All' ,'messageType' => array('name' => 'Audio'),'messageAccess' => array('name' => 'Public'), 'timeCreated' => '2012-06-20T11:53:44Z' , 'userId' => array('id' => '5656' ),'imageUrl' => 'images/hand.png','streamId' =>array(),'firstNameofMsgPoster' => 'Neelkanth', 'lastNameofMsgPoster' => 'Sachdeva', 'rocks' => '0','rockers' =>array()));
+		$arr = array(array('id' => array('id' => '1112'),'messageBody' => 'http://bit.ly/Q0uyK6' ,'messageType' => array('name' => 'Audio'),'messageAccess' => array('name' => 'Public'), 'timeCreated' => '2012-12-20T11:53:44Z' , 'userId' => array('id' => '121212' ),'imageUrl' => 'images/back.png','streamId' =>array(),'firstNameofMsgPoster' => 'Neelkanth', 'lastNameofMsgPoster' => 'Sachdeva', 'rocks' => '0','rockers' =>array()),array('id' => array('id' => '222'),'messageBody' => 'http://www.flickr.com/photos/churchclothing/2597225382/' ,'messageType' => array('name' => 'Audio'),'messageAccess' => array('name' => 'Private'), 'timeCreated' => '2012-06-20T11:53:44Z' , 'userId' => array('id' => '2323222' ),'imageUrl' => 'images/and.png', 'streamId' =>array(),'firstNameofMsgPoster' => 'Neelkanth', 'lastNameofMsgPoster' => 'Sachdeva', 'rocks' => '0','rockers' =>array()),array('id' => array('id' => '333'),'messageBody' => 'Hi All' ,'messageType' => array('name' => 'Audio'),'messageAccess' => array('name' => 'Public'), 'timeCreated' => '2012-06-20T11:53:44Z' , 'userId' => array('id' => '5656' ),'imageUrl' => 'images/hand.png','streamId' =>array(),'firstNameofMsgPoster' => 'Neelkanth', 'lastNameofMsgPoster' => 'Sachdeva', 'rocks' => '0','rockers' =>array()));
 		echo json_encode($arr);
 	}
 	
@@ -100,8 +100,10 @@ class Api {
 		echo json_encode($arr);
 	}
 	function profileImage(){
-		$arr = array('id' => array(),'userId' => array(), 'mediaUrl' => 'images/placeholders/face1.png' , 'contentType'=> array('name' => 'Image'),'isProfile' => 'true');
+		$arr = "images/image4.jpg";
 		echo json_encode($arr);
+// 		$arr = array('id' => array(),'userId' => array(), 'mediaUrl' => 'images/placeholders/face1.png' , 'contentType'=> array('name' => 'Image'),'isProfile' => 'true');
+// 		echo json_encode($arr);
 	}
 	function allProfileImages(){
 		$arr =  array('images/smiley.jpg' , 'images/placeholders/face1.png' ,'images/image4.jpg');
@@ -120,7 +122,14 @@ class Api {
 		 
 		echo json_encode($arr);
 	}
-	
+	function newComment(){
+		$arr = array(array('id' => array('id' => '00001'),'messageBody' => 'Hi this is comment' , 'timeCreated' => '2012-06-20T11:53:44Z' , 'userId' => array('id' => '0128j7126'),'firstNameofMsgPoster' => 'Neelkanth','lastNameofMsgPoster' => 'Sachdev','rocks' => '0' ,'rockers' => array(),'comments' => array()));
+		echo json_encode($arr);
+	}
+	function allCommentsForAMessage(){
+		$arr = array(array('id' => array('id' => '1000'),'messageBody' => 'aaaaaa' , 'timeCreated' => '2012-06-20T11:53:44Z' , 'userId' => array('id' => '01sdfsd7126'),'firstNameofMsgPoster' => 'Neelkaddnth','lastNameofMsgPoster' => 'dfd','rocks' => '0' ,'rockers' => array(),'comments' => array()),array('id' => array('id' => '2000'),'messageBody' => 'bbbbbbbbbb' , 'timeCreated' => '2012-06-20T11:53:44Z' , 'userId' => array('id' => '0128j7126'),'firstNameofMsgPoster' => 'ddd','lastNameofMsgPoster' => 'Sachdev','rocks' => '0' ,'rockers' => array(),'comments' => array()),array('id' => array('id' => '30000'),'messageBody' => 'cccccccc' , 'timeCreated' => '2012-06-20T11:53:44Z' , 'userId' => array('id' => '0128j7126'),'firstNameofMsgPoster' => 'Neelkanth','lastNameofMsgPoster' => 'Sachdev','rocks' => '0' ,'rockers' => array(),'comments' => array()));
+		echo json_encode($arr);
+	}
 	
 }
 

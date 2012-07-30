@@ -1832,30 +1832,26 @@
   </script>  
   
    <script type="text/x-handlebars-template" id="tpl-comments">
-  <ul class="comments">
+  
        <li>
           <article class="message_item">
             <div class="comment_wrapper">
               <div class="photo_container">
-                 <img src="{{image}}" width="39" height="39">
+                 <img id="{{id.id}}-image" src="{{image}}" width="39" height="39">
                </div>
                     <div class="content_container">
                      <div class="meta_data">
-                         <span class="username"><a href="#user-profile">@beamstream</a></span>
+                         <span class="username"><a href="#user-profile">{{firstNameofMsgPoster}} {{lastNameofMsgPoster}}</a></span>
                           <span class="separator">-</span>
-                           <time datetime="2011-12-01" pubdate>Dec 01, 2011</time>
+                           <time datetime="2011-12-01" pubdate>{{timeCreated}}</time>
                            <span class="separator">-</span>
-                              span class="visibility">Public</span>
+                              <span class="visibility">Public</span>
                       </div>
                            <p>
-                              Professor Disrupting Lecture Hall with Best Use of Skype Ever
-                              <a href="#external">http://linkd.in/rSpYMK</a>
-                               <a href="#edtech">#edtech</a>
-                                <a href="#edchat">#edchat</a>
-                                <a href="#flippedclassroom">#flippedclassroom</a>
+                             {{messageBody}}
                               </p>
                              <div class="actions">
-                              <a class="rock" href="#rock"><i class="rocked"><i>5</i></i><span class="popout_arrow"><span></span></span></a>
+                              <a class="rock" href="#rock"><i class="rocked"><i>{{rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
                              <a class="rock" href="#rock">Rocked it!</a>
                              <span class="separator">-</span>
                             <a class="comment" href="#comment">Comment</a>
@@ -1871,13 +1867,13 @@
  <script type="text/x-handlebars-template" id="tpl-comment-header"> 
    <header class="comments_info">
 	<h5 class="pull-left">
-		<span class="comments_number">3</span>
+		<span class="comments_number" id="{{parentId}}-cmtCount">{{cmtCount}}</span>
 		Comments
 	</h5>
 	<div class="comment_actions pull-right">
-		<a href="#hide">Hide</a>
+		<a href="#hide" id="{{parentId}}-hideComment" class="hide_comments">Hide</a>
 		|
-		<a class="disabled" href="#show">Show</a>
+		<a class="disabled show_comments" href="#show" id="{{parentId}}-showComment">Show</a>
 	</div>
 </header>
 </script> 
@@ -1916,7 +1912,7 @@
      </div>
    </div>
    <div id="{{datas.id.id}}-header"> </div>
-   <div id="{{datas.id.id}}-commentlists"></div>
+   <ul class="comments" id="{{datas.id.id}}-commentlists"></ul>
    <div id="{{datas.id.id}}-add-comment"></div>
    </article>
    <div id="hover-lists-{{datas.id.id}}" class="list-popup">
@@ -2253,6 +2249,7 @@
 	var tagCount = 3 ; // tag keeps track of how many tags we have in class stream
     var options ='';
 	var sClasses = 1; // sClasses keeps number of schools under which we added classes 
+
     $(function(){
     	$(".radio").dgStyle();
     	$(".checkbox").dgStyle();

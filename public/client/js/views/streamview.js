@@ -23,7 +23,9 @@ BS.StreamView = Backbone.View.extend({
            "click .class-nav-list li" :"showListActive",
            "keypress #msg" : "postMessageOnEnterKey",
            "click .comment": "showCommentSection",
-            "keypress .add_message_comment" : "addComment"
+           "keypress .add_message_comment" : "addComment",
+           "click .hide_comments" : "hideComments",
+           "click .show_comments" : "showComments"
  
 	 },
 	 
@@ -31,6 +33,7 @@ BS.StreamView = Backbone.View.extend({
     initialize:function () {
     	console.log('Initializing Stream View');
     	BS.urlRegex = /(https?:\/\/[^\s]+)/g;
+    	BS.commentCount = 0;
     	/* for hover over */
 	    this.distance = 10;
 	    this.time = 250;
@@ -686,21 +689,45 @@ BS.StreamView = Backbone.View.extend({
 		 var cmtBoxTemplate = Handlebars.compile(commentBox);
 		 $('#'+parent+'-add-comment').html(cmtBoxTemplate({parentId : parent}));
 		 
-		 var test = false;
-		 if(test == true)
-		 {
-			 /* for comment list */
-			 var comments = $("#tpl-comments").html();
-			 var commentsTemplate = Handlebars.compile(comments);
-			 $('#'+parent+'-commentlists').html(commentsTemplate);
-			 
-			 /* for comment Header   */
-			 var cmdHead = $("#tpl-comment-header").html();
-			 var cmdHeadTemplate = Handlebars.compile(cmdHead);
-			 $('#'+parent+'-header').html(cmdHeadTemplate);
-		 }
-		 
-		
+		 $.ajax({
+             type: 'POST',
+             url: BS.allCommentsForAMessage,
+             data:{
+            	  messageId:parent
+             },
+             dataType:"json",
+             success:function(datas){
+            	 
+            	 var cmtCount  = datas.length;
+            	 
+            	 _.each(datas, function(data) {
+			  			
+		  			 var comments = $("#tpl-comments").html();
+					 var commentsTemplate = Handlebars.compile(comments);
+					 $('#'+parent+'-commentlists').prepend(commentsTemplate(data));
+					 
+					 
+					 /* get profile images for comments */
+				      $.ajax({
+				    			type : 'POST',
+				    			url : BS.profileImage,
+				    			data : {
+				    				 userId :  data.userId.id
+				    			},
+				    			dataType : "json",
+				    			success : function(imgUrl) {
+				    				$('#'+data.id.id+'-image').attr("src" ,imgUrl ); 
+				    			}
+				      });
+					  
+		  		});
+            	 /* for comment Header   */
+    			 var cmdHead = $("#tpl-comment-header").html();
+    			 var cmdHeadTemplate = Handlebars.compile(cmdHead);
+    			 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
+              
+             }
+          });
 		 
 	 },
 	 
@@ -710,15 +737,15 @@ BS.StreamView = Backbone.View.extend({
 	 addComment : function(eventName){
 		 
 		 var parentMsg = eventName.target.id;
-		 
 		 var parent =$('#'+parentMsg+'').closest('li').attr('id');
+		 var cmtCount =  $('#'+parent+'-cmtCount').text();
 		 
 		 /* post comments on enter key press */
 		 if(eventName.which == 13) {
 			 
 			 eventName.preventDefault(); 
 			 var commentText = $('#'+parent+'-cmtBox').val();
-			  
+			
 			 /* post comments information */
 		        $.ajax({
 		  			type : 'POST',
@@ -728,23 +755,69 @@ BS.StreamView = Backbone.View.extend({
 		  				comment : commentText
 		  			},
 		  			dataType : "json",
-				  	success : function(data) { 
+				  	success : function(datas) { 
 				  				 
-//				  				 var commentInfo = {
-//								 image : BS.profileImageUrl,
-//								 
-//						 }
-//						 /* for comment list */
-//						 var comments = $("#tpl-comments").html();
-//						 var commentsTemplate = Handlebars.compile(comments);
-//						 $('#'+parent+'-commentlists').html(commentsTemplate(commentInfo));
+				  		$('#'+parent+'-cmtBox').val('');
+				  	    
+				  		_.each(datas, function(data) {
+				  			 cmtCount++; 
+				  			 var comments = $("#tpl-comments").html();
+							 var commentsTemplate = Handlebars.compile(comments);
+							 $('#'+parent+'-commentlists').append(commentsTemplate(data));
+							 $('#'+data.id.id+'-image').attr("src" ,BS.profileImageUrl );
+							 
+					  		 		
+				  		});
 				  				
+						 /* for comment Header   */
+						 var cmdHead = $("#tpl-comment-header").html();
+						 var cmdHeadTemplate = Handlebars.compile(cmdHead);
+						 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
+ 
 				  	}
 		  		});
 
 			 
 		 }
 	 },
+	 
+	 /**
+	  * hide comments under each messages
+	  */
+	 
+	 hideComments :function(eventName){
+		 eventName.preventDefault(); 
+		 var parentMsg = eventName.target.id;
+		 var parent =$('#'+parentMsg+'').closest('li').attr('id');		
+		 
+		 $hide = $('#'+parent+'-hideComment');
+         $show = $('#'+parent+'-showComment'); 
+         $comments = $('#'+parent+'-commentlists');
+		 if ($comments.is(':visible')) {
+             $show.removeClass('disabled');
+             $hide.addClass('disabled');
+             $comments.slideUp();
+         }
+	 },
+	 
+	 /**
+	  * show comments under each messages
+	  */
+	 
+	 showComments :function(eventName){
+		 eventName.preventDefault(); 
+		 var parentMsg = eventName.target.id;
+		 var parent =$('#'+parentMsg+'').closest('li').attr('id');		
+		 
+		 $hide = $('#'+parent+'-hideComment');
+         $show = $('#'+parent+'-showComment'); 
+         $comments = $('#'+parent+'-commentlists');
+         if (!$comments.is(':visible')) {
+             $hide.removeClass('disabled');
+             $show.addClass('disabled');
+             $comments.slideDown();
+         }
+	 }
 	 
  
 	 
