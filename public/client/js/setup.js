@@ -86,10 +86,13 @@ BS.classStreamsForUser = "http://localhost:9000/allClassStreamsForAUser";
 //Get all school for autopopulate
 BS.autoPopulateSchools = "http://localhost:9000/getAllSchoolsForAutopopulate";
 
-//POST bitly
-BS.bitly =  "http://localhost:9000/bitly";
-//POST comment
-BS.newComment = "http://localhost:9000/newComment";
+ //POST bitly
+ BS.bitly =  "http://localhost:9000/bitly";
+ //POST comment
+ BS.newComment = "http://localhost:9000/newComment";
+
+ //Get all comments of a message
+ BS.allCommentsForAMessage = "http://localhost:9000/allCommentsForAMessage";
 
 
 
@@ -97,7 +100,7 @@ BS.newComment = "http://localhost:9000/newComment";
  * For Cloud
  */
  
-//  //For Login Page 
+//  //For Login Page  
 //  BS.login = "http://beamstream-v3.herokuapp.com/users";
 //  //For Verify Token
 //  BS.verifyToken ="http://beamstream-v3.herokuapp.com/verifyToken";
@@ -152,7 +155,9 @@ BS.newComment = "http://localhost:9000/newComment";
 //  //POST bitly
 //  BS.bitly =  "http://beamstream-v3.herokuapp.com/bitly";
 //  //POST comment
-//BS.newComment = "http://beamstream-v3.herokuapp.com/newComment";
+//  BS.newComment = "http://beamstream-v3.herokuapp.com/newComment";
+//  //Get all comments of a message
+//  BS.allCommentsForAMessage = "http://beamstream-v3.herokuapp.com/allCommentsForAMessage";
 
 /*
  * for testing in local
@@ -187,6 +192,7 @@ BS.newComment = "http://localhost:9000/newComment";
 // BS.autoPopulateSchools = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=autoPopulateSchools";
 // BS.bitly =  "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=bitly";
 // BS.newComment = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=newComment"; 
+// BS.allCommentsForAMessage = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=allCommentsForAMessage"; 
 //// 
  
 //// 
