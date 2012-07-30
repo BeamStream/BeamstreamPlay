@@ -7,3 +7,8 @@ tmp
 .classpath
 .cache
 .target/
+bin
+.settings
+.gitignore
+project/plugins.sbt
+project/build.properties
