@@ -28,8 +28,17 @@ object MessageAccess extends Enumeration {
   val Public = Value(1, "Public")
 }
 
-case class Message(@Key("_id") id: ObjectId, messageBody: String, messageType: MessageType.Value, messageAccess: MessageAccess.Value, timeCreated: Date, userId: ObjectId, streamId: ObjectId, firstNameofMsgPoster: String,
-  lastNameofMsgPoster: String, rocks: Int, rockers: List[ObjectId], comments :  List[ObjectId])
+case class Message(@Key("_id") id: ObjectId,
+  messageBody: String,
+  messageType: Option[MessageType.Value],
+  messageAccess: Option[MessageAccess.Value],
+  timeCreated: Date,
+  userId: ObjectId,
+  streamId: Option[ObjectId],
+  firstNameofMsgPoster: String,
+  lastNameofMsgPoster: String,
+  rocks: Int,
+  rockers: List[ObjectId])
 
 object Message {
 
@@ -90,22 +99,19 @@ object Message {
 
   def rockedIt(messageId: ObjectId, userId: ObjectId): Int = {
     val SelectedmessagetoRock = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-    
+
     (SelectedmessagetoRock.rockers.contains(userId)) match {
-      
-    case true => 
-    SelectedmessagetoRock.rocks
-        
-    case false => 
-    MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(rockers = (SelectedmessagetoRock.rockers ++ List(userId))), false, false, new WriteConcern)
-    val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-    MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(rocks = (updatedMessage.rocks + 1)), false, false, new WriteConcern)
-    val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-    finalMessage.rocks
+
+      case true =>
+        SelectedmessagetoRock.rocks
+
+      case false =>
+        MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(rockers = (SelectedmessagetoRock.rockers ++ List(userId))), false, false, new WriteConcern)
+        val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+        MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(rocks = (updatedMessage.rocks + 1)), false, false, new WriteConcern)
+        val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+        finalMessage.rocks
     }
-    
-    
-   
 
   }
 

@@ -20,16 +20,19 @@ POST /newStream controllers.StreamController.newStream
 
 
 
-#GET /messages controllers.MessageController.messages
+#Messages
 POST /newMessage controllers.MessageController.newMessage
 POST /getAllMessagesForAStream controllers.MessageController.getAllMessagesForAStream
 
 
+#Comments
+POST   /newComment  controllers.CommentController.newComment
 
+
+#Join Streams
 POST /joinStreams controllers.JoinStream.joinStream
 
 #Documents
-
 GET /documents controllers.DocumentController.documents
 POST /newDocument controllers.DocumentController.newDocument
 POST /getAllDocumentsForAUser    controllers.DocumentController.getAllDocumentsForAUser
@@ -48,46 +51,32 @@ GET  /getAllSchoolsForAutopopulate      controllers.SchoolController.getAllSchoo
 POST /detailed_reg controllers.DetailedRegistration.addInfo
 
 #Class
-
-
 POST /class        controllers.ClassController.addClass
 
 #Auto populate class
-
 POST /autoPopulateClasses controllers.ClassController.findClasstoAutoPopulate
 
 #Getting the School JSON
-
 GET /schoolJson controllers.DetailedRegistration.getSchoolsForLoggedInUser
-
 GET /loggedInUserJson controllers.UserController.returnUserJson
 
 #Basic Registration
-
 POST /verifyToken controllers.BasicRegistration.basicRegistration
-     
 POST /registerNewUser controllers.BasicRegistration.newUser
-
 POST /getEmailforNewUser controllers.BasicRegistration.emailSent
 
-#GET /basicRegistrationViaSocialSites controllers.BasicRegistration.basicRegistrationViaSocialSites
-#POST /basicRegistrationViaSocialSites controllers.BasicRegistration.newUser
 
 
 
 #Destroy session
-
 GET /signOut controllers.UserController.signOut
 
 
 #Janrain
-
 POST /userPage controllers.UserController.registerUserViaSocialSite
 GET /getJSONviaJanrain controllers.UserController.registerUserViaSocialSite
 
 #Media
-
-
 POST /getMediafromPost controllers.MediaController.getMedia
 POST /getProfilePicForAUser      controllers.UserController.getProfilePicForAUser
 GET /getAllProfilePicForAUser   controllers.MediaController.getAllProfilePicForAUser
@@ -99,23 +88,18 @@ GET /getAllProfileVideoForAUser   controllers.MediaController.getAllProfileVideo
 
 
 #Message Rocks
-
 POST /rockedIt controllers.MessageController.rockedTheMessage
 POST /returnRockers controllers.MessageController.giveMeRockers
 
 #Document Rocks
-
 POST /rockedIt controllers.DocumentController.rockTheDocument
 POST /getRockers controllers.DocumentController.giveMeRockers
 
 
 #bitly
-
 POST /bitly   controllers.MessageController.getShortUrlViabitly           
 
 # Map static resources from the /public folder to the /assets URL path
-
-#GET /assets/*file controllers.Assets.at(path="/public", file)
 GET  /beamstream/*file                   controllers.Assets.at(path="/public/client", file)
 GET  /profilePic/*file                   controllers.Assets.at(path="/public/CDNFolder", file)
 

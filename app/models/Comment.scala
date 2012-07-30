@@ -11,12 +11,12 @@ import utils.MongoHQConfig
 case class Comment(@Key("_id") id: ObjectId, assosiatedWithMessage: ObjectId, userId: ObjectId, firstNameOfCommentor: String, commentContent: String)
 object Comment {
 
-  def addCommentToMessage(messageId: ObjectId, commentId: ObjectId) {
-
-    val messageToComment = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-    MessageDAO.update(MongoDBObject("_id" -> messageId), messageToComment.copy(comments = (messageToComment.comments ++ List(commentId))), false, false, new WriteConcern)
-
-  }
+//  def addCommentToMessage(messageId: ObjectId, commentId: ObjectId) {
+//
+//    val messageToComment = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+//    MessageDAO.update(MongoDBObject("_id" -> messageId), messageToComment.copy(comments = (messageToComment.comments ++ List(commentId))), false, false, new WriteConcern)
+//
+//  }
 
   /*
    * Create a commnent

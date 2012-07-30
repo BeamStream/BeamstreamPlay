@@ -39,9 +39,26 @@ object SchoolController extends Controller {
     Ok(write(schoolName)).as("application/json")
   }
 
+  
+  /*
+   * All Schools From database
+   * @Purpose: For autopopulate schools on school screen'
+   */
   def getAllSchoolsForAutopopulate = Action { implicit request =>
     val allSchools = School.getAllSchools
     Ok(write(allSchools)).as("application/json")
   }
+  
+  
+  /*
+   * Get all user school
+   * @Purpose :-  For implementing Edit Schools by a user
+   */
 
+   def getAllUserSchools = Action { implicit request =>
+   
+    Ok
+  }
+  
+  
 }
