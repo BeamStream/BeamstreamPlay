@@ -38,7 +38,9 @@ object CommentController extends Controller {
    */
 
   def allCommentsForAMessage = Action { implicit request =>
-    val message = Message.findMessageById(new ObjectId("5016558c84ae50eb9957fb8f"))
+    val messageIdJSON = request.body.asFormUrlEncoded.get
+    val messageId = messageIdJSON("messageId").toList(0)
+    val message = Message.findMessageById(new ObjectId(messageId))
     var commentsForAMessage: List[Message] = List()
 
     for (commentsId <- message.comments) {
