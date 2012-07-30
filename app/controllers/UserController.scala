@@ -1,27 +1,25 @@
 package controllers
-import play.api.mvc.Controller
-import play.api._
-import play.api.mvc._
-import models.Stream
-import play.api.data._
-import play.api.data.Forms._
-import models.UserForm
-import models.User
-import models.User
-import play.mvc.Http.Request
-import play.libs._
-import com.ning.http.client.Realm
-import utils._
 import org.bson.types.ObjectId
-import net.liftweb.json.{ parse, DefaultFormats }
-import net.liftweb.json.Serialization.{ read, write }
-import models.ResulttoSent
-import play.libs.Json._
-import play.libs.Json
-import models.UserMedia
-import play.api.mvc.Response
-import play.api.mvc.Response
 import models.ProfileImageProviderCache
+import models.ResulttoSent
+import models.User
+import models.User
+import models.UserMedia
+import net.liftweb.json.Serialization.read
+import net.liftweb.json.Serialization.write
+import net.liftweb.json.DefaultFormats
+import net.liftweb.json.parse
+import play.api.data.Forms._
+import play.api.mvc._
+import play.api.mvc.Controller
+import play.api.mvc.Response
+import play.api.mvc.Response
+import play.api._
+import play.libs._
+import play.mvc.Http.Request
+import utils._
+import play.api.libs.json.JsValue
+import play.api.libs.json.Json
 
  
 object UserController extends Controller {
@@ -74,9 +72,38 @@ object UserController extends Controller {
     val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
     val res = promise.get
     val body = res.getBody
+
     Ok(body).as("application/json")
 
   }
+  
+  
+  /*
+   * Get all Contact data via social sites
+   */
+
+  def getContactsViaSocialSite = Action { implicit request =>
+    val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
+    val token = tokenList(0)
+    val apiKey = "cc38e5cc0a71f8795733254be3cc28d8b0678a69"
+    val URL = "https://rpxnow.com/api/v2/auth_info"
+
+    val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
+    val res = promise.get
+    val body = res.getBody
+
+    val json = Json.parse(body)
+    val identifier = (json \ "profile" \ "identifier").as[String]
+    
+    val URL2 = "https://rpxnow.com/api/v2/get_contacts"
+    val promise2 = WS.url(URL2).setQueryParameter("format", "json").setQueryParameter("identifier", identifier).setQueryParameter("apiKey", apiKey).get
+    val res2 = promise2.get
+    val body2 = res2.getBody
+
+    Ok(body2).as("application/json")
+
+  }
+  
 
   // 
 
