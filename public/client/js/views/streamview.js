@@ -771,19 +771,29 @@ BS.StreamView = Backbone.View.extend({
 				  			 cmtCount++; 
 				  			 var comments = $("#tpl-comments").html();
 							 var commentsTemplate = Handlebars.compile(comments);
-							 $('#'+parent+'-newcommentlists').append(commentsTemplate(data));
+							 
+							 $('#'+parent+'-commentlists').append(commentsTemplate(data));
 							 $('#'+data.id.id+'-image').attr("src" ,BS.profileImageUrl );
+							 
+							 if(!$('#'+parent+'-commentlists').is(':visible'))
+							 {  
+								 var newComments = $("#tpl-new-comments").html();
+								 var newCmtTemplate = Handlebars.compile(newComments);
+								 $('#'+parent+'-newcommentlists').append(newCmtTemplate(data));
+								 $('#'+data.id.id+'-newCmtImage').attr("src" ,BS.profileImageUrl );
+							 }
+							 
+							
 					  		 		
 				  		});
 				  				
 						 /* for comment Header   */
-						 var cmdHead = $("#tpl-comment-header").html();
-						 var cmdHeadTemplate = Handlebars.compile(cmdHead);
-						 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
-						 
-//						 $('#'+parent+'-commentlists').slideDown();
-//						 $('#'+parent+'-hideComment').removeClass('disabled');
-//				         $('#'+parent+'-showComment').addClass('disabled');
+//						 var cmdHead = $("#tpl-comment-header").html();
+//						 var cmdHeadTemplate = Handlebars.compile(cmdHead);
+//						 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
+				  		
+				  		 $('#'+parent+'-cmtCount').html(cmtCount);
+ 
  
 				  	}
 		  		});
@@ -798,6 +808,7 @@ BS.StreamView = Backbone.View.extend({
 	 
 	 hideComments :function(eventName){
 		 eventName.preventDefault(); 
+		
 		 var parentMsg = eventName.target.id;
 		 var parent =$('#'+parentMsg+'').closest('li').attr('id');		
 		 
@@ -807,6 +818,7 @@ BS.StreamView = Backbone.View.extend({
 		 if ($comments.is(':visible')) {
              $show.removeClass('disabled');
              $hide.addClass('disabled');
+             $('#'+parent+'-newcommentlists').html("");
              $comments.slideUp();
          }
 	 },
@@ -817,15 +829,16 @@ BS.StreamView = Backbone.View.extend({
 	 
 	 showComments :function(eventName){
 		 eventName.preventDefault(); 
+		 
 		 var parentMsg = eventName.target.id;
 		 var parent =$('#'+parentMsg+'').closest('li').attr('id');		
-		 
 		 $hide = $('#'+parent+'-hideComment');
          $show = $('#'+parent+'-showComment'); 
          $comments = $('#'+parent+'-commentlists');
          if (!$comments.is(':visible')) {
              $hide.removeClass('disabled');
              $show.addClass('disabled');
+             $('#'+parent+'-newcommentlists').html('');
              $comments.slideDown();
          }
 	 }

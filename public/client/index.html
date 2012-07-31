@@ -1868,6 +1868,39 @@
           </li>
    </script> 
    
+   
+    <script type="text/x-handlebars-template" id="tpl-new-comments">
+  
+       <li>
+          <article class="message_item">
+            <div class="comment_wrapper">
+              <div class="photo_container">
+                 <img id="{{id.id}}-newCmtImage" src="{{image}}" width="39" height="39">
+               </div>
+                    <div class="content_container">
+                     <div class="meta_data">
+                         <span class="username"><a href="#user-profile">{{firstNameofMsgPoster}} {{lastNameofMsgPoster}}</a></span>
+                          <span class="separator">-</span>
+                           <time datetime="2011-12-01" pubdate>{{timeCreated}}</time>
+                           <span class="separator">-</span>
+                              <span class="visibility">Public</span>
+                      </div>
+                           <p>
+                             {{messageBody}}
+                              </p>
+                             <div class="actions">
+                              <a class="rock" href="#rock"><i class="rocked"><i>{{rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
+                             <a class="rock" href="#rock">Rocked it!</a>
+                             <span class="separator">-</span>
+                            <a class="comment" href="#comment">Comment</a>
+                            <span class="separator">-</span>
+                           <a class="follow" href="#follow">Follow</a>
+                      </div>
+                    </div>
+                 </div>
+              </article>
+          </li>
+   </script> 
  <script type="text/x-handlebars-template" id="tpl-comment-header"> 
    <header class="comments_info">
 	<h5 class="pull-left">
