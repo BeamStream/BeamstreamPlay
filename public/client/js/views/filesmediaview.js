@@ -10,11 +10,8 @@ BS.FilesMediaView = Backbone.View.extend({
 	 },
 	
     initialize:function () {
-    	 
-    	//Lytebox(false);
-    	 
-    	//initLytebox();
-    	var type = "files";
+
+   	var type = "files";
    	    var profileView = new BS.ProfileView();
      	profileView.getProfileImages(type);
      	  
@@ -30,8 +27,6 @@ BS.FilesMediaView = Backbone.View.extend({
         $(this.el).html(this.template());
         return this;
     },
-    
-    
     
     
     /**
@@ -79,6 +74,7 @@ BS.FilesMediaView = Backbone.View.extend({
          
          var fileModel = new BS.File();
          fileModel.set({
+        	 		docID:111,
               		docName : 'doc1',
               		docURL : $("#upload-media").val(),
                     docAccess: 'Public',
