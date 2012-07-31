@@ -706,7 +706,6 @@ BS.StreamView = Backbone.View.extend({
 				    			},
 				    			dataType : "json",
 				    			success : function(imgUrl) {
-//				    				console.log('id'+ data.id.id + 'imgUrl' + imgUrl);
 				    				$('#'+data.id.id+'-image').attr("src" ,imgUrl ); 
 				    			}
 				      });
@@ -772,7 +771,7 @@ BS.StreamView = Backbone.View.extend({
 				  			 cmtCount++; 
 				  			 var comments = $("#tpl-comments").html();
 							 var commentsTemplate = Handlebars.compile(comments);
-							 $('#'+parent+'-commentlists').append(commentsTemplate(data));
+							 $('#'+parent+'-newcommentlists').append(commentsTemplate(data));
 							 $('#'+data.id.id+'-image').attr("src" ,BS.profileImageUrl );
 					  		 		
 				  		});
@@ -782,9 +781,9 @@ BS.StreamView = Backbone.View.extend({
 						 var cmdHeadTemplate = Handlebars.compile(cmdHead);
 						 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
 						 
-						 $('#'+parent+'-commentlists').slideDown();
-						 $('#'+parent+'-hideComment').removeClass('disabled');
-				         $('#'+parent+'-showComment').addClass('disabled');
+//						 $('#'+parent+'-commentlists').slideDown();
+//						 $('#'+parent+'-hideComment').removeClass('disabled');
+//				         $('#'+parent+'-showComment').addClass('disabled');
  
 				  	}
 		  		});

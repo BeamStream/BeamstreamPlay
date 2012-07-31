@@ -18,7 +18,9 @@ BS.ProfileView = Backbone.View.extend({
         console.log('Initializing Profile View');
         this.image = null;
     	this.video = null;
-        this.template= _.template($("#tpl-profile-reg").html());
+        
+        this.source = $("#tpl-profile-reg").html();
+		this.template = Handlebars.compile(this.source);
        
         BS.phReg =/^[(][0-9]{3}[)][\s][0-9]{3}[-][0-9]{4}$/;
         BS.num = {};
@@ -28,11 +30,13 @@ BS.ProfileView = Backbone.View.extend({
     },
   
     render:function (eventName) {
-    	
-        $(this.el).html(this.template());
+    	 
+        $(this.el).html(this.template({profilePhoto : BS.profileImageUrl}));
         return this;
     },
-    
+    /**
+     * rearrange phone number 
+     */
     checkNumber : function(){
     	
     	var  num = $('#mobile').val();
@@ -48,36 +52,35 @@ BS.ProfileView = Backbone.View.extend({
         
     },
     /**
-     * arrange phone number
+     * arrange phone number when it lost the focus
      */
        arragePhone :function(){
        	 
        	var phno = '';
        	var numCount = $('#mobile').val().length;
        	var  num = $('#mobile').val();
+       	var numText = num.replace(/\D/g,"");
        	if(!num)
        	  return;
        	if(!num.match(BS.phReg))
        	{  
-       		//phno ='('+ num.substring(0,3) + ')' + num.substring(3,6) + '-' + num.substring(6);
-//       		if(!phno.match(BS.phReg))
-//       		{
+       		phno ='('+ numText.substring(0,3) + ') ' + numText.substring(3,6) + '-' + numText.substring(6,10);
+       		if(!phno.match(BS.phReg))
+       		{
        			$('#num-validation').html("Invalid number");
-////       		}
-//       		else
-//       		{
+       		}
+       		else
+       		{
        			
-//       			$('#num-validation').html("");
-//       			$('#mobile').val(phno);
-//       		}
+       			$('#num-validation').html("");
+       			$('#mobile').val(phno);
+       		}
        	}
        	else
        	{
        		$('#num-validation').html("");
        	}
        	 
-//    	   $('#num-validation').html("");
-       	
        },
        
        
@@ -140,7 +143,7 @@ BS.ProfileView = Backbone.View.extend({
 	        	    	    BS.bar.width(400);
 	        	    	    BS.bar.text("100%");
 	        	    	    clearInterval(BS.progress);
-	        	    	  
+
 		        	    	// navigate to main stream page
 		        	    	BS.AppRouter.navigate("streams", {trigger: true});
 		   			    }

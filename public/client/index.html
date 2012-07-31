@@ -1453,7 +1453,7 @@
     
   
   <!-- profile Registration template-->
-  <script type="text/template" id="tpl-profile-reg">
+  <script type="text/x-handlebars-template" id="tpl-profile-reg">
   <div class="modal-backdrop in"></div>
     <div class="modal school-popup modal-pull-top in modal-popups" style="display:block;">
     <div class="modal-header">
@@ -1483,8 +1483,12 @@
                     <div class="element">
                         <label for="profile-photo">Profile photo</label>
                         <span class="profile-thumb">
-                           
-                           <img id="profile-photo" src="images/no-photo.png" style="width:95px; height:90px;" alt="no photo" name="profile-photo" >
+                           {{#if profilePhoto}}
+                              <img id="profile-photo" src="{{profilePhoto}}" style="width:95px; height:90px;" alt="no photo" name="profile-photo" >
+                           {{else}}
+                             <img id="profile-photo" src="images/no-photo.png" style="width:95px; height:90px;" alt="no photo" name="profile-photo" >
+                           {{/if}}
+
                         </span>
                         <div class="profile-upload-box">
 							<input id="profile-image" type="file"  name="profile-image" >
@@ -1913,6 +1917,7 @@
    </div>
    <div id="{{datas.id.id}}-header"> </div>
    <ul class="comments" id="{{datas.id.id}}-commentlists"></ul>
+   <ul class="comments" id="{{datas.id.id}}-newcommentlists"></ul>
    <div id="{{datas.id.id}}-add-comment"></div>
    </article>
    <div id="hover-lists-{{datas.id.id}}" class="list-popup">
