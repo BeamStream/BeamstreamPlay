@@ -787,6 +787,8 @@ ul.rockit li span a {
 .timeline ul li
 {
 	 position: relative !important;
+	 padding-bottom: 10px;
+     
 }
 .rock-list{
 	 margin: 0px !important;

@@ -83,13 +83,9 @@ BS.StreamView = Backbone.View.extend({
 					 $('#streams-list').html(streams);
 					 $('#streams-list li:first').addClass('active');
 					 
-					 
-					 
 					 // display the messages of the first stream in the stream list by default
                      var streamId = $('#streams-list li.active a').attr('id');
                      var streamName = $('#streams-list li.active a').attr('name');
-                     
-      
                      
                      // render sub menus in stream page
                      var source = $("#tpl-stream-page-menus").html();
@@ -110,13 +106,13 @@ BS.StreamView = Backbone.View.extend({
 				}
 		 });
     },
+    
     /**
      * get all class streams of a user
      */
     getClassStreams : function(type){
     	 
     	 var self =this;
-         /* get all streams  */
  		 $.ajax({
  				type : 'GET',
  				url : BS.classStreamsForUser,
@@ -139,7 +135,7 @@ BS.StreamView = Backbone.View.extend({
  	                     var streamId = $('#streams-list li.active a').attr('id');
  	                     var streamName = $('#streams-list li.active a').attr('name');
  	                     
- 	                    //right one list
+ 	                     //right one list
  	             		 $('#public-classes').html(classStreams);
 
  	                     
@@ -151,12 +147,10 @@ BS.StreamView = Backbone.View.extend({
  	                     var source = $("#tpl-stream-page-menus").html();
  	             		 var template = Handlebars.compile(source);
  	             		 $('#sub-menus').html(template({streamName : streamName}));
- 	             		 
  	             		  	             		 
  	             		 if(streamId)
  	                        self.getMessageInfo(streamId);
  	             	 
- 	                     
  					 }
  					 else if(type == "public")
  					 {
@@ -227,14 +221,15 @@ BS.StreamView = Backbone.View.extend({
 	      }, this.hideDelay);
     },
  
-    /*
+    /**
      * display class stream
      */
     classStream :function(eventName) {
     	eventName.preventDefault();
     	BS.AppRouter.navigate("classStream", {trigger: true});
     },
-    /*
+    
+    /**
      * display Project stream screen
      */
     projectstream :function(eventName) {
@@ -245,7 +240,8 @@ BS.StreamView = Backbone.View.extend({
     	$('#school-popup').html(this.projectStream.el);
     
     },
-    /*
+    
+    /**
      * display Study stream
      */
     studyStream :function(eventName) {
@@ -257,7 +253,7 @@ BS.StreamView = Backbone.View.extend({
     
     },
     
-    /*
+    /**
      * display Group stream
      */
     groupStream :function(eventName) {
@@ -269,7 +265,7 @@ BS.StreamView = Backbone.View.extend({
     
     },
     
-    /*
+    /**
      * display Peer stream
      */
     peerStream :function(eventName) {
@@ -325,7 +321,6 @@ BS.StreamView = Backbone.View.extend({
      */
     postMessage :function(eventName){
     	 
-   //   eventName.preventDefault();
       var self= this;
       /* get message details from form */
       var messageAccess;
@@ -477,7 +472,7 @@ BS.StreamView = Backbone.View.extend({
 	  				    			}
 	  				    		});
 	  				          
-	  				          
+	  				           
 	  						 if(linkTag)
 	  						  $('div#'+data.id.id+'-id').html(linkTag);
 	  						 
@@ -488,6 +483,8 @@ BS.StreamView = Backbone.View.extend({
 		  				          method: 'after',
 		  					      key:'4d205b6a796b11e1871a4040d3dc5c07'
 	  				         });
+	  						 
+	  						self.showAllComments(data.id.id);
 				         });
 						 
 				}
@@ -596,7 +593,6 @@ BS.StreamView = Backbone.View.extend({
 			    });
             	ul+='</ul>';
  
-//        		$('#hover-lists-'+msgId+'').fadeIn("fast");
         		$('#hover-lists-'+msgId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
         		$('#hover-lists-'+msgId+'').html(ul);
              }
@@ -676,19 +672,13 @@ BS.StreamView = Backbone.View.extend({
 		 }
 
 	 },
-	 /**
-	  * show comment section
-	  */
-	 showCommentSection : function(eventName){
-		 eventName.preventDefault();
-		 var parentMsg = eventName.target.id;
+	 
+	 showAllComments :function(msgId)
+	 {
+	 
+		 var parentMsg = msgId;
 		 var parent =$('#'+parentMsg+'').closest('li').attr('id');
-		 
-		 /* for comment box */
-		 var commentBox = $("#comment-box").html();
-		 var cmtBoxTemplate = Handlebars.compile(commentBox);
-		 $('#'+parent+'-add-comment').html(cmtBoxTemplate({parentId : parent}));
-		 
+ 		  
 		 $.ajax({
              type: 'POST',
              url: BS.allCommentsForAMessage,
@@ -716,6 +706,7 @@ BS.StreamView = Backbone.View.extend({
 				    			},
 				    			dataType : "json",
 				    			success : function(imgUrl) {
+//				    				console.log('id'+ data.id.id + 'imgUrl' + imgUrl);
 				    				$('#'+data.id.id+'-image').attr("src" ,imgUrl ); 
 				    			}
 				      });
@@ -725,9 +716,27 @@ BS.StreamView = Backbone.View.extend({
     			 var cmdHead = $("#tpl-comment-header").html();
     			 var cmdHeadTemplate = Handlebars.compile(cmdHead);
     			 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
+    			 $('#'+parent+'-commentlists').hide();
               
              }
           });
+	 },
+	 /**
+	  * show comment section
+	  */
+	 showCommentSection : function(eventName){
+		 eventName.preventDefault();
+		 var parentMsg = eventName.target.id;
+		 var parent =$('#'+parentMsg+'').closest('li').attr('id');
+		 
+		 /* for comment box */
+		 var commentBox = $("#comment-box").html();
+		 var cmtBoxTemplate = Handlebars.compile(commentBox);
+		 $('#'+parent+'-add-comment').html(cmtBoxTemplate({parentId : parent}));
+//		 $('#'+parent+'-commentlists').slideDown();
+//		 $('#'+parent+'-hideComment').removeClass('disabled');
+//         $('#'+parent+'-showComment').addClass('disabled');
+	 
 		 
 	 },
 	 
@@ -765,7 +774,6 @@ BS.StreamView = Backbone.View.extend({
 							 var commentsTemplate = Handlebars.compile(comments);
 							 $('#'+parent+'-commentlists').append(commentsTemplate(data));
 							 $('#'+data.id.id+'-image').attr("src" ,BS.profileImageUrl );
-							 
 					  		 		
 				  		});
 				  				
@@ -773,11 +781,15 @@ BS.StreamView = Backbone.View.extend({
 						 var cmdHead = $("#tpl-comment-header").html();
 						 var cmdHeadTemplate = Handlebars.compile(cmdHead);
 						 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
+						 
+						 $('#'+parent+'-commentlists').slideDown();
+						 $('#'+parent+'-hideComment').removeClass('disabled');
+				         $('#'+parent+'-showComment').addClass('disabled');
  
 				  	}
 		  		});
 
-			 
+		         
 		 }
 	 },
 	 
