@@ -13,6 +13,7 @@ import play.cache.Cache
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 import com.mongodb.casbah.WriteConcern
+import utils.SendEmail
 
 case class User(@Key("_id") id: ObjectId, userType: UserType.Value, email: String, val firstName: String, lastName: String, userName: String, alias: String, password: String, orgName: String,
   location: String, streams: List[ObjectId], schoolId: List[ObjectId], classId: List[ObjectId], documents: List[ObjectId]) {
@@ -45,17 +46,16 @@ object User {
   def findUser(userEmailorName: String, password: String): Option[User] = {
     val authenticatedUserviaEmail = UserDAO.find(MongoDBObject("email" -> userEmailorName, "password" -> password))
     val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userEmailorName, "password" -> password))
-    
-     (authenticatedUserviaEmail.isEmpty && authenticatedUserviaName.isEmpty) match {
-      case true =>   // No user
+
+    (authenticatedUserviaEmail.isEmpty && authenticatedUserviaName.isEmpty) match {
+      case true => // No user
         None
-      case false => 
-        if(authenticatedUserviaEmail.isEmpty)  Option(authenticatedUserviaName.toList(0))
+      case false =>
+        if (authenticatedUserviaEmail.isEmpty) Option(authenticatedUserviaName.toList(0))
         else Option(authenticatedUserviaEmail.toList(0))
     }
 
   }
-
 
   /*
  * Creates a User
@@ -101,19 +101,18 @@ object User {
     }
 
   }
-  
-  
+
   // Check if the User already registered
-  def isAlreadyRegistered(userEmail:String , userName:String): Boolean={
-    
+  def isAlreadyRegistered(userEmail: String, userName: String): Boolean = {
+
     val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
     val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userName)).toList
-    
-    (userHavingSameMailId.isEmpty && userHavingSameUserName.isEmpty ) match {
+
+    (userHavingSameMailId.isEmpty && userHavingSameUserName.isEmpty) match {
       case true => true
       case false => false
     }
-    
+
   }
 
   /*
@@ -179,8 +178,6 @@ object User {
 
   }
 
- 
-
   /*
   * Find User By Id
   */
@@ -203,10 +200,28 @@ object User {
    */
 
   def giveMeTheRockers(users: List[ObjectId]): List[String] = {
-  
- //for (user <- users) yield (UserDAO.findOne(MongoDBObject("_id" -> user)).get.firstName)
-   users map { user => UserDAO.findOne(MongoDBObject("_id" -> user)).get.firstName }
- 
+
+    //for (user <- users) yield (UserDAO.findOne(MongoDBObject("_id" -> user)).get.firstName)
+    users map { user => UserDAO.findOne(MongoDBObject("_id" -> user)).get.firstName }
+
+  }
+
+  /*
+   * Recover forgot password
+   * @ password of user will be sent to user's email id
+   */
+
+  def forgotPassword(emailId: String): Boolean = {
+
+    val user = UserDAO.find(MongoDBObject("email" -> emailId)).toList
+
+    (user.size == 0) match {
+      case true => false
+      case false =>
+        SendEmail.sendPassword(emailId, user(0).password)
+        true
+    }
+
   }
 
 }

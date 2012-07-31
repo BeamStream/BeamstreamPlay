@@ -100,7 +100,11 @@ POST /getRockers controllers.DocumentController.giveMeRockers
 
 
 #bitly
-POST /bitly   controllers.MessageController.getShortUrlViabitly           
+POST /bitly   controllers.MessageController.getShortUrlViabitly 
+
+#Password Recovery
+
+POST  /forgotPassword          controllers.UserController.forgotPassword
 
 # Map static resources from the /public folder to the /assets URL path
 GET  /beamstream/*file                   controllers.Assets.at(path="/public/client", file)

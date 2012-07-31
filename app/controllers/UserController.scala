@@ -21,7 +21,6 @@ import utils._
 import play.api.libs.json.JsValue
 import play.api.libs.json.Json
 
- 
 object UserController extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -76,8 +75,7 @@ object UserController extends Controller {
     Ok(body).as("application/json")
 
   }
-  
-  
+
   /*
    * Get all Contact data via social sites
    */
@@ -94,7 +92,7 @@ object UserController extends Controller {
 
     val json = Json.parse(body)
     val identifier = (json \ "profile" \ "identifier").as[String]
-    
+
     val URL2 = "https://rpxnow.com/api/v2/get_contacts"
     val promise2 = WS.url(URL2).setQueryParameter("format", "json").setQueryParameter("identifier", identifier).setQueryParameter("apiKey", apiKey).get
     val res2 = promise2.get
@@ -103,7 +101,6 @@ object UserController extends Controller {
     Ok(body2).as("application/json")
 
   }
-  
 
   // 
 
@@ -132,10 +129,10 @@ object UserController extends Controller {
    */
 
   def getProfilePicForAUser = Action { implicit request =>
-  
-     val userIdJsonMap = request.body.asFormUrlEncoded.get
-     val userIdReceived = userIdJsonMap("userId").toList(0)
-     
+
+    val userIdJsonMap = request.body.asFormUrlEncoded.get
+    val userIdReceived = userIdJsonMap("userId").toList(0)
+
     if (ProfileImageProviderCache.profileImageMap.isDefinedAt(userIdReceived)) {
       val profilePicUrl = ProfileImageProviderCache.getImage(userIdReceived)
       Ok(write(profilePicUrl)).as("application/json")
@@ -144,6 +141,23 @@ object UserController extends Controller {
       val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userIdReceived))
       val MediaJson = write(mediaObtained.mediaUrl)
       Ok(MediaJson).as("application/json")
+    }
+
+  }
+
+  
+  /*
+   * Password Recovery
+   * @purpose : Send a mail to user with passord
+   */
+  def forgotPassword = Action { implicit request =>
+
+    val emailIdJsonMap = request.body.asFormUrlEncoded.get
+    val emailId = emailIdJsonMap("emailId").toList(0)
+    val passwordSent = User.forgotPassword(emailId)
+    (passwordSent.equals(true)) match {
+      case true => Ok(write(new ResulttoSent("Success", "Password Sent")))
+      case false => Ok(write(new ResulttoSent("Failure", "No User Found")))
     }
 
   }
