@@ -2390,18 +2390,30 @@
                       success: function(res) {
                     		 
                           if(res != null)
-                          {
-                        	  var  info = JSON.stringify({
-      						    			email : res.profile.preferredUsername,
-      						    			password : "ssd",
-      						    			rememberMe : "false"
-      						         });
-                        	   
-                        	  setTimeout(function() {
-                        		  janRainLogin(info);
-  			    		      }, 1000);
-                        	 
+                          { 
                         	  BS.JsonFromSocialSite = res;
+                        	  if(BS.idLogin == "login")
+                        	  {
+                        		  var  info = JSON.stringify({
+						    			email : res.profile.preferredUsername,
+						    			password : " ",
+						    			rememberMe : false
+						          });
+                  	   
+			                  	  setTimeout(function() {
+			                  		  janRainLogin(info);
+					    		   }, 1000);
+                        	  }
+                        	  if(BS.idLogin == "register")
+                        	  {
+                        		   
+                        		  //navigate to regitration page
+      			    			  BS.AppRouter.navigate("basicRegistration", {
+         	   						trigger : true,
+         	   						replace : true
+         	   					  });
+                        	  }
+                        	
                           }
                       }
                });
@@ -2426,17 +2438,18 @@ function janRainLogin(info){
 			    		{
 			    			// navigate to stream page
 			    			 BS.AppRouter.navigate("streams", {
- 	   						trigger : true,
- 	   						replace : true
- 	   				    });
+	 	   						trigger : true,
+	 	   						replace : true
+ 	   				      });
 			    		}
 			    		else 
 			    		{
-			    		   // navigate to regitration page
-			    			BS.AppRouter.navigate("basicRegistration", {
-   	   						trigger : true,
-   	   						replace : true
-   	   					  });
+// 			    		   // navigate to regitration page
+// 			    			BS.AppRouter.navigate("basicRegistration", {
+//    	   						trigger : true,
+//    	   						replace : true
+//    	   					  });
+                          $('#error').html("login unsuccessfull");
 			    		}
 		    	 },
 		    	 error : function(error){

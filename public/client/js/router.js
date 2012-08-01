@@ -26,6 +26,7 @@ BS.AppRouter = Backbone.Router.extend({
     	
     	
     	var self = this;
+    	BS.idLogin = '';
         BS.user = new BS.SingleUser();
         
         /** for authentication  */
@@ -80,7 +81,7 @@ BS.AppRouter = Backbone.Router.extend({
     	 
     	 BS.loginView = new BS.LoginView();
     	 BS.loginView.render();
-     
+    	 BS.idLogin = "login";
          $('#school-popup').html(BS.loginView.el);  
          $(".modal select:visible").selectBox();
          jQuery("#login-form").validationEngine();
@@ -302,7 +303,7 @@ BS.AppRouter = Backbone.Router.extend({
 				// display values
 				var datas = BS.JsonFromSocialSite;
 
-				$("#user-name").val(datas.profile.preferredUsername);
+//				$("#user-name").val(datas.profile.preferredUsername);
 				$('#first-name').val(datas.profile.name.givenName);
 				$('#last-name').val(datas.profile.name.familyName);
 				$('#location').val(datas.profile.address.formatted);
@@ -318,6 +319,7 @@ BS.AppRouter = Backbone.Router.extend({
 				if (!BS.emailView) {
 					BS.emailView = new BS.verifyEmailView();
 					BS.emailView.render();
+					BS.idLogin = "register";
 				}
 
 				$('#school-popup').html(BS.emailView.el);
