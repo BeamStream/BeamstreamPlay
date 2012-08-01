@@ -293,7 +293,7 @@ BS.AppRouter = Backbone.Router.extend({
 					BS.mediaRegistrationView = new BS.MediaRegistrationView();
 					BS.mediaRegistrationView.render();
 				}
-
+                
 				$('#school-popup').html(BS.mediaRegistrationView.el);
 				$('#school-record').hide();
 				$(".modal select:visible").selectBox();

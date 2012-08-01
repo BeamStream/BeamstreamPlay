@@ -120,7 +120,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 				schoolName : $('#school-name').val(),
 				userName : datas.profile.preferredUsername,
 //				userName : $('#user-name').val(),
-				password : $('#password').val(),
+				password : "",
 				firstName : $('#first-name').val(),
 				lastName : $('#last-name').val(),
 				location : $('#location').val(),
