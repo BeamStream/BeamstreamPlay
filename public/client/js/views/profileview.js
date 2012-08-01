@@ -144,8 +144,12 @@ BS.ProfileView = Backbone.View.extend({
 	        	    	    BS.bar.text("100%");
 	        	    	    clearInterval(BS.progress);
 
-		        	    	// navigate to main stream page
-		        	    	BS.AppRouter.navigate("streams", {trigger: true});
+	        	    	   // navigate to main stream page after a tome period
+	        	    	    setTimeout(function() {
+	        	    	    	BS.AppRouter.navigate("streams", {trigger: true});
+			    		    }, 500);
+		        	    	
+		        	    	
 		   			    }
 	        	    }
 	        	});

@@ -43,6 +43,12 @@ BS.ForgotPasswordView = Backbone.View.extend({
 				    		if(data.status == "Success") 
 				    		{
 				    			 alert("Password has been sent to your emailId");
+				    			 
+				    			// navigate to main login page after a tome period
+				    			 setTimeout(function() {
+				    				 BS.AppRouter.navigate("login", {trigger: true});
+				    			 }, 500);
+				    			 
 				    		}
 				    		else 
 				    		{

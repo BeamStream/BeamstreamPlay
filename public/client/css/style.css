@@ -823,7 +823,7 @@ ul.rockit li span a {
 	height:30px;
 	background:url(../images/hand.png) no-repeat;
 	float:left;
-	margin:10px 20px 0 0;
+	margin:10px 5px 0 0;
 	font-family: 'Ubuntu',sans-serif;
     font-size: 20px;
     font-weight: 700;
@@ -1417,8 +1417,8 @@ span.edit_profilepicture_icon{
 	width: 225px;
 }
 .forgot-pass{
-/* 	margin-left: 320px; */
-    margin-left: 145px;
+	margin-left: 0px;
+/*     margin-left: 145px; */
 	
 }
 .forgot-pass a{
@@ -1453,16 +1453,20 @@ span.edit_profilepicture_icon{
 /* JanRain classes */
  .janrainContent{ 
  
- background: url("../images/fieldset-bg.png") repeat scroll 0 0 transparent !important;
+ background: none !important;
  border: medium none !important;
  }
 .janrainHeader {
- background: url("../images/fieldset-bg.png") repeat scroll 0 0 transparent !important;
+ background:none !important;
 }
 #janrain-twitter img{
 /* 	 background: url("../images/fieldset-bg.png") repeat scroll 0 0 transparent !important; */
 	 background: url("../images/twitter.png") repeat scroll 0 0 transparent !important;
 	 background-repeat: no-repeat;
+}
+
+.janrainContent div{
+	background-color:none !important;
 }
 /** for new class stream*/
 .class-social{
@@ -1583,4 +1587,19 @@ border: 1px solid rgba(0, 0, 0, 0.15);
     position: absolute;
     top: -3px;
 }
-
+.register{
+	margin-left: 40px;
+    width: 195px;
+}
+.socialnw-wrapper{
+	text-align:center;
+	display:block;
+	float:right ;
+	margin: 0 65px 0 0;
+} 
+.janRain{
+	margin:-20px 0 0 0 !important;
+ }
+.form-align{
+    margin-top: 40px;
+}
