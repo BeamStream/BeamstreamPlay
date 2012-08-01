@@ -26,6 +26,7 @@ BS.ClassStreamView = Backbone.View.extend({
 				"times" : BS.times
 		}
 		$(this.el).html(this.template(sCount));
+		console.log("clas sream");
 		return this;
 	},
 	

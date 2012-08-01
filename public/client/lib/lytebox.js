@@ -630,7 +630,7 @@ Lytebox.prototype.changeContent = function(iContentNum) {
 			object.style.top = (this.getPageScroll() + (this.aPageSize[3] / iDivisor)) + "px";
 			var ps = (this.aPageSize[3] / iDivisor);
 			this.scrollHandler = function(){
-				$lb.doc.$('lbMain').style.top = 200 + 'px';
+				$lb.doc.$('lbMain').style.top = ($lb.getPageScroll() + ps) + 'px';
 			}
 			this.bodyOnscroll = document.body.onscroll;
 			if (window.addEventListener) {

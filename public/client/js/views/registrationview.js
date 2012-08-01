@@ -131,13 +131,12 @@ BS.RegistrationView = Backbone.View.extend({
 //						BS.resgistration = "nomedia";
 //						BS.regBack = true;
 						 
+						BS.back = "basicRegistration";
 	   					 
 						BS.schoolFromPrev =  $('#school-name').val();
 						
 						// navigate to main stream page
-						BS.AppRouter.navigate("school", {
-							trigger : true,
-						});
+						BS.AppRouter.navigate("school", {trigger : true,});
 						 
 					} else {
 						$('#error').html("This User Email or Name is already taken");

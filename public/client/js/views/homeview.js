@@ -71,6 +71,7 @@ BS.NavView = Backbone.View.extend({
 	     if(id == "file-media")
 	     {
 	    	 BS.AppRouter.navigate("filesMedia", {trigger: true});
+//	    	 window.location.reload();
 		   	
 	     }
 	     else if(id == "streamsGroups")

@@ -9,6 +9,7 @@ $(function() {
 
 // For Login Page
 BS.login = "http://localhost:9000/users";
+//BS.login = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=login";
 
 // For Verify Token
 BS.verifyToken = "http://localhost:9000/verifyToken";

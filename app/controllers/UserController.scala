@@ -31,16 +31,16 @@ object UserController extends Controller {
  */
   def findUser = Action { implicit request =>
 
+    println(request.body)
     val userJsonMap = request.body.asFormUrlEncoded.get
     val user = userJsonMap("data").toList(0)
-
+    println(user)
     val userJson = net.liftweb.json.parse(user)
     val userEmailorName = (userJson \ "email").extract[String]
     val userPassword = (userJson \ "password").extract[String]
-    val rememberMe = (userJson \ "rememberMe").extract[Boolean]
-    
-    
-    val authenticatedUser = User.findUser(userEmailorName, userPassword)
+    //val rememberMe = (userJson \ "rememberMe").extract[Boolean]
+
+    val authenticatedUser = getAuthenticatedUser(userEmailorName, userPassword)
 
     authenticatedUser match {
       case Some(user) =>
@@ -58,6 +58,13 @@ object UserController extends Controller {
         Ok(statusToSend).as("application/json")
     }
 
+  }
+
+  def getAuthenticatedUser(userEmailorName: String, userPassword: String): Option[User] = {
+    userPassword.isEmpty match {
+      case true => User.findUserComingViaSocailSite(userEmailorName)
+      case false => User.findUser(userEmailorName, userPassword)
+    }
   }
 
   /*

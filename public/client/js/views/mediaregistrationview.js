@@ -180,6 +180,8 @@ BS.MediaRegistrationView = Backbone.View.extend({
 								// for back button functionalty
 //								BS.resgistration = "media";
 //								BS.regBack = true;
+								 
+//								BS.back = ""
 								
 
 								// save school name 
