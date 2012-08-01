@@ -27,7 +27,6 @@ object CommentController extends Controller {
     // Creating Comment & adding to message
     val commentId = Message.createMessage(comment)
     Message.addCommentToMessage(commentId, new ObjectId(messageId))
-
     Ok(write(new ResulttoSent("Success", "Comment Created")))
 
   }

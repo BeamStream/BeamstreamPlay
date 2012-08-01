@@ -16,10 +16,24 @@ import utils.MongoHQConfig
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.gridfs.Imports._
 
-case class Media(@Key("_id") id: ObjectId, userId: ObjectId, mediaType: MediaType.Value, showOnProfileView: Boolean, userProfileImageId: ObjectId,
-  userProfileVideoId: ObjectId, mobile: String, uploadType: String)
-case class MediaTransfer(userId: ObjectId, mediaType: MediaType.Value, showOnProfileView: Boolean, profileImage: InputStream, profilePicName: String,
-  profileVideo: InputStream, profileVideoName: String, mobile: String, uploadType: String)
+case class Media(@Key("_id") id: ObjectId,
+  userId: ObjectId,
+  mediaType: MediaType.Value,
+  showOnProfileView: Boolean,
+  userProfileImageId: ObjectId,
+  userProfileVideoId: ObjectId,
+  mobile: String,
+  uploadType: String)
+
+case class MediaTransfer(userId: ObjectId,
+  mediaType: MediaType.Value,
+  showOnProfileView: Boolean,
+  profileImage: InputStream,
+  profilePicName: String,
+  profileVideo: InputStream,
+  profileVideoName: String,
+  mobile: String,
+  uploadType: String)
 
 object Profile {
 
