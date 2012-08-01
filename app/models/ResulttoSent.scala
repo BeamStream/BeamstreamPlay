@@ -2,9 +2,15 @@ package models
 import java.io.InputStream
 
 
-case class ResulttoSent(status:String,message:String)
-
+/*
+ * JSON format for response 
+ * @purpose :  Success or failure
+ */
+case class ResulttoSent(status: String,
+  message: String)
 
 // To be used for getting the Media
-case class mediaComposite(name: String , contentType : String , inputStream : InputStream)
+case class mediaComposite(name: String,
+  contentType: String,
+  inputStream: InputStream)
 
