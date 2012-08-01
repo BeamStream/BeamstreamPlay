@@ -4,6 +4,7 @@ BS.AppRouter = Backbone.Router.extend({
     	
         "":"home",
         "login":"login",
+        "recoverAccount" : "recoverAccount",
         "emailVerification": "emailVerification",
         "school":"schoolReg",
         "class":"classReg",
@@ -101,6 +102,25 @@ BS.AppRouter = Backbone.Router.extend({
         
     },
    
+    
+    /**
+     * recover password/Account
+     */
+    
+    recoverAccount: function() {
+    	 $('#school-popup').children().detach(); 
+    	  
+    	 BS.forgotPasswordView = new BS.ForgotPasswordView();
+    	 BS.forgotPasswordView.render();
+     
+         $('#school-popup').html(BS.forgotPasswordView.el);  
+         $(".modal select:visible").selectBox();
+         jQuery("#login-form").validationEngine();
+         $(".checkbox").dgStyle();
+         $(".signin_check").dgStyle();
+         
+        
+    },
     /**
      * display School Info screen
      */
@@ -161,7 +181,6 @@ BS.AppRouter = Backbone.Router.extend({
     */
    mainStream:function () {
 	   
-	   
 	   BS.mainImageUrl = $('#right-photo').attr('src');
 	   $('#middle-content').children().detach();
 	   $('nav li.active').removeClass('active');
@@ -182,20 +201,7 @@ BS.AppRouter = Backbone.Router.extend({
 			   //get main menu
 			   this.navView = new BS.NavView({ model: BS.user });
 			   $('.nav-collapse').html(this.navView.render().el);
-			   
-	   	   //to show the profile image
-//	   	    var profileModel = new BS.Profile();
-//	        profileModel.fetch({success: function(e) { 
-//	        	console.log(45);
-//	            console.log(e);
-//	        	BS.profileImageUrl = e.attributes;
-//	        	 
-//	        	$('#main-photo').attr("src",BS.profileImageUrl);
-//	        	$('#right-photo').attr("src",BS.profileImageUrl);
-//	        	$('#msg-photo').attr("src",BS.profileImageUrl);
-//				 
-//			}});
-			   
+	 
 			     /* get profile images for user */
 		          $.ajax({
 		    			type : 'POST',
@@ -326,10 +332,10 @@ BS.AppRouter = Backbone.Router.extend({
 			 * display class stream screen
 			 */
 			classStream : function() {
-
-				BS.ClassStreamView = new BS.ClassStreamView();
-				BS.ClassStreamView.render();
-				$('#school-popup').html(BS.ClassStreamView.el);
+				$('#school-popup').children().detach();
+				BS.classStreamView = new BS.ClassStreamView();
+				BS.classStreamView.render();
+				$('#school-popup').html(BS.classStreamView.el);
 
 				/* get all schoolIds under a class */
 				$
@@ -446,6 +452,14 @@ BS.AppRouter = Backbone.Router.extend({
 
 				// $('#right-photo').attr("src",BS.profileImageUrl);
 
+//				 BS.user.fetch({ success:function(e) {
+//				   
+//					   //get main menu
+//					   this.navView = new BS.NavView({ model: BS.user });
+//					   $('.nav-collapse').html(this.navView.render().el);
+//			       
+//				 }});
+				 
 				BS.filesMediaView = new BS.FilesMediaView({
 					model : BS.user
 				});

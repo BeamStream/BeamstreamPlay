@@ -91,10 +91,102 @@ BS.autoPopulateSchools = "http://localhost:9000/getAllSchoolsForAutopopulate";
  //POST comment
  BS.newComment = "http://localhost:9000/newComment";
 
- //Get all comments of a message
- BS.allCommentsForAMessage = "http://localhost:9000/allCommentsForAMessage";
+//Get all comments of a message
+BS.allCommentsForAMessage = "http://localhost:9000/allCommentsForAMessage";
+
+//for forgot password
+BS.forgotPassword = "http://localhost:9000/forgotPassword";
 
 
+
+////For Login Page
+//BS.login = "http://192.168.10.10:9000/users";
+//
+//// For Verify Token
+//BS.verifyToken = "http://192.168.10.10:9000/verifyToken";
+//
+//// For Email Verification Page
+//BS.verifyEmail = "http://192.168.10.10:9000/getEmailforNewUser";
+//
+//// For Register New User Page
+//BS.registerNewUser = "http://192.168.10.10:9000/registerNewUser";
+//
+//// For Getting Logged in users basic details
+//BS.loggedInUserJson = "http://192.168.10.10:9000/loggedInUserJson";
+//
+//// For School registration Post Data
+//BS.saveSchool = "http://192.168.10.10:9000/detailed_reg";
+//
+//// GET school details
+//BS.schoolJson = "http://192.168.10.10:9000/schoolJson";
+//
+//// For Class registration Post Data
+//BS.saveClass = "http://192.168.10.10:9000/class";
+//
+//// For Profile Page Post Data
+//BS.saveProfile = "http://192.168.10.10:9000/getMediafromPost";
+//
+//// For populate list of class code
+//BS.autoPopulateClass = "http://192.168.10.10:9000/autoPopulateClasses";
+//
+//// Get School name for a SchoolId
+//BS.schoolNamebyId = "http://192.168.10.10:9000/getSchoolNamebyId";
+//
+//// Get all schools under a user
+//BS.allSchoolForAUser = "http://192.168.10.10:9000/getAllSchoolForAUser";
+//
+//// For new class in class stream
+//BS.newClass = "http://192.168.10.10:9000/newStream";
+//
+//// Gel all streams of a user
+//BS.allStreamsForAUser = "http://192.168.10.10:9000/allStreamsForAUser";
+//
+//// Post message info
+//BS.postMessage = "http://192.168.10.10:9000/newMessage";
+//
+//// Get all messages of a stream
+//BS.streamMessages = "http://192.168.10.10:9000/getAllMessagesForAStream";
+//
+//// expires the usersession
+//BS.signOut = "http://192.168.10.10:9000/signOut";
+//
+//// For JanRain component
+//BS.userPage = "http://192.168.10.10:9000/userPage";
+//
+//// Get user details vai janRain
+//BS.userInfoViaJanRain = "http://192.168.10.10:9000/getJSONviaJanrain";
+//
+//// For auto populate case -join a class
+//BS.joinClass = "http://192.168.10.10:9000/joinStreams";
+//
+//// For Rocked It
+//BS.rockedIt = "http://192.168.10.10:9000/rockedIt";
+//// Get Rockers list
+//BS.rockersList = "http://192.168.10.10:9000/returnRockers";
+//// profile images and videos
+//
+//// For File Upload
+//BS.docUpload = "http://192.168.10.10:9000/newDocument";
+//
+//BS.profileImage = "http://192.168.10.10:9000/getProfilePicForAUser";
+//// Gel all profile images
+//BS.allProfileImages = "http://192.168.10.10:9000/getAllProfilePicForAUser";
+//
+////Get all class streams of a user
+//BS.classStreamsForUser = "http://192.168.10.10:9000/allClassStreamsForAUser";
+//
+////Get all school for autopopulate
+//BS.autoPopulateSchools = "http://192.168.10.10:9000/getAllSchoolsForAutopopulate";
+//
+// //POST bitly
+// BS.bitly =  "http://192.168.10.10:9000/bitly";
+// //POST comment
+// BS.newComment = "http://192.168.10.10:9000/newComment";
+//
+////Get all comments of a message
+//BS.allCommentsForAMessage = "http://192.168.10.10:9000/allCommentsForAMessage";
+//
+//BS.forgotPassword = "http://192.168.10.10:9000/forgotPassword";
 
 /*
  * For Cloud
@@ -193,6 +285,7 @@ BS.autoPopulateSchools = "http://localhost:9000/getAllSchoolsForAutopopulate";
 // BS.bitly =  "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=bitly";
 // BS.newComment = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=newComment"; 
 // BS.allCommentsForAMessage = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=allCommentsForAMessage"; 
+//BS.forgotPassword = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=forgotPassword"; 
 //// 
  
 //// 
@@ -224,5 +317,7 @@ BS.autoPopulateSchools = "http://localhost:9000/getAllSchoolsForAutopopulate";
 // BS.classStreamsForUser = "http://192.168.10.10/Beam2/BeamstreamPlay/public/client/api.php?run=classStreamsForUser";
 // BS.autoPopulateSchools = "http://192.168.10.10/Beam2/BeamstreamPlay/public/client/api.php?run=autoPopulateSchools";
 // BS.bitly =  "http://192.168.10.10/Beam2/BeamstreamPlay/public/client/api.php?run=bitly";
-// 
+// BS.newComment = "http://192.168.10.10/Beam2/BeamstreamPlay/public/client/api.php?run=newComment"; 
+// BS.allCommentsForAMessage = "http://192.168.10.10/Beam2/BeamstreamPlay/public/client/api.php?run=allCommentsForAMessage"; 
+ 
 // 

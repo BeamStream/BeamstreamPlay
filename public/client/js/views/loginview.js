@@ -2,7 +2,8 @@ BS.LoginView = Backbone.View.extend({
 
 	events: {
 	      "click #login": "login",
-	      "click #register" :"registration"
+	      "click #register" :"registration",
+	      "click #forgot-pwd" : "showRecoverPage"
 	 },
 	
     initialize:function () {
@@ -125,5 +126,12 @@ BS.LoginView = Backbone.View.extend({
     registration :function(eventName){
     	 eventName.preventDefault();
     	 BS.AppRouter.navigate("emailVerification", {trigger: true});
-    }
+    },
+    /**
+     * move to forgot password page
+     */
+    showRecoverPage : function(eventName){
+   	 eventName.preventDefault();
+	 BS.AppRouter.navigate("recoverAccount", {trigger: true});
+},
 });

@@ -100,7 +100,8 @@ class Api {
 		echo json_encode($arr);
 	}
 	function profileImage(){
-		$arr = "images/image4.jpg";
+// 		$arr = "images/image4.jpg";
+		$arr = "cute.jpg";
 		echo json_encode($arr);
 // 		$arr = array('id' => array(),'userId' => array(), 'mediaUrl' => 'images/placeholders/face1.png' , 'contentType'=> array('name' => 'Image'),'isProfile' => 'true');
 // 		echo json_encode($arr);
@@ -130,7 +131,11 @@ class Api {
 		$arr = array(array('id' => array('id' => '1000'),'messageBody' => 'aaaaaa' , 'timeCreated' => '2012-06-20T11:53:44Z' , 'userId' => array('id' => '01sdfsd7126'),'firstNameofMsgPoster' => 'Neelkaddnth','lastNameofMsgPoster' => 'dfd','rocks' => '0' ,'rockers' => array(),'comments' => array()),array('id' => array('id' => '2000'),'messageBody' => 'bbbbbbbbbb' , 'timeCreated' => '2012-06-20T11:53:44Z' , 'userId' => array('id' => '0128j7126'),'firstNameofMsgPoster' => 'ddd','lastNameofMsgPoster' => 'Sachdev','rocks' => '0' ,'rockers' => array(),'comments' => array()),array('id' => array('id' => '30000'),'messageBody' => 'cccccccc' , 'timeCreated' => '2012-06-20T11:53:44Z' , 'userId' => array('id' => '0128j7126'),'firstNameofMsgPoster' => 'Neelkanth','lastNameofMsgPoster' => 'Sachdev','rocks' => '0' ,'rockers' => array(),'comments' => array()));
 		echo json_encode($arr);
 	}
-	
+	function forgotPassword(){
+		$arr = array('status' => "Success" , 'message' => 'Password Sent');
+		
+		echo json_encode($arr);
+	}
 }
 
 

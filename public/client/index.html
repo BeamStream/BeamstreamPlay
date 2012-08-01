@@ -1908,9 +1908,9 @@
 		Comments
 	</h5>
 	<div class="comment_actions pull-right">
-		<a href="#hide" id="{{parentId}}-hideComment" class="disabled hide_comments">Hide</a>
+		<a href="#hide" id="{{parentId}}-hideComment" class="disabled hide_comments">Hide All</a>
 		|
-		<a class=" show_comments" href="#show" id="{{parentId}}-showComment">Show</a>
+		<a class=" show_comments" href="#show" id="{{parentId}}-showComment">Show All</a>
 	</div>
 </header>
 </script> 
@@ -2254,7 +2254,7 @@
           <div class="form-row-label"></div>
         </div>
           <div class="form-row">
-          <div class="element"> <a class="hand_buttonnew" href="#">Forgot password?</a>
+          <div class="element"> <a id="forgot-pwd" class="hand_buttonnew" href="#">Forgot password?</a>
           </div>
           </div>
             <div class="form-row" >
@@ -2268,6 +2268,32 @@
    </div>
   </script>
  
+ 
+  <!-- template for login-->
+	<script type="text/x-handlebars-template" id="tpl-forgot-password">
+ <div class="modal-backdrop in"></div>
+   	<div class="modal main-popups modal-pull-top in modal-popups " style="display:block;">
+    <div class="modal-header signin_header">
+    <h1 class="pull-left">Reset Password</h1>
+  </div>
+  <div class="modal-body signin_body">
+    <form id="forgot-pass-form"> 
+      <fieldset>
+     <div id="error" class="invalid-validation"></div>
+        <div class="form-row">
+            <div class="element">
+              <label for="email">Email<span class="star"> *</span></label>
+              <input type="text" id="email" placeholder= "email address" class="validate[required , custom[email]] large email_text" value="">
+            </div>
+            <div class="element">
+               <div class="element"><a href="#" id="recover-pwd" class="btn btn-success pull-left" style ="width: width: 215px;; margin-left:85px; margin-bottom:10px;" data-dismiss="modal">Recover Password</a> </div>
+            </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+   </div>
+  </script>
 
 
 	<!-- Le javascript
@@ -2421,6 +2447,7 @@
 	
 <!--  Backbone.js files -->
 <script src="js/views/loginview.js"></script>
+<script src="js/views/forgotpasswordview.js"></script>
 <script src="js/views/streamview.js"></script>
 <script src="js/views/classstreamview.js"></script>
 <script src="js/views/profileview.js"></script>
