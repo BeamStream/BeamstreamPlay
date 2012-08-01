@@ -8,6 +8,7 @@ import javax.mail.Message
 import javax.mail.Transport
 import models.Token
 import org.bson.types.ObjectId
+import play.api.Play
 object SendEmail {
 
   def sendEmail(emailId: String, iam: String) = {
@@ -19,7 +20,7 @@ object SendEmail {
     props.setProperty("mail.smtp.starttls.enable", "true");
     props.setProperty("mail.host", "smtp.gmail.com");
     props.setProperty("mail.user", "neelkanth@knoldus.com");
-    props.setProperty("mail.password", "neelknoldus");
+    props.setProperty("mail.password", Play.current.configuration.getString("email_password").get);
 
     val session = Session.getDefaultInstance(props, null);
     val msg = new MimeMessage(session)
@@ -40,7 +41,7 @@ object SendEmail {
         "Cheers," + "<br>" +
         "The Really Nice Beamstream Folks , US" + "<br>", "text/html");
     val transport = session.getTransport("smtp");
-    transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", "neelknoldus")
+    transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", Play.current.configuration.getString("email_password").get)
     transport.sendMessage(msg, msg.getAllRecipients)
 
     val token = new Token((new ObjectId), authToken)
@@ -55,7 +56,7 @@ object SendEmail {
     props.setProperty("mail.smtp.starttls.enable", "true");
     props.setProperty("mail.host", "smtp.gmail.com");
     props.setProperty("mail.user", "neelkanth@knoldus.com");
-    props.setProperty("mail.password", "neelknoldus");
+    props.setProperty("mail.password", Play.current.configuration.getString("email_password").get);
 
     val session = Session.getDefaultInstance(props, null);
     val msg = new MimeMessage(session)
@@ -76,7 +77,7 @@ object SendEmail {
         "The Really Nice Beamstream Folks , US" + "<br>", "text/html");
 
     val transport = session.getTransport("smtp");
-    transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", "neelknoldus")
+    transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", Play.current.configuration.getString("email_password").get)
     transport.sendMessage(msg, msg.getAllRecipients)
 
   }

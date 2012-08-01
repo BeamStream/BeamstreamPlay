@@ -40,7 +40,7 @@ object User {
   }
 
   /*
-   * find the user for Authentication
+   * find the user for Authentication by email and password
    * 
    */
   def findUser(userEmailorName: String, password: String): Option[User] = {
@@ -55,6 +55,21 @@ object User {
         else Option(authenticatedUserviaEmail.toList(0))
     }
 
+  }
+  
+  /*
+   * Find user coming from social site with the UserName
+   * @Purpose : Authenticate user via user name only
+   */
+  
+  def findUserComingViaSocailSite(userName:String): Option[User]={
+     val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userName))
+     
+     (authenticatedUserviaName.isEmpty)match{
+       case true => None
+       case false => Option(authenticatedUserviaName.toList(0))
+     }
+    
   }
 
   /*
