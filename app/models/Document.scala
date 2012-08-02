@@ -47,7 +47,7 @@ object DocType extends Enumeration {
   val Other = Value(3, "Other")
 }
 
-case class Document(@Key("_id") id: ObjectId, name: String, url: URL, docType: DocType.Value, userId: ObjectId, access: DocumentAccess.Value, streamId: ObjectId,
+case class Document(@Key("_id") id: ObjectId, name: String, url: String, docType: DocType.Value, userId: ObjectId, access: DocumentAccess.Value, streamId: ObjectId,
   creationDate: Date, lastUpdateDate: Date, rocks: Int, rockers: List[ObjectId], comments : List[Message])
 
 case class DocumentForm(name: String)

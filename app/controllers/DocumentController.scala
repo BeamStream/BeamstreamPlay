@@ -46,22 +46,21 @@ object DocumentController extends Controller {
  * Add a document
  */
   
-def newDocument = Action { implicit request =>
+  def newDocument = Action { implicit request =>
     val documentListJsonMap = request.body.asFormUrlEncoded.get
-    (documentListJsonMap.contains(("docID"))) match {
-        case false =>
-        Ok(write(new ResulttoSent("Failure", "DocumentIdNotFound")))
+    (documentListJsonMap.contains(("docURL"))) match {
+          case false =>
+        Ok(write(new ResulttoSent("Failure", "Document URL Not Found")))
         case true =>
-	    val id = documentListJsonMap("docID").toList(0)
 	    val name = documentListJsonMap("docName").toList(0)
-	    val url = new URL(documentListJsonMap("docURL").toList(0))
+	    val url = documentListJsonMap("docURL").toList(0)
 	    val access = documentListJsonMap("docAccess").toList(0)
 	    val docType = documentListJsonMap("docType").toList(0)
 	    val doc = User.getUserProfile(new ObjectId(request.session.get("userId").get))
 	    val date = new Date
-	    val documentToCreate = new Document(new ObjectId(id), name, url, 
+	    val documentToCreate = new Document(new ObjectId(), name, url, 
 		DocType.withName(docType),new ObjectId(request.session.get("userId").get),
-		DocumentAccess.withName(access), null, date, date, 0, List(), List())
+		DocumentAccess.withName(access), new ObjectId(request.session.get("userId").get), date, date, 0, List(), List())
 	    val docId=Document.addDocument(documentToCreate)
 	    val docObtained = Document.findDocumentById(docId)
 	    val docJson = write(List(docObtained))
