@@ -88,7 +88,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     assert(Message.getAllMessagesForAStreamSortedbyRocks(stream.id)(3).rocks === 7) // Sorting by rocks
   }
 
-  test("Get all message by keyword") {
+  test("Get all message by keyword and Limit") {
 
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
@@ -103,6 +103,27 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
 
     assert(Message.getAllMessagesForAKeyword("This is").size === 3)
     assert(Message.getAllMessagesForAKeyword("Neel").size === 1)
+
+  }
+
+  test("Get All Message For a stream with Pagination Implemeted") {
+
+    val stream = StreamDAO.find(MongoDBObject()).toList(0)
+    val user = UserDAO.find(MongoDBObject()).toList(0)
+
+    val message1 = Message(new ObjectId, "This is Neel", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 5, List(), List())
+    val message2 = Message(new ObjectId, "This is Chris", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 7, List(), List())
+    val message3 = Message(new ObjectId, "This is Vikas", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 9, List(), List())
+    val message4 = Message(new ObjectId, "This is Sachdeva", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-05-12"), user.id, Option(stream.id), "", "", 9, List(), List())
+
+    Message.createMessage(message1)
+    Message.createMessage(message2)
+    Message.createMessage(message3)
+    Message.createMessage(message4)
+
+    assert(Message.getAllMessagesForAStreamWithPagination(stream.id, 1, 2).size == 2)
+    assert(Message.getAllMessagesForAStreamWithPagination(stream.id, 1, 3).size == 3)
+
   }
 
   after {

@@ -124,15 +124,30 @@ object Message {
     val messages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList.sortBy(message => message.rocks)
     messages
   }
+  /*
+   * Sort messages within a stream on the basis of time created
+   */
 
   def getAllMessagesForAStreamSortedbyDate(streamId: ObjectId): List[Message] = {
     val messages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList.sortBy(message => message.timeCreated)
     messages
   }
-
+  /*
+   * get all messages within a stream on the basis of keyword
+   */
   def getAllMessagesForAKeyword(keyword: String): List[Message] = {
     val messages = MessageDAO.find(MongoDBObject()).toList.filter(message => message.messageBody.contains(keyword))
     messages
+  }
+
+
+  /*
+ * Pagination For messages
+ */
+
+  def getAllMessagesForAStreamWithPagination(streamId: ObjectId, pageNumber: Int, nPerPage: Int): List[Message] = {
+    val messsagesRetrieved = MessageDAO.find(MongoDBObject("streamId" -> streamId)).skip((pageNumber - 1) * nPerPage).limit(nPerPage).toList
+    messsagesRetrieved
   }
 
   /*
