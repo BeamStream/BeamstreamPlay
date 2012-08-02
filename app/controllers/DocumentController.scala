@@ -52,7 +52,6 @@ object DocumentController extends Controller {
           case false =>
         Ok(write(new ResulttoSent("Failure", "DocumentIdNotFound")))
         case true =>
-	    val id = documentListJsonMap("docID").toList(0)
 	    val name = documentListJsonMap("docName").toList(0)
 	    val url = documentListJsonMap("docURL").toList(0)
 	    val access = documentListJsonMap("docAccess").toList(0)

@@ -76,8 +76,7 @@ BS.FilesMediaView = Backbone.View.extend({
                     type : 'POST',
                     url : BS.docUpload,
                     data : {
-                            docID:111,
-			    docName : 'doc1',
+                            docName : 'doc1',
 			    docURL : $("#upload-media").val(),
 			    docAccess: 'Public',
                             docType: 'GoogleDocs'
