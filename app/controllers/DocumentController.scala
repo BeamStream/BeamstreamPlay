@@ -48,9 +48,9 @@ object DocumentController extends Controller {
   
   def newDocument = Action { implicit request =>
     val documentListJsonMap = request.body.asFormUrlEncoded.get
-    (documentListJsonMap.contains(("docID"))) match {
+    (documentListJsonMap.contains(("docURL"))) match {
           case false =>
-        Ok(write(new ResulttoSent("Failure", "DocumentIdNotFound")))
+        Ok(write(new ResulttoSent("Failure", "Document URL Not Found")))
         case true =>
 	    val name = documentListJsonMap("docName").toList(0)
 	    val url = documentListJsonMap("docURL").toList(0)
