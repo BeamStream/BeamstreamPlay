@@ -116,5 +116,38 @@ object MessageController extends Controller {
     Ok(shortUrlJson).as("application/json")
   }
 
+  //==================================================================//
+  //======Displays all the messages within a Stream sorted by date===//
+  //================================================================//
+  def getAllMessagesForAStreamSortedbyDate = Action { implicit request =>
+    val streamIdJsonMap = request.body.asFormUrlEncoded.get
+    val streamId = streamIdJsonMap("streamId").toList(0)
+    val allMessagesForAStream = Message.getAllMessagesForAStreamSortedbyDate(new ObjectId(streamId))
+    val allMessagesForAStreamJson = write(allMessagesForAStream)
+    Ok(allMessagesForAStreamJson).as("application/json")
+  }
+
+  //==================================================================//
+  //======Displays all the messages within a Stream sorted by rocks===//
+  //================================================================//
+  def getAllMessagesForAStreamSortedbyRocks = Action { implicit request =>
+    val streamIdJsonMap = request.body.asFormUrlEncoded.get
+    val streamId = streamIdJsonMap("streamId").toList(0)
+    val allMessagesForAStream = Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId))
+    val allMessagesForAStreamJson = write(allMessagesForAStream)
+    Ok(allMessagesForAStreamJson).as("application/json")
+  }
+
+  //==================================================================//
+  //======Displays all the messages within a Stream for a keyword===//
+  //================================================================//
+  def getAllMessagesForAStreambyKeyword = Action { implicit request =>
+    val keywordJsonMap = request.body.asFormUrlEncoded.get
+    val keyword = keywordJsonMap("keyword").toList(0)
+    val allMessagesForAStream = Message.getAllMessagesForAKeyword(keyword)
+    val allMessagesForAStreamJson = write(allMessagesForAStream)
+    Ok(allMessagesForAStreamJson).as("application/json")
+  }
+
 }
 

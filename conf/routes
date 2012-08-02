@@ -23,6 +23,10 @@ POST /newStream controllers.StreamController.newStream
 #Messages
 POST /newMessage controllers.MessageController.newMessage
 POST /getAllMessagesForAStream controllers.MessageController.getAllMessagesForAStream
+POST /getAllMessagesForAStreamSortedbyDate controllers.MessageController.getAllMessagesForAStreamSortedbyDate
+POST /getAllMessagesForAStreamSortedbyRocks controllers.MessageController.getAllMessagesForAStreamSortedbyRocks
+POST /getAllMessagesForAStreambyKeyword controllers.MessageController.getAllMessagesForAStreambyKeyword
+
 
 
 #Comments

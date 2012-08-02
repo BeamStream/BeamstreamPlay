@@ -125,7 +125,7 @@ object Message {
     messages
   }
 
-  def getAllMessagesForAStreamSortedbyTime(streamId: ObjectId): List[Message] = {
+  def getAllMessagesForAStreamSortedbyDate(streamId: ObjectId): List[Message] = {
     val messages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList.sortBy(message => message.timeCreated)
     messages
   }
