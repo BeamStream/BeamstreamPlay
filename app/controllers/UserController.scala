@@ -62,8 +62,10 @@ object UserController extends Controller {
 
   def getAuthenticatedUser(userEmailorName: String, userPassword: String): Option[User] = {
     userPassword.isEmpty match {
-      case true => User.findUserComingViaSocailSite(userEmailorName)
-      case false => User.findUser(userEmailorName, userPassword)
+      case true =>
+        User.findUserComingViaSocailSite(userEmailorName)
+      case false =>
+        User.findUser(userEmailorName, userPassword)
     }
   }
 
