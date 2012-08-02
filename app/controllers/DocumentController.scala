@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
 import java.net.URL
+import models.ResulttoSent
 
 /**
  * This controller class is used to store and retrieve all the information about documents.
