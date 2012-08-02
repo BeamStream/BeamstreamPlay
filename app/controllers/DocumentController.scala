@@ -60,7 +60,7 @@ object DocumentController extends Controller {
 	    val date = new Date
 	    val documentToCreate = new Document(new ObjectId(), name, url, 
 		DocType.withName(docType),new ObjectId(request.session.get("userId").get),
-		DocumentAccess.withName(access), null, date, date, 0, List(), List())
+		DocumentAccess.withName(access), new ObjectId(request.session.get("userId").get), date, date, 0, List(), List())
 	    val docId=Document.addDocument(documentToCreate)
 	    val docObtained = Document.findDocumentById(docId)
 	    val docJson = write(List(docObtained))
