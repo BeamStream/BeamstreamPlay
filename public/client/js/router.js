@@ -522,9 +522,6 @@ BS.AppRouter = Backbone.Router.extend({
 				$('#content').html(BS.filesMediaView.el);
 				$('.file-type').hide();
 				$(".checkbox").dgStyle();
-				
-				
-				
 
 			}
 		});
