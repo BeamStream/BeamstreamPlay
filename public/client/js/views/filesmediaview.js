@@ -71,19 +71,23 @@ BS.FilesMediaView = Backbone.View.extend({
      uploadFile : function()
      {
         /* post the documents details */
-         var fileModel = new BS.File();
-         fileModel.set({
+       
+         var documentModel = new BS.Document();
+         documentModel.set({
                 docName : 'doc1',
                 docURL : $("#upload-media").val(),
                 docAccess: 'Public',
                 docType: 'GoogleDocs'
           });
-          var fileData = JSON.stringify(fileModel);
+          var documentData = JSON.stringify(documentModel);
+          
           
             $.ajax({
                     type : 'POST',
                     url : BS.docUpload,
-                    data : fileData,
+                    data : {
+                            data : documentData
+                            },
                     dataType : "json",
                     success : function(data) {
                         if(data.status == 'Failure')
@@ -92,6 +96,10 @@ BS.FilesMediaView = Backbone.View.extend({
                                 console.log("Doc Uploaded Successfully");
                     }
             });
+            
+            
+           
+          
      }
      
       
