@@ -24,7 +24,9 @@ BS.StreamView = Backbone.View.extend({
            "click .comment": "showCommentSection",
            "keypress .add_message_comment" : "addComment",
            "click .hide_comments" : "hideComments",
-           "click .show_comments" : "showComments"
+           "click .show_comments" : "showComments",
+           "click #sort-messages li a" : "sortMessages",
+           "keypress #sort_by_key" : "sortByKeyword"
  
 	 },
 	 
@@ -301,6 +303,10 @@ BS.StreamView = Backbone.View.extend({
       $('#streams-list li.active').removeClass('active');
       $('#'+id).parents('li').addClass('active');
       
+      
+      $('#sort-messages').find('li.active').removeClass('active');
+	  $('#highest-rated').closest('li').addClass('active');
+		 
       //set active class on right top
       $('#public-classes').find('li.active').removeClass('active');
 	  $('#public-classes').find('li#'+id+'').addClass('active');
@@ -704,11 +710,16 @@ BS.StreamView = Backbone.View.extend({
 				      });
 					  
 		  		});
-            	 /* for comment Header   */
-    			 var cmdHead = $("#tpl-comment-header").html();
-    			 var cmdHeadTemplate = Handlebars.compile(cmdHead);
-    			 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
-    			 $('#'+parent+'-commentlists').hide();
+            	 if(cmtCount)
+                 {
+            		 /* for comment Header   */
+        			 var cmdHead = $("#tpl-comment-header").html();
+        			 var cmdHeadTemplate = Handlebars.compile(cmdHead);
+        			 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
+        			 $('#'+parent+'-hideComment').addClass('disabled');
+        			 $('#'+parent+'-commentlists').hide();
+                 }
+            	
               
              }
           });
@@ -776,16 +787,14 @@ BS.StreamView = Backbone.View.extend({
 								 $('#'+data.id.id+'-newCmtImage').attr("src" ,BS.profileImageUrl );
 							 }
 							 
-							
-					  		 		
 				  		});
 				  				
 						 /* for comment Header   */
-//						 var cmdHead = $("#tpl-comment-header").html();
-//						 var cmdHeadTemplate = Handlebars.compile(cmdHead);
-//						 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
-				  		
-				  		 $('#'+parent+'-cmtCount').html(cmtCount);
+						 var cmdHead = $("#tpl-comment-header").html();
+						 var cmdHeadTemplate = Handlebars.compile(cmdHead);
+						 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
+				  		 $('#'+parent+'-hideComment').addClass('disabled');
+//				  		 $('#'+parent+'-cmtCount').html(cmtCount);
  
  
 				  	}
@@ -834,7 +843,138 @@ BS.StreamView = Backbone.View.extend({
              $('#'+parent+'-newcommentlists').html('');
              $comments.slideDown();
          }
+	 },
+	 /**
+	  *  sort stream messages
+	  */
+	 sortMessages:function(eventName){
+		 eventName.preventDefault(); 
+		 var self = this;
+		 var sortKey = eventName.target.id;
+		 var streamId = $('#public-classes').find('li.active').attr('id') ;
+		 $('#sort-messages').find('li.active').removeClass('active');
+		 $('#'+sortKey+'').closest('li').addClass('active');	
+		 
+		
+		 if(sortKey == "highest-rated")
+		 {
+			 $(".timeline_items").html('');
+			 self.getMessageInfo(streamId);
+		 }
+		 else if(sortKey == "date")
+		 {
+			 $(".timeline_items").html('');
+			 $.ajax({
+		  			type : 'POST',
+		  			url : BS.sortByDate,
+		  			data : {
+		  				 streamId :streamId
+		  			},
+		  			dataType : "json",
+				  	success : function(data) {
+				  		self.displayMessages(data);
+				  	}
+		  		});
+		 }
+		 else if(sortKey == "profile-relevance")
+		 {
+			 
+		 }
+		 else if(sortKey == "vote")
+		 {
+			 $(".timeline_items").html('');
+			 $.ajax({
+		  			type : 'POST',
+		  			url :BS.sortByVote,
+		  			data : {
+		  				 streamId :streamId
+		  			},
+		  			dataType : "json",
+				  	success : function(data) {
+				  		self.displayMessages(data);
+				  	}
+		  		});
+		 }
+			 
+	 },
+	 
+	 /**
+	  * sort by keyword
+	  */
+	 
+	 sortByKeyword :function(eventName){
+		
+		 var self = this;
+ 		 if(eventName.which == 13) {
+ 			 $(".timeline_items").html('');
+			 var keyword = $('#sort_by_key').val();
+			 var streamId = $('#public-classes').find('li.active').attr('id') ;
+			 $.ajax({
+		  			type : 'POST',
+		  			url :BS.sortByKey,
+		  			data : {
+		  				 streamId :streamId,
+		  				 keyword : keyword
+		  			},
+		  			dataType : "json",
+				  	success : function(data) {
+				  		self.displayMessages(data);
+				  	}
+		  		});
+			
+		 } 
+	 },
+	 /**
+	  * get all messages and diplay in the sorted order
+	  */
+	 displayMessages : function(data){
+		 
+		  //display the messages
+ 		   var self = this;
+		  _.each(data, function(data) {
+				
+				var msgBody = data.messageBody;
+				var linkTag =  msgBody.replace(BS.urlRegex, function(url) {
+		             return '<a href="' + url + '">' + url + '</a>';
+		        });
+				  
+				var datas = {
+				 	 "datas" : data,
+			     }
+				  
+				 var source = $("#tpl-messages").html();
+					 var template = Handlebars.compile(source);
+					 $('.timeline_items').append(template(datas));
+					 
+					 /* get profile images for messages */
+			          $.ajax({
+			    			type : 'POST',
+			    			url : BS.profileImage,
+			    			data : {
+			    				 userId :  data.userId.id
+			    			},
+			    			dataType : "json",
+			    			success : function(imgUrl) {
+			    				 
+			    				$('img#'+data.id.id+'-img').attr("src", imgUrl);
+			    			}
+			    		});
+					 if(linkTag)
+					  $('div#'+data.id.id+'-id').html(linkTag);
+					 
+				     // embedly
+					 $('div#'+data.id.id+'-id').embedly({
+					   	  maxWidth: 200,
+				          wmode: 'transparent',
+				          method: 'after',
+					      key:'4d205b6a796b11e1871a4040d3dc5c07'
+			         });
+					 
+					self.showAllComments(data.id.id);
+	         });
+ 	
 	 }
+	 
 	 
  
 	 

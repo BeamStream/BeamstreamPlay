@@ -98,6 +98,11 @@ BS.allCommentsForAMessage = "http://localhost:9000/allCommentsForAMessage";
 //for forgot password
 BS.forgotPassword = "http://localhost:9000/forgotPassword";
 
+//sort messages
+BS.sortByDate = "http://localhost:9000/getAllMessagesForAStreamSortedbyDate";
+BS.sortByVote = "http://localhost:9000/getAllMessagesForAStreamSortedbyRock";
+BS.sortByKey = "http://localhost:9000/getAllMessagesForAStreambyKeyword";
+
 
 
 ////For Login Page
@@ -251,6 +256,14 @@ BS.forgotPassword = "http://localhost:9000/forgotPassword";
 //  BS.newComment = "http://beamstream-v3.herokuapp.com/newComment";
 //  //Get all comments of a message
 //  BS.allCommentsForAMessage = "http://beamstream-v3.herokuapp.com/allCommentsForAMessage";
+//
+////for forgot password
+//BS.forgotPassword = "http://beamstream-v3.herokuapp.com/forgotPassword";
+//
+////sort messages
+//BS.sortByDate = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreamSortedbyDate";
+//BS.sortByVote = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreamSortedbyRock";
+//BS.sortByKey = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreambyKeyword";
 
 /*
  * for testing in local

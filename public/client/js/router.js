@@ -29,19 +29,19 @@ BS.AppRouter = Backbone.Router.extend({
     	BS.idLogin = '';
         BS.user = new BS.SingleUser();
         
-//        /** for authentication  */
-//        BS.user.fetch({ success:function(e) {
-//    		if(e.get('firstName') != null) { 
-//				e.set('loggedin', true);
-//			}
-//			else { 
-//				e.set('loggedin', false);				
-//			}
-//			  
-//			this.navView = new BS.NavView({ model: BS.user });
-//			$('.nav-collapse').html(this.navView.render().el);
-//
-//    	}},this);
+        /** for authentication  */
+        BS.user.fetch({ success:function(e) {
+    		if(e.get('firstName') != null) { 
+				e.set('loggedin', true);
+			}
+			else { 
+				e.set('loggedin', false);				
+			}
+			  
+			this.navView = new BS.NavView({ model: BS.user });
+			$('.nav-collapse').html(this.navView.render().el);
+
+    	}},this);
 		 
     	
     	 
@@ -101,58 +101,6 @@ BS.AppRouter = Backbone.Router.extend({
         	 $('#email').val(username);
         	 $('#password').val(password);
          }
-         
-         $('.janrainContent').remove(); 
-//    	 $('#janrainEngageEmbed').remove();
-       
-         /*  For JanRain component*/
-			(function() {
-				
-			    if (typeof window.janrain !== 'object') window.janrain = {};
-			    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
-			    
-			    janrain.settings.tokenUrl =  BS.userPage ;
-			    janrain.settings.tokenAction = 'event'; 
-			    
-			    
-			    /* ----Editted by Aswathy---- */
-			    
-			    janrain.settings.actionText = "";
-			    janrain.settings.fontColor = "#4599d2";
-			    janrain.settings.providers = ["facebook","twitter","linkedin","google"];
-			    janrain.settings.width ="160";
-			   
-			    /* ----End---- */
-			    
-			    
-			    function isReady() {  janrain.ready = true; };
-			    if (document.addEventListener) { 
-			    	 
-			      document.addEventListener("DOMContentLoaded", isReady, false);
-			    } else {  
-			      window.attachEvent('onload', isReady);
-			    }
-
-			    var e = document.createElement('script');
-			    e.type = 'text/javascript';
-			    e.id = 'janrainAuthWidget';
-		        
-			    if (document.location.protocol === 'https:') {
-			      e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
-//		 	     e.src = 'lib/rpxnow_engage.js';
-			    } else {
-			      e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
-//		 	    	 e.src = 'lib/widget_engage.js';
-			    }
-			  
-			    var s = document.getElementsByTagName('script')[0];
-			    s.parentNode.insertBefore(e, s);
-			
-			})();
-			    
-        
-     	
-     	 
     },
    
     
@@ -323,8 +271,6 @@ BS.AppRouter = Backbone.Router.extend({
 		    			}
 		    	   });
 		          
-		          
-		          
 	   	   $('.modal-backdrop').hide();
 	       $('#content').html(BS.streamView.el);
 	       
@@ -432,51 +378,7 @@ BS.AppRouter = Backbone.Router.extend({
 				jQuery("#email-verify").validationEngine();
 				
 				$('.janrainContent').remove(); 
-				
-				/*  For JanRain component*/
-				(function() {
-					
-				    if (typeof window.janrain !== 'object') window.janrain = {};
-				    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
-				    
-				    janrain.settings.tokenUrl =  BS.userPage ;
-				    janrain.settings.tokenAction = 'event'; 
-				    
-				    
-				    /* ----Editted by Aswathy---- */
-				    
-				    janrain.settings.actionText = "";
-				    janrain.settings.fontColor = "#4599d2";
-				    janrain.settings.providers = ["facebook","twitter","linkedin","google"];
-				    janrain.settings.width ="160";
-				   
-				    /* ----End---- */
-				    
-				    
-				    function isReady() {  janrain.ready = true; };
-				    if (document.addEventListener) { 
-				    	 
-				      document.addEventListener("DOMContentLoaded", isReady, false);
-				    } else {  
-				      window.attachEvent('onload', isReady);
-				    }
-
-				    var e = document.createElement('script');
-				    e.type = 'text/javascript';
-				    e.id = 'janrainAuthWidget';
-			        
-				    if (document.location.protocol === 'https:') {
-				      e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
-//			 	     e.src = 'lib/rpxnow_engage.js';
-				    } else {
-				      e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
-//			 	    	 e.src = 'lib/widget_engage.js';
-				    }
-				  
-				    var s = document.getElementsByTagName('script')[0];
-				    s.parentNode.insertBefore(e, s);
-				
-				})();
+				 
 				
 
 			},
@@ -491,8 +393,7 @@ BS.AppRouter = Backbone.Router.extend({
 				$('#school-popup').html(BS.classStreamView.el);
 
 				/* get all schoolIds under a class */
-				$
-						.ajax({
+				$.ajax({
 							type : 'GET',
 							url : BS.allSchoolForAUser,
 							dataType : "json",
