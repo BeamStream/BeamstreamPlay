@@ -7,5 +7,3 @@ tmp
 .classpath
 .cache
 .target/
-bin
-.settings
