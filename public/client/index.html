@@ -93,9 +93,6 @@
 	<script src="lib/backbone.js"></script>
 	<script src="lib/handlebars-1.0.0.beta.6.js"></script>
 	
-	<!--  pretty photo -->
-	<link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
-	<script src="lib/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
 	
   
 	<!--  auto complete -->
@@ -1661,6 +1658,8 @@
                   <li class="active"><a href="#highest-rated">Highest Rated</a></li>
                   <li><a href="#date">Date</a></li>
                   <li><a href="#profile-relevance">Profile Relevance</a></li>
+				  <li ><a href="#vote">Vote</a></li>
+				  <li><input id="sort_by_key"  type="text" placeholder="Sort by keyword"></input></li>
                 </ul>
               </div>
               <section class="new_message">
@@ -2320,7 +2319,7 @@
 	      e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
 // 	    	 e.src = 'lib/widget_engage.js';
 	    }
-	    
+	     
 	    var s = document.getElementsByTagName('script')[0];
 	    s.parentNode.insertBefore(e, s);
 	   
