@@ -27,6 +27,10 @@ BS.ProfileView = Backbone.View.extend({
         BS.digits = 0;
         BS.bar = $('.bar');
         
+        //remove the janrain component if it already exists
+        if($('#janrain-share'))
+         $('#janrain-share').remove();
+        
     },
   
     render:function (eventName) {
