@@ -120,7 +120,6 @@ object MessageController extends Controller {
   //======Displays all the messages within a Stream sorted by date===//
   //================================================================//
   def getAllMessagesForAStreamSortedbyDate = Action { implicit request =>
-    println("Date "+ request.body)
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
     val allMessagesForAStream = Message.getAllMessagesForAStreamSortedbyDate(new ObjectId(streamId))
@@ -132,11 +131,10 @@ object MessageController extends Controller {
   //======Displays all the messages within a Stream sorted by rocks===//
   //================================================================//
   def getAllMessagesForAStreamSortedbyRocks = Action { implicit request =>
-      println("Rock "+ request.body)
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
     val allMessagesForAStream = Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId))
-    val allMessagesForAStreamJson = write(allMessagesForAStream)
+    val allMessagesForAStreamJson = write(allMessagesForAStream.reverse)
     Ok(allMessagesForAStreamJson).as("application/json")
   }
 
@@ -144,7 +142,6 @@ object MessageController extends Controller {
   //======Displays all the messages within a Stream for a keyword===//
   //================================================================//
   def getAllMessagesForAStreambyKeyword = Action { implicit request =>
-      println("KeyWord "+ request.body)
     val keywordJsonMap = request.body.asFormUrlEncoded.get
     val keyword = keywordJsonMap("keyword").toList(0)
     val allMessagesForAStream = Message.getAllMessagesForAKeyword(keyword)

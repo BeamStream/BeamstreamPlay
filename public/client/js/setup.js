@@ -100,7 +100,7 @@ BS.forgotPassword = "http://localhost:9000/forgotPassword";
 
 //sort messages
 BS.sortByDate = "http://localhost:9000/getAllMessagesForAStreamSortedbyDate";
-BS.sortByVote = "http://localhost:9000/getAllMessagesForAStreamSortedbyRock";
+BS.sortByVote = "http://localhost:9000/getAllMessagesForAStreamSortedbyRocks";
 BS.sortByKey = "http://localhost:9000/getAllMessagesForAStreambyKeyword";
 
 
