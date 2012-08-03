@@ -145,8 +145,8 @@ object Message {
  * Pagination For messages
  */
 
-  def getAllMessagesForAStreamWithPagination(streamId: ObjectId, pageNumber: Int, nPerPage: Int): List[Message] = {
-    val messsagesRetrieved = MessageDAO.find(MongoDBObject("streamId" -> streamId)).skip((pageNumber - 1) * nPerPage).limit(nPerPage).toList
+  def getAllMessagesForAStreamWithPagination(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
+    val messsagesRetrieved = MessageDAO.find(MongoDBObject("streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
     messsagesRetrieved
   }
 
