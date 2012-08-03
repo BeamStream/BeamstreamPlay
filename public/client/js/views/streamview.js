@@ -17,7 +17,6 @@ BS.StreamView = Backbone.View.extend({
            "click #icon-down" : "slideDown",
            "click i.rocked" : "rockedIt",
            "mouseenter a#rocks" : "showRockers",
-           "mouseleave a#rocks" : "hideRockers",
            "click .edit_profilepicture" : "showProfilePage",
            "click .nav-tabs li" : "showActive",
            "click .class-nav-list li" :"showListActive",
@@ -367,6 +366,11 @@ BS.StreamView = Backbone.View.extend({
      */
     postMsg:function(message,streamId,messageAccess){
     	
+    	
+//    	var messageModel = new  BS.Message();
+//    	messageModel.set({message :message ,streamId : streamId,messageAccess: messageAccess });
+//    	var messageIfo = JSON.stringify(messageModel);
+    	 
     	/* post message information */
         $.ajax({
   			type : 'POST',
@@ -613,18 +617,7 @@ BS.StreamView = Backbone.View.extend({
  
 	 },
 	 
-	 /**
-	  * hide rockers list
-	  */
-	 hideRockers:function(eventName){
-//		 eventName.preventDefault();
-//		 var element = eventName.target.parentElement;
-//		 var msgId =$(element).closest('li').attr('id');
-//		 $('#hover-lists-'+msgId+'').fadeOut("fast");
-//		 
-//		// setTimeout(function(){ ('#hover-lists-'+msgId+'').fadeOut("fast"); }, 3000);
  
-	 },
 	 
   
 	 /**
