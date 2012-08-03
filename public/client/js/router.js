@@ -101,6 +101,7 @@ BS.AppRouter = Backbone.Router.extend({
         	 $('#email').val(username);
         	 $('#password').val(password);
          }
+     	 
     },
    
     
@@ -271,6 +272,8 @@ BS.AppRouter = Backbone.Router.extend({
 		    			}
 		    	   });
 		          
+		          
+		          
 	   	   $('.modal-backdrop').hide();
 	       $('#content').html(BS.streamView.el);
 	       
@@ -377,10 +380,6 @@ BS.AppRouter = Backbone.Router.extend({
 				$('.forgot-pass').hide();
 				jQuery("#email-verify").validationEngine();
 				
-				$('.janrainContent').remove(); 
-				 
-				
-
 			},
 
 			/**
@@ -393,7 +392,8 @@ BS.AppRouter = Backbone.Router.extend({
 				$('#school-popup').html(BS.classStreamView.el);
 
 				/* get all schoolIds under a class */
-				$.ajax({
+				$
+						.ajax({
 							type : 'GET',
 							url : BS.allSchoolForAUser,
 							dataType : "json",
