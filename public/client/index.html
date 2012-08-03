@@ -1652,12 +1652,12 @@
             <section class="main_content">
               <div class="sort_container">
                 <label>Sort by:</label>
-                <ul class="sort">
-                  <li class="active"><a href="#highest-rated">Highest Rated</a></li>
-                  <li><a href="#date">Date</a></li>
-                  <li><a href="#profile-relevance">Profile Relevance</a></li>
-				  <li ><a href="#vote">Vote</a></li>
-				  <li><input id="sort_by_key"  type="text" placeholder="Sort by keyword"></input></li>
+                <ul class="sort" id="sort-messages">
+                  <li class="active"><a id="highest-rated" href="#highest-rated">Highest Rated</a></li>
+                  <li><a id="date" href="#date">Date</a></li>
+                  <li><a id="profile-relevance" href="#profile-relevance">Profile Relevance</a></li>
+				  <li ><a id="vote" href="#vote">Vote</a></li>
+				  <li><input id="sort_by_key" type="text" placeholder="Sort by keyword" name="keyword"></li>
                 </ul>
               </div>
               <section class="new_message">
@@ -1862,7 +1862,7 @@
 		Comments
 	</h5>
 	<div class="comment_actions pull-right">
-		<a href="#hide" id="{{parentId}}-hideComment" class="disabled hide_comments">Hide All</a>
+		<a href="#hide" id="{{parentId}}-hideComment" class="hide_comments">Hide All</a>
 		|
 		<a class=" show_comments" href="#show" id="{{parentId}}-showComment">Show All</a>
 	</div>
@@ -2297,7 +2297,6 @@
 	   
 	    /* ----End---- */
 	    
-	    
 	    function isReady() {  janrain.ready = true; };
 	    if (document.addEventListener) { 
 	    	 
@@ -2312,10 +2311,8 @@
         
 	    if (document.location.protocol === 'https:') {
 	      e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
-// 	     e.src = 'lib/rpxnow_engage.js';
 	    } else {
 	      e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
-// 	    	 e.src = 'lib/widget_engage.js';
 	    }
 	     
 	    var s = document.getElementsByTagName('script')[0];
@@ -2326,8 +2323,6 @@
 	function janrainWidgetOnload() {
 
         janrain.events.onProviderLoginToken.addHandler(function(response) {
-        	
-        	
                $.ajax({
                       type: "POST",
                       url: BS.userPage,
@@ -2336,7 +2331,6 @@
                     		 
                           if(res != null)
                           {
- 
                         	  BS.JsonFromSocialSite = res;
                         	  if(BS.idLogin == "login")
                         	  {
