@@ -46,7 +46,6 @@ object UserSchool {
     for (school <- schools) {
       val userSchoolId = UserSchoolDAO.insert(school)
       val userSchoolObtained = UserSchool.getUserSchoolById(userSchoolId.get)
-      println(userSchoolObtained + "I am the User School")
 
       val schoolsInDatabase = UserSchool.isSchoolinDatabaseAlready(userSchoolObtained.assosiatedSchoolId)
 

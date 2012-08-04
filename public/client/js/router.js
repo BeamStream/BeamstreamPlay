@@ -29,19 +29,19 @@ BS.AppRouter = Backbone.Router.extend({
     	BS.idLogin = '';
         BS.user = new BS.SingleUser();
         
-        /** for authentication  */
-        BS.user.fetch({ success:function(e) {
-    		if(e.get('firstName') != null) { 
-				e.set('loggedin', true);
-			}
-			else { 
-				e.set('loggedin', false);				
-			}
-			  
-			this.navView = new BS.NavView({ model: BS.user });
-			$('.nav-collapse').html(this.navView.render().el);
-
-    	}},this);
+        /** for authentication  TODO */
+//        BS.user.fetch({ success:function(e) {
+//    		if(e.get('firstName') != null) { 
+//				e.set('loggedin', true);
+//			}
+//			else { 
+//				e.set('loggedin', false);				
+//			}
+//			  
+//			this.navView = new BS.NavView({ model: BS.user });
+//			$('.nav-collapse').html(this.navView.render().el);
+//
+//    	}},this);
 		 
     	
     	 
@@ -77,10 +77,13 @@ BS.AppRouter = Backbone.Router.extend({
      */
     
     login: function() {
+    	
+    	 
     	 $('#school-popup').children().detach(); 
     	 
     	 BS.loginView = new BS.LoginView();
     	 BS.loginView.render();
+    	 
     	 BS.idLogin = "login";
          $('#school-popup').html(BS.loginView.el);  
          $(".modal select:visible").selectBox();
@@ -98,9 +101,7 @@ BS.AppRouter = Backbone.Router.extend({
         	 $('#email').val(username);
         	 $('#password').val(password);
          }
-       
-         
-        
+     	 
     },
    
     
@@ -119,8 +120,6 @@ BS.AppRouter = Backbone.Router.extend({
          jQuery("#login-form").validationEngine();
          $(".checkbox").dgStyle();
          $(".signin_check").dgStyle();
-         
-        
     },
     /**
      * display School Info screen
@@ -210,6 +209,7 @@ BS.AppRouter = Backbone.Router.extend({
 	
 	    var s = document.getElementsByTagName('script')[0];
 	    s.parentNode.insertBefore(e, s);
+	   
 	})();
        
    },
@@ -222,6 +222,7 @@ BS.AppRouter = Backbone.Router.extend({
    mainStream:function () {
 	   
 	   BS.mainImageUrl = $('#right-photo').attr('src');
+	    
 	   $('#middle-content').children().detach();
 	   $('nav li.active').removeClass('active');
 	   $('nav li a#streamsGroups').parents('li').addClass('active');
@@ -241,7 +242,8 @@ BS.AppRouter = Backbone.Router.extend({
 			   //get main menu
 			   this.navView = new BS.NavView({ model: BS.user });
 			   $('.nav-collapse').html(this.navView.render().el);
-	 
+			   $('nav li.active').removeClass('active');
+			   $('#streamsGroups').addClass('active');
 			     /* get profile images for user */
 		          $.ajax({
 		    			type : 'POST',
@@ -252,10 +254,20 @@ BS.AppRouter = Backbone.Router.extend({
 			    			},
 		    			success : function(data) {
 		    				
-		    	        	BS.profileImageUrl = data;
-		    	        	$('#main-photo').attr("src",BS.profileImageUrl);
-		    	        	$('#right-photo').attr("src",BS.profileImageUrl);
-		    	        	$('#msg-photo').attr("src",BS.profileImageUrl);
+		    				 // default profile image
+		    				 if(data.status)
+		    				 {
+		    					 BS.profileImageUrl = "images/placeholders/face2.png";
+				    	        	 
+		    				 }
+		    				 else
+		    				 {
+		    					 BS.profileImageUrl = data;
+		    				 }
+		    				 $('#main-photo').attr("src",BS.profileImageUrl);
+			    	         $('#right-photo').attr("src",BS.profileImageUrl);
+			    	         $('#msg-photo').attr("src",BS.profileImageUrl);
+		    	        	
 		    			}
 		    	   });
 		          
@@ -366,7 +378,7 @@ BS.AppRouter = Backbone.Router.extend({
 				$(".checkbox").dgStyle();
 				$('.forgot-pass').hide();
 				jQuery("#email-verify").validationEngine();
-
+				
 			},
 
 			/**
@@ -493,13 +505,15 @@ BS.AppRouter = Backbone.Router.extend({
 
 				// $('#right-photo').attr("src",BS.profileImageUrl);
 
-//				 BS.user.fetch({ success:function(e) {
-//				   
-//					   //get main menu
-//					   this.navView = new BS.NavView({ model: BS.user });
-//					   $('.nav-collapse').html(this.navView.render().el);
-//			       
-//				 }});
+				 BS.user.fetch({ success:function(e) {
+				   
+					   //get main menu
+					   this.navView = new BS.NavView({ model: BS.user });
+					   $('.nav-collapse').html(this.navView.render().el);
+					   $('nav li.active').removeClass('active');
+					   $('#file-media').addClass('active');
+			       
+				 }});
 				 
 				BS.filesMediaView = new BS.FilesMediaView({
 					model : BS.user

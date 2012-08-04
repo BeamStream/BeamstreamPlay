@@ -1603,3 +1603,9 @@ border: 1px solid rgba(0, 0, 0, 0.15);
 .form-align{
     margin-top: 40px;
 }
+#sort_by_key{
+	font-size: 11px;
+    height: 11px;
+    margin: -3px 0 0 5px;
+    width: 145px
+}

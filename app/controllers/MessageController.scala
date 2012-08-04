@@ -134,7 +134,7 @@ object MessageController extends Controller {
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
     val allMessagesForAStream = Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId))
-    val allMessagesForAStreamJson = write(allMessagesForAStream)
+    val allMessagesForAStreamJson = write(allMessagesForAStream.reverse)
     Ok(allMessagesForAStreamJson).as("application/json")
   }
 

@@ -27,6 +27,10 @@ BS.ProfileView = Backbone.View.extend({
         BS.digits = 0;
         BS.bar = $('.bar');
         
+        //remove the janrain component if it already exists
+        if($('#janrain-share'))
+         $('#janrain-share').remove();
+        
     },
   
     render:function (eventName) {
@@ -47,7 +51,7 @@ BS.ProfileView = Backbone.View.extend({
         {
         	phno ='('+ numText.substring(0,3) + ') ' + numText.substring(3,6) + '-' + numText.substring(6,10);
         	$('#mobile').val(phno);
-        	$('#num-validation').html("allow 10 digits only");
+        	$('#num-validation').html("Must be of 10 digits");
         }
         
     },
