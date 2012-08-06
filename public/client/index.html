@@ -103,6 +103,21 @@
   
     <!-- Cookies -->
     <script src="lib/jquery.cookie.js"></script>
+    <script>
+        $('.lytebox').live('click', function(event) {
+            event.preventDefault()
+            
+           var src = $(this).attr("href");
+            if(src === null){
+                // do nothing.
+                return false;
+            }
+            else{
+                showLyteBox(src);
+            }
+        });
+        
+    </script>
 
 </head>
 
@@ -1685,7 +1700,9 @@
 								<li class="doc-docs">Docs</li>
 	      						<li class="doc-notes">Notes</li>
  								<li class="doc-audio">Audio</li>
- 								<li class="doc-presentation">Presentation</li>
+ 								<li class="doc-presentation">Presentation</li><<<<<<< HEAD
+//  BS.sortByVote = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreamSortedbyRock";
+=======
  							 	</ul></li>
                           
                           <li class="tag"><a href="#tag" class="btn btn-flat"><i class="icon-middle-tag"></i></a></li>

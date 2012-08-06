@@ -47,8 +47,18 @@ object DocType extends Enumeration {
   val Other = Value(3, "Other")
 }
 
-case class Document(@Key("_id") id: ObjectId, name: String, url: String, docType: DocType.Value, userId: ObjectId, access: DocumentAccess.Value, streamId: ObjectId,
-  creationDate: Date, lastUpdateDate: Date, rocks: Int, rockers: List[ObjectId], comments : List[Message])
+case class Document(@Key("_id") id: ObjectId, 
+                                name: String, 
+                                url: String, 
+                                docType: DocType.Value, 
+                                userId: ObjectId, 
+                                access: DocumentAccess.Value, 
+                                streamId: ObjectId,
+                                creationDate: Date, 
+                                lastUpdateDate: Date, 
+                                rocks: Int, 
+                                rockers: List[ObjectId], 
+                                comments : List[ObjectId])
 
 case class DocumentForm(name: String)
 object Document {
@@ -119,15 +129,29 @@ object Document {
    *  Update the Rockers List and increase the count by one 
    */
 
-  def rockedIt(documentId: ObjectId, userId: ObjectId): List[ObjectId] = {
+  def rockedIt(documentId: ObjectId, userId: ObjectId): Int = {
+  
+    
     val documentToRock = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
-    DocumentDAO.update(MongoDBObject("_id" -> documentId), documentToRock.copy(rockers = (documentToRock.rockers ++ List(userId))), false, false, new WriteConcern)
+    
+    documentToRock.rockers.contains(userId) match { 
+    
+           // If the document is already rocked by the user, return the current rock count without updating
+	    case true => 
+		    documentToRock.rocks
 
-    val updatedDocument = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
-    DocumentDAO.update(MongoDBObject("_id" -> documentId), updatedDocument.copy(rocks = (updatedDocument.rocks + 1)), false, false, new WriteConcern)
+            // Otherwise, update the rocker and count
+	    case false =>        
 
-    val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
-    document.rockers
+	    DocumentDAO.update(MongoDBObject("_id" -> documentId), documentToRock.copy(rockers = (documentToRock.rockers ++ List(userId))), false, false, new WriteConcern)
+
+	    val updatedDocument = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
+	    DocumentDAO.update(MongoDBObject("_id" -> documentId), updatedDocument.copy(rocks = (updatedDocument.rocks + 1)), false, false, new WriteConcern)
+
+	    val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
+	    document.rocks
+    
+          }
 
   }
   
@@ -150,6 +174,14 @@ object Document {
    def findDocumentById(docId: ObjectId): Document = {
     val doc = DocumentDAO.findOneByID(docId)
     doc.get
+  }
+  
+    /*
+   * add Comment to message
+   */
+    def addCommentToDocument(documentId: ObjectId, commentId : ObjectId) {
+      val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
+      DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(comments = (document.comments ++ List(commentId))), false, false, new WriteConcern)
   }
    
 }

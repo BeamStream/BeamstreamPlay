@@ -55,22 +55,29 @@ BS.rockersList = "http://localhost:9000/returnRockers";
 
 // For File Upload
 BS.docUpload = "http://localhost:9000/newDocument";
-//get profile image
+
 BS.profileImage = "http://localhost:9000/getProfilePicForAUser";
 // Gel all profile images
 BS.allProfileImages = "http://localhost:9000/getAllProfilePicForAUser";
+
 //Get all class streams of a user
 BS.classStreamsForUser = "http://localhost:9000/allClassStreamsForAUser";
-//Get all school for auto populate
+
+//Get all school for autopopulate
 BS.autoPopulateSchools = "http://localhost:9000/getAllSchoolsForAutopopulate";
-//POST bitly
-BS.bitly =  "http://localhost:9000/bitly";
-//POST comment
-BS.newComment = "http://localhost:9000/newComment";
+
+ //POST bitly
+ BS.bitly =  "http://localhost:9000/bitly";
+ //POST comment
+ BS.newComment = "http://localhost:9000/newComment";
+
 //Get all comments of a message
 BS.allCommentsForAMessage = "http://localhost:9000/allCommentsForAMessage";
+
 //for forgot password
 BS.forgotPassword = "http://localhost:9000/forgotPassword";
+
+ 
 //sort messages
 BS.sortByDate = "http://localhost:9000/getAllMessagesForAStreamSortedbyDate";
 BS.sortByVote = "http://localhost:9000/getAllMessagesForAStreamSortedbyRocks";
@@ -233,7 +240,8 @@ BS.sortByKey = "http://localhost:9000/getAllMessagesForAStreambyKeyword";
 //  BS.forgotPassword = "http://beamstream-v3.herokuapp.com/forgotPassword";
 //  //sort messages
 //  BS.sortByDate = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreamSortedbyDate";
-//  BS.sortByVote = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreamSortedbyRock";
+ 
+//  BS.sortByVote = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreamSortedbyRocks";
 //  BS.sortByKey = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreambyKeyword";
 
 /*
