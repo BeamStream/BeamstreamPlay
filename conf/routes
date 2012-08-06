@@ -93,6 +93,7 @@ GET /getAllProfileVideoForAUser   controllers.MediaController.getAllProfileVideo
 POST /rockedIt controllers.MessageController.rockedTheMessage
 POST /returnRockers controllers.MessageController.giveMeRockers
 POST /followMessage  controllers.MessageController.followTheMessage
+POST /isAFollower    controllers.MessageController.isAFollower
 
 
 #Document Rocks
