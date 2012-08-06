@@ -8,7 +8,6 @@ GET / controllers.StreamController.index
 
 
 #User
-
 POST /users      controllers.UserController.findUser
 
 
@@ -66,9 +65,9 @@ GET /schoolJson controllers.DetailedRegistration.getSchoolsForLoggedInUser
 GET /loggedInUserJson controllers.UserController.returnUserJson
 
 #Basic Registration
-POST /verifyToken controllers.BasicRegistration.basicRegistration
-POST /registerNewUser controllers.BasicRegistration.newUser
-POST /getEmailforNewUser controllers.BasicRegistration.emailSent
+POST /verifyToken          controllers.BasicRegistration.basicRegistration
+POST /registerNewUser      controllers.BasicRegistration.newUser
+POST /getEmailforNewUser   controllers.BasicRegistration.emailSent
 
 
 
@@ -90,13 +89,11 @@ GET /getAllProfilePicForAUser   controllers.MediaController.getAllProfilePicForA
 GET /getAllProfileVideoForAUser   controllers.MediaController.getAllProfileVideoForAUser
 
 
-
-
-
-
-#Message Rocks
+#Message Rocks & Follows
 POST /rockedIt controllers.MessageController.rockedTheMessage
 POST /returnRockers controllers.MessageController.giveMeRockers
+POST /followMessage  controllers.MessageController.followTheMessage
+
 
 #Document Rocks
 POST /rockedIt controllers.DocumentController.rockTheDocument
@@ -107,12 +104,11 @@ POST /getRockers controllers.DocumentController.giveMeRockers
 POST /bitly   controllers.MessageController.getShortUrlViabitly 
 
 #Password Recovery
-
 POST  /forgotPassword          controllers.UserController.forgotPassword
 
 # Map static resources from the /public folder to the /assets URL path
 GET  /beamstream/*file                   controllers.Assets.at(path="/public/client", file)
-GET  /profilePic/*file                   controllers.Assets.at(path="/public/CDNFolder", file)
+
 
 
 
