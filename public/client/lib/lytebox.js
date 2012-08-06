@@ -1977,6 +1977,8 @@ Lytebox.prototype.removeClass = function (args) {
 		}
 	}
 };
+
+
 if (window.addEventListener) {
 	window.addEventListener("load", initLytebox, false);
 } else if (window.attachEvent) {
@@ -1984,5 +1986,20 @@ if (window.addEventListener) {
 } else {
 	window.onload = function() {initLytebox();}
 }
+
 function initLytebox() { myLytebox = $lb = new Lytebox(true, $lb.http); }
+
 myLytebox = $lb = new Lytebox(false);
+
+function showLyteBox(src){
+    $lb.launch({
+                    url: src,
+                    options: 'showPrint:true'
+//                    title: 'Title',
+//                  http://www.indiaonrent.com/forwards/b/beautiful-world-sceneries002/res/nq7za4.jpg  description: 'Description'
+              });
+}
+
+
+
+
