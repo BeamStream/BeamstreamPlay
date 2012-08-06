@@ -164,5 +164,18 @@ object MessageController extends Controller {
     Ok(totalFollowJson).as("application/json")
   }
 
+  /*
+   * Is a follower 
+   * @ Purpose: identify if the user is following a message or not
+   */
+  def isAFollower = Action { implicit request =>
+    {
+      val messageIdJsonMap = request.body.asFormUrlEncoded.get
+      val messageId = messageIdJsonMap("messageId").toList(0)
+      val isAFollowerOfMessage = Message.isAFollower(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
+      Ok(write(isAFollowerOfMessage.toString)).as("application/json")
+    }
+  }
+
 }
 

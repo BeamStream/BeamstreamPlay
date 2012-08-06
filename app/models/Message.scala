@@ -191,6 +191,21 @@ object Message {
 
   }
 
+  /*
+   * Is a follower 
+   * @ Purpose: identify if the user is following a message or not
+   */
+
+  def isAFollower(messageId: ObjectId, userId: Object): Boolean = {
+    val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+
+    (message.followers.contains(userId)) match {
+      case true => true
+      case false => false
+    }
+
+  }
+
 }
 
 object MessageDAO extends SalatDAO[Message, ObjectId](collection = MongoHQConfig.mongoDB("message"))
