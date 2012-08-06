@@ -22,7 +22,39 @@ BS.NavView = Backbone.View.extend({
        $(this.el).html(this.template(this.model.toJSON()));
        return this;
     },
-
+    /**
+     * show profile picture
+     */
+    showProfilePic : function(eventName){
+    	
+    	var userData  = this.model.toJSON();
+    	 
+    	/* get profile images for user */
+        $.ajax({
+  			type : 'POST',
+  			url : BS.profileImage,
+  			dataType : "json",
+  			data : {
+	    				 userId :  userData.id.id
+	    			},
+  			success : function(data) {
+  				
+  				 // default profile image
+  				 if(data.status)
+  				 {
+  					 BS.profileImageUrl = "images/placeholders/face2.png";
+		    	        	 
+  				 }
+  				 else
+  				 {
+  					 BS.profileImageUrl = data;
+  				 }
+  			 
+	    	     $('#right-photo').attr("src",BS.profileImageUrl);
+  	        	
+  			}
+  	   });
+    },
     
     /**
      * show school popups
@@ -71,14 +103,12 @@ BS.NavView = Backbone.View.extend({
 	     if(id == "file-media")
 	     {
 	    	 BS.AppRouter.navigate("filesMedia", {trigger: true});
-//	    	 window.location.reload();
 		   	
 	     }
 	     else if(id == "streamsGroups")
 	     {
 	    	 BS.AppRouter.navigate("streams", {trigger: true});
 	     }
-		 
 	 }
  
 });

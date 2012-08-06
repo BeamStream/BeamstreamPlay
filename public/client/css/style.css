@@ -1450,14 +1450,16 @@ span.edit_profilepicture_icon{
     padding-left: 8px;
     text-align: left;
 }
-/* JanRain classes */
+
+/* Overwrite JanRain classes */
  .janrainContent{ 
- 
- background: none !important;
- border: medium none !important;
+	 background: none !important;
+	 border: medium none !important;
+	 width: 200px !important;
+/* 	 margin: -20px 0 0 55px !important; */
  }
 .janrainHeader {
- background:none !important;
+     background:none !important;
 }
 #janrain-twitter img{
 /* 	 background: url("../images/fieldset-bg.png") repeat scroll 0 0 transparent !important; */
@@ -1468,6 +1470,38 @@ span.edit_profilepicture_icon{
 .janrainContent div{
 	background-color:none !important;
 }
+
+#janrain-facebook ,#janrain-twitter,#janrain-linkedin {
+	margin-right: 13px !important;
+	border:none !important;
+}
+ 
+.janrainContent div + div{
+	width: 200px !important;
+	background-color:#fff !important;
+	margin-top:10px !important;
+}
+.janrainSwitchAccountLink{
+	color : #01588E !important;
+}
+
+/*.... End Of OverWrire..... */
+
+
+/* extra styles for janRain */
+.janRain{
+/* 	margin:-20px 0 0 55px !important; */
+ }
+ .janRain div.janrainContent{
+ margin:-20px 0 0 55px !important;
+ }
+ .login-janRain{
+	margin-left: 16px;
+    margin-top: -9px !important;
+}
+/*.....................*/
+
+
 /** for new class stream*/
 .class-social{
 	padding:0 0 0 45px;
@@ -1595,11 +1629,9 @@ border: 1px solid rgba(0, 0, 0, 0.15);
 	text-align:center;
 	display:block;
 	float:right ;
-	margin: 0 65px 0 0;
+	width: 280px;
 } 
-.janRain{
-	margin:-20px 0 0 0 !important;
- }
+
 .form-align{
     margin-top: 40px;
 }
@@ -1608,4 +1640,8 @@ border: 1px solid rgba(0, 0, 0, 0.15);
     height: 11px;
     margin: -3px 0 0 5px;
     width: 145px
+}
+.orwith{
+	margin-bottom:10px !important;
+	margin-top: 9px;
 }

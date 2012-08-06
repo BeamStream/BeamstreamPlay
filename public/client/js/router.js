@@ -43,8 +43,6 @@ BS.AppRouter = Backbone.Router.extend({
 //
 //    	}},this);
 		 
-    	
-    	 
     	/* calculate time from 12:00AM to 11:45PM */
     	var timeValues = new Array;
   		var hours, minutes, ampm;
@@ -71,16 +69,14 @@ BS.AppRouter = Backbone.Router.extend({
     	
     },
 
-    
     /**
      * display login form
      */
     
     login: function() {
-    	
     	 
     	 $('#school-popup').children().detach(); 
-    	 
+    	 var self =this;
     	 BS.loginView = new BS.LoginView();
     	 BS.loginView.render();
     	 
@@ -91,7 +87,6 @@ BS.AppRouter = Backbone.Router.extend({
          $(".checkbox").dgStyle();
          $(".signin_check").dgStyle();
          
-        
          //get cookies
          var username= $.cookie('userName');
          var password = $.cookie('password');
@@ -101,14 +96,17 @@ BS.AppRouter = Backbone.Router.extend({
         	 $('#email').val(username);
         	 $('#password').val(password);
          }
-     	 
+         
+         /* display janRain component */
+		 setTimeout(function() {
+		    self.displayJanRain();
+		 }, 1000);
+     	
     },
    
-    
     /**
      * recover password/Account
      */
-    
     recoverAccount: function() {
     	 $('#school-popup').children().detach(); 
     	  
@@ -194,6 +192,7 @@ BS.AppRouter = Backbone.Router.extend({
 	    if (document.addEventListener) {
 	        document.addEventListener("DOMContentLoaded", isReady, false);
 	    } else {
+	    	
 	        window.attachEvent('onload', isReady);
 	    }
 	
@@ -237,10 +236,12 @@ BS.AppRouter = Backbone.Router.extend({
 		      
 			   BS.streamView = new BS.StreamView({ model: BS.user });
 			   BS.streamView.render();
+			   
 			   self.onstream = true; 
 	   	   
 			   //get main menu
 			   this.navView = new BS.NavView({ model: BS.user });
+			  
 			   $('.nav-collapse').html(this.navView.render().el);
 			   $('nav li.active').removeClass('active');
 			   $('#streamsGroups').addClass('active');
@@ -366,18 +367,27 @@ BS.AppRouter = Backbone.Router.extend({
 			 */
 			emailVerification : function() {
 				$('#school-popup').children().detach();
-//				BS.emailView = null;
+				var self = this;
 				if (!BS.emailView) {
 					BS.emailView = new BS.verifyEmailView();
 					BS.emailView.render();
 					BS.idLogin = "register";
+					
 				}
 
 				$('#school-popup').html(BS.emailView.el);
+				
 				$(".modal select:visible").selectBox();
 				$(".checkbox").dgStyle();
 				$('.forgot-pass').hide();
 				jQuery("#email-verify").validationEngine();
+				 
+				$('.janrainContent').remove();
+				/* disaplay janRain component */
+			    setTimeout(function() {
+			    	self.displayJanRain();
+				 }, 1000);
+				
 				
 			},
 
@@ -509,9 +519,12 @@ BS.AppRouter = Backbone.Router.extend({
 				   
 					   //get main menu
 					   this.navView = new BS.NavView({ model: BS.user });
+					   this.navView.showProfilePic();
 					   $('.nav-collapse').html(this.navView.render().el);
 					   $('nav li.active').removeClass('active');
 					   $('#file-media').addClass('active');
+					   
+					   $('#right-photo').attr("src",BS.profileImageUrl);
 			       
 				 }});
 				 
@@ -527,5 +540,53 @@ BS.AppRouter = Backbone.Router.extend({
 				
 				
 
+			},
+			
+			
+			displayJanRain : function(){
+				
+				 var janRainCount = $('.janrainContent').length;
+				 if(janRainCount == 0)
+				 {
+					/*  For JanRain component*/
+					(function() {
+						
+					    if (typeof window.janrain !== 'object') window.janrain = {};
+					    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+					    
+					    janrain.settings.tokenUrl =  BS.userPage ;
+					    janrain.settings.tokenAction = 'event'; 
+					    
+					    /* ----Editted by Aswathy---- */
+					    janrain.settings.actionText = "";
+					    janrain.settings.fontColor = "#4599d2";
+					    janrain.settings.providers = ["facebook","twitter","linkedin","google"];
+					    janrain.settings.width ="160";
+					    /* ----End---- */
+					    
+					    function isReady() {  janrain.ready = true; };
+					    if (document.addEventListener) { 
+					    	 
+					      document.addEventListener("DOMContentLoaded", isReady, false);
+					    } else {  
+					      window.attachEvent('onload', isReady);
+					    }
+	
+					    var e = document.createElement('script');
+					    e.type = 'text/javascript';
+					    e.id = 'janrainAuthWidget';
+				        
+					    if (document.location.protocol === 'https:') {
+					      e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
+					    } else {
+					      e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
+					    }
+					     
+					    var s = document.getElementsByTagName('script')[0];
+					    s.parentNode.insertBefore(e, s);
+					})();
+				 }
+				
+				
 			}
 		});

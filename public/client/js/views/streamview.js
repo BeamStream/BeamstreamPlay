@@ -409,7 +409,7 @@ BS.StreamView = Backbone.View.extend({
   							var source = $("#tpl-messages").html();
   	  						var template = Handlebars.compile(source);
   	  						$('.timeline_items').prepend(template(datas));
-  	  						
+  	  						 
   	  						//get profile image of logged user
   	  					    $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
   	  					    
@@ -885,7 +885,7 @@ BS.StreamView = Backbone.View.extend({
 			 $(".timeline_items").html('');
 			 $.ajax({
 		  			type : 'POST',
-		  			url :BS.sortByVote,
+		  			url : BS.sortByVote,
 		  			data : {
 		  				 streamId :streamId
 		  			},
