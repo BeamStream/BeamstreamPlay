@@ -341,6 +341,14 @@ BS.AppRouter = Backbone.Router.extend({
 			 */
 			basicRegistrationViaJanRain : function(event) {
 
+				 
+			
+				
+//           	  localStorage["first-name"] = datas.profile.name.givenName;
+//           	  localStorage["last-name"] = datas.profile.name.familyName;
+//           	  localStorage["location"] = datas.profile.address.formatted;
+//           	  localStorage["email"] = datas.profile.preferredUsername;
+//				
 				$('#school-popup').children().detach();
 				 
 				
@@ -354,18 +362,17 @@ BS.AppRouter = Backbone.Router.extend({
 				$(".modal select:visible").selectBox();
 				$(".checkbox").dgStyle();
 				jQuery("#social-media-signup").validationEngine();
+				  var datas = BS.JsonFromSocialSite;
 
 				// display values
-				 
-				var datas = BS.JsonFromSocialSite;
-
+				
 //				$("#user-name").val(datas.profile.preferredUsername);
-//				$('#first-name').val(datas.profile.name.givenName);
-//				$('#last-name').val(datas.profile.name.familyName);
-//				$('#location').val(datas.profile.address.formatted);
-				$('#first-name').val(localStorage["first-name"]);
-				$('#last-name').val(localStorage["last-name"]);
-				$('#location').val(localStorage["location"]);
+				$('#first-name').val(datas.profile.name.givenName);
+				$('#last-name').val(datas.profile.name.familyName);
+				$('#location').val(datas.profile.address.formatted);
+//				$('#first-name').val(localStorage["first-name"]);
+//				$('#last-name').val(localStorage["last-name"]);
+//				$('#location').val(localStorage["location"]);
 
 			},
 
