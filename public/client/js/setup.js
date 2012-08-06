@@ -75,7 +75,9 @@ BS.sortByDate = "http://localhost:9000/getAllMessagesForAStreamSortedbyDate";
 BS.sortByVote = "http://localhost:9000/getAllMessagesForAStreamSortedbyRocks";
 BS.sortByKey = "http://localhost:9000/getAllMessagesForAStreambyKeyword";
 //Message Follow
-BS.followMessage ="http://localhost:9000/followMessage";  
+BS.followMessage ="http://localhost:9000/followMessage"; 
+//check follower
+BS.isAFollower = "http://localhost:9000/isAFollower";  
 
 
 

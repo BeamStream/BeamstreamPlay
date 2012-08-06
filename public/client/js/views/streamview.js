@@ -439,7 +439,7 @@ BS.StreamView = Backbone.View.extend({
      * get all details about messages and its comments of a stream
      */
     getMessageInfo :function(streamid){
- 
+    	 
          var self = this;
          /* get all messages of a stream  */
 		 $.ajax({
@@ -462,11 +462,25 @@ BS.StreamView = Backbone.View.extend({
 							  
 							var datas = {
  							 	 "datas" : data,
- 						     }
+ 						    }
 							  
 							 var source = $("#tpl-messages").html();
 	  						 var template = Handlebars.compile(source);
 	  						 $('.timeline_items').prepend(template(datas));
+	  						 
+	  						 /* check whether the user is follwer of a message or not */
+	  				          $.ajax({
+	  				    			type : 'POST',
+	  				    			url : BS.isAFollower,
+	  				    			data : {
+	  				    				 messageId : data.id.id
+	  				    			},
+	  				    			dataType : "json",
+	  				    			success : function(status) {
+	  				    				 if(status == "true")
+	  				    				   $('#'+datas.id.id+'-follow').html("Unfollow");
+	  				    			}
+	  				    		});
 	  						 
 	  						 
 	  						 /* get profile images for messages */
@@ -991,7 +1005,7 @@ BS.StreamView = Backbone.View.extend({
              },
              dataType:"json",
              success:function(data){
-            	 
+            	 $('#'+eventName.target.id).html("Unfollow");
              }
           });
 	 }

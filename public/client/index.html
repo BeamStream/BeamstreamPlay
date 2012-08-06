@@ -2343,7 +2343,8 @@
                           if(res != null)
                           {
                         	  BS.JsonFromSocialSite = res;
-                        	  if(BS.idLogin == "login")
+//                         	  localStorage["JsonFromSocialSite"] = res;
+                        	  if(localStorage["idLogin"] == "login")
                         	  {
                         		  var loginModel = new BS.Login();
                         		  loginModel.set({
@@ -2357,9 +2358,9 @@
 			                  		  janRainLogin(loginDetails);
 					    		   }, 1000);
 			                  	  
-			                  	BS.idLogin ='';
+			                  	localStorage["idLogin"] ='';
                         	  }
-                        	  if(BS.idLogin == "register")
+                        	  if(localStorage["idLogin"] == "register")
                         	  {
                         		   
                         		  //navigate to regitration page
@@ -2367,7 +2368,7 @@
          	   						trigger : true,
          	   						replace : true
          	   					  });
-      			    			BS.idLogin = '';
+      			    			localStorage["idLogin"]= '';
                         	  }
                         	
                           }

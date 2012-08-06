@@ -80,7 +80,8 @@ BS.AppRouter = Backbone.Router.extend({
     	 BS.loginView = new BS.LoginView();
     	 BS.loginView.render();
     	 
-    	 BS.idLogin = "login";
+//    	 BS.idLogin = "login";
+    	 localStorage["idLogin"] = "login";
          $('#school-popup').html(BS.loginView.el);  
          $(".modal select:visible").selectBox();
          jQuery("#login-form").validationEngine();
@@ -233,7 +234,11 @@ BS.AppRouter = Backbone.Router.extend({
 		   
 		   $('.modal').css('display','none');
 		   BS.user.fetch({ success:function(e) {
-		      
+			   
+			   //store logged user destials
+		       BS.loggedUserInfo  = e;
+		       localStorage["loggedUserInfo"] = e.attributes.id.id;
+		       
 			   BS.streamView = new BS.StreamView({ model: BS.user });
 			   BS.streamView.render();
 			   
@@ -339,8 +344,11 @@ BS.AppRouter = Backbone.Router.extend({
 			basicRegistrationViaJanRain : function(event) {
 
 				$('#school-popup').children().detach();
-//				BS.mediaRegistrationView = null;
 				 
+//				var data =localStorage["JsonFromSocialSite"];
+//				data = JSON.stringify(data)
+//				console.log(data.profile.name.givenName);
+				
 				if (!BS.mediaRegistrationView) {
 					BS.mediaRegistrationView = new BS.MediaRegistrationView();
 					BS.mediaRegistrationView.render();
@@ -373,7 +381,8 @@ BS.AppRouter = Backbone.Router.extend({
 					BS.emailView = new BS.verifyEmailView();
 					BS.emailView.render();
 				}
-				BS.idLogin = "register";
+//				BS.idLogin = "register";
+				localStorage["idLogin"] = "register";
 				$('#school-popup').html(BS.emailView.el);
 				
 				$(".modal select:visible").selectBox();
@@ -511,7 +520,7 @@ BS.AppRouter = Backbone.Router.extend({
 				$('#content').children().detach();
 				$('#school-popup').children().detach();
 				var self = this;
-
+				 
 				// $('#right-photo').attr("src",BS.profileImageUrl);
 
 				 BS.user.fetch({ success:function(e) {
