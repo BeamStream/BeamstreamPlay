@@ -314,7 +314,6 @@ BS.AppRouter = Backbone.Router.extend({
 			success : function(data) {
 					if (data.status == "Success") {
 
-//						BS.registrationView = null;
 						if (!BS.registrationView) {
 							BS.registrationView = new BS.RegistrationView();
 							var mailInfo = {
@@ -322,7 +321,6 @@ BS.AppRouter = Backbone.Router.extend({
 									mail : email
 							};
 							BS.registrationView.render(mailInfo);
-
 						}
 
 						$('#school-popup').html(BS.registrationView.el);
@@ -345,9 +343,6 @@ BS.AppRouter = Backbone.Router.extend({
 
 				$('#school-popup').children().detach();
 				 
-//				var data =localStorage["JsonFromSocialSite"];
-//				data = JSON.stringify(data)
-//				console.log(data.profile.name.givenName);
 				
 				if (!BS.mediaRegistrationView) {
 					BS.mediaRegistrationView = new BS.MediaRegistrationView();
@@ -365,9 +360,12 @@ BS.AppRouter = Backbone.Router.extend({
 				var datas = BS.JsonFromSocialSite;
 
 //				$("#user-name").val(datas.profile.preferredUsername);
-				$('#first-name').val(datas.profile.name.givenName);
-				$('#last-name').val(datas.profile.name.familyName);
-				$('#location').val(datas.profile.address.formatted);
+//				$('#first-name').val(datas.profile.name.givenName);
+//				$('#last-name').val(datas.profile.name.familyName);
+//				$('#location').val(datas.profile.address.formatted);
+				$('#first-name').val(localStorage["first-name"]);
+				$('#last-name').val(localStorage["last-name"]);
+				$('#location').val(localStorage["location"]);
 
 			},
 

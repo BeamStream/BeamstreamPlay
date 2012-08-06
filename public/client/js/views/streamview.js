@@ -478,7 +478,7 @@ BS.StreamView = Backbone.View.extend({
 	  				    			dataType : "json",
 	  				    			success : function(status) {
 	  				    				 if(status == "true")
-	  				    				   $('#'+datas.id.id+'-follow').html("Unfollow");
+	  				    				   $('#'+data.id.id+'-follow').html("Unfollow");
 	  				    			}
 	  				    		});
 	  						 
@@ -751,10 +751,6 @@ BS.StreamView = Backbone.View.extend({
 		 var commentBox = $("#comment-box").html();
 		 var cmtBoxTemplate = Handlebars.compile(commentBox);
 		 $('#'+parent+'-add-comment').html(cmtBoxTemplate({parentId : parent}));
-//		 $('#'+parent+'-commentlists').slideDown();
-//		 $('#'+parent+'-hideComment').removeClass('disabled');
-//         $('#'+parent+'-showComment').addClass('disabled');
-	 
 		 
 	 },
 	 

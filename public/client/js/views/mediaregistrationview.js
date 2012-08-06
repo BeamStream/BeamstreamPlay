@@ -17,10 +17,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 
 	render : function(eventName) {
 	   
-		
-		
 		 $(this.el).html(this.template);
-		
 		 return this;
 		
 	},
@@ -118,8 +115,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 				iam : $('#iam').val(),
 				email : $('#school-email').val(),
 				schoolName : $('#school-name').val(),
-				userName : datas.profile.preferredUsername,
-//				userName : $('#user-name').val(),
+				userName : localStorage["email"],
 				password : "",
 				firstName : $('#first-name').val(),
 				lastName : $('#last-name').val(),

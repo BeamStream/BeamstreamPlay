@@ -84,6 +84,7 @@ BS.NavView = Backbone.View.extend({
 				url : BS.signOut,
 				dataType : "json",
 				success : function(datas) {
+					 localStorage.clear();  
 					 BS.AppRouter.navigate("login", {trigger: true});
 				}
 		 });

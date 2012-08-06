@@ -2342,34 +2342,39 @@
                     	   
                           if(res != null)
                           {
-                        	  BS.JsonFromSocialSite = res;
-//                         	  localStorage["JsonFromSocialSite"] = res;
-                        	  if(localStorage["idLogin"] == "login")
-                        	  {
-                        		  var loginModel = new BS.Login();
-                        		  loginModel.set({
-                                		email : res.profile.preferredUsername,
-                                		password : "",
-                                		rememberMe : false
-                            	  });
-                                  var loginDetails = JSON.stringify(loginModel);
-                                  
-			                  	  setTimeout(function() {
-			                  		  janRainLogin(loginDetails);
-					    		   }, 1000);
-			                  	  
-			                  	localStorage["idLogin"] ='';
-                        	  }
-                        	  if(localStorage["idLogin"] == "register")
-                        	  {
-                        		   
-                        		  //navigate to regitration page
-      			    			  BS.AppRouter.navigate("basicRegistration", {
-         	   						trigger : true,
-         	   						replace : true
-         	   					  });
-      			    			localStorage["idLogin"]= '';
-                        	  }
+                        	   
+	                        	  localStorage["first-name"] = res.profile.name.givenName;
+	                        	  localStorage["last-name"] = res.profile.name.familyName;
+	                        	  localStorage["location"] = res.profile.address.formatted;
+	                        	  localStorage["email"] = res.profile.preferredUsername;
+	                        	  
+	                        	  BS.JsonFromSocialSite = res;
+	                        	  
+	                        	  if(localStorage["idLogin"] == "login")
+	                        	  {
+	                        		  var loginModel = new BS.Login();
+	                        		  loginModel.set({
+	                                		email : localStorage["email"],
+	                                		password : "",
+	                                		rememberMe : false
+	                            	  });
+	                                  var loginDetails = JSON.stringify(loginModel);
+	                                  
+				                  	  setTimeout(function() {
+				                  		  janRainLogin(loginDetails);
+						    		   }, 1000);
+				                  	  
+				                  	localStorage["idLogin"] ='';
+	                        	  }
+	                        	  if(localStorage["idLogin"] == "register")
+	                        	  {
+	                        		  //navigate to regitration page
+	      			    			  BS.AppRouter.navigate("basicRegistration", {
+	         	   						trigger : true,
+	         	   						replace : true
+	         	   					  });
+	      			    			localStorage["idLogin"]= '';
+	                        	  }
                         	
                           }
                       }
