@@ -31,10 +31,8 @@ object UserController extends Controller {
  */
   def findUser = Action { implicit request =>
 
-    println(request.body)
     val userJsonMap = request.body.asFormUrlEncoded.get
     val user = userJsonMap("data").toList(0)
-    println(user)
     val userJson = net.liftweb.json.parse(user)
     val userEmailorName = (userJson \ "email").extract[String]
     val userPassword = (userJson \ "password").extract[String]
@@ -164,7 +162,6 @@ object UserController extends Controller {
    * @purpose : Send a mail to user with password
    */
   def forgotPassword = Action { implicit request =>
-    println(request.body)
     val emailIdJsonMap = request.body.asFormUrlEncoded.get
     val emailId = emailIdJsonMap("email").toList(0)
     val passwordSent = User.forgotPassword(emailId)

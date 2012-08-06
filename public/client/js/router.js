@@ -29,19 +29,19 @@ BS.AppRouter = Backbone.Router.extend({
     	BS.idLogin = '';
         BS.user = new BS.SingleUser();
         
-        /** for authentication  */
-        BS.user.fetch({ success:function(e) {
-    		if(e.get('firstName') != null) { 
-				e.set('loggedin', true);
-			}
-			else { 
-				e.set('loggedin', false);				
-			}
-			  
-			this.navView = new BS.NavView({ model: BS.user });
-			$('.nav-collapse').html(this.navView.render().el);
-
-    	}},this);
+        /** for authentication  TODO */
+//        BS.user.fetch({ success:function(e) {
+//    		if(e.get('firstName') != null) { 
+//				e.set('loggedin', true);
+//			}
+//			else { 
+//				e.set('loggedin', false);				
+//			}
+//			  
+//			this.navView = new BS.NavView({ model: BS.user });
+//			$('.nav-collapse').html(this.navView.render().el);
+//
+//    	}},this);
 		 
     	
     	 
@@ -120,8 +120,6 @@ BS.AppRouter = Backbone.Router.extend({
          jQuery("#login-form").validationEngine();
          $(".checkbox").dgStyle();
          $(".signin_check").dgStyle();
-         
-        
     },
     /**
      * display School Info screen
@@ -244,7 +242,8 @@ BS.AppRouter = Backbone.Router.extend({
 			   //get main menu
 			   this.navView = new BS.NavView({ model: BS.user });
 			   $('.nav-collapse').html(this.navView.render().el);
-	 
+			   $('nav li.active').removeClass('active');
+			   $('#streamsGroups').addClass('active');
 			     /* get profile images for user */
 		          $.ajax({
 		    			type : 'POST',
@@ -506,13 +505,15 @@ BS.AppRouter = Backbone.Router.extend({
 
 				// $('#right-photo').attr("src",BS.profileImageUrl);
 
-//				 BS.user.fetch({ success:function(e) {
-//				   
-//					   //get main menu
-//					   this.navView = new BS.NavView({ model: BS.user });
-//					   $('.nav-collapse').html(this.navView.render().el);
-//			       
-//				 }});
+				 BS.user.fetch({ success:function(e) {
+				   
+					   //get main menu
+					   this.navView = new BS.NavView({ model: BS.user });
+					   $('.nav-collapse').html(this.navView.render().el);
+					   $('nav li.active').removeClass('active');
+					   $('#file-media').addClass('active');
+			       
+				 }});
 				 
 				BS.filesMediaView = new BS.FilesMediaView({
 					model : BS.user

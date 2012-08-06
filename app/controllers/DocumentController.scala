@@ -28,6 +28,7 @@ import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
 import java.net.URL
 import models.ResulttoSent
+import play.api.libs.json._
 
 /**
  * This controller class is used to store and retrieve all the information about documents.
@@ -47,15 +48,28 @@ object DocumentController extends Controller {
  */
   
   def newDocument = Action { implicit request =>
-    val documentListJsonMap = request.body.asFormUrlEncoded.get
-    (documentListJsonMap.contains(("docURL"))) match {
-          case false =>
-        Ok(write(new ResulttoSent("Failure", "Document URL Not Found")))
+    val documentJsonMap = request.body.asFormUrlEncoded.get
+       
+     (documentJsonMap.contains(("data"))) match {
+     
+        case false =>
+           
+           Ok(write(new ResulttoSent("Failure", "Document data not found !!!")))
+        
         case true =>
-	    val name = documentListJsonMap("docName").toList(0)
-	    val url = documentListJsonMap("docURL").toList(0)
-	    val access = documentListJsonMap("docAccess").toList(0)
-	    val docType = documentListJsonMap("docType").toList(0)
+        
+	    val document = documentJsonMap("data").toList(0)
+	    println(document)
+	    
+	    val documentJson = net.liftweb.json.parse(document)
+	    
+	    val name = (documentJson \ "docName").extract[String]
+            val url= (documentJson \ "docURL").extract[String]
+            val access = (documentJson \ "docAccess").extract[String]
+            val docType = (documentJson \ "docType").extract[String]
+    
+            println(" name :"+name +"  url :"+ url + "  access::"+ access + "  docType:"+docType)
+	    
 	    val doc = User.getUserProfile(new ObjectId(request.session.get("userId").get))
 	    val date = new Date
 	    val documentToCreate = new Document(new ObjectId(), name, url, 
@@ -65,8 +79,7 @@ object DocumentController extends Controller {
 	    val docObtained = Document.findDocumentById(docId)
 	    val docJson = write(List(docObtained))
 	    Ok(docJson).as("application/json")
-	    
-	 }   
+	}
   }
 
   def documents = Action { implicit request =>

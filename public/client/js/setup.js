@@ -100,7 +100,7 @@ BS.forgotPassword = "http://localhost:9000/forgotPassword";
 
 //sort messages
 BS.sortByDate = "http://localhost:9000/getAllMessagesForAStreamSortedbyDate";
-BS.sortByVote = "http://localhost:9000/getAllMessagesForAStreamSortedbyRock";
+BS.sortByVote = "http://localhost:9000/getAllMessagesForAStreamSortedbyRocks";
 BS.sortByKey = "http://localhost:9000/getAllMessagesForAStreambyKeyword";
 
 
@@ -256,14 +256,12 @@ BS.sortByKey = "http://localhost:9000/getAllMessagesForAStreambyKeyword";
 //  BS.newComment = "http://beamstream-v3.herokuapp.com/newComment";
 //  //Get all comments of a message
 //  BS.allCommentsForAMessage = "http://beamstream-v3.herokuapp.com/allCommentsForAMessage";
-//
-////for forgot password
-//BS.forgotPassword = "http://beamstream-v3.herokuapp.com/forgotPassword";
-//
-////sort messages
-//BS.sortByDate = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreamSortedbyDate";
-//BS.sortByVote = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreamSortedbyRock";
-//BS.sortByKey = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreambyKeyword";
+//  //for forgot password
+//  BS.forgotPassword = "http://beamstream-v3.herokuapp.com/forgotPassword";
+//  //sort messages
+//  BS.sortByDate = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreamSortedbyDate";
+//  BS.sortByVote = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreamSortedbyRocks";
+//  BS.sortByKey = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreambyKeyword";
 
 /*
  * for testing in local
