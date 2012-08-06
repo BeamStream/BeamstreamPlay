@@ -55,33 +55,27 @@ BS.rockersList = "http://localhost:9000/returnRockers";
 
 // For File Upload
 BS.docUpload = "http://localhost:9000/newDocument";
-
 BS.profileImage = "http://localhost:9000/getProfilePicForAUser";
 // Gel all profile images
 BS.allProfileImages = "http://localhost:9000/getAllProfilePicForAUser";
-
 //Get all class streams of a user
 BS.classStreamsForUser = "http://localhost:9000/allClassStreamsForAUser";
-
 //Get all school for autopopulate
 BS.autoPopulateSchools = "http://localhost:9000/getAllSchoolsForAutopopulate";
-
- //POST bitly
- BS.bitly =  "http://localhost:9000/bitly";
- //POST comment
- BS.newComment = "http://localhost:9000/newComment";
-
+//POST bitly
+BS.bitly =  "http://localhost:9000/bitly";
+//POST comment
+BS.newComment = "http://localhost:9000/newComment";
 //Get all comments of a message
 BS.allCommentsForAMessage = "http://localhost:9000/allCommentsForAMessage";
-
 //for forgot password
 BS.forgotPassword = "http://localhost:9000/forgotPassword";
-
- 
 //sort messages
 BS.sortByDate = "http://localhost:9000/getAllMessagesForAStreamSortedbyDate";
 BS.sortByVote = "http://localhost:9000/getAllMessagesForAStreamSortedbyRocks";
 BS.sortByKey = "http://localhost:9000/getAllMessagesForAStreambyKeyword";
+//Message Follow
+BS.followMessage ="http://localhost:9000/followMessage";  
 
 
 

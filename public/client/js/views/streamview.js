@@ -26,7 +26,8 @@ BS.StreamView = Backbone.View.extend({
            "click .hide_comments" : "hideComments",
            "click .show_comments" : "showComments",
            "click #sort-messages li a" : "sortMessages",
-           "keypress #sort_by_key" : "sortByKeyword"
+           "keypress #sort_by_key" : "sortByKeyword",
+           "click .follow" : "followMessage"
  
 	 },
 	 
@@ -973,8 +974,27 @@ BS.StreamView = Backbone.View.extend({
 					self.showAllComments(data.id.id);
 	         });
  	
+	 },
+	 /**
+	  * follow each messages
+	  */
+	 followMessage : function(eventName){
+		 eventName.preventDefault();
+		 var element = eventName.target.parentElement;
+		 var msgId =$(element).closest('li').attr('id');
+		 
+		 $.ajax({
+             type: 'POST',
+             url:BS.followMessage,
+             data:{
+            	  messageId:msgId
+             },
+             dataType:"json",
+             success:function(data){
+            	 
+             }
+          });
 	 }
-	 
 	 
  
 	 

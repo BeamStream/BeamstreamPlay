@@ -1143,7 +1143,7 @@
                 </ul>
                 <ul class="nav pull-right">
                   <li>
-                    <div class="photo_container">
+                    <div class="photo_container" >
 					   
                       <img id="right-photo" src="images/placeholders/face5.png" width="36" height="37">
                     </div>
@@ -1700,9 +1700,7 @@
 								<li class="doc-docs">Docs</li>
 	      						<li class="doc-notes">Notes</li>
  								<li class="doc-audio">Audio</li>
- 								<li class="doc-presentation">Presentation</li><<<<<<< HEAD
-//  BS.sortByVote = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreamSortedbyRock";
-=======
+ 								<li class="doc-presentation">Presentation</li> 
  							 	</ul></li>
                           
                           <li class="tag"><a href="#tag" class="btn btn-flat"><i class="icon-middle-tag"></i></a></li>
@@ -1727,9 +1725,6 @@
               </section>
 
               <div class="double-line"></div>
-
-
-
               <section class="timeline">
                 <ul class="timeline_items">
                   
@@ -1737,7 +1732,6 @@
               </section>
             </section>
           </div>
-
           <div class="col right_column span2" style="margin-left: 10px !important;">
             <section class="public_class_stream">
               <h2>Public Class Stream</h2>
@@ -1749,7 +1743,6 @@
 
         </div>
       </div>
-
       <footer class="site_footer">
         <p>Copyright &copy; 2012 BeamStream</p>
         <ul class="pull-right">
@@ -1831,7 +1824,7 @@
                              <span class="separator">-</span>
                             <a class="comment" href="#comment">Comment</a>
                             <span class="separator">-</span>
-                           <a class="follow" href="#follow">Follow</a>
+                           <a id="{{id.id}}-follow" class="follow" href="#follow">Follow</a>
                       </div>
                     </div>
                  </div>
@@ -1912,7 +1905,7 @@
          <span class="separator">-</span>
          <a class="comment" id ="{{datas.id.id}}-comment" href="#comment">Comment</a>
          <span class="separator">-</span>
-         <a class="follow" href="#follow">Follow</a>
+         <a id="{{datas.id.id}}-follow" class="follow" href="#follow">Follow</a>
        </div>
        <div id ="{{datas.id.id}}-rockers" class="actions with-tooltips tooltips-top btn-group">
           
@@ -2345,21 +2338,26 @@
                       url: BS.userPage,
                       data: "token=" + response.token,
                       success: function(res) {
-                    		 
+                    		
+                    	   
                           if(res != null)
                           {
                         	  BS.JsonFromSocialSite = res;
                         	  if(BS.idLogin == "login")
                         	  {
-                        		  var  info = JSON.stringify({
-						    			email : res.profile.preferredUsername,
-						    			password : "",
-						    			rememberMe : false
-						          });
-                  	   
+                        		  var loginModel = new BS.Login();
+                        		  loginModel.set({
+                                		email : res.profile.preferredUsername,
+                                		password : "",
+                                		rememberMe : false
+                            	  });
+                                  var loginDetails = JSON.stringify(loginModel);
+                                  
 			                  	  setTimeout(function() {
-			                  		  janRainLogin(info);
+			                  		  janRainLogin(loginDetails);
 					    		   }, 1000);
+			                  	  
+			                  	BS.idLogin ='';
                         	  }
                         	  if(BS.idLogin == "register")
                         	  {
@@ -2369,6 +2367,7 @@
          	   						trigger : true,
          	   						replace : true
          	   					  });
+      			    			BS.idLogin = '';
                         	  }
                         	
                           }

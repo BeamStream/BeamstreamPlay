@@ -241,7 +241,7 @@ BS.AppRouter = Backbone.Router.extend({
 	   	   
 			   //get main menu
 			   this.navView = new BS.NavView({ model: BS.user });
-			  
+			    
 			   $('.nav-collapse').html(this.navView.render().el);
 			   $('nav li.active').removeClass('active');
 			   $('#streamsGroups').addClass('active');
@@ -353,6 +353,7 @@ BS.AppRouter = Backbone.Router.extend({
 				jQuery("#social-media-signup").validationEngine();
 
 				// display values
+				 
 				var datas = BS.JsonFromSocialSite;
 
 //				$("#user-name").val(datas.profile.preferredUsername);
@@ -371,10 +372,8 @@ BS.AppRouter = Backbone.Router.extend({
 				if (!BS.emailView) {
 					BS.emailView = new BS.verifyEmailView();
 					BS.emailView.render();
-					BS.idLogin = "register";
-					
 				}
-
+				BS.idLogin = "register";
 				$('#school-popup').html(BS.emailView.el);
 				
 				$(".modal select:visible").selectBox();
