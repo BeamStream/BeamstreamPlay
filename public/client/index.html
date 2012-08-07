@@ -106,7 +106,7 @@
     
     <!--Shuffle in media page -->
     <script type="text/javascript" src="lib/jquery.shuffle.js"></script>
-    <script type="text/javascript" src="lib/jquery.shuffle.min.js.js"></script>
+    <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script>
         
     <script>
         $('.lytebox').live('click', function(event) {
@@ -2352,7 +2352,6 @@
 	function janrainWidgetOnload() {
 
         janrain.events.onProviderLoginToken.addHandler(function(response) {
-        	
                $.ajax({
                       type: "POST",
                       url: BS.userPage,
@@ -2361,15 +2360,16 @@
                           if(res != null)
                           {
 
-	                        	  if(res.stat == "ok")
-	                        	 {
-	                        	    setTimeout(function() {
-	                        		   
+                                if(res.stat == "ok")
+                               {
+                                   
+                                  setTimeout(function() {
+
 		                        		  /*  Facebook signUp */
 		                        		  if(res.profile.providerName == "Facebook")
 		                        		  {
-// 			                                  if(res.hasOwnProperty(res['profile']['address']))
-// 		    	        		           	     localStorage["location"] = res.profile.address.formatted;
+ 			                                  if((!res['profile']['address']) === undefined)
+ 		    	        		           	     localStorage["location"] = res.profile.address.formatted;
 			                                  
 		                        			  localStorage["first-name"] = res.profile.name.givenName;
 		    	        		           	  localStorage["last-name"] = res.profile.name.familyName;
@@ -2410,6 +2410,8 @@
 				                                	password : "",
 				                                	rememberMe : false
 				                              });
+                                                          
+                                                          
 				                              var loginDetails = JSON.stringify(loginModel);
 												 
 							                  setTimeout(function() {
