@@ -75,6 +75,7 @@ BS.AppRouter = Backbone.Router.extend({
      */
     
     login: function() {
+    	 localStorage["idLogin"]= '';
     	 
     	 $('#school-popup').children().detach(); 
     	 var self =this;
@@ -373,8 +374,8 @@ BS.AppRouter = Backbone.Router.extend({
 						$('#last-name').val(localStorage["last-name"]);
 					
 					
-//					if(localStorage["location"])
-//						$('#location').val(localStorage["location"]);
+					if(localStorage["location"])
+						$('#location').val(localStorage["location"]);
 	    		 }, 500);
 				
 
@@ -384,6 +385,7 @@ BS.AppRouter = Backbone.Router.extend({
 			 * for email verification
 			 */
 			emailVerification : function() {
+				localStorage["idLogin"]= '';
 				$('#school-popup').children().detach();
 				var self = this;
 				if (!BS.emailView) {
