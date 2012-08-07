@@ -1609,3 +1609,16 @@ border: 1px solid rgba(0, 0, 0, 0.15);
     margin: -3px 0 0 5px;
     width: 145px
 }
+
+.google-docs-image{
+    background:url("../images/image5.jpg");
+    cursor:pointer;
+    display:block;
+    width:191px;
+    height:141px;
+}
+
+.google-docs-image:hover{
+    cursor:pointer;
+    background:url("../images/image5hover.jpg");
+}

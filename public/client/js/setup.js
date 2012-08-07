@@ -103,7 +103,8 @@ BS.sortByDate = "http://localhost:9000/getAllMessagesForAStreamSortedbyDate";
 BS.sortByVote = "http://localhost:9000/getAllMessagesForAStreamSortedbyRocks";
 BS.sortByKey = "http://localhost:9000/getAllMessagesForAStreambyKeyword";
 
-
+// Get All Documebts of a user
+ BS.getAllDocs = "http://localhost:9000/getAllDocumentsForAUser";
 
 ////For Login Page
 //BS.login = "http://192.168.10.10:9000/users";

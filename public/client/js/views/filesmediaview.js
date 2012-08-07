@@ -5,7 +5,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	       "click ul.file-type li a" : "hideList",
 	       "click '.nav a" : "addActive",
            "click #go_button" : "uploadFile",
-//               "click #profile-images":"listProfileImages"
+//               "click #profile-images":"listProfileImages",
 	      
 	 },
 	
@@ -14,20 +14,18 @@ BS.FilesMediaView = Backbone.View.extend({
    	var type = "files";
    	    var profileView = new BS.ProfileView();
      	profileView.getProfileImages(type);
-     	  
+        
         console.log('Initializing Files and Media  View');
         this.template= _.template($("#tpl-files-media").html());
-        
-        
+
         
     },
 
     render:function (eventName) {
-    	
+       
         $(this.el).html(this.template());
         return this;
     },
-    
     
     /**
      * show file types
@@ -96,11 +94,32 @@ BS.FilesMediaView = Backbone.View.extend({
                                 console.log("Doc Uploaded Successfully");
                     }
             });
-            
-            
-           
-          
+  
      }
-     
-      
+
+});
+
+//View for listing docs
+BS.ListDocsView = Backbone.View.extend({
+    
+    events: {
+	       "click .close-button" : "closeScreen"
+	 },
+  
+    initialize:function () {
+
+        this.templateDoc= _.template($("#tpl-list-docs").html());
+    },
+  
+    renderDoc:function (eventName) {
+       
+        $(this.el).html(this.templateDoc());
+        return this;
+    },
+    
+    closeScreen :function(eventName){
+  	  eventName.preventDefault();  
+      BS.AppRouter.navigate("filesMedia", {trigger: true});
+    }
+  
 });
