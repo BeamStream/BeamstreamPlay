@@ -49,7 +49,7 @@ object MessageController extends Controller {
         val messageBody = messageListJsonMap("message").toList(0)
         val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
         val messageToCreate = new Message(new ObjectId, messageBody, None, Option(MessageAccess.withName(messageAccess)), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)),
-          messagePoster.firstName, messagePoster.lastName, 0, List(), List())
+          messagePoster.firstName, messagePoster.lastName, 0, List(), List(), 0, List())
         val messageId = Message.createMessage(messageToCreate)
         val messageObtained = Message.findMessageById(messageId)
         val messageJson = write(List(messageObtained))
@@ -147,6 +147,34 @@ object MessageController extends Controller {
     val allMessagesForAStream = Message.getAllMessagesForAKeyword(keyword)
     val allMessagesForAStreamJson = write(allMessagesForAStream)
     Ok(allMessagesForAStreamJson).as("application/json")
+  }
+
+  /*
+   * Follow the messages
+   */
+
+  /*
+   * Rock the message
+   */
+  def followTheMessage = Action { implicit request =>
+    val messageIdJsonMap = request.body.asFormUrlEncoded.get
+    val messageId = messageIdJsonMap("messageId").toList(0)
+    val totalFollows = Message.followMessage(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
+    val totalFollowJson = write(totalFollows.toString)
+    Ok(totalFollowJson).as("application/json")
+  }
+
+  /*
+   * Is a follower 
+   * @ Purpose: identify if the user is following a message or not
+   */
+  def isAFollower = Action { implicit request =>
+    {
+      val messageIdJsonMap = request.body.asFormUrlEncoded.get
+      val messageId = messageIdJsonMap("messageId").toList(0)
+      val isAFollowerOfMessage = Message.isAFollower(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
+      Ok(write(isAFollowerOfMessage.toString)).as("application/json")
+    }
   }
 
 }

@@ -44,8 +44,6 @@ BS.AppRouter = Backbone.Router.extend({
 //
 //    	}},this);
 		 
-    	
-    	 
     	/* calculate time from 12:00AM to 11:45PM */
     	var timeValues = new Array;
   		var hours, minutes, ampm;
@@ -72,27 +70,25 @@ BS.AppRouter = Backbone.Router.extend({
     	
     },
 
-    
     /**
      * display login form
      */
     
     login: function() {
-    	
     	 
     	 $('#school-popup').children().detach(); 
-    	 
+    	 var self =this;
     	 BS.loginView = new BS.LoginView();
     	 BS.loginView.render();
     	 
-    	 BS.idLogin = "login";
+//    	 BS.idLogin = "login";
+    	 localStorage["idLogin"] = "login";
          $('#school-popup').html(BS.loginView.el);  
          $(".modal select:visible").selectBox();
          jQuery("#login-form").validationEngine();
          $(".checkbox").dgStyle();
          $(".signin_check").dgStyle();
          
-        
          //get cookies
          var username= $.cookie('userName');
          var password = $.cookie('password');
@@ -102,14 +98,17 @@ BS.AppRouter = Backbone.Router.extend({
         	 $('#email').val(username);
         	 $('#password').val(password);
          }
-     	 
+         
+         /* display janRain component */
+		 setTimeout(function() {
+		    self.displayJanRain();
+		 }, 1000);
+     	
     },
    
-    
     /**
      * recover password/Account
      */
-    
     recoverAccount: function() {
     	 $('#school-popup').children().detach(); 
     	  
@@ -195,6 +194,7 @@ BS.AppRouter = Backbone.Router.extend({
 	    if (document.addEventListener) {
 	        document.addEventListener("DOMContentLoaded", isReady, false);
 	    } else {
+	    	
 	        window.attachEvent('onload', isReady);
 	    }
 	
@@ -235,13 +235,20 @@ BS.AppRouter = Backbone.Router.extend({
 		   
 		   $('.modal').css('display','none');
 		   BS.user.fetch({ success:function(e) {
-		      
+			   
+			   //store logged user details
+		       BS.loggedUserInfo  = e;
+		       localStorage["loggedUserInfo"] = e.attributes.id.id;
+		       
 			   BS.streamView = new BS.StreamView({ model: BS.user });
 			   BS.streamView.render();
+			   
+			   
 			   self.onstream = true; 
 	   	   
 			   //get main menu
 			   this.navView = new BS.NavView({ model: BS.user });
+			    
 			   $('.nav-collapse').html(this.navView.render().el);
 			   $('nav li.active').removeClass('active');
 			   $('#streamsGroups').addClass('active');
@@ -309,7 +316,6 @@ BS.AppRouter = Backbone.Router.extend({
 			success : function(data) {
 					if (data.status == "Success") {
 
-//						BS.registrationView = null;
 						if (!BS.registrationView) {
 							BS.registrationView = new BS.RegistrationView();
 							var mailInfo = {
@@ -317,7 +323,6 @@ BS.AppRouter = Backbone.Router.extend({
 									mail : email
 							};
 							BS.registrationView.render(mailInfo);
-
 						}
 
 						$('#school-popup').html(BS.registrationView.el);
@@ -339,8 +344,7 @@ BS.AppRouter = Backbone.Router.extend({
 			basicRegistrationViaJanRain : function(event) {
 
 				$('#school-popup').children().detach();
-//				BS.mediaRegistrationView = null;
-				 
+				
 				if (!BS.mediaRegistrationView) {
 					BS.mediaRegistrationView = new BS.MediaRegistrationView();
 					BS.mediaRegistrationView.render();
@@ -352,13 +356,27 @@ BS.AppRouter = Backbone.Router.extend({
 				$(".checkbox").dgStyle();
 				jQuery("#social-media-signup").validationEngine();
 
-				// display values
-				var datas = BS.JsonFromSocialSite;
-
-//				$("#user-name").val(datas.profile.preferredUsername);
-				$('#first-name').val(datas.profile.name.givenName);
-				$('#last-name').val(datas.profile.name.familyName);
-				$('#location').val(datas.profile.address.formatted);
+				 setTimeout(function() {
+ 	    	    	 
+					 var datas = BS.JsonFromSocialSite;
+		           	  
+					/* display values  TODO */ 
+//					$("#user-name").val(datas.profile.preferredUsername);
+//					$('#first-name').val(datas.profile.name.givenName);
+//					$('#last-name').val(datas.profile.name.familyName);
+//					$('#location').val(datas.profile.address.formatted);
+					 
+					 
+					if(localStorage["first-name"])
+					    $('#first-name').val(localStorage["first-name"]);
+					if(localStorage["last-name"] != "")
+						$('#last-name').val(localStorage["last-name"]);
+					
+					
+//					if(localStorage["location"])
+//						$('#location').val(localStorage["location"]);
+	    		 }, 500);
+				
 
 			},
 
@@ -367,18 +385,26 @@ BS.AppRouter = Backbone.Router.extend({
 			 */
 			emailVerification : function() {
 				$('#school-popup').children().detach();
-//				BS.emailView = null;
+				var self = this;
 				if (!BS.emailView) {
 					BS.emailView = new BS.verifyEmailView();
 					BS.emailView.render();
-					BS.idLogin = "register";
 				}
-
+//				BS.idLogin = "register";
+				localStorage["idLogin"] = "register";
 				$('#school-popup').html(BS.emailView.el);
+				
 				$(".modal select:visible").selectBox();
 				$(".checkbox").dgStyle();
 				$('.forgot-pass').hide();
 				jQuery("#email-verify").validationEngine();
+				 
+				$('.janrainContent').remove();
+				/* disaplay janRain component */
+			    setTimeout(function() {
+			    	self.displayJanRain();
+				 }, 1000);
+				
 				
 			},
 
@@ -503,16 +529,19 @@ BS.AppRouter = Backbone.Router.extend({
 				$('#content').children().detach();
 				$('#school-popup').children().detach();
 				var self = this;
-
+				 
 				// $('#right-photo').attr("src",BS.profileImageUrl);
 
 				 BS.user.fetch({ success:function(e) {
 				   
 					   //get main menu
 					   this.navView = new BS.NavView({ model: BS.user });
+					   this.navView.showProfilePic();
 					   $('.nav-collapse').html(this.navView.render().el);
 					   $('nav li.active').removeClass('active');
 					   $('#file-media').addClass('active');
+					   
+					   $('#right-photo').attr("src",BS.profileImageUrl);
 			       
 				 }});
 				 
@@ -526,6 +555,7 @@ BS.AppRouter = Backbone.Router.extend({
 				$(".checkbox").dgStyle();
 
 			},
+
                         
                         docsList : function()
                         {
@@ -552,5 +582,54 @@ BS.AppRouter = Backbone.Router.extend({
                             BS.listDocsView.renderDoc();
 
                             $('#content').html(BS.listDocsView.el);
-                        }
+                        },
+
+			
+			
+			displayJanRain : function(){
+				
+				 var janRainCount = $('.janrainContent').length;
+				 if(janRainCount == 0)
+				 {
+					/*  For JanRain component*/
+					(function() {
+						
+					    if (typeof window.janrain !== 'object') window.janrain = {};
+					    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+					    
+					    janrain.settings.tokenUrl =  BS.userPage ;
+					    janrain.settings.tokenAction = 'event'; 
+					    
+					    /* ----Editted by Aswathy---- */
+					    janrain.settings.actionText = "";
+					    janrain.settings.fontColor = "#4599d2";
+					    janrain.settings.providers = ["facebook","twitter","linkedin","google"];
+					    janrain.settings.width ="160";
+					    /* ----End---- */
+					    
+					    function isReady() {  janrain.ready = true; };
+					    if (document.addEventListener) { 
+					    	 
+					      document.addEventListener("DOMContentLoaded", isReady, false);
+					    } else {  
+					      window.attachEvent('onload', isReady);
+					    }
+	
+					    var e = document.createElement('script');
+					    e.type = 'text/javascript';
+					    e.id = 'janrainAuthWidget';
+				        
+					    if (document.location.protocol === 'https:') {
+					      e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
+					    } else {
+					      e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
+					    }
+					     
+					    var s = document.getElementsByTagName('script')[0];
+					    s.parentNode.insertBefore(e, s);
+					})();
+				 }
+				
+				
+			}
 		});

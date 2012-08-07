@@ -11,7 +11,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	
     initialize:function () {
 
-   	var type = "files";
+     	var type = "files";
    	    var profileView = new BS.ProfileView();
      	profileView.getProfileImages(type);
         

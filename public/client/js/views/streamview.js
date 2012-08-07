@@ -26,7 +26,8 @@ BS.StreamView = Backbone.View.extend({
            "click .hide_comments" : "hideComments",
            "click .show_comments" : "showComments",
            "click #sort-messages li a" : "sortMessages",
-           "keypress #sort_by_key" : "sortByKeyword"
+           "keypress #sort_by_key" : "sortByKeyword",
+           "click .follow" : "followMessage"
  
 	 },
 	 
@@ -409,7 +410,7 @@ BS.StreamView = Backbone.View.extend({
   							var source = $("#tpl-messages").html();
   	  						var template = Handlebars.compile(source);
   	  						$('.timeline_items').prepend(template(datas));
-  	  						
+  	  						 
   	  						//get profile image of logged user
   	  					    $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
   	  					    
@@ -438,7 +439,7 @@ BS.StreamView = Backbone.View.extend({
      * get all details about messages and its comments of a stream
      */
     getMessageInfo :function(streamid){
- 
+    	 
          var self = this;
          /* get all messages of a stream  */
 		 $.ajax({
@@ -461,11 +462,25 @@ BS.StreamView = Backbone.View.extend({
 							  
 							var datas = {
  							 	 "datas" : data,
- 						     }
+ 						    }
 							  
 							 var source = $("#tpl-messages").html();
 	  						 var template = Handlebars.compile(source);
 	  						 $('.timeline_items').prepend(template(datas));
+	  						 
+	  						 /* check whether the user is follwer of a message or not */
+	  				          $.ajax({
+	  				    			type : 'POST',
+	  				    			url : BS.isAFollower,
+	  				    			data : {
+	  				    				 messageId : data.id.id
+	  				    			},
+	  				    			dataType : "json",
+	  				    			success : function(status) {
+	  				    				 if(status == "true")
+	  				    				   $('#'+data.id.id+'-follow').html("Unfollow");
+	  				    			}
+	  				    		});
 	  						 
 	  						 
 	  						 /* get profile images for messages */
@@ -736,10 +751,6 @@ BS.StreamView = Backbone.View.extend({
 		 var commentBox = $("#comment-box").html();
 		 var cmtBoxTemplate = Handlebars.compile(commentBox);
 		 $('#'+parent+'-add-comment').html(cmtBoxTemplate({parentId : parent}));
-//		 $('#'+parent+'-commentlists').slideDown();
-//		 $('#'+parent+'-hideComment').removeClass('disabled');
-//         $('#'+parent+'-showComment').addClass('disabled');
-	 
 		 
 	 },
 	 
@@ -885,7 +896,7 @@ BS.StreamView = Backbone.View.extend({
 			 $(".timeline_items").html('');
 			 $.ajax({
 		  			type : 'POST',
-		  			url :BS.sortByVote,
+		  			url : BS.sortByVote,
 		  			data : {
 		  				 streamId :streamId
 		  			},
@@ -973,8 +984,27 @@ BS.StreamView = Backbone.View.extend({
 					self.showAllComments(data.id.id);
 	         });
  	
+	 },
+	 /**
+	  * follow each messages
+	  */
+	 followMessage : function(eventName){
+		 eventName.preventDefault();
+		 var element = eventName.target.parentElement;
+		 var msgId =$(element).closest('li').attr('id');
+		 
+		 $.ajax({
+             type: 'POST',
+             url:BS.followMessage,
+             data:{
+            	  messageId:msgId
+             },
+             dataType:"json",
+             success:function(data){
+            	 $('#'+eventName.target.id).html("Unfollow");
+             }
+          });
 	 }
-	 
 	 
  
 	 

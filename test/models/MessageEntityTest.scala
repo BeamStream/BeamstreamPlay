@@ -19,12 +19,12 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     Stream.createStream(stream)
   }
 
-  test("Message Creation") {
+  test("Message Creation and rocking the message") {
 
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
 
-    val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, List(), List())
+    val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
 
     val messageId = Message.createMessage(message)
 
@@ -51,11 +51,11 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
 
-    val message5 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 0, List(), List())
-    val message1 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 0, List(), List())
-    val message2 = Message(new ObjectId, "some message2", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 0, List(), List())
-    val message3 = Message(new ObjectId, "some message3", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 0, List(), List())
-    val message4 = Message(new ObjectId, "some message4", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 0, List(), List())
+    val message5 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message1 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message2 = Message(new ObjectId, "some message2", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message3 = Message(new ObjectId, "some message3", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message4 = Message(new ObjectId, "some message4", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
 
     Message.createMessage(message5)
     Message.createMessage(message1)
@@ -72,11 +72,11 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
 
-    val message5 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 2, List(), List())
-    val message1 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 5, List(), List())
-    val message2 = Message(new ObjectId, "some message2", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 7, List(), List())
-    val message3 = Message(new ObjectId, "some message3", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 9, List(), List())
-    val message4 = Message(new ObjectId, "some message4", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 1, List(), List())
+    val message5 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 2, List(), List(), 0, List())
+    val message1 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 5, List(), List(), 0, List())
+    val message2 = Message(new ObjectId, "some message2", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 7, List(), List(), 0, List())
+    val message3 = Message(new ObjectId, "some message3", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 9, List(), List(), 0, List())
+    val message4 = Message(new ObjectId, "some message4", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 1, List(), List(), 0, List())
 
     Message.createMessage(message5)
     Message.createMessage(message1)
@@ -93,9 +93,9 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
 
-    val message1 = Message(new ObjectId, "This is Neel", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 5, List(), List())
-    val message2 = Message(new ObjectId, "This is Chris", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 7, List(), List())
-    val message3 = Message(new ObjectId, "This is Vikas", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 9, List(), List())
+    val message1 = Message(new ObjectId, "This is Neel", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 5, List(), List(), 0, List())
+    val message2 = Message(new ObjectId, "This is Chris", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 7, List(), List(), 0, List())
+    val message3 = Message(new ObjectId, "This is Vikas", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 9, List(), List(), 0, List())
 
     Message.createMessage(message1)
     Message.createMessage(message2)
@@ -111,10 +111,10 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
 
-    val message1 = Message(new ObjectId, "This is Neel", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 5, List(), List())
-    val message2 = Message(new ObjectId, "This is Chris", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 7, List(), List())
-    val message3 = Message(new ObjectId, "This is Vikas", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 9, List(), List())
-    val message4 = Message(new ObjectId, "This is Sachdeva", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-05-12"), user.id, Option(stream.id), "", "", 9, List(), List())
+    val message1 = Message(new ObjectId, "This is Neel", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 5, List(), List(), 0, List())
+    val message2 = Message(new ObjectId, "This is Chris", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 7, List(), List(), 0, List())
+    val message3 = Message(new ObjectId, "This is Vikas", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 9, List(), List(), 0, List())
+    val message4 = Message(new ObjectId, "This is Sachdeva", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-05-12"), user.id, Option(stream.id), "", "", 9, List(), List(), 0, List())
 
     Message.createMessage(message1)
     Message.createMessage(message2)
@@ -123,6 +123,28 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
 
     assert(Message.getAllMessagesForAStreamWithPagination(stream.id, 1, 2).size == 2)
     assert(Message.getAllMessagesForAStreamWithPagination(stream.id, 1, 3).size == 3)
+
+  }
+  
+   test("Message Creation and following the message") {
+
+    val stream = StreamDAO.find(MongoDBObject()).toList(0)
+    val user = UserDAO.find(MongoDBObject()).toList(0)
+    val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val messageId = Message.createMessage(message)
+    val messageBefore = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+
+    //Rocks Before
+    assert(messageBefore.follows === 0)
+
+    Message.followMessage(messageId, user.id)
+    val messageAfter = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+
+    //Rocks After
+    assert(messageAfter.follows === 1)
+    assert(messageAfter.followers.size === 1)
+    assert(messageAfter.followers(0) === user.id)
+
 
   }
 

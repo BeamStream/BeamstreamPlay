@@ -1148,7 +1148,7 @@
                 </ul>
                 <ul class="nav pull-right">
                   <li>
-                    <div class="photo_container">
+                    <div class="photo_container" >
 					   
                       <img id="right-photo" src="images/placeholders/face5.png" width="36" height="37">
                     </div>
@@ -1582,7 +1582,7 @@
 						<span class="edit_profilepicture_icon"></span>
 						</a>
                       
-                       <div id="profile-images">
+                       <div id="profile-images" >
                     <img id ="main-photo" src="images/placeholders/face1.png" width="100%" height="100%" alt="username photo"> 
                 </div>
               </div>
@@ -1705,7 +1705,7 @@
 								<li class="doc-docs">Docs</li>
 	      						<li class="doc-notes">Notes</li>
  								<li class="doc-audio">Audio</li>
- 								<li class="doc-presentation">Presentation</li>
+ 								<li class="doc-presentation">Presentation</li> 
  							 	</ul></li>
                           
                           <li class="tag"><a href="#tag" class="btn btn-flat"><i class="icon-middle-tag"></i></a></li>
@@ -1730,9 +1730,6 @@
               </section>
 
               <div class="double-line"></div>
-
-
-
               <section class="timeline">
                 <ul class="timeline_items">
                   
@@ -1740,7 +1737,6 @@
               </section>
             </section>
           </div>
-
           <div class="col right_column span2" style="margin-left: 10px !important;">
             <section class="public_class_stream">
               <h2>Public Class Stream</h2>
@@ -1752,7 +1748,6 @@
 
         </div>
       </div>
-
       <footer class="site_footer">
         <p>Copyright &copy; 2012 BeamStream</p>
         <ul class="pull-right">
@@ -1834,7 +1829,7 @@
                              <span class="separator">-</span>
                             <a class="comment" href="#comment">Comment</a>
                             <span class="separator">-</span>
-                           <a class="follow" href="#follow">Follow</a>
+                           <a id="{{id.id}}-follow" class="follow" href="#follow">Follow</a>
                       </div>
                     </div>
                  </div>
@@ -1915,7 +1910,7 @@
          <span class="separator">-</span>
          <a class="comment" id ="{{datas.id.id}}-comment" href="#comment">Comment</a>
          <span class="separator">-</span>
-         <a class="follow" href="#follow">Follow</a>
+         <a id="{{datas.id.id}}-follow" class="follow" href="#follow">Follow</a>
        </div>
        <div id ="{{datas.id.id}}-rockers" class="actions with-tooltips tooltips-top btn-group">
           
@@ -2130,8 +2125,8 @@
 
               <div class="element forgot-pass form-align" > <a class="hand_buttonnew" href="#">Forgot password ?</a><a  class="log-in" href="#login">LOGIN HERE!</a> </div>
               <div  class="socialnw-wrapper">
-                  <img src="images/orwith.png"/> 
-                  <div id="janrainEngageEmbed" class="janRain"></div>
+                  <img  class="orwith" src="images/orwith.png"/> 
+                   <div id="janrainEngageEmbed" class="janRain"></div>
 			  </div>
 
            </div>
@@ -2219,7 +2214,7 @@
                         <div class="or-icon"><img src="images/or.png"></div>
           </div>
           <div class="form-row-right">
-             <div id="janrainEngageEmbed"></div>
+             <div id="janrainEngageEmbed" class="login-janRain"></div>
           </div>
           <div class="form-row-label"></div>
         </div>
@@ -2357,43 +2352,84 @@
 	function janrainWidgetOnload() {
 
         janrain.events.onProviderLoginToken.addHandler(function(response) {
+        	
                $.ajax({
                       type: "POST",
                       url: BS.userPage,
                       data: "token=" + response.token,
                       success: function(res) {
-                    		 
+                    	   
                           if(res != null)
                           {
-                                if(res.hasOwnProperty(res['profile']['address'])){
+                                  
+                        	  setTimeout(function() {
+                        		  
+                        		  // Facebook signUp
+                        		  if(res.profile.providerName == "Facebook")
+                        		  {
+                        			  localStorage["first-name"] = res.profile.name.givenName;
+    	        		           	  localStorage["last-name"] = res.profile.name.familyName;
+//     	        		           	  if(res.profile.address.formatted)
+//     	        		           	     localStorage["location"] = res.profile.address.formatted;
+    	        		           	  localStorage["email"] = res.profile.preferredUsername;
+                        		  }
+                        		  // LinkedIn signUp
+                        		  else if(res.profile.providerName == "LinkedIn")
+                        		  {
+                        			  localStorage["first-name"] = res.profile.name.givenName;
+    	        		           	  localStorage["last-name"] = "";
+    	        		           	  localStorage["email"] = res.profile.preferredUsername;
+                        		  }
+                        		  // Twitter signUp
+                        		  else if(res.profile.providerName == "Twitter")
+                        		  {
+                        			  localStorage["first-name"] = res.profile.name.formatted;
+    	        		           	  localStorage["last-name"] = res.profile.name.formatted;
+    	        		           	  localStorage["email"] = res.profile.preferredUsername;
+                        			  
+                        		  }
+                        		  // Google signUp
+                        		  else if(res.profile.providerName == "Google")
+                        		  {
+                        			  localStorage["first-name"] = res.profile.name.givenName;
+    	        		           	  localStorage["last-name"] = res.profile.name.familyName;
+    	        		           	  localStorage["email"] = res.profile.preferredUsername;
+                        		  }
+                        		  else
+                        		  {
+                        			  console.log("Error");
+                        		  }
+                        	      
+	                        	  BS.JsonFromSocialSite = res;
+	                        	  
+	                        	  if(localStorage["idLogin"] == "login")
+	                        	  {
+	                        		  var loginModel = new BS.Login();
+	                        		  loginModel.set({
+	                                		email : res.profile.preferredUsername,
+	                                		password : "",
+	                                		rememberMe : false
+	                            	  });
+	                                  var loginDetails = JSON.stringify(loginModel);
+									 
+				                  	  setTimeout(function() {
+				                  		  janRainLogin(loginDetails);
+						    		   }, 1000);
+				                  	  
+				                  	localStorage["idLogin"] ='';
+	                        	  }
+	                        	  if(localStorage["idLogin"] == "register")
+	                        	  {
+	                        		  //navigate to regitration page
+	      			    			  BS.AppRouter.navigate("basicRegistration", {
+	         	   						trigger : true,
+	         	   						replace : true
+	         	   					  });
+	      			    			localStorage["idLogin"]= '';
+	                        	  }
+	                        	  
+                        	  }, 1500);
 
-                        		  console.log(res['profile']['address']);
-                        	  }
-                                  
-                                  
-                        	  BS.JsonFromSocialSite = res;
-                        	  if(BS.idLogin == "login")
-                        	  {
-                        		  var  info = JSON.stringify({
-						    			email : res.profile.preferredUsername,
-						    			password : "",
-						    			rememberMe : false
-						          });
-                  	   
-			                  	  setTimeout(function() {
-			                  		  janRainLogin(info);
-					    		   }, 1000);
-                        	  }
-                        	  if(BS.idLogin == "register")
-                        	  {
-                        		   
-                        		  //navigate to regitration page
-      			    			  BS.AppRouter.navigate("basicRegistration", {
-         	   						trigger : true,
-         	   						replace : true
-         	   					  });
-                        	  }
-                        	
                           }
                       }
                });
@@ -2424,7 +2460,6 @@ function janRainLogin(info){
 			    		}
 			    		else 
 			    		{
- 
                           $('#error').html("Login unsuccessfull");
 			    		}
 		    	 },

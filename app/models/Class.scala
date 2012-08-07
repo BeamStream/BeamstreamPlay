@@ -16,21 +16,18 @@ import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 
 case class Class(@Key("_id") id: ObjectId,
-    classCode: String,
-    className: String,
-    classType: ClassType.Value,
-    classTime: String,
-    startingDate: Date,
-    schoolId: ObjectId,
-    streams: List[ObjectId])
+  classCode: String,
+  className: String,
+  classType: ClassType.Value,
+  classTime: String,
+  startingDate: Date,
+  schoolId: ObjectId,
+  streams: List[ObjectId])
 
 object Class {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
   implicit val formats = DefaultFormats
-
- 
- 
 
   /*
    * Create the new Classes
@@ -39,17 +36,21 @@ object Class {
     var classIdList: List[ObjectId] = List()
     for (eachclass <- classList) {
 
+      //      val classesFetched = ClassDAO.find(MongoDBObject("classCode" -> eachclass.classCode)).toList
+      //      if (!classesFetched.isEmpty) { classIdList }
+      //      else {
       //Insert then class
       val classId = ClassDAO.insert(eachclass)
       classIdList ++= List(new ObjectId(classId.get.toString))
 
-      
       // Create the Stream for this class
       val streamToCreate = new Stream(new ObjectId, eachclass.className, StreamType.Class, userId, List(userId), true, List())
       val streamId = Stream.createStream(streamToCreate)
       Stream.attachStreamtoClass(streamId, new ObjectId(classId.get.toString))
 
+      // }
     }
+
     classIdList
   }
 
@@ -85,7 +86,7 @@ object Class {
   def findClassByCode(code: String, userSchoolIdList: List[ObjectId]): List[Class] = {
     var classes: List[Class] = List()
     for (userSchoolId <- userSchoolIdList) {
-      val userSchool=UserSchool.getUserSchoolById(userSchoolId)
+      val userSchool = UserSchool.getUserSchoolById(userSchoolId)
       val classFound = ClassDAO.findOne(MongoDBObject("schoolId" -> userSchool.assosiatedSchoolId))
       (classFound.isEmpty) match {
         case true =>
@@ -104,22 +105,17 @@ object Class {
     val regexp = (""".*""" + time + """.*""").r
     for (theclass <- ClassDAO.find(MongoDBObject("classTime" -> regexp)).toList) yield theclass
   }
-  
+
   /*
    * Find a class by Id
    */
 
-  def findClasssById(classId: ObjectId) : Class = {
+  def findClasssById(classId: ObjectId): Class = {
     val classObtained = ClassDAO.find(MongoDBObject("_id" -> classId)).toList(0)
     classObtained
   }
-  
-  
 
 }
-
- 
-
 
 object ClassType extends Enumeration {
   val Semester = Value(0, "semester")

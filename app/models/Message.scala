@@ -39,7 +39,9 @@ case class Message(@Key("_id") id: ObjectId,
   lastNameofMsgPoster: String,
   rocks: Int,
   rockers: List[ObjectId],
-  comments: List[ObjectId])
+  comments: List[Message],
+  follows: Int,
+  followers: List[ObjectId])
 
 object Message {
 
@@ -115,6 +117,29 @@ object Message {
     }
 
   }
+  
+  
+  /*
+   *  Update the Rockers List and decrease the count by one  (Unrocking message) 
+   */
+
+  def unrockedIt(messageId: ObjectId, userId: ObjectId): Int = {
+    val SelectedmessagetoUnrock = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+
+    (SelectedmessagetoUnrock.rockers.contains(userId)) match {
+
+      case false =>
+        SelectedmessagetoUnrock.rocks 
+
+      case true =>
+        MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoUnrock.copy(rockers = (SelectedmessagetoUnrock.rockers -- List(userId))), false, false, new WriteConcern)
+        val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+        MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(rocks = (updatedMessage.rocks - 1)), false, false, new WriteConcern)
+        val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+        finalMessage.rocks
+    }
+
+  }
 
   /*
    * Sort messages within a stream on the basis of total rocks
@@ -140,7 +165,6 @@ object Message {
     messages
   }
 
-
   /*
  * Pagination For messages
  */
@@ -162,9 +186,47 @@ object Message {
   /*
  * add Comment to message
  */
-  def addCommentToMessage(commentId: ObjectId, messageId: ObjectId) {
+  def addCommentToMessage(comment: Message, messageId: ObjectId) {
     val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-    MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments ++ List(commentId))), false, false, new WriteConcern)
+    MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments ++ List(comment))), false, false, new WriteConcern)
+  }
+
+  /*
+   * Follow the message
+   * @Purpose: Update followers and returns the no. of followers
+   */
+
+  def followMessage(messageId: ObjectId, userId: ObjectId): Int = {
+    val SelectedmessagetoRock = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+
+    (SelectedmessagetoRock.followers.contains(userId)) match {
+
+      case true =>
+        SelectedmessagetoRock.follows
+
+      case false =>
+        MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(followers = (SelectedmessagetoRock.followers ++ List(userId))), false, false, new WriteConcern)
+        val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+        MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(follows = (updatedMessage.follows + 1)), false, false, new WriteConcern)
+        val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+        finalMessage.follows
+    }
+
+  }
+
+  /*
+   * Is a follower 
+   * @ Purpose: identify if the user is following a message or not
+   */
+
+  def isAFollower(messageId: ObjectId, userId: Object): Boolean = {
+    val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+
+    (message.followers.contains(userId)) match {
+      case true => true
+      case false => false
+    }
+
   }
 
 }

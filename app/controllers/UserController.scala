@@ -74,7 +74,7 @@ object UserController extends Controller {
   def registerUserViaSocialSite = Action { implicit request =>
     val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
     val token = tokenList(0)
-    val apiKey = "cc38e5cc0a71f8795733254be3cc28d8b0678a69"
+    val apiKey = Play.current.configuration.getString("janrain_apiKey").get
     val URL = "https://rpxnow.com/api/v2/auth_info"
 
     val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
@@ -92,7 +92,7 @@ object UserController extends Controller {
   def getContactsViaSocialSite = Action { implicit request =>
     val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
     val token = tokenList(0)
-    val apiKey = "cc38e5cc0a71f8795733254be3cc28d8b0678a69"
+    val apiKey = Play.current.configuration.getString("janrain_apiKey").get
     val URL = "https://rpxnow.com/api/v2/auth_info"
 
     val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
