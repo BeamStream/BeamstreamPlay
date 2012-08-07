@@ -2339,77 +2339,66 @@
                       url: BS.userPage,
                       data: "token=" + response.token,
                       success: function(res) {
-                    	   
                           if(res != null)
                           {
-                        	  
-                        	  setTimeout(function() {
-                        		  
-                        		  // Facebook signUp
-                        		  if(res.profile.providerName == "Facebook")
-                        		  {
-                        			  localStorage["first-name"] = res.profile.name.givenName;
-    	        		           	  localStorage["last-name"] = res.profile.name.familyName;
-//     	        		           	  if(res.profile.address.formatted)
-//     	        		           	     localStorage["location"] = res.profile.address.formatted;
-    	        		           	  localStorage["email"] = res.profile.preferredUsername;
-                        		  }
-                        		  // LinkedIn signUp
-                        		  else if(res.profile.providerName == "LinkedIn")
-                        		  {
-                        			  localStorage["first-name"] = res.profile.name.givenName;
-    	        		           	  localStorage["last-name"] = "";
-    	        		           	  localStorage["email"] = res.profile.preferredUsername;
-                        		  }
-                        		  // Twitter signUp
-                        		  else if(res.profile.providerName == "Twitter")
-                        		  {
-                        			  localStorage["first-name"] = res.profile.name.formatted;
-    	        		           	  localStorage["last-name"] = res.profile.name.formatted;
-    	        		           	  localStorage["email"] = res.profile.preferredUsername;
-                        			  
-                        		  }
-                        		  // Google signUp
-                        		  else if(res.profile.providerName == "Google")
-                        		  {
-                        			  localStorage["first-name"] = res.profile.name.givenName;
-    	        		           	  localStorage["last-name"] = res.profile.name.familyName;
-    	        		           	  localStorage["email"] = res.profile.preferredUsername;
-                        		  }
-                        		  else
-                        		  {
-                        			  console.log("Error");
-                        		  }
-                        	      
-	                        	  BS.JsonFromSocialSite = res;
-	                        	  
-	                        	  if(localStorage["idLogin"] == "login")
-	                        	  {
-	                        		  var loginModel = new BS.Login();
-	                        		  loginModel.set({
-	                                		email : res.profile.preferredUsername,
-	                                		password : "",
-	                                		rememberMe : false
-	                            	  });
-	                                  var loginDetails = JSON.stringify(loginModel);
-									 
-				                  	  setTimeout(function() {
-				                  		  janRainLogin(loginDetails);
-						    		   }, 1000);
-				                  	  
-				                  	localStorage["idLogin"] ='';
-	                        	  }
-	                        	  if(localStorage["idLogin"] == "register")
-	                        	  {
-	                        		  //navigate to regitration page
-	      			    			  BS.AppRouter.navigate("basicRegistration", {
-	         	   						trigger : true,
-	         	   						replace : true
-	         	   					  });
-	      			    			localStorage["idLogin"]= '';
-	                        	  }
-	                        	  
-                        	  }, 1500);
+	                        	  if(res.stat == "ok")
+	                        	 {
+	                        	    setTimeout(function() {
+	                        		   
+		                        		  /*  Facebook signUp */
+		                        		  if(res.profile.providerName == "Facebook")
+		                        		  {
+// 			                                  if(res.hasOwnProperty(res['profile']['address']))
+// 		    	        		           	     localStorage["location"] = res.profile.address.formatted;
+			                                  
+		                        			  localStorage["first-name"] = res.profile.name.givenName;
+		    	        		           	  localStorage["last-name"] = res.profile.name.familyName;
+		    	        		           	  localStorage["email"] = res.profile.preferredUsername;
+		                        		  }
+		                        		  /* LinkedIn signUp */
+		                        		  else if(res.profile.providerName == "LinkedIn")
+		                        		  {
+		                        			  localStorage["first-name"] = res.profile.name.givenName;
+		    	        		           	  localStorage["last-name"] = "";
+		    	        		           	  localStorage["email"] = res.profile.preferredUsername;
+		                        		  }
+		                        		  /* Twitter signUp */
+		                        		  else if(res.profile.providerName == "Twitter")
+		                        		  {
+		                        			  localStorage["first-name"] = res.profile.name.formatted;
+		    	        		           	  localStorage["last-name"] = res.profile.name.formatted;
+		    	        		           	  localStorage["email"] = res.profile.preferredUsername;
+		                        			  
+		                        		  }
+		                        		  /* Google signUp*/
+		                        		  else if(res.profile.providerName == "Google")
+		                        		  {
+		                        			  localStorage["first-name"] = res.profile.name.givenName;
+		    	        		           	  localStorage["last-name"] = res.profile.name.familyName;
+		    	        		           	  localStorage["email"] = res.profile.preferredUsername;
+		                        		  }
+		                        		  else
+		                        		  {
+		                        			  console.log("Not from Social sites");
+			                        	  }
+			                        	      
+				                        	  BS.JsonFromSocialSite = res;
+			
+				                        	  var loginModel = new BS.Login();
+				                        	  loginModel.set({
+				                                	email : res.profile.preferredUsername,
+				                                	password : "",
+				                                	rememberMe : false
+				                              });
+				                              var loginDetails = JSON.stringify(loginModel);
+												 
+							                  setTimeout(function() {
+							                  		janRainLogin(loginDetails);
+									    	  }, 1000);
+						                  	  
+		                        	  }, 1500);
+	                        	   
+	                        	 }
                           }
                       }
                });
@@ -2440,7 +2429,19 @@ function janRainLogin(info){
 			    		}
 			    		else 
 			    		{
-                          $('#error').html("Login unsuccessfull");
+			    			if(localStorage["idLogin"] == "login")
+                      	  	{
+                          		$('#error').html("Login unsuccessfull");
+                      	  	}
+			    			if(localStorage["idLogin"] == "register")
+                       	  	{
+			    				//navigate to regitration page
+    			    			BS.AppRouter.navigate("basicRegistration", {
+	       	   						trigger : true,
+	       	   						replace : true
+       	   					  	});
+    			    			localStorage["idLogin"]= '';
+			    			}
 			    		}
 		    	 },
 		    	 error : function(error){
