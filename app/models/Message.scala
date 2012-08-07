@@ -117,6 +117,29 @@ object Message {
     }
 
   }
+  
+  
+  /*
+   *  Update the Rockers List and decrease the count by one  (Unrocking message) 
+   */
+
+  def unrockedIt(messageId: ObjectId, userId: ObjectId): Int = {
+    val SelectedmessagetoUnrock = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+
+    (SelectedmessagetoUnrock.rockers.contains(userId)) match {
+
+      case false =>
+        SelectedmessagetoUnrock.rocks 
+
+      case true =>
+        MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoUnrock.copy(rockers = (SelectedmessagetoUnrock.rockers -- List(userId))), false, false, new WriteConcern)
+        val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+        MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(rocks = (updatedMessage.rocks - 1)), false, false, new WriteConcern)
+        val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+        finalMessage.rocks
+    }
+
+  }
 
   /*
    * Sort messages within a stream on the basis of total rocks
