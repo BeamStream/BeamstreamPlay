@@ -18,7 +18,8 @@ BS.AppRouter = Backbone.Router.extend({
         "groupStream": "groupStream",
         "peerStream" : "peerStream",
         "friendStream" :"friendStream",
-        "filesMedia" : "filesMedia"
+        "filesMedia" : "filesMedia",
+        "docsList"  : "docsList"
 
         
     },
@@ -524,5 +525,32 @@ BS.AppRouter = Backbone.Router.extend({
 				$('.file-type').hide();
 				$(".checkbox").dgStyle();
 
-			}
+			},
+                        
+                        docsList : function()
+                        {
+                            $('#content').children().detach();
+                            $('#school-popup').children().detach();
+                            var self = this;
+                            
+                            /* get profile images for user */
+		          $.ajax({
+                                    type : 'POST',
+                                    url :  BS.getAllDocs,
+                                    data : {
+                                            },
+                                    dataType : "json",
+                                   
+                                    success : function(data) {
+                                            console.log(data)
+                                    }
+		    	   });
+                            
+                            
+                            BS.listDocsView = new BS.ListDocsView({});
+                                
+                            BS.listDocsView.renderDoc();
+
+                            $('#content').html(BS.listDocsView.el);
+                        }
 		});
