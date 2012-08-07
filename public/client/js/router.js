@@ -235,12 +235,13 @@ BS.AppRouter = Backbone.Router.extend({
 		   $('.modal').css('display','none');
 		   BS.user.fetch({ success:function(e) {
 			   
-			   //store logged user destials
+			   //store logged user details
 		       BS.loggedUserInfo  = e;
 		       localStorage["loggedUserInfo"] = e.attributes.id.id;
 		       
 			   BS.streamView = new BS.StreamView({ model: BS.user });
 			   BS.streamView.render();
+			   
 			   
 			   self.onstream = true; 
 	   	   
@@ -341,16 +342,7 @@ BS.AppRouter = Backbone.Router.extend({
 			 */
 			basicRegistrationViaJanRain : function(event) {
 
-				 
-			
-				
-//           	  localStorage["first-name"] = datas.profile.name.givenName;
-//           	  localStorage["last-name"] = datas.profile.name.familyName;
-//           	  localStorage["location"] = datas.profile.address.formatted;
-//           	  localStorage["email"] = datas.profile.preferredUsername;
-//				
 				$('#school-popup').children().detach();
-				 
 				
 				if (!BS.mediaRegistrationView) {
 					BS.mediaRegistrationView = new BS.MediaRegistrationView();
@@ -362,17 +354,28 @@ BS.AppRouter = Backbone.Router.extend({
 				$(".modal select:visible").selectBox();
 				$(".checkbox").dgStyle();
 				jQuery("#social-media-signup").validationEngine();
-				  var datas = BS.JsonFromSocialSite;
 
-				// display values
+				 setTimeout(function() {
+ 	    	    	 
+					 var datas = BS.JsonFromSocialSite;
+		           	  
+					/* display values  TODO */ 
+//					$("#user-name").val(datas.profile.preferredUsername);
+//					$('#first-name').val(datas.profile.name.givenName);
+//					$('#last-name').val(datas.profile.name.familyName);
+//					$('#location').val(datas.profile.address.formatted);
+					 
+					 
+					if(localStorage["first-name"])
+					    $('#first-name').val(localStorage["first-name"]);
+					if(localStorage["last-name"] != "")
+						$('#last-name').val(localStorage["last-name"]);
+					
+					
+//					if(localStorage["location"])
+//						$('#location').val(localStorage["location"]);
+	    		 }, 500);
 				
-//				$("#user-name").val(datas.profile.preferredUsername);
-				$('#first-name').val(datas.profile.name.givenName);
-				$('#last-name').val(datas.profile.name.familyName);
-				$('#location').val(datas.profile.address.formatted);
-//				$('#first-name').val(localStorage["first-name"]);
-//				$('#last-name').val(localStorage["last-name"]);
-//				$('#location').val(localStorage["location"]);
 
 			},
 

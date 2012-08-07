@@ -1577,7 +1577,7 @@
 						<span class="edit_profilepicture_icon"></span>
 						</a>
                       
-                       <div id="profile-images">
+                       <div id="profile-images" >
                     <img id ="main-photo" src="images/placeholders/face1.png" width="100%" height="100%" alt="username photo"> 
                 </div>
               </div>
@@ -2333,16 +2333,54 @@
 	function janrainWidgetOnload() {
 
         janrain.events.onProviderLoginToken.addHandler(function(response) {
+        	
                $.ajax({
                       type: "POST",
                       url: BS.userPage,
                       data: "token=" + response.token,
                       success: function(res) {
-                    		
                     	   
                           if(res != null)
                           {
-                        	   
+                        	  
+                        	  setTimeout(function() {
+                        		  
+                        		  // Facebook signUp
+                        		  if(res.profile.providerName == "Facebook")
+                        		  {
+                        			  localStorage["first-name"] = res.profile.name.givenName;
+    	        		           	  localStorage["last-name"] = res.profile.name.familyName;
+//     	        		           	  if(res.profile.address.formatted)
+//     	        		           	     localStorage["location"] = res.profile.address.formatted;
+    	        		           	  localStorage["email"] = res.profile.preferredUsername;
+                        		  }
+                        		  // LinkedIn signUp
+                        		  else if(res.profile.providerName == "LinkedIn")
+                        		  {
+                        			  localStorage["first-name"] = res.profile.name.givenName;
+    	        		           	  localStorage["last-name"] = "";
+    	        		           	  localStorage["email"] = res.profile.preferredUsername;
+                        		  }
+                        		  // Twitter signUp
+                        		  else if(res.profile.providerName == "Twitter")
+                        		  {
+                        			  localStorage["first-name"] = res.profile.name.formatted;
+    	        		           	  localStorage["last-name"] = res.profile.name.formatted;
+    	        		           	  localStorage["email"] = res.profile.preferredUsername;
+                        			  
+                        		  }
+                        		  // Google signUp
+                        		  else if(res.profile.providerName == "Google")
+                        		  {
+                        			  localStorage["first-name"] = res.profile.name.givenName;
+    	        		           	  localStorage["last-name"] = res.profile.name.familyName;
+    	        		           	  localStorage["email"] = res.profile.preferredUsername;
+                        		  }
+                        		  else
+                        		  {
+                        			  console.log("Error");
+                        		  }
+                        	      
 	                        	  BS.JsonFromSocialSite = res;
 	                        	  
 	                        	  if(localStorage["idLogin"] == "login")
@@ -2370,7 +2408,8 @@
 	         	   					  });
 	      			    			localStorage["idLogin"]= '';
 	                        	  }
-                        	
+	                        	  
+                        	  }, 1500);
                           }
                       }
                });
@@ -2401,7 +2440,6 @@ function janRainLogin(info){
 			    		}
 			    		else 
 			    		{
- 
                           $('#error').html("Login unsuccessfull");
 			    		}
 		    	 },

@@ -115,7 +115,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 				iam : $('#iam').val(),
 				email : $('#school-email').val(),
 				schoolName : $('#school-name').val(),
-				userName : localStorage["email"],
+				userName : datas.profile.preferredUsername,
 				password : "",
 				firstName : $('#first-name').val(),
 				lastName : $('#last-name').val(),
