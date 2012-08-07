@@ -90,8 +90,7 @@ object DocumentController extends Controller {
 
   def getAllDocumentsForAUser = Action { implicit request =>
     val documentIdJsonMap = request.body.asFormUrlEncoded.get
-    val docId = documentIdJsonMap("documentId").toList(0)
-    val allDocumentsForAUser = Document.getAllDocumentsForAUser(new ObjectId(docId))
+     val allDocumentsForAUser = Document.getAllDocumentsForAUser(new ObjectId(request.session.get("userId").get))
     val allDocumentForAStreamJson = write(allDocumentsForAUser)
     Ok(allDocumentForAStreamJson).as("application/json")
   }
