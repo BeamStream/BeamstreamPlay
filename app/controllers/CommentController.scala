@@ -48,8 +48,6 @@ object CommentController extends Controller {
     //      commentsForAMessage ++= List(comment)
     //    }
     val commentsForAMessage = message.comments
-    println(commentsForAMessage)
-
     Ok(write(commentsForAMessage)).as("application/json")
 
   }
