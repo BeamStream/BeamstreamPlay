@@ -30,7 +30,6 @@ object ClassController extends Controller {
    */
 
   def addClass = Action { implicit request =>
-
     val classListJsonMap = request.body.asFormUrlEncoded.get
     val classJsonList = classListJsonMap("data").toList
     val classList = net.liftweb.json.parse(classJsonList(0)).extract[List[Class]]
