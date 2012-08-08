@@ -27,7 +27,8 @@ BS.StreamView = Backbone.View.extend({
            "click .show_comments" : "showComments",
            "click #sort-messages li a" : "sortMessages",
            "keypress #sort_by_key" : "sortByKeyword",
-           "click .follow" : "followMessage"
+           "click .follow" : "followMessage",
+//           "keyup #msg"  : "showBitleys"
  
 	 },
 	 
@@ -372,11 +373,6 @@ BS.StreamView = Backbone.View.extend({
      * post message with shortURL if present
      */
     postMsg:function(message,streamId,messageAccess){
-    	
-    	
-//    	var messageModel = new  BS.Message();
-//    	messageModel.set({message :message ,streamId : streamId,messageAccess: messageAccess });
-//    	var messageIfo = JSON.stringify(messageModel);
     	 
     	/* post message information */
         $.ajax({
@@ -992,19 +988,32 @@ BS.StreamView = Backbone.View.extend({
 		 eventName.preventDefault();
 		 var element = eventName.target.parentElement;
 		 var msgId =$(element).closest('li').attr('id');
+		 var text = $('#'+eventName.target.id).text();
 		 
 		 $.ajax({
-             type: 'POST',
-             url:BS.followMessage,
-             data:{
-            	  messageId:msgId
-             },
-             dataType:"json",
-             success:function(data){
-            	 $('#'+eventName.target.id).html("Unfollow");
-             }
-          });
-	 }
+	        type: 'POST',
+	        url:BS.followMessage,
+	        data:{
+	            messageId:msgId
+	        },
+	        dataType:"json",
+	        success:function(data){
+	        	 if(text == "Unfollow")
+	    		 {
+	    			 $('#'+eventName.target.id).html("Follow");
+	    		 }
+	        	 else
+	        	 {
+	        		 $('#'+eventName.target.id).html("Unfollow");
+	        	 }
+	            
+	        }
+	     });
+		 
+		
+	 },
+	 
+
 	 
  
 	 
