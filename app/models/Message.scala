@@ -106,9 +106,15 @@ object Message {
     (SelectedmessagetoRock.rockers.contains(userId)) match {
 
       case true =>
-        SelectedmessagetoRock.rocks
+        // Unrocking a message
+        MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(rockers = (SelectedmessagetoRock.rockers -- List(userId))), false, false, new WriteConcern)
+        val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+        MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(rocks = (updatedMessage.rocks - 1)), false, false, new WriteConcern)
+        val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+        finalMessage.rocks
 
       case false =>
+        //Rocking a message
         MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(rockers = (SelectedmessagetoRock.rockers ++ List(userId))), false, false, new WriteConcern)
         val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
         MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(rocks = (updatedMessage.rocks + 1)), false, false, new WriteConcern)
@@ -117,29 +123,24 @@ object Message {
     }
 
   }
-  
-  
+
   /*
    *  Update the Rockers List and decrease the count by one  (Unrocking message) 
    */
 
-  def unrockedIt(messageId: ObjectId, userId: ObjectId): Int = {
-    val SelectedmessagetoUnrock = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-
-    (SelectedmessagetoUnrock.rockers.contains(userId)) match {
-
-      case false =>
-        SelectedmessagetoUnrock.rocks 
-
-      case true =>
-        MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoUnrock.copy(rockers = (SelectedmessagetoUnrock.rockers -- List(userId))), false, false, new WriteConcern)
-        val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-        MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(rocks = (updatedMessage.rocks - 1)), false, false, new WriteConcern)
-        val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-        finalMessage.rocks
-    }
-
-  }
+  //  def unrockedIt(messageId: ObjectId, userId: ObjectId): Int = {
+  //    val SelectedmessagetoUnrock = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+  //
+  //    (SelectedmessagetoUnrock.rockers.contains(userId)) match {
+  //
+  //      case false =>
+  //        SelectedmessagetoUnrock.rocks 
+  //
+  //      case true =>
+  //     
+  //    }
+  //
+  //  }
 
   /*
    * Sort messages within a stream on the basis of total rocks
@@ -202,9 +203,16 @@ object Message {
     (SelectedmessagetoRock.followers.contains(userId)) match {
 
       case true =>
-        SelectedmessagetoRock.follows
+        // Unfollow a message
+        //SelectedmessagetoRock.follows
+        MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(followers = (SelectedmessagetoRock.followers -- List(userId))), false, false, new WriteConcern)
+        val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+        MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(follows = (updatedMessage.follows - 1)), false, false, new WriteConcern)
+        val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+        finalMessage.follows
 
       case false =>
+        // Follow a message
         MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(followers = (SelectedmessagetoRock.followers ++ List(userId))), false, false, new WriteConcern)
         val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
         MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(follows = (updatedMessage.follows + 1)), false, false, new WriteConcern)
