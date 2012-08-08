@@ -103,8 +103,12 @@ BS.StreamView = Backbone.View.extend({
 	                 $('#public-classes').find('li.active').removeClass('active');
 	              	 $('#public-classes').find('li#'+streamId+'').addClass('active');
              		
+	              	 var pageNo = 1;
+	              	 var limit = 10;
+	              	 
                      if(streamId)
-                      self.getMessageInfo(streamId);
+                      self.getMessageInfo(streamId,pageNo,limit);
+//                      self.getMessageInfo(streamId);
              
 				}
 		 });
@@ -150,9 +154,12 @@ BS.StreamView = Backbone.View.extend({
  	                     var source = $("#tpl-stream-page-menus").html();
  	             		 var template = Handlebars.compile(source);
  	             		 $('#sub-menus').html(template({streamName : streamName}));
- 	             		  	             		 
+ 	             		  	  
+ 	             		 var pageNo = 1;
+ 		              	 var limit = 10;
  	             		 if(streamId)
- 	                        self.getMessageInfo(streamId);
+ 	             			self.getMessageInfo(streamId,pageNo,limit);
+// 	                        self.getMessageInfo(streamId);
  	             	 
  					 }
  					 else if(type == "public")
@@ -320,7 +327,11 @@ BS.StreamView = Backbone.View.extend({
 		 
       // call the method to display the messages of the selected stream
 	  $('.timeline_items').html("");
-      this.getMessageInfo(id);
+	  
+	  var pageNo = 1;
+   	  var limit = 10;
+	  this.getMessageInfo(id,pageNo,limit);
+//      this.getMessageInfo(id);
        
     },
     /**
@@ -434,7 +445,7 @@ BS.StreamView = Backbone.View.extend({
     /**
      * get all details about messages and its comments of a stream
      */
-    getMessageInfo :function(streamid){
+    getMessageInfo :function(streamid,pageNo,limit){
     	 
          var self = this;
          /* get all messages of a stream  */
@@ -442,7 +453,10 @@ BS.StreamView = Backbone.View.extend({
 				type : 'POST',
 				url : BS.streamMessages,
 				data :{
-					streamId :streamid
+					streamId :streamid,
+					pageNo : pageNo,
+					limit : limit
+					
 				},
 				dataType : "json",
 				success : function(data) {
@@ -671,7 +685,11 @@ BS.StreamView = Backbone.View.extend({
    	     
    	    // call the method to display the messages of the selected stream
    	     $('.timeline_items').html("");
-         this.getMessageInfo(streamId);
+   	     
+   	     var pageNo = 1;
+   	     var limit = 10;
+   	     this.getMessageInfo(streamId,pageNo,limit);
+//         this.getMessageInfo(streamId);
 		 
 	 },
 	 
@@ -1013,7 +1031,7 @@ BS.StreamView = Backbone.View.extend({
 		
 	 },
 	 
-
+ 
 	 
  
 	 
