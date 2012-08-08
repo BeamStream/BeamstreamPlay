@@ -34,6 +34,22 @@ object Class {
    */
   def createClass(classList: List[Class], userId: ObjectId): List[ObjectId] = {
 
+    /*
+ * Check if the duplicate code exists in database
+ * @if yes then return true else return false
+ * Local Function for duplication removal
+ */
+    def duplicateExistes(classList: List[Class]): Boolean = {
+      var classesFetchCount: Int = 0
+      for (eachClass <- classList) {
+        val classesFetched = ClassDAO.find(MongoDBObject("classCode" -> eachClass.classCode)).toList
+        if (!classesFetched.isEmpty) classesFetchCount += 1
+      }
+      if (classesFetchCount == 0) false else true
+    }
+    
+    //Class Creation Starts Here by calling the duplicate code validation method
+    
     if (duplicateExistes(classList) == true) List()
 
     else {
@@ -52,18 +68,6 @@ object Class {
       classIdList
     }
 
-  }
-  /*
- * Check if the duplicate code exists in database
- * @if yes then return true else return false
- */
-  private def duplicateExistes(classList: List[Class]): Boolean = {
-    var classesFetchCount: Int = 0
-    for (eachClass <- classList) {
-      val classesFetched = ClassDAO.find(MongoDBObject("classCode" -> eachClass.classCode)).toList
-      if (!classesFetched.isEmpty) classesFetchCount += 1
-    }
-    if (classesFetchCount == 0) false else true
   }
 
   /*
