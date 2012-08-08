@@ -75,10 +75,12 @@ object MessageController extends Controller {
   //==================================================//
   //======Displays all the messages within a Stream===//
   //==================================================//
-  def getAllMessagesForAStream = Action { implicit request =>
+  def getAllMessagesForAStreamWithPagination = Action { implicit request =>
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
-    val allMessagesForAStream = Message.getAllMessagesForAStream(new ObjectId(streamId))
+    val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
+    val messagesPerPage = streamIdJsonMap("limit").toList(0).toInt
+    val allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId),pageNo,messagesPerPage)
     val allMessagesForAStreamJson = write(allMessagesForAStream)
     Ok(allMessagesForAStreamJson).as("application/json")
   }
