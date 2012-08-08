@@ -81,8 +81,7 @@ BS.AppRouter = Backbone.Router.extend({
     	 var self =this;
     	 BS.loginView = new BS.LoginView();
     	 BS.loginView.render();
-    	 
-//    	 BS.idLogin = "login";
+     
     	 localStorage["idLogin"] = "login";
          $('#school-popup').html(BS.loginView.el);  
          $(".modal select:visible").selectBox();
@@ -356,29 +355,16 @@ BS.AppRouter = Backbone.Router.extend({
 				$(".modal select:visible").selectBox();
 				$(".checkbox").dgStyle();
 				jQuery("#social-media-signup").validationEngine();
-
-				 setTimeout(function() {
- 	    	    	 
-					 var datas = BS.JsonFromSocialSite;
-		           	  
-					/* display values  TODO */ 
-//					$("#user-name").val(datas.profile.preferredUsername);
-//					$('#first-name').val(datas.profile.name.givenName);
-//					$('#last-name').val(datas.profile.name.familyName);
-//					$('#location').val(datas.profile.address.formatted);
-					 
-					 
-					if(localStorage["first-name"])
-					    $('#first-name').val(localStorage["first-name"]);
-					if(localStorage["last-name"] != "")
-						$('#last-name').val(localStorage["last-name"]);
-					
-					
-					if(localStorage["location"])
-						$('#location').val(localStorage["location"]);
-	    		 }, 500);
-				
-
+ 
+				var datas = BS.JsonFromSocialSite;
+ 
+				if(localStorage["first-name"])
+					$('#first-name').val(localStorage["first-name"]);
+				if(localStorage["last-name"] != "")
+				    $('#last-name').val(localStorage["last-name"]);
+				if(localStorage["location"])
+					$('#location').val(localStorage["location"]);
+ 
 			},
 
 			/**
@@ -391,11 +377,12 @@ BS.AppRouter = Backbone.Router.extend({
 				if (!BS.emailView) {
 					BS.emailView = new BS.verifyEmailView();
 					BS.emailView.render();
+					
 				}
-//				BS.idLogin = "register";
+				
 				localStorage["idLogin"] = "register";
 				$('#school-popup').html(BS.emailView.el);
-				
+				$('#load-janRain').css("display","block");
 				$(".modal select:visible").selectBox();
 				$(".checkbox").dgStyle();
 				$('.forgot-pass').hide();
@@ -631,7 +618,7 @@ BS.AppRouter = Backbone.Router.extend({
 					    s.parentNode.insertBefore(e, s);
 					})();
 				 }
-				
+				 $('#load-janRain').css("display","none");
 				
 			}
 		});

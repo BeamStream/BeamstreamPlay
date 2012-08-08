@@ -1489,6 +1489,9 @@ span.edit_profilepicture_icon{
 /* extra styles for janRain */
 .janRain{
 /* 	margin:-20px 0 0 55px !important; */
+    position:relative;
+    
+
  }
  .janRain div.janrainContent{
  margin:-20px 0 0 55px !important;
@@ -1657,6 +1660,12 @@ border: 1px solid rgba(0, 0, 0, 0.15);
 .orwith{
 	margin-bottom:10px !important;
 	margin-top: 9px;
+}
+#load-janRain{
+	left: 131px;
+    position: absolute;
+    top: 11px;
+    z-index: 999;
 }
  
  
