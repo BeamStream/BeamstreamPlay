@@ -30,13 +30,19 @@ object ClassController extends Controller {
    */
 
   def addClass = Action { implicit request =>
-    
+
     val classListJsonMap = request.body.asFormUrlEncoded.get
     val classJsonList = classListJsonMap("data").toList
     val classList = net.liftweb.json.parse(classJsonList(0)).extract[List[Class]]
-    val listOfClassIds = Class.createClass(classList,new ObjectId(request.session.get("userId").get))
-    User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
-    Ok(write(new ResulttoSent("Success","Class added")))
+    val listOfClassIds = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
+    (listOfClassIds.isEmpty) match {
+      case true =>
+        Ok(write(new ResulttoSent("Failure", "One of Your Class Code already exists")))
+      case false =>
+        User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
+        Ok(write(new ResulttoSent("Success", "Class added")))
+    }
+
   }
 
   /*
@@ -44,7 +50,7 @@ object ClassController extends Controller {
    */
 
   def findClasstoAutoPopulate = Action { implicit request =>
-    
+
     val classCodeMap = request.body.asFormUrlEncoded.get
     val classCode = classCodeMap("data").toList(0)
     val userSchoolIdList = UserSchool.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))

@@ -53,7 +53,16 @@ class ClassTest extends FunSuite with BeforeAndAfter {
 
   }
 
-  
+  test("Avoid create class if duplicate code exists") {
+    val userId = User.createUser(user1)
+    val newClass1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
+    val classIdList=Class.createClass(List(newClass1), userId)
+    assert(classIdList.size===0)
+    val newClass2 = Class(new ObjectId, "207", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
+    val newClassIdList=Class.createClass(List(newClass2), userId)
+    assert(newClassIdList.size===1)
+
+  }
 
   after {
     ClassDAO.remove(MongoDBObject("className" -> ".*".r))
