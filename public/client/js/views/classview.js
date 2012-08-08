@@ -54,8 +54,16 @@ BS.ClassView = Backbone.View.extend({
 						},
 						dataType : "json",
 						success : function(data) {
-							// navigate to main stream page
-							BS.AppRouter.navigate("streams", {trigger: true});
+							if(data.status == "Success")
+							{
+								// navigate to main stream page
+								BS.AppRouter.navigate("streams", {trigger: true});
+							}
+							else
+							{
+								$('#error').html(data.message);
+							}
+							
 						}
 					});
 				}
@@ -133,10 +141,15 @@ BS.ClassView = Backbone.View.extend({
 					},
 					dataType : "json",
 					success : function(data) {
-						BS.AppRouter.navigate("profile", {
-							trigger : true,
-							 
-						});
+						if(data.status == "Success")
+						{
+							// navigate to main stream page
+							BS.AppRouter.navigate("streams", {trigger: true});
+						}
+						else
+						{
+							$('#error').html(data.message);
+						}
 					}
 				});
 		   }
