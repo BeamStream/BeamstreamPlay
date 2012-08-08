@@ -551,21 +551,24 @@ BS.AppRouter = Backbone.Router.extend({
                             $('#content').children().detach();
                             $('#school-popup').children().detach();
                             var self = this;
+                         BS.user.fetch({ success:function(e) {
+                                 
+                                /* get profile images for user */
+                              $.ajax({
+                                        type : 'POST',
+                                        url :  BS.getAllDocs,
+                                        data : {
+                                           'userId': e.attributes.id.id
+                                                },
+                                        dataType : "json",
+
+                                        success : function(data) {
+                                                console.log(data)
+                                        }
+                               });
                             
-                            /* get profile images for user */
-		          $.ajax({
-                                    type : 'POST',
-                                    url :  BS.getAllDocs,
-                                    data : {
-                                            },
-                                    dataType : "json",
-                                   
-                                    success : function(data) {
-                                            console.log(data)
-                                    }
-		    	   });
-                            
-                            
+                            }});
+                         
                             BS.listDocsView = new BS.ListDocsView({});
                                 
                             BS.listDocsView.renderDoc();
