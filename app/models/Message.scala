@@ -153,7 +153,7 @@ object Message {
  */
 
   def getAllMessagesForAStreamWithPagination(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
-    val messsagesRetrieved = MessageDAO.find(MongoDBObject("streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    val messsagesRetrieved = MessageDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
     messsagesRetrieved
   }
 
