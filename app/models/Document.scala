@@ -70,8 +70,9 @@ object Document {
 /*
  * Add a document
  */
-  def addDocument(document : Document) : ObjectId = {
+  def addDocument(document : Document, userId : ObjectId) : ObjectId = {
       val docId = DocumentDAO.insert(document)
+      User.addDocumentToUser(userId,document.id)
       docId.get
    }
 
@@ -107,6 +108,8 @@ object Document {
   def getAllDocumentsForAUser(userId: ObjectId): List[Document] = {
 
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
+    println(" getAllDocumentsForAUser : "+ user);
+    println(" getAllDocumentsForAUser : Documents "+ user.documents);
     getAllDocuments(user.documents)
   }
 

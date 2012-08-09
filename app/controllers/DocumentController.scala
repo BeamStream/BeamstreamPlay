@@ -69,13 +69,12 @@ object DocumentController extends Controller {
             val docType = (documentJson \ "docType").extract[String]
     
             println(" name :"+name +"  url :"+ url + "  access::"+ access + "  docType:"+docType)
-	    
-	    val doc = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+	    val userId = new ObjectId(request.session.get("userId").get)
 	    val date = new Date
 	    val documentToCreate = new Document(new ObjectId(), name, url, 
-		DocType.withName(docType),new ObjectId(request.session.get("userId").get),
-		DocumentAccess.withName(access), new ObjectId(request.session.get("userId").get), date, date, 0, List(), List())
-	    val docId=Document.addDocument(documentToCreate)
+		DocType.withName(docType),userId,
+		DocumentAccess.withName(access), userId, date, date, 0, List(), List())
+	    val docId=Document.addDocument(documentToCreate,userId)
 	    val docObtained = Document.findDocumentById(docId)
 	    val docJson = write(List(docObtained))
 	    Ok(docJson).as("application/json")
@@ -90,8 +89,10 @@ object DocumentController extends Controller {
 
   def getAllDocumentsForAUser = Action { implicit request =>
     val documentIdJsonMap = request.body.asFormUrlEncoded.get
+    println(" userId : "+ request.session.get("userId").get)
      val allDocumentsForAUser = Document.getAllDocumentsForAUser(new ObjectId(request.session.get("userId").get))
     val allDocumentForAStreamJson = write(allDocumentsForAUser)
+    println(" Documents for the user :"+ allDocumentsForAUser);
     Ok(allDocumentForAStreamJson).as("application/json")
   }
   
