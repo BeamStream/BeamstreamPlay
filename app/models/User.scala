@@ -206,6 +206,7 @@ object User {
    * Add Document to user
    */
   def addDocumentToUser(userId: ObjectId, document: ObjectId) {
+  println(" Document added for the user :"+  userId + "  documentId : " + document );
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
     UserDAO.update(MongoDBObject("_id" -> userId), user.copy(documents = user.documents ++ List(document)), false, false, new WriteConcern)
   }
