@@ -8,11 +8,11 @@ BS.ClassView = Backbone.View.extend({
 		"click a.legend-addclass" : "addSchool",
 		"click .back-button" :"backToPrevious",
 		"click .close-button" : "closeScreen"
-		 
 
 	},
 
 	initialize : function() {
+		
 		sClasses = 1;
 		console.log('Initializing Class View');
 //		BS.saveStatus = false;
@@ -26,7 +26,7 @@ BS.ClassView = Backbone.View.extend({
 		this.classes = new BS.Class();
 		this.source = $("#tpl-class-reg").html();
 		this.template = Handlebars.compile(this.source);
-		 
+	 
 	},
 
  
@@ -144,7 +144,7 @@ BS.ClassView = Backbone.View.extend({
 						if(data.status == "Success")
 						{
 							// navigate to main stream page
-							BS.AppRouter.navigate("streams", {trigger: true});
+							BS.AppRouter.navigate("profile", {trigger: true});
 						}
 						else
 						{
