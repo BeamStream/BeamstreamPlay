@@ -1693,6 +1693,7 @@
                       <div class="controls">
                         <span class="popout_arrow"><span></span></span>
                         <textarea id="msg"></textarea>
+					    
                         <ul class="additional_controls">
                           <li class="comment"><a href="#comment" class="btn btn-flat"><i class="icon-middle-comment"></i></a></li>
  						  <li class="doc"><a href="#doc" class="btn btn-flat"><i class="icon-middle-doc"></i></a>
@@ -1730,11 +1731,13 @@
               </section>
 
               <div class="double-line"></div>
-              <section class="timeline">
+              <section class="timeline load-block">
                 <ul class="timeline_items">
                   
                 </ul>
+				 <div class ="page-loader" ><img src ="images/loading-bars.gif"></div>
               </section>
+              
             </section>
           </div>
           <div class="col right_column span2" style="margin-left: 10px !important;">
@@ -2352,6 +2355,11 @@
 	   
 	})();
 	
+	
+	
+
+
+	
 	function janrainWidgetOnload() {
 
         janrain.events.onProviderLoginToken.addHandler(function(response) {
@@ -2413,7 +2421,6 @@
 				                                	password : "",
 				                                	rememberMe : false
 				                              });
-                                                          
                                                           
 				                              var loginDetails = JSON.stringify(loginModel);
 												 
@@ -2480,30 +2487,6 @@ function janRainLogin(info){
 <script>
         $(document).ready(function() {
  
-            $('.comment_actions').each(function() {
-                var $this = $(this),
-                    $hide = $this.find('[href="#hide"]'),
-                    $show = $this.find('[href="#show"]'),
-                    $comments = $this.closest('.message_item').find('.comments');
-                $hide.click(function(event) {
-                    if ($comments.is(':visible')) {
-                        $show.removeClass('disabled');
-                        $hide.addClass('disabled');
-                        $comments.slideUp();
-                    }
-                    event.preventDefault();
-                });
-                $show.click(function(event) {
-                    if (!$comments.is(':visible')) {
-                        $hide.removeClass('disabled');
-                        $show.addClass('disabled');
-                        $comments.slideDown();
-                    }
-                    event.preventDefault();
-                });
-            });
-
-
             // FIXME: this is temporary hack, remove it later.
             $('.nav a').click(function() {
             	 

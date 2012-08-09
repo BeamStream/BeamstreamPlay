@@ -214,8 +214,7 @@ BS.AppRouter = Backbone.Router.extend({
 	})();
        
    },
-   
-   
+  
    
    /**
     * display main stream page
@@ -242,7 +241,6 @@ BS.AppRouter = Backbone.Router.extend({
 		       
 			   BS.streamView = new BS.StreamView({ model: BS.user });
 			   BS.streamView.render();
-			   
 			   
 			   self.onstream = true; 
 	   	   
@@ -284,6 +282,7 @@ BS.AppRouter = Backbone.Router.extend({
 	   	   $('.modal-backdrop').hide();
 	       $('#content').html(BS.streamView.el);
 	       
+	       $('.page-loader').hide();
       	
 	       $(".checkbox").dgStyle();
 	        
@@ -295,6 +294,11 @@ BS.AppRouter = Backbone.Router.extend({
 	       
 	       
 		 }});
+		   
+		   
+		   
+		  
+		 
  
        
    },

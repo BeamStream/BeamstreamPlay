@@ -28,7 +28,9 @@ BS.StreamView = Backbone.View.extend({
            "click #sort-messages li a" : "sortMessages",
            "keypress #sort_by_key" : "sortByKeyword",
            "click .follow" : "followMessage",
-//           "keyup #msg"  : "showBitleys"
+//           "keyup #msg"  : "showBitleys",
+           
+         
  
 	 },
 	 
@@ -50,8 +52,32 @@ BS.StreamView = Backbone.View.extend({
     	 
 		this.source = $("#tpl-main-stream").html();
 		this.template = Handlebars.compile(this.source);
+		var pagenum = 1;
+		var limit = 10;
+		/* pagination on scrolling */
+	    var self = this;
+	   
+	    
+		$(window).bind('scroll', function (ev) {
+			var streamPage = $('nav li.active').attr('id');
+			if(streamPage == "streamsGroups")
+			{
+				if($(window).scrollTop() == $(document).height() - $(window).height()){
+					$('.page-loader').show();
+					var streamId = $('#streams-list li.active a').attr('id');
+					pagenum++;
+					self.getMessageInfo(streamId,pagenum,limit);
+				  }
+				else
+				{
+					  $('.page-loader').hide();
+				}
+			}
+			
+		 });
     },
-
+ 
+     
     render:function (eventName) {
         
        this.getStreams();
@@ -461,10 +487,13 @@ BS.StreamView = Backbone.View.extend({
 				dataType : "json",
 				success : function(data) {
 					 
-					  //display the messages
- 
+					   //hide page loader image
+					   if(!data.length)
+						   $('.page-loader').hide();
+						   
+					    //display the messages
 					  _.each(data, function(data) {
-							
+						  
 							var msgBody = data.messageBody;
 							var linkTag =  msgBody.replace(BS.urlRegex, function(url) {
 					             return '<a href="' + url + '">' + url + '</a>';
@@ -474,12 +503,13 @@ BS.StreamView = Backbone.View.extend({
  							 	 "datas" : data,
  						    }
 							  
-							 var source = $("#tpl-messages").html();
-	  						 var template = Handlebars.compile(source);
-	  						 $('.timeline_items').prepend(template(datas));
+							var source = $("#tpl-messages").html();
+	  						var template = Handlebars.compile(source);
+	  						$('.page-loader').hide();
+	  						$('.timeline_items').append(template(datas));
 	  						 
-	  						 /* check whether the user is follwer of a message or not */
-	  				          $.ajax({
+	  						/* check whether the user is follwer of a message or not */
+	  				         $.ajax({
 	  				    			type : 'POST',
 	  				    			url : BS.isAFollower,
 	  				    			data : {
@@ -490,7 +520,7 @@ BS.StreamView = Backbone.View.extend({
 	  				    				 if(status == "true")
 	  				    				   $('#'+data.id.id+'-follow').html("Unfollow");
 	  				    			}
-	  				    		});
+	  				    	 });
 	  						 
 	  						 
 	  						 /* get profile images for messages */
@@ -1030,9 +1060,7 @@ BS.StreamView = Backbone.View.extend({
 		 
 		
 	 },
-	 
  
-	 
  
 	 
 });

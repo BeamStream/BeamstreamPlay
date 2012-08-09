@@ -1667,6 +1667,29 @@ border: 1px solid rgba(0, 0, 0, 0.15);
     top: 11px;
     z-index: 999;
 }
+/* for show embedly view */
+#display-embedly{
+border: 1px solid #E8E8E9;
+    border-radius: 3px 3px 0 0;
+    box-shadow: none;
+    height: auto;
+    min-height: 153px;
+    resize: vertical;
+    width: 384px;
+}
+ 
+ .page-loader{
+	padding-top: 4px;
+    text-align: center;
+    border: 1px solid #D8DFEA;
+    width: 525px;
+    background-color: #D9E9F6;
+    height: 20px;
+    margin: 0 auto 5px;
+ }
+ .load-block{
+ padding-bottom :10px;
+ }
  
  
 
