@@ -482,10 +482,13 @@ BS.StreamView = Backbone.View.extend({
 	  	  					 });
   	  						
   				         });
-  						 
+               
   				   }
-  				   $('#msg').val("");
-  				 
+                                   
+  				   $('.selector').html("");
+                                   $('.selector').hide();
+                                   $('.emdform').find('input[type="hidden"].preview_input').remove();
+                                   $('#msg').val("");
   			}
   		});
     	
