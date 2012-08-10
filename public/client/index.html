@@ -175,23 +175,24 @@
           </ul>
         <label>Sort by:</label>
         <a id="file-type" href="#" data-toggle="dropdown" >File Type</a>
-        <ul class="filter-options">
-          <li data-key="all" ><a href="#">Rock on Votes</a></li>
-          <li data-key="tags" ><a href="#">Tags</a> </li>
-          <li data-key="category" ><a href="#">Category</a> </li>
-          <li data-key="class" ><a href="#">by Class/School</a></li>
+        <ul>
+          <li><a href="#">Rock on Votes</a></li>
+          <li><a href="#">Tags</a> </li>
+          <li><a href="#">Category</a> </li>
+          <li><a href="#">by Class/School</a></li>
         </ul>
         <label>Then by:</label>
         <a href="#">Date </a>
-        <ul>
-          <li><a href="#">Most Recent</a></li>
-          <li><a href="#"> Oldest</a> </li>
+        <ul class="filter-options">
+          <li data-key="all"><a href="#">All</a></li> 
+          <li data-key="recent"><a href="#">Most Recent</a></li>
+          <li data-key="oldest"><a href="#"> Oldest</a> </li>
         </ul>
       </div>
     </div>
-    <div class="row">
-      <ul class="file-list">
-        <li >
+    <div class="row" >
+      <ul class="file-list" id="grid">
+        <li data-key='["recent"]'>
           <div class="image-wrapper"><img src="images/image1.jpg"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -201,7 +202,7 @@
             </ul>
           </div>
         </li>
-        <li>
+        <li data-key='["oldest"]'>
           <div class="image-wrapper"><img src="images/image1.jpg"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -211,7 +212,8 @@
             </ul>
           </div>
         </li>
-        <li>
+        
+        <li id="file-docs-1" data-key='["recent"]'>
           <div class="image-wrapper">
             <div class="comment-wrapper comment-wrapper2">
                 <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
@@ -231,7 +233,8 @@
             </ul>
           </div>
         </li>
-        <li>
+        
+        <li data-key='["oldest"]'>
           <div class="image-wrapper"><img src="images/image1.jpg"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -241,7 +244,7 @@
             </ul>
           </div>
         </li>
-        <li>
+        <li data-key='["recent"]'>
           <div class="image-wrapper1"><img src="images/video_image.png"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -251,7 +254,7 @@
             </ul>
           </div>
         </li>
-        <li>
+        <li data-key='["oldest"]'>
           <div class="image-wrapper1"><img src="images/audio_image.png"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon music" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -261,7 +264,7 @@
             </ul>
           </div>
         </li>
-        <li>
+        <li data-key='["oldest"]'>
           <div class="image-wrapper1"><img src="images/spreadsheets_image.png"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -271,7 +274,7 @@
             </ul>
           </div>
         </li>
-        <li>
+        <li id="file-docs-2" data-key='["recent"]'>
           <div class="image-wrapper1"><img src="images/docs_image.png"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -281,7 +284,7 @@
             </ul>
           </div>
         </li>
-        <li>
+        <li data-key='["oldest"]'>
           <div class="image-wrapper1"><img src="images/presentations_image.png"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon presentation" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -291,7 +294,7 @@
             </ul>
           </div>
         </li>
-        <li>
+        <li data-key='["recent"]'>
           <div class="image-wrapper1"><img src="images/pdp_image.png"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon pdf" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -301,7 +304,7 @@
             </ul>
           </div>
         </li>
-        <li>
+        <li data-key='["recent"]'>
           <div class="image-wrapper1"><img src="images/links_image.png"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -311,7 +314,7 @@
             </ul>
           </div>
         </li>
-        <li>
+        <li data-key='["oldest"]'>
           <div class="image-wrapper1"><div id="profile-images"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -321,7 +324,7 @@
             </ul>
           </div>
         </li>
-        <li>
+        <li data-key='["recent"]'>
           <div class="image-wrapper"><img src="images/image2.jpg"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -331,7 +334,7 @@
             </ul>
           </div>
         </li>
-        <li>
+        <li data-key='["oldest"]'>
           <div class="image-wrapper"><img src="images/image3.jpg"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon music" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -341,7 +344,7 @@
             </ul>
           </div>
         </li>
-        <li>
+        <li data-key='["recent","oldest"]'>
           <div class="image-wrapper"><img src="images/image4.jpg"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -351,7 +354,7 @@
             </ul>
           </div>
         </li>
-        <li>
+        <li id="file-docs-3" data-key='["recent"]'>
           <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#docsList"></a></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -2510,6 +2513,8 @@ function janRainLogin(info){
                         .closest('li').addClass('active');
                 }
             });
+            
+             
         });
 </script>
 
