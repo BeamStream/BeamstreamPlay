@@ -388,41 +388,43 @@ BS.StreamView = Backbone.View.extend({
       var messageAccess;
       var streamId = $('#streams-list li.active a').attr('id');
       var message = $('#msg').val();
-      
-      var msgAccess =  $('#id-private').attr('checked');
-  	  if(msgAccess == "checked")
-  	  {
-  		messageAccess = "Private";
-  	  }
-  	  else
-  	  {
-  		messageAccess = "Public";
-  	  }
-  	  
-  	  //find link part from the message
-      var link =  message.match(BS.urlRegex); 
-      if(link)
+      if(!message.match(/^[\s]*$/))
       {
-    	  /* post url information */
-          $.ajax({
-    			type : 'POST',
-    			url : BS.bitly,
-    			data : {
-    				 link : link[0]
-    			},
-    			dataType : "json",
-    			success : function(data) {
-    				 message = message.replace(link[0],data.data.url);
-    				 self.postMsg(message,streamId,messageAccess);
-    			}
-    		});
+    	  
+	      var msgAccess =  $('#id-private').attr('checked');
+	  	  if(msgAccess == "checked")
+	  	  {
+	  		messageAccess = "Private";
+	  	  }
+	  	  else
+	  	  {
+	  		messageAccess = "Public";
+	  	  }
+	  	  
+	  	  //find link part from the message
+	      var link =  message.match(BS.urlRegex); 
+	      if(link)
+	      {
+	    	  /* post url information */
+	          $.ajax({
+	    			type : 'POST',
+	    			url : BS.bitly,
+	    			data : {
+	    				 link : link[0]
+	    			},
+	    			dataType : "json",
+	    			success : function(data) {
+	    				 message = message.replace(link[0],data.data.url);
+	    				 self.postMsg(message,streamId,messageAccess);
+	    			}
+	    		});
+	      }
+	      //if link not present
+	      else
+	      {
+	    	  self.postMsg(message,streamId,messageAccess);
+	      }
       }
-      //if link not present
-      else
-      {
-    	  self.postMsg(message,streamId,messageAccess);
-      }
-  	  
     },
     /**
      * post message with shortURL if present
