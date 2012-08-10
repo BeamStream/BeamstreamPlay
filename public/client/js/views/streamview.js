@@ -28,9 +28,8 @@ BS.StreamView = Backbone.View.extend({
            "click #sort-messages li a" : "sortMessages",
            "keypress #sort_by_key" : "sortMessagesByKey",
            "click .follow" : "followMessage",
-//           "click #msg"  : "showBitleys",
+           "click #msg"  : "showBitleys",
            
-         
  
 	 },
 	 
@@ -67,9 +66,13 @@ BS.StreamView = Backbone.View.extend({
 		$(window).bind('scroll', function (ev) {
 			 
 			var streamPage = $('nav li.active').attr('id');
+			
 			if(streamPage == "streamsGroups")
 			{
-				if($(window).scrollTop() == $(document).height() - $(window).height()){
+				var scrollTop =$(window).scrollTop();
+				var docheight = $(document).height();
+				var widheight = $(window).height();
+				if(scrollTop + 1 == docheight- widheight || scrollTop == docheight- widheight){
 					 
 					$('.page-loader').show();
 					var streamId = $('#streams-list li.active a').attr('id');
@@ -1129,11 +1132,11 @@ BS.StreamView = Backbone.View.extend({
 	  		});
 	 },
 	 
-//	 showBitleys : function(){
-//		 
-//		  $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
-//		  
-//	 }
+	 showBitleys : function(){
+		 
+		  $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+		  
+	 }
  
 	 
 });

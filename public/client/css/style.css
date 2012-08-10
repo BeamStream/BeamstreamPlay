@@ -1478,10 +1478,12 @@ span.edit_profilepicture_icon{
 	width: 200px !important;
 	background-color:#fff !important;
 	margin-top:10px !important;
+	color: black !important;
 }
 .janrainSwitchAccountLink{
 	color : #01588E !important;
 }
+
 
 /*.... End Of OverWrire..... */
 

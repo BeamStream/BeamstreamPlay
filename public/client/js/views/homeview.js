@@ -42,7 +42,7 @@ BS.NavView = Backbone.View.extend({
   				 // default profile image
   				 if(data.status)
   				 {
-  					 BS.profileImageUrl = "images/placeholders/face2.png";
+  					 BS.profileImageUrl = "images/unknown.jpeg";
 		    	        	 
   				 }
   				 else
@@ -123,8 +123,6 @@ BS.NavView = Backbone.View.extend({
 
 BS.StreamPageMenuView = Backbone.View.extend({
 	  
-	 
-	
     initialize:function () {      
       var self=this;
       var source = $("#tpl-stream-page-menus").html();

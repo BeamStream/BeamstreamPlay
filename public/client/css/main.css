@@ -946,7 +946,7 @@ body {
   -moz-box-shadow: 1px 0 1px rgba(0, 0, 0, 0.25);
   box-shadow: 1px 0 1px rgba(0, 0, 0, 0.25);
 }
-.user_profile .user_friends_mini ul .item {
+.user_profile .user_friends_mini ul .imgitem {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;

@@ -263,7 +263,7 @@ BS.AppRouter = Backbone.Router.extend({
 		    				 // default profile image
 		    				 if(data.status)
 		    				 {
-		    					 BS.profileImageUrl = "images/placeholders/face2.png";
+		    					 BS.profileImageUrl = "images/unknown.jpeg";
 				    	        	 
 		    				 }
 		    				 else
@@ -524,7 +524,7 @@ BS.AppRouter = Backbone.Router.extend({
 				var self = this;
 				 
 				// $('#right-photo').attr("src",BS.profileImageUrl);
-
+                 
 				 BS.user.fetch({ success:function(e) {
 				   
 					   //get main menu
