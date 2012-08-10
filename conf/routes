@@ -21,9 +21,9 @@ POST /newStream controllers.StreamController.newStream
 
 #Messages
 POST /newMessage controllers.MessageController.newMessage
-POST /getAllMessagesForAStream controllers.MessageController.getAllMessagesForAStreamWithPagination
-POST /getAllMessagesForAStreamSortedbyDate controllers.MessageController.getAllMessagesForAStreamSortedbyDate
-POST /getAllMessagesForAStreamSortedbyRocks  controllers.MessageController.getAllMessagesForAStreamSortedbyRocks
+POST /getAllMessagesForAStream                controllers.MessageController.getAllMessagesForAStreamWithPagination
+POST /getAllMessagesForAStreamSortedbyDate    controllers.MessageController.getAllMessagesForAStreamWithPagination
+POST /getAllMessagesForAStreamSortedbyRocks   controllers.MessageController.getAllMessagesForAStreamSortedbyRocks
 POST /getAllMessagesForAStreambyKeyword controllers.MessageController.getAllMessagesForAStreambyKeyword
 
 

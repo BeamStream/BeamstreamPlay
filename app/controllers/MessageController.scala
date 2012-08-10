@@ -80,7 +80,8 @@ object MessageController extends Controller {
     val streamId = streamIdJsonMap("streamId").toList(0)
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
     val messagesPerPage = streamIdJsonMap("limit").toList(0).toInt
-    val allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId),pageNo,messagesPerPage)
+    println(streamId,pageNo,messagesPerPage)
+    val allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
     val allMessagesForAStreamJson = write(allMessagesForAStream)
     Ok(allMessagesForAStreamJson).as("application/json")
   }
@@ -121,6 +122,7 @@ object MessageController extends Controller {
   //==================================================================//
   //======Displays all the messages within a Stream sorted by date===//
   //================================================================//
+  //TODO we can remove this method because now it has assembled with getAllMessagesForAStream
   def getAllMessagesForAStreamSortedbyDate = Action { implicit request =>
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
@@ -135,8 +137,11 @@ object MessageController extends Controller {
   def getAllMessagesForAStreamSortedbyRocks = Action { implicit request =>
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
-    val allMessagesForAStream = Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId))
-    val allMessagesForAStreamJson = write(allMessagesForAStream.reverse)
+    val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
+    val messagesPerPage = streamIdJsonMap("limit").toList(0).toInt
+//    println(streamId,pageNo,messagesPerPage)
+    val allMessagesForAStream = Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
+    val allMessagesForAStreamJson = write(allMessagesForAStream)
     Ok(allMessagesForAStreamJson).as("application/json")
   }
 
@@ -146,7 +151,9 @@ object MessageController extends Controller {
   def getAllMessagesForAStreambyKeyword = Action { implicit request =>
     val keywordJsonMap = request.body.asFormUrlEncoded.get
     val keyword = keywordJsonMap("keyword").toList(0)
-    val allMessagesForAStream = Message.getAllMessagesForAKeyword(keyword)
+    val pageNo = keywordJsonMap("pageNo").toList(0).toInt
+    val messagesPerPage = keywordJsonMap("limit").toList(0).toInt
+    val allMessagesForAStream = Message.getAllMessagesForAKeyword(keyword,pageNo,messagesPerPage)
     val allMessagesForAStreamJson = write(allMessagesForAStream)
     Ok(allMessagesForAStreamJson).as("application/json")
   }

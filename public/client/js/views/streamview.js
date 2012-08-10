@@ -26,7 +26,7 @@ BS.StreamView = Backbone.View.extend({
            "click .hide_comments" : "hideComments",
            "click .show_comments" : "showComments",
            "click #sort-messages li a" : "sortMessages",
-           "keypress #sort_by_key" : "sortByKeyword",
+           "keypress #sort_by_key" : "sortMessagesByKey",
            "click .follow" : "followMessage",
 //           "click #msg"  : "showBitleys",
            
@@ -59,32 +59,39 @@ BS.StreamView = Backbone.View.extend({
 		BS.msgSortedType = '';
 		BS.pagenum = 1;
 		BS.pageForVotes = 1;
+		BS.pageForDate = 1;
 		BS.pageForKeyword = 1;
 		BS.pageLimit = 10;
 	    var self = this;
 	    
 		$(window).bind('scroll', function (ev) {
+			 
 			var streamPage = $('nav li.active').attr('id');
 			if(streamPage == "streamsGroups")
 			{
 				if($(window).scrollTop() == $(document).height() - $(window).height()){
+					 
 					$('.page-loader').show();
 					var streamId = $('#streams-list li.active a').attr('id');
 				
-					if(BS.msgSortedType == '')
+					if(BS.msgSortedType == "")
 					{    BS.pagenum++;
 						self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
 					}
-					else if(BS.msgSortedType == 'vote')
+					else if(BS.msgSortedType == "vote")
 					{    BS.pageForVotes++
-						 self.sortOnVotes(streamId,BS.pageForVotes,BS.pageLimit)
+						 self.sortByVotes(streamId,BS.pageForVotes,BS.pageLimit)
 					}
-					else if(BS.msgSortedType == 'keyword')
+					else if(BS.msgSortedType == "keyword")
 					{
 						BS.pageForKeyword++;
 						var keyword = $('#sort_by_key').val();
-					    var streamId = $('#public-classes').find('li.active').attr('id') ;
-						self.sortOnkeyword(streamId,keyword,BS.pageForKeyword,BS.pageLimit);
+						self.sortBykeyword(streamId,keyword,BS.pageForKeyword,BS.pageLimit);
+					}
+					else if(BS.msgSortedType == "date")
+					{
+						 BS.pageForDate++;
+						 self.sortByDate(streamId,BS.pageForDate,BS.pageLimit);
 					}
 				  }
 				else
@@ -147,7 +154,7 @@ BS.StreamView = Backbone.View.extend({
 	                 $('#public-classes').find('li.active').removeClass('active');
 	              	 $('#public-classes').find('li#'+streamId+'').addClass('active');
 	              	 
-	              	 BS.pagenum =1;
+	              	 BS.pagenum =1;  
                      if(streamId)
                       self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
              
@@ -381,41 +388,43 @@ BS.StreamView = Backbone.View.extend({
       var messageAccess;
       var streamId = $('#streams-list li.active a').attr('id');
       var message = $('#msg').val();
-      
-      var msgAccess =  $('#id-private').attr('checked');
-  	  if(msgAccess == "checked")
-  	  {
-  		messageAccess = "Private";
-  	  }
-  	  else
-  	  {
-  		messageAccess = "Public";
-  	  }
-  	  
-  	  //find link part from the message
-      var link =  message.match(BS.urlRegex); 
-      if(link)
+      if(!message.match(/^[\s]*$/))
       {
-    	  /* post url information */
-          $.ajax({
-    			type : 'POST',
-    			url : BS.bitly,
-    			data : {
-    				 link : link[0]
-    			},
-    			dataType : "json",
-    			success : function(data) {
-    				 message = message.replace(link[0],data.data.url);
-    				 self.postMsg(message,streamId,messageAccess);
-    			}
-    		});
+    	  
+	      var msgAccess =  $('#id-private').attr('checked');
+	  	  if(msgAccess == "checked")
+	  	  {
+	  		messageAccess = "Private";
+	  	  }
+	  	  else
+	  	  {
+	  		messageAccess = "Public";
+	  	  }
+	  	  
+	  	  //find link part from the message
+	      var link =  message.match(BS.urlRegex); 
+	      if(link)
+	      {
+	    	  /* post url information */
+	          $.ajax({
+	    			type : 'POST',
+	    			url : BS.bitly,
+	    			data : {
+	    				 link : link[0]
+	    			},
+	    			dataType : "json",
+	    			success : function(data) {
+	    				 message = message.replace(link[0],data.data.url);
+	    				 self.postMsg(message,streamId,messageAccess);
+	    			}
+	    		});
+	      }
+	      //if link not present
+	      else
+	      {
+	    	  self.postMsg(message,streamId,messageAccess);
+	      }
       }
-      //if link not present
-      else
-      {
-    	  self.postMsg(message,streamId,messageAccess);
-      }
-  	  
     },
     /**
      * post message with shortURL if present
@@ -777,7 +786,7 @@ BS.StreamView = Backbone.View.extend({
 				    			},
 				    			dataType : "json",
 				    			success : function(imgUrl) {
-				    				$('#'+data.id.id+'-image').attr("src" ,imgUrl ); 
+				    				$('#'+data.id.id+'-image').attr("src" ,imgUrl); 
 				    			}
 				      });
 					  
@@ -923,23 +932,18 @@ BS.StreamView = Backbone.View.extend({
 		
 		 if(sortKey == "highest-rated")
 		 {
+			 BS.msgSortedType = "";
+			 BS.pagenum = 1;
 			 $(".timeline_items").html('');
-			 self.getMessageInfo(streamId);
+			 self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
 		 }
 		 else if(sortKey == "date")
 		 {
+			 BS.msgSortedType = "date";
 			 $(".timeline_items").html('');
-			 $.ajax({
-		  			type : 'POST',
-		  			url : BS.sortByDate,
-		  			data : {
-		  				 streamId :streamId
-		  			},
-		  			dataType : "json",
-				  	success : function(data) {
-				  		self.displayMessages(data);
-				  	}
-		  		});
+			 BS.pageForDate = 1;
+			 self.sortByDate(streamId,BS.pageForDate,BS.pageLimit);
+ 
 		 }
 		 else if(sortKey == "profile-relevance")
 		 {
@@ -950,7 +954,7 @@ BS.StreamView = Backbone.View.extend({
 			 BS.msgSortedType = "vote";
 			 $(".timeline_items").html('');
 			 BS.pageForVotes = 1;
-			 self.sortOnVotes(streamId,BS.pageForVotes,BS.pageLimit)
+			 self.sortByVotes(streamId,BS.pageForVotes,BS.pageLimit)
 		 }
 			 
 	 },
@@ -958,7 +962,7 @@ BS.StreamView = Backbone.View.extend({
 	 /**
 	  * sort by keyword
 	  */
-	 sortByKeyword :function(eventName){
+	 sortMessagesByKey :function(eventName){
 		
 		 var self = this;
  		 if(eventName.which == 13) {
@@ -968,7 +972,7 @@ BS.StreamView = Backbone.View.extend({
 			 var keyword = $('#sort_by_key').val();
 			 var streamId = $('#public-classes').find('li.active').attr('id') ;
 			 
-			 self.sortOnkeyword(streamId,keyword,BS.pageForKeyword,BS.pageLimit);
+			 self.sortBykeyword(streamId,keyword,BS.pageForKeyword,BS.pageLimit);
 			
 		 } 
 	 },
@@ -1055,9 +1059,9 @@ BS.StreamView = Backbone.View.extend({
 		
 	 },
 	 /**
-	  * sort by votes 
+	  * get messages and sort by votes 
 	  */
-	 sortOnVotes :function(streamId,pageNo,limit){
+	 sortByVotes :function(streamId,pageNo,limit){
 		 var self =this;
 		 $.ajax({
 	  			type : 'POST',
@@ -1070,14 +1074,18 @@ BS.StreamView = Backbone.View.extend({
 	  			},
 	  			dataType : "json",
 			  	success : function(data) {
+			  		
+			  	  //hide page loader image
+					if(!data.length)
+						$('.page-loader').hide();
 			  		self.displayMessages(data);
 			  	}
 	  		});
 	 },
 	 /**
-	  * sort by keuwords
+	  *get messages and sort by keuwords
 	  */
-	 sortOnkeyword :function(streamId,keyword,pageNo,limit){
+	 sortBykeyword :function(streamId,keyword,pageNo,limit){
 		 var self = this;
 		 $.ajax({
 	  			type : 'POST',
@@ -1091,13 +1099,41 @@ BS.StreamView = Backbone.View.extend({
 	  			},
 	  			dataType : "json",
 			  	success : function(data) {
+			  	  //hide page loader image
+				  if(!data.length)
+					   $('.page-loader').hide();
+			  	  self.displayMessages(data);
+			  	}
+	  		});
+	 },
+	 /**
+	  * get messages and sort by data
+	  */
+	 sortByDate : function(streamId,pageNo,limit){
+		 var self = this;
+		 $.ajax({
+	  			type : 'POST',
+	  			url : BS.sortByDate,
+	  			data : {
+	  				 streamId :streamId,
+	  				 pageNo : pageNo,
+	  				 limit  : limit
+	  			},
+	  			dataType : "json",
+			  	success : function(data) {
+			  	  //hide page loader image
+					if(!data.length)
+						$('.page-loader').hide();
 			  		self.displayMessages(data);
 			  	}
 	  		});
 	 },
 	 
-	 
- 
+//	 showBitleys : function(){
+//		 
+//		  $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+//		  
+//	 }
  
 	 
 });
