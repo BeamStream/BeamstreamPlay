@@ -18,9 +18,7 @@ BS.AppRouter = Backbone.Router.extend({
         "groupStream": "groupStream",
         "peerStream" : "peerStream",
         "friendStream" :"friendStream",
-        "filesMedia" : "filesMedia",
-        "docsList"  : "docsList"
-
+        "filesMedia" : "filesMedia"
         
     },
     initialize :function() {
@@ -541,47 +539,42 @@ BS.AppRouter = Backbone.Router.extend({
 				BS.filesMediaView = new BS.FilesMediaView({
 					model : BS.user
 				});
+                                
+                                
 				BS.filesMediaView.render();
 
 				$('#content').html(BS.filesMediaView.el);
 				$('.file-type').hide();
 				$(".checkbox").dgStyle();
+                                
+                                 // instantiate the shuffle plugin
+                                $('#grid').shuffle({
+                                    itemWidth : 200,
+                                    marginTop : 0,
+                                    marginRight: 20,
+                                    key : 'all',
+                                    speed : 800,
+                                    easing : 'ease-out'
+                                });
+                                
+                                 // Set up button clicks
+                                $('.filter-options li').on('click', function() {
+
+                                    var $this = $(this),
+                                        $grid = $('#grid');
+
+                                    // Hide current label, show current label in title
+                                    $('.filter-options .active').removeClass('active');
+                                    $this.addClass('active');
+
+                                    // Filter elements
+                                    $grid.shuffle($this.attr('data-key'));
+                                });
+            
 
 			},
 
-                        
-                        docsList : function()
-                        {
-                            $('#content').children().detach();
-                            $('#school-popup').children().detach();
-                            var self = this;
-                         BS.user.fetch({ success:function(e) {
-                                 
-                                /* get profile images for user */
-                              $.ajax({
-                                        type : 'POST',
-                                        url :  BS.getAllDocs,
-                                        data : {
-                                           'userId': e.attributes.id.id
-                                                },
-                                        dataType : "json",
-
-                                        success : function(data) {
-                                                console.log(data)
-                                        }
-                               });
-                            
-                            }});
-                         
-                            BS.listDocsView = new BS.ListDocsView({});
-                                
-                            BS.listDocsView.renderDoc();
-
-                            $('#content').html(BS.listDocsView.el);
-                        },
-
-			
-			
+                    
 			displayJanRain : function(){
 				
 				 var janRainCount = $('.janrainContent').length;
