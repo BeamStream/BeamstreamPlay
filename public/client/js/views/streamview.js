@@ -65,10 +65,12 @@ BS.StreamView = Backbone.View.extend({
 	    var self = this;
 	    
 		$(window).bind('scroll', function (ev) {
+			 
 			var streamPage = $('nav li.active').attr('id');
 			if(streamPage == "streamsGroups")
 			{
 				if($(window).scrollTop() == $(document).height() - $(window).height()){
+					 
 					$('.page-loader').show();
 					var streamId = $('#streams-list li.active a').attr('id');
 				
@@ -76,17 +78,17 @@ BS.StreamView = Backbone.View.extend({
 					{    BS.pagenum++;
 						self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
 					}
-					else if(BS.msgSortedType == 'vote')
+					else if(BS.msgSortedType == "vote")
 					{    BS.pageForVotes++
 						 self.sortByVotes(streamId,BS.pageForVotes,BS.pageLimit)
 					}
-					else if(BS.msgSortedType == 'keyword')
+					else if(BS.msgSortedType == "keyword")
 					{
 						BS.pageForKeyword++;
 						var keyword = $('#sort_by_key').val();
 						self.sortBykeyword(streamId,keyword,BS.pageForKeyword,BS.pageLimit);
 					}
-					else if(BS.msgSortedType == 'date')
+					else if(BS.msgSortedType == "date")
 					{
 						 BS.pageForDate++;
 						 self.sortByDate(streamId,BS.pageForDate,BS.pageLimit);
@@ -1070,6 +1072,10 @@ BS.StreamView = Backbone.View.extend({
 	  			},
 	  			dataType : "json",
 			  	success : function(data) {
+			  		
+			  	  //hide page loader image
+					if(!data.length)
+						$('.page-loader').hide();
 			  		self.displayMessages(data);
 			  	}
 	  		});
@@ -1091,7 +1097,10 @@ BS.StreamView = Backbone.View.extend({
 	  			},
 	  			dataType : "json",
 			  	success : function(data) {
-			  		self.displayMessages(data);
+			  	  //hide page loader image
+				  if(!data.length)
+					   $('.page-loader').hide();
+			  	  self.displayMessages(data);
 			  	}
 	  		});
 	 },
@@ -1110,6 +1119,9 @@ BS.StreamView = Backbone.View.extend({
 	  			},
 	  			dataType : "json",
 			  	success : function(data) {
+			  	  //hide page loader image
+					if(!data.length)
+						$('.page-loader').hide();
 			  		self.displayMessages(data);
 			  	}
 	  		});
@@ -1118,6 +1130,7 @@ BS.StreamView = Backbone.View.extend({
 //	 showBitleys : function(){
 //		 
 //		  $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+//		  
 //	 }
  
 	 
