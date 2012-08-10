@@ -550,7 +550,7 @@ BS.AppRouter = Backbone.Router.extend({
                                  // instantiate the shuffle plugin
                                 $('#grid').shuffle({
                                     itemWidth : 200,
-                                    marginTop : 10,
+                                    marginTop : 15,
                                     marginRight: 20,
                                     key : 'all',
                                     speed : 800,
