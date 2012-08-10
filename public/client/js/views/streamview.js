@@ -480,12 +480,16 @@ BS.StreamView = Backbone.View.extend({
 		 				          method: 'after',
 		 					      key:'4d205b6a796b11e1871a4040d3dc5c07'
 	  	  					 });
-  	  						
+	  	  					 
   				         });
-  						 
+               
   				   }
-  				   $('#msg').val("");
-  				 
+                                   
+  				   $('.selector').html("");
+                   $('.selector').hide();
+                   $('.emdform').find('input[type="hidden"].preview_input').remove();
+                   $('#msg').val("");
+ 
   			}
   		});
     	
@@ -1133,7 +1137,7 @@ BS.StreamView = Backbone.View.extend({
 	 },
 	 
 	 showBitleys : function(){
-		 
+//		  $('.selector').css("display", "block");
 		  $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 		  
 	 }
