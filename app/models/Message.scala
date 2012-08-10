@@ -130,11 +130,10 @@ object Message {
 
   def getAllMessagesForAStreamSortedbyRocks(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
     // val messages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList.sortBy(message => message.rocks)
-    val messsagesRetrieved = MessageDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("rocks" -> -1, "timeCreated" -> -1)).toList
-    //.skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    val messsagesRetrieved = MessageDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("rocks" -> -1, "timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
     messsagesRetrieved
   }
-  
+
   /*
    * Sort messages within a stream on the basis of time created
    * TODO We can remove it because it is now assosiated with Pagination method
