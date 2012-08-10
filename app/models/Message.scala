@@ -128,12 +128,16 @@ object Message {
    * Sort messages within a stream on the basis of total rocks
    */
 
-  def getAllMessagesForAStreamSortedbyRocks(streamId: ObjectId): List[Message] = {
-    val messages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList.sortBy(message => message.rocks)
-    messages
+  def getAllMessagesForAStreamSortedbyRocks(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
+    // val messages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList.sortBy(message => message.rocks)
+    val messsagesRetrieved = MessageDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("rocks" -> -1, "timeCreated" -> -1)).toList
+    //.skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    messsagesRetrieved
   }
+  
   /*
    * Sort messages within a stream on the basis of time created
+   * TODO We can remove it because it is now assosiated with Pagination method
    */
 
   def getAllMessagesForAStreamSortedbyDate(streamId: ObjectId): List[Message] = {
@@ -143,9 +147,12 @@ object Message {
   /*
    * get all messages within a stream on the basis of keyword
    */
-  def getAllMessagesForAKeyword(keyword: String): List[Message] = {
-    val messages = MessageDAO.find(MongoDBObject()).toList.filter(message => message.messageBody.contains(keyword))
-    messages
+  def getAllMessagesForAKeyword(keyword: String, pageNumber: Int, messagesPerPage: Int): List[Message] = {
+    val keyWordregExp = (""".*""" + keyword + """.*""").r
+    //val messages = MessageDAO.find(MongoDBObject()).toList.filter(message => message.messageBody.contains(keyword))
+    val messsagesRetrieved = MessageDAO.find(MongoDBObject("messageBody" -> keyWordregExp)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    messsagesRetrieved
+
   }
 
   /*
