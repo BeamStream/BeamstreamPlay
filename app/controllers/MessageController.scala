@@ -80,7 +80,6 @@ object MessageController extends Controller {
     val streamId = streamIdJsonMap("streamId").toList(0)
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
     val messagesPerPage = streamIdJsonMap("limit").toList(0).toInt
-    println(streamId,pageNo,messagesPerPage)
     val allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
     val allMessagesForAStreamJson = write(allMessagesForAStream)
     Ok(allMessagesForAStreamJson).as("application/json")

@@ -6,7 +6,7 @@ $(function() {
 /*
  * Config Variables for Url externalization
  */
-
+ 
 //// For Login Page
 //BS.login = "http://localhost:9000/users";
 //// For Verify Token
@@ -80,6 +80,7 @@ $(function() {
 //BS.isAFollower = "http://localhost:9000/isAFollower";  
 //// Get All Documebts of a user
 //BS.getAllDocs = "http://localhost:9000/getAllDocumentsForAUser";
+ 
 
  
 //For Login Page
@@ -189,7 +190,9 @@ $(function() {
  * For Cloud
  */
  
+ 
   //For Login Page  
+ 
   BS.login = "http://beamstream-v3.herokuapp.com/users";
   //For Verify Token
   BS.verifyToken ="http://beamstream-v3.herokuapp.com/verifyToken";
@@ -251,15 +254,22 @@ $(function() {
   BS.forgotPassword = "http://beamstream-v3.herokuapp.com/forgotPassword";
   //sort messages
   BS.sortByDate = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreamSortedbyDate";
+ 
+ 
   BS.sortByVote = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreamSortedbyRocks";
   BS.sortByKey = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreambyKeyword";
+
   //Message Follow
   BS.followMessage ="http://beamstream-v3.herokuapp.com/followMessage"; 
   //check follower
   BS.isAFollower = "http://beamstream-v3.herokuapp.com/isAFollower";  
+
   // Get All Documebts of a user
   BS.getAllDocs = "http://beamstream-v3.herokuapp.com/getAllDocumentsForAUser";
+     
+  // For File Upload
   BS.docUpload = "http://beamstream-v3.herokuapp.com/newDocument";
+ 
 
 /*
  * for testing in local
