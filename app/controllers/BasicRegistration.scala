@@ -63,7 +63,7 @@ object BasicRegistration extends Controller {
     (canUserRegister == true) match {
       case true =>
 
-        val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, "", password, schoolName, location, List(), List(), List(), List())
+        val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, "", password, schoolName, location, List(), List(), List(), List(),List())
         val IdOfUserCreted = User.createUser(userToCreate)
         val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
         Ok(write(new ResulttoSent("Success", "SignUp Successfully"))).withSession(RegistrationSession)
