@@ -76,14 +76,14 @@ object UserSchool {
     for (school <- UserSchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList) yield school
   }
 
-  /*
-   * Find a school by Id
-   */
-
-  def findSchoolsById(schoolId: ObjectId): String = {
-    val schoolName = UserSchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0).schoolName
-    schoolName
-  }
+//  /*
+//   * Find a school by Id
+//   */
+//
+//  def findSchoolsById(schoolId: ObjectId): String = {
+//    val schoolName = UserSchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0).schoolName
+//    schoolName
+//  }
 
   /*
    * Get all school for a user

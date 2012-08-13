@@ -9,7 +9,7 @@ import com.mongodb.casbah.commons.MongoDBObject
 case class School(@Key("_id") id: ObjectId, schoolName: String)
 
 object School {
-  
+
   /*
    * Add New School
    */
@@ -18,15 +18,24 @@ object School {
     val schoolId = SchoolDAO.insert(school)
     schoolId.get
   }
-  
+
   /*
    * Get All School for autopopulate school screen
    */
 
-  def getAllSchools : List[School] ={
+  def getAllSchools: List[School] = {
     SchoolDAO.find(MongoDBObject()).toList
   }
-  
+
+  /*
+   * Find a school by Id
+   */
+
+  def findSchoolsById(schoolId: ObjectId): String = {
+    val schoolName = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0).schoolName
+    schoolName
+  }
+
 }
 
 object SchoolDAO extends SalatDAO[School, ObjectId](collection = MongoHQConfig.mongoDB("school"))
