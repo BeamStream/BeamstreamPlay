@@ -46,10 +46,11 @@ object ClassController extends Controller {
 
   /*
    *  Return the class JSON for auto populate the classes on class stream
+   *  @Purpose : Class code and class name autopoulate on class stream page
+   *  
    */
 
   def findClasstoAutoPopulate = Action { implicit request =>
-
     val classCodeMap = request.body.asFormUrlEncoded.get
     val classCode = classCodeMap("data").toList(0)
     val userSchoolIdList = UserSchool.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
