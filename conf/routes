@@ -86,6 +86,7 @@ GET /getContactsViaJanrain controllers.UserController.getContactsViaSocialSite
 POST /getMediafromPost controllers.MediaController.getMedia
 POST /getProfilePicForAUser      controllers.UserController.getProfilePicForAUser
 GET /getAllProfilePicForAUser   controllers.MediaController.getAllProfilePicForAUser
+
 GET /getAllProfileVideoForAUser   controllers.MediaController.getAllProfileVideoForAUser
 
 
