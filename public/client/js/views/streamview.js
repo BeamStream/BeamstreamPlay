@@ -29,6 +29,7 @@ BS.StreamView = Backbone.View.extend({
            "keypress #sort_by_key" : "sortMessagesByKey",
            "click .follow" : "followMessage",
            "click #msg"  : "showBitleys",
+           "click .social_media" : "uncheckPrivate"
            
  
 	 },
@@ -1143,7 +1144,14 @@ BS.StreamView = Backbone.View.extend({
 	 showBitleys : function(){
 		  $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 		  
+	 },
+	 
+	 /**
+	  * when a user clicks on a social media icon or icons for sharing the check mark is un checked.
+	  */
+	 uncheckPrivate :function(eventName){
+		 eventName.preventDefault(); 
+		 $('#id-private').attr('checked',false);
 	 }
- 
 	 
 });
