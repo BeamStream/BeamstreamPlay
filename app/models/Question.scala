@@ -38,7 +38,7 @@ object QuestionAccess extends Enumeration {
 }
 
 case class Question(@Key("_id") id: ObjectId, 
-                                name: String, 
+                                question: String, 
                                 userId: ObjectId, 
                                 access: QuestionAccess.Value, 
                                 streamId: ObjectId,
@@ -58,9 +58,10 @@ object Question {
 /*
  * Add a Question
  */
-  def addQuestion(question : Question) : ObjectId = {
-      val questionId = QuestionDAO.insert(question)
-      questionId.get
+  def addQuestion(question : Question, userId : ObjectId) : ObjectId = {
+       val questionId = QuestionDAO.insert(question)
+       User.addQuestionToUser(userId,question.id)
+       questionId.get
    }
 
   /*
