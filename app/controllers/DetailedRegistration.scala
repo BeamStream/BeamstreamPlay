@@ -38,12 +38,17 @@ object DetailedRegistration extends Controller {
     val schoolListJsonMap = request.body.asFormUrlEncoded.get
     val schoolListJson = schoolListJsonMap("data").toList
     val schoolList = net.liftweb.json.parse(schoolListJson(0)).extract[List[UserSchool]]
-    User.addInfo(schoolList, new ObjectId(request.session.get("userId").get))
+    println(schoolList)
+    // Edit Profile Would go Here on the Same method
     UserSchool.createSchool(schoolList)
+    User.addInfo(schoolList, new ObjectId(request.session.get("userId").get))
     Ok(write(schoolList)).as("application/json")
 
   }
-
+  
+  
+  
+  
   /*
    * Returns the Schools with their respective school Ids (Tag : Dup)
    */

@@ -66,7 +66,17 @@ object UserSchool {
     UserSchoolDAO.remove(school)
 
   }
+  
+  
+  /*
+   * Get UserSchool
+   */
 
+  def isUserSchoolExist(userSchoolId: ObjectId): Boolean = {
+    val userSchools = UserSchoolDAO.find(MongoDBObject("_id" -> userSchoolId)).toList
+    if(userSchools.isEmpty) false else true
+  }
+  
   /*
    * Find a school by name
    */
@@ -123,6 +133,8 @@ object UserSchool {
     }
     schoolList
   }
+  
+
 }
 
 object Year extends Enumeration {
