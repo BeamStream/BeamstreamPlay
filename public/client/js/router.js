@@ -86,6 +86,7 @@ BS.AppRouter = Backbone.Router.extend({
          jQuery("#login-form").validationEngine();
          $(".checkbox").dgStyle();
          $(".signin_check").dgStyle();
+      
          
          //get cookies
          var username= $.cookie('userName');
@@ -124,22 +125,76 @@ BS.AppRouter = Backbone.Router.extend({
      */
     schoolReg:function () {
        
-//        if(!BS.schoolView)
-//        {
+        if(BS.schoolBack)
+        {
+        	 
+        	BS.schoolNum = 1;
     		BS.schoolView = new BS.SchoolView();
         	BS.schoolView.render();
-//        }
- 
-         $('#school-popup').html(BS.schoolView.el);  
-         if(BS.schoolFromPrev)
-         $('#school-name-1').val(BS.schoolFromPrev);
-         $(".modal select:visible").selectBox();
-         $('.modal .datepicker').datepicker();
-         /* hide some fields on page load */
-         $('#degree-exp-'+current).hide();
-     	 $('#cal-'+current).hide();
-     	 $('#other-degrees-'+current).hide();
-     	 jQuery("#school-form").validationEngine();
+        	$('#school-popup').html(BS.schoolView.el);  
+        	var schoolInfo =JSON.parse(localStorage["SchoolDetails"]);
+        	$('#school-list').html('');	
+        	
+          _.each(schoolInfo, function(info) {
+	        	var datas = {
+					 	 "data" : info,
+					 	 "number" : BS.schoolNum
+				}
+	            var source = $("#tpl-school").html();
+				var template = Handlebars.compile(source);
+			    $('#school-list').append(template(datas));
+			    
+			    
+			    if(info.degree != "Other")
+			    {
+			    	$('#other-degrees-'+BS.schoolNum).hide();
+			    }
+			   
+			    $('#year-'+BS.schoolNum).val(info.year);
+			    $('#degreeprogram-'+BS.schoolNum).val(info.degree);
+			    $('#graduated-'+BS.schoolNum).val(info.graduated);
+			    if(info.graduated == "yes")
+			    {
+			    	$('#degree-expected-'+BS.schoolNum).hide();
+			    	$('#calendar-'+BS.schoolNum).val(info.graduationDate);
+			    	
+			    }
+			    else
+			    {
+			    	$('#cal-'+BS.schoolNum).hide();
+			    	$('#degree-expected-'+BS.schoolNum).val(info.degreeExpected);
+			    	
+			    }
+			    
+			    $(".modal select:visible").selectBox();
+		        $('.modal .datepicker').datepicker();
+		        $('.datepicker').css('z-index','99999');
+			    
+			    BS.schoolNum++;
+       	    });
+            
+        }
+        else
+        {
+        	 
+        	BS.schoolView = new BS.SchoolView();
+        	BS.schoolView.render();
+        	$('#school-popup').html(BS.schoolView.el);  
+        	if(BS.schoolFromPrev)
+            $('#school-name-1').val(BS.schoolFromPrev);
+           
+            /* hide some fields on page load */
+            $('#degree-exp-'+current).hide();
+            $('#cal-'+current).hide();
+            $('#other-degrees-'+current).hide();
+            
+        }
+        $(".modal select:visible").selectBox();
+        $('.modal .datepicker').datepicker();
+        $('.datepicker').css('z-index','99999');
+        jQuery("#school-form").validationEngine();
+        
+         
      	
     },
 
@@ -548,28 +603,28 @@ BS.AppRouter = Backbone.Router.extend({
 				$(".checkbox").dgStyle();
                                 
                                  // instantiate the shuffle plugin
-                                $('#grid').shuffle({
-                                    itemWidth : 200,
-                                    marginTop : 15,
-                                    marginRight: 20,
-                                    key : 'all',
-                                    speed : 800,
-                                    easing : 'ease-out'
-                                });
-                                
-                                 // Set up button clicks
-                                $('.filter-options li').on('click', function() {
-
-                                    var $this = $(this),
-                                        $grid = $('#grid');
-
-                                    // Hide current label, show current label in title
-                                    $('.filter-options .active').removeClass('active');
-                                    $this.addClass('active');
-
-                                    // Filter elements
-                                    $grid.shuffle($this.attr('data-key'));
-                                });
+//                                $('#grid').shuffle({
+//                                    itemWidth : 200,
+//                                    marginTop : 15,
+//                                    marginRight: 20,
+//                                    key : 'all',
+//                                    speed : 800,
+//                                    easing : 'ease-out'
+//                                });
+//                                
+//                                 // Set up button clicks
+//                                $('.filter-options li').on('click', function() {
+//
+//                                    var $this = $(this),
+//                                        $grid = $('#grid');
+//
+//                                    // Hide current label, show current label in title
+//                                    $('.filter-options .active').removeClass('active');
+//                                    $this.addClass('active');
+//
+//                                    // Filter elements
+//                                    $grid.shuffle($this.attr('data-key'));
+//                                });
             
 
 			},

@@ -103,8 +103,9 @@ BS.SchoolView = Backbone.View.extend({
                     data:{data:schoolDetails},
                     dataType:"json",
                     success:function(data){
-                        
-        				 // navigate to main stream page
+                    	
+                    	BS.schoolBack = false;
+        				// navigate to main stream page
                     	BS.AppRouter.navigate("streams", {trigger: true});
         
                         
@@ -159,7 +160,8 @@ BS.SchoolView = Backbone.View.extend({
 	            	   
 	            	  // for back button functionality
 	            	  BS.schoolBack = true;
-	            	  
+	            	  localStorage["SchoolDetails"] = JSON.stringify(data); 
+	 
 	            	  BS.AppRouter.navigate("class", {trigger: true});
 	            	  
 	              }
@@ -189,6 +191,7 @@ BS.SchoolView = Backbone.View.extend({
           
           $(".modal select:visible").selectBox();
           $('.modal .datepicker:visible').datepicker();
+          $('.datepicker').css('z-index','99999');
           $(".modal").addClass('modal-pull-top');
       },
       
@@ -203,7 +206,7 @@ BS.SchoolView = Backbone.View.extend({
 		  var currentid = $(dat).closest('fieldset').attr('id');
 		  var value = $('#graduated-'+currentid).val();
 		  if(value == "attending" || value == "no")
-		  {
+		  {    console.log("sdsd");
 				$('#cal-'+currentid).hide();
 				$('#degree-exp-'+currentid).show();
 				$(".modal select:visible").selectBox();
@@ -234,7 +237,7 @@ BS.SchoolView = Backbone.View.extend({
     	  
 	    	var schoolDetails = new Array();
 	      	var i;
-	      	
+	      	var schoolId ='';
 	      	var schools = new BS.SchoolCollection();
 	      	for(i=1; i <= current; i++)
 	      	{
@@ -285,10 +288,21 @@ BS.SchoolView = Backbone.View.extend({
 		      	 {
 		      		assosiatedSchoolId = 1;
 		      	 }
-		      	
+		      	 if($('#school-id-'+i).attr('value'))
+		      	 {
+		      		schoolId = $('#school-id-'+i).attr('value');
+		      	 }
+		      	 else
+		      	 {
+		      		schoolId = i;
+		      	 }
+		      	 
+		      	 
 		   		var school = new BS.School();
 		      		
-		   		school.set({id:i,schoolName: $('#school-name-'+i).val(),assosiatedSchoolId:assosiatedSchoolId,year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val() }, graduated: $('#graduated-'+i).val(), graduationDate: degdate ,otherDegree: otherDegree});
+//		   		school.set({id:i,schoolName: $('#school-name-'+i).val(),assosiatedSchoolId:assosiatedSchoolId,year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val() }, graduated: $('#graduated-'+i).val(), graduationDate: degdate ,otherDegree: otherDegree});
+		   		school.set({id:schoolId,schoolName: $('#school-name-'+i).val(),assosiatedSchoolId:assosiatedSchoolId,year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val() }, graduated: $('#graduated-'+i).val(), graduationDate: degdate ,otherDegree: otherDegree});
+
 		
 		        schools.add(school);
 	         }
@@ -317,16 +331,8 @@ BS.SchoolView = Backbone.View.extend({
 	       */
 	      backToPrevious :function(eventName){
 	    	  eventName.preventDefault();  
-//	    	  alert(BS.back);
 	    	  BS.AppRouter.navigate(BS.back, {trigger: true});
-//              if(BS.resgistration == "media")
-//              {
-//            	  BS.AppRouter.navigate(BS.back, {trigger: true});
-//              }
-//              else if(BS.resgistration == "nomedia")
-//              {
-//            	  BS.AppRouter.navigate("class", {trigger: true});
-//              }
+ 
 	    	 
 	      },
 	      /**
