@@ -1355,8 +1355,10 @@ ul.file-type li a:hover{
     opacity: 0.7;
     padding: 6px 7px 0 23px;
     position: absolute;
-    right: 961px;
-    top: 210px;
+/*     right: 961px; */
+/*     top: 210px; */
+    right: -1px;
+    top: 1px;
     cursor:pointer;
     line-height: 13px;
 	
@@ -1691,6 +1693,8 @@ border: 1px solid #E8E8E9;
  .load-block{
  padding-bottom :10px;
  }
- 
+ #main-photo-container{
+  position:relative;
+ }
  
 
