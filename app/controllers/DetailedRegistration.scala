@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat
 import org.bson.types.ObjectId
 import models.Degree
 import models.DegreeExpected
-import models.DetailedRegForm
 import models.Graduated
 import models.UserSchool
 import models.User
@@ -37,9 +36,9 @@ object DetailedRegistration extends Controller {
 
     val schoolListJsonMap = request.body.asFormUrlEncoded.get
     val schoolListJson = schoolListJsonMap("data").toList
+    println(schoolListJson)
     val schoolList = net.liftweb.json.parse(schoolListJson(0)).extract[List[UserSchool]]
     println(schoolList)
-    // Edit Profile Would go Here on the Same method
     UserSchool.createSchool(schoolList)
     User.addInfo(schoolList, new ObjectId(request.session.get("userId").get))
     Ok(write(schoolList)).as("application/json")
