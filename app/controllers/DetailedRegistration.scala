@@ -30,13 +30,14 @@ object DetailedRegistration extends Controller {
 
   /*
    * Sends the field values & profile related info to User Model for adding the info of a User
+   * 
+   * Will Create the School & Edit the School as well
    */
 
   def addInfo = Action { implicit request =>
 
     val schoolListJsonMap = request.body.asFormUrlEncoded.get
     val schoolListJson = schoolListJsonMap("data").toList
-    println(schoolListJson)
     val schoolList = net.liftweb.json.parse(schoolListJson(0)).extract[List[UserSchool]]
     UserSchool.createSchool(schoolList)
     User.addInfo(schoolList, new ObjectId(request.session.get("userId").get))

@@ -41,17 +41,19 @@ object UserSchool {
 
   /*
     * Method for creating a school (For SchoolAutopoulate thing)
+    * 
+    * @Purpose : Will Edit The schools as well with Creation
     */
   def createSchool(schools: List[UserSchool]) {
+
     for (school <- schools) {
 
       val userSchoolObtained = UserSchool.isUserSchoolExist(school.id)
 
       if (userSchoolObtained.size == 1) {
 
-        println("Have to Update" + school.schoolName)
         UserSchoolDAO.update(MongoDBObject("_id" -> school.id), school, false, false, new WriteConcern)
-        println("Updated")
+        School.updateSchool(userSchoolObtained(0).assosiatedSchoolId, school.schoolName)
 
       } else {
 
@@ -96,15 +98,6 @@ object UserSchool {
     val regexp = (""".*""" + name + """.*""").r
     for (school <- UserSchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList) yield school
   }
-
-  //  /*
-  //   * Find a school by Id
-  //   */
-  //
-  //  def findSchoolsById(schoolId: ObjectId): String = {
-  //    val schoolName = UserSchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0).schoolName
-  //    schoolName
-  //  }
 
   /*
    * Get all school for a user
