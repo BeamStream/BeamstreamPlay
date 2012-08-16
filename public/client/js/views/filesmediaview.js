@@ -11,18 +11,24 @@ BS.FilesMediaView = Backbone.View.extend({
 	
     initialize:function () {
      	var type = "files";
-   	    var profileView = new BS.ProfileView();
+        var profileView = new BS.ProfileView();
      	profileView.getProfileImages(type);
         
+        this.docsList();   
+        
         console.log('Initializing Files and Media  View');
-        this.template= _.template($("#tpl-files-media").html());
+        
+        this.source = $("#tpl-files-media").html();
+        this.template = Handlebars.compile(this.source);
+		
+                
+     //   this.template= _.template($("#tpl-files-media").html());
 
         
     },
 
     render:function (eventName) {
-       
-        $(this.el).html(this.template());
+        $(this.el).html(this.template);
         return this;
     },
     
@@ -71,7 +77,7 @@ BS.FilesMediaView = Backbone.View.extend({
        
          var documentModel = new BS.Document();
          documentModel.set({
-                docName : 'doc1',
+                docName : 'doc2',
                 docURL : $("#upload-media").val(),
                 docAccess: 'Public',
                 docType: 'GoogleDocs'
@@ -94,31 +100,60 @@ BS.FilesMediaView = Backbone.View.extend({
                     }
             });
   
-     }
+     },
+     
+        docsList : function()
+        {
+            var i = 1;
+            $('#content').children().detach();
+            $('#school-popup').children().detach();
+            var self = this;
+            BS.user.fetch({ success:function(e) {
 
+                /* get profile images for user */
+              $.ajax({
+                        type : 'POST',
+                        url :  BS.getAllDocs,
+                        data : {
+                           'userId': e.attributes.id.id
+                                },
+                        dataType : "json",
+
+                        success : function(docs) {
+                            
+                            
+                              _.each(docs, function(doc) {
+                                  
+                                 var datVal =  self.formatDateVal(doc.creationDate);
+                             
+                      var content = '<div class="image-wrapper"><div class="comment-wrapper comment-wrapper2"><a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a><a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><h4>'+doc.name+'</h4><p>The Power of The Platform Behance Network Join The Leading Platform For </p><h5> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> </div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#">87</a></li><li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#">10</a></li></ul></div>'; 
+                      $('#file-docs-'+i).html(content);
+                      
+                      i++;
+                              });
+                        }
+               });
+
+            }});
+
+           // $('#content').html(BS.listDocsView.el);
+        },
+        
+        /*
+         * Format date and returns 
+         */
+        formatDateVal: function(dateVal)
+        {
+            var m_names = new Array("January", "February", "March", 
+            "April", "May", "June", "July", "August", "September", 
+            "October", "November", "December");
+
+                            var d = new Date(dateVal);
+                            var curr_date = d.getDate();
+                            var curr_month = d.getMonth() + 1; //Months are zero based
+                            var curr_year = d.getFullYear();
+                           return curr_date + " " + m_names[curr_month] + ", " + curr_year;
+        },
+        
 });
 
-//View for listing docs
-BS.ListDocsView = Backbone.View.extend({
-    
-    events: {
-	       "click .close-button" : "closeScreen"
-	 },
-  
-    initialize:function () {
-
-        this.templateDoc= _.template($("#tpl-list-docs").html());
-    },
-  
-    renderDoc:function (eventName) {
-       
-        $(this.el).html(this.templateDoc());
-        return this;
-    },
-    
-    closeScreen :function(eventName){
-  	  eventName.preventDefault();  
-      BS.AppRouter.navigate("filesMedia", {trigger: true});
-    }
-  
-});
