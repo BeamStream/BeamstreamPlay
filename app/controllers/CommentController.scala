@@ -25,8 +25,8 @@ object CommentController extends Controller {
       commentPoster.firstName, commentPoster.lastName, 0, List(), List(), 0, List())
 
     // Creating Comment & adding to message
-    //    val commentId = Message.createMessage(comment)
-    //    val commentObtained = Message.findMessageById(commentId)
+    // val commentId = Message.createMessage(comment)
+    // val commentObtained = Message.findMessageById(commentId)
     Message.addCommentToMessage(comment, new ObjectId(messageId))
     Ok(write(List(comment)))
 

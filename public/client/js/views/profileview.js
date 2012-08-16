@@ -7,10 +7,10 @@ BS.ProfileView = Backbone.View.extend({
 	      'change #my-video' :'displayVideo',
 	      'click .delete-image' :'deleteSelectedImage',
 	      'click .delete-video' :'deleteSelectedVideo',
-	       "keyup #mobile" : "checkNumber",
-	      "focusout #mobile" : "arragePhone",
-	      "click .close-button" : "closeScreen"
-//	      'click .back-button' :'backToPrevious'
+	       'keyup #mobile' : "checkNumber",
+	      'focusout #mobile' : "arragePhone",
+	      'click .close-button' : "closeScreen",
+	      'click .back' :'backToPrevious'
 	 },
 	 
     initialize:function () {
@@ -283,6 +283,7 @@ BS.ProfileView = Backbone.View.extend({
 				success : function(datas) {
 					 
 					_.each(datas, function(data) {
+						 
 //                                            data = 'http://www.indiaonrent.com/forwards/b/beautiful-world-sceneries002/res/nq7za4.jpg';
 						if(first == false)
 						{
@@ -338,7 +339,7 @@ BS.ProfileView = Backbone.View.extend({
     /**
      * back button function
      */
-    backToPrevious :function(){
+    backToPrevious :function(eventName){
       eventName.preventDefault();
   	  BS.AppRouter.navigate("class", {trigger: true});
     },

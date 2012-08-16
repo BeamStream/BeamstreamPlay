@@ -379,105 +379,6 @@
  </script>
 
 
-<!--  Class stream template -->
-<script type="text/x-handlebars-template" id="tpl-class-stream1s">
- 
-  <div class="modal-backdrop in"></div>
-    <div class="modal school-popup modal-pull-top in modal-popups" style="display:block;">
- 
-      <div class="modal-header">
-      </div>
-    <div class="modal-body"> 
-    <form>
-     <fieldset>
-   <legend class="legend">Add a class stream</legend>
-     <div class="form-row short">
-          <div class="element">
-              <label for="class-code">Class code</label>
-              <input type="text"  id="class-code" class="validate[required] small " placeholder="Class code" >
-              
-          </div>
-          <div class="element" id="div-time">
-              <label for="class-time">Class time</label>
-              <select id="class-time" class="time">
-				  {{#each times}}
-                        <option value="{{this.time}}">{{this.time}}</option>
-                  {{/each}}
-              </select>
-          </div>
-          <div class="element" >
-              <label for="class-name">Class name</label>
-              <input type="text" id="class-name" class="validate[required] medium" placeholder="Class  name">
-          </div>
-          <div class="element">
-              <label for="date-started">Month/Year started</label>
-              <input class="validate[required] small datepicker cal" type="text" placeholder="Date1" id="date-started"/>
-          </div>
-           <div class="element" id="div-school-type">
-               <label for="semester">Semester or Quarter</label>
-               <select id="semester" class="small">
-                     <option value="semester">Semester</option>
-                     <option value="quarter" >Quarter</option>
-               </select>
-          </div>
-      </div>
-      
-      <div class="form-row">
-          <div class="element" id="div-school">
-               <label for="schools">School</label>
-               <div id ="sShool" > 
-               <select id="schools" class="small">
-                      
-               </select>
-              </div>
-          </div>
-          <div class="element" >
-              
-               <label for="add-class-tag">Add Class Tags (Separate by commas)</label>
-               <input type="text" id="class-tag" class="validate[required] medium tag-position" placeholder="tag , tag , ..."/><i class="icon-middle-tag tag-place"></i>
-               
-           </div>
-       </div>
-       <div class="form-row-label">&nbsp;</div>
-		  <div class="form-row">
-			<div class="element">
-				
-				<ul class="add-type">
-					<li><div class="radio"><input type="radio" name="add-type"  /></div><span>Add Professor</span></li>
-					<li><div class="radio"><input  type="radio" name="add-type" /></div><span>Add Student's</span></li>
-					<li><div class="radio"><input type="radio" name="add-type" /></div><span>Add Professional's</span></li>
-				</ul>
-			 </div>
-			<div class="element">
-				<label for="project-name">Via Email</label>
-                        	<input type="text" id="project-name" class="span3" placeholder="email@gmail.com">
-					<span>OR</span>
-				<div class="social-block social-network">
-
-					    <a class="facebook" href="#"></a>
-					    <a class="twitter" href="#"></a>
-					    <a class="linkedin" href="#"></a>
-					    <a class="google" href="#"></a>
-					    <a class="mail" href="#"></a>
-                		</div>
-			</div>
-		</div>
-        <div class="form-row project-name">
-			<div class="radio"><input type="radio" class="radio" checked="checked"/></div><p>Make this an OPEN CLASS (Learn $ Teach with the WORLD)</p>
-		</div>
-     
-      </fieldset>
-     </form>
-     </div>
-    <div class="modal-footer">
-        <a href="#joinClass" id ="joinClass" class="btn btn-primary pull-left"  >Join a Class</a>
-        <a href="#createClass" id ="createClass" class="btn btn-success pull-right">Create a Class</a>
-    </div>
-    
-   </div>
-   </script> 
-   
-
 
 <!--  Class stream template -->
 <script type="text/x-handlebars-template" id="tpl-class-stream">
@@ -519,7 +420,7 @@
           </div>
           <div class="element">
             <label for="class-name">Class name</label>
-            <input type="text" id="class-name" class="validate[required] medium" placeholder="Class name">
+            <input type="text" id="class_name" class="validate[required] medium" placeholder="Class name">
           </div>
           <div class="element">
             <label for="date-started">Month/Year started</label>
@@ -1441,7 +1342,7 @@
   <div class="modal-backdrop in"></div>
     <div class="modal school-popup modal-pull-top in modal-popups" style="display:block;">
     <div class="modal-header">
-        <a href="#"><img class="back-button" src="images/back.png"></a>
+        <a href="#" class="back"><img class="back-button" src="images/back.png"></a>
 		<a href="#"><img class="close-button" src="images/close-button.png"></a>
         <h1 class="pull-left">Social profile</h1>
         <img src="images/registration-progress-75.png" alt="Registration progress - 75%" class="registration-progress pull-right">
@@ -2134,7 +2035,7 @@
            
           <div class="form-row short">
               <div class="checkbox_wrapper form-align">
-              <div id ="no-schoolmail" class="checkbox">
+              <div id ="no-schoolmail" class="checkbox email-check">
                   <input id="schoolmail" type="checkbox">
               </div>
               I don't have a school email </div>
@@ -2224,8 +2125,8 @@
               <input type="password" id="password" placeholder= "password" class="validate[required] large email_text" value="">
             </div>
             <div class="checkbox_wrapper signin_check">
-              <div class="checkbox signin_check">
-                <input type="checkbox" id="remember">
+              <div class="checkbox signin_check" checked="true">
+                <input type="checkbox" id="remember" >
                  </div>
 				Rememeber me
             </div>
@@ -2316,6 +2217,7 @@
     $(function(){
     	$(".radio").dgStyle();
     	$(".checkbox").dgStyle();
+    	 
         $(".modal select:visible").selectBox();
         $('.modal .datepicker').datepicker();
         
@@ -2368,12 +2270,7 @@
 	    s.parentNode.insertBefore(e, s);
 	   
 	})();
-	
-	
-	
-
-
-	
+	 
 	function janrainWidgetOnload() {
 
         janrain.events.onProviderLoginToken.addHandler(function(response) {
@@ -2514,17 +2411,12 @@ function janRainLogin(info){
                         .closest('li').addClass('active');
                 }
             });
-            
+            $('div.test').embedly({key:'4d205b6a796b11e1871a4040d3dc5c07'});
              
         });
 </script>
 
-  <script type="text/javascript">
-    $('document').ready(function(){
-      $('div.test').embedly({key:'4d205b6a796b11e1871a4040d3dc5c07'});
-    
-    });
-  </script>
+ 
 	
 <!--  Backbone.js files -->
 <script src="js/views/loginview.js"></script>

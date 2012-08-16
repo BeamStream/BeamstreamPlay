@@ -56,6 +56,7 @@ object UserMedia {
   
   /*
  * Get All videos for a user
+ * @Purpose : Show all Videos for a user
  */
   def getAllProfileVideoForAUser(userId: ObjectId): List[String] = {
     var userVideos: List[String] = List()

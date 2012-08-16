@@ -6,7 +6,7 @@ BS.ClassView = Backbone.View.extend({
 		"click a.addclass": "addClasses",
 		"click .datepicker" :"setIndex",
 		"click a.legend-addclass" : "addSchool",
-		"click .back-button" :"backToPrevious",
+		"click .back" :"backToPrevious",
 		"click .close-button" : "closeScreen"
 
 	},
@@ -281,6 +281,13 @@ BS.ClassView = Backbone.View.extend({
      */
     backToPrevious :function(eventName){
       eventName.preventDefault();
+      
+//      var schoolInfo =JSON.parse(localStorage["SchoolDetails"]);
+//      _.each(schoolInfo, function(info) {
+//    	     console.log(info.schoolName);
+//      
+//	  });
+      
       BS.AppRouter.navigate("school", {trigger: true});
     },
     

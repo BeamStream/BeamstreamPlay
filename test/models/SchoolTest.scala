@@ -34,11 +34,6 @@ class SchoolTest extends FunSuite with BeforeAndAfter {
     val schoolB = UserSchoolDAO.find(MongoDBObject("schoolName" -> "DPS"))
     assert(schoolB.size === 2)
 
-    UserSchool.removeSchool(myschool3)
-
-    val schoolC = UserSchoolDAO.find(MongoDBObject("schoolName" -> "DPS"))
-    assert(schoolC.size === 1)
-
   }
 
   test("finding schools by school name") {
@@ -63,6 +58,7 @@ class SchoolTest extends FunSuite with BeforeAndAfter {
     assert(schoolsList.size === 2)
 
   }
+  
 
   after {
     UserSchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))

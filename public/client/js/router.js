@@ -84,6 +84,7 @@ BS.AppRouter = Backbone.Router.extend({
          $('#school-popup').html(BS.loginView.el);  
          $(".modal select:visible").selectBox();
          jQuery("#login-form").validationEngine();
+         
          $(".checkbox").dgStyle();
          $(".signin_check").dgStyle();
          
@@ -387,6 +388,7 @@ BS.AppRouter = Backbone.Router.extend({
 				$('#load-janRain').css("display","block");
 				$(".modal select:visible").selectBox();
 				$(".checkbox").dgStyle();
+				 
 				$('.forgot-pass').hide();
 				jQuery("#email-verify").validationEngine();
 				 
@@ -428,6 +430,7 @@ BS.AppRouter = Backbone.Router.extend({
 							}
 						});
 
+				
 				$(".radio").dgStyle();
 				$(".modal select:visible").selectBox();
 				$('.modal .datepicker').datepicker();
