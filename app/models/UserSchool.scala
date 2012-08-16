@@ -53,9 +53,7 @@ object UserSchool {
         //Creates a new School and set the proper schoolId in the inserted school
         val schoolIdForUpdatingUserSchool = School.addNewSchool(new School(new ObjectId, school.schoolName))
         UserSchool.updateUserSchoolWithOriginalSchoolId(userSchoolId.get, schoolIdForUpdatingUserSchool)
-      } else {
-        println("School Already Exist")
-      }
+      } 
     }
   }
 

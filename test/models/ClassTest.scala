@@ -22,7 +22,7 @@ class ClassTest extends FunSuite with BeforeAndAfter {
   val class2 = Class(new ObjectId, "202", "CSE", ClassType.Quarter, "3:34", formatter.parse("31-01-2010"), new ObjectId, List())
   val class3 = Class(new ObjectId, "203", "ECE", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
   val class4 = Class(new ObjectId, "204", "CSE", ClassType.Yearly, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
-  val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(),List())
+  val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
 
   before {
     val userId = User.createUser(user1)
@@ -56,16 +56,17 @@ class ClassTest extends FunSuite with BeforeAndAfter {
   test("Avoid create class if duplicate code exists") {
     val userId = User.createUser(user1)
     val newClass1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
-    val classIdList=Class.createClass(List(newClass1), userId)
-    assert(classIdList.size===0)
+    val classIdList = Class.createClass(List(newClass1), userId)
+    assert(classIdList.size === 0)
     val newClass2 = Class(new ObjectId, "207", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
-    val newClassIdList=Class.createClass(List(newClass2), userId)
-    assert(newClassIdList.size===1)
+    val newClassIdList = Class.createClass(List(newClass2), userId)
+    assert(newClassIdList.size === 1)
 
   }
 
   after {
     ClassDAO.remove(MongoDBObject("className" -> ".*".r))
+    UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
     StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
   }
 

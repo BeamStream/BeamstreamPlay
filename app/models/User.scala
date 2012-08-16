@@ -32,9 +32,9 @@ case class User(@Key("_id") id: ObjectId,
                             questions: List[ObjectId]) {
 }
 
-case class UserForm(iam: String, email: String, password: String, signup: String)
-case class BasicRegForm(userName: String, password: String, orgName: String, firstName: String, lastName: String, email: String, location: String, iam: String, useCurrentLocation: Option[Boolean])
-case class DetailedRegForm(schoolName: String)
+//case class UserForm(iam: String, email: String, password: String, signup: String)
+//case class BasicRegForm(userName: String, password: String, orgName: String, firstName: String, lastName: String, email: String, location: String, iam: String, useCurrentLocation: Option[Boolean])
+//case class DetailedRegForm(schoolName: String)
 object User {
 
   implicit val formats = DefaultFormats

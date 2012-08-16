@@ -24,7 +24,7 @@ class CommentTest extends FunSuite with BeforeAndAfter  {
   
   after {
     CommentDAO.remove(MongoDBObject("commentBody" -> ".*".r))
-    CommentDAO.remove(MongoDBObject("commentBody" -> ".*".r))
+    UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
   }
   
   

@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat
 import org.bson.types.ObjectId
 import models.Degree
 import models.DegreeExpected
-import models.DetailedRegForm
 import models.Graduated
 import models.UserSchool
 import models.User

@@ -1,6 +1,5 @@
 package controllers
 
-import models.BasicRegForm
 import models.Stream
 import models.User
 import play.api.data.Forms._
