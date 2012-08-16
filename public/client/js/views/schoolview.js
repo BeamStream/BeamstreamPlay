@@ -237,10 +237,21 @@ BS.SchoolView = Backbone.View.extend({
 	    	  var schoolDetails = new Array();
 	    	  var i;
 	    	  var schoolId ='';
+	    	  var count = current;
 	    	  var schools = new BS.SchoolCollection();
-	    	  for(i=1; i <= current; i++)
+	    	  var data = JSON.parse(localStorage["SchoolDetails"]);
+	    	   
+	    	  if(BS.schoolNum)
 	    	  {
-	    	  var degreeexp,degdate,otherDegree;
+	    		  if(BS.schoolNum <= current)
+		    		  count = current;
+		    	  else
+		    		  count = BS.schoolNum-1;
+	    	  }
+	    	  
+	    	  for(i=1; i <= count; i++)
+	    	  {
+	    	     var degreeexp,degdate,otherDegree;
 	
 		    	  /* display degree expected when selecting graduated as 'attending' or 'no' */
 		    	  if($('#graduated-'+i).val()== "attending" || $('#graduated-'+i).val()== "no")
@@ -282,6 +293,10 @@ BS.SchoolView = Backbone.View.extend({
 		    	  if(sId)
 		    	  {
 		    	    assosiatedSchoolId = sId;
+		    	  }
+		    	  else if($('#associatedId-'+i).attr('value'))
+		    	  {
+		    		  assosiatedSchoolId = $('#associatedId-'+i).attr('value');
 		    	  }
 		    	  else
 		    	  {

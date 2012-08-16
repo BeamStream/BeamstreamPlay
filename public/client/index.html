@@ -935,7 +935,7 @@
                         <label for="school-name">School name <span class="star"> *</span></label>
  
                         <input type="text" name="school-name-1" id="school-name-1" class="validate[required] span3 school" placeholder="School Name">
- 
+                        
                     </div>
 
                     <div class="element">
@@ -1022,6 +1022,7 @@
 	<div class="element">
 	<label for="school-name-{{number}}" id="school-id-{{number}}" value="{{data.id.id}}" >School name <span class="star"> *</span></label>
 	<input type="text" id="school-name-{{number}}" name="school-name-{{number}}" class="validate[required] span3 school" value="{{data.schoolName}}" >
+		<input type="hidden" id="associatedId-{{number}}" value="{{data.assosiatedSchoolId.id}}">
 	</div>
 	<div class="element">
 	<label for="year">Year</label>
