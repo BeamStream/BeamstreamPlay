@@ -15,21 +15,21 @@ import net.liftweb.json.Serialization.{ read, write }
 import com.mongodb.casbah.WriteConcern
 import utils.SendEmail
 
-case class User(@Key("_id") id: ObjectId, 
-                            userType: UserType.Value, 
-                            email: String, 
-                            val firstName: String, 
-                            lastName: String, 
-                            userName: String, 
-                            alias: String, 
-                            password: String, 
-                            orgName: String,
-                            location: String, 
-                            streams: List[ObjectId], 
-                            schoolId: List[ObjectId], 
-                            classId: List[ObjectId], 
-                            documents: List[ObjectId], 
-                            questions: List[ObjectId]) {
+case class User(@Key("_id") id: ObjectId,
+  userType: UserType.Value,
+  email: String,
+  val firstName: String,
+  lastName: String,
+  userName: String,
+  alias: String,
+  password: String,
+  orgName: String,
+  location: String,
+  streams: List[ObjectId],
+  schoolId: List[ObjectId],
+  classId: List[ObjectId],
+  documents: List[ObjectId],
+  questions: List[ObjectId]) {
 }
 
 //case class UserForm(iam: String, email: String, password: String, signup: String)
@@ -48,7 +48,13 @@ object User {
 
   def addInfo(schoolList: List[UserSchool], userid: ObjectId) = {
     for (school <- schoolList) {
-      User.addSchoolToUser(userid, school.id)
+      val userSchoolIds = User.findUserbyId(userid).schoolId
+
+      (userSchoolIds.contains(school.id)) match {
+        case true => println("School Id already in user Schools")
+        case false => User.addSchoolToUser(userid, school.id)
+      }
+
     }
   }
 
@@ -69,20 +75,20 @@ object User {
     }
 
   }
-  
+
   /*
    * Find user coming from social site with the UserName
    * @Purpose : Authenticate user via user name only
    */
-  
-  def findUserComingViaSocailSite(userName:String): Option[User]={
-     val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userName))
-     
-     (authenticatedUserviaName.isEmpty)match{
-       case true => None
-       case false => Option(authenticatedUserviaName.toList(0))
-     }
-    
+
+  def findUserComingViaSocailSite(userName: String): Option[User] = {
+    val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userName))
+
+    (authenticatedUserviaName.isEmpty) match {
+      case true => None
+      case false => Option(authenticatedUserviaName.toList(0))
+    }
+
   }
 
   /*
@@ -219,7 +225,7 @@ object User {
    * Add Document to user
    */
   def addDocumentToUser(userId: ObjectId, document: ObjectId) {
-  println(" Document added for the user :"+  userId + "  documentId : " + document );
+    println(" Document added for the user :" + userId + "  documentId : " + document);
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
     UserDAO.update(MongoDBObject("_id" -> userId), user.copy(documents = user.documents ++ List(document)), false, false, new WriteConcern)
   }
@@ -227,11 +233,11 @@ object User {
   /*
      * Add Question to user
      */
-    def addQuestionToUser(userId: ObjectId, question: ObjectId) {
-      val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-      UserDAO.update(MongoDBObject("_id" -> userId), user.copy(questions = user.questions ++ List(question)), false, false, new WriteConcern)
+  def addQuestionToUser(userId: ObjectId, question: ObjectId) {
+    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
+    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(questions = user.questions ++ List(question)), false, false, new WriteConcern)
   }
-  
+
   /*
    * Rockers name of a message
    */
