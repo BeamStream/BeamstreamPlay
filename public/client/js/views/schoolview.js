@@ -160,7 +160,7 @@ BS.SchoolView = Backbone.View.extend({
 	            	   
 	            	  // for back button functionality
 	            	  BS.schoolBack = true;
-	            	  localStorage["SchoolDetails"] = JSON.stringify(data); 
+//	            	  localStorage["SchoolDetails"] = JSON.stringify(data); 
 	            	  BS.AppRouter.navigate("class", {trigger: true});
 	            	  
 	              }
