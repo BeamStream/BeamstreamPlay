@@ -1,11 +1,11 @@
 $(function() {
-	BS.AppRouter = new BS.AppRouter;
-	Backbone.history.start();
+BS.AppRouter = new BS.AppRouter;
+Backbone.history.start();
 });
 
 /*
- * Config Variables for Url externalization
- */
+* Config Variables for Url externalization
+*/
  
 // For Login Page
 BS.login = "http://localhost:9000/users";
@@ -62,7 +62,7 @@ BS.classStreamsForUser = "http://localhost:9000/allClassStreamsForAUser";
 //Get all school for autopopulate
 BS.autoPopulateSchools = "http://localhost:9000/getAllSchoolsForAutopopulate";
 //POST bitly
-BS.bitly =  "http://localhost:9000/bitly";
+BS.bitly = "http://localhost:9000/bitly";
 //POST comment
 BS.newComment = "http://localhost:9000/newComment";
 //Get all comments of a message
@@ -74,9 +74,9 @@ BS.sortByDate = "http://localhost:9000/getAllMessagesForAStreamSortedbyDate";
 BS.sortByVote = "http://localhost:9000/getAllMessagesForAStreamSortedbyRocks";
 BS.sortByKey = "http://localhost:9000/getAllMessagesForAStreambyKeyword";
 //Message Follow
-BS.followMessage ="http://localhost:9000/followMessage"; 
+BS.followMessage ="http://localhost:9000/followMessage";
 //check follower
-BS.isAFollower = "http://localhost:9000/isAFollower";  
+BS.isAFollower = "http://localhost:9000/isAFollower";
 // Get All Documebts of a user
 BS.getAllDocs = "http://localhost:9000/getAllDocumentsForAUser";
  
@@ -162,7 +162,7 @@ BS.getAllDocs = "http://localhost:9000/getAllDocumentsForAUser";
 //BS.autoPopulateSchools = "http://192.168.10.10:9000/getAllSchoolsForAutopopulate";
 //
 // //POST bitly
-// BS.bitly =  "http://192.168.10.10:9000/bitly";
+// BS.bitly = "http://192.168.10.10:9000/bitly";
 // //POST comment
 // BS.newComment = "http://192.168.10.10:9000/newComment";
 //
@@ -170,104 +170,104 @@ BS.getAllDocs = "http://localhost:9000/getAllDocumentsForAUser";
 //BS.allCommentsForAMessage = "http://192.168.10.10:9000/allCommentsForAMessage";
 //
 //BS.forgotPassword = "http://192.168.10.10:9000/forgotPassword";
-// 
-// 
+//
+//
 // BS.sortByDate = "http://192.168.10.10:9000/getAllMessagesForAStreamSortedbyDate";
 // BS.sortByVote = "http://192.168.10.10:9000/getAllMessagesForAStreamSortedbyRocks";
 // BS.sortByKey = "http://192.168.10.10:9000/getAllMessagesForAStreambyKeyword";
 // //Message Follow
-// BS.followMessage ="http://192.168.10.10:9000/followMessage"; 
+// BS.followMessage ="http://192.168.10.10:9000/followMessage";
 // //check follower
-// BS.isAFollower = "http://192.168.10.10:9000/isAFollower";  
+// BS.isAFollower = "http://192.168.10.10:9000/isAFollower";
 //
 // // Get All Documebts of a user
-//  BS.getAllDocs = "http://192.168.10.10:9000/getAllDocumentsForAUser";
+// BS.getAllDocs = "http://192.168.10.10:9000/getAllDocumentsForAUser";
 
  
  
 /*
- * For Cloud
- */
+* For Cloud
+*/
  
  
-  //For Login Page  
+  //For Login Page
  
-//  BS.login = "http://beamstream-v3.herokuapp.com/users";
-//  //For Verify Token
-//  BS.verifyToken ="http://beamstream-v3.herokuapp.com/verifyToken";
-//  //For Email Verification Page 
-//  BS.verifyEmail = "http://beamstream-v3.herokuapp.com/getEmailforNewUser";
-//  //For Register New User Page 
-//  BS.registerNewUser = "http://beamstream-v3.herokuapp.com/registerNewUser";
-//  //For Getting Logged in users basic details 
-//  BS.loggedInUserJson ="http://beamstream-v3.herokuapp.com/loggedInUserJson";
-//  //For School registration Post Data 
-//  BS.saveSchool ="http://beamstream-v3.herokuapp.com/detailed_reg";
-//  //GET school details 
-//  BS.schoolJson ="http://beamstream-v3.herokuapp.com/schoolJson";
-//  //For Class registration Post Data 
-//  BS.saveClass = "http://beamstream-v3.herokuapp.com/class";
-//  //For Profile Page Post Data 
-//  BS.saveProfile ="http://beamstream-v3.herokuapp.com/getMediafromPost";
-//  //For populate list of class code 
-//  BS.autoPopulateClass = "http://beamstream-v3.herokuapp.com/autoPopulateClasses";
-//  //Get School name for a SchoolId 
-//  BS.schoolNamebyId = "http://beamstream-v3.herokuapp.com/getSchoolNamebyId";
-//  //Get all schools under a user 
-//  BS.allSchoolForAUser ="http://beamstream-v3.herokuapp.com/getAllSchoolForAUser";
-//  //For new class in class stream 
-//  BS.newClass ="http://beamstream-v3.herokuapp.com/newStream";
-//  //Gel all streams of a user 
-//  BS.allStreamsForAUser="http://beamstream-v3.herokuapp.com/allStreamsForAUser";
-//  //Post message info 
-//  BS.postMessage ="http://beamstream-v3.herokuapp.com/newMessage";
-//  //Get all messages of a stream 
-//  BS.streamMessages ="http://beamstream-v3.herokuapp.com/getAllMessagesForAStream";
-//  //expires the usersession 
-//  BS.signOut ="http://beamstream-v3.herokuapp.com/signOut";
-//   // For JanRain component 
-//  BS.userPage="http://beamstream-v3.herokuapp.com/userPage";
-//  // Get user details vai janRain 
-//  BS.userInfoViaJanRain="http://beamstream-v3.herokuapp.com/getJSONviaJanrain";
-//  // For auto populate case -join a class 
-//  BS.joinClass ="http://beamstream-v3.herokuapp.com/joinStreams";
-//   // For Rocked It 
-//  BS.rockedIt = "http://beamstream-v3.herokuapp.com/rockedIt"
-//  // Get Rockers list 
-//  BS.rockersList ="http://beamstream-v3.herokuapp.com/returnRockers";
-//  //profile images and videos 
-//  BS.profileImage ="http://beamstream-v3.herokuapp.com/getProfilePicForAUser";
-//  // get all images
-//  BS.allProfileImages ="http://beamstream-v3.herokuapp.com/getAllProfilePicForAUser";
-//  //Get all class streams of a user
-//  BS.classStreamsForUser = "http://beamstream-v3.herokuapp.com/allClassStreamsForAUser";
-//  //Get all school for autopopulate
-//  BS.autoPopulateSchools = "http://beamstream-v3.herokuapp.com/getAllSchoolsForAutopopulate";
-//  //POST bitly
-//  BS.bitly =  "http://beamstream-v3.herokuapp.com/bitly";
-//  //POST comment
-//  BS.newComment = "http://beamstream-v3.herokuapp.com/newComment";
-//  //Get all comments of a message
-//  BS.allCommentsForAMessage = "http://beamstream-v3.herokuapp.com/allCommentsForAMessage";
-//  //for forgot password
-//  BS.forgotPassword = "http://beamstream-v3.herokuapp.com/forgotPassword";
-//  //sort messages
-//  BS.sortByDate = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreamSortedbyDate";
-//  BS.sortByVote = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreamSortedbyRocks";
-//  BS.sortByKey = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreambyKeyword";
-//  //Message Follow
-//  BS.followMessage ="http://beamstream-v3.herokuapp.com/followMessage"; 
-//  //check follower
-//  BS.isAFollower = "http://beamstream-v3.herokuapp.com/isAFollower";  
-//  // Get All Documebts of a user
-//  BS.getAllDocs = "http://beamstream-v3.herokuapp.com/getAllDocumentsForAUser";
-//  // For File Upload
-//  BS.docUpload = "http://beamstream-v3.herokuapp.com/newDocument";
+// BS.login = "http://beamstream-v3.herokuapp.com/users";
+// //For Verify Token
+// BS.verifyToken ="http://beamstream-v3.herokuapp.com/verifyToken";
+// //For Email Verification Page
+// BS.verifyEmail = "http://beamstream-v3.herokuapp.com/getEmailforNewUser";
+// //For Register New User Page
+// BS.registerNewUser = "http://beamstream-v3.herokuapp.com/registerNewUser";
+// //For Getting Logged in users basic details
+// BS.loggedInUserJson ="http://beamstream-v3.herokuapp.com/loggedInUserJson";
+// //For School registration Post Data
+// BS.saveSchool ="http://beamstream-v3.herokuapp.com/detailed_reg";
+// //GET school details
+// BS.schoolJson ="http://beamstream-v3.herokuapp.com/schoolJson";
+// //For Class registration Post Data
+// BS.saveClass = "http://beamstream-v3.herokuapp.com/class";
+// //For Profile Page Post Data
+// BS.saveProfile ="http://beamstream-v3.herokuapp.com/getMediafromPost";
+// //For populate list of class code
+// BS.autoPopulateClass = "http://beamstream-v3.herokuapp.com/autoPopulateClasses";
+// //Get School name for a SchoolId
+// BS.schoolNamebyId = "http://beamstream-v3.herokuapp.com/getSchoolNamebyId";
+// //Get all schools under a user
+// BS.allSchoolForAUser ="http://beamstream-v3.herokuapp.com/getAllSchoolForAUser";
+// //For new class in class stream
+// BS.newClass ="http://beamstream-v3.herokuapp.com/newStream";
+// //Gel all streams of a user
+// BS.allStreamsForAUser="http://beamstream-v3.herokuapp.com/allStreamsForAUser";
+// //Post message info
+// BS.postMessage ="http://beamstream-v3.herokuapp.com/newMessage";
+// //Get all messages of a stream
+// BS.streamMessages ="http://beamstream-v3.herokuapp.com/getAllMessagesForAStream";
+// //expires the usersession
+// BS.signOut ="http://beamstream-v3.herokuapp.com/signOut";
+// // For JanRain component
+// BS.userPage="http://beamstream-v3.herokuapp.com/userPage";
+// // Get user details vai janRain
+// BS.userInfoViaJanRain="http://beamstream-v3.herokuapp.com/getJSONviaJanrain";
+// // For auto populate case -join a class
+// BS.joinClass ="http://beamstream-v3.herokuapp.com/joinStreams";
+// // For Rocked It
+// BS.rockedIt = "http://beamstream-v3.herokuapp.com/rockedIt"
+// // Get Rockers list
+// BS.rockersList ="http://beamstream-v3.herokuapp.com/returnRockers";
+// //profile images and videos
+// BS.profileImage ="http://beamstream-v3.herokuapp.com/getProfilePicForAUser";
+// // get all images
+// BS.allProfileImages ="http://beamstream-v3.herokuapp.com/getAllProfilePicForAUser";
+// //Get all class streams of a user
+// BS.classStreamsForUser = "http://beamstream-v3.herokuapp.com/allClassStreamsForAUser";
+// //Get all school for autopopulate
+// BS.autoPopulateSchools = "http://beamstream-v3.herokuapp.com/getAllSchoolsForAutopopulate";
+// //POST bitly
+// BS.bitly = "http://beamstream-v3.herokuapp.com/bitly";
+// //POST comment
+// BS.newComment = "http://beamstream-v3.herokuapp.com/newComment";
+// //Get all comments of a message
+// BS.allCommentsForAMessage = "http://beamstream-v3.herokuapp.com/allCommentsForAMessage";
+// //for forgot password
+// BS.forgotPassword = "http://beamstream-v3.herokuapp.com/forgotPassword";
+// //sort messages
+// BS.sortByDate = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreamSortedbyDate";
+// BS.sortByVote = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreamSortedbyRocks";
+// BS.sortByKey = "http://beamstream-v3.herokuapp.com/getAllMessagesForAStreambyKeyword";
+// //Message Follow
+// BS.followMessage ="http://beamstream-v3.herokuapp.com/followMessage";
+// //check follower
+// BS.isAFollower = "http://beamstream-v3.herokuapp.com/isAFollower";
+// // Get All Documebts of a user
+// BS.getAllDocs = "http://beamstream-v3.herokuapp.com/getAllDocumentsForAUser";
+// // For File Upload
+// BS.docUpload = "http://beamstream-v3.herokuapp.com/newDocument";
  
 
 /*
- * for testing in local
- */
+* for testing in local
+*/
  
 // BS.login = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=login";
 // BS.verifyToken ="http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=verifyToken";
@@ -290,16 +290,14 @@ BS.getAllDocs = "http://localhost:9000/getAllDocumentsForAUser";
 // BS.userPage ="http://localhost:9000/userPage";
 // BS.userInfoViaJanRain ="http://localhost/client/api.php";
 // BS.joinClass = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=joinClass";
-// BS.rockedIt =  "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=rockedIt";
+// BS.rockedIt = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=rockedIt";
 // BS.rockersList = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=rockersList";
 // BS.profileImage = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=profileImage";
 // BS.allProfileImages ="http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=allProfileImages";
 // BS.classStreamsForUser = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=classStreamsForUser";
 // BS.autoPopulateSchools = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=autoPopulateSchools";
-// BS.bitly =  "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=bitly";
-// BS.newComment = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=newComment"; 
-// BS.allCommentsForAMessage = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=allCommentsForAMessage"; 
-//BS.forgotPassword = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=forgotPassword"; 
+// BS.bitly = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=bitly";
+// BS.newComment = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=newComment";
+// BS.allCommentsForAMessage = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=allCommentsForAMessage";
+//BS.forgotPassword = "http://localhost/Beam2/BeamstreamPlay/public/client/api.php?run=forgotPassword";
 //// 
- 
- 
