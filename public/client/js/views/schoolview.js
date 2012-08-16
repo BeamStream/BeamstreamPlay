@@ -105,7 +105,7 @@ BS.SchoolView = Backbone.View.extend({
                     success:function(data){
                     	
                     	BS.schoolBack = false;
-        				// navigate to main stream page
+        				 // navigate to main stream page
                     	BS.AppRouter.navigate("streams", {trigger: true});
         
                         
@@ -161,7 +161,6 @@ BS.SchoolView = Backbone.View.extend({
 	            	  // for back button functionality
 	            	  BS.schoolBack = true;
 	            	  localStorage["SchoolDetails"] = JSON.stringify(data); 
-	 
 	            	  BS.AppRouter.navigate("class", {trigger: true});
 	            	  
 	              }
@@ -190,8 +189,8 @@ BS.SchoolView = Backbone.View.extend({
           $('#other-degrees-'+current).hide();
           
           $(".modal select:visible").selectBox();
-          $('.modal .datepicker:visible').datepicker();
           $('.datepicker').css('z-index','99999');
+          $('.modal .datepicker:visible').datepicker();
           $(".modal").addClass('modal-pull-top');
       },
       
@@ -206,7 +205,7 @@ BS.SchoolView = Backbone.View.extend({
 		  var currentid = $(dat).closest('fieldset').attr('id');
 		  var value = $('#graduated-'+currentid).val();
 		  if(value == "attending" || value == "no")
-		  {    console.log("sdsd");
+		  {
 				$('#cal-'+currentid).hide();
 				$('#degree-exp-'+currentid).show();
 				$(".modal select:visible").selectBox();
@@ -234,81 +233,81 @@ BS.SchoolView = Backbone.View.extend({
        */
       
       getSchoolInfo:function (eventName) {
-    	  
-	    	var schoolDetails = new Array();
-	      	var i;
-	      	var schoolId ='';
-	      	var schools = new BS.SchoolCollection();
-	      	for(i=1; i <= current; i++)
-	      	{
-		      	var degreeexp,degdate,otherDegree;
-		      		
-		     	/* display degree expected when selecting graduated as 'attending' or 'no' */
-		      	if($('#graduated-'+i).val()== "attending" || $('#graduated-'+i).val()== "no")
-		        {
-		   			  degreeexp = $('#degree-expected-'+i).val();
-		   			  degdate = "";
-		   	    }
-		   		/* display degree expected when selecting graduated as 'yes' */
-		   		else if($('#graduated-'+i).val() == "yes")
-		   		{
-		   			  degreeexp = "";
-		    		  degdate = $('#calendar-'+i).val();
-		     	}
-		   		else
-		   	    {
-		   			  graduated = "";
-		   			  degreeexp= "";
-		   	    }
-		      	if($('#degreeprogram-'+i).val() == "Other")
-		      	{
-		      		 
-		      		otherDegree = $('#other-degree-'+i).val();
-		      		 
-		      	}
-		      	else
-		      	{   
-		      		otherDegree ="";
-		      	}
-		      	
-		      	/* get Id of auto populated schools  */
-		      	var sId = '';
-				 _.each(BS.allSchoolInfo, function(data) {
-				 	 if(data.schoolName == $('#school-name-'+i).val())
-				     {
-				 		sId = data.id.id;
-				     }
-					  
-		         });
-		      	 if(sId)
-		      	 {
-		      		assosiatedSchoolId = sId;
-		       	 }
-		      	 else
-		      	 {
-		      		assosiatedSchoolId = 1;
-		      	 }
-		      	 if($('#school-id-'+i).attr('value'))
-		      	 {
-		      		schoolId = $('#school-id-'+i).attr('value');
-		      	 }
-		      	 else
-		      	 {
-		      		schoolId = i;
-		      	 }
-		      	 
-		      	 
-		   		var school = new BS.School();
-		      		
-//		   		school.set({id:i,schoolName: $('#school-name-'+i).val(),assosiatedSchoolId:assosiatedSchoolId,year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val() }, graduated: $('#graduated-'+i).val(), graduationDate: degdate ,otherDegree: otherDegree});
-		   		school.set({id:schoolId,schoolName: $('#school-name-'+i).val(),assosiatedSchoolId:assosiatedSchoolId,year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val() }, graduated: $('#graduated-'+i).val(), graduationDate: degdate ,otherDegree: otherDegree});
-
+    	    
+	    	  var schoolDetails = new Array();
+	    	  var i;
+	    	  var schoolId ='';
+	    	  var schools = new BS.SchoolCollection();
+	    	  for(i=1; i <= current; i++)
+	    	  {
+	    	  var degreeexp,degdate,otherDegree;
+	
+		    	  /* display degree expected when selecting graduated as 'attending' or 'no' */
+		    	  if($('#graduated-'+i).val()== "attending" || $('#graduated-'+i).val()== "no")
+		    	  {
+			    	  degreeexp = $('#degree-expected-'+i).val();
+			    	  degdate = "";
+		    	  }
+		    	  /* display degree expected when selecting graduated as 'yes' */
+		    	  else if($('#graduated-'+i).val() == "yes")
+		    	  {
+			    	  degreeexp = "";
+			    	  degdate = $('#calendar-'+i).val();
+		    	  }
+		    	  else
+		    	  {
+			    	  graduated = "";
+			    	  degreeexp= "";
+		    	  }
+		    	  if($('#degreeprogram-'+i).val() == "Other")
+		    	  {
 		
-		        schools.add(school);
-	         }
-	         var schoolinfo = JSON.stringify(schools);
-	         return schoolinfo;
-	      },
+		    		  	otherDegree = $('#other-degree-'+i).val();
+		
+		    	  }
+		    	  else
+		    	  {
+		    		  otherDegree ="";
+		    	  }
+	
+	    	  /* get Id of auto populated schools */
+		    	  var sId = '';
+		    	  _.each(BS.allSchoolInfo, function(data) {
+			    	  if(data.schoolName == $('#school-name-'+i).val())
+			    	  {
+			    		  sId = data.id.id;
+			    	  }
+		
+		    	  	});
+		    	  if(sId)
+		    	  {
+		    	    assosiatedSchoolId = sId;
+		    	  }
+		    	  else
+		    	  {
+		    		  assosiatedSchoolId = 1;
+		    	  }
+		    	  if($('#school-id-'+i).attr('value'))
+		    	  {
+		    		  schoolId = $('#school-id-'+i).attr('value');
+		    	  }
+		    	  else
+		    	  {
+		    		  schoolId = i;
+		    	  }
+	
+	
+		    	  var school = new BS.School();
+		
+		    	  // school.set({id:i,schoolName: $('#school-name-'+i).val(),assosiatedSchoolId:assosiatedSchoolId,year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val() }, graduated: $('#graduated-'+i).val(), graduationDate: degdate ,otherDegree: otherDegree});
+		    	  school.set({id:schoolId,schoolName: $('#school-name-'+i).val(),assosiatedSchoolId:assosiatedSchoolId,year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val() }, graduated: $('#graduated-'+i).val(), graduationDate: degdate ,otherDegree: otherDegree});
+		
+		
+		    	  schools.add(school);
+	    	  }
+	    	  var schoolinfo = JSON.stringify(schools);
+	    	  return schoolinfo;
+    	  },
 	      /**
 	       * add text box field a enter degree when we choose 'Other' from  Degre Program  
 	       */
@@ -331,8 +330,16 @@ BS.SchoolView = Backbone.View.extend({
 	       */
 	      backToPrevious :function(eventName){
 	    	  eventName.preventDefault();  
+//	    	  alert(BS.back);
 	    	  BS.AppRouter.navigate(BS.back, {trigger: true});
- 
+//              if(BS.resgistration == "media")
+//              {
+//            	  BS.AppRouter.navigate(BS.back, {trigger: true});
+//              }
+//              else if(BS.resgistration == "nomedia")
+//              {
+//            	  BS.AppRouter.navigate("class", {trigger: true});
+//              }
 	    	 
 	      },
 	      /**
