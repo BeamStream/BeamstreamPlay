@@ -28,15 +28,24 @@ dgStyle: function()
 	$(this).mouseup(function() { $(this).dgHandle(); });	
 },
 dgClear: function()
-{
+{    
+	/* edited By Aswathy */
+	var elm	=	$(this).children().get(0);
+	if($(this).attr("checked") == "checked")
+	{
+		$(elm).dgCheck(this);
+	}
+	
+		 
 	if($(this).data("checked") == true)
 	{
+		 
 		$(this).css("backgroundPosition","center -"+(elmHeight*2)+"px");
-		}
+	}
 	else
 	{
 		$(this).css("backgroundPosition","center 0");
-		}	
+	}	
 },
 dgEffect: function()
 {
@@ -49,9 +58,16 @@ dgHandle: function()
 {
 	var elm	=	$(this).children().get(0);
 	if($(this).data("checked") == true)
+	{
+		 
 		$(elm).dgUncheck(this);
+	}
 	else
+	{
+		 
 		$(elm).dgCheck(this);
+	}
+		
 	
 	if($(this).data('type') == 'radio')
 	{
