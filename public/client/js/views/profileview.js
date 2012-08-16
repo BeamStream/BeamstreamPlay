@@ -305,7 +305,7 @@ BS.ProfileView = Backbone.View.extend({
 					BS.content+= '';
 //					BS.content+= '</ul>';
 			    	$('#profile-images').html(BS.content);					 
-				},
+				}
 				 
 		 });
 		 

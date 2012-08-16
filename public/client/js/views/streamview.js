@@ -29,6 +29,7 @@ BS.StreamView = Backbone.View.extend({
            "keypress #sort_by_key" : "sortMessagesByKey",
            "click .follow" : "followMessage",
            "click #msg"  : "showBitleys",
+           "click .social_media" : "uncheckPrivate"
            
  
 	 },
@@ -73,30 +74,34 @@ BS.StreamView = Backbone.View.extend({
 				var docheight = $(document).height();
 				var widheight = $(window).height();
 				if(scrollTop + 1 == docheight- widheight || scrollTop == docheight- widheight){
-					 
-					$('.page-loader').show();
-					var streamId = $('#streams-list li.active a').attr('id');
 				
-					if(BS.msgSortedType == "")
-					{    BS.pagenum++;
-						self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
-					}
-					else if(BS.msgSortedType == "vote")
-					{    BS.pageForVotes++
-						 self.sortByVotes(streamId,BS.pageForVotes,BS.pageLimit)
-					}
-					else if(BS.msgSortedType == "keyword")
-					{
-						BS.pageForKeyword++;
-						var keyword = $('#sort_by_key').val();
-						self.sortBykeyword(streamId,keyword,BS.pageForKeyword,BS.pageLimit);
-					}
-					else if(BS.msgSortedType == "date")
-					{
-						 BS.pageForDate++;
-						 self.sortByDate(streamId,BS.pageForDate,BS.pageLimit);
-					}
-				  }
+			 	   var t = $('.timeline_items').find('li');
+				   if(t.length != 0)
+				   {
+						$('.page-loader').show();
+						var streamId = $('#streams-list li.active a').attr('id');
+					
+						if(BS.msgSortedType == "")
+						{    BS.pagenum++;
+							self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
+						}
+						else if(BS.msgSortedType == "vote")
+						{    BS.pageForVotes++
+							 self.sortByVotes(streamId,BS.pageForVotes,BS.pageLimit)
+						}
+						else if(BS.msgSortedType == "keyword")
+						{
+							BS.pageForKeyword++;
+							var keyword = $('#sort_by_key').val();
+							self.sortBykeyword(streamId,keyword,BS.pageForKeyword,BS.pageLimit);
+						}
+						else if(BS.msgSortedType == "date")
+						{
+							 BS.pageForDate++;
+							 self.sortByDate(streamId,BS.pageForDate,BS.pageLimit);
+						}
+				   }
+				 }
 				else
 				{
 					  $('.page-loader').hide();
@@ -480,15 +485,16 @@ BS.StreamView = Backbone.View.extend({
 		 				          method: 'after',
 		 					      key:'4d205b6a796b11e1871a4040d3dc5c07'
 	  	  					 });
-  	  						
+	  	  					 
   				         });
                
   				   }
                                    
   				   $('.selector').html("");
-                                   $('.selector').hide();
-                                   $('.emdform').find('input[type="hidden"].preview_input').remove();
-                                   $('#msg').val("");
+                   $('.selector').hide();
+                   $('.emdform').find('input[type="hidden"].preview_input').remove();
+                   $('#msg').val("");
+ 
   			}
   		});
     	
@@ -938,10 +944,10 @@ BS.StreamView = Backbone.View.extend({
 		
 		 if(sortKey == "highest-rated")
 		 {
-			 BS.msgSortedType = "";
-			 BS.pagenum = 1;
+			 BS.msgSortedType = "vote";
 			 $(".timeline_items").html('');
-			 self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
+			 BS.pageForVotes = 1;
+			 self.sortByVotes(streamId,BS.pageForVotes,BS.pageLimit)
 		 }
 		 else if(sortKey == "date")
 		 {
@@ -955,13 +961,13 @@ BS.StreamView = Backbone.View.extend({
 		 {
 			 
 		 }
-		 else if(sortKey == "vote")
-		 {
-			 BS.msgSortedType = "vote";
-			 $(".timeline_items").html('');
-			 BS.pageForVotes = 1;
-			 self.sortByVotes(streamId,BS.pageForVotes,BS.pageLimit)
-		 }
+//		 else if(sortKey == "vote")
+//		 {
+//			 BS.msgSortedType = "vote";
+//			 $(".timeline_items").html('');
+//			 BS.pageForVotes = 1;
+//			 self.sortByVotes(streamId,BS.pageForVotes,BS.pageLimit)
+//		 }
 			 
 	 },
 	 
@@ -1136,10 +1142,16 @@ BS.StreamView = Backbone.View.extend({
 	 },
 	 
 	 showBitleys : function(){
-		 
 		  $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 		  
+	 },
+	 
+	 /**
+	  * when a user clicks on a social media icon or icons for sharing the check mark is un checked.
+	  */
+	 uncheckPrivate :function(eventName){
+		 eventName.preventDefault(); 
+		 $('#id-private').attr('checked',false);
 	 }
- 
 	 
 });
