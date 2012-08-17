@@ -272,7 +272,11 @@ BS.ClassView = Backbone.View.extend({
 	},
 	
 	setIndex:function(){
-		 
+		    var name = model.get('schoolName');
+		        var id = model.get('assosiatedSchoolId')
+		          
+		        options+= '<option value ="'+id.id+'">'+name+'</option>';
+		        sele
 		$('.datepicker').css('z-index','9999');
 	},
 	
