@@ -113,11 +113,11 @@ BS.ProfileView = Backbone.View.extend({
 	    		BS.progress = setInterval(function() {
 	    			 BS.bar = $('.bar');
 	    		   
-	    		    if (BS.bar.width()==380) {
+	    		    if (BS.bar.width()== 392) {
 	    		        clearInterval(BS.progress);
 	    		        $('.progress').removeClass('active');
 	    		    } else {
-	    		    	 BS.bar.width( BS.bar.width()+20);
+	    		    	 BS.bar.width( BS.bar.width()+8);
 	    		    }
 	    		    BS.bar.text( BS.bar.width()/4 + "%");
 	    		}, 800);
