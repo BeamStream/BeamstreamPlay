@@ -1108,6 +1108,7 @@ ul.file-list li {
 	font-family: 'Ubuntu', sans-serif;
 	font-weight:500;
 	margin:0 0 5px 0;
+	cursor: pointer;
 }
 .image-wrapper span{
 	float:left;

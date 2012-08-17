@@ -126,8 +126,7 @@ BS.FilesMediaView = Backbone.View.extend({
                               _.each(docs, function(doc) {
                                   
                                  var datVal =  self.formatDateVal(doc.creationDate);
-                                  console.log(doc);
-                      var content = '<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'"><input type="hidden" id="'+doc.id.id+'" value="'+doc.url+'"><div class="comment-wrapper comment-wrapper2"><a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a><a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><h4>'+doc.name+'</h4><p>The Power of The Platform Behance Network Join The Leading Platform For </p><h5> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> </div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#">87</a></li><li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#">10</a></li></ul></div>'; 
+                      var content = '<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'"><input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'"><div class="comment-wrapper comment-wrapper2"><a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a><a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><h4>'+doc.name+'</h4><p>The Power of The Platform Behance Network Join The Leading Platform For </p><h5> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> </div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#">87</a></li><li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#">10</a></li></ul></div>'; 
                       $('#file-docs-'+i).html(content);
                       
                       i++;
@@ -157,12 +156,13 @@ BS.FilesMediaView = Backbone.View.extend({
         },
         
         /**
-         * Edited By aSwathy 
+         * Edited By Aswathy @TODO
          * For Doc popups
          */
         showDocPopup :function(eventName){
-        	var docId = eventName.currentTarget.attributes.id;
-        	var docUrl = $('input#502ddeb384ae6b3e178b8c09').html();
+        	var docId = eventName.currentTarget.id;
+        	var docUrl = $('input#id-'+docId).val();
+    		newwindow=window.open(docUrl,'','height=500,width=800,top=100,left=250');
         	 
         }
         
