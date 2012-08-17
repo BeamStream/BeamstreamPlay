@@ -26,6 +26,7 @@ object SchoolController extends Controller {
     val getAllSchoolsForAUser = UserSchool.getAllSchools(schoolIdList)
     val SchoolListJson = write(getAllSchoolsForAUser)
     Ok(SchoolListJson).as("application/json")
+    
   }
 
   /*
