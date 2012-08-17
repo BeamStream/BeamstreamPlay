@@ -1,14 +1,14 @@
 BS.ClassStreamView = Backbone.View.extend({
 
 	events : {
-       "keyup #class-code" : "populateClasses",
+       "keyup #class-code" : "getValuesForCode",
        "click .datepicker" :"setIndex",
-       "focusin #class-code" : "populateClasses",
+       "focus #class-code" : "populateClasses",
        "click #createClass" : "createClass",
        "click #joinClass" :"joinClass",
        "click #add-tags" : "addTags",
        "click .close-button" : "closeScreen",
-       "keyup #class_name" :"populateClassNames",
+       "keyup #class_name" :"getValuesForName",
        "focusin #class_name":"populateClassNames",
 	},
 
@@ -18,6 +18,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		this.template = Handlebars.compile(this.source);
 		 
 	},
+	 
 
 	/**
 	 * render class Info screen
@@ -28,18 +29,18 @@ BS.ClassStreamView = Backbone.View.extend({
 				"times" : BS.times
 		}
 		$(this.el).html(this.template(sCount));
-		console.log("clas sream");
-		return this;
+ 		return this;
 	},
 	
 	/**
-	 * populate  List of classes matching a class code
+	 * populate  List of class codes - matching a class code
 	 * 
 	 */
 	populateClasses :function(eventName){
-		
+		var self = this;
 		BS.classCodes = []; 
 		BS.selectedCode = $('#class-code').val(); 
+		 
 		var text = $('#class-code').val();
 		
 		/* post the text that we type to get matched classes */
@@ -59,18 +60,42 @@ BS.ClassStreamView = Backbone.View.extend({
 				$('.ac_results').css('width', '160px');
 				
 				//set auto populate functionality for class code
-				$("#class-code").autocomplete(BS.classCodes);
+				 $("#class-code").autocomplete({
+					    source: BS.classCodes,
+					    select: function(event, ui) {
+					    	
+					    	var text = ui.item.value; 
+					    	self.displayFiledsForCode(text);
+					    	
+					    }
+				 });
 			 
 			}
 		});
+ 
+	},
+	/**
+	 * display other values on mouse select - class code auto complete
+	 */
+	getValuesForCode :function(){
 		 
-		 var classStatus = false; 
+		var text = $('#class-code').val(); 
+		this.displayFiledsForCode(text);
+		 
+	},
+	/**
+	 * display other field values- classCode auto complete
+	 */
+	displayFiledsForCode : function(value)
+	{ 
+		
+		var classStatus = false; 
 		 var classTime ,className,date ,classType,schoolId,classId;
-         var datas = JSON.stringify(BS.classInfo);
-          
-         /* get details of selected class */
+        var datas = JSON.stringify(BS.classInfo);
+         
+        /* get details of selected class */
 		 _.each(BS.classInfo, function(data) {
-		 	 if(data.classCode == BS.selectedCode)
+		 	 if(data.classCode == value)
 		     {
 				 classStatus = true;
 				 classTime = data.classTime;
@@ -81,7 +106,7 @@ BS.ClassStreamView = Backbone.View.extend({
 				 classId = data.id.id;
 		     }
 			 
-         });
+        });
 		 /* populate other class fields*/
 		 if(classStatus == true)
 		 {
@@ -92,12 +117,12 @@ BS.ClassStreamView = Backbone.View.extend({
 			 $('#semester option[value="'+classType+'"]').attr('selected', 'selected');
 			 $('#div-school-type a span.selectBox-label').html(classType);
 			 $('#div-time a span.selectBox-label').html(classTime);
- 
+
 			 /* Post scholId to get its school name*/
 			 $.ajax({
 					type : 'POST',
 					url : BS.schoolNamebyId,
- 
+
 					data : {
 						schoolId : schoolId
 					},
@@ -144,6 +169,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			 $('#createClass').show(); 
 			 $('#joinClass').hide();
 		 }
+		
 	},
 	/**
 	 * set date picker display
@@ -261,10 +287,10 @@ BS.ClassStreamView = Backbone.View.extend({
       BS.AppRouter.navigate("streams", {trigger: true});
     },
     /**
-     * auto populate class names
+     * auto populate class names - matching a class name
      */
     populateClassNames :function(){
-    	 
+    	var self =this;
     	BS.classNames = []; 
 		BS.selectedName = $('#class_name').val(); 
 		var text = $('#class_name').val();
@@ -286,19 +312,35 @@ BS.ClassStreamView = Backbone.View.extend({
 				
 				$('.ac_results').css('width', '160px');
 				
+ 
 				//set auto populate functionality for class code
-				$("#class_name").autocomplete(BS.classNames);
+				 $("#class_name").autocomplete({
+					    source: BS.classNames,
+					    select: function(event, ui) {
+					    	
+					    	var text = ui.item.value; 
+					    	self.displayFieldsForName(text);
+					    	
+					    }
+				 });
 			 
 			}
 		});
 		 
-		 var classStatus = false; 
-		 var classTime ,className,date ,classType,schoolId,classId;
-         var datas = JSON.stringify(BS.classInfo);
-          
-         /* get details of selected class */
+    	
+    },
+    /**
+     *  display other field values - className auto populate
+     */
+    displayFieldsForName : function(value){
+    	
+    	var classStatus = false; 
+		var classTime ,className,date ,classType,schoolId,classId;
+        var datas = JSON.stringify(BS.classInfo);
+         
+        /* get details of selected class */
 		 _.each(BS.classNameInfo, function(data) {
-		 	 if(data.className == BS.selectedName)
+		 	 if(data.className == value)
 		     {
 		 		  
 				 classStatus = true;
@@ -310,10 +352,10 @@ BS.ClassStreamView = Backbone.View.extend({
 				 classId = data.id.id;
 		     }
 			 
-         });
+        });
 		 /* populate other class fields*/
 		 if(classStatus == true)
-		 {   console.log(classCode);
+		 {    
 			 this.classId = classId;
 			 $('#class-code').val(classCode);
 			 $('#date-started').val(date);
@@ -321,12 +363,12 @@ BS.ClassStreamView = Backbone.View.extend({
 			 $('#semester option[value="'+classType+'"]').attr('selected', 'selected');
 			 $('#div-school-type a span.selectBox-label').html(classType);
 			 $('#div-time a span.selectBox-label').html(classTime);
- 
+
 			 /* Post scholId to get its school name*/
 			 $.ajax({
 					type : 'POST',
 					url : BS.schoolNamebyId,
- 
+
 					data : {
 						schoolId : schoolId
 					},
@@ -373,6 +415,14 @@ BS.ClassStreamView = Backbone.View.extend({
 			 $('#createClass').show(); 
 			 $('#joinClass').hide();
 		 }
-    	
+    },
+    /**
+     * display other values on mouse select - className auto complete
+     */
+    getValuesForName :function(){
+    	var text = $('#class_name').val(); 
+		this.displayFieldsForName(text);
+		
     }
+		
 });

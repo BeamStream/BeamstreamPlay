@@ -61,7 +61,9 @@ BS.SchoolView = Backbone.View.extend({
 		        });
 				 
 				//set auto populate functionality for class code
-				$(dat).autocomplete(BS.allSchools);
+				$(dat).autocomplete({
+				    source: BS.allSchools
+			 });
 			 
 			}
 		});
