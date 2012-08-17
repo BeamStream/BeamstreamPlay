@@ -286,11 +286,7 @@ BS.ClassView = Backbone.View.extend({
     backToPrevious :function(eventName){
       eventName.preventDefault();
       
-//      var schoolInfo =JSON.parse(localStorage["SchoolDetails"]);
-//      _.each(schoolInfo, function(info) {
-//    	     console.log(info.schoolName);
-//      
-//	  });
+      localStorage["SchoolDetails"] = JSON.stringify(this.schools); 
       
       BS.AppRouter.navigate("school", {trigger: true});
     },

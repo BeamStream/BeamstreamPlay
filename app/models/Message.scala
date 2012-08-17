@@ -39,7 +39,7 @@ case class Message(@Key("_id") id: ObjectId,
   lastNameofMsgPoster: String,
   rocks: Int,
   rockers: List[ObjectId],
-  comments: List[Message],
+  comments: List[Comment],
   follows: Int,
   followers: List[ObjectId])
 
@@ -175,7 +175,7 @@ object Message {
   /*
  * add Comment to message
  */
-  def addCommentToMessage(comment: Message, messageId: ObjectId) {
+  def addCommentToMessage(comment: Comment, messageId: ObjectId) {
     val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
     MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments ++ List(comment))), false, false, new WriteConcern)
   }

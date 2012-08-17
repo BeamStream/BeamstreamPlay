@@ -33,6 +33,7 @@ class UserMediaTest extends FunSuite with BeforeAndAfter {
 
   after {
     UserMediaDAO.remove(MongoDBObject("profileImageUrl" -> ".*".r))
+     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
   }
 
 }

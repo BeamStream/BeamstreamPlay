@@ -77,6 +77,7 @@ class StreamTest extends FunSuite with BeforeAndAfter {
 
   after {
     StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
+    UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
   }
 
 }

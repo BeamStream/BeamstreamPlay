@@ -925,7 +925,7 @@
     <div id="error" class="invalid-validation" style="margin-left:20px; color:red;"></div>
     <div class="modal-body">
         <form name="school-form" id="school-form">
-			
+			<div id = "school-list">
             <fieldset id ="1" >
                 <legend class="legend">school info</legend>
 
@@ -935,7 +935,7 @@
                         <label for="school-name">School name <span class="star"> *</span></label>
  
                         <input type="text" name="school-name-1" id="school-name-1" class="validate[required] span3 school" placeholder="School Name">
- 
+                        
                     </div>
 
                     <div class="element">
@@ -1000,6 +1000,7 @@
                        
                 </div>
 			 </div>
+			</div>
             </fieldset>
             <a href="#" class="legend legend-add">Add another school</a>
         </form>
@@ -1009,7 +1010,83 @@
         <a href="#" id ="continue" class="btn btn-success pull-right">Continue</a>
     </div>
  </div>
-	</script>
+</script>
+
+<!-- Add School -->
+  <script type="text/x-handlebars-template" id="tpl-school">   
+  <fieldset id="{{number}}" >
+	<legend class="legend legend-add">Another school</legend>
+	<div class="school-registration">
+		<div class="form-row">
+		<div class="element">
+			<label for="school-name-{{number}}" id="school-id-{{number}}" value="{{data.id.id}}" >School name <span class="star"> *</span></label>
+			<input type="text" id="school-name-{{number}}" name="school-name-{{number}}" class="validate[required] span3 school" value="{{data.schoolName}}" >
+			<input type="hidden" id="associatedId-{{number}}" value="{{data.assosiatedSchoolId.id}}">
+		</div>
+		<div class="element">
+			<label for="year">Year</label>
+			<select name="year-{{number}}" id="year-{{number}}" class="span2">
+				<option value="Freshman">Freshman</option>
+				<option value="Sophomore">Sophomore</option>
+				<option value="Junior">Junior</option>
+				<option value="Senior">Senior</option>
+				<option value="Graduated(Master's)">Graduated(Master's)</option>
+				<option value="Graduated(Phd)">Graduated(Phd)</option>
+				<option value="Other">Other</option>
+			</select>
+		</div>
+		<div class="element" >
+			<label for="degree-program-{{number}}">Degree program</label>
+			<select name="degreeprogram-{{number}}" id="degreeprogram-{{number}}" class="degreepgm span2">
+				<option value="Assosiates(AA)">Assosiates(AA)</option>
+				<option value="Bachelor's">Bachelor's</option>
+				<option value="Master's">Master's</option>
+				<option value="Doctorate(Phd)">Doctorate(Phd)</option>
+				<option value="Other">Other</option>
+			</select>
+		</div>
+		<div class="element" id="other-degrees-{{number}}">
+			<label for="other-degree">Degree <span class="star"> *</span></label>
+			<input type="text" name="other-degree-{{number}}" id="other-degree-{{number}}" class="small" value="{{data.otherDegree}}">
+		</div>
+		</div>
+		<div class="form-row">
+			<div class="element">
+				<label for="major-{{number}}">Major <span class="star"> *</span></label>
+				<input type="text" name="major-{{number}}" id="major-{{number}}" class="validate[required] span3" value="{{data.major}}">
+			</div>
+			<div class="element">
+				<label for="graduated" name="graduated-{{number}}">Graduated? <span class="star"> *</span></label>
+				<select name="graduated" id="graduated-{{number}}" class="graduated span2" >
+					<option> </option>
+					<option value="attending">Still Attending</option>
+					<option value="yes">Yes</option>
+					<option value="no">No</option>
+				</select>
+			</div>
+			<div class="element" id="cal-{{number}}">
+				<label for="calendar-{{number}}">Calendar</label>
+				<input class="span2 datepicker cal" type="text" id="calendar-{{number}}" name="calendar-{{number}}"/>
+			</div>
+			<div class="element" >
+				<div class="element" id="degree-exp-{{number}}">
+					<label for="degree-expected-{{number}}">Degree expected</label>
+					<select id="degree-expected-{{number}}" name="degree-expected-{{number}}" class="span3" >
+						<option value="Winter 2012">Winter 2012</option>
+						<option value="Summer 2013">Summer 2013</option>
+						<option value="Winter 2013">Winter 2013</option>
+						<option value="Summer 2014">Summer 2014</option>
+						<option value="Winter 2014">Winter 2014</option>
+						<option value="Summer 2015">Summer 2015</option>
+						<option value="Winter 2015">Winter 2015</option>
+						<option value="No Degree Expected">No Degree Expected</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+</fieldset>
+</script>
 	
 <body style="padding-top: 96px !important;">
    <div class="navbar-fixed-top">
@@ -1099,7 +1176,7 @@
   <div class="modal-backdrop in"></div>
     <div class="modal  school-popup modal-pull-top in modal-popups" style="display:block;">
     <div class="modal-header">
-         <a href="#"><img class="back-button" src="images/back.png"></a>
+         <a href="#"><img class="back-button back" src="images/back.png"></a>
 		 <a href="#"><img class="close-button" src="images/close-button.png"></a>
         <h1 class="pull-left" >Class info</h2>
         <img src="images/registration-progress-50.png" alt="Registration progress - 50%" class="registration-progress pull-right">
@@ -2202,7 +2279,7 @@
 <script type="text/javascript" src="lib/jquery.selectBox.js"></script>
 <script type="text/javascript" src="lib/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="lib/jquery.custom_radio_checkbox.js"></script> 
-<script src="lib/bootstrap-dropdown.js"></script>
+<!-- <script src="lib/bootstrap-dropdown.js"></script> -->
 
 
 <script src="js/app.js"></script>
@@ -2411,11 +2488,17 @@ function janRainLogin(info){
                         .closest('li').addClass('active');
                 }
             });
-            $('div.test').embedly({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+            
              
         });
 </script>
 
+  <script type="text/javascript">
+    $('document').ready(function(){
+      $('div.test').embedly({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+    
+    });
+  </script>
  
 	
 <!--  Backbone.js files -->

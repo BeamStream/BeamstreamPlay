@@ -124,24 +124,76 @@ BS.AppRouter = Backbone.Router.extend({
      * display School Info screen
      */
     schoolReg:function () {
-       
-//        if(!BS.schoolView)
-//        {
-    		BS.schoolView = new BS.SchoolView();
-        	BS.schoolView.render();
-//        }
- 
-         $('#school-popup').html(BS.schoolView.el);  
+        
+        if(BS.schoolBack)
+	    {
+	        
+	         BS.schoolNum = 1;
+	         BS.schoolView = new BS.SchoolView();
+	         BS.schoolView.render();
+	         $('#school-popup').html(BS.schoolView.el);
+	         var schoolInfo =JSON.parse(localStorage["SchoolDetails"]);
+	         $('#school-list').html('');	
+	        
+	        _.each(schoolInfo, function(info) {
+				var datas = {
+				"data" : info,
+				"number" : BS.schoolNum
+			  }
+			var source = $("#tpl-school").html();
+			var template = Handlebars.compile(source);
+			$('#school-list').append(template(datas));
+			
+			
+			if(info.degree != "Other")
+			{
+				$('#other-degrees-'+BS.schoolNum).hide();
+			}
+			
+			$('#year-'+BS.schoolNum).val(info.year);
+			$('#degreeprogram-'+BS.schoolNum).val(info.degree);
+			$('#graduated-'+BS.schoolNum).val(info.graduated);
+			if(info.graduated == "yes")
+			{
+				$('#degree-expected-'+BS.schoolNum).hide();
+				$('#calendar-'+BS.schoolNum).val(info.graduationDate);
+			
+			}
+			else
+			{
+				$('#cal-'+BS.schoolNum).hide();
+				$('#degree-expected-'+BS.schoolNum).val(info.degreeExpected);
+			
+			}
+			
+			$(".modal select:visible").selectBox();
+			$('.modal .datepicker').datepicker();
+			$('.datepicker').css('z-index','99999');
+			
+			BS.schoolNum++;
+	        });
+	            
+	    }
+        else
+        {
+        
+         BS.schoolView = new BS.SchoolView();
+         BS.schoolView.render();
+         $('#school-popup').html(BS.schoolView.el);
          if(BS.schoolFromPrev)
-         $('#school-name-1').val(BS.schoolFromPrev);
-         $(".modal select:visible").selectBox();
-         $('.modal .datepicker').datepicker();
-         /* hide some fields on page load */
-         $('#degree-exp-'+current).hide();
-     	 $('#cal-'+current).hide();
-     	 $('#other-degrees-'+current).hide();
-     	 jQuery("#school-form").validationEngine();
-     	
+            $('#school-name-1').val(BS.schoolFromPrev);
+           
+            /* hide some fields on page load */
+            $('#degree-exp-'+current).hide();
+            $('#cal-'+current).hide();
+            $('#other-degrees-'+current).hide();
+            
+        }
+        $(".modal select:visible").selectBox();
+        $('.modal .datepicker').datepicker();
+        $('.datepicker').css('z-index','99999');
+        jQuery("#school-form").validationEngine();
+        
     },
 
     
@@ -152,6 +204,7 @@ BS.AppRouter = Backbone.Router.extend({
     
     	BS.classView = new BS.ClassView();
     	BS.classView.render();
+    	 
         $('#school-popup').html(BS.classView.el);
         $(".modal select:visible").selectBox();
         $('.modal .datepicker').datepicker();

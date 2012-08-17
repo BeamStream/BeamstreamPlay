@@ -41,20 +41,33 @@ object UserSchool {
 
   /*
     * Method for creating a school (For SchoolAutopoulate thing)
+    * 
+    * @Purpose : Will Edit The schools as well with Creation
     */
   def createSchool(schools: List[UserSchool]) {
+
     for (school <- schools) {
-      val userSchoolId = UserSchoolDAO.insert(school)
-      val userSchoolObtained = UserSchool.getUserSchoolById(userSchoolId.get)
 
-      val schoolsInDatabase = UserSchool.isSchoolinDatabaseAlready(userSchoolObtained.assosiatedSchoolId)
+      val userSchoolObtained = UserSchool.isUserSchoolExist(school.id)
 
-      if (schoolsInDatabase.size == 0) {
-        //Creates a new School and set the proper schoolId in the inserted school
-        val schoolIdForUpdatingUserSchool = School.addNewSchool(new School(new ObjectId, school.schoolName))
-        UserSchool.updateUserSchoolWithOriginalSchoolId(userSchoolId.get, schoolIdForUpdatingUserSchool)
+      if (userSchoolObtained.size == 1) {
+
+        UserSchoolDAO.update(MongoDBObject("_id" -> school.id), school, false, false, new WriteConcern)
+        School.updateSchool(userSchoolObtained(0).assosiatedSchoolId, school.schoolName)
+
       } else {
-        println("School Already Exist")
+
+        val userSchoolId = UserSchoolDAO.insert(school)
+        val userSchoolObtained = UserSchool.getUserSchoolById(userSchoolId.get)
+
+        val schoolsInDatabase = UserSchool.isSchoolinDatabaseAlready(userSchoolObtained.assosiatedSchoolId)
+
+        if (schoolsInDatabase.size == 0) {
+          //Creates a new School and set the proper schoolId in the inserted school
+          val schoolIdForUpdatingUserSchool = School.addNewSchool(new School(new ObjectId, school.schoolName))
+          UserSchool.updateUserSchoolWithOriginalSchoolId(userSchoolId.get, schoolIdForUpdatingUserSchool)
+        }
+
       }
     }
   }
@@ -66,17 +79,17 @@ object UserSchool {
     UserSchoolDAO.remove(school)
 
   }
-  
-  
+
   /*
    * Get UserSchool
    */
 
-  def isUserSchoolExist(userSchoolId: ObjectId): Boolean = {
+  def isUserSchoolExist(userSchoolId: ObjectId): List[UserSchool] = {
     val userSchools = UserSchoolDAO.find(MongoDBObject("_id" -> userSchoolId)).toList
-    if(userSchools.isEmpty) false else true
+    //if (userSchools.isEmpty) false else true
+    userSchools
   }
-  
+
   /*
    * Find a school by name
    */
@@ -85,15 +98,6 @@ object UserSchool {
     val regexp = (""".*""" + name + """.*""").r
     for (school <- UserSchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList) yield school
   }
-
-//  /*
-//   * Find a school by Id
-//   */
-//
-//  def findSchoolsById(schoolId: ObjectId): String = {
-//    val schoolName = UserSchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0).schoolName
-//    schoolName
-//  }
 
   /*
    * Get all school for a user
@@ -133,7 +137,6 @@ object UserSchool {
     }
     schoolList
   }
-  
 
 }
 
