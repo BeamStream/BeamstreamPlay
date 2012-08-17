@@ -9,7 +9,7 @@ Backbone.history.start();
 * Config Variables for Url externalization
 */
 
-BS.URLRequired ="http://beamstream.knoldus.com";     // for cloud use BS.URLRequired ="http://beamstream-v3.herokuapp.com";
+BS.URLRequired ="http://localhost:9000";     // for cloud use BS.URLRequired ="http://beamstream-v3.herokuapp.com";
  
 
 
