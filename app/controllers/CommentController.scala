@@ -39,7 +39,6 @@ object CommentController extends Controller {
     val messageId = messageIdJSON("messageId").toList(0)
     val message = Message.findMessageById(new ObjectId(messageId))
     val commentsForAMessage = message.comments
-    println(write(commentsForAMessage))
     Ok(write(commentsForAMessage)).as("application/json")
 
   }
