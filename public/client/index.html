@@ -55,7 +55,9 @@
 <!-- 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script> -->
     
     <!--  auto complete  -->
-    <link rel="stylesheet" href="css/jquery.autocomplete.css" type="text/css" />
+<!--     <link rel="stylesheet" href="css/jquery.autocomplete.css" type="text/css" /> -->
+ <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<!--  <link rel="stylesheet" href="css/autocomplete.css" type="text/css" /> -->
     
     
     <!--  for validation -->
@@ -103,7 +105,12 @@
 	<script src="lib/handlebars-1.0.0.beta.6.js"></script>
  
 	<!--  auto complete -->
-	<script type="text/javascript" src="lib/jquery.autocomplete.js"></script>
+<!-- 	<script type="text/javascript" src="lib/jquery.autocomplete.js"></script> -->
+<!-- <script src="lib/jqueryui.js"></script> -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+
+
+
 	<!--  for validation  -->
 	<script src="lib/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
 	<script src="lib/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
@@ -1808,14 +1815,14 @@
                </div>
                     <div class="content_container">
                      <div class="meta_data">
-                         <span class="username"><a href="#user-profile">{{firstNameofMsgPoster}} {{lastNameofMsgPoster}}</a></span>
+                         <span class="username"><a href="#user-profile">{{firstNameofCommentPoster}} {{lastNameofCommentPoster}}</a></span>
                           <span class="separator">-</span>
                            <time datetime="2011-12-01" pubdate>{{timeCreated}}</time>
                            <span class="separator">-</span>
                               <span class="visibility">Public</span>
                       </div>
                            <p>
-                             {{messageBody}}
+                             {{commentBody}}
                               </p>
                              <div class="actions">
                               <a class="rock" href="#rock"><i class="rocked"><i>{{rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
@@ -1842,14 +1849,14 @@
                </div>
                     <div class="content_container">
                      <div class="meta_data">
-                         <span class="username"><a href="#user-profile">{{firstNameofMsgPoster}} {{lastNameofMsgPoster}}</a></span>
+                         <span class="username"><a href="#user-profile">{{firstNameofCommentPoster}} {{lastNameofCommentPoster}}</a></span>
                           <span class="separator">-</span>
                            <time datetime="2011-12-01" pubdate>{{timeCreated}}</time>
                            <span class="separator">-</span>
                               <span class="visibility">Public</span>
                       </div>
                            <p>
-                             {{messageBody}}
+                             {{commentBody}}
                               </p>
                              <div class="actions">
                               <a class="rock" href="#rock"><i class="rocked"><i>{{rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
