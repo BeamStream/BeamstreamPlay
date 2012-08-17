@@ -1064,6 +1064,13 @@ ul.file-list li {
 	position:relative;
 	padding:0 0 31px 0;
 }
+.hovereffect{
+	opacity:1;
+}
+.hovereffect:hover .comment-wrapper2{
+	display:block;
+	opacity:1;
+}
 .image-wrapper {
 	width:190px;
 	height:141px;
@@ -1155,6 +1162,7 @@ ul.file-list li {
 	left:46px;
 	border-radius: 0px 0px 4px 4px;
 	padding:5px 0 0 0;
+        display:none;
 }
 .comment-wrapper2 a{
 	margin:0 0 0 10px !important;
