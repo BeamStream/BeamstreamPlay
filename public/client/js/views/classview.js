@@ -28,7 +28,7 @@ BS.ClassView = Backbone.View.extend({
 		this.template = Handlebars.compile(this.source);
 	 
 	},
-
+ 
  
 	/**
 	 * save/post class info details.
@@ -56,6 +56,7 @@ BS.ClassView = Backbone.View.extend({
 						success : function(data) {
 							if(data.status == "Success")
 							{
+								BS.schoolBack = false;
 								// navigate to main stream page
 								BS.AppRouter.navigate("streams", {trigger: true});
 							}
@@ -272,11 +273,7 @@ BS.ClassView = Backbone.View.extend({
 	},
 	
 	setIndex:function(){
-		    var name = model.get('schoolName');
-		        var id = model.get('assosiatedSchoolId')
-		          
-		        options+= '<option value ="'+id.id+'">'+name+'</option>';
-		        sele
+		   
 		$('.datepicker').css('z-index','9999');
 	},
 	
