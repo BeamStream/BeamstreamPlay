@@ -42,6 +42,7 @@
     color: #fff;
     display: none ;
     top: 45% !important;
+/* top: 75% !important; */
     background: #72addc !important;
     behavior: url(css/PIE.htc);
     position: absolute !important;
@@ -252,9 +253,12 @@
     border: 1px #2a8eba solid;
     color: #5d9ab6;
     font-size: 18px;
-    padding:4px 10px 0px 10px;
-    height:40px;
-   
+/*  @ATN   padding:4px 10px 0px 10px;  
+      height:40px; */
+    height :35px;
+    padding: 9px 10px 1px 10px;
+ 
+    
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
