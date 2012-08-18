@@ -1155,6 +1155,7 @@ BS.StreamView = Backbone.View.extend({
 		 eventName.preventDefault(); 
 		 $('#id-private').attr('checked',false);
 	 },
+	 
 	 /**
 	  *  create bitly for each url in message
 	  */
@@ -1184,7 +1185,6 @@ BS.StreamView = Backbone.View.extend({
 			    		});
 			        }
 			      }
-					  
 			});
 	 }
 	 
