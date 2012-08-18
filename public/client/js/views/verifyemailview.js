@@ -130,12 +130,14 @@ BS.verifyEmailView = Backbone.View.extend({
   	    if(iam == 2)
   	    {
   	    	$('#email-label').html('Work email<span class="star"> *</span>');
+  	    	$('#email').attr("placeholder","Corporate mail");
   	    	
   	    }
   	    // if select "Student" or "Educator" change Email to  "School email"
   	    else if(iam == 0 || iam == 1)
   	    {
   	    	$('#email-label').html('School email<span class="star"> *</span>');
+  	    	$('#email').attr("placeholder","School email");
   	    }
   	    else  
   	    {
