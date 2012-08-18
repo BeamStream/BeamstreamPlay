@@ -7,7 +7,7 @@ BS.ClassView = Backbone.View.extend({
 		"click .datepicker" :"setIndex",
 		"click a.legend-addclass" : "addSchool",
 		"click .back" :"backToPrevious",
-		"click .close-button" : "closeScreen"
+		"click .close-button" : "saveClass"
 
 	},
 
@@ -291,13 +291,7 @@ BS.ClassView = Backbone.View.extend({
       BS.AppRouter.navigate("school", {trigger: true});
     },
     
-    /**
-     * close class screen
-     */
-    closeScreen :function(eventName){
-  	  eventName.preventDefault();  
-      BS.AppRouter.navigate("streams", {trigger: true});
-    }
+    
 	
 	
 	
