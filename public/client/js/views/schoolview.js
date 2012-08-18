@@ -17,6 +17,7 @@ BS.SchoolView = Backbone.View.extend({
     initialize:function () {
     	
         console.log('Initializing School View');
+        BS.schoolBack = false;
         //this.template= _.template($("#tpl-school-reg").html());
 		this.source = $("#tpl-school-reg").html();
 		this.template = Handlebars.compile(this.source);
@@ -107,6 +108,7 @@ BS.SchoolView = Backbone.View.extend({
                     success:function(data){
                     	
                     	BS.schoolBack = false;
+                    	 
         				 // navigate to main stream page
                     	BS.AppRouter.navigate("streams", {trigger: true});
         
@@ -162,7 +164,6 @@ BS.SchoolView = Backbone.View.extend({
 	            	   
 	            	  // for back button functionality
 	            	  BS.schoolBack = true;
-//	            	  localStorage["SchoolDetails"] = JSON.stringify(data); 
 	            	  BS.AppRouter.navigate("class", {trigger: true});
 	            	  
 	              }
@@ -241,8 +242,6 @@ BS.SchoolView = Backbone.View.extend({
 	    	  var schoolId ='';
 	    	  var count = current;
 	    	  var schools = new BS.SchoolCollection();
-	    	  var data = JSON.parse(localStorage["SchoolDetails"]);
-	    	   
 	    	  if(BS.schoolNum)
 	    	  {
 	    		  if(BS.schoolNum <= current)
