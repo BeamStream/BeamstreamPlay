@@ -61,6 +61,7 @@
                     blur: $.proxy(this._hide, this)
                 })
             } else {
+            	 
                 this.element.on('click', $.proxy(this.show, this));
             }
         }
@@ -96,6 +97,7 @@
 			});
 		},
         _hide: function(e){
+        	 
             // When going from the input to the picker, IE handles the blur/click
             // events differently than other browsers, in such a way that the blur
             // event triggers a hide before the click event can stop propagation.
@@ -103,23 +105,28 @@
                 var t = this, args = arguments;
 
                 function cancel_hide(){
+                	  
+          
                     clearTimeout(hide_timeout);
                     e.target.focus();
                     t.picker.off('click', cancel_hide);
                 }
 
                 function do_hide(){
+                	 
                     t.hide.apply(t, args);
                     t.picker.off('click', cancel_hide);
                 }
-
+                
                 this.picker.on('click', cancel_hide);
                 var hide_timeout = setTimeout(do_hide, 100);
             } else {
+            	   
                 return this.hide.apply(this, arguments);
             }
         },
 		hide: function(){
+			 
 			this.picker.hide();
 			$(window).off('resize', this.place);
 			this.viewMode = 0;
@@ -142,7 +149,7 @@
 					
 					this.element.find('input').prop('value', formated);
 				}
-				alert(34);
+				
 				this.element.data('date', formated);
 			} else {
 				this.element.prop('value', formated);
@@ -159,15 +166,15 @@
 		},
 		
 		update: function(){
-			 
+			  
 			this.date = DPGlobal.parseDate(
 				this.isInput ? this.element.prop('value') : this.element.data('date'),
 				this.format
 			);
-			 
+			  
 			this.viewDate = new Date(this.date);
-			 
 			this.fill();
+			this.setValue();
 		},
 		
 		fillDow: function(){
@@ -249,10 +256,12 @@
 				html += '<span class="year'+(i == -1 || i == 10 ? ' old' : '')+(currentYear == year ? ' active' : '')+'">'+year+'</span>';
 				year += 1;
 			}
+			 
 			yearCont.html(html);
 		},
 		
 		click: function(e) {
+			 
 			e.stopPropagation();
 			e.preventDefault();
 			var target = $(e.target).closest('span, td, th');
