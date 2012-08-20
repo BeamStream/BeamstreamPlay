@@ -10,6 +10,7 @@ BS.ClassStreamView = Backbone.View.extend({
        "click .close-button" : "closeScreen",
        "keyup #class_name" :"getValuesForName",
        "focusin #class_name":"populateClassNames",
+       "change select#schools" : "showNewSchoolField"
 	},
 
 	initialize : function() {
@@ -423,6 +424,20 @@ BS.ClassStreamView = Backbone.View.extend({
     	var text = $('#class_name').val(); 
 		this.displayFieldsForName(text);
 		
+    },
+    /**
+     * show New school field 
+     */
+    showNewSchoolField : function(){
+    	 
+    	if($('#schools').val() == "add-school")
+    	{
+    		 $('#for-new-school').show();
+    	}
+    	else
+    	{
+    		 $('#for-new-school').hide();
+    	}
     }
 		
 });

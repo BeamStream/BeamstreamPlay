@@ -23,7 +23,6 @@ BS.AppRouter = Backbone.Router.extend({
     },
     initialize :function() {
     	
-    	
     	var self = this;
     	BS.idLogin = '';
         BS.user = new BS.SingleUser();
@@ -124,10 +123,9 @@ BS.AppRouter = Backbone.Router.extend({
      * display School Info screen
      */
     schoolReg:function () {
-        
+         
         if(BS.schoolBack)
 	    {
-	        
 	         BS.schoolNum = 1;
 	         BS.schoolView = new BS.SchoolView();
 	         BS.schoolView.render();
@@ -176,7 +174,7 @@ BS.AppRouter = Backbone.Router.extend({
 	    }
         else
         {
-        
+        	 
          BS.schoolView = new BS.SchoolView();
          BS.schoolView.render();
          $('#school-popup').html(BS.schoolView.el);
@@ -430,11 +428,11 @@ BS.AppRouter = Backbone.Router.extend({
 				localStorage["idLogin"]= '';
 				$('#school-popup').children().detach();
 				var self = this;
-				if (!BS.emailView) {
+//				if (!BS.emailView) {
 					BS.emailView = new BS.verifyEmailView();
 					BS.emailView.render();
 					
-				}
+//				}
 				
 				localStorage["idLogin"] = "register";
 				$('#school-popup').html(BS.emailView.el);
@@ -462,7 +460,7 @@ BS.AppRouter = Backbone.Router.extend({
 				BS.classStreamView = new BS.ClassStreamView();
 				BS.classStreamView.render();
 				$('#school-popup').html(BS.classStreamView.el);
-
+                $('#for-new-school').hide();
 				/* get all schoolIds under a class */
 				$
 						.ajax({
@@ -477,7 +475,8 @@ BS.AppRouter = Backbone.Router.extend({
 											+ '" > ' + data.schoolName
 											+ '</option>';
 								});
-								sSelect += '</select>';
+//								sSelect += '</select>';
+								sSelect += '<option value ="add-school" > Add School</option></select>';
 								$('#sShool').html(sSelect);
 								$(".modal select:visible").selectBox();
 							}
