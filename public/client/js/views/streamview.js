@@ -28,9 +28,9 @@ BS.StreamView = Backbone.View.extend({
            "click #sort-messages li a" : "sortMessages",
            "keypress #sort_by_key" : "sortMessagesByKey",
            "click .follow" : "followMessage",
-           "click #msg"  : "showBitleys",
+//           "click #msg"  : "showBitleys",
            "click .social_media" : "uncheckPrivate",
-           "keyup #msg" : "makeBitly"
+//           "keyup #msg" : "makeBitly"
            
  
 	 },
@@ -397,6 +397,8 @@ BS.StreamView = Backbone.View.extend({
       var messageAccess;
       var streamId = $('#streams-list li.active a').attr('id');
       var message = $('#msg').val();
+      BS.updatedMsg =  message;
+      
       if(!message.match(/^[\s]*$/))
       {
     	  
@@ -410,29 +412,8 @@ BS.StreamView = Backbone.View.extend({
 	  		messageAccess = "Public";
 	  	  }
 	  	  
-//	  	  //find link part from the message
-//	      var link =  message.match(BS.urlRegex); 
-//	      if(link)
-//	      {
-//	    	  /* post url information */
-//	          $.ajax({
-//	    			type : 'POST',
-//	    			url : BS.bitly,
-//	    			data : {
-//	    				 link : link[0]
-//	    			},
-//	    			dataType : "json",
-//	    			success : function(data) {
-//	    				 message = message.replace(link[0],data.data.url);
-//	    				 self.postMsg(message,streamId,messageAccess);
-//	    			}
-//	    		});
-//	      }
-//	      //if link not present
-//	      else
-//	      {
+ 
 	    	  self.postMsg(message,streamId,messageAccess);
-//	      }
       }
     },
     /**
@@ -457,6 +438,7 @@ BS.StreamView = Backbone.View.extend({
   				   }
   				   else
   				   {
+  					 
   					      // append the message to message list
   						_.each(data, function(data) {
   							 
@@ -488,7 +470,7 @@ BS.StreamView = Backbone.View.extend({
 	  	  					 });
 	  	  					 
   				         });
-               
+  						 
   				   }
                                    
   				   $('.selector').html("");
@@ -758,8 +740,43 @@ BS.StreamView = Backbone.View.extend({
 	  */
 	 postMessageOnEnterKey : function(eventName){
 		 var self = this;
+		 
+		 
 		 if(eventName.which == 13) {
 			 self.postMessage(); 
+		 }
+		 if(eventName.which == 32){
+			  
+			 var text = $('#msg').val();
+			 var links =  text.match(BS.urlRegex); 
+			 
+			  /* create bitly for each url in text */
+			 _.each(links, function(link) {
+					 if(link)
+				     {
+						 /* don't create bitly for shortened  url */
+						 if(!link.match(/^(http:\/\/bstre.am\/)/))
+						 { 
+				    	  /* create bitly  */
+				          $.ajax({
+				    			type : 'POST',
+				    			url : BS.bitly,
+				    			data : {
+				    				 link : link 
+				    			},
+				    			dataType : "json",
+				    			success : function(data) {
+				    				 var msg = $('#msg').val();
+				    				 message = msg.replace(link,data.data.url);
+				    				 $('#msg').val(message);
+				    				 
+				    			}
+				    		});
+				        }
+				      }
+					  
+				});
+			 $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 		 }
 
 	 },
@@ -1142,11 +1159,7 @@ BS.StreamView = Backbone.View.extend({
 	  		});
 	 },
 	 
-	 showBitleys : function(){
-		  
-		  $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
-		  
-	 },
+	 
 	 
 	 /**
 	  * when a user clicks on a social media icon or icons for sharing the check mark is un checked.
@@ -1156,36 +1169,6 @@ BS.StreamView = Backbone.View.extend({
 		 $('#id-private').attr('checked',false);
 	 },
 	 
-	 /**
-	  *  create bitly for each url in message
-	  */
-	 makeBitly :function(){
-		 var text = $('#msg').val();
-		 var links =  text.match(BS.urlRegex); 
-		 
-		  /* create bitly for each url in text */
-		 _.each(links, function(link) {
-				 if(link)
-			     {
-					 /* don't create bitly for shortened  url */
-					 if(!link.match(/^(http:\/\/bstre.am\/)/))
-					 { 
-			    	  /* create bitly  */
-			          $.ajax({
-			    			type : 'POST',
-			    			url : BS.bitly,
-			    			data : {
-			    				 link : link 
-			    			},
-			    			dataType : "json",
-			    			success : function(data) {
-			    				 message = text.replace(link,data.data.url);
-			    				 $('#msg').val(message);
-			    			}
-			    		});
-			        }
-			      }
-			});
-	 }
+	 
 	 
 });
