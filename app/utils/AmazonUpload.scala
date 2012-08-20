@@ -17,7 +17,7 @@ object AmazonUpload {
    * This will upload the images and video to Amazon
    */
   def uploadFileToAmazon(profilePicName: String, profilePic: File) {
-    val bucketName = "Beamstream"
+    val bucketName = "BeamStream"
     val AWS_ACCESS_KEY_RAW = Play.current.configuration.getString("A_A_K").get
     val AWS_SECRET_KEY_RAW = Play.current.configuration.getString("A_S_K").get
 

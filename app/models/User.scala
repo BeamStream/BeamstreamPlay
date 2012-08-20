@@ -32,14 +32,11 @@ case class User(@Key("_id") id: ObjectId,
   questions: List[ObjectId]) {
 }
 
-//case class UserForm(iam: String, email: String, password: String, signup: String)
-//case class BasicRegForm(userName: String, password: String, orgName: String, firstName: String, lastName: String, email: String, location: String, iam: String, useCurrentLocation: Option[Boolean])
-//case class DetailedRegForm(schoolName: String)
 object User {
 
   implicit val formats = DefaultFormats
 
-  var activeUsersList: List[String] = List()
+  var activeUsersList: List[ObjectId] = List()
 
   /*
    * Add info to a user((For SchoolAutopoulate thing))
@@ -193,24 +190,6 @@ object User {
 
   }
 
-  /*
-   * Adding Active User
-   */
-
-  def activeUsers(activeUserId: String) = {
-    activeUsersList ++= List(activeUserId)
-    Cache.set("userIds", activeUsersList)
-
-  }
-  /*
-   * Removing inactiveUser
-   */
-
-  def InactiveUsers(InactiveUserId: String) = {
-    activeUsersList --= List(InactiveUserId)
-    Cache.set("userIds", activeUsersList)
-
-  }
 
   /*
   * Find User By Id
