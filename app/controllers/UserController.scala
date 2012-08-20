@@ -20,8 +20,11 @@ import play.mvc.Http.Request
 import utils._
 import play.api.libs.json.JsValue
 import play.api.libs.json.Json
+import play.cache.Cache
 
 object UserController extends Controller {
+
+  var activeUsersInTheSystem: List[ObjectId] = List()
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
   } + new ObjectIdSerializer
@@ -48,6 +51,10 @@ object UserController extends Controller {
         val authenticatedUserJson = write(user)
         //        if(rememberMe==true) Ok(statusToSend).as("application/json").withCookies(Cookie("userName",user.email),Cookie("password",user.password)).withSession(userSession)
         //        else  Ok(statusToSend).as("application/json").withSession(userSession)
+        /*
+        Cache.set("ActiveUsersInTheSystem", activeUsersInTheSystem ++ List(new ObjectId(request.session.get("userId").get)))
+        println(Cache.get("ActiveUsersInTheSystem"))
+        */
         Ok(statusToSend).withSession(userSession)
 
       case None =>
@@ -118,7 +125,10 @@ object UserController extends Controller {
    */
 
   def signOut = Action { implicit request =>
-    //    User.InactiveUsers(request.session.get("userId").get)
+    /*
+    Cache.set("ActiveUsersInTheSystem", activeUsersInTheSystem -- List(new ObjectId(request.session.get("userId").get)))
+    println(Cache.get("ActiveUsersInTheSystem"))
+    */
     Ok.withNewSession
   }
 

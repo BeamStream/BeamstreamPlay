@@ -41,7 +41,7 @@ object MediaController extends Controller {
           val imageFileObtained: File = imageData.ref.file.asInstanceOf[File]
           val imageNameOnAmazon = uniqueString + imageFilename // Security Over the images files
           AmazonUpload.uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
-          val imageURL = "https://s3.amazonaws.com/Beamstream/" + imageNameOnAmazon
+          val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
           val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, UserMediaType.Image, false)
           UserMedia.saveMediaForUser(media)
           ProfileImageProviderCache.setImage(media.userId.toString,media.mediaUrl)

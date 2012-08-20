@@ -10,6 +10,7 @@ object ConversionUtility extends App {
    */
   val str = ""
   val encodedString = Hex.encodeHexString(str.getBytes("cp424"))
+  println(encodedString)
 
   
   /*
