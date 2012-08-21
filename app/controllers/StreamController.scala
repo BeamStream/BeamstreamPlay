@@ -19,6 +19,7 @@ import models.ClassType
 import models.User
 import models.StreamType
 import models.Class
+import models.ResulttoSent
 
 object StreamController extends Controller {
 
@@ -29,7 +30,7 @@ object StreamController extends Controller {
 
   def index = Action {
     Ok("This is BeamStream Application by Knoldus Software")
-  
+
   }
 
   /*
@@ -38,17 +39,17 @@ object StreamController extends Controller {
    */
   def getAllStreamForAUser = Action { implicit request =>
     val allStreamsForAUser = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
-    val allStreamsForAUserJson=write(allStreamsForAUser)
+    val allStreamsForAUserJson = write(allStreamsForAUser)
     Ok(allStreamsForAUserJson).as("application/json")
   }
-  
-   /*
+
+  /*
    * Get All Class Stream for a user
    * 
    */
   def allClassStreamsForAUser = Action { implicit request =>
     val allClassStreamsForAUser = Stream.allClassStreamsForAUser(new ObjectId(request.session.get("userId").get))
-    val allStreamsForAUserJson=write(allClassStreamsForAUser)
+    val allStreamsForAUserJson = write(allClassStreamsForAUser)
     Ok(allStreamsForAUserJson).as("application/json")
   }
 
@@ -56,22 +57,38 @@ object StreamController extends Controller {
    * Creates a class and a new Stream
    */
 
-def newStream = Action { implicit request =>
+  def newStream = Action { implicit request =>
 
     val classListJsonMap = request.body.asFormUrlEncoded.get
     val classJsonList = classListJsonMap("data").toList(0)
     val classList = net.liftweb.json.parse(classJsonList).extract[List[Class]]
-    val listOfClassIds = Class.createClass(classList,new ObjectId(request.session.get("userId").get))
+    val listOfClassIds = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
     User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
 
     val classJson = net.liftweb.json.parse(classJsonList)
     val classTag = (classJson \ "classTag").extract[String]
-    		
+
     //updating Tags 
-    val classToUpdateWithTags=Class.findClasssById(listOfClassIds(0))
-    val streamId=classToUpdateWithTags.streams(0)
-    Stream.addTagsToStream(List(classTag),streamId)
+    val classToUpdateWithTags = Class.findClasssById(listOfClassIds(0))
+    val streamId = classToUpdateWithTags.streams(0)
+    Stream.addTagsToStream(List(classTag), streamId)
     Ok
+  }
+
+  
+  /*
+   * Join the stream (From class stream page)
+   * @Purpose : User Joins a stream here
+   * 
+   */
+  def joinStream = Action { implicit request =>
+    val classListJsonMap = request.body.asFormUrlEncoded.get
+    val classJsonList = classListJsonMap("data").toList(0)
+    val classJson = net.liftweb.json.parse(classJsonList)
+    val classId = (classJson \ "id").extract[String]
+    val streamId = Class.findClasssById(new ObjectId(classId)).streams(0)
+    Stream.joinStream(streamId, new ObjectId(request.session.get("userId").get))
+    Ok(write(new ResulttoSent("Success", "User has SuccessFully Joined The Stream")))
   }
 
 }
