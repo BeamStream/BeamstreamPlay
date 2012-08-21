@@ -465,7 +465,7 @@ BS.AppRouter = Backbone.Router.extend({
 				$
 						.ajax({
 							type : 'GET',
-							url : BS.allSchoolForAUser,
+							url : BS.schoolJson,
 							dataType : "json",
 							success : function(datas) {
 

@@ -153,7 +153,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			/* get all schoolIds under a class */
 			 $.ajax({
 					type : 'GET',
-					url : BS.allSchoolForAUser,
+					url : BS.schoolJson,
 					dataType : "json",
 					success : function(datas) {
 						
@@ -400,7 +400,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			/* get all schoolIds under a class */
 			 $.ajax({
 					type : 'GET',
-					url : BS.allSchoolForAUser,
+					url : BS.schoolJson,
 					dataType : "json",
 					success : function(datas) {
 						
