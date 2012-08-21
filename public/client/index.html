@@ -390,10 +390,12 @@
 
 <!--  Class stream template -->
 <script type="text/x-handlebars-template" id="tpl-class-stream">
+
 <div class="modal-backdrop in"></div>
     <div class="modal school-popup modal-pull-top in modal-popups" style="display:block;">
+     <div id="new-school-view" ></div>
      <div class="modal-header">
-	<a href="#"><img class="close-button" src="images/close-button.png"></a>
+	<a href="#"><img id="close-stream" class="close-button" src="images/close-button.png"></a>
     <h1 class="pull-left">Create a class stream</h1>
   </div>
   <div class="modal-body">
@@ -919,6 +921,93 @@
 
 		
 </script>
+<!-- School Registration template-->
+<script type="text/x-handlebars-template" id="one-new-school">
+ <div class="modal-backdrop in"></div>
+    <div class="modal new-school  modal-popups" style="display:block;">
+     <div class="modal-header">
+		<a href="#"><img id="close-screen" class="close-button" src="images/close-button.png"></a>
+        <h1 class="pull-left">Add New School</h1>
+     </div>
+    <div id="error" class="invalid-validation" style="margin-left:20px; color:red;"></div>
+    <div class="modal-body">
+        <form name="school-form" id="school-form">
+            <fieldset>
+                <legend class="legend">school info</legend>
+				<div class="school-registration">
+                <div class="form-row">
+                    <div class="element">
+                        <label for="year">Year</label>
+                        <select name="year" id="year" class="span2">
+                            <option value="Freshman">Freshman</option>
+                            <option value="Sophomore">Sophomore</option>
+                            <option value="Junior">Junior</option>
+                            <option value="Senior">Senior</option>
+                            <option value="Graduated(Master's)">Graduated(Master's)</option>
+                            <option value="Graduated(Phd)">Graduated(Phd)</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                     <div class="element">
+                        <label for="degree-program">Degree program</label>
+                        <select name="degreeprogram" id="degreeprogram" class="degreepgm span2">
+                            <option value="Assosiates(AA)">Assosiates(AA)</option>
+                            <option value="Bachelor's">Bachelor's</option>
+                            <option value="Master's">Master's</option>
+                            <option value="Doctorate(Phd)">Doctorate(Phd)</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+					<div class="element" id="other-degrees">
+                        <label for="other-degree">Degree <span class="star"> *</span></label>
+                        <input type="text" name="other-degree" id="other-degree" class="small" placeholder="Degree">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="element">
+                        <label for="major">Major <span class="star"> *</span></label>
+                        <input type="text" name="major" id="major" class="validate[required] span3" placeholder="Your Major" >
+                    </div>
+                   </div>
+                 <div class="form-row">
+					<div class="element">
+                        <label for="graduated">Graduated? <span class="star"> *</span></label>
+                        <select id="graduated" name ="graduated"  class="graduated span2">
+ 							<option> </option>
+                            <option value="attending">Still Attending</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+					<div class="element" id="cal">
+                        <label for="calendar">Calendar</label>
+                        <input class="span2 datepicker cal" type="text" placeholder ="Date" id="calendar-1"/>
+                    </div>
+
+                      <div class="element" id="degree-exp">
+                        <label for="degree-expected-1">Degree expected</label>
+                        <select id="degree-expected-1"  name="degree-expected-1" class="span3" >
+                            <option value="Winter 2012">Winter 2012</option>
+                            <option value="Summer 2013">Summer 2013</option>
+                            <option value="Winter 2013">Winter 2013</option>
+                            <option value="Summer 2014">Summer 2014</option>
+                            <option value="Winter 2014">Winter 2014</option>
+                            <option value="Summer 2015">Summer 2015</option>
+                            <option value="Winter 2015">Winter 2015</option>
+                            <option value="No Degree Expected">No Degree Expected</option>
+                        </select>
+                    </div>
+                </div>
+			 </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" id ="save" class="btn btn-primary pull-right"  >Save & Exit</a>
+     </div>
+ </div>
+</script>
+
 
 <!-- School Registration template-->
 	<script type="text/x-handlebars-template" id="tpl-school-reg">
@@ -2532,7 +2621,7 @@ function janRainLogin(info){
 <script src="js/views/classview.js"></script>
 <script src="js/models/classmodel.js"></script>
 <script src="js/models/profilemodel.js"></script>
-
+<script src="js/views/newschoolview.js"></script>
 <script src="js/views/filesmediaview.js"></script>
 <script src="js/models/singleusermodel.js"></script>
 <script src="js/models/documentmodel.js"></script>

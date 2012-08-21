@@ -7,7 +7,7 @@ BS.ClassStreamView = Backbone.View.extend({
        "click #createClass" : "createClass",
        "click #joinClass" :"joinClass",
        "click #add-tags" : "addTags",
-       "click .close-button" : "closeScreen",
+       "click #close-stream" : "closeScreen",
        "keyup #class_name" :"getValuesForName",
        "focusin #class_name":"populateClassNames",
        "change select#schools" : "showNewSchoolField"
@@ -444,9 +444,15 @@ BS.ClassStreamView = Backbone.View.extend({
     	if($('#schools').val() == "add-school")
     	{
     		 $('#for-new-school').show();
-    		 
-//    		 BS.newSchoolView = new BS.NewSchoolView();
-//    		 BS.newSchoolView.render();
+    		 BS.newSchoolView = new BS.NewSchoolView();
+    		 BS.newSchoolView.render();
+             $('#new-school-view').html(BS.newSchoolView.el);
+             $(".modal select:visible").selectBox();
+     		 $('.modal .datepicker').datepicker();
+     		
+     		 $('#degree-exp').hide();
+             $('#cal').hide();
+             $('#other-degrees').hide();
     		
     	}
     	else
