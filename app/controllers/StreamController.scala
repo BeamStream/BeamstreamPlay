@@ -29,7 +29,7 @@ object StreamController extends Controller {
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
   def index = Action {
-    Ok("This is BeamStream Application by Knoldus Software")
+    Ok("This is BeamStream Application by Knoldus Software LLP  Neelkanth Sachdeva(Sr. Developer)")
 
   }
 
@@ -56,6 +56,7 @@ object StreamController extends Controller {
   /*
    * Creates a class and a new Stream
    * @Purpose: This will create a new class & correspondent stream
+   * For class stream screen 
    */
 
   def newStream = Action { implicit request =>
