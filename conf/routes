@@ -16,7 +16,7 @@ POST /users      controllers.UserController.findUser
 GET /allStreamsForAUser controllers.StreamController.getAllStreamForAUser
 GET /allClassStreamsForAUser controllers.StreamController.allClassStreamsForAUser
 POST /newStream controllers.StreamController.newStream
-
+POST /joinStreams controllers.StreamController.joinStream
 
 
 #Messages
@@ -33,8 +33,8 @@ POST   /newComment                   controllers.CommentController.newComment
 POST    /allCommentsForAMessage       controllers.CommentController.allCommentsForAMessage
 
 
-#Join Streams
-POST /joinStreams controllers.JoinStream.joinStream
+
+
 
 #Documents
 GET /documents controllers.DocumentController.documents
@@ -58,6 +58,7 @@ POST /detailed_reg controllers.DetailedRegistration.addInfo
 POST /class        controllers.ClassController.addClass
 
 #Auto populate class
+
 POST /autoPopulateClasses controllers.ClassController.findClasstoAutoPopulate
 
 #Getting the School JSON
