@@ -264,8 +264,17 @@ BS.ClassStreamView = Backbone.View.extend({
 			dataType : "json",
 			success : function(data) {
 				 
-				 console.log("success");
-				 BS.AppRouter.navigate("streams", {trigger: true});
+				  if(data.status == "Success")
+				  {
+					  alert(data.message);
+					  BS.AppRouter.navigate("streams", {trigger: true});
+				  }
+				  else
+				  {
+					  alert(data.message);
+				  }
+					
+				 
 			}
 		});
 	},
