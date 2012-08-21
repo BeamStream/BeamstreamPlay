@@ -28,7 +28,6 @@ object StreamController extends Controller {
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
   def index = Action {
-      
     Ok("This is BeamStream Application by Knoldus Software")
   
   }

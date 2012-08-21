@@ -58,6 +58,7 @@ POST /detailed_reg controllers.DetailedRegistration.addInfo
 POST /class        controllers.ClassController.addClass
 
 #Auto populate class
+
 POST /autoPopulateClasses controllers.ClassController.findClasstoAutoPopulate
 
 #Getting the School JSON
