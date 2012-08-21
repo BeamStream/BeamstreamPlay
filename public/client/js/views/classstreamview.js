@@ -113,6 +113,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		 {
 			 this.classId = classId;
 			 $('#class_name').val(className);
+			 
 			 $('#date-started').val(date);
 			 $('#semester option:selected').attr('selected', false);
 			 $('#semester option[value="'+classType+'"]').attr('selected', 'selected');
@@ -216,7 +217,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		 
 		var classCode = $('#class-code').val();
 		var classTime = $('#class-time').val();
-		var className = $('#class-name').val();
+		var className = $('#class_name').val();
 		var date = $('#date-started').val();
 		var type = $('#semester').val();
 		var school = $('#schools').val();
@@ -443,6 +444,10 @@ BS.ClassStreamView = Backbone.View.extend({
     	if($('#schools').val() == "add-school")
     	{
     		 $('#for-new-school').show();
+//    		 
+//    		 BS.newSchoolView = new BS.NewSchoolView();
+//    		 BS.newSchoolView.render();
+    		
     	}
     	else
     	{
