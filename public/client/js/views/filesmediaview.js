@@ -6,7 +6,8 @@ BS.FilesMediaView = Backbone.View.extend({
 	       "click '.nav a" : "addActive",
            "click #go_button" : "uploadFile",
 //               "click #profile-images":"listProfileImages",
-           "click .google_doc" : "showDocPopup"
+           "click .google_doc" : "showDocPopup",
+           "click .filter-options li a" : "filterDocs"
 	      
 	 },
 	
@@ -160,10 +161,17 @@ BS.FilesMediaView = Backbone.View.extend({
          * For Doc popups
          */
         showDocPopup :function(eventName){
+        	
         	var docId = eventName.currentTarget.id;
         	var docUrl = $('input#id-'+docId).val();
     		newwindow=window.open(docUrl,'','height=500,width=800,top=100,left=250');
         	 
+        },
+        /**
+         * filter docs.. and prevent default action
+         */
+        filterDocs :function (eventName){
+        	eventName.preventDefault();
         }
         
 });
