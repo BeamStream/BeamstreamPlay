@@ -1148,7 +1148,7 @@
                   <li>
                     <div class="photo_container" >
 					   
-                      <img id="right-photo" src="images/placeholders/face5.png" width="36" height="37">
+                      <img id="right-photo" src="" width="36" height="37">
                     </div>
                   </li>
                   <li class="dropdown">
@@ -1715,11 +1715,11 @@
                               Private
                             </label>
                           </li>
-                          <li class="plus social_media"><a href="#plus" class="btn btn-flat"><i class="icon-middle-plus"></i></a></li>
- 						  <li class="pinterect social_media"><a href="#pinterect " class="btn btn-flat"><i class="icon-middle-pinterect"></i></a></li>
-                          <li class="twitter social_media"><a href="#twitter" class="btn btn-flat"><i class="icon-middle-twitter"></i></a></li>
-                          <li class="facebook social_media"><a href="#facebook" class="btn btn-flat"><i class="icon-middle-facebook"></i></a></li>
-                          <li class="linkedin social_media"><a href="#linkedin" class="btn btn-flat"><i class="icon-middle-linkedin"></i></a></li>
+                          <li class="plus social_media"><a id="plus" href="#plus" class="btn btn-flat"><i class="icon-middle-plus"></i></a></li>
+ 						  <li class="pinterect social_media"><a id="pinterect" href="#pinterect " class="btn btn-flat"><i class="icon-middle-pinterect"></i></a></li>
+                          <li class="twitter social_media"><a id ="twitter" href="#twitter" class="btn btn-flat"><i class="icon-middle-twitter"></i></a></li>
+                          <li class="facebook social_media"><a id ="facebook" href="#facebook" class="btn btn-flat"><i class="icon-middle-facebook"></i></a></li>
+                          <li class="linkedin social_media"><a id="linkedin" href="#linkedin" class="btn btn-flat"><i class="icon-middle-linkedin"></i></a></li>
 						  <li><input class ="msg-post_button" id="post-msg" type="button" value="POST"> </input></li>
                         </ul>
                       </div>
@@ -1808,7 +1808,7 @@
   
    <script type="text/x-handlebars-template" id="tpl-comments">
   
-       <li>
+       <li id="{{id.id}}">
           <article class="message_item">
             <div class="comment_wrapper">
               <div class="photo_container">
@@ -1826,7 +1826,7 @@
                              {{commentBody}}
                               </p>
                              <div class="actions">
-                              <a class="rock" href="#rock"><i class="rocked"><i>{{rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
+                              <a class="rock" href="#rock"><i class="rocked rock-comment"><i>{{rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
                              <a class="rock" href="#rock">Rocked it!</a>
                              <span class="separator">-</span>
                             <a class="comment" href="#comment">Comment</a>
@@ -1842,7 +1842,7 @@
    
     <script type="text/x-handlebars-template" id="tpl-new-comments">
   
-       <li>
+       <li id="{{id.id}}">
           <article class="message_item">
             <div class="comment_wrapper">
               <div class="photo_container">
@@ -1860,7 +1860,7 @@
                              {{commentBody}}
                               </p>
                              <div class="actions">
-                              <a class="rock" href="#rock"><i class="rocked"><i>{{rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
+                              <a class="rock" href="#rock"><i class="rocked rock-comment"><i>{{rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
                              <a class="rock" href="#rock">Rocked it!</a>
                              <span class="separator">-</span>
                             <a class="comment" href="#comment">Comment</a>
@@ -1907,7 +1907,7 @@
        </div>
 		 
        <div class="actions actions with-tooltips tooltips-top btn-group">
-         <a class="rock " href="#rock" data-original-title="hello"><i class="rocked"><i>{{datas.rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
+         <a class="rock " href="#rock" data-original-title="hello"><i class="rocked rock-message"><i>{{datas.rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
          <a class="rock" id="rocks" href="#rock">Rocked it!</a>
          <span class="separator">-</span>
          <a class="comment" id ="{{datas.id.id}}-comment" href="#comment">Comment</a>

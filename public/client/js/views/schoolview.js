@@ -265,6 +265,7 @@ BS.SchoolView = Backbone.View.extend({
 		    	  {
 			    	  degreeexp = "";
 			    	  degdate = $('#calendar-'+i).val();
+			    	  
 		    	  }
 		    	  else
 		    	  {
@@ -314,7 +315,6 @@ BS.SchoolView = Backbone.View.extend({
 	
 	
 		    	  var school = new BS.School();
-		
 		    	  // school.set({id:i,schoolName: $('#school-name-'+i).val(),assosiatedSchoolId:assosiatedSchoolId,year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val() }, graduated: $('#graduated-'+i).val(), graduationDate: degdate ,otherDegree: otherDegree});
 		    	  school.set({id:schoolId,schoolName: $('#school-name-'+i).val(),assosiatedSchoolId:assosiatedSchoolId,year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val() }, graduated: $('#graduated-'+i).val(), graduationDate: degdate ,otherDegree: otherDegree});
 		

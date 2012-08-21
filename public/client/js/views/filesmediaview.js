@@ -5,8 +5,10 @@ BS.FilesMediaView = Backbone.View.extend({
 	       "click ul.file-type li a" : "hideList",
 	       "click '.nav a" : "addActive",
            "click #go_button" : "uploadFile",
-//               "click #profile-images":"listProfileImages",
-           "click .google_doc" : "showDocPopup"
+//          "click #profile-images":"listProfileImages",
+           "click .google_doc" : "showDocPopup",
+           "click .filter-options li a" : "filterDocs"
+ 
 	      
 	 },
 	
@@ -78,15 +80,14 @@ BS.FilesMediaView = Backbone.View.extend({
        
          var documentModel = new BS.Document();
          documentModel.set({
-                docName : 'doc3',
+                docName : 'doc88',
                 docURL : $("#upload-media").val(),
                 docAccess: 'Public',
                 docType: 'GoogleDocs'
           });
           var documentData = JSON.stringify(documentModel);
-          
-          
-            $.ajax({
+              var self = this;
+                      $.ajax({
                     type : 'POST',
                     url : BS.docUpload,
                     data : {
@@ -97,17 +98,18 @@ BS.FilesMediaView = Backbone.View.extend({
                         if(data.status == 'Failure')
                                 console.log("Failed.Please try again");
                             else
-                                console.log("Doc Uploaded Successfully");
-                    }
+                                //console.log("Doc Uploaded Successfully");
+                              self.docsList(); 
+                        }           
             });
-  
-     },
-     
+       
+        },
+      
         docsList : function()
-        {
+        {       
             var i = 1;
-            $('#content').children().detach();
-            $('#school-popup').children().detach();
+//            $('#content').children().detach();
+//            $('#school-popup').children().detach();
             var self = this;
             BS.user.fetch({ success:function(e) {
 
@@ -121,11 +123,8 @@ BS.FilesMediaView = Backbone.View.extend({
                         dataType : "json",
 
                         success : function(docs) {
-                            
-                            
                               _.each(docs, function(doc) {
-                                  
-                                 var datVal =  self.formatDateVal(doc.creationDate);
+                      var datVal =  self.formatDateVal(doc.creationDate);
                       var content = '<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'"><input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'"><div class="comment-wrapper comment-wrapper2"><a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a><a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><h4>'+doc.name+'</h4><p>The Power of The Platform Behance Network Join The Leading Platform For </p><h5> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> </div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#">87</a></li><li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#">10</a></li></ul></div>'; 
                       $('#file-docs-'+i).html(content);
                       
@@ -160,10 +159,17 @@ BS.FilesMediaView = Backbone.View.extend({
          * For Doc popups
          */
         showDocPopup :function(eventName){
+ 
         	var docId = eventName.currentTarget.id;
         	var docUrl = $('input#id-'+docId).val();
     		newwindow=window.open(docUrl,'','height=500,width=800,top=100,left=250');
         	 
+        },
+        /**
+         * filter docs.. and prevent default action
+         */
+        filterDocs :function (eventName){
+        	eventName.preventDefault();
         }
         
 });
