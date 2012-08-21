@@ -18,7 +18,7 @@ object SchoolController extends Controller {
   } + new ObjectIdSerializer
 
   /*
- * Provides All School For a User
+ * Provides All School For a User (Duplicacy seen : exactly like /schoolJson)
  */
   def getAllSchoolForAUser = Action { implicit request =>
     val userId = new ObjectId(request.session.get("userId").get)

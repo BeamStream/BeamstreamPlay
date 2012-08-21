@@ -12,14 +12,14 @@ class SchoolTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
-  val myschool1 = UserSchool(new ObjectId, "MPS",new ObjectId, Year.Freshman, Degree.Assosiates,
-    "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013),"", List())
+  val myschool1 = UserSchool(new ObjectId, "MPS", new ObjectId, Year.Freshman, Degree.Assosiates,
+    "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), "", List())
 
-  val myschool2 = UserSchool(new ObjectId, "DPS",new ObjectId, Year.Freshman, Degree.Assosiates,
-    "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013),"", List())
+  val myschool2 = UserSchool(new ObjectId, "DPS", new ObjectId, Year.Freshman, Degree.Assosiates,
+    "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), "", List())
 
-  val myschool3 = UserSchool(new ObjectId, "DPS",new ObjectId, Year.Freshman, Degree.Assosiates,
-    "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), "",List())
+  val myschool3 = UserSchool(new ObjectId, "DPS", new ObjectId, Year.Freshman, Degree.Assosiates,
+    "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), "", List())
 
   before {
     UserSchool.createSchool(List(myschool1, myschool2, myschool3))
@@ -27,7 +27,7 @@ class SchoolTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Check the School Creation") {
-    
+
     val schoolA = UserSchoolDAO.find(MongoDBObject("schoolName" -> "MPS"))
     assert(schoolA.size === 1)
 
@@ -58,7 +58,6 @@ class SchoolTest extends FunSuite with BeforeAndAfter {
     assert(schoolsList.size === 2)
 
   }
-  
 
   after {
     UserSchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))

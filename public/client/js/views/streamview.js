@@ -15,7 +15,8 @@ BS.StreamView = Backbone.View.extend({
            "click ul#select-streams li a" : "showStreamList",
            "click #icon-up" :"slideUp",
            "click #icon-down" : "slideDown",
-           "click i.rocked" : "rockedIt",
+           "click i.rock-message" : "rockMessage",
+           "click i.rock-comment" :"rockComments",
            "mouseenter a#rocks" : "showRockers",
            "click .edit_profilepicture" : "showProfilePage",
            "click .nav-tabs li" : "showActive",
@@ -30,7 +31,8 @@ BS.StreamView = Backbone.View.extend({
            "click .follow" : "followMessage",
 //           "click #msg"  : "showBitleys",
            "click .social_media" : "uncheckPrivate",
-//           "keyup #msg" : "makeBitly"
+           "click #id-private" : "makePrivate"
+//           "keyup #msg" : "makeBitly",
            
  
 	 },
@@ -412,8 +414,38 @@ BS.StreamView = Backbone.View.extend({
 	  		messageAccess = "Public";
 	  	  }
 	  	  
- 
+	  	  
+	  	  //find link part from the message
+	      var link =  message.match(BS.urlRegex); 
+	      if(link)
+	      {
+	    	  if(!link[0].match(/^(http:\/\/bstre.am\/)/))
+			 { 
+	    	  /* post url information */
+	          $.ajax({
+	    			type : 'POST',
+	    			url : BS.bitly,
+	    			data : {
+	    				 link : link[0]
+	    			},
+	    			dataType : "json",
+	    			success : function(data) {
+	    				 message = message.replace(link[0],data.data.url);
+	    				 self.postMsg(message,streamId,messageAccess);
+	    			}
+	    		});
+			 }
+	    	 else
+	    	 {
+	    		 self.postMsg(message,streamId,messageAccess);
+	    	 }
+	    	
+	      }
+	      //if link not present
+	      else
+	      {
 	    	  self.postMsg(message,streamId,messageAccess);
+	      }
       }
     },
     /**
@@ -438,7 +470,6 @@ BS.StreamView = Backbone.View.extend({
   				   }
   				   else
   				   {
-  					 
   					      // append the message to message list
   						_.each(data, function(data) {
   							 
@@ -470,7 +501,7 @@ BS.StreamView = Backbone.View.extend({
 	  	  					 });
 	  	  					 
   				         });
-  						 
+               
   				   }
                                    
   				   $('.selector').html("");
@@ -626,10 +657,10 @@ BS.StreamView = Backbone.View.extend({
 	 },
 	 
 	 /**
-	  * get Rocked count
+	  * Rock Messages
 	  */
 	 
-	 rockedIt :function(eventName){
+	 rockMessage :function(eventName){
 		 
 		 eventName.preventDefault();
 		 var element = eventName.target.parentElement;
@@ -652,7 +683,32 @@ BS.StreamView = Backbone.View.extend({
 	 },
 	 
 	 /**
-	  * get rockers 
+	  * Rock comments
+	  */
+	 rockComments :function(eventName){
+		 
+		 eventName.preventDefault();
+		 var element = eventName.target.parentElement;
+		 var commentId =$(element).closest('li').attr('id');
+		 
+		 $.ajax({
+             type: 'POST',
+             url:BS.rockedIt,
+             data:{
+            	  commentId:commentId
+             },
+             dataType:"json",
+             success:function(data){
+            	 
+            	// display the count in icon
+            	$('li#'+commentId+'').find('i').find('i').html(data);
+ 
+             }
+          });
+	 },
+	 
+	 /**
+	  * get list of message rockers 
 	  */
 	 getRockers :function(msgId,position){
 		  
@@ -746,7 +802,7 @@ BS.StreamView = Backbone.View.extend({
 			 self.postMessage(); 
 		 }
 		 if(eventName.which == 32){
-			  
+			 
 			 var text = $('#msg').val();
 			 var links =  text.match(BS.urlRegex); 
 			 
@@ -769,15 +825,16 @@ BS.StreamView = Backbone.View.extend({
 				    				 var msg = $('#msg').val();
 				    				 message = msg.replace(link,data.data.url);
 				    				 $('#msg').val(message);
-				    				 
+				    				
 				    			}
 				    		});
 				        }
 				      }
-					  
 				});
-			 $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+			
+			
 		 }
+		 $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 
 	 },
 	 /**
@@ -1159,7 +1216,7 @@ BS.StreamView = Backbone.View.extend({
 	  		});
 	 },
 	 
-	 
+	  
 	 
 	 /**
 	  * when a user clicks on a social media icon or icons for sharing the check mark is un checked.
@@ -1167,8 +1224,24 @@ BS.StreamView = Backbone.View.extend({
 	 uncheckPrivate :function(eventName){
 		 eventName.preventDefault(); 
 		 $('#id-private').attr('checked',false);
+		 var seletedId = eventName.target.parentElement.id;
+		 if($('#'+seletedId).hasClass('active'))
+		 {
+			 $('#'+seletedId).removeClass('active');
+			 
+		 }
+		 else
+		 {
+			 $('#'+seletedId).addClass('active');
+		 }
+		 
 	 },
-	 
-	 
+	 /**
+	  * @TODO
+	  */
+	 makePrivate :function(){
+		 if($('#id-private').attr('checked')== 'checked')
+		    $('li.social_media a').removeClass('active');
+	 }
 	 
 });

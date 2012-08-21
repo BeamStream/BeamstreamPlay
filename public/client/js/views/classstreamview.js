@@ -153,7 +153,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			/* get all schoolIds under a class */
 			 $.ajax({
 					type : 'GET',
-					url : BS.allSchoolForAUser,
+					url : BS.schoolJson,
 					dataType : "json",
 					success : function(datas) {
 						
@@ -264,8 +264,17 @@ BS.ClassStreamView = Backbone.View.extend({
 			dataType : "json",
 			success : function(data) {
 				 
-				 console.log("success");
-				 BS.AppRouter.navigate("streams", {trigger: true});
+				  if(data.status == "Success")
+				  {
+					  alert(data.message);
+					  BS.AppRouter.navigate("streams", {trigger: true});
+				  }
+				  else
+				  {
+					  alert(data.message);
+				  }
+					
+				 
 			}
 		});
 	},
@@ -400,7 +409,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			/* get all schoolIds under a class */
 			 $.ajax({
 					type : 'GET',
-					url : BS.allSchoolForAUser,
+					url : BS.schoolJson,
 					dataType : "json",
 					success : function(datas) {
 						
