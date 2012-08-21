@@ -55,27 +55,26 @@ object StreamController extends Controller {
 
   /*
    * Creates a class and a new Stream
+   * @Purpose: This will create a new class & correspondent stream
    */
 
   def newStream = Action { implicit request =>
-
     val classListJsonMap = request.body.asFormUrlEncoded.get
     val classJsonList = classListJsonMap("data").toList(0)
+    println(classJsonList)
     val classList = net.liftweb.json.parse(classJsonList).extract[List[Class]]
     val listOfClassIds = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
     User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
 
     val classJson = net.liftweb.json.parse(classJsonList)
     val classTag = (classJson \ "classTag").extract[String]
-
     //updating Tags 
     val classToUpdateWithTags = Class.findClasssById(listOfClassIds(0))
     val streamId = classToUpdateWithTags.streams(0)
     Stream.addTagsToStream(List(classTag), streamId)
-    Ok
+    Ok(write(new ResulttoSent("Success","New Stream Added")))
   }
 
-  
   /*
    * Join the stream (From class stream page)
    * @Purpose : User Joins a stream here
