@@ -144,7 +144,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		 else
 		 {
 			 this.classId =1;
-			 $('#class-name').val("");
+			 $('#class_name').val("");
 			 $('#date-started').val("");
 			 $('#div-school-type a span.selectBox-label').html("");
 			 $('#div-time a span.selectBox-label').html("");
@@ -444,7 +444,7 @@ BS.ClassStreamView = Backbone.View.extend({
     	if($('#schools').val() == "add-school")
     	{
     		 $('#for-new-school').show();
-//    		 
+    		 
 //    		 BS.newSchoolView = new BS.NewSchoolView();
 //    		 BS.newSchoolView.render();
     		
