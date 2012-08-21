@@ -160,7 +160,7 @@ BS.FilesMediaView = Backbone.View.extend({
             console.log(eventName);
         	var docId = eventName.currentTarget.id;
         	var docUrl = $('input#id-'+docId).val();
-    		newwindow=window.open(docUrl,'','height=500,width=800,top=100,left=250');
+    		newwindow=window.open(docUrl,'','height=550,width=1150,top=100,left=250');
         	 
         }
         
