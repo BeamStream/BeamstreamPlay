@@ -30,8 +30,10 @@ object DetailedRegistration extends Controller {
 
   /*
    * Sends the field values & profile related info to User Model for adding the info of a User
+   * @Purpose :-
+   * - Will Create the School & Edit the School as well
    * 
-   * Will Create the School & Edit the School as well
+   * - Create the school from class stream page 
    */
 
   def addInfo = Action { implicit request =>
