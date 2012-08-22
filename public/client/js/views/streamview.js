@@ -470,6 +470,13 @@ BS.StreamView = Backbone.View.extend({
   				   }
   				   else
   				   {
+  					     /*auto ajax push */
+  					   
+//  					    // Initialize Socket.IO connection
+//  						var socket = io.connect("/postMsg");
+//  						socket.emit('msg Info', data);
+//  					   
+  					   
   					      // append the message to message list
   						_.each(data, function(data) {
   							 
@@ -501,7 +508,6 @@ BS.StreamView = Backbone.View.extend({
 	  	  					 });
 	  	  					 
   				         });
-               
   				   }
                                    
   				   $('.selector').html("");

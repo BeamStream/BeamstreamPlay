@@ -96,12 +96,12 @@ BS.FilesMediaView = Backbone.View.extend({
                     dataType : "json",
                     success : function(data) {
                         if(data.status == 'Failure')
-                                console.log("Failed.Please try again");
+                                alert("Failed.Please try again");
                             else
-                                //console.log("Doc Uploaded Successfully");
-                                    
-                              self.docsList(); 
-                          
+                                {
+                                alert("Doc Uploaded Successfully");
+                                self.docsList(); 
+                                }
                         }           
             });
        

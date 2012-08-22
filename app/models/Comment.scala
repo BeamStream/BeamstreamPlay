@@ -7,6 +7,7 @@ import com.novus.salat.dao.SalatDAO
 import utils.MongoHQConfig
 import com.novus.salat.global._
 import java.text.DateFormat
+import com.mongodb.casbah.commons.MongoDBObject
 
 case class Comment(@Key("_id") id: ObjectId,
   commentBody: String,
@@ -23,22 +24,21 @@ object Comment {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
 
-  /*
-    *  Creates a new comment
-    */
-  def createComment(comment: Comment): ObjectId = {
-    val commentId = CommentDAO.insert(comment)
-    commentId.get
+ 
+
+  def findCommentById(commentId: ObjectId, commentsForAmessage: List[Comment]): Comment = {
+
+    var commentsMatchingId: List[Comment] = List()
+    for (comment <- commentsForAmessage) {
+      if (comment.id == commentId) commentsMatchingId ++ List(comment)
+    }
+    commentsMatchingId(0)
   }
 
-  /*
-    *  Delete a existing comment
-    */
-
-  def deleteComment(comment: Comment) {
-    val commentId = CommentDAO.remove(comment)
-  }
+  //  def rockingTheComment(messageId: ObjectId, commentId: ObjectId, userId: ObjectId): Int = {
+  //    val commentsForAmessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0).comments
+  //
+  //  }
 
 }
 
-object CommentDAO extends SalatDAO[Comment, ObjectId](collection = MongoHQConfig.mongoDB("comment"))

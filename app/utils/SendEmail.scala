@@ -13,6 +13,8 @@ object SendEmail {
 
   def sendEmail(emailId: String, iam: String) = {
 
+    val server = Play.current.configuration.getString("server").get // Server adress from play configuration
+
     val authToken = tokenEmail.securityToken
 
     val props = new Properties
@@ -20,7 +22,7 @@ object SendEmail {
     props.setProperty("mail.smtp.starttls.enable", "true");
     props.setProperty("mail.host", "smtp.gmail.com");
     props.setProperty("mail.user", "neelkanth@knoldus.com");
-    props.setProperty("mail.password", Play.current.configuration.getString("email_password").get);
+    props.setProperty("mail.password", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get));
 
     val session = Session.getDefaultInstance(props, null);
     val msg = new MimeMessage(session)
@@ -34,14 +36,12 @@ object SendEmail {
 
       "Thank you for registering at <b>Beamstream</b>. We're stoked!." +
         " Please validate your identity and complete your registration by clicking on this link " +
-        "<a href=" + "'http://localhost:9000/beamstream/index.html#basicRegistration" + "/token/" + authToken + "/iam/" + iam + "/emailId/" + emailId + "'> Register On BeamStream</a>"
-       // "<a href="+ "'http://beamstream.knoldus.com/beamstream/index.html#basicRegistration"+"/token/"+authToken +"/iam/"+iam+"/emailId/"+emailId+"'> Register On BeamStream</a>"
-
+        "<a href='" + server + "/beamstream/index.html#basicRegistration" + "/token/" + authToken + "/iam/" + iam + "/emailId/" + emailId + "'> Register On BeamStream</a>"
         + "<br>" + "<br>" + "<br>" +
         "Cheers," + "<br>" +
         "The Really Nice Beamstream Folks , US" + "<br>", "text/html");
     val transport = session.getTransport("smtp");
-    transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", Play.current.configuration.getString("email_password").get)
+    transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get))
     transport.sendMessage(msg, msg.getAllRecipients)
 
     val token = new Token((new ObjectId), authToken)

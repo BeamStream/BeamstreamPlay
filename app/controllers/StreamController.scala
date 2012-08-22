@@ -29,7 +29,7 @@ object StreamController extends Controller {
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
   def index = Action {
-    Ok("This is BeamStream Application by Knoldus Software")
+    Ok("This is BeamStream Application by Knoldus Software LLP  Neelkanth Sachdeva(Sr. Developer)")
 
   }
 
@@ -55,10 +55,12 @@ object StreamController extends Controller {
 
   /*
    * Creates a class and a new Stream
+   * @Purpose: This will create a new class & correspondent stream
+   * For class stream screen 
+   * 
    */
 
   def newStream = Action { implicit request =>
-
     val classListJsonMap = request.body.asFormUrlEncoded.get
     val classJsonList = classListJsonMap("data").toList(0)
     val classList = net.liftweb.json.parse(classJsonList).extract[List[Class]]
@@ -67,15 +69,13 @@ object StreamController extends Controller {
 
     val classJson = net.liftweb.json.parse(classJsonList)
     val classTag = (classJson \ "classTag").extract[String]
-
     //updating Tags 
     val classToUpdateWithTags = Class.findClasssById(listOfClassIds(0))
     val streamId = classToUpdateWithTags.streams(0)
     Stream.addTagsToStream(List(classTag), streamId)
-    Ok
+    Ok(write(new ResulttoSent("Success","New Stream Added")))
   }
 
-  
   /*
    * Join the stream (From class stream page)
    * @Purpose : User Joins a stream here

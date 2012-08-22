@@ -59,7 +59,16 @@ BS.AppRouter = Backbone.Router.extend({
   		        timeValues.push({"time" : time});
   		 }
   		BS.times = jQuery.parseJSON(JSON.stringify(timeValues));
+  		
+  		
+//  		/* auto push */
+//  		var socketMsg = io.connect('/postMsg');
+//    	socketMsg.on('msg Info', function(data) {
+//			console.log("Posted");
+//			console.log(data);
+//    	});
    
+    	
     },
  
     home: function() {
