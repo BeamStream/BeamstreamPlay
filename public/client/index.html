@@ -85,7 +85,7 @@
     <link href="css/modal-ie.css" rel="stylesheet">
     <![endif]-->
    
-
+   
 
 	<!-- scripts -->
 	  
@@ -97,7 +97,8 @@
 	 <script src="lib/embedly-preview.js" type="text/javascript"></script>
 	 <!-- End embedly -->
 	 
-    
+    <!-- ajax auto push -->
+<!--     <script type='text/javascript' src="/socket.io/socket.io.js"></script> -->
 	 
 	<script type="text/javascript" src="lib/jquery.selectBox.js"></script>
 	<script src="lib/underscore-min.js"></script>
@@ -411,8 +412,9 @@
               </div>
           </div>
           <div class="element" id="for-new-school">
-            <label for="school-name-1">Enter New School</label>
-            <input type="text" id="new-school" placeholder="School Name" class="large">
+            <label for="school-name">Enter New School</label>
+            <input type="text" id="new-school" value="" placeholder="School Name" class="large">
+            <input  type="hidden" id="new-school-id">
           </div>
         </div>
         <div class="form-row class-row">
@@ -931,11 +933,17 @@
      </div>
     <div id="error" class="invalid-validation" style="margin-left:20px; color:red;"></div>
     <div class="modal-body">
-        <form name="school-form" id="school-form">
+        <form name="new-school-form" id="new-school-form">
             <fieldset>
                 <legend class="legend">school info</legend>
 				<div class="school-registration">
                 <div class="form-row">
+					<div class="element">
+                        <label for="school-name">School name <span class="star"> *</span></label>
+ 
+                        <input type="text" name="school-name" id="school-name" class="validate[required] span3 school" placeholder="School Name">
+                        
+                    </div>
                     <div class="element">
                         <label for="year">Year</label>
                         <select name="year" id="year" class="span2">
@@ -948,7 +956,14 @@
                             <option value="Other">Other</option>
                         </select>
                     </div>
-                     <div class="element">
+                    
+                </div>
+                <div class="form-row">
+                    <div class="element">
+                        <label for="major">Major <span class="star"> *</span></label>
+                        <input type="text" name="major" id="major" class="validate[required] span3" placeholder="Your Major" >
+                    </div>
+						 <div class="element">
                         <label for="degree-program">Degree program</label>
                         <select name="degreeprogram" id="degreeprogram" class="degreepgm span2">
                             <option value="Assosiates(AA)">Assosiates(AA)</option>
@@ -961,12 +976,6 @@
 					<div class="element" id="other-degrees">
                         <label for="other-degree">Degree <span class="star"> *</span></label>
                         <input type="text" name="other-degree" id="other-degree" class="small" placeholder="Degree">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="element">
-                        <label for="major">Major <span class="star"> *</span></label>
-                        <input type="text" name="major" id="major" class="validate[required] span3" placeholder="Your Major" >
                     </div>
                    </div>
                  <div class="form-row">
@@ -981,7 +990,7 @@
                     </div>
 					<div class="element" id="cal">
                         <label for="calendar">Calendar</label>
-                        <input class="span2 datepicker cal" type="text" placeholder ="Date" id="calendar-1"/>
+                        <input class="span2 datepicker cal" type="text" placeholder ="Date" id="calendar"/>
                     </div>
 
                       <div class="element" id="degree-exp">
@@ -2572,7 +2581,7 @@ function janRainLogin(info){
 
 <script>
         $(document).ready(function() {
- 
+        	
             // FIXME: this is temporary hack, remove it later.
             $('.nav a').click(function() {
             	 
