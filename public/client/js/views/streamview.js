@@ -472,10 +472,10 @@ BS.StreamView = Backbone.View.extend({
   				   {
   					     /*auto ajax push */
   					   
-  					    // Initialize Socket.IO connection
-  						var socket = io.connect("/postMsg");
-  						socket.emit('msg Info', data);
-  					   
+//  					    // Initialize Socket.IO connection
+//  						var socket = io.connect("/postMsg");
+//  						socket.emit('msg Info', data);
+//  					   
   					   
   					      // append the message to message list
   						_.each(data, function(data) {
