@@ -143,7 +143,7 @@
 </head>
 
  <!-- template for Files and Media-->
-  <script type="text/x-handlebars-template" id="tpl-files-media">
+ <script type="text/x-handlebars-template" id="tpl-files-media">
 <section class="site_search">
   <div class="container docs">
   <div class="pre-arrow-wrapper"><a class="pre-arrow" href="#"></a></div>
@@ -152,8 +152,74 @@
       <form method="post" action="/search/" class="form-inline">
         <fieldset>
           <div class="left-wrapper">
-            <label>Upload Media/Docs:</label>
-            <div class="upload-media-wrapper"> <span class="upload-media-icon"><div class="upload-media-arrow"></div></span>
+              
+            <!-- /.nav-collapse -->
+            <ul id="dropdownnew" class="no-image">
+              <li class="leftplusicon"><a class="leftplusicon-a" href="#">Upload Media/Docs: </a>
+                <ul>
+                <span class="arrow-top"></span>
+                  <li><a href="#">Links</a>
+                    <ul class="textli">
+                           <span class="arrow-left"></span>
+                           <li> <input type="text" class="dropdowntext-small" placeholder="Links"></li><li><input type="button" class="upload_button"></li>    
+                    </ul>      
+                  </li>
+                  <li><a href="#">Papers  &  Docs</a>
+                       <ul>
+                           <span class="arrow-left"></span>
+                            <li><a href="#">My Computer</a></li>
+                            <li><a href="#">Google Docs</a>
+                                <ul>
+                                    <span class="arrow-left"></span>
+                                    <li><a href="#">From</a></li>
+                                    <li><a href="#">Import From Link</a>
+                                        <ul class="largeli">
+                                            <span class="arrow-left"></span>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small" id="gdoc-name" placeholder="NAME of Doc"></li>
+                                            <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Doc"><select class="dropdownselect"><option>Class Doc</option><option>Class Video</option></select></li>
+                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><select class="dropdownselect"><option>Save to Class1</option><option>Class Video</option></select></li>
+                                            <li><input type="button" class="upload_button"> <span calss="msg"> </span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>    
+                      </ul>
+                  </li>
+                  <li><a href="#">Video</a>
+                    <ul>
+                    <span class="arrow-left"></span>
+                      <li><a href="#">My Computer</a></li>
+                      <li><a href="#">YouTube</a>
+                        <ul class="largeli">
+                        <span class="arrow-left"></span>
+                          <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Video"></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video"><select class="dropdownselect"><option>Class Video</option><option>Profile Video</option>
+                                           <option>Tutorial</option><option>Presentation</option><option>Project Presentation</option><option>Project Video</option><option>Lecture</option><option>Enter New Category</option></select></li>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><select class="dropdownselect"><option>Save to Class1</option><option>Class2</option><option>Class3</option><option>Class4</option>
+                                               <option>Class5</option><option>Profile</option><option>My Docs</option></select></li>
+                          <li><input type="button" class="upload_button"></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li><a href="#">Audio</a>
+                  <ul class="textli">
+                       <span class="arrow-left"></span>
+                       <li> <input type="text" class="dropdowntext-small" placeholder="Path of Audio"></li><li><input type="button" class="upload_button"></li>    
+                    </ul>   
+                  </li>
+                  <li><a href="#">Presentations</a>
+                  <ul class="textli">
+                       <span class="arrow-left"></span>
+                       <li> <input type="text" class="dropdowntext-small" placeholder="Presentations"></li><li><input type="button" class="upload_button"></li>    
+                    </ul>   
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <!-- /.nav-collapse -->  
+            
+          <div class="upload-media-wrapper"> <span class="upload-media-icon"><div class="upload-media-arrow"></div></span>
               <input type="text" id="upload-media" class="upload-media" placeholder="Upload Media/Docs">
             </div>
             <input type="button" class="go_button" id="go_button">

@@ -4,7 +4,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	       "click a#file-type" : "showFilesTypes",
 	       "click ul.file-type li a" : "hideList",
 	       "click '.nav a" : "addActive",
-           "click #go_button" : "uploadFile",
+           "click .upload_button" : "uploadFile",
 //          "click #profile-images":"listProfileImages",
            "click .google_doc" : "showDocPopup",
            "click .filter-options li a" : "filterDocs"
@@ -80,8 +80,8 @@ BS.FilesMediaView = Backbone.View.extend({
        
          var documentModel = new BS.Document();
          documentModel.set({
-                docName : 'doc88',
-                docURL : $("#upload-media").val(),
+                docName : $("#gdoc-name").val(),
+                docURL : $("#gdoc-url").val(),
                 docAccess: 'Public',
                 docType: 'GoogleDocs'
           });
@@ -99,7 +99,9 @@ BS.FilesMediaView = Backbone.View.extend({
                                 console.log("Failed.Please try again");
                             else
                                 //console.log("Doc Uploaded Successfully");
+                                    
                               self.docsList(); 
+                          
                         }           
             });
        
@@ -162,7 +164,7 @@ BS.FilesMediaView = Backbone.View.extend({
  
         	var docId = eventName.currentTarget.id;
         	var docUrl = $('input#id-'+docId).val();
-    		newwindow=window.open(docUrl,'','height=550,width=1150,top=100,left=250');
+    		newwindow=window.open(docUrl,'','height=550,width=1100,top=100,left=250');
         	 
         },
         /**
