@@ -15,6 +15,8 @@ BS.ClassStreamView = Backbone.View.extend({
 
 	initialize : function() {
 		console.log('Initializing Class Stream View');
+		BS.newClassCode = false;
+		BS.newClassName = false;
 		this.source = $("#tpl-class-stream").html();
 		this.template = Handlebars.compile(this.source);
 		 
@@ -91,7 +93,7 @@ BS.ClassStreamView = Backbone.View.extend({
 	{ 
 		
 		var classStatus = false; 
-		 var classTime ,className,date ,classType,schoolId,classId;
+		var classTime ,className,date ,classType,schoolId,classId;
         var datas = JSON.stringify(BS.classInfo);
          
         /* get details of selected class */
@@ -111,6 +113,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		 /* populate other class fields*/
 		 if(classStatus == true)
 		 {
+//			 BS.newClassCode = false;
 			 this.classId = classId;
 			 $('#class_name').val(className);
 			 
@@ -143,32 +146,21 @@ BS.ClassStreamView = Backbone.View.extend({
 		 }
 		 else
 		 {
-			 this.classId =1;
-			 $('#class_name').val("");
-			 $('#date-started').val("");
-			 $('#div-school-type a span.selectBox-label').html("");
-			 $('#div-time a span.selectBox-label').html("");
-			 $('#div-school a span.selectBox-label').html("");
-			 $(".modal select:visible").selectBox();
-			 
-			/* get all schoolIds under a class */
-			 $.ajax({
-					type : 'GET',
-					url : BS.schoolJson,
-					dataType : "json",
-					success : function(datas) {
-						
-						 var sSelect = '<select id="schools" class="small selectBox">';
-						_.each(datas, function(data) {
-							sSelect+= '<option value ="'+data.assosiatedSchoolId.id+'" > '+data.schoolName+'</option>';
-				        });
-//						sSelect+= '</select>';
-						sSelect += '<option value ="add-school" > Add School</option></select>';
-						$('#sShool').html(sSelect);
-						$(".modal select:visible").selectBox();
-					}
-			 });
-			
+//			 BS.newClassCode = true;
+//			 if(BS.newClassCode == false)
+//			 {
+				 
+				 this.classId =1;
+				 $('#class_name').val("");
+				 $('#date-started').val("");
+				 $('#div-school-type a span.selectBox-label').html("");
+				 $('#div-time a span.selectBox-label').html("");
+				 $('#div-school a span.selectBox-label').html("");
+				 $(".modal select:visible").selectBox();
+				 
+//				/* get all schoolIds under a class */
+				    this.getSchools();
+//			 }
 			 $('#createClass').show(); 
 			 $('#joinClass').hide();
 		 }
@@ -220,7 +212,16 @@ BS.ClassStreamView = Backbone.View.extend({
 		var className = $('#class_name').val();
 		var date = $('#date-started').val();
 		var type = $('#semester').val();
-		var school = $('#schools').val();
+		var school;
+//		if($('#schools').val() == "add-school")
+//		{ 
+//			 school = $('#new-school-id').val();
+//		}
+//		else
+//		{
+			school = $('#schools').val();
+//		}
+		   
 		
 		// get all tags seperated by commas
 		var classTag =[];
@@ -368,6 +369,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		 /* populate other class fields*/
 		 if(classStatus == true)
 		 {    
+//			 BS.newClassName = false;
 			 this.classId = classId;
 			 $('#class-code').val(classCode);
 			 $('#date-started').val(date);
@@ -399,31 +401,34 @@ BS.ClassStreamView = Backbone.View.extend({
 		 }
 		 else
 		 {
-			 this.classId =1;
-			 $('#class-code').val("");
-			 $('#date-started').val("");
-			 $('#div-school-type a span.selectBox-label').html("");
-			 $('#div-time a span.selectBox-label').html("");
-			 $('#div-school a span.selectBox-label').html("");
-			 $(".modal select:visible").selectBox();
-			 
-			/* get all schoolIds under a class */
-			 $.ajax({
-					type : 'GET',
-					url : BS.schoolJson,
-					dataType : "json",
-					success : function(datas) {
-						
-						 var sSelect = '<select id="schools" class="small selectBox">';
-						_.each(datas, function(data) {
-							sSelect+= '<option value ="'+data.assosiatedSchoolId.id+'" > '+data.schoolName+'</option>';
-				        });
-						sSelect+= '</select>';
-						$('#sShool').html(sSelect);
-						$(".modal select:visible").selectBox();
-					}
-			 });
-			
+//			 BS.newClassName = true;
+//			 if(BS.newClassCode == false)
+//			 { 
+				 this.classId =1;
+//				 $('#class-code').val("");
+//				 $('#date-started').val("");
+//				 $('#div-school-type a span.selectBox-label').html("");
+//				 $('#div-time a span.selectBox-label').html("");
+//				 $('#div-school a span.selectBox-label').html("");
+//				 $(".modal select:visible").selectBox();
+//				 
+//				/* get all schoolIds under a class */
+//				 $.ajax({
+//						type : 'GET',
+//						url : BS.schoolJson,
+//						dataType : "json",
+//						success : function(datas) {
+//							
+//							 var sSelect = '<select id="schools" class="small selectBox">';
+//							_.each(datas, function(data) {
+//								sSelect+= '<option value ="'+data.assosiatedSchoolId.id+'" > '+data.schoolName+'</option>';
+//					        });
+//							sSelect+= '</select>';
+//							$('#sShool').html(sSelect);
+//							$(".modal select:visible").selectBox();
+//						}
+//				 });
+//			 }
 			 $('#createClass').show(); 
 			 $('#joinClass').hide();
 		 }
@@ -443,7 +448,7 @@ BS.ClassStreamView = Backbone.View.extend({
     	 
     	if($('#schools').val() == "add-school")
     	{
-    		 $('#for-new-school').show();
+    		  
     		 BS.newSchoolView = new BS.NewSchoolView();
     		 BS.newSchoolView.render();
              $('#new-school-view').html(BS.newSchoolView.el);
@@ -455,10 +460,32 @@ BS.ClassStreamView = Backbone.View.extend({
              $('#other-degrees').hide();
     		
     	}
-    	else
-    	{
-    		 $('#for-new-school').hide();
-    	}
+//    	else
+//    	{
+//    		 $('#for-new-school').hide();
+//    	}
+    },
+    /**
+     * get schools details
+     */
+    getSchools :  function(){
+    	/* get all schoolIds under a class */
+		 $.ajax({
+				type : 'GET',
+				url : BS.schoolJson,
+				dataType : "json",
+				success : function(datas) {
+					
+					 var sSelect = '<select id="schools" class="small selectBox">';
+					_.each(datas, function(data) {
+						sSelect+= '<option value ="'+data.assosiatedSchoolId.id+'" > '+data.schoolName+'</option>';
+			        });
+//						sSelect+= '</select>';
+					sSelect += '<option value ="add-school" > Add School</option></select>';
+					$('#sShool').html(sSelect);
+					$(".modal select:visible").selectBox();
+				}
+		 });
     }
 		
 });
