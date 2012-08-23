@@ -31,8 +31,8 @@ POST /getAllMessagesForAStreambyKeyword controllers.MessageController.getAllMess
 #Comments
 POST   /newComment                   controllers.CommentController.newComment
 POST    /allCommentsForAMessage       controllers.CommentController.allCommentsForAMessage
-
-
+POST    /rockingTheComment            controllers.CommentController.rockingTheComment
+POST    /commentRockers                controllers.CommentController.commentRockers
 
 
 

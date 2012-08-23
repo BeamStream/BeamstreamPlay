@@ -34,7 +34,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     assert(commentFound.commentBody === "Comment1")
   }
 
-  test("Rocking the comment") {
+  test("Rocking the comment & Rockers List") {
     val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
     val userId = User.createUser(user)
 
@@ -58,6 +58,9 @@ class CommentTest extends FunSuite with BeforeAndAfter {
 
     assert(Message.findMessageById(messageId).comments(0).rockers(0) === anotherUserId)
     assert(Message.findMessageById(messageId).comments(0).rocks === 1)
+
+    val rockerNames = Comment.commentRockersList(messageId, commentId)
+    assert(rockerNames(0) === "Chris")
   }
 
   after {

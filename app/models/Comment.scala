@@ -25,6 +25,9 @@ object Comment {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
 
+  /*
+   * Find Comment By Id
+   */
   def findCommentById(messageId: ObjectId, commentId: ObjectId): Comment = {
     val commentsForAmessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0).comments
     var commentsMatchingId: List[Comment] = List()
@@ -34,17 +37,34 @@ object Comment {
     commentsMatchingId(0)
   }
 
+  /*
+   * Rocking the comment
+   */
+
   def rockingTheComment(messageId: ObjectId, commentId: ObjectId, userId: ObjectId) = {
     val oldCommentToBeRocked = findCommentById(messageId, commentId)
     val updatedComment = new Comment(oldCommentToBeRocked.id, oldCommentToBeRocked.commentBody, oldCommentToBeRocked.timeCreated, oldCommentToBeRocked.userId, oldCommentToBeRocked.firstNameofCommentPoster,
       oldCommentToBeRocked.lastNameofCommentPoster, oldCommentToBeRocked.rocks + 1, oldCommentToBeRocked.rockers ++ List(userId), oldCommentToBeRocked.follows, oldCommentToBeRocked.followers)
-
     replaceComment(messageId, updatedComment, oldCommentToBeRocked)
   }
 
+  /*
+   * Updating the comment with updated rocks and rockers
+   */
   def replaceComment(messageId: ObjectId, newComment: Comment, oldComment: Comment) {
     val messageToUpdate = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
     MessageDAO.update(MongoDBObject("_id" -> messageId), messageToUpdate.copy(comments = (messageToUpdate.comments -- List(oldComment) ++ List(newComment))), false, false, new WriteConcern)
+
+  }
+
+  /*
+   * Returns the List Of Rockers of each comment
+   */
+
+  def commentRockersList(messageId: ObjectId, commentId: ObjectId): List[String] = {
+    val commentDesired = findCommentById(messageId, commentId)
+    val commentRockers = User.giveMeTheRockers(commentDesired.rockers)
+    commentRockers
 
   }
 

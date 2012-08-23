@@ -49,7 +49,15 @@ object CommentController extends Controller {
   
   def rockingTheComment = Action { implicit request =>
     val commentDetailsJson = request.body.asFormUrlEncoded.get
-    
+    Ok
+  }
+  
+  /*
+   * Return Comment Rockers List
+   */
+  
+  def commentRockers = Action { implicit request =>
+    val commentDetailsJson = request.body.asFormUrlEncoded.get
     Ok
   }
 
