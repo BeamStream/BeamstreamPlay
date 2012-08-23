@@ -18,7 +18,8 @@ BS.AppRouter = Backbone.Router.extend({
         "groupStream": "groupStream",
         "peerStream" : "peerStream",
         "friendStream" :"friendStream",
-        "filesMedia" : "filesMedia"
+        "filesMedia" : "filesMedia",
+        "googledocs" : "googleDocs"
         
     },
     initialize :function() {
@@ -634,11 +635,53 @@ BS.AppRouter = Backbone.Router.extend({
                                     // Filter elements
                                     $grid.shuffle($this.attr('data-key'));
                                 });
-            
+                         
 
 			},
-
-                    
+                        
+                        /**
+			 * display Google docs list in another view
+			 */
+                        googleDocs : function(){
+                                $('#content').children().detach();
+                                console.log("befor nav View");
+                                BS.user.fetch({ success:function(e){
+					   //get main menu
+					   this.navView = new BS.NavView({ model: BS.user });
+					   this.navView.showProfilePic();
+					   $('.nav-collapse').html(this.navView.render().el);
+					   $('nav li.active').removeClass('active');
+					   $('#file-media').addClass('active');					   
+					   $('#right-photo').attr("src",BS.profileImageUrl);			       
+				}});                             
+                                BS.googledocsview = new BS.GoogleDocsView({
+                                    model : BS.user
+				});
+                                BS.googledocsview.render();  
+                                $('#content').html(BS.googledocsview.el);
+                                $('.file-type').hide();
+				$(".checkbox").dgStyle();                                
+                                 // instantiate the shuffle plugin
+                                $('#grid').shuffle({
+                                    itemWidth : 200,
+                                    marginTop : 15,
+                                    marginRight: 20,
+                                    key : 'all',
+                                    speed : 800,
+                                    easing : 'ease-out'
+                                });                               
+                                 // Set up button clicks
+                                $('.filter-options li').on('click', function() {
+                                    var $this = $(this),
+                                    $grid = $('#grid');
+                                    // Hide current label, show current label in title
+                                    $('.filter-options .active').removeClass('active');
+                                    $this.addClass('active');
+                                    // Filter elements
+                                    $grid.shuffle($this.attr('data-key'));
+                                });                              
+                        },
+                 
 			displayJanRain : function(){
 				
 				 var janRainCount = $('.janrainContent').length;

@@ -140,9 +140,7 @@
         });
         
     </script>
-
 </head>
-
  <!-- template for Files and Media-->
  <script type="text/x-handlebars-template" id="tpl-files-media">
 <section class="site_search">
@@ -153,7 +151,6 @@
       <form method="post" action="/search/" class="form-inline">
         <fieldset>
           <div class="left-wrapper">
-              
             <!-- /.nav-collapse -->
             <ul id="dropdownnew" class="no-image">
               <li class="leftplusicon"><a class="leftplusicon-a" href="#">Upload Media/Docs: </a>
@@ -218,8 +215,7 @@
                 </ul>
               </li>
             </ul>
-            <!-- /.nav-collapse -->  
-            
+            <!-- /.nav-collapse -->              
           <div class="upload-media-wrapper"> <span class="upload-media-icon"><div class="upload-media-arrow"></div></span>
               <input type="text" id="upload-media" class="upload-media" placeholder="Upload Media/Docs">
             </div>
@@ -235,7 +231,6 @@
 </section>
 <div class="container docs content_area wrapper_con">
   <div class="container-inner">
- 
     <div class="row">
       <div class="top-wrapper">
       <ul class="file-type">
@@ -286,29 +281,17 @@
               <li><a class="message-icon" href="#">10</a></li>
             </ul>
           </div>
-        </li>
-        
+        </li>        
         <li id="file-docs-1" data-key='["recent"]'>
-          <div class="image-wrapper hovereffect">
-            <div class="comment-wrapper comment-wrapper2">
-                <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
-                <a href="#" class="hand-icon"></a>
-                <a href="#" class="message-icon"></a>
-                <a href="#" class="share-icon"></a>
-            </div>
-            <h4>Docs Title</h4>
-            <p>The Power of The Platform Behance Network Join The Leading Platform For </p>
-            <h5> Title & Description</h5>
-            <span>State</span><span class="date">25 May, 2012</span> </div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
               <li><a class="hand-icon" href="#">5</a></li>
               <li><a class="message-icon" href="#">10</a></li>
             </ul>
           </div>
-        </li>
-        
+        </li>        
         <li data-key='["oldest"]'>
           <div class="image-wrapper"><img src="images/image1.jpg"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a>
@@ -428,9 +411,9 @@
               <li><a class="message-icon" href="#">10</a></li>
             </ul>
           </div>
-        </li>
+        </li>        
         <li id="file-docs-3" data-key='["recent"]'>
-          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#docsList"></a></div>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -438,7 +421,7 @@
               <li><a class="message-icon" href="#">10</a></li>
             </ul>
           </div>
-        </li>
+        </li>        
       </ul>
     </div>
   </div>
@@ -453,7 +436,271 @@
 </div>
  </script>
 
-
+<!----------templates for google docs-------------->
+ <script type="text/x-handlebars-template" id="tpl-docsview">
+<section class="site_search">
+  <div class="container docs">
+  <div class="pre-arrow-wrapper"><a class="pre-arrow" href="#"></a></div>
+  <div class="next-arrow-wrapper"><a class="next-arrow" href="#"></a></div>
+    <div class="container-inner">
+      <form method="post" action="/search/" class="form-inline">
+        <fieldset>
+          <div class="left-wrapper">              
+            <!-- /.nav-collapse -->
+            <ul id="dropdownnew" class="no-image">
+              <li class="leftplusicon"><a class="leftplusicon-a" href="#">Upload Docs: </a>
+                <ul>
+                <span class="arrow-top"></span>                  
+                  <li><a href="#">Papers  &  Docs</a>
+                       <ul>
+                           <span class="arrow-left"></span>
+                            <li><a href="#">My Computer</a></li>
+                            <li><a href="#">Google Docs</a>
+                                <ul>
+                                    <span class="arrow-left"></span>
+                                    <li><a href="#">From</a></li>
+                                    <li><a href="#">Import From Link</a>
+                                        <ul class="largeli">
+                                            <span class="arrow-left"></span>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small" id="gdoc-name" placeholder="NAME of Doc"></li>
+                                            <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Doc"><select class="dropdownselect"><option>Class Doc</option><option>Class Video</option></select></li>
+                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><select class="dropdownselect"><option>Save to Class1</option><option>Class Video</option></select></li>
+                                            <li><input type="button" class="upload_button"> <span calss="msg"> </span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>    
+                      </ul>
+                  </li>                 
+                  <li><a href="#">Presentations</a>
+                  <ul class="textli">
+                       <span class="arrow-left"></span>
+                       <li> <input type="text" class="dropdowntext-small" placeholder="Presentations"></li><li><input type="button" class="upload_button"></li>    
+                    </ul>   
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <!-- /.nav-collapse -->              
+          <div class="upload-media-wrapper"> <span class="upload-media-icon"><div class="upload-media-arrow"></div></span>
+              <input type="text" id="upload-media" class="upload-media" placeholder="Upload Media/Docs">
+            </div>
+            <input type="button" class="go_button" id="go_button">
+          </div>
+          <div class="right-wrapper">
+            <label>View as:</label>
+            <a class="visual-files" href="#">Visual Files</a> <a class="files_folder" href="#">Files Folder</a> </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</section>
+<div class="container docs content_area wrapper_con">
+  <div class="container-inner"> 
+    <div class="row">
+      <div class="top-wrapper">
+      <ul class="file-type">
+      <span class="arrow-top"></span>
+            <li><a href="#">Links</a> </li>
+            <li><a href="#">Documentss</a> </li>
+            <li><a href="#">PDF's</a> </li>
+            <li><a class="active" href="#">Videos</a> </li>
+            <li><a href="#">Presentation</a> </li>
+            <li><a href="#">Audio</a> </li>
+            <li><a href="#">Spreadsheets</a> </li>
+          </ul>
+        <label>Sort by:</label>
+        <a id="file-type" href="#" data-toggle="dropdown" >File Type</a>
+        <ul>
+          <li><a href="#">Rock on Votes</a></li>
+          <li><a href="#">Tags</a> </li>
+          <li><a href="#">Category</a> </li>
+          <li><a href="#">by Class/School</a></li>
+        </ul>
+        <label>Then by:</label>
+        <a href="#">Date </a>
+        <ul class="filter-options">
+          <li data-key="all"><a href="#">All</a></li> 
+          <li data-key="recent"><a href="#">Most Recent</a></li>
+          <li data-key="oldest"><a href="#"> Oldest</a> </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row" >
+      <ul class="file-list" id="grid">                   
+        <li id="file-docs-1" data-key='["recent"]'>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+        <li id="file-docs-2" data-key='["recent"]'>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+         <li id="file-docs-3" data-key='["oldest"]'>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+        <li id="file-docs-4" data-key='["recent"]'>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+       <li id="file-docs-5" data-key='["oldest"]'>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+        <li id="file-docs-6" data-key='["recent"]'>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+        <li id="file-docs-7" data-key='["oldest"]'>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+        <li id="file-docs-8" data-key='["recent"]'>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+        <li id="file-docs-9" data-key='["oldest"]'>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+        <li id="file-docs-10" data-key='["recent"]'>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+       <li id="file-docs-11" data-key='["oldest"]'>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+        <li id="file-docs-12" data-key='["recent"]'>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+        <li id="file-docs-13" data-key='["oldest"]'>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+        <li id="file-docs-14" data-key='["recent"]'>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+        <li id="file-docs-15" data-key='["oldest"]'>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+        <li id="file-docs-16" data-key='["recent"]'>
+          <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+      </ul>
+    </div>
+  </div>
+  <footer class="site_footer">
+    <p>Copyright &copy; 2012 BeamStream</p>
+    <ul class="pull-right">
+      <!-- WARNING: don't put newlines here, it breaks layout. -->
+      <li><a href="#submit-suggestion">Submit suggestion</a></li>
+      <li><a href="#report-issue">Report issue</a></li>
+    </ul>
+  </footer>
+</div>
+ </script>
 
 <!--  Class stream template -->
 <script type="text/x-handlebars-template" id="tpl-class-stream">
@@ -2698,6 +2945,7 @@ function janRainLogin(info){
 <script src="js/models/profilemodel.js"></script>
 <script src="js/views/newschoolview.js"></script>
 <script src="js/views/filesmediaview.js"></script>
+<script src="js/views/googledocsview.js"></script>
 <script src="js/models/singleusermodel.js"></script>
 <script src="js/models/documentmodel.js"></script>
 <script src="js/router.js"></script>
