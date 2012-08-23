@@ -82,7 +82,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     assert(Message.findMessageById(messageId).comments.size === 1)
     assert(Message.findMessageById(messageId).comments(0).firstNameofCommentPoster === "Neel")
 
-    val anotherUser = User(new ObjectId, UserType.Professional, "chris@beamstream.com", "Ray", "Coxx", "", "Crizzle", "Chris", "Beamstream", "", List(), List(), List(), List(), List())
+    val anotherUser = User(new ObjectId, UserType.Professional, "chris@beamstream.com", "Christopher", "Coxx", "", "Crizzle", "Chris", "Beamstream", "", List(), List(), List(), List(), List())
     val anotherUserId = User.createUser(anotherUser)
 
     Comment.followingTheComment(messageId, commentId, anotherUserId)
@@ -91,7 +91,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     assert(Message.findMessageById(messageId).comments(0).follows === 1)
 
     val rockerNames = Comment.commentFollowersList(messageId, commentId)
-    assert(rockerNames(0) === "Ray")
+    assert(rockerNames(0) === "Christopher")
   }
 
   
