@@ -4,6 +4,7 @@ import play.api.Play
 
 object MongoHQConfig {
 
+
   /*
    * This all will come from "application.conf" file
    */
