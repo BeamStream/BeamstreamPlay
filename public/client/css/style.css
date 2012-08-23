@@ -1916,7 +1916,9 @@ border: 1px solid #E8E8E9;
 	left: 38% !important;
     width: 800px !important;
 }
-
+.social_media a:focus{
+	outline:none !important;
+}
 
  
 
