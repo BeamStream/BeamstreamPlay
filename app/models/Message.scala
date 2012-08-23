@@ -175,9 +175,10 @@ object Message {
   /*
  * add Comment to message
  */
-  def addCommentToMessage(comment: Comment, messageId: ObjectId) {
+  def addCommentToMessage(comment: Comment, messageId: ObjectId): ObjectId = {
     val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
     MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments ++ List(comment))), false, false, new WriteConcern)
+    comment.id
   }
 
   /*

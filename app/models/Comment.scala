@@ -8,6 +8,7 @@ import utils.MongoHQConfig
 import com.novus.salat.global._
 import java.text.DateFormat
 import com.mongodb.casbah.commons.MongoDBObject
+import com.mongodb.WriteConcern
 
 case class Comment(@Key("_id") id: ObjectId,
   commentBody: String,
@@ -24,21 +25,21 @@ object Comment {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
 
- 
-
-  def findCommentById(commentId: ObjectId, commentsForAmessage: List[Comment]): Comment = {
-
+  def findCommentById(messageId: ObjectId, commentId: ObjectId): Comment = {
+    val commentsForAmessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0).comments
     var commentsMatchingId: List[Comment] = List()
     for (comment <- commentsForAmessage) {
-      if (comment.id == commentId) commentsMatchingId ++ List(comment)
+      if (comment.id == commentId) commentsMatchingId ++= List(comment)
     }
     commentsMatchingId(0)
   }
 
-  //  def rockingTheComment(messageId: ObjectId, commentId: ObjectId, userId: ObjectId): Int = {
-  //    val commentsForAmessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0).comments
-  //
-  //  }
+  def rockingTheComment(messageId: ObjectId, commentId: ObjectId, userId: ObjectId) = {
+    val commentTobeRocked = findCommentById(messageId, commentId)
+    val updatedComment = new Comment(commentTobeRocked.id, commentTobeRocked.commentBody, commentTobeRocked.timeCreated, commentTobeRocked.userId, commentTobeRocked.firstNameofCommentPoster,
+      commentTobeRocked.lastNameofCommentPoster, commentTobeRocked.rocks + 1, commentTobeRocked.rockers ++ List(userId), commentTobeRocked.follows, commentTobeRocked.followers)
+
+  }
 
 }
 

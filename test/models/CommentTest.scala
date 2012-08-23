@@ -13,7 +13,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
-  test("Create a new Comment") {
+  test("Create a new Comment and find comment by id") {
     val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
     val userId = User.createUser(user)
 
@@ -25,26 +25,50 @@ class CommentTest extends FunSuite with BeforeAndAfter {
 
     val comment = new Comment(new ObjectId, "Comment1", new Date, userId, user.firstName, user.lastName, 0, List(userId), 0, List(userId))
 
-    Message.addCommentToMessage(comment, messageId)
+    val commentId = Message.addCommentToMessage(comment, messageId)
 
     assert(Message.findMessageById(messageId).comments.size === 1)
     assert(Message.findMessageById(messageId).comments(0).firstNameofCommentPoster === "Neel")
 
+    val commentFound=Comment.findCommentById(messageId, commentId)
+    assert(commentFound.commentBody==="Comment1")
+  }
+  
+   test("Rocking the comment") {
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
+    val userId = User.createUser(user)
+
+    val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId), true, List())
+    val streamId = Stream.createStream(stream)
+
+    val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(streamId), "", "", 0, List(), List(), 0, List())
+    val messageId = Message.createMessage(message)
+
+    val comment = new Comment(new ObjectId, "Comment1", new Date, userId, user.firstName, user.lastName, 0, List(userId), 0, List(userId))
+
+    val commentId = Message.addCommentToMessage(comment, messageId)
+
+    assert(Message.findMessageById(messageId).comments.size === 1)
+    assert(Message.findMessageById(messageId).comments(0).firstNameofCommentPoster === "Neel")
+
+    val commentFound=Comment.findCommentById(messageId, commentId)
+    assert(commentFound.commentBody==="Comment1")
+    
+    
+    val anotherUser = User(new ObjectId, UserType.Professional, "chris@beamstream.com", "Chris", "Coxx", "", "Crizzle", "Chris", "Beamstream", "", List(), List(), List(), List(), List())
+    val anotherUserId = User.createUser(anotherUser)
+    
+    Comment.rockingTheComment(messageId,commentId,anotherUserId)
   }
 
-  //  test("Find comment by Id") {
-  //    val userId = User.createUser(user)
-  //    val commentA = new Comment(new ObjectId, "CommentA", new Date, userId, user.firstName, user.lastName, 0, List(userId), 0, List(userId))
-  //    val commentB = new Comment(new ObjectId, "CommentB", new Date, userId, user.firstName, user.lastName, 0, List(userId), 0, List(userId))
-  //    val commentAId = Comment.createComment(commentA)
-  //    val commentBId = Comment.createComment(commentB)
-  //    assert(CommentDAO.find(MongoDBObject()).toList.size === 2)
-  //
-  //  }
+ 
 
   after {
 
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+    MessageDAO.remove(MongoDBObject("messageBody" -> ".*".r))
+    UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+    StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
   }
 
 }
