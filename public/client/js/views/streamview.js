@@ -18,6 +18,7 @@ BS.StreamView = Backbone.View.extend({
            "click i.rock-message" : "rockMessage",
            "click i.rock-comment" :"rockComments",
            "mouseenter a#rocks" : "showRockers",
+           "mouseenter a#cmtrock" : "showCommentRockers",
            "click .edit_profilepicture" : "showProfilePage",
            "click .nav-tabs li" : "showActive",
            "click .class-nav-list li" :"showListActive",
@@ -472,10 +473,7 @@ BS.StreamView = Backbone.View.extend({
   				   {
   					     /*auto ajax push */
   					   
-//  					    // Initialize Socket.IO connection
-//  						var socket = io.connect("/postMsg");
-//  						socket.emit('msg Info', data);
-//  					   
+ 
   					   
   					      // append the message to message list
   						_.each(data, function(data) {
@@ -699,7 +697,7 @@ BS.StreamView = Backbone.View.extend({
 		 
 		 $.ajax({
              type: 'POST',
-             url:BS.rockedIt,
+             url:BS.rockingTheComment,
              data:{
             	  commentId:commentId
              },
@@ -752,6 +750,39 @@ BS.StreamView = Backbone.View.extend({
 		 var msgId =$(element).closest('li').attr('id');
 		 var position = $('li#'+msgId+'').find('i').position();
 		 this.getRockers(msgId,position);
+ 
+	 },
+	 /**
+	  * show comment rockers list on hover over
+	  */
+	 showCommentRockers:function(eventName){
+		 
+		 eventName.preventDefault();
+		 var element = eventName.target.parentElement;
+		 var commentId =$(element).closest('li').attr('id');
+		 var position = $('li#'+commentId+'').find('i').position();
+		  
+		 $.ajax({
+             type: 'POST',
+             url: BS.commentRockers,
+             data:{
+            	  commentId:commentId
+             },
+             dataType:"json",
+             success:function(data){
+            	 
+            	  // prepair rockers list
+            	  var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">Who Rocked it ?</div><ul class="rock-list">';
+            	_.each(data, function(rocker) {
+					 
+            		ul+= '<li>'+rocker+'</li>';
+			    });
+            	ul+='</ul>';
+ 
+        		$('#hover-lists-'+commentId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
+        		$('#hover-lists-'+commentId+'').html(ul);
+             }
+          });
  
 	 },
 	 

@@ -85,6 +85,10 @@ BS.followMessage =BS.URLRequired+"/followMessage";
 BS.isAFollower = BS.URLRequired+"/isAFollower";
 // Get All Documebts of a user
 BS.getAllDocs = BS.URLRequired+"/getAllDocumentsForAUser";
+// Rocks comments
+BS.rockingTheComment = BS.URLRequired+"/rockingTheComment";
+// get comment rockers list
+BS.commentRockers = BS.URLRequired+"/commentRockers";
  
 
  
