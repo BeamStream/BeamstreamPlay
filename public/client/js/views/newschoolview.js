@@ -5,6 +5,8 @@ BS.NewSchoolView = Backbone.View.extend({
 		"change select.degreepgm" : "addOtherDegree",
 		"click #close-screen" : "closeScreen",
 		"click #save": "saveNewSchool",
+		"keyup .school" : "populateSchools",
+	    "focusin .school" : "populateSchools",
 	 },
 	
     initialize:function () {
@@ -190,5 +192,38 @@ BS.NewSchoolView = Backbone.View.extend({
 	    	  var schoolinfo = JSON.stringify(schools);
 	    	  return schoolinfo;
    	  },
-
+   	/**
+       * auto populate school
+       */
+      
+      populateSchools :function(eventName){
+      	eventName.preventDefault();  
+     	    var id = eventName.target.id;
+     	    var dat='#'+id;
+     	    var currentid = $(dat).closest('fieldset').attr('id');
+     	    BS.selectedSchool = $(dat).val(); 
+     	    BS.allSchools = []; 
+      	
+      	/* get all schools of a user */
+  		 $.ajax({
+  			type : 'GET',
+  			url : BS.autoPopulateSchools,
+  			 
+  			dataType : "json",
+  			success : function(datas) {
+  				 
+  				BS.allSchoolInfo = datas;
+  				_.each(datas, function(data) {
+  					 BS.allSchools.push(data.schoolName);
+  		        });
+  				 
+  				//set auto populate functionality for class code
+  				$(dat).autocomplete({
+  				    source: BS.allSchools
+  			 });
+  			 
+  			}
+  		});
+      	
+      },
 });
