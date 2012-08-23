@@ -67,6 +67,32 @@ object Comment {
     commentRockers
 
   }
+  
+  
+  
+   /*
+   * Following the comment
+   */
+
+  def followingTheComment(messageId: ObjectId, commentId: ObjectId, userId: ObjectId) = {
+    val oldCommentToBeFollowed = findCommentById(messageId, commentId)
+    val updatedComment = new Comment(oldCommentToBeFollowed.id, oldCommentToBeFollowed.commentBody, oldCommentToBeFollowed.timeCreated, oldCommentToBeFollowed.userId, oldCommentToBeFollowed.firstNameofCommentPoster,
+      oldCommentToBeFollowed.lastNameofCommentPoster, oldCommentToBeFollowed.rocks , oldCommentToBeFollowed.rockers , oldCommentToBeFollowed.follows +1, oldCommentToBeFollowed.followers++ List(userId))
+    replaceComment(messageId, updatedComment, oldCommentToBeFollowed)
+  }
+
+
+
+  /*
+   * Returns the List Of Followers of each comment
+   */
+
+  def commentFollowersList(messageId: ObjectId, commentId: ObjectId): List[String] = {
+    val commentDesired = findCommentById(messageId, commentId)
+    val commentRockers = User.giveMeTheRockers(commentDesired.followers)
+    commentRockers
+
+  }
 
 }
 

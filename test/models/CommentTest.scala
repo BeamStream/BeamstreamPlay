@@ -63,6 +63,38 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     assert(rockerNames(0) === "Chris")
   }
 
+  
+  
+  test("Followers the comment & Rockers List") {
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
+    val userId = User.createUser(user)
+
+    val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId), true, List())
+    val streamId = Stream.createStream(stream)
+
+    val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(streamId), "", "", 0, List(), List(), 0, List())
+    val messageId = Message.createMessage(message)
+
+    val comment = new Comment(new ObjectId, "Comment1", new Date, userId, user.firstName, user.lastName, 0, List(), 0, List())
+
+    val commentId = Message.addCommentToMessage(comment, messageId)
+
+    assert(Message.findMessageById(messageId).comments.size === 1)
+    assert(Message.findMessageById(messageId).comments(0).firstNameofCommentPoster === "Neel")
+
+    val anotherUser = User(new ObjectId, UserType.Professional, "chris@beamstream.com", "Ray", "Coxx", "", "Crizzle", "Chris", "Beamstream", "", List(), List(), List(), List(), List())
+    val anotherUserId = User.createUser(anotherUser)
+
+    Comment.followingTheComment(messageId, commentId, anotherUserId)
+
+    assert(Message.findMessageById(messageId).comments(0).followers(0) === anotherUserId)
+    assert(Message.findMessageById(messageId).comments(0).follows === 1)
+
+    val rockerNames = Comment.commentFollowersList(messageId, commentId)
+    assert(rockerNames(0) === "Ray")
+  }
+
+  
   after {
 
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
