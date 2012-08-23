@@ -30,11 +30,11 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     assert(Message.findMessageById(messageId).comments.size === 1)
     assert(Message.findMessageById(messageId).comments(0).firstNameofCommentPoster === "Neel")
 
-    val commentFound=Comment.findCommentById(messageId, commentId)
-    assert(commentFound.commentBody==="Comment1")
+    val commentFound = Comment.findCommentById(messageId, commentId)
+    assert(commentFound.commentBody === "Comment1")
   }
-  
-   test("Rocking the comment") {
+
+  test("Rocking the comment") {
     val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
     val userId = User.createUser(user)
 
@@ -44,24 +44,21 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(streamId), "", "", 0, List(), List(), 0, List())
     val messageId = Message.createMessage(message)
 
-    val comment = new Comment(new ObjectId, "Comment1", new Date, userId, user.firstName, user.lastName, 0, List(userId), 0, List(userId))
+    val comment = new Comment(new ObjectId, "Comment1", new Date, userId, user.firstName, user.lastName, 0, List(), 0, List())
 
     val commentId = Message.addCommentToMessage(comment, messageId)
 
     assert(Message.findMessageById(messageId).comments.size === 1)
     assert(Message.findMessageById(messageId).comments(0).firstNameofCommentPoster === "Neel")
 
-    val commentFound=Comment.findCommentById(messageId, commentId)
-    assert(commentFound.commentBody==="Comment1")
-    
-    
     val anotherUser = User(new ObjectId, UserType.Professional, "chris@beamstream.com", "Chris", "Coxx", "", "Crizzle", "Chris", "Beamstream", "", List(), List(), List(), List(), List())
     val anotherUserId = User.createUser(anotherUser)
-    
-    Comment.rockingTheComment(messageId,commentId,anotherUserId)
-  }
 
- 
+    Comment.rockingTheComment(messageId, commentId, anotherUserId)
+
+    assert(Message.findMessageById(messageId).comments(0).rockers(0) === anotherUserId)
+    assert(Message.findMessageById(messageId).comments(0).rocks === 1)
+  }
 
   after {
 

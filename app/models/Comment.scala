@@ -35,9 +35,16 @@ object Comment {
   }
 
   def rockingTheComment(messageId: ObjectId, commentId: ObjectId, userId: ObjectId) = {
-    val commentTobeRocked = findCommentById(messageId, commentId)
-    val updatedComment = new Comment(commentTobeRocked.id, commentTobeRocked.commentBody, commentTobeRocked.timeCreated, commentTobeRocked.userId, commentTobeRocked.firstNameofCommentPoster,
-      commentTobeRocked.lastNameofCommentPoster, commentTobeRocked.rocks + 1, commentTobeRocked.rockers ++ List(userId), commentTobeRocked.follows, commentTobeRocked.followers)
+    val oldCommentToBeRocked = findCommentById(messageId, commentId)
+    val updatedComment = new Comment(oldCommentToBeRocked.id, oldCommentToBeRocked.commentBody, oldCommentToBeRocked.timeCreated, oldCommentToBeRocked.userId, oldCommentToBeRocked.firstNameofCommentPoster,
+      oldCommentToBeRocked.lastNameofCommentPoster, oldCommentToBeRocked.rocks + 1, oldCommentToBeRocked.rockers ++ List(userId), oldCommentToBeRocked.follows, oldCommentToBeRocked.followers)
+
+    replaceComment(messageId, updatedComment, oldCommentToBeRocked)
+  }
+
+  def replaceComment(messageId: ObjectId, newComment: Comment, oldComment: Comment) {
+    val messageToUpdate = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+    MessageDAO.update(MongoDBObject("_id" -> messageId), messageToUpdate.copy(comments = (messageToUpdate.comments -- List(oldComment) ++ List(newComment))), false, false, new WriteConcern)
 
   }
 

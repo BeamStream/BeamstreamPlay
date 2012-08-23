@@ -42,5 +42,15 @@ object CommentController extends Controller {
     Ok(write(commentsForAMessage)).as("application/json")
 
   }
+  
+  /*
+   * Rocking a comment
+   */
+  
+  def rockingTheComment = Action { implicit request =>
+    val commentDetailsJson = request.body.asFormUrlEncoded.get
+    
+    Ok
+  }
 
 }
