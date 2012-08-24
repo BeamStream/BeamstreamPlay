@@ -79,6 +79,8 @@ BS.NewSchoolView = Backbone.View.extend({
      closeScreen :function(eventName){
     	 eventName.preventDefault(); 
     	 $('#new-school-view').children().detach(); 
+    	 var classStream = new BS.ClassStreamView();
+    	 classStream.getSchools();
      },
      /**
       * save new school info

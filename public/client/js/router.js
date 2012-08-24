@@ -475,7 +475,7 @@ BS.AppRouter = Backbone.Router.extend({
 							dataType : "json",
 							success : function(datas) {
 
-								var sSelect = '<select id="schools" class="small selectBox">';
+								var sSelect = '<select id="schools" class="small selectBox"><option value ="" ></option>';
 								_.each(datas, function(data) {
 									sSelect += '<option value ="' + data.assosiatedSchoolId.id
 											+ '" > ' + data.schoolName
