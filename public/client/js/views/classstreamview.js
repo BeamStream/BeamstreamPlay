@@ -193,13 +193,19 @@ BS.ClassStreamView = Backbone.View.extend({
 			},
 			dataType : "json",
 			success : function(data) {
-				 
-				 console.log("success");
-				 // get all streams with newly created one
-				 var mainView = new BS.StreamView();
-				 mainView.getStreams();
-
-				 BS.AppRouter.navigate("streams", {trigger: true});
+				if(data.status == "Success")
+				{
+					 console.log("success");
+					 // get all streams with newly created one
+					 var mainView = new BS.StreamView();
+					 mainView.getStreams();
+	
+					 BS.AppRouter.navigate("streams", {trigger: true});
+				}
+				else
+				{
+					$('#error').html(data.message);
+				}
 			}
 		});
 		
