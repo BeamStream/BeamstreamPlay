@@ -43,10 +43,16 @@ object Comment {
 
   def rockingTheComment(messageId: ObjectId, commentId: ObjectId, userId: ObjectId): Int = {
     val oldCommentToBeRocked = findCommentById(messageId, commentId)
-    val updatedComment = new Comment(oldCommentToBeRocked.id, oldCommentToBeRocked.commentBody, oldCommentToBeRocked.timeCreated, oldCommentToBeRocked.userId, oldCommentToBeRocked.firstNameofCommentPoster,
-      oldCommentToBeRocked.lastNameofCommentPoster, oldCommentToBeRocked.rocks + 1, oldCommentToBeRocked.rockers ++ List(userId), oldCommentToBeRocked.follows, oldCommentToBeRocked.followers)
-    replaceComment(messageId, updatedComment, oldCommentToBeRocked)
-    oldCommentToBeRocked.rocks + 1
+    (oldCommentToBeRocked.rockers.contains(userId)) match {
+      case true =>
+        oldCommentToBeRocked.rocks
+      case false =>
+        val updatedComment = new Comment(oldCommentToBeRocked.id, oldCommentToBeRocked.commentBody, oldCommentToBeRocked.timeCreated, oldCommentToBeRocked.userId, oldCommentToBeRocked.firstNameofCommentPoster,
+          oldCommentToBeRocked.lastNameofCommentPoster, oldCommentToBeRocked.rocks + 1, oldCommentToBeRocked.rockers ++ List(userId), oldCommentToBeRocked.follows, oldCommentToBeRocked.followers)
+        replaceComment(messageId, updatedComment, oldCommentToBeRocked)
+        oldCommentToBeRocked.rocks + 1
+
+    }
   }
 
   /*

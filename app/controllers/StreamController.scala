@@ -62,18 +62,27 @@ object StreamController extends Controller {
 
   def newStream = Action { implicit request =>
     val classListJsonMap = request.body.asFormUrlEncoded.get
+
     val classJsonList = classListJsonMap("data").toList(0)
     val classList = net.liftweb.json.parse(classJsonList).extract[List[Class]]
-    val listOfClassIds = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
-    User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
 
-    val classJson = net.liftweb.json.parse(classJsonList)
-    val classTag = (classJson \ "classTag").extract[String]
-    //updating Tags 
-    val classToUpdateWithTags = Class.findClasssById(listOfClassIds(0))
-    val streamId = classToUpdateWithTags.streams(0)
-    Stream.addTagsToStream(List(classTag), streamId)
-    Ok(write(new ResulttoSent("Success","New Stream Added")))
+    val listOfClassIds = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
+
+    (listOfClassIds.isEmpty) match {
+      case true =>
+        Ok(write(new ResulttoSent("Failure", "One of Your Class Code already exists")))
+
+      case false =>
+        User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
+        val classJson = net.liftweb.json.parse(classJsonList)
+        val classTag = (classJson \ "classTag").extract[String]
+        //updating Tags 
+        val classToUpdateWithTags = Class.findClasssById(listOfClassIds(0))
+        val streamId = classToUpdateWithTags.streams(0)
+        Stream.addTagsToStream(List(classTag), streamId)
+        Ok(write(new ResulttoSent("Success", "Class added")))
+    }
+
   }
 
   /*
