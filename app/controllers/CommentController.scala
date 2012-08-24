@@ -11,6 +11,7 @@ import net.liftweb.json.Serialization.{ read, write }
 import utils.ObjectIdSerializer
 import models.ResulttoSent
 import models.Comment
+import models.ResulttoSent
 
 object CommentController extends Controller {
 
@@ -42,23 +43,30 @@ object CommentController extends Controller {
     Ok(write(commentsForAMessage)).as("application/json")
 
   }
-  
+
   /*
    * Rocking a comment
    */
-  
+
   def rockingTheComment = Action { implicit request =>
     val commentDetailsJson = request.body.asFormUrlEncoded.get
-    Ok
+    val messageId = commentDetailsJson("messageId").toList(0)
+    val commentId = commentDetailsJson("commentId").toList(0)
+    val totalRocksForAComment = Comment.rockingTheComment(new ObjectId(messageId), new ObjectId(commentId), new ObjectId(request.session.get("userId").get))
+    Ok(write(totalRocksForAComment.toString))
   }
-  
+
   /*
    * Return Comment Rockers List
    */
-  
+
   def commentRockers = Action { implicit request =>
     val commentDetailsJson = request.body.asFormUrlEncoded.get
-    Ok
+    val messageId = commentDetailsJson("messageId").toList(0)
+    val commentId = commentDetailsJson("commentId").toList(0)
+    val rockersNameForAComment = Comment.commentRockersList(new ObjectId(messageId), new ObjectId(commentId))
+    Ok(write(rockersNameForAComment))
+
   }
 
 }
