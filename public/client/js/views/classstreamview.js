@@ -120,6 +120,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			 $('#date-started').val(date);
 			 $('#semester option:selected').attr('selected', false);
 			 $('#semester option[value="'+classType+'"]').attr('selected', 'selected');
+			 
 			 $('#div-school-type a span.selectBox-label').html(classType);
 			 $('#div-time a span.selectBox-label').html(classTime);
 
@@ -132,8 +133,10 @@ BS.ClassStreamView = Backbone.View.extend({
 						schoolId : schoolId
 					},
 					success : function(data) {
-						 var sSelect = '<select id="schools" class="small selectBox"><option value ="'+schoolId+'" >'+data+'</option>';
-						 $('#sShool').html(sSelect);
+						 $('#schools option[value="'+schoolId+'"]').attr('selected', 'selected');
+						 $('div#sShool a span.selectBox-label').html(data);
+//						 var sSelect = '<select id="schools" class="small selectBox"><option value ="'+schoolId+'" >'+data+'</option>';
+//						 $('#sShool').html(sSelect);
 						 $(".modal select:visible").selectBox();
 
 					}
@@ -153,13 +156,13 @@ BS.ClassStreamView = Backbone.View.extend({
 				 this.classId =1;
 				 $('#class_name').val("");
 				 $('#date-started').val("");
-				 $('#div-school-type a span.selectBox-label').html("");
-				 $('#div-time a span.selectBox-label').html("");
-				 $('#div-school a span.selectBox-label').html("");
+//				 $('#div-school-type a span.selectBox-label').html("");
+//				 $('#div-time a span.selectBox-label').html("");
+//				 $('#div-school a span.selectBox-label').html("");
 				 $(".modal select:visible").selectBox();
 				 
 //				/* get all schoolIds under a class */
-				    this.getSchools();
+				    //this.getSchools();
 //			 }
 			 $('#createClass').show(); 
 			 $('#joinClass').hide();
@@ -387,8 +390,10 @@ BS.ClassStreamView = Backbone.View.extend({
 						schoolId : schoolId
 					},
 					success : function(data) {
-						 var sSelect = '<select id="schools" class="small selectBox"><option value ="'+schoolId+'" >'+data+'</option>';
-						 $('#sShool').html(sSelect);
+						 $('#schools option[value="'+schoolId+'"]').attr('selected', 'selected');
+						 $('div#sShool a span.selectBox-label').html(data);
+//						 var sSelect = '<select id="schools" class="small selectBox"><option value ="'+schoolId+'" >'+data+'</option>';
+//						 $('#sShool').html(sSelect);
 						 $(".modal select:visible").selectBox();
 
 					}

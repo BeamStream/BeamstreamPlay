@@ -23,6 +23,8 @@ BS.AppRouter = Backbone.Router.extend({
     },
     initialize :function() {
     	
+    	
+    	
     	var self = this;
     	BS.idLogin = '';
         BS.user = new BS.SingleUser();
@@ -60,13 +62,7 @@ BS.AppRouter = Backbone.Router.extend({
   		 }
   		BS.times = jQuery.parseJSON(JSON.stringify(timeValues));
   		
-  		
-//  		/* auto push */
-//  		var socketMsg = io.connect('/postMsg');
-//    	socketMsg.on('msg Info', function(data) {
-//			console.log("Posted");
-//			console.log(data);
-//    	});
+ 
    
     	
     },
