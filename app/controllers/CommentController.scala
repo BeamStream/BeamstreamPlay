@@ -18,12 +18,13 @@ object CommentController extends Controller {
   } + new ObjectIdSerializer
 
   def newComment = Action { implicit request =>
+    
     val commentJson = request.body.asFormUrlEncoded.get
     val messageId = commentJson("messageId").toList(0)
     val commentText = commentJson("comment").toList(0)
     val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
-      commentPoster.firstName, commentPoster.lastName, 0, List(), 0, List())
+    commentPoster.firstName, commentPoster.lastName, 0, List(), 0, List())
     Message.addCommentToMessage(comment, new ObjectId(messageId))
     Ok(write(List(comment))).as("application/json")
 
