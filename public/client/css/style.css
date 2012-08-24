@@ -777,10 +777,27 @@ ul.rockit li span a {
   color: #fff;
   display: none ;
   left: 35%;
-  bottom:23px;
+  top:23px;
   position: absolute !important;
   border-radius: 4px 4px 4px 4px;
 	
+}
+.cmtlist-popup{
+  padding : 10px;
+  z-index: 1050;
+  width: 110px;
+  line-height:20px;
+  background-color: #3A4046;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+  font-family: UbuntuRegular;
+  color: #fff;
+  display: none ;
+  left: 35%;
+  top:23px;
+  position: absolute !important;
+  border-radius: 4px 4px 4px 4px;
 }
 .timeline ul li
 {

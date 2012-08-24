@@ -783,8 +783,8 @@ BS.StreamView = Backbone.View.extend({
 			    });
             	ul+='</ul>';
  
-        		$('#hover-lists-'+commentId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
-        		$('#hover-lists-'+commentId+'').html(ul);
+        		$('#cmthover-lists-'+commentId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
+        		$('#cmthover-lists-'+commentId+'').html(ul);
              }
           });
  

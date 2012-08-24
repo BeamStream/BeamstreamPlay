@@ -2243,9 +2243,11 @@
                             <span class="separator">-</span>
                            <a id="{{id.id}}-follow" class="follow" href="#follow">Follow</a>
                       </div>
+                      <div id="cmthover-lists-{{id.id}}" class="cmtlist-popup"></div>
                     </div>
                  </div>
               </article>
+			<div id="cmthover-lists-{{id.id}}" class="cmtlist-popup"></div>
           </li>
    </script> 
    
@@ -2277,9 +2279,11 @@
                             <span class="separator">-</span>
                            <a class="follow" href="#follow">Follow</a>
                       </div>
+                       <div id="cmthover-lists-{{id.id}}" class="cmtlist-popup"></div>
                     </div>
                  </div>
               </article>
+             
           </li>
    </script> 
  <script type="text/x-handlebars-template" id="tpl-comment-header"> 
@@ -2328,6 +2332,7 @@
           
        </div>
      </div>
+     
    </div>
    <div id="{{datas.id.id}}-header"> </div>
    <ul class="comments" id="{{datas.id.id}}-commentlists"></ul>
