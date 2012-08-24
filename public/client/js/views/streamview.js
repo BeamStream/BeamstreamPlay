@@ -694,12 +694,14 @@ BS.StreamView = Backbone.View.extend({
 		 eventName.preventDefault();
 		 var element = eventName.target.parentElement;
 		 var commentId =$(element).closest('li').attr('id');
+		 var messageId =$(element).closest('li').parent('ul').parent('article').parent('li').attr('id');
 		 
 		 $.ajax({
              type: 'POST',
              url:BS.rockingTheComment,
              data:{
-            	  commentId:commentId
+            	  commentId:commentId,
+            	  messageId : messageId
              },
              dataType:"json",
              success:function(data){
@@ -761,12 +763,14 @@ BS.StreamView = Backbone.View.extend({
 		 var element = eventName.target.parentElement;
 		 var commentId =$(element).closest('li').attr('id');
 		 var position = $('li#'+commentId+'').find('i').position();
-		  
+		 var messageId =$(element).closest('li').parent('ul').parent('article').parent('li').attr('id');
+		 
 		 $.ajax({
              type: 'POST',
              url: BS.commentRockers,
              data:{
-            	  commentId:commentId
+            	  commentId:commentId,
+            	  messageId :messageId
              },
              dataType:"json",
              success:function(data){
