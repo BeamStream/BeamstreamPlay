@@ -165,7 +165,7 @@ BS.StreamView = Backbone.View.extend({
              		//set active class on right top
 	                 $('#public-classes').find('li.active').removeClass('active');
 	              	 $('#public-classes').find('li#'+streamId+'').addClass('active');
-	              	 
+	              	 $('.timeline_items').html("");
 	              	 BS.pagenum =1;  
                      if(streamId)
                       self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
@@ -214,7 +214,7 @@ BS.StreamView = Backbone.View.extend({
  	                     var source = $("#tpl-stream-page-menus").html();
  	             		 var template = Handlebars.compile(source);
  	             		 $('#sub-menus').html(template({streamName : streamName}));
- 	             		  
+ 	             		 $('.timeline_items').html("");
  	             		 BS.pagenum =1;
  	             		 if(streamId)
  	             			self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
@@ -633,7 +633,8 @@ BS.StreamView = Backbone.View.extend({
   	    // show all projectStreams
   	    else if(id == 'projectStreams-list')
   	    {
-  	    	$('#streams-list').html('');
+  	    	 $('.timeline_items').html("");
+  	    	 $('#streams-list').html('');
   	    	 $('#public-classes').html('');
   	    }
   	    else
