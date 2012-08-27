@@ -18,6 +18,7 @@ BS.StreamView = Backbone.View.extend({
            "click i.rock-message" : "rockMessage",
            "click i.rock-comment" :"rockComments",
            "mouseenter a#rocks" : "showRockers",
+           "click a.rock" : "preventDefault",
            "mouseenter a#cmtrock" : "showCommentRockers",
            "click .edit_profilepicture" : "showProfilePage",
            "click .nav-tabs li" : "showActive",
@@ -29,7 +30,7 @@ BS.StreamView = Backbone.View.extend({
            "click .show_comments" : "showComments",
            "click #sort-messages li a" : "sortMessages",
            "keypress #sort_by_key" : "sortMessagesByKey",
-           "click .follow" : "followMessage",
+           "click .msg-follow" : "followMessage",
 //           "click #msg"  : "showBitleys",
            "click .social_media" : "uncheckPrivate",
            "click #id-private" : "makePrivate"
@@ -1187,6 +1188,8 @@ BS.StreamView = Backbone.View.extend({
 		 
 		
 	 },
+	 
+	 
 	 /**
 	  * get messages and sort by votes 
 	  */
@@ -1284,6 +1287,11 @@ BS.StreamView = Backbone.View.extend({
 	 makePrivate :function(){
 		 if($('#id-private').attr('checked')== 'checked')
 		    $('li.social_media a').removeClass('active');
+	 },
+	 /**
+	  * prevent default action 
+	  */
+	 preventDefault : function(eventName){
+		 eventName.preventDefault(); 
 	 }
-	 
 });
