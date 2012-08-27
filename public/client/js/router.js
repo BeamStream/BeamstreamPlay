@@ -159,7 +159,7 @@ BS.AppRouter = Backbone.Router.extend({
 			$('#graduated-'+BS.schoolNum).val(info.graduated);
 			if(info.graduated == "yes")
 			{
-				$('#degree-expected-'+BS.schoolNum).hide();
+				$('#degree-exp-'+BS.schoolNum).hide();
 				$('#calendar-'+BS.schoolNum).val(info.graduationDate);
 			
 			}
