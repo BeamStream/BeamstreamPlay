@@ -91,8 +91,10 @@ BS.GoogleDocsView = Backbone.View.extend({
         docsList : function()
             {       
             var i = 1;
+            var j=1;
             var self = this;
             BS.user.fetch({ success:function(e) {
+                    
                 /* get profile images for user */
             $.ajax({
                 type : 'POST',
@@ -102,13 +104,47 @@ BS.GoogleDocsView = Backbone.View.extend({
                 },
                 dataType : "json",
                 success : function(docs) {
-                _.each(docs, function(doc) {                   
+                   console.log("docs.status"); 
+                   console.log(docs.status); 
+                   var content = '';
+                //   if(docs.status == 'success')    {
+                _.each(docs, function(doc) {  
+                if (j)
+                                                     
                 var datVal =  self.formatDateVal(doc.creationDate);
-                var content = '<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'"><input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'"><div class="comment-wrapper comment-wrapper2"><a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a><a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><h4> '+doc.name+'</h4><p>The Power of The Platform Behance Network Join The Leading Platform For </p><h5> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> </div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#">87</a></li><li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#">10</a></li></ul></div>'; 
-                $('#file-docs-'+i).html(content);
+                content += '<li id="file-docs-'+i+'" data-key="['+datVal+']"> <div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'">'
+                                +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'">'
+                                +'<div class="comment-wrapper comment-wrapper2">'
+                                +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
+                                +'<a href="#" class="hand-icon"></a>'
+                                +'<a href="#" class="message-icon"></a>'
+                                +'<a href="#" class="share-icon"></a>'
+                                +'</div>'
+                                +'<h4> '+doc.name+'</h4>'
+                                +' <p>The Power of The Platform Behance Network Join The Leading Platform For </p>'
+                                +'<h5> Title & Description</h5>'
+                                +'<span>State</span>'
+                                +' <span class="date">'+datVal+'</span>' 
+                                +'</div>'
+                                +'<div class="comment-wrapper comment-wrapper1"> '
+                                +' <a class="common-icon link" href="#">'
+                                +'<span class="right-arrow"></span>'
+                                +' </a>'
+                                +'<ul class="comment-list">'
+                                +'<li><a class="eye-icon" href="#">87</a></li>'
+                                +'  <li><a class="hand-icon" href="#">5</a></li>'
+                                +'   <li><a class="message-icon" href="#">10</a></li>'
+                                +' </ul>'
+                                +'</div> </li>'; 
+                
                 i++;
+                j=i;
                 });
-                }
+                 console.log("content");
+                console.log(content);
+                $('#grid').html(content);
+                   }
+              //  }
                 });
                 }});
                 // $('#content').html(BS.listDocsView.el);
@@ -135,7 +171,7 @@ BS.GoogleDocsView = Backbone.View.extend({
          */
         showDocPopup :function(eventName){
             var docId = eventName.currentTarget.id;
-            var docUrl = $('input#id-'+docId).val();
+            var docUrl = $('input#id-'+docId).val();   
             newwindow=window.open(docUrl,'','height=550,width=1100,top=100,left=250');     
             },
         
