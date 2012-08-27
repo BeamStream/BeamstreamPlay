@@ -100,7 +100,7 @@ BS.FilesMediaView = Backbone.View.extend({
                             else
                                 {
                                 alert("Doc Uploaded Successfully");
-                                self.docsList(); 
+                                //self.docsList(); 
                                 }
                         }           
             });
