@@ -65,12 +65,6 @@ object ClassController extends Controller {
    * Edit Class Functionality
    * @Purpose: Getting all classes for a user
    */
-
-  
-  /*
- * Provides All School For a User (Duplicacy seen : exactly like /schoolJson)
- */
-  
   def getAllClassesForAUser = Action { implicit request =>
     val userId = new ObjectId(request.session.get("userId").get)
     val classIdList = Class.getAllClassesforAUser(userId)
