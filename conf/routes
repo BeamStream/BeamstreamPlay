@@ -55,7 +55,8 @@ GET  /getAllSchoolsForAutopopulate      controllers.SchoolController.getAllSchoo
 POST /detailed_reg controllers.DetailedRegistration.addInfo
 
 #Class
-POST /class        controllers.ClassController.addClass
+POST /class                             controllers.ClassController.addClass
+GET  /getAllClassesForAUser             controllers.ClassController.getAllClassesForAUser
 
 #Auto populate class
 
