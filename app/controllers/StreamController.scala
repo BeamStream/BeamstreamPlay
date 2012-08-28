@@ -100,4 +100,16 @@ object StreamController extends Controller {
     Ok(write(new ResulttoSent("Success", "User has SuccessFully Joined The Stream")))
   }
 
+  /*
+   * Show the no. of users attending classes
+   * @Purpose: For Showing no. of classes
+   */
+
+  def noOfUsersAttendingAClass = Action { implicit request =>
+    val StreamIdJsonMap = request.body.asFormUrlEncoded.get
+    val streamId = StreamIdJsonMap("streamId").toList(0)
+    val noOfUsersAttendingClass=Stream.usersAttendingClass(new ObjectId(streamId))
+    Ok(write(noOfUsersAttendingClass.toString)).as("application/json")
+  }
+
 }
