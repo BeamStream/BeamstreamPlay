@@ -46,10 +46,6 @@ object Class {
         if (!classesFetched.isEmpty) classesFetchCount += 1
       }
 
-      //      for(i <- 0  until classList.length){
-      //        if(classList(i).classCode == classList(i+1).classCode) classesFetchCount += 1
-      //      }
-
       if (classesFetchCount == 0) false else true
     }
 
@@ -130,7 +126,7 @@ object Class {
   /*
    * Get all classes for a user
    */
-  def getAllClassesforAUser(userId: ObjectId): List[ObjectId] = {
+  def getAllClassesIdsForAUser(userId: ObjectId): List[ObjectId] = {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
     user.classId
 
@@ -147,6 +143,16 @@ object Class {
       classList ++= classObtained
     }
     classList
+  }
+
+  /*
+   * @Purpose :   Getting All Classes for a user
+   * 
+   */
+  def getAllClassesForAUser(userId: ObjectId): List[Class] = {
+    val classesIdsOfAUser = Class.getAllClassesIdsForAUser(userId)
+    val classesOfAUser = getAllClasses(classesIdsOfAUser)
+    classesOfAUser
   }
 
 }

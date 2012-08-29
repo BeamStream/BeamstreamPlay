@@ -67,7 +67,7 @@ object ClassController extends Controller {
    */
   def getAllClassesForAUser = Action { implicit request =>
     val userId = new ObjectId(request.session.get("userId").get)
-    val classIdList = Class.getAllClassesforAUser(userId)
+    val classIdList = Class.getAllClassesIdsForAUser(userId)
     val getAllClassesForAUser = Class.getAllClasses(classIdList)
     val ClassListJson = write(getAllClassesForAUser)
     Ok(ClassListJson).as("application/json")

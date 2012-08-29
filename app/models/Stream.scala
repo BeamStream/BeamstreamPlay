@@ -103,7 +103,8 @@ object Stream {
     val streamObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     streamObtained.usersOfStream.size
   }
-
+   
+   
 }
 
 object StreamType extends Enumeration {

@@ -20,6 +20,7 @@ import models.User
 import models.StreamType
 import models.Class
 import models.ResulttoSent
+import models.Message
 
 object StreamController extends Controller {
 
@@ -29,7 +30,7 @@ object StreamController extends Controller {
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
   def index = Action {
-    Ok("This is BeamStream Application by Knoldus Software LLP  Neelkanth Sachdeva(Sr. Developer)")
+    Ok("This is BeamStream Application by Knoldus Software LLP")
 
   }
 
@@ -112,4 +113,17 @@ object StreamController extends Controller {
     Ok(write(noOfUsersAttendingClass.toString)).as("application/json")
   }
 
+  /*
+   * Get All Public Messages For A User
+   * @Purpose: For Public Profile
+   */
+  def allPublicMessagesFromAllStreamsForAUser= Action { implicit request =>
+    val UserIdJsonMap = request.body.asFormUrlEncoded.get
+    val userId = UserIdJsonMap("userId").toList(0)
+    val classListForAUser=Class.getAllClassesForAUser(new ObjectId(userId))
+    val allPublicMessagesForAUserAcrossTheirStreams=Message.getAllPublicMessagesForAUser(classListForAUser)
+    Ok(write(allPublicMessagesForAUserAcrossTheirStreams)).as("application/json")
+ 
+  }
+  
 }

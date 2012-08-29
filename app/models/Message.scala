@@ -225,6 +225,21 @@ object Message {
     }
 
   }
+  
+  
+   /*
+  * Getting all public messages For All the Streams of a user
+  */
+
+  def getAllPublicMessagesForAUser(classesForAUser: List[Class]): List[Message] = {
+    var publicMessagesForAUser: List[Message] = List()
+    for (classForAUser <- classesForAUser) {
+      val messageObtained = MessageDAO.find(MongoDBObject("streamId" -> classForAUser.streams(0), "messageAccess" -> "Public")).toList
+      publicMessagesForAUser ++= messageObtained
+    }
+    publicMessagesForAUser
+  }
+
 
 }
 
