@@ -44,10 +44,12 @@ object UserSchool {
     * 
     * @Purpose : Will Edit The schools as well with Creation
     */
-  def createSchool(schools: List[UserSchool]) {
+  
+  //(schools.filter(x => x.schoolName == schools(0).schoolName).size > 0)
+  def createSchool(schools: List[UserSchool]){
 
     for (school <- schools) {
-
+       
       val userSchoolObtained = UserSchool.isUserSchoolExist(school.id)
 
       if (userSchoolObtained.size == 1) {
@@ -137,8 +139,22 @@ object UserSchool {
     }
     schoolList
   }
+  
+  /*
+   * is Duplicate School Exists
+   */
+  def duplicateSchoolExistes(schooList: List[School]): Boolean = {
+      var schoolsFetchCount: Int = 0
+      for (eachSchool <- schooList) {
+        val schoolsFetched = SchoolDAO.find(MongoDBObject("schoolName" -> eachSchool.schoolName)).toList
+        if (!schoolsFetched.isEmpty) schoolsFetchCount += 1
+      }
 
+      if (schoolsFetchCount == 0) false else true
+    }
 }
+
+
 
 object Year extends Enumeration {
 
