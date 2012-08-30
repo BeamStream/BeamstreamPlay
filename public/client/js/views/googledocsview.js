@@ -102,12 +102,40 @@ BS.GoogleDocsView = Backbone.View.extend({
                 },
                 dataType : "json",
                 success : function(docs) {
-                _.each(docs, function(doc) {                   
-                var datVal =  self.formatDateVal(doc.creationDate);
-                var content = '<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'"><input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'"><div class="comment-wrapper comment-wrapper2"><a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a><a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><h4> '+doc.name+'</h4><p>The Power of The Platform Behance Network Join The Leading Platform For </p><h5> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> </div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#">87</a></li><li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#">10</a></li></ul></div>'; 
-                $('#file-docs-'+i).html(content);
-                i++;
-                });
+                	  content = '';
+                	_.each(docs, function(doc) {  
+                        
+                        
+                        var datVal =  self.formatDateVal(doc.creationDate);
+                        console.log(datVal);
+                        content += '<li id="file-docs-'+i+'" data-key="['+ datVal +']" > <div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'">'
+                                        +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'">'
+                                        +'<div class="comment-wrapper comment-wrapper2">'
+                                        +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
+                                        +'<a href="#" class="hand-icon"></a>'
+                                        +'<a href="#" class="message-icon"></a>'
+                                        +'<a href="#" class="share-icon"></a>'
+                                        +'</div>'
+                                        +'<h4> '+doc.name+'</h4>'
+                                        +' <p>The Power of The Platform Behance Network Join The Leading Platform For </p>'
+                                        +'<h5> Title & Description</h5>'
+                                        +'<span>State</span>'
+                                        +' <span class="date">'+datVal+'</span>' 
+                                        +'</div>'
+                                        +'<div class="comment-wrapper comment-wrapper1"> '
+                                        +' <a class="common-icon link" href="#">'
+                                        +'<span class="right-arrow"></span>'
+                                        +' </a>'
+                                        +'<ul class="comment-list">'
+                                        +'<li><a class="eye-icon" href="#">87</a></li>'
+                                        +'  <li><a class="hand-icon" href="#">5</a></li>'
+                                        +'   <li><a class="message-icon" href="#">10</a></li>'
+                                        +' </ul>'
+                                        +'</div> </li>'; 
+                        
+                        i++;
+                        });
+                	$('#grid').html(content);
                 }
                 });
                 }});

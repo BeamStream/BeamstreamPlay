@@ -127,8 +127,9 @@
     <script>
         $('.lytebox').live('click', function(event) {
             event.preventDefault()
-            
+             
            var src = $(this).attr("href");
+            
             if(src === null){
                 // do nothing.
                 return false;
