@@ -91,8 +91,10 @@ BS.GoogleDocsView = Backbone.View.extend({
         docsList : function()
             {       
             var i = 1;
+            var j=1;
             var self = this;
             BS.user.fetch({ success:function(e) {
+                    
                 /* get profile images for user */
             $.ajax({
                 type : 'POST',
@@ -102,7 +104,7 @@ BS.GoogleDocsView = Backbone.View.extend({
                 },
                 dataType : "json",
                 success : function(docs) {
-                	  content = '';
+                	content = '';
                 	_.each(docs, function(doc) {  
                         
                         
@@ -137,6 +139,7 @@ BS.GoogleDocsView = Backbone.View.extend({
                         });
                 	$('#grid').html(content);
                 }
+
                 });
                 }});
                 // $('#content').html(BS.listDocsView.el);
@@ -163,7 +166,7 @@ BS.GoogleDocsView = Backbone.View.extend({
          */
         showDocPopup :function(eventName){
             var docId = eventName.currentTarget.id;
-            var docUrl = $('input#id-'+docId).val();
+            var docUrl = $('input#id-'+docId).val();   
             newwindow=window.open(docUrl,'','height=550,width=1100,top=100,left=250');     
             },
         

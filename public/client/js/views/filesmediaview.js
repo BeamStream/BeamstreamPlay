@@ -173,7 +173,7 @@ BS.FilesMediaView = Backbone.View.extend({
          * filter docs.. and prevent default action
          */
         filterDocs :function (eventName){
-        	eventName.preventDefault();
+        	 eventName.preventDefault();
         }
         
 });

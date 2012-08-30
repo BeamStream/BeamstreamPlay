@@ -82,6 +82,7 @@ BS.LoginView = Backbone.View.extend({
 			}
 			else
 			{
+				 
 				 console.log("fileds are not completely filled");
 			     $('#error').html("fileds are not completely filled");
 			}

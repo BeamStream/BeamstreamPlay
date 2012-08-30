@@ -45,11 +45,12 @@ object Class {
         val classesFetched = ClassDAO.find(MongoDBObject("classCode" -> eachClass.classCode)).toList
         if (!classesFetched.isEmpty) classesFetchCount += 1
       }
+
       if (classesFetchCount == 0) false else true
     }
-    
+
     //Class Creation Starts Here by calling the duplicate code validation method
-    
+
     if (duplicateExistes(classList) == true) List()
 
     else {
@@ -86,15 +87,6 @@ object Class {
     for (theclass <- ClassDAO.find(MongoDBObject("className" -> regexp)).toList) yield theclass
   }
 
-  //  /*
-  //   * Finding the class by Code
-  //   */
-  //
-  //  def findClassByCode(code : String): List[Class] = {
-  //    val regexp = (""".*""" + code + """.*""").r
-  //    for (theclass <- ClassDAO.find(MongoDBObject("classCode" -> regexp)).toList) yield theclass
-  //  }
-
   /*
    * Finding the class by Code
    */
@@ -129,6 +121,38 @@ object Class {
   def findClasssById(classId: ObjectId): Class = {
     val classObtained = ClassDAO.find(MongoDBObject("_id" -> classId)).toList(0)
     classObtained
+  }
+
+  /*
+   * Get all classes for a user
+   */
+  def getAllClassesIdsForAUser(userId: ObjectId): List[ObjectId] = {
+    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
+    user.classId
+
+  }
+
+  /*
+   * get all class List
+   */
+
+  def getAllClasses(classIdList: List[ObjectId]): List[Class] = {
+    var classList: List[Class] = List()
+    for (classId <- classIdList) {
+      val classObtained = ClassDAO.find(MongoDBObject("_id" -> classId)).toList
+      classList ++= classObtained
+    }
+    classList
+  }
+
+  /*
+   * @Purpose :   Getting All Classes for a user
+   * 
+   */
+  def getAllClassesForAUser(userId: ObjectId): List[Class] = {
+    val classesIdsOfAUser = Class.getAllClassesIdsForAUser(userId)
+    val classesOfAUser = getAllClasses(classesIdsOfAUser)
+    classesOfAUser
   }
 
 }

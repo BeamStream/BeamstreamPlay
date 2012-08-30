@@ -94,7 +94,17 @@ object Stream {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(streamTag = (stream.streamTag ++ tags)), false, false, new WriteConcern)
   }
-
+  
+  /*
+   * No. of Users Attending Class
+   */
+  
+   def usersAttendingClass(streamId: ObjectId): Int = {
+    val streamObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
+    streamObtained.usersOfStream.size
+  }
+   
+   
 }
 
 object StreamType extends Enumeration {
@@ -108,7 +118,3 @@ object StreamType extends Enumeration {
 
 object StreamDAO extends SalatDAO[Stream, Int](collection = MongoHQConfig.mongoDB("stream"))
 
-object GG extends App {
-  val streamsForAUser = StreamDAO.find(MongoDBObject("usersOfStream" -> MongoDBObject("$exists" -> new ObjectId("5007cc5d84ae72bc3e25cc19")))).toList
-  println(streamsForAUser)
-}

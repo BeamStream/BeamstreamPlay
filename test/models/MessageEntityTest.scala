@@ -11,61 +11,62 @@ import java.text.DateFormat
 class MessageEntityTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(),List())
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
   val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(user.id), true, List())
+  val oneMoreStream = Stream(new ObjectId, "Neelkanth's stream", StreamType.Class, new ObjectId, List(user.id), true, List())
 
   before {
     User.createUser(user)
     Stream.createStream(stream)
   }
 
-    test("Message Creation and rocking the message") {
-  
-      val stream = StreamDAO.find(MongoDBObject()).toList(0)
-      val user = UserDAO.find(MongoDBObject()).toList(0)
-  
-      val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
-  
-      val messageId = Message.createMessage(message)
-  
-      val messageBefore = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-  
-      //Rocks Before
-      assert(messageBefore.rocks === 0)
-  
-      Message.rockedIt(messageId, user.id)
-  
-      val messageAfter = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-      //Rocks After
-      assert(messageAfter.rocks === 1)
-      assert(messageAfter.rockers.size === 1)
-      assert(messageAfter.rockers(0) === user.id)
-  
-      val rockersList = Message.rockersNames(messageAfter.id)
-      assert(rockersList === List("Neel"))
-  
-    }
-  
-    test("Sort message by date") {
-  
-      val stream = StreamDAO.find(MongoDBObject()).toList(0)
-      val user = UserDAO.find(MongoDBObject()).toList(0)
-  
-      val message5 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
-      val message1 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
-      val message2 = Message(new ObjectId, "some message2", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
-      val message3 = Message(new ObjectId, "some message3", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
-      val message4 = Message(new ObjectId, "some message4", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
-  
-      Message.createMessage(message5)
-      Message.createMessage(message1)
-      Message.createMessage(message2)
-      Message.createMessage(message3)
-      Message.createMessage(message4)
-  
-      assert(Message.getAllMessagesForAStreamWithPagination(stream.id, 1, 10)(3).timeCreated === formatter.parse("21-03-12")) // Without sorting by time
-      assert(Message.getAllMessagesForAStreamWithPagination(stream.id, 1, 10)(0).timeCreated === formatter.parse("21-12-12")) // Sorting by date
-    }
+  test("Message Creation and rocking the message") {
+
+    val stream = StreamDAO.find(MongoDBObject()).toList(0)
+    val user = UserDAO.find(MongoDBObject()).toList(0)
+
+    val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+
+    val messageId = Message.createMessage(message)
+
+    val messageBefore = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+
+    //Rocks Before
+    assert(messageBefore.rocks === 0)
+
+    Message.rockedIt(messageId, user.id)
+
+    val messageAfter = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+    //Rocks After
+    assert(messageAfter.rocks === 1)
+    assert(messageAfter.rockers.size === 1)
+    assert(messageAfter.rockers(0) === user.id)
+
+    val rockersList = Message.rockersNames(messageAfter.id)
+    assert(rockersList === List("Neel"))
+
+  }
+
+  test("Sort message by date") {
+
+    val stream = StreamDAO.find(MongoDBObject()).toList(0)
+    val user = UserDAO.find(MongoDBObject()).toList(0)
+
+    val message5 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message1 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message2 = Message(new ObjectId, "some message2", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message3 = Message(new ObjectId, "some message3", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message4 = Message(new ObjectId, "some message4", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+
+    Message.createMessage(message5)
+    Message.createMessage(message1)
+    Message.createMessage(message2)
+    Message.createMessage(message3)
+    Message.createMessage(message4)
+
+    assert(Message.getAllMessagesForAStreamWithPagination(stream.id, 1, 10)(3).timeCreated === formatter.parse("21-03-12")) // Without sorting by time
+    assert(Message.getAllMessagesForAStreamWithPagination(stream.id, 1, 10)(0).timeCreated === formatter.parse("21-12-12")) // Sorting by date
+  }
 
   test("Sort message by total rocks") {
 
@@ -132,64 +133,100 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     assert(Message.getAllMessagesForAStreamSortedbyRocks(stream.id, 1, 10)(2).messageBody === "some message16")
   }
 
-    test("Get all message by keyword and Limit") {
-  
-      val stream = StreamDAO.find(MongoDBObject()).toList(0)
-      val user = UserDAO.find(MongoDBObject()).toList(0)
-  
-      val message1 = Message(new ObjectId, "This is Neel", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 5, List(), List(), 0, List())
-      val message2 = Message(new ObjectId, "This is Chris", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 7, List(), List(), 0, List())
-      val message3 = Message(new ObjectId, "This is Vikas", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 9, List(), List(), 0, List())
-  
-      Message.createMessage(message1)
-      Message.createMessage(message2)
-      Message.createMessage(message3)
-  
-      assert(Message.getAllMessagesForAKeyword("This is", 1, 10).size === 3)
-      assert(Message.getAllMessagesForAKeyword("Chris", 1, 10).size === 1)
-  
-    }
-  
-    test("Get All Message For a stream with Pagination Implemeted") {
-  
-      val stream = StreamDAO.find(MongoDBObject()).toList(0)
-      val user = UserDAO.find(MongoDBObject()).toList(0)
-  
-      val message1 = Message(new ObjectId, "This is Neel", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 5, List(), List(), 0, List())
-      val message2 = Message(new ObjectId, "This is Chris", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 7, List(), List(), 0, List())
-      val message3 = Message(new ObjectId, "This is Vikas", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 9, List(), List(), 0, List())
-      val message4 = Message(new ObjectId, "This is Sachdeva", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-05-12"), user.id, Option(stream.id), "", "", 9, List(), List(), 0, List())
-  
-      Message.createMessage(message1)
-      Message.createMessage(message2)
-      Message.createMessage(message3)
-      Message.createMessage(message4)
-  
-      assert(Message.getAllMessagesForAStreamWithPagination(stream.id, 1, 2).size == 2)
-      assert(Message.getAllMessagesForAStreamWithPagination(stream.id, 1, 3).size == 3)
-  
-    }
-  
-    test("Message Creation and following the message") {
-  
-      val stream = StreamDAO.find(MongoDBObject()).toList(0)
-      val user = UserDAO.find(MongoDBObject()).toList(0)
-      val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
-      val messageId = Message.createMessage(message)
-      val messageBefore = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-  
-      //Rocks Before
-      assert(messageBefore.follows === 0)
-  
-      Message.followMessage(messageId, user.id)
-      val messageAfter = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-  
-      //Rocks After
-      assert(messageAfter.follows === 1)
-      assert(messageAfter.followers.size === 1)
-      assert(messageAfter.followers(0) === user.id)
-  
-    }
+  test("Get all message by keyword and Limit") {
+
+    val stream = StreamDAO.find(MongoDBObject()).toList(0)
+    val user = UserDAO.find(MongoDBObject()).toList(0)
+
+    val message1 = Message(new ObjectId, "This is Neel", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 5, List(), List(), 0, List())
+    val message2 = Message(new ObjectId, "This is Chris", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 7, List(), List(), 0, List())
+    val message3 = Message(new ObjectId, "This is Vikas", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 9, List(), List(), 0, List())
+
+    Message.createMessage(message1)
+    Message.createMessage(message2)
+    Message.createMessage(message3)
+
+    assert(Message.getAllMessagesForAKeyword("This is", 1, 10).size === 3)
+    assert(Message.getAllMessagesForAKeyword("Chris", 1, 10).size === 1)
+
+  }
+
+  test("Get All Message For a stream with Pagination Implemeted") {
+
+    val stream = StreamDAO.find(MongoDBObject()).toList(0)
+    val user = UserDAO.find(MongoDBObject()).toList(0)
+
+    val message1 = Message(new ObjectId, "This is Neel", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 5, List(), List(), 0, List())
+    val message2 = Message(new ObjectId, "This is Chris", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 7, List(), List(), 0, List())
+    val message3 = Message(new ObjectId, "This is Vikas", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 9, List(), List(), 0, List())
+    val message4 = Message(new ObjectId, "This is Sachdeva", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-05-12"), user.id, Option(stream.id), "", "", 9, List(), List(), 0, List())
+
+    Message.createMessage(message1)
+    Message.createMessage(message2)
+    Message.createMessage(message3)
+    Message.createMessage(message4)
+
+    assert(Message.getAllMessagesForAStreamWithPagination(stream.id, 1, 2).size == 2)
+    assert(Message.getAllMessagesForAStreamWithPagination(stream.id, 1, 3).size == 3)
+
+  }
+
+  test("Message Creation and following the message") {
+
+    val stream = StreamDAO.find(MongoDBObject()).toList(0)
+    val user = UserDAO.find(MongoDBObject()).toList(0)
+    val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val messageId = Message.createMessage(message)
+    val messageBefore = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+
+    //Rocks Before
+    assert(messageBefore.follows === 0)
+
+    Message.followMessage(messageId, user.id)
+    val messageAfter = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+
+    //Rocks After
+    assert(messageAfter.follows === 1)
+    assert(messageAfter.followers.size === 1)
+    assert(messageAfter.followers(0) === user.id)
+
+  }
+
+  test("Get All Public messages For A user") {
+    Stream.createStream(oneMoreStream)
+
+    val newClass = Class(new ObjectId, "001", "Physics", ClassType.Semester, "9:00PM", formatter.parse("21-03-12"), new ObjectId, List(stream.id))
+    val otherNewClass = Class(new ObjectId, "001", "Physics", ClassType.Semester, "9:00PM", formatter.parse("22-03-12"), new ObjectId, List(oneMoreStream.id))
+
+    val message5 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Private), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message1 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message2 = Message(new ObjectId, "some message2", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message3 = Message(new ObjectId, "some message3", Option(MessageType.Audio), Option(MessageAccess.Private), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message4 = Message(new ObjectId, "some message4", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+
+    Message.createMessage(message5)
+    Message.createMessage(message1)
+    Message.createMessage(message2)
+    Message.createMessage(message3)
+    Message.createMessage(message4)
+
+    val allPublicMessagesForAStream = Message.getAllPublicMessagesForAUser(List(newClass, otherNewClass))
+    assert(allPublicMessagesForAStream.size === 3)
+
+    val message6 = Message(new ObjectId, "Neelkanth", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(oneMoreStream.id), "", "", 0, List(), List(), 0, List())
+    val message7 = Message(new ObjectId, "Sachdeva", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(oneMoreStream.id), "", "", 0, List(), List(), 0, List())
+    val message8 = Message(new ObjectId, "Consultant", Option(MessageType.Audio), Option(MessageAccess.Private), formatter.parse("21-01-12"), user.id, Option(oneMoreStream.id), "", "", 0, List(), List(), 0, List())
+    val message9 = Message(new ObjectId, "Developer", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-07-12"), user.id, Option(oneMoreStream.id), "", "", 0, List(), List(), 0, List())
+
+    Message.createMessage(message6)
+    Message.createMessage(message7)
+    Message.createMessage(message8)
+    Message.createMessage(message9)
+
+    val allPublicMessagesForAStreamFromMoreThenOneClasses = Message.getAllPublicMessagesForAUser(List(newClass, otherNewClass))
+    assert(allPublicMessagesForAStreamFromMoreThenOneClasses.size === 6)
+
+  }
 
   after {
     StreamDAO.remove(MongoDBObject("name" -> ".*".r))

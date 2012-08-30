@@ -17,6 +17,7 @@ GET /allStreamsForAUser controllers.StreamController.getAllStreamForAUser
 GET /allClassStreamsForAUser controllers.StreamController.allClassStreamsForAUser
 POST /newStream controllers.StreamController.newStream
 POST /joinStreams controllers.StreamController.joinStream
+POST /noOfUsersAttendingAClass  controllers.StreamController.noOfUsersAttendingAClass
 
 
 #Messages
@@ -25,7 +26,7 @@ POST /getAllMessagesForAStream                controllers.MessageController.getA
 POST /getAllMessagesForAStreamSortedbyDate    controllers.MessageController.getAllMessagesForAStreamWithPagination
 POST /getAllMessagesForAStreamSortedbyRocks   controllers.MessageController.getAllMessagesForAStreamSortedbyRocks
 POST /getAllMessagesForAStreambyKeyword controllers.MessageController.getAllMessagesForAStreambyKeyword
-
+POST /allPublicMessagesFromAllStreamsForAUser     controllers.MessageController.allPublicMessagesFromAllStreamsForAUser
 
 
 #Comments
@@ -55,7 +56,8 @@ GET  /getAllSchoolsForAutopopulate      controllers.SchoolController.getAllSchoo
 POST /detailed_reg controllers.DetailedRegistration.addInfo
 
 #Class
-POST /class        controllers.ClassController.addClass
+POST /class                             controllers.ClassController.addClass
+GET  /getAllClassesForAUser             controllers.ClassController.getAllClassesForAUser
 
 #Auto populate class
 

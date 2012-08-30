@@ -16,6 +16,7 @@ import utils.ObjectIdSerializer
 import models.UserSchool
 import models.User
 import models.ResulttoSent
+import models.Class
 
 object ClassController extends Controller {
 
@@ -58,5 +59,19 @@ object ClassController extends Controller {
     val classListJson = write(classList)
     Ok(classListJson).as("application/json")
   }
-
+  
+  
+  /*
+   * Edit Class Functionality
+   * @Purpose: Getting all classes for a user
+   */
+  def getAllClassesForAUser = Action { implicit request =>
+    val userId = new ObjectId(request.session.get("userId").get)
+    val classIdList = Class.getAllClassesIdsForAUser(userId)
+    val getAllClassesForAUser = Class.getAllClasses(classIdList)
+    val ClassListJson = write(getAllClassesForAUser)
+    Ok(ClassListJson).as("application/json")
+    
+  }
+  
 }

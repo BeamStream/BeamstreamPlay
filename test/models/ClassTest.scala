@@ -64,6 +64,26 @@ class ClassTest extends FunSuite with BeforeAndAfter {
 
   }
 
+  test("Find all classes for a user") {
+    val userId = User.createUser(user1)
+    val newClassA = Class(new ObjectId, "302", "CSE", ClassType.Semester, "3:40", formatter.parse("31-01-2011"), new ObjectId, List())
+    val newClassB = Class(new ObjectId, "301", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
+     val classIdList = Class.createClass(List(newClassA,newClassB), userId)
+     assert(classIdList.size === 2)
+     assert(Class.findClasssById(classIdList(0)).className==="CSE")
+  }
+  
+  
+   test("Find all classes Objects for a user") {
+    val userId = User.createUser(user1)
+    val newClassA = Class(new ObjectId, "302", "CSE", ClassType.Semester, "3:40", formatter.parse("31-01-2011"), new ObjectId, List())
+    val newClassB = Class(new ObjectId, "301", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
+     val classIdList = Class.createClass(List(newClassA,newClassB), userId)
+     val classesFetched=Class.getAllClasses(classIdList)
+     assert(classesFetched.size===2)
+     assert(classesFetched(0).classType===ClassType.Semester)
+  }
+
   after {
     ClassDAO.remove(MongoDBObject("className" -> ".*".r))
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))

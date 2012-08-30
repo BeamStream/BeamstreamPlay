@@ -133,7 +133,9 @@ object UserController extends Controller {
   }
 
   /*
-   *  Returns the user JSON on Stream page load
+   *  Find User By ID 
+   *  @Purpose :Returns the user JSON on Stream page load
+   * @Purpose : public profile of a user
    */
 
   def returnUserJson = Action { implicit request =>
@@ -181,5 +183,9 @@ object UserController extends Controller {
     }
 
   }
+  
+  
+ 
+  
 
 }
