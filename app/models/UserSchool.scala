@@ -46,6 +46,7 @@ object UserSchool {
     */
   
   //(schools.filter(x => x.schoolName == schools(0).schoolName).size > 0)
+  // We would use this for removing duplication + Comparing school name in database
   def createSchool(schools: List[UserSchool]){
 
     for (school <- schools) {
