@@ -26,7 +26,7 @@ POST /getAllMessagesForAStream                controllers.MessageController.getA
 POST /getAllMessagesForAStreamSortedbyDate    controllers.MessageController.getAllMessagesForAStreamWithPagination
 POST /getAllMessagesForAStreamSortedbyRocks   controllers.MessageController.getAllMessagesForAStreamSortedbyRocks
 POST /getAllMessagesForAStreambyKeyword controllers.MessageController.getAllMessagesForAStreambyKeyword
-POST /allPublicMessagesFromAllStreamsForAUser     controllers.MessageController.allPublicMessagesFromAllStreamsForAUser
+POST /allPublicMessagesFromAllStreamsForAUser     controllers.StreamController.allPublicMessagesFromAllStreamsForAUser
 
 
 #Comments

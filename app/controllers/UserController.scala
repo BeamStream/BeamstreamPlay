@@ -39,7 +39,6 @@ object UserController extends Controller {
     val userJson = net.liftweb.json.parse(user)
     val userEmailorName = (userJson \ "email").extract[String]
     val userPassword = (userJson \ "password").extract[String]
-    //val rememberMe = (userJson \ "rememberMe").extract[Boolean]
 
     val authenticatedUser = getAuthenticatedUser(userEmailorName, userPassword)
 
