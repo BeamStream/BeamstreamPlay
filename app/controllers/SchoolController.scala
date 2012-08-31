@@ -51,15 +51,7 @@ object SchoolController extends Controller {
   }
   
   
-  /*
-   * Get all user school
-   * @Purpose :-  For implementing Edit Schools by a user
-   */
-
-   def getAllUserSchools = Action { implicit request =>
-   
-    Ok
-  }
+ 
   
   
 }
