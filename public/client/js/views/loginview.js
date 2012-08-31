@@ -10,6 +10,7 @@ BS.LoginView = Backbone.View.extend({
   
     	jQuery("#login-form").validationEngine();
         console.log('Initializing Login View');
+        console.log("Login page...");
         this.template= _.template($("#tpl-login").html());
         
     },
