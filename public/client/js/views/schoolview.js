@@ -106,11 +106,17 @@ BS.SchoolView = Backbone.View.extend({
                     data:{data:schoolDetails},
                     dataType:"json",
                     success:function(data){
-                    	
-                    	BS.schoolBack = false;
-                    	 
-        				 // navigate to main stream page
-                    	BS.AppRouter.navigate("streams", {trigger: true});
+                    	if(data.status == "Success")
+                    	{
+	                    	BS.schoolBack = false;
+	                    	 
+	        				 // navigate to main stream page
+	                    	BS.AppRouter.navigate("streams", {trigger: true});
+                    	}
+                    	else
+                    	{
+                    		$('#error').html(data.message);
+                    	}
         
                         
                     }
@@ -161,11 +167,17 @@ BS.SchoolView = Backbone.View.extend({
 	              data:{data:schoolDetails},
 	              dataType:"json",
 	              success:function(data){
-	            	   
+	            	if(data.status == "Success")
+                  	{
 	            	  // for back button functionality
 	            	  BS.schoolBack = true;
 	            	  BS.AppRouter.navigate("class", {trigger: true});
 	            	  
+                  	}
+                  	else
+                  	{
+                  		$('#error').html(data.message);
+                  	}
 	              }
 	           });
 	      	}
