@@ -49,9 +49,24 @@ object Class {
       if (classesFetchCount == 0) false else true
     }
 
+    /*
+   * is Duplicate Class Exists In List (Local Function)
+   */
+    def duplicateClassExistesInSubmittedList(classList: List[Class]): Boolean = {
+      var classFetchCount: Int = 0
+      for (eachClass <- classList) {
+        val classFetchedbyFilteringClassCode = classList.filter(x => x.classCode == eachClass.classCode)
+        val classFetchedbyFilteringClassName = classList.filter(x => x.className == eachClass.className)
+        if (classFetchedbyFilteringClassCode.size > 1 || classFetchedbyFilteringClassName.size > 1) classFetchCount += 1
+      }
+
+      if (classFetchCount == 0) false else true
+    }
+
     //Class Creation Starts Here by calling the duplicate code validation method
 
     if (duplicateExistes(classList) == true) List()
+    else if (duplicateClassExistesInSubmittedList(classList) == true) List()
 
     else {
 
