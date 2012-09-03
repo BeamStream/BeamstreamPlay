@@ -6,7 +6,10 @@ BS.GoogleDocsView = Backbone.View.extend({
                 "click .upload_button" : "uploadFile",
 //              "click #profile-images":"listProfileImages",
                 "click .google_doc" : "showDocPopup",
-                "click .filter-options li a" : "filterDocs"
+                "click .filter-options li a" : "filterDocs",
+                "click .doctitle" : "editDocTitle",
+                 "click #prevslid" : "previous",
+                 "click #nextslid" : "next"
  	      	 },
     
         initialize:function() {
@@ -88,8 +91,9 @@ BS.GoogleDocsView = Backbone.View.extend({
          *   To list the documents in the view        
          *
          */           
-        docsList : function()
-            {       
+        docsList : function(eventName)
+            {    
+              //  eventName.preventDefault();              
             var i = 1;
             var j=1;
             var self = this;
@@ -104,46 +108,128 @@ BS.GoogleDocsView = Backbone.View.extend({
                 },
                 dataType : "json",
                 success : function(docs) {
-                	content = '';
-                	_.each(docs, function(doc) {  
-                        
-                        
-                        var datVal =  self.formatDateVal(doc.creationDate);
-                        console.log(datVal);
-                        content += '<li id="file-docs-'+i+'" data-key="['+ datVal +']" > <div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'">'
-                                        +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'">'
-                                        +'<div class="comment-wrapper comment-wrapper2">'
-                                        +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
-                                        +'<a href="#" class="hand-icon"></a>'
-                                        +'<a href="#" class="message-icon"></a>'
-                                        +'<a href="#" class="share-icon"></a>'
-                                        +'</div>'
-                                        +'<h4> '+doc.name+'</h4>'
-                                        +' <p>The Power of The Platform Behance Network Join The Leading Platform For </p>'
-                                        +'<h5> Title & Description</h5>'
-                                        +'<span>State</span>'
-                                        +' <span class="date">'+datVal+'</span>' 
-                                        +'</div>'
-                                        +'<div class="comment-wrapper comment-wrapper1"> '
-                                        +' <a class="common-icon link" href="#">'
-                                        +'<span class="right-arrow"></span>'
-                                        +' </a>'
-                                        +'<ul class="comment-list">'
-                                        +'<li><a class="eye-icon" href="#">87</a></li>'
-                                        +'  <li><a class="hand-icon" href="#">5</a></li>'
-                                        +'   <li><a class="message-icon" href="#">10</a></li>'
-                                        +' </ul>'
-                                        +'</div> </li>'; 
-                        
-                        i++;
-                        });
-                	$('#grid').html(content);
-                }
+
+                   console.log("docs"); 
+                   console.log("docs"); 
+                   var content = '';
+            
+                //   if(docs.status == 'success')    {
+                _.each(docs, function(doc) {  
+                
+                                                     
+                var datVal =  self.formatDateVal(doc.creationDate);
+                content += '<li id="file-docs-'+i+'" data-key="['+datVal+']"> <div class="image-wrapper hovereffect" >'
+                                
+                                +'<div class="comment-wrapper comment-wrapper2">'
+                                +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
+                                +'<a href="#" class="hand-icon"></a>'
+                                +'<a href="#" class="message-icon"></a>'
+                                +'<a href="#" class="share-icon"></a>'
+                                +'</div>'
+                                +'<h4> '+doc.name+'</h4>'
+                                +' <p class="google_doc" id="'+doc.id.id+'">'
+                                +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'">'
+                                +'The Power of The Platform Behance Network Join The Leading Platform For </p>'
+                                +'<h5 class="doctitle"> Title & Description</h5>'
+                                +'<span>State</span>'
+                                +' <span class="date">'+datVal+'</span>' 
+                                +'</div>'
+                                +'<div class="comment-wrapper comment-wrapper1"> '
+                                +' <a class="common-icon link" href="#">'
+                                +'<span class="right-arrow"></span>'
+                                +' </a>'
+                                +'<ul class="comment-list">'
+                                +'<li><a class="eye-icon" href="#">87</a></li>'
+                                +'  <li><a class="hand-icon" href="#">5</a></li>'
+                                +'   <li><a class="message-icon" href="#">10</a></li>'
+                                +' </ul>'
+                                +'</div> </li>'; 
+                
+                i++;
+                j=i;
+                });  
+                
+                $('#grid').html(content);
+                self.pagination();                                       
+                   }
+              //  }
 
                 });
                 }});
                 // $('#content').html(BS.listDocsView.el);
             },
+            
+            /*
+            * pagination for docsview
+            *
+            */
+            pagination: function(){
+                    var show_per_page = 16;  
+                    var number_of_items = $('#grid').children().size();  
+                    var number_of_pages = Math.ceil(number_of_items/show_per_page);  
+                    var navigation_count='';
+                    $('#current_page').val(0);  
+                    $('#show_per_page').val(show_per_page);  
+                    var navigation_Prev = '<div class="previous_link" ></div>';  
+                    var current_link = 0;  
+                    while(number_of_pages > current_link){  
+                        navigation_count += '<a class="page_link" href="javascript:go_to_page(' + current_link +')" longdesc="' + current_link +'">'+ (current_link + 1) +'</a>';  
+                        current_link++;  
+                    }  
+                    var navigation_next = '<div class="next_link" ></div>';  
+                    $('#prevslid').html(navigation_Prev);  
+                    $('#page_navigation-count').html(navigation_count);  
+                    $('#nextslid').html(navigation_next);  
+                    $('#page_navigation-count .page_link:first').addClass('active_page');  
+
+                    $('#grid').children().css('display', 'none');  
+
+                    $('#grid').children().slice(0, show_per_page).css('display', 'block');  
+            },
+            
+            /*
+            * Part of pagination and is used to show previous page
+            *
+            */
+           previous: function (){  
+               new_page = parseInt($('#current_page').val()) - 1;  
+                    if($('.active_page').prev('.page_link').length==true){  
+                        this.go_to_page(new_page);  
+                    }  
+  
+            },  
+            
+            /*
+            * Part of pagination and is used to show next page
+            *
+            */
+            next:function (){  
+                new_page = parseInt($('#current_page').val()) + 1;  
+                console.log(new_page);
+                if($('.active_page').next('.page_link').length==true){  
+                    console.log("inside if");
+                    this.go_to_page(new_page);  
+                }  
+            },
+            
+            /*
+            * Part of pagination and is used to page setting
+            *
+            */
+            go_to_page:function (page_num){  
+                var show_per_page = parseInt($('#show_per_page').val());  
+
+                start_from = page_num * show_per_page;  
+
+                end_on = start_from + show_per_page;  
+
+                $('#grid').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');  
+
+                   $('.page_link[longdesc=' + page_num +']').addClass('active_page').siblings('.active_page').removeClass('active_page');  
+
+                $('#current_page').val(page_num);  
+            },  
+
         
             /*
              * Format date and returns 
@@ -166,8 +252,10 @@ BS.GoogleDocsView = Backbone.View.extend({
          */
         showDocPopup :function(eventName){
             var docId = eventName.currentTarget.id;
-            var docUrl = $('input#id-'+docId).val();   
-            newwindow=window.open(docUrl,'','height=550,width=1100,top=100,left=250');     
+            console.log('docId' +docId);
+            var docUrl = $('input#id-'+docId).val();  
+            console.log(docUrl);
+            newwindow=window.open(docUrl,'','height=550,width=1000,top=100,left=145');     
             },
         
         /**
@@ -175,6 +263,13 @@ BS.GoogleDocsView = Backbone.View.extend({
          */
         filterDocs :function (eventName){
             eventName.preventDefault();
+            },
+            
+        /*Edit the document title
+         * 
+         */  
+        editDocTitle :function(){
+            console.log("editDocTitle");
             }
     
 })
