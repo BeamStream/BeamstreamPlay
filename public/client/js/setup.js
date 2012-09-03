@@ -9,8 +9,8 @@ Backbone.history.start();
 * Config Variables for Url externalization
 */
 
-BS.URLRequired ="http://alpha.beamstream.com";     // for cloud use BS.URLRequired ="http://beamstream-v3.herokuapp.com";
- 
+//BS.URLRequired ="http://localhost:9000";     // for cloud use BS.URLRequired ="http://beamstream-v3.herokuapp.com";
+BS.URLRequired ="http://alpha.beamstream.com";  
 //BS.URLRequired ="http://192.168.10.10:9000"; 
 
 // For Login Page
@@ -89,7 +89,8 @@ BS.getAllDocs = BS.URLRequired+"/getAllDocumentsForAUser";
 BS.rockingTheComment = BS.URLRequired+"/rockingTheComment";
 // get comment rockers list
 BS.commentRockers = BS.URLRequired+"/commentRockers";
- 
+// get profile videos 
+BS.allProfileVideos = BS.URLRequired+"/getAllProfileVideoForAUser";
 
  
  

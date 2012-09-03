@@ -19,7 +19,8 @@ BS.AppRouter = Backbone.Router.extend({
         "peerStream" : "peerStream",
         "friendStream" :"friendStream",
         "filesMedia" : "filesMedia",
-        "googledocs" : "googleDocs"
+        "googledocs" : "googleDocs",
+//        "profile/view/id/:id/name/:name" : "publicProfile"
         
     },
     initialize :function() {
@@ -605,6 +606,15 @@ BS.AppRouter = Backbone.Router.extend({
 				BS.filesMediaView.render();
 
 				$('#content').html(BS.filesMediaView.el);
+				
+				//get profile videos
+				var profileView = new BS.ProfileView();
+		     	profileView.getProfileVideos();
+		     	
+		     	var type = "files";
+		     	profileView.getProfileImages(type);
+		     	
+				
 				$('.file-type').hide();
 				$(".checkbox").dgStyle();
                                 
@@ -723,5 +733,14 @@ BS.AppRouter = Backbone.Router.extend({
 				 }
 				 $('#load-janRain').css("display","none");
 				
+			},
+			
+			/**
+			 * public profile view
+			 */
+			
+			publicProfile :function(userId ,userName){
+				console.log("userId" + userId);
+				console.log("userName" + userName);
 			}
 		});

@@ -39,11 +39,11 @@
     
        <style type="text/css">.tk-ubuntu,body{font-family:"ubuntu",sans-serif;}</style>
     
-    
-    <!--  for image popups -lytebox -->
-     <link rel="stylesheet" href="css/lytebox.css" type="text/css" media="screen" />
-    <script type="text/javascript" language="javascript" src="lib/lytebox.js"></script>
    
+    
+    <!--  for pretty photo -->
+    <link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+    
     
     
     <!--[if IE]>
@@ -123,23 +123,11 @@
     <!--Shuffle in media page -->
     <script type="text/javascript" src="lib/jquery.shuffle.js"></script>
     <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script>
-        
-    <script>
-        $('.lytebox').live('click', function(event) {
-            event.preventDefault()
-             
-           var src = $(this).attr("href");
-            
-            if(src === null){
-                // do nothing.
-                return false;
-            }
-            else{
-                showLyteBox(src);
-            }
-        });
-        
-    </script>
+    
+    <!--  for pretty  -->
+    <script src="lib/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+    
+ 
 </head>
  <!-- template for Files and Media-->
  <script type="text/x-handlebars-template" id="tpl-files-media">
@@ -383,7 +371,7 @@
           </div>
         </li>
         <li data-key='["recent"]'>
-          <div class="image-wrapper"><img src="images/image2.jpg"></div>
+          <div class="image-wrapper"><div id="profile-videos"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -1900,7 +1888,7 @@
                     <div class="element">
                         <div id="num-validation"></div>
                         <label for="mobile">Mobile <span class="star"> *</span></label>
-                        <input type="text" id="mobile" name="mobile" class=" large" placeholder="(999)999-9999">
+                        <input type="text" id="mobile" name="mobile" class=" large" placeholder="(999)999-9999" >
                     </div>
                     <div class="element">
                         <label for="upload">Upload</label>
@@ -2461,7 +2449,7 @@
                </div>
                     <div class="content_container">
                      <div class="meta_data">
-                         <span class="username"><a id="{{userId.id}}" href="#user-profile">{{firstNameofCommentPoster}} {{lastNameofCommentPoster}}</a></span>
+                         <span class="username"><a id="{{userId.id}}" href="#profile">{{firstNameofCommentPoster}} {{lastNameofCommentPoster}}</a></span>
                           <span class="separator">-</span>
                            <time datetime="2011-12-01" pubdate>{{timeCreated}}</time>
                            <span class="separator">-</span>
@@ -2536,8 +2524,10 @@
      <div class="photo_container">
        <img id="{{datas.id.id}}-img" src="{{datas.imageUrl}}" width="46" height="46">
      </div>
+    
      <div class="content_container">
        <div class="meta_data">
+
          <span class="username"><a id="{{datas.userId.id}}" href="#user-profile">{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </a></span>
          <span class="separator">-</span>
          <time datetime="2011-12-01" pubdate>{{datas.timeCreated}}</time>
@@ -3182,6 +3172,8 @@ function janRainLogin(info){
 <script src="js/models/documentmodel.js"></script>
 <script src="js/router.js"></script>
 
+
+ 
 </body>
 </html>
 
