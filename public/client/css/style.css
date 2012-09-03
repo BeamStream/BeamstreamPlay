@@ -1936,6 +1936,13 @@ border: 1px solid #E8E8E9;
 .social_media a:focus{
 	outline:none !important;
 }
+.gdoc-icon{
+        float:left;
+        margin:3px 0 0 35px; 
+}
+#dropdownnew li ul a span{
+         float:left; 
+}
 
  
 
