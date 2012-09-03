@@ -74,7 +74,9 @@ object Stream {
 
   def joinStream(streamId: ObjectId, userId: ObjectId) {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
-    StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream ++ List(userId))), false, false, new WriteConcern)
+    if (!stream.usersOfStream.contains(userId)) {
+      StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream ++ List(userId))), false, false, new WriteConcern)
+    }
   }
 
   /*
@@ -94,17 +96,16 @@ object Stream {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(streamTag = (stream.streamTag ++ tags)), false, false, new WriteConcern)
   }
-  
+
   /*
    * No. of Users Attending Class
    */
-  
-   def usersAttendingClass(streamId: ObjectId): Int = {
+
+  def usersAttendingClass(streamId: ObjectId): Int = {
     val streamObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     streamObtained.usersOfStream.size
   }
-   
-   
+
 }
 
 object StreamType extends Enumeration {

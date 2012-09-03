@@ -1936,13 +1936,27 @@ border: 1px solid #E8E8E9;
 .social_media a:focus{
 	outline:none !important;
 }
+.pagin-height{
+    height: 810px;
+}
+
+.gdoc-icon{
+        float:left;
+        margin:3px 0 0 21px; 
+}
+#dropdownnew li ul a span{
+         float:left; 
+}
+
 #streams-list{
 /* 	min-height:32px; */
 }
+
 /* #test html, #test body{ */
 /* 	height:500px!important; */
 /* 	overflow-y: hidden !important; */
 /* 	border:1px solid green; */
 /* } */
+
  
 

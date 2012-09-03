@@ -120,6 +120,8 @@
     <!-- Cookies -->
     <script src="lib/jquery.cookie.js"></script>
     
+    <!-----pagination--->
+   
     <!--Shuffle in media page -->
     <script type="text/javascript" src="lib/jquery.shuffle.js"></script>
     <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script>
@@ -133,8 +135,8 @@
  <script type="text/x-handlebars-template" id="tpl-files-media">
 <section class="site_search">
   <div class="container docs">
-  <div class="pre-arrow-wrapper"><a class="pre-arrow" href="#"></a></div>
-  <div class="next-arrow-wrapper"><a class="next-arrow" href="#"></a></div>
+  <div class="pre-arrow-wrapper"><a class="pre-arrow"  href="#"></a></div>
+  <div class="next-arrow-wrapper"><a class="next-arrow"  href="#"></a></div>
     <div class="container-inner">
       <form method="post" action="/search/" class="form-inline">
         <fieldset>
@@ -157,7 +159,7 @@
                             <li><a href="#">Google Docs</a>
                                 <ul>
                                     <span class="arrow-left"></span>
-                                    <li><a href="#">From</a></li>
+                                    <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
                                     <li><a href="#">Import From Link</a>
                                         <ul class="largeli">
                                             <span class="arrow-left"></span>
@@ -428,8 +430,11 @@
  <script type="text/x-handlebars-template" id="tpl-docsview">
 <section class="site_search">
   <div class="container docs">
-  <div class="pre-arrow-wrapper"><a class="pre-arrow" href="#"></a></div>
-  <div class="next-arrow-wrapper"><a class="next-arrow" href="#"></a></div>
+  <div class="pre-arrow-wrapper"><a class="pre-arrow" id="prevslid"  ></a></div>
+  <div class="next-arrow-wrapper"><a class="next-arrow" id="nextslid"></a></div>
+   <input type='hidden' id='current_page' />  
+    <input type='hidden' id='show_per_page' />
+    <input type="hidden" id='page_navigation-count'>
     <div class="container-inner">
       <form method="post" action="/search/" class="form-inline">
         <fieldset>
@@ -446,7 +451,7 @@
                             <li><a href="#">Google Docs</a>
                                 <ul>
                                     <span class="arrow-left"></span>
-                                    <li><a href="#">From</a></li>
+                                     <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
                                     <li><a href="#">Import From Link</a>
                                         <ul class="largeli">
                                             <span class="arrow-left"></span>
@@ -514,7 +519,7 @@
         </ul>
       </div>
     </div>
-    <div class="row" >
+    <div class="row pagin-height " >
       <ul class="file-list" id="grid">                   
         <li id="file-docs-1" data-key='["recent"]'>
           <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
@@ -1531,7 +1536,7 @@
      <script type="text/x-handlebars-template" id="tpl-navs">
 
         <ul class="nav">
-                  <li   id ="streamsGroups"><a  id ="streamsGroups" href="#streams-and-groups">Streams &amp; Groups</a></li>
+                  <li   id ="streamsGroups"><a  id ="streamsGroups" href="#streams-and-groups"> Home Streams</a></li>
                   <li id ="file-media" ><a  id ="file-media" href="#filesMedia">Files & Media</a></li>
                   <li id ="connections"><a id ="connections" href="#connections">Connections</a></li>
                   <li id ="messages"><a id ="messages" href="#dms">Messages</a></li>
@@ -2063,10 +2068,10 @@
                      
                 </a>
               </li>
-              <li><a id="tasks" data-original-title="Feature coming soon" href="#tasks">Tasks <span class="label label-important">5</span></a></li>
+              <li><a id="tasks" data-original-title="Feature coming soon" href="#tasks">Deadlines <span class="label label-important">5</span></a></li>
               <li><a href="#questions">Questions <span class="label label-important">10</span></a></li>
-              <li><a href="#surveys" data-original-title="Feature coming soon">Surveys</a></li>
-              <li><a href="#idea-stream" data-original-title="Feature coming soon" >Idea Stream</a></li>
+              <li><a href="#surveys" data-original-title="Feature coming soon">Quizes & Polls</a></li>
+              <li><a href="#idea-stream" data-original-title="Feature coming soon" >Follow Stream</a></li>
             </ul>
 			</div>
            </div>
@@ -2409,10 +2414,10 @@
  				 
                 </a>
               </li>
-              <li><a id="tasks" data-original-title="Feature coming soon" href="#tasks">Tasks <span class="label label-important">5</span></a></li>
+              <li><a id="tasks" data-original-title="Feature coming soon" href="#tasks">Deadlines <span class="label label-important">5</span></a></li>
               <li><a href="#questions">Questions <span class="label label-important">10</span></a></li>
-              <li><a href="#surveys" data-original-title="Feature coming soon">Surveys</a></li>
-              <li><a href="#idea-stream" data-original-title="Feature coming soon" >Idea Stream</a></li>
+              <li><a href="#surveys" data-original-title="Feature coming soon">Quizes & Polls</a></li>
+              <li><a href="#idea-stream" data-original-title="Feature coming soon" >Follow Stream</a></li>
   </ul>
  </div>
  </script>

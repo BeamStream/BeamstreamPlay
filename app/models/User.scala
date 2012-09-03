@@ -160,9 +160,10 @@ object User {
    */
   def addClassToUser(userId: ObjectId, classId: List[ObjectId]) {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classId = (user.classId ++ classId)), false, false, new WriteConcern)
+    if (! user.classId.contains(classId(0))) {
+      UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classId = (user.classId ++ classId)), false, false, new WriteConcern)
+    }
   }
-
   /*
    * Get the Details of a user
    */
@@ -177,10 +178,8 @@ object User {
    * Counting the No. of User with a particular Role
    */
   def countRoles(usersList: List[ObjectId]): Map[String, Int] = {
-
     var map: Map[String, Int] = Map()
     var count: Int = 0
-
     for (value <- UserType.values) {
       val users = UserDAO.find(MongoDBObject("userType" -> value.toString)).toList.filter(user => usersList.contains(user.id))
       count = users.size
@@ -189,7 +188,6 @@ object User {
     map
 
   }
-
 
   /*
   * Find User By Id
