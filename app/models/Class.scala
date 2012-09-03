@@ -110,7 +110,7 @@ object Class {
     var classes: List[Class] = List()
     for (userSchoolId <- userSchoolIdList) {
       val userSchool = UserSchool.getUserSchoolById(userSchoolId)
-      val classFound = ClassDAO.findOne(MongoDBObject("schoolId" -> userSchool.assosiatedSchoolId))
+      val classFound = ClassDAO.find(MongoDBObject("schoolId" -> userSchool.assosiatedSchoolId)).toList
       (classFound.isEmpty) match {
         case true =>
         case false => classes ++= classFound
