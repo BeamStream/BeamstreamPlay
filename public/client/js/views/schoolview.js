@@ -17,6 +17,7 @@ BS.SchoolView = Backbone.View.extend({
     initialize:function () {
     	
         console.log('Initializing School View');
+        
         BS.schoolBack = false;
         //this.template= _.template($("#tpl-school-reg").html());
 		this.source = $("#tpl-school-reg").html();
@@ -109,7 +110,6 @@ BS.SchoolView = Backbone.View.extend({
                     	if(data.status == "Success")
                     	{
 	                    	BS.schoolBack = false;
-	                    	 
 	        				 // navigate to main stream page
 	                    	BS.AppRouter.navigate("streams", {trigger: true});
                     	}

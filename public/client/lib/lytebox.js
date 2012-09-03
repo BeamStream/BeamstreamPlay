@@ -494,6 +494,7 @@ Lytebox.prototype.launch = function(args) {
 	var sOptions = this.isEmpty(args.options) ? '' : String(args.options);
 	var sTitle = this.isEmpty(args.title) ? '' : args.title;
 	var sDesc = this.isEmpty(args.description) ? '' : args.description;
+	
 	var bSlideshow = /slide:true/i.test(sOptions);
 	if (this.isEmpty(sUrl)) {
 		return false;
@@ -1990,7 +1991,7 @@ if (window.addEventListener) {
 
 function initLytebox() { myLytebox = $lb = new Lytebox(true, $lb.http); }
 
-myLytebox = $lb = new Lytebox(false);
+ myLytebox = $lb = new Lytebox(false);
 
 function showLyteBox(src){
     $lb.launch({
