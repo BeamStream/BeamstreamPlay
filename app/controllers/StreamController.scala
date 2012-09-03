@@ -98,6 +98,7 @@ object StreamController extends Controller {
     val classId = (classJson \ "id").extract[String]
     val streamId = Class.findClasssById(new ObjectId(classId)).streams(0)
     Stream.joinStream(streamId, new ObjectId(request.session.get("userId").get))
+    User.addClassToUser(new ObjectId(request.session.get("userId").get), List(new ObjectId(classId)))
     Ok(write(new ResulttoSent("Success", "User has SuccessFully Joined The Stream")))
   }
 
@@ -109,7 +110,7 @@ object StreamController extends Controller {
   def noOfUsersAttendingAClass = Action { implicit request =>
     val StreamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = StreamIdJsonMap("streamId").toList(0)
-    val noOfUsersAttendingClass=Stream.usersAttendingClass(new ObjectId(streamId))
+    val noOfUsersAttendingClass = Stream.usersAttendingClass(new ObjectId(streamId))
     Ok(write(noOfUsersAttendingClass.toString)).as("application/json")
   }
 
@@ -117,13 +118,13 @@ object StreamController extends Controller {
    * Get All Public Messages For A User
    * @Purpose: For Public Profile
    */
-  def allPublicMessagesFromAllStreamsForAUser= Action { implicit request =>
+  def allPublicMessagesFromAllStreamsForAUser = Action { implicit request =>
     val UserIdJsonMap = request.body.asFormUrlEncoded.get
     val userId = UserIdJsonMap("userId").toList(0)
-    val classListForAUser=Class.getAllClassesForAUser(new ObjectId(userId))
-    val allPublicMessagesForAUserAcrossTheirStreams=Message.getAllPublicMessagesForAUser(classListForAUser)
+    val classListForAUser = Class.getAllClassesForAUser(new ObjectId(userId))
+    val allPublicMessagesForAUserAcrossTheirStreams = Message.getAllPublicMessagesForAUser(classListForAUser)
     Ok(write(allPublicMessagesForAUserAcrossTheirStreams)).as("application/json")
- 
+
   }
-  
+
 }

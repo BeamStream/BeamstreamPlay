@@ -39,15 +39,6 @@ object Class {
  * @if yes then return true else return false
  * Local Function for duplication removal
  */
-    def duplicateExistes(classList: List[Class]): Boolean = {
-      var classesFetchCount: Int = 0
-      for (eachClass <- classList) {
-        val classesFetched = ClassDAO.find(MongoDBObject("classCode" -> eachClass.classCode)).toList
-        if (!classesFetched.isEmpty) classesFetchCount += 1
-      }
-
-      if (classesFetchCount == 0) false else true
-    }
 
     /*
    * is Duplicate Class Exists In List (Local Function)
@@ -65,21 +56,30 @@ object Class {
 
     //Class Creation Starts Here by calling the duplicate code validation method
 
-    if (duplicateExistes(classList) == true) List()
-    else if (duplicateClassExistesInSubmittedList(classList) == true) List()
+    //if (duplicateExistes(classList) == true) List()
+    //else 
+    if (duplicateClassExistesInSubmittedList(classList) == true) List()
 
     else {
 
       var classIdList: List[ObjectId] = List()
       for (eachclass <- classList) {
-        //Insert then class
-        val classId = ClassDAO.insert(eachclass)
-        classIdList ++= List(new ObjectId(classId.get.toString))
 
-        // Create the Stream for this class
-        val streamToCreate = new Stream(new ObjectId, eachclass.className, StreamType.Class, userId, List(userId), true, List())
-        val streamId = Stream.createStream(streamToCreate)
-        Stream.attachStreamtoClass(streamId, new ObjectId(classId.get.toString))
+        if (!getClassByCode(eachclass).isEmpty) {
+          println("Join Stream Case")
+          Stream.joinStream(getClassByCode(eachclass)(0).streams(0), userId)
+           classIdList ++= List(getClassByCode(eachclass)(0).id)
+        } else {
+          println("Create class Case")
+          //Insert then class
+          val classId = ClassDAO.insert(eachclass)
+          classIdList ++= List(new ObjectId(classId.get.toString))
+
+          // Create the Stream for this class
+          val streamToCreate = new Stream(new ObjectId, eachclass.className, StreamType.Class, userId, List(userId), true, List())
+          val streamId = Stream.createStream(streamToCreate)
+          Stream.attachStreamtoClass(streamId, new ObjectId(classId.get.toString))
+        }
       }
       classIdList
     }
@@ -118,6 +118,15 @@ object Class {
 
     }
     classes
+  }
+
+  /*
+   * Get class by code
+   * 
+   */
+  def getClassByCode(classToSearch: Class): List[Class] = {
+    val classesFetched = ClassDAO.find(MongoDBObject("classCode" -> classToSearch.classCode)).toList
+    classesFetched
   }
 
   /*
