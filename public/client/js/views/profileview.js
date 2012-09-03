@@ -49,9 +49,9 @@ BS.ProfileView = Backbone.View.extend({
     	var length = num.replace(/\D/g,"").length;
         if(length > 9)
         {
+        	
         	phno ='('+ numText.substring(0,3) + ') ' + numText.substring(3,6) + '-' + numText.substring(6,10);
         	$('#mobile').val(phno);
-        	$('#num-validation').html("Must be of 10 digits");
         }
         
     },
