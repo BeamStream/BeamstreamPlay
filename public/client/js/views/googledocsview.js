@@ -108,6 +108,7 @@ BS.GoogleDocsView = Backbone.View.extend({
                 },
                 dataType : "json",
                 success : function(docs) {
+
                    console.log("docs"); 
                    console.log("docs"); 
                    var content = '';
@@ -117,8 +118,8 @@ BS.GoogleDocsView = Backbone.View.extend({
                 
                                                      
                 var datVal =  self.formatDateVal(doc.creationDate);
-                content += '<li id="file-docs-'+i+'" data-key="['+datVal+']"> <div class="image-wrapper hovereffect" id="'+doc.id.id+'">'
-                                +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'">'
+                content += '<li id="file-docs-'+i+'" data-key="['+datVal+']"> <div class="image-wrapper hovereffect" >'
+                                
                                 +'<div class="comment-wrapper comment-wrapper2">'
                                 +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
                                 +'<a href="#" class="hand-icon"></a>'
@@ -126,7 +127,9 @@ BS.GoogleDocsView = Backbone.View.extend({
                                 +'<a href="#" class="share-icon"></a>'
                                 +'</div>'
                                 +'<h4> '+doc.name+'</h4>'
-                                +' <p class="google_doc">The Power of The Platform Behance Network Join The Leading Platform For </p>'
+                                +' <p class="google_doc" id="'+doc.id.id+'">'
+                                +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'">'
+                                +'The Power of The Platform Behance Network Join The Leading Platform For </p>'
                                 +'<h5 class="doctitle"> Title & Description</h5>'
                                 +'<span>State</span>'
                                 +' <span class="date">'+datVal+'</span>' 
@@ -150,6 +153,7 @@ BS.GoogleDocsView = Backbone.View.extend({
                 self.pagination();                                       
                    }
               //  }
+
                 });
                 }});
                 // $('#content').html(BS.listDocsView.el);
@@ -248,8 +252,10 @@ BS.GoogleDocsView = Backbone.View.extend({
          */
         showDocPopup :function(eventName){
             var docId = eventName.currentTarget.id;
-            var docUrl = $('input#id-'+docId).val();   
-            newwindow=window.open(docUrl,'','height=550,width=1100,top=100,left=250');     
+            console.log('docId' +docId);
+            var docUrl = $('input#id-'+docId).val();  
+            console.log(docUrl);
+            newwindow=window.open(docUrl,'','height=550,width=1000,top=100,left=145');     
             },
         
         /**

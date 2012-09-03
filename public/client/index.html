@@ -129,8 +129,9 @@
     <script>
         $('.lytebox').live('click', function(event) {
             event.preventDefault()
-            
+             
            var src = $(this).attr("href");
+            
             if(src === null){
                 // do nothing.
                 return false;
@@ -530,7 +531,7 @@
         </ul>
       </div>
     </div>
-    <div class="row" >
+    <div class="row pagin-height " >
       <ul class="file-list" id="grid">                   
         <li id="file-docs-1" data-key='["recent"]'>
           <div class="image-wrapper" id="google-docs"><a class="google-docs-image" href="#googledocs"></a></div>
@@ -2180,6 +2181,236 @@
  </script>
  
  
+ <!--  main stream page template -->
+ <script type="text/x-handlebars-template" id="tpl-public-profile">
+ 
+    <div id = "middle-content">
+    <section class="site_search">
+      <div class="container">
+        <div class="container-inner">
+              <form method="post" action="/search/" class="form-inline">
+                <fieldset>
+                  <div class="input-append big-input">
+                    <input name="query" type="text" placeholder="Search by"><span class="add-on no-bg">
+                      <div class="actions with-tooltips tooltips-bottom btn-group">
+                        <a href="#user" class="btn" title="Search by Users"><i class="icon-user"></i><span class="popout_arrow"><span></span></span></a>
+                        <a href="#groups" class="btn" title="Search by Groups"><i class="icon-group"></i></a>
+                        <a href="#links" class="btn" title="Search by Links"><i class="icon-link"></i></a>
+                        <a href="#tag" class="btn" title="Search by Tags"><i class="icon-tag"></i></a>
+                        <a href="#links" class="btn" title="Save your Search"><i class="icon-disk"></i></a>
+                      </div>
+                    </span>
+                  </div>
+                  <button class="btn btn-primary btn-large" type="submit"><i class="icon-search"></i></button>
+                  <a class="search_advanced_link" href="#advanced">Advanced</a>
+                </fieldset>
+              </form>
+        </div>
+      </div>
+    </section>
+    
+    <div id ="middle-part" class="container content_area wrapper_con">
+      <div class="container-inner">
+        <div class="row">
+
+          <div class="col span2 left_column" style="margin-left: 10px !important;">
+            <section class="user_profile">
+              <section class="user_menu">
+                <div class="actions with-tooltips tooltips-top btn-group">
+                  <a href="#" class="btn btn-flat" title="Papers &amp; docs"><i class="icon-file"></i></a>
+                  <a href="#" class="btn btn-flat" title="Notes"><i class="icon-pencil"></i></a>
+                  <a href="#" class="btn btn-flat" title="Slides"><i class="icon-slides"></i></a>
+                  <a href="#" class="btn btn-flat" title="Links"><i class="icon-link"></i></a>
+                  <a href="#" class="btn btn-flat" title="Videos"><i class="icon-video"></i></a>
+                  <a href="#" class="btn btn-flat" title="Photos"><i class="icon-camera"></i></a>
+                </div>
+              </section>
+              <div  class="photo_container" id="main-photo-container">
+					<a class="edit_profilepicture">
+						Add or Edit Pic & Videos
+						<span class="edit_profilepicture_icon"></span>
+						</a>
+                      
+                       <div id="profile-images" >
+                    <img id ="main-photo" src="" width="100%" height="100%" alt="username photo"> 
+                </div>
+              </div>
+              <section class="user_friends_mini">
+                <ul>
+                  <li class="prev"><a href="#prev"><i></i></a></li>
+                  <li class="imgitem"><a href="#face1"><img src="images/placeholders/face_little.png" width="32" height="31"></a></li>
+                  <li class="imgitem"><a href="#face2"><img src="images/placeholders/face_little.png" width="32" height="31"></a></li>
+                  <li class="imgitem"><a href="#face3"><img src="images/placeholders/face_little.png" width="32" height="31"></a></li>
+                  <li class="imgitem"><a href="#face4"><img src="images/placeholders/face_little.png" width="32" height="31"></a></li>
+                  <li class="next"><a href="#next"><i></i></a></li>
+                </ul>
+              </section>
+ 
+              <section class="user_profile_info">
+                <ul class="nav nav-list">
+                  <li class="screen_name">{{firstName}} {{lastName}}</li>
+                  <li class="location"><i class="icon-location"></i> {{location}}</li>
+                  <li class="occupation"><i class="icon-silhouette"></i>{{userType.name}}</li>
+                  <li class="social_links">
+                    <div class="btn-group">
+                      <a href="#" class="btn btn-flat"><i class="icon-twitter"></i></a>
+                      <a href="#" class="btn btn-flat"><i class="icon-facebook"></i></a>
+                      <a href="#" class="btn btn-flat"><i class="icon-linkedin"></i></a>
+                      <a href="#" class="btn btn-flat pull-right"><i class="icon-email"></i></a>
+                    </div>
+                  </li>
+                </ul>
+              </section>
+
+              <section class="import_or_invite">
+                <a class="btn plus" href="#import_or_invite"><i><b></b><span class="popout_arrow"><span></span></span></i>Import or Invite Contacts</a>
+              </section>
+            </section>
+            <section class="user_streams">
+              <div class="sort_container">
+                <label>Sort by:</label>
+                <ul id ="select-streams" class="sort">
+                  <li  class="active" ><a  id="all-streams" href="#all">All</a></li>
+                  <li><a id="classStreams-list" href="#">Class</a></li>
+                  <li><a id= "projectStreams-list" href="#">Project</a></li>
+                </ul>
+              </div>
+              <a id="icon-up" class="btn prev"><i class="icon-up"></i></a>
+              <ul id="streams-list" class="streams nav nav-list">
+              </ul>
+              <a id="icon-down" class="btn next"><i class="icon-down"></i></a>
+            </section>
+          <div class="create_stream trigger">
+	           <a id="create_stream" class="btn plus" href="#create_stream"><i><b></b><span class="popout_arrow"><span></span></span></i>Create Stream</a>
+                    <div class="popup">                   
+                       <div class="block">
+                        <span ><img src="images/arrow-left.png"></span>
+                        <ul>
+                         <li><a  id ="classstream" href="#classStream">ClassStream </a> <img src="images/small_hand.png"> Collaborate within your class</li>
+						 <li><a id="projectStream" href="#projectStream">ProjectStream </a><img src="images/small_hand.png"> Shortterm  projects w/ an end date - choose to add to your profile upon completion</li>
+                         <li><a id="studyStream" href="#studyStream">StudyStream  </a><img src="images/small_hand.png"> Study Group of students from your class, degree program, school and beyond</li>
+					 	 <li><a id ="groupStream" href="#groupStream">GroupStream </a><img src="images/small_hand.png"> Ongoing groups about anything, make them public or private </li>
+						 <li><a id="peerStream" href="#peerStream">PeerStream  </a><img src="images/small_hand.png"> Students or Professors:Stay connected w/ your peer</li>
+						 <li><a id ="friendStream" href="#friendStream">FriendStream  </a><img src="images/small_hand.png"> Collaborate and stay in touch w/ your friends</li>
+                        <ul>
+                 </div>
+                  </div>
+	            <br>
+				<br>
+				 
+          </div>
+          </div>
+
+          <div class="actions with-tooltips tooltips-bottom btn-group col middle_column span6" style="margin-left: 10px !important;">
+          <div id="sub-menus" >
+           <div class="with-tooltips tooltips-bottom">
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a href="#intro-to-business" id="stream-name" class="with-icon">
+                  <i class="icon-lock icon with-tooltip" title="Instructor verified Stream"></i>
+                     
+                </a>
+              </li>
+              <li><a id="tasks" data-original-title="Feature coming soon" href="#tasks">Tasks <span class="label label-important">5</span></a></li>
+              <li><a href="#questions">Questions <span class="label label-important">10</span></a></li>
+              <li><a href="#surveys" data-original-title="Feature coming soon">Surveys</a></li>
+              <li><a href="#idea-stream" data-original-title="Feature coming soon" >Idea Stream</a></li>
+            </ul>
+			</div>
+           </div>
+            <section class="main_content">
+              <div class="sort_container">
+                <label>Sort by:</label>
+                <ul class="sort" id="sort-messages">
+                  <li class="active"><a id="date" href="#date">Date</a></li>
+  				  <li ><a id="highest-rated" href="#highest-rated">Highest Rated</a></li>
+                  <li><a id="profile-relevance" href="#profile-relevance">Profile Relevance</a></li>
+				   
+				  <li><input id="sort_by_key" type="text" placeholder="Sort by keyword" name="keyword"></li>
+                </ul>
+              </div>
+              <section class="new_message">
+                <div class="form-horizontal">
+                  <fieldset>
+                    <div class="control-group">
+                      <label class="control-label">
+                        <div class="photo_container">
+                          <img id="msg-photo" src="" width="99" height="75">
+                        </div>
+                        <span class="username">{{firstName}} {{lastName}}</span>
+                      </label>
+                      <div class="controls">
+                        <span class="popout_arrow"><span></span></span>
+                          <form class="emdform" method="post" action=".">
+                           <textarea id="msg"></textarea>
+                          </form>
+                        <ul class="additional_controls">
+                          <li class="comment"><a href="#comment" class="btn btn-flat"><i class="icon-middle-comment"></i></a></li>
+ 						  <li class="doc"><a href="#doc" class="btn btn-flat"><i class="icon-middle-doc"></i></a>
+                            <ul class="doc-hover ">
+                                <span class="arrow">
+								  <img src="images/arrow-top.png">
+								</span>
+  								<li style="margin-bottom:4px !important;"><span>Upload:</span></li>
+								<li class="doc-video">Video</li>
+								<li class="doc-docs">Docs</li>
+	      						<li class="doc-notes">Notes</li>
+ 								<li class="doc-audio">Audio</li>
+ 								<li class="doc-presentation">Presentation</li> 
+ 							 	</ul></li>
+                          
+                          <li class="tag"><a href="#tag" class="btn btn-flat"><i class="icon-middle-tag"></i></a></li>
+                          <li class="private">
+                            <label for="id-private"  >
+                              <input id="id-private" type="checkbox" checked="checked">
+                              Private
+                            </label>
+                          </li>
+                          <li class="plus social_media"><a id="plus" href="#plus" class="btn btn-flat"><i class="icon-middle-plus"></i></a></li>
+ 						  <li class="pinterect social_media"><a id="pinterect" href="#pinterect " class="btn btn-flat"><i class="icon-middle-pinterect"></i></a></li>
+                          <li class="twitter social_media"><a id ="twitter" href="#twitter" class="btn btn-flat"><i class="icon-middle-twitter"></i></a></li>
+                          <li class="facebook social_media"><a id ="facebook" href="#facebook" class="btn btn-flat"><i class="icon-middle-facebook"></i></a></li>
+                          <li class="linkedin social_media"><a id="linkedin" href="#linkedin" class="btn btn-flat"><i class="icon-middle-linkedin"></i></a></li>
+						  <li><input class ="msg-post_button" id="post-msg" type="button" value="POST"> </input></li>
+                        </ul>
+                      </div>
+                      
+                    </div>
+                  </fieldset>
+                </div>
+              </section>
+
+              <div class="double-line"></div>
+              <section class="timeline load-block">
+                <ul class="timeline_items">
+                  
+                </ul>
+				 <div class ="page-loader" ><img src ="images/loading-bars.gif"></div>
+              </section>
+              
+            </section>
+          </div>
+          <div class="col right_column span2" style="margin-left: 10px !important;">
+            <section class="public_class_stream">
+              <h2>Public Class Stream</h2>
+              <ul id="public-classes" class="nav nav-list class-nav-list">
+                
+              </ul>
+            </section>
+          </div>
+
+        </div>
+      </div>
+      <footer class="site_footer">
+        <p>Copyright &copy; 2012 BeamStream</p>
+        <ul class="pull-right">
+          <li><a href="#submit-suggestion">Submit suggestion</a></li><li><a href="#report-issue">Report issue</a></li>
+        </ul>
+      </footer>
+    </div>
+   </div>
+ </script>
+ 
   <!--  for stream page menu view -->
   <script type="text/x-handlebars-template" id="tpl-stream-page-menus">
             <div class="with-tooltips tooltips-bottom">
@@ -2235,7 +2466,7 @@
                </div>
                     <div class="content_container">
                      <div class="meta_data">
-                         <span class="username"><a href="#user-profile">{{firstNameofCommentPoster}} {{lastNameofCommentPoster}}</a></span>
+                         <span class="username"><a id="{{userId.id}}" href="#user-profile">{{firstNameofCommentPoster}} {{lastNameofCommentPoster}}</a></span>
                           <span class="separator">-</span>
                            <time datetime="2011-12-01" pubdate>{{timeCreated}}</time>
                            <span class="separator">-</span>
@@ -2267,7 +2498,7 @@
                </div>
                     <div class="content_container">
                      <div class="meta_data">
-                         <span class="username"><a href="#user-profile">{{firstNameofCommentPoster}} {{lastNameofCommentPoster}}</a></span>
+                         <span class="username"><a id="{{userId.id}}" href="#user-profile">{{firstNameofCommentPoster}} {{lastNameofCommentPoster}}</a></span>
                           <span class="separator">-</span>
                            <time datetime="2011-12-01" pubdate>{{timeCreated}}</time>
                            <span class="separator">-</span>
@@ -2312,7 +2543,7 @@
      </div>
      <div class="content_container">
        <div class="meta_data">
-         <span class="username"><a href="#user-profile">{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </a></span>
+         <span class="username"><a id="{{datas.userId.id}}" href="#user-profile">{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </a></span>
          <span class="separator">-</span>
          <time datetime="2011-12-01" pubdate>{{datas.timeCreated}}</time>
          <span class="separator">-</span>

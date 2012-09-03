@@ -49,9 +49,9 @@ BS.ProfileView = Backbone.View.extend({
     	var length = num.replace(/\D/g,"").length;
         if(length > 9)
         {
+        	
         	phno ='('+ numText.substring(0,3) + ') ' + numText.substring(3,6) + '-' + numText.substring(6,10);
         	$('#mobile').val(phno);
-        	$('#num-validation').html("Must be of 10 digits");
         }
         
     },
@@ -281,7 +281,7 @@ BS.ProfileView = Backbone.View.extend({
 				url : BS.allProfileImages,
 				dataType : "json",
 				success : function(datas) {
-					 
+					  
 					_.each(datas, function(data) {
 						 
 //                                            data = 'http://www.indiaonrent.com/forwards/b/beautiful-world-sceneries002/res/nq7za4.jpg';
@@ -289,17 +289,20 @@ BS.ProfileView = Backbone.View.extend({
 						{
                                                     
 							if(page == "files")
+							{
+							    
 							   BS.content+= '<a href="'+data+'" class="lytebox" data-lyte-options="group:vacation" data-title="Profile Images"><img id ="main-photo" src="'+data+'"  alt="username photo"></a>';
 //							   BS.content+= '<a href="'+data+'" rel="prettyPhoto[gallery2]"  ><img src="'+data+'" width="60" height="60" alt="This is a pretty long title" /></a>';
- 
+							}
 							else
+							{
 								BS.content+= '<a href="'+data+'" class="lytebox" data-lyte-options="group:vacation" data-title="Profile Images"><img id ="main-photo" src="'+data+'"  width="189" height="156"  alt="username photo"></a>';
- 
+							}
 							first =true;
 						}
 						else
 						{
-							BS.content+= '<a href="'+data+'" class="lytebox" data-lyte-options="group:vacation" data-title=""></a>';
+							BS.content+= '<a href="'+data+'" class="lytebox" data-lyte-options="group:vacation" data-title="Profile Images"></a>';
 						}
 						 
 			        });

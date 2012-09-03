@@ -489,6 +489,7 @@ Lytebox.prototype.updateLyteboxItems = function() {
 	this.tipsSet = true;
 };
 Lytebox.prototype.launch = function(args) {
+	
 	var sUrl = this.isEmpty(args.url) ? '' : String(args.url);
 	var sOptions = this.isEmpty(args.options) ? '' : String(args.options);
 	var sTitle = this.isEmpty(args.title) ? '' : args.title;

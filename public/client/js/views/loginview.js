@@ -10,6 +10,7 @@ BS.LoginView = Backbone.View.extend({
   
     	jQuery("#login-form").validationEngine();
         console.log('Initializing Login View');
+        console.log("Login page...");
         this.template= _.template($("#tpl-login").html());
         
     },
@@ -82,6 +83,7 @@ BS.LoginView = Backbone.View.extend({
 			}
 			else
 			{
+				 
 				 console.log("fileds are not completely filled");
 			     $('#error').html("fileds are not completely filled");
 			}

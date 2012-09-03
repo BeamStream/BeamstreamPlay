@@ -44,32 +44,39 @@ object UserSchool {
     * 
     * @Purpose : Will Edit The schools as well with Creation
     */
-  def createSchool(schools: List[UserSchool]) {
 
-    for (school <- schools) {
+  def createSchool(userSchools: List[UserSchool]): ResulttoSent = {
 
-      val userSchoolObtained = UserSchool.isUserSchoolExist(school.id)
+    if (UserSchool.duplicateSchoolExistesInSubmittedList(userSchools) == true) ResulttoSent("Failure", "Do Not Enter The Same School Twice")
 
-      if (userSchoolObtained.size == 1) {
+    else {
+      for (userSchool <- userSchools) {
 
-        UserSchoolDAO.update(MongoDBObject("_id" -> school.id), school, false, false, new WriteConcern)
-        School.updateSchool(userSchoolObtained(0).assosiatedSchoolId, school.schoolName)
+        val userSchoolObtained = UserSchool.userSchoolsForAUser(userSchool.id)
 
-      } else {
+        if (userSchoolObtained.size == 1) {
 
-        val userSchoolId = UserSchoolDAO.insert(school)
-        val userSchoolObtained = UserSchool.getUserSchoolById(userSchoolId.get)
+          UserSchoolDAO.update(MongoDBObject("_id" -> userSchool.id), userSchool, false, false, new WriteConcern)
+          School.updateSchool(userSchoolObtained(0).assosiatedSchoolId, userSchool.schoolName)
 
-        val schoolsInDatabase = UserSchool.isSchoolinDatabaseAlready(userSchoolObtained.assosiatedSchoolId)
+        } else {
 
-        if (schoolsInDatabase.size == 0) {
-          //Creates a new School and set the proper schoolId in the inserted school
-          val schoolIdForUpdatingUserSchool = School.addNewSchool(new School(new ObjectId, school.schoolName))
-          UserSchool.updateUserSchoolWithOriginalSchoolId(userSchoolId.get, schoolIdForUpdatingUserSchool)
+          val userSchoolId = UserSchoolDAO.insert(userSchool)
+          val userSchoolObtained = UserSchool.getUserSchoolById(userSchoolId.get)
+
+          val schoolsInDatabase = UserSchool.isSchoolinDatabaseAlready(userSchoolObtained.assosiatedSchoolId)
+
+          if (schoolsInDatabase.size == 0) {
+            //Creates a new School and set the proper schoolId in the inserted school
+            val schoolIdForUpdatingUserSchool = School.addNewSchool(new School(new ObjectId, userSchool.schoolName))
+            UserSchool.updateUserSchoolWithOriginalSchoolId(userSchoolId.get, schoolIdForUpdatingUserSchool)
+          }
         }
 
       }
+      ResulttoSent("Success", "Schools Added Successfully")
     }
+
   }
 
   /*
@@ -84,9 +91,8 @@ object UserSchool {
    * Get UserSchool
    */
 
-  def isUserSchoolExist(userSchoolId: ObjectId): List[UserSchool] = {
+  def userSchoolsForAUser(userSchoolId: ObjectId): List[UserSchool] = {
     val userSchools = UserSchoolDAO.find(MongoDBObject("_id" -> userSchoolId)).toList
-    //if (userSchools.isEmpty) false else true
     userSchools
   }
 
@@ -136,6 +142,32 @@ object UserSchool {
       schoolList ++= schoolObtained
     }
     schoolList
+  }
+
+  /*
+   * is Duplicate School Exists In Database
+   */
+  def duplicateSchoolExistes(schoolList: List[UserSchool]): Boolean = {
+    var schoolFetchCount: Int = 0
+    for (eachSchool <- schoolList) {
+      val schoolFetched = SchoolDAO.find(MongoDBObject("schoolName" -> eachSchool.schoolName)).toList
+      if (!schoolFetched.isEmpty) schoolFetchCount += 1
+    }
+
+    if (schoolFetchCount == 0) false else true
+  }
+
+  /*
+   * is Duplicate School Exists In List 
+   */
+  def duplicateSchoolExistesInSubmittedList(schoolList: List[UserSchool]): Boolean = {
+    var schoolFetchCount: Int = 0
+    for (eachSchool <- schoolList) {
+      val schoolFetched = schoolList.filter(x => x.schoolName == eachSchool.schoolName)
+      if (schoolFetched.size > 1) schoolFetchCount += 1
+    }
+
+    if (schoolFetchCount == 0) false else true
   }
 
 }
