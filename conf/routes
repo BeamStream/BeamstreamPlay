@@ -41,6 +41,7 @@ POST    /commentRockers                controllers.CommentController.commentRock
 GET /documents controllers.DocumentController.documents
 POST /newDocument controllers.DocumentController.newDocument
 POST /getAllDocumentsForAUser    controllers.DocumentController.getAllDocumentsForAUser
+POST /getAllDocumentsForCurrentUserSortedbyDate    controllers.DocumentController.getAllDocumentsForCurrentUserSortedbyDate
 
 #Schools
 
