@@ -35,6 +35,15 @@ object School {
     val schoolName = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0).schoolName
     schoolName
   }
+  
+   /*
+   * Find a school by name
+   */
+
+  def findSchoolByName(schoolName : String): List[School] = {
+    val schools = SchoolDAO.find(MongoDBObject("schoolName" -> schoolName)).toList
+    schools
+  }
 
   /*
    * Update the School
