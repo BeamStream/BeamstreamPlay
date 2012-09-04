@@ -787,9 +787,9 @@ ul.rockit li span a {
   z-index: 1050;
   width: 83px;
   line-height:20px;
-  background-color: #3A4046;
-  border: 1px solid #999;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  background-color: #309A01;
+/*   border: 1px solid #999; */
+/*   border: 1px solid rgba(0, 0, 0, 0.3); */
   *border: 1px solid #999;
   font-family: UbuntuRegular;
   color: #fff;
