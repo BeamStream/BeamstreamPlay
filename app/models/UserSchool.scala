@@ -47,35 +47,42 @@ object UserSchool {
 
   def createSchool(userSchools: List[UserSchool]): ResulttoSent = {
 
+    var a = new ResulttoSent("", "")
     if (UserSchool.duplicateSchoolExistesInSubmittedList(userSchools) == true) ResulttoSent("Failure", "Do Not Enter The Same School Twice")
 
     else {
       for (userSchool <- userSchools) {
 
         val userSchoolObtained = UserSchool.userSchoolsForAUser(userSchool.id)
-        
+
         // Edit School Case
+        //Internal if-else starts here
         if (userSchoolObtained.size == 1) {
           UserSchoolDAO.update(MongoDBObject("_id" -> userSchool.id), userSchool, false, false, new WriteConcern)
           School.updateSchool(userSchoolObtained(0).assosiatedSchoolId, userSchool.schoolName)
-        } 
-        
-        else {
-         // Create a new School
-          val userSchoolId = UserSchoolDAO.insert(userSchool)
-          val userSchoolObtained = UserSchool.getUserSchoolById(userSchoolId.get)
+        } else {
 
-          val schoolsInDatabase = UserSchool.isSchoolinDatabaseAlready(userSchoolObtained.assosiatedSchoolId)
+          if (!UserSchool.findSchoolsByName(userSchool.schoolName).isEmpty) {
+            println("Duplicate School Found")
+            a = ResulttoSent("Failure", "School Already Exists")
+          } else {
+            // Create a new School
+            val userSchoolId = UserSchoolDAO.insert(userSchool)
+            val userSchoolObtained = UserSchool.getUserSchoolById(userSchoolId.get)
 
-          if (schoolsInDatabase.size == 0) {
-            //Creates a new School and set the proper schoolId in the inserted school
-            val schoolIdForUpdatingUserSchool = School.addNewSchool(new School(new ObjectId, userSchool.schoolName))
-            UserSchool.updateUserSchoolWithOriginalSchoolId(userSchoolId.get, schoolIdForUpdatingUserSchool)
+            val schoolsInDatabase = UserSchool.isSchoolinDatabaseAlready(userSchoolObtained.assosiatedSchoolId)
+
+            if (schoolsInDatabase.size == 0) {
+              //Creates a new School and set the proper schoolId in the inserted school
+              val schoolIdForUpdatingUserSchool = School.addNewSchool(new School(new ObjectId, userSchool.schoolName))
+              UserSchool.updateUserSchoolWithOriginalSchoolId(userSchoolId.get, schoolIdForUpdatingUserSchool)
+            }
+            a = ResulttoSent("Success", "School SuccessFully  Added")
           }
         }
-
+        //Internal if-else ends here
       }
-      ResulttoSent("Success", "Schools Added Successfully")
+      a
     }
 
   }
