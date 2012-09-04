@@ -91,6 +91,8 @@ BS.rockingTheComment = BS.URLRequired+"/rockingTheComment";
 BS.commentRockers = BS.URLRequired+"/commentRockers";
 // get profile videos 
 BS.allProfileVideos = BS.URLRequired+"/getAllProfileVideoForAUser";
+//get no of users attending class
+BS.noOfUsersAttendingAClass = BS.URLRequired+"/noOfUsersAttendingAClass";
 
  
  
