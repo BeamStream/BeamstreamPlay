@@ -9,7 +9,7 @@ BS.SchoolView = Backbone.View.extend({
 	      
 	      "keyup .school" : "populateSchools",
 	      "focusin .school" : "populateSchools",
-	      "click .close-button" : "saveSchool"
+	      "click .close-button" : "closeScreen"
 //	      "click .back-button" :"backToPrevious"
 	       
 	    },
@@ -371,5 +371,8 @@ BS.SchoolView = Backbone.View.extend({
 	    	 
 	      },
 	      
-
+	      closeScreen : function(eventName){
+	    	  eventName.preventDefault(); 
+	    	  BS.AppRouter.navigate('streams', {trigger: true});
+	      }
 });

@@ -9,7 +9,7 @@ BS.ProfileView = Backbone.View.extend({
 	      'click .delete-video' :'deleteSelectedVideo',
 	       'keyup #mobile' : "checkNumber",
 	      'focusout #mobile' : "arragePhone",
-	      'click .close-button' : "saveProfile",
+	      'click .close-button' : "closeScreen",
 	      'click .back' :'backToPrevious'
 	 },
 	 
@@ -398,7 +398,13 @@ BS.ProfileView = Backbone.View.extend({
   	  BS.AppRouter.navigate("class", {trigger: true});
     },
     
-     
+    /*
+     * close the screen
+     */
+    closeScreen : function(eventName){
+  	  eventName.preventDefault(); 
+  	  BS.AppRouter.navigate('streams', {trigger: true});
+    }
 	
 	
     
