@@ -93,7 +93,7 @@ BS.ClassStreamView = Backbone.View.extend({
 	{ 
 		
 		var classStatus = false; 
-		var classTime ,className,date ,classType,schoolId,classId;
+		var classTime ,className,date ,classType,schoolId,classId, streamId;
         var datas = JSON.stringify(BS.classInfo);
          
         /* get details of selected class */
@@ -107,6 +107,7 @@ BS.ClassStreamView = Backbone.View.extend({
 				 classType = data.classType;
 				 schoolId = data.schoolId.id;
 				 classId = data.id.id;
+				 streamId = data.streams[0].id;
 		     }
 			 
         });
@@ -141,6 +142,26 @@ BS.ClassStreamView = Backbone.View.extend({
 
 					}
 			 });
+			 
+			 
+			 
+			 /* Post streamId to get no of users attending class*/
+			 $.ajax({
+					type : 'POST',
+					url : BS.noOfUsersAttendingAClass,
+
+					data : {
+						streamId : streamId
+					},
+					success : function(data) {
+						  
+						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow.png"></span>';
+			        	 $('#student-number').fadeIn("medium").delay(2000).fadeOut('medium'); 
+			        	 $('#student-number').html(ul);
+
+					}
+			 });
+
 			 
 			/*  disable/enable buttons*/
 			$('#createClass').hide(); 
@@ -372,6 +393,7 @@ BS.ClassStreamView = Backbone.View.extend({
 				 classType = data.classType;
 				 schoolId = data.schoolId.id;
 				 classId = data.id.id;
+				 streamId = data.streams[0].id;
 		     }
 			 
         });
@@ -405,6 +427,23 @@ BS.ClassStreamView = Backbone.View.extend({
 					}
 			 });
 			 
+			 
+			 /* Post streamId to get no of users attending class*/
+			 $.ajax({
+					type : 'POST',
+					url : BS.noOfUsersAttendingAClass,
+
+					data : {
+						streamId : streamId
+					},
+					success : function(data) {
+						  
+						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow.png"></span>';
+			        	 $('#student-number').fadeIn("medium").delay(2000).fadeOut('medium'); 
+			        	 $('#student-number').html(ul);
+
+					}
+			 });
 			/*  disable/enable buttons*/
 			$('#createClass').hide(); 
 			$('#joinClass').show();
