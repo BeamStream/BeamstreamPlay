@@ -53,14 +53,15 @@ object UserSchool {
       for (userSchool <- userSchools) {
 
         val userSchoolObtained = UserSchool.userSchoolsForAUser(userSchool.id)
-
+        
+        // Edit School Case
         if (userSchoolObtained.size == 1) {
-
           UserSchoolDAO.update(MongoDBObject("_id" -> userSchool.id), userSchool, false, false, new WriteConcern)
           School.updateSchool(userSchoolObtained(0).assosiatedSchoolId, userSchool.schoolName)
-
-        } else {
-
+        } 
+        
+        else {
+         // Create a new School
           val userSchoolId = UserSchoolDAO.insert(userSchool)
           val userSchoolObtained = UserSchool.getUserSchoolById(userSchoolId.get)
 
