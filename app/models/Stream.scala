@@ -72,10 +72,15 @@ object Stream {
    * join stream
    */
 
-  def joinStream(streamId: ObjectId, userId: ObjectId) {
+  def joinStream(streamId: ObjectId, userId: ObjectId) : ResulttoSent= {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
+    
     if (!stream.usersOfStream.contains(userId)) {
       StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream ++ List(userId))), false, false, new WriteConcern)
+      ResulttoSent("Success","Joined Stream Successfully")
+    }
+    else{
+      ResulttoSent("Failure","You've already joined the stream")
     }
   }
 
