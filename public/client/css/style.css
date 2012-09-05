@@ -1695,18 +1695,7 @@ border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 
-.google-docs-image{
-    background:url("../images/image5.jpg");
-    cursor:pointer;
-    display:block;
-    width:191px;
-    height:141px;
-}
 
-.google-docs-image:hover{
-    cursor:pointer;
-    background:url("../images/image5hover.jpg");
-}
 
 .orwith{
 	margin-bottom:10px !important;

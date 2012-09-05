@@ -10,8 +10,10 @@ Backbone.history.start();
 */
 
 //BS.URLRequired ="http://localhost:9000";     // for cloud use BS.URLRequired ="http://beamstream-v3.herokuapp.com";
-
-BS.URLRequired ="http://alpha.beamstream.com";  
+ 
+ 
+BS.URLRequired ="http://alpha.beamstream.com";
+ 
 
 // For Login Page
 BS.login = BS.URLRequired+"/users";

@@ -39,7 +39,7 @@ case class Message(@Key("_id") id: ObjectId,
   lastNameofMsgPoster: String,
   rocks: Int,
   rockers: List[ObjectId],
-  comments: List[Comment],
+  comments: List[ObjectId],
   follows: Int,
   followers: List[ObjectId])
 
@@ -172,13 +172,21 @@ object Message {
     messageObtained.get
   }
 
+  //  /*
+  // * add Comment to message
+  // */
+  //  def addCommentToMessage(comment: Comment, messageId: ObjectId): ObjectId = {
+  //    val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+  //    MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments ++ List(comment))), false, false, new WriteConcern)
+  //    comment.id
+  //  }
+
   /*
  * add Comment to message
  */
-  def addCommentToMessage(comment: Comment, messageId: ObjectId): ObjectId = {
+  def addCommentToMessage(commentId: ObjectId, messageId: ObjectId) = {
     val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-    MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments ++ List(comment))), false, false, new WriteConcern)
-    comment.id
+    MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments ++ List(commentId))), false, false, new WriteConcern)
   }
 
   /*
@@ -225,9 +233,8 @@ object Message {
     }
 
   }
-  
-  
-   /*
+
+  /*
   * Getting all public messages For All the Streams of a user
   */
 
@@ -239,7 +246,6 @@ object Message {
     }
     publicMessagesForAUser
   }
-
 
 }
 
