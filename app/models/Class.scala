@@ -67,7 +67,7 @@ object Class {
 
         if (!getClassByCode(eachclass).isEmpty) {
           println("Join Stream Case")
-          Stream.joinStream(getClassByCode(eachclass)(0).streams(0), userId)
+           Stream.joinStream(getClassByCode(eachclass)(0).streams(0), userId)
            classIdList ++= List(getClassByCode(eachclass)(0).id)
         } else {
           println("Create class Case")

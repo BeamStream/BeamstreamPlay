@@ -1,4 +1,5 @@
 .nav-list {
+  min-height: 165px;
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -1160,6 +1161,7 @@ body {
 .main_content {
   padding-top: 14px;
   position: relative;
+  min-height:870px; 
 }
 .main_content .sort_container {
   margin: 0 25px 0 12px;
