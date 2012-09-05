@@ -45,6 +45,21 @@ object ClassController extends Controller {
 
   }
 
+  //  /*
+  //   *  Return the class JSON for auto populate the classes on class stream
+  //   *  @Purpose : Class code and class name autopoulate on class stream page
+  //   *  
+  //   */
+  //
+  //  def findClasstoAutoPopulate = Action { implicit request =>
+  //    val classCodeMap = request.body.asFormUrlEncoded.get
+  //    val classCode = classCodeMap("data").toList(0)
+  //    val userSchoolIdList = UserSchool.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
+  //    val classList = Class.findClassByCode(classCode, userSchoolIdList)
+  //    val classListJson = write(classList)
+  //    Ok(classListJson).as("application/json")
+  //  }
+
   /*
    *  Return the class JSON for auto populate the classes on class stream
    *  @Purpose : Class code and class name autopoulate on class stream page
@@ -54,13 +69,13 @@ object ClassController extends Controller {
   def findClasstoAutoPopulate = Action { implicit request =>
     val classCodeMap = request.body.asFormUrlEncoded.get
     val classCode = classCodeMap("data").toList(0)
+    val assosiatedSchoolId = classCodeMap("assosiatedSchoolId").toList(0)
     val userSchoolIdList = UserSchool.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
     val classList = Class.findClassByCode(classCode, userSchoolIdList)
     val classListJson = write(classList)
     Ok(classListJson).as("application/json")
   }
-  
-  
+
   /*
    * Edit Class Functionality
    * @Purpose: Getting all classes for a user
@@ -71,7 +86,7 @@ object ClassController extends Controller {
     val getAllClassesForAUser = Class.getAllClasses(classIdList)
     val ClassListJson = write(getAllClassesForAUser)
     Ok(ClassListJson).as("application/json")
-    
+
   }
-  
+
 }
