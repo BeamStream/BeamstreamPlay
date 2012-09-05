@@ -186,6 +186,15 @@ object Document {
       val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
       DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(comments = (document.comments ++ List(commentId))), false, false, new WriteConcern)
   }
+  
+    /*
+     * Documents for a user sorted by creation date 
+     */
+     
+    def getAllDocumentsForAUserSortedbyDate(userId: ObjectId): List[Document] = {
+        val docs = getAllDocumentsForAUser(userId).sortBy(doc => doc.creationDate)
+        docs
+  }
    
 }
 

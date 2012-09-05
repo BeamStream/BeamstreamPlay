@@ -155,8 +155,9 @@ BS.ClassStreamView = Backbone.View.extend({
 					},
 					success : function(data) {
 						  
-						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow.png"></span>';
-			        	 $('#student-number').fadeIn("medium").delay(2000).fadeOut('medium'); 
+						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
+//			        	 $('#student-number').fadeIn("medium").delay(2000).fadeOut('medium'); 
+			        	 $('#student-number').fadeIn("medium"); 
 			        	 $('#student-number').html(ul);
 
 					}
@@ -173,7 +174,7 @@ BS.ClassStreamView = Backbone.View.extend({
 //			 BS.newClassCode = true;
 //			 if(BS.newClassCode == false)
 //			 {
-				 
+			     $('#student-number').fadeOut("medium");
 				 this.classId =1;
 				 $('#class_name').val("");
 				 $('#date-started').val("");
@@ -216,6 +217,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			success : function(data) {
 				if(data.status == "Success")
 				{
+					 $('#student-number').fadeOut("medium");
 					 console.log("success");
 					 // get all streams with newly created one
 					 var mainView = new BS.StreamView();
@@ -298,6 +300,7 @@ BS.ClassStreamView = Backbone.View.extend({
 				 
 				  if(data.status == "Success")
 				  {
+					  $('#student-number').fadeOut("medium");
 					  alert(data.message);
 					  BS.AppRouter.navigate("streams", {trigger: true});
 				  }
@@ -438,8 +441,9 @@ BS.ClassStreamView = Backbone.View.extend({
 					},
 					success : function(data) {
 						  
-						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow.png"></span>';
-			        	 $('#student-number').fadeIn("medium").delay(2000).fadeOut('medium'); 
+						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
+//			        	 $('#student-number').fadeIn("medium").delay(2000).fadeOut('medium'); 
+						 $('#student-number').fadeIn("medium");
 			        	 $('#student-number').html(ul);
 
 					}
@@ -455,6 +459,7 @@ BS.ClassStreamView = Backbone.View.extend({
 //			 if(BS.newClassCode == false)
 //			 { 
 				 this.classId =1;
+				 $('#student-number').fadeOut("medium");
 //				 $('#class-code').val("");
 //				 $('#date-started').val("");
 //				 $('#div-school-type a span.selectBox-label').html("");

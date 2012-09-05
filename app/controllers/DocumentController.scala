@@ -118,6 +118,17 @@ object DocumentController extends Controller {
      Ok(rockersJson).as("application/json")
    }
    
+   
+   /*
+    * Documents sorted by a creation date
+    */
+    
+       def getAllDocumentsForCurrentUserSortedbyDate = Action { implicit request =>
+   
+         val allDocumentsForAUser = Document.getAllDocumentsForAUserSortedbyDate(new ObjectId(request.session.get("userId").get))
+         val allDocumentsForAStreamJson = write(allDocumentsForAUser)
+         Ok(allDocumentsForAStreamJson).as("application/json")
+    }
 
 }
 
