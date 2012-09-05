@@ -728,9 +728,9 @@
           </div>
         </div>
         <div class="form-row class-row">
-          <div class="element">
-            <label for="class-code">Class code</label>
-            <input type="text" id="class-code" class="validate[required] small" placeholder="Class code">
+           <div class="element ">
+            <label for="class-name">Class name</label>
+            <input type="text" id="class_name" class="validate[required] medium" placeholder="Class name">
           </div>
             <div class="element" id="div-time">
               <label for="class-time">Class time</label>
@@ -740,11 +740,11 @@
                   {{/each}}
               </select>
           </div>
-          <div class="element ">
-            <label for="class-name">Class name</label>
-            <input type="text" id="class_name" class="validate[required] medium" placeholder="Class name">
-            
+          <div class="element">
+            <label for="class-code">Class code</label>
+            <input type="text" id="class-code" class="validate[required] small" placeholder="Class code">
           </div>
+         
           <div class="element">
             <label for="date-started">Month/Year started</label>
             <input class="small datepicker cal" type="text" placeholder="Date" id="date-started"/>
@@ -1609,13 +1609,13 @@
 						
            			   </div>
 					 </div>
-                       <div class="form-row-label">1<sup>st</sup> class</div>
+                    <div class="form-row-label">1<sup>st</sup> class</div>
                       <div class="form-row short">
-
-                       <div class="element">
-                <label for="class-code-{{sCount}}-1">Class code <span class="star"> *</span></label>
-              <input type="text"  id="class-code-{{sCount}}-1" class="validate[required] small class_code" placeholder="Class 1 code" >
-          </div>
+                     <div class="element">
+                     <label for="class-name-{{sCount}}-1">Class name <span class="star"> *</span></label>
+                    <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium class_name" placeholder="Class 1 name">
+                   </div>
+                      
           <div class="element" id="div-time-{{sCount}}-1">
               <label for="class-time-{{sCount}}-1">Class time <span class="star"> *</span></label>
               <select id="class-time-{{sCount}}-1" class="time">
@@ -1625,8 +1625,8 @@
               </select>
           </div>
           <div class="element">
-              <label for="class-name-{{sCount}}-1">Class name <span class="star"> *</span></label>
-              <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium class_name" placeholder="Class 1 name">
+                <label for="class-code-{{sCount}}-1">Class code <span class="star"> *</span></label>
+              <input type="text"  id="class-code-{{sCount}}-1" class="validate[required] small class_code" placeholder="Class 1 code" >
           </div>
           <div class="element">
               <label for="date-started-{{sCount}}-1">Calendar <span class="star"> *</span></label>
@@ -1643,9 +1643,9 @@
 
       <div class="form-row-label">2<sup>nd</sup> class</div>
       <div class="form-row short">
-         <div class="element">
-              <label for="class-code-{{sCount}}-2">Class code</label>
-              <input type="text" id="class-code-{{sCount}}-2" class="small class_code" placeholder="Class 2 code">
+          <div class="element">
+              <label for="class-name-2">Class name</label>
+              <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
          </div>
          <div class="element" id="div-time-{{sCount}}-2">
               <label for="class-time-2">Class time</label>
@@ -1655,9 +1655,10 @@
                   {{/each}}
              </select>
          </div>
+        
          <div class="element">
-              <label for="class-name-2">Class name</label>
-              <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
+              <label for="class-code-{{sCount}}-2">Class code</label>
+              <input type="text" id="class-code-{{sCount}}-2" class="small class_code" placeholder="Class 2 code">
          </div>
          <div class="element">
               <label for="date-started-2">Calendar</label>
@@ -1675,9 +1676,9 @@
        <div class="form-row-label">3<sup>rd</sup> class</div>
        <div class="form-row short">
           <div class="element">
-               <label for="class-code-{{sCount}}-3">Class code</label>
-               <input type="text" id="class-code-{{sCount}}-3" class="small class_code" placeholder="Class 3 code">
-          </div>
+               <label for="class-name-3">Class name</label>
+               <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
+           </div>
           <div class="element" id="div-time-{{sCount}}-3">
                <label for="class-time-3">Class time</label>
 			   <select id="class-time-{{sCount}}-3" class="small time ">
@@ -1687,9 +1688,10 @@
                </select>
           </div>
           <div class="element">
-               <label for="class-name-3">Class name</label>
-               <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
-           </div>
+               <label for="class-code-{{sCount}}-3">Class code</label>
+               <input type="text" id="class-code-{{sCount}}-3" class="small class_code" placeholder="Class 3 code">
+          </div>
+          
            <div class="element">
                 <label for="date-started-{{sCount}}-3">Calendar</label>
                 <input class="small datepicker cal" type="text" placeholder="Date3" id="date-started-{{sCount}}-3"/>
@@ -1721,9 +1723,10 @@
        <div class="form-row-label">1<sup>st</sup> class</div>
        <div class="form-row short">
           <div class="element">
-              <label for="class-code-{{sCount}}-1">Class code <span class="star"> *</span></label>
-              <input type="text"  id="class-code-{{sCount}}-1" class="validate[required] small class_code" placeholder="Class 1 code" >
+              <label for="class-name-{{sCount}}-1">Class name <span class="star"> *</span></label>
+              <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium class_name" placeholder="Class 1 name">
           </div>
+          
           <div class="element" id="div-time-{{sCount}}-1">
               <label for="class-time-{{sCount}}-1">Class time <span class="star"> *</span></label>
               <select id="class-time-{{sCount}}-1" class="time">
@@ -1733,8 +1736,8 @@
               </select>
           </div>
           <div class="element">
-              <label for="class-name-{{sCount}}-1">Class name <span class="star"> *</span></label>
-              <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium class_name" placeholder="Class 1 name">
+              <label for="class-code-{{sCount}}-1">Class code <span class="star"> *</span></label>
+              <input type="text"  id="class-code-{{sCount}}-1" class="validate[required] small class_code" placeholder="Class 1 code" >
           </div>
           <div class="element">
               <label for="date-started-{{sCount}}-1">Calendar <span class="star"> *</span></label>
@@ -1752,8 +1755,8 @@
       <div class="form-row-label">2<sup>nd</sup> class</div>
       <div class="form-row short">
          <div class="element">
-              <label for="class-code-{{sCount}}-2">Class code</label>
-              <input type="text" id="class-code-{{sCount}}-2" class="small class_code" placeholder="Class 2 code">
+              <label for="class-name-2">Class name</label>
+              <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
          </div>
          <div class="element" id="div-time-{{sCount}}-2">
               <label for="class-time-2">Class time</label>
@@ -1764,9 +1767,10 @@
              </select>
          </div>
          <div class="element">
-              <label for="class-name-2">Class name</label>
-              <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
+              <label for="class-code-{{sCount}}-2">Class code</label>
+              <input type="text" id="class-code-{{sCount}}-2" class="small class_code" placeholder="Class 2 code">
          </div>
+         
          <div class="element">
               <label for="date-started-2">Calendar</label>
               <input class="small datepicker cal" type="text" placeholder="Date2" id="date-started-{{sCount}}-2"/>
@@ -1783,9 +1787,9 @@
        <div class="form-row-label">3<sup>rd</sup> class</div>
        <div class="form-row short">
           <div class="element">
-               <label for="class-code-{{sCount}}-3">Class code</label>
-               <input type="text" id="class-code-{{sCount}}-3" class="small class_code" placeholder="Class 3 code">
-          </div>
+               <label for="class-name-3">Class name</label>
+               <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
+           </div>
           <div class="element" id="div-time-{{sCount}}-3">
                <label for="class-time-3">Class time</label>
 			   <select id="class-time-{{sCount}}-3" class="small time ">
@@ -1795,9 +1799,10 @@
                </select>
           </div>
           <div class="element">
-               <label for="class-name-3">Class name</label>
-               <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
-           </div>
+               <label for="class-code-{{sCount}}-3">Class code</label>
+               <input type="text" id="class-code-{{sCount}}-3" class="small class_code" placeholder="Class 3 code">
+          </div>
+          
            <div class="element">
                 <label for="date-started-{{sCount}}-3">Calendar</label>
                 <input class="small datepicker cal" type="text" placeholder="Date3" id="date-started-{{sCount}}-3"/>
@@ -2009,6 +2014,7 @@
                   <li class="screen_name">{{firstName}} {{lastName}}</li>
                   <li class="location"><i class="icon-location"></i> {{location}}</li>
                   <li class="occupation"><i class="icon-silhouette"></i>{{userType.name}}</li>
+                 <li class="orgName"><i class="icon-silhouette"></i>{{orgName}}</li>
                   <li class="social_links">
                     <div class="btn-group">
                       <a href="#" class="btn btn-flat"><i class="icon-twitter"></i></a>
