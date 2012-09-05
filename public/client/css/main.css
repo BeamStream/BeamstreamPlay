@@ -6,7 +6,7 @@
 .nav-list > li {
   height: 32px;
   line-height: 32px;
-  border-top: 1px dotted #c5c5c5;
+  border-bottom: 1px dotted #c5c5c5;
   margin-left: -15px;
   margin-right: -15px;
   font-size: 12px;
@@ -977,10 +977,19 @@ body {
 .user_profile .user_profile_info .nav-list li.occupation {
   padding-left: 5px;
 }
+.user_profile .user_profile_info .nav-list li.orgName{
+  padding-left: 5px;
+}
 .user_profile .user_profile_info .nav-list li.occupation .icon-silhouette {
   background: url(../images/icons/icon_silhouette.png) 50% 0 no-repeat;
   width: 21px;
   height: 20px;
+}
+.user_profile .user_profile_info .nav-list li.orgName .icon-org {
+  background: url(../images/org.png) 50% 0 no-repeat;
+  width: 21px;
+  height: 20px;
+  margin-right: 3px !important;
 }
 .user_profile .user_profile_info .nav-list li.social_links {
   padding-left: 5px;
