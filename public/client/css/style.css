@@ -1959,7 +1959,7 @@ border: 1px solid #E8E8E9;
 }
 
 #streams-list{
-/* 	min-height:32px; */
+ 	min-height:260px; 
 }
 #student-number span{
 	display: block;
