@@ -7,10 +7,10 @@ BS.ClassView = Backbone.View.extend({
 		"click a.legend-addclass" : "addSchool",
 		"click .back" :"backToPrevious",
 		"click .close-button" : "closeScreen",
-//		"keyup .class_code" :"getValuesForCode",
-//		"focus .class_code" : "populateClasses",
-//		"keyup .class_name" :"getValuesForName",
-//	    "focusin .class_name":"populateClassNames",
+		"keyup .class_code" :"getValuesForCode",
+		"focus .class_code" : "populateClasses",
+		"keyup .class_name" :"getValuesForName",
+	    "focusin .class_name":"populateClassNames",
 
 	},
 
@@ -312,12 +312,16 @@ BS.ClassView = Backbone.View.extend({
 		  
 		var text = $('#'+id).val(); 
 		var identity = id.replace(/[^\d.,]+/,'');
+		var rowId = identity.replace(/([-]\d+)$/,'');
+		var selectedSchoolId = $('#school-' + rowId).val() ;
+		 
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
 			url : BS.autoPopulateClass,
 			data : {
-				data : text
+				data : text,
+				schoolId : selectedSchoolId
 			},
 			dataType : "json",
 			success : function(datas) {
@@ -382,44 +386,15 @@ BS.ClassView = Backbone.View.extend({
 			 $('#div-school-type-'+identity+' a span.selectBox-label').html(classType);
 			 $('#div-time-'+identity+' a span.selectBox-label').html(classTime);
 
-			 /* Post scholId to get its school name*/
-			 $.ajax({
-					type : 'POST',
-					url : BS.schoolNamebyId,
-
-					data : {
-						schoolId : schoolId
-					},
-					success : function(data) {
-//						 $('#schools option[value="'+schoolId+'"]').attr('selected', 'selected');
-//						 $('div#sShool a span.selectBox-label').html(data);
-////						 var sSelect = '<select id="schools" class="small selectBox"><option value ="'+schoolId+'" >'+data+'</option>';
-////						 $('#sShool').html(sSelect);
-//						 $(".modal select:visible").selectBox();
-
-					}
-			 });
-			 
-			 
 
 		 }
 		 else
 		 {
-//			 BS.newClassCode = true;
-//			 if(BS.newClassCode == false)
-//			 {
 				 
 				 this.classId =1;
 				 $('#class-name-'+identity).val("");
 				 $('#date-started-'+identity).val("");
-//				 $('#div-school-type a span.selectBox-label').html("");
-//				 $('#div-time a span.selectBox-label').html("");
-//				 $('#div-school a span.selectBox-label').html("");
 				 $(".modal select:visible").selectBox();
-				 
-//				/* get all schoolIds under a class */
-				    //this.getSchools();
-//			 }
 			 
 		 }
 		
@@ -446,12 +421,15 @@ BS.ClassView = Backbone.View.extend({
 		BS.selectedName = $('#'+id).val(); 
 		var text = $('#'+id).val(); 
 		var identity = id.replace(/[^\d.,]+/,'');
+		var rowId = identity.replace(/([-]\d+)$/,'');
+		var selectedSchoolId = $('#school-' + rowId).val() ;
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
 			url : BS.autoPopulateClass,
 			data : {
-				data : text
+				data : text,
+				schoolId : selectedSchoolId
 			},
 			dataType : "json",
 			success : function(datas) {
@@ -511,55 +489,14 @@ BS.ClassView = Backbone.View.extend({
 			 $('#div-school-type-'+identity+' a span.selectBox-label').html(classType);
 			 $('#div-time-'+identity+' a span.selectBox-label').html(classTime);
 
-			 /* Post scholId to get its school name*/
-			 $.ajax({
-					type : 'POST',
-					url : BS.schoolNamebyId,
-
-					data : {
-						schoolId : schoolId
-					},
-					success : function(data) {
-//						 $('#schools option[value="'+schoolId+'"]').attr('selected', 'selected');
-//						 $('div#sShool a span.selectBox-label').html(data);
-//						 $(".modal select:visible").selectBox();
-
-					}
-			 });
+		 
 
 		 }
 		 else
 		 {
-//			 BS.newClassName = true;
-//			 if(BS.newClassCode == false)
-//			 { 
-				 this.classId =1;
-//				 $('#class-code').val("");
-//				 $('#date-started').val("");
-//				 $('#div-school-type a span.selectBox-label').html("");
-//				 $('#div-time a span.selectBox-label').html("");
-//				 $('#div-school a span.selectBox-label').html("");
-//				 $(".modal select:visible").selectBox();
-//				 
-//				/* get all schoolIds under a class */
-//				 $.ajax({
-//						type : 'GET',
-//						url : BS.schoolJson,
-//						dataType : "json",
-//						success : function(datas) {
-//							
-//							 var sSelect = '<select id="schools" class="small selectBox">';
-//							_.each(datas, function(data) {
-//								sSelect+= '<option value ="'+data.assosiatedSchoolId.id+'" > '+data.schoolName+'</option>';
-//					        });
-//							sSelect+= '</select>';
-//							$('#sShool').html(sSelect);
-//							$(".modal select:visible").selectBox();
-//						}
-//				 });
-//			 }
-			 $('#createClass').show(); 
-			 $('#joinClass').hide();
+ 
+		     this.classId =1;
+ 
 		 }
     },
     /*
