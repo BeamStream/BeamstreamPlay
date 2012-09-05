@@ -321,7 +321,7 @@ BS.ClassView = Backbone.View.extend({
 			url : BS.autoPopulateClass,
 			data : {
 				data : text,
-				schoolId : selectedSchoolId
+				assosiatedSchoolId : selectedSchoolId
 			},
 			dataType : "json",
 			success : function(datas) {
@@ -429,7 +429,7 @@ BS.ClassView = Backbone.View.extend({
 			url : BS.autoPopulateClass,
 			data : {
 				data : text,
-				schoolId : selectedSchoolId
+				assosiatedSchoolId : selectedSchoolId
 			},
 			dataType : "json",
 			success : function(datas) {
