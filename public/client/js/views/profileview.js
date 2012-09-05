@@ -9,7 +9,7 @@ BS.ProfileView = Backbone.View.extend({
 	      'click .delete-video' :'deleteSelectedVideo',
 	       'keyup #mobile' : "checkNumber",
 	      'focusout #mobile' : "arragePhone",
-	      'click .close-button' : "saveProfile",
+	      'click .close-button' : "closeScreen",
 	      'click .back' :'backToPrevious'
 	 },
 	 
@@ -274,7 +274,7 @@ BS.ProfileView = Backbone.View.extend({
     getProfileImages : function(page){
     	var first =false;
     	BS.content = '';
-//    	BS.content = '<ul class="gallery clearfix"></ul><ul class="gallery clearfix">';
+    	BS.images = '<div class="gallery clearfix"></div><div class="gallery clearfix">';
     	
    	    $.ajax({
 				type : 'GET',
@@ -284,36 +284,87 @@ BS.ProfileView = Backbone.View.extend({
 					  
 					_.each(datas, function(data) {
 						 
-//                                            data = 'http://www.indiaonrent.com/forwards/b/beautiful-world-sceneries002/res/nq7za4.jpg';
 						if(first == false)
 						{
                                                     
 							if(page == "files")
 							{
 							    
-							   BS.content+= '<a href="'+data+'" class="lytebox" data-lyte-options="group:vacation" data-title="Profile Images"><img id ="main-photo" src="'+data+'"  alt="username photo"></a>';
-//							   BS.content+= '<a href="'+data+'" rel="prettyPhoto[gallery2]"  ><img src="'+data+'" width="60" height="60" alt="This is a pretty long title" /></a>';
+							   BS.images+= '<a href="'+data+'" rel="prettyPhoto[gallery2]"  ><img src="'+data+'" width="185px" height="141px"  /></a>';
 							}
 							else
 							{
-								BS.content+= '<a href="'+data+'" class="lytebox" data-lyte-options="group:vacation" data-title="Profile Images"><img id ="main-photo" src="'+data+'"  width="189" height="156"  alt="username photo"></a>';
+								BS.images+= '<a href="'+data+'" rel="prettyPhoto[gallery2]"> </a> ';
 							}
 							first =true;
 						}
 						else
 						{
-							BS.content+= '<a href="'+data+'" class="lytebox" data-lyte-options="group:vacation" data-title="Profile Images"></a>';
+							BS.images+= '<a href="'+data+'" rel="prettyPhoto[gallery2]"> </a> ';
 						}
 						 
 			        });
 					BS.content+= '';
-//					BS.content+= '</ul>';
-			    	$('#profile-images').html(BS.content);					 
+					$('#profile-images').html(BS.images);	
+
+ 			    	$("area[rel^='prettyPhoto']").prettyPhoto();
+ 					$(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
+ 					$(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
+ 			
 				}
 				 
 		 });
 		 
     },
+    
+    /**
+     * get all profile videos urls
+     */
+     
+     getProfileVideos : function(){
+     	var first =false;
+     	 
+     	BS.videos = '<div class="gallery clearfix"></div><div class="gallery clearfix">';
+     	
+    	    $.ajax({
+ 				type : 'GET',
+ 				url : BS.allProfileVideos,
+ 				dataType : "json",
+ 				success : function(datas) {
+ 					  
+ 					_.each(datas, function(data) {
+ 						 
+ 						if(first == false)
+ 						{
+                                                     
+ 							BS.videos+= '<a href="'+data+'" rel="prettyPhoto[movies]" ><img src="images/image2.jpg"  width="185px" height="141px" /></a>';
+// 							BS.videos+= '<a href="http://trailers.apple.com/movies/disney/tronlegacy/tronlegacy-tsr1_r640s.mov?width=640&height=272" rel="prettyPhoto[movies]" ><img src="images/image2.jpg"  width="185px" height="141px" /></a>';
+
+ 							first =true;
+ 						}
+ 						else
+ 						{
+ 							BS.videos+= '<a href="'+data+'" rel="prettyPhoto[movies]" > </a>';
+// 							BS.videos+= '<a href="http://trailers.apple.com/movies/paramount/shutterisland/shutterisland-tvspot1_r640s.mov?width=640&height=272" rel="prettyPhoto[movies]" > </a>';
+ 							
+ 						}
+ 						 
+ 			        });
+ 					 
+ 					BS.videos+= '</div>';
+ 			    	$('#profile-videos').html(BS.videos);
+ 			    	
+ 			    	
+ 			    	$("area[rel^='prettyPhoto']").prettyPhoto();
+ 					$(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
+ 					$(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
+ 			
+ 				}
+				
+ 				 
+ 		 });
+ 
+     },
     /**
      * delete selected/uploaded images
      */
@@ -347,7 +398,13 @@ BS.ProfileView = Backbone.View.extend({
   	  BS.AppRouter.navigate("class", {trigger: true});
     },
     
-     
+    /*
+     * close the screen
+     */
+    closeScreen : function(eventName){
+  	  eventName.preventDefault(); 
+  	  BS.AppRouter.navigate('streams', {trigger: true});
+    }
 	
 	
     
