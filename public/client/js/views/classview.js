@@ -6,7 +6,11 @@ BS.ClassView = Backbone.View.extend({
 		"click a.addclass": "addClasses",
 		"click a.legend-addclass" : "addSchool",
 		"click .back" :"backToPrevious",
-		"click .close-button" : "saveClass"
+		"click .close-button" : "closeScreen",
+//		"keyup .class_code" :"getValuesForCode",
+//		"focus .class_code" : "populateClasses",
+//		"keyup .class_name" :"getValuesForName",
+//	    "focusin .class_name":"populateClassNames",
 
 	},
 
@@ -282,9 +286,288 @@ BS.ClassView = Backbone.View.extend({
       BS.AppRouter.navigate("school", {trigger: true});
     },
     
+    /**
+	 * display other values on mouse select - class code auto complete
+	 */
+	getValuesForCode :function(eventName){
+		var id = eventName.target.id;
+		var text = $('#'+id).val(); 
+		
+		// get id to identify corresponding row 
+		var identity = id.replace(/[^\d.,]+/,'');
+		
+		this.displayFiledsForCode(text,identity);
+		 
+	},
+	
+	/**
+	 * populate  List of class codes - matching a class code
+	 * 
+	 */
+	populateClasses :function(eventName){
+		var id = eventName.target.id;
+		var self = this;
+		BS.classCodes = []; 
+		BS.selectedCode = $('#'+id).val(); 
+		  
+		var text = $('#'+id).val(); 
+		var identity = id.replace(/[^\d.,]+/,'');
+		/* post the text that we type to get matched classes */
+		 $.ajax({
+			type : 'POST',
+			url : BS.autoPopulateClass,
+			data : {
+				data : text
+			},
+			dataType : "json",
+			success : function(datas) {
+				var codes = '';
+				BS.classInfo = datas;
+				_.each(datas, function(data) {
+					BS.classCodes.push(data.classCode);
+		        });
+//				$('.ac_results').css('width', '160px');
+				
+				//set auto populate functionality for class code
+				$('#'+id).autocomplete({
+					    source: BS.classCodes,
+					    select: function(event, ui) {
+					    	
+					    	var text = ui.item.value; 
+					    	self.displayFiledsForCode(text,identity);
+					    	
+					    }
+				 });
+			 
+			}
+		});
+ 
+	},
     
-	
-	
-	
+	/**
+	 * display other field values- classCode auto complete
+	 */
+	displayFiledsForCode : function(value,identity)
+	{ 
+		 
+		var classStatus = false; 
+		var classTime ,className,date ,classType,schoolId,classId;
+        var datas = JSON.stringify(BS.classInfo);
+         
+        /* get details of selected class */
+		 _.each(BS.classInfo, function(data) {
+		 	 if(data.classCode == value)
+		     {
+				 classStatus = true;
+				 classTime = data.classTime;
+				 className = data.className;
+				 date = data.startingDate;
+				 classType = data.classType;
+				 schoolId = data.schoolId.id;
+				 classId = data.id.id;
+		     }
+			 
+        });
+		 /* populate other class fields*/
+		 if(classStatus == true)
+		 {
+//			 BS.newClassCode = false;
+			 this.classId = classId;
+			 $('#class-name-'+identity).val(className);
+			 
+			 $('#date-started-'+identity).val(date);
+			 $('#semester-'+identity+' option:selected').attr('selected', false);
+			 $('#semester-'+identity+' option[value="'+classType+'"]').attr('selected', 'selected');
+			 
+			 $('#div-school-type-'+identity+' a span.selectBox-label').html(classType);
+			 $('#div-time-'+identity+' a span.selectBox-label').html(classTime);
+
+			 /* Post scholId to get its school name*/
+			 $.ajax({
+					type : 'POST',
+					url : BS.schoolNamebyId,
+
+					data : {
+						schoolId : schoolId
+					},
+					success : function(data) {
+//						 $('#schools option[value="'+schoolId+'"]').attr('selected', 'selected');
+//						 $('div#sShool a span.selectBox-label').html(data);
+////						 var sSelect = '<select id="schools" class="small selectBox"><option value ="'+schoolId+'" >'+data+'</option>';
+////						 $('#sShool').html(sSelect);
+//						 $(".modal select:visible").selectBox();
+
+					}
+			 });
+			 
+			 
+
+		 }
+		 else
+		 {
+//			 BS.newClassCode = true;
+//			 if(BS.newClassCode == false)
+//			 {
+				 
+				 this.classId =1;
+				 $('#class-name-'+identity).val("");
+				 $('#date-started-'+identity).val("");
+//				 $('#div-school-type a span.selectBox-label').html("");
+//				 $('#div-time a span.selectBox-label').html("");
+//				 $('#div-school a span.selectBox-label').html("");
+				 $(".modal select:visible").selectBox();
+				 
+//				/* get all schoolIds under a class */
+				    //this.getSchools();
+//			 }
+			 
+		 }
+		
+	},
+	/**
+     * display other values on mouse select - className auto complete
+     */
+    getValuesForName :function(eventName){
+    	var id = eventName.target.id;
+    	var text = $('#'+id).val();
+    	
+    	// get id to identify corresponding row 
+		var identity = id.replace(/[^\d.,]+/,'');
+		this.displayFieldsForName(text,identity);
+		
+    },
+    /**
+     * auto populate class names - matching a class name
+     */
+    populateClassNames :function(eventName){
+    	var id = eventName.target.id;
+    	var self =this;
+    	BS.classNames = []; 
+		BS.selectedName = $('#'+id).val(); 
+		var text = $('#'+id).val(); 
+		var identity = id.replace(/[^\d.,]+/,'');
+		/* post the text that we type to get matched classes */
+		 $.ajax({
+			type : 'POST',
+			url : BS.autoPopulateClass,
+			data : {
+				data : text
+			},
+			dataType : "json",
+			success : function(datas) {
+				var codes = '';
+				BS.classNameInfo = datas;
+				_.each(datas, function(data) {
+					BS.classNames.push(data.className);
+		        });
+ 
+				//set auto populate functionality for class code
+				$('#'+id).autocomplete({
+					    source: BS.classNames,
+					    select: function(event, ui) {
+					    	
+					    	var text = ui.item.value; 
+					    	self.displayFieldsForName(text,identity);
+					    	
+					    }
+				 });
+			 
+			}
+		});
+    	
+    },
+    /**
+     *  display other field values - className auto populate
+     */
+    displayFieldsForName : function(value,identity){
+    	
+    	var classStatus = false; 
+		var classTime ,className,date ,classType,schoolId,classId;
+        var datas = JSON.stringify(BS.classInfo);
+         
+        /* get details of selected class */
+		 _.each(BS.classNameInfo, function(data) {
+		 	 if(data.className == value)
+		     {
+		 		  
+				 classStatus = true;
+				 classTime = data.classTime;
+				 classCode = data.classCode;
+				 date = data.startingDate;
+				 classType = data.classType;
+				 schoolId = data.schoolId.id;
+				 classId = data.id.id;
+		     }
+			 
+        });
+		 /* populate other class fields*/
+		 if(classStatus == true)
+		 {    
+			 this.classId = classId;
+			 $('#class-code-'+identity).val(classCode);
+			 $('#date-started-'+identity).val(date);
+			 $('#semester-'+identity+' option:selected').attr('selected', false);
+			 $('#semester-'+identity+' option[value="'+classType+'"]').attr('selected', 'selected');
+			 $('#div-school-type-'+identity+' a span.selectBox-label').html(classType);
+			 $('#div-time-'+identity+' a span.selectBox-label').html(classTime);
+
+			 /* Post scholId to get its school name*/
+			 $.ajax({
+					type : 'POST',
+					url : BS.schoolNamebyId,
+
+					data : {
+						schoolId : schoolId
+					},
+					success : function(data) {
+//						 $('#schools option[value="'+schoolId+'"]').attr('selected', 'selected');
+//						 $('div#sShool a span.selectBox-label').html(data);
+//						 $(".modal select:visible").selectBox();
+
+					}
+			 });
+
+		 }
+		 else
+		 {
+//			 BS.newClassName = true;
+//			 if(BS.newClassCode == false)
+//			 { 
+				 this.classId =1;
+//				 $('#class-code').val("");
+//				 $('#date-started').val("");
+//				 $('#div-school-type a span.selectBox-label').html("");
+//				 $('#div-time a span.selectBox-label').html("");
+//				 $('#div-school a span.selectBox-label').html("");
+//				 $(".modal select:visible").selectBox();
+//				 
+//				/* get all schoolIds under a class */
+//				 $.ajax({
+//						type : 'GET',
+//						url : BS.schoolJson,
+//						dataType : "json",
+//						success : function(datas) {
+//							
+//							 var sSelect = '<select id="schools" class="small selectBox">';
+//							_.each(datas, function(data) {
+//								sSelect+= '<option value ="'+data.assosiatedSchoolId.id+'" > '+data.schoolName+'</option>';
+//					        });
+//							sSelect+= '</select>';
+//							$('#sShool').html(sSelect);
+//							$(".modal select:visible").selectBox();
+//						}
+//				 });
+//			 }
+			 $('#createClass').show(); 
+			 $('#joinClass').hide();
+		 }
+    },
+    /*
+     * close the screen
+     */
+    closeScreen : function(eventName){
+  	  eventName.preventDefault(); 
+  	  BS.AppRouter.navigate('streams', {trigger: true});
+    }
 
 });

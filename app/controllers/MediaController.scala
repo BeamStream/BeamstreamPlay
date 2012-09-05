@@ -66,7 +66,7 @@ object MediaController extends Controller {
           val videoFileObtained: File = videoData.ref.file.asInstanceOf[File]
           val videoFileNameOnnAmazon = uniqueString + videoFilename // Security Over the videos files
           AmazonUpload.uploadFileToAmazon(videoFileNameOnnAmazon, videoFileObtained)
-          val videoURL = "https://s3.amazonaws.com/Beamstream/" + videoFileNameOnnAmazon
+          val videoURL = "https://s3.amazonaws.com/BeamStream/" + videoFileNameOnnAmazon
           val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), videoURL, UserMediaType.Video, false)
           UserMedia.saveMediaForUser(media)
           /*

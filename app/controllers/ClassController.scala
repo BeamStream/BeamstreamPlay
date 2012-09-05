@@ -37,7 +37,7 @@ object ClassController extends Controller {
     val listOfClassIds = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
     (listOfClassIds.isEmpty) match {
       case true =>
-        Ok(write(new ResulttoSent("Failure", "One of Your Class Code already exists or Duplicates Class Code or Name Provided")))
+        Ok(write(new ResulttoSent("Failure", "Duplicates Class Code or Name Provided")))
       case false =>
         User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
         Ok(write(new ResulttoSent("Success", "Class added")))

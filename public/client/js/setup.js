@@ -11,7 +11,9 @@ Backbone.history.start();
 
 //BS.URLRequired ="http://localhost:9000";     // for cloud use BS.URLRequired ="http://beamstream-v3.herokuapp.com";
  
+ 
 BS.URLRequired ="http://alpha.beamstream.com";
+ 
 
 // For Login Page
 BS.login = BS.URLRequired+"/users";
@@ -89,7 +91,10 @@ BS.getAllDocs = BS.URLRequired+"/getAllDocumentsForAUser";
 BS.rockingTheComment = BS.URLRequired+"/rockingTheComment";
 // get comment rockers list
 BS.commentRockers = BS.URLRequired+"/commentRockers";
- 
+// get profile videos 
+BS.allProfileVideos = BS.URLRequired+"/getAllProfileVideoForAUser";
+//get no of users attending class
+BS.noOfUsersAttendingAClass = BS.URLRequired+"/noOfUsersAttendingAClass";
 
  
  

@@ -39,11 +39,11 @@
     
        <style type="text/css">.tk-ubuntu,body{font-family:"ubuntu",sans-serif;}</style>
     
-    
-    <!--  for image popups -lytebox -->
-     <link rel="stylesheet" href="css/lytebox.css" type="text/css" media="screen" />
-    <script type="text/javascript" language="javascript" src="lib/lytebox.js"></script>
    
+    
+    <!--  for pretty photo -->
+    <link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+    
     
     
     <!--[if IE]>
@@ -125,23 +125,11 @@
     <!--Shuffle in media page -->
     <script type="text/javascript" src="lib/jquery.shuffle.js"></script>
     <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script>
-        
-    <script>
-        $('.lytebox').live('click', function(event) {
-            event.preventDefault()
-             
-           var src = $(this).attr("href");
-            
-            if(src === null){
-                // do nothing.
-                return false;
-            }
-            else{
-                showLyteBox(src);
-            }
-        });
-        
-    </script>
+    
+    <!--  for pretty  -->
+    <script src="lib/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+    
+ 
 </head>
  <!-- template for Files and Media-->
  <script type="text/x-handlebars-template" id="tpl-files-media">
@@ -385,7 +373,9 @@
           </div>
         </li>
         <li data-key='["recent"]'>
-          <div class="image-wrapper"><img src="images/video_image.png"></div>
+          
+          <div class="image-wrapper"><div id="profile-videos"></div>
+
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -723,7 +713,7 @@
   
   <div class="modal-body">
     <form>
-      <fieldset>
+      <fieldset class="class-pop">
         <div class="form-row class-row">
           <div class="element" id="div-school">
                <label for="schools">School</label>
@@ -752,9 +742,10 @@
                   {{/each}}
               </select>
           </div>
-          <div class="element">
+          <div class="element ">
             <label for="class-name">Class name</label>
             <input type="text" id="class_name" class="validate[required] medium" placeholder="Class name">
+            
           </div>
           <div class="element">
             <label for="date-started">Month/Year started</label>
@@ -812,7 +803,7 @@
         <div class="form-row class-row">
          <legend style="float:left !important;"class="legend legend-add" id="add-tags">ADD MORE TAGS</legend>
          </div>
-         
+         <div id="student-number" class="studentno-popup"></div>
       </fieldset>
     </form>
   </div>
@@ -1625,9 +1616,9 @@
 
                        <div class="element">
                 <label for="class-code-{{sCount}}-1">Class code <span class="star"> *</span></label>
-              <input type="text"  id="class-code-{{sCount}}-1" class="validate[required] small" placeholder="Class 1 code" >
+              <input type="text"  id="class-code-{{sCount}}-1" class="validate[required] small class_code" placeholder="Class 1 code" >
           </div>
-          <div class="element">
+          <div class="element" id="div-time-{{sCount}}-1">
               <label for="class-time-{{sCount}}-1">Class time <span class="star"> *</span></label>
               <select id="class-time-{{sCount}}-1" class="time">
 				  {{#each times}}
@@ -1637,13 +1628,13 @@
           </div>
           <div class="element">
               <label for="class-name-{{sCount}}-1">Class name <span class="star"> *</span></label>
-              <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium" placeholder="Class 1 name">
+              <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium class_name" placeholder="Class 1 name">
           </div>
           <div class="element">
               <label for="date-started-{{sCount}}-1">Calendar <span class="star"> *</span></label>
               <input class="validate[required] small datepicker cal" type="text"   id="date-started-{{sCount}}-1"/>
           </div>
-           <div class="element">
+           <div class="element" id="div-school-type-{{sCount}}-1">
                <label for="semester-{{sCount}}-1">Semester or Quarter <span class="star"> *</span></label>
                <select id="semester-{{sCount}}-1" class="small">
                      <option value="semester">Semester</option>
@@ -1656,9 +1647,9 @@
       <div class="form-row short">
          <div class="element">
               <label for="class-code-{{sCount}}-2">Class code</label>
-              <input type="text" id="class-code-{{sCount}}-2" class="small" placeholder="Class 2 code">
+              <input type="text" id="class-code-{{sCount}}-2" class="small class_code" placeholder="Class 2 code">
          </div>
-         <div class="element">
+         <div class="element" id="div-time-{{sCount}}-2">
               <label for="class-time-2">Class time</label>
 			  <select id="class-time-{{sCount}}-2" class="small time">
 			      {{#each times}}
@@ -1668,13 +1659,13 @@
          </div>
          <div class="element">
               <label for="class-name-2">Class name</label>
-              <input type="text" id="class-name-{{sCount}}-2" class="medium" placeholder="Class 2 name">
+              <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
          </div>
          <div class="element">
               <label for="date-started-2">Calendar</label>
               <input class="small datepicker cal" type="text" placeholder="Date2" id="date-started-{{sCount}}-2"/>
          </div>
-         <div class="element">
+         <div class="element" id="div-school-type-{{sCount}}-2">
               <label for="semester-{{sCount}}-2">Semester or Quarter</label>
               <select id="semester-{{sCount}}-2" class="small">
                     <option value="semester">Semester</option>
@@ -1687,9 +1678,9 @@
        <div class="form-row short">
           <div class="element">
                <label for="class-code-{{sCount}}-3">Class code</label>
-               <input type="text" id="class-code-{{sCount}}-3" class="small" placeholder="Class 3 code">
+               <input type="text" id="class-code-{{sCount}}-3" class="small class_code" placeholder="Class 3 code">
           </div>
-          <div class="element">
+          <div class="element" id="div-time-{{sCount}}-3">
                <label for="class-time-3">Class time</label>
 			   <select id="class-time-{{sCount}}-3" class="small time ">
 				  {{#each times}}
@@ -1699,13 +1690,13 @@
           </div>
           <div class="element">
                <label for="class-name-3">Class name</label>
-               <input type="text" id="class-name-{{sCount}}-3" class="medium" placeholder="Class 3 name">
+               <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
            </div>
            <div class="element">
                 <label for="date-started-{{sCount}}-3">Calendar</label>
                 <input class="small datepicker cal" type="text" placeholder="Date3" id="date-started-{{sCount}}-3"/>
            </div>
-           <div class="element">
+           <div class="element" id="div-school-type-{{sCount}}-3">
                 <label for="semester-{{sCount}}-3">Semester or Quarter</label>
                 <select id="semester-{{sCount}}-3" class="small">
                      <option value="semester">Semester</option>
@@ -1733,9 +1724,9 @@
        <div class="form-row short">
           <div class="element">
               <label for="class-code-{{sCount}}-1">Class code <span class="star"> *</span></label>
-              <input type="text"  id="class-code-{{sCount}}-1" class="validate[required] small" placeholder="Class 1 code" >
+              <input type="text"  id="class-code-{{sCount}}-1" class="validate[required] small class_code" placeholder="Class 1 code" >
           </div>
-          <div class="element">
+          <div class="element" id="div-time-{{sCount}}-1">
               <label for="class-time-{{sCount}}-1">Class time <span class="star"> *</span></label>
               <select id="class-time-{{sCount}}-1" class="time">
 				  {{#each times}}
@@ -1745,13 +1736,13 @@
           </div>
           <div class="element">
               <label for="class-name-{{sCount}}-1">Class name <span class="star"> *</span></label>
-              <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium" placeholder="Class 1 name">
+              <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium class_name" placeholder="Class 1 name">
           </div>
           <div class="element">
               <label for="date-started-{{sCount}}-1">Calendar <span class="star"> *</span></label>
               <input class="validate[required] small datepicker cal" type="text" placeholder="Date1" id="date-started-{{sCount}}-1"/>
           </div>
-           <div class="element">
+           <div class="element" id="div-school-type-{{sCount}}-1">
                <label for="semester-{{sCount}}-1">Semester or Quarter <span class="star"> *</span></label>
                <select id="semester-{{sCount}}-1" class="small">
                      <option value="semester">Semester</option>
@@ -1764,9 +1755,9 @@
       <div class="form-row short">
          <div class="element">
               <label for="class-code-{{sCount}}-2">Class code</label>
-              <input type="text" id="class-code-{{sCount}}-2" class="small" placeholder="Class 2 code">
+              <input type="text" id="class-code-{{sCount}}-2" class="small class_code" placeholder="Class 2 code">
          </div>
-         <div class="element">
+         <div class="element" id="div-time-{{sCount}}-2">
               <label for="class-time-2">Class time</label>
 			  <select id="class-time-{{sCount}}-2" class="small time">
 			      {{#each times}}
@@ -1776,13 +1767,13 @@
          </div>
          <div class="element">
               <label for="class-name-2">Class name</label>
-              <input type="text" id="class-name-{{sCount}}-2" class="medium" placeholder="Class 2 name">
+              <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
          </div>
          <div class="element">
               <label for="date-started-2">Calendar</label>
               <input class="small datepicker cal" type="text" placeholder="Date2" id="date-started-{{sCount}}-2"/>
          </div>
-         <div class="element">
+         <div class="element" id="div-school-type-{{sCount}}-2">
               <label for="semester-{{sCount}}-2">Semester or Quarter</label>
               <select id="semester-{{sCount}}-2" class="small">
                     <option value="semester">Semester</option>
@@ -1795,9 +1786,9 @@
        <div class="form-row short">
           <div class="element">
                <label for="class-code-{{sCount}}-3">Class code</label>
-               <input type="text" id="class-code-{{sCount}}-3" class="small" placeholder="Class 3 code">
+               <input type="text" id="class-code-{{sCount}}-3" class="small class_code" placeholder="Class 3 code">
           </div>
-          <div class="element">
+          <div class="element" id="div-time-{{sCount}}-3">
                <label for="class-time-3">Class time</label>
 			   <select id="class-time-{{sCount}}-3" class="small time ">
 				  {{#each times}}
@@ -1807,13 +1798,13 @@
           </div>
           <div class="element">
                <label for="class-name-3">Class name</label>
-               <input type="text" id="class-name-{{sCount}}-3" class="medium" placeholder="Class 3 name">
+               <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
            </div>
            <div class="element">
                 <label for="date-started-{{sCount}}-3">Calendar</label>
                 <input class="small datepicker cal" type="text" placeholder="Date3" id="date-started-{{sCount}}-3"/>
            </div>
-           <div class="element">
+           <div class="element" id="div-school-type-{{sCount}}-3">
                 <label for="semester-{{sCount}}-3">Semester or Quarter</label>
                 <select id="semester-{{sCount}}-3" class="small">
                      <option value="semester">Semester</option>
@@ -1905,7 +1896,7 @@
                     <div class="element">
                         <div id="num-validation"></div>
                         <label for="mobile">Mobile <span class="star"> *</span></label>
-                        <input type="text" id="mobile" name="mobile" class=" large" placeholder="(999)999-9999">
+                        <input type="text" id="mobile" name="mobile" class=" large" placeholder="(999)999-9999" >
                     </div>
                     <div class="element">
                         <label for="upload">Upload</label>
@@ -2080,8 +2071,9 @@
                      
                 </a>
               </li>
+			  <li><a href="#questions">Questions <span class="label label-important">10</span></a></li>
               <li><a id="tasks" data-original-title="Feature coming soon" href="#tasks">Deadlines <span class="label label-important">5</span></a></li>
-              <li><a href="#questions">Questions <span class="label label-important">10</span></a></li>
+              
               <li><a href="#surveys" data-original-title="Feature coming soon">Quizes & Polls</a></li>
               <li><a href="#idea-stream" data-original-title="Feature coming soon" >Follow Stream</a></li>
             </ul>
@@ -2311,10 +2303,11 @@
                      
                 </a>
               </li>
-              <li><a id="tasks" data-original-title="Feature coming soon" href="#tasks">Tasks <span class="label label-important">5</span></a></li>
-              <li><a href="#questions">Questions <span class="label label-important">10</span></a></li>
-              <li><a href="#surveys" data-original-title="Feature coming soon">Surveys</a></li>
-              <li><a href="#idea-stream" data-original-title="Feature coming soon" >Idea Stream</a></li>
+ 			<li><a href="#questions">Questions <span class="label label-important">10</span></a></li>
+              <li><a id="tasks" data-original-title="Feature coming soon" href="#tasks">Deadlines <span class="label label-important">5</span></a></li>
+             
+              <li><a href="#surveys" data-original-title="Feature coming soon">Quizes & Polls</a></li>
+              <li><a href="#idea-stream" data-original-title="Feature coming soon" >Follow Stream</a></li>
             </ul>
 			</div>
            </div>
@@ -2426,8 +2419,9 @@
  				 
                 </a>
               </li>
-              <li><a id="tasks" data-original-title="Feature coming soon" href="#tasks">Deadlines <span class="label label-important">5</span></a></li>
               <li><a href="#questions">Questions <span class="label label-important">10</span></a></li>
+              <li><a id="tasks" data-original-title="Feature coming soon" href="#tasks">Deadlines <span class="label label-important">5</span></a></li>
+              
               <li><a href="#surveys" data-original-title="Feature coming soon">Quizes & Polls</a></li>
               <li><a href="#idea-stream" data-original-title="Feature coming soon" >Follow Stream</a></li>
   </ul>
@@ -2466,7 +2460,7 @@
                </div>
                     <div class="content_container">
                      <div class="meta_data">
-                         <span class="username"><a id="{{userId.id}}" href="#user-profile">{{firstNameofCommentPoster}} {{lastNameofCommentPoster}}</a></span>
+                         <span class="username"><a id="{{userId.id}}" href="#profile">{{firstNameofCommentPoster}} {{lastNameofCommentPoster}}</a></span>
                           <span class="separator">-</span>
                            <time datetime="2011-12-01" pubdate>{{timeCreated}}</time>
                            <span class="separator">-</span>
@@ -2541,8 +2535,10 @@
      <div class="photo_container">
        <img id="{{datas.id.id}}-img" src="{{datas.imageUrl}}" width="46" height="46">
      </div>
+    
      <div class="content_container">
        <div class="meta_data">
+
          <span class="username"><a id="{{datas.userId.id}}" href="#user-profile">{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </a></span>
          <span class="separator">-</span>
          <time datetime="2011-12-01" pubdate>{{datas.timeCreated}}</time>
@@ -3187,6 +3183,8 @@ function janRainLogin(info){
 <script src="js/models/documentmodel.js"></script>
 <script src="js/router.js"></script>
 
+
+ 
 </body>
 </html>
 

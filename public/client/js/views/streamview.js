@@ -33,8 +33,9 @@ BS.StreamView = Backbone.View.extend({
            "click .msg-follow" : "followMessage",
 //           "click #msg"  : "showBitleys",
            "click .social_media" : "uncheckPrivate",
-           "click #id-private" : "makePrivate"
+           "click #id-private" : "makePrivate",
 //           "keyup #msg" : "makeBitly",
+        	"click .username a" : "renderPublicProfile"
            
  
 	 },
@@ -1293,5 +1294,19 @@ BS.StreamView = Backbone.View.extend({
 	  */
 	 preventDefault : function(eventName){
 		 eventName.preventDefault(); 
+	 },
+	 
+	 /**
+	  * render public profile view
+	  */
+	 
+	 renderPublicProfile :function (eventName){
+		 console.log(eventName.target.id);
+	 },
+	 /** 
+	  * make bitly
+	  */
+	 makeBitly : function(eventName){
+		 console.log("dgdfg");
 	 }
 });

@@ -782,6 +782,27 @@ ul.rockit li span a {
   border-radius: 4px 4px 4px 4px;
 	
 }
+.studentno-popup{
+  padding : 10px;
+  z-index: 1050;
+  width: 83px;
+  line-height:20px;
+  background-color: #309A01;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+  font-family: UbuntuRegular;
+  color: #fff;
+  display: none ;
+  left: 46%;
+  top:75px;
+  height: 16px;
+  position: absolute !important;
+  border-radius: 4px 4px 4px 4px;
+}
+.class-pop{
+	position :relative;
+}
 .cmtlist-popup{
   padding : 10px;
   z-index: 1050;
@@ -1940,6 +1961,15 @@ border: 1px solid #E8E8E9;
 #streams-list{
 /* 	min-height:32px; */
 }
+#student-number span{
+	display: block;
+    margin: -2px 0 0;
+}
+/* #test html, #test body{ */
+/* 	height:500px!important; */
+/* 	overflow-y: hidden !important; */
+/* 	border:1px solid green; */
+/* } */
 
  
 

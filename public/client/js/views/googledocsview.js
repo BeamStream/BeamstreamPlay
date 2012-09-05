@@ -164,7 +164,7 @@ BS.GoogleDocsView = Backbone.View.extend({
             *
             */
             pagination: function(){
-                    var show_per_page = 16;  
+                    var show_per_page = 16;                                     //number of <li> listed in the page
                     var number_of_items = $('#grid').children().size();  
                     var number_of_pages = Math.ceil(number_of_items/show_per_page);  
                     var navigation_count='';
@@ -177,9 +177,9 @@ BS.GoogleDocsView = Backbone.View.extend({
                         current_link++;  
                     }  
                     var navigation_next = '<div class="next_link" ></div>';  
-                    $('#prevslid').html(navigation_Prev);  
+                    $('#prevslid').html(navigation_Prev);                       //previous slider icon
                     $('#page_navigation-count').html(navigation_count);  
-                    $('#nextslid').html(navigation_next);  
+                    $('#nextslid').html(navigation_next);                       //next slider icon   
                     $('#page_navigation-count .page_link:first').addClass('active_page');  
 
                     $('#grid').children().css('display', 'none');  
