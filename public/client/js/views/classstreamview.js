@@ -155,7 +155,7 @@ BS.ClassStreamView = Backbone.View.extend({
 					},
 					success : function(data) {
 						  
-						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.png"></span>';
+						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
 //			        	 $('#student-number').fadeIn("medium").delay(2000).fadeOut('medium'); 
 			        	 $('#student-number').fadeIn("medium"); 
 			        	 $('#student-number').html(ul);
@@ -441,7 +441,7 @@ BS.ClassStreamView = Backbone.View.extend({
 					},
 					success : function(data) {
 						  
-						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.png"></span>';
+						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
 //			        	 $('#student-number').fadeIn("medium").delay(2000).fadeOut('medium'); 
 						 $('#student-number').fadeIn("medium");
 			        	 $('#student-number').html(ul);

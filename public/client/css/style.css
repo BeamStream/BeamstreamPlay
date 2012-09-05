@@ -788,8 +788,8 @@ ul.rockit li span a {
   width: 83px;
   line-height:20px;
   background-color: #309A01;
-/*   border: 1px solid #999; */
-/*   border: 1px solid rgba(0, 0, 0, 0.3); */
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
   *border: 1px solid #999;
   font-family: UbuntuRegular;
   color: #fff;
@@ -1974,7 +1974,7 @@ border: 1px solid #E8E8E9;
 }
 #student-number span{
 	display: block;
-    margin: -3px 0 0;
+    margin: -2px 0 0;
 }
 /* #test html, #test body{ */
 /* 	height:500px!important; */
