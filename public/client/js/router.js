@@ -25,6 +25,7 @@ BS.AppRouter = Backbone.Router.extend({
     },
     initialize :function() {
     	
+    	 
     	
     	
     	var self = this;
@@ -206,7 +207,7 @@ BS.AppRouter = Backbone.Router.extend({
      * display Class Info screen
      */
     classReg:function () {
-    
+        
     	BS.classView = new BS.ClassView();
     	BS.classView.render();
     	 
