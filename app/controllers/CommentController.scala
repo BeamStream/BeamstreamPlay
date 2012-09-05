@@ -19,14 +19,15 @@ object CommentController extends Controller {
   } + new ObjectIdSerializer
 
   def newComment = Action { implicit request =>
-    
+
     val commentJson = request.body.asFormUrlEncoded.get
     val messageId = commentJson("messageId").toList(0)
     val commentText = commentJson("comment").toList(0)
     val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
-    commentPoster.firstName, commentPoster.lastName, 0, List(), 0, List())
-    Message.addCommentToMessage(comment, new ObjectId(messageId))
+      commentPoster.firstName, commentPoster.lastName, 0, List())
+    val commentId = Comment.createComment(comment)
+    Message.addCommentToMessage(commentId, new ObjectId(messageId))
     Ok(write(List(comment))).as("application/json")
 
   }
@@ -39,8 +40,7 @@ object CommentController extends Controller {
   def allCommentsForAMessage = Action { implicit request =>
     val messageIdJSON = request.body.asFormUrlEncoded.get
     val messageId = messageIdJSON("messageId").toList(0)
-    val message = Message.findMessageById(new ObjectId(messageId))
-    val commentsForAMessage = message.comments
+    val commentsForAMessage = Comment.getAllCommentsForAmessage(new ObjectId(messageId))
     Ok(write(commentsForAMessage)).as("application/json")
 
   }
@@ -53,7 +53,7 @@ object CommentController extends Controller {
     val commentDetailsJson = request.body.asFormUrlEncoded.get
     val messageId = commentDetailsJson("messageId").toList(0)
     val commentId = commentDetailsJson("commentId").toList(0)
-    val totalRocksForAComment = Comment.rockingTheComment(new ObjectId(messageId), new ObjectId(commentId), new ObjectId(request.session.get("userId").get))
+    val totalRocksForAComment = Comment.rockTheComment(new ObjectId(commentId), new ObjectId(request.session.get("userId").get))
     Ok(write(totalRocksForAComment.toString))
   }
 
@@ -65,7 +65,7 @@ object CommentController extends Controller {
     val commentDetailsJson = request.body.asFormUrlEncoded.get
     val messageId = commentDetailsJson("messageId").toList(0)
     val commentId = commentDetailsJson("commentId").toList(0)
-    val rockersNameForAComment = Comment.commentRockersList(new ObjectId(messageId), new ObjectId(commentId))
+    val rockersNameForAComment = Comment.commentsRockersNames(new ObjectId(commentId))
     Ok(write(rockersNameForAComment))
 
   }
