@@ -11,6 +11,7 @@ BS.ClassView = Backbone.View.extend({
 		"focus .class_code" : "populateClasses",
 		"keyup .class_name" :"getValuesForName",
 	    "focusin .class_name":"populateClassNames",
+	    "change .all-schools" : "clearAllClasses"
 
 	},
 
@@ -29,7 +30,6 @@ BS.ClassView = Backbone.View.extend({
 		this.classes = new BS.Class();
 		this.source = $("#tpl-class-reg").html();
 		this.template = Handlebars.compile(this.source);
-		
 		 
 	},
  
@@ -109,7 +109,7 @@ BS.ClassView = Backbone.View.extend({
      */
 	renderSchools: function(e)
 	{
-		var select = '<select id="school-'+sClasses+'" class="large">';
+		var select = '<select id="school-'+sClasses+'" class="large all-schools">';
 		 _.each(e.models, function(model) {
 		        var name = model.get('schoolName');
 		        var id = model.get('assosiatedSchoolId')
@@ -205,7 +205,7 @@ BS.ClassView = Backbone.View.extend({
 		eventName.preventDefault();
 		
 		
-		var selectAnother = '<select id="school-'+sClasses+'" class="large">'+options+'</select>'; 
+		var selectAnother = '<select id="school-'+sClasses+'" class="large all-schools">'+options+'</select>'; 
 		 
     	$('a.legend-addclass').hide();
     	
@@ -386,9 +386,16 @@ BS.ClassView = Backbone.View.extend({
 			 $('#date-started-'+identity).val(date);
 			 $('#semester-'+identity+' option:selected').attr('selected', false);
 			 $('#semester-'+identity+' option[value="'+classType+'"]').attr('selected', 'selected');
-			 
-			 $('#div-school-type-'+identity+' a span.selectBox-label').html(classType);
 			 $('#div-time-'+identity+' a span.selectBox-label').html(classTime);
+						 
+			 if(classType == "quarter")
+			 {
+				 $('#div-school-type-'+identity+' a span.selectBox-label').html("Quarter");
+			 }
+			 else
+			 {
+				 $('#div-school-type-'+identity+' a span.selectBox-label').html("Semester");
+			 }
 			 
 			 
 			 /* Post streamId to get no of users attending class*/
@@ -511,7 +518,14 @@ BS.ClassView = Backbone.View.extend({
 			 $('#date-started-'+identity).val(date);
 			 $('#semester-'+identity+' option:selected').attr('selected', false);
 			 $('#semester-'+identity+' option[value="'+classType+'"]').attr('selected', 'selected');
-			 $('#div-school-type-'+identity+' a span.selectBox-label').html(classType);
+			 if(classType == "quarter")
+			 {
+				 $('#div-school-type-'+identity+' a span.selectBox-label').html("Quarter");
+			 }
+			 else
+			 {
+				 $('#div-school-type-'+identity+' a span.selectBox-label').html("Semester");
+			 }
 			 $('#div-time-'+identity+' a span.selectBox-label').html(classTime);
 
 		 
@@ -526,7 +540,6 @@ BS.ClassView = Backbone.View.extend({
 					success : function(data) {
 						  
 						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
-//			        	 $('#student-number').fadeIn("medium").delay(2000).fadeOut('medium'); 
 			        	 $('#student-number-'+identity).fadeIn("medium"); 
 			        	 $('#student-number-'+identity).html(ul);
 
@@ -536,11 +549,14 @@ BS.ClassView = Backbone.View.extend({
 		 }
 		 else
 		 {
-             console.log(BS.currentDate);
+              
 		     this.classId =1;
 		     $('#student-number-'+identity).fadeOut("medium"); 
 		     $('#class-code-'+identity).val("");
-			 $('#date-started-'+identity).val(BS.currentDate);
+			 $('#date-started-'+identity).val($.datepicker.formatDate('mm/dd/yy', new Date()));
+			 $('#semester-'+identity+' option:selected').attr('selected', false);
+			 $('#semester-'+identity+' option[value="semester"]').attr('selected', 'selected');
+			 $('#div-school-type-'+identity+' a span.selectBox-label').html("Semester");
 			 $(".modal select:visible").selectBox();
 		 }
     },
@@ -550,6 +566,24 @@ BS.ClassView = Backbone.View.extend({
     closeScreen : function(eventName){
   	  eventName.preventDefault(); 
   	  BS.AppRouter.navigate('streams', {trigger: true});
+    },
+    /**
+     * clear all classe fields when we select another school
+     */
+    clearAllClasses : function(eventName){
+    	var Id = eventName.target.id;
+    	var identity = Id.replace(/[^\d.,]+/,'');
+    	console.log(identity);
+    	for(var i = 1;i <= 3 ; i++)
+    	{
+    		 $('#class-name-'+identity+'-'+i).val("");
+		     $('#class-code-'+identity+'-'+i).val("");
+		     $('#student-number-'+identity+'-'+i).fadeOut("medium"); 
+			 $('#date-started-'+identity+'-'+i).val($.datepicker.formatDate('mm/dd/yy', new Date()));
+			 $('#semester-'+identity+'-'+i+' option:selected').attr('selected', false);
+			 $('#semester-'+identity+'-'+i+' option[value="semester"]').attr('selected', 'selected');
+			 $('#div-school-type-'+identity+'-'+i+' a span.selectBox-label').html("Semester");
+    	}
     }
 
 });

@@ -122,8 +122,15 @@ BS.ClassStreamView = Backbone.View.extend({
 			 $('#date-started').val(date);
 			 $('#semester option:selected').attr('selected', false);
 			 $('#semester option[value="'+classType+'"]').attr('selected', 'selected');
-			 
-			 $('#div-school-type a span.selectBox-label').html(classType);
+			 if(classType == "quarter")
+			 {
+				 $('#div-school-type a span.selectBox-label').html("Quarter");
+			 }
+			 else
+			 {
+				 $('#div-school-type a span.selectBox-label').html("Semester");
+			 }
+			
 			 $('#div-time a span.selectBox-label').html(classTime);
 
 			 /* Post scholId to get its school name*/
@@ -157,7 +164,6 @@ BS.ClassStreamView = Backbone.View.extend({
 					success : function(data) {
 						  
 						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
-//			        	 $('#student-number').fadeIn("medium").delay(2000).fadeOut('medium'); 
 			        	 $('#student-number').fadeIn("medium"); 
 			        	 $('#student-number').html(ul);
 
@@ -246,15 +252,9 @@ BS.ClassStreamView = Backbone.View.extend({
 		var date = $('#date-started').val();
 		var type = $('#semester').val();
 		var school;
-//		if($('#schools').val() == "add-school")
-//		{ 
-//			 school = $('#new-school-id').val();
-//		}
-//		else
-//		{
-			school = $('#schools').val();
-//		}
-		   
+ 
+	    school = $('#schools').val();
+  
 		
 		// get all tags seperated by commas
 		var classTag =[];
@@ -411,7 +411,14 @@ BS.ClassStreamView = Backbone.View.extend({
 			 $('#date-started').val(date);
 			 $('#semester option:selected').attr('selected', false);
 			 $('#semester option[value="'+classType+'"]').attr('selected', 'selected');
-			 $('#div-school-type a span.selectBox-label').html(classType);
+			 if(classType == "quarter")
+			 {
+				 $('#div-school-type a span.selectBox-label').html("Quarter");
+			 }
+			 else
+			 {
+				 $('#div-school-type a span.selectBox-label').html("Semester");
+			 }
 			 $('#div-time a span.selectBox-label').html(classTime);
 
 			 /* Post scholId to get its school name*/
@@ -461,7 +468,10 @@ BS.ClassStreamView = Backbone.View.extend({
 			 this.classId =1;
 			 $('#student-number').fadeOut("medium");
 			 $('#class-code').val("");
-			 $('#date-started').val(this.currentDate);
+			 $('#date-started').val($.datepicker.formatDate('mm/dd/yy', new Date()));
+//			 $('#semester-'+identity+' option:selected').attr('selected', false);
+//			 $('#semester-'+identity+' option[value="semester"]').attr('selected', 'selected');
+//			 $('#div-school-type-'+identity+' a span.selectBox-label').html("Semester");
 			 $('#createClass').show(); 
 			 $('#joinClass').hide();
 		 }
@@ -479,6 +489,7 @@ BS.ClassStreamView = Backbone.View.extend({
      */
     showNewSchoolField : function(){
     	 
+    	
     	if($('#schools').val() == "add-school")
     	{
     		  
@@ -493,10 +504,12 @@ BS.ClassStreamView = Backbone.View.extend({
              $('#other-degrees').hide();
     		
     	}
-//    	else
-//    	{
-//    		 $('#for-new-school').hide();
-//    	}
+    	
+    	$('#class-name').val("");
+    	$('#student-number').fadeOut("medium");
+		$('#class-code').val("");
+		$('#date-started').val($.datepicker.formatDate('mm/dd/yy', new Date()));
+ 
     },
     /**
      * get schools details

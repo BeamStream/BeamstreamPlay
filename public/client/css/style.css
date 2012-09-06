@@ -1989,4 +1989,8 @@ border: 1px solid #E8E8E9;
 .control-button{
 	margin:5px 0 40px 0;
 }
+.studentno-popup-class span{
+	display: block;
+    margin: -2px 0 0;
+}
 
