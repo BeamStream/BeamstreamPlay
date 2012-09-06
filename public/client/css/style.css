@@ -1434,17 +1434,13 @@ span.edit_profilepicture_icon{
 }
 /** for back button */
 .back-button{
-	margin:10px 0 0 3px;
 	display :block;
+	float:left;
 }
 /* for close button */
 .close-button{
-	margin:20px 20px 0 0;
 	display :block;
 	float:right;
-	position: absolute;
-    right: 0;
-    top: 0;
 }
 /** for stars */
 .star{
@@ -1971,5 +1967,7 @@ border: 1px solid #E8E8E9;
 /* 	border:1px solid green; */
 /* } */
 
- 
+.control-button{
+	margin:5px 0 40px 0;
+}
 

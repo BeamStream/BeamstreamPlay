@@ -4,6 +4,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 		"click #save" : "save",
 		"click #continue" : "toNextPage",
 		"click #no-schoolmail" : "addSchoolEmail",
+		"click .close-button" : "closeScreen"
 		
 	},
 
@@ -221,5 +222,13 @@ BS.MediaRegistrationView = Backbone.View.extend({
     	{
     		 $('#school-record').hide();
     	}
+	},
+	
+	/**
+	 * close the screen 
+	 */
+	closeScreen : function(eventName){
+	  eventName.preventDefault(); 
+  	  BS.AppRouter.navigate('login', {trigger: true});
 	}
 });

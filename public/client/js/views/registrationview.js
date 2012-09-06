@@ -3,6 +3,7 @@ BS.RegistrationView = Backbone.View.extend({
 	events : {
 		"click #save" : "save",
 		"click #continue" : "toNextPage",
+		"click .close-button" : "closeScreen"
 	},
 
 	initialize : function() {
@@ -151,5 +152,12 @@ BS.RegistrationView = Backbone.View.extend({
         	$('#error').html("Fields are not completly filled");
         }
 	},
-
+   
+	/**
+	 * close the screen 
+	 */
+	closeScreen : function(eventName){
+	  eventName.preventDefault(); 
+  	  BS.AppRouter.navigate('login', {trigger: true});
+	}
 });

@@ -392,9 +392,9 @@ BS.ClassView = Backbone.View.extend({
 		 {
 				 
 				 this.classId =1;
-				 $('#class-name-'+identity).val("");
-				 $('#date-started-'+identity).val("");
-				 $(".modal select:visible").selectBox();
+//				 $('#class-name-'+identity).val("");
+//				 $('#date-started-'+identity).val("");
+//				 $(".modal select:visible").selectBox();
 			 
 		 }
 		
@@ -458,7 +458,7 @@ BS.ClassView = Backbone.View.extend({
      *  display other field values - className auto populate
      */
     displayFieldsForName : function(value,identity){
-    	
+    	 
     	var classStatus = false; 
 		var classTime ,className,date ,classType,schoolId,classId;
         var datas = JSON.stringify(BS.classInfo);
@@ -494,9 +494,11 @@ BS.ClassView = Backbone.View.extend({
 		 }
 		 else
 		 {
- 
+             
 		     this.classId =1;
- 
+		     $('#class-code-'+identity).val("");
+			 $('#date-started-'+identity).val("");
+			 $(".modal select:visible").selectBox();
 		 }
     },
     /*
