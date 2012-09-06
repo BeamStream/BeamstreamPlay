@@ -60,6 +60,7 @@ object UserSchool {
           School.updateSchool(userSchoolObtained(0).assosiatedSchoolId, userSchool.schoolName)
         } 
         
+        
         else {
          // Create a new School
           val userSchoolId = UserSchoolDAO.insert(userSchool)
