@@ -102,20 +102,34 @@ object Class {
     for (theclass <- ClassDAO.find(MongoDBObject("className" -> regexp)).toList) yield theclass
   }
 
-  /*
+//  /*
+//   * Finding the class by Code
+//   */
+//
+//  def findClassByCode(code: String, userSchoolIdList: List[ObjectId]): List[Class] = {
+//    var classes: List[Class] = List()
+//    for (userSchoolId <- userSchoolIdList) {
+//      val userSchool = UserSchool.getUserSchoolById(userSchoolId)
+//      val classFound = ClassDAO.find(MongoDBObject("schoolId" -> userSchool.assosiatedSchoolId)).toList
+//      (classFound.isEmpty) match {
+//        case true =>
+//        case false => classes ++= classFound
+//      }
+//
+//    }
+//    classes
+//  }
+  
+   /*
    * Finding the class by Code
    */
 
-  def findClassByCode(code: String, userSchoolIdList: List[ObjectId]): List[Class] = {
+  def findClassByCode(code: String, schoolId: ObjectId): List[Class] = {
     var classes: List[Class] = List()
-    for (userSchoolId <- userSchoolIdList) {
-      val userSchool = UserSchool.getUserSchoolById(userSchoolId)
-      val classFound = ClassDAO.find(MongoDBObject("schoolId" -> userSchool.assosiatedSchoolId)).toList
+      val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId)).toList
       (classFound.isEmpty) match {
         case true =>
         case false => classes ++= classFound
-      }
-
     }
     classes
   }
