@@ -70,8 +70,8 @@ object ClassController extends Controller {
     val classCodeMap = request.body.asFormUrlEncoded.get
     val classCode = classCodeMap("data").toList(0)
     val assosiatedSchoolId = classCodeMap("assosiatedSchoolId").toList(0)
-    val userSchoolIdList = UserSchool.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
-    val classList = Class.findClassByCode(classCode, userSchoolIdList)
+    //val userSchoolIdList = UserSchool.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
+    val classList = Class.findClassByCode(classCode, new ObjectId(assosiatedSchoolId))
     val classListJson = write(classList)
     Ok(classListJson).as("application/json")
   }

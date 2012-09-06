@@ -476,6 +476,7 @@ ul.add-type li span{
 	font-family: UbuntuBold;
 	line-height:25px;
 	margin:30px 0 0 0;
+	position:relative;
 }
 .project-name p {
 	display:block;
@@ -805,6 +806,24 @@ ul.rockit li span a {
   display: none ;
   left: 48%;
   top:75px;
+  height: 16px;
+  position: absolute !important;
+  border-radius: 4px 4px 4px 4px;
+}
+.studentno-popup-class{
+  padding : 10px;
+  z-index: 1045;
+  width: 83px;
+  line-height:20px;
+  background-color: #309A01;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+  font-family: UbuntuRegular;
+  color: #fff;
+  display: none ;
+  left: 48%;
+  top: -40px;
   height: 16px;
   position: absolute !important;
   border-radius: 4px 4px 4px 4px;
@@ -1443,17 +1462,13 @@ span.edit_profilepicture_icon{
 }
 /** for back button */
 .back-button{
-	margin:10px 0 0 3px;
 	display :block;
+	float:left;
 }
 /* for close button */
 .close-button{
-	margin:20px 20px 0 0;
 	display :block;
 	float:right;
-	position: absolute;
-    right: 0;
-    top: 0;
 }
 /** for stars */
 .star{
@@ -1980,5 +1995,7 @@ border: 1px solid #E8E8E9;
 /* 	border:1px solid green; */
 /* } */
 
- 
+.control-button{
+	margin:5px 0 40px 0;
+}
 

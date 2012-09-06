@@ -19,7 +19,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		BS.newClassName = false;
 		this.source = $("#tpl-class-stream").html();
 		this.template = Handlebars.compile(this.source);
-		 
+		
 	},
 	 
 
@@ -45,13 +45,14 @@ BS.ClassStreamView = Backbone.View.extend({
 		BS.selectedCode = $('#class-code').val(); 
 		 
 		var text = $('#class-code').val();
-		
+		var selectedSchoolId = $('#schools').val();
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
 			url : BS.autoPopulateClass,
 			data : {
-				data : text
+				data : text,
+				assosiatedSchoolId : selectedSchoolId
 			},
 			dataType : "json",
 			success : function(datas) {
@@ -176,8 +177,8 @@ BS.ClassStreamView = Backbone.View.extend({
 //			 {
 			     $('#student-number').fadeOut("medium");
 				 this.classId =1;
-				 $('#class_name').val("");
-				 $('#date-started').val("");
+//				 $('#class_name').val("");
+//				 $('#date-started').val("");
 //				 $('#div-school-type a span.selectBox-label').html("");
 //				 $('#div-time a span.selectBox-label').html("");
 //				 $('#div-school a span.selectBox-label').html("");
@@ -340,13 +341,14 @@ BS.ClassStreamView = Backbone.View.extend({
     	BS.classNames = []; 
 		BS.selectedName = $('#class_name').val(); 
 		var text = $('#class_name').val();
-		
+		var selectedSchoolId = $('#schools').val();
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
 			url : BS.autoPopulateClass,
 			data : {
-				data : text
+				data : text,
+				assosiatedSchoolId : selectedSchoolId
 			},
 			dataType : "json",
 			success : function(datas) {
@@ -455,35 +457,11 @@ BS.ClassStreamView = Backbone.View.extend({
 		 }
 		 else
 		 {
-//			 BS.newClassName = true;
-//			 if(BS.newClassCode == false)
-//			 { 
-				 this.classId =1;
-				 $('#student-number').fadeOut("medium");
-//				 $('#class-code').val("");
-//				 $('#date-started').val("");
-//				 $('#div-school-type a span.selectBox-label').html("");
-//				 $('#div-time a span.selectBox-label').html("");
-//				 $('#div-school a span.selectBox-label').html("");
-//				 $(".modal select:visible").selectBox();
-//				 
-//				/* get all schoolIds under a class */
-//				 $.ajax({
-//						type : 'GET',
-//						url : BS.schoolJson,
-//						dataType : "json",
-//						success : function(datas) {
-//							
-//							 var sSelect = '<select id="schools" class="small selectBox">';
-//							_.each(datas, function(data) {
-//								sSelect+= '<option value ="'+data.assosiatedSchoolId.id+'" > '+data.schoolName+'</option>';
-//					        });
-//							sSelect+= '</select>';
-//							$('#sShool').html(sSelect);
-//							$(".modal select:visible").selectBox();
-//						}
-//				 });
-//			 }
+              
+			 this.classId =1;
+			 $('#student-number').fadeOut("medium");
+			 $('#class-code').val("");
+			 $('#date-started').val(this.currentDate);
 			 $('#createClass').show(); 
 			 $('#joinClass').hide();
 		 }
