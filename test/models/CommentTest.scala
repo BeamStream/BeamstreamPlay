@@ -13,86 +13,60 @@ class CommentTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
-//  test("Create a new Comment and find comment by id") {
-//    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
-//    val userId = User.createUser(user)
-//
-//    val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId), true, List())
-//    val streamId = Stream.createStream(stream)
-//
-//    val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(streamId), "", "", 0, List(), List(), 0, List())
-//    val messageId = Message.createMessage(message)
-//
-//    val comment = new Comment(new ObjectId, "Comment1", new Date, userId, user.firstName, user.lastName, 0, List(userId), 0, List(userId))
-//
-//    val commentId = Message.addCommentToMessage(comment, messageId)
-//
-//    assert(Message.findMessageById(messageId).comments.size === 1)
-//    assert(Message.findMessageById(messageId).comments(0).firstNameofCommentPoster === "Neel")
-//
-//    val commentFound = Comment.findCommentById(messageId, commentId)
-//    assert(commentFound.commentBody === "Comment1")
-//  }
-//
-//  test("Rocking the comment & Rockers List") {
-//    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
-//    val userId = User.createUser(user)
-//
-//    val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId), true, List())
-//    val streamId = Stream.createStream(stream)
-//
-//    val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(streamId), "", "", 0, List(), List(), 0, List())
-//    val messageId = Message.createMessage(message)
-//
-//    val comment = new Comment(new ObjectId, "Comment1", new Date, userId, user.firstName, user.lastName, 0, List(), 0, List())
-//
-//    val commentId = Message.addCommentToMessage(comment, messageId)
-//
-//    assert(Message.findMessageById(messageId).comments.size === 1)
-//    assert(Message.findMessageById(messageId).comments(0).firstNameofCommentPoster === "Neel")
-//
-//    val anotherUser = User(new ObjectId, UserType.Professional, "chris@beamstream.com", "Chris", "Coxx", "", "Crizzle", "Chris", "Beamstream", "", List(), List(), List(), List(), List())
-//    val anotherUserId = User.createUser(anotherUser)
-//
-//    Comment.rockingTheComment(messageId, commentId, anotherUserId)
-//
-//    assert(Message.findMessageById(messageId).comments(0).rockers(0) === anotherUserId)
-//    assert(Message.findMessageById(messageId).comments(0).rocks === 1)
-//
-//    val rockerNames = Comment.commentRockersList(messageId, commentId)
-//    assert(rockerNames(0) === "Chris")
-//  }
-//
-//  
-//  
-//  test("Followers the comment & Rockers List") {
-//    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
-//    val userId = User.createUser(user)
-//
-//    val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId), true, List())
-//    val streamId = Stream.createStream(stream)
-//
-//    val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(streamId), "", "", 0, List(), List(), 0, List())
-//    val messageId = Message.createMessage(message)
-//
-//    val comment = new Comment(new ObjectId, "Comment1", new Date, userId, user.firstName, user.lastName, 0, List(), 0, List())
-//
-//    val commentId = Message.addCommentToMessage(comment, messageId)
-//
-//    assert(Message.findMessageById(messageId).comments.size === 1)
-//    assert(Message.findMessageById(messageId).comments(0).firstNameofCommentPoster === "Neel")
-//
-//    val anotherUser = User(new ObjectId, UserType.Professional, "chris@beamstream.com", "Christopher", "Coxx", "", "Crizzle", "Chris", "Beamstream", "", List(), List(), List(), List(), List())
-//    val anotherUserId = User.createUser(anotherUser)
-//
-//    Comment.followingTheComment(messageId, commentId, anotherUserId)
-//
-//    assert(Message.findMessageById(messageId).comments(0).followers(0) === anotherUserId)
-//    assert(Message.findMessageById(messageId).comments(0).follows === 1)
-//
-//    val rockerNames = Comment.commentFollowersList(messageId, commentId)
-//    assert(rockerNames(0) === "Christopher")
-//  }
+  test("Create a new Comment and find comment by id") {
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
+    val userId = User.createUser(user)
+
+    val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId), true, List())
+    val streamId = Stream.createStream(stream)
+
+    val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(streamId), "", "", 0, List(), List(), 0, List())
+    val messageId = Message.createMessage(message)
+
+    val comment = new Comment(new ObjectId, "Comment1", new Date, userId, user.firstName, user.lastName, 0, List(userId))
+
+    val commentId = Comment.createComment(comment)
+
+    assert(Comment.findCommentById(commentId).commentBody === "Comment1")
+
+  }
+
+  test("Rocking the comment & Rockers List") {
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
+    val userId = User.createUser(user)
+
+    val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId), true, List())
+    val streamId = Stream.createStream(stream)
+
+    val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(streamId), "", "", 0, List(), List(), 0, List())
+    val messageId = Message.createMessage(message)
+
+    val comment = new Comment(new ObjectId, "Comment1", new Date, userId, user.firstName, user.lastName, 0, List())
+
+    val commentId = Comment.createComment(comment)
+    assert(Comment.rockTheComment(commentId, userId) === 1)
+  }
+
+  test("Get All Comments For A Model") {
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
+    val userId = User.createUser(user)
+
+    val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId), true, List())
+    val streamId = Stream.createStream(stream)
+
+    val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(streamId), "", "", 0, List(), List(), 0, List())
+    val messageId = Message.createMessage(message)
+
+    val comment = new Comment(new ObjectId, "Comment1", new Date, userId, user.firstName, user.lastName, 0, List())
+    val commentId = Comment.createComment(comment)
+
+    val anotherComment = new Comment(new ObjectId, "Comment2", new Date, userId, user.firstName, user.lastName, 11, List())
+    val anotherCommentId = Comment.createComment(anotherComment)
+
+    assert(Comment.getAllCommentsForAModel(List(commentId, anotherCommentId)).size === 2)
+    assert(Comment.getAllCommentsForAModel(List(commentId, anotherCommentId))(0).commentBody === "Comment1")
+    assert(Comment.getAllCommentsForAModel(List(commentId, anotherCommentId))(1).commentBody === "Comment2")
+  }
 
   after {
 
