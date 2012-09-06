@@ -29,7 +29,8 @@ BS.ClassView = Backbone.View.extend({
 		this.classes = new BS.Class();
 		this.source = $("#tpl-class-reg").html();
 		this.template = Handlebars.compile(this.source);
-	 
+		
+		 
 	},
  
  
@@ -59,6 +60,7 @@ BS.ClassView = Backbone.View.extend({
 						success : function(data) {
 							if(data.status == "Success")
 							{
+								$('.studentno-popup-class').fadeOut("medium"); 
 								BS.schoolBack = false;
 								// navigate to main stream page
 								BS.AppRouter.navigate("streams", {trigger: true});
@@ -147,6 +149,7 @@ BS.ClassView = Backbone.View.extend({
 					success : function(data) {
 						if(data.status == "Success")
 						{
+							$('.studentno-popup-class').fadeOut("medium"); 
 							// navigate to main stream page
 							BS.AppRouter.navigate("profile", {trigger: true});
 						}
@@ -369,6 +372,7 @@ BS.ClassView = Backbone.View.extend({
 				 classType = data.classType;
 				 schoolId = data.schoolId.id;
 				 classId = data.id.id;
+				 streamId = data.streams[0].id;
 		     }
 			 
         });
@@ -385,6 +389,25 @@ BS.ClassView = Backbone.View.extend({
 			 
 			 $('#div-school-type-'+identity+' a span.selectBox-label').html(classType);
 			 $('#div-time-'+identity+' a span.selectBox-label').html(classTime);
+			 
+			 
+			 /* Post streamId to get no of users attending class*/
+			 $.ajax({
+					type : 'POST',
+					url : BS.noOfUsersAttendingAClass,
+
+					data : {
+						streamId : streamId
+					},
+					success : function(data) {
+						  
+						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
+//			        	 $('#student-number').fadeIn("medium").delay(2000).fadeOut('medium'); 
+			        	 $('#student-number-'+identity).fadeIn("medium"); 
+			        	 $('#student-number-'+identity).html(ul);
+
+					}
+			 });
 
 
 		 }
@@ -392,6 +415,7 @@ BS.ClassView = Backbone.View.extend({
 		 {
 				 
 				 this.classId =1;
+				 $('#student-number-'+identity).fadeOut("medium"); 
 //				 $('#class-name-'+identity).val("");
 //				 $('#date-started-'+identity).val("");
 //				 $(".modal select:visible").selectBox();
@@ -475,6 +499,7 @@ BS.ClassView = Backbone.View.extend({
 				 classType = data.classType;
 				 schoolId = data.schoolId.id;
 				 classId = data.id.id;
+				 streamId = data.streams[0].id;
 		     }
 			 
         });
@@ -490,14 +515,32 @@ BS.ClassView = Backbone.View.extend({
 			 $('#div-time-'+identity+' a span.selectBox-label').html(classTime);
 
 		 
+			 /* Post streamId to get no of users attending class*/
+			 $.ajax({
+					type : 'POST',
+					url : BS.noOfUsersAttendingAClass,
+
+					data : {
+						streamId : streamId
+					},
+					success : function(data) {
+						  
+						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
+//			        	 $('#student-number').fadeIn("medium").delay(2000).fadeOut('medium'); 
+			        	 $('#student-number-'+identity).fadeIn("medium"); 
+			        	 $('#student-number-'+identity).html(ul);
+
+					}
+			 });
 
 		 }
 		 else
 		 {
-             
+             console.log(BS.currentDate);
 		     this.classId =1;
+		     $('#student-number-'+identity).fadeOut("medium"); 
 		     $('#class-code-'+identity).val("");
-			 $('#date-started-'+identity).val("");
+			 $('#date-started-'+identity).val(BS.currentDate);
 			 $(".modal select:visible").selectBox();
 		 }
     },
