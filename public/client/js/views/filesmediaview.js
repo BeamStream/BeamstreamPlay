@@ -4,7 +4,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	       "click a#file-type" : "showFilesTypes",
 	       "click ul.file-type li a" : "hideList",
 	       "click '.nav a" : "addActive",
-           "click .upload_button" : "uploadFile"
+           "click #gdoc_uploadbutton" : "uploadFile"
 //          "click #profile-images":"listProfileImages",
 //           "click .google_doc" : "showDocPopup",
 //           "click .filter-options li a" : "filterDocs"
