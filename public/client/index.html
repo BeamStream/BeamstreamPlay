@@ -147,10 +147,15 @@
                 <ul>
                 <span class="arrow-top"></span>
                   <li><a href="#">Links</a>
-                    <ul class="textli">
-                           <span class="arrow-left"></span>
-                           <li> <input type="text" class="dropdowntext-small" placeholder="Links"></li><li><input type="button" class="upload_button"></li>    
-                    </ul>      
+                      <ul class="largeli">
+                        <span class="arrow-left"></span>
+                         <li><input type="text" class="dropdowntext" placeholder="http://www.PasteLinksHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Links"></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Links"><select class="dropdownselect"><option>Class Links</option><option>EdTech Tool</option>
+                                  <option>Reference Material</option><option>Presentation</option><option>Amusement</option><option>pic of button</option></select></li>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i><select class="dropdownselect"><option>Save to Class1</option><option>Class2</option><option>Class3</option><option>Class4</option>
+                                               <option>Class5</option><option>Profile</option><option>My Docs</option></select></li>
+                          <li><input type="button" class="upload_button" id="links_uploadbutton"></li>
+                       </ul>   
                   </li>
                   <li><a href="#">Papers  &  Docs</a>
                        <ul>
@@ -165,8 +170,8 @@
                                             <span class="arrow-left"></span>
                                             <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small" id="gdoc-name" placeholder="NAME of Doc"></li>
                                             <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Doc"><select class="dropdownselect"><option>Class Doc</option><option>Class Video</option></select></li>
-                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><select class="dropdownselect"><option>Save to Class1</option><option>Class Video</option></select></li>
-                                            <li><input type="button" class="upload_button"> <span calss="msg"> </span></li>
+                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i><select class="dropdownselect"><option>Save to Class1</option><option>Class Video</option></select></li>
+                                            <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -183,24 +188,46 @@
                           <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Video"></li>
                           <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video"><select class="dropdownselect"><option>Class Video</option><option>Profile Video</option>
                                            <option>Tutorial</option><option>Presentation</option><option>Project Presentation</option><option>Project Video</option><option>Lecture</option><option>Enter New Category</option></select></li>
-                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><select class="dropdownselect"><option>Save to Class1</option><option>Class2</option><option>Class3</option><option>Class4</option>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i><select class="dropdownselect"><option>Save to Class1</option><option>Class2</option><option>Class3</option><option>Class4</option>
                                                <option>Class5</option><option>Profile</option><option>My Docs</option></select></li>
-                          <li><input type="button" class="upload_button"></li>
+                          <li><input type="button" class="upload_button" id="video_uploadbutton"></li>
                         </ul>
                       </li>
                     </ul>
                   </li>
                   <li><a href="#">Audio</a>
-                  <ul class="textli">
-                       <span class="arrow-left"></span>
-                       <li> <input type="text" class="dropdowntext-small" placeholder="Path of Audio"></li><li><input type="button" class="upload_button"></li>    
-                    </ul>   
+                   <ul>
+                     <span class="arrow-left"></span>
+                      <li><a href="#">My Computer</a></li>
+                      <li><a href="#">Via Link</a>
+                        <ul class="largeli">
+                        <span class="arrow-left"></span>
+                          <li><input type="text" class="dropdowntext" placeholder="http://www.PasteAudioURLHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Audio"></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Audio File"><select class="dropdownselect"><option>Class Audio</option><option>Class Notes</option>
+                                           <option>Tutorial</option><option>Presentation</option><option>Project Audio</option><option>Reference Material</option><option>Lecture</option><option>Enter New Category</option></select></li>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i><select class="dropdownselect"><option>Save to Class1</option><option>Class2</option><option>Class3</option><option>Class4</option>
+                                               <option>Class5</option><option>Profile</option><option>My Docs</option></select></li>
+                          <li><input type="button" class="upload_button" id="audio_uploadbutton"></li>
+                        </ul>
+                      </li>
+                    </ul> 
                   </li>
                   <li><a href="#">Presentations</a>
-                  <ul class="textli">
-                       <span class="arrow-left"></span>
-                       <li> <input type="text" class="dropdowntext-small" placeholder="Presentations"></li><li><input type="button" class="upload_button"></li>    
-                    </ul>   
+                    <ul>
+                     <span class="arrow-left"></span>
+                      <li><a href="#">My Computer</a></li>
+                      <li><a href="#">Via Link</a>
+                        <ul class="largeli">
+                        <span class="arrow-left"></span>
+                          <li><input type="text" class="dropdowntext" placeholder="http://www.PasteLinkHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Presentations"></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Presentations File"><select class="dropdownselect"><option>Class Presentations</option><option>Assignment</option>
+                                           <option>Tutorial</option><option>Presentation</option><option>Project Presentation</option><option>Event Presentation</option></select></li>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i><select class="dropdownselect"><option>Save to Class1</option><option>Class2</option><option>Class3</option><option>Class4</option>
+                                               <option>Class5</option><option>Profile</option><option>My Docs</option></select></li>
+                          <li><input type="button" class="upload_button" id="press_uploadbutton"></li>
+                        </ul>
+                      </li>
+                    </ul> 
                   </li>
                 </ul>
               </li>
@@ -444,11 +471,8 @@
               <li class="leftplusicon"><a class="leftplusicon-a" href="#">Upload Docs: </a>
                 <ul>
                 <span class="arrow-top"></span>                  
-                  <li><a href="#">Papers  &  Docs</a>
-                       <ul>
-                           <span class="arrow-left"></span>
-                            <li><a href="#">My Computer</a></li>
-                            <li><a href="#">Google Docs</a>
+                     <li><a href="#">My Computer</a></li>
+                          <li><a href="#">Google Docs</a>
                                 <ul>
                                     <span class="arrow-left"></span>
                                      <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
@@ -458,19 +482,11 @@
                                             <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small" id="gdoc-name" placeholder="NAME of Doc"></li>
                                             <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Doc"><select class="dropdownselect"><option>Class Doc</option><option>Class Video</option></select></li>
                                             <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><select class="dropdownselect"><option>Save to Class1</option><option>Class Video</option></select></li>
-                                            <li><input type="button" class="upload_button"> <span calss="msg"> </span></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>    
-                      </ul>
-                  </li>                 
-                  <li><a href="#">Presentations</a>
-                  <ul class="textli">
-                       <span class="arrow-left"></span>
-                       <li> <input type="text" class="dropdowntext-small" placeholder="Presentations"></li><li><input type="button" class="upload_button"></li>    
-                    </ul>   
-                  </li>
+                                            <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
+                                       </ul>
+                                 </li>
+                            </ul>
+                      </li>    
                 </ul>
               </li>
             </ul>
