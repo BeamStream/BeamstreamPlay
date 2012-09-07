@@ -34,8 +34,19 @@ BS.ProfileView = Backbone.View.extend({
     },
   
     render:function (eventName) {
-    	 
-        $(this.el).html(this.template({profilePhoto : BS.profileImageUrl}));
+    	/* check whether its a edit profile or not */
+    	var edit = "";
+    	if(BS.editProfile)
+    	{
+    		edit = "yes";
+        }
+    	else
+    	{
+    		edit = "";
+    	}
+    	
+    	
+        $(this.el).html(this.template({profilePhoto : BS.profileImageUrl , edit : edit}));
         return this;
     },
     /**

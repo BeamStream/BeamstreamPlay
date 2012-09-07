@@ -802,6 +802,7 @@ BS.StreamView = Backbone.View.extend({
 	 showProfilePage : function(eventName){
 		  
 		 eventName.preventDefault();
+		 BS.editProfile = true;
 		 BS.AppRouter.navigate("profile", {trigger: true});
 	 },
 	 

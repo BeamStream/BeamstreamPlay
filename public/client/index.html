@@ -1355,11 +1355,15 @@
     <div class="modal school-popup  modal-popups" style="display:block;">
      <div class="modal-header">
         <div class="control-button">
+        {{#unless edit}}
         <a href="#" id="school-back-icon"><img class="back-button" src="images/back.png"></a>
+        {{/unless}}
 		<a href="#"><img class="close-button" src="images/close-button.png"></a>
        </div>
-        <h1 class="pull-left">School info</h1>
+        <h1 class="pull-left">School info </h1>
+        {{#unless edit}}
         <img src="images/registration-progress-25.png" alt="Registration progress - 25%" class="registration-progress pull-right">
+        {{/unless}}
     </div>
     <div id="error" class="invalid-validation" style="margin-left:20px; color:red;"></div>
     <div class="modal-body">
@@ -1446,7 +1450,9 @@
     </div>
     <div class="modal-footer">
         <a href="#" id ="save" class="btn btn-primary pull-left"  >Save & Exit</a>
+        {{#unless edit}}
         <a href="#" id ="continue" class="btn btn-success pull-right">Continue</a>
+        {{/unless}}
     </div>
  </div>
 </script>
@@ -1616,11 +1622,15 @@
     <div class="modal  school-popup modal-pull-top in modal-popups" style="display:block;">
     <div class="modal-header">
          <div class="control-button">
+         {{#unless edit}}
          <a href="#" id="class-back-icon"><img class="back-button back" src="images/back.png"></a>
+         {{/unless}}
 		 <a href="#"><img class="close-button" src="images/close-button.png"></a>
          </div>
-        <h1 class="pull-left" >Class info</h2>
+        <h1 class="pull-left" >Class info </h2>
+         {{#unless edit}}
         <img src="images/registration-progress-50.png" alt="Registration progress - 50%" class="registration-progress pull-right">
+         {{/unless}}
      </div>
     <div id="error" class="invalid-validation" style="margin-left: 22px;"></div> 
     <div class="modal-body">
@@ -1737,8 +1747,11 @@
         </form>
     </div>
     <div class="modal-footer">
+       
         <a href="#messages" class="btn btn-primary pull-left"  id="save" >Save & Exit</a>
-        <a href="#" class="btn btn-success pull-right" id="continue" >Continue</a>
+         {{#unless edit}}
+          <a href="#" class="btn btn-success pull-right" id="continue" >Continue</a>
+         {{/unless}}
     </div>
   </div>
 
@@ -1871,11 +1884,15 @@
     <div class="modal school-popup modal-pull-top in modal-popups" style="display:block;">
     <div class="modal-header">
         <div class="control-button">
+        {{#unless edit}}
         <a href="#" class="back"><img class="back-button" src="images/back.png"></a>
+        {{/unless}}
 		<a href="#"><img class="close-button" src="images/close-button.png"></a>
         </div>
-        <h1 class="pull-left">Social profile</h1>
+        <h1 class="pull-left">Social profile {{edit}} </h1>
+        {{#unless edit}}
         <img src="images/registration-progress-75.png" alt="Registration progress - 75%" class="registration-progress pull-right">
+        {{/unless}}
     </div>
     <div class="modal-body">
         <form name="profile-form" id ="profile-form"  method="POST" enctype="multipart/form-data">
@@ -1961,7 +1978,9 @@
 	</div>
 
         <a href="#messages" class="btn btn-primary pull-left"  id="save" >Save & Exit</a>
+        {{#unless edit}}
         <a href="#messages" class="btn btn-success pull-right" id="complete" >Complete</a>
+        {{/unless}}
     </div>
 </div>
   </script>
