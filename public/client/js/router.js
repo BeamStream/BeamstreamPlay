@@ -172,7 +172,7 @@ BS.AppRouter = Backbone.Router.extend({
 	    }
         else
         {
-        	
+        	 
          BS.schoolView = new BS.SchoolView();
          BS.schoolView.render();
          
@@ -199,12 +199,7 @@ BS.AppRouter = Backbone.Router.extend({
 			        });
 				}
 			});
-   	     
-            
-//            /* hide some fields on page load */
-//            $('#degree-exp-'+current).hide();
-//            $('#cal-'+current).hide();
-//            $('#other-degrees-'+current).hide();
+
             /* hide some fields on page load */
             $('#degree-exp-1').hide();
             $('#cal-1').hide();
@@ -317,7 +312,7 @@ BS.AppRouter = Backbone.Router.extend({
 		       
 			   BS.streamView = new BS.StreamView({ model: BS.user });
 			   BS.streamView.render();
-			   
+			   BS.schoolBack = false;
 			   self.onstream = true; 
 	   	   
 			   //get main menu
