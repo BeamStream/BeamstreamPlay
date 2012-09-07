@@ -246,6 +246,21 @@ object Message {
     }
     publicMessagesForAUser
   }
+  
+    /*
+   * Get All commnets for a message
+   */
+
+  def getAllCommentsForAmessage(messageId: ObjectId): List[Comment] = {
+    var commentsForAMessage: List[Comment] = List()
+    val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+    for (commentId <- message.comments) {
+      val commentObtained =Comment.findCommentById(commentId)
+      commentsForAMessage ++= List(commentObtained)
+    }
+    commentsForAMessage
+  }
+
 
 }
 

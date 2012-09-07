@@ -51,6 +51,8 @@ object UserSchool {
 
     else {
       for (userSchool <- userSchools) {
+        
+        println(userSchool)
 
         val userSchoolObtained = UserSchool.userSchoolsForAUser(userSchool.id)
         
@@ -80,7 +82,6 @@ object UserSchool {
     }
 
   }
-
   /*
    * Removes a school
    */
@@ -103,8 +104,8 @@ object UserSchool {
    */
 
   def findSchoolsByName(name: String): List[UserSchool] = {
-    val regexp = (""".*""" + name + """.*""").r
-    for (school <- UserSchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList) yield school
+    //val regexp = (""".*""" + name + """.*""").r
+    for (school <- UserSchoolDAO.find(MongoDBObject("schoolName" -> name)).toList) yield school
   }
 
   /*

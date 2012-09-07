@@ -40,7 +40,7 @@ object CommentController extends Controller {
   def allCommentsForAMessage = Action { implicit request =>
     val messageIdJSON = request.body.asFormUrlEncoded.get
     val messageId = messageIdJSON("messageId").toList(0)
-    val commentsForAMessage = Comment.getAllCommentsForAmessage(new ObjectId(messageId))
+    val commentsForAMessage = Message.getAllCommentsForAmessage(new ObjectId(messageId))
     Ok(write(commentsForAMessage)).as("application/json")
 
   }
