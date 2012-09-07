@@ -27,26 +27,12 @@ BS.AppRouter = Backbone.Router.extend({
     initialize :function() {
     	
     	 
-    	
+    	 
     	
     	var self = this;
     	BS.idLogin = '';
         BS.user = new BS.SingleUser();
-        
-        /** for authentication  TODO */
-//        BS.user.fetch({ success:function(e) {
-//    		if(e.get('firstName') != null) { 
-//				e.set('loggedin', true);
-//			}
-//			else { 
-//				e.set('loggedin', false);				
-//			}
-//			  
-//			this.navView = new BS.NavView({ model: BS.user });
-//			$('.nav-collapse').html(this.navView.render().el);
-//
-//    	}},this);
-		 
+
     	/* calculate time from 12:00AM to 11:45PM */
     	var timeValues = new Array;
   		var hours, minutes, ampm;
@@ -66,7 +52,10 @@ BS.AppRouter = Backbone.Router.extend({
   		 }
   		BS.times = jQuery.parseJSON(JSON.stringify(timeValues));
   		
- 
+  		// set status variable to check whether its a edit school/class/profile 
+  		BS.editSchool = true;
+  		BS.editClass = true;
+  		BS.editProfile = true;
    
     	
     },
@@ -135,13 +124,14 @@ BS.AppRouter = Backbone.Router.extend({
          
         if(BS.schoolBack)
 	    {
+        	
 	         BS.schoolNum = 1;
 	         BS.schoolView = new BS.SchoolView();
 	         BS.schoolView.render();
 	         $('#school-popup').html(BS.schoolView.el);
 	         var schoolInfo =JSON.parse(localStorage["SchoolDetails"]);
 	         $('#school-list').html('');	
-	        
+	         
 	        _.each(schoolInfo, function(info) {
 				var datas = {
 				"data" : info,
@@ -186,14 +176,35 @@ BS.AppRouter = Backbone.Router.extend({
         	 
          BS.schoolView = new BS.SchoolView();
          BS.schoolView.render();
+         
          $('#school-popup').html(BS.schoolView.el);
          if(BS.schoolFromPrev)
-            $('#school-name-1').val(BS.schoolFromPrev);
-           
+         {
+        	$('#school-name-1').val(BS.schoolFromPrev);
+         }
+	     
+	   	  /* get all schools of a user */
+			 $.ajax({
+				type : 'GET',
+				url : BS.autoPopulateSchools,
+				dataType : "json",
+				success : function(datas) {
+					_.each(datas, function(data) {
+						 if(data.schoolName == BS.schoolFromPrev)
+				    	  {
+				    		  var sId = data.id.id;
+				    		  $('#school-id-1').attr('value',sId);
+				    		  $('#associatedId-1').attr('value',sId);
+				    		 
+				    	  }
+			        });
+				}
+			});
+
             /* hide some fields on page load */
-            $('#degree-exp-'+current).hide();
-            $('#cal-'+current).hide();
-            $('#other-degrees-'+current).hide();
+            $('#degree-exp-1').hide();
+            $('#cal-1').hide();
+            $('#other-degrees-1').hide();
             
         }
         $(".modal select:visible").selectBox();
@@ -302,7 +313,7 @@ BS.AppRouter = Backbone.Router.extend({
 		       
 			   BS.streamView = new BS.StreamView({ model: BS.user });
 			   BS.streamView.render();
-			   
+			   BS.schoolBack = false;
 			   self.onstream = true; 
 	   	   
 			   //get main menu

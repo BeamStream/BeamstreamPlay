@@ -129,8 +129,7 @@ BS.RegistrationView = Backbone.View.extend({
 				success : function(data) {
 					if (data.status == "Success") {
 						
-//						BS.resgistration = "nomedia";
-//						BS.regBack = true;
+						BS.editSchool = false;
 						 
 						BS.back = "basicRegistration";
 	   					 

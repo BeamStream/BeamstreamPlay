@@ -92,10 +92,22 @@ BS.ClassView = Backbone.View.extend({
 	 */
 	render : function(eventName) {
 	    
+		/* check whether its a edit class or not */
+    	var edit = "";
+    	if(BS.editClass)
+    	{
+    		edit = "yes";
+        }
+    	else
+    	{
+    		edit = "";
+    	}
+    	
 		var sCount = {
 				"sCount" : sClasses,
 				"schools": this.schools,
-				"times" : BS.times
+				"times" : BS.times,
+				"edit" : edit
 		}
 		 
 		$(this.el).html(this.template(sCount));
@@ -150,6 +162,7 @@ BS.ClassView = Backbone.View.extend({
 						if(data.status == "Success")
 						{
 							$('.studentno-popup-class').fadeOut("medium"); 
+							BS.editProfile = false;
 							// navigate to main stream page
 							BS.AppRouter.navigate("profile", {trigger: true});
 						}

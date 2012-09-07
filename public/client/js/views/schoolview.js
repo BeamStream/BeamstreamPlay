@@ -30,8 +30,18 @@ BS.SchoolView = Backbone.View.extend({
      * render school Info screen
      */
     render:function (eventName) {
+    	/* check whether its a edit school or not */
+    	var edit = "";
+    	if(BS.editSchool)
+    	{
+    		edit = "yes";
+        }
+    	else
+    	{
+    		edit = "";
+    	}
      
-        $(this.el).html(this.template);
+        $(this.el).html(this.template({"edit" : edit}));
         return this;
     },
 
@@ -169,6 +179,7 @@ BS.SchoolView = Backbone.View.extend({
                   	{
 	            	  // for back button functionality
 	            	  BS.schoolBack = true;
+	            	  BS.editClass = false;
 	            	  BS.schoolFromPrev = '';
 	            	  BS.AppRouter.navigate("class", {trigger: true});
 	            	  

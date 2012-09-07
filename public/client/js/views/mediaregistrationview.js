@@ -177,13 +177,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 						success : function(data) {
 							if (data.status == "Success") {
 								
-								// for back button functionalty
-//								BS.resgistration = "media";
-//								BS.regBack = true;
-								 
-//								BS.back = ""
-								
-
+								BS.editSchool = false;
 								// save school name 
 								BS.schoolFromPrev =  $('#school-name').val();
 								
