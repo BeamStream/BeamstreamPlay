@@ -74,7 +74,6 @@ object Comment {
         CommentDAO.update(MongoDBObject("_id" -> commentId), updatedComment.copy(rocks = (updatedComment.rocks + 1)), false, false, new WriteConcern)
         val finalComment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList(0)
         finalComment.rocks
-
     }
 
   }
@@ -94,7 +93,7 @@ object Comment {
    * @Purpose : getting Comments for any Model(have to pass the List[ObjectId])
    */
 
-  def getAllCommentsForAModel(comments: List[ObjectId]): List[Comment] = {
+  def getAllComments(comments: List[ObjectId]): List[Comment] = {
     var allCommentsForAModel: List[Comment] = List()
     for (commentId <- comments) {
       val comment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList

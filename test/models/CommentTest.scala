@@ -63,9 +63,9 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     val anotherComment = new Comment(new ObjectId, "Comment2", new Date, userId, user.firstName, user.lastName, 11, List())
     val anotherCommentId = Comment.createComment(anotherComment)
 
-    assert(Comment.getAllCommentsForAModel(List(commentId, anotherCommentId)).size === 2)
-    assert(Comment.getAllCommentsForAModel(List(commentId, anotherCommentId))(0).commentBody === "Comment1")
-    assert(Comment.getAllCommentsForAModel(List(commentId, anotherCommentId))(1).commentBody === "Comment2")
+    assert(Comment.getAllComments(List(commentId, anotherCommentId)).size === 2)
+    assert(Comment.getAllComments(List(commentId, anotherCommentId))(0).commentBody === "Comment1")
+    assert(Comment.getAllComments(List(commentId, anotherCommentId))(1).commentBody === "Comment2")
   }
 
   after {

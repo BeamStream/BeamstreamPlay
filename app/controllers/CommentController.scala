@@ -54,7 +54,7 @@ object CommentController extends Controller {
     val messageId = commentDetailsJson("messageId").toList(0)
     val commentId = commentDetailsJson("commentId").toList(0)
     val totalRocksForAComment = Comment.rockTheComment(new ObjectId(commentId), new ObjectId(request.session.get("userId").get))
-    Ok(write(totalRocksForAComment.toString))
+    Ok(write(totalRocksForAComment.toString)).as("application/json")
   }
 
   /*
@@ -66,7 +66,7 @@ object CommentController extends Controller {
     val messageId = commentDetailsJson("messageId").toList(0)
     val commentId = commentDetailsJson("commentId").toList(0)
     val rockersNameForAComment = Comment.commentsRockersNames(new ObjectId(commentId))
-    Ok(write(rockersNameForAComment))
+    Ok(write(rockersNameForAComment)).as("application/json")
 
   }
 
