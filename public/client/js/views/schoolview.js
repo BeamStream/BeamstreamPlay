@@ -305,6 +305,7 @@ BS.SchoolView = Backbone.View.extend({
 			    	  }
 		
 		    	  	});
+ 
 		    	  if(sId)
 		    	  {
 		    	    assosiatedSchoolId = sId;
