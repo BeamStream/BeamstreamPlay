@@ -52,9 +52,9 @@ BS.AppRouter = Backbone.Router.extend({
   		BS.times = jQuery.parseJSON(JSON.stringify(timeValues));
   		
   		// set status variable to check whether its a edit school/class/profile 
-//  		BS.editSchool = true;
-//  		BS.editClass = true;
-//  		BS.editProfile = true;
+  		BS.editSchool = true;
+  		BS.editClass = true;
+  		BS.editProfile = true;
    
     	
     },
@@ -123,7 +123,7 @@ BS.AppRouter = Backbone.Router.extend({
          
         if(BS.schoolBack)
 	    {
-        	console.log(BS.editSchool);
+        	
 	         BS.schoolNum = 1;
 	         BS.schoolView = new BS.SchoolView();
 	         BS.schoolView.render();
@@ -172,7 +172,7 @@ BS.AppRouter = Backbone.Router.extend({
 	    }
         else
         {
-         console.log(BS.editSchool);
+        	
          BS.schoolView = new BS.SchoolView();
          BS.schoolView.render();
          
@@ -201,10 +201,14 @@ BS.AppRouter = Backbone.Router.extend({
 			});
    	     
             
+//            /* hide some fields on page load */
+//            $('#degree-exp-'+current).hide();
+//            $('#cal-'+current).hide();
+//            $('#other-degrees-'+current).hide();
             /* hide some fields on page load */
-            $('#degree-exp-'+current).hide();
-            $('#cal-'+current).hide();
-            $('#other-degrees-'+current).hide();
+            $('#degree-exp-1').hide();
+            $('#cal-1').hide();
+            $('#other-degrees-1').hide();
             
         }
         $(".modal select:visible").selectBox();
