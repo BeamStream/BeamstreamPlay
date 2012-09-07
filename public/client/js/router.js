@@ -202,6 +202,7 @@ BS.AppRouter = Backbone.Router.extend({
 				    	  {
 				    		  var sId = data.id.id;
 				    		  $('#school-id-1').attr('value',sId);
+				    		  $('#associatedId-1').attr('value',sId);
 				    		 
 				    	  }
 			        });
