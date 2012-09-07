@@ -187,8 +187,28 @@ BS.AppRouter = Backbone.Router.extend({
          BS.schoolView.render();
          $('#school-popup').html(BS.schoolView.el);
          if(BS.schoolFromPrev)
-            $('#school-name-1').val(BS.schoolFromPrev);
-           
+         {
+        	$('#school-name-1').val(BS.schoolFromPrev);
+         }
+	     
+	   	  /* get all schools of a user */
+			 $.ajax({
+				type : 'GET',
+				url : BS.autoPopulateSchools,
+				dataType : "json",
+				success : function(datas) {
+					_.each(datas, function(data) {
+						 if(data.schoolName == BS.schoolFromPrev)
+				    	  {
+				    		  var sId = data.id.id;
+				    		  $('#school-id-1').attr('value',sId);
+				    		 
+				    	  }
+			        });
+				}
+			});
+   	     
+            
             /* hide some fields on page load */
             $('#degree-exp-'+current).hide();
             $('#cal-'+current).hide();
