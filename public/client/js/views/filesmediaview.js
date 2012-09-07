@@ -20,7 +20,7 @@ BS.FilesMediaView = Backbone.View.extend({
         
         this.source = $("#tpl-files-media").html();
         this.template = Handlebars.compile(this.source);
-		
+	this.pictres();	
                 
      //   this.template= _.template($("#tpl-files-media").html());
 
@@ -138,6 +138,59 @@ BS.FilesMediaView = Backbone.View.extend({
 
            // $('#content').html(BS.listDocsView.el);
         },
+        
+        
+        /*
+         *function to show pictures
+         */
+        
+        
+         pictres : function()
+        {       
+            var i = 1;
+//            $('#content').children().detach();
+//            $('#school-popup').children().detach();
+            var self = this;
+            var arraypictures = new Array();
+            var content='';
+            var coverpicture;
+            
+            
+            BS.user.fetch({ success:function(e) {
+                /* get profile images for user */
+              $.ajax({
+                        type : 'GET',
+                        url :  BS.allProfileImages,
+                        data : {
+                           'userId': e.attributes.id.id
+                                },
+                        dataType : "json",
+
+                        success : function(docs) {
+                            if(docs.length != 0)
+                            {
+                                arraypictures=docs;
+                               coverpicture=arraypictures[arraypictures.length-1];
+                                content= '<div class="image-wrapper1"><a id="profile-images" href="#imagelist"><img src="'+coverpicture+'"></a>'
+                                          +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>'
+                                            +'<ul class="comment-list">'
+                                            +'<li><a class="eye-icon" href="#">87</a></li>'
+                                            +'<li><a class="hand-icon" href="#">5</a></li>'
+                                            +'<li><a class="message-icon" href="#">10</a></li>'
+                                            +'</ul>'
+                                            +'</div>';
+                                 $('#coverimage').html(content);           
+                            }
+                        }
+               });
+
+            }});
+
+           // $('#content').html(BS.listDocsView.el);
+        },
+        
+        
+        
         
         /*
          * Format date and returns 

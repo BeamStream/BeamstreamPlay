@@ -11,12 +11,10 @@ BS.GoogleDocsView = Backbone.View.extend({
                  "click #prevslid" : "previous",
                  "click #nextslid" : "next"
  	      	 },
-    
+                 
         initialize:function() {
             console.log("google docs view is loded");
             var type = "files";
-            var profileView = new BS.ProfileView();
-            profileView.getProfileImages(type);
             this.docsList();   
             this.source = $("#tpl-docsview").html();
             this.template = Handlebars.compile(this.source);
@@ -46,7 +44,6 @@ BS.GoogleDocsView = Backbone.View.extend({
         addActive : function(eventName){
             var id = eventName.target;
             var $this = $(id);
-            console.log( $this);
             if (!$this.is('.dropdown-toggle')) {
 	    $this
 	    .closest('ul')
@@ -108,9 +105,6 @@ BS.GoogleDocsView = Backbone.View.extend({
                 },
                 dataType : "json",
                 success : function(docs) {
-
-                   console.log("docs"); 
-                   console.log("docs"); 
                    var content = '';
             
                 //   if(docs.status == 'success')    {
