@@ -31,7 +31,7 @@ POST /allPublicMessagesFromAllStreamsForAUser     controllers.StreamController.a
 
 #Comments
 POST   /newComment                   controllers.CommentController.newComment
-POST    /allCommentsForAMessage       controllers.CommentController.allCommentsForAMessage
+POST    /allCommentsForAMessage       controllers.CommentController.getAllComments
 POST    /rockingTheComment            controllers.CommentController.rockingTheComment
 POST    /commentRockers                controllers.CommentController.commentRockers
 

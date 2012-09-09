@@ -92,7 +92,16 @@ object Document {
     val rockersName = User.giveMeTheRockers(docRocked.rockers)
     rockersName
   }
-    
+   
+  /*
+   * Find Document by Id
+   */
+
+  def findDocumentById(docId: ObjectId): Document = {
+       val document = DocumentDAO.findOneByID(docId)
+       document.get
+  }
+  
   /*
    * Find document by name
    */
@@ -174,19 +183,6 @@ object Document {
     document.rocks
   }
    
-   def findDocumentById(docId: ObjectId): Document = {
-    val doc = DocumentDAO.findOneByID(docId)
-    doc.get
-  }
-  
-    /*
-   * add Comment to message
-   */
-    def addCommentToDocument(documentId: ObjectId, commentId : ObjectId) {
-      val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
-      DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(comments = (document.comments ++ List(commentId))), false, false, new WriteConcern)
-  }
-  
     /*
      * Documents for a user sorted by creation date 
      */
