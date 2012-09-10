@@ -62,7 +62,8 @@ GET  /getAllClassesForAUser             controllers.ClassController.getAllClasse
 
 #Auto populate class
 
-POST /autoPopulateClasses controllers.ClassController.findClasstoAutoPopulate
+POST /autoPopulateClassesbyCode controllers.ClassController.findClasstoAutoPopulatebyCode
+POST /autoPopulateClassesbyName controllers.ClassController.findClasstoAutoPopulatebyName
 
 #Getting the School JSON
 GET /schoolJson controllers.DetailedRegistration.getSchoolsForLoggedInUser
