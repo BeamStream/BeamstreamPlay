@@ -51,9 +51,9 @@ BS.ImageListView = Backbone.View.extend({
                         i++;
                         });                  
                         $('#grid').html(content); 
-//                        $("area[rel^='prettyPhoto']").prettyPhoto();
-// 			$(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:1000, autoplay_slideshow: true});
-// 			$(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
+                        $("area[rel^='prettyPhoto']").prettyPhoto();
+                        $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:1000, autoplay_slideshow: true});
+                        $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
                          self.pagination();     
                         }
                });
