@@ -20,9 +20,10 @@ BS.AppRouter = Backbone.Router.extend({
         "friendStream" :"friendStream",
         "filesMedia" : "filesMedia",
         "googledocs" : "googleDocs",
-         "imagelist" : "imageList"
-//        "profile/view/id/:id/name/:name" : "publicProfile/filesMedia"
-        
+         "imagelist" : "imageList",
+            "videos" : "videoList"
+//        "profile/view/id/:id/name/:name" : "publicProfile"
+
     },
     initialize :function() {
     	
@@ -242,6 +243,7 @@ BS.AppRouter = Backbone.Router.extend({
        $('#school-popup').html(BS.profileView.el);  
        $('.progress-container').hide();
        $(".modal select:visible").selectBox();
+       $(".radio").dgStyle();
        $('.modal .datepicker').datepicker();
        jQuery("#profile-form").validationEngine();
        
@@ -702,14 +704,14 @@ BS.AppRouter = Backbone.Router.extend({
                                     $grid.shuffle($this.attr('data-key'));
                                 });                              
                         },
-                        
-                        /*
-                         *
+
+                        /**
+                         *display Images in another view
                          *
                          */
+
                         imageList: function(){
                            $('#content').children().detach();
-                           console.log("image view ");
                            BS.user.fetch({ success:function(e){
 					   //get main menu
 					   this.navView = new BS.NavView({ model: BS.user });
@@ -724,7 +726,28 @@ BS.AppRouter = Backbone.Router.extend({
                           $('#content').html(BS.imagelistview.el); 
                           $('.file-type').hide();   //to hide the filetype menu
                         }, 
-                                                                   
+                        
+                        /*
+                         *display Videos in another view
+                         *
+                         */
+                        videoList :function(){
+                          $('#content').children().detach();
+                           console.log("image view ");  
+                           BS.user.fetch({ success:function(e){
+					   //get main menu
+					   this.navView = new BS.NavView({ model: BS.user });
+					   this.navView.showProfilePic();
+					   $('.nav-collapse').html(this.navView.render().el);
+					   $('nav li.active').removeClass('active');
+					   $('#file-media').addClass('active');					   
+					   $('#right-photo').attr("src",BS.profileImageUrl);			       
+				}});
+                            BS.videolistview = new BS.VideoListView();
+                            BS.videolistview.render();
+                            $('#content').html(BS.videolistview.el); 
+                          $('.file-type').hide();   //to hide the filetype menu
+                        },                                           
 			displayJanRain : function(){
 				
 				 var janRainCount = $('.janrainContent').length;
