@@ -95,6 +95,10 @@ BS.commentRockers = BS.URLRequired+"/commentRockers";
 BS.allProfileVideos = BS.URLRequired+"/getAllProfileVideoForAUser";
 //get no of users attending class
 BS.noOfUsersAttendingAClass = BS.URLRequired+"/noOfUsersAttendingAClass";
+//populate class codes
+BS.autoPopulateClassesbyCode = BS.URLRequired+"/autoPopulateClassesbyCode";
+//populate class names
+BS.autoPopulateClassesbyName = BS.URLRequired+"/autoPopulateClassesbyName";
 
  
  

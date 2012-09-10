@@ -46,33 +46,44 @@ BS.ClassStreamView = Backbone.View.extend({
 		 
 		var text = $('#class-code').val();
 		var selectedSchoolId = $('#schools').val();
+		 
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
-			url : BS.autoPopulateClass,
+			url : BS.autoPopulateClassesbyCode,
 			data : {
 				data : text,
 				assosiatedSchoolId : selectedSchoolId
 			},
 			dataType : "json",
 			success : function(datas) {
+				 
 				var codes = '';
 				BS.classInfo = datas;
-				_.each(datas, function(data) {
-					BS.classCodes.push(data.classCode);
-		        });
-				$('.ac_results').css('width', '160px');
+				BS.classCodes = [];
+				if(datas != 0)
+				{
+					_.each(datas, function(data) {
+						BS.classCodes.push(data.classCode);
+			        });
+					$('.ac_results').css('width', '160px');
+					
+					//set auto populate functionality for class code
+					 $("#class-code").autocomplete({
+						    source: BS.classCodes,
+						    select: function(event, ui) {
+						    	
+						    	var text = ui.item.value; 
+						    	self.displayFiledsForCode(text);
+						    	
+						    }
+					 });
+				}
+				else
+				{
+					self.displayFiledsForCode(text);
+				}
 				
-				//set auto populate functionality for class code
-				 $("#class-code").autocomplete({
-					    source: BS.classCodes,
-					    select: function(event, ui) {
-					    	
-					    	var text = ui.item.value; 
-					    	self.displayFiledsForCode(text);
-					    	
-					    }
-				 });
 			 
 			}
 		});
@@ -82,10 +93,51 @@ BS.ClassStreamView = Backbone.View.extend({
 	 * display other values on mouse select - class code auto complete
 	 */
 	getValuesForCode :function(){
-		 
+		var self = this;
+		BS.classCodes = []; 
 		var text = $('#class-code').val(); 
-		this.displayFiledsForCode(text);
-		 
+		var selectedSchoolId = $('#schools').val();
+		
+		/* post the text that we type to get matched classes */
+		 $.ajax({
+			type : 'POST',
+			url : BS.autoPopulateClassesbyCode,
+			data : {
+				data : text,
+				assosiatedSchoolId : selectedSchoolId
+			},
+			dataType : "json",
+			success : function(datas) {
+				var codes = '';
+				BS.classInfo = datas;
+				BS.classCodes = []; 
+				if(datas.length !=0 )
+				{
+					_.each(datas, function(data) {
+						BS.classCodes.push(data.classCode);
+			        });
+					$('.ac_results').css('width', '160px');
+					
+					//set auto populate functionality for class code
+					 $("#class-code").autocomplete({
+						    source: BS.classCodes,
+						    select: function(event, ui) {
+						    	
+						    	var text = ui.item.value; 
+						    	self.displayFiledsForCode(text);
+						    	
+						    }
+					 });
+				}
+				else
+				{
+					self.displayFiledsForCode(text);
+				}
+				
+			 
+			}
+		});
+		self.displayFiledsForCode(text);
 	},
 	/**
 	 * display other field values- classCode auto complete
@@ -115,7 +167,6 @@ BS.ClassStreamView = Backbone.View.extend({
 		 /* populate other class fields*/
 		 if(classStatus == true)
 		 {
-//			 BS.newClassCode = false;
 			 this.classId = classId;
 			 $('#class_name').val(className);
 			 
@@ -144,8 +195,6 @@ BS.ClassStreamView = Backbone.View.extend({
 					success : function(data) {
 						 $('#schools option[value="'+schoolId+'"]').attr('selected', 'selected');
 						 $('div#sShool a span.selectBox-label').html(data);
-//						 var sSelect = '<select id="schools" class="small selectBox"><option value ="'+schoolId+'" >'+data+'</option>';
-//						 $('#sShool').html(sSelect);
 						 $(".modal select:visible").selectBox();
 
 					}
@@ -178,21 +227,12 @@ BS.ClassStreamView = Backbone.View.extend({
 		 }
 		 else
 		 {
-//			 BS.newClassCode = true;
-//			 if(BS.newClassCode == false)
-//			 {
-			     $('#student-number').fadeOut("medium");
-				 this.classId =1;
-//				 $('#class_name').val("");
-//				 $('#date-started').val("");
-//				 $('#div-school-type a span.selectBox-label').html("");
-//				 $('#div-time a span.selectBox-label').html("");
-//				 $('#div-school a span.selectBox-label').html("");
-				 $(".modal select:visible").selectBox();
-				 
-//				/* get all schoolIds under a class */
-				    //this.getSchools();
-//			 }
+
+			 $('#student-number').fadeOut("medium");
+			 this.classId =1;
+
+			 $(".modal select:visible").selectBox();
+
 			 $('#createClass').show(); 
 			 $('#joinClass').hide();
 		 }
@@ -213,10 +253,11 @@ BS.ClassStreamView = Backbone.View.extend({
 		eventName.preventDefault();
 		var newClassInfo = this.getNewClass();
 		
-		/* post new class details */
+		
+		/* post data with school and class details */
 		$.ajax({
 			type : 'POST',
-			url : BS.newClass,
+			url : BS.saveClass,
 			data : {
 				data : newClassInfo
 			},
@@ -236,9 +277,9 @@ BS.ClassStreamView = Backbone.View.extend({
 				{
 					$('#error').html(data.message);
 				}
+				
 			}
 		});
-		
 	},
 	
 	/**
@@ -289,30 +330,30 @@ BS.ClassStreamView = Backbone.View.extend({
 		eventName.preventDefault();
 		var newClassInfo = this.getNewClass();
 		
-		/* post new class details */
+		
+		/* post data with school and class details */
 		$.ajax({
 			type : 'POST',
-			url : BS.joinClass,
+			url : BS.saveClass,
 			data : {
 				data : newClassInfo
 			},
 			dataType : "json",
 			success : function(data) {
-				 
-				  if(data.status == "Success")
-				  {
+				if(data.status == "Success")
+				{
 					  $('#student-number').fadeOut("medium");
 					  alert(data.message);
 					  BS.AppRouter.navigate("streams", {trigger: true});
-				  }
-				  else
-				  {
-					  alert(data.message);
-				  }
-					
-				 
+				}
+				else
+				{
+					alert(data.message);
+				}
+				
 			}
 		});
+		
 	},
 	
 	/**
@@ -345,7 +386,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
-			url : BS.autoPopulateClass,
+			url : BS.autoPopulateClassesbyName,
 			data : {
 				data : text,
 				assosiatedSchoolId : selectedSchoolId
@@ -353,35 +394,43 @@ BS.ClassStreamView = Backbone.View.extend({
 			dataType : "json",
 			success : function(datas) {
 				var codes = '';
+				BS.classNames = [];
 				BS.classNameInfo = datas;
-				_.each(datas, function(data) {
-					BS.classNames.push(data.className);
-		        });
+				if(datas.length != 0)
+				{
+					_.each(datas, function(data) {
+						BS.classNames.push(data.className);
+			        });
+					
+					$('.ac_results').css('width', '160px');
+					
+	 
+					//set auto populate functionality for class code
+					 $("#class_name").autocomplete({
+						    source: BS.classNames,
+						    select: function(event, ui) {
+						    	 
+						    	var text = ui.item.value; 
+						    	self.displayFieldsForName(text);
+						    	
+						    }
+					 });
+				}
+				else
+				{
+					self.displayFieldsForName(text);
+				}
 				
-				$('.ac_results').css('width', '160px');
-				
- 
-				//set auto populate functionality for class code
-				 $("#class_name").autocomplete({
-					    source: BS.classNames,
-					    select: function(event, ui) {
-					    	
-					    	var text = ui.item.value; 
-					    	self.displayFieldsForName(text);
-					    	
-					    }
-				 });
-			 
 			}
+			
 		});
-		 
     	
     },
     /**
      *  display other field values - className auto populate
      */
     displayFieldsForName : function(value){
-    	
+    	 
     	var classStatus = false; 
 		var classTime ,className,date ,classType,schoolId,classId;
         var datas = JSON.stringify(BS.classInfo);
@@ -405,7 +454,6 @@ BS.ClassStreamView = Backbone.View.extend({
 		 /* populate other class fields*/
 		 if(classStatus == true)
 		 {    
-//			 BS.newClassName = false;
 			 this.classId = classId;
 			 $('#class-code').val(classCode);
 			 $('#date-started').val(date);
@@ -432,8 +480,6 @@ BS.ClassStreamView = Backbone.View.extend({
 					success : function(data) {
 						 $('#schools option[value="'+schoolId+'"]').attr('selected', 'selected');
 						 $('div#sShool a span.selectBox-label').html(data);
-//						 var sSelect = '<select id="schools" class="small selectBox"><option value ="'+schoolId+'" >'+data+'</option>';
-//						 $('#sShool').html(sSelect);
 						 $(".modal select:visible").selectBox();
 
 					}
@@ -451,7 +497,6 @@ BS.ClassStreamView = Backbone.View.extend({
 					success : function(data) {
 						  
 						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
-//			        	 $('#student-number').fadeIn("medium").delay(2000).fadeOut('medium'); 
 						 $('#student-number').fadeIn("medium");
 			        	 $('#student-number').html(ul);
 
@@ -481,7 +526,52 @@ BS.ClassStreamView = Backbone.View.extend({
      */
     getValuesForName :function(){
     	var text = $('#class_name').val(); 
-		this.displayFieldsForName(text);
+    	var self =this;
+    	BS.classNames = []; 
+    	var selectedSchoolId = $('#schools').val();
+    	 
+    	/* post the text that we type to get matched classes */
+		 $.ajax({
+			type : 'POST',
+			url : BS.autoPopulateClassesbyName,
+			data : {
+				data : text,
+				assosiatedSchoolId : selectedSchoolId
+			},
+			dataType : "json",
+			success : function(datas) {
+				var codes = '';
+				BS.classNames = [];
+				BS.classNameInfo = datas;
+				if(datas.length != 0)
+				{
+					_.each(datas, function(data) {
+						BS.classNames.push(data.className);
+			        });
+					
+					$('.ac_results').css('width', '160px');
+					
+
+					//set auto populate functionality for class code
+					 $("#class_name").autocomplete({
+						    source: BS.classNames,
+						    select: function(event, ui) {
+						    	
+						    	var text = ui.item.value; 
+						    	self.displayFieldsForName(text);
+						    	
+						    }
+					 });
+				}
+				else
+				{
+					self.displayFieldsForName(text);
+				}
+				
+			 
+			}
+		});
+		self.displayFieldsForName(text);
 		
     },
     /**
@@ -522,7 +612,7 @@ BS.ClassStreamView = Backbone.View.extend({
 				dataType : "json",
 				success : function(datas) {
 					
-					var sSelect = '<select id="schools" class="small selectBox"><option value ="" ></option>';
+					var sSelect = '<select id="schools" class="small selectBox">';
 					_.each(datas, function(data) {
 						sSelect+= '<option value ="'+data.assosiatedSchoolId.id+'" > '+data.schoolName+'</option>';
 			        });
