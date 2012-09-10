@@ -163,6 +163,7 @@ BS.ClassView = Backbone.View.extend({
 						{
 							$('.studentno-popup-class').fadeOut("medium"); 
 							BS.editProfile = false;
+							
 							// navigate to main stream page
 							BS.AppRouter.navigate("profile", {trigger: true});
 						}
@@ -308,12 +309,42 @@ BS.ClassView = Backbone.View.extend({
 	getValuesForCode :function(eventName){
 		var id = eventName.target.id;
 		var text = $('#'+id).val(); 
-		
+		var self = this;
 		// get id to identify corresponding row 
 		var identity = id.replace(/[^\d.,]+/,'');
+		var rowId = identity.replace(/([-]\d+)$/,'');
+		var selectedSchoolId = $('#school-' + rowId).val() ;
 		
-		this.displayFiledsForCode(text,identity);
-		 
+		/* post the text that we type to get matched classes */
+		 $.ajax({
+			type : 'POST',
+			url : BS.autoPopulateClass,
+			data : {
+				data : text,
+				assosiatedSchoolId : selectedSchoolId
+			},
+			dataType : "json",
+			success : function(datas) {
+				var codes = '';
+				BS.classInfo = datas;
+				BS.classCodes = [];
+				_.each(datas, function(data) {
+					BS.classCodes.push(data.classCode);
+		        });
+				
+				//set auto populate functionality for class code
+				$('#'+id).autocomplete({
+					    source: BS.classCodes,
+					    select: function(event, ui) {
+					    	
+					    	var text = ui.item.value; 
+					    	self.displayFiledsForCode(text,identity);
+					    	
+					    }
+				 });
+			}
+		});
+		
 	},
 	
 	/**
@@ -449,10 +480,45 @@ BS.ClassView = Backbone.View.extend({
     getValuesForName :function(eventName){
     	var id = eventName.target.id;
     	var text = $('#'+id).val();
-    	
+    	var self =this;
     	// get id to identify corresponding row 
 		var identity = id.replace(/[^\d.,]+/,'');
 		this.displayFieldsForName(text,identity);
+		
+		
+		
+		var rowId = identity.replace(/([-]\d+)$/,'');
+		var selectedSchoolId = $('#school-' + rowId).val() ;
+		/* post the text that we type to get matched classes */
+		 $.ajax({
+			type : 'POST',
+			url : BS.autoPopulateClass,
+			data : {
+				data : text,
+				assosiatedSchoolId : selectedSchoolId
+			},
+			dataType : "json",
+			success : function(datas) {
+				var codes = '';
+				BS.classNameInfo = datas;
+				BS.classNames = [];
+				_.each(datas, function(data) {
+					BS.classNames.push(data.className);
+		        });
+
+				//set auto populate functionality for class code
+				$('#'+id).autocomplete({
+					    source: BS.classNames,
+					    select: function(event, ui) {
+					    	
+					    	var text = ui.item.value; 
+					    	self.displayFieldsForName(text,identity);
+					    	
+					    }
+				 });
+			 
+			}
+		});
 		
     },
     /**

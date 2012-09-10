@@ -40,7 +40,7 @@ BS.SchoolView = Backbone.View.extend({
     	{
     		edit = "";
     	}
-     
+         
         $(this.el).html(this.template({"edit" : edit}));
         return this;
     },
