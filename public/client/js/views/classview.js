@@ -318,7 +318,7 @@ BS.ClassView = Backbone.View.extend({
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
-			url : BS.autoPopulateClass,
+			url : BS.autoPopulateClassesbyCode,
 			data : {
 				data : text,
 				assosiatedSchoolId : selectedSchoolId
@@ -365,7 +365,7 @@ BS.ClassView = Backbone.View.extend({
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
-			url : BS.autoPopulateClass,
+			url : BS.autoPopulateClassesbyCode,
 			data : {
 				data : text,
 				assosiatedSchoolId : selectedSchoolId
@@ -374,6 +374,7 @@ BS.ClassView = Backbone.View.extend({
 			success : function(datas) {
 				var codes = '';
 				BS.classInfo = datas;
+				BS.classCodes = []; 
 				_.each(datas, function(data) {
 					BS.classCodes.push(data.classCode);
 		        });
@@ -492,7 +493,7 @@ BS.ClassView = Backbone.View.extend({
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
-			url : BS.autoPopulateClass,
+			url : BS.autoPopulateClassesbyName,
 			data : {
 				data : text,
 				assosiatedSchoolId : selectedSchoolId
@@ -536,7 +537,7 @@ BS.ClassView = Backbone.View.extend({
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
-			url : BS.autoPopulateClass,
+			url : BS.autoPopulateClassesbyName,
 			data : {
 				data : text,
 				assosiatedSchoolId : selectedSchoolId
@@ -544,6 +545,7 @@ BS.ClassView = Backbone.View.extend({
 			dataType : "json",
 			success : function(datas) {
 				var codes = '';
+				BS.classNames =[];
 				BS.classNameInfo = datas;
 				_.each(datas, function(data) {
 					BS.classNames.push(data.className);

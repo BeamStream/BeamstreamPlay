@@ -21,7 +21,7 @@ BS.AppRouter = Backbone.Router.extend({
         "filesMedia" : "filesMedia",
         "googledocs" : "googleDocs",
          "imagelist" : "imageList"
-//        "profile/view/id/:id/name/:name" : "publicProfile"
+//        "profile/view/id/:id/name/:name" : "publicProfile/filesMedia"
         
     },
     initialize :function() {
@@ -491,7 +491,7 @@ BS.AppRouter = Backbone.Router.extend({
 							dataType : "json",
 							success : function(datas) {
 
-								var sSelect = '<select id="schools" class="small selectBox"><option value ="" ></option>';
+								var sSelect = '<select id="schools" class="small selectBox">';
 								_.each(datas, function(data) {
 									sSelect += '<option value ="' + data.assosiatedSchoolId.id
 											+ '" > ' + data.schoolName
@@ -624,7 +624,7 @@ BS.AppRouter = Backbone.Router.extend({
 				
 				//get profile videos
 				var profileView = new BS.ProfileView();
-		     	profileView.getProfileVideos();
+//		     	profileView.getProfileVideos();
 		     	
 //		     	var type = "files";
 //		     	profileView.getProfileImages(type);
