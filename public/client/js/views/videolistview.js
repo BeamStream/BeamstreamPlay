@@ -1,68 +1,60 @@
-BS.ImageListView = Backbone.View.extend({
-    
-        events:{
+BS.VideoListView = Backbone.View.extend({
+         events:{
                 "click a#file-type" : "showFilesTypes",
-                "click ul.file-type li a" : "hideList",
-                 "click #prevslid" : "previous",
-                 "click #nextslid" : "next"
+                "click ul.file-type li a" : "hideList"
              },
     
         initialize:function(){
             this.source = $("#tpl-docsview").html();
             this.template = Handlebars.compile(this.source);
-            this.pictres();
+            this.videolisting();
         },
-    
         render:function (eventName) {
             $(this.el).html(this.template);
             return this;
             },
             
-         /*
-         * function to display all pictures
-         */               
-        pictres : function()
-            {       
-            var i = 1;
+            /**
+            * list all videos in seperate view
+            */
+       videolisting:function(){
             $('#content').children().detach();
+            var i = 1;
             var self = this;
-            var arraypictures = new Array();
+            var arrayvideos = new Array();
             var content='';
-            var coverpicture;            
-            BS.user.fetch({ success:function(e) {                   
-                                  /* get profile images for user */
-                $.ajax({
+            var coverpicture; 
+            BS.user.fetch({ success:function(e) {
+                /* get videos for user */
+              $.ajax({
                         type : 'GET',
-                        url :  BS.allProfileImages,
+                        url : BS.allProfileVideos,
                         data : {
-                        'userId': e.attributes.id.id
+                           'userId': e.attributes.id.id
                                 },
                         dataType : "json",
+
                         success : function(docs) {
                                 _.each(docs, function(doc) {  
-                                content += '<li id="file-docs-'+i+'">'  
-                                +'<div class="image-wrapper"><div class="gallery clearfix"></div><div class="gallery clearfix"><a href="'+doc+'" rel="prettyPhoto"><img src="'+doc+'"width="185px" height="141px"/></a></div>'    //doc contain path of the image
+                                content += '<li id="file-docs-'+i+'">'
+                                +'<div class="image-wrapper"><a href="'+doc+'" rel="prettyPhoto[movies]"><img src="images/video_image.png"></a></div>'         //doc contain path of the video
                                 +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>'
                                 +'<ul class="comment-list">'
                                 +'<li><a class="eye-icon" href="#">87</a></li>'
                                 +'<li><a class="hand-icon" href="#">5</a></li>'
                                 +'<li><a class="message-icon" href="#">10</a></li>'
-                                +'</ul></div></li>';                                            
+                                +'</ul></div></li>';                                       
                         i++;
                         });                  
-                        $('#grid').html(content); 
-//                        $("area[rel^='prettyPhoto']").prettyPhoto();
-// 			$(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:1000, autoplay_slideshow: true});
-// 			$(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
-                         self.pagination();     
+                        $('#grid').html(content);         
+                            
                         }
                });
 
             }});
-
-           // $('#content').html(BS.listDocsView.el);
-        },
-            /*
+       }, 
+       
+                   /*
             * pagination for docsview
             *
             */
@@ -106,9 +98,11 @@ BS.ImageListView = Backbone.View.extend({
             * Part of pagination and is used to show next page
             *
             */
-            next:function (){    
+            next:function (){  
+          console.log("next");      
                 new_page = parseInt($('#current_page').val()) + 1;  
                 if($('.active_page').next('.page_link').length==true){  
+                    console.log("inside if");
                     this.go_to_page(new_page);  
                 }  
             },
@@ -129,9 +123,8 @@ BS.ImageListView = Backbone.View.extend({
                    $('.page_link[longdesc=' + page_num +']').addClass('active_page').siblings('.active_page').removeClass('active_page');  
 
                 $('#current_page').val(page_num);  
-            },  
-        
-            /**
+            }, 
+             /**
             * show file types
             */
         showFilesTypes :function(eventName){
@@ -146,7 +139,6 @@ BS.ImageListView = Backbone.View.extend({
             eventName.preventDefault();
             $('.file-type').slideUp();
     	    } 
-        
             
 })
 

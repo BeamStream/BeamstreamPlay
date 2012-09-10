@@ -21,7 +21,7 @@ BS.FilesMediaView = Backbone.View.extend({
         this.source = $("#tpl-files-media").html();
         this.template = Handlebars.compile(this.source);
 	this.pictres();	
-                
+        this.videos();        
      //   this.template= _.template($("#tpl-files-media").html());
 
         
@@ -141,23 +141,18 @@ BS.FilesMediaView = Backbone.View.extend({
         
         
         /*
-         *function to show pictures
+         *function to show pictures in filesmediaview
          */
         
         
          pictres : function()
         {       
-            var i = 1;
-//            $('#content').children().detach();
-//            $('#school-popup').children().detach();
             var self = this;
             var arraypictures = new Array();
             var content='';
-            var coverpicture;
-            
-            
+            var coverpicture;           
             BS.user.fetch({ success:function(e) {
-                /* get profile images for user */
+                /* get images for user */
               $.ajax({
                         type : 'GET',
                         url :  BS.allProfileImages,
@@ -189,9 +184,44 @@ BS.FilesMediaView = Backbone.View.extend({
            // $('#content').html(BS.listDocsView.el);
         },
         
+        /*
+         *function to show pictures in filesmediaview
+         */
+        videos:function(){
+            var self = this;
+            var arrayvideos = new Array();
+            var content='';
+            var coverpicture; 
+            BS.user.fetch({ success:function(e) {
+                /* get videos for user */
+              $.ajax({
+                        type : 'GET',
+                        url : BS.allProfileVideos,
+                        data : {
+                           'userId': e.attributes.id.id
+                                },
+                        dataType : "json",
+
+                        success : function(docs) {                          
+                            if(docs.length != 0)
+                            {
+                                arraypictures=docs;
+                               coverpicture=arraypictures[arraypictures.length-1];
+                                content= '<div class="image-wrapper"><a id="profile-videos" href="#videos"><img src="images/video_image.png"></a>'
+                                            +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
+                                            +'<ul class="comment-list">'
+                                            +'<li><a class="eye-icon" href="#">87</a></li>'
+                                            +'<li><a class="hand-icon" href="#">5</a></li>'
+                                            +'<li><a class="message-icon" href="#">10</a></li></ul></div>';
+                                 $('#covervideo').html(content);           
+                            }
+                        }
+               });
+
+            }});
+        },
         
-        
-        
+                
         /*
          * Format date and returns 
          */
