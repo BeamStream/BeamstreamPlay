@@ -59,7 +59,6 @@ object DocumentController extends Controller {
         case true =>
         
 	    val document = documentJsonMap("data").toList(0)
-	    println(document)
 	    
 	    val documentJson = net.liftweb.json.parse(document)
 	    
@@ -67,8 +66,7 @@ object DocumentController extends Controller {
             val url= (documentJson \ "docURL").extract[String]
             val access = (documentJson \ "docAccess").extract[String]
             val docType = (documentJson \ "docType").extract[String]
-    
-            println(" name :"+name +"  url :"+ url + "  access::"+ access + "  docType:"+docType)
+
 	    val userId = new ObjectId(request.session.get("userId").get)
 	    val date = new Date
 	    val documentToCreate = new Document(new ObjectId(), name, url, 
@@ -89,10 +87,8 @@ object DocumentController extends Controller {
 
   def getAllDocumentsForAUser = Action { implicit request =>
     val documentIdJsonMap = request.body.asFormUrlEncoded.get
-    println(" userId : "+ request.session.get("userId").get)
-     val allDocumentsForAUser = Document.getAllDocumentsForAUser(new ObjectId(request.session.get("userId").get))
+    val allDocumentsForAUser = Document.getAllDocumentsForAUser(new ObjectId(request.session.get("userId").get))
     val allDocumentForAStreamJson = write(allDocumentsForAUser)
-    println(" Documents for the user :"+ allDocumentsForAUser);
     Ok(allDocumentForAStreamJson).as("application/json")
   }
   
