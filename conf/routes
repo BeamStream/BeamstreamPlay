@@ -118,4 +118,5 @@ GET  /beamstream/*file                   controllers.Assets.at(path="/public/cli
 
 
 
-
+#NEO4J Baby
+GET  /testNeo4j          controllers.UserController.testNeo4j

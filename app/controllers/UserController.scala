@@ -21,6 +21,9 @@ import utils._
 import play.api.libs.json.JsValue
 import play.api.libs.json.Json
 import play.cache.Cache
+import utils.SocialGraphEmbeddedNeo4j
+import org.neo4j.graphdb.Node
+
 
 object UserController extends Controller {
 
@@ -181,6 +184,19 @@ object UserController extends Controller {
       case false => Ok(write(new ResulttoSent("Failure", "No User Found")))
     }
 
+  }
+  
+  
+  def testNeo4j = Action { implicit request =>
+    SocialGraphEmbeddedNeo4j.clearDb()
+    SocialGraphEmbeddedNeo4j.createDb()
+    var node:Node = SocialGraphEmbeddedNeo4j.findBSNode(24, "Joe", "Shmoe")
+    var node2:Node = SocialGraphEmbeddedNeo4j.createBSNode(72, "Michael", "Vick", node)
+    print("node1: " + node.getProperty("firstName"))
+    print("node2: " + node2.getProperty("firstName"))
+    print("relationship: " + node2.getRelationships())
+    SocialGraphEmbeddedNeo4j.shutDown()
+    Ok(write(new ResulttoSent("Success", "Users added to Social stack")))
   }
   
   
