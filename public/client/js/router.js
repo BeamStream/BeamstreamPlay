@@ -703,11 +703,12 @@ BS.AppRouter = Backbone.Router.extend({
                                     $grid.shuffle($this.attr('data-key'));
                                 });                              
                         },
-                        
-//                        /*
-//                         *display Images in another view
-//                         */
-                         
+
+                        /**
+                         *display Images in another view
+                         *
+                         */
+
                         imageList: function(){
                            $('#content').children().detach();
                            BS.user.fetch({ success:function(e){
