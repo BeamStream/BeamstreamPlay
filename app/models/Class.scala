@@ -67,14 +67,13 @@ object Class {
 
         if (!getClassByCode(eachclass).isEmpty) {
           println("Join Stream Case")
-           Stream.joinStream(getClassByCode(eachclass)(0).streams(0), userId)
-           classIdList ++= List(getClassByCode(eachclass)(0).id)
+          Stream.joinStream(getClassByCode(eachclass)(0).streams(0), userId)
+          classIdList ++= List(getClassByCode(eachclass)(0).id)
         } else {
           println("Create class Case")
           //Insert then class
           val classId = ClassDAO.insert(eachclass)
           classIdList ++= List(new ObjectId(classId.get.toString))
-
           // Create the Stream for this class
           val streamToCreate = new Stream(new ObjectId, eachclass.className, StreamType.Class, userId, List(userId), true, List())
           val streamId = Stream.createStream(streamToCreate)
@@ -102,34 +101,50 @@ object Class {
     for (theclass <- ClassDAO.find(MongoDBObject("className" -> regexp)).toList) yield theclass
   }
 
-//  /*
-//   * Finding the class by Code
-//   */
-//
-//  def findClassByCode(code: String, userSchoolIdList: List[ObjectId]): List[Class] = {
-//    var classes: List[Class] = List()
-//    for (userSchoolId <- userSchoolIdList) {
-//      val userSchool = UserSchool.getUserSchoolById(userSchoolId)
-//      val classFound = ClassDAO.find(MongoDBObject("schoolId" -> userSchool.assosiatedSchoolId)).toList
-//      (classFound.isEmpty) match {
-//        case true =>
-//        case false => classes ++= classFound
-//      }
-//
-//    }
-//    classes
-//  }
-  
-   /*
+  //  /*
+  //   * Finding the class by Code
+  //   */
+  //
+  //  def findClassByCode(code: String, userSchoolIdList: List[ObjectId]): List[Class] = {
+  //    var classes: List[Class] = List()
+  //    for (userSchoolId <- userSchoolIdList) {
+  //      val userSchool = UserSchool.getUserSchoolById(userSchoolId)
+  //      val classFound = ClassDAO.find(MongoDBObject("schoolId" -> userSchool.assosiatedSchoolId)).toList
+  //      (classFound.isEmpty) match {
+  //        case true =>
+  //        case false => classes ++= classFound
+  //      }
+  //
+  //    }
+  //    classes
+  //  }
+
+  /*
    * Finding the class by Code
    */
 
   def findClassByCode(code: String, schoolId: ObjectId): List[Class] = {
+    val regexp = ("^" + code).r
     var classes: List[Class] = List()
-      val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId)).toList
-      (classFound.isEmpty) match {
-        case true =>
-        case false => classes ++= classFound
+    val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "classCode" -> regexp)).toList
+    (classFound.isEmpty) match {
+      case true =>
+      case false => classes ++= classFound
+    }
+    classes
+  }
+  
+  /*
+   * Finding the class by Code
+   */
+
+  def findClassByName(name: String, schoolId: ObjectId): List[Class] = {
+    val regexp = ("^" + name).r
+    var classes: List[Class] = List()
+    val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> regexp)).toList
+    (classFound.isEmpty) match {
+      case true =>
+      case false => classes ++= classFound
     }
     classes
   }

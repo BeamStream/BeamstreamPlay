@@ -129,7 +129,6 @@ object Message {
    */
 
   def getAllMessagesForAStreamSortedbyRocks(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
-    // val messages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList.sortBy(message => message.rocks)
     val messsagesRetrieved = MessageDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("rocks" -> -1, "timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
     messsagesRetrieved
   }
@@ -148,7 +147,6 @@ object Message {
    */
   def getAllMessagesForAKeyword(keyword: String, pageNumber: Int, messagesPerPage: Int): List[Message] = {
     val keyWordregExp = (""".*""" + keyword + """.*""").r
-    //val messages = MessageDAO.find(MongoDBObject()).toList.filter(message => message.messageBody.contains(keyword))
     val messsagesRetrieved = MessageDAO.find(MongoDBObject("messageBody" -> keyWordregExp)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
     messsagesRetrieved
 
@@ -170,23 +168,6 @@ object Message {
   def findMessageById(messageId: ObjectId): Message = {
     val messageObtained = MessageDAO.findOneByID(messageId)
     messageObtained.get
-  }
-
-  //  /*
-  // * add Comment to message
-  // */
-  //  def addCommentToMessage(comment: Comment, messageId: ObjectId): ObjectId = {
-  //    val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-  //    MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments ++ List(comment))), false, false, new WriteConcern)
-  //    comment.id
-  //  }
-
-  /*
- * add Comment to message
- */
-  def addCommentToMessage(commentId: ObjectId, messageId: ObjectId) = {
-    val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-    MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments ++ List(commentId))), false, false, new WriteConcern)
   }
 
   /*
@@ -247,20 +228,6 @@ object Message {
     publicMessagesForAUser
   }
   
-    /*
-   * Get All commnets for a message
-   */
-
-  def getAllCommentsForAmessage(messageId: ObjectId): List[Comment] = {
-    var commentsForAMessage: List[Comment] = List()
-    val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-    for (commentId <- message.comments) {
-      val commentObtained =Comment.findCommentById(commentId)
-      commentsForAMessage ++= List(commentObtained)
-    }
-    commentsForAMessage
-  }
-
 
 }
 
