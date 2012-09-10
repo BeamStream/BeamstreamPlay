@@ -484,7 +484,7 @@ BS.ClassView = Backbone.View.extend({
     	var self =this;
     	// get id to identify corresponding row 
 		var identity = id.replace(/[^\d.,]+/,'');
-		this.displayFieldsForName(text,identity);
+//		this.displayFieldsForName(text,identity);
 		
 		
 		

@@ -8,8 +8,8 @@ BS.ClassStreamView = Backbone.View.extend({
        "click #joinClass" :"joinClass",
        "click #add-tags" : "addTags",
        "click #close-stream" : "closeScreen",
-       "keyup #class_name" :"getValuesForName",
-       "focusin #class_name":"populateClassNames",
+       "keyup .class_name" :"getValuesForName",
+       "focusin .class_name":"populateClassNames",
        "change select#schools" : "showNewSchoolField"
 	},
 
@@ -46,7 +46,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		 
 		var text = $('#class-code').val();
 		var selectedSchoolId = $('#schools').val();
-		 
+		self.displayFiledsForCode(text);
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
@@ -61,8 +61,6 @@ BS.ClassStreamView = Backbone.View.extend({
 				var codes = '';
 				BS.classInfo = datas;
 				BS.classCodes = [];
-				if(datas != 0)
-				{
 					_.each(datas, function(data) {
 						BS.classCodes.push(data.classCode);
 			        });
@@ -78,11 +76,6 @@ BS.ClassStreamView = Backbone.View.extend({
 						    	
 						    }
 					 });
-				}
-				else
-				{
-					self.displayFiledsForCode(text);
-				}
 				
 			 
 			}
@@ -97,7 +90,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		BS.classCodes = []; 
 		var text = $('#class-code').val(); 
 		var selectedSchoolId = $('#schools').val();
-		
+		self.displayFiledsForCode(text);
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
@@ -111,8 +104,6 @@ BS.ClassStreamView = Backbone.View.extend({
 				var codes = '';
 				BS.classInfo = datas;
 				BS.classCodes = []; 
-				if(datas.length !=0 )
-				{
 					_.each(datas, function(data) {
 						BS.classCodes.push(data.classCode);
 			        });
@@ -128,16 +119,10 @@ BS.ClassStreamView = Backbone.View.extend({
 						    	
 						    }
 					 });
-				}
-				else
-				{
-					self.displayFiledsForCode(text);
-				}
 				
 			 
 			}
 		});
-		self.displayFiledsForCode(text);
 	},
 	/**
 	 * display other field values- classCode auto complete
@@ -383,6 +368,7 @@ BS.ClassStreamView = Backbone.View.extend({
 		BS.selectedName = $('#class_name').val(); 
 		var text = $('#class_name').val();
 		var selectedSchoolId = $('#schools').val();
+		self.displayFieldsForName(text);
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
@@ -396,8 +382,6 @@ BS.ClassStreamView = Backbone.View.extend({
 				var codes = '';
 				BS.classNames = [];
 				BS.classNameInfo = datas;
-				if(datas.length != 0)
-				{
 					_.each(datas, function(data) {
 						BS.classNames.push(data.className);
 			        });
@@ -406,20 +390,15 @@ BS.ClassStreamView = Backbone.View.extend({
 					
 	 
 					//set auto populate functionality for class code
-					 $("#class_name").autocomplete({
+					 $(".class_name").autocomplete({
+						  minLength: 1,
 						    source: BS.classNames,
 						    select: function(event, ui) {
-						    	 
 						    	var text = ui.item.value; 
 						    	self.displayFieldsForName(text);
 						    	
 						    }
 					 });
-				}
-				else
-				{
-					self.displayFieldsForName(text);
-				}
 				
 			}
 			
@@ -524,12 +503,13 @@ BS.ClassStreamView = Backbone.View.extend({
     /**
      * display other values on mouse select - className auto complete
      */
-    getValuesForName :function(){
+    getValuesForName :function(eventName){
+    	var id = eventName.target.id;
     	var text = $('#class_name').val(); 
     	var self =this;
     	BS.classNames = []; 
     	var selectedSchoolId = $('#schools').val();
-    	 
+    	self.displayFieldsForName(text);
     	/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
@@ -543,17 +523,15 @@ BS.ClassStreamView = Backbone.View.extend({
 				var codes = '';
 				BS.classNames = [];
 				BS.classNameInfo = datas;
-				if(datas.length != 0)
-				{
 					_.each(datas, function(data) {
 						BS.classNames.push(data.className);
 			        });
 					
 					$('.ac_results').css('width', '160px');
 					
-
+					 
 					//set auto populate functionality for class code
-					 $("#class_name").autocomplete({
+					 $('#'+id).autocomplete({
 						    source: BS.classNames,
 						    select: function(event, ui) {
 						    	
@@ -562,16 +540,10 @@ BS.ClassStreamView = Backbone.View.extend({
 						    	
 						    }
 					 });
-				}
-				else
-				{
-					self.displayFieldsForName(text);
-				}
 				
 			 
 			}
 		});
-		self.displayFieldsForName(text);
 		
     },
     /**
