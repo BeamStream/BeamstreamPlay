@@ -20,7 +20,7 @@ BS.FilesMediaView = Backbone.View.extend({
         
         this.source = $("#tpl-files-media").html();
         this.template = Handlebars.compile(this.source);
-	this.pictres();	
+	    this.pictres();	
         this.videos();        
      //   this.template= _.template($("#tpl-files-media").html());
 
@@ -65,12 +65,12 @@ BS.FilesMediaView = Backbone.View.extend({
 	     }
 	 },
          
-       /*
+      /*
         * Author:Cuckoo Anna on 09July2012
         * For Uploading docs
         * docType can be one of "GoogleDocs", "YoutubeVideo", "Other".
         * docAccess can be one of "Private", "Public", "Restricted", "Stream".
-        */  
+      */  
      uploadFile : function()
      {
         /* post the documents details */
@@ -207,7 +207,7 @@ BS.FilesMediaView = Backbone.View.extend({
                             {
                                 arraypictures=docs;
                                coverpicture=arraypictures[arraypictures.length-1];
-                                content= '<div class="image-wrapper"><a id="profile-videos" href="#videos"><img src="images/video_image.png"></a>'
+                                content= '<div class="image-wrapper"><a id="profile-videos" href="#videos"><img src="images/image2.jpg"></a>'
                                             +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
                                             +'<ul class="comment-list">'
                                             +'<li><a class="eye-icon" href="#">87</a></li>'
