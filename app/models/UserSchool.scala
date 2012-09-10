@@ -51,20 +51,17 @@ object UserSchool {
 
     else {
       for (userSchool <- userSchools) {
-        
+
         println(userSchool)
 
         val userSchoolObtained = UserSchool.userSchoolsForAUser(userSchool.id)
-        
+
         // Edit School Case
         if (userSchoolObtained.size == 1) {
           UserSchoolDAO.update(MongoDBObject("_id" -> userSchool.id), userSchool, false, false, new WriteConcern)
           School.updateSchool(userSchoolObtained(0).assosiatedSchoolId, userSchool.schoolName)
-        } 
-        
-        
-        else {
-         // Create a new School
+        } else {
+          // Create a new School
           val userSchoolId = UserSchoolDAO.insert(userSchool)
           val userSchoolObtained = UserSchool.getUserSchoolById(userSchoolId.get)
 
@@ -171,6 +168,20 @@ object UserSchool {
     }
 
     if (schoolFetchCount == 0) false else true
+  }
+
+  /*
+   * For Join Stream Case Verification
+   */
+
+  def isUserEligibleForJoinAStream(userId: ObjectId, schoolId: ObjectId): Boolean = {
+    var assosiatedSchoolsOfAUser: List[ObjectId] = List()
+    val userSchoolsid = UserSchool.getAllSchoolforAUser(userId)
+    val userSchools = UserSchool.getAllSchools(userSchoolsid)
+    for (userSchool <- userSchools) {
+      assosiatedSchoolsOfAUser ++= List(userSchool.assosiatedSchoolId)
+    }
+    if (assosiatedSchoolsOfAUser.contains(schoolId)) true else false
   }
 
 }

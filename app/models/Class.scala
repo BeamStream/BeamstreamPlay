@@ -64,8 +64,10 @@ object Class {
 
       var classIdList: List[ObjectId] = List()
       for (eachclass <- classList) {
-
-        if (!getClassByCode(eachclass).isEmpty) {
+//        println(eachclass.schoolId+"schoolId")
+//        val eligiblilityStatus = UserSchool.isUserEligibleForJoinAStream(userId, eachclass.schoolId)
+//        println(eligiblilityStatus)
+        if (!getClassByCode(eachclass).isEmpty){  // && eligiblilityStatus.equals(true)) {
           println("Join Stream Case")
           Stream.joinStream(getClassByCode(eachclass)(0).streams(0), userId)
           classIdList ++= List(getClassByCode(eachclass)(0).id)
@@ -133,7 +135,7 @@ object Class {
     }
     classes
   }
-  
+
   /*
    * Finding the class by Code
    */
