@@ -67,7 +67,7 @@ object ClassController extends Controller {
    *  
    */
 
-  def autoPopulateClassesbyName = Action { implicit request =>
+  def findClasstoAutoPopulatebyName = Action { implicit request =>
     val classNameMap = request.body.asFormUrlEncoded.get
     val className = classNameMap("data").toList(0)
     val assosiatedSchoolId = classNameMap("assosiatedSchoolId").toList(0)
