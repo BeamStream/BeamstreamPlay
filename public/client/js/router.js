@@ -243,6 +243,7 @@ BS.AppRouter = Backbone.Router.extend({
        $('#school-popup').html(BS.profileView.el);  
        $('.progress-container').hide();
        $(".modal select:visible").selectBox();
+       $(".radio").dgStyle();
        $('.modal .datepicker').datepicker();
        jQuery("#profile-form").validationEngine();
        
