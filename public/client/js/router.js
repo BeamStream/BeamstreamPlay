@@ -706,8 +706,8 @@ BS.AppRouter = Backbone.Router.extend({
                         
 //                        /*
 //                         *display Images in another view
-//                         *
-                         */
+//                         */
+                         
                         imageList: function(){
                            $('#content').children().detach();
                            BS.user.fetch({ success:function(e){
