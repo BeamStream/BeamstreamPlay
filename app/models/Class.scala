@@ -84,7 +84,8 @@ object Class {
   }
 
   /*
-   * Removes a class
+   * Delete A Class
+   * @Purpose Delete A Class
    */
   def deleteClass(myclass: Class) {
     ClassDAO.remove(myclass)
