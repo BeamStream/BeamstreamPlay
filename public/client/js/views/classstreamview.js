@@ -1,3 +1,4 @@
+
 BS.ClassStreamView = Backbone.View.extend({
 
 	events : {

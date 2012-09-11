@@ -1,3 +1,4 @@
+
 BS.ClassView = Backbone.View.extend({
 
 	events : {
