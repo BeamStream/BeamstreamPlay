@@ -33,8 +33,9 @@ object ClassController extends Controller {
   def addClass = Action { implicit request =>
     val classListJsonMap = request.body.asFormUrlEncoded.get
     val classJsonList = classListJsonMap("data").toList
-    println(classJsonList+"JSON")
+    println(classJsonList+"Class JSON")
     val classList = net.liftweb.json.parse(classJsonList(0)).extract[List[Class]]
+    println(classList+"Class LIST")
     val listOfClassIds = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
     (listOfClassIds.isEmpty) match {
       case true =>

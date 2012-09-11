@@ -52,8 +52,6 @@ object UserSchool {
     else {
       for (userSchool <- userSchools) {
 
-        println(userSchool)
-
         val userSchoolObtained = UserSchool.userSchoolsForAUser(userSchool.id)
 
         // Edit School Case
@@ -170,6 +168,7 @@ object UserSchool {
     if (schoolFetchCount == 0) false else true
   }
 
+  //TODO : Delete this method
   /*
    * For Join Stream Case Verification
    */
@@ -177,10 +176,12 @@ object UserSchool {
   def isUserEligibleForJoinAStream(userId: ObjectId, schoolId: ObjectId): Boolean = {
     var assosiatedSchoolsOfAUser: List[ObjectId] = List()
     val userSchoolsid = UserSchool.getAllSchoolforAUser(userId)
+    println("UserSchoolsIds"+userSchoolsid)
     val userSchools = UserSchool.getAllSchools(userSchoolsid)
     for (userSchool <- userSchools) {
-      assosiatedSchoolsOfAUser ++= List(userSchool.assosiatedSchoolId)
+      assosiatedSchoolsOfAUser ++=List(userSchool.assosiatedSchoolId)
     }
+    println("Schools Of A User"+assosiatedSchoolsOfAUser)
     if (assosiatedSchoolsOfAUser.contains(schoolId)) true else false
   }
 
