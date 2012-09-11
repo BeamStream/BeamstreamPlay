@@ -8,7 +8,7 @@ import com.novus.salat.annotations._
 import org.bson.types.ObjectId
 import com.mongodb.casbah.commons.MongoDBObject
 
-case class UserMedia(@Key("_id") id: ObjectId, userId: ObjectId, mediaUrl: String, contentType: UserMediaType.Value, isProfile: Boolean)
+case class UserMedia(@Key("_id") id: ObjectId, userId: ObjectId, mediaUrl: String, contentType: UserMediaType.Value, isPrimary: Boolean,isSecondary: Boolean)
 
 object UserMediaType extends Enumeration {
   val Image = Value(0, "Image")
