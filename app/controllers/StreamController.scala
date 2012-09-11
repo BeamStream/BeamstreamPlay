@@ -54,6 +54,10 @@ object StreamController extends Controller {
     Ok(allStreamsForAUserJson).as("application/json")
   }
 
+  
+  //TODO : This Functionality is now optimized to class methods(No More need of having separate sections)
+  /*
+  
   /*
    * Creates a class and a new Stream
    * @Purpose: This will create a new class & correspondent stream
@@ -102,6 +106,10 @@ object StreamController extends Controller {
     Ok(write(new ResulttoSent("Success", "User has SuccessFully Joined The Stream")))
   }
 
+
+
+*/
+  
   /*
    * Show the no. of users attending classes
    * @Purpose: For Showing no. of classes

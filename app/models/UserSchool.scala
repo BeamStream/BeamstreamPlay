@@ -171,7 +171,7 @@ object UserSchool {
   //TODO : Delete this method
   /*
    * For Join Stream Case Verification
-   */
+  
 
   def isUserEligibleForJoinAStream(userId: ObjectId, schoolId: ObjectId): Boolean = {
     var assosiatedSchoolsOfAUser: List[ObjectId] = List()
@@ -184,7 +184,8 @@ object UserSchool {
     println("Schools Of A User"+assosiatedSchoolsOfAUser)
     if (assosiatedSchoolsOfAUser.contains(schoolId)) true else false
   }
-
+ */
+  
 }
 
 object Year extends Enumeration {

@@ -42,7 +42,7 @@ object ClassController extends Controller {
         Ok(write(new ResulttoSent("Failure", "Duplicates Class Code or Name Provided")))
       case false =>
         User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
-        Ok(write(new ResulttoSent("Success", "Class added")))
+        Ok(write(new ResulttoSent("Success", "User has successfully added his classes")))
     }
 
   }

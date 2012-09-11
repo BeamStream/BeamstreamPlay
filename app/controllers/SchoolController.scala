@@ -49,9 +49,6 @@ object SchoolController extends Controller {
     val allSchools = School.getAllSchools
     Ok(write(allSchools)).as("application/json")
   }
-  
-  
  
-  
   
 }
