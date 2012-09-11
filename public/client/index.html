@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
@@ -1643,8 +1644,9 @@
                     <div class="form-row-label">1<sup>st</sup> class</div>
                       <div class="form-row short">
                      <div class="element">
-                     <label for="class-name-{{sCount}}-1">Class name <span class="star"> *</span></label>
+                     <label id="lb-class-name-{{sCount}}-1" value="">Class name <span class="star"> *</span></label>
                     <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium class_name" placeholder="Class 1 name">
+                    <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
                    </div>
                       
           <div class="element" id="div-time-{{sCount}}-1">
@@ -1676,8 +1678,9 @@
       <div class="form-row-label">2<sup>nd</sup> class</div>
       <div class="form-row short">
           <div class="element">
-              <label for="class-name-2">Class name</label>
+              <label id="lb-class-name-2" value = "">Class name</label>
               <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
+               <input type="hidden" value="" id="h-class-name-{{sCount}}-2">
          </div>
          <div class="element" id="div-time-{{sCount}}-2">
               <label for="class-time-2">Class time</label>
@@ -1709,8 +1712,9 @@
        <div class="form-row-label">3<sup>rd</sup> class</div>
        <div class="form-row short">
           <div class="element">
-               <label for="class-name-3">Class name</label>
+               <label id="lb-class-name-3" value="">Class name</label>
                <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
+                <input type="hidden" value="" id="h-class-name-{{sCount}}-3">
            </div>
           <div class="element" id="div-time-{{sCount}}-3">
                <label for="class-time-3">Class time</label>
@@ -1759,8 +1763,9 @@
        <div class="form-row-label">1<sup>st</sup> class</div>
        <div class="form-row short">
           <div class="element">
-              <label for="class-name-{{sCount}}-1">Class name <span class="star"> *</span></label>
+              <label id="lb-class-name-{{sCount}}-1" value="">Class name <span class="star"> *</span></label>
               <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium class_name" placeholder="Class 1 name">
+              <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
           </div>
           
           <div class="element" id="div-time-{{sCount}}-1">
@@ -1792,8 +1797,9 @@
       <div class="form-row-label">2<sup>nd</sup> class</div>
       <div class="form-row short">
          <div class="element">
-              <label for="class-name-2">Class name</label>
+              <label id="lb-class-name-2" value="">Class name</label>
               <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
+			 <input type="hidden" value="" id="h-class-name-{{sCount}}-2">
          </div>
          <div class="element" id="div-time-{{sCount}}-2">
               <label for="class-time-2">Class time</label>
@@ -1825,8 +1831,9 @@
        <div class="form-row-label">3<sup>rd</sup> class</div>
        <div class="form-row short">
           <div class="element">
-               <label for="class-name-3">Class name</label>
+               <label id="lb-class-name-3" value="">Class name</label>
                <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
+                <input type="hidden" value="" id="h-class-name-{{sCount}}-3">
            </div>
           <div class="element" id="div-time-{{sCount}}-3">
                <label for="class-time-3">Class time</label>

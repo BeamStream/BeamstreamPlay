@@ -1,3 +1,4 @@
+
 BS.ClassView = Backbone.View.extend({
 
 	events : {
@@ -248,19 +249,31 @@ BS.ClassView = Backbone.View.extend({
         BS.invalidItem ='';
         var validClass = true;
 		var classes = new BS.ClassCollection();
+		
 		for (var i=1; i<=sClasses; i++) 
 		{
 			for(var j=1; j<=3; j++)
 			{
+				var cId;
 				var classModel = new BS.Class();
 				
+					 
 				if($('#class-code-' + i + '-' + j).val() !="" && $('#class-name-' + i + '-' + j).val() !="" && $('#date-started-' + i + '-' + j).val() != "")
 				{
 					classId++;
+					if($('#h-class-name-'+ i + '-' + j).val())
+					{
+						cId = $('#h-class-name-'+ i + '-' + j).val();
+					}
+					else
+					{
+						cId = classId;
+					}
+					
 					classModel.set({
 						
 						schoolId :  $('#school-' + i).val(),
-						id : classId ,
+						id :  cId,
 						classCode : $('#class-code-' + i + '-' + j).val(),
 						classTime : $('#class-time-' + i + '-' + j).val(),
 						className : $('#class-name-' + i + '-' + j).val(),
@@ -314,7 +327,7 @@ BS.ClassView = Backbone.View.extend({
 		var identity = id.replace(/[^\d.,]+/,'');
 		var rowId = identity.replace(/([-]\d+)$/,'');
 		var selectedSchoolId = $('#school-' + rowId).val() ;
-		
+		self.displayFiledsForCode(text,identity);
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
@@ -361,7 +374,7 @@ BS.ClassView = Backbone.View.extend({
 		var identity = id.replace(/[^\d.,]+/,'');
 		var rowId = identity.replace(/([-]\d+)$/,'');
 		var selectedSchoolId = $('#school-' + rowId).val() ;
-		 
+		self.displayFiledsForCode(text,identity);
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
@@ -426,6 +439,8 @@ BS.ClassView = Backbone.View.extend({
 		 {
 //			 BS.newClassCode = false;
 			 this.classId = classId;
+			 
+			 $('#h-class-name-'+identity).val(classId);
 			 $('#class-name-'+identity).val(className);
 			 
 			 $('#date-started-'+identity).val(date);
@@ -490,6 +505,7 @@ BS.ClassView = Backbone.View.extend({
 		
 		var rowId = identity.replace(/([-]\d+)$/,'');
 		var selectedSchoolId = $('#school-' + rowId).val() ;
+		self.displayFieldsForName(text,identity);
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
@@ -534,6 +550,8 @@ BS.ClassView = Backbone.View.extend({
 		var identity = id.replace(/[^\d.,]+/,'');
 		var rowId = identity.replace(/([-]\d+)$/,'');
 		var selectedSchoolId = $('#school-' + rowId).val() ;
+		self.displayFieldsForName(text,identity);
+		
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
@@ -595,6 +613,8 @@ BS.ClassView = Backbone.View.extend({
 		 if(classStatus == true)
 		 {    
 			 this.classId = classId;
+			 
+			 $('#h-class-name-'+identity).val(classId);
 			 $('#class-code-'+identity).val(classCode);
 			 $('#date-started-'+identity).val(date);
 			 $('#semester-'+identity+' option:selected').attr('selected', false);
@@ -630,8 +650,9 @@ BS.ClassView = Backbone.View.extend({
 		 }
 		 else
 		 {
-              
+			  
 		     this.classId =1;
+		     
 		     $('#student-number-'+identity).fadeOut("medium"); 
 		     $('#class-code-'+identity).val("");
 			 $('#date-started-'+identity).val($.datepicker.formatDate('mm/dd/yy', new Date()));
