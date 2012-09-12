@@ -15,10 +15,15 @@ import models.ResulttoSent
 import models.ResulttoSent
 import models.UserType
 import org.bson.types.ObjectId
+import java.text.SimpleDateFormat
+import utils.EnumerationSerializer
+import utils.ObjectIdSerializer
 
 object BasicRegistration extends Controller {
 
-  implicit val formats = DefaultFormats
+  implicit val formats = new net.liftweb.json.DefaultFormats {
+    override def dateFormatter = new SimpleDateFormat("dd/MM/yyyy")
+  } + new ObjectIdSerializer
 
   /*
   * Basic Registration Permissions for a User  via Token authentication   
@@ -65,10 +70,10 @@ object BasicRegistration extends Controller {
         val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, "", password, schoolName, location, List(), List(), List(), List(),List())
         val IdOfUserCreted = User.createUser(userToCreate)
         val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
-        Ok(write(new ResulttoSent("Success", "SignUp Successfully"))).withSession(RegistrationSession)
+        val createdUser=User.findUserbyId(IdOfUserCreted)
+        Ok(write(createdUser)).withSession(RegistrationSession)
 
       case false =>
-
         Ok(write(new ResulttoSent("Failure", "Already registered")))
     }
 
