@@ -30,8 +30,9 @@ object StreamController extends Controller {
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
   def index = Action {
-    Ok("This is BeamStream Application by Knoldus Software LLP")
-
+  Redirect("/beamstream/home.html")
+    //Ok("This is BeamStream Application by Knoldus Software LLP")
+    	
   }
 
   /*
@@ -54,7 +55,6 @@ object StreamController extends Controller {
     Ok(allStreamsForAUserJson).as("application/json")
   }
 
-  
   //TODO : This Functionality is now optimized to class methods(No More need of having separate sections)
   /*
   
@@ -109,7 +109,7 @@ object StreamController extends Controller {
 
 
 */
-  
+
   /*
    * Show the no. of users attending classes
    * @Purpose: For Showing no. of classes
