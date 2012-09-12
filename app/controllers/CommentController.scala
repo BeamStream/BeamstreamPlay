@@ -13,6 +13,7 @@ import utils.ObjectIdSerializer
 import models.ResulttoSent
 import models.Comment
 import models.ResulttoSent
+import models.CommentConsumer
 
 object CommentController extends Controller {
 
@@ -102,6 +103,16 @@ def getCommentsFromId(commentIds: List[ObjectId]): List[Comment] = {
     comments
     
 }
+
+
+///**
+// * Vikas's
+// */
+// def addCommentFromUI(id: ObjectId, commentId: ObjectId) {
+//    val consumers: List[CommentConsumer] = List(Message, Document)
+//    consumers.view.map(_.addComment(id, commentId))
+//  }
+// 
   /*
    * Rocking a comment
    */

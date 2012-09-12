@@ -28,7 +28,7 @@ import java.net.URL
  * Restricted - Available to a restricted list of users
  * Stream - Available to all the Sub-streams and current members of this stream
  */
-object DocumentAccess extends Enumeration {
+object DocumentAccess extends Enumeration{
   type DocumentAccess = Value
   val Private = Value(0, "Private")
   val Public = Value(1, "Public")
