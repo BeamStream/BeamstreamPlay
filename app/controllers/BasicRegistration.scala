@@ -71,7 +71,7 @@ object BasicRegistration extends Controller {
         val IdOfUserCreted = User.createUser(userToCreate)
         val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
         val createdUser=User.findUserbyId(IdOfUserCreted)
-        Ok(write(createdUser)).withSession(RegistrationSession)
+        Ok(write(List(createdUser))).withSession(RegistrationSession)
 
       case false =>
         Ok(write(new ResulttoSent("Failure", "Already registered")))
