@@ -33,9 +33,7 @@ object ClassController extends Controller {
   def addClass = Action { implicit request =>
     val classListJsonMap = request.body.asFormUrlEncoded.get
     val classJsonList = classListJsonMap("data").toList
-    println(classJsonList+"Class JSON")
     val classList = net.liftweb.json.parse(classJsonList(0)).extract[List[Class]]
-    println(classList+"Class LIST")
     val listOfClassIds = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
     (listOfClassIds.isEmpty) match {
       case true =>
@@ -57,7 +55,6 @@ object ClassController extends Controller {
     val classCodeMap = request.body.asFormUrlEncoded.get
     val classCode = classCodeMap("data").toList(0)
     val assosiatedSchoolId = classCodeMap("assosiatedSchoolId").toList(0)
-    //val userSchoolIdList = UserSchool.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
     val classList = Class.findClassByCode(classCode, new ObjectId(assosiatedSchoolId))
     val classListJson = write(classList)
     Ok(classListJson).as("application/json")
@@ -73,7 +70,6 @@ object ClassController extends Controller {
     val classNameMap = request.body.asFormUrlEncoded.get
     val className = classNameMap("data").toList(0)
     val assosiatedSchoolId = classNameMap("assosiatedSchoolId").toList(0)
-    //val userSchoolIdList = UserSchool.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
     val classList = Class.findClassByName(className, new ObjectId(assosiatedSchoolId))
     val classListJson = write(classList)
     Ok(classListJson).as("application/json")
