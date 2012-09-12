@@ -13,7 +13,9 @@ BS.MediaRegistrationView = Backbone.View.extend({
 		console.log('Initializing Basic Registration via Social site ');
 		this.source = $("#tpl-profile-socialmedia").html();
 		this.template = Handlebars.compile(this.source);
-
+		// for edit user details
+		BS.regInfo = '';
+		BS.regBack = false;
 	},
 
 	render : function(eventName) {
@@ -60,7 +62,17 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	    	   			},
 	    	   			dataType : "json",
 	    	   			success : function(data) {
-	    	   				if (data.status == "Success") {
+	    	   				if (data.status) {
+	    	   					
+	    	   					if(data.status == "Failure")
+	    	   				    	$('#error').html("This User Email or Name is already taken");
+	    	   				} 
+	    	   				else 
+	    	   				{
+	    	   					BS.regInfo = '';
+	    	   					BS.regBack = false;
+	    	   				    //set status for school back page
+	    						BS.resistrationPage = " ";
 	    	   					
 	    	   					BS.schoolFromPrev =  $('#school-name').val();
 	    	   					// navigate to main stream page
@@ -69,8 +81,6 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	    	   						 
 	    	   					});
 	    	   					console.log(data.message);
-	    	   				} else {
-	    	   					$('#error').html("This User Email or Name is already taken");
 	    	   				}
 	    	
 	    	   			}
@@ -175,9 +185,21 @@ BS.MediaRegistrationView = Backbone.View.extend({
 						},
 						dataType : "json",
 						success : function(data) {
-							if (data.status == "Success") {
+							if (data.status) {
+								
+								if(data.status == "Failure")
+	    	   				    	$('#error').html("This User Email or Name is already taken");
+								
+							} 
+							else 
+							{
+								BS.regInfo = data;
+								BS.regBack = true;
+								//set status for school back page
+	    						BS.resistrationPage = "media";
 								
 								BS.editSchool = false;
+								
 								// save school name 
 								BS.schoolFromPrev =  $('#school-name').val();
 								
@@ -186,9 +208,6 @@ BS.MediaRegistrationView = Backbone.View.extend({
 									trigger : true,
 									 
 								});
-								
-							} else {
-								$('#error').html("This User Email or Name is already taken");
 							}
 			
 						}
