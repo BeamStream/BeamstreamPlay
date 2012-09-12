@@ -12,7 +12,6 @@ BS.RegistrationView = Backbone.View.extend({
 		this.source = $("#tpl-basic-profile").html();
 		this.template = Handlebars.compile(this.source);
 		// for edit user details
-		localStorage["regInfo"] ='';
 		BS.regBack = false;
 
 	},
@@ -100,8 +99,19 @@ BS.RegistrationView = Backbone.View.extend({
 		} else {
 			useCurrentLocation = false;
 		}
-        
+        if($('#user_Id').val())
+        {
+        	var id = $('#user_Id').val();
+        	this.iam = BS.iam;
+   		    this.mailId = BS.email;
+        	
+        }
+        else
+        {
+        	var id = 1;
+        }
 		basicProfile.set({
+			id : id,
 			iam : this.iam,
 			email : this.mailId,
 			schoolName : $('#school-name').val(),

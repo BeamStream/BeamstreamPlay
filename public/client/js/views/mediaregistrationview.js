@@ -69,7 +69,8 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	    	   				} 
 	    	   				else 
 	    	   				{
-	    	   					BS.regInfo = '';
+	    	   				    //for edit user info
+	    	   					localStorage["regInfo"] ='';
 	    	   					BS.regBack = false;
 	    	   				    //set status for school back page
 	    						BS.resistrationPage = " ";
@@ -121,12 +122,23 @@ BS.MediaRegistrationView = Backbone.View.extend({
          if(schoolEmail.match(emailregex))
          {
         	 
+        	 if($('#user-id').val())
+             {
+             	var id = $('#user-id').val();
+             	 
+             }
+             else
+             {
+             	var id = 1;
+             }
         	var datas = BS.JsonFromSocialSite;
+        	 
 			basicProfile.set({
+				id : id,
 				iam : $('#iam').val(),
 				email : $('#school-email').val(),
 				schoolName : $('#school-name').val(),
-				userName : datas.profile.preferredUsername,
+				userName : localStorage["preferredUsername"],
 				password : "",
 				firstName : $('#first-name').val(),
 				lastName : $('#last-name').val(),
@@ -193,7 +205,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 							} 
 							else 
 							{
-								BS.regInfo = data;
+								localStorage["regInfo"] =JSON.stringify(data); 
 								BS.regBack = true;
 								//set status for school back page
 	    						BS.resistrationPage = "media";

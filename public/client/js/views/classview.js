@@ -310,7 +310,7 @@ BS.ClassView = Backbone.View.extend({
      */
     backToPrevious :function(eventName){
       eventName.preventDefault();
-      
+       
       localStorage["SchoolDetails"] = JSON.stringify(this.schools); 
       
       BS.AppRouter.navigate("school", {trigger: true});

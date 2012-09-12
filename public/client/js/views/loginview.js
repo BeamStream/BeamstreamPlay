@@ -127,6 +127,7 @@ BS.LoginView = Backbone.View.extend({
      */
     registration :function(eventName){
     	 eventName.preventDefault();
+    	 
     	 BS.AppRouter.navigate("emailVerification", {trigger: true});
     },
     /**

@@ -1,7 +1,7 @@
 BS.BasicProfile = Backbone.Model.extend({
      
         defaults: {
-        	
+        	id:null,
         	iam:null,
         	email:null,
             schoolName:null,
