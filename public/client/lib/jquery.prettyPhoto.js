@@ -693,6 +693,8 @@
 				return 'iframe';
 			}else if(itemSrc.indexOf('.mp4') != -1){
 				return 'flv';
+			}else if(itemSrc.indexOf('.3gp') != -1){
+				return 'flv';
 			}else if(itemSrc.indexOf('.flv') != -1){
 				return 'flv';
 			}else if (itemSrc.match(/\bajax=true\b/i)) {
