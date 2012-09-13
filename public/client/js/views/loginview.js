@@ -60,6 +60,7 @@ BS.LoginView = Backbone.View.extend({
 							    			}
 							    			
 							    			 console.log(data.status + " : " + data.message);
+							    			 $(".star").hide();
 							    			 BS.AppRouter.navigate("streams", {trigger: true});
 							    		}
 							    		else 

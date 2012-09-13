@@ -10,7 +10,9 @@ BS.ProfileView = Backbone.View.extend({
 	       'keyup #mobile' : "checkNumber",
 	      'focusout #mobile' : "arragePhone",
 	      'click .close-button' : "closeScreen",
-	      'click .back' :'backToPrevious'
+	      'click .back' :'backToPrevious',
+	      'click .pfofile-radio': "selectImageStatus",
+	      
 	 },
 	 
     initialize:function () {
@@ -26,7 +28,7 @@ BS.ProfileView = Backbone.View.extend({
         BS.num = {};
         BS.digits = 0;
         BS.bar = $('.bar');
-        
+        $(".radio").dgStyle();
         //remove the janrain component if it already exists
         if($('#janrain-share'))
          $('#janrain-share').remove();
@@ -132,14 +134,16 @@ BS.ProfileView = Backbone.View.extend({
 	    		    }
 	    		    BS.bar.text( BS.bar.width()/4 + "%");
 	    		}, 800);
-	         
-	    		 
+	    		
+	    		
 	    		var data;
 	        	data = new FormData();
 	     	    data.append('imageData', this.image);
 	     	    data.append('videoData', this.video);
 	     		data.append('mobile',$('#mobile').val());
 	     		data.append('upload',$('#upload').val());
+//	     		data.append('imageStatus', $('input[name=img-status]:checked').val());
+//	     		data.append('videoStatus', $('input[name=video-status]:checked').val());
 	     		 
 	     		
 	        	/* post profile page details */
@@ -158,7 +162,7 @@ BS.ProfileView = Backbone.View.extend({
 	        	    	    BS.bar.width(400);
 	        	    	    BS.bar.text("100%");
 	        	    	    clearInterval(BS.progress);
-
+	        	    	    $(".star").hide();
 	        	    	   // navigate to main stream page after a tome period
 	        	    	    setTimeout(function() {
 	        	    	    	BS.AppRouter.navigate("streams", {trigger: true});
@@ -406,6 +410,7 @@ BS.ProfileView = Backbone.View.extend({
      */
     backToPrevious :function(eventName){
       eventName.preventDefault();
+      $(".star").hide();
   	  BS.AppRouter.navigate("class", {trigger: true});
     },
     
@@ -414,9 +419,32 @@ BS.ProfileView = Backbone.View.extend({
      */
     closeScreen : function(eventName){
   	  eventName.preventDefault(); 
+  	$(".star").hide();
   	  BS.AppRouter.navigate('streams', {trigger: true});
-    }
-	
-	
+    },
+	/**
+	 * select primary/secondary status of image/video
+	 */
+    selectImageStatus :function(eventName){
+    	var id = eventName.target.id;
+        if(id == "img-primary") 
+        {
+        	$('#video-secondary').attr("checked","checked");
+        }
+        else if(id == "img-secondary")
+        {
+        	$('#video-primary').attr("checked","checked");
+        }
+        else if(id == 'video-primary')
+        {
+        	$('#img-secondary').attr("checked","checked");
+        }
+        else
+        {
+        	$('#img-primary').attr("checked","checked");
+        }
+    	
+    },
+   
     
 });

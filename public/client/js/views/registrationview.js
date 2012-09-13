@@ -65,6 +65,7 @@ BS.RegistrationView = Backbone.View.extend({
     						
     	   					// navigate to main stream page
     	   					BS.schoolFromPrev =  $('#school-name').val();
+    	   					$(".star").hide();
     	   					BS.AppRouter.navigate("streams", {
     	   						trigger : true,
     	   						 
@@ -162,7 +163,7 @@ BS.RegistrationView = Backbone.View.extend({
 						BS.resistrationPage = "basic";
 	   					 
 						BS.schoolFromPrev =  $('#school-name').val();
-						
+						$(".star").hide();
 						// navigate to main stream page
 						BS.AppRouter.navigate("school", {trigger : true,});
 					}
@@ -182,6 +183,7 @@ BS.RegistrationView = Backbone.View.extend({
 	 */
 	closeScreen : function(eventName){
 	  eventName.preventDefault(); 
+	  $(".star").hide();
   	  BS.AppRouter.navigate('login', {trigger: true});
 	}
 });

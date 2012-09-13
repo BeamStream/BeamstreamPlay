@@ -71,7 +71,7 @@ BS.StreamView = Backbone.View.extend({
 		BS.pageForKeyword = 1;
 		BS.pageLimit = 10;
 	    var self = this;
-	    
+	    $(".star").hide();
 		$(window).bind('scroll', function (ev) {
 			 
 			var streamPage = $('nav li.active').attr('id');

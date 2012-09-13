@@ -64,6 +64,7 @@ BS.ClassView = Backbone.View.extend({
 								$('.studentno-popup-class').fadeOut("medium"); 
 								BS.schoolBack = false;
 								// navigate to main stream page
+								$(".star").hide();
 								BS.AppRouter.navigate("streams", {trigger: true});
 							}
 							else
@@ -164,7 +165,7 @@ BS.ClassView = Backbone.View.extend({
 						{
 							$('.studentno-popup-class').fadeOut("medium"); 
 							BS.editProfile = false;
-							
+							$(".star").hide();
 							// navigate to main stream page
 							BS.AppRouter.navigate("profile", {trigger: true});
 						}
@@ -312,7 +313,7 @@ BS.ClassView = Backbone.View.extend({
       eventName.preventDefault();
        
       localStorage["SchoolDetails"] = JSON.stringify(this.schools); 
-      
+      $(".star").hide();
       BS.AppRouter.navigate("school", {trigger: true});
     },
     
@@ -667,6 +668,7 @@ BS.ClassView = Backbone.View.extend({
      */
     closeScreen : function(eventName){
   	  eventName.preventDefault(); 
+  	  $(".star").hide();
   	  BS.AppRouter.navigate('streams', {trigger: true});
     },
     /**

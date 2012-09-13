@@ -119,6 +119,7 @@ BS.SchoolView = Backbone.View.extend({
                     	{
 	                    	BS.schoolBack = false;
 	                    	BS.schoolFromPrev ='';
+	                    	$(".star").hide();
 	        				 // navigate to main stream page
 	                    	BS.AppRouter.navigate("streams", {trigger: true});
                     	}
@@ -180,6 +181,7 @@ BS.SchoolView = Backbone.View.extend({
 	            	  BS.schoolBack = true;
 	            	  BS.editClass = false;
 	            	  BS.schoolFromPrev = '';
+	            	  $(".star").hide();
 	            	  BS.AppRouter.navigate("class", {trigger: true});
 	            	  
                   	}
@@ -370,13 +372,15 @@ BS.SchoolView = Backbone.View.extend({
 	       * back button function
 	       */
 	      backToPrevious :function(eventName){
-	    	  eventName.preventDefault();  
+	    	  eventName.preventDefault(); 
+	    	  $(".star").hide();
               if(BS.resistrationPage == "basic")
               {
             	  var token = BS.token;
             	  var iam = BS.iam;
             	  var email = BS.email;
             	  var navUrl = 'basicRegistration/token/'+token+'/iam/'+iam+'/emailId/'+email;
+            	  
             	  BS.AppRouter.navigate(navUrl, {trigger: true});
               }
               if(BS.resistrationPage == "media")
@@ -389,6 +393,7 @@ BS.SchoolView = Backbone.View.extend({
 	      
 	      closeScreen : function(eventName){
 	    	  eventName.preventDefault(); 
+	    	  $(".star").hide();
 	    	  BS.AppRouter.navigate('streams', {trigger: true});
 	      }
 });

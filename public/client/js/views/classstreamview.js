@@ -256,7 +256,7 @@ BS.ClassStreamView = Backbone.View.extend({
 					 // get all streams with newly created one
 					 var mainView = new BS.StreamView();
 					 mainView.getStreams();
-	
+					 $(".star").hide();
 					 BS.AppRouter.navigate("streams", {trigger: true});
 				}
 				else
@@ -330,6 +330,7 @@ BS.ClassStreamView = Backbone.View.extend({
 				{
 					  $('#student-number').fadeOut("medium");
 					  alert(data.message);
+					  $(".star").hide();
 					  BS.AppRouter.navigate("streams", {trigger: true});
 				}
 				else
@@ -357,7 +358,8 @@ BS.ClassStreamView = Backbone.View.extend({
      * close class stream screen
      */
     closeScreen :function(eventName){
-  	  eventName.preventDefault();  
+  	  eventName.preventDefault(); 
+  	  $(".star").hide();
       BS.AppRouter.navigate("streams", {trigger: true});
     },
     /**
