@@ -43,20 +43,31 @@ case class Message(@Key("_id") id: ObjectId,
   follows: Int,
   followers: List[ObjectId])
 
-object Message {
+object Message{         //  extends CommentConsumer{
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
 
-  /*
+  /**
+   * Vikas's
+   */
+  def addComment(id:ObjectId, text:String){
+    
+    // find message with object Id
+    //if found add comment 
+  }  
+  
+  /**
    * Create a new message
    */
-
   def createMessage(message: Message): ObjectId = {
     val messageId = MessageDAO.insert(message)
     messageId.get
 
   }
 
+  /**
+   * 
+   */
   private def validateUserHasRightToPost(userId: ObjectId, streamId: ObjectId): Boolean = {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     stream.usersOfStream.contains(userId)
@@ -66,10 +77,9 @@ object Message {
     MessageDAO.remove(message)
   }
 
-  /*
+  /**
    * Get all messages fro a stream
    */
-
   def getAllMessagesForAStream(streamId: ObjectId): List[Message] = {
     val messsages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList
     messsages
