@@ -55,19 +55,17 @@ object Class {
     }
 
     //Class Creation Starts Here by calling the duplicate code validation method
-
-    //if (duplicateExistes(classList) == true) List()
-    //else 
     if (duplicateClassExistesInSubmittedList(classList) == true) List()
 
     else {
 
       var classIdList: List[ObjectId] = List()
-      for (eachclass <- classList) {
 
-        if (!getClassByCode(eachclass).isEmpty) {
+      for (eachclass <- classList) {
+        val classesobtained = Class.findClassListById(eachclass.id)
+        if (!classesobtained.isEmpty) {
           println("Join Stream Case")
-          Stream.joinStream(getClassByCode(eachclass)(0).streams(0), userId)
+          Stream.joinStream(classesobtained(0).streams(0), userId)
           classIdList ++= List(getClassByCode(eachclass)(0).id)
         } else {
           println("Create class Case")
@@ -86,7 +84,8 @@ object Class {
   }
 
   /*
-   * Removes a class
+   * Delete A Class
+   * @Purpose Delete A Class
    */
   def deleteClass(myclass: Class) {
     ClassDAO.remove(myclass)
@@ -100,24 +99,6 @@ object Class {
     val regexp = (""".*""" + name + """.*""").r
     for (theclass <- ClassDAO.find(MongoDBObject("className" -> regexp)).toList) yield theclass
   }
-
-  //  /*
-  //   * Finding the class by Code
-  //   */
-  //
-  //  def findClassByCode(code: String, userSchoolIdList: List[ObjectId]): List[Class] = {
-  //    var classes: List[Class] = List()
-  //    for (userSchoolId <- userSchoolIdList) {
-  //      val userSchool = UserSchool.getUserSchoolById(userSchoolId)
-  //      val classFound = ClassDAO.find(MongoDBObject("schoolId" -> userSchool.assosiatedSchoolId)).toList
-  //      (classFound.isEmpty) match {
-  //        case true =>
-  //        case false => classes ++= classFound
-  //      }
-  //
-  //    }
-  //    classes
-  //  }
 
   /*
    * Finding the class by Code
@@ -133,7 +114,7 @@ object Class {
     }
     classes
   }
-  
+
   /*
    * Finding the class by Code
    */
@@ -173,6 +154,15 @@ object Class {
 
   def findClasssById(classId: ObjectId): Class = {
     val classObtained = ClassDAO.find(MongoDBObject("_id" -> classId)).toList(0)
+    classObtained
+  }
+
+  /*
+   * Find a class List by Id
+   */
+
+  def findClassListById(classId: ObjectId): List[Class] = {
+    val classObtained = ClassDAO.find(MongoDBObject("_id" -> classId)).toList
     classObtained
   }
 

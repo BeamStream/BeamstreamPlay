@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
@@ -1639,8 +1640,11 @@
                     <div class="form-row-label">1<sup>st</sup> class</div>
                       <div class="form-row short">
                      <div class="element">
+
                      <label for="class-name-{{sCount}}-1">Class name <span class="star"> </span></label>
+
                     <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium class_name" placeholder="Class 1 name">
+                    <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
                    </div>
                       
           <div class="element" id="div-time-{{sCount}}-1">
@@ -1672,8 +1676,9 @@
       <div class="form-row-label">2<sup>nd</sup> class</div>
       <div class="form-row short">
           <div class="element">
-              <label for="class-name-2">Class name</label>
+              <label id="lb-class-name-2" value = "">Class name</label>
               <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
+               <input type="hidden" value="" id="h-class-name-{{sCount}}-2">
          </div>
          <div class="element" id="div-time-{{sCount}}-2">
               <label for="class-time-2">Class time</label>
@@ -1705,8 +1710,9 @@
        <div class="form-row-label">3<sup>rd</sup> class</div>
        <div class="form-row short">
           <div class="element">
-               <label for="class-name-3">Class name</label>
+               <label id="lb-class-name-3" value="">Class name</label>
                <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
+                <input type="hidden" value="" id="h-class-name-{{sCount}}-3">
            </div>
           <div class="element" id="div-time-{{sCount}}-3">
                <label for="class-time-3">Class time</label>
@@ -1755,8 +1761,11 @@
        <div class="form-row-label">1<sup>st</sup> class</div>
        <div class="form-row short">
           <div class="element">
+
               <label for="class-name-{{sCount}}-1">Class name <span class="star"> </span></label>
+
               <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium class_name" placeholder="Class 1 name">
+              <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
           </div>
           
           <div class="element" id="div-time-{{sCount}}-1">
@@ -1788,8 +1797,9 @@
       <div class="form-row-label">2<sup>nd</sup> class</div>
       <div class="form-row short">
          <div class="element">
-              <label for="class-name-2">Class name</label>
+              <label id="lb-class-name-2" value="">Class name</label>
               <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
+			 <input type="hidden" value="" id="h-class-name-{{sCount}}-2">
          </div>
          <div class="element" id="div-time-{{sCount}}-2">
               <label for="class-time-2">Class time</label>
@@ -1821,8 +1831,9 @@
        <div class="form-row-label">3<sup>rd</sup> class</div>
        <div class="form-row short">
           <div class="element">
-               <label for="class-name-3">Class name</label>
+               <label id="lb-class-name-3" value="">Class name</label>
                <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
+                <input type="hidden" value="" id="h-class-name-{{sCount}}-3">
            </div>
           <div class="element" id="div-time-{{sCount}}-3">
                <label for="class-time-3">Class time</label>
@@ -1921,7 +1932,12 @@
                               
                             
                         </div>
-                        
+                        <div class ="make-it">
+                        <ul class="add-type">
+                        <li><div class="radio"><input type="radio" name="profile-type" /></div><span>Make it Primary</span></li>
+					    <li><div class="radio"><input type="radio" name="profile-type" /></div><span>Make It Secondary</span></li>
+                        </ul>
+                       </div>
                     </div>
                     <div class="element last">
                         <label for="profile-video">Profile video</label>
@@ -1932,6 +1948,11 @@
 							<input type="file" name="my-video" id="my-video"/>
                              <div style="margin-top:10px;" id="remove-video" ><div id="video-info" style="display:none;"></div> <a style="display:none;" class ="delete-video" href="#" ><img src="images/close button1.png"></a> </div>
                         </div>
+                         <div class ="make-it">
+                        <ul class="add-type">
+                        <li><div class="radio"><input type="radio" name="video-type" /></div><span>Make it Primary</span></li>
+					    <li><div class="radio"><input type="radio" name="video-type" /></div><span>Make It Secondary</span></li>
+                        </ul>
                     </div>
                 </div>
 
@@ -2691,8 +2712,59 @@
 </div>
 </script>
 
+<!-- basic profile registration  to  edit-->
+ <script type="text/x-handlebars-template" id="basic-profile">
+         
+          <div class="center_form">
+ 			<div id="error" class= "invalid-validation"  style=" margin-bottom: 18px !important; margin-left: 152px;"></div>
+      
+        <div class="element" style="margin-top:25px;" >
+              <input type= "hidden" id="user_Id" value ="{{data.id.id}}">
+              <label for="school-name">School name <span class="star"> *</span></label>
+              <input type="text" id="school-name" placeholder="" value="{{data.orgName}}" class="validate[required] span3">
+            </div>
+        <div class="element">
+              <label for="user-name">User Name <span class="star"> *</span><br/>
+            http://www.beamstream.com/</label>
+              <input type="text" id="user-name" value="{{data.userName}}"  class="validate[required] span3">
+            </div>
+          <div class="element">
+              <label for="password">Password <span class="star"> *</span><br/></label>
+              <input type="password" id="password" placeholder="password" value ="" class="validate[required] span3"> 
+            </div>
+        <div class="element">
+              <label for="first-name">First Name <span class="star"> *</span></label>
+              <input type="text" id="first-name" value="{{data.firstName}}" class="validate[required] span3">
+            </div>
+        <div class="element">
+              <label for="last-name">Last Name <span class="star"> *</span></label>
+              <input type="text" id="last-name"value="{{data.lastName}}" class="validate[required] span3">
+            </div>
+        <div class="element">
+              <label for="location">Location <span class="star"> *</span></label>
+              <input type="text" id="location" value="{{data.location}}" class="validate[required] span3">
+            </div>
+        <div class="element">
+              <label for="current-location"></label>
+            
+        <div class="checkbox_wrapper">
+              <h3>OR</h3>
+		      <div class="checkbox">
+				<input id="useCurrentLocation" type="checkbox">
+			</div>
+              Use Current Location </div>
+      </div>
+        </div>  
+          <div class="form-row-label">
+        <div class="modal-footer"> 
+          <a href="#" id="save" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a> 
+          <a href="#" id="continue" class="btn btn-success pull-right" data-dismiss="modal">Continue</a> </div>
+      </div>
+    
+</script>
 
-<!-- basic profile registration -->
+
+<!-- basic profile registration -social media-->
  <script type="text/x-handlebars-template" id="tpl-profile-socialmedia">
 <div class="modal-backdrop in"></div>
     <div class="modal main-popups  modal-pull-top in modal-popups" style="display:block;">
@@ -2785,6 +2857,102 @@
     </form>
   </div>
 </div>
+</script>
+
+
+<!-- basic profile registration -social media-- to edit user info -->
+ <script type="text/x-handlebars-template" id="profile-socialmedia">
+ 
+        <div class="basic_profile_form_wrapper2">
+          <div class="basic_profile_form">
+
+<div id="error" class= "invalid-validation"  style=" margin-bottom: 18px !important; margin-left: 152px;"></div>
+ 
+            <div class="element">
+             <label for="iam">I'm <span class="star"> *</span></label>
+                <select id="iam" class="large">
+                  <option value= "">-- I'm --</option>
+                        {{#if student}}
+						   <option value="0" selected="selected">Student</option>
+                        {{else}}
+                             <option value="0" >Student</option>
+                        {{/if}}
+						{{#if educator}}
+ 							 <option value="1" selected="selected">Educator</option>
+                        {{else}}
+						  <option value="1">Educator</option>
+                        {{/if}}
+						{{#if professional}}
+							<option value="2"  selected="selected">Professional</option>
+                        {{else}}
+						   <option value="2">Professional</option>
+                        {{/if}}
+                </select>
+            </div>
+            <div class="element">
+              <input type="hidden" id="user-id" value="{{data.id.id}}">
+              <label for="school-name">School Name <span class="star"> *</span></label>
+              <input type="text" id="school-name"  value="{{data.orgName}}" class="validate[required] span3">
+            </div>
+            <div class="element">
+              <label for="school-email">School Email <span class="star"> *</span></label>
+              <input type="text" id="school-email" value="{{data.email}}" class="validate[required] span3">
+            </div>
+            <div class="element">
+              <label for="first-name">First Name <span class="star"> *</span></label>
+              <input type="text" id="first-name" value="{{data.firstName}}" class="validate[required] span3">
+            </div>
+            <div class="element">
+              <label for="last-name">Last Name <span class="star"> *</span></label>
+              <input type="text" id="last-name" value="{{data.lastName}}" class="validate[required] span3">
+            </div>
+            <div class="element">
+              <label for="location">Location <span class="star"> *</span></label>
+              <input type="text" id="location" value="{{data.location}}" class="validate[required] span3">
+            </div>
+            <div class="element">
+              <label for="location"></label>
+              <div class="checkbox_wrapper">
+                <h3>OR</h3>
+                <div class="checkbox">
+                  <input id="useCurrentLocation" type="checkbox">
+                </div>
+                Use Current Location </div>
+            </div>
+          </div>
+          <div class="basic_profile_form2">
+            <div class="element">
+              <label for="school-mail"></label>
+              <div class="checkbox_wrapper">
+                <div id ="no-schoolmail" class="checkbox">
+                  <input id="schoolmail" type="checkbox">
+                </div>
+                I don't have a school email </div>
+              <div id ="school-record">
+              <div class="element">
+                <p>No school email address?
+                  For Security Reasons,
+                  tell us why & how to verify.</p>
+                <a class="hand_button" href="#"></a> </div>
+              <div class="element">
+                <textarea class="textarea"></textarea>
+              </div>
+              <div class="element">
+                <h3>Attach a school record.</h3>
+                <h3>This ensures speedy approval.</h3>
+              </div>
+              <div class="element">
+                <div class="file-upload-box"><input type="file"></div>
+              </div>
+              <div class="element"> <a href="#" class="btn btn-success pull-right">Request approval</a> </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row-label">
+          <div class="modal-footer"> <a href="#" id ="save" class="btn btn-primary pull-left" data-dismiss="modal">Save & Exit</a> <a href="#" id ="continue" class="btn btn-success pull-right">Continue</a> </div>
+        </div>
+      
 </script>
 
 <!-- verify emails -->
@@ -3107,7 +3275,8 @@
 			                        	  }
 			                        	      
 				                        	  BS.JsonFromSocialSite = res;
-			
+				                        	  if(res.profile.preferredUsername)
+				                        	     localStorage["preferredUsername"]=res.profile.preferredUsername;
 				                        	  var loginModel = new BS.Login();
 				                        	  loginModel.set({
 				                                	email : res.profile.preferredUsername,

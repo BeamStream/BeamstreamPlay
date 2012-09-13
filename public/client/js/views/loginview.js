@@ -127,7 +127,9 @@ BS.LoginView = Backbone.View.extend({
      */
     registration :function(eventName){
     	 eventName.preventDefault();
+
          $(".star").hide();
+
     	 BS.AppRouter.navigate("emailVerification", {trigger: true});
     },
     /**
@@ -136,5 +138,5 @@ BS.LoginView = Backbone.View.extend({
     showRecoverPage : function(eventName){
    	 eventName.preventDefault();
 	 BS.AppRouter.navigate("recoverAccount", {trigger: true});
-},
+}
 });

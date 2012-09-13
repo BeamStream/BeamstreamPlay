@@ -41,7 +41,7 @@ object MediaController extends Controller {
           val imageNameOnAmazon = uniqueString + imageFilename // Security Over the images files
           AmazonUpload.uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
           val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
-          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, UserMediaType.Image, false)
+          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, UserMediaType.Image, false,false)
           UserMedia.saveMediaForUser(media)
           ProfileImageProviderCache.setImage(media.userId.toString,media.mediaUrl)
           // For MongoDB
@@ -67,7 +67,7 @@ object MediaController extends Controller {
           val videoFileNameOnnAmazon = uniqueString + videoFilename // Security Over the videos files
           AmazonUpload.uploadFileToAmazon(videoFileNameOnnAmazon, videoFileObtained)
           val videoURL = "https://s3.amazonaws.com/BeamStream/" + videoFileNameOnnAmazon
-          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), videoURL, UserMediaType.Video, false)
+          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), videoURL, UserMediaType.Video, false,false)
           UserMedia.saveMediaForUser(media)
           /*
       val profileVideo: File = videoData.ref.file.asInstanceOf[File]

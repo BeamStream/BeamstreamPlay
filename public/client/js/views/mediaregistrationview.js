@@ -13,7 +13,9 @@ BS.MediaRegistrationView = Backbone.View.extend({
 		console.log('Initializing Basic Registration via Social site ');
 		this.source = $("#tpl-profile-socialmedia").html();
 		this.template = Handlebars.compile(this.source);
-
+		// for edit user details
+		BS.regInfo = '';
+		BS.regBack = false;
 	},
 
 	render : function(eventName) {
@@ -60,7 +62,18 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	    	   			},
 	    	   			dataType : "json",
 	    	   			success : function(data) {
-	    	   				if (data.status == "Success") {
+	    	   				if (data.status) {
+	    	   					
+	    	   					if(data.status == "Failure")
+	    	   				    	$('#error').html("This User Email or Name is already taken");
+	    	   				} 
+	    	   				else 
+	    	   				{
+	    	   				    //for edit user info
+	    	   					localStorage["regInfo"] ='';
+	    	   					BS.regBack = false;
+	    	   				    //set status for school back page
+	    						BS.resistrationPage = " ";
 	    	   					
 	    	   					BS.schoolFromPrev =  $('#school-name').val();
 	    	   					// navigate to main stream page
@@ -69,8 +82,6 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	    	   						 
 	    	   					});
 	    	   					console.log(data.message);
-	    	   				} else {
-	    	   					$('#error').html("This User Email or Name is already taken");
 	    	   				}
 	    	
 	    	   			}
@@ -111,12 +122,23 @@ BS.MediaRegistrationView = Backbone.View.extend({
          if(schoolEmail.match(emailregex))
          {
         	 
+        	 if($('#user-id').val())
+             {
+             	var id = $('#user-id').val();
+             	 
+             }
+             else
+             {
+             	var id = 1;
+             }
         	var datas = BS.JsonFromSocialSite;
+        	 
 			basicProfile.set({
+				id : id,
 				iam : $('#iam').val(),
 				email : $('#school-email').val(),
 				schoolName : $('#school-name').val(),
-				userName : datas.profile.preferredUsername,
+				userName : localStorage["preferredUsername"],
 				password : "",
 				firstName : $('#first-name').val(),
 				lastName : $('#last-name').val(),
@@ -175,9 +197,21 @@ BS.MediaRegistrationView = Backbone.View.extend({
 						},
 						dataType : "json",
 						success : function(data) {
-							if (data.status == "Success") {
+							if (data.status) {
+								
+								if(data.status == "Failure")
+	    	   				    	$('#error').html("This User Email or Name is already taken");
+								
+							} 
+							else 
+							{
+								localStorage["regInfo"] =JSON.stringify(data); 
+								BS.regBack = true;
+								//set status for school back page
+	    						BS.resistrationPage = "media";
 								
 								BS.editSchool = false;
+								
 								// save school name 
 								BS.schoolFromPrev =  $('#school-name').val();
 								
@@ -186,9 +220,6 @@ BS.MediaRegistrationView = Backbone.View.extend({
 									trigger : true,
 									 
 								});
-								
-							} else {
-								$('#error').html("This User Email or Name is already taken");
 							}
 			
 						}

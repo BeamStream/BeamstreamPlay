@@ -30,8 +30,7 @@ object StreamController extends Controller {
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
   def index = Action {
-    Ok("This is BeamStream Application by Knoldus Software LLP")
-
+    Redirect("/beamstream/home.html")
   }
 
   /*
@@ -54,6 +53,9 @@ object StreamController extends Controller {
     Ok(allStreamsForAUserJson).as("application/json")
   }
 
+  //TODO : This Functionality is now optimized to class methods(No More need of having separate sections)
+  /*
+  
   /*
    * Creates a class and a new Stream
    * @Purpose: This will create a new class & correspondent stream
@@ -101,6 +103,10 @@ object StreamController extends Controller {
     User.addClassToUser(new ObjectId(request.session.get("userId").get), List(new ObjectId(classId)))
     Ok(write(new ResulttoSent("Success", "User has SuccessFully Joined The Stream")))
   }
+
+
+
+*/
 
   /*
    * Show the no. of users attending classes

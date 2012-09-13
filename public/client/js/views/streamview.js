@@ -1002,7 +1002,7 @@ BS.StreamView = Backbone.View.extend({
 						 var cmdHead = $("#tpl-comment-header").html();
 						 var cmdHeadTemplate = Handlebars.compile(cmdHead);
 						 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
-				  		 $('#'+parent+'-hideComment').addClass('disabled');
+				  		 $('#'+parent+'-showComment').addClass('disabled');
 //				  		 $('#'+parent+'-cmtCount').html(cmtCount);
  
 				  	}
@@ -1016,6 +1016,7 @@ BS.StreamView = Backbone.View.extend({
 	  */
 	 
 	 hideComments :function(eventName){
+		 
 		 eventName.preventDefault(); 
 		
 		 var parentMsg = eventName.target.id;
@@ -1024,7 +1025,8 @@ BS.StreamView = Backbone.View.extend({
 		 $hide = $('#'+parent+'-hideComment');
          $show = $('#'+parent+'-showComment'); 
          $comments = $('#'+parent+'-commentlists');
-		 if ($comments.is(':visible')) {
+         $newComments = $('#'+parent+'-newcommentlists');
+		 if ($comments.is(':visible') ||  $newComments.is(':visible')) {
              $show.removeClass('disabled');
              $hide.addClass('disabled');
              $('#'+parent+'-newcommentlists').html("");

@@ -40,7 +40,7 @@ object ClassController extends Controller {
         Ok(write(new ResulttoSent("Failure", "Duplicates Class Code or Name Provided")))
       case false =>
         User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
-        Ok(write(new ResulttoSent("Success", "Class added")))
+        Ok(write(new ResulttoSent("Success", "User has successfully added his classes")))
     }
 
   }
@@ -55,7 +55,6 @@ object ClassController extends Controller {
     val classCodeMap = request.body.asFormUrlEncoded.get
     val classCode = classCodeMap("data").toList(0)
     val assosiatedSchoolId = classCodeMap("assosiatedSchoolId").toList(0)
-    //val userSchoolIdList = UserSchool.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
     val classList = Class.findClassByCode(classCode, new ObjectId(assosiatedSchoolId))
     val classListJson = write(classList)
     Ok(classListJson).as("application/json")
@@ -71,7 +70,6 @@ object ClassController extends Controller {
     val classNameMap = request.body.asFormUrlEncoded.get
     val className = classNameMap("data").toList(0)
     val assosiatedSchoolId = classNameMap("assosiatedSchoolId").toList(0)
-    //val userSchoolIdList = UserSchool.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
     val classList = Class.findClassByName(className, new ObjectId(assosiatedSchoolId))
     val classListJson = write(classList)
     Ok(classListJson).as("application/json")

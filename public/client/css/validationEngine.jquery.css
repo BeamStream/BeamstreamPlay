@@ -156,3 +156,14 @@ body.rtl .formError .formErrorArrow {
 	border: none;
 	background: #ddd;
 }
+.star_position{
+        width: 100%;	
+	/*position:relative;*/
+	font-size: 11px;
+        margin: 16px 0px 0px 12px; 
+        /*padding: 25px 10px 4px 10px;*/
+}
+.star{
+    /*margin: 0px 3px 0px 0px;*/ 
+     padding: 0px 3px 0px 0px;
+}

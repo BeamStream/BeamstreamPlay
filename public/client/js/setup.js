@@ -14,7 +14,8 @@ Backbone.history.start();
  
 BS.URLRequired ="http://alpha.beamstream.com";
  
-
+//BS.URLRequired ="http://beamstream-staging.herokuapp.com"
+	
 // For Login Page
 BS.login = BS.URLRequired+"/users";
 // For Verify Token

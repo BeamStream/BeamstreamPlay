@@ -11,6 +11,8 @@ BS.RegistrationView = Backbone.View.extend({
 		console.log('Initializing Basic Registration View');
 		this.source = $("#tpl-basic-profile").html();
 		this.template = Handlebars.compile(this.source);
+		// for edit user details
+		BS.regBack = false;
 
 	},
 
@@ -46,9 +48,22 @@ BS.RegistrationView = Backbone.View.extend({
     	   			},
     	   			dataType : "json",
     	   			success : function(data) {
-    	   				if (data.status == "Success") {
+    	   				if(data.status) {
     	   					
+    	   					if(data.status == "Failure")
+    	   					  $('#error').html("This User Email or Name is already taken");
+    	   				   
+    	   				} 
+    	   				else 
+    	   				{
+    	   					//for edit user info
+    	   					localStorage["regInfo"] ='';
+    	   					BS.regBack = false;
     	   					
+    	   					//set status for school back page
+    						BS.resistrationPage = " ";
+    						
+    						
     	   					// navigate to main stream page
     	   					BS.schoolFromPrev =  $('#school-name').val();
     	   					BS.AppRouter.navigate("streams", {
@@ -56,8 +71,6 @@ BS.RegistrationView = Backbone.View.extend({
     	   						 
     	   					});
     	   					console.log(data.message);
-    	   				} else {
-    	   					$('#error').html("This User Email or Name is already taken");
     	   				}
     	
     	   			}
@@ -86,8 +99,19 @@ BS.RegistrationView = Backbone.View.extend({
 		} else {
 			useCurrentLocation = false;
 		}
-        
+        if($('#user_Id').val())
+        {
+        	var id = $('#user_Id').val();
+        	this.iam = BS.iam;
+   		    this.mailId = BS.email;
+        	
+        }
+        else
+        {
+        	var id = 1;
+        }
 		basicProfile.set({
+			id : id,
 			iam : this.iam,
 			email : this.mailId,
 			schoolName : $('#school-name').val(),
@@ -127,19 +151,23 @@ BS.RegistrationView = Backbone.View.extend({
 				},
 				dataType : "json",
 				success : function(data) {
-					if (data.status == "Success") {
-						
+					 
+					if(data.status) {
+						if(data.status == "Failure")
+						    $('#error').html("This User Email or Name is already taken");
+					} 
+					else 
+					{
+						localStorage["regInfo"] =JSON.stringify(data); 
+						BS.regBack = true;
 						BS.editSchool = false;
-						 
-						BS.back = "basicRegistration";
+						//set status for school back page
+						BS.resistrationPage = "basic";
 	   					 
 						BS.schoolFromPrev =  $('#school-name').val();
 						
 						// navigate to main stream page
 						BS.AppRouter.navigate("school", {trigger : true,});
-						 
-					} else {
-						$('#error').html("This User Email or Name is already taken");
 					}
 	
 				}

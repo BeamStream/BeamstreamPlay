@@ -34,10 +34,10 @@ BS.VideoListView = Backbone.View.extend({
                                 },
                         dataType : "json",
 
-                        success : function(docs) {
-                                _.each(docs, function(doc) {  
+                        success : function(videos) {
+                                _.each(videos, function(video) {  
                                 content += '<li id="file-docs-'+i+'">'
-                                +'<div class="image-wrapper"><a href="'+doc+'" rel="prettyPhoto[movies]"><img src="images/video_image.png"></a></div>'         //doc contain path of the video
+                                +'<div class="image-wrapper"><div class="gallery clearfix"></div><div class="gallery clearfix"><a href="'+video+'" rel="prettyPhoto" ><img src="images/image2.jpg"  width="185px" height="141px" /></div>'         
                                 +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>'
                                 +'<ul class="comment-list">'
                                 +'<li><a class="eye-icon" href="#">87</a></li>'
@@ -47,6 +47,12 @@ BS.VideoListView = Backbone.View.extend({
                         i++;
                         });                  
                         $('#grid').html(content);         
+                        
+                        /* for video popups */
+                        $("area[rel^='prettyPhoto']").prettyPhoto();
+     					$(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
+     					$(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
+     			
                             
                         }
                });

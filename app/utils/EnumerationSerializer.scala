@@ -99,7 +99,6 @@ object DateTimeSerializer extends Serializer[Option[Date]] {
   def deserialize(implicit format: Formats): PartialFunction[(TypeInfo, JValue), Option[Date]] = {
     case (TypeInfo(MyDateClass, _), json) => json match {
       case JString(s) => {
-        println("sads$$$$$" + formatter.parse(s) + "")
         Option(formatter.parse(s))
       }
 
