@@ -63,7 +63,6 @@ BS.RegistrationView = Backbone.View.extend({
     	   					//set status for school back page
     						BS.resistrationPage = " ";
     						
-    						
     	   					// navigate to main stream page
     	   					BS.schoolFromPrev =  $('#school-name').val();
     	   					BS.AppRouter.navigate("streams", {
@@ -75,8 +74,6 @@ BS.RegistrationView = Backbone.View.extend({
     	
     	   			}
        		    });
-           
-    	   
         }
         else
         {

@@ -43,7 +43,9 @@ BS.StreamView = Backbone.View.extend({
 
     initialize:function () {
     	console.log('Initializing Stream View');
-    	BS.urlRegex = /(https?:\/\/[^\s]+)/g;
+    	BS.urlRegex1 = /(https?:\/\/[^\s]+)/g;
+    	BS.urlRegex = /^(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\/]*$/i ;
+    	BS.urlRegex2 =  /^((http|https|ftp):\/\/)/;
     	BS.commentCount = 0;
     	/* for hover over */
 	    this.distance = 10;
@@ -396,7 +398,7 @@ BS.StreamView = Backbone.View.extend({
      * post a message
      */
     postMessage :function(eventName){
-    	 
+      //var urlLink ='';
       var self= this;
       /* get message details from form */
       var messageAccess;
@@ -406,7 +408,7 @@ BS.StreamView = Backbone.View.extend({
       
       if(!message.match(/^[\s]*$/))
       {
-    	  
+    	 
 	      var msgAccess =  $('#id-private').attr('checked');
 	  	  if(msgAccess == "checked")
 	  	  {
@@ -419,17 +421,31 @@ BS.StreamView = Backbone.View.extend({
 	  	  
 	  	  
 	  	  //find link part from the message
+	  	  
+	  	  
+	  	  
 	      var link =  message.match(BS.urlRegex); 
+	       
 	      if(link)
-	      {
-	    	  if(!link[0].match(/^(http:\/\/bstre.am\/)/))
+	      {    
+	    	  
+	    	 if(!BS.urlRegex2.test(link[0])) {
+	    		urlLink = "http://" + link[0];
+	  	  	 }
+	    	 else
+	    	 {
+	    		 urlLink =link[0];
+	    	 }
+	    	  
+	    	 if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
 			 { 
+	    		 
 	    	  /* post url information */
 	          $.ajax({
 	    			type : 'POST',
 	    			url : BS.bitly,
 	    			data : {
-	    				 link : link[0]
+	    				 link : urlLink
 	    			},
 	    			dataType : "json",
 	    			success : function(data) {
@@ -439,7 +455,7 @@ BS.StreamView = Backbone.View.extend({
 	    		});
 			 }
 	    	 else
-	    	 {
+	    	 {     
 	    		 self.postMsg(message,streamId,messageAccess);
 	    	 }
 	    	
@@ -479,9 +495,11 @@ BS.StreamView = Backbone.View.extend({
   					   
   					      // append the message to message list
   						_.each(data, function(data) {
-  							 
+  							
   							var msgBody = data.messageBody;
-  							var linkTag =  msgBody.replace(BS.urlRegex, function(url) {
+  							var link =  msgBody.match(BS.urlRegex);
+  							var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+  								 
 					             return '<a href="' + url + '">' + url + '</a>';
 					        });
   							  
@@ -547,7 +565,7 @@ BS.StreamView = Backbone.View.extend({
 					  _.each(data, function(data) {
 						  
 							var msgBody = data.messageBody;
-							var linkTag =  msgBody.replace(BS.urlRegex, function(url) {
+							var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
 					             return '<a href="' + url + '">' + url + '</a>';
 					        });
 							  
@@ -852,30 +870,39 @@ BS.StreamView = Backbone.View.extend({
 			 var links =  text.match(BS.urlRegex); 
 			 
 			  /* create bitly for each url in text */
-			 _.each(links, function(link) {
-					 if(link)
+//			 _.each(links, function(link) {
+				  
+					 if(links)
 				     {
+						 
+						 if(!BS.urlRegex2.test(links[0])) {
+					    		urlLink = "http://" + links[0];
+					  	 }
+					     else
+					     {
+					    		urlLink =links[0];
+					     }
 						 /* don't create bitly for shortened  url */
-						 if(!link.match(/^(http:\/\/bstre.am\/)/))
+						 if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
 						 { 
 				    	  /* create bitly  */
 				          $.ajax({
 				    			type : 'POST',
 				    			url : BS.bitly,
 				    			data : {
-				    				 link : link 
+				    				 link : urlLink 
 				    			},
 				    			dataType : "json",
 				    			success : function(data) {
 				    				 var msg = $('#msg').val();
-				    				 message = msg.replace(link,data.data.url);
+				    				 message = msg.replace(links[0],data.data.url);
 				    				 $('#msg').val(message);
 				    				
 				    			}
 				    		});
 				        }
 				      }
-				});
+//				});
 			
 			
 		 }
@@ -1121,7 +1148,7 @@ BS.StreamView = Backbone.View.extend({
 		  _.each(data, function(data) {
 				
 				var msgBody = data.messageBody;
-				var linkTag =  msgBody.replace(BS.urlRegex, function(url) {
+				var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
 		             return '<a href="' + url + '">' + url + '</a>';
 		        });
 				  
