@@ -9,15 +9,14 @@ BS.SchoolView = Backbone.View.extend({
 	      
 	      "keyup .school" : "populateSchools",
 	      "focusin .school" : "populateSchools",
-	      "click .close-button" : "closeScreen"
-//	      "click .back-button" :"backToPrevious"
+	      "click .close-button" : "closeScreen",
+	      "click .back-button" :"backToPrevious"
 	       
 	    },
 	
     initialize:function () {
     	
         console.log('Initializing School View');
-        
         BS.schoolBack = false;
         //this.template= _.template($("#tpl-school-reg").html());
 		this.source = $("#tpl-school-reg").html();
@@ -372,16 +371,19 @@ BS.SchoolView = Backbone.View.extend({
 	       */
 	      backToPrevious :function(eventName){
 	    	  eventName.preventDefault();  
-//	    	  alert(BS.back);
-	    	  BS.AppRouter.navigate(BS.back, {trigger: true});
-//              if(BS.resgistration == "media")
-//              {
-//            	  BS.AppRouter.navigate(BS.back, {trigger: true});
-//              }
-//              else if(BS.resgistration == "nomedia")
-//              {
-//            	  BS.AppRouter.navigate("class", {trigger: true});
-//              }
+              if(BS.resistrationPage == "basic")
+              {
+            	  var token = BS.token;
+            	  var iam = BS.iam;
+            	  var email = BS.email;
+            	  var navUrl = 'basicRegistration/token/'+token+'/iam/'+iam+'/emailId/'+email;
+            	  BS.AppRouter.navigate(navUrl, {trigger: true});
+              }
+              if(BS.resistrationPage == "media")
+              {
+            	  var t = "basicRegistration";
+            	  BS.AppRouter.navigate(t, {trigger: true});
+              }
 	    	 
 	      },
 	      
