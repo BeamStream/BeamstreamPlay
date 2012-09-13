@@ -144,33 +144,32 @@
           <div class="left-wrapper">
             <!-- /.nav-collapse -->
             <ul id="dropdownnew" class="no-image">
-              <li class="leftplusicon"><a class="leftplusicon-a" href="#">Upload Media/Docs: </a>
-                <ul>
+              <li class="leftplusicon"><a id="uploadmedia_dr" class="leftplusicon-a" href="#">Upload Media/Docs: </a>
+                <ul id="uploadmediachild_dr" >
                 <span class="arrow-top"></span>
-                  <li><a href="#">Links</a>
-                      <ul class="largeli">
+                  <li id="childone_dr"><a id="links_dr" href="#">Links</a>
+                      <ul id="linksmenu_dr" class="largeli fixingmenu_dr">
                         <span class="arrow-left"></span>
                          <li><input type="text" class="dropdowntext" placeholder="http://www.PasteLinksHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Links"></li>
-                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Links"><select class="dropdownselect"><option>Class Links</option><option>EdTech Tool</option>
-                                  <option>Reference Material</option><option>Presentation</option><option>Amusement</option><option>pic of button</option></select></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Links"><select id="linkselect_dr" class="dropdownselect"><option>Class Links</option></select></li>
                           <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i><select class="dropdownselect"><option>Save to Class</option>
                                              <option>Profile</option><option>My Docs</option></select></li>
                           <li><input type="button" class="upload_button" id="links_uploadbutton"></li>
                        </ul>   
                   </li>
-                  <li><a href="#">Papers  &  Docs</a>
-                       <ul>
+                  <li id="childtwo_dr"><a id="docs_dr"href="#">Papers  &  Docs</a>
+                       <ul id="docsmenu_dr" class="fixingmenu_dr">
                            <span class="arrow-left"></span>
                             <li><a href="#">My Computer</a></li>
-                            <li><a href="#">Google Docs</a>
-                                <ul>
+                            <li><a id="googledocs_dr" href="#">Google Docs</a>
+                                <ul id="googledocschild_dr">
                                     <span class="arrow-left"></span>
                                     <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
-                                    <li><a href="#">Import From Link</a>
-                                        <ul class="largeli">
+                                    <li><a id="importfrmlink_dr" href="#">Import From Link</a>
+                                        <ul id='frmlinkchild_dr' class="largeli">
                                             <span class="arrow-left"></span>
                                             <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small" id="gdoc-name" placeholder="NAME of Doc"></li>
-                                            <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Doc"><select class="dropdownselect"><option>Class Doc</option><option>Class Video</option></select></li>
+                                            <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Doc"><select id="vialinkselect_dr" class="dropdownselect"><option>Class Doc</option><option>Class Video</option></select></li>
                                             <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i><select class="dropdownselect"><option>Save to Class</option><option>Profile</option><option>My Docs</option></select></li>
                                             <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
                                         </ul>
@@ -179,48 +178,45 @@
                             </li>    
                       </ul>
                   </li>
-                  <li><a href="#">Video</a>
-                    <ul>
+                  <li id="childthree_dr"><a id ="video_dr" href="#">Video</a>
+                    <ul id="videomenu_dr" class="fixingmenu_dr">
                     <span class="arrow-left"></span>
                       <li><a href="#">My Computer</a></li>
-                      <li><a href="#">YouTube</a>
-                        <ul class="largeli">
+                      <li><a id="youtube_dr" href="#">YouTube</a>
+                        <ul id='youtubechild_dr' class="largeli">
                         <span class="arrow-left"></span>
                           <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Video"></li>
-                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video"><select class="dropdownselect"><option>Class Video</option><option>Profile Video</option>
-                                           <option>Tutorial</option><option>Presentation</option><option>Project Presentation</option><option>Project Video</option><option>Lecture</option><option class="newcategory">Enter New Category</option></select></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video"><select id="videoselect_dr" class="dropdownselect"><option>Class Video</option></select></li>
                           <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i><select class="dropdownselect"><option>Save to Class</option><option>Profile</option><option>My Docs</option></select></li>
                           <li><input type="button" class="upload_button" id="video_uploadbutton"></li>
                         </ul>
                       </li>
                     </ul>
                   </li>
-                  <li><a href="#">Audio</a>
-                   <ul>
+                  <li id="childfour_dr"><a id="audio_dr" href="#">Audio</a>
+                   <ul id="audiomenu_dr" class="fixingmenu_dr">
                      <span class="arrow-left"></span>
                       <li><a href="#">My Computer</a></li>
-                      <li><a href="#">Via Link</a>
-                        <ul class="largeli">
+                      <li><a id="vialink_dr" href="#">Via Link</a>
+                        <ul id='vialinkchild_dr' class="largeli">
                         <span class="arrow-left"></span>
                           <li><input type="text" class="dropdowntext" placeholder="http://www.PasteAudioURLHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Audio"></li>
-                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Audio File"><select class="dropdownselect"><option>Class Audio</option><option>Class Notes</option>
-                                           <option>Tutorial</option><option>Presentation</option><option>Project Audio</option><option>Reference Material</option><option>Lecture</option><option>Enter New Category</option></select></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Audio File"><select id="audioselect_dr"  class="dropdownselect"><option>Class Audio</option></select></li>
                           <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i><select class="dropdownselect"><option>Save to Class</option><option>Profile</option><option>My Docs</option></select></li>
                           <li><input type="button" class="upload_button" id="audio_uploadbutton"></li>
                         </ul>
                       </li>
                     </ul> 
                   </li>
-                  <li><a href="#">Presentations</a>
-                    <ul>
+                  <li id="childfive_dr"><a id="presentations_dr" href="#">Presentations</a>
+                    <ul id="presentationmenu_dr" class="fixingmenu_dr">
                      <span class="arrow-left"></span>
                       <li><a href="#">My Computer</a></li>
-                      <li><a href="#">Via Link</a>
-                        <ul class="largeli">
+                      <li><a id="presvialink_dr" href="#">Via Link</a>
+                        <ul id='presvialinkchild_dr' class="largeli">
                         <span class="arrow-left"></span>
                           <li><input type="text" class="dropdowntext" placeholder="http://www.PasteLinkHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Presentations"></li>
-                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Presentations File"><select class="dropdownselect"><option>Class Presentations</option><option>Assignment</option>
-                                           <option>Tutorial</option><option>Presentation</option><option>Project Presentation</option><option>Event Presentation</option></select></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Presentations File"><select id="presentationselect_dr" class="dropdownselect"><option>Class Presentations</option></select></li>
                           <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i><select class="dropdownselect"><option>Save to Class</option><option>Profile</option><option>My Docs</option></select></li>
                           <li><input type="button" class="upload_button" id="press_uploadbutton"></li>
                         </ul>
@@ -1268,7 +1264,7 @@
 				<div class="school-registration">
                 <div class="form-row">
 					<div class="element">
-                        <label for="school-name">School name <span class="star"> *</span></label>
+                        <label for="school-name">School name <span class="star"> </span></label>
  
                         <input type="text" name="school-name" id="school-name" class="validate[required] span3 school" placeholder="School Name">
                         
@@ -1289,7 +1285,7 @@
                 </div>
                 <div class="form-row">
                     <div class="element">
-                        <label for="major">Major <span class="star"> *</span></label>
+                        <label for="major">Major <span class="star"> </span></label>
                         <input type="text" name="major" id="major" class="validate[required] span3" placeholder="Your Major" >
                     </div>
 						 <div class="element">
@@ -1303,13 +1299,13 @@
                         </select>
                     </div>
 					<div class="element" id="other-degrees">
-                        <label for="other-degree">Degree <span class="star"> *</span></label>
+                        <label for="other-degree">Degree <span class="star"> </span></label>
                         <input type="text" name="other-degree" id="other-degree" class="small" placeholder="Degree">
                     </div>
                    </div>
                  <div class="form-row">
 					<div class="element">
-                        <label for="graduated">Graduated? <span class="star"> *</span></label>
+                        <label for="graduated">Graduated? <span class="star"> </span></label>
                         <select id="graduated" name ="graduated"  class="graduated span2">
  							<option> </option>
                             <option value="attending">Still Attending</option>
@@ -1373,7 +1369,7 @@
 				<div class="school-registration">
                 <div class="form-row">
                     <div class="element">
-                        <label for="school-name" id="school-id-1" value="" >School name <span class="star"> *</span></label>
+                        <label for="school-name" id="school-id-1" value="" >School name <span class="star"> </span></label>
  
                         <input type="text" name="school-name-1" id="school-name-1" class="validate[required] span3 school" placeholder="School Name">
                         <input type="hidden" id="associatedId-1" value="">
@@ -1402,17 +1398,17 @@
                         </select>
                     </div>
 					<div class="element" id="other-degrees-1">
-                        <label for="other-degree">Degree <span class="star"> *</span></label>
+                        <label for="other-degree">Degree <span class="star"> </span></label>
                         <input type="text" name="other-degree-1" id="other-degree-1" class="small" placeholder="Degree">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="element">
-                        <label for="major">Major <span class="star"> *</span></label>
+                        <label for="major">Major <span class="star"> </span></label>
                         <input type="text" name="major-1" id="major-1" class="validate[required] span3" placeholder="Your Major" >
                     </div>
 					<div class="element">
-                        <label for="graduated">Graduated? <span class="star"> *</span></label>
+                        <label for="graduated">Graduated? <span class="star"> </span></label>
                         <select id="graduated-1" name ="graduated"  class="graduated span2">
  							<option> </option>
                             <option value="attending">Still Attending</option>
@@ -1462,7 +1458,7 @@
 	<div class="school-registration">
 		<div class="form-row">
 		<div class="element">
-			<label for="school-name-{{number}}" id="school-id-{{number}}" value="{{data.id.id}}" >School name <span class="star"> *</span></label>
+			<label for="school-name-{{number}}" id="school-id-{{number}}" value="{{data.id.id}}" >School name <span class="star"> </span></label>
 			<input type="text" id="school-name-{{number}}" name="school-name-{{number}}" class="validate[required] span3 school" value="{{data.schoolName}}" >
 			<input type="hidden" id="associatedId-{{number}}" value="{{data.assosiatedSchoolId.id}}">
 		</div>
@@ -1489,17 +1485,17 @@
 			</select>
 		</div>
 		<div class="element" id="other-degrees-{{number}}">
-			<label for="other-degree">Degree <span class="star"> *</span></label>
+			<label for="other-degree">Degree <span class="star"> </span></label>
 			<input type="text" name="other-degree-{{number}}" id="other-degree-{{number}}" class="small" value="{{data.otherDegree}}">
 		</div>
 		</div>
 		<div class="form-row">
 			<div class="element">
-				<label for="major-{{number}}">Major <span class="star"> *</span></label>
+				<label for="major-{{number}}">Major <span class="star"> </span></label>
 				<input type="text" name="major-{{number}}" id="major-{{number}}" class="validate[required] span3" value="{{data.major}}">
 			</div>
 			<div class="element">
-				<label for="graduated" name="graduated-{{number}}">Graduated? <span class="star"> *</span></label>
+				<label for="graduated" name="graduated-{{number}}">Graduated? <span class="star"> </span></label>
 				<select name="graduated" id="graduated-{{number}}" class="graduated span2" >
 					<option> </option>
 					<option value="attending">Still Attending</option>
@@ -1644,13 +1640,15 @@
                     <div class="form-row-label">1<sup>st</sup> class</div>
                       <div class="form-row short">
                      <div class="element">
-                     <label id="lb-class-name-{{sCount}}-1" value="">Class name <span class="star"> *</span></label>
+
+                     <label for="class-name-{{sCount}}-1">Class name <span class="star"> </span></label>
+
                     <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium class_name" placeholder="Class 1 name">
                     <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
                    </div>
                       
           <div class="element" id="div-time-{{sCount}}-1">
-              <label for="class-time-{{sCount}}-1">Class time <span class="star"> *</span></label>
+              <label for="class-time-{{sCount}}-1">Class time <span class="star"> </span></label>
               <select id="class-time-{{sCount}}-1" class="time">
 				  {{#each times}}
                         <option value="{{this.time}}">{{this.time}}</option>
@@ -1658,15 +1656,15 @@
               </select>
           </div>
           <div class="element">
-                <label for="class-code-{{sCount}}-1">Class code <span class="star"> *</span></label>
+                <label for="class-code-{{sCount}}-1">Class code <span class="star"> </span></label>
               <input type="text"  id="class-code-{{sCount}}-1" class="validate[required] small class_code" placeholder="Class 1 code" >
           </div>
           <div class="element">
-              <label for="date-started-{{sCount}}-1">Calendar <span class="star"> *</span></label>
+              <label for="date-started-{{sCount}}-1">Calendar <span class="star"> </span></label>
               <input class="validate[required] small datepicker cal" type="text"   id="date-started-{{sCount}}-1"/>
           </div>
            <div class="element" id="div-school-type-{{sCount}}-1">
-               <label for="semester-{{sCount}}-1">Semester or Quarter <span class="star"> *</span></label>
+               <label for="semester-{{sCount}}-1">Semester or Quarter <span class="star"> </span></label>
                <select id="semester-{{sCount}}-1" class="small">
                      <option value="semester">Semester</option>
                      <option value="quarter">Quarter</option>
@@ -1763,13 +1761,15 @@
        <div class="form-row-label">1<sup>st</sup> class</div>
        <div class="form-row short">
           <div class="element">
-              <label id="lb-class-name-{{sCount}}-1" value="">Class name <span class="star"> *</span></label>
+
+              <label for="class-name-{{sCount}}-1">Class name <span class="star"> </span></label>
+
               <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium class_name" placeholder="Class 1 name">
               <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
           </div>
           
           <div class="element" id="div-time-{{sCount}}-1">
-              <label for="class-time-{{sCount}}-1">Class time <span class="star"> *</span></label>
+              <label for="class-time-{{sCount}}-1">Class time <span class="star"> </span></label>
               <select id="class-time-{{sCount}}-1" class="time">
 				  {{#each times}}
                         <option value="{{this.time}}">{{this.time}}</option>
@@ -1777,15 +1777,15 @@
               </select>
           </div>
           <div class="element">
-              <label for="class-code-{{sCount}}-1">Class code <span class="star"> *</span></label>
+              <label for="class-code-{{sCount}}-1">Class code <span class="star"> </span></label>
               <input type="text"  id="class-code-{{sCount}}-1" class="validate[required] small class_code" placeholder="Class 1 code" >
           </div>
           <div class="element">
-              <label for="date-started-{{sCount}}-1">Calendar <span class="star"> *</span></label>
+              <label for="date-started-{{sCount}}-1">Calendar <span class="star"> </span></label>
               <input class="validate[required] small datepicker cal" type="text" placeholder="Date1" id="date-started-{{sCount}}-1"/>
           </div>
            <div class="element" id="div-school-type-{{sCount}}-1">
-               <label for="semester-{{sCount}}-1">Semester or Quarter <span class="star"> *</span></label>
+               <label for="semester-{{sCount}}-1">Semester or Quarter <span class="star"> </span></label>
                <select id="semester-{{sCount}}-1" class="small">
                      <option value="semester">Semester</option>
                      <option value="quarter">Quarter</option>
@@ -1960,7 +1960,7 @@
                 <div class="form-row">
                     <div class="element">
                         <div id="num-validation"></div>
-                        <label for="mobile">Mobile <span class="star"> *</span></label>
+                        <label for="mobile">Mobile <span class="star"> </span></label>
                         <input type="text" id="mobile" name="mobile" class=" large" placeholder="(999)999-9999" >
                     </div>
                     <div class="element">
@@ -2665,28 +2665,28 @@
  
       
         <div class="element" style="margin-top:25px;" >
-              <label for="school-name">School name <span class="star"> *</span></label>
+              <label for="school-name">School name <span class="star"> </span></label>
               <input type="text" id="school-name" placeholder=" School Name" class="validate[required] span3">
             </div>
         <div class="element">
-              <label for="user-name">User Name <span class="star"> *</span><br/>
+              <label for="user-name">User Name <span class="star"> </span><br/>
             http://www.beamstream.com/</label>
               <input type="text" id="user-name" placeholder="@UserName"   class="validate[required] span3">
             </div>
           <div class="element">
-              <label for="password">Password <span class="star"> *</span><br/></label>
+              <label for="password">Password <span class="star"> </span><br/></label>
               <input type="password" id="password" placeholder="password" class="validate[required] span3"> 
             </div>
         <div class="element">
-              <label for="first-name">First Name <span class="star"> *</span></label>
+              <label for="first-name">First Name <span class="star"> </span></label>
               <input type="text" id="first-name" placeholder="First Name" class="validate[required] span3">
             </div>
         <div class="element">
-              <label for="last-name">Last Name <span class="star"> *</span></label>
+              <label for="last-name">Last Name <span class="star"> </span></label>
               <input type="text" id="last-name" placeholder="Last Name" class="validate[required] span3">
             </div>
         <div class="element">
-              <label for="location">Location <span class="star"> *</span></label>
+              <label for="location">Location <span class="star"> </span></label>
               <input type="text" id="location" placeholder="Location" class="validate[required] span3">
             </div>
         <div class="element">
@@ -2783,7 +2783,7 @@
 <div id="error" class= "invalid-validation"  style=" margin-bottom: 18px !important; margin-left: 152px;"></div>
  
             <div class="element">
-             <label for="iam">I'm <span class="star"> *</span></label>
+             <label for="iam">I'm <span class="star"> </span></label>
                 <select id="iam" class="large">
                   <option value= "">-- I'm --</option>
 						<option value="0">Student</option>
@@ -2792,23 +2792,23 @@
                 </select>
             </div>
             <div class="element">
-              <label for="school-name">School Name <span class="star"> *</span></label>
+              <label for="school-name">School Name <span class="star"> </span></label>
               <input type="text" id="school-name" placeholder="School Name" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="school-email">School Email <span class="star"> *</span></label>
+              <label for="school-email">School Email <span class="star"> </span></label>
               <input type="text" id="school-email" placeholder="School Email" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="first-name">First Name <span class="star"> *</span></label>
+              <label for="first-name">First Name <span class="star"> </span></label>
               <input type="text" id="first-name" placeholder="First Name" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="last-name">Last Name <span class="star"> *</span></label>
+              <label for="last-name">Last Name <span class="star"></span></label>
               <input type="text" id="last-name" placeholder="Last Name" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="location">Location <span class="star"> *</span></label>
+              <label for="location">Location <span class="star"> </span></label>
               <input type="text" id="location" placeholder="Location" class="validate[required] span3">
             </div>
             <div class="element">
@@ -2968,7 +2968,7 @@
          <div id="error" class="invalid-validation"></div>
           <div class="form-row short">
               <div class="element">
-                <label for="iam">I'm <span class="star"> *</span></label>
+                <label for="iam">I'm <span class="star"> </span></label>
                 <select id="iam" class="large">
                   <option value= "">-- I'm --</option>
 						<option value="0">Student</option>
@@ -2977,7 +2977,7 @@
                 </select>
               </div>
               <div class="element" >
-                <label for="email" id="email-label" >E-mail <span class="star"> *</span></label>
+                <label for="email" id="email-label" >E-mail <span class="star"> </span></label>
                 <input type="text" id="email" placeholder="School email" class="validate[required , custom[email]] large email_text">
              </div>
               <div class="element"> <a id="register" href="#" class="register btn btn-success">Register Now</a> </div>
@@ -3067,11 +3067,11 @@
         <div class="form-row">
           <div class="form-row-left">
             <div class="element">
-              <label for="email">Email or UserName<span class="star"> *</span></label>
+              <label for="email">Email or UserName</label><div class="star-position"> </div>
               <input type="text" id="email" placeholder= "email or username" class="validate[required] large email_text" value="">
             </div>
             <div class="element">
-              <label for="password">Password<span class="star"> *</span></label>
+              <label for="password">Password<span class="star"> </span></label>
               <input type="password" id="password" placeholder= "password" class="validate[required] large email_text" value="">
             </div>
             <div class="checkbox_wrapper signin_check">
@@ -3117,7 +3117,7 @@
      <div id="error" class="invalid-validation"></div>
         <div class="form-row">
             <div class="element">
-              <label for="email">Email<span class="star"> *</span></label>
+              <label for="email">Email<span class="star"> </span></label>
               <input type="text" id="email" placeholder= "email address" class="validate[required , custom[email]] large email_text" value="">
             </div>
             <div class="element">

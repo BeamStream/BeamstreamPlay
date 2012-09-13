@@ -1221,7 +1221,7 @@
 				prompt.addClass("ajaxed");
 
 			// create the prompt content            //*****
-//			var promptContent = $('<div>').addClass("formErrorContent").html(promptText).appendTo(prompt);
+			var promptContent = $('<div>').addClass("star_position").html('<span class="star">*</span>').appendTo(prompt);
 			// create the css arrow pointing at the field
 			// note that there is no triangle on max-checkbox and radio
 			if (options.showArrow) {

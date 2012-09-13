@@ -1894,12 +1894,6 @@ border: 1px solid #E8E8E9;
 	left:12em;
 	margin:0px 0 0 10px;
 }
-#dropdownnew li:hover ul ul, #dropdownnew li:hover ul ul ul, #dropdownnew li:hover ul ul ul ul {
-	display:none;
-}
-#dropdownnew li:hover ul, #dropdownnew li li:hover ul, #dropdownnew li li li:hover ul, #dropdownnew li li li li:hover ul {
-	display:block;
-}
 .textli{
         width:177px !important;
 	height:55px !important;
