@@ -334,9 +334,10 @@ BS.FilesMediaView = Backbone.View.extend({
 			type : 'GET',
 			url : BS.allStreamsForAUser,
 			dataType : "json",
-                        uccess : function(options) {
+                        success : function(options) {
                              _.each(options, function(option) {
                               content+= '<option>'+option.streamName+'</option>';
+                              console.log(option.streamName);
                               i++;
                               });
                               content+='<option>Enter From Catagory</option>'
