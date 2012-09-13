@@ -465,7 +465,6 @@ BS.AppRouter = Backbone.Router.extend({
 				if(localStorage["regInfo"])
 				 {
 					   $('#school-popup').children().detach();
-					   $("#profile-socialmedia").html('');
 				       var regDetails =JSON.parse(localStorage["regInfo"]);
 				       BS.mediaRegistrationView = new BS.MediaRegistrationView();
 				       var student = false ,educator=false ,professional =false;
