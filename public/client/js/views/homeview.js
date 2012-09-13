@@ -87,6 +87,7 @@ BS.NavView = Backbone.View.extend({
 				dataType : "json",
 				success : function(datas) {
 					 localStorage.clear();  
+					 localStorage["regInfo"] = '';
 					 $('#middle-content').children().detach();
 					 BS.AppRouter.navigate("login", {trigger: true});
 				}

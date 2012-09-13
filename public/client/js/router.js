@@ -53,7 +53,7 @@ BS.AppRouter = Backbone.Router.extend({
   		        timeValues.push({"time" : time});
   		 }
   		BS.times = jQuery.parseJSON(JSON.stringify(timeValues));
-  		
+  		localStorage.clear();
   		// set status variable to check whether its a edit school/class/profile 
   		BS.editSchool = true;
   		BS.editClass = true;
@@ -87,6 +87,7 @@ BS.AppRouter = Backbone.Router.extend({
          $(".modal select:visible").selectBox();
          jQuery("#login-form").validationEngine();
          localStorage["regInfo"] ='';
+         localStorage.clear();
          $(".checkbox").dgStyle();
          $(".signin_check").dgStyle();
          
@@ -245,9 +246,13 @@ BS.AppRouter = Backbone.Router.extend({
        BS.profileView = new BS.ProfileView();
        BS.profileView.render();
        $('#school-popup').html(BS.profileView.el);  
+       
        $('.progress-container').hide();
        $(".modal select:visible").selectBox();
        $(".radio").dgStyle();
+//       $('.video-radio').dgStyle();
+//       $('.img-radio').dgStyle();
+        
        $('.modal .datepicker').datepicker();
        jQuery("#profile-form").validationEngine();
        
@@ -290,7 +295,7 @@ BS.AppRouter = Backbone.Router.extend({
 	    s.parentNode.insertBefore(e, s);
 	   
 	})();
-       
+//       $(".radio").dgStyle();
    },
   
    
@@ -426,14 +431,14 @@ BS.AppRouter = Backbone.Router.extend({
   				success : function(data) {
   						if (data.status == "Success") {
   	
-  							if (!BS.registrationView) {
+//  							if (!BS.registrationView) {
   								BS.registrationView = new BS.RegistrationView();
   								var mailInfo = {
   										iam : iam,
   										mail : email
   								};
   								BS.registrationView.render(mailInfo);
-  							}
+//  							}
   	
   							$('#school-popup').html(BS.registrationView.el);
   							localStorage["regInfo"] ='';
@@ -460,6 +465,7 @@ BS.AppRouter = Backbone.Router.extend({
 				if(localStorage["regInfo"])
 				 {
 					   $('#school-popup').children().detach();
+					   $("#profile-socialmedia").html('');
 				       var regDetails =JSON.parse(localStorage["regInfo"]);
 				       BS.mediaRegistrationView = new BS.MediaRegistrationView();
 				       var student = false ,educator=false ,professional =false;
@@ -507,10 +513,10 @@ BS.AppRouter = Backbone.Router.extend({
 				{
 					$('#school-popup').children().detach();
 					
-					if (!BS.mediaRegistrationView) {
+//					if (!BS.mediaRegistrationView) {
 						BS.mediaRegistrationView = new BS.MediaRegistrationView();
 						BS.mediaRegistrationView.render();
-					}
+//					}
 	                
 					$('#school-popup').html(BS.mediaRegistrationView.el);
 					localStorage["regInfo"] ='';
