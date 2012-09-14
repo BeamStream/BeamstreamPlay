@@ -64,6 +64,7 @@ BS.ProfileView = Backbone.View.extend({
         {
         	
         	phno ='('+ numText.substring(0,3) + ') ' + numText.substring(3,6) + '-' + numText.substring(6,10);
+        	$('#num-validation').html("");
         	$('#mobile').val(phno);
         }
         
