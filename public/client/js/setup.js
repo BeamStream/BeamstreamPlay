@@ -103,3 +103,6 @@ BS.autoPopulateClassesbyName = BS.URLRequired+"/autoPopulateClassesbyName";
 
  
  
+/* for beta users */
+BS.toLogin = BS.URLRequired+'/beamstream/index.html#login';
+BS.betaUser = BS.URLRequired+'/betaUser';

@@ -21,7 +21,7 @@
 
   <link href="http://www.beamstream.com/img/favicon.ico" rel="shortcut icon">
 
-	 
+
  
 <script type="text/javascript">
 //   	var _gaq = _gaq || [];
@@ -94,6 +94,8 @@
     }
 
   </script><script type="text/javascript" async="" src="js/widgets.js"></script>
+   <script src="js/app.js"></script>
+<script src="js/setup.js"></script>
   <script type="text/javascript">
   function postValues(){
 	  
@@ -137,8 +139,11 @@
     <div class="site_width">
       <div class="quick_links">
         <a href="mailto:info@beamstream.com">Contact us</a>
-         <a href="http://localhost:9000/beamstream/index.html#login">Login Here</a>
-        
+         <a id="login" href="">Login Here</a>
+         <script type="text/javascript">
+               document.getElementById('login').href = BS.toLogin;
+         </script>
+ 
       </div>
       <div class="logo"><a href="http://www.beamstream.com/index"><h1>BeamStream</h1></a></div>
     </div>
