@@ -102,13 +102,6 @@ object Comment {
     allCommentsForAModel
   }
 
-  /*
-  * add Comment to message
-  */
-  def addCommentToMessage(commentId: ObjectId, messageId: ObjectId) = {
-    val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-    MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments ++ List(commentId))), false, false, new WriteConcern)
-  }
 
   /*
   * add Comment to document
@@ -125,9 +118,3 @@ object Comment {
 object CommentDAO extends SalatDAO[Comment, ObjectId](collection = MongoHQConfig.mongoDB("comment"))
 
 
-/**
- * Vikas's
- */
-trait CommentConsumer {
-  def addComment(id: ObjectId, commentId: ObjectId)
-}

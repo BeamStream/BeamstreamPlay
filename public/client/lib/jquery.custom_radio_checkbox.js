@@ -21,6 +21,7 @@ dgStyle: function()
 		var elm	=	$(this).children().get(0);
 		elmType = $(elm).attr("type");
 		$(this).data('type',elmType);
+		 
 		$(this).data('checked',$(elm).attr("checked"));
 		$(this).dgClear();
 	});
@@ -31,6 +32,7 @@ dgClear: function()
 {    
 	/* edited By Aswathy */
 	var elm	=	$(this).children().get(0);
+	 
 	if($(this).attr("checked") == "checked")
 	{
 		$(elm).dgCheck(this);
@@ -79,7 +81,7 @@ dgHandle: function()
 	}
 },
 dgCheck: function(div)
-{
+{    
 	$(this).attr("checked",true);
 	$(div).data('checked',true).css({backgroundPosition:"center -"+(elmHeight*2)+"px"});
 },
