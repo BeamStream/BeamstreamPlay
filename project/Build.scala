@@ -18,6 +18,7 @@ object ApplicationBuild extends Build {
     "com.amazonaws" % "aws-java-sdk" % "1.0.002",
     "org.skife.com.typesafe.config" % "typesafe-config" % "0.3.0",
     "commons-codec" % "commons-codec" % "1.6",
+    "org.neo4j" % "neo4j-remote-graphdb" % "0.9-1.3.M01",
     "org.joda" % "joda-convert" % "1.1")
 
   resolvers += "repo.novus snaps" at "http://repo.novus.com/snapshots/"

@@ -48,12 +48,13 @@ object Message extends CommentConsumer {
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
 
   /**
-   * Vikas's
+   * add Comment
    */
   def addComment(id: ObjectId, commentId: ObjectId) {
     val message = Message.findMessageById(id)
     message match {
       case Some(message) => Message.addCommentToMessage(commentId, id)
+      case None => 
     }
 
   }
