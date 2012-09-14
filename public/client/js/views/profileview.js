@@ -78,8 +78,12 @@ BS.ProfileView = Backbone.View.extend({
        	var numCount = $('#mobile').val().length;
        	var  num = $('#mobile').val();
        	var numText = num.replace(/\D/g,"");
-       	if(!num)
-       	  return;
+       	if(!num || num.match(/^[\s]*$/))
+       	{
+       		$('#num-validation').html("");
+       		return;
+       	}
+       	  
        	if(!num.match(BS.phReg))
        	{  
        		phno ='('+ numText.substring(0,3) + ') ' + numText.substring(3,6) + '-' + numText.substring(6,10);
@@ -116,7 +120,15 @@ BS.ProfileView = Backbone.View.extend({
     	   {
     		   if(!($('#mobile').val().match(BS.phReg)))
     		   {
-    			   status = false;
+    			   if($('#mobile').val().match(/^[\s]*$/))
+    			   {
+    				   status = true;
+    			   }
+    			   else
+    			   {
+    				   status = false;
+    			   }
+    			   
     		   }
     	   }
     	   if(status == true)
