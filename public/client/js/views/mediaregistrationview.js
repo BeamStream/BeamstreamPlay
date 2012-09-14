@@ -77,6 +77,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	    	   					
 	    	   					BS.schoolFromPrev =  $('#school-name').val();
 	    	   					// navigate to main stream page
+	    	   					$(".star").hide();
 	    	   					BS.AppRouter.navigate("streams", {
 	    	   						trigger : true,
 	    	   						 
@@ -214,7 +215,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 								
 								// save school name 
 								BS.schoolFromPrev =  $('#school-name').val();
-								
+								$(".star").hide();
 								// navigate to main stream page
 								BS.AppRouter.navigate("school", {
 									trigger : true,
@@ -254,6 +255,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	 */
 	closeScreen : function(eventName){
 	  eventName.preventDefault(); 
+	  $(".star").hide();
   	  BS.AppRouter.navigate('login', {trigger: true});
 	}
 });
