@@ -7,7 +7,7 @@ import com.novus.salat.dao._
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
 
-case class BetaUser(@Key("_id") id: ObjectId, iAm: String, emailid: String)
+case class BetaUser(@Key("_id") id: ObjectId, iAm: UserType.Value , emailid: String)
 object BetaUser {
 
    

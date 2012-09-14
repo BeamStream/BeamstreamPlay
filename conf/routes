@@ -5,7 +5,8 @@
 # Home page
 GET / controllers.StreamController.index
 
-
+#Beta Users
+POST /betaUser   controllers.JoinBeamStream.regsisterToBeamStreamBeta
 
 #User
 POST /users      controllers.UserController.findUser

@@ -61,11 +61,21 @@ case class Document(@Key("_id") id: ObjectId,
                                 comments : List[ObjectId])
 
 case class DocumentForm(name: String)
-object Document {
+object Document extends CommentConsumer {
 
   implicit val formats = DefaultFormats
 
   def allDocuments(): List[Document] = Nil
+  
+  
+  /**
+   * add Comment
+   */
+  def addComment(id: ObjectId, commentId: ObjectId) {
+    println("Got the Id's , perform the desired logic "+ id + " " +commentId)
+
+  }
+
 
 /*
  * Add a document
