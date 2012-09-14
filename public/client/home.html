@@ -15,21 +15,24 @@
   <link href="css/cusel.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="css/beta-style.css">
   <script src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
-  <script type="text/javascript" async="" src="js/ga.js"></script><script src="js/googleapis.client__plusone.js"></script><script src="js/beta-script.js"></script>
+<!--   <script type="text/javascript" async="" src="js/ga.js"></script> -->
+<!--   <script src="js/googleapis.client__plusone.js"></script> -->
+  <script src="js/beta-script.js"></script>
 
   <link href="http://www.beamstream.com/img/favicon.ico" rel="shortcut icon">
 
-	
+	 
+ 
 <script type="text/javascript">
-  	var _gaq = _gaq || [];
-  	_gaq.push(['_setAccount', 'UA-18936722-1']);
-  	_gaq.push(['_trackPageview']);
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; 
-      s.parentNode.insertBefore(ga, s);
-    })();
+//   	var _gaq = _gaq || [];
+//   	_gaq.push(['_setAccount', 'UA-18936722-1']);
+//   	_gaq.push(['_trackPageview']);
+//     (function() {
+//       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+//       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+//       var s = document.getElementsByTagName('script')[0]; 
+//       s.parentNode.insertBefore(ga, s);
+//     })();
   	</script>
 
 	
@@ -89,8 +92,40 @@
       // display the message
       $('#dialog-message').html(message);
     }
-  </script><script type="text/javascript" async="" src="js/widgets.js"></script>
 
+  </script><script type="text/javascript" async="" src="js/widgets.js"></script>
+  <script type="text/javascript">
+  function postValues(){
+	  
+  	var iam =$("#iam").val();
+  	var email = $('#email').val();
+  	 
+  	
+  	/* added to the Beamstream's beta users List */
+		 $.ajax({
+		    	type : 'POST',
+		    	url : 'http://localhost:9000/betaUser',    
+		    	data : {
+		    		iam : iam,
+		    		email : email
+		    	},
+		    	dataType : "json",
+		    	success : function(data) {
+		    			if(data.status == "Success")
+		    			{
+		    				console.log("Success");
+		    				alert(data.message);
+		    			}
+		    			else
+		    			{
+		    				console.log("Success");
+		    				alert(data.message);
+		    			}
+		    	}
+		    });
+		 return false;
+  }
+  </script>
 	
 
 </head>
@@ -112,7 +147,6 @@
   <div class="content">
     <div class="site_width">
       <div id="lift__noticesContainer__"></div>
-
       <div>
 
 
@@ -131,15 +165,15 @@
   <p align="center"><img alt="Join the Beam Beta List" src="images/image/join_bs.png"></p>
 
   <div class="form-container">
-    <form id="F157948539271YBDNH5" action="javascript://" onsubmit="liftAjax.lift_ajaxHandler(jQuery(&#39;#&#39;+&quot;F157948539271YBDNH5&quot;).serialize(), null, null, &quot;javascript&quot;);return false;">
+    <form id="form-id"   method="POST" action="" onsubmit="return postValues();">
       <div>
-        <input onfocus="this.value=&#39;&#39;" onblur="if (this.value==&#39;&#39;){this.value=&#39;E-mail&#39;}" type="text" name="F157948539272TIRCCG" value="E-mail">
+        <input id ="email" onfocus="this.value=&#39;&#39;" onblur="if (this.value==&#39;&#39;){this.value=&#39;E-mail&#39;}" type="text" name="email" value="E-mail">
         <div class="lineForm">
-            <select id="country">
-                <option value = "Q3PY0GSFL4OF1TL0CLJN" >I'm a</option>
-                <option value = "FPXFVFPCUNITQIKBDSXZ" >Student</option>
-                <option value = "RHPAG2NF3HFQFXAF2203" >Educator</option>
-                <option value = "KTWQIDPG3LLLGJV3H0C2" >Professional</option>
+            <select id="iam">
+                <option value = " " >I'm a</option>
+                <option value = "0" >Student</option>
+                <option value = "1" >Educator</option>
+                <option value = "2" >Professional</option>
             </select>
             </div>
         <input value=" " type="submit">
@@ -263,7 +297,8 @@
 
 
 
-</div><script type="text/javascript" src="js/liftAjax.js"></script>
+</div>
+<script type="text/javascript" src="js/liftAjax.js"></script>
 
 	
 <script type="text/javascript">
