@@ -83,7 +83,7 @@ object CommentController extends Controller {
       case true =>
 
         val messageId = idJson("messageId").toList(0)
-        val commentsForAMessage = getCommentsFromId(Message.findMessageById(new ObjectId(messageId)).comments)
+        val commentsForAMessage = getCommentsFromId(Message.findMessageById(new ObjectId(messageId)).get.comments)
         Ok(write(commentsForAMessage)).as("application/json")
 
       case false => (idJson.contains(("docId"))) match {

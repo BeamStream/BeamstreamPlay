@@ -52,8 +52,10 @@ object Message extends CommentConsumer {
    */
   def addComment(id: ObjectId, commentId: ObjectId) {
     val message = Message.findMessageById(id)
-    if (!List(message).isEmpty)
-      Message.addCommentToMessage(commentId, id)
+    message match {
+      case Some(message) => Message.addCommentToMessage(commentId, id)
+    }
+
   }
 
   /**
@@ -175,9 +177,9 @@ object Message extends CommentConsumer {
    * Find Message by Id
    */
 
-  def findMessageById(messageId: ObjectId): Message = {
+  def findMessageById(messageId: ObjectId): Option[Message] = {
     val messageObtained = MessageDAO.findOneByID(messageId)
-    messageObtained.get
+    messageObtained
   }
 
   /*
