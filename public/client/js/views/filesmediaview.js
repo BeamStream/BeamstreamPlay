@@ -281,7 +281,7 @@ BS.FilesMediaView = Backbone.View.extend({
                               content+= '<option>'+option.streamName+'</option>';
                               i++;
                               });
-                              content+='<option>Enter From Catagory</option>'              
+                              content+='<option class="enterfromcatgry">Enter From Catagory</option>'              
                               $('#linkselect_dr').html(content); 
                               }
 					
