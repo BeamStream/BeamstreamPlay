@@ -22,12 +22,9 @@ object CommentController extends Controller {
 
   def newComment = Action { implicit request =>
 
-    
     val commentJson = request.body.asFormUrlEncoded.get
-    
-    (commentJson.contains(("messageId"))) match {
 
-    case true =>
+    val consumers: List[CommentConsumer] = List(Message,Document)
     
     val messageId = commentJson("messageId").toList(0)
     val commentText = commentJson("comment").toList(0)
@@ -35,29 +32,45 @@ object CommentController extends Controller {
     val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
       commentPoster.firstName, commentPoster.lastName, 0, List())
     val commentId = Comment.createComment(comment)
-    Comment.addCommentToMessage(commentId, new ObjectId(messageId))
+    consumers.map(_.addComment(new ObjectId(messageId), commentId))
     Ok(write(List(comment))).as("application/json")
     
-    case false => (commentJson.contains(("docId"))) match {
     
-    case true  => 
+  //TODO : messageId will be replaced with id in the JSON and here as well
     
-        val docId = commentJson("docId").toList(0)
-        val commentText = commentJson("comment").toList(0)
-        val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-        val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
-        commentPoster.firstName, commentPoster.lastName, 0, List())
-        val commentId = Comment.createComment(comment)
-        Comment.addCommentToDocument(commentId, new ObjectId(docId))
-        Ok(write(List(comment))).as("application/json")
-        
-    case false => 
-    
-       Ok(write(new ResulttoSent("Failure", "IdNotFound")))
-       
-       }
-    
-    }
+//        (commentJson.contains(("messageId"))) match {
+//    
+//        case true =>
+//        
+//        val messageId = commentJson("messageId").toList(0)
+//        val commentText = commentJson("comment").toList(0)
+//        val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+//        val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
+//          commentPoster.firstName, commentPoster.lastName, 0, List())
+//        val commentId = Comment.createComment(comment)
+//        Message.addCommentToMessage(commentId, new ObjectId(messageId))
+//        Ok(write(List(comment))).as("application/json")
+//        
+//        case false => (commentJson.contains(("docId"))) match {
+//        
+//        case true  => 
+//        
+//            val docId = commentJson("docId").toList(0)
+//            val commentText = commentJson("comment").toList(0)
+//            val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+//            val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
+//            commentPoster.firstName, commentPoster.lastName, 0, List())
+//            val commentId = Comment.createComment(comment)
+//            Comment.addCommentToDocument(commentId, new ObjectId(docId))
+//            Ok(write(List(comment))).as("application/json")
+//            
+//        case false => 
+//        
+//           Ok(write(new ResulttoSent("Failure", "IdNotFound")))
+//           
+//           }
+//        
+//        }
   }
 
   /*
@@ -66,34 +79,34 @@ object CommentController extends Controller {
    */
 
   def getAllComments = Action { implicit request =>
-    val idJson= request.body.asFormUrlEncoded.get
-    
+    val idJson = request.body.asFormUrlEncoded.get
+
     (idJson.contains(("messageId"))) match {
-    
-    case true =>
-    
-    val messageId = idJson("messageId").toList(0)
-    val commentsForAMessage = getCommentsFromId(Message.findMessageById(new ObjectId(messageId)).comments)
-    Ok(write(commentsForAMessage)).as("application/json")
-    
-    case false => (idJson.contains(("docId"))) match {
 
-    case true  => 
+      case true =>
 
-      val docId = idJson("docId").toList(0)
-      val commentsForADocument = getCommentsFromId(Document.findDocumentById(new ObjectId(docId)).comments)
-      Ok(write(commentsForADocument)).as("application/json")
+        val messageId = idJson("messageId").toList(0)
+        val commentsForAMessage = getCommentsFromId(Message.findMessageById(new ObjectId(messageId)).get.comments)
+        Ok(write(commentsForAMessage)).as("application/json")
 
-    case false => 
-    
-         Ok(write(new ResulttoSent("Failure", "IdNotFound")))
-    
-        }
-     }
+      case false => (idJson.contains(("docId"))) match {
+
+        case true =>
+
+          val docId = idJson("docId").toList(0)
+          val commentsForADocument = getCommentsFromId(Document.findDocumentById(new ObjectId(docId)).comments)
+          Ok(write(commentsForADocument)).as("application/json")
+
+        case false =>
+
+          Ok(write(new ResulttoSent("Failure", "IdNotFound")))
+
+      }
+    }
 
   }
 
-def getCommentsFromId(commentIds: List[ObjectId]): List[Comment] = {
+  def getCommentsFromId(commentIds: List[ObjectId]): List[Comment] = {
 
     var comments: List[Comment] = List()
     for (commentId <- commentIds) {
@@ -101,18 +114,17 @@ def getCommentsFromId(commentIds: List[ObjectId]): List[Comment] = {
       comments ++= List(comment)
     }
     comments
-    
-}
 
+  }
 
-///**
-// * Vikas's
-// */
-// def addCommentFromUI(id: ObjectId, commentId: ObjectId) {
-//    val consumers: List[CommentConsumer] = List(Message, Document)
-//    consumers.view.map(_.addComment(id, commentId))
-//  }
-// 
+  ///**
+  // * Trait related
+  // */
+  // def addCommentFromUI(id: ObjectId, commentId: ObjectId) {
+  //    val consumers: List[CommentConsumer] = List(Message, Document)
+  //    consumers.view.map(_.addComment(id, commentId))
+  //  }
+
   /*
    * Rocking a comment
    */
@@ -135,6 +147,5 @@ def getCommentsFromId(commentIds: List[ObjectId]): List[Comment] = {
     Ok(write(rockersNameForAComment)).as("application/json")
 
   }
-
 
 }

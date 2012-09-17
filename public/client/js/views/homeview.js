@@ -6,6 +6,7 @@ BS.NavView = Backbone.View.extend({
    	 "click #class-pop" : "renderClassPopups",
    	 "click #sign-out" : "signOut",
    	 "click nav li" : "showActiveClass",
+   	 "click #settings" : "renderSettings"
      
    },
 	
@@ -74,6 +75,14 @@ BS.NavView = Backbone.View.extend({
     	BS.editClass = true;
     	BS.AppRouter.navigate("class", {trigger: true});
     },
+    
+    /**
+     * render settings view
+     */
+    renderSettings :function(eventName){
+    	eventName.preventDefault();
+    	BS.AppRouter.navigate("settings", {trigger: true});
+    },
     /**
 	 * function for sign out
 	 */
@@ -87,6 +96,7 @@ BS.NavView = Backbone.View.extend({
 				dataType : "json",
 				success : function(datas) {
 					 localStorage.clear();  
+					 localStorage["regInfo"] = '';
 					 $('#middle-content').children().detach();
 					 BS.AppRouter.navigate("login", {trigger: true});
 				}

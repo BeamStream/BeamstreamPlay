@@ -13,6 +13,7 @@ BS.RegistrationView = Backbone.View.extend({
 		this.template = Handlebars.compile(this.source);
 		// for edit user details
 		BS.regBack = false;
+		$("#registration-form").validate();
 
 	},
 
@@ -34,8 +35,7 @@ BS.RegistrationView = Backbone.View.extend({
 
 	save : function(eventName) {
 		eventName.preventDefault();
-		var validate = jQuery('#registration-form').validationEngine('validate');
-        
+		var validate = $("#registration-form").valid();
         if(validate == true){
     	    var regDetails = this.getFormData();
     	  
@@ -65,6 +65,7 @@ BS.RegistrationView = Backbone.View.extend({
     						
     	   					// navigate to main stream page
     	   					BS.schoolFromPrev =  $('#school-name').val();
+    	   					$(".star").hide();
     	   					BS.AppRouter.navigate("streams", {
     	   						trigger : true,
     	   						 
@@ -133,8 +134,7 @@ BS.RegistrationView = Backbone.View.extend({
 	toNextPage : function(eventName) {
 
 		eventName.preventDefault();
-        var validate = jQuery('#registration-form').validationEngine('validate');
-        
+        var validate = $("#registration-form").valid();
         if(validate == true){
         
 			var regDetails = this.getFormData();
@@ -162,7 +162,7 @@ BS.RegistrationView = Backbone.View.extend({
 						BS.resistrationPage = "basic";
 	   					 
 						BS.schoolFromPrev =  $('#school-name').val();
-						
+						$(".star").hide();
 						// navigate to main stream page
 						BS.AppRouter.navigate("school", {trigger : true,});
 					}
@@ -182,6 +182,7 @@ BS.RegistrationView = Backbone.View.extend({
 	 */
 	closeScreen : function(eventName){
 	  eventName.preventDefault(); 
+	  $(".star").hide();
   	  BS.AppRouter.navigate('login', {trigger: true});
 	}
 });

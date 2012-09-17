@@ -50,7 +50,6 @@ object SendEmail {
   }
 
   def sendPassword(emailId: String, password: String) {
-
     val props = new Properties
     props.setProperty("mail.transport.protocol", "smtp");
     props.setProperty("mail.smtp.starttls.enable", "true");
@@ -77,7 +76,7 @@ object SendEmail {
         "The Really Nice Beamstream Folks , US" + "<br>", "text/html");
 
     val transport = session.getTransport("smtp");
-    transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", Play.current.configuration.getString("email_password").get)
+    transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get))
     transport.sendMessage(msg, msg.getAllRecipients)
 
   }

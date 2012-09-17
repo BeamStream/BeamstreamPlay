@@ -43,19 +43,22 @@ case class Message(@Key("_id") id: ObjectId,
   follows: Int,
   followers: List[ObjectId])
 
-object Message{         //  extends CommentConsumer{
+object Message extends CommentConsumer {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
 
   /**
-   * Vikas's
+   * add Comment
    */
-  def addComment(id:ObjectId, text:String){
-    
-    // find message with object Id
-    //if found add comment 
-  }  
-  
+  def addComment(id: ObjectId, commentId: ObjectId) {
+    val message = Message.findMessageById(id)
+    message match {
+      case Some(message) => Message.addCommentToMessage(commentId, id)
+      case None => 
+    }
+
+  }
+
   /**
    * Create a new message
    */
@@ -66,7 +69,7 @@ object Message{         //  extends CommentConsumer{
   }
 
   /**
-   * 
+   *
    */
   private def validateUserHasRightToPost(userId: ObjectId, streamId: ObjectId): Boolean = {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
@@ -78,7 +81,7 @@ object Message{         //  extends CommentConsumer{
   }
 
   /**
-   * Get all messages fro a stream
+   * Get all messages from a stream
    */
   def getAllMessagesForAStream(streamId: ObjectId): List[Message] = {
     val messsages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList
@@ -175,9 +178,9 @@ object Message{         //  extends CommentConsumer{
    * Find Message by Id
    */
 
-  def findMessageById(messageId: ObjectId): Message = {
+  def findMessageById(messageId: ObjectId): Option[Message] = {
     val messageObtained = MessageDAO.findOneByID(messageId)
-    messageObtained.get
+    messageObtained
   }
 
   /*
@@ -237,7 +240,17 @@ object Message{         //  extends CommentConsumer{
     }
     publicMessagesForAUser
   }
-  
+
+  /*
+   * Add Comment To Message
+   */
+  /*
+  * add Comment to message
+  */
+  def addCommentToMessage(commentId: ObjectId, messageId: ObjectId) = {
+    val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+    MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments ++ List(commentId))), false, false, new WriteConcern)
+  }
 
 }
 

@@ -9,12 +9,12 @@ Backbone.history.start();
 * Config Variables for Url externalization
 */
 
-//BS.URLRequired ="http://localhost:9000";     // for cloud use BS.URLRequired ="http://beamstream-v3.herokuapp.com";
+//BS.URLRequired ="http://localhost:9000";    
  
  
 BS.URLRequired ="http://alpha.beamstream.com";
  
-//BS.URLRequired ="http://beamstream-staging.herokuapp.com"
+//BS.URLRequired ="http://test.beamstream.com"
 	
 // For Login Page
 BS.login = BS.URLRequired+"/users";
@@ -101,5 +101,10 @@ BS.autoPopulateClassesbyCode = BS.URLRequired+"/autoPopulateClassesbyCode";
 //populate class names
 BS.autoPopulateClassesbyName = BS.URLRequired+"/autoPopulateClassesbyName";
 
+//DeleteStrewams
+BS.deleteStream = BS.URLRequired+"/deleteStream";
  
  
+/* for beta users */
+BS.toLogin = BS.URLRequired+'/beamstream/index.html#login';
+BS.betaUser = BS.URLRequired+'/betaUser';

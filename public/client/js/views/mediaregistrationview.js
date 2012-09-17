@@ -13,6 +13,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 		console.log('Initializing Basic Registration via Social site ');
 		this.source = $("#tpl-profile-socialmedia").html();
 		this.template = Handlebars.compile(this.source);
+		$("#social-media-signup").validate();
 		// for edit user details
 		BS.regInfo = '';
 		BS.regBack = false;
@@ -31,8 +32,9 @@ BS.MediaRegistrationView = Backbone.View.extend({
 
 	save : function(eventName) {
 		eventName.preventDefault();
-		var validate = jQuery('#social-media-signup').validationEngine('validate');
-        
+//		var validate = jQuery('#social-media-signup').validationEngine('validate');
+		var validate =  $("#social-media-signup").valid();
+		console.log(validate);
         if(validate == true){
     	    var regDetails = this.getFormData();
     	    // valid I'm field
@@ -77,6 +79,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	    	   					
 	    	   					BS.schoolFromPrev =  $('#school-name').val();
 	    	   					// navigate to main stream page
+	    	   					$(".star").hide();
 	    	   					BS.AppRouter.navigate("streams", {
 	    	   						trigger : true,
 	    	   						 
@@ -164,7 +167,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	toNextPage : function(eventName) {
 
 		eventName.preventDefault();
-        var validate = jQuery('#social-media-signup').validationEngine('validate');
+        var validate =  $("#social-media-signup").valid();
         
         if(validate == true){
         
@@ -214,7 +217,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 								
 								// save school name 
 								BS.schoolFromPrev =  $('#school-name').val();
-								
+								$(".star").hide();
 								// navigate to main stream page
 								BS.AppRouter.navigate("school", {
 									trigger : true,
@@ -254,6 +257,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	 */
 	closeScreen : function(eventName){
 	  eventName.preventDefault(); 
+	  $(".star").hide();
   	  BS.AppRouter.navigate('login', {trigger: true});
 	}
 });

@@ -68,6 +68,30 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     assert(Comment.getAllComments(List(commentId, anotherCommentId))(1).commentBody === "Comment2")
   }
 
+  test("Testing the Visitors Pattern") {
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
+    val userId = User.createUser(user)
+
+    val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId), true, List())
+    val streamId = Stream.createStream(stream)
+
+    val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(streamId), "", "", 0, List(), List(), 0, List())
+    val messageId = Message.createMessage(message)
+
+    val comment = new Comment(new ObjectId, "Comment1", new Date, userId, user.firstName, user.lastName, 0, List())
+
+    val commentId = Comment.createComment(comment)
+    Message.addComment(new ObjectId, commentId)
+    assert(Message.findMessageById(messageId).get.comments.size === 0)
+    // No Problem happens if no message id found , Jumps in None case
+    
+    val otherComment = new Comment(new ObjectId, "Comment2", new Date, userId, user.firstName, user.lastName, 0, List())
+    val otherCommentId = Comment.createComment(otherComment)
+    Message.addComment(messageId, commentId)
+    assert(Message.findMessageById(messageId).get.comments.size === 1)
+
+  }
+
   after {
 
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))

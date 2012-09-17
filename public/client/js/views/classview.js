@@ -42,8 +42,7 @@ BS.ClassView = Backbone.View.extend({
 		
 		eventName.preventDefault();
  
-			var validate = jQuery('#class-form').validationEngine('validate');
-			 
+			var validate = $("#class-form").valid(); 
 			if(validate == true)
 		    {
 				$('#save').attr('data-dismiss','modal');
@@ -64,6 +63,7 @@ BS.ClassView = Backbone.View.extend({
 								$('.studentno-popup-class').fadeOut("medium"); 
 								BS.schoolBack = false;
 								// navigate to main stream page
+								$(".star").hide();
 								BS.AppRouter.navigate("streams", {trigger: true});
 							}
 							else
@@ -82,7 +82,6 @@ BS.ClassView = Backbone.View.extend({
 		   }
 			else
 		    {    
-				console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
 				$('#error').html("You must enter atleast one class");
 		    }
  
@@ -146,7 +145,7 @@ BS.ClassView = Backbone.View.extend({
 		console.log("to profile");
 		eventName.preventDefault();
  
-			var validate = jQuery('#class-form').validationEngine('validate');
+		var validate = $("#class-form").valid(); 
 			if(validate == true)
 		    {
 				var classDetails = this.getClassInfo();
@@ -164,7 +163,7 @@ BS.ClassView = Backbone.View.extend({
 						{
 							$('.studentno-popup-class').fadeOut("medium"); 
 							BS.editProfile = false;
-							
+							$(".star").hide();
 							// navigate to main stream page
 							BS.AppRouter.navigate("profile", {trigger: true});
 						}
@@ -177,7 +176,6 @@ BS.ClassView = Backbone.View.extend({
 		   }
 			else
 		    { 
-				console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
 				$('#error').html("You must enter atleast one class");
 		    }
  
@@ -312,7 +310,7 @@ BS.ClassView = Backbone.View.extend({
       eventName.preventDefault();
        
       localStorage["SchoolDetails"] = JSON.stringify(this.schools); 
-      
+      $(".star").hide();
       BS.AppRouter.navigate("school", {trigger: true});
     },
     
@@ -667,6 +665,7 @@ BS.ClassView = Backbone.View.extend({
      */
     closeScreen : function(eventName){
   	  eventName.preventDefault(); 
+  	  $(".star").hide();
   	  BS.AppRouter.navigate('streams', {trigger: true});
     },
     /**

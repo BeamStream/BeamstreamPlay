@@ -8,7 +8,8 @@ BS.LoginView = Backbone.View.extend({
 	
     initialize:function () {
   
-    	jQuery("#login-form").validationEngine();
+//    	jQuery("#login-form").validationEngine();
+    	$("#login-form").validate();
         console.log('Initializing Login View');
         console.log("Login page...");
         this.template= _.template($("#tpl-login").html());
@@ -29,7 +30,9 @@ BS.LoginView = Backbone.View.extend({
     	
     	    eventName.preventDefault();
     	   
-    	    var validate = jQuery('#login-form').validationEngine('validate');
+//    	    var validate = jQuery('#login-form').validationEngine('validate');
+    	    var validate = jQuery('#login-form').valid();
+    	    console.log(validate);
 			if(validate == true)
 			{
 				 
@@ -60,6 +63,7 @@ BS.LoginView = Backbone.View.extend({
 							    			}
 							    			
 							    			 console.log(data.status + " : " + data.message);
+							    			 $(".star_position").html('');
 							    			 BS.AppRouter.navigate("streams", {trigger: true});
 							    		}
 							    		else 

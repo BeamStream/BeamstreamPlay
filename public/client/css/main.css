@@ -1,5 +1,5 @@
 .nav-list {
-  min-height: 165px;
+/*   min-height: 165px; */
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -313,6 +313,7 @@ a.disabled {
 }
 body {
   background: #82bbed url(../images/layout/background.png) center 0 no-repeat !important;
+/*   background: #82bbed !important; */
   min-width: 1024px;
   font-family: arial, Helvetica, sans-serif;
   padding-top: 96px;
@@ -688,6 +689,7 @@ body {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
+  min-height:907px;
 }
 .content_area .container-inner .row {
   margin-left: 0;

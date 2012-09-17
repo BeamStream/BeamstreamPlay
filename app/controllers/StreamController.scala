@@ -133,4 +133,18 @@ object StreamController extends Controller {
 
   }
 
+  /**
+   *  Delete A Stream
+   */
+  def deleteTheStream = Action { implicit request =>
+    val DetailsJsonMap = request.body.asFormUrlEncoded.get
+    val streamId = DetailsJsonMap("StreamId").toList(0)
+    val deleteStream = DetailsJsonMap("deleteStream").toList(0).toBoolean
+    val removeAccess = DetailsJsonMap("removeAccess").toList(0).toBoolean
+    val result=Stream.deleteStreams(new ObjectId(request.session.get("userId").get), new ObjectId(streamId), deleteStream, removeAccess)
+    println(write(result))
+    Ok(write(result)).as("application/json")
+
+  }
+
 }

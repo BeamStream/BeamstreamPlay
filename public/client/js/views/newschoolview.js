@@ -116,7 +116,7 @@ BS.NewSchoolView = Backbone.View.extend({
                      data:{data:schoolDetails},
                      dataType:"json",
                      success:function(data){
-                     	
+                    	 $(".star").hide();
          				 // navigate to main stream page
                     	 $('#new-school-view').children().detach();;
 //                    	 

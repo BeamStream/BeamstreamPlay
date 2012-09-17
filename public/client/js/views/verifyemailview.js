@@ -11,6 +11,7 @@ BS.verifyEmailView = Backbone.View.extend({
     	
         console.log('Verify your email');
         this.template= _.template($("#tpl-verify-email").html());
+        $("#email-verify").validate();
         
     },
 
@@ -45,7 +46,8 @@ BS.verifyEmailView = Backbone.View.extend({
     registration:function (eventName) {
     	
     	eventName.preventDefault();
-    	var validate = jQuery('#email-verify').validationEngine('validate');
+//    	var validate = jQuery('#email-verify').validationEngine('validate');
+    	var validate = $("#email-verify").valid();
     	if(validate == true)
 	    {
     		if($('#iam').val() == "")
@@ -70,6 +72,7 @@ BS.verifyEmailView = Backbone.View.extend({
 						if(data.status == "Success") 
 		   			    {
 							    $('.forgot-pass').hide();
+							    $(".star").hide();
 								var source = $("#tpl-verify-popup").html();
 								var template = Handlebars.compile(source);
 								$("#school-popup").html(template);
@@ -91,7 +94,7 @@ BS.verifyEmailView = Backbone.View.extend({
     	else
     	{
     		$('#error').html("Only use emails that are assosiated with schools and organozations");
-    		console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
+//    		console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
     	}
 		 
          

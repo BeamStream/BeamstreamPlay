@@ -62,7 +62,7 @@
     
     
     <!--  for validation -->
-    <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
+<!--     <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/> -->
     
     <!-- embedly -->
      <link rel="stylesheet" href="css/embedly-preview.css" type="text/css"/>
@@ -97,8 +97,8 @@
 	 
 	 <script src="lib/embedly-preview.js" type="text/javascript"></script>
 	 <!-- End embedly -->
-	 
- 
+	
+      
 	 
 	<script type="text/javascript" src="lib/jquery.selectBox.js"></script>
 	<script src="lib/underscore-min.js"></script>
@@ -113,8 +113,10 @@
 
 
 	<!--  for validation  -->
-	<script src="lib/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
-	<script src="lib/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="lib/jquery-validation.js" type="text/javascript"></script>
+<!-- 	<script src="lib/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script> -->
+<!-- 	<script src="lib/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script> -->
 	
     <script src="lib/bootstrap.min.js"></script>
   
@@ -446,6 +448,87 @@
   </footer>
 </div>
  </script>
+
+<!-- template for settings page -->
+ <script type="text/x-handlebars-template" id="tpl-settings">
+<section class="site_search">
+  <div class="container docs">
+  <div class="pre-arrow-wrapper"><a class="pre-arrow"  href="#"></a></div>
+  <div class="next-arrow-wrapper"><a class="next-arrow"  href="#"></a></div>
+    <div class="container-inner">
+      <form method="post" action="/search/" class="form-inline">
+        <fieldset>
+           
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</section>
+<div class="container docs content_area wrapper_con">
+<div id="action-popup"></div>
+  <div class="container-inner">
+    <div class="row">
+      <div class="top-wrapper">
+        <label>Manage</label>
+        <ul>
+          <li>
+            <a href="#">Streams</a>
+          </li>
+       </ul>
+      </div>
+    </div>
+    <div class="row" >
+     
+      <div id ="stream-manage" >
+     <table style="margin-bottom : 20px; width: 478px;" class="stream-table">
+		<tr>
+		<th>Streams</th>
+		<th>Actions</th>
+		</tr>
+	 </table>
+	 <table class="stream-table" id="streamslist" > 
+		 
+	 </table> 
+      </div>     
+
+    </div>
+  </div>
+  
+  <footer class="site_footer">
+    <p>Copyright &copy; 2012 BeamStream</p>
+    <ul class="pull-right">
+      <!-- WARNING: don't put newlines here, it breaks layout. -->
+      <li><a href="#submit-suggestion">Submit suggestion</a></li>
+      <li><a href="#report-issue">Report issue</a></li>
+    </ul>
+  </footer>
+</div>
+ </script>
+ 
+ <!-- template stream  action view-->
+	<script type="text/x-handlebars-template" id="tpl-stream-action">
+ <div class="modal-backdrop in"></div>
+   	<div class="modal stream-action-popups modal-pull-top in modal-popups " style="display:block;">
+    <div class="modal-header signin_header">
+    <h1 class="pull-left">Chose Action for {{streamName}}</h1>
+    <input id="streamId" type = "hidden" value="{{streamId}}">
+  </div>
+  <div class="modal-body signin_body">
+    <form id="forgot-pass-form"> 
+      <fieldset>
+       </br></br>
+       <input id="all" type="radio" name="sAction" value="all" > Delete Stream for all users </br></br>
+       <input id="my" type="radio" name="sAction" value="my" >Remove My Access
+      </fieldset>
+    </form>
+  </div>
+  <div class="modal-footer">
+<a id="Ok" class="btn btn-primary pull-left" href="#Ok">OK</a>
+<a id="cancel" class="btn btn-success pull-right" href="#createClass">CANCEL</a>
+</div>
+   </div>
+  </script>
+
 
 <!----------templates for listing all documents-------------->
  <script type="text/x-handlebars-template" id="tpl-docsview">
@@ -1317,11 +1400,18 @@
 		$(document).ready(function(){
 			
 			// binds form submission and fields to the validation engine
-			jQuery("#class-form").validationEngine();
-			jQuery("#login-form").validationEngine();
-			jQuery("#profile-form").validationEngine();
-			jQuery("#email-verify").validationEngine();
-			jQuery("#registration-form").validationEngine();
+			
+			$("#login-form").validate();
+			$("#class-form").validate();
+			$("#profile-form").validate();
+			$("#email-verify").validate();
+			$("#registration-form").validate();
+			$("#forgot-pass-form").validate();
+// 			jQuery("#class-form").validationEngine();
+// 			jQuery("#login-form").validationEngine();
+// 			jQuery("#profile-form").validationEngine();
+// 			jQuery("#email-verify").validationEngine();
+// 			jQuery("#registration-form").validationEngine();
 		});
 
 		
@@ -1449,9 +1539,9 @@
 				<div class="school-registration">
                 <div class="form-row">
                     <div class="element">
-                        <label for="school-name" id="school-id-1" value="" >School name <span class="star"> </span></label>
+                        <label for="school-name" id="school-id-1" value="" >School name </label>
  
-                        <input type="text" name="school-name-1" id="school-name-1" class="validate[required] span3 school" placeholder="School Name">
+                        <input type="text" name="school-name-1" id="school-name-1" class="required span3 school" placeholder="School Name">
                         <input type="hidden" id="associatedId-1" value="">
                     </div>
 
@@ -1478,17 +1568,17 @@
                         </select>
                     </div>
 					<div class="element" id="other-degrees-1">
-                        <label for="other-degree">Degree <span class="star"> </span></label>
-                        <input type="text" name="other-degree-1" id="other-degree-1" class="small" placeholder="Degree">
+                        <label for="other-degree">Degree </label>
+                        <input type="text" name="other-degree-1" id="other-degree-1" class="required small" placeholder="Degree">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="element">
-                        <label for="major">Major <span class="star"> </span></label>
-                        <input type="text" name="major-1" id="major-1" class="validate[required] span3" placeholder="Your Major" >
+                        <label for="major">Major </label>
+                        <input type="text" name="major-1" id="major-1" class="required span3" placeholder="Your Major" >
                     </div>
 					<div class="element">
-                        <label for="graduated">Graduated? <span class="star"> </span></label>
+                        <label for="graduated">Graduated? </label>
                         <select id="graduated-1" name ="graduated"  class="graduated span2">
  							<option> </option>
                             <option value="attending">Still Attending</option>
@@ -1498,7 +1588,7 @@
                     </div>
 					<div class="element" id="cal-1">
                         <label for="calendar-1">Calendar</label>
-                        <input class="span2 datepicker cal" type="text" placeholder ="Date" id="calendar-1"/>
+                        <input class="required span2 datepicker cal" type="text" placeholder ="Date" id="calendar-1"/>
                     </div>
 
                       <div class="element" id="degree-exp-1">
@@ -1538,8 +1628,8 @@
 	<div class="school-registration">
 		<div class="form-row">
 		<div class="element">
-			<label for="school-name-{{number}}" id="school-id-{{number}}" value="{{data.id.id}}" >School name <span class="star"> </span></label>
-			<input type="text" id="school-name-{{number}}" name="school-name-{{number}}" class="validate[required] span3 school" value="{{data.schoolName}}" >
+			<label for="school-name-{{number}}" id="school-id-{{number}}" value="{{data.id.id}}" >School name </label>
+			<input type="text" id="school-name-{{number}}" name="school-name-{{number}}" class="required span3 school" value="{{data.schoolName}}" >
 			<input type="hidden" id="associatedId-{{number}}" value="{{data.assosiatedSchoolId.id}}">
 		</div>
 		<div class="element">
@@ -1565,17 +1655,17 @@
 			</select>
 		</div>
 		<div class="element" id="other-degrees-{{number}}">
-			<label for="other-degree">Degree <span class="star"> </span></label>
-			<input type="text" name="other-degree-{{number}}" id="other-degree-{{number}}" class="small" value="{{data.otherDegree}}">
+			<label for="other-degree">Degree </label>
+			<input type="text" name="other-degree-{{number}}" id="other-degree-{{number}}" class="required small" value="{{data.otherDegree}}">
 		</div>
 		</div>
 		<div class="form-row">
 			<div class="element">
-				<label for="major-{{number}}">Major <span class="star"> </span></label>
-				<input type="text" name="major-{{number}}" id="major-{{number}}" class="validate[required] span3" value="{{data.major}}">
+				<label for="major-{{number}}">Major </label>
+				<input type="text" name="major-{{number}}" id="major-{{number}}" class="required  span3" value="{{data.major}}">
 			</div>
 			<div class="element">
-				<label for="graduated" name="graduated-{{number}}">Graduated? <span class="star"> </span></label>
+				<label for="graduated" name="graduated-{{number}}">Graduated? </label>
 				<select name="graduated" id="graduated-{{number}}" class="graduated span2" >
 					<option> </option>
 					<option value="attending">Still Attending</option>
@@ -1585,7 +1675,7 @@
 			</div>
 			<div class="element" id="cal-{{number}}">
 				<label for="calendar-{{number}}">Calendar</label>
-				<input class="span2 datepicker cal" type="text" id="calendar-{{number}}" name="calendar-{{number}}"/>
+				<input class="required span2 datepicker cal" type="text" id="calendar-{{number}}" name="calendar-{{number}}"/>
 			</div>
 			<div class="element" >
 				<div class="element" id="degree-exp-{{number}}">
@@ -1668,7 +1758,7 @@
                        <b class="arrow"></b>
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a href="#settings">Settings</a></li>
+                      <li id="settings" ><a href="#settings">Settings</a></li>
                      <li id="school-pop" ><a href="#school">Edit Schools</a></li>
  					 <li id="class-pop" ><a href="#class">Edit Classes</a></li>
                       <li><a href="#help">Help</a></li>
@@ -1721,14 +1811,14 @@
                       <div class="form-row short">
                      <div class="element">
 
-                     <label for="class-name-{{sCount}}-1">Class name <span class="star"> </span></label>
+                     <label for="class-name-{{sCount}}-1">Class name </label>
 
-                    <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium class_name" placeholder="Class 1 name">
+                    <input type="text" name="class-name-{{sCount}}-1" id="class-name-{{sCount}}-1" class="required medium class_name" placeholder="Class 1 name">
                     <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
                    </div>
                       
           <div class="element" id="div-time-{{sCount}}-1">
-              <label for="class-time-{{sCount}}-1">Class time <span class="star"> </span></label>
+              <label for="class-time-{{sCount}}-1">Class time </label>
               <select id="class-time-{{sCount}}-1" class="time">
 				  {{#each times}}
                         <option value="{{this.time}}">{{this.time}}</option>
@@ -1736,15 +1826,15 @@
               </select>
           </div>
           <div class="element">
-                <label for="class-code-{{sCount}}-1">Class code <span class="star"> </span></label>
-              <input type="text"  id="class-code-{{sCount}}-1" class="validate[required] small class_code" placeholder="Class 1 code" >
+                <label for="class-code-{{sCount}}-1">Class code </label>
+              <input type="text"  name ="class-code-{{sCount}}-1 "id="class-code-{{sCount}}-1" class="required small class_code" placeholder="Class 1 code" >
           </div>
           <div class="element">
-              <label for="date-started-{{sCount}}-1">Calendar <span class="star"> </span></label>
-              <input class="validate[required] small datepicker cal" type="text"   id="date-started-{{sCount}}-1"/>
+              <label for="date-started-{{sCount}}-1">Calendar </label>
+              <input class="required small datepicker cal" type="text"   id="date-started-{{sCount}}-1"/>
           </div>
            <div class="element" id="div-school-type-{{sCount}}-1">
-               <label for="semester-{{sCount}}-1">Semester or Quarter <span class="star"> </span></label>
+               <label for="semester-{{sCount}}-1">Semester or Quarter </label>
                <select id="semester-{{sCount}}-1" class="small">
                      <option value="semester">Semester</option>
                      <option value="quarter">Quarter</option>
@@ -1842,14 +1932,14 @@
        <div class="form-row short">
           <div class="element">
 
-              <label for="class-name-{{sCount}}-1">Class name <span class="star"> </span></label>
+              <label for="class-name-{{sCount}}-1">Class name </label>
 
-              <input type="text" id="class-name-{{sCount}}-1" class="validate[required] medium class_name" placeholder="Class 1 name">
+              <input type="text" name="for="class-name-{{sCount}}-1" id="class-name-{{sCount}}-1" class="required medium class_name" placeholder="Class 1 name">
               <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
           </div>
           
           <div class="element" id="div-time-{{sCount}}-1">
-              <label for="class-time-{{sCount}}-1">Class time <span class="star"> </span></label>
+              <label for="class-time-{{sCount}}-1">Class time </label>
               <select id="class-time-{{sCount}}-1" class="time">
 				  {{#each times}}
                         <option value="{{this.time}}">{{this.time}}</option>
@@ -1857,12 +1947,12 @@
               </select>
           </div>
           <div class="element">
-              <label for="class-code-{{sCount}}-1">Class code <span class="star"> </span></label>
-              <input type="text"  id="class-code-{{sCount}}-1" class="validate[required] small class_code" placeholder="Class 1 code" >
+              <label for="class-code-{{sCount}}-1">Class code </label>
+              <input type="text" name="class-code-{{sCount}}-1" id="class-code-{{sCount}}-1" class="required small class_code" placeholder="Class 1 code" >
           </div>
           <div class="element">
-              <label for="date-started-{{sCount}}-1">Calendar <span class="star"> </span></label>
-              <input class="validate[required] small datepicker cal" type="text" placeholder="Date1" id="date-started-{{sCount}}-1"/>
+              <label for="date-started-{{sCount}}-1">Calendar </label>
+              <input class="required small datepicker cal" type="text" placeholder="Date1" id="date-started-{{sCount}}-1"/>
           </div>
            <div class="element" id="div-school-type-{{sCount}}-1">
                <label for="semester-{{sCount}}-1">Semester or Quarter <span class="star"> </span></label>
@@ -2014,8 +2104,9 @@
                         </div>
                         <div class ="make-it">
                         <ul class="add-type">
-                        <li><div class="radio"><input type="radio" name="profile-type" /></div><span>Make it Primary</span></li>
-					    <li><div class="radio"><input type="radio" name="profile-type" /></div><span>Make It Secondary</span></li>
+
+                        <li><div class="pfofile-radio"><input  id="img-primary"  type="radio"  checked="checked" value=true name="img-status" /></div><span>Make it Primary</span></li>
+					    <li><div class="pfofile-radio"><input  type="radio" id="img-secondary" name="img-status" value=false /></div><span>Make It Secondary</span></li>
                         </ul>
                        </div>
                     </div>
@@ -2030,8 +2121,9 @@
                         </div>
                          <div class ="make-it">
                         <ul class="add-type">
-                        <li><div class="radio"><input type="radio" name="video-type" /></div><span>Make it Primary</span></li>
-					    <li><div class="radio"><input type="radio" name="video-type" /></div><span>Make It Secondary</span></li>
+
+                        <li><div class="pfofile-radio"><input type="radio" id="video-primary" name="video-status" value=true /></div><span>Make it Primary</span></li>
+					    <li><div class="pfofile-radio"><input type="radio" id="video-secondary" checked="checked" value=false  name="video-status" /></div><span>Make It Secondary</span></li>
                         </ul>
                     </div>
                 </div>
@@ -2746,28 +2838,28 @@
       
         <div class="element" style="margin-top:25px;" >
               <label for="school-name">School name <span class="star"> </span></label>
-              <input type="text" id="school-name" placeholder=" School Name" class="validate[required] span3">
+              <input type="text" id="school-name" name="school-name" placeholder=" School Name" class="required span3">
             </div>
         <div class="element">
               <label for="user-name">User Name <span class="star"> </span><br/>
             http://www.beamstream.com/</label>
-              <input type="text" id="user-name" placeholder="@UserName"   class="validate[required] span3">
+              <input type="text" id="user-name" name="user-name" placeholder="@UserName"   class="required span3">
             </div>
           <div class="element">
               <label for="password">Password <span class="star"> </span><br/></label>
-              <input type="password" id="password" placeholder="password" class="validate[required] span3"> 
+              <input type="password" id="password" name="password" placeholder="password" class="required span3"> 
             </div>
         <div class="element">
               <label for="first-name">First Name <span class="star"> </span></label>
-              <input type="text" id="first-name" placeholder="First Name" class="validate[required] span3">
+              <input type="text" id="first-name" name="first-name" placeholder="First Name" class="required span3">
             </div>
         <div class="element">
               <label for="last-name">Last Name <span class="star"> </span></label>
-              <input type="text" id="last-name" placeholder="Last Name" class="validate[required] span3">
+              <input type="text" id="last-name" name="last-name" placeholder="Last Name" class="required span3">
             </div>
         <div class="element">
               <label for="location">Location <span class="star"> </span></label>
-              <input type="text" id="location" placeholder="Location" class="validate[required] span3">
+              <input type="text" id="location" name="location" placeholder="Location" class="required span3">
             </div>
         <div class="element">
               <label for="current-location"></label>
@@ -2860,12 +2952,11 @@
         <div class="basic_profile_form_wrapper2">
           <div class="basic_profile_form">
 
-<div id="error" class= "invalid-validation"  style=" margin-bottom: 18px !important; margin-left: 152px;"></div>
- 
+   <div id="error" class= "invalid-validation"  style=" margin-bottom: 18px !important; margin-left: 152px;"></div>
             <div class="element">
-             <label for="iam">I'm <span class="star"> </span></label>
-                <select id="iam" class="large">
-                  <option value= "">-- I'm --</option>
+             <label for="iam">I'm </label>
+                <select id="iam"  class="large">
+                  <option value="">-- I'm --</option>
 						<option value="0">Student</option>
 						<option value="1">Educator</option>
 						<option value="2">Professional</option>
@@ -2873,23 +2964,23 @@
             </div>
             <div class="element">
               <label for="school-name">School Name <span class="star"> </span></label>
-              <input type="text" id="school-name" placeholder="School Name" class="validate[required] span3">
+              <input type="text" name="school-name" id="school-name" placeholder="School Name" class="required span3">
             </div>
             <div class="element">
               <label for="school-email">School Email <span class="star"> </span></label>
-              <input type="text" id="school-email" placeholder="School Email" class="validate[required] span3">
+              <input type="text" id="school-email" name="school-email" placeholder="School Email" class="required span3">
             </div>
             <div class="element">
               <label for="first-name">First Name <span class="star"> </span></label>
-              <input type="text" id="first-name" placeholder="First Name" class="validate[required] span3">
+              <input type="text" id="first-name" placeholder="First Name" class="required span3">
             </div>
             <div class="element">
               <label for="last-name">Last Name <span class="star"></span></label>
-              <input type="text" id="last-name" placeholder="Last Name" class="validate[required] span3">
+              <input type="text" id="last-name" name="last-name" placeholder="Last Name" class="required span3">
             </div>
             <div class="element">
               <label for="location">Location <span class="star"> </span></label>
-              <input type="text" id="location" placeholder="Location" class="validate[required] span3">
+              <input type="text" id="location" name="location" placeholder="Location" class="required span3">
             </div>
             <div class="element">
               <label for="location"></label>
@@ -3049,7 +3140,7 @@
           <div class="form-row short">
               <div class="element">
                 <label for="iam">I'm <span class="star"> </span></label>
-                <select id="iam" class="large">
+                <select id="iam" name="iam" class=" large">
                   <option value= "">-- I'm --</option>
 						<option value="0">Student</option>
 						<option value="1">Educator</option>
@@ -3058,9 +3149,9 @@
               </div>
               <div class="element" >
                 <label for="email" id="email-label" >E-mail <span class="star"> </span></label>
-                <input type="text" id="email" placeholder="School email" class="validate[required , custom[email]] large email_text">
+                <input type="text" id="email" name="email" placeholder="School email" class="required large email_text">
              </div>
-              <div class="element"> <a id="register" href="#" class="register btn btn-success">Register Now</a> </div>
+              <div class="element" style="margin-right:2px !important;"> <a id="register" href="#" class="register btn btn-success">Register Now</a> </div>
           </div>
            
           <div class="form-row short">
@@ -3148,11 +3239,11 @@
           <div class="form-row-left">
             <div class="element">
               <label for="email">Email or UserName</label><div class="star-position"> </div>
-              <input type="text" id="email" placeholder= "email or username" class="validate[required] large email_text" value="">
+              <input type="text" name="email" id="email" placeholder= "email or username" class="required large email_text" value="">
             </div>
             <div class="element">
               <label for="password">Password<span class="star"> </span></label>
-              <input type="password" id="password" placeholder= "password" class="validate[required] large email_text" value="">
+              <input type="password" name="password" id="password" placeholder= "password" class="required large email_text" value="">
             </div>
             <div class="checkbox_wrapper signin_check">
               <div class="checkbox signin_check" checked="true">
@@ -3173,7 +3264,7 @@
           </div>
           </div>
             <div class="form-row" >
-          <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a>
+          <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a> 
 
           </div>
         </div>
@@ -3198,7 +3289,7 @@
         <div class="form-row">
             <div class="element">
               <label for="email">Email<span class="star"> </span></label>
-              <input type="text" id="email" placeholder= "email address" class="validate[required , custom[email]] large email_text" value="">
+              <input type="text" id="email" name="email" placeholder= "email address" class="required  large email_text" value="">
             </div>
             <div class="element">
                <div class="element"><a href="#" id="recover-pwd" class="btn btn-success pull-left" style ="width: width: 215px;; margin-left:85px; margin-bottom:10px;" data-dismiss="modal">Recover Password</a> </div>
@@ -3456,9 +3547,11 @@ function janRainLogin(info){
  
 	
 <!--  Backbone.js files -->
+<script src="js/views/settingsview.js"></script>
 <script src="js/views/loginview.js"></script>
 <script src="js/views/forgotpasswordview.js"></script>
 <script src="js/views/streamview.js"></script>
+
 <script src="js/views/classstreamview.js"></script>
 <script src="js/views/profileview.js"></script>
 <script src="js/views/projectstreamview.js"></script>
@@ -3472,6 +3565,7 @@ function janRainLogin(info){
 <script src="js/views/registrationview.js"></script>
 <script src="js/views/mediaregistrationview.js"></script>
 <script src="js/models/basicprofilemodel.js"></script>
+
 <script src="js/views/homeview.js"></script>	
 <script src="js/views/schoolview.js"></script>	
 <script src="js/models/schoolmodel.js"></script>	
@@ -3480,14 +3574,17 @@ function janRainLogin(info){
 <script src="js/models/profilemodel.js"></script>
 <script src="js/views/newschoolview.js"></script>
 <script src="js/views/filesmediaview.js"></script>
+<script src="js/views/streamactionview.js"></script>
 <script src="js/views/googledocsview.js"></script>
 <script src="js/views/imagelistview.js"></script>   
 <script src="js/views/videolistview.js"></script>   
 <script src="js/models/singleusermodel.js"></script>
 <script src="js/models/documentmodel.js"></script>
+
 <script src="js/router.js"></script>
 
-
+<div pub-key="pub-afccd1a6-08cc-42b1-8728-b46e27645f89" sub-key="sub-5bec3afa-ff98-11e1-bcba-d18d7b6ca35d" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
+<script src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
  
 </body>
 </html>

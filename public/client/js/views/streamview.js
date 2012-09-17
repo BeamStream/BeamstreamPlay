@@ -61,7 +61,10 @@ BS.StreamView = Backbone.View.extend({
 		this.source = $("#tpl-main-stream").html();
 		this.template = Handlebars.compile(this.source);
 		
-		
+
+    this.setupPushConnection();
+
+
 		/* pagination on scrolling */
 		
 		BS.msgSortedType = '';
@@ -71,7 +74,7 @@ BS.StreamView = Backbone.View.extend({
 		BS.pageForKeyword = 1;
 		BS.pageLimit = 10;
 	    var self = this;
-	    
+	    $(".star").hide();
 		$(window).bind('scroll', function (ev) {
 			 
 			var streamPage = $('nav li.active').attr('id');
@@ -117,6 +120,8 @@ BS.StreamView = Backbone.View.extend({
 			}
 			
 		 });
+		
+		
     },
  
      
@@ -471,7 +476,8 @@ BS.StreamView = Backbone.View.extend({
      * post message with shortURL if present
      */
     postMsg:function(message,streamId,messageAccess){
-    	 
+      var self = this; 
+
     	/* post message information */
         $.ajax({
   			type : 'POST',
@@ -490,6 +496,12 @@ BS.StreamView = Backbone.View.extend({
   				   else
   				   {
   					     /*auto ajax push */
+
+              PUBNUB.publish({
+                  channel : "stream",
+                  message : { pagePushUid: self.pagePushUid }
+              })
+                 
   					   
  
   					   
@@ -1338,5 +1350,22 @@ BS.StreamView = Backbone.View.extend({
 	  */
 	 makeBitly : function(eventName){
 		 console.log("dgdfg");
-	 }
+	 },
+
+  setupPushConnection: function() {
+    var self = this;
+
+    self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
+    PUBNUB.subscribe({
+
+      channel : "stream",
+      restore : false,
+
+      callback : function(message) {
+        if (message.pagePushUid != self.pagePushUid) self.getStreams();
+      }
+
+    })
+
+  }
 });
