@@ -12,7 +12,7 @@ class StreamTest extends FunSuite with BeforeAndAfter {
 
   var stream1 = Stream(new ObjectId, "al1pha", StreamType.Class, new ObjectId, List(), true, List())
   val stream2 = Stream(new ObjectId, "al1pha", StreamType.Class, new ObjectId, List(), true, List())
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(),List())
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
 
   test("Fetch matching stream names") {
     val streamOneId = Stream.createStream(stream1)
@@ -21,7 +21,6 @@ class StreamTest extends FunSuite with BeforeAndAfter {
     assert(streams.size === 2)
   }
 
-  
   test("attach user to stream") {
     val userId = User.createUser(user)
     var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List())
@@ -72,6 +71,26 @@ class StreamTest extends FunSuite with BeforeAndAfter {
 
     val yetProjectStreamsForAUserAfterCreatingProjectStream = Stream.allProjectStreamsForAUser(userId)
     assert(yetProjectStreamsForAUserAfterCreatingProjectStream.size === 2)
+
+  }
+
+  test("Delete the Streams") {
+    val userId = User.createUser(user)
+    var stream = Stream(new ObjectId, "Neel's Stream", StreamType.Class, new ObjectId, List(userId), true, List())
+    val streamId = Stream.createStream(stream)
+    val result = Stream.deleteStreams(userId, streamId, true, false)
+    assert(result.status === "Failure")
+    assert(result.message === "You Do Not Have Rights To Delete This Stream")
+    var otherStream = Stream(new ObjectId, "Neel's Stream", StreamType.Class, userId, List(userId), true, List())
+    val otherStreamId = Stream.createStream(otherStream)
+    val anotherResult = Stream.deleteStreams(userId, otherStreamId, true, false)
+    assert(anotherResult.status === "Success")
+    assert(anotherResult.message === "Stream Removed SuccessFully")
+    var otherOneStream = Stream(new ObjectId, "Vikas's Stream", StreamType.Class, userId, List(userId), true, List())
+    val otherOneStreamId = Stream.createStream(otherOneStream)
+    val anotherOneResult = Stream.deleteStreams(userId, otherOneStreamId, false, true)
+    assert(anotherOneResult.status === "Success")
+    assert(anotherOneResult.message === "You've Successfully Removed From This Stream")
 
   }
 

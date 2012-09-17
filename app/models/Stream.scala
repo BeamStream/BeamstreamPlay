@@ -27,6 +27,13 @@ object Stream {
     val streamId = StreamDAO.insert(stream)
     streamId.get.asInstanceOf[ObjectId]
   }
+  /*
+   * Create the New Stream
+   */
+
+  def deleteStream(stream: Stream) {
+    StreamDAO.remove(stream)
+  }
 
   /*
    * Attach a Stream to a Class
@@ -72,15 +79,14 @@ object Stream {
    * join stream
    */
 
-  def joinStream(streamId: ObjectId, userId: ObjectId) : ResulttoSent= {
+  def joinStream(streamId: ObjectId, userId: ObjectId): ResulttoSent = {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
-    
+
     if (!stream.usersOfStream.contains(userId)) {
       StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream ++ List(userId))), false, false, new WriteConcern)
-      ResulttoSent("Success","Joined Stream Successfully")
-    }
-    else{
-      ResulttoSent("Failure","You've already joined the stream")
+      ResulttoSent("Success", "Joined Stream Successfully")
+    } else {
+      ResulttoSent("Failure", "You've already joined the stream")
     }
   }
 
@@ -109,6 +115,29 @@ object Stream {
   def usersAttendingClass(streamId: ObjectId): Int = {
     val streamObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     streamObtained.usersOfStream.size
+  }
+
+  /**
+   *  Delete A Stream
+   */
+
+  def deleteStreams(userId: ObjectId, streamId: ObjectId, deleteStatus: Boolean, removeAccess: Boolean): ResulttoSent = {
+
+    var resultToSent = new ResulttoSent("", "")
+    val streamObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
+
+    if (deleteStatus == true) {
+      if (streamObtained.creatorOfStream == userId) {
+        Stream.deleteStream(streamObtained)
+        resultToSent = ResulttoSent("Success", "Stream Removed SuccessFully")
+      } else {
+        resultToSent = ResulttoSent("Failure", "You Do Not Have Rights To Delete This Stream")
+      }
+    } else {
+      StreamDAO.update(MongoDBObject("_id" -> streamId), streamObtained.copy(usersOfStream = (streamObtained.usersOfStream -- List(userId))), false, false, new WriteConcern)
+      resultToSent = ResulttoSent("Success", "You've Successfully Removed From This Stream")
+    }
+    resultToSent
   }
 
 }

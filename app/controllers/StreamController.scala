@@ -132,5 +132,14 @@ object StreamController extends Controller {
     Ok(write(allPublicMessagesForAUserAcrossTheirStreams)).as("application/json")
 
   }
+  
+  /**
+   *  Delete A Stream
+   */
+  def deleteTheStream = Action { implicit request =>
+    
+    Ok
+    
+  }
 
 }
