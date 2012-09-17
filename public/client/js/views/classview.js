@@ -42,8 +42,7 @@ BS.ClassView = Backbone.View.extend({
 		
 		eventName.preventDefault();
  
-			var validate = jQuery('#class-form').validationEngine('validate');
-			 
+			var validate = $("#class-form").valid(); 
 			if(validate == true)
 		    {
 				$('#save').attr('data-dismiss','modal');
@@ -83,7 +82,6 @@ BS.ClassView = Backbone.View.extend({
 		   }
 			else
 		    {    
-				console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
 				$('#error').html("You must enter atleast one class");
 		    }
  
@@ -147,7 +145,7 @@ BS.ClassView = Backbone.View.extend({
 		console.log("to profile");
 		eventName.preventDefault();
  
-			var validate = jQuery('#class-form').validationEngine('validate');
+		var validate = $("#class-form").valid(); 
 			if(validate == true)
 		    {
 				var classDetails = this.getClassInfo();
@@ -178,7 +176,6 @@ BS.ClassView = Backbone.View.extend({
 		   }
 			else
 		    { 
-				console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
 				$('#error').html("You must enter atleast one class");
 		    }
  

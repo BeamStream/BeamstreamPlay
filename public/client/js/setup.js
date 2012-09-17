@@ -101,6 +101,8 @@ BS.autoPopulateClassesbyCode = BS.URLRequired+"/autoPopulateClassesbyCode";
 //populate class names
 BS.autoPopulateClassesbyName = BS.URLRequired+"/autoPopulateClassesbyName";
 
+//DeleteStrewams
+BS.deleteStream = BS.URLRequired+"/deleteStream";
  
  
 /* for beta users */

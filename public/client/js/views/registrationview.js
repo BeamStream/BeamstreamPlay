@@ -13,6 +13,7 @@ BS.RegistrationView = Backbone.View.extend({
 		this.template = Handlebars.compile(this.source);
 		// for edit user details
 		BS.regBack = false;
+		$("#registration-form").validate();
 
 	},
 
@@ -34,8 +35,7 @@ BS.RegistrationView = Backbone.View.extend({
 
 	save : function(eventName) {
 		eventName.preventDefault();
-		var validate = jQuery('#registration-form').validationEngine('validate');
-        
+		var validate = $("#registration-form").valid();
         if(validate == true){
     	    var regDetails = this.getFormData();
     	  
@@ -134,8 +134,7 @@ BS.RegistrationView = Backbone.View.extend({
 	toNextPage : function(eventName) {
 
 		eventName.preventDefault();
-        var validate = jQuery('#registration-form').validationEngine('validate');
-        
+        var validate = $("#registration-form").valid();
         if(validate == true){
         
 			var regDetails = this.getFormData();

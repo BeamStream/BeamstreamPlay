@@ -21,15 +21,14 @@ BS.AppRouter = Backbone.Router.extend({
         "friendStream" :"friendStream",
         "filesMedia" : "filesMedia",
         "googledocs" : "googleDocs",
-         "imagelist" : "imageList",
-            "videos" : "videoList"
+        "imagelist" : "imageList",
+        "videos" : "videoList",
+        "settings" : "settings"
 //        "profile/view/id/:id/name/:name" : "publicProfile"
 
     },
+    
     initialize :function() {
-    	
-    	 
-    	 
     	
     	var self = this;
     	BS.idLogin = '';
@@ -85,7 +84,7 @@ BS.AppRouter = Backbone.Router.extend({
     	 localStorage["idLogin"] = "login";
          $('#school-popup').html(BS.loginView.el);  
          $(".modal select:visible").selectBox();
-         jQuery("#login-form").validationEngine();
+     	 $("#login-form").validate();
          localStorage["regInfo"] ='';
          localStorage.clear();
          $(".checkbox").dgStyle();
@@ -119,7 +118,8 @@ BS.AppRouter = Backbone.Router.extend({
      
          $('#school-popup').html(BS.forgotPasswordView.el);  
          $(".modal select:visible").selectBox();
-         jQuery("#login-form").validationEngine();
+         $("#forgot-pass-form").validate();
+//         jQuery("#forgot-pass-form").validationEngine();
          $(".checkbox").dgStyle();
          $(".signin_check").dgStyle();
     },
@@ -216,7 +216,7 @@ BS.AppRouter = Backbone.Router.extend({
         $(".modal select:visible").selectBox();
         $('.modal .datepicker').datepicker();
         $('.datepicker').css('z-index','99999');
-        jQuery("#school-form").validationEngine();
+        $("#school-form").validate();
         
     },
 
@@ -225,16 +225,21 @@ BS.AppRouter = Backbone.Router.extend({
      * display Class Info screen
      */
     classReg:function () {
-        
-    	BS.classView = new BS.ClassView();
-    	BS.classView.render();
+    	
+    	$('#school-popup').children().detach(); 
+        if(!BS.classView)
+        {
+        	BS.classView = new BS.ClassView();
+        	BS.classView.render();
+        }
+    	
     	 
         $('#school-popup').html(BS.classView.el);
         
          
         $(".modal select:visible").selectBox();
         $('.modal .datepicker').datepicker();
-        jQuery("#class-form").validationEngine();
+        $("#class-form").validate();
        
    },
     
@@ -410,7 +415,7 @@ BS.AppRouter = Backbone.Router.extend({
 			   var template = Handlebars.compile(source);
 			   $('#registration-form fieldset').html(template(datas));
 			   $(".checkbox").dgStyle();
-		       jQuery("#registration-form").validationEngine();
+		       $("#registration-form").validate();
 	    	   
 			});
 	       
@@ -444,7 +449,7 @@ BS.AppRouter = Backbone.Router.extend({
   							localStorage["regInfo"] ='';
   							$('#jan-iam').hide();
   							$(".checkbox").dgStyle();
-  							jQuery("#registration-form").validationEngine();
+  							$("#registration-form").validate();
   					     }
   						 else 
   						 {
@@ -500,7 +505,7 @@ BS.AppRouter = Backbone.Router.extend({
 						   $('#social-media-signup fieldset').html(template(datas));
 						   $(".checkbox").dgStyle();
 						   $(".modal select:visible").selectBox();
-						   jQuery("#social-media-signup").validationEngine();
+						   $("#social-media-signup").validate();
 					       $('#school-record').hide();
 						});
 				       
@@ -522,7 +527,7 @@ BS.AppRouter = Backbone.Router.extend({
 					$('#school-record').hide();
 					$(".modal select:visible").selectBox();
 					$(".checkbox").dgStyle();
-					jQuery("#social-media-signup").validationEngine();
+					$("#social-media-signup").validate();
 	 
 					var datas = BS.JsonFromSocialSite;
 	 
@@ -558,7 +563,7 @@ BS.AppRouter = Backbone.Router.extend({
 				$(".checkbox").dgStyle();
 				 
 				$('.forgot-pass').hide();
-				jQuery("#email-verify").validationEngine();
+				$("#email-verify").validate();
 				 
 				$('.janrainContent').remove();
 				/* disaplay janRain component */
@@ -754,8 +759,36 @@ BS.AppRouter = Backbone.Router.extend({
                          
 
 			},
+			
+			/**
+			 * settings page
+		     */
+			settings : function(){
+				 
+				
+				$('#content').children().detach();
+				$('#school-popup').children().detach();
+				var self = this;
+                 
+				 BS.user.fetch({ success:function(e) {
+				   
+					   //get main menu
+					   this.navView = new BS.NavView({ model: BS.user });
+					   this.navView.showProfilePic();
+					   $('.nav-collapse').html(this.navView.render().el);
+					   $('nav li.active').removeClass('active');
+					   
+					   $('#right-photo').attr("src",BS.profileImageUrl);
+			       
+				 }});
+				  
+				 BS.settingsView = new BS.SettingsView();
+				 BS.settingsView.render();
+				 $('#content').html(BS.settingsView.el);
+				 
+			},
                         
-                        /**
+              /**
 			 * display Google docs list in another view
 			 */
                         googleDocs : function(){
