@@ -32,38 +32,52 @@ BS.StreamActionView = Backbone.View.extend({
     	eventName.preventDefault();
     	var deleteStream =false,removeAccess =false;
     	var value = $('input[name=sAction]:checked').val();
-    	if(value == "all")
+    	if(value)
     	{
-    		deleteStream =true;
-    	}
-    	if(value == "my")
-    	{
-    		removeAccess = true;
-    	}
-    	var streamId =$('#streamId').val();
-    	 
-    	var result=confirm("Are you sure ?");
-    	if(result == true)
-    	{
-    		/* post data with school and class details */
-			$.ajax({
-				type : 'POST',
-				url : BS.deleteStream,
-				data : {
-					StreamId : streamId,
-					deleteStream : deleteStream,
-					removeAccess : removeAccess
-					
-				},
-				dataType : "json",
-				success : function(data) {
-					$('#action-popup').children().detach();
-				}
-			});
+	    	if(value == "all")
+	    	{
+	    		deleteStream =true;
+	    	}
+	    	if(value == "my")
+	    	{
+	    		removeAccess = true;
+	    	}
+	    	var streamId =$('#streamId').val();
+	    	 
+	    	var result=confirm("Are you sure ?");
+	    	if(result == true)
+	    	{
+	    		/* post data with school and class details */
+				$.ajax({
+					type : 'POST',
+					url : BS.deleteStream,
+					data : {
+						StreamId : streamId,
+						deleteStream : deleteStream,
+						removeAccess : removeAccess
+						
+					},
+					dataType : "json",
+					success : function(data) {
+						if(data.status == "Success")
+						{
+							alert(data.message);
+							$('#action-popup').children().detach();
+							var settingsView = new BS.SettingsView();
+							settingsView.getStreams();
+						}
+						
+					}
+				});
+	    	}
+	    	else
+	    	{
+	    		alert(data.message);
+	    	}
     	}
     	else
     	{
-    		
+    		alert("please select  one option");
     	}
      
     }

@@ -2896,7 +2896,7 @@
             </div>
             <div class="element">
               <label for="last-name">Last Name <span class="star"></span></label>
-              <input type="text" id="last-name" placeholder="Last Name" class="required span3">
+              <input type="text" id="last-name" name="last-name" placeholder="Last Name" class="required span3">
             </div>
             <div class="element">
               <label for="location">Location <span class="star"> </span></label>
@@ -3071,7 +3071,7 @@
                 <label for="email" id="email-label" >E-mail <span class="star"> </span></label>
                 <input type="text" id="email" name="email" placeholder="School email" class="required large email_text">
              </div>
-              <div class="element"> <a id="register" href="#" class="register btn btn-success">Register Now</a> </div>
+              <div class="element" style="margin-right:2px !important;"> <a id="register" href="#" class="register btn btn-success">Register Now</a> </div>
           </div>
            
           <div class="form-row short">
@@ -3467,9 +3467,11 @@ function janRainLogin(info){
  
 	
 <!--  Backbone.js files -->
+<script src="js/views/settingsview.js"></script>
 <script src="js/views/loginview.js"></script>
 <script src="js/views/forgotpasswordview.js"></script>
 <script src="js/views/streamview.js"></script>
+
 <script src="js/views/classstreamview.js"></script>
 <script src="js/views/profileview.js"></script>
 <script src="js/views/projectstreamview.js"></script>
@@ -3483,6 +3485,7 @@ function janRainLogin(info){
 <script src="js/views/registrationview.js"></script>
 <script src="js/views/mediaregistrationview.js"></script>
 <script src="js/models/basicprofilemodel.js"></script>
+
 <script src="js/views/homeview.js"></script>	
 <script src="js/views/schoolview.js"></script>	
 <script src="js/models/schoolmodel.js"></script>	
@@ -3491,7 +3494,6 @@ function janRainLogin(info){
 <script src="js/models/profilemodel.js"></script>
 <script src="js/views/newschoolview.js"></script>
 <script src="js/views/filesmediaview.js"></script>
-<script src="js/views/settingsview.js"></script>
 <script src="js/views/streamactionview.js"></script>
 <script src="js/views/googledocsview.js"></script>
 <script src="js/views/imagelistview.js"></script>   

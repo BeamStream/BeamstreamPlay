@@ -781,9 +781,12 @@ BS.AppRouter = Backbone.Router.extend({
 					   $('#right-photo').attr("src",BS.profileImageUrl);
 			       
 				 }});
-				  
-				 BS.settingsView = new BS.SettingsView();
-				 BS.settingsView.render();
+//				 if(!BS.settingsView)
+//				 {
+					 BS.settingsView = new BS.SettingsView();
+					 BS.settingsView.render();
+//				 }
+				 BS.settingsView.getStreams();
 				 $('#content').html(BS.settingsView.el);
 				 
 			},

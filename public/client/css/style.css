@@ -2010,14 +2010,12 @@ cursor: default;
 
 /* validation */
 label.error { 
-/* 	float: none;  */
-    float: right; 
-	color: red !important;
-	padding-left: .5em;
+color: red !important;
+    float: right;
+    margin: 0 !important;
+    padding-left: 3px;
     vertical-align: top;
-    width: 0px !important;
-    margin: 0 0 0 0  !important;
-/*     display: blck !important; */
+    width: 0 !important;
 }
 
 
@@ -2028,6 +2026,7 @@ label.error {
 }
 .stream-table{
 	width: 700px;
+	font-size: 16px;
 }
 .stream-action-popups{
     margin: -365px 0 0 -425px !important;
