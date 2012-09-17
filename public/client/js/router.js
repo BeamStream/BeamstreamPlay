@@ -771,6 +771,7 @@ BS.AppRouter = Backbone.Router.extend({
                                 BS.googledocsview.render();  
                                 $('#content').html(BS.googledocsview.el);
                                 $('.file-type').hide();
+  //                                                       BS.googledocsview.test();
 				$(".checkbox").dgStyle();                                
                                  // instantiate the shuffle plugin
                                 $('#grid').shuffle({
