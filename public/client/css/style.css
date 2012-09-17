@@ -2007,3 +2007,30 @@ cursor: default;
     padding: 0;
     text-align: left;
     width: 35px;}
+
+/* validation */
+label.error { 
+/* 	float: none;  */
+    float: right; 
+	color: red !important;
+	padding-left: .5em;
+    vertical-align: top;
+    width: 0px !important;
+    margin: 0 0 0 0  !important;
+/*     display: blck !important; */
+}
+
+
+/* rough stream delete page */
+#stream-manage{
+	margin-left: 50px;
+    margin-top: 55px;
+}
+.stream-table{
+	width: 700px;
+}
+.stream-action-popups{
+    margin: -365px 0 0 -425px !important;
+    width: 814px !important;
+}
+    
