@@ -315,7 +315,7 @@ BS.SchoolView = Backbone.View.extend({
 		    		  otherDegree ="";
 		    	  }
 	
-	    	  /* get Id of auto populated schools */
+	    	     /* get Id of auto populated schools */
 		    	  var sId = '';
 		    	   
 		    	  _.each(BS.allSchoolInfo, function(data) {
@@ -342,11 +342,14 @@ BS.SchoolView = Backbone.View.extend({
 		    	  }
 		    	  if($('#school-id-'+i).attr('value'))
 		    	  {
+		    		  
 		    		  schoolId = $('#school-id-'+i).attr('value');
+		    		 
 		    	  }
 		    	  else
 		    	  {
 		    		  schoolId = i;
+		    		  
 		    	  }
 	
 	
