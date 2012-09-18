@@ -27,7 +27,7 @@ BS.ClassView = Backbone.View.extend({
 		this.schools.fetch({success: function(e) {  
 //			console.log(e);
 		}});
- 
+		BS.classBack = false;
 		this.classes = new BS.Class();
 		this.source = $("#tpl-class-reg").html();
 		this.template = Handlebars.compile(this.source);
@@ -62,6 +62,8 @@ BS.ClassView = Backbone.View.extend({
 							{
 								$('.studentno-popup-class').fadeOut("medium"); 
 								BS.schoolBack = false;
+								BS.regBack = false;
+								BS.classBack = false;
 								// navigate to main stream page
 								$(".star").hide();
 								BS.AppRouter.navigate("streams", {trigger: true});
@@ -163,6 +165,7 @@ BS.ClassView = Backbone.View.extend({
 						{
 							$('.studentno-popup-class').fadeOut("medium"); 
 							BS.editProfile = false;
+							BS.classBack = true;
 							$(".star").hide();
 							// navigate to main stream page
 							BS.AppRouter.navigate("profile", {trigger: true});
@@ -308,9 +311,6 @@ BS.ClassView = Backbone.View.extend({
      */
     backToPrevious :function(eventName){
       eventName.preventDefault();
-       
-      localStorage["SchoolDetails"] = JSON.stringify(this.schools); 
-      $(".star").hide();
       BS.AppRouter.navigate("school", {trigger: true});
     },
     
