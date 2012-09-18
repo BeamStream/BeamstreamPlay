@@ -34,15 +34,15 @@ object ClassController extends Controller {
     val classListJsonMap = request.body.asFormUrlEncoded.get
     val classJsonList = classListJsonMap("data").toList
     val classList = net.liftweb.json.parse(classJsonList(0)).extract[List[Class]]
-    val listOfClassIds = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
-    (listOfClassIds.isEmpty) match {
-      case true =>
-        Ok(write(new ResulttoSent("Failure", "Duplicates Class Code or Name Provided")))
-      case false =>
-        User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
-        Ok(write(new ResulttoSent("Success", "User has successfully added his classes")))
-    }
-
+    val resultToSent = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
+    //    (listOfClassIds.isEmpty) match {
+    //      case true =>
+    //        Ok(write(new ResulttoSent("Failure", "Duplicates Class Code or Name Provided")))
+    //      case false =>
+    //        User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
+    //        Ok(write(new ResulttoSent("Success", "User has successfully added his classes")))
+    //    }
+    Ok(write(resultToSent))
   }
 
   /*
