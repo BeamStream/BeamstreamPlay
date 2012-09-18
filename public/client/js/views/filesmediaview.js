@@ -281,7 +281,7 @@ BS.FilesMediaView = Backbone.View.extend({
                               content+= '<option>'+option.streamName+'</option>';
                               i++;
                               });
-                              content+='<option>Enter From Catagory</option>'              
+                              content+='<option class="enterfromcatgry">Enter From Catagory</option>'              
                               $('#linkselect_dr').html(content); 
                               }
 					
@@ -341,7 +341,7 @@ BS.FilesMediaView = Backbone.View.extend({
                               console.log(option.streamName);
                               i++;
                               });
-                              content+='<option>Enter From Catagory</option>'
+                              content+='<option class="enterfromcatgry">Enter From Catagory</option>'
                               $('#vialinkselect_dr').html(content); 
                               }
 					
@@ -381,7 +381,7 @@ BS.FilesMediaView = Backbone.View.extend({
                              content+= '<option>'+option.streamName+'</option>';
                              i++;
                              });
-                            content+='<option>Enter From Catagory</option>'
+                            content+='<option class="enterfromcatgry">Enter From Catagory</option>'
                             $('#videoselect_dr').html(content);
                                 }		  
 		 });
@@ -428,7 +428,7 @@ BS.FilesMediaView = Backbone.View.extend({
                             content+= '<option>'+option.streamName+'</option>';
                              i++;
                               });
-                              content+='<option>Enter From Catagory</option>'
+                              content+='<option class="enterfromcatgry">Enter From Catagory</option>'
                               $('#audioselect_dr').html(content); 
                               }	  
 		 });
@@ -476,7 +476,7 @@ BS.FilesMediaView = Backbone.View.extend({
                               content+= '<option>'+option.streamName+'</option>';
                               i++;
                               });
-                              content+='<option>Enter From Catagory</option>'
+                              content+='<option class="enterfromcatgry">Enter From Catagory</option>'
                               $('#presentationselect_dr').html(content); 
                               }	  
 		 });

@@ -866,7 +866,7 @@ ul.rockit li span a {
 /* 	background: url("../images/checkbox-flip1.png") no-repeat scroll 0 4px transparent !important; */
 }
 
-  /* Added for checkbox styling*/ */
+  /* Added for checkbox styling*/ 
 
 .form-row-left .element{
  
@@ -1142,7 +1142,7 @@ ul.file-list li {
 	height:141px;
 	display:block;
 	overflow:hidden;
-	margin:10px;
+	margin:10px; margin-top: 0px !important;
 	border-radius: 3px 3px 3px 3px;
 	background:#fdfdfd;
 }
@@ -1156,6 +1156,13 @@ ul.file-list li {
 	padding:0 0 5px 0;
 	margin:0 0 8px 0;
 }
+.enterfromcatgry{ 
+        height:20px;
+        border:solid 1px #abaeb1; 
+        margin: 5px;
+        border-radius: 3px 3px 3px 3px;
+        background-color:#EFEFEF; 
+        padding-top:2px;}
 .image-wrapper h5{
 	color:#2c2c2c;
 	font-family: 'Ubuntu', sans-serif;
@@ -1999,6 +2006,38 @@ border: 1px solid #E8E8E9;
 .make-it{
 	height:100px;
 }
+
+/*-------------hover----------*/
+div.hover-div{
+    display:block;
+    /*height:200px;*/
+    width:190px;   
+    position:relative;
+    margin-bottom:10px;
+}
+
+div.hover-div:hover .hover-text{
+    display:block;   
+ 
+    
+}
+
+div.hover-div:hover img{
+    opacity:0.1;        
+}
+    
+.hover-text{
+    display:none;
+    clear:both;
+    margin-top:0px;
+    background: rgba(0,0,0,0.05);
+    color:white;
+    width: 100%;
+    bottom:0;
+    position:absolute;
+    z-index:2;
+}​
+/*---------------------------------*/
 .pfofile-radio{
 cursor: default;
     display: block;
@@ -2010,14 +2049,12 @@ cursor: default;
 
 /* validation */
 label.error { 
-/* 	float: none;  */
-    float: right; 
-	color: red !important;
-	padding-left: .5em;
+color: red !important;
+    float: right;
+    margin: 0 !important;
+    padding-left: 3px;
     vertical-align: top;
-    width: 0px !important;
-    margin: 0 0 0 0  !important;
-/*     display: blck !important; */
+    width: 0 !important;
 }
 
 
@@ -2028,9 +2065,11 @@ label.error {
 }
 .stream-table{
 	width: 700px;
+	font-size: 16px;
 }
 .stream-action-popups{
     margin: -365px 0 0 -425px !important;
     width: 814px !important;
 }
     
+

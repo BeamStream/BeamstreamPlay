@@ -259,7 +259,7 @@ BS.AppRouter = Backbone.Router.extend({
 //       $('.img-radio').dgStyle();
         
        $('.modal .datepicker').datepicker();
-       jQuery("#profile-form").validationEngine();
+       $("#profile-form").validate();
        
        //Render Janrain Invite popup
        (function() {
@@ -781,9 +781,12 @@ BS.AppRouter = Backbone.Router.extend({
 					   $('#right-photo').attr("src",BS.profileImageUrl);
 			       
 				 }});
-				  
-				 BS.settingsView = new BS.SettingsView();
-				 BS.settingsView.render();
+//				 if(!BS.settingsView)
+//				 {
+					 BS.settingsView = new BS.SettingsView();
+					 BS.settingsView.render();
+//				 }
+				 BS.settingsView.getStreams();
 				 $('#content').html(BS.settingsView.el);
 				 
 			},
@@ -809,6 +812,7 @@ BS.AppRouter = Backbone.Router.extend({
                                 BS.googledocsview.render();  
                                 $('#content').html(BS.googledocsview.el);
                                 $('.file-type').hide();
+  //                                                       BS.googledocsview.test();
 				$(".checkbox").dgStyle();                                
                                  // instantiate the shuffle plugin
                                 $('#grid').shuffle({
