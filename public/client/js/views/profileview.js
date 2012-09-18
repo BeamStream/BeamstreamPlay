@@ -113,7 +113,7 @@ BS.ProfileView = Backbone.View.extend({
     saveProfile:function (eventName) {
     	eventName.preventDefault();
     	var status = true;
-    	var validate = jQuery('#profile-form').validationEngine('validate');
+    	var validate = $('#profile-form').valid();
     	if(validate == true)
     	{
     	   if($('#mobile').val())

@@ -259,7 +259,7 @@ BS.AppRouter = Backbone.Router.extend({
 //       $('.img-radio').dgStyle();
         
        $('.modal .datepicker').datepicker();
-       jQuery("#profile-form").validationEngine();
+       $("#profile-form").validate();
        
        //Render Janrain Invite popup
        (function() {
