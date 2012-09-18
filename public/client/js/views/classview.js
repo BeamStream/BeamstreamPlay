@@ -64,6 +64,9 @@ BS.ClassView = Backbone.View.extend({
 								BS.schoolBack = false;
 								BS.regBack = false;
 								BS.classBack = false;
+								localStorage["regInfo"] ='';
+						        localStorage["schoolInfo"] ='';
+						        localStorage["classInfo"] ='';
 								// navigate to main stream page
 								$(".star").hide();
 								BS.AppRouter.navigate("streams", {trigger: true});
@@ -166,7 +169,7 @@ BS.ClassView = Backbone.View.extend({
 							$('.studentno-popup-class').fadeOut("medium"); 
 							BS.editProfile = false;
 							BS.classBack = true;
-							$(".star").hide();
+							localStorage["classInfo"] =JSON.stringify(data); 
 							// navigate to main stream page
 							BS.AppRouter.navigate("profile", {trigger: true});
 						}

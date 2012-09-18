@@ -180,6 +180,10 @@ BS.ProfileView = Backbone.View.extend({
 	        	    	    BS.schoolBack = false;
 	        				BS.regBack = false;
 	        				BS.classBack = false;
+	        				localStorage["regInfo"] ='';
+	        		        localStorage["schoolInfo"] ='';
+	        		        localStorage["classInfo"] ='';
+	        		        
 	        	    	   // navigate to main stream page after a tome period
 	        	    	    setTimeout(function() {
 	        	    	    	BS.AppRouter.navigate("streams", {trigger: true});
@@ -428,7 +432,7 @@ BS.ProfileView = Backbone.View.extend({
     backToPrevious :function(eventName){
       eventName.preventDefault();
       $(".star").hide();
-//  	  BS.AppRouter.navigate("class", {trigger: true});
+  	  BS.AppRouter.navigate("class", {trigger: true});
     },
     
     /*

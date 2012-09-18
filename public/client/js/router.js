@@ -87,6 +87,7 @@ BS.AppRouter = Backbone.Router.extend({
      	 $("#login-form").validate();
          localStorage["regInfo"] ='';
          localStorage["schoolInfo"] ='';
+         localStorage["classInfo"] ='';
          localStorage.clear();
          $(".checkbox").dgStyle();
          $(".signin_check").dgStyle();
@@ -120,7 +121,6 @@ BS.AppRouter = Backbone.Router.extend({
          $('#school-popup').html(BS.forgotPasswordView.el);  
          $(".modal select:visible").selectBox();
          $("#forgot-pass-form").validate();
-//         jQuery("#forgot-pass-form").validationEngine();
          $(".checkbox").dgStyle();
          $(".signin_check").dgStyle();
     },
@@ -132,7 +132,52 @@ BS.AppRouter = Backbone.Router.extend({
         if(localStorage["schoolInfo"])
 	    {
         	
-	         BS.schoolNum = 1;
+//	         BS.schoolNum = 1;
+//	         BS.schoolView = new BS.SchoolView();
+//	         BS.schoolView.render();
+//	         $('#school-popup').html(BS.schoolView.el);
+//	         var schoolInfo =JSON.parse(localStorage["schoolInfo"]);
+//	         $('#school-list').html('');	
+//	         
+//	        _.each(schoolInfo, function(info) {
+//				var datas = {
+//				"data" : info,
+//				"number" : BS.schoolNum
+//			  }
+//			var source = $("#tpl-school").html();
+//			var template = Handlebars.compile(source);
+//			$('#school-list').append(template(datas));
+//			
+//			
+//			if(info.degree != "Other")
+//			{
+//				$('#other-degrees-'+BS.schoolNum).hide();
+//			}
+//			
+//			$('#year-'+BS.schoolNum).val(info.year);
+//			$('#degreeprogram-'+BS.schoolNum).val(info.degree);
+//			$('#graduated-'+BS.schoolNum).val(info.graduated);
+//			if(info.graduated == "yes")
+//			{
+//				$('#degree-exp-'+BS.schoolNum).hide();
+//				$('#calendar-'+BS.schoolNum).val(info.graduationDate);
+//			
+//			}
+//			else
+//			{
+//				$('#cal-'+BS.schoolNum).hide();
+//				$('#degree-expected-'+BS.schoolNum).val(info.degreeExpected);
+//			
+//			}
+//			$('#school-name-'+BS.schoolNum).attr("disabled","disabled");
+//			$(".modal select:visible").selectBox();
+//			$('.modal .datepicker').datepicker();
+//			$('.datepicker').css('z-index','99999');
+//			
+//			BS.schoolNum++;
+//	        });
+        	 current = 0;
+        	 
 	         BS.schoolView = new BS.SchoolView();
 	         BS.schoolView.render();
 	         $('#school-popup').html(BS.schoolView.el);
@@ -140,9 +185,10 @@ BS.AppRouter = Backbone.Router.extend({
 	         $('#school-list').html('');	
 	         
 	        _.each(schoolInfo, function(info) {
+	        	current++;
 				var datas = {
 				"data" : info,
-				"number" : BS.schoolNum
+				"number" : current
 			  }
 			var source = $("#tpl-school").html();
 			var template = Handlebars.compile(source);
@@ -151,30 +197,29 @@ BS.AppRouter = Backbone.Router.extend({
 			
 			if(info.degree != "Other")
 			{
-				$('#other-degrees-'+BS.schoolNum).hide();
+				$('#other-degrees-'+current).hide();
 			}
 			
-			$('#year-'+BS.schoolNum).val(info.year);
-			$('#degreeprogram-'+BS.schoolNum).val(info.degree);
-			$('#graduated-'+BS.schoolNum).val(info.graduated);
+			$('#year-'+current).val(info.year);
+			$('#degreeprogram-'+current).val(info.degree);
+			$('#graduated-'+current).val(info.graduated);
 			if(info.graduated == "yes")
 			{
-				$('#degree-exp-'+BS.schoolNum).hide();
-				$('#calendar-'+BS.schoolNum).val(info.graduationDate);
+				$('#degree-exp-'+current).hide();
+				$('#calendar-'+current).val(info.graduationDate);
 			
 			}
 			else
 			{
-				$('#cal-'+BS.schoolNum).hide();
-				$('#degree-expected-'+BS.schoolNum).val(info.degreeExpected);
+				$('#cal-'+current).hide();
+				$('#degree-expected-'+current).val(info.degreeExpected);
 			
 			}
-			$('#school-name-'+BS.schoolNum).attr("disabled","disabled");
+			$('#school-name-'+current).attr("disabled","disabled");
 			$(".modal select:visible").selectBox();
 			$('.modal .datepicker').datepicker();
 			$('.datepicker').css('z-index','99999');
 			
-			BS.schoolNum++;
 	        });
 	            
 	    }
@@ -185,6 +230,7 @@ BS.AppRouter = Backbone.Router.extend({
 	         BS.schoolView.render();
 	         
 	         $('#school-popup').html(BS.schoolView.el);
+	         current = 1;
 	         if(BS.schoolFromPrev)
 	         {
 	        	$('#school-name-1').val(BS.schoolFromPrev);
@@ -339,7 +385,8 @@ BS.AppRouter = Backbone.Router.extend({
 			   BS.classBack = false;
 			   self.onstream = true; 
 			   localStorage["regInfo"] ='';
-			   localStorage["schoolInfo"] ='';
+		       localStorage["schoolInfo"] ='';
+		       localStorage["classInfo"] ='';
 	   	   
 			   //get main menu
 			   this.navView = new BS.NavView({ model: BS.user });

@@ -125,7 +125,9 @@ BS.SchoolView = Backbone.View.extend({
 	                    	BS.schoolBack = false;
 	          			    BS.regBack = false;
 	          			    BS.classBack = false;
+	          			    localStorage["regInfo"] ='';
 	          			    localStorage["schoolInfo"] ='';
+	          			    localStorage["classInfo"] ='';
 	                    	BS.schoolFromPrev ='';
 	                    	$(".star").hide();
 	        				 // navigate to main stream page
@@ -274,6 +276,8 @@ BS.SchoolView = Backbone.View.extend({
 	    	  var schoolId ='';
 	    	  var count = current;
 	    	  var schools = new BS.SchoolCollection();
+	    	  console.log("current" + current);
+	    	  console.log("BS.schoolNum" + BS.schoolNum);
 	    	  if(BS.schoolNum)
 	    	  {
 	    		  if(BS.schoolNum <= current)
@@ -330,7 +334,7 @@ BS.SchoolView = Backbone.View.extend({
 		    	  if(sId)
 		    	  {
 		    	    assosiatedSchoolId = sId;
-		    	    $('#school-id-'+i).attr('value',assosiatedSchoolId);
+//		    	    $('#school-id-'+i).attr('value',assosiatedSchoolId);
 		    	  }
 		    	  else if($('#associatedId-'+i).attr('value'))
 		    	  {

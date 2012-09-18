@@ -72,6 +72,8 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	    	   				{
 	    	   				    //for edit user info
 	    	   					localStorage["regInfo"] ='';
+	    	   					localStorage["schoolInfo"] ='';
+	    	   					localStorage["classInfo"] ='';
 	    	   				    BS.schoolBack = false;
 		    	  			    BS.regBack = false;
 		    	  			    BS.classBack = false;
