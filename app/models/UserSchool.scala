@@ -51,7 +51,7 @@ object UserSchool {
 
     else {
       for (userSchool <- userSchools) {
-
+        println("LLLLLLLL" + userSchool)
         val userSchoolObtained = UserSchool.userSchoolsForAUser(userSchool.id)
 
         // Edit School Case
@@ -168,24 +168,19 @@ object UserSchool {
     if (schoolFetchCount == 0) false else true
   }
 
-  //TODO : Delete this method
-  /*
-   * For Join Stream Case Verification
-  
+  /**
+   * Get All Refreshed User School
+   */
 
-  def isUserEligibleForJoinAStream(userId: ObjectId, schoolId: ObjectId): Boolean = {
-    var assosiatedSchoolsOfAUser: List[ObjectId] = List()
-    val userSchoolsid = UserSchool.getAllSchoolforAUser(userId)
-    println("UserSchoolsIds"+userSchoolsid)
-    val userSchools = UserSchool.getAllSchools(userSchoolsid)
+  def getAllRefreshedUserSchools(userSchools: List[UserSchool]): List[UserSchool] = {
+    var userSchoolList: List[UserSchool] = List()
     for (userSchool <- userSchools) {
-      assosiatedSchoolsOfAUser ++=List(userSchool.assosiatedSchoolId)
+      val schoolObtained = UserSchoolDAO.find(MongoDBObject("_id" -> userSchool.id)).toList
+      userSchoolList ++= schoolObtained
     }
-    println("Schools Of A User"+assosiatedSchoolsOfAUser)
-    if (assosiatedSchoolsOfAUser.contains(schoolId)) true else false
+    userSchoolList
   }
- */
-  
+
 }
 
 object Year extends Enumeration {

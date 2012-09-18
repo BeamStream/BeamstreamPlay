@@ -39,16 +39,15 @@ object DetailedRegistration extends Controller {
   def addInfo = Action { implicit request =>
     val schoolListJsonMap = request.body.asFormUrlEncoded.get
     val schoolListJson = schoolListJsonMap("data").toList
+    println(schoolListJson)
     val schoolList = net.liftweb.json.parse(schoolListJson(0)).extract[List[UserSchool]]
     val resultObtained = UserSchool.createSchool(schoolList)
-    if(resultObtained.status=="Success") User.addInfo(schoolList, new ObjectId(request.session.get("userId").get))
-    Ok(write(resultObtained)).as("application/json")
+    if (resultObtained.status == "Success") User.addInfo(schoolList, new ObjectId(request.session.get("userId").get))
+    val refresheduserSchools = UserSchool.getAllRefreshedUserSchools(schoolList)
+    Ok(write(refresheduserSchools)).as("application/json")
 
   }
-  
-  
-  
-  
+
   /*
    * Returns the Schools with their respective school Ids (Tag : Dup)
    */
