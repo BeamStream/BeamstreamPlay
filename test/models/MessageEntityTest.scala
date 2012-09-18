@@ -228,6 +228,16 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
 
   }
 
+  test("Test the equality of two objects") {
+
+    val stream = StreamDAO.find(MongoDBObject()).toList(0)
+    val user = UserDAO.find(MongoDBObject()).toList(0)
+
+    val message1 = Message(new ObjectId("505855d684aee286eddbf02a"), "This is Neel", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 5, List(), List(), 0, List())
+    val message2 = Message(new ObjectId("505855d684aee286eddbf02a"), "This is Neel", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 5, List(), List(), 0, List())
+    assert(message2===message1)
+
+  }
   after {
     StreamDAO.remove(MongoDBObject("name" -> ".*".r))
     MessageDAO.remove(MongoDBObject("messageBody" -> ".*".r))
