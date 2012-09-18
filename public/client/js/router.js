@@ -168,7 +168,7 @@ BS.AppRouter = Backbone.Router.extend({
 				$('#degree-expected-'+BS.schoolNum).val(info.degreeExpected);
 			
 			}
-			
+			$('#school-name-'+BS.schoolNum).attr("disabled","disabled");
 			$(".modal select:visible").selectBox();
 			$('.modal .datepicker').datepicker();
 			$('.datepicker').css('z-index','99999');
@@ -227,11 +227,11 @@ BS.AppRouter = Backbone.Router.extend({
     classReg:function () {
     	
     	$('#school-popup').children().detach(); 
-        if(!BS.classView)
-        {
+//        if(!BS.classView)
+//        {
         	BS.classView = new BS.ClassView();
         	BS.classView.render();
-        }
+//        }
     	
     	 
         $('#school-popup').html(BS.classView.el);

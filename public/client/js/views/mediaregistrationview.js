@@ -32,9 +32,8 @@ BS.MediaRegistrationView = Backbone.View.extend({
 
 	save : function(eventName) {
 		eventName.preventDefault();
-//		var validate = jQuery('#social-media-signup').validationEngine('validate');
+		$("#social-media-signup").validate();
 		var validate =  $("#social-media-signup").valid();
-		console.log(validate);
         if(validate == true){
     	    var regDetails = this.getFormData();
     	    // valid I'm field
