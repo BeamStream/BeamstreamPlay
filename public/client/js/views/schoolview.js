@@ -115,18 +115,23 @@ BS.SchoolView = Backbone.View.extend({
                     data:{data:schoolDetails},
                     dataType:"json",
                     success:function(data){
-                    	if(data.status == "Success")
+                    	if(data.status)
+                    	{
+                    		if(data.status == "Failure")
+      	   					  $('#error').html(data.message);
+                    	}
+                    	else
                     	{
 	                    	BS.schoolBack = false;
+	          			    BS.regBack = false;
+	          			    BS.classBack = false;
+	          			    localStorage["schoolInfo"] ='';
 	                    	BS.schoolFromPrev ='';
 	                    	$(".star").hide();
 	        				 // navigate to main stream page
 	                    	BS.AppRouter.navigate("streams", {trigger: true});
                     	}
-                    	else
-                    	{
-                    		$('#error').html(data.message);
-                    	}
+                    	 
         
                         
                     }
@@ -175,8 +180,15 @@ BS.SchoolView = Backbone.View.extend({
 	              data:{data:schoolDetails},
 	              dataType:"json",
 	              success:function(data){
-	            	if(data.status == "Success")
+	            	if(data.status)
                   	{
+                  		if(data.status == "Failure")
+    	   					  $('#error').html(data.message);
+                  	}
+                  	else
+                  	{
+	            	 
+                  	  localStorage["schoolInfo"] =JSON.stringify(data); 
 	            	  // for back button functionality
 	            	  BS.schoolBack = true;
 	            	  BS.editClass = false;
@@ -185,10 +197,7 @@ BS.SchoolView = Backbone.View.extend({
 	            	  BS.AppRouter.navigate("class", {trigger: true});
 	            	  
                   	}
-                  	else
-                  	{
-                  		$('#error').html(data.message);
-                  	}
+                  	 
 	              }
 	           });
 	      	}
@@ -306,7 +315,7 @@ BS.SchoolView = Backbone.View.extend({
 		    		  otherDegree ="";
 		    	  }
 	
-	    	  /* get Id of auto populated schools */
+	    	     /* get Id of auto populated schools */
 		    	  var sId = '';
 		    	   
 		    	  _.each(BS.allSchoolInfo, function(data) {
@@ -333,11 +342,14 @@ BS.SchoolView = Backbone.View.extend({
 		    	  }
 		    	  if($('#school-id-'+i).attr('value'))
 		    	  {
+		    		  
 		    		  schoolId = $('#school-id-'+i).attr('value');
+		    		 
 		    	  }
 		    	  else
 		    	  {
 		    		  schoolId = i;
+		    		  
 		    	  }
 	
 	

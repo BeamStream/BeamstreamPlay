@@ -86,6 +86,7 @@ BS.AppRouter = Backbone.Router.extend({
          $(".modal select:visible").selectBox();
      	 $("#login-form").validate();
          localStorage["regInfo"] ='';
+         localStorage["schoolInfo"] ='';
          localStorage.clear();
          $(".checkbox").dgStyle();
          $(".signin_check").dgStyle();
@@ -128,14 +129,14 @@ BS.AppRouter = Backbone.Router.extend({
      */
     schoolReg:function () {
          
-        if(BS.schoolBack)
+        if(localStorage["schoolInfo"])
 	    {
         	
 	         BS.schoolNum = 1;
 	         BS.schoolView = new BS.SchoolView();
 	         BS.schoolView.render();
 	         $('#school-popup').html(BS.schoolView.el);
-	         var schoolInfo =JSON.parse(localStorage["SchoolDetails"]);
+	         var schoolInfo =JSON.parse(localStorage["schoolInfo"]);
 	         $('#school-list').html('');	
 	         
 	        _.each(schoolInfo, function(info) {
@@ -179,7 +180,7 @@ BS.AppRouter = Backbone.Router.extend({
 	    }
         else
 	     {
-	        	 
+        	 localStorage["schoolInfo"] = ''; 
 	         BS.schoolView = new BS.SchoolView();
 	         BS.schoolView.render();
 	         
@@ -226,20 +227,24 @@ BS.AppRouter = Backbone.Router.extend({
      */
     classReg:function () {
     	
-    	$('#school-popup').children().detach(); 
-//        if(!BS.classView)
-//        {
-        	BS.classView = new BS.ClassView();
-        	BS.classView.render();
-//        }
-    	
-    	 
-        $('#school-popup').html(BS.classView.el);
-        
-         
-        $(".modal select:visible").selectBox();
-        $('.modal .datepicker').datepicker();
-        $("#class-form").validate();
+    	if(BS.classBack)
+    	{
+    		 BS.classView = new BS.ClassView();
+             BS.classView.render();
+             $('#school-popup').html(BS.classView.el);
+    	}
+    	else
+    	{
+    		
+           $('#school-popup').children().detach(); 
+           BS.classView = new BS.ClassView();
+           BS.classView.render();
+           $('#school-popup').html(BS.classView.el);
+           $(".modal select:visible").selectBox();
+           $('.modal .datepicker').datepicker();
+           $("#class-form").validate();
+    	}
+
        
    },
     
@@ -331,8 +336,10 @@ BS.AppRouter = Backbone.Router.extend({
 			   BS.streamView.render();
 			   BS.schoolBack = false;
 			   BS.regBack = false;
+			   BS.classBack = false;
 			   self.onstream = true; 
 			   localStorage["regInfo"] ='';
+			   localStorage["schoolInfo"] ='';
 	   	   
 			   //get main menu
 			   this.navView = new BS.NavView({ model: BS.user });
