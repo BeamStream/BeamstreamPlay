@@ -46,7 +46,7 @@ object SchoolController extends Controller {
    */
   def getAllSchoolsForAutopopulate = Action { implicit request =>
     val schoolNameStartingStringJsonMap = request.body.asFormUrlEncoded.get
-    val schoolNamesStartingCharacter = schoolNameStartingStringJsonMap("schoolName").toList(0)
+    val schoolNamesStartingCharacter = schoolNameStartingStringJsonMap("data").toList(0)
     val allSchools = School.getAllSchoolsFromDB(schoolNamesStartingCharacter)
     Ok(write(allSchools)).as("application/json")
   }
