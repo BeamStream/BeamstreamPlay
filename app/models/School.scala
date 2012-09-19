@@ -23,8 +23,9 @@ object School {
    * Get All School for autopopulate school screen
    */
 
-  def getAllSchools: List[School] = {
-    SchoolDAO.find(MongoDBObject()).toList
+  def getAllSchoolsFromDB(startsWith: String): List[School] = {
+    val regexp = ("^" + startsWith).r
+    SchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList
   }
 
   /*
@@ -35,12 +36,12 @@ object School {
     val schoolName = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0).schoolName
     schoolName
   }
-  
-   /*
+
+  /*
    * Find a school by name
    */
 
-  def findSchoolByName(schoolName : String): List[School] = {
+  def findSchoolByName(schoolName: String): List[School] = {
     val schools = SchoolDAO.find(MongoDBObject("schoolName" -> schoolName)).toList
     schools
   }
@@ -49,7 +50,7 @@ object School {
    * Update the School
    * @Purpose : For Edit School Functionality
    */
-  
+
   def updateSchool(schoolId: ObjectId, updatedSchoolname: String) {
     val school = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0)
     SchoolDAO.update(MongoDBObject("_id" -> schoolId), school.copy(schoolName = updatedSchoolname), false, false, new WriteConcern)

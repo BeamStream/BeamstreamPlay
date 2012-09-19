@@ -15,7 +15,7 @@ class SchoolTest extends FunSuite with BeforeAndAfter {
   val myschool1 = UserSchool(new ObjectId, "MPS", new ObjectId, Year.Freshman, Degree.Assosiates,
     "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), "", List())
 
-  val myschool2 = UserSchool(new ObjectId, "DPS", new ObjectId, Year.Freshman, Degree.Assosiates,
+  val myschool2 = UserSchool(new ObjectId, "DonBosco", new ObjectId, Year.Freshman, Degree.Assosiates,
     "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), "", List())
 
   val myschool3 = UserSchool(new ObjectId, "DPS", new ObjectId, Year.Freshman, Degree.Assosiates,
@@ -27,39 +27,38 @@ class SchoolTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Check the School Creation") {
-
     val schoolA = UserSchoolDAO.find(MongoDBObject("schoolName" -> "MPS"))
     assert(schoolA.size === 1)
 
     val schoolB = UserSchoolDAO.find(MongoDBObject("schoolName" -> "DPS"))
-    assert(schoolB.size === 2)
+    assert(schoolB.size === 1)
 
-  }
-
-  test("finding schools by school name") {
-    assert(UserSchool.findSchoolsByName("PS").size === 3)
-    assert(UserSchool.findSchoolsByName("DP").size === 2)
   }
 
   test("finding all schools by school ids") {
     val schoolsReturnedByName = UserSchoolDAO.find(MongoDBObject("schoolName" -> "DPS")).toList
-    assert(schoolsReturnedByName.size === 2)
+    assert(schoolsReturnedByName.size === 1)
     val id = schoolsReturnedByName(0).id
-    val otherid = schoolsReturnedByName(1).id
 
     val schoolsReturnedById = UserSchoolDAO.find(MongoDBObject("_id" -> id)).toList
     assert(schoolsReturnedById.size === 1)
 
-    val anotherschoolsReturnedById = UserSchoolDAO.find(MongoDBObject("_id" -> otherid)).toList
-    assert(anotherschoolsReturnedById.size === 1)
-
-    val schoolObjectIdList: List[ObjectId] = List(id, otherid)
+    val schoolObjectIdList: List[ObjectId] = List(id)
     val schoolsList = UserSchool.getAllSchools(schoolObjectIdList)
-    assert(schoolsList.size === 2)
+    assert(schoolsList.size === 1)
+
+  }
+
+  test("Find School By Name") {
+    val schools = School.getAllSchoolsFromDB("D")
+    assert(schools.size === 2)
+    val againSchools = School.getAllSchoolsFromDB("Do")
+    assert(againSchools.size === 1)
 
   }
 
   after {
     UserSchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))
+    SchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))
   }
 }

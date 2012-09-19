@@ -51,7 +51,6 @@ object UserSchool {
 
     else {
       for (userSchool <- userSchools) {
-        println("LLLLLLLL" + userSchool)
         val userSchoolObtained = UserSchool.userSchoolsForAUser(userSchool.id)
 
         // Edit School Case
@@ -92,15 +91,6 @@ object UserSchool {
   def userSchoolsForAUser(userSchoolId: ObjectId): List[UserSchool] = {
     val userSchools = UserSchoolDAO.find(MongoDBObject("_id" -> userSchoolId)).toList
     userSchools
-  }
-
-  /*
-   * Find a school by name
-   */
-
-  def findSchoolsByName(name: String): List[UserSchool] = {
-    //val regexp = (""".*""" + name + """.*""").r
-    for (school <- UserSchoolDAO.find(MongoDBObject("schoolName" -> name)).toList) yield school
   }
 
   /*
