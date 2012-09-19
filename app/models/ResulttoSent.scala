@@ -9,8 +9,8 @@ import java.io.InputStream
 case class ResulttoSent(status: String,
   message: String)
 
-// Resultant Schools Details
-  
+// Resultant Class Details
+case class ClassResulttoSent(status: String,message: String,classes:List[Class])  
  
 
 

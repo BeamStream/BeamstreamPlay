@@ -17,6 +17,7 @@ import models.UserSchool
 import models.User
 import models.ResulttoSent
 import models.Class
+import models.ClassResulttoSent
 
 object ClassController extends Controller {
 
@@ -42,7 +43,7 @@ object ClassController extends Controller {
     //        User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
     //        Ok(write(new ResulttoSent("Success", "User has successfully added his classes")))
     //    }
-    Ok(write(resultToSent))
+    Ok(write(new ClassResulttoSent(resultToSent.status, resultToSent.message, classList))).as("application/json")
   }
 
   /*
