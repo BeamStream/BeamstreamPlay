@@ -1797,6 +1797,7 @@
     <div id="error" class="invalid-validation" style="margin-left: 22px;"></div> 
     <div class="modal-body">
         <form id="class-form">
+           <div id="class-list">
             <fieldset id="classes-{{sCount}}">
                 <div class="form-row short">
 					<div class="element">
@@ -1910,6 +1911,7 @@
                     
 				</div>
             </fieldset>
+            </div>
 				<a  href="#" class="legend legend-addclass">Add class or school</a>
         </form>
     </div>
@@ -1921,7 +1923,124 @@
          {{/unless}}
     </div>
   </div>
+   </script>
+   
+   
+   <!-- Class registration  -->
+    <script type="text/x-handlebars-template" id="tpl-class-reg">
+   <fieldset id="classes-{{sCount}}">
+                <div class="form-row short">
+					<div class="element">
+						<label for="school-{{sCount}}">School</label>
+                               <div id="school-list-{{sCount}}"></div>
+						
+           			   </div>
+					 </div>
+                    <div class="form-row-label">1<sup>st</sup> class</div>
+                      <div class="form-row short">
+                     <div class="element">
 
+                     <label for="class-name-{{sCount}}-1">Class name </label>
+
+                    <input type="text" name="class-name-{{sCount}}-1" id="class-name-{{sCount}}-1" class="required medium class_name" placeholder="Class 1 name">
+                    <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
+                   </div>
+                      
+          <div class="element" id="div-time-{{sCount}}-1">
+              <label for="class-time-{{sCount}}-1">Class time </label>
+              <select id="class-time-{{sCount}}-1" class="time">
+				  {{#each times}}
+                        <option value="{{this.time}}">{{this.time}}</option>
+                  {{/each}}
+              </select>
+          </div>
+          <div class="element">
+                <label for="class-code-{{sCount}}-1">Class code </label>
+              <input type="text"  name ="class-code-{{sCount}}-1 "id="class-code-{{sCount}}-1" class="required small class_code" placeholder="Class 1 code" >
+          </div>
+          <div class="element">
+              <label for="date-started-{{sCount}}-1">Calendar </label>
+              <input class="required small datepicker cal" type="text"   id="date-started-{{sCount}}-1"/>
+          </div>
+           <div class="element" id="div-school-type-{{sCount}}-1">
+               <label for="semester-{{sCount}}-1">Semester or Quarter </label>
+               <select id="semester-{{sCount}}-1" class="small">
+                     <option value="semester">Semester</option>
+                     <option value="quarter">Quarter</option>
+               </select>
+          </div>
+            <div id="student-number-{{sCount}}-1" class="studentno-popup-class"></div>
+      </div>
+
+      <div class="form-row-label">2<sup>nd</sup> class</div>
+      <div class="form-row short">
+          <div class="element">
+              <label id="lb-class-name-2" value = "">Class name</label>
+              <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
+               <input type="hidden" value="" id="h-class-name-{{sCount}}-2">
+         </div>
+         <div class="element" id="div-time-{{sCount}}-2">
+              <label for="class-time-2">Class time</label>
+			  <select id="class-time-{{sCount}}-2" class="small time">
+			      {{#each times}}
+                        <option value="{{this.time}}">{{this.time}}</option>
+                  {{/each}}
+             </select>
+         </div>
+        
+         <div class="element">
+              <label for="class-code-{{sCount}}-2">Class code</label>
+              <input type="text" id="class-code-{{sCount}}-2" class="small class_code" placeholder="Class 2 code">
+         </div>
+         <div class="element">
+              <label for="date-started-2">Calendar</label>
+              <input class="small datepicker cal" type="text" placeholder="Date2" id="date-started-{{sCount}}-2"/>
+         </div>
+         <div class="element" id="div-school-type-{{sCount}}-2">
+              <label for="semester-{{sCount}}-2">Semester or Quarter</label>
+              <select id="semester-{{sCount}}-2" class="small">
+                    <option value="semester">Semester</option>
+                    <option value="quarter">Quarter</option>
+              </select>
+          </div>
+          <div id="student-number-{{sCount}}-2" class="studentno-popup-class"></div>
+       </div>
+
+       <div class="form-row-label">3<sup>rd</sup> class</div>
+       <div class="form-row short">
+          <div class="element">
+               <label id="lb-class-name-3" value="">Class name</label>
+               <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
+                <input type="hidden" value="" id="h-class-name-{{sCount}}-3">
+           </div>
+          <div class="element" id="div-time-{{sCount}}-3">
+               <label for="class-time-3">Class time</label>
+			   <select id="class-time-{{sCount}}-3" class="small time ">
+				  {{#each times}}
+                        <option value="{{this.time}}">{{this.time}}</option>
+                  {{/each}}
+               </select>
+          </div>
+          <div class="element">
+               <label for="class-code-{{sCount}}-3">Class code</label>
+               <input type="text" id="class-code-{{sCount}}-3" class="small class_code" placeholder="Class 3 code">
+          </div>
+          
+           <div class="element">
+                <label for="date-started-{{sCount}}-3">Calendar</label>
+                <input class="small datepicker cal" type="text" placeholder="Date3" id="date-started-{{sCount}}-3"/>
+           </div>
+           <div class="element" id="div-school-type-{{sCount}}-3">
+                <label for="semester-{{sCount}}-3">Semester or Quarter</label>
+                <select id="semester-{{sCount}}-3" class="small">
+                     <option value="semester">Semester</option>
+                     <option value="quarter">Quarter</option>
+                 </select>
+           </div>
+          <div id="student-number-{{sCount}}-3" class="studentno-popup-class"></div>
+                    
+				</div>
+            </fieldset>
    </script>
   	<!-- add 3 classes-->
 	<script type="text/x-handlebars-template" id="classes">
