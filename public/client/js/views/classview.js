@@ -193,7 +193,7 @@ BS.ClassView = Backbone.View.extend({
 	addClasses : function(eventName) {
 		
 		eventName.preventDefault();
- 
+
 		var id = eventName.target.id;
 		var dat='#'+id;
 		$(dat).hide();
@@ -223,9 +223,10 @@ BS.ClassView = Backbone.View.extend({
 		sClasses++;
 		eventName.preventDefault();
 		
-		
+		this.schools.fetch({success: function(e) {  
+		}});
 		var selectAnother = '<select id="school-'+sClasses+'" class="large all-schools">'+options+'</select>'; 
-		 
+		console.log(selectAnother) ;
     	$('a.legend-addclass').hide();
     	
     	var sCount = {
