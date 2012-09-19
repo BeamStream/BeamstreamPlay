@@ -60,6 +60,7 @@ BS.ClassView = Backbone.View.extend({
 						success : function(data) {
 							if(data.status == "Success")
 							{
+								 
 								$('.studentno-popup-class').fadeOut("medium"); 
 								BS.schoolBack = false;
 								BS.regBack = false;
@@ -169,7 +170,8 @@ BS.ClassView = Backbone.View.extend({
 							$('.studentno-popup-class').fadeOut("medium"); 
 							BS.editProfile = false;
 							BS.classBack = true;
-							localStorage["classInfo"] =JSON.stringify(data); 
+							localStorage["classInfo"] =JSON.stringify(data.classes);
+							 
 							// navigate to main stream page
 							BS.AppRouter.navigate("profile", {trigger: true});
 						}
