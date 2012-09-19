@@ -52,7 +52,7 @@ BS.AppRouter = Backbone.Router.extend({
   		        timeValues.push({"time" : time});
   		 }
   		BS.times = jQuery.parseJSON(JSON.stringify(timeValues));
-  		localStorage.clear();
+  		
   		// set status variable to check whether its a edit school/class/profile 
   		BS.editSchool = true;
   		BS.editClass = true;
@@ -74,6 +74,7 @@ BS.AppRouter = Backbone.Router.extend({
      */
     
     login: function() {
+    	 localStorage.clear();
     	 localStorage["idLogin"]= '';
     	 
     	 $('#school-popup').children().detach(); 
@@ -83,12 +84,18 @@ BS.AppRouter = Backbone.Router.extend({
      
     	 localStorage["idLogin"] = "login";
          $('#school-popup').html(BS.loginView.el);  
+         
+         //
+//         BS.jainRainView = new BS.JainRainView();
+//    	 BS.jainRainView.render();
+//    	 $('#janRain').html(BS.jainRainView.el)
+         
          $(".modal select:visible").selectBox();
      	 $("#login-form").validate();
          localStorage["regInfo"] ='';
          localStorage["schoolInfo"] ='';
          localStorage["classInfo"] ='';
-         localStorage.clear();
+        
          $(".checkbox").dgStyle();
          $(".signin_check").dgStyle();
          
@@ -215,7 +222,7 @@ BS.AppRouter = Backbone.Router.extend({
 				$('#degree-expected-'+current).val(info.degreeExpected);
 			
 			}
-			$('#school-name-'+current).attr("disabled","disabled");
+			 
 			$(".modal select:visible").selectBox();
 			$('.modal .datepicker').datepicker();
 			$('.datepicker').css('z-index','99999');
@@ -273,7 +280,7 @@ BS.AppRouter = Backbone.Router.extend({
      */
     classReg:function () {
     	
-    	if(BS.classBack)
+    	if(localStorage["classInfo"])
     	{
     		 BS.classView = new BS.ClassView();
              BS.classView.render();

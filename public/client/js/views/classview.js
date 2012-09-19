@@ -443,7 +443,7 @@ BS.ClassView = Backbone.View.extend({
 			 
 			 $('#h-class-name-'+identity).val(classId);
 			 $('#class-name-'+identity).val(className);
-			 
+			 $('#class-time-'+identity).val(classTime);
 			 $('#date-started-'+identity).val(date);
 			 $('#semester-'+identity+' option:selected').attr('selected', false);
 			 $('#semester-'+identity+' option[value="'+classType+'"]').attr('selected', 'selected');
@@ -618,6 +618,7 @@ BS.ClassView = Backbone.View.extend({
 			 $('#h-class-name-'+identity).val(classId);
 			 $('#class-code-'+identity).val(classCode);
 			 $('#date-started-'+identity).val(date);
+			 $('#class-time-'+identity).val(classTime);
 			 $('#semester-'+identity+' option:selected').attr('selected', false);
 			 $('#semester-'+identity+' option[value="'+classType+'"]').attr('selected', 'selected');
 			 if(classType == "quarter")
