@@ -48,8 +48,10 @@
   position: relative;
   color: #ffffff;
   margin-right: 1px;
-  padding-left: 24px;
-  padding-right: 24px;
+/*   padding-left: 24px; */
+/*   padding-right: 24px; */
+  padding-left: 15px;
+  padding-right: 15px;   
 }
 .nav.nav-tabs li a.with-icon {
   padding-right: 10px;
