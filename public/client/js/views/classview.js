@@ -193,7 +193,7 @@ BS.ClassView = Backbone.View.extend({
 	addClasses : function(eventName) {
 		
 		eventName.preventDefault();
- 
+
 		var id = eventName.target.id;
 		var dat='#'+id;
 		$(dat).hide();
@@ -223,9 +223,10 @@ BS.ClassView = Backbone.View.extend({
 		sClasses++;
 		eventName.preventDefault();
 		
-		
+		this.schools.fetch({success: function(e) {  
+		}});
 		var selectAnother = '<select id="school-'+sClasses+'" class="large all-schools">'+options+'</select>'; 
-		 
+		console.log(selectAnother) ;
     	$('a.legend-addclass').hide();
     	
     	var sCount = {
@@ -443,7 +444,7 @@ BS.ClassView = Backbone.View.extend({
 			 
 			 $('#h-class-name-'+identity).val(classId);
 			 $('#class-name-'+identity).val(className);
-			 
+			 $('#class-time-'+identity).val(classTime);
 			 $('#date-started-'+identity).val(date);
 			 $('#semester-'+identity+' option:selected').attr('selected', false);
 			 $('#semester-'+identity+' option[value="'+classType+'"]').attr('selected', 'selected');
@@ -618,6 +619,7 @@ BS.ClassView = Backbone.View.extend({
 			 $('#h-class-name-'+identity).val(classId);
 			 $('#class-code-'+identity).val(classCode);
 			 $('#date-started-'+identity).val(date);
+			 $('#class-time-'+identity).val(classTime);
 			 $('#semester-'+identity+' option:selected').attr('selected', false);
 			 $('#semester-'+identity+' option[value="'+classType+'"]').attr('selected', 'selected');
 			 if(classType == "quarter")

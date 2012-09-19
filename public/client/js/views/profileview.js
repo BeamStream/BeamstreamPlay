@@ -431,7 +431,6 @@ BS.ProfileView = Backbone.View.extend({
      */
     backToPrevious :function(eventName){
       eventName.preventDefault();
-      $(".star").hide();
   	  BS.AppRouter.navigate("class", {trigger: true});
     },
     
@@ -440,7 +439,6 @@ BS.ProfileView = Backbone.View.extend({
      */
     closeScreen : function(eventName){
   	  eventName.preventDefault(); 
-  	$(".star").hide();
   	  BS.AppRouter.navigate('streams', {trigger: true});
     },
 	/**

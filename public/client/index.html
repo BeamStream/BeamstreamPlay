@@ -61,8 +61,7 @@
 <!--  <link rel="stylesheet" href="css/autocomplete.css" type="text/css" /> -->
     
     
-    <!--  for validation -->
-<!--     <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/> -->
+
     
     <!-- embedly -->
      <link rel="stylesheet" href="css/embedly-preview.css" type="text/css"/>
@@ -115,8 +114,7 @@
 	<!--  for validation  -->
 	
 	<script src="lib/jquery-validation.js" type="text/javascript"></script>
-<!-- 	<script src="lib/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script> -->
-<!-- 	<script src="lib/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script> -->
+
 	
     <script src="lib/bootstrap.min.js"></script>
   
@@ -2107,8 +2105,8 @@
                         <div class ="make-it">
                         <ul class="add-type">
 
-                        <li><div class="pfofile-radio"><input  id="img-primary"  type="radio"  checked="checked" value=true name="img-status" /></div><span>Make it Primary</span></li>
-					    <li><div class="pfofile-radio"><input  type="radio" id="img-secondary" name="img-status" value=false /></div><span>Make It Secondary</span></li>
+                        <li><div class="profile-radio"><input  id="img-primary"  type="radio"  checked="checked" value=true name="img-status" /></div><span>Make it Primary</span></li>
+					    <li><div class="profile-radio"><input  type="radio" id="img-secondary" name="img-status" value=false /></div><span>Make It Secondary</span></li>
                         </ul>
                        </div>
                     </div>
@@ -2124,8 +2122,8 @@
                          <div class ="make-it">
                         <ul class="add-type">
 
-                        <li><div class="pfofile-radio"><input type="radio" id="video-primary" name="video-status" value=true /></div><span>Make it Primary</span></li>
-					    <li><div class="pfofile-radio"><input type="radio" id="video-secondary" checked="checked" value=false  name="video-status" /></div><span>Make It Secondary</span></li>
+                        <li><div class="profile-radio"><input type="radio" id="video-primary" name="video-status" value=true /></div><span>Make it Primary</span></li>
+					    <li><div class="profile-radio"><input type="radio" id="video-secondary" checked="checked" value=false  name="video-status" /></div><span>Make It Secondary</span></li>
                         </ul>
                     </div>
                 </div>
@@ -2894,28 +2892,28 @@
       
         <div class="element" style="margin-top:25px;" >
               <input type= "hidden" id="user_Id" value ="{{data.id.id}}">
-              <label for="school-name">School name <span class="star"> *</span></label>
+              <label for="school-name">School name   </label>
               <input type="text" id="school-name" placeholder="" value="{{data.orgName}}" class="validate[required] span3">
             </div>
         <div class="element">
-              <label for="user-name">User Name <span class="star"> *</span><br/>
+              <label for="user-name">User Name   <br/>
             http://www.beamstream.com/</label>
               <input type="text" id="user-name" value="{{data.userName}}"  class="validate[required] span3">
             </div>
           <div class="element">
-              <label for="password">Password <span class="star"> *</span><br/></label>
+              <label for="password">Password   <br/></label>
               <input type="password" id="password" placeholder="password" value ="" class="validate[required] span3"> 
             </div>
         <div class="element">
-              <label for="first-name">First Name <span class="star"> *</span></label>
+              <label for="first-name">First Name   </label>
               <input type="text" id="first-name" value="{{data.firstName}}" class="validate[required] span3">
             </div>
         <div class="element">
-              <label for="last-name">Last Name <span class="star"> *</span></label>
+              <label for="last-name">Last Name   </label>
               <input type="text" id="last-name"value="{{data.lastName}}" class="validate[required] span3">
             </div>
         <div class="element">
-              <label for="location">Location <span class="star"> *</span></label>
+              <label for="location">Location   </label>
               <input type="text" id="location" value="{{data.location}}" class="validate[required] span3">
             </div>
         <div class="element">
@@ -3042,7 +3040,7 @@
 <div id="error" class= "invalid-validation"  style=" margin-bottom: 18px !important; margin-left: 152px;"></div>
  
             <div class="element">
-             <label for="iam">I'm <span class="star"> *</span></label>
+             <label for="iam">I'm   </label>
                 <select id="iam" class="large">
                   <option value= "">-- I'm --</option>
                         {{#if student}}
@@ -3064,23 +3062,23 @@
             </div>
             <div class="element">
               <input type="hidden" id="user-id" value="{{data.id.id}}">
-              <label for="school-name">School Name <span class="star"> *</span></label>
+              <label for="school-name">School Name   </label>
               <input type="text" id="school-name"  value="{{data.orgName}}" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="school-email">School Email <span class="star"> *</span></label>
+              <label for="school-email">School Email   </label>
               <input type="text" id="school-email" value="{{data.email}}" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="first-name">First Name <span class="star"> *</span></label>
+              <label for="first-name">First Name   </label>
               <input type="text" id="first-name" value="{{data.firstName}}" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="last-name">Last Name <span class="star"> *</span></label>
+              <label for="last-name">Last Name   </label>
               <input type="text" id="last-name" value="{{data.lastName}}" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="location">Location <span class="star"> *</span></label>
+              <label for="location">Location   </label>
               <input type="text" id="location" value="{{data.location}}" class="validate[required] span3">
             </div>
             <div class="element">
@@ -3257,7 +3255,8 @@
                         <div class="or-icon"><img src="images/or.png"></div>
           </div>
           <div class="form-row-right">
-             <div id="janrainEngageEmbed" class="login-janRain"></div>
+              <div id="janrainEngageEmbed" class="login-janRain"></div> 
+               
           </div>
           <div class="form-row-label"></div>
         </div>
@@ -3266,7 +3265,7 @@
           </div>
           </div>
             <div class="form-row" >
-          <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a> 
+  <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a>
 
           </div>
         </div>
@@ -3275,9 +3274,10 @@
   </div>
    </div>
   </script>
+  
  
  
-  <!-- template for login-->
+  <!-- template for login -->
 	<script type="text/x-handlebars-template" id="tpl-forgot-password">
  <div class="modal-backdrop in"></div>
    	<div class="modal main-popups modal-pull-top in modal-popups " style="display:block;">
@@ -3316,6 +3316,11 @@
                 Test Popup for docs
             </div>
         </script>
+        
+<!-- template for janRain -->
+<script type="text/x-handlebars-template" id="tpl-janRain">
+       <div id="janrainEngageEmbed" class="login-janRain"></div>
+</script>
 <!-- End of docs list template-->
 
 	<!-- Le javascript
@@ -3495,7 +3500,7 @@ function janRainLogin(info){
  	   				      });
 			    		}
 			    		else 
-			    		{
+			    		{  console.log(localStorage["idLogin"]);
 			    			if(localStorage["idLogin"] == "login")
                       	  	{
                           		$('#error').html("Login unsuccessfull");
@@ -3550,6 +3555,7 @@ function janRainLogin(info){
 	
 <!--  Backbone.js files -->
 <script src="js/views/settingsview.js"></script>
+<!-- <script src="js/views/janrainview.js"></script> -->
 <script src="js/views/loginview.js"></script>
 <script src="js/views/forgotpasswordview.js"></script>
 <script src="js/views/streamview.js"></script>

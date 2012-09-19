@@ -53,7 +53,7 @@ POST /getAllDocumentsForCurrentUserSortedbyDate    controllers.DocumentControlle
 #POST /school controllers.SchoolController.addSchool
 GET /getAllSchoolForAUser controllers.SchoolController.getAllSchoolForAUser
 POST /getSchoolNamebyId controllers.SchoolController.getSchoolName
-GET  /getAllSchoolsForAutopopulate      controllers.SchoolController.getAllSchoolsForAutopopulate
+POST  /getAllSchoolsForAutopopulate      controllers.SchoolController.getAllSchoolsForAutopopulate
 
 
 #UpdateUserInfo
