@@ -241,25 +241,49 @@ BS.AppRouter = Backbone.Router.extend({
 	         if(BS.schoolFromPrev)
 	         {
 	        	$('#school-name-1').val(BS.schoolFromPrev);
+	        	
+	        	 $.ajax({
+		        	   type : 'POST',
+		 			   url : BS.autoPopulateSchools,
+		 			   data : {
+		 				   data : BS.schoolFromPrev,
+		 			   },
+		 			   dataType : "json",
+					   success : function(datas) {
+							_.each(datas, function(data) {
+								 if(data.schoolName == BS.schoolFromPrev)
+						    	  {
+									 
+						    		  var sId = data.id.id;
+						    		  $('#school-id-1').attr('value',1);
+						    		  $('#associatedId-1').attr('value',sId);
+						    		 
+						    	  }
+					        });
+						}
+					});
+ 
 	         }
 		     
-		   	  /* get all schools of a user */
-				 $.ajax({
-					type : 'GET',
-					url : BS.autoPopulateSchools,
-					dataType : "json",
-					success : function(datas) {
-						_.each(datas, function(data) {
-							 if(data.schoolName == BS.schoolFromPrev)
-					    	  {
-					    		  var sId = data.id.id;
-					    		  $('#school-id-1').attr('value',sId);
-					    		  $('#associatedId-1').attr('value',sId);
-					    		 
-					    	  }
-				        });
-					}
-				});
+//		   	  /* get all schools of a user */
+//				 $.ajax({
+//					type : 'GET',
+//					url : BS.autoPopulateSchools,
+//					dataType : "json",
+//					success : function(datas) {
+//						_.each(datas, function(data) {
+//							 if(data.schoolName == BS.schoolFromPrev)
+//					    	  {
+//					    		  var sId = data.id.id;
+//					    		  $('#school-id-1').attr('value',sId);
+//					    		  $('#associatedId-1').attr('value',sId);
+//					    		 
+//					    	  }
+//				        });
+//					}
+//				});
+	         
+	        
 	
 	            /* hide some fields on page load */
 	            $('#degree-exp-1').hide();
@@ -285,6 +309,9 @@ BS.AppRouter = Backbone.Router.extend({
     		 BS.classView = new BS.ClassView();
              BS.classView.render();
              $('#school-popup').html(BS.classView.el);
+             
+             var classInfo =JSON.parse(localStorage["classInfo"]);
+	         $('#school-list').html('');	
     	}
     	else
     	{

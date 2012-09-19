@@ -49,35 +49,70 @@ BS.SchoolView = Backbone.View.extend({
      * auto populate school
      */
     
+//    populateSchools :function(eventName){
+//    	eventName.preventDefault();  
+//   	    var id = eventName.target.id;
+//   	    var dat='#'+id;
+//   	    var currentid = $(dat).closest('fieldset').attr('id');
+//   	    BS.selectedSchool = $(dat).val(); 
+//   	    BS.allSchools = []; 
+//    	
+//    	/* get all schools of a user */
+//		 $.ajax({
+//			type : 'GET',
+//			url : BS.autoPopulateSchools,
+//			 
+//			dataType : "json",
+//			success : function(datas) {
+//				 
+//				BS.allSchoolInfo = datas;
+//				_.each(datas, function(data) {
+//					 BS.allSchools.push(data.schoolName);
+//		        });
+//				 
+//				//set auto populate functionality for class code
+//				$(dat).autocomplete({
+//				    source: BS.allSchools
+//			 });
+//			 
+//			}
+//		});
+//    	
+//    },
+
     populateSchools :function(eventName){
-    	eventName.preventDefault();  
-   	    var id = eventName.target.id;
-   	    var dat='#'+id;
-   	    var currentid = $(dat).closest('fieldset').attr('id');
-   	    BS.selectedSchool = $(dat).val(); 
-   	    BS.allSchools = []; 
-    	
-    	/* get all schools of a user */
+    	var id = eventName.target.id;
+    	var text = $('#'+id).val();
+    	var self =this;
+ 
+		/* post the text that we type to get matched school */
 		 $.ajax({
-			type : 'GET',
+			type : 'POST',
 			url : BS.autoPopulateSchools,
-			 
+			data : {
+				data : text,
+			},
 			dataType : "json",
 			success : function(datas) {
+				var codes = '';
 				 
 				BS.allSchoolInfo = datas;
+				BS.schoolNames = [];
 				_.each(datas, function(data) {
-					 BS.allSchools.push(data.schoolName);
+					BS.schoolNames.push(data.schoolName);
 		        });
-				 
-				//set auto populate functionality for class code
-				$(dat).autocomplete({
-				    source: BS.allSchools
-			 });
+
+				//set auto populate schools
+				$('#'+id).autocomplete({
+					    source: BS.schoolNames,
+					    select: function(event, ui) {
+					    	var text = ui.item.value; 
+					    }
+				 });
 			 
 			}
 		});
-    	
+		
     },
      /** TODO
      * save/post school info details.
