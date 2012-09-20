@@ -52,7 +52,7 @@ BS.AppRouter = Backbone.Router.extend({
   		        timeValues.push({"time" : time});
   		 }
   		BS.times = jQuery.parseJSON(JSON.stringify(timeValues));
-  		localStorage.clear();
+  		
   		// set status variable to check whether its a edit school/class/profile 
   		BS.editSchool = true;
   		BS.editClass = true;
@@ -74,6 +74,7 @@ BS.AppRouter = Backbone.Router.extend({
      */
     
     login: function() {
+    	 localStorage.clear();
     	 localStorage["idLogin"]= '';
     	 
     	 $('#school-popup').children().detach(); 
@@ -83,10 +84,18 @@ BS.AppRouter = Backbone.Router.extend({
      
     	 localStorage["idLogin"] = "login";
          $('#school-popup').html(BS.loginView.el);  
+         
+         //
+//         BS.jainRainView = new BS.JainRainView();
+//    	 BS.jainRainView.render();
+//    	 $('#janRain').html(BS.jainRainView.el)
+         
          $(".modal select:visible").selectBox();
      	 $("#login-form").validate();
          localStorage["regInfo"] ='';
-         localStorage.clear();
+         localStorage["schoolInfo"] ='';
+         localStorage["classInfo"] ='';
+        
          $(".checkbox").dgStyle();
          $(".signin_check").dgStyle();
          
@@ -119,7 +128,6 @@ BS.AppRouter = Backbone.Router.extend({
          $('#school-popup').html(BS.forgotPasswordView.el);  
          $(".modal select:visible").selectBox();
          $("#forgot-pass-form").validate();
-//         jQuery("#forgot-pass-form").validationEngine();
          $(".checkbox").dgStyle();
          $(".signin_check").dgStyle();
     },
@@ -128,20 +136,66 @@ BS.AppRouter = Backbone.Router.extend({
      */
     schoolReg:function () {
          
-        if(BS.schoolBack)
+        if(localStorage["schoolInfo"])
 	    {
         	
-	         BS.schoolNum = 1;
+//	         BS.schoolNum = 1;
+//	         BS.schoolView = new BS.SchoolView();
+//	         BS.schoolView.render();
+//	         $('#school-popup').html(BS.schoolView.el);
+//	         var schoolInfo =JSON.parse(localStorage["schoolInfo"]);
+//	         $('#school-list').html('');	
+//	         
+//	        _.each(schoolInfo, function(info) {
+//				var datas = {
+//				"data" : info,
+//				"number" : BS.schoolNum
+//			  }
+//			var source = $("#tpl-school").html();
+//			var template = Handlebars.compile(source);
+//			$('#school-list').append(template(datas));
+//			
+//			
+//			if(info.degree != "Other")
+//			{
+//				$('#other-degrees-'+BS.schoolNum).hide();
+//			}
+//			
+//			$('#year-'+BS.schoolNum).val(info.year);
+//			$('#degreeprogram-'+BS.schoolNum).val(info.degree);
+//			$('#graduated-'+BS.schoolNum).val(info.graduated);
+//			if(info.graduated == "yes")
+//			{
+//				$('#degree-exp-'+BS.schoolNum).hide();
+//				$('#calendar-'+BS.schoolNum).val(info.graduationDate);
+//			
+//			}
+//			else
+//			{
+//				$('#cal-'+BS.schoolNum).hide();
+//				$('#degree-expected-'+BS.schoolNum).val(info.degreeExpected);
+//			
+//			}
+//			$('#school-name-'+BS.schoolNum).attr("disabled","disabled");
+//			$(".modal select:visible").selectBox();
+//			$('.modal .datepicker').datepicker();
+//			$('.datepicker').css('z-index','99999');
+//			
+//			BS.schoolNum++;
+//	        });
+        	 current = 0;
+        	 
 	         BS.schoolView = new BS.SchoolView();
 	         BS.schoolView.render();
 	         $('#school-popup').html(BS.schoolView.el);
-	         var schoolInfo =JSON.parse(localStorage["SchoolDetails"]);
+	         var schoolInfo =JSON.parse(localStorage["schoolInfo"]);
 	         $('#school-list').html('');	
 	         
 	        _.each(schoolInfo, function(info) {
+	        	current++;
 				var datas = {
 				"data" : info,
-				"number" : BS.schoolNum
+				"number" : current
 			  }
 			var source = $("#tpl-school").html();
 			var template = Handlebars.compile(source);
@@ -150,62 +204,67 @@ BS.AppRouter = Backbone.Router.extend({
 			
 			if(info.degree != "Other")
 			{
-				$('#other-degrees-'+BS.schoolNum).hide();
+				$('#other-degrees-'+current).hide();
 			}
 			
-			$('#year-'+BS.schoolNum).val(info.year);
-			$('#degreeprogram-'+BS.schoolNum).val(info.degree);
-			$('#graduated-'+BS.schoolNum).val(info.graduated);
+			$('#year-'+current).val(info.year);
+			$('#degreeprogram-'+current).val(info.degree);
+			$('#graduated-'+current).val(info.graduated);
 			if(info.graduated == "yes")
 			{
-				$('#degree-exp-'+BS.schoolNum).hide();
-				$('#calendar-'+BS.schoolNum).val(info.graduationDate);
+				$('#degree-exp-'+current).hide();
+				$('#calendar-'+current).val(info.graduationDate);
 			
 			}
 			else
 			{
-				$('#cal-'+BS.schoolNum).hide();
-				$('#degree-expected-'+BS.schoolNum).val(info.degreeExpected);
+				$('#cal-'+current).hide();
+				$('#degree-expected-'+current).val(info.degreeExpected);
 			
 			}
-			
+			 
 			$(".modal select:visible").selectBox();
 			$('.modal .datepicker').datepicker();
 			$('.datepicker').css('z-index','99999');
 			
-			BS.schoolNum++;
 	        });
 	            
 	    }
         else
 	     {
-	        	 
+        	 localStorage["schoolInfo"] = ''; 
 	         BS.schoolView = new BS.SchoolView();
 	         BS.schoolView.render();
 	         
 	         $('#school-popup').html(BS.schoolView.el);
+	         current = 1;
 	         if(BS.schoolFromPrev)
 	         {
 	        	$('#school-name-1').val(BS.schoolFromPrev);
+	        	
+	        	 $.ajax({
+		        	   type : 'POST',
+		 			   url : BS.autoPopulateSchools,
+		 			   data : {
+		 				   data : BS.schoolFromPrev,
+		 			   },
+		 			   dataType : "json",
+					   success : function(datas) {
+							_.each(datas, function(data) {
+								 if(data.schoolName == BS.schoolFromPrev)
+						    	  {
+									 
+						    		  var sId = data.id.id;
+						    		  $('#school-id-1').attr('value',1);
+						    		  $('#associatedId-1').attr('value',sId);
+						    		 
+						    	  }
+					        });
+						}
+					});
+ 
 	         }
-		     
-		   	  /* get all schools of a user */
-				 $.ajax({
-					type : 'GET',
-					url : BS.autoPopulateSchools,
-					dataType : "json",
-					success : function(datas) {
-						_.each(datas, function(data) {
-							 if(data.schoolName == BS.schoolFromPrev)
-					    	  {
-					    		  var sId = data.id.id;
-					    		  $('#school-id-1').attr('value',sId);
-					    		  $('#associatedId-1').attr('value',sId);
-					    		 
-					    	  }
-				        });
-					}
-				});
+	        
 	
 	            /* hide some fields on page load */
 	            $('#degree-exp-1').hide();
@@ -226,20 +285,125 @@ BS.AppRouter = Backbone.Router.extend({
      */
     classReg:function () {
     	
-    	$('#school-popup').children().detach(); 
-        if(!BS.classView)
-        {
-        	BS.classView = new BS.ClassView();
-        	BS.classView.render();
-        }
-    	
-    	 
-        $('#school-popup').html(BS.classView.el);
-        
-         
-        $(".modal select:visible").selectBox();
-        $('.modal .datepicker').datepicker();
-        $("#class-form").validate();
+    	if(localStorage["classInfo"])
+    	{
+//    		 sClasses = 0;
+//    		 BS.classView = new BS.ClassView();
+//             BS.classView.render();
+//             $('#school-popup').html(BS.classView.el);
+//             console.log("-------------");
+//             var classInfo =JSON.parse(localStorage["classInfo"]);
+//	         $('#class-list').html('');	
+//	         
+//	         var totalClasses = classInfo.length;
+//	         
+//	         var classPack ;
+//	         
+//	         while(totalClasses > 0)
+//	         {
+//	        	 var i = 0;
+//	        	 var c_schoolId = classInfo[0].schoolId.id;
+//	        	 for(var j=0 ; j<totalClasses ; j++)
+//	        	 {
+//	        		 if(classInfo[j].schoolId.id == c_schoolId)
+//	        		 {
+//	        			 i++;
+//	        		 }
+//	        		 else
+//	        		 {
+//	        			 break;
+//	        		 }
+//	        	 }
+//
+//	        	 console.log("sClasses---" +sClasses);
+//	        	 classPack = classInfo.splice(0,i);
+//	        	 sClasses++;
+//	        	 console.log("sClasses " +sClasses);
+//	        	 console.log("totalClasses " +totalClasses);
+//				 var datas = {
+//							"data" : classPack,
+//							"sCount" : sClasses,
+//							"times" : BS.times
+//				  }
+//				  var source = $("#edit-class").html();
+//				  var template = Handlebars.compile(source);
+//				  $('#class-list').append(template(datas));
+//				  BS.classView.renderSchools();
+//				  totalClasses = classInfo.length;
+//	         }
+	         
+//	         while(totalClasses > 3 )
+//	        {
+//	        	 
+//	        	 classPack = classInfo.splice(0,3);
+//	        	 sClasses++;
+//	        	 console.log("sClasses " +sClasses);
+//	        	 console.log("totalClasses " +totalClasses);
+//				 var datas = {
+//							"data" : classPack,
+//							"sCount" : sClasses,
+//							"times" : BS.times
+//				  }
+//				  var source = $("#edit-class").html();
+//				  var template = Handlebars.compile(source);
+//				  $('#class-list').append(template(datas));
+//					
+//				  totalClasses = classInfo.length;
+//	        	 
+//	        }
+//	         if(totalClasses <= 3)
+//	        {
+//	        	 sClasses++;
+//	        	 console.log("sClasses " +sClasses);
+//				 var datas = {
+//							"data" : classPack,
+//							"sCount" : sClasses,
+//							"times" : BS.times
+//				  }
+//				  var source = $("#edit-class").html();
+//				  var template = Handlebars.compile(source);
+//				  $('#class-list').append(template(datas));
+//	        }
+	         
+	         
+//	         _.each(classInfo, function(info) {
+//	        	    classPack++;
+//	        	    classData.push(info);
+//	        	    if(classPack == 3)
+//	        	    {
+//	        	    	sClasses++;
+//	 					var datas = {
+//	 							"data" : classData,
+//	 							"sCount" : sClasses,
+//	 							"times" : BS.times
+//	 					}
+//	 					var source = $("#edit-class").html();
+//	 					var template = Handlebars.compile(source);
+//	 					$('#class-list').append(template(datas));
+//	 					classPack = 0;
+//	 					classData = [];
+//	 					
+//	        	    }
+//	        	   
+					 
+//					$(".modal select:visible").selectBox();
+//					$('.modal .datepicker').datepicker();
+//					$('.datepicker').css('z-index','99999');
+				
+//		        });
+    	}
+    	else
+    	{
+    		
+           $('#school-popup').children().detach(); 
+           BS.classView = new BS.ClassView();
+           BS.classView.render();
+           $('#school-popup').html(BS.classView.el);
+           $(".modal select:visible").selectBox();
+           $('.modal .datepicker').datepicker();
+           $("#class-form").validate();
+    	}
+
        
    },
     
@@ -331,8 +495,11 @@ BS.AppRouter = Backbone.Router.extend({
 			   BS.streamView.render();
 			   BS.schoolBack = false;
 			   BS.regBack = false;
+			   BS.classBack = false;
 			   self.onstream = true; 
 			   localStorage["regInfo"] ='';
+		       localStorage["schoolInfo"] ='';
+		       localStorage["classInfo"] ='';
 	   	   
 			   //get main menu
 			   this.navView = new BS.NavView({ model: BS.user });

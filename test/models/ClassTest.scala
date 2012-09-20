@@ -53,36 +53,36 @@ class ClassTest extends FunSuite with BeforeAndAfter {
 
   }
 
-  test("Avoid create class if duplicate code exists") {
-    val userId = User.createUser(user1)
-    val newClass1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
-    val classIdList = Class.createClass(List(newClass1), userId)
-    assert(classIdList.size === 0)
-    val newClass2 = Class(new ObjectId, "207", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
-    val newClassIdList = Class.createClass(List(newClass2), userId)
-    assert(newClassIdList.size === 1)
-
-  }
-
-  test("Find all classes for a user") {
-    val userId = User.createUser(user1)
-    val newClassA = Class(new ObjectId, "302", "CSE", ClassType.Semester, "3:40", formatter.parse("31-01-2011"), new ObjectId, List())
-    val newClassB = Class(new ObjectId, "301", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
-     val classIdList = Class.createClass(List(newClassA,newClassB), userId)
-     assert(classIdList.size === 2)
-     assert(Class.findClasssById(classIdList(0)).className==="CSE")
-  }
-  
-  
-   test("Find all classes Objects for a user") {
-    val userId = User.createUser(user1)
-    val newClassA = Class(new ObjectId, "302", "CSE", ClassType.Semester, "3:40", formatter.parse("31-01-2011"), new ObjectId, List())
-    val newClassB = Class(new ObjectId, "301", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
-     val classIdList = Class.createClass(List(newClassA,newClassB), userId)
-     val classesFetched=Class.getAllClasses(classIdList)
-     assert(classesFetched.size===2)
-     assert(classesFetched(0).classType===ClassType.Semester)
-  }
+//  test("Avoid create class if duplicate code exists") {
+//    val userId = User.createUser(user1)
+//    val newClass1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
+//    val classIdList = Class.createClass(List(newClass1), userId)
+//    assert(classIdList.size === 0)
+//    val newClass2 = Class(new ObjectId, "207", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
+//    val newClassIdList = Class.createClass(List(newClass2), userId)
+//    assert(newClassIdList.size === 1)
+//
+//  }
+//
+//  test("Find all classes for a user") {
+//    val userId = User.createUser(user1)
+//    val newClassA = Class(new ObjectId, "302", "CSE", ClassType.Semester, "3:40", formatter.parse("31-01-2011"), new ObjectId, List())
+//    val newClassB = Class(new ObjectId, "301", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
+//     val classIdList = Class.createClass(List(newClassA,newClassB), userId)
+//     assert(classIdList.size === 2)
+//     assert(Class.findClasssById(classIdList(0)).className==="CSE")
+//  }
+//  
+//  
+//   test("Find all classes Objects for a user") {
+//    val userId = User.createUser(user1)
+//    val newClassA = Class(new ObjectId, "302", "CSE", ClassType.Semester, "3:40", formatter.parse("31-01-2011"), new ObjectId, List())
+//    val newClassB = Class(new ObjectId, "301", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
+//     val classIdList = Class.createClass(List(newClassA,newClassB), userId)
+//     val classesFetched=Class.getAllClasses(classIdList)
+//     assert(classesFetched.size===2)
+//     assert(classesFetched(0).classType===ClassType.Semester)
+//  }
 
   after {
     ClassDAO.remove(MongoDBObject("className" -> ".*".r))

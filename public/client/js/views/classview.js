@@ -27,7 +27,7 @@ BS.ClassView = Backbone.View.extend({
 		this.schools.fetch({success: function(e) {  
 //			console.log(e);
 		}});
- 
+		BS.classBack = false;
 		this.classes = new BS.Class();
 		this.source = $("#tpl-class-reg").html();
 		this.template = Handlebars.compile(this.source);
@@ -60,8 +60,14 @@ BS.ClassView = Backbone.View.extend({
 						success : function(data) {
 							if(data.status == "Success")
 							{
+								 
 								$('.studentno-popup-class').fadeOut("medium"); 
 								BS.schoolBack = false;
+								BS.regBack = false;
+								BS.classBack = false;
+								localStorage["regInfo"] ='';
+						        localStorage["schoolInfo"] ='';
+						        localStorage["classInfo"] ='';
 								// navigate to main stream page
 								$(".star").hide();
 								BS.AppRouter.navigate("streams", {trigger: true});
@@ -163,7 +169,9 @@ BS.ClassView = Backbone.View.extend({
 						{
 							$('.studentno-popup-class').fadeOut("medium"); 
 							BS.editProfile = false;
-							$(".star").hide();
+							BS.classBack = true;
+							localStorage["classInfo"] =JSON.stringify(data.classes);
+							console.log("gg:"+data.classes.length)
 							// navigate to main stream page
 							BS.AppRouter.navigate("profile", {trigger: true});
 						}
@@ -187,7 +195,7 @@ BS.ClassView = Backbone.View.extend({
 	addClasses : function(eventName) {
 		
 		eventName.preventDefault();
- 
+
 		var id = eventName.target.id;
 		var dat='#'+id;
 		$(dat).hide();
@@ -217,9 +225,10 @@ BS.ClassView = Backbone.View.extend({
 		sClasses++;
 		eventName.preventDefault();
 		
-		
+		this.schools.fetch({success: function(e) {  
+		}});
 		var selectAnother = '<select id="school-'+sClasses+'" class="large all-schools">'+options+'</select>'; 
-		 
+		console.log(selectAnother) ;
     	$('a.legend-addclass').hide();
     	
     	var sCount = {
@@ -308,9 +317,6 @@ BS.ClassView = Backbone.View.extend({
      */
     backToPrevious :function(eventName){
       eventName.preventDefault();
-       
-      localStorage["SchoolDetails"] = JSON.stringify(this.schools); 
-      $(".star").hide();
       BS.AppRouter.navigate("school", {trigger: true});
     },
     
@@ -440,7 +446,7 @@ BS.ClassView = Backbone.View.extend({
 			 
 			 $('#h-class-name-'+identity).val(classId);
 			 $('#class-name-'+identity).val(className);
-			 
+			 $('#class-time-'+identity).val(classTime);
 			 $('#date-started-'+identity).val(date);
 			 $('#semester-'+identity+' option:selected').attr('selected', false);
 			 $('#semester-'+identity+' option[value="'+classType+'"]').attr('selected', 'selected');
@@ -615,6 +621,7 @@ BS.ClassView = Backbone.View.extend({
 			 $('#h-class-name-'+identity).val(classId);
 			 $('#class-code-'+identity).val(classCode);
 			 $('#date-started-'+identity).val(date);
+			 $('#class-time-'+identity).val(classTime);
 			 $('#semester-'+identity+' option:selected').attr('selected', false);
 			 $('#semester-'+identity+' option[value="'+classType+'"]').attr('selected', 'selected');
 			 if(classType == "quarter")

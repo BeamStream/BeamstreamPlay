@@ -61,8 +61,7 @@
 <!--  <link rel="stylesheet" href="css/autocomplete.css" type="text/css" /> -->
     
     
-    <!--  for validation -->
-<!--     <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/> -->
+
     
     <!-- embedly -->
      <link rel="stylesheet" href="css/embedly-preview.css" type="text/css"/>
@@ -115,8 +114,7 @@
 	<!--  for validation  -->
 	
 	<script src="lib/jquery-validation.js" type="text/javascript"></script>
-<!-- 	<script src="lib/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script> -->
-<!-- 	<script src="lib/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script> -->
+
 	
     <script src="lib/bootstrap.min.js"></script>
   
@@ -290,8 +288,10 @@
           </div>
         </li>
         <li data-key='["oldest"]' id="covervideo">
+
          <div class="image-wrapper"><div class="hover-div"><div id="profile-videos"><img src="images/video_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Videos </p></div></div> </div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
+
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
               <li><a class="hand-icon" href="#">5</a></li>
@@ -299,9 +299,11 @@
             </ul>
           </div>
         </li>        
+
         <li id="coverdocs" data-key='["recent"]'>
          <div class="image-wrapper" id="google-docs"><div class="hover-div"><a class="google-docs-image" href="#googledocs"><img src="images/docs_image.png"></a>
           <div class="hover-text"><p class="emptyfiles"> No Uploaded Files </p></div></div></div>
+
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -310,6 +312,7 @@
             </ul>
           </div>
         </li>        
+
         <li id="coveraudio" data-key='["oldest"]'>
             <div class="image-wrapper coveraud"> 
                <div class="hover-div"><img src="images/audio_image.png"/><div class="hover-text"> 
@@ -380,6 +383,7 @@
                   <li><a class="message-icon" href="#">10</a></li>
                </ul>
             </div>       
+
         </li>
         <li data-key='["oldest"]'>
           <div class="image-wrapper"></div>
@@ -1825,6 +1829,7 @@
     <div id="error" class="invalid-validation" style="margin-left: 22px;"></div> 
     <div class="modal-body">
         <form id="class-form">
+           <div id="class-list">
             <fieldset id="classes-{{sCount}}">
                 <div class="form-row short">
 					<div class="element">
@@ -1938,6 +1943,7 @@
                     
 				</div>
             </fieldset>
+            </div>
 				<a  href="#" class="legend legend-addclass">Add class or school</a>
         </form>
     </div>
@@ -1949,7 +1955,124 @@
          {{/unless}}
     </div>
   </div>
+   </script>
+   
+   
+   <!-- Class registration  -->
+    <script type="text/x-handlebars-template" id="edit-class">
+   <fieldset id="classes-{{sCount}}">
+                <div class="form-row short">
+					<div class="element">
+						<label for="school-{{sCount}}">School</label>
+                               <div id="school-list-{{sCount}}"></div>
+						
+           			   </div>
+					 </div>
+                    <div class="form-row-label">1<sup>st</sup> class</div>
+                      <div class="form-row short">
+                     <div class="element">
 
+                     <label for="class-name-{{sCount}}-1">Class name </label>
+
+                    <input type="text" name="class-name-{{sCount}}-1" id="class-name-{{sCount}}-1" value="{{data.className}}" class="required medium class_name" placeholder="Class 1 name" >
+                    <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
+                   </div>
+                      
+          <div class="element" id="div-time-{{sCount}}-1">
+              <label for="class-time-{{sCount}}-1">Class time </label>
+              <select id="class-time-{{sCount}}-1" class="time">
+				  {{#each times}}
+                        <option value="{{this.time}}">{{this.time}}</option>
+                  {{/each}}
+              </select>
+          </div>
+          <div class="element">
+                <label for="class-code-{{sCount}}-1">Class code </label>
+              <input type="text"  name ="class-code-{{sCount}}-1 "id="class-code-{{sCount}}-1" value="{{data.classCode}}" class="required small class_code" placeholder="Class 1 code" >
+          </div>
+          <div class="element">
+              <label for="date-started-{{sCount}}-1">Calendar </label>
+              <input class="required small datepicker cal" type="text"  value="{{data.startingDate}}"  id="date-started-{{sCount}}-1"/>
+          </div>
+           <div class="element" id="div-school-type-{{sCount}}-1">
+               <label for="semester-{{sCount}}-1">Semester or Quarter </label>
+               <select id="semester-{{sCount}}-1" class="small">
+                     <option value="semester">Semester</option>
+                     <option value="quarter">Quarter</option>
+               </select>
+          </div>
+            <div id="student-number-{{sCount}}-1" class="studentno-popup-class"></div>
+      </div>
+
+      <div class="form-row-label">2<sup>nd</sup> class</div>
+      <div class="form-row short">
+          <div class="element">
+              <label id="lb-class-name-2" value = "">Class name</label>
+              <input type="text" id="class-name-{{sCount}}-2" value="{{data.className}}" class="medium class_name" placeholder="Class 2 name">
+               <input type="hidden" value="" id="h-class-name-{{sCount}}-2">
+         </div>
+         <div class="element" id="div-time-{{sCount}}-2">
+              <label for="class-time-2">Class time</label>
+			  <select id="class-time-{{sCount}}-2" class="small time">
+			      {{#each times}}
+                        <option value="{{this.time}}">{{this.time}}</option>
+                  {{/each}}
+             </select>
+         </div>
+        
+         <div class="element">
+              <label for="class-code-{{sCount}}-2">Class code</label>
+              <input type="text" id="class-code-{{sCount}}-2" value="{{data.classCode}}" class="small class_code" placeholder="Class 2 code">
+         </div>
+         <div class="element">
+              <label for="date-started-2">Calendar</label>
+              <input class="small datepicker cal" value="{{data.startingDate}}" type="text" placeholder="Date2" id="date-started-{{sCount}}-2"/>
+         </div>
+         <div class="element" id="div-school-type-{{sCount}}-2">
+              <label for="semester-{{sCount}}-2">Semester or Quarter</label>
+              <select id="semester-{{sCount}}-2" class="small">
+                    <option value="semester">Semester</option>
+                    <option value="quarter">Quarter</option>
+              </select>
+          </div>
+          <div id="student-number-{{sCount}}-2" class="studentno-popup-class"></div>
+       </div>
+
+       <div class="form-row-label">3<sup>rd</sup> class</div>
+       <div class="form-row short">
+          <div class="element">
+               <label id="lb-class-name-3" value="">Class name</label>
+               <input type="text" id="class-name-{{sCount}}-3"  value="{{data.className}}" class="medium class_name" placeholder="Class 3 name">
+                <input type="hidden" value="" id="h-class-name-{{sCount}}-3">
+           </div>
+          <div class="element" id="div-time-{{sCount}}-3">
+               <label for="class-time-3">Class time</label>
+			   <select id="class-time-{{sCount}}-3" class="small time ">
+				  {{#each times}}
+                        <option value="{{this.time}}">{{this.time}}</option>
+                  {{/each}}
+               </select>
+          </div>
+          <div class="element">
+               <label for="class-code-{{sCount}}-3">Class code</label>
+               <input type="text" id="class-code-{{sCount}}-3" value="{{data.classCode}}"  class="small class_code" placeholder="Class 3 code">
+          </div>
+          
+           <div class="element">
+                <label for="date-started-{{sCount}}-3">Calendar</label>
+                <input class="small datepicker cal" value="{{data.startingDate}}" type="text" placeholder="Date3" id="date-started-{{sCount}}-3"/>
+           </div>
+           <div class="element" id="div-school-type-{{sCount}}-3">
+                <label for="semester-{{sCount}}-3">Semester or Quarter</label>
+                <select id="semester-{{sCount}}-3" class="small">
+                     <option value="semester">Semester</option>
+                     <option value="quarter">Quarter</option>
+                 </select>
+           </div>
+          <div id="student-number-{{sCount}}-3" class="studentno-popup-class"></div>
+                    
+				</div>
+            </fieldset>
    </script>
   	<!-- add 3 classes-->
 	<script type="text/x-handlebars-template" id="classes">
@@ -2131,8 +2254,8 @@
                         <div class ="make-it">
                         <ul class="add-type">
 
-                        <li><div class="pfofile-radio"><input  id="img-primary"  type="radio"  checked="checked" value=true name="img-status" /></div><span>Make it Primary</span></li>
-					    <li><div class="pfofile-radio"><input  type="radio" id="img-secondary" name="img-status" value=false /></div><span>Make It Secondary</span></li>
+                        <li><div class="profile-radio"><input  id="img-primary"  type="radio"  checked="checked" value=true name="img-status" /></div><span>Make it Primary</span></li>
+					    <li><div class="profile-radio"><input  type="radio" id="img-secondary" name="img-status" value=false /></div><span>Make It Secondary</span></li>
                         </ul>
                        </div>
                     </div>
@@ -2148,8 +2271,8 @@
                          <div class ="make-it">
                         <ul class="add-type">
 
-                        <li><div class="pfofile-radio"><input type="radio" id="video-primary" name="video-status" value=true /></div><span>Make it Primary</span></li>
-					    <li><div class="pfofile-radio"><input type="radio" id="video-secondary" checked="checked" value=false  name="video-status" /></div><span>Make It Secondary</span></li>
+                        <li><div class="profile-radio"><input type="radio" id="video-primary" name="video-status" value=true /></div><span>Make it Primary</span></li>
+					    <li><div class="profile-radio"><input type="radio" id="video-secondary" checked="checked" value=false  name="video-status" /></div><span>Make It Secondary</span></li>
                         </ul>
                     </div>
                 </div>
@@ -2912,28 +3035,28 @@
       
         <div class="element" style="margin-top:25px;" >
               <input type= "hidden" id="user_Id" value ="{{data.id.id}}">
-              <label for="school-name">School name <span class="star"> *</span></label>
+              <label for="school-name">School name   </label>
               <input type="text" id="school-name" placeholder="" value="{{data.orgName}}" class="validate[required] span3">
             </div>
         <div class="element">
-              <label for="user-name">User Name <span class="star"> *</span><br/>
+              <label for="user-name">User Name   <br/>
             http://www.beamstream.com/</label>
               <input type="text" id="user-name" value="{{data.userName}}"  class="validate[required] span3">
             </div>
           <div class="element">
-              <label for="password">Password <span class="star"> *</span><br/></label>
+              <label for="password">Password   <br/></label>
               <input type="password" id="password" placeholder="password" value ="" class="validate[required] span3"> 
             </div>
         <div class="element">
-              <label for="first-name">First Name <span class="star"> *</span></label>
+              <label for="first-name">First Name   </label>
               <input type="text" id="first-name" value="{{data.firstName}}" class="validate[required] span3">
             </div>
         <div class="element">
-              <label for="last-name">Last Name <span class="star"> *</span></label>
+              <label for="last-name">Last Name   </label>
               <input type="text" id="last-name"value="{{data.lastName}}" class="validate[required] span3">
             </div>
         <div class="element">
-              <label for="location">Location <span class="star"> *</span></label>
+              <label for="location">Location   </label>
               <input type="text" id="location" value="{{data.location}}" class="validate[required] span3">
             </div>
         <div class="element">
@@ -2975,14 +3098,14 @@
    <div id="error" class= "invalid-validation"  style=" margin-bottom: 18px !important; margin-left: 152px;"></div>
             <div class="element">
              <label for="iam">I'm </label>
-                <select id="iam"  class="large">
-                  <option value="">-- I'm --</option>
+                <select id="iam" name="iam" class="required large">
+                  <option >-- I'm --</option>
 						<option value="0">Student</option>
 						<option value="1">Educator</option>
 						<option value="2">Professional</option>
                 </select>
             </div>
-            <div class="element">
+             <div class="element">
               <label for="school-name">School Name <span class="star"> </span></label>
               <input type="text" name="school-name" id="school-name" placeholder="School Name" class="required span3">
             </div>
@@ -3035,7 +3158,7 @@
               </div>
               <div class="element">
                 <div class="file-upload-box"><input type="file"></div>
-              </div>
+              </div> 
               <div class="element"> <a href="#" class="btn btn-success pull-right">Request approval</a> </div>
               </div>
             </div>
@@ -3060,7 +3183,7 @@
 <div id="error" class= "invalid-validation"  style=" margin-bottom: 18px !important; margin-left: 152px;"></div>
  
             <div class="element">
-             <label for="iam">I'm <span class="star"> *</span></label>
+             <label for="iam">I'm   </label>
                 <select id="iam" class="large">
                   <option value= "">-- I'm --</option>
                         {{#if student}}
@@ -3082,23 +3205,23 @@
             </div>
             <div class="element">
               <input type="hidden" id="user-id" value="{{data.id.id}}">
-              <label for="school-name">School Name <span class="star"> *</span></label>
+              <label for="school-name">School Name   </label>
               <input type="text" id="school-name"  value="{{data.orgName}}" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="school-email">School Email <span class="star"> *</span></label>
+              <label for="school-email">School Email   </label>
               <input type="text" id="school-email" value="{{data.email}}" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="first-name">First Name <span class="star"> *</span></label>
+              <label for="first-name">First Name   </label>
               <input type="text" id="first-name" value="{{data.firstName}}" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="last-name">Last Name <span class="star"> *</span></label>
+              <label for="last-name">Last Name   </label>
               <input type="text" id="last-name" value="{{data.lastName}}" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="location">Location <span class="star"> *</span></label>
+              <label for="location">Location   </label>
               <input type="text" id="location" value="{{data.location}}" class="validate[required] span3">
             </div>
             <div class="element">
@@ -3160,8 +3283,8 @@
           <div class="form-row short">
               <div class="element">
                 <label for="iam">I'm <span class="star"> </span></label>
-                <select id="iam" name="iam" class=" large">
-                  <option value= "">-- I'm --</option>
+                <select id="iam" name="iams" class="required large">
+                        <option value="">-- I'm --</option>
 						<option value="0">Student</option>
 						<option value="1">Educator</option>
 						<option value="2">Professional</option>
@@ -3275,7 +3398,8 @@
                         <div class="or-icon"><img src="images/or.png"></div>
           </div>
           <div class="form-row-right">
-             <div id="janrainEngageEmbed" class="login-janRain"></div>
+              <div id="janrainEngageEmbed" class="login-janRain"></div> 
+               
           </div>
           <div class="form-row-label"></div>
         </div>
@@ -3284,7 +3408,7 @@
           </div>
           </div>
             <div class="form-row" >
-          <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a> 
+  <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a>
 
           </div>
         </div>
@@ -3293,9 +3417,10 @@
   </div>
    </div>
   </script>
+  
  
  
-  <!-- template for login-->
+  <!-- template for login -->
 	<script type="text/x-handlebars-template" id="tpl-forgot-password">
  <div class="modal-backdrop in"></div>
    	<div class="modal main-popups modal-pull-top in modal-popups " style="display:block;">
@@ -3334,6 +3459,11 @@
                 Test Popup for docs
             </div>
         </script>
+        
+<!-- template for janRain -->
+<script type="text/x-handlebars-template" id="tpl-janRain">
+       <div id="janrainEngageEmbed" class="login-janRain"></div>
+</script>
 <!-- End of docs list template-->
 
 	<!-- Le javascript
@@ -3513,7 +3643,7 @@ function janRainLogin(info){
  	   				      });
 			    		}
 			    		else 
-			    		{
+			    		{  console.log(localStorage["idLogin"]);
 			    			if(localStorage["idLogin"] == "login")
                       	  	{
                           		$('#error').html("Login unsuccessfull");
@@ -3568,6 +3698,7 @@ function janRainLogin(info){
 	
 <!--  Backbone.js files -->
 <script src="js/views/settingsview.js"></script>
+<!-- <script src="js/views/janrainview.js"></script> -->
 <script src="js/views/loginview.js"></script>
 <script src="js/views/forgotpasswordview.js"></script>
 <script src="js/views/streamview.js"></script>

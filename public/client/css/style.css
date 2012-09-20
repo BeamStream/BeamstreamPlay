@@ -2047,6 +2047,7 @@ div.hover-div:hover img{
     bottom:0;
     position:absolute;
     z-index:2;
+
 }
 .filmdeapicture{
    width: 190px;
@@ -2067,18 +2068,40 @@ p.emptyfiles{
     text-decoration: none;
 }
 
-.pfofile-radio{
-cursor: default;
+.profile-radios {
+/*     cursor: default; */
+
     display: block;
     float: left;
     height: 30px;
     padding: 0;
     text-align: left;
-    width: 35px;}
+    width: 35px;
 
+}
+.profile-radio {
+/*     cursor: default; */
+    display: block;
+    float: left;
+    height: 30px;
+    padding: 0;
+    text-align: left;
+    width: 35px;
+
+}
+/* .pfofile-radio { */
+/* 	cursor: default; */
+/*     display: block; */
+/*     float: left; */
+/*     height: 30px; */
+/*     padding: 0; */
+/*     text-align: left; */
+/*     width: 35px; */
+/* } */
 /* validation */
-label.error { 
-color: red !important;
+label.error {
+
+    color: red !important;
     float: right;
     margin: 0 !important;
     padding-left: 3px;

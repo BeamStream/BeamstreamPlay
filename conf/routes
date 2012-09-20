@@ -20,10 +20,6 @@ POST /noOfUsersAttendingAClass  controllers.StreamController.noOfUsersAttendingA
 POST /deleteStream              controllers.StreamController.deleteTheStream
 
 
-#//TODO : To be Deleted
-#POST /newStream controllers.StreamController.newStream
-#POST /joinStreams controllers.StreamController.joinStream
-
 
 #Messages
 POST /newMessage controllers.MessageController.newMessage
@@ -50,10 +46,10 @@ POST /getAllDocumentsForCurrentUserSortedbyDate    controllers.DocumentControlle
 
 #Schools
 
-#POST /school controllers.SchoolController.addSchool
+POST /school controllers.SchoolController.addANewSchool
 GET /getAllSchoolForAUser controllers.SchoolController.getAllSchoolForAUser
 POST /getSchoolNamebyId controllers.SchoolController.getSchoolName
-GET  /getAllSchoolsForAutopopulate      controllers.SchoolController.getAllSchoolsForAutopopulate
+POST  /getAllSchoolsForAutopopulate      controllers.SchoolController.getAllSchoolsForAutopopulate
 
 
 #UpdateUserInfo
@@ -94,7 +90,7 @@ GET /getContactsViaJanrain controllers.UserController.getContactsViaSocialSite
 
 #Media
 POST /getMediafromPost controllers.MediaController.getMedia
-POST /getProfilePicForAUser      controllers.UserController.getProfilePicForAUser
+POST /getProfilePicForAUser      controllers.MediaController.getProfilePicForAUser
 GET /getAllProfilePicForAUser   controllers.MediaController.getAllProfilePicForAUser
 
 GET /getAllProfileVideoForAUser   controllers.MediaController.getAllProfileVideoForAUser

@@ -49,35 +49,70 @@ BS.SchoolView = Backbone.View.extend({
      * auto populate school
      */
     
+//    populateSchools :function(eventName){
+//    	eventName.preventDefault();  
+//   	    var id = eventName.target.id;
+//   	    var dat='#'+id;
+//   	    var currentid = $(dat).closest('fieldset').attr('id');
+//   	    BS.selectedSchool = $(dat).val(); 
+//   	    BS.allSchools = []; 
+//    	
+//    	/* get all schools of a user */
+//		 $.ajax({
+//			type : 'GET',
+//			url : BS.autoPopulateSchools,
+//			 
+//			dataType : "json",
+//			success : function(datas) {
+//				 
+//				BS.allSchoolInfo = datas;
+//				_.each(datas, function(data) {
+//					 BS.allSchools.push(data.schoolName);
+//		        });
+//				 
+//				//set auto populate functionality for class code
+//				$(dat).autocomplete({
+//				    source: BS.allSchools
+//			 });
+//			 
+//			}
+//		});
+//    	
+//    },
+
     populateSchools :function(eventName){
-    	eventName.preventDefault();  
-   	    var id = eventName.target.id;
-   	    var dat='#'+id;
-   	    var currentid = $(dat).closest('fieldset').attr('id');
-   	    BS.selectedSchool = $(dat).val(); 
-   	    BS.allSchools = []; 
-    	
-    	/* get all schools of a user */
+    	var id = eventName.target.id;
+    	var text = $('#'+id).val();
+    	var self =this;
+ 
+		/* post the text that we type to get matched school */
 		 $.ajax({
-			type : 'GET',
+			type : 'POST',
 			url : BS.autoPopulateSchools,
-			 
+			data : {
+				data : text,
+			},
 			dataType : "json",
 			success : function(datas) {
+				var codes = '';
 				 
 				BS.allSchoolInfo = datas;
+				BS.schoolNames = [];
 				_.each(datas, function(data) {
-					 BS.allSchools.push(data.schoolName);
+					BS.schoolNames.push(data.schoolName);
 		        });
-				 
-				//set auto populate functionality for class code
-				$(dat).autocomplete({
-				    source: BS.allSchools
-			 });
+
+				//set auto populate schools
+				$('#'+id).autocomplete({
+					    source: BS.schoolNames,
+					    select: function(event, ui) {
+					    	var text = ui.item.value; 
+					    }
+				 });
 			 
 			}
 		});
-    	
+		
     },
      /** TODO
      * save/post school info details.
@@ -115,18 +150,25 @@ BS.SchoolView = Backbone.View.extend({
                     data:{data:schoolDetails},
                     dataType:"json",
                     success:function(data){
-                    	if(data.status == "Success")
+                    	if(data.status)
+                    	{
+                    		if(data.status == "Failure")
+      	   					  $('#error').html(data.message);
+                    	}
+                    	else
                     	{
 	                    	BS.schoolBack = false;
+	          			    BS.regBack = false;
+	          			    BS.classBack = false;
+	          			    localStorage["regInfo"] ='';
+	          			    localStorage["schoolInfo"] ='';
+	          			    localStorage["classInfo"] ='';
 	                    	BS.schoolFromPrev ='';
 	                    	$(".star").hide();
 	        				 // navigate to main stream page
 	                    	BS.AppRouter.navigate("streams", {trigger: true});
                     	}
-                    	else
-                    	{
-                    		$('#error').html(data.message);
-                    	}
+                    	 
         
                         
                     }
@@ -175,8 +217,15 @@ BS.SchoolView = Backbone.View.extend({
 	              data:{data:schoolDetails},
 	              dataType:"json",
 	              success:function(data){
-	            	if(data.status == "Success")
+	            	if(data.status)
                   	{
+                  		if(data.status == "Failure")
+    	   					  $('#error').html(data.message);
+                  	}
+                  	else
+                  	{
+	            	 
+                  	  localStorage["schoolInfo"] =JSON.stringify(data); 
 	            	  // for back button functionality
 	            	  BS.schoolBack = true;
 	            	  BS.editClass = false;
@@ -185,10 +234,7 @@ BS.SchoolView = Backbone.View.extend({
 	            	  BS.AppRouter.navigate("class", {trigger: true});
 	            	  
                   	}
-                  	else
-                  	{
-                  		$('#error').html(data.message);
-                  	}
+                  	 
 	              }
 	           });
 	      	}
@@ -265,6 +311,8 @@ BS.SchoolView = Backbone.View.extend({
 	    	  var schoolId ='';
 	    	  var count = current;
 	    	  var schools = new BS.SchoolCollection();
+	    	  console.log("current" + current);
+	    	  console.log("BS.schoolNum" + BS.schoolNum);
 	    	  if(BS.schoolNum)
 	    	  {
 	    		  if(BS.schoolNum <= current)
@@ -306,7 +354,7 @@ BS.SchoolView = Backbone.View.extend({
 		    		  otherDegree ="";
 		    	  }
 	
-	    	  /* get Id of auto populated schools */
+	    	     /* get Id of auto populated schools */
 		    	  var sId = '';
 		    	   
 		    	  _.each(BS.allSchoolInfo, function(data) {
@@ -321,7 +369,7 @@ BS.SchoolView = Backbone.View.extend({
 		    	  if(sId)
 		    	  {
 		    	    assosiatedSchoolId = sId;
-		    	    $('#school-id-'+i).attr('value',assosiatedSchoolId);
+//		    	    $('#school-id-'+i).attr('value',assosiatedSchoolId);
 		    	  }
 		    	  else if($('#associatedId-'+i).attr('value'))
 		    	  {
@@ -329,15 +377,18 @@ BS.SchoolView = Backbone.View.extend({
 		    	  }
 		    	  else
 		    	  {
-		    		  assosiatedSchoolId = 1;
+		    		  assosiatedSchoolId = i;
 		    	  }
 		    	  if($('#school-id-'+i).attr('value'))
 		    	  {
+		    		  
 		    		  schoolId = $('#school-id-'+i).attr('value');
+		    		 
 		    	  }
 		    	  else
 		    	  {
 		    		  schoolId = i;
+		    		  
 		    	  }
 	
 	

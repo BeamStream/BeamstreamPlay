@@ -29,8 +29,6 @@ BS.LoginView = Backbone.View.extend({
     login:function (eventName) {
     	
     	    eventName.preventDefault();
-    	   
-//    	    var validate = jQuery('#login-form').validationEngine('validate');
     	    var validate = jQuery('#login-form').valid();
     	    console.log(validate);
 			if(validate == true)
@@ -39,8 +37,8 @@ BS.LoginView = Backbone.View.extend({
 				var loginDetails = this.getLoginInfo();
 				if(loginDetails == 1)
 			    {
-						console.log("Invalid User name and Login");
-						$('#error').html("Invalid User name and Login");
+						console.log("Invalid User name or password");
+						$('#error').html("Invalid User or password");
 				} 
 			    else
 			    {
@@ -69,7 +67,7 @@ BS.LoginView = Backbone.View.extend({
 							    		else 
 							    		{
 							    			 console.log(data.status + " : " + data.message);
-							    			 $('#error').html("Invalid User name and Login");
+							    			 $('#error').html("Invalid User name or password ");
 							    			 
 							    			 /* clear email and password text box and get highlighted */
 							    			  $('#email').val("");

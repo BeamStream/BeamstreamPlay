@@ -6,7 +6,7 @@ import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
-case class School(@Key("_id") id: ObjectId, schoolName: String)
+case class School(@Key("_id") id: ObjectId, schoolName: String, schoolWebsite: String)
 
 object School {
 
@@ -23,8 +23,10 @@ object School {
    * Get All School for autopopulate school screen
    */
 
-  def getAllSchools: List[School] = {
-    SchoolDAO.find(MongoDBObject()).toList
+  def getAllSchoolsFromDB(patternReceived: String): List[School] = {
+    //    val regexp = ("^" + startsWith).r
+    val regexp = (patternReceived).r
+    SchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList
   }
 
   /*
@@ -35,12 +37,12 @@ object School {
     val schoolName = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0).schoolName
     schoolName
   }
-  
-   /*
+
+  /*
    * Find a school by name
    */
 
-  def findSchoolByName(schoolName : String): List[School] = {
+  def findSchoolByName(schoolName: String): List[School] = {
     val schools = SchoolDAO.find(MongoDBObject("schoolName" -> schoolName)).toList
     schools
   }
@@ -49,7 +51,7 @@ object School {
    * Update the School
    * @Purpose : For Edit School Functionality
    */
-  
+
   def updateSchool(schoolId: ObjectId, updatedSchoolname: String) {
     val school = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0)
     SchoolDAO.update(MongoDBObject("_id" -> schoolId), school.copy(schoolName = updatedSchoolname), false, false, new WriteConcern)

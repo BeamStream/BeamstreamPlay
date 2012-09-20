@@ -13,7 +13,7 @@ class UserMediaTest extends FunSuite with BeforeAndAfter {
 
   test("Get all media for a user") {
     val userId = User.createUser(user)
-    val UserMediaObj = new UserMedia(new ObjectId, userId, "http://beamstream.com/Neel.png", UserMediaType.Image, true,true)
+    val UserMediaObj = new UserMedia(new ObjectId, userId, "http://beamstream.com/Neel.png", UserMediaType.Image, true)
     UserMedia.saveMediaForUser(UserMediaObj)
     val UserMediaForAUser = UserMediaDAO.find(MongoDBObject())
     assert(UserMediaForAUser.toList(0).mediaUrl === "http://beamstream.com/Neel.png")
@@ -22,8 +22,8 @@ class UserMediaTest extends FunSuite with BeforeAndAfter {
 
   test("get all media for a user") {
     val userId = User.createUser(user)
-    val UserMediaObj1 = new UserMedia(new ObjectId, userId, "http://beamstream.com/Neel.png", UserMediaType.Image, true,true)
-    val UserMediaObj2 = new UserMedia(new ObjectId, userId, "http://beamstream.com/Neel.png", UserMediaType.Image, true,true)
+    val UserMediaObj1 = new UserMedia(new ObjectId, userId, "http://beamstream.com/Neel.png", UserMediaType.Image, true)
+    val UserMediaObj2 = new UserMedia(new ObjectId, userId, "http://beamstream.com/Neel.png", UserMediaType.Image, true)
     UserMedia.saveMediaForUser(UserMediaObj1)
     UserMedia.saveMediaForUser(UserMediaObj2)
     val mediaForAUser = UserMedia.getProfilePicForAUser(userId)

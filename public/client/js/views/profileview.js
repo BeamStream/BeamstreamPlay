@@ -10,8 +10,8 @@ BS.ProfileView = Backbone.View.extend({
 	       'keyup #mobile' : "checkNumber",
 	      'focusout #mobile' : "arragePhone",
 	      'click .close-button' : "closeScreen",
-	      'click .back' :'backToPrevious',
-	      'click .pfofile-radio': "selectImageStatus",
+//	      'click .back' :'backToPrevious',
+	      'click .profile-radio': "selectImageStatus",
 	      
 	 },
 	 
@@ -155,8 +155,8 @@ BS.ProfileView = Backbone.View.extend({
 	     	    data.append('videoData', this.video);
 	     		data.append('mobile',$('#mobile').val());
 	     		data.append('upload',$('#upload').val());
-//	     		data.append('imageStatus', $('input[name=img-status]:checked').val());
-//	     		data.append('videoStatus', $('input[name=video-status]:checked').val());
+	     		data.append('imageStatus', $('input[name=img-status]:checked').val());
+	     		data.append('videoStatus', $('input[name=video-status]:checked').val());
 	     		 
 	     		
 	        	/* post profile page details */
@@ -176,6 +176,14 @@ BS.ProfileView = Backbone.View.extend({
 	        	    	    BS.bar.text("100%");
 	        	    	    clearInterval(BS.progress);
 	        	    	    $(".star").hide();
+	        	    	    
+	        	    	    BS.schoolBack = false;
+	        				BS.regBack = false;
+	        				BS.classBack = false;
+	        				localStorage["regInfo"] ='';
+	        		        localStorage["schoolInfo"] ='';
+	        		        localStorage["classInfo"] ='';
+	        		        
 	        	    	   // navigate to main stream page after a tome period
 	        	    	    setTimeout(function() {
 	        	    	    	BS.AppRouter.navigate("streams", {trigger: true});
@@ -423,7 +431,6 @@ BS.ProfileView = Backbone.View.extend({
      */
     backToPrevious :function(eventName){
       eventName.preventDefault();
-      $(".star").hide();
   	  BS.AppRouter.navigate("class", {trigger: true});
     },
     
@@ -432,7 +439,6 @@ BS.ProfileView = Backbone.View.extend({
      */
     closeScreen : function(eventName){
   	  eventName.preventDefault(); 
-  	$(".star").hide();
   	  BS.AppRouter.navigate('streams', {trigger: true});
     },
 	/**

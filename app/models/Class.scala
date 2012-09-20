@@ -32,7 +32,7 @@ object Class {
   /*
    * Create the new Classes
    */
-  def createClass(classList: List[Class], userId: ObjectId): List[ObjectId] = {
+  def createClass(classList: List[Class], userId: ObjectId): ResulttoSent = {
 
     /*
  * Check if the duplicate code exists in database
@@ -50,35 +50,37 @@ object Class {
         val classFetchedbyFilteringClassName = classList.filter(x => x.className == eachClass.className)
         if (classFetchedbyFilteringClassCode.size > 1 || classFetchedbyFilteringClassName.size > 1) classFetchCount += 1
       }
-
       if (classFetchCount == 0) false else true
     }
 
     //Class Creation Starts Here by calling the duplicate code validation method
-    if (duplicateClassExistesInSubmittedList(classList) == true) List()
+    if (duplicateClassExistesInSubmittedList(classList) == true) ResulttoSent("Failure", "Duplicates Class Code or Name Provided")
 
     else {
 
-      var classIdList: List[ObjectId] = List()
+      //TODO:var classIdList: List[ObjectId] = List()
 
       for (eachclass <- classList) {
         val classesobtained = Class.findClassListById(eachclass.id)
         if (!classesobtained.isEmpty) {
           println("Join Stream Case")
           Stream.joinStream(classesobtained(0).streams(0), userId)
-          classIdList ++= List(getClassByCode(eachclass)(0).id)
+          //classIdList ++= List(getClassByCode(eachclass)(0).id)
+          User.addClassToUser(userId, List(eachclass.id))
+          ClassDAO.update(MongoDBObject("_id" -> eachclass.id), eachclass, false, false, new WriteConcern) // Edit Class Case
+
         } else {
           println("Create class Case")
-          //Insert then class
           val classId = ClassDAO.insert(eachclass)
-          classIdList ++= List(new ObjectId(classId.get.toString))
+          //classIdList ++= List(new ObjectId(classId.get.toString))
+          User.addClassToUser(userId, List(new ObjectId(classId.get.toString)))
           // Create the Stream for this class
           val streamToCreate = new Stream(new ObjectId, eachclass.className, StreamType.Class, userId, List(userId), true, List())
           val streamId = Stream.createStream(streamToCreate)
           Stream.attachStreamtoClass(streamId, new ObjectId(classId.get.toString))
         }
       }
-      classIdList
+      ResulttoSent("Success", "User has successfully added his classes")
     }
 
   }

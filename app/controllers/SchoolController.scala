@@ -17,6 +17,14 @@ object SchoolController extends Controller {
     override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
   } + new ObjectIdSerializer
 
+  def addANewSchool = Action { implicit request =>
+    val schoolInfojsonMap = request.body.asFormUrlEncoded.get
+    val schoolName = schoolInfojsonMap("schoolName").toList(0)
+    val schoolWebsite = schoolInfojsonMap("schoolWebsite").toList(0)
+    val schoolToCreate = new School(new ObjectId, schoolName, schoolWebsite)
+    val schoolId = School.addNewSchool(schoolToCreate)
+    Ok(write(schoolId)).as("application/json")
+  }
   /*
  * Provides All School For a User (Duplicacy seen : exactly like /schoolJson)
  */
@@ -26,7 +34,7 @@ object SchoolController extends Controller {
     val getAllSchoolsForAUser = UserSchool.getAllSchools(schoolIdList)
     val SchoolListJson = write(getAllSchoolsForAUser)
     Ok(SchoolListJson).as("application/json")
-    
+
   }
 
   /*
@@ -40,15 +48,15 @@ object SchoolController extends Controller {
     Ok(write(schoolName)).as("application/json")
   }
 
-  
   /*
    * All Schools From database
    * @Purpose: For autopopulate schools on school screen'
    */
   def getAllSchoolsForAutopopulate = Action { implicit request =>
-    val allSchools = School.getAllSchools
+    val schoolNameStartingStringJsonMap = request.body.asFormUrlEncoded.get
+    val schoolNamesStartingCharacter = schoolNameStartingStringJsonMap("data").toList(0)
+    val allSchools = School.getAllSchoolsFromDB(schoolNamesStartingCharacter)
     Ok(write(allSchools)).as("application/json")
   }
- 
-  
+
 }

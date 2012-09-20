@@ -7,8 +7,9 @@ import com.novus.salat.global._
 import com.novus.salat.annotations._
 import org.bson.types.ObjectId
 import com.mongodb.casbah.commons.MongoDBObject
+import com.mongodb.WriteConcern
 
-case class UserMedia(@Key("_id") id: ObjectId, userId: ObjectId, mediaUrl: String, contentType: UserMediaType.Value, isPrimary: Boolean,isSecondary: Boolean)
+case class UserMedia(@Key("_id") id: ObjectId, userId: ObjectId, mediaUrl: String, contentType: UserMediaType.Value, isPrimary: Boolean)
 
 object UserMediaType extends Enumeration {
   val Image = Value(0, "Image")
@@ -20,7 +21,14 @@ object UserMediaType extends Enumeration {
 }
 object UserMedia {
 
+  /**
+   * Save User Media
+   */
   def saveMediaForUser(media: UserMedia) {
+    (media.isPrimary == true) match {
+      case true => makePresentOnePrimary(media.userId)
+      case false =>
+    }
     val mediaId = UserMediaDAO.insert(media)
   }
 
@@ -33,15 +41,6 @@ object UserMedia {
   }
 
   /*
-  /*
-   * Mark other picture as "not profile picture"
-   */
-  def isNotProfilePic(userId: ObjectId) {
-    UserMediaDAO.update(MongoDBObject("userId" -> userId), MongoDBObject("isProfilePicture" -> false), false, false)
-
-  }
-*/
-/*
  * Get All picture for a user
  */
   def getAllProfilePicForAUser(userId: ObjectId): List[String] = {
@@ -52,8 +51,7 @@ object UserMedia {
     }
     userPhotos
   }
-  
-  
+
   /*
  * Get All videos for a user
  * @Purpose : Show all Videos for a user
@@ -67,5 +65,22 @@ object UserMedia {
     userVideos
   }
 
+  /*
+ * Get All Media for a user
+ * @Purpose : Show all Media for a user
+ */
+  def getAllMediaForAUser(userId: ObjectId): List[UserMedia] = {
+    val mediaObtained = UserMediaDAO.find(MongoDBObject("userId" -> userId)).toList
+    mediaObtained
+  }
+
+  def makePresentOnePrimary(userId: ObjectId) {
+    val AlluserMedia = getAllMediaForAUser(userId)
+    for (media <- AlluserMedia) {
+      val updatedMedia = new UserMedia(media.id, media.userId, media.mediaUrl, media.contentType, false)
+      UserMediaDAO.update(MongoDBObject("_id" -> media.id), updatedMedia, false, false, new WriteConcern)
+    }
+
+  }
 }
 object UserMediaDAO extends SalatDAO[UserMedia, ObjectId](collection = MongoHQConfig.mongoDB("userMedia"))
