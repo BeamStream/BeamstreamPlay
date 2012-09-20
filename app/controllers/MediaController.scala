@@ -27,6 +27,10 @@ object MediaController extends Controller {
 
   def getMedia = Action(parse.multipartFormData) { request =>
 
+    val mediaJsonMap = request.body.asFormUrlEncoded.toMap
+    val imageStatus = mediaJsonMap("imageStatus").toList(0).toBoolean
+    val videoStatus = mediaJsonMap("videoStatus").toList(0).toBoolean
+
     (request.body.file("imageData").isEmpty) match {
 
       case true => // No Image Found
@@ -41,9 +45,9 @@ object MediaController extends Controller {
           val imageNameOnAmazon = uniqueString + imageFilename // Security Over the images files
           AmazonUpload.uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
           val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
-          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, UserMediaType.Image, false,false)
+          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, UserMediaType.Image, imageStatus)
           UserMedia.saveMediaForUser(media)
-          ProfileImageProviderCache.setImage(media.userId.toString,media.mediaUrl)
+          ProfileImageProviderCache.setImage(media.userId.toString, media.mediaUrl)
           // For MongoDB
           /*
       val profileImage: File = imageData.ref.file.asInstanceOf[File]
@@ -67,7 +71,7 @@ object MediaController extends Controller {
           val videoFileNameOnnAmazon = uniqueString + videoFilename // Security Over the videos files
           AmazonUpload.uploadFileToAmazon(videoFileNameOnnAmazon, videoFileObtained)
           val videoURL = "https://s3.amazonaws.com/BeamStream/" + videoFileNameOnnAmazon
-          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), videoURL, UserMediaType.Video, false,false)
+          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), videoURL, UserMediaType.Video, videoStatus)
           UserMedia.saveMediaForUser(media)
           /*
       val profileVideo: File = videoData.ref.file.asInstanceOf[File]
@@ -77,11 +81,6 @@ object MediaController extends Controller {
         }.get
     }
 
-    val mediaJsonMap = request.body.asFormUrlEncoded.toList
-    val uploadType = mediaJsonMap(0)._2.toList(0)
-    val mobileNo = mediaJsonMap(1)._2.toList(0)
-
-   
     /*
     val mediaTransfrerObject = new MediaTransfer(new ObjectId(request.session.get("userId").get), MediaType.Image, true,
     imageComposite.inputStream, imageComposite.name, videoComposite.inputStream, videoComposite.name, mobileNo, uploadType)
@@ -91,7 +90,7 @@ object MediaController extends Controller {
     Ok(write(new ResulttoSent("Success", "Profile Photo Uploaded Successfully"))).as("application/json")
   }
 
-   /*
+  /*
    * obtaining the profile Picture
    * @ Purpose: fetches the recent profile picture for a user
    */
@@ -114,21 +113,21 @@ object MediaController extends Controller {
     }
 
   }
-  
+
   /*
    * Get All Photos for a user
    */
-    def getAllProfilePicForAUser = Action { implicit request =>
-      val allProfileMediaForAUser = UserMedia.getAllProfilePicForAUser(new ObjectId(request.session.get("userId").get))
-      Ok(write(allProfileMediaForAUser)).as("application/json")
-    }
-    
-    /*
+  def getAllProfilePicForAUser = Action { implicit request =>
+    val allProfileMediaForAUser = UserMedia.getAllProfilePicForAUser(new ObjectId(request.session.get("userId").get))
+    Ok(write(allProfileMediaForAUser)).as("application/json")
+  }
+
+  /*
    * Get All Video for a user for a user
    * @Purpose : Show all Video For A User
    */
-    def getAllProfileVideoForAUser = Action { implicit request =>
-      val allProfileMediaForAUser = UserMedia.getAllProfileVideoForAUser(new ObjectId(request.session.get("userId").get))
-      Ok(write(allProfileMediaForAUser)).as("application/json")
-    }
+  def getAllProfileVideoForAUser = Action { implicit request =>
+    val allProfileMediaForAUser = UserMedia.getAllProfileVideoForAUser(new ObjectId(request.session.get("userId").get))
+    Ok(write(allProfileMediaForAUser)).as("application/json")
+  }
 }
