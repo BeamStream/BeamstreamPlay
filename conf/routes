@@ -90,7 +90,7 @@ GET /getContactsViaJanrain controllers.UserController.getContactsViaSocialSite
 
 #Media
 POST /getMediafromPost controllers.MediaController.getMedia
-POST /getProfilePicForAUser      controllers.UserController.getProfilePicForAUser
+POST /getProfilePicForAUser      controllers.MediaController.getProfilePicForAUser
 GET /getAllProfilePicForAUser   controllers.MediaController.getAllProfilePicForAUser
 
 GET /getAllProfileVideoForAUser   controllers.MediaController.getAllProfileVideoForAUser

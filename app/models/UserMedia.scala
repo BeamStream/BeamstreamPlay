@@ -32,15 +32,7 @@ object UserMedia {
     mediaObtained
   }
 
-  /*
-  /*
-   * Mark other picture as "not profile picture"
-   */
-  def isNotProfilePic(userId: ObjectId) {
-    UserMediaDAO.update(MongoDBObject("userId" -> userId), MongoDBObject("isProfilePicture" -> false), false, false)
 
-  }
-*/
 /*
  * Get All picture for a user
  */
