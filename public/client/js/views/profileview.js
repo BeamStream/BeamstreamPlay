@@ -11,7 +11,7 @@ BS.ProfileView = Backbone.View.extend({
 	      'focusout #mobile' : "arragePhone",
 	      'click .close-button' : "closeScreen",
 //	      'click .back' :'backToPrevious',
-	      'click .pfofile-radio': "selectImageStatus",
+	      'click .profile-radio': "selectImageStatus",
 	      
 	 },
 	 
@@ -155,8 +155,8 @@ BS.ProfileView = Backbone.View.extend({
 	     	    data.append('videoData', this.video);
 	     		data.append('mobile',$('#mobile').val());
 	     		data.append('upload',$('#upload').val());
-//	     		data.append('imageStatus', $('input[name=img-status]:checked').val());
-//	     		data.append('videoStatus', $('input[name=video-status]:checked').val());
+	     		data.append('imageStatus', $('input[name=img-status]:checked').val());
+	     		data.append('videoStatus', $('input[name=video-status]:checked').val());
 	     		 
 	     		
 	        	/* post profile page details */
