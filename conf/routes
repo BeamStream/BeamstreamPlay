@@ -20,10 +20,6 @@ POST /noOfUsersAttendingAClass  controllers.StreamController.noOfUsersAttendingA
 POST /deleteStream              controllers.StreamController.deleteTheStream
 
 
-#//TODO : To be Deleted
-#POST /newStream controllers.StreamController.newStream
-#POST /joinStreams controllers.StreamController.joinStream
-
 
 #Messages
 POST /newMessage controllers.MessageController.newMessage
@@ -50,7 +46,7 @@ POST /getAllDocumentsForCurrentUserSortedbyDate    controllers.DocumentControlle
 
 #Schools
 
-#POST /school controllers.SchoolController.addSchool
+POST /school controllers.SchoolController.addANewSchool
 GET /getAllSchoolForAUser controllers.SchoolController.getAllSchoolForAUser
 POST /getSchoolNamebyId controllers.SchoolController.getSchoolName
 POST  /getAllSchoolsForAutopopulate      controllers.SchoolController.getAllSchoolsForAutopopulate

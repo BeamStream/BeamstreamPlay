@@ -17,6 +17,14 @@ object SchoolController extends Controller {
     override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
   } + new ObjectIdSerializer
 
+  def addANewSchool = Action { implicit request =>
+    val schoolInfojsonMap = request.body.asFormUrlEncoded.get
+    val schoolName = schoolInfojsonMap("schoolName").toList(0)
+    val schoolWebsite = schoolInfojsonMap("schoolWebsite").toList(0)
+    val schoolToCreate = new School(new ObjectId, schoolName, schoolWebsite)
+    val schoolId = School.addNewSchool(schoolToCreate)
+    Ok(write(schoolId)).as("application/json")
+  }
   /*
  * Provides All School For a User (Duplicacy seen : exactly like /schoolJson)
  */

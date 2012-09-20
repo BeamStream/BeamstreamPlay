@@ -67,6 +67,8 @@ object Class {
           Stream.joinStream(classesobtained(0).streams(0), userId)
           //classIdList ++= List(getClassByCode(eachclass)(0).id)
           User.addClassToUser(userId, List(eachclass.id))
+          ClassDAO.update(MongoDBObject("_id" -> eachclass.id), eachclass, false, false, new WriteConcern) // Edit Class Case
+
         } else {
           println("Create class Case")
           val classId = ClassDAO.insert(eachclass)
@@ -187,8 +189,6 @@ object Class {
     }
     classList
   }
-  
-  
 
   /*
    * @Purpose :   Getting All Classes for a user

@@ -6,7 +6,7 @@ import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
-case class School(@Key("_id") id: ObjectId, schoolName: String)
+case class School(@Key("_id") id: ObjectId, schoolName: String, schoolWebsite: String)
 
 object School {
 
@@ -23,8 +23,9 @@ object School {
    * Get All School for autopopulate school screen
    */
 
-  def getAllSchoolsFromDB(startsWith: String): List[School] = {
-    val regexp = ("^" + startsWith).r
+  def getAllSchoolsFromDB(patternReceived: String): List[School] = {
+    //    val regexp = ("^" + startsWith).r
+    val regexp = (patternReceived).r
     SchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList
   }
 

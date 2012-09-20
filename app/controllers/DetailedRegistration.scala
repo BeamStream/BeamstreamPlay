@@ -43,8 +43,8 @@ object DetailedRegistration extends Controller {
     val schoolList = net.liftweb.json.parse(schoolListJson(0)).extract[List[UserSchool]]
     val resultObtained = UserSchool.createSchool(schoolList)
     if (resultObtained.status == "Success") User.addInfo(schoolList, new ObjectId(request.session.get("userId").get))
-    val refresheduserSchools = UserSchool.getAllRefreshedUserSchools(schoolList)
-    Ok(write(refresheduserSchools)).as("application/json")
+    //val refresheduserSchools = UserSchool.getAllRefreshedUserSchools(schoolList)
+    Ok(write(schoolList)).as("application/json")
 
   }
 
