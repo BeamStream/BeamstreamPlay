@@ -2010,34 +2010,63 @@ border: 1px solid #E8E8E9;
 /*-------------hover----------*/
 div.hover-div{
     display:block;
-    /*height:200px;*/
-    width:190px;   
+    height:136px;
+     width:190px;   
     position:relative;
-    margin-bottom:10px;
+   margin:1px 0px 0px 0px;
 }
 
 div.hover-div:hover .hover-text{
-    display:block;   
- 
-    
+    display:block;        
 }
-
+div.hover-div:hover .hover-image{
+    display:block;        
+}
 div.hover-div:hover img{
-    opacity:0.1;        
-}
-    
+    opacity:1;        
+}    
 .hover-text{
     display:none;
     clear:both;
+    height:130px;
     margin-top:0px;
-    background: rgba(0,0,0,0.05);
+    background-color: white;
+  /*  color:white;  */
+    width: 100%;
+    bottom:0;
+    position:absolute;
+    z-index:2;
+}
+.hover-image{
+    display:none;
+    clear:both;
+    height:200px;
+    margin-top:0px;
     color:white;
     width: 100%;
     bottom:0;
     position:absolute;
     z-index:2;
-}​
+}
+.filmdeapicture{
+   width: 190px;
+   height: 160px;
+   
+}
+p.emptyfiles{
+    font-family: 'Ubuntu',sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 59px 1px 1px 25px;
+}
+​
+
 /*---------------------------------*/
+
+.gdlink{
+    text-decoration: none;
+}
+
 .pfofile-radio{
 cursor: default;
     display: block;
