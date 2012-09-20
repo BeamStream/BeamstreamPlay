@@ -171,7 +171,7 @@ BS.ClassView = Backbone.View.extend({
 							BS.editProfile = false;
 							BS.classBack = true;
 							localStorage["classInfo"] =JSON.stringify(data.classes);
-							 
+							console.log("gg:"+data.classes.length)
 							// navigate to main stream page
 							BS.AppRouter.navigate("profile", {trigger: true});
 						}

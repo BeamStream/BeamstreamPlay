@@ -316,7 +316,7 @@
           </div>
         </li>
         <li data-key='["recent"]'>
-          <div class="image-wrapper1"><img src="images/spreadsheets_image.png"></div>
+          <div class="image-wrapper"><img src="images/spreadsheets_image.png"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -326,7 +326,7 @@
           </div>
         </li>
         <li data-key='["oldest"]'>
-          <div class="image-wrapper1"><img src="images/presentations_image.png"></div>
+          <div class="image-wrapper"><img src="images/presentations_image.png"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon presentation" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -336,7 +336,7 @@
           </div>
         </li>
         <li data-key='["oldest"]'>
-          <div class="image-wrapper1"><img src="images/pdp_image.png"></div>
+          <div class="image-wrapper"><img src="images/pdp_image.png"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon pdf" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -346,7 +346,7 @@
           </div>
         </li>
         <li id="file-docs-2" data-key='["recent"]'>
-          <div class="image-wrapper1"><img src="images/links_image.png"></div>
+          <div class="image-wrapper"><img src="images/links_image.png"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -356,7 +356,7 @@
           </div>
         </li>
         <li data-key='["oldest"]'>
-          <div class="image-wrapper1"></div>
+          <div class="image-wrapper"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon presentation" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -366,7 +366,7 @@
           </div>
         </li>
         <li data-key='["recent"]'>
-          <div class="image-wrapper1"></div>
+          <div class="image-wrapper"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon pdf" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -376,7 +376,7 @@
           </div>
         </li>
         <li data-key='["recent"]'>
-          <div class="image-wrapper1"></div>
+          <div class="image-wrapper"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -386,7 +386,7 @@
           </div>
         </li>
         <li data-key='["oldest"]'>
-          <div class="image-wrapper1">
+          <div class="image-wrapper">
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -1944,7 +1944,7 @@
 
                      <label for="class-name-{{sCount}}-1">Class name </label>
 
-                    <input type="text" name="class-name-{{sCount}}-1" id="class-name-{{sCount}}-1" class="required medium class_name" placeholder="Class 1 name">
+                    <input type="text" name="class-name-{{sCount}}-1" id="class-name-{{sCount}}-1" value="{{data.className}}" class="required medium class_name" placeholder="Class 1 name" >
                     <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
                    </div>
                       
@@ -1958,11 +1958,11 @@
           </div>
           <div class="element">
                 <label for="class-code-{{sCount}}-1">Class code </label>
-              <input type="text"  name ="class-code-{{sCount}}-1 "id="class-code-{{sCount}}-1" class="required small class_code" placeholder="Class 1 code" >
+              <input type="text"  name ="class-code-{{sCount}}-1 "id="class-code-{{sCount}}-1" value="{{data.classCode}}" class="required small class_code" placeholder="Class 1 code" >
           </div>
           <div class="element">
               <label for="date-started-{{sCount}}-1">Calendar </label>
-              <input class="required small datepicker cal" type="text"   id="date-started-{{sCount}}-1"/>
+              <input class="required small datepicker cal" type="text"  value="{{data.startingDate}}"  id="date-started-{{sCount}}-1"/>
           </div>
            <div class="element" id="div-school-type-{{sCount}}-1">
                <label for="semester-{{sCount}}-1">Semester or Quarter </label>
@@ -1978,7 +1978,7 @@
       <div class="form-row short">
           <div class="element">
               <label id="lb-class-name-2" value = "">Class name</label>
-              <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
+              <input type="text" id="class-name-{{sCount}}-2" value="{{data.className}}" class="medium class_name" placeholder="Class 2 name">
                <input type="hidden" value="" id="h-class-name-{{sCount}}-2">
          </div>
          <div class="element" id="div-time-{{sCount}}-2">
@@ -1992,11 +1992,11 @@
         
          <div class="element">
               <label for="class-code-{{sCount}}-2">Class code</label>
-              <input type="text" id="class-code-{{sCount}}-2" class="small class_code" placeholder="Class 2 code">
+              <input type="text" id="class-code-{{sCount}}-2" value="{{data.classCode}}" class="small class_code" placeholder="Class 2 code">
          </div>
          <div class="element">
               <label for="date-started-2">Calendar</label>
-              <input class="small datepicker cal" type="text" placeholder="Date2" id="date-started-{{sCount}}-2"/>
+              <input class="small datepicker cal" value="{{data.startingDate}}" type="text" placeholder="Date2" id="date-started-{{sCount}}-2"/>
          </div>
          <div class="element" id="div-school-type-{{sCount}}-2">
               <label for="semester-{{sCount}}-2">Semester or Quarter</label>
@@ -2012,7 +2012,7 @@
        <div class="form-row short">
           <div class="element">
                <label id="lb-class-name-3" value="">Class name</label>
-               <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
+               <input type="text" id="class-name-{{sCount}}-3"  value="{{data.className}}" class="medium class_name" placeholder="Class 3 name">
                 <input type="hidden" value="" id="h-class-name-{{sCount}}-3">
            </div>
           <div class="element" id="div-time-{{sCount}}-3">
@@ -2025,12 +2025,12 @@
           </div>
           <div class="element">
                <label for="class-code-{{sCount}}-3">Class code</label>
-               <input type="text" id="class-code-{{sCount}}-3" class="small class_code" placeholder="Class 3 code">
+               <input type="text" id="class-code-{{sCount}}-3" value="{{data.classCode}}"  class="small class_code" placeholder="Class 3 code">
           </div>
           
            <div class="element">
                 <label for="date-started-{{sCount}}-3">Calendar</label>
-                <input class="small datepicker cal" type="text" placeholder="Date3" id="date-started-{{sCount}}-3"/>
+                <input class="small datepicker cal" value="{{data.startingDate}}" type="text" placeholder="Date3" id="date-started-{{sCount}}-3"/>
            </div>
            <div class="element" id="div-school-type-{{sCount}}-3">
                 <label for="semester-{{sCount}}-3">Semester or Quarter</label>
