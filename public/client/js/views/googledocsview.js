@@ -114,7 +114,7 @@ BS.GoogleDocsView = Backbone.View.extend({
                 var datVal =  self.formatDateVal(doc.creationDate);                             
                         content +='<li id="file-docs-'+i+'" data-key="['+datVal+']"> <div class="image-wrapper hovereffect" >' 
                         
-                                +' <div class="hover-div"><img src="images/docs_image.png"/><div class="hover-text">'  //code for hover over effect
+                                +' <div class="hover-div"><img src="images/docs_image.png"/><div class="hover-text"> '  //code for hover over effect
                             
                                 +'<div class="comment-wrapper comment-wrapper2">'
                                 +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
@@ -131,7 +131,7 @@ BS.GoogleDocsView = Backbone.View.extend({
                                 +' <span class="date">'+datVal+'</span>' 
                                 +'</div> </div></div>'                                                       //two closing <div> for hover over effect
                                 +'<div class="comment-wrapper comment-wrapper1"> '
-                                +' <a class="common-icon link" href="#">'
+                                +' <a class="common-icon data" href="#">'
                                 +'<span class="right-arrow"></span>'
                                 +' </a>'
                                 +'<ul class="comment-list">'
@@ -247,95 +247,10 @@ BS.GoogleDocsView = Backbone.View.extend({
          */
         showDocPopup :function(eventName){
             var docId = eventName.currentTarget.id;
-            console.log('docId' +docId);
             var docUrl = $('input#id-'+docId).val();  
-            console.log(docUrl);
             newwindow=window.open(docUrl,'','height=550,width=1000,top=100,left=145');     
             },
             
-          /*
-           *function to view documents in hover
-           *
-           */
-        showInHover :function(eventName){    
-            console.log("ok");
-                                //move the image in pixel
-            var move = -15;
-                                //zoom percentage, 1.2 =120%
-            var zoom = 5.5;     //5.5
-                                //On mouse over those thumbnail
-//            $('.item').click(function() {
-                
-//            console.log("injQuery");
-                                //Set the width and height according to the zoom percentage
-                                
-            width = $('.item').width() * zoom;
-            height = $('.item').height() * zoom;
-            var id = eventName.target.id;
-            console.log(id);
-            console.log( $('#'+id+'').find('img'));
-                                //Move and zoom the image
-            $('#'+id+'').find('img').stop(false,true).animate({'width':width, 'height':height, 'bottom':move, 'right':move}, {duration:200});		
-		//Display the caption
-		$('#'+id+'').find('div.caption').stop(false,true).fadeIn(200);
-//                }
-//	function() {
-//		//Reset the image
-		$(this).find('img').stop(false,true).animate({'width':$('.item').width(), 'height':$('.item').height(), 'bottom':'0', 'right':'0'}, {duration:100});	
-
-		//Hide the caption
-		$(this).find('div.caption').stop(false,true).fadeOut(200);
-//	}
-//	);
-
-
-
-
-//--------------------------------------
-
-
-
-
-
-
-
-
-
-
-          },
-        
-        hideInHover:function(eventName){    
-            console.log("ok");
-                                //move the image in pixel
-            var move = -15;
-                                //zoom percentage, 1.2 =120%
-            var zoom = 5.5;     //5.5
-                                //On mouse over those thumbnail
-//            $('.item').click(function() {
-                
-//            console.log("injQuery");
-                                //Set the width and height according to the zoom percentage
-                                
-            width = $('.item').width() * zoom;
-            height = $('.item').height() * zoom;
-            var id = eventName.target.id;
-//            console.log(id);
-//            console.log( $('#'+id+'').find('img'));
-//                                //Move and zoom the image
-//            $('#'+id+'').find('img').stop(false,true).animate({'width':width, 'height':height, 'bottom':move, 'right':move}, {duration:200});		
-//		//Display the caption
-//		$('#'+id+'').find('div.caption').stop(false,true).fadeIn(200);
-//                }
-//	function() {
-//		//Reset the image
-		$('#'+id+'').find('img').stop(false,true).animate({'width':$('.item').width(), 'height':$('.item').height(), 'bottom':'0', 'right':'0'}, {duration:100});	
-
-		//Hide the caption
-		$('#'+id+'').find('div.caption').stop(false,true).fadeOut(200);
-//	}
-//	);
-
-          },
         /**
          * filter docs.. and prevent default action
          */
