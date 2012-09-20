@@ -287,42 +287,110 @@ BS.AppRouter = Backbone.Router.extend({
     	
     	if(localStorage["classInfo"])
     	{
-    		 sClasses = 0;
-    		 BS.classView = new BS.ClassView();
-             BS.classView.render();
-             $('#school-popup').html(BS.classView.el);
-             
-             var classInfo =JSON.parse(localStorage["classInfo"]);
-	         $('#class-list').html('');	
+//    		 sClasses = 0;
+//    		 BS.classView = new BS.ClassView();
+//             BS.classView.render();
+//             $('#school-popup').html(BS.classView.el);
+//             console.log("-------------");
+//             var classInfo =JSON.parse(localStorage["classInfo"]);
+//	         $('#class-list').html('');	
+//	         
+//	         var totalClasses = classInfo.length;
+//	         
+//	         var classPack ;
+//	         
+//	         while(totalClasses > 0)
+//	         {
+//	        	 var i = 0;
+//	        	 var c_schoolId = classInfo[0].schoolId.id;
+//	        	 for(var j=0 ; j<totalClasses ; j++)
+//	        	 {
+//	        		 if(classInfo[j].schoolId.id == c_schoolId)
+//	        		 {
+//	        			 i++;
+//	        		 }
+//	        		 else
+//	        		 {
+//	        			 break;
+//	        		 }
+//	        	 }
+//
+//	        	 console.log("sClasses---" +sClasses);
+//	        	 classPack = classInfo.splice(0,i);
+//	        	 sClasses++;
+//	        	 console.log("sClasses " +sClasses);
+//	        	 console.log("totalClasses " +totalClasses);
+//				 var datas = {
+//							"data" : classPack,
+//							"sCount" : sClasses,
+//							"times" : BS.times
+//				  }
+//				  var source = $("#edit-class").html();
+//				  var template = Handlebars.compile(source);
+//				  $('#class-list').append(template(datas));
+//				  BS.classView.renderSchools();
+//				  totalClasses = classInfo.length;
+//	         }
 	         
-	           var classPack = 0;
-	           var classData = [];
-	          
-	         _.each(classInfo, function(info) {
-	        	    classPack++;
-	        	    classData.push(info);
-	        	    if(classPack == 3)
-	        	    {
-	        	    	sClasses++;
-	 					var datas = {
-	 							"data" : classData,
-	 							"sCount" : sClasses,
-	 							"times" : BS.times
-	 					}
-	 					var source = $("#edit-class").html();
-	 					var template = Handlebars.compile(source);
-	 					$('#class-list').append(template(datas));
-	 					classPack = 0;
-	 					classData = [];
-	 					
-	        	    }
-	        	   
+//	         while(totalClasses > 3 )
+//	        {
+//	        	 
+//	        	 classPack = classInfo.splice(0,3);
+//	        	 sClasses++;
+//	        	 console.log("sClasses " +sClasses);
+//	        	 console.log("totalClasses " +totalClasses);
+//				 var datas = {
+//							"data" : classPack,
+//							"sCount" : sClasses,
+//							"times" : BS.times
+//				  }
+//				  var source = $("#edit-class").html();
+//				  var template = Handlebars.compile(source);
+//				  $('#class-list').append(template(datas));
+//					
+//				  totalClasses = classInfo.length;
+//	        	 
+//	        }
+//	         if(totalClasses <= 3)
+//	        {
+//	        	 sClasses++;
+//	        	 console.log("sClasses " +sClasses);
+//				 var datas = {
+//							"data" : classPack,
+//							"sCount" : sClasses,
+//							"times" : BS.times
+//				  }
+//				  var source = $("#edit-class").html();
+//				  var template = Handlebars.compile(source);
+//				  $('#class-list').append(template(datas));
+//	        }
+	         
+	         
+//	         _.each(classInfo, function(info) {
+//	        	    classPack++;
+//	        	    classData.push(info);
+//	        	    if(classPack == 3)
+//	        	    {
+//	        	    	sClasses++;
+//	 					var datas = {
+//	 							"data" : classData,
+//	 							"sCount" : sClasses,
+//	 							"times" : BS.times
+//	 					}
+//	 					var source = $("#edit-class").html();
+//	 					var template = Handlebars.compile(source);
+//	 					$('#class-list').append(template(datas));
+//	 					classPack = 0;
+//	 					classData = [];
+//	 					
+//	        	    }
+//	        	   
 					 
-					$(".modal select:visible").selectBox();
-					$('.modal .datepicker').datepicker();
-					$('.datepicker').css('z-index','99999');
+//					$(".modal select:visible").selectBox();
+//					$('.modal .datepicker').datepicker();
+//					$('.datepicker').css('z-index','99999');
 				
-		        });
+//		        });
     	}
     	else
     	{
