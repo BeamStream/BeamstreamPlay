@@ -138,53 +138,7 @@ BS.AppRouter = Backbone.Router.extend({
          
         if(localStorage["schoolInfo"])
 	    {
-        	
-//	         BS.schoolNum = 1;
-//	         BS.schoolView = new BS.SchoolView();
-//	         BS.schoolView.render();
-//	         $('#school-popup').html(BS.schoolView.el);
-//	         var schoolInfo =JSON.parse(localStorage["schoolInfo"]);
-//	         $('#school-list').html('');	
-//	         
-//	        _.each(schoolInfo, function(info) {
-//				var datas = {
-//				"data" : info,
-//				"number" : BS.schoolNum
-//			  }
-//			var source = $("#tpl-school").html();
-//			var template = Handlebars.compile(source);
-//			$('#school-list').append(template(datas));
-//			
-//			
-//			if(info.degree != "Other")
-//			{
-//				$('#other-degrees-'+BS.schoolNum).hide();
-//			}
-//			
-//			$('#year-'+BS.schoolNum).val(info.year);
-//			$('#degreeprogram-'+BS.schoolNum).val(info.degree);
-//			$('#graduated-'+BS.schoolNum).val(info.graduated);
-//			if(info.graduated == "yes")
-//			{
-//				$('#degree-exp-'+BS.schoolNum).hide();
-//				$('#calendar-'+BS.schoolNum).val(info.graduationDate);
-//			
-//			}
-//			else
-//			{
-//				$('#cal-'+BS.schoolNum).hide();
-//				$('#degree-expected-'+BS.schoolNum).val(info.degreeExpected);
-//			
-//			}
-//			$('#school-name-'+BS.schoolNum).attr("disabled","disabled");
-//			$(".modal select:visible").selectBox();
-//			$('.modal .datepicker').datepicker();
-//			$('.datepicker').css('z-index','99999');
-//			
-//			BS.schoolNum++;
-//	        });
         	 current = 0;
-        	 
 	         BS.schoolView = new BS.SchoolView();
 	         BS.schoolView.render();
 	         $('#school-popup').html(BS.schoolView.el);
@@ -237,11 +191,13 @@ BS.AppRouter = Backbone.Router.extend({
 	         BS.schoolView.render();
 	         
 	         $('#school-popup').html(BS.schoolView.el);
+	         $('#school-name-1').focus();
 	         current = 1;
 	         if(BS.schoolFromPrev)
 	         {
-	        	$('#school-name-1').val(BS.schoolFromPrev);
-	        	
+//	        	$('#school-name-1').val(BS.schoolFromPrev);
+	        	$('#prev-school').attr("value",BS.schoolFromPrev);
+	        	$('#school-name-1').focus();
 	        	 $.ajax({
 		        	   type : 'POST',
 		 			   url : BS.autoPopulateSchools,
@@ -287,7 +243,7 @@ BS.AppRouter = Backbone.Router.extend({
     	
     	if(localStorage["classInfo"])
     	{
-    		 sClasses = 0;
+    		
     		 BS.classView = new BS.ClassView();
              BS.classView.render();
              $('#school-popup').html(BS.classView.el);
@@ -298,11 +254,12 @@ BS.AppRouter = Backbone.Router.extend({
 	         var totalClasses = classInfo.length;
 	         
 	         var classPack ;
-	         
+	         sClasses = 0;
 	         while(totalClasses > 0)
 	         {
 	        	 var i = 0;
 	        	 var c_schoolId = classInfo[0].schoolId.id;
+	        	 console.log("c_schoolId" + c_schoolId);
 	        	 for(var j=0 ; j<totalClasses ; j++)
 	        	 {
 	        		 if(classInfo[j].schoolId.id == c_schoolId)
@@ -321,6 +278,12 @@ BS.AppRouter = Backbone.Router.extend({
 	        	 console.log("sClasses " +sClasses);
 	        	 console.log("totalClasses " +totalClasses);
 	        	 console.log("classPack  " +classPack);
+	        	 
+	        	 //test
+	        	 _.each(classPack, function(model) {
+	        		 console.log(model);
+	        	 });
+	        	 
 				  var datas = {
 							"data" : classPack,
 							"sCount" : sClasses,
@@ -333,65 +296,11 @@ BS.AppRouter = Backbone.Router.extend({
 				  totalClasses = classInfo.length;
 	         }
 	         
-//	         while(totalClasses > 3 )
-//	        {
-//	        	 
-//	        	 classPack = classInfo.splice(0,3);
-//	        	 sClasses++;
-//	        	 console.log("sClasses " +sClasses);
-//	        	 console.log("totalClasses " +totalClasses);
-//				 var datas = {
-//							"data" : classPack,
-//							"sCount" : sClasses,
-//							"times" : BS.times
-//				  }
-//				  var source = $("#edit-class").html();
-//				  var template = Handlebars.compile(source);
-//				  $('#class-list').append(template(datas));
-//					
-//				  totalClasses = classInfo.length;
-//	        	 
-//	        }
-//	         if(totalClasses <= 3)
-//	        {
-//	        	 sClasses++;
-//	        	 console.log("sClasses " +sClasses);
-//				 var datas = {
-//							"data" : classPack,
-//							"sCount" : sClasses,
-//							"times" : BS.times
-//				  }
-//				  var source = $("#edit-class").html();
-//				  var template = Handlebars.compile(source);
-//				  $('#class-list').append(template(datas));
-//	        }
-	         
-	         
-//	         _.each(classInfo, function(info) {
-//	        	    classPack++;
-//	        	    classData.push(info);
-//	        	    if(classPack == 3)
-//	        	    {
-//	        	    	sClasses++;
-//	 					var datas = {
-//	 							"data" : classData,
-//	 							"sCount" : sClasses,
-//	 							"times" : BS.times
-//	 					}
-//	 					var source = $("#edit-class").html();
-//	 					var template = Handlebars.compile(source);
-//	 					$('#class-list').append(template(datas));
-//	 					classPack = 0;
-//	 					classData = [];
-//	 					
-//	        	    }
-//	        	   
 					 
 					$(".modal select:visible").selectBox();
 					$('.modal .datepicker').datepicker();
 					$('.datepicker').css('z-index','99999');
 				
-//		        });
     	}
     	else
     	{

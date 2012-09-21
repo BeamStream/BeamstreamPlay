@@ -2136,6 +2136,6 @@ label.error {
 	width: 410px !important;
 }
 .new_school:hover{
-	 background-color: #14A8AD !important;
+/* 	 background-color: #14A8AD !important; */
 	 cursor :pointer !important;
 }

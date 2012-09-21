@@ -12,15 +12,12 @@ BS.SchoolView = Backbone.View.extend({
 	      "click #close-school" : "closeScreen",
 	      "click .back-button" :"backToPrevious",
            
-
-	       
 	    },
 	
     initialize:function () {
     	
         console.log('Initializing School View');
         BS.schoolBack = false;
-        //this.template= _.template($("#tpl-school-reg").html());
 		this.source = $("#tpl-school-reg").html();
 		this.template = Handlebars.compile(this.source);
     },
@@ -50,37 +47,6 @@ BS.SchoolView = Backbone.View.extend({
     /**
      * auto populate school
      */
-    
-//    populateSchools :function(eventName){
-//    	eventName.preventDefault();  
-//   	    var id = eventName.target.id;
-//   	    var dat='#'+id;
-//   	    var currentid = $(dat).closest('fieldset').attr('id');
-//   	    BS.selectedSchool = $(dat).val(); 
-//   	    BS.allSchools = []; 
-//    	
-//    	/* get all schools of a user */
-//		 $.ajax({
-//			type : 'GET',
-//			url : BS.autoPopulateSchools,
-//			 
-//			dataType : "json",
-//			success : function(datas) {
-//				 
-//				BS.allSchoolInfo = datas;
-//				_.each(datas, function(data) {
-//					 BS.allSchools.push(data.schoolName);
-//		        });
-//				 
-//				//set auto populate functionality for class code
-//				$(dat).autocomplete({
-//				    source: BS.allSchools
-//			 });
-//			 
-//			}
-//		});
-//    	
-//    },
  
     populateSchools :function(eventName){
     	var id = eventName.target.id;
