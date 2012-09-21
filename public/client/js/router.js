@@ -287,50 +287,51 @@ BS.AppRouter = Backbone.Router.extend({
     	
     	if(localStorage["classInfo"])
     	{
-//    		 sClasses = 0;
-//    		 BS.classView = new BS.ClassView();
-//             BS.classView.render();
-//             $('#school-popup').html(BS.classView.el);
-//             console.log("-------------");
-//             var classInfo =JSON.parse(localStorage["classInfo"]);
-//	         $('#class-list').html('');	
-//	         
-//	         var totalClasses = classInfo.length;
-//	         
-//	         var classPack ;
-//	         
-//	         while(totalClasses > 0)
-//	         {
-//	        	 var i = 0;
-//	        	 var c_schoolId = classInfo[0].schoolId.id;
-//	        	 for(var j=0 ; j<totalClasses ; j++)
-//	        	 {
-//	        		 if(classInfo[j].schoolId.id == c_schoolId)
-//	        		 {
-//	        			 i++;
-//	        		 }
-//	        		 else
-//	        		 {
-//	        			 break;
-//	        		 }
-//	        	 }
-//
-//	        	 console.log("sClasses---" +sClasses);
-//	        	 classPack = classInfo.splice(0,i);
-//	        	 sClasses++;
-//	        	 console.log("sClasses " +sClasses);
-//	        	 console.log("totalClasses " +totalClasses);
-//				 var datas = {
-//							"data" : classPack,
-//							"sCount" : sClasses,
-//							"times" : BS.times
-//				  }
-//				  var source = $("#edit-class").html();
-//				  var template = Handlebars.compile(source);
-//				  $('#class-list').append(template(datas));
+    		 sClasses = 0;
+    		 BS.classView = new BS.ClassView();
+             BS.classView.render();
+             $('#school-popup').html(BS.classView.el);
+             console.log("-------------");
+             var classInfo =JSON.parse(localStorage["classInfo"]);
+	         $('#class-list').html('');	
+	         
+	         var totalClasses = classInfo.length;
+	         
+	         var classPack ;
+	         
+	         while(totalClasses > 0)
+	         {
+	        	 var i = 0;
+	        	 var c_schoolId = classInfo[0].schoolId.id;
+	        	 for(var j=0 ; j<totalClasses ; j++)
+	        	 {
+	        		 if(classInfo[j].schoolId.id == c_schoolId)
+	        		 {
+	        			 i++;
+	        		 }
+	        		 else
+	        		 {
+	        			 break;
+	        		 }
+	        	 }
+
+	        	 console.log("sClasses---" +sClasses);
+	        	 classPack = classInfo.splice(0,i);
+	        	 sClasses++;
+	        	 console.log("sClasses " +sClasses);
+	        	 console.log("totalClasses " +totalClasses);
+	        	 console.log("classPack  " +classPack);
+				  var datas = {
+							"data" : classPack,
+							"sCount" : sClasses,
+							"times" : BS.times
+				  }
+				  var source = $("#edit-class").html();
+				  var template = Handlebars.compile(source);
+				  $('#class-list').append(template(datas));
 //				  BS.classView.renderSchools();
-//				  totalClasses = classInfo.length;
-//	         }
+				  totalClasses = classInfo.length;
+	         }
 	         
 //	         while(totalClasses > 3 )
 //	        {
@@ -386,9 +387,9 @@ BS.AppRouter = Backbone.Router.extend({
 //	        	    }
 //	        	   
 					 
-//					$(".modal select:visible").selectBox();
-//					$('.modal .datepicker').datepicker();
-//					$('.datepicker').css('z-index','99999');
+					$(".modal select:visible").selectBox();
+					$('.modal .datepicker').datepicker();
+					$('.datepicker').css('z-index','99999');
 				
 //		        });
     	}

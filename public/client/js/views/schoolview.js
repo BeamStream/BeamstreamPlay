@@ -9,8 +9,10 @@ BS.SchoolView = Backbone.View.extend({
 	      
 	      "keyup .school" : "populateSchools",
 	      "focusin .school" : "populateSchools",
-	      "click .close-button" : "closeScreen",
-	      "click .back-button" :"backToPrevious"
+	      "click #close-school" : "closeScreen",
+	      "click .back-button" :"backToPrevious",
+              "click li.new_school" : "addNewSchool"
+
 	       
 	    },
 	
@@ -80,6 +82,10 @@ BS.SchoolView = Backbone.View.extend({
 //    	
 //    },
 
+     /**add new school popup */
+    addNewSchool :function(eventName){
+      console.log(4444);
+    },
     populateSchools :function(eventName){
     	var id = eventName.target.id;
     	var text = $('#'+id).val();
@@ -94,22 +100,29 @@ BS.SchoolView = Backbone.View.extend({
 			},
 			dataType : "json",
 			success : function(datas) {
+
 				var codes = '';
 				 
 				BS.allSchoolInfo = datas;
 				BS.schoolNames = [];
+
+                               
+
 				_.each(datas, function(data) {
 					BS.schoolNames.push(data.schoolName);
-		        });
-
+					
+		               });
+                              
 				//set auto populate schools
 				$('#'+id).autocomplete({
 					    source: BS.schoolNames,
 					    select: function(event, ui) {
 					    	var text = ui.item.value; 
+					    	 
 					    }
 				 });
-			 
+				
+ 
 			}
 		});
 		

@@ -107,7 +107,8 @@
 	<!--  auto complete -->
 <!-- 	<script type="text/javascript" src="lib/jquery.autocomplete.js"></script> -->
 <!-- <script src="lib/jqueryui.js"></script> -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<!--   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script> -->
+  <script type="text/javascript" src="lib/autopopulate.js"></script>
 
 
 
@@ -1407,6 +1408,7 @@
 			$("#email-verify").validate();
 			$("#registration-form").validate();
 			$("#forgot-pass-form").validate();
+			$('#add-new-school-form').validate();
 // 			jQuery("#class-form").validationEngine();
 // 			jQuery("#login-form").validationEngine();
 // 			jQuery("#profile-form").validationEngine();
@@ -1514,15 +1516,54 @@
 
 
 <!-- School Registration template-->
+<script type="text/x-handlebars-template" id="add-new-school-tpl">
+ <div class="modal-backdrop in"></div>
+    <div class="modal add-new-school  modal-popups" style="display:block;">
+     <div class="modal-header">
+       <div class="control-button">
+		<a href="#"><img id="popup-close" class="close-button" src="images/close-button.png"></a>
+       </div>
+        <h2 style="padding-left: 5px;" class="pull-left"> Add my school to Beamstream </h2>
+     </div>
+    <div id="error" class="invalid-validation" style="margin-left:20px; color:red;"></div>
+    <div class="modal-body">
+        <form name="add-new-school-form" id="add-new-school-form">
+            <fieldset>
+				<div class="school-registration">
+                <div class="form-row">
+					<div class="element">
+                        <label for="school-name">Name of your school </label>
+                        <input type="text" name="school-name" id="my-school" class="required span3 " placeholder="School Name">
+                        
+                    </div></br></br>
+                </div>
+                <div class="form-row">
+                    <div class="element">
+                        <label for="website">School website <span class="star"> </span></label>
+                        <input type="text" name="website" id="website" class=" span3" placeholder="School website" >
+                    </div>
+                   </div>
+			 </div>
+            </fieldset>
+        </form>
+           <a href="#" id ="addSchool" class="btn btn-primary pull-left"  >Add My School</a>
+    </div>
+    
+ </div>
+</script>
+
+
+<!-- School Registration template-->
 	<script type="text/x-handlebars-template" id="tpl-school-reg">
   <div class="modal-backdrop in"></div>
     <div class="modal school-popup  modal-popups" style="display:block;">
+    <div id="new-school-popup" ></div>
      <div class="modal-header">
         <div class="control-button">
         {{#unless edit}}
         <a href="#" id="school-back-icon"><img class="back-button" src="images/back.png"></a>
         {{/unless}}
-		<a href="#"><img class="close-button" src="images/close-button.png"></a>
+		<a href="#"><img id="close-school" class="close-button" src="images/close-button.png"></a>
        </div>
         <h1 class="pull-left">School info </h1>
         {{#unless edit}}
@@ -3662,6 +3703,9 @@ function janRainLogin(info){
             
              
         });
+
+
+
 </script>
 
   <script type="text/javascript">
@@ -3669,6 +3713,7 @@ function janRainLogin(info){
       $('div.test').embedly({key:'4d205b6a796b11e1871a4040d3dc5c07'});
     
     });
+
   </script>
  
 	
@@ -3700,6 +3745,7 @@ function janRainLogin(info){
 <script src="js/models/classmodel.js"></script>
 <script src="js/models/profilemodel.js"></script>
 <script src="js/views/newschoolview.js"></script>
+<script src="js/views/addnewschool.js"></script>
 <script src="js/views/filesmediaview.js"></script>
 <script src="js/views/streamactionview.js"></script>
 <script src="js/views/googledocsview.js"></script>
@@ -3707,6 +3753,19 @@ function janRainLogin(info){
 <script src="js/views/videolistview.js"></script>   
 <script src="js/models/singleusermodel.js"></script>
 <script src="js/models/documentmodel.js"></script>
+
+
+  <script type="text/javascript">
+  
+	  function populateAddNewSchool(parentId)
+	  {
+		  console.log(parentId);
+	  		BS.addNewSchool = new BS.AddNewSchool();
+			BS.addNewSchool.render();
+	      	$('#new-school-popup').html(BS.addNewSchool.el);
+	  }
+
+  </script>
 
 <script src="js/router.js"></script>
 

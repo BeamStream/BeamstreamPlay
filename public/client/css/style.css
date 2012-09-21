@@ -2092,5 +2092,14 @@ label.error {
     margin: -365px 0 0 -425px !important;
     width: 814px !important;
 }
-    
 
+.new_school{
+    background-color: #21B5BA !important;
+}
+.add-new-school{
+	left: 50% !important;
+    width: 523px !important;
+}
+#new-school-form input{
+	width: 410px !important;
+}

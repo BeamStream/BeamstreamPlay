@@ -100,9 +100,10 @@ BS.noOfUsersAttendingAClass = BS.URLRequired+"/noOfUsersAttendingAClass";
 BS.autoPopulateClassesbyCode = BS.URLRequired+"/autoPopulateClassesbyCode";
 //populate class names
 BS.autoPopulateClassesbyName = BS.URLRequired+"/autoPopulateClassesbyName";
-
 //DeleteStrewams
 BS.deleteStream = BS.URLRequired+"/deleteStream";
+//Add new school name $ website
+BS.addSchool =  BS.URLRequired+"/school";
  
  
 /* for beta users */
