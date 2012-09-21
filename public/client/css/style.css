@@ -2125,7 +2125,8 @@ label.error {
 }
 
 .new_school{
-    background-color: #21B5BA !important;
+/*     background-color: #21B5BA !important; */
+    background-color: #72ADDC !important;
 }
 .add-new-school{
 	left: 50% !important;
@@ -2133,4 +2134,8 @@ label.error {
 }
 #new-school-form input{
 	width: 410px !important;
+}
+.new_school:hover{
+	 background-color: #14A8AD !important;
+	 cursor :pointer !important;
 }

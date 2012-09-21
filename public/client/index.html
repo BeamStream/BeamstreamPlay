@@ -1464,7 +1464,7 @@
 					<div class="element">
                         <label for="school-name">School name <span class="star"> </span></label>
  
-                        <input type="text" name="school-name" id="school-name" class="validate[required] span3 school" placeholder="School Name">
+                        <input type="text" name="schoolName" id="school-name" class="validate[required] span3 school" placeholder="School Name">
                         
                     </div>
                     <div class="element">
@@ -1559,7 +1559,7 @@
                 <div class="form-row">
 					<div class="element">
                         <label for="school-name">Name of your school </label>
-                        <input type="text" name="school-name" id="my-school" class="required span3 " placeholder="School Name">
+                        <input type="text" name="schoolName" id="my-school" class="required span3 " placeholder="School Name">
                         <input type="hidden" id="parent-Id" value="">
                     </div></br></br>
                 </div>
@@ -1608,7 +1608,7 @@
                     <div class="element">
                         <label for="school-name" id="school-id-1" value="" >School name </label>
  
-                        <input type="text" name="school-name-1" id="school-name-1" class="required span3 school" placeholder="School Name">
+                        <input type="text" name="schoolName" id="school-name-1" class="required span3 school" placeholder="School Name">
                         <input type="hidden" id="associatedId-1" value="">
                     </div>
 
@@ -1696,7 +1696,7 @@
 		<div class="form-row">
 		<div class="element">
 			<label for="school-name-{{number}}" id="school-id-{{number}}" value="{{data.id.id}}" >School name </label>
-			<input type="text" id="school-name-{{number}}" name="school-name-{{number}}" class="required span3 school" value="{{data.schoolName}}" >
+			<input type="text" id="school-name-{{number}}" name="schoolName" class="required span3 school" value="{{data.schoolName}}" >
 			<input type="hidden" id="associatedId-{{number}}" value="{{data.assosiatedSchoolId.id}}">
 		</div>
 		<div class="element">
@@ -2507,7 +2507,7 @@
                 <ul class="sort" id="sort-messages">
                   <li class="active"><a id="date" href="#date">Date</a></li>
                     <li ><a id="highest-rated" href="#highest-rated">Highest Rated</a></li>
-                  <li><a id="profile-relevance" href="#profile-relevance">Profile Relevance</a></li>				   
+                  <!-- li><a id="profile-relevance" href="#profile-relevance">Profile Relevance</a></li>-->				   
 		<li><input id="sort_by_key" type="text" placeholder="Sort by keyword" name="keyword"></li>
                 </ul>
               </div>

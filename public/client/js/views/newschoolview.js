@@ -7,6 +7,7 @@ BS.NewSchoolView = Backbone.View.extend({
 		"click #save": "saveNewSchool",
 		"keyup .school" : "populateSchools",
 	    "focusin .school" : "populateSchools",
+//	    "click .school" : "populateSchools",
 	 },
 	
     initialize:function () {

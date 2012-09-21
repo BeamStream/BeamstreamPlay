@@ -2960,7 +2960,10 @@ _renderMenu:function(b,c){
         d._renderItem(b,c)
         })
         /* Edited By Aswathy */
-       a("<li class='new_school'></li>").data("item.autocomplete",c).append(a("<a></a>").text('+ Add New School')).appendTo(b)
+
+ 
+        if(d.element.attr('name') == "schoolName")
+            a("<li class='new_school'></li>").data("item.autocomplete",c).append(a("<a></a>").text('+ Add New School')).appendTo(b)
     },
 _renderItem:function(b,c){
 	
