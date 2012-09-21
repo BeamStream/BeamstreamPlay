@@ -1559,7 +1559,7 @@
 					<div class="element">
                         <label for="school-name">Name of your school </label>
                         <input type="text" name="school-name" id="my-school" class="required span3 " placeholder="School Name">
-                        
+                        <input type="hidden" id="parent-Id" value="">
                     </div></br></br>
                 </div>
                 <div class="form-row">
@@ -3778,10 +3778,11 @@ function janRainLogin(info){
   
 	  function populateAddNewSchool(parentId)
 	  {
-		  console.log(parentId);
+		    console.log(parentId);
 	  		BS.addNewSchool = new BS.AddNewSchool();
 			BS.addNewSchool.render();
 	      	$('#new-school-popup').html(BS.addNewSchool.el);
+	      	$('#parent-Id').attr("value",parentId);
 	  }
 
   </script>

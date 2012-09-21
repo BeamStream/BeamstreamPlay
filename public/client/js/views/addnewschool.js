@@ -50,18 +50,24 @@ BS.AddNewSchool = Backbone.View.extend({
                     url:BS.addSchool,
                     data: {
                     	schoolName : myschool,
-                    	website :website
+                    	schoolWebsite :website
                     },
                     dataType:"json",
                     success:function(data){
-                        if(data.status == "Success")
+                        if(data.status)
                         {
-                        	 $('#new-school-popup').children().detach(); 
-                           	 var schoolView = new BS.SchoolView();
+                        	if(data.status == "Failure")
+                        		$('#error').html(data.message);
+                        	
                         }
                         else
                         {
-                        	$('#error').html(data.message);
+//                        	 var parent = $('#parent-Id').attr("value");
+//                        	 $('#'+parent).val(myschool);
+                        	 
+                        	 $('#new-school-popup').children().detach(); 
+                           	 var schoolView = new BS.SchoolView();
+                           	
                         }
                     }
                  });

@@ -11,7 +11,7 @@ BS.SchoolView = Backbone.View.extend({
 	      "focusin .school" : "populateSchools",
 	      "click #close-school" : "closeScreen",
 	      "click .back-button" :"backToPrevious",
-              "click li.new_school" : "addNewSchool"
+           
 
 	       
 	    },
@@ -81,50 +81,44 @@ BS.SchoolView = Backbone.View.extend({
 //		});
 //    	
 //    },
-
-     /**add new school popup */
-    addNewSchool :function(eventName){
-      console.log(4444);
-    },
+ 
     populateSchools :function(eventName){
     	var id = eventName.target.id;
     	var text = $('#'+id).val();
     	var self =this;
- 
-		/* post the text that we type to get matched school */
-		 $.ajax({
-			type : 'POST',
-			url : BS.autoPopulateSchools,
-			data : {
-				data : text,
-			},
-			dataType : "json",
-			success : function(datas) {
-
-				var codes = '';
-				 
-				BS.allSchoolInfo = datas;
-				BS.schoolNames = [];
-
-                               
-
-				_.each(datas, function(data) {
-					BS.schoolNames.push(data.schoolName);
+        if(text)
+        {
+			/* post the text that we type to get matched school */
+			 $.ajax({
+				type : 'POST',
+				url : BS.autoPopulateSchools,
+				data : {
+					data : text,
+				},
+				dataType : "json",
+				success : function(datas) {
+	
+					var codes = '';
+					 
+					BS.allSchoolInfo = datas;
+					BS.schoolNames = [];
+					_.each(datas, function(data) {
+						BS.schoolNames.push(data.schoolName);
+			         });
+	                              
+					//set auto populate schools
+					$('#'+id).autocomplete({
+						    source: BS.schoolNames,
+						    select: function(event, ui) {
+						    	var text = ui.item.value; 
+						    	 
+						    }
+					 });
 					
-		               });
-                              
-				//set auto populate schools
-				$('#'+id).autocomplete({
-					    source: BS.schoolNames,
-					    select: function(event, ui) {
-					    	var text = ui.item.value; 
-					    	 
-					    }
-				 });
-				
- 
-			}
-		});
+	 
+				}
+			});
+        }
 		
     },
      /** TODO
@@ -386,6 +380,7 @@ BS.SchoolView = Backbone.View.extend({
 		    	  }
 		    	  else if($('#associatedId-'+i).attr('value'))
 		    	  {
+		    		  
 		    		  assosiatedSchoolId = $('#associatedId-'+i).attr('value');
 		    	  }
 		    	  else
