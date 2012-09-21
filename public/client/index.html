@@ -123,7 +123,11 @@
     <script src="lib/jquery.cookie.js"></script>
     
     <!-----pagination--->
-   
+    
+     <!-----slider for stream list--->
+    <script type="text/javascript" src="lib/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="lib/mbVerticalSlider.js"></script>
+    
     <!--Shuffle in media page -->
     <script type="text/javascript" src="lib/jquery.shuffle.js"></script>
     <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script>
@@ -275,7 +279,7 @@
     <div class="row" >
       <ul class="file-list" id="grid">
         <li data-key='["recent"]' id="coverimage">
-          <div class="image-wrapper"><div id="profile-images"><img src="images/pictures_image.png"></div></div>
+          <div class="image-wrapper"><div class="hover-div"><div id="profile-images"><img src="images/pictures_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Images </p></div></div></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -285,8 +289,8 @@
           </div>
         </li>
         <li data-key='["oldest"]' id="covervideo">
-          <div class="image-wrapper"><div id="profile-videos"><img src="images/video_image.png"></div></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>
+         <div class="image-wrapper"><div class="hover-div"><div id="profile-videos"><img src="images/video_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Videos </p></div></div> </div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
               <li><a class="hand-icon" href="#">5</a></li>
@@ -294,10 +298,9 @@
             </ul>
           </div>
         </li>        
-        <li id="file-docs-1" data-key='["recent"]'>
-          <div class="image-wrapper" id="google-docs">
-             
-              <a class="google-docs-image" href="#googledocs"><img src="images/docs_image.png"></a></div>
+        <li id="coverdocs" data-key='["recent"]'>
+         <div class="image-wrapper" id="google-docs"><div class="hover-div"><a class="google-docs-image" href="#googledocs"><img src="images/docs_image.png"></a>
+          <div class="hover-text"><p class="emptyfiles"> No Uploaded Docs </p></div></div></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -306,68 +309,90 @@
             </ul>
           </div>
         </li>        
-        <li data-key='["oldest"]'>
-          <div class="image-wrapper"><img src="images/audio_image.png"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon music" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
+        <li id="coveraudio" data-key='["oldest"]'>
+            <div class="image-wrapper coveraud"> 
+               <div class="hover-div"><img src="images/audio_image.png"/><div class="hover-text"> 
+                 <p class="emptyfiles"> No Uploaded Audio </p></div>
+               </div>
+            </div>                   
+            <div class="comment-wrapper comment-wrapper1"> <a class="common-icon music" href="#"><span class="right-arrow"></span></a>
+               <ul class="comment-list"> 
+                  <li><a class="eye-icon" href="#">87</a></li>
+                  <li><a class="hand-icon" href="#">5</a></li>
+                  <li><a class="message-icon" href="#">10</a></li>
+              </ul>
+           </div>
         </li>
-        <li data-key='["recent"]'>
-          <div class="image-wrapper"><img src="images/spreadsheets_image.png"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
+        <li id="coverspreadsheet" data-key='["recent"]'>
+          <div class="image-wrapper">
+            <div class="hover-div"><img src="images/spreadsheets_image.png"/><div class="hover-text"> 
+               <p class="emptyfiles"> No Uploaded Spreadsheets </p>
+              </div> 
+            </div>
+           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+              <ul class="comment-list">
+                 <li><a class="eye-icon" href="#">87</a></li>
+                 <li><a class="hand-icon" href="#">5</a></li>
+                 <li><a class="message-icon" href="#">10</a></li>
+              </ul>
+           </div>
         </li>
-        <li data-key='["oldest"]'>
-          <div class="image-wrapper"><img src="images/presentations_image.png"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon presentation" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
+        <li id="coverpresentation" data-key='["oldest"]'>
+           <div class="image-wrapper"> 
+              <div class="hover-div"><img src="images/presentations_image.png"/>
+               <div class="hover-text">  <p class="emptyfiles"> No Uploaded Presentations </p></div>        
+              </div>
+           </div> 
+           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon presentation" href="#"><span class="right-arrow"></span></a>
+             <ul class="comment-list">
+                <li><a class="eye-icon" href="#">87</a></li>
+                <li><a class="hand-icon" href="#">5</a></li>
+                <li><a class="message-icon" href="#">10</a></li>
             </ul>
-          </div>
+          </div>        
+       </li>
+       <li id="coverpdf" data-key='["oldest"]'>
+          <div class="image-wrapper">
+             <div class="hover-div"><img src="images/pdp_image.png"/><div class="hover-text">    
+                <p class="emptyfiles"> No Uploaded Files </p>
+              </div>
+           </div>
+           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon pdf" href="#"><span class="right-arrow"></span></a>
+              <ul class="comment-list">
+                <li><a class="eye-icon" href="#">87</a></li>
+                <li><a class="hand-icon" href="#">5</a></li>
+                <li><a class="message-icon" href="#">10</a></li>
+              </ul>        
+           </div>              
         </li>
-        <li data-key='["oldest"]'>
-          <div class="image-wrapper"><img src="images/pdp_image.png"></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon pdf" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
+        <li id="coverlink" data-key='["recent"]'>
+           <div class="image-wrapper"> 
+             <div class="hover-div"><img src="images/links_image.png"/>
+               <div class="hover-text">     
+                <p class="emptyfiles"> No Uploaded Links </p>
+               </div>
+             </div> 
           </div>
-        </li>
-        <li id="file-docs-2" data-key='["recent"]'>
-          <div class="image-wrapper"><img src="images/links_image.png"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
+             <ul class="comment-list">
+                <li><a class="eye-icon" href="#">87</a></li>
+                <li><a class="hand-icon" href="#">5</a></li>
+                <li><a class="message-icon" href="#">10</a></li>
+             </ul>
+          </div>       
         </li>
         <li data-key='["oldest"]'>
-          <div class="image-wrapper"></div>
+         <div class="image-wrapper"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon presentation" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
               <li><a class="hand-icon" href="#">5</a></li>
               <li><a class="message-icon" href="#">10</a></li>
             </ul>
-          </div>
-        </li>
-        <li data-key='["recent"]'>
-          <div class="image-wrapper"></div>
+         </div>
+       </li>
+       <li data-key='["recent"]'>
+         <div class="image-wrapper"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon pdf" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -427,7 +452,7 @@
           </div>
         </li>        
         <li id="file-docs-3" data-key='["recent"]'>
-            <div class="image-wrapper"></div>
+         <div class="image-wrapper"></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -2403,8 +2428,7 @@
                   <li class="imgitem"><a href="#face4"><img src="images/placeholders/face_little.png" width="32" height="31"></a></li>
                   <li class="next"><a href="#next"><i></i></a></li>
                 </ul>
-              </section>
- 
+              </section> 
               <section class="user_profile_info">
                 <ul class="nav nav-list">
                   <li class="screen_name">{{firstName}} {{lastName}}</li>
@@ -2435,33 +2459,31 @@
                   <li><a id= "projectStreams-list" href="#">Project</a></li>
                 </ul>
               </div>
-              <a id="icon-up" class="btn prev"><i class="icon-up"></i></a>
+              <a id="icon-up" class="btn prev" onclick="$('#streams-list').vsPrevPage()"><i class="icon-up" ></i></a>
               <ul id="streams-list" class="streams nav nav-list">
               </ul>
-              <a id="icon-down" class="btn next"><i class="icon-down"></i></a>
+              <a id="icon-down" class="btn next" onclick="$('#streams-list').vsNextPage()" ><i class="icon-down"></i></a>
             </section>
           <div class="create_stream trigger">
 	           <a id="create_stream" class="btn plus" href="#create_stream"><i><b></b><span class="popout_arrow"><span></span></span></i>Create Stream</a>
                     <div class="popup">                   
                        <div class="block">
-                        <span ><img src="images/arrow-left.png"></span>
-                        <ul>
-                         <li><a  id ="classstream" href="#classStream">ClassStream </a> <img src="images/small_hand.png"> Collaborate within your class</li>
-						 <li><a id="projectStream" href="#projectStream">ProjectStream </a><img src="images/small_hand.png"> Shortterm  projects w/ an end date - choose to add to your profile upon completion</li>
-                         <li><a id="studyStream" href="#studyStream">StudyStream  </a><img src="images/small_hand.png"> Study Group of students from your class, degree program, school and beyond</li>
-					 	 <li><a id ="groupStream" href="#groupStream">GroupStream </a><img src="images/small_hand.png"> Ongoing groups about anything, make them public or private </li>
-						 <li><a id="peerStream" href="#peerStream">PeerStream  </a><img src="images/small_hand.png"> Students or Professors:Stay connected w/ your peer</li>
-						 <li><a id ="friendStream" href="#friendStream">FriendStream  </a><img src="images/small_hand.png"> Collaborate and stay in touch w/ your friends</li>
-                        <ul>
-                 </div>
-                  </div>
-	            <br>
-				<br>
-				 
-          </div>
-          </div>
-
-          <div class="actions with-tooltips tooltips-bottom btn-group col middle_column span6" style="margin-left: 10px !important;">
+                           <span ><img src="images/arrow-left.png"></span>
+                           <ul>
+                               <li><a  id ="classstream" href="#classStream">ClassStream </a> <img src="images/small_hand.png"> Collaborate within your class</li>
+                               <li><a id="projectStream" href="#projectStream">ProjectStream </a><img src="images/small_hand.png"> Shortterm  projects w/ an end date - choose to add to your profile upon completion</li>
+                               <li><a id="studyStream" href="#studyStream">StudyStream  </a><img src="images/small_hand.png"> Study Group of students from your class, degree program, school and beyond</li>
+                               <li><a id ="groupStream" href="#groupStream">GroupStream </a><img src="images/small_hand.png"> Ongoing groups about anything, make them public or private </li>
+                               <li><a id="peerStream" href="#peerStream">PeerStream  </a><img src="images/small_hand.png"> Students or Professors:Stay connected w/ your peer</li>
+                               <li><a id ="friendStream" href="#friendStream">FriendStream  </a><img src="images/small_hand.png"> Collaborate and stay in touch w/ your friends</li>
+                               <ul>
+                                   </div>
+                                   </div>
+                                   <br>
+                                   <br>                                      
+                                   </div>
+                                   </div>                                      
+                                   <div class="actions with-tooltips tooltips-bottom btn-group col middle_column span6" style="margin-left: 10px !important;">
           <div id="sub-menus" >
            <div class="with-tooltips tooltips-bottom">
             <ul class="nav nav-tabs">
@@ -2471,23 +2493,21 @@
                      
                 </a>
               </li>
-			  <li><a href="#questions">Questions <span class="label label-important">10</span></a></li>
-              <li><a id="tasks" data-original-title="Feature coming soon" href="#tasks">Deadlines <span class="label label-important">5</span></a></li>
-              
+               <li><a href="#questions">Questions <span class="label label-important">10</span></a></li>
+              <li><a id="tasks" data-original-title="Feature coming soon" href="#tasks">Deadlines <span class="label label-important">5</span></a></li>              
               <li><a href="#surveys" data-original-title="Feature coming soon">Quizes & Polls</a></li>
               <li><a href="#idea-stream" data-original-title="Feature coming soon" >Follow Stream</a></li>
             </ul>
-			</div>
+            </div>
            </div>
             <section class="main_content">
               <div class="sort_container">
                 <label>Sort by:</label>
                 <ul class="sort" id="sort-messages">
                   <li class="active"><a id="date" href="#date">Date</a></li>
-  				  <li ><a id="highest-rated" href="#highest-rated">Highest Rated</a></li>
-                  <li><a id="profile-relevance" href="#profile-relevance">Profile Relevance</a></li>
-				   
-				  <li><input id="sort_by_key" type="text" placeholder="Sort by keyword" name="keyword"></li>
+                    <li ><a id="highest-rated" href="#highest-rated">Highest Rated</a></li>
+                  <li><a id="profile-relevance" href="#profile-relevance">Profile Relevance</a></li>				   
+		<li><input id="sort_by_key" type="text" placeholder="Sort by keyword" name="keyword"></li>
                 </ul>
               </div>
               <section class="new_message">
@@ -2507,19 +2527,18 @@
                           </form>
                         <ul class="additional_controls">
                           <li class="comment"><a href="#comment" class="btn btn-flat"><i class="icon-middle-comment"></i></a></li>
- 						  <li class="doc"><a href="#doc" class="btn btn-flat"><i class="icon-middle-doc"></i></a>
+                            <li class="doc"><a href="#doc" class="btn btn-flat"><i class="icon-middle-doc"></i></a>
                             <ul class="doc-hover ">
-                                <span class="arrow">
-								  <img src="images/arrow-top.png">
-								</span>
-  								<li style="margin-bottom:4px !important;"><span>Upload:</span></li>
-								<li class="doc-video">Video</li>
-								<li class="doc-docs">Docs</li>
-	      						<li class="doc-notes">Notes</li>
- 								<li class="doc-audio">Audio</li>
- 								<li class="doc-presentation">Presentation</li> 
- 							 	</ul></li>
-                          
+                               <span class="arrow">
+				<img src="images/arrow-top.png">
+                                  </span>
+                                    <li style="margin-bottom:4px !important;"><span>Upload:</span></li>
+                                     <li class="doc-video">Video</li>
+                                    <li class="doc-docs">Docs</li>
+                                    <li class="doc-notes">Notes</li>
+                                    <li class="doc-audio">Audio</li>
+                                    <li class="doc-presentation">Presentation</li> 
+                                    </ul></li>                         
                           <li class="tag"><a href="#tag" class="btn btn-flat"><i class="icon-middle-tag"></i></a></li>
                           <li class="private">
                             <label for="id-private"  >

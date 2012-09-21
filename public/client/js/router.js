@@ -539,7 +539,7 @@ BS.AppRouter = Backbone.Router.extend({
 		          
 	   	   $('.modal-backdrop').hide();
 	       $('#content').html(BS.streamView.el);
-	       
+	      
 	       $('.page-loader').hide();
       	
 	       $(".checkbox").dgStyle();
@@ -549,8 +549,13 @@ BS.AppRouter = Backbone.Router.extend({
 	           var placement = $this.parent().hasClass('tooltips-bottom') ? 'bottom' : 'top';
 	           $(this).tooltip({placement: placement});
 	       });
-	       
-	       
+//                                                  // slider for streamlist at home view (with timer),up and down scrolling button in template 
+//               setTimeout(function() {
+//	       $("#streams-list").mb_vSlider({easing:"swing",slideTimer:1000,nextEl:".vSdown",prevEl:".vSup ",height:200,width:160});
+//                                              
+//			    		    }, 500);                  
+//               
+//	        
 		 }});
        
    },

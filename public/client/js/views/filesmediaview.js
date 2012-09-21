@@ -29,15 +29,18 @@ BS.FilesMediaView = Backbone.View.extend({
 	 },
 	
     initialize:function () {       
-     	 	
-//        this.docsList();   
-        
-        console.log('Initializing Files and Media  View');
-        
+     	 	       
+        console.log('Initializing Files and Media  View');       
         this.source = $("#tpl-files-media").html();
         this.template = Handlebars.compile(this.source);
-	    this.pictres();	
-        this.videos();        
+	this.pictres();	
+        this.videos();   
+        this.docsList();
+//        this.audio();  
+//        this.spreadsheet();  
+//        this.presentation();  
+//        this.pdffiles();  
+//        this.links(); 
      //   this.template= _.template($("#tpl-files-media").html());
 
         
@@ -114,7 +117,7 @@ BS.FilesMediaView = Backbone.View.extend({
                         else
                             {
                             alert("Doc Uploaded Successfully");
-                                //self.docsList(); 
+                                self.docsList(); 
                             }
                         }           
             });
@@ -136,13 +139,23 @@ BS.FilesMediaView = Backbone.View.extend({
                                 },
                         dataType : "json",
                         success : function(docs) {
+                            if(docs.length != 0)  {
                               _.each(docs, function(doc) {
-                               console.log(docs.name+datVal); 
-                        var datVal =  self.formatDateVal(doc.creationDate);
-                        var content = '<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'"><input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'"><div class="comment-wrapper comment-wrapper2"><a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a><a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><h4>'+doc.name+'</h4><p>The Power of The Platform Behance Network Join The Leading Platform For </p><h5> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> </div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#">87</a></li><li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#">10</a></li></ul></div>'; 
-                        $('#file-docs-'+i).html(content);                     
+                        var datVal =  self.formatDateVal(doc.creationDate);                      
+                           var content ='<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'">'
+                                        +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'">'
+                                        +'<div class="hover-div"><img src="images/docs_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
+                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
+                                        +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#googledocs" style="text-decoration: none">'
+                                        +'<h4>'+doc.name+'</h4> <p>The Power of The Platform Behance Network Join The Leading Platform For </p>'
+                                        +'<h5> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span></a> '
+                                        +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#">'
+                                        +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#">87</a></li>'
+                                        +'<li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#">10</a></li></ul></div>'; 
+                        $('#coverdocs').html(content);                     
                         i++;
                         });
+                        }
                         }
                });
 
@@ -158,7 +171,7 @@ BS.FilesMediaView = Backbone.View.extend({
         
         
          pictres : function()
-        {       
+        {  
             var self = this;
             var arraypictures = new Array();
             var content='';
@@ -177,8 +190,8 @@ BS.FilesMediaView = Backbone.View.extend({
                             {
                                 arraypictures=docs;
                                 coverpicture=arraypictures[arraypictures.length-1];
-                                content= '<div class="image-wrapper1"><a id="profile-images" href="#imagelist"><img src="'+coverpicture+'"></a>'
-                                          +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>'
+                                content= '<div class="image-wrapper"> <div class="hover-div"><img src="images/pictures_image.png"/><div class="hover-text">  <a id="profile-images" href="#imagelist"><img class="filmdeapicture" src="'+coverpicture+'"></a></div></div></div>'
+                                           +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>'
                                            +'<ul class="comment-list">'
                                            +'<li><a class="eye-icon" href="#">87</a></li>'
                                            +'<li><a class="hand-icon" href="#">5</a></li>'
@@ -218,8 +231,8 @@ BS.FilesMediaView = Backbone.View.extend({
                             {
                                 arraypictures=docs;
                                coverpicture=arraypictures[arraypictures.length-1];
-                                content= '<div class="image-wrapper"><a id="profile-videos" href="#videos"><img src="images/image2.jpg"></a>'
-                                            +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
+                                content= '<div class="image-wrapper"><div class="hover-div"><img src="images/video_image.png"/><div class="hover-text"><a id="profile-videos" href="#videos"><img src="images/image2.jpg"></a>'
+                                            +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
                                             +'<ul class="comment-list">'
                                             +'<li><a class="eye-icon" href="#">87</a></li>'
                                             +'<li><a class="hand-icon" href="#">5</a></li>'
@@ -232,6 +245,79 @@ BS.FilesMediaView = Backbone.View.extend({
             }});
         },
         
+        /**
+         * Function for show audio
+         * 
+         */
+        audio :function(eventName){
+            $('.coveraud').html('content');
+            alert("testing");
+                    var content= ' <div class="image-wrapper"><img src="images/video_image.png"></div>'
+                                +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a>'
+                                +'<ul class="comment-list">'
+                                +'<li><a class="eye-icon" href="#">87</a></li>'
+                                +'<li><a class="hand-icon" href="#">5</a></li>'
+                                +'<li><a class="message-icon" href="#">10</a></li>'
+                                +'</ul></div>';
+               $('#coveraudio').html("content"); 
+                                 
+        },
+        
+         /**
+         * Function for show spreadsheet
+         * 
+         */
+        spreadsheet :function(eventName){
+             content= '<div class="hover-div"><img src="images/video_image.png"/><div class="hover-text"><div class="image-wrapper"><a id="profile-videos" href="#videos"><img src="images/image2.jpg"></a>'
+                        +'</div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
+                        +'<ul class="comment-list">'
+                        +'<li><a class="eye-icon" href="#">87</a></li>'
+                        +'<li><a class="hand-icon" href="#">5</a></li>'
+                        +'<li><a class="message-icon" href="#">10</a></li></ul></div>';
+                        $('#coverspreadsheet').html('content');  
+        },
+        
+         /**
+         * Function for show presentation
+         * 
+         */
+        presentation :function(eventName){
+             content= '<div class="hover-div"><img src="images/video_image.png"/><div class="hover-text"><div class="image-wrapper"><a id="profile-videos" href="#videos"><img src="images/image2.jpg"></a>'
+                        +'</div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
+                        +'<ul class="comment-list">'
+                        +'<li><a class="eye-icon" href="#">87</a></li>'
+                        +'<li><a class="hand-icon" href="#">5</a></li>'
+                        +'<li><a class="message-icon" href="#">10</a></li></ul></div>';
+                        $('#coverpresentation').html(content);  
+        },
+        
+         /**
+         * Function for show pdffiles
+         * 
+         */
+        pdffiles :function(eventName){
+             content= '<div class="hover-div"><img src="images/video_image.png"/><div class="hover-text"><div class="image-wrapper"><a id="profile-videos" href="#videos"><img src="images/image2.jpg"></a>'
+                        +'</div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
+                        +'<ul class="comment-list">'
+                        +'<li><a class="eye-icon" href="#">87</a></li>'
+                        +'<li><a class="hand-icon" href="#">5</a></li>'
+                        +'<li><a class="message-icon" href="#">10</a></li></ul></div>';
+                        $('#coverpdf').html(content);  
+        },
+        
+         /**
+         * Function for show links
+         * 
+         */
+        links :function(eventName){
+             content= '<div class="hover-div"><img src="images/video_image.png"/><div class="hover-text"><div class="image-wrapper"><a id="profile-videos" href="#videos"><img src="images/image2.jpg"></a>'
+                        +'</div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
+                        +'<ul class="comment-list">'
+                        +'<li><a class="eye-icon" href="#">87</a></li>'
+                        +'<li><a class="hand-icon" href="#">5</a></li>'
+                        +'<li><a class="message-icon" href="#">10</a></li></ul></div>';
+                        $('#coverlink').html(content);  
+        },
                 
         /*
          * Format date and returns 
@@ -245,7 +331,7 @@ BS.FilesMediaView = Backbone.View.extend({
                             var curr_date = d.getDate();
                             var curr_month = d.getMonth() + 1; //Months are zero based
                             var curr_year = d.getFullYear();
-                           return curr_date + " " + m_names[curr_month] + ", " + curr_year;
+                            return curr_date + " " + m_names[curr_month] + ", " + curr_year;
         },
         
         /**
@@ -338,7 +424,6 @@ BS.FilesMediaView = Backbone.View.extend({
                         success : function(options) {
                              _.each(options, function(option) {
                               content+= '<option>'+option.streamName+'</option>';
-                              console.log(option.streamName);
                               i++;
                               });
                               content+='<option class="enterfromcatgry">Enter From Catagory</option>'

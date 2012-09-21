@@ -13,8 +13,8 @@ BS.StreamView = Backbone.View.extend({
            "click #streams-list li" : "selectOneStream",
            "click #post-msg": "postMessage",
            "click ul#select-streams li a" : "showStreamList",
-           "click #icon-up" :"slideUp",
-           "click #icon-down" : "slideDown",
+//           "click #icon-up" :"slideUp",
+//           "click #icon-down" : "slideDown",
            "click i.rock-message" : "rockMessage",
            "click i.rock-comment" :"rockComments",
            "mouseenter a#rocks" : "showRockers",
@@ -60,7 +60,7 @@ BS.StreamView = Backbone.View.extend({
     	 
 		this.source = $("#tpl-main-stream").html();
 		this.template = Handlebars.compile(this.source);
-		
+//		this.slider();
 
     this.setupPushConnection();
 
@@ -150,7 +150,7 @@ BS.StreamView = Backbone.View.extend({
 					 var classStreams ='';
 					 _.each(datas, function(data) {
 						 
-							streams+= '<li ><span class="flag-piece"></span><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
+							streams+= '<li><span class="flag-piece"></span><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
 	 						classStreams+= '<li  id="'+data.id.id+'"><a id="'+data.id.id+'"  href="#">'+data.streamName+'</a></li>';
 
 					 });
@@ -680,18 +680,23 @@ BS.StreamView = Backbone.View.extend({
 	 /**
 	  * slide up for left most stream list
 	  */
-	 slideUp :function(eventName){
-		 eventName.preventDefault();
-		 $('#streams-list').slideUp();
-		 
-	 },
-	 /**
-	  * slide down for left most stream list
-	  */
-	 slideDown:function(eventName){
-		 eventName.preventDefault();
-		 $('#streams-list').slideDown();
-	 },
+//	 slideUp :function(eventName){
+////		 eventName.preventDefault();
+////		 $('#streams-list').slideUp();
+////       alert("testing slideUp");
+//                 $('#streams-list').vsPrevPage();   
+//		 
+//	 },
+//	 /**
+//	  * slide down for left most stream list
+//	  */
+//	 slideDown:function(eventName){
+//           //   alert("testing slideDown");
+////		 eventName.preventDefault();
+////		 $('#streams-list').slideDown();
+//                
+//                 $('#streams-list').vsNextPage();   
+//	 },
 	 
 	 /**
 	  * Rock Messages
@@ -1368,4 +1373,25 @@ BS.StreamView = Backbone.View.extend({
     })
 
   }
+  
+  /*
+  * slider for stream list
+   */
+//   slider: function(){
+//     console.log("testing for slider");
+//     
+//     $("#streams-list").mb_vSlider({ //default attributes of the mb.vSlider
+//         
+////				//template:"searchResult.html"
+////				totalElements:120, //this param is used only in ajax modality and should be set dynamically.
+////				easing:"easeInOutCubic",
+////				slideTimer:1000,
+////				nextEl:"#vSup",
+////				prevEl:"#vSdown",
+////				height:100,
+////				width:200
+//
+//			})
+//   }
+   
 });

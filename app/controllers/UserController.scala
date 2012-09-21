@@ -147,29 +147,7 @@ object UserController extends Controller {
     Ok(loggedInUserJson).as("application/json")
   }
 
-  /*
-   * obtaining the profile Picture
-   * @ Purpose: fetches the recent profile picture for a user
-   */
-
-  def getProfilePicForAUser = Action { implicit request =>
-    val userIdJsonMap = request.body.asFormUrlEncoded.get
-    val userIdReceived = userIdJsonMap("userId").toList(0)
-    if (ProfileImageProviderCache.profileImageMap.isDefinedAt(userIdReceived)) {
-      val profilePicUrl = ProfileImageProviderCache.getImage(userIdReceived)
-      Ok(write(profilePicUrl)).as("application/json")
-    } else {
-      val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userIdReceived))
-      if (!mediaObtained.size.equals(0)) {
-        val MediaJson = write(mediaObtained.last.mediaUrl)
-        Ok(MediaJson).as("application/json")
-      } else {
-        Ok(write(new ResulttoSent("Failure", "No picture found for this user")))
-      }
-
-    }
-
-  }
+ 
 
   /*
    * Password Recovery
