@@ -591,8 +591,8 @@ BS.ClassStreamView = Backbone.View.extend({
 					_.each(datas, function(data) {
 						sSelect+= '<option value ="'+data.assosiatedSchoolId.id+'" > '+data.schoolName+'</option>';
 			        });
-//						sSelect+= '</select>';
-					sSelect += '<option value ="add-school" > Add School</option></select>';
+						sSelect+= '</select>';
+//					sSelect += '<option value ="add-school" > Add School</option></select>';
 					$('#sShool').html(sSelect);
 					$(".modal select:visible").selectBox();
 				}
