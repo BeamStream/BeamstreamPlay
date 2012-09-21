@@ -197,7 +197,7 @@ BS.AppRouter = Backbone.Router.extend({
 	         {
 //	        	$('#school-name-1').val(BS.schoolFromPrev);
 	        	$('#prev-school').attr("value",BS.schoolFromPrev);
-	        	$('#school-name-1').focus();
+	        	 
 	        	 $.ajax({
 		        	   type : 'POST',
 		 			   url : BS.autoPopulateSchools,
