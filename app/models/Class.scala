@@ -11,6 +11,7 @@ import com.mongodb.casbah.commons.conversions.scala._
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import java.util.Date
+import java.util.regex.Pattern
 import java.text._
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
@@ -93,23 +94,24 @@ object Class {
     ClassDAO.remove(myclass)
   }
 
-  /*
-   * Finding the class by Name
-   */
-
-  def findClassByName(name: String): List[Class] = {
-    val regexp = (""".*""" + name + """.*""").r
-    for (theclass <- ClassDAO.find(MongoDBObject("className" -> regexp)).toList) yield theclass
-  }
+//  /*
+//   * Finding the class by Name
+//   */
+//
+//  def findClassByName(name: String): List[Class] = {
+//    val regexp = (""".*""" + name + """.*""").r
+//    for (theclass <- ClassDAO.find(MongoDBObject("className" -> regexp)).toList) yield theclass
+//  }
 
   /*
    * Finding the class by Code
    */
 
   def findClassByCode(code: String, schoolId: ObjectId): List[Class] = {
-    val regexp = ("^" + code).r
+     val codePattern = Pattern.compile("^" +code, Pattern.CASE_INSENSITIVE)
+    //val regexp = ("^" + code).r
     var classes: List[Class] = List()
-    val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "classCode" -> regexp)).toList
+    val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "classCode" -> codePattern)).toList
     (classFound.isEmpty) match {
       case true =>
       case false => classes ++= classFound
@@ -122,9 +124,10 @@ object Class {
    */
 
   def findClassByName(name: String, schoolId: ObjectId): List[Class] = {
-    val regexp = ("^" + name).r
+    val namePattern = Pattern.compile("^" +name, Pattern.CASE_INSENSITIVE)
+    //val regexp =("^" + namePattern).r
     var classes: List[Class] = List()
-    val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> regexp)).toList
+    val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
     (classFound.isEmpty) match {
       case true =>
       case false => classes ++= classFound
