@@ -285,8 +285,7 @@ BS.ClassView = Backbone.View.extend({
 					{
 						sId = [];
 					}
-					console.log(sId);
-					console.log(sId.pop());
+					 
 					classModel.set({
 						
 						schoolId :  $('#school-' + i).val(),
@@ -296,7 +295,7 @@ BS.ClassView = Backbone.View.extend({
 						className : $('#class-name-' + i + '-' + j).val(),
 						startingDate : $('#date-started-' + i + '-' + j).val(),
 						classType : $('#semester-' + i + '-' + j).val(),
-						streamId  :sId
+						streamId  : {"id" : $('#stream-id-'+ i + '-' + j).val()}
 					});
 					classes.add(classModel);
 				}
