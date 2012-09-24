@@ -10,6 +10,7 @@ BS.BasicProfile = Backbone.Model.extend({
             firstName:null,
             lastName:null,
             location:null,
+            profile:null,
             useCurrentLocation:null,
         },
         

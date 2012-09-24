@@ -123,6 +123,7 @@ BS.RegistrationView = Backbone.View.extend({
 			firstName : $('#first-name').val(),
 			lastName : $('#last-name').val(),
 			location : $('#location').val(),
+			profile :"",
 			useCurrentLocation : useCurrentLocation,
 
 		});
