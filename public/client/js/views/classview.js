@@ -58,7 +58,7 @@ BS.ClassView = Backbone.View.extend({
 						},
 						dataType : "json",
 						success : function(data) {
-							if(data.status == "Success")
+							if(data)
 							{
 								 
 								$('.studentno-popup-class').fadeOut("medium"); 
@@ -74,7 +74,7 @@ BS.ClassView = Backbone.View.extend({
 							}
 							else
 							{
-								$('#error').html(data.message);
+//								$('#error').html(data.message);
 							}
 							
 						}
@@ -165,20 +165,20 @@ BS.ClassView = Backbone.View.extend({
 					},
 					dataType : "json",
 					success : function(data) {
-						if(data.status == "Success")
+						if(data)
 						{
 							$('.studentno-popup-class').fadeOut("medium"); 
 							self.fetchSchools();
 							BS.editProfile = false;
 							BS.classBack = true;
-							localStorage["classInfo"] =JSON.stringify(data.classes);
-							console.log("gg:"+data.classes.length)
+							localStorage["classInfo"] =JSON.stringify(data);
+							
 							// navigate to main stream page
 							BS.AppRouter.navigate("profile", {trigger: true});
 						}
 						else
 						{
-							$('#error').html(data.message);
+//							$('#error').html(data.message);
 						}
 					}
 				});
@@ -701,6 +701,7 @@ BS.ClassView = Backbone.View.extend({
  			url : BS.schoolJson,
  			dataType : "json",
  			success : function(datas) {
+ 				 
  				var select = '';
  				 _.each(datas, function(data) {
  				        select+= '<option value ="'+data.assosiatedSchoolId.id+'">'+data.schoolName+'</option>';
@@ -708,7 +709,7 @@ BS.ClassView = Backbone.View.extend({
  				localStorage["schoolList"] =select;
  			}
  		});
-  
+     
     	
     }
   
