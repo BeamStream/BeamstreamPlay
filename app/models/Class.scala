@@ -62,15 +62,14 @@ object Class {
       //TODO:var classIdList: List[ObjectId] = List()
 
       for (eachclass <- classList) {
-        println(eachclass+"PPPPPPPPPPPPPPPPP")
         val classesobtained = Class.findClassListById(eachclass.id)
         if (!classesobtained.isEmpty) {
           println("Join Stream Case")
           Stream.joinStream(classesobtained(0).streams(0), userId)
           //classIdList ++= List(getClassByCode(eachclass)(0).id)
           User.addClassToUser(userId, List(eachclass.id))
-          ClassDAO.update(MongoDBObject("_id" -> eachclass.id), eachclass, false, false, new WriteConcern) // Edit Class Case
-          println(eachclass.streams(0)+"LLLLLLLLLLLLLLLLLL")
+//          ClassDAO.update(MongoDBObject("_id" -> eachclass.id), eachclass, false, false, new WriteConcern) // Edit Class Case
+//          println(eachclass.streams(0)+"LLLLLLLLLLLLLLLLLL")
 //          val streamOfTheComingClass = Stream.findStreamById(eachclass.streams(0))
 //          StreamDAO.update(MongoDBObject("_id" -> eachclass.streams(0)), streamOfTheComingClass.copy(streamName = eachclass.className), false, false, new WriteConcern)
 
