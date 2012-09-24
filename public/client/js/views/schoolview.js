@@ -18,6 +18,7 @@ BS.SchoolView = Backbone.View.extend({
     	
         console.log('Initializing School View');
         BS.schoolBack = false;
+        BS.newSchool = '';
 		this.source = $("#tpl-school-reg").html();
 		this.template = Handlebars.compile(this.source);
     },
@@ -54,6 +55,7 @@ BS.SchoolView = Backbone.View.extend({
     	var self =this;
         if(text)
         {
+        	BS.newSchool = text;
 			/* post the text that we type to get matched school */
 			 $.ajax({
 				type : 'POST',

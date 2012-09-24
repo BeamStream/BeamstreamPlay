@@ -76,7 +76,7 @@ BS.AppRouter = Backbone.Router.extend({
     login: function() {
     	 localStorage.clear();
     	 localStorage["idLogin"]= '';
-    	 
+    	 console.log("BeamstreamPlay");
     	 $('#school-popup').children().detach(); 
     	 var self =this;
     	 BS.loginView = new BS.LoginView();
@@ -191,7 +191,7 @@ BS.AppRouter = Backbone.Router.extend({
 	         BS.schoolView.render();
 	         
 	         $('#school-popup').html(BS.schoolView.el);
-	         $('#school-name-1').focus();
+	         
 	         current = 1;
 	         if(BS.schoolFromPrev)
 	         {
@@ -243,7 +243,6 @@ BS.AppRouter = Backbone.Router.extend({
     	
     	if(localStorage["classInfo"])
     	{
-    		
     		 BS.classView = new BS.ClassView();
              BS.classView.render();
              $('#school-popup').html(BS.classView.el);
@@ -255,9 +254,12 @@ BS.AppRouter = Backbone.Router.extend({
 	         
 	         var classPack ;
 	         sClasses = 0;
+	         var schools = localStorage["schoolList"];
+	         console.log(schools)
 	         while(totalClasses > 0)
 	         {
 	        	 var i = 0;
+	        	 // slice the class array according to their schoolId
 	        	 var c_schoolId = classInfo[0].schoolId.id;
 	        	 console.log("c_schoolId" + c_schoolId);
 	        	 for(var j=0 ; j<totalClasses ; j++)
@@ -272,29 +274,73 @@ BS.AppRouter = Backbone.Router.extend({
 	        		 }
 	        	 }
 
-	        	 console.log("sClasses---" +sClasses);
 	        	 classPack = classInfo.splice(0,i);
 	        	 sClasses++;
 	        	 console.log("sClasses " +sClasses);
-	        	 console.log("totalClasses " +totalClasses);
-	        	 console.log("classPack  " +classPack);
 	        	 
-	        	 //test
-	        	 _.each(classPack, function(model) {
-	        		 console.log(model);
-	        	 });
 	        	 
-				  var datas = {
-							"data" : classPack,
+				 var count = {
 							"sCount" : sClasses,
-							"times" : BS.times
-				  }
-				  var source = $("#edit-class").html();
-				  var template = Handlebars.compile(source);
-				  $('#class-list').append(template(datas));
-//				  BS.classView.renderSchools();
+				 }
+				 var source = $("#edit-class").html();
+				 var template = Handlebars.compile(source);
+				 $('#class-list').append(template(count));
+				 
+				 // add all schools to school list
+				 var addSchoolList = '<select id="school-'+sClasses+'" class="large all-schools">'+schools+'</select>'; 
+				 $('#school-list-'+sClasses).html(addSchoolList);
+				 
+				 //selected the schoolName from list
+				 $('#school-'+sClasses+' option[value="'+c_schoolId+'"]').attr('selected', 'selected');
+				 var schoolName = $('#school-'+sClasses+' option[value="'+c_schoolId+'"]').val();
+				 $('#school-list-'+sClasses+' a span.selectBox-label').html(schoolName);
+				 
+ 
+				 
+				 $(".modal select:visible").selectBox();
+				 
+				 var orgLength =  classPack.length;
+				 var cInt = 0;
+				 for(var k=0;k<3;k++)
+				 {
+					 console.log(classPack[k]);
+					 console.log(classPack.length);
+					 cInt++;
+					 var singleClassInfo ={
+							 "data" : classPack[k],
+							 "sCount" : sClasses,
+							 "times" : BS.times,
+							 "cInt" :cInt
+					 }
+					 var source = $("#single-class").html();
+					 var template = Handlebars.compile(source);
+					 $("#classes_under_a_school-"+sClasses).append(template(singleClassInfo));
+					 
+					 console.log("classPack[k].classTime" + classPack[k].classTime);
+					 
+					 //set time 
+//					 $('#class-time-'+sClasses+'-'+cInt).val(classPack[k].classTime);
+					 $('#div-time-'+sClasses+'-'+cInt+' a span.selectBox-label').html(classPack[k].classTime);
+					 
+					 //set date
+					 $('#date-started-'+sClasses+'-'+cInt).val(classPack[k].startingDate);
+					 
+					 //set class type
+					 $('#semester-'+sClasses+'-'+cInt+' option[value="'+classPack[k].classType+'"]').attr('selected', 'selected');
+					 if(classPack[k].classType == "quarter")
+					 {
+						 $('#div-school-type-'+sClasses+'-'+cInt+' a span.selectBox-label').html("Quarter");
+					 }
+					 else
+					 {
+						 $('#div-school-type-'+sClasses+'-'+cInt+' a span.selectBox-label').html("Semester");
+					 }
+				 }	 
+
 				  totalClasses = classInfo.length;
-	         }
+				  console.log("totalClasses" + totalClasses);
+	          }
+	        
 	         
 					 
 					$(".modal select:visible").selectBox();

@@ -7,7 +7,7 @@ BS.ProfileView = Backbone.View.extend({
 	      'change #my-video' :'displayVideo',
 	      'click .delete-image' :'deleteSelectedImage',
 	      'click .delete-video' :'deleteSelectedVideo',
-	       'keyup #mobile' : "checkNumber",
+	      'keyup #mobile' : "checkNumber",
 	      'focusout #mobile' : "arragePhone",
 	      'click .close-button' : "closeScreen",
 //	      'click .back' :'backToPrevious',

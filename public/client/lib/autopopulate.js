@@ -2863,6 +2863,7 @@ bounceslide:function(a){
                    * Edited by Aswathy 
                    * for +Add New School option in autopopulate
                    * */
+                console.log(e.value);
                   if(!e.value)
                   {
                 	  var parentId = b.element.attr('id');
