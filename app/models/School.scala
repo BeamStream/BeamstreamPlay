@@ -25,9 +25,7 @@ object School {
    */
 
   def getAllSchoolsFromDB(patternReceived: String): List[School] = {
-    //    val regexp = ("^" + startsWith).r
     val namePattern = Pattern.compile(patternReceived, Pattern.CASE_INSENSITIVE)
-    // val regexp = (patternReceived).r
     SchoolDAO.find(MongoDBObject("schoolName" -> namePattern)).toList
   }
 
