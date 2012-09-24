@@ -316,24 +316,26 @@ BS.AppRouter = Backbone.Router.extend({
 					 var template = Handlebars.compile(source);
 					 $("#classes_under_a_school-"+sClasses).append(template(singleClassInfo));
 					 
-					 console.log("classPack[k].classTime" + classPack[k].classTime);
 					 
-					 //set time 
-//					 $('#class-time-'+sClasses+'-'+cInt).val(classPack[k].classTime);
-					 $('#div-time-'+sClasses+'-'+cInt+' a span.selectBox-label').html(classPack[k].classTime);
-					 
-					 //set date
-					 $('#date-started-'+sClasses+'-'+cInt).val(classPack[k].startingDate);
-					 
-					 //set class type
-					 $('#semester-'+sClasses+'-'+cInt+' option[value="'+classPack[k].classType+'"]').attr('selected', 'selected');
-					 if(classPack[k].classType == "quarter")
+					 if(k <= orgLength-1)
 					 {
-						 $('#div-school-type-'+sClasses+'-'+cInt+' a span.selectBox-label').html("Quarter");
-					 }
-					 else
-					 {
-						 $('#div-school-type-'+sClasses+'-'+cInt+' a span.selectBox-label').html("Semester");
+						 //set time 
+						 $('#class-time-'+sClasses+'-'+cInt).val(classPack[k].classTime);
+						 $('#div-time-'+sClasses+'-'+cInt+' a span.selectBox-label').html(classPack[k].classTime);
+						 
+						 //set date
+						 $('#date-started-'+sClasses+'-'+cInt).val(classPack[k].startingDate);
+						 
+						 //set class type
+						 $('#semester-'+sClasses+'-'+cInt+' option[value="'+classPack[k].classType+'"]').attr('selected', 'selected');
+						 if(classPack[k].classType == "quarter")
+						 {
+							 $('#div-school-type-'+sClasses+'-'+cInt+' a span.selectBox-label').html("Quarter");
+						 }
+						 else
+						 {
+							 $('#div-school-type-'+sClasses+'-'+cInt+' a span.selectBox-label').html("Semester");
+						 }
 					 }
 				 }	 
 

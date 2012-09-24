@@ -10,7 +10,7 @@ BS.ProfileView = Backbone.View.extend({
 	      'keyup #mobile' : "checkNumber",
 	      'focusout #mobile' : "arragePhone",
 	      'click .close-button' : "closeScreen",
-//	      'click .back' :'backToPrevious',
+	      'click .back' :'backToPrevious',
 	      'click .profile-radio': "selectImageStatus",
 	      
 	 },
