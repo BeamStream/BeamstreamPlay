@@ -69,6 +69,8 @@ object Class {
           //classIdList ++= List(getClassByCode(eachclass)(0).id)
           User.addClassToUser(userId, List(eachclass.id))
           ClassDAO.update(MongoDBObject("_id" -> eachclass.id), eachclass, false, false, new WriteConcern) // Edit Class Case
+          val streamOfTheComingClass = Stream.findStreamById(eachclass.streams(0))
+          StreamDAO.update(MongoDBObject("_id" -> eachclass.streams(0)), streamOfTheComingClass.copy(streamName = eachclass.className), false, false, new WriteConcern)
 
         } else {
           println("Create class Case")
@@ -94,21 +96,21 @@ object Class {
     ClassDAO.remove(myclass)
   }
 
-//  /*
-//   * Finding the class by Name
-//   */
-//
-//  def findClassByName(name: String): List[Class] = {
-//    val regexp = (""".*""" + name + """.*""").r
-//    for (theclass <- ClassDAO.find(MongoDBObject("className" -> regexp)).toList) yield theclass
-//  }
+  //  /*
+  //   * Finding the class by Name
+  //   */
+  //
+  //  def findClassByName(name: String): List[Class] = {
+  //    val regexp = (""".*""" + name + """.*""").r
+  //    for (theclass <- ClassDAO.find(MongoDBObject("className" -> regexp)).toList) yield theclass
+  //  }
 
   /*
    * Finding the class by Code
    */
 
   def findClassByCode(code: String, schoolId: ObjectId): List[Class] = {
-     val codePattern = Pattern.compile("^" +code, Pattern.CASE_INSENSITIVE)
+    val codePattern = Pattern.compile("^" + code, Pattern.CASE_INSENSITIVE)
     //val regexp = ("^" + code).r
     var classes: List[Class] = List()
     val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "classCode" -> codePattern)).toList
@@ -124,7 +126,7 @@ object Class {
    */
 
   def findClassByName(name: String, schoolId: ObjectId): List[Class] = {
-    val namePattern = Pattern.compile("^" +name, Pattern.CASE_INSENSITIVE)
+    val namePattern = Pattern.compile("^" + name, Pattern.CASE_INSENSITIVE)
     //val regexp =("^" + namePattern).r
     var classes: List[Class] = List()
     val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
@@ -201,6 +203,19 @@ object Class {
     val classesIdsOfAUser = Class.getAllClassesIdsForAUser(userId)
     val classesOfAUser = getAllClasses(classesIdsOfAUser)
     classesOfAUser
+  }
+
+  /**
+   * Get All Refreshed Classes
+   */
+
+  def getAllRefreshedClasss(classes: List[Class]): List[Class] = {
+    var classList: List[Class] = List()
+    for (eachClass <- classes) {
+      val classObtained = ClassDAO.find(MongoDBObject("_id" -> eachClass.id)).toList
+      classList ++= classObtained
+    }
+    classList
   }
 
 }

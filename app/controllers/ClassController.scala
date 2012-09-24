@@ -43,7 +43,8 @@ object ClassController extends Controller {
     //        User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
     //        Ok(write(new ResulttoSent("Success", "User has successfully added his classes")))
     //    }
-    Ok(write(new ClassResulttoSent(resultToSent.status, resultToSent.message, classList))).as("application/json")
+    val refreshedClasses = Class.getAllRefreshedClasss(classList)
+    Ok(write(new ClassResulttoSent(resultToSent.status, resultToSent.message, refreshedClasses))).as("application/json")
   }
 
   /*
