@@ -657,14 +657,14 @@ BS.ClassView = Backbone.View.extend({
 		 {
 			  
 		     this.classId =1;
-		     
+//		     
 		     $('#student-number-'+identity).fadeOut("medium"); 
-		     $('#class-code-'+identity).val("");
-			 $('#date-started-'+identity).val($.datepicker.formatDate('mm/dd/yy', new Date()));
-			 $('#semester-'+identity+' option:selected').attr('selected', false);
-			 $('#semester-'+identity+' option[value="semester"]').attr('selected', 'selected');
-			 $('#div-school-type-'+identity+' a span.selectBox-label').html("Semester");
-			 $(".modal select:visible").selectBox();
+//		     $('#class-code-'+identity).val("");
+//			 $('#date-started-'+identity).val($.datepicker.formatDate('mm/dd/yy', new Date()));
+//			 $('#semester-'+identity+' option:selected').attr('selected', false);
+//			 $('#semester-'+identity+' option[value="semester"]').attr('selected', 'selected');
+//			 $('#div-school-type-'+identity+' a span.selectBox-label').html("Semester");
+//			 $(".modal select:visible").selectBox();
 		 }
     },
     /*

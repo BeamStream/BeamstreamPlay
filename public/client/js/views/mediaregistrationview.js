@@ -149,6 +149,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 				firstName : $('#first-name').val(),
 				lastName : $('#last-name').val(),
 				location : $('#location').val(),
+				profile : localStorage["identifier"],
 				useCurrentLocation : useCurrentLocation,
 	
 			});

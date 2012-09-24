@@ -3606,6 +3606,8 @@ $(window).bind("load", function() {
 															BS.JsonFromSocialSite = res;
 															if (res.profile.preferredUsername)
 																localStorage["preferredUsername"] = res.profile.preferredUsername;
+															if(res.profile.identifier)
+																localStorage["identifier"] = res.profile.identifier;
 															var loginModel = new BS.Login();
 															loginModel
 																	.set({
