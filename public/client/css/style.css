@@ -2143,3 +2143,6 @@ label.error {
 	padding: 0px !important;
 /* 	text-decoration : underline !important; */
 }
+.profile a:hover{
+	text-decoration : underline !important;
+}
