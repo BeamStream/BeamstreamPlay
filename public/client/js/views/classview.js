@@ -47,6 +47,7 @@ BS.ClassView = Backbone.View.extend({
 		    {
 				$('#save').attr('data-dismiss','modal');
 				var classDetails = this.getClassInfo();
+				 
 				if(classDetails != false)
 				{
 					/* post data with school and class details */
@@ -60,7 +61,6 @@ BS.ClassView = Backbone.View.extend({
 						success : function(data) {
 							if(data)
 							{
-								 
 								$('.studentno-popup-class').fadeOut("medium"); 
 								BS.schoolBack = false;
 								BS.regBack = false;
@@ -285,7 +285,8 @@ BS.ClassView = Backbone.View.extend({
 					{
 						sId = [];
 					}
-					
+					console.log(sId);
+					console.log(sId.pop());
 					classModel.set({
 						
 						schoolId :  $('#school-' + i).val(),
@@ -313,6 +314,8 @@ BS.ClassView = Backbone.View.extend({
 		if(validClass == true)
 		{
 			var classDetails = JSON.stringify(classes);
+			
+			
 			return classDetails;
 		}
 		else

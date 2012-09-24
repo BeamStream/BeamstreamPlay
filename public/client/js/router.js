@@ -511,7 +511,7 @@ BS.AppRouter = Backbone.Router.extend({
 		   				  
 			   			 _.each(datas, function(data) {
 //			   				 mySchools+= data.schoolName+' ,';
-			   				mySchools+='<li>'+data.schoolName+'</i>sssssssss</li>'; 
+			   				mySchools+='<li>'+data.schoolName+'</i></li>'; 
 						 });
 			   			 var orgName = mySchools.substring(0, mySchools.length - 1);
 
