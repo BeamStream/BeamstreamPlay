@@ -1907,6 +1907,7 @@ $(window).bind("load", function() {
 
                     <input type="text" name="class-name-{{sCount}}-1" id="class-name-{{sCount}}-1" class="required medium class_name" placeholder="Class 1 name">
                     <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
+ 					<input type="hidden" value="" id="stream-id-{{sCount}}-1">
                    </div>
                       
           <div class="element" id="div-time-{{sCount}}-1">
@@ -1941,6 +1942,7 @@ $(window).bind("load", function() {
               <label id="lb-class-name-2" value = "">Class name</label>
               <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
                <input type="hidden" value="" id="h-class-name-{{sCount}}-2">
+				<input type="hidden" value="" id="stream-id-{{sCount}}-2">
          </div>
          <div class="element" id="div-time-{{sCount}}-2">
               <label for="class-time-2">Class time</label>
@@ -1975,6 +1977,7 @@ $(window).bind("load", function() {
                <label id="lb-class-name-3" value="">Class name</label>
                <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
                 <input type="hidden" value="" id="h-class-name-{{sCount}}-3">
+				<input type="hidden" value="" id="stream-id-{{sCount}}-3">
            </div>
           <div class="element" id="div-time-{{sCount}}-3">
                <label for="class-time-3">Class time</label>
@@ -2045,6 +2048,8 @@ $(window).bind("load", function() {
 				id="class-name-{{sCount}}-{{cInt}}" value="{{data.className}}"
 				class="medium class_name" placeholder="Class {{cInt}} name">
 			<input type="hidden" value="{{data.id.id}}" id="h-class-name-{{sCount}}-{{cInt}}">
+			 <input type="hidden" value="{{sId}}" id="stream-id-{{sCount}}-{{cInt}}">
+             
 		</div>
 
 		<div class="element" id="div-time-{{sCount}}-{{cInt}}">
@@ -2087,6 +2092,7 @@ $(window).bind("load", function() {
 
               <input type="text" name="for="class-name-{{sCount}}-1" id="class-name-{{sCount}}-1" class="required medium class_name" placeholder="Class 1 name">
               <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
+			 <input type="hidden" value="" id="stream-id-{{sCount}}-1">
           </div>
           
           <div class="element" id="div-time-{{sCount}}-1">
@@ -2121,6 +2127,7 @@ $(window).bind("load", function() {
               <label id="lb-class-name-2" value="">Class name</label>
               <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
 			 <input type="hidden" value="" id="h-class-name-{{sCount}}-2">
+			<input type="hidden" value="" id="stream-id-{{sCount}}-2">
          </div>
          <div class="element" id="div-time-{{sCount}}-2">
               <label for="class-time-2">Class time</label>
@@ -2155,6 +2162,7 @@ $(window).bind("load", function() {
                <label id="lb-class-name-3" value="">Class name</label>
                <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
                 <input type="hidden" value="" id="h-class-name-{{sCount}}-3">
+				<input type="hidden" value="" id="stream-id-{{sCount}}-3">
            </div>
           <div class="element" id="div-time-{{sCount}}-3">
                <label for="class-time-3">Class time</label>
@@ -2397,10 +2405,11 @@ $(window).bind("load", function() {
               </section> 
               <section class="user_profile_info">
                 <ul class="nav nav-list">
-                  <li class="screen_name">{{firstName}} {{lastName}}</li>
-                  <li class="location"><i class="icon-location"></i> {{location}}</li>
-                  <li class="occupation"><i class="icon-silhouette"></i>{{userType.name}}</li>
-                 <li class="orgName"><i class="icon-org"></i>{{orgName}}</li>
+                  <li class="screen_name">{{data.firstName}} {{data.lastName}}</li>
+				 <li class="profile"><a href="{{data.socialProfile}}">{{data.socialProfile}}</a></li>	
+                  <li class="location"><i class="icon-location"></i> {{data.location}}</li>
+                  <li class="occupation"><i class="icon-silhouette"></i>{{data.userType.name}}</li>
+                  <li class="orgName"><i class="icon-org"></i>{{data.orgName}}</li>
                   <li class="social_links">
                     <div class="btn-group">
                       <a href="#" class="btn btn-flat"><i class="icon-twitter"></i></a>
@@ -2484,7 +2493,7 @@ $(window).bind("load", function() {
                         <div class="photo_container">
                           <img id="msg-photo" src="" width="99" height="75">
                         </div>
-                        <span class="username">{{firstName}} {{lastName}}</span>
+                        <span class="username">{{data.firstName}} {{data.lastName}}</span>
                       </label>
                       <div class="controls">
                         <span class="popout_arrow"><span></span></span>

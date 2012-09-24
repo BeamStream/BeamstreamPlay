@@ -270,8 +270,6 @@ BS.SchoolView = Backbone.View.extend({
 				$('#degree-exp-'+currentid).hide();
 				$('#cal-'+currentid).hide();
 		  }
-		  
-    	     
       },
       
       /**

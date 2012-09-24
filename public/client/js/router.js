@@ -33,7 +33,7 @@ BS.AppRouter = Backbone.Router.extend({
     	var self = this;
     	BS.idLogin = '';
         BS.user = new BS.SingleUser();
-
+        BS.mySchools = '';
     	/* calculate time from 12:00AM to 11:45PM */
     	var timeValues = new Array;
   		var hours, minutes, ampm;
@@ -55,6 +55,7 @@ BS.AppRouter = Backbone.Router.extend({
   		
   		// set status variable to check whether its a edit school/class/profile 
   		BS.editSchool = true;
+//  		localStorage["editSchool"] ='';
   		BS.editClass = true;
   		BS.editProfile = true;
   		
@@ -303,14 +304,23 @@ BS.AppRouter = Backbone.Router.extend({
 				 var cInt = 0;
 				 for(var k=0;k<3;k++)
 				 {
-					 console.log(classPack[k]);
-					 console.log(classPack.length);
+					 var sId = '';
+					 if(k <= orgLength-1)
+					 {
+						 sId = classPack[k].streams[0].id;
+						 console.log(sId)
+					 }
+					 else
+					 {
+						 sId = '';
+					 }
 					 cInt++;
 					 var singleClassInfo ={
 							 "data" : classPack[k],
 							 "sCount" : sClasses,
 							 "times" : BS.times,
-							 "cInt" :cInt
+							 "cInt" :cInt,
+							 "sId" :sId
 					 }
 					 var source = $("#single-class").html();
 					 var template = Handlebars.compile(source);
@@ -438,13 +448,13 @@ BS.AppRouter = Backbone.Router.extend({
 	   $('nav li a#streamsGroups').parents('li').addClass('active');
 	   var self = this;
 	  
- 
+           
 		   $('#school-popup').children().detach(); 
 		   $('#content').children().detach();
 		   
 		   $('.modal').css('display','none');
 		   BS.user.fetch({ success:function(e) {
-			   
+			  
 			   //store logged user details
 		       BS.loggedUserInfo  = e;
 		       localStorage["loggedUserInfo"] = e.attributes.id.id;
@@ -492,8 +502,22 @@ BS.AppRouter = Backbone.Router.extend({
 		    			}
 		    	   });
 		          
+		          // list all schools under profile pic
+		          $.ajax({
+		   			url : BS.schoolJson,
+		   			dataType : "json",
+		   			success : function(datas) {
+		   				  var mySchools = '';
+			   			 _.each(datas, function(data) {
+			   				 mySchools+= data.schoolName+' ,';
+						 });
+			   			 var orgName = mySchools.substring(0, mySchools.length - 1);
+
+			   			$('.orgName').html(orgName);
+		   			 }
+		   		    });
 		          
-		          
+		    
 	   	   $('.modal-backdrop').hide();
 	       $('#content').html(BS.streamView.el);
 	      

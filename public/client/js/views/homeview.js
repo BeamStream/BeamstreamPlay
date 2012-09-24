@@ -64,6 +64,7 @@ BS.NavView = Backbone.View.extend({
     	  
     	 eventName.preventDefault();
     	 BS.editSchool = true;
+//    	 localStorage["editSchool"]=true;
     	 BS.AppRouter.navigate("school", {trigger: true});
   
     },

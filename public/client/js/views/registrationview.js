@@ -164,6 +164,7 @@ BS.RegistrationView = Backbone.View.extend({
 						localStorage["regInfo"] =JSON.stringify(data); 
 						BS.regBack = true;
 						BS.editSchool = false;
+//						localStorage["editSchool"] = false;
 						//set status for school back page
 						BS.resistrationPage = "basic";
 	   					 

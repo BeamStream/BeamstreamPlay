@@ -57,7 +57,7 @@ BS.StreamView = Backbone.View.extend({
 	    this.shown = false;
 	    this.trigger = $('.trigger');
 	    this.popup = $('.popup').css('opacity', 0);
-    	 
+	    
 		this.source = $("#tpl-main-stream").html();
 		this.template = Handlebars.compile(this.source);
 //		this.slider();
@@ -128,7 +128,8 @@ BS.StreamView = Backbone.View.extend({
     render:function (eventName) {
         
        this.getStreams();
-       $(this.el).html(this.template(this.model.toJSON()));
+
+       $(this.el).html(this.template({"data":this.model.toJSON(),"schools" : BS.mySchools}));
         
        return this;
     },

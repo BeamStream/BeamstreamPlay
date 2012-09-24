@@ -262,6 +262,7 @@ BS.ClassView = Backbone.View.extend({
 			for(var j=1; j<=3; j++)
 			{
 				var cId;
+				var sId =[];
 				var classModel = new BS.Class();
 				
 					 
@@ -276,6 +277,14 @@ BS.ClassView = Backbone.View.extend({
 					{
 						cId = classId;
 					}
+					if($('#stream-id-'+ i + '-' + j).val())
+					{
+						sId.push({"id" : $('#stream-id-'+ i + '-' + j).val()});
+					}
+					else
+					{
+						sId = [];
+					}
 					
 					classModel.set({
 						
@@ -285,7 +294,8 @@ BS.ClassView = Backbone.View.extend({
 						classTime : $('#class-time-' + i + '-' + j).val(),
 						className : $('#class-name-' + i + '-' + j).val(),
 						startingDate : $('#date-started-' + i + '-' + j).val(),
-						classType : $('#semester-' + i + '-' + j).val()
+						classType : $('#semester-' + i + '-' + j).val(),
+						streamId  :sId
 					});
 					classes.add(classModel);
 				}
@@ -445,6 +455,7 @@ BS.ClassView = Backbone.View.extend({
 			 this.classId = classId;
 			 
 			 $('#h-class-name-'+identity).val(classId);
+			 $('#stream-id-'+identity).val(streamId);
 			 $('#class-name-'+identity).val(className);
 			 $('#class-time-'+identity).val(classTime);
 			 $('#date-started-'+identity).val(date);
@@ -619,6 +630,7 @@ BS.ClassView = Backbone.View.extend({
 			 this.classId = classId;
 			 
 			 $('#h-class-name-'+identity).val(classId);
+			 $('#stream-id-'+identity).val(streamId);
 			 $('#class-code-'+identity).val(classCode);
 			 $('#date-started-'+identity).val(date);
 			 $('#class-time-'+identity).val(classTime);

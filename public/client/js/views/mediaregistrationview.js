@@ -218,6 +218,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	    						BS.resistrationPage = "media";
 								
 								BS.editSchool = false;
+//	    						localStorage["editSchool"] = false;
 								
 								// save school name 
 								BS.schoolFromPrev =  $('#school-name').val();
