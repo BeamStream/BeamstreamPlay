@@ -42,7 +42,7 @@ BS.ImageListView = Backbone.View.extend({
                                 _.each(docs, function(doc) {  
                                 content += '<li id="file-docs-'+i+'">'  
                                 +'<div class="image-wrapper"> <div class="hover-div"><img src="images/pictures_image.png"/><div class="hover-text">'
-                                +'<div class="gallery clearfix"><a href="'+doc+'" rel="prettyPhoto"><img src="'+doc+'" width="185px" height="141px"/></a></div></div></div>'    //doc contain path of the image
+                                +'<div class="gallery clearfix"></div><div class="gallery clearfix"><a href="'+doc+'" rel="prettyPhoto"><img src="'+doc+'" width="185px" height="141px"/></a></div></div></div>'    //doc contain path of the image
                                 +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>'
                                 +'<ul class="comment-list">'
                                 +'<li><a class="eye-icon" href="#">87</a></li>'
