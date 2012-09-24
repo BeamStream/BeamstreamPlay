@@ -41,12 +41,12 @@ class ClassTest extends FunSuite with BeforeAndAfter {
 
   }
 
-  test("finding class by class name") {
-    assert(Class.findClassByName("SE").size === 2)
-    assert(Class.findClassByName("E").size === 3)
-    assert(Class.findClassByName("T").size === 1)
-
-  }
+//  test("finding class by class name") {
+//    assert(Class.findClassByName("SE").size === 2)
+//    assert(Class.findClassByName("E").size === 3)
+//    assert(Class.findClassByName("T").size === 1)
+//
+//  }
 
   test("finding class by class time") {
     assert(Class.findClassByTime("3:30").size === 3)

@@ -6,6 +6,7 @@ import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
+import java.util.regex.Pattern
 case class School(@Key("_id") id: ObjectId, schoolName: String, schoolWebsite: String)
 
 object School {
@@ -25,8 +26,9 @@ object School {
 
   def getAllSchoolsFromDB(patternReceived: String): List[School] = {
     //    val regexp = ("^" + startsWith).r
-    val regexp = (patternReceived).r
-    SchoolDAO.find(MongoDBObject("schoolName" -> regexp)).toList
+    val namePattern = Pattern.compile(patternReceived, Pattern.CASE_INSENSITIVE)
+    // val regexp = (patternReceived).r
+    SchoolDAO.find(MongoDBObject("schoolName" -> namePattern)).toList
   }
 
   /*
