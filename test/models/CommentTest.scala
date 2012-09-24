@@ -14,7 +14,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
   test("Create a new Comment and find comment by id") {
-    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "","", List(), List(), List(), List(), List())
     val userId = User.createUser(user)
 
     val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId), true, List())
@@ -32,7 +32,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Rocking the comment & Rockers List") {
-    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus","", "", List(), List(), List(), List(), List())
     val userId = User.createUser(user)
 
     val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId), true, List())
@@ -48,7 +48,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Get All Comments For A Model") {
-    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "","", List(), List(), List(), List(), List())
     val userId = User.createUser(user)
 
     val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId), true, List())
@@ -69,7 +69,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Testing the Visitors Pattern") {
-    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(), List())
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "","", List(), List(), List(), List(), List())
     val userId = User.createUser(user)
 
     val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId), true, List())

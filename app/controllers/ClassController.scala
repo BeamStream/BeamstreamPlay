@@ -17,7 +17,6 @@ import models.UserSchool
 import models.User
 import models.ResulttoSent
 import models.Class
-import models.ClassResulttoSent
 
 object ClassController extends Controller {
 
@@ -44,7 +43,7 @@ object ClassController extends Controller {
     //        Ok(write(new ResulttoSent("Success", "User has successfully added his classes")))
     //    }
     val refreshedClasses = Class.getAllRefreshedClasss(classList)
-    Ok(write(new ClassResulttoSent(resultToSent.status, resultToSent.message, refreshedClasses))).as("application/json")
+    Ok(write((refreshedClasses))).as("application/json")
   }
 
   /*
