@@ -2139,3 +2139,7 @@ label.error {
 /* 	 background-color: #14A8AD !important; */
 	 cursor :pointer !important;
 }
+.profile a{
+	padding: 0px !important;
+/* 	text-decoration : underline !important; */
+}

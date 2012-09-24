@@ -508,12 +508,14 @@ BS.AppRouter = Backbone.Router.extend({
 		   			dataType : "json",
 		   			success : function(datas) {
 		   				  var mySchools = '';
+		   				  
 			   			 _.each(datas, function(data) {
-			   				 mySchools+= data.schoolName+' ,';
+//			   				 mySchools+= data.schoolName+' ,';
+			   				mySchools+='<li>'+data.schoolName+'</i>sssssssss</li>'; 
 						 });
 			   			 var orgName = mySchools.substring(0, mySchools.length - 1);
 
-			   			$('.orgName').html(orgName);
+			   			$('#myschool-list').html(mySchools);
 		   			 }
 		   		    });
 		          
