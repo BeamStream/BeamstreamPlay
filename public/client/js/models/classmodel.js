@@ -10,7 +10,7 @@ BS.Class = Backbone.Model.extend({
             className:null,
             startingDate:null,
             classType:null,
-            streams :null
+//            streams :null
 
         },
         
