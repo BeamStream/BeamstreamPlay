@@ -15,6 +15,8 @@ import java.util.regex.Pattern
 import java.text._
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
+import utils.ObjectIdSerializer
+import utils.CollectionSerializer
 
 case class Class(@Key("_id") id: ObjectId,
   classCode: String,
@@ -29,7 +31,6 @@ object Class {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
   implicit val formats = DefaultFormats
-
   /*
    * Create the new Classes
    */
@@ -62,16 +63,23 @@ object Class {
       //TODO:var classIdList: List[ObjectId] = List()
 
       for (eachclass <- classList) {
+        println(eachclass)
         val classesobtained = Class.findClassListById(eachclass.id)
         if (!classesobtained.isEmpty) {
           println("Join Stream Case")
           Stream.joinStream(classesobtained(0).streams(0), userId)
-          //classIdList ++= List(getClassByCode(eachclass)(0).id)
           User.addClassToUser(userId, List(eachclass.id))
-//          ClassDAO.update(MongoDBObject("_id" -> eachclass.id), eachclass, false, false, new WriteConcern) // Edit Class Case
-//          println(eachclass.streams(0)+"LLLLLLLLLLLLLLLLLL")
-//          val streamOfTheComingClass = Stream.findStreamById(eachclass.streams(0))
-//          StreamDAO.update(MongoDBObject("_id" -> eachclass.streams(0)), streamOfTheComingClass.copy(streamName = eachclass.className), false, false, new WriteConcern)
+
+          val classObtained = Class.findClassListById(eachclass.id)
+          ClassDAO.update(MongoDBObject("_id" -> eachclass.id), classObtained(0).copy(
+            classCode = eachclass.classCode,
+            className = eachclass.className,
+            classType = eachclass.classType,
+            classTime = eachclass.classTime,
+            startingDate = eachclass.startingDate), false, false, new WriteConcern)
+          //ClassDAO.update(MongoDBObject("_id" -> eachclass.id), eachclass, false, false, new WriteConcern) // Edit Class Case
+          val streamOfTheComingClass = Stream.findStreamById(classObtained(0).streams(0))
+          StreamDAO.update(MongoDBObject("_id" -> classObtained(0).streams(0)), streamOfTheComingClass.copy(streamName = eachclass.className), false, false, new WriteConcern)
 
         } else {
           println("Create class Case")

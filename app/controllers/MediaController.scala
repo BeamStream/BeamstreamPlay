@@ -20,6 +20,15 @@ import utils.ObjectIdSerializer
 import models.UserMedia
 import models.UserMediaType
 import models.ProfileImageProviderCache
+import javax.imageio.ImageWriter
+import java.awt.image.BufferedImage
+import javax.imageio.ImageIO
+import javax.imageio.ImageWriteParam
+import javax.imageio.stream.ImageOutputStream
+import java.io.OutputStream
+import javax.imageio.IIOImage
+import java.util.Iterator;
+
 object MediaController extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -130,4 +139,27 @@ object MediaController extends Controller {
     val allProfileMediaForAUser = UserMedia.getAllProfileVideoForAUser(new ObjectId(request.session.get("userId").get))
     Ok(write(allProfileMediaForAUser)).as("application/json")
   }
+
+//  def compressImage(inputImage: File, filename: String, quality: Float): File = {
+//    println(inputImage.getTotalSpace() + "Before")
+//    val compressedImageFile: File = new File("https://s3.amazonaws.com/BeamStream/" + filename);
+//    val is: InputStream = new FileInputStream(inputImage)
+//    val os: OutputStream = new FileOutputStream(compressedImageFile);
+//    val image: BufferedImage = ImageIO.read(is);
+//    val writers: Iterator[ImageWriter] = ImageIO.getImageWritersByFormatName("jpg");
+//    val writer: ImageWriter = writers.next();
+//    val ios: ImageOutputStream = ImageIO.createImageOutputStream(os);
+//    writer.setOutput(ios);
+//    val param: ImageWriteParam = writer.getDefaultWriteParam();
+//    param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+//    param.setCompressionQuality(quality);
+//    writer.write(null, new IIOImage(image, null, null), param);
+//    is.close();
+//    os.close();
+//    ios.close();
+//    writer.dispose();
+//    println(compressedImageFile.getTotalSpace() + "After")
+//    compressedImageFile
+//  }
+
 }
