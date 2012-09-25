@@ -390,6 +390,9 @@ BS.AppRouter = Backbone.Router.extend({
        BS.profileView.render();
        $('#school-popup').html(BS.profileView.el);  
        
+       //set mobile number format 
+       $("#mobile").mask("(999) 999-9999",{placeholder:" "});
+       
        $('.progress-container').hide();
        $(".modal select:visible").selectBox();
        $(".radio").dgStyle();

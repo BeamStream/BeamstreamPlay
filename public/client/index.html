@@ -147,6 +147,8 @@ body {
 <!--  for pretty  -->
 <script src="lib/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
 
+<!--  Masked Input Plugin -->
+<script src="lib/jquery.maskedinput.js" type="text/javascript"></script>
 
 
 <!--- Code to delete duplication of Janrain Component -->    
@@ -1463,6 +1465,10 @@ $(window).bind("load", function() {
 		$("#registration-form").validate();
 		$("#forgot-pass-form").validate();
 		$('#add-new-school-form').validate();
+		
+		//phone number format
+		$("#mobile").mask("(999) 999-9999");
+
 
 	});
 </script>
@@ -2295,7 +2301,7 @@ $(window).bind("load", function() {
                     <div class="element">
                         <div id="num-validation"></div>
                         <label for="mobile">Mobile <span class="star"> </span></label>
-                        <input type="text" id="mobile" name="mobile" class=" large" placeholder="(999)999-9999" >
+                        <input type="text" id="mobile" name="mobile" class=" large" placeholder="(999) 999-9999" >
                     </div>
                     <div class="element">
                         <label for="upload">Upload</label>
