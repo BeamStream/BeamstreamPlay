@@ -137,16 +137,15 @@ body {
 
 <!-----slider for stream list--->
 
-<!--<script type="text/javascript" src="lib/jquery.easing.1.3.js"></script>-->
-<!--<script type="text/javascript" src="lib/mbVerticalSlider.js"></script>-->
+<!-- <script type="text/javascript" src="lib/jquery.easing.1.3.js"></script> -->
+<!-- <script type="text/javascript" src="lib/mbVerticalSlider.js"></script> -->
 
 <!--Shuffle in media page -->
 <script type="text/javascript" src="lib/jquery.shuffle.js"></script>
 <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script>
 
 <!--  for pretty  -->
-<script src="lib/jquery.prettyPhoto.js" type="text/javascript"
-	charset="utf-8"></script>
+<script src="lib/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
 
 
 
@@ -158,7 +157,11 @@ $(window).bind("load", function() {
    	{
 		console.log("double janrain found");
 		$('.janrainContent:first').remove();
+		 
+		
 	}
+  
+   $('.janrainContent div+div').remove();
 });
 </script>
 

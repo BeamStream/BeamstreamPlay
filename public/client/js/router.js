@@ -61,7 +61,6 @@ BS.AppRouter = Backbone.Router.extend({
   		
   		//set status for school back page
   		BS.resistrationPage = '';
-   
     	
     },
  
@@ -86,11 +85,6 @@ BS.AppRouter = Backbone.Router.extend({
     	 localStorage["idLogin"] = "login";
          $('#school-popup').html(BS.loginView.el);  
          
-         //
-//         BS.jainRainView = new BS.JainRainView();
-//    	 BS.jainRainView.render();
-//    	 $('#janRain').html(BS.jainRainView.el)
-         
          $(".modal select:visible").selectBox();
      	 $("#login-form").validate();
          localStorage["regInfo"] ='';
@@ -113,7 +107,19 @@ BS.AppRouter = Backbone.Router.extend({
          /* display janRain component */
 		 setTimeout(function() {
 		    self.displayJanRain();
+		    var nu=$('#janrainEngageEmbed').children();
+			 console.log(555);
+			 if(nu.length==2)
+			 {
+					console.log("double janrain found");
+					$('.janrainContent:first').remove();
+					 					
+		     }
+			  
+			 $('.janrainContent div+div').remove();
 		 }, 1000);
+		 
+		
      	
     },
    
@@ -432,7 +438,6 @@ BS.AppRouter = Backbone.Router.extend({
 	    s.parentNode.insertBefore(e, s);
 	   
 	})();
-//       $(".radio").dgStyle();
    },
   
    
@@ -532,13 +537,13 @@ BS.AppRouter = Backbone.Router.extend({
 	           var placement = $this.parent().hasClass('tooltips-bottom') ? 'bottom' : 'top';
 	           $(this).tooltip({placement: placement});
 	       });
-//                                                  // slider for streamlist at home view (with timer),up and down scrolling button in template 
-//               setTimeout(function() {
+//            // slider for streamlist at home view (with timer),up and down scrolling button in template 
+//            setTimeout(function() {
 //	       $("#streams-list").mb_vSlider({easing:"swing",slideTimer:1000,nextEl:".vSdown",prevEl:".vSup ",height:200,width:160});
 //                                              
-//			    		    }, 500);                  
-//               
-//	        
+//           }, 500);                  
+               
+	        
 		 }});
        
    },
@@ -706,11 +711,9 @@ BS.AppRouter = Backbone.Router.extend({
 				localStorage["idLogin"]= '';
 				$('#school-popup').children().detach();
 				var self = this;
-//				if (!BS.emailView) {
-					BS.emailView = new BS.verifyEmailView();
-					BS.emailView.render();
-					
-//				}
+				
+				BS.emailView = new BS.verifyEmailView();
+				BS.emailView.render();
 				
 				localStorage["idLogin"] = "register";
 				$('#school-popup').html(BS.emailView.el);
@@ -726,8 +729,8 @@ BS.AppRouter = Backbone.Router.extend({
 			    setTimeout(function() {
 			    	self.displayJanRain();
 				 }, 1000);
-				
-				
+ 
+		     									
 			},
 
 			/**
@@ -1077,6 +1080,7 @@ BS.AppRouter = Backbone.Router.extend({
 					    s.parentNode.insertBefore(e, s);
 					})();
 				 }
+				 
 				 $('#load-janRain').css("display","none");
 				
 			},
