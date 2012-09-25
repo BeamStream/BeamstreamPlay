@@ -295,7 +295,7 @@ BS.ClassView = Backbone.View.extend({
 						className : $('#class-name-' + i + '-' + j).val(),
 						startingDate : $('#date-started-' + i + '-' + j).val(),
 						classType : $('#semester-' + i + '-' + j).val(),
-						streamId  : [{"id" : $('#stream-id-'+ i + '-' + j).val()}]
+						streams  : [{"id" : $('#stream-id-'+ i + '-' + j).val()}]
 					});
 					classes.add(classModel);
 				}
