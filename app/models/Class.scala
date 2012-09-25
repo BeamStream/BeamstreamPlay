@@ -16,7 +16,6 @@ import java.text._
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 import utils.ObjectIdSerializer
-import utils.CollectionSerializer
 
 case class Class(@Key("_id") id: ObjectId,
   classCode: String,
@@ -77,7 +76,6 @@ object Class {
             classType = eachclass.classType,
             classTime = eachclass.classTime,
             startingDate = eachclass.startingDate), false, false, new WriteConcern)
-          //ClassDAO.update(MongoDBObject("_id" -> eachclass.id), eachclass, false, false, new WriteConcern) // Edit Class Case
           val streamOfTheComingClass = Stream.findStreamById(classObtained(0).streams(0))
           StreamDAO.update(MongoDBObject("_id" -> classObtained(0).streams(0)), streamOfTheComingClass.copy(streamName = eachclass.className), false, false, new WriteConcern)
 
