@@ -11,14 +11,16 @@ import java.io.OutputStream
 import java.io.InputStream
 import javax.imageio.IIOImage
 import java.util.Iterator
+import java.io.ByteArrayOutputStream
+import java.io.ByteArrayInputStream
 
-object CompressFile {
-
-  def compressImage(inputImage: File, filename: String, quality: Float): String = {
+object CompressFile extends App{
+ val file=new File("/home/neelkanth/Entertainment/DSC00248 (copy).JPG")
+  def compressImage(inputImage : File , filename: String, quality: Float){
     println(inputImage.getTotalSpace() + "Before")
-    val compressedImageFile = new File("https://s3.amazonaws.com/BeamStream/" + filename)
+   
     val is= new FileInputStream(inputImage)
-    val os= new FileOutputStream(compressedImageFile);
+    val os= new ByteArrayOutputStream
     val image = ImageIO.read(is);
     val writers = ImageIO.getImageWritersByFormatName("jpg")
     val writer = writers.next();
@@ -32,11 +34,13 @@ object CompressFile {
     os.close();
     ios.close();
     writer.dispose();
-    println(compressedImageFile.getTotalSpace() + "After")
-    "https://s3.amazonaws.com/BeamStream/" + filename
+    println(os.size + "After")
+   	val decodedInput : InputStream =new ByteArrayInputStream(( os).toByteArray())
+    println(decodedInput)
+    
   }
-  
-  
+
+ compressImage(file,"Neel.jpg",0.1f)
    
  
 }
