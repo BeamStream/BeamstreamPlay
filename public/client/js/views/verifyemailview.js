@@ -46,6 +46,11 @@ BS.verifyEmailView = Backbone.View.extend({
     registration:function (eventName) {
     	
     	eventName.preventDefault();
+//    	$.loader({
+//			className:"blue-with-image-2",
+//			content:''
+//		});
+    	
 //    	var validate = jQuery('#email-verify').validationEngine('validate');
     	var validate = $("#email-verify").valid();
     	if(validate == true)
@@ -75,6 +80,7 @@ BS.verifyEmailView = Backbone.View.extend({
 							    $(".star").hide();
 								var source = $("#tpl-verify-popup").html();
 								var template = Handlebars.compile(source);
+//								$.loader('close');
 								$("#school-popup").html(template);
 		   			     }
 						 else if(data.status == "Failure")

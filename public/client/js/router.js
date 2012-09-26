@@ -54,13 +54,13 @@ BS.AppRouter = Backbone.Router.extend({
   		BS.times = jQuery.parseJSON(JSON.stringify(timeValues));
   		
   		// set status variable to check whether its a edit school/class/profile 
-  		BS.editSchool = true;
+//  		BS.editSchool = true;
 //  		localStorage["editSchool"] ='';
-  		BS.editClass = true;
-  		BS.editProfile = true;
+//  		BS.editClass = true;
+//  		BS.editProfile = true;
   		
   		//set status for school back page
-  		BS.resistrationPage = '';
+//  		BS.resistrationPage = '';
     	
     },
  
@@ -76,7 +76,6 @@ BS.AppRouter = Backbone.Router.extend({
     login: function() {
     	 localStorage.clear();
     	 localStorage["idLogin"]= '';
-    	 console.log("BeamstreamPlay");
     	 $('#school-popup').children().detach(); 
     	 var self =this;
     	 BS.loginView = new BS.LoginView();
@@ -108,13 +107,13 @@ BS.AppRouter = Backbone.Router.extend({
 		 setTimeout(function() {
 		    self.displayJanRain();
 		    var nu=$('#janrainEngageEmbed').children();
-			 console.log(555);
-			 if(nu.length==2)
-			 {
-					console.log("double janrain found");
-					$('.janrainContent:first').remove();
+			
+			if(nu.length==2)
+			{
+				console.log("double janrain found");
+				$('.janrainContent:first').remove();
 					 					
-		     }
+		    }
 			  
 			 $('.janrainContent div+div').remove();
 		 }, 1000);
@@ -300,6 +299,7 @@ BS.AppRouter = Backbone.Router.extend({
 				 //selected the schoolName from list
 				 $('#school-'+sClasses+' option[value="'+c_schoolId+'"]').attr('selected', 'selected');
 				 var schoolName = $('#school-'+sClasses+' option[value="'+c_schoolId+'"]').val();
+				 console.log("schoolName" + schoolName);
 				 $('#school-list-'+sClasses+' a span.selectBox-label').html(schoolName);
 				 
  
@@ -476,6 +476,10 @@ BS.AppRouter = Backbone.Router.extend({
 			   localStorage["regInfo"] ='';
 		       localStorage["schoolInfo"] ='';
 		       localStorage["classInfo"] ='';
+		       
+		       localStorage["editSchool"] = "true";
+		       localStorage["editClass"] = "true";
+		       localStorage["editProfile"] = "true";
 	   	   
 			   //get main menu
 			   this.navView = new BS.NavView({ model: BS.user });
@@ -582,10 +586,7 @@ BS.AppRouter = Backbone.Router.extend({
 		       $("#registration-form").validate();
 	    	   
 			});
-	       
-		   
-		  
-	      
+	
 	   }
        else
        {
@@ -633,6 +634,7 @@ BS.AppRouter = Backbone.Router.extend({
 				 
 				if(localStorage["regInfo"])
 				 {
+					   console.log(localStorage["regInfo"]);
 					   $('#school-popup').children().detach();
 				       var regDetails =JSON.parse(localStorage["regInfo"]);
 				       BS.mediaRegistrationView = new BS.MediaRegistrationView();
