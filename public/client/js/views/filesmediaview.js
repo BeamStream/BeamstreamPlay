@@ -20,7 +20,9 @@ BS.FilesMediaView = Backbone.View.extend({
                 "click #audio_uploadbutton":"audioUpload",
                 "click #presentations_dr":"presentationMenuList",
                 "click #presvialink_dr":"presentationVialink",
-                "click #press_uploadbutton":"presentationUpload"
+                "click #press_uploadbutton":"presentationUpload",
+           //   "click #select_dr":"selectboxdwn",
+          //    "blur #select_dr":"selectboxup"
 //              "click #profile-images":"listProfileImages",
 //              "click .google_doc" : "showDocPopup",
 //              "click .filter-options li a" : "filterDocs"
@@ -96,13 +98,17 @@ BS.FilesMediaView = Backbone.View.extend({
         /* post the documents details */
        
          var documentModel = new BS.Document();
+         if($("#gdoc-url").val().length != 0){
          documentModel.set({
                 docName : $("#gdoc-name").val(),
                 docURL : $("#gdoc-url").val(),
                 docAccess: 'Public',
                 docType: 'GoogleDocs'
           });
+            console.log('documentData=2');
+            
           var documentData = JSON.stringify(documentModel);
+     console.log(documentData);
               var self = this;
                       $.ajax({
                     type : 'POST',
@@ -121,6 +127,7 @@ BS.FilesMediaView = Backbone.View.extend({
                             }
                         }           
             });
+         }
        $("#dropdownnew").find('ul').hide(250); 
         },
       
@@ -171,7 +178,7 @@ BS.FilesMediaView = Backbone.View.extend({
         
         
          pictres : function()
-        {  
+        {  console.log("picture");
             var self = this;
             var arraypictures = new Array();
             var content='';
@@ -186,18 +193,33 @@ BS.FilesMediaView = Backbone.View.extend({
                                 },
                         dataType : "json",
                         success : function(docs) {
+//                            console.log(docs);
+//                            console.log('coverpicture');
                             if(docs.length != 0)
                             {
                                 arraypictures=docs;
                                 coverpicture=arraypictures[arraypictures.length-1];
-                                content= '<div class="image-wrapper"> <div class="hover-div"><img src="images/pictures_image.png"/><div class="hover-text">  <a id="profile-images" href="#imagelist"><img class="filmdeapicture" src="'+coverpicture+'"></a></div></div></div>'
-                                           +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>'
-                                           +'<ul class="comment-list">'
-                                           +'<li><a class="eye-icon" href="#">87</a></li>'
-                                           +'<li><a class="hand-icon" href="#">5</a></li>'
-                                           +'<li><a class="message-icon" href="#">10</a></li>'
-                                           +'</ul>'
-                                           +'</div>';
+//                                console.log(coverpicture);
+//                                 console.log('coverpicture');
+                               
+                                content= '<div class="image-wrapper hovereffect"> <div class="hover-div"><img class="filmdeapicture" src="'+coverpicture+'"><div class="hover-text">'               
+                               +'<div class="comment-wrapper comment-wrapper2">'
+                               +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
+                                +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#imagelist" style="text-decoration: none"><h4> Image Name</h4>'                            
+                                +'<p>Description for image  </p></br>'
+                                +'<h5 class="doctitle"> Title & Description</h5>'          
+                                +'<span>State</span>'
+                                +' <span class="date">datVal</span>' 
+                                +'</a></div></div></div>'
+                                +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>'
+                                +'<ul class="comment-list">'
+                                +'<li><a class="eye-icon" href="#">87</a></li>'
+                                +'<li><a class="hand-icon" href="#">5</a></li>'
+                                +'<li><a class="message-icon" href="#">10</a></li>'
+                                +'</ul>'
+                                +'</div>';
+                                       
+                                       
                                  $('#coverimage').html(content);           
                             }
                         }
@@ -375,6 +397,24 @@ BS.FilesMediaView = Backbone.View.extend({
 		 });
                  
             },
+            
+//            /*
+//             * function to change the slectbox in dropdown
+//             *
+//             */
+//            selectboxdwn: function(eventName){
+//                console.log("select down");
+//                 $(".childselect_dr").show("slide", { direction: "up" }, 250);
+//            },
+//        
+//        /**
+//         * function to change the slectbox in dropdown
+//         */
+//        selectboxup: function(){
+//           console.log("select up");
+//                
+//                 $(".childselect_dr").hide("slide", { direction: "down" }, 250);
+//        },
         
         /*
          * Function for uploadmedia 

@@ -4,7 +4,8 @@ BS.ImageListView = Backbone.View.extend({
                 "click a#file-type" : "showFilesTypes",
                 "click ul.file-type li a" : "hideList",
                 "click #prevslid" : "previous",
-                "click #nextslid" : "next"
+                "click #nextslid" : "next",
+                 "click .imgtitle" : "editImgTitle"
              },
     
         initialize:function(){
@@ -41,8 +42,23 @@ BS.ImageListView = Backbone.View.extend({
                         success : function(docs) {
                                 _.each(docs, function(doc) {  
                                 content += '<li id="file-docs-'+i+'">'  
-                                +'<div class="image-wrapper"> <div class="hover-div"><img src="images/pictures_image.png"/><div class="hover-text">'
-                                +'<div class="gallery clearfix"><a href="'+doc+'" rel="prettyPhoto"><img src="'+doc+'" width="185px" height="141px"/></a></div></div></div>'    //doc contain path of the image
+                                +'<div class="image-wrapper hovereffect"> <div class="hover-div"><img src="'+doc+'" width="185px" height="141px"/><div class="hover-text">'
+                                +'<div class="comment-wrapper comment-wrapper2">'
+                                +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
+                                +'<a href="#" class="hand-icon"></a>'
+                                +'<a href="#" class="message-icon"></a>'
+                                +'<a href="#" class="share-icon"></a>'
+                                +'</div>'
+                                +'<h4> image name</h4> ' 
+                                +'<div class="gallery clearfix"></div><div class="gallery clearfix"><a href="'+doc+'" style="text-decoration: none" rel="prettyPhoto">'
+                                +' <p class="google_doc" id="+doc.id.id+">'
+                                +'<input type="hidden" id="id-doc.id.id" value="doc.url">'
+                                +'The Power of The Platform Behance Network Join The Leading Platform For </p></a>' 
+                                +'<h5 class="imgtitle"> Title & Description</h5>'           //'id' to edit the title and description
+                                +'<span>State</span>'
+                                +' <span class="date">datVal</span>'
+                            
+                                +'</div></div></div>'    //doc contain path of the image
                                 +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>'
                                 +'<ul class="comment-list">'
                                 +'<li><a class="eye-icon" href="#">87</a></li>'
@@ -144,7 +160,22 @@ BS.ImageListView = Backbone.View.extend({
         hideList : function(eventName){
             eventName.preventDefault();
             $('.file-type').slideUp();
-    	    } 
+    	    },
+            
+            /*Edit the document title
+            * 
+            */  
+        editImgTitle :function(eventName){  
+//          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
+            var datas = {
+				"type" : 'Image',
+				"title" : 'Title of the image',
+                                "description" :'description of the image'
+			  }
+            BS.mediaeditview = new  BS.MediaEditView();
+            BS.mediaeditview.render(datas);
+            $('#gdocedit').html(BS.mediaeditview.el);
+            }
         
             
 })

@@ -126,8 +126,8 @@
     
      <!-----slider for stream list--->
      
-    <!--<script type="text/javascript" src="lib/jquery.easing.1.3.js"></script>-->
-    <!--<script type="text/javascript" src="lib/mbVerticalSlider.js"></script>-->
+<!--    <script type="text/javascript" src="lib/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="lib/mbVerticalSlider.js"></script>-->
     
     <!--Shuffle in media page -->
     <script type="text/javascript" src="lib/jquery.shuffle.js"></script>
@@ -159,7 +159,7 @@
                          <li><input type="text" class="dropdowntext" placeholder="http://www.PasteLinksHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Links"></li>
                           <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Links"><select id="linkselect_dr" class="dropdownselect"><option>Class Links</option></select></li>
                           <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i><select class="dropdownselect"><option>Save to Class</option>
-                                             <option>Profile</option><option>My Docs</option></select></li>
+                                <option>Profile</option><option>My Docs</option></select></li>
                           <li><input type="button" class="upload_button" id="links_uploadbutton"></li>
                        </ul>   
                   </li>
@@ -276,7 +276,7 @@
           <li data-key="oldest"><a href="#"> Oldest</a> </li>
         </ul>
       </div>
-    </div>
+    </div> 
     <div class="row" >
       <ul class="file-list" id="grid">
         <li data-key='["recent"]' id="coverimage">
@@ -556,6 +556,69 @@
    </div>
   </script>
 
+ <!-- Documents edit template-->
+<script type="text/x-handlebars-template" id="document-edit-tpl">
+ <div class="modal-backdrop in"></div>
+    <div class="modal mediaedit  modal-popups" style="display:block;">
+     <div class="modal-header">
+       <div class="control-button">
+		<a href="#"><img id="edit-close" class="close-button" src="images/close-button.png"></a>
+       </div>
+        <h2 style="padding-left: 5px;" class="pull-left"> Edit {{type}} </h2>
+        <input type="hidden" id="edittype" value="{{type}}">
+     </div>
+    <div id="error" class="invalid-validation" style="margin-left:20px; color:red;"></div>
+    <div class="modal-body">
+        <form name="add-new-school-form" id="add-new-school-form">
+            <fieldset>
+                <div class="school-registration">
+                  <div class="form-row">
+		     <div class="element">
+                        <label for="school-name">Title </label>
+                        <input type="text" name="schoolName" id="my-school" class="required span3" value="{{title}}">
+                        <input type="hidden" id="parent-Id" value="">
+                     </div></br></br>
+                  </div>
+                  <div class="form-row">
+                    <div class="element docedit">
+                        <label for="website">Description<span class="star"> </span></label>
+                        <textarea class="gdoc-description" rows="4" cols="50" >{{description}}</textarea>
+                    </div>
+                   </div>
+                 </div>
+           </fieldset>
+        </form>
+           <a href="#" id ="svedtdoc" class="btn btn-primary pull-left"  >Save</a>
+    </div>
+    
+ </div>
+</script>
+ 
+ <!-- Documents popup window to show documents -->
+<script type="text/x-handlebars-template" id="document-popup-tpl">
+ <div class="modal-backdrop in"></div>
+    <div class="modal gdocpopup  modal-popups" style="display:block;">
+     <div class="modal-header">
+       <div class="control-button doc-pop-button">
+		<a href="#"><img id="popup-close" class="close-button" src="images/close-button.png"></a>
+       </div>
+        <h2  class="pull-left"> Edit Docs </h2>
+     </div>
+    <div class="modal-body doc-popup-wrapper">
+        <form name="add-new-school-form" id="add-new-school-form">
+            <fieldset class="popupfield">    
+                <div id="popup-loader" >
+                    <!--<image src="images/ajax-loader1.gif">--> 
+                    <iframe src="{{docUrl}}" scrolling="NO"  width="950" height="500">
+                    <p>Your browser does not support iframes.</p>
+                    </iframe> 
+            </div>
+            </fieldset>
+        </form>
+    </div>
+    
+ </div>
+</script>
 
 <!----------templates for listing all documents-------------->
  <script type="text/x-handlebars-template" id="tpl-docsview">
@@ -639,6 +702,7 @@
         </ul>
       </div>
     </div>
+    <div id="gdocedit" ></div>   
     <div class="row pagin-height " >
       <ul class="file-list" id="grid"> 
           
@@ -3769,6 +3833,8 @@ function janRainLogin(info){
 <script src="js/views/filesmediaview.js"></script>
 <script src="js/views/streamactionview.js"></script>
 <script src="js/views/googledocsview.js"></script>
+<script src="js/views/mediaeditview.js"></script> 
+<script src="js/views/gdocpopupview.js"></script>
 <script src="js/views/imagelistview.js"></script>   
 <script src="js/views/videolistview.js"></script>   
 <script src="js/models/singleusermodel.js"></script>
@@ -3792,7 +3858,7 @@ function janRainLogin(info){
 
 <div pub-key="pub-afccd1a6-08cc-42b1-8728-b46e27645f89" sub-key="sub-5bec3afa-ff98-11e1-bcba-d18d7b6ca35d" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
 <script src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
- 
+
 </body>
 </html>
 

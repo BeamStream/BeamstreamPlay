@@ -1318,10 +1318,10 @@ body {
   height: 153px;
   min-height: 153px;
   resize: vertical;
-  border: 1px solid #fff;
+  border: 1px solid #fff !important;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
-  box-shadow: none;
+  box-shadow: none !important;
 }
 .main_content .new_message .controls textarea:focus {
   border-color: rgba(82, 168, 236, 0.8);
