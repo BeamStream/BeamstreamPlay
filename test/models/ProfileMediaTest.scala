@@ -9,7 +9,7 @@ import com.mongodb.casbah.commons.MongoDBObject
 @RunWith(classOf[JUnitRunner])
 class UserMediaTest extends FunSuite with BeforeAndAfter {
 
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", List(), List(), List(), List(),List())
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "","", List(), List(), List(), List(),List())
 
   test("Get all media for a user") {
     val userId = User.createUser(user)

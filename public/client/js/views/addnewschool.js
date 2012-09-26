@@ -21,6 +21,7 @@ BS.AddNewSchool = Backbone.View.extend({
     	$(this.el).html(this.template);
         return this;
         
+        
     },
     /**
      * close popup
@@ -64,7 +65,7 @@ BS.AddNewSchool = Backbone.View.extend({
                         {
 //                        	 var parent = $('#parent-Id').attr("value");
 //                        	 $('#'+parent).val(myschool);
-                        	 
+                        	 $('#prev-school').attr("value","");
                         	 $('#new-school-popup').children().detach(); 
                            	 var schoolView = new BS.SchoolView();
                            	

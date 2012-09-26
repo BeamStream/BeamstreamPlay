@@ -74,11 +74,19 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	    	   					localStorage["regInfo"] ='';
 	    	   					localStorage["schoolInfo"] ='';
 	    	   					localStorage["classInfo"] ='';
+	    	   					localStorage["editClass"] = "true";
+	    	   					localStorage["editProfile"] = "true";
+	    	   					localStorage["editProfile"] = "true";
+	    	   					
 	    	   				    BS.schoolBack = false;
 		    	  			    BS.regBack = false;
 		    	  			    BS.classBack = false;
 	    	   				    //set status for school back page
-	    						BS.resistrationPage = " ";
+//	    						BS.resistrationPage = " ";
+		    	  			    localStorage["resistrationPage"] ='';
+	    						
+	    						
+	    						localStorage["editSchool"] = "true";
 	    	   					
 	    	   					BS.schoolFromPrev =  $('#school-name').val();
 	    	   					// navigate to main stream page
@@ -149,6 +157,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 				firstName : $('#first-name').val(),
 				lastName : $('#last-name').val(),
 				location : $('#location').val(),
+				profile : localStorage["identifier"],
 				useCurrentLocation : useCurrentLocation,
 	
 			});
@@ -214,9 +223,11 @@ BS.MediaRegistrationView = Backbone.View.extend({
 								localStorage["regInfo"] =JSON.stringify(data); 
 								BS.regBack = true;
 								//set status for school back page
-	    						BS.resistrationPage = "media";
+//	    						BS.resistrationPage = "media";
+								localStorage["resistrationPage"] ="media";
 								
-								BS.editSchool = false;
+//								BS.editSchool = false;
+	    						localStorage["editSchool"] = "false";
 								
 								// save school name 
 								BS.schoolFromPrev =  $('#school-name').val();

@@ -66,10 +66,11 @@ object DocumentController extends Controller {
             val url= (documentJson \ "docURL").extract[String]
             val access = (documentJson \ "docAccess").extract[String]
             val docType = (documentJson \ "docType").extract[String]
+            val description = (documentJson \ "docDescription").extract[String]
 
 	    val userId = new ObjectId(request.session.get("userId").get)
 	    val date = new Date
-	    val documentToCreate = new Document(new ObjectId(), name, url, 
+	    val documentToCreate = new Document(new ObjectId(), name, description, url, 
 		DocType.withName(docType),userId,
 		DocumentAccess.withName(access), userId, date, date, 0, List(), List())
 	    val docId=Document.addDocument(documentToCreate,userId)
@@ -102,6 +103,20 @@ object DocumentController extends Controller {
      val totalRocksJson=write(totalRocks.toString)
      Ok(totalRocksJson).as("application/json")
    }
+   
+    /*
+      * Change the title and description
+      */
+     def changeTitleAndDescriptionForADocument = Action { implicit request =>
+        val documentIdJsonMap = request.body.asFormUrlEncoded.get
+        val id = documentIdJsonMap("documentId").toList(0)
+        val title = documentIdJsonMap("docName").toList(0)
+        val description = documentIdJsonMap("docDescription").toList(0)
+        Document.updateTitleAndDescription(new ObjectId(id),title, description)
+        val docObtained = Document.findDocumentById(new ObjectId(id))
+        val docJson = write(List(docObtained))
+	Ok(docJson).as("application/json")
+      }
    
    /*
     * Rockers of a document

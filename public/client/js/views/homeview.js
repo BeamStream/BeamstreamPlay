@@ -63,7 +63,8 @@ BS.NavView = Backbone.View.extend({
     renderPopups: function(eventName){
     	  
     	 eventName.preventDefault();
-    	 BS.editSchool = true;
+//    	 BS.editSchool = true;
+    	 localStorage["editSchool"]="true";
     	 BS.AppRouter.navigate("school", {trigger: true});
   
     },
@@ -72,7 +73,8 @@ BS.NavView = Backbone.View.extend({
      */
     renderClassPopups :function(eventName){
     	eventName.preventDefault();
-    	BS.editClass = true;
+//    	BS.editClass = true;
+    	localStorage["editClass"]="true";
     	BS.AppRouter.navigate("class", {trigger: true});
     },
     

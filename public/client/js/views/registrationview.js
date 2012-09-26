@@ -60,13 +60,19 @@ BS.RegistrationView = Backbone.View.extend({
     	   					localStorage["regInfo"] ='';
     	   		            localStorage["schoolInfo"] ='';
     	   		            localStorage["classInfo"] ='';
+    	   		            
+    	   		            localStorage["editSchool"] = "true";
+    	   		            localStorage["editClass"] = "true";
+    	   		            localStorage["editProfile"] = "true";
     	   					 
     	   					BS.schoolBack = false;
     	   					BS.regBack = false;
     	   					BS.classBack = false;
     	   					
     	   					//set status for school back page
-    						BS.resistrationPage = " ";
+//    						BS.resistrationPage = " ";
+    	   					localStorage["resistrationPage"] = "";
+    	   					
     						
     	   					// navigate to main stream page
     	   					BS.schoolFromPrev =  $('#school-name').val();
@@ -123,6 +129,7 @@ BS.RegistrationView = Backbone.View.extend({
 			firstName : $('#first-name').val(),
 			lastName : $('#last-name').val(),
 			location : $('#location').val(),
+			profile :"",
 			useCurrentLocation : useCurrentLocation,
 
 		});
@@ -162,9 +169,11 @@ BS.RegistrationView = Backbone.View.extend({
 					{
 						localStorage["regInfo"] =JSON.stringify(data); 
 						BS.regBack = true;
-						BS.editSchool = false;
+//						BS.editSchool = false;
+						localStorage["editSchool"] = "false";
 						//set status for school back page
-						BS.resistrationPage = "basic";
+//						BS.resistrationPage = "basic";
+						localStorage["resistrationPage"] = "basic";
 	   					 
 						BS.schoolFromPrev =  $('#school-name').val();
 						$(".star").hide();

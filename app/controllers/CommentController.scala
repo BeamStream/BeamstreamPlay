@@ -13,7 +13,6 @@ import utils.ObjectIdSerializer
 import models.ResulttoSent
 import models.Comment
 import models.ResulttoSent
-import models.CommentConsumer
 
 object CommentController extends Controller {
 
@@ -24,53 +23,50 @@ object CommentController extends Controller {
 
     val commentJson = request.body.asFormUrlEncoded.get
 
-    val consumers: List[CommentConsumer] = List(Message,Document)
-    
-    val messageId = commentJson("messageId").toList(0)
-    val commentText = commentJson("comment").toList(0)
-    val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-    val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
-      commentPoster.firstName, commentPoster.lastName, 0, List())
-    val commentId = Comment.createComment(comment)
-    consumers.map(_.addComment(new ObjectId(messageId), commentId))
-    Ok(write(List(comment))).as("application/json")
-    
-    
-  //TODO : messageId will be replaced with id in the JSON and here as well
-    
-//        (commentJson.contains(("messageId"))) match {
-//    
-//        case true =>
-//        
-//        val messageId = commentJson("messageId").toList(0)
-//        val commentText = commentJson("comment").toList(0)
-//        val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-//        val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
-//          commentPoster.firstName, commentPoster.lastName, 0, List())
-//        val commentId = Comment.createComment(comment)
-//        Message.addCommentToMessage(commentId, new ObjectId(messageId))
-//        Ok(write(List(comment))).as("application/json")
-//        
-//        case false => (commentJson.contains(("docId"))) match {
-//        
-//        case true  => 
-//        
-//            val docId = commentJson("docId").toList(0)
-//            val commentText = commentJson("comment").toList(0)
-//            val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-//            val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
-//            commentPoster.firstName, commentPoster.lastName, 0, List())
-//            val commentId = Comment.createComment(comment)
-//            Comment.addCommentToDocument(commentId, new ObjectId(docId))
-//            Ok(write(List(comment))).as("application/json")
-//            
-//        case false => 
-//        
-//           Ok(write(new ResulttoSent("Failure", "IdNotFound")))
-//           
-//           }
-//        
-//        }
+    //    val consumers: List[CommentConsumer] = List(Message, Document)
+    //
+    //    val messageId = commentJson("messageId").toList(0)
+    //    val commentText = commentJson("comment").toList(0)
+    //    val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+    //    val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
+    //      commentPoster.firstName, commentPoster.lastName, 0, List())
+    //    val commentId = Comment.createComment(comment)
+    //    consumers.map(_.addComment(new ObjectId(messageId), commentId))
+    //    Ok(write(List(comment))).as("application/json")
+
+    (commentJson.contains(("messageId"))) match {
+
+      case true =>
+
+        val messageId = commentJson("messageId").toList(0)
+        val commentText = commentJson("comment").toList(0)
+        val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+        val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
+          commentPoster.firstName, commentPoster.lastName, 0, List())
+        val commentId = Comment.createComment(comment)
+        Message.addCommentToMessage(commentId, new ObjectId(messageId))
+        Ok(write(List(comment))).as("application/json")
+
+      case false => (commentJson.contains(("docId"))) match {
+
+        case true =>
+
+          val docId = commentJson("docId").toList(0)
+          val commentText = commentJson("comment").toList(0)
+          val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+          val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
+            commentPoster.firstName, commentPoster.lastName, 0, List())
+          val commentId = Comment.createComment(comment)
+          Comment.addCommentToDocument(commentId, new ObjectId(docId))
+          Ok(write(List(comment))).as("application/json")
+
+        case false =>
+
+          Ok(write(new ResulttoSent("Failure", "IdNotFound")))
+
+      }
+
+    }
   }
 
   /*

@@ -2184,8 +2184,38 @@ label.error {
 	width: 410px !important;
 }
 .new_school:hover{
-	 background-color: #14A8AD !important;
+/* 	 background-color: #14A8AD !important; */
 	 cursor :pointer !important;
 }
 
+
+
+.profile a{
+	padding: 0px !important;
+/* 	text-decoration : underline !important; */
+}
+.profile a:hover{
+	text-decoration : underline !important;
+}
+
+
+/* test */
+/* #streams-list div li { */
+/* 	border-bottom: 1px dotted #C5C5C5 !important; */
+/*     font-size: 12px !important; */
+/*     height: 32px!important; */
+/*     line-height: 32px !important; */
+/*     margin-left: -15px !important; */
+/*     margin-right: -15px !important; */
+/* } */
+
+/* #streams-list div li.active a{ */
+/* 	background-color: #1485C0 !important; */
+/*     background-image: -moz-linear-gradient(center top , #108BC6, #1B7CB7) !important; */
+/*     background-repeat: repeat-x !important; */
+/*     border: 1px solid #1572A9 !important; */
+/*     box-shadow: 0 1px 0 #49A7D3 inset !important; */
+/*     left: -5px !important;  */
+/*     width: 139px !important; */
+/* } */
 

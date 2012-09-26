@@ -20,7 +20,6 @@ import java.text.DateFormat
 import java.util.Date
 import models.DegreeExpected
 
-
 /*
  * Enumeration Serialization
  */
@@ -61,39 +60,54 @@ class EnumerationSerializer(enumList: List[Enumeration]) extends net.liftweb.jso
 
 }
 
-
 /*
  * ObjectId Serialization
  */
 
 class ObjectIdSerializer extends Serializer[ObjectId] {
+  println("coming here in ObjectId serializar")
   private val Class = classOf[ObjectId]
 
   def deserialize(implicit format: Formats) = {
     case (TypeInfo(Class, _), json) => json match {
-      case JInt(s) =>  new ObjectId
-      case JString(s) =>  new ObjectId(s)
+      case JInt(s) => new ObjectId
+      case JString(s) => new ObjectId(s)
+      case List(JInt(s)) => new ObjectId
       case x => throw new MappingException("Can't convert " + x + " to ObjectId")
     }
   }
 
- def serialize(implicit format: Formats) = {
+  def serialize(implicit format: Formats) = {
     case x: ObjectId => JObject(JField("id", JString(x.toString)) :: Nil)
-    
+
   }
 }
 
+//class CollectionSerializer extends Serializer[List[ObjectId]] {
+//  println("coming here in collection serializar")
+//  private val Class = classOf[List[ObjectId]]
+//
+//  def deserialize(implicit format: Formats) = {
+//    case (TypeInfo(Class, _), json) => json match {
+//      case x => throw new MappingException("Can't convert " + x + " to ObjectId")
+//    }
+//  }
+//
+//  def serialize(implicit format: Formats) = {
+//    case x: ObjectId => JObject(JField("id", JString(x.toString)) :: Nil)
+//
+//  }
+//}
 
 /*
  * Date Time serialization
  */
 
 object DateTimeSerializer extends Serializer[Option[Date]] {
-  
+
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd/MM/yyyy")
   println("Datetime serializer invoked ....")
 
-  
   private val MyDateClass = classOf[Option[Date]]
 
   def deserialize(implicit format: Formats): PartialFunction[(TypeInfo, JValue), Option[Date]] = {

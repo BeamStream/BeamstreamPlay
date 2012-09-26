@@ -17,7 +17,6 @@ import models.UserSchool
 import models.User
 import models.ResulttoSent
 import models.Class
-import models.ClassResulttoSent
 
 object ClassController extends Controller {
 
@@ -25,7 +24,7 @@ object ClassController extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
     override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
-  } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
+  } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer //+ new CollectionSerializer
 
   /*
    * Add a class to a user (Intact)
@@ -33,17 +32,14 @@ object ClassController extends Controller {
 
   def addClass = Action { implicit request =>
     val classListJsonMap = request.body.asFormUrlEncoded.get
-    val classJsonList = classListJsonMap("data").toList
-    val classList = net.liftweb.json.parse(classJsonList(0)).extract[List[Class]]
+    val classJsonList = classListJsonMap("data").toList.head
+    val classListTemp = net.liftweb.json.parse(classJsonList)
+    println(classListTemp)
+    val classList = net.liftweb.json.parse(classJsonList).extract[List[Class]]
     val resultToSent = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
-    //    (listOfClassIds.isEmpty) match {
-    //      case true =>
-    //        Ok(write(new ResulttoSent("Failure", "Duplicates Class Code or Name Provided")))
-    //      case false =>
-    //        User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
-    //        Ok(write(new ResulttoSent("Success", "User has successfully added his classes")))
-    //    }
-    Ok(write(new ClassResulttoSent(resultToSent.status, resultToSent.message, classList))).as("application/json")
+    val refreshedClasses = Class.getAllRefreshedClasss(classList)
+    Ok(write((refreshedClasses))).as("application/json")
+
   }
 
   /*

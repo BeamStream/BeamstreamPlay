@@ -40,7 +40,7 @@ object Stream {
    */
   def attachStreamtoClass(streamId: ObjectId, classId: ObjectId) {
     val expectedClass = ClassDAO.find(MongoDBObject("_id" -> classId)).toList(0)
-    ClassDAO.update(MongoDBObject("_id" -> classId), expectedClass.copy(streams = (expectedClass.streams ++ List(streamId))), false, false, new WriteConcern)
+    ClassDAO.update(MongoDBObject("_id" -> classId), expectedClass.copy(streams = List(streamId)), false, false, new WriteConcern)
   }
 
   /*

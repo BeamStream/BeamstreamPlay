@@ -1,7 +1,6 @@
 package controllers
 import play.api.mvc.Controller
 import play.api.mvc.Action
-import java.io.FileInputStream
 import java.io.File
 import com.mongodb.casbah.gridfs.GridFS
 import utils.MongoHQConfig
@@ -20,6 +19,10 @@ import utils.ObjectIdSerializer
 import models.UserMedia
 import models.UserMediaType
 import models.ProfileImageProviderCache
+import utils.CompressFile
+import javax.imageio.ImageIO
+import java.awt.image.BufferedImage
+
 object MediaController extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -45,6 +48,7 @@ object MediaController extends Controller {
           val imageNameOnAmazon = uniqueString + imageFilename // Security Over the images files
           AmazonUpload.uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
           val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
+          //val img =ImageIO.read(imageFileObtained).getScaledInstance(150, 150,BufferedImage.TYPE_INT_RGB)
           val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, UserMediaType.Image, imageStatus)
           UserMedia.saveMediaForUser(media)
           ProfileImageProviderCache.setImage(media.userId.toString, media.mediaUrl)
@@ -130,4 +134,7 @@ object MediaController extends Controller {
     val allProfileMediaForAUser = UserMedia.getAllProfileVideoForAUser(new ObjectId(request.session.get("userId").get))
     Ok(write(allProfileMediaForAUser)).as("application/json")
   }
+
+
+
 }

@@ -43,21 +43,21 @@ case class Message(@Key("_id") id: ObjectId,
   follows: Int,
   followers: List[ObjectId])
 
-object Message extends CommentConsumer {
+object Message { //extends CommentConsumer {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
 
-  /**
-   * add Comment
-   */
-  def addComment(id: ObjectId, commentId: ObjectId) {
-    val message = Message.findMessageById(id)
-    message match {
-      case Some(message) => Message.addCommentToMessage(commentId, id)
-      case None => 
-    }
-
-  }
+//  /**
+//   * add Comment
+//   */
+//  def addComment(id: ObjectId, commentId: ObjectId) {
+//    val message = Message.findMessageById(id)
+//    message match {
+//      case Some(message) => Message.addCommentToMessage(commentId, id)
+//      case None => 
+//    }
+//
+//  }
 
   /**
    * Create a new message

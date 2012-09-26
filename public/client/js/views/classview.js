@@ -47,6 +47,7 @@ BS.ClassView = Backbone.View.extend({
 		    {
 				$('#save').attr('data-dismiss','modal');
 				var classDetails = this.getClassInfo();
+				 
 				if(classDetails != false)
 				{
 					/* post data with school and class details */
@@ -58,9 +59,8 @@ BS.ClassView = Backbone.View.extend({
 						},
 						dataType : "json",
 						success : function(data) {
-							if(data.status == "Success")
+							if(data)
 							{
-								 
 								$('.studentno-popup-class').fadeOut("medium"); 
 								BS.schoolBack = false;
 								BS.regBack = false;
@@ -68,13 +68,16 @@ BS.ClassView = Backbone.View.extend({
 								localStorage["regInfo"] ='';
 						        localStorage["schoolInfo"] ='';
 						        localStorage["classInfo"] ='';
+						        localStorage["resistrationPage"] ='';
+						        localStorage["editClass"] = "true";
+						        localStorage["editProfile"] = "true";
 								// navigate to main stream page
 								$(".star").hide();
 								BS.AppRouter.navigate("streams", {trigger: true});
 							}
 							else
 							{
-								$('#error').html(data.message);
+//								$('#error').html(data.message);
 							}
 							
 						}
@@ -100,7 +103,8 @@ BS.ClassView = Backbone.View.extend({
 	    
 		/* check whether its a edit class or not */
     	var edit = "";
-    	if(BS.editClass)
+//    	if(BS.editClass)
+    	if(localStorage["editClass"] == "true")
     	{
     		edit = "yes";
         }
@@ -150,7 +154,7 @@ BS.ClassView = Backbone.View.extend({
 
 		console.log("to profile");
 		eventName.preventDefault();
- 
+        var self = this;
 		var validate = $("#class-form").valid(); 
 			if(validate == true)
 		    {
@@ -165,19 +169,21 @@ BS.ClassView = Backbone.View.extend({
 					},
 					dataType : "json",
 					success : function(data) {
-						if(data.status == "Success")
+						if(data)
 						{
 							$('.studentno-popup-class').fadeOut("medium"); 
-							BS.editProfile = false;
+							self.fetchSchools();
+//							BS.editProfile = false;
+							localStorage["editProfile"] = "false";
 							BS.classBack = true;
-							localStorage["classInfo"] =JSON.stringify(data.classes);
-							console.log("gg:"+data.classes.length)
+							localStorage["classInfo"] =JSON.stringify(data);
+							
 							// navigate to main stream page
 							BS.AppRouter.navigate("profile", {trigger: true});
 						}
 						else
 						{
-							$('#error').html(data.message);
+//							$('#error').html(data.message);
 						}
 					}
 				});
@@ -228,7 +234,6 @@ BS.ClassView = Backbone.View.extend({
 		this.schools.fetch({success: function(e) {  
 		}});
 		var selectAnother = '<select id="school-'+sClasses+'" class="large all-schools">'+options+'</select>'; 
-		console.log(selectAnother) ;
     	$('a.legend-addclass').hide();
     	
     	var sCount = {
@@ -262,6 +267,7 @@ BS.ClassView = Backbone.View.extend({
 			for(var j=1; j<=3; j++)
 			{
 				var cId;
+				var sId =[];
 				var classModel = new BS.Class();
 				
 					 
@@ -276,7 +282,15 @@ BS.ClassView = Backbone.View.extend({
 					{
 						cId = classId;
 					}
-					
+					if($('#stream-id-'+ i + '-' + j).val())
+					{
+						sId.push({"id" : $('#stream-id-'+ i + '-' + j).val()});
+					}
+					else
+					{
+						sId.push({"id" : classId});
+					}
+					 
 					classModel.set({
 						
 						schoolId :  $('#school-' + i).val(),
@@ -285,7 +299,8 @@ BS.ClassView = Backbone.View.extend({
 						classTime : $('#class-time-' + i + '-' + j).val(),
 						className : $('#class-name-' + i + '-' + j).val(),
 						startingDate : $('#date-started-' + i + '-' + j).val(),
-						classType : $('#semester-' + i + '-' + j).val()
+						classType : $('#semester-' + i + '-' + j).val(),
+//						streams  :  sId
 					});
 					classes.add(classModel);
 				}
@@ -303,6 +318,8 @@ BS.ClassView = Backbone.View.extend({
 		if(validClass == true)
 		{
 			var classDetails = JSON.stringify(classes);
+			
+			
 			return classDetails;
 		}
 		else
@@ -445,6 +462,7 @@ BS.ClassView = Backbone.View.extend({
 			 this.classId = classId;
 			 
 			 $('#h-class-name-'+identity).val(classId);
+			 $('#stream-id-'+identity).val(streamId);
 			 $('#class-name-'+identity).val(className);
 			 $('#class-time-'+identity).val(classTime);
 			 $('#date-started-'+identity).val(date);
@@ -619,6 +637,7 @@ BS.ClassView = Backbone.View.extend({
 			 this.classId = classId;
 			 
 			 $('#h-class-name-'+identity).val(classId);
+			 $('#stream-id-'+identity).val(streamId);
 			 $('#class-code-'+identity).val(classCode);
 			 $('#date-started-'+identity).val(date);
 			 $('#class-time-'+identity).val(classTime);
@@ -657,14 +676,14 @@ BS.ClassView = Backbone.View.extend({
 		 {
 			  
 		     this.classId =1;
-		     
+//		     
 		     $('#student-number-'+identity).fadeOut("medium"); 
-		     $('#class-code-'+identity).val("");
-			 $('#date-started-'+identity).val($.datepicker.formatDate('mm/dd/yy', new Date()));
-			 $('#semester-'+identity+' option:selected').attr('selected', false);
-			 $('#semester-'+identity+' option[value="semester"]').attr('selected', 'selected');
-			 $('#div-school-type-'+identity+' a span.selectBox-label').html("Semester");
-			 $(".modal select:visible").selectBox();
+//		     $('#class-code-'+identity).val("");
+//			 $('#date-started-'+identity).val($.datepicker.formatDate('mm/dd/yy', new Date()));
+//			 $('#semester-'+identity+' option:selected').attr('selected', false);
+//			 $('#semester-'+identity+' option[value="semester"]').attr('selected', 'selected');
+//			 $('#div-school-type-'+identity+' a span.selectBox-label').html("Semester");
+//			 $(".modal select:visible").selectBox();
 		 }
     },
     /*
@@ -692,6 +711,25 @@ BS.ClassView = Backbone.View.extend({
 			 $('#semester-'+identity+'-'+i+' option[value="semester"]').attr('selected', 'selected');
 			 $('#div-school-type-'+identity+'-'+i+' a span.selectBox-label').html("Semester");
     	}
+    },
+    
+    /* fetch all schools */
+    fetchSchools : function(){
+    	localStorage["schoolList"] = '';
+    	 $.ajax({
+ 			url : BS.schoolJson,
+ 			dataType : "json",
+ 			success : function(datas) {
+ 				 
+ 				var select = '';
+ 				 _.each(datas, function(data) {
+ 				        select+= '<option value ="'+data.assosiatedSchoolId.id+'">'+data.schoolName+'</option>';
+ 				      });
+ 				localStorage["schoolList"] =select;
+ 			}
+ 		});
+     
+    	
     }
-
+  
 });

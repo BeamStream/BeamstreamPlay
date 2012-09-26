@@ -12,15 +12,13 @@ BS.SchoolView = Backbone.View.extend({
 	      "click #close-school" : "closeScreen",
 	      "click .back-button" :"backToPrevious",
            
-
-	       
 	    },
 	
     initialize:function () {
     	
         console.log('Initializing School View');
         BS.schoolBack = false;
-        //this.template= _.template($("#tpl-school-reg").html());
+        BS.newSchool = '';
 		this.source = $("#tpl-school-reg").html();
 		this.template = Handlebars.compile(this.source);
     },
@@ -33,13 +31,17 @@ BS.SchoolView = Backbone.View.extend({
     render:function (eventName) {
     	/* check whether its a edit school or not */
     	var edit = "";
-    	if(BS.editSchool)
+//    	if(BS.editSchool)
+    	if("true" == localStorage["editSchool"])
     	{
     		edit = "yes";
+    		console.log(666);
+    		 
         }
     	else
     	{
     		edit = "";
+    		
     	}
          
         $(this.el).html(this.template({"edit" : edit}));
@@ -50,37 +52,6 @@ BS.SchoolView = Backbone.View.extend({
     /**
      * auto populate school
      */
-    
-//    populateSchools :function(eventName){
-//    	eventName.preventDefault();  
-//   	    var id = eventName.target.id;
-//   	    var dat='#'+id;
-//   	    var currentid = $(dat).closest('fieldset').attr('id');
-//   	    BS.selectedSchool = $(dat).val(); 
-//   	    BS.allSchools = []; 
-//    	
-//    	/* get all schools of a user */
-//		 $.ajax({
-//			type : 'GET',
-//			url : BS.autoPopulateSchools,
-//			 
-//			dataType : "json",
-//			success : function(datas) {
-//				 
-//				BS.allSchoolInfo = datas;
-//				_.each(datas, function(data) {
-//					 BS.allSchools.push(data.schoolName);
-//		        });
-//				 
-//				//set auto populate functionality for class code
-//				$(dat).autocomplete({
-//				    source: BS.allSchools
-//			 });
-//			 
-//			}
-//		});
-//    	
-//    },
  
     populateSchools :function(eventName){
     	var id = eventName.target.id;
@@ -88,6 +59,7 @@ BS.SchoolView = Backbone.View.extend({
     	var self =this;
         if(text)
         {
+        	BS.newSchool = text;
 			/* post the text that we type to get matched school */
 			 $.ajax({
 				type : 'POST',
@@ -170,6 +142,10 @@ BS.SchoolView = Backbone.View.extend({
 	          			    localStorage["regInfo"] ='';
 	          			    localStorage["schoolInfo"] ='';
 	          			    localStorage["classInfo"] ='';
+	          			    localStorage["resistrationPage"] ='';
+	          			    localStorage["editClass"] = "true";
+	          			    localStorage["editProfile"] = "true";
+	          			    
 	                    	BS.schoolFromPrev ='';
 	                    	$(".star").hide();
 	        				 // navigate to main stream page
@@ -235,7 +211,8 @@ BS.SchoolView = Backbone.View.extend({
                   	  localStorage["schoolInfo"] =JSON.stringify(data); 
 	            	  // for back button functionality
 	            	  BS.schoolBack = true;
-	            	  BS.editClass = false;
+//	            	  BS.editClass = false;
+	            	  localStorage["editClass"] = "false";
 	            	  BS.schoolFromPrev = '';
 	            	  $(".star").hide();
 	            	  BS.AppRouter.navigate("class", {trigger: true});
@@ -302,8 +279,6 @@ BS.SchoolView = Backbone.View.extend({
 				$('#degree-exp-'+currentid).hide();
 				$('#cal-'+currentid).hide();
 		  }
-		  
-    	     
       },
       
       /**
@@ -432,8 +407,10 @@ BS.SchoolView = Backbone.View.extend({
 	       */
 	      backToPrevious :function(eventName){
 	    	  eventName.preventDefault(); 
-	    	  $(".star").hide();
-              if(BS.resistrationPage == "basic")
+	    	  
+//              if(BS.resistrationPage == "basic")
+	    	  
+	    	  if(localStorage["resistrationPage"] == "basic")
               {
             	  var token = BS.token;
             	  var iam = BS.iam;
@@ -442,7 +419,8 @@ BS.SchoolView = Backbone.View.extend({
             	  
             	  BS.AppRouter.navigate(navUrl, {trigger: true});
               }
-              if(BS.resistrationPage == "media")
+//              if(BS.resistrationPage == "media")
+	    	  if(localStorage["resistrationPage"] == "media")
               {
             	  var t = "basicRegistration";
             	  BS.AppRouter.navigate(t, {trigger: true});

@@ -7,10 +7,10 @@ BS.ProfileView = Backbone.View.extend({
 	      'change #my-video' :'displayVideo',
 	      'click .delete-image' :'deleteSelectedImage',
 	      'click .delete-video' :'deleteSelectedVideo',
-	       'keyup #mobile' : "checkNumber",
-	      'focusout #mobile' : "arragePhone",
+//	      'keyup #mobile' : "checkNumber",
+//	      'focusout #mobile' : "arragePhone",
 	      'click .close-button' : "closeScreen",
-//	      'click .back' :'backToPrevious',
+	      'click .back' :'backToPrevious',
 	      'click .profile-radio': "selectImageStatus",
 	      
 	 },
@@ -38,7 +38,8 @@ BS.ProfileView = Backbone.View.extend({
     render:function (eventName) {
     	/* check whether its a edit profile or not */
     	var edit = "";
-    	if(BS.editProfile)
+//    	if(BS.editProfile)
+    	if(localStorage["editProfile"]== "true")
     	{
     		edit = "yes";
         }
@@ -141,13 +142,13 @@ BS.ProfileView = Backbone.View.extend({
 	    		   
 	    		    if (BS.bar.width()== 392) {
 	    		        clearInterval(BS.progress);
-	    		        $('.progress').removeClass('active');
+//	    		        $('.progress').removeClass('active');
 	    		    } else {
 	    		    	 BS.bar.width( BS.bar.width()+8);
 	    		    }
 	    		    BS.bar.text( BS.bar.width()/4 + "%");
 	    		}, 800);
-	    		
+    		   
 	    		
 	    		var data;
 	        	data = new FormData();
@@ -171,11 +172,12 @@ BS.ProfileView = Backbone.View.extend({
 	        	    	
 	        	    	if(data.status == "Success") 
 		   			    {
-	        	    		//BS.bar = $('.bar');
+	        	    		BS.bar = $('.bar');
 	        	    	    BS.bar.width(400);
 	        	    	    BS.bar.text("100%");
 	        	    	    clearInterval(BS.progress);
 	        	    	    $(".star").hide();
+	        	    		
 	        	    	    
 	        	    	    BS.schoolBack = false;
 	        				BS.regBack = false;
@@ -183,6 +185,9 @@ BS.ProfileView = Backbone.View.extend({
 	        				localStorage["regInfo"] ='';
 	        		        localStorage["schoolInfo"] ='';
 	        		        localStorage["classInfo"] ='';
+	        		        localStorage["resistrationPage"] ='';
+	        		        localStorage["editClass"] = "true";
+	        		        localStorage["editProfile"] = "true";
 	        		        
 	        	    	   // navigate to main stream page after a tome period
 	        	    	    setTimeout(function() {

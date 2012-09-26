@@ -24,6 +24,7 @@ BS.StreamView = Backbone.View.extend({
            "click .nav-tabs li" : "showActive",
            "click .class-nav-list li" :"showListActive",
            "keypress #msg" : "postMessageOnEnterKey",
+           "keyup #msg" : "removePreview",
            "click .comment": "showCommentSection",
            "keypress .add_message_comment" : "addComment",
            "click .hide_comments" : "hideComments",
@@ -44,7 +45,7 @@ BS.StreamView = Backbone.View.extend({
     initialize:function () {
     	console.log('Initializing Stream View');
     	BS.urlRegex1 = /(https?:\/\/[^\s]+)/g;
-    	BS.urlRegex = /^(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\/]*$/i ;
+    	BS.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\/]*$/i ;
     	BS.urlRegex2 =  /^((http|https|ftp):\/\/)/;
     	BS.commentCount = 0;
     	/* for hover over */
@@ -57,7 +58,7 @@ BS.StreamView = Backbone.View.extend({
 	    this.shown = false;
 	    this.trigger = $('.trigger');
 	    this.popup = $('.popup').css('opacity', 0);
-    	 
+	    
 		this.source = $("#tpl-main-stream").html();
 		this.template = Handlebars.compile(this.source);
 //		this.slider();
@@ -128,7 +129,8 @@ BS.StreamView = Backbone.View.extend({
     render:function (eventName) {
         
        this.getStreams();
-       $(this.el).html(this.template(this.model.toJSON()));
+
+       $(this.el).html(this.template({"data":this.model.toJSON(),"schools" : BS.mySchools}));
         
        return this;
     },
@@ -540,8 +542,8 @@ BS.StreamView = Backbone.View.extend({
   				         });
   				   }
                                    
-  				   $('.selector').html("");
-                   $('.selector').hide();
+  				   $('.emdform').find('div.selector').html("");
+  				   $('.emdform').find('div.selector').hide();
                    $('.emdform').find('input[type="hidden"].preview_input').remove();
                    $('#msg').val("");
  
@@ -837,7 +839,8 @@ BS.StreamView = Backbone.View.extend({
 	 showProfilePage : function(eventName){
 		  
 		 eventName.preventDefault();
-		 BS.editProfile = true;
+//		 BS.editProfile = true;
+		 localStorage["editProfile"] = "true";
 		 BS.AppRouter.navigate("profile", {trigger: true});
 	 },
 	 
@@ -871,12 +874,26 @@ BS.StreamView = Backbone.View.extend({
    	     this.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
 		 
 	 },
+	 
+	 /** 
+	  * remove the preview when we delete the link from message area
+	  */
+	 removePreview : function(eventName){
+		 var text = $('#msg').val();
+		 var links =  text.match(BS.urlRegex);
+		 var bitLink = text.match(/(http:\/\/bstre.am\/)/);
+		 if(!links && !bitLink)
+		 {
+			 $('.emdform').find('div.selector').html("");
+			 $('.emdform').find('div.selector').hide();
+			 $('.emdform').find('input[type="hidden"].preview_input').remove();
+		 }
+	 },
 	 /**
 	  * post message on enter key press
 	  */
 	 postMessageOnEnterKey : function(eventName){
 		 var self = this;
-		 
 		 
 		 if(eventName.which == 13) {
 			 self.postMessage(); 
@@ -917,13 +934,15 @@ BS.StreamView = Backbone.View.extend({
 				    				
 				    			}
 				    		});
+				          
+				          $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 				        }
 				      }
 //				});
 			
 			
 		 }
-		 $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+		 
 
 	 },
 	 /**

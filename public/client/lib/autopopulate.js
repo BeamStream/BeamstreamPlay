@@ -2859,7 +2859,11 @@ bounceslide:function(a){
                      
                 })&&b.element.val(e.value),b.term=b.element.val(),b.close(a),b.selectedItem=e
                    
-                  
+                  /**
+                   * Edited by Aswathy 
+                   * for +Add New School option in autopopulate
+                   * */
+                console.log(e.value);
                   if(!e.value)
                   {
                 	  var parentId = b.element.attr('id');
@@ -2960,8 +2964,6 @@ _renderMenu:function(b,c){
         d._renderItem(b,c)
         })
         /* Edited By Aswathy */
-
- 
         if(d.element.attr('name') == "schoolName")
             a("<li class='new_school'></li>").data("item.autocomplete",c).append(a("<a></a>").text('+ Add New School')).appendTo(b)
     },
