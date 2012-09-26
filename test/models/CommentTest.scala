@@ -81,13 +81,13 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     val comment = new Comment(new ObjectId, "Comment1", new Date, userId, user.firstName, user.lastName, 0, List())
 
     val commentId = Comment.createComment(comment)
-    Message.addComment(new ObjectId, commentId)
+    Message.addCommentToMessage(new ObjectId, commentId)
     assert(Message.findMessageById(messageId).get.comments.size === 0)
     // No Problem happens if no message id found , Jumps in None case
     
     val otherComment = new Comment(new ObjectId, "Comment2", new Date, userId, user.firstName, user.lastName, 0, List())
     val otherCommentId = Comment.createComment(otherComment)
-    Message.addComment(messageId, commentId)
+    Message.addCommentToMessage(messageId, commentId)
     assert(Message.findMessageById(messageId).get.comments.size === 1)
 
   }

@@ -1,7 +1,6 @@
 package controllers
 import play.api.mvc.Controller
 import play.api.mvc.Action
-import java.io.FileInputStream
 import java.io.File
 import com.mongodb.casbah.gridfs.GridFS
 import utils.MongoHQConfig
@@ -20,14 +19,9 @@ import utils.ObjectIdSerializer
 import models.UserMedia
 import models.UserMediaType
 import models.ProfileImageProviderCache
-import javax.imageio.ImageWriter
-import java.awt.image.BufferedImage
+import utils.CompressFile
 import javax.imageio.ImageIO
-import javax.imageio.ImageWriteParam
-import javax.imageio.stream.ImageOutputStream
-import java.io.OutputStream
-import javax.imageio.IIOImage
-import java.util.Iterator;
+import java.awt.image.BufferedImage
 
 object MediaController extends Controller {
 
@@ -54,6 +48,7 @@ object MediaController extends Controller {
           val imageNameOnAmazon = uniqueString + imageFilename // Security Over the images files
           AmazonUpload.uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
           val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
+          //val img =ImageIO.read(imageFileObtained).getScaledInstance(150, 150,BufferedImage.TYPE_INT_RGB)
           val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, UserMediaType.Image, imageStatus)
           UserMedia.saveMediaForUser(media)
           ProfileImageProviderCache.setImage(media.userId.toString, media.mediaUrl)
@@ -140,26 +135,6 @@ object MediaController extends Controller {
     Ok(write(allProfileMediaForAUser)).as("application/json")
   }
 
-//  def compressImage(inputImage: File, filename: String, quality: Float): File = {
-//    println(inputImage.getTotalSpace() + "Before")
-//    val compressedImageFile: File = new File("https://s3.amazonaws.com/BeamStream/" + filename);
-//    val is: InputStream = new FileInputStream(inputImage)
-//    val os: OutputStream = new FileOutputStream(compressedImageFile);
-//    val image: BufferedImage = ImageIO.read(is);
-//    val writers: Iterator[ImageWriter] = ImageIO.getImageWritersByFormatName("jpg");
-//    val writer: ImageWriter = writers.next();
-//    val ios: ImageOutputStream = ImageIO.createImageOutputStream(os);
-//    writer.setOutput(ios);
-//    val param: ImageWriteParam = writer.getDefaultWriteParam();
-//    param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-//    param.setCompressionQuality(quality);
-//    writer.write(null, new IIOImage(image, null, null), param);
-//    is.close();
-//    os.close();
-//    ios.close();
-//    writer.dispose();
-//    println(compressedImageFile.getTotalSpace() + "After")
-//    compressedImageFile
-//  }
+
 
 }

@@ -49,6 +49,7 @@ object DocType extends Enumeration {
 
 case class Document(@Key("_id") id: ObjectId, 
                                 name: String, 
+                                description: String,
                                 url: String, 
                                 docType: DocType.Value, 
                                 userId: ObjectId, 
@@ -185,6 +186,15 @@ object Document extends CommentConsumer {
     DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(access = newAccess), false, false, new WriteConcern)
   }
 
+ /*
+   * Change the Title and description of a document
+   */
+   def updateTitleAndDescription(documentId: ObjectId, newName: String, newDescription : String) = {
+    val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
+    DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(name = newName), false, false, new WriteConcern)
+    DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(description = newDescription), false, false, new WriteConcern)
+  }
+  
   /*
    * Total number of rocks for a particular document
    */
