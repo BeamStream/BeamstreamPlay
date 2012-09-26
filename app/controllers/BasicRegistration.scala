@@ -89,7 +89,7 @@ object BasicRegistration extends Controller {
       case false =>
         val updatedUser = new User(new ObjectId(id), UserType.apply(iam.toInt), emailId, firstName, lastName, userName, "", password, schoolName, location, profile, List(), List(), List(), List(), List())
         UserDAO.update(MongoDBObject("_id" -> new ObjectId(id)), updatedUser, false, false, new WriteConcern)
-        Ok(write(updatedUser)).as("application/json")
+        Ok(write(List(updatedUser))).as("application/json")
     }
   }
   /*
