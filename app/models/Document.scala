@@ -16,8 +16,8 @@ import java.net.URL
 
 /**
  * This class is used to store and retrieve all the information about documents.
- * 
- * @author Kishen 
+ *
+ * @author Kishen
  */
 
 /*
@@ -28,12 +28,12 @@ import java.net.URL
  * Restricted - Available to a restricted list of users
  * Stream - Available to all the Sub-streams and current members of this stream
  */
-object DocumentAccess extends Enumeration{
+object DocumentAccess extends Enumeration {
   type DocumentAccess = Value
   val Private = Value(0, "Private")
   val Public = Value(1, "Public")
   val Restricted = Value(2, "Restricted")
-  val Stream = Value(3,"Stream")
+  val Stream = Value(3, "Stream")
 
 }
 
@@ -47,54 +47,42 @@ object DocType extends Enumeration {
   val Other = Value(3, "Other")
 }
 
-case class Document(@Key("_id") id: ObjectId, 
-                                name: String, 
-                                url: String, 
-                                docType: DocType.Value, 
-                                userId: ObjectId, 
-                                access: DocumentAccess.Value, 
-                                streamId: ObjectId,
-                                creationDate: Date, 
-                                lastUpdateDate: Date, 
-                                rocks: Int, 
-                                rockers: List[ObjectId], 
-                                comments : List[ObjectId])
+case class Document(@Key("_id") id: ObjectId,
+  name: String,
+  url: String,
+  docType: DocType.Value,
+  userId: ObjectId,
+  access: DocumentAccess.Value,
+  streamId: ObjectId,
+  creationDate: Date,
+  lastUpdateDate: Date,
+  rocks: Int,
+  rockers: List[ObjectId],
+  comments: List[ObjectId])
 
 case class DocumentForm(name: String)
-object Document extends CommentConsumer {
+object Document {
 
   implicit val formats = DefaultFormats
 
-  def allDocuments(): List[Document] = Nil
-  
-  
-  /**
-   * add Comment
-   */
-  def addComment(id: ObjectId, commentId: ObjectId) {
-    println("Got the Id's , perform the desired logic "+ id + " " +commentId)
-
-  }
-
-
-/*
+  /*
  * Add a document
  */
-  def addDocument(document : Document, userId : ObjectId) : ObjectId = {
-      val docId = DocumentDAO.insert(document)
-      User.addDocumentToUser(userId,document.id)
-      docId.get
-   }
+  def addDocument(document: Document, userId: ObjectId): ObjectId = {
+    val docId = DocumentDAO.insert(document)
+    User.addDocumentToUser(userId, document.id)
+    docId.get
+  }
 
   /*
    * Remove document
    */
-  def removeDocument(document : Document) {
+  def removeDocument(document: Document) {
     DocumentDAO.remove(document)
 
   }
 
- /*
+  /*
   * Names of a rockers for a document
   */
   def rockersNames(docId: ObjectId): List[String] = {
@@ -102,16 +90,16 @@ object Document extends CommentConsumer {
     val rockersName = User.giveMeTheRockers(docRocked.rockers)
     rockersName
   }
-   
+
   /*
    * Find Document by Id
    */
 
   def findDocumentById(docId: ObjectId): Document = {
-       val document = DocumentDAO.findOneByID(docId)
-       document.get
+    val document = DocumentDAO.findOneByID(docId)
+    document.get
   }
-  
+
   /*
    * Find document by name
    */
@@ -127,8 +115,8 @@ object Document extends CommentConsumer {
   def getAllDocumentsForAUser(userId: ObjectId): List[Document] = {
 
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    println(" getAllDocumentsForAUser : "+ user);
-    println(" getAllDocumentsForAUser : Documents "+ user.documents);
+    println(" getAllDocumentsForAUser : " + user);
+    println(" getAllDocumentsForAUser : Documents " + user.documents);
     getAllDocuments(user.documents)
   }
 
@@ -146,41 +134,40 @@ object Document extends CommentConsumer {
 
     documentList
   }
-  
-   /*
+
+  /*
    *  Update the Rockers List and increase the count by one 
    */
 
   def rockedIt(documentId: ObjectId, userId: ObjectId): Int = {
-  
-    
+
     val documentToRock = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
-    
-    documentToRock.rockers.contains(userId) match { 
-    
-           // If the document is already rocked by the user, return the current rock count without updating
-	    case true => 
-		    documentToRock.rocks
 
-            // Otherwise, update the rocker and count
-	    case false =>        
+    documentToRock.rockers.contains(userId) match {
 
-	    DocumentDAO.update(MongoDBObject("_id" -> documentId), documentToRock.copy(rockers = (documentToRock.rockers ++ List(userId))), false, false, new WriteConcern)
+      // If the document is already rocked by the user, return the current rock count without updating
+      case true =>
+        documentToRock.rocks
 
-	    val updatedDocument = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
-	    DocumentDAO.update(MongoDBObject("_id" -> documentId), updatedDocument.copy(rocks = (updatedDocument.rocks + 1)), false, false, new WriteConcern)
+      // Otherwise, update the rocker and count
+      case false =>
 
-	    val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
-	    document.rocks
-    
-          }
+        DocumentDAO.update(MongoDBObject("_id" -> documentId), documentToRock.copy(rockers = (documentToRock.rockers ++ List(userId))), false, false, new WriteConcern)
+
+        val updatedDocument = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
+        DocumentDAO.update(MongoDBObject("_id" -> documentId), updatedDocument.copy(rocks = (updatedDocument.rocks + 1)), false, false, new WriteConcern)
+
+        val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
+        document.rocks
+
+    }
 
   }
-  
+
   /*
    * Change the access of a document
    */
-   def changeAccess(documentId: ObjectId, newAccess: DocumentAccess.Value) = {
+  def changeAccess(documentId: ObjectId, newAccess: DocumentAccess.Value) = {
     val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
     DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(access = newAccess), false, false, new WriteConcern)
   }
@@ -188,20 +175,20 @@ object Document extends CommentConsumer {
   /*
    * Total number of rocks for a particular document
    */
-   def totalRocks(documentId: ObjectId): Int = {
+  def totalRocks(documentId: ObjectId): Int = {
     val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
     document.rocks
   }
-   
-    /*
+
+  /*
      * Documents for a user sorted by creation date 
      */
-     
-    def getAllDocumentsForAUserSortedbyDate(userId: ObjectId): List[Document] = {
-        val docs = getAllDocumentsForAUser(userId).sortBy(doc => doc.creationDate)
-        docs
+
+  def getAllDocumentsForAUserSortedbyDate(userId: ObjectId): List[Document] = {
+    val docs = getAllDocumentsForAUser(userId).sortBy(doc => doc.creationDate)
+    docs
   }
-   
+
 }
 
 object DocumentDAO extends SalatDAO[Document, ObjectId](collection = MongoHQConfig.mongoDB("document"))
