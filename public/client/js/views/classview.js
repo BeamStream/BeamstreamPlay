@@ -68,6 +68,9 @@ BS.ClassView = Backbone.View.extend({
 								localStorage["regInfo"] ='';
 						        localStorage["schoolInfo"] ='';
 						        localStorage["classInfo"] ='';
+						        localStorage["resistrationPage"] ='';
+						        localStorage["editClass"] = "true";
+						        localStorage["editProfile"] = "true";
 								// navigate to main stream page
 								$(".star").hide();
 								BS.AppRouter.navigate("streams", {trigger: true});
@@ -100,7 +103,8 @@ BS.ClassView = Backbone.View.extend({
 	    
 		/* check whether its a edit class or not */
     	var edit = "";
-    	if(BS.editClass)
+//    	if(BS.editClass)
+    	if(localStorage["editClass"] == "true")
     	{
     		edit = "yes";
         }
@@ -169,7 +173,8 @@ BS.ClassView = Backbone.View.extend({
 						{
 							$('.studentno-popup-class').fadeOut("medium"); 
 							self.fetchSchools();
-							BS.editProfile = false;
+//							BS.editProfile = false;
+							localStorage["editProfile"] = "false";
 							BS.classBack = true;
 							localStorage["classInfo"] =JSON.stringify(data);
 							

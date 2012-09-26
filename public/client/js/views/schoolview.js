@@ -31,13 +31,17 @@ BS.SchoolView = Backbone.View.extend({
     render:function (eventName) {
     	/* check whether its a edit school or not */
     	var edit = "";
-    	if(BS.editSchool)
+//    	if(BS.editSchool)
+    	if("true" == localStorage["editSchool"])
     	{
     		edit = "yes";
+    		console.log(666);
+    		 
         }
     	else
     	{
     		edit = "";
+    		
     	}
          
         $(this.el).html(this.template({"edit" : edit}));
@@ -138,6 +142,10 @@ BS.SchoolView = Backbone.View.extend({
 	          			    localStorage["regInfo"] ='';
 	          			    localStorage["schoolInfo"] ='';
 	          			    localStorage["classInfo"] ='';
+	          			    localStorage["resistrationPage"] ='';
+	          			    localStorage["editClass"] = "true";
+	          			    localStorage["editProfile"] = "true";
+	          			    
 	                    	BS.schoolFromPrev ='';
 	                    	$(".star").hide();
 	        				 // navigate to main stream page
@@ -203,7 +211,8 @@ BS.SchoolView = Backbone.View.extend({
                   	  localStorage["schoolInfo"] =JSON.stringify(data); 
 	            	  // for back button functionality
 	            	  BS.schoolBack = true;
-	            	  BS.editClass = false;
+//	            	  BS.editClass = false;
+	            	  localStorage["editClass"] = "false";
 	            	  BS.schoolFromPrev = '';
 	            	  $(".star").hide();
 	            	  BS.AppRouter.navigate("class", {trigger: true});
@@ -398,8 +407,10 @@ BS.SchoolView = Backbone.View.extend({
 	       */
 	      backToPrevious :function(eventName){
 	    	  eventName.preventDefault(); 
-	    	  $(".star").hide();
-              if(BS.resistrationPage == "basic")
+	    	  
+//              if(BS.resistrationPage == "basic")
+	    	  
+	    	  if(localStorage["resistrationPage"] == "basic")
               {
             	  var token = BS.token;
             	  var iam = BS.iam;
@@ -408,7 +419,8 @@ BS.SchoolView = Backbone.View.extend({
             	  
             	  BS.AppRouter.navigate(navUrl, {trigger: true});
               }
-              if(BS.resistrationPage == "media")
+//              if(BS.resistrationPage == "media")
+	    	  if(localStorage["resistrationPage"] == "media")
               {
             	  var t = "basicRegistration";
             	  BS.AppRouter.navigate(t, {trigger: true});

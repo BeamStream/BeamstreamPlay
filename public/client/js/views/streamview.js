@@ -839,7 +839,8 @@ BS.StreamView = Backbone.View.extend({
 	 showProfilePage : function(eventName){
 		  
 		 eventName.preventDefault();
-		 BS.editProfile = true;
+//		 BS.editProfile = true;
+		 localStorage["editProfile"] = "true";
 		 BS.AppRouter.navigate("profile", {trigger: true});
 	 },
 	 
