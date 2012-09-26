@@ -66,10 +66,11 @@ object DocumentController extends Controller {
             val url= (documentJson \ "docURL").extract[String]
             val access = (documentJson \ "docAccess").extract[String]
             val docType = (documentJson \ "docType").extract[String]
+            val description = (documentJson \ "docDescription").extract[String]
 
 	    val userId = new ObjectId(request.session.get("userId").get)
 	    val date = new Date
-	    val documentToCreate = new Document(new ObjectId(), name, url, 
+	    val documentToCreate = new Document(new ObjectId(), name, description, url, 
 		DocType.withName(docType),userId,
 		DocumentAccess.withName(access), userId, date, date, 0, List(), List())
 	    val docId=Document.addDocument(documentToCreate,userId)

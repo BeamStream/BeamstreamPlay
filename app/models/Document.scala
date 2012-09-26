@@ -49,6 +49,7 @@ object DocType extends Enumeration {
 
 case class Document(@Key("_id") id: ObjectId, 
                                 name: String, 
+                                description: String,
                                 url: String, 
                                 docType: DocType.Value, 
                                 userId: ObjectId, 
