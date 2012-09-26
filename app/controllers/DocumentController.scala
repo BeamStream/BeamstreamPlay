@@ -104,6 +104,20 @@ object DocumentController extends Controller {
      Ok(totalRocksJson).as("application/json")
    }
    
+    /*
+      * Change the title and description
+      */
+     def changeTitleAndDescriptionForADocument = Action { implicit request =>
+        val documentIdJsonMap = request.body.asFormUrlEncoded.get
+        val id = documentIdJsonMap("documentId").toList(0)
+        val title = documentIdJsonMap("docName").toList(0)
+        val description = documentIdJsonMap("docDescription").toList(0)
+        Document.updateTitleAndDescription(new ObjectId(id),title, description)
+        val docObtained = Document.findDocumentById(new ObjectId(id))
+        val docJson = write(List(docObtained))
+	Ok(docJson).as("application/json")
+      }
+   
    /*
     * Rockers of a document
     */
