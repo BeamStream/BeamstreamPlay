@@ -151,7 +151,7 @@ BS.AppRouter = Backbone.Router.extend({
 			var source = $("#tpl-school").html();
 			var template = Handlebars.compile(source);
 			$('#school-list').append(template(datas));
-			
+			$("#school-name-1").attr("disabled", "disabled"); 
 			
 			if(info.degree != "Other")
 			{
