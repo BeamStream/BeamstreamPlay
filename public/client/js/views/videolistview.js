@@ -1,7 +1,8 @@
 BS.VideoListView = Backbone.View.extend({
          events:{
                 "click a#file-type" : "showFilesTypes",
-                "click ul.file-type li a" : "hideList"
+                "click ul.file-type li a" : "hideList",
+                 "click .videotitle" : "editVideoTitle"
              },
     
         initialize:function(){
@@ -33,11 +34,26 @@ BS.VideoListView = Backbone.View.extend({
                            'userId': e.attributes.id.id
                                 },
                         dataType : "json",
-
+                                                                //------------------------------------------------------------
                         success : function(videos) {
                                 _.each(videos, function(video) {  
                                 content += '<li id="file-docs-'+i+'">'
-                                +'<div class="image-wrapper"><div class="hover-div"><img src="images/image2.jpg"/><div class="hover-text"><div class="gallery clearfix"></div><div class="gallery clearfix"><a href="'+video+'" rel="prettyPhoto" ><img src="images/image2.jpg"  width="185px" height="141px" /></div></div></div>'         
+                                +'<div class="image-wrapper hovereffect"><div class="hover-div"><img src="images/image2.jpg"/><div class="hover-text">'
+                                +'<div class="comment-wrapper comment-wrapper2">'
+                                +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
+                                +'<a href="#" class="hand-icon"></a>'
+                                +'<a href="#" class="message-icon"></a>'
+                                +'<a href="#" class="share-icon"></a>'
+                                +'</div>'
+                                +'<h4> video name</h4> ' 
+                                +'<div class="gallery clearfix"></div><div class="gallery clearfix"><a href="'+video+'" rel="prettyPhoto" style="text-decoration: none" >'
+                                +' <p class="google_doc doc-description" id="+doc.id.id+">'
+                                +'<input type="hidden" id="id-doc.id.id" value="doc.url">'
+                                +'Description of Video </p></a>'
+                                 +'<h5 class="videotitle"> Title & Description</h5>'           //'id' to edit the title and description
+                                +'<span>State</span>'
+                                +' <span class="date">datVal</span>'    
+                                +'</div></div></div>'         
                                 +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
                                 +'<ul class="comment-list">'
                                 +'<li><a class="eye-icon" href="#">87</a></li>'
@@ -144,7 +160,22 @@ BS.VideoListView = Backbone.View.extend({
         hideList : function(eventName){
             eventName.preventDefault();
             $('.file-type').slideUp();
-    	    } 
+    	    },
+            
+            /*Edit the Video title
+            * 
+            */  
+        editVideoTitle :function(eventName){  
+//          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
+            var datas = {
+				"type" : 'Video',
+				"title" : 'My first video',
+                                "description" :'This is my first video and very nice'
+			  }
+            BS.mediaeditview = new  BS.MediaEditView();
+            BS.mediaeditview.render(datas);
+            $('#gdocedit').html(BS.mediaeditview.el);
+            }
             
 })
 

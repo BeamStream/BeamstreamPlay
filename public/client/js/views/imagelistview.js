@@ -52,9 +52,9 @@ BS.ImageListView = Backbone.View.extend({
                                 +'</div>'
                                 +'<h4> image name</h4> ' 
                                 +'<div class="gallery clearfix"></div><div class="gallery clearfix"><a href="'+doc+'" style="text-decoration: none" rel="prettyPhoto[gallery2]">'
-                                +' <p class="google_doc" id="+doc.id.id+">'
+                                +' <p class="google_doc doc-description" id="+doc.id.id+">'
                                 +'<input type="hidden" id="id-doc.id.id" value="doc.url">'
-                                +'The Power of The Platform Behance Network Join The Leading Platform For </p></a>' 
+                                +'Description of image</p></a>' 
                                 +'<h5 class="imgtitle"> Title & Description</h5>'           //'id' to edit the title and description
                                 +'<span>State</span>'
                                 +' <span class="date">datVal</span>'

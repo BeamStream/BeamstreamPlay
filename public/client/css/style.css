@@ -2159,6 +2159,12 @@ label.error {
 .doctitle{
     cursor: pointer;
 }
+.videotitle{
+    cursor: pointer;
+}
+.doc-description{
+    height: 59px;
+}
 .gdocpopup{
     left: 23% !important;
     width: 1040px !important;

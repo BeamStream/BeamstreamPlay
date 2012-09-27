@@ -5,6 +5,9 @@ BS.FilesMediaView = Backbone.View.extend({
                 "click ul.file-type li a" : "hideList",
                 "click '.nav a" : "addActive",
                 "click #gdoc_uploadbutton" : "uploadFile",
+                "click .doctitle" : "editDocTitle",
+                "click .imgtitle" : "editImgTitle",
+                "click .videotitle" : "editVideoTitle",
                 "mouseenter #uploadmedia_dr":"uploadMediadwn",
                 "mouseleave #dropdownnew":"uploadMediaup",
                 "click #links_dr":"linksMenuList",
@@ -20,7 +23,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 "click #audio_uploadbutton":"audioUpload",
                 "click #presentations_dr":"presentationMenuList",
                 "click #presvialink_dr":"presentationVialink",
-                "click #press_uploadbutton":"presentationUpload",
+                "click #press_uploadbutton":"presentationUpload"
            //   "click #select_dr":"selectboxdwn",
           //    "blur #select_dr":"selectboxup"
 //              "click #profile-images":"listProfileImages",
@@ -101,15 +104,13 @@ BS.FilesMediaView = Backbone.View.extend({
          if($("#gdoc-url").val().length != 0){
          documentModel.set({
                 docName : $("#gdoc-name").val(),
-                docURL : $("#gdoc-url").val(),
+                docURL : $("#gdoc-url").val(),  
                 docAccess: 'Public',
                 docType: 'GoogleDocs',
-                docDescription: 'testing g docs'
+                docDescription: $("#gdoc-description").val()
           });
-            console.log('documentData=2');
             
           var documentData = JSON.stringify(documentModel);
-     console.log(documentData);
               var self = this;
                       $.ajax({
                     type : 'POST',
@@ -135,7 +136,6 @@ BS.FilesMediaView = Backbone.View.extend({
       
         docsList : function()
         {  
-            console.log("doc list");
             var i = 1;
             var self = this;
             BS.user.fetch({ success:function(e) {
@@ -157,8 +157,8 @@ BS.FilesMediaView = Backbone.View.extend({
                                         +'<div class="hover-div"><img src="images/docs_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
                                         +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
                                         +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#googledocs" style="text-decoration: none">'
-                                        +'<h4>'+doc.name+'</h4> <p>The Power of The Platform Behance Network Join The Leading Platform For </p>'
-                                        +'<h5> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span></a> '
+                                        +'<h4>'+doc.name+'</h4> <p class="doc-description">'+doc.description+'</p></a>'
+                                        +'<h5 class="doctitle"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
                                         +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#">'
                                         +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#">87</a></li>'
                                         +'<li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#">10</a></li></ul></div>'; 
@@ -174,6 +174,20 @@ BS.FilesMediaView = Backbone.View.extend({
            // $('#content').html(BS.listDocsView.el);
         },
         
+         /*
+         *Edit the document title 
+         */
+        editDocTitle :function(eventName){  
+//          var docId = eventName.currentTarget.id;             // id to get corresponding docs     
+            var datas = {
+				"type" : 'Docs',
+				"title" : 'Title of the doc',
+                                "description" :'description of the doc'
+			  }
+            BS.mediaeditview = new  BS.MediaEditView();
+            BS.mediaeditview.render(datas);
+            $('#gdocedit').html(BS.mediaeditview.el);
+            },
         
         /*
          *function to show pictures in filesmediaview
@@ -181,7 +195,7 @@ BS.FilesMediaView = Backbone.View.extend({
         
         
          pictres : function()
-        {  console.log("picture");
+        {  
             var self = this;
             var arraypictures = new Array();
             var content='';
@@ -196,24 +210,20 @@ BS.FilesMediaView = Backbone.View.extend({
                                 },
                         dataType : "json",
                         success : function(docs) {
-//                            console.log(docs);
-//                            console.log('coverpicture');
                             if(docs.length != 0)
                             {
                                 arraypictures=docs;
                                 coverpicture=arraypictures[arraypictures.length-1];
-//                                console.log(coverpicture);
-//                                 console.log('coverpicture');
                                
                                 content= '<div class="image-wrapper hovereffect"> <div class="hover-div"><img class="filmdeapicture" src="'+coverpicture+'"><div class="hover-text">'               
                                +'<div class="comment-wrapper comment-wrapper2">'
                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
                                 +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#imagelist" style="text-decoration: none"><h4> Image Name</h4>'                            
-                                +'<p>Description for image  </p></br>'
-                                +'<h5 class="doctitle"> Title & Description</h5>'          
+                                +'<p class="doc-description">Description of image</p></a></br>'
+                                +'<h5 class="imgtitle"> Title & Description</h5>'          
                                 +'<span>State</span>'
                                 +' <span class="date">datVal</span>' 
-                                +'</a></div></div></div>'
+                                +'</div></div></div>'
                                 +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>'
                                 +'<ul class="comment-list">'
                                 +'<li><a class="eye-icon" href="#">87</a></li>'
@@ -232,6 +242,21 @@ BS.FilesMediaView = Backbone.View.extend({
 
            // $('#content').html(BS.listDocsView.el);
         },
+        
+            /*Edit the document title
+            * 
+            */ 
+         editImgTitle :function(eventName){  
+//          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
+            var datas = {
+				"type" : 'Image',
+				"title" : 'Title of the image',
+                                "description" :'description of the image'
+			  }
+            BS.mediaeditview = new  BS.MediaEditView();
+            BS.mediaeditview.render(datas);
+            $('#gdocedit').html(BS.mediaeditview.el);
+            },
         
         /*
          *function to show pictures in filesmediaview
@@ -256,7 +281,17 @@ BS.FilesMediaView = Backbone.View.extend({
                             {
                                 arraypictures=docs;
                                coverpicture=arraypictures[arraypictures.length-1];
-                                content= '<div class="image-wrapper"><div class="hover-div"><img src="images/video_image.png"/><div class="hover-text"><a id="profile-videos" href="#videos"><img src="images/image2.jpg"></a>'
+                                content= '<div class="image-wrapper hovereffect"><div class="hover-div"><img src="images/image2.jpg"/><div class="hover-text">'
+                                            +'<div class="comment-wrapper comment-wrapper2">'
+                                            +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
+                                            +'<a href="#" class="hand-icon"></a>'
+                                            +'<a href="#" class="message-icon"></a>'
+                                            +'<a href="#" class="share-icon"></a></div>'
+                                            +'<a id="profile-videos" style="text-decoration: none" href="#videos"><h4> Image Name</h4>'       
+                                            +'<p class="doc-description">Description of Video  </p></a></br>'
+                                            +'<h5 class="videotitle"> Title & Description</h5>'          
+                                            +'<span>State</span>'
+                                            +' <span class="date">datVal</span>' 
                                             +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
                                             +'<ul class="comment-list">'
                                             +'<li><a class="eye-icon" href="#">87</a></li>'
@@ -269,6 +304,21 @@ BS.FilesMediaView = Backbone.View.extend({
 
             }});
         },
+        
+        /*Edit the Video title
+            * 
+            */  
+        editVideoTitle :function(eventName){  
+//          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
+            var datas = {
+				"type" : 'Video',
+				"title" : 'My first video',
+                                "description" :'This is my first video and very nice'
+			  }
+            BS.mediaeditview = new  BS.MediaEditView();
+            BS.mediaeditview.render(datas);
+            $('#gdocedit').html(BS.mediaeditview.el);
+            },
         
         /**
          * Function for show audio
