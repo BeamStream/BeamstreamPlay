@@ -46,7 +46,7 @@ object MediaController extends Controller {
           val uniqueString = tokenEmail.securityToken
           val imageFileObtained: File = imageData.ref.file.asInstanceOf[File]
           val imageNameOnAmazon = uniqueString + imageFilename // Security Over the images files
-          val imageFileInputStream=CompressFile.compressImage(imageFileObtained,imageNameOnAmazon,0.1f)
+          val imageFileInputStream = CompressFile.compressImage(imageFileObtained, imageNameOnAmazon, 0.1f)
           //AmazonUpload.uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
           AmazonUpload.uploadCompressedFileToAmazon(imageNameOnAmazon, imageFileInputStream)
           val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
@@ -74,9 +74,9 @@ object MediaController extends Controller {
           val uniqueString = tokenEmail.securityToken
           val videoFileObtained: File = videoData.ref.file.asInstanceOf[File]
           val videoFileNameOnnAmazon = uniqueString + videoFilename // Security Over the videos files
-           val videoFileInputStream=CompressFile.compressImage(videoFileObtained,videoFileNameOnnAmazon,0.1f)
-            AmazonUpload.uploadCompressedFileToAmazon(videoFileNameOnnAmazon, videoFileInputStream)
-          //AmazonUpload.uploadFileToAmazon(videoFileNameOnnAmazon, videoFileObtained)
+          // val videoFileInputStream=CompressFile.compressImage(videoFileObtained,videoFileNameOnnAmazon,0.1f)
+          //AmazonUpload.uploadCompressedFileToAmazon(videoFileNameOnnAmazon, videoFileInputStream)
+          AmazonUpload.uploadFileToAmazon(videoFileNameOnnAmazon, videoFileObtained)
           val videoURL = "https://s3.amazonaws.com/BeamStream/" + videoFileNameOnnAmazon
           val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), videoURL, UserMediaType.Video, videoStatus)
           UserMedia.saveMediaForUser(media)
@@ -137,7 +137,5 @@ object MediaController extends Controller {
     val allProfileMediaForAUser = UserMedia.getAllProfileVideoForAUser(new ObjectId(request.session.get("userId").get))
     Ok(write(allProfileMediaForAUser)).as("application/json")
   }
-
-
 
 }

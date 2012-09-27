@@ -69,8 +69,7 @@ object CommentController extends Controller {
     }
   }
 
-  /*
-   * 
+  /** 
    * Method for retrieving all the comments based on the input
    */
 
@@ -82,7 +81,7 @@ object CommentController extends Controller {
       case true =>
 
         val messageId = idJson("messageId").toList(0)
-        val commentsForAMessage = getCommentsFromId(Message.findMessageById(new ObjectId(messageId)).get.comments)
+        val commentsForAMessage = Comment.getAllComments(Message.findMessageById(new ObjectId(messageId)).get.comments)
         Ok(write(commentsForAMessage)).as("application/json")
 
       case false => (idJson.contains(("docId"))) match {
@@ -90,7 +89,7 @@ object CommentController extends Controller {
         case true =>
 
           val docId = idJson("docId").toList(0)
-          val commentsForADocument = getCommentsFromId(Document.findDocumentById(new ObjectId(docId)).comments)
+          val commentsForADocument = Comment.getAllComments(Document.findDocumentById(new ObjectId(docId)).comments)
           Ok(write(commentsForADocument)).as("application/json")
 
         case false =>
@@ -102,26 +101,7 @@ object CommentController extends Controller {
 
   }
 
-  def getCommentsFromId(commentIds: List[ObjectId]): List[Comment] = {
-
-    var comments: List[Comment] = List()
-    for (commentId <- commentIds) {
-      val comment = Comment.findCommentById(commentId)
-      comments ++= List(comment)
-    }
-    comments
-
-  }
-
-  ///**
-  // * Trait related
-  // */
-  // def addCommentFromUI(id: ObjectId, commentId: ObjectId) {
-  //    val consumers: List[CommentConsumer] = List(Message, Document)
-  //    consumers.view.map(_.addComment(id, commentId))
-  //  }
-
-  /*
+  /**
    * Rocking a comment
    */
 
@@ -132,7 +112,7 @@ object CommentController extends Controller {
     Ok(write(totalRocksForAComment.toString)).as("application/json")
   }
 
-  /*
+  /**
    * Return Comment Rockers List
    */
 
