@@ -201,7 +201,7 @@ BS.AppRouter = Backbone.Router.extend({
 	         current = 1;
 	         if(BS.schoolFromPrev)
 	         {
-//	        	$('#school-name-1').val(BS.schoolFromPrev);
+	        	$('#school-name-1').val(BS.schoolFromPrev);  // transport school name from sign up page to school screen
 	        	$('#prev-school').attr("value",BS.schoolFromPrev);
 	        	 
 	        	 $.ajax({
@@ -221,6 +221,8 @@ BS.AppRouter = Backbone.Router.extend({
 						    		  $('#associatedId-1').attr('value',sId);
 						    		 
 						    	  }
+								 
+								  
 					        });
 						}
 					});
@@ -370,8 +372,11 @@ BS.AppRouter = Backbone.Router.extend({
     	{
     		
            $('#school-popup').children().detach(); 
-           BS.classView = new BS.ClassView();
-           BS.classView.render();
+//           if (!BS.classView) {
+	           BS.classView = new BS.ClassView();
+	           BS.classView.render();
+//           }
+           
            $('#school-popup').html(BS.classView.el);
            $(".modal select:visible").selectBox();
            $('.modal .datepicker').datepicker();

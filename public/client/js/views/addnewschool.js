@@ -28,9 +28,14 @@ BS.AddNewSchool = Backbone.View.extend({
      * */
     closeScreen :function(eventName){
     	 
-   	 eventName.preventDefault(); 
+   	 eventName.preventDefault();
+   	 var parentPage = $('#new-school-popup').attr('name');
+   	 console.log(parentPage);
+   	 // close the popup and go to its parent page
+   	 
    	 $('#new-school-popup').children().detach(); 
-   	 var schoolView = new BS.SchoolView();
+   	 
+   	 
     },
     /**
      * add new school 
@@ -66,8 +71,9 @@ BS.AddNewSchool = Backbone.View.extend({
 //                        	 var parent = $('#parent-Id').attr("value");
 //                        	 $('#'+parent).val(myschool);
                         	 $('#prev-school').attr("value","");
+ 
                         	 $('#new-school-popup').children().detach(); 
-                           	 var schoolView = new BS.SchoolView();
+                           	 //var schoolView = new BS.SchoolView();
                            	
                         }
                     }
