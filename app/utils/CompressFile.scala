@@ -38,8 +38,4 @@ object CompressFile extends App{
     println(decodedInput)
     decodedInput
   }
-
- 
-   
- 
 }

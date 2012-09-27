@@ -1683,7 +1683,7 @@ $(window).bind("load", function() {
 <script type="text/x-handlebars-template" id="tpl-school-reg">
   <div class="modal-backdrop in"></div>
     <div class="modal school-popup  modal-popups" style="display:block;">
-    <div id="new-school-popup" ></div>
+    <div name="in-school-screen" id="new-school-popup" ></div>
      <div class="modal-header">
         <div class="control-button">
         {{#unless edit}}
@@ -2373,7 +2373,7 @@ $(window).bind("load", function() {
                     <div class="element">
                         <div id="num-validation"></div>
                         <label for="mobile">Mobile <span class="star"> </span></label>
-                        <input type="text" id="mobile" name="mobile" class=" large" placeholder="(999) 999-9999" >
+                        <input type="text" id="mobile" name="mobile" class="required large " placeholder="(999) 999-9999" >
                     </div>
                     <div class="element">
                         <label for="upload">Upload</label>
@@ -3056,9 +3056,10 @@ $(window).bind("load", function() {
 	<script type="text/x-handlebars-template" id="tpl-basic-profile">
 <div class="modal-backdrop in"></div>
     <div class="modal main-popups  modal-pull-top in modal-popups" style="display:block;">
+   <div name = "in-basicProfile" id="new-school-popup" ></div>
   <div class="modal-header">
     <div class="control-button">
-    <a href="#"><img class="close-button" src="images/close-button.png"></a>
+    <a href="#"><img id="basic-close" class="close-button" src="images/close-button.png"></a>
    </div>
     <h1 class="pull-left">Basic Profile </h1>
     <img src="images/registration-progress-0.png" alt="Registration progress - 25%" class="registration-progress pull-right"> </div>
@@ -3072,7 +3073,7 @@ $(window).bind("load", function() {
       
         <div class="element" style="margin-top:25px;" >
               <label for="school-name">School name <span class="star"> </span></label>
-              <input type="text" id="school-name" name="school-name" placeholder=" School Name" class="required span3">
+              <input type="text" id="school-name" name="schoolName" placeholder=" School Name" class="required span3 myschool">
             </div>
         <div class="element">
               <label for="user-name">User Name <span class="star"> </span><br/>
@@ -3127,7 +3128,7 @@ $(window).bind("load", function() {
         <div class="element" style="margin-top:25px;" >
               <input type= "hidden" id="user_Id" value ="{{data.id.id}}">
               <label for="school-name">School name   </label>
-              <input type="text" id="school-name" placeholder="" value="{{data.orgName}}" class="validate[required] span3">
+              <input name="schoolName" type="text" id="school-name" placeholder="" value="{{data.orgName}}" class="validate[required] span3 myschool">
             </div>
         <div class="element">
               <label for="user-name">User Name   <br/>
@@ -3174,9 +3175,10 @@ $(window).bind("load", function() {
 	<script type="text/x-handlebars-template" id="tpl-profile-socialmedia">
 <div class="modal-backdrop in"></div>
     <div class="modal main-popups  modal-pull-top in modal-popups" style="display:block;">
+ <div name="in-socialmedia" id="new-school-popup" ></div>
 <div class="modal-header">
     <div class="control-button">
-    <a href="#"><img class="close-button" src="images/close-button.png"></a>
+    <a href="#"><img id="media-close" class="close-button" src="images/close-button.png"></a>
     </div>
     <h1 class="pull-left">Basic Profile</h1>
     <img src="images/registration-progress-0.png" alt="Registration progress - 25%" class="registration-progress pull-right"> </div>
@@ -3197,23 +3199,23 @@ $(window).bind("load", function() {
                 </select>
             </div>
              <div class="element">
-              <label for="school-name">School Name <span class="star"> </span></label>
-              <input type="text" name="school-name" id="school-name" placeholder="School Name" class="required span3">
+              <label for="school-name">School Name </label>
+              <input type="text" name="schoolName" id="school-name" placeholder="School Name" class="required span3 myschool">
             </div>
             <div class="element">
-              <label for="school-email">School Email <span class="star"> </span></label>
+              <label for="school-email">School Email </label>
               <input type="text" id="school-email" name="school-email" placeholder="School Email" class="required span3">
             </div>
             <div class="element">
-              <label for="first-name">First Name <span class="star"> </span></label>
+              <label for="first-name">First Name </label>
               <input type="text" id="first-name" placeholder="First Name" class="required span3">
             </div>
             <div class="element">
-              <label for="last-name">Last Name <span class="star"></span></label>
+              <label for="last-name">Last Name</label>
               <input type="text" id="last-name" name="last-name" placeholder="Last Name" class="required span3">
             </div>
             <div class="element">
-              <label for="location">Location <span class="star"> </span></label>
+              <label for="location">Location</label>
               <input type="text" id="location" name="location" placeholder="Location" class="required span3">
             </div>
             <div class="element">
@@ -3297,7 +3299,7 @@ $(window).bind("load", function() {
             <div class="element">
               <input type="hidden" id="user-id" value="{{data.id.id}}">
               <label for="school-name">School Name   </label>
-              <input type="text" id="school-name"  value="{{data.orgName}}" class="validate[required] span3">
+              <input  name="schoolName" type="text" id="school-name"  value="{{data.orgName}}" class="validate[required] span3 myschool">
             </div>
             <div class="element">
               <label for="school-email">School Email   </label>
@@ -3817,7 +3819,6 @@ $(window).bind("load", function() {
 	<script src="js/views/registrationview.js"></script>
 	<script src="js/views/mediaregistrationview.js"></script>
 	<script src="js/models/basicprofilemodel.js"></script>
-
 	<script src="js/views/homeview.js"></script>
 	<script src="js/views/schoolview.js"></script>
 	<script src="js/models/schoolmodel.js"></script>
@@ -3845,10 +3846,10 @@ $(window).bind("load", function() {
 			BS.addNewSchool.render();
 			$('#new-school-popup').html(BS.addNewSchool.el);
 
-// 			if (BS.schoolFromPrev == $('#prev-school').attr("value")) {
-// 				console.log("Ok");
-// 				$('#my-school').val(BS.schoolFromPrev);
-// 			}
+			if (BS.schoolFromPrev == $('#prev-school').attr("value")) {
+				console.log("Ok");
+				$('#my-school').val(BS.schoolFromPrev);
+			}
             if(BS.newSchool)
             {
             	$('#my-school').val(BS.newSchool);

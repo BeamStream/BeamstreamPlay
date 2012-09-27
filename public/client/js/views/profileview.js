@@ -207,7 +207,7 @@ BS.ProfileView = Backbone.View.extend({
     	}
     	else
     	{
-    		console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
+    		console.log("validation: Error");
     	}
     	 
     },

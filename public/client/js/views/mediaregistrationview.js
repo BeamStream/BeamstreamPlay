@@ -4,7 +4,9 @@ BS.MediaRegistrationView = Backbone.View.extend({
 		"click #save" : "save",
 		"click #continue" : "toNextPage",
 		"click #no-schoolmail" : "addSchoolEmail",
-		"click .close-button" : "closeScreen"
+		"click #media-close" : "closeScreen",
+		"keyup .myschool" : "populateSchools",
+	    "focusin .myschool" : "populateSchools",
 		
 	},
 
@@ -145,6 +147,9 @@ BS.MediaRegistrationView = Backbone.View.extend({
              {
              	var id = 1;
              }
+        	  
+        	 
+        	 
         	var datas = BS.JsonFromSocialSite;
         	 
 			basicProfile.set({
@@ -273,5 +278,50 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	  eventName.preventDefault(); 
 	  $(".star").hide();
   	  BS.AppRouter.navigate('login', {trigger: true});
-	}
+	},
+	
+	 /**
+     * auto populate school
+     */
+ 
+    populateSchools :function(eventName){
+    	var id = eventName.target.id;
+    	var text = $('#'+id).val();
+    	var self =this;
+        if(text)
+        {
+        	BS.newSchool = text;
+			/* post the text that we type to get matched school */
+			 $.ajax({
+				type : 'POST',
+				url : BS.autoPopulateSchools,
+				data : {
+					data : text,
+				},
+				dataType : "json",
+				success : function(datas) {
+	
+					var codes = '';
+					 
+					BS.allSchoolInfo = datas;
+					BS.schoolNames = [];
+					_.each(datas, function(data) {
+						BS.schoolNames.push(data.schoolName);
+			         });
+	                              
+					//set auto populate schools
+					$('#'+id).autocomplete({
+						    source: BS.schoolNames,
+						    select: function(event, ui) {
+						    	var text = ui.item.value; 
+						    	 
+						    }
+					 });
+					
+	 
+				}
+			});
+        }
+		
+    },
 });

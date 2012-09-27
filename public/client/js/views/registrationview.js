@@ -3,7 +3,9 @@ BS.RegistrationView = Backbone.View.extend({
 	events : {
 		"click #save" : "save",
 		"click #continue" : "toNextPage",
-		"click .close-button" : "closeScreen"
+		"click #basic-close" : "closeScreen",
+		"keyup .myschool" : "populateSchools",
+	    "focusin .myschool" : "populateSchools",
 	},
 
 	initialize : function() {
@@ -18,7 +20,6 @@ BS.RegistrationView = Backbone.View.extend({
 	},
 
 	render : function(eventName) {
-	   
 		 
 		//get mail informations
 		 this.iam = eventName.iam;
@@ -70,13 +71,11 @@ BS.RegistrationView = Backbone.View.extend({
     	   					BS.classBack = false;
     	   					
     	   					//set status for school back page
-//    						BS.resistrationPage = " ";
     	   					localStorage["resistrationPage"] = "";
     	   					
     						
     	   					// navigate to main stream page
     	   					BS.schoolFromPrev =  $('#school-name').val();
-    	   					$(".star").hide();
     	   					BS.AppRouter.navigate("streams", {
     	   						trigger : true,
     	   						 
@@ -198,5 +197,50 @@ BS.RegistrationView = Backbone.View.extend({
 	  eventName.preventDefault(); 
 	  $(".star").hide();
   	  BS.AppRouter.navigate('login', {trigger: true});
-	}
+	},
+	
+	/**
+     * auto populate school
+     */
+ 
+    populateSchools :function(eventName){
+    	var id = eventName.target.id;
+    	var text = $('#'+id).val();
+    	var self =this;
+        if(text)
+        {
+        	BS.newSchool = text;
+			/* post the text that we type to get matched school */
+			 $.ajax({
+				type : 'POST',
+				url : BS.autoPopulateSchools,
+				data : {
+					data : text,
+				},
+				dataType : "json",
+				success : function(datas) {
+	
+					var codes = '';
+					 
+					BS.allSchoolInfo = datas;
+					BS.schoolNames = [];
+					_.each(datas, function(data) {
+						BS.schoolNames.push(data.schoolName);
+			         });
+	                              
+					//set auto populate schools
+					$('#'+id).autocomplete({
+						    source: BS.schoolNames,
+						    select: function(event, ui) {
+						    	var text = ui.item.value; 
+						    	 
+						    }
+					 });
+					
+	 
+				}
+			});
+        }
+		
+    }
 });

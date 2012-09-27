@@ -52,15 +52,6 @@ BS.AppRouter = Backbone.Router.extend({
   		        timeValues.push({"time" : time});
   		 }
   		BS.times = jQuery.parseJSON(JSON.stringify(timeValues));
-  		
-  		// set status variable to check whether its a edit school/class/profile 
-//  		BS.editSchool = true;
-//  		localStorage["editSchool"] ='';
-//  		BS.editClass = true;
-//  		BS.editProfile = true;
-  		
-  		//set status for school back page
-//  		BS.resistrationPage = '';
     	
     },
  
@@ -160,7 +151,7 @@ BS.AppRouter = Backbone.Router.extend({
 			var source = $("#tpl-school").html();
 			var template = Handlebars.compile(source);
 			$('#school-list').append(template(datas));
-			
+//			$("#school-name-1").attr("disabled", "disabled"); 
 			
 			if(info.degree != "Other")
 			{
@@ -201,8 +192,9 @@ BS.AppRouter = Backbone.Router.extend({
 	         current = 1;
 	         if(BS.schoolFromPrev)
 	         {
-//	        	$('#school-name-1').val(BS.schoolFromPrev);
+	        	$('#school-name-1').val(BS.schoolFromPrev);  // transport school name from sign up page to school screen
 	        	$('#prev-school').attr("value",BS.schoolFromPrev);
+//	        	$("#school-name-1").attr("disabled", "disabled"); 
 	        	 
 	        	 $.ajax({
 		        	   type : 'POST',
@@ -221,6 +213,8 @@ BS.AppRouter = Backbone.Router.extend({
 						    		  $('#associatedId-1').attr('value',sId);
 						    		 
 						    	  }
+								 
+								  
 					        });
 						}
 					});
@@ -370,8 +364,11 @@ BS.AppRouter = Backbone.Router.extend({
     	{
     		
            $('#school-popup').children().detach(); 
-           BS.classView = new BS.ClassView();
-           BS.classView.render();
+//           if (!BS.classView) {
+	           BS.classView = new BS.ClassView();
+	           BS.classView.render();
+//           }
+           
            $('#school-popup').html(BS.classView.el);
            $(".modal select:visible").selectBox();
            $('.modal .datepicker').datepicker();

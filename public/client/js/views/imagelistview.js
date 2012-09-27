@@ -51,7 +51,7 @@ BS.ImageListView = Backbone.View.extend({
                                 +'<a href="#" class="share-icon"></a>'
                                 +'</div>'
                                 +'<h4> image name</h4> ' 
-                                +'<div class="gallery clearfix"></div><div class="gallery clearfix"><a href="'+doc+'" style="text-decoration: none" rel="prettyPhoto">'
+                                +'<div class="gallery clearfix"></div><div class="gallery clearfix"><a href="'+doc+'" style="text-decoration: none" rel="prettyPhoto[gallery2]">'
                                 +' <p class="google_doc" id="+doc.id.id+">'
                                 +'<input type="hidden" id="id-doc.id.id" value="doc.url">'
                                 +'The Power of The Platform Behance Network Join The Leading Platform For </p></a>' 
