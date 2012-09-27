@@ -103,14 +103,6 @@ object Class {
     ClassDAO.remove(myclass)
   }
 
-  //  /*
-  //   * Finding the class by Name
-  //   */
-  //
-  //  def findClassByName(name: String): List[Class] = {
-  //    val regexp = (""".*""" + name + """.*""").r
-  //    for (theclass <- ClassDAO.find(MongoDBObject("className" -> regexp)).toList) yield theclass
-  //  }
 
   /*
    * Finding the class by Code
