@@ -15,10 +15,9 @@ import java.io.ByteArrayOutputStream
 import java.io.ByteArrayInputStream
 
 object CompressFile extends App{
- val file=new File("/home/neelkanth/Entertainment/DSC00248 (copy).JPG")
-  def compressImage(inputImage : File , filename: String, quality: Float){
+
+  def compressImage(inputImage : File , filename: String, quality: Float) : InputStream={
     println(inputImage.getTotalSpace() + "Before")
-   
     val is= new FileInputStream(inputImage)
     val os= new ByteArrayOutputStream
     val image = ImageIO.read(is);
@@ -37,10 +36,10 @@ object CompressFile extends App{
     println(os.size + "After")
    	val decodedInput : InputStream =new ByteArrayInputStream(( os).toByteArray())
     println(decodedInput)
-    
+    decodedInput
   }
 
- compressImage(file,"Neel.jpg",0.1f)
+ 
    
  
 }
