@@ -52,15 +52,6 @@ BS.AppRouter = Backbone.Router.extend({
   		        timeValues.push({"time" : time});
   		 }
   		BS.times = jQuery.parseJSON(JSON.stringify(timeValues));
-  		
-  		// set status variable to check whether its a edit school/class/profile 
-//  		BS.editSchool = true;
-//  		localStorage["editSchool"] ='';
-//  		BS.editClass = true;
-//  		BS.editProfile = true;
-  		
-  		//set status for school back page
-//  		BS.resistrationPage = '';
     	
     },
  
@@ -203,6 +194,7 @@ BS.AppRouter = Backbone.Router.extend({
 	         {
 	        	$('#school-name-1').val(BS.schoolFromPrev);  // transport school name from sign up page to school screen
 	        	$('#prev-school').attr("value",BS.schoolFromPrev);
+	        	$("#school-name-1").attr("disabled", "disabled"); 
 	        	 
 	        	 $.ajax({
 		        	   type : 'POST',

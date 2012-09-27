@@ -2372,7 +2372,7 @@ $(window).bind("load", function() {
                     <div class="element">
                         <div id="num-validation"></div>
                         <label for="mobile">Mobile <span class="star"> </span></label>
-                        <input type="text" id="mobile" name="mobile" class=" large" placeholder="(999) 999-9999" >
+                        <input type="text" id="mobile" name="mobile" class="required large " placeholder="(999) 999-9999" >
                     </div>
                     <div class="element">
                         <label for="upload">Upload</label>
@@ -3127,7 +3127,7 @@ $(window).bind("load", function() {
         <div class="element" style="margin-top:25px;" >
               <input type= "hidden" id="user_Id" value ="{{data.id.id}}">
               <label for="school-name">School name   </label>
-              <input type="text" id="school-name" placeholder="" value="{{data.orgName}}" class="validate[required] span3">
+              <input name="schoolName" type="text" id="school-name" placeholder="" value="{{data.orgName}}" class="validate[required] span3 myschool">
             </div>
         <div class="element">
               <label for="user-name">User Name   <br/>
@@ -3298,7 +3298,7 @@ $(window).bind("load", function() {
             <div class="element">
               <input type="hidden" id="user-id" value="{{data.id.id}}">
               <label for="school-name">School Name   </label>
-              <input type="text" id="school-name"  value="{{data.orgName}}" class="validate[required] span3">
+              <input  name="schoolName" type="text" id="school-name"  value="{{data.orgName}}" class="validate[required] span3 myschool">
             </div>
             <div class="element">
               <label for="school-email">School Email   </label>
