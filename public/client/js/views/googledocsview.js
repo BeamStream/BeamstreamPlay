@@ -61,7 +61,8 @@ BS.GoogleDocsView = Backbone.View.extend({
             docName : $("#gdoc-name").val(),
             docURL : $("#gdoc-url").val(),
             docAccess: 'Public',
-            docType: 'GoogleDocs'
+            docType: 'GoogleDocs ',
+            docDescription: 'testing g docs'
             });
             var documentData = JSON.stringify(documentModel);
             var self = this;

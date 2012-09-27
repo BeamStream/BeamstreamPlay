@@ -37,7 +37,7 @@ BS.VideoListView = Backbone.View.extend({
                         success : function(videos) {
                                 _.each(videos, function(video) {  
                                 content += '<li id="file-docs-'+i+'">'
-                                +'<div class="image-wrapper"><div class="hover-div"><img src="images/video_image.png"/><div class="hover-text"><div class="gallery clearfix"></div><div class="gallery clearfix"><a href="'+video+'" rel="prettyPhoto" ><img src="images/image2.jpg"  width="185px" height="141px" /></div></div></div>'         
+                                +'<div class="image-wrapper"><div class="hover-div"><img src="images/image2.jpg"/><div class="hover-text"><div class="gallery clearfix"></div><div class="gallery clearfix"><a href="'+video+'" rel="prettyPhoto" ><img src="images/image2.jpg"  width="185px" height="141px" /></div></div></div>'         
                                 +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
                                 +'<ul class="comment-list">'
                                 +'<li><a class="eye-icon" href="#">87</a></li>'

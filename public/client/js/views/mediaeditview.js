@@ -47,6 +47,9 @@ BS.MediaEditView = Backbone.View.extend({
                     case 'Docs':  
                                 var googledocsview = new BS.GoogleDocsView();
                                  break;
+                    case 'Video':  
+                                var googledocsview = new BS.GoogleDocsView();
+                                 break;             
                    }
 //            }
         }

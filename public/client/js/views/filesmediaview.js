@@ -103,7 +103,8 @@ BS.FilesMediaView = Backbone.View.extend({
                 docName : $("#gdoc-name").val(),
                 docURL : $("#gdoc-url").val(),
                 docAccess: 'Public',
-                docType: 'GoogleDocs'
+                docType: 'GoogleDocs',
+                docDescription: 'testing g docs'
           });
             console.log('documentData=2');
             
@@ -124,6 +125,7 @@ BS.FilesMediaView = Backbone.View.extend({
                             {
                             alert("Doc Uploaded Successfully");
                                 self.docsList(); 
+                                console.log("Doc Uploaded Successfully");
                             }
                         }           
             });
@@ -132,7 +134,8 @@ BS.FilesMediaView = Backbone.View.extend({
         },
       
         docsList : function()
-        {       
+        {  
+            console.log("doc list");
             var i = 1;
             var self = this;
             BS.user.fetch({ success:function(e) {
