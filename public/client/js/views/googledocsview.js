@@ -61,7 +61,8 @@ BS.GoogleDocsView = Backbone.View.extend({
             docName : $("#gdoc-name").val(),
             docURL : $("#gdoc-url").val(),
             docAccess: 'Public',
-            docType: 'GoogleDocs'
+            docType: 'GoogleDocs ',
+            docDescription: 'testing g docs'
             });
             var documentData = JSON.stringify(documentModel);
             var self = this;
@@ -126,7 +127,7 @@ BS.GoogleDocsView = Backbone.View.extend({
                                 +' <p class="google_doc" id="'+doc.id.id+'">'
                                 +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'">'
                                 +'The Power of The Platform Behance Network Join The Leading Platform For </p>'
-                                +'<h5 class="doctitle"> Title & Description</h5>'
+                                +'<h5 class="doctitle" id="'+doc.id.id+'"> Title & Description</h5>'           //'id' to edit the title and description
                                 +'<span>State</span>'
                                 +' <span class="date">'+datVal+'</span>' 
                                 +'</div> </div></div>'                                                       //two closing <div> for hover over effect
@@ -246,9 +247,17 @@ BS.GoogleDocsView = Backbone.View.extend({
          * For Doc popups
          */
         showDocPopup :function(eventName){
+            
             var docId = eventName.currentTarget.id;
             var docUrl = $('input#id-'+docId).val();  
-            newwindow=window.open(docUrl,'','height=550,width=1000,top=100,left=145');     
+//            console.log(docUrl);
+//            newwindow=window.open(docUrl,'','height=500,width=500');    
+            BS.gdocpopupview = new BS.GdocPopupView();
+            BS.gdocpopupview.render(docUrl);
+            
+            $('#gdocedit').html(BS.gdocpopupview.el);
+            
+            
             },
             
         /**
@@ -261,8 +270,16 @@ BS.GoogleDocsView = Backbone.View.extend({
         /*Edit the document title
          * 
          */  
-        editDocTitle :function(){
-            console.log("editDocTitle");
+        editDocTitle :function(eventName){  
+//          var docId = eventName.currentTarget.id;             // id to get corresponding docs     
+            var datas = {
+				"type" : 'Docs',
+				"title" : 'Title of the doc',
+                                "description" :'description of the doc'
+			  }
+            BS.mediaeditview = new  BS.MediaEditView();
+            BS.mediaeditview.render(datas);
+            $('#gdocedit').html(BS.mediaeditview.el);
             }
     
 })

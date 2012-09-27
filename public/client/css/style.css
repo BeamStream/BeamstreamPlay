@@ -1142,7 +1142,7 @@ ul.file-list li {
 	height:141px;
 	display:block;
 	overflow:hidden;
-	margin:10px; margin-top: 0px !important;
+	margin:10px; margin-top: 4px !important;   
 	border-radius: 3px 3px 3px 3px;
 	background:#fdfdfd;
 }
@@ -2006,11 +2006,13 @@ border: 1px solid #E8E8E9;
 .make-it{
 	height:100px;
 }
-
+.select{
+    background-color: #f1e7e7;
+}
 /*-------------hover----------*/
 div.hover-div{
     display:block;
-    height:136px;
+    height:130px;
      width:190px;   
     position:relative;
    margin:1px 0px 0px 0px;
@@ -2028,12 +2030,12 @@ div.hover-div:hover img{
 .hover-text{
     display:none;
     clear:both;
-    height:130px;
+    height:140px;
     margin-top:0px;
     background-color: white;
   /*  color:white;  */
     width: 100%;
-    bottom:0;
+    top:0;
     position:absolute;
     z-index:2;
 }
@@ -2064,6 +2066,20 @@ p.emptyfiles{
 
 /*---------------------------------*/
 
+.docedit,textArea{
+    border: 1px solid #2A8EBA !important;
+    border-radius: 5px 5px 5px 5px !important;
+    box-shadow: 0 1px 1px rgba(51, 51, 51, 0.5) inset, 0 0 2px rgba(255, 255, 255, 0.5) !important;
+    width: 272px !important;
+    color:#5D9AB6 !important;
+    font-family: UbuntuBold !important;
+    font-size: 18px !important;
+    padding-top: 7px !important;
+
+}
+textarea {
+  resize: none;
+}
 .gdlink{
     text-decoration: none;
 }
@@ -2129,9 +2145,41 @@ label.error {
     background-color: #72ADDC !important;
 }
 .add-new-school{
-	left: 50% !important;
+    left: 50% !important;
     width: 523px !important;
 }
+.mediaedit{
+    left: 50% !important;
+    width: 520px !important;
+    top: 15% !important;
+}
+.imgtitle{
+    cursor: pointer;
+}
+.doctitle{
+    cursor: pointer;
+}
+.gdocpopup{
+    left: 23% !important;
+    width: 1040px !important;
+    top: 15% !important;
+    /*height: 800px !important;*/
+}
+.doc-pop-button{
+    float:right;
+}
+.doc-popup-wrapper{
+    margin:-50px 0 0 0;
+}
+.popupfield{
+    padding:23px 20px 23px 23px !important;
+    /*height: 410px !important;*/
+}
+#popup-loader{
+    width:950px !important;
+    height: 500px !important
+}
+
 #new-school-form input{
 	width: 410px !important;
 }
@@ -2139,6 +2187,9 @@ label.error {
 /* 	 background-color: #14A8AD !important; */
 	 cursor :pointer !important;
 }
+
+
+
 .profile a{
 	padding: 0px !important;
 /* 	text-decoration : underline !important; */
@@ -2167,3 +2218,4 @@ label.error {
 /*     left: -5px !important;  */
 /*     width: 139px !important; */
 /* } */
+

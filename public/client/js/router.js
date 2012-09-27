@@ -960,7 +960,7 @@ BS.AppRouter = Backbone.Router.extend({
 				 
 			},
                         
-              /**
+                        /**
 			 * display Google docs list in another view
 			 */
                         googleDocs : function(){

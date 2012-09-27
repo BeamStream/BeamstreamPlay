@@ -7,6 +7,7 @@ BS.Document = Backbone.Model.extend({
         userId: null, 
         access: null, 
         streamId: null,
+        docDescription:null,
         creationDate: null, 
         lastUpdateDate: null, 
         rocks: null, 
