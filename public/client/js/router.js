@@ -151,7 +151,7 @@ BS.AppRouter = Backbone.Router.extend({
 			var source = $("#tpl-school").html();
 			var template = Handlebars.compile(source);
 			$('#school-list').append(template(datas));
-			$("#school-name-1").attr("disabled", "disabled"); 
+//			$("#school-name-1").attr("disabled", "disabled"); 
 			
 			if(info.degree != "Other")
 			{
@@ -194,7 +194,7 @@ BS.AppRouter = Backbone.Router.extend({
 	         {
 	        	$('#school-name-1').val(BS.schoolFromPrev);  // transport school name from sign up page to school screen
 	        	$('#prev-school').attr("value",BS.schoolFromPrev);
-	        	$("#school-name-1").attr("disabled", "disabled"); 
+//	        	$("#school-name-1").attr("disabled", "disabled"); 
 	        	 
 	        	 $.ajax({
 		        	   type : 'POST',
