@@ -163,15 +163,15 @@ BS.ImageListView = Backbone.View.extend({
             $('.file-type').slideUp();
     	    },
             
-            /*Edit the document title
+            /*Edit the Image title
             * 
             */  
         editImgTitle :function(eventName){  
 //          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
             var datas = {
 				"type" : 'Image',
-				"title" : 'Title of the image',
-                                "description" :'description of the image'
+				"title" : 'My first image',
+                                "description" :'This is my first image and very nice'
 			  }
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(datas);
