@@ -107,6 +107,7 @@ BS.GoogleDocsView = Backbone.View.extend({
                 dataType : "json",
                 success : function(docs) {
                    var content = '';
+
             
                 //   if(docs.status == 'success')    {
                 _.each(docs, function(doc) {  
@@ -124,9 +125,9 @@ BS.GoogleDocsView = Backbone.View.extend({
                                 +'<a href="#" class="share-icon"></a>'
                                 +'</div>'
                                 +'<h4> '+doc.name+'</h4>'
-                                +' <p class="google_doc" id="'+doc.id.id+'">'
+                                +' <p class="google_doc doc-description id="'+doc.id.id+'" >'
                                 +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'">'
-                                +'The Power of The Platform Behance Network Join The Leading Platform For </p>'
+                                +''+doc.description+' </p>'
                                 +'<h5 class="doctitle" id="'+doc.id.id+'"> Title & Description</h5>'           //'id' to edit the title and description
                                 +'<span>State</span>'
                                 +' <span class="date">'+datVal+'</span>' 
@@ -201,7 +202,6 @@ BS.GoogleDocsView = Backbone.View.extend({
             */
             next:function (){  
                 new_page = parseInt($('#current_page').val()) + 1;  
-                console.log(new_page);
                 if($('.active_page').next('.page_link').length==true){  
                     console.log("inside if");
                     this.go_to_page(new_page);  

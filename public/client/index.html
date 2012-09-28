@@ -212,7 +212,7 @@ $(window).bind("load", function() {
                                         <ul id='frmlinkchild_dr' class="largeli">
                                             <span class="arrow-left"></span>
                                             <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small" id="gdoc-name" placeholder="NAME of Doc"></li>
-                                            <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Doc"><select id="vialinkselect_dr" class="dropdownselect"><option>Class Doc</option><option>Class Video</option></select></li>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc"><select id="vialinkselect_dr" class="dropdownselect"><option>Class Doc</option><option>Class Video</option></select></li>
                                             <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i><select class="dropdownselect"><option>Save to Class</option><option>Profile</option><option>My Docs</option></select></li>
                                             <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
                                         </ul>
@@ -266,8 +266,9 @@ $(window).bind("load", function() {
                       </li>
                     </ul> 
                   </li>
+                  <li><a id="audio_dr" href="#">Assignments</a></li>
                 </ul>
-              </li>
+              </li> 
             </ul>
             <!-- /.nav-collapse -->              
           <div class="upload-media-wrapper"> <span class="upload-media-icon"><div class="upload-media-arrow"></div></span>
@@ -315,6 +316,7 @@ $(window).bind("load", function() {
         </ul>
       </div>
     </div> 
+    <div id="gdocedit"></div>  
     <div class="row" >
       <ul class="file-list" id="grid">
         <li data-key='["recent"]' id="coverimage">
@@ -613,14 +615,14 @@ $(window).bind("load", function() {
                   <div class="form-row">
 		     <div class="element">
                         <label for="school-name">Title </label>
-                        <input type="text" name="schoolName" id="my-school" class="required span3" value="{{title}}">
+                        <input type="text" name="schoolName" id="my-school" class="required span3" placeholder="NAME of {{type}}" value="{{title}}">
                         <input type="hidden" id="parent-Id" value="">
                      </div></br></br>
                   </div>
                   <div class="form-row">
                     <div class="element docedit">
                         <label for="website">Description<span class="star"> </span></label>
-                        <textarea class="gdoc-description" rows="4" cols="50" >{{description}}</textarea>
+                        <textarea class="gdoc-description" rows="4" cols="50" placeholder="DESCRIPTION of {{type}}" >{{description}}</textarea>
                     </div>
                    </div>
                  </div>
@@ -685,7 +687,7 @@ $(window).bind("load", function() {
                                         <ul class="largeli">
                                             <span class="arrow-left"></span>
                                             <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small" id="gdoc-name" placeholder="NAME of Doc"></li>
-                                            <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Doc"><select class="dropdownselect"><option>Class Doc</option><option>Class Video</option></select></li>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc"><select class="dropdownselect"><option>Class Doc</option><option>Class Video</option></select></li>
                                             <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><select class="dropdownselect"><option>Save to Class1</option><option>Class Video</option></select></li>
                                             <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
                                        </ul>

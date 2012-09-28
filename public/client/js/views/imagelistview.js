@@ -52,9 +52,9 @@ BS.ImageListView = Backbone.View.extend({
                                 +'</div>'
                                 +'<h4> image name</h4> ' 
                                 +'<div class="gallery clearfix"></div><div class="gallery clearfix"><a href="'+doc+'" style="text-decoration: none" rel="prettyPhoto[gallery2]">'
-                                +' <p class="google_doc" id="+doc.id.id+">'
+                                +' <p class="google_doc doc-description" id="+doc.id.id+">'
                                 +'<input type="hidden" id="id-doc.id.id" value="doc.url">'
-                                +'The Power of The Platform Behance Network Join The Leading Platform For </p></a>' 
+                                +'Description of image</p></a>' 
                                 +'<h5 class="imgtitle"> Title & Description</h5>'           //'id' to edit the title and description
                                 +'<span>State</span>'
                                 +' <span class="date">datVal</span>'
@@ -163,15 +163,15 @@ BS.ImageListView = Backbone.View.extend({
             $('.file-type').slideUp();
     	    },
             
-            /*Edit the document title
+            /*Edit the Image title
             * 
             */  
         editImgTitle :function(eventName){  
 //          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
             var datas = {
 				"type" : 'Image',
-				"title" : 'Title of the image',
-                                "description" :'description of the image'
+				"title" : 'My first image',
+                                "description" :'This is my first image and very nice'
 			  }
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(datas);

@@ -34,24 +34,8 @@ BS.MediaEditView = Backbone.View.extend({
         close:function(eventName){
 //            var docId = eventName.currentTarget.id;
             var mediatype = $("#edittype").val(); 
-            console.log(mediatype)
             eventName.preventDefault(); 
-            $('#gdocedit').children().detach(); 
-//            if(mediatype=='Image'){
-                
-            switch('mediatype')
-                    {
-                    case 'Image': 
-                                 var imagelistview = new BS.ImageListView();                                 
-                                 break;
-                    case 'Docs':  
-                                var googledocsview = new BS.GoogleDocsView();
-                                 break;
-                    case 'Video':  
-                                var googledocsview = new BS.GoogleDocsView();
-                                 break;             
-                   }
-//            }
+            $('#gdocedit').children().detach();                 
         }
         
 });
