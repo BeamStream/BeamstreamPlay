@@ -418,7 +418,7 @@ BS.FilesMediaView = Backbone.View.extend({
         uploadMediadwn :function(eventName){
             eventName.preventDefault();
             if(!$('#uploadmediachild_dr').is(":visible") ) 
-            $("#uploadmediachild_dr").show("slide", { direction: "up" }, 50);
+            $("#uploadmediachild_dr").show("slide", { direction: "up" }, 10);
         },
         
         /* Function for uploadmedia 
@@ -677,7 +677,7 @@ BS.FilesMediaView = Backbone.View.extend({
         uploadMediaup :function(eventName){
              eventName.preventDefault();
              if(!$('.fixingmenu_dr').is(":visible") ) 
-             $("#uploadmediachild_dr").hide("slide", { direction: "up" }, 250); 
+             $("#uploadmediachild_dr").hide("slide", { direction: "up" }, 10); 
         },
         
         /**

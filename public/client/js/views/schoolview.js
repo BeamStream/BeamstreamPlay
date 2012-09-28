@@ -7,8 +7,8 @@ BS.SchoolView = Backbone.View.extend({
 	      "change select.graduated" : "showFields",
 	      "change select.degreepgm" : "addOtherDegree",
 	      
-//	      "keyup .school" : "populateSchools",
-//	      "focusin .school" : "populateSchools",
+	      "keyup .school" : "populateSchools",
+	      "focusin .school" : "populateSchools",
 	      "click #close-school" : "closeScreen",
 	      "click .back-button" :"backToPrevious",
            
