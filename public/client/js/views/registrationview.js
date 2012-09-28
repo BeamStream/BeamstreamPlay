@@ -175,7 +175,7 @@ BS.RegistrationView = Backbone.View.extend({
 						localStorage["resistrationPage"] = "basic";
 	   					 
 						BS.schoolFromPrev =  $('#school-name').val();
-						$(".star").hide();
+						
 						// navigate to main stream page
 						BS.AppRouter.navigate("school", {trigger : true,});
 					}

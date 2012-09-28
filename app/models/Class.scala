@@ -75,6 +75,7 @@ object Class {
             className = eachclass.className,
             classType = eachclass.classType,
             classTime = eachclass.classTime,
+            schoolId=eachclass.schoolId,
             startingDate = eachclass.startingDate), false, false, new WriteConcern)
           val streamOfTheComingClass = Stream.findStreamById(classObtained(0).streams(0))
           StreamDAO.update(MongoDBObject("_id" -> classObtained(0).streams(0)), streamOfTheComingClass.copy(streamName = eachclass.className), false, false, new WriteConcern)
