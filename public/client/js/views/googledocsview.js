@@ -125,7 +125,7 @@ BS.GoogleDocsView = Backbone.View.extend({
                                 +'<a href="#" class="share-icon"></a>'
                                 +'</div>'
                                 +'<h4> '+doc.name+'</h4>'
-                                +' <p class="google_doc doc-description id="'+doc.id.id+'" >'
+                                +' <p class="google_doc doc-description" id="'+doc.id.id+'" >'
                                 +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'">'
                                 +''+doc.description+' </p>'
                                 +'<h5 class="doctitle" id="'+doc.id.id+'"> Title & Description</h5>'           //'id' to edit the title and description
