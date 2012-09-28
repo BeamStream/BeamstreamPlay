@@ -82,7 +82,6 @@ object Class {
         } else {
           println("Create class Case")
           val classId = ClassDAO.insert(eachclass)
-          //classIdList ++= List(new ObjectId(classId.get.toString))
           User.addClassToUser(userId, List(new ObjectId(classId.get.toString)))
           // Create the Stream for this class
           val streamToCreate = new Stream(new ObjectId, eachclass.className, StreamType.Class, userId, List(userId), true, List())
@@ -110,7 +109,6 @@ object Class {
 
   def findClassByCode(code: String, schoolId: ObjectId): List[Class] = {
     val codePattern = Pattern.compile("^" + code, Pattern.CASE_INSENSITIVE)
-    //val regexp = ("^" + code).r
     var classes: List[Class] = List()
     val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "classCode" -> codePattern)).toList
     (classFound.isEmpty) match {
@@ -126,7 +124,6 @@ object Class {
 
   def findClassByName(name: String, schoolId: ObjectId): List[Class] = {
     val namePattern = Pattern.compile("^" + name, Pattern.CASE_INSENSITIVE)
-    //val regexp =("^" + namePattern).r
     var classes: List[Class] = List()
     val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
     (classFound.isEmpty) match {
