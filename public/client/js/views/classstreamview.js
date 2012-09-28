@@ -249,7 +249,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			},
 			dataType : "json",
 			success : function(data) {
-				if(data.status == "Success")
+				if(data)
 				{
 					 $('#student-number').fadeOut("medium");
 					 console.log("success");
@@ -261,7 +261,7 @@ BS.ClassStreamView = Backbone.View.extend({
 				}
 				else
 				{
-					$('#error').html(data.message);
+					$('#error').html("Invalid");
 				}
 				
 			}
@@ -326,16 +326,14 @@ BS.ClassStreamView = Backbone.View.extend({
 			},
 			dataType : "json",
 			success : function(data) {
-				if(data.status == "Success")
+				if(data)
 				{
 					  $('#student-number').fadeOut("medium");
-					  alert(data.message);
-					  $(".star").hide();
 					  BS.AppRouter.navigate("streams", {trigger: true});
 				}
 				else
 				{
-					alert(data.message);
+					console("Error");
 				}
 				
 			}

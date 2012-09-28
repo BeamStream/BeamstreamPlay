@@ -74,8 +74,7 @@ object UserSchool {
     //      }
     //      ResulttoSent("Success", "Schools Added Successfully")
     //    }
-    
-    
+
     else {
       for (userSchool <- userSchools) {
         val userSchoolObtained = UserSchool.userSchoolsForAUser(userSchool.id)
@@ -170,19 +169,6 @@ object UserSchool {
 
     if (schoolFetchCount == 0) false else true
   }
-
-//    /**
-//     * Get All Refreshed User School
-//     */
-//  
-//    def getAllRefreshedUserSchools(userSchools: List[UserSchool]): List[UserSchool] = {
-//      var userSchoolList: List[UserSchool] = List()
-//      for (userSchool <- userSchools) {
-//        val schoolObtained = UserSchoolDAO.find(MongoDBObject("_id" -> userSchool.id)).toList
-//        userSchoolList ++= schoolObtained
-//      }
-//      userSchoolList
-//    }
 
 }
 
