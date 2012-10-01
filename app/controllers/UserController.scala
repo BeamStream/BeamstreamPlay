@@ -1,5 +1,7 @@
 package controllers
 import org.bson.types.ObjectId
+import org.neo4j.graphdb.Node
+
 import models.ProfileImageProviderCache
 import models.ResulttoSent
 import models.User
@@ -10,6 +12,8 @@ import net.liftweb.json.Serialization.write
 import net.liftweb.json.DefaultFormats
 import net.liftweb.json.parse
 import play.api.data.Forms._
+import play.api.libs.json.JsValue
+import play.api.libs.json.Json
 import play.api.mvc._
 import play.api.mvc.Controller
 import play.api.mvc.Response
@@ -18,11 +22,7 @@ import play.api._
 import play.libs._
 import play.mvc.Http.Request
 import utils._
-import play.api.libs.json.JsValue
-import play.api.libs.json.Json
-import play.cache.Cache
 import utils.SocialGraphEmbeddedNeo4j
-import org.neo4j.graphdb.Node
 
 
 object UserController extends Controller {
@@ -174,10 +174,19 @@ object UserController extends Controller {
     print("node2: " + node2.getProperty("firstName"))
     print("relationship: " + node2.getRelationships())
     SocialGraphEmbeddedNeo4j.shutDown()
-    Ok(write(new ResulttoSent("Success", "Users added to Social stack")))
+    Ok(write(new ResulttoSent("Success", "User added to Social stack")))
   }
   
-  
+  def addFriendNeo4j(friends:Array[Neo4jFriend], userId:Integer ): Boolean = {
+    SocialGraphEmbeddedNeo4j.createDb()
+    var node:Node = SocialGraphEmbeddedNeo4j.findBSNode(userId, null, null)
+    for(friend <- friends) {
+      var node2:Node = SocialGraphEmbeddedNeo4j.createBSNode(friend.userId, friend.firstName, friend.lastName, node)
+    }
+    SocialGraphEmbeddedNeo4j.shutDown()
+    Ok(write(new ResulttoSent("Success", "Users added to Social stack")))
+    return true
+  }
  
   
 
