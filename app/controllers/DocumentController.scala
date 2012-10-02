@@ -86,6 +86,33 @@ object DocumentController extends Controller {
     Ok
   }
 
+/*
+ *  Get details of a document
+ */  
+ 
+ def getDocument = Action { implicit request =>
+ 
+ val documentIdJsonMap = request.body.asFormUrlEncoded.get
+ 
+  (documentIdJsonMap.contains(("documentId"))) match {
+      
+         case false =>
+            
+            Ok(write(new ResulttoSent("Failure", "Document Id not found !!!")))
+         
+        case true =>
+ 		
+  	      val docId = documentIdJsonMap("documentId").toList(0)
+	      val docObtained = Document.findDocumentById(new ObjectId(docId))
+	      val docJson = write(List(docObtained))
+	      Ok(docJson).as("application/json")
+     } 
+  }
+  
+  /*
+   * Get all Documents for a User
+   */
+   
   def getAllDocumentsForAUser = Action { implicit request =>
     val documentIdJsonMap = request.body.asFormUrlEncoded.get
     val allDocumentsForAUser = Document.getAllDocumentsForAUser(new ObjectId(request.session.get("userId").get))
@@ -131,7 +158,7 @@ object DocumentController extends Controller {
    
    
    /*
-    * Documents sorted by a creation date
+    * Documents for the current user sorted by creation date
     */
     
        def getAllDocumentsForCurrentUserSortedbyDate = Action { implicit request =>
