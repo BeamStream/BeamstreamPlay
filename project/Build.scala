@@ -22,8 +22,10 @@ object ApplicationBuild extends Build {
     "org.apache.poi" % "poi" % "3.8",
     "org.apache.poi" % "poi-ooxml" % "3.8",
     "net.sf.opencsv" % "opencsv" % "2.1",
+    "xuggle" % "xuggle-xuggler" % "5.2",
     "org.joda" % "joda-convert" % "1.1")
 
+  resolvers += "xuggle repo" at "http://xuggle.googlecode.com/svn/trunk/repo/share/java/"
   resolvers += "repo.novus snaps" at "http://repo.novus.com/snapshots/"
   resolvers += "Novus Release Repository" at "http://repo.novus.com/releases/"
 
@@ -34,5 +36,7 @@ object ApplicationBuild extends Build {
     (base / "app" / "assets" / "stylesheets" * "*.less"))
 
   val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
-    lessEntryPoints <<= baseDirectory(customLessEntryPoints))
+    lessEntryPoints <<= baseDirectory(customLessEntryPoints),
+
+    resolvers += "xuggle repo" at "http://xuggle.googlecode.com/svn/trunk/repo/share/java/")
 }
