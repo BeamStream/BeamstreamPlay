@@ -86,6 +86,10 @@ object SocialGraphEmbeddedNeo4j {
     }
   }
 
+  /*
+   * Find a BeamStream Node by UserId. If node does not exist save it
+   * to Neo4j along with the users first and last name
+   */
   def findBSNode(userId: Integer, firstName: String, lastName: String): Node = {
     var nodeIndex = graphDb.index().forNodes(INDEX_NAME)
     var node:Node = nodeIndex.get(USER_KEY, userId).getSingle()
@@ -96,6 +100,10 @@ object SocialGraphEmbeddedNeo4j {
     return node
   }
 
+  /*
+   * Create a BeamStream Node with userId, firstName, and lastName.  Make
+   * it a FRIEND of firstNode.
+   */
   def createBSNode(userId: Integer, firstName: String, lastName: String, firstNode: Node): Node = {
 
     val tx: Transaction = graphDb.beginTx()

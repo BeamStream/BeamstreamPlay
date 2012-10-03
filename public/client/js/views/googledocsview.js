@@ -124,10 +124,10 @@ BS.GoogleDocsView = Backbone.View.extend({
                                 +'<a href="#" class="message-icon"></a>'
                                 +'<a href="#" class="share-icon"></a>'
                                 +'</div>'
-                                +'<h4> '+doc.name+'</h4>'
+                                +'<div id="media-'+doc.id.id+'" ><h4> '+doc.name+'</h4>'
                                 +' <p class="google_doc doc-description" id="'+doc.id.id+'" >'
                                 +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'">'
-                                +''+doc.description+' </p>'
+                                +''+doc.description+' </p> </div>'
                                 +'<h5 class="doctitle" id="'+doc.id.id+'"> Title & Description</h5>'           //'id' to edit the title and description
                                 +'<span>State</span>'
                                 +' <span class="date">'+datVal+'</span>' 
@@ -271,8 +271,11 @@ BS.GoogleDocsView = Backbone.View.extend({
          * 
          */  
         editDocTitle :function(eventName){  
-//          var docId = eventName.currentTarget.id;             // id to get corresponding docs     
-            var datas = {
+          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
+          var docUrl = $('input#id-'+docId).val(); 
+          var datas = {
+                                 "id" : docId,
+                                 "url" : docUrl,
 				"type" : 'Docs',
 				"title" : 'Title of the doc',
                                 "description" :'description of the doc'
