@@ -579,7 +579,7 @@ BS.StreamView = Backbone.View.extend({
 						  
 							var msgBody = data.messageBody;
 							var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-					             return '<a href="' + url + '">' + url + '</a>';
+					             return '<a target="_blank" href="' + url + '">' + url + '</a>';
 					        });
 							  
 							var datas = {
@@ -1184,7 +1184,7 @@ BS.StreamView = Backbone.View.extend({
 				
 				var msgBody = data.messageBody;
 				var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-		             return '<a href="' + url + '">' + url + '</a>';
+		             return '<a target="_blank" href="' + url + '">' + url + '</a>';
 		        });
 				  
 				var datas = {
