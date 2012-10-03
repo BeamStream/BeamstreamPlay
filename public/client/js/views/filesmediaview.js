@@ -157,8 +157,10 @@ BS.FilesMediaView = Backbone.View.extend({
                                         +'<div class="hover-div"><img src="images/docs_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
                                         +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
                                         +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#googledocs" style="text-decoration: none">'
-                                        +'<h4>'+doc.name+'</h4> <p class="doc-description">'+doc.description+'</p></a>'
-                                        +'<h5 class="doctitle"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
+                                        +'<div id="media-'+doc.id.id+'" ><h4> '+doc.name+'</h4> <p class="google_doc doc-description" id="'+doc.id.id+'" >'
+                                         +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'">'
+                                        +''+doc.description+' </p> </div></a>'
+                                        +'<h5 class="doctitle" id="'+doc.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
                                         +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#">'
                                         +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#">87</a></li>'
                                         +'<li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#">10</a></li></ul></div>'; 
@@ -178,15 +180,18 @@ BS.FilesMediaView = Backbone.View.extend({
          *Edit the document title 
          */
         editDocTitle :function(eventName){  
-//          var docId = eventName.currentTarget.id;             // id to get corresponding docs     
+            var docId = eventName.currentTarget.id;             // id to get corresponding docs   
+            var docUrl = $('input#id-'+docId).val(); 
             var datas = {
+				"id" : docId,
+                                "url" : docUrl,
 				"type" : 'Docs',
 				"title" : 'Title of the doc',
                                 "description" :'description of the doc'
 			  }
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(datas);
-            $('#gdocedit').html(BS.mediaeditview.el);
+            $('#gdocedit').html(BS.mediaeditview.el);           
             },
         
         /*

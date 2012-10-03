@@ -3,6 +3,7 @@ BS.GdocPopupView = Backbone.View.extend({
      events: {
 		
 		"click #popup-close" : "close"
+               
 	 },
     
     initialize: function(){
@@ -34,5 +35,10 @@ BS.GdocPopupView = Backbone.View.extend({
             eventName.preventDefault(); 
             $('#gdocedit').children().detach(); 
             var googledocsview = new BS.GoogleDocsView();
+        },
+        
+        save:function(eventName){
+            eventName.preventDefault(); 
+            console.log("saved");
         }
 })

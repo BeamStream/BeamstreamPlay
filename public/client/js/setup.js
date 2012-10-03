@@ -104,6 +104,8 @@ BS.autoPopulateClassesbyName = BS.URLRequired+"/autoPopulateClassesbyName";
 BS.deleteStream = BS.URLRequired+"/deleteStream";
 //Add new school name $ website
 BS.addSchool =  BS.URLRequired+"/school";
+//save edit document
+BS.savedocedit = BS.URLRequired+"/changeTitleAndDescriptionForADocument";
  
  
 /* for beta users */
