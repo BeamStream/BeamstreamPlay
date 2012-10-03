@@ -385,9 +385,12 @@ BS.AppRouter = Backbone.Router.extend({
 	    
        BS.profileView = new BS.ProfileView();
        BS.profileView.render();
-       $('#school-popup').html(BS.profileView.el);  
+       $('#school-popup').html(BS.profileView.el); 
        
-       //set mobile number format 
+       // initial call to image resize function  
+//       BS.profileView.resize(self,95,90 ,document.getElementById("profile-image"),document.getElementById("img"));
+       
+       //set mobile number format  -validation 
        $("#mobile").mask("(999) 999-9999",{placeholder:" "});
        
        $('.progress-container').hide();

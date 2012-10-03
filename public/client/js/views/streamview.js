@@ -504,7 +504,6 @@ BS.StreamView = Backbone.View.extend({
                   message : { pagePushUid: self.pagePushUid }
               })
                  
-  					   
  
   					   
   					      // append the message to message list
@@ -514,7 +513,7 @@ BS.StreamView = Backbone.View.extend({
   							var link =  msgBody.match(BS.urlRegex);
   							var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
   								 
-					             return '<a href="' + url + '">' + url + '</a>';
+					             return '<a target="_blank" href="' + url + '">' + url + '</a>';
 					        });
   							  
   							var datas = {
