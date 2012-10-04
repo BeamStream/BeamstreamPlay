@@ -14,10 +14,9 @@ import java.awt.image.DataBufferByte
 import java.io.ByteArrayInputStream
 import java.io.InputStream
 
-object ExtractFrameFromVideo extends App {
+object ExtractFrameFromVideo  {
   def extractFrameFromVideo(filePath: String): InputStream = {
     var ip: InputStream = null
-    val inputFilename = "/home/neelkanth/Desktop/Tere-Naam-(2003)---DVD---Rip---ARAHAN-1.mp4"
     var count = 0
 
     val mediaReader: IMediaReader = ToolFactory.makeReader(filePath)
@@ -52,6 +51,4 @@ object ExtractFrameFromVideo extends App {
     ip
   }
 
-  val a = extractFrameFromVideo("/home/neelkanth/Desktop/Tere-Naam-(2003)---DVD---Rip---ARAHAN-1.mp4")
-  println(a.read)
 }
