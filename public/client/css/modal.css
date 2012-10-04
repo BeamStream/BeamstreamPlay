@@ -41,8 +41,8 @@
     font-family: UbuntuRegular;
     color: #fff;
     display: none ;
-/*     top: 45% !important; */
-top: 75% !important;
+    top: 45% !important;
+/* top: 75% !important; */
     background: #72addc !important;
     behavior: url(css/PIE.htc);
     position: absolute !important;
