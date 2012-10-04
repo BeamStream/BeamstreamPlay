@@ -75,7 +75,8 @@ BS.RegistrationView = Backbone.View.extend({
     	   					
     						
     	   					// navigate to main stream page
-    	   					BS.schoolFromPrev =  $('#school-name').val();
+//    	   					BS.schoolFromPrev =  $('#school-name').val();
+    	   					localStorage["schoolFromPrev"] = $('#school-name').val();
     	   					BS.AppRouter.navigate("streams", {
     	   						trigger : true,
     	   						 
@@ -174,7 +175,8 @@ BS.RegistrationView = Backbone.View.extend({
 //						BS.resistrationPage = "basic";
 						localStorage["resistrationPage"] = "basic";
 	   					 
-						BS.schoolFromPrev =  $('#school-name').val();
+//						BS.schoolFromPrev =  $('#school-name').val();
+						localStorage["schoolFromPrev"] = $('#school-name').val();
 						
 						// navigate to main stream page
 						BS.AppRouter.navigate("school", {trigger : true,});

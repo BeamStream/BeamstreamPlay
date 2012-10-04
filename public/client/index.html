@@ -559,8 +559,13 @@ $(window).bind("load", function() {
 	 <table class="stream-table" id="streamslist" > 
 		 
 	 </table> 
-      </div>     
-
+      </div> 
+ 
+     <!-- <div id="upload-school-sheets">
+	      <label name="upload-sheets" >Upload School's Sheet (in .xlsx Format)</label>
+	      <input id="upload-files" type="file"  name="upload-files" >   </br>
+		  <a href="#" class="btn btn-primary pull-left"  id="upload" >Upload</a>	
+      </div> -->
     </div>
   </div>
   
@@ -3656,7 +3661,7 @@ $(window).bind("load", function() {
 		})();
 
 		function janrainWidgetOnload() {
-
+			 
 			janrain.events.onProviderLoginToken
 					.addHandler(function(response) {
 						$
@@ -3855,9 +3860,9 @@ $(window).bind("load", function() {
 			BS.addNewSchool.render();
 			$('#new-school-popup').html(BS.addNewSchool.el);
 
-			if (BS.schoolFromPrev == $('#prev-school').attr("value")) {
+			if (localStorage["schoolFromPrev"] == $('#prev-school').attr("value")) {
 				console.log("Ok");
-				$('#my-school').val(BS.schoolFromPrev);
+				$('#my-school').val(localStorage["schoolFromPrev"]);
 			}
             if(BS.newSchool)
             {

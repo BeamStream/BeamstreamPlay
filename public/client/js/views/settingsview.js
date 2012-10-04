@@ -2,7 +2,9 @@ BS.SettingsView = Backbone.View.extend({
 
 	events: {
                  
-       "click .delete-streams" : "deleteStreams"
+       "click .delete-streams" : "deleteStreams",
+//       "change #upload-files" :"selectSheets",
+//       "click #upload": "uploadSheets",
 	      
 	 },
 	
@@ -62,8 +64,58 @@ BS.SettingsView = Backbone.View.extend({
  		
  		
     	 
-    }
+    },
     
+    /*
+     * select school Sheets
+     */
+    selectSheets : function(e){
+    	 
+   	  
+   	 var self = this;;
+   	 file = e.target.files[0];
+   	
+     var reader = new FileReader();
         
+     /* capture the file informations */
+     reader.onload = (function(f){
+           	 
+       self.sheet = file;
+	   return function(e){ 
+	   };
+      })(file);
+            
+      // read the image file as data URL
+      reader.readAsDataURL(file);
+        
+    },
+    
+    /**
+     * upload school Sheets
+     */
+    uploadSheets :function(eventName){
+    	eventName.preventDefault();
+    	    
+		var data;
+    	data = new FormData();
+ 	    data.append('schoolSheet', this.sheet);
+ 	     console.log(data);
+ 		
+    	/* post profile page details */
+    	$.ajax({
+    	    type: 'POST',
+    	    data: data,
+    	    url: BS.saveProfile,
+    	    cache: false,
+    	    contentType: false,
+    	    processData: false,
+    	    success: function(data){
+    	    	
+    	     
+    	    }
+    	});
+	    		
+    	 
+    }
 });
 

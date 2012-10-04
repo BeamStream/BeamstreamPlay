@@ -146,7 +146,8 @@ BS.SchoolView = Backbone.View.extend({
 	          			    localStorage["editClass"] = "true";
 	          			    localStorage["editProfile"] = "true";
 	          			    
-	                    	BS.schoolFromPrev ='';
+//	                    	BS.schoolFromPrev ='';
+	          			    localStorage["schoolFromPrev"] = '';
 	                    	$(".star").hide();
 	        				 // navigate to main stream page
 	                    	BS.AppRouter.navigate("streams", {trigger: true});
@@ -213,7 +214,7 @@ BS.SchoolView = Backbone.View.extend({
 	            	  BS.schoolBack = true;
 //	            	  BS.editClass = false;
 	            	  localStorage["editClass"] = "false";
-	            	  BS.schoolFromPrev = '';
+//	            	  BS.schoolFromPrev = '';
 	            	  $(".star").hide();
 	            	  BS.AppRouter.navigate("class", {trigger: true});
 	            	  

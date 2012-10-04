@@ -2130,6 +2130,7 @@ label.error {
 #stream-manage{
 	margin-left: 50px;
     margin-top: 55px;
+    margin-bottom: 100px;
 }
 .stream-table{
 	width: 700px;
@@ -2225,3 +2226,8 @@ label.error {
 /*     width: 139px !important; */
 /* } */
 
+#upload-school-sheets
+{
+	margin :25px;
+	margin-left :100px;
+}
