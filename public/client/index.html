@@ -3416,7 +3416,7 @@ $(window).bind("load", function() {
               </div>
               <div  class="socialnw-wrapper">
                   <img  class="orwith" src="images/orwith.png"/> 
-                   <div id="janrainEngageEmbed" class="janRain">
+                   <div id="janrainEngageEmbed" class="janRain"> 
                   <div id="load-janRain" style="display :block;">  
 					<img src ="images/loading.gif"> 
                   </div>
@@ -3506,7 +3506,7 @@ $(window).bind("load", function() {
                         <div class="or-icon"><img src="images/or.png"></div>
           </div>
           <div class="form-row-right">
-              <div id="janrainEngageEmbed" class="login-janRain"></div> 
+             <div id="janrainEngageEmbed" class="login-janRain"></div>
                
           </div>
           <div class="form-row-label"></div>
@@ -3516,7 +3516,9 @@ $(window).bind("load", function() {
           </div>
           </div>
             <div class="form-row" >
-  <!--<div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a>--> 
+ 
+            <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a>  
+ 
 
           </div>
         </div>
@@ -3854,10 +3856,10 @@ $(window).bind("load", function() {
 	<!--  for +Add New School option in autopopulate -->
 	<script type="text/javascript">
 		function populateAddNewSchool(parentId) {
-			console.log(parentId);
+			 
 
 			BS.addNewSchool = new BS.AddNewSchool();
-			BS.addNewSchool.render();
+			BS.addNewSchool.render(parentId);
 			$('#new-school-popup').html(BS.addNewSchool.el);
 
 			if (localStorage["schoolFromPrev"] == $('#prev-school').attr("value")) {

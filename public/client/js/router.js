@@ -184,6 +184,8 @@ BS.AppRouter = Backbone.Router.extend({
 	        {
 	        	$('#school-name-1').val( localStorage["schoolFromPrev"]);  // transport school name from sign up page to school screen
 	         	$('#prev-school').attr("value", localStorage["schoolFromPrev"]);
+	         	$('#associatedId-1').attr("value", localStorage["newSchoolId"]);
+	         	
 	        }
 	       
 	            
@@ -485,6 +487,8 @@ BS.AppRouter = Backbone.Router.extend({
 		       localStorage["schoolInfo"] ='';
 		       localStorage["classInfo"] ='';
 		       localStorage["schoolFromPrev"] = '';
+		       localStorage["newSchoolId"] = '';
+          	   localStorage["newSchool"] ='';
 		       
 		       localStorage["editSchool"] = "true";
 		       localStorage["editClass"] = "true";
