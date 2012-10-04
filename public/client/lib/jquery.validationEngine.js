@@ -212,6 +212,7 @@
 		 * Closes all error prompts on the page
 		 */
 		 hideAll: function() {
+			 
 			 var form = this;
 			 var options = form.data('jqv');
 			 $('.formError').fadeTo(options.fadeDuration, 0.3, function() {
@@ -1182,9 +1183,9 @@
 			 // When the form errors are returned, the engine see 2 bubbles, but those are ebing closed by the engine at the same time
 			 // Because no error was found befor submitting
 			 if(ajaxform) prompt = false;
-			 if (prompt)
-			 	methods._updatePrompt(field, prompt, promptText, type, ajaxed, options);
-			 else
+//			 if (prompt)
+//			 	methods._updatePrompt(field, prompt, promptText, type, ajaxed, options);
+//			 else
 			 	methods._buildPrompt(field, promptText, type, ajaxed, options);
 		 },
 		/**
@@ -1197,7 +1198,7 @@
 		* @param {Map} options user options
 		*/
 		_buildPrompt: function(field, promptText, type, ajaxed, options) {
-
+			 
 			// create the prompt
 			var prompt = $('<div>');
 			prompt.addClass(methods._getClassName(field.attr("id")) + "formError");
@@ -1222,6 +1223,7 @@
 
 			// create the prompt content            //*****
 			var promptContent = $('<div>').addClass("star_position").html('<span class="star">*</span>').appendTo(prompt);
+			 
 			// create the css arrow pointing at the field
 			// note that there is no triangle on max-checkbox and radio
 			if (options.showArrow) {
