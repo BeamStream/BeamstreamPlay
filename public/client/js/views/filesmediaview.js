@@ -38,7 +38,7 @@ BS.FilesMediaView = Backbone.View.extend({
         console.log('Initializing Files and Media  View');       
         this.source = $("#tpl-files-media").html();
         this.template = Handlebars.compile(this.source);
-	this.pictres();	
+	    this.pictres();	
         this.videos();   
         this.docsList();
 //        this.audio();  
@@ -276,17 +276,17 @@ BS.FilesMediaView = Backbone.View.extend({
               $.ajax({
                         type : 'GET',
                         url : BS.allProfileVideos,
-                        data : {
-                           'userId': e.attributes.id.id
-                                },
+//                        data : {
+//                           'userId': e.attributes.id.id
+//                                },
                         dataType : "json",
 
-                        success : function(docs) { 
+                        success : function(videos) { 
                         	
-                            if(docs.length != 0)
+                            if(videos.length != 0)
                             {
-                                arraypictures=docs;
-                               coverpicture=arraypictures[arraypictures.length-1];
+                                arraypictures=videos;
+                                coverpicture=arraypictures[arraypictures.length-1];
                                 content= '<div class="image-wrapper hovereffect"><div class="hover-div"><img src="images/image2.jpg"/><div class="hover-text">'
                                             +'<div class="comment-wrapper comment-wrapper2">'
                                             +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
