@@ -84,13 +84,10 @@ BS.MediaRegistrationView = Backbone.View.extend({
 		    	  			    BS.regBack = false;
 		    	  			    BS.classBack = false;
 	    	   				    //set status for school back page
-//	    						BS.resistrationPage = " ";
 		    	  			    localStorage["resistrationPage"] ='';
-	    						
 	    						
 	    						localStorage["editSchool"] = "true";
 	    	   					
-//	    	   					BS.schoolFromPrev =  $('#school-name').val();
 	    						localStorage["schoolFromPrev"] = $('#school-name').val();
 	    	   					// navigate to main stream page
 	    	   					$(".star").hide();

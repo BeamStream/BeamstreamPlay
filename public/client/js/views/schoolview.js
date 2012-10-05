@@ -353,7 +353,6 @@ BS.SchoolView = Backbone.View.extend({
 		    	  {
 		    	    assosiatedSchoolId = sId;
 		    	     
-//		    	    $('#school-id-'+i).attr('value',assosiatedSchoolId);
 		    	  }
 		    	  else if($('#associatedId-'+i).attr('value'))
 		    	  {

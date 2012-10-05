@@ -65,6 +65,7 @@ BS.AppRouter = Backbone.Router.extend({
      */
     
     login: function() {
+    	 $("#dialog").dialog('close');
     	 localStorage.clear();
     	 localStorage["idLogin"]= '';
     	 $('#school-popup').children().detach(); 
@@ -117,6 +118,7 @@ BS.AppRouter = Backbone.Router.extend({
      * recover password/Account
      */
     recoverAccount: function() {
+    	 $("#dialog").dialog('close');
     	 $('#school-popup').children().detach(); 
     	  
     	 BS.forgotPasswordView = new BS.ForgotPasswordView();
@@ -132,7 +134,7 @@ BS.AppRouter = Backbone.Router.extend({
      * display School Info screen
      */
     schoolReg:function () {
-         
+    	$("#dialog").dialog('close'); 
         if(localStorage["schoolInfo"])
 	    {
         	 current = 0;
@@ -250,11 +252,12 @@ BS.AppRouter = Backbone.Router.extend({
      * display Class Info screen
      */
     classReg:function () {
-    	
+    	$("#dialog").dialog('close');
     	if(localStorage["classInfo"])
     	{
     		 BS.classView = new BS.ClassView();
              BS.classView.render();
+             
              $('#school-popup').html(BS.classView.el);
              console.log("-------------");
              var classInfo =JSON.parse(localStorage["classInfo"]);
@@ -392,7 +395,7 @@ BS.AppRouter = Backbone.Router.extend({
     * display Profile Info screen
     */
    profileReg:function () {
-	    
+	   $("#dialog").dialog('close');
        BS.profileView = new BS.ProfileView();
        BS.profileView.render();
        $('#school-popup').html(BS.profileView.el); 
@@ -458,9 +461,9 @@ BS.AppRouter = Backbone.Router.extend({
     * display main stream page
     */
    mainStream:function () {
-	   
+	   $("#dialog").dialog('close');
 	   BS.mainImageUrl = $('#right-photo').attr('src');
-	    
+	  
 	   $('#middle-content').children().detach();
 	   $('nav li.active').removeClass('active');
 	   $('nav li a#streamsGroups').parents('li').addClass('active');
@@ -573,7 +576,7 @@ BS.AppRouter = Backbone.Router.extend({
     * registration after email verification
     */
     basicRegistration: function(token,iam,email) {
-	     
+       $("#dialog").dialog('close');  
        BS.token = token;
        BS.iam = iam;
        BS.email = email;
@@ -644,7 +647,7 @@ BS.AppRouter = Backbone.Router.extend({
 			 * basicRegistrationViaJanRain
 			 */
 			basicRegistrationViaJanRain : function(event) {
-				 
+				$("#dialog").dialog('close');
 				if(localStorage["regInfo"])
 				 {
 					   console.log(localStorage["regInfo"]);
@@ -726,6 +729,7 @@ BS.AppRouter = Backbone.Router.extend({
 			 * for email verification
 			 */
 			emailVerification : function() {
+				$("#dialog").dialog('close');
 				localStorage["idLogin"]= '';
 				$('#school-popup').children().detach();
 				var self = this;
@@ -755,10 +759,12 @@ BS.AppRouter = Backbone.Router.extend({
 			 * display class stream screen
 			 */
 			classStream : function() {
+				$("#dialog").dialog('close');
 				$('#school-popup').children().detach();
 				BS.classStreamView = new BS.ClassStreamView();
 				BS.classStreamView.render();
 				$('#school-popup').html(BS.classStreamView.el);
+				$("#dialog" ).dialog('close');
                 $('#for-new-school').hide();
 				/* get all schoolIds under a class */
 				$
@@ -791,7 +797,7 @@ BS.AppRouter = Backbone.Router.extend({
 			 * display project stream screen
 			 */
 			projectStream : function() {
-
+				$("#dialog").dialog('close');
 				if (!BS.projectStreamView) {
 					BS.projectStreamView = new BS.ProjectStreamView();
 					BS.projectStreamView.render();
@@ -806,7 +812,7 @@ BS.AppRouter = Backbone.Router.extend({
 			 * display study stream screen
 			 */
 			studyStream : function() {
-
+				$("#dialog").dialog('close');
 				if (!BS.studyStreamView) {
 					BS.studyStreamView = new BS.StudyStreamView();
 					BS.studyStreamView.render();
@@ -822,7 +828,7 @@ BS.AppRouter = Backbone.Router.extend({
 			 * display group stream screen
 			 */
 			groupStream : function() {
-
+				$("#dialog").dialog('close');
 				if (!BS.groupStreamView) {
 					BS.groupStreamView = new BS.GroupStreamView();
 					BS.groupStreamView.render();
@@ -838,7 +844,7 @@ BS.AppRouter = Backbone.Router.extend({
 			 * display peer stream screen
 			 */
 			peerStream : function() {
-
+				$("#dialog").dialog('close');
 				if (!BS.peerStreamView) {
 					BS.peerStreamView = new BS.PeerStreamView();
 					BS.peerStreamView.render();
@@ -853,7 +859,7 @@ BS.AppRouter = Backbone.Router.extend({
 			 * display friend stream screen
 			 */
 			friendStream : function() {
-
+				$("#dialog").dialog('close');
 				if (!BS.friendStreamView) {
 					BS.friendStreamView = new BS.FriendStreamView();
 					BS.friendStreamView.render();
@@ -870,7 +876,7 @@ BS.AppRouter = Backbone.Router.extend({
 			 */
 			// TODO
 			filesMedia : function() {
-
+				$("#dialog").dialog('close');
 				$('#content').children().detach();
 				$('#school-popup').children().detach();
 				var self = this;
@@ -942,7 +948,7 @@ BS.AppRouter = Backbone.Router.extend({
 		     */
 			settings : function(){
 				 
-				
+				$("#dialog").dialog('close');
 				$('#content').children().detach();
 				$('#school-popup').children().detach();
 				var self = this;

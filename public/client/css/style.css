@@ -2231,3 +2231,14 @@ label.error {
 	margin :25px;
 	margin-left :100px;
 }
+.alert-msg{
+	color:#119FE1 !important;
+}
+/* for message alert boxes */
+
+.ui-dialog{
+	border: 2px solid #119FE1 !important;
+}
+.ui-dialog-content{
+	background: none repeat scroll 0 0 #DBDBDB !important;
+}

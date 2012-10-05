@@ -31,15 +31,17 @@ BS.VideoListView = Backbone.View.extend({
               $.ajax({
                         type : 'GET',
                         url : BS.allProfileVideos,
-                        data : {
-                           'userId': e.attributes.id.id
-                                },
+//                        data : {
+//                           'userId': e.attributes.id.id
+//                                },
                         dataType : "json",
                                                                 //------------------------------------------------------------
                         success : function(videos) {
+                        	
                                 _.each(videos, function(video) {  
+//                                	 
                                 content += '<li id="file-docs-'+i+'">'
-                                +'<div class="image-wrapper hovereffect"><div class="hover-div"><img src="images/image2.jpg"/><div class="hover-text">'
+                                +'<div class="image-wrapper hovereffect"><div class="hover-div"><img src="'+video.frameURL+'"/><div class="hover-text">'
                                 +'<div class="comment-wrapper comment-wrapper2">'
                                 +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
                                 +'<a href="#" class="hand-icon"></a>'
@@ -47,7 +49,7 @@ BS.VideoListView = Backbone.View.extend({
                                 +'<a href="#" class="share-icon"></a>'
                                 +'</div>'
                                 +'<h4> video name</h4> ' 
-                                +'<div class="gallery clearfix"></div><div class="gallery clearfix"><a href="'+video+'" rel="prettyPhoto" style="text-decoration: none" >'
+                                +'<div class="gallery clearfix"></div><div class="gallery clearfix"><a href="'+video.mediaUrl+'" rel="prettyPhoto" style="text-decoration: none" >'
                                 +' <p class="google_doc doc-description" id="+doc.id.id+">'
                                 +'<input type="hidden" id="id-doc.id.id" value="doc.url">'
                                 +'Description of Video </p></a>'

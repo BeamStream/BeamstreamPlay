@@ -357,7 +357,7 @@ BS.ClassStreamView = Backbone.View.extend({
      */
     closeScreen :function(eventName){
   	  eventName.preventDefault(); 
-  	  $(".star").hide();
+  	  
       BS.AppRouter.navigate("streams", {trigger: true});
     },
     /**

@@ -493,7 +493,15 @@ BS.StreamView = Backbone.View.extend({
   			success : function(data) {
   				   if(data.status == "Failure")
   				   {
-  					   alert("Enter School & Class to post a message in a stream");
+//  					   alert("Enter School & Class to post a message in a stream ");
+  					 var alert = '<div id="dialog" title="Message !">You need to add a stream first.</br><a  onClick="closeAlert();" class="alert-msg " href="#create_stream"> Create Stream</a></div>';
+//  					 var alert = '<div id="dialog" title="Message !">You need to add a stream first.</br><a  class="ui-icon ui-icon-closethick alert-msg" href="#create_stream"> Add Stream Here</a></div>';  					 $('#alert-popup').html(alert);
+                     console.log("hhh");
+  					 $('#alert-popup').html(alert);
+  					 $( "#dialog" ).dialog({ autoOpen: false });
+  					 $( "#dialog" ).dialog('open');
+  					 $( "#dialog" ).dialog({ height: 100 });
+  					
   				   }
   				   else
   				   {
