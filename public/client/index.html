@@ -2265,8 +2265,8 @@ $(window).bind("load", function() {
                         <span class="profile-thumb">
                            <div id="img"></div>
                            <div id="default-image">
-                           {{#if profilePhoto}}
-                              <img id="profile-photo" src="{{profilePhoto}}" style="width:95px; height:90px;" alt="no photo" name="profile-photo" >
+                           {{#if primaryImage}}
+                              <img id="profile-photo" src="{{primaryImage}}" style="width:95px; height:90px;" alt="no photo" name="profile-photo" >
                            {{else}}
                              <img id="profile-photo" src="images/no-photo.png" style="width:95px; height:90px;" alt="no photo" name="profile-photo" >
                            {{/if}}
@@ -2289,7 +2289,11 @@ $(window).bind("load", function() {
                     <div class="element last">
                         <label for="profile-video">Profile video</label>
                         <span class="profile-thumb">
-							<img id="profile-video" src="images/no-video.png"  style="width:95px; height:90px;" alt="no video" name="profile-video">
+                           {{#if primaryVideo}}
+							  <img id="profile-video" src="{{primaryVideo}}"  style="width:95px; height:90px;" alt="no video" name="profile-video">
+                           {{else}}
+                              <img id="profile-video" src="images/no-video.png"  style="width:95px; height:90px;" alt="no video" name="profile-video">
+                           {{/if}}
 						</span>
                         <div class="profile-upload-box">
 							<input type="file" name="my-video" id="my-video"/>

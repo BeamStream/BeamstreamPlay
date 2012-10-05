@@ -46,7 +46,7 @@ BS.ProfileView = Backbone.View.extend({
     	}
     	
     	
-        $(this.el).html(this.template({profilePhoto : BS.profileImageUrl , edit : edit}));
+        $(this.el).html(this.template({primaryImage : BS.primaryImage, primaryVideo : BS.primaryVideo , edit : edit}));
         return this;
     },
      
