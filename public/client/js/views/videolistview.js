@@ -3,6 +3,7 @@ BS.VideoListView = Backbone.View.extend({
                 "click a#file-type" : "showFilesTypes",
                 "click ul.file-type li a" : "hideList",
                  "click .videotitle" : "editVideoTitle"
+//                 "hover .videotitle" : "editVideoTitle"              //#345 should only hover over, not click
              },
     
         initialize:function(){
