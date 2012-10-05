@@ -116,7 +116,7 @@ object MediaController extends Controller {
     } else {
       val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userIdReceived))
       if (!mediaObtained.size.equals(0)) {
-        val MediaJson = write(mediaObtained.last.mediaUrl)
+        val MediaJson = write(mediaObtained.last)
         Ok(MediaJson).as("application/json")
       } else {
         Ok(write(new ResulttoSent("Failure", "No picture found for this user")))

@@ -36,7 +36,7 @@ object UserMedia {
  * Get profile picture for a user
  */
   def getProfilePicForAUser(userId: ObjectId): List[UserMedia] = {
-    val mediaObtained = UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Image")).toList
+    val mediaObtained = UserMediaDAO.find(MongoDBObject("userId" -> userId, "isPrimary" -> true)).toList
     mediaObtained
   }
 
