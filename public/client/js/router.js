@@ -527,9 +527,9 @@ BS.AppRouter = Backbone.Router.extend({
 		    					 {
 		    						 BS.profileImageUrl = data.mediaUrl;
 		    					 }
-		    					// shoe primary profile video 
+		    					// shoW primary profile video 
 		    					 else
-		    					 {
+		    					 {   console.log(data.frameURL);
 		    						 BS.profileImageUrl = data.frameURL;
 		    					 }
 //		    					 BS.profileImageUrl = data;
