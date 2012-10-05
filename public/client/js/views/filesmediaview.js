@@ -287,7 +287,7 @@ BS.FilesMediaView = Backbone.View.extend({
                             {
                                 arraypictures=videos;
                                 coverpicture=arraypictures[arraypictures.length-1];
-                                content= '<div class="image-wrapper hovereffect"><div class="hover-div"><img src="images/image2.jpg"/><div class="hover-text">'
+                                content= '<div class="image-wrapper hovereffect"><div class="hover-div"><img src="'+coverpicture.mediaUrl'+"/><div class="hover-text">'
                                             +'<div class="comment-wrapper comment-wrapper2">'
                                             +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
                                             +'<a href="#" class="hand-icon"></a>'
