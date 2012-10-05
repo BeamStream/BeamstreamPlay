@@ -46,7 +46,7 @@ object MediaController extends Controller {
           val contentType = imageData.contentType.get
           val uniqueString = tokenEmail.securityToken
           val imageFileObtained: File = imageData.ref.file.asInstanceOf[File]
-          val imageNameOnAmazon = uniqueString + imageFilename.replaceAll("\\s","") // Security Over the images files
+          val imageNameOnAmazon = uniqueString + imageFilename.replaceAll("\\s", "") // Security Over the images files
           val imageFileInputStream = CompressFile.compressImage(imageFileObtained, imageNameOnAmazon, 0.1f)
           //AmazonUpload.uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
           AmazonUpload.uploadCompressedFileToAmazon(imageNameOnAmazon, imageFileInputStream)
@@ -74,7 +74,7 @@ object MediaController extends Controller {
           val contentType = videoData.contentType.get
           val uniqueString = tokenEmail.securityToken
           val videoFileObtained: File = videoData.ref.file.asInstanceOf[File]
-          val videoFileNameOnnAmazon = uniqueString + videoFilename.replaceAll("\\s","") // Security Over the videos files
+          val videoFileNameOnnAmazon = uniqueString + videoFilename.replaceAll("\\s", "") // Security Over the videos files
           println(videoFileNameOnnAmazon)
           AmazonUpload.uploadFileToAmazon(videoFileNameOnnAmazon, videoFileObtained)
           val videoURL = "https://s3.amazonaws.com/BeamStream/" + videoFileNameOnnAmazon
@@ -110,18 +110,21 @@ object MediaController extends Controller {
   def getProfilePicForAUser = Action { implicit request =>
     val userIdJsonMap = request.body.asFormUrlEncoded.get
     val userIdReceived = userIdJsonMap("userId").toList(0)
-    if (ProfileImageProviderCache.profileImageMap.isDefinedAt(userIdReceived)) {
-      val profilePicUrl = ProfileImageProviderCache.getImage(userIdReceived)
-      Ok(write(profilePicUrl)).as("application/json")
+    //    if (ProfileImageProviderCache.profileImageMap.isDefinedAt(userIdReceived)) {
+    //      val profilePicUrl = ProfileImageProviderCache.getImage(userIdReceived)
+    //      Ok(write(profilePicUrl)).as("application/json")
+    //    } else {
+    //      val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userIdReceived))
+    //      if (!mediaObtained.size.equals(0)) {
+    //        val MediaJson = write(mediaObtained.last)
+    //        Ok(MediaJson).as("application/json")
+    //      }
+    val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userIdReceived))
+    if (!mediaObtained.size.equals(0)) {
+      val MediaJson = write(mediaObtained.last)
+      Ok(MediaJson).as("application/json")
     } else {
-      val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userIdReceived))
-      if (!mediaObtained.size.equals(0)) {
-        val MediaJson = write(mediaObtained.last)
-        Ok(MediaJson).as("application/json")
-      } else {
-        Ok(write(new ResulttoSent("Failure", "No picture found for this user")))
-      }
-
+      Ok(write(new ResulttoSent("Failure", "No picture found for this user")))
     }
 
   }
