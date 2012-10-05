@@ -90,7 +90,8 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	    						
 	    						localStorage["editSchool"] = "true";
 	    	   					
-	    	   					BS.schoolFromPrev =  $('#school-name').val();
+//	    	   					BS.schoolFromPrev =  $('#school-name').val();
+	    						localStorage["schoolFromPrev"] = $('#school-name').val();
 	    	   					// navigate to main stream page
 	    	   					$(".star").hide();
 	    	   					BS.AppRouter.navigate("streams", {
@@ -227,16 +228,16 @@ BS.MediaRegistrationView = Backbone.View.extend({
 							{
 								localStorage["regInfo"] =JSON.stringify(data); 
 								BS.regBack = true;
+								
 								//set status for school back page
-//	    						BS.resistrationPage = "media";
 								localStorage["resistrationPage"] ="media";
 								
-//								BS.editSchool = false;
 	    						localStorage["editSchool"] = "false";
 								
 								// save school name 
-								BS.schoolFromPrev =  $('#school-name').val();
-								$(".star").hide();
+//								BS.schoolFromPrev =  $('#school-name').val();
+								localStorage["schoolFromPrev"] = $('#school-name').val();
+								 
 								// navigate to main stream page
 								BS.AppRouter.navigate("school", {
 									trigger : true,

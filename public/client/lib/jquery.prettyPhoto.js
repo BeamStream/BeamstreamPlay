@@ -697,6 +697,8 @@
 				return 'flv';
 			}else if(itemSrc.indexOf('.flv') != -1){
 				return 'flv';
+			}else if(itemSrc.indexOf('.AVI') != -1){
+				return 'flv';
 			}else if (itemSrc.match(/\bajax=true\b/i)) {
 				return 'ajax';
 			} else if (itemSrc.match(/\bcustom=true\b/i)) {

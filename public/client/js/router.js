@@ -147,7 +147,7 @@ BS.AppRouter = Backbone.Router.extend({
 				var datas = {
 				"data" : info,
 				"number" : current
-			  }
+			 }
 			var source = $("#tpl-school").html();
 			var template = Handlebars.compile(source);
 			$('#school-list').append(template(datas));
@@ -179,6 +179,15 @@ BS.AppRouter = Backbone.Router.extend({
 			$('.datepicker').css('z-index','99999');
 			
 	        });
+	        
+	        if(localStorage["schoolFromPrev"] != '')
+	        {
+	        	$('#school-name-1').val( localStorage["schoolFromPrev"]);  // transport school name from sign up page to school screen
+	         	$('#prev-school').attr("value", localStorage["schoolFromPrev"]);
+	         	$('#associatedId-1').attr("value", localStorage["newSchoolId"]);
+	         	
+	        }
+	       
 	            
 	    }
         else
@@ -190,22 +199,23 @@ BS.AppRouter = Backbone.Router.extend({
 	         $('#school-popup').html(BS.schoolView.el);
 	         
 	         current = 1;
-	         if(BS.schoolFromPrev)
+//	         if(BS.schoolFromPrev)
+	         if(localStorage["schoolFromPrev"] != '')
 	         {
-	        	$('#school-name-1').val(BS.schoolFromPrev);  // transport school name from sign up page to school screen
-	        	$('#prev-school').attr("value",BS.schoolFromPrev);
+	        	$('#school-name-1').val(localStorage["schoolFromPrev"]);  // transport school name from sign up page to school screen
+	        	$('#prev-school').attr("value",localStorage["schoolFromPrev"]);
 //	        	$("#school-name-1").attr("disabled", "disabled"); 
 	        	 
 	        	 $.ajax({
 		        	   type : 'POST',
 		 			   url : BS.autoPopulateSchools,
 		 			   data : {
-		 				   data : BS.schoolFromPrev,
+		 				   data : localStorage["schoolFromPrev"],
 		 			   },
 		 			   dataType : "json",
 					   success : function(datas) {
 							_.each(datas, function(data) {
-								 if(data.schoolName == BS.schoolFromPrev)
+								 if(data.schoolName == localStorage["schoolFromPrev"])
 						    	  {
 									 
 						    		  var sId = data.id.id;
@@ -385,10 +395,13 @@ BS.AppRouter = Backbone.Router.extend({
 	    
        BS.profileView = new BS.ProfileView();
        BS.profileView.render();
-       $('#school-popup').html(BS.profileView.el);  
+       $('#school-popup').html(BS.profileView.el); 
        
-       //set mobile number format 
-       $("#mobile").mask("(999) 999-9999",{placeholder:" "});
+       // initial call to image resize function  
+//       BS.profileView.resize(self,95,90 ,document.getElementById("profile-image"),document.getElementById("img"));
+       
+       //set mobile number format  -validation 
+       $("#mobile").mask("(999) 999-9999",{placeholder:"  "});
        
        $('.progress-container').hide();
        $(".modal select:visible").selectBox();
@@ -473,6 +486,9 @@ BS.AppRouter = Backbone.Router.extend({
 			   localStorage["regInfo"] ='';
 		       localStorage["schoolInfo"] ='';
 		       localStorage["classInfo"] ='';
+		       localStorage["schoolFromPrev"] = '';
+		       localStorage["newSchoolId"] = '';
+          	   localStorage["newSchool"] ='';
 		       
 		       localStorage["editSchool"] = "true";
 		       localStorage["editClass"] = "true";

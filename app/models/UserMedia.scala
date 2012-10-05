@@ -9,7 +9,7 @@ import org.bson.types.ObjectId
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 
-case class UserMedia(@Key("_id") id: ObjectId, userId: ObjectId, mediaUrl: String, contentType: UserMediaType.Value, isPrimary: Boolean)
+case class UserMedia(@Key("_id") id: ObjectId, userId: ObjectId, mediaUrl: String, contentType: UserMediaType.Value, isPrimary: Boolean,frameURL:String)
 
 object UserMediaType extends Enumeration {
   val Image = Value(0, "Image")
@@ -56,11 +56,11 @@ object UserMedia {
  * Get All videos for a user
  * @Purpose : Show all Videos for a user
  */
-  def getAllProfileVideoForAUser(userId: ObjectId): List[String] = {
-    var userVideos: List[String] = List()
+  def getAllProfileVideoForAUser(userId: ObjectId): List[UserMedia] = {
+    var userVideos: List[UserMedia] = List()
     val mediaObtained = UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Video")).toList
     for (media <- mediaObtained) {
-      userVideos ++= List(media.mediaUrl)
+      userVideos ++= List(media)
     }
     userVideos
   }
@@ -77,7 +77,7 @@ object UserMedia {
   def makePresentOnePrimary(userId: ObjectId) {
     val AlluserMedia = getAllMediaForAUser(userId)
     for (media <- AlluserMedia) {
-      val updatedMedia = new UserMedia(media.id, media.userId, media.mediaUrl, media.contentType, false)
+      val updatedMedia = new UserMedia(media.id, media.userId, media.mediaUrl, media.contentType, false,media.frameURL)
       UserMediaDAO.update(MongoDBObject("_id" -> media.id), updatedMedia, false, false, new WriteConcern)
     }
 

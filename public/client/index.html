@@ -58,7 +58,7 @@
 <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <script src="http://jdbartlett.com/innershiv/innershiv.js"></script>
-    <![endif]-->
+    <![endif] -->
 
 <!--     <script type="text/javascript" src="http://use.typekit.com/xgg5kcw.js"></script> -->
 <!-- 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script> -->
@@ -154,6 +154,9 @@ body {
 <!--  Masked Input Plugin -->
 <script src="lib/jquery.maskedinput.js" type="text/javascript"></script>
 
+
+<!--  resize the profile image -->
+<script src="lib/resample.js" type="text/javascript"></script>
 
 <!--- Code to delete duplication of Janrain Component -->    
 <script>
@@ -556,8 +559,13 @@ $(window).bind("load", function() {
 	 <table class="stream-table" id="streamslist" > 
 		 
 	 </table> 
-      </div>     
-
+      </div> 
+ 
+     <!-- <div id="upload-school-sheets">
+	      <label name="upload-sheets" >Upload School's Sheet (in .xlsx Format)</label>
+	      <input id="upload-files" type="file"  name="upload-files" >   </br>
+		  <a href="#" class="btn btn-primary pull-left"  id="upload" >Upload</a>	
+      </div> -->
     </div>
   </div>
   
@@ -2331,12 +2339,14 @@ $(window).bind("load", function() {
                     <div class="element">
                         <label for="profile-photo">Profile photo</label>
                         <span class="profile-thumb">
+                           <div id="img"></div>
+                           <div id="default-image">
                            {{#if profilePhoto}}
                               <img id="profile-photo" src="{{profilePhoto}}" style="width:95px; height:90px;" alt="no photo" name="profile-photo" >
                            {{else}}
                              <img id="profile-photo" src="images/no-photo.png" style="width:95px; height:90px;" alt="no photo" name="profile-photo" >
                            {{/if}}
-
+                           </div>
                         </span>
                         <div class="profile-upload-box">
 							<input id="profile-image" type="file"  name="profile-image" >
@@ -3406,7 +3416,7 @@ $(window).bind("load", function() {
               </div>
               <div  class="socialnw-wrapper">
                   <img  class="orwith" src="images/orwith.png"/> 
-                   <div id="janrainEngageEmbed" class="janRain">
+                   <div id="janrainEngageEmbed" class="janRain"> 
                   <div id="load-janRain" style="display :block;">  
 					<img src ="images/loading.gif"> 
                   </div>
@@ -3496,7 +3506,7 @@ $(window).bind("load", function() {
                         <div class="or-icon"><img src="images/or.png"></div>
           </div>
           <div class="form-row-right">
-              <div id="janrainEngageEmbed" class="login-janRain"></div> 
+             <div id="janrainEngageEmbed" class="login-janRain"></div>
                
           </div>
           <div class="form-row-label"></div>
@@ -3506,7 +3516,9 @@ $(window).bind("load", function() {
           </div>
           </div>
             <div class="form-row" >
- <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a> 
+ 
+            <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a>  
+ 
 
           </div>
         </div>
@@ -3651,7 +3663,7 @@ $(window).bind("load", function() {
 		})();
 
 		function janrainWidgetOnload() {
-
+			 
 			janrain.events.onProviderLoginToken
 					.addHandler(function(response) {
 						$
@@ -3660,6 +3672,7 @@ $(window).bind("load", function() {
 									url : BS.userPage,
 									data : "token=" + response.token,
 									success : function(res) {
+										console.log(res);
 										if (res != null) {
 
 											if (res.stat == "ok") {
@@ -3843,15 +3856,15 @@ $(window).bind("load", function() {
 	<!--  for +Add New School option in autopopulate -->
 	<script type="text/javascript">
 		function populateAddNewSchool(parentId) {
-			console.log(parentId);
+			 
 
 			BS.addNewSchool = new BS.AddNewSchool();
-			BS.addNewSchool.render();
+			BS.addNewSchool.render(parentId);
 			$('#new-school-popup').html(BS.addNewSchool.el);
 
-			if (BS.schoolFromPrev == $('#prev-school').attr("value")) {
+			if (localStorage["schoolFromPrev"] == $('#prev-school').attr("value")) {
 				console.log("Ok");
-				$('#my-school').val(BS.schoolFromPrev);
+				$('#my-school').val(localStorage["schoolFromPrev"]);
 			}
             if(BS.newSchool)
             {
@@ -3866,8 +3879,8 @@ $(window).bind("load", function() {
 
 	<script src="js/router.js"></script>
 
-	<div pub-key="pub-afccd1a6-08cc-42b1-8728-b46e27645f89"
-		sub-key="sub-5bec3afa-ff98-11e1-bcba-d18d7b6ca35d" ssl="off"
+	<div pub-key="pub-a8c5db9f-8482-4092-b9e4-44fda38a9d51"
+		sub-key="sub-315698a6-0b22-11e2-80cd-aba6e1687b8d" ssl="off"
 		origin="pubsub.pubnub.com" id="pubnub"></div>
 	<script src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
 

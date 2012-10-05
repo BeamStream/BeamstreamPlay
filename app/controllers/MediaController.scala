@@ -22,6 +22,7 @@ import models.ProfileImageProviderCache
 import utils.CompressFile
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
+import utils.ExtractFrameFromVideo
 
 object MediaController extends Controller {
 
@@ -45,12 +46,12 @@ object MediaController extends Controller {
           val contentType = imageData.contentType.get
           val uniqueString = tokenEmail.securityToken
           val imageFileObtained: File = imageData.ref.file.asInstanceOf[File]
-          val imageNameOnAmazon = uniqueString + imageFilename // Security Over the images files
+          val imageNameOnAmazon = uniqueString + imageFilename.replaceAll("\\s","") // Security Over the images files
           val imageFileInputStream = CompressFile.compressImage(imageFileObtained, imageNameOnAmazon, 0.1f)
           //AmazonUpload.uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
           AmazonUpload.uploadCompressedFileToAmazon(imageNameOnAmazon, imageFileInputStream)
           val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
-          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, UserMediaType.Image, imageStatus)
+          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, UserMediaType.Image, imageStatus, "")
           UserMedia.saveMediaForUser(media)
           ProfileImageProviderCache.setImage(media.userId.toString, media.mediaUrl)
           // For MongoDB
@@ -73,12 +74,16 @@ object MediaController extends Controller {
           val contentType = videoData.contentType.get
           val uniqueString = tokenEmail.securityToken
           val videoFileObtained: File = videoData.ref.file.asInstanceOf[File]
-          val videoFileNameOnnAmazon = uniqueString + videoFilename // Security Over the videos files
-          // val videoFileInputStream=CompressFile.compressImage(videoFileObtained,videoFileNameOnnAmazon,0.1f)
-          //AmazonUpload.uploadCompressedFileToAmazon(videoFileNameOnnAmazon, videoFileInputStream)
+          val videoFileNameOnnAmazon = uniqueString + videoFilename.replaceAll("\\s","") // Security Over the videos files
+          println(videoFileNameOnnAmazon)
           AmazonUpload.uploadFileToAmazon(videoFileNameOnnAmazon, videoFileObtained)
           val videoURL = "https://s3.amazonaws.com/BeamStream/" + videoFileNameOnnAmazon
-          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), videoURL, UserMediaType.Video, videoStatus)
+
+          val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(videoURL)
+          AmazonUpload.uploadCompressedFileToAmazon(videoFileNameOnnAmazon + "Frame", frameOfVideo)
+          val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + videoFileNameOnnAmazon + "Frame"
+
+          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), videoURL, UserMediaType.Video, videoStatus, videoFrameURL)
           UserMedia.saveMediaForUser(media)
           /*
       val profileVideo: File = videoData.ref.file.asInstanceOf[File]

@@ -14,28 +14,39 @@ import java.util.Iterator
 import java.io.ByteArrayOutputStream
 import java.io.ByteArrayInputStream
 
-object CompressFile extends App{
+object CompressFile extends App {
 
-  def compressImage(inputImage : File , filename: String, quality: Float) : InputStream={
-    println(inputImage.getTotalSpace() + "Before")
-    val is= new FileInputStream(inputImage)
-    val os= new ByteArrayOutputStream
-    val image = ImageIO.read(is);
+  val imageFile = new File("/home/neelkanth/Desktop/image1.JPG")
+
+  def compressImage(file: File, filename: String, qualityOfOutPutImage: Float): InputStream = {
+    val inputStream = new FileInputStream(file)
+    
+    // Creating An In Memory Output Stream 
+    val outPutStream = new ByteArrayOutputStream
+    
+    val image = ImageIO.read(inputStream)   // BufferedImage
+    
     val writers = ImageIO.getImageWritersByFormatName("jpg")
-    val writer = writers.next();
-    val ios= ImageIO.createImageOutputStream(os);
-    writer.setOutput(ios);
-    val param = writer.getDefaultWriteParam();
-    param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-    param.setCompressionQuality(quality);
-    writer.write(null, new IIOImage(image, null, null), param);
-    is.close();
-    os.close();
-    ios.close();
-    writer.dispose();
-    println(os.size + "After")
-   	val decodedInput : InputStream =new ByteArrayInputStream(( os).toByteArray())
-    println(decodedInput)
-    decodedInput
+    val writer = writers.next
+    val imageOutputStream = ImageIO.createImageOutputStream(outPutStream) // Image Output Stream
+    writer.setOutput(imageOutputStream)
+    
+    val param = writer.getDefaultWriteParam
+    param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT) // Setting Compression Mode
+    
+    // Specifying The Image Quality , We Can Choose The Quality Required
+    param.setCompressionQuality(qualityOfOutPutImage) 
+    
+    writer.write(null, new IIOImage(image, null, null), param)
+    
+    // Closing The Input and Output Streams
+    inputStream.close
+    outPutStream.close
+    imageOutputStream.close
+    writer.dispose                       // Disposing writer
+    
+    // Creating The InputStream From ByteArrayInputStream
+    val fileInputStream: InputStream = new ByteArrayInputStream(outPutStream.toByteArray)
+    fileInputStream    // Returned The Compressed Image Input Stream 
   }
 }
