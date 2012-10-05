@@ -512,16 +512,27 @@ BS.AppRouter = Backbone.Router.extend({
 			    				 userId :  e.attributes.id.id
 			    			},
 		    			success : function(data) {
-		    				
+		    				 
 		    				 // default profile image
 		    				 if(data.status)
 		    				 {
+		    					  
 		    					 BS.profileImageUrl = "images/unknown.jpeg";
 				    	        	 
 		    				 }
 		    				 else
-		    				 {
-		    					 BS.profileImageUrl = data;
+		    				 {   
+		    					 // shoe primary profile image 
+		    					 if(data.contentType.name = "Image")
+		    					 {
+		    						 BS.profileImageUrl = data.mediaUrl;
+		    					 }
+		    					// shoe primary profile video 
+		    					 else
+		    					 {
+		    						 BS.profileImageUrl = data.frameURL;
+		    					 }
+//		    					 BS.profileImageUrl = data;
 		    				 }
 		    				 $('#main-photo').attr("src",BS.profileImageUrl);
 			    	         $('#right-photo').attr("src",BS.profileImageUrl);

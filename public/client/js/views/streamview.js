@@ -620,8 +620,27 @@ BS.StreamView = Backbone.View.extend({
 	  				    				 userId :  data.userId.id
 	  				    			},
 	  				    			dataType : "json",
-	  				    			success : function(imgUrl) {
-	  				    				 
+	  				    			success : function(pofiledata) {
+	  				    				var imgUrl;
+	  				    				if(pofiledata.status)
+	  				    				 {
+	  				    					  
+	  				    					imgUrl = "images/unknown.jpeg";
+	  						    	        	 
+	  				    				 }
+	  				    				 else
+	  				    				 {   
+	  				    					 // shoe primary profile image 
+	  				    					 if(pofiledata.contentType.name = "Image")
+	  				    					 {
+	  				    						imgUrl = pofiledata.mediaUrl;
+	  				    					 }
+	  				    					 // shoe primary profile video 
+	  				    					 else
+	  				    					 {
+	  				    						imgUrl = pofiledata.frameURL;
+	  				    					 }
+	  				    				 }
 	  				    				$('img#'+data.id.id+'-img').attr("src", imgUrl);
 	  				    			}
 	  				    		});
@@ -985,7 +1004,27 @@ BS.StreamView = Backbone.View.extend({
 				    				 userId :  data.userId.id
 				    			},
 				    			dataType : "json",
-				    			success : function(imgUrl) {
+				    			success : function(pofiledata) {
+				    				var imgUrl;
+  				    				if(pofiledata.status)
+  				    				 {
+  				    					  
+  				    					imgUrl = "images/unknown.jpeg";
+  						    	        	 
+  				    				 }
+  				    				 else
+  				    				 {   
+  				    					 // shoe primary profile image 
+  				    					 if(pofiledata.contentType.name = "Image")
+  				    					 {
+  				    						imgUrl = pofiledata.mediaUrl;
+  				    					 }
+  				    					 // shoe primary profile video 
+  				    					 else
+  				    					 {
+  				    						imgUrl = pofiledata.frameURL;
+  				    					 }
+  				    				 }
 				    				$('#'+data.id.id+'-image').attr("src" ,imgUrl); 
 				    			}
 				      });
@@ -1209,8 +1248,27 @@ BS.StreamView = Backbone.View.extend({
 			    				 userId :  data.userId.id
 			    			},
 			    			dataType : "json",
-			    			success : function(imgUrl) {
-			    				 
+			    			success : function(pofiledata) {
+			    				     var imgUrl;
+				    				if(pofiledata.status)
+				    				 {
+				    					  
+				    					imgUrl = "images/unknown.jpeg";
+						    	        	 
+				    				 }
+				    				 else
+				    				 {   
+				    					 // shoe primary profile image 
+				    					 if(pofiledata.contentType.name = "Image")
+				    					 {
+				    						imgUrl = pofiledata.mediaUrl;
+				    					 }
+				    					 // shoe primary profile video 
+				    					 else
+				    					 {
+				    						imgUrl = pofiledata.frameURL;
+				    					 }
+				    				 }
 			    				$('img#'+data.id.id+'-img').attr("src", imgUrl);
 			    			}
 			    		});

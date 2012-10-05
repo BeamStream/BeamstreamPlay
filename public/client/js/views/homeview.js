@@ -40,16 +40,26 @@ BS.NavView = Backbone.View.extend({
 	    			},
   			success : function(data) {
   				
-  				 // default profile image
-  				 if(data.status)
-  				 {
-  					 BS.profileImageUrl = "images/unknown.jpeg";
-		    	        	 
-  				 }
-  				 else
-  				 {
-  					 BS.profileImageUrl = data;
-  				 }
+  			     // default profile image
+				 if(data.status)
+				 {
+					  
+					 BS.profileImageUrl = "images/unknown.jpeg";
+	    	        	 
+				 }
+				 else
+				 {   
+					 // shoe primary profile image 
+					 if(data.contentType.name = "Image")
+					 {
+						 BS.profileImageUrl = data.mediaUrl;
+					 }
+					// shoe primary profile video 
+					 else
+					 {
+						 BS.profileImageUrl = data.frameURL;
+					 }
+				 }
   			 
 	    	     $('#right-photo').attr("src",BS.profileImageUrl);
   	        	
