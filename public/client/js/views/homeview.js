@@ -50,7 +50,7 @@ BS.NavView = Backbone.View.extend({
 				 else
 				 {   
 					 // shoe primary profile image 
-					 if(data.contentType.name = "Image")
+					 if(data.contentType.name == "Image")
 					 {
 						 BS.profileImageUrl = data.mediaUrl;
 					 }

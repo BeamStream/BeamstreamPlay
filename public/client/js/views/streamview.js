@@ -631,7 +631,7 @@ BS.StreamView = Backbone.View.extend({
 	  				    				 else
 	  				    				 {   
 	  				    					 // shoe primary profile image 
-	  				    					 if(pofiledata.contentType.name = "Image")
+	  				    					 if(pofiledata.contentType.name == "Image")
 	  				    					 {
 	  				    						imgUrl = pofiledata.mediaUrl;
 	  				    					 }
@@ -1015,7 +1015,7 @@ BS.StreamView = Backbone.View.extend({
   				    				 else
   				    				 {   
   				    					 // shoe primary profile image 
-  				    					 if(pofiledata.contentType.name = "Image")
+  				    					 if(pofiledata.contentType.name == "Image")
   				    					 {
   				    						imgUrl = pofiledata.mediaUrl;
   				    					 }
@@ -1259,7 +1259,7 @@ BS.StreamView = Backbone.View.extend({
 				    				 else
 				    				 {   
 				    					 // shoe primary profile image 
-				    					 if(pofiledata.contentType.name = "Image")
+				    					 if(pofiledata.contentType.name == "Image")
 				    					 {
 				    						imgUrl = pofiledata.mediaUrl;
 				    					 }
