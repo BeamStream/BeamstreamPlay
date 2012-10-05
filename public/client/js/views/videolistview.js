@@ -41,7 +41,7 @@ BS.VideoListView = Backbone.View.extend({
                                 _.each(videos, function(video) {  
 //                                	 
                                 content += '<li id="file-docs-'+i+'">'
-                                +'<div class="image-wrapper hovereffect"><div class="hover-div"><img src="'+video.frameURL+'"/><div class="hover-text">'
+                                +'<div class="image-wrapper hovereffect"><div class="hover-div"><img class="videoimage" src="'+video.frameURL+'"/><div class="hover-text">'
                                 +'<div class="comment-wrapper comment-wrapper2">'
                                 +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
                                 +'<a href="#" class="hand-icon"></a>'
