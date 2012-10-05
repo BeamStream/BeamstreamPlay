@@ -423,89 +423,89 @@ BS.ProfileView = Backbone.View.extend({
     /**
      * for resize the uploaded images
      */
-     resize : function (global, width, height, $file, $img) {
-          var self = this;
-    	  function resampled(data) {
-    		   console.log("done");
-    		   $('#default-image').hide();
-	    	   ($img.lastChild || $img.appendChild(new Image)
-	    	   ).src = data;
-    	  }
-    	  // file has been loaded
-    	  function load(e) {
-    		  console.log("resampling");
-    		  console.log($file.files[0]);
-    		  console.log(e.name);
-    		  // show image name and close button
-    		  $('#image-info').html(e.name);
-     		  $('.delete-image').show();
-     		  
-    		  self.image = $file.files[0];
-    		  console.log(self.image);
-    	   
-	    	   Resample(
-	    	     this.result,
-	    	     this._width || null,
-	    	     this._height || null,
-	    	     resampled
-	    	   );
-    	   
-    	  }
-    	   
-    	  // is aborted ( for whatever reason )
-    	  function abort(e) {
-    		  console.log("operation aborted");
-    	  }
-    	   
-    	  // if an error occur (i.e. security)
-    	  function error(e) {
-    		  console.log("Error"+ (this.result || e));
-    	  }
-    	  
-    	  // listener for the input@file onchange
-    	  $file.addEventListener("change", function change() {
-	    	   var	file ;
-	    	 
-	    	   if (!width && !height) {
-		    	    // reset the input simply swapping it
-		    	    $file.parentNode.replaceChild(
-			    	     file = $file.cloneNode(false),
-			    	     $file
-		    	    );
-		    	    // remove the listener to avoid leaks, if any
-		    	    $file.removeEventListener("change", change, false);
-		    	  
-		    	    ($file = file).addEventListener("change", change, false);
-		    	     
-	    	   } 
-	    	   else if(($file.files || []).length && /^image\//.test((file = $file.files[0]).type)) {
-	    	   
-		    	    file = new FileReader;
-		    	    file.onload = load;
-		    	    file.onabort = abort;
-		    	    file.onerror = error;
-		    	  
-		    	    file._width = width;
-		    	    file._height = height;
-		    	     
-		    	    file.readAsDataURL($file.files[0]);
-	    	  
-	    	   } else if (file) {
-	    		   console.log("please chose an image");
-	    		   // show error message
-	    		   console.log("Error: file type not allowed");
-	    		   $('#img').html('');
-	    		   $('#default-image').show();
-		           $('#profile-photo').attr("src","images/no-photo.png");
-		  		   $('#profile-photo').attr("name", "profile-photo");
-		  		   $('.delete-image').hide();
-		  		   $('#image-info').html('File type is not allowed');
-		  		   
-		  		   
-	    	   } else {
-	    		   console.log("nothing to do");
-	    	   }
-    	  }, false);
-    	}
+//     resize : function (global, width, height, $file, $img) {
+//          var self = this;
+//    	  function resampled(data) {
+//    		   console.log("done");
+//    		   $('#default-image').hide();
+//	    	   ($img.lastChild || $img.appendChild(new Image)
+//	    	   ).src = data;
+//    	  }
+//    	  // file has been loaded
+//    	  function load(e) {
+//    		  console.log("resampling");
+//    		  console.log($file.files[0]);
+//    		  console.log(e.name);
+//    		  // show image name and close button
+//    		  $('#image-info').html(e.name);
+//     		  $('.delete-image').show();
+//     		  
+//    		  self.image = $file.files[0];
+//    		  console.log(self.image);
+//    	   
+//	    	   Resample(
+//	    	     this.result,
+//	    	     this._width || null,
+//	    	     this._height || null,
+//	    	     resampled
+//	    	   );
+//    	   
+//    	  }
+//    	   
+//    	  // is aborted ( for whatever reason )
+//    	  function abort(e) {
+//    		  console.log("operation aborted");
+//    	  }
+//    	   
+//    	  // if an error occur (i.e. security)
+//    	  function error(e) {
+//    		  console.log("Error"+ (this.result || e));
+//    	  }
+//    	  
+//    	  // listener for the input@file onchange
+//    	  $file.addEventListener("change", function change() {
+//	    	   var	file ;
+//	    	 
+//	    	   if (!width && !height) {
+//		    	    // reset the input simply swapping it
+//		    	    $file.parentNode.replaceChild(
+//			    	     file = $file.cloneNode(false),
+//			    	     $file
+//		    	    );
+//		    	    // remove the listener to avoid leaks, if any
+//		    	    $file.removeEventListener("change", change, false);
+//		    	  
+//		    	    ($file = file).addEventListener("change", change, false);
+//		    	     
+//	    	   } 
+//	    	   else if(($file.files || []).length && /^image\//.test((file = $file.files[0]).type)) {
+//	    	   
+//		    	    file = new FileReader;
+//		    	    file.onload = load;
+//		    	    file.onabort = abort;
+//		    	    file.onerror = error;
+//		    	  
+//		    	    file._width = width;
+//		    	    file._height = height;
+//		    	     
+//		    	    file.readAsDataURL($file.files[0]);
+//	    	  
+//	    	   } else if (file) {
+//	    		   console.log("please chose an image");
+//	    		   // show error message
+//	    		   console.log("Error: file type not allowed");
+//	    		   $('#img').html('');
+//	    		   $('#default-image').show();
+//		           $('#profile-photo').attr("src","images/no-photo.png");
+//		  		   $('#profile-photo').attr("name", "profile-photo");
+//		  		   $('.delete-image').hide();
+//		  		   $('#image-info').html('File type is not allowed');
+//		  		   
+//		  		   
+//	    	   } else {
+//	    		   console.log("nothing to do");
+//	    	   }
+//    	  }, false);
+//    	}
     
 });

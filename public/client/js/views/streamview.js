@@ -20,7 +20,7 @@ BS.StreamView = Backbone.View.extend({
            "mouseenter a#rocks" : "showRockers",
            "click a.rock" : "preventDefault",
            "mouseenter a#cmtrock" : "showCommentRockers",
-           "click .edit_profilepicture" : "showProfilePage",
+           "mouseenter .edit_profilepicture" : "showProfilePage",
            "click .nav-tabs li" : "showActive",
            "click .class-nav-list li" :"showListActive",
            "keypress #msg" : "postMessageOnEnterKey",
@@ -495,8 +495,6 @@ BS.StreamView = Backbone.View.extend({
   				   {
 //  					   alert("Enter School & Class to post a message in a stream ");
   					 var alert = '<div id="dialog" title="Message !">You need to add a stream first.</br><a  onClick="closeAlert();" class="alert-msg " href="#create_stream"> Create Stream</a></div>';
-//  					 var alert = '<div id="dialog" title="Message !">You need to add a stream first.</br><a  class="ui-icon ui-icon-closethick alert-msg" href="#create_stream"> Add Stream Here</a></div>';  					 $('#alert-popup').html(alert);
-                     console.log("hhh");
   					 $('#alert-popup').html(alert);
   					 $( "#dialog" ).dialog({ autoOpen: false });
   					 $( "#dialog" ).dialog('open');
@@ -622,8 +620,27 @@ BS.StreamView = Backbone.View.extend({
 	  				    				 userId :  data.userId.id
 	  				    			},
 	  				    			dataType : "json",
-	  				    			success : function(imgUrl) {
-	  				    				 
+	  				    			success : function(pofiledata) {
+	  				    				var imgUrl;
+	  				    				if(pofiledata.status)
+	  				    				 {
+	  				    					  
+	  				    					imgUrl = "images/unknown.jpeg";
+	  						    	        	 
+	  				    				 }
+	  				    				 else
+	  				    				 {   
+	  				    					 // shoe primary profile image 
+	  				    					 if(pofiledata.contentType.name == "Image")
+	  				    					 {
+	  				    						imgUrl = pofiledata.mediaUrl;
+	  				    					 }
+	  				    					 // shoe primary profile video 
+	  				    					 else
+	  				    					 {
+	  				    						imgUrl = pofiledata.frameURL;
+	  				    					 }
+	  				    				 }
 	  				    				$('img#'+data.id.id+'-img').attr("src", imgUrl);
 	  				    			}
 	  				    		});
@@ -987,7 +1004,27 @@ BS.StreamView = Backbone.View.extend({
 				    				 userId :  data.userId.id
 				    			},
 				    			dataType : "json",
-				    			success : function(imgUrl) {
+				    			success : function(pofiledata) {
+				    				var imgUrl;
+  				    				if(pofiledata.status)
+  				    				 {
+  				    					  
+  				    					imgUrl = "images/unknown.jpeg";
+  						    	        	 
+  				    				 }
+  				    				 else
+  				    				 {   
+  				    					 // shoe primary profile image 
+  				    					 if(pofiledata.contentType.name == "Image")
+  				    					 {
+  				    						imgUrl = pofiledata.mediaUrl;
+  				    					 }
+  				    					 // shoe primary profile video 
+  				    					 else
+  				    					 {
+  				    						imgUrl = pofiledata.frameURL;
+  				    					 }
+  				    				 }
 				    				$('#'+data.id.id+'-image').attr("src" ,imgUrl); 
 				    			}
 				      });
@@ -1211,8 +1248,27 @@ BS.StreamView = Backbone.View.extend({
 			    				 userId :  data.userId.id
 			    			},
 			    			dataType : "json",
-			    			success : function(imgUrl) {
-			    				 
+			    			success : function(pofiledata) {
+			    				     var imgUrl;
+				    				if(pofiledata.status)
+				    				 {
+				    					  
+				    					imgUrl = "images/unknown.jpeg";
+						    	        	 
+				    				 }
+				    				 else
+				    				 {   
+				    					 // shoe primary profile image 
+				    					 if(pofiledata.contentType.name == "Image")
+				    					 {
+				    						imgUrl = pofiledata.mediaUrl;
+				    					 }
+				    					 // shoe primary profile video 
+				    					 else
+				    					 {
+				    						imgUrl = pofiledata.frameURL;
+				    					 }
+				    				 }
 			    				$('img#'+data.id.id+'-img').attr("src", imgUrl);
 			    			}
 			    		});
