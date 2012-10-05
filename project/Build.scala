@@ -22,7 +22,7 @@ object ApplicationBuild extends Build {
     "org.apache.poi" % "poi" % "3.8",
     "org.apache.poi" % "poi-ooxml" % "3.8",
     "net.sf.opencsv" % "opencsv" % "2.1",
-    "xuggle" % "xuggle-xuggler" % "5.2",
+    "xuggle" % "xuggle-xuggler" % "5.4",
     "org.joda" % "joda-convert" % "1.1")
 
   resolvers += "xuggle repo" at "http://xuggle.googlecode.com/svn/trunk/repo/share/java/"
