@@ -20,6 +20,7 @@ import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
 import models.UserDAO
 import com.mongodb.WriteConcern
+import play.cache.Cache
 
 object BasicRegistration extends Controller {
 

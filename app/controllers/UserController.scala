@@ -1,7 +1,6 @@
 package controllers
 import org.bson.types.ObjectId
 import org.neo4j.graphdb.Node
-
 import models.ProfileImageProviderCache
 import models.ResulttoSent
 import models.User
@@ -17,13 +16,12 @@ import play.api.libs.json.Json
 import play.api.mvc._
 import play.api.mvc.Controller
 import play.api.mvc.Response
-import play.api.mvc.Response
 import play.api._
 import play.libs._
 import play.mvc.Http.Request
 import utils._
 import utils.SocialGraphEmbeddedNeo4j
-
+import play.cache.Cache
 
 object UserController extends Controller {
 
@@ -53,10 +51,10 @@ object UserController extends Controller {
         val authenticatedUserJson = write(user)
         //        if(rememberMe==true) Ok(statusToSend).as("application/json").withCookies(Cookie("userName",user.email),Cookie("password",user.password)).withSession(userSession)
         //        else  Ok(statusToSend).as("application/json").withSession(userSession)
-        /*
-        Cache.set("ActiveUsersInTheSystem", activeUsersInTheSystem ++ List(new ObjectId(request.session.get("userId").get)))
-        println(Cache.get("ActiveUsersInTheSystem"))
-        */
+
+//        Cache.set("ActiveUsersInTheSystem", activeUsersInTheSystem ++ List(new ObjectId(request.session.get("userId").get)))
+//        println(Cache.get("ActiveUsersInTheSystem"))
+
         Ok(statusToSend).withSession(userSession)
 
       case None =>
@@ -127,10 +125,8 @@ object UserController extends Controller {
    */
 
   def signOut = Action { implicit request =>
-    /*
-    Cache.set("ActiveUsersInTheSystem", activeUsersInTheSystem -- List(new ObjectId(request.session.get("userId").get)))
-    println(Cache.get("ActiveUsersInTheSystem"))
-    */
+//    Cache.set("ActiveUsersInTheSystem", activeUsersInTheSystem -- List(new ObjectId(request.session.get("userId").get)))
+//    println(Cache.get("ActiveUsersInTheSystem"))
     Ok.withNewSession
   }
 
@@ -147,8 +143,6 @@ object UserController extends Controller {
     Ok(loggedInUserJson).as("application/json")
   }
 
- 
-
   /*
    * Password Recovery
    * @purpose : Send a mail to user with password
@@ -163,31 +157,28 @@ object UserController extends Controller {
     }
 
   }
-  
-  
+
   def testNeo4j = Action { implicit request =>
     SocialGraphEmbeddedNeo4j.clearDb()
     SocialGraphEmbeddedNeo4j.createDb()
-    var node:Node = SocialGraphEmbeddedNeo4j.findBSNode(24, "Joe", "Shmoe")
-    var node2:Node = SocialGraphEmbeddedNeo4j.createBSNode(72, "Michael", "Vick", node)
+    var node: Node = SocialGraphEmbeddedNeo4j.findBSNode(24, "Joe", "Shmoe")
+    var node2: Node = SocialGraphEmbeddedNeo4j.createBSNode(72, "Michael", "Vick", node)
     print("node1: " + node.getProperty("firstName"))
     print("node2: " + node2.getProperty("firstName"))
     print("relationship: " + node2.getRelationships())
     SocialGraphEmbeddedNeo4j.shutDown()
     Ok(write(new ResulttoSent("Success", "User added to Social stack")))
   }
-  
-  def addFriendNeo4j(friends:Array[Neo4jFriend], userId:Integer ): Boolean = {
+
+  def addFriendNeo4j(friends: Array[Neo4jFriend], userId: Integer): Boolean = {
     SocialGraphEmbeddedNeo4j.createDb()
-    var node:Node = SocialGraphEmbeddedNeo4j.findBSNode(userId, null, null)
-    for(friend <- friends) {
-      var node2:Node = SocialGraphEmbeddedNeo4j.createBSNode(friend.userId, friend.firstName, friend.lastName, node)
+    var node: Node = SocialGraphEmbeddedNeo4j.findBSNode(userId, null, null)
+    for (friend <- friends) {
+      var node2: Node = SocialGraphEmbeddedNeo4j.createBSNode(friend.userId, friend.firstName, friend.lastName, node)
     }
     SocialGraphEmbeddedNeo4j.shutDown()
     Ok(write(new ResulttoSent("Success", "Users added to Social stack")))
     return true
   }
- 
-  
 
 }
