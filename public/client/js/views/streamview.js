@@ -20,7 +20,7 @@ BS.StreamView = Backbone.View.extend({
            "mouseenter a#rocks" : "showRockers",
            "click a.rock" : "preventDefault",
            "mouseenter a#cmtrock" : "showCommentRockers",
-           "click .edit_profilepicture" : "showProfilePage",
+           "mouseenter .edit_profilepicture" : "showProfilePage",
            "click .nav-tabs li" : "showActive",
            "click .class-nav-list li" :"showListActive",
            "keypress #msg" : "postMessageOnEnterKey",
