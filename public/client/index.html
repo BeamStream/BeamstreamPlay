@@ -1901,6 +1901,7 @@ $(window).bind("load", function() {
 		</nav>
 	</div>
 	<div id="content"></div>
+	<div id="alert-popup"></div>
 	<div id="school-popup"></div>
 	<div id="list-popups"></div>
 	<div id="main-popups"></div>
@@ -1986,8 +1987,11 @@ $(window).bind("load", function() {
                 <div class="form-row short">
 					<div class="element">
 						<label for="school-{{sCount}}">School</label>
-                               <div id="school-list-{{sCount}}"></div>
-						
+                               <div id="school-list-{{sCount}}">
+						        <select id="school-1" class="large all-schools selectBox valid" >
+                                   <option value=''></option>
+                                </select>
+								</div>
            			   </div>
 					 </div>
                     <div class="form-row-label">1<sup>st</sup> class</div>
@@ -2432,7 +2436,7 @@ $(window).bind("load", function() {
 
 	<!--  main stream page template -->
 	<script type="text/x-handlebars-template" id="tpl-main-stream">
- 
+    
     <div id = "middle-content">
     <section class="site_search">
       <div class="container">
@@ -3873,6 +3877,13 @@ $(window).bind("load", function() {
 
 
 			$('#parent-Id').attr("value", parentId);
+		}
+		function closeAlert(){
+			 // display the popup of create steam 
+			 BS.streamView = new BS.StreamView({ model: BS.user });
+			 BS.streamView.render();
+			 BS.streamView.mouseOver();
+			 $("#dialog").dialog('close');
 		}
 	</script>
 

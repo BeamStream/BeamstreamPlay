@@ -281,7 +281,8 @@ BS.FilesMediaView = Backbone.View.extend({
                                 },
                         dataType : "json",
 
-                        success : function(docs) {                          
+                        success : function(docs) { 
+                        	
                             if(docs.length != 0)
                             {
                                 arraypictures=docs;
