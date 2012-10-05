@@ -21,11 +21,11 @@ import play.libs._
 import play.mvc.Http.Request
 import utils._
 import utils.SocialGraphEmbeddedNeo4j
-import play.cache.Cache
+import play.api.cache.Cache
+import play.api.Play.current
+import models.onlineUserCache
 
 object UserController extends Controller {
-
-  var activeUsersInTheSystem: List[ObjectId] = List()
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
   } + new ObjectIdSerializer
@@ -52,8 +52,8 @@ object UserController extends Controller {
         //        if(rememberMe==true) Ok(statusToSend).as("application/json").withCookies(Cookie("userName",user.email),Cookie("password",user.password)).withSession(userSession)
         //        else  Ok(statusToSend).as("application/json").withSession(userSession)
 
-//        Cache.set("ActiveUsersInTheSystem", activeUsersInTheSystem ++ List(new ObjectId(request.session.get("userId").get)))
-//        println(Cache.get("ActiveUsersInTheSystem"))
+        val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
+        println(noOfOnLineUsers)
 
         Ok(statusToSend).withSession(userSession)
 
@@ -125,8 +125,8 @@ object UserController extends Controller {
    */
 
   def signOut = Action { implicit request =>
-//    Cache.set("ActiveUsersInTheSystem", activeUsersInTheSystem -- List(new ObjectId(request.session.get("userId").get)))
-//    println(Cache.get("ActiveUsersInTheSystem"))
+    val noOfOnLineUsers = onlineUserCache.setOffline(request.session.get("userId").get)
+    println(noOfOnLineUsers)
     Ok.withNewSession
   }
 
