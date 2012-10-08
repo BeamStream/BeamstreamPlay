@@ -2246,3 +2246,7 @@ label.error {
 .ui-dialog-content{
 	background: none repeat scroll 0 0 #DBDBDB !important;
 }
+.p-profile{
+/* 	min-width:100%; */
+	min-height: 140px;
+}

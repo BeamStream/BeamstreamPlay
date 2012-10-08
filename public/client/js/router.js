@@ -409,8 +409,6 @@ BS.AppRouter = Backbone.Router.extend({
        $('.progress-container').hide();
        $(".modal select:visible").selectBox();
        $(".radio").dgStyle();
-//       $('.video-radio').dgStyle();
-//       $('.img-radio').dgStyle();
         
        $('.modal .datepicker').datepicker();
        $("#profile-form").validate();
@@ -526,14 +524,21 @@ BS.AppRouter = Backbone.Router.extend({
 		    					 if(data.contentType.name == "Image")
 		    					 {
 		    						 BS.profileImageUrl = data.mediaUrl;
-
-		    						 var primaryImage = '<div class="gallery clearfix">'
-		    							                 +'<a href="'+data.mediaUrl+'" rel="prettyPhoto"  ><img src="'+data.mediaUrl+'" width="100%" height="100%"  /></a></div>';
+		    						  
+                                     BS.primaryImage = data.mediaUrl;
+                                     BS.primaryVideo = '';
+                                     
+		    						 var primaryImage = '<div class="gallery clearfix"><div class="gallery clearfix">'
+		    							                 +'<a href="'+data.mediaUrl+'" rel="prettyPhoto"  ><img class="p-profile" src="'+data.mediaUrl+'"  width="100%" height="100%"  /></a></div>';
 		    						 $('#profile-images').html(primaryImage);
 		    					 }
 		    					 else
 		    					 {
+		    						// show primary profile video
 		    						 BS.profileImageUrl = data.frameURL;
+		    						 
+		    						 BS.primaryVideo = data.frameURL;
+		    						 BS.primaryImage = '';
 		    						 
 		    						 var primaryProfile = '<div class="gallery clearfix">'
 		    							                  +'</div><div class="gallery clearfix">'
@@ -542,6 +547,7 @@ BS.AppRouter = Backbone.Router.extend({
 		    						 $('#profile-images').html(primaryProfile);
 		    						  
 		    					 }
+		    					 
 		    					 $("area[rel^='prettyPhoto']").prettyPhoto();
 	    		 				 $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
 	    		 				 $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
