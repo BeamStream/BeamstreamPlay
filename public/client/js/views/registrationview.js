@@ -52,7 +52,7 @@ BS.RegistrationView = Backbone.View.extend({
     	   				if(data.status) {
     	   					
     	   					if(data.status == "Failure")
-    	   					  $('#error').html("This User Email or Name is already taken");
+    	   					  $('#error').html(data.message);
     	   				   
     	   				} 
     	   				else 
