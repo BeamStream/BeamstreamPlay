@@ -89,7 +89,7 @@ object CommentController extends Controller {
         case true =>
 
           val docId = idJson("docId").toList(0)
-          val commentsForADocument = Comment.getAllComments(Document.findDocumentById(new ObjectId(docId)).comments)
+          val commentsForADocument = Comment.getAllComments(Document.findDocumentById(new ObjectId(docId)).commentsOnDocument)
           Ok(write(commentsForADocument)).as("application/json")
 
         case false =>

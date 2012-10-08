@@ -108,7 +108,7 @@ object Comment {
   */
   def addCommentToDocument(commentId: ObjectId, docId: ObjectId) = {
     val doc = DocumentDAO.find(MongoDBObject("_id" -> docId)).toList(0)
-    DocumentDAO.update(MongoDBObject("_id" -> docId), doc.copy(comments = (doc.comments ++ List(commentId))), false, false, new WriteConcern)
+    DocumentDAO.update(MongoDBObject("_id" -> docId), doc.copy(commentsOnDocument = (doc.commentsOnDocument ++ List(commentId))), false, false, new WriteConcern)
   }
 
  

@@ -45,7 +45,7 @@ POST /newDocument controllers.DocumentController.newDocument
 POST /getAllDocumentsForAUser    controllers.DocumentController.getAllDocumentsForAUser
 POST /getAllDocumentsForCurrentUserSortedbyDate    controllers.DocumentController.getAllDocumentsForCurrentUserSortedbyDate
 POST /changeTitleAndDescriptionForADocument controllers.DocumentController.changeTitleAndDescriptionForADocument
-
+POST /rockTheDocument                    controllers.DocumentController.rockTheDocument
 #Schools
 
 POST /school controllers.SchoolController.addANewSchool
