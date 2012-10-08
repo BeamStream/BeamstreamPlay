@@ -447,7 +447,7 @@ $(window).bind("load", function() {
 	      <div class="hover-text"> 
 	         <div id="{{doc.id.id}}" class="comment-wrapper comment-wrapper2">
 	            <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
-	            <a href="#" class="hand-icon" ></a>
+	            <a href="#" class="hand-icon rock_docs" ></a>
 	            <a href="#" class="message-icon"></a>
 	            <a href="#" class="share-icon"></a>
 	          </div>
@@ -469,7 +469,7 @@ $(window).bind("load", function() {
         </a>
         <ul id="{{doc.id.id}}-activities" class="comment-list">
            <li><a class="eye-icon" href="#"></a></li>
-           <li><a class="hand-icon" href="#">{{doc.documentRocks}}</a></li>
+           <li><a class="hand-icon " href="#">{{doc.documentRocks}}</a></li>
            <li><a class="message-icon" href="#"></a></li>
         </ul>
       </div>
@@ -2741,9 +2741,9 @@ $(window).bind("load", function() {
 		Comments
 	</h5>
 	<div class="comment_actions pull-right">
-		<a href="#hide" id="{{parentId}}-hideComment" class="hide_comments">Hide All</a>
+		<a href="#hide" id="{{parentId}}-hideComment" class="hide_comments">Hide all {{cmtCount}} comments</a>
 		|
-		<a class=" show_comments" href="#show" id="{{parentId}}-showComment">Show All</a>
+		<a class=" show_comments" href="#show" id="{{parentId}}-showComment">Show all {{cmtCount}} comments</a>
 	</div>
 </header>
 </script>

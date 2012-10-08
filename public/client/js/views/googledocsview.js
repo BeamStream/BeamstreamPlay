@@ -10,7 +10,7 @@ BS.GoogleDocsView = Backbone.View.extend({
                 "click .doctitle" : "editDocTitle",
                 "click #prevslid" : "previous",
                 "click #nextslid" : "next",
-                "click .hand-icon" : "rocksDocuments",
+                "click .rock_docs" : "rocksDocuments",
                 "click .message-icon" : "commentDocuments"
  	    },
                  
