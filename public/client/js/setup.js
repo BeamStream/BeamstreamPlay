@@ -106,8 +106,10 @@ BS.deleteStream = BS.URLRequired+"/deleteStream";
 BS.addSchool =  BS.URLRequired+"/school";
 //save edit document
 BS.savedocedit = BS.URLRequired+"/changeTitleAndDescriptionForADocument";
- 
- 
+//Rocks the Google docs 
+BS.rockDocs = BS.URLRequired+"/rockTheDocument";
+
+
 /* for beta users */
 BS.toLogin = BS.URLRequired+'/beamstream/index.html#login';
 BS.betaUser = BS.URLRequired+'/betaUser';

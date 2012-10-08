@@ -153,13 +153,13 @@ BS.FilesMediaView = Backbone.View.extend({
                               _.each(docs, function(doc) {
                         var datVal =  self.formatDateVal(doc.creationDate);                      
                            var content ='<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'">'
-                                        +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'">'
+                                        +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
                                         +'<div class="hover-div"><img src="images/docs_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
                                         +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
                                         +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#googledocs" style="text-decoration: none">'
-                                        +'<div id="media-'+doc.id.id+'" ><h4> '+doc.name+'</h4> <p class="google_doc doc-description" id="'+doc.id.id+'" >'
-                                         +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'">'
-                                        +''+doc.description+' </p> </div></a>'
+                                        +'<div id="media-'+doc.id.id+'" ><h4> '+doc.documentName+'</h4> <p class="google_doc doc-description" id="'+doc.id.id+'" >'
+                                         +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
+                                        +''+doc.documentDescription+' </p> </div></a>'
                                         +'<h5 class="doctitle" id="'+doc.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
                                         +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#">'
                                         +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#">87</a></li>'
