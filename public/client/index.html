@@ -1464,7 +1464,15 @@ $(window).bind("load", function() {
 		$("#class-form").validate();
 		$("#profile-form").validate();
 		$("#email-verify").validate();
-		$("#registration-form").validate();
+// 		$("#registration-form").validate();
+		$("#registration-form").validate({
+			rules: {
+				password1: "required",
+				password_again: {
+			      equalTo: "#password1"
+			    }
+			  }
+		});
 		$("#forgot-pass-form").validate();
 		$('#add-new-school-form').validate();
 		
@@ -3017,20 +3025,24 @@ $(window).bind("load", function() {
               <input type="text" id="school-name" name="schoolName" placeholder=" School Name" class="required span3 myschool">
             </div>
         <div class="element">
-              <label for="user-name">User Name <span class="star"> </span><br/>
+              <label for="user-name">User Name <br/>
             http://www.beamstream.com/</label>
               <input type="text" id="user-name" name="user-name" placeholder="@UserName"   class="required span3">
             </div>
           <div class="element">
-              <label for="password">Password <span class="star"> </span><br/></label>
-              <input type="password" id="password" name="password" placeholder="password" class="required span3"> 
+              <label for="password1">Password <br/></label>
+              <input type="password" id="password1" name="password1" placeholder="password" class="span3"> 
+            </div>
+           <div class="element">
+              <label for="password">Re-enter Password </label>
+              <input type="password" id="password_again" name="password_again" placeholder="Re-enter password" class="span3"> 
             </div>
         <div class="element">
-              <label for="first-name">First Name <span class="star"> </span></label>
+              <label for="first-name">First Name </label>
               <input type="text" id="first-name" name="first-name" placeholder="First Name" class="required span3">
             </div>
         <div class="element">
-              <label for="last-name">Last Name <span class="star"> </span></label>
+              <label for="last-name">Last Name </label>
               <input type="text" id="last-name" name="last-name" placeholder="Last Name" class="required span3">
             </div>
         <div class="element">
@@ -3069,28 +3081,32 @@ $(window).bind("load", function() {
         <div class="element" style="margin-top:25px;" >
               <input type= "hidden" id="user_Id" value ="{{data.id.id}}">
               <label for="school-name">School name   </label>
-              <input name="schoolName" type="text" id="school-name" placeholder="" value="{{data.orgName}}" class="validate[required] span3 myschool">
+              <input name="schoolName" type="text" id="school-name" placeholder="" value="{{data.orgName}}" class="required span3 myschool">
             </div>
         <div class="element">
               <label for="user-name">User Name   <br/>
             http://www.beamstream.com/</label>
-              <input type="text" id="user-name" value="{{data.userName}}"  class="validate[required] span3">
+              <input type="text" id="user-name" value="{{data.userName}}"  class="required span3">
             </div>
           <div class="element">
-              <label for="password">Password   <br/></label>
-              <input type="password" id="password" placeholder="password" value ="" class="validate[required] span3"> 
+              <label for="password1">Password   <br/></label>
+              <input type="password" id="password1" placeholder="password" value ="" class="required span3"> 
+            </div>
+         <div class="element">
+              <label for="password">Re-enter Password </label>
+              <input type="password" id="password_again" name="password_again" value="" placeholder="Re-enter password" class="span3"> 
             </div>
         <div class="element">
               <label for="first-name">First Name   </label>
-              <input type="text" id="first-name" value="{{data.firstName}}" class="validate[required] span3">
+              <input type="text" id="first-name" value="{{data.firstName}}" class="required span3">
             </div>
         <div class="element">
               <label for="last-name">Last Name   </label>
-              <input type="text" id="last-name"value="{{data.lastName}}" class="validate[required] span3">
+              <input type="text" id="last-name"value="{{data.lastName}}" class="required span3">
             </div>
         <div class="element">
               <label for="location">Location   </label>
-              <input type="text" id="location" value="{{data.location}}" class="validate[required] span3">
+              <input type="text" id="location" value="{{data.location}}" class="required span3">
             </div>
         <div class="element">
               <label for="current-location"></label>

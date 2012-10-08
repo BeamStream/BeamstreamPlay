@@ -61,6 +61,7 @@ object BasicRegistration extends Controller {
     val schoolName = (parsedUserJson \ "schoolName").extract[String]
     val userName = (parsedUserJson \ "userName").extract[String]
     val password = (parsedUserJson \ "password").extract[String]
+    val confirmPassword = (parsedUserJson \ "confirmPassword").extract[String]
     val firstName = (parsedUserJson \ "firstName").extract[String]
     val lastName = (parsedUserJson \ "lastName").extract[String]
     val location = (parsedUserJson \ "location").extract[String]
@@ -75,24 +76,34 @@ object BasicRegistration extends Controller {
 
         val canUserRegister = User.isAlreadyRegistered(emailId, userName)
         (canUserRegister == true) match {
+
           case true =>
 
-            val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, "", password, schoolName, location, profile, List(), List(), List(), List(), List())
-            val IdOfUserCreted = User.createUser(userToCreate)
-            val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
-            val createdUser = User.findUserbyId(IdOfUserCreted)
-            Ok(write(List(createdUser))).withSession(RegistrationSession)
+            (password == confirmPassword) match {
+              case true =>
+                val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, "", password, schoolName, location, profile, List(), List(), List(), List(), List())
+                val IdOfUserCreted = User.createUser(userToCreate)
+                val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
+                val createdUser = User.findUserbyId(IdOfUserCreted)
+                Ok(write(List(createdUser))).withSession(RegistrationSession)
+              case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
+            }
 
           case false =>
-            Ok(write(new ResulttoSent("Failure", "Already registered"))).as("application/json")
+            Ok(write(new ResulttoSent("Failure", "This User Email or Name Is Already Taken"))).as("application/json")
         }
 
       case false =>
-        val updatedUser = new User(new ObjectId(id), UserType.apply(iam.toInt), emailId, firstName, lastName, userName, "", password, schoolName, location, profile, List(), List(), List(), List(), List())
-        UserDAO.update(MongoDBObject("_id" -> new ObjectId(id)), updatedUser, false, false, new WriteConcern)
-        Ok(write(List(updatedUser))).as("application/json")
+        (password == confirmPassword) match {
+          case true =>
+            val updatedUser = new User(new ObjectId(id), UserType.apply(iam.toInt), emailId, firstName, lastName, userName, "", password, schoolName, location, profile, List(), List(), List(), List(), List())
+            UserDAO.update(MongoDBObject("_id" -> new ObjectId(id)), updatedUser, false, false, new WriteConcern)
+            Ok(write(List(updatedUser))).as("application/json")
+          case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
+        }
     }
   }
+
   /*
    * Send the verification mail to the User
    */
