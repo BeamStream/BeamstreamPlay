@@ -528,7 +528,7 @@ BS.AppRouter = Backbone.Router.extend({
                                      BS.primaryImage = data.mediaUrl;
                                      BS.primaryVideo = '';
                                      
-		    						 var primaryImage = '<div class="gallery clearfix">'
+		    						 var primaryImage = '<div class="gallery clearfix"><div class="gallery clearfix">'
 		    							                 +'<a href="'+data.mediaUrl+'" rel="prettyPhoto"  ><img class="p-profile" src="'+data.mediaUrl+'"  width="100%" height="100%"  /></a></div>';
 		    						 $('#profile-images').html(primaryImage);
 		    					 }
