@@ -628,8 +628,16 @@ BS.AppRouter = Backbone.Router.extend({
 			   var template = Handlebars.compile(source);
 			   $('#registration-form fieldset').html(template(datas));
 			   $(".checkbox").dgStyle();
-		       $("#registration-form").validate();
-	    	   
+//		       $("#registration-form").validate();
+		       $("#registration-form").validate({
+						rules: {
+							password1: "required",
+							password_again: {
+						      equalTo: "#password1"
+						    }
+						  }
+					});
+			  
 			});
 	
 	   }
@@ -659,7 +667,15 @@ BS.AppRouter = Backbone.Router.extend({
   							localStorage["regInfo"] ='';
   							$('#jan-iam').hide();
   							$(".checkbox").dgStyle();
-  							$("#registration-form").validate();
+//  							$("#registration-form").validate();
+  							 $("#registration-form").validate({
+  								rules: {
+  									password1: "required",
+  									password_again: {
+  								      equalTo: "#password1"
+  								    }
+  								  }
+  							});
   					     }
   						 else 
   						 {
@@ -669,6 +685,7 @@ BS.AppRouter = Backbone.Router.extend({
   					}
   				});
          }
+       
 
 		},
 

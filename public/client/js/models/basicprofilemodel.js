@@ -7,6 +7,7 @@ BS.BasicProfile = Backbone.Model.extend({
             schoolName:null,
             userName:null,
             password:null,
+            confirmPassword:null,
             firstName:null,
             lastName:null,
             location:null,

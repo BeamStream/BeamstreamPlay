@@ -1464,7 +1464,15 @@ $(window).bind("load", function() {
 		$("#class-form").validate();
 		$("#profile-form").validate();
 		$("#email-verify").validate();
-		$("#registration-form").validate();
+// 		$("#registration-form").validate();
+		$("#registration-form").validate({
+			rules: {
+				password1: "required",
+				password_again: {
+			      equalTo: "#password1"
+			    }
+			  }
+		});
 		$("#forgot-pass-form").validate();
 		$('#add-new-school-form').validate();
 		
@@ -3017,20 +3025,24 @@ $(window).bind("load", function() {
               <input type="text" id="school-name" name="schoolName" placeholder=" School Name" class="required span3 myschool">
             </div>
         <div class="element">
-              <label for="user-name">User Name <span class="star"> </span><br/>
+              <label for="user-name">User Name <br/>
             http://www.beamstream.com/</label>
               <input type="text" id="user-name" name="user-name" placeholder="@UserName"   class="required span3">
             </div>
           <div class="element">
-              <label for="password">Password <span class="star"> </span><br/></label>
-              <input type="password" id="password" name="password" placeholder="password" class="required span3"> 
+              <label for="password1">Password <br/></label>
+              <input type="password" id="password1" name="password1" placeholder="password" class="span3"> 
+            </div>
+           <div class="element">
+              <label for="password">Re-enter Password </label>
+              <input type="password" id="password_again" name="password_again" placeholder="Re-enter password" class="span3"> 
             </div>
         <div class="element">
-              <label for="first-name">First Name <span class="star"> </span></label>
+              <label for="first-name">First Name </label>
               <input type="text" id="first-name" name="first-name" placeholder="First Name" class="required span3">
             </div>
         <div class="element">
-              <label for="last-name">Last Name <span class="star"> </span></label>
+              <label for="last-name">Last Name </label>
               <input type="text" id="last-name" name="last-name" placeholder="Last Name" class="required span3">
             </div>
         <div class="element">
