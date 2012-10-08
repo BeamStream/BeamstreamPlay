@@ -51,30 +51,28 @@ object DocumentController extends Controller {
     val documentJsonMap = request.body.asFormUrlEncoded.get
 
     (documentJsonMap.contains(("data"))) match {
+      
       case false =>  Ok(write(new ResulttoSent("Failure", "Document data not found !!!")))
      
       case true =>
 
         val document = documentJsonMap("data").toList(0)
         val documentJson = net.liftweb.json.parse(document)
-
         val name = (documentJson \ "docName").extract[String]
         val url = (documentJson \ "docURL").extract[String]
         val access = (documentJson \ "docAccess").extract[String]
         val docType = (documentJson \ "docType").extract[String]
         val description = (documentJson \ "docDescription").extract[String]
-
         val userId = new ObjectId(request.session.get("userId").get)
         val date = new Date
-        val documentToCreate = new Document(new ObjectId(), name, description, url,
-          DocType.withName(docType), userId,
-          DocumentAccess.withName(access), userId, date, date, 0, List(), List())
+        val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId,DocumentAccess.withName(access), new ObjectId , date, date, 0, List(), List())
         val docId = Document.addDocument(documentToCreate, userId)
         val docObtained = Document.findDocumentById(docId)
         val docJson = write(List(docObtained))
         Ok(docJson).as("application/json")
     }
   }
+  
 
   def documents = Action { implicit request =>
     val profileName = User.getUserProfile((new ObjectId(request.session.get("userId").get)))
@@ -112,6 +110,7 @@ object DocumentController extends Controller {
   def getAllDocumentsForAUser = Action { implicit request =>
     val documentIdJsonMap = request.body.asFormUrlEncoded.get
     val allDocumentsForAUser = Document.getAllDocumentsForAUser(new ObjectId(request.session.get("userId").get))
+    println(allDocumentsForAUser)
     val allDocumentForAStreamJson = write(allDocumentsForAUser)
     Ok(allDocumentForAStreamJson).as("application/json")
   }
