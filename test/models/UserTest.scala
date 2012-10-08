@@ -55,21 +55,6 @@ class UserTest extends FunSuite with BeforeAndAfter {
     assert(createdUserAfteraddingSchool.schoolId.size === 1)
   }
 
-//  test("Add Class to User") {
-//    val user3 = User(new ObjectId, UserType.Professional, "john@knoldus.com", "John", "Sachdeva", "", "John", "John", "Knoldus", "", List(), List(), List(), List(), List())
-//    val userId = User.createUser(user3)
-//    assert(UserDAO.find(MongoDBObject()).size === 3)
-//
-//    val createdUser = UserDAO.find(MongoDBObject("email" -> "john@knoldus.com")).toList(0)
-//    assert(createdUser.classId.size == 0)
-//
-//    val classIdList = Class.createClass(List(class1), new ObjectId)
-//
-//    User.addClassToUser(userId, classIdList)
-//    val createdUserAfteraddingSchool = UserDAO.find(MongoDBObject("email" -> "john@knoldus.com")).toList(0)
-//    assert(createdUserAfteraddingSchool.classId.size === 1)
-//
-//  }
 
   // Getting the User Profile
   test("Get User Profile") {
@@ -99,6 +84,8 @@ class UserTest extends FunSuite with BeforeAndAfter {
     val user2Id = User.createUser(user2)
     assert(User.countRoles(List(user1Id, user2Id)) === Map("Student" -> 0, "Educator" -> 0, "Professional" -> 2))
   }
+  
+
 
   after {
 
