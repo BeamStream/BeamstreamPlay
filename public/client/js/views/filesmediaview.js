@@ -162,8 +162,8 @@ BS.FilesMediaView = Backbone.View.extend({
                                         +''+doc.documentDescription+' </p> </div></a>'
                                         +'<h5 class="doctitle" id="'+doc.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
                                         +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#">'
-                                        +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#">87</a></li>'
-                                        +'<li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#">10</a></li></ul></div>'; 
+                                        +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
+                                        +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
                         $('#coverdocs').html(content);                     
                         i++;
                         });

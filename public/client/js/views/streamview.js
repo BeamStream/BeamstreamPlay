@@ -980,7 +980,7 @@ BS.StreamView = Backbone.View.extend({
 	  */
 	 showAllComments :function(msgId)
 	 {
-	 
+	     var count = 0;
 		 var parentMsg = msgId;
 		 var parent =$('#'+parentMsg+'').closest('li').attr('id');
  		  
@@ -996,10 +996,18 @@ BS.StreamView = Backbone.View.extend({
             	 var cmtCount  = datas.length;
             	 
             	 _.each(datas, function(data) {
-			  			
+            		 
+            		 
 		  			 var comments = $("#tpl-comments").html();
 					 var commentsTemplate = Handlebars.compile(comments);
 					 $('#'+parent+'-commentlists').prepend(commentsTemplate(data));
+					 
+					 // display 3 comments by default 
+//					 count++;
+//					 if(count <= 3)
+//            		 {
+//						$('#'+parent+'-3_comments').prepend(commentsTemplate(data));
+//            		 }
 					 
 					 
 					 /* get profile images for comments */

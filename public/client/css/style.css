@@ -1117,7 +1117,7 @@ ul.file-list {
 	list-style:none;
 	margin:0;
 }
-ul.file-list li {
+ul.file-list> li {
 	display:block;
 	overflow:hidden;
 	float:left;
@@ -2251,4 +2251,26 @@ text-align: left;
 .p-profile{
 /* 	min-width:100%; */
 	min-height: 140px;
+}
+.docRockers_popup{
+  padding : 10px;
+  z-index: 1050;
+  width: 110px;
+  line-height:20px;
+  background-color: #3A4046;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+  font-family: UbuntuRegular;
+  color: #fff;
+  display: none ;
+  left: 35%;
+  top: 70px;
+  position: absolute !important;
+  border-radius: 4px 4px 4px 4px;
+}
+.docRockers_popup li {
+	background: none;
+    overflow: hidden;
+    position: relative;
 }
