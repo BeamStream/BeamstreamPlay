@@ -346,12 +346,13 @@ body {
 <!-- template for single bucket in Files and Media -->
 <script type="text/x-handlebars-template" id="tpl-single-bucket">
 <li id="file-docs-{{docCount}}" data-key="[{{datVal}}]"> 
+  <div id="{{doc.id.id}}"   name="single-doc">
  	<div class="image-wrapper hovereffect" >
       <div class="hover-div"><img src="images/docs_image.png"/>
 	      <div class="hover-text"> 
 	         <div id="{{doc.id.id}}" class="comment-wrapper comment-wrapper2">
 	            <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
-	            <a href="#" class="hand-icon" ></a>
+	            <a href="#" class="hand-icon rock_docs" ></a>
 	            <a href="#" class="message-icon"></a>
 	            <a href="#" class="share-icon"></a>
 	          </div>
@@ -373,9 +374,11 @@ body {
         </a>
         <ul id="{{doc.id.id}}-activities" class="comment-list">
            <li><a class="eye-icon" href="#"></a></li>
-           <li><a class="hand-icon" href="#">{{doc.documentRocks}}</a></li>
+           <li><a class="hand-icon show_rockers" href="#">{{doc.documentRocks}}</a></li>
            <li><a class="message-icon" href="#"></a></li>
         </ul>
+      </div>
+      <div id="{{doc.id.id}}-docRockers-list" class="docRockers_popup"></div>
       </div>
    </li>
  </script>
@@ -2652,7 +2655,7 @@ body {
 </header>
 </script>
 
-	<script type="text/x-handlebars-template" id="tpl-messages">
+<script type="text/x-handlebars-template" id="tpl-messages">
  
  <li id= "{{datas.id.id}}">
  <article class="message_item">
@@ -2690,6 +2693,7 @@ body {
    </div>
    <div id="{{datas.id.id}}-header"> </div>
    <ul class="comments" id="{{datas.id.id}}-commentlists"></ul>
+   <ul class="comments" id="{{datas.id.id}}-3_comments"></ul>
    <ul class="comments" id="{{datas.id.id}}-newcommentlists"></ul>
    <div id="{{datas.id.id}}-add-comment"></div>
    </article>

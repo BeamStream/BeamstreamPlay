@@ -10,8 +10,9 @@ BS.GoogleDocsView = Backbone.View.extend({
                 "click .doctitle" : "editDocTitle",
                 "click #prevslid" : "previous",
                 "click #nextslid" : "next",
-                "click .hand-icon" : "rocksDocuments",
-                "click .message-icon" : "commentDocuments"
+                "click .rock_docs" : "rocksDocuments",
+                "click .message-icon" : "commentDocuments",
+                "click .show_rockers" : "showDocRockers"
  	    },
                  
         initialize:function() {
@@ -324,6 +325,40 @@ BS.GoogleDocsView = Backbone.View.extend({
        commentDocuments :function(eventName){
     	   eventName.preventDefault();
     	   console.log("45");
+       },
+       
+       /**
+        * show document Rockers list 
+        */
+       showDocRockers :function(eventName){
+    	   eventName.preventDefault();
+    	   var element = eventName.target.parentElement;
+    	   console.log(element);
+  		   var documentId =$(element).closest('div').parent('div').attr('id');
+  		    
+    	   $.ajax({
+               type: 'POST',
+               url:BS.documentRockers,
+               data:{
+              	  documentId:documentId
+               },
+               dataType:"json",
+               success:function(data){
+              	 
+              	  // prepair rockers list
+              	  var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">Who Rocked it ?</div><ul class="rock-list">';
+              	_.each(data, function(rocker) {
+  					 
+              		ul+= '<li>'+rocker+'</li>';
+  			    });
+              	ul+='</ul>';
+   
+              	$('#'+documentId+'-docRockers-list').fadeIn("fast").delay(1000).fadeOut('fast'); 
+              	$('#'+documentId+'-docRockers-list').html(ul);
+
+               }
+            });
+    	   
        }
 })
 

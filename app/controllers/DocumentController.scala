@@ -30,6 +30,11 @@ import java.net.URL
 import models.ResulttoSent
 import play.api.libs.json._
 import play.api.mvc.Action
+import models.ProfileImageProviderCache
+import utils.CompressFile
+import models.UserMedia
+import utils.tokenEmail
+import utils.AmazonUpload
 /**
  * This controller class is used to store and retrieve all the information about documents.
  *
@@ -51,9 +56,9 @@ object DocumentController extends Controller {
     val documentJsonMap = request.body.asFormUrlEncoded.get
 
     (documentJsonMap.contains(("data"))) match {
-      
-      case false =>  Ok(write(new ResulttoSent("Failure", "Document data not found !!!")))
-     
+
+      case false => Ok(write(new ResulttoSent("Failure", "Document data not found !!!")))
+
       case true =>
 
         val document = documentJsonMap("data").toList(0)
@@ -65,14 +70,13 @@ object DocumentController extends Controller {
         val description = (documentJson \ "docDescription").extract[String]
         val userId = new ObjectId(request.session.get("userId").get)
         val date = new Date
-        val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId,DocumentAccess.withName(access), new ObjectId , date, date, 0, List(), List())
+        val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId, DocumentAccess.withName(access), new ObjectId, date, date, 0, List(), List())
         val docId = Document.addDocument(documentToCreate, userId)
         val docObtained = Document.findDocumentById(docId)
         val docJson = write(List(docObtained))
         Ok(docJson).as("application/json")
     }
   }
-  
 
   def documents = Action { implicit request =>
     val profileName = User.getUserProfile((new ObjectId(request.session.get("userId").get)))
@@ -161,9 +165,29 @@ object DocumentController extends Controller {
   /**
    * Upload Media From HardDrive
    */
-  
-    def getDocumentFromDisk = Action(parse.multipartFormData) { request =>
-      Ok
+
+  def getDocumentFromDisk = Action(parse.multipartFormData) { request =>
+    val documentJsonMap = request.body.asFormUrlEncoded.toMap
+    (request.body.file("docData").isEmpty) match {
+
+      case true => // No Image Found
+      case false =>
+        // Fetch the image stream and details
+        request.body.file("docData").map { docData =>
+          val documentName = docData.filename
+          val contentType = docData.contentType.get
+          val uniqueString = tokenEmail.securityToken
+          val docbtained: File = docData.ref.file.asInstanceOf[File]
+          AmazonUpload.uploadFileToAmazon(documentName, docbtained)
+          val docURL = "https://s3.amazonaws.com/BeamStream/" + documentName
+          val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
+            new ObjectId, new Date, new Date, 0, List(), List())
+          Document.addDocument(documentCreated, new ObjectId(request.session.get("userId").get))
+        }.get
+
     }
+
+    Ok(write(new ResulttoSent("Success", "Document Uploaded Successfully")))
+  }
 }
 
