@@ -69,25 +69,9 @@ body {
 <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
 <!--End of Le fav and touch icons -->
 
-<!--- Code to delete duplication of Janrain Component -->    
-<script>
-$(window).bind("load", function() {
-   var nu=$('#janrainEngageEmbed').children();
-   if(nu.length==2)
-   	{
-		console.log("double janrain found");
-		$('.janrainContent:first').remove();
-		
-	}
-   else
-	{
-	   console.log("single janrain found");
-	}
-  
-   $('.janrainContent div+div').remove();
-});
-</script>
 
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+   
 </head>
 <!-- template for Files and Media-->
 <script type="text/x-handlebars-template" id="tpl-files-media">
@@ -117,7 +101,16 @@ $(window).bind("load", function() {
                   <li id="childtwo_dr"><a id="docs_dr"href="#">Papers  &  Docs</a>
                        <ul id="docsmenu_dr" class="fixingmenu_dr">
                            <span class="arrow-left"></span>
-                            <li><a href="#">My Computer</a></li>
+                            <li><a  id="googledocs_mycomp"  href="#">My Computer</a>
+                                <ul id='dooclinkchild_dr' class="largeli">
+                                    <span class="arrow-left"></span>
+                                    <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+                                    <li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"> 
+                                    </li>
+                                    
+                                </ul>
+                            </li>
+                            
                             <li><a id="googledocs_dr" href="#">Google Docs</a>
                                 <ul id="googledocschild_dr">
                                     <span class="arrow-left"></span>
@@ -2240,17 +2233,17 @@ $(window).bind("load", function() {
                         <ul class="additional_controls">
                           <li class="comment"><a href="#comment" class="btn btn-flat"><i class="icon-middle-comment"></i></a></li>
                             <li class="doc"><a href="#doc" class="btn btn-flat"><i class="icon-middle-doc"></i></a>
-                            <ul class="doc-hover ">
+                            <ul class="doc-hover">
                                <span class="arrow">
 				<img src="images/arrow-top.png">
                                   </span>
                                     <li style="margin-bottom:4px !important;"><span>Upload:</span></li>
-                                     <li class="doc-video">Video</li>
-                                    <li class="doc-docs">Docs</li>
-                                    <li class="doc-notes">Notes</li>
-                                    <li class="doc-audio">Audio</li>
-                                    <li class="doc-presentation">Presentation</li> 
-									<li class="doc-docs">Assignments</li> 
+                                     <li class="doc-video" id="video">Video</li>
+                                    <li class="doc-docs" id="docs">Docs</li>
+                                    <li class="doc-notes" id="notes">Notes</li>
+                                    <li class="doc-audio" id="audio">Audio</li>
+                                    <li class="doc-presentation" id="presentation">Presentation</li> 
+                                    <li class="doc-assignment" id="assignments">Assignments</li> 
                                     </ul></li>                         
                           <li class="tag"><a href="#tag" class="btn btn-flat"><i class="icon-middle-tag"></i></a></li>
                           <li class="private">
@@ -3232,7 +3225,7 @@ $(window).bind("load", function() {
 	<!-- Le javascript ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
         
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+     
         <script src="lib/bootstrap.min.js"></script>
         <script src="lib/underscore-min.js"></script>
         <script src="lib/backbone.js"></script>
@@ -3282,6 +3275,25 @@ $(window).bind("load", function() {
 	<script src="js/app.js"></script>
 	<script src="js/setup.js"></script>
 
+        <!--- Code to delete duplication of Janrain Component -->    
+    <script>
+    $(window).bind("load", function() {
+       var nu=$('#janrainEngageEmbed').children();
+       if(nu.length==2)
+            {
+                    console.log("double janrain found");
+                    $('.janrainContent:first').remove();
+
+            }
+       else
+            {
+               console.log("single janrain found");
+            }
+
+       $('.janrainContent div+div').remove();
+    });
+</script>
+        
 	<script type="text/javascript">
 		var current = 1; //current keeps track of how many schools we have @default =1 
 		var tagCount = 3; // tag keeps track of how many tags we have in class stream

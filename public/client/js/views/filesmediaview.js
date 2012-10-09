@@ -12,7 +12,8 @@ BS.FilesMediaView = Backbone.View.extend({
                 "mouseleave #dropdownnew":"uploadMediaup",
                 "click #links_dr":"linksMenuList",
                 "click #links_uploadbutton":"linkupload",
-                "click #docs_dr":"docsMenuList",               
+                "click #docs_dr":"docsMenuList",  
+                "click #googledocs_mycomp":"showFileForm",
                 "click #googledocs_dr":"googleDocs",
                 "click #importfrmlink_dr": "importFromLink",                
                 "click #video_dr":"videoMenuList",
@@ -23,7 +24,10 @@ BS.FilesMediaView = Backbone.View.extend({
                 "click #audio_uploadbutton":"audioUpload",
                 "click #presentations_dr":"presentationMenuList",
                 "click #presvialink_dr":"presentationVialink",
-                "click #press_uploadbutton":"presentationUpload"
+                "click #press_uploadbutton":"presentationUpload",
+                "click #docfrmcomputer_uploadbutton": "saveMyFile",
+                'change #doc-from-computer' :'displayImage'
+                
            //   "click #select_dr":"selectboxdwn",
           //    "blur #select_dr":"selectboxup"
 //              "click #profile-images":"listProfileImages",
@@ -503,6 +507,16 @@ BS.FilesMediaView = Backbone.View.extend({
          * Function for uploadmedia 
          * (childmenu from googledocs)
          */
+         showFileForm:function(eventName){
+            eventName.preventDefault();
+            $("#dooclinkchild_dr").animate({width: 'toggle'},130);
+        },
+        
+        
+        /*
+         * Function for uploadmedia 
+         * (childmenu from googledocs)
+         */
          googleDocs:function(eventName){
             eventName.preventDefault();
             $("#googledocschild_dr").animate({width: 'toggle'},130);
@@ -703,7 +717,59 @@ BS.FilesMediaView = Backbone.View.extend({
          */
         filterDocs :function (eventName){
         	 eventName.preventDefault();
-        }
+        },
         
+        /*
+         * Save docs from My computer
+         */
+         saveMyFile: function(eventName)
+         {
+                eventName.preventDefault();
+                var status = true;
+                var data;
+                data = new FormData();
+                data.append('docData', this.image);  
+                
+                /* post profile page details */
+                $.ajax({
+                    type: 'POST',
+                    data: data,
+                    url: BS.uploaddocFrmComputer,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(data){
+                        
+                        if(data.status == "Success") 
+                            {
+                                
+                                alert("Doc Uploaded Successfully");
+                            }
+                    }
+                });
+         },
+         
+             /**
+     * display profile photo
+     */
+    
+    displayImage:function (e) {
+    	 var self = this;;
+    	 file = e.target.files[0];
+    	 
+    	
+         var reader = new FileReader();
+      
+        	 /* capture the file informations */
+             reader.onload = (function(f){
+            	 
+            	 self.image = file;
+            	
+            })(file);
+             
+            // read the image file as data URL
+            reader.readAsDataURL(file);
+         
+    }
 });
 

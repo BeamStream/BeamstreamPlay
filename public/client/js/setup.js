@@ -109,6 +109,9 @@ BS.savedocedit = BS.URLRequired+"/changeTitleAndDescriptionForADocument";
 //Rocks the Google docs 
 BS.rockDocs = BS.URLRequired+"/rockTheDocument";
 
+//Upload Doc from My Computer the Google docs 
+BS.uploaddocFrmComputer = BS.URLRequired+"/getDocumentFromDisk";
+
 
 /* for beta users */
 BS.toLogin = BS.URLRequired+'/beamstream/index.html#login';
