@@ -108,7 +108,7 @@ POST /isAFollower    controllers.MessageController.isAFollower
 
 #Document Rocks
 POST /rockedIt controllers.DocumentController.rockTheDocument
-POST /getRockers controllers.DocumentController.giveMeRockers
+POST  /documentRockers controllers.DocumentController.giveMeRockersOfDocument
 
 
 #bitly
