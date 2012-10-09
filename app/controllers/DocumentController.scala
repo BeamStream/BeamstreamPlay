@@ -178,6 +178,7 @@ object DocumentController extends Controller {
           val contentType = docData.contentType.get
           val uniqueString = tokenEmail.securityToken
           val docbtained: File = docData.ref.file.asInstanceOf[File]
+          println(docbtained.getTotalSpace)
           AmazonUpload.uploadFileToAmazon(documentName, docbtained)
           val docURL = "https://s3.amazonaws.com/BeamStream/" + documentName
           val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
