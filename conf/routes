@@ -40,7 +40,7 @@ POST    /commentRockers                controllers.CommentController.commentRock
 
 #Documents
 GET /documents controllers.DocumentController.documents
-GET /getDocument controllers.DocumentController.getDocument
+POST /getDocument controllers.DocumentController.getDocument
 POST /newDocument controllers.DocumentController.newDocument
 POST /getAllDocumentsForAUser    controllers.DocumentController.getAllDocumentsForAUser
 POST /getAllDocumentsForCurrentUserSortedbyDate    controllers.DocumentController.getAllDocumentsForCurrentUserSortedbyDate

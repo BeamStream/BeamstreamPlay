@@ -90,10 +90,7 @@ object DocumentController extends Controller {
 
     (documentIdJsonMap.contains(("documentId"))) match {
 
-      case false =>
-
-        Ok(write(new ResulttoSent("Failure", "Document Id not found !!!")))
-
+      case false => Ok(write(new ResulttoSent("Failure", "Document Id not found !!!")))
       case true =>
 
         val docId = documentIdJsonMap("documentId").toList(0)
