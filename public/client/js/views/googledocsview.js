@@ -11,8 +11,9 @@ BS.GoogleDocsView = Backbone.View.extend({
                 "click #prevslid" : "previous",
                 "click #nextslid" : "next",
                 "click .rock_docs" : "rocksDocuments",
-                "click .message-icon" : "commentDocuments",
-                "click .show_rockers" : "showDocRockers"
+//                "click .doc_msg" : "commentDocuments",
+                "click .show_rockers" : "showDocRockers",
+//                "click .comment_button" : "postDocComment"
  	    },
                  
         initialize:function() {
@@ -124,8 +125,9 @@ BS.GoogleDocsView = Backbone.View.extend({
                 	
                 	var source = $("#tpl-single-bucket").html();
 				    var template = Handlebars.compile(source);
+				    
 				    $('#grid').append(template(datas));         
-                                           
+				    $(".doc_comment_section").hide("slide", { direction: "up" }, 1);                        
 //                        content +='<li id="file-docs-'+i+'" data-key="['+datVal+']"> <div class="image-wrapper hovereffect" >' 
 //                        
 //                                +' <div class="hover-div"><img src="images/docs_image.png"/><div class="hover-text"> '  //code for hover over effect
@@ -325,6 +327,16 @@ BS.GoogleDocsView = Backbone.View.extend({
        commentDocuments :function(eventName){
     	   eventName.preventDefault();
     	   console.log("45");
+    	   var element = eventName.target.parentElement;
+  		   var documentId =$(element).attr('id');
+  		   if(!$('#'+documentId+'-doc_comment').is(":visible") ) 
+  		   {
+  			 $('#'+documentId+'-doc_comment').show("slide", { direction: "up" }, 500); 
+  		   }
+  		   else
+  		   {
+  			 $('#'+documentId+'-doc_comment').hide("slide", { direction: "up" }, 500); 
+  		   }
        },
        
        /**
@@ -333,7 +345,7 @@ BS.GoogleDocsView = Backbone.View.extend({
        showDocRockers :function(eventName){
     	   eventName.preventDefault();
     	   var element = eventName.target.parentElement;
-    	   console.log(element);
+    	  
   		   var documentId =$(element).closest('div').parent('div').attr('id');
   		    
     	   $.ajax({
@@ -359,6 +371,29 @@ BS.GoogleDocsView = Backbone.View.extend({
                }
             });
     	   
+       },
+       /**
+        * post document comment 
+        */
+       postDocComment :function(eventName){
+    	   eventName.preventDefault();
+    	   var element = eventName.target.parentElement;
+    	   var documentId =$(element).attr('id');
+    	   var commentText = $('#'+documentId+'-docCommentBox').val();
+    	    
+    	   /* post Doc comments information */
+	        $.ajax({
+	  			type : 'POST',
+	  			url : BS.newComment,
+	  			data : {
+	  				documentId : documentId,
+	  				comment : commentText
+	  			},
+	  			dataType : "json",
+			  	success : function(datas) {
+			  		
+			  	}
+	  		});
        }
 })
 

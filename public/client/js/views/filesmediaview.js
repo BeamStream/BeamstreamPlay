@@ -12,7 +12,8 @@ BS.FilesMediaView = Backbone.View.extend({
                 "mouseleave #dropdownnew":"uploadMediaup",
                 "click #links_dr":"linksMenuList",
                 "click #links_uploadbutton":"linkupload",
-                "click #docs_dr":"docsMenuList",               
+                "click #docs_dr":"docsMenuList",  
+                "click #googledocs_mycomp":"showFileForm",
                 "click #googledocs_dr":"googleDocs",
                 "click #importfrmlink_dr": "importFromLink",                
                 "click #video_dr":"videoMenuList",
@@ -23,7 +24,11 @@ BS.FilesMediaView = Backbone.View.extend({
                 "click #audio_uploadbutton":"audioUpload",
                 "click #presentations_dr":"presentationMenuList",
                 "click #presvialink_dr":"presentationVialink",
-                "click #press_uploadbutton":"presentationUpload"
+                "click #press_uploadbutton":"presentationUpload",
+                "click #docfrmcomputer_uploadbutton": "saveMyFile",
+                'change #doc-from-computer' :'displayImage',
+                'click #docfrmcomputer_closePopup': "hidePopUpBlock"
+                
            //   "click #select_dr":"selectboxdwn",
           //    "blur #select_dr":"selectboxup"
 //              "click #profile-images":"listProfileImages",
@@ -220,11 +225,11 @@ BS.FilesMediaView = Backbone.View.extend({
                                 arraypictures=docs;
                                 coverpicture=arraypictures[arraypictures.length-1];
                                
-                                content= '<div class="image-wrapper hovereffect"> <div class="hover-div"><img class="filmdeapicture" src="'+coverpicture+'"><div class="hover-text">'               
+                                content= '<div class="image-wrapper hovereffect"> <div class="hover-div"><img class="filmdeapicture" width="210px" height="141px" src="'+coverpicture+'"><div class="hover-text">'               
                                +'<div class="comment-wrapper comment-wrapper2">'
                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
                                 +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#imagelist" style="text-decoration: none"><h4> Image Name</h4>'                            
-                                +'<p class="doc-description">Description of image</p></a></br>'
+                                +'<p class="doc-description">Description of image</p></a>'
                                 +'<h5 class="imgtitle"> Title & Description</h5>'          
                                 +'<span>State</span>'
                                 +' <span class="date">datVal</span>' 
@@ -295,7 +300,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                             +'<a href="#" class="message-icon"></a>'
                                             +'<a href="#" class="share-icon"></a></div>'
                                             +'<a id="profile-videos" style="text-decoration: none" href="#videos"><h4> Image Name</h4>'       
-                                            +'<p class="doc-description">Description of Video  </p></a></br>'
+                                            +'<p class="doc-description">Description of Video  </p></a>'
                                             +'<h5 class="videotitle"> Title & Description</h5>'          
                                             +'<span>State</span>'
                                             +' <span class="date">datVal</span>' 
@@ -503,6 +508,16 @@ BS.FilesMediaView = Backbone.View.extend({
          * Function for uploadmedia 
          * (childmenu from googledocs)
          */
+         showFileForm:function(eventName){
+            eventName.preventDefault();
+            $("#dooclinkchild_dr").animate({width: 'toggle'},130);
+        },
+        
+        
+        /*
+         * Function for uploadmedia 
+         * (childmenu from googledocs)
+         */
          googleDocs:function(eventName){
             eventName.preventDefault();
             $("#googledocschild_dr").animate({width: 'toggle'},130);
@@ -703,7 +718,68 @@ BS.FilesMediaView = Backbone.View.extend({
          */
         filterDocs :function (eventName){
         	 eventName.preventDefault();
-        }
+        },
         
+        /*
+         * Save docs from My computer
+         */
+         saveMyFile: function(eventName)
+         {
+                eventName.preventDefault();
+                var status = true;
+                var data;
+                data = new FormData();
+                data.append('docData', this.image);  
+                
+                document.getElementById('loader-message').innerHTML="<img src='images/loading.gif'>";
+                
+                /* post profile page details */
+                $.ajax({
+                    type: 'POST',
+                    data: data,
+                    url: BS.uploaddocFrmComputer,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType : "json",
+                    success: function(data){
+                        if(data.status == "Success") 
+                            {
+                                document.getElementById('loader-message').innerHTML = data.message;
+                            }
+                    }
+                });
+         },
+         
+             /**
+     * display profile photo
+     */
+    
+    displayImage:function (e) {
+    	 var self = this;;
+    	 file = e.target.files[0];
+    	 
+    	
+         var reader = new FileReader();
+      
+        	 /* capture the file informations */
+             reader.onload = (function(f){
+            	 
+            	 self.image = file;
+            	
+            })(file);
+             
+            // read the image file as data URL
+            reader.readAsDataURL(file);
+         
+    },
+    
+    hidePopUpBlock: function()
+    {
+            $("#dooclinkchild_dr").find('ul').hide(100);
+            $("#docsmenu_dr").find('ul').hide(200);
+            $("#childtwo_dr").find('ul').hide(200);
+            $("#uploadmediachild_dr").find('ul').hide(200);
+    }
 });
 

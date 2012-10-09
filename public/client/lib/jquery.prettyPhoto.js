@@ -54,6 +54,7 @@
         <div class="pp_content"> \
          <div class="pp_loaderIcon"></div> \
          <div class="pp_fade"> \
+         <a class="pp_close" href="#">Close</a> \
           <a href="#" class="pp_expand" title="Expand the image">Expand</a> \
           <div class="pp_hoverContainer"> \
            <a class="pp_next" href="#">next</a> \
@@ -68,7 +69,6 @@
            </div> \
            <p class="pp_description"></p> \
            <div class="pp_social">{pp_social}</div> \
-           <a class="pp_close" href="#">Close</a> \
           </div> \
          </div> \
         </div> \
@@ -82,7 +82,7 @@
       </div> \
      </div> \
      <div class="pp_overlay"></div>',
-							gallery_markup : '<div class="pp_gallery"> \
+					gallery_markup : '<div class="pp_gallery"> \
         <a href="#" class="pp_arrow_previous">Previous</a> \
         <div> \
          <ul> \
@@ -875,6 +875,7 @@
 					$.prettyPhoto.close();
 			});
 			$('a.pp_close').bind('click', function() {
+                             
 				$.prettyPhoto.close();
 				return false;
 			});

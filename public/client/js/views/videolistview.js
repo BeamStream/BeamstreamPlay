@@ -49,7 +49,7 @@ BS.VideoListView = Backbone.View.extend({
                                 +'<a href="#" class="share-icon"></a>'
                                 +'</div>'
                                 +'<h4> video name</h4> ' 
-                                +'<div class="gallery clearfix"></div><div class="gallery clearfix"><a href="'+video.mediaUrl+'" rel="prettyPhoto" style="text-decoration: none" >'
+                                +'<div class="gallery clearfix"></div><div class="gallery clearfix hrtxt"><a href="'+video.mediaUrl+'" rel="prettyPhoto" style="text-decoration: none" >'
                                 +' <p class="google_doc doc-description" id="+doc.id.id+">'
                                 +'<input type="hidden" id="id-doc.id.id" value="doc.url">'
                                 +'Description of Video </p></a>'

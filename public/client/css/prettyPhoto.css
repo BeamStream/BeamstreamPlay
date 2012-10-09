@@ -7,7 +7,7 @@ div.pp_default .pp_content_container .pp_left{background:url(../images/prettyPho
 div.pp_default .pp_content_container .pp_right{background:url(../images/prettyPhoto/default/sprite_y.png) top right repeat-y;padding-right:13px}
 div.pp_default .pp_next:hover{background:url(../images/prettyPhoto/default/sprite_next.png) center right no-repeat;cursor:pointer}
 div.pp_default .pp_previous:hover{background:url(../images/prettyPhoto/default/sprite_prev.png) center left no-repeat;cursor:pointer}
-div.pp_default .pp_expand{background:url(../images/prettyPhoto/default/sprite.png) 0 -29px no-repeat;cursor:pointer;width:28px;height:28px}
+div.pp_default .pp_expand{background:url(../images/prettyPhoto/default/sprite.png) 0 -29px no-repeat;cursor:pointer;width:26px;height:27px}
 div.pp_default .pp_expand:hover{background:url(../images/prettyPhoto/default/sprite.png) 0 -56px no-repeat;cursor:pointer}
 div.pp_default .pp_contract{background:url(../images/prettyPhoto/default/sprite.png) 0 -84px no-repeat;cursor:pointer;width:28px;height:28px}
 div.pp_default .pp_contract:hover{background:url(../images/prettyPhoto/default/sprite.png) 0 -113px no-repeat;cursor:pointer}
@@ -141,8 +141,8 @@ a.pp_arrow_previous,a.pp_arrow_next{display:block;float:left;height:15px;margin-
 .pp_gallery .pp_arrow_previous,.pp_gallery .pp_arrow_next{margin-top:7px!important}
 a.pp_next{background:url(../images/prettyPhoto/light_rounded/btnNext.png) 10000px 10000px no-repeat;display:block;float:right;height:100%;text-indent:-10000px;width:49%}
 a.pp_previous{background:url(../images/prettyPhoto/light_rounded/btnNext.png) 10000px 10000px no-repeat;display:block;float:left;height:100%;text-indent:-10000px;width:49%}
-a.pp_expand,a.pp_contract{cursor:pointer;display:none;height:20px;position:absolute;right:30px;text-indent:-10000px;top:10px;width:20px;z-index:20000}
-a.pp_close{position:absolute;right:0;top:0;display:block;line-height:22px;text-indent:-10000px}
+a.pp_expand,a.pp_contract{cursor:pointer;display:none;height:20px;position:absolute;left:10px;text-indent:-10000px;top:10px;width:20px;z-index:20000}
+a.pp_close{position:absolute;right:10px;top:10px;display:block;line-height:22px;text-indent:-10000px;z-index:9999}
 .pp_loaderIcon{display:block;height:24px;left:50%;position:absolute;top:50%;width:24px;margin:-12px 0 0 -12px}
 #pp_full_res{line-height:1!important}
 #pp_full_res .pp_inline{text-align:left}
@@ -168,3 +168,4 @@ div.dark_rounded #pp_full_res .pp_inline,div.dark_square #pp_full_res .pp_inline
 * html .pp_top .pp_middle,* html .pp_bottom .pp_middle{left:0;position:static}
 .pp_top .pp_right,.pp_bottom .pp_right{height:20px;left:auto;position:absolute;right:0;top:0;width:20px}
 .pp_fade,.pp_gallery li.default a img{display:none}
+.pp_fade{position: relative}

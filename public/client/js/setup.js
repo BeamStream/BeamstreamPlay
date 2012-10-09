@@ -111,6 +111,9 @@ BS.rockDocs = BS.URLRequired+"/rockTheDocument";
 //Document rockers list 
 BS.documentRockers =BS.URLRequired+"/getRockers";
 
+//Upload Doc from My Computer the Google docs 
+BS.uploaddocFrmComputer = BS.URLRequired+"/getDocumentFromDisk";
+
 
 /* for beta users */
 BS.toLogin = BS.URLRequired+'/beamstream/index.html#login';

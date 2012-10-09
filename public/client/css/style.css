@@ -1136,11 +1136,11 @@ ul.file-list> li {
 	opacity:1;
 }
 .image-wrapper {
-	width:190px;
-	height:141px;
+	width:210px;
+	height:155px;
 	display:block;
 	overflow:hidden;
-	margin:10px; margin-top: 4px !important;   
+	/*margin:10px; margin-top: 4px !important;*/   
 	border-radius: 3px 3px 3px 3px;
 	background:#fdfdfd;
 }
@@ -1207,8 +1207,9 @@ ul.file-list> li {
 }
 .comment-wrapper{
 	position:absolute;
-	background: -moz-linear-gradient(center top, #F7F7F8, #ECEEEF) repeat-x scroll 0 0 #F3F3F4;
-	box-shadow: 0 1px 1px #e6e7e7, 0 1px 0 0 #FFFFFF inset;
+	/*background: -moz-linear-gradient(center top, #F7F7F8, #ECEEEF) repeat-x scroll 0 0 #F3F3F4;*/
+	background:url(../images/button_bg.png);
+        box-shadow: 0 1px 1px #e6e7e7, 0 1px 0 0 #FFFFFF inset;
 	border-top: 1px solid #e2e3e4;
 	border-right: 1px solid #e2e3e4;
 	border-left: 1px solid #e2e3e4;
@@ -1231,7 +1232,7 @@ ul.file-list> li {
 	width:116px;
 	height: 22px;
 	top:0;
-	left:46px;
+	left:89px;
 	border-radius: 0px 0px 4px 4px;
 	padding:5px 0 0 0;
         display:none;
@@ -1251,7 +1252,7 @@ ul.comment-list {
 }
 ul.comment-list li {
 	width: 40px !important;
-	height: 29px !important;
+	height: 23px !important;
 	border:none !important;
 	border-bottom-right-radius:0 !important;
 	border-bottom-left-radius: 0px !important;
@@ -1260,6 +1261,7 @@ ul.comment-list li {
 	margin:6px 0 0 0;
 	line-height:16px;
 	background: none;
+        padding: 6px 0 0;
 }
 ul.comment-list li a {
 	font-size:12px;
@@ -2010,12 +2012,15 @@ border: 1px solid #E8E8E9;
 /*-------------hover----------*/
 div.hover-div{
     display:block;
-    height:130px;
-     width:190px;   
+    height:153px;
+     width:210px;   
     position:relative;
+    text-align:center;
    margin:1px 0px 0px 0px;
 }
-
+.hrtxt{
+  width:185px !important;     
+}
 div.hover-div:hover .hover-text{
     display:block;        
 }
@@ -2028,14 +2033,17 @@ div.hover-div:hover img{
 .hover-text{
     display:none;
     clear:both;
-    height:140px;
-    margin-top:0px;
+    height:144px;
+    margin: 4px 11px 10px;
     background-color: white;
   /*  color:white;  */
-    width: 100%;
-    top:0;
+    width: 96%;
+    top:-4px;
+    left: -11px;
     position:absolute;
     z-index:2;
+    padding: 5px;
+    text-align:left !important;
 }
 .hover-image{
     display:none;
@@ -2050,7 +2058,7 @@ div.hover-div:hover img{
 
 }
 .filmdeapicture{
-   width: 190px;
+   width: 210px;
    height: 160px;
    
 }
@@ -2166,7 +2174,7 @@ text-align: left;
     cursor: pointer;
 }
 .doc-description{
-    height: 59px;
+    min-height:60px;
 }
 .gdocpopup{
     left: 23% !important;
@@ -2229,7 +2237,7 @@ text-align: left;
 /* } */
 
 .videoimage{
-    min-height: 140px;
+    min-height: 154px;
 }
 
 #upload-school-sheets
@@ -2252,6 +2260,28 @@ text-align: left;
 /* 	min-width:100%; */
 	min-height: 140px;
 }
+
+.ui-widget-content{
+    border: none !important;
+    background: #3A4046 !important;
+    color: #FFFFFF !important;
+}
+.ui-dialog{
+    border: none !important;
+}
+.alert-msg{
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px dotted #FFFFFF !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+.alert-msg:hover{
+    border-bottom:none !important;
+}
+.ui-widget-header{
+ background-image: -moz-linear-gradient(center top , #EFF0F2, #D9DCDF)!important;
+box-shadow: 0 1px 0 #FFFFFF inset!important;}
 .docRockers_popup{
   padding : 10px;
   z-index: 1050;
@@ -2274,6 +2304,7 @@ text-align: left;
     overflow: hidden;
     position: relative;
 }
+
  .form-comment textarea{
  	border: 1px solid #CCCCCC !important;
     font-size: 11px !important;
@@ -2308,3 +2339,11 @@ text-align: left;
     text-shadow: 0 1px rgba(255, 255, 255, 0.9);
     font-size: 11px;
  }
+
+
+#loader-message{
+    color:#fff;
+    margin-left:20px;
+}
+
+
