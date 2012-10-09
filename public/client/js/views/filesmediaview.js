@@ -12,7 +12,8 @@ BS.FilesMediaView = Backbone.View.extend({
                 "mouseleave #dropdownnew":"uploadMediaup",
                 "click #links_dr":"linksMenuList",
                 "click #links_uploadbutton":"linkupload",
-                "click #docs_dr":"docsMenuList",               
+                "click #docs_dr":"docsMenuList",  
+                "click #googledocs_mycomp":"showFileForm",
                 "click #googledocs_dr":"googleDocs",
                 "click #importfrmlink_dr": "importFromLink",                
                 "click #video_dr":"videoMenuList",
@@ -23,7 +24,10 @@ BS.FilesMediaView = Backbone.View.extend({
                 "click #audio_uploadbutton":"audioUpload",
                 "click #presentations_dr":"presentationMenuList",
                 "click #presvialink_dr":"presentationVialink",
-                "click #press_uploadbutton":"presentationUpload"
+                "click #press_uploadbutton":"presentationUpload",
+                "click #docfrmcomputer_uploadbutton": "saveMyFile",
+                'change #doc-from-computer' :'displayImage'
+                
            //   "click #select_dr":"selectboxdwn",
           //    "blur #select_dr":"selectboxup"
 //              "click #profile-images":"listProfileImages",
@@ -153,17 +157,17 @@ BS.FilesMediaView = Backbone.View.extend({
                               _.each(docs, function(doc) {
                         var datVal =  self.formatDateVal(doc.creationDate);                      
                            var content ='<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'">'
-                                        +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'">'
+                                        +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
                                         +'<div class="hover-div"><img src="images/docs_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
                                         +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
                                         +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#googledocs" style="text-decoration: none">'
-                                        +'<div id="media-'+doc.id.id+'" ><h4> '+doc.name+'</h4> <p class="google_doc doc-description" id="'+doc.id.id+'" >'
-                                         +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.url+'">'
-                                        +''+doc.description+' </p> </div></a>'
+                                        +'<div id="media-'+doc.id.id+'" ><h4> '+doc.documentName+'</h4> <p class="google_doc doc-description" id="'+doc.id.id+'" >'
+                                         +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
+                                        +''+doc.documentDescription+' </p> </div></a>'
                                         +'<h5 class="doctitle" id="'+doc.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
                                         +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#">'
-                                        +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#">87</a></li>'
-                                        +'<li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#">10</a></li></ul></div>'; 
+                                        +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
+                                        +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
                         $('#coverdocs').html(content);                     
                         i++;
                         });
@@ -503,6 +507,16 @@ BS.FilesMediaView = Backbone.View.extend({
          * Function for uploadmedia 
          * (childmenu from googledocs)
          */
+         showFileForm:function(eventName){
+            eventName.preventDefault();
+            $("#dooclinkchild_dr").animate({width: 'toggle'},130);
+        },
+        
+        
+        /*
+         * Function for uploadmedia 
+         * (childmenu from googledocs)
+         */
          googleDocs:function(eventName){
             eventName.preventDefault();
             $("#googledocschild_dr").animate({width: 'toggle'},130);
@@ -703,7 +717,59 @@ BS.FilesMediaView = Backbone.View.extend({
          */
         filterDocs :function (eventName){
         	 eventName.preventDefault();
-        }
+        },
         
+        /*
+         * Save docs from My computer
+         */
+         saveMyFile: function(eventName)
+         {
+                eventName.preventDefault();
+                var status = true;
+                var data;
+                data = new FormData();
+                data.append('docData', this.image);  
+                
+                /* post profile page details */
+                $.ajax({
+                    type: 'POST',
+                    data: data,
+                    url: BS.uploaddocFrmComputer,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(data){
+                        
+                        if(data.status == "Success") 
+                            {
+                                
+                                alert("Doc Uploaded Successfully");
+                            }
+                    }
+                });
+         },
+         
+             /**
+     * display profile photo
+     */
+    
+    displayImage:function (e) {
+    	 var self = this;;
+    	 file = e.target.files[0];
+    	 
+    	
+         var reader = new FileReader();
+      
+        	 /* capture the file informations */
+             reader.onload = (function(f){
+            	 
+            	 self.image = file;
+            	
+            })(file);
+             
+            // read the image file as data URL
+            reader.readAsDataURL(file);
+         
+    }
 });
 

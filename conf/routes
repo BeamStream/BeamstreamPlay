@@ -40,11 +40,17 @@ POST    /commentRockers                controllers.CommentController.commentRock
 
 #Documents
 GET /documents controllers.DocumentController.documents
-GET /getDocument controllers.DocumentController.getDocument
-POST /newDocument controllers.DocumentController.newDocument
+
+
 POST /getAllDocumentsForAUser    controllers.DocumentController.getAllDocumentsForAUser
 POST /getAllDocumentsForCurrentUserSortedbyDate    controllers.DocumentController.getAllDocumentsForCurrentUserSortedbyDate
+
 POST /changeTitleAndDescriptionForADocument controllers.DocumentController.changeTitleAndDescriptionForADocument
+POST /newDocument controllers.DocumentController.newDocument
+POST /rockTheDocument                    controllers.DocumentController.rockTheDocument
+POST /getRockers controllers.DocumentController.giveMeRockersOfDocument
+POST /getDocument controllers.DocumentController.getDocument
+POST /getDocumentFromDisk controllers.DocumentController.getDocumentFromDisk
 
 #Schools
 
@@ -105,9 +111,7 @@ POST /followMessage  controllers.MessageController.followTheMessage
 POST /isAFollower    controllers.MessageController.isAFollower
 
 
-#Document Rocks
-POST /rockedIt controllers.DocumentController.rockTheDocument
-POST /getRockers controllers.DocumentController.giveMeRockers
+ 
 
 
 #bitly

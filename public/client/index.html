@@ -1,42 +1,36 @@
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
-
 <meta charset="utf-8">
 <title>Beamstream</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
 
+<!-- Le styles -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<style>
+body {
+	padding-top: 60px;
+	/* 60px to make the container go all the way to the bottom of the topbar */
+}
+</style>
+
+
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/modal.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
 <!-- less files -->
 <link href="css/less.css" rel="stylesheet">
 <link href="css/less-responsive.css" rel="stylesheet">
 <link href="css/main.css" rel="stylesheet">
-<!-- End of less files -->
-<!--      <link href="css/less.css" rel="stylesheet"> -->
-<!--       <link href="css/main.css" rel="stylesheet"> -->
 
-<!-- Le styles -->
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.css" rel="stylesheet">
-<link href="css/modal.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
+
 <link type="text/css" rel="stylesheet" href="css/jquery.selectBox.css" />
 <link type="text/css" rel="stylesheet" href="css/datepicker.css" />
 <!-- End of Le styles -->
 
-<link href="images/favicon.ico" rel="shortcut icon">
-
-<!-- Le fav and touch icons -->
-<link rel="shortcut icon" href="../assets/ico/favicon.ico">
-<link rel="apple-touch-icon-precomposed" sizes="114x114"
-	href="../assets/ico/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72"
-	href="../assets/ico/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed"
-	href="../assets/ico/apple-touch-icon-57-precomposed.png">
-<!--End of Le fav and touch icons -->
 
 <!--[if lte IE 8]><link rel="stylesheet/less" type="text/css" href="less/ie8.less"><![endif]-->
 <!--[if lte IE 7]><link rel="stylesheet/less" type="text/css" href="less/ie7.less"><![endif]-->
@@ -48,42 +42,13 @@
 </style>
 
 
-
 <!--  for pretty photo -->
-<link rel="stylesheet" href="css/prettyPhoto.css" type="text/css"
-	media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
-
-
-
-<!--[if IE]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <script src="http://jdbartlett.com/innershiv/innershiv.js"></script>
-    <![endif] -->
-
-<!--     <script type="text/javascript" src="http://use.typekit.com/xgg5kcw.js"></script> -->
-<!-- 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script> -->
-
-<!--  auto complete  -->
-<!--     <link rel="stylesheet" href="css/jquery.autocomplete.css" type="text/css" /> -->
-<link
-	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
-	rel="stylesheet" type="text/css" />
-<!--  <link rel="stylesheet" href="css/autocomplete.css" type="text/css" /> -->
-
-
-
+<link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 
 <!-- embedly -->
 <link rel="stylesheet" href="css/embedly-preview.css" type="text/css" />
 <!-- End style  -->
-
-
-<style>
-body {
-	padding-top: 60px;
-	/* 60px to make the container go all the way to the bottom of the topbar */
-}
-</style>
 
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -94,89 +59,19 @@ body {
 <!--[if IE]>
     <link href="css/modal-ie.css" rel="stylesheet">
     <![endif]-->
+	
+
+<link href="images/favicon.ico" rel="shortcut icon">
+<!-- Le fav and touch icons -->
+<link rel="shortcut icon" href="../assets/ico/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+<!--End of Le fav and touch icons -->
 
 
-		
-
-<!-- scripts -->
-
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-
-<!--  embedly -->
-<script src="http://scripts.embed.ly/jquery.embedly.min.js"></script>
-
-<script src="lib/embedly-preview.js" type="text/javascript"></script>
-<!-- End embedly -->
-
-<!--  jqury loader  test TODO -->
-<!-- <link href="css/jquery.loader.css" rel="stylesheet" /> -->
-<!-- <script src="lib/jquery.loader.js"></script> -->
-
-
-<script type="text/javascript" src="lib/jquery.selectBox.js"></script>
-<script src="lib/underscore-min.js"></script>
-<script src="lib/backbone.js"></script>
-<script src="lib/handlebars-1.0.0.beta.6.js"></script>
-
-<!--  auto complete -->
-<!-- 	<script type="text/javascript" src="lib/jquery.autocomplete.js"></script> -->
-<!-- <script src="lib/jqueryui.js"></script> -->
-<!--   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script> -->
-<script type="text/javascript" src="lib/autopopulate.js"></script>
-
-
-
-<!--  for validation  -->
-
-<script src="lib/jquery-validation.js" type="text/javascript"></script>
-
-
-<script src="lib/bootstrap.min.js"></script>
-
-<!-- Cookies -->
-<script src="lib/jquery.cookie.js"></script>
-
-<!-----pagination--->
-
-<!-----slider for stream list--->
-
-<!-- <script type="text/javascript" src="lib/jquery.easing.1.3.js"></script> 
- <script type="text/javascript" src="lib/mbVerticalSlider.js"></script> -->
-
-<!--Shuffle in media page -->
-<script type="text/javascript" src="lib/jquery.shuffle.js"></script>
-<script type="text/javascript" src="lib/jquery.shuffle.min.js"></script>
-
-<!--  for pretty  -->
-<script src="lib/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
-
-<!--  Masked Input Plugin -->
-<script src="lib/jquery.maskedinput.js" type="text/javascript"></script>
-
-
-<!--  resize the profile image -->
-<!-- <script src="lib/resample.js" type="text/javascript"></script> -->
-
-<!--- Code to delete duplication of Janrain Component -->    
-<script>
-$(window).bind("load", function() {
-   var nu=$('#janrainEngageEmbed').children();
-   if(nu.length==2)
-   	{
-		console.log("double janrain found");
-		$('.janrainContent:first').remove();
-		
-	}
-   else
-	{
-	   console.log("single janrain found");
-	}
-  
-   $('.janrainContent div+div').remove();
-});
-</script>
-
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+   
 </head>
 <!-- template for Files and Media-->
 <script type="text/x-handlebars-template" id="tpl-files-media">
@@ -206,7 +101,16 @@ $(window).bind("load", function() {
                   <li id="childtwo_dr"><a id="docs_dr"href="#">Papers  &  Docs</a>
                        <ul id="docsmenu_dr" class="fixingmenu_dr">
                            <span class="arrow-left"></span>
-                            <li><a href="#">My Computer</a></li>
+                            <li><a  id="googledocs_mycomp"  href="#">My Computer</a>
+                                <ul id='dooclinkchild_dr' class="largeli">
+                                    <span class="arrow-left"></span>
+                                    <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+                                    <li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"> 
+                                    </li>
+                                    
+                                </ul>
+                            </li>
+                            
                             <li><a id="googledocs_dr" href="#">Google Docs</a>
                                 <ul id="googledocschild_dr">
                                     <span class="arrow-left"></span>
@@ -437,6 +341,46 @@ $(window).bind("load", function() {
     </ul>
   </footer>
 </div>
+ </script>
+
+<!-- template for single bucket in Files and Media -->
+<script type="text/x-handlebars-template" id="tpl-single-bucket">
+<li id="file-docs-{{docCount}}" data-key="[{{datVal}}]"> 
+  <div id="{{doc.id.id}}"   name="single-doc">
+ 	<div class="image-wrapper hovereffect" >
+      <div class="hover-div"><img src="images/docs_image.png"/>
+	      <div class="hover-text"> 
+	         <div id="{{doc.id.id}}" class="comment-wrapper comment-wrapper2">
+	            <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
+	            <a href="#" class="hand-icon rock_docs" ></a>
+	            <a href="#" class="message-icon"></a>
+	            <a href="#" class="share-icon"></a>
+	          </div>
+	          <div id="media-{{doc.id.id}}" ><h4> {{doc.documentName}}</h4>
+	            <p class="google_doc doc-description" id="{{doc.id.id}}" >
+	               <input type="hidden" id="id-{{doc.id.id}}" value="{{doc.documentURL}}">
+	             {{doc.documentDescription}} 
+	            </p>
+	          </div>
+	          <h5 class="doctitle" id="{{doc.id.id}}"> Title & Description</h5>
+	          <span>State</span>
+	          <span class="date">{{datVal}}</span>
+	        </div> 
+	   </div>
+	  </div>                                                    
+      <div class="comment-wrapper comment-wrapper1">
+        <a class="common-icon data" href="#">
+          <span class="right-arrow"></span>
+        </a>
+        <ul id="{{doc.id.id}}-activities" class="comment-list">
+           <li><a class="eye-icon" href="#"></a></li>
+           <li><a class="hand-icon show_rockers" href="#">{{doc.documentRocks}}</a></li>
+           <li><a class="message-icon" href="#"></a></li>
+        </ul>
+      </div>
+      <div id="{{doc.id.id}}-docRockers-list" class="docRockers_popup"></div>
+      </div>
+   </li>
  </script>
 
 <!-- template for settings page -->
@@ -673,246 +617,7 @@ $(window).bind("load", function() {
     <div id="gdocedit" ></div>   
     <div class="row pagin-height " >
       <ul class="file-list" id="grid"> 
-          
-<!--     <div class="hover-div"><img src="images/docs_image.png"/>
-      <div class="hover-text">    -->
-       <li  data-key='["recent"]'>
-          <div class="image-wrapper" ><a  href="#"></a></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li> 
-<!--      </div>
-     </div>    
         
-    <div class="hover-div"><img src="images/docs_image.png"/>
-      <div class="hover-text">          -->
-        <li  data-key='["recent"]'>
-          <div class="image-wrapper" ><a  href="#"></a></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>  
-<!--       </div>
-     </div>  
-        
-      <div class="hover-div"><img src="images/docs_image.png"/>
-      <div class="hover-text">    -->
-         <li  data-key='["oldest"]'>
-          <div class="image-wrapper" ><a  href="#"></a></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li> 
-<!--       </div>
-     </div>  
-          
-     <div class="hover-div"><img src="images/docs_image.png"/>
-      <div class="hover-text">       -->
-        <li data-key='["recent"]'>
-          <div class="image-wrapper" ><a  href="#"></a></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li> 
-<!--        </div>
-     </div>  
-          
-      <div class="hover-div"><img src="images/docs_image.png"/>
-      <div class="hover-text">          -->
-       <li data-key='["oldest"]'>
-          <div class="image-wrapper" ><a  href="#"></a></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-<!--       </div>
-     </div>  
-          
-     <div class="hover-div"><img src="images/docs_image.png"/>
-      <div class="hover-text">        -->
-        <li data-key='["recent"]'>
-          <div class="image-wrapper" ><a  href="#"></a></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-<!--       </div>
-     </div>  
-          
-    <div class="hover-div"><img src="images/docs_image.png"/>
-      <div class="hover-text">       -->
-        <li  data-key='["oldest"]'>
-          <div class="image-wrapper" ><a  href="#"></a></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-<!--      </div>
-     </div>  
-          
-      <div class="hover-div"><img src="images/docs_image.png"/>
-      <div class="hover-text">        -->
-        <li data-key='["recent"]'>
-          <div class="image-wrapper" ><a  href="#"></a></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li> 
-<!--       </div>
-     </div>  
-          
-     <div class="hover-div"><img src="images/docs_image.png"/>
-      <div class="hover-text">            -->
-        <li data-key='["oldest"]'>
-          <div class="image-wrapper" ><a  href="#"></a></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li> 
-<!--      </div>
-     </div>  
-          
-     <div class="hover-div"><img src="images/docs_image.png"/>
-      <div class="hover-text">         -->
-        <li data-key='["recent"]'>
-          <div class="image-wrapper" ><a  href="#"></a></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-<!--       </div>
-     </div>  
-          
-    <div class="hover-div"><img src="images/docs_image.png"/>
-      <div class="hover-text">      -->
-       <li data-key='["oldest"]'>
-          <div class="image-wrapper" ><a  href="#"></a></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-<!--       </div>
-     </div>  
-          
-      <div class="hover-div"><img src="images/docs_image.png"/>
-      <div class="hover-text">       -->
-        <li data-key='["recent"]'>
-          <div class="image-wrapper" ><a  href="#"></a></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li> 
-<!--       </div>
-     </div>  
-          
-    <div class="hover-div"><img src="images/docs_image.png"/>
-      <div class="hover-text">          -->
-        <li data-key='["oldest"]'>
-          <div class="image-wrapper" ><a  href="#"></a></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-<!--       </div>
-     </div>  
-          
-     <div class="hover-div"><img src="images/docs_image.png"/>
-      <div class="hover-text">    -->
-        <li data-key='["recent"]'>
-          <div class="image-wrapper" ><a  href="#"></a></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-<!--       </div>
-     </div>  
-          
-     <div class="hover-div"><img src="images/docs_image.png"/>
-      <div class="hover-text">         -->
-        <li data-key='["oldest"]'>
-          <div class="image-wrapper" ><a href="#"></a></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li> 
-<!--       </div>
-     </div>  
-          
-      <div class="hover-div"><img src="images/docs_image.png"/>
-      <div class="hover-text">        -->
-        <li  data-key='["recent"]'>
-          <div class="image-wrapper" ><a href="#"></a></div>
-          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li> 
-<!--       </div> 
-     </div>   -->
         
         
       </ul>
@@ -1464,7 +1169,15 @@ $(window).bind("load", function() {
 		$("#class-form").validate();
 		$("#profile-form").validate();
 		$("#email-verify").validate();
-		$("#registration-form").validate();
+// 		$("#registration-form").validate();
+		$("#registration-form").validate({
+			rules: {
+				password1: "required",
+				password_again: {
+			      equalTo: "#password1"
+			    }
+			  }
+		});
 		$("#forgot-pass-form").validate();
 		$('#add-new-school-form').validate();
 		
@@ -2523,17 +2236,17 @@ $(window).bind("load", function() {
                         <ul class="additional_controls">
                           <li class="comment"><a href="#comment" class="btn btn-flat"><i class="icon-middle-comment"></i></a></li>
                             <li class="doc"><a href="#doc" class="btn btn-flat"><i class="icon-middle-doc"></i></a>
-                            <ul class="doc-hover ">
+                            <ul class="doc-hover">
                                <span class="arrow">
 				<img src="images/arrow-top.png">
                                   </span>
                                     <li style="margin-bottom:4px !important;"><span>Upload:</span></li>
-                                     <li class="doc-video">Video</li>
-                                    <li class="doc-docs">Docs</li>
-                                    <li class="doc-notes">Notes</li>
-                                    <li class="doc-audio">Audio</li>
-                                    <li class="doc-presentation">Presentation</li> 
-									<li class="doc-docs">Assignments</li> 
+                                     <li class="doc-video" id="video">Video</li>
+                                    <li class="doc-docs" id="docs">Docs</li>
+                                    <li class="doc-notes" id="notes">Notes</li>
+                                    <li class="doc-audio" id="audio">Audio</li>
+                                    <li class="doc-presentation" id="presentation">Presentation</li> 
+                                    <li class="doc-assignment" id="assignments">Assignments</li> 
                                     </ul></li>                         
                           <li class="tag"><a href="#tag" class="btn btn-flat"><i class="icon-middle-tag"></i></a></li>
                           <li class="private">
@@ -2942,7 +2655,7 @@ $(window).bind("load", function() {
 </header>
 </script>
 
-	<script type="text/x-handlebars-template" id="tpl-messages">
+<script type="text/x-handlebars-template" id="tpl-messages">
  
  <li id= "{{datas.id.id}}">
  <article class="message_item">
@@ -2980,6 +2693,7 @@ $(window).bind("load", function() {
    </div>
    <div id="{{datas.id.id}}-header"> </div>
    <ul class="comments" id="{{datas.id.id}}-commentlists"></ul>
+   <ul class="comments" id="{{datas.id.id}}-3_comments"></ul>
    <ul class="comments" id="{{datas.id.id}}-newcommentlists"></ul>
    <div id="{{datas.id.id}}-add-comment"></div>
    </article>
@@ -3017,20 +2731,24 @@ $(window).bind("load", function() {
               <input type="text" id="school-name" name="schoolName" placeholder=" School Name" class="required span3 myschool">
             </div>
         <div class="element">
-              <label for="user-name">User Name <span class="star"> </span><br/>
+              <label for="user-name">User Name <br/>
             http://www.beamstream.com/</label>
               <input type="text" id="user-name" name="user-name" placeholder="@UserName"   class="required span3">
             </div>
           <div class="element">
-              <label for="password">Password <span class="star"> </span><br/></label>
-              <input type="password" id="password" name="password" placeholder="password" class="required span3"> 
+              <label for="password1">Password <br/></label>
+              <input type="password" id="password1" name="password1" placeholder="password" class="span3"> 
+            </div>
+           <div class="element">
+              <label for="password">Re-enter Password </label>
+              <input type="password" id="password_again" name="password_again" placeholder="Re-enter password" class="span3"> 
             </div>
         <div class="element">
-              <label for="first-name">First Name <span class="star"> </span></label>
+              <label for="first-name">First Name </label>
               <input type="text" id="first-name" name="first-name" placeholder="First Name" class="required span3">
             </div>
         <div class="element">
-              <label for="last-name">Last Name <span class="star"> </span></label>
+              <label for="last-name">Last Name </label>
               <input type="text" id="last-name" name="last-name" placeholder="Last Name" class="required span3">
             </div>
         <div class="element">
@@ -3069,28 +2787,32 @@ $(window).bind("load", function() {
         <div class="element" style="margin-top:25px;" >
               <input type= "hidden" id="user_Id" value ="{{data.id.id}}">
               <label for="school-name">School name   </label>
-              <input name="schoolName" type="text" id="school-name" placeholder="" value="{{data.orgName}}" class="validate[required] span3 myschool">
+              <input name="schoolName" type="text" id="school-name" placeholder="" value="{{data.orgName}}" class="required span3 myschool">
             </div>
         <div class="element">
               <label for="user-name">User Name   <br/>
             http://www.beamstream.com/</label>
-              <input type="text" id="user-name" value="{{data.userName}}"  class="validate[required] span3">
+              <input type="text" id="user-name" value="{{data.userName}}"  class="required span3">
             </div>
           <div class="element">
-              <label for="password">Password   <br/></label>
-              <input type="password" id="password" placeholder="password" value ="" class="validate[required] span3"> 
+              <label for="password1">Password   <br/></label>
+              <input type="password" id="password1" placeholder="password" value ="" class="required span3"> 
+            </div>
+         <div class="element">
+              <label for="password">Re-enter Password </label>
+              <input type="password" id="password_again" name="password_again" value="" placeholder="Re-enter password" class="span3"> 
             </div>
         <div class="element">
               <label for="first-name">First Name   </label>
-              <input type="text" id="first-name" value="{{data.firstName}}" class="validate[required] span3">
+              <input type="text" id="first-name" value="{{data.firstName}}" class="required span3">
             </div>
         <div class="element">
               <label for="last-name">Last Name   </label>
-              <input type="text" id="last-name"value="{{data.lastName}}" class="validate[required] span3">
+              <input type="text" id="last-name"value="{{data.lastName}}" class="required span3">
             </div>
         <div class="element">
               <label for="location">Location   </label>
-              <input type="text" id="location" value="{{data.location}}" class="validate[required] span3">
+              <input type="text" id="location" value="{{data.location}}" class="required span3">
             </div>
         <div class="element">
               <label for="current-location"></label>
@@ -3504,20 +3226,78 @@ $(window).bind("load", function() {
 </script>
 	<!-- End of docs list template-->
 
-	<!-- Le javascript
-================================================== -->
+	<!-- Le javascript ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-
+        
+     
+        <script src="lib/bootstrap.min.js"></script>
+        <script src="lib/underscore-min.js"></script>
+        <script src="lib/backbone.js"></script>
+        <script src="lib/handlebars-1.0.0.beta.6.js"></script>
+        
+        <!--  embedly JS -->
+        <script src="http://scripts.embed.ly/jquery.embedly.min.js"></script>
+        <script src="lib/embedly-preview.js" type="text/javascript"></script>
+        <!-- End embedly -->
+        
 	<script type="text/javascript" src="lib/jquery.selectBox.js"></script>
+        <script type="text/javascript" src="lib/autopopulate.js"></script>
+        <script src="lib/jquery-validation.js" type="text/javascript"></script>
+        
+        <!-- Cookies -->
+        <script src="lib/jquery.cookie.js"></script>
+        
 	<script type="text/javascript" src="lib/bootstrap-datepicker.js"></script>
-	<script type="text/javascript"
-		src="lib/jquery.custom_radio_checkbox.js"></script>
+	<script type="text/javascript" src="lib/jquery.custom_radio_checkbox.js"></script>
 	<!-- <script src="lib/bootstrap-dropdown.js"></script> -->
+        
+        <!--slider for stream list-->
+         <script type="text/javascript" src="lib/mbVerticalSlider.js"></script>
+
+         <!--Shuffle in media page -->
+        <script type="text/javascript" src="lib/jquery.shuffle.js"></script>
+        <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script>
+        
+        <!--  for pretty  -->
+        <script src="lib/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+
+        <!--  Masked Input Plugin -->
+        <script src="lib/jquery.maskedinput.js" type="text/javascript"></script>
 
 
+        <!--TODO: Aswathy Delete all commented scripts if not needed -->
+        <!--  resize the profile image -->
+        <!-- <script src="lib/resample.js" type="text/javascript"></script> -->
+        <!--  jqury loader  test TODO -->
+        <!-- <link href="css/jquery.loader.css" rel="stylesheet" /> -->
+        <!-- <script src="lib/jquery.loader.js"></script> -->
+        <!--  auto complete -->
+        <!-- 	<script type="text/javascript" src="lib/jquery.autocomplete.js"></script> -->
+        <!-- <script src="lib/jqueryui.js"></script> -->
+        <!--   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script> -->
+         
 	<script src="js/app.js"></script>
 	<script src="js/setup.js"></script>
 
+        <!--- Code to delete duplication of Janrain Component -->    
+    <script>
+    $(window).bind("load", function() {
+       var nu=$('#janrainEngageEmbed').children();
+       if(nu.length==2)
+            {
+                    console.log("double janrain found");
+                    $('.janrainContent:first').remove();
+
+            }
+       else
+            {
+               console.log("single janrain found");
+            }
+
+       $('.janrainContent div+div').remove();
+    });
+</script>
+        
 	<script type="text/javascript">
 		var current = 1; //current keeps track of how many schools we have @default =1 
 		var tagCount = 3; // tag keeps track of how many tags we have in class stream
@@ -3810,7 +3590,8 @@ $(window).bind("load", function() {
 			 $("#dialog").dialog('close');
 		}
 	</script>
-
+        
+        <script type="text/javascript" src="lib/css3-mediaqueries.js"></script>
 
 	<script src="js/router.js"></script>
 
@@ -3820,5 +3601,6 @@ $(window).bind("load", function() {
 	<script src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
 
 </body>
+
 </html>
 

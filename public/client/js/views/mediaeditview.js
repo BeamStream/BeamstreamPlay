@@ -4,6 +4,7 @@ BS.MediaEditView = Backbone.View.extend({
         events: {
 		"click #sveeditdoc" : "savedocs",   
 		"click #edit-close" : "close"
+		
 	 },
         initialize:function () {
             this.source = $("#document-edit-tpl").html();
@@ -44,10 +45,10 @@ BS.MediaEditView = Backbone.View.extend({
                     else
                         {
                             alert("Doc Edit Successfully");
-                            content='<h4> '+data[0].name+'</h4>'
+                            content='<h4> '+data[0].documentName+'</h4>'
                                     +'<p class="google_doc doc-description" id="'+data[0].id.id+'" >'
-                                    +'<input type="hidden" id="id-'+data[0].id.id+'" value="'+data[0].url+'">'
-                                    +''+data[0].description+' </p>';
+                                    +'<input type="hidden" id="id-'+data[0].id.id+'" value="'+data[0].documentURL+'">'
+                                    +''+data[0].documentDescription+' </p>';
                             $('#media-'+data[0].id.id+'').html(content);
                             $('#gdocedit').children().detach(); 
                         }

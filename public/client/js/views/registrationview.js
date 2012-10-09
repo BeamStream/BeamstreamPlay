@@ -15,10 +15,10 @@ BS.RegistrationView = Backbone.View.extend({
 		this.template = Handlebars.compile(this.source);
 		// for edit user details
 		BS.regBack = false;
-		$("#registration-form").validate();
+//		$("#registration-form").validate();
 
 	},
-
+ 
 	render : function(eventName) {
 		 
 		//get mail informations
@@ -52,7 +52,7 @@ BS.RegistrationView = Backbone.View.extend({
     	   				if(data.status) {
     	   					
     	   					if(data.status == "Failure")
-    	   					  $('#error').html("This User Email or Name is already taken");
+    	   					  $('#error').html(data.message);
     	   				   
     	   				} 
     	   				else 
@@ -125,7 +125,8 @@ BS.RegistrationView = Backbone.View.extend({
 			email : this.mailId,
 			schoolName : $('#school-name').val(),
 			userName : $('#user-name').val(),
-			password : $('#password').val(),
+			password : $('#password1').val(),
+			confirmPassword :  $('#password_again').val(),
 			firstName : $('#first-name').val(),
 			lastName : $('#last-name').val(),
 			location : $('#location').val(),
