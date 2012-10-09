@@ -505,10 +505,10 @@ BS.StreamView = Backbone.View.extend({
   				   {
   					     /*auto ajax push */
 
-              PUBNUB.publish({
-                  channel : "stream",
-                  message : { pagePushUid: self.pagePushUid }
-              })
+                                            PUBNUB.publish({
+                                                channel : "stream",
+                                                message : { pagePushUid: self.pagePushUid }
+                                            })
                  
  
   					   
@@ -745,6 +745,12 @@ BS.StreamView = Backbone.View.extend({
             	 
             	// display the count in icon
             	$('li#'+msgId+'').find('i').find('i').html(data);
+                
+                //auto push
+                PUBNUB.publish({
+                  channel : "stream",
+                  message : { pagePushUid: self.pagePushUid }
+              })
  
              }
           });
@@ -1312,6 +1318,11 @@ BS.StreamView = Backbone.View.extend({
 	        	 {
 	        		 $('#'+eventName.target.id).html("Unfollow");
 	        	 }
+                //Autopush   
+                PUBNUB.publish({
+                  channel : "stream",
+                  message : { pagePushUid: self.pagePushUid }
+              })
 	            
 	        }
 	     });
