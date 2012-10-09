@@ -90,10 +90,7 @@ object DocumentController extends Controller {
 
     (documentIdJsonMap.contains(("documentId"))) match {
 
-      case false =>
-
-        Ok(write(new ResulttoSent("Failure", "Document Id not found !!!")))
-
+      case false => Ok(write(new ResulttoSent("Failure", "Document Id not found !!!")))
       case true =>
 
         val docId = documentIdJsonMap("documentId").toList(0)
@@ -143,7 +140,7 @@ object DocumentController extends Controller {
   /*
     * Rockers of a document
     */
-  def giveMeRockers = Action { implicit request =>
+  def giveMeRockersOfDocument = Action { implicit request =>
     val documentIdJsonMap = request.body.asFormUrlEncoded.get
     val id = documentIdJsonMap("documentId").toList(0)
     val rockers = Document.rockersNames(new ObjectId(id))
