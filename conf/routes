@@ -46,7 +46,8 @@ POST /getAllDocumentsForAUser    controllers.DocumentController.getAllDocumentsF
 POST /getAllDocumentsForCurrentUserSortedbyDate    controllers.DocumentController.getAllDocumentsForCurrentUserSortedbyDate
 POST /changeTitleAndDescriptionForADocument controllers.DocumentController.changeTitleAndDescriptionForADocument
 POST /rockTheDocument                    controllers.DocumentController.rockTheDocument
-POST    /documentRockers                  controllers.DocumentController.giveMeRockersOfDocument
+POST /getRockers controllers.DocumentController.giveMeRockersOfDocument
+
 #Schools
 
 POST /school controllers.SchoolController.addANewSchool
@@ -106,9 +107,8 @@ POST /followMessage  controllers.MessageController.followTheMessage
 POST /isAFollower    controllers.MessageController.isAFollower
 
 
-#Document Rocks
-POST /rockedIt controllers.DocumentController.rockTheDocument
-POST /getRockers controllers.DocumentController.giveMeRockers
+
+
 
 
 #bitly
