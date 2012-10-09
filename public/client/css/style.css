@@ -2274,3 +2274,7 @@ text-align: left;
     overflow: hidden;
     position: relative;
 }
+#loader-message{
+    color:#fff;
+    margin-left:20px;
+}

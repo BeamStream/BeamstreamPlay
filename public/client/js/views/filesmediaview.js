@@ -730,6 +730,8 @@ BS.FilesMediaView = Backbone.View.extend({
                 data = new FormData();
                 data.append('docData', this.image);  
                 
+                document.getElementById('loader-message').innerHTML="<img src='images/loading.gif'>";
+                
                 /* post profile page details */
                 $.ajax({
                     type: 'POST',
@@ -738,12 +740,11 @@ BS.FilesMediaView = Backbone.View.extend({
                     cache: false,
                     contentType: false,
                     processData: false,
+                    dataType : "json",
                     success: function(data){
-                        
                         if(data.status == "Success") 
                             {
-                                
-                                alert("Doc Uploaded Successfully");
+                                document.getElementById('loader-message').innerHTML = data.message;
                             }
                     }
                 });
