@@ -26,7 +26,8 @@ BS.FilesMediaView = Backbone.View.extend({
                 "click #presvialink_dr":"presentationVialink",
                 "click #press_uploadbutton":"presentationUpload",
                 "click #docfrmcomputer_uploadbutton": "saveMyFile",
-                'change #doc-from-computer' :'displayImage'
+                'change #doc-from-computer' :'displayImage',
+                'click #docfrmcomputer_closePopup': "hidePopUpBlock"
                 
            //   "click #select_dr":"selectboxdwn",
           //    "blur #select_dr":"selectboxup"
@@ -771,6 +772,14 @@ BS.FilesMediaView = Backbone.View.extend({
             // read the image file as data URL
             reader.readAsDataURL(file);
          
+    },
+    
+    hidePopUpBlock: function()
+    {
+            $("#dooclinkchild_dr").find('ul').hide(100);
+            $("#docsmenu_dr").find('ul').hide(200);
+            $("#childtwo_dr").find('ul').hide(200);
+            $("#uploadmediachild_dr").find('ul').hide(200);
     }
 });
 
