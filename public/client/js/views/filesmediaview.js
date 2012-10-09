@@ -220,11 +220,11 @@ BS.FilesMediaView = Backbone.View.extend({
                                 arraypictures=docs;
                                 coverpicture=arraypictures[arraypictures.length-1];
                                
-                                content= '<div class="image-wrapper hovereffect"> <div class="hover-div"><img class="filmdeapicture" src="'+coverpicture+'"><div class="hover-text">'               
+                                content= '<div class="image-wrapper hovereffect"> <div class="hover-div"><img class="filmdeapicture" width="210px" height="141px" src="'+coverpicture+'"><div class="hover-text">'               
                                +'<div class="comment-wrapper comment-wrapper2">'
                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
                                 +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#imagelist" style="text-decoration: none"><h4> Image Name</h4>'                            
-                                +'<p class="doc-description">Description of image</p></a></br>'
+                                +'<p class="doc-description">Description of image</p></a>'
                                 +'<h5 class="imgtitle"> Title & Description</h5>'          
                                 +'<span>State</span>'
                                 +' <span class="date">datVal</span>' 
@@ -295,7 +295,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                             +'<a href="#" class="message-icon"></a>'
                                             +'<a href="#" class="share-icon"></a></div>'
                                             +'<a id="profile-videos" style="text-decoration: none" href="#videos"><h4> Image Name</h4>'       
-                                            +'<p class="doc-description">Description of Video  </p></a></br>'
+                                            +'<p class="doc-description">Description of Video  </p></a>'
                                             +'<h5 class="videotitle"> Title & Description</h5>'          
                                             +'<span>State</span>'
                                             +' <span class="date">datVal</span>' 

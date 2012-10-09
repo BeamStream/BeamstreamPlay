@@ -43,7 +43,7 @@ BS.ImageListView = Backbone.View.extend({
                                 _.each(docs, function(doc) {  
                                 content += '<li id="file-docs-'+i+'">'  
 
-                                +'<div class="image-wrapper hovereffect"> <div class="hover-div"><img src="'+doc+'" width="185px" height="141px"/><div class="hover-text">'
+                                +'<div class="image-wrapper hovereffect"> <div class="hover-div"><img src="'+doc+'" width="210px" height="141px"/><div class="hover-text">'
                                 +'<div class="comment-wrapper comment-wrapper2">'
                                 +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
                                 +'<a href="#" class="hand-icon"></a>'
@@ -51,7 +51,7 @@ BS.ImageListView = Backbone.View.extend({
                                 +'<a href="#" class="share-icon"></a>'
                                 +'</div>'
                                 +'<h4> image name</h4> ' 
-                                +'<div class="gallery clearfix"></div><div class="gallery clearfix"><a href="'+doc+'" style="text-decoration: none" rel="prettyPhoto[gallery2]">'
+                                +'<div class="gallery clearfix"></div><div class="gallery clearfix hrtxt"><a href="'+doc+'" style="text-decoration: none" rel="prettyPhoto[gallery2]">'
                                 +' <p class="google_doc doc-description" id="+doc.id.id+">'
                                 +'<input type="hidden" id="id-doc.id.id" value="doc.url">'
                                 +'Description of image</p></a>' 
