@@ -152,8 +152,7 @@ object Document {
    */
   def updateTitleAndDescription(documentId: ObjectId, newName: String, newDescription: String) = {
     val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
-    DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(documentName = newName), false, false, new WriteConcern)
-    DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(documentDescription = newDescription), false, false, new WriteConcern)
+    DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(documentDescription = newDescription,documentName = newName), false, false, new WriteConcern)
   }
 
   //  /*
