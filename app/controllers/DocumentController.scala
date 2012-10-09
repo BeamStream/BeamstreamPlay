@@ -29,7 +29,7 @@ import utils.ObjectIdSerializer
 import java.net.URL
 import models.ResulttoSent
 import play.api.libs.json._
-
+import play.api.mvc.Action
 /**
  * This controller class is used to store and retrieve all the information about documents.
  *
@@ -158,5 +158,12 @@ object DocumentController extends Controller {
     Ok(allDocumentsForAStreamJson).as("application/json")
   }
 
+  /**
+   * Upload Media From HardDrive
+   */
+  
+    def getDocumentFromDisk = Action(parse.multipartFormData) { request =>
+      Ok
+    }
 }
 
