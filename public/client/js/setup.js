@@ -109,7 +109,7 @@ BS.savedocedit = BS.URLRequired+"/changeTitleAndDescriptionForADocument";
 //Rocks the Google docs 
 BS.rockDocs = BS.URLRequired+"/rockTheDocument";
 //Document rockers list 
-BS.documentRockers =BS.URLRequired+"/documentRockers";
+BS.documentRockers =BS.URLRequired+"/getRockers";
 
 
 /* for beta users */
