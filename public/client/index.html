@@ -449,7 +449,7 @@ $(window).bind("load", function() {
 	         <div id="{{doc.id.id}}" class="comment-wrapper comment-wrapper2">
 	            <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
 	            <a href="#" class="hand-icon rock_docs" ></a>
-	            <a href="#" class="message-icon"></a>
+	            <a href="#" class="message-icon doc_msg"></a>
 	            <a href="#" class="share-icon"></a>
 	          </div>
 	          <div id="media-{{doc.id.id}}" ><h4> {{doc.documentName}}</h4>
@@ -471,12 +471,14 @@ $(window).bind("load", function() {
         <ul id="{{doc.id.id}}-activities" class="comment-list">
            <li><a class="eye-icon" href="#"></a></li>
            <li><a class="hand-icon show_rockers" href="#">{{doc.documentRocks}}</a></li>
-           <li><a class="message-icon" href="#"></a></li>
+           <li><a class="message-icon show_docMessage" href="#"></a></li>
         </ul>
       </div>
       <div id="{{doc.id.id}}-docRockers-list" class="docRockers_popup"></div>
       </div>
    </li>
+
+
  </script>
 
 <!-- template for settings page -->
@@ -3592,8 +3594,8 @@ $(window).bind("load", function() {
 	<script src="js/views/filesmediaview.js"></script>
 	<script src="js/views/streamactionview.js"></script>
 	<script src="js/views/googledocsview.js"></script>
-        <script src="js/views/mediaeditview.js"></script> 
-        <script src="js/views/gdocpopupview.js"></script>
+    <script src="js/views/mediaeditview.js"></script> 
+    <script src="js/views/gdocpopupview.js"></script>
 	<script src="js/views/imagelistview.js"></script>
 	<script src="js/views/videolistview.js"></script>
 	<script src="js/models/singleusermodel.js"></script>
@@ -3602,7 +3604,6 @@ $(window).bind("load", function() {
 	<!--  for +Add New School option in autopopulate -->
 	<script type="text/javascript">
 		function populateAddNewSchool(parentId) {
-			 
 
 			BS.addNewSchool = new BS.AddNewSchool();
 			BS.addNewSchool.render(parentId);

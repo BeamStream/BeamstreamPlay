@@ -2274,3 +2274,37 @@ text-align: left;
     overflow: hidden;
     position: relative;
 }
+ .form-comment textarea{
+ 	border: 1px solid #CCCCCC !important;
+    font-size: 11px !important;
+    height: 19px !important;
+    padding: 7px 3px 3px 7px !important;
+    width: 148px !important;
+    color:#555 !important;
+    border-radius: 4px 4px 4px 4px;
+    font-weight:normal;
+ }
+ .doc_comment_section{
+  position: absolute;
+  left: 12px;
+  top: 190px;
+  border-top: 1px solid #D9D4D4;
+  box-shadow: 0 1px #FCFAFA inset;
+  background-color: #F2F0F0;
+  margin: 0 -15px;
+  padding: 10px 15px;
+ }
+ .commenttImg img{
+    height: 30px;
+    width: 30px;
+ }
+ .comment_button{
+    border-radius: 6px 6px 6px 6px;
+    padding: 7px 9px;
+    background-color: #F0EDED;
+    background-image: -moz-linear-gradient(center top , #FDFAFB, #F9F7F7 50%, #F6F3F4 50%, #F0EDED);
+    border-color: #BBBBBB;
+    color: #524D4D;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.9);
+    font-size: 11px;
+ }
