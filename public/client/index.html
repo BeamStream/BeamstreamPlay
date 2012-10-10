@@ -355,7 +355,7 @@ body {
 	         <div id="{{doc.id.id}}" class="comment-wrapper comment-wrapper2">
 	            <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
 	            <a href="#" class="hand-icon rock_docs" ></a>
-	            <a href="#" class="message-icon"></a>
+	            <a href="#" class="message-icon doc_msg"></a>
 	            <a href="#" class="share-icon"></a>
 	          </div>
 	          <div id="media-{{doc.id.id}}" ><h4> {{doc.documentName}}</h4>
@@ -377,12 +377,24 @@ body {
         <ul id="{{doc.id.id}}-activities" class="comment-list">
            <li><a class="eye-icon" href="#"></a></li>
            <li><a class="hand-icon show_rockers" href="#">{{doc.documentRocks}}</a></li>
-           <li><a class="message-icon" href="#"></a></li>
+           <li><a class="message-icon show_docMessage" href="#"></a></li>
         </ul>
       </div>
       <div id="{{doc.id.id}}-docRockers-list" class="docRockers_popup"></div>
       </div>
    </li>
+<!--<div class="write convo clearfix" style="">
+<a class="ImgLink" href="/aswathyraju/">
+<img alt="Profile picture of you" src="http://media-cache-ec4.pinterest.com/avatars/aswathyraju_1349685568.jpg">
+</a>
+<form method="POST" action="/pin/142074563216005268/comment/">
+<input class="pin_comment_replies" type="hidden" name="replies">
+<textarea class="GridComment" placeholder="Add a comment..." maxlength="1000"></textarea>
+<div class="tagmate-menu" style="position: absolute; display: none;"></div>
+<button class="Button WhiteButton Button11 grid_comment_button" type="button" style="visibility: visible; display: inline;">Comment</button>
+</form>
+</div> -->
+
  </script>
 
 <!-- template for settings page -->
@@ -2731,11 +2743,16 @@ body {
         <div class="element" style="margin-top:25px;" >
               <label for="school-name">School name <span class="star"> </span></label>
               <input type="text" id="school-name" name="schoolName" placeholder=" School Name" class="required span3 myschool">
+              <div id="load-schools" style="display :none;">  
+			   <img src ="images/loading.gif"> 
             </div>
+            </div>
+             
         <div class="element">
               <label for="user-name">User Name <br/>
             http://www.beamstream.com/</label>
               <input type="text" id="user-name" name="user-name" placeholder="@UserName"   class="required span3">
+              
             </div>
           <div class="element">
               <label for="password1">Password <br/></label>
@@ -2866,7 +2883,11 @@ body {
              <div class="element">
               <label for="school-name">School Name </label>
               <input type="text" name="schoolName" id="school-name" placeholder="School Name" class="required span3 myschool">
+               <div id="load-schools" style="display :none;">  
+			   <img src ="images/loading.gif"> 
             </div>
+            </div>
+            
             <div class="element">
               <label for="school-email">School Email </label>
               <input type="text" id="school-email" name="school-email" placeholder="School Email" class="required span3">
@@ -3556,8 +3577,8 @@ body {
 	<script src="js/views/filesmediaview.js"></script>
 	<script src="js/views/streamactionview.js"></script>
 	<script src="js/views/googledocsview.js"></script>
-        <script src="js/views/mediaeditview.js"></script> 
-        <script src="js/views/gdocpopupview.js"></script>
+    <script src="js/views/mediaeditview.js"></script> 
+    <script src="js/views/gdocpopupview.js"></script>
 	<script src="js/views/imagelistview.js"></script>
 	<script src="js/views/videolistview.js"></script>
 	<script src="js/models/singleusermodel.js"></script>
@@ -3566,7 +3587,6 @@ body {
 	<!--  for +Add New School option in autopopulate -->
 	<script type="text/javascript">
 		function populateAddNewSchool(parentId) {
-			 
 
 			BS.addNewSchool = new BS.AddNewSchool();
 			BS.addNewSchool.render(parentId);
