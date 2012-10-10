@@ -39,12 +39,10 @@ POST    /commentRockers                controllers.CommentController.commentRock
 
 
 #Documents
-GET /documents controllers.DocumentController.documents
+#GET /documents controllers.DocumentController.documents
 
 
-POST /getAllDocumentsForAUser    controllers.DocumentController.getAllDocumentsForAUser
-POST /getAllDocumentsForCurrentUserSortedbyDate    controllers.DocumentController.getAllDocumentsForCurrentUserSortedbyDate
-
+GET  /getAllDocumentsForAUser    controllers.DocumentController.getAllGoogleDocumentsForAUser
 POST /changeTitleAndDescriptionForADocument controllers.DocumentController.changeTitleAndDescriptionForADocument
 POST /newDocument controllers.DocumentController.newDocument
 POST /rockTheDocument                    controllers.DocumentController.rockTheDocument

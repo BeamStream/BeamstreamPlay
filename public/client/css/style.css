@@ -2027,7 +2027,7 @@ border: 1px solid #E8E8E9;
 /*-------------hover----------*/
 div.hover-div{
     display:block;
-    height:153px;
+    height:153px !important;
      width:210px;   
     position:relative;
     text-align:center;

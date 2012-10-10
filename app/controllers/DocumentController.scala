@@ -71,22 +71,16 @@ object DocumentController extends Controller {
         val userId = new ObjectId(request.session.get("userId").get)
         val date = new Date
         val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId, DocumentAccess.withName(access), new ObjectId, date, date, 0, List(), List())
-        val docId = Document.addDocument(documentToCreate, userId)
+        val docId = Document.addDocument(documentToCreate)
         val docObtained = Document.findDocumentById(docId)
         val docJson = write(List(docObtained))
         Ok(docJson).as("application/json")
     }
   }
 
-  def documents = Action { implicit request =>
-    val profileName = User.getUserProfile((new ObjectId(request.session.get("userId").get)))
-    val docs = Document.getAllDocumentsForAUser(new ObjectId(request.session.get("userId").get))
-    Ok
-  }
-
-  /*
- *  Get details of a document
- */
+  /**
+   *  Get details of a document
+   */
 
   def getDocument = Action { implicit request =>
 
@@ -104,20 +98,17 @@ object DocumentController extends Controller {
     }
   }
 
-  /*
-   * Get all Documents for a User
+  /**
+   * Get all Documents for a User (Modified)
    */
 
-  def getAllDocumentsForAUser = Action { implicit request =>
-    val documentIdJsonMap = request.body.asFormUrlEncoded.get
-    val allDocumentsForAUser = Document.getAllDocumentsForAUser(new ObjectId(request.session.get("userId").get))
-    println(allDocumentsForAUser)
-    val allDocumentForAStreamJson = write(allDocumentsForAUser)
-    Ok(allDocumentForAStreamJson).as("application/json")
+  def getAllGoogleDocumentsForAUser = Action { implicit request =>
+    val allDocumentsForAUser = Document.getAllGoogleDocumentsForAUser(new ObjectId(request.session.get("userId").get))
+    Ok(write(allDocumentsForAUser)).as("application/json")
   }
 
-  /*
-   * Rock the document (Repaired)
+  /**
+   * Rock the document (Modified)
    */
   def rockTheDocument = Action { implicit request =>
     val documentIdJsonMap = request.body.asFormUrlEncoded.get
@@ -152,15 +143,15 @@ object DocumentController extends Controller {
     Ok(rockersJson).as("application/json")
   }
 
-  /*
-    * Documents for the current user sorted by creation date
-    */
-
-  def getAllDocumentsForCurrentUserSortedbyDate = Action { implicit request =>
-    val allDocumentsForAUser = Document.getAllDocumentsForAUserSortedbyDate(new ObjectId(request.session.get("userId").get))
-    val allDocumentsForAStreamJson = write(allDocumentsForAUser)
-    Ok(allDocumentsForAStreamJson).as("application/json")
-  }
+//  /*
+//    * Documents for the current user sorted by creation date
+//    */
+//
+//  def getAllDocumentsForCurrentUserSortedbyDate = Action { implicit request =>
+//    val allDocumentsForAUser = Document.getAllDocumentsForAUserSortedbyDate(new ObjectId(request.session.get("userId").get))
+//    val allDocumentsForAStreamJson = write(allDocumentsForAUser)
+//    Ok(allDocumentsForAStreamJson).as("application/json")
+//  }
 
   /**
    * Upload Media From HardDrive
@@ -183,7 +174,7 @@ object DocumentController extends Controller {
           val docURL = "https://s3.amazonaws.com/BeamStream/" + documentName
           val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
             new ObjectId, new Date, new Date, 0, List(), List())
-          Document.addDocument(documentCreated, new ObjectId(request.session.get("userId").get))
+          Document.addDocument(documentCreated)
         }.get
 
     }

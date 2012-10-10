@@ -103,11 +103,11 @@ BS.GoogleDocsView = Backbone.View.extend({
                     
                 /* get profile images for user */
             $.ajax({
-                type : 'POST',
+                type : 'GET',
                 url :  BS.getAllDocs,
-                data : {
-                'userId': e.attributes.id.id
-                },
+//                data : {
+//                'userId': e.attributes.id.id
+//                },
                 dataType : "json",
                 success : function(docs) {
                    var content = '';
