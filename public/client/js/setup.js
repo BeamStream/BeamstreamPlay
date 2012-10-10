@@ -110,9 +110,11 @@ BS.savedocedit = BS.URLRequired+"/changeTitleAndDescriptionForADocument";
 BS.rockDocs = BS.URLRequired+"/rockTheDocument";
 //Document rockers list 
 BS.documentRockers =BS.URLRequired+"/getRockers";
-
+//get one google doc to edit
+BS.getOneDocs = BS.URLRequired+"/getDocument"; 
 //Upload Doc from My Computer the Google docs 
 BS.uploaddocFrmComputer = BS.URLRequired+"/getDocumentFromDisk";
+
 
 
 /* for beta users */

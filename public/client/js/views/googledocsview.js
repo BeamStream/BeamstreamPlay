@@ -283,17 +283,28 @@ BS.GoogleDocsView = Backbone.View.extend({
          */  
         editDocTitle :function(eventName){  
           var docId = eventName.currentTarget.id;             // id to get corresponding docs   
-          var docUrl = $('input#id-'+docId).val(); 
-          var datas = {
-                                 "id" : docId,
-                                 "url" : docUrl,
-				"type" : 'Docs',
-				"title" : 'Title of the doc',
-                                "description" :'description of the doc'
+          var docUrl = $('input#id-'+docId).val();
+
+              $.ajax({                                       
+                        type : 'POST',
+                        url :  BS.getOneDocs,
+                        data : {
+                                documentId: docId  
+                                },
+                        dataType : "json",
+                        success : function(docs) {                          
+                             var datas = {
+                             "id" : docId,
+                             "url" : docUrl,
+                             "type" : 'Docs',
+                             "title" : docs[0].documentName,
+                             "description" : docs[0].documentDescription
 			  }
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(datas);
-            $('#gdocedit').html(BS.mediaeditview.el);
+            $('#gdocedit').html(BS.mediaeditview.el);         
+                  }
+                    });
        },
        
        /**
