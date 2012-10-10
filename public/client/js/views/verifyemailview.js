@@ -77,7 +77,7 @@ BS.verifyEmailView = Backbone.View.extend({
 						if(data.status == "Success") 
 		   			    {
 							    $('.forgot-pass').hide();
-							    $(".star").hide();
+							    
 								var source = $("#tpl-verify-popup").html();
 								var template = Handlebars.compile(source);
 //								$.loader('close');
