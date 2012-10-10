@@ -259,7 +259,7 @@ BS.AppRouter = Backbone.Router.extend({
              BS.classView.render();
              
              $('#school-popup').html(BS.classView.el);
-             console.log("-------------");
+             
              var classInfo =JSON.parse(localStorage["classInfo"]);
 	         $('#class-list').html('');	
 	         
@@ -268,13 +268,13 @@ BS.AppRouter = Backbone.Router.extend({
 	         var classPack ;
 	         sClasses = 0;
 	         var schools = localStorage["schoolList"];
-	         console.log(schools)
+	        
 	         while(totalClasses > 0)
 	         {
 	        	 var i = 0;
 	        	 // slice the class array according to their schoolId
 	        	 var c_schoolId = classInfo[0].schoolId.id;
-	        	 console.log("c_schoolId" + c_schoolId);
+	        	 
 	        	 for(var j=0 ; j<totalClasses ; j++)
 	        	 {
 	        		 if(classInfo[j].schoolId.id == c_schoolId)
@@ -321,7 +321,7 @@ BS.AppRouter = Backbone.Router.extend({
 					 if(k <= orgLength-1)
 					 {
 						 sId = classPack[k].streams[0].id;
-						 console.log(sId)
+						 
 					 }
 					 else
 					 {
@@ -363,7 +363,7 @@ BS.AppRouter = Backbone.Router.extend({
 				 }	 
 
 				  totalClasses = classInfo.length;
-				  console.log("totalClasses" + totalClasses);
+				  
 	          }
 	        
 	         

@@ -150,7 +150,7 @@ BS.FilesMediaView = Backbone.View.extend({
                         type : 'GET',
                         url :  BS.getAllDocs,
 //                        data : {
-//                           //'userId': e.attributes.id.id
+//                           'userId': e.attributes.id.id
 //                                },
                         dataType : "json",
                         success : function(docs) {
@@ -504,7 +504,7 @@ BS.FilesMediaView = Backbone.View.extend({
          */
          showFileForm:function(eventName){
             eventName.preventDefault();
-            $("#childtwo.one_dr").find('ul').hide(200);
+            $("#childtwo_two_dr").find('ul').hide(200);
             $("#dooclinkchild_dr").animate({width: 'toggle'},130);
         },
         
@@ -516,7 +516,7 @@ BS.FilesMediaView = Backbone.View.extend({
          googleDocs:function(eventName){
             eventName.preventDefault();
             console.log("test");
-            $("#childtwo.one_dr").find('ul').hide(200);
+            $("#childtwo_one_dr").find('ul').hide(200);
             $("#googledocschild_dr").animate({width: 'toggle'},130);
         },
         
@@ -723,6 +723,7 @@ BS.FilesMediaView = Backbone.View.extend({
          saveMyFile: function(eventName)
          {
                 eventName.preventDefault();
+                 var self = this;
                 var status = true;
                 var data;
                 data = new FormData();
@@ -743,7 +744,8 @@ BS.FilesMediaView = Backbone.View.extend({
                         if(data.status == "Success") 
                             {
                                 document.getElementById('loader-message').innerHTML = data.message;
-                                self.docsList(); 
+                                self.docsList();
+                                $("#dooclinkchild_dr").hide(200);
                             }
                     }
                 });
