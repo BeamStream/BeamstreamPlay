@@ -42,7 +42,7 @@ POST    /commentRockers                controllers.CommentController.commentRock
 #GET /documents controllers.DocumentController.documents
 
 
-POST  /getAllDocumentsForAUser    controllers.DocumentController.getAllGoogleDocumentsForAUser
+GET  /getAllDocumentsForAUser    controllers.DocumentController.getAllGoogleDocumentsForAUser
 POST /changeTitleAndDescriptionForADocument controllers.DocumentController.changeTitleAndDescriptionForADocument
 POST /newDocument controllers.DocumentController.newDocument
 POST /rockTheDocument                    controllers.DocumentController.rockTheDocument
