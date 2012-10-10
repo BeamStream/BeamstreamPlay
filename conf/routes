@@ -24,7 +24,7 @@ POST /deleteStream              controllers.StreamController.deleteTheStream
 #Messages
 POST /newMessage controllers.MessageController.newMessage
 POST /getAllMessagesForAStream                controllers.MessageController.getAllMessagesForAStreamWithPagination
-#POST /getAllMessagesForAStreamSortedbyDate    controllers.MessageController.getAllMessagesForAStreamWithPagination
+POST /getAllMessagesForAStreamSortedbyDate    controllers.MessageController.getAllMessagesForAStreamWithPagination
 POST /getAllMessagesForAStreamSortedbyRocks   controllers.MessageController.getAllMessagesForAStreamSortedbyRocks
 POST /getAllMessagesForAStreambyKeyword controllers.MessageController.getAllMessagesForAStreambyKeyword
 POST /allPublicMessagesFromAllStreamsForAUser     controllers.StreamController.allPublicMessagesFromAllStreamsForAUser
@@ -43,8 +43,6 @@ POST    /commentRockers                controllers.CommentController.commentRock
 
 
 POST  /getAllDocumentsForAUser    controllers.DocumentController.getAllGoogleDocumentsForAUser
-POST /getAllDocumentsForCurrentUserSortedbyDate    controllers.DocumentController.getAllDocumentsForCurrentUserSortedbyDate
-
 POST /changeTitleAndDescriptionForADocument controllers.DocumentController.changeTitleAndDescriptionForADocument
 POST /newDocument controllers.DocumentController.newDocument
 POST /rockTheDocument                    controllers.DocumentController.rockTheDocument
