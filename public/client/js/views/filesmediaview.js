@@ -147,11 +147,11 @@ BS.FilesMediaView = Backbone.View.extend({
 
                 /* get profile images for user */
               $.ajax({
-                        type : 'POST',
+                        type : 'GET',
                         url :  BS.getAllDocs,
-                        data : {
-                           'userId': e.attributes.id.id
-                                },
+//                        data : {
+//                           //'userId': e.attributes.id.id
+//                                },
                         dataType : "json",
                         success : function(docs) {
                             if(docs.length != 0)  {
@@ -474,23 +474,6 @@ BS.FilesMediaView = Backbone.View.extend({
                  
             },
             
-//            /*
-//             * function to change the slectbox in dropdown
-//             *
-//             */
-//            selectboxdwn: function(eventName){
-//                console.log("select down");
-//                 $(".childselect_dr").show("slide", { direction: "up" }, 250);
-//            },
-//        
-//        /**
-//         * function to change the slectbox in dropdown
-//         */
-//        selectboxup: function(){
-//           console.log("select up");
-//                
-//                 $(".childselect_dr").hide("slide", { direction: "down" }, 250);
-//        },
         
         /*
          * Function for uploadmedia 
@@ -521,6 +504,7 @@ BS.FilesMediaView = Backbone.View.extend({
          */
          showFileForm:function(eventName){
             eventName.preventDefault();
+            $("#childtwo.one_dr").find('ul').hide(200);
             $("#dooclinkchild_dr").animate({width: 'toggle'},130);
         },
         
@@ -531,6 +515,8 @@ BS.FilesMediaView = Backbone.View.extend({
          */
          googleDocs:function(eventName){
             eventName.preventDefault();
+            console.log("test");
+            $("#childtwo.one_dr").find('ul').hide(200);
             $("#googledocschild_dr").animate({width: 'toggle'},130);
         },
         
@@ -757,6 +743,7 @@ BS.FilesMediaView = Backbone.View.extend({
                         if(data.status == "Success") 
                             {
                                 document.getElementById('loader-message').innerHTML = data.message;
+                                self.docsList(); 
                             }
                     }
                 });
