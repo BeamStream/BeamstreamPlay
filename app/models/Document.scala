@@ -14,7 +14,6 @@ import net.liftweb.json.Serialization.{ read, write }
 import java.util.Date
 import java.net.URL
 
-
 /*
  * Enumeration for the document access 
  * 
@@ -59,12 +58,11 @@ case class Document(@Key("_id") id: ObjectId,
 
 object Document {
 
-  /*
- * Add a document
+  /**
+ * Add a document(Modified)
  */
-  def addDocument(document: Document, userId: ObjectId): ObjectId = {
+  def addDocument(document: Document): ObjectId = {
     val documentId = DocumentDAO.insert(document)
-    User.addDocumentToUser(userId, document.id)
     documentId.get
   }
 
@@ -93,28 +91,28 @@ object Document {
     rockersName
   }
 
-  /*
-   * Get all documents for a user
+  /**
+   * Get all documents for a user (Modified)
    */
-  def getAllDocumentsForAUser(userId: ObjectId): List[Document] = {
-    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    getAllDocuments(user.documents)
+  def getAllGoogleDocumentsForAUser(userId: ObjectId): List[Document] = {
+    val docsObtained = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "GoogleDocs")).toList
+    docsObtained
   }
 
-  /*
-   * Get all Documents List
-   */
-
-  def getAllDocuments(documentIdList: List[ObjectId]): List[Document] = {
-    var documentList: List[Document] = List()
-
-    for (documentId <- documentIdList) {
-      val doc = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList
-      documentList ++= doc
-    }
-
-    documentList
-  }
+//  /*
+//   * Get all Documents List
+//   */
+//
+//  def getAllDocuments(documentIdList: List[ObjectId]): List[Document] = {
+//    var documentList: List[Document] = List()
+//
+//    for (documentId <- documentIdList) {
+//      val doc = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList
+//      documentList ++= doc
+//    }
+//
+//    documentList
+//  }
 
   /*
    *  Update the Rockers List and increase the count by one 
@@ -124,7 +122,7 @@ object Document {
 
     val documentToRock = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
     documentToRock.documentRockers.contains(userId) match {
-     
+
       case true =>
         DocumentDAO.update(MongoDBObject("_id" -> documentId), documentToRock.copy(documentRockers = (documentToRock.documentRockers -- List(userId))), false, false, new WriteConcern)
         val updatedDocument = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
@@ -140,26 +138,23 @@ object Document {
     }
   }
 
-  
   /**
-   * Change the Title and description of a document
+   * Change the Title and description of a document (Modified)
    */
   def updateTitleAndDescription(documentId: ObjectId, newName: String, newDescription: String) = {
     val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
-    DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(documentDescription = newDescription,documentName = newName), false, false, new WriteConcern)
+    DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(documentDescription = newDescription, documentName = newName), false, false, new WriteConcern)
   }
 
+//  /**
+//   * Documents for a user sorted by creation date
+//   */
+//
+//  def getAllDocumentsForAUserSortedbyDate(userId: ObjectId): List[Document] = {
+//    val docs = getAllGoogleDocumentsForAUser(userId).sortBy(doc => doc.creationDate)
+//    docs
+//  }
 
-  /**
-   * Documents for a user sorted by creation date
-   */
-
-  def getAllDocumentsForAUserSortedbyDate(userId: ObjectId): List[Document] = {
-    val docs = getAllDocumentsForAUser(userId).sortBy(doc => doc.creationDate)
-    docs
-  }
-  
-  
 }
 
 object DocumentDAO extends SalatDAO[Document, ObjectId](collection = MongoHQConfig.mongoDB("document"))
