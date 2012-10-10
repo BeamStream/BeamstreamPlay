@@ -35,6 +35,7 @@ import utils.CompressFile
 import models.UserMedia
 import utils.tokenEmail
 import utils.AmazonUpload
+import models.Files
 /**
  * This controller class is used to store and retrieve all the information about documents.
  *
@@ -180,6 +181,15 @@ object DocumentController extends Controller {
     }
 
     Ok(write(new ResulttoSent("Success", "Document Uploaded Successfully")))
+  }
+  
+  /**
+   * Get All AudioFiles
+   */
+  
+  def getAllAudioFilesForAUser = Action { implicit request =>
+   val audioFiles= Files.getAllAudioFiles( new ObjectId(request.session.get("userId").get))
+    Ok(write(audioFiles)).as("application/json")
   }
 }
 

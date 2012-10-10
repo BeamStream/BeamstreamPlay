@@ -109,7 +109,8 @@ POST /followMessage  controllers.MessageController.followTheMessage
 POST /isAFollower    controllers.MessageController.isAFollower
 
 
- 
+#Files
+GET /audioFilesOfAUser  controller.DocumentController.getAllAudioFilesForAUser
 
 
 #bitly
