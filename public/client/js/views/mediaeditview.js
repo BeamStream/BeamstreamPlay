@@ -17,9 +17,7 @@ BS.MediaEditView = Backbone.View.extend({
         render:function (datas) {
             $(this.el).html(this.template(datas));
             this.docdatas=datas;
-            return this;
-            
-        
+            return this;        
         },
         
         /**
