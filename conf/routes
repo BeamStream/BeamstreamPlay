@@ -8,6 +8,8 @@ GET / controllers.StreamController.index
 #Beta Users
 POST /betaUser   controllers.JoinBeamStream.regsisterToBeamStreamBeta
 
+
+
 #User
 POST /users      controllers.UserController.findUser
 
@@ -110,7 +112,7 @@ POST /isAFollower    controllers.MessageController.isAFollower
 
 
 #Files
-GET /audioFilesOfAUser  controller.DocumentController.getAllAudioFilesForAUser
+GET /audioFilesOfAUser  controllers.DocumentController.getAllAudioFilesForAUser
 
 
 #bitly
