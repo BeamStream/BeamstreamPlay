@@ -2017,7 +2017,7 @@ div.hover-div{
      width:210px;   
     position:relative;
     text-align:center;
-   margin:1px 0px 0px 0px;
+/*    margin:1px 0px 0px 0px; */
 }
 .hrtxt{
   width:185px !important;     
@@ -2030,7 +2030,12 @@ div.hover-div:hover .hover-image{
 }
 div.hover-div:hover img{
     opacity:1;        
-}    
+}
+div.hover-div img{
+	height: 155px;
+    width: 210px;
+    border-radius: 3px 3px 3px 3px;
+} 
 .hover-text{
     display:none;
     clear:both;
