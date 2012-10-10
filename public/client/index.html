@@ -383,7 +383,17 @@ body {
       <div id="{{doc.id.id}}-docRockers-list" class="docRockers_popup"></div>
       </div>
    </li>
-
+<!--<div class="write convo clearfix" style="">
+<a class="ImgLink" href="/aswathyraju/">
+<img alt="Profile picture of you" src="http://media-cache-ec4.pinterest.com/avatars/aswathyraju_1349685568.jpg">
+</a>
+<form method="POST" action="/pin/142074563216005268/comment/">
+<input class="pin_comment_replies" type="hidden" name="replies">
+<textarea class="GridComment" placeholder="Add a comment..." maxlength="1000"></textarea>
+<div class="tagmate-menu" style="position: absolute; display: none;"></div>
+<button class="Button WhiteButton Button11 grid_comment_button" type="button" style="visibility: visible; display: inline;">Comment</button>
+</form>
+</div> -->
 
  </script>
 
@@ -2733,11 +2743,16 @@ body {
         <div class="element" style="margin-top:25px;" >
               <label for="school-name">School name <span class="star"> </span></label>
               <input type="text" id="school-name" name="schoolName" placeholder=" School Name" class="required span3 myschool">
+              <div id="load-schools" style="display :none;">  
+			   <img src ="images/loading.gif"> 
             </div>
+            </div>
+             
         <div class="element">
               <label for="user-name">User Name <br/>
             http://www.beamstream.com/</label>
               <input type="text" id="user-name" name="user-name" placeholder="@UserName"   class="required span3">
+              
             </div>
           <div class="element">
               <label for="password1">Password <br/></label>
@@ -2868,7 +2883,11 @@ body {
              <div class="element">
               <label for="school-name">School Name </label>
               <input type="text" name="schoolName" id="school-name" placeholder="School Name" class="required span3 myschool">
+               <div id="load-schools" style="display :none;">  
+			   <img src ="images/loading.gif"> 
             </div>
+            </div>
+            
             <div class="element">
               <label for="school-email">School Email </label>
               <input type="text" id="school-email" name="school-email" placeholder="School Email" class="required span3">

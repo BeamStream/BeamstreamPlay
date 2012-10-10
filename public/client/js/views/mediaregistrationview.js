@@ -285,10 +285,12 @@ BS.MediaRegistrationView = Backbone.View.extend({
  
     populateSchools :function(eventName){
     	var id = eventName.target.id;
+    	
     	var text = $('#'+id).val();
     	var self =this;
         if(text)
         {
+//        	$('#load-schools').css("display","block");
         	BS.newSchool = text;
 			/* post the text that we type to get matched school */
 			 $.ajax({
@@ -316,7 +318,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 						    	 
 						    }
 					 });
-					
+					$('#load-schools').css("display","none");
 	 
 				}
 			});

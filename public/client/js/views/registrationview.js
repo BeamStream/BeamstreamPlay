@@ -209,6 +209,7 @@ BS.RegistrationView = Backbone.View.extend({
     	var self =this;
         if(text)
         {
+        	$('#load-schools').css("display","block");
         	BS.newSchool = text;
 			/* post the text that we type to get matched school */
 			 $.ajax({
@@ -236,7 +237,7 @@ BS.RegistrationView = Backbone.View.extend({
 						    	 
 						    }
 					 });
-					
+					$('#load-schools').css("display","none");
 	 
 				}
 			});
