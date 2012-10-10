@@ -14,6 +14,7 @@ import net.liftweb.json.Serialization.{ read, write }
 import java.util.Date
 import java.net.URL
 
+
 /*
  * Enumeration for the document access 
  * 
@@ -139,15 +140,8 @@ object Document {
     }
   }
 
-  //  /*
-  //   * Change the access of a document
-  //   */
-  //  def changeAccess(documentId: ObjectId, newAccess: DocumentAccess.Value) = {
-  //    val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
-  //    DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(documentAccess = newAccess), false, false, new WriteConcern)
-  //  }
-
-  /*
+  
+  /**
    * Change the Title and description of a document
    */
   def updateTitleAndDescription(documentId: ObjectId, newName: String, newDescription: String) = {
@@ -155,13 +149,6 @@ object Document {
     DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(documentDescription = newDescription,documentName = newName), false, false, new WriteConcern)
   }
 
-  //  /*
-  //   * Total number of rocks for a particular document
-  //   */
-  //  def totalRocks(documentId: ObjectId): Int = {
-  //    val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
-  //    document.documentRocks
-  //  }
 
   /**
    * Documents for a user sorted by creation date
@@ -171,6 +158,7 @@ object Document {
     val docs = getAllDocumentsForAUser(userId).sortBy(doc => doc.creationDate)
     docs
   }
+  
   
 }
 
