@@ -199,14 +199,6 @@ object User {
     userFound
   }
 
-  /*
-   * Add Document to user
-   */
-  def addDocumentToUser(userId: ObjectId, document: ObjectId) {
-    println(" Document added for the user :" + userId + "  documentId : " + document);
-    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(documents = user.documents ++ List(document)), false, false, new WriteConcern)
-  }
 
   /*
      * Add Question to user
@@ -232,18 +224,14 @@ object User {
    */
 
   def forgotPassword(emailId: String): Boolean = {
-
     val user = UserDAO.find(MongoDBObject("email" -> emailId)).toList
-
     (user.size == 0) match {
       case true => false
       case false =>
         SendEmail.sendPassword(emailId, user(0).password)
         true
     }
-
   }
-
 }
 
 /*

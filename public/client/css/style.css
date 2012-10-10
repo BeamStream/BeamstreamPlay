@@ -1437,10 +1437,11 @@ ul.file-type li a:hover{
     height: 20px;
     opacity: 0.7;
     padding: 6px 7px 0 23px;
+    border-radius: 3px 3px 3px 3px;
     position: absolute;
 /*     right: 961px; */
 /*     top: 210px; */
-    right: -1px;
+    right: 0px;
     top: 1px;
     cursor:pointer;
     line-height: 13px;
@@ -2254,21 +2255,21 @@ text-align: left;
 	border: 2px solid #119FE1 !important;
 }
 .ui-dialog-content{
-	background: none repeat scroll 0 0 #DBDBDB !important;
+	border: none !important;
+    background: #3A4046 !important;
+    color: #FFFFFF !important;
 }
 .p-profile{
-/* 	min-width:100%; */
+    min-width: 191px !important;
 	min-height: 140px;
 }
 
-.ui-widget-content{
+.ui-dialog{
     border: none !important;
     background: #3A4046 !important;
     color: #FFFFFF !important;
 }
-.ui-dialog{
-    border: none !important;
-}
+
 .alert-msg{
     border-left: none !important;
     border-right: none !important;
@@ -2280,8 +2281,9 @@ text-align: left;
     border-bottom:none !important;
 }
 .ui-widget-header{
- background-image: -moz-linear-gradient(center top , #EFF0F2, #D9DCDF)!important;
-box-shadow: 0 1px 0 #FFFFFF inset!important;}
+    background-image: -moz-linear-gradient(center top , #EFF0F2, #D9DCDF)!important;
+    box-shadow: 0 1px 0 #FFFFFF inset!important;
+}
 .docRockers_popup{
   padding : 10px;
   z-index: 1050;
@@ -2316,18 +2318,18 @@ box-shadow: 0 1px 0 #FFFFFF inset!important;}
     font-weight:normal;
  }
  .doc_comment_section{
-  position: absolute;
-  left: 12px;
-  top: 190px;
-  border-top: 1px solid #D9D4D4;
-  box-shadow: 0 1px #FCFAFA inset;
-  background-color: #F2F0F0;
-  margin: 0 -15px;
-  padding: 10px 15px;
+	  position: absolute;
+	  left: 12px;
+	  top: 190px;
+	  border-top: 1px solid #D9D4D4;
+	  box-shadow: 0 1px #FCFAFA inset;
+	  background-color: #F2F0F0;
+	  margin: 0 -15px;
+	  padding: 10px 15px;
  }
  .commenttImg img{
-    height: 30px;
-    width: 30px;
+	  height: 30px;
+	  width: 30px;
  }
  .comment_button{
     border-radius: 6px 6px 6px 6px;
@@ -2344,6 +2346,24 @@ box-shadow: 0 1px 0 #FFFFFF inset!important;}
 #loader-message{
     color:#fff;
     margin-left:20px;
+}
+/* loader for school autopopulate */
+#load-schools{
+	left: 523px;
+    position: absolute;
+    top: 17px;
+    z-index: 999;
+}
+.loader_schoolname{
+	left: 256px;
+    position: absolute;
+    top: 39px;
+    z-index: 999;
+}
+
+/* for main profile image  overwrite prettyphoto css*/
+.clearfix{
+	display: block !important;
 }
 
 

@@ -290,7 +290,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
     	var self =this;
         if(text)
         {
-//        	$('#load-schools').css("display","block");
+        	$('#load-schools').css("display","block");
         	BS.newSchool = text;
 			/* post the text that we type to get matched school */
 			 $.ajax({
