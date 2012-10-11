@@ -30,7 +30,7 @@ BS.AudioListView = Backbone.View.extend({
                                                               
                              content +='<li id="file-docs-'+i+'" data-key="[datVal]"> <div class="image-wrapper hovereffect" >' 
                         
-                                +' <div class="hover-div"><img src="images/docs_image.png"/><div class="hover-text"> '  //code for hover over effect
+                                +' <div class="hover-div"><img src="images/audio_image.png"/><div class="hover-text"> '  //code for hover over effect
                             
                                 +'<div class="comment-wrapper comment-wrapper2">'
                                 +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
@@ -40,8 +40,8 @@ BS.AudioListView = Backbone.View.extend({
                                 +'</div>'
                                 +'<div><h4> '+audio.documentName+'</h4>'
                                 +' <p class="doc-description" id="'+audio.id.id+'" >'
-                                +'<input type="hidden" id="id-'+audio.id.id+'" value="'+audio.url+'">'
-                                +''+audio.documentDescription+' </p> </div>'
+                                +'<input type="hidden" id="id-'+audio.id.id+'" value="'+audio.documentURL+'">'
+                                +''+audio.documentDescription+' <audio src="'+audio.documentURL+'"> </p> </div>'
                                 +'<h5 class="doctitle" id="'+audio.id.id+'"> Title & Description</h5>'           //'id' to edit the title and description
                                 +'<span>State</span>'
                                 +' <span class="date">+datVal+</span>' 
