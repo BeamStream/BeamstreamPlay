@@ -2046,10 +2046,15 @@ div.hover-div:hover img{
     opacity:1;        
 }
 div.hover-div img{
-/* 	height: 155px; */
-/*     width: 210px; */
+	height: 155px;
+    width: 210px;
     border-radius: 3px 3px 3px 3px;
-} 
+}
+.default-image{
+/* 	height: 155px;   */
+/*     width: 210px; */
+}
+ 
 .hover-text{
     display:none;
     clear:both;
