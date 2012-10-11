@@ -43,7 +43,7 @@ BS.ImageListView = Backbone.View.extend({
                                 _.each(docs, function(doc) {  
                                 content += '<li id="file-docs-'+i+'">'  
 
-                                +'<div class="image-wrapper hovereffect"> <div class="hover-div"><img src="'+doc+'" width="210px" height="141px"/><div class="hover-text">'
+                                +'<div class="image-wrapper hovereffect"> <div class="hover-div"><img class="filmdeapicture" src="'+doc+'" width="210px" height="141px"/><div class="hover-text">'
                                 +'<div class="comment-wrapper comment-wrapper2">'
                                 +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
                                 +'<a href="#" class="hand-icon"></a>'
