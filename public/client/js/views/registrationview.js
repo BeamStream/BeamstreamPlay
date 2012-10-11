@@ -125,6 +125,7 @@ BS.RegistrationView = Backbone.View.extend({
 			email : this.mailId,
 			schoolName : $('#school-name').val(),
 			userName : $('#user-name').val(),
+			alias :"" ,
 			password : $('#password1').val(),
 			confirmPassword :  $('#password_again').val(),
 			firstName : $('#first-name').val(),
