@@ -767,7 +767,7 @@ BS.AppRouter = Backbone.Router.extend({
 					if(localStorage["location"])
 						$('#location').val(localStorage["location"]);
 					if(localStorage["preferredUsername"])
-						$('#username').val(localStorage["preferredUsername"]);
+						$('#alias').val(localStorage["preferredUsername"]);
 						
 				}
 
