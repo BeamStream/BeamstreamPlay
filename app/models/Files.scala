@@ -37,5 +37,21 @@ object Files {
     }
     pptFiles
   }
+  
+  //----------------------//
+  // Get All PDF Files //
+  //--------------------//
+  def getAllPDFFiles(userId: ObjectId): List[Document] = {
+    var pdfFiles: List[Document] = List()
+    val pdfExtensionsList: List[String] = List(".pdf",".PDF")
+    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).toList
+    for (file <- filesFound) {
+      val fileName = file.documentURL
+      val i = fileName.lastIndexOf(".")
+      val extensionToMatch = fileName.substring(i)
+      if (pdfExtensionsList.contains(extensionToMatch)) pdfFiles ++= List(file)
+    }
+    pdfFiles
+  }
 
 }
