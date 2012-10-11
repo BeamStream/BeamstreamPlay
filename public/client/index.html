@@ -229,7 +229,7 @@ body {
     <div class="row" >
       <ul class="file-list" id="grid">
         <li data-key='["recent"]' id="coverimage">
-          <div class="image-wrapper"><div class="hover-div"><div id="profile-images"><img src="images/pictures_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Images </p></div></div></div>
+          <div class="image-wrapper"><div class="hover-div"><div id="profile-images"><img class="default-image" src="images/pictures_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Images </p></div></div></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -239,7 +239,7 @@ body {
           </div>
         </li>
         <li data-key='["oldest"]' id="covervideo">
-         <div class="image-wrapper"><div class="hover-div"><div id="profile-videos"><img src="images/video_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Videos </p></div></div> </div>
+         <div class="image-wrapper"><div class="hover-div"><div id="profile-videos"><img class="default-image" src="images/video_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Videos </p></div></div> </div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
@@ -249,7 +249,7 @@ body {
           </div>
         </li>        
         <li id="coverdocs" data-key='["recent"]'>
-         <div class="image-wrapper" id="google-docs"><div class="hover-div"><a class="google-docs-image" href="#googledocs"><img src="images/docs_image.png"></a>
+         <div class="image-wrapper" id="google-docs"><div class="hover-div"><a class="google-docs-image" href="#googledocs"><img class="default-image" src="images/docs_image.png"></a>
           <div class="hover-text"><p class="emptyfiles"> No Uploaded Docs </p></div></div></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -261,7 +261,7 @@ body {
         </li>        
         <li id="coveraudio" data-key='["oldest"]'>
             <div class="image-wrapper coveraud"> 
-               <div class="hover-div"><img src="images/audio_image.png"/><div class="hover-text"> 
+               <div class="hover-div"><img class="default-image" src="images/audio_image.png"/><div class="hover-text"> 
                  <p class="emptyfiles"> No Uploaded Audio </p></div>
                </div>
             </div>                   
@@ -275,7 +275,7 @@ body {
         </li>
         <li id="coverspreadsheet" data-key='["recent"]'>
           <div class="image-wrapper">
-            <div class="hover-div"><img src="images/spreadsheets_image.png"/><div class="hover-text"> 
+            <div class="hover-div"><img class="default-image" src="images/spreadsheets_image.png"/><div class="hover-text"> 
                <p class="emptyfiles"> No Uploaded Spreadsheets </p>
               </div> 
             </div>
@@ -289,7 +289,7 @@ body {
         </li>
         <li id="coverpresentation" data-key='["oldest"]'>
            <div class="image-wrapper"> 
-              <div class="hover-div"><img src="images/presentations_image.png"/>
+              <div class="hover-div"><img class="default-image" src="images/presentations_image.png"/>
                <div class="hover-text">  <p class="emptyfiles"> No Uploaded Presentations </p></div>        
               </div>
            </div> 
@@ -303,7 +303,7 @@ body {
        </li>
        <li id="coverpdf" data-key='["oldest"]'>
           <div class="image-wrapper">
-             <div class="hover-div"><img src="images/pdp_image.png"/><div class="hover-text">    
+             <div class="hover-div"><img class="default-image" src="images/pdp_image.png"/><div class="hover-text">    
                 <p class="emptyfiles"> No Uploaded Files </p>
               </div>
            </div>
@@ -317,7 +317,7 @@ body {
         </li>
         <li id="coverlink" data-key='["recent"]'>
            <div class="image-wrapper"> 
-             <div class="hover-div"><img src="images/links_image.png"/>
+             <div class="hover-div"><img class="default-image" src="images/links_image.png"/>
                <div class="hover-text">     
                 <p class="emptyfiles"> No Uploaded Links </p>
                </div>
@@ -2043,11 +2043,13 @@ body {
 
                 <div class="form-row-label">&nbsp;</div>
                 <div class="form-row">
+                   {{#unless edit}}
                     <div class="element">
                         <div id="num-validation"></div>
                         <label for="mobile">Mobile <span class="star"> </span></label>
                         <input type="text" id="mobile" name="mobile" class="required large " placeholder="(999) 999-9999" >
                     </div>
+                    {{/unless}}
                     <div class="element">
                         <label for="upload">Upload</label>
                         <select id="upload" class="large" name="upload">

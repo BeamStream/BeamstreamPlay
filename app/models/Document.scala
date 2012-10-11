@@ -38,7 +38,6 @@ object DocumentAccess extends Enumeration {
 object DocType extends Enumeration {
   type DocType = Value
   val GoogleDocs = Value(0, "GoogleDocs")
-  val YoutubeVideo = Value(1, "YoutubeVideo")
   val Other = Value(3, "Other")
 }
 
@@ -59,8 +58,8 @@ case class Document(@Key("_id") id: ObjectId,
 object Document {
 
   /**
- * Add a document(Modified)
- */
+   * Add a document(Modified)
+   */
   def addDocument(document: Document): ObjectId = {
     val documentId = DocumentDAO.insert(document)
     documentId.get
@@ -99,20 +98,20 @@ object Document {
     docsObtained
   }
 
-//  /*
-//   * Get all Documents List
-//   */
-//
-//  def getAllDocuments(documentIdList: List[ObjectId]): List[Document] = {
-//    var documentList: List[Document] = List()
-//
-//    for (documentId <- documentIdList) {
-//      val doc = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList
-//      documentList ++= doc
-//    }
-//
-//    documentList
-//  }
+  //  /*
+  //   * Get all Documents List
+  //   */
+  //
+  //  def getAllDocuments(documentIdList: List[ObjectId]): List[Document] = {
+  //    var documentList: List[Document] = List()
+  //
+  //    for (documentId <- documentIdList) {
+  //      val doc = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList
+  //      documentList ++= doc
+  //    }
+  //
+  //    documentList
+  //  }
 
   /*
    *  Update the Rockers List and increase the count by one 
@@ -146,16 +145,6 @@ object Document {
     DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(documentDescription = newDescription, documentName = newName), false, false, new WriteConcern)
   }
 
-//  /**
-//   * Documents for a user sorted by creation date
-//   */
-//
-//  def getAllDocumentsForAUserSortedbyDate(userId: ObjectId): List[Document] = {
-//    val docs = getAllGoogleDocumentsForAUser(userId).sortBy(doc => doc.creationDate)
-//    docs
-//  }
-  
-    
 }
 
 object DocumentDAO extends SalatDAO[Document, ObjectId](collection = MongoHQConfig.mongoDB("document"))

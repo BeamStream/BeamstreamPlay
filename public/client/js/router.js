@@ -303,11 +303,11 @@ BS.AppRouter = Backbone.Router.extend({
 				 // add all schools to school list
 				 var addSchoolList = '<select id="school-'+sClasses+'" class="large all-schools">'+schools+'</select>'; 
 				 $('#school-list-'+sClasses).html(addSchoolList);
-				 
+				 console.log("c_schoolId" + c_schoolId);
 				 //selected the schoolName from list
 				 $('#school-'+sClasses+' option[value="'+c_schoolId+'"]').attr('selected', 'selected');
 				 var schoolName = $('#school-'+sClasses+' option[value="'+c_schoolId+'"]').val();
-				 console.log("schoolName" + schoolName);
+				 console.log("schoolName -- " + schoolName);
 				 $('#school-list-'+sClasses+' a span.selectBox-label').html(schoolName);
 				 
  
