@@ -65,7 +65,6 @@ class EnumerationSerializer(enumList: List[Enumeration]) extends net.liftweb.jso
  */
 
 class ObjectIdSerializer extends Serializer[ObjectId] {
-  println("coming here in ObjectId serializar")
   private val Class = classOf[ObjectId]
 
   def deserialize(implicit format: Formats) = {
