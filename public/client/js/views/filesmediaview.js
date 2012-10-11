@@ -362,7 +362,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                   console.log(audio); 
                                    var datVal =  self.formatDateVal(audio.creationDate);     
                                   var content ='<div class="image-wrapper hovereffect google_doc">'                                     
-                                        +'<div class="hover-div"><img src="images/docs_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
+                                        +'<div class="hover-div"><img src="images/audio_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
                                         +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
                                         +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#audioview" style="text-decoration: none">'
                                         +'<h4> '+audio.documentName+'</h4> <p class="doc-description">'                
