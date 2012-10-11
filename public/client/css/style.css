@@ -2155,7 +2155,9 @@ padding-left: 3px;
 vertical-align: top;
 width: 135px !important;
 position: absolute;
-right: -140px;
+/* right: -140px; */
+right: -135px;
+/* top: 11px; */
 top: 15px;
 text-align: left;
 }
