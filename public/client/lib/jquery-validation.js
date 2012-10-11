@@ -272,7 +272,7 @@ $.extend($.validator, {
 	},
 
 	messages: {
-		required: "*",
+		required: "<img src='images/star.png' />",
 		remote: "Please fix this field.",
 		email: "Please enter a valid email address.",
 		url: "Please enter a valid URL.",
@@ -677,6 +677,7 @@ $.extend($.validator, {
 		},
 
 		showLabel: function(element, message) {
+			
 			var label = this.errorsFor( element );
 			if ( label.length ) {
 				// refresh error/success class
@@ -685,6 +686,7 @@ $.extend($.validator, {
 				// check if we have a generated label, replace the message then
 				if ( label.attr("generated") ) {
 					label.html(message);
+//					$(element).css("border","1px solid #DD4B39");
 				}
 			} else {
 				// create label
@@ -701,17 +703,19 @@ $.extend($.validator, {
 					if ( this.settings.errorPlacement ) {
 						this.settings.errorPlacement(label, $(element) );
 					} else {
-					label.insertAfter(element);
+					  label.insertAfter(element);
 					}
 				}
+//				$(element).css("border","1px solid #DD4B39");
 			}
 			if ( !message && this.settings.success ) {
-				label.text("");
+				label.text(" ");
 				if ( typeof this.settings.success === "string" ) {
 					label.addClass( this.settings.success );
 				} else {
 					this.settings.success( label, element );
 				}
+//				$(element).css("border","none");
 			}
 			this.toShow = this.toShow.add(label);
 		},

@@ -2046,8 +2046,8 @@ div.hover-div:hover img{
     opacity:1;        
 }
 div.hover-div img{
-	height: 155px;
-    width: 210px;
+/* 	height: 155px; */
+/*     width: 210px; */
     border-radius: 3px 3px 3px 3px;
 }
 .default-image{
@@ -2155,7 +2155,9 @@ padding-left: 3px;
 vertical-align: top;
 width: 135px !important;
 position: absolute;
-right: -140px;
+/* right: -140px; */
+right: -135px;
+/* top: 11px; */
 top: 15px;
 text-align: left;
 }
