@@ -113,6 +113,7 @@ POST /isAFollower    controllers.MessageController.isAFollower
 
 #Files
 GET /audioFilesOfAUser  controllers.DocumentController.getAllAudioFilesForAUser
+GET /getAllPPTFilesForAUser  controllers.DocumentController.getAllPPTFilesForAUser
 
 
 #bitly

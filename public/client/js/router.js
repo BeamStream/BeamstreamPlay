@@ -23,6 +23,7 @@ BS.AppRouter = Backbone.Router.extend({
         "googledocs" : "googleDocs",
         "imagelist" : "imageList",
         "videos" : "videoList",
+        "audioview": "audioList",
         "settings" : "settings"
 //        "profile/view/id/:id/name/:name" : "publicProfile"
 
@@ -1094,8 +1095,7 @@ BS.AppRouter = Backbone.Router.extend({
                          *
                          */
                         videoList :function(){
-                          $('#content').children().detach();
-                           console.log("image view ");  
+                          $('#content').children().detach();                 
                            BS.user.fetch({ success:function(e){
 					   //get main menu
 					   this.navView = new BS.NavView({ model: BS.user });
@@ -1109,7 +1109,30 @@ BS.AppRouter = Backbone.Router.extend({
                             BS.videolistview.render();
                             $('#content').html(BS.videolistview.el); 
                           $('.file-type').hide();   //to hide the filetype menu
-                        },                                           
+                        },
+                        
+                        /*
+                         *display Audios in another view
+                         *
+                         */
+                        audioList:function(){
+                           $('#content').children().detach();
+                           console.log("audioList");
+                           BS.user.fetch({ success:function(e){
+					   //get main menu
+					   this.navView = new BS.NavView({ model: BS.user });
+					   this.navView.showProfilePic();
+					   $('.nav-collapse').html(this.navView.render().el);
+					   $('nav li.active').removeClass('active');
+					   $('#file-media').addClass('active');					   
+					   $('#right-photo').attr("src",BS.profileImageUrl);			       
+				}});
+                              BS.audiolistview=new BS.AudioListView();
+                              BS.audiolistview.render();
+                              $('#content').html(BS.audiolistview.el); 
+                              $('.file-type').hide();   //to hide the filetype menu
+                        },
+                        
 			displayJanRain : function(){
 				
 				 var janRainCount = $('.janrainContent').length;

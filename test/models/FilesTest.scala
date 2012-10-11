@@ -32,12 +32,15 @@ class FilesTest extends FunSuite with BeforeAndAfter {
 
     val audioFilesObtainedAgain = Files.getAllAudioFiles(userId)
     assert(audioFilesObtainedAgain.size === 2)
-    
-    val fifthDocumentToCreate = new Document(new ObjectId, "NeelKanth'sFile.flv", "Neel'sFile", "http://neel.ly/Neel'sFile.flv", DocType.Other, userId, DocumentAccess.Private, new ObjectId, new Date, new Date, 0, List(), List())
+
+    val fifthDocumentToCreate = new Document(new ObjectId, "NeelKanth'sFile", "Neel'sFile", "http://neel.ly/Neel'sFile.ODP", DocType.Other, userId, DocumentAccess.Private, new ObjectId, new Date, new Date, 0, List(), List())
+    val sixthDocumentToCreate = new Document(new ObjectId, "NeelKanth'sFile", "Neel'sFile", "http://neel.ly/Neel'sFile.odp", DocType.GoogleDocs, userId, DocumentAccess.Private, new ObjectId, new Date, new Date, 0, List(), List())
     Document.addDocument(fifthDocumentToCreate)
-    
-     val videoFilesObtained = Files.getAllVideoFiles(userId)
-    assert(videoFilesObtained.size === 2)
+    Document.addDocument(sixthDocumentToCreate)
+
+    val pptFilesObtained = Files.getAllPPTFiles(userId)
+    assert(pptFilesObtained.size === 1)
+
   }
 
   after {
