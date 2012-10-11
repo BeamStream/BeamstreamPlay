@@ -144,15 +144,15 @@ object DocumentController extends Controller {
     Ok(rockersJson).as("application/json")
   }
 
-//  /*
-//    * Documents for the current user sorted by creation date
-//    */
-//
-//  def getAllDocumentsForCurrentUserSortedbyDate = Action { implicit request =>
-//    val allDocumentsForAUser = Document.getAllDocumentsForAUserSortedbyDate(new ObjectId(request.session.get("userId").get))
-//    val allDocumentsForAStreamJson = write(allDocumentsForAUser)
-//    Ok(allDocumentsForAStreamJson).as("application/json")
-//  }
+  //  /*
+  //    * Documents for the current user sorted by creation date
+  //    */
+  //
+  //  def getAllDocumentsForCurrentUserSortedbyDate = Action { implicit request =>
+  //    val allDocumentsForAUser = Document.getAllDocumentsForAUserSortedbyDate(new ObjectId(request.session.get("userId").get))
+  //    val allDocumentsForAStreamJson = write(allDocumentsForAUser)
+  //    Ok(allDocumentsForAStreamJson).as("application/json")
+  //  }
 
   /**
    * Upload Media From HardDrive
@@ -168,11 +168,13 @@ object DocumentController extends Controller {
         request.body.file("docData").map { docData =>
           val documentName = docData.filename
           val contentType = docData.contentType.get
+          println(contentType)
           val uniqueString = tokenEmail.securityToken
           val docbtained: File = docData.ref.file.asInstanceOf[File]
           println(docbtained.getTotalSpace)
-          AmazonUpload.uploadFileToAmazon(documentName, docbtained)
-          val docURL = "https://s3.amazonaws.com/BeamStream/" + documentName
+          val docUniqueKey=tokenEmail.securityToken
+          AmazonUpload.uploadFileToAmazon(docUniqueKey+documentName, docbtained)
+          val docURL = "https://s3.amazonaws.com/BeamStream/" + docUniqueKey+documentName
           val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
             new ObjectId, new Date, new Date, 0, List(), List())
           Document.addDocument(documentCreated)
@@ -182,14 +184,30 @@ object DocumentController extends Controller {
 
     Ok(write(new ResulttoSent("Success", "Document Uploaded Successfully")))
   }
+
   
+  
+  
+  //---------------------------//
+  // File Section Starts Here //
+  //-------------------------//
+
   /**
    * Get All AudioFiles
    */
-  
+
   def getAllAudioFilesForAUser = Action { implicit request =>
-   val audioFiles= Files.getAllAudioFiles( new ObjectId(request.session.get("userId").get))
+    val audioFiles = Files.getAllAudioFiles(new ObjectId(request.session.get("userId").get))
     Ok(write(audioFiles)).as("application/json")
+  }
+  
+  /**
+   * Get All PPTFiles
+   */
+
+  def getAllPPTFilesForAUser = Action { implicit request =>
+    val PPTFiles = Files.getAllPPTFiles(new ObjectId(request.session.get("userId").get))
+    Ok(write(PPTFiles)).as("application/json")
   }
 }
 
