@@ -114,7 +114,8 @@ BS.documentRockers =BS.URLRequired+"/getRockers";
 BS.getOneDocs = BS.URLRequired+"/getDocument"; 
 //Upload Doc from My Computer the Google docs 
 BS.uploaddocFrmComputer = BS.URLRequired+"/getDocumentFromDisk";
-
+//Get audio Files Of AUser
+BS.getaudioFilesOfAUser = BS.URLRequired+"/audioFilesOfAUser";
 
 
 /* for beta users */
