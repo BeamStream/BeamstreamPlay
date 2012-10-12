@@ -787,6 +787,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                 document.getElementById('loader-message').innerHTML = data.message;
                                 self.docsList();
                                 self.audio();
+                                self.presentation();
                                 $("#dooclinkchild_dr").hide(200);
                             }
                     }
