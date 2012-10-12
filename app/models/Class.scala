@@ -92,7 +92,6 @@ object Class {
       }
       ResulttoSent("Success", "User has successfully added his classes")
     }
-
   }
 
   /*

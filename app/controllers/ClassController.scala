@@ -34,7 +34,6 @@ object ClassController extends Controller {
     val classListJsonMap = request.body.asFormUrlEncoded.get
     val classJsonList = classListJsonMap("data").toList.head
     val classListTemp = net.liftweb.json.parse(classJsonList)
-    println(classListTemp)
     val classList = net.liftweb.json.parse(classJsonList).extract[List[Class]]
     val resultToSent = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
     val refreshedClasses = Class.getAllRefreshedClasss(classList)
