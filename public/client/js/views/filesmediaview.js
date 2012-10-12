@@ -526,12 +526,14 @@ BS.FilesMediaView = Backbone.View.extend({
 			url : BS.allStreamsForAUser,
 			dataType : "json",
 			success : function(options) {
+								content+='<option>Save to Class</option>'
                              _.each(options, function(option) {
-                              content+= '<option>'+option.streamName+'</option>';
-                              i++;
+	                              content+= '<option>'+option.streamName+'</option>';
+	                              i++;
                               });
-                              content+='<option class="enterfromcatgry">Enter From Catagory</option>'              
-                              $('#linkselect_dr').html(content); 
+							  content+='<option>Profile</option>'
+									   +'<option>My Docs</option>';             
+                              $('#link-class-list').html(content); 
                               }
 					
 					  
@@ -599,12 +601,14 @@ BS.FilesMediaView = Backbone.View.extend({
 			url : BS.allStreamsForAUser,
 			dataType : "json",
                         success : function(options) {
+                        	 content+='<option>Save to Class</option>'
                              _.each(options, function(option) {
-                              content+= '<option>'+option.streamName+'</option>';
-                              i++;
+	                              content+= '<option>'+option.streamName+'</option>';
+	                              i++;
                               });
-                              content+='<option class="enterfromcatgry">Enter From Catagory</option>'
-                              $('#vialinkselect_dr').html(content); 
+                        	  content+='<option>Profile</option>'
+								   +'<option>My Docs</option>';
+                              $('#doc-class-list').html(content); 
                               }
 					
 					  
@@ -639,13 +643,15 @@ BS.FilesMediaView = Backbone.View.extend({
 			url : BS.allStreamsForAUser,
 			dataType : "json",
 			success : function(options) {
+				            content+='<option>Save to Class</option>'
                             _.each(options, function(option) {
-                             content+= '<option>'+option.streamName+'</option>';
-                             i++;
+	                             content+= '<option>'+option.streamName+'</option>';
+	                             i++;
                              });
-                            content+='<option class="enterfromcatgry">Enter From Catagory</option>'
-                            $('#videoselect_dr').html(content);
-                                }		  
+				            content+='<option>Profile</option>'
+								   +'<option>My Docs</option>';
+                            $('#video-class-list').html(content);
+                         }		  
 		 });
         },
         
@@ -686,12 +692,14 @@ BS.FilesMediaView = Backbone.View.extend({
                     url : BS.allStreamsForAUser,
                     dataType : "json",
                     success : function(options) {
+                        	content+='<option>Save to Class</option>'
                             _.each(options, function(option) {
-                            content+= '<option>'+option.streamName+'</option>';
-                             i++;
+                                 content+= '<option>'+option.streamName+'</option>';
+                                 i++;
                               });
-                              content+='<option class="enterfromcatgry">Enter From Catagory</option>'
-                              $('#audioselect_dr').html(content); 
+                        	  content+='<option>Profile</option>'
+								+'<option>My Docs</option>';
+                              $('#audio-class-list').html(content); 
                               }	  
 		 });
         },
@@ -734,12 +742,14 @@ BS.FilesMediaView = Backbone.View.extend({
 			url : BS.allStreamsForAUser,
 			dataType : "json",
 			success : function(options) {
+							  content+='<option>Save to Class</option>'
                               _.each(options, function(option) {
-                              content+= '<option>'+option.streamName+'</option>';
+                                 content+= '<option>'+option.streamName+'</option>';
                               i++;
                               });
-                              content+='<option class="enterfromcatgry">Enter From Catagory</option>'
-                              $('#presentationselect_dr').html(content); 
+                              content+='<option>Profile</option>'
+									+'<option>My Docs</option>';
+                              $('#presentation-class-list').html(content); 
                               }	  
 		 });
         },

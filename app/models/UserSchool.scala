@@ -48,36 +48,11 @@ object UserSchool {
   def createSchool(userSchools: List[UserSchool]): ResulttoSent = {
 
     if (UserSchool.duplicateSchoolExistesInSubmittedList(userSchools) == true) ResulttoSent("Failure", "Do Not Enter The Same School Twice")
-
-    //    else {
-    //      for (userSchool <- userSchools) {
-    //        val userSchoolObtained = UserSchool.userSchoolsForAUser(userSchool.id)
-    //
-    //        // Edit School Case
-    //        if (userSchoolObtained.size == 1) {
-    //          UserSchoolDAO.update(MongoDBObject("_id" -> userSchool.id), userSchool, false, false, new WriteConcern)
-    //          //School.updateSchool(userSchoolObtained(0).assosiatedSchoolId, userSchool.schoolName)
-    //        } else {
-    //          // Create a new School
-    //          val userSchoolId = UserSchoolDAO.insert(userSchool)
-    //          val userSchoolObtained = UserSchool.getUserSchoolById(userSchoolId.get)
-    //
-    //          val schoolsInDatabase = UserSchool.isSchoolinDatabaseAlready(userSchoolObtained.assosiatedSchoolId)
-    //
-    //          if (schoolsInDatabase.size == 0) {
-    //            //Creates a new School and set the proper schoolId in the inserted school
-    //            val schoolIdForUpdatingUserSchool = School.addNewSchool(new School(new ObjectId, userSchool.schoolName))
-    //            UserSchool.updateUserSchoolWithOriginalSchoolId(userSchoolId.get, schoolIdForUpdatingUserSchool)
-    //          }
-    //        }
-    //
-    //      }
-    //      ResulttoSent("Success", "Schools Added Successfully")
-    //    }
-
+    
     else {
       for (userSchool <- userSchools) {
         val userSchoolObtained = UserSchool.userSchoolsForAUser(userSchool.id)
+        
         if (userSchoolObtained.size == 1) {
           UserSchoolDAO.update(MongoDBObject("_id" -> userSchool.id), userSchool, false, false, new WriteConcern)
         } else {

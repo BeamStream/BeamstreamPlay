@@ -92,9 +92,24 @@ body {
                       <ul id="linksmenu_dr" class="largeli fixingmenu_dr">
                         <span class="arrow-left"></span>
                          <li><input type="text" class="dropdowntext" placeholder="http://www.PasteLinksHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Links"></li>
-                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Links"><select id="linkselect_dr" class="dropdownselect"><option>Class Links</option></select></li>
-                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i><select class="dropdownselect"><option>Save to Class</option>
-                                <option>Profile</option><option>My Docs</option></select></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Links">
+                             <select id="link-category-list" class="dropdownselect">
+                                <option>Class Links</option>
+								<option>EdTech Tool</option>
+								<option>Reference Material</option>
+								<option>Tutorial</option>
+								<option>Presentation</option>
+								<option>Amusement</option>
+								<option class="enterfromcatgry">Enter New Catagory</option>
+                             </select>
+                           </li>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+								<select class="dropdownselect" id="link-class-list">
+									<option>Save to Class</option>
+                                	<option>Profile</option>
+									<option>My Docs</option>
+								</select>
+						  </li>
                           <li><input type="button" class="upload_button" id="links_uploadbutton"></li>
                        </ul>   
                   </li>
@@ -121,8 +136,25 @@ body {
                                         <ul id='frmlinkchild_dr' class="largeli">
                                             <span class="arrow-left"></span>
                                             <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small" id="gdoc-name" placeholder="NAME of Doc"></li>
-                                            <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc"><select id="vialinkselect_dr" class="dropdownselect"><option>Class Doc</option><option>Class Video</option></select></li>
-                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i><select class="dropdownselect"><option>Save to Class</option><option>Profile</option><option>My Docs</option></select></li>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
+												<select id="doc-category-list" class="dropdownselect">
+													<option>Class Doc</option>
+													<option>Class Notes</option>
+													<option>Reference Material</option>
+													<option>Tutorial</option>
+													<option>Presentation</option>
+													<option>Project Doc</option>
+													<option>Lecture</option>
+													<option class="enterfromcatgry">Enter New Catagory</option>
+												</select>
+											</li>
+                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+											<select class="dropdownselect" id="doc-class-list">
+												<option>Save to Class</option>
+												<option>Profile</option>
+												<option>My Docs</option>
+											</select>
+											</li>
                                             <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
                                         </ul>
                                     </li>
@@ -138,8 +170,26 @@ body {
                         <ul id='youtubechild_dr' class="largeli">
                         <span class="arrow-left"></span>
                           <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Video"></li>
-                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video"><select id="videoselect_dr" class="dropdownselect"><option>Class Video</option></select></li>
-                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i><select class="dropdownselect"><option>Save to Class</option><option>Profile</option><option>My Docs</option></select></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video">
+								<select id="video-category-list" class="dropdownselect">
+									<option>Class Video</option>
+									<option>Profile Video</option>
+									<option>Reference Material</option>
+									<option>Tutorial</option>
+									<option>Presentation</option>
+									<option>Project Presentation</option>
+									<option>Project Video</option>
+									<option>Lecture</option>
+									<option class="enterfromcatgry">Enter New Catagory</option>
+								</select>
+						</li>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+							<select class="dropdownselect" id="video-class-list">
+								<option>Save to Class</option>
+								<option>Profile</option>
+								<option>My Docs</option>
+							</select>
+						  </li>
                           <li><input type="button" class="upload_button" id="video_uploadbutton"></li>
                         </ul>
                       </li>
@@ -153,8 +203,25 @@ body {
                         <ul id='vialinkchild_dr' class="largeli">
                         <span class="arrow-left"></span>
                           <li><input type="text" class="dropdowntext" placeholder="http://www.PasteAudioURLHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Audio"></li>
-                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Audio File"><select id="audioselect_dr"  class="dropdownselect"><option>Class Audio</option></select></li>
-                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i><select class="dropdownselect"><option>Save to Class</option><option>Profile</option><option>My Docs</option></select></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Audio File">
+								<select id="audio-category-list"  class="dropdownselect">
+									<option>Class Audio</option>
+									<option>Class Notes</option>
+									<option>Reference Material</option>
+									<option>Tutorial</option>
+									<option>Presentation</option>
+									<option>Project Audio</option>
+									<option>Lecture</option>
+									<option class="enterfromcatgry">Enter New Catagory</option>
+								</select>
+							</li>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+							<select class="dropdownselect" id="audio-class-list">
+							   <option>Save to Class</option>
+							   <option>Profile</option>
+							   <option>My Docs</option>
+							</select>
+						 </li>
                           <li><input type="button" class="upload_button" id="audio_uploadbutton"></li>
                         </ul>
                       </li>
@@ -168,8 +235,24 @@ body {
                         <ul id='presvialinkchild_dr' class="largeli">
                         <span class="arrow-left"></span>
                           <li><input type="text" class="dropdowntext" placeholder="http://www.PasteLinkHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Presentations"></li>
-                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Presentations File"><select id="presentationselect_dr" class="dropdownselect"><option>Class Presentations</option></select></li>
-                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i><select class="dropdownselect"><option>Save to Class</option><option>Profile</option><option>My Docs</option></select></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Presentations File">
+                            <select id="presentation-category-list" class="dropdownselect">
+                                      <option>Class Presentation</option>
+									  <option >Assignment</option>
+									  <option>Tutorial</option>
+ 									  <option >Presentation</option>
+									  <option >Project Presentation</option>
+									  <option >Event Presentation</option>
+                                      <option class="enterfromcatgry">Enter New Catagory</option>
+                            </select>
+                           </li>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+								<select id="presentation-class-list" class="dropdownselect">
+									<option>Save to Class</option>
+									<option>Profile</option>
+									<option>My Docs</option>
+								</select>
+						 </li>
                           <li><input type="button" class="upload_button" id="press_uploadbutton"></li>
                         </ul>
                       </li>
@@ -1583,6 +1666,7 @@ body {
 	<div id="school-popup"></div>
 	<div id="list-popups"></div>
 	<div id="main-popups"></div>
+	 
 
 
 
