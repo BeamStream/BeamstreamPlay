@@ -2391,5 +2391,11 @@ text-align: left;
 .clearfix{
 	display: block !important;
 }
-
+.main-messages{
+	background-color: #F0EDED;
+	width :100px;
+	height:100px;
+	z-index: 999;
+	 position: relative;
+}
 

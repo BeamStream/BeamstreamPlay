@@ -72,7 +72,6 @@ BS.ClassView = Backbone.View.extend({
 						        localStorage["editClass"] = "true";
 						        localStorage["editProfile"] = "true";
 								// navigate to main stream page
-								$(".star").hide();
 								BS.AppRouter.navigate("streams", {trigger: true});
 							}
 							else
