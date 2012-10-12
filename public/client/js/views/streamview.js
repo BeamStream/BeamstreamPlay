@@ -496,7 +496,18 @@ BS.StreamView = Backbone.View.extend({
 //  					   alert("Enter School & Class to post a message in a stream ");
   					 var alert = '<div id="dialog" title="Message !">You need to add a stream first.</br><a  onClick="closeAlert();" class="alert-msg " href="#create_stream"> Create Stream</a></div>';
   					 $('#alert-popup').html(alert);
-  					 $( "#dialog" ).dialog({ autoOpen: false });
+  					 $( "#dialog" ).dialog({
+//  						buttons: { 
+//  					        "Ok": function() { 
+//  					            $(this).dialog("close"); 
+//  					        } 
+//  					    },
+	  					autoOpen: false ,
+	  					modal: true,
+	  					draggable: false,
+	  				    resizable: false
+
+  					 });
   					 $( "#dialog" ).dialog('open');
   					 $( "#dialog" ).dialog({ height: 100 });
   					

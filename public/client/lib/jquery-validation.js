@@ -16,7 +16,7 @@
 $.extend($.fn, {
 	// http://docs.jquery.com/Plugins/Validation/validate
 	validate: function( options ) {
-
+   
 		// if nothing is selected, return nothing; can't chain anyway
 		if (!this.length) {
 			if (options && options.debug && window.console) {
@@ -219,7 +219,7 @@ $.extend($.validator, {
 		ignoreTitle: false,
 		onfocusin: function(element, event) {
 			this.lastActive = element;
-
+              
 			// hide error label and remove error class on focus if enabled
 			if ( this.settings.focusCleanup && !this.blockFocusCleanup ) {
 				if ( this.settings.unhighlight ) {
@@ -234,9 +234,11 @@ $.extend($.validator, {
 			}
 		},
 		onkeyup: function(element, event) {
+			 
 			if ( event.which == 9 && this.elementValue(element) === '' ) {
 				return;
 			} else if ( element.name in this.submitted || element === this.lastActive ) {
+				$(element).css("border","none");
 				this.element(element);
 			}
 		},
@@ -426,7 +428,9 @@ $.extend($.validator, {
 		},
 
 		hideErrors: function() {
+			 
 			this.addWrapper( this.toHide ).hide();
+			
 		},
 
 		valid: function() {
@@ -492,6 +496,7 @@ $.extend($.validator, {
 		},
 
 		reset: function() {
+			
 			this.successList = [];
 			this.errorList = [];
 			this.errorMap = {};
@@ -508,6 +513,7 @@ $.extend($.validator, {
 		prepareElement: function( element ) {
 			this.reset();
 			this.toHide = this.errorsFor(element);
+			 
 		},
 
 		elementValue: function( element ) {
@@ -677,7 +683,10 @@ $.extend($.validator, {
 		},
 
 		showLabel: function(element, message) {
-			
+//			console.log(element);
+//			var p = $(element).parents('div');
+//			var l = $(p).find('label:first');
+			 
 			var label = this.errorsFor( element );
 			if ( label.length ) {
 				// refresh error/success class
@@ -686,7 +695,10 @@ $.extend($.validator, {
 				// check if we have a generated label, replace the message then
 				if ( label.attr("generated") ) {
 					label.html(message);
+					
 //					$(element).css("border","1px solid #DD4B39");
+//					$(element).attr("placeholder",errormsg);
+					 
 				}
 			} else {
 				// create label
@@ -706,7 +718,9 @@ $.extend($.validator, {
 					  label.insertAfter(element);
 					}
 				}
+				
 //				$(element).css("border","1px solid #DD4B39");
+//				$(element).attr("placeholder",errormsg);
 			}
 			if ( !message && this.settings.success ) {
 				label.text(" ");
@@ -715,13 +729,13 @@ $.extend($.validator, {
 				} else {
 					this.settings.success( label, element );
 				}
-//				$(element).css("border","none");
 			}
 			this.toShow = this.toShow.add(label);
 		},
 
 		errorsFor: function(element) {
 			var name = this.idOrName(element);
+			 
 			return this.errors().filter(function() {
 				return $(this).attr('for') === name;
 			});
