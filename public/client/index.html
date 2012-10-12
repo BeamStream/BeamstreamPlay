@@ -528,7 +528,7 @@ body {
        <div class="control-button doc-pop-button">
 		<a href="#"><img id="popup-close" class="close-button" src="images/close-button.png"></a>
        </div>
-        <h2  class="pull-left"> Edit Docs </h2>
+        <h2  class="pull-left">  Docs view </h2>
      </div>
     <div class="modal-body doc-popup-wrapper">
         <form name="add-new-school-form" id="add-new-school-form">
@@ -536,6 +536,31 @@ body {
                 <div id="popup-loader" >
                     <!--<image src="images/ajax-loader1.gif">--> 
                     <iframe src="{{docUrl}}" scrolling="NO"  width="950" height="500" style="border: none">
+                    <p>Your browser does not support iframes.</p>
+                    </iframe> 
+            </div>
+            </fieldset>
+        </form>
+    </div>
+    
+ </div>
+</script>
+ <!-- Documents popup window to show presentation -->
+<script type="text/x-handlebars-template" id="presentation-popup-tpl">
+ <div class="modal-backdrop in"></div>
+    <div class="modal gdocpopup  modal-popups" style="display:block;">
+     <div class="modal-header">
+       <div class="control-button doc-pop-button">
+		<a href="#"><img id="popup-close" class="close-button" src="images/close-button.png"></a>
+       </div>
+        <h2  class="pull-left">  Presentation view </h2>
+     </div>
+    <div class="modal-body doc-popup-wrapper">
+        <form name="add-new-school-form" id="add-new-school-form">
+            <fieldset class="popupfield">    
+                <div id="popup-loader" >
+                    <!--<image src="images/ajax-loader1.gif">--> 
+                    <iframe src="http://docs.google.com/gview?url={{docUrl}}&embedded=true" scrolling="NO"  width="950" height="500" style="border: none">
                     <p>Your browser does not support iframes.</p>
                     </iframe> 
             </div>
@@ -3605,8 +3630,10 @@ body {
         <script src="js/views/gdocpopupview.js"></script>
 	<script src="js/views/imagelistview.js"></script>
 	<script src="js/views/videolistview.js"></script>
-        <script src="js/views/audiolistview.js"></script>
+        <script src="js/views/audiolistview.js"></script> 
         <script src="js/views/presentationview.js"></script>
+        <script src="js/views/presentationpopup.js"></script>
+        <!--<script src="js/views/pdflistview.js"></script>-->
 	<script src="js/models/singleusermodel.js"></script>
 	<script src="js/models/documentmodel.js"></script>
 

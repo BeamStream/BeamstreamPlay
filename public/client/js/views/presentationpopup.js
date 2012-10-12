@@ -1,6 +1,5 @@
-BS.GdocPopupView = Backbone.View.extend({
-    
-     events: {
+BS.PresentationPopupView = Backbone.View.extend({
+ events: {
 		
 		"click #popup-close" : "close"
                
@@ -8,7 +7,7 @@ BS.GdocPopupView = Backbone.View.extend({
     
     initialize: function(){
         console.log("doc popup");
-        this.source = $("#document-popup-tpl").html();
+        this.source = $("#presentation-popup-tpl").html();
         this.template = Handlebars.compile(this.source);
         
     },
@@ -22,15 +21,13 @@ BS.GdocPopupView = Backbone.View.extend({
         
         },
         
-        
-        /**
-        * function to close the docs view
+         /**
+        * function to close the gdocs edit screen
         */
         close:function(eventName){
             eventName.preventDefault(); 
             $('#gdocedit').children().detach(); 
-            var googledocsview = new BS.GoogleDocsView();
+            var presentationview =new BS.PresentationView();
         }
         
-        
-})
+ })
