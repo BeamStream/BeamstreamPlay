@@ -32,26 +32,14 @@ class ClassTest extends FunSuite with BeforeAndAfter {
   /*
    * Find class by class code and class name
    */
-  test("Finding a class") {
-    val classA = ClassDAO.find(MongoDBObject("classCode" -> "201"))
-    assert(classA.size === 1)
+ 
 
-    val classB = ClassDAO.find(MongoDBObject("className" -> "CSE"))
-    assert(classB.size === 2)
 
-  }
 
-//  test("finding class by class name") {
-//    assert(Class.findClassByName("SE").size === 2)
-//    assert(Class.findClassByName("E").size === 3)
-//    assert(Class.findClassByName("T").size === 1)
+//  test("finding class by class time") {
+//    assert(Class.findClassByTime("3:30").size === 3)
 //
 //  }
-
-  test("finding class by class time") {
-    assert(Class.findClassByTime("3:30").size === 3)
-
-  }
 
 //  test("Avoid create class if duplicate code exists") {
 //    val userId = User.createUser(user1)

@@ -1,8 +1,8 @@
-BS.AudioListView = Backbone.View.extend({ 
-        initialize:function(){
+BS.PresentationView = Backbone.View.extend({ 
+  initialize:function(){
             this.source = $("#tpl-docsview").html();
             this.template = Handlebars.compile(this.source);
-            this.audio();
+            this.presentation();
           
         },
         render:function (eventName) {
@@ -10,38 +10,39 @@ BS.AudioListView = Backbone.View.extend({
             return this;
             },
             
-             audio :function(eventName){                 //to list the audio files 
+            
+              presentation :function(eventName){
 //            $('.coveraud').html('content');
             var i = 1;
             var self = this;
             var content='';
             $.ajax({
                         type : 'GET',
-                        url :  BS.getaudioFilesOfAUser,
+                        url :  BS.getAllPPTFilesForAUser,
                         dataType : "json",
-                        success : function(data) {
+                        success : function(ppts) {
 //                            if(docs.length != 0)  {
-                              _.each(data, function(audio) {
-                                 
-//                                   var datVal =  self.formatDateVal(audio.creationDate);                                                                 
-                             content +='<li id="file-docs-'+i+'" data-key="[datVal]"> <div class="image-wrapper hovereffect" >'                       
-                                +' <div class="hover-div"><img src="images/audio_image.png"/><div class="hover-text"> '  //code for hover over effec                          
+                              _.each(ppts, function(ppt) {                                
+//                             var datVal = self.formatDateVal(audio.creationDate);     
+                                                              
+                                content +='<li id="file-docs-'+i+'" data-key="[datVal]"> <div class="image-wrapper hovereffect" >'                  
+                                +' <div class="hover-div"><img src="images/presentations_image.png"/><div class="hover-text"> '  //code for hover over effect
                                 +'<div class="comment-wrapper comment-wrapper2">'
                                 +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
                                 +'<a href="#" class="hand-icon" ></a>'
                                 +'<a href="#" class="message-icon"></a>'
                                 +'<a href="#" class="share-icon"></a>'
                                 +'</div>'
-                                +'<div><h4> '+audio.documentName+'</h4>'
-                                +' <p class="doc-description" id="'+audio.id.id+'" >'
-                                +'<input type="hidden" id="id-'+audio.id.id+'" value="'+audio.documentURL+'">'
-                                +''+audio.documentDescription+' </p> </div>'
-                                +'<h5 class="doctitle" id="'+audio.id.id+'"> Title & Description</h5>'           //'id' to edit the title and description
+                                +'<div><h4> '+ppt.documentName+'</h4>'
+                                +' <p class="doc-description" id="'+ppt.id.id+'" >'
+                                +'<input type="hidden" id="id-'+ppt.id.id+'" value="'+ppt.documentURL+'">'
+                                +''+ppt.documentDescription+' <audio src="'+ppt.documentURL+'"> </p> </div>'
+                                +'<h5 class="doctitle" id="'+ppt.id.id+'"> Title & Description</h5>'           //'id' to edit the title and description
                                 +'<span>State</span>'
-                                +' <span class="date">Date</span>' 
+                                +' <span class="date">+datVal+</span>' 
                                 +'</div> </div></div>'                                                       //two closing <div> for hover over effect
                                 +'<div class="comment-wrapper comment-wrapper1"> '
-                                +' <a class="common-icon music" href="#">'
+                                +' <a class="common-icon presentation" href="#">'
                                 +'<span class="right-arrow"></span>'
                                 +' </a>'
                                 +'<ul class="comment-list">'
@@ -52,13 +53,14 @@ BS.AudioListView = Backbone.View.extend({
                                 +'</div> </li>'; 
                             
                                 i++;
-     
+
                               });
-                               $('#grid').html(content); 
+                                $('#grid').html(content); 
 //                        }
                         }
                });
             
                                  
         }
+            
 })
