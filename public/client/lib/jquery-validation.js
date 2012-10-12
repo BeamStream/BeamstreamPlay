@@ -238,7 +238,7 @@ $.extend($.validator, {
 			if ( event.which == 9 && this.elementValue(element) === '' ) {
 				return;
 			} else if ( element.name in this.submitted || element === this.lastActive ) {
-				$(element).css("border","none");
+//				$(element).css("border","none");
 				this.element(element);
 			}
 		},
