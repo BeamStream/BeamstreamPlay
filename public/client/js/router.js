@@ -24,6 +24,7 @@ BS.AppRouter = Backbone.Router.extend({
         "imagelist" : "imageList",
         "videos" : "videoList",
         "audioview": "audioList",
+        "presentationview": "presentationList",
         "settings" : "settings"
 //        "profile/view/id/:id/name/:name" : "publicProfile"
 
@@ -1131,6 +1132,28 @@ BS.AppRouter = Backbone.Router.extend({
                               BS.audiolistview.render();
                               $('#content').html(BS.audiolistview.el); 
                               $('.file-type').hide();   //to hide the filetype menu
+                        },
+                        
+                        /*
+                         *display Audios in another view
+                         *
+                         */
+                        presentationList:function(){
+                         $('#content').children().detach();
+                           console.log("presentationList");   
+                           BS.user.fetch({ success:function(e){
+					   //get main menu
+					   this.navView = new BS.NavView({ model: BS.user });
+					   this.navView.showProfilePic();
+					   $('.nav-collapse').html(this.navView.render().el);
+					   $('nav li.active').removeClass('active');
+					   $('#file-media').addClass('active');					   
+					   $('#right-photo').attr("src",BS.profileImageUrl);			       
+				}});
+                            BS.presentationview =new BS.PresentationView();
+                            BS.presentationview.render();
+                            $('#content').html(BS.presentationview.el); 
+                            $('.file-type').hide();   //to hide the filetype menu
                         },
                         
 			displayJanRain : function(){
