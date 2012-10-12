@@ -206,7 +206,7 @@ BS.ClassView = Backbone.View.extend({
 		var dat='#'+id;
 		$(dat).hide();
   	    
-		var parentId =  $(dat).parents('fieldset').attr('id')
+		var parentId =  $(dat).parents('fieldset').attr('id');
 		var parent = '#'+parentId;
 		
 		var sCount = {

@@ -175,7 +175,7 @@ body {
                       </li>
                     </ul> 
                   </li>
-                  <li><a id="audio_dr" href="#">Assignments</a></li>
+                   
                 </ul>
               </li> 
             </ul>
@@ -206,7 +206,7 @@ body {
             <li><a href="#">Presentation</a> </li>
             <li><a href="#">Audio</a> </li>
             <li><a href="#">Spreadsheets</a> </li>
-			<li><a href="#">Assignments</a> </li>
+			 
           </ul>
         <label>Sort by:</label>
         <a id="file-type" href="#" data-toggle="dropdown" >File Type</a>
@@ -2268,7 +2268,7 @@ body {
                                     <li class="doc-notes" id="notes">Notes</li>
                                     <li class="doc-audio" id="audio">Audio</li>
                                     <li class="doc-presentation" id="presentation">Presentation</li> 
-                                    <li class="doc-assignment" id="assignments">Assignments</li> 
+                                    
                                     </ul></li>                         
                           <li class="tag"><a href="#tag" class="btn btn-flat"><i class="icon-middle-tag"></i></a></li>
                           <li class="private">
@@ -2914,7 +2914,7 @@ body {
             </div>
 			<div class="element">
               <label for="username">Alias</label>
-              <input type="text" id="alias" placeholder="alias" class="required span3">
+              <input type="text" id="alias" name="alias"placeholder="alias" class="required span3">
             </div>
             <div class="element">
               <label for="location">Location</label>
@@ -3021,7 +3021,7 @@ body {
             </div>
 			<div class="element">
               <label for="alias">Alias</label>
-              <input type="text" id="alias" placeholder="alias" value="{{data.alias}}"class="required span3">
+              <input type="text" id="alias" name = "alias" placeholder="alias" value="{{data.alias}}"class="required span3">
             </div>
             <div class="element">
               <label for="location">Location   </label>
@@ -3606,6 +3606,7 @@ body {
 	<script src="js/views/imagelistview.js"></script>
 	<script src="js/views/videolistview.js"></script>
         <script src="js/views/audiolistview.js"></script>
+        <script src="js/views/presentationview.js"></script>
 	<script src="js/models/singleusermodel.js"></script>
 	<script src="js/models/documentmodel.js"></script>
 

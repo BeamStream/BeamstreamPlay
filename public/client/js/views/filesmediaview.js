@@ -48,7 +48,7 @@ BS.FilesMediaView = Backbone.View.extend({
         this.docsList();
         this.audio();  
 //        this.spreadsheet();  
-//        this.presentation();  
+        this.presentation();  
 //        this.pdffiles();  
 //        this.links(); 
      //   this.template= _.template($("#tpl-files-media").html());
@@ -355,11 +355,8 @@ BS.FilesMediaView = Backbone.View.extend({
                         url :  BS.getaudioFilesOfAUser,
                         dataType : "json",
                         success : function(data) {
-                            console.log("ok audio is corect");
-                            console.log(data); 
 //                            if(docs.length != 0)  {
                               _.each(data, function(audio) {
-                                  console.log(audio); 
                                    var datVal =  self.formatDateVal(audio.creationDate);     
                                   var content ='<div class="image-wrapper hovereffect google_doc">'                                     
                                         +'<div class="hover-div"><img src="images/audio_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
@@ -368,7 +365,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                         +'<h4> '+audio.documentName+'</h4> <p class="doc-description">'                
                                         +''+audio.documentDescription+' </p></a>'
                                         +'<h5 class="audiotitle" id="'+audio.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
-                                        +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#">'
+                                        +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon music" href="#">'
                                         +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
                                         +'<li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
                          
@@ -401,13 +398,36 @@ BS.FilesMediaView = Backbone.View.extend({
          * 
          */
         presentation :function(eventName){
-             content= '<div class="hover-div"><img src="images/video_image.png"/><div class="hover-text"><div class="image-wrapper"><a id="profile-videos" href="#videos"><img src="images/image2.jpg"></a>'
-                        +'</div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
-                        +'<ul class="comment-list">'
-                        +'<li><a class="eye-icon" href="#">87</a></li>'
-                        +'<li><a class="hand-icon" href="#">5</a></li>'
-                        +'<li><a class="message-icon" href="#">10</a></li></ul></div>';
-                        $('#coverpresentation').html(content);  
+ 
+            
+            //            $('.coveraud').html('content');
+            var self = this;
+            $.ajax({
+                        type : 'GET',
+                        url :  BS.getAllPPTFilesForAUser,
+                        dataType : "json",
+                        success : function(data) {
+//                            if(docs.length != 0)  {
+                              _.each(data, function(audio) {
+                                   var datVal =  self.formatDateVal(audio.creationDate);     
+                                  var content ='<div class="image-wrapper hovereffect google_doc">'                                     
+                                        +'<div class="hover-div"><img src="images/presentations_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
+                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
+                                        +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#presentationview" style="text-decoration: none">'
+                                        +'<h4> '+audio.documentName+'</h4> <p class="doc-description">'                
+                                        +''+audio.documentDescription+' </p></a>'
+                                        +'<h5 class="audiotitle" id="'+audio.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
+                                        +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon presentation" href="#">'
+                                        +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
+                                        +'<li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
+                         
+                               $('#coverpresentation').html(content); 
+                               
+                              });
+//                        }
+                        }
+               });
+            
         },
         
          /**
@@ -766,6 +786,8 @@ BS.FilesMediaView = Backbone.View.extend({
                             {
                                 document.getElementById('loader-message').innerHTML = data.message;
                                 self.docsList();
+                                self.audio();
+                                self.presentation();
                                 $("#dooclinkchild_dr").hide(200);
                             }
                     }
