@@ -49,7 +49,7 @@ BS.FilesMediaView = Backbone.View.extend({
         this.audio();  
 //        this.spreadsheet();  
         this.presentation();  
-//        this.pdffiles();  
+        this.pdffiles();  
 //        this.links(); 
      //   this.template= _.template($("#tpl-files-media").html());
 
@@ -406,17 +406,17 @@ BS.FilesMediaView = Backbone.View.extend({
                         type : 'GET',
                         url :  BS.getAllPPTFilesForAUser,
                         dataType : "json",
-                        success : function(data) {
+                        success : function(ppts) {
 //                            if(docs.length != 0)  {
-                              _.each(data, function(audio) {
-                                   var datVal =  self.formatDateVal(audio.creationDate);     
+                              _.each(ppts, function(ppt) {
+                                   var datVal =  self.formatDateVal(ppt.creationDate);     
                                   var content ='<div class="image-wrapper hovereffect google_doc">'                                     
                                         +'<div class="hover-div"><img src="images/presentations_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
                                         +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
                                         +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#presentationview" style="text-decoration: none">'
-                                        +'<h4> '+audio.documentName+'</h4> <p class="doc-description">'                
-                                        +''+audio.documentDescription+' </p></a>'
-                                        +'<h5 class="audiotitle" id="'+audio.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
+                                        +'<h4> '+ppt.documentName+'</h4> <p class="doc-description">'                
+                                        +''+ppt.documentDescription+' </p></a>'
+                                        +'<h5 class="audiotitle" id="'+ppt.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
                                         +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon presentation" href="#">'
                                         +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
                                         +'<li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
@@ -435,13 +435,37 @@ BS.FilesMediaView = Backbone.View.extend({
          * 
          */
         pdffiles :function(eventName){
-             content= '<div class="hover-div"><img src="images/video_image.png"/><div class="hover-text"><div class="image-wrapper"><a id="profile-videos" href="#videos"><img src="images/image2.jpg"></a>'
-                        +'</div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
-                        +'<ul class="comment-list">'
-                        +'<li><a class="eye-icon" href="#">87</a></li>'
-                        +'<li><a class="hand-icon" href="#">5</a></li>'
-                        +'<li><a class="message-icon" href="#">10</a></li></ul></div>';
-                        $('#coverpdf').html(content);  
+            
+            
+               var self = this;
+            $.ajax({
+                        type : 'GET',
+                        url :  BS.getAllPPTFilesForAUser,
+                        dataType : "json",
+                        success : function(pdfs) {
+//                            if(docs.length != 0)  {
+                              _.each(pdfs, function(pdf) {
+                                   var datVal =  self.formatDateVal(pdf.creationDate);     
+                                  var content ='<div class="image-wrapper hovereffect google_doc">'                                     
+                                        +'<div class="hover-div"><img src="images/pdp_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
+                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
+                                        +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#pdflistview" style="text-decoration: none">'
+                                        +'<h4> '+pdf.documentName+'</h4> <p class="doc-description">'                
+                                        +''+pdf.documentDescription+' </p></a>'
+                                        +'<h5 class="audiotitle" id="'+pdf.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
+                                        +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon pdf" href="#">'
+                                        +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
+                                        +'<li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
+                         
+                               $('#coverpdf').html(content); 
+                               
+                              });
+//                        }
+                        }
+               });
+            
+            
+            
         },
         
          /**
