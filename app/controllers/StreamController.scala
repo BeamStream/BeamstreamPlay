@@ -29,8 +29,12 @@ object StreamController extends Controller {
     override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
-  def index = Action {
-    Redirect("/beamstream/home.html")
+  def index = Action { implicit request =>
+    val playCookiee=request.cookies.get("PLAY_SESSION")
+    
+    if(playCookiee==None )  Redirect("/beamstream/home.html")
+    else Redirect("/beamstream/index.html#streams")
+   
   }
 
   /*
@@ -141,7 +145,7 @@ object StreamController extends Controller {
     val streamId = DetailsJsonMap("StreamId").toList(0)
     val deleteStream = DetailsJsonMap("deleteStream").toList(0).toBoolean
     val removeAccess = DetailsJsonMap("removeAccess").toList(0).toBoolean
-    val result=Stream.deleteStreams(new ObjectId(request.session.get("userId").get), new ObjectId(streamId), deleteStream, removeAccess)
+    val result = Stream.deleteStreams(new ObjectId(request.session.get("userId").get), new ObjectId(streamId), deleteStream, removeAccess)
     println(write(result))
     Ok(write(result)).as("application/json")
 

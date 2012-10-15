@@ -53,8 +53,7 @@ object UserController extends Controller {
         //        else  Ok(statusToSend).as("application/json").withSession(userSession)
 
         val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
-        println(noOfOnLineUsers)
-
+        println("Online Users Login Part:" + noOfOnLineUsers)
         Ok(statusToSend).withSession(userSession)
 
       case None =>
@@ -126,7 +125,7 @@ object UserController extends Controller {
 
   def signOut = Action { implicit request =>
     val noOfOnLineUsers = onlineUserCache.setOffline(request.session.get("userId").get)
-    println(noOfOnLineUsers)
+    println("LogOut Part :" + noOfOnLineUsers)
     Ok.withNewSession
   }
 
@@ -137,10 +136,18 @@ object UserController extends Controller {
    */
 
   def returnUserJson = Action { implicit request =>
-    val loggedInUserId = new ObjectId(request.session.get("userId").get)
-    val loggedInUser = User.findUserbyId(loggedInUserId)
-    val loggedInUserJson = write(loggedInUser)
-    Ok(loggedInUserJson).as("application/json")
+    val userId = request.session.get("userId")
+    if (userId == None)
+    {
+      println("Session Has Been Expired")
+      Ok(write("Session Has Been Expired")).as("application/json")
+    }
+    else {
+      val loggedInUserId = new ObjectId(userId.get)
+      val loggedInUser = User.findUserbyId(loggedInUserId)
+      val loggedInUserJson = write(loggedInUser)
+      Ok(loggedInUserJson).as("application/json")
+    }
   }
 
   /*
