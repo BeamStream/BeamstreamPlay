@@ -99,7 +99,7 @@ BS.PresentationView = Backbone.View.extend({
                              "description" : ppts[0].documentDescription
 			  }
             BS.mediaeditview = new  BS.MediaEditView();
-            BS.mediaeditview.render(datas);
+            BS.mediaeditview.render(pptdatas);
             $('#gdocedit').html(BS.mediaeditview.el);
                         }
            });
