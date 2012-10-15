@@ -115,6 +115,7 @@ POST /isAFollower    controllers.MessageController.isAFollower
 GET /audioFilesOfAUser  controllers.DocumentController.getAllAudioFilesForAUser
 GET /getAllPPTFilesForAUser  controllers.DocumentController.getAllPPTFilesForAUser
 GET /getAllPDFFilesForAUser  controllers.DocumentController.getAllPDFFilesForAUser
+GET /getAllDOCSFilesForAUser  controllers.DocumentController.getAllDOCSFilesForAUser
 
 #bitly
 POST /bitly   controllers.MessageController.getShortUrlViabitly 

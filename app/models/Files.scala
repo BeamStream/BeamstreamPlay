@@ -53,5 +53,21 @@ object Files {
     }
     pdfFiles
   }
+  
+  //----------------------//
+  // Get All DOCS Files //
+  //--------------------//
+  def getAllDOCSFiles(userId: ObjectId): List[Document] = {
+    var documentsFiles: List[Document] = List()
+    val documentFilesExtensionsList: List[String] = List(".doc",".docx",".txt",".rtf",",DOC",".DOCX",".TXT",".RTF")
+    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).toList
+    for (file <- filesFound) {
+      val fileName = file.documentURL
+      val i = fileName.lastIndexOf(".")
+      val extensionToMatch = fileName.substring(i)
+      if (documentFilesExtensionsList.contains(extensionToMatch)) documentsFiles ++= List(file)
+    }
+    documentsFiles
+  }
 
 }

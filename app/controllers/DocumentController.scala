@@ -218,5 +218,14 @@ object DocumentController extends Controller {
     val PDFFiles = Files.getAllPDFFiles(new ObjectId(request.session.get("userId").get))
     Ok(write(PDFFiles)).as("application/json")
   }
+  
+  /**
+   * Get All DOCSFiles
+   */
+
+  def getAllDOCSFilesForAUser = Action { implicit request =>
+    val DocsFiles = Files.getAllDOCSFiles(new ObjectId(request.session.get("userId").get))
+    Ok(write(DocsFiles)).as("application/json")
+  }
 }
 
