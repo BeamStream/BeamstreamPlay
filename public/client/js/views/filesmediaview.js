@@ -822,6 +822,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                 self.docsList();
                                 self.audio();
                                 self.presentation();
+                                self.pdffiles();  
                                 $("#dooclinkchild_dr").hide(200);
                             }
                     }
