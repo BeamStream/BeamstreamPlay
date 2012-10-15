@@ -14,7 +14,7 @@ Backbone.history.start();
  
 BS.URLRequired ="http://alpha.beamstream.com";
  
-//BS.URLRequired ="http://test.beamstream.com"
+BS.URLRequired ="http://test.beamstream.com"
 	
 // For Login Page
 BS.login = BS.URLRequired+"/users";
