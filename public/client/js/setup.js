@@ -9,12 +9,12 @@ Backbone.history.start();
 * Config Variables for Url externalization
 */
 
-//BS.URLRequired ="http://localhost:9000";    
+BS.URLRequired ="http://localhost:9000";    
  
  
 //BS.URLRequired ="http://alpha.beamstream.com";
  
-BS.URLRequired ="http://test.beamstream.com"
+//BS.URLRequired ="http://test.beamstream.com"
 	
 // For Login Page
 BS.login = BS.URLRequired+"/users";
@@ -118,7 +118,8 @@ BS.uploaddocFrmComputer = BS.URLRequired+"/getDocumentFromDisk";
 BS.getaudioFilesOfAUser = BS.URLRequired+"/audioFilesOfAUser";
 //get all ppt Files of a user
 BS.getAllPPTFilesForAUser = BS.URLRequired+"/getAllPPTFilesForAUser";
-
+//get all pdf Files of a user
+BS.getAllPDFFilesForAUser = BS.URLRequired+"/getAllPDFFilesForAUser";
 
 /* for beta users */
 BS.toLogin = BS.URLRequired+'/beamstream/index.html#login';
