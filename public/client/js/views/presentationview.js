@@ -1,8 +1,10 @@
 BS.PresentationView = Backbone.View.extend({ 
         events:{
                 "click .presentationpopup" : "presentationpopup",
-                "click .presentationtitle" : "editPresentationTitle"
-                },
+                "click .presentationtitle" : "editPresentationTitle",
+                "click .rock_docs" : "rocksDocuments",
+                "click .show_rockers" : "showDocRockers"
+         },
     
         initialize:function(){
             this.source = $("#tpl-docsview").html();
@@ -87,6 +89,58 @@ BS.PresentationView = Backbone.View.extend({
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(datas);
             $('#gdocedit').html(BS.mediaeditview.el);
-            }
+        },
+        /**
+         * Rocks PPT files
+         */
+        rocksDocuments:function(eventName){
+     	   
+            eventName.preventDefault();
+            var element = eventName.target.parentElement;
+            var docId =$(element).attr('id');
+ 	  		 // post documentId and get Rockcount 
+            $.ajax({
+ 	               type: 'POST',
+ 	               url:BS.rockDocs,
+ 	               data:{
+ 	            	   documentId:docId
+ 	               },
+ 	               dataType:"json",
+ 	               success:function(data){	              	 
+ 	              	// display the rocks count  
+ 	            	$('#'+docId+'-activities li a.hand-icon').html(data);	   
+ 	               }
+ 	        });
+        },
+        
+        /**
+         * show PPT Rockers list 
+         */
+        showDocRockers :function(eventName){
+     	   eventName.preventDefault();
+     	   var element = eventName.target.parentElement; 
+           var documentId =$(element).closest('div').parent('div').attr('id');
+     	   $.ajax({
+                type: 'POST',
+                url:BS.documentRockers,
+                data:{
+               	  documentId:documentId
+                },
+                dataType:"json",
+                success:function(data){
+               	 
+               	  // prepair rockers list
+                 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">Who Rocked it ?</div><ul class="rock-list">';
+               	_.each(data, function(rocker) { 					 
+               		ul+= '<li>'+rocker+'</li>';
+   			    });
+               	ul+='</ul>';   
+               	$('#'+documentId+'-docRockers-list').fadeIn("fast").delay(1000).fadeOut('fast'); 
+               	$('#'+documentId+'-docRockers-list').html(ul);
+
+                }
+             });
+     	   
+        },
             
 })
