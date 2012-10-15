@@ -140,7 +140,7 @@ object UserController extends Controller {
     if (userId == None)
     {
       println("Session Has Been Expired")
-      Ok("Session Has Been Expired").as("application/json")
+      Ok(write("Session Has Been Expired")).as("application/json")
     }
     else {
       val loggedInUserId = new ObjectId(userId.get)
