@@ -43,6 +43,25 @@ class FilesTest extends FunSuite with BeforeAndAfter {
 
   }
 
+  test("Get All PDF Files") {
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List())
+    val userId = User.createUser(user)
+    val firstDocumentToCreate = new Document(new ObjectId, "Neel'sFile.pdf", "Neel'sFile", "http://neel.ly/Neel'sFile.pdf", DocType.Other, userId, DocumentAccess.Private, new ObjectId, new Date, new Date, 0, List(), List())
+    val secondDocumentToCreate = new Document(new ObjectId, "Neel'sFile.mp3", "Neel'sFile", "http://neel.ly/Neel'sFile.mp3", DocType.Other, userId, DocumentAccess.Private, new ObjectId, new Date, new Date, 0, List(), List())
+    val thirdDocumentToCreate = new Document(new ObjectId, "Neel'sFile.mp4", "Neel'sFile", "http://neel.ly/Neel'sFile.mp4", DocType.Other, userId, DocumentAccess.Private, new ObjectId, new Date, new Date, 0, List(), List())
+    Document.addDocument(firstDocumentToCreate)
+    Document.addDocument(secondDocumentToCreate)
+    Document.addDocument(thirdDocumentToCreate)
+
+    val pdfFilesObtained = Files.getAllPDFFiles(userId)
+    assert(pdfFilesObtained.size === 1)
+
+    val forthDocumentToCreate = new Document(new ObjectId, "NeelKanth'sFile.PDF", "Neel'sFile", "http://neel.ly/Neel'sFile.PDF", DocType.Other, userId, DocumentAccess.Private, new ObjectId, new Date, new Date, 0, List(), List())
+    Document.addDocument(forthDocumentToCreate)
+    val pdfFilesObtainedA = Files.getAllPDFFiles(userId)
+    assert(pdfFilesObtainedA.size === 2)
+  }
+
   after {
 
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
