@@ -110,6 +110,7 @@ object DocumentController extends Controller {
 
   /**
    * Rock the document (Modified)
+   * Rocking any kind of Doc Audio, Video , PPT etc.
    */
   def rockTheDocument = Action { implicit request =>
     val documentIdJsonMap = request.body.asFormUrlEncoded.get
