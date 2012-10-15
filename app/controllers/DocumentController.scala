@@ -89,13 +89,13 @@ object DocumentController extends Controller {
 
     (documentIdJsonMap.contains(("documentId"))) match {
 
-      case false => Ok(write(new ResulttoSent("Failure", "Document Id not found !!!")))
+      case false => Ok(write(new ResulttoSent("Failure", "No Document Available Having The Provided DocumentId !!!")))
       case true =>
 
-        val docId = documentIdJsonMap("documentId").toList(0)
-        val docObtained = Document.findDocumentById(new ObjectId(docId))
-        val docJson = write(List(docObtained))
-        Ok(docJson).as("application/json")
+        val documentId = documentIdJsonMap("documentId").toList(0)
+        val docObtained = Document.findDocumentById(new ObjectId(documentId))
+        val documentJSON = write(List(docObtained))
+        Ok(documentJSON).as("application/json")
     }
   }
 
