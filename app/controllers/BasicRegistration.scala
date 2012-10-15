@@ -21,6 +21,7 @@ import utils.ObjectIdSerializer
 import models.UserDAO
 import com.mongodb.WriteConcern
 import play.cache.Cache
+import models.onlineUserCache
 
 object BasicRegistration extends Controller {
 
@@ -86,6 +87,8 @@ object BasicRegistration extends Controller {
                 val IdOfUserCreted = User.createUser(userToCreate)
                 val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
                 val createdUser = User.findUserbyId(IdOfUserCreted)
+                val noOfOnLineUsers = onlineUserCache.setOnline(IdOfUserCreted.toString)
+                println("Online Users Reg. Part:" + noOfOnLineUsers)
                 Ok(write(List(createdUser))).withSession(RegistrationSession)
               case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
             }
@@ -97,7 +100,7 @@ object BasicRegistration extends Controller {
       case false =>
         (password == confirmPassword) match {
           case true =>
-            val updatedUser = new User(new ObjectId(id), UserType.apply(iam.toInt), emailId, firstName, lastName, userName,alias, password, schoolName, location, profile, List(), List(), List(), List(), List())
+            val updatedUser = new User(new ObjectId(id), UserType.apply(iam.toInt), emailId, firstName, lastName, userName, alias, password, schoolName, location, profile, List(), List(), List(), List(), List())
             UserDAO.update(MongoDBObject("_id" -> new ObjectId(id)), updatedUser, false, false, new WriteConcern)
             Ok(write(List(updatedUser))).as("application/json")
           case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")

@@ -53,8 +53,7 @@ object UserController extends Controller {
         //        else  Ok(statusToSend).as("application/json").withSession(userSession)
 
         val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
-        println(noOfOnLineUsers)
-
+        println("Online Users Login Part:" + noOfOnLineUsers)
         Ok(statusToSend).withSession(userSession)
 
       case None =>
@@ -126,7 +125,7 @@ object UserController extends Controller {
 
   def signOut = Action { implicit request =>
     val noOfOnLineUsers = onlineUserCache.setOffline(request.session.get("userId").get)
-    println(noOfOnLineUsers)
+    println("LogOut Part :" + noOfOnLineUsers)
     Ok.withNewSession
   }
 
