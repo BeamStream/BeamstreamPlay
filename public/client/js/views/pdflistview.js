@@ -1,7 +1,8 @@
 BS.PdfListView = Backbone.View.extend({ 
     
      events:{
-                "click .pdfpopup" : "pdfpopup"
+                "click .pdfpopup" : "pdfpopup",
+                "click .pdftitle" : "editPdfTitle"
              },
     
     initialize:function(){
@@ -16,28 +17,27 @@ BS.PdfListView = Backbone.View.extend({
             },
             
           presentation :function(eventName){
-//            $('.coveraud').html('content');
             var i = 1;
             var self = this;
             var content='';
             $.ajax({
-                        type : 'GET',
-                        url :  BS.getAllPDFFilesForAUser,
-                        dataType : "json",
-                        success : function(pdfs) {
-                                 $('#grid').html(""); 
-                                 _.each(pdfs, function(pdf) { 
-                                 BS.filesMediaView = new BS.FilesMediaView();                                   
-                                 var datVal = BS.filesMediaView.formatDateVal(pdf.creationDate);     
-                                 var pdfdata={
-                                               "pdf" : pdf,
-                                               "datVal" :datVal,
-                                               "count":i
-                                                }                                                
-                                 var source = $('#tpl-single-pdf').html();          //creating single bucket view for pdf list view                           
-                                 var template = Handlebars.compile(source);
-                                 $('#grid').append(template(pdfdata));
-                                 i++;
+                     type : 'GET',
+                     url :  BS.getAllPDFFilesForAUser,
+                     dataType : "json",
+                     success : function(pdfs) {
+                              $('#grid').html(""); 
+                              _.each(pdfs, function(pdf) { 
+                              BS.filesMediaView = new BS.FilesMediaView();                                   
+                              var datVal = BS.filesMediaView.formatDateVal(pdf.creationDate);     
+                              var pdfdata={
+                                           "pdf" : pdf,
+                                           "datVal" :datVal,
+                                           "count":i
+                                            }                                                
+                              var source = $('#tpl-single-pdf').html();          //creating single bucket view for pdf list view                           
+                              var template = Handlebars.compile(source);
+                              $('#grid').append(template(pdfdata));
+                              i++;
                               });
                         }
                });
@@ -46,41 +46,61 @@ BS.PdfListView = Backbone.View.extend({
         },
         
          /*
-         *   To show the pdf view in popup        
+         *   To show the pdf view in popup  
          *
          */ 
         pdfpopup :function(eventName){
- 
-     /*       var pdfId = eventName.currentTarget.id;
-            var pdfUrl = $('input#id-'+docId).val();   
+            var pdfId = eventName.currentTarget.id;  
             $.ajax({                                       
+                    type : 'POST',
+                    url :  BS.getOneDocs,
+                    data : {
+                            documentId: pdfId
+                            },
+                    dataType : "json",
+                    success : function(pdfs) { 
+                            var pdfdatas = {
+                            "id" : pdfs[0].id.id,
+                            "url" : pdfs[0].documentURL,
+                            "type" : 'Pdf',
+                            "title" : pdfs[0].documentName
+			  }
+            BS.mediafilepopupview = new BS.MediaFilePopupView();
+            BS.mediafilepopupview.render(pdfdatas);            
+            $('#gdocedit').html(BS.mediafilepopupview.el);       
+                  }
+                    });      
+        },
+        
+        /*
+         *   To edit the title and description of the pdffilelist      
+         *
+         */ 
+        editPdfTitle :function(eventName){  
+          var pdfId = eventName.currentTarget.id;             // id to get corresponding pdf file                          
+              $.ajax({                                       
                         type : 'POST',
                         url :  BS.getOneDocs,
                         data : {
-                                documentId: pdfId
+                                documentId: pdfId  
                                 },
                         dataType : "json",
                         success : function(pdfs) {                          
-                             var datas = {
-                             "id" : pdfId,
-                             "url" : pdfUrl,
-                             "type" : 'Pdf',
+                             var pdfdatas = {
+                             "id" : pdfs[0].id.id,
+                             "url" : pdfs[0].documentURL,
+                             "type" : 'Docs',
                              "title" : pdfs[0].documentName,
                              "description" : pdfs[0].documentDescription
 			  }
-            BS.mediafilepopupview = new BS.MediaFilePopupView();
-            BS.mediafilepopupview.render(docUrl);            
-            $('#gdocedit').html(BS.mediafilepopupview.el);       
+            BS.mediaeditview = new  BS.MediaEditView();
+            BS.mediaeditview.render(pdfdatas);
+            $('#gdocedit').html(BS.mediaeditview.el);         
                   }
-                    });     */
-            
-            
-            var docId = eventName.currentTarget.id;
-            var docUrl = $('input#id-'+docId).val();     
-            BS.mediafilepopupview = new BS.MediaFilePopupView();
-            BS.mediafilepopupview.render(docUrl);            
-            $('#gdocedit').html(BS.mediafilepopupview.el);
-            
-            
-        }
+                    });
+                          
+//            BS.mediaeditview = new  BS.MediaEditView();
+//            BS.mediaeditview.render(datas);
+//            $('#gdocedit').html(BS.mediaeditview.el);
+            }
 })

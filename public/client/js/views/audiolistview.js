@@ -1,4 +1,9 @@
 BS.AudioListView = Backbone.View.extend({ 
+    
+        events:{
+                 "click .audiotitle" : "editAudioTitle"
+             },
+             
         initialize:function(){
             this.source = $("#tpl-docsview").html();
             this.template = Handlebars.compile(this.source);
@@ -36,7 +41,7 @@ BS.AudioListView = Backbone.View.extend({
                                 +' <p class="doc-description" id="'+audio.id.id+'" >'
                                 +'<input type="hidden" id="id-'+audio.id.id+'" value="'+audio.documentURL+'">'
                                 +''+audio.documentDescription+' </p> </div>'
-                                +'<h5 class="doctitle" id="'+audio.id.id+'"> Title & Description</h5>'           //'id' to edit the title and description
+                                +'<h5 class="audiotitle" id="'+audio.id.id+'"> Title & Description</h5>'           //'id' to edit the title and description
                                 +'<span>State</span>'
                                 +' <span class="date">Date</span>' 
                                 +'</div> </div></div>'                                                       //two closing <div> for hover over effect
@@ -60,5 +65,21 @@ BS.AudioListView = Backbone.View.extend({
                });
             
                                  
-        }
+        },
+        
+        /*
+         *   To edit the title and description of the Audio      
+         *
+         */ 
+        editAudioTitle :function(eventName){  
+//          var docId = eventName.currentTarget.id;             // id to get corresponding Audio   
+            var datas = {
+				"type" : 'Audio',
+				"title" : '',
+                                "description" :''
+			  }
+            BS.mediaeditview = new  BS.MediaEditView();
+            BS.mediaeditview.render(datas);
+            $('#gdocedit').html(BS.mediaeditview.el);
+            }
 })

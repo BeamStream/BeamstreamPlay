@@ -13,9 +13,10 @@ BS.MediaFilePopupView = Backbone.View.extend({
         /**
         * render gdocs edit screen
         */
-        render:function (docUrl) {
-            $(this.el).html(this.template({"docUrl":docUrl}));
-            return this;    
+        render:function (datas) {
+            $(this.el).html(this.template(datas));
+            return this;
+    
         },
         
        /**

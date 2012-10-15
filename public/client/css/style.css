@@ -2200,6 +2200,15 @@ text-align: left;
 .videotitle{
     cursor: pointer;
 }
+.presentationtitle{
+    cursor: pointer;
+}
+.pdftitle{
+    cursor: pointer;
+}
+.audiotitle{
+    cursor: pointer;
+}
 .doc-description{
     min-height:60px;
 }
