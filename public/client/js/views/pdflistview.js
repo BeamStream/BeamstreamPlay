@@ -1,7 +1,7 @@
 BS.PdfListView = Backbone.View.extend({ 
     
      events:{
-                "click .pdfpopup" : "pdfpopup",
+                "click .mediapopup" : "pdfpopup",
                 "click .pdftitle" : "editPdfTitle"
              },
     

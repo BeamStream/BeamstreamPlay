@@ -1,6 +1,6 @@
 BS.PresentationView = Backbone.View.extend({ 
         events:{
-                "click .presentationpopup" : "presentationpopup",
+                "click .mediapopup" : "presentationpopup",
                 "click .presentationtitle" : "editPresentationTitle"
                 },
     
@@ -78,15 +78,27 @@ BS.PresentationView = Backbone.View.extend({
          *
          */ 
         editPresentationTitle :function(eventName){  
-//          var docId = eventName.currentTarget.id;             // id to get corresponding presentation   
-            var datas = {
-				"type" : 'Presentation',
-				"title" : '',
-                                "description" :''
+          var pptId = eventName.currentTarget.id;             // id to get corresponding presentation   
+           $.ajax({                                       
+                        type : 'POST',
+                        url :  BS.getOneDocs,
+                        data : {
+                                documentId: pptId  
+                                },
+                        dataType : "json",
+                        success : function(ppts) {                          
+                             var pptdatas = {
+                             "id" : ppts[0].id.id,
+                             "url" : ppts[0].documentURL,
+                             "type" : 'Docs',
+                             "title" : ppts[0].documentName,
+                             "description" : ppts[0].documentDescription
 			  }
             BS.mediaeditview = new  BS.MediaEditView();
-            BS.mediaeditview.render(datas);
-            $('#gdocedit').html(BS.mediaeditview.el);
-            }
+            BS.mediaeditview.render(pptdatas);
+            $('#gdocedit').html(BS.mediaeditview.el);         
+                  }
+                    });
+        }
             
 })
