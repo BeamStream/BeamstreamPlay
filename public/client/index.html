@@ -3324,7 +3324,7 @@ body {
           </div>
             <div class="form-row" >
  
-            <!-- <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a> -->  
+            <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a>   
  
 
           </div>
@@ -3547,17 +3547,23 @@ body {
 
 															/*  Facebook signUp */
 															if (res.profile.providerName == "Facebook") {
-																if ((!res['profile']['address']) === undefined)
+																if ((res['profile']['address']) === undefined)
+																	localStorage["location"] = '';
+																else
 																	localStorage["location"] = res.profile.address.formatted;
-
+                                                                console.log(localStorage["location"]);
 																localStorage["first-name"] = res.profile.name.givenName;
 																localStorage["last-name"] = res.profile.name.familyName;
 																localStorage["email"] = res.profile.preferredUsername;
 															}
 															/* LinkedIn signUp */
 															else if (res.profile.providerName == "LinkedIn") {
+// 																if ((res['profile']['address']) === undefined)
+// 																	localStorage["location"] = '';
+// 																else
+// 																	localStorage["location"] = res.profile.address.formatted;
 																localStorage["first-name"] = res.profile.name.givenName;
-																localStorage["last-name"] = res.profile.name.formatted;
+																localStorage["last-name"] = res.profile.name.familyName;
 																localStorage["email"] = res.profile.preferredUsername;
 															}
 															/* Twitter signUp */
