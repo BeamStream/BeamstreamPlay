@@ -136,10 +136,18 @@ object UserController extends Controller {
    */
 
   def returnUserJson = Action { implicit request =>
-    val loggedInUserId = new ObjectId(request.session.get("userId").get)
-    val loggedInUser = User.findUserbyId(loggedInUserId)
-    val loggedInUserJson = write(loggedInUser)
-    Ok(loggedInUserJson).as("application/json")
+    val userId = request.session.get("userId")
+    if (userId == None)
+    {
+      println("Session Has Been Expired")
+      Ok("Session Has Been Expired").as("application/json")
+    }
+    else {
+      val loggedInUserId = new ObjectId(userId.get)
+      val loggedInUser = User.findUserbyId(loggedInUserId)
+      val loggedInUserJson = write(loggedInUser)
+      Ok(loggedInUserJson).as("application/json")
+    }
   }
 
   /*
