@@ -432,7 +432,7 @@ body {
 <script type="text/x-handlebars-template" id="tpl-single-bucket">
 <li id="file-docs-{{docCount}}" data-key="[{{datVal}}]"> 
   <div id="{{doc.id.id}}"   name="single-doc">
- 	<div class="image-wrapper hovereffect" >
+    <div class="image-wrapper hovereffect" >
       <div class="hover-div"><img src="images/docs_image.png"/>
 	      <div class="hover-text"> 
 	         <div id="{{doc.id.id}}" class="comment-wrapper comment-wrapper2">
@@ -477,7 +477,84 @@ body {
 <button class="Button WhiteButton Button11 grid_comment_button" type="button" style="visibility: visible; display: inline;">Comment</button>
 </form>
 </div> -->
+ </script>
 
+<!-- template for single bucket in pdf-list view -->
+<script type="text/x-handlebars-template" id="tpl-single-pdf">
+<li id="file-docs-{{count}}" data-key="[{{datVal}}]"> 
+  <div id="{{pdf.id.id}}"   name="single-doc">
+    <div class="image-wrapper hovereffect" >
+      <div class="hover-div"><img src="images/pdp_image.png"/>
+	      <div class="hover-text"> 
+	         <div id="{{pdf.id.id}}" class="comment-wrapper comment-wrapper2">
+	            <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
+	            <a href="#" class="hand-icon rock_docs" ></a>
+	            <a href="#" class="message-icon doc_msg"></a>
+	            <a href="#" class="share-icon"></a>
+	          </div>
+	          <div id="media-{{pdf.id.id}}" ><h4> {{pdf.documentName}}</h4>
+	            <p class="pdfpopup doc-description" id="{{pdf.id.id}}" >
+	               <input type="hidden" id="id-{{pdf.id.id}}" value="{{pdf.documentURL}}">
+	             {{pdf.documentDescription}} 
+	            </p>
+	          </div>
+	          <h5 class="doctitle" id="{{pdf.id.id}}"> Title & Description</h5>
+	          <span>State</span>
+	          <span class="date">{{datVal}}</span>
+	        </div> 
+	   </div>
+	  </div>                                                    
+      <div class="comment-wrapper comment-wrapper1">
+        <a class="common-icon pdf" href="#">
+        <span class="right-arrow"></span>
+        </a>
+        <ul class="comment-list">
+           <li><a class="eye-icon" href="#"></a></li>
+           <li><a class="hand-icon show_rockers" href="#">{{pdf.documentRocks}}</a></li>
+           <li><a class="message-icon show_docMessage" href="#"></a></li>
+        </ul>
+      </div>
+      </div>
+   </li>
+ </script>
+
+<!-- template for single bucket in presentation view -->
+<script type="text/x-handlebars-template" id="tpl-single-presentation">
+<li id="file-docs-{{count}}" data-key="[{{datVal}}]"> 
+  <div id="{{ppt.id.id}}"   name="single-doc">
+    <div class="image-wrapper hovereffect" >
+      <div class="hover-div"><img src="images/presentations_image.png"/>
+	      <div class="hover-text"> 
+	         <div id="{{ppt.id.id}}" class="comment-wrapper comment-wrapper2">
+	            <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
+	            <a href="#" class="hand-icon rock_docs" ></a>
+	            <a href="#" class="message-icon doc_msg"></a>
+	            <a href="#" class="share-icon"></a>
+	          </div>
+	          <div id="media-{{ppt.id.id}}" ><h4> {{ppt.documentName}}</h4>
+	            <p class="presentationpopup doc-description" id="{{ppt.id.id}}" >
+	               <input type="hidden" id="id-{{ppt.id.id}}" value="{{ppt.documentURL}}">
+	             {{ppt.documentDescription}} 
+	            </p>
+	          </div>
+	          <h5 class="doctitle" id="{{ppt.id.id}}"> Title & Description</h5>
+	          <span>State</span>
+	          <span class="date">{{datVal}}</span>
+	        </div> 
+	   </div>
+	  </div>                                                    
+      <div class="comment-wrapper comment-wrapper1">
+        <a class="common-icon presentation" href="#">
+        <span class="right-arrow"></span>
+        </a>
+        <ul class="comment-list">
+           <li><a class="eye-icon" href="#"></a></li>
+           <li><a class="hand-icon show_rockers" href="#">{{ppt.documentRocks}}</a></li>
+           <li><a class="message-icon show_docMessage" href="#"></a></li>
+        </ul>
+      </div>
+      </div>
+   </li>
  </script>
 
 <!-- template for settings page -->
@@ -618,7 +695,7 @@ body {
             <fieldset class="popupfield">    
                 <div id="popup-loader" >
                     <!--<image src="images/ajax-loader1.gif">--> 
-                    <iframe src="{{docUrl}}" scrolling="NO"  width="950" height="500" style="border: none">
+                    <iframe src="{{docUrl}}" scrolling="NO"  width="963" height="500" style="border: none">
                     <p>Your browser does not support iframes.</p>
                     </iframe> 
             </div>
@@ -628,8 +705,8 @@ body {
     
  </div>
 </script>
- <!-- Documents popup window to show presentation -->
-<script type="text/x-handlebars-template" id="presentation-popup-tpl">
+ <!-- Documents popup window to show presentation/pdf etc.. -->
+<script type="text/x-handlebars-template" id="mediafiles-popup-tpl">
  <div class="modal-backdrop in"></div>
     <div class="modal gdocpopup  modal-popups" style="display:block;">
      <div class="modal-header">
@@ -643,7 +720,7 @@ body {
             <fieldset class="popupfield">    
                 <div id="popup-loader" >
                     <!--<image src="images/ajax-loader1.gif">--> 
-                    <iframe src="http://docs.google.com/gview?url={{docUrl}}&embedded=true" scrolling="NO"  width="950" height="500" style="border: none">
+                    <iframe src="http://docs.google.com/gview?url={{docUrl}}&embedded=true" scrolling="NO"  width="963" height="500" style="border: none">
                     <p>Your browser does not support iframes.</p>
                     </iframe> 
             </div>
@@ -3723,8 +3800,8 @@ body {
 	<script src="js/views/videolistview.js"></script>
         <script src="js/views/audiolistview.js"></script> 
         <script src="js/views/presentationview.js"></script>
-        <script src="js/views/presentationpopup.js"></script>
-        <!--<script src="js/views/pdflistview.js"></script>-->
+        <script src="js/views/mediafilepopupview.js"></script>
+        <script src="js/views/pdflistview.js"></script>
 	<script src="js/models/singleusermodel.js"></script>
 	<script src="js/models/documentmodel.js"></script>
 

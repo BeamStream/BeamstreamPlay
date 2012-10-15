@@ -89,13 +89,13 @@ object DocumentController extends Controller {
 
     (documentIdJsonMap.contains(("documentId"))) match {
 
-      case false => Ok(write(new ResulttoSent("Failure", "Document Id not found !!!")))
+      case false => Ok(write(new ResulttoSent("Failure", "No Document Available Having The Provided DocumentId !!!")))
       case true =>
 
-        val docId = documentIdJsonMap("documentId").toList(0)
-        val docObtained = Document.findDocumentById(new ObjectId(docId))
-        val docJson = write(List(docObtained))
-        Ok(docJson).as("application/json")
+        val documentId = documentIdJsonMap("documentId").toList(0)
+        val docObtained = Document.findDocumentById(new ObjectId(documentId))
+        val documentJSON = write(List(docObtained))
+        Ok(documentJSON).as("application/json")
     }
   }
 
@@ -110,6 +110,7 @@ object DocumentController extends Controller {
 
   /**
    * Rock the document (Modified)
+   * Rocking any kind of Doc Audio, Video , PPT etc.
    */
   def rockTheDocument = Action { implicit request =>
     val documentIdJsonMap = request.body.asFormUrlEncoded.get
@@ -217,6 +218,15 @@ object DocumentController extends Controller {
   def getAllPDFFilesForAUser = Action { implicit request =>
     val PDFFiles = Files.getAllPDFFiles(new ObjectId(request.session.get("userId").get))
     Ok(write(PDFFiles)).as("application/json")
+  }
+  
+  /**
+   * Get All DOCSFiles
+   */
+
+  def getAllDOCSFilesForAUser = Action { implicit request =>
+    val DocsFiles = Files.getAllDOCSFiles(new ObjectId(request.session.get("userId").get))
+    Ok(write(DocsFiles)).as("application/json")
   }
 }
 

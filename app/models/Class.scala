@@ -133,14 +133,14 @@ object Class {
     classes
   }
 
-  /*
-   * Get class by code
-   * 
-   */
-  def getClassByCode(classToSearch: Class): List[Class] = {
-    val classesFetched = ClassDAO.find(MongoDBObject("classCode" -> classToSearch.classCode)).toList
-    classesFetched
-  }
+//  /*
+//   * Get class by code
+//   * 
+//   */
+//  def getClassByCode(classToSearch: Class): List[Class] = {
+//    val classesFetched = ClassDAO.find(MongoDBObject("classCode" -> classToSearch.classCode)).toList
+//    classesFetched
+//  }
 
   /*
    * Finding the class by Time
