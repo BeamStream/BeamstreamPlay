@@ -1,7 +1,8 @@
 BS.PdfListView = Backbone.View.extend({ 
     
      events:{
-                "click .pdfpopup" : "pdfpopup",
+
+                "click .mediapopup" : "pdfpopup",
                 "click .pdftitle" : "editPdfTitle",
                 "click .rock_docs" : "rocksDocuments",
                 "click .show_rockers" : "showDocRockers"
@@ -158,5 +159,5 @@ BS.PdfListView = Backbone.View.extend({
                     }
                  });
          	   
-          },
+          }
 })

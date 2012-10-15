@@ -44,7 +44,7 @@ BS.MediaEditView = Backbone.View.extend({
                         {
                             alert("Doc Edit Successfully");
                             content='<h4> '+data[0].documentName+'</h4>'
-                                    +'<p class="google_doc doc-description" id="'+data[0].id.id+'" >'
+                                    +'<p class="mediapopup doc-description" id="'+data[0].id.id+'" >'
                                     +'<input type="hidden" id="id-'+data[0].id.id+'" value="'+data[0].documentURL+'">'
                                     +''+data[0].documentDescription+' </p>';
                             $('#media-'+data[0].id.id+'').html(content);

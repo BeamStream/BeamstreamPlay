@@ -21,32 +21,32 @@ BS.SingleUser = Backbone.Model.extend({
         },
         url :BS.loggedInUserJson,
         
-//        authenticate: function() {
-//        	
-//        	 $.ajax({
-//			    	type : 'POST',
-//			    	url : BS.login,
-//			    	data : {
-//			    		data :  null,
-//			    	},
-//			    	dataType : "json",
-//			    	success : function(data) {
-//				    		if(data.status == "success") 
-//				    		{
-//				    			BS.singleUser.set('loggedin', true);
-//				    		}
-//				    		else 
-//				    		{
-//				    			BS.singleUser.set('loggedin', false);
-//				    		 
-//				    		}
-//				    		 
-//			    	 },
-//			    	 error : function(error){
-//			    			 console.log("Error");
-//			    	 }
-//			    });
-//    	}
+        authenticate: function() {
+        	 
+        	 $.ajax({
+			    	type : 'GET',
+			    	url : BS.loggedInUserJson,
+			    	dataType : "json",
+			    	success : function(data) {
+			    		     
+				    		if(data == "Session Has Been Expired") 
+				    		{
+				    			
+				    			BS.user.set('loggedin', false);
+				    		}
+				    		else 
+				    		{
+				    			BS.user.set('loggedin', true);
+				    		 
+				    		}
+				    		console.log("888" + BS.user.get('loggedin'));
+				    		 
+			    	 },
+			    	 error : function(error){
+			    			 console.log("error");
+			    	 }
+			    });
+    	}
  
         
        

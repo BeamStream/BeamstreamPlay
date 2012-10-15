@@ -58,7 +58,7 @@ BS.LoginView = Backbone.View.extend({
 							    				$.cookie('userName', $("#email").val());
 										    	$.cookie('password', $("#password").val());
 							    			}
-							    			
+//							    			 BS.user.set('loggedin', true);
 							    			 console.log(data.status + " : " + data.message);
 							    			 $(".star_position").html('');
 							    			 BS.AppRouter.navigate("streams", {trigger: true});

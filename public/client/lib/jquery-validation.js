@@ -238,7 +238,7 @@ $.extend($.validator, {
 			if ( event.which == 9 && this.elementValue(element) === '' ) {
 				return;
 			} else if ( element.name in this.submitted || element === this.lastActive ) {
-//				$(element).css("border","none");
+				$(element).css("border","none");
 				this.element(element);
 			}
 		},
@@ -274,7 +274,7 @@ $.extend($.validator, {
 	},
 
 	messages: {
-		required: "<img src='images/star.png' />",
+		required: "",//"<img src='images/star.png' />",
 		remote: "Please fix this field.",
 		email: "Please enter a valid email address.",
 		url: "Please enter a valid URL.",
@@ -696,8 +696,7 @@ $.extend($.validator, {
 				if ( label.attr("generated") ) {
 					label.html(message);
 					
-//					$(element).css("border","1px solid #DD4B39");
-//					$(element).attr("placeholder",errormsg);
+					$(element).css("border","1px solid #DD4B39");
 					 
 				}
 			} else {
@@ -719,8 +718,7 @@ $.extend($.validator, {
 					}
 				}
 				
-//				$(element).css("border","1px solid #DD4B39");
-//				$(element).attr("placeholder",errormsg);
+				$(element).css("border","1px solid #DD4B39");
 			}
 			if ( !message && this.settings.success ) {
 				label.text(" ");

@@ -5,7 +5,7 @@ BS.GoogleDocsView = Backbone.View.extend({
                 "click '.nav a" : "addActive",
                 "click #gdoc_uploadbutton" : "uploadFile",
 //              "click #profile-images":"listProfileImages",
-                "click .google_doc" : "showDocPopup",
+                "click .mediapopup" : "showDocPopup",
                 "click .filter-options li a" : "filterDocs",
                 "click .doctitle" : "editDocTitle",
                 "click #prevslid" : "previous",

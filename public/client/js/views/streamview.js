@@ -1128,6 +1128,11 @@ BS.StreamView = Backbone.View.extend({
 								 $('#'+data.id.id+'-newCmtImage').attr("src" ,BS.profileImageUrl );
 							 }
 							 
+							 PUBNUB.publish({
+								  channel : "stream",
+								  message : { pagePushUid: self.pagePushUid }
+							  })
+							 
 				  		});
 				  				
 						 /* for comment Header   */
