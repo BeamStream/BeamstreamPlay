@@ -118,7 +118,8 @@ BS.uploaddocFrmComputer = BS.URLRequired+"/getDocumentFromDisk";
 BS.getaudioFilesOfAUser = BS.URLRequired+"/audioFilesOfAUser";
 //get all ppt Files of a user
 BS.getAllPPTFilesForAUser = BS.URLRequired+"/getAllPPTFilesForAUser";
-
+//get all pdf Files of a user
+BS.getAllPDFFilesForAUser = BS.URLRequired+"/getAllPDFFilesForAUser";
 
 /* for beta users */
 BS.toLogin = BS.URLRequired+'/beamstream/index.html#login';

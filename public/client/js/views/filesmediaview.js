@@ -440,7 +440,7 @@ BS.FilesMediaView = Backbone.View.extend({
                var self = this;
             $.ajax({
                         type : 'GET',
-                        url :  BS.getAllPPTFilesForAUser,
+                        url :  BS.getAllPDFFilesForAUser,
                         dataType : "json",
                         success : function(pdfs) {
 //                            if(docs.length != 0)  {

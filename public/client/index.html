@@ -2088,7 +2088,7 @@ body {
         <form name="profile-form" id ="profile-form"  method="POST" enctype="multipart/form-data">
             <fieldset>
                 <legend class="legend">Profile info</legend>
-
+                {{#unless edit}}
                 <div id="janrainEngageShare" class="social-block">
                     Click the icon below to invite<br>
                     <a class="facebook" href="#"></a>
@@ -2099,8 +2099,9 @@ body {
                     <br>
                     to BeamSteam Beta
                 </div>
-
+				
                 <div class="form-row-label"></div>
+				{{/unless}}
                 <div class="form-row">
                     <div class="element">
                         <label for="profile-photo">Profile photo</label>
