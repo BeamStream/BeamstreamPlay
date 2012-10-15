@@ -209,5 +209,14 @@ object DocumentController extends Controller {
     val PPTFiles = Files.getAllPPTFiles(new ObjectId(request.session.get("userId").get))
     Ok(write(PPTFiles)).as("application/json")
   }
+  
+  /**
+   * Get All PPTFiles
+   */
+
+  def getAllPDFFilesForAUser = Action { implicit request =>
+    val PDFFiles = Files.getAllPDFFiles(new ObjectId(request.session.get("userId").get))
+    Ok(write(PDFFiles)).as("application/json")
+  }
 }
 
