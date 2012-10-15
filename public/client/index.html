@@ -494,11 +494,10 @@ body {
 	          </div>
 	          <div id="media-{{pdf.id.id}}" ><h4> {{pdf.documentName}}</h4>
 	            <p class="pdfpopup doc-description" id="{{pdf.id.id}}" >
-	               <input type="hidden" id="id-{{pdf.id.id}}" value="{{pdf.documentURL}}">
 	             {{pdf.documentDescription}} 
 	            </p>
 	          </div>
-	          <h5 class="doctitle" id="{{pdf.id.id}}"> Title & Description</h5>
+	          <h5 class="pdftitle" id="{{pdf.id.id}}"> Title & Description</h5>
 	          <span>State</span>
 	          <span class="date">{{datVal}}</span>
 	        </div> 
@@ -533,11 +532,10 @@ body {
 	          </div>
 	          <div id="media-{{ppt.id.id}}" ><h4> {{ppt.documentName}}</h4>
 	            <p class="presentationpopup doc-description" id="{{ppt.id.id}}" >
-	               <input type="hidden" id="id-{{ppt.id.id}}" value="{{ppt.documentURL}}">
 	             {{ppt.documentDescription}} 
 	            </p>
 	          </div>
-	          <h5 class="doctitle" id="{{ppt.id.id}}"> Title & Description</h5>
+	          <h5 class="presentationtitle" id="{{ppt.id.id}}"> Title & Description</h5>
 	          <span>State</span>
 	          <span class="date">{{datVal}}</span>
 	        </div> 
@@ -713,14 +711,14 @@ body {
        <div class="control-button doc-pop-button">
 		<a href="#"><img id="popup-close" class="close-button" src="images/close-button.png"></a>
        </div>
-        <h2  class="pull-left">  Presentation view </h2>
+        <h2  class="pull-left">{{title}}</h2>
      </div>
     <div class="modal-body doc-popup-wrapper">
         <form name="add-new-school-form" id="add-new-school-form">
             <fieldset class="popupfield">    
                 <div id="popup-loader" >
                     <!--<image src="images/ajax-loader1.gif">--> 
-                    <iframe src="http://docs.google.com/gview?url={{docUrl}}&embedded=true" scrolling="NO"  width="963" height="500" style="border: none">
+                    <iframe src="http://docs.google.com/gview?url={{url}}&embedded=true" scrolling="NO"  width="963" height="500" style="border: none">
                     <p>Your browser does not support iframes.</p>
                     </iframe> 
             </div>

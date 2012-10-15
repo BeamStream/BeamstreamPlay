@@ -1,6 +1,7 @@
 BS.PresentationView = Backbone.View.extend({ 
         events:{
-                "click .presentationpopup" : "presentationpopup"
+                "click .presentationpopup" : "presentationpopup",
+                "click .presentationtitle" : "editPresentationTitle"
                 },
     
         initialize:function(){
@@ -48,37 +49,44 @@ BS.PresentationView = Backbone.View.extend({
          *
          */ 
         presentationpopup :function(eventName){          
-            var docId = eventName.currentTarget.id;
-            var docUrl = $('input#id-'+docId).val();     
-            BS.mediafilepopupview = new BS.MediaFilePopupView();
-            BS.mediafilepopupview.render(docUrl);          
-            $('#gdocedit').html(BS.mediafilepopupview.el);
-            
-            
-            /*       var pdfId = eventName.currentTarget.id;
-            var pdfUrl = $('input#id-'+docId).val();       
+            var pptId = eventName.currentTarget.id;   
             $.ajax({                                       
-                        type : 'POST',
-                        url :  BS.getOneDocs,
-                        data : {
-                                documentId: pdfId
-                                },
-                        dataType : "json",
-                        success : function(pdfs) {                          
-                             var datas = {
-                             "id" : pdfId,
-                             "url" : pdfUrl,
-                             "type" : 'Pdf',
-                             "title" : pdfs[0].documentName,
-                             "description" : pdfs[0].documentDescription
+                    type : 'POST',
+                    url :  BS.getOneDocs,
+                    data : {
+                           documentId: pptId
+                            },
+                    dataType : "json",
+                    success : function(ppts) {                          
+                        var pptdatas = {
+                        "id" : ppts[0].id.id,
+                        "url" : ppts[0].documentURL,
+                        "type" : 'Pdf',
+                        "title" : ppts[0].documentName
 			  }
            BS.mediafilepopupview = new BS.MediaFilePopupView();
-           BS.mediafilepopupview.render(docUrl);          
+           BS.mediafilepopupview.render(pptdatas);          
            $('#gdocedit').html(BS.mediafilepopupview.el);      
                   }
-                    });     */
+                    });     
             
             
-        }
+        },
+        
+        /*
+         *   To edit the title and description of the presentation file      
+         *
+         */ 
+        editPresentationTitle :function(eventName){  
+//          var docId = eventName.currentTarget.id;             // id to get corresponding presentation   
+            var datas = {
+				"type" : 'Presentation',
+				"title" : '',
+                                "description" :''
+			  }
+            BS.mediaeditview = new  BS.MediaEditView();
+            BS.mediaeditview.render(datas);
+            $('#gdocedit').html(BS.mediaeditview.el);
+            }
             
 })

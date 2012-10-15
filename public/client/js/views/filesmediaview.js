@@ -7,7 +7,10 @@ BS.FilesMediaView = Backbone.View.extend({
                 "click #gdoc_uploadbutton" : "uploadFile",
                 "click .doctitle" : "editDocTitle",
                 "click .imgtitle" : "editImgTitle",
-                "click .videotitle" : "editVideoTitle",
+                "click .videotitle" : "editVideoTitle",  
+                "click .audiotitle" : "editAudioTitle",
+                "click .pdftitle" : "editPdfTitle",
+                "click .presentationtitle" : "editPresentationTitle",
                 "mouseenter #uploadmedia_dr":"uploadMediadwn",
                 "mouseleave #dropdownnew":"uploadMediaup",
                 "click #links_dr":"linksMenuList",
@@ -379,6 +382,22 @@ BS.FilesMediaView = Backbone.View.extend({
                                  
         },
         
+        /*
+         *   To edit the title and description of the Audio      
+         *
+         */ 
+        editAudioTitle :function(eventName){  
+//          var docId = eventName.currentTarget.id;             // id to get corresponding Audio   
+            var datas = {
+				"type" : 'Audio',
+				"title" : '',
+                                "description" :''
+			  }
+            BS.mediaeditview = new  BS.MediaEditView();
+            BS.mediaeditview.render(datas);
+            $('#gdocedit').html(BS.mediaeditview.el);
+            },
+        
          /**
          * Function for show spreadsheet
          * 
@@ -398,9 +417,6 @@ BS.FilesMediaView = Backbone.View.extend({
          * 
          */
         presentation :function(eventName){
- 
-            
-            //            $('.coveraud').html('content');
             var self = this;
             $.ajax({
                         type : 'GET',
@@ -416,7 +432,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                         +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#presentationview" style="text-decoration: none">'
                                         +'<h4> '+ppt.documentName+'</h4> <p class="doc-description">'                
                                         +''+ppt.documentDescription+' </p></a>'
-                                        +'<h5 class="audiotitle" id="'+ppt.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
+                                        +'<h5 class="presentationtitle" id="'+ppt.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
                                         +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon presentation" href="#">'
                                         +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
                                         +'<li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
@@ -429,6 +445,22 @@ BS.FilesMediaView = Backbone.View.extend({
                });
             
         },
+        
+        /*
+         *   To edit the title and description of the presentation file      
+         *
+         */ 
+        editPresentationTitle :function(eventName){  
+//          var docId = eventName.currentTarget.id;             // id to get corresponding presentation   
+            var datas = {
+				"type" : 'Presentation',
+				"title" : '',
+                                "description" :''
+			  }
+            BS.mediaeditview = new  BS.MediaEditView();
+            BS.mediaeditview.render(datas);
+            $('#gdocedit').html(BS.mediaeditview.el);
+            },
         
          /**
          * Function for show pdffiles
@@ -452,7 +484,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                         +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#pdflistview" style="text-decoration: none">'
                                         +'<h4> '+pdf.documentName+'</h4> <p class="doc-description">'                
                                         +''+pdf.documentDescription+' </p></a>'
-                                        +'<h5 class="audiotitle" id="'+pdf.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
+                                        +'<h5 class="pdftitle" id="'+pdf.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
                                         +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon pdf" href="#">'
                                         +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
                                         +'<li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
@@ -467,6 +499,22 @@ BS.FilesMediaView = Backbone.View.extend({
             
             
         },
+        
+        /*
+         *   To edit the title and description of the pdffilelist      
+         *
+         */ 
+        editPdfTitle :function(eventName){  
+//          var docId = eventName.currentTarget.id;             // id to get corresponding pdf file   
+            var datas = {
+				"type" : 'Pdf',
+				"title" : '',
+                                "description" :''
+			  }
+            BS.mediaeditview = new  BS.MediaEditView();
+            BS.mediaeditview.render(datas);
+            $('#gdocedit').html(BS.mediaeditview.el);
+            },
         
          /**
          * Function for show links
