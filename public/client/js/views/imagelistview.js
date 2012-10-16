@@ -52,37 +52,10 @@ BS.ImageListView = Backbone.View.extend({
                                 	var source = $("#tpl-single-image").html();
                                     var template = Handlebars.compile(source);				    
                                     $('#grid').append(template(datas));   	
-                                	
-//                                content += '<li id="file-docs-'+i+'">'  
-//
-//                                +'<div class="image-wrapper hovereffect"> <div class="hover-div"><img class="filmdeapicture" src="'+doc+'" width="210px" height="141px"/><div class="hover-text">'
-//                                +'<div class="comment-wrapper comment-wrapper2">'
-//                                +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
-//                                +'<a href="#" class="hand-icon"></a>'
-//                                +'<a href="#" class="message-icon"></a>'
-//                                +'<a href="#" class="share-icon"></a>'
-//                                +'</div>'
-//                                +'<h4> image name</h4> ' 
-//                                +'<div class="gallery clearfix"></div><div class="gallery clearfix hrtxt"><a href="'+doc+'" style="text-decoration: none" rel="prettyPhoto[gallery2]">'
-//                                +' <p class="google_doc doc-description" id="+doc.id.id+">'
-//                                +'<input type="hidden" id="id-doc.id.id" value="doc.url">'
-//                                +'Description of image</p></a>' 
-//                                +'<h5 class="imgtitle"> Title & Description</h5>'           //'id' to edit the title and description
-//                                +'<span>State</span>'
-//                                +' <span class="date">datVal</span>'
-//                            
-//                                +'</div></div></div>'    //doc contain path of the image
-//                                +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>'
-//                                +'<ul class="comment-list">'
-//                                +'<li><a class="eye-icon" href="#">87</a></li>'
-//                                +'<li><a class="hand-icon" href="#">5</a></li>'
-//                                +'<li><a class="message-icon" href="#">10</a></li>'
-//                                +'</ul></div></li>';                                            
+                                            
                         i++;
                         });                  
-
-//                        $('#grid').html(content);
-                         
+                          
                         /* for image view popups */
                         $("area[rel^='prettyPhoto']").prettyPhoto();
                         $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:1000, autoplay_slideshow: true});
