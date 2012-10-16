@@ -5,7 +5,9 @@ BS.ImageListView = Backbone.View.extend({
                 "click ul.file-type li a" : "hideList",
                 "click #prevslid" : "previous",
                 "click #nextslid" : "next",
-                 "click .imgtitle" : "editImgTitle"
+                "click .imgtitle" : "editImgTitle",
+                "click .rock_docs" : "rocksDocuments",
+                "click .show_rockers" : "showDocRockers"
              },
     
         initialize:function(){
@@ -36,37 +38,50 @@ BS.ImageListView = Backbone.View.extend({
                         type : 'GET',
                         url :  BS.allProfileImages,
                         dataType : "json",
-                        success : function(docs) {
-                                _.each(docs, function(doc) {  
-                                content += '<li id="file-docs-'+i+'">'  
+                        success : function(images) {
+                        	     $('#grid').html("");    
+                                _.each(images, function(image) {  
+                                	
 
-                                +'<div class="image-wrapper hovereffect"> <div class="hover-div"><img class="filmdeapicture" src="'+doc+'" width="210px" height="141px"/><div class="hover-text">'
-                                +'<div class="comment-wrapper comment-wrapper2">'
-                                +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
-                                +'<a href="#" class="hand-icon"></a>'
-                                +'<a href="#" class="message-icon"></a>'
-                                +'<a href="#" class="share-icon"></a>'
-                                +'</div>'
-                                +'<h4> image name</h4> ' 
-                                +'<div class="gallery clearfix"></div><div class="gallery clearfix hrtxt"><a href="'+doc+'" style="text-decoration: none" rel="prettyPhoto[gallery2]">'
-                                +' <p class="google_doc doc-description" id="+doc.id.id+">'
-                                +'<input type="hidden" id="id-doc.id.id" value="doc.url">'
-                                +'Description of image</p></a>' 
-                                +'<h5 class="imgtitle"> Title & Description</h5>'           //'id' to edit the title and description
-                                +'<span>State</span>'
-                                +' <span class="date">datVal</span>'
-                            
-                                +'</div></div></div>'    //doc contain path of the image
-                                +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>'
-                                +'<ul class="comment-list">'
-                                +'<li><a class="eye-icon" href="#">87</a></li>'
-                                +'<li><a class="hand-icon" href="#">5</a></li>'
-                                +'<li><a class="message-icon" href="#">10</a></li>'
-                                +'</ul></div></li>';                                            
+                                	var datas = {
+                                            "image" : image,
+//                                            "datVal" :datVal,
+                                            "imageCount" : i
+                                	}	
+
+                                	var source = $("#tpl-single-image").html();
+                                    var template = Handlebars.compile(source);				    
+                                    $('#grid').append(template(datas));   	
+                                	
+//                                content += '<li id="file-docs-'+i+'">'  
+//
+//                                +'<div class="image-wrapper hovereffect"> <div class="hover-div"><img class="filmdeapicture" src="'+doc+'" width="210px" height="141px"/><div class="hover-text">'
+//                                +'<div class="comment-wrapper comment-wrapper2">'
+//                                +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
+//                                +'<a href="#" class="hand-icon"></a>'
+//                                +'<a href="#" class="message-icon"></a>'
+//                                +'<a href="#" class="share-icon"></a>'
+//                                +'</div>'
+//                                +'<h4> image name</h4> ' 
+//                                +'<div class="gallery clearfix"></div><div class="gallery clearfix hrtxt"><a href="'+doc+'" style="text-decoration: none" rel="prettyPhoto[gallery2]">'
+//                                +' <p class="google_doc doc-description" id="+doc.id.id+">'
+//                                +'<input type="hidden" id="id-doc.id.id" value="doc.url">'
+//                                +'Description of image</p></a>' 
+//                                +'<h5 class="imgtitle"> Title & Description</h5>'           //'id' to edit the title and description
+//                                +'<span>State</span>'
+//                                +' <span class="date">datVal</span>'
+//                            
+//                                +'</div></div></div>'    //doc contain path of the image
+//                                +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>'
+//                                +'<ul class="comment-list">'
+//                                +'<li><a class="eye-icon" href="#">87</a></li>'
+//                                +'<li><a class="hand-icon" href="#">5</a></li>'
+//                                +'<li><a class="message-icon" href="#">10</a></li>'
+//                                +'</ul></div></li>';                                            
                         i++;
                         });                  
 
-                        $('#grid').html(content);
+//                        $('#grid').html(content);
                          
                         /* for image view popups */
                         $("area[rel^='prettyPhoto']").prettyPhoto();
@@ -173,7 +188,8 @@ BS.ImageListView = Backbone.View.extend({
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(datas);
             $('#gdocedit').html(BS.mediaeditview.el);
-            }
+
+            
             
             /*
              var imageId = eventName.currentTarget.id;             // id to get corresponding image   
@@ -198,6 +214,64 @@ BS.ImageListView = Backbone.View.extend({
                         }
            });
              */
+
+            },
+            
+           /**
+            * Rock profile Images
+            */
+        rocksDocuments:function(eventName){
+        	   
+            eventName.preventDefault();
+            var element = eventName.target.parentElement;
+            var docId =$(element).attr('id');
+            console.log(docId);
+    	  	// post documentId and get Rockcount 
+            $.ajax({
+    	               type: 'POST',
+    	               url:BS.rockDocs,
+    	               data:{
+    	            	   documentId:docId
+    	               },
+    	               dataType:"json",
+    	               success:function(data){	              	 
+    	              	// display the rocks count  
+    	            	$('#'+docId+'-activities li a.hand-icon').html(data);	   
+    	               }
+    	     });
+         },
+         
+         /**
+          * show profile image Rockers list 
+          */
+         showDocRockers :function(eventName){
+      	    eventName.preventDefault();
+      	    var element = eventName.target.parentElement; 
+            var imageId =$(element).closest('div').parent('div').attr('id');
+            
+      	    $.ajax({
+                 type: 'POST',
+                 url:BS.documentRockers,
+                 data:{
+                	  documentId:imageId
+                 },
+                 dataType:"json",
+                 success:function(data){
+                	 
+                	  // prepair rockers list
+                  var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">Who Rocked it ?</div><ul class="rock-list">';
+                	_.each(data, function(rocker) { 					 
+                		ul+= '<li>'+rocker+'</li>';
+    			    });
+                	ul+='</ul>';   
+                	$('#'+imageId+'-docRockers-list').fadeIn("fast").delay(1000).fadeOut('fast'); 
+                	$('#'+imageId+'-docRockers-list').html(ul);
+
+                 }
+              });
+      	   
+         },
+
         
             
 })
