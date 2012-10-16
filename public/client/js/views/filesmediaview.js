@@ -49,6 +49,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	    this.pictres();	
         this.videos();   
         this.docsList();
+        this.docFromComputer();
         this.audio();  
 //        this.spreadsheet();  
         this.presentation();  
@@ -182,6 +183,38 @@ BS.FilesMediaView = Backbone.View.extend({
             }});
 
            // $('#content').html(BS.listDocsView.el);
+        },
+        
+        docFromComputer :function(){
+
+            var self = this;
+            $.ajax({
+                        type : 'GET',
+                        url :  BS.getAllDOCSFilesForAUser,
+                        dataType : "json",
+                        success : function(docs) {
+                            if(docs.length != 0)  {
+                              _.each(docs, function(doc) {
+                        var datVal =  self.formatDateVal(doc.creationDate);                      
+                           var content ='<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'">'
+                                        +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
+                                        +'<div class="hover-div"><img src="images/docs_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
+                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
+                                        +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#docs" style="text-decoration: none">'
+                                        +'<div id="media-'+doc.id.id+'" ><h4> '+doc.documentName+'</h4> <p class="google_doc doc-description" id="'+doc.id.id+'" >'
+                                         +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
+                                        +''+doc.documentDescription+' </p> </div></a>'
+                                        +'<h5 class="doctitle" id="'+doc.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
+                                        +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#">'
+                                        +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
+                                        +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
+                        $('#coverdoc_com').html(content);                     
+                       
+                        });
+                        }
+                        }
+               });
+           
         },
         
          /*
@@ -430,8 +463,8 @@ BS.FilesMediaView = Backbone.View.extend({
                                         +'<div class="hover-div"><img src="images/presentations_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
                                         +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
                                         +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#presentationview" style="text-decoration: none">'
-                                        +'<h4> '+ppt.documentName+'</h4> <p class="doc-description">'                
-                                        +''+ppt.documentDescription+' </p></a>'
+                                        +' <div id="media-'+ppt.id.id+'" ><h4>'+ppt.documentName+'</h4> <p class="doc-description" id="'+ppt.id.id+'" >'                
+                                        +''+ppt.documentDescription+' </p></div></a>'
                                         +'<h5 class="presentationtitle" id="'+ppt.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
                                         +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon presentation" href="#">'
                                         +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
@@ -451,15 +484,27 @@ BS.FilesMediaView = Backbone.View.extend({
          *
          */ 
         editPresentationTitle :function(eventName){  
-//          var docId = eventName.currentTarget.id;             // id to get corresponding presentation   
-            var datas = {
-				"type" : 'Presentation',
-				"title" : '',
-                                "description" :''
+            var pptId = eventName.currentTarget.id;             // id to get corresponding presentation   
+           $.ajax({                                       
+                        type : 'POST',
+                        url :  BS.getOneDocs,
+                        data : {
+                                documentId: pptId  
+                                },
+                        dataType : "json",
+                        success : function(ppts) {                          
+                             var pptdatas = {
+                             "id" : ppts[0].id.id,
+                             "url" : ppts[0].documentURL,
+                             "type" : 'Docs',
+                             "title" : ppts[0].documentName,
+                             "description" : ppts[0].documentDescription
 			  }
             BS.mediaeditview = new  BS.MediaEditView();
-            BS.mediaeditview.render(datas);
+            BS.mediaeditview.render(pptdatas);
             $('#gdocedit').html(BS.mediaeditview.el);
+                        }
+           });
             },
         
          /**
@@ -482,8 +527,9 @@ BS.FilesMediaView = Backbone.View.extend({
                                         +'<div class="hover-div"><img src="images/pdp_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
                                         +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
                                         +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#pdflistview" style="text-decoration: none">'
-                                        +'<h4> '+pdf.documentName+'</h4> <p class="doc-description">'                
-                                        +''+pdf.documentDescription+' </p></a>'
+                                        +'<div id="media-'+pdf.id.id+'" ><h4> '+pdf.documentName+'</h4> <p class="doc-description" id="'+pdf.id.id+'" >'                
+                                        +'<input type="hidden" id="id-'+pdf.id.id+'" value="'+pdf.documentURL+'">'
+                                        +''+pdf.documentDescription+' </p></div></a>'
                                         +'<h5 class="pdftitle" id="'+pdf.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
                                         +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon pdf" href="#">'
                                         +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
@@ -505,16 +551,28 @@ BS.FilesMediaView = Backbone.View.extend({
          *
          */ 
         editPdfTitle :function(eventName){  
-//          var docId = eventName.currentTarget.id;             // id to get corresponding pdf file   
-            var datas = {
-				"type" : 'Pdf',
-				"title" : '',
-                                "description" :''
+         var pdfId = eventName.currentTarget.id;             // id to get corresponding pdf file                          
+              $.ajax({                                       
+                        type : 'POST',
+                        url :  BS.getOneDocs,
+                        data : {
+                                documentId: pdfId  
+                                },
+                        dataType : "json",
+                        success : function(pdfs) {                          
+                             var pdfdatas = {
+                             "id" : pdfs[0].id.id,
+                             "url" : pdfs[0].documentURL,
+                             "type" : 'Docs',
+                             "title" : pdfs[0].documentName,
+                             "description" : pdfs[0].documentDescription
 			  }
             BS.mediaeditview = new  BS.MediaEditView();
-            BS.mediaeditview.render(datas);
-            $('#gdocedit').html(BS.mediaeditview.el);
-            },
+            BS.mediaeditview.render(pdfdatas);
+            $('#gdocedit').html(BS.mediaeditview.el);         
+                  }
+                    });
+        },         
         
          /**
          * Function for show links

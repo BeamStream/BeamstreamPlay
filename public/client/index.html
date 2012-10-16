@@ -398,6 +398,22 @@ body {
               </ul>        
            </div>              
         </li>
+        <li id="coverdoc_com" data-key='["recent"]'>
+           <div class="image-wrapper"> 
+             <div class="hover-div"><img class="default-image" src="images/links_image.png"/>
+               <div class="hover-text">     
+                <p class="emptyfiles"> No Uploaded Links </p>
+               </div>
+             </div> 
+          </div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a>
+             <ul class="comment-list">
+                <li><a class="eye-icon" href="#">87</a></li>
+                <li><a class="hand-icon" href="#">5</a></li>
+                <li><a class="message-icon" href="#">10</a></li>
+             </ul>
+          </div>       
+        </li>       
         <li id="coverlink" data-key='["recent"]'>
            <div class="image-wrapper"> 
              <div class="hover-div"><img class="default-image" src="images/links_image.png"/>
@@ -413,7 +429,7 @@ body {
                 <li><a class="message-icon" href="#">10</a></li>
              </ul>
           </div>       
-        </li>
+        </li>        
       </ul>
     </div>
   </div>
@@ -428,7 +444,7 @@ body {
 </div>
  </script>
 
-<!-- template for single bucket in Files and Media -->
+<!-- template for google doc's single bucket in Files and Media -->
 <script type="text/x-handlebars-template" id="tpl-single-bucket">
 <li id="file-docs-{{docCount}}" data-key="[{{datVal}}]"> 
   <div id="{{doc.id.id}}"   name="single-doc">
@@ -478,6 +494,9 @@ body {
 </form>
 </div> -->
  </script>
+
+
+
 
 <!-- template for single bucket in pdf-list view -->
 <script type="text/x-handlebars-template" id="tpl-single-pdf">
@@ -3800,8 +3819,9 @@ body {
 	<script src="js/views/videolistview.js"></script>
         <script src="js/views/audiolistview.js"></script> 
         <script src="js/views/presentationview.js"></script>
-        <script src="js/views/mediafilepopupview.js"></script>
+        <script src="js/views/mediafilepopupview.js"></script>   
         <script src="js/views/pdflistview.js"></script>
+        <script src="js/views/doclistview.js"></script>
 	<script src="js/models/singleusermodel.js"></script>
 	<script src="js/models/documentmodel.js"></script>
 

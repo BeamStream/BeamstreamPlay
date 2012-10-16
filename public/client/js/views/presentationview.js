@@ -156,7 +156,7 @@ BS.PresentationView = Backbone.View.extend({
                 }
              });
      	   
-        },
+        }
 
             
 })

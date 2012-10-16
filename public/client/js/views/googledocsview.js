@@ -99,9 +99,9 @@ BS.GoogleDocsView = Backbone.View.extend({
             var i = 1;
             var j=1;
             var self = this;
-            BS.user.fetch({ success:function(e) {
-                    
+                   
                 /* get profile images for user */
+                $('#grid').html(""); 
             $.ajax({
                 type : 'GET',
                 url :  BS.getAllDocs,
@@ -110,7 +110,7 @@ BS.GoogleDocsView = Backbone.View.extend({
                 dataType : "json",
                 success : function(docs) {
                 var content = '';
-                $('#grid').html("");    
+                   
                 _.each(docs, function(doc) {                    
                 	var datVal =  self.formatDateVal(doc.creationDate);
                 	var datas = {
@@ -129,8 +129,7 @@ BS.GoogleDocsView = Backbone.View.extend({
                  self.pagination();                                       
                 }
 
-               });
-             }});
+               });        
             },
             
             /*
