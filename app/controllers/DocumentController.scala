@@ -145,15 +145,6 @@ object DocumentController extends Controller {
     Ok(rockersJson).as("application/json")
   }
 
-  //  /*
-  //    * Documents for the current user sorted by creation date
-  //    */
-  //
-  //  def getAllDocumentsForCurrentUserSortedbyDate = Action { implicit request =>
-  //    val allDocumentsForAUser = Document.getAllDocumentsForAUserSortedbyDate(new ObjectId(request.session.get("userId").get))
-  //    val allDocumentsForAStreamJson = write(allDocumentsForAUser)
-  //    Ok(allDocumentsForAStreamJson).as("application/json")
-  //  }
 
   /**
    * Upload Media From HardDrive
