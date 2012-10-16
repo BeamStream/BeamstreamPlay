@@ -75,6 +75,16 @@ BS.AppRouter = Backbone.Router.extend({
 //			}
 //			
 //		});
+  		
+//  		BS.user.on("change:loggedin", function(e) {
+//    		if(e.get('loggedin') == false) { 
+//    			BS.user.set('loggedin', true);
+//				BS.AppRouter.navigate("login", {trigger: true});
+//			}
+//			else { 
+//				BS.user.set('loggedin', false);				
+//			}
+//  		});
 		
     	
     },
@@ -95,58 +105,64 @@ BS.AppRouter = Backbone.Router.extend({
 //    		BS.AppRouter.navigate("streams", {trigger: true});
 //    		return;
 //		}
-//    	BS.user.on("change:loggedin", function(e) {
-//			if(e.get('loggedin') == true) {
+//    	var self =this;
+//    	console.log(BS.user.get('loggedin'));
+//    	if(BS.user.get('loggedin') == true) {
+//    		  
 //				BS.AppRouter.navigate("streams", {trigger: true});
-//				return;
+//				
 //			}
-//			 
-//		});
+//			else
+//			{
+				$("#dialog").dialog('close');
+		    	 localStorage.clear();
+		    	 localStorage["idLogin"]= '';
+		    	 $('#school-popup').children().detach(); 
+		    	 var self =this;
+		    	 BS.loginView = new BS.LoginView();
+		    	 BS.loginView.render();
+		     
+		    	 localStorage["idLogin"] = "login";
+		         $('#school-popup').html(BS.loginView.el);  
+		         
+		         $(".modal select:visible").selectBox();
+		     	 $("#login-form").validate();
+		         localStorage["regInfo"] ='';
+		         localStorage["schoolInfo"] ='';
+		         localStorage["classInfo"] ='';
+		        
+		         $(".checkbox").dgStyle();
+		         $(".signin_check").dgStyle();
+		         
+		         //get cookies
+		         var username= $.cookie('userName');
+		         var password = $.cookie('password');
+		         
+		         if(username != null && username != "" && password !=null && password != "") 
+		         {
+		        	 $('#email').val(username);
+		        	 $('#password').val(password);
+		         }
+		         
+		         /* display janRain component */
+				 setTimeout(function() {
+				    self.displayJanRain();
+				    var nu=$('#janrainEngageEmbed').children();
+					
+					if(nu.length==2)
+					{
+						console.log("double janrain found");
+						$('.janrainContent:first').remove();
+							 					
+				    }
+					  
+					 $('.janrainContent div+div').remove();
+				 }, 1000);
+//			}
+			 
+		
     	 
-	    	 $("#dialog").dialog('close');
-	    	 localStorage.clear();
-	    	 localStorage["idLogin"]= '';
-	    	 $('#school-popup').children().detach(); 
-	    	 var self =this;
-	    	 BS.loginView = new BS.LoginView();
-	    	 BS.loginView.render();
-	     
-	    	 localStorage["idLogin"] = "login";
-	         $('#school-popup').html(BS.loginView.el);  
-	         
-	         $(".modal select:visible").selectBox();
-	     	 $("#login-form").validate();
-	         localStorage["regInfo"] ='';
-	         localStorage["schoolInfo"] ='';
-	         localStorage["classInfo"] ='';
-	        
-	         $(".checkbox").dgStyle();
-	         $(".signin_check").dgStyle();
-	         
-	         //get cookies
-	         var username= $.cookie('userName');
-	         var password = $.cookie('password');
-	         
-	         if(username != null && username != "" && password !=null && password != "") 
-	         {
-	        	 $('#email').val(username);
-	        	 $('#password').val(password);
-	         }
-	         
-	         /* display janRain component */
-			 setTimeout(function() {
-			    self.displayJanRain();
-			    var nu=$('#janrainEngageEmbed').children();
-				
-				if(nu.length==2)
-				{
-					console.log("double janrain found");
-					$('.janrainContent:first').remove();
-						 					
-			    }
-				  
-				 $('.janrainContent div+div').remove();
-			 }, 1000);
+	    	 
  
     },
    
@@ -527,153 +543,158 @@ BS.AppRouter = Backbone.Router.extend({
     * display main stream page
     */
    mainStream:function () {
-	   
-//	   BS.user.on("change:loggedin", function(e) {
-//			if(e.get('loggedin') == false) {
-//				BS.AppRouter.navigate("login", {trigger: true});
-//				return;
-//			}
-//			 
-//		});
-	   
-		   $("#dialog").dialog('close');
-		   BS.mainImageUrl = $('#right-photo').attr('src');
-		  
-		   $('#middle-content').children().detach();
-		   $('nav li.active').removeClass('active');
-		   $('nav li a#streamsGroups').parents('li').addClass('active');
-		   var self = this;
-		  
-	           
-			   $('#school-popup').children().detach(); 
-			   $('#content').children().detach();
-			   
-			   $('.modal').css('display','none');
-			   BS.user.fetch({ success:function(e) {
+//	   console.log("in stream-- " + BS.user.get('loggedin'));
+//	   if(BS.user.get('loggedin') == false){
+// 		  
+//			BS.AppRouter.navigate("login", {trigger: true});
+//			
+//		}
+//		else
+//		{
+				console.log("stream ");
+				$("#dialog").dialog('close');
+				   BS.mainImageUrl = $('#right-photo').attr('src');
 				  
-				   //store logged user details
-			       BS.loggedUserInfo  = e;
-			       localStorage["loggedUserInfo"] = e.attributes.id.id;
-			       
-				   BS.streamView = new BS.StreamView({ model: BS.user });
-				   BS.streamView.render();
-				   BS.schoolBack = false;
-				   BS.regBack = false;
-				   BS.classBack = false;
-				   self.onstream = true; 
-				   localStorage["regInfo"] ='';
-			       localStorage["schoolInfo"] ='';
-			       localStorage["classInfo"] ='';
-			       localStorage["schoolFromPrev"] = '';
-			       localStorage["newSchoolId"] = '';
-	          	   localStorage["newSchool"] ='';
-			       
-			       localStorage["editSchool"] = "true";
-			       localStorage["editClass"] = "true";
-			       localStorage["editProfile"] = "true";
-		   	   
-				   //get main menu
-				   this.navView = new BS.NavView({ model: BS.user });
-				    
-				   $('.nav-collapse').html(this.navView.render().el);
+				   $('#middle-content').children().detach();
 				   $('nav li.active').removeClass('active');
-				   $('#streamsGroups').addClass('active');
-				     /* get profile images for user */
-			          $.ajax({
-			    			type : 'POST',
-			    			url : BS.profileImage,
-			    			dataType : "json",
-			    			data : {
-				    				 userId :  e.attributes.id.id
-				    			},
-			    			success : function(data) {
-			    				 
-			    				 // default profile image
-			    				 if(data.status)
-			    				 {
-			    					  
-			    					 BS.profileImageUrl = "images/unknown.jpeg";
-					    	        	 
-			    				 }
-			    				 else
-			    				 {   
-			    					 // show primary profile image 
-			    					 if(data.contentType.name == "Image")
-			    					 {
-			    						 BS.profileImageUrl = data.mediaUrl;
-			    						  
-	                                     BS.primaryImage = data.mediaUrl;
-	                                     BS.primaryVideo = '';
-	                                     
-			    						 var primaryImage = '<div class="gallery clearfix"><div class="gallery clearfix">'
-			    							                 +'<a href="'+data.mediaUrl+'" rel="prettyPhoto"  ><img class="p-profile" src="'+data.mediaUrl+'"  width="100%" height="100%"  /></a></div>';
-			    						 $('#profile-images').html(primaryImage);
-			    					 }
-			    					 else
-			    					 {
-			    						// show primary profile video
-			    						 BS.profileImageUrl = data.frameURL;
-			    						 
-			    						 BS.primaryVideo = data.frameURL;
-			    						 BS.primaryImage = '';
-			    						 
-			    						 var primaryProfile = '<div class="gallery clearfix">'
-			    							                  +'</div><div class="gallery clearfix">'
-			    							                  +'<a  rel="prettyPhoto" href="'+data.mediaUrl+'">'
-			    							                  +'<img class="p-profile" src="'+data.frameURL+'" width="100%" height="100%" /></a></div>';
-			    						 $('#profile-images').html(primaryProfile);
-			    						  
-			    					 }
-			    					 
-			    					 $("area[rel^='prettyPhoto']").prettyPhoto();
-		    		 				 $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
-		    		 				 $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
-		    		 					    				 }
-			    				 $('#main-photo').attr("src",BS.profileImageUrl);
-				    	         $('#right-photo').attr("src",BS.profileImageUrl);
-				    	         $('#msg-photo').attr("src",BS.profileImageUrl);
-			    	        	
-			    			}
-			    	   });
-			          
-			          // list all schools under profile pic
-			          $.ajax({
-			   			url : BS.schoolJson,
-			   			dataType : "json",
-			   			success : function(datas) {
-			   				  var mySchools = '';
-			   				  
-				   			 _.each(datas, function(data) {
-	//			   				 mySchools+= data.schoolName+' ,';
-				   				mySchools+='<li>'+data.schoolName+'</i></li>'; 
-							 });
-				   			 var orgName = mySchools.substring(0, mySchools.length - 1);
-	
-				   			$('#myschool-list').html(mySchools);
-			   			 }
-			   		    });
-			          
-			    
-		   	   $('.modal-backdrop').hide();
-		       $('#content').html(BS.streamView.el);
-		      
-		       $('.page-loader').hide();
-	      	
-		       $(".checkbox").dgStyle();
-		        
-		       $('.with-tooltips a, .with-tooltip').each(function() {
-		           var $this = $(this);
-		           var placement = $this.parent().hasClass('tooltips-bottom') ? 'bottom' : 'top';
-		           $(this).tooltip({placement: placement});
-		       });
-	//            // slider for streamlist at home view (with timer),up and down scrolling button in template 
-	//            setTimeout(function() {
-	//	       $("#streams-list").mb_vSlider({easing:"swing",slideTimer:1000,nextEl:".vSdown",prevEl:".vSup ",height:200,width:160});
-	//                                              
-	//           }, 500);                  
-	               
-		        
-			 }});
+				   $('nav li a#streamsGroups').parents('li').addClass('active');
+				   var self = this;
+				  
+			           
+					   $('#school-popup').children().detach(); 
+					   $('#content').children().detach();
+					   
+					   $('.modal').css('display','none');
+					   BS.user.fetch({ success:function(e) {
+						  
+						   //store logged user details
+					       BS.loggedUserInfo  = e;
+					       localStorage["loggedUserInfo"] = e.attributes.id.id;
+					       
+						   BS.streamView = new BS.StreamView({ model: BS.user });
+						   BS.streamView.render();
+						   BS.schoolBack = false;
+						   BS.regBack = false;
+						   BS.classBack = false;
+						   self.onstream = true; 
+						   localStorage["regInfo"] ='';
+					       localStorage["schoolInfo"] ='';
+					       localStorage["classInfo"] ='';
+					       localStorage["schoolFromPrev"] = '';
+					       localStorage["newSchoolId"] = '';
+			          	   localStorage["newSchool"] ='';
+					       
+					       localStorage["editSchool"] = "true";
+					       localStorage["editClass"] = "true";
+					       localStorage["editProfile"] = "true";
+				   	   
+						   //get main menu
+						   this.navView = new BS.NavView({ model: BS.user });
+						    
+						   $('.nav-collapse').html(this.navView.render().el);
+						   $('nav li.active').removeClass('active');
+						   $('#streamsGroups').addClass('active');
+						     /* get profile images for user */
+					          $.ajax({
+					    			type : 'POST',
+					    			url : BS.profileImage,
+					    			dataType : "json",
+					    			data : {
+						    				 userId :  e.attributes.id.id
+						    			},
+					    			success : function(data) {
+					    				 
+					    				 // default profile image
+					    				 if(data.status)
+					    				 {
+					    					  
+					    					 BS.profileImageUrl = "images/unknown.jpeg";
+							    	        	 
+					    				 }
+					    				 else
+					    				 {   
+					    					 // show primary profile image 
+					    					 if(data.contentType.name == "Image")
+					    					 {
+					    						 BS.profileImageUrl = data.mediaUrl;
+					    						  
+			                                     BS.primaryImage = data.mediaUrl;
+			                                     BS.primaryVideo = '';
+			                                     
+					    						 var primaryImage = '<div class="gallery clearfix"><div class="gallery clearfix">'
+					    							                 +'<a href="'+data.mediaUrl+'" rel="prettyPhoto"  ><img class="p-profile" src="'+data.mediaUrl+'"  width="100%" height="100%"  /></a></div>';
+					    						 $('#profile-images').html(primaryImage);
+					    					 }
+					    					 else
+					    					 {
+					    						// show primary profile video
+					    						 BS.profileImageUrl = data.frameURL;
+					    						 
+					    						 BS.primaryVideo = data.frameURL;
+					    						 BS.primaryImage = '';
+					    						 
+					    						 var primaryProfile = '<div class="gallery clearfix">'
+					    							                  +'</div><div class="gallery clearfix">'
+					    							                  +'<a  rel="prettyPhoto" href="'+data.mediaUrl+'">'
+					    							                  +'<img class="p-profile" src="'+data.frameURL+'" width="100%" height="100%" /></a></div>';
+					    						 $('#profile-images').html(primaryProfile);
+					    						  
+					    					 }
+					    					 
+					    					 $("area[rel^='prettyPhoto']").prettyPhoto();
+				    		 				 $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
+				    		 				 $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
+				    		 					    				 }
+					    				 $('#main-photo').attr("src",BS.profileImageUrl);
+						    	         $('#right-photo').attr("src",BS.profileImageUrl);
+						    	         $('#msg-photo').attr("src",BS.profileImageUrl);
+					    	        	
+					    			}
+					    	   });
+					          
+					          // list all schools under profile pic
+					          $.ajax({
+					   			url : BS.schoolJson,
+					   			dataType : "json",
+					   			success : function(datas) {
+					   				  var mySchools = '';
+					   				  
+						   			 _.each(datas, function(data) {
+			//			   				 mySchools+= data.schoolName+' ,';
+						   				mySchools+='<li>'+data.schoolName+'</i></li>'; 
+									 });
+						   			 var orgName = mySchools.substring(0, mySchools.length - 1);
+			
+						   			$('#myschool-list').html(mySchools);
+					   			 }
+					   		    });
+					          
+					    
+				   	   $('.modal-backdrop').hide();
+				       $('#content').html(BS.streamView.el);
+				      
+				       $('.page-loader').hide();
+			      	
+				       $(".checkbox").dgStyle();
+				        
+				       $('.with-tooltips a, .with-tooltip').each(function() {
+				           var $this = $(this);
+				           var placement = $this.parent().hasClass('tooltips-bottom') ? 'bottom' : 'top';
+				           $(this).tooltip({placement: placement});
+				       });
+			//            // slider for streamlist at home view (with timer),up and down scrolling button in template 
+			//            setTimeout(function() {
+			//	       $("#streams-list").mb_vSlider({easing:"swing",slideTimer:1000,nextEl:".vSdown",prevEl:".vSup ",height:200,width:160});
+			//                                              
+			//           }, 500);                  
+			               
+				        
+					 }});
+//			}
+			 
+		 
+	   
+		   
 	    
    },
    
