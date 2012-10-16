@@ -31,41 +31,47 @@ BS.VideoListView = Backbone.View.extend({
               $.ajax({
                         type : 'GET',
                         url : BS.allProfileVideos,
-//                        data : {
-//                           'userId': e.attributes.id.id
-//                                },
                         dataType : "json",
-                                                                //------------------------------------------------------------
+                                                                
                         success : function(videos) {
-                        	
+                        	     $('#grid').html("");    
                                 _.each(videos, function(video) {  
-//                                	 
-                                content += '<li id="file-docs-'+i+'">'
-                                +'<div class="image-wrapper hovereffect"><div class="hover-div"><img class="videoimage" src="'+video.frameURL+'"/><div class="hover-text">'
-                                +'<div class="comment-wrapper comment-wrapper2">'
-                                +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
-                                +'<a href="#" class="hand-icon"></a>'
-                                +'<a href="#" class="message-icon"></a>'
-                                +'<a href="#" class="share-icon"></a>'
-                                +'</div>'
-                                +'<h4> video name</h4> ' 
-                                +'<div class="gallery clearfix"></div><div class="gallery clearfix hrtxt"><a href="'+video.mediaUrl+'" rel="prettyPhoto" style="text-decoration: none" >'
-                                +' <p class="google_doc doc-description" id="+doc.id.id+">'
-                                +'<input type="hidden" id="id-doc.id.id" value="doc.url">'
-                                +'Description of Video </p></a>'
-                                 +'<h5 class="videotitle"> Title & Description</h5>'           //'id' to edit the title and description
-                                +'<span>State</span>'
-                                +' <span class="date">datVal</span>'    
-                                +'</div></div></div>'         
-                                +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
-                                +'<ul class="comment-list">'
-                                +'<li><a class="eye-icon" href="#">87</a></li>'
-                                +'<li><a class="hand-icon" href="#">5</a></li>'
-                                +'<li><a class="message-icon" href="#">10</a></li>'
-                                +'</ul></div></li>';                                       
+                                	
+                                	var datas = {
+                                            "video" : video,
+//                                            "datVal" :datVal,
+                                            "videoCount" : i
+                                	}	
+
+                                	var source = $("#tpl-single-video").html();
+                                    var template = Handlebars.compile(source);				    
+                                    $('#grid').append(template(datas));    
+//                                content += '<li id="file-docs-'+i+'">'
+//                                +'<div class="image-wrapper hovereffect"><div class="hover-div"><img class="videoimage" src="'+video.frameURL+'"/><div class="hover-text">'
+//                                +'<div class="comment-wrapper comment-wrapper2">'
+//                                +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
+//                                +'<a href="#" class="hand-icon"></a>'
+//                                +'<a href="#" class="message-icon"></a>'
+//                                +'<a href="#" class="share-icon"></a>'
+//                                +'</div>'
+//                                +'<h4> video name</h4> ' 
+//                                +'<div class="gallery clearfix"></div><div class="gallery clearfix hrtxt"><a href="'+video.mediaUrl+'" rel="prettyPhoto" style="text-decoration: none" >'
+//                                +' <p class="google_doc doc-description" id="+doc.id.id+">'
+//                                +'<input type="hidden" id="id-doc.id.id" value="doc.url">'
+//                                +'Description of Video </p></a>'
+//                                 +'<h5 class="videotitle"> Title & Description</h5>'           //'id' to edit the title and description
+//                                +'<span>State</span>'
+//                                +' <span class="date">datVal</span>'    
+//                                +'</div></div></div>'         
+//                                +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
+//                                +'<ul class="comment-list">'
+//                                +'<li><a class="eye-icon" href="#">87</a></li>'
+//                                +'<li><a class="hand-icon" href="#">5</a></li>'
+//                                +'<li><a class="message-icon" href="#">10</a></li>'
+//                                +'</ul></div></li>';                                       
                         i++;
                         });                  
-                        $('#grid').html(content);         
+//                        $('#grid').html(content);         
                         
                         /* for video popups */
                         $("area[rel^='prettyPhoto']").prettyPhoto();
