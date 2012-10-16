@@ -5,7 +5,9 @@ BS.ImageListView = Backbone.View.extend({
                 "click ul.file-type li a" : "hideList",
                 "click #prevslid" : "previous",
                 "click #nextslid" : "next",
-                 "click .imgtitle" : "editImgTitle"
+                "click .imgtitle" : "editImgTitle",
+                "click .rock_docs" : "rocksDocuments",
+                "click .show_rockers" : "showDocRockers"
              },
     
         initialize:function(){
@@ -186,7 +188,62 @@ BS.ImageListView = Backbone.View.extend({
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(datas);
             $('#gdocedit').html(BS.mediaeditview.el);
-            }
+            },
+            
+           /**
+            * Rock profile Images
+            */
+        rocksDocuments:function(eventName){
+        	   
+            eventName.preventDefault();
+            var element = eventName.target.parentElement;
+            var docId =$(element).attr('id');
+            console.log(docId);
+    	  	// post documentId and get Rockcount 
+            $.ajax({
+    	               type: 'POST',
+    	               url:BS.rockDocs,
+    	               data:{
+    	            	   documentId:docId
+    	               },
+    	               dataType:"json",
+    	               success:function(data){	              	 
+    	              	// display the rocks count  
+    	            	$('#'+docId+'-activities li a.hand-icon').html(data);	   
+    	               }
+    	     });
+         },
+         
+         /**
+          * show profile image Rockers list 
+          */
+         showDocRockers :function(eventName){
+      	    eventName.preventDefault();
+      	    var element = eventName.target.parentElement; 
+            var imageId =$(element).closest('div').parent('div').attr('id');
+            
+      	    $.ajax({
+                 type: 'POST',
+                 url:BS.documentRockers,
+                 data:{
+                	  documentId:imageId
+                 },
+                 dataType:"json",
+                 success:function(data){
+                	 
+                	  // prepair rockers list
+                  var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">Who Rocked it ?</div><ul class="rock-list">';
+                	_.each(data, function(rocker) { 					 
+                		ul+= '<li>'+rocker+'</li>';
+    			    });
+                	ul+='</ul>';   
+                	$('#'+imageId+'-docRockers-list').fadeIn("fast").delay(1000).fadeOut('fast'); 
+                	$('#'+imageId+'-docRockers-list').html(ul);
+
+                 }
+              });
+      	   
+         },
         
             
 })
