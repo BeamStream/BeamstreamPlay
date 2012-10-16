@@ -499,10 +499,10 @@ body {
  
  <!-- template for single bucket in image -->
 <script type="text/x-handlebars-template" id="tpl-single-image">
-<li id="file-docs-'{{imgCount}}">  
+<li id="file-docs-'{{imageCount}}">  
 	<div class="image-wrapper hovereffect"> 
 		<div class="hover-div">
-			<img class="filmdeapicture" src="'+doc+'" width="210px" height="141px"/>
+			<img class="filmdeapicture" src="{{image.mediaUrl}}" width="210px" height="141px"/>
 			<div class="hover-text">
 				<div class="comment-wrapper comment-wrapper2">
 					<a href="#" class="tag-icon" data-original-title="Search by Users"></a>
@@ -513,9 +513,9 @@ body {
 				<h4> image name</h4>
 				<div class="gallery clearfix"></div>
 				<div class="gallery clearfix hrtxt">
-					<a href="'+doc+'" style="text-decoration: none" rel="prettyPhoto[gallery2]">
+					<a href="{{image.mediaUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
 						<p class="google_doc doc-description" id="+doc.id.id+">
-						<input type="hidden" id="id-doc.id.id" value="doc.url"> +'Description of image</p>
+						<input type="hidden" id="id-doc.id.id" value="doc.url"> Description of image</p>
 					</a>
 					<h5 class="imgtitle"> Title & Description</h5>
 					<span>State</span>
@@ -555,7 +555,7 @@ body {
 				<div class="gallery clearfix hrtxt">
 					<a href="{{video.mediaUrl}}" rel="prettyPhoto" style="text-decoration: none" >
 					<p class="google_doc doc-description" id="{{video.id.id}}">
-					<input type="hidden" id="id-doc.id.id" value="doc.url"> +'Description of Video </p>
+					<input type="hidden" id="id-doc.id.id" value="doc.url"> Description of Video </p>
 					</a>
 					<h5 class="videotitle"> Title & Description</h5>
 					<span>State</span>
