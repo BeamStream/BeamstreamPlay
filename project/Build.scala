@@ -15,7 +15,7 @@ object ApplicationBuild extends Build {
     "joda-time" % "joda-time" % "2.0",
     "javax.mail" % "mail" % "1.4.1",
     "org.scalatra" %% "scalatra-lift-json" % "2.0.4",
-    "com.amazonaws" % "aws-java-sdk" % "1.0.002",
+    "com.amazonaws" % "aws-java-sdk" % "1.2.1",
     "org.skife.com.typesafe.config" % "typesafe-config" % "0.3.0",
     "commons-codec" % "commons-codec" % "1.6",
     "org.neo4j" % "neo4j-remote-graphdb" % "0.9-1.3.M01",

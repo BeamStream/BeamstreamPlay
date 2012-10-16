@@ -28,6 +28,7 @@ object MediaController extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
   } + new ObjectIdSerializer
+  
 
   def getMedia = Action(parse.multipartFormData) { request =>
 
@@ -102,6 +103,83 @@ object MediaController extends Controller {
     Ok(write(new ResulttoSent("Success", "Profile Photo Uploaded Successfully"))).as("application/json")
   }
 
+
+  
+ /**
+  def getMedia = Action(parse.multipartFormData) { request =>
+    
+    val mediaJsonMap = request.body.asFormUrlEncoded.toMap
+    val imageStatus = mediaJsonMap("imageStatus").toList(0).toBoolean
+    val videoStatus = mediaJsonMap("videoStatus").toList(0).toBoolean
+    
+     var imageNameOnAmazon=""
+     var videoFileNameOnnAmazon=""
+     
+     var imageFileInputStream:InputStream=null
+     var videoFileObtained : File=null
+            
+    (request.body.file("imageData").isEmpty) match {
+
+      case true => // No Image Found
+      case false =>
+        // Fetch the image stream and details
+        request.body.file("imageData").map { imageData =>
+          val imageAuthenticationToken = tokenEmail.securityToken
+          val imageFilename = imageData.filename
+          val contentType = imageData.contentType.get
+          val uniqueString = tokenEmail.securityToken
+          val imageFileObtained: File = imageData.ref.file.asInstanceOf[File]
+          imageNameOnAmazon = uniqueString + imageFilename.replaceAll("\\s", "") // Security Over the images files
+           imageFileInputStream = CompressFile.compressImage(imageFileObtained, imageNameOnAmazon, 0.1f)
+          (new AmazonUpload).setTotalFileSize(imageFileInputStream.available)
+     }.get
+ }
+    
+    (request.body.file("videoData").isEmpty) match {
+      case true => // No Video Found
+      case false =>
+        // Fetch the video stream and details
+        request.body.file("videoData").map { videoData =>
+          val videoAuthenticationToken = tokenEmail.securityToken
+          val videoFilename = videoData.filename
+          val contentType = videoData.contentType.get
+          val uniqueString = tokenEmail.securityToken
+          videoFileObtained= videoData.ref.file.asInstanceOf[File]
+         videoFileNameOnnAmazon = uniqueString + videoFilename.replaceAll("\\s", "") 
+        (new AmazonUpload).setTotalFileSize(videoFileObtained.length)
+    }.get
+ }
+    
+     if (imageFileInputStream != null) {
+     (new AmazonUpload).uploadCompressedFileToAmazon(imageNameOnAmazon, imageFileInputStream)
+      val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
+      val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, UserMediaType.Image, imageStatus, "")
+      UserMedia.saveMediaForUser(media)
+      ProfileImageProviderCache.setImage(media.userId.toString, media.mediaUrl)
+    }
+    
+     if (videoFileObtained != null) {
+      (new AmazonUpload).uploadFileToAmazon(videoFileNameOnnAmazon, videoFileObtained)
+      val videoURL = "https://s3.amazonaws.com/BeamStream/" + videoFileNameOnnAmazon
+      val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(videoURL)
+     (new AmazonUpload).uploadCompressedFileToAmazon(videoFileNameOnnAmazon + "Frame", frameOfVideo)
+      val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + videoFileNameOnnAmazon + "Frame"
+      val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), videoURL, UserMediaType.Video, videoStatus, videoFrameURL)
+      UserMedia.saveMediaForUser(media)
+    }
+     
+     
+    
+    
+     Ok(write(new ResulttoSent("Success", "Profile Photo Uploaded Successfully"))).as("application/json")
+  }
+ 
+  
+   def returnProgress= Action { implicit request =>
+     Ok(write((AmazonUpload).percentage.toString)).as("application/json")
+   }
+*/
+  
   /*
    * obtaining the profile Picture
    * @ Purpose: fetches the recent profile picture for a user
