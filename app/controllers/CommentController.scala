@@ -69,31 +69,28 @@ object CommentController extends Controller {
     }
   }
 
-  /** 
+  /**
    * Method for retrieving all the comments based on the input
    */
 
   def getAllComments = Action { implicit request =>
-    val idJson = request.body.asFormUrlEncoded.get
+    val jsonWithid = request.body.asFormUrlEncoded.get
 
-    (idJson.contains(("messageId"))) match {
-
+    (jsonWithid.contains(("messageId"))) match {
       case true =>
-
-        val messageId = idJson("messageId").toList(0)
+        
+        val messageId = jsonWithid("messageId").toList(0)
         val commentsForAMessage = Comment.getAllComments(Message.findMessageById(new ObjectId(messageId)).get.comments)
         Ok(write(commentsForAMessage)).as("application/json")
 
-      case false => (idJson.contains(("docId"))) match {
+      case false => (jsonWithid.contains(("docId"))) match {
+      case true =>
 
-        case true =>
-
-          val docId = idJson("docId").toList(0)
+          val docId = jsonWithid("docId").toList(0)
           val commentsForADocument = Comment.getAllComments(Document.findDocumentById(new ObjectId(docId)).commentsOnDocument)
           Ok(write(commentsForADocument)).as("application/json")
 
         case false =>
-
           Ok(write(new ResulttoSent("Failure", "IdNotFound")))
 
       }
