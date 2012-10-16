@@ -1131,7 +1131,7 @@ BS.StreamView = Backbone.View.extend({
 							 PUBNUB.publish({
 								  channel : "stream",
 								  message : { pagePushUid: self.pagePushUid }
-							  })
+							 })
 							 
 				  		});
 				  				

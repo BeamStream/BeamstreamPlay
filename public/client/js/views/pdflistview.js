@@ -101,10 +101,6 @@ BS.PdfListView = Backbone.View.extend({
             $('#gdocedit').html(BS.mediaeditview.el);         
                   }
                     });
-                          
-//            BS.mediaeditview = new  BS.MediaEditView();
-//            BS.mediaeditview.render(datas);
-//            $('#gdocedit').html(BS.mediaeditview.el);
             },
             
             /**

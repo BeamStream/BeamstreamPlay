@@ -56,11 +56,11 @@ object UserMedia {
  * Get All videos for a user
  * @Purpose : Show all Videos for a user
  */
-  def getAllProfileVideoForAUser(userId: ObjectId): List[UserMedia] = {
-    var userVideos: List[UserMedia] = List()
+  def getAllProfileVideoForAUser(userId: ObjectId): List[String] = {
+    var userVideos: List[String] = List()
     val mediaObtained = UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Video")).toList
     for (media <- mediaObtained) {
-      userVideos ++= List(media)
+      userVideos ++= List(media.mediaUrl)
     }
     userVideos
   }

@@ -36,8 +36,8 @@ BS.ImageListView = Backbone.View.extend({
                         type : 'GET',
                         url :  BS.allProfileImages,
                         data : {
-                        'userId': e.attributes.id.id
-                                },
+                          'userId': e.attributes.id.id
+                         },
                         dataType : "json",
                         success : function(docs) {
                                 _.each(docs, function(doc) {  

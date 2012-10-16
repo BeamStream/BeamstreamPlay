@@ -21,6 +21,7 @@ BS.AppRouter = Backbone.Router.extend({
         "friendStream" :"friendStream",
         "filesMedia" : "filesMedia",
         "googledocs" : "googleDocs",
+              "docs" : "docsFromComputer", 
         "imagelist" : "imageList",
         "videos" : "videoList",
         "audioview": "audioList",
@@ -1136,7 +1137,7 @@ BS.AppRouter = Backbone.Router.extend({
 				 
 			},
                         
-            /**
+                       /**
 			* display Google docs list in another view
 			*/
             googleDocs : function(){
@@ -1178,8 +1179,28 @@ BS.AppRouter = Backbone.Router.extend({
 	                     // Filter elements
 	                     $grid.shuffle($this.attr('data-key'));
                     });                              
-             },
+                },
 
+                        /**
+			* display docs list in another view
+			*/       
+                        docsFromComputer : function(){
+                                $('#content').children().detach();
+                                console.log("befor nav View");
+                                BS.user.fetch({ success:function(e){
+					   //get main menu
+					   this.navView = new BS.NavView({ model: BS.user });
+					   this.navView.showProfilePic();
+					   $('.nav-collapse').html(this.navView.render().el);
+					   $('nav li.active').removeClass('active');
+					   $('#file-media').addClass('active');					   
+					   $('#right-photo').attr("src",BS.profileImageUrl);			       
+			       }}); 
+                               BS.doclistview = new BS.DocListView();
+                               BS.doclistview.render();
+                               $('#content').html(BS.doclistview.el); 
+                               $('.file-type').hide();   //to hide the filetype menu
+                        },
                         /**
                          *display Images in another view
                          *

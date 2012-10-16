@@ -120,6 +120,8 @@ BS.getaudioFilesOfAUser = BS.URLRequired+"/audioFilesOfAUser";
 BS.getAllPPTFilesForAUser = BS.URLRequired+"/getAllPPTFilesForAUser";
 //get all pdf Files of a user
 BS.getAllPDFFilesForAUser = BS.URLRequired+"/getAllPDFFilesForAUser";
+// Get All Docs of a user (docs upload from computer)
+BS.getAllDOCSFilesForAUser = BS.URLRequired+"/getAllDOCSFilesForAUser";
 
 /* for beta users */
 BS.toLogin = BS.URLRequired+'/beamstream/index.html#login';
