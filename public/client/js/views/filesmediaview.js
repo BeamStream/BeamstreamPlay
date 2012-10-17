@@ -938,6 +938,7 @@ BS.FilesMediaView = Backbone.View.extend({
                             {
                                 document.getElementById('loader-message').innerHTML = data.message;
                                 self.docsList();
+                                self.docFromComputer();
                                 self.audio();
                                 self.presentation();
                                 self.pdffiles();  
