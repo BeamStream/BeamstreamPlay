@@ -39,7 +39,8 @@ BS.DocListView = Backbone.View.extend({
                 	var datas = {
                                     "doc" : doc,
                                     "datVal" :datVal,
-                                    "docCount" : i
+                                    "docCount" : i,
+                                    "image" :'docs_image.png'
 					}	
                 	var source = $("#tpl-single-bucket").html();
                         var template = Handlebars.compile(source);				    

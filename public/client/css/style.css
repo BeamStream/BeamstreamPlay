@@ -2027,11 +2027,12 @@ border: 1px solid #E8E8E9;
 /*-------------hover----------*/
 div.hover-div{
     display:block;
-    height:153px !important;
+    height:155px !important;
      width:210px;   
     position:relative;
     text-align:center;
 /*    margin:1px 0px 0px 0px; */
+
 }
 .hrtxt{
   width:185px !important;     
@@ -2058,7 +2059,7 @@ div.hover-div img{
 .hover-text{
     display:none;
     clear:both;
-    height:144px;
+    height:145px;
     margin: 4px 11px 10px;
     background-color: white;
   /*  color:white;  */
