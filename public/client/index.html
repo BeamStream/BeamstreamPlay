@@ -332,7 +332,7 @@ body {
           </div>
         </li>        
         <li id="coverdocs" data-key='["recent"]'>
-         <div class="image-wrapper" id="google-docs"><div class="hover-div"><a class="google-docs-image" href="#googledocs"><img class="default-image" src="images/docs_image.png"></a>
+         <div class="image-wrapper" id="google-docs"><div class="hover-div"><a class="google-docs-image" href="#googledocs"><img class="default-image" src="images/google_docs_image.png"></a>  
           <div class="hover-text"><p class="emptyfiles"> No Uploaded Docs </p></div></div></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -400,7 +400,7 @@ body {
         </li>
         <li id="coverdoc_com" data-key='["recent"]'>
            <div class="image-wrapper"> 
-             <div class="hover-div"><img class="default-image" src="images/links_image.png"/>
+             <div class="hover-div"><img class="default-image" src="images/docs_image.png"/>
                <div class="hover-text">     
                 <p class="emptyfiles"> No Uploaded Links </p>
                </div>
@@ -451,7 +451,7 @@ body {
 <li id="file-docs-{{docCount}}" data-key="[{{datVal}}]"> 
   <div id="{{doc.id.id}}"   name="single-doc">
     <div class="image-wrapper hovereffect" >
-      <div class="hover-div"><img src="images/docs_image.png"/>
+      <div class="hover-div"><img src="images/{{image}}"/>
 	      <div class="hover-text"> 
 	         <div id="{{doc.id.id}}" class="comment-wrapper comment-wrapper2">
 	            <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
@@ -573,10 +573,12 @@ body {
 		<a class="common-icon video" href="#">
 		<span class="right-arrow"></span></a>
 		<ul id="{{video.id.id}}-activities" class="comment-list">
-			<li><a class="eye-icon" href="#">87</a></li>
-			<li><a class="hand-icon show_rockers" href="#">5</a></li>
-			<li><a class="message-icon" href="#">10</a></li>
+			<li><a class="eye-icon" href="#">0</a></li>
+			<li><a class="hand-icon show_rockers" href="#">0</a></li>
+			<li><a class="message-icon" href="#">0</a></li>
 		</ul>
+	</div>
+	<div id="{{video.id.id}}-docRockers-list" class="docRockers_popup"></div>
 	</div>
 </li>
 </script>

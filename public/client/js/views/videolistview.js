@@ -2,7 +2,9 @@ BS.VideoListView = Backbone.View.extend({
          events:{
                 "click a#file-type" : "showFilesTypes",
                 "click ul.file-type li a" : "hideList",
-                 "click .videotitle" : "editVideoTitle"
+                "click .videotitle" : "editVideoTitle",
+                "click .rock_docs" : "rocksVideos",
+                "click .show_rockers" : "showDocRockers"
 //                 "hover .videotitle" : "editVideoTitle"              //#345 should only hover over, not click
              },
     
@@ -46,32 +48,10 @@ BS.VideoListView = Backbone.View.extend({
                                 	var source = $("#tpl-single-video").html();
                                     var template = Handlebars.compile(source);				    
                                     $('#grid').append(template(datas));    
-//                                content += '<li id="file-docs-'+i+'">'
-//                                +'<div class="image-wrapper hovereffect"><div class="hover-div"><img class="videoimage" src="'+video.frameURL+'"/><div class="hover-text">'
-//                                +'<div class="comment-wrapper comment-wrapper2">'
-//                                +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
-//                                +'<a href="#" class="hand-icon"></a>'
-//                                +'<a href="#" class="message-icon"></a>'
-//                                +'<a href="#" class="share-icon"></a>'
-//                                +'</div>'
-//                                +'<h4> video name</h4> ' 
-//                                +'<div class="gallery clearfix"></div><div class="gallery clearfix hrtxt"><a href="'+video.mediaUrl+'" rel="prettyPhoto" style="text-decoration: none" >'
-//                                +' <p class="google_doc doc-description" id="+doc.id.id+">'
-//                                +'<input type="hidden" id="id-doc.id.id" value="doc.url">'
-//                                +'Description of Video </p></a>'
-//                                 +'<h5 class="videotitle"> Title & Description</h5>'           //'id' to edit the title and description
-//                                +'<span>State</span>'
-//                                +' <span class="date">datVal</span>'    
-//                                +'</div></div></div>'         
-//                                +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
-//                                +'<ul class="comment-list">'
-//                                +'<li><a class="eye-icon" href="#">87</a></li>'
-//                                +'<li><a class="hand-icon" href="#">5</a></li>'
-//                                +'<li><a class="message-icon" href="#">10</a></li>'
-//                                +'</ul></div></li>';                                       
+                                       
                         i++;
                         });                  
-//                        $('#grid').html(content);         
+        
                         
                         /* for video popups */
                         $("area[rel^='prettyPhoto']").prettyPhoto();
@@ -178,13 +158,65 @@ BS.VideoListView = Backbone.View.extend({
 //          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
             var datas = {
 				"type" : 'Video',
-				"title" : 'My first video',
-                                "description" :'This is my first video and very nice'
+				"title" : '',
+                                "description" :''
 			  }
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(datas);
             $('#gdocedit').html(BS.mediaeditview.el);
-            }
+         },
+            
+         /**
+         * Rocks Google docs
+         */
+         rocksVideos:function(eventName){
+            
+             eventName.preventDefault();
+             var element = eventName.target.parentElement;
+             var videoId =$(element).attr('id');
+     	     // post documentId and get Rockcount 
+              $.ajax({
+     	               type: 'POST',
+     	               url:BS.rockTheUsermedia,
+     	               data:{
+     	            	  userMediaId:videoId
+     	               },
+     	               dataType:"json",
+     	               success:function(data){	              	 
+     	              	// display the rocks count  
+     	            	$('#'+videoId+'-activities li a.hand-icon').html(data);	   
+     	               }
+     	        });
+          },
+          /**
+           * show document Rockers list 
+           */
+          showDocRockers :function(eventName){
+       	      eventName.preventDefault();
+       	      var element = eventName.target.parentElement; 
+              var videoId =$(element).closest('div').parent('div').attr('id');
+       	      $.ajax({
+                   type: 'POST',
+                   url:BS.giveMeRockersOfUserMedia,
+                   data:{
+                	   userMediaId:videoId
+                   },
+                   dataType:"json",
+                   success:function(data){
+                 	 
+                 	  // prepair rockers list
+	                   var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">Who Rocked it ?</div><ul class="rock-list">';
+	                 	_.each(data, function(rocker) { 					 
+	                 		ul+= '<li>'+rocker+'</li>';
+	     			    });
+	                 	ul+='</ul>';   
+	                 	$('#'+videoId+'-docRockers-list').fadeIn("fast").delay(1000).fadeOut('fast'); 
+	                 	$('#'+videoId+'-docRockers-list').html(ul);
+
+                  }
+               });
+       	   
+          },
             
 })
 

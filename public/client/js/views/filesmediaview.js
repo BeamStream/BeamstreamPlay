@@ -53,7 +53,8 @@ BS.FilesMediaView = Backbone.View.extend({
         this.audio();  
 //        this.spreadsheet();  
         this.presentation();  
-        this.pdffiles();  
+        this.pdffiles();
+        this.docFromComputer();
 //        this.links(); 
      //   this.template= _.template($("#tpl-files-media").html());
 
@@ -160,10 +161,10 @@ BS.FilesMediaView = Backbone.View.extend({
                         success : function(docs) {
                             if(docs.length != 0)  {
                               _.each(docs, function(doc) {
-                        var datVal =  self.formatDateVal(doc.creationDate);                      
+                        var datVal =  self.formatDateVal(doc.creationDate);                   
                            var content ='<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'">'
                                         +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
-                                        +'<div class="hover-div"><img src="images/docs_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
+                                        +'<div class="hover-div"><img src="images/google_docs_image.png "/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
                                         +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
                                         +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#googledocs" style="text-decoration: none">'
                                         +'<div id="media-'+doc.id.id+'" ><h4> '+doc.documentName+'</h4> <p class="google_doc doc-description" id="'+doc.id.id+'" >'
@@ -198,7 +199,7 @@ BS.FilesMediaView = Backbone.View.extend({
                         var datVal =  self.formatDateVal(doc.creationDate);                      
                            var content ='<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'">'
                                         +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
-                                        +'<div class="hover-div"><img src="images/docs_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
+                                        +'<div class="hover-div"><img src="images/docs_image.png  "/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
                                         +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
                                         +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#docs" style="text-decoration: none">'
                                         +'<div id="media-'+doc.id.id+'" ><h4> '+doc.documentName+'</h4> <p class="google_doc doc-description" id="'+doc.id.id+'" >'
@@ -266,18 +267,26 @@ BS.FilesMediaView = Backbone.View.extend({
                                 'userId': e.attributes.id.id
                                 },
                         dataType : "json",
-                        success : function(docs) {
-                            if(docs.length != 0)
+                        success : function(images) {
+                            
+                            
+                            
+                           
+                                               
+                           
+                            if(images.length != 0)
                             {
-                                arraypictures=docs;
-                                coverpicture=arraypictures[arraypictures.length-1];
+                             _.each(images, function(image) {
+                        var datVal =  self.formatDateVal(image.creationDate);  
+//                                arraypictures=docs;
+//                                coverpicture=arraypictures[arraypictures.length-1];
                                
-                                content= '<div class="image-wrapper hovereffect"> <div class="hover-div"><img class="filmdeapicture" width="210px" height="141px" src="'+coverpicture+'"><div class="hover-text">'               
+                                content= '<div class="image-wrapper hovereffect" id="'+image.id.id+'"> <div class="hover-div"><img class="filmdeapicture" width="210px" height="141px" src="'+image.mediaUrl+'"><div class="hover-text">'               
                                +'<div class="comment-wrapper comment-wrapper2">'
                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
-                                +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#imagelist" style="text-decoration: none"><h4> Image Name</h4>'                            
-                                +'<p class="doc-description">Description of image</p></a>'
-                                +'<h5 class="imgtitle"> Title & Description</h5>'          
+                                +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#imagelist" style="text-decoration: none"><div id="media-'+image.id.id+'" ><h4>'+image.documentName+'</h4>'                            
+                                +'<p class="doc-description">'+image.documentDescription+'</p></div></a>'
+                                +'<h5 class="imgtitle" id="'+image.id.id+'"> Title & Description</h5>'          
                                 +'<span>State</span>'
                                 +' <span class="date">datVal</span>' 
                                 +'</div></div></div>'
@@ -290,8 +299,11 @@ BS.FilesMediaView = Backbone.View.extend({
                                 +'</div>';
                                        
                                        
-                                 $('#coverimage').html(content);           
+                                 $('#coverimage').html(content);  
+                            });
                             }
+                            
+                            
                         }
                });
 
@@ -307,8 +319,8 @@ BS.FilesMediaView = Backbone.View.extend({
 //          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
             var datas = {
 				"type" : 'Image',
-				"title" : 'Title of the image',
-                                "description" :'description of the image'
+				"title" : '',
+                                "description" :''
 			  }
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(datas);
@@ -371,8 +383,8 @@ BS.FilesMediaView = Backbone.View.extend({
 //          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
             var datas = {
 				"type" : 'Video',
-				"title" : 'My first video',
-                                "description" :'This is my first video and very nice'
+				"title" : '',
+                                "description" :''
 			  }
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(datas);
@@ -926,6 +938,7 @@ BS.FilesMediaView = Backbone.View.extend({
                             {
                                 document.getElementById('loader-message').innerHTML = data.message;
                                 self.docsList();
+                                self.docFromComputer();
                                 self.audio();
                                 self.presentation();
                                 self.pdffiles();  

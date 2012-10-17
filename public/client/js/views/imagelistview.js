@@ -6,8 +6,8 @@ BS.ImageListView = Backbone.View.extend({
                 "click #prevslid" : "previous",
                 "click #nextslid" : "next",
                 "click .imgtitle" : "editImgTitle",
-                "click .rock_docs" : "rocksDocuments",
-                "click .show_rockers" : "showDocRockers"
+                "click .rock_docs" : "rocksImages",
+                "click .show_rockers" : "showImageRockers"
              },
     
         initialize:function(){
@@ -52,37 +52,10 @@ BS.ImageListView = Backbone.View.extend({
                                 	var source = $("#tpl-single-image").html();
                                     var template = Handlebars.compile(source);				    
                                     $('#grid').append(template(datas));   	
-                                	
-//                                content += '<li id="file-docs-'+i+'">'  
-//
-//                                +'<div class="image-wrapper hovereffect"> <div class="hover-div"><img class="filmdeapicture" src="'+doc+'" width="210px" height="141px"/><div class="hover-text">'
-//                                +'<div class="comment-wrapper comment-wrapper2">'
-//                                +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
-//                                +'<a href="#" class="hand-icon"></a>'
-//                                +'<a href="#" class="message-icon"></a>'
-//                                +'<a href="#" class="share-icon"></a>'
-//                                +'</div>'
-//                                +'<h4> image name</h4> ' 
-//                                +'<div class="gallery clearfix"></div><div class="gallery clearfix hrtxt"><a href="'+doc+'" style="text-decoration: none" rel="prettyPhoto[gallery2]">'
-//                                +' <p class="google_doc doc-description" id="+doc.id.id+">'
-//                                +'<input type="hidden" id="id-doc.id.id" value="doc.url">'
-//                                +'Description of image</p></a>' 
-//                                +'<h5 class="imgtitle"> Title & Description</h5>'           //'id' to edit the title and description
-//                                +'<span>State</span>'
-//                                +' <span class="date">datVal</span>'
-//                            
-//                                +'</div></div></div>'    //doc contain path of the image
-//                                +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>'
-//                                +'<ul class="comment-list">'
-//                                +'<li><a class="eye-icon" href="#">87</a></li>'
-//                                +'<li><a class="hand-icon" href="#">5</a></li>'
-//                                +'<li><a class="message-icon" href="#">10</a></li>'
-//                                +'</ul></div></li>';                                            
+                                            
                         i++;
                         });                  
-
-//                        $('#grid').html(content);
-                         
+                          
                         /* for image view popups */
                         $("area[rel^='prettyPhoto']").prettyPhoto();
                         $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:1000, autoplay_slideshow: true});
@@ -220,23 +193,22 @@ BS.ImageListView = Backbone.View.extend({
            /**
             * Rock profile Images
             */
-        rocksDocuments:function(eventName){
+          rocksImages:function(eventName){
         	   
             eventName.preventDefault();
             var element = eventName.target.parentElement;
-            var docId =$(element).attr('id');
-            console.log(docId);
+            var imageId =$(element).attr('id');
     	  	// post documentId and get Rockcount 
             $.ajax({
     	               type: 'POST',
-    	               url:BS.rockDocs,
+    	               url:BS.rockTheUsermedia,
     	               data:{
-    	            	   documentId:docId
+    	            	   userMediaId:imageId
     	               },
     	               dataType:"json",
     	               success:function(data){	              	 
     	              	// display the rocks count  
-    	            	$('#'+docId+'-activities li a.hand-icon').html(data);	   
+    	            	$('#'+imageId+'-activities li a.hand-icon').html(data);	   
     	               }
     	     });
          },
@@ -244,16 +216,16 @@ BS.ImageListView = Backbone.View.extend({
          /**
           * show profile image Rockers list 
           */
-         showDocRockers :function(eventName){
+         showImageRockers :function(eventName){
       	    eventName.preventDefault();
       	    var element = eventName.target.parentElement; 
             var imageId =$(element).closest('div').parent('div').attr('id');
             
       	    $.ajax({
                  type: 'POST',
-                 url:BS.documentRockers,
+                 url:BS.giveMeRockersOfUserMedia,
                  data:{
-                	  documentId:imageId
+                	 userMediaId:imageId
                  },
                  dataType:"json",
                  success:function(data){
