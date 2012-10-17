@@ -116,7 +116,8 @@ BS.GoogleDocsView = Backbone.View.extend({
                 	var datas = {
                                     "doc" : doc,
                                     "datVal" :datVal,
-                                    "docCount" : i
+                                    "docCount" : i,
+                                    "image" :'google_docs_image.png'
 					}	
                 	var source = $("#tpl-single-bucket").html();
                         var template = Handlebars.compile(source);				    
