@@ -493,15 +493,11 @@ BS.StreamView = Backbone.View.extend({
   			success : function(data) {
   				   if(data.status == "Failure")
   				   {
-//  					   alert("Enter School & Class to post a message in a stream ");
+//  			     alert("Enter School & Class to post a message in a stream ");
   					 var alert = '<div id="dialog" title="Message !">You need to add a stream first.</br><a  onClick="closeAlert();" class="alert-msg " href="#create_stream"> Create Stream</a></div>';
   					 $('#alert-popup').html(alert);
   					 $( "#dialog" ).dialog({
-//  						buttons: { 
-//  					        "Ok": function() { 
-//  					            $(this).dialog("close"); 
-//  					        } 
-//  					    },
+
 	  					autoOpen: false ,
 	  					modal: true,
 	  					draggable: false,
@@ -514,12 +510,14 @@ BS.StreamView = Backbone.View.extend({
   				   }
   				   else
   				   {
-  					     /*auto ajax push */
-
-                                            PUBNUB.publish({
-                                                channel : "stream",
-                                                message : { pagePushUid: self.pagePushUid }
-                                            })
+  					   
+  					   /*auto ajax push */
+  					   console.log("In postMsg---" + self.pagePushUid);
+  					   var streamId = $('#streams-list li.active a').attr('id');
+	                     PUBNUB.publish({
+	                         channel : "stream",
+	                         message : { pagePushUid: self.pagePushUid ,streamId:streamId}
+	                    })
                  
  
   					   
@@ -572,7 +570,7 @@ BS.StreamView = Backbone.View.extend({
      * get all details about messages and its comments of a stream
      */
     getMessageInfo :function(streamid,pageNo,limit){
-    	 
+    	 console.log("in getMessageInfo ");
          var self = this;
          /* get all messages of a stream  */
 		 $.ajax({
@@ -744,7 +742,7 @@ BS.StreamView = Backbone.View.extend({
 		 eventName.preventDefault();
 		 var element = eventName.target.parentElement;
 		 var msgId =$(element).closest('li').attr('id');
-		 
+		 var self = this;
 		 $.ajax({
              type: 'POST',
              url:BS.rockedIt,
@@ -758,10 +756,13 @@ BS.StreamView = Backbone.View.extend({
             	$('li#'+msgId+'').find('i').find('i').html(data);
                 
                 //auto push
-                PUBNUB.publish({
-                  channel : "stream",
-                  message : { pagePushUid: self.pagePushUid }
-              })
+            	self.setupPushConnection();
+				console.log("in rockMessage...." + self.pagePushUid);
+				var streamId = $('#streams-list li.active a').attr('id');
+				  PUBNUB.publish({
+                      channel : "stream",
+                      message : { pagePushUid: self.pagePushUid ,streamId:streamId}
+                 })
  
              }
           });
@@ -776,7 +777,7 @@ BS.StreamView = Backbone.View.extend({
 		 var element = eventName.target.parentElement;
 		 var commentId =$(element).closest('li').attr('id');
 		 var messageId =$(element).closest('li').parent('ul').parent('article').parent('li').attr('id');
-		 
+		 var self = this;
 		 $.ajax({
              type: 'POST',
              url:BS.rockingTheComment,
@@ -789,6 +790,15 @@ BS.StreamView = Backbone.View.extend({
             	 
             	// display the count in icon
             	$('li#'+commentId+'').find('i').find('i').html(data);
+            	
+            	//auto push
+            	self.setupPushConnection();
+				console.log("in rockMessage...." + self.pagePushUid);
+				var streamId = $('#streams-list li.active a').attr('id');
+				  PUBNUB.publish({
+                      channel : "stream",
+                      message : { pagePushUid: self.pagePushUid ,streamId:streamId}
+                 })
  
              }
           });
@@ -1092,7 +1102,7 @@ BS.StreamView = Backbone.View.extend({
 		 var parentMsg = eventName.target.id;
 		 var parent =$('#'+parentMsg+'').closest('li').attr('id');
 		 var cmtCount =  $('#'+parent+'-cmtCount').text();
-		 
+		 var self =this;
 		 /* post comments on enter key press */
 		 if(eventName.which == 13) {
 			 
@@ -1128,10 +1138,13 @@ BS.StreamView = Backbone.View.extend({
 								 $('#'+data.id.id+'-newCmtImage').attr("src" ,BS.profileImageUrl );
 							 }
 							 
-							 PUBNUB.publish({
-								  channel : "stream",
-								  message : { pagePushUid: self.pagePushUid }
-							 })
+//							// auto push
+							self.setupPushConnection();
+		  					var streamId = $('#streams-list li.active a').attr('id');
+			                 PUBNUB.publish({
+			                         channel : "stream",
+			                         message : { pagePushUid: self.pagePushUid ,streamId:streamId}
+			                 })
 							 
 				  		});
 				  				
@@ -1325,7 +1338,7 @@ BS.StreamView = Backbone.View.extend({
 		 var element = eventName.target.parentElement;
 		 var msgId =$(element).closest('li').attr('id');
 		 var text = $('#'+eventName.target.id).text();
-		 
+		 var self =this;
 		 $.ajax({
 	        type: 'POST',
 	        url:BS.followMessage,
@@ -1342,11 +1355,14 @@ BS.StreamView = Backbone.View.extend({
 	        	 {
 	        		 $('#'+eventName.target.id).html("Unfollow");
 	        	 }
-                //Autopush   
-                PUBNUB.publish({
-                  channel : "stream",
-                  message : { pagePushUid: self.pagePushUid }
-              })
+	        	 
+                 /* Auto push */   
+	        	 self.setupPushConnection();
+				 var streamId = $('#streams-list li.active a').attr('id');
+                  PUBNUB.publish({
+                       channel : "stream",
+                       message : { pagePushUid: self.pagePushUid ,streamId:streamId}
+                  })
 	            
 	        }
 	     });
@@ -1483,8 +1499,19 @@ BS.StreamView = Backbone.View.extend({
       channel : "stream",
       restore : false,
 
+      
       callback : function(message) {
-        if (message.pagePushUid != self.pagePushUid) self.getStreams();
+
+		var streamId = $('#streams-list li.active a').attr('id');
+        if (message.pagePushUid != self.pagePushUid)
+		{ 
+			if(message.streamId==streamId)
+			{
+				$('.timeline_items').html("");
+				self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
+			}
+		}
+		console.log("hi   "+JSON.stringify(message));
       }
 
     })
