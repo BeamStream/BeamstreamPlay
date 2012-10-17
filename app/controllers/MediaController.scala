@@ -52,7 +52,7 @@ object MediaController extends Controller {
           //AmazonUpload.uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
           AmazonUpload.uploadCompressedFileToAmazon(imageNameOnAmazon, imageFileInputStream)
           val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
-          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, UserMediaType.Image, imageStatus, "")
+          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, UserMediaType.Image, imageStatus, "",0,List())
           UserMedia.saveMediaForUser(media)
           ProfileImageProviderCache.setImage(media.userId.toString, media.mediaUrl)
           // For MongoDB
@@ -84,7 +84,7 @@ object MediaController extends Controller {
           AmazonUpload.uploadCompressedFileToAmazon(videoFileNameOnnAmazon + "Frame", frameOfVideo)
           val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + videoFileNameOnnAmazon + "Frame"
 
-          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), videoURL, UserMediaType.Video, videoStatus, videoFrameURL)
+          val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), videoURL, UserMediaType.Video, videoStatus, videoFrameURL,0,List())
           UserMedia.saveMediaForUser(media)
           /*
       val profileVideo: File = videoData.ref.file.asInstanceOf[File]
@@ -223,5 +223,29 @@ object MediaController extends Controller {
     val allProfileMediaForAUser = UserMedia.getAllProfileVideoForAUser(new ObjectId(request.session.get("userId").get))
     Ok(write(allProfileMediaForAUser)).as("application/json")
   }
+  
+   /**
+   * Rock the UserMedia (Modified)
+   * 
+   */
+  def rockTheUsermedia = Action { implicit request =>
+    val userMediaIdJsonMap = request.body.asFormUrlEncoded.get
+    val userMediaId = userMediaIdJsonMap("userMediaId").toList(0)
+    val totalRocks = UserMedia.rockUserMedia(new ObjectId(userMediaId), new ObjectId(request.session.get("userId").get))
+    val totalRocksJson = write(totalRocks.toString)
+    Ok(totalRocksJson).as("application/json")
+  }
+  
+  /*
+    * Rockers of a document
+    */
+  def giveMeRockersOfUserMedia = Action { implicit request =>
+     val userMediaIdJsonMap = request.body.asFormUrlEncoded.get
+    val userMediaId = userMediaIdJsonMap("userMediaId").toList(0)
+    val rockers = UserMedia.rockersNamesOfUserMedia(new ObjectId(userMediaId))
+    val rockersJson = write(rockers)
+    Ok(rockersJson).as("application/json")
+  }
+
 
 }

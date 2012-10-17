@@ -98,20 +98,7 @@ object Document {
     docsObtained
   }
 
-  //  /*
-  //   * Get all Documents List
-  //   */
-  //
-  //  def getAllDocuments(documentIdList: List[ObjectId]): List[Document] = {
-  //    var documentList: List[Document] = List()
-  //
-  //    for (documentId <- documentIdList) {
-  //      val doc = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList
-  //      documentList ++= doc
-  //    }
-  //
-  //    documentList
-  //  }
+ 
 
   /*
    *  Update the Rockers List and increase the count by one 

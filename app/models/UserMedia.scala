@@ -9,15 +9,11 @@ import org.bson.types.ObjectId
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 
-case class UserMedia(@Key("_id") id: ObjectId, userId: ObjectId, mediaUrl: String, contentType: UserMediaType.Value, isPrimary: Boolean,frameURL:String)
+case class UserMedia(@Key("_id") id: ObjectId, userId: ObjectId, mediaUrl: String, contentType: UserMediaType.Value, isPrimary: Boolean,frameURL:String,rocks:Int,rockers: List[ObjectId])
 
 object UserMediaType extends Enumeration {
   val Image = Value(0, "Image")
   val Video = Value(1, "Video")
-  val Pdf = Value(2, "Pdf")
-  val File = Value(3, "File")
-  val Presentation = Value(4, "Presentation")
-
 }
 object UserMedia {
 
@@ -77,10 +73,44 @@ object UserMedia {
   def makePresentOnePrimary(userId: ObjectId) {
     val AlluserMedia = getAllMediaForAUser(userId)
     for (media <- AlluserMedia) {
-      val updatedMedia = new UserMedia(media.id, media.userId, media.mediaUrl, media.contentType, false,media.frameURL)
+      val updatedMedia = new UserMedia(media.id, media.userId, media.mediaUrl, media.contentType, false,media.frameURL,0,List())
       UserMediaDAO.update(MongoDBObject("_id" -> media.id), updatedMedia, false, false, new WriteConcern)
     }
-
   }
+  
+  
+   /*
+   *  Update the Rockers List and increase the count by one 
+   */
+
+  def rockUserMedia(userMediaId: ObjectId, userId: ObjectId): Int = {
+
+    val userMedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
+    userMedia.rockers.contains(userId) match {
+
+      case true =>
+        UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), userMedia.copy(rockers = (userMedia.rockers -- List(userId))), false, false, new WriteConcern)
+        val updatedUserMedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
+        UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), updatedUserMedia.copy(rocks = (updatedUserMedia.rocks - 1)), false, false, new WriteConcern)
+        val userMedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
+        userMedia.rocks
+      case false =>
+         UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), userMedia.copy(rockers = (userMedia.rockers ++ List(userId))), false, false, new WriteConcern)
+        val updatedUserMedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
+        UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), updatedUserMedia.copy(rocks = (updatedUserMedia.rocks + 1)), false, false, new WriteConcern)
+        val userMedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
+        userMedia.rocks
+    }
+  }
+  
+    /*
+  * Names of a rockers for a UserMedia
+  */
+  def rockersNamesOfUserMedia(userMediaId: ObjectId): List[String] = {
+    val userMedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
+    val rockersName = User.giveMeTheRockers(userMedia.rockers)
+    rockersName
+  }
+
 }
 object UserMediaDAO extends SalatDAO[UserMedia, ObjectId](collection = MongoHQConfig.mongoDB("userMedia"))
