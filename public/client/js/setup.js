@@ -122,6 +122,12 @@ BS.getAllPPTFilesForAUser = BS.URLRequired+"/getAllPPTFilesForAUser";
 BS.getAllPDFFilesForAUser = BS.URLRequired+"/getAllPDFFilesForAUser";
 // Get All Docs of a user (docs upload from computer)
 BS.getAllDOCSFilesForAUser = BS.URLRequired+"/getAllDOCSFilesForAUser";
+// Rock Video /image 
+BS.rockTheUsermedia = BS.URLRequired+"/rockTheUsermedia";
+// Rockers list - image /video
+BS.giveMeRockersOfUserMedia = BS.URLRequired+"/giveMeRockersOfUserMedia";
+
+
 
 /* for beta users */
 BS.toLogin = BS.URLRequired+'/beamstream/index.html#login';

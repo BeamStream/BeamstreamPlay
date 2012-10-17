@@ -6,8 +6,8 @@ BS.ImageListView = Backbone.View.extend({
                 "click #prevslid" : "previous",
                 "click #nextslid" : "next",
                 "click .imgtitle" : "editImgTitle",
-                "click .rock_docs" : "rocksDocuments",
-                "click .show_rockers" : "showDocRockers"
+                "click .rock_docs" : "rocksImages",
+                "click .show_rockers" : "showImageRockers"
              },
     
         initialize:function(){
@@ -193,23 +193,22 @@ BS.ImageListView = Backbone.View.extend({
            /**
             * Rock profile Images
             */
-        rocksDocuments:function(eventName){
+          rocksImages:function(eventName){
         	   
             eventName.preventDefault();
             var element = eventName.target.parentElement;
-            var docId =$(element).attr('id');
-            console.log(docId);
+            var imageId =$(element).attr('id');
     	  	// post documentId and get Rockcount 
             $.ajax({
     	               type: 'POST',
-    	               url:BS.rockDocs,
+    	               url:BS.rockTheUsermedia,
     	               data:{
-    	            	   documentId:docId
+    	            	   userMediaId:imageId
     	               },
     	               dataType:"json",
     	               success:function(data){	              	 
     	              	// display the rocks count  
-    	            	$('#'+docId+'-activities li a.hand-icon').html(data);	   
+    	            	$('#'+imageId+'-activities li a.hand-icon').html(data);	   
     	               }
     	     });
          },
@@ -217,16 +216,16 @@ BS.ImageListView = Backbone.View.extend({
          /**
           * show profile image Rockers list 
           */
-         showDocRockers :function(eventName){
+         showImageRockers :function(eventName){
       	    eventName.preventDefault();
       	    var element = eventName.target.parentElement; 
             var imageId =$(element).closest('div').parent('div').attr('id');
             
       	    $.ajax({
                  type: 'POST',
-                 url:BS.documentRockers,
+                 url:BS.giveMeRockersOfUserMedia,
                  data:{
-                	  documentId:imageId
+                	 userMediaId:imageId
                  },
                  dataType:"json",
                  success:function(data){
