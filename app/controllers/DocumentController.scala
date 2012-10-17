@@ -72,7 +72,7 @@ object DocumentController extends Controller {
         val description = (documentJson \ "docDescription").extract[String]
         val userId = new ObjectId(request.session.get("userId").get)
         val date = new Date
-        val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId, DocumentAccess.withName(access), new ObjectId, date, date, 0, List(), List())
+        val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId, DocumentAccess.withName(access), new ObjectId, date, date, 0, List(), List(),List())
         val docId = Document.addDocument(documentToCreate)
         val docObtained = Document.findDocumentById(docId)
         val docJson = write(List(docObtained))
@@ -169,7 +169,7 @@ object DocumentController extends Controller {
           DocsUploadOnAmazon.uploadFileToAmazon(docUniqueKey+documentName, docbtained)
           val docURL = "https://s3.amazonaws.com/BeamStream/" + docUniqueKey+documentName
           val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
-            new ObjectId, new Date, new Date, 0, List(), List())
+            new ObjectId, new Date, new Date, 0, List(), List(),List())
           Document.addDocument(documentCreated)
         }.get
 
