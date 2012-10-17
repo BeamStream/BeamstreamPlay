@@ -23,13 +23,15 @@ import utils.CompressFile
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 import utils.ExtractFrameFromVideo
+import utils.ProgressBar
 
 object MediaController extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
   } + new ObjectIdSerializer
   
-
+/**   
+ //Original Method
   def getMedia = Action(parse.multipartFormData) { request =>
 
     val mediaJsonMap = request.body.asFormUrlEncoded.toMap
@@ -103,21 +105,22 @@ object MediaController extends Controller {
     Ok(write(new ResulttoSent("Success", "Profile Photo Uploaded Successfully"))).as("application/json")
   }
 
-
+* 
+ */
   
- /**
+ //-------------------------//
+ 
   def getMedia = Action(parse.multipartFormData) { request =>
-    
+
     val mediaJsonMap = request.body.asFormUrlEncoded.toMap
     val imageStatus = mediaJsonMap("imageStatus").toList(0).toBoolean
     val videoStatus = mediaJsonMap("videoStatus").toList(0).toBoolean
-    
-     var imageNameOnAmazon=""
-     var videoFileNameOnnAmazon=""
-     
-     var imageFileInputStream:InputStream=null
-     var videoFileObtained : File=null
-            
+    var imageNameOnAmazon = ""
+    var videoFileNameOnnAmazon = ""
+    var imageFileInputStream: InputStream = null
+    var videoFileObtained: File = null
+    var totalFileSize: Double = 0
+
     (request.body.file("imageData").isEmpty) match {
 
       case true => // No Image Found
@@ -130,11 +133,11 @@ object MediaController extends Controller {
           val uniqueString = tokenEmail.securityToken
           val imageFileObtained: File = imageData.ref.file.asInstanceOf[File]
           imageNameOnAmazon = uniqueString + imageFilename.replaceAll("\\s", "") // Security Over the images files
-           imageFileInputStream = CompressFile.compressImage(imageFileObtained, imageNameOnAmazon, 0.1f)
-          (new AmazonUpload).setTotalFileSize(imageFileInputStream.available)
-     }.get
- }
-    
+          imageFileInputStream = CompressFile.compressImage(imageFileObtained, imageNameOnAmazon, 0.1f)
+          totalFileSize += imageFileInputStream.available  //calculate total number of bytes transfered
+        }.get
+    }
+
     (request.body.file("videoData").isEmpty) match {
       case true => // No Video Found
       case false =>
@@ -144,42 +147,39 @@ object MediaController extends Controller {
           val videoFilename = videoData.filename
           val contentType = videoData.contentType.get
           val uniqueString = tokenEmail.securityToken
-          videoFileObtained= videoData.ref.file.asInstanceOf[File]
-         videoFileNameOnnAmazon = uniqueString + videoFilename.replaceAll("\\s", "") 
-        (new AmazonUpload).setTotalFileSize(videoFileObtained.length)
-    }.get
- }
-    
-     if (imageFileInputStream != null) {
-     (new AmazonUpload).uploadCompressedFileToAmazon(imageNameOnAmazon, imageFileInputStream)
+          videoFileObtained = videoData.ref.file.asInstanceOf[File]
+          videoFileNameOnnAmazon = uniqueString + videoFilename.replaceAll("\\s", "")
+          totalFileSize += videoFileObtained.length ////calculate total number of bytes transfered
+        }.get
+    }
+
+    if (imageFileInputStream != null) {
+      (new AmazonUpload).uploadCompressedFileToAmazon(imageNameOnAmazon, imageFileInputStream,totalFileSize,true,request.session.get("userId").get)
       val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
-      val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, UserMediaType.Image, imageStatus, "")
+      val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, UserMediaType.Image, imageStatus, "",0,List())
       UserMedia.saveMediaForUser(media)
       ProfileImageProviderCache.setImage(media.userId.toString, media.mediaUrl)
     }
-    
-     if (videoFileObtained != null) {
-      (new AmazonUpload).uploadFileToAmazon(videoFileNameOnnAmazon, videoFileObtained)
+
+    if (videoFileObtained != null) {
+      (new AmazonUpload).uploadFileToAmazon(videoFileNameOnnAmazon, videoFileObtained,totalFileSize,request.session.get("userId").get)
       val videoURL = "https://s3.amazonaws.com/BeamStream/" + videoFileNameOnnAmazon
       val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(videoURL)
-     (new AmazonUpload).uploadCompressedFileToAmazon(videoFileNameOnnAmazon + "Frame", frameOfVideo)
+      (new AmazonUpload).uploadCompressedFileToAmazon(videoFileNameOnnAmazon + "Frame", frameOfVideo,totalFileSize,false,request.session.get("userId").get)
       val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + videoFileNameOnnAmazon + "Frame"
-      val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), videoURL, UserMediaType.Video, videoStatus, videoFrameURL)
+      val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), videoURL, UserMediaType.Video, videoStatus, videoFrameURL,0,List())
       UserMedia.saveMediaForUser(media)
     }
-     
-     
-    
-    
-     Ok(write(new ResulttoSent("Success", "Profile Photo Uploaded Successfully"))).as("application/json")
+
+    Ok(write(new ResulttoSent("Success", "Profile Photo Uploaded Successfully"))).as("application/json")
   }
- 
+
+  def returnProgress = Action { implicit request =>
+    val userId=request.session.get("userId").get
+    Ok(write(ProgressBar.progressMap.get(userId).get.toString)).as("application/json")
+  }
   
-   def returnProgress= Action { implicit request =>
-     Ok(write((AmazonUpload).percentage.toString)).as("application/json")
-   }
-*/
-  
+  //-----------------------//
   /*
    * obtaining the profile Picture
    * @ Purpose: fetches the recent profile picture for a user
