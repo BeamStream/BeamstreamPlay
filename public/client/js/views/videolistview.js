@@ -178,8 +178,8 @@ BS.VideoListView = Backbone.View.extend({
 //          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
             var datas = {
 				"type" : 'Video',
-				"title" : 'My first video',
-                                "description" :'This is my first video and very nice'
+				"title" : '',
+                                "description" :''
 			  }
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(datas);
