@@ -126,9 +126,10 @@ BS.getAllDOCSFilesForAUser = BS.URLRequired+"/getAllDOCSFilesForAUser";
 BS.rockTheUsermedia = BS.URLRequired+"/rockTheUsermedia";
 // Rockers list - image /video
 BS.giveMeRockersOfUserMedia = BS.URLRequired+"/giveMeRockersOfUserMedia";
-
+//Get data progress
+BS.dataProgress = BS.URLRequired+"/returnProgress";
 
 
 /* for beta users */
 BS.toLogin = BS.URLRequired+'/beamstream/index.html#login';
-BS.betaUser = BS.URLRequired+'/betaUser';
+BS.betaUser = BS.URLRequired+'/returnProgress';
