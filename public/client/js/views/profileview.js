@@ -54,7 +54,9 @@ BS.ProfileView = Backbone.View.extend({
      * save / post profile details
      */
     saveProfile:function (eventName) {
+        
     	eventName.preventDefault();
+        BS.progressVal = 0;
     	var status = true;
     	var validate = $('#profile-form').valid();
     	if(validate == true)
@@ -101,7 +103,7 @@ BS.ProfileView = Backbone.View.extend({
 	     		data.append('imageStatus', $('input[name=img-status]:checked').val());
 	     		data.append('videoStatus', $('input[name=video-status]:checked').val());
 	     		 
-	     		
+                         
 	        	/* post profile page details */
 	        	$.ajax({
 	        	    type: 'POST',
@@ -138,8 +140,15 @@ BS.ProfileView = Backbone.View.extend({
 		        	    	
 		        	    	
 		   			    }
+                                            
 	        	    }
+                            
+                            
 	        	});
+                        
+                      this.dataProgress(BS.progressVal,function(){console.log("start")});
+                       
+                        
     	   }
     	   else
     	   {
@@ -154,6 +163,24 @@ BS.ProfileView = Backbone.View.extend({
     	 
     },
    
+    
+    dataProgress:function(param1, callback)
+    {
+        
+                $.ajax({
+                                   type: 'GET',
+                                   url: BS.dataProgress,
+                                   cache: false,
+                                   contentType: false,
+                                   processData: false,
+                                   success: function(data){
+
+                                       BS.progressVal = data;
+                                       }
+                               });
+                               
+            callback(); 
+    },
     
     /**
      * display profile photo
