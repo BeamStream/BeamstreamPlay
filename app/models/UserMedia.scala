@@ -92,14 +92,14 @@ object UserMedia {
         UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), userMedia.copy(rockers = (userMedia.rockers -- List(userId))), false, false, new WriteConcern)
         val updatedUserMedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
         UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), updatedUserMedia.copy(rocks = (updatedUserMedia.rocks - 1)), false, false, new WriteConcern)
-        val userMedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
-        userMedia.rocks
+        val updatedUserMedia1 = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
+        updatedUserMedia1.rocks
       case false =>
          UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), userMedia.copy(rockers = (userMedia.rockers ++ List(userId))), false, false, new WriteConcern)
         val updatedUserMedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
         UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), updatedUserMedia.copy(rocks = (updatedUserMedia.rocks + 1)), false, false, new WriteConcern)
-        val userMedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
-        userMedia.rocks
+        val updatedUserMedia1 = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
+        updatedUserMedia1.rocks
     }
   }
   
