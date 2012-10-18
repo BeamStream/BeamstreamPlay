@@ -1690,9 +1690,20 @@ span.edit_profilepicture_icon{
 /* progress bar */
 .progress-container
 {
-	margin-left: 250px;
+  margin-left: 250px;
     margin-top: 5px;
     width: 400px;
+}
+.progress{
+     background:url("../images/shadow.jpg") repeat-x !important;
+      border:1px solid #3d7ca8 !important;
+      height:25px !important;
+}
+
+.progress-striped .bar {
+     background:url("../images/inner_shadow.jpg") repeat-x !important;
+     height:25px !important;
+     
 }
 #right-photo{
 	height:36px;
@@ -2407,5 +2418,9 @@ text-align: left;
 	height:100px;
 	z-index: 999;
 	 position: relative;
+}
+.rock-list li {
+	border-top: medium none !important;
+	padding :none !important;
 }
 

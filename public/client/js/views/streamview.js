@@ -510,19 +510,19 @@ BS.StreamView = Backbone.View.extend({
   				   }
   				   else
   				   {
-  					   
-  					   /*auto ajax push */
-  					   console.log("In postMsg---" + self.pagePushUid);
-  					   var streamId = $('#streams-list li.active a').attr('id');
-	                     PUBNUB.publish({
-	                         channel : "stream",
-	                         message : { pagePushUid: self.pagePushUid ,streamId:streamId}
-	                    })
-                 
  
-  					   
   					      // append the message to message list
   						_.each(data, function(data) {
+  							
+  							
+  							/*auto ajax push */
+  	  					   console.log("In postMsg---" + self.pagePushUid);
+  	  					   var streamId = $('#streams-list li.active a').attr('id');
+  		                     PUBNUB.publish({
+  		                         channel : "stream",
+  		                         message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data}
+  		                    })
+  		                    
   							
   							var msgBody = data.messageBody;
   							var link =  msgBody.match(BS.urlRegex);
@@ -1488,6 +1488,10 @@ BS.StreamView = Backbone.View.extend({
 		 console.log("dgdfg");
 	 },
 
+   /**
+    * PUBNUB real time push
+    */
+	 
   setupPushConnection: function() {
     var self = this;
 
@@ -1495,7 +1499,6 @@ BS.StreamView = Backbone.View.extend({
     
     /* for message posting */
     PUBNUB.subscribe({
-
       channel : "stream",
       restore : false,
       callback : function(message) {
@@ -1505,13 +1508,43 @@ BS.StreamView = Backbone.View.extend({
 		{ 
 			if(message.streamId==streamId)
 			{
-				$('.timeline_items').html("");
-				self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
-			}
+//				$('.timeline_items').html("");
+//				self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
+				
+			 if(!document.getElementById(message.data.id.id))
+	    	 {	
+				var msgBody = message.data.messageBody;
+				var link =  msgBody.match(BS.urlRegex);
+				var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+		             return '<a target="_blank" href="' + url + '">' + url + '</a>';
+		        });
+					  
+				var datas = {
+					 "datas" : message.data,
+			    }
+					  
+			   var source = $("#tpl-messages").html();
+			   var template = Handlebars.compile(source);
+			   $('.timeline_items').prepend(template(datas));
+					 
+			   //get profile image of logged user
+			   $('img#'+message.data.id.id+'-img').attr("src", BS.profileImageUrl);
+				    
+			   if(linkTag)
+			   $('div#'+message.data.id.id+'-id').html(linkTag);
+					
+			   // embedly
+				$('div#'+message.data.id.id+'-id').embedly({
+					   	  maxWidth: 200,
+				          wmode: 'transparent',
+				          method: 'after',
+					      key:'4d205b6a796b11e1871a4040d3dc5c07'
+			   });
+			 }
+		   }
 		}
-		console.log("hi   "+JSON.stringify(message));
+		 
       }
-
     })
     
     /* auto push functionality for comments */
@@ -1522,34 +1555,37 @@ BS.StreamView = Backbone.View.extend({
       restore : false,
 
       callback : function(message) { 
-    	  if (message.pagePushUid != self.pagePushUid)
+    	  
+    	  if(message.pagePushUid != self.pagePushUid)
   		  {
-    	     var parent = message.parent;
-    	     var data = message.data;
-    	     var cmtCount = message.cmtCount;
-    	     var prifileImage = message.prifileImage;
-    	      
-	    	 var comments = $("#tpl-comments").html();
-			 var commentsTemplate = Handlebars.compile(comments);
-				 
-			 $('#'+parent+'-commentlists').append(commentsTemplate(data));
-			 $('#'+data.id.id+'-image').attr("src" ,prifileImage );
-				 
-				 
-			 /* for comment Header   */
-			 var cmdHead = $("#tpl-comment-header").html();
-			 var cmdHeadTemplate = Handlebars.compile(cmdHead);
-			 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
-			 $('#'+parent+'-showComment').addClass('disabled');
-				 
-			 if(!$('#'+parent+'-commentlists').is(':visible'))
-			 {  
-					 console.log(55);
-					 $('#'+parent+'-showComment').removeClass('disabled');
-					 $('#'+parent+'-hideComment').addClass('disabled');
-					 $('#'+data.id.id+'-newCmtImage').attr("src" ,prifileImage );
-			 }
-	 
+    		   
+    	    if(!document.getElementById(message.data.id.id))
+    		{
+	    	     var parent = message.parent;
+	    	     var data = message.data;
+	    	     var cmtCount = message.cmtCount;
+	    	     var prifileImage = message.prifileImage;
+	    	      
+		    	 var comments = $("#tpl-comments").html();
+				 var commentsTemplate = Handlebars.compile(comments);
+					 
+				 $('#'+parent+'-commentlists').append(commentsTemplate(data));
+				 $('#'+data.id.id+'-image').attr("src" ,prifileImage );
+					 
+					 
+				 /* for comment Header   */
+				 var cmdHead = $("#tpl-comment-header").html();
+				 var cmdHeadTemplate = Handlebars.compile(cmdHead);
+				 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
+				 $('#'+parent+'-showComment').addClass('disabled');
+					 
+				 if(!$('#'+parent+'-commentlists').is(':visible'))
+				 {  
+						 $('#'+parent+'-showComment').removeClass('disabled');
+						 $('#'+parent+'-hideComment').addClass('disabled');
+						 $('#'+data.id.id+'-newCmtImage').attr("src" ,prifileImage );
+				 }
+    		}
   		}
       }
 

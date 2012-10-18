@@ -77,7 +77,6 @@ BS.ProfileView = Backbone.View.extend({
     	   }
     	   if(status == true)
     	   {
-    	 
                     // for progress bar for file uploading
 	            $('.progress-container').show();
 	    		
@@ -89,7 +88,6 @@ BS.ProfileView = Backbone.View.extend({
 	     		data.append('upload',$('#upload').val());
 	     		data.append('imageStatus', $('input[name=img-status]:checked').val());
 	     		data.append('videoStatus', $('input[name=video-status]:checked').val());
-	     		 
                          
 	        	/* post profile page details */
 	        	$.ajax({

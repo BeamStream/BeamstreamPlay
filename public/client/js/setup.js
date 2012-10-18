@@ -132,4 +132,4 @@ BS.dataProgress = BS.URLRequired+"/returnProgress";
 
 /* for beta users */
 BS.toLogin = BS.URLRequired+'/beamstream/index.html#login';
-BS.betaUser = BS.URLRequired+'/returnProgress';
+BS.betaUser = BS.URLRequired+'/betaUser';
