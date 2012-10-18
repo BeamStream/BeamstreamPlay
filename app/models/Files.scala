@@ -59,7 +59,7 @@ object Files {
   //--------------------//
   def getAllDOCSFiles(userId: ObjectId): List[Document] = {
     var documentsFiles: List[Document] = List()
-    val documentFilesExtensionsList: List[String] = List(".doc",".docx",".txt",".rtf",",DOC",".DOCX",".TXT",".RTF")
+    val documentFilesExtensionsList: List[String] = List(".doc",".docx",".txt",".rtf",".xls",".xlsx",",DOC",".DOCX",".TXT",".RTF",".XLS",".XLSX")
     val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).toList
     for (file <- filesFound) {
       val fileName = file.documentURL

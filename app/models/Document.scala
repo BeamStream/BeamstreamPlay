@@ -53,7 +53,8 @@ case class Document(@Key("_id") id: ObjectId,
   lastUpdateDate: Date,
   documentRocks: Int,
   documentRockers: List[ObjectId],
-  commentsOnDocument: List[ObjectId])
+  commentsOnDocument: List[ObjectId],
+  documentFollwers: List[ObjectId] )
 
 object Document {
 

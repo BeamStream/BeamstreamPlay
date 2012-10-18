@@ -144,9 +144,9 @@ BS.ProfileView = Backbone.View.extend({
                             
                             
 	        	});
-                        
-//                      this.dataProgress(BS.progressVal,function(){console.log("start")});
-                       
+
+                      this.dataProgress();
+                                           
                         
     	   }
     	   else
@@ -163,9 +163,8 @@ BS.ProfileView = Backbone.View.extend({
     },
  
     
-    dataProgress:function(param1, callback)
+    dataProgress:function()
     {
-        
                 $.ajax({
                                    type: 'GET',
                                    url: BS.dataProgress,
@@ -175,17 +174,15 @@ BS.ProfileView = Backbone.View.extend({
                                    success: function(data){
 
                                        BS.progressVal = data;
-                                       console.log(BS.progressVal);
-                                       if(data == "100" )
-                                    	{
-                                    	    
-               	        	    	    	BS.AppRouter.navigate("streams", {trigger: true});
-               			    		     
-                                    	}
+
+                                        if(data !=100){
+                                         this.dataProgress();
+                                        }
+
                                        }
                                });
                                
-            callback(); 
+//            callback(); 
     },
     
     /**
