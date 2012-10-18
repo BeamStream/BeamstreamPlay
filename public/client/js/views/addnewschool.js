@@ -84,6 +84,7 @@ BS.AddNewSchool = Backbone.View.extend({
                         	 if(nextIId)
                         	 {
                         		 $('#'+self.parentId).next('input').attr('value',localStorage["newSchoolId"]);
+                        		 $('#'+self.parentId).next('input').next('input').attr('value',localStorage["newSchoolId"]);
                         	 }
                         	 
                            	  
