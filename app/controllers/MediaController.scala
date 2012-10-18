@@ -1,29 +1,25 @@
 package controllers
-import play.api.mvc.Controller
-import play.api.mvc.Action
 import java.io.File
-import com.mongodb.casbah.gridfs.GridFS
-import utils.MongoHQConfig
-import java.io.FileOutputStream
-import models.MediaTransfer
-import models.MediaType
-import org.bson.types.ObjectId
 import java.io.InputStream
-import models.Profile
-import utils.tokenEmail
+
+import org.bson.types.ObjectId
+
+import models.ProfileImageProviderCache
 import models.ResulttoSent
-import net.liftweb.json.{ parse, DefaultFormats }
-import net.liftweb.json.Serialization.{ read, write }
-import utils.AmazonUpload
-import utils.ObjectIdSerializer
 import models.UserMedia
 import models.UserMediaType
-import models.ProfileImageProviderCache
+import net.liftweb.json.Serialization.read
+import net.liftweb.json.Serialization.write
+import net.liftweb.json.DefaultFormats
+import net.liftweb.json.parse
+import play.api.mvc.Action
+import play.api.mvc.Controller
+import utils.AmazonUpload
 import utils.CompressFile
-import javax.imageio.ImageIO
-import java.awt.image.BufferedImage
 import utils.ExtractFrameFromVideo
+import utils.ObjectIdSerializer
 import utils.ProgressBar
+import utils.tokenEmail
 
 object MediaController extends Controller {
 
@@ -152,6 +148,7 @@ object MediaController extends Controller {
         }.get
     }
 
+    ProgressBar.setProgressBar(request.session.get("userId").get, 0)
     if (imageFileInputStream != null) {
       (new AmazonUpload).uploadCompressedFileToAmazon(imageNameOnAmazon, imageFileInputStream,totalFileSize,true,request.session.get("userId").get)
       val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon

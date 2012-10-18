@@ -87,17 +87,18 @@ class AmazonUpload {
   
 
   def uploadCompressedFileToAmazon(profilePicName: String, profilePic: InputStream, totalFileSize: Double, flag: Boolean, userId: String) {
+    
     println("Coming Here With Compression")
     val bucketName = "BeamStream"
     val s3Client = fetchS3Client
     val putObjectRequest = new PutObjectRequest(bucketName, profilePicName, profilePic, new ObjectMetadata)
-    if (flag == true) updateProjectStatus(putObjectRequest, totalFileSize, userId)
+    if (flag) updateProgressStatus(putObjectRequest, totalFileSize, userId)
 
     s3Client.putObject(putObjectRequest)
   }
   
   
-  private def updateProjectStatus(putObjectRequest:PutObjectRequest, totalFileSize:Double, userId:String) = {
+  private def updateProgressStatus(putObjectRequest:PutObjectRequest, totalFileSize:Double, userId:String) = {
     
       putObjectRequest.setProgressListener(new ProgressListener {
         @Override
@@ -106,7 +107,7 @@ class AmazonUpload {
           totalByteRead += progressEvent.getBytesTransfered
           percentage = ((totalByteRead / totalFileSize) * 100).toInt
           //Setting the progress status
-          ProgressBar.serProgressBar(userId, percentage)
+          ProgressBar.setProgressBar(userId, percentage)
           if (progressEvent.getEventCode == ProgressEvent.COMPLETED_EVENT_CODE) {
             println("completed  ******")
           }
@@ -131,7 +132,7 @@ class AmazonUpload {
     val bucketName = "BeamStream"
     val s3Client = fetchS3Client
     val putObjectRequest = new PutObjectRequest(bucketName, profilePicName, profilePic)
-    updateProjectStatus(putObjectRequest, totalFileSize, userId)
+    updateProgressStatus(putObjectRequest, totalFileSize, userId)
     s3Client.putObject(putObjectRequest)
   }
 }
@@ -139,7 +140,7 @@ class AmazonUpload {
 object ProgressBar {
 
   var progressMap: Map[String, Int] = Map()
-  def serProgressBar(userId: String, progress: Int) {
+  def setProgressBar(userId: String, progress: Int) {
     progressMap += (userId -> progress)
      println("Setting in Map-->"+progressMap.get(userId).get)
 
