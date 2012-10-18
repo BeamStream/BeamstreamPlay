@@ -169,7 +169,6 @@ object MediaController extends Controller {
       val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), videoURL, UserMediaType.Video, videoStatus, videoFrameURL,0,List())
       UserMedia.saveMediaForUser(media)
     }
-    ProgressBar.progressMap +=(request.session.get("userId").get -> 0)
     Ok(write(new ResulttoSent("Success", "Profile Photo Uploaded Successfully"))).as("application/json")
   }
 
