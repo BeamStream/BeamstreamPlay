@@ -753,15 +753,15 @@ BS.StreamView = Backbone.View.extend({
              success:function(data){
             	 
             	// display the count in icon
-            	$('li#'+msgId+'').find('i').find('i').html(data);
+            	$('li#'+msgId+'').find('.rock-message').find('i').html(data);
                 
                 //auto push
-            	self.setupPushConnection();
+//            	self.setupPushConnection();
 				console.log("in rockMessage...." + self.pagePushUid);
 				var streamId = $('#streams-list li.active a').attr('id');
 				  PUBNUB.publish({
-                      channel : "stream",
-                      message : { pagePushUid: self.pagePushUid ,streamId:streamId}
+                      channel : "msgRock",
+                      message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,msgId:msgId}
                  })
  
              }
@@ -791,13 +791,11 @@ BS.StreamView = Backbone.View.extend({
             	// display the count in icon
             	$('li#'+commentId+'').find('i').find('i').html(data);
             	
-            	//auto push
-            	self.setupPushConnection();
-				console.log("in rockMessage...." + self.pagePushUid);
+            	/*auto push */
 				var streamId = $('#streams-list li.active a').attr('id');
 				  PUBNUB.publish({
-                      channel : "stream",
-                      message : { pagePushUid: self.pagePushUid ,streamId:streamId}
+                      channel : "commentRock",
+                      message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,commentId:commentId }
                  })
  
              }
@@ -1139,11 +1137,11 @@ BS.StreamView = Backbone.View.extend({
 							 }
 							 
 //							// auto push
-							self.setupPushConnection();
+//							self.setupPushConnection();
 		  					var streamId = $('#streams-list li.active a').attr('id');
 			                 PUBNUB.publish({
-			                         channel : "stream",
-			                         message : { pagePushUid: self.pagePushUid ,streamId:streamId}
+			                         channel : "comment",
+			                         message : { pagePushUid: self.pagePushUid ,data:data,parent:parent,cmtCount:cmtCount,prifileImage : BS.profileImageUrl}
 			                 })
 							 
 				  		});
@@ -1357,7 +1355,7 @@ BS.StreamView = Backbone.View.extend({
 	        	 }
 	        	 
                  /* Auto push */   
-	        	 self.setupPushConnection();
+//	        	 self.setupPushConnection();
 				 var streamId = $('#streams-list li.active a').attr('id');
                   PUBNUB.publish({
                        channel : "stream",
@@ -1494,12 +1492,12 @@ BS.StreamView = Backbone.View.extend({
     var self = this;
 
     self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
+    
+    /* for message posting */
     PUBNUB.subscribe({
 
       channel : "stream",
       restore : false,
-
-      
       callback : function(message) {
 
 		var streamId = $('#streams-list li.active a').attr('id');
@@ -1512,6 +1510,79 @@ BS.StreamView = Backbone.View.extend({
 			}
 		}
 		console.log("hi   "+JSON.stringify(message));
+      }
+
+    })
+    
+    /* auto push functionality for comments */
+    
+     PUBNUB.subscribe({
+
+      channel : "comment",
+      restore : false,
+
+      callback : function(message) { 
+    	  if (message.pagePushUid != self.pagePushUid)
+  		  {
+    	     var parent = message.parent;
+    	     var data = message.data;
+    	     var cmtCount = message.cmtCount;
+    	     var prifileImage = message.prifileImage;
+    	      
+	    	 var comments = $("#tpl-comments").html();
+			 var commentsTemplate = Handlebars.compile(comments);
+				 
+			 $('#'+parent+'-commentlists').append(commentsTemplate(data));
+			 $('#'+data.id.id+'-image').attr("src" ,prifileImage );
+				 
+				 
+			 /* for comment Header   */
+			 var cmdHead = $("#tpl-comment-header").html();
+			 var cmdHeadTemplate = Handlebars.compile(cmdHead);
+			 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
+			 $('#'+parent+'-showComment').addClass('disabled');
+				 
+			 if(!$('#'+parent+'-commentlists').is(':visible'))
+			 {  
+					 console.log(55);
+					 $('#'+parent+'-showComment').removeClass('disabled');
+					 $('#'+parent+'-hideComment').addClass('disabled');
+					 $('#'+data.id.id+'-newCmtImage').attr("src" ,prifileImage );
+			 }
+	 
+  		}
+      }
+
+    })
+    
+    
+    
+    /* for message Rocks */
+    PUBNUB.subscribe({
+
+      channel : "msgRock",
+      restore : false,
+      callback : function(message) {
+    	  if(message.pagePushUid != self.pagePushUid)
+  		  {   	  
+    		  $('li#'+message.msgId+'').find('.rock-message').find('i').html(message.data);
+  		  }
+		 
+      }
+
+    })
+    
+     /* for Comment Rocks */
+    PUBNUB.subscribe({
+
+      channel : "commentRock",
+      restore : false,
+      callback : function(message) {
+    	  if(message.pagePushUid != self.pagePushUid)
+  		  {   	  
+    		  $('li#'+message.commentId+'').find('i').find('i').html(message.data);
+  		  }
+		 
       }
 
     })

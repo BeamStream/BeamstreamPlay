@@ -54,7 +54,6 @@ BS.ProfileView = Backbone.View.extend({
      * save / post profile details
      */
     saveProfile:function (eventName) {
-        
     	eventName.preventDefault();
         BS.progressVal = 0;
     	var status = true;
@@ -137,7 +136,7 @@ BS.ProfileView = Backbone.View.extend({
 	        	    	    setTimeout(function() {
 	        	    	    	BS.AppRouter.navigate("streams", {trigger: true});
 			    		    }, 500);
-		        	    	
+//		        	    	
 		        	    	
 		   			    }
                                             
@@ -145,11 +144,9 @@ BS.ProfileView = Backbone.View.extend({
                             
                             
 	        	});
-                        
+
                       this.dataProgress();
-                      
-                      
-                       
+                                           
                         
     	   }
     	   else
@@ -164,7 +161,7 @@ BS.ProfileView = Backbone.View.extend({
     	}
     	 
     },
-   
+ 
     
     dataProgress:function()
     {
@@ -177,9 +174,11 @@ BS.ProfileView = Backbone.View.extend({
                                    success: function(data){
 
                                        BS.progressVal = data;
+
                                         if(data !=100){
                                          this.dataProgress();
                                         }
+
                                        }
                                });
                                
