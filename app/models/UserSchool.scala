@@ -45,21 +45,29 @@ object UserSchool {
     * @Purpose : Will Edit The schools as well with Creation
     */
 
-  def createSchool(userSchools: List[UserSchool]): ResulttoSent = {
+  def createSchool(userSchools: List[UserSchool], userId: ObjectId): ResulttoSent = {
 
-    if (UserSchool.duplicateSchoolExistesInSubmittedList(userSchools) == true) ResulttoSent("Failure", "Do Not Enter The Same School Twice")
-    
-    else {
+    var resultToSend = new ResulttoSent("", "")
+
+    if (UserSchool.duplicateSchoolExistesInSubmittedList(userSchools) == true) {
+      resultToSend = ResulttoSent("Failure", "Do Not Enter The Same School Twice")
+      resultToSend
+    } else {
       for (userSchool <- userSchools) {
         val userSchoolObtained = UserSchool.userSchoolsForAUser(userSchool.id)
-        
+
         if (userSchoolObtained.size == 1) {
           UserSchoolDAO.update(MongoDBObject("_id" -> userSchool.id), userSchool, false, false, new WriteConcern)
+          resultToSend = ResulttoSent("Success", "Schools Updated Successfully")
+        } else if (isUserAlreadyContainsTheSchoolThatUserWantsToJoin(userSchool.assosiatedSchoolId, userId) == true) {
+          resultToSend = ResulttoSent("Failure", "You've already Joined The " + userSchool.schoolName + " School")
+
         } else {
           UserSchoolDAO.insert(userSchool)
+          resultToSend = ResulttoSent("Success", "Schools Added Successfully")
         }
       }
-      ResulttoSent("Success", "Schools Added Successfully")
+      resultToSend
     }
 
   }
@@ -143,6 +151,25 @@ object UserSchool {
     }
 
     if (schoolFetchCount == 0) false else true
+  }
+
+  /*
+   * Is user contains already the Coming School that he wants to Join
+   */
+
+  def isUserAlreadyContainsTheSchoolThatUserWantsToJoin(assosiatedSchoolId: ObjectId, userId: ObjectId): Boolean = {
+    var statusToreturn = false
+    val userSchoolsIdListOfAUser = UserSchool.getAllSchoolforAUser(userId)
+
+    if (!userSchoolsIdListOfAUser.isEmpty) {
+      val userSchoolsOfAUser = UserSchool.getAllSchools(userSchoolsIdListOfAUser)
+      for (userSchool <- userSchoolsOfAUser) {
+        if (userSchool.assosiatedSchoolId == assosiatedSchoolId) statusToreturn = true
+      }
+      statusToreturn
+    } else {
+      statusToreturn
+    }
   }
 
 }
