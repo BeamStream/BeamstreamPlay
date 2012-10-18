@@ -80,18 +80,18 @@ BS.ProfileView = Backbone.View.extend({
     	 
 	    		// for progress bar for file uploading
 	            $('.progress-container').show();
-	    		BS.progress = setInterval(function() {
-	    			 BS.bar = $('.bar');
-	    		   
-	    		    if (BS.bar.width()== 392) {
-	    		        clearInterval(BS.progress);
-//	    		        $('.progress').removeClass('active');
-	    		    } else {
-	    		    	 BS.bar.width( BS.bar.width()+8);
-	    		    }
-	    		    BS.bar.text( BS.bar.width()/4 + "%");
-	    		}, 800);
-    		   
+//	    		BS.progress = setInterval(function() {
+//	    			 BS.bar = $('.bar');
+//	    		   
+//	    		    if (BS.bar.width()== 392) {
+//	    		        clearInterval(BS.progress);
+////	    		        $('.progress').removeClass('active');
+//	    		    } else {
+//	    		    	 BS.bar.width( BS.bar.width()+8);
+//	    		    }
+//	    		    BS.bar.text( BS.bar.width()/4 + "%");
+//	    		}, 800);
+//    		   
 	    		
 	    		var data;
 	        	data = new FormData();
@@ -115,37 +115,58 @@ BS.ProfileView = Backbone.View.extend({
 	        	    	
 	        	    	if(data.status == "Success") 
 		   			    {
-	        	    		BS.bar = $('.bar');
-	        	    	    BS.bar.width(400);
-	        	    	    BS.bar.text("100%");
-	        	    	    clearInterval(BS.progress);
-	        	    	    $(".star").hide();
-	        	    		
-	        	    	    
-	        	    	    BS.schoolBack = false;
-	        				BS.regBack = false;
-	        				BS.classBack = false;
-	        				localStorage["regInfo"] ='';
-	        		        localStorage["schoolInfo"] ='';
-	        		        localStorage["classInfo"] ='';
-	        		        localStorage["resistrationPage"] ='';
-	        		        localStorage["editClass"] = "true";
-	        		        localStorage["editProfile"] = "true";
-	        		        
-	        	    	   // navigate to main stream page after a tome period
-	        	    	    setTimeout(function() {
-	        	    	    	BS.AppRouter.navigate("streams", {trigger: true});
-			    		    }, 500);
-//		        	    	
-		        	    	
+                                                    $(".star").hide();
+                                                BS.schoolBack = false;
+                                                            BS.regBack = false;
+                                                            BS.classBack = false;
+                                                            localStorage["regInfo"] ='';
+                                                    localStorage["schoolInfo"] ='';
+                                                    localStorage["classInfo"] ='';
+                                                    localStorage["resistrationPage"] ='';
+                                                    localStorage["editClass"] = "true";
+                                                    localStorage["editProfile"] = "true";
+
+                                               // navigate to main stream page after a tome period
+                                                setTimeout(function() {
+                                                    BS.AppRouter.navigate("streams", {trigger: true});
+                                                        }, 500);
 		   			    }
-                                            
 	        	    }
-                            
-                            
 	        	});
 
-                      this.dataProgress();
+                            if( this.image && this.video)
+                                BS.totalPer = '99';
+                            else
+                                BS.totalPer = '100';
+
+                        /*
+                         *Added by Cuckoo
+                         *Get the progress info
+                         */
+                   BS.progressVals = setInterval(
+                     function(){
+                       $.ajax({
+                                   type: 'GET',
+                                   url: BS.dataProgress,
+                                   cache: false,
+                                   contentType: false,
+                                   processData: false,
+                                   success: function(data){
+
+                                       BS.progressVal = data;
+                                       
+                                         BS.bar = $('.bar');
+                                         BS.bar.width( parseInt(BS.progressVal) * parseInt(4));
+                                         
+                                        if(BS.progressVal == BS.totalPer ){
+                                            //stop the getprogress call
+                                            clearInterval(BS.progressVals);
+                                                    }
+
+                                       }
+                               })}
+                    ,1500);
+                      
                                            
                         
     	   }
@@ -165,22 +186,7 @@ BS.ProfileView = Backbone.View.extend({
     
     dataProgress:function()
     {
-                $.ajax({
-                                   type: 'GET',
-                                   url: BS.dataProgress,
-                                   cache: false,
-                                   contentType: false,
-                                   processData: false,
-                                   success: function(data){
-
-                                       BS.progressVal = data;
-
-                                        if(data !=100){
-                                         this.dataProgress();
-                                        }
-
-                                       }
-                               });
+             
                                
 //            callback(); 
     },
