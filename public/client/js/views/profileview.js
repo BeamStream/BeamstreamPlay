@@ -77,21 +77,8 @@ BS.ProfileView = Backbone.View.extend({
     	   }
     	   if(status == true)
     	   {
-    	 
-	    		// for progress bar for file uploading
+                    // for progress bar for file uploading
 	            $('.progress-container').show();
-//	    		BS.progress = setInterval(function() {
-//	    			 BS.bar = $('.bar');
-//	    		   
-//	    		    if (BS.bar.width()== 392) {
-//	    		        clearInterval(BS.progress);
-////	    		        $('.progress').removeClass('active');
-//	    		    } else {
-//	    		    	 BS.bar.width( BS.bar.width()+8);
-//	    		    }
-//	    		    BS.bar.text( BS.bar.width()/4 + "%");
-//	    		}, 800);
-//    		   
 	    		
 	    		var data;
 	        	data = new FormData();
@@ -101,7 +88,6 @@ BS.ProfileView = Backbone.View.extend({
 	     		data.append('upload',$('#upload').val());
 	     		data.append('imageStatus', $('input[name=img-status]:checked').val());
 	     		data.append('videoStatus', $('input[name=video-status]:checked').val());
-	     		 
                          
 	        	/* post profile page details */
 	        	$.ajax({
@@ -126,6 +112,9 @@ BS.ProfileView = Backbone.View.extend({
                                                     localStorage["editClass"] = "true";
                                                     localStorage["editProfile"] = "true";
 
+                                                //stop the getprogress call if it not stops
+                                                    clearInterval(BS.progressVals);
+                                                    
                                                // navigate to main stream page after a tome period
                                                 setTimeout(function() {
                                                     BS.AppRouter.navigate("streams", {trigger: true});
@@ -133,16 +122,17 @@ BS.ProfileView = Backbone.View.extend({
 		   			    }
 	        	    }
 	        	});
-
+                        
+                        /*
+                         *Added by Cuckoo
+                         *Get the progress info
+                         */
                             if( this.image && this.video)
                                 BS.totalPer = '99';
                             else
                                 BS.totalPer = '100';
 
-                        /*
-                         *Added by Cuckoo
-                         *Get the progress info
-                         */
+                        
                    BS.progressVals = setInterval(
                      function(){
                        $.ajax({
@@ -157,6 +147,7 @@ BS.ProfileView = Backbone.View.extend({
                                        
                                          BS.bar = $('.bar');
                                          BS.bar.width( parseInt(BS.progressVal) * parseInt(4));
+                                         BS.bar.text( BS.progressVal + "% Done");
                                          
                                         if(BS.progressVal == BS.totalPer ){
                                             //stop the getprogress call
