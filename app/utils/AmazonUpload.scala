@@ -101,6 +101,7 @@ class AmazonUpload {
       putObjectRequest.setProgressListener(new ProgressListener {
         @Override
         def progressChanged(progressEvent: ProgressEvent) {
+          println("**********************************************************************")
           totalByteRead += progressEvent.getBytesTransfered
           percentage = ((totalByteRead / totalFileSize) * 100).toInt
           //Setting the progress status
@@ -131,6 +132,7 @@ class AmazonUpload {
     putObjectRequest.setProgressListener(new ProgressListener {
       @Override
       def progressChanged(progressEvent: ProgressEvent) {
+        println("###########################################################")
         totalByteRead += progressEvent.getBytesTransfered
         percentage = ((totalByteRead / totalFileSize) * 100).toInt
         ProgressBar.serProgressBar(userId, percentage)
