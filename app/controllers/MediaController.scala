@@ -174,7 +174,7 @@ object MediaController extends Controller {
 
  def returnProgress = Action { implicit request =>
     val userId=request.session.get("userId").get
-    	println("Progress is ---->" + ProgressBar.progressMap.get(userId).get.toString)
+    	println("Progress is ---->" + ProgressBar.progressMap.get(userId).getOrElse("").toString)
       Ok(write(ProgressBar.progressMap.get(userId).get.toString)).as("application/json")
   }
   
