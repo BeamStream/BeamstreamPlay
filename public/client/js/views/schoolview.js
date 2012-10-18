@@ -77,14 +77,15 @@ BS.SchoolView = Backbone.View.extend({
 					BS.allSchoolInfo = datas;
 					BS.schoolNames = [];
 					_.each(datas, function(data) {
-						BS.schoolNames.push(data.schoolName);
+						BS.schoolNames.push({label:data.schoolName, value:data.schoolName ,id :data.id.id});
 			         });
 	                              
 					//set auto populate schools
 					$('#'+id).autocomplete({
 						    source: BS.schoolNames,
 						    select: function(event, ui) {
-						    	var text = ui.item.value; 
+						    	$('#'+id).next('input').next('input').attr('value',ui.item.id);
+						    	$('#'+id).next('input').attr('value',ui.item.id);
 						    	 
 						    }
 					 });
