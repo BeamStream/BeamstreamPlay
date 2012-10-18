@@ -150,6 +150,7 @@ object ProgressBar {
   var progressMap: Map[String, Int] = Map()
   def serProgressBar(userId: String, progress: Int) {
     progressMap += (userId -> progress)
+     println("Setting in Map-->"+progressMap.get(userId).get)
 
   }
 
