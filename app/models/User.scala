@@ -201,14 +201,6 @@ object User {
 
 
   /*
-     * Add Question to user
-     */
-  def addQuestionToUser(userId: ObjectId, question: ObjectId) {
-    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(questions = user.questions ++ List(question)), false, false, new WriteConcern)
-  }
-
-  /*
    * Rockers name of a message
    */
 
