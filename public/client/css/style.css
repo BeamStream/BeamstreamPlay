@@ -2408,4 +2408,8 @@ text-align: left;
 	z-index: 999;
 	 position: relative;
 }
+.rock-list li {
+	border-top: medium none !important;
+	padding :none !important;
+}
 
