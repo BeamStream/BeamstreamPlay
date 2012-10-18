@@ -32,17 +32,15 @@ BS.StreamView = Backbone.View.extend({
            "click #sort-messages li a" : "sortMessages",
            "keypress #sort_by_key" : "sortMessagesByKey",
            "click .msg-follow" : "followMessage",
-//           "click #msg"  : "showBitleys",
            "click .social_media" : "uncheckPrivate",
            "click #id-private" : "makePrivate",
-//           "keyup #msg" : "makeBitly",
-        	"click .username a" : "renderPublicProfile"
+           "click .username a" : "renderPublicProfile"
            
- 
 	 },
 	 
 
     initialize:function () {
+    	
     	console.log('Initializing Stream View');
     	BS.urlRegex1 = /(https?:\/\/[^\s]+)/g;
     	BS.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\/]*$/i ;
@@ -62,12 +60,11 @@ BS.StreamView = Backbone.View.extend({
 		this.source = $("#tpl-main-stream").html();
 		this.template = Handlebars.compile(this.source);
 //		this.slider();
-
-    this.setupPushConnection();
-
+		
+		/* for PUBNUB auto push */
+        this.setupPushConnection();
 
 		/* pagination on scrolling */
-		
 		BS.msgSortedType = '';
 		BS.pagenum = 1;
 		BS.pageForVotes = 1;
@@ -77,16 +74,13 @@ BS.StreamView = Backbone.View.extend({
 	    var self = this;
 	    $(".star").hide();
 		$(window).bind('scroll', function (ev) {
-			 
 			var streamPage = $('nav li.active').attr('id');
-			
 			if(streamPage == "streamsGroups")
 			{
 				var scrollTop =$(window).scrollTop();
 				var docheight = $(document).height();
 				var widheight = $(window).height();
 				if(scrollTop + 1 == docheight- widheight || scrollTop == docheight- widheight){
-				
 			 	   var t = $('.timeline_items').find('li');
 				   if(t.length != 0)
 				   {
@@ -119,19 +113,16 @@ BS.StreamView = Backbone.View.extend({
 					  $('.page-loader').hide();
 				}
 			}
-			
 		 });
-		
-		
     },
  
-     
+    /**
+     * render view
+     */
     render:function (eventName) {
-        
+    	
        this.getStreams();
-
        $(this.el).html(this.template({"data":this.model.toJSON(),"schools" : BS.mySchools}));
-        
        return this;
     },
     
@@ -147,7 +138,6 @@ BS.StreamView = Backbone.View.extend({
 				url : BS.allStreamsForAUser,
 				dataType : "json",
 				success : function(datas) {
-					
 					 var streams ='';
 					 var classStreams ='';
 					 _.each(datas, function(data) {
@@ -172,15 +162,13 @@ BS.StreamView = Backbone.View.extend({
              	     // right one list
              		 $('#public-classes').html(classStreams);
              		 
-             		 
-             		//set active class on right top
+             		 //set active class on right top
 	                 $('#public-classes').find('li.active').removeClass('active');
 	              	 $('#public-classes').find('li#'+streamId+'').addClass('active');
 	              	 $('.timeline_items').html("");
 	              	 BS.pagenum =1;  
                      if(streamId)
                       self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
-             
 				}
 		 });
     },
@@ -196,7 +184,6 @@ BS.StreamView = Backbone.View.extend({
  				url : BS.classStreamsForUser,
  				dataType : "json",
  				success : function(datas) {
- 					
  					 var classStreams ='';
  					 var streams ='';
  					 _.each(datas, function(data) {
@@ -216,7 +203,6 @@ BS.StreamView = Backbone.View.extend({
  	                     //right one list
  	             		 $('#public-classes').html(classStreams);
 
- 	                     
  	                     //set active class on right top
  	                     $('#public-classes').find('li.active').removeClass('active');
  	              	     $('#public-classes').find('li#'+streamId+'').addClass('active');
@@ -239,7 +225,6 @@ BS.StreamView = Backbone.View.extend({
  						 var sId = $('#streams-list li.active a').attr('id');
  						 $('#public-classes').find('li#'+sId+'').addClass('active');
  					 }
- 					 
  				}
  		 });
     },
@@ -278,7 +263,9 @@ BS.StreamView = Backbone.View.extend({
 	      }
     },
     
-    
+    /**
+     *  hide hover over list for Create Stream button
+     */ 
     mouseOut:function (){
     	 
     	  // reset the timer if we get fired again - avoids double animations
@@ -372,35 +359,34 @@ BS.StreamView = Backbone.View.extend({
      * select one stream from stream list
      */
     selectOneStream :function(eventName){
-      eventName.preventDefault();
-      var id = eventName.target.id;
-      var streamName = eventName.target.name;
+       eventName.preventDefault();
+       var id = eventName.target.id;
+       var streamName = eventName.target.name;
       
-      streamName = $('#'+id+'').text();
+       streamName = $('#'+id+'').text();
 
-      $('#streams-list li.active').removeClass('active');
-      $('#'+id).parents('li').addClass('active');
+       $('#streams-list li.active').removeClass('active');
+       $('#'+id).parents('li').addClass('active');
       
-      
-      $('#sort-messages').find('li.active').removeClass('active');
-	  $('#highest-rated').closest('li').addClass('active');
+       $('#sort-messages').find('li.active').removeClass('active');
+	   $('#highest-rated').closest('li').addClass('active');
 		 
-      //set active class on right top
-      $('#public-classes').find('li.active').removeClass('active');
-	  $('#public-classes').find('li#'+id+'').addClass('active');
+       //set active class on right top
+       $('#public-classes').find('li.active').removeClass('active');
+	   $('#public-classes').find('li#'+id+'').addClass('active');
       
-      // render sub menus in stream page
-      var source = $("#tpl-stream-page-menus").html();
-	  var template = Handlebars.compile(source);
-	  $('#sub-menus').html(template({streamName : streamName}));
+       // render sub menus in stream page
+       var source = $("#tpl-stream-page-menus").html();
+	   var template = Handlebars.compile(source);
+	   $('#sub-menus').html(template({streamName : streamName}));
 		 
-      // call the method to display the messages of the selected stream
-	  $('.timeline_items').html("");
+       // call the method to display the messages of the selected stream
+	   $('.timeline_items').html("");
 	  
-	  BS.pagenum = 1;
-	  this.getMessageInfo(id,BS.pagenum,BS.pageLimit);
-       
+	   BS.pagenum = 1;
+	   this.getMessageInfo(id,BS.pagenum,BS.pageLimit);
     },
+    
     /**
      * post a message
      */
@@ -415,7 +401,6 @@ BS.StreamView = Backbone.View.extend({
       
       if(!message.match(/^[\s]*$/))
       {
-    	 
 	      var msgAccess =  $('#id-private').attr('checked');
 	  	  if(msgAccess == "checked")
 	  	  {
@@ -426,16 +411,10 @@ BS.StreamView = Backbone.View.extend({
 	  		messageAccess = "Public";
 	  	  }
 	  	  
-	  	  
 	  	  //find link part from the message
-	  	  
-	  	  
-	  	  
 	      var link =  message.match(BS.urlRegex); 
-	       
 	      if(link)
 	      {    
-	    	  
 	    	 if(!BS.urlRegex2.test(link[0])) {
 	    		urlLink = "http://" + link[0];
 	  	  	 }
@@ -446,7 +425,6 @@ BS.StreamView = Backbone.View.extend({
 	    	  
 	    	 if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
 			 { 
-	    		 
 	    	  /* post url information */
 	          $.ajax({
 	    			type : 'POST',
@@ -465,7 +443,6 @@ BS.StreamView = Backbone.View.extend({
 	    	 {     
 	    		 self.postMsg(message,streamId,messageAccess);
 	    	 }
-	    	
 	      }
 	      //if link not present
 	      else
@@ -478,8 +455,7 @@ BS.StreamView = Backbone.View.extend({
      * post message with shortURL if present
      */
     postMsg:function(message,streamId,messageAccess){
-      var self = this; 
-
+        var self = this; 
     	/* post message information */
         $.ajax({
   			type : 'POST',
@@ -510,24 +486,19 @@ BS.StreamView = Backbone.View.extend({
   				   }
   				   else
   				   {
- 
-  					      // append the message to message list
-  						_.each(data, function(data) {
+  					    // append the message to message list
+  					   _.each(data, function(data) {
   							
-  							
-  							/*auto ajax push */
-  	  					   console.log("In postMsg---" + self.pagePushUid);
-  	  					   var streamId = $('#streams-list li.active a').attr('id');
-  		                     PUBNUB.publish({
+  						    /*auto ajax push */
+  	  					    var streamId = $('#streams-list li.active a').attr('id');
+  		                    PUBNUB.publish({
   		                         channel : "stream",
-  		                         message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data}
+  		                         message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,prifileImage : BS.profileImageUrl}
   		                    })
-  		                    
   							
   							var msgBody = data.messageBody;
   							var link =  msgBody.match(BS.urlRegex);
   							var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-  								 
 					             return '<a target="_blank" href="' + url + '">' + url + '</a>';
 					        });
   							  
@@ -552,7 +523,6 @@ BS.StreamView = Backbone.View.extend({
 		 				          method: 'after',
 		 					      key:'4d205b6a796b11e1871a4040d3dc5c07'
 	  	  					 });
-	  	  					 
   				         });
   				   }
                                    
@@ -560,7 +530,6 @@ BS.StreamView = Backbone.View.extend({
   				   $('.emdform').find('div.selector').hide();
                    $('.emdform').find('input[type="hidden"].preview_input').remove();
                    $('#msg').val("");
- 
   			}
   		});
     	
@@ -620,7 +589,6 @@ BS.StreamView = Backbone.View.extend({
 	  				    			}
 	  				    	 });
 	  						 
-	  						 
 	  						 /* get profile images for messages */
 	  				          $.ajax({
 	  				    			type : 'POST',
@@ -633,9 +601,7 @@ BS.StreamView = Backbone.View.extend({
 	  				    				var imgUrl;
 	  				    				if(pofiledata.status)
 	  				    				 {
-	  				    					  
 	  				    					imgUrl = "images/unknown.jpeg";
-	  						    	        	 
 	  				    				 }
 	  				    				 else
 	  				    				 {   
@@ -653,7 +619,6 @@ BS.StreamView = Backbone.View.extend({
 	  				    				$('img#'+data.id.id+'-img').attr("src", imgUrl);
 	  				    			}
 	  				    		});
-	  				          
 	  				           
 	  						 if(linkTag)
 	  						  $('div#'+data.id.id+'-id').html(linkTag);
@@ -668,7 +633,6 @@ BS.StreamView = Backbone.View.extend({
 	  						 
 	  						self.showAllComments(data.id.id);
 				         });
-						 
 				}
 		 });
     	
@@ -706,7 +670,7 @@ BS.StreamView = Backbone.View.extend({
   	    }
   	    else
   	    {
-  	    	
+  	    	console.log("else case");
   	    }
   	   $('#streams-list').slideDown();
 	},
@@ -736,7 +700,6 @@ BS.StreamView = Backbone.View.extend({
 	 /**
 	  * Rock Messages
 	  */
-	 
 	 rockMessage :function(eventName){
 		 
 		 eventName.preventDefault();
@@ -756,14 +719,11 @@ BS.StreamView = Backbone.View.extend({
             	$('li#'+msgId+'').find('.rock-message').find('i').html(data);
                 
                 //auto push
-//            	self.setupPushConnection();
-				console.log("in rockMessage...." + self.pagePushUid);
-				var streamId = $('#streams-list li.active a').attr('id');
-				  PUBNUB.publish({
+				 var streamId = $('#streams-list li.active a').attr('id');
+				 PUBNUB.publish({
                       channel : "msgRock",
                       message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,msgId:msgId}
                  })
- 
              }
           });
 	 },
@@ -878,17 +838,13 @@ BS.StreamView = Backbone.View.extend({
           });
  
 	 },
-	 
  
-	 
-  
 	 /**
 	  * navigate to profile page to edit profile pic
 	  */
 	 showProfilePage : function(eventName){
 		  
 		 eventName.preventDefault();
-//		 BS.editProfile = true;
 		 localStorage["editProfile"] = "true";
 		 BS.AppRouter.navigate("profile", {trigger: true});
 	 },
@@ -988,11 +944,8 @@ BS.StreamView = Backbone.View.extend({
 				        }
 				      }
 //				});
-			
-			
 		 }
 		 
-
 	 },
 	 /**
 	  * show all comments of a message
@@ -1136,8 +1089,7 @@ BS.StreamView = Backbone.View.extend({
 								 $('#'+data.id.id+'-newCmtImage').attr("src" ,BS.profileImageUrl );
 							 }
 							 
-//							// auto push
-//							self.setupPushConnection();
+							/* auto push */
 		  					var streamId = $('#streams-list li.active a').attr('id');
 			                 PUBNUB.publish({
 			                         channel : "comment",
@@ -1185,7 +1137,6 @@ BS.StreamView = Backbone.View.extend({
 	 /**
 	  * show comments under each messages
 	  */
-	 
 	 showComments :function(eventName){
 		 eventName.preventDefault(); 
 		 
@@ -1201,6 +1152,7 @@ BS.StreamView = Backbone.View.extend({
              $comments.slideDown();
          }
 	 },
+	 
 	 /**
 	  *  sort stream messages
 	  */
@@ -1248,12 +1200,12 @@ BS.StreamView = Backbone.View.extend({
 		
 		 var self = this;
  		 if(eventName.which == 13) {
- 			BS.msgSortedType = "keyword";
- 			BS.pageForKeyword = 1;
+ 			 
+ 			 BS.msgSortedType = "keyword";
+ 			 BS.pageForKeyword = 1;
  			 $(".timeline_items").html('');
 			 var keyword = $('#sort_by_key').val();
 			 var streamId = $('#public-classes').find('li.active').attr('id') ;
-			 
 			 self.sortBykeyword(streamId,keyword,BS.pageForKeyword,BS.pageLimit);
 			
 		 } 
@@ -1293,9 +1245,7 @@ BS.StreamView = Backbone.View.extend({
 			    				     var imgUrl;
 				    				if(pofiledata.status)
 				    				 {
-				    					  
 				    					imgUrl = "images/unknown.jpeg";
-						    	        	 
 				    				 }
 				    				 else
 				    				 {   
@@ -1355,19 +1305,14 @@ BS.StreamView = Backbone.View.extend({
 	        	 }
 	        	 
                  /* Auto push */   
-//	        	 self.setupPushConnection();
 				 var streamId = $('#streams-list li.active a').attr('id');
                   PUBNUB.publish({
                        channel : "stream",
                        message : { pagePushUid: self.pagePushUid ,streamId:streamId}
                   })
-	            
 	        }
 	     });
-		 
-		
 	 },
-	 
 	 
 	 /**
 	  * get messages and sort by votes 
@@ -1393,6 +1338,7 @@ BS.StreamView = Backbone.View.extend({
 			  	}
 	  		});
 	 },
+	 
 	 /**
 	  *get messages and sort by keuwords
 	  */
@@ -1417,6 +1363,7 @@ BS.StreamView = Backbone.View.extend({
 			  	}
 	  		});
 	 },
+	 
 	 /**
 	  * get messages and sort by data
 	  */
@@ -1440,8 +1387,6 @@ BS.StreamView = Backbone.View.extend({
 	  		});
 	 },
 	 
-	  
-	 
 	 /**
 	  * when a user clicks on a social media icon or icons for sharing the check mark is un checked.
 	  */
@@ -1460,6 +1405,7 @@ BS.StreamView = Backbone.View.extend({
 		 }
 		 
 	 },
+	 
 	 /**
 	  * @TODO
 	  */
@@ -1467,6 +1413,7 @@ BS.StreamView = Backbone.View.extend({
 		 if($('#id-private').attr('checked')== 'checked')
 		    $('li.social_media a').removeClass('active');
 	 },
+	 
 	 /**
 	  * prevent default action 
 	  */
@@ -1481,6 +1428,7 @@ BS.StreamView = Backbone.View.extend({
 	 renderPublicProfile :function (eventName){
 		 console.log(eventName.target.id);
 	 },
+	 
 	 /** 
 	  * make bitly
 	  */
@@ -1491,17 +1439,16 @@ BS.StreamView = Backbone.View.extend({
    /**
     * PUBNUB real time push
     */
-	 
-  setupPushConnection: function() {
-    var self = this;
+   setupPushConnection: function() {
+     var self = this;
 
-    self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
+     self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
     
-    /* for message posting */
-    PUBNUB.subscribe({
-      channel : "stream",
-      restore : false,
-      callback : function(message) {
+     /* for message posting */
+     PUBNUB.subscribe({
+        channel : "stream",
+        restore : false,
+        callback : function(message) {
 
 		var streamId = $('#streams-list li.active a').attr('id');
         if (message.pagePushUid != self.pagePushUid)
@@ -1528,7 +1475,7 @@ BS.StreamView = Backbone.View.extend({
 			   $('.timeline_items').prepend(template(datas));
 					 
 			   //get profile image of logged user
-			   $('img#'+message.data.id.id+'-img').attr("src", BS.profileImageUrl);
+			   $('img#'+message.data.id.id+'-img').attr("src", message.prifileImage);
 				    
 			   if(linkTag)
 			   $('div#'+message.data.id.id+'-id').html(linkTag);
@@ -1572,7 +1519,6 @@ BS.StreamView = Backbone.View.extend({
 				 $('#'+parent+'-commentlists').append(commentsTemplate(data));
 				 $('#'+data.id.id+'-image').attr("src" ,prifileImage );
 					 
-					 
 				 /* for comment Header   */
 				 var cmdHead = $("#tpl-comment-header").html();
 				 var cmdHeadTemplate = Handlebars.compile(cmdHead);
@@ -1591,8 +1537,6 @@ BS.StreamView = Backbone.View.extend({
 
     })
     
-    
-    
     /* for message Rocks */
     PUBNUB.subscribe({
 
@@ -1608,7 +1552,7 @@ BS.StreamView = Backbone.View.extend({
 
     })
     
-     /* for Comment Rocks */
+    /* for Comment Rocks */
     PUBNUB.subscribe({
 
       channel : "commentRock",
@@ -1618,7 +1562,6 @@ BS.StreamView = Backbone.View.extend({
   		  {   	  
     		  $('li#'+message.commentId+'').find('i').find('i').html(message.data);
   		  }
-		 
       }
 
     })
