@@ -1,10 +1,10 @@
 BS.AudioListView = Backbone.View.extend({ 
     
             events:{
-                 "click .audiotitle" : "editAudioTitle",
-                 "click #prevslid" : "previous",
+                "click .audiotitle" : "editAudioTitle",
+                "click #prevslid" : "previous",
                 "click #nextslid" : "next"
-             },
+                },
              
             initialize:function(){
                 this.source = $("#tpl-docsview").html();
@@ -134,19 +134,19 @@ BS.AudioListView = Backbone.View.extend({
            
 
         
-            /*
-            *   To edit the title and description of the Audio      
-            *
-            */ 
-            editAudioTitle :function(eventName){  
-//              var docId = eventName.currentTarget.id;             // id to get corresponding Audio   
-                var datas = {
+                /*
+                *   To edit the title and description of the Audio      
+                *
+                */ 
+                editAudioTitle :function(eventName){  
+//                  var docId = eventName.currentTarget.id;             // id to get corresponding Audio   
+                    var datas = {
 				"type" : 'Audio',
 				"title" : '',
                                 "description" :''
 			  }
-                BS.mediaeditview = new  BS.MediaEditView();
-                BS.mediaeditview.render(datas);
-                $('#gdocedit').html(BS.mediaeditview.el);
-                }
+                    BS.mediaeditview = new  BS.MediaEditView();
+                    BS.mediaeditview.render(datas);
+                    $('#gdocedit').html(BS.mediaeditview.el);
+                    }
 })
