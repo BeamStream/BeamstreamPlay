@@ -1,5 +1,6 @@
 BS.GoogleDocsView = Backbone.View.extend({
-        events:{
+        
+            events:{
                 "click a#file-type" : "showFilesTypes",
                 "click ul.file-type li a" : "hideList",
                 "click '.nav a" : "addActive",
@@ -16,102 +17,100 @@ BS.GoogleDocsView = Backbone.View.extend({
 //              "click .comment_button" : "postDocComment"
  	    },
                  
-        initialize:function() {
-            console.log("google docs view is loded");
-            var type = "files";
-            this.docsList();   
-            this.source = $("#tpl-docsview").html();
-            this.template = Handlebars.compile(this.source);
-        },
+            initialize:function() {
+                console.log("google docs view is loded");
+                var type = "files";
+                this.docsList();   
+                this.source = $("#tpl-docsview").html();
+                this.template = Handlebars.compile(this.source);
+            },
              
-        render:function (eventName) {
-            $(this.el).html(this.template);
-            return this;
-        },
+            render:function (eventName) {
+                $(this.el).html(this.template);
+                return this;
+            },
             
-       /**
-       * show file types
-       */
-        showFilesTypes :function(eventName){
-    	    eventName.preventDefault();
-            $('.file-type').slideDown();
-    	}, 
+            /**
+            * show file types
+            */
+            showFilesTypes :function(eventName){
+                eventName.preventDefault();
+                $('.file-type').slideDown();
+            }, 
             
-       /**
-       * hide file types
-       */
-        hideList : function(eventName){
-            eventName.preventDefault();
-            $('.file-type').slideUp();
-    	},
+            /**
+            * hide file types
+            */
+            hideList : function(eventName){
+                eventName.preventDefault();
+                $('.file-type').slideUp();
+            },
              
-        addActive : function(eventName){
-            var id = eventName.target;
-            var $this = $(id);
-            if (!$this.is('.dropdown-toggle')) {
+            addActive : function(eventName){
+                var id = eventName.target;
+                var $this = $(id);
+                if (!$this.is('.dropdown-toggle')) {
             	$this
-	            	.closest('ul')
-		        .find('li').removeClass('active').end()
-		        .end()
-		        .closest('li').addClass('active');
-            }
-        },
+                    .closest('ul')
+                    .find('li').removeClass('active').end()
+                    .end()
+                    .closest('li').addClass('active');
+                }
+            },
          
-        /* post the documents details */
-        uploadFile : function(){
-        	
-            var documentModel = new BS.Document();
-            documentModel.set({
-            docName : $("#gdoc-name").val(),
-            docURL : $("#gdoc-url").val(),
-            docAccess: 'Public',
-            docType: 'GoogleDocs ',
-            docDescription: 'testing g docs'
-            });
-            var documentData = JSON.stringify(documentModel);
-            var self = this;
-            $.ajax({
-                type : 'POST',
-                url : BS.docUpload,
-                data : {
+            /* post the documents details */
+            uploadFile : function(){      	
+                var documentModel = new BS.Document();
+                documentModel.set({
+                docName : $("#gdoc-name").val(),
+                docURL : $("#gdoc-url").val(),
+                docAccess: 'Public',
+                docType: 'GoogleDocs ',
+                docDescription: 'testing g docs'
+                });
+                var documentData = JSON.stringify(documentModel);
+                var self = this;
+                $.ajax({
+                    type : 'POST',
+                    url : BS.docUpload,
+                    data : {
                        data : documentData
                        },
-                dataType : "json",
-                success : function(data) {
-                if(data.status == 'Failure')
-                    alert("Failed.Please try again");
-                else
-                {
-                    alert("Doc Uploaded Successfully");
-                self.docsList(); 
-                }
-                }           
+                    dataType : "json",
+                    success : function(data) {
+                        if(data.status == 'Failure')
+                            alert("Failed.Please try again");
+                        else
+                        {
+                        alert("Doc Uploaded Successfully");
+                        self.docsList(); 
+                        }
+                    }           
                 });
-         },
+                },
             
-        /*
-         *   To list the documents in the view        
-         *
-         */           
-        docsList : function(eventName)
-        {    
+            /*
+            *   To list the documents in the view        
+            *
+            */           
+            docsList : function(eventName)
+            {    
             //  eventName.preventDefault();              
-            var i = 1;
-            var j=1;
-            var self = this;
+                var i = 1;
+                var j=1;
+                var self = this;
                    
                 /* get profile images for user */
                 $('#grid').html(""); 
-            $.ajax({
-                type : 'GET',
-                url :  BS.getAllDocs,
-//              data : {
-//              'userId': e.attributes.id.id  },               
-                dataType : "json",
-                success : function(docs) {
-                var content = '';
-                   
-                _.each(docs, function(doc) {                    
+                $.ajax({
+                    type : 'GET',
+                    url :  BS.getAllDocs,
+//                  data : {
+//                  'userId': e.attributes.id.id  },               
+                    dataType : "json",
+                    success : function(docs) {
+                    var content = '';                   
+                    _.each(docs, function(doc) {                    
                 	var datVal =  self.formatDateVal(doc.creationDate);
                 	var datas = {
                                     "doc" : doc,
@@ -126,11 +125,11 @@ BS.GoogleDocsView = Backbone.View.extend({
                         i++;
                      });  
                 
-//               $('#grid').html(content);
-                 self.pagination();                                       
-                }
+//                  $('#grid').html(content);
+                    self.pagination();                                       
+                    }
 
-               });        
+                });        
             },
             
             /*
@@ -165,7 +164,7 @@ BS.GoogleDocsView = Backbone.View.extend({
             * Part of pagination and is used to show previous page
             *
             */
-           previous: function (){  
+            previous: function (){  
                new_page = parseInt($('#current_page').val()) - 1;  
                if($('.active_page').prev('.page_link').length==true){  
                this.go_to_page(new_page);  
@@ -184,11 +183,11 @@ BS.GoogleDocsView = Backbone.View.extend({
                 }  
             },
             
-         /*
-         * Part of pagination and is used to page setting
-          *
+            /*
+            * Part of pagination and is used to page setting
+            *
             */
-          go_to_page:function (page_num){  
+            go_to_page:function (page_num){  
                 var show_per_page = parseInt($('#show_per_page').val());  
                 start_from = page_num * show_per_page;  
                 end_on = start_from + show_per_page;  
@@ -198,51 +197,47 @@ BS.GoogleDocsView = Backbone.View.extend({
            },  
 
         
-        /*
-        * Format date and returns 
-        */
-        formatDateVal: function(dateVal)
-        {
-            var m_names = new Array("January", "February", "March", 
-            "April", "May", "June", "July", "August", "September", 
-            "October", "November", "December");
-            var d = new Date(dateVal);
-            var curr_date = d.getDate();
-            var curr_month = d.getMonth() + 1; //Months are zero based
-            var curr_year = d.getFullYear();
-            return curr_date + " " + m_names[curr_month] + ", " + curr_year;
-        },
+            /*
+            * Format date and returns 
+            */
+            formatDateVal: function(dateVal)
+            {
+                var m_names = new Array("January", "February", "March", 
+                "April", "May", "June", "July", "August", "September", 
+                "October", "November", "December");
+                var d = new Date(dateVal);
+                var curr_date = d.getDate();
+                var curr_month = d.getMonth() + 1; //Months are zero based
+                var curr_year = d.getFullYear();
+                return curr_date + " " + m_names[curr_month] + ", " + curr_year;
+            },
         
-        /**
-         * Edited By Aswathy @TODO
-         * For Doc popups
-         */
-        showDocPopup :function(eventName){
+            /**
+            * Edited By Aswathy @TODO
+            * For Doc popups
+            */
+            showDocPopup :function(eventName){           
+                var docId = eventName.currentTarget.id;
+                var docUrl = $('input#id-'+docId).val();     
+                BS.gdocpopupview = new BS.GdocPopupView();
+                BS.gdocpopupview.render(docUrl);           
+                $('#gdocedit').html(BS.gdocpopupview.el);            
+            },
             
-            var docId = eventName.currentTarget.id;
-            var docUrl = $('input#id-'+docId).val();     
-            BS.gdocpopupview = new BS.GdocPopupView();
-            BS.gdocpopupview.render(docUrl);           
-            $('#gdocedit').html(BS.gdocpopupview.el);
+            /**
+             * filter docs.. and prevent default action
+            */
+            filterDocs :function (eventName){
+                eventName.preventDefault();
+            },
             
-            
-        },
-            
-        /**
-         * filter docs.. and prevent default action
-         */
-        filterDocs :function (eventName){
-            eventName.preventDefault();
-         },
-            
-        /*Edit the document title
-         * 
-         */  
-        editDocTitle :function(eventName){  
-          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
-          var docUrl = $('input#id-'+docId).val();
-
-              $.ajax({                                       
+            /*Edit the document title
+            * 
+            */  
+            editDocTitle :function(eventName){  
+                var docId = eventName.currentTarget.id;             // id to get corresponding docs   
+                var docUrl = $('input#id-'+docId).val();
+                $.ajax({                                       
                         type : 'POST',
                         url :  BS.getOneDocs,
                         data : {
@@ -257,18 +252,17 @@ BS.GoogleDocsView = Backbone.View.extend({
                              "title" : docs[0].documentName,
                              "description" : docs[0].documentDescription
 			  }
-            BS.mediaeditview = new  BS.MediaEditView();
-            BS.mediaeditview.render(datas);
-            $('#gdocedit').html(BS.mediaeditview.el);         
+                BS.mediaeditview = new  BS.MediaEditView();
+                BS.mediaeditview.render(datas);
+                $('#gdocedit').html(BS.mediaeditview.el);         
                   }
-                    });
-       },
+                });
+            },
        
-       /**
-        * Rocks Google docs
-        */
-       rocksDocuments:function(eventName){
-    	   
+            /**
+            * Rocks Google docs
+            */
+            rocksDocuments:function(eventName){ 	   
                     eventName.preventDefault();
                     var element = eventName.target.parentElement;
                     var docId =$(element).attr('id');
