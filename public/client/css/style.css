@@ -1214,6 +1214,7 @@ ul.file-list> li {
 	border-right: 1px solid #e2e3e4;
 	border-left: 1px solid #e2e3e4;
 	border-bottom:1px solid #adaeae;
+        border-top: medium none !important;  /* to hide the white space */
 }
 .comment-wrapper1 {
 	width:210px;
@@ -2070,7 +2071,7 @@ div.hover-div img{
 .hover-text{
     display:none;
     clear:both;
-    height:145px;
+    height:146px;
     margin: 4px 11px 10px;
     background-color: white;
   /*  color:white;  */
