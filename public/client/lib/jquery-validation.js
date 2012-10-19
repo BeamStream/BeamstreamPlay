@@ -238,6 +238,11 @@ $.extend($.validator, {
 			if ( event.which == 9 && this.elementValue(element) === '' ) {
 				return;
 			} else if ( element.name in this.submitted || element === this.lastActive ) {
+				
+				/* Added By Aswathy */
+				var label1 = $("label[name='"+$(element).attr('id')+"']");
+				$(label1).html($(label1).text());
+				
 //				$(element).css("border","none");
 				this.element(element);
 			}
@@ -274,7 +279,7 @@ $.extend($.validator, {
 	},
 
 	messages: {
-		required: "<img src='images/star.png' />",
+		required: "",//"<img src='images/star.png' />",
 		remote: "Please fix this field.",
 		email: "Please enter a valid email address.",
 		url: "Please enter a valid URL.",
@@ -694,6 +699,9 @@ $.extend($.validator, {
 				if ( label.attr("generated") ) {
 					label.html(message);
 					
+					/* Added by Aswathy */
+					var label1 = $("label[name='"+$(element).attr('id')+"']");
+					$(label1).html($(label1).text()+ "  <img src='images/star.png' />");
 //					$(element).css("border","1px solid #DD4B39");
 					 
 				}
@@ -716,6 +724,10 @@ $.extend($.validator, {
 					}
 				}
 				
+				/* Added by Aswathy */
+				var label1 = $("label[name='"+$(element).attr('id')+"']");
+				$(label1).html($(label1).text()+ "  <img src='images/star.png' />");
+ 
 //				$(element).css("border","1px solid #DD4B39");
 			}
 			if ( !message && this.settings.success ) {

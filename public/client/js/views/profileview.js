@@ -27,13 +27,15 @@ BS.ProfileView = Backbone.View.extend({
         BS.digits = 0;
         BS.bar = $('.bar');
         $(".radio").dgStyle();
+        
         //remove the janrain component if it already exists
         if($('#janrain-share'))
-         $('#janrain-share').remove();
+          $('#janrain-share').remove();
         
     },
   
     render:function (eventName) {
+    	
     	/* check whether its a edit profile or not */
     	var edit = "";
     	if(localStorage["editProfile"]== "true")
@@ -45,7 +47,6 @@ BS.ProfileView = Backbone.View.extend({
     		edit = "";
     	}
     	
-    	
         $(this.el).html(this.template({primaryImage : BS.primaryImage, primaryVideo : BS.primaryVideo , edit : edit}));
         return this;
     },
@@ -54,6 +55,7 @@ BS.ProfileView = Backbone.View.extend({
      * save / post profile details
      */
     saveProfile:function (eventName) {
+    	
     	eventName.preventDefault();
         BS.progressVal = 0;
     	var status = true;
@@ -77,7 +79,7 @@ BS.ProfileView = Backbone.View.extend({
     	   }
     	   if(status == true)
     	   {
-                    // for progress bar for file uploading
+                // for progress bar for file uploading
 	            $('.progress-container').show();
 	    		
 	    		var data;
@@ -388,13 +390,7 @@ BS.ProfileView = Backbone.View.extend({
     	$('.delete-image').hide();
     	$('#profile-photo').attr("src","images/no-photo.png");
 	    $('#profile-photo').attr("name", "profile-photo");
-	    
-	    
-//	    $('#img').html('');
-//		$('#default-image').show();
-//        $('#profile-photo').attr("src","images/no-photo.png");
-//		$('#profile-photo').attr("name", "profile-photo");
-//		$('.delete-image').hide();
+ 
     },
     /**
      * delete selected/uploaded videos
