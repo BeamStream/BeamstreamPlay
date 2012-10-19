@@ -8,19 +8,20 @@ BS.LoginView = Backbone.View.extend({
 	
     initialize:function () {
   
-//    	jQuery("#login-form").validationEngine();
     	$("#login-form").validate();
         console.log('Initializing Login View');
         this.template= _.template($("#tpl-login").html());
         
     },
-
+    
+    /**
+     * Render login view 
+     */
     render:function (eventName) {
     	
         $(this.el).html(this.template());
         return this;
     },
-    
     
     /**
      * login -verification
@@ -29,15 +30,14 @@ BS.LoginView = Backbone.View.extend({
     	
     	    eventName.preventDefault();
     	    var validate = jQuery('#login-form').valid();
-    	    console.log(validate);
 			if(validate == true)
 			{
-				 
 				var loginDetails = this.getLoginInfo();
 				if(loginDetails == 1)
 			    {
 						console.log("Invalid User name or password");
-						$('#error').html("Invalid User or password");
+						$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+		        		$('.error-msg').html("Invalid User name or password");
 				} 
 			    else
 			    {
@@ -50,7 +50,6 @@ BS.LoginView = Backbone.View.extend({
 						    	},
 						    	dataType : "json",
 						    	success : function(data) {
-						    						 
 							    		if(data.status == "success") 
 							    		{
 							    			// set cookies 
@@ -58,15 +57,14 @@ BS.LoginView = Backbone.View.extend({
 							    				$.cookie('userName', $("#email").val());
 										    	$.cookie('password', $("#password").val());
 							    			}
-//							    			 BS.user.set('loggedin', true);
-							    			 console.log(data.status + " : " + data.message);
 							    			 $(".star_position").html('');
 							    			 BS.AppRouter.navigate("streams", {trigger: true});
 							    		}
 							    		else 
 							    		{
 							    			 console.log(data.status + " : " + data.message);
-							    			 $('#error').html("Invalid User name or password ");
+							    			 $('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+								        	 $('.error-msg').html("Invalid User name or password");
 							    			 
 							    			 /* clear email and password text box and get highlighted */
 							    			  $('#email').val("");
@@ -80,16 +78,15 @@ BS.LoginView = Backbone.View.extend({
 						    	 }
 						    });
 					   }
-					      
 			}
 			else
 			{
-				 
-				 console.log("fileds are not completely filled");
-			     $('#error').html("fileds are not completely filled");
+			     $('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+			     $('.error-msg').html("You must fill in all of the required fields.");
 			}
 	 
 	},
+	
     /**
      * get login form details
      */
@@ -123,21 +120,20 @@ BS.LoginView = Backbone.View.extend({
 //              }
         	
     },
+    
     /**
      * move to regisration page
      */
     registration :function(eventName){
     	 eventName.preventDefault();
-
-         $(".star").hide();
-
     	 BS.AppRouter.navigate("emailVerification", {trigger: true});
     },
+    
     /**
      * move to forgot password page
      */
     showRecoverPage : function(eventName){
-   	 eventName.preventDefault();
-	 BS.AppRouter.navigate("recoverAccount", {trigger: true});
-}
+	   	 eventName.preventDefault();
+		 BS.AppRouter.navigate("recoverAccount", {trigger: true});
+   }
 });

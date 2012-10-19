@@ -78,7 +78,6 @@ BS.ClassStreamView = Backbone.View.extend({
 						    }
 					 });
 				
-			 
 			}
 		});
  
@@ -261,7 +260,8 @@ BS.ClassStreamView = Backbone.View.extend({
 				}
 				else
 				{
-					$('#error').html("Invalid");
+					$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+            		$('.error-msg').html("Invalid");
 				}
 				
 			}
@@ -334,6 +334,8 @@ BS.ClassStreamView = Backbone.View.extend({
 				else
 				{
 					console("Error");
+					$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+            		$('.error-msg').html("Invalid");
 				}
 				
 			}

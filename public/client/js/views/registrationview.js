@@ -15,7 +15,6 @@ BS.RegistrationView = Backbone.View.extend({
 		this.template = Handlebars.compile(this.source);
 		// for edit user details
 		BS.regBack = false;
-//		$("#registration-form").validate();
 
 	},
  
@@ -33,8 +32,8 @@ BS.RegistrationView = Backbone.View.extend({
 	/**
 	 * Post /save basic registration details
 	 */
-
 	save : function(eventName) {
+		
 		eventName.preventDefault();
 		var validate = $("#registration-form").valid();
         if(validate == true){
@@ -52,7 +51,10 @@ BS.RegistrationView = Backbone.View.extend({
     	   				if(data.status) {
     	   					
     	   					if(data.status == "Failure")
-    	   					  $('#error').html(data.message);
+    	   					{
+    	   						$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+			               		$('.error-msg').html(data.message);
+    	   					}
     	   				   
     	   				} 
     	   				else 
@@ -72,16 +74,13 @@ BS.RegistrationView = Backbone.View.extend({
     	   					
     	   					//set status for school back page
     	   					localStorage["resistrationPage"] = "";
-    	   					
     						
     	   					// navigate to main stream page
-//    	   					BS.schoolFromPrev =  $('#school-name').val();
     	   					localStorage["schoolFromPrev"] = $('#school-name').val();
     	   					BS.AppRouter.navigate("streams", {
     	   						trigger : true,
     	   						 
     	   					});
-    	   					console.log(data.message);
     	   				}
     	
     	   			}
@@ -89,8 +88,8 @@ BS.RegistrationView = Backbone.View.extend({
         }
         else
         {
-        	console.log("Fields are not completely filled");
-        	$('#error').html("Fields are not completely filled");
+        	$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+        	$('.error-msg').html("You must fill in all of the required fields.");
         }
        
 		
@@ -136,7 +135,6 @@ BS.RegistrationView = Backbone.View.extend({
 
 		});
 		var regDetails = JSON.stringify(basicProfile);
-
 		return regDetails;
 
 	},
@@ -144,13 +142,11 @@ BS.RegistrationView = Backbone.View.extend({
 	/**
 	 * continue to next page
 	 */
-
 	toNextPage : function(eventName) {
 
 		eventName.preventDefault();
         var validate = $("#registration-form").valid();
         if(validate == true){
-        
 			var regDetails = this.getFormData();
 	
 			/* post basic profile registration details */
@@ -165,7 +161,10 @@ BS.RegistrationView = Backbone.View.extend({
 					 
 					if(data.status) {
 						if(data.status == "Failure")
-						    $('#error').html("This User Email or Name is already taken");
+						{
+							$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+		               		$('.error-msg').html("This User Email or Name is already taken");
+						}
 					} 
 					else 
 					{
@@ -186,8 +185,8 @@ BS.RegistrationView = Backbone.View.extend({
         }
         else
         {
-        	console.log("Fields are not completly filled");
-        	$('#error').html("Fields are not completly filled");
+        	$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+        	$('.error-msg').html("You must fill in all of the required fields.");
         }
 	},
    
@@ -195,16 +194,17 @@ BS.RegistrationView = Backbone.View.extend({
 	 * close the screen 
 	 */
 	closeScreen : function(eventName){
+		
 	  eventName.preventDefault(); 
-	  $(".star").hide();
   	  BS.AppRouter.navigate('login', {trigger: true});
+  	  
 	},
 	
 	/**
      * auto populate school
      */
- 
     populateSchools :function(eventName){
+    	
     	var id = eventName.target.id;
     	var text = $('#'+id).val();
     	var self =this;
@@ -212,6 +212,7 @@ BS.RegistrationView = Backbone.View.extend({
         {
         	$('#load-schools').css("display","block");
         	BS.newSchool = text;
+        	
 			/* post the text that we type to get matched school */
 			 $.ajax({
 				type : 'POST',

@@ -23,12 +23,11 @@ BS.NewSchoolView = Backbone.View.extend({
      * render school Info screen
      */
     render:function (eventName) {
+    	
     	$(this.el).html(this.template);
         return this;
-//        $('#new-school-view').html(this.template);
         
     },
-
     
     /**
      * to display 'degree expected' or 'date' field
@@ -65,30 +64,37 @@ BS.NewSchoolView = Backbone.View.extend({
       * add text box field a enter degree when we choose 'Other' from  Degre Program  
       */
      addOtherDegree:function(eventName){
-   	  var id = eventName.target.id;
-   	  if($('#'+id).val()== "Other")
-   	  {
-   		  $('#other-degrees').show();
-   	  }
-   	  else
-   	  {
-   		  $('#other-degrees').hide();
-   	  }
-   	  
+	   	  var id = eventName.target.id;
+	   	  if($('#'+id).val()== "Other")
+	   	  {
+	   		  $('#other-degrees').show();
+	   	  }
+	   	  else
+	   	  {
+	   		  $('#other-degrees').hide();
+	   	  }
    	  
      },
+     
+     /**
+      * close the screen 
+      */
      closeScreen :function(eventName){
+    	 
     	 eventName.preventDefault(); 
     	 $('#new-school-view').children().detach(); 
     	 var classStream = new BS.ClassStreamView();
     	 classStream.getSchools();
+    	 
      },
+     
      /**
       * save new school info
       */
      saveNewSchool :function(eventName){
-    	 eventName.preventDefault(); 
-    	 /* validation on other fields */
+    	 
+    	eventName.preventDefault(); 
+    	/* validation on other fields */
      	var validate = jQuery('#new-school-form').validationEngine('validate');
      	if(validate == true)
      	{   
@@ -105,7 +111,8 @@ BS.NewSchoolView = Backbone.View.extend({
          	}); 
          	if(gStatus == false)
          	{
-         		$('#error').html("Please select your Graduation");
+         		$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+           		$('.error-msg').html("Please select your Graduation");
          		
          	}
          	else
@@ -117,14 +124,11 @@ BS.NewSchoolView = Backbone.View.extend({
                      data:{data:schoolDetails},
                      dataType:"json",
                      success:function(data){
-                    	 $(".star").hide();
+                    	 
          				 // navigate to main stream page
                     	 $('#new-school-view').children().detach();;
-//                    	 
                     	_.each(data, function(info) {
-//                    	   $('#for-new-school').show();
-//                    	   $('#new-school').val(info.schoolName);
-//                      	   $('#new-school-id').val(info.assosiatedSchoolId.id);
+
                       	   var classStream = new BS.ClassStreamView();
                       	   classStream.getSchools();
 
@@ -136,15 +140,16 @@ BS.NewSchoolView = Backbone.View.extend({
      	}
      	else
      	{
-     		$('#error').html("Fields are not completely filled");
+     		$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+     		$('.error-msg').html("You must fill in all of the required fields.");
      	}
      	
      },
+     
      /**
       * get new school details from the form 
       * @return School details as  JSON string
       */
-     
      getSchoolInfo:function (eventName) {
    	    
 	    	  var schoolDetails = new Array();
@@ -195,10 +200,10 @@ BS.NewSchoolView = Backbone.View.extend({
 	    	  var schoolinfo = JSON.stringify(schools);
 	    	  return schoolinfo;
    	  },
-   	/**
-       * auto populate school
-       */
-      
+   	  
+   	  /**
+      * auto populate school
+      */
       populateSchools :function(eventName){
       	eventName.preventDefault();  
      	    var id = eventName.target.id;
@@ -207,26 +212,26 @@ BS.NewSchoolView = Backbone.View.extend({
      	    BS.selectedSchool = $(dat).val(); 
      	    BS.allSchools = []; 
       	
-      	/* get all schools of a user */
-  		 $.ajax({
-  			type : 'GET',
-  			url : BS.autoPopulateSchools,
-  			 
-  			dataType : "json",
-  			success : function(datas) {
-  				 
-  				BS.allSchoolInfo = datas;
-  				_.each(datas, function(data) {
-  					 BS.allSchools.push(data.schoolName);
-  		        });
-  				 
-  				//set auto populate functionality for class code
-  				$(dat).autocomplete({
-  				    source: BS.allSchools
-  			 });
-  			 
-  			}
-  		});
+	      	/* get all schools of a user */
+	  		 $.ajax({
+		  			type : 'GET',
+		  			url : BS.autoPopulateSchools,
+		  			 
+		  			dataType : "json",
+		  			success : function(datas) {
+		  				 
+		  				BS.allSchoolInfo = datas;
+		  				_.each(datas, function(data) {
+		  					 BS.allSchools.push(data.schoolName);
+		  		        });
+		  				 
+		  				//set auto populate functionality for class code
+		  				$(dat).autocomplete({
+		  				    source: BS.allSchools
+		  			 });
+		  			 
+		  			}
+	  		});
       	
       },
 });

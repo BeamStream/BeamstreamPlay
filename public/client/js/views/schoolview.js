@@ -120,7 +120,10 @@ BS.SchoolView = Backbone.View.extend({
         	}); 
         	if(gStatus == false)
         	{
-        		$('#error').html("Please select your Graduation");
+        		 
+        		$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+        		$('.error-msg').html("Please select your Graduation");
+    			
         		
         	}
         	else
@@ -135,7 +138,12 @@ BS.SchoolView = Backbone.View.extend({
                     	if(data.status)
                     	{
                     		if(data.status == "Failure")
-      	   					  $('#error').html(data.message);
+                    		{
+                    			 
+                    			$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+                    			$('.error-msg').html(data.message);
+                    		}
+                    			
                     	}
                     	else
                     	{
@@ -164,8 +172,12 @@ BS.SchoolView = Backbone.View.extend({
     	}
     	else
     	{
-    		$('#error').html("Fields are not completely filled");
+    		
+    		$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+    		$('.error-msg').html("You must fill in all of the required fields.");
+    		 
     	}
+    	
      
       },
       
@@ -191,7 +203,8 @@ BS.SchoolView = Backbone.View.extend({
 	      	}); 
 	      	if(gStatus == false)
 	      	{
-	      		$('#error').html("Please select your Graduation");
+	      		$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+    			$('.error-msg').html("Please select your Graduation");
 	      		
 	      	}
 	      	else
@@ -207,7 +220,10 @@ BS.SchoolView = Backbone.View.extend({
 	            	if(data.status)
                   	{
                   		if(data.status == "Failure")
-    	   					  $('#error').html(data.message);
+                  		{
+                  			$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+                			$('.error-msg').html(data.message);
+                  		}
                   	}
                   	else
                   	{
@@ -228,7 +244,8 @@ BS.SchoolView = Backbone.View.extend({
      	 }
     	 else
     	 {
-    		 $('#error').html("Fields are not completely filled");
+    		 $('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+    		 $('.error-msg').html("You must fill in all of the required fields.");
     	 }
       },
       
@@ -240,7 +257,7 @@ BS.SchoolView = Backbone.View.extend({
           eventName.preventDefault();
       	  current ++;  //current keeps track of how many schools we have
       	  
-      	  var strToAdd = '<fieldset id="'+current+'" ><legend class="legend legend-add">Another school</legend><div class="school-registration"><div class="form-row"><div class="element"><label for="school-name-'+current+'" id="school-id-'+current+'" value="">School name </label><input type="text" id="school-name-'+current+'" name="schoolName" class="required span3 school" placeholder="School Name"><input type="hidden" id="associatedId-'+current+'" value=""><div id="school-name-'+current+'-loader" class="loader_schoolname" style="display :none;"> <img src ="images/loading.gif"></div></div><div class="element"><label for="year">Year</label><select name="year-'+current+'" id="year-'+current+'" class="span2"><option value="Freshman">Freshman</option><option value="Sophomore">Sophomore</option><option value="Junior">Junior</option><option value="Senior">Senior</option><option value="Graduated(Master\'s)>Graduated(Master\'s)</option> <option value="Graduated(Phd)">Graduated(Phd)</option><option value="Other">Other</option></select></div><div class="element" ><label for="degree-program-'+current+'">Degree program</label><select name="degreeprogram-'+current+'" id="degreeprogram-'+current+'" class="degreepgm span2"><option value="Assosiates(AA)">Assosiates(AA)</option><option value="Bachelor\'s">Bachelor\'s</option><option value="Master\'s">Master\'s</option><option value="Doctorate(Phd)">Doctorate(Phd)</option><option value="Other">Other</option></select></div><div class="element" id="other-degrees-'+current+'"><label for="other-degree">Degree </label><input type="text" name="other-degree-'+current+'" id="other-degree-'+current+'" class="required small" placeholder="Degree"></div></div><div class="form-row"><div class="element"><label for="major-'+current+'">Major </label><input type="text" name="major-'+current+'" id="major-'+current+'" class="required span3" placeholder="Your Major"></div><div class="element"><label for="graduated" name="graduated-'+current+'">Graduated? </label><select name="graduated" id="graduated-'+current+'" class="required graduated span2" ><option> </option><option value="attending">Still Attending</option><option value="yes">Yes</option><option value="no">No</option></select></div><div class="element" id="cal-'+current+'"><label for="calendar-'+current+'">Calendar</label><input class="span2 datepicker cal" type="text" value="01/05/2011" id="calendar-'+current+'" name="calendar-'+current+'"/></div><div class="element" ><div class="element" id="degree-exp-'+current+'"><label for="degree-expected-'+current+'">Degree expected</label><select id="degree-expected-'+current+'"  name="degree-expected-'+current+'" class="span3" ><option value="Winter 2012">Winter 2012</option><option value="Summer 2013">Summer 2013</option><option value="Winter 2013">Winter 2013</option><option value="Summer 2014">Summer 2014</option><option value="Winter 2014">Winter 2014</option><option value="Summer 2015">Summer 2015</option><option value="Winter 2015">Winter 2015</option><option value="No Degree Expected">No Degree Expected</option></select></div></div> </div></div></fieldset>';
+      	  var strToAdd = '<fieldset id="'+current+'" ><legend class="legend legend-add">Another school</legend><div class="school-registration"><div class="form-row"><div class="element"><label name="school-name-'+current+'" for="school-name-'+current+'" id="school-id-'+current+'" value="">School name </label><input type="text" id="school-name-'+current+'" name="schoolName" class="required span3 school" placeholder="School Name"><input type="hidden" id="associatedId-'+current+'" value=""><div id="school-name-'+current+'-loader" class="loader_schoolname" style="display :none;"> <img src ="images/loading.gif"></div></div><div class="element"><label name="year-'+current+'" for="year">Year</label><select name="year-'+current+'" id="year-'+current+'" class="span2"><option value="Freshman">Freshman</option><option value="Sophomore">Sophomore</option><option value="Junior">Junior</option><option value="Senior">Senior</option><option value="Graduated(Master\'s)>Graduated(Master\'s)</option> <option value="Graduated(Phd)">Graduated(Phd)</option><option value="Other">Other</option></select></div><div class="element" ><label name="degreeprogram-'+current+'" for="degree-program-'+current+'">Degree program</label><select name="degreeprogram-'+current+'" id="degreeprogram-'+current+'" class="degreepgm span2"><option value="Assosiates(AA)">Assosiates(AA)</option><option value="Bachelor\'s">Bachelor\'s</option><option value="Master\'s">Master\'s</option><option value="Doctorate(Phd)">Doctorate(Phd)</option><option value="Other">Other</option></select></div><div class="element" id="other-degrees-'+current+'"><label name="other-degree-'+current+'" for="other-degree">Degree </label><input type="text" name="other-degree-'+current+'" id="other-degree-'+current+'" class="required small" placeholder="Degree"></div></div><div class="form-row"><div class="element"><label name="major-'+current+'"  for="major-'+current+'">Major </label><input type="text" name="major-'+current+'" id="major-'+current+'" class="required span3" placeholder="Your Major"></div><div class="element"><label name="graduated-'+current+'" for="graduated" name="graduated-'+current+'">Graduated? </label><select name="graduated" id="graduated-'+current+'" class="required graduated span2" ><option> </option><option value="attending">Still Attending</option><option value="yes">Yes</option><option value="no">No</option></select></div><div class="element" id="cal-'+current+'"><label name="calendar-'+current+'" for="calendar-'+current+'">Calendar</label><input class="span2 datepicker cal" type="text" value="01/05/2011" id="calendar-'+current+'" name="calendar-'+current+'"/></div><div class="element" ><div class="element" id="degree-exp-'+current+'"><label for="degree-expected-'+current+'">Degree expected</label><select id="degree-expected-'+current+'"  name="degree-expected-'+current+'" class="span3" ><option value="Winter 2012">Winter 2012</option><option value="Summer 2013">Summer 2013</option><option value="Winter 2013">Winter 2013</option><option value="Summer 2014">Summer 2014</option><option value="Winter 2014">Winter 2014</option><option value="Summer 2015">Summer 2015</option><option value="Winter 2015">Winter 2015</option><option value="No Degree Expected">No Degree Expected</option></select></div></div> </div></div></fieldset>';
 
       	  $("a.legend-add").before(strToAdd);
           $('#degree-exp-'+current).hide();

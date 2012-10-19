@@ -20,19 +20,7 @@
   
 }
 
-/* display validation error message */
-.error-msg{
-	 background: none repeat scroll 0 0 #EE0101;
-    border: 2px solid #DDDDDD;
-    border-radius: 6px 6px 6px 6px;
-    box-shadow: 0 0 6px #000000;
-    color: #FFFFFF;
-    font-size: 15px;
-    margin-left: 20px;
-    padding: 4px 10px;
-    position: relative;
-    width: 236px;
-}
+
 
 /* display error when enter wrong username or password */
 .invalid-validation
@@ -2412,15 +2400,42 @@ text-align: left;
 .clearfix{
 	display: block !important;
 }
-.main-messages{
-	background-color: #F0EDED;
-	width :100px;
-	height:100px;
-	z-index: 999;
-	 position: relative;
+/* display validation error message */
+
+.status-message {
+   padding: 0 500px;
+    position: fixed;
+    width: auto;
+    z-index: 9999;
+    display : none;
+
 }
+
+.messagelist {
+    list-style: none outside none;
+}
+.error-msg{
+/* 	background: none repeat scroll 0 0 #EE0101; */
+    border: 2px solid #DDDDDD;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 0 6px #000000;
+    color: #FFFFFF;
+    font-size: 15px;
+}
+.error-msg {
+    background-color: #FFBABA;
+    background-image: url("../images/red_bg.png");
+/* 	background-image: url("../images/warning.jpeg"); */
+    color: #D8000C;
+    padding: 10px;
+    width: auto;
+}
+
+
 .rock-list li {
 	border-top: medium none !important;
 	padding :none !important;
 }
+
+ 
 

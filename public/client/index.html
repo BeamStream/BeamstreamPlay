@@ -1,6 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
+
 <meta charset="utf-8">
 <title>Beamstream</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -767,14 +768,14 @@ body {
                 <div class="school-registration">
                   <div class="form-row">
 		     <div class="element">
-                        <label for="school-name">Title </label>
+                        <label name="media-title" for="school-name">Title </label>
                         <input type="text" name="schoolName" id="media-title" class="required span3" placeholder="NAME of {{type}}" value="{{title}}">
                         <input type="hidden" id="parent-Id" value="">
                      </div></br></br>
                   </div>
                   <div class="form-row">
                     <div class="element docedit">
-                        <label for="website">Description<span class="star"> </span></label>
+                        <label name="media-description" for="website">Description<span class="star"> </span></label>
                         <textarea id="media-description" class="gdoc-description" rows="4" cols="50" placeholder="DESCRIPTION of {{type}}" >{{description}}</textarea>
                     </div>
                    </div>
@@ -959,7 +960,7 @@ body {
       <fieldset class="class-pop">
         <div class="form-row class-row">
           <div class="element" id="div-school">
-               <label for="schools">School</label>
+               <label name="schools" for="schools">School</label>
                <div id ="sShool" > 
                <select id="schools" class="small">
                       
@@ -967,18 +968,18 @@ body {
               </div>
           </div>
           <div class="element" id="for-new-school">
-            <label for="school-name">Enter New School</label>
+            <label name="new-school" for="school-name">Enter New School</label>
             <input type="text" id="new-school" value="" placeholder="School Name" class="large ">
             <input  type="hidden" id="new-school-id">
           </div>
         </div>
         <div class="form-row class-row">
            <div class="element ">
-            <label for="class-name">Class name</label>
+            <label name="class_name" for="class-name">Class name</label>
             <input type="text" id="class_name" class="validate[required] medium class_name" placeholder="Class name">
           </div>
             <div class="element" id="div-time">
-              <label for="class-time">Class time</label>
+              <label name= "class-time" for="class-time">Class time</label>
               <select id="class-time" class="time">
 				  {{#each times}}
                         <option value="{{this.time}}">{{this.time}}</option>
@@ -986,16 +987,16 @@ body {
               </select>
           </div>
           <div class="element">
-            <label for="class-code">Class code</label>
+            <label name="class-code" for="class-code">Class code</label>
             <input type="text" id="class-code" class="validate[required] small class_code" placeholder="Class code">
           </div>
          
           <div class="element">
-            <label for="date-started">Month/Year started</label>
+            <label name="date-started" for="date-started">Month/Year started</label>
             <input class="small datepicker cal" type="text" placeholder="Date" id="date-started"/>
           </div>
           <div class="element" id="div-school-type">
-            <label for="semester">Semester or Quarter</label>
+            <label name="semester" for="semester">Semester or Quarter</label>
             <select id="semester" class="small">
               <option value="semester" >Semester</option>
               <option value="quarter">Quarter</option>
@@ -1004,11 +1005,11 @@ body {
         </div>
         <div class="form-row class-row">
           <div class="element">
-            <label for="educator-mail" class="plus-sign">Add Educators via Email</label>
+            <label name="educator-mail" for="educator-mail" class="plus-sign">Add Educators via Email</label>
             <input type="text" id="educator-mail" placeholder="Educator's Email" class="large">
           </div>
           <div class="element">
-           <label class="plus-sign align-middle">Add Classmates & Friends</label>
+           <label   class="plus-sign align-middle">Add Classmates & Friends</label>
           <div class="social-block class-social">
                     <a class="facebook" href="#"></a>
                     <a class="twitter" href="#"></a>
@@ -1020,24 +1021,24 @@ body {
                  
            </div>
           <div class="element">
-            <label for="classmates-mail">(seperate by comma)</label>
+            <label name="classmates-mail" for="classmates-mail">(seperate by comma)</label>
             <input type="text" id="classmates-mail" placeholder="Classmates Email, Friend's" class="large">
           </div>
         </div>
         <div class="form-row">
           <div id="class-tags">
           <div class="element">
-            <label for="tag1"  class="plus-sign">Add Class Tag 1</label>
+            <label name="tag1" for="tag1"  class="plus-sign">Add Class Tag 1</label>
             <input type="text" id="tag1" placeholder="Tag 1" class="large tag-position">
             <i class="icon-middle-tag tag-place"></i>
           </div>
           <div class="element">
-            <label for="tag2" class="plus-sign">Add Class Tag 2</label>
+            <label name= "tag2" for="tag2" class="plus-sign">Add Class Tag 2</label>
             <input type="text" id="tag2" placeholder="Tag 2" class="large tag-position">
 			<i class="icon-middle-tag tag-place"></i>
           </div>
           <div class="element">
-            <label for="tag3" class="plus-sign">Add Class Tag 3</label>
+            <label name = "tag3" for="tag3" class="plus-sign">Add Class Tag 3</label>
             <input type="text" id="tag3" placeholder="Tag 3" class="large tag-position">
 			<i class="icon-middle-tag tag-place"></i>
           </div>
@@ -1511,13 +1512,13 @@ body {
 				<div class="school-registration">
                 <div class="form-row">
 					<div class="element">
-                        <label for="school-name">School name <span class="star"> </span></label>
+                        <label name="school-name" for="school-name">School name <span class="star"> </span></label>
  
                         <input type="text" name="schoolName" id="school-name" class="validate[required] span3 school" placeholder="School Name">
                         
                     </div>
                     <div class="element">
-                        <label for="year">Year</label>
+                        <label name="year" for="year">Year</label>
                         <select name="year" id="year" class="span2">
                             <option value="Freshman">Freshman</option>
                             <option value="Sophomore">Sophomore</option>
@@ -1532,11 +1533,11 @@ body {
                 </div>
                 <div class="form-row">
                     <div class="element">
-                        <label for="major">Major <span class="star"> </span></label>
+                        <label name="major" for="major">Major <span class="star"> </span></label>
                         <input type="text" name="major" id="major" class="validate[required] span3" placeholder="Your Major" >
                     </div>
 						 <div class="element">
-                        <label for="degree-program">Degree program</label>
+                        <label name="degreeprogram" for="degree-program">Degree program</label>
                         <select name="degreeprogram" id="degreeprogram" class="degreepgm span2">
                             <option value="Assosiates(AA)">Assosiates(AA)</option>
                             <option value="Bachelor's">Bachelor's</option>
@@ -1546,13 +1547,13 @@ body {
                         </select>
                     </div>
 					<div class="element" id="other-degrees">
-                        <label for="other-degree">Degree <span class="star"> </span></label>
+                        <label name="other-degree" for="other-degree">Degree <span class="star"> </span></label>
                         <input type="text" name="other-degree" id="other-degree" class="small" placeholder="Degree">
                     </div>
                    </div>
                  <div class="form-row">
 					<div class="element">
-                        <label for="graduated">Graduated? <span class="star"> </span></label>
+                        <label name= "graduated" for="graduated">Graduated? <span class="star"> </span></label>
                         <select id="graduated" name ="graduated"  class="graduated span2">
  							<option> </option>
                             <option value="attending">Still Attending</option>
@@ -1561,12 +1562,12 @@ body {
                         </select>
                     </div>
 					<div class="element" id="cal">
-                        <label for="calendar">Calendar</label>
+                        <label name="calendar" for="calendar">Calendar</label>
                         <input class="span2 datepicker cal" type="text" placeholder ="Date" id="calendar"/>
                     </div>
 
                       <div class="element" id="degree-exp">
-                        <label for="degree-expected-1">Degree expected</label>
+                        <label name="degree-expected-1" for="degree-expected-1">Degree expected</label>
                         <select id="degree-expected-1"  name="degree-expected-1" class="span3" >
                             <option value="Winter 2012">Winter 2012</option>
                             <option value="Summer 2013">Summer 2013</option>
@@ -1607,14 +1608,14 @@ body {
 				<div class="school-registration">
                 <div class="form-row">
 					<div class="element">
-                        <label for="school-name">Name of your school </label>
+                        <label name="my-school" for="school-name">Name of your school </label>
                         <input type="text" name="schoolName" id="my-school" class="required span3 " placeholder="School Name">
                         <input type="hidden" id="parent-Id" value="">
                     </div></br></br>
                 </div>
                 <div class="form-row">
                     <div class="element">
-                        <label for="website">School website <span class="star"> </span></label>
+                        <label name="website" for="website">School website <span class="star"> </span></label>
                         <input type="text" name="website" id="website" class=" span3" placeholder="School website" >
                     </div>
                    </div>
@@ -1655,7 +1656,7 @@ body {
 				<div class="school-registration">
                 <div class="form-row">
                     <div class="element">
-                        <label for="school-name" id="school-id-1" value="" >School name </label>
+                        <label name="school-name-1" for="school-name" id="school-id-1" value="" >School name </label>
  
                         <input type="text" name="schoolName" id="school-name-1" class="required span3 school" placeholder="School Name">
                          
@@ -1667,7 +1668,7 @@ body {
                     </div>
 
                     <div class="element">
-                        <label for="year">Year</label>
+                        <label name="year-1" for="year">Year</label>
                         <select name="year-1" id="year-1" class="span2">
                             <option value="Freshman">Freshman</option>
                             <option value="Sophomore">Sophomore</option>
@@ -1679,7 +1680,7 @@ body {
                         </select>
                     </div>
                      <div class="element">
-                        <label for="degree-program">Degree program</label>
+                        <label name="degreeprogram-1" for="degree-program">Degree program</label>
                         <select name="degreeprogram-1" id="degreeprogram-1" class="degreepgm span2">
                             <option value="Assosiates(AA)">Assosiates(AA)</option>
                             <option value="Bachelor's">Bachelor's</option>
@@ -1689,17 +1690,17 @@ body {
                         </select>
                     </div>
 					<div class="element" id="other-degrees-1">
-                        <label for="other-degree">Degree </label>
+                        <label name= "other-degree-1" for="other-degree">Degree </label>
                         <input type="text" name="other-degree-1" id="other-degree-1" class="required small" placeholder="Degree">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="element">
-                        <label for="major">Major </label>
+                        <label name="major-1" for="major">Major </label>
                         <input type="text" name="major-1" id="major-1" class="required span3" placeholder="Your Major" >
                     </div>
 					<div class="element">
-                        <label for="graduated">Graduated? </label>
+                        <label name="graduated-1" for="graduated">Graduated? </label>
                         <select id="graduated-1" name ="graduated"  class="graduated span2">
  							<option> </option>
                             <option value="attending">Still Attending</option>
@@ -1708,12 +1709,12 @@ body {
                         </select>
                     </div>
 					<div class="element" id="cal-1">
-                        <label for="calendar-1">Calendar</label>
+                        <label name="calendar-1" for="calendar-1">Calendar</label>
                         <input class="required span2 datepicker cal" type="text" placeholder ="Date" id="calendar-1"/>
                     </div>
 
                       <div class="element" id="degree-exp-1">
-                        <label for="degree-expected-1">Degree expected</label>
+                        <label name="degree-expected-1" for="degree-expected-1">Degree expected</label>
                         <select id="degree-expected-1"  name="degree-expected-1" class="span3" >
                             <option value="Winter 2012">Winter 2012</option>
                             <option value="Summer 2013">Summer 2013</option>
@@ -1749,7 +1750,7 @@ body {
 	<div class="school-registration">
 		<div class="form-row">
 		<div class="element">
-			<label for="school-name-{{number}}" id="school-id-{{number}}" value="{{data.id.id}}" >School name </label>
+			<label name="school-name-{{number}}" for="school-name-{{number}}" id="school-id-{{number}}" value="{{data.id.id}}" >School name </label>
 			<input type="text" id="school-name-{{number}}" name="schoolName" class="required span3 school" value="{{data.schoolName}}" >
 			<input type="hidden" id="associatedId-{{number}}" value="{{data.assosiatedSchoolId.id}}">
             <div id="school-name-{{number}}-loader" class="loader_schoolname" style="display :none;">  
@@ -1757,7 +1758,7 @@ body {
            </div>
 		</div>
 		<div class="element">
-			<label for="year">Year</label>
+			<label name="year-{{number}}" for="year">Year</label>
 			<select name="year-{{number}}" id="year-{{number}}" class="span2">
 				<option value="Freshman">Freshman</option>
 				<option value="Sophomore">Sophomore</option>
@@ -1769,7 +1770,7 @@ body {
 			</select>
 		</div>
 		<div class="element" >
-			<label for="degree-program-{{number}}">Degree program</label>
+			<label name="degreeprogram-{{number}}" for="degree-program-{{number}}">Degree program</label>
 			<select name="degreeprogram-{{number}}" id="degreeprogram-{{number}}" class="degreepgm span2">
 				<option value="Assosiates(AA)">Assosiates(AA)</option>
 				<option value="Bachelor's">Bachelor's</option>
@@ -1779,17 +1780,17 @@ body {
 			</select>
 		</div>
 		<div class="element" id="other-degrees-{{number}}">
-			<label for="other-degree">Degree </label>
+			<label name="other-degree-{{number}}" for="other-degree">Degree </label>
 			<input type="text" name="other-degree-{{number}}" id="other-degree-{{number}}" class="required small" value="{{data.otherDegree}}">
 		</div>
 		</div>
 		<div class="form-row">
 			<div class="element">
-				<label for="major-{{number}}">Major </label>
+				<label name="major-{{number}}" for="major-{{number}}">Major </label>
 				<input type="text" name="major-{{number}}" id="major-{{number}}" class="required  span3" value="{{data.major}}">
 			</div>
 			<div class="element">
-				<label for="graduated" name="graduated-{{number}}">Graduated? </label>
+				<label name="graduated-{{number}}" for="graduated" name="graduated-{{number}}">Graduated? </label>
 				<select name="graduated" id="graduated-{{number}}" class="graduated span2" >
 					<option> </option>
 					<option value="attending">Still Attending</option>
@@ -1798,12 +1799,12 @@ body {
 				</select>
 			</div>
 			<div class="element" id="cal-{{number}}">
-				<label for="calendar-{{number}}">Calendar</label>
+				<label name="calendar-{{number}}" for="calendar-{{number}}">Calendar</label>
 				<input class="required span2 datepicker cal" type="text" id="calendar-{{number}}" name="calendar-{{number}}"/>
 			</div>
 			<div class="element" >
 				<div class="element" id="degree-exp-{{number}}">
-					<label for="degree-expected-{{number}}">Degree expected</label>
+					<label name="degree-expected-{{number}}" for="degree-expected-{{number}}">Degree expected</label>
 					<select id="degree-expected-{{number}}" name="degree-expected-{{number}}" class="span3" >
 						<option value="Winter 2012">Winter 2012</option>
 						<option value="Summer 2013">Summer 2013</option>
@@ -1822,6 +1823,12 @@ body {
 </script>
 
 <body style="padding-top: 96px !important;">
+   
+	<div id="display_message" class="status-message" >
+		<ul class="messagelist">
+			<li class="error-msg">You must fill in all of the required fields.</li>
+		</ul>
+	</div>
 	<div class="navbar-fixed-top">
 		<header class="site_header">
 		<div class="container">
@@ -1845,6 +1852,7 @@ body {
 		</div>
 		</nav>
 	</div>
+	
 	<div id="content"></div>
 	<div id="alert-popup"></div>
 	<div id="school-popup"></div>
@@ -1932,7 +1940,7 @@ body {
             <fieldset id="classes-{{sCount}}">
                 <div class="form-row short">
 					<div class="element">
-						<label for="school-{{sCount}}">School</label>
+						<label name= "school-1" for="school-{{sCount}}">School</label>
                                <div id="school-list-{{sCount}}">
 						        <select id="school-1" class="large all-schools selectBox valid" >
                                    <option value=''></option>
@@ -1944,7 +1952,7 @@ body {
                       <div class="form-row short">
                      <div class="element">
 
-                     <label for="class-name-{{sCount}}-1">Class name </label>
+                     <label name="class-name-{{sCount}}-1" for="class-name-{{sCount}}-1">Class name </label>
 
                     <input type="text" name="class-name-{{sCount}}-1" id="class-name-{{sCount}}-1" class="required medium class_name" placeholder="Class 1 name">
                     <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
@@ -1952,7 +1960,7 @@ body {
                    </div>
                       
           <div class="element" id="div-time-{{sCount}}-1">
-              <label for="class-time-{{sCount}}-1">Class time </label>
+              <label name="class-time-{{sCount}}-1" for="class-time-{{sCount}}-1">Class time </label>
               <select id="class-time-{{sCount}}-1" class="time">
 				  {{#each times}}
                         <option value="{{this.time}}">{{this.time}}</option>
@@ -1960,15 +1968,15 @@ body {
               </select>
           </div>
           <div class="element">
-                <label for="class-code-{{sCount}}-1">Class code </label>
+                <label name="class-code-{{sCount}}-1" for="class-code-{{sCount}}-1">Class code </label>
               <input type="text"  name ="class-code-{{sCount}}-1 "id="class-code-{{sCount}}-1" class="required small class_code" placeholder="Class 1 code" >
           </div>
           <div class="element">
-              <label for="date-started-{{sCount}}-1">Calendar </label>
+              <label name="date-started-{{sCount}}-1" for="date-started-{{sCount}}-1">Calendar </label>
               <input class="required small datepicker cal" type="text"   id="date-started-{{sCount}}-1"/>
           </div>
            <div class="element" id="div-school-type-{{sCount}}-1">
-               <label for="semester-{{sCount}}-1">Semester or Quarter </label>
+               <label name="semester-{{sCount}}-1" for="semester-{{sCount}}-1">Semester or Quarter </label>
                <select id="semester-{{sCount}}-1" class="small">
                      <option value="semester">Semester</option>
                      <option value="quarter">Quarter</option>
@@ -1980,13 +1988,13 @@ body {
       <div class="form-row-label">2<sup>nd</sup> class</div>
       <div class="form-row short">
           <div class="element">
-              <label id="lb-class-name-2" value = "">Class name</label>
+              <label name="class-name-{{sCount}}-2" id="lb-class-name-2" value = "">Class name</label>
               <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
                <input type="hidden" value="" id="h-class-name-{{sCount}}-2">
 				<input type="hidden" value="" id="stream-id-{{sCount}}-2">
          </div>
          <div class="element" id="div-time-{{sCount}}-2">
-              <label for="class-time-2">Class time</label>
+              <label name="class-time-{{sCount}}-2" for="class-time-2">Class time</label>
 			  <select id="class-time-{{sCount}}-2" class="small time">
 			      {{#each times}}
                         <option value="{{this.time}}">{{this.time}}</option>
@@ -1995,15 +2003,15 @@ body {
          </div>
         
          <div class="element">
-              <label for="class-code-{{sCount}}-2">Class code</label>
+              <label name="class-code-{{sCount}}-2" for="class-code-{{sCount}}-2">Class code</label>
               <input type="text" id="class-code-{{sCount}}-2" class="small class_code" placeholder="Class 2 code">
          </div>
          <div class="element">
-              <label for="date-started-2">Calendar</label>
+              <label name="date-started-{{sCount}}-2" for="date-started-2">Calendar</label>
               <input class="small datepicker cal" type="text" placeholder="Date2" id="date-started-{{sCount}}-2"/>
          </div>
          <div class="element" id="div-school-type-{{sCount}}-2">
-              <label for="semester-{{sCount}}-2">Semester or Quarter</label>
+              <label name= "semester-{{sCount}}-2" for="semester-{{sCount}}-2">Semester or Quarter</label>
               <select id="semester-{{sCount}}-2" class="small">
                     <option value="semester">Semester</option>
                     <option value="quarter">Quarter</option>
@@ -2015,13 +2023,13 @@ body {
        <div class="form-row-label">3<sup>rd</sup> class</div>
        <div class="form-row short">
           <div class="element">
-               <label id="lb-class-name-3" value="">Class name</label>
+               <label name="class-name-{{sCount}}-3" id="lb-class-name-3" value="">Class name</label>
                <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
                 <input type="hidden" value="" id="h-class-name-{{sCount}}-3">
 				<input type="hidden" value="" id="stream-id-{{sCount}}-3">
            </div>
           <div class="element" id="div-time-{{sCount}}-3">
-               <label for="class-time-3">Class time</label>
+               <label name= "class-time-{{sCount}}-3" for="class-time-3">Class time</label>
 			   <select id="class-time-{{sCount}}-3" class="small time ">
 				  {{#each times}}
                         <option value="{{this.time}}">{{this.time}}</option>
@@ -2029,16 +2037,16 @@ body {
                </select>
           </div>
           <div class="element">
-               <label for="class-code-{{sCount}}-3">Class code</label>
+               <label name="class-code-{{sCount}}-3" for="class-code-{{sCount}}-3">Class code</label>
                <input type="text" id="class-code-{{sCount}}-3" class="small class_code" placeholder="Class 3 code">
           </div>
           
            <div class="element">
-                <label for="date-started-{{sCount}}-3">Calendar</label>
+                <label name="date-started-{{sCount}}-3"  for="date-started-{{sCount}}-3">Calendar</label>
                 <input class="small datepicker cal" type="text" placeholder="Date3" id="date-started-{{sCount}}-3"/>
            </div>
            <div class="element" id="div-school-type-{{sCount}}-3">
-                <label for="semester-{{sCount}}-3">Semester or Quarter</label>
+                <label name="semester-{{sCount}}-3" for="semester-{{sCount}}-3">Semester or Quarter</label>
                 <select id="semester-{{sCount}}-3" class="small">
                      <option value="semester">Semester</option>
                      <option value="quarter">Quarter</option>
@@ -2067,7 +2075,7 @@ body {
 	<fieldset id="classes-{{sCount}}">
 		<div class="form-row short">
 			<div class="element">
-				<label for="school-{{sCount}}">School</label>
+				<label name="school-list-{{sCount}}" for="school-{{sCount}}">School</label>
 				<div id="school-list-{{sCount}}"></div>
 
 			</div>
@@ -2084,7 +2092,7 @@ body {
 	</div>
 	<div class="form-row short">
 		<div class="element">
-			<label for="class-name-{{sCount}}-{{cInt}}">Class name </label> 
+			<label  name="class-name-{{sCount}}-{{cInt}}" for="class-name-{{sCount}}-{{cInt}}">Class name </label> 
 			<input	type="text" name="class-name-{{sCount}}-{{cInt}}"
 				id="class-name-{{sCount}}-{{cInt}}" value="{{data.className}}"
 				class="medium class_name" placeholder="Class {{cInt}} name">
@@ -2094,24 +2102,24 @@ body {
 		</div>
 
 		<div class="element" id="div-time-{{sCount}}-{{cInt}}">
-			<label for="class-time-{{sCount}}-1">Class time </label> <select
+			<label name="class-time-{{sCount}}-{{cInt}}" for="class-time-{{sCount}}-1">Class time </label> <select
 				id="class-time-{{sCount}}-{{cInt}}" class="time"> {{#each times}}
 				<option value="{{this.time}}">{{this.time}}</option> {{/each}}
 			</select>
 		</div>
 		<div class="element">
-			<label for="class-code-{{sCount}}-{{cInt}}">Class code </label> <input
+			<label  name="class-code-{{sCount}}-{{cInt}}" for="class-code-{{sCount}}-{{cInt}}">Class code </label> <input
 				type="text" name="class-code-{{sCount}}-{{cInt}} "
 				id="class-code-{{sCount}}-{{cInt}}" value="{{data.classCode}}"
 				class="small class_code" placeholder="Class {{cInt}} code">
 		</div>
 		<div class="element">
-			<label for="date-started-{{sCount}}-{{cInt}}">Calendar </label> <input
+			<label name="date-started-{{sCount}}-{{cInt}}" for="date-started-{{sCount}}-{{cInt}}">Calendar </label> <input
 				class="required small datepicker cal" type="text"
 				value="{{data.startingDate}}" id="date-started-{{sCount}}-{{cInt}}" />
 		</div>
 		<div class="element" id="div-school-type-{{sCount}}-{{cInt}}">
-			<label for="semester-{{sCount}}-{{cInt}}">Semester or Quarter </label> <select
+			<label name="semester-{{sCount}}-{{cInt}}" for="semester-{{sCount}}-{{cInt}}">Semester or Quarter </label> <select
 				id="semester-{{sCount}}-{{cInt}}" class="small">
 				<option value="semester">Semester</option>
 				<option value="quarter">Quarter</option>
@@ -2129,7 +2137,7 @@ body {
        <div class="form-row short">
           <div class="element">
 
-              <label for="class-name-{{sCount}}-1">Class name </label>
+              <label name="class-name-{{sCount}}-1" for="class-name-{{sCount}}-1">Class name </label>
 
               <input type="text" name="for="class-name-{{sCount}}-1" id="class-name-{{sCount}}-1" class="required medium class_name" placeholder="Class 1 name">
               <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
@@ -2137,7 +2145,7 @@ body {
           </div>
           
           <div class="element" id="div-time-{{sCount}}-1">
-              <label for="class-time-{{sCount}}-1">Class time </label>
+              <label name="class-time-{{sCount}}-1" for="class-time-{{sCount}}-1">Class time </label>
               <select id="class-time-{{sCount}}-1" class="time">
 				  {{#each times}}
                         <option value="{{this.time}}">{{this.time}}</option>
@@ -2145,15 +2153,15 @@ body {
               </select>
           </div>
           <div class="element">
-              <label for="class-code-{{sCount}}-1">Class code </label>
+              <label name="class-code-{{sCount}}-1"  for="class-code-{{sCount}}-1">Class code </label>
               <input type="text" name="class-code-{{sCount}}-1" id="class-code-{{sCount}}-1" class="required small class_code" placeholder="Class 1 code" >
           </div>
           <div class="element">
-              <label for="date-started-{{sCount}}-1">Calendar </label>
+              <label name="date-started-{{sCount}}-1"  for="date-started-{{sCount}}-1">Calendar </label>
               <input class="required small datepicker cal" type="text" placeholder="Date1" id="date-started-{{sCount}}-1"/>
           </div>
            <div class="element" id="div-school-type-{{sCount}}-1">
-               <label for="semester-{{sCount}}-1">Semester or Quarter <span class="star"> </span></label>
+               <label  name="semester-{{sCount}}-1"  for="semester-{{sCount}}-1">Semester or Quarter <span class="star"> </span></label>
                <select id="semester-{{sCount}}-1" class="small">
                      <option value="semester">Semester</option>
                      <option value="quarter">Quarter</option>
@@ -2165,13 +2173,13 @@ body {
       <div class="form-row-label">2<sup>nd</sup> class</div>
       <div class="form-row short">
          <div class="element">
-              <label id="lb-class-name-2" value="">Class name</label>
+              <label name="class-name-{{sCount}}-2"  id="lb-class-name-2" value="">Class name</label>
               <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
 			 <input type="hidden" value="" id="h-class-name-{{sCount}}-2">
 			<input type="hidden" value="" id="stream-id-{{sCount}}-2">
          </div>
          <div class="element" id="div-time-{{sCount}}-2">
-              <label for="class-time-2">Class time</label>
+              <label name="class-time-{{sCount}}-2" for="class-time-2">Class time</label>
 			  <select id="class-time-{{sCount}}-2" class="small time">
 			      {{#each times}}
                         <option value="{{this.time}}">{{this.time}}</option>
@@ -2179,16 +2187,16 @@ body {
              </select>
          </div>
          <div class="element">
-              <label for="class-code-{{sCount}}-2">Class code</label>
+              <label name="class-code-{{sCount}}-2"  for="class-code-{{sCount}}-2">Class code</label>
               <input type="text" id="class-code-{{sCount}}-2" class="small class_code" placeholder="Class 2 code">
          </div>
          
          <div class="element">
-              <label for="date-started-2">Calendar</label>
+              <label name="date-started-{{sCount}}-2" for="date-started-2">Calendar</label>
               <input class="small datepicker cal" type="text" placeholder="Date2" id="date-started-{{sCount}}-2"/>
          </div>
          <div class="element" id="div-school-type-{{sCount}}-2">
-              <label for="semester-{{sCount}}-2">Semester or Quarter</label>
+              <label name="semester-{{sCount}}-2" for="semester-{{sCount}}-2">Semester or Quarter</label>
               <select id="semester-{{sCount}}-2" class="small">
                     <option value="semester">Semester</option>
                     <option value="quarter">Quarter</option>
@@ -2200,13 +2208,13 @@ body {
        <div class="form-row-label">3<sup>rd</sup> class</div>
        <div class="form-row short">
           <div class="element">
-               <label id="lb-class-name-3" value="">Class name</label>
+               <label name="class-name-{{sCount}}-3" id="lb-class-name-3" value="">Class name</label>
                <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
                 <input type="hidden" value="" id="h-class-name-{{sCount}}-3">
 				<input type="hidden" value="" id="stream-id-{{sCount}}-3">
            </div>
           <div class="element" id="div-time-{{sCount}}-3">
-               <label for="class-time-3">Class time</label>
+               <label name="class-time-{{sCount}}-3"  for="class-time-3">Class time</label>
 			   <select id="class-time-{{sCount}}-3" class="small time ">
 				  {{#each times}}
                         <option value="{{this.time}}">{{this.time}}</option>
@@ -2214,16 +2222,16 @@ body {
                </select>
           </div>
           <div class="element">
-               <label for="class-code-{{sCount}}-3">Class code</label>
+               <label name="class-code-{{sCount}}-3"  for="class-code-{{sCount}}-3">Class code</label>
                <input type="text" id="class-code-{{sCount}}-3" class="small class_code" placeholder="Class 3 code">
           </div>
           
            <div class="element">
-                <label for="date-started-{{sCount}}-3">Calendar</label>
+                <label name="date-started-{{sCount}}-3"  for="date-started-{{sCount}}-3">Calendar</label>
                 <input class="small datepicker cal" type="text" placeholder="Date3" id="date-started-{{sCount}}-3"/>
            </div>
            <div class="element" id="div-school-type-{{sCount}}-3">
-                <label for="semester-{{sCount}}-3">Semester or Quarter</label>
+                <label name="semester-{{sCount}}-3" for="semester-{{sCount}}-3">Semester or Quarter</label>
                 <select id="semester-{{sCount}}-3" class="small">
                      <option value="semester">Semester</option>
                      <option value="quarter">Quarter</option>
@@ -2240,7 +2248,7 @@ body {
        		<legend class="legend legend-add">Add class or school</legend>
        		<div class="form-row short">
           		 <div class="element">
-             		  <label for="school-{{sCount}}">School</label>
+             		  <label name="school-list-{{sCount}}" for="school-{{sCount}}">School</label>
 					    <div id="school-list-{{sCount}}"></div>
 				 </div>
     			 <div class="element">
@@ -2288,7 +2296,7 @@ body {
 				{{/unless}}
                 <div class="form-row">
                     <div class="element">
-                        <label for="profile-photo">Profile photo</label>
+                        <label name="profile-image" for="profile-photo">Profile photo</label>
                         <span class="profile-thumb">
                            <div id="img"></div>
                            <div id="default-image">
@@ -2314,7 +2322,7 @@ body {
                        </div>
                     </div>
                     <div class="element last">
-                        <label for="profile-video">Profile video</label>
+                        <label name="my-video" for="profile-video">Profile video</label>
                         <span class="profile-thumb">
                            {{#if primaryVideo}}
 							  <img id="profile-video" src="{{primaryVideo}}"  style="width:95px; height:90px;" alt="no video" name="profile-video">
@@ -2340,12 +2348,12 @@ body {
                    {{#unless edit}}
                     <div class="element">
                         <div id="num-validation"></div>
-                        <label for="mobile">Mobile <span class="star"> </span></label>
+                        <label name="mobile"  for="mobile">Mobile <span class="star"> </span></label>
                         <input type="text" id="mobile" name="mobile" class="required large " placeholder="(999) 999-9999" >
                     </div>
                     {{/unless}}
                     <div class="element">
-                        <label for="upload">Upload</label>
+                        <label name="upload" for="upload">Upload</label>
                         <select id="upload" class="large" name="upload">
 							<option value="Links">Links</option>
 							<option value="Documents">Documents</option>
@@ -3043,7 +3051,7 @@ body {
  
       
         <div class="element" style="margin-top:25px;" >
-              <label for="school-name">School name <span class="star"> </span></label>
+              <label name="school-name" for="school-name">School name <span class="star"> </span></label>
               <input type="text" id="school-name" name="schoolName" placeholder=" School Name" class="required span3 myschool">
               <div id="load-schools" style="display :none;">  
 			     <img src ="images/loading.gif"> 
@@ -3051,33 +3059,33 @@ body {
             </div>
              
         <div class="element">
-              <label for="user-name">User Name <br/>
+              <label name="user-name" for="user-name">User Name <br/>
             http://www.beamstream.com/</label>
               <input type="text" id="user-name" name="user-name" placeholder="@UserName"   class="required span3">
               
             </div>
           <div class="element">
-              <label for="password1">Password <br/></label>
+              <label name="password1" for="password1">Password <br/></label>
               <input type="password" id="password1" name="password1" placeholder="password" class="required span3"> 
             </div>
            <div class="element">
-              <label for="password">Re-enter Password </label>
+              <label name="password_again" for="password">Re-enter Password </label>
               <input type="password" id="password_again" name="password_again" placeholder="Re-enter password" class="required span3"> 
             </div>
         <div class="element">
-              <label for="first-name">First Name </label>
+              <label name="first-name" for="first-name">First Name </label>
               <input type="text" id="first-name" name="first-name" placeholder="First Name" class="required span3">
             </div>
         <div class="element">
-              <label for="last-name">Last Name </label>
+              <label name="last-name" for="last-name">Last Name </label>
               <input type="text" id="last-name" name="last-name" placeholder="Last Name" class="required span3">
             </div>
         <div class="element">
-              <label for="location">Location <span class="star"> </span></label>
+              <label name="location"  for="location">Location <span class="star"> </span></label>
               <input type="text" id="location" name="location" placeholder="Location" class="required span3">
             </div>
         <div class="element">
-              <label for="current-location"></label>
+              <label name="useCurrentLocation" for="current-location"></label>
             
         <div class="checkbox_wrapper">
               <h3>OR</h3>
@@ -3107,35 +3115,35 @@ body {
       
         <div class="element" style="margin-top:25px;" >
               <input type= "hidden" id="user_Id" value ="{{data.id.id}}">
-              <label for="school-name">School name   </label>
+              <label name="school-name" for="school-name">School name   </label>
               <input name="schoolName" type="text" id="school-name" placeholder="" value="{{data.orgName}}" class="required span3 myschool">
               <div id="load-schools" style="display :none;">  
 			     <img src ="images/loading.gif"> 
               </div>
             </div>
         <div class="element">
-              <label for="user-name">User Name   <br/>
+              <label name="user-name" for="user-name">User Name   <br/>
             http://www.beamstream.com/</label>
               <input type="text" id="user-name" value="{{data.userName}}"  class="required span3">
             </div>
           <div class="element">
-              <label for="password1">Password   <br/></label>
+              <label  name="password1" for="password1">Password   <br/></label>
               <input type="password" name="password1" id="password1" placeholder="password" value ="" class="required span3"> 
             </div>
          <div class="element">
-              <label for="password">Re-enter Password </label>
+              <label name="password_again" for="password">Re-enter Password </label>
               <input type="password" id="password_again" name="password_again" value="" placeholder="Re-enter password" class="required span3"> 
             </div>
         <div class="element">
-              <label for="first-name">First Name   </label>
+              <label name="first-name" for="first-name">First Name   </label>
               <input type="text" id="first-name" value="{{data.firstName}}" class="required span3">
             </div>
         <div class="element">
-              <label for="last-name">Last Name   </label>
+              <label  name="last-name" for="last-name">Last Name   </label>
               <input type="text" id="last-name"value="{{data.lastName}}" class="required span3">
             </div>
         <div class="element">
-              <label for="location">Location   </label>
+              <label name="location" for="location">Location   </label>
               <input type="text" id="location" value="{{data.location}}" class="required span3">
             </div>
         <div class="element">
@@ -3177,7 +3185,7 @@ body {
 
    <div id="error" class= "invalid-validation"  style=" margin-bottom: 18px !important; margin-left: 152px;"></div>
             <div class="element">
-             <label for="iam">I'm </label>
+             <label name="iam" for="iam">I'm </label>
                 <select id="iam" name="iam" class="required large">
                   <option >-- I'm --</option>
 						<option value="0">Student</option>
@@ -3186,7 +3194,7 @@ body {
                 </select>
             </div>
              <div class="element">
-              <label for="school-name">School Name </label>
+              <label name="school-name" name="school-name" for="school-name">School Name </label>
               <input type="text" name="schoolName" id="school-name" placeholder="School Name" class="required span3 myschool">
                <div id="load-schools" style="display :none;">  
 			   <img src ="images/loading.gif"> 
@@ -3194,28 +3202,28 @@ body {
             </div>
             
             <div class="element">
-              <label for="school-email">School Email </label>
+              <label name="school-email"  for="school-email">School Email </label>
               <input type="text" id="school-email" name="school-email" placeholder="School Email" class="required span3">
             </div>
             
             <div class="element">
-              <label for="first-name">First Name </label>
+              <label name="first-name" for="first-name">First Name </label>
               <input type="text" id="first-name" placeholder="First Name" class="required span3">
             </div>
             <div class="element">
-              <label for="last-name">Last Name</label>
+              <label name="last-name" for="last-name">Last Name</label>
               <input type="text" id="last-name" name="last-name" placeholder="Last Name" class="required span3">
             </div>
 			<div class="element">
-              <label for="username">Alias</label>
+              <label name="alias" for="username">Alias</label>
               <input type="text" id="alias" name="alias"placeholder="alias" class="required span3">
             </div>
             <div class="element">
-              <label for="location">Location</label>
+              <label name="location" for="location">Location</label>
               <input type="text" id="location" name="location" placeholder="Location" class="required span3">
             </div>
             <div class="element">
-              <label for="location"></label>
+              <label name="useCurrentLocation" for="location"></label>
               <div class="checkbox_wrapper">
                 <h3>OR</h3>
                 <div class="checkbox">
@@ -3226,7 +3234,7 @@ body {
           </div>
           <div class="basic_profile_form2">
             <div class="element">
-              <label for="school-mail"></label>
+              <label name="no-schoolmail" for="school-mail"></label>
               <div class="checkbox_wrapper">
                 <div id ="no-schoolmail" class="checkbox">
                   <input id="schoolmail" type="checkbox">
@@ -3272,7 +3280,7 @@ body {
 <div id="error" class= "invalid-validation"  style=" margin-bottom: 18px !important; margin-left: 152px;"></div>
  
             <div class="element">
-             <label for="iam">I'm   </label>
+             <label name="iam" for="iam">I'm   </label>
                 <select id="iam" class="large">
                   <option value= "">-- I'm --</option>
                         {{#if student}}
@@ -3294,35 +3302,35 @@ body {
             </div>
             <div class="element">
               <input type="hidden" id="user-id" value="{{data.id.id}}">
-              <label for="school-name">School Name   </label>
+              <label name="school-name" for="school-name">School Name   </label>
               <input  name="schoolName" type="text" id="school-name"  value="{{data.orgName}}" class="validate[required] span3 myschool">
               <div id="load-schools" style="display :none;">  
 			    <img src ="images/loading.gif"> 
               </div>
             </div>
             <div class="element">
-              <label for="school-email">School Email   </label>
+              <label name="school-email" for="school-email">School Email   </label>
               <input type="text" id="school-email" value="{{data.email}}" class="validate[required] span3">
             </div>
 			
             <div class="element">
-              <label for="first-name">First Name   </label>
+              <label name="first-name" for="first-name">First Name   </label>
               <input type="text" id="first-name" value="{{data.firstName}}" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="last-name">Last Name   </label>
+              <label name="last-name" for="last-name">Last Name   </label>
               <input type="text" id="last-name" value="{{data.lastName}}" class="validate[required] span3">
             </div>
 			<div class="element">
-              <label for="alias">Alias</label>
+              <label name="alias" for="alias">Alias</label>
               <input type="text" id="alias" name = "alias" placeholder="alias" value="{{data.alias}}"class="required span3">
             </div>
             <div class="element">
-              <label for="location">Location   </label>
+              <label name="location" for="location">Location   </label>
               <input type="text" id="location" value="{{data.location}}" class="validate[required] span3">
             </div>
             <div class="element">
-              <label for="location"></label>
+              <label name="useCurrentLocation" for="location"></label>
               <div class="checkbox_wrapper">
                 <h3>OR</h3>
                 <div class="checkbox">
@@ -3333,7 +3341,7 @@ body {
           </div>
           <div class="basic_profile_form2">
             <div class="element">
-              <label for="school-mail"></label>
+              <label name="no-schoolmail" for="school-mail"></label>
               <div class="checkbox_wrapper">
                 <div id ="no-schoolmail" class="checkbox">
                   <input id="schoolmail" type="checkbox">
@@ -3379,7 +3387,7 @@ body {
          <div id="error" class="invalid-validation"></div>
           <div class="form-row short">
               <div class="element">
-                <label for="iam">I'm <span class="star"> </span></label>
+                <label name="iam" for="iam">I'm <span class="star"> </span></label>
                 <select id="iam" name="iams" class="required large">
                         <option value="">-- I'm --</option>
 						<option value="0">Student</option>
@@ -3388,7 +3396,7 @@ body {
                 </select>
               </div>
               <div class="element" >
-                <label for="email" id="email-label" >E-mail <span class="star"> </span></label>
+                <label name="email" for="email" id="email-label" >E-mail <span class="star"> </span></label>
                 <input type="text" id="email" name="email" placeholder="School email" class="required large email_text">
              </div>
               <div class="element" style="margin-right:2px !important;"> <a id="register" href="#" class="register btn btn-success">Register Now</a> </div>
@@ -3417,11 +3425,11 @@ body {
            <div id="row-line" style="display:none;" class="form-row-label"></div>
            <div id="schoolmail-info" class="form-row short" style="display:none;">
              <div class="element" id="school-email"  >
-                <label for="school-name">What school do you attent?</label>
+                <label name="school-name" for="school-name">What school do you attent?</label>
                 <input type="text" id="school-name" placeholder="School Name" class="large">
             </div>
              <div class="form-row short"><div class="element">
-                <label for="school-info">Tell us why you don't use a school email address?</label>
+                <label name="school-info" for="school-info">Tell us why you don't use a school email address?</label>
                <textarea id ="school-info" class="email_textarea"></textarea>
              </div></div>
              <div class="form-row short"> <div class="element">
@@ -3480,11 +3488,11 @@ body {
         <div class="form-row">
           <div class="form-row-left">
             <div class="element">
-              <label for="email">Email or UserName</label><div class="star-position"> </div>
+              <label name="email" for="email">Email or UserName</label><div class="star-position"> </div>
               <input type="text" name="email" id="email" placeholder= "email or username" class="required large email_text" value="">
             </div>
             <div class="element">
-              <label for="password">Password<span class="star"> </span></label>
+              <label name="password" for="password">Password<span class="star"> </span></label>
               <input type="password" name="password" id="password" placeholder= "password" class="required large email_text" value="">
             </div>
             <div class="checkbox_wrapper signin_check">
@@ -3534,7 +3542,7 @@ body {
      <div id="error" class="invalid-validation"></div>
         <div class="form-row">
             <div class="element">
-              <label for="email">Email<span class="star"> </span></label>
+              <label name="email"  for="email">Email<span class="star"> </span></label>
               <input type="text" id="email" name="email" placeholder= "email address" class="required  large email_text" value="">
             </div>
             <div class="element">
