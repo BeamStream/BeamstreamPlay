@@ -87,60 +87,52 @@ class AmazonUpload {
   
 
   def uploadCompressedFileToAmazon(profilePicName: String, profilePic: InputStream, totalFileSize: Double, flag: Boolean, userId: String) {
+    
     println("Coming Here With Compression")
     val bucketName = "BeamStream"
-    val AWS_ACCESS_KEY_RAW = Play.current.configuration.getString("A_A_K").get
-    val AWS_SECRET_KEY_RAW = Play.current.configuration.getString("A_S_K").get
-
-    val AWS_ACCESS_KEY = ConversionUtility.decodeMe(AWS_ACCESS_KEY_RAW)
-    val AWS_SECRET_KEY = ConversionUtility.decodeMe(AWS_SECRET_KEY_RAW)
-    val awsCredentials = new BasicAWSCredentials(AWS_ACCESS_KEY, AWS_SECRET_KEY)
-    val s3Client = new AmazonS3Client(awsCredentials);
+    val s3Client = fetchS3Client
     val putObjectRequest = new PutObjectRequest(bucketName, profilePicName, profilePic, new ObjectMetadata)
-    if (flag == true) {
+    if (flag) updateProgressStatus(putObjectRequest, totalFileSize, userId)
+
+    s3Client.putObject(putObjectRequest)
+  }
+  
+  
+  private def updateProgressStatus(putObjectRequest:PutObjectRequest, totalFileSize:Double, userId:String) = {
+    
       putObjectRequest.setProgressListener(new ProgressListener {
         @Override
         def progressChanged(progressEvent: ProgressEvent) {
+          println("**********************************************************************")
           totalByteRead += progressEvent.getBytesTransfered
           percentage = ((totalByteRead / totalFileSize) * 100).toInt
           //Setting the progress status
-          ProgressBar.serProgressBar(userId, percentage)
+          ProgressBar.setProgressBar(userId, percentage)
           if (progressEvent.getEventCode == ProgressEvent.COMPLETED_EVENT_CODE) {
             println("completed  ******")
           }
         }
 
       });
-    }
-
-    s3Client.putObject(putObjectRequest)
+    
   }
   
-  def uploadFileToAmazon(profilePicName: String, profilePic: File, totalFileSize: Double, userId: String) {
-    val bucketName = "BeamStream"
+  private def fetchS3Client = {
     val AWS_ACCESS_KEY_RAW = Play.current.configuration.getString("A_A_K").get
     val AWS_SECRET_KEY_RAW = Play.current.configuration.getString("A_S_K").get
 
     val AWS_ACCESS_KEY = ConversionUtility.decodeMe(AWS_ACCESS_KEY_RAW)
     val AWS_SECRET_KEY = ConversionUtility.decodeMe(AWS_SECRET_KEY_RAW)
     val awsCredentials = new BasicAWSCredentials(AWS_ACCESS_KEY, AWS_SECRET_KEY)
-    val s3Client = new AmazonS3Client(awsCredentials);
-
+    new AmazonS3Client(awsCredentials)
+  }
+ 
+  
+  def uploadFileToAmazon(profilePicName: String, profilePic: File, totalFileSize: Double, userId: String) {
+    val bucketName = "BeamStream"
+    val s3Client = fetchS3Client
     val putObjectRequest = new PutObjectRequest(bucketName, profilePicName, profilePic)
-
-    putObjectRequest.setProgressListener(new ProgressListener {
-      @Override
-      def progressChanged(progressEvent: ProgressEvent) {
-        totalByteRead += progressEvent.getBytesTransfered
-        percentage = ((totalByteRead / totalFileSize) * 100).toInt
-        ProgressBar.serProgressBar(userId, percentage)
-        if (progressEvent.getEventCode == ProgressEvent.COMPLETED_EVENT_CODE) {
-          println("completed  ******")
-        }
-      }
-
-    });
-
+    updateProgressStatus(putObjectRequest, totalFileSize, userId)
     s3Client.putObject(putObjectRequest)
   }
 }
@@ -148,8 +140,9 @@ class AmazonUpload {
 object ProgressBar {
 
   var progressMap: Map[String, Int] = Map()
-  def serProgressBar(userId: String, progress: Int) {
+  def setProgressBar(userId: String, progress: Int) {
     progressMap += (userId -> progress)
+     println("Setting in Map-->"+progressMap.get(userId).get)
 
   }
 
