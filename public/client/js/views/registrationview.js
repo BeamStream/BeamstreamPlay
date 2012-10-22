@@ -75,6 +75,7 @@ BS.RegistrationView = Backbone.View.extend({
     	   					//set status for school back page
     	   					localStorage["resistrationPage"] = "";
     						
+    	   				    BS.user.set('loggedin', true);
     	   					// navigate to main stream page
     	   					localStorage["schoolFromPrev"] = $('#school-name').val();
     	   					BS.AppRouter.navigate("streams", {
@@ -173,7 +174,7 @@ BS.RegistrationView = Backbone.View.extend({
 						localStorage["editSchool"] = "false";
 						//set status for school back page
 						localStorage["resistrationPage"] = "basic";
-	   					 
+						BS.user.set('loggedin', true);
 						localStorage["schoolFromPrev"] = $('#school-name').val();
 						
 						// navigate to main stream page

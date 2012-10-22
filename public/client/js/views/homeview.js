@@ -108,7 +108,10 @@ BS.NavView = Backbone.View.extend({
 				success : function(datas) {
 					 localStorage.clear();  
 					 localStorage["regInfo"] = '';
-//					 BS.user.set('loggedin', false);
+					 
+					 BS.user.set('loggedin', false);
+				 
+					 
 					 $('#middle-content').children().detach();
 					 BS.AppRouter.navigate("login", {trigger: true});
 				}

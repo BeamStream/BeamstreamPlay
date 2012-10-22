@@ -93,7 +93,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 		    	  			    localStorage["resistrationPage"] ='';
 	    						localStorage["editSchool"] = "true";
 	    						localStorage["schoolFromPrev"] = $('#school-name').val();
-	    						
+	    						BS.user.set('loggedin', true);
 	    	   					// navigate to main stream page
 	    	   					$(".star").hide();
 	    	   					BS.AppRouter.navigate("streams", {
@@ -231,7 +231,7 @@ BS.MediaRegistrationView = Backbone.View.extend({
 								localStorage["resistrationPage"] ="media";
 								
 	    						localStorage["editSchool"] = "false";
-								
+	    						BS.user.set('loggedin', true);
 								// save school name 
 								localStorage["schoolFromPrev"] = $('#school-name').val();
 								 
