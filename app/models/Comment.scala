@@ -97,7 +97,7 @@ object Comment {
     var allCommentsForAModel: List[Comment] = List()
     for (commentId <- comments) {
       val comment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList
-      allCommentsForAModel ++= comment
+      if (!comment.isEmpty) allCommentsForAModel ++= comment
     }
     allCommentsForAModel
   }
