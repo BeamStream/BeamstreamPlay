@@ -933,14 +933,14 @@ BS.StreamView = Backbone.View.extend({
 					    			 $('#'+messageId+'-cmtCount').text(commentCount-1);
 					    		 }
 					    		 $('#'+messageId+'-commentlists li#'+commentId).remove();
-					    		 $('#comment-dialog-'+commentId).dialog('destroy');
+					    		 $('#comment-dialog-'+commentId).dialog('close');
 			                 }
 			              });
 		
 	                  
 	                 },
 	                 "Cancel": function() { 
-	                	 $('#comment-dialog-'+commentId).dialog('destroy');
+	                	 $('#comment-dialog-'+commentId).dialog('close');
 		              },
 		        }
 	         
