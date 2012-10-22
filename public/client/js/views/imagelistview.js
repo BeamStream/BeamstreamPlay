@@ -1,6 +1,6 @@
 BS.ImageListView = Backbone.View.extend({
-    
-        events:{
+            
+            events:{
                 "click a#file-type" : "showFilesTypes",
                 "click ul.file-type li a" : "hideList",
                 "click #prevslid" : "previous",
@@ -10,31 +10,31 @@ BS.ImageListView = Backbone.View.extend({
                 "click .show_rockers" : "showImageRockers"
              },
     
-        initialize:function(){
-            this.source = $("#tpl-docsview").html();
-            this.template = Handlebars.compile(this.source);
-            this.pictres();
-        },
-    
-        render:function (eventName) {
-            $(this.el).html(this.template);
-            return this;
+            initialize:function(){
+                this.source = $("#tpl-docsview").html();
+                this.template = Handlebars.compile(this.source);
+                this.pictres();
             },
+    
+            render:function (eventName) {
+                $(this.el).html(this.template);
+                return this;
+                },
             
-         /*
-         * function to display all pictures
-         */               
-        pictres : function()
-            {       
-            var i = 1;
-            $('#content').children().detach();
-            var self = this;
-            var arraypictures = new Array();
-            var content='';
-            var coverpicture;            
-            BS.user.fetch({ success:function(e) {                   
+            /*
+            * function to display all pictures
+            */               
+            pictres : function()
+                {       
+                var i = 1;
+                $('#content').children().detach();
+                var self = this;
+                var arraypictures = new Array();
+                var content='';
+                var coverpicture;            
+                BS.user.fetch({ success:function(e) {                   
                                   /* get profile images for user */
-                $.ajax({
+                    $.ajax({
                         type : 'GET',
                         url :  BS.allProfileImages,
                         dataType : "json",
@@ -60,16 +60,15 @@ BS.ImageListView = Backbone.View.extend({
                         $("area[rel^='prettyPhoto']").prettyPhoto();
                         $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:1000, autoplay_slideshow: true});
                         $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
-  
+                        self.pagination();
                       }
                });
 
             }});
-
-           // $('#content').html(BS.listDocsView.el);
-        },
+            },
+            
             /*
-            * pagination for docsview
+            * pagination for Imagelistview
             *
             */
             pagination: function(){
@@ -90,9 +89,7 @@ BS.ImageListView = Backbone.View.extend({
                     $('#page_navigation-count').html(navigation_count);  
                     $('#nextslid').html(navigation_next);                       //next slider icon   
                     $('#page_navigation-count .page_link:first').addClass('active_page');  
-
                     $('#grid').children().css('display', 'none');  
-
                     $('#grid').children().slice(0, show_per_page).css('display', 'block');  
             },
             
@@ -100,19 +97,18 @@ BS.ImageListView = Backbone.View.extend({
             * Part of pagination and is used to show previous page
             *
             */
-           previous: function (){  
+           previous: function (){ 
                     new_page = parseInt($('#current_page').val()) - 1;  
                     if($('.active_page').prev('.page_link').length==true){  
                     this.go_to_page(new_page);  
-                    }  
-  
+                    }   
             },  
             
             /*
             * Part of pagination and is used to show next page
             *
             */
-            next:function (){    
+            next:function (){
                 new_page = parseInt($('#current_page').val()) + 1;  
                 if($('.active_page').next('.page_link').length==true){  
                     this.go_to_page(new_page);  
@@ -135,32 +131,32 @@ BS.ImageListView = Backbone.View.extend({
             /**
             * show file types
             */
-        showFilesTypes :function(eventName){
-    	    eventName.preventDefault();
-            $('.file-type').slideDown();
-    	    }, 
-            
+            showFilesTypes :function(eventName){
+                eventName.preventDefault();
+                $('.file-type').slideDown();
+                }, 
+                
             /**
              * hide file types
             */
-        hideList : function(eventName){
-            eventName.preventDefault();
-            $('.file-type').slideUp();
-    	    },
+            hideList : function(eventName){
+                eventName.preventDefault();
+                $('.file-type').slideUp();
+                },
             
             /*Edit the Image title
             * 
             */  
-        editImgTitle :function(eventName){  
-//          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
-            var datas = {
-				"type" : 'Image',
-				"title" : '',
-                                "description" :''
+            editImgTitle :function(eventName){  
+//              var docId = eventName.currentTarget.id;             // id to get corresponding docs   
+                var datas = {
+                    "type" : 'Image',
+                    "title" : '',
+                    "description" :''
 			  }
-            BS.mediaeditview = new  BS.MediaEditView();
-            BS.mediaeditview.render(datas);
-            $('#gdocedit').html(BS.mediaeditview.el);
+                BS.mediaeditview = new  BS.MediaEditView();
+                BS.mediaeditview.render(datas);
+                $('#gdocedit').html(BS.mediaeditview.el);
 
             
             
@@ -193,56 +189,53 @@ BS.ImageListView = Backbone.View.extend({
            /**
             * Rock profile Images
             */
-          rocksImages:function(eventName){
-        	   
-            eventName.preventDefault();
-            var element = eventName.target.parentElement;
-            var imageId =$(element).attr('id');
+            rocksImages:function(eventName){      	   
+                eventName.preventDefault();
+                var element = eventName.target.parentElement;
+                var imageId =$(element).attr('id');
     	  	// post documentId and get Rockcount 
-            $.ajax({
-    	               type: 'POST',
-    	               url:BS.rockTheUsermedia,
-    	               data:{
-    	            	   userMediaId:imageId
-    	               },
-    	               dataType:"json",
-    	               success:function(data){	              	 
+                $.ajax({
+                    type: 'POST',
+                    url:BS.rockTheUsermedia,
+                    data:{
+    	            userMediaId:imageId
+                    },
+                    dataType:"json",
+                    success:function(data){	              	 
     	              	// display the rocks count  
-    	            	$('#'+imageId+'-activities li a.hand-icon').html(data);	   
-    	               }
-    	     });
-         },
+                    $('#'+imageId+'-activities li a.hand-icon').html(data);	   
+    	            }
+                });
+            },
          
-         /**
-          * show profile image Rockers list 
-          */
-         showImageRockers :function(eventName){
-      	    eventName.preventDefault();
-      	    var element = eventName.target.parentElement; 
-            var imageId =$(element).closest('div').parent('div').attr('id');
+            /**
+            * show profile image Rockers list 
+            */
+            showImageRockers :function(eventName){
+                eventName.preventDefault();
+                var element = eventName.target.parentElement; 
+                var imageId =$(element).closest('div').parent('div').attr('id');
             
-      	    $.ajax({
-                 type: 'POST',
-                 url:BS.giveMeRockersOfUserMedia,
-                 data:{
-                	 userMediaId:imageId
-                 },
-                 dataType:"json",
-                 success:function(data){
-                	 
+                $.ajax({
+                    type: 'POST',
+                    url:BS.giveMeRockersOfUserMedia,
+                    data:{
+                        userMediaId:imageId
+                    },
+                    dataType:"json",
+                success:function(data){ 
                 	  // prepair rockers list
-                  var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">Who Rocked it ?</div><ul class="rock-list">';
-                	_.each(data, function(rocker) { 					 
-                		ul+= '<li>'+rocker+'</li>';
-    			    });
-                	ul+='</ul>';   
-                	$('#'+imageId+'-docRockers-list').fadeIn("fast").delay(1000).fadeOut('fast'); 
-                	$('#'+imageId+'-docRockers-list').html(ul);
-
+                var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">Who Rocked it ?</div><ul class="rock-list">';
+                _.each(data, function(rocker) { 					 
+                ul+= '<li>'+rocker+'</li>';
+                });
+                ul+='</ul>';   
+                $('#'+imageId+'-docRockers-list').fadeIn("fast").delay(1000).fadeOut('fast'); 
+                $('#'+imageId+'-docRockers-list').html(ul);
                  }
               });
       	   
-         },
+         }
 
         
             

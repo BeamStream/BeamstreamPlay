@@ -2,8 +2,8 @@ BS.ForgotPasswordView = Backbone.View.extend({
 
 	
 	events: {
+		
 	      "click #recover-pwd": "postEmailId",
-	       
 	 },
 	
     initialize:function () {
@@ -47,7 +47,6 @@ BS.ForgotPasswordView = Backbone.View.extend({
 				    			 alert("Password has been sent to your emailId");
 				    			 
 				    			// navigate to main login page after a tome period
-				    			 $(".star").hide();
 				    			 setTimeout(function() {
 				    				 BS.AppRouter.navigate("login", {trigger: true});
 				    			 }, 500);
@@ -58,17 +57,14 @@ BS.ForgotPasswordView = Backbone.View.extend({
 				    			 alert("No User Found with this emailId");
 				    							
 				    		}
-				    		$('#error').html(" ");
 			    	 } 
 			    });
          }
     	 else
     	 {
-    		 $('#error').html("Invalid email address");
+    		 $('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+     		 $('.error-msg').html("Invalid email address");
     	 }
-    	
-    	
     }
-  
   
 });

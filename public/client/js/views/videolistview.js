@@ -216,7 +216,7 @@ BS.VideoListView = Backbone.View.extend({
                   }
                });
        	   
-          },
+          }
             
 })
 

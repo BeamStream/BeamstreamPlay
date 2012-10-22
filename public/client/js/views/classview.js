@@ -20,7 +20,6 @@ BS.ClassView = Backbone.View.extend({
 		
 		sClasses = 1;
 		console.log('Initializing Class View');
-//		BS.saveStatus = false;
 		this.schools = new BS.SchoolCollection();
 		this.schools.bind("reset", this.renderSchools, this);
 		 
@@ -33,7 +32,6 @@ BS.ClassView = Backbone.View.extend({
 		this.template = Handlebars.compile(this.source);
 		 
 	},
- 
  
 	/**
 	 * save/post class info details.
@@ -76,7 +74,8 @@ BS.ClassView = Backbone.View.extend({
 							}
 							else
 							{
-//								$('#error').html(data.message);
+								$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+			            		$('.error-msg').html("Invalid");
 							}
 							
 						}
@@ -84,13 +83,15 @@ BS.ClassView = Backbone.View.extend({
 				}
 				else
 				{
-					$('#error').html("Please fill all details for a class");
+					$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+            		$('.error-msg').html("Please fill all details for a class");
 				}
 				
 		   }
 			else
 		    {    
-				$('#error').html("You must enter atleast one class");
+				$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+        		$('.error-msg').html("You must enter atleast one class");
 		    }
  
 	},
@@ -102,7 +103,6 @@ BS.ClassView = Backbone.View.extend({
 	    
 		/* check whether its a edit class or not */
     	var edit = "";
-//    	if(BS.editClass)
     	if(localStorage["editClass"] == "true")
     	{
     		edit = "yes";
@@ -120,7 +120,6 @@ BS.ClassView = Backbone.View.extend({
 		}
 		 
 		$(this.el).html(this.template(sCount));
-		 
 		return this;
 	},
 	
@@ -172,7 +171,6 @@ BS.ClassView = Backbone.View.extend({
 						{
 							$('.studentno-popup-class').fadeOut("medium"); 
 							self.fetchSchools();
-//							BS.editProfile = false;
 							localStorage["editProfile"] = "false";
 							BS.classBack = true;
 							localStorage["classInfo"] =JSON.stringify(data);
@@ -182,14 +180,16 @@ BS.ClassView = Backbone.View.extend({
 						}
 						else
 						{
-//							$('#error').html(data.message);
+							$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+			        		$('.error-msg').html("Invalid");
 						}
 					}
 				});
 		   }
 			else
 		    { 
-				$('#error').html("You must enter atleast one class");
+				$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+        		$('.error-msg').html("You must enter atleast one class");
 		    }
  
 	},
@@ -225,7 +225,6 @@ BS.ClassView = Backbone.View.extend({
 	 * Add classes for another school
 	 */
 	addSchool : function(eventName) {
-		
 		 
 		sClasses++;
 		eventName.preventDefault();
@@ -268,7 +267,6 @@ BS.ClassView = Backbone.View.extend({
 				var cId;
 				var sId =[];
 				var classModel = new BS.Class();
-				
 					 
 				if($('#class-code-' + i + '-' + j).val() !="" && $('#class-name-' + i + '-' + j).val() !="" && $('#date-started-' + i + '-' + j).val() != "")
 				{
@@ -299,7 +297,6 @@ BS.ClassView = Backbone.View.extend({
 						className : $('#class-name-' + i + '-' + j).val(),
 						startingDate : $('#date-started-' + i + '-' + j).val(),
 						classType : $('#semester-' + i + '-' + j).val(),
-//						streams  :  sId
 					});
 					classes.add(classModel);
 				}
@@ -317,8 +314,6 @@ BS.ClassView = Backbone.View.extend({
 		if(validClass == true)
 		{
 			var classDetails = JSON.stringify(classes);
-			
-			
 			return classDetails;
 		}
 		else
@@ -332,23 +327,28 @@ BS.ClassView = Backbone.View.extend({
      * back button function
      */
     backToPrevious :function(eventName){
+    	
       eventName.preventDefault();
       localStorage["schoolFromPrev"] = '';
       BS.AppRouter.navigate("school", {trigger: true});
+      
     },
     
     /**
 	 * display other values on mouse select - class code auto complete
 	 */
 	getValuesForCode :function(eventName){
+		
 		var id = eventName.target.id;
 		var text = $('#'+id).val(); 
 		var self = this;
+		
 		// get id to identify corresponding row 
 		var identity = id.replace(/[^\d.,]+/,'');
 		var rowId = identity.replace(/([-]\d+)$/,'');
 		var selectedSchoolId = $('#school-' + rowId).val() ;
 		self.displayFiledsForCode(text,identity);
+		
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
@@ -370,10 +370,8 @@ BS.ClassView = Backbone.View.extend({
 				$('#'+id).autocomplete({
 					    source: BS.classCodes,
 					    select: function(event, ui) {
-					    	
 					    	var text = ui.item.value; 
 					    	self.displayFiledsForCode(text,identity);
-					    	
 					    }
 				 });
 			}
@@ -383,7 +381,6 @@ BS.ClassView = Backbone.View.extend({
 	
 	/**
 	 * populate  List of class codes - matching a class code
-	 * 
 	 */
 	populateClasses :function(eventName){
 		var id = eventName.target.id;
@@ -396,6 +393,7 @@ BS.ClassView = Backbone.View.extend({
 		var rowId = identity.replace(/([-]\d+)$/,'');
 		var selectedSchoolId = $('#school-' + rowId).val() ;
 		self.displayFiledsForCode(text,identity);
+		
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
@@ -412,7 +410,6 @@ BS.ClassView = Backbone.View.extend({
 				_.each(datas, function(data) {
 					BS.classCodes.push(data.classCode);
 		        });
-//				$('.ac_results').css('width', '160px');
 				
 				//set auto populate functionality for class code
 				$('#'+id).autocomplete({
@@ -458,7 +455,6 @@ BS.ClassView = Backbone.View.extend({
 		 /* populate other class fields*/
 		 if(classStatus == true)
 		 {
-//			 BS.newClassCode = false;
 			 this.classId = classId;
 			 
 			 $('#h-class-name-'+identity).val(classId);
@@ -479,7 +475,6 @@ BS.ClassView = Backbone.View.extend({
 				 $('#div-school-type-'+identity+' a span.selectBox-label').html("Semester");
 			 }
 			 
-			 
 			 /* Post streamId to get no of users attending class*/
 			 $.ajax({
 					type : 'POST',
@@ -491,18 +486,14 @@ BS.ClassView = Backbone.View.extend({
 					success : function(data) {
 						  
 						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
-//			        	 $('#student-number').fadeIn("medium").delay(2000).fadeOut('medium'); 
 			        	 $('#student-number-'+identity).fadeIn("medium"); 
 			        	 $('#student-number-'+identity).html(ul);
 
 					}
 			 });
-
-
 		 }
 		 else
 		 {
-				 
 				 this.classId =1;
 				 $('#student-number-'+identity).fadeOut("medium"); 
 //				 $('#class-name-'+identity).val("");
@@ -519,15 +510,15 @@ BS.ClassView = Backbone.View.extend({
     	var id = eventName.target.id;
     	var text = $('#'+id).val();
     	var self =this;
+    	
     	// get id to identify corresponding row 
 		var identity = id.replace(/[^\d.,]+/,'');
 //		this.displayFieldsForName(text,identity);
 		
-		
-		
 		var rowId = identity.replace(/([-]\d+)$/,'');
 		var selectedSchoolId = $('#school-' + rowId).val() ;
 		self.displayFieldsForName(text,identity);
+		
 		/* post the text that we type to get matched classes */
 		 $.ajax({
 			type : 'POST',
@@ -676,7 +667,6 @@ BS.ClassView = Backbone.View.extend({
 		 {
 			  
 		     this.classId =1;
-//		     
 		     $('#student-number-'+identity).fadeOut("medium"); 
 //		     $('#class-code-'+identity).val("");
 //			 $('#date-started-'+identity).val($.datepicker.formatDate('mm/dd/yy', new Date()));
@@ -690,14 +680,17 @@ BS.ClassView = Backbone.View.extend({
      * close the screen
      */
     closeScreen : function(eventName){
+    	
   	  eventName.preventDefault(); 
   	  $(".star").hide();
   	  BS.AppRouter.navigate('streams', {trigger: true});
+  	  
     },
     /**
      * clear all classe fields when we select another school
      */
     clearAllClasses : function(eventName){
+    	
     	var Id = eventName.target.id;
     	var identity = Id.replace(/[^\d.,]+/,'');
     	console.log(identity);
@@ -713,7 +706,9 @@ BS.ClassView = Backbone.View.extend({
     	}
     },
     
-    /* fetch all schools */
+    /**
+     *  fetch all schools 
+     */
     fetchSchools : function(){
     	localStorage["schoolList"] = '';
     	 $.ajax({
@@ -728,8 +723,6 @@ BS.ClassView = Backbone.View.extend({
  				localStorage["schoolList"] =select;
  			}
  		});
-     
-    	
     }
   
 });

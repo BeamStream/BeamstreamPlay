@@ -4,7 +4,6 @@ BS.verifyEmailView = Backbone.View.extend({
 		 "click #no-schoolmail" : "addSchoolEmail",
 		 "click #register" : "registration",
 		 "change #iam" : "changeEmailText"
-	      
 	 },
 	
     initialize:function () {
@@ -20,6 +19,7 @@ BS.verifyEmailView = Backbone.View.extend({
         $(this.el).html(this.template());
         return this;
     },
+    
     /**
      * add school mail 
      */
@@ -36,7 +36,6 @@ BS.verifyEmailView = Backbone.View.extend({
     		$('#schoolmail-info').hide();
     		$('#row-line').hide();
     	}
-         
     },
      
    
@@ -46,25 +45,17 @@ BS.verifyEmailView = Backbone.View.extend({
     registration:function (eventName) {
     	
     	eventName.preventDefault();
-//    	$.loader({
-//			className:"blue-with-image-2",
-//			content:''
-//		});
-    	
-//    	var validate = jQuery('#email-verify').validationEngine('validate');
     	var validate = $("#email-verify").valid();
     	if(validate == true)
 	    {
     		if($('#iam').val() == "")
     		{
-    			$('#error').html("Please select I'm field");
+    			$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+        		$('.error-msg').html("Please select I'm field");
     		}
     		else
     		{
-    			
-	    		 
 		    	var mailDetails = this.getdata();
-		    	 
 		    	/* post email verification details */
 				$.ajax({
 					type : 'POST',
@@ -77,35 +68,30 @@ BS.verifyEmailView = Backbone.View.extend({
 						if(data.status == "Success") 
 		   			    {
 							    $('.forgot-pass').hide();
-							    
 								var source = $("#tpl-verify-popup").html();
 								var template = Handlebars.compile(source);
-//								$.loader('close');
 								$("#school-popup").html(template);
 		   			     }
 						 else if(data.status == "Failure")
 						 {
-							 $('#error').html("Email is already taken");
+							 $('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+				        	 $('.error-msg').html("Email is already taken");
 							 $('.forgot-pass').show();
 						 }
 						 else
 						 {
 							 console.log("Error");
 						 }
-						  
 					}
 			     });
     		}
 	    }
     	else
     	{
-    		$('#error').html("Only use emails that are assosiated with schools and organozations");
-//    		console.log("validation: " + $.validationEngine.defaults.autoHidePrompt);
+    		$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+        	$('.error-msg').html("Only use emails that are assosiated with schools and organozations");
     	}
-		 
-         
     },
-    
     
     /**
      * get form data 
@@ -116,15 +102,13 @@ BS.verifyEmailView = Backbone.View.extend({
     	var wEmail =$('#email').val();
     	var emailModel = new BS.EmailVerification();
     	emailModel.set({
-			
+    		
     		iam :  iam,
     		email : wEmail,
-    	 
 			 
 		});
     	var mailDetails = JSON.stringify(emailModel);
     	return mailDetails;
-    	
     },
     
     /**

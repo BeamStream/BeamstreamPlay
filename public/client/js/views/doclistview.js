@@ -1,32 +1,34 @@
 BS.DocListView = Backbone.View.extend({
     
-    events:{
+            events:{
                 "click .mediapopup" : "showDocPopup",
-                "click .doctitle" : "editPdfTitle"
-         },     
+                "click .doctitle" : "editPdfTitle",
+                "click #prevslid" : "previous",
+                "click #nextslid" : "next"
+                },     
     
-    initialize:function() {
-            console.log("google docs view is loded");
-            this.docsList();   
-            this.source = $("#tpl-docsview").html();
-            this.template = Handlebars.compile(this.source);
-        },
+            initialize:function() {
+                console.log("google docs view is loded");
+                this.docsList();   
+                this.source = $("#tpl-docsview").html();
+                this.template = Handlebars.compile(this.source);
+                },
              
-        render:function (eventName) {
-            $(this.el).html(this.template);
-            return this;
-        },
+            render:function (eventName) {
+                $(this.el).html(this.template);
+                return this;
+                },
         
-         /*
-         *   To list the documents in the view        
-         *
-         */           
-        docsList : function(eventName)
-        {    
-            //  eventName.preventDefault();              
-            var i = 1;
-            var j=1;
-            var self = this;             
+            /*
+            *   To list the documents in the view        
+            *
+            */           
+            docsList : function(eventName)
+            {    
+                //  eventName.preventDefault();              
+                var i = 1;
+                var j=1;
+                var self = this;             
                 $.ajax({
                 type : 'GET',
                 url :  BS.getAllDOCSFilesForAUser,          
@@ -48,47 +50,107 @@ BS.DocListView = Backbone.View.extend({
                         $(".doc_comment_section").hide("slide", { direction: "up" }, 1);                        
                         i++;
                      });  
-//                 self.pagination();                                       
-                }
+                 self.pagination();                                       
+                 }
+                });                           
+                },
+            
+               /*
+                * pagination for doclistview
+                *
+                */
+                pagination: function(){
+                    var show_per_page = 16;                                     //number of <li> listed in the page
+                    var number_of_items = $('#grid').children().size();  
+                    var number_of_pages = Math.ceil(number_of_items/show_per_page);  
+                    var navigation_count='';
+                    $('#current_page').val(0);  
+                    $('#show_per_page').val(show_per_page);  
+                    var navigation_Prev = '<div class="previous_link" ></div>';  
+                    var current_link = 0;  
+                    while(number_of_pages > current_link){  
+                        navigation_count += '<a class="page_link" href="javascript:go_to_page(' + current_link +')" longdesc="' + current_link +'">'+ (current_link + 1) +'</a>';  
+                        current_link++;  
+                    }  
+                    var navigation_next = '<div class="next_link" ></div>';  
+                    $('#prevslid').html(navigation_Prev);                       //previous slider icon
+                    $('#page_navigation-count').html(navigation_count);  
+                    $('#nextslid').html(navigation_next);                       //next slider icon   
+                    $('#page_navigation-count .page_link:first').addClass('active_page');  
 
-               });
-               
-             
-            },
+                    $('#grid').children().css('display', 'none');  
+
+                    $('#grid').children().slice(0, show_per_page).css('display', 'block');  
+                },
             
-            showDocPopup :function(eventName){
+                /*
+                * Part of pagination and is used to show previous page
+                *
+                */
+                previous: function (){ 
+                    new_page = parseInt($('#current_page').val()) - 1;  
+                    if($('.active_page').prev('.page_link').length==true){  
+                    this.go_to_page(new_page);  
+                    }  
+  
+                },  
             
-            var docId = eventName.currentTarget.id;  
-            $.ajax({                                       
-                    type : 'POST',
-                    url :  BS.getOneDocs,
-                    data : {
+                /*
+                * Part of pagination and is used to show next page
+                *
+                */
+                next:function (){
+                    new_page = parseInt($('#current_page').val()) + 1;  
+                    if($('.active_page').next('.page_link').length==true){  
+                    this.go_to_page(new_page);  
+                    }  
+                },
+            
+                /*
+                * Part of pagination and is used to page setting
+                *
+                */
+                go_to_page:function (page_num){  
+                    var show_per_page = parseInt($('#show_per_page').val());  
+                    start_from = page_num * show_per_page;  
+                    end_on = start_from + show_per_page;  
+                    $('#grid').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');  
+                    $('.page_link[longdesc=' + page_num +']').addClass('active_page').siblings('.active_page').removeClass('active_page');  
+                    $('#current_page').val(page_num);  
+                },  
+           
+
+            
+                showDocPopup :function(eventName){           
+                    var docId = eventName.currentTarget.id;  
+                    $.ajax({                                       
+                        type : 'POST',
+                        url :  BS.getOneDocs,
+                        data : {
                             documentId: docId
                             },
-                    dataType : "json",
-                    success : function(docs) { 
+                        dataType : "json",
+                        success : function(docs) { 
                             var pdfdatas = {
                             "id" : docs[0].id.id,
                             "url" : docs[0].documentURL,
                             "type" : 'Docs',
                             "title" : docs[0].documentName
-			  }
-            BS.mediafilepopupview = new BS.MediaFilePopupView();
-            BS.mediafilepopupview.render(pdfdatas);            
-            $('#gdocedit').html(BS.mediafilepopupview.el);       
-                  }
-                    });      
-            
-            
-        },
+                            }
+                    BS.mediafilepopupview = new BS.MediaFilePopupView();
+                    BS.mediafilepopupview.render(pdfdatas);            
+                    $('#gdocedit').html(BS.mediafilepopupview.el);       
+                    }
+                    });                             
+                },
         
-        /*
-         *   To edit the title and description of the pdffilelist      
-         *
-         */ 
-        editPdfTitle :function(eventName){  
-          var docId = eventName.currentTarget.id;             // id to get corresponding pdf file                          
-              $.ajax({                                       
+                /*
+                *   To edit the title and description of the doclistview      
+                *
+                */ 
+                editPdfTitle :function(eventName){  
+                    var docId = eventName.currentTarget.id;             // id to get corresponding pdf file                          
+                    $.ajax({                                       
                         type : 'POST',
                         url :  BS.getOneDocs,
                         data : {
@@ -103,12 +165,12 @@ BS.DocListView = Backbone.View.extend({
                              "title" : docs[0].documentName,
                              "description" : docs[0].documentDescription
 			  }
-            BS.mediaeditview = new  BS.MediaEditView();
-            BS.mediaeditview.render(pdfdatas);
-            $('#gdocedit').html(BS.mediaeditview.el);         
-                  }
+                        BS.mediaeditview = new  BS.MediaEditView();
+                        BS.mediaeditview.render(pdfdatas);
+                        $('#gdocedit').html(BS.mediaeditview.el);         
+                        }
                     });
-            }
+                }
     
 })
 
