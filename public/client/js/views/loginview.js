@@ -58,6 +58,9 @@ BS.LoginView = Backbone.View.extend({
 										    	$.cookie('password', $("#password").val());
 							    			}
 							    			 $(".star_position").html('');
+							    			 
+							    			 BS.user.set('loggedin', true);
+							    			 
 							    			 BS.AppRouter.navigate("streams", {trigger: true});
 							    		}
 							    		else 

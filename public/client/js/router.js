@@ -21,7 +21,7 @@ BS.AppRouter = Backbone.Router.extend({
         "friendStream" :"friendStream",
         "filesMedia" : "filesMedia",
         "googledocs" : "googleDocs",
-              "docs" : "docsFromComputer", 
+        "docs" : "docsFromComputer", 
         "imagelist" : "imageList",
         "videos" : "videoList",
         "audioview": "audioList",
@@ -34,14 +34,11 @@ BS.AppRouter = Backbone.Router.extend({
     
     initialize :function() {
     	
-    	
-    	if(!BS.user )
-  			BS.user = new BS.SingleUser();
-//    	BS.user.authenticate();
+  		BS.user = new BS.SingleUser();
+    	BS.user.authenticate();
 		
     	var self = this;
     	BS.idLogin = '';
-//        BS.user = new BS.SingleUser();
         BS.mySchools = '';
     	/* calculate time from 12:00AM to 11:45PM */
     	var timeValues = new Array;
@@ -61,32 +58,7 @@ BS.AppRouter = Backbone.Router.extend({
   		        timeValues.push({"time" : time});
   		 }
   		BS.times = jQuery.parseJSON(JSON.stringify(timeValues));
-  		
-  		
-  		
-  			
-//		BS.user.on("change:loggedin", function(e) {
-//			if(e.get('loggedin') == false) {
-//				 
-//				BS.AppRouter.navigate("login", {trigger: true});
-//			}
-//			else {
-//				BS.AppRouter.navigate("streams", {trigger: true});
-//				self.mainStream();
-//			}
-//			
-//		});
-  		
-//  		BS.user.on("change:loggedin", function(e) {
-//    		if(e.get('loggedin') == false) { 
-//    			BS.user.set('loggedin', true);
-//				BS.AppRouter.navigate("login", {trigger: true});
-//			}
-//			else { 
-//				BS.user.set('loggedin', false);				
-//			}
-//  		});
-		
+
     	
     },
  
@@ -100,26 +72,17 @@ BS.AppRouter = Backbone.Router.extend({
      */
     
     login: function() {
-    	
-//    	console.log(BS.user.get('loggedin'));
-//    	if(BS.user.get('loggedin') == true) {    		
-//    		BS.AppRouter.navigate("streams", {trigger: true});
-//    		return;
-//		}
-//    	var self =this;
-//    	console.log(BS.user.get('loggedin'));
-//    	if(BS.user.get('loggedin') == true) {
-//    		  
-//				BS.AppRouter.navigate("streams", {trigger: true});
-//				
-//			}
-//			else
-//			{
+    	 var self =this;
+    	  
+    	 BS.user.fetch({ success:function(e) {
+    		 
+			if(e.get('loggedin') == false) {
+    
 				$("#dialog").dialog('close');
 		    	 localStorage.clear();
 		    	 localStorage["idLogin"]= '';
 		    	 $('#school-popup').children().detach(); 
-		    	 var self =this;
+//		    	 var self =this;
 		    	 BS.loginView = new BS.LoginView();
 		    	 BS.loginView.render();
 		     
@@ -159,159 +122,169 @@ BS.AppRouter = Backbone.Router.extend({
 					  
 					 $('.janrainContent div+div').remove();
 				 }, 1000);
-//			}
-			 
+		 
+			}
+			else {
+				console.log("Login page => Stream page");
+				BS.AppRouter.navigate("streams", {trigger: true});
+			}
+			
+		}});
 		
-    	 
-	    	 
- 
+  
     },
    
     /**
      * recover password/Account
      */
     recoverAccount: function() {
-    	 $("#dialog").dialog('close');
-    	 $('#school-popup').children().detach(); 
-    	  
-    	 BS.forgotPasswordView = new BS.ForgotPasswordView();
-    	 BS.forgotPasswordView.render();
-     
-         $('#school-popup').html(BS.forgotPasswordView.el);  
-         $(".modal select:visible").selectBox();
-         $("#forgot-pass-form").validate();
-         $(".checkbox").dgStyle();
-         $(".signin_check").dgStyle();
+    	
+    	 BS.user.fetch({ success:function(e) {
+    		 
+ 			if(e.get('loggedin') == false) {
+ 				
+		    	 $("#dialog").dialog('close');
+		    	 $('#school-popup').children().detach(); 
+		    	  
+		    	 BS.forgotPasswordView = new BS.ForgotPasswordView();
+		    	 BS.forgotPasswordView.render();
+		     
+		         $('#school-popup').html(BS.forgotPasswordView.el);  
+		         $(".modal select:visible").selectBox();
+		         $("#forgot-pass-form").validate();
+		         $(".checkbox").dgStyle();
+		         $(".signin_check").dgStyle();
+ 			}
+			else {
+				
+				BS.AppRouter.navigate("streams", {trigger: true});
+			}
+			
+		}});
     },
     /**
      * display School Info screen
      */
     schoolReg:function () {
-    	 
-//    	BS.user.on("change:loggedin", function(e) {
-//			if(e.get('loggedin') == false) {
-//				BS.AppRouter.navigate("login", {trigger: true});
-//			}
-//			 
-//		});
-//    	if(BS.user.get('loggedin') == false) {
-//			 
-//			BS.AppRouter.navigate("login", {trigger: true});
-//			return;
-//		}
     	
-    	
-    	$("#dialog").dialog('close'); 
-        if(localStorage["schoolInfo"])
-	    {
-        	 current = 0;
-	         BS.schoolView = new BS.SchoolView();
-	         BS.schoolView.render();
-	         $('#school-popup').html(BS.schoolView.el);
-	         var schoolInfo =JSON.parse(localStorage["schoolInfo"]);
-	         $('#school-list').html('');	
-	         
-	        _.each(schoolInfo, function(info) {
-	        	current++;
-				var datas = {
-				"data" : info,
-				"number" : current
-			 }
-			var source = $("#tpl-school").html();
-			var template = Handlebars.compile(source);
-			$('#school-list').append(template(datas));
-//			$("#school-name-1").attr("disabled", "disabled"); 
-			
-			if(info.degree != "Other")
-			{
-				$('#other-degrees-'+current).hide();
-			}
-			
-			$('#year-'+current).val(info.year);
-			$('#degreeprogram-'+current).val(info.degree);
-			$('#graduated-'+current).val(info.graduated);
-			if(info.graduated == "yes")
-			{
-				$('#degree-exp-'+current).hide();
-				$('#calendar-'+current).val(info.graduationDate);
-			
-			}
-			else
-			{
-				$('#cal-'+current).hide();
-				$('#degree-expected-'+current).val(info.degreeExpected);
-			
-			}
-			 
-			$(".modal select:visible").selectBox();
-			$('.modal .datepicker').datepicker();
-			$('.datepicker').css('z-index','99999');
-			
-	        });
+    	  
+   	 BS.user.fetch({ success:function(e) {
+		  if(e.get('loggedin') == true) {
+	    	
+		    	$("#dialog").dialog('close'); 
+		        if(localStorage["schoolInfo"])
+			    {
+		        	 current = 0;
+			         BS.schoolView = new BS.SchoolView();
+			         BS.schoolView.render();
+			         $('#school-popup').html(BS.schoolView.el);
+			         var schoolInfo =JSON.parse(localStorage["schoolInfo"]);
+			         $('#school-list').html('');	
+			         
+			        _.each(schoolInfo, function(info) {
+			        	current++;
+						var datas = {
+						"data" : info,
+						"number" : current
+					 }
+					var source = $("#tpl-school").html();
+					var template = Handlebars.compile(source);
+					$('#school-list').append(template(datas));
+		//			$("#school-name-1").attr("disabled", "disabled"); 
+					
+					if(info.degree != "Other")
+					{
+						$('#other-degrees-'+current).hide();
+					}
+					
+					$('#year-'+current).val(info.year);
+					$('#degreeprogram-'+current).val(info.degree);
+					$('#graduated-'+current).val(info.graduated);
+					if(info.graduated == "yes")
+					{
+						$('#degree-exp-'+current).hide();
+						$('#calendar-'+current).val(info.graduationDate);
+					
+					}
+					else
+					{
+						$('#cal-'+current).hide();
+						$('#degree-expected-'+current).val(info.degreeExpected);
+					
+					}
+					 
+					$(".modal select:visible").selectBox();
+					$('.modal .datepicker').datepicker();
+					$('.datepicker').css('z-index','99999');
+					
+			        });
+			        
+			        if(localStorage["schoolFromPrev"] != '')
+			        {
+			        	$('#school-name-1').val( localStorage["schoolFromPrev"]);  // transport school name from sign up page to school screen
+			         	$('#prev-school').attr("value", localStorage["schoolFromPrev"]);
+			         	$('#associatedId-1').attr("value", localStorage["newSchoolId"]);
+			         	
+			        }
+			       
+			            
+			    }
+		        else
+			     {
+		        	 localStorage["schoolInfo"] = ''; 
+			         BS.schoolView = new BS.SchoolView();
+			         BS.schoolView.render();
+			         
+			         $('#school-popup').html(BS.schoolView.el);
+			         
+			         current = 1;
+			         if(localStorage["schoolFromPrev"] != '')
+			         {
+			        	$('#school-name-1').val(localStorage["schoolFromPrev"]);  // transport school name from sign up page to school screen
+			        	$('#prev-school').attr("value",localStorage["schoolFromPrev"]);
+			        	 
+			        	 $.ajax({
+				        	   type : 'POST',
+				 			   url : BS.autoPopulateSchools,
+				 			   data : {
+				 				   data : localStorage["schoolFromPrev"],
+				 			   },
+				 			   dataType : "json",
+							   success : function(datas) {
+									_.each(datas, function(data) {
+										 if(data.schoolName == localStorage["schoolFromPrev"])
+								    	  {
+											 
+								    		  var sId = data.id.id;
+								    		  $('#school-id-1').attr('value',1);
+								    		  $('#associatedId-1').attr('value',sId);
+								    		 
+								    	  }
+							        });
+								}
+							});
+		 
+			         }
+			        
+			            /* hide some fields on page load */
+			            $('#degree-exp-1').hide();
+			            $('#cal-1').hide();
+			            $('#other-degrees-1').hide();
+			            
+			     }
+		        $(".modal select:visible").selectBox();
+		        $('.modal .datepicker').datepicker();
+		        $('.datepicker').css('z-index','99999');
+		        $("#school-form").validate();
 	        
-	        if(localStorage["schoolFromPrev"] != '')
-	        {
-	        	$('#school-name-1').val( localStorage["schoolFromPrev"]);  // transport school name from sign up page to school screen
-	         	$('#prev-school').attr("value", localStorage["schoolFromPrev"]);
-	         	$('#associatedId-1').attr("value", localStorage["newSchoolId"]);
-	         	
-	        }
-	       
-	            
-	    }
-        else
-	     {
-        	 localStorage["schoolInfo"] = ''; 
-	         BS.schoolView = new BS.SchoolView();
-	         BS.schoolView.render();
-	         
-	         $('#school-popup').html(BS.schoolView.el);
-	         
-	         current = 1;
-//	         if(BS.schoolFromPrev)
-	         if(localStorage["schoolFromPrev"] != '')
-	         {
-	        	$('#school-name-1').val(localStorage["schoolFromPrev"]);  // transport school name from sign up page to school screen
-	        	$('#prev-school').attr("value",localStorage["schoolFromPrev"]);
-//	        	$("#school-name-1").attr("disabled", "disabled"); 
-	        	 
-	        	 $.ajax({
-		        	   type : 'POST',
-		 			   url : BS.autoPopulateSchools,
-		 			   data : {
-		 				   data : localStorage["schoolFromPrev"],
-		 			   },
-		 			   dataType : "json",
-					   success : function(datas) {
-							_.each(datas, function(data) {
-								 if(data.schoolName == localStorage["schoolFromPrev"])
-						    	  {
-									 
-						    		  var sId = data.id.id;
-						    		  $('#school-id-1').attr('value',1);
-						    		  $('#associatedId-1').attr('value',sId);
-						    		 
-						    	  }
-								 
-								  
-					        });
-						}
-					});
- 
-	         }
-	        
-	
-	            /* hide some fields on page load */
-	            $('#degree-exp-1').hide();
-	            $('#cal-1').hide();
-	            $('#other-degrees-1').hide();
-	            
-	     }
-        $(".modal select:visible").selectBox();
-        $('.modal .datepicker').datepicker();
-        $('.datepicker').css('z-index','99999');
-        $("#school-form").validate();
-        
+		  }
+		  else 
+		  {
+				console.log("Login page => Stream page");
+				BS.AppRouter.navigate("streams", {trigger: true});
+		  }
+		
+	 }});
     },
 
     
@@ -319,151 +292,146 @@ BS.AppRouter = Backbone.Router.extend({
      * display Class Info screen
      */
     classReg:function () {
-//    	BS.user.on("change:loggedin", function(e) {
-//			if(e.get('loggedin') == false) {
-//				BS.AppRouter.navigate("login", {trigger: true});
-//				return;
-//			}
-//			 
-//		});
-    	
-    	
-    	$("#dialog").dialog('close');
-    	if(localStorage["classInfo"])
-    	{
-    		 BS.classView = new BS.ClassView();
-             BS.classView.render();
-             
-             $('#school-popup').html(BS.classView.el);
-             
-             var classInfo =JSON.parse(localStorage["classInfo"]);
-	         $('#class-list').html('');	
-	         
-	         var totalClasses = classInfo.length;
-	         
-	         var classPack ;
-	         sClasses = 0;
-	         var schools = localStorage["schoolList"];
-	        
-	         while(totalClasses > 0)
-	         {
-	        	 var i = 0;
-	        	 // slice the class array according to their schoolId
-	        	 var c_schoolId = classInfo[0].schoolId.id;
-	        	 
-	        	 for(var j=0 ; j<totalClasses ; j++)
-	        	 {
-	        		 if(classInfo[j].schoolId.id == c_schoolId)
-	        		 {
-	        			 i++;
-	        		 }
-	        		 else
-	        		 {
-	        			 break;
-	        		 }
-	        	 }
-
-	        	 classPack = classInfo.splice(0,i);
-	        	 sClasses++;
-	        	 console.log("sClasses " +sClasses);
-	        	 
-	        	 
-				 var count = {
-							"sCount" : sClasses,
-				 }
-				 var source = $("#edit-class").html();
-				 var template = Handlebars.compile(source);
-				 $('#class-list').append(template(count));
-				 
-				 // add all schools to school list
-				 var addSchoolList = '<select id="school-'+sClasses+'" class="large all-schools">'+schools+'</select>'; 
-				 $('#school-list-'+sClasses).html(addSchoolList);
-				 console.log("c_schoolId" + c_schoolId);
-				 //selected the schoolName from list
-				 $('#school-'+sClasses+' option[value="'+c_schoolId+'"]').attr('selected', 'selected');
-				 var schoolName = $('#school-'+sClasses+' option[value="'+c_schoolId+'"]').val();
-				 console.log("schoolName -- " + schoolName);
-				 $('#school-list-'+sClasses+' a span.selectBox-label').html(schoolName);
-				 
  
-				 
-				 $(".modal select:visible").selectBox();
-				 
-				 var orgLength =  classPack.length;
-				 var cInt = 0;
-				 for(var k=0;k<3;k++)
-				 {
-					 var sId = '';
-					 if(k <= orgLength-1)
-					 {
-						 sId = classPack[k].streams[0].id;
-						 
-					 }
-					 else
-					 {
-						 sId = '';
-					 }
-					 cInt++;
-					 var singleClassInfo ={
-							 "data" : classPack[k],
-							 "sCount" : sClasses,
-							 "times" : BS.times,
-							 "cInt" :cInt,
-							 "sId" :sId
-					 }
-					 var source = $("#single-class").html();
-					 var template = Handlebars.compile(source);
-					 $("#classes_under_a_school-"+sClasses).append(template(singleClassInfo));
-					 
-					 
-					 if(k <= orgLength-1)
-					 {
-						 //set time 
-						 $('#class-time-'+sClasses+'-'+cInt).val(classPack[k].classTime);
-						 $('#div-time-'+sClasses+'-'+cInt+' a span.selectBox-label').html(classPack[k].classTime);
-						 
-						 //set date
-						 $('#date-started-'+sClasses+'-'+cInt).val(classPack[k].startingDate);
-						 
-						 //set class type
-						 $('#semester-'+sClasses+'-'+cInt+' option[value="'+classPack[k].classType+'"]').attr('selected', 'selected');
-						 if(classPack[k].classType == "quarter")
-						 {
-							 $('#div-school-type-'+sClasses+'-'+cInt+' a span.selectBox-label').html("Quarter");
+      BS.user.fetch({ success:function(e) {
+  		if(e.get('loggedin') == true) {
+  
+		    	$("#dialog").dialog('close');
+		    	if(localStorage["classInfo"])
+		    	{
+		    		 BS.classView = new BS.ClassView();
+		             BS.classView.render();
+		             
+		             $('#school-popup').html(BS.classView.el);
+		             
+		             var classInfo =JSON.parse(localStorage["classInfo"]);
+			         $('#class-list').html('');	
+			         
+			         var totalClasses = classInfo.length;
+			         
+			         var classPack ;
+			         sClasses = 0;
+			         var schools = localStorage["schoolList"];
+			        
+			         while(totalClasses > 0)
+			         {
+			        	 var i = 0;
+			        	 // slice the class array according to their schoolId
+			        	 var c_schoolId = classInfo[0].schoolId.id;
+			        	 
+			        	 for(var j=0 ; j<totalClasses ; j++)
+			        	 {
+			        		 if(classInfo[j].schoolId.id == c_schoolId)
+			        		 {
+			        			 i++;
+			        		 }
+			        		 else
+			        		 {
+			        			 break;
+			        		 }
+			        	 }
+		
+			        	 classPack = classInfo.splice(0,i);
+			        	 sClasses++;
+			        	 
+						 var count = {
+									"sCount" : sClasses,
 						 }
-						 else
+						 var source = $("#edit-class").html();
+						 var template = Handlebars.compile(source);
+						 $('#class-list').append(template(count));
+						 
+						 // add all schools to school list
+						 var addSchoolList = '<select id="school-'+sClasses+'" class="large all-schools">'+schools+'</select>'; 
+						 $('#school-list-'+sClasses).html(addSchoolList);
+						 console.log("c_schoolId" + c_schoolId);
+						 //selected the schoolName from list
+						 $('#school-'+sClasses+' option[value="'+c_schoolId+'"]').attr('selected', 'selected');
+						 var schoolName = $('#school-'+sClasses+' option[value="'+c_schoolId+'"]').val();
+						 console.log("schoolName -- " + schoolName);
+						 $('#school-list-'+sClasses+' a span.selectBox-label').html(schoolName);
+						 
+						 $(".modal select:visible").selectBox();
+						 
+						 var orgLength =  classPack.length;
+						 var cInt = 0;
+						 for(var k=0;k<3;k++)
 						 {
-							 $('#div-school-type-'+sClasses+'-'+cInt+' a span.selectBox-label').html("Semester");
-						 }
-					 }
-				 }	 
-
-				  totalClasses = classInfo.length;
-				  
-	          }
-	        
-	         
-					 
-					$(".modal select:visible").selectBox();
-					$('.modal .datepicker').datepicker();
-					$('.datepicker').css('z-index','99999');
-				
-    	}
-    	else
-    	{
-    		
-           $('#school-popup').children().detach(); 
-//           if (!BS.classView) {
-	           BS.classView = new BS.ClassView();
-	           BS.classView.render();
-//           }
-           
-           $('#school-popup').html(BS.classView.el);
-           $(".modal select:visible").selectBox();
-           $('.modal .datepicker').datepicker();
-           $("#class-form").validate();
-    	}
-
+							 var sId = '';
+							 if(k <= orgLength-1)
+							 {
+								 sId = classPack[k].streams[0].id;
+								 
+							 }
+							 else
+							 {
+								 sId = '';
+							 }
+							 cInt++;
+							 var singleClassInfo ={
+									 "data" : classPack[k],
+									 "sCount" : sClasses,
+									 "times" : BS.times,
+									 "cInt" :cInt,
+									 "sId" :sId
+							 }
+							 var source = $("#single-class").html();
+							 var template = Handlebars.compile(source);
+							 $("#classes_under_a_school-"+sClasses).append(template(singleClassInfo));
+							 
+							 
+							 if(k <= orgLength-1)
+							 {
+								 //set time 
+								 $('#class-time-'+sClasses+'-'+cInt).val(classPack[k].classTime);
+								 $('#div-time-'+sClasses+'-'+cInt+' a span.selectBox-label').html(classPack[k].classTime);
+								 
+								 //set date
+								 $('#date-started-'+sClasses+'-'+cInt).val(classPack[k].startingDate);
+								 
+								 //set class type
+								 $('#semester-'+sClasses+'-'+cInt+' option[value="'+classPack[k].classType+'"]').attr('selected', 'selected');
+								 if(classPack[k].classType == "quarter")
+								 {
+									 $('#div-school-type-'+sClasses+'-'+cInt+' a span.selectBox-label').html("Quarter");
+								 }
+								 else
+								 {
+									 $('#div-school-type-'+sClasses+'-'+cInt+' a span.selectBox-label').html("Semester");
+								 }
+							 }
+						 }	 
+		
+						  totalClasses = classInfo.length;
+						  
+			          }
+			        
+						$(".modal select:visible").selectBox();
+						$('.modal .datepicker').datepicker();
+						$('.datepicker').css('z-index','99999');
+						
+		    	}
+		    	else
+		    	{
+		    		
+		           $('#school-popup').children().detach(); 
+		//           if (!BS.classView) {
+			           BS.classView = new BS.ClassView();
+			           BS.classView.render();
+		//           }
+		           
+		           $('#school-popup').html(BS.classView.el);
+		           $(".modal select:visible").selectBox();
+		           $('.modal .datepicker').datepicker();
+		           $("#class-form").validate();
+		    	}
+  		 }
+		  else 
+		  {
+				BS.AppRouter.navigate("streams", {trigger: true});
+		  }
+		
+	 }});
        
    },
     
@@ -471,72 +439,74 @@ BS.AppRouter = Backbone.Router.extend({
     * display Profile Info screen
     */
    profileReg:function () {
-	   
-//	   BS.user.on("change:loggedin", function(e) {
-//			if(e.get('loggedin') == false) {
-//				BS.AppRouter.navigate("login", {trigger: true});
-//				return;
-//			}
-//			 
-//		});
-   	   
-	   $("#dialog").dialog('close');
-       BS.profileView = new BS.ProfileView();
-       BS.profileView.render();
-       $('#school-popup').html(BS.profileView.el); 
-       
-       // initial call to image resize function  
-//       BS.profileView.resize(self,95,90 ,document.getElementById("profile-image"),document.getElementById("img"));
-       
-       //set mobile number format  -validation 
-       $("#mobile").mask("(999) 999-9999",{placeholder:"  "});
-       
-       $('.progress-container').hide();
-       $(".modal select:visible").selectBox();
-       $(".radio").dgStyle();
-        
-       $('.modal .datepicker').datepicker();
-       $("#profile-form").validate();
-       
-       //Render Janrain Invite popup
-       (function() {
-	    if (typeof window.janrain !== 'object') window.janrain = {};
-	    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
-	    if (typeof window.janrain.settings.share !== 'object') window.janrain.settings.share = {};
-	    if (typeof window.janrain.settings.packages !== 'object') janrain.settings.packages = [];
-	    janrain.settings.packages.push('share');
-	
-	    /* _______________ can edit below this line _______________ */
-	
-	    janrain.settings.share.message = "Testing social sharing!";
-	    janrain.settings.share.title = "Social Profile";
-	    janrain.settings.share.url = "www.yahoo.com";
-	    janrain.settings.share.description = "Share with my network";
-	
-	    /* _______________ can edit above this line _______________ */
-	
-	    function isReady() { janrain.ready = true; };
-	    if (document.addEventListener) {
-	        document.addEventListener("DOMContentLoaded", isReady, false);
-	    } else {
-	    	
-	        window.attachEvent('onload', isReady);
-	    }
-	
-	    var e = document.createElement('script');
-	    e.type = 'text/javascript';
-	    e.id = 'janrainWidgets';
-	
-	    if (document.location.protocol === 'https:') {
-	      e.src = 'https://rpxnow.com/js/lib/beamstream/widget.js';
-	    } else {
-	      e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/widget.js';
-	    }
-	
-	    var s = document.getElementsByTagName('script')[0];
-	    s.parentNode.insertBefore(e, s);
-	   
-	})();
+	 
+	   BS.user.fetch({ success:function(e) {
+		   if(e.get('loggedin') == true) {  
+	     
+			   $("#dialog").dialog('close');
+		       BS.profileView = new BS.ProfileView();
+		       BS.profileView.render();
+		       $('#school-popup').html(BS.profileView.el); 
+		       
+		       // initial call to image resize function  
+		//       BS.profileView.resize(self,95,90 ,document.getElementById("profile-image"),document.getElementById("img"));
+		       
+		       //set mobile number format  -validation 
+		       $("#mobile").mask("(999) 999-9999",{placeholder:"  "});
+		       
+		       $('.progress-container').hide();
+		       $(".modal select:visible").selectBox();
+		       $(".radio").dgStyle();
+		        
+		       $('.modal .datepicker').datepicker();
+		       $("#profile-form").validate();
+		       
+		       //Render Janrain Invite popup
+		       (function() {
+			    if (typeof window.janrain !== 'object') window.janrain = {};
+			    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+			    if (typeof window.janrain.settings.share !== 'object') window.janrain.settings.share = {};
+			    if (typeof window.janrain.settings.packages !== 'object') janrain.settings.packages = [];
+			    janrain.settings.packages.push('share');
+			
+			    /* _______________ can edit below this line _______________ */
+			
+			    janrain.settings.share.message = "Testing social sharing!";
+			    janrain.settings.share.title = "Social Profile";
+			    janrain.settings.share.url = "www.yahoo.com";
+			    janrain.settings.share.description = "Share with my network";
+			
+			    /* _______________ can edit above this line _______________ */
+			
+			    function isReady() { janrain.ready = true; };
+			    if (document.addEventListener) {
+			        document.addEventListener("DOMContentLoaded", isReady, false);
+			    } else {
+			    	
+			        window.attachEvent('onload', isReady);
+			    }
+			
+			    var e = document.createElement('script');
+			    e.type = 'text/javascript';
+			    e.id = 'janrainWidgets';
+			
+			    if (document.location.protocol === 'https:') {
+			      e.src = 'https://rpxnow.com/js/lib/beamstream/widget.js';
+			    } else {
+			      e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/widget.js';
+			    }
+			
+			    var s = document.getElementsByTagName('script')[0];
+			    s.parentNode.insertBefore(e, s);
+			   
+			})();
+		  }
+		 else 
+		 {
+				BS.AppRouter.navigate("streams", {trigger: true});
+		  }
+			
+	  }});
    },
   
    
@@ -544,22 +514,19 @@ BS.AppRouter = Backbone.Router.extend({
     * display main stream page
     */
    mainStream:function () {
-//	   console.log("in stream-- " + BS.user.get('loggedin'));
-//	   if(BS.user.get('loggedin') == false){
-// 		  
-//			BS.AppRouter.navigate("login", {trigger: true});
-//			
-//		}
-//		else
-//		{
-				console.log("stream ");
-				$("#dialog").dialog('close');
+	   var self = this;
+       BS.user.fetch({ success:function(e) {
+    	  
+			if(e.get('loggedin') == true) {	
+	   
+	   
+				   $("#dialog").dialog('close');
 				   BS.mainImageUrl = $('#right-photo').attr('src');
 				  
 				   $('#middle-content').children().detach();
 				   $('nav li.active').removeClass('active');
 				   $('nav li a#streamsGroups').parents('li').addClass('active');
-				   var self = this;
+				  
 				  
 			           
 					   $('#school-popup').children().detach(); 
@@ -691,11 +658,17 @@ BS.AppRouter = Backbone.Router.extend({
 			               
 				        
 					 }});
-//			}
-			 
-		 
-	   
-		   
+					   
+					   
+						 
+			}
+			else {
+				console.log("From Stream => login");
+				BS.AppRouter.navigate("login", {trigger: true});
+			}
+			
+       }});
+  
 	    
    },
    
@@ -704,172 +677,190 @@ BS.AppRouter = Backbone.Router.extend({
     * registration after email verification
     */
     basicRegistration: function(token,iam,email) {
-       $("#dialog").dialog('close');  
-       BS.token = token;
-       BS.iam = iam;
-       BS.email = email;
-       if(localStorage["regInfo"])
-	   {
-		  
-	       var regDetails =JSON.parse(localStorage["regInfo"]);
-	       BS.registrationView = new BS.RegistrationView();
+	    BS.user.fetch({ success:function(e) {
+		  	   if(e.get('loggedin') == false) {  
+			       $("#dialog").dialog('close');  
+			       BS.token = token;
+			       BS.iam = iam;
+			       BS.email = email;
+			       if(localStorage["regInfo"])
+				   {
+					  
+				       var regDetails =JSON.parse(localStorage["regInfo"]);
+				       BS.registrationView = new BS.RegistrationView();
+				       
+				       _.each(regDetails, function(data) {
+				    	   
+				    	   var datas = {
+									"data" : data
+						   }
+					       BS.registrationView.render(datas);
+					       $('#school-popup').html(BS.registrationView.el);
+					       $('#registration-form fieldset').html('');
+					       
+					       var source = $("#basic-profile").html();
+						   var template = Handlebars.compile(source);
+						   $('#registration-form fieldset').html(template(datas));
+						   $(".checkbox").dgStyle();
+			//		       $("#registration-form").validate();
+					       $("#registration-form").validate({
+									rules: {
+										password1: "required",
+										password_again: {
+									      equalTo: "#password1"
+									    }
+									  }
+								});
+						  
+						});
+				
+				   }
+			       else
+			       {
+			        	// verify the token
+			  		   $.ajax({
+			  				type : 'POST',
+			  				url : BS.verifyToken,
+			  				data : {
+			  					token : token
+			  	                 },
+			  				dataType : "json",
+			  				success : function(data) {
+			  						if (data.status == "Success") {
+			  	
+			//  							if (!BS.registrationView) {
+			  								BS.registrationView = new BS.RegistrationView();
+			  								var mailInfo = {
+			  										iam : iam,
+			  										mail : email
+			  								};
+			  								BS.registrationView.render(mailInfo);
+			//  							}
+			  	
+			  							$('#school-popup').html(BS.registrationView.el);
+			  							localStorage["regInfo"] ='';
+			  							$('#jan-iam').hide();
+			  							$(".checkbox").dgStyle();
+			//  							$("#registration-form").validate();
+			  							 $("#registration-form").validate({
+			  								rules: {
+			  									password1: "required",
+			  									password_again: {
+			  								      equalTo: "#password1"
+			  								    }
+			  								  }
+			  							});
+			  					     }
+			  						 else 
+			  						 {
+			  							alert("Token Expiredd");
+			  						  }
+			  	
+			  					}
+			  				});
+			         }
+		  	    }
+				else {
+					console.log("From Stream => login");
+					BS.AppRouter.navigate("login", {trigger: true});
+				}
+			
+	      }});
 	       
-	       _.each(regDetails, function(data) {
-	    	   
-	    	   var datas = {
-						"data" : data
-			   }
-		       BS.registrationView.render(datas);
-		       $('#school-popup').html(BS.registrationView.el);
-		       $('#registration-form fieldset').html('');
-		       
-		       var source = $("#basic-profile").html();
-			   var template = Handlebars.compile(source);
-			   $('#registration-form fieldset').html(template(datas));
-			   $(".checkbox").dgStyle();
-//		       $("#registration-form").validate();
-		       $("#registration-form").validate({
-						rules: {
-							password1: "required",
-							password_again: {
-						      equalTo: "#password1"
-						    }
-						  }
-					});
-			  
-			});
-	
-	   }
-       else
-       {
-        	// verify the token
-  		   $.ajax({
-  				type : 'POST',
-  				url : BS.verifyToken,
-  				data : {
-  					token : token
-  	                 },
-  				dataType : "json",
-  				success : function(data) {
-  						if (data.status == "Success") {
-  	
-//  							if (!BS.registrationView) {
-  								BS.registrationView = new BS.RegistrationView();
-  								var mailInfo = {
-  										iam : iam,
-  										mail : email
-  								};
-  								BS.registrationView.render(mailInfo);
-//  							}
-  	
-  							$('#school-popup').html(BS.registrationView.el);
-  							localStorage["regInfo"] ='';
-  							$('#jan-iam').hide();
-  							$(".checkbox").dgStyle();
-//  							$("#registration-form").validate();
-  							 $("#registration-form").validate({
-  								rules: {
-  									password1: "required",
-  									password_again: {
-  								      equalTo: "#password1"
-  								    }
-  								  }
-  							});
-  					     }
-  						 else 
-  						 {
-  							alert("Token Expiredd");
-  						  }
-  	
-  					}
-  				});
-         }
-       
 
-		},
+	  },
 
 			/**
 			 * basicRegistrationViaJanRain
 			 */
 			basicRegistrationViaJanRain : function(event) {
-				$("#dialog").dialog('close');
-				if(localStorage["regInfo"])
-				 {
-					   console.log(localStorage["regInfo"]);
-					   $('#school-popup').children().detach();
-				       var regDetails =JSON.parse(localStorage["regInfo"]);
-				       BS.mediaRegistrationView = new BS.MediaRegistrationView();
-				       var student = false ,educator=false ,professional =false;
-				       _.each(regDetails, function(data) {
-				    	   if(data.userType.name == "Student")
-				           {
-				    		   student = true;
-				           }
-				    	   else if(data.userType.name == "Educator")
-				    	   {
-				    		   educator= true;
-				    	   }
-				    	   else if(data.userType.name == "Professional")
-				    	   {
-				    		   professional = true;
-				    	   }
-				    	   else
-				    	   {
-				    		   console.log("invalid User type;")
-				    	   }
-				    	   var datas = {
-									"data" : data,
-									"student":student,
-									"educator" :educator,
-									"professional": professional
-						   }
-					       BS.mediaRegistrationView.render();
-					       $('#school-popup').html(BS.mediaRegistrationView.el);
-					       $('#social-media-signup fieldset').html('');
-					       
-					       var source = $("#profile-socialmedia").html();
-						   var template = Handlebars.compile(source);
-						   $('#social-media-signup fieldset').html(template(datas));
-						   $(".checkbox").dgStyle();
-						   $(".modal select:visible").selectBox();
-						   $("#social-media-signup").validate();
-					       $('#school-record').hide();
-						});
-				       
-					   
-					  
-				      
-				 }
-				else
-				{
-					$('#school-popup').children().detach();
-					
-//					if (!BS.mediaRegistrationView) {
-						BS.mediaRegistrationView = new BS.MediaRegistrationView();
-						BS.mediaRegistrationView.render();
-//					}
-	                
-					$('#school-popup').html(BS.mediaRegistrationView.el);
-					localStorage["regInfo"] ='';
-					$('#school-record').hide();
-					$(".modal select:visible").selectBox();
-					$(".checkbox").dgStyle();
-					$("#social-media-signup").validate();
-	 
-					var datas = BS.JsonFromSocialSite;
-	 
-					if(localStorage["first-name"])
-						$('#first-name').val(localStorage["first-name"]);
-					if(localStorage["last-name"] != "")
-					    $('#last-name').val(localStorage["last-name"]);
-					if(localStorage["location"])
-						$('#location').val(localStorage["location"]);
-					if(localStorage["preferredUsername"])
-						$('#alias').val(localStorage["preferredUsername"]);
-						
-				}
-
 				
+				BS.user.fetch({ success:function(e) {
+					if(e.get('loggedin') == false) {  
+							$("#dialog").dialog('close');
+							if(localStorage["regInfo"])
+							 {
+								   console.log(localStorage["regInfo"]);
+								   $('#school-popup').children().detach();
+							       var regDetails =JSON.parse(localStorage["regInfo"]);
+							       BS.mediaRegistrationView = new BS.MediaRegistrationView();
+							       var student = false ,educator=false ,professional =false;
+							       _.each(regDetails, function(data) {
+							    	   if(data.userType.name == "Student")
+							           {
+							    		   student = true;
+							           }
+							    	   else if(data.userType.name == "Educator")
+							    	   {
+							    		   educator= true;
+						    	   }
+						    	   else if(data.userType.name == "Professional")
+						    	   {
+						    		   professional = true;
+						    	   }
+						    	   else
+						    	   {
+						    		   console.log("invalid User type;")
+						    	   }
+						    	   var datas = {
+											"data" : data,
+											"student":student,
+											"educator" :educator,
+											"professional": professional
+								   }
+							       BS.mediaRegistrationView.render();
+							       $('#school-popup').html(BS.mediaRegistrationView.el);
+							       $('#social-media-signup fieldset').html('');
+							       
+							       var source = $("#profile-socialmedia").html();
+								   var template = Handlebars.compile(source);
+								   $('#social-media-signup fieldset').html(template(datas));
+								   $(".checkbox").dgStyle();
+								   $(".modal select:visible").selectBox();
+								   $("#social-media-signup").validate();
+							       $('#school-record').hide();
+								});
+						       
+							   
+							  
+						      
+						 }
+						else
+						{
+							$('#school-popup').children().detach();
+							
+		//					if (!BS.mediaRegistrationView) {
+								BS.mediaRegistrationView = new BS.MediaRegistrationView();
+								BS.mediaRegistrationView.render();
+		//					}
+			                
+							$('#school-popup').html(BS.mediaRegistrationView.el);
+							localStorage["regInfo"] ='';
+							$('#school-record').hide();
+							$(".modal select:visible").selectBox();
+							$(".checkbox").dgStyle();
+							$("#social-media-signup").validate();
+			 
+							var datas = BS.JsonFromSocialSite;
+			 
+							if(localStorage["first-name"])
+								$('#first-name').val(localStorage["first-name"]);
+							if(localStorage["last-name"] != "")
+							    $('#last-name').val(localStorage["last-name"]);
+							if(localStorage["location"])
+								$('#location').val(localStorage["location"]);
+							if(localStorage["preferredUsername"])
+								$('#alias').val(localStorage["preferredUsername"]);
+								
+						}
+
+					}
+					else {
+						console.log("From Stream => login");
+						BS.AppRouter.navigate("login", {trigger: true});
+					}
+				
+		      }});
  
 			},
 
@@ -877,74 +868,89 @@ BS.AppRouter = Backbone.Router.extend({
 			 * for email verification
 			 */
 			emailVerification : function() {
-				$("#dialog").dialog('close');
-				localStorage["idLogin"]= '';
-				$('#school-popup').children().detach();
 				var self = this;
+			    BS.user.fetch({ success:function(e) {
+					if(e.get('loggedin') == false) {  
+						$("#dialog").dialog('close');
+						localStorage["idLogin"]= '';
+						$('#school-popup').children().detach();
+						
+						
+						BS.emailView = new BS.verifyEmailView();
+						BS.emailView.render();
+						
+						localStorage["idLogin"] = "register";
+						$('#school-popup').html(BS.emailView.el);
+						$('#load-janRain').css("display","block");
+						$(".modal select:visible").selectBox();
+						$(".checkbox").dgStyle();
+						 
+						$('.forgot-pass').hide();
+						$("#email-verify").validate();
+						 
+						$('.janrainContent').remove();
+						/* disaplay janRain component */
+					    setTimeout(function() {
+					    	self.displayJanRain();
+						 }, 1000);
+				    
+					}
+					else {
+						console.log("From Stream => login");
+						BS.AppRouter.navigate("login", {trigger: true});
+					}
 				
-				BS.emailView = new BS.verifyEmailView();
-				BS.emailView.render();
-				
-				localStorage["idLogin"] = "register";
-				$('#school-popup').html(BS.emailView.el);
-				$('#load-janRain').css("display","block");
-				$(".modal select:visible").selectBox();
-				$(".checkbox").dgStyle();
-				 
-				$('.forgot-pass').hide();
-				$("#email-verify").validate();
-				 
-				$('.janrainContent').remove();
-				/* disaplay janRain component */
-			    setTimeout(function() {
-			    	self.displayJanRain();
-				 }, 1000);
- 
-		     									
+	           }});								
 			},
 
 			/**
 			 * display class stream screen
 			 */
 			classStream : function() {
-//				//session checking
-//			   	if(BS.user.get('loggedin') == false) {
-//						BS.AppRouter.navigate("login", {trigger: true});
-//						return;
-//				}
-			   	   
-				$("#dialog").dialog('close');
-				$('#school-popup').children().detach();
-				BS.classStreamView = new BS.ClassStreamView();
-				BS.classStreamView.render();
-				$('#school-popup').html(BS.classStreamView.el);
-				$("#dialog" ).dialog('close');
-                $('#for-new-school').hide();
-				/* get all schoolIds under a class */
-				$
-						.ajax({
-							type : 'GET',
-							url : BS.schoolJson,
-							dataType : "json",
-							success : function(datas) {
-
-								var sSelect = '<select id="schools" class="small selectBox">';
-								_.each(datas, function(data) {
-									sSelect += '<option value ="' + data.assosiatedSchoolId.id
-											+ '" > ' + data.schoolName
-											+ '</option>';
-								});
-								sSelect += '</select>';
-//								sSelect += '<option value ="add-school" > Add School</option></select>';
-								$('#sShool').html(sSelect);
-								$(".modal select:visible").selectBox();
-							}
-						});
-
 				
-				$(".radio").dgStyle();
-				$(".modal select:visible").selectBox();
-				$('.modal .datepicker').datepicker();
+				 BS.user.fetch({ success:function(e) {
+						if(e.get('loggedin') == true) {  
+ 
+							$("#dialog").dialog('close');
+							$('#school-popup').children().detach();
+							BS.classStreamView = new BS.ClassStreamView();
+							BS.classStreamView.render();
+							$('#school-popup').html(BS.classStreamView.el);
+							$("#dialog" ).dialog('close');
+			                $('#for-new-school').hide();
+							/* get all schoolIds under a class */
+							$
+									.ajax({
+										type : 'GET',
+										url : BS.schoolJson,
+										dataType : "json",
+										success : function(datas) {
+			
+											var sSelect = '<select id="schools" class="small selectBox">';
+											_.each(datas, function(data) {
+												sSelect += '<option value ="' + data.assosiatedSchoolId.id
+														+ '" > ' + data.schoolName
+														+ '</option>';
+											});
+											sSelect += '</select>';
+			//								sSelect += '<option value ="add-school" > Add School</option></select>';
+											$('#sShool').html(sSelect);
+											$(".modal select:visible").selectBox();
+										}
+									});
+			
+							
+							$(".radio").dgStyle();
+							$(".modal select:visible").selectBox();
+							$('.modal .datepicker').datepicker();
+				
+						}
+						else {
+							console.log("From Stream => login");
+							BS.AppRouter.navigate("login", {trigger: true});
+						}
+					
+		           }});		
 			},
 
 			/**
@@ -1030,78 +1036,74 @@ BS.AppRouter = Backbone.Router.extend({
 			 */
 			// TODO
 			filesMedia : function() {
-				
-//				BS.user.on("change:loggedin", function(e) {
-//					if(e.get('loggedin') == false) {
-//						BS.AppRouter.navigate("login", {trigger: true});
-//						return;
-//					}
-//					 
-//				});
-		    	
-				$("#dialog").dialog('close');
-				$('#content').children().detach();
-				$('#school-popup').children().detach();
-				var self = this;
-				 
-				// $('#right-photo').attr("src",BS.profileImageUrl);
-                 
+				 var self = this;
 				 BS.user.fetch({ success:function(e) {
-				   
-					   //get main menu
-					   this.navView = new BS.NavView({ model: BS.user });
-					   this.navView.showProfilePic();
-					   $('.nav-collapse').html(this.navView.render().el);
-					   $('nav li.active').removeClass('active');
-					   $('#file-media').addClass('active');
-					   
-					   $('#right-photo').attr("src",BS.profileImageUrl);
-			       
-				 }});
-				 
-				BS.filesMediaView = new BS.FilesMediaView({
-					model : BS.user
-				});
-                                
-                                
-				BS.filesMediaView.render();
+					if(e.get('loggedin') == true) {  
 
-				$('#content').html(BS.filesMediaView.el);
+						$("#dialog").dialog('close');
+						$('#content').children().detach();
+						$('#school-popup').children().detach();
+						
+						
+						// $('#right-photo').attr("src",BS.profileImageUrl);
+						 BS.user.fetch({ success:function(e) {
+							   //get main menu
+							   this.navView = new BS.NavView({ model: BS.user });
+							   this.navView.showProfilePic();
+							   $('.nav-collapse').html(this.navView.render().el);
+							   $('nav li.active').removeClass('active');
+							   $('#file-media').addClass('active');
+							   $('#right-photo').attr("src",BS.profileImageUrl);
+					       
+						 }});
+						 
+						BS.filesMediaView = new BS.FilesMediaView({
+							model : BS.user
+						});
+		                                
+						BS.filesMediaView.render();
+						$('#content').html(BS.filesMediaView.el);
+						
+						//get profile videos
+						var profileView = new BS.ProfileView();
+		//		     	profileView.getProfileVideos();
+		//		     	var type = "files";
+		//		     	profileView.getProfileImages(type);
+						$('.file-type').hide();
+						$(".checkbox").dgStyle();
+		                                
+                       // instantiate the shuffle plugin
+                        $('#grid').shuffle({
+                            itemWidth : 200,
+                            marginTop : 15,
+                            marginRight: 20,
+                            key : 'all',
+                            speed : 800,
+                            easing : 'ease-out'
+                        });
+		                                
+                        // Set up button clicks
+                        $('.filter-options li').on('click', function() {
+
+                            var $this = $(this),
+                                $grid = $('#grid');
+
+                            // Hide current label, show current label in title
+                            $('.filter-options .active').removeClass('active');
+                            $this.addClass('active');
+
+                            // Filter elements
+                            $grid.shuffle($this.attr('data-key'));
+                        });
+		                                
+                                
+					}
+					else {
+						console.log("From Stream => login");
+						BS.AppRouter.navigate("login", {trigger: true});
+					}
 				
-				//get profile videos
-				var profileView = new BS.ProfileView();
-//		     	profileView.getProfileVideos();
-		     	
-//		     	var type = "files";
-//		     	profileView.getProfileImages(type);
-		     	
-				
-				$('.file-type').hide();
-				$(".checkbox").dgStyle();
-                                
-                                 // instantiate the shuffle plugin
-                                $('#grid').shuffle({
-                                    itemWidth : 200,
-                                    marginTop : 15,
-                                    marginRight: 20,
-                                    key : 'all',
-                                    speed : 800,
-                                    easing : 'ease-out'
-                                });
-                                
-                                 // Set up button clicks
-                                $('.filter-options li').on('click', function() {
-
-                                    var $this = $(this),
-                                        $grid = $('#grid');
-
-                                    // Hide current label, show current label in title
-                                    $('.filter-options .active').removeClass('active');
-                                    $this.addClass('active');
-
-                                    // Filter elements
-                                    $grid.shuffle($this.attr('data-key'));
-                                });
+	           }});		
                          
 
 			},
@@ -1110,30 +1112,41 @@ BS.AppRouter = Backbone.Router.extend({
 			 * settings page
 		     */
 			settings : function(){
-				 
-				$("#dialog").dialog('close');
-				$('#content').children().detach();
-				$('#school-popup').children().detach();
 				var self = this;
-                 
-				 BS.user.fetch({ success:function(e) {
-				   
-					   //get main menu
-					   this.navView = new BS.NavView({ model: BS.user });
-					   this.navView.showProfilePic();
-					   $('.nav-collapse').html(this.navView.render().el);
-					   $('nav li.active').removeClass('active');
-					   
-					   $('#right-photo').attr("src",BS.profileImageUrl);
-			       
-				 }});
-//				 if(!BS.settingsView)
-//				 {
-					 BS.settingsView = new BS.SettingsView();
-					 BS.settingsView.render();
-//				 }
-				 BS.settingsView.getStreams();
-				 $('#content').html(BS.settingsView.el);
+				BS.user.fetch({ success:function(e) {
+					if(e.get('loggedin') == true) {  
+						 
+						$("#dialog").dialog('close');
+						$('#content').children().detach();
+						$('#school-popup').children().detach();
+						
+		                 
+						 BS.user.fetch({ success:function(e) {
+						   
+							   //get main menu
+							   this.navView = new BS.NavView({ model: BS.user });
+							   this.navView.showProfilePic();
+							   $('.nav-collapse').html(this.navView.render().el);
+							   $('nav li.active').removeClass('active');
+							   
+							   $('#right-photo').attr("src",BS.profileImageUrl);
+					       
+						 }});
+		//				 if(!BS.settingsView)
+		//				 {
+							 BS.settingsView = new BS.SettingsView();
+							 BS.settingsView.render();
+		//				 }
+						 BS.settingsView.getStreams();
+						 $('#content').html(BS.settingsView.el);
+				 
+					}
+					else {
+						console.log("From Stream => login");
+						BS.AppRouter.navigate("login", {trigger: true});
+					}
+				
+	           }});		
 				 
 			},
                         
@@ -1141,174 +1154,247 @@ BS.AppRouter = Backbone.Router.extend({
 			* display Google docs list in another view
 			*/
             googleDocs : function(){
-                  $('#content').children().detach();
-                  console.log("befor nav View");
-                  BS.user.fetch({ success:function(e){
-					   //get main menu
-					   this.navView = new BS.NavView({ model: BS.user });
-					   this.navView.showProfilePic();
-					   $('.nav-collapse').html(this.navView.render().el);
-					   $('nav li.active').removeClass('active');
-					   $('#file-media').addClass('active');					   
-					   $('#right-photo').attr("src",BS.profileImageUrl);			       
-			       }});                             
-                    BS.googledocsview = new BS.GoogleDocsView({
-                         model : BS.user
-				   });
-                   BS.googledocsview.render();  
-                   $('#content').html(BS.googledocsview.el);
-                   $('.file-type').hide();
-  //               BS.googledocsview.test();
-				   $(".checkbox").dgStyle();                                
-                   // instantiate the shuffle plugin
-                   $('#grid').shuffle({
-                         itemWidth : 200,
-                         marginTop : 15,
-                         marginRight: 20,
-                         key : 'all',
-                         speed : 800,
-                         easing : 'ease-out'
-                    });                               
-                    // Set up button clicks
-                    $('.filter-options li').on('click', function() {
-                         var $this = $(this),
-                         $grid = $('#grid');
-                         // Hide current label, show current label in title
-                         $('.filter-options .active').removeClass('active');
-                         $this.addClass('active');
-	                     // Filter elements
-	                     $grid.shuffle($this.attr('data-key'));
-                    });                              
-                },
 
-                        /**
+            	BS.user.fetch({ success:function(e) {
+					if(e.get('loggedin') == true) {  
+            	
+		                  $('#content').children().detach();
+		                  console.log("befor nav View");
+		                  BS.user.fetch({ success:function(e){
+							   //get main menu
+							   this.navView = new BS.NavView({ model: BS.user });
+							   this.navView.showProfilePic();
+							   $('.nav-collapse').html(this.navView.render().el);
+							   $('nav li.active').removeClass('active');
+							   $('#file-media').addClass('active');					   
+							   $('#right-photo').attr("src",BS.profileImageUrl);			       
+					       }});                             
+		                    BS.googledocsview = new BS.GoogleDocsView({
+		                         model : BS.user
+						   });
+		                   BS.googledocsview.render();  
+		                   $('#content').html(BS.googledocsview.el);
+		                   $('.file-type').hide();
+		  //               BS.googledocsview.test();
+						   $(".checkbox").dgStyle();                                
+		                   // instantiate the shuffle plugin
+		                   $('#grid').shuffle({
+		                         itemWidth : 200,
+		                         marginTop : 15,
+		                         marginRight: 20,
+		                         key : 'all',
+		                         speed : 800,
+		                         easing : 'ease-out'
+		                    });                               
+		                    // Set up button clicks
+		                    $('.filter-options li').on('click', function() {
+		                         var $this = $(this),
+		                         $grid = $('#grid');
+		                         // Hide current label, show current label in title
+		                         $('.filter-options .active').removeClass('active');
+		                         $this.addClass('active');
+			                     // Filter elements
+			                     $grid.shuffle($this.attr('data-key'));
+		                    });     
+                    
+					}
+					else {
+						console.log("From Stream => login");
+						BS.AppRouter.navigate("login", {trigger: true});
+					}
+				
+	           }});		
+             },
+
+            /**
 			* display docs list in another view
 			*/       
-                        docsFromComputer : function(){
-                                $('#content').children().detach();
-                                console.log("befor nav View");
-                                BS.user.fetch({ success:function(e){
-					   //get main menu
-					   this.navView = new BS.NavView({ model: BS.user });
-					   this.navView.showProfilePic();
-					   $('.nav-collapse').html(this.navView.render().el);
-					   $('nav li.active').removeClass('active');
-					   $('#file-media').addClass('active');					   
-					   $('#right-photo').attr("src",BS.profileImageUrl);			       
-			       }}); 
-                               BS.doclistview = new BS.DocListView();
-                               BS.doclistview.render();
-                               $('#content').html(BS.doclistview.el); 
-                               $('.file-type').hide();   //to hide the filetype menu
-                        },
-                        /**
-                         *display Images in another view
-                         *
-                         */
+             docsFromComputer : function(){
+            	 BS.user.fetch({ success:function(e) {
+ 					if(e.get('loggedin') == true) {  
+ 						
+	                  $('#content').children().detach();
+	                  console.log("befor nav View");
+	                  BS.user.fetch({ success:function(e){
+						   //get main menu
+						   this.navView = new BS.NavView({ model: BS.user });
+						   this.navView.showProfilePic();
+						   $('.nav-collapse').html(this.navView.render().el);
+						   $('nav li.active').removeClass('active');
+						   $('#file-media').addClass('active');					   
+						   $('#right-photo').attr("src",BS.profileImageUrl);			       
+				       }}); 
+	                  BS.doclistview = new BS.DocListView();
+	                  BS.doclistview.render();
+	                  $('#content').html(BS.doclistview.el); 
+	                  $('.file-type').hide();   //to hide the filetype menu
+	                  
+ 					}
+					else {
+						console.log("From Stream => login");
+						BS.AppRouter.navigate("login", {trigger: true});
+					}
+				
+	           }});		
+             },
+             /**
+             *display Images in another view
+             *
+             */
 
-                        imageList: function(){
-                           $('#content').children().detach();
-                           BS.user.fetch({ success:function(e){
-					   //get main menu
-					   this.navView = new BS.NavView({ model: BS.user });
-					   this.navView.showProfilePic();
-					   $('.nav-collapse').html(this.navView.render().el);
-					   $('nav li.active').removeClass('active');
-					   $('#file-media').addClass('active');					   
-					   $('#right-photo').attr("src",BS.profileImageUrl);			       
-				}});   
-                          BS.imagelistview = new BS.ImageListView({})
-                          BS.imagelistview.render();  
-                          $('#content').html(BS.imagelistview.el); 
-                          $('.file-type').hide();   //to hide the filetype menu
-                        }, 
+             imageList: function(){
+            	 
+            	 BS.user.fetch({ success:function(e) {
+  					if(e.get('loggedin') == true) {  
+  						
+	                   $('#content').children().detach();
+	                   BS.user.fetch({ success:function(e){
+						   //get main menu
+						   this.navView = new BS.NavView({ model: BS.user });
+						   this.navView.showProfilePic();
+						   $('.nav-collapse').html(this.navView.render().el);
+						   $('nav li.active').removeClass('active');
+						   $('#file-media').addClass('active');					   
+						   $('#right-photo').attr("src",BS.profileImageUrl);			       
+	                   }});   
+	                   BS.imagelistview = new BS.ImageListView({})
+	                   BS.imagelistview.render();  
+	                   $('#content').html(BS.imagelistview.el); 
+	                   $('.file-type').hide();   //to hide the filetype menu
+  					}
+					else {
+						console.log("From Stream => login");
+						BS.AppRouter.navigate("login", {trigger: true});
+					}
+				
+	           }});		
+             }, 
                         
-                        /*
-                         *display Videos in another view
-                         *
-                         */
-                        videoList :function(){
-                          $('#content').children().detach();                 
-                           BS.user.fetch({ success:function(e){
-					   //get main menu
-					   this.navView = new BS.NavView({ model: BS.user });
-					   this.navView.showProfilePic();
-					   $('.nav-collapse').html(this.navView.render().el);
-					   $('nav li.active').removeClass('active');
-					   $('#file-media').addClass('active');					   
-					   $('#right-photo').attr("src",BS.profileImageUrl);			       
-				}});
-                            BS.videolistview = new BS.VideoListView();
-                            BS.videolistview.render();
-                            $('#content').html(BS.videolistview.el); 
-                          $('.file-type').hide();   //to hide the filetype menu
-                        },
+             /*
+             *display Videos in another view
+             *
+             */
+             videoList :function(){
+            	 
+            	 BS.user.fetch({ success:function(e) {
+   					if(e.get('loggedin') == true) {  
+   						
+		                 $('#content').children().detach();                 
+		                 BS.user.fetch({ success:function(e){
+							   //get main menu
+							   this.navView = new BS.NavView({ model: BS.user });
+							   this.navView.showProfilePic();
+							   $('.nav-collapse').html(this.navView.render().el);
+							   $('nav li.active').removeClass('active');
+							   $('#file-media').addClass('active');					   
+							   $('#right-photo').attr("src",BS.profileImageUrl);			       
+						 }});
+		                 BS.videolistview = new BS.VideoListView();
+		                 BS.videolistview.render();
+		                 $('#content').html(BS.videolistview.el); 
+		                 $('.file-type').hide();   //to hide the filetype menu
+   					}
+					else {
+						console.log("From Stream => login");
+						BS.AppRouter.navigate("login", {trigger: true});
+					}
+				
+	           }});		
+             },
                         
-                        /*
-                         *display Audios in another view
-                         *
-                         */
-                        audioList:function(){
-                           $('#content').children().detach();
-                           console.log("audioList");
-                           BS.user.fetch({ success:function(e){
-					   //get main menu
-					   this.navView = new BS.NavView({ model: BS.user });
-					   this.navView.showProfilePic();
-					   $('.nav-collapse').html(this.navView.render().el);
-					   $('nav li.active').removeClass('active');
-					   $('#file-media').addClass('active');					   
-					   $('#right-photo').attr("src",BS.profileImageUrl);			       
-				}});
-                              BS.audiolistview=new BS.AudioListView();
-                              BS.audiolistview.render();
-                              $('#content').html(BS.audiolistview.el); 
-                              $('.file-type').hide();   //to hide the filetype menu
-                        },
+             /*
+             *display Audios in another view
+             *
+             */
+             audioList:function(){
+            	 BS.user.fetch({ success:function(e) {
+    					if(e.get('loggedin') == true) {  
+			                 $('#content').children().detach();
+			                 console.log("audioList");
+			                 BS.user.fetch({ success:function(e){
+								   //get main menu
+								   this.navView = new BS.NavView({ model: BS.user });
+								   this.navView.showProfilePic();
+								   $('.nav-collapse').html(this.navView.render().el);
+								   $('nav li.active').removeClass('active');
+								   $('#file-media').addClass('active');					   
+								   $('#right-photo').attr("src",BS.profileImageUrl);			       
+							 }});
+			                 BS.audiolistview=new BS.AudioListView();
+			                 BS.audiolistview.render();
+			                 $('#content').html(BS.audiolistview.el); 
+			                 $('.file-type').hide();   //to hide the filetype menu
+    					}
+    					else {
+    						console.log("From Stream => login");
+    						BS.AppRouter.navigate("login", {trigger: true});
+    					}
+    				
+    	           }});	
+               },
                         
-                        /*
-                         *display presentation in another view
-                         *
-                         */
-                        presentationList:function(){
-                         $('#content').children().detach();
-                           console.log("presentationList");   
-                           BS.user.fetch({ success:function(e){
-					   //get main menu
-					   this.navView = new BS.NavView({ model: BS.user });
-					   this.navView.showProfilePic();
-					   $('.nav-collapse').html(this.navView.render().el);
-					   $('nav li.active').removeClass('active');
-					   $('#file-media').addClass('active');					   
-					   $('#right-photo').attr("src",BS.profileImageUrl);			       
-				}});
-                            BS.presentationview =new BS.PresentationView();
-                            BS.presentationview.render();
-                            $('#content').html(BS.presentationview.el); 
-                            $('.file-type').hide();   //to hide the filetype menu
-                        },
+	            /*
+	             *display presentation in another view
+	             *
+	             */
+                presentationList:function(){
+                	BS.user.fetch({ success:function(e) {
+     					if(e.get('loggedin') == true) { 
+     						
+		                    $('#content').children().detach();
+		                    console.log("presentationList");   
+		                    BS.user.fetch({ success:function(e){
+								   //get main menu
+								   this.navView = new BS.NavView({ model: BS.user });
+								   this.navView.showProfilePic();
+								   $('.nav-collapse').html(this.navView.render().el);
+								   $('nav li.active').removeClass('active');
+								   $('#file-media').addClass('active');					   
+								   $('#right-photo').attr("src",BS.profileImageUrl);			       
+						    }});
+		                    BS.presentationview =new BS.PresentationView();
+		                    BS.presentationview.render();
+		                    $('#content').html(BS.presentationview.el); 
+		                    $('.file-type').hide();   //to hide the filetype menu
+     					}
+    					else {
+    						console.log("From Stream => login");
+    						BS.AppRouter.navigate("login", {trigger: true});
+    					}
+    				
+    	           }});	
+                },
                         
-                        /*
-                         *display presentation in another view
-                         *
-                         */
-                        pdflistview: function(){
-                             $('#content').children().detach();
-                           console.log("presentationList"); 
-                           BS.user.fetch({ success:function(e){
-					   //get main menu
-					   this.navView = new BS.NavView({ model: BS.user });
-					   this.navView.showProfilePic();
-					   $('.nav-collapse').html(this.navView.render().el);
-					   $('nav li.active').removeClass('active');
-					   $('#file-media').addClass('active');					   
-					   $('#right-photo').attr("src",BS.profileImageUrl);			       
-				}});  
-                            BS.pdflistview =new BS.PdfListView();
-                            BS.pdflistview.render();
-                            $('#content').html(BS.pdflistview.el); 
-                            $('.file-type').hide();   //to hide the filetype menu
-                         },
+                /*
+                 *display presentation in another view
+                 *
+                 */
+                pdflistview: function(){
+                	BS.user.fetch({ success:function(e) {
+     					if(e.get('loggedin') == true) { 
+		                     $('#content').children().detach();
+		                     console.log("presentationList"); 
+		                     BS.user.fetch({ success:function(e){
+								   //get main menu
+								   this.navView = new BS.NavView({ model: BS.user });
+								   this.navView.showProfilePic();
+								   $('.nav-collapse').html(this.navView.render().el);
+								   $('nav li.active').removeClass('active');
+								   $('#file-media').addClass('active');					   
+								   $('#right-photo').attr("src",BS.profileImageUrl);			       
+		                     }});  
+		                    BS.pdflistview =new BS.PdfListView();
+		                    BS.pdflistview.render();
+		                    $('#content').html(BS.pdflistview.el); 
+		                    $('.file-type').hide();   //to hide the filetype menu
+     					}
+    					else {
+    						console.log("From Stream => login");
+    						BS.AppRouter.navigate("login", {trigger: true});
+    					}
+    				
+    	           }});	
+              },
                         
 			displayJanRain : function(){
 				

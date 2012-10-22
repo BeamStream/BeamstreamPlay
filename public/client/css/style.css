@@ -2431,7 +2431,9 @@ text-align: left;
     padding: 10px;
     width: auto;
 }
-
+.error-img{
+	top:10px;
+}
 
 .rock-list li {
 	border-top: medium none !important;
