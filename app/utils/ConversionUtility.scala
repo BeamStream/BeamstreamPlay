@@ -20,5 +20,14 @@ object ConversionUtility extends App {
     val originalString = new String(Hex.decodeHex(encodedString.toCharArray), "cp424")
     originalString
   }
+  
+  /*
+   * Encryption Of PassWord
+   */
+  
+  def encryptPassword(password:String):String={
+    val encryptedpassword=Hex.encodeHexString(password.getBytes("cp424"))
+    encryptedpassword
+  }
 
 }

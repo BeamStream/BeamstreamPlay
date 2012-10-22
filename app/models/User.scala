@@ -220,7 +220,8 @@ object User {
     (user.size == 0) match {
       case true => false
       case false =>
-        SendEmail.sendPassword(emailId, user(0).password)
+        val deryptedPassword=utils.ConversionUtility.decodeMe(user(0).password)
+        SendEmail.sendPassword(emailId, deryptedPassword)
         true
     }
   }

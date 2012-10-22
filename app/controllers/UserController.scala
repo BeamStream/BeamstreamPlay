@@ -40,8 +40,10 @@ object UserController extends Controller {
     val userJson = net.liftweb.json.parse(user)
     val userEmailorName = (userJson \ "email").extract[String]
     val userPassword = (userJson \ "password").extract[String]
+    
+    val encryptedPassword=utils.ConversionUtility.encryptPassword(userPassword)
 
-    val authenticatedUser = getAuthenticatedUser(userEmailorName, userPassword)
+    val authenticatedUser = getAuthenticatedUser(userEmailorName, encryptedPassword)
 
     authenticatedUser match {
       case Some(user) =>
@@ -139,7 +141,6 @@ object UserController extends Controller {
     val userId = request.session.get("userId")
     if (userId == None)
     {
-      println("Session Has Been Expired")
       Ok(write("Session Has Been Expired")).as("application/json")
     }
     else {
