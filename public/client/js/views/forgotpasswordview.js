@@ -56,6 +56,7 @@ BS.ForgotPasswordView = Backbone.View.extend({
 				    		}
 				    		else 
 				    		{
+				    			$('#forgot-pwd-loader').css("display","none");
 				    			 alert("No User Found with this emailId");
 				    							
 				    		}
@@ -64,6 +65,7 @@ BS.ForgotPasswordView = Backbone.View.extend({
          }
     	 else
     	 {
+    		 $('#forgot-pwd-loader').css("display","none");
     		 $('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
      		 $('.error-msg').html("Invalid email address");
     	 }

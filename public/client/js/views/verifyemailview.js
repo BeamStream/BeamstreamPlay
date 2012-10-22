@@ -76,6 +76,7 @@ BS.verifyEmailView = Backbone.View.extend({
 		   			     }
 						 else if(data.status == "Failure")
 						 {
+							 $('#send-mail-loader').css("display","none");
 							 $('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
 				        	 $('.error-msg').html("Email is already taken");
 							 $('.forgot-pass').show();
@@ -90,6 +91,7 @@ BS.verifyEmailView = Backbone.View.extend({
 	    }
     	else
     	{
+    		$('#send-mail-loader').css("display","none");
     		$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
         	$('.error-msg').html("Only use emails that are assosiated with schools and organozations");
     	}
