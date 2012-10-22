@@ -107,7 +107,7 @@ object MediaController extends Controller {
  //-------------------------//
  
   def getMedia = Action(parse.multipartFormData) { request =>
-     ProgressBar.setProgressBar(request.session.get("userId").get, 0)
+    ProgressBar.setProgressBar(request.session.get("userId").get, 0)
     val mediaJsonMap = request.body.asFormUrlEncoded.toMap
     val imageStatus = mediaJsonMap("imageStatus").toList(0).toBoolean
     val videoStatus = mediaJsonMap("videoStatus").toList(0).toBoolean
@@ -171,8 +171,7 @@ object MediaController extends Controller {
 
  def returnProgress = Action { implicit request =>
     val userId=request.session.get("userId").get
-    	println("Progress is ---->" + ProgressBar.progressMap.get(userId).getOrElse("0").toString)
-      Ok(write(ProgressBar.progressMap.get(userId).getOrElse("0").toString)).as("application/json")
+    Ok(write(ProgressBar.progressMap.get(userId).getOrElse("0").toString)).as("application/json")
   }
   
   //-----------------------//

@@ -88,7 +88,6 @@ class AmazonUpload {
 
   def uploadCompressedFileToAmazon(profilePicName: String, profilePic: InputStream, totalFileSize: Double, flag: Boolean, userId: String) {
     
-    println("Coming Here With Compression")
     val bucketName = "BeamStream"
     val s3Client = fetchS3Client
     val putObjectRequest = new PutObjectRequest(bucketName, profilePicName, profilePic, new ObjectMetadata)
@@ -103,13 +102,13 @@ class AmazonUpload {
       putObjectRequest.setProgressListener(new ProgressListener {
         @Override
         def progressChanged(progressEvent: ProgressEvent) {
-          println("**********************************************************************")
           totalByteRead += progressEvent.getBytesTransfered
           percentage = ((totalByteRead / totalFileSize) * 100).toInt
+          println(percentage+"   "+totalByteRead+" " + "  "+totalFileSize)
           //Setting the progress status
           ProgressBar.setProgressBar(userId, percentage)
           if (progressEvent.getEventCode == ProgressEvent.COMPLETED_EVENT_CODE) {
-            println("completed  ******")
+            println("Uploading Completed")
           }
         }
 
@@ -142,7 +141,7 @@ object ProgressBar {
   var progressMap: Map[String, Int] = Map()
   def setProgressBar(userId: String, progress: Int) {
     progressMap += (userId -> progress)
-     println("Setting in Map-->"+progressMap.get(userId).get)
+//    println("Setting in Map-->"+progressMap.get(userId).get)
 
   }
 

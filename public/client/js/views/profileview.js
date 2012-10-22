@@ -158,7 +158,7 @@ BS.ProfileView = Backbone.View.extend({
 
                                        }
                                })}
-                    ,500);
+                    ,2000);
                       
                                            
                         
