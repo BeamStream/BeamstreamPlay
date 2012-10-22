@@ -37,7 +37,7 @@ POST   /newComment                   controllers.CommentController.newComment
 POST    /allCommentsForAMessage       controllers.CommentController.getAllComments
 POST    /rockingTheComment            controllers.CommentController.rockingTheComment
 POST    /commentRockers                controllers.CommentController.commentRockers
-
+POST    /deleteTheComment              controllers.CommentController.deleteTheComment
 
 
 #Documents

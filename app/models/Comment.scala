@@ -102,7 +102,6 @@ object Comment {
     allCommentsForAModel
   }
 
-
   /*
   * add Comment to document
   */
@@ -111,7 +110,14 @@ object Comment {
     DocumentDAO.update(MongoDBObject("_id" -> docId), doc.copy(commentsOnDocument = (doc.commentsOnDocument ++ List(commentId))), false, false, new WriteConcern)
   }
 
- 
+  /*
+   * Delete A Comment
+   */
+
+  def deleteCommentPermanently(commentId: ObjectId) {
+    val commentToBeremoved = Comment.findCommentById(commentId)
+    Comment.removeComment(commentToBeremoved)
+  }
 
 }
 

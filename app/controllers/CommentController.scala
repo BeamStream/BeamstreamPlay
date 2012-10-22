@@ -78,13 +78,13 @@ object CommentController extends Controller {
 
     (jsonWithid.contains(("messageId"))) match {
       case true =>
-        
+
         val messageId = jsonWithid("messageId").toList(0)
         val commentsForAMessage = Comment.getAllComments(Message.findMessageById(new ObjectId(messageId)).get.comments)
         Ok(write(commentsForAMessage)).as("application/json")
 
       case false => (jsonWithid.contains(("docId"))) match {
-      case true =>
+        case true =>
 
           val docId = jsonWithid("docId").toList(0)
           val commentsForADocument = Comment.getAllComments(Document.findDocumentById(new ObjectId(docId)).commentsOnDocument)
@@ -118,6 +118,18 @@ object CommentController extends Controller {
     val commentId = commentDetailsJson("commentId").toList(0)
     val rockersNameForAComment = Comment.commentsRockersNames(new ObjectId(commentId))
     Ok(write(rockersNameForAComment)).as("application/json")
+
+  }
+
+  /*
+   * Delete A Comment
+   */
+
+  def deleteTheComment = Action { implicit request =>
+    val commentDetailsJson = request.body.asFormUrlEncoded.get
+    val commentId = commentDetailsJson("commentId").toList(0)
+    Comment.deleteCommentPermanently(new ObjectId(commentId))
+    Ok(write(new ResulttoSent("Success", "Comment Has Been Deleted")))
 
   }
 
