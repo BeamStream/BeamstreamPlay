@@ -52,62 +52,65 @@ object BasicRegistration extends Controller {
    */
 
   def newUser = Action { implicit request =>
+    try {
+      val userJSONMap = request.body.asFormUrlEncoded.get
+      val userJson = userJSONMap("data").toList(0)
+      val parsedUserJson = net.liftweb.json.parse(userJson)
+      val id = (parsedUserJson \ "id").extract[String]
+      val iam = (parsedUserJson \ "iam").extract[String]
+      val emailId = (parsedUserJson \ "email").extract[String]
+      val schoolName = (parsedUserJson \ "schoolName").extract[String]
+      val userName = (parsedUserJson \ "userName").extract[String]
+      val password = (parsedUserJson \ "password").extract[String]
+      val confirmPassword = (parsedUserJson \ "confirmPassword").extract[String]
+      val firstName = (parsedUserJson \ "firstName").extract[String]
+      val lastName = (parsedUserJson \ "lastName").extract[String]
+      val location = (parsedUserJson \ "location").extract[String]
+      val profile = (parsedUserJson \ "profile").extract[String]
+      val alias = (parsedUserJson \ "alias").extract[String]
+      val useCurrentLocation = (parsedUserJson \ "useCurrentLocation").extract[Boolean]
 
-    val userJSONMap = request.body.asFormUrlEncoded.get
-    val userJson = userJSONMap("data").toList(0)
-    val parsedUserJson = net.liftweb.json.parse(userJson)
-    val id = (parsedUserJson \ "id").extract[String]
-    val iam = (parsedUserJson \ "iam").extract[String]
-    val emailId = (parsedUserJson \ "email").extract[String]
-    val schoolName = (parsedUserJson \ "schoolName").extract[String]
-    val userName = (parsedUserJson \ "userName").extract[String]
-    val password = (parsedUserJson \ "password").extract[String]
-    val confirmPassword = (parsedUserJson \ "confirmPassword").extract[String]
-    val firstName = (parsedUserJson \ "firstName").extract[String]
-    val lastName = (parsedUserJson \ "lastName").extract[String]
-    val location = (parsedUserJson \ "location").extract[String]
-    val profile = (parsedUserJson \ "profile").extract[String]
-    val alias = (parsedUserJson \ "alias").extract[String]
-    val useCurrentLocation = (parsedUserJson \ "useCurrentLocation").extract[Boolean]
-    
-    val encryptedPassword=utils.ConversionUtility.encryptPassword(password)
-    val encryptedConfirmPassword=utils.ConversionUtility.encryptPassword(confirmPassword)
+      val encryptedPassword = utils.ConversionUtility.encryptPassword(password)
+      val encryptedConfirmPassword = utils.ConversionUtility.encryptPassword(confirmPassword)
 
-    //val user = User.findUserbyId(new ObjectId(id))
+      //val user = User.findUserbyId(new ObjectId(id))
 
-    (id == "1") match {
+      (id == "1") match {
 
-      case true =>
+        case true =>
 
-        val canUserRegister = User.isAlreadyRegistered(emailId, userName)
-        (canUserRegister == true) match {
+          val canUserRegister = User.isAlreadyRegistered(emailId, userName)
+          (canUserRegister == true) match {
 
-          case true =>
+            case true =>
 
-            (encryptedPassword == encryptedConfirmPassword) match {
-              case true =>
-                val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, alias, encryptedPassword, schoolName, location, profile, List(), List(), List(), List(), List())
-                val IdOfUserCreted = User.createUser(userToCreate)
-                val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
-                val createdUser = User.findUserbyId(IdOfUserCreted)
-                val noOfOnLineUsers = onlineUserCache.setOnline(IdOfUserCreted.toString)
-                println("Online Users Reg. Part:" + noOfOnLineUsers)
-                Ok(write(List(createdUser))).withSession(RegistrationSession)
-              case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
-            }
+              (encryptedPassword == encryptedConfirmPassword) match {
+                case true =>
+                  val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, alias, encryptedPassword, schoolName, location, profile, List(), List(), List(), List(), List())
+                  val IdOfUserCreted = User.createUser(userToCreate)
+                  val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
+                  val createdUser = User.findUserbyId(IdOfUserCreted)
+                  val noOfOnLineUsers = onlineUserCache.setOnline(IdOfUserCreted.toString)
+                  println("Online Users Reg. Part:" + noOfOnLineUsers)
+                  Ok(write(List(createdUser))).withSession(RegistrationSession)
+                case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
+              }
 
-          case false =>
-            Ok(write(new ResulttoSent("Failure", "This User Email or Name Is Already Taken"))).as("application/json")
-        }
+            case false =>
+              Ok(write(new ResulttoSent("Failure", "This User Email or Name Is Already Taken"))).as("application/json")
+          }
 
-      case false =>
-        (encryptedPassword == encryptedConfirmPassword) match {
-          case true =>
-            val updatedUser = new User(new ObjectId(id), UserType.apply(iam.toInt), emailId, firstName, lastName, userName, alias, encryptedPassword, schoolName, location, profile, List(), List(), List(), List(), List())
-            UserDAO.update(MongoDBObject("_id" -> new ObjectId(id)), updatedUser, false, false, new WriteConcern)
-            Ok(write(List(updatedUser))).as("application/json")
-          case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
-        }
+        case false =>
+          (encryptedPassword == encryptedConfirmPassword) match {
+            case true =>
+              val updatedUser = new User(new ObjectId(id), UserType.apply(iam.toInt), emailId, firstName, lastName, userName, alias, encryptedPassword, schoolName, location, profile, List(), List(), List(), List(), List())
+              UserDAO.update(MongoDBObject("_id" -> new ObjectId(id)), updatedUser, false, false, new WriteConcern)
+              Ok(write(List(updatedUser))).as("application/json")
+            case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
+          }
+      }
+    } catch {
+      case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem During Registration"))).as("application/json")
     }
   }
 
@@ -116,43 +119,46 @@ object BasicRegistration extends Controller {
    */
 
   def emailSent = Action { implicit request =>
+    try {
+      val userInformationMap = request.body.asFormUrlEncoded.get
+      val tempUserInformationJson = userInformationMap("data").toList(0)
+      val userInformationJson = net.liftweb.json.parse(tempUserInformationJson)
+      val iam = (userInformationJson \ "iam").extract[String]
+      val emailId = (userInformationJson \ "email").extract[String]
 
-    val userInformationMap = request.body.asFormUrlEncoded.get
-    val tempUserInformationJson = userInformationMap("data").toList(0)
-    val userInformationJson = net.liftweb.json.parse(tempUserInformationJson)
-    val iam = (userInformationJson \ "iam").extract[String]
-    val emailId = (userInformationJson \ "email").extract[String]
+      val canUserRegister = User.isAlreadyRegistered(emailId, "")
 
-    val canUserRegister = User.isAlreadyRegistered(emailId, "")
+      (canUserRegister == true) match {
+        case true =>
+          SendEmail.sendEmail(emailId, iam)
+          val jsonResponseToSent = new ResulttoSent("Success", "Email Sent Successfully")
+          val finalJson = write(jsonResponseToSent)
+          Ok(finalJson).as("application/json")
 
-    (canUserRegister == true) match {
-      case true =>
-        SendEmail.sendEmail(emailId, iam)
-        val jsonResponseToSent = new ResulttoSent("Success", "Email Sent Successfully")
-        val finalJson = write(jsonResponseToSent)
-        Ok(finalJson).as("application/json")
+        case false =>
+          Ok(write(new ResulttoSent("Failure", "Already registered")))
 
-      case false =>
-        Ok(write(new ResulttoSent("Failure", "Already registered")))
+      }
 
+      //TODO : User would be able to use the organization emailid  
+
+      //    (User.validateEmail(emailId)) match {
+      //      case false =>
+      //      
+      //        val failureJsonResponseToSent = new ResulttoSent("Failure", "Use emails assosiated with schools and organizations")
+      //          println(write(failureJsonResponseToSent))
+      //        Ok(write(failureJsonResponseToSent)).as("application/json")
+      //
+      //      case true =>
+      //        SendEmail.sendEmail(emailId, iam)
+      //        val jsonResponseToSent = new ResulttoSent("Success", "Email Sent Successfully")
+      //        val finalJson = write(jsonResponseToSent)
+      //        Ok(finalJson).as("application/json")
+      //
+      //    }
+    } catch {
+      case ex => Ok(write(new ResulttoSent("Failure", "Email Sending Failed")))
     }
-
-    //TODO : User would be able to use the organization emailid  
-
-    //    (User.validateEmail(emailId)) match {
-    //      case false =>
-    //      
-    //        val failureJsonResponseToSent = new ResulttoSent("Failure", "Use emails assosiated with schools and organizations")
-    //          println(write(failureJsonResponseToSent))
-    //        Ok(write(failureJsonResponseToSent)).as("application/json")
-    //
-    //      case true =>
-    //        SendEmail.sendEmail(emailId, iam)
-    //        val jsonResponseToSent = new ResulttoSent("Success", "Email Sent Successfully")
-    //        val finalJson = write(jsonResponseToSent)
-    //        Ok(finalJson).as("application/json")
-    //
-    //    }
   }
 
 }
