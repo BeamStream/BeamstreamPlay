@@ -103,38 +103,39 @@ BS.ProfileView = Backbone.View.extend({
 	        	    	
 	        	    	if(data.status == "Success") 
 		   			    {
-                                                    $(".star").hide();
-                                                BS.schoolBack = false;
-                                                            BS.regBack = false;
-                                                            BS.classBack = false;
-                                                            localStorage["regInfo"] ='';
-                                                    localStorage["schoolInfo"] ='';
-                                                    localStorage["classInfo"] ='';
-                                                    localStorage["resistrationPage"] ='';
-                                                    localStorage["editClass"] = "true";
-                                                    localStorage["editProfile"] = "true";
+                            $(".star").hide();
+                            BS.schoolBack = false;
+                            BS.regBack = false;
+                            BS.classBack = false;
+                            localStorage["regInfo"] ='';
+                            localStorage["schoolInfo"] ='';
+                            localStorage["classInfo"] ='';
+                            localStorage["resistrationPage"] ='';
+                            localStorage["editClass"] = "true";
+                            localStorage["editProfile"] = "true";
 
-                                                //stop the getprogress call if it not stops
-                                                    clearInterval(BS.progressVals);
+                            //stop the getprogress call if it not stops
+                            clearInterval(BS.progressVals);
                                                     
-                                               // navigate to main stream page after a tome period
-                                                setTimeout(function() {
-                                                    BS.AppRouter.navigate("streams", {trigger: true});
-                                                        }, 500);
+                           // navigate to main stream page after a tome period
+                            setTimeout(function() {
+                                BS.AppRouter.navigate("streams", {trigger: true});
+                            }, 500);
 		   			    }
 	        	    }
 	        	});
                         
-                        /*
-                         *Added by Cuckoo
-                         *Get the progress info
-                         */
-                            if( this.image && this.video)
-                                BS.totalPer = '99';
-                            else
-                                BS.totalPer = '100';
+	            /*
+	             *Added by Cuckoo
+	             *Get the progress info
+	             */
+                if( this.image && this.video)
+                    BS.totalPer = '99';
+                else
+                    BS.totalPer = '100';
 
-                        
+                setTimeout(function() {  
+                	               
                    BS.progressVals = setInterval(
                      function(){
                        $.ajax({
@@ -154,11 +155,13 @@ BS.ProfileView = Backbone.View.extend({
                                         if(BS.progressVal == BS.totalPer ){
                                             //stop the getprogress call
                                             clearInterval(BS.progressVals);
-                                                    }
+                                         }
 
-                                       }
+                                     }
                                })}
                     ,2000);
+                   
+                }, 2000);
                       
                                            
                         
