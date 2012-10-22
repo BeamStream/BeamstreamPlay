@@ -87,7 +87,7 @@ class AmazonUpload {
   
 
   def uploadCompressedFileToAmazon(profilePicName: String, profilePic: InputStream, totalFileSize: Double, flag: Boolean, userId: String) {
-    
+    println("Coming here for compression")
     val bucketName = "BeamStream"
     val s3Client = fetchS3Client
     val putObjectRequest = new PutObjectRequest(bucketName, profilePicName, profilePic, new ObjectMetadata)
