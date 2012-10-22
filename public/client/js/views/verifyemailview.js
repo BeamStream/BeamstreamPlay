@@ -45,6 +45,7 @@ BS.verifyEmailView = Backbone.View.extend({
     registration:function (eventName) {
     	
     	eventName.preventDefault();
+    	$('#send-mail-loader').css("display","block");
     	var validate = $("#email-verify").valid();
     	if(validate == true)
 	    {
@@ -67,6 +68,7 @@ BS.verifyEmailView = Backbone.View.extend({
 					success : function(data) {
 						if(data.status == "Success") 
 		   			    {
+								$('#send-mail-loader').css("display","none");
 							    $('.forgot-pass').hide();
 								var source = $("#tpl-verify-popup").html();
 								var template = Handlebars.compile(source);

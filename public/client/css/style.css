@@ -1753,6 +1753,18 @@ border: 1px solid rgba(0, 0, 0, 0.15);
     top: 11px;
     z-index: 999;
 }
+#send-mail-loader{
+	left: 248px;
+    position: absolute;
+    top: 37px;
+    z-index: 999;
+}
+#forgot-pwd-loader{
+	left: 325px;
+    position: absolute;
+    top: 37px;
+    z-index: 999;
+}
 /* for show embedly view */
 #display-embedly{
 border: 1px solid #E8E8E9;
