@@ -12,26 +12,20 @@ import play.api.Play
 object SendEmail {
 
   def sendEmail(emailId: String, iam: String) = {
-
     val server = Play.current.configuration.getString("server").get // Server adress from play configuration
-
     val authToken = tokenEmail.securityToken
-
     val props = new Properties
     props.setProperty("mail.transport.protocol", "smtp");
     props.setProperty("mail.smtp.starttls.enable", "true");
     props.setProperty("mail.host", "smtp.gmail.com");
     props.setProperty("mail.user", "neelkanth@knoldus.com");
     props.setProperty("mail.password", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get));
-
     val session = Session.getDefaultInstance(props, null);
     val msg = new MimeMessage(session)
     val recepientAddress = new InternetAddress(emailId)
-
     msg.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
     msg.addRecipient(Message.RecipientType.TO, recepientAddress);
     msg.setSubject("Registration Process On BeamStream");
-
     msg.setContent(
 
       "Thank you for registering at <b>Beamstream</b>. We're stoked!." +
@@ -43,10 +37,8 @@ object SendEmail {
     val transport = session.getTransport("smtp");
     transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get))
     transport.sendMessage(msg, msg.getAllRecipients)
-
     val token = new Token((new ObjectId), authToken)
     Token.addToken(token)
-
   }
 
   def sendPassword(emailId: String, password: String) {
@@ -78,7 +70,6 @@ object SendEmail {
     val transport = session.getTransport("smtp");
     transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get))
     transport.sendMessage(msg, msg.getAllRecipients)
-
   }
 
 }

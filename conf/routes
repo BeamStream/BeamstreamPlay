@@ -30,7 +30,7 @@ POST /getAllMessagesForAStreamSortedbyDate    controllers.MessageController.getA
 POST /getAllMessagesForAStreamSortedbyRocks   controllers.MessageController.getAllMessagesForAStreamSortedbyRocks
 POST /getAllMessagesForAStreambyKeyword controllers.MessageController.getAllMessagesForAStreambyKeyword
 POST /allPublicMessagesFromAllStreamsForAUser     controllers.StreamController.allPublicMessagesFromAllStreamsForAUser
-
+POST /deleteMessage                               controllers.MessageController.deleteTheMessage
 
 #Comments
 POST   /newComment                   controllers.CommentController.newComment

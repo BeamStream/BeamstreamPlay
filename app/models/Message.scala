@@ -232,14 +232,26 @@ object Message { //extends CommentConsumer {
   /*
    * Add Comment To Message
    */
-  /*
-  * add Comment to message
-  */
   def addCommentToMessage(commentId: ObjectId, messageId: ObjectId) = {
     val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
     MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments ++ List(commentId))), false, false, new WriteConcern)
   }
 
+  /*
+   * Delete A Message
+   */
+
+  def deleteMessagePermanently(messageId: ObjectId) {
+    val messageToRemove = Message.findMessageById(messageId).get
+    val commentsOfMessageToBeRemoved=messageToRemove.comments
+    MessageDAO.remove(messageToRemove)
+    for(commentId <- commentsOfMessageToBeRemoved){
+      val commentToBeremoved=Comment.findCommentById(commentId)
+      Comment.removeComment(commentToBeremoved)
+    }
+    
+    
+  }
 }
 
 object MessageDAO extends SalatDAO[Message, ObjectId](collection = MongoHQConfig.mongoDB("message"))

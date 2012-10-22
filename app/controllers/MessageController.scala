@@ -183,6 +183,17 @@ object MessageController extends Controller {
       Ok(write(isAFollowerOfMessage.toString)).as("application/json")
     }
   }
+  
+  /*
+   * Delete A Message
+   */
 
+    def deleteTheMessage = Action { implicit request =>
+      val messageIdJsonMap = request.body.asFormUrlEncoded.get
+      val messageId = messageIdJsonMap("messageId").toList(0)
+      Message.deleteMessagePermanently(new ObjectId(messageId))
+      Ok(write(new ResulttoSent("Success","Message Has Been Deleted")))
+      
+    }
 }
 
