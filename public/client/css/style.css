@@ -2306,6 +2306,14 @@ text-align: left;
 	border: none !important;
     background: #3A4046 !important;
     color: #FFFFFF !important;
+    
+    height: auto !important;
+}
+.ui-dialog-buttonpane{
+	background: #3A4046 !important;
+	margin: 0 0 0 !important;
+	padding: 0 !important;
+	border-width: 0 0 0 !important;
 }
 .p-profile{
     min-width: 191px !important;
@@ -2436,9 +2444,7 @@ text-align: left;
     font-size: 15px;
 }
 .error-msg {
-    background-color: #FFBABA;
-    background-image: url("../images/red_bg.png");
-/* 	background-image: url("../images/warning.jpeg"); */
+    background-color: #FFFFFF !important;
     color: #D8000C;
     padding: 10px;
     width: auto;
@@ -2450,7 +2456,43 @@ text-align: left;
 .rock-list li {
 	border-top: medium none !important;
 	padding :none !important;
+	
 }
-
+.timeline_items{
+/* 	margin: 0 20px 0 19px !important; */
+}
+/* for delete messages */
+.delete_msg{
+	 width :15px;
+	 height:15px;
+	 display:none;
+	 position :absolute;
+	 right:0;
+	 top:0;
+	 background-image: url("../images/close.png");
+}
+.delete_msg:hover{
+	background-image: url("../images/close_hover.png");
+}
+ul.timeline_items li:hover .delete_msg{
+	display:block;
+}
+/* delete comments */
+.delete_comment{
+	background-image: url("../images/close.png");
+    display: none;
+    height: 15px;
+    margin-right: 10px;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    width: 15px;
+}
+.delete_comment:hover{
+	background-image: url("../images/close_hover.png");
+}
+ul.comments li:hover .delete_comment{
+	display:block;
+}
  
 

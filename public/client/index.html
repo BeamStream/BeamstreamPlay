@@ -2375,9 +2375,12 @@ body {
          <div style= "display:none; margin-right: 430px;" id ="loading"><img src ="images/loading1.gif"></div> 
 
 	 <div class="progress-container" >
+		
 	    <div class="progress progress-striped active">
 	        <div class="bar" style="width: 0%;"></div>
 	    </div> 
+		<label id="wait" style="text-align: center;" >Please Wait.... </label></br>
+       
 	</div> 
 
         <a href="#messages" class="btn btn-primary pull-left"  id="save" >Save & Exit</a>
@@ -2931,6 +2934,7 @@ body {
                  </div>
               </article>
 			<div id="cmthover-lists-{{id.id}}" class="cmtlist-popup"></div>
+			 <a id="{{id.id}}" href="#" class="delete_comment" ></a>
           </li>
    </script>
 
@@ -2963,7 +2967,7 @@ body {
                     </div>
                  </div>
               </article>
-             
+             <a id="{{id.id}}" href="#" class="delete_comment" ></a>
           </li>
    </script>
 	<script type="text/x-handlebars-template" id="tpl-comment-header"> 
@@ -3024,6 +3028,7 @@ body {
    </article>
    <div id="hover-lists-{{datas.id.id}}" class="list-popup">
    </div>
+   <a id="{{datas.id.id}}" href="#" class="delete_msg" ></a>
 </li>
 
 

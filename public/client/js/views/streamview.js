@@ -34,7 +34,9 @@ BS.StreamView = Backbone.View.extend({
            "click .msg-follow" : "followMessage",
            "click .social_media" : "uncheckPrivate",
            "click #id-private" : "makePrivate",
-           "click .username a" : "renderPublicProfile"
+           "click .username a" : "renderPublicProfile",
+           "click .delete_msg" : "deleteMessage",
+           "click .delete_comment" : "deleteComment"
            
 	 },
 	 
@@ -837,6 +839,114 @@ BS.StreamView = Backbone.View.extend({
              }
           });
  
+	 },
+	 
+	 /*
+	  * delete a message
+	  */
+	 deleteMessage :function(eventName){
+		 eventName.preventDefault();
+		 var messageId = eventName.target.id;
+		 console.log("m-- " + messageId);
+
+		 var alert = '<div id="msg-dialog-'+messageId+'" name="'+messageId+'" title="Delete !">Are you sure you want to delete this message?</br></div>';
+		 $('#alert-popup').html(alert);
+		 $('#msg-dialog-'+messageId).dialog({
+
+				autoOpen: false ,
+				modal: true,
+				draggable: false,
+			    resizable: false,
+			    buttons: { 
+			    	 
+			    	 "Delete": function() { 
+			    		 
+			    		 // delete particular message
+			    		 $.ajax({
+			                 type: 'POST',
+			                 url: BS.deleteMessage,
+			                 data:{
+			                	  messageId :messageId
+			                 },
+			                 dataType:"json",
+			                 success:function(data){
+			                	 
+			                	 $('ul.timeline_items li#'+messageId).remove();
+					    		 $('#msg-dialog-'+messageId).dialog("close");
+			                 }
+			              });
+			    		
+	                  
+	                 },
+	                 "Cancel": function() { 
+	                	 $('#msg-dialog-'+messageId).dialog('close');
+		              },
+		        }
+	         
+			 });
+		 	$('#msg-dialog-'+messageId).dialog('open');
+		 	$('#msg-dialog-'+messageId).dialog({ height: 100 });
+		
+		  
+		 
+	 },
+	 
+	 /**
+	  * delete comment
+	  */
+	 deleteComment :function(eventName){
+		 eventName.preventDefault();
+		 var element = eventName.target.parentElement;
+		 var commentId =$(element).closest('li').attr('id');
+		 var messageId =$(element).closest('li').parent('ul').parent('article').parent('li').attr('id');
+		 
+		 var alert = '<div id="comment-dialog-'+commentId+'" title="Delete !">Are you sure you want to delete this comment?</br></div>';
+		 $('#alert-popup').html(alert);
+		 $('#comment-dialog-'+commentId).dialog({
+
+				autoOpen: false ,
+				modal: true,
+				draggable: false,
+			    resizable: false,
+			    buttons: { 
+			    	 
+			    	 "Delete": function() { 
+			    		 
+			    		 // delete particular message
+			    		 $.ajax({
+			                 type: 'POST',
+			                 url: BS.deleteTheComment,
+			                 data:{
+			                	  messageId :messageId,
+			                	  commentId :commentId
+			                 },
+			                 dataType:"json",
+			                 success:function(data){
+			                	 
+			                	 var commentCount = $('#'+messageId+'-cmtCount').text();
+					    		 if(commentCount == 1)
+					    		 {
+					    			 $('#'+messageId+'-header').html("");
+					    		 }
+					    		 else
+					    		 {
+					    			 $('#'+messageId+'-cmtCount').text(commentCount-1);
+					    		 }
+					    		 $('#'+messageId+'-commentlists li#'+commentId).remove();
+					    		 $('#comment-dialog-'+commentId).dialog('destroy');
+			                 }
+			              });
+		
+	                  
+	                 },
+	                 "Cancel": function() { 
+	                	 $('#comment-dialog-'+commentId).dialog('destroy');
+		              },
+		        }
+	         
+			 });
+		 	$('#comment-dialog-'+commentId).dialog('open');
+		 	$('#comment-dialog-'+commentId).dialog({ height: 100 });
 	 },
  
 	 /**

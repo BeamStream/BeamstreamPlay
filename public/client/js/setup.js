@@ -128,6 +128,10 @@ BS.rockTheUsermedia = BS.URLRequired+"/rockTheUsermedia";
 BS.giveMeRockersOfUserMedia = BS.URLRequired+"/giveMeRockersOfUserMedia";
 //Get data progress
 BS.dataProgress = BS.URLRequired+"/returnProgress";
+// delete Message
+BS.deleteMessage = BS.URLRequired+"/deleteMessage";
+// delete Comments
+BS.deleteTheComment = BS.URLRequired+"/deleteTheComment";
 
 
 /* for beta users */
