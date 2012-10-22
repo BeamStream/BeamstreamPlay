@@ -774,7 +774,7 @@ BS.AppRouter = Backbone.Router.extend({
 			 * basicRegistrationViaJanRain
 			 */
 			basicRegistrationViaJanRain : function(event) {
-				
+				console.log("hhhhh");
 				BS.user.fetch({ success:function(e) {
 					if(e.get('loggedin') == false) {  
 							$("#dialog").dialog('close');

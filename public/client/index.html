@@ -3838,6 +3838,7 @@ body {
 
 					if (data.status == "success") {
 						// navigate to stream page
+						BS.user.set('loggedin', true);
 						BS.AppRouter.navigate("streams", {
 							trigger : true,
 							replace : true
