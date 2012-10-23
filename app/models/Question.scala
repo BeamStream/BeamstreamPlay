@@ -62,10 +62,43 @@ object Question {
     QuestionDAO.remove(question)
   }
 
+   /*
+ * Find Question by Id
+ */
+
+  def findQuestionById(questionId: ObjectId): Option[Question] = {
+    val question = QuestionDAO.findOneByID(questionId)
+    question
+  }
+  
+  
+  /*
+ * Rock The Question
+ */
+  def rockTheQuestion(questionId: ObjectId, userId: ObjectId): Int = {
+
+    val questionToRock = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+    questionToRock.rockers.contains(userId) match {
+      case true =>
+        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToRock.copy(rockers = (questionToRock.rockers -- List(userId))), false, false, new WriteConcern)
+        val updatedQuestion = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+        QuestionDAO.update(MongoDBObject("_id" -> questionId), updatedQuestion.copy(rocks = (updatedQuestion.rocks - 1)), false, false, new WriteConcern)
+        val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+        question.rocks
+      case false =>
+        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToRock.copy(rockers = (questionToRock.rockers ++ List(userId))), false, false, new WriteConcern)
+        val updatedQuestion = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+        QuestionDAO.update(MongoDBObject("_id" -> questionId), updatedQuestion.copy(rocks = (updatedQuestion.rocks + 1)), false, false, new WriteConcern)
+        val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+        question.rocks
+    }
+  }
+
+  
   /*
   * Names of a rockers for a Question (Modified)
   */
-  def rockersNames(questionId: ObjectId): List[String] = {
+  def rockersNameOfAQuestion(questionId: ObjectId): List[String] = {
     val questionRocked = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     val rockersOfAQuestion = User.giveMeTheRockers(questionRocked.rockers)
     rockersOfAQuestion
@@ -83,36 +116,10 @@ object Question {
     }
     questionsList
   }
+
   
   
-  /*
- * Find Question by Id
- */
-
-  def findQuestionById(questionId: ObjectId): Option[Question] = {
-    val question = QuestionDAO.findOneByID(questionId)
-    question
-  }
-
-  def rockedIt(questionId: ObjectId, userId: ObjectId): Int = {
-
-    val questionToRock = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-    questionToRock.rockers.contains(userId) match {
-
-      // If the question is already rocked by the user, return the current rock count without updating
-      case true =>
-        questionToRock.rocks
-      // Otherwise, update the rocker and count
-      case false =>
-        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToRock.copy(rockers = (questionToRock.rockers ++ List(userId))), false, false, new WriteConcern)
-        val updatedQuestion = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-        QuestionDAO.update(MongoDBObject("_id" -> questionId), updatedQuestion.copy(rocks = (updatedQuestion.rocks + 1)), false, false, new WriteConcern)
-        val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-        question.rocks
-
-    }
-
-  }
+ 
 
   /*
     * Change the access of a Question

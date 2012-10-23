@@ -27,7 +27,6 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
     // Remove A Question
     Question.removeQuestion(anotherQuestion)
     assert((Question.findQuestionById(anotherQuestionId) === None))
-
   }
 
   test("Get All Questions") {
@@ -52,6 +51,18 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
     val anotherQuestion = new Question(new ObjectId, "How Was the Day ?", userId, QuestionAccess.Public, streamId, "Neel", "Sachdeva", new Date, 0, List(), List(), 0, List())
     val anotherQuestionId = Question.addQuestion(anotherQuestion)
     assert(Question.findQuestionById(anotherQuestionId).size===1)
+  }
+  
+  test("Rocking The Question And Getting The Rockers") {
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List())
+    val userId = User.createUser(user)
+    var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List("Tag1", "Tag2"))
+    val streamId = Stream.createStream(stream)
+    val question = new Question(new ObjectId, "How Was the Class ?", userId, QuestionAccess.Public, streamId, "Neel", "Sachdeva", new Date, 0, List(), List(), 0, List())
+    val questionId = Question.addQuestion(question)
+    Question.rockTheQuestion(questionId,userId)
+    assert(Question.rockersNameOfAQuestion(questionId)===List("Neel"))
+    assert(Question.rockersNameOfAQuestion(questionId).size===1)
   }
 
   after {
