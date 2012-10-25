@@ -14,8 +14,9 @@ object PasswordHashing extends App {
    * Creates The Unique Key For The Purpose Of Encryption & Decryption 
    */
 
-  def generateKey: Key = {
-    val key: Key = new SecretKeySpec(keyValue, ALGO)
+  def generateKey = {
+    val key = new SecretKeySpec(keyValue, ALGO)
+    println(key)
     key
   }
 
@@ -23,11 +24,13 @@ object PasswordHashing extends App {
    * Encryption Of Password By AES
    */
   def encryptThePassword(password: String) = {
+    println(password)
     val key = generateKey
     val cipher = Cipher.getInstance(ALGO)
     cipher.init(Cipher.ENCRYPT_MODE, key)
     val encVal = cipher.doFinal(password.getBytes())
     val encryptedPassword = new BASE64Encoder().encode(encVal)
+    println(encryptedPassword)
     encryptedPassword
   }
   
