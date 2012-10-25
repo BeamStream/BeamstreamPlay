@@ -150,11 +150,14 @@ BS.ProfileView = Backbone.View.extend({
                                     	   // if we get 100% at first time ignore it . 
                                     	   if(data == "100")
                                     	   {
-                                    		   console.log("First -100%");
+                                    		   console.log("Case 1 : First -100%");
+                                    		   console.log(data);
+                                    		   console.log("Ignore it");
                                     	   }
                                     	   else
                                     	   {
-                                    		   console.log("first time not 100%");
+                                    		   console.log("Case 2:first time not 100%");
+                                    		   console.log(data);
                                     		   BS.progressVal = data;
                                                
                                                BS.bar = $('.bar');
@@ -171,7 +174,8 @@ BS.ProfileView = Backbone.View.extend({
                                        }
                                        else
                                        {
-                                    	   console.log("next times");
+                                    	   console.log("Case 3: next times");
+                                    	   console.log(data);
                                     	   BS.progressVal = data;
                                            
                                            BS.bar = $('.bar');
