@@ -9,7 +9,13 @@ import scala.collection.JavaConversions._
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
 
-case class Stream(@Key("_id") id: ObjectId, streamName: String, streamType: StreamType.Value, creatorOfStream: ObjectId, usersOfStream: List[ObjectId], postToMyProfile: Boolean, streamTag: List[String])
+case class Stream(@Key("_id") id: ObjectId,
+    streamName: String,
+    streamType: StreamType.Value,
+    creatorOfStream: ObjectId,
+    usersOfStream: List[ObjectId],
+    postToMyProfile: Boolean,
+    streamTag: List[String])
 
 object Stream {
 
