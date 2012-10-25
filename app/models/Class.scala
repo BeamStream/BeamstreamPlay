@@ -16,6 +16,7 @@ import java.text._
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 import utils.ObjectIdSerializer
+import utils.SendEmail
 
 case class Class(@Key("_id") id: ObjectId,
   classCode: String,
@@ -88,6 +89,9 @@ object Class {
           val streamToCreate = new Stream(new ObjectId, eachclass.className, StreamType.Class, userId, List(userId), true, List())
           val streamId = Stream.createStream(streamToCreate)
           Stream.attachStreamtoClass(streamId, new ObjectId(classId.get.toString))
+          
+          val user=User.getUserProfile(userId)
+          SendEmail.mailAfterStreamCreation(user.email,eachclass.className)
         }
       }
       ResulttoSent("Success", "User has successfully added his classes")
