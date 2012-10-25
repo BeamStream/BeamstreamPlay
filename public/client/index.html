@@ -3768,10 +3768,10 @@ body {
 															/* LinkedIn signUp */
 															else if (res.profile.providerName == "LinkedIn") {
 																
-// 																if ((res['profile']['address']) === undefined)
-// 																	localStorage["location"] = '';
-// 																else
-// 																	localStorage["location"] = res.profile.address.formatted;
+																if ((res['profile']['address']) === undefined)
+																	localStorage["location"] = '';
+																else
+																	localStorage["location"] = res.profile.address.formatted;
 																localStorage["first-name"] = res.profile.name.givenName;
 																localStorage["last-name"] = res.profile.name.familyName;
 																localStorage["email"] = res.profile.preferredUsername;
