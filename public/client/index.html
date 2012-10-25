@@ -3760,13 +3760,14 @@ body {
 																	localStorage["location"] = '';
 																else
 																	localStorage["location"] = res.profile.address.formatted;
-                                                                console.log(localStorage["location"]);
+                                                                
 																localStorage["first-name"] = res.profile.name.givenName;
 																localStorage["last-name"] = res.profile.name.familyName;
 																localStorage["email"] = res.profile.preferredUsername;
 															}
 															/* LinkedIn signUp */
 															else if (res.profile.providerName == "LinkedIn") {
+																
 // 																if ((res['profile']['address']) === undefined)
 // 																	localStorage["location"] = '';
 // 																else
@@ -3774,11 +3775,28 @@ body {
 																localStorage["first-name"] = res.profile.name.givenName;
 																localStorage["last-name"] = res.profile.name.familyName;
 																localStorage["email"] = res.profile.preferredUsername;
+																
 															}
 															/* Twitter signUp */
 															else if (res.profile.providerName == "Twitter") {
-																localStorage["first-name"] = res.profile.name.formatted;
-																localStorage["last-name"] = "";
+																
+																// split the name into first name and last name
+																var formattedName = res.profile.name.formatted;
+																var parts = formattedName.split(' ');
+																if(parts.length > 1 )
+																{
+																	var firstName = formattedName.substr(0,formattedName.indexOf(' '));
+																	var lastName = formattedName.substr(formattedName.indexOf(' ')+1);
+																	localStorage["first-name"] = firstName;
+																	localStorage["last-name"] = lastName;
+																}
+																if(parts.length == 1)
+																{
+																	localStorage["first-name"] = res.profile.name.formatted;
+																	localStorage["last-name"] = "";
+																}
+// 																localStorage["first-name"] = res.profile.name.formatted;
+// 																localStorage["last-name"] = "";
 																localStorage["email"] = res.profile.preferredUsername;
 
 															}
