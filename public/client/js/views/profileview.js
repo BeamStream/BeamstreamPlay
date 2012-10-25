@@ -27,7 +27,7 @@ BS.ProfileView = Backbone.View.extend({
         BS.digits = 0;
         BS.bar = $('.bar');
         $(".radio").dgStyle();
-        
+        BS.firstValue = 0;   
         //remove the janrain component if it already exists
         if($('#janrain-share'))
           $('#janrain-share').remove();
@@ -134,8 +134,7 @@ BS.ProfileView = Backbone.View.extend({
                 else
                     BS.totalPer = '100';
 
-                setTimeout(function() {  
-                	               
+                                	               
                    BS.progressVals = setInterval(
                      function(){
                        $.ajax({
@@ -145,23 +144,53 @@ BS.ProfileView = Backbone.View.extend({
                                    contentType: false,
                                    processData: false,
                                    success: function(data){
-
-                                       BS.progressVal = data;
-                                       
-                                         BS.bar = $('.bar');
-                                         BS.bar.width( parseInt(BS.progressVal) * parseInt(4));
-                                         BS.bar.text( BS.progressVal + "% Done");
-                                         
-                                        if(BS.progressVal == BS.totalPer ){
-                                            //stop the getprogress call
-                                            clearInterval(BS.progressVals);
-                                         }
+                                	   
+                                       if(BS.firstValue == 0)
+                                       {
+                                    	   // if we get 100% at first time ignore it . 
+                                    	   if(data == "100")
+                                    	   {
+                                    		   console.log("First -100%");
+                                    	   }
+                                    	   else
+                                    	   {
+                                    		   console.log("first time not 100%");
+                                    		   BS.progressVal = data;
+                                               
+                                               BS.bar = $('.bar');
+                                               BS.bar.width( parseInt(BS.progressVal) * parseInt(4));
+                                               BS.bar.text( BS.progressVal + "% Done");
+                                               
+                                              if(BS.progressVal == BS.totalPer ){
+                                                  //stop the getprogress call
+                                                  clearInterval(BS.progressVals);
+                                               }
+                                    		   
+                                    	   }
+                                    	   BS.firstValue = 1;
+                                       }
+                                       else
+                                       {
+                                    	   console.log("next times");
+                                    	   BS.progressVal = data;
+                                           
+                                           BS.bar = $('.bar');
+                                           BS.bar.width( parseInt(BS.progressVal) * parseInt(4));
+                                           BS.bar.text( BS.progressVal + "% Done");
+                                           
+                                          if(BS.progressVal == BS.totalPer ){
+                                              //stop the getprogress call
+                                              clearInterval(BS.progressVals);
+                                           }
+                                       }
+                                   
+                                      
 
                                      }
                                })}
                     ,2000);
                    
-                }, 2000);
+               
                       
                                            
                         
