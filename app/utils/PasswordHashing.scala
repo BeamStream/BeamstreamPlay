@@ -5,7 +5,7 @@ import javax.crypto.spec.SecretKeySpec
 import sun.misc.BASE64Decoder
 import sun.misc.BASE64Encoder
 
-object PasswordHashing extends App {
+class PasswordHashing {
 
   val ALGO = "AES"
   val keyValue: Array[Byte] = Array('T', 'h', 'e', 'B', 'e', 's', 't', 'S', 'e', 'c', 'r', 'e', 't', 'K', 'e', 'y')

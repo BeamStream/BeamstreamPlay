@@ -23,6 +23,7 @@ import com.mongodb.WriteConcern
 import play.cache.Cache
 import models.onlineUserCache
 import utils.PasswordHashing
+import utils.PasswordHashing
 
 object BasicRegistration extends Controller {
 
@@ -71,8 +72,11 @@ object BasicRegistration extends Controller {
       val alias = (parsedUserJson \ "alias").extract[String]
       val useCurrentLocation = (parsedUserJson \ "useCurrentLocation").extract[Boolean]
 
-      val encryptedPassword =   utils.ConversionUtility.encryptPassword(password)
-      val encryptedConfirmPassword = utils.ConversionUtility.encryptPassword(confirmPassword)
+//      val encryptedPassword =   utils.ConversionUtility.encryptPassword(password)
+//      val encryptedConfirmPassword = utils.ConversionUtility.encryptPassword(confirmPassword)
+
+         val encryptedPassword =   (new PasswordHashing).encryptThePassword(password)
+         val encryptedConfirmPassword = (new PasswordHashing).encryptThePassword(confirmPassword)
 
       //val user = User.findUserbyId(new ObjectId(id))
 
