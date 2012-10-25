@@ -900,6 +900,7 @@ BS.StreamView = Backbone.View.extend({
 		 }
 		 else
 		 {
+			 $('#display_message').css('padding-top','100px');
 			 $('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
       		 $('.error-msg').html("You're Not Authorised To Delete This Message");
 		 }
@@ -979,6 +980,7 @@ BS.StreamView = Backbone.View.extend({
 		 }
 		 else
 		 {
+			 $('#display_message').css('padding-top','100px');
 			 $('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
       		 $('.error-msg').html("You're Not Authorised To Delete This Comment");
 		 }
