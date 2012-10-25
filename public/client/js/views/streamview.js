@@ -847,47 +847,63 @@ BS.StreamView = Backbone.View.extend({
 	 deleteMessage :function(eventName){
 		 eventName.preventDefault();
 		 var messageId = eventName.target.id;
-		 console.log("m-- " + messageId);
+		 var ownerId = $('ul.timeline_items li#'+messageId).attr('name');
+		 // check whether the  message owner is the logged user or not
+		 if(localStorage["loggedUserInfo"] == ownerId)
+		 {
+			 var alert = '<div id="msg-dialog-'+messageId+'" name="'+messageId+'" title="Delete !">Are you sure you want to delete this message?</br></div>';
+			 $('#alert-popup').html(alert);
+			 $('#msg-dialog-'+messageId).dialog({
 
-		 var alert = '<div id="msg-dialog-'+messageId+'" name="'+messageId+'" title="Delete !">Are you sure you want to delete this message?</br></div>';
-		 $('#alert-popup').html(alert);
-		 $('#msg-dialog-'+messageId).dialog({
-
-				autoOpen: false ,
-				modal: true,
-				draggable: false,
-			    resizable: false,
-			    buttons: { 
-			    	 
-			    	 "Delete": function() { 
-			    		 
-			    		 // delete particular message
-			    		 $.ajax({
-			                 type: 'POST',
-			                 url: BS.deleteMessage,
-			                 data:{
-			                	  messageId :messageId
-			                 },
-			                 dataType:"json",
-			                 success:function(data){
-			                	 
-			                	 $('ul.timeline_items li#'+messageId).remove();
-					    		 $('#msg-dialog-'+messageId).dialog("close");
-			                 }
-			              });
-			    		
-	                  
-	                 },
-	                 "Cancel": function() { 
-	                	 $('#msg-dialog-'+messageId).dialog('close');
-		              },
-		        }
-	         
-			 });
-		 	$('#msg-dialog-'+messageId).dialog('open');
-		 	$('#msg-dialog-'+messageId).dialog({ height: 100 });
-		
-		  
+					autoOpen: false ,
+					modal: true,
+					draggable: false,
+				    resizable: false,
+				    buttons: { 
+				    	 
+				    	 "Delete": function() { 
+				    		 
+				    		 // delete particular message
+				    		 $.ajax({
+				                 type: 'POST',
+				                 url: BS.deleteMessage,
+				                 data:{
+				                	  messageId :messageId
+				                 },
+				                 dataType:"json",
+				                 success:function(data){
+				                	 if(data.status == "Success")
+				                	 {
+				                		 $('ul.timeline_items li#'+messageId).remove();
+							    		 $('#msg-dialog-'+messageId).dialog("close");
+				                	 }
+				                	 else
+				                	 {
+				                		$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+				                 		$('.error-msg').html(data.message);
+				                	 }
+				                	 
+				                 }
+				              });
+				    		
+		                  
+		                 },
+		                 "Cancel": function() { 
+		                	 $('#msg-dialog-'+messageId).dialog('close');
+			              },
+			        }
+		         
+				 });
+			 	$('#msg-dialog-'+messageId).dialog('open');
+			 	$('#msg-dialog-'+messageId).dialog({ height: 100 });
+			
+		 }
+		 else
+		 {
+			 $('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+      		 $('.error-msg').html("You're Not Authorised To Delete This Message");
+		 }
+				 
 		 
 	 },
 	 
@@ -896,57 +912,76 @@ BS.StreamView = Backbone.View.extend({
 	  */
 	 deleteComment :function(eventName){
 		 eventName.preventDefault();
+		 
 		 var element = eventName.target.parentElement;
 		 var commentId =$(element).closest('li').attr('id');
 		 var messageId =$(element).closest('li').parent('ul').parent('article').parent('li').attr('id');
+		 var ownerId = $('#'+commentId).attr('name'); 
 		 
-		 var alert = '<div id="comment-dialog-'+commentId+'" title="Delete !">Are you sure you want to delete this comment?</br></div>';
-		 $('#alert-popup').html(alert);
-		 $('#comment-dialog-'+commentId).dialog({
-
-				autoOpen: false ,
-				modal: true,
-				draggable: false,
-			    resizable: false,
-			    buttons: { 
-			    	 
-			    	 "Delete": function() { 
-			    		 
-			    		 // delete particular message
-			    		 $.ajax({
-			                 type: 'POST',
-			                 url: BS.deleteTheComment,
-			                 data:{
-			                	  messageId :messageId,
-			                	  commentId :commentId
-			                 },
-			                 dataType:"json",
-			                 success:function(data){
-			                	 
-			                	 var commentCount = $('#'+messageId+'-cmtCount').text();
-					    		 if(commentCount == 1)
-					    		 {
-					    			 $('#'+messageId+'-header').html("");
-					    		 }
-					    		 else
-					    		 {
-					    			 $('#'+messageId+'-cmtCount').text(commentCount-1);
-					    		 }
-					    		 $('#'+messageId+'-commentlists li#'+commentId).remove();
-					    		 $('#comment-dialog-'+commentId).dialog('close');
-			                 }
-			              });
-		
-	                  
-	                 },
-	                 "Cancel": function() { 
-	                	 $('#comment-dialog-'+commentId).dialog('close');
-		              },
-		        }
-	         
-			 });
-		 	$('#comment-dialog-'+commentId).dialog('open');
-		 	$('#comment-dialog-'+commentId).dialog({ height: 100 });
+		// check whether the  comment owner is the logged user or not
+		 if(localStorage["loggedUserInfo"] == ownerId)
+		 {
+			 var alert = '<div id="comment-dialog-'+commentId+'" title="Delete !">Are you sure you want to delete this comment?</br></div>';
+			 $('#alert-popup').html(alert);
+			 $('#comment-dialog-'+commentId).dialog({
+	
+					autoOpen: false ,
+					modal: true,
+					draggable: false,
+				    resizable: false,
+				    buttons: { 
+				    	 
+				    	 "Delete": function() { 
+				    		 
+				    		 // delete particular message
+				    		 $.ajax({
+				                 type: 'POST',
+				                 url: BS.deleteTheComment,
+				                 data:{
+				                	  messageId :messageId,
+				                	  commentId :commentId
+				                 },
+				                 dataType:"json",
+				                 success:function(data){
+				                	 if(data.status == "Success")
+				                	 {
+				                		 var commentCount = $('#'+messageId+'-cmtCount').text();
+							    		 if(commentCount == 1)
+							    		 {
+							    			 $('#'+messageId+'-header').html("");
+							    		 }
+							    		 else
+							    		 {
+							    			 $('#'+messageId+'-cmtCount').text(commentCount-1);
+							    		 }
+							    		 $('#'+messageId+'-commentlists li#'+commentId).remove();
+							    		 $('#comment-dialog-'+commentId).dialog('close');
+				                	 }
+				                	 else
+				                	 {
+				                		$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+				                 		$('.error-msg').html(data.message);
+				                	 }
+				                	
+				                 }
+				              });
+			
+		                  
+		                 },
+		                 "Cancel": function() { 
+		                	 $('#comment-dialog-'+commentId).dialog('close');
+			              },
+			        }
+		         
+				 });
+			 	$('#comment-dialog-'+commentId).dialog('open');
+			 	$('#comment-dialog-'+commentId).dialog({ height: 100 });
+		 }
+		 else
+		 {
+			 $('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+      		 $('.error-msg').html("You're Not Authorised To Delete This Comment");
+		 }
 	 },
  
 	 /**
