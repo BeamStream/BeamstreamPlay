@@ -151,7 +151,7 @@ object MessageController extends Controller {
     val keyword = keywordJsonMap("keyword").toList(0)
     val pageNo = keywordJsonMap("pageNo").toList(0).toInt
     val messagesPerPage = keywordJsonMap("limit").toList(0).toInt
-    val allMessagesForAStream = Message.getAllMessagesForAKeyword(keyword,pageNo,messagesPerPage)
+    val allMessagesForAStream = Message.getAllMessagesForAKeyword(keyword, pageNo, messagesPerPage)
     val allMessagesForAStreamJson = write(allMessagesForAStream)
     Ok(allMessagesForAStreamJson).as("application/json")
   }
@@ -183,17 +183,18 @@ object MessageController extends Controller {
       Ok(write(isAFollowerOfMessage.toString)).as("application/json")
     }
   }
-  
+
   /*
    * Delete A Message
    */
 
-    def deleteTheMessage = Action { implicit request =>
-      val messageIdJsonMap = request.body.asFormUrlEncoded.get
-      val messageId = messageIdJsonMap("messageId").toList(0)
-      Message.deleteMessagePermanently(new ObjectId(messageId))
-      Ok(write(new ResulttoSent("Success","Message Has Been Deleted")))
-      
-    }
+  def deleteTheMessage = Action { implicit request =>
+    val messageIdJsonMap = request.body.asFormUrlEncoded.get
+    val messageId = messageIdJsonMap("messageId").toList(0)
+    val messsageDeleted = Message.deleteMessagePermanently(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
+    if (messsageDeleted == true) Ok(write(new ResulttoSent("Success", "Message Has Been Deleted")))
+    else Ok(write(new ResulttoSent("Failure","You're Not Authorised To Delete This Message")))
+
+  }
 }
 
