@@ -4,7 +4,6 @@ Backbone.history.start();
 });
 
 
-
 /*
 * Config Variables for Url externalization
 */
