@@ -194,7 +194,6 @@ object MessageController extends Controller {
     val messsageDeleted = Message.deleteMessagePermanently(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
     if (messsageDeleted == true) Ok(write(new ResulttoSent("Success", "Message Has Been Deleted")))
     else Ok(write(new ResulttoSent("Failure","You're Not Authorised To Delete This Message")))
-
   }
 }
 
