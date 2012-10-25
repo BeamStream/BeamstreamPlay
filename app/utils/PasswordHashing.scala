@@ -4,11 +4,12 @@ import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
 import sun.misc.BASE64Decoder
 import sun.misc.BASE64Encoder
+import play.api.Play
 
 class PasswordHashing {
 
-  val ALGO = "AES"
-  val keyValue: Array[Byte] = Array('T', 'h', 'e', 'B', 'e', 's', 't', 'S', 'e', 'c', 'r', 'e', 't', 'K', 'e', 'y')
+  val ALGO = Play.current.configuration.getString("algo").get
+  val keyValue: Array[Byte] = Play.current.configuration.getString("encryptionKey").get.toCharArray.map(_.toByte)
 
   /*
    * Creates The Unique Key For The Purpose Of Encryption & Decryption 
@@ -24,17 +25,15 @@ class PasswordHashing {
    * Encryption Of Password By AES
    */
   def encryptThePassword(password: String) = {
-    println(password)
     val key = generateKey
     val cipher = Cipher.getInstance(ALGO)
     cipher.init(Cipher.ENCRYPT_MODE, key)
     val encVal = cipher.doFinal(password.getBytes())
     val encryptedPassword = new BASE64Encoder().encode(encVal)
-    println(encryptedPassword)
     encryptedPassword
   }
-  
-   /*
+
+  /*
    * Decryption Of Password By AES
    */
   def decryptThePassword(encryptedPassword: String) = {
@@ -46,6 +45,5 @@ class PasswordHashing {
     val decryptedpassword = new String(decValue)
     decryptedpassword
   }
-  
-   
+
 }
