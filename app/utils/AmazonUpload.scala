@@ -60,9 +60,6 @@ object AmazonUpload {
 
 */
 
-
-
-
 import com.amazonaws.AmazonClientException
 import com.amazonaws.AmazonServiceException
 import com.amazonaws.auth.PropertiesCredentials
@@ -84,8 +81,6 @@ class AmazonUpload {
   var totalByteRead: Double = 0
   var percentage: Int = 0
 
-  
-
   def uploadCompressedFileToAmazon(profilePicName: String, profilePic: InputStream, totalFileSize: Double, flag: Boolean, userId: String) {
     println("Coming here for compression")
     val bucketName = "BeamStream"
@@ -95,27 +90,26 @@ class AmazonUpload {
 
     s3Client.putObject(putObjectRequest)
   }
-  
-  
-  private def updateProgressStatus(putObjectRequest:PutObjectRequest, totalFileSize:Double, userId:String) = {
-    
-      putObjectRequest.setProgressListener(new ProgressListener {
-        @Override
-        def progressChanged(progressEvent: ProgressEvent) {
-          totalByteRead += progressEvent.getBytesTransfered
-          percentage = ((totalByteRead / totalFileSize) * 100).toInt
-          println(percentage+"   "+totalByteRead+" " + "  "+totalFileSize)
-          //Setting the progress status
-          ProgressBar.setProgressBar(userId, percentage)
-          if (progressEvent.getEventCode == ProgressEvent.COMPLETED_EVENT_CODE) {
-            println("Uploading Completed")
-          }
-        }
 
-      });
-    
+  private def updateProgressStatus(putObjectRequest: PutObjectRequest, totalFileSize: Double, userId: String) = {
+
+    putObjectRequest.setProgressListener(new ProgressListener {
+      @Override
+      def progressChanged(progressEvent: ProgressEvent) {
+        totalByteRead += progressEvent.getBytesTransfered
+        percentage = ((totalByteRead / totalFileSize) * 100).toInt
+        println(percentage + "   " + totalByteRead + " " + "  " + totalFileSize)
+        //Setting the progress status
+        ProgressBar.setProgressBar(userId, percentage)
+        if (progressEvent.getEventCode == ProgressEvent.COMPLETED_EVENT_CODE) {
+          println("Uploading Completed")
+        }
+      }
+
+    });
+
   }
-  
+
   private def fetchS3Client = {
     val AWS_ACCESS_KEY_RAW = Play.current.configuration.getString("A_A_K").get
     val AWS_SECRET_KEY_RAW = Play.current.configuration.getString("A_S_K").get
@@ -125,8 +119,7 @@ class AmazonUpload {
     val awsCredentials = new BasicAWSCredentials(AWS_ACCESS_KEY, AWS_SECRET_KEY)
     new AmazonS3Client(awsCredentials)
   }
- 
-  
+
   def uploadFileToAmazon(profilePicName: String, profilePic: File, totalFileSize: Double, userId: String) {
     val bucketName = "BeamStream"
     val s3Client = fetchS3Client
@@ -138,28 +131,29 @@ class AmazonUpload {
 
 object ProgressBar {
 
-  var progressMap: Map[String, Int] = Map()
+  // var progressMap: Map[String, Int] = Map()
   def setProgressBar(userId: String, progress: Int) {
-    progressMap += (userId -> progress)
-//    println("Setting in Map-->"+progressMap.get(userId).get)
+
+    //progressMap += (userId -> progress)
+    //    println("Setting in Map-->"+progressMap.get(userId).get)
+    ProgressStatus.addProgress(userId, progress)
 
   }
 
 }
 
+object DocsUploadOnAmazon {
 
-object DocsUploadOnAmazon{
-  
   def uploadFileToAmazon(profilePicName: String, profilePic: File) {
-      val bucketName = "BeamStream"
-      val AWS_ACCESS_KEY_RAW = Play.current.configuration.getString("A_A_K").get
-      val AWS_SECRET_KEY_RAW = Play.current.configuration.getString("A_S_K").get
-  
-      val AWS_ACCESS_KEY = ConversionUtility.decodeMe(AWS_ACCESS_KEY_RAW)
-      val AWS_SECRET_KEY = ConversionUtility.decodeMe(AWS_SECRET_KEY_RAW)
-      val awsCredentials = new BasicAWSCredentials(AWS_ACCESS_KEY, AWS_SECRET_KEY)
-      val s3Client = new AmazonS3Client(awsCredentials);
-      s3Client.putObject(bucketName, profilePicName, profilePic)
-    }
-  
+    val bucketName = "BeamStream"
+    val AWS_ACCESS_KEY_RAW = Play.current.configuration.getString("A_A_K").get
+    val AWS_SECRET_KEY_RAW = Play.current.configuration.getString("A_S_K").get
+
+    val AWS_ACCESS_KEY = ConversionUtility.decodeMe(AWS_ACCESS_KEY_RAW)
+    val AWS_SECRET_KEY = ConversionUtility.decodeMe(AWS_SECRET_KEY_RAW)
+    val awsCredentials = new BasicAWSCredentials(AWS_ACCESS_KEY, AWS_SECRET_KEY)
+    val s3Client = new AmazonS3Client(awsCredentials);
+    s3Client.putObject(bucketName, profilePicName, profilePic)
+  }
+
 }
