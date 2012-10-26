@@ -1052,8 +1052,17 @@ body {
     </form>
   </div>
 <div class="modal-footer">
-<a id="joinClass" class="btn btn-primary pull-left" href="#joinClass">Join a Class</a>
-<a id="createClass" class="btn btn-success pull-right" href="#createClass">Create a Class</a>
+ 
+<a id="joinClass" class="btn btn-primary pull-left" href="#joinClass">
+	<div id="join-class-loader" style="display :none;">  
+		<img src ="images/loading.gif"> 
+	 </div>
+   Join a Class</a>
+<a id="createClass" class="btn btn-success pull-right" href="#createClass">
+	<div id="create-class-loader" style="display :none;">  
+		<img src ="images/loading.gif"> 
+	 </div>
+Create a Class</a>
 </div>
 </div>
 </script>
@@ -2062,10 +2071,19 @@ body {
         </form>
     </div>
     <div class="modal-footer">
-       
-        <a href="#messages" class="btn btn-primary pull-left"  id="save" >Save & Exit</a>
+        
+		 
+        <a href="#messages" class="btn btn-primary pull-left"  id="save" >
+		<div id="save-class-loader" style="display :none;">  
+			<img src ="images/loading.gif"> 
+         </div>
+		Save & Exit</a>
          {{#unless edit}}
-          <a href="#" class="btn btn-success pull-right" id="continue" >Continue</a>
+          <a href="#" class="btn btn-success pull-right" id="continue" >
+			<div id="class-continue-loader" style="display :none;">  
+				<img src ="images/loading.gif"> 
+      	   </div>		
+			Continue</a>
          {{/unless}}
     </div>
   </div>
@@ -3192,8 +3210,8 @@ body {
    <div id="error" class= "invalid-validation"  style=" margin-bottom: 18px !important; margin-left: 152px;"></div>
             <div class="element">
              <label name="iam" for="iam">I'm </label>
-                <select id="iam" name="iam" class="required large">
-                  <option >-- I'm --</option>
+                <select id="iam" name="iam" class="large required">
+                 	    <option value="">-- I'm --</option>
 						<option value="0">Student</option>
 						<option value="1">Educator</option>
 						<option value="2">Professional</option>
@@ -3287,7 +3305,7 @@ body {
  
             <div class="element">
              <label name="iam" for="iam">I'm   </label>
-                <select id="iam" class="large">
+                <select id="iam" class="large" name="iam">
                   <option value= "">-- I'm --</option>
                         {{#if student}}
 						   <option value="0" selected="selected">Student</option>
@@ -3394,7 +3412,7 @@ body {
           <div class="form-row short">
               <div class="element">
                 <label name="iam" for="iam">I'm <span class="star"> </span></label>
-                <select id="iam" name="iams" class="required large">
+                <select id="iam" name="iam" class="required large">
                         <option value="">-- I'm --</option>
 						<option value="0">Student</option>
 						<option value="1">Educator</option>
@@ -3764,6 +3782,14 @@ body {
 																localStorage["first-name"] = res.profile.name.givenName;
 																localStorage["last-name"] = res.profile.name.familyName;
 																localStorage["email"] = res.profile.preferredUsername;
+																
+// 																// extract alias name from vanity url
+// 																var url = res.profile.url;
+// 																url = url.replace(/\\/g, '');
+// 																url = url.split("/");
+// 																var alias = url[3];
+// 																localStorage["alias"] = alias;
+																
 															}
 															/* LinkedIn signUp */
 															else if (res.profile.providerName == "LinkedIn") {

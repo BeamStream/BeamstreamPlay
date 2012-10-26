@@ -1765,6 +1765,34 @@ border: 1px solid rgba(0, 0, 0, 0.15);
     top: 37px;
     z-index: 999;
 }
+#join-class-loader{
+	left: 140px;
+    position: absolute;
+    top: 11px;
+    z-index: 999;
+}
+#create-class-loader{
+	left: 165px;
+    position: absolute;
+    top: 11px;
+    z-index: 999;
+}
+#save-class-loader{
+	left: 130px;
+    position: absolute;
+    top: 11px;
+    z-index: 999;
+}
+#class-continue-loader{
+	left: 115px;
+    position: absolute;
+    top: 11px;
+    z-index: 999;
+}
+#joinClass ,#messages ,#save ,#createClass ,#continue{
+	 position: relative;
+}
+ 
 /* for show embedly view */
 #display-embedly{
 border: 1px solid #E8E8E9;

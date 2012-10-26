@@ -780,7 +780,7 @@ BS.AppRouter = Backbone.Router.extend({
 							$("#dialog").dialog('close');
 							if(localStorage["regInfo"])
 							 {
-								   console.log(localStorage["regInfo"]);
+								   
 								   $('#school-popup').children().detach();
 							       var regDetails =JSON.parse(localStorage["regInfo"]);
 							       BS.mediaRegistrationView = new BS.MediaRegistrationView();

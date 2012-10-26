@@ -236,6 +236,7 @@ BS.ClassStreamView = Backbone.View.extend({
 	
 	createClass :function(eventName) {
 		eventName.preventDefault();
+		$('#create-class-loader').css("display","block");
 		var newClassInfo = this.getNewClass();
 		
 		
@@ -250,6 +251,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			success : function(data) {
 				if(data)
 				{
+					 $('#create-class-loader').css("display","none");
 					 $('#student-number').fadeOut("medium");
 					 console.log("success");
 					 // get all streams with newly created one
@@ -314,6 +316,7 @@ BS.ClassStreamView = Backbone.View.extend({
 	 */
 	joinClass :function(eventName){
 		eventName.preventDefault();
+		$('#join-class-loader').css("display","block");
 		var newClassInfo = this.getNewClass();
 		
 		
@@ -328,6 +331,7 @@ BS.ClassStreamView = Backbone.View.extend({
 			success : function(data) {
 				if(data)
 				{
+					  $('#join-class-loader').css("display","none");
 					  $('#student-number').fadeOut("medium");
 					  BS.AppRouter.navigate("streams", {trigger: true});
 				}

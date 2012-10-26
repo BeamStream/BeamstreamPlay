@@ -39,7 +39,7 @@ BS.ClassView = Backbone.View.extend({
 	saveClass : function(eventName) {
 		
 		eventName.preventDefault();
- 
+		$('#save-class-loader').css("display","block");
 			var validate = $("#class-form").valid(); 
 			if(validate == true)
 		    {
@@ -59,6 +59,7 @@ BS.ClassView = Backbone.View.extend({
 						success : function(data) {
 							if(data)
 							{
+								$('#save-class-loader').css("display","none");
 								$('.studentno-popup-class').fadeOut("medium"); 
 								BS.schoolBack = false;
 								BS.regBack = false;
@@ -151,6 +152,7 @@ BS.ClassView = Backbone.View.extend({
 	toProfile : function(eventName) {
 
 		console.log("to profile");
+		$('#class-continue-loader').css("display","block");
 		eventName.preventDefault();
         var self = this;
 		var validate = $("#class-form").valid(); 
@@ -169,6 +171,7 @@ BS.ClassView = Backbone.View.extend({
 					success : function(data) {
 						if(data)
 						{
+							$('#class-continue-loader').css("display","none");
 							$('.studentno-popup-class').fadeOut("medium"); 
 							self.fetchSchools();
 							localStorage["editProfile"] = "false";
