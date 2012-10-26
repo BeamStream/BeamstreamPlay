@@ -1710,8 +1710,8 @@ Create a Class</a>
                     </div>
 					<div class="element">
                         <label name="graduated-1" for="graduated">Graduated? </label>
-                        <select id="graduated-1" name ="graduated"  class="graduated span2">
- 							<option> </option>
+                        <select id="graduated-1" name ="graduated"  class="graduated span2" onchange="valiadateSelect(this)">
+ 							<option value=""> </option>
                             <option value="attending">Still Attending</option>
                             <option value="yes">Yes</option>
                             <option value="no">No</option>
@@ -1800,8 +1800,8 @@ Create a Class</a>
 			</div>
 			<div class="element">
 				<label name="graduated-{{number}}" for="graduated" name="graduated-{{number}}">Graduated? </label>
-				<select name="graduated" id="graduated-{{number}}" class="graduated span2" >
-					<option> </option>
+				<select name="graduated" id="graduated-{{number}}" class="graduated span2" onchange="valiadateSelect(this)">
+					<option value=""> </option>
 					<option value="attending">Still Attending</option>
 					<option value="yes">Yes</option>
 					<option value="no">No</option>
@@ -3210,7 +3210,7 @@ Create a Class</a>
    <div id="error" class= "invalid-validation"  style=" margin-bottom: 18px !important; margin-left: 152px;"></div>
             <div class="element">
              <label name="iam" for="iam">I'm </label>
-                <select id="iam" name="iam" class="large required">
+                <select id="iam" name="iam" class="large required" onchange="valiadateSelect(this);">
                  	    <option value="">-- I'm --</option>
 						<option value="0">Student</option>
 						<option value="1">Educator</option>
@@ -3305,7 +3305,7 @@ Create a Class</a>
  
             <div class="element">
              <label name="iam" for="iam">I'm   </label>
-                <select id="iam" class="large" name="iam">
+                <select id="iam" class="large" name="iam" onchange="valiadateSelect(this);">
                   <option value= "">-- I'm --</option>
                         {{#if student}}
 						   <option value="0" selected="selected">Student</option>
@@ -3412,7 +3412,7 @@ Create a Class</a>
           <div class="form-row short">
               <div class="element">
                 <label name="iam" for="iam">I'm <span class="star"> </span></label>
-                <select id="iam" name="iam" class="required large">
+                <select id="iam" name="iam" class="required large" onchange="valiadateSelect(this);">
                         <option value="">-- I'm --</option>
 						<option value="0">Student</option>
 						<option value="1">Educator</option>
@@ -4011,6 +4011,22 @@ Create a Class</a>
 			 BS.streamView.mouseOver();
 			 $("#dialog").dialog('close');
 		}
+		
+		// validate select boxes
+		function valiadateSelect(self){
+			 var label1 = $("label[name='"+$(self).attr('id')+"']");
+			 console.log(label1);
+			 if($(self).val())
+			 {
+				 $(label1).html($(label1).text());
+			 }
+			 else
+			 {
+				 
+				 $(label1).html($(label1).text()+ "  <img src='images/star.png' />");
+			 }
+		}
+		
 	</script>
         
         <script type="text/javascript" src="lib/css3-mediaqueries.js"></script>

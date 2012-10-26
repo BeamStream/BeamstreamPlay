@@ -37,6 +37,11 @@ BS.MediaRegistrationView = Backbone.View.extend({
 		eventName.preventDefault();
 		$("#social-media-signup").validate();
 		var validate =  $("#social-media-signup").valid();
+		
+		/* validate select box */
+		valiadateSelect($('#iam'));
+		
+
         if(validate == true){
     	    var regDetails = this.getFormData();
     	    
@@ -181,6 +186,10 @@ BS.MediaRegistrationView = Backbone.View.extend({
 	toNextPage : function(eventName) {
 
 		eventName.preventDefault();
+		/* validate select box */
+		valiadateSelect($('#iam'));
+		
+		
         var validate =  $("#social-media-signup").valid();
         
         if(validate == true){

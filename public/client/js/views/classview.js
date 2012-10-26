@@ -75,6 +75,7 @@ BS.ClassView = Backbone.View.extend({
 							}
 							else
 							{
+								$('#save-class-loader').css("display","none");
 								$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
 			            		$('.error-msg').html("Invalid");
 							}
@@ -84,6 +85,7 @@ BS.ClassView = Backbone.View.extend({
 				}
 				else
 				{
+					$('#save-class-loader').css("display","none");
 					$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
             		$('.error-msg').html("Please fill all details for a class");
 				}
@@ -91,6 +93,7 @@ BS.ClassView = Backbone.View.extend({
 		   }
 			else
 		    {    
+				$('#save-class-loader').css("display","none");
 				$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
         		$('.error-msg').html("You must enter atleast one class");
 		    }
@@ -183,6 +186,7 @@ BS.ClassView = Backbone.View.extend({
 						}
 						else
 						{
+							$('#save-class-loader').css("display","none");
 							$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
 			        		$('.error-msg').html("Invalid");
 						}
@@ -191,6 +195,7 @@ BS.ClassView = Backbone.View.extend({
 		   }
 			else
 		    { 
+				$('#save-class-loader').css("display","none");
 				$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
         		$('.error-msg').html("You must enter atleast one class");
 		    }
@@ -536,14 +541,15 @@ BS.ClassView = Backbone.View.extend({
 				BS.classNameInfo = datas;
 				BS.classNames = [];
 				_.each(datas, function(data) {
-					BS.classNames.push(data.className);
+//					BS.classNames.push(data.className);
+					BS.classNames.push({label:data.className, value:data.className ,id : 12});
 		        });
 
 				//set auto populate functionality for class code
 				$('#'+id).autocomplete({
 					    source: BS.classNames,
 					    select: function(event, ui) {
-					    	
+					    	 
 					    	var text = ui.item.value; 
 					    	self.displayFieldsForName(text,identity);
 					    	
@@ -583,13 +589,14 @@ BS.ClassView = Backbone.View.extend({
 				BS.classNameInfo = datas;
 				_.each(datas, function(data) {
 					BS.classNames.push(data.className);
+
 		        });
  
 				//set auto populate functionality for class code
 				$('#'+id).autocomplete({
 					    source: BS.classNames,
 					    select: function(event, ui) {
-					    	
+					    	 
 					    	var text = ui.item.value; 
 					    	self.displayFieldsForName(text,identity);
 					    	
