@@ -69,7 +69,7 @@ object Class {
           
           val user = User.getUserProfile(userId)
           SendEmail.mailAfterStreamCreation(user.email, eachclass.className, false)
-          Stream.sendMailToUsersOfStream(classesobtained(0).streams(0))
+          Stream.sendMailToUsersOfStream(classesobtained(0).streams(0),userId)
                    
           val classObtained = Class.findClassListById(eachclass.id)
           ClassDAO.update(MongoDBObject("_id" -> eachclass.id), classObtained(0).copy(
