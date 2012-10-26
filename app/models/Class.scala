@@ -60,8 +60,6 @@ object Class {
 
     else {
 
-      //TODO:var classIdList: List[ObjectId] = List()
-
       for (eachclass <- classList) {
         val classesobtained = Class.findClassListById(eachclass.id)
         if (!classesobtained.isEmpty) {
