@@ -72,7 +72,7 @@ object SendEmail extends App {
     transport.sendMessage(msg, msg.getAllRecipients)
   }
 
-  def mailAfterStreamCreation(emailId: String, streamName: String) {
+  def mailAfterStreamCreation(emailId: String, streamName: String, newStream: Boolean) {
     val props = new Properties
     props.setProperty("mail.transport.protocol", "smtp");
     props.setProperty("mail.smtp.starttls.enable", "true");
@@ -83,13 +83,52 @@ object SendEmail extends App {
     val msg = new MimeMessage(session)
     val recepientAddress = new InternetAddress(emailId)
     msg.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
-    msg.addRecipient(Message.RecipientType.TO, recepientAddress);
-    msg.setSubject("You've Created " + streamName + " Stream On Beamstream")
+    msg.addRecipient(Message.RecipientType.TO, recepientAddress)
+    if (newStream == true) {
+      msg.setSubject("You've Created " + streamName + " Stream On Beamstream")
+      msg.setContent(
+
+        "Hi <b>Beamstream's</b> Rocker." + "<br>" + "<br>" +
+          "You've created the " + streamName + " Stream in Your Profile" + "<br>" + "<br>" +
+          "Start sharing now & be a Beamstream's Rocker" + "<br>" + "<br>" ++ "<br>" +
+          "Cheers," + "<br>" +
+          "The Really Nice Beamstream Folks , US" + "<br>", "text/html")
+    } else {
+
+      msg.setSubject("You've Joined " + streamName + " Stream On Beamstream")
+      msg.setContent(
+
+        "Hi <b>Beamstream's</b> Rocker." + "<br>" + "<br>" +
+          "You've Joined the " + streamName + " Stream " + "<br>" + "<br>" +
+          "Start sharing now & be a Beamstream's Rocker" + "<br>" + "<br>" ++ "<br>" +
+          "Cheers," + "<br>" +
+          "The Really Nice Beamstream Folks , US" + "<br>", "text/html")
+    }
+
+    val transport = session.getTransport("smtp");
+    transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get))
+    transport.sendMessage(msg, msg.getAllRecipients)
+  }
+
+  def notifyUsersOfStreamForANewUser(emailId: String, firstNameOfJoiner: String, lastNameOfJoiner: String, streamName: String) {
+    val props = new Properties
+    props.setProperty("mail.transport.protocol", "smtp");
+    props.setProperty("mail.smtp.starttls.enable", "true");
+    props.setProperty("mail.host", "smtp.gmail.com");
+    props.setProperty("mail.user", "neelkanth@knoldus.com");
+    props.setProperty("mail.password", Play.current.configuration.getString("email_password").get)
+    val session = Session.getDefaultInstance(props, null);
+    val msg = new MimeMessage(session)
+    val recepientAddress = new InternetAddress(emailId)
+    msg.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
+    msg.addRecipient(Message.RecipientType.TO, recepientAddress)
+
+    msg.setSubject(firstNameOfJoiner + " " + lastNameOfJoiner + " has Joined the " + streamName + " Stream")
     msg.setContent(
 
-      "Hi <b>Beamstream's</b> Rocker." + "<br>" + "<br>" +
-        "You've created the " + streamName + " Stream in Your Profile" + "<br>" + "<br>" +
-        "Start sharing now & be a Beamstream's Rocker" + "<br>" + "<br>" ++ "<br>" + 
+      "Hi <b>Beamstream's</b> Rockers." + "<br>" + "<br>" +
+        firstNameOfJoiner + " " + lastNameOfJoiner + " has Joined the " + streamName + " Stream" +
+        "<br>" + "<br>" +
         "Cheers," + "<br>" +
         "The Really Nice Beamstream Folks , US" + "<br>", "text/html")
 

@@ -8,14 +8,15 @@ import com.mongodb.casbah.MongoConnection
 import scala.collection.JavaConversions._
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
+import utils.SendEmail
 
 case class Stream(@Key("_id") id: ObjectId,
-    streamName: String,
-    streamType: StreamType.Value,
-    creatorOfStream: ObjectId,
-    usersOfStream: List[ObjectId],
-    postToMyProfile: Boolean,
-    streamTag: List[String])
+  streamName: String,
+  streamType: StreamType.Value,
+  creatorOfStream: ObjectId,
+  usersOfStream: List[ObjectId],
+  postToMyProfile: Boolean,
+  streamTag: List[String])
 
 object Stream {
 
@@ -144,6 +145,18 @@ object Stream {
       resultToSent = ResulttoSent("Success", "You've Successfully Removed From This Stream")
     }
     resultToSent
+  }
+
+  /*
+   * Notify Other Users Of A Stream About New User That Has Been Joined In A Stream
+   */
+  def sendMailToUsersOfStream(streamId: ObjectId) = {
+    val stream = Stream.findStreamById(streamId)
+    for (user <- stream.usersOfStream) {
+      val userObtained = User.getUserProfile(user)
+      SendEmail.notifyUsersOfStreamForANewUser(userObtained.email, userObtained.firstName, userObtained.lastName, stream.streamName)
+    }
+
   }
 
 }

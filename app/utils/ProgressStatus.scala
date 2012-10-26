@@ -13,8 +13,8 @@ object ProgressStatus {
 
     val amazonProgressObj = AmazonProgressDAO.find(MongoDBObject("userId" -> userId)).toList
     (!amazonProgressObj.isEmpty) match {
-      case true => println("true"); AmazonProgressDAO.update(MongoDBObject("userId" -> userId), new AmazonProgress(userId, percentage), false, false, new WriteConcern)
-      case false => println("false"); AmazonProgressDAO.insert(new AmazonProgress(userId, percentage))
+      case true => AmazonProgressDAO.update(MongoDBObject("userId" -> userId), new AmazonProgress(userId, percentage), false, false, new WriteConcern)
+      case false => AmazonProgressDAO.insert(new AmazonProgress(userId, percentage))
     }
 
   }

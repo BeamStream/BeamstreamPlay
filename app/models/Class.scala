@@ -63,20 +63,23 @@ object Class {
       //TODO:var classIdList: List[ObjectId] = List()
 
       for (eachclass <- classList) {
-        println(eachclass)
         val classesobtained = Class.findClassListById(eachclass.id)
         if (!classesobtained.isEmpty) {
           println("Join Stream Case")
           Stream.joinStream(classesobtained(0).streams(0), userId)
           User.addClassToUser(userId, List(eachclass.id))
-
+          
+          val user = User.getUserProfile(userId)
+          SendEmail.mailAfterStreamCreation(user.email, eachclass.className, false)
+          Stream.sendMailToUsersOfStream(classesobtained(0).streams(0))
+                   
           val classObtained = Class.findClassListById(eachclass.id)
           ClassDAO.update(MongoDBObject("_id" -> eachclass.id), classObtained(0).copy(
             classCode = eachclass.classCode,
             className = eachclass.className,
             classType = eachclass.classType,
             classTime = eachclass.classTime,
-            schoolId=eachclass.schoolId,
+            schoolId = eachclass.schoolId,
             startingDate = eachclass.startingDate), false, false, new WriteConcern)
           val streamOfTheComingClass = Stream.findStreamById(classObtained(0).streams(0))
           StreamDAO.update(MongoDBObject("_id" -> classObtained(0).streams(0)), streamOfTheComingClass.copy(streamName = eachclass.className), false, false, new WriteConcern)
@@ -89,9 +92,9 @@ object Class {
           val streamToCreate = new Stream(new ObjectId, eachclass.className, StreamType.Class, userId, List(userId), true, List())
           val streamId = Stream.createStream(streamToCreate)
           Stream.attachStreamtoClass(streamId, new ObjectId(classId.get.toString))
-          
-          val user=User.getUserProfile(userId)
-          SendEmail.mailAfterStreamCreation(user.email,eachclass.className)
+
+          val user = User.getUserProfile(userId)
+          SendEmail.mailAfterStreamCreation(user.email, eachclass.className, true)
         }
       }
       ResulttoSent("Success", "User has successfully added his classes")
@@ -105,7 +108,6 @@ object Class {
   def deleteClass(myclass: Class) {
     ClassDAO.remove(myclass)
   }
-
 
   /*
    * Finding the class by Code
@@ -136,15 +138,6 @@ object Class {
     }
     classes
   }
-
-//  /*
-//   * Get class by code
-//   * 
-//   */
-//  def getClassByCode(classToSearch: Class): List[Class] = {
-//    val classesFetched = ClassDAO.find(MongoDBObject("classCode" -> classToSearch.classCode)).toList
-//    classesFetched
-//  }
 
   /*
    * Finding the class by Time

@@ -130,16 +130,12 @@ class AmazonUpload {
 }
 
 object ProgressBar {
-
   // var progressMap: Map[String, Int] = Map()
   def setProgressBar(userId: String, progress: Int) {
-
     //progressMap += (userId -> progress)
-    //    println("Setting in Map-->"+progressMap.get(userId).get)
+    //println("Setting in Map-->"+progressMap.get(userId).get)
     ProgressStatus.addProgress(userId, progress)
-
   }
-
 }
 
 object DocsUploadOnAmazon {
