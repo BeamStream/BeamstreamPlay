@@ -677,8 +677,8 @@ BS.AppRouter = Backbone.Router.extend({
     * registration after email verification
     */
     basicRegistration: function(token,iam,email) {
-	    BS.user.fetch({ success:function(e) {
-		  	   if(e.get('loggedin') == false) {  
+//	    BS.user.fetch({ success:function(e) {
+//		  	   if(e.get('loggedin') == false) {  
 			       $("#dialog").dialog('close');  
 			       BS.token = token;
 			       BS.iam = iam;
@@ -717,55 +717,66 @@ BS.AppRouter = Backbone.Router.extend({
 				   }
 			       else
 			       {
+			    	   
+			    	   BS.user.fetch({ success:function(e) {
+							if(e.get('loggedin') == false) {  
 			        	// verify the token
-			  		   $.ajax({
-			  				type : 'POST',
-			  				url : BS.verifyToken,
-			  				data : {
-			  					token : token
-			  	                 },
-			  				dataType : "json",
-			  				success : function(data) {
-			  						if (data.status == "Success") {
-			  	
-			//  							if (!BS.registrationView) {
-			  								BS.registrationView = new BS.RegistrationView();
-			  								var mailInfo = {
-			  										iam : iam,
-			  										mail : email
-			  								};
-			  								BS.registrationView.render(mailInfo);
-			//  							}
-			  	
-			  							$('#school-popup').html(BS.registrationView.el);
-			  							localStorage["regInfo"] ='';
-			  							$('#jan-iam').hide();
-			  							$(".checkbox").dgStyle();
-			//  							$("#registration-form").validate();
-			  							 $("#registration-form").validate({
-			  								rules: {
-			  									password1: "required",
-			  									password_again: {
-			  								      equalTo: "#password1"
-			  								    }
-			  								  }
-			  							});
-			  					     }
-			  						 else 
-			  						 {
-			  							alert("Token Expiredd");
-			  						  }
-			  	
-			  					}
-			  				});
+					  		   $.ajax({
+					  				type : 'POST',
+					  				url : BS.verifyToken,
+					  				data : {
+					  					token : token
+					  	                 },
+					  				dataType : "json",
+					  				success : function(data) {
+					  						if (data.status == "Success") {
+					  	
+					//  							if (!BS.registrationView) {
+					  								BS.registrationView = new BS.RegistrationView();
+					  								var mailInfo = {
+					  										iam : iam,
+					  										mail : email
+					  								};
+					  								BS.registrationView.render(mailInfo);
+					//  							}
+					  	
+					  							$('#school-popup').html(BS.registrationView.el);
+					  							localStorage["regInfo"] ='';
+					  							$('#jan-iam').hide();
+					  							$(".checkbox").dgStyle();
+					//  							$("#registration-form").validate();
+					  							 $("#registration-form").validate({
+					  								rules: {
+					  									password1: "required",
+					  									password_again: {
+					  								      equalTo: "#password1"
+					  								    }
+					  								  }
+					  							});
+					  					     }
+					  						 else 
+					  						 {
+					  							alert("Token Expiredd");
+					  						  }
+					  	
+					  					}
+					  				});
+							}
+							else {
+								console.log("From Stream => login");
+								BS.AppRouter.navigate("login", {trigger: true});
+							}
+						
+				      }});
+					  		   
 			         }
-		  	    }
-				else {
-					console.log("From Stream => login");
-					BS.AppRouter.navigate("login", {trigger: true});
-				}
-			
-	      }});
+//		  	    }
+//				else {
+//					console.log("From Stream => login");
+//					BS.AppRouter.navigate("login", {trigger: true});
+//				}
+//			
+//	      }});
 	       
 
 	  },
@@ -774,9 +785,9 @@ BS.AppRouter = Backbone.Router.extend({
 			 * basicRegistrationViaJanRain
 			 */
 			basicRegistrationViaJanRain : function(event) {
-				console.log("hhhhh");
-				BS.user.fetch({ success:function(e) {
-					if(e.get('loggedin') == false) {  
+				
+//				BS.user.fetch({ success:function(e) {
+//					if(e.get('loggedin') == false) {  
 							$("#dialog").dialog('close');
 							if(localStorage["regInfo"])
 							 {
@@ -827,40 +838,49 @@ BS.AppRouter = Backbone.Router.extend({
 						 }
 						else
 						{
-							$('#school-popup').children().detach();
-							
-		//					if (!BS.mediaRegistrationView) {
-								BS.mediaRegistrationView = new BS.MediaRegistrationView();
-								BS.mediaRegistrationView.render();
-		//					}
-			                
-							$('#school-popup').html(BS.mediaRegistrationView.el);
-							localStorage["regInfo"] ='';
-							$('#school-record').hide();
-							$(".modal select:visible").selectBox();
-							$(".checkbox").dgStyle();
-							$("#social-media-signup").validate();
-			 
-							var datas = BS.JsonFromSocialSite;
-			 
-							if(localStorage["first-name"])
-								$('#first-name').val(localStorage["first-name"]);
-							if(localStorage["last-name"] != "")
-							    $('#last-name').val(localStorage["last-name"]);
-							if(localStorage["location"])
-								$('#location').val(localStorage["location"]);
-							if(localStorage["preferredUsername"])
-								$('#alias').val(localStorage["preferredUsername"]);
+							BS.user.fetch({ success:function(e) {
+								if(e.get('loggedin') == false) {  
+										$('#school-popup').children().detach();
+										
+					//					if (!BS.mediaRegistrationView) {
+											BS.mediaRegistrationView = new BS.MediaRegistrationView();
+											BS.mediaRegistrationView.render();
+					//					}
+						                
+										$('#school-popup').html(BS.mediaRegistrationView.el);
+										localStorage["regInfo"] ='';
+										$('#school-record').hide();
+										$(".modal select:visible").selectBox();
+										$(".checkbox").dgStyle();
+										$("#social-media-signup").validate();
+						 
+										var datas = BS.JsonFromSocialSite;
+						 
+											if(localStorage["first-name"])
+												$('#first-name').val(localStorage["first-name"]);
+											if(localStorage["last-name"] != "")
+											    $('#last-name').val(localStorage["last-name"]);
+											if(localStorage["location"])
+												$('#location').val(localStorage["location"]);
+											if(localStorage["preferredUsername"])
+												$('#alias').val(localStorage["preferredUsername"]);
+									}
+								else {
+									
+									console.log("From Stream => login");
+									BS.AppRouter.navigate("login", {trigger: true});
+								}
+						     }});
 								
 						}
 
-					}
-					else {
-						console.log("From Stream => login");
-						BS.AppRouter.navigate("login", {trigger: true});
-					}
+//					}
+//					else {
+//						console.log("From Stream => login");
+//						BS.AppRouter.navigate("login", {trigger: true});
+//					}
 				
-		      }});
+//		      }});
  
 			},
 
