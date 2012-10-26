@@ -150,11 +150,12 @@ object Stream {
   /*
    * Notify Other Users Of A Stream About New User That Has Been Joined In A Stream
    */
-  def sendMailToUsersOfStream(streamId: ObjectId) = {
+  def sendMailToUsersOfStream(streamId: ObjectId, userIdWhoHasJoinedTheStream: ObjectId) = {
+    val userWhoHasJoinedTheStream = User.getUserProfile(userIdWhoHasJoinedTheStream)
     val stream = Stream.findStreamById(streamId)
     for (user <- stream.usersOfStream) {
       val userObtained = User.getUserProfile(user)
-      SendEmail.notifyUsersOfStreamForANewUser(userObtained.email, userObtained.firstName, userObtained.lastName, stream.streamName)
+      SendEmail.notifyUsersOfStreamForANewUser(userObtained.email, userWhoHasJoinedTheStream.firstName, userWhoHasJoinedTheStream.lastName, stream.streamName)
     }
 
   }
