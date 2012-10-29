@@ -121,8 +121,7 @@ object StreamController extends Controller {
     val streamId = StreamIdJsonMap("streamId").toList(0)
     val usersAttendingClass = Stream.usersAttendingClass(new ObjectId(streamId))
     val rolesOfUsers = User.countRolesOfAUser(usersAttendingClass)
-    val stringToReturn= "{" + "Student:"+ rolesOfUsers.get("Student").get+ ",Educator:" + rolesOfUsers.get("Educator").get + ",Professional:" + rolesOfUsers.get("Professional").get+"}"
-    Ok(write(stringToReturn)).as("application/json")
+    Ok(write(rolesOfUsers)).as("application/json")
   }
 
   /*
