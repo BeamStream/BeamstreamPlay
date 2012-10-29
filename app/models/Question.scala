@@ -145,6 +145,16 @@ object Question {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(answers = (question.answers ++ List(answerId))), false, false, new WriteConcern)
   }
+  
+  
+   /*
+   * Sort Question within a stream on the basis of total rocks (#403)
+   */
+
+  def getAllMessagesForAStreamSortedbyRocks(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int)= {
+    val questionRetreived = QuestionDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("rocks" -> -1, "timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    questionRetreived
+  }
 }
 
 object QuestionDAO extends SalatDAO[Question, ObjectId](collection = MongoHQConfig.mongoDB("question"))
