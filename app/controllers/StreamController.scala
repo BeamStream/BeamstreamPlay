@@ -30,11 +30,10 @@ object StreamController extends Controller {
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
   def index = Action { implicit request =>
-    val playCookiee=request.cookies.get("PLAY_SESSION")
-    
-    if(playCookiee==None )  Redirect("/beamstream/home.html")
+    val playCookiee = request.cookies.get("PLAY_SESSION")
+    if (playCookiee == None) Redirect("/beamstream/home.html")
     else Redirect("/beamstream/index.html#streams")
-   
+
   }
 
   /*
@@ -121,8 +120,9 @@ object StreamController extends Controller {
     val StreamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = StreamIdJsonMap("streamId").toList(0)
     val usersAttendingClass = Stream.usersAttendingClass(new ObjectId(streamId))
-    val rolesOfUsers=User.countRolesOfAUser(usersAttendingClass)
-    Ok(write(rolesOfUsers.toString)).as("application/json")
+    val rolesOfUsers = User.countRolesOfAUser(usersAttendingClass)
+    val stringToReturn= "{" + "Student:"+ rolesOfUsers.get("Student").get+ ",Educator:" + rolesOfUsers.get("Educator").get + ",Professional:" + rolesOfUsers.get("Professional").get+"}"
+    Ok(write(stringToReturn)).as("application/json")
   }
 
   /*
