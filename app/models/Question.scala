@@ -24,10 +24,11 @@ import java.net.URL
  */
 object QuestionAccess extends Enumeration {
   type QuestionAccess = Value
-  val Private = Value(0, "Private")
-  val Public = Value(1, "Public")
-  val Restricted = Value(2, "Restricted")
-  val Stream = Value(3, "Stream")
+  val Public = Value(0, "Public")
+  val PrivateToClass = Value(1, "PrivateToClass")
+  val PrivateToSchool = Value(2, "PrivateToSchool")
+  //  val Restricted = Value(2, "Restricted")
+  //  val Stream = Value(3, "Stream")
 
 }
 
@@ -62,7 +63,7 @@ object Question {
     QuestionDAO.remove(question)
   }
 
-   /*
+  /*
  * Find Question by Id
  */
 
@@ -70,8 +71,7 @@ object Question {
     val question = QuestionDAO.findOneByID(questionId)
     question
   }
-  
-  
+
   /*
  * Rock The Question
  */
@@ -94,7 +94,6 @@ object Question {
     }
   }
 
-  
   /*
   * Names of a rockers for a Question (Modified)
   */
@@ -116,10 +115,6 @@ object Question {
     }
     questionsList
   }
-
-  
-  
- 
 
   /*
     * Change the access of a Question
@@ -145,13 +140,12 @@ object Question {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(answers = (question.answers ++ List(answerId))), false, false, new WriteConcern)
   }
-  
-  
-   /*
+
+  /*
    * Sort Question within a stream on the basis of total rocks (#403)
    */
 
-  def getAllMessagesForAStreamSortedbyRocks(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int)= {
+  def getAllMessagesForAStreamSortedbyRocks(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int) = {
     val questionRetreived = QuestionDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("rocks" -> -1, "timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
     questionRetreived
   }
