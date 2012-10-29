@@ -814,6 +814,21 @@ ul.rockit li span a {
   position: absolute !important;
   border-radius: 4px 4px 4px 4px;
 }
+.class-info-popup{
+ 
+	background-color: #FFFFFF;
+    border-radius: 4px 4px 4px 4px;
+    color: #6EABC7;
+    display: none;
+    font-family: UbuntuRegular;
+    height: 35px;
+    left: 58%;
+    line-height: 20px;
+    position: absolute !important;
+    top: 29px;
+    width: 87px;
+    z-index: 1045;
+}
 .class-pop{
 	position :relative;
 }
@@ -2522,5 +2537,39 @@ ul.timeline_items li:hover .delete_msg{
 ul.comments li:hover .delete_comment{
 	display:block;
 }
- 
+
+
+/* for showing no.of students and Educators in class */
+.student{
+	width:40px;
+	display:block ;
+    float:left;
+    margin: 0 5px 0 0;
+}
+.student h3,.educator h3{
+	display:block;
+	font-size:14px;
+    float:left;
+    clear:both;
+    line-height:18px; 
+    height:2px;   
+}
+.student h4 ,.educator h4{
+	display:block;
+	font-size:14px;
+    float:left;
+    clear:both;
+    line-height:50px;
+    height:2px;   	
+}	
+.educator{
+	width:40px;
+	display:block;
+    float:left; 
+}
+/* .class_name{ */
+/* 	padding-right: 95px !important; */
+/*     width: 110px !important; */
+/* } */
+
 

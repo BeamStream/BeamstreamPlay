@@ -8,9 +8,9 @@ BS.ClassView = Backbone.View.extend({
 		"click a.legend-addclass" : "addSchool",
 		"click .back" :"backToPrevious",
 		"click .close-button" : "closeScreen",
-		"keyup .class_code" :"getValuesForCode",
+		"keyup .class_code" :"populateClasses",
 		"focus .class_code" : "populateClasses",
-		"keyup .class_name" :"getValuesForName",
+		"keyup .class_name" :"populateClassNames",
 	    "focusin .class_name":"populateClassNames",
 	    "change .all-schools" : "clearAllClasses"
 
@@ -32,6 +32,34 @@ BS.ClassView = Backbone.View.extend({
 		this.template = Handlebars.compile(this.source);
 		 
 	},
+	
+	/**
+	 * render class Info screen
+	 */
+	render : function(eventName) {
+	    
+		/* check whether its a edit class or not */
+    	var edit = "";
+    	if(localStorage["editClass"] == "true")
+    	{
+    		edit = "yes";
+        }
+    	else
+    	{
+    		edit = "";
+    	}
+    	
+		var sCount = {
+				"sCount" : sClasses,
+				"schools": this.schools,
+				"times" : BS.times,
+				"edit" : edit
+		}
+		 
+		$(this.el).html(this.template(sCount));
+		return this;
+	},
+	
  
 	/**
 	 * save/post class info details.
@@ -100,32 +128,6 @@ BS.ClassView = Backbone.View.extend({
  
 	},
 
-	/**
-	 * render class Info screen
-	 */
-	render : function(eventName) {
-	    
-		/* check whether its a edit class or not */
-    	var edit = "";
-    	if(localStorage["editClass"] == "true")
-    	{
-    		edit = "yes";
-        }
-    	else
-    	{
-    		edit = "";
-    	}
-    	
-		var sCount = {
-				"sCount" : sClasses,
-				"schools": this.schools,
-				"times" : BS.times,
-				"edit" : edit
-		}
-		 
-		$(this.el).html(this.template(sCount));
-		return this;
-	},
 	
 	
     /**
@@ -345,47 +347,47 @@ BS.ClassView = Backbone.View.extend({
     /**
 	 * display other values on mouse select - class code auto complete
 	 */
-	getValuesForCode :function(eventName){
-		
-		var id = eventName.target.id;
-		var text = $('#'+id).val(); 
-		var self = this;
-		
-		// get id to identify corresponding row 
-		var identity = id.replace(/[^\d.,]+/,'');
-		var rowId = identity.replace(/([-]\d+)$/,'');
-		var selectedSchoolId = $('#school-' + rowId).val() ;
-		self.displayFiledsForCode(text,identity);
-		
-		/* post the text that we type to get matched classes */
-		 $.ajax({
-			type : 'POST',
-			url : BS.autoPopulateClassesbyCode,
-			data : {
-				data : text,
-				assosiatedSchoolId : selectedSchoolId
-			},
-			dataType : "json",
-			success : function(datas) {
-				var codes = '';
-				BS.classInfo = datas;
-				BS.classCodes = [];
-				_.each(datas, function(data) {
-					BS.classCodes.push(data.classCode);
-		        });
-				
-				//set auto populate functionality for class code
-				$('#'+id).autocomplete({
-					    source: BS.classCodes,
-					    select: function(event, ui) {
-					    	var text = ui.item.value; 
-					    	self.displayFiledsForCode(text,identity);
-					    }
-				 });
-			}
-		});
-		
-	},
+//	getValuesForCode :function(eventName){
+//		
+//		var id = eventName.target.id;
+//		var text = $('#'+id).val(); 
+//		var self = this;
+//		
+//		// get id to identify corresponding row 
+//		var identity = id.replace(/[^\d.,]+/,'');
+//		var rowId = identity.replace(/([-]\d+)$/,'');
+//		var selectedSchoolId = $('#school-' + rowId).val() ;
+//		self.displayFiledsForCode(text,identity);
+//		
+//		/* post the text that we type to get matched classes */
+//		 $.ajax({
+//			type : 'POST',
+//			url : BS.autoPopulateClassesbyCode,
+//			data : {
+//				data : text,
+//				assosiatedSchoolId : selectedSchoolId
+//			},
+//			dataType : "json",
+//			success : function(datas) {
+//				var codes = '';
+//				BS.classInfo = datas;
+//				BS.classCodes = [];
+//				_.each(datas, function(data) {
+//					BS.classCodes.push(data.classCode);
+//		        });
+//				
+//				//set auto populate functionality for class code
+//				$('#'+id).autocomplete({
+//					    source: BS.classCodes,
+//					    select: function(event, ui) {
+//					    	var text = ui.item.value; 
+//					    	self.displayFiledsForCode(text,identity);
+//					    }
+//				 });
+//			}
+//		});
+//		
+//	},
 	
 	/**
 	 * populate  List of class codes - matching a class code
@@ -493,9 +495,15 @@ BS.ClassView = Backbone.View.extend({
 					},
 					success : function(data) {
 						  
-						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
-			        	 $('#student-number-'+identity).fadeIn("medium"); 
-			        	 $('#student-number-'+identity).html(ul);
+//						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
+//			        	 $('#student-number-'+identity).fadeIn("medium"); 
+//			        	 $('#student-number-'+identity).html(ul);
+						
+						 var ul = '<div class="student"><h3>Stud:</h3><h4>'+data.Student+'</h4></div>'
+						 		  +'<div class="educator"><h3>Educ:</h3><h4>'+data.Educator+'</h4></div>';
+	        	 
+			        	 $('#ps-'+identity).fadeIn("medium"); 
+			        	 $('#ps-'+identity).html(ul);
 
 					}
 			 });
@@ -503,7 +511,9 @@ BS.ClassView = Backbone.View.extend({
 		 else
 		 {
 				 this.classId =1;
-				 $('#student-number-'+identity).fadeOut("medium"); 
+//				 $('#student-number-'+identity).fadeOut("medium"); 
+				 $('#ps-'+identity).fadeOut("medium"); 
+				 
 //				 $('#class-name-'+identity).val("");
 //				 $('#date-started-'+identity).val("");
 //				 $(".modal select:visible").selectBox();
@@ -512,54 +522,54 @@ BS.ClassView = Backbone.View.extend({
 		
 	},
 	/**
-     * display other values on mouse select - className auto complete
-     */
-    getValuesForName :function(eventName){
-    	var id = eventName.target.id;
-    	var text = $('#'+id).val();
-    	var self =this;
-    	
-    	// get id to identify corresponding row 
-		var identity = id.replace(/[^\d.,]+/,'');
-//		this.displayFieldsForName(text,identity);
-		
-		var rowId = identity.replace(/([-]\d+)$/,'');
-		var selectedSchoolId = $('#school-' + rowId).val() ;
-		self.displayFieldsForName(text,identity);
-		
-		/* post the text that we type to get matched classes */
-		 $.ajax({
-			type : 'POST',
-			url : BS.autoPopulateClassesbyName,
-			data : {
-				data : text,
-				assosiatedSchoolId : selectedSchoolId
-			},
-			dataType : "json",
-			success : function(datas) {
-				var codes = '';
-				BS.classNameInfo = datas;
-				BS.classNames = [];
-				_.each(datas, function(data) {
-//					BS.classNames.push(data.className);
-					BS.classNames.push({label:data.className, value:data.className ,id : 12});
-		        });
-
-				//set auto populate functionality for class code
-				$('#'+id).autocomplete({
-					    source: BS.classNames,
-					    select: function(event, ui) {
-					    	 
-					    	var text = ui.item.value; 
-					    	self.displayFieldsForName(text,identity);
-					    	
-					    }
-				 });
-			 
-			}
-		});
-		
-    },
+//     * display other values on mouse select - className auto complete
+//     */
+//    getValuesForName :function(eventName){
+//    	var id = eventName.target.id;
+//    	var text = $('#'+id).val();
+//    	var self =this;
+//    	
+//    	// get id to identify corresponding row 
+//		var identity = id.replace(/[^\d.,]+/,'');
+////		this.displayFieldsForName(text,identity);
+//		
+//		var rowId = identity.replace(/([-]\d+)$/,'');
+//		var selectedSchoolId = $('#school-' + rowId).val() ;
+//		self.displayFieldsForName(text,identity);
+//		
+//		/* post the text that we type to get matched classes */
+//		 $.ajax({
+//			type : 'POST',
+//			url : BS.autoPopulateClassesbyName,
+//			data : {
+//				data : text,
+//				assosiatedSchoolId : selectedSchoolId
+//			},
+//			dataType : "json",
+//			success : function(datas) {
+//				var codes = '';
+//				BS.classNameInfo = datas;
+//				BS.classNames = [];
+//				_.each(datas, function(data) {
+////					BS.classNames.push(data.className);
+//					BS.classNames.push({label:data.className, value:data.className ,id : 12});
+//		        });
+//
+//				//set auto populate functionality for class code
+//				$('#'+id).autocomplete({
+//					    source: BS.classNames,
+//					    select: function(event, ui) {
+//					    	 
+//					    	var text = ui.item.value; 
+//					    	self.displayFieldsForName(text,identity);
+//					    	
+//					    }
+//				 });
+//			 
+//			}
+//		});
+//		
+//    },
     /**
      * auto populate class names - matching a class name
      */
@@ -665,9 +675,16 @@ BS.ClassView = Backbone.View.extend({
 					},
 					success : function(data) {
 						  
-						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
-			        	 $('#student-number-'+identity).fadeIn("medium"); 
-			        	 $('#student-number-'+identity).html(ul);
+//						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
+//			        	 $('#student-number-'+identity).fadeIn("medium"); 
+//			        	 $('#student-number-'+identity).html(ul);
+
+						 /* show no.of students and Educators in a class */
+			        	 var ul = '<div class="student"><h3>Stud:</h3><h4>'+data.Student+'</h4></div>'
+			        		      +'<div class="educator"><h3>Educ:</h3><h4>'+data.Educator+'</h4></div>';
+			        	 
+			        	 $('#ps-'+identity).fadeIn("medium"); 
+			        	 $('#ps-'+identity).html(ul);
 
 					}
 			 });
@@ -677,7 +694,10 @@ BS.ClassView = Backbone.View.extend({
 		 {
 			  
 		     this.classId =1;
-		     $('#student-number-'+identity).fadeOut("medium"); 
+//		     $('#-'+identity).fadeOut("medium"); 
+		     
+		     $('#ps-'+identity).fadeOut("medium"); 
+		     
 //		     $('#class-code-'+identity).val("");
 //			 $('#date-started-'+identity).val($.datepicker.formatDate('mm/dd/yy', new Date()));
 //			 $('#semester-'+identity+' option:selected').attr('selected', false);
@@ -708,7 +728,8 @@ BS.ClassView = Backbone.View.extend({
     	{
     		 $('#class-name-'+identity+'-'+i).val("");
 		     $('#class-code-'+identity+'-'+i).val("");
-		     $('#student-number-'+identity+'-'+i).fadeOut("medium"); 
+//		     $('#student-number-'+identity+'-'+i).fadeOut("medium"); 
+		     $('#ps-'+identity).fadeOut("medium"); 
 			 $('#date-started-'+identity+'-'+i).val($.datepicker.formatDate('mm/dd/yy', new Date()));
 			 $('#semester-'+identity+'-'+i+' option:selected').attr('selected', false);
 			 $('#semester-'+identity+'-'+i+' option[value="semester"]').attr('selected', 'selected');
