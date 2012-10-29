@@ -57,7 +57,7 @@ object CommentController extends Controller {
           val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
             commentPoster.firstName, commentPoster.lastName, 0, List())
           val commentId = Comment.createComment(comment)
-          Comment.addCommentToDocument(commentId, new ObjectId(docId))
+          Document.addCommentToDocument(commentId, new ObjectId(docId))
           Ok(write(List(comment))).as("application/json")
 
         case false =>
