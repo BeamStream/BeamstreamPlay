@@ -34,7 +34,7 @@ object Class {
   /*
    * Create the new Classes
    */
-  def createClass(classList: List[Class], userId: ObjectId): ResulttoSent = {
+ def createClass(classList: List[Class], userId: ObjectId): ResulttoSent = {
 
     /*
  * Check if the duplicate code exists in database
@@ -45,7 +45,7 @@ object Class {
     /*
    * is Duplicate Class Exists In List (Local Function)
    */
-    def duplicateClassExistesInSubmittedList(classList: List[Class]): Boolean = {
+     def duplicateClassExistesInSubmittedList(classList: List[Class]): Boolean = {
       var classFetchCount: Int = 0
       for (eachClass <- classList) {
         val classFetchedbyFilteringClassCode = classList.filter(x => x.classCode == eachClass.classCode)

@@ -149,6 +149,22 @@ object Question {
     val questionRetreived = QuestionDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("rocks" -> -1, "timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
     questionRetreived
   }
+
+  /*
+   * FInd All Private To Class Questions For A User
+   */
+
+  def getAllPrivateToAClassQuestionForAUser(userId: ObjectId) = {
+    QuestionDAO.find(MongoDBObject("userId" -> userId, "questionAccess" -> "PrivateToClass")).toList
+  }
+
+  /*
+   * FInd All Private To School Questions For A User
+   */
+
+  def getAllPrivateToASchoolQuestionForAUser(userId: ObjectId) = {
+    QuestionDAO.find(MongoDBObject("userId" -> userId, "questionAccess" -> "PrivateToSchool")).toList
+  }
 }
 
 object QuestionDAO extends SalatDAO[Question, ObjectId](collection = MongoHQConfig.mongoDB("question"))

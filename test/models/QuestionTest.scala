@@ -64,6 +64,21 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
     assert(Question.rockersNameOfAQuestion(questionId)===List("Neel"))
     assert(Question.rockersNameOfAQuestion(questionId).size===1)
   }
+  
+  test("Privacy Of The Question(For A Class , For A School)"){
+     val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List())
+    val userId = User.createUser(user)
+    var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List("Tag1", "Tag2"))
+    val streamId = Stream.createStream(stream)
+    val question = new Question(new ObjectId, "How Was the Class ?", userId, QuestionAccess.PrivateToClass, streamId, "Neel", "Sachdeva", new Date, 0, List(), List(), 0, List())
+    val questionId = Question.addQuestion(question)
+    val anotherQuestion = new Question(new ObjectId, "How Was the Day ?", userId, QuestionAccess.PrivateToSchool, streamId, "Neel", "Sachdeva", new Date, 0, List(), List(), 0, List())
+    val anotherQuestionId = Question.addQuestion(anotherQuestion)
+    val yetAnotherQuestion = new Question(new ObjectId, "How Was the Day ?", userId, QuestionAccess.PrivateToSchool, streamId, "Neel", "Sachdeva", new Date, 0, List(), List(), 0, List())
+    val yetAnotherQuestionId = Question.addQuestion(yetAnotherQuestion)
+    assert(Question.getAllPrivateToAClassQuestionForAUser(userId).size==1)
+    assert(Question.getAllPrivateToASchoolQuestionForAUser(userId).size==2)
+  }
 
   after {
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
