@@ -66,11 +66,11 @@ object Class {
           println("Join Stream Case")
           Stream.joinStream(classesobtained(0).streams(0), userId)
           User.addClassToUser(userId, List(eachclass.id))
-          
-          val user = User.getUserProfile(userId)
-          SendEmail.mailAfterStreamCreation(user.email, eachclass.className, false)
-          Stream.sendMailToUsersOfStream(classesobtained(0).streams(0),userId)
-                   
+
+                    val user = User.getUserProfile(userId)
+                    SendEmail.mailAfterStreamCreation(user.email, eachclass.className, false)
+                    Stream.sendMailToUsersOfStream(classesobtained(0).streams(0), userId)
+
           val classObtained = Class.findClassListById(eachclass.id)
           ClassDAO.update(MongoDBObject("_id" -> eachclass.id), classObtained(0).copy(
             classCode = eachclass.classCode,
@@ -91,8 +91,8 @@ object Class {
           val streamId = Stream.createStream(streamToCreate)
           Stream.attachStreamtoClass(streamId, new ObjectId(classId.get.toString))
 
-          val user = User.getUserProfile(userId)
-          SendEmail.mailAfterStreamCreation(user.email, eachclass.className, true)
+                    val user = User.getUserProfile(userId)
+                    SendEmail.mailAfterStreamCreation(user.email, eachclass.className, true)
         }
       }
       ResulttoSent("Success", "User has successfully added his classes")
@@ -128,13 +128,7 @@ object Class {
 
   def findClassByName(name: String, schoolId: ObjectId): List[Class] = {
     val namePattern = Pattern.compile("^" + name, Pattern.CASE_INSENSITIVE)
-    var classes: List[Class] = List()
-    val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
-    (classFound.isEmpty) match {
-      case true =>
-      case false => classes ++= classFound
-    }
-    classes
+    ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
   }
 
   /*
@@ -217,4 +211,4 @@ object ClassType extends Enumeration {
   val Yearly = Value(2, "yearly")
 }
 
-object ClassDAO extends SalatDAO[Class, Int](collection = MongoHQConfig.mongoDB("class"))
+object ClassDAO extends SalatDAO[Class, ObjectId](collection = MongoHQConfig.mongoDB("class"))

@@ -18,10 +18,10 @@ class ClassTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
-  val class1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
-  val class2 = Class(new ObjectId, "201", "CSE", ClassType.Quarter, "3:34", formatter.parse("31-01-2010"), new ObjectId, List())
-  val class3 = Class(new ObjectId, "203", "ECE", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
-  val class4 = Class(new ObjectId, "204", "CSE", ClassType.Yearly, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
+  val class1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
+  val class2 = Class(new ObjectId, "201", "CSE", ClassType.Quarter, "3:34", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
+  val class3 = Class(new ObjectId, "203", "ECE", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
+  val class4 = Class(new ObjectId, "204", "CSE", ClassType.Yearly, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
   val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List())
 
   test("Create Class/Duplicate Class Exists") {
@@ -56,6 +56,13 @@ class ClassTest extends FunSuite with BeforeAndAfter {
     assert(classesOfAUser(1).className === "ECE")
     assert(classesOfAUser(2).className === "CSE")
 
+  }
+
+  test("Find Class On The Basis Of SchoolId") {
+    val userId = User.createUser(user1)
+    val result = Class.createClass(List(class1,class3, class4), userId)
+    val classesFound=Class.findClassByName("CS",new ObjectId("47cc67093475061e3d95369d"))
+    assert(classesFound.size===1)
   }
   /*
    * Find class by class code and class name

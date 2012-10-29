@@ -179,7 +179,7 @@ object User {
   /*
    * Counting the No. of User with a particular Role
    */
-  def countRoles(usersList: List[ObjectId]): Map[String, Int] = {
+  def countRolesOfAUser(usersList: List[ObjectId]): Map[String, Int] = {
     var map: Map[String, Int] = Map()
     var count: Int = 0
     for (value <- UserType.values) {

@@ -119,9 +119,9 @@ object Stream {
    * No. of Users Attending Class
    */
 
-  def usersAttendingClass(streamId: ObjectId): Int = {
+  def usersAttendingClass(streamId: ObjectId)= {
     val streamObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
-    streamObtained.usersOfStream.size
+    streamObtained.usersOfStream
   }
 
   /**
