@@ -2588,7 +2588,12 @@ Create a Class</a>
                           <form class="emdform" method="post" action=".">
                            <textarea id="msg"></textarea>
                           </form>
-					    
+					    <div class="upload-box" style="display:none;">
+							<div class="upload-content">
+								<div class="upload-head">Upload your data here ..</div>
+								<input class="upload1" type="file" id="upload-files" name="file">
+							</div>
+						</div>
                         <ul class="additional_controls">
                           <li class="comment"><a href="#comment" class="btn btn-flat"><i class="icon-middle-comment"></i></a></li>
                             <li class="doc"><a href="#doc" class="btn btn-flat"><i class="icon-middle-doc"></i></a>
@@ -2606,7 +2611,7 @@ Create a Class</a>
                                     
                                     </ul>
 								</li>  
-							      <li><input style ="display: none;" type="file" id="upload-files" >                 
+							                     
                           <li class="tag"><a href="#tag" class="btn btn-flat"><i class="icon-middle-tag"></i></a></li>
                           <li class="private">
                             <label for="id-private"  >
@@ -2622,7 +2627,6 @@ Create a Class</a>
 						  <li><input class ="msg-post_button" id="post-msg" type="button" value="POST"> </input></li>
                         </ul>
 						<div id="file-upload-loader" style="display :none;">  
-							<div class="doc_type" > </div>
 							<img src ="images/loading.gif"> 
         			   </div>
                       </div>

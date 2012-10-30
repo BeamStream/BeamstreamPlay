@@ -2578,11 +2578,24 @@ ul.comments li:hover .delete_comment{
 /* 	padding-right: 95px !important; */
 /*     width: 110px !important; */
 /* } */
+
+/* upload files from main stream page */
 #file-upload-loader{
-	left: 360px;
+	left: 355px;
     position: absolute;
-    top: 145px;
+    top: 195px;
     z-index: 999;
+}
+.upload-box{
+	border-top: 1px solid #E8E8E9;
+    padding: 5px 5px 5px 15px;
+}
+ 
+.upload1{
+	padding-left :5px;
+}
+.upload-content{
+	padding-left :5px;
 }
 
 
