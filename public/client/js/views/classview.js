@@ -419,6 +419,7 @@ BS.ClassView = Backbone.View.extend({
 				BS.classCodes = []; 
 				_.each(datas, function(data) {
 					BS.classCodes.push(data.classCode);
+					 
 		        });
 				
 				//set auto populate functionality for class code
@@ -495,15 +496,15 @@ BS.ClassView = Backbone.View.extend({
 					},
 					success : function(data) {
 						  
-//						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
-//			        	 $('#student-number-'+identity).fadeIn("medium"); 
-//			        	 $('#student-number-'+identity).html(ul);
+						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data.Student+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
+			        	 $('#student-number-'+identity).fadeIn("medium"); 
+			        	 $('#student-number-'+identity).html(ul);
 						
-						 var ul = '<div class="student"><h3>Stud:</h3><h4>'+data.Student+'</h4></div>'
-						 		  +'<div class="educator"><h3>Educ:</h3><h4>'+data.Educator+'</h4></div>';
-	        	 
-			        	 $('#ps-'+identity).fadeIn("medium"); 
-			        	 $('#ps-'+identity).html(ul);
+//						 var ul = '<div class="student"><h3>Stud:</h3><h4>'+data.Student+'</h4></div>'
+//						 		  +'<div class="educator"><h3>Educ:</h3><h4>'+data.Educator+'</h4></div>';
+//	        	 
+//			        	 $('#ps-'+identity).fadeIn("medium"); 
+//			        	 $('#ps-'+identity).html(ul);
 
 					}
 			 });
@@ -511,8 +512,8 @@ BS.ClassView = Backbone.View.extend({
 		 else
 		 {
 				 this.classId =1;
-//				 $('#student-number-'+identity).fadeOut("medium"); 
-				 $('#ps-'+identity).fadeOut("medium"); 
+				 $('#student-number-'+identity).fadeOut("medium"); 
+//				 $('#ps-'+identity).fadeOut("medium"); 
 				 
 //				 $('#class-name-'+identity).val("");
 //				 $('#date-started-'+identity).val("");
@@ -599,6 +600,7 @@ BS.ClassView = Backbone.View.extend({
 				BS.classNameInfo = datas;
 				_.each(datas, function(data) {
 					BS.classNames.push(data.className);
+//					BS.classNames.push({label:data.className + " Students:12 Educators:4 "+ , value:data.className + " - 12" ,id :data.id.id});
 
 		        });
  
@@ -608,7 +610,9 @@ BS.ClassView = Backbone.View.extend({
 					    select: function(event, ui) {
 					    	 
 					    	var text = ui.item.value; 
+//					    	var id = ui.item.id
 					    	self.displayFieldsForName(text,identity);
+//					    	self.displayFieldsForName(id,identity);
 					    	
 					    }
 				 });
@@ -675,16 +679,16 @@ BS.ClassView = Backbone.View.extend({
 					},
 					success : function(data) {
 						  
-//						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
-//			        	 $('#student-number-'+identity).fadeIn("medium"); 
-//			        	 $('#student-number-'+identity).html(ul);
+						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data.Student+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
+			        	 $('#student-number-'+identity).fadeIn("medium"); 
+			        	 $('#student-number-'+identity).html(ul);
 
 						 /* show no.of students and Educators in a class */
-			        	 var ul = '<div class="student"><h3>Stud:</h3><h4>'+data.Student+'</h4></div>'
-			        		      +'<div class="educator"><h3>Educ:</h3><h4>'+data.Educator+'</h4></div>';
-			        	 
-			        	 $('#ps-'+identity).fadeIn("medium"); 
-			        	 $('#ps-'+identity).html(ul);
+//			        	 var ul = '<div class="student"><h3>Stud:</h3><h4>'+data.Student+'</h4></div>'
+//			        		      +'<div class="educator"><h3>Educ:</h3><h4>'+data.Educator+'</h4></div>';
+//			        	 
+//			        	 $('#ps-'+identity).fadeIn("medium"); 
+//			        	 $('#ps-'+identity).html(ul);
 
 					}
 			 });
@@ -694,9 +698,9 @@ BS.ClassView = Backbone.View.extend({
 		 {
 			  
 		     this.classId =1;
-//		     $('#-'+identity).fadeOut("medium"); 
+		     $('#student-number-'+identity).fadeOut("medium"); 
 		     
-		     $('#ps-'+identity).fadeOut("medium"); 
+//		     $('#ps-'+identity).fadeOut("medium"); 
 		     
 //		     $('#class-code-'+identity).val("");
 //			 $('#date-started-'+identity).val($.datepicker.formatDate('mm/dd/yy', new Date()));

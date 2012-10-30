@@ -197,14 +197,14 @@ BS.ClassStreamView = Backbone.View.extend({
 					},
 					success : function(data) {
 						  
-//						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
-//			        	 $('#student-number').fadeIn("medium"); 
-//			        	 $('#student-number').html(ul);
-						 var ul = '<div class="student"><h3>Stud:</h3><h4>'+data.Student+'</h4></div>'
-				 		         +'<div class="educator"><h3>Educ:</h3><h4>'+data.Educator+'</h4></div>';
-  	 
-			        	 $('#ps').fadeIn("medium"); 
-			        	 $('#ps').html(ul);
+						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data.Student+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
+			        	 $('#student-number').fadeIn("medium"); 
+			        	 $('#student-number').html(ul);
+//						 var ul = '<div class="student"><h3>Stud:</h3><h4>'+data.Student+'</h4></div>'
+//				 		         +'<div class="educator"><h3>Educ:</h3><h4>'+data.Educator+'</h4></div>';
+//  	 
+//			        	 $('#ps').fadeIn("medium"); 
+//			        	 $('#ps').html(ul);
 
 					}
 			 });
@@ -218,8 +218,8 @@ BS.ClassStreamView = Backbone.View.extend({
 		 else
 		 {
 
-//			 $('#student-number').fadeOut("medium");
-			 $('#ps').fadeOut("medium");
+			 $('#student-number').fadeOut("medium");
+//			 $('#ps').fadeOut("medium");
 			 this.classId =1;
 
 			 $(".modal select:visible").selectBox();
@@ -258,8 +258,8 @@ BS.ClassStreamView = Backbone.View.extend({
 				if(data)
 				{
 					 $('#create-class-loader').css("display","none");
-//					 $('#student-number').fadeOut("medium");
-					 $('#ps').fadeOut("medium");
+					 $('#student-number').fadeOut("medium");
+//					 $('#ps').fadeOut("medium");
 					 console.log("success");
 					 // get all streams with newly created one
 					 var mainView = new BS.StreamView();
@@ -339,8 +339,8 @@ BS.ClassStreamView = Backbone.View.extend({
 				if(data)
 				{
 					  $('#join-class-loader').css("display","none");
-//					  $('#student-number').fadeOut("medium");
-					  $('#ps').fadeOut("medium");
+					  $('#student-number').fadeOut("medium");
+//					  $('#ps').fadeOut("medium");
 					  BS.AppRouter.navigate("streams", {trigger: true});
 				}
 				else
@@ -537,15 +537,15 @@ BS.ClassStreamView = Backbone.View.extend({
 					},
 					success : function(data) {
 						  
-//						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
-//						 $('#student-number').fadeIn("medium");
-//			        	 $('#student-number').html(ul);
+						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data.Student+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
+						 $('#student-number').fadeIn("medium");
+			        	 $('#student-number').html(ul);
 						
-						 var ul = '<div class="student"><h3>Stud:</h3><h4>'+data.Student+'</h4></div>'
-		 		                  +'<div class="educator"><h3>Educ:</h3><h4>'+data.Educator+'</h4></div>';
-
-			        	 $('#ps').fadeIn("medium"); 
-			        	 $('#ps').html(ul);
+//						 var ul = '<div class="student"><h3>Stud:</h3><h4>'+data.Student+'</h4></div>'
+//		 		                  +'<div class="educator"><h3>Educ:</h3><h4>'+data.Educator+'</h4></div>';
+//
+//			        	 $('#ps').fadeIn("medium"); 
+//			        	 $('#ps').html(ul);
 
 					}
 			 });
@@ -558,8 +558,8 @@ BS.ClassStreamView = Backbone.View.extend({
 		 {
               
 			 this.classId =1;
-//			 $('#student-number').fadeOut("medium");
-			 $('#ps').fadeOut("medium");
+			 $('#student-number').fadeOut("medium");
+//			 $('#ps').fadeOut("medium");
 			 $('#class-code').val("");
 			 $('#date-started').val($.datepicker.formatDate('mm/dd/yy', new Date()));
 //			 $('#semester-'+identity+' option:selected').attr('selected', false);

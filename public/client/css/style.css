@@ -1649,7 +1649,10 @@ span.edit_profilepicture_icon{
 /*     opacity: 0.7; */
     padding: 6px 7px 0 23px;
     position: absolute !important;
-    right: -48px;
+/*     right: -48px; */
+/*     top: 34px; */
+
+    right: -9px;
     top: 34px;
     padding:5px;
     height:auto;
@@ -1657,9 +1660,13 @@ span.edit_profilepicture_icon{
     z-index: 99;
 }
 .doc-hover span.arrow{
-	left: 53px;
+/* for the list */
+/* 	left: 53px; */
+/*     position: absolute; */
+/*     top: -13px; */
+    left: 18px;
     position: absolute;
-    top: -13px;
+    top: -12px;
 }
 
 .doc-hover li{
@@ -2571,5 +2578,11 @@ ul.comments li:hover .delete_comment{
 /* 	padding-right: 95px !important; */
 /*     width: 110px !important; */
 /* } */
+#file-upload-loader{
+	left: 360px;
+    position: absolute;
+    top: 145px;
+    z-index: 999;
+}
 
 
