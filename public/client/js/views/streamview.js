@@ -36,7 +36,9 @@ BS.StreamView = Backbone.View.extend({
            "click #id-private" : "makePrivate",
            "click .username a" : "renderPublicProfile",
            "click .delete_msg" : "deleteMessage",
-           "click .delete_comment" : "deleteComment"
+           "click .delete_comment" : "deleteComment",
+           "click .doc" : "uploadFiles",
+           "change #upload-files" : "getUploadedData"
            
 	 },
 	 
@@ -393,6 +395,32 @@ BS.StreamView = Backbone.View.extend({
      * post a message
      */
     postMessage :function(eventName){
+      // upload file 
+      var self = this;
+     if(this.file)
+     {
+    	 var data;
+         data = new FormData();
+         data.append('docData', self.file);  
+         /* post profile page details */
+         $.ajax({
+             type: 'POST',
+             data: data,
+             url: BS.uploaddocFrmComputer,
+             cache: false,
+             contentType: false,
+             processData: false,
+             dataType : "json",
+             success: function(data){
+            	 
+                 if(data.status == "Success") 
+                     {
+                          
+                     }
+             }
+         }); 
+     }
+    	
       //var urlLink ='';
       var self= this;
       /* get message details from form */
@@ -1554,6 +1582,29 @@ BS.StreamView = Backbone.View.extend({
 	 },
 	 
 	 /**
+	   * upload files
+	   */
+	  uploadFiles :function(eventName){
+		  eventName.preventDefault(); 
+		  $('#upload-files').click();
+		  
+	  },
+	 
+	  getUploadedData :function(e){
+		  
+		  var self = this;;
+	      file = e.target.files[0];
+	      var reader = new FileReader();
+	      
+    	  /* capture the file informations */
+          reader.onload = (function(f){
+        	 self.file = file;
+          })(file);
+         
+        // read the  file as data URL
+        reader.readAsDataURL(file);
+	  },
+	 /**
 	  * @TODO
 	  */
 	 makePrivate :function(){
@@ -1713,7 +1764,9 @@ BS.StreamView = Backbone.View.extend({
 
     })
 
-  }
+  },
+  
+  
   
   /*
   * slider for stream list

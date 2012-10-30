@@ -2588,21 +2588,25 @@ Create a Class</a>
                           <form class="emdform" method="post" action=".">
                            <textarea id="msg"></textarea>
                           </form>
+					    
                         <ul class="additional_controls">
                           <li class="comment"><a href="#comment" class="btn btn-flat"><i class="icon-middle-comment"></i></a></li>
                             <li class="doc"><a href="#doc" class="btn btn-flat"><i class="icon-middle-doc"></i></a>
                             <ul class="doc-hover">
-                               <span class="arrow">
-				<img src="images/arrow-top.png">
+                                 <span class="arrow">
+									<img src="images/arrow-top.png">
                                   </span>
-                                    <li style="margin-bottom:4px !important;"><span>Upload:</span></li>
-                                     <li class="doc-video" id="video">Video</li>
+									 Upload
+                                   <!--  <li style="margin-bottom:4px !important;"><span>Upload:</span></li>
+                                    <li class="doc-video" id="video">Video</li>
                                     <li class="doc-docs" id="docs">Docs</li>
                                     <li class="doc-notes" id="notes">Notes</li>
                                     <li class="doc-audio" id="audio">Audio</li>
-                                    <li class="doc-presentation" id="presentation">Presentation</li> 
+                                    <li class="doc-presentation" id="presentation">Presentation</li> -->
                                     
-                                    </ul></li>                         
+                                    </ul>
+								</li>  
+							      <li><input style ="display: none;" type="file" id="upload-files" >                 
                           <li class="tag"><a href="#tag" class="btn btn-flat"><i class="icon-middle-tag"></i></a></li>
                           <li class="private">
                             <label for="id-private"  >
@@ -2617,6 +2621,10 @@ Create a Class</a>
                           <li class="linkedin social_media"><a id="linkedin" href="#linkedin" class="btn btn-flat"><i class="icon-middle-linkedin"></i></a></li>
 						  <li><input class ="msg-post_button" id="post-msg" type="button" value="POST"> </input></li>
                         </ul>
+						<div id="file-upload-loader" style="display :none;">  
+							<div class="doc_type" > </div>
+							<img src ="images/loading.gif"> 
+        			   </div>
                       </div>
                       
                     </div>
