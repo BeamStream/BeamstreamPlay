@@ -145,9 +145,8 @@ object Question {
    * Sort Question within a stream on the basis of total rocks (#403)
    */
 
-  def getAllMessagesForAStreamSortedbyRocks(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int) = {
-    val questionRetreived = QuestionDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("rocks" -> -1, "timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
-    questionRetreived
+  def getAllQuestionsForAStreamSortedbyRocks(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int) = {
+    QuestionDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("rocks" -> -1, "timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 
   /*
