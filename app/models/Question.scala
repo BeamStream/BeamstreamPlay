@@ -164,6 +164,28 @@ object Question {
   def getAllPrivateToASchoolQuestionForAUser(userId: ObjectId) = {
     QuestionDAO.find(MongoDBObject("userId" -> userId, "questionAccess" -> "PrivateToSchool")).toList
   }
+  
+   /*
+   * Delete A Question
+   */
+
+  def deleteQuestionPermanently(questionId: ObjectId, userId: ObjectId) = {
+    var deletedQuestionSuccessfully = false
+    val questionToRemove = Message.findMessageById(questionId).get
+    val commentsOfQuestionToBeRemoved = questionToRemove.comments
+
+    if (questionToRemove.userId == userId) {
+      MessageDAO.remove(questionToRemove)
+      for (commentId <- commentsOfQuestionToBeRemoved) {
+        val commentToBeremoved = Comment.findCommentById(commentId)
+        if (commentToBeremoved != None) Comment.removeComment(commentToBeremoved.get)
+      }
+      deletedQuestionSuccessfully = true
+      deletedQuestionSuccessfully
+    } else {
+      deletedQuestionSuccessfully
+    }
+  }
 }
 
 object QuestionDAO extends SalatDAO[Question, ObjectId](collection = MongoHQConfig.mongoDB("question"))
