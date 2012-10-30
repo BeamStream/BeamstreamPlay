@@ -36,7 +36,7 @@ BS.AppRouter = Backbone.Router.extend({
     	
   		BS.user = new BS.SingleUser();
     	BS.user.authenticate();
-		
+		console.log("Success Testing");
     	var self = this;
     	BS.idLogin = '';
         BS.mySchools = '';
