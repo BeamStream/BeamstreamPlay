@@ -76,7 +76,7 @@ BS.StreamView = Backbone.View.extend({
 		BS.pageForKeyword = 1;
 		BS.pageLimit = 10;
 	    var self = this;
-	    $(".star").hide();
+	    self.file = "";
 		$(window).bind('scroll', function (ev) {
 			var streamPage = $('nav li.active').attr('id');
 			if(streamPage == "streamsGroups")
@@ -396,9 +396,10 @@ BS.StreamView = Backbone.View.extend({
      */
     postMessage :function(eventName){
       // upload file 
-      var self = this;
-     if(this.file)
+     var self = this;
+     if(this.file )
      {
+    	 $('#file-upload-loader').css("display","block");
     	 var data;
          data = new FormData();
          data.append('docData', self.file);  
@@ -412,7 +413,8 @@ BS.StreamView = Backbone.View.extend({
              processData: false,
              dataType : "json",
              success: function(data){
-            	 
+            	 self.file = "";
+            	 $('#file-upload-loader').css("display","none");
                  if(data.status == "Success") 
                      {
                           
