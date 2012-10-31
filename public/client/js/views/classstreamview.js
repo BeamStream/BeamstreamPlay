@@ -398,7 +398,16 @@ BS.ClassStreamView = Backbone.View.extend({
 				BS.classNames = [];
 				BS.classNameInfo = datas;
 					_.each(datas, function(data) {
-						BS.classNames.push(data.className);
+//						BS.classNames.push(data.className);
+						BS.classNames.push({
+							status : "classPage",
+							label:data.classToReturn.className + " - Students:" +data.usersMap.Student + " Educators:"+data.usersMap.Educator,
+							value:data.classToReturn.className ,
+							id :data.classToReturn.id.id ,
+							data:data.usersMap.Student,
+							students : data.usersMap.Student,
+							educators : data.usersMap.Educators,
+						});
 			        });
 					
 					$('.ac_results').css('width', '160px');
@@ -409,8 +418,11 @@ BS.ClassStreamView = Backbone.View.extend({
 						  minLength: 1,
 						    source: BS.classNames,
 						    select: function(event, ui) {
-						    	var text = ui.item.value; 
-						    	self.displayFieldsForName(text);
+//						    	var text = ui.item.value; 
+//						    	self.displayFieldsForName(text);
+						    	
+						    	var id = ui.item.id; 
+						    	self.displayFieldsForName(id);
 						    	
 						    }
 					 });
@@ -478,17 +490,17 @@ BS.ClassStreamView = Backbone.View.extend({
          
         /* get details of selected class */
 		 _.each(BS.classNameInfo, function(data) {
-		 	 if(data.className == value)
+		 	 if(data.classToReturn.id.id == value)
 		     {
 		 		  
 				 classStatus = true;
-				 classTime = data.classTime;
-				 classCode = data.classCode;
-				 date = data.startingDate;
-				 classType = data.classType;
-				 schoolId = data.schoolId.id;
-				 classId = data.id.id;
-				 streamId = data.streams[0].id;
+				 classTime = data.classToReturn.classTime;
+				 classCode = data.classToReturn.classCode;
+				 date = data.classToReturn.startingDate;
+				 classType = data.classToReturn.classType;
+				 schoolId = data.classToReturn.schoolId.id;
+				 classId = data.classToReturn.id.id;
+				 streamId = data.classToReturn.streams[0].id;
 		     }
 			 
         });
@@ -527,28 +539,28 @@ BS.ClassStreamView = Backbone.View.extend({
 			 });
 			 
 			 
-			 /* Post streamId to get no of users attending class*/
-			 $.ajax({
-					type : 'POST',
-					url : BS.noOfUsersAttendingAClass,
-
-					data : {
-						streamId : streamId
-					},
-					success : function(data) {
-						  
-						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data.Student+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
-						 $('#student-number').fadeIn("medium");
-			        	 $('#student-number').html(ul);
-						
-//						 var ul = '<div class="student"><h3>Stud:</h3><h4>'+data.Student+'</h4></div>'
-//		 		                  +'<div class="educator"><h3>Educ:</h3><h4>'+data.Educator+'</h4></div>';
+//			 /* Post streamId to get no of users attending class*/
+//			 $.ajax({
+//					type : 'POST',
+//					url : BS.noOfUsersAttendingAClass,
 //
-//			        	 $('#ps').fadeIn("medium"); 
-//			        	 $('#ps').html(ul);
-
-					}
-			 });
+//					data : {
+//						streamId : streamId
+//					},
+//					success : function(data) {
+//						  
+//						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data.Student+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
+//						 $('#student-number').fadeIn("medium");
+//			        	 $('#student-number').html(ul);
+//						
+////						 var ul = '<div class="student"><h3>Stud:</h3><h4>'+data.Student+'</h4></div>'
+////		 		                  +'<div class="educator"><h3>Educ:</h3><h4>'+data.Educator+'</h4></div>';
+////
+////			        	 $('#ps').fadeIn("medium"); 
+////			        	 $('#ps').html(ul);
+//
+//					}
+//			 });
 			/*  disable/enable buttons*/
 			$('#createClass').hide(); 
 			$('#joinClass').show();

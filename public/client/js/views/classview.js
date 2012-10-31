@@ -400,6 +400,7 @@ BS.ClassView = Backbone.View.extend({
 	 * populate  List of class codes - matching a class code
 	 */
 	populateClasses :function(eventName){
+		console.log("fff");
 		var id = eventName.target.id;
 		var self = this;
 		BS.classCodes = []; 
@@ -425,7 +426,9 @@ BS.ClassView = Backbone.View.extend({
 				BS.classInfo = datas;
 				BS.classCodes = []; 
 				_.each(datas, function(data) {
-					BS.classCodes.push(data.classCode);
+//					BS.classCodes.push(data.classCode);
+					BS.classCodes.push({label:data.classToReturn.className , value:data.classToReturn.className ,id :data.classToReturn.id.id });
+
 					 
 		        });
 				
@@ -434,8 +437,11 @@ BS.ClassView = Backbone.View.extend({
 					    source: BS.classCodes,
 					    select: function(event, ui) {
 					    	
-					    	var text = ui.item.value; 
-					    	self.displayFiledsForCode(text,identity);
+//					    	var text = ui.item.value; 
+//					    	self.displayFiledsForCode(text,identity);
+					    	
+					    	var id = ui.item.id; 
+					    	self.displayFiledsForCode(id,identity);
 					    	
 					    }
 				 });
@@ -457,16 +463,16 @@ BS.ClassView = Backbone.View.extend({
          
         /* get details of selected class */
 		 _.each(BS.classInfo, function(data) {
-		 	 if(data.classCode == value)
+		 	 if(data.classToReturn.id.id == value)
 		     {
 				 classStatus = true;
-				 classTime = data.classTime;
-				 className = data.className;
-				 date = data.startingDate;
-				 classType = data.classType;
-				 schoolId = data.schoolId.id;
-				 classId = data.id.id;
-				 streamId = data.streams[0].id;
+				 classTime = data.classToReturn.classTime;
+				 className = data.classToReturn.className;
+				 date = data.classToReturn.startingDate;
+				 classType = data.classToReturn.classType;
+				 schoolId = data.classToReturn.schoolId.id;
+				 classId = data.classToReturn.id.id;
+				 streamId = data.classToReturn.streams[0].id;
 		     }
 			 
         });
@@ -559,8 +565,8 @@ BS.ClassView = Backbone.View.extend({
 //				BS.classNameInfo = datas;
 //				BS.classNames = [];
 //				_.each(datas, function(data) {
-////					BS.classNames.push(data.className);
-//					BS.classNames.push({label:data.className, value:data.className ,id : 12});
+////					BS.classNames.push(data.classToReturn.className);
+//					BS.classNames.push({label:data.classToReturn.className, value:data.classToReturn.className ,id : 12});
 //		        });
 //
 //				//set auto populate functionality for class code
@@ -606,8 +612,17 @@ BS.ClassView = Backbone.View.extend({
 				BS.classNames =[];
 				BS.classNameInfo = datas;
 				_.each(datas, function(data) {
-					BS.classNames.push(data.className);
-//					BS.classNames.push({label:data.className + " Students:12 Educators:4 "+ , value:data.className + " - 12" ,id :data.id.id});
+                    console.log(data.usersMap.Student);
+//					BS.classNames.push(data.classToReturn.className);
+					BS.classNames.push({
+						status : "classPage",
+						label:data.classToReturn.className + " - Students:" +data.usersMap.Student + " Educators:"+data.usersMap.Educator,
+						value:data.classToReturn.className ,
+						id :data.classToReturn.id.id ,
+						data:data.usersMap.Student,
+						students : data.usersMap.Student,
+						educators : data.usersMap.Educators,
+					});
 
 		        });
  
@@ -616,10 +631,11 @@ BS.ClassView = Backbone.View.extend({
 					    source: BS.classNames,
 					    select: function(event, ui) {
 					    	 
-					    	var text = ui.item.value; 
-//					    	var id = ui.item.id
-					    	self.displayFieldsForName(text,identity);
-//					    	self.displayFieldsForName(id,identity);
+//					    	var text = ui.item.value; 
+//					    	self.displayFieldsForName(text,identity);
+					    	
+					    	var id = ui.item.id
+					    	self.displayFieldsForName(id,identity);
 					    	
 					    }
 				 });
@@ -639,17 +655,17 @@ BS.ClassView = Backbone.View.extend({
          
         /* get details of selected class */
 		 _.each(BS.classNameInfo, function(data) {
-		 	 if(data.className == value)
+		 	 if(data.classToReturn.id.id == value)
 		     {
 		 		  
 				 classStatus = true;
-				 classTime = data.classTime;
-				 classCode = data.classCode;
-				 date = data.startingDate;
+				 classTime = data.classToReturn.classTime;
+				 classCode = data.classToReturn.classCode;
+				 date = data.classToReturn.startingDate;
 				 classType = data.classType;
-				 schoolId = data.schoolId.id;
-				 classId = data.id.id;
-				 streamId = data.streams[0].id;
+				 schoolId = data.classToReturn.schoolId.id;
+				 classId = data.classToReturn.id.id;
+				 streamId = data.classToReturn.streams[0].id;
 		     }
 			 
         });
@@ -676,29 +692,29 @@ BS.ClassView = Backbone.View.extend({
 			 $('#div-time-'+identity+' a span.selectBox-label').html(classTime);
 
 		 
-			 /* Post streamId to get no of users attending class*/
-			 $.ajax({
-					type : 'POST',
-					url : BS.noOfUsersAttendingAClass,
-
-					data : {
-						streamId : streamId
-					},
-					success : function(data) {
-						  
-						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data.Student+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
-			        	 $('#student-number-'+identity).fadeIn("medium"); 
-			        	 $('#student-number-'+identity).html(ul);
-
-						 /* show no.of students and Educators in a class */
-//			        	 var ul = '<div class="student"><h3>Stud:</h3><h4>'+data.Student+'</h4></div>'
-//			        		      +'<div class="educator"><h3>Educ:</h3><h4>'+data.Educator+'</h4></div>';
-//			        	 
-//			        	 $('#ps-'+identity).fadeIn("medium"); 
-//			        	 $('#ps-'+identity).html(ul);
-
-					}
-			 });
+//			 /* Post streamId to get no of users attending class*/
+//			 $.ajax({
+//					type : 'POST',
+//					url : BS.noOfUsersAttendingAClass,
+//
+//					data : {
+//						streamId : streamId
+//					},
+//					success : function(data) {
+//						  
+//						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data.Student+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
+//			        	 $('#student-number-'+identity).fadeIn("medium"); 
+//			        	 $('#student-number-'+identity).html(ul);
+//
+//						 /* show no.of students and Educators in a class */
+////			        	 var ul = '<div class="student"><h3>Stud:</h3><h4>'+data.Student+'</h4></div>'
+////			        		      +'<div class="educator"><h3>Educ:</h3><h4>'+data.Educator+'</h4></div>';
+////			        	 
+////			        	 $('#ps-'+identity).fadeIn("medium"); 
+////			        	 $('#ps-'+identity).html(ul);
+//
+//					}
+//			 });
 
 		 }
 		 else
