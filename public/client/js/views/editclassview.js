@@ -1,7 +1,5 @@
-
-BS.ClassView = Backbone.View.extend({
-
-	events : {
+BS.EditClassView = Backbone.View.extend({
+    events : {
 		"click #save" : "saveClass",
 		"click #continue" : "toProfile",
 		"click a.addclass": "addClasses",
@@ -11,8 +9,8 @@ BS.ClassView = Backbone.View.extend({
 		"keyup .class_code" :"getValuesForCode",
 		"focus .class_code" : "populateClasses",
 		"keyup .class_name" :"getValuesForName",
-	    "focusin .class_name":"populateClassNames",
-	    "change .all-schools" : "clearAllClasses"
+                "focusin .class_name":"populateClassNames",
+                "change .all-schools" : "clearAllClasses"
 
 	},
 
@@ -28,7 +26,7 @@ BS.ClassView = Backbone.View.extend({
 		}});
 		BS.classBack = false;
 		this.classes = new BS.Class();
-		this.source = $("#tpl-class-reg").html();
+		this.source = $("#tpl-class-editing").html();
 		this.template = Handlebars.compile(this.source);
 		 
 	},
@@ -39,7 +37,7 @@ BS.ClassView = Backbone.View.extend({
 	saveClass : function(eventName) {
 		
 		eventName.preventDefault();
-// start----
+ 
 			var validate = $("#class-form").valid(); 
 			if(validate == true)
 		    {
@@ -48,7 +46,6 @@ BS.ClassView = Backbone.View.extend({
 				 
 				if(classDetails != false)
 				{
-//  -----end
 					/* post data with school and class details */
 					$.ajax({
 						type : 'POST',
@@ -81,7 +78,6 @@ BS.ClassView = Backbone.View.extend({
 							
 						}
 					});
-//            start---
 				}
 				else
 				{
@@ -95,7 +91,6 @@ BS.ClassView = Backbone.View.extend({
 				$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
         		$('.error-msg').html("You must enter atleast one class");
 		    }
-//        ---end
  
 	},
 
@@ -726,6 +721,5 @@ BS.ClassView = Backbone.View.extend({
  				localStorage["schoolList"] =select;
  			}
  		});
-    }
-  
-});
+    }   
+})

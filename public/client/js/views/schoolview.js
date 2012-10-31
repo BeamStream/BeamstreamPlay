@@ -10,7 +10,7 @@ BS.SchoolView = Backbone.View.extend({
 	      "keyup .school" : "populateSchools",
 	      "focusin .school" : "populateSchools",
 	      "click #close-school" : "closeScreen",
-	      "click .back-button" :"backToPrevious",
+	      "click .back-button" :"backToPrevious",    
            
 	    },
 	
@@ -102,9 +102,9 @@ BS.SchoolView = Backbone.View.extend({
     saveSchool:function (eventName) {
     	  
     	eventName.preventDefault();  
-    	 
-    	/* validation on other fields */
-    	var validate =$("#school-form").valid();
+//    comment open  start----	 
+    	/* validation on other fields */ 
+    	 var validate =$("#school-form").valid();
     	if(validate == true)
     	{   
     		/* put validation on "Graduated?" filed */
@@ -127,7 +127,8 @@ BS.SchoolView = Backbone.View.extend({
         		
         	}
         	else
-        	{
+        	{ 
+//         comment close     ---end
             	var  schoolDetails = this.getSchoolInfo();
             	$.ajax({
                     type: 'POST',
@@ -168,6 +169,7 @@ BS.SchoolView = Backbone.View.extend({
                         
                     }
                  });
+//                 start ---
         	}
     	}
     	else
@@ -177,6 +179,7 @@ BS.SchoolView = Backbone.View.extend({
     		$('.error-msg').html("You must fill in all of the required fields.");
     		 
     	}
+//----end
     	
      
       },
