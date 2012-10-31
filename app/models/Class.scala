@@ -62,25 +62,30 @@ object Class {
 
       for (eachclass <- classList) {
         val classesobtained = Class.findClassListById(eachclass.id)
+
         if (!classesobtained.isEmpty) {
-          println("Join Stream Case")
-          Stream.joinStream(classesobtained(0).streams(0), userId)
-          User.addClassToUser(userId, List(eachclass.id))
 
           val user = User.getUserProfile(userId)
-          SendEmail.mailAfterStreamCreation(user.email, eachclass.className, false)
-          Stream.sendMailToUsersOfStream(classesobtained(0).streams(0), userId)
 
-          val classObtained = Class.findClassListById(eachclass.id)
-          ClassDAO.update(MongoDBObject("_id" -> eachclass.id), classObtained(0).copy(
-            classCode = eachclass.classCode,
-            className = eachclass.className,
-            classType = eachclass.classType,
-            classTime = eachclass.classTime,
-            schoolId = eachclass.schoolId,
-            startingDate = eachclass.startingDate), false, false, new WriteConcern)
-          val streamOfTheComingClass = Stream.findStreamById(classObtained(0).streams(0))
-          StreamDAO.update(MongoDBObject("_id" -> classObtained(0).streams(0)), streamOfTheComingClass.copy(streamName = eachclass.className), false, false, new WriteConcern)
+          if (user.classId.contains(eachclass.id)) {
+            println("Edit Class Case")
+            val classObtained = Class.findClassListById(eachclass.id)
+            ClassDAO.update(MongoDBObject("_id" -> eachclass.id), classObtained(0).copy(
+              classCode = eachclass.classCode,
+              className = eachclass.className,
+              classType = eachclass.classType,
+              classTime = eachclass.classTime,
+              schoolId = eachclass.schoolId,
+              startingDate = eachclass.startingDate), false, false, new WriteConcern)
+            val streamOfTheComingClass = Stream.findStreamById(classObtained(0).streams(0))
+            StreamDAO.update(MongoDBObject("_id" -> classObtained(0).streams(0)), streamOfTheComingClass.copy(streamName = eachclass.className), false, false, new WriteConcern)
+          } else {
+            println("Join Stream Case")
+            Stream.joinStream(classesobtained(0).streams(0), userId)
+            User.addClassToUser(userId, List(eachclass.id))
+            SendEmail.mailAfterStreamCreation(user.email, eachclass.className, false)
+            Stream.sendMailToUsersOfStream(classesobtained(0).streams(0), userId)
+          }
 
         } else {
           println("Create class Case")
@@ -121,15 +126,6 @@ object Class {
     }
     classes
   }
-
-  /*
-   * Finding the class by Code
-   */
-
-  //  def findClassByName(name: String, schoolId: ObjectId): List[Class] = {
-  //    val namePattern = Pattern.compile("^" + name, Pattern.CASE_INSENSITIVE)
-  //    ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
-  //  }
 
   /*
    * Find the class by name with no of users return
