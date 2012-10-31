@@ -1,9 +1,7 @@
 package controllers
 import java.io.File
 import java.io.InputStream
-
 import org.bson.types.ObjectId
-
 import models.ProfileImageProviderCache
 import models.ResulttoSent
 import models.UserMedia
@@ -20,6 +18,7 @@ import utils.ExtractFrameFromVideo
 import utils.ObjectIdSerializer
 import utils.ProgressBar
 import utils.tokenEmail
+import utils.ProgressStatus
 
 object MediaController extends Controller {
 
@@ -107,7 +106,8 @@ object MediaController extends Controller {
  //-------------------------//
  
   def getMedia = Action(parse.multipartFormData) { request =>
-    ProgressBar.setProgressBar(request.session.get("userId").get, 0)
+    //ProgressBar.setProgressBar(request.session.get("userId").get, 0)
+    ProgressStatus.addProgress(request.session.get("userId").get,0)
     val mediaJsonMap = request.body.asFormUrlEncoded.toMap
     val imageStatus = mediaJsonMap("imageStatus").toList(0).toBoolean
     val videoStatus = mediaJsonMap("videoStatus").toList(0).toBoolean
@@ -171,7 +171,8 @@ object MediaController extends Controller {
 
  def returnProgress = Action { implicit request =>
     val userId=request.session.get("userId").get
-    Ok(write(ProgressBar.progressMap.get(userId).getOrElse("0").toString)).as("application/json")
+    //Ok(write(ProgressBar.progressMap.get(userId).getOrElse("0").toString)).as("application/json")
+    Ok(write( ProgressStatus.findProgress(request.session.get("userId").get).toString)).as("application/json")
   }
   
   //-----------------------//

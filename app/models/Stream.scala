@@ -8,8 +8,15 @@ import com.mongodb.casbah.MongoConnection
 import scala.collection.JavaConversions._
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
+import utils.SendEmail
 
-case class Stream(@Key("_id") id: ObjectId, streamName: String, streamType: StreamType.Value, creatorOfStream: ObjectId, usersOfStream: List[ObjectId], postToMyProfile: Boolean, streamTag: List[String])
+case class Stream(@Key("_id") id: ObjectId,
+  streamName: String,
+  streamType: StreamType.Value,
+  creatorOfStream: ObjectId,
+  usersOfStream: List[ObjectId],
+  postToMyProfile: Boolean,
+  streamTag: List[String])
 
 object Stream {
 
@@ -112,9 +119,9 @@ object Stream {
    * No. of Users Attending Class
    */
 
-  def usersAttendingClass(streamId: ObjectId): Int = {
+  def usersAttendingClass(streamId: ObjectId)= {
     val streamObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
-    streamObtained.usersOfStream.size
+    streamObtained.usersOfStream
   }
 
   /**
@@ -138,6 +145,19 @@ object Stream {
       resultToSent = ResulttoSent("Success", "You've Successfully Removed From This Stream")
     }
     resultToSent
+  }
+
+  /*
+   * Notify Other Users Of A Stream About New User That Has Been Joined In A Stream
+   */
+  def sendMailToUsersOfStream(streamId: ObjectId, userIdWhoHasJoinedTheStream: ObjectId) = {
+    val userWhoHasJoinedTheStream = User.getUserProfile(userIdWhoHasJoinedTheStream)
+    val stream = Stream.findStreamById(streamId)
+    for (user <- stream.usersOfStream) {
+      val userObtained = User.getUserProfile(user)
+      SendEmail.notifyUsersOfStreamForANewUser(userObtained.email, userWhoHasJoinedTheStream.firstName, userWhoHasJoinedTheStream.lastName, stream.streamName)
+    }
+
   }
 
 }

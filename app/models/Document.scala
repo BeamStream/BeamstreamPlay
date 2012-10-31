@@ -54,7 +54,7 @@ case class Document(@Key("_id") id: ObjectId,
   documentRocks: Int,
   documentRockers: List[ObjectId],
   commentsOnDocument: List[ObjectId],
-  documentFollwers: List[ObjectId] )
+  documentFollwers: List[ObjectId])
 
 object Document {
 
@@ -99,8 +99,6 @@ object Document {
     docsObtained
   }
 
- 
-
   /*
    *  Update the Rockers List and increase the count by one 
    */
@@ -131,6 +129,14 @@ object Document {
   def updateTitleAndDescription(documentId: ObjectId, newName: String, newDescription: String) = {
     val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
     DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(documentDescription = newDescription, documentName = newName), false, false, new WriteConcern)
+  }
+  
+  /**
+   * add Comment to document
+   */
+  def addCommentToDocument(commentId: ObjectId, docId: ObjectId) = {
+    val doc = DocumentDAO.find(MongoDBObject("_id" -> docId)).toList(0)
+    DocumentDAO.update(MongoDBObject("_id" -> docId), doc.copy(commentsOnDocument = (doc.commentsOnDocument ++ List(commentId))), false, false, new WriteConcern)
   }
 
 }

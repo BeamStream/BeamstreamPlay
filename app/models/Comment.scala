@@ -45,9 +45,9 @@ object Comment {
    * Find Comment by Id
    */
 
-  def findCommentById(commentId: ObjectId): Comment = {
+  def findCommentById(commentId: ObjectId): Option[Comment] = {
     val commentObtained = CommentDAO.findOneByID(commentId)
-    commentObtained.get
+    commentObtained
   }
 
   /*
@@ -83,7 +83,7 @@ object Comment {
    */
   def commentsRockersNames(commentId: ObjectId): List[String] = {
     val commentRocked = findCommentById(commentId)
-    val rockersName = User.giveMeTheRockers(commentRocked.rockers)
+    val rockersName = User.giveMeTheRockers(commentRocked.get.rockers)
     rockersName
   }
 
@@ -102,21 +102,22 @@ object Comment {
     allCommentsForAModel
   }
 
-  /*
-  * add Comment to document
-  */
-  def addCommentToDocument(commentId: ObjectId, docId: ObjectId) = {
-    val doc = DocumentDAO.find(MongoDBObject("_id" -> docId)).toList(0)
-    DocumentDAO.update(MongoDBObject("_id" -> docId), doc.copy(commentsOnDocument = (doc.commentsOnDocument ++ List(commentId))), false, false, new WriteConcern)
-  }
+
 
   /*
    * Delete A Comment
    */
 
-  def deleteCommentPermanently(commentId: ObjectId) {
+  def deleteCommentPermanently(commentId: ObjectId, userId: ObjectId) = {
+    var deletedCommentSuccessfully = false
     val commentToBeremoved = Comment.findCommentById(commentId)
-    Comment.removeComment(commentToBeremoved)
+    if (commentToBeremoved.get.userId == userId) {
+      Comment.removeComment(commentToBeremoved.get)
+      deletedCommentSuccessfully = true
+      deletedCommentSuccessfully
+    } else {
+      deletedCommentSuccessfully
+    }
   }
 
 }

@@ -79,10 +79,11 @@ class UserTest extends FunSuite with BeforeAndAfter {
   }
 
   //Counting the Role of a user
+  
   test("Count roles of a user") {
     val user1Id = User.createUser(user1)
     val user2Id = User.createUser(user2)
-    assert(User.countRoles(List(user1Id, user2Id)) === Map("Student" -> 0, "Educator" -> 0, "Professional" -> 2))
+    assert(User.countRolesOfAUser(List(user1Id, user2Id)) === Map("Student" -> 0, "Educator" -> 0, "Professional" -> 2))
   }
   
 

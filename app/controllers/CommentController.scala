@@ -57,7 +57,7 @@ object CommentController extends Controller {
           val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
             commentPoster.firstName, commentPoster.lastName, 0, List())
           val commentId = Comment.createComment(comment)
-          Comment.addCommentToDocument(commentId, new ObjectId(docId))
+          Document.addCommentToDocument(commentId, new ObjectId(docId))
           Ok(write(List(comment))).as("application/json")
 
         case false =>
@@ -128,9 +128,9 @@ object CommentController extends Controller {
   def deleteTheComment = Action { implicit request =>
     val commentDetailsJson = request.body.asFormUrlEncoded.get
     val commentId = commentDetailsJson("commentId").toList(0)
-    Comment.deleteCommentPermanently(new ObjectId(commentId))
-    Ok(write(new ResulttoSent("Success", "Comment Has Been Deleted")))
-
+   val deletedTheCommnet= Comment.deleteCommentPermanently(new ObjectId(commentId),new ObjectId(request.session.get("userId").get))
+    if(deletedTheCommnet==true)Ok(write(new ResulttoSent("Success", "Comment Has Been Deleted")))
+    else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Comment")))
   }
 
 }

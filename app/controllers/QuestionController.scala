@@ -47,7 +47,6 @@ object QuestionController extends Controller {
   def newQuestion = Action { implicit request =>
 
     val questionJsonMap = request.body.asFormUrlEncoded.get
-
     val question = questionJsonMap("data").toList(0)
     val questionJson = net.liftweb.json.parse(question)
     val questionBody = (questionJson \ "question").extract[String]

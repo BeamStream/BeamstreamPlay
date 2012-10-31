@@ -41,7 +41,7 @@ object UserController extends Controller {
     val userEmailorName = (userJson \ "email").extract[String]
     val userPassword = (userJson \ "password").extract[String]
     
-    val encryptedPassword=utils.ConversionUtility.encryptPassword(userPassword)
+    val encryptedPassword=(new PasswordHashing).encryptThePassword(userPassword)
 
     val authenticatedUser = getAuthenticatedUser(userEmailorName, encryptedPassword)
 

@@ -23,7 +23,6 @@ object MessageType extends Enumeration {
 
 object MessageAccess extends Enumeration {
   type MessageAccess = Value
-
   val Private = Value(0, "Private")
   val Public = Value(1, "Public")
 }
@@ -241,16 +240,23 @@ object Message { //extends CommentConsumer {
    * Delete A Message
    */
 
-  def deleteMessagePermanently(messageId: ObjectId) {
+  def deleteMessagePermanently(messageId: ObjectId, userId: ObjectId) = {
+    var deletedMessageSuccessfully = false
     val messageToRemove = Message.findMessageById(messageId).get
-    val commentsOfMessageToBeRemoved=messageToRemove.comments
-    MessageDAO.remove(messageToRemove)
-    for(commentId <- commentsOfMessageToBeRemoved){
-      val commentToBeremoved=Comment.findCommentById(commentId)
-      Comment.removeComment(commentToBeremoved)
+    val commentsOfMessageToBeRemoved = messageToRemove.comments
+
+    if (messageToRemove.userId == userId) {
+      MessageDAO.remove(messageToRemove)
+      for (commentId <- commentsOfMessageToBeRemoved) {
+        val commentToBeremoved = Comment.findCommentById(commentId)
+        if (commentToBeremoved != None) Comment.removeComment(commentToBeremoved.get)
+      }
+      deletedMessageSuccessfully = true
+      deletedMessageSuccessfully
+    } else {
+      println("You're Not Authorised To Delete M")
+      deletedMessageSuccessfully
     }
-    
-    
   }
 }
 

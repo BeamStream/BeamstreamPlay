@@ -971,12 +971,14 @@ body {
             <label name="new-school" for="school-name">Enter New School</label>
             <input type="text" id="new-school" value="" placeholder="School Name" class="large ">
             <input  type="hidden" id="new-school-id">
+			
           </div>
         </div>
         <div class="form-row class-row">
            <div class="element ">
             <label name="class_name" for="class-name">Class name</label>
             <input type="text" id="class_name" class="validate[required] medium class_name" placeholder="Class name">
+			<div id="ps" class="class-info-popup"></div>
           </div>
             <div class="element" id="div-time">
               <label name= "class-time" for="class-time">Class time</label>
@@ -1052,8 +1054,17 @@ body {
     </form>
   </div>
 <div class="modal-footer">
-<a id="joinClass" class="btn btn-primary pull-left" href="#joinClass">Join a Class</a>
-<a id="createClass" class="btn btn-success pull-right" href="#createClass">Create a Class</a>
+ 
+<a id="joinClass" class="btn btn-primary pull-left" href="#joinClass">
+	<div id="join-class-loader" style="display :none;">  
+		<img src ="images/loading.gif"> 
+	 </div>
+   Join a Class</a>
+<a id="createClass" class="btn btn-success pull-right" href="#createClass">
+	<div id="create-class-loader" style="display :none;">  
+		<img src ="images/loading.gif"> 
+	 </div>
+Create a Class</a>
 </div>
 </div>
 </script>
@@ -1701,8 +1712,8 @@ body {
                     </div>
 					<div class="element">
                         <label name="graduated-1" for="graduated">Graduated? </label>
-                        <select id="graduated-1" name ="graduated"  class="graduated span2">
- 							<option> </option>
+                        <select id="graduated-1" name ="graduated"  class="graduated span2" onchange="valiadateSelect(this)">
+ 							<option value=""> </option>
                             <option value="attending">Still Attending</option>
                             <option value="yes">Yes</option>
                             <option value="no">No</option>
@@ -1906,8 +1917,8 @@ body {
 			</div>
 			<div class="element">
 				<label name="graduated-{{number}}" for="graduated" name="graduated-{{number}}">Graduated? </label>
-				<select name="graduated" id="graduated-{{number}}" class="graduated span2" >
-					<option> </option>
+				<select name="graduated" id="graduated-{{number}}" class="graduated span2" onchange="valiadateSelect(this)">
+					<option value=""> </option>
 					<option value="attending">Still Attending</option>
 					<option value="yes">Yes</option>
 					<option value="no">No</option>
@@ -2070,9 +2081,10 @@ body {
 
                      <label name="class-name-{{sCount}}-1" for="class-name-{{sCount}}-1">Class name </label>
 
-                    <input type="text" name="class-name-{{sCount}}-1" id="class-name-{{sCount}}-1" class="required medium class_name" placeholder="Class 1 name">
+                    <input type="text" name="class-name-{{sCount}}-1" id="class-name-{{sCount}}-1" class="required medium class_name" placeholder="Class 1">
                     <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
  					<input type="hidden" value="" id="stream-id-{{sCount}}-1">
+					<div id="ps-{{sCount}}-1" class="class-info-popup"></div>
                    </div>
                       
           <div class="element" id="div-time-{{sCount}}-1">
@@ -2105,9 +2117,10 @@ body {
       <div class="form-row short">
           <div class="element">
               <label name="class-name-{{sCount}}-2" id="lb-class-name-2" value = "">Class name</label>
-              <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
+              <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2">
                <input type="hidden" value="" id="h-class-name-{{sCount}}-2">
-				<input type="hidden" value="" id="stream-id-{{sCount}}-2">
+			   <input type="hidden" value="" id="stream-id-{{sCount}}-2">
+			   <div id="ps-{{sCount}}-2" class="class-info-popup"></div>
          </div>
          <div class="element" id="div-time-{{sCount}}-2">
               <label name="class-time-{{sCount}}-2" for="class-time-2">Class time</label>
@@ -2140,9 +2153,10 @@ body {
        <div class="form-row short">
           <div class="element">
                <label name="class-name-{{sCount}}-3" id="lb-class-name-3" value="">Class name</label>
-               <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
+               <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3">
                 <input type="hidden" value="" id="h-class-name-{{sCount}}-3">
 				<input type="hidden" value="" id="stream-id-{{sCount}}-3">
+				<div id="ps-{{sCount}}-3" class="class-info-popup"></div>
            </div>
           <div class="element" id="div-time-{{sCount}}-3">
                <label name= "class-time-{{sCount}}-3" for="class-time-3">Class time</label>
@@ -2177,10 +2191,19 @@ body {
         </form>
     </div>
     <div class="modal-footer">
-       
-        <a href="#messages" class="btn btn-primary pull-left"  id="save" >Save & Exit</a>
+        
+		 
+        <a href="#messages" class="btn btn-primary pull-left"  id="save" >
+		<div id="save-class-loader" style="display :none;">  
+			<img src ="images/loading.gif"> 
+         </div>
+		Save & Exit</a>
          {{#unless edit}}
-          <a href="#" class="btn btn-success pull-right" id="continue" >Continue</a>
+          <a href="#" class="btn btn-success pull-right" id="continue" >
+			<div id="class-continue-loader" style="display :none;">  
+				<img src ="images/loading.gif"> 
+      	   </div>		
+			Continue</a>
          {{/unless}}
     </div>
   </div>
@@ -2366,9 +2389,10 @@ body {
 			<label  name="class-name-{{sCount}}-{{cInt}}" for="class-name-{{sCount}}-{{cInt}}">Class name </label> 
 			<input	type="text" name="class-name-{{sCount}}-{{cInt}}"
 				id="class-name-{{sCount}}-{{cInt}}" value="{{data.className}}"
-				class="medium class_name" placeholder="Class {{cInt}} name">
+				class="medium class_name" placeholder="Class {{cInt}}">
 			<input type="hidden" value="{{data.id.id}}" id="h-class-name-{{sCount}}-{{cInt}}">
 			 <input type="hidden" value="{{sId}}" id="stream-id-{{sCount}}-{{cInt}}">
+			 <div id="ps-{{sCount}}-{{cInt}}" class="class-info-popup"></div>
              
 		</div>
 
@@ -2410,9 +2434,10 @@ body {
 
               <label name="class-name-{{sCount}}-1" for="class-name-{{sCount}}-1">Class name </label>
 
-              <input type="text" name="for="class-name-{{sCount}}-1" id="class-name-{{sCount}}-1" class="required medium class_name" placeholder="Class 1 name">
+              <input type="text" name="for="class-name-{{sCount}}-1" id="class-name-{{sCount}}-1" class="required medium class_name" placeholder="Class 1 ">
               <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
 			 <input type="hidden" value="" id="stream-id-{{sCount}}-1">
+			 <div id="ps-{{sCount}}-1" class="class-info-popup"></div>
           </div>
           
           <div class="element" id="div-time-{{sCount}}-1">
@@ -2445,9 +2470,10 @@ body {
       <div class="form-row short">
          <div class="element">
               <label name="class-name-{{sCount}}-2"  id="lb-class-name-2" value="">Class name</label>
-              <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 name">
+              <input type="text" id="class-name-{{sCount}}-2" class="medium class_name" placeholder="Class 2 ">
 			 <input type="hidden" value="" id="h-class-name-{{sCount}}-2">
 			<input type="hidden" value="" id="stream-id-{{sCount}}-2">
+			<div id="ps-{{sCount}}-2" class="class-info-popup"></div>
          </div>
          <div class="element" id="div-time-{{sCount}}-2">
               <label name="class-time-{{sCount}}-2" for="class-time-2">Class time</label>
@@ -2480,9 +2506,10 @@ body {
        <div class="form-row short">
           <div class="element">
                <label name="class-name-{{sCount}}-3" id="lb-class-name-3" value="">Class name</label>
-               <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 name">
+               <input type="text" id="class-name-{{sCount}}-3" class="medium class_name" placeholder="Class 3 ">
                 <input type="hidden" value="" id="h-class-name-{{sCount}}-3">
 				<input type="hidden" value="" id="stream-id-{{sCount}}-3">
+				<div id="ps-{{sCount}}-3" class="class-info-popup"></div>
            </div>
           <div class="element" id="div-time-{{sCount}}-3">
                <label name="class-time-{{sCount}}-3"  for="class-time-3">Class time</label>
@@ -2831,21 +2858,30 @@ body {
                           <form class="emdform" method="post" action=".">
                            <textarea id="msg"></textarea>
                           </form>
+					    <div class="upload-box" style="display:none;">
+							<div class="upload-content">
+								<div class="upload-head">Upload your data here ..</div>
+								<input class="upload1" type="file" id="upload-files" name="file">
+							</div>
+						</div>
                         <ul class="additional_controls">
                           <li class="comment"><a href="#comment" class="btn btn-flat"><i class="icon-middle-comment"></i></a></li>
                             <li class="doc"><a href="#doc" class="btn btn-flat"><i class="icon-middle-doc"></i></a>
                             <ul class="doc-hover">
-                               <span class="arrow">
-				<img src="images/arrow-top.png">
+                                 <span class="arrow">
+									<img src="images/arrow-top.png">
                                   </span>
-                                    <li style="margin-bottom:4px !important;"><span>Upload:</span></li>
-                                     <li class="doc-video" id="video">Video</li>
+									 Upload
+                                   <!--  <li style="margin-bottom:4px !important;"><span>Upload:</span></li>
+                                    <li class="doc-video" id="video">Video</li>
                                     <li class="doc-docs" id="docs">Docs</li>
                                     <li class="doc-notes" id="notes">Notes</li>
                                     <li class="doc-audio" id="audio">Audio</li>
-                                    <li class="doc-presentation" id="presentation">Presentation</li> 
+                                    <li class="doc-presentation" id="presentation">Presentation</li> -->
                                     
-                                    </ul></li>                         
+                                    </ul>
+								</li>  
+							                     
                           <li class="tag"><a href="#tag" class="btn btn-flat"><i class="icon-middle-tag"></i></a></li>
                           <li class="private">
                             <label for="id-private"  >
@@ -2860,6 +2896,9 @@ body {
                           <li class="linkedin social_media"><a id="linkedin" href="#linkedin" class="btn btn-flat"><i class="icon-middle-linkedin"></i></a></li>
 						  <li><input class ="msg-post_button" id="post-msg" type="button" value="POST"> </input></li>
                         </ul>
+						<div id="file-upload-loader" style="display :none;">  
+							<img src ="images/loading.gif"> 
+        			   </div>
                       </div>
                       
                     </div>
@@ -3178,7 +3217,7 @@ body {
 
 	<script type="text/x-handlebars-template" id="tpl-comments">
   
-       <li id="{{id.id}}">
+       <li id="{{id.id}}" name="{{userId.id}}">
           <article class="message_item">
             <div class="comment_wrapper">
               <div class="photo_container">
@@ -3211,7 +3250,7 @@ body {
 
 	<script type="text/x-handlebars-template" id="tpl-new-comments">
   
-       <li id="{{id.id}}">
+       <li id="{{id.id}}" name="{{userId.id}}">
           <article class="message_item">
             <div class="comment_wrapper">
               <div class="photo_container">
@@ -3256,7 +3295,7 @@ body {
 
 <script type="text/x-handlebars-template" id="tpl-messages">
  
- <li id= "{{datas.id.id}}">
+ <li id= "{{datas.id.id}}" name ="{{datas.userId.id}}">
  <article class="message_item">
    <div class="comment_wrapper">
      <div class="photo_container">
@@ -3462,8 +3501,8 @@ body {
    <div id="error" class= "invalid-validation"  style=" margin-bottom: 18px !important; margin-left: 152px;"></div>
             <div class="element">
              <label name="iam" for="iam">I'm </label>
-                <select id="iam" name="iam" class="required large">
-                  <option >-- I'm --</option>
+                <select id="iam" name="iam" class="large required" onchange="valiadateSelect(this);">
+                 	    <option value="">-- I'm --</option>
 						<option value="0">Student</option>
 						<option value="1">Educator</option>
 						<option value="2">Professional</option>
@@ -3557,7 +3596,7 @@ body {
  
             <div class="element">
              <label name="iam" for="iam">I'm   </label>
-                <select id="iam" class="large">
+                <select id="iam" class="large" name="iam" onchange="valiadateSelect(this);">
                   <option value= "">-- I'm --</option>
                         {{#if student}}
 						   <option value="0" selected="selected">Student</option>
@@ -3664,7 +3703,7 @@ body {
           <div class="form-row short">
               <div class="element">
                 <label name="iam" for="iam">I'm <span class="star"> </span></label>
-                <select id="iam" name="iams" class="required large">
+                <select id="iam" name="iam" class="required large" onchange="valiadateSelect(this);">
                         <option value="">-- I'm --</option>
 						<option value="0">Student</option>
 						<option value="1">Educator</option>
@@ -3798,7 +3837,7 @@ body {
           </div>
             <div class="form-row" >
  
-            <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a>   
+           <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a> 
  
 
           </div>
@@ -4030,25 +4069,51 @@ body {
 																	localStorage["location"] = '';
 																else
 																	localStorage["location"] = res.profile.address.formatted;
-                                                                console.log(localStorage["location"]);
+                                                                
 																localStorage["first-name"] = res.profile.name.givenName;
 																localStorage["last-name"] = res.profile.name.familyName;
 																localStorage["email"] = res.profile.preferredUsername;
+																
+// 																// extract alias name from vanity url
+// 																var url = res.profile.url;
+// 																url = url.replace(/\\/g, '');
+// 																url = url.split("/");
+// 																var alias = url[3];
+// 																localStorage["alias"] = alias;
+																
 															}
 															/* LinkedIn signUp */
 															else if (res.profile.providerName == "LinkedIn") {
-// 																if ((res['profile']['address']) === undefined)
-// 																	localStorage["location"] = '';
-// 																else
-// 																	localStorage["location"] = res.profile.address.formatted;
+																
+																if ((res['profile']['address']) === undefined)
+																	localStorage["location"] = '';
+																else
+																	localStorage["location"] = res.profile.address.formatted;
 																localStorage["first-name"] = res.profile.name.givenName;
 																localStorage["last-name"] = res.profile.name.familyName;
 																localStorage["email"] = res.profile.preferredUsername;
+																
 															}
 															/* Twitter signUp */
 															else if (res.profile.providerName == "Twitter") {
-																localStorage["first-name"] = res.profile.name.formatted;
-																localStorage["last-name"] = "";
+																
+																// split the name into first name and last name
+																var formattedName = res.profile.name.formatted;
+																var parts = formattedName.split(' ');
+																if(parts.length > 1 )
+																{
+																	var firstName = formattedName.substr(0,formattedName.indexOf(' '));
+																	var lastName = formattedName.substr(formattedName.indexOf(' ')+1);
+																	localStorage["first-name"] = firstName;
+																	localStorage["last-name"] = lastName;
+																}
+																if(parts.length == 1)
+																{
+																	localStorage["first-name"] = res.profile.name.formatted;
+																	localStorage["last-name"] = "";
+																}
+// 																localStorage["first-name"] = res.profile.name.formatted;
+// 																localStorage["last-name"] = "";
 																localStorage["email"] = res.profile.preferredUsername;
 
 															}
@@ -4108,6 +4173,7 @@ body {
 
 					if (data.status == "success") {
 						// navigate to stream page
+						BS.user.set('loggedin', true);
 						BS.AppRouter.navigate("streams", {
 							trigger : true,
 							replace : true
@@ -4238,6 +4304,22 @@ body {
 			 BS.streamView.mouseOver();
 			 $("#dialog").dialog('close');
 		}
+		
+		// validate select boxes
+		function valiadateSelect(self){
+			 var label1 = $("label[name='"+$(self).attr('id')+"']");
+			 console.log(label1);
+			 if($(self).val())
+			 {
+				 $(label1).html($(label1).text());
+			 }
+			 else
+			 {
+				 
+				 $(label1).html($(label1).text()+ "  <img src='images/star.png' />");
+			 }
+		}
+		
 	</script>
         
         <script type="text/javascript" src="lib/css3-mediaqueries.js"></script>

@@ -45,6 +45,9 @@ BS.verifyEmailView = Backbone.View.extend({
     registration:function (eventName) {
     	
     	eventName.preventDefault();
+    	/* validate select box */
+		valiadateSelect($('#iam'));
+		
     	$('#send-mail-loader').css("display","block");
     	var validate = $("#email-verify").valid();
     	if(validate == true)
@@ -126,14 +129,14 @@ BS.verifyEmailView = Backbone.View.extend({
   	    // if select "Professional"  change Email to  "Work email"
   	    if(iam == 2)
   	    {
-  	    	$('#email-label').html('Work email');
+  	    	$('#email-label').html('Work email'+ "  <img src='images/star.png' />");
   	    	$('#email').attr("placeholder","Corporate mail");
   	    	
   	    }
   	    // if select "Student" or "Educator" change Email to  "School email"
   	    else if(iam == 0 || iam == 1)
   	    {
-  	    	$('#email-label').html('School email');
+  	    	$('#email-label').html('School email'+ "  <img src='images/star.png' />");
   	    	$('#email').attr("placeholder","School email");
   	    }
   	    else  

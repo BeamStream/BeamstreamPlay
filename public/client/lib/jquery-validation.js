@@ -243,7 +243,6 @@ $.extend($.validator, {
 				var label1 = $("label[name='"+$(element).attr('id')+"']");
 				$(label1).html($(label1).text());
 				
-//				$(element).css("border","none");
 				this.element(element);
 			}
 		},
@@ -366,14 +365,25 @@ $.extend($.validator, {
 
 		// http://docs.jquery.com/Plugins/Validation/Validator/element
 		element: function( element ) {
+			
 			element = this.validationTargetFor( this.clean( element ) );
 			this.lastElement = element;
 			this.prepareElement( element );
 			this.currentElements = $(element);
 			var result = this.check( element ) !== false;
+			 
 			if (result) {
+				/* Added by Aswathy */
+				var label1 = $("label[name='"+$(element).attr('id')+"']");
+				$(label1).html($(label1).text());
+				
 				delete this.invalid[element.name];
 			} else {
+				/* Added by Aswathy */
+				
+				var label1 = $("label[name='"+$(element).attr('id')+"']");
+				$(label1).html($(label1).text()+ "  <img src='images/star.png' />");
+				
 				this.invalid[element.name] = true;
 			}
 			if ( !this.numberOfInvalids() ) {
@@ -391,6 +401,7 @@ $.extend($.validator, {
 				$.extend( this.errorMap, errors );
 				this.errorList = [];
 				for ( var name in errors ) {
+					
 					this.errorList.push({
 						message: errors[name],
 						element: this.findByName(name)[0]
@@ -702,8 +713,7 @@ $.extend($.validator, {
 					/* Added by Aswathy */
 					var label1 = $("label[name='"+$(element).attr('id')+"']");
 					$(label1).html($(label1).text()+ "  <img src='images/star.png' />");
-//					$(element).css("border","1px solid #DD4B39");
-					 
+					
 				}
 			} else {
 				// create label
@@ -724,10 +734,10 @@ $.extend($.validator, {
 					}
 				}
 				
-				/* Added by Aswathy */
+//				/* Added by Aswathy */
 				var label1 = $("label[name='"+$(element).attr('id')+"']");
 				$(label1).html($(label1).text()+ "  <img src='images/star.png' />");
- 
+// 
 //				$(element).css("border","1px solid #DD4B39");
 			}
 			if ( !message && this.settings.success ) {

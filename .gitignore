@@ -11,3 +11,4 @@ bin
 .settings
 
 *.db
+/nbproject/private/

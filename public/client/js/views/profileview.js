@@ -27,7 +27,7 @@ BS.ProfileView = Backbone.View.extend({
         BS.digits = 0;
         BS.bar = $('.bar');
         $(".radio").dgStyle();
-        
+        BS.firstValue = 0;   
         //remove the janrain component if it already exists
         if($('#janrain-share'))
           $('#janrain-share').remove();
@@ -105,38 +105,38 @@ BS.ProfileView = Backbone.View.extend({
 	        	    	
 	        	    	if(data.status == "Success") 
 		   			    {
-                                                    $(".star").hide();
-                                                BS.schoolBack = false;
-                                                            BS.regBack = false;
-                                                            BS.classBack = false;
-                                                            localStorage["regInfo"] ='';
-                                                    localStorage["schoolInfo"] ='';
-                                                    localStorage["classInfo"] ='';
-                                                    localStorage["resistrationPage"] ='';
-                                                    localStorage["editClass"] = "true";
-                                                    localStorage["editProfile"] = "true";
+                            $(".star").hide();
+                            BS.schoolBack = false;
+                            BS.regBack = false;
+                            BS.classBack = false;
+                            localStorage["regInfo"] ='';
+                            localStorage["schoolInfo"] ='';
+                            localStorage["classInfo"] ='';
+                            localStorage["resistrationPage"] ='';
+                            localStorage["editClass"] = "true";
+                            localStorage["editProfile"] = "true";
 
-                                                //stop the getprogress call if it not stops
-                                                    clearInterval(BS.progressVals);
+                            //stop the getprogress call if it not stops
+                            clearInterval(BS.progressVals);
                                                     
-                                               // navigate to main stream page after a tome period
-                                                setTimeout(function() {
-                                                    BS.AppRouter.navigate("streams", {trigger: true});
-                                                        }, 500);
+                           // navigate to main stream page after a tome period
+                            setTimeout(function() {
+                                BS.AppRouter.navigate("streams", {trigger: true});
+                            }, 500);
 		   			    }
 	        	    }
 	        	});
                         
-                        /*
-                         *Added by Cuckoo
-                         *Get the progress info
-                         */
-                            if( this.image && this.video)
-                                BS.totalPer = '99';
-                            else
-                                BS.totalPer = '100';
+	            /*
+	             *Added by Cuckoo
+	             *Get the progress info
+	             */
+                if( this.image && this.video)
+                    BS.totalPer = '99';
+                else
+                    BS.totalPer = '100';
 
-                        
+                                	               
                    BS.progressVals = setInterval(
                      function(){
                        $.ajax({
@@ -146,21 +146,57 @@ BS.ProfileView = Backbone.View.extend({
                                    contentType: false,
                                    processData: false,
                                    success: function(data){
-
-                                       BS.progressVal = data;
-                                       
-                                         BS.bar = $('.bar');
-                                         BS.bar.width( parseInt(BS.progressVal) * parseInt(4));
-                                         BS.bar.text( BS.progressVal + "% Done");
-                                         
-                                        if(BS.progressVal == BS.totalPer ){
-                                            //stop the getprogress call
-                                            clearInterval(BS.progressVals);
-                                                    }
-
+                                	   
+                                       if(BS.firstValue == 0)
+                                       {
+                                    	   // if we get 100% at first time ignore it . 
+                                    	   if(data == "100")
+                                    	   {
+                                    		   console.log("Case 1 : First -100%");
+                                    		   console.log(data);
+                                    		   console.log("Ignore it");
+                                    	   }
+                                    	   else
+                                    	   {
+                                    		   console.log("Case 2:first time not 100%");
+                                    		   console.log(data);
+                                    		   BS.progressVal = data;
+                                               
+                                               BS.bar = $('.bar');
+                                               BS.bar.width( parseInt(BS.progressVal) * parseInt(4));
+                                               BS.bar.text( BS.progressVal + "% Done");
+                                               
+                                              if(BS.progressVal == BS.totalPer ){
+                                                  //stop the getprogress call
+                                                  clearInterval(BS.progressVals);
+                                               }
+                                    		   
+                                    	   }
+                                    	   BS.firstValue = 1;
                                        }
+                                       else
+                                       {
+                                    	   console.log("Case 3: next times");
+                                    	   console.log(data);
+                                    	   BS.progressVal = data;
+                                           
+                                           BS.bar = $('.bar');
+                                           BS.bar.width( parseInt(BS.progressVal) * parseInt(4));
+                                           BS.bar.text( BS.progressVal + "% Done");
+                                           
+                                          if(BS.progressVal == BS.totalPer ){
+                                              //stop the getprogress call
+                                              clearInterval(BS.progressVals);
+                                           }
+                                       }
+                                   
+                                      
+
+                                     }
                                })}
                     ,2000);
+                   
+               
                       
                                            
 //  start------                      

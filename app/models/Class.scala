@@ -16,6 +16,7 @@ import java.text._
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 import utils.ObjectIdSerializer
+import utils.SendEmail
 
 case class Class(@Key("_id") id: ObjectId,
   classCode: String,
@@ -33,7 +34,7 @@ object Class {
   /*
    * Create the new Classes
    */
-  def createClass(classList: List[Class], userId: ObjectId): ResulttoSent = {
+ def createClass(classList: List[Class], userId: ObjectId): ResulttoSent = {
 
     /*
  * Check if the duplicate code exists in database
@@ -44,7 +45,7 @@ object Class {
     /*
    * is Duplicate Class Exists In List (Local Function)
    */
-    def duplicateClassExistesInSubmittedList(classList: List[Class]): Boolean = {
+     def duplicateClassExistesInSubmittedList(classList: List[Class]): Boolean = {
       var classFetchCount: Int = 0
       for (eachClass <- classList) {
         val classFetchedbyFilteringClassCode = classList.filter(x => x.classCode == eachClass.classCode)
@@ -59,15 +60,16 @@ object Class {
 
     else {
 
-      //TODO:var classIdList: List[ObjectId] = List()
-
       for (eachclass <- classList) {
-        println(eachclass)
         val classesobtained = Class.findClassListById(eachclass.id)
         if (!classesobtained.isEmpty) {
           println("Join Stream Case")
           Stream.joinStream(classesobtained(0).streams(0), userId)
           User.addClassToUser(userId, List(eachclass.id))
+
+                    val user = User.getUserProfile(userId)
+                    SendEmail.mailAfterStreamCreation(user.email, eachclass.className, false)
+                    Stream.sendMailToUsersOfStream(classesobtained(0).streams(0), userId)
 
           val classObtained = Class.findClassListById(eachclass.id)
           ClassDAO.update(MongoDBObject("_id" -> eachclass.id), classObtained(0).copy(
@@ -75,7 +77,7 @@ object Class {
             className = eachclass.className,
             classType = eachclass.classType,
             classTime = eachclass.classTime,
-            schoolId=eachclass.schoolId,
+            schoolId = eachclass.schoolId,
             startingDate = eachclass.startingDate), false, false, new WriteConcern)
           val streamOfTheComingClass = Stream.findStreamById(classObtained(0).streams(0))
           StreamDAO.update(MongoDBObject("_id" -> classObtained(0).streams(0)), streamOfTheComingClass.copy(streamName = eachclass.className), false, false, new WriteConcern)
@@ -88,6 +90,9 @@ object Class {
           val streamToCreate = new Stream(new ObjectId, eachclass.className, StreamType.Class, userId, List(userId), true, List())
           val streamId = Stream.createStream(streamToCreate)
           Stream.attachStreamtoClass(streamId, new ObjectId(classId.get.toString))
+
+                    val user = User.getUserProfile(userId)
+                    SendEmail.mailAfterStreamCreation(user.email, eachclass.className, true)
         }
       }
       ResulttoSent("Success", "User has successfully added his classes")
@@ -101,7 +106,6 @@ object Class {
   def deleteClass(myclass: Class) {
     ClassDAO.remove(myclass)
   }
-
 
   /*
    * Finding the class by Code
@@ -124,23 +128,8 @@ object Class {
 
   def findClassByName(name: String, schoolId: ObjectId): List[Class] = {
     val namePattern = Pattern.compile("^" + name, Pattern.CASE_INSENSITIVE)
-    var classes: List[Class] = List()
-    val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
-    (classFound.isEmpty) match {
-      case true =>
-      case false => classes ++= classFound
-    }
-    classes
+    ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
   }
-
-//  /*
-//   * Get class by code
-//   * 
-//   */
-//  def getClassByCode(classToSearch: Class): List[Class] = {
-//    val classesFetched = ClassDAO.find(MongoDBObject("classCode" -> classToSearch.classCode)).toList
-//    classesFetched
-//  }
 
   /*
    * Finding the class by Time
@@ -222,4 +211,4 @@ object ClassType extends Enumeration {
   val Yearly = Value(2, "yearly")
 }
 
-object ClassDAO extends SalatDAO[Class, Int](collection = MongoHQConfig.mongoDB("class"))
+object ClassDAO extends SalatDAO[Class, ObjectId](collection = MongoHQConfig.mongoDB("class"))

@@ -14,6 +14,7 @@ import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 import com.mongodb.casbah.WriteConcern
 import utils.SendEmail
+import utils.PasswordHashing
 
 case class User(@Key("_id") id: ObjectId,
   userType: UserType.Value,
@@ -178,7 +179,7 @@ object User {
   /*
    * Counting the No. of User with a particular Role
    */
-  def countRoles(usersList: List[ObjectId]): Map[String, Int] = {
+  def countRolesOfAUser(usersList: List[ObjectId]): Map[String, Int] = {
     var map: Map[String, Int] = Map()
     var count: Int = 0
     for (value <- UserType.values) {
@@ -220,7 +221,7 @@ object User {
     (user.size == 0) match {
       case true => false
       case false =>
-        val deryptedPassword=utils.ConversionUtility.decodeMe(user(0).password)
+        val deryptedPassword=(new PasswordHashing).decryptThePassword(user(0).password)
         SendEmail.sendPassword(emailId, deryptedPassword)
         true
     }

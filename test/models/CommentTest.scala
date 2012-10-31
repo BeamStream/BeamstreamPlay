@@ -27,7 +27,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
 
     val commentId = Comment.createComment(comment)
 
-    assert(Comment.findCommentById(commentId).commentBody === "Comment1")
+    assert(Comment.findCommentById(commentId).get.commentBody === "Comment1")
 
   }
 

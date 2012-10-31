@@ -24,10 +24,11 @@ import java.net.URL
  */
 object QuestionAccess extends Enumeration {
   type QuestionAccess = Value
-  val Private = Value(0, "Private")
-  val Public = Value(1, "Public")
-  val Restricted = Value(2, "Restricted")
-  val Stream = Value(3, "Stream")
+  val Public = Value(0, "Public")
+  val PrivateToClass = Value(1, "PrivateToClass")
+  val PrivateToSchool = Value(2, "PrivateToSchool")
+  //  val Restricted = Value(2, "Restricted")
+  //  val Stream = Value(3, "Stream")
 
 }
 
@@ -63,9 +64,40 @@ object Question {
   }
 
   /*
+ * Find Question by Id
+ */
+
+  def findQuestionById(questionId: ObjectId): Option[Question] = {
+    val question = QuestionDAO.findOneByID(questionId)
+    question
+  }
+
+  /*
+ * Rock The Question
+ */
+  def rockTheQuestion(questionId: ObjectId, userId: ObjectId): Int = {
+
+    val questionToRock = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+    questionToRock.rockers.contains(userId) match {
+      case true =>
+        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToRock.copy(rockers = (questionToRock.rockers -- List(userId))), false, false, new WriteConcern)
+        val updatedQuestion = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+        QuestionDAO.update(MongoDBObject("_id" -> questionId), updatedQuestion.copy(rocks = (updatedQuestion.rocks - 1)), false, false, new WriteConcern)
+        val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+        question.rocks
+      case false =>
+        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToRock.copy(rockers = (questionToRock.rockers ++ List(userId))), false, false, new WriteConcern)
+        val updatedQuestion = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+        QuestionDAO.update(MongoDBObject("_id" -> questionId), updatedQuestion.copy(rocks = (updatedQuestion.rocks + 1)), false, false, new WriteConcern)
+        val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+        question.rocks
+    }
+  }
+
+  /*
   * Names of a rockers for a Question (Modified)
   */
-  def rockersNames(questionId: ObjectId): List[String] = {
+  def rockersNameOfAQuestion(questionId: ObjectId): List[String] = {
     val questionRocked = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     val rockersOfAQuestion = User.giveMeTheRockers(questionRocked.rockers)
     rockersOfAQuestion
@@ -83,75 +115,87 @@ object Question {
     }
     questionsList
   }
-/*
- * Find Question by Id
- */
 
-  def findQuestionById(questionId: ObjectId): Question = {
-    val question = QuestionDAO.findOneByID(questionId)
-    question.get
+  /*
+    * Change the access of a Question
+    */
+  def changeAccess(questionId: ObjectId, newAccess: QuestionAccess.Value) = {
+    val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(questionAccess = newAccess), false, false, new WriteConcern)
+  }
+
+  /*
+    * Total number of rocks for a particular Question
+    */
+
+  def totalRocks(questionId: ObjectId): Int = {
+    val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+    question.rocks
+  }
+
+  /*
+     *     add Comment to message
+     */
+  def addAnswerToQuestion(questionId: ObjectId, answerId: ObjectId) {
+    val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(answers = (question.answers ++ List(answerId))), false, false, new WriteConcern)
+  }
+
+  /*
+   * Sort Question within a stream on the basis of total rocks (#403)
+   */
+
+  def getAllQuestionsForAStreamSortedbyRocks(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int) = {
+    QuestionDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("rocks" -> -1, "timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+  }
+
+  /*
+   * FInd All Private To Class Questions For A User
+   */
+
+  def getAllPrivateToAClassQuestionForAUser(userId: ObjectId) = {
+    QuestionDAO.find(MongoDBObject("userId" -> userId, "questionAccess" -> "PrivateToClass")).toList
+  }
+
+  /*
+   * FInd All Private To School Questions For A User
+   */
+
+  def getAllPrivateToASchoolQuestionForAUser(userId: ObjectId) = {
+    QuestionDAO.find(MongoDBObject("userId" -> userId, "questionAccess" -> "PrivateToSchool")).toList
+  }
+  
+   /*
+   * Delete A Question
+   */
+
+  def deleteQuestionPermanently(questionId: ObjectId, userId: ObjectId) = {
+    var deletedQuestionSuccessfully = false
+    val questionToRemove = Message.findMessageById(questionId).get
+    val commentsOfQuestionToBeRemoved = questionToRemove.comments
+
+    if (questionToRemove.userId == userId) {
+      MessageDAO.remove(questionToRemove)
+      for (commentId <- commentsOfQuestionToBeRemoved) {
+        val commentToBeremoved = Comment.findCommentById(commentId)
+        if (commentToBeremoved != None) Comment.removeComment(commentToBeremoved.get)
+      }
+      deletedQuestionSuccessfully = true
+      deletedQuestionSuccessfully
+    } else {
+      deletedQuestionSuccessfully
+    }
   }
 }
 
 object QuestionDAO extends SalatDAO[Question, ObjectId](collection = MongoHQConfig.mongoDB("question"))
  
-//  /*
-//   *  Update the Rockers List and increase the count by one
-//   * /
-// 
-//   * def rockedIt(questionId: ObjectId, userId: ObjectId): Int = {
-//   *
-//   * val questionToRock = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-//   *
-//   * questionToRock.rockers.contains(userId) match {
-//   *
-//   * // If the question is already rocked by the user, return the current rock count without updating
-//   * case true =>
-//   * questionToRock.rocks
-//   *
-//   * // Otherwise, update the rocker and count
-//   * case false =>
-//   *
-//   * QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToRock.copy(rockers = (questionToRock.rockers ++ List(userId))), false, false, new WriteConcern)
-//   *
-//   * val updatedQuestion = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-//   * QuestionDAO.update(MongoDBObject("_id" -> questionId), updatedQuestion.copy(rocks = (updatedQuestion.rocks + 1)), false, false, new WriteConcern)
-//   *
-//   * val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-//   * question.rocks
-//   *
-//   * }
-//   *
-//   * }
-//   *
-//   * /*
-//   * Change the access of a Question
-//   * /
-//   * def changeAccess(questionId: ObjectId, newAccess: QuestionAccess.Value) = {
-//   * val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-//   * QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(questionAccess = newAccess), false, false, new WriteConcern)
-//   * }
-//   *
-//   * /*
-//   * Total number of rocks for a particular Question
-//   * /
-//   * def totalRocks(questionId: ObjectId): Int = {
-//   * val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-//   * question.rocks
-//   * }
-//   *
-//   * def findQuestionById(questionId: ObjectId): Question = {
-//   * val question = QuestionDAO.findOneByID(questionId)
-//   * question.get
-//   * }
-//   *
-//   * /*
-//   * add Comment to message
-//   * /
-//   * def addAnswerToQuestion(questionId: ObjectId, answerId: ObjectId) {
-//   * val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-//   * QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(answers = (question.answers ++ List(answerId))), false, false, new WriteConcern)
-//   * }
-//   */
 
+    
+   
+ 
+    
+   
+   
+   
 
