@@ -108,9 +108,11 @@ object BasicRegistration extends Controller {
         case false =>
           (encryptedPassword == encryptedConfirmPassword) match {
             case true =>
-              val updatedUser = new User(new ObjectId(id), UserType.apply(iam.toInt), emailId, firstName, lastName, userName, alias, encryptedPassword, schoolName, location, profile, List(), List(), List(), List(), List())
-              UserDAO.update(MongoDBObject("_id" -> new ObjectId(id)), updatedUser, false, false, new WriteConcern)
-              Ok(write(List(updatedUser))).as("application/json")
+              val user=User.getUserProfile(new ObjectId(id))
+              UserDAO.update(MongoDBObject("_id" -> new ObjectId(id)), user.copy(
+              userType=UserType.apply(iam.toInt),email=emailId,firstName=firstName,lastName=lastName,userName=userName,alias=alias,password=encryptedPassword,orgName=schoolName,
+              location=location,socialProfile=profile), false, false, new WriteConcern)
+              Ok(write(List(User.getUserProfile(new ObjectId(id))))).as("application/json")
             case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
           }
       }
