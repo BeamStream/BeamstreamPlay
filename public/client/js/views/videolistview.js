@@ -1,5 +1,5 @@
 BS.VideoListView = Backbone.View.extend({
-         events:{
+            events:{
                 "click a#file-type" : "showFilesTypes",
                 "click ul.file-type li a" : "hideList",
                 "click .videotitle" : "editVideoTitle",
@@ -8,48 +8,44 @@ BS.VideoListView = Backbone.View.extend({
 //                 "hover .videotitle" : "editVideoTitle"              //#345 should only hover over, not click
              },
     
-        initialize:function(){
-            this.source = $("#tpl-docsview").html();
-            this.template = Handlebars.compile(this.source);
-            this.videolisting();
-        },
-        render:function (eventName) {
-            $(this.el).html(this.template);
-            return this;
+            initialize:function(){
+                this.source = $("#tpl-docsview").html();
+                this.template = Handlebars.compile(this.source);
+                this.videolisting();
             },
+            render:function (eventName) {
+                $(this.el).html(this.template);
+                return this;
+                },
             
             /**
             * list all videos in seperate view
             */
-       videolisting:function(){
-            $('#content').children().detach();
-            var i = 1;
-            var self = this;
-            var arrayvideos = new Array();
-            var content='';
-            var coverpicture; 
-            BS.user.fetch({ success:function(e) {
+            videolisting:function(){
+                $('#content').children().detach();
+                var i = 1;
+                var self = this;
+                var arrayvideos = new Array();
+                var content='';
+                var coverpicture; 
+                BS.user.fetch({ success:function(e) {
                 /* get videos for user */
-              $.ajax({
-                        type : 'GET',
-                        url : BS.allProfileVideos,
-                        dataType : "json",
-                                                                
-                        success : function(videos) {
-                        	     $('#grid').html("");    
-                                _.each(videos, function(video) {  
-                                	
-                                	var datas = {
-                                            "video" : video,
-//                                            "datVal" :datVal,
-                                            "videoCount" : i
-                                	}	
-
-                                	var source = $("#tpl-single-video").html();
-                                    var template = Handlebars.compile(source);				    
-                                    $('#grid').append(template(datas));    
-                                       
-                        i++;
+                $.ajax({
+                     type : 'GET',
+                     url : BS.allProfileVideos,
+                     dataType : "json",                                                               
+                     success : function(videos) {
+                        $('#grid').html("");    
+                        _.each(videos, function(video) {                                 	
+                        var datas = {
+                          "video" : video,
+//                         "datVal" :datVal,
+                           "videoCount" : i
+                            }	
+                            var source = $("#tpl-single-video").html();
+                            var template = Handlebars.compile(source);				    
+                            $('#grid').append(template(datas));                
+                            i++;
                         });                  
         
                         
@@ -99,9 +95,9 @@ BS.VideoListView = Backbone.View.extend({
             */
            previous: function (){  
                new_page = parseInt($('#current_page').val()) - 1;  
-                    if($('.active_page').prev('.page_link').length==true){  
-                        this.go_to_page(new_page);  
-                    }  
+               if($('.active_page').prev('.page_link').length==true){  
+               this.go_to_page(new_page);  
+               }  
   
             },  
             
@@ -109,12 +105,10 @@ BS.VideoListView = Backbone.View.extend({
             * Part of pagination and is used to show next page
             *
             */
-            next:function (){  
-          console.log("next");      
+            next:function (){      
                 new_page = parseInt($('#current_page').val()) + 1;  
                 if($('.active_page').next('.page_link').length==true){  
-                    console.log("inside if");
-                    this.go_to_page(new_page);  
+                this.go_to_page(new_page);  
                 }  
             },
             

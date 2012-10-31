@@ -73,8 +73,9 @@ BS.NavView = Backbone.View.extend({
     	  
     	 eventName.preventDefault();
 //    	 BS.editSchool = true;
-    	 localStorage["editSchool"]="true";
-    	 BS.AppRouter.navigate("school", {trigger: true});
+    	 localStorage["editSchool"]="true";   
+         BS.AppRouter.navigate("school", {trigger: true});
+//    	 BS.AppRouter.navigate("editschool", {trigger: true});
   
     },
     /**
@@ -83,7 +84,8 @@ BS.NavView = Backbone.View.extend({
     renderClassPopups :function(eventName){
     	eventName.preventDefault();
 //    	BS.editClass = true;
-    	localStorage["editClass"]="true";
+    	localStorage["editClass"]="true"; 
+//        BS.AppRouter.navigate("editclass", {trigger: true});
     	BS.AppRouter.navigate("class", {trigger: true});
     },
     
@@ -162,7 +164,7 @@ BS.StreamPageMenuView = Backbone.View.extend({
     	  
        $(this.el).html(this.template());
        return this;
-    },
+    }
 
     
     
