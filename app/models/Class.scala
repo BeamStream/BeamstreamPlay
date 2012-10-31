@@ -34,7 +34,7 @@ object Class {
   /*
    * Create the new Classes
    */
- def createClass(classList: List[Class], userId: ObjectId): ResulttoSent = {
+  def createClass(classList: List[Class], userId: ObjectId): ResulttoSent = {
 
     /*
  * Check if the duplicate code exists in database
@@ -45,7 +45,7 @@ object Class {
     /*
    * is Duplicate Class Exists In List (Local Function)
    */
-     def duplicateClassExistesInSubmittedList(classList: List[Class]): Boolean = {
+    def duplicateClassExistesInSubmittedList(classList: List[Class]): Boolean = {
       var classFetchCount: Int = 0
       for (eachClass <- classList) {
         val classFetchedbyFilteringClassCode = classList.filter(x => x.classCode == eachClass.classCode)
@@ -67,9 +67,9 @@ object Class {
           Stream.joinStream(classesobtained(0).streams(0), userId)
           User.addClassToUser(userId, List(eachclass.id))
 
-                    val user = User.getUserProfile(userId)
-                    SendEmail.mailAfterStreamCreation(user.email, eachclass.className, false)
-                    Stream.sendMailToUsersOfStream(classesobtained(0).streams(0), userId)
+          val user = User.getUserProfile(userId)
+          SendEmail.mailAfterStreamCreation(user.email, eachclass.className, false)
+          Stream.sendMailToUsersOfStream(classesobtained(0).streams(0), userId)
 
           val classObtained = Class.findClassListById(eachclass.id)
           ClassDAO.update(MongoDBObject("_id" -> eachclass.id), classObtained(0).copy(
@@ -91,8 +91,8 @@ object Class {
           val streamId = Stream.createStream(streamToCreate)
           Stream.attachStreamtoClass(streamId, new ObjectId(classId.get.toString))
 
-                    val user = User.getUserProfile(userId)
-                    SendEmail.mailAfterStreamCreation(user.email, eachclass.className, true)
+          val user = User.getUserProfile(userId)
+          SendEmail.mailAfterStreamCreation(user.email, eachclass.className, true)
         }
       }
       ResulttoSent("Success", "User has successfully added his classes")
@@ -126,9 +126,30 @@ object Class {
    * Finding the class by Code
    */
 
-  def findClassByName(name: String, schoolId: ObjectId): List[Class] = {
+  //  def findClassByName(name: String, schoolId: ObjectId): List[Class] = {
+  //    val namePattern = Pattern.compile("^" + name, Pattern.CASE_INSENSITIVE)
+  //    ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
+  //  }
+
+  /*
+   * Find the class by name with no of users return
+   */
+
+  def findClassByName(name: String, schoolId: ObjectId): List[ClassWithNoOfUsers] = {
     val namePattern = Pattern.compile("^" + name, Pattern.CASE_INSENSITIVE)
-    ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
+    var classesWithNoofUsers: List[ClassWithNoOfUsers] = List()
+    val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
+    (classFound.isEmpty) match {
+      case true =>
+      case false =>
+
+        for (eachClass <- classFound) {
+          val stream = Stream.findStreamById(eachClass.streams(0))
+          val mapOfUsersAttendingTheClassSeparatedbyCatagory = User.countRolesOfAUser(stream.usersOfStream)
+          classesWithNoofUsers ++= List(ClassWithNoOfUsers(mapOfUsersAttendingTheClassSeparatedbyCatagory, eachClass))
+        }
+    }
+    classesWithNoofUsers
   }
 
   /*
