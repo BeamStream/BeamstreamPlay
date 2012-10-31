@@ -167,6 +167,7 @@ BS.ProfileView = Backbone.View.extend({
                                               if(BS.progressVal == BS.totalPer ){
                                                   //stop the getprogress call
                                                   clearInterval(BS.progressVals);
+                                                 
                                                }
                                     		   
                                     	   }
