@@ -116,15 +116,20 @@ object Class {
    * Finding the class by Code
    */
 
-  def findClassByCode(code: String, schoolId: ObjectId): List[Class] = {
+  def findClassByCode(code: String, schoolId: ObjectId): List[ClassWithNoOfUsers] = {
     val codePattern = Pattern.compile("^" + code, Pattern.CASE_INSENSITIVE)
-    var classes: List[Class] = List()
+    var classesWithNoofUsers: List[ClassWithNoOfUsers] = List()
     val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "classCode" -> codePattern)).toList
     (classFound.isEmpty) match {
       case true =>
-      case false => classes ++= classFound
+      case false => 
+        for (eachClass <- classFound) {
+          val stream = Stream.findStreamById(eachClass.streams(0))
+          val mapOfUsersAttendingTheClassSeparatedbyCatagory = User.countRolesOfAUser(stream.usersOfStream)
+          classesWithNoofUsers ++= List(ClassWithNoOfUsers(mapOfUsersAttendingTheClassSeparatedbyCatagory, eachClass))
+        }
     }
-    classes
+    classesWithNoofUsers
   }
 
   /*
@@ -138,7 +143,6 @@ object Class {
     (classFound.isEmpty) match {
       case true =>
       case false =>
-
         for (eachClass <- classFound) {
           val stream = Stream.findStreamById(eachClass.streams(0))
           val mapOfUsersAttendingTheClassSeparatedbyCatagory = User.countRolesOfAUser(stream.usersOfStream)
