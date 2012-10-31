@@ -427,7 +427,11 @@ BS.ClassView = Backbone.View.extend({
 				BS.classCodes = []; 
 				_.each(datas, function(data) {
 //					BS.classCodes.push(data.classCode);
-					BS.classCodes.push({label:data.classToReturn.className , value:data.classToReturn.className ,id :data.classToReturn.id.id });
+					BS.classCodes.push({
+						label:data.classToReturn.classCode ,
+						value:data.classToReturn.classCode ,
+						id :data.classToReturn.id.id 
+				    });
 
 					 
 		        });
@@ -499,28 +503,28 @@ BS.ClassView = Backbone.View.extend({
 				 $('#div-school-type-'+identity+' a span.selectBox-label').html("Semester");
 			 }
 			 
-			 /* Post streamId to get no of users attending class*/
-			 $.ajax({
-					type : 'POST',
-					url : BS.noOfUsersAttendingAClass,
-
-					data : {
-						streamId : streamId
-					},
-					success : function(data) {
-						  
-						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data.Student+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
-			        	 $('#student-number-'+identity).fadeIn("medium"); 
-			        	 $('#student-number-'+identity).html(ul);
-						
-//						 var ul = '<div class="student"><h3>Stud:</h3><h4>'+data.Student+'</h4></div>'
-//						 		  +'<div class="educator"><h3>Educ:</h3><h4>'+data.Educator+'</h4></div>';
-//	        	 
-//			        	 $('#ps-'+identity).fadeIn("medium"); 
-//			        	 $('#ps-'+identity).html(ul);
-
-					}
-			 });
+//			 /* Post streamId to get no of users attending class*/
+//			 $.ajax({
+//					type : 'POST',
+//					url : BS.noOfUsersAttendingAClass,
+//
+//					data : {
+//						streamId : streamId
+//					},
+//					success : function(data) {
+//						  
+//						 var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">'+data.Student+' Attending</div><span><img src="images/down-arrow-green.1.png"></span>';
+//			        	 $('#student-number-'+identity).fadeIn("medium"); 
+//			        	 $('#student-number-'+identity).html(ul);
+//						
+////						 var ul = '<div class="student"><h3>Stud:</h3><h4>'+data.Student+'</h4></div>'
+////						 		  +'<div class="educator"><h3>Educ:</h3><h4>'+data.Educator+'</h4></div>';
+////	        	 
+////			        	 $('#ps-'+identity).fadeIn("medium"); 
+////			        	 $('#ps-'+identity).html(ul);
+//
+//					}
+//			 });
 		 }
 		 else
 		 {
@@ -617,6 +621,7 @@ BS.ClassView = Backbone.View.extend({
 					BS.classNames.push({
 						status : "classPage",
 						label:data.classToReturn.className + " - Students:" +data.usersMap.Student + " Educators:"+data.usersMap.Educator,
+//						label:data.classToReturn.className,
 						value:data.classToReturn.className ,
 						id :data.classToReturn.id.id ,
 						data:data.usersMap.Student,
