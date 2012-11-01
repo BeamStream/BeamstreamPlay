@@ -14,6 +14,10 @@ POST /betaUser   controllers.JoinBeamStream.regsisterToBeamStreamBeta
 POST /users      controllers.UserController.findUser
 
 
+#Browser Closed
+
+GET  /browserClosed          controllers.UserController.browserClosed
+
 #Streams
 
 GET /allStreamsForAUser controllers.StreamController.getAllStreamForAUser

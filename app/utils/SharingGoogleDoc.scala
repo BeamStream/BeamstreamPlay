@@ -1,4 +1,4 @@
-//package utils
+package utils
 //import com.google.gdata.client.DocumentQuery
 //import java.net.URL
 //import com.google.gdata.client.docs.DocsService
@@ -18,3 +18,5 @@
 //    println(entry.getScope.getValue + " (" + entry.getScope().getType() + ") : " + entry.getRole().getValue())
 //  }
 //}
+
+

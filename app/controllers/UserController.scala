@@ -188,5 +188,10 @@ object UserController extends Controller {
     Ok(write(new ResulttoSent("Success", "Users added to Social stack")))
     return true
   }
+  
+  
+  def browserClosed= Action { implicit request =>
+    Ok
+  }
 
 }
