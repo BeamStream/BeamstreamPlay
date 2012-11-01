@@ -37,7 +37,7 @@ BS.StreamView = Backbone.View.extend({
            "click .username a" : "renderPublicProfile",
            "click .delete_msg" : "deleteMessage",
            "click .delete_comment" : "deleteComment",
-           "click .doc" : "uploadFiles",
+           "click .doc" : "showUploadBox",
            "change #upload-files" : "getUploadedData"
            
 	 },
@@ -400,6 +400,7 @@ BS.StreamView = Backbone.View.extend({
      if(this.file )
      {
     	 $('#file-upload-loader').css("display","block");
+
     	 var data;
          data = new FormData();
          data.append('docData', self.file);  
@@ -415,6 +416,7 @@ BS.StreamView = Backbone.View.extend({
              success: function(data){
             	 self.file = "";
             	 $('#file-upload-loader').css("display","none");
+            	 $('.upload-box').css("display","none");
                  if(data.status == "Success") 
                      {
                           
@@ -1586,9 +1588,9 @@ BS.StreamView = Backbone.View.extend({
 	 /**
 	   * upload files
 	   */
-	  uploadFiles :function(eventName){
+	  showUploadBox :function(eventName){
 		  eventName.preventDefault(); 
-		  $('#upload-files').click();
+		  $('.upload-box').css("display","block");
 		  
 	  },
 	 

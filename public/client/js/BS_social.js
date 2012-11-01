@@ -1,0 +1,192 @@
+function showJanrainSigninWidget() {
+
+  //console.log('showJanrainSigninWidget called.');
+
+  // Temporary hack to not conflict with previously written code.
+  // TODO: Remove need for janRainCount check
+  var janRainCount = $('.janrainContent').length;
+  if(janRainCount > 0) {
+    return;
+  }
+
+  if (typeof window.janrain !== 'object') window.janrain = {};
+  if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+
+  janrain.settings.tokenUrl = BS.social_authentication;
+  janrain.settings.tokenAction = 'event';
+  janrain.settings.providers = ['facebook', 'twitter', 'linkedin', 'google'];
+  // Hack to hide the "Register via" text
+  janrain.settings.fontColor = "#4599d2";
+
+  function isReady() {
+    janrain.ready = true;
+  };
+  if (document.addEventListener) {
+    document.addEventListener("DOMContentLoaded", isReady, false);
+  } else {
+    window.attachEvent('onload', isReady);
+  }
+
+  var e = document.createElement('script');
+  e.type = 'text/javascript';
+  e.id = 'janrainAuthWidget';
+
+  if (document.location.protocol === 'https:') {
+    e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
+  } else {
+    e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
+  }
+
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(e, s);
+}
+
+/**
+ * Documentation here.
+ */
+function loadJanrainShareWidget() {
+  console.log('loadJanrainShareWidget');
+
+  if (typeof window.janrain !== 'object') window.janrain = {};
+  if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+  if (typeof window.janrain.settings.share !== 'object') window.janrain.settings.share = {};
+  if (typeof window.janrain.settings.packages !== 'object') janrain.settings.packages = [];
+  janrain.settings.packages.push('share');
+
+  /* _______________ can edit below this line _______________ */
+
+  janrain.settings.share.message = 'Join Beamstream!';
+  janrain.settings.share.title = 'Beamstream!';
+  janrain.settings.share.url = 'http://beamstream.com';
+  janrain.settings.share.description = 'Join Beamstream now!';
+  janrain.settings.share.embed = false;
+
+  /* _______________ can edit above this line _______________ */
+
+  function isReady() { janrain.ready = true; };
+  if (document.addEventListener) {
+      document.addEventListener("DOMContentLoaded", isReady, false);
+  } else {
+      window.attachEvent('onload', isReady);
+  }
+
+  var e = document.createElement('script');
+  e.type = 'text/javascript';
+  e.id = 'janrainWidgets';
+
+  if (document.location.protocol === 'https:') {
+    e.src = 'https://rpxnow.com/js/lib/beamstream/widget.js';
+  } else {
+    e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/widget.js';
+  }
+
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(e, s);
+}
+
+/**
+ * Documentation here.
+ */
+function showJanrainShareWidget(message, title, url, description) {
+  janrain.engage.share.reset();
+  janrain.engage.share.setMessage(message);
+  janrain.engage.share.setTitle(title);
+  janrain.engage.share.setUrl(url);
+  janrain.engage.share.setDescription(description);
+  janrain.engage.share.show();
+}
+
+/**
+ * Documentation here.
+ * TODO: Implement a queue system to fire off submitted functions.
+ */
+function janrainWidgetOnload() {
+  janrain.events.onProviderLoginToken.addHandler(function (response) {
+    $.ajax({
+      type: "POST",
+      url: BS.social_authentication,
+      data: "token=" + response.token,
+      success: function (res) {
+        console.log(res);
+        if (res != null) {
+
+          if (res.stat == "ok") {
+
+            setTimeout(
+
+            function () {
+
+              /*  Facebook signUp */
+              if (res.profile.providerName == "Facebook") {
+                if ((res['profile']['address']) === undefined)
+                  localStorage["location"] = '';
+                else
+                  localStorage["location"] = res.profile.address.formatted;
+
+                localStorage["first-name"] = res.profile.name.givenName;
+                localStorage["last-name"] = res.profile.name.familyName;
+                localStorage["email"] = res.profile.preferredUsername;
+              }
+              /* LinkedIn signUp */
+              else if (res.profile.providerName == "LinkedIn") {
+                if ((res['profile']['address']) === undefined)
+                  localStorage["location"] = '';
+                else
+                  localStorage["location"] = res.profile.address.formatted;
+
+                localStorage["first-name"] = res.profile.name.givenName;
+                localStorage["last-name"] = res.profile.name.familyName;
+                localStorage["email"] = res.profile.preferredUsername;
+              }
+              /* Twitter signUp */
+              else if (res.profile.providerName == "Twitter") {
+                // split the name into first name and last name
+                var formattedName = res.profile.name.formatted;
+                var parts = formattedName.split(' ');
+                if(parts.length > 1 ) {
+                  var firstName = formattedName.substr(0,formattedName.indexOf(' '));
+                  var lastName = formattedName.substr(formattedName.indexOf(' ')+1);
+                  localStorage["first-name"] = firstName;
+                  localStorage["last-name"] = lastName;
+                }
+                if(parts.length == 1) {
+                  localStorage["first-name"] = res.profile.name.formatted;
+                  localStorage["last-name"] = "";
+                }
+                localStorage["email"] = res.profile.preferredUsername;
+              }
+              /* Google signUp*/
+              else if (res.profile.providerName == "Google") {
+                localStorage["first-name"] = res.profile.name.givenName;
+                localStorage["last-name"] = res.profile.name.familyName;
+                localStorage["email"] = res.profile.preferredUsername;
+              } else {
+                console.log("Not from Social sites");
+              }
+
+              BS.JsonFromSocialSite = res;
+              if (res.profile.preferredUsername) localStorage["preferredUsername"] = res.profile.preferredUsername;
+              if (res.profile.identifier) localStorage["identifier"] = res.profile.identifier;
+              var loginModel = new BS.Login();
+              loginModel.set({
+                email: res.profile.preferredUsername,
+                password: "",
+                rememberMe: false
+              });
+
+              var loginDetails = JSON.stringify(loginModel);
+
+              setTimeout(function () {
+                janRainLogin(loginDetails);
+              }, 1000);
+
+            }, 1000);
+
+          }
+        }
+      }
+    });
+  });
+}
+
+loadJanrainShareWidget();

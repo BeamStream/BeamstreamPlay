@@ -11,6 +11,7 @@ object ApplicationBuild extends Build {
     "com.mongodb.casbah" %% "casbah" % "2.1.5-1",
     //"com.novus" %% "salat-core" % "0.0.8-SNAPSHOT",
     "com.novus" %% "salat-core" % "0.0.8-20120223",
+    //"com.novus" %% "salat" % "1.9.1",
     "org.scalatest" %% "scalatest" % "1.6.1",
     "joda-time" % "joda-time" % "2.0",
     "javax.mail" % "mail" % "1.4.1",
@@ -23,8 +24,7 @@ object ApplicationBuild extends Build {
     "org.apache.poi" % "poi-ooxml" % "3.8",
     "net.sf.opencsv" % "opencsv" % "2.1",
     "xuggle" % "xuggle-xuggler" % "5.4",
-    "org.joda" % "joda-convert" % "1.1"
-    )
+    "org.joda" % "joda-convert" % "1.1")
 
   resolvers += "xuggle repo" at "http://xuggle.googlecode.com/svn/trunk/repo/share/java/"
   resolvers += "repo.novus snaps" at "http://repo.novus.com/snapshots/"

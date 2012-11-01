@@ -34,7 +34,7 @@ object Class {
   /*
    * Create the new Classes
    */
- def createClass(classList: List[Class], userId: ObjectId): ResulttoSent = {
+  def createClass(classList: List[Class], userId: ObjectId): ResulttoSent = {
 
     /*
  * Check if the duplicate code exists in database
@@ -45,7 +45,7 @@ object Class {
     /*
    * is Duplicate Class Exists In List (Local Function)
    */
-     def duplicateClassExistesInSubmittedList(classList: List[Class]): Boolean = {
+    def duplicateClassExistesInSubmittedList(classList: List[Class]): Boolean = {
       var classFetchCount: Int = 0
       for (eachClass <- classList) {
         val classFetchedbyFilteringClassCode = classList.filter(x => x.classCode == eachClass.classCode)
@@ -62,25 +62,30 @@ object Class {
 
       for (eachclass <- classList) {
         val classesobtained = Class.findClassListById(eachclass.id)
+
         if (!classesobtained.isEmpty) {
-          println("Join Stream Case")
-          Stream.joinStream(classesobtained(0).streams(0), userId)
-          User.addClassToUser(userId, List(eachclass.id))
 
-                    val user = User.getUserProfile(userId)
-                    SendEmail.mailAfterStreamCreation(user.email, eachclass.className, false)
-                    Stream.sendMailToUsersOfStream(classesobtained(0).streams(0), userId)
+          val user = User.getUserProfile(userId)
 
-          val classObtained = Class.findClassListById(eachclass.id)
-          ClassDAO.update(MongoDBObject("_id" -> eachclass.id), classObtained(0).copy(
-            classCode = eachclass.classCode,
-            className = eachclass.className,
-            classType = eachclass.classType,
-            classTime = eachclass.classTime,
-            schoolId = eachclass.schoolId,
-            startingDate = eachclass.startingDate), false, false, new WriteConcern)
-          val streamOfTheComingClass = Stream.findStreamById(classObtained(0).streams(0))
-          StreamDAO.update(MongoDBObject("_id" -> classObtained(0).streams(0)), streamOfTheComingClass.copy(streamName = eachclass.className), false, false, new WriteConcern)
+          if (user.classId.contains(eachclass.id)) {
+            println("Edit Class Case")
+            val classObtained = Class.findClassListById(eachclass.id)
+            ClassDAO.update(MongoDBObject("_id" -> eachclass.id), classObtained(0).copy(
+              classCode = eachclass.classCode,
+              className = eachclass.className,
+              classType = eachclass.classType,
+              classTime = eachclass.classTime,
+              schoolId = eachclass.schoolId,
+              startingDate = eachclass.startingDate), false, false, new WriteConcern)
+            val streamOfTheComingClass = Stream.findStreamById(classObtained(0).streams(0))
+            StreamDAO.update(MongoDBObject("_id" -> classObtained(0).streams(0)), streamOfTheComingClass.copy(streamName = eachclass.className), false, false, new WriteConcern)
+          } else {
+            println("Join Stream Case")
+            Stream.joinStream(classesobtained(0).streams(0), userId)
+            User.addClassToUser(userId, List(eachclass.id))
+            SendEmail.mailAfterStreamCreation(user.email, eachclass.className, false)
+            Stream.sendMailToUsersOfStream(classesobtained(0).streams(0), userId)
+          }
 
         } else {
           println("Create class Case")
@@ -91,8 +96,8 @@ object Class {
           val streamId = Stream.createStream(streamToCreate)
           Stream.attachStreamtoClass(streamId, new ObjectId(classId.get.toString))
 
-                    val user = User.getUserProfile(userId)
-                    SendEmail.mailAfterStreamCreation(user.email, eachclass.className, true)
+          val user = User.getUserProfile(userId)
+          SendEmail.mailAfterStreamCreation(user.email, eachclass.className, true)
         }
       }
       ResulttoSent("Success", "User has successfully added his classes")
@@ -111,24 +116,40 @@ object Class {
    * Finding the class by Code
    */
 
-  def findClassByCode(code: String, schoolId: ObjectId): List[Class] = {
+  def findClassByCode(code: String, schoolId: ObjectId): List[ClassWithNoOfUsers] = {
     val codePattern = Pattern.compile("^" + code, Pattern.CASE_INSENSITIVE)
-    var classes: List[Class] = List()
+    var classesWithNoofUsers: List[ClassWithNoOfUsers] = List()
     val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "classCode" -> codePattern)).toList
     (classFound.isEmpty) match {
       case true =>
-      case false => classes ++= classFound
+      case false => 
+        for (eachClass <- classFound) {
+          val stream = Stream.findStreamById(eachClass.streams(0))
+          val mapOfUsersAttendingTheClassSeparatedbyCatagory = User.countRolesOfAUser(stream.usersOfStream)
+          classesWithNoofUsers ++= List(ClassWithNoOfUsers(mapOfUsersAttendingTheClassSeparatedbyCatagory, eachClass))
+        }
     }
-    classes
+    classesWithNoofUsers
   }
 
   /*
-   * Finding the class by Code
+   * Find the class by name with no of users return
    */
 
-  def findClassByName(name: String, schoolId: ObjectId): List[Class] = {
+  def findClassByName(name: String, schoolId: ObjectId): List[ClassWithNoOfUsers] = {
     val namePattern = Pattern.compile("^" + name, Pattern.CASE_INSENSITIVE)
-    ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
+    var classesWithNoofUsers: List[ClassWithNoOfUsers] = List()
+    val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
+    (classFound.isEmpty) match {
+      case true =>
+      case false =>
+        for (eachClass <- classFound) {
+          val stream = Stream.findStreamById(eachClass.streams(0))
+          val mapOfUsersAttendingTheClassSeparatedbyCatagory = User.countRolesOfAUser(stream.usersOfStream)
+          classesWithNoofUsers ++= List(ClassWithNoOfUsers(mapOfUsersAttendingTheClassSeparatedbyCatagory, eachClass))
+        }
+    }
+    classesWithNoofUsers
   }
 
   /*

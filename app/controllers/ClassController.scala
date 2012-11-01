@@ -31,6 +31,7 @@ object ClassController extends Controller {
    */
 
   def addClass = Action { implicit request =>
+    try{
     val classListJsonMap = request.body.asFormUrlEncoded.get
     val classJsonList = classListJsonMap("data").toList.head
     val classListTemp = net.liftweb.json.parse(classJsonList)
@@ -38,6 +39,9 @@ object ClassController extends Controller {
     val resultToSent = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
     val refreshedClasses = Class.getAllRefreshedClasss(classList)
     Ok(write((refreshedClasses))).as("application/json")
+    }catch {
+      case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem During Class Creation")))
+    }
 
   }
 
@@ -48,12 +52,16 @@ object ClassController extends Controller {
    */
 
   def findClasstoAutoPopulatebyCode = Action { implicit request =>
+    try{
     val classCodeMap = request.body.asFormUrlEncoded.get
     val classCode = classCodeMap("data").toList(0)
     val assosiatedSchoolId = classCodeMap("assosiatedSchoolId").toList(0)
     val classList = Class.findClassByCode(classCode, new ObjectId(assosiatedSchoolId))
     val classListJson = write(classList)
-    Ok(classListJson).as("application/json")
+    Ok(classListJson).as("application/json")}
+    catch {
+      case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem To Auto Populate The Class")))
+    }
   }
 
   /*
@@ -63,12 +71,16 @@ object ClassController extends Controller {
    */
 
   def findClasstoAutoPopulatebyName = Action { implicit request =>
+    try{
     val classNameMap = request.body.asFormUrlEncoded.get
     val className = classNameMap("data").toList(0)
     val assosiatedSchoolId = classNameMap("assosiatedSchoolId").toList(0)
     val classList = Class.findClassByName(className, new ObjectId(assosiatedSchoolId))
     val classListJson = write(classList)
     Ok(classListJson).as("application/json")
+    }catch {
+      case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem To Auto Populate The Class")))
+    }
   }
 
   /*
@@ -76,12 +88,15 @@ object ClassController extends Controller {
    * @Purpose: Getting all classes for a user
    */
   def getAllClassesForAUser = Action { implicit request =>
+    try{
     val userId = new ObjectId(request.session.get("userId").get)
     val classIdList = Class.getAllClassesIdsForAUser(userId)
     val getAllClassesForAUser = Class.getAllClasses(classIdList)
     val ClassListJson = write(getAllClassesForAUser)
-    Ok(ClassListJson).as("application/json")
-
+    Ok(ClassListJson).as("application/json")}
+    catch {
+      case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem To Get List Of Classes For A User")))
+    }
   }
 
 }

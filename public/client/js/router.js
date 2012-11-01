@@ -8,7 +8,9 @@ BS.AppRouter = Backbone.Router.extend({
         "recoverAccount" : "recoverAccount",
         "emailVerification": "emailVerification",
         "school":"schoolReg",
+        "editschool":"editSchool",
         "class":"classReg",
+        "editclass":"editClass",
         "profile":"profileReg",
         "streams":"mainStream",
         "basicRegistration/token/:token/iam/:iam/emailId/:email":"basicRegistration",
@@ -36,7 +38,7 @@ BS.AppRouter = Backbone.Router.extend({
     	
   		BS.user = new BS.SingleUser();
     	BS.user.authenticate();
-		
+		console.log("Success Testing");
     	var self = this;
     	BS.idLogin = '';
         BS.mySchools = '';
@@ -229,7 +231,7 @@ BS.AppRouter = Backbone.Router.extend({
 			       
 			            
 			    }
-		        else
+		        else        
 			     {
 		        	 localStorage["schoolInfo"] = ''; 
 			         BS.schoolView = new BS.SchoolView();
@@ -286,7 +288,56 @@ BS.AppRouter = Backbone.Router.extend({
 		
 	 }});
     },
-
+    
+    /**
+     * Edit school information
+     */
+    editSchool:function(){
+        console.log("edit school");
+         localStorage["schoolInfo"] = ''; 
+			         BS.editschoolview = new BS.EditSchoolView();
+			         BS.editschoolview.render();
+			         
+			         $('#school-popup').html(BS.editschoolview.el);
+			         
+			         current = 1;
+			         if(localStorage["schoolFromPrev"] != '')
+			         {
+			        	$('#school-name-1').val(localStorage["schoolFromPrev"]);  // transport school name from sign up page to school screen
+			        	$('#prev-school').attr("value",localStorage["schoolFromPrev"]);
+			        	 
+			        	 $.ajax({
+				        	   type : 'POST',
+				 			   url : BS.autoPopulateSchools,
+				 			   data : {
+				 				   data : localStorage["schoolFromPrev"],
+				 			   },
+				 			   dataType : "json",
+							   success : function(datas) {
+									_.each(datas, function(data) {
+										 if(data.schoolName == localStorage["schoolFromPrev"])
+								    	  {
+											 
+								    		  var sId = data.id.id;
+								    		  $('#school-id-1').attr('value',1);
+								    		  $('#associatedId-1').attr('value',sId);
+								    		 
+								    	  }
+							        });
+								}
+							});
+		 
+			         }
+			        
+			            /* hide some fields on page load */
+			            $('#degree-exp-1').hide();
+			            $('#cal-1').hide();
+			            $('#other-degrees-1').hide();
+                                    
+                                    $(".modal select:visible").selectBox();
+                                    $("#school-form").validate();
+			         
+    },
     
     /**
      * display Class Info screen
@@ -411,7 +462,7 @@ BS.AppRouter = Backbone.Router.extend({
 						$('.datepicker').css('z-index','99999');
 						
 		    	}
-		    	else
+		    	else    //edit
 		    	{
 		    		
 		           $('#school-popup').children().detach(); 
@@ -434,7 +485,23 @@ BS.AppRouter = Backbone.Router.extend({
 	 }});
        
    },
+  
+    editClass: function(){
     
+        console.log("edit class");
+    		    		
+        $('#school-popup').children().detach(); 
+//           if (!BS.classView) {
+        BS.editclassview = new BS.EditClassView();
+        BS.editclassview.render();
+//           }
+
+        $('#school-popup').html(BS.editclassview.el);
+        $(".modal select:visible").selectBox();
+        $('.modal .datepicker').datepicker();
+        $("#class-form").validate();
+
+    },
    /**
     * display Profile Info screen
     */

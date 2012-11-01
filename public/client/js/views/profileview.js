@@ -60,6 +60,7 @@ BS.ProfileView = Backbone.View.extend({
         BS.progressVal = 0;
     	var status = true;
     	var validate = $('#profile-form').valid();
+//        start----
     	if(validate == true)
     	{
     	   if($('#mobile').val())
@@ -79,6 +80,7 @@ BS.ProfileView = Backbone.View.extend({
     	   }
     	   if(status == true)
     	   {
+//    	   ----end
                 // for progress bar for file uploading
 	            $('.progress-container').show();
 	    		
@@ -167,6 +169,7 @@ BS.ProfileView = Backbone.View.extend({
                                               if(BS.progressVal == BS.totalPer ){
                                                   //stop the getprogress call
                                                   clearInterval(BS.progressVals);
+                                                 
                                                }
                                     		   
                                     	   }
@@ -197,7 +200,7 @@ BS.ProfileView = Backbone.View.extend({
                
                       
                                            
-                        
+//  start------                      
     	   }
     	   else
     	   {
@@ -209,6 +212,7 @@ BS.ProfileView = Backbone.View.extend({
     	{
     		console.log("validation: Error");
     	}
+//    ----end
     	 
     },
  
@@ -248,7 +252,7 @@ BS.ProfileView = Backbone.View.extend({
          }
          else
          {
-        	 
+                    	 
         	 /* capture the file informations */
              reader.onload = (function(f){
             	 
