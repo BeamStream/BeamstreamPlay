@@ -53,7 +53,6 @@ object DocumentController extends Controller {
 
   def newDocument = Action { implicit request =>
     val documentJsonMap = request.body.asFormUrlEncoded.get
-
     (documentJsonMap.contains(("data"))) match {
 
       case false => Ok(write(new ResulttoSent("Failure", "Document data not found !!!")))
@@ -68,8 +67,9 @@ object DocumentController extends Controller {
         val docType = (documentJson \ "docType").extract[String]
         val description = (documentJson \ "docDescription").extract[String]
         val userId = new ObjectId(request.session.get("userId").get)
+        val streamId = (documentJson \ "streamId").extract[String]
         val date = new Date
-        val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId, DocumentAccess.withName(access), new ObjectId, date, date, 0, List(), List(),List())
+        val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId, DocumentAccess.withName(access), new ObjectId(streamId), date, date, 0, List(), List(), List())
         val docId = Document.addDocument(documentToCreate)
         val docObtained = Document.findDocumentById(docId)
         val docJson = write(List(docObtained))
@@ -143,15 +143,14 @@ object DocumentController extends Controller {
     Ok(rockersJson).as("application/json")
   }
 
-
   /**
    * Upload Media From HardDrive
    */
 
   def getDocumentFromDisk = Action(parse.multipartFormData) { request =>
     val documentJsonMap = request.body.asFormUrlEncoded.toMap
-     val streamId = documentJsonMap("streamId").toList(0)
-    
+    val streamId = documentJsonMap("streamId").toList(0)
+
     (request.body.file("docData").isEmpty) match {
 
       case true => // No Image Found
@@ -164,11 +163,11 @@ object DocumentController extends Controller {
           val uniqueString = tokenEmail.securityToken
           val docbtained: File = docData.ref.file.asInstanceOf[File]
           println(docbtained.getTotalSpace)
-          val docUniqueKey=tokenEmail.securityToken
-          DocsUploadOnAmazon.uploadFileToAmazon(docUniqueKey+documentName, docbtained)
-          val docURL = "https://s3.amazonaws.com/BeamStream/" + docUniqueKey+documentName
+          val docUniqueKey = tokenEmail.securityToken
+          DocsUploadOnAmazon.uploadFileToAmazon(docUniqueKey + documentName, docbtained)
+          val docURL = "https://s3.amazonaws.com/BeamStream/" + docUniqueKey + documentName
           val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
-            new ObjectId(streamId), new Date, new Date, 0, List(), List(),List())
+            new ObjectId(streamId), new Date, new Date, 0, List(), List(), List())
           Document.addDocument(documentCreated)
         }.get
 
@@ -177,9 +176,6 @@ object DocumentController extends Controller {
     Ok(write(new ResulttoSent("Success", "Document Uploaded Successfully")))
   }
 
-  
-  
-  
   //---------------------------//
   // File Section Starts Here //
   //-------------------------//
@@ -192,7 +188,7 @@ object DocumentController extends Controller {
     val audioFiles = Files.getAllAudioFiles(new ObjectId(request.session.get("userId").get))
     Ok(write(audioFiles)).as("application/json")
   }
-  
+
   /**
    * Get All PPTFiles
    */
@@ -201,7 +197,7 @@ object DocumentController extends Controller {
     val PPTFiles = Files.getAllPPTFiles(new ObjectId(request.session.get("userId").get))
     Ok(write(PPTFiles)).as("application/json")
   }
-  
+
   /**
    * Get All PPTFiles
    */
@@ -210,7 +206,7 @@ object DocumentController extends Controller {
     val PDFFiles = Files.getAllPDFFiles(new ObjectId(request.session.get("userId").get))
     Ok(write(PDFFiles)).as("application/json")
   }
-  
+
   /**
    * Get All DOCSFiles
    */
