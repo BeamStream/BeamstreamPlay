@@ -711,8 +711,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	                              content+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
 	                              i++;
                               });
-                        	  content+='<option>Profile</option>'
-								   +'<option>My Docs</option>';
+                        	  
                               $('#doc-class-list-computer').html(content); 
                               }
 					
@@ -755,8 +754,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	                              content+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
 	                              i++;
                               });
-                        	  content+='<option>Profile</option>'
-								   +'<option>My Docs</option>';
+                        	 
                               $('#doc-class-list').html(content); 
                               }
 					
