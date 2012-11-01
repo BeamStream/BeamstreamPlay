@@ -4,9 +4,6 @@ import play.api._
 import play.api.mvc._
 import play.api.mvc.Response
 import models.Stream
-import play.api.data._
-import play.api.data.Forms._
-import play.api.Play.current
 import models.User
 import org.bson.types.ObjectId
 import play.api.cache.Cache
@@ -153,6 +150,8 @@ object DocumentController extends Controller {
 
   def getDocumentFromDisk = Action(parse.multipartFormData) { request =>
     val documentJsonMap = request.body.asFormUrlEncoded.toMap
+     val streamId = documentJsonMap("streamId").toList(0)
+    
     (request.body.file("docData").isEmpty) match {
 
       case true => // No Image Found
@@ -169,7 +168,7 @@ object DocumentController extends Controller {
           DocsUploadOnAmazon.uploadFileToAmazon(docUniqueKey+documentName, docbtained)
           val docURL = "https://s3.amazonaws.com/BeamStream/" + docUniqueKey+documentName
           val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
-            new ObjectId, new Date, new Date, 0, List(), List(),List())
+            new ObjectId(streamId), new Date, new Date, 0, List(), List(),List())
           Document.addDocument(documentCreated)
         }.get
 
