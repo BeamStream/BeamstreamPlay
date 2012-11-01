@@ -191,6 +191,8 @@ object UserController extends Controller {
   
   
   def browserClosed= Action { implicit request =>
+    println("Got A Hit On Browser Close Even")
+    //TODO : Deactivate The User
     Ok
   }
 

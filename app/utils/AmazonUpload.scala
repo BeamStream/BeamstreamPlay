@@ -130,7 +130,6 @@ class AmazonUpload {
 }
 
 object ProgressBar {
-  println("HAHAHAHAHAHAHAHAHA Coming Here")
   // var progressMap: Map[String, Int] = Map()
   def setProgressBar(userId: String, progress: Int) {
     //progressMap += (userId -> progress)
