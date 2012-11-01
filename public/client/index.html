@@ -1545,7 +1545,7 @@ Create a Class</a>
                 <div class="form-row">
                     <div class="element">
                         <label name="major" for="major">Major <span class="star"> </span></label>
-                        <input type="text" name="major" id="major" class="validate[required] span3" placeholder="Your Major" >
+                        <input type="text" name="major" id="major" class="span3" placeholder="Your Major" >
                     </div>
 						 <div class="element">
                         <label name="degreeprogram" for="degree-program">Degree program</label>
@@ -1708,7 +1708,7 @@ Create a Class</a>
                 <div class="form-row">
                     <div class="element">
                         <label name="major-1" for="major">Major </label>
-                        <input type="text" name="major-1" id="major-1" class="required span3" placeholder="Your Major" >
+                        <input type="text" name="major-1" id="major-1" class="span3" placeholder="Your Major" >
                     </div>
 					<div class="element">
                         <label name="graduated-1" for="graduated">Graduated? </label>
@@ -1823,7 +1823,7 @@ Create a Class</a>
                 <div class="form-row">
                     <div class="element">
                         <label name="major-1" for="major">Major </label>
-                        <input type="text" name="major-1" id="major-1" class="required span3" placeholder="Your Major" >
+                        <input type="text" name="major-1" id="major-1" class="span3" placeholder="Your Major" >
                     </div>
 					<div class="element">
                         <label name="graduated-1" for="graduated">Graduated? </label>
@@ -1913,7 +1913,7 @@ Create a Class</a>
 		<div class="form-row">
 			<div class="element">
 				<label name="major-{{number}}" for="major-{{number}}">Major </label>
-				<input type="text" name="major-{{number}}" id="major-{{number}}" class="required  span3" value="{{data.major}}">
+				<input type="text" name="major-{{number}}" id="major-{{number}}" class="span3" value="{{data.major}}">
 			</div>
 			<div class="element">
 				<label name="graduated-{{number}}" for="graduated" name="graduated-{{number}}">Graduated? </label>
@@ -4321,8 +4321,31 @@ Create a Class</a>
 		}
 		
 	</script>
+	
+	<script type="text/javascript">
+//         $(function()
+//         {
+        	
+//         	window.onbeforeunload = unloadMessage;
+ 
+//             function unloadMessage()
+//             {
+//                 return ('You have entered new data on this page. ' +
+//                         'If you navigate away from this page without ' +
+//                         'first saving your data, the changes will be lost.');
+//             }
+
+//             window.onerror = UnspecifiedErrorHandler;
+//             function UnspecifiedErrorHandler()
+//             {
+//                 return true;
+//             }
+
+//         }); 
+
+    </script>
         
-        <script type="text/javascript" src="lib/css3-mediaqueries.js"></script>
+    <script type="text/javascript" src="lib/css3-mediaqueries.js"></script>
 
 	<script src="js/router.js"></script>
 
