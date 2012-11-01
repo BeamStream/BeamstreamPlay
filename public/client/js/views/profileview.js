@@ -230,7 +230,7 @@ BS.ProfileView = Backbone.View.extend({
     
     displayImage:function (e) {
     	 
-    	 
+    	
     	 $('#image-info').show();
     	 
 //    	 this.resize(self,95,90 ,document.getElementById("profile-image"),document.getElementById("img"));
