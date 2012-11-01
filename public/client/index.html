@@ -21,7 +21,6 @@ body {
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
 <link href="css/modal.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
-
 <!-- less files -->
 <link href="css/less.css" rel="stylesheet">
 <link href="css/less-responsive.css" rel="stylesheet">
@@ -124,7 +123,10 @@ body {
                                     <li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"> 
                                     </li>
                                     <li><a href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a>
-
+                                    <select class="dropdownselect" id="doc-class-list-computer">
+												<option>Save to Class</option>
+												
+											</select>        
                                     <span id="loader-message"></span>
                             </ul>
                             </li>
@@ -152,8 +154,7 @@ body {
                                             <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
 											<select class="dropdownselect" id="doc-class-list">
 												<option>Save to Class</option>
-												<option>Profile</option>
-												<option>My Docs</option>
+												
 											</select>
 											</li>
                                             <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
@@ -2599,9 +2600,9 @@ Create a Class</a>
                            <div id="img"></div>
                            <div id="default-image">
                            {{#if primaryImage}}
-                              <img id="profile-photo" src="{{primaryImage}}" style="width:95px; height:90px;" alt="no photo" name="profile-photo" >
+                              <img id="profile-photo" src="{{primaryImage}}" style="width:95px; height:90px;" alt="no photo" name="profile-photo" exif="true">
                            {{else}}
-                             <img id="profile-photo" src="images/no-photo.png" style="width:95px; height:90px;" alt="no photo" name="profile-photo" >
+                             <img id="profile-photo" src="images/no-photo.png" style="width:95px; height:90px;" alt="no photo" name="profile-photo" exif="true">
                            {{/if}}
                            </div>
                         </span>
@@ -4276,6 +4277,10 @@ Create a Class</a>
 	<script src="js/models/singleusermodel.js"></script>
 	<script src="js/models/documentmodel.js"></script>
 	
+        <!-- sanoop  -->
+<script type="text/javascript" src="lib/exif.js"></script>   
+<script type="text/javascript" src="lib/binaryajax.js"></script>
+<script type="text/javascript" src="http://jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js"></script>
 
 	<!--  for +Add New School option in autopopulate -->
 	<script type="text/javascript">

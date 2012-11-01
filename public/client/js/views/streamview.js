@@ -397,13 +397,16 @@ BS.StreamView = Backbone.View.extend({
     postMessage :function(eventName){
       // upload file 
      var self = this;
+     var streamId = $('#streams-list li.active a').attr('id');
      if(this.file )
      {
     	 $('#file-upload-loader').css("display","block");
 
     	 var data;
          data = new FormData();
+         
          data.append('docData', self.file);  
+         data.append('streamId', streamId);  
          /* post profile page details */
          $.ajax({
              type: 'POST',
@@ -429,7 +432,7 @@ BS.StreamView = Backbone.View.extend({
       var self= this;
       /* get message details from form */
       var messageAccess;
-      var streamId = $('#streams-list li.active a').attr('id');
+      
       var message = $('#msg').val();
       BS.updatedMsg =  message;
       
