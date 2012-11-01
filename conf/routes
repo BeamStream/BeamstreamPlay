@@ -16,7 +16,7 @@ POST /users      controllers.UserController.findUser
 
 #Browser Closed
 
-POST  /browserClosed          controllers.UserController.browserClosed
+GET  /browserClosed          controllers.UserController.browserClosed
 
 #Streams
 
