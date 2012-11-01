@@ -112,15 +112,19 @@ BS.FilesMediaView = Backbone.View.extend({
        
          var documentModel = new BS.Document();
          if($("#gdoc-url").val().length != 0){
+             
          documentModel.set({
                 docName : $("#gdoc-name").val(),
                 docURL : $("#gdoc-url").val(),  
                 docAccess: 'Public',
                 docType: 'GoogleDocs',
+                streamId: $("#doc-class-list").val(),
                 docDescription: $("#gdoc-description").val()
           });
             
           var documentData = JSON.stringify(documentModel);
+          console.log(documentData);
+         
               var self = this;
                       $.ajax({
                     type : 'POST',
@@ -691,6 +695,29 @@ BS.FilesMediaView = Backbone.View.extend({
             eventName.preventDefault();
             $("#childtwo_two_dr").find('ul').hide(200);
             $("#dooclinkchild_dr").animate({width: 'toggle'},130);
+            
+            //select box for stream
+            var i='';
+            var content=''; 
+            $.ajax({
+			type : 'GET',
+			url : BS.allStreamsForAUser,
+			dataType : "json",
+                        success : function(options) {
+                            
+                        	 content+='<option>Save to Class</option>'
+                             _.each(options, function(option) {
+                                  console.log(option.id.id);
+	                              content+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
+	                              i++;
+                              });
+                        	  
+                              $('#doc-class-list-computer').html(content); 
+                              }
+					
+					  
+		 });
+            
         },
         
         
@@ -710,6 +737,7 @@ BS.FilesMediaView = Backbone.View.extend({
          * (childmenu from Import from link )
          */
         importFromLink:function(eventName){
+            console.log("selectbox");
             eventName.preventDefault();
             $("#frmlinkchild_dr").animate({width: 'toggle'},150);
             var i='';
@@ -719,18 +747,21 @@ BS.FilesMediaView = Backbone.View.extend({
 			url : BS.allStreamsForAUser,
 			dataType : "json",
                         success : function(options) {
+                            
                         	 content+='<option>Save to Class</option>'
                              _.each(options, function(option) {
-	                              content+= '<option>'+option.streamName+'</option>';
+                                  console.log(option.id.id);
+	                              content+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
 	                              i++;
                               });
-                        	  content+='<option>Profile</option>'
-								   +'<option>My Docs</option>';
+                        	 
                               $('#doc-class-list').html(content); 
                               }
 					
 					  
 		 });
+                 
+            
             
         },
                
@@ -918,8 +949,10 @@ BS.FilesMediaView = Backbone.View.extend({
                 eventName.preventDefault();
                  var self = this;
                 var status = true;
+                var streamId = $("#doc-class-list-computer").val();
                 var data;
                 data = new FormData();
+                data.append('streamId', streamId);
                 data.append('docData', this.image);  
                 
                 document.getElementById('loader-message').innerHTML="<img src='images/loading.gif'>";

@@ -79,7 +79,6 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     val messageId = Message.createMessage(message)
 
     val comment = new Comment(new ObjectId, "Comment1", new Date, userId, user.firstName, user.lastName, 0, List())
-
     val commentId = Comment.createComment(comment)
     Message.addCommentToMessage(commentId,messageId)
     assert(Message.findMessageById(messageId).get.comments.size === 1)
@@ -89,6 +88,25 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     Message.addCommentToMessage(commentId,messageId)
     assert(Message.findMessageById(messageId).get.comments.size === 2)
 
+  }
+  
+  test("Delete The Comments"){
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "","", List(), List(), List(), List(), List())
+    val userId = User.createUser(user)
+
+    val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId), true, List())
+    val streamId = Stream.createStream(stream)
+
+    val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(streamId), "", "", 0, List(), List(), 0, List())
+    val messageId = Message.createMessage(message)
+
+    val comment = new Comment(new ObjectId, "Comment1", new Date, userId, user.firstName, user.lastName, 0, List())
+    val commentId = Comment.createComment(comment)
+    Message.addCommentToMessage(commentId,messageId)
+    assert(Message.findMessageById(messageId).get.comments.size === 1)
+    
+    Comment.deleteCommentPermanently(commentId,userId)
+    assert( Comment.findCommentById(Message.findMessageById(messageId).get.comments(0)).size==0)
   }
 
   after {
