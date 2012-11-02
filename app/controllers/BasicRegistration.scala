@@ -72,11 +72,11 @@ object BasicRegistration extends Controller {
       val alias = (parsedUserJson \ "alias").extract[String]
       val useCurrentLocation = (parsedUserJson \ "useCurrentLocation").extract[Boolean]
 
-//      val encryptedPassword =   utils.ConversionUtility.encryptPassword(password)
-//      val encryptedConfirmPassword = utils.ConversionUtility.encryptPassword(confirmPassword)
+      //      val encryptedPassword =   utils.ConversionUtility.encryptPassword(password)
+      //      val encryptedConfirmPassword = utils.ConversionUtility.encryptPassword(confirmPassword)
 
-         val encryptedPassword =   (new PasswordHashing).encryptThePassword(password)
-         val encryptedConfirmPassword = (new PasswordHashing).encryptThePassword(confirmPassword)
+      val encryptedPassword = (new PasswordHashing).encryptThePassword(password)
+      val encryptedConfirmPassword = (new PasswordHashing).encryptThePassword(confirmPassword)
 
       //val user = User.findUserbyId(new ObjectId(id))
 
@@ -96,7 +96,7 @@ object BasicRegistration extends Controller {
                   val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
                   val createdUser = User.findUserbyId(IdOfUserCreted)
                   val noOfOnLineUsers = onlineUserCache.setOnline(IdOfUserCreted.toString)
-                  println("Online Users Reg. Part:" + noOfOnLineUsers)
+                  println("Online Users" + noOfOnLineUsers)
                   Ok(write(List(createdUser))).withSession(RegistrationSession)
                 case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
               }
@@ -108,10 +108,10 @@ object BasicRegistration extends Controller {
         case false =>
           (encryptedPassword == encryptedConfirmPassword) match {
             case true =>
-              val user=User.getUserProfile(new ObjectId(id))
+              val user = User.getUserProfile(new ObjectId(id))
               UserDAO.update(MongoDBObject("_id" -> new ObjectId(id)), user.copy(
-              userType=UserType.apply(iam.toInt),email=emailId,firstName=firstName,lastName=lastName,userName=userName,alias=alias,password=encryptedPassword,orgName=schoolName,
-              location=location,socialProfile=profile), false, false, new WriteConcern)
+                userType = UserType.apply(iam.toInt), email = emailId, firstName = firstName, lastName = lastName, userName = userName, alias = alias, password = encryptedPassword, orgName = schoolName,
+                location = location, socialProfile = profile), false, false, new WriteConcern)
               Ok(write(List(User.getUserProfile(new ObjectId(id))))).as("application/json")
             case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
           }

@@ -230,7 +230,7 @@ BS.ProfileView = Backbone.View.extend({
     
     displayImage:function (e) {
     	 
-    	 
+    	
     	 $('#image-info').show();
     	 
 //    	 this.resize(self,95,90 ,document.getElementById("profile-image"),document.getElementById("img"));
@@ -270,21 +270,7 @@ BS.ProfileView = Backbone.View.extend({
             })(file);
              
             // read the image file as data URL
-            reader.readAsDataURL(file);
-            
-            var img=document.getElementById("profile-photo");
-            console.log(img);
-         //   document.getElementById("img_prev").onload = function() {
-       // var orientation = EXIF.getTag(img_prev, "ExposureTime")
-	//console.log(orientation);
-	//alert("I was taken by a " + EXIF.getTag(img_prev, "Make") + " " + EXIF.getTag(img_prev, "Model"));
-	console.log(EXIF.getTag(img));
-	console.log(EXIF.getTag(img, "Orientation"));
-        console.log(EXIF.pretty(img));
-       // if(EXIF.getTag(img_prev, "Orientation")==8){
-        // $("#profile-photo").rotate(270); 
-            
-            
+            reader.readAsDataURL(file);   
          }
     },
     

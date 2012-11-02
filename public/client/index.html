@@ -122,11 +122,10 @@ body {
                                     <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
                                     <li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"> 
                                     </li>
-                                    <li><a href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a>
-                                    <select class="dropdownselect" id="doc-class-list-computer">
-												<option>Save to Class</option>
-												
-											</select>        
+                                    <li><a href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                                    <li><select class="dropdownselect" id="doc-class-list-computer">
+                                     <option>Save to Class</option>							
+                                        </select>  </li>      
                                     <span id="loader-message"></span>
                             </ul>
                             </li>
@@ -1546,7 +1545,7 @@ Create a Class</a>
                 <div class="form-row">
                     <div class="element">
                         <label name="major" for="major">Major <span class="star"> </span></label>
-                        <input type="text" name="major" id="major" class="validate[required] span3" placeholder="Your Major" >
+                        <input type="text" name="major" id="major" class="span3" placeholder="Your Major" >
                     </div>
 						 <div class="element">
                         <label name="degreeprogram" for="degree-program">Degree program</label>
@@ -1709,7 +1708,7 @@ Create a Class</a>
                 <div class="form-row">
                     <div class="element">
                         <label name="major-1" for="major">Major </label>
-                        <input type="text" name="major-1" id="major-1" class="required span3" placeholder="Your Major" >
+                        <input type="text" name="major-1" id="major-1" class="span3" placeholder="Your Major" >
                     </div>
 					<div class="element">
                         <label name="graduated-1" for="graduated">Graduated? </label>
@@ -1824,7 +1823,7 @@ Create a Class</a>
                 <div class="form-row">
                     <div class="element">
                         <label name="major-1" for="major">Major </label>
-                        <input type="text" name="major-1" id="major-1" class="required span3" placeholder="Your Major" >
+                        <input type="text" name="major-1" id="major-1" class="span3" placeholder="Your Major" >
                     </div>
 					<div class="element">
                         <label name="graduated-1" for="graduated">Graduated? </label>
@@ -1914,7 +1913,7 @@ Create a Class</a>
 		<div class="form-row">
 			<div class="element">
 				<label name="major-{{number}}" for="major-{{number}}">Major </label>
-				<input type="text" name="major-{{number}}" id="major-{{number}}" class="required  span3" value="{{data.major}}">
+				<input type="text" name="major-{{number}}" id="major-{{number}}" class="span3" value="{{data.major}}">
 			</div>
 			<div class="element">
 				<label name="graduated-{{number}}" for="graduated" name="graduated-{{number}}">Graduated? </label>
@@ -4254,10 +4253,10 @@ Create a Class</a>
 	<script src="js/models/basicprofilemodel.js"></script>
 	<script src="js/views/homeview.js"></script>
 	<script src="js/views/schoolview.js"></script>  
-        <script src="js/views/editschoolview.js"></script> 
+    <script src="js/views/editschoolview.js"></script> 
 	<script src="js/models/schoolmodel.js"></script> 
 	<script src="js/views/classview.js"></script>     
-        <script src="js/views/editclassview.js"></script> 
+    <script src="js/views/editclassview.js"></script> 
 	<script src="js/models/classmodel.js"></script>
 	<script src="js/models/profilemodel.js"></script>
 	<script src="js/views/newschoolview.js"></script>
@@ -4277,10 +4276,7 @@ Create a Class</a>
 	<script src="js/models/singleusermodel.js"></script>
 	<script src="js/models/documentmodel.js"></script>
 	
-        <!-- sanoop  -->
-<script type="text/javascript" src="lib/exif.js"></script>   
-<script type="text/javascript" src="lib/binaryajax.js"></script>
-<script type="text/javascript" src="http://jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js"></script>
+        
 
 	<!--  for +Add New School option in autopopulate -->
 	<script type="text/javascript">
@@ -4325,9 +4321,33 @@ Create a Class</a>
 			 }
 		}
 		
+		
+		/* called a server method on bowser/browser tab close event */ 
+		$(function()
+        {
+        	window.onbeforeunload = unloadMessage;
+            function unloadMessage()
+            {
+            	 $.ajax({
+     				type : 'GET',
+     				url : BS.browserClosed,
+     				dataType : "json",
+     				success : function(datas) {
+     			    	console.log("Browser/Tab closed")
+     				}
+     		 });
+            }
+            window.onerror = UnspecifiedErrorHandler;
+            function UnspecifiedErrorHandler()
+            {
+                console("Error on onbeforeunloadb");
+            }
+
+        }); 
+		
 	</script>
-        
-        <script type="text/javascript" src="lib/css3-mediaqueries.js"></script>
+
+    <script type="text/javascript" src="lib/css3-mediaqueries.js"></script>
 
 	<script src="js/router.js"></script>
 
