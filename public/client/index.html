@@ -3837,7 +3837,7 @@ Create a Class</a>
           </div>
             <div class="form-row" >
  
-           <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a> 
+           <!-- <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a> --> 
  
 
           </div>
@@ -4325,22 +4325,28 @@ Create a Class</a>
 		/* called a server method on bowser/browser tab close event */ 
 		$(function()
         {
-        	window.onbeforeunload = unloadMessage;
+
             function unloadMessage()
             {
-            	 $.ajax({
+            	
+             	 $.ajax({
      				type : 'GET',
      				url : BS.browserClosed,
      				dataType : "json",
      				success : function(datas) {
+     					
      			    	console.log("Browser/Tab closed")
      				}
-     		 });
+     		    });
+ 
             }
+            window.onbeforeunload = unloadMessage;
+            
             window.onerror = UnspecifiedErrorHandler;
             function UnspecifiedErrorHandler()
             {
                 console("Error on onbeforeunloadb");
+                
             }
 
         }); 
