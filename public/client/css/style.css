@@ -1222,7 +1222,7 @@ ul.file-list> li {
 }
 .comment-wrapper1 {
 	width:210px;
-	height: 30px;
+	height: 31px;
 	display:block;
 	color: #2288C8;
 	font-size: 12px;
@@ -2131,7 +2131,7 @@ div.hover-div img{
     left: -11px;
     position:absolute;
     z-index:2;
-    padding: 5px;
+    padding: 5px 5px 5px 5px;
     text-align:left !important;
 }
 .hover-image{
