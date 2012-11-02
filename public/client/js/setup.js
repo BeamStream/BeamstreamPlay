@@ -132,6 +132,8 @@ BS.dataProgress = BS.URLRequired+"/returnProgress";
 BS.deleteMessage = BS.URLRequired+"/deleteMessage";
 // delete Comments
 BS.deleteTheComment = BS.URLRequired+"/deleteTheComment";
+// browser close 
+BS.browserClosed =BS.URLRequired+"/browserClosed";  
 
 
 /* for beta users */

@@ -40,8 +40,8 @@ object UserController extends Controller {
     val userJson = net.liftweb.json.parse(user)
     val userEmailorName = (userJson \ "email").extract[String]
     val userPassword = (userJson \ "password").extract[String]
-    
-    val encryptedPassword=(new PasswordHashing).encryptThePassword(userPassword)
+
+    val encryptedPassword = (new PasswordHashing).encryptThePassword(userPassword)
 
     val authenticatedUser = getAuthenticatedUser(userEmailorName, encryptedPassword)
 
@@ -55,7 +55,7 @@ object UserController extends Controller {
         //        else  Ok(statusToSend).as("application/json").withSession(userSession)
 
         val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
-        println("Online Users Login Part:" + noOfOnLineUsers)
+       println("Online Users"+noOfOnLineUsers)
         Ok(statusToSend).withSession(userSession)
 
       case None =>
@@ -127,7 +127,7 @@ object UserController extends Controller {
 
   def signOut = Action { implicit request =>
     val noOfOnLineUsers = onlineUserCache.setOffline(request.session.get("userId").get)
-    println("LogOut Part :" + noOfOnLineUsers)
+    println("Online Users"+noOfOnLineUsers)
     Ok.withNewSession
   }
 
@@ -139,11 +139,9 @@ object UserController extends Controller {
 
   def returnUserJson = Action { implicit request =>
     val userId = request.session.get("userId")
-    if (userId == None)
-    {
+    if (userId == None) {
       Ok(write("Session Has Been Expired")).as("application/json")
-    }
-    else {
+    } else {
       val loggedInUserId = new ObjectId(userId.get)
       val loggedInUser = User.findUserbyId(loggedInUserId)
       val loggedInUserJson = write(loggedInUser)
@@ -188,9 +186,13 @@ object UserController extends Controller {
     Ok(write(new ResulttoSent("Success", "Users added to Social stack")))
     return true
   }
-  
-  
-  def browserClosed= Action { implicit request =>
+/*
+ * Deactivate User On Browser Closed Event
+ */
+  def browserClosed = Action { implicit request =>
+    println("Got A Hit On Browser Close Event")
+    val noOfOnLineUsers = onlineUserCache.setOffline(request.session.get("userId").get)
+    println("Online Users"+noOfOnLineUsers)
     Ok
   }
 
