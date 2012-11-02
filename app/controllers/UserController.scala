@@ -34,7 +34,7 @@ object UserController extends Controller {
  * Find and Authenticate the user to proceed
  */
   def findUser = Action { implicit request =>
-
+     
     val userJsonMap = request.body.asFormUrlEncoded.get
     val user = userJsonMap("data").toList(0)
     val userJson = net.liftweb.json.parse(user)
