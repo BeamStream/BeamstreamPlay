@@ -1144,7 +1144,8 @@ ul.file-list> li {
 	display:block;
 	overflow:hidden;
 	/*margin:10px; margin-top: 4px !important;*/   
-	border-radius: 3px 3px 3px 3px;
+/* 	border-radius: 3px 3px 3px 3px; */
+	border-radius: 3px 3px 0 0;
 	background:#fdfdfd;
 }
 .image-wrapper h4{
@@ -2112,7 +2113,7 @@ div.hover-div:hover img{
 div.hover-div img{
 /* 	height: 155px; */
 /*     width: 210px; */
-    border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 0px 0px;
 }
 .default-image{
 /* 	height: 155px;   */

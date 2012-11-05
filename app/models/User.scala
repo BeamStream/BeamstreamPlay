@@ -36,7 +36,6 @@ case class User(@Key("_id") id: ObjectId,
 
 object User {
 
-  implicit val formats = DefaultFormats
 
   var activeUsersList: List[ObjectId] = List()
 

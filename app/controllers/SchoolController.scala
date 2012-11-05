@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
 import models.School
+import models.SchoolDAO
+import com.mongodb.casbah.commons.MongoDBObject
 
 object SchoolController extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -21,9 +23,15 @@ object SchoolController extends Controller {
     val schoolInfojsonMap = request.body.asFormUrlEncoded.get
     val schoolName = schoolInfojsonMap("schoolName").toList(0)
     val schoolWebsite = schoolInfojsonMap("schoolWebsite").toList(0)
-    val schoolToCreate = new School(new ObjectId, schoolName, schoolWebsite)
-    val schoolId = School.addNewSchool(schoolToCreate)
-    Ok(write(schoolId)).as("application/json")
+
+    // #413
+    val schools = School.findSchoolByName(schoolName)
+    if (!schools.isEmpty) Ok("School Already Exists").as("application/json")
+    else {
+      val schoolToCreate = new School(new ObjectId, schoolName, schoolWebsite)
+      val schoolId = School.addNewSchool(schoolToCreate)
+      Ok(write(schoolId)).as("application/json")
+    }
   }
   /*
  * Provides All School For a User (Duplicacy seen : exactly like /schoolJson)
@@ -57,6 +65,14 @@ object SchoolController extends Controller {
     val schoolNamesStartingCharacter = schoolNameStartingStringJsonMap("data").toList(0)
     val allSchools = School.getAllSchoolsFromDB(schoolNamesStartingCharacter)
     Ok(write(allSchools)).as("application/json")
+  }
+
+  /**
+   * Find A School By Name
+   */
+
+  def findSchoolByName(schoolName: String) = {
+    SchoolDAO.find(MongoDBObject("schoolName" -> schoolName)).toList
   }
 
 }
