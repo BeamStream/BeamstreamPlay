@@ -13,6 +13,7 @@ import utils.ObjectIdSerializer
 import models.School
 import models.SchoolDAO
 import com.mongodb.casbah.commons.MongoDBObject
+import java.util.regex.Pattern
 
 object SchoolController extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -72,7 +73,8 @@ object SchoolController extends Controller {
    */
 
   def findSchoolByName(schoolName: String) = {
-    SchoolDAO.find(MongoDBObject("schoolName" -> schoolName)).toList
+    val schoolNamePattern = Pattern.compile(schoolName, Pattern.CASE_INSENSITIVE)
+    SchoolDAO.find(MongoDBObject("schoolName" -> schoolNamePattern)).toList
   }
 
 }
