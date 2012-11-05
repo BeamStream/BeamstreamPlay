@@ -43,8 +43,11 @@ body {
 
 
 <!--  for pretty photo -->
-<link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/prettyPhoto.css" type="text/css"
+	media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+<link
+	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
+	rel="stylesheet" type="text/css" />
 
 <!-- embedly -->
 <link rel="stylesheet" href="css/embedly-preview.css" type="text/css" />
@@ -59,19 +62,23 @@ body {
 <!--[if IE]>
     <link href="css/modal-ie.css" rel="stylesheet">
     <![endif]-->
-	
+
 
 <link href="images/favicon.ico" rel="shortcut icon">
 <!-- Le fav and touch icons -->
 <link rel="shortcut icon" href="../assets/ico/favicon.ico">
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="../assets/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="../assets/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="../assets/ico/apple-touch-icon-57-precomposed.png">
 <!--End of Le fav and touch icons -->
 
 
-   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-   
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
 </head>
 <!-- template for Files and Media-->
 <script type="text/x-handlebars-template" id="tpl-files-media">
@@ -497,8 +504,8 @@ body {
 </form>
 </div> -->
  </script>
- 
- <!-- template for single bucket in image -->
+
+<!-- template for single bucket in image -->
 <script type="text/x-handlebars-template" id="tpl-single-image">
 <li id="file-docs-'{{imageCount}}">  
   <div id="{{image.id.id}}"   name="single-doc">
@@ -750,7 +757,7 @@ body {
    </div>
   </script>
 
- <!-- Documents edit template-->
+<!-- Documents edit template-->
 <script type="text/x-handlebars-template" id="document-edit-tpl">
  <div class="modal-backdrop in"></div>
     <div class="modal mediaedit  modal-popups" style="display:block;">
@@ -787,8 +794,8 @@ body {
     
  </div>
 </script>
- 
- <!-- Documents popup window to show documents -->
+
+<!-- Documents popup window to show documents -->
 <script type="text/x-handlebars-template" id="document-popup-tpl">
  <div class="modal-backdrop in"></div>
     <div class="modal gdocpopup  modal-popups" style="display:block;">
@@ -813,7 +820,7 @@ body {
     
  </div>
 </script>
- <!-- Documents popup window to show presentation/pdf etc.. -->
+<!-- Documents popup window to show presentation/pdf etc.. -->
 <script type="text/x-handlebars-template" id="mediafiles-popup-tpl">
  <div class="modal-backdrop in"></div>
     <div class="modal gdocpopup  modal-popups" style="display:block;">
@@ -1487,21 +1494,20 @@ Create a Class</a>
 		$("#class-form").validate();
 		$("#profile-form").validate();
 		$("#email-verify").validate();
-// 		$("#registration-form").validate();
+		// 		$("#registration-form").validate();
 		$("#registration-form").validate({
-			rules: {
-				password1: "required",
-				password_again: {
-			      equalTo: "#password1"
-			    }
-			  }
+			rules : {
+				password1 : "required",
+				password_again : {
+					equalTo : "#password1"
+				}
+			}
 		});
 		$("#forgot-pass-form").validate();
 		$('#add-new-school-form').validate();
-		
+
 		//phone number format
 		$("#mobile").mask("(999) 999-9999");
-
 
 	});
 </script>
@@ -1949,11 +1955,12 @@ Create a Class</a>
 </script>
 
 <body style="padding-top: 96px !important;">
-   
-	<div id="display_message" class="status-message" >
-<!-- 	    <span><img class="error-img" src="images/error.png"/></span> -->
+
+	<div id="display_message" class="status-message">
+		<!-- 	    <span><img class="error-img" src="images/error.png"/></span> -->
 		<ul class="messagelist">
-			<li class="error-msg">You must fill in all of the required fields.</li>
+			<li class="error-msg">You must fill in all of the required
+				fields.</li>
 		</ul>
 	</div>
 	<div class="navbar-fixed-top">
@@ -1979,13 +1986,13 @@ Create a Class</a>
 		</div>
 		</nav>
 	</div>
-	
+
 	<div id="content"></div>
 	<div id="alert-popup"></div>
 	<div id="school-popup"></div>
 	<div id="list-popups"></div>
 	<div id="main-popups"></div>
-	 
+
 
 
 
@@ -2209,8 +2216,8 @@ Create a Class</a>
   </div>
    </script>
 
- <!----- Edit class from home view  ------>        
-        <script type="text/x-handlebars-template" id="tpl-class-editing">
+	<!----- Edit class from home view  ------>
+	<script type="text/x-handlebars-template" id="tpl-class-editing">
  
   <div class="modal-backdrop in"></div>
     <div class="modal  school-popup modal-pull-top in modal-popups" style="display:block;">
@@ -2362,8 +2369,8 @@ Create a Class</a>
     </div>
   </div>
    </script>
-        
-        
+
+
 	<!-- Class registration  -->
 	<script type="text/x-handlebars-template" id="edit-class">
 	<fieldset id="classes-{{sCount}}">
@@ -2380,7 +2387,7 @@ Create a Class</a>
 	</fieldset>
 	</script>
 
-	 <script type="text/x-handlebars-template" id="single-class">
+	<script type="text/x-handlebars-template" id="single-class">
 	<div class="form-row-label">
 		{{cInt}}<sup>st</sup> class
 	</div>
@@ -3293,7 +3300,7 @@ Create a Class</a>
 </header>
 </script>
 
-<script type="text/x-handlebars-template" id="tpl-messages">
+	<script type="text/x-handlebars-template" id="tpl-messages">
  
  <li id= "{{datas.id.id}}" name ="{{datas.userId.id}}">
  <article class="message_item">
@@ -3836,10 +3843,7 @@ Create a Class</a>
           </div>
           </div>
             <div class="form-row" >
- 
-           <!-- <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a> --> 
- 
-
+     <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a>  
           </div>
         </div>
       </fieldset>
@@ -3903,76 +3907,75 @@ Create a Class</a>
 
 	<!-- Le javascript ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-        
-     
-        <script src="lib/bootstrap.min.js"></script>
-        <script src="lib/underscore-min.js"></script>
-        <script src="lib/backbone.js"></script>
-        <script src="lib/handlebars-1.0.0.beta.6.js"></script>
-        
-        <!--  embedly JS -->
-        <script src="http://scripts.embed.ly/jquery.embedly.min.js"></script>
-        <script src="lib/embedly-preview.js" type="text/javascript"></script>
-        <!-- End embedly -->
-        
+
+
+	<script src="lib/bootstrap.min.js"></script>
+	<script src="lib/underscore-min.js"></script>
+	<script src="lib/backbone.js"></script>
+	<script src="lib/handlebars-1.0.0.beta.6.js"></script>
+
+	<!--  embedly JS -->
+	<script src="http://scripts.embed.ly/jquery.embedly.min.js"></script>
+	<script src="lib/embedly-preview.js" type="text/javascript"></script>
+	<!-- End embedly -->
+
 	<script type="text/javascript" src="lib/jquery.selectBox.js"></script>
-        <script type="text/javascript" src="lib/autopopulate.js"></script>
-        <script src="lib/jquery-validation.js" type="text/javascript"></script>
-        
-        <!-- Cookies -->
-        <script src="lib/jquery.cookie.js"></script>
-        
+	<script type="text/javascript" src="lib/autopopulate.js"></script>
+	<script src="lib/jquery-validation.js" type="text/javascript"></script>
+
+	<!-- Cookies -->
+	<script src="lib/jquery.cookie.js"></script>
+
 	<script type="text/javascript" src="lib/bootstrap-datepicker.js"></script>
-	<script type="text/javascript" src="lib/jquery.custom_radio_checkbox.js"></script>
+	<script type="text/javascript"
+		src="lib/jquery.custom_radio_checkbox.js"></script>
 	<!-- <script src="lib/bootstrap-dropdown.js"></script> -->
-        
-        <!--slider for stream list-->
-<!--          <script type="text/javascript" src="lib/mbVerticalSlider.js"></script> -->
 
-         <!--Shuffle in media page -->
-        <script type="text/javascript" src="lib/jquery.shuffle.js"></script>
-        <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script>
-        
-        <!--  for pretty  -->
-        <script src="lib/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+	<!--slider for stream list-->
+	<!--          <script type="text/javascript" src="lib/mbVerticalSlider.js"></script> -->
 
-        <!--  Masked Input Plugin -->
-        <script src="lib/jquery.maskedinput.js" type="text/javascript"></script>
+	<!--Shuffle in media page -->
+	<script type="text/javascript" src="lib/jquery.shuffle.js"></script>
+	<script type="text/javascript" src="lib/jquery.shuffle.min.js"></script>
+
+	<!--  for pretty  -->
+	<script src="lib/jquery.prettyPhoto.js" type="text/javascript"
+		charset="utf-8"></script>
+
+	<!--  Masked Input Plugin -->
+	<script src="lib/jquery.maskedinput.js" type="text/javascript"></script>
 
 
-        <!--TODO: Aswathy Delete all commented scripts if not needed -->
-        <!--  resize the profile image -->
-        <!-- <script src="lib/resample.js" type="text/javascript"></script> -->
-        <!--  jqury loader  test TODO -->
-        <!-- <link href="css/jquery.loader.css" rel="stylesheet" /> -->
-        <!-- <script src="lib/jquery.loader.js"></script> -->
-        <!--  auto complete -->
-        <!-- 	<script type="text/javascript" src="lib/jquery.autocomplete.js"></script> -->
-        <!-- <script src="lib/jqueryui.js"></script> -->
-        <!--   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script> -->
-         
+	<!--TODO: Aswathy Delete all commented scripts if not needed -->
+	<!--  resize the profile image -->
+	<!-- <script src="lib/resample.js" type="text/javascript"></script> -->
+	<!--  jqury loader  test TODO -->
+	<!-- <link href="css/jquery.loader.css" rel="stylesheet" /> -->
+	<!-- <script src="lib/jquery.loader.js"></script> -->
+	<!--  auto complete -->
+	<!-- 	<script type="text/javascript" src="lib/jquery.autocomplete.js"></script> -->
+	<!-- <script src="lib/jqueryui.js"></script> -->
+	<!--   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script> -->
+
 	<script src="js/app.js"></script>
 	<script src="js/setup.js"></script>
 
-        <!--- Code to delete duplication of Janrain Component -->    
-    <script>
-    $(window).bind("load", function() {
-       var nu=$('#janrainEngageEmbed').children();
-       if(nu.length==2)
-            {
-                    console.log("double janrain found");
-                    $('.janrainContent:first').remove();
+	<!--- Code to delete duplication of Janrain Component -->
+	<script>
+		$(window).bind("load", function() {
+			var nu = $('#janrainEngageEmbed').children();
+			if (nu.length == 2) {
+				console.log("double janrain found");
+				$('.janrainContent:first').remove();
 
-            }
-       else
-            {
-               console.log("single janrain found");
-            }
+			} else {
+				console.log("single janrain found");
+			}
 
-       $('.janrainContent div+div').remove();
-    });
-</script>
-        
+			$('.janrainContent div+div').remove();
+		});
+	</script>
+
 	<script type="text/javascript">
 		var current = 1; //current keeps track of how many schools we have @default =1 
 		var tagCount = 3; // tag keeps track of how many tags we have in class stream
@@ -4046,7 +4049,7 @@ Create a Class</a>
 		})();
 
 		function janrainWidgetOnload() {
-			 
+
 			janrain.events.onProviderLoginToken
 					.addHandler(function(response) {
 						$
@@ -4069,22 +4072,22 @@ Create a Class</a>
 																	localStorage["location"] = '';
 																else
 																	localStorage["location"] = res.profile.address.formatted;
-                                                                
+
 																localStorage["first-name"] = res.profile.name.givenName;
 																localStorage["last-name"] = res.profile.name.familyName;
 																localStorage["email"] = res.profile.preferredUsername;
-																
-// 																// extract alias name from vanity url
-// 																var url = res.profile.url;
-// 																url = url.replace(/\\/g, '');
-// 																url = url.split("/");
-// 																var alias = url[3];
-// 																localStorage["alias"] = alias;
-																
+
+																// 																// extract alias name from vanity url
+																// 																var url = res.profile.url;
+																// 																url = url.replace(/\\/g, '');
+																// 																url = url.split("/");
+																// 																var alias = url[3];
+																// 																localStorage["alias"] = alias;
+
 															}
 															/* LinkedIn signUp */
 															else if (res.profile.providerName == "LinkedIn") {
-																
+
 																if ((res['profile']['address']) === undefined)
 																	localStorage["location"] = '';
 																else
@@ -4092,28 +4095,33 @@ Create a Class</a>
 																localStorage["first-name"] = res.profile.name.givenName;
 																localStorage["last-name"] = res.profile.name.familyName;
 																localStorage["email"] = res.profile.preferredUsername;
-																
+
 															}
 															/* Twitter signUp */
 															else if (res.profile.providerName == "Twitter") {
-																
+
 																// split the name into first name and last name
 																var formattedName = res.profile.name.formatted;
-																var parts = formattedName.split(' ');
-																if(parts.length > 1 )
-																{
-																	var firstName = formattedName.substr(0,formattedName.indexOf(' '));
-																	var lastName = formattedName.substr(formattedName.indexOf(' ')+1);
+																var parts = formattedName
+																		.split(' ');
+																if (parts.length > 1) {
+																	var firstName = formattedName
+																			.substr(
+																					0,
+																					formattedName
+																							.indexOf(' '));
+																	var lastName = formattedName
+																			.substr(formattedName
+																					.indexOf(' ') + 1);
 																	localStorage["first-name"] = firstName;
 																	localStorage["last-name"] = lastName;
 																}
-																if(parts.length == 1)
-																{
+																if (parts.length == 1) {
 																	localStorage["first-name"] = res.profile.name.formatted;
 																	localStorage["last-name"] = "";
 																}
-// 																localStorage["first-name"] = res.profile.name.formatted;
-// 																localStorage["last-name"] = "";
+																// 																localStorage["first-name"] = res.profile.name.formatted;
+																// 																localStorage["last-name"] = "";
 																localStorage["email"] = res.profile.preferredUsername;
 
 															}
@@ -4130,7 +4138,7 @@ Create a Class</a>
 															BS.JsonFromSocialSite = res;
 															if (res.profile.preferredUsername)
 																localStorage["preferredUsername"] = res.profile.preferredUsername;
-															if(res.profile.identifier)
+															if (res.profile.identifier)
 																localStorage["identifier"] = res.profile.identifier;
 															var loginModel = new BS.Login();
 															loginModel
@@ -4252,11 +4260,11 @@ Create a Class</a>
 	<script src="js/views/mediaregistrationview.js"></script>
 	<script src="js/models/basicprofilemodel.js"></script>
 	<script src="js/views/homeview.js"></script>
-	<script src="js/views/schoolview.js"></script>  
-    <script src="js/views/editschoolview.js"></script> 
-	<script src="js/models/schoolmodel.js"></script> 
-	<script src="js/views/classview.js"></script>     
-    <script src="js/views/editclassview.js"></script> 
+	<script src="js/views/schoolview.js"></script>
+	<script src="js/views/editschoolview.js"></script>
+	<script src="js/models/schoolmodel.js"></script>
+	<script src="js/views/classview.js"></script>
+	<script src="js/views/editclassview.js"></script>
 	<script src="js/models/classmodel.js"></script>
 	<script src="js/models/profilemodel.js"></script>
 	<script src="js/views/newschoolview.js"></script>
@@ -4264,96 +4272,90 @@ Create a Class</a>
 	<script src="js/views/filesmediaview.js"></script>
 	<script src="js/views/streamactionview.js"></script>
 	<script src="js/views/googledocsview.js"></script>
-    <script src="js/views/mediaeditview.js"></script> 
-    <script src="js/views/gdocpopupview.js"></script>
+	<script src="js/views/mediaeditview.js"></script>
+	<script src="js/views/gdocpopupview.js"></script>
 	<script src="js/views/imagelistview.js"></script>
 	<script src="js/views/videolistview.js"></script>
-    <script src="js/views/audiolistview.js"></script> 
-    <script src="js/views/presentationview.js"></script>
-    <script src="js/views/mediafilepopupview.js"></script>   
-    <script src="js/views/pdflistview.js"></script>
-    <script src="js/views/doclistview.js"></script>
+	<script src="js/views/audiolistview.js"></script>
+	<script src="js/views/presentationview.js"></script>
+	<script src="js/views/mediafilepopupview.js"></script>
+	<script src="js/views/pdflistview.js"></script>
+	<script src="js/views/doclistview.js"></script>
 	<script src="js/models/singleusermodel.js"></script>
 	<script src="js/models/documentmodel.js"></script>
-	
-        
+
+
 
 	<!--  for +Add New School option in autopopulate -->
 	<script type="text/javascript">
 		function populateAddNewSchool(parentId) {
-            
+
 			BS.addNewSchool = new BS.AddNewSchool();
 			BS.addNewSchool.render(parentId);
 			$('#new-school-popup').html(BS.addNewSchool.el);
 
-			if (localStorage["schoolFromPrev"] == $('#prev-school').attr("value")) {
+			if (localStorage["schoolFromPrev"] == $('#prev-school').attr(
+					"value")) {
 				console.log("Ok");
 				$('#my-school').val(localStorage["schoolFromPrev"]);
 			}
-            if(BS.newSchool)
-            {
-            	$('#my-school').val(BS.newSchool);
-            }
-
+			if (BS.newSchool) {
+				$('#my-school').val(BS.newSchool);
+			}
 
 			$('#parent-Id').attr("value", parentId);
 		}
-		function closeAlert(){
-			 // display the popup of create steam 
-			 BS.streamView = new BS.StreamView({ model: BS.user });
-			 BS.streamView.render();
-			 BS.streamView.mouseOver();
-			 $("#dialog").dialog('close');
+		function closeAlert() {
+			// display the popup of create steam 
+			BS.streamView = new BS.StreamView({
+				model : BS.user
+			});
+			BS.streamView.render();
+			BS.streamView.mouseOver();
+			$("#dialog").dialog('close');
 		}
-		
+
 		// validate select boxes
-		function valiadateSelect(self){
-			 var label1 = $("label[name='"+$(self).attr('id')+"']");
-			 console.log(label1);
-			 if($(self).val())
-			 {
-				 $(label1).html($(label1).text());
-			 }
-			 else
-			 {
-				 
-				 $(label1).html($(label1).text()+ "  <img src='images/star.png' />");
-			 }
+		function valiadateSelect(self) {
+			var label1 = $("label[name='" + $(self).attr('id') + "']");
+			console.log(label1);
+			if ($(self).val()) {
+				$(label1).html($(label1).text());
+			} else {
+
+				$(label1).html(
+						$(label1).text() + "  <img src='images/star.png' />");
+			}
 		}
-		
-		
-		/* called a server method on bowser/browser tab close event */ 
-		$(function()
-        {
 
-            function unloadMessage()
-            {
-            	
-             	 $.ajax({
-     				type : 'GET',
-     				url : BS.browserClosed,
-     				dataType : "json",
-     				success : function(datas) {
-     					
-     			    	console.log("Browser/Tab closed")
-     				}
-     		    });
- 
-            }
-            window.onbeforeunload = unloadMessage;
-            
-            window.onerror = UnspecifiedErrorHandler;
-            function UnspecifiedErrorHandler()
-            {
-                console("Error on onbeforeunloadb");
-                
-            }
+		/* called a server method on bowser/browser tab close event */
+		$(function() {
 
-        }); 
-		
+			function unloadMessage() {
+
+				$.ajax({
+					type : 'GET',
+					url : BS.browserClosed,
+					dataType : "json",
+					success : function(datas) {
+
+						console.log("Browser/Tab closed")
+					}
+				});
+
+			}
+			window.onbeforeunload = unloadMessage;
+
+			window.onerror = UnspecifiedErrorHandler;
+			function UnspecifiedErrorHandler() {
+				console("Error on onbeforeunloadb");
+
+			}
+
+		});
 	</script>
 
-    <script type="text/javascript" src="lib/css3-mediaqueries.js"></script>
+	<script type="text/javascript" src="lib/css3-mediaqueries.js"></script>
 
 	<script src="js/router.js"></script>
 
