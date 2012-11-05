@@ -408,7 +408,7 @@ BS.ClassStreamView = Backbone.View.extend({
 //						BS.classNames.push(data.className);
 						BS.classNames.push({
 							status : "classPage",
-							label:data.classToReturn.className + " - Students:" +data.usersMap.Student + " Educators:"+data.usersMap.Educator,
+							label:data.classToReturn.className + " - Students:" +data.usersMap.Student + " Educators:"+data.usersMap.Educator+ " Professionals:"+data.usersMap.Professional,
 //							label:data.classToReturn.className,
 
 							value:data.classToReturn.className ,
