@@ -1,6 +1,5 @@
 $(function() {
 BS.AppRouter = new BS.AppRouter;
-console.log("Aplha");
 Backbone.history.start();
 });
 
@@ -10,10 +9,10 @@ Backbone.history.start();
 * Config Variables for Url externalization
 */
 
-//BS.URLRequired ="http://localhost:9000";    
+BS.URLRequired ="http://localhost:9000";    
  
  
-BS.URLRequired ="http://alpha.beamstream.com";
+//BS.URLRequired ="http://alpha.beamstream.com";
  
 //BS.URLRequired ="http://test.beamstream.com"
 	

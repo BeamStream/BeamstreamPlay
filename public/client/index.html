@@ -72,6 +72,10 @@ body {
 
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
    
+     <!--Shuffle in media page -->
+        <script type="text/javascript" src="lib/jquery.shuffle.js"></script>
+<!--         <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script> -->
+   
 </head>
 <!-- template for Files and Media-->
 <script type="text/x-handlebars-template" id="tpl-files-media">
@@ -303,16 +307,16 @@ body {
         <label>Then by:</label>
         <a href="#">Date </a>
         <ul class="filter-options">
-          <li data-key="all"><a href="#">All</a></li> 
-          <li data-key="recent"><a href="#">Most Recent</a></li>
-          <li data-key="oldest"><a href="#"> Oldest</a> </li>
+          <li data-group="all"><a href="#">All</a></li> 
+          <li data-group="recent"><a href="#">Most Recent</a></li>
+          <li data-group="oldest"><a href="#"> Oldest</a> </li>
         </ul>
       </div>
     </div> 
     <div id="gdocedit"></div>  
     <div class="row" >
       <ul class="file-list" id="grid">
-        <li data-key='["recent"]' id="coverimage">
+        <li  data-groups='["recent"]' id="coverimage">
           <div class="image-wrapper"><div class="hover-div"><div id="profile-images"><img class="default-image" src="images/pictures_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Images </p></div></div></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -322,7 +326,7 @@ body {
             </ul>
           </div>
         </li>
-        <li data-key='["oldest"]' id="covervideo">
+        <li data-groups='["oldest"]' id="covervideo">
          <div class="image-wrapper"><div class="hover-div"><div id="profile-videos"><img class="default-image" src="images/video_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Videos </p></div></div> </div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -332,7 +336,7 @@ body {
             </ul>
           </div>
         </li>        
-        <li id="coverdocs" data-key='["recent"]'>
+        <li id="coverdocs"  data-groups='["recent"]'>
          <div class="image-wrapper" id="google-docs"><div class="hover-div"><a class="google-docs-image" href="#googledocs"><img class="default-image" src="images/google_docs_image.png"></a>  
           <div class="hover-text"><p class="emptyfiles"> No Uploaded Docs </p></div></div></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
@@ -343,7 +347,7 @@ body {
             </ul>
           </div>
         </li>        
-        <li id="coveraudio" data-key='["oldest"]'>
+        <li id="coveraudio" data-groups='["oldest"]'>
             <div class="image-wrapper coveraud"> 
                <div class="hover-div"><img class="default-image" src="images/audio_image.png"/><div class="hover-text"> 
                  <p class="emptyfiles"> No Uploaded Audio </p></div>
@@ -357,7 +361,7 @@ body {
               </ul>
            </div>
         </li>
-        <li id="coverspreadsheet" data-key='["recent"]'>
+        <li id="coverspreadsheet"  data-groups='["recent"]'>
           <div class="image-wrapper">
             <div class="hover-div"><img class="default-image" src="images/spreadsheets_image.png"/><div class="hover-text"> 
                <p class="emptyfiles"> No Uploaded Spreadsheets </p>
@@ -371,7 +375,7 @@ body {
               </ul>
            </div>
         </li>
-        <li id="coverpresentation" data-key='["oldest"]'>
+        <li id="coverpresentation" data-groups='["oldest"]'>
            <div class="image-wrapper"> 
               <div class="hover-div"><img class="default-image" src="images/presentations_image.png"/>
                <div class="hover-text">  <p class="emptyfiles"> No Uploaded Presentations </p></div>        
@@ -385,7 +389,7 @@ body {
             </ul>
           </div>        
        </li>
-       <li id="coverpdf" data-key='["oldest"]'>
+       <li id="coverpdf" data-groups='["oldest"]'>
           <div class="image-wrapper">
              <div class="hover-div"><img class="default-image" src="images/pdp_image.png"/><div class="hover-text">    
                 <p class="emptyfiles"> No Uploaded Files </p>
@@ -399,7 +403,7 @@ body {
               </ul>        
            </div>              
         </li>
-        <li id="coverdoc_com" data-key='["recent"]'>
+        <li id="coverdoc_com"  data-groups='["recent"]'>
            <div class="image-wrapper"> 
              <div class="hover-div"><img class="default-image" src="images/docs_image.png"/>
                <div class="hover-text">     
@@ -415,7 +419,7 @@ body {
              </ul>
           </div>       
         </li>       
-        <li id="coverlink" data-key='["recent"]'>
+        <li id="coverlink"  data-groups='["recent"]'>
            <div class="image-wrapper"> 
              <div class="hover-div"><img class="default-image" src="images/links_image.png"/>
                <div class="hover-text">     
@@ -449,7 +453,7 @@ body {
 <!-- template for single bucket in google doc-->
 
 <script type="text/x-handlebars-template" id="tpl-single-bucket">
-<li id="file-docs-{{docCount}}" data-key="[{{datVal}}]"> 
+<li id="file-docs-{{docCount}}" data-groups="[{{datVal}}]"> 
   <div id="{{doc.id.id}}"   name="single-doc">
     <div class="image-wrapper hovereffect" >
       <div class="hover-div"><img src="images/{{image}}"/>
@@ -589,7 +593,7 @@ body {
 
 <!-- template for single bucket in pdf-list view -->
 <script type="text/x-handlebars-template" id="tpl-single-pdf">
-<li id="file-docs-{{count}}" data-key="[{{datVal}}]"> 
+<li id="file-docs-{{count}}" data-groups="[{{datVal}}]"> 
   <div id="{{pdf.id.id}}"   name="single-doc">
     <div class="image-wrapper hovereffect" >
       <div class="hover-div"><img src="images/pdp_image.png"/>
@@ -628,7 +632,7 @@ body {
 
 <!-- template for single bucket in presentation view -->
 <script type="text/x-handlebars-template" id="tpl-single-presentation">
-<li id="file-docs-{{count}}" data-key="[{{datVal}}]"> 
+<li id="file-docs-{{count}}" data-groups="[{{datVal}}]"> 
   <div id="{{ppt.id.id}}"   name="single-doc">
     <div class="image-wrapper hovereffect" >
       <div class="hover-div"><img src="images/presentations_image.png"/>
@@ -3837,7 +3841,7 @@ Create a Class</a>
           </div>
             <div class="form-row" >
  
-           <!-- <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a> --> 
+            <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a>
  
 
           </div>
@@ -3929,9 +3933,9 @@ Create a Class</a>
         <!--slider for stream list-->
 <!--          <script type="text/javascript" src="lib/mbVerticalSlider.js"></script> -->
 
-         <!--Shuffle in media page -->
-        <script type="text/javascript" src="lib/jquery.shuffle.js"></script>
-        <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script>
+<!--          Shuffle in media page -->
+<!--         <script type="text/javascript" src="lib/jquery.shuffle.js"></script> -->
+<!--         <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script> -->
         
         <!--  for pretty  -->
         <script src="lib/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
@@ -4281,7 +4285,7 @@ Create a Class</a>
 	<!--  for +Add New School option in autopopulate -->
 	<script type="text/javascript">
 		function populateAddNewSchool(parentId) {
-            
+
 			BS.addNewSchool = new BS.AddNewSchool();
 			BS.addNewSchool.render(parentId);
 			$('#new-school-popup').html(BS.addNewSchool.el);
