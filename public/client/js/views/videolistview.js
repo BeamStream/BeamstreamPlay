@@ -150,7 +150,8 @@ BS.VideoListView = Backbone.View.extend({
             */  
         editVideoTitle :function(eventName){  
 //          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
-            var datas = {
+           console.log("edit video title");
+           var datas = {
 				"type" : 'Video',
 				"title" : '',
                                 "description" :''
@@ -158,6 +159,33 @@ BS.VideoListView = Backbone.View.extend({
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(datas);
             $('#gdocedit').html(BS.mediaeditview.el);
+            
+            
+            /*
+             var imageId = eventName.currentTarget.id;             // id to get corresponding image   
+           $.ajax({                                       
+                        type : 'POST',
+                        url :  BS.getOneDocs,
+                        data : {
+                                documentId: imageId  
+                                },
+                        dataType : "json",
+                        success : function(imagess) {                          
+                             var imagedatas = {
+                             "id" : imagess[0].id.id,
+                             "url" : imagess[0].documentURL,
+                             "type" : 'Docs',
+                             "title" : imagess[0].documentName,
+                             "description" : imagess[0].documentDescription
+			  }
+            BS.mediaeditview = new  BS.MediaEditView();
+            BS.mediaeditview.render(imagedatas);
+            $('#gdocedit').html(BS.mediaeditview.el);
+                        }
+           });
+             */
+            
+            
          },
             
          /**

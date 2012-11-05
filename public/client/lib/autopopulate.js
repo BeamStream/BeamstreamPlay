@@ -2968,8 +2968,10 @@ _renderMenu:function(b,c){
             a("<li class='new_school'></li>").data("item.autocomplete",c).append(a("<a></a>").text('+ Add New School')).appendTo(b)
     },
 _renderItem:function(b,c){
-	
-   return a("<li></li>").data("item.autocomplete",c).append(a("<a></a>").text(c.label)).appendTo(b)
+	//if(c.status)
+        //     return a("<li></li>").data("item.autocomplete",c).append(a("<a></a>").text(c.label)).append(a("<span class='stud' src='images/icons/icon_lock.png'></span>").text(c.students)).append(a("<span class='stud' src='images/icons/icon_lock.png'></span>").text(c.students)).appendTo(b)
+       // else
+             return a("<li></li>").data("item.autocomplete",c).append(a("<a></a>").text(c.label)).appendTo(b)
     },
 _move:function(a,b){
     if(!this.menu.element.is(":visible")){

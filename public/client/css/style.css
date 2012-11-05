@@ -1722,9 +1722,10 @@ span.edit_profilepicture_icon{
 }
 .bitly
 {
-    margin-bottom: 4px;
+    display: block;
+    margin-bottom: 5px;
     margin-top: 4px;
-   
+   float: left;
 }
 .embed
 {
@@ -2513,6 +2514,18 @@ text-align: left;
 /* 	margin: 0 20px 0 19px !important; */
 }
 /* for delete messages */
+#docurl{
+ border: 1px solid #333333;
+    clear: both;
+    display: block;
+    float: left;
+    height: 500px;
+    overflow: hidden;
+/*  position: absolute;
+    top: 52px;*/
+    width: 400px;
+   
+}
 .delete_msg{
 	 width :15px;
 	 height:15px;
