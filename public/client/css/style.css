@@ -1725,8 +1725,10 @@ span.edit_profilepicture_icon{
     display: block;
     margin-bottom: 5px;
     margin-top: 4px;
-   float: left;
+  
 }
+
+
 .embed
 {
 border: 1px solid rgba(0, 0, 0, 0.15);

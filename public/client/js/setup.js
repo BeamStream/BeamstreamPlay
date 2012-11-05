@@ -1,6 +1,5 @@
 $(function() {
 BS.AppRouter = new BS.AppRouter;
-console.log("Aplha");
 Backbone.history.start();
 });
 

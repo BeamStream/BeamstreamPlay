@@ -29,7 +29,7 @@ BS.AudioListView = Backbone.View.extend({
 //                            if(docs.length != 0)  {
                               _.each(data, function(audio) {                                
 //                                   var datVal =  self.formatDateVal(audio.creationDate);                                                                 
-                             content +='<li id="file-docs-'+i+'" data-key="[datVal]"> <div class="image-wrapper hovereffect" >'                       
+                             content +='<li id="file-docs-'+i+'" data-groups="[datVal]"> <div class="image-wrapper hovereffect" >'                       
                                 +' <div class="hover-div"><img src="images/audio_image.png"/><div class="hover-text"> '  //code for hover over effec                          
                                 +'<div class="comment-wrapper comment-wrapper2">'
                                 +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
