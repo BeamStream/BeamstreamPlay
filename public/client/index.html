@@ -542,7 +542,7 @@ body {
 </li> 
 </script>
 
-<!-- template for single bucket in image -->
+<!-- template for single bucket for video -->
 <script type="text/x-handlebars-template" id="tpl-single-video">
 <li id="file-docs-{{videoCount}}">
   <div id="{{video.id.id}}"   name="single-doc">
@@ -563,7 +563,7 @@ body {
 					<p class="google_doc doc-description" id="{{video.id.id}}">
 					<input type="hidden" id="{{video.id.id}}" value="doc.url"> Description of Video </p>
 					</a>
-					<h5 class="videotitle"> Title & Description</h5>
+					<h5 class="videotitle" id="{{video.id.id}}"> Title & Description</h5>
 					<span>State</span>
 					<span class="date">datVal</span>    
 				</div>
@@ -3311,10 +3311,15 @@ Create a Class</a>
          <span class="separator">-</span>
          <span class="visibility">{{datas.messageAccess.name}}</span>
        </div>
+         <!---->
+        
        <div id="{{datas.id.id}}-id" class="bitly" >
          {{datas.messageBody}}
+       
        </div>
-		 
+           <div id="docurl" >dfgdfgdfgdfg
+             </div> 
+          
        <div class="actions actions with-tooltips tooltips-top btn-group">
          <a class="rock " href="#rock" data-original-title="hello"><i class="rocked rock-message"><i>{{datas.rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
          <a class="rock" id="rocks" href="#rock">Rocked it!</a>
@@ -4340,7 +4345,7 @@ Create a Class</a>
             window.onerror = UnspecifiedErrorHandler;
             function UnspecifiedErrorHandler()
             {
-                console("Error on onbeforeunloadb");
+                //console("Error on onbeforeunloadb");
             }
 
         }); 
@@ -4348,7 +4353,7 @@ Create a Class</a>
 	</script>
 
     <script type="text/javascript" src="lib/css3-mediaqueries.js"></script>
-
+    <script type="text/javascript" src="lib/jquery.exif.js"></script>  
 	<script src="js/router.js"></script>
 
 	<div pub-key="pub-a8c5db9f-8482-4092-b9e4-44fda38a9d51"
