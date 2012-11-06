@@ -47,7 +47,7 @@ BS.StreamView = Backbone.View.extend({
     	
     	console.log('Initializing Stream View');
     	BS.urlRegex1 = /(https?:\/\/[^\s]+)/g;
-    	BS.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\/]*$/i ;
+    	BS.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\./]*$/i ;
     	BS.urlRegex2 =  /^((http|https|ftp):\/\/)/;
     	BS.commentCount = 0;
     	/* for hover over */
@@ -438,7 +438,7 @@ BS.StreamView = Backbone.View.extend({
       
       if(!message.match(/^[\s]*$/))
       {
-          console.log("space");
+           
 	      var msgAccess =  $('#id-private').attr('checked');
 	  	  if(msgAccess == "checked")
 	  	  {
@@ -451,9 +451,10 @@ BS.StreamView = Backbone.View.extend({
 	  	  
 	  	  //find link part from the message
 	      var link =  message.match(BS.urlRegex); 
+	       
 	      if(link)
 	      {  
-                  console.log("link");
+                   
 	    	 if(!BS.urlRegex2.test(link[0])) {
 	    		urlLink = "http://" + link[0];
 	  	  	 }
@@ -461,40 +462,41 @@ BS.StreamView = Backbone.View.extend({
 	    	 {
 	    		 urlLink =link[0];
 	    	 }
-	    	  if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
-                           { 
-	    	     if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
-			 { 
-	    	      /* post url information */
-	            $.ajax({
-	    			type : 'POST',
-	    			url : BS.bitly,
-	    			data : {
-	    				 link : urlLink
-	    			},
-	    			dataType : "json",
-	    			success : function(data) {
-	    				 message = message.replace(link[0],data.data.url);
-	    				 self.postMsg(message,streamId,messageAccess);
-	    			}
-	    		});
-			 }
-
-	    	   else
-	    	    {     
-	    	 	 self.postMsg(message,streamId,messageAccess);
+	    	 
+	    	 if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
+             {
+	    		   
+		    	  if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
+				  { 
+		    	      /* post url information */
+		            $.ajax({
+		    			type : 'POST',
+		    			url : BS.bitly,
+		    			data : {
+		    				 link : urlLink
+		    			},
+		    			dataType : "json",
+		    			success : function(data) {
+		    				 message = message.replace(link[0],data.data.url);
+		    				 self.postMsg(message,streamId,messageAccess);
+		    			}
+		    		});
+				 }
+	    	     else
+	    	     {     
+	    	    	 self.postMsg(message,streamId,messageAccess);
 	    	     }
-                               }  //doc
-                   else    //for docupload
-	    	    {     
+             }  //doc
+             else    //for docupload
+	    	 {     
 	    		 self.postMsg(message,streamId,messageAccess);
-	    	     }
+	    	 }
                  
 	      }
 	      //if link not present
 	      else
 	      {
-                  console.log("else test");
+                 
 	    	  self.postMsg(message,streamId,messageAccess);
 	      }
       }
@@ -539,7 +541,6 @@ BS.StreamView = Backbone.View.extend({
   					   _.each(data, function(data) {
 //                                               var url=data.messageBody;
 //                                               if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
-  							 console.log(data.messageBody);
   						    /*auto ajax push */
   	  					    var streamId = $('#streams-list li.active a').attr('id');
   		                    PUBNUB.publish({
@@ -567,24 +568,27 @@ BS.StreamView = Backbone.View.extend({
 //                                          } 
   	  						//get profile image of logged user
   	  					    $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
-  	  					    console.log(linkTag);
+  	  					     
   	  						if(linkTag)
-                                                            
-  	  						  $('div#'+data.id.id+'-id').html(linkTag);
-  	  					 var url=data.messageBody;
-                                               if(!url.match(/^(https:\/\/docs.google.com\/)/)) {	
-  	  						 // embedly
-	  	  					 $('div#'+data.id.id+'-id').embedly({
-		 					   	  maxWidth: 200,
-		 				          wmode: 'transparent',
-		 				          method: 'after',
-		 					      key:'4d205b6a796b11e1871a4040d3dc5c07'
-	  	  					 });
-                                               }
-                                               else	{
-                                               var content = '<div class="stream-doc-block"><iframe class="gwt-Frame" style="width:400px; height: 500px; " frameborder="0" src="'+data.messageBody+'"></iframe></div>'
-                                             $('#'+data.id.id+'-docurl').html(content);    
-                                          } 
+  	  						   $('div#'+data.id.id+'-id').html(linkTag);
+  	  						
+  	  					    var url=data.messageBody;
+  	  					    
+                            if(!url.match(/^(https:\/\/docs.google.com\/)/)) {	
+                            	 
+	  	  						 // embedly
+		  	  					 $('div#'+data.id.id+'-id').embedly({
+			 					   	  maxWidth: 200,
+			 				          wmode: 'transparent',
+			 				          method: 'after',
+			 					      key:'4d205b6a796b11e1871a4040d3dc5c07'
+		  	  					 });
+                             }
+                             else{
+                            	
+                                 var content = '<div class="stream-doc-block"><iframe class="gwt-Frame" style="width:400px; height: 500px; " frameborder="0" src="'+data.messageBody+'"></iframe></div>'
+                                 $('#'+data.id.id+'-docurl').html(content);    
+                             } 
   				         });
                                         
   				   }
@@ -1121,52 +1125,49 @@ BS.StreamView = Backbone.View.extend({
 			 self.postMessage(); 
 		 }
 		 if(eventName.which == 32){
-                     console.log("testing bitly");
 			 
 			 var text = $('#msg').val();
-                       if(!text.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
-                           {                          
-			 var links =  text.match(BS.urlRegex); 
-			 
-			  /* create bitly for each url in text */
-//			 _.each(links, function(link) {
-				  
-					 if(links)
+		     var links =  text.match(BS.urlRegex); 
+				 
+				  /* create bitly for each url in text */
+	//			 _.each(links, function(link) {
+					  
+				 if(links)
+			     {
+					 
+					 if(!BS.urlRegex2.test(links[0])) {
+				    		urlLink = "http://" + links[0];
+				  	 }
+				     else
 				     {
-						 
-						 if(!BS.urlRegex2.test(links[0])) {
-					    		urlLink = "http://" + links[0];
-					  	 }
-					     else
-					     {
-					    		urlLink =links[0];
-					     }
+				    		urlLink =links[0];
+				     }
+					 
+					 if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
+		             { 
 						 /* don't create bitly for shortened  url */
 						 if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
 						 {
-                                                     
-                                                 console.log('bitly test');
-				    	  /* create bitly  */
-				          $.ajax({
-				    			type : 'POST',
-				    			url : BS.bitly,
-				    			data : {
-				    				 link : urlLink 
-				    			},
-				    			dataType : "json",
-				    			success : function(data) {
-				    				 var msg = $('#msg').val();
-				    				 message = msg.replace(links[0],data.data.url);
-				    				 $('#msg').val(message);
-				    				
-				    			}
-				    		});
-				          
-				          $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+					    	  /* create bitly  */
+					          $.ajax({
+					    			type : 'POST',
+					    			url : BS.bitly,
+					    			data : {
+					    				 link : urlLink 
+					    			},
+					    			dataType : "json",
+					    			success : function(data) {
+					    				 var msg = $('#msg').val();
+					    				 message = msg.replace(links[0],data.data.url);
+					    				 $('#msg').val(message);
+					    				
+					    			}
+					    		});
+					          $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 				        }
-				      }
-//				});
-                    }
+		             }
+			      }
+	//				});
 		 }
 		 
 	 },
