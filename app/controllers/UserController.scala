@@ -23,7 +23,7 @@ import utils._
 import utils.SocialGraphEmbeddedNeo4j
 import play.api.cache.Cache
 import play.api.Play.current
-import models.onlineUserCache
+import utils.onlineUserCache
 
 object UserController extends Controller {
 

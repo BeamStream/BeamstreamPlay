@@ -21,9 +21,9 @@ import utils.ObjectIdSerializer
 import models.UserDAO
 import com.mongodb.WriteConcern
 import play.cache.Cache
-import models.onlineUserCache
 import utils.PasswordHashing
 import utils.PasswordHashing
+import utils.onlineUserCache
 
 object BasicRegistration extends Controller {
 
@@ -146,23 +146,6 @@ object BasicRegistration extends Controller {
           Ok(write(new ResulttoSent("Failure", "Already registered")))
 
       }
-
-      //TODO : User would be able to use the organization emailid  
-
-      //    (User.validateEmail(emailId)) match {
-      //      case false =>
-      //      
-      //        val failureJsonResponseToSent = new ResulttoSent("Failure", "Use emails assosiated with schools and organizations")
-      //          println(write(failureJsonResponseToSent))
-      //        Ok(write(failureJsonResponseToSent)).as("application/json")
-      //
-      //      case true =>
-      //        SendEmail.sendEmail(emailId, iam)
-      //        val jsonResponseToSent = new ResulttoSent("Success", "Email Sent Successfully")
-      //        val finalJson = write(jsonResponseToSent)
-      //        Ok(finalJson).as("application/json")
-      //
-      //    }
     } catch {
       case ex => Ok(write(new ResulttoSent("Failure", "Email Sending Failed")))
     }

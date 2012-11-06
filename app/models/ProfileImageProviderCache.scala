@@ -1,8 +1,7 @@
 package models
 
 import org.bson.types.ObjectId
-import play.api.cache.Cache
-import play.api.Play.current
+
 
 object ProfileImageProviderCache {
 
@@ -12,23 +11,7 @@ object ProfileImageProviderCache {
 
 }
 
-object onlineUserCache {
 
-  var onlineUser: List[String] = List()
-
-  def setOffline(userIdkey: String) : Int={
-    onlineUser --= List(userIdkey)
-    Cache.set("Online Users", onlineUser)
-    onlineUser.length
-
-  }
-  def setOnline(userIdkey: String): Int= {
-    onlineUser ++= List(userIdkey)
-    Cache.set("Online Users", onlineUser)
-    onlineUser.length
-  }
-
-}
 
 
 
