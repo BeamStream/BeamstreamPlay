@@ -168,7 +168,7 @@ object DocumentController extends Controller {
           val docURL = "https://s3.amazonaws.com/BeamStream/" + docUniqueKey + documentName
           if (isImage == true) {
 
-            val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), docURL, UserMediaType.Image, false, "", 0, List())
+            val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get),new Date, docURL, UserMediaType.Image, false, "", 0, List())
             UserMedia.saveMediaForUser(media)
           } else {
             val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,

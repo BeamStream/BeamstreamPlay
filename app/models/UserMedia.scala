@@ -8,8 +8,8 @@ import com.novus.salat.annotations._
 import org.bson.types.ObjectId
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
-
-case class UserMedia(@Key("_id") id: ObjectId, userId: ObjectId, mediaUrl: String, contentType: UserMediaType.Value, isPrimary: Boolean,frameURL:String,rocks:Int,rockers: List[ObjectId])
+import java.util.Date
+case class UserMedia(@Key("_id") id: ObjectId, userId: ObjectId, dateCreated: Date, mediaUrl: String, contentType: UserMediaType.Value, isPrimary: Boolean,frameURL:String,rocks:Int,rockers: List[ObjectId])
 
 object UserMediaType extends Enumeration {
   val Image = Value(0, "Image")
@@ -73,7 +73,7 @@ object UserMedia {
   def makePresentOnePrimary(userId: ObjectId) {
     val AlluserMedia = getAllMediaForAUser(userId)
     for (media <- AlluserMedia) {
-      val updatedMedia = new UserMedia(media.id, media.userId, media.mediaUrl, media.contentType, false,media.frameURL,0,List())
+      val updatedMedia = new UserMedia(media.id, media.userId, media.dateCreated,media.mediaUrl, media.contentType, false,media.frameURL,0,List())
       UserMediaDAO.update(MongoDBObject("_id" -> media.id), updatedMedia, false, false, new WriteConcern)
     }
   }

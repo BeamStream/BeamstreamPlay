@@ -106,6 +106,7 @@ POST /social/social_authentication   controllers.SocialController.authenticateUs
 #Media
 POST /getMediafromPost controllers.MediaController.getMedia
 POST /getProfilePicForAUser      controllers.MediaController.getProfilePicForAUser
+
 GET /getAllProfilePicForAUser   controllers.MediaController.getAllProfilePicForAUser
 GET /getAllProfileVideoForAUser   controllers.MediaController.getAllProfileVideoForAUser
 POST /rockTheUsermedia            controllers.MediaController.rockTheUsermedia

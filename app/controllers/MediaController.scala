@@ -19,6 +19,7 @@ import utils.ObjectIdSerializer
 import utils.ProgressBar
 import utils.tokenEmail
 import utils.ProgressStatus
+import java.util.Date
 
 object MediaController extends Controller {
 
@@ -152,7 +153,7 @@ object MediaController extends Controller {
     if (imageFileInputStream != null) {
       (new AmazonUpload).uploadCompressedFileToAmazon(imageNameOnAmazon, imageFileInputStream,totalFileSize,true,request.session.get("userId").get)
       val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
-      val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), imageURL, UserMediaType.Image, imageStatus, "",0,List())
+      val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get),new Date, imageURL, UserMediaType.Image, imageStatus, "",0,List())
       UserMedia.saveMediaForUser(media)
       ProfileImageProviderCache.setImage(media.userId.toString, media.mediaUrl)
     }
@@ -163,7 +164,7 @@ object MediaController extends Controller {
       val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(videoURL)
       (new AmazonUpload).uploadCompressedFileToAmazon(videoFileNameOnnAmazon + "Frame", frameOfVideo,totalFileSize,false,request.session.get("userId").get)
       val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + videoFileNameOnnAmazon + "Frame"
-      val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), videoURL, UserMediaType.Video, videoStatus, videoFrameURL,0,List())
+      val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), new Date,videoURL, UserMediaType.Video, videoStatus, videoFrameURL,0,List())
       UserMedia.saveMediaForUser(media)
     }
     Ok(write(new ResulttoSent("Success", "Profile Photo Uploaded Successfully"))).as("application/json")
