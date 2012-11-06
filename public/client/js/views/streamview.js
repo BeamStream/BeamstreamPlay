@@ -582,8 +582,8 @@ BS.StreamView = Backbone.View.extend({
 	  	  					 });
                                                }
                                                else	{
-                                               var content = '<iframe class="gwt-Frame" style="width:400px; height: 500px; " frameborder="0" src="'+data.messageBody+'"></iframe>'
-                                             $('#docurl').html(content);    
+                                               var content = '<div class="stream-doc-block"><iframe class="gwt-Frame" style="width:400px; height: 500px; " frameborder="0" src="'+data.messageBody+'"></iframe></div>'
+                                             $('#'+data.id.id+'-docurl').html(content);    
                                           } 
   				         });
                                         
@@ -686,13 +686,21 @@ BS.StreamView = Backbone.View.extend({
 	  						 if(linkTag)
 	  						  $('div#'+data.id.id+'-id').html(linkTag);
 	  						 
-	  					     // embedly
-	  						 $('div#'+data.id.id+'-id').embedly({
-		  					   	  maxWidth: 200,
-		  				          wmode: 'transparent',
-		  				          method: 'after',
-		  					      key:'4d205b6a796b11e1871a4040d3dc5c07'
-	  				         });
+                                                         var url=data.messageBody;
+                                                        if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
+                                                                // embedly
+                                                                    $('div#'+data.id.id+'-id').embedly({
+                                                                             maxWidth: 200,
+                                                                     wmode: 'transparent',
+                                                                     method: 'after',
+                                                                         key:'4d205b6a796b11e1871a4040d3dc5c07'
+                                                            });
+                                                        }
+                                                        else
+                                                            {
+                                                                 var content = '<div class="stream-doc-block"><iframe class="gwt-Frame" style="width:400px; height: 500px; " frameborder="0" src="'+data.messageBody+'"></iframe></div>'
+                                             $('#'+data.id.id+'-docurl').html(content);    
+                                                            }
 	  						 
 	  						self.showAllComments(data.id.id);
 				         });
