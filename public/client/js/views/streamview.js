@@ -586,7 +586,9 @@ BS.StreamView = Backbone.View.extend({
                                              $('#'+data.id.id+'-docurl').html(content);    
                                           } 
   				         });
-                                        
+                  _.each(data, function(data) {
+                    showJanrainShareWidget(data.messageBody, 'View my Beamstream post', 'http://beamstream.com', data.messageBody);
+                  });
   				   }
                                    
   				   $('.emdform').find('div.selector').html("");

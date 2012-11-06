@@ -14,7 +14,7 @@ Backbone.history.start();
  
 //BS.URLRequired ="http://alpha.beamstream.com";
  
-BS.URLRequired ="http://test.beamstream.com"
+BS.URLRequired ="http://localhost:9000"
 	
 // For Login Page
 BS.login = BS.URLRequired+"/users";
@@ -51,9 +51,12 @@ BS.streamMessages = BS.URLRequired+"/getAllMessagesForAStream";
 // expires the user session
 BS.signOut = BS.URLRequired+"/signOut";
 // For JanRain component
-BS.userPage = BS.URLRequired+"/userPage";
+// Deprecated, see BS.social_authentication
+//BS.userPage = BS.URLRequired+"/userPage";
 // Get user details vai janRain
-BS.userInfoViaJanRain = BS.URLRequired+"/getJSONviaJanrain";
+//BS.userInfoViaJanRain = BS.URLRequired+"/getJSONviaJanrain";
+// Social authentication
+BS.social_authentication = BS.URLRequired+"/social/social_authentication";
 // For auto populate case -join a class
 BS.joinClass = BS.URLRequired+"/joinStreams";
 // For Rocked It
