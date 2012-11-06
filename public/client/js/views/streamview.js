@@ -586,8 +586,14 @@ BS.StreamView = Backbone.View.extend({
                              }
                              else{
                             	
-                                 var content = '<div class="stream-doc-block"><iframe class="gwt-Frame" style="width:400px; height: 500px; " frameborder="0" src="'+data.messageBody+'"></iframe></div>'
-                                 $('#'+data.id.id+'-docurl').html(content);    
+//                                 var content = '<div class="stream-doc-block"><iframe class="gwt-Frame" style="width:400px; height: 500px; " frameborder="0" src="'+data.messageBody+'"></iframe></div>'
+//                                 $('#'+data.id.id+'-docurl').html(content);    
+                            	 var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
+                                     return msgUrl;
+                                 });
+             
+					              var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href=""' + msgUrl + '""><img src="images/googledocs.jpg" /></a></div>'
+					              $('#'+data.id.id+'-docurl').html(content);
                              } 
   				         });
                   _.each(data, function(data) {
@@ -704,8 +710,14 @@ BS.StreamView = Backbone.View.extend({
                                                         }
                                                         else
                                                             {
-                                                                 var content = '<div class="stream-doc-block"><iframe class="gwt-Frame" style="width:400px; height: 500px; " frameborder="0" src="'+data.messageBody+'"></iframe></div>'
-                                             $('#'+data.id.id+'-docurl').html(content);    
+//                                                                 var content = '<div class="stream-doc-block"><iframe class="gwt-Frame" style="width:400px; height: 500px; " frameborder="0" src="'+data.messageBody+'"></iframe></div>'
+//                                             $('#'+data.id.id+'-docurl').html(content);    
+                                                        	var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
+                                                                return msgUrl;
+                                                             });
+                                        
+				                                             var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href=""' + msgUrl + '""><img src="images/googledocs.jpg" /></a></div>'
+				                                             $('#'+data.id.id+'-docurl').html(content);
                                                             }
 	  						 
 	  						self.showAllComments(data.id.id);
