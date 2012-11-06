@@ -1144,7 +1144,8 @@ ul.file-list> li {
 	display:block;
 	overflow:hidden;
 	/*margin:10px; margin-top: 4px !important;*/   
-	border-radius: 3px 3px 3px 3px;
+/* 	border-radius: 3px 3px 3px 3px; */
+	border-radius: 3px 3px 0 0;
 	background:#fdfdfd;
 }
 .image-wrapper h4{
@@ -1221,7 +1222,7 @@ ul.file-list> li {
 }
 .comment-wrapper1 {
 	width:210px;
-	height: 30px;
+	height: 31px;
 	display:block;
 	color: #2288C8;
 	font-size: 12px;
@@ -1721,10 +1722,13 @@ span.edit_profilepicture_icon{
 }
 .bitly
 {
-    margin-bottom: 4px;
+    display: block;
+    margin-bottom: 5px;
     margin-top: 4px;
-   
+  
 }
+
+
 .embed
 {
 border: 1px solid rgba(0, 0, 0, 0.15);
@@ -2111,7 +2115,7 @@ div.hover-div:hover img{
 div.hover-div img{
 /* 	height: 155px; */
 /*     width: 210px; */
-    border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 0px 0px;
 }
 .default-image{
 /* 	height: 155px;   */
@@ -2130,7 +2134,7 @@ div.hover-div img{
     left: -11px;
     position:absolute;
     z-index:2;
-    padding: 5px;
+    padding: 5px 5px 5px 5px;
     text-align:left !important;
 }
 .hover-image{
@@ -2512,6 +2516,18 @@ text-align: left;
 /* 	margin: 0 20px 0 19px !important; */
 }
 /* for delete messages */
+#docurl{
+ border: 1px solid #333333;
+    clear: both;
+    display: block;
+    float: left;
+    height: 500px;
+    overflow: hidden;
+/*  position: absolute;
+    top: 52px;*/
+    width: 400px;
+   
+}
 .delete_msg{
 	 width :15px;
 	 height:15px;

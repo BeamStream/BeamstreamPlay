@@ -34,6 +34,7 @@ import utils.tokenEmail
 import utils.AmazonUpload
 import models.Files
 import utils.DocsUploadOnAmazon
+import models.UserMediaType
 /**
  * This controller class is used to store and retrieve all the information about documents.
  *
@@ -159,16 +160,21 @@ object DocumentController extends Controller {
         request.body.file("docData").map { docData =>
           val documentName = docData.filename
           val contentType = docData.contentType.get
-          println(contentType)
+          val isImage = contentType.contains("image")
           val uniqueString = tokenEmail.securityToken
           val docbtained: File = docData.ref.file.asInstanceOf[File]
-          println(docbtained.getTotalSpace)
           val docUniqueKey = tokenEmail.securityToken
           DocsUploadOnAmazon.uploadFileToAmazon(docUniqueKey + documentName, docbtained)
           val docURL = "https://s3.amazonaws.com/BeamStream/" + docUniqueKey + documentName
-          val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
-            new ObjectId(streamId), new Date, new Date, 0, List(), List(), List())
-          Document.addDocument(documentCreated)
+          if (isImage == true) {
+
+            val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), docURL, UserMediaType.Image, false, "", 0, List())
+            UserMedia.saveMediaForUser(media)
+          } else {
+            val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
+              new ObjectId(streamId), new Date, new Date, 0, List(), List(), List())
+            Document.addDocument(documentCreated)
+          }
         }.get
 
     }

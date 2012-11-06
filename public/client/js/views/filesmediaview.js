@@ -329,6 +329,33 @@ BS.FilesMediaView = Backbone.View.extend({
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(datas);
             $('#gdocedit').html(BS.mediaeditview.el);
+            
+            
+            /*
+             var imageId = eventName.currentTarget.id;             // id to get corresponding image   
+           $.ajax({                                       
+                        type : 'POST',
+                        url :  BS.getOneDocs,
+                        data : {
+                                documentId: imageId  
+                                },
+                        dataType : "json",
+                        success : function(imagess) {                          
+                             var imagedatas = {
+                             "id" : imagess[0].id.id,
+                             "url" : imagess[0].documentURL,
+                             "type" : 'Docs',
+                             "title" : imagess[0].documentName,
+                             "description" : imagess[0].documentDescription
+			  }
+            BS.mediaeditview = new  BS.MediaEditView();
+            BS.mediaeditview.render(imagedatas);
+            $('#gdocedit').html(BS.mediaeditview.el);
+                        }
+           });
+             */
+            
+            
             },
         
         /*
@@ -355,7 +382,7 @@ BS.FilesMediaView = Backbone.View.extend({
                             {
                                 arraypictures=videos;
                                 coverpicture=arraypictures[arraypictures.length-1];
-                                 
+                                  _.each(videos, function(video) {
                                 content= '<div class="image-wrapper hovereffect"><div class="hover-div"><img class="videoimage" src="'+coverpicture.frameURL+'"/><div class="hover-text">'
                                             +'<div class="comment-wrapper comment-wrapper2">'
                                             +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
@@ -364,7 +391,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                             +'<a href="#" class="share-icon"></a></div>'
                                             +'<a id="profile-videos" style="text-decoration: none" href="#videos"><h4> Image Name</h4>'       
                                             +'<p class="doc-description">Description of Video  </p></a>'
-                                            +'<h5 class="videotitle"> Title & Description</h5>'          
+                                            +'<h5 class="videotitle" id="'+video.id.id+'"> Title & Description</h5>'          
                                             +'<span>State</span>'
                                             +' <span class="date">datVal</span>' 
                                             +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
@@ -372,7 +399,8 @@ BS.FilesMediaView = Backbone.View.extend({
                                             +'<li><a class="eye-icon" href="#">87</a></li>'
                                             +'<li><a class="hand-icon" href="#">5</a></li>'
                                             +'<li><a class="message-icon" href="#">10</a></li></ul></div>';
-                                 $('#covervideo').html(content);           
+                                 $('#covervideo').html(content);  
+                                  });
                             }
                         }
                });
@@ -393,6 +421,33 @@ BS.FilesMediaView = Backbone.View.extend({
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(datas);
             $('#gdocedit').html(BS.mediaeditview.el);
+            
+            
+            /*
+             var imageId = eventName.currentTarget.id;             // id to get corresponding image   
+           $.ajax({                                       
+                        type : 'POST',
+                        url :  BS.getOneDocs,
+                        data : {
+                                documentId: imageId  
+                                },
+                        dataType : "json",
+                        success : function(imagess) {                          
+                             var imagedatas = {
+                             "id" : imagess[0].id.id,
+                             "url" : imagess[0].documentURL,
+                             "type" : 'Docs',
+                             "title" : imagess[0].documentName,
+                             "description" : imagess[0].documentDescription
+			  }
+            BS.mediaeditview = new  BS.MediaEditView();
+            BS.mediaeditview.render(imagedatas);
+            $('#gdocedit').html(BS.mediaeditview.el);
+                        }
+           });
+             */
+            
+            
             },
         
         /**
@@ -695,24 +750,24 @@ BS.FilesMediaView = Backbone.View.extend({
             eventName.preventDefault();
             $("#childtwo_two_dr").find('ul').hide(200);
             $("#dooclinkchild_dr").animate({width: 'toggle'},130);
-            
+            console.log(" my computer");
             //select box for stream
             var i='';
-            var content=''; 
+            var optioncontent=''; 
             $.ajax({
 			type : 'GET',
 			url : BS.allStreamsForAUser,
 			dataType : "json",
                         success : function(options) {
-                            
-                        	 content+='<option>Save to Class</option>'
+                                    console.log(" my computer success");
+                        	 optioncontent+='<option>Save to Class</option>'
                              _.each(options, function(option) {
                                   console.log(option.id.id);
-	                              content+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
+	                              optioncontent+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
 	                              i++;
                               });
                         	  
-                              $('#doc-class-list-computer').html(content); 
+                              $('#doc-class-list-computer').html(optioncontent); 
                               }
 					
 					  
@@ -754,7 +809,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	                              content+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
 	                              i++;
                               });
-                        	 
+                        	  console.log(content);
                               $('#doc-class-list').html(content); 
                               }
 					

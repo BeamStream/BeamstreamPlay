@@ -438,6 +438,7 @@ BS.StreamView = Backbone.View.extend({
       
       if(!message.match(/^[\s]*$/))
       {
+          console.log("space");
 	      var msgAccess =  $('#id-private').attr('checked');
 	  	  if(msgAccess == "checked")
 	  	  {
@@ -451,7 +452,8 @@ BS.StreamView = Backbone.View.extend({
 	  	  //find link part from the message
 	      var link =  message.match(BS.urlRegex); 
 	      if(link)
-	      {    
+	      {  
+                  console.log("link");
 	    	 if(!BS.urlRegex2.test(link[0])) {
 	    		urlLink = "http://" + link[0];
 	  	  	 }
@@ -459,11 +461,12 @@ BS.StreamView = Backbone.View.extend({
 	    	 {
 	    		 urlLink =link[0];
 	    	 }
-	    	  
-	    	 if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
+	    	  if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
+                           { 
+	    	     if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
 			 { 
-	    	  /* post url information */
-	          $.ajax({
+	    	      /* post url information */
+	            $.ajax({
 	    			type : 'POST',
 	    			url : BS.bitly,
 	    			data : {
@@ -476,14 +479,22 @@ BS.StreamView = Backbone.View.extend({
 	    			}
 	    		});
 			 }
-	    	 else
-	    	 {     
+
+	    	   else
+	    	    {     
+	    	 	 self.postMsg(message,streamId,messageAccess);
+	    	     }
+                               }  //doc
+                   else    //for docupload
+	    	    {     
 	    		 self.postMsg(message,streamId,messageAccess);
-	    	 }
+	    	     }
+                 
 	      }
 	      //if link not present
 	      else
 	      {
+                  console.log("else test");
 	    	  self.postMsg(message,streamId,messageAccess);
 	      }
       }
@@ -504,6 +515,7 @@ BS.StreamView = Backbone.View.extend({
   			},
   			dataType : "json",
   			success : function(data) {
+                           
   				   if(data.status == "Failure")
   				   {
 //  			     alert("Enter School & Class to post a message in a stream ");
@@ -525,7 +537,9 @@ BS.StreamView = Backbone.View.extend({
   				   {
   					    // append the message to message list
   					   _.each(data, function(data) {
-  							
+//                                               var url=data.messageBody;
+//                                               if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
+  							 console.log(data.messageBody);
   						    /*auto ajax push */
   	  					    var streamId = $('#streams-list li.active a').attr('id');
   		                    PUBNUB.publish({
@@ -546,13 +560,19 @@ BS.StreamView = Backbone.View.extend({
   							var source = $("#tpl-messages").html();
   	  						var template = Handlebars.compile(source);
   	  						$('.timeline_items').prepend(template(datas));
-  	  						 
+                                          // } //docs
+//                                           else	{
+//                                               var content = '<iframe class="gwt-Frame" style="width: 100%; position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; height: 493px; " frameborder="0" src="https://docs.google.com/a/knoldus.com/document/d/1Hy-3zxC4ywQ3d5lLG0AuDVHFJyXsVlpYDTU9ZaTsj5w/edit"></iframe>'
+//                                           bitly
+//                                          } 
   	  						//get profile image of logged user
   	  					    $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
-  	  					    
+  	  					    console.log(linkTag);
   	  						if(linkTag)
+                                                            
   	  						  $('div#'+data.id.id+'-id').html(linkTag);
-  	  						
+  	  					 var url=data.messageBody;
+                                               if(!url.match(/^(https:\/\/docs.google.com\/)/)) {	
   	  						 // embedly
 	  	  					 $('div#'+data.id.id+'-id').embedly({
 		 					   	  maxWidth: 200,
@@ -560,7 +580,13 @@ BS.StreamView = Backbone.View.extend({
 		 				          method: 'after',
 		 					      key:'4d205b6a796b11e1871a4040d3dc5c07'
 	  	  					 });
+                                               }
+                                               else	{
+                                               var content = '<iframe class="gwt-Frame" style="width:400px; height: 500px; " frameborder="0" src="'+data.messageBody+'"></iframe>'
+                                             $('#docurl').html(content);    
+                                          } 
   				         });
+                                        
   				   }
                                    
   				   $('.emdform').find('div.selector').html("");
@@ -831,10 +857,11 @@ BS.StreamView = Backbone.View.extend({
 	  * show rockers list on hover over
 	  */
 	 showRockers:function(eventName){
-		 
+		 console.log("test rok");
 		 eventName.preventDefault();
 		
 		 var element = eventName.target.parentElement;
+                 console.log(element);
 		 var msgId =$(element).closest('li').attr('id');
 		 var position = $('li#'+msgId+'').find('i').position();
 		 this.getRockers(msgId,position);
@@ -1086,8 +1113,11 @@ BS.StreamView = Backbone.View.extend({
 			 self.postMessage(); 
 		 }
 		 if(eventName.which == 32){
+                     console.log("testing bitly");
 			 
 			 var text = $('#msg').val();
+                       if(!text.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
+                           {                          
 			 var links =  text.match(BS.urlRegex); 
 			 
 			  /* create bitly for each url in text */
@@ -1105,7 +1135,9 @@ BS.StreamView = Backbone.View.extend({
 					     }
 						 /* don't create bitly for shortened  url */
 						 if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
-						 { 
+						 {
+                                                     
+                                                 console.log('bitly test');
 				    	  /* create bitly  */
 				          $.ajax({
 				    			type : 'POST',
@@ -1126,6 +1158,7 @@ BS.StreamView = Backbone.View.extend({
 				        }
 				      }
 //				});
+                    }
 		 }
 		 
 	 },

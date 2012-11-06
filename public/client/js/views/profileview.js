@@ -235,6 +235,7 @@ BS.ProfileView = Backbone.View.extend({
     	 
 //    	 this.resize(self,95,90 ,document.getElementById("profile-image"),document.getElementById("img"));
     	 var self = this;;
+         var profile_image = document.getElementById("profile-image");
     	 file = e.target.files[0];
     	 
     	
@@ -254,8 +255,10 @@ BS.ProfileView = Backbone.View.extend({
          {
                     	 
         	 /* capture the file informations */
+                 
              reader.onload = (function(f){
             	 
+                 $(this).fileExif(someCallback);
             	 self.image = file;
             	 return function(e){ 
             		
@@ -272,6 +275,17 @@ BS.ProfileView = Backbone.View.extend({
             // read the image file as data URL
             reader.readAsDataURL(file);   
          }
+         
+          var someCallback = function(exifObject) {
+
+            $('#cameraModel').val(exifObject.Orientation);
+            $('#aperture').val(exifObject.FNumber);
+
+            // Uncomment the line below to examine the
+            // EXIF object in console to read other values
+            //console.log(exifObject);
+
+        }
     },
     
     

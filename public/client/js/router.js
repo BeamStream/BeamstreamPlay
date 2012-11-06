@@ -80,7 +80,7 @@ BS.AppRouter = Backbone.Router.extend({
     		 
 			if(e.get('loggedin') == false) {
     
-				$("#dialog").dialog('close');
+//				$("#dialog").dialog('close');
 		    	 localStorage.clear();
 		    	 localStorage["idLogin"]= '';
 		    	 $('#school-popup').children().detach(); 
@@ -1180,8 +1180,12 @@ BS.AppRouter = Backbone.Router.extend({
                             $this.addClass('active');
 
                             // Filter elements
-                            $grid.shuffle($this.attr('data-key'));
+//                            $grid.shuffle($this.attr('data-key'));
+                            $grid.shuffle($this.data('group'));
                         });
+                        
+//                       
+                        
 		                                
                                 
 					}

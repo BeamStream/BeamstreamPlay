@@ -148,7 +148,7 @@ BS.ImageListView = Backbone.View.extend({
             * 
             */  
             editImgTitle :function(eventName){  
-//              var docId = eventName.currentTarget.id;             // id to get corresponding docs   
+              var imageId = eventName.currentTarget.id;             // id to get corresponding docs   
                 var datas = {
                     "type" : 'Image',
                     "title" : '',
@@ -157,6 +157,7 @@ BS.ImageListView = Backbone.View.extend({
                 BS.mediaeditview = new  BS.MediaEditView();
                 BS.mediaeditview.render(datas);
                 $('#gdocedit').html(BS.mediaeditview.el);
+                console.log(imageId);
 
             
             
