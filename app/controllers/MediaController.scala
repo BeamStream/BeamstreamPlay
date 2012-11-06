@@ -20,10 +20,12 @@ import utils.ProgressBar
 import utils.tokenEmail
 import utils.ProgressStatus
 import java.util.Date
+import java.text.SimpleDateFormat
 
 object MediaController extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
+    override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
   } + new ObjectIdSerializer
   
 /**   
