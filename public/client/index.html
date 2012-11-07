@@ -923,7 +923,7 @@ body {
           <li><a href="#">by Class/School</a></li>
         </ul>
         <label>Then by:</label>
-        <a href="#">Date </a>
+        <a data-sort="date-recent" href="#">Date </a>
         <ul class="sort_by">
           <li data-group="all"><a href="#">All</a></li> 
           <li data-sort="date-recent" ><a href="#">Most Recent</a></li>
@@ -933,7 +933,7 @@ body {
     </div>
     <div id="gdocedit" ></div>   
     <div class="row pagin-height " >
-      <ul class="file-list" id="grid"> 
+      <ul class="file-list" id="image_grid"> 
         
           
         
@@ -1617,6 +1617,13 @@ Create a Class</a>
  <div class="modal-backdrop in"></div>
     <div class="modal add-new-school  modal-popups" style="display:block;">
      <div class="modal-header">
+     <div id="show_message" class="alert-message">
+		<!-- 	    <span><img class="error-img" src="images/error.png"/></span> -->
+		<ul class="messagelist">
+			<li class="error-msg">You must fill in all of the required
+				fields.</li>
+		</ul>
+	</div>
        <div class="control-button">
 		<a href="#"><img id="popup-close" class="close-button" src="images/close-button.png"></a>
        </div>

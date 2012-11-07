@@ -57,15 +57,14 @@ BS.AddNewSchool = Backbone.View.extend({
                     },
                     dataType:"json",
                     success:function(data){
-                        if(data.status)
-                        {
-                        	if(data.status == "Failure")
-                        	{
-                        		$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
-                        		$('.error-msg').html(data.message);
-                        		
-                        	}
-                        }
+                       
+                    	if(data == "School Already Exists")
+                    	{
+                    		 
+                    		$('#show_message').fadeIn("medium").delay(2000).fadeOut('slow');
+                    		$('.error-msg').html("School Already Exists");
+                    		
+                    	}
                         else
                         {
                         	 $('#prev-school').attr("value","");
