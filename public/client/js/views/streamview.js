@@ -881,11 +881,8 @@ BS.StreamView = Backbone.View.extend({
 	  * show rockers list on hover over
 	  */
 	 showRockers:function(eventName){
-		 console.log("test rok");
 		 eventName.preventDefault();
-		
 		 var element = eventName.target.parentElement;
-                 console.log(element);
 		 var msgId =$(element).closest('li').attr('id');
 		 var position = $('li#'+msgId+'').find('i').position();
 		 this.getRockers(msgId,position);
