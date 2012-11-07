@@ -27,7 +27,7 @@ object SchoolController extends Controller {
 
     // #413
     val schools = School.findSchoolByName(schoolName)
-    if (!schools.isEmpty) Ok("School Already Exists").as("application/json")
+    if (!schools.isEmpty) Ok(write("School Already Exists")).as("application/json")
     else {
       val schoolToCreate = new School(new ObjectId, schoolName, schoolWebsite)
       val schoolId = School.addNewSchool(schoolToCreate)
