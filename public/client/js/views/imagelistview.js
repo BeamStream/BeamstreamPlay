@@ -55,74 +55,9 @@ BS.ImageListView = Backbone.View.extend({
                                             
                         i++;
                         });                  
-                          
-                        /* for shuffle functionality */
-                        // instantiate the shuffle plugin
-                        $('#grid').shuffle({
-                            itemWidth : 200,
-                            marginTop : 15,
-                            marginRight: 20,
-                            key : 'all',
-                            speed : 800,
-                            easing : 'ease-out'
-                        });
-		                                
-                        // Set up button clicks
-                        $('.filter-options li').on('click', function() {
-                        	
-                            var $this = $(this),
-                                $grid = $('#grid');
                             
-                            $('.filter-options .active').removeClass('active');
-                            $this.addClass('active');
- 
-                            $grid.shuffle($this.data('group'));
-                        });
-                        
-                        $('.sort_by li').on('click', function() {
-                            var $this = $(this),
-                                $grid = $('#grid'),
-                                sort = $this.data('sort'),
-                                opts = {};
-
-                            $('.sort_by .active').removeClass('active');
-                            $this.addClass('active');
-
-                            // We're given the element wrapped in jQuery
-                            if (sort === 'date-oldest') {
-                                opts = {
-                                    by: function($el) {
-                                        return $el.data('date-created');
-                                    }
-                                }
-                            } else if (sort === 'date-recent') {
-                            	
-                                opts = {
-                                     by: function($el) {
-                                            return $el.data('date-created');
-                                     },
-                                     reverse :true
-                                }
-                            } else if (sort === 'title') {
-                                opts = {
-                                    by: function($el) {
-                                        return $el.data('title').toLowerCase();
-                                    }
-                                }
-                            }else if (sort === 'rocks') {
-                            	
-                                opts = {
-                                        by: function($el) {
-                                        	return $el.data('rock');
-                                        	
-                                        },
-                                        reverse :true
-                                    }
-                                }
-                         
-                            // Filter elements
-                            $grid.shuffle('sort', opts);
-                        });
+                        // Call common Shuffling function         
+                        shufflingOnSorting();
                         
                         
                         /* for image view popups */
