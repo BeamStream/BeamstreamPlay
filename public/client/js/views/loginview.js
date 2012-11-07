@@ -106,21 +106,15 @@ BS.LoginView = Backbone.View.extend({
 			remember = false;
 		}
         var pwd = $("#password").val();
-        	
-//        	  if(email.match(emailregex))
-//              {
-        		  loginModel.set({
-              		email : $("#email").val(),
-              		password : $("#password").val(),
-              		rememberMe : remember
-          		});
-              	var loginDetails = JSON.stringify(loginModel);
-              	return loginDetails;              	
-//              }
-//              else
-//              {
-//              	return 1;
-//              }
+
+        loginModel.set({
+	  		email : $("#email").val(),
+	  		password : $("#password").val(),
+	  		rememberMe : remember
+		});
+		var loginDetails = JSON.stringify(loginModel);
+		return loginDetails;              	
+
         	
     },
     

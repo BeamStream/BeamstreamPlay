@@ -3714,7 +3714,7 @@ Create a Class</a>
 </script>
 
 	<!-- verify emails -->
-	<script type="text/template" id="tpl-verify-email">
+	<script type="text/template" id="tpl-verify-email"> -->
 <div class="modal-backdrop in"></div>
     <div class="modal main-popups modal-pull-top in modal-popups" style="display:block;">
   <div class="modal-header">
@@ -3761,12 +3761,12 @@ Create a Class</a>
               <div  class="socialnw-wrapper">
                   <img  class="orwith" src="images/orwith.png"/> 
                    <div id="janrainEngageEmbed" class="janRain"> 
-                  <div id="load-janRain" style="display :block;">  
+                  <div id="load-janRain" style="display :none;">  
 					<img src ="images/loading.gif"> 
                   </div>
 			  </div>
            </div>
-           
+           </div>
            <div id="row-line" style="display:none;" class="form-row-label"></div>
            <div id="schoolmail-info" class="form-row short" style="display:none;">
              <div class="element" id="school-email"  >
@@ -4005,18 +4005,18 @@ Create a Class</a>
 
 	<!--- Code to delete duplication of Janrain Component -->
 	<script>
-		$(window).bind("load", function() {
-			var nu = $('#janrainEngageEmbed').children();
-			if (nu.length == 2) {
-				console.log("double janrain found");
-				$('.janrainContent:first').remove();
+// 		$(window).bind("load", function() {
+// 			var nu = $('#janrainEngageEmbed').children();
+// 			if (nu.length == 2) {
+// 				console.log("double janrain found");
+// 				$('.janrainContent:first').remove();
 
-			} else {
-				console.log("single janrain found");
-			}
+// 			} else {
+// 				console.log("single janrain found");
+// 			}
 
-			$('.janrainContent div+div').remove();
-		});
+// 			$('.janrainContent div+div').remove();
+// 		});
 	</script>
 
 	<script type="text/javascript">
@@ -4044,207 +4044,208 @@ Create a Class</a>
 
 		});
 
-		/*  For JanRain component*/
-		(function() {
+// 		TODO 
+// 		/*  For JanRain component*/
+// 		(function() {
 
-			if (typeof window.janrain !== 'object')
-				window.janrain = {};
-			if (typeof window.janrain.settings !== 'object')
-				window.janrain.settings = {};
+// 			if (typeof window.janrain !== 'object')
+// 				window.janrain = {};
+// 			if (typeof window.janrain.settings !== 'object')
+// 				window.janrain.settings = {};
 
-			janrain.settings.tokenUrl = BS.userPage;
-			janrain.settings.tokenAction = 'event';
+// 			janrain.settings.tokenUrl = BS.userPage;
+// 			janrain.settings.tokenAction = 'event';
 
-			/* ----Editted by Aswathy---- */
+// 			/* ----Editted by Aswathy---- */
 
-			janrain.settings.actionText = "";
-			janrain.settings.fontColor = "#4599d2";
-			janrain.settings.providers = [ "facebook", "twitter", "linkedin",
-					"google" ];
-			janrain.settings.width = "160";
+// 			janrain.settings.actionText = "";
+// 			janrain.settings.fontColor = "#4599d2";
+// 			janrain.settings.providers = [ "facebook", "twitter", "linkedin",
+// 					"google" ];
+// 			janrain.settings.width = "160";
 
-			/* ----End---- */
+// 			/* ----End---- */
 
-			function isReady() {
-				janrain.ready = true;
-			}
-			;
-			if (document.addEventListener) {
+// 			function isReady() {
+// 				janrain.ready = true;
+// 			}
+// 			;
+// 			if (document.addEventListener) {
 
-				document.addEventListener("DOMContentLoaded", isReady, false);
-			} else {
-				window.attachEvent('onload', isReady);
-			}
+// 				document.addEventListener("DOMContentLoaded", isReady, false);
+// 			} else {
+// 				window.attachEvent('onload', isReady);
+// 			}
 
-			var e = document.createElement('script');
-			e.type = 'text/javascript';
-			e.id = 'janrainAuthWidget';
+// 			var e = document.createElement('script');
+// 			e.type = 'text/javascript';
+// 			e.id = 'janrainAuthWidget';
 
-			if (document.location.protocol === 'https:') {
-				e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
-			} else {
-				e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
-			}
+// 			if (document.location.protocol === 'https:') {
+// 				e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
+// 			} else {
+// 				e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
+// 			}
 
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(e, s);
+// 			var s = document.getElementsByTagName('script')[0];
+// 			s.parentNode.insertBefore(e, s);
 
-		})();
+// 		})();
 
-		function janrainWidgetOnload() {
+// 		function janrainWidgetOnload() {
 
-			janrain.events.onProviderLoginToken
-					.addHandler(function(response) {
-						$
-								.ajax({
-									type : "POST",
-									url : BS.userPage,
-									data : "token=" + response.token,
-									success : function(res) {
-										console.log(res);
-										if (res != null) {
+// 			janrain.events.onProviderLoginToken
+// 					.addHandler(function(response) {
+// 						$
+// 								.ajax({
+// 									type : "POST",
+// 									url : BS.userPage,
+// 									data : "token=" + response.token,
+// 									success : function(res) {
+// 										console.log(res);
+// 										if (res != null) {
 
-											if (res.stat == "ok") {
+// 											if (res.stat == "ok") {
 
-												setTimeout(
-														function() {
+// 												setTimeout(
+// 														function() {
 
-															/*  Facebook signUp */
-															if (res.profile.providerName == "Facebook") {
-																if ((res['profile']['address']) === undefined)
-																	localStorage["location"] = '';
-																else
-																	localStorage["location"] = res.profile.address.formatted;
+// 															/*  Facebook signUp */
+// 															if (res.profile.providerName == "Facebook") {
+// 																if ((res['profile']['address']) === undefined)
+// 																	localStorage["location"] = '';
+// 																else
+// 																	localStorage["location"] = res.profile.address.formatted;
 
-																localStorage["first-name"] = res.profile.name.givenName;
-																localStorage["last-name"] = res.profile.name.familyName;
-																localStorage["email"] = res.profile.preferredUsername;
-																localStorage["alias"] = alias;
+// 																localStorage["first-name"] = res.profile.name.givenName;
+// 																localStorage["last-name"] = res.profile.name.familyName;
+// 																localStorage["email"] = res.profile.preferredUsername;
+// 																localStorage["alias"] = alias;
 
-															}
-															/* LinkedIn signUp */
-															else if (res.profile.providerName == "LinkedIn") {
+// 															}
+// 															/* LinkedIn signUp */
+// 															else if (res.profile.providerName == "LinkedIn") {
 
-																if ((res['profile']['address']) === undefined)
-																	localStorage["location"] = '';
-																else
-																	localStorage["location"] = res.profile.address.formatted;
-																localStorage["first-name"] = res.profile.name.givenName;
-																localStorage["last-name"] = res.profile.name.familyName;
-																localStorage["email"] = res.profile.preferredUsername;
+// 																if ((res['profile']['address']) === undefined)
+// 																	localStorage["location"] = '';
+// 																else
+// 																	localStorage["location"] = res.profile.address.formatted;
+// 																localStorage["first-name"] = res.profile.name.givenName;
+// 																localStorage["last-name"] = res.profile.name.familyName;
+// 																localStorage["email"] = res.profile.preferredUsername;
 
-															}
-															/* Twitter signUp */
-															else if (res.profile.providerName == "Twitter") {
+// 															}
+// 															/* Twitter signUp */
+// 															else if (res.profile.providerName == "Twitter") {
 
-																// split the name into first name and last name
-																var formattedName = res.profile.name.formatted;
-																var parts = formattedName
-																		.split(' ');
-																if (parts.length > 1) {
-																	var firstName = formattedName
-																			.substr(
-																					0,
-																					formattedName
-																							.indexOf(' '));
-																	var lastName = formattedName
-																			.substr(formattedName
-																					.indexOf(' ') + 1);
-																	localStorage["first-name"] = firstName;
-																	localStorage["last-name"] = lastName;
-																}
-																if (parts.length == 1) {
-																	localStorage["first-name"] = res.profile.name.formatted;
-																	localStorage["last-name"] = "";
-																}
-																// 																localStorage["first-name"] = res.profile.name.formatted;
-																// 																localStorage["last-name"] = "";
-																localStorage["email"] = res.profile.preferredUsername;
+// 																// split the name into first name and last name
+// 																var formattedName = res.profile.name.formatted;
+// 																var parts = formattedName
+// 																		.split(' ');
+// 																if (parts.length > 1) {
+// 																	var firstName = formattedName
+// 																			.substr(
+// 																					0,
+// 																					formattedName
+// 																							.indexOf(' '));
+// 																	var lastName = formattedName
+// 																			.substr(formattedName
+// 																					.indexOf(' ') + 1);
+// 																	localStorage["first-name"] = firstName;
+// 																	localStorage["last-name"] = lastName;
+// 																}
+// 																if (parts.length == 1) {
+// 																	localStorage["first-name"] = res.profile.name.formatted;
+// 																	localStorage["last-name"] = "";
+// 																}
+// 																// 																localStorage["first-name"] = res.profile.name.formatted;
+// 																// 																localStorage["last-name"] = "";
+// 																localStorage["email"] = res.profile.preferredUsername;
 
-															}
-															/* Google signUp*/
-															else if (res.profile.providerName == "Google") {
-																localStorage["first-name"] = res.profile.name.givenName;
-																localStorage["last-name"] = res.profile.name.familyName;
-																localStorage["email"] = res.profile.preferredUsername;
-															} else {
-																console
-																		.log("Not from Social sites");
-															}
+// 															}
+// 															/* Google signUp*/
+// 															else if (res.profile.providerName == "Google") {
+// 																localStorage["first-name"] = res.profile.name.givenName;
+// 																localStorage["last-name"] = res.profile.name.familyName;
+// 																localStorage["email"] = res.profile.preferredUsername;
+// 															} else {
+// 																console
+// 																		.log("Not from Social sites");
+// 															}
 
-															BS.JsonFromSocialSite = res;
-															if (res.profile.preferredUsername)
-																localStorage["preferredUsername"] = res.profile.preferredUsername;
-															if (res.profile.identifier)
-																localStorage["identifier"] = res.profile.identifier;
-															var loginModel = new BS.Login();
-															loginModel
-																	.set({
-																		email : res.profile.preferredUsername,
-																		password : "",
-																		rememberMe : false
-																	});
+// 															BS.JsonFromSocialSite = res;
+// 															if (res.profile.preferredUsername)
+// 																localStorage["preferredUsername"] = res.profile.preferredUsername;
+// 															if (res.profile.identifier)
+// 																localStorage["identifier"] = res.profile.identifier;
+// 															var loginModel = new BS.Login();
+// 															loginModel
+// 																	.set({
+// 																		email : res.profile.preferredUsername,
+// 																		password : "",
+// 																		rememberMe : false
+// 																	});
 
-															var loginDetails = JSON
-																	.stringify(loginModel);
+// 															var loginDetails = JSON
+// 																	.stringify(loginModel);
 
-															setTimeout(
-																	function() {
-																		janRainLogin(loginDetails);
-																	}, 1000);
+// 															setTimeout(
+// 																	function() {
+// 																		janRainLogin(loginDetails);
+// 																	}, 1000);
 
-														}, 1000);
+// 														}, 1000);
 
-											}
-										}
-									}
-								});
-					});
-		}
-		/**
-		 * for login via social site 
-		 */
-		function janRainLogin(info) {
+// 											}
+// 										}
+// 									}
+// 								});
+// 					});
+// 		}
+// 		/**
+// 		 * for login via social site 
+// 		 */
+// 		function janRainLogin(info) {
 
-			/* post data with school and class details */
-			$.ajax({
-				type : 'POST',
-				url : BS.login,
-				data : {
-					data : info
-				},
-				dataType : "json",
-				success : function(data) {
+// 			/* post data with school and class details */
+// 			$.ajax({
+// 				type : 'POST',
+// 				url : BS.login,
+// 				data : {
+// 					data : info
+// 				},
+// 				dataType : "json",
+// 				success : function(data) {
 
-					if (data.status == "success") {
-						// navigate to stream page
-						BS.user.set('loggedin', true);
-						BS.AppRouter.navigate("streams", {
-							trigger : true,
-							replace : true
-						});
-					} else {
-						console.log(localStorage["idLogin"]);
-						if (localStorage["idLogin"] == "login") {
-							$('#error').html("Login unsuccessfull");
-							$('.janrainContent div+div').remove();
-						}
-						if (localStorage["idLogin"] == "register") {
-							//navigate to regitration page
-							BS.AppRouter.navigate("basicRegistration", {
-								trigger : true,
-								replace : true
-							});
-							localStorage["idLogin"] = '';
-						}
-					}
-				},
-				error : function(error) {
-					console.log("Error");
-				}
-			});
+// 					if (data.status == "success") {
+// 						// navigate to stream page
+// 						BS.user.set('loggedin', true);
+// 						BS.AppRouter.navigate("streams", {
+// 							trigger : true,
+// 							replace : true
+// 						});
+// 					} else {
+// 						console.log(localStorage["idLogin"]);
+// 						if (localStorage["idLogin"] == "login") {
+// 							$('#error').html("Login unsuccessfull");
+// 							$('.janrainContent div+div').remove();
+// 						}
+// 						if (localStorage["idLogin"] == "register") {
+// 							//navigate to regitration page
+// 							BS.AppRouter.navigate("basicRegistration", {
+// 								trigger : true,
+// 								replace : true
+// 							});
+// 							localStorage["idLogin"] = '';
+// 						}
+// 					}
+// 				},
+// 				error : function(error) {
+// 					console.log("Error");
+// 				}
+// 			});
 
-		}
+// 		}
 	</script>
 
 	<script>

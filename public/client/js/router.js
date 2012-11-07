@@ -80,11 +80,9 @@ BS.AppRouter = Backbone.Router.extend({
     		 
 			if(e.get('loggedin') == false) {
     
-//				$("#dialog").dialog('close');
 		    	 localStorage.clear();
 		    	 localStorage["idLogin"]= '';
 		    	 $('#school-popup').children().detach(); 
-//		    	 var self =this;
 		    	 BS.loginView = new BS.LoginView();
 		    	 BS.loginView.render();
 		     
@@ -919,7 +917,7 @@ BS.AppRouter = Backbone.Router.extend({
 						
 						localStorage["idLogin"] = "register";
 						$('#school-popup').html(BS.emailView.el);
-						$('#load-janRain').css("display","block");
+//						$('#load-janRain').css("display","block");
 						$(".modal select:visible").selectBox();
 						$(".checkbox").dgStyle();
 						 
@@ -930,6 +928,7 @@ BS.AppRouter = Backbone.Router.extend({
 						
             /* disaplay janRain component */
 					  showJanrainSigninWidget();
+//					  $('#load-janRain').css("display","none");
 				    
 					}
 					else {
@@ -1134,7 +1133,6 @@ BS.AppRouter = Backbone.Router.extend({
                             $grid.shuffle($this.data('group'));
                         });
                         
-//                       
                         $('.sort-options li').on('click', function() {
                             var $this = $(this),
                                 $grid = $('#grid'),

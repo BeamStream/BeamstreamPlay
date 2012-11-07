@@ -189,4 +189,49 @@ function janrainWidgetOnload() {
   });
 }
 
+/**
+ * Added by Aswathy .P.R
+ * for login via social site 
+ */
+function janRainLogin(info) {
+
+	/* post data with school and class details */
+	$.ajax({
+		type : 'POST',
+		url : BS.login,
+		data : {
+			data : info
+		},
+		dataType : "json",
+		success : function(data) {
+
+			if (data.status == "success") {
+				// navigate to stream page
+				BS.user.set('loggedin', true);
+				BS.AppRouter.navigate("streams", {
+					trigger : true,
+					replace : true
+				});
+			} else {
+				console.log(localStorage["idLogin"]);
+				if (localStorage["idLogin"] == "login") {
+					$('#error').html("Login unsuccessfull");
+					$('.janrainContent div+div').remove();
+				}
+				if (localStorage["idLogin"] == "register") {
+					//navigate to regitration page
+					BS.AppRouter.navigate("basicRegistration", {
+						trigger : true,
+						replace : true
+					});
+					localStorage["idLogin"] = '';
+				}
+			}
+		},
+		error : function(error) {
+			console.log("Error");
+		}
+	});
+
+}
 loadJanrainShareWidget();
