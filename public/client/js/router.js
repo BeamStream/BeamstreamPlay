@@ -1135,6 +1135,35 @@ BS.AppRouter = Backbone.Router.extend({
                         });
                         
 //                       
+                        $('.sort-options li').on('click', function() {
+                            var $this = $(this),
+                                $grid = $('#grid'),
+                                sort = $this.data('sort'),
+                                opts = {};
+
+                            // Hide current label, show current label in title
+                            $('.sort-options .active').removeClass('active');
+                            $this.addClass('active');
+
+                            // We're given the element wrapped in jQuery
+                            if (sort === 'date-created') {
+                                opts = {
+                                    by: function($el) {
+                                        return $el.data('date-created');
+                                    }
+                                }
+                            } else if (sort === 'title') {
+                                opts = {
+                                    by: function($el) {
+                                        return $el.data('title').toLowerCase();
+                                    }
+                                }
+                            }
+
+
+                            // Filter elements
+                            $grid.shuffle('sort', opts);
+                        });
                         
 		                                
                                 
@@ -1302,6 +1331,7 @@ BS.AppRouter = Backbone.Router.extend({
 	                   BS.imagelistview.render();  
 	                   $('#content').html(BS.imagelistview.el); 
 	                   $('.file-type').hide();   //to hide the filetype menu
+	             
   					}
 					else {
 						console.log("From Stream => login");
