@@ -79,10 +79,7 @@ body {
  
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
    
-     <!--Shuffle in media page -->
-        <script type="text/javascript" src="lib/jquery.shuffle.js"></script>
-<!--         <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script> -->
-   
+      
 
 </head>
 <!-- template for Files and Media-->
@@ -319,12 +316,13 @@ body {
           <li data-group="recent"><a href="#">Most Recent</a></li>
           <li data-group="oldest"><a href="#"> Oldest</a> </li>
         </ul>
+		 
       </div>
     </div> 
     <div id="gdocedit"></div>  
     <div class="row" >
       <ul class="file-list" id="grid">
-        <li  data-groups='["recent"]' id="coverimage">
+        <li  data-groups='["recent"]' id="coverimage" data-date-created="11/06/2012">
           <div class="image-wrapper"><div class="hover-div"><div id="profile-images"><img class="default-image" src="images/pictures_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Images </p></div></div></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -334,7 +332,7 @@ body {
             </ul>
           </div>
         </li>
-        <li data-groups='["oldest"]' id="covervideo">
+        <li data-groups='["oldest"]' data-date-created="2010-09-14" id="covervideo">
          <div class="image-wrapper"><div class="hover-div"><div id="profile-videos"><img class="default-image" src="images/video_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Videos </p></div></div> </div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -344,7 +342,7 @@ body {
             </ul>
           </div>
         </li>        
-        <li id="coverdocs"  data-groups='["recent"]'>
+        <li id="coverdocs"  data-groups='["recent"]' data-date-created="11/07/2012">
          <div class="image-wrapper" id="google-docs"><div class="hover-div"><a class="google-docs-image" href="#googledocs"><img class="default-image" src="images/google_docs_image.png"></a>  
           <div class="hover-text"><p class="emptyfiles"> No Uploaded Docs </p></div></div></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
@@ -355,7 +353,7 @@ body {
             </ul>
           </div>
         </li>        
-        <li id="coveraudio" data-groups='["oldest"]'>
+        <li id="coveraudio" data-groups='["oldest"]' data-date-created="12/06/2011" >
             <div class="image-wrapper coveraud"> 
                <div class="hover-div"><img class="default-image" src="images/audio_image.png"/><div class="hover-text"> 
                  <p class="emptyfiles"> No Uploaded Audio </p></div>
@@ -369,7 +367,7 @@ body {
               </ul>
            </div>
         </li>
-        <li id="coverspreadsheet"  data-groups='["recent"]'>
+        <li id="coverspreadsheet"  data-groups='["recent"]' data-date-created="11/10/2012">
           <div class="image-wrapper">
             <div class="hover-div"><img class="default-image" src="images/spreadsheets_image.png"/><div class="hover-text"> 
                <p class="emptyfiles"> No Uploaded Spreadsheets </p>
@@ -383,7 +381,7 @@ body {
               </ul>
            </div>
         </li>
-        <li id="coverpresentation" data-groups='["oldest"]'>
+        <li id="coverpresentation" data-groups='["oldest"]' data-date-created="11/09/2012">
            <div class="image-wrapper"> 
               <div class="hover-div"><img class="default-image" src="images/presentations_image.png"/>
                <div class="hover-text">  <p class="emptyfiles"> No Uploaded Presentations </p></div>        
@@ -397,7 +395,7 @@ body {
             </ul>
           </div>        
        </li>
-       <li id="coverpdf" data-groups='["oldest"]'>
+       <li id="coverpdf" data-groups='["oldest"]' data-date-created="09/06/2012">
           <div class="image-wrapper">
              <div class="hover-div"><img class="default-image" src="images/pdp_image.png"/><div class="hover-text">    
                 <p class="emptyfiles"> No Uploaded Files </p>
@@ -411,7 +409,7 @@ body {
               </ul>        
            </div>              
         </li>
-        <li id="coverdoc_com"  data-groups='["recent"]'>
+        <li id="coverdoc_com"  data-groups='["recent"]' data-date-created="11/06/2012">
            <div class="image-wrapper"> 
              <div class="hover-div"><img class="default-image" src="images/docs_image.png"/>
                <div class="hover-text">     
@@ -427,7 +425,7 @@ body {
              </ul>
           </div>       
         </li>       
-        <li id="coverlink"  data-groups='["recent"]'>
+        <li id="coverlink"  data-groups='["recent"]' data-date-created="11/06/2010" >
            <div class="image-wrapper"> 
              <div class="hover-div"><img class="default-image" src="images/links_image.png"/>
                <div class="hover-text">     
@@ -512,7 +510,8 @@ body {
 
 <!-- template for single bucket in image -->
 <script type="text/x-handlebars-template" id="tpl-single-image">
-<li id="file-docs-'{{imageCount}}">  
+<!-- <li  data-groups='["recent"]' id="coverimage" data-date-created="2013-01-14"> -->
+<li id="file-docs-'{{imageCount}}"  data-date-created="{{image.dateCreated}}" data-rock="{{image.rocks}}">  
   <div id="{{image.id.id}}"   name="single-doc">
 	<div class="image-wrapper hovereffect"> 
 		<div class="hover-div">
@@ -544,7 +543,7 @@ body {
 		 </a>
 		 <ul id="{{image.id.id}}-activities" class="comment-list">
 			 <li><a class="eye-icon" href="#">0</a></li>
-			 <li><a class="hand-icon show_rockers" href="#">0</a></li>
+			 <li><a class="hand-icon show_rockers" href="#">{{image.rocks}}</a></li>
 			 <li><a class="message-icon" href="#">0</a></li>
 		 </ul>
 	</div>
@@ -917,9 +916,9 @@ body {
             <li><a href="#">Spreadsheets</a> </li>
           </ul>
         <label>Sort by:</label>
-        <a id="file-type" href="#" data-toggle="dropdown" >File Type</a>
-        <ul>
-          <li><a href="#">Rock on Votes</a></li>
+        <a id="file-type"  href="#" data-toggle="dropdown" >File Type</a>
+        <ul class="sort_by">
+          <li data-sort="rocks" ><a href="#">Rock on Votes</a></li>
           <li><a href="#">Tags</a> </li>
           <li><a href="#">Category</a> </li>
           <li><a href="#">by Class/School</a></li>
@@ -927,9 +926,9 @@ body {
         <label>Then by:</label>
         <a href="#">Date </a>
         <ul class="filter-options">
-          <li data-key="all"><a href="#">All</a></li> 
-          <li data-key="recent"><a href="#">Most Recent</a></li>
-          <li data-key="oldest"><a href="#"> Oldest</a> </li>
+          <li data-group="all"><a href="#">All</a></li> 
+          <li data-group="recent"><a href="#">Most Recent</a></li>
+          <li data-group="oldest"><a href="#"> Oldest</a> </li>
         </ul>
       </div>
     </div>
@@ -937,6 +936,7 @@ body {
     <div class="row pagin-height " >
       <ul class="file-list" id="grid"> 
         
+          
         
         
       </ul>
@@ -3947,8 +3947,8 @@ Create a Class</a>
 
 
 <!--          Shuffle in media page -->
-<!--         <script type="text/javascript" src="lib/jquery.shuffle.js"></script> -->
-<!--         <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script> -->
+        <script type="text/javascript" src="lib/jquery.shuffle.js"></script>
+        <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script>
         
         <!--  for pretty  -->
         <script src="lib/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
@@ -4088,13 +4088,7 @@ Create a Class</a>
 																localStorage["first-name"] = res.profile.name.givenName;
 																localStorage["last-name"] = res.profile.name.familyName;
 																localStorage["email"] = res.profile.preferredUsername;
-
-																// 																// extract alias name from vanity url
-																// 																var url = res.profile.url;
-																// 																url = url.replace(/\\/g, '');
-																// 																url = url.split("/");
-																// 																var alias = url[3];
-																// 																localStorage["alias"] = alias;
+																localStorage["alias"] = alias;
 
 															}
 															/* LinkedIn signUp */
@@ -4295,6 +4289,7 @@ Create a Class</a>
 	<script src="js/views/mediafilepopupview.js"></script>
 	<script src="js/views/pdflistview.js"></script>
 	<script src="js/views/doclistview.js"></script>
+	<script src="js/views/streamdocview.js"></script>
 	<script src="js/models/singleusermodel.js"></script>
 	<script src="js/models/documentmodel.js"></script>
 
@@ -4302,6 +4297,7 @@ Create a Class</a>
 
 	<!--  for +Add New School option in autopopulate -->
 	<script type="text/javascript">
+	    /* render addnew school screen */
 		function populateAddNewSchool(parentId) {
 
 			BS.addNewSchool = new BS.AddNewSchool();
@@ -4319,6 +4315,8 @@ Create a Class</a>
 
 			$('#parent-Id').attr("value", parentId);
 		}
+		
+		/* Close dialog box alerts */
 		function closeAlert() {
 			// display the popup of create steam 
 			BS.streamView = new BS.StreamView({
@@ -4329,7 +4327,7 @@ Create a Class</a>
 			$("#dialog").dialog('close');
 		}
 
-		// validate select boxes
+		/* validate select boxes */
 		function valiadateSelect(self) {
 			var label1 = $("label[name='" + $(self).attr('id') + "']");
 			console.log(label1);
@@ -4357,15 +4355,14 @@ Create a Class</a>
 						console.log("Browser/Tab closed")
 					}
 				});
-
 			}
 			window.onbeforeunload = unloadMessage;
 
-			window.onerror = UnspecifiedErrorHandler;
-			function UnspecifiedErrorHandler() {
-				console("Error on onbeforeunloadb");
+// 			window.onerror = UnspecifiedErrorHandler;
+// 			function UnspecifiedErrorHandler() {
+// 				console("Error on onbeforeunloadb");
 
-			}
+// 			}
 
 		});
 	</script>
