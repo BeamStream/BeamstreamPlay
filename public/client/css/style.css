@@ -2613,6 +2613,12 @@ ul.comments li:hover .delete_comment{
 .upload-content{
 	padding-left :5px;
 }
+.streamdocpopup{
+    left: 33% !important;
+    width: 1040px !important;
+    top: 40% !important;
+    /*height: 800px !important;*/
+}
 /* show no.of students and educators */
 /* .ui-menu-item img{ */
 /*     padding:5px; */
