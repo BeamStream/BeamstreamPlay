@@ -591,7 +591,7 @@ BS.StreamView = Backbone.View.extend({
                                      return msgUrl;
                                  });
              
-					              var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href=""' + msgUrl + '""><img src="images/googledocs.jpg" /></a></div>'
+					              var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img src="images/googledocs.jpg" /></a></div>'
 					              $('#'+data.id.id+'-docurl').html(content);
                              } 
   				         });
@@ -714,7 +714,7 @@ BS.StreamView = Backbone.View.extend({
                                                                 return msgUrl;
                                                              });
                                         
-                                                            var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href=""' + msgUrl + '""><img src="images/googledocs.jpg" /></a></div>'
+                                                            var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img src="images/googledocs.jpg" /></a></div>'
                                                             $('#'+data.id.id+'-docurl').html(content);
                                                             }
 	  						 
@@ -1698,29 +1698,14 @@ BS.StreamView = Backbone.View.extend({
 
       showStrmDocPopup: function(eventName){
              eventName.preventDefault(); 
-             var docId = eventName.target.id;
-             alert(docId);
-             var docUrl = $('input#strmdocid-'+docId).val();  
-//                 var docUrl=         $('input#strmdocid-5098d6f1e4a07ea0780f2795').val();  
-
-            alert(docUrl);
-                BS.streamdocview = new BS.StreamDocView();
-                BS.streamdocview.render(docUrl);           
-                $('#streamdocview').html(BS.streamdocview.el);   
+             var element = eventName.target.parentElement;
+             var docUrl = $(element).attr("href");
+             console.log(docUrl);
+             BS.streamdocview = new BS.StreamDocView();
+             BS.streamdocview.render(docUrl);           
+             $('#streamdocview').html(BS.streamdocview.el);   
          },
-
-      showStrmDocPopup: function(eventName){
-             eventName.preventDefault(); 
-             var docId = eventName.target.id;
-             alert(docId);
-             var docUrl = $('input#strmdocid-'+docId).val();  
-//                 var docUrl=         $('input#strmdocid-5098d6f1e4a07ea0780f2795').val();  
-
-            alert(docUrl);
-                BS.streamdocview = new BS.StreamDocView();
-                BS.streamdocview.render(docUrl);           
-                $('#streamdocview').html(BS.streamdocview.el);   
-         },
+ 
    /**
     * PUBNUB real time push
     */
