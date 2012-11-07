@@ -39,7 +39,8 @@ BS.StreamView = Backbone.View.extend({
            "click .delete_comment" : "deleteComment",
            "click .doc" : "showUploadBox",
            "change #upload-files" : "getUploadedData",
-	   "click .strmdoc" : "showStrmDocPopup"
+	   "click .strmdoc" : "showStrmDocPopup",
+           "mouseenter a.strmdoc" : "showDocTitle"
            
 	 },
 	 
@@ -889,7 +890,6 @@ BS.StreamView = Backbone.View.extend({
 	  * show rockers list on hover over
 	  */
 	 showRockers:function(eventName){
-		 console.log("test rok");
 		 eventName.preventDefault();
 		
 		 var element = eventName.target.parentElement;
@@ -1715,6 +1715,22 @@ BS.StreamView = Backbone.View.extend({
              BS.streamdocview.render(docUrl);           
              $('#streamdocview').html(BS.streamdocview.el);   
          },
+         
+          /**
+	  * show rockers list on hover over
+	  */
+	 showDocTitle:function(eventName){
+		 eventName.preventDefault();
+		
+		 var element = eventName.target.parentElement;
+		 var msgId =$(element).closest('li').attr('id');
+		 var position = $('li#'+msgId+'').find('i').position();
+                 
+                 var content = 'Click Here To Start Collaboration';
+		 $('#hover-lists-'+msgId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
+        		$('#hover-lists-'+msgId+'').html(content);
+ 
+	 },
  
    /**
     * PUBNUB real time push
