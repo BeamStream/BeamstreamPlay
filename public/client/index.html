@@ -510,7 +510,6 @@ body {
 
 <!-- template for single bucket in image -->
 <script type="text/x-handlebars-template" id="tpl-single-image">
-<!-- <li  data-groups='["recent"]' id="coverimage" data-date-created="2013-01-14"> -->
 <li id="file-docs-'{{imageCount}}"  data-date-created="{{image.dateCreated}}" data-rock="{{image.rocks}}">  
   <div id="{{image.id.id}}"   name="single-doc">
 	<div class="image-wrapper hovereffect"> 
@@ -925,10 +924,10 @@ body {
         </ul>
         <label>Then by:</label>
         <a href="#">Date </a>
-        <ul class="filter-options">
+        <ul class="sort_by">
           <li data-group="all"><a href="#">All</a></li> 
           <li data-group="recent"><a href="#">Most Recent</a></li>
-          <li data-group="oldest"><a href="#"> Oldest</a> </li>
+          <li data-sort="date-created"><a href="#"> Oldest</a> </li>
         </ul>
       </div>
     </div>
@@ -3973,7 +3972,7 @@ Create a Class</a>
 
 <!--          Shuffle in media page -->
         <script type="text/javascript" src="lib/jquery.shuffle.js"></script>
-        <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script>
+<!--         <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script> -->
         
         <!--  for pretty  -->
         <script src="lib/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
