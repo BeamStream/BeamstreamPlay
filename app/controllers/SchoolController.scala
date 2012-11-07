@@ -24,8 +24,6 @@ object SchoolController extends Controller {
     val schoolInfojsonMap = request.body.asFormUrlEncoded.get
     val schoolName = schoolInfojsonMap("schoolName").toList(0)
     val schoolWebsite = schoolInfojsonMap("schoolWebsite").toList(0)
-
-    // #413
     val schools = School.findSchoolByName(schoolName)
     if (!schools.isEmpty) Ok(write("School Already Exists")).as("application/json")
     else {
@@ -67,7 +65,5 @@ object SchoolController extends Controller {
     val allSchools = School.getAllSchoolsFromDB(schoolNamesStartingCharacter)
     Ok(write(allSchools)).as("application/json")
   }
-
- 
 
 }
