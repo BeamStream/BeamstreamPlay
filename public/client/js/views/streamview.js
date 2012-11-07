@@ -723,7 +723,7 @@ BS.StreamView = Backbone.View.extend({
                                                                 return msgUrl;
                                                              });
                                         
-                                                            var content = '<div class="stream-doc-block"><a data-original-title="Search by Users" class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img src="images/googledocs.jpg" /></a></div>'
+                                                            var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img src="images/googledocs.jpg" /></a></div>'
                                                             $('#'+data.id.id+'-docurl').html(content);
                                                             }
 	  						 
@@ -1702,20 +1702,21 @@ BS.StreamView = Backbone.View.extend({
 		 console.log("dgdfg");
 	 },
 
-
-      showStrmDocPopup: function(eventName){
-             eventName.preventDefault(); 
-             var element = eventName.target.parentElement;
-             console.log(element);
-             var docUrl = $(element).attr("href");
-             console.log(docUrl);
-             BS.streamdocview = new BS.StreamDocView();
-             BS.streamdocview.render(docUrl);           
-             $('#streamdocview').html(BS.streamdocview.el);   
-         },
+        /**
+         *For showing stream google docs in popup
+         */
+          showStrmDocPopup: function(eventName){
+                 eventName.preventDefault(); 
+                 var element = eventName.target.parentElement;
+                 console.log(element);
+                 var docUrl = $(element).attr("href");
+                 BS.streamdocview = new BS.StreamDocView();
+                 BS.streamdocview.render(docUrl);           
+                 $('#streamdocview').html(BS.streamdocview.el);   
+             },
          
           /**
-	  * show rockers list on hover over
+	  * show the title when hover over the gogoledoc image
 	  */
 	 showDocTitle:function(eventName){
 		 eventName.preventDefault();
@@ -1726,7 +1727,7 @@ BS.StreamView = Backbone.View.extend({
                  
                  var content = 'Click Here To Start Collaboration';
 		 $('#hover-lists-'+msgId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
-        		$('#hover-lists-'+msgId+'').html(content);
+                 $('#hover-lists-'+msgId+'').html(content);
  
 	 },
  

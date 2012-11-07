@@ -68,13 +68,6 @@ object SchoolController extends Controller {
     Ok(write(allSchools)).as("application/json")
   }
 
-  /**
-   * Find A School By Name
-   */
-
-  def findSchoolByName(schoolName: String) = {
-    val schoolNamePattern = Pattern.compile(schoolName, Pattern.CASE_INSENSITIVE)
-    SchoolDAO.find(MongoDBObject("schoolName" -> schoolNamePattern)).toList
-  }
+ 
 
 }
