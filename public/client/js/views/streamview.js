@@ -636,10 +636,18 @@ BS.StreamView = Backbone.View.extend({
 					  _.each(data, function(data) {
 						  
 							var msgBody = data.messageBody;
-							var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-					             return '<a target="_blank" href="' + url + '">' + url + '</a>';
-					        });
-							  
+                                                        if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) {
+                                                            
+                                                             var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+                                                                 return '<a class="strmdoc" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
+                                                            });
+                                                        }
+                                                        else{
+                                                                    var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+                                                                 return '<a target="_blank" href="' + url + '">' + url + '</a>';
+                                                            });
+                                                        }
+                                                        
 							var datas = {
  							 	 "datas" : data,
  						    }
@@ -714,7 +722,7 @@ BS.StreamView = Backbone.View.extend({
                                                                 return msgUrl;
                                                              });
                                         
-                                                            var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img src="images/googledocs.jpg" /></a></div>'
+                                                            var content = '<div class="stream-doc-block"><a data-original-title="Search by Users" class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img src="images/googledocs.jpg" /></a></div>'
                                                             $('#'+data.id.id+'-docurl').html(content);
                                                             }
 	  						 
@@ -1178,6 +1186,7 @@ BS.StreamView = Backbone.View.extend({
 					          $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 				        }
 		             }
+                           
 			      }
 	//				});
 		 }
@@ -1699,6 +1708,7 @@ BS.StreamView = Backbone.View.extend({
       showStrmDocPopup: function(eventName){
              eventName.preventDefault(); 
              var element = eventName.target.parentElement;
+             console.log(element);
              var docUrl = $(element).attr("href");
              console.log(docUrl);
              BS.streamdocview = new BS.StreamDocView();
