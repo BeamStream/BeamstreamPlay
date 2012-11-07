@@ -891,9 +891,7 @@ BS.StreamView = Backbone.View.extend({
 	  */
 	 showRockers:function(eventName){
 		 eventName.preventDefault();
-		
 		 var element = eventName.target.parentElement;
-                 console.log(element);
 		 var msgId =$(element).closest('li').attr('id');
 		 var position = $('li#'+msgId+'').find('i').position();
 		 this.getRockers(msgId,position);

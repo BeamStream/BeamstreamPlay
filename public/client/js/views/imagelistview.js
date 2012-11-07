@@ -89,11 +89,19 @@ BS.ImageListView = Backbone.View.extend({
                             $this.addClass('active');
 
                             // We're given the element wrapped in jQuery
-                            if (sort === 'date-created') {
+                            if (sort === 'date-oldest') {
                                 opts = {
                                     by: function($el) {
                                         return $el.data('date-created');
                                     }
+                                }
+                            } else if (sort === 'date-recent') {
+                            	
+                                opts = {
+                                     by: function($el) {
+                                            return $el.data('date-created');
+                                     },
+                                     reverse :true
                                 }
                             } else if (sort === 'title') {
                                 opts = {
@@ -102,14 +110,18 @@ BS.ImageListView = Backbone.View.extend({
                                     }
                                 }
                             }else if (sort === 'rocks') {
-                            	 
+                            	
                                 opts = {
                                         by: function($el) {
+                                        	console.log($el);
+                                        	console.log($el.data('rock'))
                                         	return $el.data('rock');
-                                        }
+                                        	
+                                        },
+                                        reverse :true
                                     }
                                 }
-                            console.log(opts);
+                         
                             // Filter elements
                             $grid.shuffle('sort', opts);
                         });
@@ -256,6 +268,8 @@ BS.ImageListView = Backbone.View.extend({
                 eventName.preventDefault();
                 var element = eventName.target.parentElement;
                 var imageId =$(element).attr('id');
+                var parent = $('div#'+imageId).parent('li');
+               
     	  	// post documentId and get Rockcount 
                 $.ajax({
                     type: 'POST',
@@ -267,6 +281,8 @@ BS.ImageListView = Backbone.View.extend({
                     success:function(data){	              	 
     	              	// display the rocks count  
                     $('#'+imageId+'-activities li a.hand-icon').html(data);	   
+                    $(parent).attr('data-rock',data);
+                 
     	            }
                 });
             },
