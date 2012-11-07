@@ -552,9 +552,17 @@ BS.StreamView = Backbone.View.extend({
   							
   							var msgBody = data.messageBody;
   							var link =  msgBody.match(BS.urlRegex);
-  							var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-					             return '<a target="_blank" href="' + url + '">' + url + '</a>';
-					        });
+  							if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) {
+                                
+                                var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+                                    return '<a class="strmdoc" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
+                               });
+                           }
+                           else{
+                                       var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+                                    return '<a target="_blank" href="' + url + '">' + url + '</a>';
+                               });
+                           }
   							  
   							var datas = {
    							 	 "datas" : data,
@@ -591,8 +599,8 @@ BS.StreamView = Backbone.View.extend({
                             	 var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
                                      return msgUrl;
                                  });
-             
-					              var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img src="images/googledocs.jpg" /></a></div>'
+                            	  $('input#'+data.id.id+'-url').val(msgUrl);
+					              var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
 					              $('#'+data.id.id+'-docurl').html(content);
                              } 
   				         });
@@ -722,8 +730,8 @@ BS.StreamView = Backbone.View.extend({
                                                         	var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
                                                                 return msgUrl;
                                                              });
-                                        
-                                                            var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img src="images/googledocs.jpg" /></a></div>'
+                                                        	$('input#'+data.id.id+'-url').val(msgUrl);
+                                                            var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
                                                             $('#'+data.id.id+'-docurl').html(content);
                                                             }
 	  						 
@@ -1707,9 +1715,8 @@ BS.StreamView = Backbone.View.extend({
          */
           showStrmDocPopup: function(eventName){
                  eventName.preventDefault(); 
-                 var element = eventName.target.parentElement;
-                 console.log(element);
-                 var docUrl = $(element).attr("href");
+                 var element = eventName.target.id;
+                 var docUrl = $('input#'+element+'-url').val();
                  BS.streamdocview = new BS.StreamDocView();
                  BS.streamdocview.render(docUrl);           
                  $('#streamdocview').html(BS.streamdocview.el);   
