@@ -39,7 +39,7 @@ BS.StreamView = Backbone.View.extend({
            "click .delete_comment" : "deleteComment",
            "click .doc" : "showUploadBox",
            "change #upload-files" : "getUploadedData",
-           "click .strmdoc" : "showStrmDocPopup"
+	   "click .strmdoc" : "showStrmDocPopup"
            
 	 },
 	 
@@ -586,9 +586,7 @@ BS.StreamView = Backbone.View.extend({
 		  	  					 });
                              }
                              else{
-                            	
-//                                 var content = '<div class="stream-doc-block"><iframe class="gwt-Frame" style="width:400px; height: 500px; " frameborder="0" src="'+data.messageBody+'"></iframe></div>'
-//                                 $('#'+data.id.id+'-docurl').html(content);    
+
                             	 var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
                                      return msgUrl;
                                  });
@@ -1697,6 +1695,19 @@ BS.StreamView = Backbone.View.extend({
 		 console.log("dgdfg");
 	 },
 
+
+      showStrmDocPopup: function(eventName){
+             eventName.preventDefault(); 
+             var docId = eventName.target.id;
+             alert(docId);
+             var docUrl = $('input#strmdocid-'+docId).val();  
+//                 var docUrl=         $('input#strmdocid-5098d6f1e4a07ea0780f2795').val();  
+
+            alert(docUrl);
+                BS.streamdocview = new BS.StreamDocView();
+                BS.streamdocview.render(docUrl);           
+                $('#streamdocview').html(BS.streamdocview.el);   
+         },
 
       showStrmDocPopup: function(eventName){
              eventName.preventDefault(); 
