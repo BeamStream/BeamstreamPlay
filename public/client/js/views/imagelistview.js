@@ -51,14 +51,14 @@ BS.ImageListView = Backbone.View.extend({
 
                                 	var source = $("#tpl-single-image").html();
                                     var template = Handlebars.compile(source);				    
-                                    $('#image_grid').append(template(datas));   	
+                                    $('#grid').append(template(datas));   	
                                             
                         i++;
                         });                  
                           
                         /* for shuffle functionality */
                         // instantiate the shuffle plugin
-                        $('#image_grid').shuffle({
+                        $('#grid').shuffle({
                             itemWidth : 200,
                             marginTop : 15,
                             marginRight: 20,
@@ -71,7 +71,7 @@ BS.ImageListView = Backbone.View.extend({
                         $('.filter-options li').on('click', function() {
                         	
                             var $this = $(this),
-                                $grid = $('#image_grid');
+                                $grid = $('#grid');
                             
                             $('.filter-options .active').removeClass('active');
                             $this.addClass('active');
@@ -80,10 +80,8 @@ BS.ImageListView = Backbone.View.extend({
                         });
                         
                         $('.sort_by li').on('click', function() {
-                        	
-                        	
                             var $this = $(this),
-                                $grid = $('#image_grid'),
+                                $grid = $('#grid'),
                                 sort = $this.data('sort'),
                                 opts = {};
 
