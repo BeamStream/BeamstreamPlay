@@ -258,7 +258,7 @@ BS.ProfileView = Backbone.View.extend({
                  
              reader.onload = (function(f){
             	 
-                 $(this).fileExif(someCallback);
+//                 $(this).fileExif(someCallback);
             	 self.image = file;
             	 return function(e){ 
             		

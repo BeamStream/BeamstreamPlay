@@ -23,6 +23,10 @@ object CommentController extends Controller {
 
     val commentJson = request.body.asFormUrlEncoded.get
 
+    /**
+     * Visitors Pattern approach
+     */
+    
     //    val consumers: List[CommentConsumer] = List(Message, Document)
     //
     //    val messageId = commentJson("messageId").toList(0)
@@ -33,6 +37,10 @@ object CommentController extends Controller {
     //    val commentId = Comment.createComment(comment)
     //    consumers.map(_.addComment(new ObjectId(messageId), commentId))
     //    Ok(write(List(comment))).as("application/json")
+    
+    /**
+     * Direct Approach
+     */
 
     (commentJson.contains(("messageId"))) match {
 

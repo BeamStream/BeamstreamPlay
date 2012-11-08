@@ -80,11 +80,9 @@ BS.AppRouter = Backbone.Router.extend({
     		 
 			if(e.get('loggedin') == false) {
     
-//				$("#dialog").dialog('close');
 		    	 localStorage.clear();
 		    	 localStorage["idLogin"]= '';
 		    	 $('#school-popup').children().detach(); 
-//		    	 var self =this;
 		    	 BS.loginView = new BS.LoginView();
 		    	 BS.loginView.render();
 		     
@@ -111,19 +109,7 @@ BS.AppRouter = Backbone.Router.extend({
 		         }
 		         
 		         /* display janRain component */
-				 setTimeout(function() {
-				    self.displayJanRain();
-				    var nu=$('#janrainEngageEmbed').children();
-					
-					if(nu.length==2)
-					{
-						console.log("double janrain found");
-						$('.janrainContent:first').remove();
-							 					
-				    }
-					  
-					 $('.janrainContent div+div').remove();
-				 }, 1000);
+             showJanrainSigninWidget();
 		 
 			}
 			else {
@@ -528,45 +514,8 @@ BS.AppRouter = Backbone.Router.extend({
 		       $('.modal .datepicker').datepicker();
 		       $("#profile-form").validate();
 		       
-		       //Render Janrain Invite popup
-		       (function() {
-			    if (typeof window.janrain !== 'object') window.janrain = {};
-			    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
-			    if (typeof window.janrain.settings.share !== 'object') window.janrain.settings.share = {};
-			    if (typeof window.janrain.settings.packages !== 'object') janrain.settings.packages = [];
-			    janrain.settings.packages.push('share');
-			
-			    /* _______________ can edit below this line _______________ */
-			
-			    janrain.settings.share.message = "Testing social sharing!";
-			    janrain.settings.share.title = "Social Profile";
-			    janrain.settings.share.url = "www.yahoo.com";
-			    janrain.settings.share.description = "Share with my network";
-			
-			    /* _______________ can edit above this line _______________ */
-			
-			    function isReady() { janrain.ready = true; };
-			    if (document.addEventListener) {
-			        document.addEventListener("DOMContentLoaded", isReady, false);
-			    } else {
-			    	
-			        window.attachEvent('onload', isReady);
-			    }
-			
-			    var e = document.createElement('script');
-			    e.type = 'text/javascript';
-			    e.id = 'janrainWidgets';
-			
-			    if (document.location.protocol === 'https:') {
-			      e.src = 'https://rpxnow.com/js/lib/beamstream/widget.js';
-			    } else {
-			      e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/widget.js';
-			    }
-			
-			    var s = document.getElementsByTagName('script')[0];
-			    s.parentNode.insertBefore(e, s);
-			   
-			})();
+		       //Render Janrain Invite model
+           showJanrainShareWidget();
 		  }
 		 else 
 		 {
@@ -968,7 +917,7 @@ BS.AppRouter = Backbone.Router.extend({
 						
 						localStorage["idLogin"] = "register";
 						$('#school-popup').html(BS.emailView.el);
-						$('#load-janRain').css("display","block");
+//						$('#load-janRain').css("display","block");
 						$(".modal select:visible").selectBox();
 						$(".checkbox").dgStyle();
 						 
@@ -976,10 +925,10 @@ BS.AppRouter = Backbone.Router.extend({
 						$("#email-verify").validate();
 						 
 						$('.janrainContent').remove();
-						/* disaplay janRain component */
-					    setTimeout(function() {
-					    	self.displayJanRain();
-						 }, 1000);
+						
+            /* disaplay janRain component */
+					  showJanrainSigninWidget();
+//					  $('#load-janRain').css("display","none");
 				    
 					}
 					else {
@@ -1184,7 +1133,35 @@ BS.AppRouter = Backbone.Router.extend({
                             $grid.shuffle($this.data('group'));
                         });
                         
-//                       
+                        $('.sort-options li').on('click', function() {
+                            var $this = $(this),
+                                $grid = $('#grid'),
+                                sort = $this.data('sort'),
+                                opts = {};
+
+                            // Hide current label, show current label in title
+                            $('.sort-options .active').removeClass('active');
+                            $this.addClass('active');
+
+                            // We're given the element wrapped in jQuery
+                            if (sort === 'date-created') {
+                                opts = {
+                                    by: function($el) {
+                                        return $el.data('date-created');
+                                    }
+                                }
+                            } else if (sort === 'title') {
+                                opts = {
+                                    by: function($el) {
+                                        return $el.data('title').toLowerCase();
+                                    }
+                                }
+                            }
+
+
+                            // Filter elements
+                            $grid.shuffle('sort', opts);
+                        });
                         
 		                                
                                 
@@ -1352,6 +1329,7 @@ BS.AppRouter = Backbone.Router.extend({
 	                   BS.imagelistview.render();  
 	                   $('#content').html(BS.imagelistview.el); 
 	                   $('.file-type').hide();   //to hide the filetype menu
+	             
   					}
 					else {
 						console.log("From Stream => login");
@@ -1486,55 +1464,7 @@ BS.AppRouter = Backbone.Router.extend({
     				
     	           }});	
               },
-                        
-			displayJanRain : function(){
-				
-				 var janRainCount = $('.janrainContent').length;
-				 if(janRainCount == 0)
-				 {
-					/*  For JanRain component*/
-					(function() {
-						
-					    if (typeof window.janrain !== 'object') window.janrain = {};
-					    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
-					    
-					    janrain.settings.tokenUrl =  BS.userPage ;
-					    janrain.settings.tokenAction = 'event'; 
-					    
-					    /* ----Editted by Aswathy---- */
-					    janrain.settings.actionText = "";
-					    janrain.settings.fontColor = "#4599d2";
-					    janrain.settings.providers = ["facebook","twitter","linkedin","google"];
-					    janrain.settings.width ="160";
-					    /* ----End---- */
-					    
-					    function isReady() {  janrain.ready = true; };
-					    if (document.addEventListener) { 
-					    	 
-					      document.addEventListener("DOMContentLoaded", isReady, false);
-					    } else {  
-					      window.attachEvent('onload', isReady);
-					    }
-	
-					    var e = document.createElement('script');
-					    e.type = 'text/javascript';
-					    e.id = 'janrainAuthWidget';
-				        
-					    if (document.location.protocol === 'https:') {
-					      e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
-					    } else {
-					      e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
-					    }
-					     
-					    var s = document.getElementsByTagName('script')[0];
-					    s.parentNode.insertBefore(e, s);
-					})();
-				 }
-				 
-				 $('#load-janRain').css("display","none");
-				
-			},
-			
+
 			/**
 			 * public profile view
 			 */

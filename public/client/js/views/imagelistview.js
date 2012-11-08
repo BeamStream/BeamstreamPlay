@@ -55,12 +55,19 @@ BS.ImageListView = Backbone.View.extend({
                                             
                         i++;
                         });                  
-                          
+                            
+                        // Call common Shuffling function         
+                        shufflingOnSorting();
+                        
+                        
                         /* for image view popups */
                         $("area[rel^='prettyPhoto']").prettyPhoto();
                         $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:1000, autoplay_slideshow: true});
                         $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
                         self.pagination();
+                        
+                        
+                        
                       }
                });
 
@@ -194,6 +201,8 @@ BS.ImageListView = Backbone.View.extend({
                 eventName.preventDefault();
                 var element = eventName.target.parentElement;
                 var imageId =$(element).attr('id');
+                var parent = $('div#'+imageId).parent('li');
+               
     	  	// post documentId and get Rockcount 
                 $.ajax({
                     type: 'POST',
@@ -205,6 +214,8 @@ BS.ImageListView = Backbone.View.extend({
                     success:function(data){	              	 
     	              	// display the rocks count  
                     $('#'+imageId+'-activities li a.hand-icon').html(data);	   
+                    $(parent).attr('data-rock',data);
+                 
     	            }
                 });
             },

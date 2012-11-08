@@ -38,7 +38,9 @@ BS.StreamView = Backbone.View.extend({
            "click .delete_msg" : "deleteMessage",
            "click .delete_comment" : "deleteComment",
            "click .doc" : "showUploadBox",
-           "change #upload-files" : "getUploadedData"
+           "change #upload-files" : "getUploadedData",
+	   "click .strmdoc" : "showStrmDocPopup",
+           "mouseenter a.strmdoc" : "showDocTitle"
            
 	 },
 	 
@@ -47,7 +49,7 @@ BS.StreamView = Backbone.View.extend({
     	
     	console.log('Initializing Stream View');
     	BS.urlRegex1 = /(https?:\/\/[^\s]+)/g;
-    	BS.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\/]*$/i ;
+    	BS.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\./]*$/i ;
     	BS.urlRegex2 =  /^((http|https|ftp):\/\/)/;
     	BS.commentCount = 0;
     	/* for hover over */
@@ -438,7 +440,7 @@ BS.StreamView = Backbone.View.extend({
       
       if(!message.match(/^[\s]*$/))
       {
-          console.log("space");
+           
 	      var msgAccess =  $('#id-private').attr('checked');
 	  	  if(msgAccess == "checked")
 	  	  {
@@ -451,9 +453,10 @@ BS.StreamView = Backbone.View.extend({
 	  	  
 	  	  //find link part from the message
 	      var link =  message.match(BS.urlRegex); 
+	       
 	      if(link)
 	      {  
-                  console.log("link");
+                   
 	    	 if(!BS.urlRegex2.test(link[0])) {
 	    		urlLink = "http://" + link[0];
 	  	  	 }
@@ -461,40 +464,41 @@ BS.StreamView = Backbone.View.extend({
 	    	 {
 	    		 urlLink =link[0];
 	    	 }
-	    	  if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
-                           { 
-	    	     if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
-			 { 
-	    	      /* post url information */
-	            $.ajax({
-	    			type : 'POST',
-	    			url : BS.bitly,
-	    			data : {
-	    				 link : urlLink
-	    			},
-	    			dataType : "json",
-	    			success : function(data) {
-	    				 message = message.replace(link[0],data.data.url);
-	    				 self.postMsg(message,streamId,messageAccess);
-	    			}
-	    		});
-			 }
-
-	    	   else
-	    	    {     
-	    	 	 self.postMsg(message,streamId,messageAccess);
+	    	 
+	    	 if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
+             {
+	    		   
+		    	  if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
+				  { 
+		    	      /* post url information */
+		            $.ajax({
+		    			type : 'POST',
+		    			url : BS.bitly,
+		    			data : {
+		    				 link : urlLink
+		    			},
+		    			dataType : "json",
+		    			success : function(data) {
+		    				 message = message.replace(link[0],data.data.url);
+		    				 self.postMsg(message,streamId,messageAccess);
+		    			}
+		    		});
+				 }
+	    	     else
+	    	     {     
+	    	    	 self.postMsg(message,streamId,messageAccess);
 	    	     }
-                               }  //doc
-                   else    // else part for for docupload
-	    	    {     
+             }  //doc
+             else    //for docupload
+	    	 {     
 	    		 self.postMsg(message,streamId,messageAccess);
-	    	     }
+	    	 }
                  
 	      }
 	      //if link not present
 	      else
 	      {
-                  console.log("else test");
+                 
 	    	  self.postMsg(message,streamId,messageAccess);
 	      }
       }
@@ -537,9 +541,8 @@ BS.StreamView = Backbone.View.extend({
   				   {
   					    // append the message to message list
   					   _.each(data, function(data) {
-//                                               var url=data.messageBody;                                // code for uploading googledoc
+//                                               var url=data.messageBody;
 //                                               if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
-  							 console.log(data.messageBody);
   						    /*auto ajax push */
   	  					    var streamId = $('#streams-list li.active a').attr('id');
   		                    PUBNUB.publish({
@@ -549,9 +552,17 @@ BS.StreamView = Backbone.View.extend({
   							
   							var msgBody = data.messageBody;
   							var link =  msgBody.match(BS.urlRegex);
-  							var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-					             return '<a target="_blank" href="' + url + '">' + url + '</a>';
-					        });
+  							if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) {
+                                
+                                var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+                                    return '<a class="strmdoc" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
+                               });
+                           }
+                           else{
+                                       var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+                                    return '<a target="_blank" href="' + url + '">' + url + '</a>';
+                               });
+                           }
   							  
   							var datas = {
    							 	 "datas" : data,
@@ -567,26 +578,35 @@ BS.StreamView = Backbone.View.extend({
 //                                          } 
   	  						//get profile image of logged user
   	  					    $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
-  	  					    console.log(linkTag);
+  	  					     
   	  						if(linkTag)
-                                                            
-  	  						  $('div#'+data.id.id+'-id').html(linkTag);
-  	  					 var url=data.messageBody;
-                                               if(!url.match(/^(https:\/\/docs.google.com\/)/)) {	    // code for check whether it is doc or not 
-  	  						 // embedly
-	  	  					 $('div#'+data.id.id+'-id').embedly({
-		 					   	  maxWidth: 200,
-		 				          wmode: 'transparent',
-		 				          method: 'after',
-		 					      key:'4d205b6a796b11e1871a4040d3dc5c07'
-	  	  					 });
-                                               }
-                                               else	{         // code for insert view on the time of the upload the doc
-                                               var content = '<iframe class="gwt-Frame" style="width:400px; height: 500px; " frameborder="0" src="'+data.messageBody+'"></iframe>'
-                                             $('#docurl').html(content);    
-                                          } 
+  	  						   $('div#'+data.id.id+'-id').html(linkTag);
+  	  						
+  	  					    var url=data.messageBody;
+  	  					    
+                            if(!url.match(/^(https:\/\/docs.google.com\/)/)) {	
+                            	 
+	  	  						 // embedly
+		  	  					 $('div#'+data.id.id+'-id').embedly({
+			 					   	  maxWidth: 200,
+			 				          wmode: 'transparent',
+			 				          method: 'after',
+			 					      key:'4d205b6a796b11e1871a4040d3dc5c07'
+		  	  					 });
+                             }
+                             else{
+
+                            	 var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
+                                     return msgUrl;
+                                 });
+                            	  $('input#'+data.id.id+'-url').val(msgUrl);
+					              var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
+					              $('#'+data.id.id+'-docurl').html(content);
+                             } 
   				         });
-                                        
+		                  _.each(data, function(data) {
+		                	  showJanrainShareWidget(data.messageBody, 'View my Beamstream post', 'http://beamstream.com', data.messageBody);
+		                  });
   				   }
                                    
   				   $('.emdform').find('div.selector').html("");
@@ -625,10 +645,18 @@ BS.StreamView = Backbone.View.extend({
 					  _.each(data, function(data) {
 						  
 							var msgBody = data.messageBody;
-							var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-					             return '<a target="_blank" href="' + url + '">' + url + '</a>';
-					        });
-							  
+                                                        if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) {
+                                                            
+                                                             var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+                                                                 return '<a class="strmdoc" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
+                                                            });
+                                                        }
+                                                        else{
+                                                                    var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+                                                                 return '<a target="_blank" href="' + url + '">' + url + '</a>';
+                                                            });
+                                                        }
+                                                        
 							var datas = {
  							 	 "datas" : data,
  						    }
@@ -686,13 +714,26 @@ BS.StreamView = Backbone.View.extend({
 	  						 if(linkTag)
 	  						  $('div#'+data.id.id+'-id').html(linkTag);
 	  						 
-	  					     // embedly
-	  						 $('div#'+data.id.id+'-id').embedly({
-		  					   	  maxWidth: 200,
-		  				          wmode: 'transparent',
-		  				          method: 'after',
-		  					      key:'4d205b6a796b11e1871a4040d3dc5c07'
-	  				         });
+                                                         var url=data.messageBody;
+                                                        if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
+                                                                // embedly
+                                                                    $('div#'+data.id.id+'-id').embedly({
+                                                                             maxWidth: 200,
+                                                                     wmode: 'transparent',
+                                                                     method: 'after',
+                                                                         key:'4d205b6a796b11e1871a4040d3dc5c07'
+                                                            });
+                                                        }
+                                                        else
+                                                            {
+ 
+                                                        	var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
+                                                                return msgUrl;
+                                                             });
+                                                        	$('input#'+data.id.id+'-url').val(msgUrl);
+                                                            var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
+                                                            $('#'+data.id.id+'-docurl').html(content);
+                                                            }
 	  						 
 	  						self.showAllComments(data.id.id);
 				         });
@@ -857,11 +898,8 @@ BS.StreamView = Backbone.View.extend({
 	  * show rockers list on hover over
 	  */
 	 showRockers:function(eventName){
-		 console.log("test rok");
 		 eventName.preventDefault();
-		
 		 var element = eventName.target.parentElement;
-                 console.log(element);
 		 var msgId =$(element).closest('li').attr('id');
 		 var position = $('li#'+msgId+'').find('i').position();
 		 this.getRockers(msgId,position);
@@ -1113,52 +1151,50 @@ BS.StreamView = Backbone.View.extend({
 			 self.postMessage(); 
 		 }
 		 if(eventName.which == 32){
-                     console.log("testing bitly");
 			 
 			 var text = $('#msg').val();
-                       if(!text.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
-                           {                          
-			 var links =  text.match(BS.urlRegex); 
-			 
-			  /* create bitly for each url in text */
-//			 _.each(links, function(link) {
-				  
-					 if(links)
+		     var links =  text.match(BS.urlRegex); 
+				 
+				  /* create bitly for each url in text */
+	//			 _.each(links, function(link) {
+					  
+				 if(links)
+			     {
+					 
+					 if(!BS.urlRegex2.test(links[0])) {
+				    		urlLink = "http://" + links[0];
+				  	 }
+				     else
 				     {
-						 
-						 if(!BS.urlRegex2.test(links[0])) {
-					    		urlLink = "http://" + links[0];
-					  	 }
-					     else
-					     {
-					    		urlLink =links[0];
-					     }
+				    		urlLink =links[0];
+				     }
+					 
+					 if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
+		             { 
 						 /* don't create bitly for shortened  url */
 						 if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
 						 {
-                                                     
-                                                 console.log('bitly test');
-				    	  /* create bitly  */
-				          $.ajax({
-				    			type : 'POST',
-				    			url : BS.bitly,
-				    			data : {
-				    				 link : urlLink 
-				    			},
-				    			dataType : "json",
-				    			success : function(data) {
-				    				 var msg = $('#msg').val();
-				    				 message = msg.replace(links[0],data.data.url);
-				    				 $('#msg').val(message);
-				    				
-				    			}
-				    		});
-				          
-				          $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+					    	  /* create bitly  */
+					          $.ajax({
+					    			type : 'POST',
+					    			url : BS.bitly,
+					    			data : {
+					    				 link : urlLink 
+					    			},
+					    			dataType : "json",
+					    			success : function(data) {
+					    				 var msg = $('#msg').val();
+					    				 message = msg.replace(links[0],data.data.url);
+					    				 $('#msg').val(message);
+					    				
+					    			}
+					    		});
+					          $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 				        }
-				      }
-//				});
-                    }
+		             }
+                           
+			      }
+	//				});
 		 }
 		 
 	 },
@@ -1674,6 +1710,34 @@ BS.StreamView = Backbone.View.extend({
 		 console.log("dgdfg");
 	 },
 
+        /**
+         *For showing stream google docs in popup
+         */
+          showStrmDocPopup: function(eventName){
+                 eventName.preventDefault(); 
+                 var element = eventName.target.id;
+                 var docUrl = $('input#'+element+'-url').val();
+                 BS.streamdocview = new BS.StreamDocView();
+                 BS.streamdocview.render(docUrl);           
+                 $('#streamdocview').html(BS.streamdocview.el);   
+             },
+         
+          /**
+	  * show the title when hover over the gogoledoc image
+	  */
+	 showDocTitle:function(eventName){
+		 eventName.preventDefault();
+		
+		 var element = eventName.target.parentElement;
+		 var msgId =$(element).closest('li').attr('id');
+		 var position = $('li#'+msgId+'').find('i').position();
+                 
+                 var content = 'Click Here To Start Collaboration';
+		 $('#hover-lists-'+msgId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
+                 $('#hover-lists-'+msgId+'').html(content);
+ 
+	 },
+ 
    /**
     * PUBNUB real time push
     */
@@ -1731,6 +1795,7 @@ BS.StreamView = Backbone.View.extend({
 		 
       }
     })
+    
     
     /* auto push functionality for comments */
     

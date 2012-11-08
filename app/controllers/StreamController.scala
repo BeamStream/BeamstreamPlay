@@ -56,60 +56,6 @@ object StreamController extends Controller {
     Ok(allStreamsForAUserJson).as("application/json")
   }
 
-  //TODO : This Functionality is now optimized to class methods(No More need of having separate sections)
-  /*
-  
-  /*
-   * Creates a class and a new Stream
-   * @Purpose: This will create a new class & correspondent stream
-   * For class stream screen 
-   * 
-   */
-
-  def newStream = Action { implicit request =>
-    val classListJsonMap = request.body.asFormUrlEncoded.get
-
-    val classJsonList = classListJsonMap("data").toList(0)
-    val classList = net.liftweb.json.parse(classJsonList).extract[List[Class]]
-
-    val listOfClassIds = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
-
-    (listOfClassIds.isEmpty) match {
-      case true =>
-        Ok(write(new ResulttoSent("Failure", "One of Your Class Code already exists")))
-
-      case false =>
-        User.addClassToUser(new ObjectId(request.session.get("userId").get), listOfClassIds)
-        val classJson = net.liftweb.json.parse(classJsonList)
-        val classTag = (classJson \ "classTag").extract[String]
-        //updating Tags 
-        val classToUpdateWithTags = Class.findClasssById(listOfClassIds(0))
-        val streamId = classToUpdateWithTags.streams(0)
-        Stream.addTagsToStream(List(classTag), streamId)
-        Ok(write(new ResulttoSent("Success", "Class added")))
-    }
-
-  }
-
-  /*
-   * Join the stream (From class stream page)
-   * @Purpose : User Joins a stream here
-   * 
-   */
-  def joinStream = Action { implicit request =>
-    val classListJsonMap = request.body.asFormUrlEncoded.get
-    val classJsonList = classListJsonMap("data").toList(0)
-    val classJson = net.liftweb.json.parse(classJsonList)
-    val classId = (classJson \ "id").extract[String]
-    val streamId = Class.findClasssById(new ObjectId(classId)).streams(0)
-    Stream.joinStream(streamId, new ObjectId(request.session.get("userId").get))
-    User.addClassToUser(new ObjectId(request.session.get("userId").get), List(new ObjectId(classId)))
-    Ok(write(new ResulttoSent("Success", "User has SuccessFully Joined The Stream")))
-  }
-
-
-
-*/
 
   /*
    * Show the no. of users attending classes

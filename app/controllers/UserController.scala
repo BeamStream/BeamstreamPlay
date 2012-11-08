@@ -23,7 +23,7 @@ import utils._
 import utils.SocialGraphEmbeddedNeo4j
 import play.api.cache.Cache
 import play.api.Play.current
-import models.onlineUserCache
+import utils.onlineUserCache
 
 object UserController extends Controller {
 
@@ -77,6 +77,7 @@ object UserController extends Controller {
 
   /*
    * Register User via social sites
+   * Deprecated in favor of SocialController.authenticateUser
    */
 
   def registerUserViaSocialSite = Action { implicit request =>
@@ -95,6 +96,7 @@ object UserController extends Controller {
 
   /*
    * Get all Contact data via social sites
+   * Deprecated in favor of SocialController.authenticateUser
    */
 
   def getContactsViaSocialSite = Action { implicit request =>

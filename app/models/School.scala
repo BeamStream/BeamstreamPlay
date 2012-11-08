@@ -38,14 +38,6 @@ object School {
     schoolName
   }
 
-  /*
-   * Find a school by name
-   */
-
-  def findSchoolByName(schoolName: String): List[School] = {
-    val schools = SchoolDAO.find(MongoDBObject("schoolName" -> schoolName)).toList
-    schools
-  }
 
   /*
    * Update the School
@@ -55,6 +47,15 @@ object School {
   def updateSchool(schoolId: ObjectId, updatedSchoolname: String) {
     val school = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0)
     SchoolDAO.update(MongoDBObject("_id" -> schoolId), school.copy(schoolName = updatedSchoolname), false, false, new WriteConcern)
+  }
+  
+   /**
+   * Find A School By Name
+   */
+
+  def findSchoolByName(schoolName: String) = {
+    val schoolNamePattern = Pattern.compile(schoolName, Pattern.CASE_INSENSITIVE)
+    SchoolDAO.find(MongoDBObject("schoolName" -> schoolNamePattern)).toList
   }
 
 }

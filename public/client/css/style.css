@@ -2252,6 +2252,7 @@ text-align: left;
 .add-new-school{
     left: 50% !important;
     width: 523px !important;
+    position:relative;
 }
 .mediaedit{
     left: 50% !important;
@@ -2485,6 +2486,15 @@ text-align: left;
     display : none;
 
 }
+.alert-message{
+	display: none;
+    left: 130px;
+    position: absolute;
+    top: 106px;
+    width: auto;
+    z-index: 9999;
+	
+}
 
 .messagelist {
     list-style: none outside none;
@@ -2516,7 +2526,7 @@ text-align: left;
 /* 	margin: 0 20px 0 19px !important; */
 }
 /* for delete messages */
-#docurl{
+#stream-doc-block{
  border: 1px solid #333333;
     clear: both;
     display: block;
@@ -2612,6 +2622,12 @@ ul.comments li:hover .delete_comment{
 }
 .upload-content{
 	padding-left :5px;
+}
+.streamdocpopup{
+    left: 33% !important;
+    width: 1040px !important;
+    top: 40% !important;
+    /*height: 800px !important;*/
 }
 /* show no.of students and educators */
 /* .ui-menu-item img{ */

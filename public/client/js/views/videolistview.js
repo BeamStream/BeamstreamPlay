@@ -37,10 +37,10 @@ BS.VideoListView = Backbone.View.extend({
                      success : function(videos) {
                         $('#grid').html("");    
                         _.each(videos, function(video) {                                 	
-                        var datas = {
-                          "video" : video,
-//                         "datVal" :datVal,
-                           "videoCount" : i
+                        	var datas = {
+		                          "video" : video,
+		//                         "datVal" :datVal,
+		                           "videoCount" : i
                             }	
                             var source = $("#tpl-single-video").html();
                             var template = Handlebars.compile(source);				    
@@ -48,6 +48,8 @@ BS.VideoListView = Backbone.View.extend({
                             i++;
                         });                  
         
+                        // Call common Shuffling function         
+                        shufflingOnSorting();
                         
                         /* for video popups */
                         $("area[rel^='prettyPhoto']").prettyPhoto();

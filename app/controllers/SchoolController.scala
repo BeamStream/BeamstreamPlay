@@ -24,10 +24,8 @@ object SchoolController extends Controller {
     val schoolInfojsonMap = request.body.asFormUrlEncoded.get
     val schoolName = schoolInfojsonMap("schoolName").toList(0)
     val schoolWebsite = schoolInfojsonMap("schoolWebsite").toList(0)
-
-    // #413
     val schools = School.findSchoolByName(schoolName)
-    if (!schools.isEmpty) Ok("School Already Exists").as("application/json")
+    if (!schools.isEmpty) Ok(write("School Already Exists")).as("application/json")
     else {
       val schoolToCreate = new School(new ObjectId, schoolName, schoolWebsite)
       val schoolId = School.addNewSchool(schoolToCreate)
@@ -66,15 +64,6 @@ object SchoolController extends Controller {
     val schoolNamesStartingCharacter = schoolNameStartingStringJsonMap("data").toList(0)
     val allSchools = School.getAllSchoolsFromDB(schoolNamesStartingCharacter)
     Ok(write(allSchools)).as("application/json")
-  }
-
-  /**
-   * Find A School By Name
-   */
-
-  def findSchoolByName(schoolName: String) = {
-    val schoolNamePattern = Pattern.compile(schoolName, Pattern.CASE_INSENSITIVE)
-    SchoolDAO.find(MongoDBObject("schoolName" -> schoolNamePattern)).toList
   }
 
 }

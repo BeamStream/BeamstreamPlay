@@ -79,10 +79,7 @@ body {
  
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
    
-     <!--Shuffle in media page -->
-        <script type="text/javascript" src="lib/jquery.shuffle.js"></script>
-<!--         <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script> -->
-   
+      
 
 </head>
 <!-- template for Files and Media-->
@@ -319,12 +316,13 @@ body {
           <li data-group="recent"><a href="#">Most Recent</a></li>
           <li data-group="oldest"><a href="#"> Oldest</a> </li>
         </ul>
+		 
       </div>
     </div> 
     <div id="gdocedit"></div>  
     <div class="row" >
       <ul class="file-list" id="grid">
-        <li  data-groups='["recent"]' id="coverimage">
+        <li  data-groups='["recent"]' id="coverimage" data-date-created="11/06/2012">
           <div class="image-wrapper"><div class="hover-div"><div id="profile-images"><img class="default-image" src="images/pictures_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Images </p></div></div></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -334,7 +332,7 @@ body {
             </ul>
           </div>
         </li>
-        <li data-groups='["oldest"]' id="covervideo">
+        <li data-groups='["oldest"]' data-date-created="2010-09-14" id="covervideo">
          <div class="image-wrapper"><div class="hover-div"><div id="profile-videos"><img class="default-image" src="images/video_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Videos </p></div></div> </div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -344,7 +342,7 @@ body {
             </ul>
           </div>
         </li>        
-        <li id="coverdocs"  data-groups='["recent"]'>
+        <li id="coverdocs"  data-groups='["recent"]' data-date-created="11/07/2012">
          <div class="image-wrapper" id="google-docs"><div class="hover-div"><a class="google-docs-image" href="#googledocs"><img class="default-image" src="images/google_docs_image.png"></a>  
           <div class="hover-text"><p class="emptyfiles"> No Uploaded Docs </p></div></div></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
@@ -355,7 +353,7 @@ body {
             </ul>
           </div>
         </li>        
-        <li id="coveraudio" data-groups='["oldest"]'>
+        <li id="coveraudio" data-groups='["oldest"]' data-date-created="12/06/2011" >
             <div class="image-wrapper coveraud"> 
                <div class="hover-div"><img class="default-image" src="images/audio_image.png"/><div class="hover-text"> 
                  <p class="emptyfiles"> No Uploaded Audio </p></div>
@@ -369,7 +367,7 @@ body {
               </ul>
            </div>
         </li>
-        <li id="coverspreadsheet"  data-groups='["recent"]'>
+        <li id="coverspreadsheet"  data-groups='["recent"]' data-date-created="11/10/2012">
           <div class="image-wrapper">
             <div class="hover-div"><img class="default-image" src="images/spreadsheets_image.png"/><div class="hover-text"> 
                <p class="emptyfiles"> No Uploaded Spreadsheets </p>
@@ -383,7 +381,7 @@ body {
               </ul>
            </div>
         </li>
-        <li id="coverpresentation" data-groups='["oldest"]'>
+        <li id="coverpresentation" data-groups='["oldest"]' data-date-created="11/09/2012">
            <div class="image-wrapper"> 
               <div class="hover-div"><img class="default-image" src="images/presentations_image.png"/>
                <div class="hover-text">  <p class="emptyfiles"> No Uploaded Presentations </p></div>        
@@ -397,7 +395,7 @@ body {
             </ul>
           </div>        
        </li>
-       <li id="coverpdf" data-groups='["oldest"]'>
+       <li id="coverpdf" data-groups='["oldest"]' data-date-created="09/06/2012">
           <div class="image-wrapper">
              <div class="hover-div"><img class="default-image" src="images/pdp_image.png"/><div class="hover-text">    
                 <p class="emptyfiles"> No Uploaded Files </p>
@@ -411,7 +409,7 @@ body {
               </ul>        
            </div>              
         </li>
-        <li id="coverdoc_com"  data-groups='["recent"]'>
+        <li id="coverdoc_com"  data-groups='["recent"]' data-date-created="11/06/2012">
            <div class="image-wrapper"> 
              <div class="hover-div"><img class="default-image" src="images/docs_image.png"/>
                <div class="hover-text">     
@@ -427,7 +425,7 @@ body {
              </ul>
           </div>       
         </li>       
-        <li id="coverlink"  data-groups='["recent"]'>
+        <li id="coverlink"  data-groups='["recent"]' data-date-created="11/06/2010" >
            <div class="image-wrapper"> 
              <div class="hover-div"><img class="default-image" src="images/links_image.png"/>
                <div class="hover-text">     
@@ -449,7 +447,7 @@ body {
   <footer class="site_footer">
     <p>Copyright &copy; 2012 BeamStream</p>
     <ul class="pull-right">
-      <!-- WARNING: don't put newlines here, it breaks layout. -->
+      <!-- WARNING: do not put newlines here, it breaks layout. -->
       <li><a href="#submit-suggestion">Submit suggestion</a></li>
       <li><a href="#report-issue">Report issue</a></li>
     </ul>
@@ -512,7 +510,7 @@ body {
 
 <!-- template for single bucket in image -->
 <script type="text/x-handlebars-template" id="tpl-single-image">
-<li id="file-docs-'{{imageCount}}">  
+<li id="file-docs-'{{imageCount}}"  data-date-created="{{image.dateCreated}}" data-rock="{{image.rocks}}">  
   <div id="{{image.id.id}}"   name="single-doc">
 	<div class="image-wrapper hovereffect"> 
 		<div class="hover-div">
@@ -544,7 +542,7 @@ body {
 		 </a>
 		 <ul id="{{image.id.id}}-activities" class="comment-list">
 			 <li><a class="eye-icon" href="#">0</a></li>
-			 <li><a class="hand-icon show_rockers" href="#">0</a></li>
+			 <li><a class="hand-icon show_rockers" href="#">{{image.rocks}}</a></li>
 			 <li><a class="message-icon" href="#">0</a></li>
 		 </ul>
 	</div>
@@ -556,7 +554,7 @@ body {
 
 <!-- template for single bucket for video -->
 <script type="text/x-handlebars-template" id="tpl-single-video">
-<li id="file-docs-{{videoCount}}">
+<li id="file-docs-{{videoCount}}" data-date-created="{{video.dateCreated}}" data-rock="{{video.rocks}}">
   <div id="{{video.id.id}}"   name="single-doc">
 	<div class="image-wrapper hovereffect">
 		<div class="hover-div">
@@ -587,7 +585,7 @@ body {
 		<span class="right-arrow"></span></a>
 		<ul id="{{video.id.id}}-activities" class="comment-list">
 			<li><a class="eye-icon" href="#">0</a></li>
-			<li><a class="hand-icon show_rockers" href="#">0</a></li>
+			<li><a class="hand-icon show_rockers" href="#">{{video.rocks}}</a></li>
 			<li><a class="message-icon" href="#">0</a></li>
 		</ul>
 	</div>
@@ -730,7 +728,7 @@ body {
   <footer class="site_footer">
     <p>Copyright &copy; 2012 BeamStream</p>
     <ul class="pull-right">
-      <!-- WARNING: don't put newlines here, it breaks layout. -->
+      <!-- WARNING: do not put newlines here, it breaks layout. -->
       <li><a href="#submit-suggestion">Submit suggestion</a></li>
       <li><a href="#report-issue">Report issue</a></li>
     </ul>
@@ -917,19 +915,19 @@ body {
             <li><a href="#">Spreadsheets</a> </li>
           </ul>
         <label>Sort by:</label>
-        <a id="file-type" href="#" data-toggle="dropdown" >File Type</a>
-        <ul>
-          <li><a href="#">Rock on Votes</a></li>
+        <a id="file-type"  href="#" data-toggle="dropdown" >File Type</a>
+        <ul class="sort_by">
+          <li data-sort="rocks" ><a href="#">Rock on Votes</a></li>
           <li><a href="#">Tags</a> </li>
           <li><a href="#">Category</a> </li>
           <li><a href="#">by Class/School</a></li>
         </ul>
         <label>Then by:</label>
-        <a href="#">Date </a>
-        <ul class="filter-options">
-          <li data-key="all"><a href="#">All</a></li> 
-          <li data-key="recent"><a href="#">Most Recent</a></li>
-          <li data-key="oldest"><a href="#"> Oldest</a> </li>
+        <a data-sort="date-recent" href="#">Date </a>
+        <ul class="sort_by">
+          <li data-group="all"><a href="#">All</a></li> 
+          <li data-sort="date-recent" ><a href="#">Most Recent</a></li>
+          <li data-sort="date-oldest"><a href="#"> Oldest</a> </li>
         </ul>
       </div>
     </div>
@@ -937,6 +935,7 @@ body {
     <div class="row pagin-height " >
       <ul class="file-list" id="grid"> 
         
+          
         
         
       </ul>
@@ -945,7 +944,7 @@ body {
   <footer class="site_footer">
     <p>Copyright &copy; 2012 BeamStream</p>
     <ul class="pull-right">
-      <!-- WARNING: don't put newlines here, it breaks layout. -->
+      <!-- WARNING: do not put newlines here, it breaks layout. -->
       <li><a href="#submit-suggestion">Submit suggestion</a></li>
       <li><a href="#report-issue">Report issue</a></li>
     </ul>
@@ -1102,7 +1101,7 @@ Create a Class</a>
                         <select id="year" class="span2">
                             <option value="2002">Class 1</option>
                             <option value="2001">Class 2</option>
-                            <option value="2000">Don't asign/No Class</option>
+                            <option value="2000">Don't assign/No Class</option>
                         </select>
                     </div>
 			<div class="element">
@@ -1196,7 +1195,7 @@ Create a Class</a>
                         <select id="year" class="span2">
                             <option value="2002">Class 1</option>
                             <option value="2001">Class 2</option>
-                            <option value="2000">Don't asign/No Class</option>
+                            <option value="2000">Don't assign/No Class</option>
                         </select>
                     </div>
 			<div class="element">
@@ -1618,6 +1617,13 @@ Create a Class</a>
  <div class="modal-backdrop in"></div>
     <div class="modal add-new-school  modal-popups" style="display:block;">
      <div class="modal-header">
+     <div id="show_message" class="alert-message">
+		<!-- 	    <span><img class="error-img" src="images/error.png"/></span> -->
+		<ul class="messagelist">
+			<li class="error-msg">You must fill in all of the required
+				fields.</li>
+		</ul>
+	</div>
        <div class="control-button">
 		<a href="#"><img id="popup-close" class="close-button" src="images/close-button.png"></a>
        </div>
@@ -2446,7 +2452,7 @@ Create a Class</a>
 
               <label name="class-name-{{sCount}}-1" for="class-name-{{sCount}}-1">Class name </label>
 
-              <input type="text" name="for="class-name-{{sCount}}-1" id="class-name-{{sCount}}-1" class="required medium class_name" placeholder="Class 1 ">
+              <input type="text" for="class-name-{{sCount}}-1" id="class-name-{{sCount}}-1" class="required medium class_name" placeholder="Class 1 ">
               <input type="hidden" value="" id="h-class-name-{{sCount}}-1">
 			 <input type="hidden" value="" id="stream-id-{{sCount}}-1">
 			 <div id="ps-{{sCount}}-1" class="class-info-popup"></div>
@@ -2938,6 +2944,7 @@ Create a Class</a>
           </div>
 
         </div>
+          <div id="streamdocview" ></div> 
       </div>
       <footer class="site_footer">
         <p>Copyright &copy; 2012 BeamStream</p>
@@ -3329,8 +3336,9 @@ Create a Class</a>
          {{datas.messageBody}}
        
        </div>
-           <div id="docurl" >dfgdfgdfgdfg
-             </div> 
+           <div id="{{datas.id.id}}-docurl" >
+             </div>
+             <input type="hidden" id="{{datas.id.id}}-url" value="" > 
           
        <div class="actions actions with-tooltips tooltips-top btn-group">
          <a class="rock " href="#rock" data-original-title="hello"><i class="rocked rock-message"><i>{{datas.rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
@@ -3603,7 +3611,7 @@ Create a Class</a>
 </script>
 
 
-	<!-- basic profile registration -social media-- to edit user info -->
+	<!-- basic profile registration -social media- to edit user info -->
 	<script type="text/x-handlebars-template" id="profile-socialmedia">
  
         <div class="basic_profile_form_wrapper2">
@@ -3707,7 +3715,7 @@ Create a Class</a>
 </script>
 
 	<!-- verify emails -->
-	<script type="text/template" id="tpl-verify-email">
+	<script type="text/template" id="tpl-verify-email"> -->
 <div class="modal-backdrop in"></div>
     <div class="modal main-popups modal-pull-top in modal-popups" style="display:block;">
   <div class="modal-header">
@@ -3745,7 +3753,7 @@ Create a Class</a>
               <div id ="no-schoolmail" class="checkbox email-check">
                   <input id="schoolmail" type="checkbox">
               </div>
-              I don't have a school email </div>
+              I don have a school email </div>
 
               <div class="element forgot-pass form-align" > <a class="hand_buttonnew" href="#">Forgot password ?</a><a  class="log-in" href="#login">LOGIN HERE!</a> </div>
               <div id="load-next" style="display :none;">  
@@ -3754,12 +3762,12 @@ Create a Class</a>
               <div  class="socialnw-wrapper">
                   <img  class="orwith" src="images/orwith.png"/> 
                    <div id="janrainEngageEmbed" class="janRain"> 
-                  <div id="load-janRain" style="display :block;">  
+                  <div id="load-janRain" style="display :none;">  
 					<img src ="images/loading.gif"> 
                   </div>
 			  </div>
            </div>
-           
+           </div>
            <div id="row-line" style="display:none;" class="form-row-label"></div>
            <div id="schoolmail-info" class="form-row short" style="display:none;">
              <div class="element" id="school-email"  >
@@ -3767,7 +3775,7 @@ Create a Class</a>
                 <input type="text" id="school-name" placeholder="School Name" class="large">
             </div>
              <div class="form-row short"><div class="element">
-                <label name="school-info" for="school-info">Tell us why you don't use a school email address?</label>
+                <label name="school-info" for="school-info">Tell us why you do not use a school email address?</label>
                <textarea id ="school-info" class="email_textarea"></textarea>
              </div></div>
              <div class="form-row short"> <div class="element">
@@ -3899,7 +3907,31 @@ Create a Class</a>
    </div>
   </script>
 
-
+<!-- Documents popup window for stream pages -->
+<script type="text/x-handlebars-template" id="stream-document-tpl">
+ <div class="modal-backdrop in"></div>
+    <div class="modal streamdocpopup  modal-popups" style="display:block;">
+     <div class="modal-header">
+       <div class="control-button doc-pop-button">
+		<a href="#"><img id="popup-close" class="close-button" src="images/close-button.png"></a>
+       </div>
+        <h2  class="pull-left">  Docs view </h2>
+     </div>
+    <div class="modal-body doc-popup-wrapper">
+        <form name="add-new-school-form" id="add-new-school-form">
+            <fieldset class="popupfield">    
+                <div id="popup-loader" >
+                    <!--<image src="images/ajax-loader1.gif">--> 
+                    <iframe src="{{docUrl}}" scrolling="NO"  width="963" height="500" style="border: none">
+                    <p>Your browser does not support iframes.</p>
+                    </iframe> 
+            </div>
+            </fieldset>
+        </form>
+    </div>
+    
+ </div>
+</script>
 	<!-- template for docs list-->
 	<script type="text/x-handlebars-template" id="tpl-list-docs">
               <div class="modal-backdrop in"></div>
@@ -3947,7 +3979,7 @@ Create a Class</a>
 
 
 <!--          Shuffle in media page -->
-<!--         <script type="text/javascript" src="lib/jquery.shuffle.js"></script> -->
+        <script type="text/javascript" src="lib/jquery.shuffle.js"></script>
 <!--         <script type="text/javascript" src="lib/jquery.shuffle.min.js"></script> -->
         
         <!--  for pretty  -->
@@ -3974,18 +4006,18 @@ Create a Class</a>
 
 	<!--- Code to delete duplication of Janrain Component -->
 	<script>
-		$(window).bind("load", function() {
-			var nu = $('#janrainEngageEmbed').children();
-			if (nu.length == 2) {
-				console.log("double janrain found");
-				$('.janrainContent:first').remove();
+// 		$(window).bind("load", function() {
+// 			var nu = $('#janrainEngageEmbed').children();
+// 			if (nu.length == 2) {
+// 				console.log("double janrain found");
+// 				$('.janrainContent:first').remove();
 
-			} else {
-				console.log("single janrain found");
-			}
+// 			} else {
+// 				console.log("single janrain found");
+// 			}
 
-			$('.janrainContent div+div').remove();
-		});
+// 			$('.janrainContent div+div').remove();
+// 		});
 	</script>
 
 	<script type="text/javascript">
@@ -4013,213 +4045,208 @@ Create a Class</a>
 
 		});
 
-		/*  For JanRain component*/
-		(function() {
+// 		TODO 
+// 		/*  For JanRain component*/
+// 		(function() {
 
-			if (typeof window.janrain !== 'object')
-				window.janrain = {};
-			if (typeof window.janrain.settings !== 'object')
-				window.janrain.settings = {};
+// 			if (typeof window.janrain !== 'object')
+// 				window.janrain = {};
+// 			if (typeof window.janrain.settings !== 'object')
+// 				window.janrain.settings = {};
 
-			janrain.settings.tokenUrl = BS.userPage;
-			janrain.settings.tokenAction = 'event';
+// 			janrain.settings.tokenUrl = BS.userPage;
+// 			janrain.settings.tokenAction = 'event';
 
-			/* ----Editted by Aswathy---- */
+// 			/* ----Editted by Aswathy---- */
 
-			janrain.settings.actionText = "";
-			janrain.settings.fontColor = "#4599d2";
-			janrain.settings.providers = [ "facebook", "twitter", "linkedin",
-					"google" ];
-			janrain.settings.width = "160";
+// 			janrain.settings.actionText = "";
+// 			janrain.settings.fontColor = "#4599d2";
+// 			janrain.settings.providers = [ "facebook", "twitter", "linkedin",
+// 					"google" ];
+// 			janrain.settings.width = "160";
 
-			/* ----End---- */
+// 			/* ----End---- */
 
-			function isReady() {
-				janrain.ready = true;
-			}
-			;
-			if (document.addEventListener) {
+// 			function isReady() {
+// 				janrain.ready = true;
+// 			}
+// 			;
+// 			if (document.addEventListener) {
 
-				document.addEventListener("DOMContentLoaded", isReady, false);
-			} else {
-				window.attachEvent('onload', isReady);
-			}
+// 				document.addEventListener("DOMContentLoaded", isReady, false);
+// 			} else {
+// 				window.attachEvent('onload', isReady);
+// 			}
 
-			var e = document.createElement('script');
-			e.type = 'text/javascript';
-			e.id = 'janrainAuthWidget';
+// 			var e = document.createElement('script');
+// 			e.type = 'text/javascript';
+// 			e.id = 'janrainAuthWidget';
 
-			if (document.location.protocol === 'https:') {
-				e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
-			} else {
-				e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
-			}
+// 			if (document.location.protocol === 'https:') {
+// 				e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
+// 			} else {
+// 				e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
+// 			}
 
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(e, s);
+// 			var s = document.getElementsByTagName('script')[0];
+// 			s.parentNode.insertBefore(e, s);
 
-		})();
+// 		})();
 
-		function janrainWidgetOnload() {
+// 		function janrainWidgetOnload() {
 
-			janrain.events.onProviderLoginToken
-					.addHandler(function(response) {
-						$
-								.ajax({
-									type : "POST",
-									url : BS.userPage,
-									data : "token=" + response.token,
-									success : function(res) {
-										console.log(res);
-										if (res != null) {
+// 			janrain.events.onProviderLoginToken
+// 					.addHandler(function(response) {
+// 						$
+// 								.ajax({
+// 									type : "POST",
+// 									url : BS.userPage,
+// 									data : "token=" + response.token,
+// 									success : function(res) {
+// 										console.log(res);
+// 										if (res != null) {
 
-											if (res.stat == "ok") {
+// 											if (res.stat == "ok") {
 
-												setTimeout(
-														function() {
+// 												setTimeout(
+// 														function() {
 
-															/*  Facebook signUp */
-															if (res.profile.providerName == "Facebook") {
-																if ((res['profile']['address']) === undefined)
-																	localStorage["location"] = '';
-																else
-																	localStorage["location"] = res.profile.address.formatted;
+// 															/*  Facebook signUp */
+// 															if (res.profile.providerName == "Facebook") {
+// 																if ((res['profile']['address']) === undefined)
+// 																	localStorage["location"] = '';
+// 																else
+// 																	localStorage["location"] = res.profile.address.formatted;
 
-																localStorage["first-name"] = res.profile.name.givenName;
-																localStorage["last-name"] = res.profile.name.familyName;
-																localStorage["email"] = res.profile.preferredUsername;
+// 																localStorage["first-name"] = res.profile.name.givenName;
+// 																localStorage["last-name"] = res.profile.name.familyName;
+// 																localStorage["email"] = res.profile.preferredUsername;
+// 																localStorage["alias"] = alias;
 
-																// 																// extract alias name from vanity url
-																// 																var url = res.profile.url;
-																// 																url = url.replace(/\\/g, '');
-																// 																url = url.split("/");
-																// 																var alias = url[3];
-																// 																localStorage["alias"] = alias;
+// 															}
+// 															/* LinkedIn signUp */
+// 															else if (res.profile.providerName == "LinkedIn") {
 
-															}
-															/* LinkedIn signUp */
-															else if (res.profile.providerName == "LinkedIn") {
+// 																if ((res['profile']['address']) === undefined)
+// 																	localStorage["location"] = '';
+// 																else
+// 																	localStorage["location"] = res.profile.address.formatted;
+// 																localStorage["first-name"] = res.profile.name.givenName;
+// 																localStorage["last-name"] = res.profile.name.familyName;
+// 																localStorage["email"] = res.profile.preferredUsername;
 
-																if ((res['profile']['address']) === undefined)
-																	localStorage["location"] = '';
-																else
-																	localStorage["location"] = res.profile.address.formatted;
-																localStorage["first-name"] = res.profile.name.givenName;
-																localStorage["last-name"] = res.profile.name.familyName;
-																localStorage["email"] = res.profile.preferredUsername;
+// 															}
+// 															/* Twitter signUp */
+// 															else if (res.profile.providerName == "Twitter") {
 
-															}
-															/* Twitter signUp */
-															else if (res.profile.providerName == "Twitter") {
+// 																// split the name into first name and last name
+// 																var formattedName = res.profile.name.formatted;
+// 																var parts = formattedName
+// 																		.split(' ');
+// 																if (parts.length > 1) {
+// 																	var firstName = formattedName
+// 																			.substr(
+// 																					0,
+// 																					formattedName
+// 																							.indexOf(' '));
+// 																	var lastName = formattedName
+// 																			.substr(formattedName
+// 																					.indexOf(' ') + 1);
+// 																	localStorage["first-name"] = firstName;
+// 																	localStorage["last-name"] = lastName;
+// 																}
+// 																if (parts.length == 1) {
+// 																	localStorage["first-name"] = res.profile.name.formatted;
+// 																	localStorage["last-name"] = "";
+// 																}
+// 																// 																localStorage["first-name"] = res.profile.name.formatted;
+// 																// 																localStorage["last-name"] = "";
+// 																localStorage["email"] = res.profile.preferredUsername;
 
-																// split the name into first name and last name
-																var formattedName = res.profile.name.formatted;
-																var parts = formattedName
-																		.split(' ');
-																if (parts.length > 1) {
-																	var firstName = formattedName
-																			.substr(
-																					0,
-																					formattedName
-																							.indexOf(' '));
-																	var lastName = formattedName
-																			.substr(formattedName
-																					.indexOf(' ') + 1);
-																	localStorage["first-name"] = firstName;
-																	localStorage["last-name"] = lastName;
-																}
-																if (parts.length == 1) {
-																	localStorage["first-name"] = res.profile.name.formatted;
-																	localStorage["last-name"] = "";
-																}
-																// 																localStorage["first-name"] = res.profile.name.formatted;
-																// 																localStorage["last-name"] = "";
-																localStorage["email"] = res.profile.preferredUsername;
+// 															}
+// 															/* Google signUp*/
+// 															else if (res.profile.providerName == "Google") {
+// 																localStorage["first-name"] = res.profile.name.givenName;
+// 																localStorage["last-name"] = res.profile.name.familyName;
+// 																localStorage["email"] = res.profile.preferredUsername;
+// 															} else {
+// 																console
+// 																		.log("Not from Social sites");
+// 															}
 
-															}
-															/* Google signUp*/
-															else if (res.profile.providerName == "Google") {
-																localStorage["first-name"] = res.profile.name.givenName;
-																localStorage["last-name"] = res.profile.name.familyName;
-																localStorage["email"] = res.profile.preferredUsername;
-															} else {
-																console
-																		.log("Not from Social sites");
-															}
+// 															BS.JsonFromSocialSite = res;
+// 															if (res.profile.preferredUsername)
+// 																localStorage["preferredUsername"] = res.profile.preferredUsername;
+// 															if (res.profile.identifier)
+// 																localStorage["identifier"] = res.profile.identifier;
+// 															var loginModel = new BS.Login();
+// 															loginModel
+// 																	.set({
+// 																		email : res.profile.preferredUsername,
+// 																		password : "",
+// 																		rememberMe : false
+// 																	});
 
-															BS.JsonFromSocialSite = res;
-															if (res.profile.preferredUsername)
-																localStorage["preferredUsername"] = res.profile.preferredUsername;
-															if (res.profile.identifier)
-																localStorage["identifier"] = res.profile.identifier;
-															var loginModel = new BS.Login();
-															loginModel
-																	.set({
-																		email : res.profile.preferredUsername,
-																		password : "",
-																		rememberMe : false
-																	});
+// 															var loginDetails = JSON
+// 																	.stringify(loginModel);
 
-															var loginDetails = JSON
-																	.stringify(loginModel);
+// 															setTimeout(
+// 																	function() {
+// 																		janRainLogin(loginDetails);
+// 																	}, 1000);
 
-															setTimeout(
-																	function() {
-																		janRainLogin(loginDetails);
-																	}, 1000);
+// 														}, 1000);
 
-														}, 1000);
+// 											}
+// 										}
+// 									}
+// 								});
+// 					});
+// 		}
+// 		/**
+// 		 * for login via social site 
+// 		 */
+// 		function janRainLogin(info) {
 
-											}
-										}
-									}
-								});
-					});
-		}
-		/**
-		 * for login via social site 
-		 */
-		function janRainLogin(info) {
+// 			/* post data with school and class details */
+// 			$.ajax({
+// 				type : 'POST',
+// 				url : BS.login,
+// 				data : {
+// 					data : info
+// 				},
+// 				dataType : "json",
+// 				success : function(data) {
 
-			/* post data with school and class details */
-			$.ajax({
-				type : 'POST',
-				url : BS.login,
-				data : {
-					data : info
-				},
-				dataType : "json",
-				success : function(data) {
+// 					if (data.status == "success") {
+// 						// navigate to stream page
+// 						BS.user.set('loggedin', true);
+// 						BS.AppRouter.navigate("streams", {
+// 							trigger : true,
+// 							replace : true
+// 						});
+// 					} else {
+// 						console.log(localStorage["idLogin"]);
+// 						if (localStorage["idLogin"] == "login") {
+// 							$('#error').html("Login unsuccessfull");
+// 							$('.janrainContent div+div').remove();
+// 						}
+// 						if (localStorage["idLogin"] == "register") {
+// 							//navigate to regitration page
+// 							BS.AppRouter.navigate("basicRegistration", {
+// 								trigger : true,
+// 								replace : true
+// 							});
+// 							localStorage["idLogin"] = '';
+// 						}
+// 					}
+// 				},
+// 				error : function(error) {
+// 					console.log("Error");
+// 				}
+// 			});
 
-					if (data.status == "success") {
-						// navigate to stream page
-						BS.user.set('loggedin', true);
-						BS.AppRouter.navigate("streams", {
-							trigger : true,
-							replace : true
-						});
-					} else {
-						console.log(localStorage["idLogin"]);
-						if (localStorage["idLogin"] == "login") {
-							$('#error').html("Login unsuccessfull");
-							$('.janrainContent div+div').remove();
-						}
-						if (localStorage["idLogin"] == "register") {
-							//navigate to regitration page
-							BS.AppRouter.navigate("basicRegistration", {
-								trigger : true,
-								replace : true
-							});
-							localStorage["idLogin"] = '';
-						}
-					}
-				},
-				error : function(error) {
-					console.log("Error");
-				}
-			});
-
-		}
+// 		}
 	</script>
 
 	<script>
@@ -4250,6 +4277,8 @@ Create a Class</a>
 		});
 	</script>
 
+  <!-- Social lib (todo: incorporated into backbone) -->
+  <script src="js/BS_social.js"></script>
 
 	<!--  Backbone.js files -->
 	<script src="js/views/settingsview.js"></script>
@@ -4293,13 +4322,16 @@ Create a Class</a>
 	<script src="js/views/mediafilepopupview.js"></script>
 	<script src="js/views/pdflistview.js"></script>
 	<script src="js/views/doclistview.js"></script>
+	<script src="js/views/streamdocview.js"></script>
 	<script src="js/models/singleusermodel.js"></script>
 	<script src="js/models/documentmodel.js"></script>
+	<script src="js/views/streamdocview.js"></script>
 
 
 
 	<!--  for +Add New School option in autopopulate -->
 	<script type="text/javascript">
+	    /* render addnew school screen */
 		function populateAddNewSchool(parentId) {
 
 			BS.addNewSchool = new BS.AddNewSchool();
@@ -4317,6 +4349,8 @@ Create a Class</a>
 
 			$('#parent-Id').attr("value", parentId);
 		}
+		
+		/* Close dialog box alerts */
 		function closeAlert() {
 			// display the popup of create steam 
 			BS.streamView = new BS.StreamView({
@@ -4327,7 +4361,7 @@ Create a Class</a>
 			$("#dialog").dialog('close');
 		}
 
-		// validate select boxes
+		/* validate select boxes */
 		function valiadateSelect(self) {
 			var label1 = $("label[name='" + $(self).attr('id') + "']");
 			console.log(label1);
@@ -4355,17 +4389,85 @@ Create a Class</a>
 						console.log("Browser/Tab closed")
 					}
 				});
-
 			}
 			window.onbeforeunload = unloadMessage;
 
-			window.onerror = UnspecifiedErrorHandler;
-			function UnspecifiedErrorHandler() {
-				console("Error on onbeforeunloadb");
-
-			}
-
 		});
+		
+		/* implemented  the shuffle plugin on sorting */
+		
+		function shufflingOnSorting(){
+			/* for shuffle functionality */
+            // instantiate the shuffle plugin
+            $('#grid').shuffle({
+                itemWidth : 200,
+                marginTop : 15,
+                marginRight: 20,
+                key : 'all',
+                speed : 800,
+                easing : 'ease-out'
+            });
+                            
+            // Set up button clicks
+            $('.filter-options li').on('click', function() {
+            	
+                var $this = $(this),
+                    $grid = $('#grid');
+                
+                $('.filter-options .active').removeClass('active');
+                $this.addClass('active');
+
+                $grid.shuffle($this.data('group'));
+            });
+            
+            $('.sort_by li').on('click', function() {
+                var $this = $(this),
+                    $grid = $('#grid'),
+                    sort = $this.data('sort'),
+                    opts = {};
+
+                $('.sort_by .active').removeClass('active');
+                $this.addClass('active');
+
+                // We're given the element wrapped in jQuery
+                if (sort === 'date-oldest') {
+                    opts = {
+                        by: function($el) {
+                            return $el.data('date-created');
+                        }
+                    }
+                } else if (sort === 'date-recent') {
+                	
+                    opts = {
+                         by: function($el) {
+                                return $el.data('date-created');
+                         },
+                         reverse :true
+                    }
+                } else if (sort === 'title') {
+                    opts = {
+                        by: function($el) {
+                            return $el.data('title').toLowerCase();
+                        }
+                    }
+                }else if (sort === 'rocks') {
+                	
+                    opts = {
+                            by: function($el) {
+                            	return $el.data('rock');
+                            	
+                            },
+                            reverse :true
+                        }
+                    }
+             
+                // Filter elements
+                $grid.shuffle('sort', opts);
+            });
+            
+		}
+		
+		
 	</script>
 
 	<script type="text/javascript" src="lib/css3-mediaqueries.js"></script>
