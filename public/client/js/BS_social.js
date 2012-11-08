@@ -4,10 +4,10 @@ function showJanrainSigninWidget() {
 
   // Temporary hack to not conflict with previously written code.
   // TODO: Remove need for janRainCount check
-  var janRainCount = $('.janrainContent').length;
-  if(janRainCount > 0) {
-    return;
-  }
+//  var janRainCount = $('.janrainContent').length;
+//  if(janRainCount > 0) {
+//    return;
+//  }
 
   if (typeof window.janrain !== 'object') window.janrain = {};
   if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};

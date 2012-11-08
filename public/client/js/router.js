@@ -514,9 +514,10 @@ BS.AppRouter = Backbone.Router.extend({
 		       $('.modal .datepicker').datepicker();
 		       $("#profile-form").validate();
 		       
-		       //Render Janrain Invite model
-           showJanrainShareWidget();
-		  }
+		       // Moved this call to profileview.js - on a click function "ShowJanRainShare"
+		       //Render Janrain Invite model  
+//                  showJanrainShareWidget();
+		  } 
 		 else 
 		 {
 				BS.AppRouter.navigate("streams", {trigger: true});
