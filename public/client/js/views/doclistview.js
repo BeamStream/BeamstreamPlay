@@ -21,41 +21,44 @@ BS.DocListView = Backbone.View.extend({
                 return this;
                 },
         
-            /*
-            *   To list the documents in the view        
-            *
-            */           
+            
+            /* To list the documents in the view */        
             docsList : function(eventName)
             {    
-                //  eventName.preventDefault();              
+//                eventName.preventDefault();              
                 var i = 1;
                 var j=1;
                 var self = this;             
                 $.ajax({
-                type : 'GET',
-                url :  BS.getAllDOCSFilesForAUser,          
-                dataType : "json",
-                success : function(docs) {
-                var content = '';
-                _.each(docs, function(doc) {
-                        BS.filesMediaView = new BS.FilesMediaView(); 
-                	var datVal =  BS.filesMediaView.formatDateVal(doc.creationDate);
-                	var datas = {
-                                    "doc" : doc,
-                                    "datVal" :datVal,
-                                    "docCount" : i,
-                                    "image" :'docs_image.png'
-					}	
-                	var source = $("#tpl-single-bucket").html();
-                        var template = Handlebars.compile(source);				    
-                        $('#grid').append(template(datas));         
-                        $(".doc_comment_section").hide("slide", { direction: "up" }, 1);                        
-                        i++;
-                     });  
-                 self.pagination();                                       
-                 }
+	                type : 'GET',
+	                url :  BS.getAllDOCSFilesForAUser,          
+	                dataType : "json",
+	                success : function(docs) {
+	                	var content = '';
+	                	_.each(docs, function(doc) {
+			                	BS.filesMediaView = new BS.FilesMediaView(); 
+			                	var datVal =  BS.filesMediaView.formatDateVal(doc.creationDate);
+			                	var datas = {
+			                                    "doc" : doc,
+			                                    "datVal" :datVal,
+			                                    "docCount" : i,
+			                                    "image" :'docs_image.png'
+								}	
+			                	
+			                	var source = $("#tpl-single-bucket").html();
+		                        var template = Handlebars.compile(source);				    
+		                        $('#grid').append(template(datas));         
+		                        $(".doc_comment_section").hide("slide", { direction: "up" }, 1);                        
+		                        i++;
+	                     }); 
+	                	
+		                // Call common Shuffling function         
+		                shufflingOnSorting(); 
+	                
+		                self.pagination();                                       
+	                 }
                 });                           
-                },
+              },
             
                /*
                 * pagination for doclistview

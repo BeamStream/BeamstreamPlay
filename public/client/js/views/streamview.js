@@ -1716,21 +1716,22 @@ BS.StreamView = Backbone.View.extend({
 		 console.log("dgdfg");
 	 },
 
-        /**
-         *For showing stream google docs in popup
-         */
-          showStrmDocPopup: function(eventName){
-                 eventName.preventDefault(); 
-                 var element = eventName.target.id;
-                 var docUrl = $('input#'+element+'-url').val();
-                 console.log('docUrl');
-                 console.log(docUrl);
-                 BS.streamdocview = new BS.StreamDocView();
-                 BS.streamdocview.render(docUrl);           
-                 $('#streamdocview').html(BS.streamdocview.el);   
-             },
-         
-          /**
+
+
+    /**
+     *For showing stream google docs in popup
+     */
+      showStrmDocPopup: function(eventName){
+             eventName.preventDefault(); 
+             var element = eventName.target.id;
+             var docUrl = $('input#'+element+'-url').val();
+             BS.streamdocview = new BS.StreamDocView();
+             BS.streamdocview.render(docUrl);           
+             $('#streamdocview').html(BS.streamdocview.el);   
+         },
+     
+      /**
+
 	  * show the title when hover over the gogoledoc image
 	  */
 	 showDocTitle:function(eventName){
