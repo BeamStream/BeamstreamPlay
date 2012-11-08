@@ -485,7 +485,7 @@ BS.StreamView = Backbone.View.extend({
 	    	 	 self.postMsg(message,streamId,messageAccess);
 	    	     }
                                }  //doc
-                   else    //for docupload
+                   else    // else part for for docupload
 	    	    {     
 	    		 self.postMsg(message,streamId,messageAccess);
 	    	     }
@@ -537,7 +537,7 @@ BS.StreamView = Backbone.View.extend({
   				   {
   					    // append the message to message list
   					   _.each(data, function(data) {
-//                                               var url=data.messageBody;
+//                                               var url=data.messageBody;                                // code for uploading googledoc
 //                                               if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
   							 console.log(data.messageBody);
   						    /*auto ajax push */
@@ -572,7 +572,7 @@ BS.StreamView = Backbone.View.extend({
                                                             
   	  						  $('div#'+data.id.id+'-id').html(linkTag);
   	  					 var url=data.messageBody;
-                                               if(!url.match(/^(https:\/\/docs.google.com\/)/)) {	
+                                               if(!url.match(/^(https:\/\/docs.google.com\/)/)) {	    // code for check whether it is doc or not 
   	  						 // embedly
 	  	  					 $('div#'+data.id.id+'-id').embedly({
 		 					   	  maxWidth: 200,
@@ -581,7 +581,7 @@ BS.StreamView = Backbone.View.extend({
 		 					      key:'4d205b6a796b11e1871a4040d3dc5c07'
 	  	  					 });
                                                }
-                                               else	{
+                                               else	{         // code for insert view on the time of the upload the doc
                                                var content = '<iframe class="gwt-Frame" style="width:400px; height: 500px; " frameborder="0" src="'+data.messageBody+'"></iframe>'
                                              $('#docurl').html(content);    
                                           } 
