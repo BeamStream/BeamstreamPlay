@@ -115,7 +115,7 @@ function janrainWidgetOnload() {
             setTimeout(
 
             function () {
-
+              localStorage["providerName"] = res.profile.providerName;
               /*  Facebook signUp */
               if (res.profile.providerName == "Facebook") {
                 if ((res['profile']['address']) === undefined)
