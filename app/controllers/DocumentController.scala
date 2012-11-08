@@ -36,6 +36,7 @@ import models.Files
 import utils.DocsUploadOnAmazon
 import models.UserMediaType
 import utils.ExtractFrameFromVideo
+import models.MessageType
 /**
  * This controller class is used to store and retrieve all the information about documents.
  *
@@ -73,6 +74,10 @@ object DocumentController extends Controller {
         val date = new Date
         val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId, DocumentAccess.withName(access), new ObjectId(streamId), date, date, 0, List(), List(), List())
         val docId = Document.addDocument(documentToCreate)
+        val user = User.getUserProfile(userId)
+        //Create A Message As Well To Display The Doc Creation In Stream
+        val message = Message(new ObjectId, url, Option(MessageType.Document), None, date, userId, Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List())
+        Message.createMessage(message)
         val docObtained = Document.findDocumentById(docId)
         val docJson = write(List(docObtained))
         Ok(docJson).as("application/json")
@@ -166,26 +171,30 @@ object DocumentController extends Controller {
           val uniqueString = tokenEmail.securityToken
           val docbtained: File = docData.ref.file.asInstanceOf[File]
           val docUniqueKey = tokenEmail.securityToken
-          val docName=(docUniqueKey + documentName).replaceAll("\\s", "")
+          val docName = (docUniqueKey + documentName).replaceAll("\\s", "")
           DocsUploadOnAmazon.uploadFileToAmazon(docName, docbtained)
           val docURL = "https://s3.amazonaws.com/BeamStream/" + docName
-         
+
+          val user = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+
           if (isImage == true) {
             val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Image, false, "", 0, List())
             UserMedia.saveMediaForUser(media)
-          } 
-          else if (isVideo == true) {
+          } else if (isVideo == true) {
             val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(docURL)
             (new AmazonUpload).uploadCompressedFileToAmazon(docName + "Frame", frameOfVideo, 0, false, request.session.get("userId").get)
-            val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docName+ "Frame"
+            val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docName + "Frame"
             val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Video, false, videoFrameURL, 0, List())
             UserMedia.saveMediaForUser(media)
-          } 
-          else {
+          } else {
             val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
               new ObjectId(streamId), new Date, new Date, 0, List(), List(), List())
             Document.addDocument(documentCreated)
+            //Create A Message As Well To Display The Doc Creation In Stream
+            val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List())
+            Message.createMessage(message)
           }
+
         }.get
 
     }

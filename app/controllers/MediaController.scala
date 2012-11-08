@@ -21,6 +21,7 @@ import utils.tokenEmail
 import utils.ProgressStatus
 import java.util.Date
 import java.text.SimpleDateFormat
+import models.Message
 
 object MediaController extends Controller {
 
@@ -168,6 +169,7 @@ object MediaController extends Controller {
       val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + videoFileNameOnnAmazon + "Frame"
       val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), new Date,videoURL, UserMediaType.Video, videoStatus, videoFrameURL,0,List())
       UserMedia.saveMediaForUser(media)
+
     }
     Ok(write(new ResulttoSent("Success", "Profile Photo Uploaded Successfully"))).as("application/json")
   }
