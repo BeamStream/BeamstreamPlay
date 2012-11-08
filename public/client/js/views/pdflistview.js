@@ -10,16 +10,20 @@ BS.PdfListView = Backbone.View.extend({
              },
     
             initialize:function(){
+            	
                 this.source = $("#tpl-docsview").html();
                 this.template = Handlebars.compile(this.source);
                 this.pdflisting();       
-                },
+             },
+             
             render:function (eventName) {
+            	
                 $(this.el).html(this.template);
                 return this;
-                },
-            
+            },
+          
             pdflisting :function(eventName){
+            	
                 var i = 1;
                 var self = this;
                 var content='';
@@ -30,18 +34,21 @@ BS.PdfListView = Backbone.View.extend({
                      success : function(pdfs) {
                               $('#grid').html(""); 
                               _.each(pdfs, function(pdf) { 
-                              BS.filesMediaView = new BS.FilesMediaView();                                   
-                              var datVal = BS.filesMediaView.formatDateVal(pdf.creationDate);     
-                              var pdfdata={
-                                           "pdf" : pdf,
-                                           "datVal" :datVal,
-                                           "count":i
-                                            }                                                
-                              var source = $('#tpl-single-pdf').html();          //creating single bucket view for pdf list view                           
-                              var template = Handlebars.compile(source);
-                              $('#grid').append(template(pdfdata));
-                              i++;
+	                              BS.filesMediaView = new BS.FilesMediaView();                                   
+	                              var datVal = BS.filesMediaView.formatDateVal(pdf.creationDate);     
+	                              var pdfdata={
+	                                           "pdf" : pdf,
+	                                           "datVal" :datVal,
+	                                           "count":i
+	                                            }                                                
+	                              var source = $('#tpl-single-pdf').html();          //creating single bucket view for pdf list view                           
+	                              var template = Handlebars.compile(source);
+	                              $('#grid').append(template(pdfdata));
+	                              i++;
                               });
+                              // Call common Shuffling function         
+                              shufflingOnSorting();
+                              
                               self.pagination();
                         }
                     });                             

@@ -459,7 +459,7 @@ body {
 <!-- template for single bucket in google doc-->
 
 <script type="text/x-handlebars-template" id="tpl-single-bucket">
-<li id="file-docs-{{docCount}}" data-date-created="{{doc.creationDate}}" data-rock="{{doc.documentRocks}}" > 
+<li id="file-docs-{{docCount}}" data-date-created="{{doc.creationDate}}" data-rock="{{doc.documentRocks}}" class="item" > 
   <div id="{{doc.id.id}}"   name="single-doc">
     <div class="image-wrapper hovereffect" >
       <div class="hover-div"><img src="images/{{image}}"/>
@@ -554,7 +554,7 @@ body {
 
 <!-- template for single bucket for video -->
 <script type="text/x-handlebars-template" id="tpl-single-video">
-<li id="file-docs-{{videoCount}}" data-date-created="{{video.dateCreated}}" data-rock="{{video.rocks}}">
+<li id="file-docs-{{videoCount}}" data-date-created="{{video.dateCreated}}" data-rock="{{video.rocks}}" class="item">
   <div id="{{video.id.id}}"   name="single-doc">
 	<div class="image-wrapper hovereffect">
 		<div class="hover-div">
@@ -599,7 +599,7 @@ body {
 
 <!-- template for single bucket in pdf-list view -->
 <script type="text/x-handlebars-template" id="tpl-single-pdf">
-<li id="file-docs-{{count}}" data-groups="[{{datVal}}]"> 
+<li id="file-docs-{{count}}" data-date-created="{{pdf.creationDate}}" data-rock="{{pdf.documentRocks}}" class="item" > 
   <div id="{{pdf.id.id}}"   name="single-doc">
     <div class="image-wrapper hovereffect" >
       <div class="hover-div"><img src="images/pdp_image.png"/>
@@ -638,7 +638,7 @@ body {
 
 <!-- template for single bucket in presentation view -->
 <script type="text/x-handlebars-template" id="tpl-single-presentation">
-<li id="file-docs-{{count}}" data-groups="[{{datVal}}]"> 
+<li id="file-docs-{{count}}" data-date-created="{{ppt.creationDate}}" data-rock="{{ppt.documentRocks}}" class="item"> 
   <div id="{{ppt.id.id}}"   name="single-doc">
     <div class="image-wrapper hovereffect" >
       <div class="hover-div"><img src="images/presentations_image.png"/>
@@ -4183,7 +4183,7 @@ Create a Class</a>
 		/* implemented  the shuffle plugin on sorting */
 		
 		function shufflingOnSorting(){
-			/* for shuffle functionality */
+			 
             // instantiate the shuffle plugin
             $('#grid').shuffle({
 //                 itemWidth : 200,
@@ -4207,6 +4207,7 @@ Create a Class</a>
             });
             
             $('.sort_by li').on('click', function() {
+            	 
                 var $this = $(this),
                     $grid = $('#grid'),
                     sort = $this.data('sort'),

@@ -7,25 +7,25 @@ BS.DocListView = Backbone.View.extend({
                 "click #nextslid" : "next",
                 "click .rock_docs" : "rocksDocuments",
                 "click .show_rockers" : "showDocRockers"
-                },     
+            },     
     
             initialize:function() {
+            	
                 console.log("google docs view is loded");
                 this.docsList();   
                 this.source = $("#tpl-docsview").html();
                 this.template = Handlebars.compile(this.source);
-                },
+            },
              
             render:function (eventName) {
+            	
                 $(this.el).html(this.template);
                 return this;
-                },
-        
+            },
             
             /* To list the documents in the view */        
             docsList : function(eventName)
             {    
-//                eventName.preventDefault();              
                 var i = 1;
                 var j=1;
                 var self = this;             
@@ -34,6 +34,7 @@ BS.DocListView = Backbone.View.extend({
 	                url :  BS.getAllDOCSFilesForAUser,          
 	                dataType : "json",
 	                success : function(docs) {
+	                	$('#grid').html(""); 
 	                	var content = '';
 	                	_.each(docs, function(doc) {
 			                	BS.filesMediaView = new BS.FilesMediaView(); 

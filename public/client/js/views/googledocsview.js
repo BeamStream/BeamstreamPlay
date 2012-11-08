@@ -15,7 +15,7 @@ BS.GoogleDocsView = Backbone.View.extend({
 //              "click .doc_msg" : "commentDocuments",
                 "click .show_rockers" : "showDocRockers"
 //              "click .comment_button" : "postDocComment"
- 	    },
+            },
                  
             initialize:function() {
                 console.log("google docs view is loded");
@@ -29,6 +29,48 @@ BS.GoogleDocsView = Backbone.View.extend({
                 $(this.el).html(this.template);
                 return this;
             },
+            
+            /*
+             *   To list the documents in the view        
+             *
+             */           
+             docsList : function(eventName)
+             {    
+                 var i = 1;
+                 var j=1;
+                 var self = this;
+                    
+                 /* get profile images for user */
+                 $('#grid').html(""); 
+                 $.ajax({
+                     type : 'GET',
+                     url :  BS.getAllDocs,
+                     dataType : "json",
+                     success : function(docs) {
+ 	                    var content = '';                   
+ 	                    _.each(docs, function(doc) {                    
+ 			                	var datVal =  self.formatDateVal(doc.creationDate);
+ 			                	var datas = {
+ 			                                    "doc" : doc,
+ 			                                    "datVal" :datVal,
+ 			                                    "docCount" : i,
+ 			                                    "image" :'google_docs_image.png'
+ 								}	
+ 			                	var source = $("#tpl-single-bucket").html();
+ 		                        var template = Handlebars.compile(source);				    
+ 		                        $('#grid').append(template(datas));         
+ 		                        $(".doc_comment_section").hide("slide", { direction: "up" }, 1);                        
+ 		                        i++;
+ 	                     });  
+ 	                
+ 	                    // Call common Shuffling function         
+ 		                shufflingOnSorting(); 
+ 		                
+ 	                    self.pagination();                                       
+                     }
+
+                 });        
+             },
             
             /**
             * show file types
@@ -89,48 +131,7 @@ BS.GoogleDocsView = Backbone.View.extend({
                 });
                 },
             
-            /*
-            *   To list the documents in the view        
-            *
-            */           
-            docsList : function(eventName)
-            {    
-            //  eventName.preventDefault();              
-                var i = 1;
-                var j=1;
-                var self = this;
-                   
-                /* get profile images for user */
-                $('#grid').html(""); 
-                $.ajax({
-                    type : 'GET',
-                    url :  BS.getAllDocs,
-//                  data : {
-//                  'userId': e.attributes.id.id  },               
-                    dataType : "json",
-                    success : function(docs) {
-                    var content = '';                   
-                    _.each(docs, function(doc) {                    
-                	var datVal =  self.formatDateVal(doc.creationDate);
-                	var datas = {
-                                    "doc" : doc,
-                                    "datVal" :datVal,
-                                    "docCount" : i,
-                                    "image" :'google_docs_image.png'
-					}	
-                	var source = $("#tpl-single-bucket").html();
-                        var template = Handlebars.compile(source);				    
-                        $('#grid').append(template(datas));         
-                        $(".doc_comment_section").hide("slide", { direction: "up" }, 1);                        
-                        i++;
-                     });  
-                
-//                  $('#grid').html(content);
-                    self.pagination();                                       
-                    }
-
-                });        
-            },
+           
             
             /*
             * pagination for docsview
