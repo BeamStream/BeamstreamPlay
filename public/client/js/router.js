@@ -514,9 +514,10 @@ BS.AppRouter = Backbone.Router.extend({
 		       $('.modal .datepicker').datepicker();
 		       $("#profile-form").validate();
 		       
-		       //Render Janrain Invite model
-           showJanrainShareWidget();
-		  }
+		       // Moved this call to profileview.js - on a click function "ShowJanRainShare"
+		       //Render Janrain Invite model  
+//                  showJanrainShareWidget();
+		  } 
 		 else 
 		 {
 				BS.AppRouter.navigate("streams", {trigger: true});
@@ -878,8 +879,12 @@ BS.AppRouter = Backbone.Router.extend({
 											    $('#last-name').val(localStorage["last-name"]);
 											if(localStorage["location"])
 												$('#location').val(localStorage["location"]);
-											if(localStorage["preferredUsername"])
-												$('#alias').val(localStorage["preferredUsername"]);
+											if(localStorage["providerName"] != "LinkedIn" && localStorage["providerName"] != "Google")
+											{
+												if(localStorage["preferredUsername"])
+													$('#alias').val(localStorage["preferredUsername"]);
+											}
+											
 									}
 								else {
 									
@@ -1107,63 +1112,10 @@ BS.AppRouter = Backbone.Router.extend({
 		//		     	profileView.getProfileImages(type);
 						$('.file-type').hide();
 						$(".checkbox").dgStyle();
-		                                
-                       // instantiate the shuffle plugin
-                        $('#grid').shuffle({
-                            itemWidth : 200,
-                            marginTop : 15,
-                            marginRight: 20,
-                            key : 'all',
-                            speed : 800,
-                            easing : 'ease-out'
-                        });
-		                                
-                        // Set up button clicks
-                        $('.filter-options li').on('click', function() {
-
-                            var $this = $(this),
-                                $grid = $('#grid');
-
-                            // Hide current label, show current label in title
-                            $('.filter-options .active').removeClass('active');
-                            $this.addClass('active');
-
-                            // Filter elements
-//                            $grid.shuffle($this.attr('data-key'));
-                            $grid.shuffle($this.data('group'));
-                        });
-                        
-                        $('.sort-options li').on('click', function() {
-                            var $this = $(this),
-                                $grid = $('#grid'),
-                                sort = $this.data('sort'),
-                                opts = {};
-
-                            // Hide current label, show current label in title
-                            $('.sort-options .active').removeClass('active');
-                            $this.addClass('active');
-
-                            // We're given the element wrapped in jQuery
-                            if (sort === 'date-created') {
-                                opts = {
-                                    by: function($el) {
-                                        return $el.data('date-created');
-                                    }
-                                }
-                            } else if (sort === 'title') {
-                                opts = {
-                                    by: function($el) {
-                                        return $el.data('title').toLowerCase();
-                                    }
-                                }
-                            }
-
-
-                            // Filter elements
-                            $grid.shuffle('sort', opts);
-                        });
-                        
-		                                
+		                      
+						
+						// Call common Shuffling function         
+		                shufflingOnSorting(); 
                                 
 					}
 					else {
