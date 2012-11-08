@@ -257,57 +257,48 @@ BS.FilesMediaView = Backbone.View.extend({
         
         
          pictres : function()
-        {  
+         {  
             var self = this;
             var arraypictures = new Array();
             var content='';
             var coverpicture;           
             BS.user.fetch({ success:function(e) {
                 /* get images for user */
-              $.ajax({
+                $.ajax({
                         type : 'GET',
                         url :  BS.allProfileImages,
                         data : {
                                 'userId': e.attributes.id.id
-                                },
+                        },
                         dataType : "json",
                         success : function(images) {
-                            
-                            
-                            
-                           
-                                               
-                           
                             if(images.length != 0)
                             {
                              _.each(images, function(image) {
-                        var datVal =  self.formatDateVal(image.creationDate);  
-//                                arraypictures=docs;
-//                                coverpicture=arraypictures[arraypictures.length-1];
+                                  	var datVal =  self.formatDateVal(image.creationDate);  
+//                                	arraypictures=docs;
+//                                	coverpicture=arraypictures[arraypictures.length-1];
                                
-                                content= '<div class="image-wrapper hovereffect" id="'+image.id.id+'"> <div class="hover-div"><img class="filmdeapicture" width="210px" height="141px" src="'+image.mediaUrl+'"><div class="hover-text">'               
-                               +'<div class="comment-wrapper comment-wrapper2">'
-                               +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
-                                +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#imagelist" style="text-decoration: none"><div id="media-'+image.id.id+'" ><h4>'+image.documentName+'</h4>'                            
-                                +'<p class="doc-description">'+image.documentDescription+'</p></div></a>'
-                                +'<h5 class="imgtitle" id="'+image.id.id+'"> Title & Description</h5>'          
-                                +'<span>State</span>'
-                                +' <span class="date">datVal</span>' 
-                                +'</div></div></div>'
-                                +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>'
-                                +'<ul class="comment-list">'
-                                +'<li><a class="eye-icon" href="#">87</a></li>'
-                                +'<li><a class="hand-icon" href="#">5</a></li>'
-                                +'<li><a class="message-icon" href="#">10</a></li>'
-                                +'</ul>'
-                                +'</div>';
+	                                content= '<div class="image-wrapper hovereffect" id="'+image.id.id+'"> <div class="hover-div"><img class="filmdeapicture" width="210px" height="141px" src="'+image.mediaUrl+'"><div class="hover-text">'               
+	                                +'<div class="comment-wrapper comment-wrapper2">'
+	                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
+	                                +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#imagelist" style="text-decoration: none"><div id="media-'+image.id.id+'" ><h4>Image Name</h4>'                            
+	                                +'<p class="doc-description">Description of Image</p></div></a>'
+	                                +'<h5 class="imgtitle" id="'+image.id.id+'"> Title & Description</h5>'          
+	                                +'<span>State</span>'
+	                                +' <span class="date">datVal</span>' 
+	                                +'</div></div></div>'
+	                                +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>'
+	                                +'<ul class="comment-list">'
+	                                +'<li><a class="eye-icon" href="#">87</a></li>'
+	                                +'<li><a class="hand-icon" href="#">5</a></li>'
+	                                +'<li><a class="message-icon" href="#">10</a></li>'
+	                                +'</ul>'
+	                                +'</div>';
                                        
-                                       
-                                 $('#coverimage').html(content);  
-                            });
+	                                $('#coverimage').html(content);  
+                              });
                             }
-                            
-                            
                         }
                });
 
@@ -389,7 +380,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                             +'<a href="#" class="hand-icon"></a>'
                                             +'<a href="#" class="message-icon"></a>'
                                             +'<a href="#" class="share-icon"></a></div>'
-                                            +'<a id="profile-videos" style="text-decoration: none" href="#videos"><h4> Image Name</h4>'       
+                                            +'<a id="profile-videos" style="text-decoration: none" href="#videos"><h4> Video Name</h4>'       
                                             +'<p class="doc-description">Description of Video  </p></a>'
                                             +'<h5 class="videotitle" id="'+video.id.id+'"> Title & Description</h5>'          
                                             +'<span>State</span>'

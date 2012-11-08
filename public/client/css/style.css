@@ -759,7 +759,7 @@ ul.rockit li span a {
 }
 
 /* rockers list in popups */
-.list-popup{
+.msg-rockers-list{
 
   padding : 10px;
   z-index: 1050;
@@ -772,8 +772,8 @@ ul.rockit li span a {
   font-family: UbuntuRegular;
   color: #fff;
   display: none ;
-  left: 35%;
-  top:23px;
+  left: 12%;
+  top: 25px;
   position: absolute !important;
   border-radius: 4px 4px 4px 4px;
 	
@@ -2636,5 +2636,6 @@ ul.comments li:hover .delete_comment{
     margin-right: 10px !important;
     margin-top: 10px !important;
 }
+
    
 
