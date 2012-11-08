@@ -322,7 +322,7 @@ body {
     <div id="gdocedit"></div>  
     <div class="row" >
       <ul class="file-list" id="grid">
-        <li  data-groups='["recent"]' id="coverimage" data-date-created="11/06/2012">
+        <li  data-groups='["recent"]' id="coverimage" data-date-created="11/06/2012" class="item" >
           <div class="image-wrapper"><div class="hover-div"><div id="profile-images"><img class="default-image" src="images/pictures_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Images </p></div></div></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -332,7 +332,7 @@ body {
             </ul>
           </div>
         </li>
-        <li data-groups='["oldest"]' data-date-created="2010-09-14" id="covervideo">
+        <li data-groups='["oldest"]' data-date-created="2010-09-14" id="covervideo" class="item">
          <div class="image-wrapper"><div class="hover-div"><div id="profile-videos"><img class="default-image" src="images/video_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Videos </p></div></div> </div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>
             <ul class="comment-list">
@@ -342,7 +342,7 @@ body {
             </ul>
           </div>
         </li>        
-        <li id="coverdocs"  data-groups='["recent"]' data-date-created="11/07/2012">
+        <li id="coverdocs"  data-groups='["recent"]' data-date-created="11/07/2012" class="item">
          <div class="image-wrapper" id="google-docs"><div class="hover-div"><a class="google-docs-image" href="#googledocs"><img class="default-image" src="images/google_docs_image.png"></a>  
           <div class="hover-text"><p class="emptyfiles"> No Uploaded Docs </p></div></div></div>
           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
@@ -353,7 +353,7 @@ body {
             </ul>
           </div>
         </li>        
-        <li id="coveraudio" data-groups='["oldest"]' data-date-created="12/06/2011" >
+        <li id="coveraudio" data-groups='["oldest"]' data-date-created="12/06/2011" class="item" >
             <div class="image-wrapper coveraud"> 
                <div class="hover-div"><img class="default-image" src="images/audio_image.png"/><div class="hover-text"> 
                  <p class="emptyfiles"> No Uploaded Audio </p></div>
@@ -367,7 +367,7 @@ body {
               </ul>
            </div>
         </li>
-        <li id="coverspreadsheet"  data-groups='["recent"]' data-date-created="11/10/2012">
+        <li id="coverspreadsheet"  data-groups='["recent"]' data-date-created="11/10/2012" class="item">
           <div class="image-wrapper">
             <div class="hover-div"><img class="default-image" src="images/spreadsheets_image.png"/><div class="hover-text"> 
                <p class="emptyfiles"> No Uploaded Spreadsheets </p>
@@ -381,7 +381,7 @@ body {
               </ul>
            </div>
         </li>
-        <li id="coverpresentation" data-groups='["oldest"]' data-date-created="11/09/2012">
+        <li id="coverpresentation" data-groups='["oldest"]' data-date-created="11/09/2012" class="item">
            <div class="image-wrapper"> 
               <div class="hover-div"><img class="default-image" src="images/presentations_image.png"/>
                <div class="hover-text">  <p class="emptyfiles"> No Uploaded Presentations </p></div>        
@@ -395,7 +395,7 @@ body {
             </ul>
           </div>        
        </li>
-       <li id="coverpdf" data-groups='["oldest"]' data-date-created="09/06/2012">
+       <li id="coverpdf" data-groups='["oldest"]' data-date-created="09/06/2012" class="item">
           <div class="image-wrapper">
              <div class="hover-div"><img class="default-image" src="images/pdp_image.png"/><div class="hover-text">    
                 <p class="emptyfiles"> No Uploaded Files </p>
@@ -409,7 +409,7 @@ body {
               </ul>        
            </div>              
         </li>
-        <li id="coverdoc_com"  data-groups='["recent"]' data-date-created="11/06/2012">
+        <li id="coverdoc_com"  data-groups='["recent"]' data-date-created="11/06/2012" class="item">
            <div class="image-wrapper"> 
              <div class="hover-div"><img class="default-image" src="images/docs_image.png"/>
                <div class="hover-text">     
@@ -425,7 +425,7 @@ body {
              </ul>
           </div>       
         </li>       
-        <li id="coverlink"  data-groups='["recent"]' data-date-created="11/06/2010" >
+        <li id="coverlink"  data-groups='["recent"]' data-date-created="11/06/2010" class="item" >
            <div class="image-wrapper"> 
              <div class="hover-div"><img class="default-image" src="images/links_image.png"/>
                <div class="hover-text">     
@@ -459,7 +459,7 @@ body {
 <!-- template for single bucket in google doc-->
 
 <script type="text/x-handlebars-template" id="tpl-single-bucket">
-<li id="file-docs-{{docCount}}" data-groups="[{{datVal}}]"> 
+<li id="file-docs-{{docCount}}" data-date-created="{{doc.creationDate}}" data-rock="{{doc.documentRocks}}" > 
   <div id="{{doc.id.id}}"   name="single-doc">
     <div class="image-wrapper hovereffect" >
       <div class="hover-div"><img src="images/{{image}}"/>
@@ -510,7 +510,7 @@ body {
 
 <!-- template for single bucket in image -->
 <script type="text/x-handlebars-template" id="tpl-single-image">
-<li id="file-docs-'{{imageCount}}"  data-date-created="{{image.dateCreated}}" data-rock="{{image.rocks}}">  
+<li id="file-docs-'{{imageCount}}" class="item"  data-date-created="{{image.dateCreated}}" data-rock="{{image.rocks}}">  
   <div id="{{image.id.id}}"   name="single-doc">
 	<div class="image-wrapper hovereffect"> 
 		<div class="hover-div">
@@ -3715,7 +3715,7 @@ Create a Class</a>
 </script>
 
 	<!-- verify emails -->
-	<script type="text/template" id="tpl-verify-email"> -->
+	<script type="text/template" id="tpl-verify-email">  
 <div class="modal-backdrop in"></div>
     <div class="modal main-popups modal-pull-top in modal-popups" style="display:block;">
   <div class="modal-header">
@@ -4005,20 +4005,7 @@ Create a Class</a>
 	<script src="js/setup.js"></script>
 
 	<!--- Code to delete duplication of Janrain Component -->
-	<script>
-// 		$(window).bind("load", function() {
-// 			var nu = $('#janrainEngageEmbed').children();
-// 			if (nu.length == 2) {
-// 				console.log("double janrain found");
-// 				$('.janrainContent:first').remove();
-
-// 			} else {
-// 				console.log("single janrain found");
-// 			}
-
-// 			$('.janrainContent div+div').remove();
-// 		});
-	</script>
+ 
 
 	<script type="text/javascript">
 		var current = 1; //current keeps track of how many schools we have @default =1 
@@ -4045,208 +4032,7 @@ Create a Class</a>
 
 		});
 
-// 		TODO 
-// 		/*  For JanRain component*/
-// 		(function() {
 
-// 			if (typeof window.janrain !== 'object')
-// 				window.janrain = {};
-// 			if (typeof window.janrain.settings !== 'object')
-// 				window.janrain.settings = {};
-
-// 			janrain.settings.tokenUrl = BS.userPage;
-// 			janrain.settings.tokenAction = 'event';
-
-// 			/* ----Editted by Aswathy---- */
-
-// 			janrain.settings.actionText = "";
-// 			janrain.settings.fontColor = "#4599d2";
-// 			janrain.settings.providers = [ "facebook", "twitter", "linkedin",
-// 					"google" ];
-// 			janrain.settings.width = "160";
-
-// 			/* ----End---- */
-
-// 			function isReady() {
-// 				janrain.ready = true;
-// 			}
-// 			;
-// 			if (document.addEventListener) {
-
-// 				document.addEventListener("DOMContentLoaded", isReady, false);
-// 			} else {
-// 				window.attachEvent('onload', isReady);
-// 			}
-
-// 			var e = document.createElement('script');
-// 			e.type = 'text/javascript';
-// 			e.id = 'janrainAuthWidget';
-
-// 			if (document.location.protocol === 'https:') {
-// 				e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
-// 			} else {
-// 				e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
-// 			}
-
-// 			var s = document.getElementsByTagName('script')[0];
-// 			s.parentNode.insertBefore(e, s);
-
-// 		})();
-
-// 		function janrainWidgetOnload() {
-
-// 			janrain.events.onProviderLoginToken
-// 					.addHandler(function(response) {
-// 						$
-// 								.ajax({
-// 									type : "POST",
-// 									url : BS.userPage,
-// 									data : "token=" + response.token,
-// 									success : function(res) {
-// 										console.log(res);
-// 										if (res != null) {
-
-// 											if (res.stat == "ok") {
-
-// 												setTimeout(
-// 														function() {
-
-// 															/*  Facebook signUp */
-// 															if (res.profile.providerName == "Facebook") {
-// 																if ((res['profile']['address']) === undefined)
-// 																	localStorage["location"] = '';
-// 																else
-// 																	localStorage["location"] = res.profile.address.formatted;
-
-// 																localStorage["first-name"] = res.profile.name.givenName;
-// 																localStorage["last-name"] = res.profile.name.familyName;
-// 																localStorage["email"] = res.profile.preferredUsername;
-// 																localStorage["alias"] = alias;
-
-// 															}
-// 															/* LinkedIn signUp */
-// 															else if (res.profile.providerName == "LinkedIn") {
-
-// 																if ((res['profile']['address']) === undefined)
-// 																	localStorage["location"] = '';
-// 																else
-// 																	localStorage["location"] = res.profile.address.formatted;
-// 																localStorage["first-name"] = res.profile.name.givenName;
-// 																localStorage["last-name"] = res.profile.name.familyName;
-// 																localStorage["email"] = res.profile.preferredUsername;
-
-// 															}
-// 															/* Twitter signUp */
-// 															else if (res.profile.providerName == "Twitter") {
-
-// 																// split the name into first name and last name
-// 																var formattedName = res.profile.name.formatted;
-// 																var parts = formattedName
-// 																		.split(' ');
-// 																if (parts.length > 1) {
-// 																	var firstName = formattedName
-// 																			.substr(
-// 																					0,
-// 																					formattedName
-// 																							.indexOf(' '));
-// 																	var lastName = formattedName
-// 																			.substr(formattedName
-// 																					.indexOf(' ') + 1);
-// 																	localStorage["first-name"] = firstName;
-// 																	localStorage["last-name"] = lastName;
-// 																}
-// 																if (parts.length == 1) {
-// 																	localStorage["first-name"] = res.profile.name.formatted;
-// 																	localStorage["last-name"] = "";
-// 																}
-// 																// 																localStorage["first-name"] = res.profile.name.formatted;
-// 																// 																localStorage["last-name"] = "";
-// 																localStorage["email"] = res.profile.preferredUsername;
-
-// 															}
-// 															/* Google signUp*/
-// 															else if (res.profile.providerName == "Google") {
-// 																localStorage["first-name"] = res.profile.name.givenName;
-// 																localStorage["last-name"] = res.profile.name.familyName;
-// 																localStorage["email"] = res.profile.preferredUsername;
-// 															} else {
-// 																console
-// 																		.log("Not from Social sites");
-// 															}
-
-// 															BS.JsonFromSocialSite = res;
-// 															if (res.profile.preferredUsername)
-// 																localStorage["preferredUsername"] = res.profile.preferredUsername;
-// 															if (res.profile.identifier)
-// 																localStorage["identifier"] = res.profile.identifier;
-// 															var loginModel = new BS.Login();
-// 															loginModel
-// 																	.set({
-// 																		email : res.profile.preferredUsername,
-// 																		password : "",
-// 																		rememberMe : false
-// 																	});
-
-// 															var loginDetails = JSON
-// 																	.stringify(loginModel);
-
-// 															setTimeout(
-// 																	function() {
-// 																		janRainLogin(loginDetails);
-// 																	}, 1000);
-
-// 														}, 1000);
-
-// 											}
-// 										}
-// 									}
-// 								});
-// 					});
-// 		}
-// 		/**
-// 		 * for login via social site 
-// 		 */
-// 		function janRainLogin(info) {
-
-// 			/* post data with school and class details */
-// 			$.ajax({
-// 				type : 'POST',
-// 				url : BS.login,
-// 				data : {
-// 					data : info
-// 				},
-// 				dataType : "json",
-// 				success : function(data) {
-
-// 					if (data.status == "success") {
-// 						// navigate to stream page
-// 						BS.user.set('loggedin', true);
-// 						BS.AppRouter.navigate("streams", {
-// 							trigger : true,
-// 							replace : true
-// 						});
-// 					} else {
-// 						console.log(localStorage["idLogin"]);
-// 						if (localStorage["idLogin"] == "login") {
-// 							$('#error').html("Login unsuccessfull");
-// 							$('.janrainContent div+div').remove();
-// 						}
-// 						if (localStorage["idLogin"] == "register") {
-// 							//navigate to regitration page
-// 							BS.AppRouter.navigate("basicRegistration", {
-// 								trigger : true,
-// 								replace : true
-// 							});
-// 							localStorage["idLogin"] = '';
-// 						}
-// 					}
-// 				},
-// 				error : function(error) {
-// 					console.log("Error");
-// 				}
-// 			});
-
-// 		}
 	</script>
 
 	<script>
@@ -4400,9 +4186,9 @@ Create a Class</a>
 			/* for shuffle functionality */
             // instantiate the shuffle plugin
             $('#grid').shuffle({
-                itemWidth : 200,
-                marginTop : 15,
-                marginRight: 20,
+//                 itemWidth : 200,
+//                 marginTop : 15,
+//                 marginRight: 20,
                 key : 'all',
                 speed : 800,
                 easing : 'ease-out'
