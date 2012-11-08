@@ -597,9 +597,13 @@ BS.StreamView = Backbone.View.extend({
                              else{
 
                             	 var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
+                                     $('input#'+data.id.id+'-url').val(msgUrl);
+                                      console.log(msgUrl);
                                      return msgUrl;
+                                    
                                  });
-                            	  $('input#'+data.id.id+'-url').val(msgUrl);
+                                    console.log(msgUrl);
+                            	  //$('input#'+data.id.id+'-url').val(msgUrl);
 					              var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
 					              $('#'+data.id.id+'-docurl').html(content);
                              } 
@@ -728,9 +732,11 @@ BS.StreamView = Backbone.View.extend({
                                                             {
  
                                                         	var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
+                                                                    
+                                                                $('input#'+data.id.id+'-url').val(msgUrl);
                                                                 return msgUrl;
                                                              });
-                                                        	$('input#'+data.id.id+'-url').val(msgUrl);
+//                                                        	$('input#'+data.id.id+'-url').val(msgUrl);
                                                             var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
                                                             $('#'+data.id.id+'-docurl').html(content);
                                                             }
@@ -1717,6 +1723,8 @@ BS.StreamView = Backbone.View.extend({
                  eventName.preventDefault(); 
                  var element = eventName.target.id;
                  var docUrl = $('input#'+element+'-url').val();
+                 console.log('docUrl');
+                 console.log(docUrl);
                  BS.streamdocview = new BS.StreamDocView();
                  BS.streamdocview.render(docUrl);           
                  $('#streamdocview').html(BS.streamdocview.el);   
