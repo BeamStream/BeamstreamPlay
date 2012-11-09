@@ -91,7 +91,7 @@ object BasicRegistration extends Controller {
 
               (encryptedPassword == encryptedConfirmPassword) match {
                 case true =>
-                  val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, alias, encryptedPassword, schoolName, location, profile, List(), List(), List(), List(), List())
+                  val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, alias, encryptedPassword, schoolName, location, profile, List(), List(), List(), List(), List(), List())
                   val IdOfUserCreted = User.createUser(userToCreate)
                   val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
                   val createdUser = User.findUserbyId(IdOfUserCreted)

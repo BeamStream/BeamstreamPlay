@@ -26,19 +26,17 @@ case class User(@Key("_id") id: ObjectId,
   password: String,
   orgName: String,
   location: String,
-  socialProfile:String,
+  socialProfile: String,
   streams: List[ObjectId],
   schoolId: List[ObjectId],
   classId: List[ObjectId],
   documents: List[ObjectId],
-  questions: List[ObjectId]) {
+  questions: List[ObjectId],
+  followers: List[ObjectId]) {
 }
 
 object User {
-
-
-  var activeUsersList: List[ObjectId] = List()
-
+  //var activeUsersList: List[ObjectId] = List()
   /*
    * Add info to a user((For SchoolAutopoulate thing))
    * 
@@ -161,7 +159,7 @@ object User {
    */
   def addClassToUser(userId: ObjectId, classId: List[ObjectId]) {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    if (! user.classId.contains(classId(0))) {
+    if (!user.classId.contains(classId(0))) {
       UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classId = (user.classId ++ classId)), false, false, new WriteConcern)
     }
   }
@@ -199,7 +197,6 @@ object User {
     userFound
   }
 
-
   /*
    * Rockers name of a message
    */
@@ -220,10 +217,34 @@ object User {
     (user.size == 0) match {
       case true => false
       case false =>
-        val deryptedPassword=(new PasswordHashing).decryptThePassword(user(0).password)
+        val deryptedPassword = (new PasswordHashing).decryptThePassword(user(0).password)
         SendEmail.sendPassword(emailId, deryptedPassword)
         true
     }
+  }
+
+  /**
+   * Follow User
+   */
+
+  def followUser(userIdOfFollower: ObjectId, userId: ObjectId): Int = {
+    val userToFolow = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
+
+    (userToFolow.followers.contains(userId)) match {
+
+      case true =>
+        // Unfollow a user
+        UserDAO.update(MongoDBObject("_id" -> userId), userToFolow.copy(followers = (userToFolow.followers -- List(userIdOfFollower))), false, false, new WriteConcern)
+        val updatedUserWithAddedIdOfFollower = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
+        updatedUserWithAddedIdOfFollower.followers.size
+
+      case false =>
+            // Follow a user
+        UserDAO.update(MongoDBObject("_id" -> userId), userToFolow.copy(followers = (userToFolow.followers ++ List(userIdOfFollower))), false, false, new WriteConcern)
+        val updatedUserWithAddedIdOfFollower = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
+        updatedUserWithAddedIdOfFollower.followers.size
+    }
+
   }
 }
 

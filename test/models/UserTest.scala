@@ -13,8 +13,8 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
-  val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "","", List(), List(), List(), List(), List())
-  val user2 = User(new ObjectId, UserType.Professional, "crizzcoxx@beamstream.com", "Crizz", "coxx", "", "Chris", "Crizz", "BeamStream", "","", List(), List(), List(), List(), List())
+  val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "","", List(), List(), List(), List(), List(),List())
+  val user2 = User(new ObjectId, UserType.Professional, "crizzcoxx@beamstream.com", "Crizz", "coxx", "", "Chris", "Crizz", "BeamStream", "","", List(), List(), List(), List(), List(),List())
 
   val mySchool1 = UserSchool(new ObjectId, "MPS", new ObjectId, Year.Freshman, Degree.Assosiates, "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), "", List())
   val class1 = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId, List())
@@ -27,15 +27,15 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   test("testing invalid email for common domain") {
     assert("Invalid email address" ===
-      User.registerUser(new User(new ObjectId, UserType.Professional, "vikas@gmail.com", "Vikas", "Hazrati", "", "Vikki", "Vikas", "Knoldus", "","", List(), List(), List(), List(), List())))
+      User.registerUser(new User(new ObjectId, UserType.Professional, "vikas@gmail.com", "Vikas", "Hazrati", "", "Vikki", "Vikas", "Knoldus", "","", List(), List(), List(), List(), List(),List())))
   }
 
   test("testing invalid email for broken Email") {
-    assert("Invalid email address" === User.registerUser(new User(new ObjectId, UserType.Professional, "vikas@gmail..com", "Vikas", "Hazrati", "", "Vikki", "Vikas", "Knoldus", "","", List(), List(), List(), List(), List())))
+    assert("Invalid email address" === User.registerUser(new User(new ObjectId, UserType.Professional, "vikas@gmail..com", "Vikas", "Hazrati", "", "Vikki", "Vikas", "Knoldus", "","", List(), List(), List(), List(), List(),List())))
   }
 
   test("testing valid email") {
-    assert("Registration Successful" === User.registerUser(new User(new ObjectId, UserType.Professional, "vikas@knoldus.com", "Vikas", "Hazrati", "", "Vikki", "Vikas", "Knoldus", "","", List(), List(), List(), List(), List())))
+    assert("Registration Successful" === User.registerUser(new User(new ObjectId, UserType.Professional, "vikas@knoldus.com", "Vikas", "Hazrati", "", "Vikki", "Vikas", "Knoldus", "","", List(), List(), List(), List(), List(),List())))
   }
 
   test("Finding the user by email and password") {
@@ -43,7 +43,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Add School to User") {
-    val user3 = User(new ObjectId, UserType.Professional, "john@knoldus.com", "John", "Sachdeva", "", "John", "John", "Knoldus", "","", List(), List(), List(), List(), List())
+    val user3 = User(new ObjectId, UserType.Professional, "john@knoldus.com", "John", "Sachdeva", "", "John", "John", "Knoldus", "","", List(), List(), List(), List(), List(),List())
     val userId = User.createUser(user3)
     assert(UserDAO.find(MongoDBObject()).size === 3)
 
@@ -58,7 +58,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   // Getting the User Profile
   test("Get User Profile") {
-    val user3 = User(new ObjectId, UserType.Professional, "john@knoldus.com", "John", "Sachdeva", "", "John", "John", "Knoldus", "","", List(), List(), List(), List(), List())
+    val user3 = User(new ObjectId, UserType.Professional, "john@knoldus.com", "John", "Sachdeva", "", "John", "John", "Knoldus", "","", List(), List(), List(), List(), List(),List())
     val userId = User.createUser(user3)
     val userObtained = User.getUserProfile(userId)
     assert(userObtained.email === "john@knoldus.com")
@@ -66,7 +66,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   // Checking if the user is already registered
   test("Is User already registered ?") {
-    val user3 = User(new ObjectId, UserType.Professional, "john@knoldus.com", "John", "Sachdeva", "Johny", "John", "John", "Knoldus", "","", List(), List(), List(), List(), List())
+    val user3 = User(new ObjectId, UserType.Professional, "john@knoldus.com", "John", "Sachdeva", "Johny", "John", "John", "Knoldus", "","", List(), List(), List(), List(), List(),List())
     val userId = User.createUser(user3)
     // Checking for user name
     val isUseralreadyregistered = User.isAlreadyRegistered("john@knoldus.com", "Johny")

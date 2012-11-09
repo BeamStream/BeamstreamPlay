@@ -14,7 +14,7 @@ import java.util.Date
 class QuestionTest extends FunSuite with BeforeAndAfter {
 
   test("Create a Question & remove a Question") {
-    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List())
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(),List())
     val userId = User.createUser(user)
     var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List("Tag1", "Tag2"))
     val streamId = Stream.createStream(stream)
@@ -30,7 +30,7 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Get All Questions") {
-    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List())
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(),List())
     val userId = User.createUser(user)
     var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List("Tag1", "Tag2"))
     val streamId = Stream.createStream(stream)
@@ -42,7 +42,7 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
   }
   
   test("Find Question By Id") {
-    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List())
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(),List())
     val userId = User.createUser(user)
     var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List("Tag1", "Tag2"))
     val streamId = Stream.createStream(stream)
@@ -54,7 +54,7 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
   }
   
   test("Rocking The Question And Getting The Rockers") {
-    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List())
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(),List())
     val userId = User.createUser(user)
     var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List("Tag1", "Tag2"))
     val streamId = Stream.createStream(stream)
@@ -66,7 +66,7 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
   }
   
   test("Privacy Of The Question(For A Class , For A School)"){
-     val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List())
+     val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(),List())
     val userId = User.createUser(user)
     var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List("Tag1", "Tag2"))
     val streamId = Stream.createStream(stream)
