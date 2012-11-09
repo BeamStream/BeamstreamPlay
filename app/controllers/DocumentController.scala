@@ -178,13 +178,13 @@ object DocumentController extends Controller {
           val user = User.getUserProfile(new ObjectId(request.session.get("userId").get))
 
           if (isImage == true) {
-            val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Image, false, "", 0, List())
+            val media = new UserMedia(new ObjectId,documentName,"", new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Image, false, "", 0, List())
             UserMedia.saveMediaForUser(media)
           } else if (isVideo == true) {
             val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(docURL)
             (new AmazonUpload).uploadCompressedFileToAmazon(docName + "Frame", frameOfVideo, 0, false, request.session.get("userId").get)
             val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docName + "Frame"
-            val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Video, false, videoFrameURL, 0, List())
+            val media = new UserMedia(new ObjectId, documentName,"",new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Video, false, videoFrameURL, 0, List())
             UserMedia.saveMediaForUser(media)
           } else {
             val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
