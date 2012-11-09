@@ -158,9 +158,6 @@ BS.FilesMediaView = Backbone.View.extend({
               $.ajax({
                         type : 'GET',
                         url :  BS.getAllDocs,
-//                        data : {
-//                           'userId': e.attributes.id.id
-//                                },
                         dataType : "json",
                         success : function(docs) {
                             if(docs.length != 0)  {
@@ -282,8 +279,8 @@ BS.FilesMediaView = Backbone.View.extend({
 	                                content= '<div class="image-wrapper hovereffect" id="'+image.id.id+'"> <div class="hover-div"><img class="filmdeapicture" width="210px" height="141px" src="'+image.mediaUrl+'"><div class="hover-text">'               
 	                                +'<div class="comment-wrapper comment-wrapper2">'
 	                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
-	                                +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#imagelist" style="text-decoration: none"><div id="media-'+image.id.id+'" ><h4>Image Name</h4>'                            
-	                                +'<p class="doc-description">Description of Image</p></div></a>'
+	                                +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#imagelist" style="text-decoration: none"><div id="media-'+image.id.id+'" ><h4>'+image.name+'</h4>'                            
+	                                +'<p class="doc-description">'+image.description+'</p></div></a>'
 	                                +'<h5 class="imgtitle" id="'+image.id.id+'"> Title & Description</h5>'          
 	                                +'<span>State</span>'
 	                                +' <span class="date">datVal</span>' 
@@ -307,47 +304,46 @@ BS.FilesMediaView = Backbone.View.extend({
            // $('#content').html(BS.listDocsView.el);
         },
         
-            /*Edit the document title
-            * 
-            */ 
+        /*
+         * Edit the Image  title and Description
+        */ 
          editImgTitle :function(eventName){  
-//          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
+        	var imageId = eventName.currentTarget.id;           
             var datas = {
-				"type" : 'Image',
+                "id" : imageId,
+				"type" : 'UserMedia',
 				"title" : '',
-                                "description" :''
-			  }
+                "description" :''
+			}
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(datas);
             $('#gdocedit').html(BS.mediaeditview.el);
             
             
-            /*
-             var imageId = eventName.currentTarget.id;             // id to get corresponding image   
-           $.ajax({                                       
-                        type : 'POST',
-                        url :  BS.getOneDocs,
-                        data : {
-                                documentId: imageId  
-                                },
-                        dataType : "json",
-                        success : function(imagess) {                          
-                             var imagedatas = {
-                             "id" : imagess[0].id.id,
-                             "url" : imagess[0].documentURL,
-                             "type" : 'Docs',
-                             "title" : imagess[0].documentName,
-                             "description" : imagess[0].documentDescription
-			  }
-            BS.mediaeditview = new  BS.MediaEditView();
-            BS.mediaeditview.render(imagedatas);
-            $('#gdocedit').html(BS.mediaeditview.el);
-                        }
-           });
-             */
+           /* Edit Title and Description of Image */
+//           var imageId = eventName.currentTarget.id;           
+//           $.ajax({                                       
+//                type : 'POST',
+//                url :  BS.getOneDocs,
+//                data : {
+//                    documentId: imageId  
+//                },
+//                dataType : "json",
+//                success : function(imagess) {                          
+//                    var imagedatas = {
+//                		   "id" : imagess[0].id.id,
+//                		   "url" : imagess[0].documentURL,
+//                		   "type" : 'Docs',
+//                		   "title" : imagess[0].documentName,
+//                		   "description" : imagess[0].documentDescription
+//                    }    
+//		            BS.mediaeditview = new  BS.MediaEditView();
+//		            BS.mediaeditview.render(imagedatas);
+//		            $('#gdocedit').html(BS.mediaeditview.el);
+//               }
+//           });
             
-            
-            },
+        },
         
         /*
          *function to show pictures in filesmediaview
@@ -362,9 +358,6 @@ BS.FilesMediaView = Backbone.View.extend({
               $.ajax({
                         type : 'GET',
                         url : BS.allProfileVideos,
-//                        data : {
-//                           'userId': e.attributes.id.id
-//                                },
                         dataType : "json",
 
                         success : function(videos) { 
@@ -380,8 +373,8 @@ BS.FilesMediaView = Backbone.View.extend({
                                             +'<a href="#" class="hand-icon"></a>'
                                             +'<a href="#" class="message-icon"></a>'
                                             +'<a href="#" class="share-icon"></a></div>'
-                                            +'<a id="profile-videos" style="text-decoration: none" href="#videos"><h4> Video Name</h4>'       
-                                            +'<p class="doc-description">Description of Video  </p></a>'
+                                            +'<a id="profile-videos" style="text-decoration: none" href="#videos"><div id="media-'+video.id.id+'" ><h4>'+video.name+'</h4>'       
+                                            +'<p class="doc-description">'+video.description+' </p></div></a>'
                                             +'<h5 class="videotitle" id="'+video.id.id+'"> Title & Description</h5>'          
                                             +'<span>State</span>'
                                             +' <span class="date">datVal</span>' 
@@ -403,12 +396,13 @@ BS.FilesMediaView = Backbone.View.extend({
             * 
             */  
         editVideoTitle :function(eventName){  
-//          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
+            var videoId = eventName.currentTarget.id;             // id to get corresponding docs   
             var datas = {
-				"type" : 'Video',
-				"title" : '',
-                                "description" :''
-			  }
+                    "id" : videoId,
+    				"type" : 'UserMedia',
+    				"title" : '',
+                    "description" :''
+    	    }
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(datas);
             $('#gdocedit').html(BS.mediaeditview.el);

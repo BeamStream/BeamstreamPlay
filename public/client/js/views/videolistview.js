@@ -151,13 +151,14 @@ BS.VideoListView = Backbone.View.extend({
             * 
             */  
         editVideoTitle :function(eventName){  
-//          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
-           console.log("edit video title");
-           var datas = {
-				"type" : 'Video',
-				"title" : '',
-                                "description" :''
-			  }
+            var videoId = eventName.currentTarget.id;             // id to get corresponding docs   
+            console.log("edit video title");
+            var datas = {
+                    "id" : videoId,
+   					"type" : 'UserMedia',
+   					"title" : '',
+                    "description" :''
+   	        }
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(datas);
             $('#gdocedit').html(BS.mediaeditview.el);

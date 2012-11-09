@@ -40,9 +40,10 @@ BS.StreamView = Backbone.View.extend({
            "click .delete_comment" : "deleteComment",
            "click .doc" : "showUploadBox",
            "change #upload-files" : "getUploadedData",
-	   "click .strmdoc" : "showStrmDocPopup",
-           "mouseenter a.strmdoc" : "showDocTitle",
-           
+	   "click .strmdoc" : "showStrmDocPopup",        
+            "click .uploaded" : "StrmMediaPopup", 
+           "mouseenter a.strmdoc" : "showDocTitle"
+
            
 	 },
 	 
@@ -553,7 +554,7 @@ BS.StreamView = Backbone.View.extend({
   							
   							var msgBody = data.messageBody;
   							var link =  msgBody.match(BS.urlRegex);
-  						 
+
   							if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) {
                                 
                                 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
@@ -599,9 +600,13 @@ BS.StreamView = Backbone.View.extend({
                              else{
 
                             	 var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
+                                     $('input#'+data.id.id+'-url').val(msgUrl);
+                                      console.log(msgUrl);
                                      return msgUrl;
+                                    
                                  });
-                            	  $('input#'+data.id.id+'-url').val(msgUrl);
+                                    console.log(msgUrl);
+                            	  //$('input#'+data.id.id+'-url').val(msgUrl);
 					              var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
 					              $('#'+data.id.id+'-docurl').html(content);
                              } 
@@ -624,7 +629,9 @@ BS.StreamView = Backbone.View.extend({
      * get all details about messages and its comments of a stream
      */
     getMessageInfo :function(streamid,pageNo,limit){
+        var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
     	 console.log("in getMessageInfo ");
+         var trueurl='';
          var self = this;
          /* get all messages of a stream  */
 		 $.ajax({
@@ -647,6 +654,15 @@ BS.StreamView = Backbone.View.extend({
 					  _.each(data, function(data) {
 						  
 							var msgBody = data.messageBody;
+                                                        
+//                                                        var links =  msgBody.match(BS.urlRegex); 
+                                                        var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
+                                                               trueurl= msgUrlw;    
+                                                               
+                                                                return msgUrlw;
+                                                             });
+                                                       var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file                                                  
+                                                        if(!extension){                           //to check the extension of the url
                                                         if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) {
                                                             
                                                              var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
@@ -658,7 +674,12 @@ BS.StreamView = Backbone.View.extend({
                                                                  return '<a target="_blank" href="' + url + '">' + url + '</a>';
                                                             });
                                                         }
-                                                        
+                                                        }
+                                                         else{         //url has extension
+                                                             var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
+                                                                 return '<a class="uploaded" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
+                                                            });
+                                                         }
 							var datas = {
  							 	 "datas" : data,
  						    }
@@ -717,6 +738,8 @@ BS.StreamView = Backbone.View.extend({
 	  						  $('div#'+data.id.id+'-id').html(linkTag);
 	  						 
                                                          var url=data.messageBody;
+                                                         if(!extension){   //to check the extension of the url
+                                                         
                                                         if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
                                                                 // embedly
                                                                     $('div#'+data.id.id+'-id').embedly({
@@ -726,15 +749,23 @@ BS.StreamView = Backbone.View.extend({
                                                                          key:'4d205b6a796b11e1871a4040d3dc5c07'
                                                             });
                                                         }
+                                                        
                                                         else
                                                             {
  
                                                         	var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
+                                                                    
+                                                                $('input#'+data.id.id+'-url').val(msgUrl);
                                                                 return msgUrl;
                                                              });
-                                                        	$('input#'+data.id.id+'-url').val(msgUrl);
+//                                                        	$('input#'+data.id.id+'-url').val(msgUrl);
                                                             var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
                                                             $('#'+data.id.id+'-docurl').html(content);
+                                                            }
+                                                         }
+                                                         else      //insert value to hidden field
+                                                            {
+                                                              $('input#'+data.id.id+'-url').val(msgUrl);  
                                                             }
 	  						 
 	  						self.showAllComments(data.id.id);
@@ -1711,6 +1742,8 @@ BS.StreamView = Backbone.View.extend({
 		 console.log("dgdfg");
 	 },
 
+
+
     /**
      *For showing stream google docs in popup
      */
@@ -1718,12 +1751,31 @@ BS.StreamView = Backbone.View.extend({
              eventName.preventDefault(); 
              var element = eventName.target.id;
              var docUrl = $('input#'+element+'-url').val();
+//             var data = '<iframe src="'+docUrl+'" scrolling="NO"  width="963" height="500" style="border: none"> '
+//                 +'<p>Your browser does not support iframes.</p>'
+//                    '</iframe> ';
+//             console.log(docUrl);
+            
              BS.streamdocview = new BS.StreamDocView();
              BS.streamdocview.render(docUrl);           
              $('#streamdocview').html(BS.streamdocview.el);   
          },
+         
+    
+     StrmMediaPopup: function(eventName){
+             eventName.preventDefault(); 
+             var element = eventName.target.id;
+             var docUrl = $('input#'+element+'-url').val();
+           //   console.log(docUrl);
+           
+               var docfrmcomputer='http://docs.google.com/gview?url='+docUrl+'&embedded=true '             
+             BS.streamdocview = new BS.StreamDocView();
+             BS.streamdocview.render(docfrmcomputer);           
+             $('#streamdocview').html(BS.streamdocview.el);   
+         },
      
       /**
+
 	  * show the title when hover over the gogoledoc image
 	  */
 	 showDocTitle:function(eventName){

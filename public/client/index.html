@@ -413,7 +413,7 @@ body {
            <div class="image-wrapper"> 
              <div class="hover-div"><img class="default-image" src="images/docs_image.png"/>
                <div class="hover-text">     
-                <p class="emptyfiles"> No Uploaded Links </p>
+                <p class="emptyfiles"> No Uploaded Docs </p>
                </div>
              </div> 
           </div>
@@ -522,17 +522,18 @@ body {
 					<a href="#" class="message-icon"></a>
 					<a href="#" class="share-icon"></a>
 				</div>
-				<h4> image name</h4>
+				<div id="media-{{image.id.id}}" ><h4>{{image.name}}</h4>
 				<div class="gallery clearfix"></div>
 				<div class="gallery clearfix hrtxt">
 					<a href="{{image.mediaUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
 						<p class="google_doc doc-description" id="{{image.id.id}}">
-						<input type="hidden" id="id-{{image.id.id}}" value="doc.url"> Description of image</p>
+						<input type="hidden" id="id-{{image.id.id}}" value="doc.url"> {{image.description}}</p>
 					</a>
+					</div></div>
 					<h5 class="imgtitle" id="{{image.id.id}}"> Title & Description</h5>
 					<span>State</span>
 					<span class="date">datVal</span>
-				</div>
+				
 			</div>
 		 </div>
 	 </div>
@@ -566,17 +567,18 @@ body {
 					<a href="#" class="message-icon"></a>
 					<a href="#" class="share-icon"></a>
 				</div>
-				<h4> video name</h4> 
+				<div id="media-{{video.id.id}}" >
+				<h4> {{video.name}}</h4> 
 				<div class="gallery clearfix"></div>
 				<div class="gallery clearfix hrtxt">
 					<a href="{{video.mediaUrl}}" rel="prettyPhoto" style="text-decoration: none" >
 					<p class="google_doc doc-description" id="{{video.id.id}}">
-					<input type="hidden" id="{{video.id.id}}" value="doc.url"> Description of Video </p>
-					</a>
+					<input type="hidden" id="{{video.id.id}}" value="doc.url"> {{video.description}} </p>
+					</a></div></div>
 					<h5 class="videotitle" id="{{video.id.id}}"> Title & Description</h5>
 					<span>State</span>
 					<span class="date">datVal</span>    
-				</div>
+				
 			</div>
 		</div> 
 	</div>
@@ -3916,16 +3918,18 @@ Create a Class</a>
        <div class="control-button doc-pop-button">
 		<a href="#"><img id="popup-close" class="close-button" src="images/close-button.png"></a>
        </div>
-        <h2  class="pull-left">  Docs view </h2>
+        <h2  class="pull-left">  Docs view  </h2>
      </div>
     <div class="modal-body doc-popup-wrapper">
         <form name="add-new-school-form" id="add-new-school-form">
             <fieldset class="popupfield">    
                 <div id="popup-loader" >
-                    <!--<image src="images/ajax-loader1.gif">--> 
+             <!--    <image src="images/ajax-loader1.gif">-->
+                        
                     <iframe src="{{docUrl}}" scrolling="NO"  width="963" height="500" style="border: none">
                     <p>Your browser does not support iframes.</p>
-                    </iframe> 
+                    </iframe>
+                  
             </div>
             </fieldset>
         </form>

@@ -79,7 +79,7 @@ BS.AppRouter = Backbone.Router.extend({
     	 BS.user.fetch({ success:function(e) {
     		 
 			if(e.get('loggedin') == false) {
-    
+				 
 		    	 localStorage.clear();
 		    	 localStorage["idLogin"]= '';
 		    	 $('#school-popup').children().detach(); 
@@ -94,7 +94,7 @@ BS.AppRouter = Backbone.Router.extend({
 		         localStorage["regInfo"] ='';
 		         localStorage["schoolInfo"] ='';
 		         localStorage["classInfo"] ='';
-		        
+		         
 		         $(".checkbox").dgStyle();
 		         $(".signin_check").dgStyle();
 		         
