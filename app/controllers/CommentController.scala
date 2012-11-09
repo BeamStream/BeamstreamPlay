@@ -140,5 +140,19 @@ object CommentController extends Controller {
     if(deletedTheCommnet==true)Ok(write(new ResulttoSent("Success", "Comment Has Been Deleted")))
     else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Comment")))
   }
+  
+   
+  /**
+   * Is a Rocker 
+   * @ Purpose: identify if the user has rocked the comment or not
+   */
+  def isARocker = Action { implicit request =>
+    {
+      val commentIdJsonMap = request.body.asFormUrlEncoded.get
+      val commentId = commentIdJsonMap("commentId").toList(0)
+      val isARockerOfComment = Message.isARocker(new ObjectId(commentId), new ObjectId(request.session.get("userId").get))
+      Ok(write(isARockerOfComment.toString)).as("application/json")
+    }
+  }
 
 }

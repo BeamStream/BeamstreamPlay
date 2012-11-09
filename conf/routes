@@ -42,6 +42,7 @@ POST    /allCommentsForAMessage       controllers.CommentController.getAllCommen
 POST    /rockingTheComment            controllers.CommentController.rockingTheComment
 POST    /commentRockers                controllers.CommentController.commentRockers
 POST    /deleteTheComment              controllers.CommentController.deleteTheComment
+POST /isARockerOfComment               controllers.CommentController.isARocker
 
 #Document
 GET  /getAllDocumentsForAUser    controllers.DocumentController.getAllGoogleDocumentsForAUser
