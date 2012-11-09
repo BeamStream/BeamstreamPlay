@@ -266,5 +266,21 @@ object MediaController extends Controller {
     Ok(mediaJson).as("application/json")
   }
 
+  /**
+   *  Get User Media
+   */
+
+  def getUserMedia = Action { implicit request =>
+    val mediaIdJsonMap = request.body.asFormUrlEncoded.get
+    (mediaIdJsonMap.contains(("userMediaId"))) match {
+      case false => Ok(write(new ResulttoSent("Failure", "No Media Found")))
+      case true =>
+        val userMediaId = mediaIdJsonMap("userMediaId").toList(0)
+        val mediaFound = UserMedia.findMediaById(new ObjectId(userMediaId))
+        val mediaJson = write(List(mediaFound.get))
+        Ok(mediaJson).as("application/json")
+    }
+  }
+
 
 }

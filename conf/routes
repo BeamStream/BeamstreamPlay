@@ -105,7 +105,7 @@ GET /getAllProfilePicForAUser   controllers.MediaController.getAllProfilePicForA
 GET /getAllProfileVideoForAUser   controllers.MediaController.getAllProfileVideoForAUser
 POST /rockTheUsermedia            controllers.MediaController.rockTheUsermedia
 POST /giveMeRockersOfUserMedia    controllers.MediaController.giveMeRockersOfUserMedia
-
+POST /getMedia controllers.MediaController.getUserMedia
 #Message Rocks & Follows
 POST /rockedIt controllers.MessageController.rockedTheMessage
 POST /returnRockers controllers.MessageController.giveMeRockers
