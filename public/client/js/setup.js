@@ -139,6 +139,9 @@ BS.deleteMessage = BS.URLRequired+"/deleteMessage";
 BS.deleteTheComment = BS.URLRequired+"/deleteTheComment";
 // browser close 
 BS.browserClosed =BS.URLRequired+"/browserClosed";  
+//change Title and Description of User Media 
+BS.changeTitleDescriptionUserMedia =BS.URLRequired+"/changeTitleAndDescriptionUserMedia";
+
 
 
 /* for beta users */
