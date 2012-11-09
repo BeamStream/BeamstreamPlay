@@ -141,6 +141,9 @@ BS.deleteTheComment = BS.URLRequired+"/deleteTheComment";
 BS.browserClosed =BS.URLRequired+"/browserClosed";  
 //change Title and Description of User Media 
 BS.changeTitleDescriptionUserMedia =BS.URLRequired+"/changeTitleAndDescriptionUserMedia";
+//get details of a image/video 
+BS.getMedia =BS.URLRequired+"/getMedia";
+ 
 
 
 

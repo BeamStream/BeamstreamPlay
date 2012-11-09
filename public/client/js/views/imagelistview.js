@@ -155,44 +155,28 @@ BS.ImageListView = Backbone.View.extend({
             * 
             */  
             editImgTitle :function(eventName){  
-                var imageId = eventName.currentTarget.id;             // id to get corresponding docs   
-                var datas = {
-                    "id" : imageId,
-      				"type" : 'UserMedia',
-      				"title" : '',
-                    "description" :''
-      			}
-                BS.mediaeditview = new  BS.MediaEditView();
-                BS.mediaeditview.render(datas);
-                $('#gdocedit').html(BS.mediaeditview.el);
-                console.log(imageId);
-
-            
-            
-            /*
-             var imageId = eventName.currentTarget.id;             // id to get corresponding image   
-           $.ajax({                                       
+           
+	             var imageId = eventName.currentTarget.id;             // id to get corresponding image   
+	             $.ajax({                                       
                         type : 'POST',
-                        url :  BS.getOneDocs,
+                        url :  BS.getMedia,
                         data : {
-                                documentId: imageId  
-                                },
+                        	userMediaId: imageId  
+                        },
                         dataType : "json",
                         success : function(imagess) {                          
                              var imagedatas = {
-                             "id" : imagess[0].id.id,
-                             "url" : imagess[0].documentURL,
-                             "type" : 'Docs',
-                             "title" : imagess[0].documentName,
-                             "description" : imagess[0].documentDescription
-			  }
-            BS.mediaeditview = new  BS.MediaEditView();
-            BS.mediaeditview.render(imagedatas);
-            $('#gdocedit').html(BS.mediaeditview.el);
-                        }
-           });
-             */
-
+	                             "id" : imagess[0].id.id,
+	                             "url" : imagess[0].mediaUrl,
+	                             "type" : 'UserMedia',
+	                             "title" : imagess[0].name,
+	                             "description" : imagess[0].description
+                         }
+			            BS.mediaeditview = new  BS.MediaEditView();
+			            BS.mediaeditview.render(imagedatas);
+			            $('#gdocedit').html(BS.mediaeditview.el);
+                      }
+	           });
             },
             
            /**
