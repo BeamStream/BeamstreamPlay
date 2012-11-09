@@ -150,7 +150,7 @@ object CommentController extends Controller {
     {
       val commentIdJsonMap = request.body.asFormUrlEncoded.get
       val commentId = commentIdJsonMap("commentId").toList(0)
-      val isARockerOfComment = Message.isARocker(new ObjectId(commentId), new ObjectId(request.session.get("userId").get))
+      val isARockerOfComment = Comment.isARocker(new ObjectId(commentId), new ObjectId(request.session.get("userId").get))
       Ok(write(isARockerOfComment.toString)).as("application/json")
     }
   }
