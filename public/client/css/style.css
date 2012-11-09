@@ -1725,7 +1725,19 @@ span.edit_profilepicture_icon{
     display: block;
     margin-bottom: 5px;
     margin-top: 4px;
+    float: left;
+    
   
+}
+.bitly a
+{
+     -ms-word-break: break-all;
+      word-break: break-all;
+      word-break: break-word;
+  -webkit-hyphens: auto;
+     -moz-hyphens: auto;
+          hyphens: auto;
+
 }
 
 
