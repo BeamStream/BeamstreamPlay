@@ -22,15 +22,12 @@
     $.fn.sorted = function(options) {
         var opts = $.extend({}, $.fn.sorted.defaults, options),
             arr = this.get();
-        console.log(arr);
         // Sort the elements by the opts.by function.
         // If we don't have opts.by, default to DOM order
         if (opts.by !== $.noop && opts.by !== null && opts.by !== undefined) {
             arr.sort(function(a, b) {
                 var valA = opts.by($(a));
                 var valB = opts.by($(b));
-//                console.log("valA " + valA);
-//                console.log("valB " + valB);
                 return (valA < valB) ? -1 : (valA > valB) ? 1 : 0;
             });
         }
@@ -38,7 +35,6 @@
         if (opts.reverse) {
             arr.reverse();
         }
-        console.log(arr);
         return arr;
 
     };

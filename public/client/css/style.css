@@ -759,7 +759,7 @@ ul.rockit li span a {
 }
 
 /* rockers list in popups */
-.list-popup{
+.msg-rockers-list{
 
   padding : 10px;
   z-index: 1050;
@@ -772,8 +772,8 @@ ul.rockit li span a {
   font-family: UbuntuRegular;
   color: #fff;
   display: none ;
-  left: 35%;
-  top:23px;
+  left: 12%;
+  top: 25px;
   position: absolute !important;
   border-radius: 4px 4px 4px 4px;
 	
@@ -2629,20 +2629,13 @@ ul.comments li:hover .delete_comment{
     top: 40% !important;
     /*height: 800px !important;*/
 }
-/* show no.of students and educators */
-/* .ui-menu-item img{ */
-/*     padding:5px; */
-/* } */
-/* .ui-menu .ui-menu-item a{ */
-/* 	float :left; */
-/* } */
-/* .ui-menu .ui-menu-item a.ui-state-hover, */
-/* .ui-menu .ui-menu-item a.ui-state-active { */
-/* 	font-weight: normal !important; */
-/* 	margin: -1px !important; */
-/* } */
-/* .stud{ */
-/* 	background:url("../images/icons/icon_lock.png") no-repeat scroll 0 0 transparent ; */
-/* 	padding :2px; */
-/* } */
+
+/* for shuffling */
+#grid .item {
+    width: 210px;
+    margin-right: 10px !important;
+    margin-top: 10px !important;
+}
+
+   
 

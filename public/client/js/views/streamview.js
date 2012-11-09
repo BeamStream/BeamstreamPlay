@@ -16,6 +16,7 @@ BS.StreamView = Backbone.View.extend({
 //           "click #icon-up" :"slideUp",
 //           "click #icon-down" : "slideDown",
            "click i.rock-message" : "rockMessage",
+//           "mouseenter i.rock-message" : "showUnrockMessage",
            "click i.rock-comment" :"rockComments",
            "mouseenter a#rocks" : "showRockers",
            "click a.rock" : "preventDefault",
@@ -42,6 +43,7 @@ BS.StreamView = Backbone.View.extend({
 	   "click .strmdoc" : "showStrmDocPopup",        
             "click .uploaded" : "StrmMediaPopup", 
            "mouseenter a.strmdoc" : "showDocTitle"
+
            
 	 },
 	 
@@ -523,7 +525,6 @@ BS.StreamView = Backbone.View.extend({
                            
   				   if(data.status == "Failure")
   				   {
-//  			     alert("Enter School & Class to post a message in a stream ");
   					 var alert = '<div id="dialog" title="Message !">You need to add a stream first.</br><a  onClick="closeAlert();" class="alert-msg " href="#create_stream"> Create Stream</a></div>';
   					 $('#alert-popup').html(alert);
   					 $( "#dialog" ).dialog({
@@ -553,7 +554,11 @@ BS.StreamView = Backbone.View.extend({
   							
   							var msgBody = data.messageBody;
   							var link =  msgBody.match(BS.urlRegex);
+<<<<<<< HEAD
                                                         console.log(link);
+=======
+  						 
+>>>>>>> 54c4d6839a25a81606277cb3ac8344f47c69d58e
   							if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) {
                                 
                                 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
@@ -927,6 +932,14 @@ BS.StreamView = Backbone.View.extend({
 	 },
 	 
 	 /**
+	  * show UnRock Message  Only if a user has already Rocked something up
+	  */
+	 showUnrockMessage:function(eventName){
+		 eventName.preventDefault();
+		 
+	 },
+	 
+	 /**
 	  * show rockers list on hover over
 	  */
 	 showRockers:function(eventName){
@@ -1252,18 +1265,9 @@ BS.StreamView = Backbone.View.extend({
             	 
             	 _.each(datas, function(data) {
             		 
-            		 
 		  			 var comments = $("#tpl-comments").html();
 					 var commentsTemplate = Handlebars.compile(comments);
 					 $('#'+parent+'-commentlists').prepend(commentsTemplate(data));
-					 
-					 // display 3 comments by default 
-//					 count++;
-//					 if(count <= 3)
-//            		 {
-//						$('#'+parent+'-3_comments').prepend(commentsTemplate(data));
-//            		 }
-					 
 					 
 					 /* get profile images for comments */
 				      $.ajax({
@@ -1790,6 +1794,7 @@ BS.StreamView = Backbone.View.extend({
                  $('#hover-lists-'+msgId+'').html(content);
  
 	 },
+	 
  
    /**
     * PUBNUB real time push

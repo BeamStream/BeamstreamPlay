@@ -9,7 +9,7 @@ import org.bson.types.ObjectId
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 import java.util.Date
-case class UserMedia(@Key("_id") id: ObjectId, userId: ObjectId, dateCreated: Date, mediaUrl: String, contentType: UserMediaType.Value, isPrimary: Boolean,frameURL:String,rocks:Int,rockers: List[ObjectId])
+case class UserMedia(@Key("_id") id: ObjectId, name:String,description:String,userId: ObjectId, dateCreated: Date, mediaUrl: String, contentType: UserMediaType.Value, isPrimary: Boolean,frameURL:String,rocks:Int,rockers: List[ObjectId])
 
 object UserMediaType extends Enumeration {
   val Image = Value(0, "Image")
@@ -28,6 +28,15 @@ object UserMedia {
     val mediaId = UserMediaDAO.insert(media)
   }
 
+  
+  /*
+   * Find Media by Id
+   */
+
+  def findMediaById(mediaId: ObjectId)= {
+    val media = UserMediaDAO.findOneByID(mediaId)
+    media
+  }
   /*
  * Get profile picture for a user
  */
@@ -73,7 +82,7 @@ object UserMedia {
   def makePresentOnePrimary(userId: ObjectId) {
     val AlluserMedia = getAllMediaForAUser(userId)
     for (media <- AlluserMedia) {
-      val updatedMedia = new UserMedia(media.id, media.userId, media.dateCreated,media.mediaUrl, media.contentType, false,media.frameURL,0,List())
+      val updatedMedia = new UserMedia(media.id, media.name, media.description,media.userId, media.dateCreated,media.mediaUrl, media.contentType, false,media.frameURL,0,List())
       UserMediaDAO.update(MongoDBObject("_id" -> media.id), updatedMedia, false, false, new WriteConcern)
     }
   }
@@ -110,6 +119,14 @@ object UserMedia {
     val userMedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
     val rockersName = User.giveMeTheRockers(userMedia.rockers)
     rockersName
+  }
+  
+  /**
+   * Change the Title and description of Media 
+   */
+  def updateTitleAndDescription(userMediaId: ObjectId, newName: String, newDescription: String) = {
+    val usermedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
+    UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), usermedia.copy(description = newDescription, name = newName), false, false, new WriteConcern)
   }
 
 }

@@ -43,11 +43,7 @@ POST    /rockingTheComment            controllers.CommentController.rockingTheCo
 POST    /commentRockers                controllers.CommentController.commentRockers
 POST    /deleteTheComment              controllers.CommentController.deleteTheComment
 
-
-#Documents
-#GET /documents controllers.DocumentController.documents
-
-
+#Document
 GET  /getAllDocumentsForAUser    controllers.DocumentController.getAllGoogleDocumentsForAUser
 POST /changeTitleAndDescriptionForADocument controllers.DocumentController.changeTitleAndDescriptionForADocument
 POST /newDocument controllers.DocumentController.newDocument
@@ -65,8 +61,6 @@ POST  /getAllSchoolsForAutopopulate      controllers.SchoolController.getAllScho
 
 
 #UpdateUserInfo
-
-
 POST /detailed_reg controllers.DetailedRegistration.addInfo
 
 #Class
@@ -106,7 +100,7 @@ POST /social/social_authentication   controllers.SocialController.authenticateUs
 #Media
 POST /getMediafromPost controllers.MediaController.getMedia
 POST /getProfilePicForAUser      controllers.MediaController.getProfilePicForAUser
-
+POST /changeTitleAndDescriptionUserMedia    controllers.MediaController.changeTitleAndDescriptionUserMedia
 GET /getAllProfilePicForAUser   controllers.MediaController.getAllProfilePicForAUser
 GET /getAllProfileVideoForAUser   controllers.MediaController.getAllProfileVideoForAUser
 POST /rockTheUsermedia            controllers.MediaController.rockTheUsermedia
@@ -134,7 +128,7 @@ POST  /forgotPassword          controllers.UserController.forgotPassword
 # Map static resources from the /public folder to the /assets URL path
 GET  /beamstream/*file                   controllers.Assets.at(path="/public/client", file)
 
-GET /returnProgress                                    controllers.MediaController.returnProgress
+GET /returnProgress                    controllers.MediaController.returnProgress
 
 
 

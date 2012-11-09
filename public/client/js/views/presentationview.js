@@ -14,15 +14,14 @@ BS.PresentationView = Backbone.View.extend({
                 this.source = $("#tpl-docsview").html();
                 this.template = Handlebars.compile(this.source);
                 this.presentation();         
-                },
+             },
         
             render:function (eventName) {
                 $(this.el).html(this.template);
                 return this;
-                },
+             },
                         
             presentation :function(eventName){
-//              $('.coveraud').html('content');
                 var i = 1;
                 var self = this;
                 var content='';
@@ -31,21 +30,25 @@ BS.PresentationView = Backbone.View.extend({
                         url :  BS.getAllPPTFilesForAUser,
                         dataType : "json",
                         success : function(ppts) {
-//                              if(docs.length != 0)  {
+                        	
                                 $('#grid').html(""); 
                               _.each(ppts, function(ppt) { 
-                                BS.filesMediaView = new BS.FilesMediaView();  
-                                var datVal = BS.filesMediaView.formatDateVal(ppt.creationDate);     
-                                var pptdata={
-                                               "ppt" : ppt,
-                                               "datVal" :datVal,
-                                               "count":i
-                                                }  
-                                var source = $('#tpl-single-presentation').html();          //creating single bucket view for presentation list view                           
-                                var template = Handlebars.compile(source);
-                                $('#grid').append(template(pptdata));                    
-                                i++;   
+	                                BS.filesMediaView = new BS.FilesMediaView();  
+	                                var datVal = BS.filesMediaView.formatDateVal(ppt.creationDate);     
+	                                var pptdata={
+	                                               "ppt" : ppt,
+	                                               "datVal" :datVal,
+	                                               "count":i
+	                                                }  
+	                                var source = $('#tpl-single-presentation').html();          //creating single bucket view for presentation list view                           
+	                                var template = Handlebars.compile(source);
+	                                $('#grid').append(template(pptdata));                    
+	                                i++;   
                               });
+                              
+                               // Call common Shuffling function         
+                              shufflingOnSorting();
+                              
                               self.pagination();
                         }
                });                      

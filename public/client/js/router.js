@@ -1197,25 +1197,6 @@ BS.AppRouter = Backbone.Router.extend({
 		                   $('.file-type').hide();
 		  //               BS.googledocsview.test();
 						   $(".checkbox").dgStyle();                                
-		                   // instantiate the shuffle plugin
-		                   $('#grid').shuffle({
-		                         itemWidth : 200,
-		                         marginTop : 15,
-		                         marginRight: 20,
-		                         key : 'all',
-		                         speed : 800,
-		                         easing : 'ease-out'
-		                    });                               
-		                    // Set up button clicks
-		                    $('.filter-options li').on('click', function() {
-		                         var $this = $(this),
-		                         $grid = $('#grid');
-		                         // Hide current label, show current label in title
-		                         $('.filter-options .active').removeClass('active');
-		                         $this.addClass('active');
-			                     // Filter elements
-			                     $grid.shuffle($this.attr('data-key'));
-		                    });     
                     
 					}
 					else {

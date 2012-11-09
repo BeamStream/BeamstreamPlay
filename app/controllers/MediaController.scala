@@ -117,6 +117,9 @@ object MediaController extends Controller {
     val videoStatus = mediaJsonMap("videoStatus").toList(0).toBoolean
     var imageNameOnAmazon = ""
     var videoFileNameOnnAmazon = ""
+    var imageNameToStore=""
+    var videoNameToStore=""
+       
     var imageFileInputStream: InputStream = null
     var videoFileObtained: File = null
     var totalFileSize: Double = 0
@@ -133,6 +136,7 @@ object MediaController extends Controller {
           val uniqueString = tokenEmail.securityToken
           val imageFileObtained: File = imageData.ref.file.asInstanceOf[File]
           imageNameOnAmazon = uniqueString + imageFilename.replaceAll("\\s", "") // Security Over the images files
+          imageNameToStore=imageFilename
           imageFileInputStream = CompressFile.compressImage(imageFileObtained, imageNameOnAmazon, 0.1f)
           totalFileSize += imageFileInputStream.available  //calculate total number of bytes transfered
         }.get
@@ -149,6 +153,7 @@ object MediaController extends Controller {
           val uniqueString = tokenEmail.securityToken
           videoFileObtained = videoData.ref.file.asInstanceOf[File]
           videoFileNameOnnAmazon = uniqueString + videoFilename.replaceAll("\\s", "")
+          videoNameToStore=videoFilename
           totalFileSize += videoFileObtained.length ////calculate total number of bytes transfered
         }.get
     }
@@ -156,7 +161,7 @@ object MediaController extends Controller {
     if (imageFileInputStream != null) {
       (new AmazonUpload).uploadCompressedFileToAmazon(imageNameOnAmazon, imageFileInputStream,totalFileSize,true,request.session.get("userId").get)
       val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
-      val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get),new Date, imageURL, UserMediaType.Image, imageStatus, "",0,List())
+      val media = new UserMedia(new ObjectId,imageNameToStore,"", new ObjectId(request.session.get("userId").get),new Date, imageURL, UserMediaType.Image, imageStatus, "",0,List())
       UserMedia.saveMediaForUser(media)
       ProfileImageProviderCache.setImage(media.userId.toString, media.mediaUrl)
     }
@@ -167,7 +172,7 @@ object MediaController extends Controller {
       val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(videoURL)
       (new AmazonUpload).uploadCompressedFileToAmazon(videoFileNameOnnAmazon + "Frame", frameOfVideo,totalFileSize,false,request.session.get("userId").get)
       val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + videoFileNameOnnAmazon + "Frame"
-      val media = new UserMedia(new ObjectId, new ObjectId(request.session.get("userId").get), new Date,videoURL, UserMediaType.Video, videoStatus, videoFrameURL,0,List())
+      val media = new UserMedia(new ObjectId,videoNameToStore,"",new ObjectId(request.session.get("userId").get), new Date,videoURL, UserMediaType.Video, videoStatus, videoFrameURL,0,List())
       UserMedia.saveMediaForUser(media)
 
     }
@@ -245,6 +250,20 @@ object MediaController extends Controller {
     val rockers = UserMedia.rockersNamesOfUserMedia(new ObjectId(userMediaId))
     val rockersJson = write(rockers)
     Ok(rockersJson).as("application/json")
+  }
+  
+   /*
+      * Change the title and description
+      */
+  def changeTitleAndDescriptionUserMedia = Action { implicit request =>
+    val mediaIdJsonMap = request.body.asFormUrlEncoded.get
+    val id = mediaIdJsonMap("userMediaId").toList(0)
+    val title = mediaIdJsonMap("mediaName").toList(0)
+    val description = mediaIdJsonMap("mediaDescription").toList(0)
+    UserMedia.updateTitleAndDescription(new ObjectId(id), title, description)
+    val mediaObtained = UserMedia.findMediaById(new ObjectId(id))
+    val mediaJson = write(List(mediaObtained.get))
+    Ok(mediaJson).as("application/json")
   }
 
 
