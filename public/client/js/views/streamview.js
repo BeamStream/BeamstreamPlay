@@ -554,11 +554,7 @@ BS.StreamView = Backbone.View.extend({
   							
   							var msgBody = data.messageBody;
   							var link =  msgBody.match(BS.urlRegex);
-<<<<<<< HEAD
-                                                        console.log(link);
-=======
-  						 
->>>>>>> 54c4d6839a25a81606277cb3ac8344f47c69d58e
+
   							if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) {
                                 
                                 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
