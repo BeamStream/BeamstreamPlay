@@ -106,12 +106,14 @@ GET /getAllProfileVideoForAUser   controllers.MediaController.getAllProfileVideo
 POST /rockTheUsermedia            controllers.MediaController.rockTheUsermedia
 POST /giveMeRockersOfUserMedia    controllers.MediaController.giveMeRockersOfUserMedia
 POST /getMedia controllers.MediaController.getUserMedia
+
+
 #Message Rocks & Follows
 POST /rockedIt controllers.MessageController.rockedTheMessage
 POST /returnRockers controllers.MessageController.giveMeRockers
 POST /followMessage  controllers.MessageController.followTheMessage
 POST /isAFollower    controllers.MessageController.isAFollower
-
+POST /isARockerOfMessage   controllers.MessageController.isARocker
 
 #Files
 GET /audioFilesOfAUser  controllers.DocumentController.getAllAudioFilesForAUser

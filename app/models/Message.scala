@@ -215,6 +215,21 @@ object Message { //extends CommentConsumer {
     }
 
   }
+  
+   /*
+   * Is a Rocker 
+   * @ Purpose: identify if the user has rocked a message or not
+   */
+
+  def isARocker(messageId: ObjectId, userId: Object): Boolean = {
+    val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+
+    (message.rockers.contains(userId)) match {
+      case true => true
+      case false => false
+    }
+
+  }
 
   /*
   * Getting all public messages For All the Streams of a user

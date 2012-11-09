@@ -171,7 +171,7 @@ object MessageController extends Controller {
     Ok(totalFollowJson).as("application/json")
   }
 
-  /*
+  /**
    * Is a follower 
    * @ Purpose: identify if the user is following a message or not
    */
@@ -181,6 +181,19 @@ object MessageController extends Controller {
       val messageId = messageIdJsonMap("messageId").toList(0)
       val isAFollowerOfMessage = Message.isAFollower(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
       Ok(write(isAFollowerOfMessage.toString)).as("application/json")
+    }
+  }
+  
+  /**
+   * Is a Rocker 
+   * @ Purpose: identify if the user is following a message or not
+   */
+  def isARocker = Action { implicit request =>
+    {
+      val messageIdJsonMap = request.body.asFormUrlEncoded.get
+      val messageId = messageIdJsonMap("messageId").toList(0)
+      val isARockerOfMessage = Message.isARocker(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
+      Ok(write(isARockerOfMessage.toString)).as("application/json")
     }
   }
 
