@@ -188,7 +188,7 @@ BS.ImageListView = Backbone.View.extend({
                 var imageId =$(element).attr('id');
                 var parent = $('div#'+imageId).parent('li');
                
-    	  	// post documentId and get Rockcount 
+    	  	   // post documentId and get Rockcount 
                 $.ajax({
                     type: 'POST',
                     url:BS.rockTheUsermedia,

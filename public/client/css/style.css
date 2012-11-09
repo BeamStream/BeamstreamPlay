@@ -763,7 +763,7 @@ ul.rockit li span a {
 
   padding : 10px;
   z-index: 1050;
-  width: 110px;
+  width: auto;
   line-height:20px;
   background-color: #3A4046;
   border: 1px solid #999;

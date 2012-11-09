@@ -143,6 +143,11 @@ BS.browserClosed =BS.URLRequired+"/browserClosed";
 BS.changeTitleDescriptionUserMedia =BS.URLRequired+"/changeTitleAndDescriptionUserMedia";
 //get details of a image/video 
 BS.getMedia =BS.URLRequired+"/getMedia";
+//check if the logged user is already rock a particular message
+BS.isARockerOfMessage =BS.URLRequired+"/isARockerOfMessage";
+//check if the logged user is already rock a particular comment
+BS.isARockerOfComment =BS.URLRequired+"/isARockerOfComment";
+ 
  
 
 

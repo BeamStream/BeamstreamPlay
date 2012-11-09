@@ -16,8 +16,9 @@ BS.StreamView = Backbone.View.extend({
 //           "click #icon-up" :"slideUp",
 //           "click #icon-down" : "slideDown",
            "click i.rock-message" : "rockMessage",
-//           "mouseenter i.rock-message" : "showUnrockMessage",
+           "mouseenter i.rock-message" : "showUnrockMessage",
            "click i.rock-comment" :"rockComments",
+           "mouseenter i.rock-comment" : "showUnrockComment",
            "mouseenter a#rocks" : "showRockers",
            "click a.rock" : "preventDefault",
            "mouseenter a#cmtrock" : "showCommentRockers",
@@ -400,6 +401,7 @@ BS.StreamView = Backbone.View.extend({
      * post a message
      */
     postMessage :function(eventName){
+    	
       // upload file 
      var self = this;
      var streamId = $('#streams-list li.active a').attr('id');
@@ -507,7 +509,7 @@ BS.StreamView = Backbone.View.extend({
       }
     },
     /**
-     * post message with shortURL if present
+     * call server method to post message  with shortURL if present
      */
     postMsg:function(message,streamId,messageAccess){
         var self = this; 
@@ -522,7 +524,8 @@ BS.StreamView = Backbone.View.extend({
   			},
   			dataType : "json",
   			success : function(data) {
-                           
+  				
+                   /* if status is failure (not join a class or school) then show a dialog box */      
   				   if(data.status == "Failure")
   				   {
   					 var alert = '<div id="dialog" title="Message !">You need to add a stream first.</br><a  onClick="closeAlert();" class="alert-msg " href="#create_stream"> Create Stream</a></div>';
@@ -573,6 +576,7 @@ BS.StreamView = Backbone.View.extend({
   							  
   							var source = $("#tpl-messages").html();
   	  						var template = Handlebars.compile(source);
+  	  						self.deletePreview();        
   	  						$('.timeline_items').prepend(template(datas));
                                           // } //docs
 //                                           else	{
@@ -615,11 +619,8 @@ BS.StreamView = Backbone.View.extend({
 		                	  showJanrainShareWidget(data.messageBody, 'View my Beamstream post', 'http://beamstream.com', data.messageBody);
 		                  });
   				   }
-                                   
-  				   $('.emdform').find('div.selector').html("");
-  				   $('.emdform').find('div.selector').hide();
-                   $('.emdform').find('input[type="hidden"].preview_input').remove();
-                   $('#msg').val("");
+                    self.deletePreview();         
+                    $('#msg').val("");
   			}
   		});
     	
@@ -928,10 +929,68 @@ BS.StreamView = Backbone.View.extend({
 	 },
 	 
 	 /**
-	  * show UnRock Message  Only if a user has already Rocked something up
+	  * show UnRock Message  Only if a user has already Rocked the message
 	  */
 	 showUnrockMessage:function(eventName){
 		 eventName.preventDefault();
+		 var element = eventName.target.parentElement;
+		 var msgId =$(element).closest('li').attr('id');
+		  
+		 /* make a call to check whether the logged user is already rock this message*/ 
+		 $.ajax({
+             type: 'POST',
+             url:BS.isARockerOfMessage,
+             data:{
+            	 messageId:msgId
+             },
+             dataType:"json",
+             success:function(data){
+            	 if(data == "true")
+            	 {
+            		// popup says "UnRock Message 
+	               	var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">UnRock Message</div>';
+	    
+	           		$('#hover-lists-'+msgId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
+	           		$('#hover-lists-'+msgId+'').html(ul);
+            	 }
+            	 
+             }
+          });
+		 
+		 
+	 },
+	 
+	 /**
+	  * show UnRock Comment  Only if a user has already Rocked comment
+	  */
+	 showUnrockComment:function(eventName){
+		 eventName.preventDefault();
+		 var element = eventName.target.parentElement;
+		 var commentId =$(element).closest('li').attr('id');
+		 var messageId =$(element).closest('li').parent('ul').parent('article').parent('li').attr('id');
+		  
+		 /* make a call to check whether the logged user is already rock this comment*/ 
+		 $.ajax({
+             type: 'POST',
+             url: BS.isARockerOfComment,
+             data:{
+            	 commentId:commentId,
+             },
+             dataType:"json",
+             success:function(data){
+            	 
+            	 if(data== 'true')
+            	 {
+            		// popup says "UnRock Comment 
+               	  	var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">UnRock Comment</div>';
+	           		$('#cmthover-lists-'+commentId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
+	           		$('#cmthover-lists-'+commentId+'').html(ul);
+            	 }
+            	 
+             }
+          });
+ 
+		 
 		 
 	 },
 	 
@@ -1230,6 +1289,7 @@ BS.StreamView = Backbone.View.extend({
 					    				
 					    			}
 					    		});
+					          self.deletePreview();
 					          $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 				        }
 		             }
@@ -1790,6 +1850,18 @@ BS.StreamView = Backbone.View.extend({
                  $('#hover-lists-'+msgId+'').html(content);
  
 	 },
+	 
+	 /**
+	  * Function for deletiing preview of ebmdly on message area
+	  * Added by : Aswathy 
+	  */
+	 deletePreview : function(){
+		 
+		 $('.emdform').find('div.selector').html("");
+		 $('.emdform').find('div.selector').hide();
+         $('.emdform').find('input[type="hidden"].preview_input').remove();
+	 },
+	 
 	 
  
    /**
