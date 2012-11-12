@@ -174,36 +174,36 @@ BS.AppRouter = Backbone.Router.extend({
 						var datas = {
 						"data" : info,
 						"number" : current
-					 }
-					var source = $("#tpl-school").html();
-					var template = Handlebars.compile(source);
-					$('#school-list').append(template(datas));
-		//			$("#school-name-1").attr("disabled", "disabled"); 
-					
-					if(info.degree != "Other")
-					{
-						$('#other-degrees-'+current).hide();
-					}
-					
-					$('#year-'+current).val(info.year);
-					$('#degreeprogram-'+current).val(info.degree);
-					$('#graduated-'+current).val(info.graduated);
-					if(info.graduated == "yes")
-					{
-						$('#degree-exp-'+current).hide();
-						$('#calendar-'+current).val(info.graduationDate);
-					
-					}
-					else
-					{
-						$('#cal-'+current).hide();
-						$('#degree-expected-'+current).val(info.degreeExpected);
-					
-					}
-					 
-					$(".modal select:visible").selectBox();
-					$('.modal .datepicker').datepicker();
-					$('.datepicker').css('z-index','99999');
+					    }
+						var source = $("#tpl-school").html();
+						var template = Handlebars.compile(source);
+						$('#school-list').append(template(datas));
+			//			$("#school-name-1").attr("disabled", "disabled"); 
+						
+						if(info.degree != "Other")
+						{
+							$('#other-degrees-'+current).hide();
+						}
+						
+						$('#year-'+current).val(info.year);
+						$('#degreeprogram-'+current).val(info.degree);
+						$('#graduated-'+current).val(info.graduated);
+						if(info.graduated == "yes")
+						{
+							$('#degree-exp-'+current).hide();
+							$('#calendar-'+current).val(info.graduationDate);
+						
+						}
+						else
+						{
+							$('#cal-'+current).hide();
+							$('#degree-expected-'+current).val(info.degreeExpected);
+						
+						}
+						 
+						$(".modal select:visible").selectBox();
+						$('.modal .datepicker').datepicker();
+						$('.datepicker').css('z-index','99999');
 					
 			        });
 			        

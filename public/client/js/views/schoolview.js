@@ -10,7 +10,8 @@ BS.SchoolView = Backbone.View.extend({
 	      "keyup .school" : "populateSchools",
 	      "focusin .school" : "populateSchools",
 	      "click #close-school" : "closeScreen",
-	      "click .back-button" :"backToPrevious",    
+	      "click .back-button" :"backToPrevious",   
+	      "click .remove_school" : "removeSchool"
            
 	    },
 	
@@ -105,19 +106,17 @@ BS.SchoolView = Backbone.View.extend({
 //    comment open  start----	 
     	/* validation on other fields */ 
     	 var validate =$("#school-form").valid();
-
-    	eventName.preventDefault(); 
     	
     	/* validate select box */
      	for(i=1; i <= current; i++)
    	    {
- 		  valiadateSelect($('#graduated-'+i));
- 		  console.log($('#major-'+i).valid());
+     		if ($('#graduated-'+i).length > 0){
+     			valiadateSelect($('#graduated-'+i));
+     	 		console.log($('#major-'+i).valid());
+     		}
+ 		  
    	    }
-    	
-    	/* validation on other fields */
-    	var validate =$("#school-form").valid();
-
+     	
     	if(validate == true)
     	{   
     		/* put validation on "Graduated?" filed */
@@ -192,7 +191,7 @@ BS.SchoolView = Backbone.View.extend({
     		$('.error-msg').html("You must fill in all of the required fields.");
     		 
     	}
-//----end
+////----end
     	
      
       },
@@ -280,7 +279,9 @@ BS.SchoolView = Backbone.View.extend({
           eventName.preventDefault();
       	  current ++;  //current keeps track of how many schools we have
       	  
-      	  var strToAdd = '<fieldset id="'+current+'" ><legend class="legend legend-add">Another school</legend><div class="school-registration"><div class="form-row"><div class="element"><label name="school-name-'+current+'" for="school-name-'+current+'" id="school-id-'+current+'" value="">School name </label><input type="text" id="school-name-'+current+'" name="schoolName" class="required span3 school" placeholder="School Name"><input type="hidden" id="associatedId-'+current+'" value=""><div id="school-name-'+current+'-loader" class="loader_schoolname" style="display :none;"> <img src ="images/loading.gif"></div></div><div class="element"><label name="year-'+current+'" for="year">Year</label><select name="year-'+current+'" id="year-'+current+'" class="span2"><option value="Freshman">Freshman</option><option value="Sophomore">Sophomore</option><option value="Junior">Junior</option><option value="Senior">Senior</option><option value="Graduated(Master\'s)>Graduated(Master\'s)</option> <option value="Graduated(Phd)">Graduated(Phd)</option><option value="Other">Other</option></select></div><div class="element" ><label name="degreeprogram-'+current+'" for="degree-program-'+current+'">Degree program</label><select name="degreeprogram-'+current+'" id="degreeprogram-'+current+'" class="degreepgm span2"><option value="Assosiates(AA)">Assosiates(AA)</option><option value="Bachelor\'s">Bachelor\'s</option><option value="Master\'s">Master\'s</option><option value="Doctorate(Phd)">Doctorate(Phd)</option><option value="Other">Other</option></select></div><div class="element" id="other-degrees-'+current+'"><label name="other-degree-'+current+'" for="other-degree">Degree </label><input type="text" name="other-degree-'+current+'" id="other-degree-'+current+'" class="required small" placeholder="Degree"></div></div><div class="form-row"><div class="element"><label name="major-'+current+'"  for="major-'+current+'">Major </label><input type="text" name="major-'+current+'" id="major-'+current+'" class="span3" placeholder="Your Major"></div><div class="element"><label name="graduated-'+current+'" for="graduated" name="graduated-'+current+'">Graduated? </label><select name="graduated" id="graduated-'+current+'" class="required graduated span2" onchange="valiadateSelect(this)"><option value=""> </option><option value="attending">Still Attending</option><option value="yes">Yes</option><option value="no">No</option></select></div><div class="element" id="cal-'+current+'"><label name="calendar-'+current+'" for="calendar-'+current+'">Calendar</label><input class="span2 datepicker cal" type="text" value="01/05/2011" id="calendar-'+current+'" name="calendar-'+current+'"/></div><div class="element" ><div class="element" id="degree-exp-'+current+'"><label for="degree-expected-'+current+'">Degree expected</label><select id="degree-expected-'+current+'"  name="degree-expected-'+current+'" class="span3" ><option value="Winter 2012">Winter 2012</option><option value="Summer 2013">Summer 2013</option><option value="Winter 2013">Winter 2013</option><option value="Summer 2014">Summer 2014</option><option value="Winter 2014">Winter 2014</option><option value="Summer 2015">Summer 2015</option><option value="Winter 2015">Winter 2015</option><option value="No Degree Expected">No Degree Expected</option></select></div></div> </div></div></fieldset>';
+//      	  var strToAdd = '<fieldset id="'+current+'" ><legend class="legend legend-add">Another school</legend><div class="school-registration"><div class="form-row"><div class="element"><label name="school-name-'+current+'" for="school-name-'+current+'" id="school-id-'+current+'" value="">School name </label><input type="text" id="school-name-'+current+'" name="schoolName" class="required span3 school" placeholder="School Name"><input type="hidden" id="associatedId-'+current+'" value=""><div id="school-name-'+current+'-loader" class="loader_schoolname" style="display :none;"> <img src ="images/loading.gif"></div></div><div class="element"><label name="year-'+current+'" for="year">Year</label><select name="year-'+current+'" id="year-'+current+'" class="span2"><option value="Freshman">Freshman</option><option value="Sophomore">Sophomore</option><option value="Junior">Junior</option><option value="Senior">Senior</option><option value="Graduated(Master\'s)>Graduated(Master\'s)</option> <option value="Graduated(Phd)">Graduated(Phd)</option><option value="Other">Other</option></select></div><div class="element" ><label name="degreeprogram-'+current+'" for="degree-program-'+current+'">Degree program</label><select name="degreeprogram-'+current+'" id="degreeprogram-'+current+'" class="degreepgm span2"><option value="Assosiates(AA)">Assosiates(AA)</option><option value="Bachelor\'s">Bachelor\'s</option><option value="Master\'s">Master\'s</option><option value="Doctorate(Phd)">Doctorate(Phd)</option><option value="Other">Other</option></select></div><div class="element" id="other-degrees-'+current+'"><label name="other-degree-'+current+'" for="other-degree">Degree </label><input type="text" name="other-degree-'+current+'" id="other-degree-'+current+'" class="required small" placeholder="Degree"></div></div><div class="form-row"><div class="element"><label name="major-'+current+'"  for="major-'+current+'">Major </label><input type="text" name="major-'+current+'" id="major-'+current+'" class="span3" placeholder="Your Major"></div><div class="element"><label name="graduated-'+current+'" for="graduated" name="graduated-'+current+'">Graduated? </label><select name="graduated" id="graduated-'+current+'" class="required graduated span2" onchange="valiadateSelect(this)"><option value=""> </option><option value="attending">Still Attending</option><option value="yes">Yes</option><option value="no">No</option></select></div><div class="element" id="cal-'+current+'"><label name="calendar-'+current+'" for="calendar-'+current+'">Calendar</label><input class="span2 datepicker cal" type="text" value="01/05/2011" id="calendar-'+current+'" name="calendar-'+current+'"/></div><div class="element" ><div class="element" id="degree-exp-'+current+'"><label for="degree-expected-'+current+'">Degree expected</label><select id="degree-expected-'+current+'"  name="degree-expected-'+current+'" class="span3" ><option value="Winter 2012">Winter 2012</option><option value="Summer 2013">Summer 2013</option><option value="Winter 2013">Winter 2013</option><option value="Summer 2014">Summer 2014</option><option value="Winter 2014">Winter 2014</option><option value="Summer 2015">Summer 2015</option><option value="Winter 2015">Winter 2015</option><option value="No Degree Expected">No Degree Expected</option></select></div></div> </div></div></fieldset>';
+      	  var strToAdd = '<fieldset id="'+current+'" ><legend class="legend legend-add">Another school</legend><div class="school-registration"><div class="form-row"><div class="element"><label name="school-name-'+current+'" for="school-name-'+current+'" id="school-id-'+current+'" value="">School name </label><input type="text" id="school-name-'+current+'" name="schoolName" class="required span3 school" placeholder="School Name"><input type="hidden" id="associatedId-'+current+'" value=""><div id="school-name-'+current+'-loader" class="loader_schoolname" style="display :none;"> <img src ="images/loading.gif"></div></div><div class="element"><label name="year-'+current+'" for="year">Year</label><select name="year-'+current+'" id="year-'+current+'" class="span2"><option value="Freshman">Freshman</option><option value="Sophomore">Sophomore</option><option value="Junior">Junior</option><option value="Senior">Senior</option><option value="Graduated(Master\'s)>Graduated(Master\'s)</option> <option value="Graduated(Phd)">Graduated(Phd)</option><option value="Other">Other</option></select></div><div class="element" ><label name="degreeprogram-'+current+'" for="degree-program-'+current+'">Degree program</label><select name="degreeprogram-'+current+'" id="degreeprogram-'+current+'" class="degreepgm span2"><option value="Assosiates(AA)">Assosiates(AA)</option><option value="Bachelor\'s">Bachelor\'s</option><option value="Master\'s">Master\'s</option><option value="Doctorate(Phd)">Doctorate(Phd)</option><option value="Other">Other</option></select></div><div class="element" id="other-degrees-'+current+'"><label name="other-degree-'+current+'" for="other-degree">Degree </label><input type="text" name="other-degree-'+current+'" id="other-degree-'+current+'" class="required small" placeholder="Degree"></div></div><div class="form-row"><div class="element"><label name="major-'+current+'"  for="major-'+current+'">Major </label><input type="text" name="major-'+current+'" id="major-'+current+'" class="span3" placeholder="Your Major"></div><div class="element"><label name="graduated-'+current+'" for="graduated" name="graduated-'+current+'">Graduated? </label><select name="graduated" id="graduated-'+current+'" class="required graduated span2" onchange="valiadateSelect(this)"><option value=""> </option><option value="attending">Still Attending</option><option value="yes">Yes</option><option value="no">No</option></select></div><div class="element" id="cal-'+current+'"><label name="calendar-'+current+'" for="calendar-'+current+'">Calendar</label><input class="span2 datepicker cal" type="text" value="01/05/2011" id="calendar-'+current+'" name="calendar-'+current+'"/></div><div class="element" ><div class="element" id="degree-exp-'+current+'"><label for="degree-expected-'+current+'">Degree expected</label><select id="degree-expected-'+current+'"  name="degree-expected-'+current+'" class="span3" ><option value="Winter 2012">Winter 2012</option><option value="Summer 2013">Summer 2013</option><option value="Winter 2013">Winter 2013</option><option value="Summer 2014">Summer 2014</option><option value="Winter 2014">Winter 2014</option><option value="Summer 2015">Summer 2015</option><option value="Winter 2015">Winter 2015</option><option value="No Degree Expected">No Degree Expected</option></select></div></div> </div></div><a id="'+current+'" class="remove_school" href="#"></a></fieldset>';
+
 
       	  $("a.legend-add").before(strToAdd);
           $('#degree-exp-'+current).hide();
@@ -336,8 +337,7 @@ BS.SchoolView = Backbone.View.extend({
 	    	  var schoolId ='';
 	    	  var count = current;
 	    	  var schools = new BS.SchoolCollection();
-	    	  console.log("current" + current);
-	    	  console.log("BS.schoolNum" + BS.schoolNum);
+	    
 	    	  if(BS.schoolNum)
 	    	  {
 	    		  if(BS.schoolNum <= current)
@@ -348,87 +348,89 @@ BS.SchoolView = Backbone.View.extend({
 	    	  
 	    	  for(i=1; i <= count; i++)
 	    	  {
-	    	     var degreeexp,degdate,otherDegree;
-	
-		    	  /* display degree expected when selecting graduated as 'attending' or 'no' */
-		    	  if($('#graduated-'+i).val()== "attending" || $('#graduated-'+i).val()== "no")
-		    	  {
-			    	  degreeexp = $('#degree-expected-'+i).val();
-			    	  degdate = "";
-		    	  }
-		    	  /* display degree expected when selecting graduated as 'yes' */
-		    	  else if($('#graduated-'+i).val() == "yes")
-		    	  {
-			    	  degreeexp = "";
-			    	  degdate = $('#calendar-'+i).val();
-			    	  
-		    	  }
-		    	  else
-		    	  {
-			    	  graduated = "";
-			    	  degreeexp= "";
-		    	  }
-		    	  if($('#degreeprogram-'+i).val() == "Other")
-		    	  {
+	    		 if ($('fieldset#'+i).length > 0){
+		    	     var degreeexp,degdate,otherDegree;
 		
-		    		  	otherDegree = $('#other-degree-'+i).val();
-		
-		    	  }
-		    	  else
-		    	  {
-		    		  otherDegree ="";
-		    	  }
-	
-	    	     /* get Id of auto populated schools */
-		    	  var sId = '';
-		    	   
-		    	  _.each(BS.allSchoolInfo, function(data) {
-			    	  if(data.schoolName == $('#school-name-'+i).val())
+			    	  /* display degree expected when selecting graduated as 'attending' or 'no' */
+			    	  if($('#graduated-'+i).val()== "attending" || $('#graduated-'+i).val()== "no")
 			    	  {
-			    		  console.log("same");
-			    		  sId = data.id.id;
-			    		 
+				    	  degreeexp = $('#degree-expected-'+i).val();
+				    	  degdate = "";
+			    	  }
+			    	  /* display degree expected when selecting graduated as 'yes' */
+			    	  else if($('#graduated-'+i).val() == "yes")
+			    	  {
+				    	  degreeexp = "";
+				    	  degdate = $('#calendar-'+i).val();
+				    	  
+			    	  }
+			    	  else
+			    	  {
+				    	  graduated = "";
+				    	  degreeexp= "";
+			    	  }
+			    	  if($('#degreeprogram-'+i).val() == "Other")
+			    	  {
+			
+			    		  	otherDegree = $('#other-degree-'+i).val();
+			
+			    	  }
+			    	  else
+			    	  {
+			    		  otherDegree ="";
 			    	  }
 		
-		    	  	});
-		    	  
- 
-		    	  if(sId)
-		    	  {
-		    		  console.log("111");
-		    	    assosiatedSchoolId = sId;
-		    	     
-		    	  }
-		    	  else if($('#associatedId-'+i).attr('value'))
-		    	  {
-		    		  console.log("22");
-		    		  assosiatedSchoolId = $('#associatedId-'+i).attr('value');
-		    	  }
-		    	  else
-		    	  {
-		    		  console.log("333");
-		    		  assosiatedSchoolId = i;
-		    	  }
-		    	  if($('#school-id-'+i).attr('value'))
-		    	  {
-		    		  
-		    		  schoolId = $('#school-id-'+i).attr('value');
-		    		 
-		    	  }
-		    	  else
-		    	  {
-		    		  schoolId = i;
-		    		  
-		    	  }
-	
-	              console.log("assosiatedSchoolId " + assosiatedSchoolId);
-		    	  var school = new BS.School();
-		    	  // school.set({id:i,schoolName: $('#school-name-'+i).val(),assosiatedSchoolId:assosiatedSchoolId,year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val() }, graduated: $('#graduated-'+i).val(), graduationDate: degdate ,otherDegree: otherDegree});
-		    	  school.set({id:schoolId,schoolName: $('#school-name-'+i).val(),assosiatedSchoolId:assosiatedSchoolId,year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val() }, graduated: $('#graduated-'+i).val(), graduationDate: degdate ,otherDegree: otherDegree});
+		    	     /* get Id of auto populated schools */
+			    	  var sId = '';
+			    	   
+			    	  _.each(BS.allSchoolInfo, function(data) {
+				    	  if(data.schoolName == $('#school-name-'+i).val())
+				    	  {
+				    		  console.log("same");
+				    		  sId = data.id.id;
+				    		 
+				    	  }
+			
+			    	  	});
+			    	  
+	 
+			    	  if(sId)
+			    	  {
+			    		  console.log("111");
+			    	    assosiatedSchoolId = sId;
+			    	     
+			    	  }
+			    	  else if($('#associatedId-'+i).attr('value'))
+			    	  {
+			    		  console.log("22");
+			    		  assosiatedSchoolId = $('#associatedId-'+i).attr('value');
+			    	  }
+			    	  else
+			    	  {
+			    		  console.log("333");
+			    		  assosiatedSchoolId = i;
+			    	  }
+			    	  if($('#school-id-'+i).attr('value'))
+			    	  {
+			    		  
+			    		  schoolId = $('#school-id-'+i).attr('value');
+			    		 
+			    	  }
+			    	  else
+			    	  {
+			    		  schoolId = i;
+			    		  
+			    	  }
 		
-		
-		    	  schools.add(school);
-	    	  }
+		              console.log("assosiatedSchoolId " + assosiatedSchoolId);
+			    	  var school = new BS.School();
+			    	  // school.set({id:i,schoolName: $('#school-name-'+i).val(),assosiatedSchoolId:assosiatedSchoolId,year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val() }, graduated: $('#graduated-'+i).val(), graduationDate: degdate ,otherDegree: otherDegree});
+			    	  school.set({id:schoolId,schoolName: $('#school-name-'+i).val(),assosiatedSchoolId:assosiatedSchoolId,year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val() }, graduated: $('#graduated-'+i).val(), graduationDate: degdate ,otherDegree: otherDegree});
+			
+			
+			    	  schools.add(school);
+	    		 }
+		     }
 	    	  var schoolinfo = JSON.stringify(schools);
 	    	  return schoolinfo;
     	  },
@@ -479,5 +481,15 @@ BS.SchoolView = Backbone.View.extend({
 	    	  eventName.preventDefault(); 
 	    	  $(".star_position").html('');
 	    	  BS.AppRouter.navigate('streams', {trigger: true});
+	      },
+	      /**
+	       * delete a  added school fieldset from the school view 
+	       */
+	      removeSchool:function(eventName){
+	    	  eventName.preventDefault(); 
+	    	  var id = eventName.target.id;
+	    	  console.log(id);
+	    	  $('fieldset#'+id).remove();
+	    	  
 	      }
 });
