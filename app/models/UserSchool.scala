@@ -60,7 +60,7 @@ object UserSchool {
           UserSchoolDAO.update(MongoDBObject("_id" -> userSchool.id), userSchool, false, false, new WriteConcern)
           resultToSend = ResulttoSent("Success", "Schools Updated Successfully")
         } else if (isUserAlreadyContainsTheSchoolThatUserWantsToJoin(userSchool.assosiatedSchoolId, userId) == true) {
-          resultToSend = ResulttoSent("Failure", "You've already Joined The " + userSchool.schoolName + " School") //#413
+          resultToSend = ResulttoSent("Success", "You've already Joined The " + userSchool.schoolName + " School") //#413
 
         } else {
           UserSchoolDAO.insert(userSchool)

@@ -14,6 +14,6 @@ case class ResulttoSent(status: String,
 
 //Resultant Class Details
 case class ClassWithNoOfUsers(usersMap:Map[String, Int] , classToReturn:Class)  
- 
+case class SchoolResultsToSend(schools:List[UserSchool],resultToSend:ResulttoSent) 
 
 
