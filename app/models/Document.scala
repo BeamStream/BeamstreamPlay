@@ -54,7 +54,8 @@ case class Document(@Key("_id") id: ObjectId,
   documentRocks: Int,
   documentRockers: List[ObjectId],
   commentsOnDocument: List[ObjectId],
-  documentFollwers: List[ObjectId])
+  documentFollwers: List[ObjectId],
+  previewImageUrl:String)
 
 object Document {
 

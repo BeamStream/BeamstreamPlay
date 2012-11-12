@@ -74,7 +74,7 @@ object DocumentController extends Controller {
         val userId = new ObjectId(request.session.get("userId").get)
         val streamId = (documentJson \ "streamId").extract[String]
         val date = new Date
-        val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId, DocumentAccess.withName(access), new ObjectId(streamId), date, date, 0, List(), List(), List())
+        val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId, DocumentAccess.withName(access), new ObjectId(streamId), date, date, 0, List(), List(), List(),"")
         val docId = Document.addDocument(documentToCreate)
         val user = User.getUserProfile(userId)
         //Create A Message As Well To Display The Doc Creation In Stream
@@ -197,13 +197,13 @@ object DocumentController extends Controller {
             if (isPdf == true) {
               val previewImageUrl=PreviewOfPDF.convertPdfToImage(documentReceived,docName)
                val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
-                new ObjectId(streamId), new Date, new Date, 0, List(), List(), List())
+                new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(),previewImageUrl)
               Document.addDocument(documentCreated)
               docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL)
 
             } else {
               val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
-                new ObjectId(streamId), new Date, new Date, 0, List(), List(), List())
+                new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(),"")
               Document.addDocument(documentCreated)
               docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL)
             }

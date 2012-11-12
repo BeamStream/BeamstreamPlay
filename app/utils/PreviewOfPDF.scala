@@ -26,7 +26,6 @@ object PreviewOfPDF {
     val imageInByte = baos.toByteArray
     val decodedInput: InputStream = new ByteArrayInputStream(imageInByte)
     (new AmazonUpload).uploadCompressedFileToAmazon("PdfFrame" + docName, decodedInput, 0, true, "")
-    println("LoGDone")
     "https://s3.amazonaws.com/BeamStream/" + "PdfFrame" + docName
   }
 }
