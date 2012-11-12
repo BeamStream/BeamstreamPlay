@@ -19,6 +19,7 @@ import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 import models.ResulttoSent
 import models.School
+import models.SchoolResultsToSend
 
 object DetailedRegistration extends Controller {
 
@@ -42,7 +43,7 @@ object DetailedRegistration extends Controller {
     val schoolList = net.liftweb.json.parse(schoolListJson(0)).extract[List[UserSchool]]
     val resultObtained = UserSchool.createSchool(schoolList, new ObjectId(request.session.get("userId").get))
     if (resultObtained.status == "Success") User.addInfo(schoolList, new ObjectId(request.session.get("userId").get))
-    Ok(write(schoolList)).as("application/json")
+    Ok(write(new SchoolResultsToSend(schoolList, resultObtained))).as("application/json")
 
   }
 
