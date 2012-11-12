@@ -18,8 +18,7 @@ import utils.ObjectIdSerializer
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 import models.ResulttoSent
-import models.School
-import models.SchoolResultsToSend
+
 
 object DetailedRegistration extends Controller {
 
