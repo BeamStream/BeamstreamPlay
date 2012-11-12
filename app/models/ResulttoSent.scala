@@ -10,7 +10,7 @@ case class ResulttoSent(status: String,
   message: String)
   
   case class DocResulttoSent(docId: String,
-  docUrl: String)
+  docUrl: String, previewImageUrl:String)
 
 //Resultant Class Details
 case class ClassWithNoOfUsers(usersMap:Map[String, Int] , classToReturn:Class)  

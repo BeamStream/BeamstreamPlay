@@ -158,7 +158,7 @@ object DocumentController extends Controller {
 
   def getDocumentFromDisk = Action(parse.multipartFormData) { request =>
 
-    var docResultToSend: DocResulttoSent = new DocResulttoSent("", "")
+    var docResultToSend: DocResulttoSent = new DocResulttoSent("", "","")
     val documentJsonMap = request.body.asFormUrlEncoded.toMap
     val streamId = documentJsonMap("streamId").toList(0)
 
@@ -185,27 +185,27 @@ object DocumentController extends Controller {
           if (isImage == true) {
             val media = new UserMedia(new ObjectId, documentName, "", new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Image, false, "", 0, List())
             UserMedia.saveMediaForUser(media)
-            docResultToSend = new DocResulttoSent(media.id.toString, docURL)
+            docResultToSend = new DocResulttoSent(media.id.toString, docURL,"")
           } else if (isVideo == true) {
             val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(docURL)
             (new AmazonUpload).uploadCompressedFileToAmazon(docName + "Frame", frameOfVideo, 0, false, request.session.get("userId").get)
             val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docName + "Frame"
             val media = new UserMedia(new ObjectId, documentName, "", new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Video, false, videoFrameURL, 0, List())
             UserMedia.saveMediaForUser(media)
-            docResultToSend = new DocResulttoSent(media.id.toString, docURL)
+            docResultToSend = new DocResulttoSent(media.id.toString, docURL,"")
           } else {
             if (isPdf == true) {
               val previewImageUrl=PreviewOfPDF.convertPdfToImage(documentReceived,docName)
                val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
                 new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(),previewImageUrl)
               Document.addDocument(documentCreated)
-              docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL)
+              docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL,documentCreated.previewImageUrl)
 
             } else {
               val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
                 new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(),"")
               Document.addDocument(documentCreated)
-              docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL)
+              docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL,documentCreated.previewImageUrl)
             }
             
             //Create A Message As Well To Display The Doc Creation In Stream
