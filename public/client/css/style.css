@@ -1725,13 +1725,25 @@ span.edit_profilepicture_icon{
     display: block;
     margin-bottom: 5px;
     margin-top: 4px;
+    float: left;
+    
   
+}
+.bitly a
+{
+     -ms-word-break: break-all;
+      word-break: break-all;
+      word-break: break-word;
+  -webkit-hyphens: auto;
+     -moz-hyphens: auto;
+          hyphens: auto;
+
 }
 
 
 .embed
 {
-border: 1px solid rgba(0, 0, 0, 0.15);
+	border: 1px solid rgba(0, 0, 0, 0.15);
     margin-bottom: 10px;
     margin-top: 10px;
     padding: 8px;
@@ -2637,5 +2649,26 @@ ul.comments li:hover .delete_comment{
     margin-top: 10px !important;
 }
 
-   
+/* remove school on school screen */
+#school-form fieldset{
+	position: relative;
+}
+.remove_school{
+	background-image: url("../images/close.png");
+    display: none;
+    height: 15px;
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    width: 15px;
+    border-radius: 7px 7px 7px 7px;
+}
+.remove_school:hover{
+	background-image: url("../images/close_hover.png");
+	
+}
+#school-form fieldset:hover .remove_school{
+	display:block;
+}   
+
 
