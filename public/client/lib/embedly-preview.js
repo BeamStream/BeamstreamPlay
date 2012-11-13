@@ -1744,11 +1744,11 @@ var Mustache = function() {
 			},
 			bind : function() {
 				b("Starting Bind");
-				h.bind("blur", this.fetch);
+//				h.bind("blur", this.fetch);
 				h.bind("keyup", this.keyUp);
-				h.bind("paste", this.paste);
+//				h.bind("paste", this.paste);
 				this.form.bind("submit", this._submit);
-				h.bind("attach", this.fetch)
+//				h.bind("attach", this.fetch)
 			}
 		};
 		_.bindAll(g);
@@ -1756,7 +1756,9 @@ var Mustache = function() {
 		return g
 	}
 	e.fn.preview = function(f, g) {
+		 
 		e(this).each(function(h, j) {
+			 
 			e.preview = new c(e(this), f)
 		});
 		return this

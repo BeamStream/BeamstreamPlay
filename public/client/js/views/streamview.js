@@ -26,7 +26,6 @@ BS.StreamView = Backbone.View.extend({
            "click .nav-tabs li" : "showActive",
            "click .class-nav-list li" :"showListActive",
            "keypress #msg" : "postMessageOnEnterKey",
-           "keyup #msg" : "removePreview",
            "click .comment": "showCommentSection",
            "keypress .add_message_comment" : "addComment",
            "click .hide_comments" : "hideComments",
@@ -142,6 +141,7 @@ BS.StreamView = Backbone.View.extend({
     getStreams :function(){
     	 
     	 var self =this;
+    	  
         /* get all streams  */
 		 $.ajax({
 				type : 'GET',
@@ -401,7 +401,7 @@ BS.StreamView = Backbone.View.extend({
      * post a message
      */
     postMessage :function(eventName){
-    	
+   
       // upload file 
      var self = this;
      var streamId = $('#streams-list li.active a').attr('id');
@@ -484,6 +484,7 @@ BS.StreamView = Backbone.View.extend({
 		    			},
 		    			dataType : "json",
 		    			success : function(data) {
+		    				
 		    				 message = message.replace(link[0],data.data.url);
 		    				 self.postMsg(message,streamId,messageAccess);
 		    			}
@@ -506,6 +507,7 @@ BS.StreamView = Backbone.View.extend({
                  
 	    	  self.postMsg(message,streamId,messageAccess);
 	      }
+	      
       }
     },
     /**
@@ -576,7 +578,7 @@ BS.StreamView = Backbone.View.extend({
   							  
   							var source = $("#tpl-messages").html();
   	  						var template = Handlebars.compile(source);
-  	  						self.deletePreview();        
+  	  					     
   	  						$('.timeline_items').prepend(template(datas));
                                           // } //docs
 //                                           else	{
@@ -609,7 +611,6 @@ BS.StreamView = Backbone.View.extend({
                                      return msgUrl;
                                     
                                  });
-                                    console.log(msgUrl);
                             	  //$('input#'+data.id.id+'-url').val(msgUrl);
 					              var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
 					              $('#'+data.id.id+'-docurl').html(content);
@@ -617,10 +618,15 @@ BS.StreamView = Backbone.View.extend({
   				         });
 		                  _.each(data, function(data) {
 		                	  showJanrainShareWidget(data.messageBody, 'View my Beamstream post', 'http://beamstream.com', data.messageBody);
+		                	  
 		                  });
   				   }
-                    self.deletePreview();         
-                    $('#msg').val("");
+  				  
+  				  /* delete default embedly preview */
+  				  $('div.selector').attr('display','none');
+  				  $('.emdform').find('div.selector').remove();
+  		          $('.emdform').find('input[type="hidden"].preview_input').remove();     
+                  $('#msg').val("");
   			}
   		});
     	
@@ -1227,20 +1233,6 @@ BS.StreamView = Backbone.View.extend({
 		 
 	 },
 	 
-	 /** 
-	  * remove the preview when we delete the link from message area
-	  */
-	 removePreview : function(eventName){
-		 var text = $('#msg').val();
-		 var links =  text.match(BS.urlRegex);
-		 var bitLink = text.match(/(http:\/\/bstre.am\/)/);
-		 if(!links && !bitLink)
-		 {
-			 $('.emdform').find('div.selector').html("");
-			 $('.emdform').find('div.selector').hide();
-			 $('.emdform').find('input[type="hidden"].preview_input').remove();
-		 }
-	 },
 	 /**
 	  * post message on enter key press
 	  */
@@ -1289,8 +1281,9 @@ BS.StreamView = Backbone.View.extend({
 					    				
 					    			}
 					    		});
-					          self.deletePreview();
-					          $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+					          $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07',autoplay : 1});
+					          
+					          
 				        }
 		             }
                            
@@ -1851,17 +1844,7 @@ BS.StreamView = Backbone.View.extend({
  
 	 },
 	 
-	 /**
-	  * Function for deletiing preview of ebmdly on message area
-	  * Added by : Aswathy 
-	  */
-	 deletePreview : function(){
-		 
-		 $('.emdform').find('div.selector').html("");
-		 $('.emdform').find('div.selector').hide();
-         $('.emdform').find('input[type="hidden"].preview_input').remove();
-	 },
-	 
+	
 	 
  
    /**
