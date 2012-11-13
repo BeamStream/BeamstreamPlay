@@ -230,8 +230,10 @@ BS.ProfileView = Backbone.View.extend({
     	 
     	
     	 $('#image-info').show();
+    	  
+    	 $('#profile-photo').attr("src","");
+    	 $('#profile-photo').attr("src","images/loading1.gif");
     	 
-//    	 this.resize(self,95,90 ,document.getElementById("profile-image"),document.getElementById("img"));
     	 var self = this;;
          var profile_image = document.getElementById("profile-image");
     	 file = e.target.files[0];
@@ -256,13 +258,38 @@ BS.ProfileView = Backbone.View.extend({
                  
              reader.onload = (function(f){
             	 
-//                 $(this).fileExif(someCallback);
             	 self.image = file;
             	 return function(e){ 
+            		 
+            		 /* rotate image */
+            		  var someCallback = function(exifObject) {
+            			  
+                         console.log("Orientation - "+exifObject.Orientation); 
+                         $('#profile-photo').attr("src",e.target.result);
+                         
+                         switch(exifObject.Orientation){
+	                         case 1 : $("#profile-photo").rotate(0);
+	                         		  break;
+	                         case 3 : $("#profile-photo").rotate(180);
+	                         		  break;
+	                         case 6 : $("#profile-photo").rotate(90);
+	                                  break;
+	                         case 8 : $("#profile-photo").rotate(270);
+	                                  break;
+	                         default : $("#profile-photo").rotate(0);
+                             		   break;
+                         }
+ 
+                      }
+                      $(profile_image).fileExif(someCallback);
             		
+                      
             		 $('#image-info').html(f.name);
             		 $('.delete-image').show();
-        		     $('#profile-photo').attr("src",e.target.result);
+//        		     $('#profile-photo').attr("src",e.target.result);
+////        		     
+//        		     $("#profile-photo").rotate(270);
+        		     
         		     $('#profile-photo').attr("name", f.name);
         		     $('#imagedata').val(e.target.result);
         		     $('#imagedata').attr("name", f.name);

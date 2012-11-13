@@ -607,7 +607,7 @@ BS.AppRouter = Backbone.Router.extend({
 			                                     BS.primaryVideo = '';
 			                                     
 					    						 var primaryImage = '<div class="gallery clearfix"><div class="gallery clearfix">'
-					    							                 +'<a href="'+data.mediaUrl+'" rel="prettyPhoto"  ><img class="p-profile" src="'+data.mediaUrl+'"  width="100%" height="100%"  /></a></div>';
+					    							                 +'<a href="'+data.mediaUrl+'" rel="prettyPhoto"  ><img id= "pp-image" class="p-profile" src="'+data.mediaUrl+'"  width="100%" height="100%"  /></a></div>';
 					    						 $('#profile-images').html(primaryImage);
 					    					 }
 					    					 else
@@ -625,6 +625,7 @@ BS.AppRouter = Backbone.Router.extend({
 					    						 $('#profile-images').html(primaryProfile);
 					    						  
 					    					 }
+					    					 
 					    					 
 					    					 $("area[rel^='prettyPhoto']").prettyPhoto();
 				    		 				 $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});

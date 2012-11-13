@@ -76,9 +76,15 @@ body {
 <!--End of Le fav and touch icons -->
 
 
+
+
  
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
    
+ <!--  image exif  data-->
+<script type="text/javascript" src="lib/jquery.exif.js"></script>
+<script type="text/javascript" src="http://jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js"></script> 
+<!-- End -->
       
 
 </head>
@@ -2623,6 +2629,9 @@ Create a Class</a>
                            {{else}}
                              <img id="profile-photo" src="images/no-photo.png" style="width:95px; height:90px;" alt="no photo" name="profile-photo" exif="true">
                            {{/if}}
+							<div id="image-loader" style="display :none;">  
+			                   <img src ="images/loading.gif"> 
+                            </div>
                            </div>
                         </span>
                         <div class="profile-upload-box">

@@ -2129,9 +2129,8 @@ div.hover-div img{
 /*     width: 210px; */
     border-radius: 3px 3px 0px 0px;
 }
-.default-image{
-/* 	height: 155px;   */
-/*     width: 210px; */
+#default-image{
+    position:relative;
 }
  
 .hover-text{
@@ -2669,6 +2668,17 @@ ul.comments li:hover .delete_comment{
 }
 #school-form fieldset:hover .remove_school{
 	display:block;
-}   
+}
+/* for profile view loader */
+#image-loader{
+	left: 35px;
+    position: absolute;
+    top: 35px;
+    z-index: 999;
+	
+}
+#image-loader img{
+	width: 25px;
+}
 
 

@@ -1281,7 +1281,17 @@ BS.StreamView = Backbone.View.extend({
 					    				
 					    			}
 					    		});
-					          $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07',autoplay : 1});
+					          
+//					          var preview = {
+//					        	        submit : function(e, data){
+//					        	        	
+//					        	          e.preventDefault();
+//					        	          console.log(data);
+//					        	          this.display.create(data);
+//					        	          
+//					        	        }
+//					        	      }
+					          $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 					          
 					          
 				        }
