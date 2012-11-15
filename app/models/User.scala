@@ -44,7 +44,7 @@ object User {
 
   def addInfo(schoolList: List[UserSchool], userid: ObjectId) = {
     for (school <- schoolList) {
-      val userSchoolIds = User.findUserbyId(userid).schoolId
+      val userSchoolIds = User.getUserProfile(userid).schoolId
 
       (userSchoolIds.contains(school.id)) match {
         case true => println("School Id already in user Schools")
@@ -188,14 +188,6 @@ object User {
 
   }
 
-  /*
-  * Find User By Id
-  */
-
-  def findUserbyId(userId: ObjectId): User = {
-    val userFound = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    userFound
-  }
 
   /*
    * Rockers name of a message
