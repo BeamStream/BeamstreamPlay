@@ -26,7 +26,7 @@ object CommentController extends Controller {
     /**
      * Visitors Pattern approach
      */
-    
+
     //    val consumers: List[CommentConsumer] = List(Message, Document)
     //
     //    val messageId = commentJson("messageId").toList(0)
@@ -37,43 +37,47 @@ object CommentController extends Controller {
     //    val commentId = Comment.createComment(comment)
     //    consumers.map(_.addComment(new ObjectId(messageId), commentId))
     //    Ok(write(List(comment))).as("application/json")
-    
-    /**
-     * Direct Approach
-     */
 
-    (commentJson.contains(("messageId"))) match {
+    try {
+      /**
+       * Direct Approach
+       */
 
-      case true =>
-
-        val messageId = commentJson("messageId").toList(0)
-        val commentText = commentJson("comment").toList(0)
-        val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-        val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
-          commentPoster.firstName, commentPoster.lastName, 0, List())
-        val commentId = Comment.createComment(comment)
-        Message.addCommentToMessage(commentId, new ObjectId(messageId))
-        Ok(write(List(comment))).as("application/json")
-
-      case false => (commentJson.contains(("docId"))) match {
+      (commentJson.contains(("messageId"))) match {
 
         case true =>
 
-          val docId = commentJson("docId").toList(0)
+          val messageId = commentJson("messageId").toList(0)
           val commentText = commentJson("comment").toList(0)
           val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
           val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
             commentPoster.firstName, commentPoster.lastName, 0, List())
           val commentId = Comment.createComment(comment)
-          Document.addCommentToDocument(commentId, new ObjectId(docId))
+          Message.addCommentToMessage(commentId, new ObjectId(messageId))
           Ok(write(List(comment))).as("application/json")
 
-        case false =>
+        case false => (commentJson.contains(("docId"))) match {
 
-          Ok(write(new ResulttoSent("Failure", "IdNotFound")))
+          case true =>
+
+            val docId = commentJson("docId").toList(0)
+            val commentText = commentJson("comment").toList(0)
+            val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+            val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
+              commentPoster.firstName, commentPoster.lastName, 0, List())
+            val commentId = Comment.createComment(comment)
+            Document.addCommentToDocument(commentId, new ObjectId(docId))
+            Ok(write(List(comment))).as("application/json")
+
+          case false =>
+
+            Ok(write(new ResulttoSent("Failure", "IdNotFound")))
+
+        }
 
       }
-
+    } catch {
+      case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem During Posting Comment"))).as("application/json")
     }
   }
 
@@ -136,14 +140,13 @@ object CommentController extends Controller {
   def deleteTheComment = Action { implicit request =>
     val commentDetailsJson = request.body.asFormUrlEncoded.get
     val commentId = commentDetailsJson("commentId").toList(0)
-   val deletedTheCommnet= Comment.deleteCommentPermanently(new ObjectId(commentId),new ObjectId(request.session.get("userId").get))
-    if(deletedTheCommnet==true)Ok(write(new ResulttoSent("Success", "Comment Has Been Deleted")))
+    val deletedTheCommnet = Comment.deleteCommentPermanently(new ObjectId(commentId), new ObjectId(request.session.get("userId").get))
+    if (deletedTheCommnet == true) Ok(write(new ResulttoSent("Success", "Comment Has Been Deleted")))
     else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Comment")))
   }
-  
-   
+
   /**
-   * Is a Rocker 
+   * Is a Rocker
    * @ Purpose: identify if the user has rocked the comment or not
    */
   def isARocker = Action { implicit request =>
