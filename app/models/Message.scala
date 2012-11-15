@@ -15,8 +15,8 @@ import java.text.DateFormat
 
 object MessageType extends Enumeration {
 
-  val Text = Value(0, "text")
-  val Picture = Value(1, "Picture")
+  val Text = Value(0, "Text")
+  val Image = Value(1, "Image")
   val Video = Value(2, "Video")
   val Audio = Value(3, "Audio")
   val Document = Value(4, "Document")
