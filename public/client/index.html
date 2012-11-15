@@ -76,9 +76,15 @@ body {
 <!--End of Le fav and touch icons -->
 
 
+
+
  
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
    
+ <!--  image exif  data-->
+<script type="text/javascript" src="lib/jquery.exif.js"></script>
+<script type="text/javascript" src="http://jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js"></script> 
+<!-- End -->
       
 
 </head>
@@ -522,17 +528,18 @@ body {
 					<a href="#" class="message-icon"></a>
 					<a href="#" class="share-icon"></a>
 				</div>
-				<h4> image name</h4>
+				<div id="media-{{image.id.id}}" ><h4>{{image.name}}</h4>
 				<div class="gallery clearfix"></div>
 				<div class="gallery clearfix hrtxt">
 					<a href="{{image.mediaUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
 						<p class="google_doc doc-description" id="{{image.id.id}}">
-						<input type="hidden" id="id-{{image.id.id}}" value="doc.url"> Description of image</p>
+						<input type="hidden" id="id-{{image.id.id}}" value="doc.url"> {{image.description}}</p>
 					</a>
+					</div></div>
 					<h5 class="imgtitle" id="{{image.id.id}}"> Title & Description</h5>
 					<span>State</span>
 					<span class="date">datVal</span>
-				</div>
+				
 			</div>
 		 </div>
 	 </div>
@@ -566,17 +573,18 @@ body {
 					<a href="#" class="message-icon"></a>
 					<a href="#" class="share-icon"></a>
 				</div>
-				<h4> video name</h4> 
+				<div id="media-{{video.id.id}}" >
+				<h4> {{video.name}}</h4> 
 				<div class="gallery clearfix"></div>
 				<div class="gallery clearfix hrtxt">
 					<a href="{{video.mediaUrl}}" rel="prettyPhoto" style="text-decoration: none" >
 					<p class="google_doc doc-description" id="{{video.id.id}}">
-					<input type="hidden" id="{{video.id.id}}" value="doc.url"> Description of Video </p>
-					</a>
+					<input type="hidden" id="{{video.id.id}}" value="doc.url"> {{video.description}} </p>
+					</a></div></div>
 					<h5 class="videotitle" id="{{video.id.id}}"> Title & Description</h5>
 					<span>State</span>
 					<span class="date">datVal</span>    
-				</div>
+				
 			</div>
 		</div> 
 	</div>
@@ -2621,6 +2629,9 @@ Create a Class</a>
                            {{else}}
                              <img id="profile-photo" src="images/no-photo.png" style="width:95px; height:90px;" alt="no photo" name="profile-photo" exif="true">
                            {{/if}}
+							<div id="image-loader" style="display :none;">  
+			                   <img src ="images/loading.gif"> 
+                            </div>
                            </div>
                         </span>
                         <div class="profile-upload-box">
@@ -3864,7 +3875,8 @@ Create a Class</a>
             <div class="form-row" >
 
  
-            <div class="element" style="margin-top:5px;"><a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a> 
+            <div class="element" style="margin-top:5px;">
+    <!--    <a id ="register" class="hand_buttonnew" href="#">Don't have an account?    REGISTER HERE! </a> --> 
  
 
           </div>
@@ -3966,6 +3978,7 @@ Create a Class</a>
 	<!--  embedly JS -->
 	<script src="http://scripts.embed.ly/jquery.embedly.min.js"></script>
 	<script src="lib/embedly-preview.js" type="text/javascript"></script>
+
 	<!-- End embedly -->
 
 	<script type="text/javascript" src="lib/jquery.selectBox.js"></script>

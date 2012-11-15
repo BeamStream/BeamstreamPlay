@@ -12,7 +12,7 @@ Backbone.history.start();
 BS.URLRequired ="http://localhost:9000";    
  
  
-//BS.URLRequired ="http://alpha.beamstream.com";
+//BS.URLRequired ="http://www.beamstream.com";
  
 
 //BS.URLRequired ="http://test.beamstream.com"
@@ -139,6 +139,17 @@ BS.deleteMessage = BS.URLRequired+"/deleteMessage";
 BS.deleteTheComment = BS.URLRequired+"/deleteTheComment";
 // browser close 
 BS.browserClosed =BS.URLRequired+"/browserClosed";  
+//change Title and Description of User Media 
+BS.changeTitleDescriptionUserMedia =BS.URLRequired+"/changeTitleAndDescriptionUserMedia";
+//get details of a image/video 
+BS.getMedia =BS.URLRequired+"/getMedia";
+//check if the logged user is already rock a particular message
+BS.isARockerOfMessage =BS.URLRequired+"/isARockerOfMessage";
+//check if the logged user is already rock a particular comment
+BS.isARockerOfComment =BS.URLRequired+"/isARockerOfComment";
+ 
+ 
+
 
 
 /* for beta users */

@@ -22,7 +22,7 @@ class ClassTest extends FunSuite with BeforeAndAfter {
   val class2 = Class(new ObjectId, "201", "CSE", ClassType.Quarter, "3:34", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
   val class3 = Class(new ObjectId, "203", "ECE", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
   val class4 = Class(new ObjectId, "204", "CSE", ClassType.Yearly, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
-  val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List())
+  val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(), List())
 
   test("Create Class/Duplicate Class Exists") {
     val userId = User.createUser(user1)

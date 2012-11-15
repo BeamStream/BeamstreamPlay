@@ -14,20 +14,29 @@ import java.text.DateFormat
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 
-case class UserSchool(@Key("_id") id: ObjectId, schoolName: String, assosiatedSchoolId: ObjectId, year: Year.Value, degree: Degree.Value, major: String,
-  graduated: Graduated.Value, graduationDate: Option[Date], degreeExpected: Option[DegreeExpected.Value], otherDegree: String, classes: List[Class])
+case class UserSchool(@Key("_id") id: ObjectId,
+  schoolName: String,
+  assosiatedSchoolId: ObjectId,
+  year: Year.Value,
+  degree: Degree.Value,
+  major: String,
+  graduated: Graduated.Value,
+  graduationDate: Option[Date],
+  degreeExpected: Option[DegreeExpected.Value],
+  otherDegree: String,
+  classes: List[Class])
 
 object UserSchool {
 
   implicit val formats = DefaultFormats
 
-  /*
-   * Add a class to a school
-   */
-  def addClasstoSchool(schoolId: ObjectId, classList: List[Class]) {
-    val school = UserSchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0)
-    UserSchoolDAO.update(MongoDBObject("_id" -> schoolId), school.copy(classes = (school.classes ++ classList)), false, false, new WriteConcern)
-  }
+  //  /*
+  //   * Add a class to a school
+  //   */
+  //  def addClasstoSchool(schoolId: ObjectId, classList: List[Class]) {
+  //    val school = UserSchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0)
+  //    UserSchoolDAO.update(MongoDBObject("_id" -> schoolId), school.copy(classes = (school.classes ++ classList)), false, false, new WriteConcern)
+  //  }
 
   /*
    * Get UserSchoolById
@@ -55,16 +64,17 @@ object UserSchool {
     } else {
       for (userSchool <- userSchools) {
         val userSchoolObtained = UserSchool.userSchoolsForAUser(userSchool.id)
-
         if (userSchoolObtained.size == 1) {
           UserSchoolDAO.update(MongoDBObject("_id" -> userSchool.id), userSchool, false, false, new WriteConcern)
           resultToSend = ResulttoSent("Success", "Schools Updated Successfully")
+          println("CheckPoint 1")
         } else if (isUserAlreadyContainsTheSchoolThatUserWantsToJoin(userSchool.assosiatedSchoolId, userId) == true) {
-          resultToSend = ResulttoSent("Failure", "You've already Joined The " + userSchool.schoolName + " School") //#413
-
+          resultToSend = ResulttoSent("Success", "You've already Joined The " + userSchool.schoolName + " School") //#413
+          println("CheckPoint 2")
         } else {
           UserSchoolDAO.insert(userSchool)
           resultToSend = ResulttoSent("Success", "Schools Added Successfully")
+          println("CheckPoint 3")
         }
       }
       resultToSend

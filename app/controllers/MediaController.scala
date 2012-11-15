@@ -193,15 +193,6 @@ object MediaController extends Controller {
   def getProfilePicForAUser = Action { implicit request =>
     val userIdJsonMap = request.body.asFormUrlEncoded.get
     val userIdReceived = userIdJsonMap("userId").toList(0)
-    //    if (ProfileImageProviderCache.profileImageMap.isDefinedAt(userIdReceived)) {
-    //      val profilePicUrl = ProfileImageProviderCache.getImage(userIdReceived)
-    //      Ok(write(profilePicUrl)).as("application/json")
-    //    } else {
-    //      val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userIdReceived))
-    //      if (!mediaObtained.size.equals(0)) {
-    //        val MediaJson = write(mediaObtained.last)
-    //        Ok(MediaJson).as("application/json")
-    //      }
     val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userIdReceived))
     if (!mediaObtained.size.equals(0)) {
       val MediaJson = write(mediaObtained.last)
@@ -264,6 +255,22 @@ object MediaController extends Controller {
     val mediaObtained = UserMedia.findMediaById(new ObjectId(id))
     val mediaJson = write(List(mediaObtained.get))
     Ok(mediaJson).as("application/json")
+  }
+
+  /**
+   *  Get User Media
+   */
+
+  def getUserMedia = Action { implicit request =>
+    val mediaIdJsonMap = request.body.asFormUrlEncoded.get
+    (mediaIdJsonMap.contains(("userMediaId"))) match {
+      case false => Ok(write(new ResulttoSent("Failure", "No Media Found")))
+      case true =>
+        val userMediaId = mediaIdJsonMap("userMediaId").toList(0)
+        val mediaFound = UserMedia.findMediaById(new ObjectId(userMediaId))
+        val mediaJson = write(List(mediaFound.get))
+        Ok(mediaJson).as("application/json")
+    }
   }
 
 

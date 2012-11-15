@@ -230,10 +230,10 @@ BS.ProfileView = Backbone.View.extend({
     	 
     	
     	 $('#image-info').show();
-    	 
-         $('#profile-photo').attr("src","");
+    	  
+    	 $('#profile-photo').attr("src","");
     	 $('#profile-photo').attr("src","images/loading1.gif");
-
+    	 
     	 var self = this;;
          var profile_image = document.getElementById("profile-image");
     	 file = e.target.files[0]; 
@@ -263,7 +263,7 @@ BS.ProfileView = Backbone.View.extend({
                      
 
                         var someCallback = function(exifObject) {
-            			  
+           			  
                          console.log("Orientation - "+exifObject.Orientation); 
                          $('#profile-photo').attr("src",e.target.result);
                          
@@ -283,13 +283,13 @@ BS.ProfileView = Backbone.View.extend({
                       }
                       $(profile_image).fileExif(someCallback);
             		
-            		
-                         $('#image-info').html(f.name);
+                     
+            		 $('#image-info').html(f.name);
             		 $('.delete-image').show();
-//                          $('#profile-photo').attr("src","");
-////                                     	                         
-//                             $("#profile-photo").rotate(270);
-                             
+//        		     $('#profile-photo').attr("src",e.target.result);
+////        		     
+//        		     $("#profile-photo").rotate(270);
+        		     
         		     $('#profile-photo').attr("name", f.name);
         		     $('#imagedata').val(e.target.result);
         		     $('#imagedata').attr("name", f.name);

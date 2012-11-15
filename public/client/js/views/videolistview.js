@@ -151,42 +151,27 @@ BS.VideoListView = Backbone.View.extend({
             * 
             */  
         editVideoTitle :function(eventName){  
-//          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
-           console.log("edit video title");
-           var datas = {
-				"type" : 'Video',
-				"title" : '',
-                                "description" :''
-			  }
-            BS.mediaeditview = new  BS.MediaEditView();
-            BS.mediaeditview.render(datas);
-            $('#gdocedit').html(BS.mediaeditview.el);
-            
-            
-            /*
-             var imageId = eventName.currentTarget.id;             // id to get corresponding image   
-           $.ajax({                                       
-                        type : 'POST',
-                        url :  BS.getOneDocs,
-                        data : {
-                                documentId: imageId  
-                                },
-                        dataType : "json",
-                        success : function(imagess) {                          
-                             var imagedatas = {
-                             "id" : imagess[0].id.id,
-                             "url" : imagess[0].documentURL,
-                             "type" : 'Docs',
-                             "title" : imagess[0].documentName,
-                             "description" : imagess[0].documentDescription
-			  }
-            BS.mediaeditview = new  BS.MediaEditView();
-            BS.mediaeditview.render(imagedatas);
-            $('#gdocedit').html(BS.mediaeditview.el);
-                        }
-           });
-             */
-            
+		    var videoId = eventName.currentTarget.id;             
+		    $.ajax({                                       
+                type : 'POST',
+                url :  BS.getMedia,
+                data : {
+                	userMediaId: videoId  
+                },
+                dataType : "json",
+                success : function(videos) {                          
+                     var imagedatas = {
+	                     "id" : videos[0].id.id,
+	                     "url" : videos[0].mediaUrl,
+	                     "type" : 'UserMedia',
+	                     "title" : videos[0].name,
+	                     "description" : videos[0].description
+                     }
+				    BS.mediaeditview = new  BS.MediaEditView();
+				    BS.mediaeditview.render(imagedatas);
+				    $('#gdocedit').html(BS.mediaeditview.el);
+                }
+		   });
             
          },
             

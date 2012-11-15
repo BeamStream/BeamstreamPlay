@@ -42,6 +42,7 @@ POST    /allCommentsForAMessage       controllers.CommentController.getAllCommen
 POST    /rockingTheComment            controllers.CommentController.rockingTheComment
 POST    /commentRockers                controllers.CommentController.commentRockers
 POST    /deleteTheComment              controllers.CommentController.deleteTheComment
+POST /isARockerOfComment               controllers.CommentController.isARocker
 
 #Document
 GET  /getAllDocumentsForAUser    controllers.DocumentController.getAllGoogleDocumentsForAUser
@@ -105,13 +106,15 @@ GET /getAllProfilePicForAUser   controllers.MediaController.getAllProfilePicForA
 GET /getAllProfileVideoForAUser   controllers.MediaController.getAllProfileVideoForAUser
 POST /rockTheUsermedia            controllers.MediaController.rockTheUsermedia
 POST /giveMeRockersOfUserMedia    controllers.MediaController.giveMeRockersOfUserMedia
+POST /getMedia controllers.MediaController.getUserMedia
+
 
 #Message Rocks & Follows
 POST /rockedIt controllers.MessageController.rockedTheMessage
 POST /returnRockers controllers.MessageController.giveMeRockers
 POST /followMessage  controllers.MessageController.followTheMessage
 POST /isAFollower    controllers.MessageController.isAFollower
-
+POST /isARockerOfMessage   controllers.MessageController.isARocker
 
 #Files
 GET /audioFilesOfAUser  controllers.DocumentController.getAllAudioFilesForAUser

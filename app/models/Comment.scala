@@ -119,6 +119,21 @@ object Comment {
       deletedCommentSuccessfully
     }
   }
+  
+   /*
+   * Is a Rocker 
+   * @ Purpose: identify if the user has rocked a comment or not
+   */
+
+  def isARocker(commentId: ObjectId, userId: Object): Boolean = {
+    val comment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList(0)
+
+    (comment.rockers.contains(userId)) match {
+      case true => true
+      case false => false
+    }
+
+  }
 
 }
 

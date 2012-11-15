@@ -15,8 +15,8 @@ import java.text.DateFormat
 
 object MessageType extends Enumeration {
 
-  val Text = Value(0, "text")
-  val Picture = Value(1, "Picture")
+  val Text = Value(0, "Text")
+  val Image = Value(1, "Image")
   val Video = Value(2, "Video")
   val Audio = Value(3, "Audio")
   val Document = Value(4, "Document")
@@ -210,6 +210,21 @@ object Message { //extends CommentConsumer {
     val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
 
     (message.followers.contains(userId)) match {
+      case true => true
+      case false => false
+    }
+
+  }
+  
+   /*
+   * Is a Rocker 
+   * @ Purpose: identify if the user has rocked a message or not
+   */
+
+  def isARocker(messageId: ObjectId, userId: Object): Boolean = {
+    val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+
+    (message.rockers.contains(userId)) match {
       case true => true
       case false => false
     }

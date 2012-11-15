@@ -145,117 +145,111 @@ BS.FilesMediaView = Backbone.View.extend({
                         }           
             });
          }
-       $("#dropdownnew").find('ul').hide(250); 
+         $("#dropdownnew").find('ul').hide(250); 
         },
       
         docsList : function()
         {  
-            var i = 1;
-            var self = this;
-            BS.user.fetch({ success:function(e) {
+             var i = 1;
+             var self = this;
+             BS.user.fetch({ success:function(e) {
 
-                /* get profile images for user */
+             /* get profile images for user */
               $.ajax({
-                        type : 'GET',
-                        url :  BS.getAllDocs,
-//                        data : {
-//                           'userId': e.attributes.id.id
-//                                },
-                        dataType : "json",
-                        success : function(docs) {
-                            if(docs.length != 0)  {
-                              _.each(docs, function(doc) {
-                        var datVal =  self.formatDateVal(doc.creationDate);                   
-                           var content ='<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'">'
-                                        +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
-                                        +'<div class="hover-div"><img src="images/google_docs_image.png "/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
-                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
-                                        +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#googledocs" style="text-decoration: none">'
-                                        +'<div id="media-'+doc.id.id+'" ><h4> '+doc.documentName+'</h4> <p class="google_doc doc-description" id="'+doc.id.id+'" >'
-                                         +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
-                                        +''+doc.documentDescription+' </p> </div></a>'
-                                        +'<h5 class="doctitle" id="'+doc.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
-                                        +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#">'
-                                        +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
-                                        +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
-                        $('#coverdocs').html(content);                     
-                       
-                        });
-                        }
-                        }
+	                type : 'GET',
+	                url :  BS.getAllDocs,
+	                dataType : "json",
+	                success : function(docs) {
+	                    if(docs.length != 0)  {
+	                      _.each(docs, function(doc) {
+	                           var datVal =  self.formatDateVal(doc.creationDate);                   
+	                           var content ='<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'">'
+	                                        +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
+	                                        +'<div class="hover-div"><img src="images/google_docs_image.png "/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
+	                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
+	                                        +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#googledocs" style="text-decoration: none">'
+	                                        +'<div id="media-'+doc.id.id+'" ><h4> '+doc.documentName+'</h4> <p class="google_doc doc-description" id="'+doc.id.id+'" >'
+	                                         +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
+	                                        +''+doc.documentDescription+' </p> </div></a>'
+	                                        +'<h5 class="doctitle" id="'+doc.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
+	                                        +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#">'
+	                                        +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
+	                                        +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
+	                         $('#coverdocs').html(content);                     
+	                      });
+	                   }
+	               }
                });
 
             }});
 
-           // $('#content').html(BS.listDocsView.el);
         },
         
         docFromComputer :function(){
 
             var self = this;
             $.ajax({
-                        type : 'GET',
-                        url :  BS.getAllDOCSFilesForAUser,
-                        dataType : "json",
-                        success : function(docs) {
-                            if(docs.length != 0)  {
-                              _.each(docs, function(doc) {
-                        var datVal =  self.formatDateVal(doc.creationDate);                      
-                           var content ='<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'">'
-                                        +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
-                                        +'<div class="hover-div"><img src="images/docs_image.png  "/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
-                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
-                                        +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#docs" style="text-decoration: none">'
-                                        +'<div id="media-'+doc.id.id+'" ><h4> '+doc.documentName+'</h4> <p class="google_doc doc-description" id="'+doc.id.id+'" >'
-                                         +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
-                                        +''+doc.documentDescription+' </p> </div></a>'
-                                        +'<h5 class="doctitle" id="'+doc.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
-                                        +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#">'
-                                        +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
-                                        +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
-                        $('#coverdoc_com').html(content);                     
-                       
-                        });
-                        }
-                        }
-               });
+                type : 'GET',
+                url :  BS.getAllDOCSFilesForAUser,
+                dataType : "json",
+                success : function(docs) {
+                    if(docs.length != 0)  {
+                      _.each(docs, function(doc) {
+	                           var datVal =  self.formatDateVal(doc.creationDate);                      
+	                           var content ='<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'">'
+	                                        +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
+	                                        +'<div class="hover-div"><img src="images/docs_image.png  "/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
+	                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
+	                                        +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#docs" style="text-decoration: none">'
+	                                        +'<div id="media-'+doc.id.id+'" ><h4> '+doc.documentName+'</h4> <p class="google_doc doc-description" id="'+doc.id.id+'" >'
+	                                         +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
+	                                        +''+doc.documentDescription+' </p> </div></a>'
+	                                        +'<h5 class="doctitle" id="'+doc.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
+	                                        +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#">'
+	                                        +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
+	                                        +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
+	                           $('#coverdoc_com').html(content);                     
+               
+                    });
+                 }
+               }
+          });
            
         },
         
          /*
          *Edit the document title 
          */
-        editDocTitle :function(eventName){  
-            var docId = eventName.currentTarget.id;             // id to get corresponding docs   
+        editDocTitle :function(eventName){ 
+        	
+            var docId = eventName.currentTarget.id;             
             var docUrl = $('input#id-'+docId).val(); 
            
-           $.ajax({
-                        type : 'POST',
-                        url :  BS.getOneDocs,
-                        data : {
-                                documentId: docId  
-                                },
-                        dataType : "json",
-                        success : function(docs) {           
-            var datas = {
-                        "id" : docId,
-                        "url" : docUrl,
-                        "type" : 'Docs',
-                        "title" : docs[0].documentName,
-                        "description" :docs[0].documentDescription
-			  }
-            BS.mediaeditview = new  BS.MediaEditView();
-            BS.mediaeditview.render(datas);
-            $('#gdocedit').html(BS.mediaeditview.el);            
-              }
-                });          
-            },
+            $.ajax({
+                type : 'POST',
+                url :  BS.getOneDocs,
+                data : {
+                        documentId: docId  
+                },
+                dataType : "json",
+                success : function(docs) {           
+	                var datas = {
+		                "id" : docId,
+		                "url" : docUrl,
+		                "type" : 'Docs',
+		                "title" : docs[0].documentName,
+		                "description" :docs[0].documentDescription
+	                }
+		            BS.mediaeditview = new  BS.MediaEditView();
+		            BS.mediaeditview.render(datas);
+		            $('#gdocedit').html(BS.mediaeditview.el);            
+               }
+            });          
+        },
         
-        /*
+         /*
          *function to show pictures in filesmediaview
          */
-        
-        
          pictres : function()
          {  
             var self = this;
@@ -276,14 +270,11 @@ BS.FilesMediaView = Backbone.View.extend({
                             {
                              _.each(images, function(image) {
                                   	var datVal =  self.formatDateVal(image.creationDate);  
-//                                	arraypictures=docs;
-//                                	coverpicture=arraypictures[arraypictures.length-1];
-                               
 	                                content= '<div class="image-wrapper hovereffect" id="'+image.id.id+'"> <div class="hover-div"><img class="filmdeapicture" width="210px" height="141px" src="'+image.mediaUrl+'"><div class="hover-text">'               
 	                                +'<div class="comment-wrapper comment-wrapper2">'
 	                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
-	                                +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#imagelist" style="text-decoration: none"><div id="media-'+image.id.id+'" ><h4>Image Name</h4>'                            
-	                                +'<p class="doc-description">Description of Image</p></div></a>'
+	                                +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#imagelist" style="text-decoration: none"><div id="media-'+image.id.id+'" ><h4>'+image.name+'</h4>'                            
+	                                +'<p class="doc-description">'+image.description+'</p></div></a>'
 	                                +'<h5 class="imgtitle" id="'+image.id.id+'"> Title & Description</h5>'          
 	                                +'<span>State</span>'
 	                                +' <span class="date">datVal</span>' 
@@ -304,50 +295,39 @@ BS.FilesMediaView = Backbone.View.extend({
 
             }});
 
-           // $('#content').html(BS.listDocsView.el);
         },
         
-            /*Edit the document title
-            * 
-            */ 
-         editImgTitle :function(eventName){  
-//          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
-            var datas = {
-				"type" : 'Image',
-				"title" : '',
-                                "description" :''
-			  }
-            BS.mediaeditview = new  BS.MediaEditView();
-            BS.mediaeditview.render(datas);
-            $('#gdocedit').html(BS.mediaeditview.el);
-            
-            
-            /*
-             var imageId = eventName.currentTarget.id;             // id to get corresponding image   
+        /*
+         * Edit the Image's  title and Description
+        */ 
+         editImgTitle :function(eventName){ 
+        	 
+        	var imageId = eventName.currentTarget.id;      
+        	
+           /* post new title and description */
            $.ajax({                                       
-                        type : 'POST',
-                        url :  BS.getOneDocs,
-                        data : {
-                                documentId: imageId  
-                                },
-                        dataType : "json",
-                        success : function(imagess) {                          
-                             var imagedatas = {
-                             "id" : imagess[0].id.id,
-                             "url" : imagess[0].documentURL,
-                             "type" : 'Docs',
-                             "title" : imagess[0].documentName,
-                             "description" : imagess[0].documentDescription
-			  }
-            BS.mediaeditview = new  BS.MediaEditView();
-            BS.mediaeditview.render(imagedatas);
-            $('#gdocedit').html(BS.mediaeditview.el);
-                        }
+                type : 'POST',
+                url :  BS.getMedia,
+                data : {
+                	userMediaId: imageId  
+                },
+                dataType : "json",
+                success : function(imagess) {   
+                	
+                    var imagedatas = {
+                		   "id" : imagess[0].id.id,
+                		   "url" : imagess[0].mediaUrl,
+                		   "type" : 'UserMedia',
+                		   "title" : imagess[0].name,
+                		   "description" : imagess[0].description
+                    }    
+		            BS.mediaeditview = new  BS.MediaEditView();
+		            BS.mediaeditview.render(imagedatas);
+		            $('#gdocedit').html(BS.mediaeditview.el);
+               }
            });
-             */
             
-            
-            },
+        },
         
         /*
          *function to show pictures in filesmediaview
@@ -358,13 +338,10 @@ BS.FilesMediaView = Backbone.View.extend({
             var content='';
             var coverpicture; 
             BS.user.fetch({ success:function(e) {
-                /* get videos for user */
+              /* get videos for user */
               $.ajax({
                         type : 'GET',
                         url : BS.allProfileVideos,
-//                        data : {
-//                           'userId': e.attributes.id.id
-//                                },
                         dataType : "json",
 
                         success : function(videos) { 
@@ -380,8 +357,8 @@ BS.FilesMediaView = Backbone.View.extend({
                                             +'<a href="#" class="hand-icon"></a>'
                                             +'<a href="#" class="message-icon"></a>'
                                             +'<a href="#" class="share-icon"></a></div>'
-                                            +'<a id="profile-videos" style="text-decoration: none" href="#videos"><h4> Video Name</h4>'       
-                                            +'<p class="doc-description">Description of Video  </p></a>'
+                                            +'<a id="profile-videos" style="text-decoration: none" href="#videos"><div id="media-'+video.id.id+'" ><h4>'+video.name+'</h4>'       
+                                            +'<p class="doc-description">'+video.description+' </p></div></a>'
                                             +'<h5 class="videotitle" id="'+video.id.id+'"> Title & Description</h5>'          
                                             +'<span>State</span>'
                                             +' <span class="date">datVal</span>' 
@@ -399,51 +376,36 @@ BS.FilesMediaView = Backbone.View.extend({
             }});
         },
         
-        /*Edit the Video title
-            * 
-            */  
+        /*
+        * Edit the Video title and decsription
+        */  
         editVideoTitle :function(eventName){  
-//          var docId = eventName.currentTarget.id;             // id to get corresponding docs   
-            var datas = {
-				"type" : 'Video',
-				"title" : '',
-                                "description" :''
-			  }
-            BS.mediaeditview = new  BS.MediaEditView();
-            BS.mediaeditview.render(datas);
-            $('#gdocedit').html(BS.mediaeditview.el);
             
-            
-            /*
-             var imageId = eventName.currentTarget.id;             // id to get corresponding image   
-           $.ajax({                                       
-                        type : 'POST',
-                        url :  BS.getOneDocs,
-                        data : {
-                                documentId: imageId  
-                                },
-                        dataType : "json",
-                        success : function(imagess) {                          
-                             var imagedatas = {
-                             "id" : imagess[0].id.id,
-                             "url" : imagess[0].documentURL,
-                             "type" : 'Docs',
-                             "title" : imagess[0].documentName,
-                             "description" : imagess[0].documentDescription
-			  }
-            BS.mediaeditview = new  BS.MediaEditView();
-            BS.mediaeditview.render(imagedatas);
-            $('#gdocedit').html(BS.mediaeditview.el);
-                        }
-           });
-             */
-            
-            
-            },
+	           var videoId = eventName.currentTarget.id;            
+	           $.ajax({                                       
+	                type : 'POST',
+	                url :  BS.getMedia,
+	                data : {
+	                	userMediaId: videoId  
+	                },
+	                dataType : "json",
+	                success : function(imagess) {                          
+	                     var imagedatas = {
+		                     "id" : imagess[0].id.id,
+		                     "url" : imagess[0].mediaUrl,
+		                     "type" : 'UserMedia',
+		                     "title" : imagess[0].name,
+		                     "description" : imagess[0].description
+	                     }
+			            BS.mediaeditview = new  BS.MediaEditView();
+			            BS.mediaeditview.render(imagedatas);
+			            $('#gdocedit').html(BS.mediaeditview.el);
+	                }
+	           });
+          },
         
         /**
          * Function for show audio
-         * 
          */
         audio :function(eventName){
 //            $('.coveraud').html('content');

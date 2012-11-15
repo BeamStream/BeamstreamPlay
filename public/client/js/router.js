@@ -79,7 +79,7 @@ BS.AppRouter = Backbone.Router.extend({
     	 BS.user.fetch({ success:function(e) {
     		 
 			if(e.get('loggedin') == false) {
-    
+				 
 		    	 localStorage.clear();
 		    	 localStorage["idLogin"]= '';
 		    	 $('#school-popup').children().detach(); 
@@ -94,7 +94,7 @@ BS.AppRouter = Backbone.Router.extend({
 		         localStorage["regInfo"] ='';
 		         localStorage["schoolInfo"] ='';
 		         localStorage["classInfo"] ='';
-		        
+		         
 		         $(".checkbox").dgStyle();
 		         $(".signin_check").dgStyle();
 		         
@@ -174,36 +174,36 @@ BS.AppRouter = Backbone.Router.extend({
 						var datas = {
 						"data" : info,
 						"number" : current
-					 }
-					var source = $("#tpl-school").html();
-					var template = Handlebars.compile(source);
-					$('#school-list').append(template(datas));
-		//			$("#school-name-1").attr("disabled", "disabled"); 
-					
-					if(info.degree != "Other")
-					{
-						$('#other-degrees-'+current).hide();
-					}
-					
-					$('#year-'+current).val(info.year);
-					$('#degreeprogram-'+current).val(info.degree);
-					$('#graduated-'+current).val(info.graduated);
-					if(info.graduated == "yes")
-					{
-						$('#degree-exp-'+current).hide();
-						$('#calendar-'+current).val(info.graduationDate);
-					
-					}
-					else
-					{
-						$('#cal-'+current).hide();
-						$('#degree-expected-'+current).val(info.degreeExpected);
-					
-					}
-					 
-					$(".modal select:visible").selectBox();
-					$('.modal .datepicker').datepicker();
-					$('.datepicker').css('z-index','99999');
+					    }
+						var source = $("#tpl-school").html();
+						var template = Handlebars.compile(source);
+						$('#school-list').append(template(datas));
+			//			$("#school-name-1").attr("disabled", "disabled"); 
+						
+						if(info.degree != "Other")
+						{
+							$('#other-degrees-'+current).hide();
+						}
+						
+						$('#year-'+current).val(info.year);
+						$('#degreeprogram-'+current).val(info.degree);
+						$('#graduated-'+current).val(info.graduated);
+						if(info.graduated == "yes")
+						{
+							$('#degree-exp-'+current).hide();
+							$('#calendar-'+current).val(info.graduationDate);
+						
+						}
+						else
+						{
+							$('#cal-'+current).hide();
+							$('#degree-expected-'+current).val(info.degreeExpected);
+						
+						}
+						 
+						$(".modal select:visible").selectBox();
+						$('.modal .datepicker').datepicker();
+						$('.datepicker').css('z-index','99999');
 					
 			        });
 			        
@@ -607,7 +607,7 @@ BS.AppRouter = Backbone.Router.extend({
 			                                     BS.primaryVideo = '';
 			                                     
 					    						 var primaryImage = '<div class="gallery clearfix"><div class="gallery clearfix">'
-					    							                 +'<a href="'+data.mediaUrl+'" rel="prettyPhoto"  ><img class="p-profile" src="'+data.mediaUrl+'"  width="100%" height="100%"  /></a></div>';
+					    							                 +'<a href="'+data.mediaUrl+'" rel="prettyPhoto"  ><img id= "pp-image" class="p-profile" src="'+data.mediaUrl+'"  width="100%" height="100%"  /></a></div>';
 					    						 $('#profile-images').html(primaryImage);
 					    					 }
 					    					 else
@@ -625,6 +625,7 @@ BS.AppRouter = Backbone.Router.extend({
 					    						 $('#profile-images').html(primaryProfile);
 					    						  
 					    					 }
+					    					 
 					    					 
 					    					 $("area[rel^='prettyPhoto']").prettyPhoto();
 				    		 				 $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
