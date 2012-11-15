@@ -403,8 +403,11 @@ BS.StreamView = Backbone.View.extend({
     postMessage :function(eventName){
    
       // upload file 
-     var self = this;
-     var streamId = $('#streams-list li.active a').attr('id');
+    var self = this;
+    var streamId = $('#streams-list li.active a').attr('id');
+    var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+    var message = $('#msg').val();
+    var trueurl='';
      if(this.file )
      {
     	 $('#file-upload-loader').css("display","block");
@@ -440,12 +443,10 @@ BS.StreamView = Backbone.View.extend({
       /* get message details from form */
       var messageAccess;
       
-      var message = $('#msg').val();
+     var message = $('#msg').val(); 
       BS.updatedMsg =  message;
-      
       if(!message.match(/^[\s]*$/))
-      {
-           
+      {   
 	      var msgAccess =  $('#id-private').attr('checked');
 	  	  if(msgAccess == "checked")
 	  	  {
@@ -470,53 +471,69 @@ BS.StreamView = Backbone.View.extend({
 	    		 urlLink =link[0];
 	    	 }
 	    	 
-	    	 if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
-             {
-	    		   
-		    	  if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
-				  { 
-		    	      /* post url information */
-		            $.ajax({
-		    			type : 'POST',
-		    			url : BS.bitly,
-		    			data : {
-		    				 link : urlLink
-		    			},
-		    			dataType : "json",
-		    			success : function(data) {
-		    				
-		    				 message = message.replace(link[0],data.data.url);
-		    				 self.postMsg(message,streamId,messageAccess);
-		    			}
-		    		});
-				 }
-	    	     else
-	    	     {     
-	    	    	 self.postMsg(message,streamId,messageAccess);
-	    	     }
-             }  //doc
-             else    //for docupload
+                 
+                var msgBody = message;
+                var link =  msgBody.match(BS.urlRegex);                             
+                var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
+                    trueurl= msgUrlw;                                                                  
+                    return msgUrlw;
+                    });
+                var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file                                                                                                            
+                if(!extension){                           //to check the extension of the url             
+//                  if(!urlLink.match(uploadedurl))   //To check whether it is google docs or not
+//                  {
+
+                if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
+                                  {
+                        if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
+                            {                                     
+                            /* post url information */                           
+                            $.ajax({
+                                    type : 'POST',
+                                    url : BS.bitly,
+                                    data : {
+                                             link : urlLink
+                                    },
+                                    dataType : "json",
+                                    success : function(data) {                                      
+                                             message = message.replace(link[0],data.data.url);
+                                             self.postMsg(message,streamId,messageAccess);
+                                    }
+                                    });
+                        }
+                        else
+                        {  
+                            self.postMsg(message,streamId,messageAccess);
+                        }
+                  }  //doc
+                  else    //for docupload
+                  {     
+	    		 self.postMsg(message,streamId,messageAccess);
+                  }
+                 
+                }
+                else    //for docupload
 	    	 {     
 	    		 self.postMsg(message,streamId,messageAccess);
-	    	 }
+	    	 } 
                  
-	      }
-	      //if link not present
-	      else
-	      {
-                 
+                }
+                //if link not present
+                else
+                {                
 	    	  self.postMsg(message,streamId,messageAccess);
-	      }
-	      
-      }
-    },
-    /**
-     * call server method to post message  with shortURL if present
-     */
-    postMsg:function(message,streamId,messageAccess){
-        var self = this; 
-    	/* post message information */
-        $.ajax({
+                }
+                }
+        },
+        /**
+        * post message with shortURL if present
+        */
+        postMsg:function(message,streamId,messageAccess){
+            var self = this; 
+            var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+            var trueurl='';
+            /* post message information */
+            $.ajax({
   			type : 'POST',
   			url : BS.postMessage,
   			data : {
@@ -546,54 +563,61 @@ BS.StreamView = Backbone.View.extend({
   				   }
   				   else
   				   {
-  					    // append the message to message list
-  					   _.each(data, function(data) {
-//                                               var url=data.messageBody;
-//                                               if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
+                                        // append the message to message list
+                                       _.each(data, function(data) {
+//                                              var url=data.messageBody;
+//                                              if(!url.match(uploadedurl)) {
   						    /*auto ajax push */
-  	  					    var streamId = $('#streams-list li.active a').attr('id');
-  		                    PUBNUB.publish({
+                                        var streamId = $('#streams-list li.active a').attr('id');
+                                        PUBNUB.publish({
   		                         channel : "stream",
   		                         message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,prifileImage : BS.profileImageUrl}
-  		                    })
+                                        })
   							
-  							var msgBody = data.messageBody;
-  							var link =  msgBody.match(BS.urlRegex);
-
-  							if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) {
-                                
-                                var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-                                    return '<a class="strmdoc" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
-                               });
-                           }
-                           else{
-                                       var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-                                    return '<a target="_blank" href="' + url + '">' + url + '</a>';
-                               });
-                           }
+                                        var msgBody = data.messageBody;
+//  							var link =  msgBody.match(BS.urlRegex);                                                   
+                                        var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
+                                            trueurl= msgUrlw;                                                                  
+                                            return msgUrlw;
+                                        });
+                                        var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file                                                  
+                                        if(!extension){                           //to check the extension of the url                                    
+                                            if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) {      //insert googledoc in seperste tag
+                                            var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+                                                return '<a class="strmdoc" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
+                                            });
+                                            }
+                                            else{
+                                            var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+                                                return '<a target="_blank" href="' + url + '">' + url + '</a>';
+                                            });
+                                            }
+                                        }                                                      
+                                        else{         //url has extension
+                                            var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
+                                                return '<a class="uploaded" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
+                                           });
+                                        }
   							  
-  							var datas = {
-   							 	 "datas" : data,
-   						    }
-  							  
-  							var source = $("#tpl-messages").html();
-  	  						var template = Handlebars.compile(source);
-  	  					     
-  	  						$('.timeline_items').prepend(template(datas));
-                                          // } //docs
+                                        var datas = {
+                                                     "datas" : data,
+                                        }						  
+                                        var source = $("#tpl-messages").html();
+                                        var template = Handlebars.compile(source);
+                                        $('.timeline_items').prepend(template(datas));
+                                    // } //docs
 //                                           else	{
 //                                               var content = '<iframe class="gwt-Frame" style="width: 100%; position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; height: 493px; " frameborder="0" src="https://docs.google.com/a/knoldus.com/document/d/1Hy-3zxC4ywQ3d5lLG0AuDVHFJyXsVlpYDTU9ZaTsj5w/edit"></iframe>'
 //                                           bitly
 //                                          } 
   	  						//get profile image of logged user
-  	  					    $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
-  	  					     
+                                        $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
   	  						if(linkTag)
   	  						   $('div#'+data.id.id+'-id').html(linkTag);
   	  						
-  	  					    var url=data.messageBody;
-  	  					    
-                            if(!url.match(/^(https:\/\/docs.google.com\/)/)) {	
+                                        var url=data.messageBody;				
+                                if(!extension){   //to check the extension of the url                                            
+                                if(!url.match(/^(https:\/\/docs.google.com\/)/)) {	
                             	 
 	  	  						 // embedly
 		  	  					 $('div#'+data.id.id+'-id').embedly({
@@ -602,31 +626,33 @@ BS.StreamView = Backbone.View.extend({
 			 				          method: 'after',
 			 					      key:'4d205b6a796b11e1871a4040d3dc5c07'
 		  	  					 });
-                             }
-                             else{
-
-                            	 var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
+                                }
+                                else{            //insert google doc image for doc url
+                                var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
                                      $('input#'+data.id.id+'-url').val(msgUrl);
-                                      console.log(msgUrl);
                                      return msgUrl;
                                     
                                  });
                             	  //$('input#'+data.id.id+'-url').val(msgUrl);
-					              var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
-					              $('#'+data.id.id+'-docurl').html(content);
-                             } 
-  				         });
-		                  _.each(data, function(data) {
-		                	  showJanrainShareWidget(data.messageBody, 'View my Beamstream post', 'http://beamstream.com', data.messageBody);
-		                	  
-		                  });
-  				   }
-  				  
-  				  /* delete default embedly preview */
+                                    var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
+                                    $('#'+data.id.id+'-docurl').html(content);
+                                }        
+                            }                                          
+                            else      //insert value to hidden field
+                            {
+                              $('input#'+data.id.id+'-url').val(msgUrl);  
+                            }                                           
+                        });
+                _.each(data, function(data) {
+                showJanrainShareWidget(data.messageBody, 'View my Beamstream post', 'http://beamstream.com', data.messageBody);
+                });
+                }                                   
+                /* delete default embedly preview */
   				  $('div.selector').attr('display','none');
   				  $('.emdform').find('div.selector').remove();
-  		          $('.emdform').find('input[type="hidden"].preview_input').remove();     
-                  $('#msg').val("");
+  		          $('.emdform').find('input[type="hidden"].preview_input').remove(); 
+                $('#msg').val("");
+
   			}
   		});
     	
@@ -637,7 +663,6 @@ BS.StreamView = Backbone.View.extend({
      */
     getMessageInfo :function(streamid,pageNo,limit){
         var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-    	 console.log("in getMessageInfo ");
          var trueurl='';
          var self = this;
          /* get all messages of a stream  */
@@ -751,6 +776,7 @@ BS.StreamView = Backbone.View.extend({
                                                                 // embedly
                                                                     $('div#'+data.id.id+'-id').embedly({
                                                                              maxWidth: 200,
+                                                                             msg : 'https://assets0.assembla.com/images/assembla-logo-home.png?1352833813',
                                                                      wmode: 'transparent',
                                                                      method: 'after',
                                                                          key:'4d205b6a796b11e1871a4040d3dc5c07'
@@ -1817,7 +1843,6 @@ BS.StreamView = Backbone.View.extend({
 //             var data = '<iframe src="'+docUrl+'" scrolling="NO"  width="963" height="500" style="border: none"> '
 //                 +'<p>Your browser does not support iframes.</p>'
 //                    '</iframe> ';
-//             console.log(docUrl);
             
              BS.streamdocview = new BS.StreamDocView();
              BS.streamdocview.render(docUrl);           
@@ -1829,7 +1854,6 @@ BS.StreamView = Backbone.View.extend({
              eventName.preventDefault(); 
              var element = eventName.target.id;
              var docUrl = $('input#'+element+'-url').val();
-           //   console.log(docUrl);
            
                var docfrmcomputer='http://docs.google.com/gview?url='+docUrl+'&embedded=true '             
              BS.streamdocview = new BS.StreamDocView();
