@@ -236,9 +236,9 @@ BS.ProfileView = Backbone.View.extend({
     	 
     	 var self = this;;
          var profile_image = document.getElementById("profile-image");
-    	 file = e.target.files[0];
-    	 
-    	
+    	 file = e.target.files[0]; 
+         
+         
          var reader = new FileReader();
          
          /* Only process image files. */
@@ -259,11 +259,11 @@ BS.ProfileView = Backbone.View.extend({
              reader.onload = (function(f){
             	 
             	 self.image = file;
-            	 return function(e){ 
-            		 
-            		 /* rotate image */
-            		  var someCallback = function(exifObject) {
-            			  
+            	 return function(e){
+                     
+
+                        var someCallback = function(exifObject) {
+           			  
                          console.log("Orientation - "+exifObject.Orientation); 
                          $('#profile-photo').attr("src",e.target.result);
                          
@@ -283,7 +283,7 @@ BS.ProfileView = Backbone.View.extend({
                       }
                       $(profile_image).fileExif(someCallback);
             		
-                      
+                     
             		 $('#image-info').html(f.name);
             		 $('.delete-image').show();
 //        		     $('#profile-photo').attr("src",e.target.result);
@@ -293,10 +293,10 @@ BS.ProfileView = Backbone.View.extend({
         		     $('#profile-photo').attr("name", f.name);
         		     $('#imagedata').val(e.target.result);
         		     $('#imagedata').attr("name", f.name);
-        			 
+        		
         		 };
             })(file);
-             
+            
             // read the image file as data URL
             reader.readAsDataURL(file);   
          }
