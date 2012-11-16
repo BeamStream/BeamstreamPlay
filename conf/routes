@@ -122,6 +122,14 @@ GET /getAllPPTFilesForAUser  controllers.DocumentController.getAllPPTFilesForAUs
 GET /getAllPDFFilesForAUser  controllers.DocumentController.getAllPDFFilesForAUser
 GET /getAllDOCSFilesForAUser  controllers.DocumentController.getAllDOCSFilesForAUser
 
+#Questions
+
+POST /newQuestion               controllers.QuestionController.newQuestion
+POST /rockQuestion               controllers.QuestionController.rockTheQuestion
+GET /getAllQuestionsForAUser               controllers.QuestionController.getAllQuestionsForAUser
+POST /giveMeRockers              controllers.QuestionController.giveMeRockers
+
+
 #bitly
 POST /bitly   controllers.MessageController.getShortUrlViabitly 
 
