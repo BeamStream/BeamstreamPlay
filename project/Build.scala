@@ -40,5 +40,4 @@ object ApplicationBuild extends Build {
     lessEntryPoints <<= baseDirectory(customLessEntryPoints),
 
     resolvers += "xuggle repo" at "http://xuggle.googlecode.com/svn/trunk/repo/share/java/"
-    resolvers += "Google Api client" at "http://mavenrepo.google-api-java-client.googlecode.com/hg/")
-}
+)}
