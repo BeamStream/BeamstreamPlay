@@ -548,7 +548,7 @@ BS.FilesMediaView = Backbone.View.extend({
                               _.each(pdfs, function(pdf) {
                                    var datVal =  self.formatDateVal(pdf.creationDate);     
                                   var content ='<div class="image-wrapper hovereffect google_doc">'                                     
-                                        +'<div class="hover-div"><img src="images/pdp_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
+                                        +'<div class="hover-div"><img src="'+pdf.previewImageUrl+'"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
                                         +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
                                         +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#pdflistview" style="text-decoration: none">'
                                         +'<div id="media-'+pdf.id.id+'" ><h4> '+pdf.documentName+'</h4> <p class="doc-description" id="'+pdf.id.id+'" >'                
