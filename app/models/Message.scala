@@ -76,15 +76,18 @@ object Message { //extends CommentConsumer {
     messsages
   }
 
-  def getAllPublicMessagesForAStream(streamId: Int): List[Message] = {
+  def getAllPublicMessagesForAStream(streamId: ObjectId): List[Message] = {
     MessageDAO.find(MongoDBObject("streamId" -> streamId, "messageAccess" -> "Public")).toList
   }
 
-  def getAllMessagesForAUser(userId: Int): List[Message] = {
+  def getAllMessagesForAUser(userId: ObjectId): List[Message] = {
     MessageDAO.find(MongoDBObject("userId" -> userId)).toList
   }
 
-  def getAllPublicMessagesForAUser(userId: Int): List[Message] = {
+  /**
+   * Get all public messages for a user
+   */
+  def getAllPublicMessagesForAUser(userId: ObjectId): List[Message] = {
     MessageDAO.find(MongoDBObject("userId" -> userId, "messageAccess" -> "Public")).toList
   }
 

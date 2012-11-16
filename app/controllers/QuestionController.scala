@@ -63,46 +63,41 @@ object QuestionController extends Controller {
 
   }
 
-  /**
-  def questions = Action { implicit request =>
-    val profileName = User.getUserProfile((new ObjectId(request.session.get("userId").get)))
-    val questions = Question.getAllQuestionsForAUser(new ObjectId(request.session.get("userId").get))
-    Ok
-  }
-
+ /**
+   * Get All Questions For A User
+   */
+  
   def getAllQuestionsForAUser = Action { implicit request =>
     val questionIdJsonMap = request.body.asFormUrlEncoded.get
-    println(" userId : " + request.session.get("userId").get)
     val allQuestionsForAUser = Question.getAllQuestionsForAUser(new ObjectId(request.session.get("userId").get))
     val allQuestionForAStreamJson = write(allQuestionsForAUser)
-    println(" Questions for the user :" + allQuestionsForAUser);
     Ok(allQuestionForAStreamJson).as("application/json")
   }
 
 
   
-  /*
-   * Rock the document
+  /**
+   * Rock the Question
    */
   def rockTheQuestion = Action { implicit request =>
     val questionIdJsonMap = request.body.asFormUrlEncoded.get
     val id = questionIdJsonMap("documentId").toList(0)
-    val totalRocks = Question.rockedIt(new ObjectId(id), new ObjectId(request.session.get("userId").get))
+    val totalRocks = Question.rockTheQuestion(new ObjectId(id), new ObjectId(request.session.get("userId").get))
     val totalRocksJson = write(totalRocks.toString)
     Ok(totalRocksJson).as("application/json")
   }
 
-  /*
-    * Rockers of a document
+  /**
+    * Rockers of a Question
     */
   def giveMeRockers = Action { implicit request =>
     val questionIdJsonMap = request.body.asFormUrlEncoded.get
     val id = questionIdJsonMap("questionId").toList(0)
-    val rockers = Question.rockersNames(new ObjectId(id))
+    val rockers = Question.rockersNameOfAQuestion(new ObjectId(id))
     val rockersJson = write(rockers)
     Ok(rockersJson).as("application/json")
   }
-*/
+
   
 }
 
