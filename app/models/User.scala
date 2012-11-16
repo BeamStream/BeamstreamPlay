@@ -36,7 +36,7 @@ case class User(@Key("_id") id: ObjectId,
 }
 
 object User {
-  //var activeUsersList: List[ObjectId] = List()
+ 
   /*
    * Add info to a user((For SchoolAutopoulate thing))
    * 
@@ -118,19 +118,6 @@ object User {
       }
   }
 
-  /*
- * Registration For a User  
- */
-  def registerUser(user: User): String = {
-    validateEmail(user.email) match {
-      case true =>
-        UserDAO.insert(user)
-        "Registration Successful"
-      case false =>
-        "Invalid email address"
-    }
-
-  }
 
   // Check if the User already registered
   def isAlreadyRegistered(userEmail: String, userName: String): Boolean = {
@@ -188,15 +175,12 @@ object User {
 
   }
 
-
   /*
    * Rockers name of a message
    */
 
   def giveMeTheRockers(users: List[ObjectId]): List[String] = {
-    //for (user <- users) yield (UserDAO.findOne(MongoDBObject("_id" -> user)).get.firstName)
     users map { user => UserDAO.findOne(MongoDBObject("_id" -> user)).get.firstName }
-
   }
 
   /*
@@ -221,22 +205,16 @@ object User {
 
   def followUser(userIdOfFollower: ObjectId, userId: ObjectId): Int = {
     val userToFolow = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-
     (userToFolow.followers.contains(userId)) match {
-
       case true =>
-        // Unfollow a user
         UserDAO.update(MongoDBObject("_id" -> userId), userToFolow.copy(followers = (userToFolow.followers -- List(userIdOfFollower))), false, false, new WriteConcern)
         val updatedUserWithAddedIdOfFollower = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
         updatedUserWithAddedIdOfFollower.followers.size
-
       case false =>
-            // Follow a user
         UserDAO.update(MongoDBObject("_id" -> userId), userToFolow.copy(followers = (userToFolow.followers ++ List(userIdOfFollower))), false, false, new WriteConcern)
         val updatedUserWithAddedIdOfFollower = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
         updatedUserWithAddedIdOfFollower.followers.size
     }
-
   }
 }
 
