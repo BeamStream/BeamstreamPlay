@@ -386,7 +386,6 @@ BS.SchoolView = Backbone.View.extend({
 			    	  _.each(BS.allSchoolInfo, function(data) {
 				    	  if(data.schoolName == $('#school-name-'+i).val())
 				    	  {
-				    		  console.log("same");
 				    		  sId = data.id.id;
 				    		 
 				    	  }
@@ -396,18 +395,15 @@ BS.SchoolView = Backbone.View.extend({
 	 
 			    	  if(sId)
 			    	  {
-			    		  console.log("111");
 			    	    assosiatedSchoolId = sId;
 			    	     
 			    	  }
 			    	  else if($('#associatedId-'+i).attr('value'))
 			    	  {
-			    		  console.log("22");
 			    		  assosiatedSchoolId = $('#associatedId-'+i).attr('value');
 			    	  }
 			    	  else
 			    	  {
-			    		  console.log("333");
 			    		  assosiatedSchoolId = i;
 			    	  }
 			    	  if($('#school-id-'+i).attr('value'))
@@ -427,11 +423,11 @@ BS.SchoolView = Backbone.View.extend({
 			    	  // school.set({id:i,schoolName: $('#school-name-'+i).val(),assosiatedSchoolId:assosiatedSchoolId,year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val() }, graduated: $('#graduated-'+i).val(), graduationDate: degdate ,otherDegree: otherDegree});
 			    	  school.set({id:schoolId,schoolName: $('#school-name-'+i).val(),assosiatedSchoolId:assosiatedSchoolId,year:{name: $('#year-'+i).val()}, degreeExpected:{name: degreeexp}, major: $('#major-'+i).val(), degree:{name: $('#degreeprogram-'+i).val() }, graduated: $('#graduated-'+i).val(), graduationDate: degdate ,otherDegree: otherDegree});
 			
-			
 			    	  schools.add(school);
 	    		 }
 		     }
 	    	  var schoolinfo = JSON.stringify(schools);
+	    	  console.log(schoolinfo);
 	    	  return schoolinfo;
     	  },
 	      /**
@@ -456,9 +452,9 @@ BS.SchoolView = Backbone.View.extend({
 	       */
 	      backToPrevious :function(eventName){
 	    	  eventName.preventDefault(); 
-	    	  
-//              if(BS.resistrationPage == "basic")
-	    	  
+//	    	  var  schoolDetails = this.getSchoolInfo();
+	    	   
+	    	  /*  came from regitration via email */
 	    	  if(localStorage["resistrationPage"] == "basic")
               {
             	  var token = BS.token;
@@ -468,7 +464,7 @@ BS.SchoolView = Backbone.View.extend({
             	  
             	  BS.AppRouter.navigate(navUrl, {trigger: true});
               }
-//              if(BS.resistrationPage == "media")
+	    	  /*  came from regitration via janRain  */
 	    	  if(localStorage["resistrationPage"] == "media")
               {
             	  var t = "basicRegistration";
@@ -479,7 +475,6 @@ BS.SchoolView = Backbone.View.extend({
 	      
 	      closeScreen : function(eventName){
 	    	  eventName.preventDefault(); 
-	    	  $(".star_position").html('');
 	    	  BS.AppRouter.navigate('streams', {trigger: true});
 	      },
 	      /**
@@ -488,7 +483,6 @@ BS.SchoolView = Backbone.View.extend({
 	      removeSchool:function(eventName){
 	    	  eventName.preventDefault(); 
 	    	  var id = eventName.target.id;
-	    	  console.log(id);
 	    	  $('fieldset#'+id).remove();
 	    	  
 	      }

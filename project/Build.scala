@@ -39,5 +39,5 @@ object ApplicationBuild extends Build {
   val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
     lessEntryPoints <<= baseDirectory(customLessEntryPoints),
 
-    resolvers += "xuggle repo" at "http://xuggle.googlecode.com/svn/trunk/repo/share/java/")
-}
+    resolvers += "xuggle repo" at "http://xuggle.googlecode.com/svn/trunk/repo/share/java/"
+)}

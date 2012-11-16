@@ -27,8 +27,6 @@ object QuestionAccess extends Enumeration {
   val Public = Value(0, "Public")
   val PrivateToClass = Value(1, "PrivateToClass")
   val PrivateToSchool = Value(2, "PrivateToSchool")
-  //  val Restricted = Value(2, "Restricted")
-  //  val Stream = Value(3, "Stream")
 
 }
 
@@ -185,6 +183,13 @@ object Question {
     } else {
       deletedQuestionSuccessfully
     }
+  }
+  
+  /**
+   * Get All Questions For A User
+   */
+  def getAllQuestionsForAUser(userId:ObjectId)={
+    QuestionDAO.find(MongoDBObject("userId" -> userId)).toList
   }
 }
 

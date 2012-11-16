@@ -166,7 +166,7 @@ object DocumentController extends Controller {
     var docResultToSend: DocResulttoSent = new DocResulttoSent("", "", "")
     val documentJsonMap = request.body.asFormUrlEncoded.toMap
     val streamId = documentJsonMap("streamId").toList(0)
-
+    val docDescription = documentJsonMap("docDescription").toList(0)
     (request.body.file("docData").isEmpty) match {
 
       case true => // No Docs Found
@@ -191,34 +191,30 @@ object DocumentController extends Controller {
             val media = new UserMedia(new ObjectId, documentName, "", new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Image, false, "", 0, List())
             UserMedia.saveMediaForUser(media)
             docResultToSend = new DocResulttoSent(media.id.toString, docURL, "")
-             //Create A Message As Well To Display The Doc Creation In Stream
+            //Create A Message As Well To Display The Doc Creation In Stream
             val message = Message(new ObjectId, docURL, Option(MessageType.Image), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List())
             Message.createMessage(message)
-            
-          } 
-          
-          else if (isVideo == true) {
+
+          } else if (isVideo == true) {
             val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(docURL)
             (new AmazonUpload).uploadCompressedFileToAmazon(docName + "Frame", frameOfVideo, 0, false, request.session.get("userId").get)
             val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docName + "Frame"
             val media = new UserMedia(new ObjectId, documentName, "", new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Video, false, videoFrameURL, 0, List())
             UserMedia.saveMediaForUser(media)
             docResultToSend = new DocResulttoSent(media.id.toString, docURL, "")
-             val message = Message(new ObjectId, docURL, Option(MessageType.Video), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List())
+            val message = Message(new ObjectId, docURL, Option(MessageType.Video), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List())
             Message.createMessage(message)
-          }
-          
-          else {
+          } else {
 
             if (isPdf == true) {
               val previewImageUrl = PreviewOfPDF.convertPdfToImage(documentReceived, docName)
-              val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
+              val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
                 new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(), previewImageUrl)
               Document.addDocument(documentCreated)
               docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL, documentCreated.previewImageUrl)
 
             } else {
-              val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
+              val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
                 new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(), "")
               Document.addDocument(documentCreated)
               docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL, documentCreated.previewImageUrl)

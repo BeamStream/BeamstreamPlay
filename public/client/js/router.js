@@ -29,7 +29,8 @@ BS.AppRouter = Backbone.Router.extend({
         "audioview": "audioList",
         "presentationview": "presentationList",
         "pdflistview":"pdflistview",
-        "settings" : "settings"
+        "settings" : "settings",
+        "invitePeople" : "invitePeople"
 //        "profile/view/id/:id/name/:name" : "publicProfile"
 
     },
@@ -1406,5 +1407,16 @@ BS.AppRouter = Backbone.Router.extend({
 			publicProfile :function(userId ,userName){
 				console.log("userId" + userId);
 				console.log("userName" + userName);
-			}
+			},
+              
+            /**
+             * render view for invite friends and classmates
+             */
+           invitePeople : function(){
+        	   
+        	     BS.invitePeopleView = new BS.InvitePeopleView();
+		         BS.invitePeopleView.render();
+		         
+		         $('#school-popup').html(BS.invitePeopleView.el);
+           }
 		});

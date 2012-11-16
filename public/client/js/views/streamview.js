@@ -42,7 +42,8 @@ BS.StreamView = Backbone.View.extend({
            "change #upload-files" : "getUploadedData",
 	   "click .strmdoc" : "showStrmDocPopup",        
             "click .uploaded" : "StrmMediaPopup", 
-           "mouseenter a.strmdoc" : "showDocTitle"
+           "mouseenter a.strmdoc" : "showDocTitle",
+           "click #invite" : "inviteClassmatesFriends"
 
            
 	 },
@@ -134,7 +135,13 @@ BS.StreamView = Backbone.View.extend({
        $(this.el).html(this.template({"data":this.model.toJSON(),"schools" : BS.mySchools}));
        return this;
     },
-    
+    /**
+     * invite classmates / friends 
+     */
+    inviteClassmatesFriends :function(eventName){
+    	eventName.preventDefault();
+    	BS.AppRouter.navigate("invitePeople", {trigger: true});
+    },
     /**
      * get all streams
      */
@@ -414,9 +421,10 @@ BS.StreamView = Backbone.View.extend({
 
     	 var data;
          data = new FormData();
-         
+         data.append('docDescription',message);
          data.append('docData', self.file);  
          data.append('streamId', streamId);  
+         
          /* post profile page details */
          $.ajax({
              type: 'POST',
@@ -430,100 +438,107 @@ BS.StreamView = Backbone.View.extend({
             	 self.file = "";
             	 $('#file-upload-loader').css("display","none");
             	 $('.upload-box').css("display","none");
-                 if(data.status == "Success") 
-                     {
-                          
-                     }
+//                 console.log(data);
+                	 
+//	                	 var datas = {
+//	                             "datas" : data,
+//		                 }						  
+//		                 var source = $("#tpl-messages").html();
+//		                 var template = Handlebars.compile(source);
+//		                 $('.timeline_items').prepend(template(datas));
+                    
              }
          }); 
      }
-    	
-      //var urlLink ='';
-      var self= this;
-      /* get message details from form */
-      var messageAccess;
-      
-     var message = $('#msg').val(); 
-      BS.updatedMsg =  message;
-      if(!message.match(/^[\s]*$/))
-      {   
-	      var msgAccess =  $('#id-private').attr('checked');
-	  	  if(msgAccess == "checked")
-	  	  {
-	  		messageAccess = "Private";
-	  	  }
-	  	  else
-	  	  {
-	  		messageAccess = "Public";
-	  	  }
-	  	  
-	  	  //find link part from the message
-	      var link =  message.match(BS.urlRegex); 
-	       
-	      if(link)
-	      {  
-                   
-	    	 if(!BS.urlRegex2.test(link[0])) {
-	    		urlLink = "http://" + link[0];
-	  	  	 }
-	    	 else
-	    	 {
-	    		 urlLink =link[0];
-	    	 }
-	    	 
-                 
-                var msgBody = message;
-                var link =  msgBody.match(BS.urlRegex);                             
-                var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
-                    trueurl= msgUrlw;                                                                  
-                    return msgUrlw;
-                    });
-                var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file                                                                                                            
-                if(!extension){                           //to check the extension of the url             
-//                  if(!urlLink.match(uploadedurl))   //To check whether it is google docs or not
-//                  {
-
-                if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
-                                  {
-                        if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
-                            {                                     
-                            /* post url information */                           
-                            $.ajax({
-                                    type : 'POST',
-                                    url : BS.bitly,
-                                    data : {
-                                             link : urlLink
-                                    },
-                                    dataType : "json",
-                                    success : function(data) {                                      
-                                             message = message.replace(link[0],data.data.url);
-                                             self.postMsg(message,streamId,messageAccess);
-                                    }
-                                    });
-                        }
-                        else
-                        {  
-                            self.postMsg(message,streamId,messageAccess);
-                        }
-                  }  //doc
-                  else    //for docupload
-                  {     
-	    		 self.postMsg(message,streamId,messageAccess);
-                  }
-                 
-                }
-                else    //for docupload
-	    	 {     
-	    		 self.postMsg(message,streamId,messageAccess);
-	    	 } 
-                 
-                }
-                //if link not present
-                else
-                {                
-	    	  self.postMsg(message,streamId,messageAccess);
-                }
-                }
+     else
+     {
+	      //var urlLink ='';
+	      var self= this;
+	      /* get message details from form */
+	      var messageAccess;
+	      
+	     var message = $('#msg').val(); 
+	      BS.updatedMsg =  message;
+	      if(!message.match(/^[\s]*$/))
+	      {   
+		      var msgAccess =  $('#id-private').attr('checked');
+		  	  if(msgAccess == "checked")
+		  	  {
+		  		messageAccess = "Private";
+		  	  }
+		  	  else
+		  	  {
+		  		messageAccess = "Public";
+		  	  }
+		  	  
+		  	  //find link part from the message
+		      var link =  message.match(BS.urlRegex); 
+		       
+		      if(link)
+		      {  
+	                   
+		    	 if(!BS.urlRegex2.test(link[0])) {
+		    		urlLink = "http://" + link[0];
+		  	  	 }
+		    	 else
+		    	 {
+		    		 urlLink =link[0];
+		    	 }
+		    	 
+	                 
+	                var msgBody = message;
+	                var link =  msgBody.match(BS.urlRegex);                             
+	                var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
+	                    trueurl= msgUrlw;                                                                  
+	                    return msgUrlw;
+	                    });
+	                var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file                                                                                                            
+	                if(!extension){                           //to check the extension of the url             
+	//                  if(!urlLink.match(uploadedurl))   //To check whether it is google docs or not
+	//                  {
+	
+	                if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
+	                                  {
+	                        if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
+	                            {                                     
+	                            /* post url information */                           
+	                            $.ajax({
+	                                    type : 'POST',
+	                                    url : BS.bitly,
+	                                    data : {
+	                                             link : urlLink
+	                                    },
+	                                    dataType : "json",
+	                                    success : function(data) {                                      
+	                                             message = message.replace(link[0],data.data.url);
+	                                             self.postMsg(message,streamId,messageAccess);
+	                                    }
+	                                    });
+	                        }
+	                        else
+	                        {  
+	                            self.postMsg(message,streamId,messageAccess);
+	                        }
+	                  }  //doc
+	                  else    //for docupload
+	                  {     
+		    		 self.postMsg(message,streamId,messageAccess);
+	                  }
+	                 
+	                }
+	                else    //for docupload
+		    	 {     
+		    		 self.postMsg(message,streamId,messageAccess);
+		    	 } 
+	                 
+	                }
+	                //if link not present
+	                else
+	                {                
+		    	  self.postMsg(message,streamId,messageAccess);
+	                }
+	                }
+            }
         },
         /**
         * post message with shortURL if present

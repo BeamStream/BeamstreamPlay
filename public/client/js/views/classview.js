@@ -592,7 +592,9 @@ BS.ClassView = Backbone.View.extend({
      * auto populate class names - matching a class name
      */
     populateClassNames :function(eventName){
+    	 
     	var id = eventName.target.id;
+    	console.log(id);
     	var self =this;
     	BS.classNames = []; 
 		BS.selectedName = $('#'+id).val(); 
@@ -600,7 +602,7 @@ BS.ClassView = Backbone.View.extend({
 		var identity = id.replace(/[^\d.,]+/,'');
 		var rowId = identity.replace(/([-]\d+)$/,'');
 		var selectedSchoolId = $('#school-' + rowId).val() ;
-		self.displayFieldsForName(text,identity);
+//		self.displayFieldsForName(text,identity);
 		
 		/* post the text that we type to get matched classes */
 		 $.ajax({
@@ -616,7 +618,7 @@ BS.ClassView = Backbone.View.extend({
 				BS.classNames =[];
 				BS.classNameInfo = datas;
 				_.each(datas, function(data) {
-                    console.log(data.usersMap.Student);
+                    
 //					BS.classNames.push(data.classToReturn.className);
 					BS.classNames.push({
 						status : "classPage",

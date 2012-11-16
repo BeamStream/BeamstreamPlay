@@ -16,6 +16,10 @@ import utils.MongoHQConfig
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.gridfs.Imports._
 
+
+/**
+ * This Code Would Be Used When We'll Save File In GridFS DB
+ */
 case class Media(@Key("_id") id: ObjectId,
   userId: ObjectId,
   mediaType: MediaType.Value,
