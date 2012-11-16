@@ -166,7 +166,7 @@ object DocumentController extends Controller {
     var docResultToSend: DocResulttoSent = new DocResulttoSent("", "", "")
     val documentJsonMap = request.body.asFormUrlEncoded.toMap
     val streamId = documentJsonMap("streamId").toList(0)
-
+    val docDescription = documentJsonMap("docDescription").toList(0)
     (request.body.file("docData").isEmpty) match {
 
       case true => // No Docs Found
@@ -208,13 +208,13 @@ object DocumentController extends Controller {
 
             if (isPdf == true) {
               val previewImageUrl = PreviewOfPDF.convertPdfToImage(documentReceived, docName)
-              val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
+              val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
                 new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(), previewImageUrl)
               Document.addDocument(documentCreated)
               docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL, documentCreated.previewImageUrl)
 
             } else {
-              val documentCreated = new Document(new ObjectId, documentName, "", docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
+              val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
                 new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(), "")
               Document.addDocument(documentCreated)
               docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL, documentCreated.previewImageUrl)
