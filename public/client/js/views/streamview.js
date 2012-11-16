@@ -42,7 +42,8 @@ BS.StreamView = Backbone.View.extend({
            "change #upload-files" : "getUploadedData",
 	   "click .strmdoc" : "showStrmDocPopup",        
             "click .uploaded" : "StrmMediaPopup", 
-           "mouseenter a.strmdoc" : "showDocTitle"
+           "mouseenter a.strmdoc" : "showDocTitle",
+           "click #invite" : "inviteClassmatesFriends"
 
            
 	 },
@@ -134,7 +135,13 @@ BS.StreamView = Backbone.View.extend({
        $(this.el).html(this.template({"data":this.model.toJSON(),"schools" : BS.mySchools}));
        return this;
     },
-    
+    /**
+     * invite classmates / friends 
+     */
+    inviteClassmatesFriends :function(eventName){
+    	eventName.preventDefault();
+    	BS.AppRouter.navigate("invitePeople", {trigger: true});
+    },
     /**
      * get all streams
      */
