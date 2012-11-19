@@ -64,6 +64,8 @@ class ClassTest extends FunSuite with BeforeAndAfter {
     val classesFound=Class.findClassByName("CS",new ObjectId("47cc67093475061e3d95369d"))
     assert(classesFound.size===1)
   }
+  
+  
   /*
    * Find class by class code and class name
    */
