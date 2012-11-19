@@ -31,15 +31,26 @@ BS.InvitePeopleView = Backbone.View.extend({
     inviteFriends :function (eventName){
     	eventName.preventDefault(); 
     	var validate =  $("#invite-form").valid();
-    	if(validate == true)
-    	{
-    		
-    	}
-    	else
-    	{
-    		$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
-    		$('.error-msg').html("Please enter a vallid email address");
-    	}
+    	var mailIds = $('#friends_emailId').val();
+//    	if(validate == true)
+//    	{
+    		$.ajax({
+	   			type : 'POST',
+	   			url : BS.inviteUser,
+	   			data : {
+	   				data  : mailIds
+	   			},
+	   			dataType : "json",
+	   			success : function(data) {
+	   				
+	   			}
+   		    });
+//    	}
+//    	else
+//    	{
+//    		$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+//    		$('.error-msg').html("Please enter a vallid email address");
+//    	}
     },
     
     /**

@@ -1798,7 +1798,7 @@ Create a Class</a>
 			  
 			<div class="element">
 				<label name="invite" >Invite your classmates and friends. Enter EmailId below to invite friends</label>
-			 	<input type="text" name="friends" id="friends" class="required email span3 " placeholder="Enter emailid to invite the user">
+			 	<input style="width: 385px !important;" type="text" name="friends_emailId" id="friends_emailId" class="required email span3 " placeholder="Enter email Id's separated by comma(,)">
             </div>
 			</fieldset>
         </form>
@@ -4222,7 +4222,8 @@ Create a Class</a>
 					dataType : "json",
 					success : function(datas) {
 
-						console.log("Browser/Tab closed")
+						console.log("Browser/Tab closed");
+						return 11;
 					}
 				});
 			}
@@ -4236,9 +4237,6 @@ Create a Class</a>
 			 
             // instantiate the shuffle plugin
             $('#grid').shuffle({
-//                 itemWidth : 200,
-//                 marginTop : 15,
-//                 marginRight: 20,
                 key : 'all',
                 speed : 800,
                 easing : 'ease-out'
