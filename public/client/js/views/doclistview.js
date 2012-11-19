@@ -26,6 +26,7 @@ BS.DocListView = Backbone.View.extend({
             /* To list the documents in the view */        
             docsList : function(eventName)
             {    
+            	var extensionpattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
                 var i = 1;
                 var j=1;
                 var self = this;             
@@ -39,11 +40,14 @@ BS.DocListView = Backbone.View.extend({
 	                	_.each(docs, function(doc) {
 			                	BS.filesMediaView = new BS.FilesMediaView(); 
 			                	var datVal =  BS.filesMediaView.formatDateVal(doc.creationDate);
+			                	var extension = (doc.documentURL).match(extensionpattern); 
+			                 
 			                	var datas = {
 			                                    "doc" : doc,
 			                                    "datVal" :datVal,
 			                                    "docCount" : i,
-			                                    "image" :'docs_image.png'
+			                                    "image" :'docs_image.png',
+			                                    "extension" : extension[1]
 								}	
 			                	
 			                	var source = $("#tpl-single-bucket").html();
