@@ -1821,6 +1821,12 @@ span.edit_profilepicture_icon{
     top: 11px;
     z-index: 999;
 }
+#send_invite{
+	left: 86px;
+    position: absolute;
+    top: 10px;
+    z-index: 999;
+}
 #class-continue-loader{
 	left: 115px;
     position: absolute;

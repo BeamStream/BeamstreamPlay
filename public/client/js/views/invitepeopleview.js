@@ -55,6 +55,7 @@ BS.InvitePeopleView = Backbone.View.extend({
         
     	if(validEmailsStatus == true)
     	{
+    		$('#send_invite').css("display","block");
     		$.ajax({
 	   			type : 'POST',
 	   			url : BS.inviteUser,
@@ -63,7 +64,20 @@ BS.InvitePeopleView = Backbone.View.extend({
 	   			},
 	   			dataType : "json",
 	   			success : function(data) {
-	   				
+	   				if(data.status = "Success")
+	   				{
+	   					$('#send_invite').css("display","none");
+	   					$('#display_message').fadeIn("medium").delay(2000).fadeOut('fast');
+	   		    		$('.error-msg').html("Invitations has been sent");
+	   		    		setTimeout(function() {
+                            BS.AppRouter.navigate("streams", {trigger: true});
+                        }, 2000);
+	   		    	      
+	   				}
+	   				else
+	   				{
+	   					console.log("Error ");
+	   				}
 	   			}
    		    });
     	}
