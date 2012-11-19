@@ -129,13 +129,20 @@ class AmazonUpload {
   }
 }
 
+//object ProgressBar {
+//  // var progressMap: Map[String, Int] = Map()
+//  def setProgressBar(userId: String, progress: Int) {
+//    //progressMap += (userId -> progress)
+//    //println("Setting in Map-->"+progressMap.get(userId).get)
+//    ProgressStatus.addProgress(userId, progress)
+//    println(ProgressStatus.findProgress(userId) + "Here Is The Updated Progress")
+//  }
+//}
 object ProgressBar {
-  // var progressMap: Map[String, Int] = Map()
+  val progressMap: scala.collection.mutable.Map[String, Int] = scala.collection.mutable.Map()
   def setProgressBar(userId: String, progress: Int) {
-    //progressMap += (userId -> progress)
-    //println("Setting in Map-->"+progressMap.get(userId).get)
-    ProgressStatus.addProgress(userId, progress)
-    println(ProgressStatus.findProgress(userId) + "Here Is The Updated Progress")
+    progressMap += (userId -> progress)
+    println("Setting in Map-->" + progressMap.get(userId).get)
   }
 }
 
