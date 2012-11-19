@@ -79,6 +79,19 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
     assert(Question.getAllPrivateToAClassQuestionForAUser(userId).size==1)
     assert(Question.getAllPrivateToASchoolQuestionForAUser(userId).size==2)
   }
+  
+  test("Delete The Question"){
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(),List())
+    val userId = User.createUser(user)
+    var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List("Tag1", "Tag2"))
+    val streamId = Stream.createStream(stream)
+    val question = new Question(new ObjectId, "How Was the Class ?", new ObjectId, QuestionAccess.PrivateToClass, streamId, "Neel", "Sachdeva", new Date, 0, List(), List(), 0, List())
+    val questionId = Question.addQuestion(question)
+    val anotherQuestion = new Question(new ObjectId, "How Was the Day ?", userId, QuestionAccess.PrivateToSchool, streamId, "Neel", "Sachdeva", new Date, 0, List(), List(), 0, List())
+    val anotherQuestionId = Question.addQuestion(anotherQuestion)
+    assert(Question.deleteQuestionPermanently(questionId,userId)===false)  //User Who Deletes The Question Is Not The Creator Of Question So Not Authorized To delete
+    assert(Question.deleteQuestionPermanently(anotherQuestionId,userId)===true)  //User Who Deletes The Question Is  The Creator Of Question So  Authorized To delete
+  }
 
   after {
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))

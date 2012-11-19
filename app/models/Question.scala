@@ -169,15 +169,10 @@ object Question {
 
   def deleteQuestionPermanently(questionId: ObjectId, userId: ObjectId) = {
     var deletedQuestionSuccessfully = false
-    val questionToRemove = Message.findMessageById(questionId).get
-    val commentsOfQuestionToBeRemoved = questionToRemove.comments
+    val questionToRemove = Question.findQuestionById(questionId).get
 
     if (questionToRemove.userId == userId) {
-      MessageDAO.remove(questionToRemove)
-      for (commentId <- commentsOfQuestionToBeRemoved) {
-        val commentToBeremoved = Comment.findCommentById(commentId)
-        if (commentToBeremoved != None) Comment.removeComment(commentToBeremoved.get)
-      }
+      QuestionDAO.remove(questionToRemove)
       deletedQuestionSuccessfully = true
       deletedQuestionSuccessfully
     } else {

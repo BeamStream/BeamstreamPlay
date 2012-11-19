@@ -1,15 +1,15 @@
 package controllers
 import org.bson.types.ObjectId
 import org.neo4j.graphdb.Node
-import models.ProfileImageProviderCache
+
 import models.ResulttoSent
 import models.User
 import models.User
-import models.UserMedia
 import net.liftweb.json.Serialization.read
 import net.liftweb.json.Serialization.write
 import net.liftweb.json.DefaultFormats
 import net.liftweb.json.parse
+import play.api.Play.current
 import play.api.data.Forms._
 import play.api.libs.json.JsValue
 import play.api.libs.json.Json
@@ -21,8 +21,6 @@ import play.libs._
 import play.mvc.Http.Request
 import utils._
 import utils.SocialGraphEmbeddedNeo4j
-import play.api.cache.Cache
-import play.api.Play.current
 import utils.onlineUserCache
 
 object UserController extends Controller {
@@ -34,7 +32,7 @@ object UserController extends Controller {
  * Find and Authenticate the user to proceed
  */
   def findUser = Action { implicit request =>
-     
+
     val userJsonMap = request.body.asFormUrlEncoded.get
     val user = userJsonMap("data").toList(0)
     val userJson = net.liftweb.json.parse(user)
@@ -55,7 +53,7 @@ object UserController extends Controller {
         //        else  Ok(statusToSend).as("application/json").withSession(userSession)
 
         val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
-       println("Online Users"+noOfOnLineUsers)
+        println("Online Users" + noOfOnLineUsers)
         Ok(statusToSend).withSession(userSession)
 
       case None =>
@@ -121,20 +119,29 @@ object UserController extends Controller {
 
   }
 
-  // 
-
   /*
    * Reducing active user on sign Out
    */
 
   def signOut = Action { implicit request =>
     val noOfOnLineUsers = onlineUserCache.setOffline(request.session.get("userId").get)
-    println("Online Users"+noOfOnLineUsers)
+    println("Online Users" + noOfOnLineUsers)
     Ok.withNewSession
   }
 
-  /*
-   *  Find User By ID 
+  /**
+   * Get All Online Users
+   */
+
+  def getAllOnlineUsers = Action { implicit request =>
+    (onlineUserCache.returnOnlineUsers.isEmpty==true) match {
+    case false =>  Ok(write(onlineUserCache.returnOnlineUsers)).as("application/json")
+    case true => Ok(write("No one is online at this moment")).as("application/json")
+    }
+  }
+
+  /**
+   *  Find User By ID
    *  @Purpose :Returns the user JSON on Stream page load
    * @Purpose : public profile of a user
    */
@@ -167,20 +174,55 @@ object UserController extends Controller {
   }
 
   def testNeo4j = Action { implicit request =>
-    SocialGraphEmbeddedNeo4j.clearDb()
-    SocialGraphEmbeddedNeo4j.createDb()
-    var node: Node = SocialGraphEmbeddedNeo4j.findBSNode(24, "Joe", "Shmoe")
+    var node: Node = SocialGraphEmbeddedNeo4j.findOrCreateBSNode(24, "Joe", "Shmoe")
     var node2: Node = SocialGraphEmbeddedNeo4j.createBSNode(72, "Michael", "Vick", node)
-    print("node1: " + node.getProperty("firstName"))
-    print("node2: " + node2.getProperty("firstName"))
-    print("relationship: " + node2.getRelationships())
-    SocialGraphEmbeddedNeo4j.shutDown()
+    print("node1: " + node.getProperty("firstName") + "\n")
+    print("node2: " + node2.getProperty("firstName") + "\n")
+    print("relationship: " + node2.getRelationships() + "\n")
     Ok(write(new ResulttoSent("Success", "User added to Social stack")))
   }
 
-  def addFriendNeo4j(friends: Array[Neo4jFriend], userId: Integer): Boolean = {
-    SocialGraphEmbeddedNeo4j.createDb()
-    var node: Node = SocialGraphEmbeddedNeo4j.findBSNode(userId, null, null)
+  def testNeo4jFindNode = Action { implicit request =>
+    //var node: Node = SocialGraphEmbeddedNeo4j.findOrCreateBSNode(24, null, null)
+    var node: Node = SocialGraphEmbeddedNeo4j.findBSNode(50)
+    print("node1: " + node.getProperty("firstName") + "\n")
+    Ok(write(new ResulttoSent("Success", "User found")))
+  }
+
+  def testNeo4jAddFriends = Action { implicit request =>
+    var node: Node = SocialGraphEmbeddedNeo4j.findOrCreateBSNode(50, "Dirk", "Nowitzki")
+    var node1: Neo4jFriend = new Neo4jFriend("hotpotato1", "forum1", 51, null)
+    var node2: Neo4jFriend = new Neo4jFriend("hotpotato2", "forum2", 52, null)
+    var node3: Neo4jFriend = new Neo4jFriend("hotpotato3", "forum3", 53, null)
+    var node4: Neo4jFriend = new Neo4jFriend("hotpotato4", "forum4", 54, null)
+    val friends = Array(node1, node2, node3, node4)
+    val worked = this.addFriendNeo4j(friends, 50)
+    print("addFriends successful: " + worked + "\n")
+    Ok(write(new ResulttoSent("Success", "Friends Added!!!")))
+  }
+
+  def testNeo4jPrintFriends = Action { implicit request =>
+    var node: Node = SocialGraphEmbeddedNeo4j.findBSNode(50)
+    var relationships = node.getRelationships();
+    var iterator = relationships.iterator()
+
+    print("parent: " + node.getProperty("firstName") + "\n")
+
+    while (iterator.hasNext()) {
+      print("relationship: " + iterator.next() + "\n")
+    }
+    Ok(write(new ResulttoSent("Success", "User friends printed!")))
+  }
+
+  /*
+   * Add a list of Friends given a parent UserId and a list of friends of that user.
+   */
+  def addFriendNeo4j(friends: Array[Neo4jFriend], userId: Long): Boolean = {
+    var node: Node = SocialGraphEmbeddedNeo4j.findBSNode(userId)
+    if (node == null) {
+      Ok(write(new ResulttoSent("Failure", "Parent user does not exist in friends database")))
+      return true
+    }
     for (friend <- friends) {
       var node2: Node = SocialGraphEmbeddedNeo4j.createBSNode(friend.userId, friend.firstName, friend.lastName, node)
     }
@@ -188,14 +230,15 @@ object UserController extends Controller {
     Ok(write(new ResulttoSent("Success", "Users added to Social stack")))
     return true
   }
-  
-/*
+
+  /*
  * Deactivate User On Browser Closed Event
  */
   def browserClosed = Action { implicit request =>
     println("Got A Hit On Browser Close Event")
     val noOfOnLineUsers = onlineUserCache.setOffline(request.session.get("userId").get)
-    Ok	
+    println("Online Users" + noOfOnLineUsers)
+    Ok
   }
 
 }

@@ -21,6 +21,7 @@ import models.StreamType
 import models.Class
 import models.ResulttoSent
 import models.Message
+import utils.onlineUserCache
 
 object StreamController extends Controller {
 
@@ -32,8 +33,11 @@ object StreamController extends Controller {
   def index = Action { implicit request =>
     val playCookiee = request.cookies.get("PLAY_SESSION")
     if (playCookiee == None) Redirect("/beamstream/home.html")
-    else Redirect("/beamstream/index.html#streams")
-
+    else {
+      val noOfOnLineUsers = onlineUserCache.setOnline(request.session.get("userId").get)
+      println("Online Users" + noOfOnLineUsers)
+      Redirect("/beamstream/index.html#streams")
+    }
   }
 
   /*
@@ -55,7 +59,6 @@ object StreamController extends Controller {
     val allStreamsForAUserJson = write(allClassStreamsForAUser)
     Ok(allStreamsForAUserJson).as("application/json")
   }
-
 
   /*
    * Show the no. of users attending classes
