@@ -2686,5 +2686,12 @@ ul.comments li:hover .delete_comment{
 #image-loader img{
 	width: 25px;
 }
-
-
+.extension{
+	color: white;
+    left: 88px;
+    position: absolute;
+    top: 96px;
+}
+.img_container{
+	position: relative;
+}
