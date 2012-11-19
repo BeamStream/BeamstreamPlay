@@ -119,8 +119,6 @@ object UserController extends Controller {
 
   }
 
-  // 
-
   /*
    * Reducing active user on sign Out
    */
@@ -131,8 +129,16 @@ object UserController extends Controller {
     Ok.withNewSession
   }
 
-  /*
-   *  Find User By ID 
+  /**
+   * Get All Online Users
+   */
+
+  def getAllOnlineUsers = Action { implicit request =>
+    Ok(write(onlineUserCache.returnOnlineUsers)).as("application/json")
+  }
+
+  /**
+   *  Find User By ID
    *  @Purpose :Returns the user JSON on Stream page load
    * @Purpose : public profile of a user
    */
@@ -191,21 +197,20 @@ object UserController extends Controller {
     print("addFriends successful: " + worked + "\n")
     Ok(write(new ResulttoSent("Success", "Friends Added!!!")))
   }
-  
+
   def testNeo4jPrintFriends = Action { implicit request =>
     var node: Node = SocialGraphEmbeddedNeo4j.findBSNode(50)
     var relationships = node.getRelationships();
     var iterator = relationships.iterator()
-    
+
     print("parent: " + node.getProperty("firstName") + "\n")
-    
+
     while (iterator.hasNext()) {
       print("relationship: " + iterator.next() + "\n")
     }
     Ok(write(new ResulttoSent("Success", "User friends printed!")))
   }
 
-  
   /*
    * Add a list of Friends given a parent UserId and a list of friends of that user.
    */
@@ -229,6 +234,7 @@ object UserController extends Controller {
   def browserClosed = Action { implicit request =>
     println("Got A Hit On Browser Close Event")
     val noOfOnLineUsers = onlineUserCache.setOffline(request.session.get("userId").get)
+    println("Online Users" + noOfOnLineUsers)
     Ok
   }
 

@@ -12,7 +12,7 @@ POST /betaUser   controllers.JoinBeamStream.regsisterToBeamStreamBeta
 
 #User
 POST /users      controllers.UserController.findUser
-
+GET /onlineUsers  controllers.UserController.getAllOnlineUsers
 
 #Browser Closed
 
