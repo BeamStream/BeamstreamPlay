@@ -1793,11 +1793,12 @@ Create a Class</a>
     </div>
     <div id="error" class="invalid-validation" style="margin-left:20px; color:red;"></div>
     <div class="modal-body">
-        <form name="school-form" id="school-form">
+        <form name="invite-form" id="invite-form">
 			<fieldset id ="1" >
-			 <p style="ont-size: 17px;">Invite your classmates and friends. Start typing below to invite them.<p>
+			  
 			<div class="element">
-			 	<input type="text" name="friends" id="friends" class="required span3 " placeholder="type your friends name here..">
+				<label name="invite" >Invite your classmates and friends. Enter EmailId below to invite friends</label>
+			 	<input type="text" name="friends" id="friends" class="required email span3 " placeholder="Enter emailid to invite the user">
             </div>
 			</fieldset>
         </form>
@@ -2839,7 +2840,7 @@ Create a Class</a>
               </section>
 
               <section class="import_or_invite">
-                <a id="invite" class="btn plus" href="#import_or_invite"><i><b></b><span class="popout_arrow"><span></span></span></i>Import or Invite Contacts</a>
+                <a id="invite" class="btn plus" href="#import_or_invite" data-original-title="Notes" ><i><b></b><span class="popout_arrow"><span></span></span></i>Import or Invite Contacts</a>
               </section>
             </section>
             <section class="user_streams">

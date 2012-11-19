@@ -2,6 +2,7 @@ BS.InvitePeopleView = Backbone.View.extend({
 
 	events: {
 		"click #close-school" : "closeScreen",
+		"click #invite" : "inviteFriends"
            
 	    },
 	
@@ -11,6 +12,7 @@ BS.InvitePeopleView = Backbone.View.extend({
         
 		this.source = $("#tpl-invite-people").html();
 		this.template = Handlebars.compile(this.source);
+		$("#invite-form").validate();
     },
 
      
@@ -22,6 +24,22 @@ BS.InvitePeopleView = Backbone.View.extend({
     
         $(this.el).html(this.template);
         return this;
+    },
+    /**
+     * invite friends using emailId
+     */
+    inviteFriends :function (eventName){
+    	eventName.preventDefault(); 
+    	var validate =  $("#invite-form").valid();
+    	if(validate == true)
+    	{
+    		
+    	}
+    	else
+    	{
+    		$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
+    		$('.error-msg').html("Please enter a vallid email address");
+    	}
     },
     
     /**
