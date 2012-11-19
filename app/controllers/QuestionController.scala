@@ -56,7 +56,7 @@ object QuestionController extends Controller {
     val user = User.getUserProfile(userId)
     val date = new Date
     val questionToAsk = new Question(new ObjectId, questionBody, userId,
-      QuestionAccess.withName(questionAccess), streamId, user.firstName, user.lastName, date, 0, List(), List(), 0, List())
+      QuestionAccess.withName(questionAccess), streamId, user.firstName, user.lastName, date, 0, List(), List(),List())
     val questionId = Question.addQuestion(questionToAsk)
     val questionObtained = Question.findQuestionById(questionId)
     Ok(write(List(questionObtained))).as("application/json")
@@ -71,7 +71,7 @@ object QuestionController extends Controller {
     val questionIdJsonMap = request.body.asFormUrlEncoded.get
     val allQuestionsForAUser = Question.getAllQuestionsForAUser(new ObjectId(request.session.get("userId").get))
     val allQuestionForAStreamJson = write(allQuestionsForAUser)
-    Ok(allQuestionForAStreamJson).as("application/json")
+    Ok(write(allQuestionForAStreamJson)).as("application/json")
   }
 
 
@@ -81,10 +81,10 @@ object QuestionController extends Controller {
    */
   def rockTheQuestion = Action { implicit request =>
     val questionIdJsonMap = request.body.asFormUrlEncoded.get
-    val id = questionIdJsonMap("documentId").toList(0)
+    val id = questionIdJsonMap("questionId").toList(0)
     val totalRocks = Question.rockTheQuestion(new ObjectId(id), new ObjectId(request.session.get("userId").get))
     val totalRocksJson = write(totalRocks.toString)
-    Ok(totalRocksJson).as("application/json")
+    Ok(write(totalRocksJson)).as("application/json")
   }
 
   /**
@@ -95,9 +95,18 @@ object QuestionController extends Controller {
     val id = questionIdJsonMap("questionId").toList(0)
     val rockers = Question.rockersNameOfAQuestion(new ObjectId(id))
     val rockersJson = write(rockers)
-    Ok(rockersJson).as("application/json")
+    Ok(write(rockersJson)).as("application/json")
   }
-
+/**
+ * Follow Question
+ */
+  
+  def followQuestion = Action { implicit request =>
+     val questionIdJsonMap = request.body.asFormUrlEncoded.get
+    val questionId = questionIdJsonMap("questionId").toList(0)
+    val followers=Question.followQuestion(new ObjectId(request.session.get("userId").get),new ObjectId(questionId))
+    Ok(write(followers.toString)).as("application/json")
+  }
   
 }
 

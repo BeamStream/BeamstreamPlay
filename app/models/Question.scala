@@ -41,7 +41,6 @@ case class Question(@Key("_id") id: ObjectId,
   rocks: Int,
   rockers: List[ObjectId],
   answers: List[ObjectId],
-  follows: Int,
   followers: List[ObjectId])
 
 object Question {
@@ -70,7 +69,7 @@ object Question {
     question
   }
 
-  /*
+  /**
  * Rock The Question
  */
   def rockTheQuestion(questionId: ObjectId, userId: ObjectId): Int = {
@@ -185,6 +184,24 @@ object Question {
    */
   def getAllQuestionsForAUser(userId:ObjectId)={
     QuestionDAO.find(MongoDBObject("userId" -> userId)).toList
+  }
+  
+  /**
+   * Follow Question
+   */
+
+  def followQuestion(userIdOfFollower: ObjectId, questionId: ObjectId): Int = {
+    val questionToFollow = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+    (questionToFollow.followers.contains(userIdOfFollower)) match {
+      case true =>
+        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToFollow.copy(followers = (questionToFollow.followers -- List(userIdOfFollower))), false, false, new WriteConcern)
+        val updatedQuestionWithAddedIdOfFollower = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+        updatedQuestionWithAddedIdOfFollower.followers.size
+      case false =>
+        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToFollow.copy(followers = (questionToFollow.followers ++ List(userIdOfFollower))), false, false, new WriteConcern)
+        val updatedQuestionWithAddedIdOfFollower = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+        updatedQuestionWithAddedIdOfFollower.followers.size
+    }
   }
 }
 

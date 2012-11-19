@@ -129,7 +129,7 @@ POST /newQuestion               controllers.QuestionController.newQuestion
 POST /rockQuestion               controllers.QuestionController.rockTheQuestion
 GET /getAllQuestionsForAUser               controllers.QuestionController.getAllQuestionsForAUser
 POST /giveMeRockers              controllers.QuestionController.giveMeRockers
-
+POST  /followQuestion            controllers.QuestionController.followQuestion
 
 #bitly
 POST /bitly   controllers.MessageController.getShortUrlViabitly 
