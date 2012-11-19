@@ -145,3 +145,6 @@ GET /returnProgress                    controllers.MediaController.returnProgres
 
 #NEO4J Baby
 GET  /testNeo4j          controllers.UserController.testNeo4j
+GET  /testNeo4jFindNode          controllers.UserController.testNeo4jFindNode
+GET  /testNeo4jAddFriends          controllers.UserController.testNeo4jAddFriends
+GET  /testNeo4jPrintFriends          controllers.UserController.testNeo4jPrintFriends

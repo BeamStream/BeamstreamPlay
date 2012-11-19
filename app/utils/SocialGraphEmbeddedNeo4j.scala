@@ -38,7 +38,7 @@ object SocialGraphEmbeddedNeo4j {
     this.createDb()
     //this.removeData()
     //this.createBSNode(24, "daniel", "hew", null)
-    var node:Node = this.findBSNode(24, "daniel", "hew")
+    var node:Node = this.findOrCreateBSNode(24, "daniel", "hew")
     var node2:Node = this.createBSNode(72, "lena", "yan", node)
     print("node1: " + node.getProperty("firstName"))
     print("node2: " + node2.getProperty("firstName"))
@@ -53,7 +53,7 @@ object SocialGraphEmbeddedNeo4j {
 
   def clearDb() {
     try {
-      FileUtils.deleteRecursively(new File(DB_PATH))
+      FileUtils.deleteFile(new File(DB_PATH))
     } catch {
       case ioe: IOException =>
         throw new RuntimeException(ioe)
@@ -87,10 +87,26 @@ object SocialGraphEmbeddedNeo4j {
   }
 
   /*
+   * Find a BeamStream Node by UserId. If node does not exist return NULL
+   */
+  def findBSNode(userId: Long): Node = {
+    if(graphDb==null)
+      createDb()
+      
+    var nodeIndex = graphDb.index().forNodes(INDEX_NAME)
+    var node:Node = nodeIndex.get(USER_KEY, userId).getSingle()
+    	
+    return node
+  }
+  
+  /*
    * Find a BeamStream Node by UserId. If node does not exist save it
    * to Neo4j along with the users first and last name
    */
-  def findBSNode(userId: Integer, firstName: String, lastName: String): Node = {
+  def findOrCreateBSNode(userId: Long, firstName: String, lastName: String): Node = {
+    if(graphDb==null)
+      createDb()
+      
     var nodeIndex = graphDb.index().forNodes(INDEX_NAME)
     var node:Node = nodeIndex.get(USER_KEY, userId).getSingle()
     
@@ -102,9 +118,11 @@ object SocialGraphEmbeddedNeo4j {
 
   /*
    * Create a BeamStream Node with userId, firstName, and lastName.  Make
-   * it a FRIEND of firstNode.
+   * it a FRIEND of parentNode.
    */
-  def createBSNode(userId: Integer, firstName: String, lastName: String, firstNode: Node): Node = {
+  def createBSNode(userId: Long, firstName: String, lastName: String, parentNode: Node): Node = {
+    if(graphDb==null)
+      createDb()
 
     val tx: Transaction = graphDb.beginTx()
     val nodeIndex = graphDb.index().forNodes(INDEX_NAME)
@@ -117,7 +135,7 @@ object SocialGraphEmbeddedNeo4j {
       nodeIndex.add(secondNode, USER_KEY, userId)
 
       if(firstNode!=null) {
-    	  relationship = firstNode.createRelationshipTo(secondNode, RelTypes.FRIEND)
+    	  relationship = parentNode.createRelationshipTo(secondNode, RelTypes.FRIEND)
     	  relationship.setProperty("connection", "friend")
       }
 
