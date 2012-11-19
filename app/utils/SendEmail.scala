@@ -42,6 +42,9 @@ object SendEmail extends App {
     Token.addToken(token)
   }
 
+  /**
+   * Forgot Password Functionality
+   */
   def sendPassword(emailId: String, password: String) {
     val props = new Properties
     props.setProperty("mail.transport.protocol", "smtp");
@@ -72,6 +75,9 @@ object SendEmail extends App {
     transport.sendMessage(msg, msg.getAllRecipients)
   }
 
+  /**
+   * Send Mail After Stream Creation & Joining
+   */
   def mailAfterStreamCreation(emailId: String, streamName: String, newStream: Boolean) {
     val props = new Properties
     props.setProperty("mail.transport.protocol", "smtp");
@@ -109,7 +115,9 @@ object SendEmail extends App {
     transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get))
     transport.sendMessage(msg, msg.getAllRecipients)
   }
-
+  /**
+   * Notify  The User When New User Joins A Stream
+   */
   def notifyUsersOfStreamForANewUser(emailId: String, firstNameOfJoiner: String, lastNameOfJoiner: String, streamName: String) {
     val props = new Properties
     props.setProperty("mail.transport.protocol", "smtp");
@@ -128,6 +136,41 @@ object SendEmail extends App {
 
       "Hi <b>Beamstream's</b> Rockers." + "<br>" + "<br>" +
         firstNameOfJoiner + " " + lastNameOfJoiner + " has Joined the " + streamName + " Stream" +
+        "<br>" + "<br>" +
+        "Cheers," + "<br>" +
+        "The Really Nice Beamstream Folks , US" + "<br>", "text/html")
+
+    val transport = session.getTransport("smtp");
+    transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get))
+    transport.sendMessage(msg, msg.getAllRecipients)
+  }
+  
+  /**
+   * Invite User 
+   */
+  
+   /**
+   * Notify  The User When New User Joins A Stream
+   */
+  def inviteUserToBeamstream(emailId: String) {
+    val props = new Properties
+    props.setProperty("mail.transport.protocol", "smtp");
+    props.setProperty("mail.smtp.starttls.enable", "true");
+    props.setProperty("mail.host", "smtp.gmail.com");
+    props.setProperty("mail.user", "neelkanth@knoldus.com");
+    props.setProperty("mail.password", Play.current.configuration.getString("email_password").get)
+    val session = Session.getDefaultInstance(props, null);
+    val msg = new MimeMessage(session)
+    val recepientAddress = new InternetAddress(emailId)
+    msg.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
+    msg.addRecipient(Message.RecipientType.TO, recepientAddress)
+
+    msg.setSubject("Invitation to join Beamstream")
+    msg.setContent(
+
+      "Hi <b>Beamstream's</b> Rockers." + "<br>" + "<br>" +
+      "You've been invited to join Beamstream" + "<br>" +
+      "Join and be ready to rock" +
         "<br>" + "<br>" +
         "Cheers," + "<br>" +
         "The Really Nice Beamstream Folks , US" + "<br>", "text/html")

@@ -134,12 +134,23 @@ object UserController extends Controller {
    */
 
   def getAllOnlineUsers = Action { implicit request =>
-    (onlineUserCache.returnOnlineUsers.isEmpty==true) match {
-    case false =>  Ok(write(onlineUserCache.returnOnlineUsers)).as("application/json")
-    case true => Ok(write("No one is online at this moment")).as("application/json")
+    (onlineUserCache.returnOnlineUsers.isEmpty == true) match {
+      case false => Ok(write(onlineUserCache.returnOnlineUsers)).as("application/json")
+      case true => Ok(write("No one is online at this moment")).as("application/json")
     }
   }
 
+  /**
+   * Invite User
+   */
+  def inviteUserToBeamstream = Action { implicit request =>
+    val userJsonMap = request.body.asFormUrlEncoded.get
+    val user = userJsonMap("data").toList(0)
+    val userJson = net.liftweb.json.parse(user)
+    val userEmail = (userJson \ "email").extract[String]
+    SendEmail.inviteUserToBeamstream(userEmail)
+    Ok(write("User has been invited to Beamstream")).as("application/json")
+  }
   /**
    *  Find User By ID
    *  @Purpose :Returns the user JSON on Stream page load
