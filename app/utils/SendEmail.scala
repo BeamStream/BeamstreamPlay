@@ -168,7 +168,7 @@ object SendEmail extends App {
     msg.setSubject("Invitation to join Beamstream")
     msg.setContent(
 
-      "Hi <b>Beamstream's</b> Rockers." + "<br>" + "<br>" +
+      "Hello Dear , " + "<br>" + "<br>" +
       "You've been invited to join Beamstream" + "<br>" +
       "Join and be ready to rock. " + "<a href ='" + Play.current.configuration.getString("server").get +"/beamstream/index.html#emailVerification'>REGISTER HERE</a>" +
         "<br>" + "<br>" +
