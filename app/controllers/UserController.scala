@@ -141,7 +141,7 @@ object UserController extends Controller {
   }
 
   /**
-   * Invite User
+   * Invite User To join Beamstream
    */
   def inviteUserToBeamstream = Action { implicit request =>
     val userJsonMap = request.body.asFormUrlEncoded.get
