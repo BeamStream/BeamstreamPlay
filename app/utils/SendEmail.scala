@@ -170,7 +170,7 @@ object SendEmail extends App {
 
       "Hi <b>Beamstream's</b> Rockers." + "<br>" + "<br>" +
       "You've been invited to join Beamstream" + "<br>" +
-      "Join and be ready to rock" + "<a href ='/beamstream/index.html#emailVerification'>REGISTER HERE</a>" +
+      "Join and be ready to rock. " + "<a href ='" + Play.current.configuration.getString("server").get +"/beamstream/index.html#emailVerification'>REGISTER HERE</a>" +
         "<br>" + "<br>" +
         "Cheers," + "<br>" +
         "The Really Nice Beamstream Folks , US" + "<br>", "text/html")

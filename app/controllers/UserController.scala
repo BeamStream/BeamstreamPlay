@@ -145,11 +145,9 @@ object UserController extends Controller {
    */
   def inviteUserToBeamstream = Action { implicit request =>
     val userJsonMap = request.body.asFormUrlEncoded.get
-    val user = userJsonMap("data").toList(0)
-    val userJson = net.liftweb.json.parse(user)
-    val userEmail = (userJson \ "email").extract[String]
-    SendEmail.inviteUserToBeamstream(userEmail)
-    Ok(write("User has been invited to Beamstream")).as("application/json")
+    val emailList = userJsonMap("data").toList.head.split(",").toList
+    for (eachEmail <- emailList)  SendEmail.inviteUserToBeamstream(eachEmail)
+    Ok(write(ResulttoSent("Success","Invitations has been sent"))).as("application/json")
   }
   /**
    *  Find User By ID
