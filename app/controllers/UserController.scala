@@ -134,7 +134,10 @@ object UserController extends Controller {
    */
 
   def getAllOnlineUsers = Action { implicit request =>
-    Ok(write(onlineUserCache.returnOnlineUsers)).as("application/json")
+    (onlineUserCache.returnOnlineUsers.isEmpty==true) match {
+    case false =>  Ok(write(onlineUserCache.returnOnlineUsers)).as("application/json")
+    case true => Ok(write("No one is online at this moment")).as("application/json")
+    }
   }
 
   /**
