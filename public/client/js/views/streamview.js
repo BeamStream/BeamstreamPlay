@@ -816,7 +816,7 @@ BS.StreamView = Backbone.View.extend({
                                                          }
                                                          else      //insert value to hidden field
                                                             {
-                                                                 var content = '<div class="uploaded"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="75" /></a></div>'
+                                                                 var content = '<div class="uploaded"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
                                                             $('#'+data.id.id+'-docurl').html(content);
 //       console.log("data-"+data.anyPreviewImageUrl);
                                                               $('input#'+data.id.id+'-url').val(msgUrl);  
