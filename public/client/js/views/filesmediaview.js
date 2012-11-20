@@ -958,12 +958,13 @@ BS.FilesMediaView = Backbone.View.extend({
                 eventName.preventDefault();
                  var self = this;
                 var status = true;
+                var message ='';
                 var streamId = $("#doc-class-list-computer").val();
                 var data;
                 data = new FormData();
                 data.append('streamId', streamId);
                 data.append('docData', this.image);  
-                
+                data.append('docDescription',message);
                 document.getElementById('loader-message').innerHTML="<img src='images/loading.gif'>";
                 
                 /* post profile page details */
@@ -976,7 +977,7 @@ BS.FilesMediaView = Backbone.View.extend({
                     processData: false,
                     dataType : "json",
                     success: function(data){
-                        if(data.status == "Success") 
+                        if(data!== " ") 
                             {
                                 document.getElementById('loader-message').innerHTML = data.message;
                                 self.docsList();
