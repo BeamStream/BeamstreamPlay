@@ -41,7 +41,6 @@ case class Question(@Key("_id") id: ObjectId,
   rocks: Int,
   rockers: List[ObjectId],
   answers: List[ObjectId],
-  follows: Int,
   followers: List[ObjectId])
 
 object Question {
@@ -70,7 +69,7 @@ object Question {
     question
   }
 
-  /*
+  /**
  * Rock The Question
  */
   def rockTheQuestion(questionId: ObjectId, userId: ObjectId): Int = {
@@ -169,15 +168,10 @@ object Question {
 
   def deleteQuestionPermanently(questionId: ObjectId, userId: ObjectId) = {
     var deletedQuestionSuccessfully = false
-    val questionToRemove = Message.findMessageById(questionId).get
-    val commentsOfQuestionToBeRemoved = questionToRemove.comments
+    val questionToRemove = Question.findQuestionById(questionId).get
 
     if (questionToRemove.userId == userId) {
-      MessageDAO.remove(questionToRemove)
-      for (commentId <- commentsOfQuestionToBeRemoved) {
-        val commentToBeremoved = Comment.findCommentById(commentId)
-        if (commentToBeremoved != None) Comment.removeComment(commentToBeremoved.get)
-      }
+      QuestionDAO.remove(questionToRemove)
       deletedQuestionSuccessfully = true
       deletedQuestionSuccessfully
     } else {
@@ -190,6 +184,24 @@ object Question {
    */
   def getAllQuestionsForAUser(userId:ObjectId)={
     QuestionDAO.find(MongoDBObject("userId" -> userId)).toList
+  }
+  
+  /**
+   * Follow Question
+   */
+
+  def followQuestion(userIdOfFollower: ObjectId, questionId: ObjectId): Int = {
+    val questionToFollow = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+    (questionToFollow.followers.contains(userIdOfFollower)) match {
+      case true =>
+        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToFollow.copy(followers = (questionToFollow.followers -- List(userIdOfFollower))), false, false, new WriteConcern)
+        val updatedQuestionWithAddedIdOfFollower = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+        updatedQuestionWithAddedIdOfFollower.followers.size
+      case false =>
+        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToFollow.copy(followers = (questionToFollow.followers ++ List(userIdOfFollower))), false, false, new WriteConcern)
+        val updatedQuestionWithAddedIdOfFollower = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+        updatedQuestionWithAddedIdOfFollower.followers.size
+    }
   }
 }
 

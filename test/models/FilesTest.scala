@@ -80,7 +80,16 @@ class FilesTest extends FunSuite with BeforeAndAfter {
 
     val docsFilesObtainedAgain = Files.getAllDOCSFiles(userId)
     assert(docsFilesObtainedAgain.size === 1)
+  }
 
+  test("Follow The Document") {
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(), List())
+    val userId = User.createUser(user)
+    val firstDocumentToCreate = new Document(new ObjectId, "Neel'sFile.pdf", "Neel'sFile", "http://neel.ly/Neel'sFile.pdf", DocType.Other, userId, DocumentAccess.Private, new ObjectId, new Date, new Date, 0, List(), List(), List(), "")
+    val documentId = Document.addDocument(firstDocumentToCreate)
+    assert(Document.findDocumentById(documentId).documentFollwers.size === 0)
+    Document.followDocument(userId, documentId)
+    assert(Document.findDocumentById(documentId).documentFollwers.size === 1)
   }
 
   after {

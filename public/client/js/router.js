@@ -1418,5 +1418,6 @@ BS.AppRouter = Backbone.Router.extend({
 		         BS.invitePeopleView.render();
 		         
 		         $('#school-popup').html(BS.invitePeopleView.el);
+		         $("#invite-form").validate();
            }
 		});

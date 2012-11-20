@@ -41,7 +41,8 @@ case class Message(@Key("_id") id: ObjectId,
   rockers: List[ObjectId],
   comments: List[ObjectId],
   follows: Int,
-  followers: List[ObjectId])
+  followers: List[ObjectId],
+  anyPreviewImageUrl:Option[String]=None)
 
 object Message { //extends CommentConsumer {
 

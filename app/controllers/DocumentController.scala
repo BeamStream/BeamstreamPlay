@@ -202,24 +202,26 @@ object DocumentController extends Controller {
             val media = new UserMedia(new ObjectId, documentName, "", new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Video, false, videoFrameURL, 0, List())
             UserMedia.saveMediaForUser(media)
             docResultToSend = new DocResulttoSent(media.id.toString, docURL, "")
-            val message = Message(new ObjectId, docURL, Option(MessageType.Video), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List())
+            val message = Message(new ObjectId, docURL, Option(MessageType.Video), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(),Option(videoFrameURL))
             Message.createMessage(message)
           } else {
-
-            if (isPdf == true) {
+             
+            var anyPreviewUrl=""
+            
+              if (isPdf == true) {
               val previewImageUrl = PreviewOfPDF.convertPdfToImage(documentReceived, docName)
               val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
                 new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(), previewImageUrl)
               Document.addDocument(documentCreated)
               docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL, documentCreated.previewImageUrl)
-
+              anyPreviewUrl=previewImageUrl
             } else {
               val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
                 new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(), "")
               Document.addDocument(documentCreated)
               docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL, documentCreated.previewImageUrl)
             }
-            val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List())
+            val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(),Option(anyPreviewUrl))
             Message.createMessage(message)
           }
         }.get
@@ -267,6 +269,17 @@ object DocumentController extends Controller {
   def getAllDOCSFilesForAUser = Action { implicit request =>
     val DocsFiles = Files.getAllDOCSFiles(new ObjectId(request.session.get("userId").get))
     Ok(write(DocsFiles)).as("application/json")
+  }
+  
+    /**
+ * Follow Document
+ */
+  
+  def followDocument = Action { implicit request =>
+     val docIdToFollowJsonMap = request.body.asFormUrlEncoded.get
+    val documentId = docIdToFollowJsonMap("documentId").toList(0)
+    val followers=Document.followDocument(new ObjectId(request.session.get("userId").get),new ObjectId(documentId))
+    Ok(write(followers.toString)).as("application/json")
   }
 }
 

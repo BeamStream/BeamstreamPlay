@@ -1821,6 +1821,12 @@ span.edit_profilepicture_icon{
     top: 11px;
     z-index: 999;
 }
+#send_invite{
+	left: 86px;
+    position: absolute;
+    top: 10px;
+    z-index: 999;
+}
 #class-continue-loader{
 	left: 115px;
     position: absolute;
@@ -2680,5 +2686,12 @@ ul.comments li:hover .delete_comment{
 #image-loader img{
 	width: 25px;
 }
-
-
+.extension{
+	color: white;
+    left: 88px;
+    position: absolute;
+    top: 96px;
+}
+.img_container{
+	position: relative;
+}

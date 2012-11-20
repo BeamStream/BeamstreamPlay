@@ -25,5 +25,12 @@ object onlineUserCache {
     Cache.set("Online Users", onlineUser)
     onlineUser.length
   }
-
+  
+  /**
+   * List Of All Online Users 
+   */
+def returnOnlineUsers={
+  Cache.get("Online Users")
+}
+  
 }

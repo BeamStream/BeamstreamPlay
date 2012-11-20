@@ -1,3 +1,4 @@
+
 package models
 
 import com.novus.salat._
@@ -55,7 +56,7 @@ case class Document(@Key("_id") id: ObjectId,
   documentRockers: List[ObjectId],
   commentsOnDocument: List[ObjectId],
   documentFollwers: List[ObjectId],
-  previewImageUrl:String)
+  previewImageUrl: String)
 
 object Document {
 
@@ -99,8 +100,15 @@ object Document {
     val docsObtained = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "GoogleDocs")).toList
     docsObtained
   }
-
-  /*
+  
+ /**
+   * Get all documents for a user (Modified)
+   */
+  def getAllPublicDocumentForAUser(userId: ObjectId) = {
+    val docsObtained = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentAccess" -> "Public")).toList
+    docsObtained
+  }
+  /**
    *  Update the Rockers List and increase the count by one 
    */
 
@@ -131,13 +139,31 @@ object Document {
     val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
     DocumentDAO.update(MongoDBObject("_id" -> documentId), document.copy(documentDescription = newDescription, documentName = newName), false, false, new WriteConcern)
   }
-  
+
   /**
    * add Comment to document
    */
   def addCommentToDocument(commentId: ObjectId, docId: ObjectId) = {
     val doc = DocumentDAO.find(MongoDBObject("_id" -> docId)).toList(0)
     DocumentDAO.update(MongoDBObject("_id" -> docId), doc.copy(commentsOnDocument = (doc.commentsOnDocument ++ List(commentId))), false, false, new WriteConcern)
+  }
+
+  /**
+   * Follow Document
+   */
+
+  def followDocument(userIdOfFollower: ObjectId, documentId: ObjectId): Int = {
+    val documentToFollow = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
+    (documentToFollow.documentFollwers.contains(userIdOfFollower)) match {
+      case true =>
+        DocumentDAO.update(MongoDBObject("_id" -> documentId), documentToFollow.copy(documentFollwers = (documentToFollow.documentFollwers -- List(userIdOfFollower))), false, false, new WriteConcern)
+        val updatedDocumentWithAddedIdOfFollower = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
+        updatedDocumentWithAddedIdOfFollower.documentFollwers.size
+      case false =>
+        DocumentDAO.update(MongoDBObject("_id" -> documentId), documentToFollow.copy(documentFollwers = (documentToFollow.documentFollwers ++ List(userIdOfFollower))), false, false, new WriteConcern)
+        val updatedDocumentWithAddedIdOfFollower = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
+        updatedDocumentWithAddedIdOfFollower.documentFollwers.size
+    }
   }
 
 }
