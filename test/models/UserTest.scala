@@ -85,6 +85,19 @@ class UserTest extends FunSuite with BeforeAndAfter {
     assert(user.size === 1)
   }
 
+  /**
+   * Follow The User
+   */
+  test("Follow The User") {
+    val user1Id = User.createUser(user1)
+    val user2Id = User.createUser(user2)
+    User.getUserProfile(user1Id).followers.size === 0
+    User.followUser(user2Id, user1Id)
+    assert(User.getUserProfile(user1Id).followers.size === 1)
+    assert(User.getUserProfile(user1Id).followers.head === user2Id)
+
+  }
+
   after {
 
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))

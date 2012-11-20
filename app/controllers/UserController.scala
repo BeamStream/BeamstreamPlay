@@ -249,5 +249,17 @@ object UserController extends Controller {
     println("Online Users" + noOfOnLineUsers)
     Ok
   }
-
+  
+  /**
+ * Follow User
+ */
+  
+  def followUser = Action { implicit request =>
+     val userIdToFollowJsonMap = request.body.asFormUrlEncoded.get
+    val userId = userIdToFollowJsonMap("userId").toList(0)
+    val followers=User.followUser(new ObjectId(request.session.get("userId").get),new ObjectId(userId))
+    Ok(write(followers.toString)).as("application/json")
+  }
+  
+  
 }
