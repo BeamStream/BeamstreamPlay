@@ -2692,6 +2692,9 @@ ul.comments li:hover .delete_comment{
     position: absolute;
     top: 96px;
 }
+.previw-pdf{
+    border: 1px solid #eee;
+}
 .img_container{
 	position: relative;
 }
