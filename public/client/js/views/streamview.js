@@ -655,6 +655,9 @@ BS.StreamView = Backbone.View.extend({
                             }                                          
                             else      //insert value to hidden field
                             {
+                                //for now
+//                                var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
+//                                    $('#'+data.id.id+'-docurl').html(content);
                               $('input#'+data.id.id+'-url').val(msgUrl);  
                             }                                           
                         });
@@ -699,7 +702,7 @@ BS.StreamView = Backbone.View.extend({
 						   
 					    //display the messages
 					  _.each(data, function(data) {
-						  
+						  console.log("data top-"+data.anyPreviewImageUrl);
 							var msgBody = data.messageBody;
                                                         
 //                                                        var links =  msgBody.match(BS.urlRegex); 
@@ -813,6 +816,9 @@ BS.StreamView = Backbone.View.extend({
                                                          }
                                                          else      //insert value to hidden field
                                                             {
+                                                                 var content = '<div class="uploaded"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="100" width="200" /></a></div>'
+                                                            $('#'+data.id.id+'-docurl').html(content);
+//       console.log("data-"+data.anyPreviewImageUrl);
                                                               $('input#'+data.id.id+'-url').val(msgUrl);  
                                                             }
 	  						 
