@@ -268,5 +268,16 @@ object DocumentController extends Controller {
     val DocsFiles = Files.getAllDOCSFiles(new ObjectId(request.session.get("userId").get))
     Ok(write(DocsFiles)).as("application/json")
   }
+  
+    /**
+ * Follow Document
+ */
+  
+  def followDocument = Action { implicit request =>
+     val docIdToFollowJsonMap = request.body.asFormUrlEncoded.get
+    val documentId = docIdToFollowJsonMap("documentId").toList(0)
+    val followers=Document.followDocument(new ObjectId(request.session.get("userId").get),new ObjectId(documentId))
+    Ok(write(followers.toString)).as("application/json")
+  }
 }
 
