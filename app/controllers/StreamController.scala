@@ -75,7 +75,7 @@ object StreamController extends Controller {
 
   /*
    * Get All Public Messages For A User
-   * @Purpose: For Public Profile
+   * @Purpose: For Public Profile (Stream Specific Results)
    */
   def allPublicMessagesFromAllStreamsForAUser = Action { implicit request =>
     val UserIdJsonMap = request.body.asFormUrlEncoded.get

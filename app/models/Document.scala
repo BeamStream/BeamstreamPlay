@@ -1,3 +1,4 @@
+
 package models
 
 import com.novus.salat._
@@ -99,8 +100,15 @@ object Document {
     val docsObtained = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "GoogleDocs")).toList
     docsObtained
   }
-
-  /*
+  
+ /**
+   * Get all documents for a user (Modified)
+   */
+  def getAllPublicDocumentForAUser(userId: ObjectId) = {
+    val docsObtained = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentAccess" -> "Public")).toList
+    docsObtained
+  }
+  /**
    *  Update the Rockers List and increase the count by one 
    */
 

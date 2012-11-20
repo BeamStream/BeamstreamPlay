@@ -5,9 +5,9 @@
 # Home page
 GET / controllers.StreamController.index
 
+
 #Beta Users
 POST /betaUser   controllers.JoinBeamStream.regsisterToBeamStreamBeta
-
 
 
 #User
@@ -17,10 +17,11 @@ POST /inviteUser   controllers.UserController.inviteUserToBeamstream
 POST  /followUser            controllers.QuestionController.followUser
 #Browser Closed
 
+#Other
 GET  /browserClosed          controllers.UserController.browserClosed
+GET /returnProgress                    controllers.MediaController.returnProgress
 
 #Streams
-
 GET /allStreamsForAUser controllers.StreamController.getAllStreamForAUser
 GET /allClassStreamsForAUser controllers.StreamController.allClassStreamsForAUser
 POST /noOfUsersAttendingAClass  controllers.StreamController.noOfUsersAttendingAClass
@@ -66,12 +67,10 @@ POST  /getAllSchoolsForAutopopulate      controllers.SchoolController.getAllScho
 #UpdateUserInfo
 POST /detailed_reg controllers.DetailedRegistration.addInfo
 
+
 #Class
 POST /class                             controllers.ClassController.addClass
 GET  /getAllClassesForAUser             controllers.ClassController.getAllClassesForAUser
-
-#Auto populate class
-
 POST /autoPopulateClassesbyCode controllers.ClassController.findClasstoAutoPopulatebyCode
 POST /autoPopulateClassesbyName controllers.ClassController.findClasstoAutoPopulatebyName
 
@@ -83,9 +82,6 @@ GET /loggedInUserJson controllers.UserController.returnUserJson
 POST /verifyToken          controllers.BasicRegistration.basicRegistration
 POST /registerNewUser      controllers.BasicRegistration.newUser
 POST /getEmailforNewUser   controllers.BasicRegistration.emailSent
-
-
-
 
 #Destroy session
 GET /signOut controllers.UserController.signOut
@@ -125,7 +121,6 @@ GET /getAllPDFFilesForAUser  controllers.DocumentController.getAllPDFFilesForAUs
 GET /getAllDOCSFilesForAUser  controllers.DocumentController.getAllDOCSFilesForAUser
 
 #Questions
-
 POST /newQuestion               controllers.QuestionController.newQuestion
 POST /rockQuestion               controllers.QuestionController.rockTheQuestion
 GET /getAllQuestionsForAUser               controllers.QuestionController.getAllQuestionsForAUser
@@ -138,12 +133,15 @@ POST /bitly   controllers.MessageController.getShortUrlViabitly
 #Password Recovery
 POST  /forgotPassword          controllers.UserController.forgotPassword
 
+#Public Profile
+POST  /allPublicMessages          controllers.PublicProfileController.getAllPublicMessagesForAUser
+POST  /publicProfileInfo          controllers.PublicProfileController.getPublicProfileOfAUser
+POST  /allPublicDocuments         controllers.PublicProfileController.getAllPublicDocumentForAUser
+
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET  /beamstream/*file                   controllers.Assets.at(path="/public/client", file)
-
-GET /returnProgress                    controllers.MediaController.returnProgress
-
-
 
 #NEO4J Baby
 GET  /testNeo4j          controllers.UserController.testNeo4j
