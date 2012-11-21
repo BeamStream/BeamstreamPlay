@@ -732,13 +732,13 @@ BS.StreamView = Backbone.View.extend({
                             	 if(data.messageType.name == "Image")
                             	 {
                             		 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
-                                         return '<div class="gallery clearfix"></div><div class="gallery clearfix "><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + url + '">' + url + '</a></div>';
+                                         return '<div style="clear: none !important;" class="gallery clearfix"  ></div><div class="gallery clearfix " style="clear: none !important;"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + url + '">' + url + '</a></div>';
                                       });
                             	 }
                             	 else  if(data.messageType.name == "Video")
                             	 {
                             		 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
-                                         return '<div class="gallery clearfix"></div><div class="gallery clearfix "><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + url + '">' + url + '</a></div>';
+                                         return '<div style="clear: none !important;" class="gallery clearfix" ></div><div class="gallery clearfix " style="clear: none !important;"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + url + '">' + url + '</a></div>';
                                       });
                             	 }
                             	 else
@@ -837,12 +837,12 @@ BS.StreamView = Backbone.View.extend({
                             	 if(data.messageType.name == "Image")
                             	 {
                             		   
-                            		 var content = '<div class="gallery clearfix"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
+                            		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
  
                             	 }
                             	 else if(data.messageType.name == "Video")
                             	 {
-                            		 var content = '<div class="gallery clearfix"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>';
+                            		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>';
                             	 }
                             	 else
                             	 {
@@ -850,17 +850,28 @@ BS.StreamView = Backbone.View.extend({
                             		 if(extension[1] == 'ppt')
                             		 {
                             			  
+                            			 
                             			 previewImage = "images/presentations_image.png";
+                                		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
+
                             		 }
                             		 else if(extension[1] == 'doc')
                             		 {
                             			 previewImage = "images/docs_image.png";
+                                		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
+
                             		 }
                             		 else
                             		 {
-                            			 previewImage = data.anyPreviewImageUrl;
+                            			// set first letter of extension in capital letter  
+         			                	extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+         			                	    return letter.toUpperCase();
+         			                	});
+         			                	
+                            			 previewImage = "images/textimage.png";
+                                		 var content = '<div class="uploaded"><a class="uploaded previw-pdf" id="'+data.id.id+'" style="postion:relative;"  href="' + msgUrl + '"><img class="ext_images"  id="'+data.id.id+'" src="'+previewImage+'" /><h3 class="extension_files" >'+extension+'</h3></a></div>'
+
                             		 }
-                            		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
 
                                      
                             	 }
