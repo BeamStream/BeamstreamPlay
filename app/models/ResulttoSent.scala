@@ -20,6 +20,8 @@ case class ResulttoSent(status: String,
 //Resultant Class Details
 case class ClassWithNoOfUsers(usersMap:Map[String, Int] , classToReturn:Class)  
 
+
+
 case class OptionOfQuestion(@Key("_id") id: ObjectId, name:String , assosiates:List[ObjectId])
-object OptionOfQuestionDAO extends SalatDAO[Comment, ObjectId](collection = MongoHQConfig.mongoDB("optionofquestion"))
+object OptionOfQuestionDAO extends SalatDAO[OptionOfQuestion, ObjectId](collection = MongoHQConfig.mongoDB("optionofquestion"))
 
