@@ -40,8 +40,10 @@ case class Question(@Key("_id") id: ObjectId,
   creationDate: Date,
   rocks: Int,
   rockers: List[ObjectId],
+  comments: List[ObjectId],
   answers: List[ObjectId],
-  followers: List[ObjectId])
+  followers: List[ObjectId],
+  pollOptions:Option[List[ObjectId]]=None)
 
 object Question {
 

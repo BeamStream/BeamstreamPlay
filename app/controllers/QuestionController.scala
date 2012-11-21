@@ -56,7 +56,7 @@ object QuestionController extends Controller {
     val user = User.getUserProfile(userId)
     val date = new Date
     val questionToAsk = new Question(new ObjectId, questionBody, userId,
-      QuestionAccess.withName(questionAccess), streamId, user.firstName, user.lastName, date, 0, List(), List(),List())
+      QuestionAccess.withName(questionAccess), streamId, user.firstName, user.lastName, date, 0, List(), List(),List(),List())
     val questionId = Question.addQuestion(questionToAsk)
     val questionObtained = Question.findQuestionById(questionId)
     Ok(write(List(questionObtained))).as("application/json")
