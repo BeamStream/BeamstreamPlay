@@ -1,6 +1,7 @@
 package models
 import java.io.InputStream
 import org.bson.types.ObjectId
+import com.novus.salat.annotations._
 
 
 /*
@@ -16,6 +17,6 @@ case class ResulttoSent(status: String,
 //Resultant Class Details
 case class ClassWithNoOfUsers(usersMap:Map[String, Int] , classToReturn:Class)  
 
-case class Poll(id : ObjectId , name:String , assosiates:List[ObjectId])
+case class OptionOfQuestion(@Key("_id") id: ObjectId, name:String , assosiates:List[ObjectId])
 
 
