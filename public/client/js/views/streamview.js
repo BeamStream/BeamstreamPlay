@@ -861,6 +861,12 @@ BS.StreamView = Backbone.View.extend({
                                 		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
 
                             		 }
+                            		 else if(extension[1] == 'pdf')
+                            		 {
+                            			 previewImage = data.anyPreviewImageUrl;
+                                		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
+
+                            		 }
                             		 else
                             		 {
                             			// set first letter of extension in capital letter  
