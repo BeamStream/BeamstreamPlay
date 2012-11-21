@@ -9,6 +9,8 @@ import com.mongodb.casbah.commons.MongoDBObject
 import org.bson.types.ObjectId
 import java.text.DateFormat
 import java.util.Date
+import models.OptionOfQuestion
+import models.OptionOfQuestionDAO
 
 @RunWith(classOf[JUnitRunner])
 class QuestionTest extends FunSuite with BeforeAndAfter {
@@ -104,7 +106,7 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
     Question.followQuestion(userId, questionId)
     assert(Question.findQuestionById(questionId).head.followers.size === 1)
   }
-  
+
   test("Add Comment To Question") {
     val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(), List())
     val userId = User.createUser(user)
@@ -125,11 +127,20 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
     val streamId = Stream.createStream(stream)
     val question = new Question(new ObjectId, "How Was the Class ?", userId, QuestionAccess.PrivateToClass, streamId, "Neel", "Sachdeva", new Date, 0, List(), List(), List(), List())
     val questionId = Question.addQuestion(question)
-    assert(Question.findQuestionById(questionId).head.pollOptions===None)
-    val option = new OptionOfQuestion(new ObjectId, "Poll1",List(userId))
+    assert(Question.findQuestionById(questionId).head.pollOptions === None)
+    val option = OptionOfQuestion(new ObjectId, "Poll1", List(userId))
     val pollId = OptionOfQuestionDAO.insert(option)
     Question.addPollToQuestion(pollId.get, questionId)
     assert(Question.findQuestionById(questionId).head.pollOptions.size === 1)
+  }
+  test("Vote A Option Of A Question") {
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(), List())
+    val userId = User.createUser(user)
+    val option = OptionOfQuestion(new ObjectId, "Poll1", List())
+    val pollId = OptionOfQuestionDAO.insert(option)
+    assert(QuestionPolling.findOptionOfAQuestionById(pollId.get).get.assosiates.size===0)
+    QuestionPolling.voteTheOptionOfAQuestion(pollId.get, userId)
+    assert(QuestionPolling.findOptionOfAQuestionById(pollId.get).get.assosiates.size===1)
   }
 
   after {
