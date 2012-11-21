@@ -205,6 +205,14 @@ object Question {
         updatedQuestionWithAddedIdOfFollower.followers.size
     }
   }
+  
+  /**
+   * add Comment to Question
+   */
+  def addCommentToQuestion(commentId: ObjectId, questionId: ObjectId) = {
+    val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(comments = (question.comments ++ List(commentId))), false, false, new WriteConcern)
+  }
 }
 
 object QuestionDAO extends SalatDAO[Question, ObjectId](collection = MongoHQConfig.mongoDB("question"))
