@@ -38,6 +38,7 @@ object CommentController extends Controller {
     //    val commentId = Comment.createComment(comment)
     //    consumers.map(_.addComment(new ObjectId(messageId), commentId))
     //    Ok(write(List(comment))).as("application/json")
+    
 
     try {
       /**
