@@ -143,6 +143,9 @@ POST  /allPublicDocuments         controllers.PublicProfileController.getAllPubl
 # Map static resources from the /public folder to the /assets URL path
 GET  /beamstream/*file                   controllers.Assets.at(path="/public/client", file)
 
+# For Rendering the new design
+GET  /beamstream-new/*file                   controllers.Assets.at(path="/public/client-new", file)
+
 #NEO4J Baby
 GET  /testNeo4j          controllers.UserController.testNeo4j
 GET  /testNeo4jFindNode          controllers.UserController.testNeo4jFindNode
