@@ -43,7 +43,7 @@ case class Question(@Key("_id") id: ObjectId,
   comments: List[ObjectId],
   answers: List[ObjectId],
   followers: List[ObjectId],
-  pollOptions:Option[List[ObjectId]]=None)
+  pollOptions: Option[List[ObjectId]] = None)
 
 object Question {
 
@@ -72,8 +72,8 @@ object Question {
   }
 
   /**
- * Rock The Question
- */
+   * Rock The Question
+   */
   def rockTheQuestion(questionId: ObjectId, userId: ObjectId): Int = {
 
     val questionToRock = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
@@ -163,8 +163,8 @@ object Question {
   def getAllPrivateToASchoolQuestionForAUser(userId: ObjectId) = {
     QuestionDAO.find(MongoDBObject("userId" -> userId, "questionAccess" -> "PrivateToSchool")).toList
   }
-  
-   /*
+
+  /*
    * Delete A Question
    */
 
@@ -180,14 +180,14 @@ object Question {
       deletedQuestionSuccessfully
     }
   }
-  
+
   /**
    * Get All Questions For A User
    */
-  def getAllQuestionsForAUser(userId:ObjectId)={
+  def getAllQuestionsForAUser(userId: ObjectId) = {
     QuestionDAO.find(MongoDBObject("userId" -> userId)).toList
   }
-  
+
   /**
    * Follow Question
    */
@@ -205,13 +205,21 @@ object Question {
         updatedQuestionWithAddedIdOfFollower.followers.size
     }
   }
-  
+
   /**
    * add Comment to Question
    */
   def addCommentToQuestion(commentId: ObjectId, questionId: ObjectId) = {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(comments = (question.comments ++ List(commentId))), false, false, new WriteConcern)
+  }
+
+  /**
+   *  add Poll to Question
+   */
+  def addPollToQuestion(pollId: ObjectId, questionId: ObjectId) = {
+    val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(pollOptions = Option((question.pollOptions.getOrElse(Nil) ++ List(pollId)))), false, false, new WriteConcern)
   }
 }
 
