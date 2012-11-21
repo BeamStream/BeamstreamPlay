@@ -28,6 +28,7 @@ import models.ResulttoSent
 import play.api.libs.json._
 import models.OptionOfQuestion
 import models.OptionOfQuestionDAO
+import models.QuestionPolling
 
 /**
  * This controller class is used to store and retrieve all the information about Question and Answers.
@@ -67,9 +68,9 @@ object QuestionController extends Controller {
     if (questionJsonMap.contains(("pollsOptions"))) {
       val pollsOptionsList = List("", "")
       for (pollsOption <- pollsOptionsList) {
-        val optionOfPoll=OptionOfQuestion(new ObjectId,pollsOption,List())
-        val optionOfAPollId=OptionOfQuestionDAO.insert(optionOfPoll)
-        Question.addPollToQuestion(optionOfAPollId.get,questionId)
+        val optionOfPoll = OptionOfQuestion(new ObjectId, pollsOption, List())
+        val optionOfAPollId = OptionOfQuestionDAO.insert(optionOfPoll)
+        Question.addPollToQuestion(optionOfAPollId.get, questionId)
       }
     }
 
@@ -119,6 +120,16 @@ object QuestionController extends Controller {
     val questionId = questionIdJsonMap("questionId").toList(0)
     val followers = Question.followQuestion(new ObjectId(request.session.get("userId").get), new ObjectId(questionId))
     Ok(write(followers.toString)).as("application/json")
+  }
+
+  /**
+   * Vote an option of a question (Polling)
+   */
+  def voteAnOptionOfAQuestion = Action { implicit request =>
+    val optionOfAQuestionIdJsonMap = request.body.asFormUrlEncoded.get
+    val optionOfAQuestionId = optionOfAQuestionIdJsonMap("optionOfAQuestionId").toList(0)
+    val votes = QuestionPolling.voteTheOptionOfAQuestion(new ObjectId(optionOfAQuestionId), new ObjectId(request.session.get("userId").get))
+    Ok(write(votes.toString)).as("application/json")
   }
 
 }
