@@ -702,34 +702,35 @@ BS.StreamView = Backbone.View.extend({
 						   
 					    //display the messages
 					  _.each(data, function(data) {
-						  console.log("data top-"+data.anyPreviewImageUrl);
+						    console.log("data top-"+data.anyPreviewImageUrl);
 							var msgBody = data.messageBody;
                                                         
-//                                                        var links =  msgBody.match(BS.urlRegex); 
-                                                        var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
-                                                               trueurl= msgUrlw;    
-                                                               
-                                                                return msgUrlw;
-                                                             });
-                                                       var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file                                                  
-                                                        if(!extension){                           //to check the extension of the url
-                                                        if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) {
-                                                            
-                                                             var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-                                                                 return '<a class="strmdoc" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
-                                                            });
-                                                        }
-                                                        else{
-                                                                    var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-                                                                 return '<a target="_blank" href="' + url + '">' + url + '</a>';
-                                                            });
-                                                        }
-                                                        }
-                                                         else{         //url has extension
-                                                             var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
-                                                                 return '<a class="uploaded" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
-                                                            });
-                                                         }
+							//var links =  msgBody.match(BS.urlRegex); 
+                             var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
+	                             trueurl= msgUrlw;    
+	                             return msgUrlw;
+                             });
+                             var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file                                                  
+                             if(!extension){                           //to check the extension of the url
+	                             if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) {
+	                                
+	                                  var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+	                                     return '<a class="strmdoc" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
+	                                  });
+	                              }
+	                              else{
+	                                  var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+	                                       return '<a target="_blank" href="' + url + '">' + url + '</a>';
+	                                   });
+                                  }
+                            }
+                            else{         //url has extension
+                            	
+                            	 
+                                  var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
+                                     return '<a class="uploaded" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
+                                  });
+                            }
 							var datas = {
  							 	 "datas" : data,
  						    }
@@ -787,40 +788,39 @@ BS.StreamView = Backbone.View.extend({
 	  						 if(linkTag)
 	  						  $('div#'+data.id.id+'-id').html(linkTag);
 	  						 
-                                                         var url=data.messageBody;
-                                                         if(!extension){   //to check the extension of the url
-                                                         
-                                                        if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
-                                                                // embedly
-                                                                    $('div#'+data.id.id+'-id').embedly({
-                                                                             maxWidth: 200,
-                                                                             msg : 'https://assets0.assembla.com/images/assembla-logo-home.png?1352833813',
-                                                                     wmode: 'transparent',
-                                                                     method: 'after',
-                                                                         key:'4d205b6a796b11e1871a4040d3dc5c07'
-                                                            });
-                                                        }
-                                                        
-                                                        else
-                                                            {
- 
-                                                        	var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
-                                                                    
-                                                                $('input#'+data.id.id+'-url').val(msgUrl);
-                                                                return msgUrl;
-                                                             });
-//                                                        	$('input#'+data.id.id+'-url').val(msgUrl);
-                                                            var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
-                                                            $('#'+data.id.id+'-docurl').html(content);
-                                                            }
-                                                         }
-                                                         else      //insert value to hidden field
-                                                            {
-                                                                 var content = '<div class="uploaded"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
-                                                            $('#'+data.id.id+'-docurl').html(content);
-//       console.log("data-"+data.anyPreviewImageUrl);
-                                                              $('input#'+data.id.id+'-url').val(msgUrl);  
-                                                            }
+                             var url=data.messageBody;
+                             if(!extension){   //to check the extension of the url
+                                             
+	                             if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
+		                             // embedly
+		                             $('div#'+data.id.id+'-id').embedly({
+		                                     maxWidth: 200,
+		                                     msg : 'https://assets0.assembla.com/images/assembla-logo-home.png?1352833813',
+				                             wmode: 'transparent',
+				                             method: 'after',
+				                             key:'4d205b6a796b11e1871a4040d3dc5c07'
+		                             });
+	                              }
+	                              else
+	                              {
+	 
+	                                   var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
+	                                          $('input#'+data.id.id+'-url').val(msgUrl);
+	                                          return msgUrl;
+	                                    });
+	                                   //$('input#'+data.id.id+'-url').val(msgUrl);
+	                                    var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
+	                                    $('#'+data.id.id+'-docurl').html(content);
+	                              }
+                             }
+                             else      //insert value to hidden field
+                             {
+                            	 
+                                   var content = '<div class="uploaded"><a class="uploaded" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
+                                   $('#'+data.id.id+'-docurl').html(content);
+                                   // console.log("data-"+data.anyPreviewImageUrl);
+                                   $('input#'+data.id.id+'-url').val(msgUrl);  
+                              }
 	  						 
 	  						self.showAllComments(data.id.id);
 				         });
