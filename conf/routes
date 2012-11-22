@@ -40,6 +40,7 @@ POST /deleteMessage                               controllers.MessageController.
 
 #Comments
 POST   /newComment                   controllers.CommentController.newComment
+POST  /newAnswer                     controllers.CommentController.newAnswer
 POST    /allCommentsForAMessage       controllers.CommentController.getAllComments
 POST    /rockingTheComment            controllers.CommentController.rockingTheComment
 POST    /commentRockers                controllers.CommentController.commentRockers
@@ -127,6 +128,8 @@ GET /getAllQuestionsForAUser               controllers.QuestionController.getAll
 POST /giveMeRockers              controllers.QuestionController.giveMeRockers
 POST  /followQuestion            controllers.QuestionController.followQuestion
 POST  /voteAnOptionOfAQuestion   controllers.QuestionController.voteAnOptionOfAQuestion
+                 
+
 #bitly
 POST /bitly   controllers.MessageController.getShortUrlViabitly 
 
