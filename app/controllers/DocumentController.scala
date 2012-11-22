@@ -191,10 +191,10 @@ object DocumentController extends Controller {
           if (isImage == true) {
             val media = new UserMedia(new ObjectId, documentName, "", new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Image, DocumentAccess.withName(docAccess),false, "", 0, List())
             UserMedia.saveMediaForUser(media)
-            docResultToSend = new DocResulttoSent(media.id.toString, docURL, docURL)
             //Create A Message As Well To Display The Doc Creation In Stream
             val message = Message(new ObjectId, docURL, Option(MessageType.Image), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(),Option(docURL))
             Message.createMessage(message)
+             docResultToSend = new DocResulttoSent(media.id.toString, docURL, docURL,Option(message))
 
           } else if (isVideo == true) {
             val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(docURL)
@@ -202,9 +202,9 @@ object DocumentController extends Controller {
             val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docName + "Frame"
             val media = new UserMedia(new ObjectId, documentName, "", new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Video, DocumentAccess.withName(docAccess),false, videoFrameURL, 0, List())
             UserMedia.saveMediaForUser(media)
-            docResultToSend = new DocResulttoSent(media.id.toString, docURL, videoFrameURL)
             val message = Message(new ObjectId, docURL, Option(MessageType.Video), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(),Option(videoFrameURL))
             Message.createMessage(message)
+            docResultToSend = new DocResulttoSent(media.id.toString, docURL, videoFrameURL,Option(message))
           } else {
              
             var anyPreviewUrl=""
@@ -224,6 +224,7 @@ object DocumentController extends Controller {
             }
             val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(),Option(anyPreviewUrl))
             Message.createMessage(message)
+            docResultToSend.message=Option(message)
           }
         }.get
 
