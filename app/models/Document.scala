@@ -15,6 +15,8 @@ import net.liftweb.json.Serialization.{ read, write }
 import java.util.Date
 import java.net.URL
 
+
+
 /*
  * Enumeration for the document access 
  * 
@@ -58,7 +60,7 @@ case class Document(@Key("_id") id: ObjectId,
   documentFollwers: List[ObjectId],
   previewImageUrl: String)
 
-object Document {
+object Document extends RockConsumer {
 
   /**
    * Add a document(Modified)
@@ -79,9 +81,9 @@ object Document {
    * Find Document by Id
    */
 
-  def findDocumentById(docId: ObjectId): Document = {
+  def findDocumentById(docId: ObjectId) = {
     val document = DocumentDAO.findOneByID(docId)
-    document.get
+    document
   }
 
   /*
@@ -164,6 +166,13 @@ object Document {
         val updatedDocumentWithAddedIdOfFollower = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
         updatedDocumentWithAddedIdOfFollower.documentFollwers.size
     }
+  }
+  
+  //Under Test
+  def rockTheMediaOrDoc(idToBeRocked: ObjectId, userId: ObjectId){
+    val docToBeRocked=Document.findDocumentById(idToBeRocked)
+    if( ! docToBeRocked.isEmpty)  Document.rockedIt(idToBeRocked,userId)
+   
   }
 
 }

@@ -31,7 +31,7 @@ object UserMediaType extends Enumeration {
 
 
 
-object UserMedia {
+object UserMedia extends RockConsumer {
 
   /**
    * Save User Media
@@ -145,6 +145,13 @@ object UserMedia {
     val usermedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
     UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), usermedia.copy(description = newDescription, name = newName), false, false, new WriteConcern)
   }
-
+ 
+  //Rock The User Media
+  def rockTheMediaOrDoc(idToBeRocked: ObjectId, userId: ObjectId){
+    val userMedia=UserMedia.findMediaById(idToBeRocked)
+    if( ! (userMedia==None)) UserMedia.rockUserMedia(idToBeRocked,userId)
+    
+  }
+  
 }
 object UserMediaDAO extends SalatDAO[UserMedia, ObjectId](collection = MongoHQConfig.mongoDB("userMedia"))

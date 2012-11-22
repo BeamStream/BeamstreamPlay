@@ -215,16 +215,14 @@ object DocumentController extends Controller {
               val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(previewImageUrl), Option(documentId))
               Message.createMessage(message)
               docResultToSend = new DocResulttoSent(documentId, docURL, documentCreated.previewImageUrl, docDescription, Option(message))
-
             } else {
               val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.withName(docAccess),
                 new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(), "")
               val documentId = Document.addDocument(documentCreated)
               val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(), None, Option(documentId))
               Message.createMessage(message)
-              docResultToSend = new DocResulttoSent(documentId, docURL, documentCreated.previewImageUrl, docDescription,Option(message))
+              docResultToSend = new DocResulttoSent(documentId, docURL, documentCreated.previewImageUrl, docDescription, Option(message))
             }
-
           }
         }.get
 
