@@ -433,7 +433,7 @@ BS.StreamView = Backbone.View.extend({
     	 var data;
          data = new FormData();
          data.append('docDescription',message);
-         data.append('messageAccess' ,messageAccess);
+         data.append('docAccess' ,messageAccess);
          data.append('docData', self.file);  
          data.append('streamId', streamId);  
          
