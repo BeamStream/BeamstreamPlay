@@ -126,7 +126,7 @@ POST /rockQuestion               controllers.QuestionController.rockTheQuestion
 GET /getAllQuestionsForAUser               controllers.QuestionController.getAllQuestionsForAUser
 POST /giveMeRockers              controllers.QuestionController.giveMeRockers
 POST  /followQuestion            controllers.QuestionController.followQuestion
-
+POST  /voteAnOptionOfAQuestion   controllers.QuestionController.voteAnOptionOfAQuestion
 #bitly
 POST /bitly   controllers.MessageController.getShortUrlViabitly 
 

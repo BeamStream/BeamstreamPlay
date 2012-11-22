@@ -192,7 +192,7 @@ object DocumentController extends Controller {
             UserMedia.saveMediaForUser(media)
             docResultToSend = new DocResulttoSent(media.id.toString, docURL, docURL)
             //Create A Message As Well To Display The Doc Creation In Stream
-            val message = Message(new ObjectId, docURL, Option(MessageType.Image), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List())
+            val message = Message(new ObjectId, docURL, Option(MessageType.Image), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(),Option(docURL))
             Message.createMessage(message)
 
           } else if (isVideo == true) {

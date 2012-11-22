@@ -41,13 +41,18 @@ BS.DocListView = Backbone.View.extend({
 			                	BS.filesMediaView = new BS.FilesMediaView(); 
 			                	var datVal =  BS.filesMediaView.formatDateVal(doc.creationDate);
 			                	var extension = (doc.documentURL).match(extensionpattern); 
+			                	
+			                	// set first letter of extension in capital letter  
+			                	extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+			                	    return letter.toUpperCase();
+			                	});
 			                 
 			                	var datas = {
 			                                    "doc" : doc,
 			                                    "datVal" :datVal,
 			                                    "docCount" : i,
 			                                    "image" :'docs_image.png',
-			                                    "extension" : extension[1]
+			                                    "extension" : extension
 								}	
 			                	
 			                	var source = $("#tpl-single-bucket").html();

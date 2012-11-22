@@ -196,10 +196,16 @@ BS.FilesMediaView = Backbone.View.extend({
                     if(docs.length != 0)  {
                       _.each(docs, function(doc) {
                     	       var extension = (doc.documentURL).match(extensionpattern); 
+                    	        // set first letter of extension in capital letter  
+			                	extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+			                	    return letter.toUpperCase();
+			                	});
+			                	
+			                	
 	                           var datVal =  self.formatDateVal(doc.creationDate);                      
 	                           var content ='<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'">'
 	                                        +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
-	                                        +'<div class="hover-div"><img style="padding-top:25px; " src="https://c64.assets-yammer.com/images/file_icons/types/spreadsheet_green_79x102_icon.png"/><h3 class="extension" >'+extension[1]+'</h3><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
+	                                        +'<div class="hover-div"><img style="padding-top:25px; " src="images/textimage.png"/><h3 class="common-doctext" >'+extension+'</h3><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
 	                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
 	                                        +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#docs" style="text-decoration: none">'
 	                                        +'<div id="media-'+doc.id.id+'" ><h4> '+doc.documentName+'</h4> <p class="google_doc doc-description" id="'+doc.id.id+'" >'

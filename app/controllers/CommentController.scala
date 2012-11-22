@@ -13,6 +13,7 @@ import utils.ObjectIdSerializer
 import models.ResulttoSent
 import models.Comment
 import models.ResulttoSent
+import models.Question
 
 object CommentController extends Controller {
 
@@ -37,6 +38,7 @@ object CommentController extends Controller {
     //    val commentId = Comment.createComment(comment)
     //    consumers.map(_.addComment(new ObjectId(messageId), commentId))
     //    Ok(write(List(comment))).as("application/json")
+    
 
     try {
       /**
@@ -69,10 +71,21 @@ object CommentController extends Controller {
             Document.addCommentToDocument(commentId, new ObjectId(docId))
             Ok(write(List(comment))).as("application/json")
 
-          case false =>
+          case false => (commentJson.contains(("questionId"))) match {
 
-            Ok(write(new ResulttoSent("Failure", "IdNotFound")))
+            case true =>
 
+              val questionId = commentJson("questionId").toList(0)
+              val commentText = commentJson("comment").toList(0)
+              val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+              val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
+                commentPoster.firstName, commentPoster.lastName, 0, List())
+              val commentId = Comment.createComment(comment)
+              Question.addCommentToQuestion(commentId, new ObjectId(questionId))
+              Ok(write(List(comment))).as("application/json")
+
+            case false => Ok(write(new ResulttoSent("Failure", "IdNotFound")))
+          }
         }
 
       }
