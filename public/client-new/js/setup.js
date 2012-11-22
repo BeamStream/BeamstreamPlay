@@ -147,6 +147,10 @@ BS.getMedia =BS.URLRequired+"/getMedia";
 BS.isARockerOfMessage =BS.URLRequired+"/isARockerOfMessage";
 //check if the logged user is already rock a particular comment
 BS.isARockerOfComment =BS.URLRequired+"/isARockerOfComment";
+
+/* New -design */
+ 
+BS.newQuestion =BS.URLRequired+"/newQuestion";
  
  
 
