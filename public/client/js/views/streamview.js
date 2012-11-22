@@ -435,17 +435,21 @@ BS.StreamView = Backbone.View.extend({
              processData: false,
              dataType : "json",
              success: function(data){
+                 console.log(data);
             	 self.file = "";
             	 $('#file-upload-loader').css("display","none");
             	 $('.upload-box').css("display","none");
 //                 console.log(data);
                 	 
-//	                	 var datas = {
-//	                             "datas" : data,
-//		                 }						  
-//		                 var source = $("#tpl-messages").html();
-//		                 var template = Handlebars.compile(source);
-//		                 $('.timeline_items').prepend(template(datas));
+	                	 var datas = {
+	                             "datas" : data
+		                 }						  
+		                 var source = $("#tpl-messages").html();
+		                 var template = Handlebars.compile(source);
+		                 $('.timeline_items').prepend(template(datas));
+//                                      var content = '<div class="uploaded"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
+//                                                            $('#'+data.id.id+'-docurl').html(content);
+//                                                            $('input#'+data.id.id+'-url').val(msgUrl);  
                     
              }
          }); 
@@ -702,7 +706,6 @@ BS.StreamView = Backbone.View.extend({
 						   
 					    //display the messages
 					  _.each(data, function(data) {
-						  console.log("data top-"+data.anyPreviewImageUrl);
 							var msgBody = data.messageBody;
                                                         
 //                                                        var links =  msgBody.match(BS.urlRegex); 
@@ -730,6 +733,7 @@ BS.StreamView = Backbone.View.extend({
                                                                  return '<a class="uploaded" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
                                                             });
                                                          }
+                                                         console.log("data--"+data);
 							var datas = {
  							 	 "datas" : data,
  						    }
@@ -818,8 +822,7 @@ BS.StreamView = Backbone.View.extend({
                                                             {
                                                                  var content = '<div class="uploaded"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
                                                             $('#'+data.id.id+'-docurl').html(content);
-//       console.log("data-"+data.anyPreviewImageUrl);
-                                                              $('input#'+data.id.id+'-url').val(msgUrl);  
+                                                            $('input#'+data.id.id+'-url').val(msgUrl);  
                                                             }
 	  						 
 	  						self.showAllComments(data.id.id);
