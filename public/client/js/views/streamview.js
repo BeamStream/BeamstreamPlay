@@ -414,6 +414,17 @@ BS.StreamView = Backbone.View.extend({
     var streamId = $('#streams-list li.active a').attr('id');
     var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
     var message = $('#msg').val();
+    
+    //get message access private ? / public ?
+    var msgAccess =  $('#id-private').attr('checked');
+    if(msgAccess == "checked")
+    {
+    	messageAccess = "Private";
+    }
+    else
+    {
+	   messageAccess = "Public";
+    }
     var trueurl='';
      if(this.file )
      {
@@ -422,6 +433,7 @@ BS.StreamView = Backbone.View.extend({
     	 var data;
          data = new FormData();
          data.append('docDescription',message);
+         data.append('messageAccess' ,messageAccess);
          data.append('docData', self.file);  
          data.append('streamId', streamId);  
          
@@ -435,18 +447,17 @@ BS.StreamView = Backbone.View.extend({
              processData: false,
              dataType : "json",
              success: function(data){
-                 console.log(data);
+            	 $('#msg').val("");
             	 self.file = "";
             	 $('#file-upload-loader').css("display","none");
             	 $('.upload-box').css("display","none");
-//                 console.log(data);
                 	 
-	                	 var datas = {
-	                             "datas" : data
-		                 }						  
-		                 var source = $("#tpl-messages").html();
-		                 var template = Handlebars.compile(source);
-		                 $('.timeline_items').prepend(template(datas));
+//	                	 var datas = {
+//	                             "datas" : data
+//		                 }						  
+//		                 var source = $("#tpl-messages").html();
+//		                 var template = Handlebars.compile(source);
+//		                 $('.timeline_items').prepend(template(datas));
 //                                      var content = '<div class="uploaded"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
 //                                                            $('#'+data.id.id+'-docurl').html(content);
 //                                                            $('input#'+data.id.id+'-url').val(msgUrl);  
@@ -465,15 +476,7 @@ BS.StreamView = Backbone.View.extend({
 	      BS.updatedMsg =  message;
 	      if(!message.match(/^[\s]*$/))
 	      {   
-		      var msgAccess =  $('#id-private').attr('checked');
-		  	  if(msgAccess == "checked")
-		  	  {
-		  		messageAccess = "Private";
-		  	  }
-		  	  else
-		  	  {
-		  		messageAccess = "Public";
-		  	  }
+		      
 		  	  
 		  	  //find link part from the message
 		      var link =  message.match(BS.urlRegex); 
