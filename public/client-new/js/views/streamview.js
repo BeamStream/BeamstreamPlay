@@ -2028,11 +2028,6 @@ BS.StreamView = Backbone.View.extend({
   * slider for stream list
    */
    slider: function(){
-     console.log("testing for slider");
-     
-     
-     
-//       $(function() { //on DOM ready
             $('span.close-btn').hide();     
             $('div.drag-icon').hide();
             $(".scroller").simplyScroll({
@@ -2043,7 +2038,8 @@ BS.StreamView = Backbone.View.extend({
             frameRate: 20,
             speed: 5
             });		
-        $(".done").toggle(function () {
+        $(".done").toggle(function () {         
+                  $('a.done').text('DONE');
 		  $('span.close-btn').show();
                   $('div.drag-icon').show();
 		  $('#sortable1, #sortable2').sortable();
@@ -2056,12 +2052,13 @@ BS.StreamView = Backbone.View.extend({
 			$('#sortable4, #sortable5').sortable({
 				connectWith: '.connected'
 			});
-		   },function () {
+		   },function () { 
+                     $('a.done').text('EDIT');  
                      $('span.close-btn').hide();   
-                     $('#sortable1').remove();  
+                     $('#sortable1').remove(); 
+                     $('li').removeAttr('draggable');
                      $('div.drag-icon').hide();
-                        });	
-//	});	
+                        });		
 	$(window).load(function(){		
             $('.drag-rectangle').tooltip()		
             $("#user-online").mCustomScrollbar({
