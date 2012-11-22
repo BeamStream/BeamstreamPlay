@@ -163,7 +163,7 @@ object DocumentController extends Controller {
 
   def getDocumentFromDisk = Action(parse.multipartFormData) { request =>
 
-    var docResultToSend: DocResulttoSent = new DocResulttoSent("", "", "","")
+    var docResultToSend: DocResulttoSent = new DocResulttoSent(new ObjectId, "", "","")
     val documentJsonMap = request.body.asFormUrlEncoded.toMap
     val streamId = documentJsonMap("streamId").toList(0)
     val docDescription = documentJsonMap("docDescription").toList(0)
@@ -190,21 +190,21 @@ object DocumentController extends Controller {
 
           if (isImage == true) {
             val media = new UserMedia(new ObjectId, documentName, docDescription, new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Image, DocumentAccess.withName(docAccess),false, "", 0, List())
-            UserMedia.saveMediaForUser(media)
+            val mediaId=UserMedia.saveMediaForUser(media)
             //Create A Message As Well To Display The Doc Creation In Stream
             val message = Message(new ObjectId, docURL, Option(MessageType.Image), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(),Option(docURL))
             Message.createMessage(message)
-             docResultToSend = new DocResulttoSent(media.id.toString, docURL,docURL,docDescription, Option(message))
+             docResultToSend = new DocResulttoSent(mediaId.get, docURL,docURL,docDescription, Option(message))
 
           } else if (isVideo == true) {
             val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(docURL)
             (new AmazonUpload).uploadCompressedFileToAmazon(docName + "Frame", frameOfVideo, 0, false, request.session.get("userId").get)
             val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docName + "Frame"
             val media = new UserMedia(new ObjectId, documentName, docDescription, new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Video, DocumentAccess.withName(docAccess),false, videoFrameURL, 0, List())
-            UserMedia.saveMediaForUser(media)
+            val mediaId=UserMedia.saveMediaForUser(media)
             val message = Message(new ObjectId, docURL, Option(MessageType.Video), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(),Option(videoFrameURL))
             Message.createMessage(message)
-            docResultToSend = new DocResulttoSent(media.id.toString, docURL,videoFrameURL, docDescription,Option(message))
+            docResultToSend = new DocResulttoSent(mediaId.get, docURL,videoFrameURL, docDescription,Option(message))
           } else {
              
             var anyPreviewUrl=""
@@ -213,14 +213,14 @@ object DocumentController extends Controller {
               val previewImageUrl = PreviewOfPDF.convertPdfToImage(documentReceived, docName)
               val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.withName(docAccess),
                 new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(), previewImageUrl)
-              Document.addDocument(documentCreated)
-              docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL,documentCreated.previewImageUrl, docDescription)
+              val documentId=Document.addDocument(documentCreated)
+              docResultToSend = new DocResulttoSent(documentId, docURL,documentCreated.previewImageUrl, docDescription)
               anyPreviewUrl=previewImageUrl
             } else {
               val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.withName(docAccess),
                 new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(), "")
-              Document.addDocument(documentCreated)
-              docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL, documentCreated.previewImageUrl,docDescription)
+               val documentId=Document.addDocument(documentCreated)
+              docResultToSend = new DocResulttoSent(documentId, docURL, documentCreated.previewImageUrl,docDescription)
             }
             val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(),Option(anyPreviewUrl))
             Message.createMessage(message)

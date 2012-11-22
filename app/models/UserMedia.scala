@@ -36,12 +36,13 @@ object UserMedia {
   /**
    * Save User Media
    */
-  def saveMediaForUser(media: UserMedia) {
+  def saveMediaForUser(media: UserMedia)= {
     (media.isPrimary == true) match {
       case true => makePresentOnePrimary(media.userId)
       case false =>
     }
     val mediaId = UserMediaDAO.insert(media)
+    mediaId
   }
 
   
