@@ -178,6 +178,7 @@ object DocumentController extends Controller {
           val isImage = contentType.contains("image")
           val isVideo = contentType.contains("video")
           val isPdf = contentType.contains("pdf")
+           val docAccess = documentJsonMap("docAccess").toList(0)
           val uniqueString = tokenEmail.securityToken
           val documentReceived: File = docData.ref.file.asInstanceOf[File]
           val docUniqueKey = tokenEmail.securityToken
@@ -188,7 +189,7 @@ object DocumentController extends Controller {
           val user = User.getUserProfile(new ObjectId(request.session.get("userId").get))
 
           if (isImage == true) {
-            val media = new UserMedia(new ObjectId, documentName, "", new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Image, DocumentAccess.Public,false, "", 0, List())
+            val media = new UserMedia(new ObjectId, documentName, "", new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Image, DocumentAccess.withName(docAccess),false, "", 0, List())
             UserMedia.saveMediaForUser(media)
             docResultToSend = new DocResulttoSent(media.id.toString, docURL, docURL)
             //Create A Message As Well To Display The Doc Creation In Stream
@@ -199,7 +200,7 @@ object DocumentController extends Controller {
             val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(docURL)
             (new AmazonUpload).uploadCompressedFileToAmazon(docName + "Frame", frameOfVideo, 0, false, request.session.get("userId").get)
             val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docName + "Frame"
-            val media = new UserMedia(new ObjectId, documentName, "", new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Video, DocumentAccess.Public,false, videoFrameURL, 0, List())
+            val media = new UserMedia(new ObjectId, documentName, "", new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Video, DocumentAccess.withName(docAccess),false, videoFrameURL, 0, List())
             UserMedia.saveMediaForUser(media)
             docResultToSend = new DocResulttoSent(media.id.toString, docURL, videoFrameURL)
             val message = Message(new ObjectId, docURL, Option(MessageType.Video), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(),Option(videoFrameURL))
@@ -210,13 +211,13 @@ object DocumentController extends Controller {
             
               if (isPdf == true) {
               val previewImageUrl = PreviewOfPDF.convertPdfToImage(documentReceived, docName)
-              val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
+              val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.withName(docAccess),
                 new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(), previewImageUrl)
               Document.addDocument(documentCreated)
               docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL, documentCreated.previewImageUrl)
               anyPreviewUrl=previewImageUrl
             } else {
-              val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
+              val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.withName(docAccess),
                 new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(), "")
               Document.addDocument(documentCreated)
               docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL, documentCreated.previewImageUrl)
