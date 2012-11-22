@@ -108,6 +108,19 @@ BS.FilesMediaView = Backbone.View.extend({
       */  
      uploadFile : function()
      {
+    	 
+    	 //get message access private ? / public ?
+         var docAccess;
+         var access =  $('#doc-private').attr('checked');
+         if(access == "checked")
+         {
+         	docAccess = "Private";
+         }
+         else
+         {
+         	docAccess = "Public";
+         }
+          
         /* post the documents details */
        
          var documentModel = new BS.Document();
@@ -116,7 +129,7 @@ BS.FilesMediaView = Backbone.View.extend({
          documentModel.set({
                 docName : $("#gdoc-name").val(),
                 docURL : $("#gdoc-url").val(),  
-                docAccess: 'Public',
+                docAccess: docAccess,
                 docType: 'GoogleDocs',
                 streamId: $("#doc-class-list").val(),
                 docDescription: $("#gdoc-description").val()
@@ -966,9 +979,23 @@ BS.FilesMediaView = Backbone.View.extend({
                 var status = true;
                 var message ='';
                 var streamId = $("#doc-class-list-computer").val();
+                
+                //get message access private ? / public ?
+                var docAccess;
+                var access =  $('#id-private').attr('checked');
+                if(access == "checked")
+                {
+                	docAccess = "Private";
+                }
+                else
+                {
+                	docAccess = "Public";
+                }
+                
                 var data;
                 data = new FormData();
                 data.append('streamId', streamId);
+                data.append('docAccess' ,docAccess);
                 data.append('docData', this.image);  
                 data.append('docDescription',message);
                 document.getElementById('loader-message').innerHTML="<img src='images/loading.gif'>";

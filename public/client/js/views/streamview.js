@@ -416,6 +416,7 @@ BS.StreamView = Backbone.View.extend({
     var message = $('#msg').val();
     
     //get message access private ? / public ?
+    var messageAccess;
     var msgAccess =  $('#id-private').attr('checked');
     if(msgAccess == "checked")
     {
@@ -470,7 +471,7 @@ BS.StreamView = Backbone.View.extend({
 	      //var urlLink ='';
 	      var self= this;
 	      /* get message details from form */
-	      var messageAccess;
+	      
 	      
 	     var message = $('#msg').val(); 
 	      BS.updatedMsg =  message;
