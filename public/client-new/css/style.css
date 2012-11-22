@@ -45,7 +45,16 @@ body {
 }
 
 .header-button {
-		background: linear-gradient(#3F7BAA, #529ABE) repeat scroll 0 0 transparent;
+		
+				
+		background: #3f7baa;
+		background: -webkit-gradient(linear, 0 0, 0 bottom, from(#3f7baa), to(#529abe));
+		background: -webkit-linear-gradient(#3f7baa, #529abe);
+		background: -moz-linear-gradient(#3f7baa, #529abe);
+		background: -ms-linear-gradient(#3f7baa, #529abe);
+		background: -o-linear-gradient(#3f7baa, #529abe);
+		background: linear-gradient(#3f7baa, #529abe);
+		-pie-background: linear-gradient(#3f7baa, #529abe);
 		border-radius: 0 4px 4px 0;
 		border-top: 1px solid #81C9F8;
 		color: #E9EEF2;
@@ -82,7 +91,14 @@ body {
 }
 
 .profile-button {
-		background: linear-gradient(#478CB4, #5DA7C6) repeat scroll 0 0 transparent;
+		background: #478cb4;
+		background: -webkit-gradient(linear, 0 0, 0 bottom, from(#478cb4), to(#5da7c6));
+		background: -webkit-linear-gradient(#478cb4, #5da7c6);
+		background: -moz-linear-gradient(#478cb4, #5da7c6);
+		background: -ms-linear-gradient(#478cb4, #5da7c6);
+		background: -o-linear-gradient(#478cb4, #5da7c6);
+		background: linear-gradient(#478cb4, #5da7c6);
+		-pie-background: linear-gradient(#478cb4, #5da7c6);
 		border-bottom: 1px solid #1D3B4E;
 		border-radius: 4px 4px 4px 4px;
 		border-top: 1px solid #81C9F8;
@@ -224,7 +240,7 @@ body {
 		clear: both;
 		display: block;
 		overflow: hidden;
-		padding: 0 20px 50px;
+
 }
 
 .left-side {
@@ -683,8 +699,8 @@ ul.stream-tab li a span {
 }
 
 .question-info {
-		display: block;
-		background:#E3E5E6;
+	
+		background:#E3E5E6; height:10%;  float:left; width:100%;
 }
 
 .question-info h2 {
@@ -711,20 +727,21 @@ ul.stream-tab li a span {
 		text-decoration: none;
 }
 
-.question-info h2 a.unanswerd {
-		color: #B93737;
+.unanswerd {
+		color: #55945A; float:left; 
+}
+.unanswerd:hover {
+		color: #B93737; text-decoration:underline;
 }
 
-.question-info h2 a.answerd {
-		color: #55945A;
-}
+
 
 .quest-search {
 		background: none repeat scroll 0 0 #FFFFFF;
 		border-radius: 8px 8px 8px 8px;
 		box-shadow: 0 2px 2px 0 #999999 inset;
 		color: #3F5A6C;
-		padding: 8px 12px !important;
+		padding: 6px 12px !important;
 }
 
 .question-sort {
@@ -741,6 +758,10 @@ ul.stream-tab li a span {
 		width: 100%;
 }
 
+.ask-disccution {
+		border-bottom:none;
+}
+
 .question-ask-search {
 		color: #3F5A6C;
 		font-size: 18px;
@@ -754,7 +775,7 @@ ul.stream-tab li a span {
 .dropdown-outer {
 		float: left;
 		padding: 0 5% 0 0;
-		width: 25%;
+		width: 19%;
 }
 
 .question-sort h5 {
@@ -815,6 +836,7 @@ ul.stream-tab li a span {
 		background: none repeat scroll 0 0 #E3E5E6;
 		clear: both;
 		display: block;
+				margin:10px 0 0 0;
 }
 
 .ask-content {
@@ -1054,7 +1076,7 @@ ul.follow-name-left {
 		list-style: none outside none;
 		margin: 0;
 		padding: 0;
-		width: 70%;
+		width: 82%;
 }
 
 ul.follow-name-left li {
@@ -1075,13 +1097,30 @@ ul.follow-name-left li a:hover {
 }
 
 ul.follow-name-left li a.rocks {
+		background: url("../images/rocks-icon.png") no-repeat scroll center top transparent;
+		color: #5299BD;
+		display: block;
+		font-weight: bold;
+	
+		
+}
+
+ul.follow-name-left li a.rocks-answer {
 		background: url("../images/rocks-icon.png") no-repeat scroll left top transparent;
 		color: #5299BD;
 		display: block;
 		font-weight: bold;
-		height: 30px;
-		padding-left: 30px;
+				padding-left:30px; height:30px;
+	
+		
 }
+
+
+
+ul.follow-name-left li a.rocks span {
+display:block; padding-top:22px;
+}
+
 
 .follow-right {
 		float: right;
@@ -1221,7 +1260,7 @@ ul.follow-bottom-menu li a.rocks {
 .answer-description-info {
 		float: right;
 		padding: 0 5% 0 0;
-		width: 80%;
+	
 }
 
 .answer-description-info p {
@@ -1263,7 +1302,11 @@ ul.icons-ask li:hover {
 }
 
 ul.follow-bottom-icons {
-		float: right;
+		float: right; margin:28px 0 0 0;
+}
+
+.follow-bottom-icons-answer {
+ margin:0px !important;
 }
 
 ul.follow-bottom-icons li {
@@ -1899,8 +1942,7 @@ ul.discussion-info li:nth-child(2n) {
 		margin-left: -23px;
 }
 
-
-
+.text-orange{ padding-top:22px;}
 
 
 

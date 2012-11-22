@@ -144,7 +144,9 @@
 
         <!--  streamview   templates  -->
 <script type="text/x-handlebars-template" id="tpl-main-stream">
-       <!--------------------------------------Left Container---------------------------------------->
+          
+      <!--------------------------------------Left Container---------------------------------------->
+      
       <div class="left-container">
         <aside>
           <div class="left-menu">
@@ -163,23 +165,23 @@
               <div class="arrow-block"><span class="caret arrow-up"></span></div>
               <div class="scroll-menu scroller">
                 <ul id="sortable4" class="connected sortable list">
-                  <li class="icon1"><a href="#" class="icon1">Calculus <span class="close-btn"><img src="images/close.png"></span> </a>
+                  <li class="icon1"><a href="#" class="icon1">Calculus <span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span> </a>
                     <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
                   </li>
-                  <li><a href="#" class="icon1">Intro to Java <span class="close-btn"><img src="images/close.png"></span> </a>
-                       <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
+                  <li><a href="#" class="icon1">Intro to Java<span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span> </a>
+                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
                   </li>
-                  <li><a href="#" class="icon1">Intro to Business <span class="close-btn"><img src="images/close.png"></span> </a>
-                       <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
+                  <li><a href="#" class="icon1">Intro to Business <span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>
+                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
                   </li>
-                  <li><a href="#" class="icon2">Best Buddies <span class="close-btn"><img src="images/close.png"></span> </a>
-                   <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
+                  <li><a href="#" class="icon2">Best Buddies<span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>
+                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
                   </li>
-                  <li><a href="#" class="icon1">Research <span class="close-btn"><img src="images/close.png"></span> </a>
-                   <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
+                  <li><a href="#" class="icon1">Research<span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>
+                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
                   </li>
-                  <li><a href="#" class="icon3">Study Team <span class="close-btn"><img src="images/close.png"></span> </a>
-                     <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
+                  <li><a href="#" class="icon3">Study Team <span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>
+                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
                   </li>
                   <li class="red-bg"> <a href="#" class="read-more">Remove</a> <a href="#" class="cancel">Cancel</a> </li>
                 </ul>
@@ -239,10 +241,8 @@
         </ul>
         <div class="stream-wrapper">
           <div class="question-info">
-            <h2><span>32</span> Total   </h2>
-            <form class="all-search">
-              <input type="text" class="quest-search" placeholder="Search by">
-            </form>
+            
+ 
             <div class="question-sort">
               <h5>SORT BY</h5>
               <div class="btn-group dropdown-outer">
@@ -263,6 +263,18 @@
                   <li><a href="#">Products </a></li>
                 </ul>
               </div>
+              
+              
+                         <form class="all-search">
+              <input type="text" class="quest-search" placeholder="Search All Questions">
+            </form>
+              
+              
+              <a href="#" class="unanswerd">20 Unanswered</a>
+              
+                  <a href="#" class="unanswerd">12 Answered</a>
+              
+              
             </div>
             <div class="clear"></div>
           </div>
@@ -276,8 +288,8 @@
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="ask-left">
-                    <form class="question-ask">
-                    <textarea name="" cols="" rows="" class="question-ask-search" placeholder="Ask your own question here...."></textarea>
+                    <form class="question-ask ask-disccution">
+                    <textarea name="" cols="" rows="" class="question-ask-search" placeholder="Speak your mind...."></textarea>
                    
                     </form>
                     
@@ -342,21 +354,22 @@
                   <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
                   <div class="follow-bottom">
                     <ul class="follow-name-left">
-                      <li><a href="#" class="rocks">57 Rocks</a></li>
-                      <li><a href="#">Rock?</a></li>
+                      <li><a href="#" class="rocks"><span>57 Rocks  </span></a></li>
+                      <li class="text-orange"><a href="#">Rock?</a></li>
                     
-                      <li><a href="#"> Comment</a></li>
+                   <li class="text-orange"><a href="#"> Comment</a></li>
+                   
+                     <li class="text-orange"><a href="#"><img src="images/arrow.png" width="31" height="21"></a></li>
                        
                     </ul>
                     <ul class="follow-bottom-icons">
-                      <li><a href="#"><img src="images/arrow.png" width="31" height="21"></a></li>
                       <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
                     </ul>
                   </div>
                 </div>
                 <div class="answer-info">
                   <div class="answer-conatiner">
-                    <div class="button-block"> <a class="btn grey-buttons" href="#"> <span>43</span> Comments</a> <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn blue-buttons " href="#">Show All</a> </div>
+                    <div class="button-block"> <a class="btn grey-buttons" href="#"> <span>43</span> Comments</a> <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn blue-buttons" href="#">Show All</a> </div>
                   </div>
                 </div>
               </div>
@@ -381,12 +394,15 @@
                   <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
                   <div class="follow-bottom">
                     <ul class="follow-name-left">
-                      <li><a href="#" class="rocks">57 Rocks</a></li>
-                      <li><a href="#">Rock?</a></li>
-                      <li><a href="#"> Comment</a></li> 
+                      <li><a href="#" class="rocks"><span>57 Rocks </span></a></li>
+                      <li class="text-orange"><a href="#">Rock?</a></li>
+                    
+                   <li class="text-orange"><a href="#"> Comment</a></li>
+                   
+                     <li class="text-orange"><a href="#"><img src="images/arrow.png" width="31" height="21"></a></li>
+                       
                     </ul>
                     <ul class="follow-bottom-icons">
-                      <li><a href="#"><img src="images/arrow.png" width="31" height="21"></a></li>
                       <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
                     </ul>
                   </div>
@@ -409,8 +425,8 @@
                 </div>
                 <div class="answer-info">
                   <div class="answer-conatiner">
-                    <div class="button-block"><a class="btn grey-buttons" href="#"> <span>43</span> Comments</a> <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn blue-buttons showmessage" href="#">Show All</a> </div>
-                    <div class="comment-wrapper" id="comments">
+                    <div class="button-block"><a class="btn grey-buttons" href="#"> <span>43</span> Comments</a> <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn blue-buttons" href="#">Show All</a> </div>
+                    <div class="comment-wrapper">
                       <div class="answer-description">
                         <div class="follw-left">
                           <div class="small-image">
@@ -421,19 +437,19 @@
                           <div class="follow-names">
                             <ul class="follow-name-left">
                               <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
-                              <li><a href="#" class="rocks">57 Rocks</a></li>
-                              <li><a href="#">Rock?</a></li>
+                              <li><a href="#" class="rocks"><span>57 Rocks</span></a></li>
+                              <li class="text-orange"><a href="#">Rock?</a></li>
+                            <li class="text-orange"><a href="#"><img src="images/arrow.png" width="31" height="21"></a></li>
                             </ul>
                             <ul class="follow-bottom-icons">
-                              <li><a href="#"><img src="images/arrow.png" width="31" height="21"></a></li>
-                              <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
-                            </ul>
+                      <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+                    </ul>
                           </div>
                           <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
                         </div>
                         <div class="clear"></div>
                       </div>
-                      <div class="comment-wrapper" id="comments">
+                      <div class="comment-wrapper">
                         <div class="answer-description">
                           <div class="follw-left">
                             <div class="small-image">
@@ -444,13 +460,13 @@
                             <div class="follow-names">
                               <ul class="follow-name-left">
                                 <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
-                                <li><a href="#" class="rocks">57 Rocks</a></li>
-                                <li><a href="#">Rock?</a></li>
+                               <li><a href="#" class="rocks"><span>57 Rocks</span></a></li>
+                              <li class="text-orange"><a href="#">Rock?</a></li>
+                            <li class="text-orange"><a href="#"><img src="images/arrow.png" width="31" height="21"></a></li>
                               </ul>
                               <ul class="follow-bottom-icons">
-                                <li><a href="#"><img src="images/arrow.png" width="31" height="21"></a></li>
-                                <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
-                              </ul>
+                      <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+                    </ul>
                             </div>
                             <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
                           </div>
@@ -466,6 +482,7 @@
           </div>
         </div>
       </div>
+      
 </script> 
 
          <!--  Questions  templates  -->
