@@ -132,11 +132,11 @@
     <div class="header-menu">
       <nav class="menu">
         <ul class="nav">
-          <li id="streamsGroups"><a href="#"  class="active"><span class="my-stream"></span>My Streams</a></li>
-          <li id="file-media"><a href="#" ><span class="browse-media"></span>Browse Media</a></li>
-          <li><a href="#"> <span class="connections"></span>Connections</a></li>
-          <li><a href="#"> <span class="other"></span>Other Stuff</a></li>
-          <li><a href="#"> <span class="other"></span>Even More Stuff</a></li>
+          <li><a href="#" id="menu-mystreams" class="active"><span class="my-stream"></span>My Streams</a></li>
+          <li><a href="#" id="menu-browsemedia" ><span class="browse-media"></span>Browse Media</a></li>
+          <li><a href="#" id="menu-connections"> <span class="connections"></span>Connections</a></li>
+          <li><a href="#" id="menu-otherstuff"> <span class="other"></span>Other Stuff</a></li>
+          <li><a href="#" id="menu-morestuff"> <span class="other"></span>Even More Stuff</a></li>
         </ul>
       </nav>
     </div>
@@ -160,7 +160,7 @@
                   <li><a href="#">Products </a></li>
                 </ul>
               </div>
-              <a href="#" class="done">DONE </a> </div>
+              <a href="#" class="done">EDIT </a> </div>
             <div class="display-scroller">
               <div class="arrow-block"><span class="caret arrow-up"></span></div>
               <div class="scroll-menu scroller">
@@ -619,11 +619,15 @@
                 <div class="ask-comment">
                   <div class="ask-left">
                     <form class="question-ask">
-                      <input type="text" class="question-ask-search"  placeholder="Ask your own question here....">
+                      <input type="text" id="question" class="question-ask-search"  placeholder="Ask your own question here....">
                     </form>
-                    <ul class="answer">
-                      <li> <a href="#">Answer Is Yes</a></li>
-                      <li><a href="#">Add Option</a></li>
+                    <ul class="answer" style="display :none;">
+                   <!--   <li> <a href="#">Answer Is Yes</a></li>
+                      <li><a href="#">Add Option</a></li> -->
+                     <li> <input type="text" id="option1" placeholder="Add an Option"></li>
+					 <li> <input type="text" id="option2" placeholder="Add an Option"></li>
+					 <li> <a id="add_more_options" href="#">+Add More Options</a></li>
+
                     </ul>
                   </div>
                   <a href="#" class="ask-button">ASK</a> </div>
@@ -841,6 +845,13 @@
 	<script src="js/models/singleusermodel.js"></script>
 	<script src="js/models/documentmodel.js"></script>
 	<script src="js/views/streamdocview.js"></script>
+	
+	<!--  New Design -- Question -->
+	<script src="js/models/questionmodel.js"></script>
+	<script src="js/models/optionmodel.js"></script>
+
+	<!-- End -->
+	
         <script src="js/router.js"></script>  
         <script type="text/javascript" src="lib/css3-mediaqueries.js"></script>
         <script type="text/javascript" src="lib/jquery.simplyscroll.js"></script>

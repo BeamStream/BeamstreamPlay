@@ -43,10 +43,77 @@ BS.StreamView = Backbone.View.extend({
 	   "click .strmdoc" : "showStrmDocPopup",        
             "click .uploaded" : "StrmMediaPopup", 
            "mouseenter a.strmdoc" : "showDocTitle"         */
-
+		 
+		 /* For new design work -- polling */
+		 "click .ask-button" :"askQuestions",
+		 "click .add-poll " : "displayOptionsEntry",
+		 "click #add_more_options" :"addMoreOptions"
+ 
            
 	 },
 	 
+	 /**
+	  * New - Design --Ask Questions 
+	  * 
+	  */
+	 askQuestions : function(eventName){
+		 eventName.preventDefault();
+		 var questionText = $('#question').val();
+		 var options = new BS.OptionCollection();
+		 
+		 for(var i=1 ; i <= BS.options ; i++)
+		 {
+			 var option = new BS.Option();
+			 var optionData = $('#option'+i).val();
+			 option.set({optionId:i ,optionData:optionData});
+			 options.add(option);
+		 }
+//		 var optionInfo = JSON.stringify(options);
+		 var question = new BS.Question();
+		 question.set({id:1 ,question:questionText ,options:options});
+		 var questionInfo = JSON.stringify(question);
+		 console.log("---"  + questionInfo);
+//		 BS.options = 0;
+//		 data = {
+//				 question : question2,
+//				 pollsOptions : optionInfo
+//		 }
+//		 console.log(data);
+		 
+		 /* post profile page details */
+//         $.ajax({
+//             type: 'POST',
+//             data:{data: questionInfo},
+//             url: BS.newQuestion,
+//             cache: false,
+//             dataType : "json",
+//             success: function(data){
+//            	 
+//             }
+//         }); 
+		  
+	 },
+	 /**
+	  * New -Design -- display option entry fields 
+	  */
+	 displayOptionsEntry : function (eventName){
+		 eventName.preventDefault();
+		 BS.options = 2;
+		  
+		 $('.answer').css('display', 'block');
+	 },
+	 
+	 /**
+	  * New-Design --- Add more options 
+	  */
+	 addMoreOptions : function(eventName){
+		 eventName.preventDefault();
+		 var options =' <li> <input type="text" id="option'+BS.options+'" placeholder="Add an Option"></li>';
+		 var parent = $('#add_more_options').parents('li');
+		 $(parent).before(options);
+		 console.log(parent);
+		 
+	 },
 
     initialize:function () {
     	
@@ -68,6 +135,17 @@ BS.StreamView = Backbone.View.extend({
 	    
     		this.source = $("#tpl-main-stream").html();
     		this.template = Handlebars.compile(this.source);
+    		
+    		
+    		/* Start --New Design */
+//    		  
+//    		BS.options = 2;
+    		
+    		/* End */
+    		  
+    		
+    		
+    		
 //		this.slider();
 		
 		/* for PUBNUB auto push */
@@ -2028,11 +2106,6 @@ BS.StreamView = Backbone.View.extend({
   * slider for stream list
    */
    slider: function(){
-     console.log("testing for slider");
-     
-     
-     
-//       $(function() { //on DOM ready
             $('span.close-btn').hide();     
             $('div.drag-icon').hide();
             $(".scroller").simplyScroll({
@@ -2043,7 +2116,8 @@ BS.StreamView = Backbone.View.extend({
             frameRate: 20,
             speed: 5
             });		
-        $(".done").toggle(function () {
+        $(".done").toggle(function () {         
+                  $('a.done').text('DONE');
 		  $('span.close-btn').show();
                   $('div.drag-icon').show();
 		  $('#sortable1, #sortable2').sortable();
@@ -2056,12 +2130,13 @@ BS.StreamView = Backbone.View.extend({
 			$('#sortable4, #sortable5').sortable({
 				connectWith: '.connected'
 			});
-		   },function () {
+		   },function () { 
+                     $('a.done').text('EDIT');  
                      $('span.close-btn').hide();   
-                     $('#sortable1').remove();  
+                     $('#sortable1').remove(); 
+                     $('li').removeAttr('draggable');
                      $('div.drag-icon').hide();
-                        });	
-//	});	
+                        });		
 	$(window).load(function(){		
             $('.drag-rectangle').tooltip()		
             $("#user-online").mCustomScrollbar({

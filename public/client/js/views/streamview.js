@@ -453,15 +453,121 @@ BS.StreamView = Backbone.View.extend({
             	 $('#file-upload-loader').css("display","none");
             	 $('.upload-box').css("display","none");
                 	 
-//	                	 var datas = {
-//	                             "datas" : data
-//		                 }						  
-//		                 var source = $("#tpl-messages").html();
-//		                 var template = Handlebars.compile(source);
-//		                 $('.timeline_items').prepend(template(datas));
-//                                      var content = '<div class="uploaded"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
-//                                                            $('#'+data.id.id+'-docurl').html(content);
-//                                                            $('input#'+data.id.id+'-url').val(msgUrl);  
+	                	 var datas = {
+	                             "datas" : data.message
+		                 }						  
+		                 var source = $("#tpl-messages").html();
+		                 var template = Handlebars.compile(source);
+		                 $('.timeline_items').prepend(template(datas));
+                         var content = '<div class="uploaded"><a class="strmdoc" id="'+data.message.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.message.id.id+'" src="'+data.message.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
+                         $('#'+data.message.id.id+'-docurl').html(content);
+                         $('input#'+data.message.id.id+'-url').val(msgUrl);  
+                         $('img#'+data.message.id.id+'-img').attr("src", BS.profileImageUrl);
+                         
+                         
+                         /*show image preview icons  */
+                         
+                         //show the link 
+//                         if(data.message.messageType.name == "Image")
+//                    	 {
+//                    		 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
+//                                 return '<div style="clear: none !important;" class="gallery clearfix"  ></div><div class="gallery clearfix " style="clear: none !important;"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + url + '">' + url + '</a></div>';
+//                              });
+//                    	 }
+//                    	 else  if(data.message.messageType.name == "Video")
+//                    	 {
+//                    		 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
+//                                 return '<div style="clear: none !important;" class="gallery clearfix" ></div><div class="gallery clearfix " style="clear: none !important;"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + url + '">' + url + '</a></div>';
+//                              });
+//                    	 }
+//                    	 else
+//                    	 {
+//                    		 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
+//                                 return '<a class="uploaded" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
+//                              });
+//                    	 }
+                         
+                         
+                         
+                         
+                        //var links =  msgBody.match(BS.urlRegex); 
+                         var msgUrl=  data.message.messageBody.replace(BS.urlRegex1, function(msgUrlw) {
+                             trueurl= msgUrlw;    
+                             return msgUrlw;
+                         });
+                         var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file    
+                         
+                         if(data.message.messageType.name == "Image")
+                    	 {
+                    		   
+                        	 var linkTag =  data.message.messageBody.replace(BS.urlRegex1, function(url) {                                               
+                                 return '<div style="clear: none !important;" class="gallery clearfix"  ></div><div class="gallery clearfix " style="clear: none !important;"><a rel="prettyPhoto"  id="'+data.message.id.id+'"  href="' + url + '">' + url + '</a></div>';
+                              });
+                        	 
+                    		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto"  id="'+data.message.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.message.id.id+'" src="'+data.message.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
+
+
+                    	 }
+                    	 else if(data.message.messageType.name == "Video")
+                    	 {
+                    		 var linkTag =  data.message.messageBody.replace(BS.urlRegex1, function(url) {                                               
+                                 return '<div style="clear: none !important;" class="gallery clearfix" ></div><div class="gallery clearfix " style="clear: none !important;"><a rel="prettyPhoto" id="'+data.message.id.id+'"  href="' + url + '">' + url + '</a></div>';
+                              });
+                    		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto" id="'+data.message.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.message.id.id+'" src="'+data.message.anyPreviewImageUrl+'" height="50" width="150" /></a></div>';
+                    	 }
+                    	 else
+                    	 {
+                    		 var linkTag =  data.message.messageBody.replace(BS.urlRegex1, function(url) {                                               
+                                 return '<a class="uploaded" id="'+data.message.id.id+'"  href="' + url + '">' + url + '</a>';
+                              });
+                    		  var previewImage = '';
+                    		 if(extension[1] == 'ppt')
+                    		 {
+                    			  
+                    			 
+                    			 previewImage = "images/presentations_image.png";
+                        		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.message.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.message.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
+
+                    		 }
+                    		 else if(extension[1] == 'doc')
+                    		 {
+                    			 previewImage = "images/docs_image.png";
+                        		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.message.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.message.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
+
+                    		 }
+                    		 else if(extension[1] == 'pdf')
+                    		 {
+                    			 previewImage = data.anyPreviewImageUrl;
+                        		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.message.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.message.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
+
+                    		 }
+                    		 else
+                    		 {
+                    			// set first letter of extension in capital letter  
+ 			                	extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+ 			                	    return letter.toUpperCase();
+ 			                	});
+ 			                	
+                    			 previewImage = "images/textimage.png";
+                        		 var content = '<div class="uploaded"><a class="uploaded previw-pdf" id="'+data.message.id.id+'" style="postion:relative;"  href="' + msgUrl + '"><img class="ext_images"  id="'+data.message.id.id+'" src="'+previewImage+'" /><h3 class="extension_files" >'+extension+'</h3></a></div>'
+
+                    		 }
+
+                             
+                    	 }
+                         if(linkTag)
+	  						  $('div#'+data.message.id.id+'-id').html(linkTag);
+                         
+                    	 $('#'+data.message.id.id+'-docurl').html(content);
+                         // console.log("data-"+data.anyPreviewImageUrl);
+                         $('input#'+data.message.id.id+'-url').val(msgUrl); 
+                    	 
+                    	 /* for video popups */
+                         $("area[rel^='prettyPhoto']").prettyPhoto();
+      					 $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
+      					 $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
+      			
+                           
                     
              }
          }); 
@@ -593,9 +699,9 @@ BS.StreamView = Backbone.View.extend({
   						    /*auto ajax push */
                                         var streamId = $('#streams-list li.active a').attr('id');
                                         PUBNUB.publish({
-  		                         channel : "stream",
-  		                         message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,prifileImage : BS.profileImageUrl}
-                                        })
+			  		                         channel : "stream",
+			  		                         message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,prifileImage : BS.profileImageUrl}
+                                        }) 
   							
                                         var msgBody = data.messageBody;
 //  							var link =  msgBody.match(BS.urlRegex);                                                   
@@ -657,7 +763,7 @@ BS.StreamView = Backbone.View.extend({
                                     
                                  });
                             	  //$('input#'+data.id.id+'-url').val(msgUrl);
-                                    var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
+                                    var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/google_docs_image.png " /></a></div>'
                                     $('#'+data.id.id+'-docurl').html(content);
                                 }        
                             }                                          
@@ -710,7 +816,7 @@ BS.StreamView = Backbone.View.extend({
 						   
 					    //display the messages
 					  _.each(data, function(data) {
-						    console.log("data top-"+data.anyPreviewImageUrl);
+						     
 							var msgBody = data.messageBody;
                                                         
 							//var links =  msgBody.match(BS.urlRegex); 
@@ -737,6 +843,7 @@ BS.StreamView = Backbone.View.extend({
                             }
                             else
                             {         //url has extension
+                            	console.log(data);
                             	 if(data.messageType.name == "Image")
                             	 {
                             		 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
@@ -835,7 +942,7 @@ BS.StreamView = Backbone.View.extend({
 	                                          return msgUrl;
 	                                    });
 	                                   //$('input#'+data.id.id+'-url').val(msgUrl);
-	                                    var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
+	                                    var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/google_docs_image.png " /></a></div>'
 	                                    $('#'+data.id.id+'-docurl').html(content);
 	                              }
                              }
