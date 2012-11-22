@@ -88,7 +88,7 @@ object Message { //extends CommentConsumer {
   /**
    * Get all public messages for a user
    */
-  def getAllPublicMessagesForAUser(userId: ObjectId): List[Message] = {
+  def getAllPublicMessagesForAUser(userId: ObjectId) = {
     MessageDAO.find(MongoDBObject("userId" -> userId, "messageAccess" -> "Public")).toList
   }
 
