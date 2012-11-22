@@ -9,11 +9,27 @@ import org.bson.types.ObjectId
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 import java.util.Date
-case class UserMedia(@Key("_id") id: ObjectId, name:String,description:String,userId: ObjectId, dateCreated: Date, mediaUrl: String, contentType: UserMediaType.Value, isPrimary: Boolean,frameURL:String,rocks:Int,rockers: List[ObjectId])
+case class UserMedia(@Key("_id") id: ObjectId,
+    name:String,
+    description:String,
+    userId: ObjectId,
+    dateCreated: Date,
+    mediaUrl: String,
+    contentType: UserMediaType.Value,
+    isPrimary: Boolean,
+    frameURL:String,
+    rocks:Int,
+    rockers: List[ObjectId])
 
 object UserMediaType extends Enumeration {
   val Image = Value(0, "Image")
   val Video = Value(1, "Video")
+}
+
+// This Can be used globally
+object Access extends Enumeration {
+  val Public = Value(0, "Public")
+  val Private = Value(1, "Private")
 }
 object UserMedia {
 
