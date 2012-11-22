@@ -48,7 +48,7 @@ object MessageController extends Controller {
         val messageAccess = messageListJsonMap("messageAccess").toList(0)
         val messageBody = messageListJsonMap("message").toList(0)
         val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-        val messageToCreate = new Message(new ObjectId, messageBody, None, Option(MessageAccess.withName(messageAccess)), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)),
+        val messageToCreate = new Message(new ObjectId, messageBody, Option(MessageType.Text), Option(MessageAccess.withName(messageAccess)), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)),
           messagePoster.firstName, messagePoster.lastName, 0, List(), List(), 0, List())
         val messageId = Message.createMessage(messageToCreate)
         val messageObtained = Message.findMessageById(messageId)
@@ -59,18 +59,6 @@ object MessageController extends Controller {
 
   }
 
-  def messages = Action { implicit request =>
-    val profileName = User.getUserProfile((new ObjectId(request.session.get("userId").get)))
-    val streams = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
-    Ok
-  }
-
-  def streamMessages(id: String) = Action { implicit request =>
-    val profileName = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-    val streams = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
-    val messagesListFound = Message.getAllMessagesForAStream(new ObjectId(id))
-    Ok
-  }
 
   //==================================================//
   //======Displays all the messages within a Stream===//
@@ -197,7 +185,7 @@ object MessageController extends Controller {
     }
   }
 
-  /*
+  /**
    * Delete A Message
    */
 
@@ -209,4 +197,7 @@ object MessageController extends Controller {
     else Ok(write(new ResulttoSent("Failure","You're Not Authorised To Delete This Message")))
   }
 }
+
+
+
 
