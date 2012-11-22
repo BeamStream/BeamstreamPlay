@@ -163,7 +163,7 @@ object DocumentController extends Controller {
 
   def getDocumentFromDisk = Action(parse.multipartFormData) { request =>
 
-    var docResultToSend: DocResulttoSent = new DocResulttoSent("", "", "")
+    var docResultToSend: DocResulttoSent = new DocResulttoSent(new ObjectId, "", "", "")
     val documentJsonMap = request.body.asFormUrlEncoded.toMap
     val streamId = documentJsonMap("streamId").toList(0)
     val docDescription = documentJsonMap("docDescription").toList(0)
@@ -178,6 +178,7 @@ object DocumentController extends Controller {
           val isImage = contentType.contains("image")
           val isVideo = contentType.contains("video")
           val isPdf = contentType.contains("pdf")
+          val docAccess = documentJsonMap("docAccess").toList(0)
           val uniqueString = tokenEmail.securityToken
           val documentReceived: File = docData.ref.file.asInstanceOf[File]
           val docUniqueKey = tokenEmail.securityToken
@@ -188,41 +189,42 @@ object DocumentController extends Controller {
           val user = User.getUserProfile(new ObjectId(request.session.get("userId").get))
 
           if (isImage == true) {
-            val media = new UserMedia(new ObjectId, documentName, "", new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Image, false, "", 0, List())
-            UserMedia.saveMediaForUser(media)
-            docResultToSend = new DocResulttoSent(media.id.toString, docURL, docURL)
+            val media = new UserMedia(new ObjectId, documentName, docDescription, new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Image, DocumentAccess.withName(docAccess), false, "", 0, List())
+            val mediaId = UserMedia.saveMediaForUser(media)
             //Create A Message As Well To Display The Doc Creation In Stream
-            val message = Message(new ObjectId, docURL, Option(MessageType.Image), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(),Option(docURL))
+            val message = Message(new ObjectId, docURL, Option(MessageType.Image), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(docURL), Option(mediaId.get))
             Message.createMessage(message)
+            docResultToSend = new DocResulttoSent(mediaId.get, docURL, docURL, docDescription, Option(message))
 
           } else if (isVideo == true) {
             val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(docURL)
             (new AmazonUpload).uploadCompressedFileToAmazon(docName + "Frame", frameOfVideo, 0, false, request.session.get("userId").get)
             val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docName + "Frame"
-            val media = new UserMedia(new ObjectId, documentName, "", new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Video, false, videoFrameURL, 0, List())
-            UserMedia.saveMediaForUser(media)
-            docResultToSend = new DocResulttoSent(media.id.toString, docURL, videoFrameURL)
-            val message = Message(new ObjectId, docURL, Option(MessageType.Video), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(),Option(videoFrameURL))
+            val media = new UserMedia(new ObjectId, documentName, docDescription, new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Video, DocumentAccess.withName(docAccess), false, videoFrameURL, 0, List())
+            val mediaId = UserMedia.saveMediaForUser(media)
+            val message = Message(new ObjectId, docURL, Option(MessageType.Video), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(videoFrameURL), Option(mediaId.get))
             Message.createMessage(message)
+            docResultToSend = new DocResulttoSent(mediaId.get, docURL, videoFrameURL, docDescription, Option(message))
           } else {
-             
-            var anyPreviewUrl=""
-            
-              if (isPdf == true) {
+
+            if (isPdf == true) {
               val previewImageUrl = PreviewOfPDF.convertPdfToImage(documentReceived, docName)
-              val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
+              val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.withName(docAccess),
                 new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(), previewImageUrl)
-              Document.addDocument(documentCreated)
-              docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL, documentCreated.previewImageUrl)
-              anyPreviewUrl=previewImageUrl
+              val documentId = Document.addDocument(documentCreated)
+              val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(previewImageUrl), Option(documentId))
+              Message.createMessage(message)
+              docResultToSend = new DocResulttoSent(documentId, docURL, documentCreated.previewImageUrl, docDescription, Option(message))
+
             } else {
-              val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.Public,
+              val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.withName(docAccess),
                 new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(), "")
-              Document.addDocument(documentCreated)
-              docResultToSend = new DocResulttoSent(documentCreated.id.toString, docURL, documentCreated.previewImageUrl)
+              val documentId = Document.addDocument(documentCreated)
+              val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(), None, Option(documentId))
+              Message.createMessage(message)
+              docResultToSend = new DocResulttoSent(documentId, docURL, documentCreated.previewImageUrl, docDescription,Option(message))
             }
-            val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(),Option(anyPreviewUrl))
-            Message.createMessage(message)
+
           }
         }.get
 
@@ -270,15 +272,15 @@ object DocumentController extends Controller {
     val DocsFiles = Files.getAllDOCSFiles(new ObjectId(request.session.get("userId").get))
     Ok(write(DocsFiles)).as("application/json")
   }
-  
-    /**
- * Follow Document
- */
-  
+
+  /**
+   * Follow Document
+   */
+
   def followDocument = Action { implicit request =>
-     val docIdToFollowJsonMap = request.body.asFormUrlEncoded.get
+    val docIdToFollowJsonMap = request.body.asFormUrlEncoded.get
     val documentId = docIdToFollowJsonMap("documentId").toList(0)
-    val followers=Document.followDocument(new ObjectId(request.session.get("userId").get),new ObjectId(documentId))
+    val followers = Document.followDocument(new ObjectId(request.session.get("userId").get), new ObjectId(documentId))
     Ok(write(followers.toString)).as("application/json")
   }
 }

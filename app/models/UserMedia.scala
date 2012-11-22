@@ -16,6 +16,7 @@ case class UserMedia(@Key("_id") id: ObjectId,
     dateCreated: Date,
     mediaUrl: String,
     contentType: UserMediaType.Value,
+    access:DocumentAccess.Value,
     isPrimary: Boolean,
     frameURL:String,
     rocks:Int,
@@ -26,22 +27,22 @@ object UserMediaType extends Enumeration {
   val Video = Value(1, "Video")
 }
 
-// This Can be used globally
-object Access extends Enumeration {
-  val Public = Value(0, "Public")
-  val Private = Value(1, "Private")
-}
+
+
+
+
 object UserMedia {
 
   /**
    * Save User Media
    */
-  def saveMediaForUser(media: UserMedia) {
+  def saveMediaForUser(media: UserMedia)= {
     (media.isPrimary == true) match {
       case true => makePresentOnePrimary(media.userId)
       case false =>
     }
     val mediaId = UserMediaDAO.insert(media)
+    mediaId
   }
 
   
@@ -98,7 +99,7 @@ object UserMedia {
   def makePresentOnePrimary(userId: ObjectId) {
     val AlluserMedia = getAllMediaForAUser(userId)
     for (media <- AlluserMedia) {
-      val updatedMedia = new UserMedia(media.id, media.name, media.description,media.userId, media.dateCreated,media.mediaUrl, media.contentType, false,media.frameURL,0,List())
+      val updatedMedia = new UserMedia(media.id, media.name, media.description,media.userId, media.dateCreated,media.mediaUrl, media.contentType,media.access, false,media.frameURL,0,List())
       UserMediaDAO.update(MongoDBObject("_id" -> media.id), updatedMedia, false, false, new WriteConcern)
     }
   }

@@ -61,7 +61,8 @@ object Comment {
 
       case true =>
         // Unrocking a message
-        CommentDAO.update(MongoDBObject("_id" -> commentId), commentToRock.copy(rockers = (commentToRock.rockers -- List(userId))), false, false, new WriteConcern)
+        //        CommentDAO.update(MongoDBObject("_id" -> commentId), commentToRock.copy(rockers = (commentToRock.rockers -- List(userId))), false, false, new WriteConcern)
+        CommentDAO.update(MongoDBObject("_id" -> commentId), commentToRock.copy(rockers = (commentToRock.rockers filterNot (List(userId) contains))), false, false, new WriteConcern)
         val updatedComment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList(0)
         CommentDAO.update(MongoDBObject("_id" -> commentId), updatedComment.copy(rocks = (updatedComment.rocks - 1)), false, false, new WriteConcern)
         val finalComment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList(0)
@@ -102,8 +103,6 @@ object Comment {
     allCommentsForAModel
   }
 
-
-
   /*
    * Delete A Comment
    */
@@ -119,8 +118,8 @@ object Comment {
       deletedCommentSuccessfully
     }
   }
-  
-   /*
+
+  /*
    * Is a Rocker 
    * @ Purpose: identify if the user has rocked a comment or not
    */

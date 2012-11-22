@@ -135,13 +135,20 @@ body {
                                 <ul id='dooclinkchild_dr' class="largeli">
                                     <span class="arrow-left"></span>
                                     <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
-                                    <li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"> 
-                                    </li>
-                                    <li><a href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
-                                    <li><select class="dropdownselect" id="doc-class-list-computer">
+									<li class="private">
+										<label  style="color:white;" for="id-private">
+											<input  id="id-private" type="checkbox" checked="checked">
+											Private
+										</label>
+									</li>
+                                    
+                                    <li style="margin-right:10px;" ><select class="dropdownselect" id="doc-class-list-computer">
                                      <option>Save to Class</option>							
                                         </select>  </li>      
-                                    <span id="loader-message"></span>
+                                    <span id="loader-message"></span></br>
+
+									<li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"></li>
+                                    <li><a  style="color:white;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
                             </ul>
                             </li>
                             
@@ -171,6 +178,12 @@ body {
 												
 											</select>
 											</li>
+											<li class="private">
+										     <label  style="color:white;" for="id-private">
+											    <input  id="doc-private" type="checkbox" checked="checked">
+											     Private
+										    </label>
+									</li>
                                             <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
                                         </ul>
                                     </li>

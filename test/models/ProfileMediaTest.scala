@@ -14,7 +14,7 @@ class UserMediaTest extends FunSuite with BeforeAndAfter {
 
   test("Get all media for a user") {
     val userId = User.createUser(user)
-    val UserMediaObj = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/Neel.png", UserMediaType.Image, true, "", 0, List())
+    val UserMediaObj = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/Neel.png", UserMediaType.Image,DocumentAccess.Public, true, "", 0, List())
     UserMedia.saveMediaForUser(UserMediaObj)
     val UserMediaForAUser = UserMediaDAO.find(MongoDBObject("userId" -> userId))
     assert(UserMediaForAUser.toList(0).mediaUrl === "http://beamstream.com/Neel.png")
@@ -23,8 +23,8 @@ class UserMediaTest extends FunSuite with BeforeAndAfter {
 
   test("Get Profile Pic Of A User") {
     val userId = User.createUser(user)
-    val UserMediaObj1 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image, true, "", 0, List())
-    val UserMediaObj2 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/Neel.png", UserMediaType.Image, false, "", 0, List())
+    val UserMediaObj1 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image,DocumentAccess.Public, true, "", 0, List())
+    val UserMediaObj2 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/Neel.png", UserMediaType.Image,DocumentAccess.Public, false, "", 0, List())
     UserMedia.saveMediaForUser(UserMediaObj1)
     UserMedia.saveMediaForUser(UserMediaObj2)
     val mediaForAUser = UserMedia.getProfilePicForAUser(userId)
@@ -37,11 +37,11 @@ class UserMediaTest extends FunSuite with BeforeAndAfter {
 
   test("Save Media For A User") {
     val userId = User.createUser(user)
-    val UserMediaObj1 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image, true, "", 0, List())
+    val UserMediaObj1 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image,DocumentAccess.Public, true, "", 0, List())
     UserMedia.saveMediaForUser(UserMediaObj1)
     val UserMediaForAUser = UserMediaDAO.find(MongoDBObject("userId" -> userId))
     assert(UserMediaForAUser.size === 1)
-    val UserMediaObj2 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image, true, "", 0, List())
+    val UserMediaObj2 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image,DocumentAccess.Public, true, "", 0, List())
     UserMedia.saveMediaForUser(UserMediaObj2)
     assert(UserMedia.findMediaById(UserMediaObj1.id).toList(0).isPrimary === false)
   }
@@ -51,11 +51,11 @@ class UserMediaTest extends FunSuite with BeforeAndAfter {
    */
   test("Get All Profile Pics Of A User") {
     val userId = User.createUser(user)
-    val UserMediaObj1 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image, true, "", 0, List())
-    val UserMediaObj2 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/Neel.png", UserMediaType.Image, false, "", 0, List())
+    val UserMediaObj1 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image,DocumentAccess.Public, true, "", 0, List())
+    val UserMediaObj2 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/Neel.png", UserMediaType.Image,DocumentAccess.Public, false, "", 0, List())
     UserMedia.saveMediaForUser(UserMediaObj1)
     UserMedia.saveMediaForUser(UserMediaObj2)
-    val UserMediaObj3 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/Neel.png", UserMediaType.Video, false, "", 0, List())
+    val UserMediaObj3 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/Neel.png", UserMediaType.Video,DocumentAccess.Public, false, "", 0, List())
     UserMedia.saveMediaForUser(UserMediaObj3)
     val mediaForAUser = UserMedia.getAllProfilePicForAUser(userId)
     assert(mediaForAUser.size === 2)
@@ -66,11 +66,11 @@ class UserMediaTest extends FunSuite with BeforeAndAfter {
    */
   test("Get All Profile Videos Of A User") {
     val userId = User.createUser(user)
-    val UserMediaObj1 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image, true, "", 0, List())
-    val UserMediaObj2 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/Neel.png", UserMediaType.Image, false, "", 0, List())
+    val UserMediaObj1 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image,DocumentAccess.Public, true, "", 0, List())
+    val UserMediaObj2 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/Neel.png", UserMediaType.Image,DocumentAccess.Public, false, "", 0, List())
     UserMedia.saveMediaForUser(UserMediaObj1)
     UserMedia.saveMediaForUser(UserMediaObj2)
-    val UserMediaObj3 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/Neel.png", UserMediaType.Video, false, "", 0, List())
+    val UserMediaObj3 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/Neel.png", UserMediaType.Video,DocumentAccess.Public, false, "", 0, List())
     UserMedia.saveMediaForUser(UserMediaObj3)
     val mediaForAUser = UserMedia.getAllProfileVideoForAUser(userId)
     assert(mediaForAUser.size === 1)
@@ -81,11 +81,11 @@ class UserMediaTest extends FunSuite with BeforeAndAfter {
    */
   test("Get All Media Of A User") {
     val userId = User.createUser(user)
-    val UserMediaObj1 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image, true, "", 0, List())
-    val UserMediaObj2 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/Neel.png", UserMediaType.Image, false, "", 0, List())
+    val UserMediaObj1 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image,DocumentAccess.Public, true, "", 0, List())
+    val UserMediaObj2 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/Neel.png", UserMediaType.Image,DocumentAccess.Public, false, "", 0, List())
     UserMedia.saveMediaForUser(UserMediaObj1)
     UserMedia.saveMediaForUser(UserMediaObj2)
-    val UserMediaObj3 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/Neel.png", UserMediaType.Video, false, "", 0, List())
+    val UserMediaObj3 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/Neel.png", UserMediaType.Video,DocumentAccess.Public, false, "", 0, List())
     UserMedia.saveMediaForUser(UserMediaObj3)
     val mediaForAUser = UserMedia.getAllMediaForAUser(userId)
     assert(mediaForAUser.size === 3)
@@ -96,7 +96,7 @@ class UserMediaTest extends FunSuite with BeforeAndAfter {
    */
   test("Rock User Media & Rockers Name") {
     val userId = User.createUser(user)
-    val UserMediaObj1 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image, true, "", 0, List())
+    val UserMediaObj1 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image,DocumentAccess.Public, true, "", 0, List())
     UserMedia.saveMediaForUser(UserMediaObj1)
     UserMedia.rockUserMedia(UserMediaObj1.id, userId)
     assert(UserMedia.rockersNamesOfUserMedia(UserMediaObj1.id).head === "Neel")
@@ -107,7 +107,7 @@ class UserMediaTest extends FunSuite with BeforeAndAfter {
    */
   test("Update Title & Description") {
     val userId = User.createUser(user)
-    val UserMediaObj1 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image, true, "", 0, List())
+    val UserMediaObj1 = new UserMedia(new ObjectId, "", "", userId, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image,DocumentAccess.Public, true, "", 0, List())
     UserMedia.saveMediaForUser(UserMediaObj1)
     UserMedia.updateTitleAndDescription(UserMediaObj1.id,"NeelKanth","Neelkanth's Doc")
     UserMedia.findMediaById(UserMediaObj1.id).head.description==="Neelkanth's Doc"
