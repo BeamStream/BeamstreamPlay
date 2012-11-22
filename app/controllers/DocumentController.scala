@@ -178,7 +178,7 @@ object DocumentController extends Controller {
           val isImage = contentType.contains("image")
           val isVideo = contentType.contains("video")
           val isPdf = contentType.contains("pdf")
-           val docAccess = documentJsonMap("docAccess").toList(0)
+          val docAccess = documentJsonMap("docAccess").toList(0)
           val uniqueString = tokenEmail.securityToken
           val documentReceived: File = docData.ref.file.asInstanceOf[File]
           val docUniqueKey = tokenEmail.securityToken
