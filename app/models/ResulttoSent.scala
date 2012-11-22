@@ -15,7 +15,7 @@ case class ResulttoSent(status: String,
   message: String)
   
   case class DocResulttoSent(docId: String,
-  docUrl: String, previewImageUrl:String,var message:Option[Message]=None)
+  docUrl: String, previewImageUrl:String,docDescription:String,var message:Option[Message]=None)
 
 //Resultant Class Details
 case class ClassWithNoOfUsers(usersMap:Map[String, Int] , classToReturn:Class)  
