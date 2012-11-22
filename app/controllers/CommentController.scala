@@ -38,7 +38,6 @@ object CommentController extends Controller {
     //    val commentId = Comment.createComment(comment)
     //    consumers.map(_.addComment(new ObjectId(messageId), commentId))
     //    Ok(write(List(comment))).as("application/json")
-    
 
     try {
       /**
@@ -169,6 +168,21 @@ object CommentController extends Controller {
       val isARockerOfComment = Comment.isARocker(new ObjectId(commentId), new ObjectId(request.session.get("userId").get))
       Ok(write(isARockerOfComment.toString)).as("application/json")
     }
+  }
+
+  /**
+   * Answer of a question
+   */
+  def newAnswer = Action { implicit request =>
+    val commentJson = request.body.asFormUrlEncoded.get
+    val questionId = commentJson("questionId").toList(0)
+    val answerText = commentJson("answer").toList(0)
+    val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+    val comment = new Comment(new ObjectId, answerText, new Date, new ObjectId(request.session.get("userId").get),
+      commentPoster.firstName, commentPoster.lastName, 0, List())
+    val answerId = Comment.createComment(comment)
+    Question.addAnswerToQuestion(new ObjectId(questionId), answerId)
+    Ok(write(List(comment))).as("application/json")
   }
 
 }
