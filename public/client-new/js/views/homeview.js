@@ -128,38 +128,37 @@ BS.NavView = Backbone.View.extend({
 	 showActiveClass :function(eventName){
 	console.log("test-1");	 
 		 eventName.preventDefault();
-//		 var id = eventName.target.id;
-//	      
-//		 $('nav li.active').removeClass('active');
-//	     $('#'+id).addClass('active');
-//	     if(id == "file-media")
+		 var id = eventName.target.id;	      
+                $('li a.active').removeClass('active');
+                $('#'+id).addClass('active');
+//	     if(id == "menu-browsemedia")
 //	     {
 //	    	 BS.AppRouter.navigate("filesMedia", {trigger: true});
 //		   	
 //	     }
-//	     else if(id == "streamsGroups")
+//	     else if(id == "menu-mystreams")
 //	     {
 //	    	 BS.AppRouter.navigate("streams", {trigger: true});
 //	     }
 
  // FIXME: this is temporary hack, remove it later.
-        $('.menu a').click(function() {
-        var $this = $(this);
-        $this
-            .closest('ul')
-            .find('li a').removeClass('active').end()
-            .end()
-            .closest('li a').addClass('active');               
-            });
-
-        $('.stream-tab a').click(function() {
-        var $this = $(this);
-        $this
-            .closest('ul')
-            .find('li a').removeClass('active').end()
-            .end()
-            .closest('li a').addClass('active');              
-            });
+//        $('.menu a').click(function() {
+//        var $this = $(this);
+//        $this
+//            .closest('ul')
+//            .find('li a').removeClass('active').end()
+//            .end()
+//            .closest('li a').addClass('active');               
+//            });
+//
+//        $('.stream-tab a').click(function() {
+//        var $this = $(this);
+//        $this
+//            .closest('ul')
+//            .find('li a').removeClass('active').end()
+//            .end()
+//            .closest('li a').addClass('active');              
+//            });
 	 }
  
 });
