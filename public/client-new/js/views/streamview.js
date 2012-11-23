@@ -133,7 +133,7 @@ BS.StreamView = Backbone.View.extend({
    //	    this.trigger = $('.trigger');
    //	    this.popup = $('.popup').css('opacity', 0);
 	    
-    		this.source = $("#tpl-questions").html();
+    		this.source = $("#tpl-main-stream").html();
     		this.template = Handlebars.compile(this.source);
     		
     		
