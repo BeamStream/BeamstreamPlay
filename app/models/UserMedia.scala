@@ -146,12 +146,17 @@ object UserMedia extends RockConsumer {
     UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), usermedia.copy(description = newDescription, name = newName), false, false, new WriteConcern)
   }
  
-  //Rock The User Media
+   //TODO : Add Rock to Media If Message Contains docIdIfAny
   def rockTheMediaOrDoc(idToBeRocked: ObjectId, userId: ObjectId){
     val userMedia=UserMedia.findMediaById(idToBeRocked)
     if( ! (userMedia==None)) UserMedia.rockUserMedia(idToBeRocked,userId)
     
   }
+   //TODO : Add Comment to Media If Message Contains docIdIfAny
+  def commentTheMediaOrDoc(id: ObjectId, commentId: ObjectId){
+    
+  }
+  
   
 }
 object UserMediaDAO extends SalatDAO[UserMedia, ObjectId](collection = MongoHQConfig.mongoDB("userMedia"))

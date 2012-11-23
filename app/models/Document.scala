@@ -168,11 +168,16 @@ object Document extends RockConsumer {
     }
   }
   
-  //Under Test
+  // Add Rock to Doc If Message Contains docIdIfAny
   def rockTheMediaOrDoc(idToBeRocked: ObjectId, userId: ObjectId){
     val docToBeRocked=Document.findDocumentById(idToBeRocked)
     if( ! docToBeRocked.isEmpty)  Document.rockedIt(idToBeRocked,userId)
    
+  }
+  
+  //TODO : Add Comment to Doc If Message Contains docIdIfAny
+  def commentTheMediaOrDoc(id: ObjectId, commentId: ObjectId){
+    
   }
 
 }
