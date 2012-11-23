@@ -449,6 +449,8 @@
          <!--  Questions  templates  -->
 <script type="text/x-handlebars-template" id="tpl-questions">
             <!--------------------------------------Left Container---------------------------------------->
+   
+      
       <div class="left-container">
         <aside>
           <div class="left-menu">
@@ -467,10 +469,10 @@
               <div class="arrow-block"><span class="caret arrow-up"></span></div>
               <div class="scroll-menu scroller">
                 <ul id="sortable4" class="connected sortable list">
-                  <li class="icon1"><a href="#" class="icon1">Calculus <span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span> </a>
+                  <li class="icon1"><a href="#" class="icon1">Calculus <span class="menu-count"> 543</span><span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span> </a>
                     <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
                   </li>
-                  <li><a href="#" class="icon1">Intro to Java<span  class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span> </a>
+                  <li><a href="#" class="icon1">Intro to Java<span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span> </a>
                     <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
                   </li>
                   <li><a href="#" class="icon1">Intro to Business <span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>
@@ -530,7 +532,7 @@
             </ul>
           </div>
           <div class="stream-header-right">
-            <div class="stream-top-btn"><a href="#"><span><img src="images/follow-icon.png" width="26" height="24"></span><span 		class="text">New Stream</span></a></div>
+            <div class="stream-top-btn"><a href="#"><span><images src="images/follow-icon.png" width="26" height="24"></span><span 		class="text">New Stream</span></a></div>
           </div>
           <div class="stream-top-shadow"><img src="images/shadow.png"/></div>
         </div>
@@ -580,15 +582,16 @@
                 <div class="ask-comment">
                   <div class="ask-left">
                     <form class="question-ask">
-                      <input type="text" id="question" class="question-ask-search"  placeholder="Ask your own question here....">
+                      <input type="text" class="question-ask-search"  placeholder="Ask your own question here....">
                     </form>
-                    <ul class="answer" style="display :none;">
-                   <!--   <li> <a href="#">Answer Is Yes</a></li>
-                      <li><a href="#">Add Option</a></li> -->
-                     <li> <input type="text" id="option1" placeholder="Add an Option"></li>
-					 <li> <input type="text" id="option2" placeholder="Add an Option"></li>
-					 <li> <a id="add_more_options" href="#">+Add More Options</a></li>
-
+                    <ul class="answer" style="display:none">
+                      <li>
+                        <input name="Answer Is Yes" type="text" id="Answer Is Yes"  placeholder="Enter First Possible Answer">
+                      <li>
+                        <input name="Add Option" type="text" id="Add Option" placeholder="Enter Second Possible Answer">
+                        </li>
+                        
+                        <a href="#" class="add-option">Add Additional Answers</a>
                     </ul>
                   </div>
                   <a href="#" class="ask-button">ASK</a> </div>
@@ -638,24 +641,33 @@
                     <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
                   </div>
                   <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
+                  
+                  <div class="comment-nofication">
+                  
+                              
+                <fieldset>  <input name="" type="radio" value=""><label>Yellow</label></fieldset>
+                    <fieldset>  <input name="" type="radio" value=""> <label>Red</label></fieldset>
+                  
+                  
+                  </div>
+                  
                   <div class="follow-bottom">
                     <ul class="follow-name-left">
-                      <li><a href="#" class="rocks"><span>57 Rocks</span></a></li>
-                      <li class="text-orange"><a href="#">Rock?</a></li>
-                      <li class="text-orange"><a href="#"> Answer</a></li>
-                      <li class="text-orange"><a href="#"> Comment</a></li>
-                      <li class="text-orange"><a href="#"><img width="31" height="21" src="images/arrow.png"></a></li>
-                    </ul>
-                    <ul class="follow-bottom-icons">
-                      <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+                      <li><a href="#">Rock</a></li>
+                      <li><a href="#"> Answer</a></li>
+                      <li><a href="#"> Comment</a></li>
+                      <li ><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
                     </ul>
                   </div>
                 </div>
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
-                     <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a> <a class="btn grey-buttons" href="#">
-                      <span>43</span> Comments</a> <a class="btn grey-buttons" href="#">Who Rocked It?</a> <a class="btn blue-buttons showmessage" href="#">Show All</a> </div>
+                      <ul class="follow-name-left">
+                        <li><a href="#" class="rocks"><span>57</span></a></li>
+                        <a class="btn grey-buttons" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
+                      </ul>
+                      <a class="btn blue-buttons showmessage" href="#">Show All</a> </div>
                   </div>
                 </div>
               </div>
@@ -680,13 +692,9 @@
                   <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
                   <div class="follow-bottom">
                     <ul class="follow-name-left">
-                      <li><a href="#" class="rocks"><span>57 Rocks</span></a></li>
-                      <li class="text-orange"><a href="#">Rock?</a></li>
-                      <li class="text-orange"><a href="#"> Answer</a></li>
-                      <li class="text-orange"><a href="#"> Comment</a></li>
-                      <li class="text-orange"><a href="#"><img src="images/arrow.png" width="31" height="21"></a></li>
-                    </ul>
-                    <ul class="follow-bottom-icons">
+                      <li ><a href="#">Rock</a></li>
+                      <li ><a href="#"> Answer</a></li>
+                      <li><a href="#"> Comment</a></li>
                       <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
                     </ul>
                   </div>
@@ -694,8 +702,11 @@
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
-                     <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a> <a class="btn grey-buttons" href="#"> 
-                     <span>43</span> Comments</a> <a class="btn grey-buttons" href="#">Who Rocked It?</a> <a class="btn blue-buttons showmessage" href="#">Show All</a> </div>
+                      <ul class="follow-name-left">
+                        <li><a href="#" class="rocks"><span>57</span></a></li>
+                        <a class="btn grey-buttons" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
+                      </ul>
+                      <a class="btn blue-buttons showmessage" href="#">Show All</a> </div>
                     <div class="comment-wrapper" id="comments">
                       <div class="answer-description">
                         <div class="follw-left">
@@ -707,42 +718,34 @@
                           <div class="follow-names">
                             <ul class="follow-name-left">
                               <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
-                              <li><a class="rocks" href="#"><span>57 Rocks</span></a></li>
-                              <li class="text-orange"><a href="#">Rock?</a></li>
-                            <li class="text-orange"><a href="#"><img width="31" height="21" src="images/arrow.png"></a></li>
+                              <li ><a href="#">Rock</a></li>
+                              <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
+                                 <li class="rocks-small"><a href="#">75</a></li>
                             </ul>
-                            <ul class="follow-bottom-icons">
-                      <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
-                    </ul>
                           </div>
                           <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
                         </div>
                         <div class="clear"></div>
                       </div>
-                   
-                        <div class="answer-description">
-                          <div class="follw-left">
-                            <div class="small-image">
-                              <div class="ask-img"><img src="images/profile-img.png"></div>
-                            </div>
+                      <div class="answer-description">
+                        <div class="follw-left">
+                          <div class="small-image">
+                            <div class="ask-img"><img src="images/profile-img.png"></div>
                           </div>
-                          <div class="answer-description-info">
-                            <div class="follow-names">
+                        </div>
+                        <div class="answer-description-info">
+                          <div class="follow-names">
                             <ul class="follow-name-left">
                               <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
-                              <li><a class="rocks" href="#"><span>57 Rocks</span></a></li>
-                              <li class="text-orange"><a href="#">Rock?</a></li>
-                            <li class="text-orange"><a href="#"><img width="31" height="21" src="images/arrow.png"></a></li>
+                              <li ><a href="#">Rock</a></li>
+                              <li ><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
+                                 <li class="rocks-small"><a href="#">75</a></li>
                             </ul>
-                            <ul class="follow-bottom-icons">
-                      <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
-                    </ul>
                           </div>
-                            <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
-                          </div>
-                          <div class="clear"></div>
+                          <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
                         </div>
-                  
+                        <div class="clear"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
