@@ -9,8 +9,7 @@ import com.mongodb.casbah.commons.MongoDBObject
 import org.bson.types.ObjectId
 import java.text.DateFormat
 import java.util.Date
-import models.OptionOfQuestion
-import models.OptionOfQuestionDAO
+
 
 @RunWith(classOf[JUnitRunner])
 class QuestionTest extends FunSuite with BeforeAndAfter {

@@ -120,7 +120,7 @@ object Document extends RockConsumer {
     documentToRock.documentRockers.contains(userId) match {
 
       case true =>
-        DocumentDAO.update(MongoDBObject("_id" -> documentId), documentToRock.copy(documentRockers = (documentToRock.documentRockers -- List(userId))), false, false, new WriteConcern)
+        DocumentDAO.update(MongoDBObject("_id" -> documentId), documentToRock.copy(documentRockers = (documentToRock.documentRockers filterNot( List(userId)contains)  )), false, false, new WriteConcern)
         val updatedDocument = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
         DocumentDAO.update(MongoDBObject("_id" -> documentId), updatedDocument.copy(documentRocks = (updatedDocument.documentRocks - 1)), false, false, new WriteConcern)
         val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
@@ -158,7 +158,7 @@ object Document extends RockConsumer {
     val documentToFollow = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
     (documentToFollow.documentFollwers.contains(userIdOfFollower)) match {
       case true =>
-        DocumentDAO.update(MongoDBObject("_id" -> documentId), documentToFollow.copy(documentFollwers = (documentToFollow.documentFollwers -- List(userIdOfFollower))), false, false, new WriteConcern)
+        DocumentDAO.update(MongoDBObject("_id" -> documentId), documentToFollow.copy(documentFollwers = (documentToFollow.documentFollwers filterNot (List(userIdOfFollower) contains))), false, false, new WriteConcern)
         val updatedDocumentWithAddedIdOfFollower = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
         updatedDocumentWithAddedIdOfFollower.documentFollwers.size
       case false =>

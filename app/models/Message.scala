@@ -113,7 +113,7 @@ object Message { //extends CommentConsumer {
 
       case true =>
         // Unrocking a message
-        MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(rockers = (SelectedmessagetoRock.rockers -- List(userId))), false, false, new WriteConcern)
+        MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(rockers = (SelectedmessagetoRock.rockers filterNot (List(userId) contains))), false, false, new WriteConcern)
         val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
         MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(rocks = (updatedMessage.rocks - 1)), false, false, new WriteConcern)
         val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
@@ -193,7 +193,7 @@ object Message { //extends CommentConsumer {
       case true =>
         // Unfollow a message
         //SelectedmessagetoRock.follows
-        MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(followers = (SelectedmessagetoRock.followers -- List(userId))), false, false, new WriteConcern)
+        MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(followers = (SelectedmessagetoRock.followers filterNot(List(userId) contains))), false, false, new WriteConcern)
         val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
         MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(follows = (updatedMessage.follows - 1)), false, false, new WriteConcern)
         val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)

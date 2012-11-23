@@ -71,7 +71,7 @@ class ObjectIdSerializer extends Serializer[ObjectId] {
     case (TypeInfo(Class, _), json) => json match {
       case JInt(s) => new ObjectId
       case JString(s) => new ObjectId(s)
-      case List(JInt(s)) => new ObjectId
+    //  case List(JInt(s)) => new ObjectId
       case x => throw new MappingException("Can't convert " + x + " to ObjectId")
     }
   }
@@ -82,23 +82,7 @@ class ObjectIdSerializer extends Serializer[ObjectId] {
   }
 }
 
-//class CollectionSerializer extends Serializer[List[ObjectId]] {
-//  println("coming here in collection serializar")
-//  private val Class = classOf[List[ObjectId]]
-//
-//  def deserialize(implicit format: Formats) = {
-//    case (TypeInfo(Class, _), json) => json match {
-//      case x => throw new MappingException("Can't convert " + x + " to ObjectId")
-//    }
-//  }
-//
-//  def serialize(implicit format: Formats) = {
-//    case x: ObjectId => JObject(JField("id", JString(x.toString)) :: Nil)
-//
-//  }
-//}
-
-/*
+/**
  * Date Time serialization
  */
 
