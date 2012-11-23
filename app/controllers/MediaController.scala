@@ -163,7 +163,7 @@ object MediaController extends Controller {
     if (imageFileInputStream != null) {
       (new AmazonUpload).uploadCompressedFileToAmazon(imageNameOnAmazon, imageFileInputStream,totalFileSize,true,request.session.get("userId").get)
       val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
-      val media = new UserMedia(new ObjectId,imageNameToStore,"", new ObjectId(request.session.get("userId").get),new Date, imageURL, UserMediaType.Image,DocumentAccess.Public, imageStatus, "",0,List())
+      val media = new UserMedia(new ObjectId,imageNameToStore,"", new ObjectId(request.session.get("userId").get),new Date, imageURL, UserMediaType.Image,DocumentAccess.Public, imageStatus, "",0,List(),List())
       UserMedia.saveMediaForUser(media)
       ProfileImageProviderCache.setImage(media.userId.toString, media.mediaUrl)
     }
@@ -174,7 +174,7 @@ object MediaController extends Controller {
       val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(videoURL)
       (new AmazonUpload).uploadCompressedFileToAmazon(videoFileNameOnnAmazon + "Frame", frameOfVideo,totalFileSize,false,request.session.get("userId").get)
       val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + videoFileNameOnnAmazon + "Frame"
-      val media = new UserMedia(new ObjectId,videoNameToStore,"",new ObjectId(request.session.get("userId").get), new Date,videoURL, UserMediaType.Video,DocumentAccess.Public, videoStatus, videoFrameURL,0,List())
+      val media = new UserMedia(new ObjectId,videoNameToStore,"",new ObjectId(request.session.get("userId").get), new Date,videoURL, UserMediaType.Video,DocumentAccess.Public, videoStatus, videoFrameURL,0,List(),List())
       UserMedia.saveMediaForUser(media)
 
     }

@@ -177,6 +177,11 @@ object Document extends RockConsumer {
   
   //TODO : Add Comment to Doc If Message Contains docIdIfAny
   def commentTheMediaOrDoc(id: ObjectId, commentId: ObjectId){
+    val doc=Document.findDocumentById(id)
+    (doc==None) match{
+      case true => 
+      case false => addCommentToDocument(commentId,id)
+    }
     
   }
 
