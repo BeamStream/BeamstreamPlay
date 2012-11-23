@@ -79,7 +79,7 @@ object Question {
     val questionToRock = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     questionToRock.rockers.contains(userId) match {
       case true =>
-        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToRock.copy(rockers = (questionToRock.rockers -- List(userId))), false, false, new WriteConcern)
+        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToRock.copy(rockers = (questionToRock.rockers filterNot (List(userId) contains))), false, false, new WriteConcern)
         val updatedQuestion = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
         QuestionDAO.update(MongoDBObject("_id" -> questionId), updatedQuestion.copy(rocks = (updatedQuestion.rocks - 1)), false, false, new WriteConcern)
         val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
@@ -196,7 +196,7 @@ object Question {
     val questionToFollow = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     (questionToFollow.followers.contains(userIdOfFollower)) match {
       case true =>
-        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToFollow.copy(followers = (questionToFollow.followers -- List(userIdOfFollower))), false, false, new WriteConcern)
+        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToFollow.copy(followers = (questionToFollow.followers filterNot( List(userIdOfFollower) contains))), false, false, new WriteConcern)
         val updatedQuestionWithAddedIdOfFollower = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
         updatedQuestionWithAddedIdOfFollower.followers.size
       case false =>

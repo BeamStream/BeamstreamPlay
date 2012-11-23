@@ -207,7 +207,7 @@ object User {
     val userToFolow = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
     (userToFolow.followers.contains(userId)) match {
       case true =>
-        UserDAO.update(MongoDBObject("_id" -> userId), userToFolow.copy(followers = (userToFolow.followers -- List(userIdOfFollower))), false, false, new WriteConcern)
+        UserDAO.update(MongoDBObject("_id" -> userId), userToFolow.copy(followers = (userToFolow.followers filterNot( List(userIdOfFollower) contains))), false, false, new WriteConcern)
         val updatedUserWithAddedIdOfFollower = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
         updatedUserWithAddedIdOfFollower.followers.size
       case false =>

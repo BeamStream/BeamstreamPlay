@@ -124,7 +124,7 @@ object UserMedia extends RockConsumer {
     userMedia.rockers.contains(userId) match {
 
       case true =>
-        UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), userMedia.copy(rockers = (userMedia.rockers -- List(userId))), false, false, new WriteConcern)
+        UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), userMedia.copy(rockers = (userMedia.rockers filterNot( List(userId) contains))), false, false, new WriteConcern)
         val updatedUserMedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
         UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), updatedUserMedia.copy(rocks = (updatedUserMedia.rocks - 1)), false, false, new WriteConcern)
         val updatedUserMedia1 = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
@@ -168,7 +168,6 @@ object UserMedia extends RockConsumer {
       case true => 
       case false => addCommentToUserMedia(commentId,id)
     }
-    
   }
   
   

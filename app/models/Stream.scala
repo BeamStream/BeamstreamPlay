@@ -141,7 +141,7 @@ object Stream {
         resultToSent = ResulttoSent("Failure", "You Do Not Have Rights To Delete This Stream")
       }
     } else {
-      StreamDAO.update(MongoDBObject("_id" -> streamId), streamObtained.copy(usersOfStream = (streamObtained.usersOfStream -- List(userId))), false, false, new WriteConcern)
+      StreamDAO.update(MongoDBObject("_id" -> streamId), streamObtained.copy(usersOfStream = (streamObtained.usersOfStream filterNot( List(userId) contains))), false, false, new WriteConcern)
       resultToSent = ResulttoSent("Success", "You've Successfully Removed From This Stream")
     }
     resultToSent
