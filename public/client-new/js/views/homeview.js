@@ -125,8 +125,7 @@ BS.NavView = Backbone.View.extend({
 	  * show active class
 	  * 
 	  */
-	 showActiveClass :function(eventName){
-	console.log("test-1");	 
+	 showActiveClass :function(eventName){ 
 		 eventName.preventDefault();
 		 var id = eventName.target.id;	      
                 $('li a.active').removeClass('active');
