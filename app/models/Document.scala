@@ -15,8 +15,6 @@ import net.liftweb.json.Serialization.{ read, write }
 import java.util.Date
 import java.net.URL
 
-
-
 /*
  * Enumeration for the document access 
  * 
@@ -102,8 +100,8 @@ object Document extends RockConsumer {
     val docsObtained = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "GoogleDocs")).toList
     docsObtained
   }
-  
- /**
+
+  /**
    * Get all documents for a user (Modified)
    */
   def getAllPublicDocumentForAUser(userId: ObjectId) = {
@@ -111,7 +109,7 @@ object Document extends RockConsumer {
     docsObtained
   }
   /**
-   *  Update the Rockers List and increase the count by one 
+   *  Update the Rockers List and increase the count by one
    */
 
   def rockedIt(documentId: ObjectId, userId: ObjectId): Int = {
@@ -120,7 +118,7 @@ object Document extends RockConsumer {
     documentToRock.documentRockers.contains(userId) match {
 
       case true =>
-        DocumentDAO.update(MongoDBObject("_id" -> documentId), documentToRock.copy(documentRockers = (documentToRock.documentRockers filterNot( List(userId)contains)  )), false, false, new WriteConcern)
+        DocumentDAO.update(MongoDBObject("_id" -> documentId), documentToRock.copy(documentRockers = (documentToRock.documentRockers filterNot (List(userId)contains))), false, false, new WriteConcern)
         val updatedDocument = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
         DocumentDAO.update(MongoDBObject("_id" -> documentId), updatedDocument.copy(documentRocks = (updatedDocument.documentRocks - 1)), false, false, new WriteConcern)
         val document = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
@@ -167,22 +165,22 @@ object Document extends RockConsumer {
         updatedDocumentWithAddedIdOfFollower.documentFollwers.size
     }
   }
-  
+
   // Add Rock to Doc If Message Contains docIdIfAny
-  def rockTheMediaOrDoc(idToBeRocked: ObjectId, userId: ObjectId){
-    val docToBeRocked=Document.findDocumentById(idToBeRocked)
-    if( ! docToBeRocked.isEmpty)  Document.rockedIt(idToBeRocked,userId)
-   
+  def rockTheMediaOrDoc(idToBeRocked: ObjectId, userId: ObjectId) {
+    val docToBeRocked = Document.findDocumentById(idToBeRocked)
+    if (!docToBeRocked.isEmpty) Document.rockedIt(idToBeRocked, userId)
+
   }
-  
+
   //TODO : Add Comment to Doc If Message Contains docIdIfAny
-  def commentTheMediaOrDoc(id: ObjectId, commentId: ObjectId){
-    val doc=Document.findDocumentById(id)
-    (doc==None) match{
-      case true => 
-      case false => addCommentToDocument(commentId,id)
+  def commentTheMediaOrDoc(id: ObjectId, commentId: ObjectId) {
+    val doc = Document.findDocumentById(id)
+    (doc == None) match {
+      case true =>
+      case false => addCommentToDocument(commentId, id)
     }
-    
+
   }
 
 }

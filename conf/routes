@@ -139,7 +139,7 @@ POST  /forgotPassword          controllers.UserController.forgotPassword
 #Public Profile
 POST  /allPublicMessages          controllers.PublicProfileController.getAllPublicMessagesForAUser
 POST  /publicProfileInfo          controllers.PublicProfileController.getPublicProfileOfAUser
-POST  /allPublicDocuments         controllers.PublicProfileController.getAllPublicDocumentForAUser
+POST  /allPublicDocuments        controllers.PublicProfileController.getAllPublicDocumentForAUser
 
 
 

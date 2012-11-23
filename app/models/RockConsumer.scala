@@ -23,6 +23,5 @@ object RockDocOrMedia {
     println(id,commentId)
     val consumers: List[RockConsumer] = List(Document, UserMedia)
     consumers.map(_.commentTheMediaOrDoc(id, commentId))
-
   }
 }

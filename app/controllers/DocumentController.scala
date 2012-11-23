@@ -23,7 +23,6 @@ import net.liftweb.json.Serialization.{ read, write }
 import java.text.SimpleDateFormat
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
-import java.net.URL
 import models.ResulttoSent
 import play.api.libs.json._
 import play.api.mvc.Action
@@ -37,7 +36,6 @@ import utils.DocsUploadOnAmazon
 import models.UserMediaType
 import utils.ExtractFrameFromVideo
 import models.MessageType
-import models.DocResulttoSent
 import utils.PreviewOfPDF
 /**
  * This controller class is used to store and retrieve all the information about documents.
@@ -163,7 +161,7 @@ object DocumentController extends Controller {
 
   def getDocumentFromDisk = Action(parse.multipartFormData) { request =>
 
-    var docResultToSend: DocResulttoSent = new DocResulttoSent(new ObjectId, "", "", "")
+    var resultToSend: Option[Message] = None
     val documentJsonMap = request.body.asFormUrlEncoded.toMap
     val streamId = documentJsonMap("streamId").toList(0)
     val docDescription = documentJsonMap("docDescription").toList(0)
@@ -188,20 +186,25 @@ object DocumentController extends Controller {
           val userId = new ObjectId(request.session.get("userId").get)
           val user = User.getUserProfile(userId)
 
-          if (isImage == true)
-            docResultToSend = saveImageFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user)
-          else if (isVideo == true)
-            docResultToSend = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user, docNameOnAmazom)
-          else {
+          if (isImage == true) {
+            val messageToReturn = saveImageFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user)
+            resultToSend = Option(messageToReturn)
+          } else if (isVideo == true) {
+            val messageToReturn = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user, docNameOnAmazom)
+            resultToSend = Option(messageToReturn)
+          } else {
             if (isPdf == true) {
               val previewImageUrl = PreviewOfPDF.convertPdfToImage(documentReceived, docNameOnAmazom)
-              docResultToSend = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user, docNameOnAmazom, previewImageUrl)
-            } else
-              docResultToSend = saveOtherDOcFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user, docNameOnAmazom)
+              val messageToReturn = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user, docNameOnAmazom, previewImageUrl)
+              resultToSend = Option(messageToReturn)
+            } else {
+              val messageToReturn = saveOtherDOcFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user, docNameOnAmazom)
+              resultToSend = Option(messageToReturn)
+            }
           }
         }.get
     }
-    Ok(write(docResultToSend)).as("application/json")
+    Ok(write(resultToSend)).as("application/json")
   }
 
   //---------------------------//
@@ -264,7 +267,8 @@ object DocumentController extends Controller {
     //Create A Message As Well To Display The Doc Creation In Stream
     val message = Message(new ObjectId, docURL, Option(MessageType.Image), None, new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(docURL), Option(mediaId.get))
     Message.createMessage(message)
-    new DocResulttoSent(mediaId.get, docURL, docURL, docDescription, Option(message))
+    message
+    //new DocResulttoSent(mediaId.get, docURL, docURL, docDescription, Option(message))
   }
 
   /**
@@ -278,7 +282,8 @@ object DocumentController extends Controller {
     val mediaId = UserMedia.saveMediaForUser(media)
     val message = Message(new ObjectId, docURL, Option(MessageType.Video), None, new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(videoFrameURL), Option(mediaId.get))
     Message.createMessage(message)
-    new DocResulttoSent(mediaId.get, docURL, videoFrameURL, docDescription, Option(message))
+    message
+    //new DocResulttoSent(mediaId.get, docURL, videoFrameURL, docDescription, Option(message))
   }
 
   /**
@@ -290,7 +295,8 @@ object DocumentController extends Controller {
     val documentId = Document.addDocument(documentCreated)
     val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(previewImageUrl), Option(documentId))
     Message.createMessage(message)
-    new DocResulttoSent(documentId, docURL, documentCreated.previewImageUrl, docDescription, Option(message))
+    message
+    //new DocResulttoSent(documentId, docURL, documentCreated.previewImageUrl, docDescription, Option(message))
   }
   /**
    * Save Pdf
@@ -301,7 +307,8 @@ object DocumentController extends Controller {
     val documentId = Document.addDocument(documentCreated)
     val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), None, Option(documentId))
     Message.createMessage(message)
-    new DocResulttoSent(documentId, docURL, documentCreated.previewImageUrl, docDescription, Option(message))
+    message
+    //new DocResulttoSent(documentId, docURL, documentCreated.previewImageUrl, docDescription, Option(message))
   }
 }
 

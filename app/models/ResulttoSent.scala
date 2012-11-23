@@ -13,11 +13,11 @@ import utils.MongoHQConfig
 case class ResulttoSent(status: String,
   message: String)
 
-case class DocResulttoSent(docId: ObjectId,
-  docUrl: String,
-  previewImageUrl: String,
-  docDescription: String,
-  var message: Option[Message] = None)
+//case class DocResulttoSent(docId: ObjectId,
+//  docUrl: String,
+//  previewImageUrl: String,
+//  docDescription: String,
+//  var message: Option[Message] = None)
 
 //Resultant Class Details
 case class ClassWithNoOfUsers(usersMap: Map[String, Int],
