@@ -14,6 +14,7 @@ import models.ResulttoSent
 import models.Comment
 import models.ResulttoSent
 import models.Question
+import models.RockDocOrMedia
 
 object CommentController extends Controller {
 
@@ -55,6 +56,8 @@ object CommentController extends Controller {
             commentPoster.firstName, commentPoster.lastName, 0, List())
           val commentId = Comment.createComment(comment)
           Message.addCommentToMessage(commentId, new ObjectId(messageId))
+          val message=Message.findMessageById(new ObjectId(messageId)).get
+          if(!(message.docIdIfAny==None)) RockDocOrMedia.commentDocOrMedia(message.docIdIfAny.get,commentId)
           Ok(write(List(comment))).as("application/json")
 
         case false => (commentJson.contains(("docId"))) match {
@@ -111,7 +114,7 @@ object CommentController extends Controller {
         case true =>
 
           val docId = jsonWithid("docId").toList(0)
-          val commentsForADocument = Comment.getAllComments(Document.findDocumentById(new ObjectId(docId)).commentsOnDocument)
+          val commentsForADocument = Comment.getAllComments(Document.findDocumentById(new ObjectId(docId)).get.commentsOnDocument)
           Ok(write(commentsForADocument)).as("application/json")
 
         case false =>

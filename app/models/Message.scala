@@ -42,8 +42,8 @@ case class Message(@Key("_id") id: ObjectId,
   comments: List[ObjectId],
   follows: Int,
   followers: List[ObjectId],
-  anyPreviewImageUrl:Option[String]=None,
-  docIdIfAny:Option[ObjectId]=None)
+  anyPreviewImageUrl: Option[String] = None,
+  docIdIfAny: Option[ObjectId] = None)
 
 object Message { //extends CommentConsumer {
 
@@ -117,6 +117,8 @@ object Message { //extends CommentConsumer {
         val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
         MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(rocks = (updatedMessage.rocks - 1)), false, false, new WriteConcern)
         val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+        if(! (SelectedmessagetoRock.docIdIfAny.equals(None))){RockDocOrMedia.rockDocOrMedia(SelectedmessagetoRock.docIdIfAny.get,userId)}
+        println("Comin Here to unrock")
         finalMessage.rocks
 
       case false =>
@@ -125,6 +127,8 @@ object Message { //extends CommentConsumer {
         val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
         MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(rocks = (updatedMessage.rocks + 1)), false, false, new WriteConcern)
         val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+        if(! (SelectedmessagetoRock.docIdIfAny==None)){RockDocOrMedia.rockDocOrMedia(SelectedmessagetoRock.docIdIfAny.get,userId)}
+         println("Comin Here to rock")
         finalMessage.rocks
     }
 
@@ -220,8 +224,8 @@ object Message { //extends CommentConsumer {
     }
 
   }
-  
-   /*
+
+  /*
    * Is a Rocker 
    * @ Purpose: identify if the user has rocked a message or not
    */
@@ -279,6 +283,7 @@ object Message { //extends CommentConsumer {
       deletedMessageSuccessfully
     }
   }
+
 }
 
 object MessageDAO extends SalatDAO[Message, ObjectId](collection = MongoHQConfig.mongoDB("message"))

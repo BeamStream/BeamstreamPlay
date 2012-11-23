@@ -20,7 +20,8 @@ case class UserMedia(@Key("_id") id: ObjectId,
     isPrimary: Boolean,
     frameURL:String,
     rocks:Int,
-    rockers: List[ObjectId])
+    rockers: List[ObjectId],
+    comments:List[ObjectId])
 
 object UserMediaType extends Enumeration {
   val Image = Value(0, "Image")
@@ -31,7 +32,7 @@ object UserMediaType extends Enumeration {
 
 
 
-object UserMedia {
+object UserMedia extends RockConsumer {
 
   /**
    * Save User Media
@@ -99,11 +100,19 @@ object UserMedia {
   def makePresentOnePrimary(userId: ObjectId) {
     val AlluserMedia = getAllMediaForAUser(userId)
     for (media <- AlluserMedia) {
-      val updatedMedia = new UserMedia(media.id, media.name, media.description,media.userId, media.dateCreated,media.mediaUrl, media.contentType,media.access, false,media.frameURL,0,List())
+      val updatedMedia = new UserMedia(media.id, media.name, media.description,media.userId, media.dateCreated,media.mediaUrl, media.contentType,media.access, false,media.frameURL,0,List(),media.comments)
       UserMediaDAO.update(MongoDBObject("_id" -> media.id), updatedMedia, false, false, new WriteConcern)
     }
   }
   
+  
+  /**
+   * add Comment to UserMedia
+   */
+  def addCommentToUserMedia(commentId: ObjectId, usermediaId: ObjectId) = {
+    val userMedia = UserMediaDAO.find(MongoDBObject("_id" -> usermediaId)).toList(0)
+    UserMediaDAO.update(MongoDBObject("_id" -> usermediaId), userMedia.copy(comments = (userMedia.comments ++ List(commentId))), false, false, new WriteConcern)
+  }
   
    /*
    *  Update the Rockers List and increase the count by one 
@@ -145,6 +154,23 @@ object UserMedia {
     val usermedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
     UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), usermedia.copy(description = newDescription, name = newName), false, false, new WriteConcern)
   }
-
+ 
+   //TODO : Add Rock to Media If Message Contains docIdIfAny
+  def rockTheMediaOrDoc(idToBeRocked: ObjectId, userId: ObjectId){
+    val userMedia=UserMedia.findMediaById(idToBeRocked)
+    if( ! (userMedia==None)) UserMedia.rockUserMedia(idToBeRocked,userId)
+    
+  }
+   //TODO : Add Comment to Media If Message Contains docIdIfAny
+  def commentTheMediaOrDoc(id: ObjectId, commentId: ObjectId){
+    val userMedia=UserMedia.findMediaById(id)
+    (userMedia==None) match{
+      case true => 
+      case false => addCommentToUserMedia(commentId,id)
+    }
+    
+  }
+  
+  
 }
 object UserMediaDAO extends SalatDAO[UserMedia, ObjectId](collection = MongoHQConfig.mongoDB("userMedia"))

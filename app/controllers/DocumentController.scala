@@ -182,54 +182,25 @@ object DocumentController extends Controller {
           val uniqueString = tokenEmail.securityToken
           val documentReceived: File = docData.ref.file.asInstanceOf[File]
           val docUniqueKey = tokenEmail.securityToken
-          val docName = (docUniqueKey + documentName).replaceAll("\\s", "")
-          DocsUploadOnAmazon.uploadFileToAmazon(docName, documentReceived)
-          val docURL = "https://s3.amazonaws.com/BeamStream/" + docName
+          val docNameOnAmazom = (docUniqueKey + documentName).replaceAll("\\s", "")
+          DocsUploadOnAmazon.uploadFileToAmazon(docNameOnAmazom, documentReceived)
+          val docURL = "https://s3.amazonaws.com/BeamStream/" + docNameOnAmazom
+          val userId = new ObjectId(request.session.get("userId").get)
+          val user = User.getUserProfile(userId)
 
-          val user = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-
-          if (isImage == true) {
-            val media = new UserMedia(new ObjectId, documentName, docDescription, new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Image, DocumentAccess.withName(docAccess), false, "", 0, List())
-            val mediaId = UserMedia.saveMediaForUser(media)
-            //Create A Message As Well To Display The Doc Creation In Stream
-            val message = Message(new ObjectId, docURL, Option(MessageType.Image), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(docURL), Option(mediaId.get))
-            Message.createMessage(message)
-            docResultToSend = new DocResulttoSent(mediaId.get, docURL, docURL, docDescription, Option(message))
-
-          } else if (isVideo == true) {
-            val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(docURL)
-            (new AmazonUpload).uploadCompressedFileToAmazon(docName + "Frame", frameOfVideo, 0, false, request.session.get("userId").get)
-            val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docName + "Frame"
-            val media = new UserMedia(new ObjectId, documentName, docDescription, new ObjectId(request.session.get("userId").get), new Date, docURL, UserMediaType.Video, DocumentAccess.withName(docAccess), false, videoFrameURL, 0, List())
-            val mediaId = UserMedia.saveMediaForUser(media)
-            val message = Message(new ObjectId, docURL, Option(MessageType.Video), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(videoFrameURL), Option(mediaId.get))
-            Message.createMessage(message)
-            docResultToSend = new DocResulttoSent(mediaId.get, docURL, videoFrameURL, docDescription, Option(message))
-          } else {
-
+          if (isImage == true)
+            docResultToSend = saveImageFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user)
+          else if (isVideo == true)
+            docResultToSend = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user, docNameOnAmazom)
+          else {
             if (isPdf == true) {
-              val previewImageUrl = PreviewOfPDF.convertPdfToImage(documentReceived, docName)
-              val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.withName(docAccess),
-                new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(), previewImageUrl)
-              val documentId = Document.addDocument(documentCreated)
-              val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(previewImageUrl), Option(documentId))
-              Message.createMessage(message)
-              docResultToSend = new DocResulttoSent(documentId, docURL, documentCreated.previewImageUrl, docDescription, Option(message))
-
-            } else {
-              val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, new ObjectId(request.session.get("userId").get), DocumentAccess.withName(docAccess),
-                new ObjectId(streamId), new Date, new Date, 0, List(), List(), List(), "")
-              val documentId = Document.addDocument(documentCreated)
-              val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(), None, Option(documentId))
-              Message.createMessage(message)
-              docResultToSend = new DocResulttoSent(documentId, docURL, documentCreated.previewImageUrl, docDescription,Option(message))
-            }
-
+              val previewImageUrl = PreviewOfPDF.convertPdfToImage(documentReceived, docNameOnAmazom)
+              docResultToSend = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user, docNameOnAmazom, previewImageUrl)
+            } else
+              docResultToSend = saveOtherDOcFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user, docNameOnAmazom)
           }
         }.get
-
     }
-
     Ok(write(docResultToSend)).as("application/json")
   }
 
@@ -282,6 +253,55 @@ object DocumentController extends Controller {
     val documentId = docIdToFollowJsonMap("documentId").toList(0)
     val followers = Document.followDocument(new ObjectId(request.session.get("userId").get), new ObjectId(documentId))
     Ok(write(followers.toString)).as("application/json")
+  }
+
+  /**
+   * Save Image
+   */
+  private def saveImageFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User) = {
+    val media = new UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Image, DocumentAccess.withName(docAccess), false, "", 0, List(), List())
+    val mediaId = UserMedia.saveMediaForUser(media)
+    //Create A Message As Well To Display The Doc Creation In Stream
+    val message = Message(new ObjectId, docURL, Option(MessageType.Image), None, new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(docURL), Option(mediaId.get))
+    Message.createMessage(message)
+    new DocResulttoSent(mediaId.get, docURL, docURL, docDescription, Option(message))
+  }
+
+  /**
+   * Save Video
+   */
+  private def saveVideoFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User, docNameOnAmazon: String) = {
+    val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(docURL)
+    (new AmazonUpload).uploadCompressedFileToAmazon(docNameOnAmazon + "Frame", frameOfVideo, 0, false, userId.toString)
+    val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docNameOnAmazon + "Frame"
+    val media = new UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Video, DocumentAccess.withName(docAccess), false, videoFrameURL, 0, List(), List())
+    val mediaId = UserMedia.saveMediaForUser(media)
+    val message = Message(new ObjectId, docURL, Option(MessageType.Video), None, new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(videoFrameURL), Option(mediaId.get))
+    Message.createMessage(message)
+    new DocResulttoSent(mediaId.get, docURL, videoFrameURL, docDescription, Option(message))
+  }
+
+  /**
+   * Save Pdf
+   */
+  private def savePdfFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User, docNameOnAmazon: String, previewImageUrl: String) = {
+    val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, userId, DocumentAccess.withName(docAccess),
+      streamId, new Date, new Date, 0, List(), List(), List(), previewImageUrl)
+    val documentId = Document.addDocument(documentCreated)
+    val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(previewImageUrl), Option(documentId))
+    Message.createMessage(message)
+    new DocResulttoSent(documentId, docURL, documentCreated.previewImageUrl, docDescription, Option(message))
+  }
+  /**
+   * Save Pdf
+   */
+  private def saveOtherDOcFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User, docNameOnAmazon: String) = {
+    val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, userId, DocumentAccess.withName(docAccess),
+      streamId, new Date, new Date, 0, List(), List(), List(), "")
+    val documentId = Document.addDocument(documentCreated)
+    val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), None, Option(documentId))
+    Message.createMessage(message)
+    new DocResulttoSent(documentId, docURL, documentCreated.previewImageUrl, docDescription, Option(message))
   }
 }
 
