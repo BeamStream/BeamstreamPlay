@@ -68,6 +68,7 @@ BS.PdfListView = Backbone.View.extend({
                             },
                     dataType : "json",
                     success : function(pdfs) { 
+                    	     
                             var pdfdatas = {
                             "id" : pdfs[0].id.id,
                             "url" : pdfs[0].documentURL,
