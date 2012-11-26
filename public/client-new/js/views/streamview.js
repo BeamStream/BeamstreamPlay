@@ -45,9 +45,9 @@ BS.StreamView = Backbone.View.extend({
            "mouseenter a.strmdoc" : "showDocTitle"         */
 		 
 		 /* For new design work -- polling */
-		 "click .ask-button" :"askQuestions",
-		 "click .add-poll " : "displayOptionsEntry",
-		 "click #add_more_options" :"addMoreOptions"
+//		 "click .ask-button" :"askQuestions",
+//		 "click .add-poll " : "displayOptionsEntry",
+//		 "click #add_more_options" :"addMoreOptions"
  
            
 	 },
@@ -133,7 +133,7 @@ BS.StreamView = Backbone.View.extend({
    //	    this.trigger = $('.trigger');
    //	    this.popup = $('.popup').css('opacity', 0);
 	    
-    		this.source = $("#tpl-main-stream").html();
+    		this.source = $("#tpl-questions").html();
     		this.template = Handlebars.compile(this.source);
     		
     		
