@@ -2137,7 +2137,7 @@ BS.StreamView = Backbone.View.extend({
                      $('li').removeAttr('draggable');
                      $('div.drag-icon').hide();
                         });		
-	$(window).load(function(){		
+//	$(window).load(function(){		
             $('.drag-rectangle').tooltip()		
             $("#user-online").mCustomScrollbar({
                 set_width:false, /*optional element width: boolean, pixels, percentage*/
@@ -2162,9 +2162,30 @@ BS.StreamView = Backbone.View.extend({
                     onScroll:function(){}, /*user custom callback function on scroll event*/
                     onTotalScroll:function(){}, /*user custom callback function on bottom reached event*/
                     onTotalScrollOffset:0 /*bottom reached offset: integer (pixels)*/
-                    }
+                    }                   
                 });
-            });
+                
+                
+                
+                
+                
+//                 $.ajax({
+//                type : 'GET',
+//                url :  BS.onlineUsers,
+//                dataType : "json",
+//                success : function(docs) {
+//                    
+//                console.log('online users -'+docs);
+////                    if(docs.length != 0)  {
+////                        
+////                                                   }
+//               }
+//          });
+                
+                
+                
+                
+//            });
      
      
      
