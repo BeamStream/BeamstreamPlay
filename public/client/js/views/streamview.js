@@ -461,11 +461,11 @@ BS.StreamView = Backbone.View.extend({
 	                	 var datas = {
 	                             "datas" : data,
 		                 }						  
-		                 var source = $("#tpl-messages").html();
-		                 var template = Handlebars.compile(source);
-		                 $('.timeline_items').prepend(template(datas));
-                         var content = '<div class="uploaded"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
-                         $('#'+data.id.id+'-docurl').html(content);
+//		                 var source = $("#tpl-messages").html();
+//		                 var template = Handlebars.compile(source);
+//		                 $('.timeline_items').prepend(template(datas));
+//                         var content = '<div class="uploaded"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
+//                         $('#'+data.id.id+'-docurl').html(content);
                          $('input#'+data.id.id+'-url').val(msgUrl);  
                          $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
                          
@@ -621,6 +621,7 @@ BS.StreamView = Backbone.View.extend({
      }
      else
      {
+    	  
 	      //var urlLink ='';
 	      var self= this;
 	      /* get message details from form */
