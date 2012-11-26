@@ -568,7 +568,7 @@ ul.strem-header-info li a:hover {
 .stream-top-btn a span {
 		background: none repeat scroll 0 0 transparent;
 		float: left;
-		padding: 12px 25px;
+
 }
 
 .stream-top-btn a span.text {
@@ -581,7 +581,7 @@ ul.strem-header-info li a:hover {
 		text-align: center;
 		text-shadow: 1px 1px 1px #333333;
 		text-transform: uppercase;
-		width: 50%;
+
 }
 
 ul.stream-tab {
@@ -731,7 +731,7 @@ ul.stream-tab li a span {
 		float:left;
 }
 
-.unanswerd:hover {
+.unanswerd:hover,.active-text {
 		color: #B93737;
 		text-decoration:underline;
 }
@@ -1265,8 +1265,8 @@ ul.follow-bottom-menu li a.rocks {
 		color: #2596DD;
 }
 
-.grey-buttons:hover {
-		background: #49535a;
+.grey-buttons:hover,.active{
+		background: #49535a; text-decoration:none;
 		color:#fff;
 }
 
