@@ -1259,10 +1259,11 @@ BS.StreamView = Backbone.View.extend({
     showFilesInAPopup : function(eventName){
     	  
     	 var messgeId = eventName.currentTarget.id;
+    	  
     	 var docType =  $('#'+messgeId +'-docType').val();
     	 var docUrl = $('input#'+messgeId+'-mediaUrl').val(); 
     	 /* render google docs */ 
-    	  
+    	 
     	 if(docType == "googleDoc")
     	 {
     		     
