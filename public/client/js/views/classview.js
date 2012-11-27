@@ -29,6 +29,7 @@ BS.ClassView = Backbone.View.extend({
 		BS.classBack = false;
 		this.classes = new BS.Class();
 		this.source = $("#tpl-class-reg").html();
+		 
 		this.template = Handlebars.compile(this.source);
 		 
 	},
@@ -55,7 +56,7 @@ BS.ClassView = Backbone.View.extend({
 				"times" : BS.times,
 				"edit" : edit
 		}
-		 
+		
 		$(this.el).html(this.template(sCount));
 		return this;
 	},

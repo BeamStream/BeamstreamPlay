@@ -142,6 +142,8 @@
     </div>
 </script> 
 
+
+
         <!--  streamview   templates  -->
 <script type="text/x-handlebars-template" id="tpl-main-stream">
       <!--------------------------------------Left Container---------------------------------------->
@@ -155,35 +157,18 @@
                 <button class="btn display-dropdown">Display All Streams</button>
                 <button class="btn display-toggle" data-toggle="dropdown"> <span class="caret display-caret"></span></button>
                 <ul class="dropdown-menu display-sub">
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products </a></li>
+                  <li><a href="#">Class</a></li>
+                  <li><a href="#">Project</a></li>
+                  <li><a href="#">Study </a></li>
                 </ul>
               </div>
-              <a href="#" class="done">DONE </a> </div>
+              <a href="#" class="done">EDIT </a> </div>
             <div class="display-scroller">
               <div class="arrow-block"><span class="caret arrow-up"></span></div>
               <div class="scroll-menu scroller">
                 <ul id="sortable4" class="connected sortable list">
-                  <li class="icon1"><a href="#" class="icon1">Calculus <span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span> </a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li><a href="#" class="icon1">Intro to Java<span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span> </a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li><a href="#" class="icon1">Intro to Business <span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li><a href="#" class="icon2">Best Buddies<span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li><a href="#" class="icon1">Research<span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li><a href="#" class="icon3">Study Team <span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li class="red-bg"> <a href="#" class="read-more">Remove</a> <a href="#" class="cancel">Cancel</a> </li>
+                 
+
                 </ul>
               </div>
               <div class="arrow-block arrow-block-down"></div>
@@ -219,7 +204,15 @@
       <!--------------------------------------Right Conatiner---------------------------------------->
       
       <div class="right-container">
-        <div class="stream-header">
+
+           <!-- ----Render Right_Container template here----- -->
+
+      </div>   
+</script> 
+
+<!--   streamview  Right_Container  template  -->
+ <script type="text/x-handlebars-template" id="tpl-stream-right-container">
+ <div class="stream-header">
           <div class="stream-header-left">
             <h2>Intro to Business<a href="#">Show Details</a></h2>
             <ul class="strem-header-info">
@@ -233,13 +226,163 @@
           <div class="stream-top-shadow"><img src="images/shadow.png"/></div>
         </div>
         <ul class="stream-tab">
-          <li> <a href="#"><span>123</span>Overview</a> </li>
-          <li> <a href="#"  class="active"><span>12</span> Discussions</a> </li>
-          <li> <a href="#">Questions</a> </li>
-          <li> <a href="#"><span>1</span> Deadlines</a> </li>
-          <li> <a href="#">Calendar</a> </li>
+          <li> <a id="overview_tab" href="#"  class="active"><span>123</span>Overview</a> </li>
+          <li> <a id="discussion_tab" href="#" ><span>12</span> Discussions</a> </li>
+          <li> <a id="question_tab" href="#">Questions</a> </li>
+          <li> <a id="deadline_tab" href="#"><span>1</span> Deadlines</a> </li>
+          <li> <a id="calendar_tab" href="#">Calendar</a> </li>
         </ul>
-        <div class="stream-wrapper">
+        <div id="common-middle-contents">
+            <!-----include  Middle_container templete here ------->
+       </div>
+</script>
+
+
+
+
+<!--   stream's overview  Middle_container  template  -->
+ <script type="text/x-handlebars-template" id="tpl-overview-middle-contents">
+<div class="overview-left-container">
+          <div class="overview-boxes">
+            <div class="recent-box-header">
+              <h3> Recent Activity</h3>
+              <div class="btn-group dropdown-outer overview-jumbmenu">
+                <button class="btn normal-dropdown">ALL ACTIVITY</button>
+                <button data-toggle="dropdown" class="btn blue-button "> <span class="caret sort-caret"></span></button>
+                <ul class="dropdown-menu display-sub">
+                  <li><a href="#">Products</a></li>
+                  <li><a href="#">Products</a></li>
+                  <li><a href="#">Products </a></li>
+                </ul>
+              </div>
+            </div>
+            <ul class="recent-questions">
+              <li>
+                <div class="recent-piacture"><img src="images/recent-image.jpg" height="38" width="40"> </div>
+                <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
+                <span>15 min. ago</span>
+                <div class="round-red"><img src="images/round-red.png" height="9" width="10"></div>
+              </li>
+              <li>
+                <div class="recent-piacture"><img src="images/recent-image1.jpg" height="38" width="40"> </div>
+                <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
+                <span>15 min. ago</span>
+                <div class="round-red"><img src="images/round-red.png" height="9" width="10"></div>
+              </li>
+              <li>
+                <div class="recent-piacture"><img src="images/recent-image2.jpg" height="38" width="40"> </div>
+                <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
+                <span>15 min. ago</span>
+                <div class="round-red"><img src="images/round-red.png" height="9" width="10"></div>
+              </li>
+              <li>
+                <div class="recent-piacture"><img src="images/recent-image3.jpg" height="38" width="40"> </div>
+                <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
+                <span>15 min. ago</span> </li>
+              <li>
+                <div class="recent-piacture"><img src="images/recent-image1.jpg" height="38" width="40"> </div>
+                <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
+                <span>15 min. ago</span> </li>
+              <li>
+                <div class="recent-piacture"><img src="images/recent-image2.jpg" height="38" width="40"> </div>
+                <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
+                <span>15 min. ago</span> </li>
+              <li>
+                <div class="recent-piacture"><img src="images/recent-image3.jpg" height="38" width="40"> </div>
+                <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
+                <span>15 min. ago</span> </li>
+              <li>
+                <div class="recent-piacture"><img src="images/recent-image1.jpg" height="38" width="40"> </div>
+                <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
+                <span>15 min. ago</span> </li>
+            </ul>
+          </div>
+          <div class="overview-boxes">
+            <div class="recent-box-header">
+              <h3>Calendar &amp; Events</h3>
+              <a href="#" class="view-calender">View Calendar</a> </div>
+            <a href="#" class="event-block-blue">
+            <h3>In 4 Days</h3>
+            <h6>Ch. 5 Business Exam</h6>
+            <span>10/18/2012</span> </a> <a href="#" class="event-block-blue">
+            <h3>In 4 Days</h3>
+            <h6>Ch. 5 Business Exam</h6>
+            <span>10/18/2012</span> </a> <a href="#" class="event-block-blue"><span class="plus">Add Event</span></a> </div>
+        </div>
+        <div class="overview-right-container">
+          <div class="overview-boxes">
+            <div class="recent-box-header">
+              <h3>Deadlines</h3>
+            </div>
+            <ul class="recent-questions">
+              <li>
+                <p> <a href="#" class="blue-text">5 Page Report on Business </a></p>
+                <span class="dead-date">Due on 10/20/2012</span> <a href="#" class="details-btn">details</a> <a href="#" class="turn-btn">Turn In</a>
+                <div class="round-red"><img src="images/round-red.png" height="9" width="10"></div>
+              </li>
+            </ul>
+          </div>
+          <div class="overview-boxes">
+            <div class="recent-box-header">
+              <h3>Discussions</h3>
+            </div>
+            <ul class="discussion-info">
+              <li>
+                <div class="discussion-block">
+                  <div class="discussion-head">
+                    <div class="discussion-pic"><img src="images/discussion-pic.jpg" height="24" width="26"></div>
+                    <span class="discussion-title">By <a href="#" class="blue-text">Alina K.</a></span> <span class="discussion-date">2 days ago</span> </div>
+                  <p>"If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up..." <a href="#" class="comment">21 Comments</a></p>
+                  <div class="round-red"><img src="images/round-red.png" height="9" width="10"></div>
+                </div>
+              </li>
+              <li>
+                <div class="discussion-block">
+                  <div class="discussion-head">
+                    <div class="discussion-pic"><img src="images/discussion-pic.jpg" height="24" width="26"></div>
+                    <span class="discussion-title">By <a href="#" class="blue-text">Alina K.</a></span> <span class="discussion-date">2 days ago</span> </div>
+                  <p>"If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up..." <a href="#" class="comment">21 Comments</a></p>
+                </div>
+              </li>
+              <li>
+                <div class="discussion-block">
+                  <div class="discussion-head">
+                    <div class="discussion-pic"><img src="images/discussion-pic.jpg" height="24" width="26"></div>
+                    <span class="discussion-title">By <a href="#" class="blue-text">Alina K.</a></span> <span class="discussion-date">2 days ago</span> </div>
+                  <p>"If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up..." <a href="#" class="comment">21 Comments</a></p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="overview-boxes">
+            <div class="recent-box-header">
+              <h3>Questions</h3>
+            </div>
+            <ul class="discussion-info">
+              <li>
+                <div class="discussion-block">
+                  <div class="discussion-head">
+                    <div class="discussion-pic"><img src="images/discussion-pic.jpg" height="24" width="26"></div>
+                    <span class="discussion-title">By <a href="#" class="blue-text">Alina K.</a></span> <span class="discussion-date">2 days ago</span> </div>
+                  <p>"If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up..." <a href="#" class="comment">21 Comments</a></p>
+                </div>
+              </li>
+              <li>
+                <div class="discussion-block">
+                  <div class="discussion-head">
+                    <div class="discussion-pic"><img src="images/discussion-pic.jpg" height="24" width="26"></div>
+                    <span class="discussion-title">By <a href="#" class="blue-text">Alina K.</a></span> <span class="discussion-date">2 days ago</span> </div>
+                  <p>"If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up..." <a href="#" class="comment">21 Comments</a></p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+</script>
+
+<!--   stream's discussion  Middle_container  template  -->
+ <script type="text/x-handlebars-template" id="tpl-discussion-middle-contents">
+<div class="stream-wrapper">
           <div class="question-info">
             <div class="question-sort">
               <h5>SORT BY</h5>
@@ -441,10 +584,236 @@
             </div>
           </div>
         </div>
-      </div>   
+</script>
+
+<!--   stream's Calendar  Middle_container  template  -->
+ <script type="text/x-handlebars-template" id="tpl-clendar-middle-contents">
+	<div class="calender-outer overview-boxes">
+          <h3>Calendar Coming <span>Soon!</span></h3>
+          <a href="#" class="rock-btn"><span>57</span> <span class="rocktext">
+          <h2>Rock It</h2>
+          <p> Click to make us work harder.</p>
+          </span> </a> 
+    </div>
 </script> 
 
-         <!--  Questions  templates  -->
+<!--   stream's questions  Middle_container  template  -->
+ <script type="text/x-handlebars-template" id="tpl-questions-middle-contents">
+<div class="stream-wrapper">
+          <div class="question-info">
+            <div class="question-sort">
+              <h5>SORT BY</h5>
+              <div class="btn-group dropdown-outer">
+                <button class="btn normal-dropdown">Highest Rated</button>
+                <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
+                <ul class="dropdown-menu display-sub">
+                  <li><a href="#">Products</a></li>
+                  <li><a href="#">Products</a></li>
+                  <li><a href="#">Products </a></li>
+                </ul>
+              </div>
+              <div class="btn-group dropdown-outer">
+                <button class="btn normal-dropdown ">This Week</button>
+                <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
+                <ul class="dropdown-menu display-sub">
+                  <li><a href="#">Products</a></li>
+                  <li><a href="#">Products</a></li>
+                  <li><a href="#">Products </a></li>
+                </ul>
+              </div>
+              <form class="all-search">
+                <input type="text" class="quest-search" placeholder="Search Questions">
+              </form>
+              <a href="#" class="unanswerd active-text">20 Unanswered</a> <a href="#" class="unanswerd">12 Answered</a> </div>
+            <div class="clear"></div>
+          </div>
+          <div class="ask-outer">
+            <div class="ask-content">
+              <div class="follw-left">
+                <div class="small-image">
+                  <div class="ask-img"><img src="images/profile-img.png"></div>
+                </div>
+              </div>
+              <div  class="ask-info">
+                <div class="ask-comment">
+                  <div class="ask-left">
+                    <form class="question-ask">
+                      <input type="text" class="question-ask-search"  placeholder="Ask your own question here....">
+                    </form>
+                    <ul class="answer" style="display:none">
+                      <li>
+                        <input name="Answer Is Yes" type="text" id="Answer Is Yes"  placeholder="Add 1st Poll Option">
+                      <li>
+                        <input name="Add Option" type="text" id="Add Option" placeholder="Add 2nd Poll Option">
+                        </li>
+                        
+                        <a href="#" class="add-option">Another Poll Option</a>
+                    </ul>
+                  </div>
+                  <a href="#" class="ask-button">ASK</a> </div>
+                <div class="ask-iconinfo">
+                  <ul class="icons-ask">
+                    <li><img src="images/attach.png" width="22" height="20"></li>
+                    <li><img src="images/card.png" width="18" height="19"></li>
+                  </ul>
+                  <label class="checkbox private-chaeck">
+                    <input type="checkbox"  checked="checked">
+                    Pivate to:</label>
+                  <div class="btn-group class-dropdown">
+                    <button class="btn class-dropdown-bg">Class</button>
+                    <button class="btn class-dropdown-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Products</a></li>
+                      <li><a href="#">Products</a></li>
+                      <li><a href="#">Products </a></li>
+                    </ul>
+                  </div>
+                  <a href="#" class="add-poll ">Add Poll</a>
+                  <ul class="social-icons">
+                    <li><img src="images/google-plus.png" width="25" height="22"></li>
+                    <li><img src="images/p.png" width="25" height="22"></li>
+                    <li><img src="images/twitter.png" width="25" height="22"></li>
+                    <li><img src="images/face-book.png" width="25" height="22"></li>
+                    <li><img src="images/in.png" width="25" height="22"></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="ask-outer follow-container">
+            <div class="ask-content">
+              <div class="follw-left">
+                <div class="small-image">
+                  <div class="ask-img"><img src="images/profile-img.png"></div>
+                  <a href="#" class="follow-button">follow</a> </div>
+              </div>
+              <div  class="ask-info">
+                <div class="ask-comment">
+                  <div class="follow-names">
+                    <ul class="follow-name-left">
+                      <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
+                    </ul>
+                    <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
+                  </div>
+                  <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
+                  
+                  <div class="comment-nofication">
+                  
+                              
+                <fieldset>  <input name="" type="radio" value=""><label>Yellow</label></fieldset>
+                    <fieldset>  <input name="" type="radio" value=""> <label>Red</label></fieldset>
+                  
+                  
+                  </div>
+                  
+                  <div class="follow-bottom">
+                    <ul class="follow-name-left">
+                      <li><a href="#">Rock</a></li>
+                      <li><a href="#"> Answer</a></li>
+                      <li><a href="#"> Comment</a></li>
+                      <li ><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="answer-info">
+                  <div class="answer-conatiner">
+                    <div class="button-block">
+                      <ul class="follow-name-left">
+                        <li><a href="#" class="rocks"><span>57</span></a></li>
+                        <a class="btn grey-buttons active" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
+                      </ul>
+                      <a class="btn blue-buttons showmessage" href="#">Show All</a> </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="ask-outer follow-container">
+            <div class="ask-content">
+              <div class="follw-left">
+                <div class="small-image">
+                  <div class="ask-img"><img src="images/profile-img.png"></div>
+                  <a href="#" class="follow-button">follow</a> </div>
+              </div>
+              <div  class="ask-info">
+                <div class="ask-comment">
+                  <div class="follow-names">
+                    <ul class="follow-name-left">
+                      <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
+                    </ul>
+                    <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
+                  </div>
+                  <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
+                  <div class="follow-bottom">
+                    <ul class="follow-name-left">
+                      <li ><a href="#">Rock</a></li>
+                      <li ><a href="#"> Answer</a></li>
+                      <li><a href="#"> Comment</a></li>
+                      <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="answer-info">
+                  <div class="answer-conatiner">
+                    <div class="button-block">
+                      <ul class="follow-name-left">
+                        <li><a href="#" class="rocks"><span>57</span></a></li>
+                        <a class="btn grey-buttons active" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
+                      </ul>
+                      <a class="btn blue-buttons showmessage" href="#">Show All</a> </div>
+                    <div class="comment-wrapper" id="comments">
+                      <div class="answer-description">
+                        <div class="follw-left">
+                          <div class="small-image">
+                            <div class="ask-img"><img src="images/profile-img.png"></div>
+                          </div>
+                        </div>
+                        <div class="answer-description-info">
+                          <div class="follow-names">
+                            <ul class="follow-name-left">
+                              <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
+                              <li ><a href="#">Rock</a></li>
+                              <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
+                                 <li class="rocks-small"><a href="#">75</a></li>
+                            </ul>
+                          </div>
+                          <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                      <div class="answer-description">
+                        <div class="follw-left">
+                          <div class="small-image">
+                            <div class="ask-img"><img src="images/profile-img.png"></div>
+                          </div>
+                        </div>
+                        <div class="answer-description-info">
+                          <div class="follow-names">
+                            <ul class="follow-name-left">
+                              <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
+                              <li ><a href="#">Rock</a></li>
+                              <li ><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
+                                 <li class="rocks-small"><a href="#">75</a></li>
+                            </ul>
+                          </div>
+                          <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+</script>  
+
+
+<!--  Questions  templates  -->
 <script type="text/x-handlebars-template" id="tpl-questions">
       <!--------------------------------------Left Container---------------------------------------->
       
@@ -807,9 +1176,14 @@
 	<script src="js/models/documentmodel.js"></script>
 	<script src="js/views/streamdocview.js"></script>
 	
+	
 	<!--  New Design -- Question -->
 	<script src="js/models/questionmodel.js"></script>
 	<script src="js/models/optionmodel.js"></script>
+	<script src="js/views/discussionview.js"></script>
+	<script src="js/views/overview.js"></script>
+	<script src="js/views/questionview.js"></script>
+	<script src="js/views/calendarview.js"></script>
 
 	<!-- End -->
 	
