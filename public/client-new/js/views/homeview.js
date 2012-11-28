@@ -122,14 +122,14 @@ BS.NavView = Backbone.View.extend({
 	 },
  
 	 /**
-	  * show active class
+	  * NEW_THEME  set active  class top menus 
 	  * 
 	  */
 	 showActiveClass :function(eventName){ 
 		 eventName.preventDefault();
 		 var id = eventName.target.id;	      
-                $('li a.active').removeClass('active');
-                $('#'+id).addClass('active');
+         $('li a.active').removeClass('active');
+         $('#'+id).addClass('active');
 //	     if(id == "menu-browsemedia")
 //	     {
 //	    	 BS.AppRouter.navigate("filesMedia", {trigger: true});
@@ -164,7 +164,7 @@ BS.NavView = Backbone.View.extend({
 
 
 /**
- * For stream page sub menus 
+ *  For stream page sub menus 
  */
 
 

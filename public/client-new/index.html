@@ -100,8 +100,8 @@
   </div>
 </article>
 </body>
-<!--  backbone templates  -->
-        <!--  mainmenu  templates  -->
+<!-------------------------------  backbone templates ------------------------------ -->
+<!-- ---- mainmenu  templates ------- -->
 <script type="text/x-handlebars-template" id="tpl-navs">
      <div class="container-fluid"> <a href="index.html" class="brand"><img src="images/logo.png" width="148" height="37"></a>
       <form class="navbar-form pull-left search-block">
@@ -112,7 +112,7 @@
       <div class="header-profile">
         <div class="header-icon"><img src="images/icon.png" width="31" height="32"></div>
         <div class="public-profile">
-          <div class="profile-img"><img src="images/profile-img.png" width="41" height="41"></div>
+          <div class="profile-img"><img id="right-top-photo" src="" width="41" height="41"></div>
           <div class="profile-info"> <a href="#" class="profile-button">Public Profile</a>
             <div class="settings-menu">
               <div class="btn-group">
@@ -157,9 +157,14 @@
                 <button class="btn display-dropdown">Display All Streams</button>
                 <button class="btn display-toggle" data-toggle="dropdown"> <span class="caret display-caret"></span></button>
                 <ul class="dropdown-menu display-sub">
-                  <li><a href="#">Class</a></li>
-                  <li><a href="#">Project</a></li>
-                  <li><a href="#">Study </a></li>
+                  <li><a href="#">Class Streams</a></li>
+                  <li><a href="#">Project Streams</a></li>
+                  <li><a href="#">Study Streams</a></li>
+				  <li><a href="#">Group Streams</a></li>
+				  <li><a href="#">Peer Streams</a></li>
+				  <li><a href="#">Friends Streams</a></li>
+				  <li><a href="#">Major Streams</a></li>
+
                 </ul>
               </div>
               <a href="#" class="done">EDIT </a> </div>
@@ -214,15 +219,14 @@
  <script type="text/x-handlebars-template" id="tpl-stream-right-container">
  <div class="stream-header">
           <div class="stream-header-left">
-            <h2>Intro to Business<a href="#">Show Details</a></h2>
+            <h2>{{streamName}}<a href="#">Show Details</a></h2>
             <ul class="strem-header-info">
               <li class="mebers">35 Members</li>
               <li class="claimed">Claimed By: <a href="#">Professor Smith</a> </li>
             </ul>
           </div>
           <div class="stream-header-right">
-            <div class="stream-top-btn"><a href="#"><span><img src="images/follow-icon.png" width="26" height="24"></span><span 		class="text">+ PEOPLE TO CLASS</span></a></div>
-          </div>
+			<a href="#" class="green-btn green-btn-new"><span class="visual visual-new"><img height="24" width="26" src="images/follow-icon.png"></span><span class="texter texter-new">+people to this class</span></a>            </div>
           <div class="stream-top-shadow"><img src="images/shadow.png"/></div>
         </div>
         <ul class="stream-tab">
@@ -390,7 +394,7 @@
                 <button class="btn normal-dropdown">Highest Rated</button>
                 <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
                 <ul class="dropdown-menu display-sub">
-                  <li><a href="#">Products</a></li>
+                  <li><a href="#">Date</a></li>
                   <li><a href="#">Products</a></li>
                   <li><a href="#">Products </a></li>
                 </ul>
@@ -414,7 +418,7 @@
             <div class="ask-content">
               <div class="follw-left">
                 <div class="small-image">
-                  <div class="ask-img"><img src="images/profile-img.png"></div>
+                  <div class="ask-img"><img id="main-photo" src=""></div>
                 </div>
               </div>
               <div  class="ask-info">
@@ -460,22 +464,164 @@
             </div>
             <div class="clear"></div>
           </div>
-          <div class="ask-outer follow-container">
+          <div id= "all-messages">
+<!--           <div class="ask-outer follow-container"> -->
+<!--             <div class="ask-content"> -->
+<!--               <div class="follw-left"> -->
+<!--                 <div class="small-image"> -->
+<!--                   <div class="ask-img"><img src="images/profile-img.png"></div> -->
+<!--                   <a href="#" class="follow-button">follow</a> </div> -->
+<!--               </div> -->
+<!--               <div  class="ask-info"> -->
+<!--                 <div class="ask-comment"> -->
+<!--                   <div class="follow-names"> -->
+<!--                     <ul class="follow-name-left"> -->
+<!--                       <li><span>@AlinaK </span> -  12/1/2011  -  Public</li> -->
+<!--                     </ul> -->
+<!--                     <div class="follow-right"><a href="#" class="follow-button">follow</a></div> -->
+<!--                   </div> -->
+<!--                   <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p> -->
+<!--                   <div class="follow-bottom"> -->
+<!--                     <ul class="follow-name-left"> -->
+                   
+<!--                       <li><a href="#">Rock</a></li> -->
+<!--                       <li ><a href="#"> Comment</a></li> -->
+<!--                       <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li> -->
+<!--                     </ul> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--                 <div class="answer-info"> -->
+<!--                   <div class="answer-conatiner"> -->
+<!--                     <div class="button-block"> -->
+<!--                       <ul class="follow-name-left"> -->
+<!--                         <li><a href="#" class="rocks"><span>57 </span></a></li> -->
+<!--                         <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn grey-buttons" href="#"> <span>43</span> Comments</a> -->
+<!--                       </ul> -->
+<!--                       <a class="btn blue-buttons" href="#">Show All</a> </div> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--             </div> -->
+<!--             <div class="clear"></div> -->
+<!--           </div> -->
+<!--           <div class="ask-outer follow-container"> -->
+<!--             <div class="ask-content"> -->
+<!--               <div class="follw-left"> -->
+<!--                 <div class="small-image"> -->
+<!--                   <div class="ask-img"><img src="images/profile-img.png"></div> -->
+<!--                   <a href="#" class="follow-button">follow</a> </div> -->
+<!--               </div> -->
+<!--               <div  class="ask-info"> -->
+<!--                 <div class="ask-comment"> -->
+<!--                   <div class="follow-names"> -->
+<!--                     <ul class="follow-name-left"> -->
+<!--                       <li><span>@AlinaK </span> -  12/1/2011  -  Public</li> -->
+<!--                     </ul> -->
+<!--                     <div class="follow-right"><a href="#" class="follow-button">follow</a></div> -->
+<!--                   </div> -->
+<!--                   <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p> -->
+<!--                   <div class="follow-bottom"> -->
+<!--                     <ul class="follow-name-left"> -->
+                   
+<!--                       <li><a href="#">Rock</a></li> -->
+<!--                       <li><a href="#"> Comment</a></li> -->
+<!--                       <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li> -->
+<!--                     </ul> -->
+<!--                   </div> -->
+<!--                   <div class="follow-comment"> -->
+<!--                     <textarea cols="" rows="" >Comment</textarea> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--                 <div class="answer-info"> -->
+<!--                   <div class="answer-conatiner"> -->
+<!--                     <div class="button-block"> -->
+<!--                       <ul class="follow-name-left"> -->
+<!--                         <li><a href="#" class="rocks"><span>57  </span></a></li> -->
+<!--                         <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn grey-buttons" href="#"> <span>43</span> Comments</a> -->
+<!--                       </ul> -->
+<!--                       <a class="btn blue-buttons" href="#">Show All</a> </div> -->
+<!--                     <div class="comment-wrapper"> -->
+<!--                       <div class="answer-description"> -->
+<!--                         <div class="follw-left"> -->
+<!--                           <div class="small-image"> -->
+<!--                             <div class="ask-img"><img src="images/profile-img.png"></div> -->
+<!--                           </div> -->
+<!--                         </div> -->
+<!--                         <div class="answer-description-info"> -->
+<!--                           <div class="follow-names"> -->
+<!--                             <ul class="follow-name-left"> -->
+<!--                               <li><span>@AlinaK </span> -  12/1/2011  -  Public</li> -->
+<!--                               <li><a href="#">Rock</a></li> -->
+<!--                               <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li> -->
+<!--                                    <li class="rocks-small"><a href="#">75</a></li> -->
+<!--                             </ul> -->
+<!--                           </div> -->
+<!--                           <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p> -->
+<!--                         </div> -->
+<!--                         <div class="clear"></div> -->
+<!--                       </div> -->
+<!--                       <div class="comment-wrapper"> -->
+<!--                         <div class="answer-description"> -->
+<!--                           <div class="follw-left"> -->
+<!--                             <div class="small-image"> -->
+<!--                               <div class="ask-img"><img src="images/profile-img.png"></div> -->
+<!--                             </div> -->
+<!--                           </div> -->
+<!--                           <div class="answer-description-info"> -->
+<!--                             <div class="follow-names"> -->
+<!--                               <ul class="follow-name-left"> -->
+<!--                                 <li><span>@AlinaK </span> -  12/1/2011  -  Public</li> -->
+<!--                                 <li><a href="#">Rock</a></li> -->
+<!--                                 <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li> -->
+<!--                                    <li class="rocks-small"><a href="#">75</a></li> -->
+<!--                               </ul> -->
+<!--                             </div> -->
+<!--                             <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p> -->
+<!--                           </div> -->
+<!--                           <div class="clear"></div> -->
+<!--                         </div> -->
+<!--                       </div> -->
+<!--                     </div> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--                 <div class="clear"></div> -->
+<!--               </div> -->
+<!--             </div> -->
+<!--           </div> -->
+          </div>
+        </div>
+</script>
+
+<!--   stream's Calendar  Middle_container  template  -->
+ <script type="text/x-handlebars-template" id="tpl-clendar-middle-contents">
+	<div class="calender-outer overview-boxes">
+          <h3>Calendar Coming <span>Soon!</span></h3>
+          <a href="#" class="rock-btn"><span>57</span> <span class="rocktext">
+          <h2>Rock It</h2>
+          <p> Click to make us work harder.</p>
+          </span> </a> 
+    </div>
+</script> 
+
+
+<!--  message templete for stream discussions -->
+ <script type="text/x-handlebars-template" id="tpl-discussion-messages">
+<div id= "{{datas.id.id}}" class="ask-outer follow-container">
             <div class="ask-content">
               <div class="follw-left">
                 <div class="small-image">
-                  <div class="ask-img"><img src="images/profile-img.png"></div>
+                  <div class="ask-img"><img id="{{datas.id.id}}-img" src=""></div>
                   <a href="#" class="follow-button">follow</a> </div>
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="follow-names">
                     <ul class="follow-name-left">
-                      <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
+                      <li><span id="{{datas.userId.id}}" >@{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </span> -  {{datas.timeCreated}}  -  {{datas.messageAccess.name}}</li>
                     </ul>
                     <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
                   </div>
-                  <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
+                  <p>{{datas.messageBody}}</p>
                   <div class="follow-bottom">
                     <ul class="follow-name-left">
                    
@@ -499,97 +645,13 @@
             </div>
             <div class="clear"></div>
           </div>
-          <div class="ask-outer follow-container">
-            <div class="ask-content">
-              <div class="follw-left">
-                <div class="small-image">
-                  <div class="ask-img"><img src="images/profile-img.png"></div>
-                  <a href="#" class="follow-button">follow</a> </div>
-              </div>
-              <div  class="ask-info">
-                <div class="ask-comment">
-                  <div class="follow-names">
-                    <ul class="follow-name-left">
-                      <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
-                    </ul>
-                    <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
-                  </div>
-                  <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
-                  <div class="follow-bottom">
-                    <ul class="follow-name-left">
-                   
-                      <li><a href="#">Rock</a></li>
-                      <li><a href="#"> Comment</a></li>
-                      <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
-                    </ul>
-                  </div>
-                  <div class="follow-comment">
-                    <textarea cols="" rows="" >Comment</textarea>
-                  </div>
-                </div>
-                <div class="answer-info">
-                  <div class="answer-conatiner">
-                    <div class="button-block">
-                      <ul class="follow-name-left">
-                        <li><a href="#" class="rocks"><span>57  </span></a></li>
-                        <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn grey-buttons" href="#"> <span>43</span> Comments</a>
-                      </ul>
-                      <a class="btn blue-buttons" href="#">Show All</a> </div>
-                    <div class="comment-wrapper">
-                      <div class="answer-description">
-                        <div class="follw-left">
-                          <div class="small-image">
-                            <div class="ask-img"><img src="images/profile-img.png"></div>
-                          </div>
-                        </div>
-                        <div class="answer-description-info">
-                          <div class="follow-names">
-                            <ul class="follow-name-left">
-                              <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
-                              <li><a href="#">Rock</a></li>
-                              <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
-                                   <li class="rocks-small"><a href="#">75</a></li>
-                            </ul>
-                          </div>
-                          <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
-                        </div>
-                        <div class="clear"></div>
-                      </div>
-                      <div class="comment-wrapper">
-                        <div class="answer-description">
-                          <div class="follw-left">
-                            <div class="small-image">
-                              <div class="ask-img"><img src="images/profile-img.png"></div>
-                            </div>
-                          </div>
-                          <div class="answer-description-info">
-                            <div class="follow-names">
-                              <ul class="follow-name-left">
-                                <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
-                                <li><a href="#">Rock</a></li>
-                                <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
-                                   <li class="rocks-small"><a href="#">75</a></li>
-                              </ul>
-                            </div>
-                            <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
-                          </div>
-                          <div class="clear"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="clear"></div>
-              </div>
-            </div>
-          </div>
-        </div>
 </script>
 
-<!--   stream's Calendar  Middle_container  template  -->
- <script type="text/x-handlebars-template" id="tpl-clendar-middle-contents">
+
+<!--   stream's Deadline  Middle_container  template  -->
+ <script type="text/x-handlebars-template" id="tpl-deadline-middle-contents">
 	<div class="calender-outer overview-boxes">
-          <h3>Calendar Coming <span>Soon!</span></h3>
+          <h3>Deadlines Coming <span>Soon!</span></h3>
           <a href="#" class="rock-btn"><span>57</span> <span class="rocktext">
           <h2>Rock It</h2>
           <p> Click to make us work harder.</p>
@@ -834,7 +896,7 @@
             <div class="display-scroller">
               <div class="arrow-block"><span class="caret arrow-up"></span></div>
               <div class="scroll-menu scroller">
-                <ul id="sortable4" class="connected sortable list">
+                <ul id="sortable4f" class="connected sortable list">
                   <li class="icon1"><a href="#" class="icon1">Calculus <span class="menu-count"> 543</span><span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span> </a>
                     <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
                   </li>
@@ -898,8 +960,7 @@
             </ul>
           </div>
           <div class="stream-header-right">
-            <div class="stream-top-btn"><a href="#"><span><img src="images/follow-icon.png" width="26" height="24"></span><span 		class="text">+ PEOPLE TO CLASS</span></a></div>
-          </div>
+			<a href="#" class="green-btn green-btn-new"><span class="visual visual-new"><img height="24" width="26" src="images/follow-icon.png"></span><span class="texter texter-new">+people to this class</span></a>            </div>
           <div class="stream-top-shadow"><img src="images/shadow.png"/></div>
         </div>
         <ul class="stream-tab">
@@ -1184,6 +1245,7 @@
 	<script src="js/views/overview.js"></script>
 	<script src="js/views/questionview.js"></script>
 	<script src="js/views/calendarview.js"></script>
+	<script src="js/views/deadlineview.js"></script>
 
 	<!-- End -->
 	

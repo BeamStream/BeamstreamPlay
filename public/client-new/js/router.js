@@ -48,6 +48,9 @@
 	        "pdflistview":"pdflistview",
 	        "settings" : "settings",
 	//        "profile/view/id/:id/name/:name" : "publicProfile"
+	        
+//	        "streams/overview" : "streamOverview",
+//	        "streams/discussions" : "streamDiscussions"
 	        	
  
 	
@@ -569,7 +572,7 @@
 						   $('#content').children().detach();
 						   
 				//		   $('.modal').css('display','none');
-				//		   BS.user.fetch({ success:function(e) {
+						   BS.user.fetch({ success:function(e) {
 							  
 							   //store logged user details
 						       BS.loggedUserInfo  = e;
@@ -596,66 +599,46 @@
 							   this.navView = new BS.NavView({ model: BS.user });
 							    
 							   $('#topheader').html(this.navView.render().el);
-				//			   $('nav li.active').removeClass('active');
-				//			   $('#streamsGroups').addClass('active');
-							     /* get profile images for user */
-				//		          $.ajax({
-				//		    			type : 'POST',
-				//		    			url : BS.profileImage,
-				//		    			dataType : "json",
-				//		    			data : {
-				//			    				 userId :  e.attributes.id.id
-				//			    			},
-				//		    			success : function(data) {
-				//		    				 
-						    				 // default profile image
-				//		    				 if(data.status)
-				//		    				 {
-						    					  
-				//		    					 BS.profileImageUrl = "images/unknown.jpeg";
-								    	        	 
-				//		    				 }
-				//		    				 else
-				//		    				 {   
-						    					 // show primary profile image 
-				//		    					 if(data.contentType.name == "Image")
-				//		    					 {
-				//		    						 BS.profileImageUrl = data.mediaUrl;
-						    						  
-				//                                     BS.primaryImage = data.mediaUrl;
-				 //                                    BS.primaryVideo = '';
-				                                     
-				//		    						 var primaryImage = '<div class="gallery clearfix"><div class="gallery clearfix">'
-				//		    							                 +'<a href="'+data.mediaUrl+'" rel="prettyPhoto"  ><img id= "pp-image" class="p-profile" src="'+data.mediaUrl+'"  width="100%" height="100%"  /></a></div>';
-				//		    						 $('#profile-images').html(primaryImage);
-				//		    					 }
-				//		    					 else
-				//		    					 {
-						    						// show primary profile video
-				//		    						 BS.profileImageUrl = data.frameURL;
-						    						 
-				//		    						 BS.primaryVideo = data.frameURL;
-				//		    						 BS.primaryImage = '';
-						    						 
-				//		    						 var primaryProfile = '<div class="gallery clearfix">'
-				//		    							                  +'</div><div class="gallery clearfix">'
-				//		    							                  +'<a  rel="prettyPhoto" href="'+data.mediaUrl+'">'
-				//		    							                  +'<img class="p-profile" src="'+data.frameURL+'" width="100%" height="100%" /></a></div>';
-				//		    						 $('#profile-images').html(primaryProfile);
-						    						  
-				//		    					 }
-						    					 
-						    					 
-				//		    					 $("area[rel^='prettyPhoto']").prettyPhoto();
-				//	    		 				 $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
-				//	    		 				 $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
-				//	    		 					    				 }
-				//		    				 $('#main-photo').attr("src",BS.profileImageUrl);
-				//			    	         $('#right-photo').attr("src",BS.profileImageUrl);
-				//			    	         $('#msg-photo').attr("src",BS.profileImageUrl);
-						    	        	
-				//		    			}
-				//		    	   });
+							   $('#body-content').html(BS.streamView.el);
+				
+							   
+						       /* get profile images for user */
+					           $.ajax({
+					    			type : 'POST',
+					    			url : BS.profileImage,
+					    			dataType : "json",
+					    			data : {
+						    				 userId :  e.attributes.id.id
+						    	    },
+					    			success : function(data) {
+					    				 
+					    				 // default profile image
+					    				 if(data.status)
+					    				 {
+					    					  
+					    					 BS.profileImageUrl = "images/profile-img.png";
+							    	        	 
+					    				 }
+					    				 else
+					    				 {   
+					    					 // show primary profile image 
+					    					 if(data.contentType.name == "Image")
+					    					 {
+					    						 BS.profileImageUrl = data.mediaUrl;
+
+					    					 }
+					    					 else
+					    					 {
+					    						// show primary profile video
+					    						 BS.profileImageUrl = data.frameURL;
+					    											    						  
+					    					 }
+				    		 			 }
+					    				 $('#right-top-photo').attr("src",BS.profileImageUrl);
+					    				 $('#main-photo').attr("src",BS.profileImageUrl);
+					    	        	
+					    			}
+					    	     });
 						          
 						          // list all schools under profile pic
 				//		          $.ajax({
@@ -676,26 +659,8 @@
 						          
 						    
 				//	   	   $('.modal-backdrop').hide();
-					       $('#body-content').html(BS.streamView.el);
-					       
-					       /* render right container contents corresponds to each streams*/
-					       self.source = $("#tpl-stream-right-container").html();
-					       self.template = Handlebars.compile(self.source);
-				    	   $('.right-container').html(self.template);
-				    	   
-				    	   
-//				    	   /* render discussion middle contents corresponds to each streams*/
-//					       var rightSource = $("#tpl-discussion-middle-contents").html();
-//				    	   var rightTemplate = Handlebars.compile(rightSource);
-//				    	   $('#common-middle-contents').html(rightTemplate);
-				    	   
-				    	   /* render discussion middle contents corresponds to each streams*/
-				    	   self.source = $("#tpl-overview-middle-contents").html();
-				    	   self.template = Handlebars.compile(self.source);
-				    	   $('#common-middle-contents').html(self.template);
-				    	   
-//				    	   console.log($('#common-middle-contents'));
-	//				       BS.streamView.slider();
+					      
+
 				//	       $('.page-loader').hide();
 				      	
 				//	       $(".checkbox").dgStyle();
@@ -712,7 +677,7 @@
 	//			           }, 500);                  
 				               
 					        
-				//		 }});
+				}});
 						   
 						   
 							 
@@ -726,7 +691,41 @@
 	  
 		    
 	   },
-	   
+//	   /**
+//	    * NEW THEME-  for render basic  frame structure
+//	    */
+//	   renderStructure:function(){
+//		   BS.streamView = new BS.StreamView({ model: BS.user });
+//		   BS.streamView.render();
+//		   $('#body-content').html(BS.streamView.el);
+//	       
+//	       /* render right container contents corresponds to each streams*/
+//	       self.source = $("#tpl-stream-right-container").html();
+//	       self.template = Handlebars.compile(self.source);
+//    	   $('.right-container').html(self.template);
+//	   },
+//	   
+//	   /**
+//	    * NEW THEME- Stream Disccusion View
+//	    */
+//	   streamDiscussions : function(){
+//		    
+//		   this.renderStructure();
+//		   BS.discussionView = new BS.DiscussionView();
+//		   BS.discussionView.render();
+//		   $('#common-middle-contents').html(BS.discussionView.el);
+//	   },
+//	   
+//	   
+//	   /**
+//	    * NEW THEME- Stream Overview View
+//	    */
+//	   streamOverview : function(){
+//		   this.renderStructure();
+//		   BS.overView = new BS.OverView();
+//		   BS.overView.render();
+//		   $('#common-middle-contents').html(BS.overView.el);
+//	   },
 	  
 	    /**
 	    * registration after email verification

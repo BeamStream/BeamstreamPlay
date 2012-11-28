@@ -63,7 +63,9 @@
 			 /* For new design work -- polling */
 			 "click .close-btn" : "closeStreamTab",
 			 "click .cancel" : "closeRemoveOption",
-			 "click .stream-tab a" : "renderSubMenuPages"
+			 "click .stream-tab a" : "renderSubMenuPages",
+			 "click #chat-status" : "openOnlineUsersWindow",
+			 "click .sortable li" : "renderRightContenetsOfSelectedStream",
 	//		 "click .ask-button" :"askQuestions",
 	//		 "click .add-poll " : "displayOptionsEntry",
 	//		 "click #add_more_options" :"addMoreOptions"
@@ -137,7 +139,7 @@
 	    initialize:function () {
 	    	
 	    	console.log('Initializing Stream View');
-	  //   	BS.urlRegex1 = /(https?:\/\/[^\s]+)/g;
+	     	BS.urlRegex1 = /(https?:\/\/[^\s]+)/g;
 	  //   	BS.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\./]*$/i ;
 	  //   	BS.urlRegex2 =  /^((http|https|ftp):\/\/)/;
 	  //    	BS.commentCount = 0;
@@ -154,6 +156,10 @@
 		    
 	    		this.source = $("#tpl-main-stream").html();
 	    		this.template = Handlebars.compile(this.source);
+	    		
+	    		// for pagination in message feed
+	    		BS.pagenum = 1;
+	    		BS.pageLimit = 10;
 	    		
 	    		
 	    		/* Start --New Design */
@@ -249,7 +255,7 @@
 						 var classStreams ='';
 						 _.each(datas, function(data) {
 							 
-							    streams+='<li><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#" class="icon1">'+data.streamName+'<span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>'						    	
+							    streams+='<li id ="'+data.id.id+'"><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#" class="icon1">'+data.streamName+'<span class="close-btn drag-rectangle" data-original-title="Delete"><img src="images/close.png"></span></a>'						    	
 	                                   +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>'
 	                                   +'</li>';
 	//							streams+= '<li><span class="flag-piece"></span><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
@@ -260,6 +266,28 @@
 						 
 						 $('#sortable4').html(streams);
 						 self.slider();
+						 
+						 // make first li as active li
+						 $('#sortable4 li:first').addClass('active');
+						 var streamName = $('#sortable4 li.active a').attr('name');
+						 
+						 // dynamic details for top stream submenus 
+						 var topMenuDetails = {
+								 streamName : streamName,
+						 }
+						 
+						 /* render right container contents corresponds to each streams*/
+				         rightContentSource = $("#tpl-stream-right-container").html();
+				         rightContentTemplate = Handlebars.compile(rightContentSource);
+			    	     $('.right-container').html(rightContentTemplate(topMenuDetails));
+				    	   
+				    	   
+			    	     /* render discussion middle contents corresponds to each streams*/
+			    	     middleContentSource = $("#tpl-overview-middle-contents").html();
+			    	     middleContentTemplate = Handlebars.compile(middleContentSource);
+			    	     $('#common-middle-contents').html(middleContentTemplate);
+			    	     
+			    	     
 						 
 	//					 $('#streams-list li:first').addClass('active');
 						 
@@ -319,39 +347,350 @@
 	    	eventName.preventDefault();
 	    	var id = eventName.target.id;
 	    	 
-			 $('.stream-tab a.active').removeClass('active');
-		     $('#'+id).addClass('active');
-		     if(id == "calendar_tab")
-		     {
+		    //render middle contents
+		    this.renderMiddleContents(id);
+	    },
+	    
+	    /**
+	     * NEW THEME - opne online users window
+	     */
+	    openOnlineUsersWindow: function(eventName){
+	    	 $('#user-online').toggle('slow');
+	    },
+	    
+	    
+	    /**
+	     * NEW THEME - render right contenets of a selected stream
+	     */
+	    renderRightContenetsOfSelectedStream: function(eventName){
+	    	eventName.preventDefault();
+		    var id = eventName.target.id;
+		    var streamName = eventName.target.name;
+		      
+		    streamName = $('#'+id+'').text();
+		
+		    $('.sortable li.active').removeClass('active');
+		    $('.sortable li#'+id+'').addClass('active');
+		    
+		    // dynamic details for top stream submenus 
+			var topMenuDetails = {
+					 streamName : streamName,
+			}
+			
+			var currentlyActiveSubMenu = $('.stream-tab a.active').attr('id');
+			 
+			
+			/* render right container contents corresponds to each streams*/
+	        rightContentSource = $("#tpl-stream-right-container").html();
+	        rightContentTemplate = Handlebars.compile(rightContentSource);
+	        $('.right-container').html(rightContentTemplate(topMenuDetails));
+	        
+	        //render middle contents
+	        this.renderMiddleContents(currentlyActiveSubMenu);
+	    	
+	    },
+	    
+	    /**
+	     * NEW THEME - renderMiddle Contents of stream page
+	     */
+	    renderMiddleContents: function(subMenu){
+	    	
+	    	var self = this;
+	    	$('.stream-tab a.active').removeClass('active');
+		    $('#'+subMenu).addClass('active');
+		    var streamId =  $('.sortable li.active').attr('id');
+		    
+	    	
+	    	if(subMenu == "calendar_tab")
+		    {
 		    	BS.calendarView = new BS.CalendarView();
 				BS.calendarView.render();
   				$('#common-middle-contents').html(BS.calendarView.el);
 			   	
-		     }
-		     else if(id == "discussion_tab")
-		     {
-		    	
+		    }
+		    else if(subMenu == "discussion_tab")
+		    {
+		    	 
 				BS.discussionView = new BS.DiscussionView();
 				BS.discussionView.render();
   				$('#common-middle-contents').html(BS.discussionView.el);
-		     }
-		     else if(id == "question_tab")
-		     {
+  				
+  				// get all messages
+  				BS.pagenum =1;  
+                if(streamId)
+                  self.getAllMessages(streamId,BS.pagenum,BS.pageLimit);
+  				
+		    }
+		    else if(subMenu == "question_tab")
+		    {
 		    	
 				BS.questionView = new BS.QuestionView();
 				BS.questionView.render();
   				$('#common-middle-contents').html(BS.questionView.el);
-		     }
-		     else if(id == "deadline_tab")
-		     {
-		    	 $('#common-middle-contents').html("");
-		     }
-		     else
-		     {
+		    }
+		    else if(subMenu == "deadline_tab")
+		    {
+		    	 BS.deadlineView = new BS.DeadlineView();
+				 BS.deadlineView.render();
+		    	 $('#common-middle-contents').html(BS.deadlineView.el);
+		    }
+		    else
+		    {
 		    	BS.overView = new BS.OverView();
 				BS.overView.render();
   				$('#common-middle-contents').html(BS.overView.el);
-		     }
+		    }
+		    $('#main-photo').attr("src",BS.profileImageUrl);
+	    	
+	    },
+	    
+	    /**
+	     * NEW THEME - get all messages of a stream
+	     */
+	    getAllMessages :function(streamid,pageNo,limit){
+	    	
+	    	 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+	         var trueurl='';
+	         var self = this;
+	         /* get all messages of a stream  */
+			 $.ajax({
+					type : 'POST',
+					url : BS.streamMessages,
+					data :{
+						streamId :streamid,
+						pageNo : pageNo,
+						limit : limit
+					},
+					dataType : "json",
+					success : function(data) {
+						 
+						//hide page loader image
+						if(!data.length)
+							$('.page-loader').hide();
+							   
+						//display the messages
+						_.each(data, function(data) {
+							var messageType ='';
+							var msgBody = data.messageBody;
+	                                                        
+							//var links =  msgBody.match(BS.urlRegex); 
+	                        var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
+	                        	trueurl= msgUrlw;    
+	                            return msgUrlw;
+	                        });
+	                        
+	                        //to get the extension of the uploaded file
+	                        var extension = (trueurl).match(pattern);  
+	                        
+                           
+	                        if(data.messageType.name == "Text")
+	                        {    
+	                            	 
+		                         //to check whether the url is a google doc url or not
+	                             if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) 
+	                             {
+	                            	 messageType = "googleDocs";
+	                             }
+	                             else
+	                             {
+	                            	 messageType = "messageOnly";
+	                                 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+	                                       return '<a target="_blank" href="' + url + '">' + url + '</a>';
+	                                 });
+	                             }
+	                        }
+	                        else
+	                        {          
+	                             // set first letter of extension in capital letter  
+	   		                	 extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+	   		                	    return letter.toUpperCase();
+	   		                	 });
+	                                  
+	                        }
+	                       
+							var datas = {
+ 							 	 "datas" : data,
+ 						    }
+                            BS.filesMediaView = new BS.FilesMediaView(); 
+			                var datVal =  BS.filesMediaView.formatDateVal(data.timeCreated);
+								
+//							if(messageType == "googleDocs")
+//							{
+								 
+//								var datas = {
+//										    "datas" : data,
+//		                                    "datVal" :datVal,
+//		                                    "previewImage" : "images/google_docs_image.png",
+//		                                    "type" : "googleDoc"
+//							     }	
+//								var source = $("#tpl-messages_with_docs").html();
+		  						
+//							}
+//							else if(messageType == "messageOnly")
+//							{
+								
+								var source = $("#tpl-discussion-messages").html();
+		  						
+//							}
+//							else
+//							{
+//								if(data.messageType.name == "Image")
+//								{
+//									var source = $("#tpl-messages_with_images").html();
+//			  						
+//								}
+//								else if(data.messageType.name == "Video")
+//								{
+//									var source = $("#tpl-messages_with_images").html();
+//			  						
+//								}
+//								else
+//								{
+//									var previewImage = '';
+//									var commenImage ="";
+//									var type = "";
+//									 
+//									if(extension == 'Ppt')
+//									{
+//			                            previewImage= "images/presentations_image.png";
+//			                            type = "ppt";
+//			                            
+//									}
+//									else if(extension == 'Doc')
+//									{
+//										previewImage= "images/docs_image.png";
+//										type = "doc";
+//										 	
+//									}
+//									else if(extension == 'Pdf')
+//									{
+//										 
+//										previewImage= data.anyPreviewImageUrl;
+//										type = "pdf";
+//									}
+//									else
+//									{
+//										previewImage= "images/textimage.png";
+//										commenImage = "true";
+//										type = "doc";
+//										
+//									}
+//									
+//									var datas = {
+//										    "datas" : data,
+//		                                    "datVal" :datVal,
+//		                                    "previewImage" :previewImage,
+//		                                    "extension" : extension,
+//		                                    "commenImage" : commenImage,
+//		                                    "type" : type
+//							        }	
+//								
+//								    var source = $("#tpl-messages_with_docs").html();
+		  						
+//							  }
+									
+//							}
+							
+//							$('.right-container').html(rightContentTemplate(topMenuDetails));
+							var template = Handlebars.compile(source);
+//	  						$('.page-loader').hide();
+	  						$('#all-messages').append(template(datas));
+	  						
+//	  						/* check whether the user is follwer of a message or not */
+//	  				         $.ajax({
+//	  				    			type : 'POST',
+//	  				    			url : BS.isAFollower,
+//	  				    			data : {
+//	  				    				 messageId : data.id.id
+//	  				    			},
+//	  				    			dataType : "json",
+//	  				    			success : function(status) {
+//	  				    				 if(status == "true")
+//	  				    					 $('#'+data.id.id+'-follow').html("Unfollow");
+//	  				    			}
+//	  				    	 });
+		  						 
+	  						 /* get profile images for messages */
+	  				         $.ajax({
+	  				    			type : 'POST',
+	  				    			url : BS.profileImage,
+	  				    			data : {
+	  				    				 userId :  data.userId.id
+	  				    			},
+	  				    			dataType : "json",
+	  				    			success : function(pofiledata) {
+	  				    				var imgUrl;
+	  				    				if(pofiledata.status)
+	  				    				 {
+	  				    					imgUrl = "images/profile-img.png";
+	  				    				 }
+	  				    				 else
+	  				    				 {   
+	  				    					 // shoe primary profile image 
+	  				    					 if(pofiledata.contentType.name == "Image")
+	  				    					 {
+	  				    						imgUrl = pofiledata.mediaUrl;
+	  				    					 }
+	  				    					 // shoe primary profile video 
+	  				    					 else
+	  				    					 {
+	  				    						imgUrl = pofiledata.frameURL;
+	  				    					 }
+	  				    				 }
+	  				    				$('img#'+data.id.id+'-img').attr("src", imgUrl);
+	  				    			}
+	  				    	 });
+		  				           
+//	  						 if(linkTag)
+//	  							 $('div#'+data.id.id+'-id').html(linkTag);
+		  						 
+//                             var url=data.messageBody;
+//                             if(data.messageType.name == "Text"){   
+//	                                             
+//	                             if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
+//		                             // embedly
+//		                             $('div#'+data.id.id+'-id').embedly({
+//		                                     maxWidth: 200,
+//		                                     msg : 'https://assets0.assembla.com/images/assembla-logo-home.png?1352833813',
+//				                             wmode: 'transparent',
+//				                             method: 'after',
+//				                             key:'4d205b6a796b11e1871a4040d3dc5c07'
+//		                             });
+//	                              }
+//
+//	                         }
+//	                         else       
+//	                         {
+//	                            	 
+//	                            	 if(data.messageType.name == "Image")
+//	                            	 {
+//	                            		   
+////	                            		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
+//	 
+//
+//	                            	 }
+//	                            	 else if(data.messageType.name == "Video")
+//	                            	 {
+////	                            		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>';
+//	                            	 }
+//	                            	 else
+//	                            	 {
+//	                            	 }
+//	                            	 
+//	                                 $('input#'+data.id.id+'-url').val(msgUrl); 
+//	                            	 
+//	                            	 /* for video popups */
+//	                                 $("area[rel^='prettyPhoto']").prettyPhoto();
+//	              					 $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
+//	              					 $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
+//	              			
+//	                           }
+
+		  						 
+//		  					   self.showAllComments(data.id.id);
+					      });
+					}
+			 });
 	    	
 	    },
 	    
