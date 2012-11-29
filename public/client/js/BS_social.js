@@ -122,18 +122,52 @@ function janrainWidgetOnload() {
                   localStorage["location"] = '';
                 else
                   localStorage["location"] = res.profile.address.formatted;
-
-                localStorage["first-name"] = res.profile.name.givenName;
-                localStorage["last-name"] = res.profile.name.familyName;
-                localStorage["email"] = res.profile.preferredUsername;
-              }
-              /* LinkedIn signUp */
-              else if (res.profile.providerName == "LinkedIn") {
-                if ((res['profile']['address']) === undefined)
-                  localStorage["location"] = '';
-                else
-                  localStorage["location"] = res.profile.address.formatted;
-
+                  localStorage["first-name"] = res.profile.name.givenName;
+                  localStorage["last-name"] = res.profile.name.familyName;
+                  localStorage["email"] = res.profile.preferredUsername;
+                }
+                /* LinkedIn signUp */
+                else if (res.profile.providerName == "LinkedIn") {
+                  var addre=null;
+                  //console.log('address- '+res.profile.address.formatted);
+                  if ((res['profile']['address']) === undefined)
+                   { localStorage["location"] = ''; }
+                  else {        
+                               //code to finout location using geocode and reverse geocoding
+                   geocoder = new google.maps.Geocoder();
+                   var address = res.profile.address.formatted;
+                   geocoder.geocode( { 'address': address}, function(results, status) {
+                   if (status == google.maps.GeocoderStatus.OK) {
+                   var data=results[0].geometry.location.$a+','+results[0].geometry.location.ab;
+                   var latlngStr = data.split(',', 2);
+                   var lat = parseFloat(latlngStr[0]);
+                   var lng = parseFloat(latlngStr[1]);
+                   var latlng = new google.maps.LatLng(lat, lng);
+                   geocoder.geocode({'latLng': latlng}, function(results, status) {
+                   if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[3]) {
+                     var address=results[3].formatted_address;
+                     var splitaddress=address.split(",");			
+                     linklocation(splitaddress[0]);
+                     addre =splitaddress[0];
+                    } 
+                    else {
+                    alert('No results found');
+                    }
+                   } 
+                   else {
+                   alert('Geocoder failed due to: ' + status);
+                   }
+                   });
+                   } else {
+                   data='';
+                   }
+                   });      
+                 }
+                  //method for assigne location
+                function linklocation(splitaddress){
+                    localStorage["location"] = splitaddress;
+                  }
                 localStorage["first-name"] = res.profile.name.givenName;
                 localStorage["last-name"] = res.profile.name.familyName;
                 localStorage["email"] = res.profile.preferredUsername;
