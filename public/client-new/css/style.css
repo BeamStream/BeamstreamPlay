@@ -105,7 +105,6 @@ body {
 		font-size: 12px;
 		font-weight: bold;
 		margin: 1px 0 0;
-		padding: 2px 12px;
 		text-align: center;
 		text-shadow: 1px 1px 1px #888888;
 }
@@ -373,6 +372,42 @@ body {
 		float: right;
 		margin: -20px 20px 0;
 }
+
+.remove-btn {
+
+		 background:#952525; border-bottom:solid 1px #612020;
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 0px 5px;position:absolute; width:50px !important; text-align:center !important;
+	 right:15px;top:7px; 
+							
+}
+
+.remove-btn:hover{
+
+		 background:#572828; 
+								
+}
+
+
+.cancel-btn {
+		
+  color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 0px 5px;		 position:absolute; 
+		right:15px; top:30px;							
+}
+
+.remove-btn a {
+	padding:0px 2px !important; font-size:11px !important; height:20px !important; line-height:20px !important; 
+								
+}
+
+
+
 
 .read-more {
 		background: none repeat scroll 0 0 #952525;
@@ -1388,6 +1423,10 @@ ul.follow-bottom-icons li:hover {
 .sortable li.active {
 		background: none repeat scroll 0 0 #293339;
 }
+.sortable li.red-active {
+		background: none repeat scroll 0 0 #b93737;
+}
+
 
 ul.sortable li a {
 		color: #FFFFFF;
@@ -1406,6 +1445,10 @@ ul.sortable li a:hover {
 ul.sortable li a.icon1 {
 		background: url("../images/icon01.png") no-repeat scroll left 7px transparent;
 }
+ul.sortable li a.red-active-icon1 {
+		background: url("../images/iocn01-active.png") no-repeat scroll left 7px transparent;
+}
+
 
 ul.sortable li a.icon2 {
 		background: url("../images/icon02.png") no-repeat scroll left center transparent;
@@ -1986,6 +2029,11 @@ ul.discussion-info li:nth-child(2n) {
 		font-weight:700;
 }
 
+.menu-count-red {
+		background:#952525;
+}
+
+
 .add-option {
 		margin:10px 0 0 0;
 		color:#999;
@@ -2243,3 +2291,4 @@ ul.profil-pic-outer li {
 
 .browse-search-block{ float:left;}
 .browse-file{ font-weight:normal !important; font-size:12px !important;}
+

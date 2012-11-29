@@ -255,9 +255,10 @@
 						 var classStreams ='';
 						 _.each(datas, function(data) {
 							 
-							    streams+='<li id ="'+data.id.id+'"><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#" class="icon1">'+data.streamName+'<span class="close-btn drag-rectangle" data-original-title="Delete"><img src="images/close.png"></span></a>'						    	
+							    streams+='<li id ="'+data.id.id+'"><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#" class="icon1">'+data.streamName+'<span class="close-btn drag-rectangle" data-original-title="Delete"><img id ="'+data.id.id+'" src="images/close.png"></span></a>'						    	
 	                                   +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>'
 	                                   +'</li>';
+							    
 	//							streams+= '<li><span class="flag-piece"></span><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
 	//	 						classStreams+= '<li  id="'+data.id.id+'"><a id="'+data.id.id+'"  href="#">'+data.streamName+'</a></li>';
 	
@@ -323,11 +324,17 @@
 	     */
 	    closeStreamTab :function(eventName){
 	    	eventName.preventDefault();
-	    	var self =this;
+	    	var self = this;
 	    	var id = eventName.target.id;
 	    	var streamId =$(eventName.target).parents('span').parents('a').attr('id');
-	    	var removeOption = '<li id="'+streamId+'" class="red-bg"> <a href="#" class="read-more">Remove</a> <a href="#" class="cancel">Cancel</a> </li>';
+//	    	var removeOption = '<li class="icon1 red-active"><a href="#" class="red-active-icon1">Calculus <span class="menu-count menu-count-red"> 543</span> </a>'
+//                    +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>'
+//                    +'<span class="remove-btn"><a href="#">Remove</a></span>'
+//                     +'<span class="remove-btn cancel-btn "><a href="#">Cancel</a></span>'
+//                     +'</li>';
+	    	var removeOption = '<li id="'+streamId+'" class="red-bg"> <a href="#" class="read-more">Remove</a> <a href="#" id="'+streamId+'" class="cancel">Cancel</a> </li>';
 	    	$(eventName.target).parents('li').after(removeOption);
+//	    	$(eventName.target).html(removeOption);
 	    	
 	    },
 	    
@@ -370,7 +377,9 @@
 		    streamName = $('#'+id+'').text();
 		
 		    $('.sortable li.active').removeClass('active');
-		    $('.sortable li#'+id+'').addClass('active');
+		    console.log(id);
+		    console.log('li#'+id);
+		    $('.sortable li#'+id).addClass('active');
 		    
 		    // dynamic details for top stream submenus 
 			var topMenuDetails = {

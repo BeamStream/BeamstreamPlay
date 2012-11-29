@@ -1026,6 +1026,14 @@ ul.social-icons{
 }
 
 
+.profile-button {
+		padding: 2px 30px;
+
+}
+
+
+
+
 
 /*  Overview  */
 .event-block-blue {
@@ -1518,6 +1526,16 @@ ul.social-icons{
     left: 33px;
     top: 8px;
 				}
+
+
+
+.profile-button {
+		padding: 5px 100px; margin-top:2px; margin-right:20px;
+
+}
+
+
+
 
 
 }
@@ -2084,5 +2102,14 @@ ul.stream-tab li a span {
     padding: 18px 20px 20px 55px;
 
 }
+
+.profile-button {
+		padding: 2px 12px;
+
+}
+
+
+
+
 
 }
