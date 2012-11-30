@@ -24,59 +24,13 @@
 <script type="text/JavaScript" src="lib/jquery.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700' rel='stylesheet' type='text/css'>
 <script type="text/JavaScript" src="lib/bootstrap.js"></script>
-    <!-----------left Container scroller --->
-<script type="text/javascript"> 
-    (function($) {
-//        $(function() { //on DOM ready
-//            $(".scroller").simplyScroll({
-//            customClass: 'vert',
-//            orientation: 'vertical',
-//            auto: false,
-//            manualMode: 'loop',
-//            frameRate: 20,
-//            speed: 5
-//            });		
-//        $('#sortable1, #sortable2').sortable();
-//        $('#sortable3').sortable({
-//            items: ':not(.disabled)'
-//            });
-//        $('#sortable-with-handles').sortable({
-//            handle: '.handle'
-//            });
-//        $('#sortable4, #sortable5').sortable({
-//            connectWith: '.connected'
-//            });		
-//	});	
-//	$(window).load(function(){		
-//            $('.drag-rectangle').tooltip()		
-//            $("#user-online").mCustomScrollbar({
-//                set_width:false, /*optional element width: boolean, pixels, percentage*/
-//                set_height:false, /*optional element height: boolean, pixels, percentage*/
-//                horizontalScroll:false, /*scroll horizontally: boolean*/
-//                scrollInertia:550, /*scrolling inertia: integer (milliseconds)*/
-//                scrollEasing:"easeOutCirc", /*scrolling easing: string*/
-//                mouseWheel:"auto", /*mousewheel support and velocity: boolean, "auto", integer*/
-//                autoDraggerLength:true, /*auto-adjust scrollbar dragger length: boolean*/
-//                scrollButtons:{ /*scroll buttons*/
-//                    enable:false, /*scroll buttons support: boolean*/
-//                    scrollType:"continuous", /*scroll buttons scrolling type: "continuous", "pixels"*/
-//                    scrollSpeed:20, /*scroll buttons continuous scrolling speed: integer*/
-//                    scrollAmount:40 /*scroll buttons pixels scroll amount: integer (pixels)*/
-//                    },
-//                advanced:{
-//                    updateOnBrowserResize:true, /*update scrollbars on browser resize (for layouts based on percentages): boolean*/
-//                    updateOnContentResize:false, /*auto-update scrollbars on content resize (for dynamic content): boolean*/
-//                    autoExpandHorizontalScroll:false /*auto expand width for horizontal scrolling: boolean*/
-//                    },
-//                callbacks:{
-//                    onScroll:function(){}, /*user custom callback function on scroll event*/
-//                    onTotalScroll:function(){}, /*user custom callback function on bottom reached event*/
-//                    onTotalScrollOffset:0 /*bottom reached offset: integer (pixels)*/
-//                    }
-//                });
-//            });			
-    })(jQuery);        
-</script>
+
+<!-- embedly preview js -->
+<link rel="stylesheet" href="css/extracss/embedly-preview.css" type="text/css" />
+<script src="lib/extralib/jquery.embedly.min.js" type="text/javascript"></script>
+<script src="lib/extralib/embedly-preview.js" type="text/javascript"></script>
+<!-- end  -->
+
 </head>
 
 <body>
@@ -225,8 +179,19 @@
               <li class="claimed">Claimed By: <a href="#">Professor Smith</a> </li>
             </ul>
           </div>
-          <div class="stream-header-right">
-			<a href="#" class="green-btn green-btn-new"><span class="visual visual-new"><img height="24" width="26" src="images/follow-icon.png"></span><span class="texter texter-new">+people to this class</span></a>            </div>
+          <div class="stream-header-right"> 
+           	<a href="#" class="green-btn green-btn-new">
+           		<span class="visual visual-new">
+           			<img src="images/plus.png" width="23" height="22">
+           		</span>
+           		<span class="texter texter-new">
+           			<span>
+           				<img src="images/members-icon.png" width="22" height="21">
+           			</span>to this class
+           		</span>
+           	</a> 
+           </div>
+
           <div class="stream-top-shadow"><img src="images/shadow.png"/></div>
         </div>
         <ul class="stream-tab">
@@ -434,10 +399,10 @@
                       </div>
                     </div>
                   </div>
-                  <a href="#" id="post-button" class="ask-button">POST</a> </div>
+                  <a  id="post-button" class="ask-button">POST</a> </div>
                 <div class="ask-iconinfo">
                   <ul class="icons-ask">
-                    <li><a href="#"><img src="images/attach.png" width="22" height="20"></a></li>
+                    <li><a id="upload-files"  href="#"><img src="images/attach.png" width="22" height="20"></a></li>
                     <li><a href="#"><img src="images/card.png" width="18" height="19"></a></li>
                   </ul>
                   <label class="checkbox private-chaeck">
@@ -452,12 +417,12 @@
                       <li><a href="#">Products </a></li>
                     </ul>
                   </div>
-                  <ul class="social-icons">
-                    <li><a href="#"><img src="images/google-plus.png" width="25" height="22"></a></li>
-                    <li><a href="#"><img src="images/p.png" width="25" height="22"></a></li>
-                    <li><a href="#"><img src="images/twitter.png" width="25" height="22"></a></li>
-                    <li><a href="#"><img src="images/face-book.png" width="25" height="22"></a></li>
-                    <li><a href="#"><img src="images/in.png" width="25" height="22"></a></li>
+                   <ul class="social-icons">
+                    <li class="google-plus"><a href="#">Google plus</a></li>
+                    <li class="plus"><a href="#">p</a></li>
+                    <li class="twitter"> <a href="#">Twitter</a></li>
+                    <li class="facebook"><a href="#"> face book</a></li>
+                    <li class="in"><a href="#"> in</a></li>
                   </ul>
                 </div>
               </div>
@@ -631,7 +596,7 @@
                     </ul>
                   </div>
                   <div id="{{datas.id.id}}-addComments" class="follow-comment">
-					<textarea rows="" cols="" placeholder="Add Comments.." ></textarea>
+					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." ></textarea>
 				 </div>
                 </div>
                 <div class="answer-info">
@@ -639,11 +604,13 @@
                     <div class="button-block">
                       <ul class="follow-name-left">
                         <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks"><span>{{datas.rocks}}</span></a></li>
-                        <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn grey-buttons" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
+                        <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
                       </ul>
-                      <a class="btn blue-buttons show-all-comments" href="#">Show All</a> 
+                      <a id="{{datas.id.id}}-show-hide" class="btn blue-buttons show-all" href="#">Show All</a> 
                       </div>
                       <div id="{{datas.id.id}}-allComments" class="comment-wrapper">
+                      </div>
+					  <div id="{{datas.id.id}}-newCommentList" class="comment-wrapper">
                       </div>
                   </div>
                 </div>
@@ -653,24 +620,48 @@
           </div>
 </script>
 
-<!--  comment templete for stream discussions messages -->
+<!--  comment templete for stream discussions messages  comments-->
  <script type="text/x-handlebars-template" id="tpl-discussion-messages-comment">
- <div class="answer-description">
+ <div class="answer-description"  id="{{id.id}}">
                         <div class="follw-left">
                           <div class="small-image">
-                            <div class="ask-img"><img src="images/profile-img.png"></div>
+                            <div class="ask-img"><img id="{{id.id}}-image" src="images/profile-img.png"></div>
                           </div>
                         </div>
                         <div class="answer-description-info">
                           <div class="follow-names">
                             <ul class="follow-name-left">
-                              <li><span>@{{firstNameofCommentPoster}} {{lastNameofCommentPoster}} </span> -  12/1/2011  -  Public</li>
-                              <li ><a href="#">Rock</a></li>
+                              <li><span>@{{firstNameofCommentPoster}} {{lastNameofCommentPoster}} </span> -  {{timeCreated}}  -  Public</li>
+                              <li ><a href="#" class="rock-comments" >Rock</a></li>
                               <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
-                                 <li class="rocks-small"><a href="#">75</a></li>
+                                 <li class="rocks-small"><a id="{{{id.id}}-rockCount" href="#">{{{rocks}}</a></li>
                             </ul>
                           </div>
-                          <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
+                          <p>{{commentBody}}</p>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+</script>
+
+
+<!--  comment templete for newly added comments -->
+ <script type="text/x-handlebars-template" id="tpl-discussion-messages-newComment">
+ <div class="answer-description" id="{{id.id}}">
+                        <div class="follw-left">
+                          <div class="small-image">
+                            <div class="ask-img"><img id="{{id.id}}-newCmtImage" src="images/profile-img.png"></div>
+                          </div>
+                        </div>
+                        <div class="answer-description-info">
+                          <div class="follow-names">
+                            <ul class="follow-name-left">
+                              <li><span>@{{firstNameofCommentPoster}} {{lastNameofCommentPoster}} </span> -  {{timeCreated}}  -  Public</li>
+                              <li ><a href="#" class="rock-comments" >Rock</a></li>
+                              <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
+                                 <li class="rocks-small"><a id="{{{id.id}}-rockCount" href="#">{{{rocks}}</a></li>
+                            </ul>
+                          </div>
+                          <p>{{commentBody}}</p>
                         </div>
                         <div class="clear"></div>
                       </div>
@@ -723,23 +714,22 @@
             <div class="ask-content">
               <div class="follw-left">
                 <div class="small-image">
-                  <div class="ask-img"><img src="images/profile-img.png"></div>
+                  <div class="ask-img"><img src="images/picture.jpg"></div>
                 </div>
               </div>
               <div  class="ask-info">
-                <div class="ask-comment">
+                <div class="ask-comment ask-type-area ">
                   <div class="ask-left">
                     <form class="question-ask">
-                      <input type="text" class="question-ask-search"  placeholder="Ask your own question here....">
+                      <textarea placeholder="Ask your own question here....." class="question-ask-search" rows="" cols="" name=""></textarea>
                     </form>
                     <ul class="answer" style="display:none">
                       <li>
                         <input name="Answer Is Yes" type="text" id="Answer Is Yes"  placeholder="Add 1st Poll Option">
                       <li>
                         <input name="Add Option" type="text" id="Add Option" placeholder="Add 2nd Poll Option">
-                        </li>
-                        
-                        <a href="#" class="add-option">Another Poll Option</a>
+                      </li>
+                      <a href="#" class="add-option">Another Poll Option</a>
                     </ul>
                   </div>
                   <a href="#" class="ask-button">ASK</a> </div>
@@ -762,11 +752,11 @@
                   </div>
                   <a href="#" class="add-poll ">Add Poll</a>
                   <ul class="social-icons">
-                    <li><img src="images/google-plus.png" width="25" height="22"></li>
-                    <li><img src="images/p.png" width="25" height="22"></li>
-                    <li><img src="images/twitter.png" width="25" height="22"></li>
-                    <li><img src="images/face-book.png" width="25" height="22"></li>
-                    <li><img src="images/in.png" width="25" height="22"></li>
+                    <li class="google-plus"><a href="#">Google plus</a></li>
+                    <li class="plus"><a href="#">p</a></li>
+                    <li class="twitter"> <a href="#">Twitter</a></li>
+                    <li class="facebook"><a href="#"> face book</a></li>
+                    <li class="in"><a href="#"> in</a></li>
                   </ul>
                 </div>
               </div>
@@ -777,7 +767,7 @@
             <div class="ask-content">
               <div class="follw-left">
                 <div class="small-image">
-                  <div class="ask-img"><img src="images/profile-img.png"></div>
+                  <div class="ask-img"><img src="images/picture.jpg"></div>
                   <a href="#" class="follow-button">follow</a> </div>
               </div>
               <div  class="ask-info">
@@ -789,16 +779,23 @@
                     <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
                   </div>
                   <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
-                  
                   <div class="comment-nofication">
-                  
-                              
-                <fieldset>  <input name="" type="radio" value=""><label>Yellow</label></fieldset>
-                    <fieldset>  <input name="" type="radio" value=""> <label>Red</label></fieldset>
-                  
-                  
+                    <div class="comment-nofication-left">
+                      <fieldset>
+                        <input type="radio" id="radio-1-1" name="radio-1-set" class="regular-radio" checked />
+                        <label for="radio-1-1"></label>
+                        <label>Yellow</label>
+                      </fieldset>
+                      <fieldset>
+                        <input type="radio" id="radio-1-2" name="radio-1-set" class="regular-radio  red" />
+                        <label for="radio-1-2"></label>
+                        <label>Red</label>
+                      </fieldset>
+                    </div>
+                    <div class="chart"> <span class="chart-count"><span class="yellow">50%</span></span>
+                      <div class="chart-round"> <img src="images/pie-chart.png" width="113" height="113"></div>
+                      <span class="chart-count"><span class="red">50%</span></span> </div>
                   </div>
-                  
                   <div class="follow-bottom">
                     <ul class="follow-name-left">
                       <li><a href="#">Rock</a></li>
@@ -806,7 +803,7 @@
                       <li><a href="#"> Comment</a></li>
                       <li ><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
                     </ul>
-                  </div>
+                    <a id="50b710d5e4b08b73aaa7b269" href="#" class="delete_msg"></a> </div>
                 </div>
                 <div class="answer-info">
                   <div class="answer-conatiner">
@@ -826,7 +823,7 @@
             <div class="ask-content">
               <div class="follw-left">
                 <div class="small-image">
-                  <div class="ask-img"><img src="images/profile-img.png"></div>
+                  <div class="ask-img"><img src="images/picture.jpg"></div>
                   <a href="#" class="follow-button">follow</a> </div>
               </div>
               <div  class="ask-info">
@@ -859,7 +856,7 @@
                       <div class="answer-description">
                         <div class="follw-left">
                           <div class="small-image">
-                            <div class="ask-img"><img src="images/profile-img.png"></div>
+                            <div class="ask-img"><img src="images/picture.jpg"></div>
                           </div>
                         </div>
                         <div class="answer-description-info">
@@ -868,7 +865,7 @@
                               <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                               <li ><a href="#">Rock</a></li>
                               <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
-                                 <li class="rocks-small"><a href="#">75</a></li>
+                              <li class="rocks-small"><a href="#">75</a></li>
                             </ul>
                           </div>
                           <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
@@ -878,7 +875,7 @@
                       <div class="answer-description">
                         <div class="follw-left">
                           <div class="small-image">
-                            <div class="ask-img"><img src="images/profile-img.png"></div>
+                            <div class="ask-img"><img src="images/picture.jpg"></div>
                           </div>
                         </div>
                         <div class="answer-description-info">
@@ -887,7 +884,7 @@
                               <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                               <li ><a href="#">Rock</a></li>
                               <li ><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
-                                 <li class="rocks-small"><a href="#">75</a></li>
+                              <li class="rocks-small"><a href="#">75</a></li>
                             </ul>
                           </div>
                           <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
@@ -989,8 +986,18 @@
               <li class="claimed">Claimed By: <a href="#">Professor Smith</a> </li>
             </ul>
           </div>
-          <div class="stream-header-right">
-			<a href="#" class="green-btn green-btn-new"><span class="visual visual-new"><img height="24" width="26" src="images/follow-icon.png"></span><span class="texter texter-new">+people to this class</span></a>            </div>
+           <div class="stream-header-right"> 
+           	<a href="#" class="green-btn green-btn-new">
+           		<span class="visual visual-new">
+           			<img src="images/plus.png" width="23" height="22">
+           		</span>
+           		<span class="texter texter-new">
+           			<span>
+           				<img src="images/members-icon.png" width="22" height="21">
+           			</span>to this class
+           		</span>
+           	</a> 
+           </div>
           <div class="stream-top-shadow"><img src="images/shadow.png"/></div>
         </div>
         <ul class="stream-tab">
@@ -1070,12 +1077,12 @@
                     </ul>
                   </div>
                   <a href="#" class="add-poll ">Add Poll</a>
-                  <ul class="social-icons">
-                    <li><img src="images/google-plus.png" width="25" height="22"></li>
-                    <li><img src="images/p.png" width="25" height="22"></li>
-                    <li><img src="images/twitter.png" width="25" height="22"></li>
-                    <li><img src="images/face-book.png" width="25" height="22"></li>
-                    <li><img src="images/in.png" width="25" height="22"></li>
+                   <ul class="social-icons">
+                    <li class="google-plus"><a href="#">Google plus</a></li>
+                    <li class="plus"><a href="#">p</a></li>
+                    <li class="twitter"> <a href="#">Twitter</a></li>
+                    <li class="facebook"><a href="#"> face book</a></li>
+                    <li class="in"><a href="#"> in</a></li>
                   </ul>
                 </div>
               </div>

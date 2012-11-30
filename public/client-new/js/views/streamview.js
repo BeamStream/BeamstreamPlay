@@ -71,7 +71,13 @@
 			 "click .rock-message" : "rockMessage",
 			 "click .rocks" : "rockMessage",
 			 "click .add-comment" : "showCommentTextArea",
-			 "click .show-all-comments" : "showCommentList"
+			 "click .show-all" : "showAllList",
+			 "click .show-all-comments" : "showAllCommentList",
+			 "keypress .add-message-comment" : "addMessageComments",
+			 "click .rock-comments" : "rockComment",
+			 "click .rocks-small a" : "rockComment",
+			 "keypress #msg-area" : "postMessageOnEnterKey",
+			 "click #upload-files" : "showUploadSection"
 	//		 "click .ask-button" :"askQuestions",
 	//		 "click .add-poll " : "displayOptionsEntry",
 	//		 "click #add_more_options" :"addMoreOptions"
@@ -333,10 +339,10 @@
 	    	var StreamName = $(eventName.target).parents('li').attr('name');
 	    	
 	    	// set new style for li
-	    	var removeOption = '<a href="#" class="red-active-icon1">'+StreamName+'</a>'
-                               +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>'
-                               +'<span  class="remove-btn"><a  href="#">Remove</a></span>'
-                               +'<span class="remove-btn cancel-btn "><a  href="#">Cancel</a></span>';
+             
+            var removeOption = '<a href="#" class="red-active-icon1">'+StreamName+' </a>'
+            				   +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>'
+            				   +'<span class="remove-btn"><a href="#">Remove</a></span> <span class="remove-btn cancel-btn "><a href="#">Cancel</a></span>';
 	    	
 	    	$(eventName.target).parents('li').addClass("icon1 red-active");
 	    	$(eventName.target).parents('li').html(removeOption);
@@ -671,47 +677,47 @@
 	  						 if(linkTag)
 	  							 $('p#'+data.id.id+'-id').html(linkTag);
 		  						 
-//                             var url=data.messageBody;
-//                             if(data.messageType.name == "Text"){   
-//	                                             
-//	                             if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
-//		                             // embedly
-//		                             $('div#'+data.id.id+'-id').embedly({
-//		                                     maxWidth: 200,
-//		                                     msg : 'https://assets0.assembla.com/images/assembla-logo-home.png?1352833813',
-//				                             wmode: 'transparent',
-//				                             method: 'after',
-//				                             key:'4d205b6a796b11e1871a4040d3dc5c07'
-//		                             });
-//	                              }
-//
-//	                         }
-//	                         else       
-//	                         {
-//	                            	 
-//	                            	 if(data.messageType.name == "Image")
-//	                            	 {
-//	                            		   
-////	                            		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
-//	 
-//
-//	                            	 }
-//	                            	 else if(data.messageType.name == "Video")
-//	                            	 {
-////	                            		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>';
-//	                            	 }
-//	                            	 else
-//	                            	 {
-//	                            	 }
-//	                            	 
+                             var url=data.messageBody;
+                             if(data.messageType.name == "Text"){   
+	                                             
+	                             if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
+		                             // embedly
+		                             $('p#'+data.id.id+'-id').embedly({
+		                                     maxWidth: 200,
+		                                     msg : 'https://assets0.assembla.com/images/assembla-logo-home.png?1352833813',
+				                             wmode: 'transparent',
+				                             method: 'after',
+				                             key:'4d205b6a796b11e1871a4040d3dc5c07'
+		                             });
+	                              }
+
+	                         }
+	                         else       
+	                         {
+	                            	 
+	                            	 if(data.messageType.name == "Image")
+	                            	 {
+	                            		   
+//	                            		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
+	 
+
+	                            	 }
+	                            	 else if(data.messageType.name == "Video")
+	                            	 {
+//	                            		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>';
+	                            	 }
+	                            	 else
+	                            	 {
+	                            	 }
+	                            	 
 //	                                 $('input#'+data.id.id+'-url').val(msgUrl); 
-//	                            	 
+	                            	 
 //	                            	 /* for video popups */
 //	                                 $("area[rel^='prettyPhoto']").prettyPhoto();
 //	              					 $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
 //	              					 $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
-//	              			
-//	                           }
+	              			
+	                           }
 
 		  						 
 		  					   self.showAllComments(data.id.id);
@@ -744,37 +750,37 @@
 		  			    var comments = $("#tpl-discussion-messages-comment").html();
 					    var commentsTemplate = Handlebars.compile(comments);
 					    $('#'+parentMsg+'-allComments').prepend(commentsTemplate(data));
-//							 
-//					    /* get profile images for comments */
-//				        $.ajax({
-//				        	type : 'POST',
-//			    			url : BS.profileImage,
-//			    			data : {
-//			    				 userId :  data.userId.id
-//			    			},
-//			    			dataType : "json",
-//			    			success : function(pofiledata) {
-//			    				var imgUrl;
-//			    				if(pofiledata.status)
-//			    				{
-//			    					imgUrl = "images/unknown.jpeg";
-//			    				}
-//			    			    else
-//		    				    {   
-//			    			    	// shoe primary profile image 
-//		    					    if(pofiledata.contentType.name == "Image")
-//		    					    {
-//		    					    	imgUrl = pofiledata.mediaUrl;
-//		    					    }
-//			    					// shoe primary profile video 
-//			    					else
-//			    					{
-//			    						imgUrl = pofiledata.frameURL;
-//			    					}
-//	  				    		}
-//			    				$('#'+data.id.id+'-image').attr("src" ,imgUrl); 
-//			    			}
-//				        });
+							 
+					    /* get profile images for comments */
+				        $.ajax({
+				        	type : 'POST',
+			    			url : BS.profileImage,
+			    			data : {
+			    				 userId :  data.userId.id
+			    			},
+			    			dataType : "json",
+			    			success : function(pofiledata) {
+			    				var imgUrl;
+			    				if(pofiledata.status)
+			    				{
+			    					imgUrl = "images/profile-img.png";
+			    				}
+			    			    else
+		    				    {   
+			    			    	// shoe primary profile image 
+		    					    if(pofiledata.contentType.name == "Image")
+		    					    {
+		    					    	imgUrl = pofiledata.mediaUrl;
+		    					    }
+			    					// shoe primary profile video 
+			    					else
+			    					{
+			    						imgUrl = pofiledata.frameURL;
+			    					}
+	  				    		}
+			    				$('#'+data.id.id+'-image').attr("src" ,imgUrl); 
+			    			}
+				        });
 							  
 	            	});
 	        	    if(cmtCount)
@@ -792,10 +798,65 @@
 			});
 	    },
 	    /**
+	     * NEW THEME - post message on enter key
+	     */
+	    postMessageOnEnterKey: function(eventName){
+	    	var self = this;
+			 
+			if(eventName.which == 13) {
+				self.postMessage(); 
+			}
+			if(eventName.which == 32){
+				 
+				var text = $('#msg-area').val();
+			    var links =  text.match(BS.urlRegex); 
+					 
+			    /* create bitly for each url in text */
+				if(links)
+				{
+						 
+					if(!BS.urlRegex2.test(links[0])) {
+						urlLink = "http://" + links[0];
+				  	}
+			     	else
+			     	{
+			    		urlLink =links[0];
+			     	}
+						 
+					//To check whether it is google docs or not
+					if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))  
+		            { 
+						/* don't create bitly for shortened  url */
+						if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
+						{
+							/* create bitly  */
+							$.ajax({
+				    			type : 'POST',
+				    			url : BS.bitly,
+				    			data : {
+				    				 link : urlLink 
+				    			},
+				    			dataType : "json",
+				    			success : function(data) {
+				    				 var msg = $('#msg-area').val();
+				    				 message = msg.replace(links[0],data.data.url);
+				    				 $('#msg-area').val(message);
+						    				
+				    			}
+				    		});
+
+							$('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+						          
+				        }
+		            }
+			    }
+		 	}
+    	},
+	    /**
 	     * NEW THEME - post messages on post button click 
 	     */
 	    postMessage: function(eventName){
-	    	eventName.preventDefault();
+//	    	eventName.preventDefault();
 	    	// upload file 
 	        var self = this;
 	        var streamId =  $('.sortable li.active').attr('id');
@@ -1181,13 +1242,13 @@
   								 //to check the extension of the url                                            
                                  if(!url.match(/^(https:\/\/docs.google.com\/)/)) 
                                  {	
-//                                	 // embedly
-//                                	 $('div#'+data.id.id+'-id').embedly({
-//                                		 maxWidth: 200,
-// 	                                	 wmode: 'transparent',
-//                                		 method: 'after',
-//                                		 key:'4d205b6a796b11e1871a4040d3dc5c07'
-//		  	  					 	 });
+                                	 // embedly
+                                	 $('p#'+data.id.id+'-id').embedly({
+                                		 maxWidth: 200,
+ 	                                	 wmode: 'transparent',
+                                		 method: 'after',
+                                		 key:'4d205b6a796b11e1871a4040d3dc5c07'
+		  	  					 	 });
                                  }
                                  else
                                  {            
@@ -1204,10 +1265,10 @@
 //			    	 	 });
 		     		 }      
    				     
-//   				     /* delete default embedly preview */
-//			  		 $('div.selector').attr('display','none');
-//   				  	 $('.emdform').find('div.selector').remove();
-//   				  	 $('.emdform').find('input[type="hidden"].preview_input').remove(); 
+   				     /* delete default embedly preview */
+			  		 $('div.selector').attr('display','none');
+			  		 $('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
+			  		 $('div.selector').remove();
    				  	 $('#msg-area').val("");
 
     	 		 }
@@ -1299,6 +1360,7 @@
 			if($('#'+messageId+'-addComments').is(":visible"))
 			{
 				$('#'+messageId+'-addComments').slideToggle(300); 
+				
 			}
 			else
 			{
@@ -1308,14 +1370,165 @@
 			
         },
         
+        
         /**
-         * NEW THEME - show all comments
+         *  NEW THEME - post new comments on enter key press
          */
-        showCommentList: function(eventName){
+        addMessageComments: function(eventName){
+        	
+        	var element = eventName.target.parentElement;
+        	var parent =$(element).parents('div.follow-container').attr('id');
+        	var totalComments =  $('#'+parent+'-totalComment').text();
+        	 
+        	var self =this;
+        
+        	/* post comments on enter key press */
+        	if(eventName.which == 13) {
+        		
+        		eventName.preventDefault(); 
+   			 	var commentText = $('#'+parent+'-msgComment').val();
+//   			
+   			 	/* post comments information */
+   		        $.ajax({
+   		        	type : 'POST',
+   		  			url : BS.newComment,
+   		  			data : {
+   		  				messageId : parent,
+   		  				comment : commentText
+   		  			},
+   		  			dataType : "json",
+   				  	success : function(datas) { 
+   				  				 
+   				  		$('#'+parent+'-msgComment').val('');
+   				  		
+   				  		_.each(datas, function(data) {
+   				  			totalComments++; 
+   				  			var comments = $("#tpl-discussion-messages-comment").html();
+   							var commentsTemplate = Handlebars.compile(comments);
+   							 
+   							$('#'+parent+'-allComments').prepend(commentsTemplate(data));
+   							$('#'+data.id.id+'-image').attr("src" ,BS.profileImageUrl );
+   							 
+   							if(!$('#'+parent+'-allComments').is(':visible'))
+   							{  
+   								var newComments = $("#tpl-discussion-messages-newComment").html();
+   								var newCmtTemplate = Handlebars.compile(newComments);
+   								$('#'+parent+'-newCommentList').prepend(newCmtTemplate(data));
+   								$('#'+data.id.id+'-newCmtImage').attr("src" ,BS.profileImageUrl );
+   								
+   							}
+   							$('#'+parent+'-show-hide').text("Hide All");
+   							$('#'+parent+'-totalComment').text(totalComments);
+   							/* auto push */
+   		  					var streamId = $('.sortable li.active').attr('id');
+//   			                PUBNUB.publish({
+//   			                	channel : "comment",
+//		                        message : { pagePushUid: self.pagePushUid ,data:data,parent:parent,cmtCount:cmtCount,prifileImage : BS.profileImageUrl}
+//   			                })
+   							 
+			  		    });
+   				  				
+
+			  	    }
+	  		    });
+	        }
+        },
+        
+        /**
+         * NEW THEME-  Show / hide all comments of a message
+         */
+        showAllCommentList: function(eventName){
         	eventName.preventDefault();
         	var element = eventName.target.parentElement;
 			var messageId =$(element).parents('div.follow-container').attr('id');
-			$('#'+messageId+'-allComments').slideToggle(600); 
+			if($('#'+messageId+'-allComments').is(":visible"))
+			{
+				$('#'+messageId+'-newCommentList').html('');
+				$('#'+messageId+'-allComments').slideUp(600); 
+				$('#'+messageId+'-show-hide').text("Show All");
+			}
+			else
+			{
+				$('#'+messageId+'-newCommentList').html('');
+				$('#'+messageId+'-allComments').slideDown(600); 
+				$('#'+messageId+'-show-hide').text("Hide All");
+			}
+        },
+        /**
+         * NEW THEME - show / hide all comments ..
+         */
+        showAllList: function(eventName){
+        	eventName.preventDefault();
+        	
+        	var element = eventName.target.parentElement;
+			var messageId =$(element).parents('div.follow-container').attr('id');
+			if($('#'+messageId+'-show-hide').text() == "Hide All")
+            {
+				$('#'+messageId+'-newCommentList').html('');
+				$('#'+messageId+'-allComments').slideUp(600); 
+				$(eventName.target).text("Show All");
+            }
+			else
+			{
+				$('#'+messageId+'-newCommentList').html('');
+				$('#'+messageId+'-allComments').slideDown(600);
+				$(eventName.target).text("Hide All");
+			}
+			
+        },
+        
+        /**
+         * NEW THEME - Rock comments
+         */
+        rockComment: function(eventName){
+        	
+        	eventName.preventDefault();
+        	
+        	var commentId = $(eventName.target).parents('div.answer-description').attr('id');
+        	var messageId = $(eventName.target).parents('div.follow-container').attr('id');
+        	var self = this;
+        	
+        	/* Rock comment */
+    		$.ajax({
+    			type: 'POST',
+                url:BS.rockingTheComment,
+                data:{
+                	commentId:commentId,
+                	messageId : messageId
+                },
+                dataType:"json",
+                success:function(data){
+                	 
+                	// display the count in icon
+                	$('#'+commentId+'-rockCount').html(data);
+                	
+                	/*auto push */
+    				var streamId = $('.sortable li.active').attr('id');
+//    				PUBNUB.publish({
+//                          channel : "commentRock",
+//                          message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,commentId:commentId }
+//                    })
+     
+                }
+            });
+        },
+        
+        /**
+         * NEW THEME - show upload file section
+         */
+        showUploadSection: function(eventName){
+        	eventName.preventDefault();
+        	if($('.embed-info').is(":visible"))
+        	{
+        		$('.embed-info').css("display","none");
+        	}
+        	else
+        	{
+        		$('.embed-info').css("display","block");
+        	}
+        	
+        	
+        	
         },
 	    /**
 	     * get all class streams of a user
@@ -2372,75 +2585,75 @@
 			 
 		 },
 		 
-		 /**
-		  * post message on enter key press
-		  */
-		 postMessageOnEnterKey : function(eventName){
-			 var self = this;
-			 
-			 if(eventName.which == 13) {
-				 self.postMessage(); 
-			 }
-			 if(eventName.which == 32){
-				 
-				 var text = $('#msg').val();
-			     var links =  text.match(BS.urlRegex); 
-					 
-					  /* create bitly for each url in text */
-		//			 _.each(links, function(link) {
-						  
-					 if(links)
-				     {
-						 
-						 if(!BS.urlRegex2.test(links[0])) {
-					    		urlLink = "http://" + links[0];
-					  	 }
-					     else
-					     {
-					    		urlLink =links[0];
-					     }
-						 
-						 if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
-			             { 
-							 /* don't create bitly for shortened  url */
-							 if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
-							 {
-						    	  /* create bitly  */
-						          $.ajax({
-						    			type : 'POST',
-						    			url : BS.bitly,
-						    			data : {
-						    				 link : urlLink 
-						    			},
-						    			dataType : "json",
-						    			success : function(data) {
-						    				 var msg = $('#msg').val();
-						    				 message = msg.replace(links[0],data.data.url);
-						    				 $('#msg').val(message);
-						    				
-						    			}
-						    		});
-						          
-	//					          var preview = {
-	//					        	        submit : function(e, data){
-	//					        	        	
-	//					        	          e.preventDefault();
-	//					        	          console.log(data);
-	//					        	          this.display.create(data);
-	//					        	          
-	//					        	        }
-	//					        	      }
-						          $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
-						          
-						          
-					        }
-			             }
-	                           
-				      }
-		//				});
-			 }
-			 
-		 },
+//		 /**
+//		  * post message on enter key press
+//		  */
+//		 postMessageOnEnterKey : function(eventName){
+//			 var self = this;
+//			 
+//			 if(eventName.which == 13) {
+//				 self.postMessage(); 
+//			 }
+//			 if(eventName.which == 32){
+//				 
+//				 var text = $('#msg').val();
+//			     var links =  text.match(BS.urlRegex); 
+//					 
+//					  /* create bitly for each url in text */
+//		//			 _.each(links, function(link) {
+//						  
+//					 if(links)
+//				     {
+//						 
+//						 if(!BS.urlRegex2.test(links[0])) {
+//					    		urlLink = "http://" + links[0];
+//					  	 }
+//					     else
+//					     {
+//					    		urlLink =links[0];
+//					     }
+//						 
+//						 if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
+//			             { 
+//							 /* don't create bitly for shortened  url */
+//							 if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
+//							 {
+//						    	  /* create bitly  */
+//						          $.ajax({
+//						    			type : 'POST',
+//						    			url : BS.bitly,
+//						    			data : {
+//						    				 link : urlLink 
+//						    			},
+//						    			dataType : "json",
+//						    			success : function(data) {
+//						    				 var msg = $('#msg').val();
+//						    				 message = msg.replace(links[0],data.data.url);
+//						    				 $('#msg').val(message);
+//						    				
+//						    			}
+//						    		});
+//						          
+//	//					          var preview = {
+//	//					        	        submit : function(e, data){
+//	//					        	        	
+//	//					        	          e.preventDefault();
+//	//					        	          console.log(data);
+//	//					        	          this.display.create(data);
+//	//					        	          
+//	//					        	        }
+//	//					        	      }
+//						          $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+//						          
+//						          
+//					        }
+//			             }
+//	                           
+//				      }
+//		//				});
+//			 }
+//			 
+//		 },
 //		 /**
 //		  * show all comments of a message
 //		  */
@@ -3130,7 +3343,22 @@
 	                 $('#sortable1').remove(); 
 	                 $('#sortable4, #sortable5').sortable('destroy');
 	                 $('li').removeAttr('draggable');
-	                 $('.cancel').parents('li').remove();
+	                 
+	                 /* remove if any red actvated stream li */
+	                 $("#sortable4 li").each(function(n) {
+	                	 var streamId = $(this).attr('id');
+	 	     	    	 var StreamName = $(this).attr('name');
+	 	     	    	 if($(this).hasClass('red-active'))
+	 	     	    	 {
+	 	     	    		var removeOption = '<a  id ="'+streamId+'" name ="'+StreamName+'"  href="#" class="icon1">'+StreamName+'</a>';
+	 	     	    		$(this).removeClass("icon1 red-active");
+	 	     	    		$(this).html(removeOption);
+	 		     	    	$('.drag-rectangle').tooltip()	
+
+	 	     	    		 
+	 	     	    	 }
+	                 });
+	                 
 	                 
 	            });		
 	//	$(window).load(function(){		
