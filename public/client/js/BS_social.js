@@ -152,15 +152,21 @@ function janrainWidgetOnload() {
                      addre =splitaddress[0];
                     } 
                     else {
-                    alert('No results found');
+//                    alert('No results found');
+                    splitaddress='';
+                    linklocation(splitaddress);
                     }
                    } 
                    else {
-                   alert('Geocoder failed due to: ' + status);
+//                   alert('Geocoder failed due to: ' + status);
+                   splitaddress='';
+                   linklocation(splitaddress);
                    }
                    });
                    } else {
-                   data='';
+//                   data='';
+                   splitaddress='';
+                   linklocation(splitaddress);
                    }
                    });      
                  }
