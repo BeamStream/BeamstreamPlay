@@ -130,15 +130,15 @@ BS.NavView = Backbone.View.extend({
 		 var id = eventName.target.id;	      
          $('li a.active').removeClass('active');
          $('#'+id).addClass('active');
-//	     if(id == "menu-browsemedia")
-//	     {
-//	    	 BS.AppRouter.navigate("filesMedia", {trigger: true});
-//		   	
-//	     }
-//	     else if(id == "menu-mystreams")
-//	     {
-//	    	 BS.AppRouter.navigate("streams", {trigger: true});
-//	     }
+	     if(id == "menu-browsemedia")
+	     {
+	    	 BS.AppRouter.navigate("filesMedia", {trigger: true});
+		   	
+	     }
+	     else if(id == "menu-mystreams")
+	     {
+	    	 BS.AppRouter.navigate("streams", {trigger: true});
+	     }
 
  // FIXME: this is temporary hack, remove it later.
 //        $('.menu a').click(function() {

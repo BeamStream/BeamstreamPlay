@@ -1,39 +1,39 @@
 BS.FilesMediaView = Backbone.View.extend({
 
 	events: {
-                "click a#file-type" : "showFilesTypes",
-                "click ul.file-type li a" : "hideList",
-                "click '.nav a" : "addActive",
-                "click #gdoc_uploadbutton" : "uploadFile",
-                "click .doctitle" : "editDocTitle",
-                "click .imgtitle" : "editImgTitle",
-                "click .videotitle" : "editVideoTitle",  
-                "click .audiotitle" : "editAudioTitle",
-                "click .pdftitle" : "editPdfTitle",
-                "click .presentationtitle" : "editPresentationTitle",
-                "mouseenter #uploadmedia_dr":"uploadMediadwn",
-                "mouseleave #dropdownnew":"uploadMediaup",
-                "click #links_dr":"linksMenuList",
-                "click #links_uploadbutton":"linkupload",
-                "click #docs_dr":"docsMenuList",  
-                "click #googledocs_mycomp":"showFileForm",
-                "click #googledocs_dr":"googleDocs",
-                "click #importfrmlink_dr": "importFromLink",                
-                "click #video_dr":"videoMenuList",
-                "click #youtube_dr":"youtubeMenu",
-                "click #video_uploadbutton":"videoUpload",
-                "click #audio_dr":"audioMenuList",               
-                "click #vialink_dr":"audioVialink",
-                "click #audio_uploadbutton":"audioUpload",
-                "click #presentations_dr":"presentationMenuList",
-                "click #presvialink_dr":"presentationVialink",
-                "click #press_uploadbutton":"presentationUpload",
-                "click #docfrmcomputer_uploadbutton": "saveMyFile",
-                'change #doc-from-computer' :'displayImage',
-                'click #docfrmcomputer_closePopup': "hidePopUpBlock"
+       //         "click a#file-type" : "showFilesTypes",
+       //         "click ul.file-type li a" : "hideList",
+       //         "click '.nav a" : "addActive",
+        //        "click #gdoc_uploadbutton" : "uploadFile",
+       //         "click .doctitle" : "editDocTitle",
+       //         "click .imgtitle" : "editImgTitle",
+       //         "click .videotitle" : "editVideoTitle",  
+       //         "click .audiotitle" : "editAudioTitle",
+       //         "click .pdftitle" : "editPdfTitle",
+       //         "click .presentationtitle" : "editPresentationTitle",
+       //         "mouseenter #uploadmedia_dr":"uploadMediadwn",
+        //        "mouseleave #dropdownnew":"uploadMediaup",
+       //         "click #links_dr":"linksMenuList",
+       //         "click #links_uploadbutton":"linkupload",
+       //         "click #docs_dr":"docsMenuList",  
+       //         "click #googledocs_mycomp":"showFileForm",
+       //         "click #googledocs_dr":"googleDocs",
+        //        "click #importfrmlink_dr": "importFromLink",                
+        //        "click #video_dr":"videoMenuList",
+       //         "click #youtube_dr":"youtubeMenu",
+       //         "click #video_uploadbutton":"videoUpload",
+       //         "click #audio_dr":"audioMenuList",               
+       //         "click #vialink_dr":"audioVialink",
+       //         "click #audio_uploadbutton":"audioUpload",
+      //          "click #presentations_dr":"presentationMenuList",
+       //         "click #presvialink_dr":"presentationVialink",
+      //          "click #press_uploadbutton":"presentationUpload",
+       //         "click #docfrmcomputer_uploadbutton": "saveMyFile",
+       //         'change #doc-from-computer' :'displayImage',
+       //         'click #docfrmcomputer_closePopup': "hidePopUpBlock"
                 
-           //   "click #select_dr":"selectboxdwn",
-          //    "blur #select_dr":"selectboxup"
+//              "click #select_dr":"selectboxdwn",
+//              "blur #select_dr":"selectboxup"
 //              "click #profile-images":"listProfileImages",
 //              "click .google_doc" : "showDocPopup",
 //              "click .filter-options li a" : "filterDocs"
@@ -46,12 +46,12 @@ BS.FilesMediaView = Backbone.View.extend({
         console.log('Initializing Files and Media  View');       
         this.source = $("#tpl-files-media").html();
         this.template = Handlebars.compile(this.source);
-	    this.pictres();	
+     	    this.pictres();	
         this.videos();   
         this.docsList();
         this.docFromComputer();
-        this.audio();  
-//        this.spreadsheet();  
+     //   this.audio();  
+//           this.spreadsheet();  
         this.presentation();  
         this.pdffiles();
         this.docFromComputer();

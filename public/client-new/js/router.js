@@ -631,7 +631,7 @@
 					    					 {
 					    						// show primary profile video
 					    						 BS.profileImageUrl = data.frameURL;
-					    											    						  
+					    										    						  
 					    					 }
 				    		 			 }
 					    				 $('#right-top-photo').attr("src",BS.profileImageUrl);
@@ -639,6 +639,7 @@
 					    	        	
 					    			}
 					    	     });
+                                                     
 						          
 						          // list all schools under profile pic
 				//		          $.ajax({
@@ -688,7 +689,7 @@
 			//	}
 				
 	       }});
-	  
+
 		    
 	   },
 //	   /**
@@ -1118,20 +1119,20 @@
 					 BS.user.fetch({ success:function(e) {
 						if(e.get('loggedin') == true) {  
 	
-							$("#dialog").dialog('close');
-							$('#content').children().detach();
-							$('#school-popup').children().detach();
+			//				$("#dialog").dialog('close');
+			//				$('#content').children().detach();
+			//				$('#school-popup').children().detach();
 							
-							
+					
 							// $('#right-photo').attr("src",BS.profileImageUrl);
 							 BS.user.fetch({ success:function(e) {
 								   //get main menu
 								   this.navView = new BS.NavView({ model: BS.user });
 								   this.navView.showProfilePic();
-								   $('.nav-collapse').html(this.navView.render().el);
-								   $('nav li.active').removeClass('active');
-								   $('#file-media').addClass('active');
-								   $('#right-photo').attr("src",BS.profileImageUrl);
+								   $('#topheader').html(this.navView.render().el);
+								   $('li a.active').removeClass('active');
+								   $('#menu-browsemedia').addClass('active');
+								   $('#right-top-photo').attr("src",BS.profileImageUrl);
 						       
 							 }});
 							 
@@ -1140,19 +1141,19 @@
 							});
 			                                
 							BS.filesMediaView.render();
-							$('#content').html(BS.filesMediaView.el);
+							$('#body-content').html(BS.filesMediaView.el);
 							
 							//get profile videos
-							var profileView = new BS.ProfileView();
-			//		     	profileView.getProfileVideos();
-			//		     	var type = "files";
-			//		     	profileView.getProfileImages(type);
-							$('.file-type').hide();
-							$(".checkbox").dgStyle();
+			//				var profileView = new BS.ProfileView();
+//					     	profileView.getProfileVideos();
+//					     	var type = "files";
+//					     	profileView.getProfileImages(type);
+			//				$('.file-type').hide();
+			//				$(".checkbox").dgStyle();
 			                      
 							
 							// Call common Shuffling function         
-			                shufflingOnSorting(); 
+			//                shufflingOnSorting(); 
 	                                
 						}
 						else {

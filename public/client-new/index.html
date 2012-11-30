@@ -1214,7 +1214,214 @@
       </div>
         </script>     
     
-
+        <!----------------------  Browse Media  templates  --------------->
+        
+        <script type="text/x-handlebars-template" id="tpl-files-media">
+            
+            <!------Right Conatiner---------->      
+      <div class="right-container browse-conatiner">
+        <div class="stream-header browse-header">
+          <h6>Upload Media/Docs</h6>
+          <form class="navbar-form browse-search-block ">
+            <input type="text" placeholder="Upload Media/Docs" class="browse-search">
+            <button class="btn header-button browse-go" type="submit">Go</button>
+          </form>
+          <div class="browse-right">
+            <h6 class="small"> View as </h6>
+            <a href="#" class="green-btn"><span class="visual"><img src="images/visual-icon.png" width="20" height="22"></span><span class="texter">Visual Files</span></a> <a href="#" class="green-btn"><span class="visual"><img src="images/file.png" width="20" height="24"></span><span class="texter">Files Folder</span></a> </div>
+          <div class="stream-top-shadow"><img src="images/shadow.png"></div>
+        </div>
+        <div class="bowse-info">
+          <div class="browse-menu">
+            <ul class="sort">          
+            <h6>Sort by</h6>           
+              <li>
+                <div class="settings-menu">
+                  <div class="btn-group">
+                    <button class="btn seetings-toggle sort-toogle ">File Type </button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Products</a></li>
+                      <li><a href="#">Products</a></li>
+                      <li><a href="#">Products </a></li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li><a href="#"> Rock on Votes</a></li>
+              <li>
+               <input type="text" placeholder="Task" class="quest-search sort-toogle">
+              </li>
+              <li><div class="settings-menu">
+              <div class="btn-group">
+                <button class="btn seetings-toggle sort-toogle ">Category </button>
+                <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Products</a></li>
+                  <li><a href="#">Products</a></li>
+                  <li><a href="#">Products </a></li>
+                </ul>
+              </div>
+             </div></li>
+              <li><div class="settings-menu">
+              <div class="btn-group">
+                <button class="btn seetings-toggle sort-toogle ">by Class/School </button>
+                <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class=" settings-caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Products</a></li>
+                  <li><a href="#">Products</a></li>
+                  <li><a href="#">Products </a></li>
+                </ul>
+              </div>
+             </div></li>
+            </ul>   
+            <ul class="then-by">
+             <h6>Then by</h6>
+              <li><a href="#">Date</a></li>
+              <li><a href="#">All    </a></li>
+              <li><a href="#">Most Recent  </a></li>
+              <li><a href="#">Oldest</a></li>
+            </ul>
+            <div class="clear"></div>
+          </div>
+          <div class="calender-outer overview-boxes browse-outer"> 
+           <h2>My Profile  <a href="#" class="btn blue-buttons showmessage browse-file">View All</a></h2>
+            <ul class="profil-pic-outer" id="grid">         
+           <!--  <li>Box1 </li>
+             <li>Box 2</li>
+             <li>Box 3</li>
+             <li>Box 4</li> 
+           
+                      <ul class="file-list" >  -->
+        <li  data-groups='["recent"]' id="coverimage" data-date-created="11/06/2012" class="item" >
+          <div class="image-wrapper"><div class="hover-div"><div id="profile-images"><img class="default-image" src="images/pictures_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Images </p></div></div></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li data-groups='["oldest"]' data-date-created="2010-09-14" id="covervideo" class="item">
+         <div class="image-wrapper"><div class="hover-div"><div id="profile-videos"><img class="default-image" src="images/video_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Videos </p></div></div> </div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+        <li id="coverdocs"  data-groups='["recent"]' data-date-created="11/07/2012" class="item">
+         <div class="image-wrapper" id="google-docs"><div class="hover-div"><a class="google-docs-image" href="#googledocs"><img class="default-image" src="images/google_docs_image.png"></a>  
+          <div class="hover-text"><p class="emptyfiles"> No Uploaded Docs </p></div></div></div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>        
+        <li id="coveraudio" data-groups='["oldest"]' data-date-created="12/06/2011" class="item" >
+            <div class="image-wrapper coveraud"> 
+               <div class="hover-div"><img class="default-image" src="images/audio_image.png"/><div class="hover-text"> 
+                 <p class="emptyfiles"> No Uploaded Audio </p></div>
+               </div>
+            </div>                   
+            <div class="comment-wrapper comment-wrapper1"> <a class="common-icon music" href="#"><span class="right-arrow"></span></a>
+               <ul class="comment-list"> 
+                  <li><a class="eye-icon" href="#">87</a></li>
+                  <li><a class="hand-icon" href="#">5</a></li>
+                  <li><a class="message-icon" href="#">10</a></li>
+              </ul>
+           </div>
+        </li>
+        <li id="coverspreadsheet"  data-groups='["recent"]' data-date-created="11/10/2012" class="item">
+          <div class="image-wrapper">
+            <div class="hover-div"><img class="default-image" src="images/spreadsheets_image.png"/><div class="hover-text"> 
+               <p class="emptyfiles"> No Uploaded Spreadsheets </p>
+              </div> 
+            </div>
+           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#"><span class="right-arrow"></span></a>
+              <ul class="comment-list">
+                 <li><a class="eye-icon" href="#">87</a></li>
+                 <li><a class="hand-icon" href="#">5</a></li>
+                 <li><a class="message-icon" href="#">10</a></li>
+              </ul>
+           </div>
+        </li>
+        <li id="coverpresentation" data-groups='["oldest"]' data-date-created="11/09/2012" class="item">
+           <div class="image-wrapper"> 
+              <div class="hover-div"><img class="default-image" src="images/presentations_image.png"/>
+               <div class="hover-text">  <p class="emptyfiles"> No Uploaded Presentations </p></div>        
+              </div>
+           </div> 
+           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon presentation" href="#"><span class="right-arrow"></span></a>
+             <ul class="comment-list">
+                <li><a class="eye-icon" href="#">87</a></li>
+                <li><a class="hand-icon" href="#">5</a></li>
+                <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>        
+       </li>
+       <li id="coverpdf" data-groups='["oldest"]' data-date-created="09/06/2012" class="item">
+          <div class="image-wrapper">
+             <div class="hover-div"><img class="default-image" src="images/pdp_image.png"/><div class="hover-text">    
+                <p class="emptyfiles"> No Uploaded Files </p>
+              </div>
+           </div>
+           <div class="comment-wrapper comment-wrapper1"> <a class="common-icon pdf" href="#"><span class="right-arrow"></span></a>
+              <ul class="comment-list">
+                <li><a class="eye-icon" href="#">87</a></li>
+                <li><a class="hand-icon" href="#">5</a></li>
+                <li><a class="message-icon" href="#">10</a></li>
+              </ul>        
+           </div>              
+        </li>
+        <li id="coverdoc_com"  data-groups='["recent"]' data-date-created="11/06/2012" class="item">
+           <div class="image-wrapper"> 
+             <div class="hover-div"><img class="default-image" src="images/docs_image.png"/>
+               <div class="hover-text">     
+                <p class="emptyfiles"> No Uploaded Docs </p>
+               </div>
+             </div> 
+          </div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a>
+             <ul class="comment-list">
+                <li><a class="eye-icon" href="#">87</a></li>
+                <li><a class="hand-icon" href="#">5</a></li>
+                <li><a class="message-icon" href="#">10</a></li>
+             </ul>
+          </div>       
+        </li>       
+        <li id="coverlink"  data-groups='["recent"]' data-date-created="11/06/2010" class="item" >
+           <div class="image-wrapper"> 
+             <div class="hover-div"><img class="default-image" src="images/links_image.png"/>
+               <div class="hover-text">     
+                <p class="emptyfiles"> No Uploaded Links </p>
+               </div>
+             </div> 
+          </div>
+          <div class="comment-wrapper comment-wrapper1"> <a class="common-icon link" href="#"><span class="right-arrow"></span></a>
+             <ul class="comment-list">
+                <li><a class="eye-icon" href="#">87</a></li>
+                <li><a class="hand-icon" href="#">5</a></li>
+                <li><a class="message-icon" href="#">10</a></li>
+             </ul>
+          </div>       
+        </li>        
+    <!--  </ul>  -->
+           
+            <div class="clear"></div>
+            </ul>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>       
+            
+        </script>
             <!-------backbone library files----->
         <script src="lib/underscore-min.js"></script>
         <script src="lib/backbone.js"></script>
