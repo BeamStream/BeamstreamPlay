@@ -425,7 +425,7 @@
                 <div class="ask-comment">
                   <div class="ask-left">
                     <form class="question-ask ask-disccution">
-                      <textarea name="" cols="" rows="" class="question-ask-search" placeholder="Speak your mind...."></textarea>
+                      <textarea id="msg-area" name="" cols="" rows="" class="question-ask-search" placeholder="Speak your mind...."></textarea>
                     </form>
                     <div class="embed-info">
                       <div class="upload-conatiner">
@@ -434,14 +434,14 @@
                       </div>
                     </div>
                   </div>
-                  <a href="#" class="ask-button">POST</a> </div>
+                  <a href="#" id="post-button" class="ask-button">POST</a> </div>
                 <div class="ask-iconinfo">
                   <ul class="icons-ask">
                     <li><a href="#"><img src="images/attach.png" width="22" height="20"></a></li>
                     <li><a href="#"><img src="images/card.png" width="18" height="19"></a></li>
                   </ul>
                   <label class="checkbox private-chaeck">
-                    <input type="checkbox"  checked="checked">
+                    <input id="private-to" type="checkbox"  checked="checked">
                     Pivate to:</label>
                   <div class="btn-group class-dropdown">
                     <button class="btn class-dropdown-bg">Class</button>
@@ -619,26 +619,32 @@
                     <ul class="follow-name-left">
                       <li><span id="{{datas.userId.id}}" >@{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </span> -  {{datas.timeCreated}}  -  {{datas.messageAccess.name}}</li>
                     </ul>
-                    <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
+                    <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button">follow</a></div>
                   </div>
                   <p id="{{datas.id.id}}-id" >{{datas.messageBody}}</p>
                   <div class="follow-bottom">
                     <ul class="follow-name-left">
                    
-                      <li><a href="#">Rock</a></li>
-                      <li ><a href="#"> Comment</a></li>
+                      <li><a class="rock-message" href="#">Rock</a></li>
+                      <li ><a class="add-comment" href="#"> Comment</a></li>
                       <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
                     </ul>
                   </div>
+                  <div id="{{datas.id.id}}-addComments" class="follow-comment">
+					<textarea rows="" cols="" placeholder="Add Comments.." ></textarea>
+				 </div>
                 </div>
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left">
-                        <li><a href="#" class="rocks"><span>57 </span></a></li>
-                        <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn grey-buttons" href="#"> <span>43</span> Comments</a>
+                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks"><span>{{datas.rocks}}</span></a></li>
+                        <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn grey-buttons" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
                       </ul>
-                      <a class="btn blue-buttons" href="#">Show All</a> </div>
+                      <a class="btn blue-buttons show-all-comments" href="#">Show All</a> 
+                      </div>
+                      <div id="{{datas.id.id}}-allComments" class="comment-wrapper">
+                      </div>
                   </div>
                 </div>
               </div>
@@ -646,6 +652,30 @@
             <div class="clear"></div>
           </div>
 </script>
+
+<!--  comment templete for stream discussions messages -->
+ <script type="text/x-handlebars-template" id="tpl-discussion-messages-comment">
+ <div class="answer-description">
+                        <div class="follw-left">
+                          <div class="small-image">
+                            <div class="ask-img"><img src="images/profile-img.png"></div>
+                          </div>
+                        </div>
+                        <div class="answer-description-info">
+                          <div class="follow-names">
+                            <ul class="follow-name-left">
+                              <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
+                              <li ><a href="#">Rock</a></li>
+                              <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
+                                 <li class="rocks-small"><a href="#">75</a></li>
+                            </ul>
+                          </div>
+                          <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+</script>
+
 
 
 <!--   stream's Deadline  Middle_container  template  -->
