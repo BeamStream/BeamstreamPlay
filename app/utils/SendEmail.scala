@@ -19,8 +19,12 @@ object SendEmail extends App {
     props.setProperty("mail.transport.protocol", "smtp");
     props.setProperty("mail.smtp.starttls.enable", "true");
     props.setProperty("mail.host", "smtp.gmail.com");
-    props.setProperty("mail.user", "neelkanth@knoldus.com");
-    props.setProperty("mail.password", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get));
+//    props.setProperty("mail.user", "cox@beamstream.com");
+//    props.setProperty("mail.password", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get));
+    
+    props.setProperty("mail.user", "aswathy@toobler.com");
+    props.setProperty("mail.password", Play.current.configuration.getString("email_password").get)
+    
     val session = Session.getDefaultInstance(props, null);
     val msg = new MimeMessage(session)
     val recepientAddress = new InternetAddress(emailId)
@@ -36,7 +40,9 @@ object SendEmail extends App {
         "Cheers," + "<br>" +
         "The Really Nice Beamstream Folks , US" + "<br>", "text/html");
     val transport = session.getTransport("smtp");
-    transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get))
+//    transport.connect("smtp.gmail.com", "cox@beamstream.com", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get))
+    transport.connect("smtp.gmail.com", "aswathy@toobler.com",Play.current.configuration.getString("email_password").get)
+    
     transport.sendMessage(msg, msg.getAllRecipients)
     val token = new Token((new ObjectId), authToken)
     Token.addToken(token)
@@ -50,8 +56,11 @@ object SendEmail extends App {
     props.setProperty("mail.transport.protocol", "smtp");
     props.setProperty("mail.smtp.starttls.enable", "true");
     props.setProperty("mail.host", "smtp.gmail.com");
-    props.setProperty("mail.user", "neelkanth@knoldus.com");
-    props.setProperty("mail.password", Play.current.configuration.getString("email_password").get);
+//    props.setProperty("mail.user", "cox@beamstream.com");
+//    props.setProperty("mail.password", Play.current.configuration.getString("email_password").get);
+    
+    props.setProperty("mail.user", "aswathy@toobler.com");
+    props.setProperty("mail.password",  Play.current.configuration.getString("email_password").get);
 
     val session = Session.getDefaultInstance(props, null);
     val msg = new MimeMessage(session)
@@ -71,7 +80,9 @@ object SendEmail extends App {
         "The Really Nice Beamstream Folks , US" + "<br>", "text/html")
 
     val transport = session.getTransport("smtp");
-    transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get))
+//    transport.connect("smtp.gmail.com", "cox@beamstream.com", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get))
+    transport.connect("smtp.gmail.com", "aswathy@toobler.com",Play.current.configuration.getString("email_password").get )
+
     transport.sendMessage(msg, msg.getAllRecipients)
   }
 
@@ -83,8 +94,12 @@ object SendEmail extends App {
     props.setProperty("mail.transport.protocol", "smtp");
     props.setProperty("mail.smtp.starttls.enable", "true");
     props.setProperty("mail.host", "smtp.gmail.com");
-    props.setProperty("mail.user", "neelkanth@knoldus.com");
-    props.setProperty("mail.password", Play.current.configuration.getString("email_password").get)
+//    props.setProperty("mail.user", "cox@beamstream.com");
+//    props.setProperty("mail.password", Play.current.configuration.getString("email_password").get)
+    
+    props.setProperty("mail.user", "aswathy@toobler.com");
+    props.setProperty("mail.password",  Play.current.configuration.getString("email_password").get)
+    
     val session = Session.getDefaultInstance(props, null);
     val msg = new MimeMessage(session)
     val recepientAddress = new InternetAddress(emailId)
@@ -112,7 +127,9 @@ object SendEmail extends App {
     }
 
     val transport = session.getTransport("smtp");
-    transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get))
+//    transport.connect("smtp.gmail.com", "cox@beamstream.com", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get))
+    transport.connect("smtp.gmail.com", "aswathy@toobler.com",Play.current.configuration.getString("email_password").get)
+    
     transport.sendMessage(msg, msg.getAllRecipients)
   }
   /**
@@ -123,8 +140,13 @@ object SendEmail extends App {
     props.setProperty("mail.transport.protocol", "smtp");
     props.setProperty("mail.smtp.starttls.enable", "true");
     props.setProperty("mail.host", "smtp.gmail.com");
-    props.setProperty("mail.user", "neelkanth@knoldus.com");
-    props.setProperty("mail.password", Play.current.configuration.getString("email_password").get)
+//    props.setProperty("mail.user", "cox@beamstream.com");
+//    props.setProperty("mail.password", Play.current.configuration.getString("email_password").get)
+    
+    props.setProperty("mail.user", "aswathy@toobler.com");
+    props.setProperty("mail.password",  Play.current.configuration.getString("email_password").get)
+    
+    
     val session = Session.getDefaultInstance(props, null);
     val msg = new MimeMessage(session)
     val recepientAddress = new InternetAddress(emailId)
@@ -141,7 +163,9 @@ object SendEmail extends App {
         "The Really Nice Beamstream Folks , US" + "<br>", "text/html")
 
     val transport = session.getTransport("smtp");
-    transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get))
+//    transport.connect("smtp.gmail.com", "cox@beamstream.com", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get))
+    transport.connect("smtp.gmail.com", "aswathy@toobler.com",Play.current.configuration.getString("email_password").get)
+    
     transport.sendMessage(msg, msg.getAllRecipients)
   }
   
@@ -157,8 +181,12 @@ object SendEmail extends App {
     props.setProperty("mail.transport.protocol", "smtp");
     props.setProperty("mail.smtp.starttls.enable", "true");
     props.setProperty("mail.host", "smtp.gmail.com");
-    props.setProperty("mail.user", "neelkanth@knoldus.com");
-    props.setProperty("mail.password", Play.current.configuration.getString("email_password").get)
+//    props.setProperty("mail.user", "cox@beamstream.com");
+//    props.setProperty("mail.password", Play.current.configuration.getString("email_password").get)
+    
+    props.setProperty("mail.user", "aswathy@toobler.com");
+    props.setProperty("mail.password",  Play.current.configuration.getString("email_password").get)
+    
     val session = Session.getDefaultInstance(props, null);
     val msg = new MimeMessage(session)
     val recepientAddress = new InternetAddress(emailId)
@@ -176,9 +204,10 @@ object SendEmail extends App {
         "The Really Nice Beamstream Folks , US" + "<br>", "text/html")
 
     val transport = session.getTransport("smtp");
-    transport.connect("smtp.gmail.com", "neelkanth@knoldus.com", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get))
+//    transport.connect("smtp.gmail.com", "cox@beamstream.com", ConversionUtility.decodeMe(Play.current.configuration.getString("email_password").get))
+    transport.connect("smtp.gmail.com", "aswathy@toobler.com",Play.current.configuration.getString("email_password").get )
+    
     transport.sendMessage(msg, msg.getAllRecipients)
   }
 
 }
-
