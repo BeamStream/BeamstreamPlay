@@ -79,6 +79,7 @@
 			 "keypress #msg-area" : "postMessageOnEnterKey",
 			 "click #upload-files" : "showUploadSection",
 			 "change #upload-files-area" : "getUploadedData",
+			 "click #private-to-list li" :"selectPrivateToList"
 	//		 "click .ask-button" :"askQuestions",
 	//		 "click .add-poll " : "displayOptionsEntry",
 	//		 "click #add_more_options" :"addMoreOptions"
@@ -1550,6 +1551,14 @@
              
             // read the  file as data URL
             reader.readAsDataURL(file);
+        },
+        
+        /**
+         * NEW THEME - select private to class options
+         */
+        selectPrivateToList: function(eventName){
+        	eventName.preventDefault();
+        	$('#select-privateTo').text($(eventName.target).text());
         },
         
 	    /**
