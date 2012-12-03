@@ -148,32 +148,21 @@ function janrainWidgetOnload() {
                     if (results[3]) {
                      var address=results[3].formatted_address;
                      var splitaddress=address.split(",");			
-                     linklocation(splitaddress[0]);
-                     addre =splitaddress[0];
+                     localStorage["location"] = splitaddress[0];
                     } 
                     else {
-//                    alert('No results found');
-                    splitaddress='';
-                    linklocation(splitaddress);
+                    localStorage["location"] = '';
                     }
                    } 
                    else {
-//                   alert('Geocoder failed due to: ' + status);
-                   splitaddress='';
-                   linklocation(splitaddress);
+                 localStorage["location"] = '';
                    }
                    });
                    } else {
-//                   data='';
-                   splitaddress='';
-                   linklocation(splitaddress);
+            localStorage["location"] = '';
                    }
                    });      
                  }
-                  //method for assigne location
-                function linklocation(splitaddress){
-                    localStorage["location"] = splitaddress;
-                  }
                 localStorage["first-name"] = res.profile.name.givenName;
                 localStorage["last-name"] = res.profile.name.familyName;
                 localStorage["email"] = res.profile.preferredUsername;
