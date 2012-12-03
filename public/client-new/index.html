@@ -53,6 +53,10 @@
     </div>
   </div>
 </article>
+<div pub-key="pub-a8c5db9f-8482-4092-b9e4-44fda38a9d51"
+		sub-key="sub-315698a6-0b22-11e2-80cd-aba6e1687b8d" ssl="off"
+		origin="pubsub.pubnub.com" id="pubnub"></div>
+	<script src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
 </body>
 <!-------------------------------------------  backbone templates ------------------------------------------>
 <!-- ---- mainmenu  templates ------- -->
@@ -412,9 +416,11 @@
                     <button class="btn class-dropdown-bg">Class</button>
                     <button class="btn class-dropdown-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
                     <ul class="dropdown-menu">
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products </a></li>
+                      <li><a href="#">Class</a></li>
+                      <li><a href="#">Degree Program</a></li>
+                      <li><a href="#">My Graduating Year </a></li>
+					  <li><a href="#">My School</a></li>
+					  <li><a href="#">Public</a></li>
                     </ul>
                   </div>
                    <ul class="social-icons">
@@ -605,8 +611,9 @@
                       <ul class="follow-name-left">
                         <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks"><span>{{datas.rocks}}</span></a></li>
                         <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
+						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
                       </ul>
-                      <a id="{{datas.id.id}}-show-hide" class="btn blue-buttons show-all" href="#">Show All</a> 
+                       
                       </div>
                       <div id="{{datas.id.id}}-allComments" class="comment-wrapper">
                       </div>
@@ -745,9 +752,11 @@
                     <button class="btn class-dropdown-bg">Class</button>
                     <button class="btn class-dropdown-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
                     <ul class="dropdown-menu">
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products </a></li>
+                      <li><a href="#">Class</a></li>
+                      <li><a href="#">Degree Program</a></li>
+                      <li><a href="#">My Graduating Year </a></li>
+					  <li><a href="#">My School</a></li>
+					  <li><a href="#">Public</a></li>
                     </ul>
                   </div>
                   <a href="#" class="add-poll ">Add Poll</a>
@@ -811,8 +820,9 @@
                       <ul class="follow-name-left">
                         <li><a href="#" class="rocks"><span>57</span></a></li>
                         <a class="btn grey-buttons active" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
+						<a  class="btn grey-buttons  href="#">Show All</a>
                       </ul>
-                      <a class="btn blue-buttons showmessage" href="#">Show All</a> </div>
+                       
                   </div>
                 </div>
               </div>
@@ -1256,9 +1266,22 @@
                   </div>
                 </div>
               </li>
-              <li><a href="#"> Rock on Votes</a></li>
+              <li><a href="#"> By Highest Rocks</a></li>
               <li>
-                <input type="text" placeholder="Task" class="quest-search sort-toogle ">
+
+				<div class="settings-menu">
+                  <div class="btn-group">
+                    <button class="btn seetings-toggle sort-toogle ">By Tag</button>
+                    <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class=" settings-caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Products</a></li>
+                      <li><a href="#">Products</a></li>
+                      <li><a href="#">Products </a></li>
+                    </ul>
+                  </div>
+                </div>
+
+
               </li>
               <li>
                 <div class="settings-menu">
