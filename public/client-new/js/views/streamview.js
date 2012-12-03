@@ -77,7 +77,8 @@
 			 "click .rock-comments" : "rockComment",
 			 "click .rocks-small a" : "rockComment",
 			 "keypress #msg-area" : "postMessageOnEnterKey",
-			 "click #upload-files" : "showUploadSection"
+			 "click #upload-files" : "showUploadSection",
+			 "change #upload-files-area" : "getUploadedData",
 	//		 "click .ask-button" :"askQuestions",
 	//		 "click .add-poll " : "displayOptionsEntry",
 	//		 "click #add_more_options" :"addMoreOptions"
@@ -880,118 +881,118 @@
 	        if(this.file )
 	        {
 //	        	$('#file-upload-loader').css("display","block");
-//
-//	        	var data;
-//	            data = new FormData();
-//	            data.append('docDescription',message);
-//	            data.append('docAccess' ,messageAccess);
-//	            data.append('docData', self.file);  
-//	            data.append('streamId', streamId);  
-//	           
-//	            /* post profile page details */
-//	            $.ajax({
-//	            	type: 'POST',
-//	                data: data,
-//	                url: BS.uploaddocFrmComputer,
-//	                cache: false,
-//	                contentType: false,
-//	                processData: false,
-//	                dataType : "json",
-//	                success: function(data){
-//	                	$('#msg').val("");
-//	              	    self.file = "";
+
+	        	var data;
+	            data = new FormData();
+	            data.append('docDescription',message);
+	            data.append('docAccess' ,messageAccess);
+	            data.append('docData', self.file);  
+	            data.append('streamId', streamId);  
+	           
+	            /* post profile page details */
+	            $.ajax({
+	            	type: 'POST',
+	                data: data,
+	                url: BS.uploaddocFrmComputer,
+	                cache: false,
+	                contentType: false,
+	                processData: false,
+	                dataType : "json",
+	                success: function(data){
+	                	$('#msg-area').val("");
+	              	    self.file = "";
 //	              	    $('#file-upload-loader').css("display","none");
-//	              	    $('.upload-box').css("display","none");
-//	                  	 
-//	  	                var datas = {
-//	  	                		"datas" : data,
-//	  		            }						  
-//
+	              	    $('.embed-info').css("display","none");
+	                  	 
+	  	                var datas = {
+	  	                		"datas" : data,
+	  		            }						  
+
 //                        $('input#'+data.id.id+'-url').val(msgUrl);  
-//                        $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
-//	                           
-//	                           
-//                        /*show image preview icons  */
-//	                    
-//                        //var links =  msgBody.match(BS.urlRegex); 
-//                        var msgUrl=  data.messageBody.replace(BS.urlRegex1, function(msgUrlw) {
-//                        	trueurl= msgUrlw;    
-//                            return msgUrlw;
-//                        });
-//                        var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file    
-//	                           
-//
-//	                           
-//	                    // set first letter of extension in capital letter  
-//	  	                extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
-//	  	                	return letter.toUpperCase();
-//	  	                });
-//	  	                var datVal =  BS.filesMediaView.formatDateVal(data.timeCreated);
-//	    		                  
-//	                    if(data.messageType.name == "Image")
-//	  					{
-//	                    	var source = $("#tpl-messages_with_images").html();
-//	  	  						
-//	  					}
-//	  					else if(data.messageType.name == "Video")
-//	  					{
-//	  						var source = $("#tpl-messages_with_images").html();
-//	  	  						
-//	  					}
-//	  					else
-//	  					{
-//	  						var previewImage = '';
-//	  						var commenImage ="";
-//	  						var type = "";
-//	  							 
-//	  						if(extension == 'Ppt')
-//	  						{
-//	  							previewImage= "images/presentations_image.png";
-//	  	                        type = "ppt";
-//	  						}
-//	  						else if(extension == 'Doc')
-//	  						{
-//  								previewImage= "images/docs_image.png";
-//  								type = "doc";
-//	  						}
-//	  						else if(extension == 'Pdf')
-//	  						{
-//  								previewImage= data.anyPreviewImageUrl;
-//  								type = "pdf";
-//	  						}
-//  							else
-//  							{
-//  								previewImage= "images/textimage.png";
-//  								commenImage = "true";
-//  								type = "doc";
-//	  								
-//  							}
-//	  							
-//  							var datas = {
-//							    "datas" : data,
-//                                "datVal" :datVal,
-//                                "previewImage" :previewImage,
-//                                "extension" : extension,
-//                                "commenImage" : commenImage,
-//                                "type" : type
-//  					        }	
-//	  						
-//  						    var source = $("#tpl-messages_with_docs").html();
-//	    						
-//  						}
-//	                           
+                        $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
+	                           
+	                           
+                        /*show image preview icons  */
+	                    
+                        //var links =  msgBody.match(BS.urlRegex); 
+                        var msgUrl=  data.messageBody.replace(BS.urlRegex1, function(msgUrlw) {
+                        	trueurl= msgUrlw;    
+                            return msgUrlw;
+                        });
+                        var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file    
+	                           
+
+	                           
+	                    // set first letter of extension in capital letter  
+	  	                extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+	  	                	return letter.toUpperCase();
+	  	                });
+	  	                var datVal =  BS.filesMediaView.formatDateVal(data.timeCreated);
+	    		                  
+	                    if(data.messageType.name == "Image")
+	  					{
+	                    	var source = $("#tpl-messages_with_images").html();
+	  	  						
+	  					}
+	  					else if(data.messageType.name == "Video")
+	  					{
+	  						var source = $("#tpl-messages_with_images").html();
+	  	  						
+	  					}
+	  					else
+	  					{
+	  						var previewImage = '';
+	  						var commenImage ="";
+	  						var type = "";
+	  							 
+	  						if(extension == 'Ppt')
+	  						{
+	  							previewImage= "images/presentations_image.png";
+	  	                        type = "ppt";
+	  						}
+	  						else if(extension == 'Doc')
+	  						{
+  								previewImage= "images/docs_image.png";
+  								type = "doc";
+	  						}
+	  						else if(extension == 'Pdf')
+	  						{
+  								previewImage= data.anyPreviewImageUrl;
+  								type = "pdf";
+	  						}
+  							else
+  							{
+  								previewImage= "images/textimage.png";
+  								commenImage = "true";
+  								type = "doc";
+	  								
+  							}
+	  							
+  							var datas = {
+							    "datas" : data,
+                                "datVal" :datVal,
+                                "previewImage" :previewImage,
+                                "extension" : extension,
+                                "commenImage" : commenImage,
+                                "type" : type
+  					        }	
+	  						
+  						    var source = $("#tpl-messages_with_docs").html();
+	    						
+  						}
+	                           
 //                        var template = Handlebars.compile(source);
 //                        $('.timeline_items').prepend(template(datas));
 //                        $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
 //                        $('input#'+data.id.id+'-url').val(msgUrl); 
-//	                      	 
-//                      	/* for video popups */
+	                      	 
+                      	/* for video popups */
 //	                    $("area[rel^='prettyPhoto']").prettyPhoto();
 //    					$(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
 //    					$(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
-//	        			
-//                    }
-//                }); 
+	        			
+                    }
+                }); 
         	}
 	        else
 	        {
@@ -1530,6 +1531,24 @@
         	
         	
         },
+        
+        /**
+         * NEW THEME -  get uploaded files 
+         */
+        getUploadedData: function(e){
+        	var self = this;;
+    	    file = e.target.files[0];
+    	    var reader = new FileReader();
+    	      
+        	/* capture the file informations */
+            reader.onload = (function(f){
+            	self.file = file;
+            })(file);
+             
+            // read the  file as data URL
+            reader.readAsDataURL(file);
+        },
+        
 	    /**
 	     * get all class streams of a user
 	     */
@@ -3078,20 +3097,7 @@
 			  
 		  },
 		 
-		  getUploadedData :function(e){
-			  
-			  var self = this;;
-		      file = e.target.files[0];
-		      var reader = new FileReader();
-		      
-	    	  /* capture the file informations */
-	          reader.onload = (function(f){
-	        	 self.file = file;
-	          })(file);
-	         
-	        // read the  file as data URL
-	        reader.readAsDataURL(file);
-		  },
+		 
 		 /**
 		  * @TODO
 		  */
