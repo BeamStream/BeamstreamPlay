@@ -187,7 +187,7 @@
 	//		this.slider();
 			
 			/* for PUBNUB auto push */
-	     //   this.setupPushConnection();
+	        this.setupPushConnection();
 	
 			/* pagination on scrolling */
 		//	BS.msgSortedType = '';
@@ -1107,10 +1107,10 @@
 
    				    		 /* PUBNUB -- AUTO AJAX PUSH */ 
    				    		 var streamId =  $('.sortable li.active').attr('id');
-//                             PUBNUB.publish({
-//                            	 channel : "stream",
-//  		                         message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,prifileImage : BS.profileImageUrl}
-//                             }) 
+                             PUBNUB.publish({
+                            	 channel : "stream",
+  		                         message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,prifileImage : BS.profileImageUrl}
+                             }) 
    							
                              var msgBody = data.messageBody;
                              var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
@@ -1337,14 +1337,13 @@
 	            success:function(data){
 	            	 
 	            	// display the count in icon
-//	            	$('li#'+msgId+'').find('.rock-message').find('i').html(data);
 	                $('#'+messageId+'-msgRockCount').find('span').html(data);
 	                //auto push
 	                var streamId =  $('.sortable li.active').attr('id');
-//					PUBNUB.publish({
-//						channel : "msgRock",
-//	                    message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,msgId:msgId}
-//	                })
+					PUBNUB.publish({
+						channel : "msgRock",
+	                    message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,msgId:messageId}
+	                })
              	}
             });
         },
@@ -1360,11 +1359,15 @@
 			// show / hide commet text area 
 			if($('#'+messageId+'-addComments').is(":visible"))
 			{
+				
+				$('#'+messageId+'-msgComment').val('');
 				$('#'+messageId+'-addComments').slideToggle(300); 
+				
 				
 			}
 			else
 			{
+				$('#'+messageId+'-msgComment').val('');
 				$('#'+messageId+'-addComments').slideToggle(200); 
 				
 			}
@@ -1422,10 +1425,10 @@
    							$('#'+parent+'-totalComment').text(totalComments);
    							/* auto push */
    		  					var streamId = $('.sortable li.active').attr('id');
-//   			                PUBNUB.publish({
-//   			                	channel : "comment",
-//		                        message : { pagePushUid: self.pagePushUid ,data:data,parent:parent,cmtCount:cmtCount,prifileImage : BS.profileImageUrl}
-//   			                })
+   			                PUBNUB.publish({
+   			                	channel : "comment",
+		                        message : { pagePushUid: self.pagePushUid ,data:data,parent:parent,cmtCount:totalComments,prifileImage : BS.profileImageUrl}
+   			                })
    							 
 			  		    });
    				  				
@@ -1505,10 +1508,10 @@
                 	
                 	/*auto push */
     				var streamId = $('.sortable li.active').attr('id');
-//    				PUBNUB.publish({
-//                          channel : "commentRock",
-//                          message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,commentId:commentId }
-//                    })
+    				PUBNUB.publish({
+                          channel : "commentRock",
+                          message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,commentId:commentId }
+                    })
      
                 }
             });
@@ -2243,39 +2246,39 @@
 		 
 		
 		 
-		 /**
-		  * Rock comments
-		  */
-		 rockComments :function(eventName){
-			 
-			 eventName.preventDefault();
-			 var element = eventName.target.parentElement;
-			 var commentId =$(element).closest('li').attr('id');
-			 var messageId =$(element).closest('li').parent('ul').parent('article').parent('li').attr('id');
-			 var self = this;
-			 $.ajax({
-	             type: 'POST',
-	             url:BS.rockingTheComment,
-	             data:{
-	            	  commentId:commentId,
-	            	  messageId : messageId
-	             },
-	             dataType:"json",
-	             success:function(data){
-	            	 
-	            	// display the count in icon
-	            	$('li#'+commentId+'').find('i').find('i').html(data);
-	            	
-	            	/*auto push */
-					var streamId = $('#streams-list li.active a').attr('id');
-					  PUBNUB.publish({
-	                      channel : "commentRock",
-	                      message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,commentId:commentId }
-	                 })
-	 
-	             }
-	          });
-		 },
+//		 /**
+//		  * Rock comments
+//		  */
+//		 rockComments :function(eventName){
+//			 
+//			 eventName.preventDefault();
+//			 var element = eventName.target.parentElement;
+//			 var commentId =$(element).closest('li').attr('id');
+//			 var messageId =$(element).closest('li').parent('ul').parent('article').parent('li').attr('id');
+//			 var self = this;
+//			 $.ajax({
+//	             type: 'POST',
+//	             url:BS.rockingTheComment,
+//	             data:{
+//	            	  commentId:commentId,
+//	            	  messageId : messageId
+//	             },
+//	             dataType:"json",
+//	             success:function(data){
+//	            	 
+//	            	// display the count in icon
+//	            	$('li#'+commentId+'').find('i').find('i').html(data);
+//	            	
+//	            	/*auto push */
+//					var streamId = $('#streams-list li.active a').attr('id');
+//					  PUBNUB.publish({
+//	                      channel : "commentRock",
+//	                      message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,commentId:commentId }
+//	                 })
+//	 
+//	             }
+//	          });
+//		 },
 		 
 		 /**
 		  * get list of message rockers 
@@ -2762,71 +2765,71 @@
 			 
 		 },
 		 
-		 /**
-		  * add comments for messages
-		  */
-		 addComment : function(eventName){
-			 
-			 var parentMsg = eventName.target.id;
-			 var parent =$('#'+parentMsg+'').closest('li').attr('id');
-			 var cmtCount =  $('#'+parent+'-cmtCount').text();
-			 var self =this;
-			 /* post comments on enter key press */
-			 if(eventName.which == 13) {
-				 
-				 eventName.preventDefault(); 
-				 var commentText = $('#'+parent+'-cmtBox').val();
-				
-				 /* post comments information */
-			        $.ajax({
-			  			type : 'POST',
-			  			url : BS.newComment,
-			  			data : {
-			  				messageId : parent,
-			  				comment : commentText
-			  			},
-			  			dataType : "json",
-					  	success : function(datas) { 
-					  				 
-					  		$('#'+parent+'-cmtBox').val('');
-					  	    
-					  		_.each(datas, function(data) {
-					  			 cmtCount++; 
-					  			 var comments = $("#tpl-comments").html();
-								 var commentsTemplate = Handlebars.compile(comments);
-								 
-								 $('#'+parent+'-commentlists').append(commentsTemplate(data));
-								 $('#'+data.id.id+'-image').attr("src" ,BS.profileImageUrl );
-								 
-								 if(!$('#'+parent+'-commentlists').is(':visible'))
-								 {  
-									 var newComments = $("#tpl-new-comments").html();
-									 var newCmtTemplate = Handlebars.compile(newComments);
-									 $('#'+parent+'-newcommentlists').append(newCmtTemplate(data));
-									 $('#'+data.id.id+'-newCmtImage').attr("src" ,BS.profileImageUrl );
-								 }
-								 
-								/* auto push */
-			  					var streamId = $('#streams-list li.active a').attr('id');
-				                 PUBNUB.publish({
-				                         channel : "comment",
-				                         message : { pagePushUid: self.pagePushUid ,data:data,parent:parent,cmtCount:cmtCount,prifileImage : BS.profileImageUrl}
-				                 })
-								 
-					  		});
-					  				
-							 /* for comment Header   */
-							 var cmdHead = $("#tpl-comment-header").html();
-							 var cmdHeadTemplate = Handlebars.compile(cmdHead);
-							 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
-					  		 $('#'+parent+'-showComment').addClass('disabled');
-	//				  		 $('#'+parent+'-cmtCount').html(cmtCount);
-	 
-					  	}
-			  		});
-	
-			 }
-		 },
+//		 /**
+//		  * add comments for messages
+//		  */
+//		 addComment : function(eventName){
+//			 
+//			 var parentMsg = eventName.target.id;
+//			 var parent =$('#'+parentMsg+'').closest('li').attr('id');
+//			 var cmtCount =  $('#'+parent+'-cmtCount').text();
+//			 var self =this;
+//			 /* post comments on enter key press */
+//			 if(eventName.which == 13) {
+//				 
+//				 eventName.preventDefault(); 
+//				 var commentText = $('#'+parent+'-cmtBox').val();
+//				
+//				 /* post comments information */
+//			        $.ajax({
+//			  			type : 'POST',
+//			  			url : BS.newComment,
+//			  			data : {
+//			  				messageId : parent,
+//			  				comment : commentText
+//			  			},
+//			  			dataType : "json",
+//					  	success : function(datas) { 
+//					  				 
+//					  		$('#'+parent+'-cmtBox').val('');
+//					  	    
+//					  		_.each(datas, function(data) {
+//					  			 cmtCount++; 
+//					  			 var comments = $("#tpl-comments").html();
+//								 var commentsTemplate = Handlebars.compile(comments);
+//								 
+//								 $('#'+parent+'-commentlists').append(commentsTemplate(data));
+//								 $('#'+data.id.id+'-image').attr("src" ,BS.profileImageUrl );
+//								 
+//								 if(!$('#'+parent+'-commentlists').is(':visible'))
+//								 {  
+//									 var newComments = $("#tpl-new-comments").html();
+//									 var newCmtTemplate = Handlebars.compile(newComments);
+//									 $('#'+parent+'-newcommentlists').append(newCmtTemplate(data));
+//									 $('#'+data.id.id+'-newCmtImage').attr("src" ,BS.profileImageUrl );
+//								 }
+//								 
+//								/* auto push */
+//			  					var streamId = $('#streams-list li.active a').attr('id');
+//				                 PUBNUB.publish({
+//				                         channel : "comment",
+//				                         message : { pagePushUid: self.pagePushUid ,data:data,parent:parent,cmtCount:cmtCount,prifileImage : BS.profileImageUrl}
+//				                 })
+//								 
+//					  		});
+//					  				
+//							 /* for comment Header   */
+//							 var cmdHead = $("#tpl-comment-header").html();
+//							 var cmdHeadTemplate = Handlebars.compile(cmdHead);
+//							 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
+//					  		 $('#'+parent+'-showComment').addClass('disabled');
+//	//				  		 $('#'+parent+'-cmtCount').html(cmtCount);
+//	 
+//					  	}
+//			  		});
+//	
+//			 }
+//		 },
 		 
 		 /**
 		  * hide comments under each messages
@@ -3177,139 +3180,261 @@
 		 
 		
 		 
+		 
+		 
 	 
 	   /**
-	    * PUBNUB real time push
+	    * NEW THEME - PUBNUB real time push
 	    */
-	   setupPushConnection: function() {
-	     var self = this;
+		 setupPushConnection: function() {
+			 var self = this;
+			 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
+			 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+			 var trueurl='';
+			 /* for message posting */
+			 PUBNUB.subscribe({
+				 channel : "stream",
+				 restore : false,
+				 callback : function(message) {
 	
-	     self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
-	    
-	     /* for message posting */
-	     PUBNUB.subscribe({
-	        channel : "stream",
-	        restore : false,
-	        callback : function(message) {
-	
-			var streamId = $('#streams-list li.active a').attr('id');
-	        if (message.pagePushUid != self.pagePushUid)
-			{ 
-				if(message.streamId==streamId)
-				{
-	//				$('.timeline_items').html("");
-	//				self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
+					 var streamId = $('.sortable li.active').attr('id');
+					 if (message.pagePushUid != self.pagePushUid)
+					 { 
+						 if(message.streamId==streamId)
+			       		 	{
+	//							$('.timeline_items').html("");
+	//							self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
 					
-				 if(!document.getElementById(message.data.id.id))
-		    	 {	
-					var msgBody = message.data.messageBody;
-					var link =  msgBody.match(BS.urlRegex);
-					var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-			             return '<a target="_blank" href="' + url + '">' + url + '</a>';
-			        });
-						  
-					var datas = {
-						 "datas" : message.data,
-				    }
-						  
-				   var source = $("#tpl-messages").html();
-				   var template = Handlebars.compile(source);
-				   $('.timeline_items').prepend(template(datas));
-						 
-				   //get profile image of logged user
-				   $('img#'+message.data.id.id+'-img').attr("src", message.prifileImage);
-					    
-				   if(linkTag)
-				   $('div#'+message.data.id.id+'-id').html(linkTag);
-						
-				   // embedly
-					$('div#'+message.data.id.id+'-id').embedly({
-						   	  maxWidth: 200,
-					          wmode: 'transparent',
-					          method: 'after',
-						      key:'4d205b6a796b11e1871a4040d3dc5c07'
-				   });
-				 }
-			   }
-			}
+							 	if(!document.getElementById(message.data.id.id))
+							 	{	
+							 		
+							 		 var msgBody = message.data.messageBody;
+		                             var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
+		                            	 trueurl= msgUrlw;                                                                  
+		                            	 return msgUrlw;
+		                             });
+		                             
+		                             //to get the extension of the uploaded file
+		                             var extension = (trueurl).match(pattern);  
+		                             
+		                             //to check whether the url is a google doc url or not
+		                             if(message.data.messageType.name == "Text")                          
+		                             {	
+		                            	 if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) 
+		                                 {   
+		                            		 messageType = "googleDocs";
+
+		                                 }
+		                            	 else
+		                            	 {    
+		                            		 messageType = "messageOnly";
+		                            		 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+		                            			 return '<a target="_blank" href="' + url + '">' + url + '</a>';
+		                            		 });
+		 	                                             
+		                            	 }
+		                             }                                                      
+		                             else
+		                             {         
+		                                 // url has extension then set first letter of extension in capital letter  
+		   	   		                	 extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+		   	   		                		 return letter.toUpperCase();
+		   	   		                	 });
+
+		                    		 }
+		   							  
+		                             var datas = {
+		                            		 "datas" : message.data,
+		                             }	
+		                              
+		                             // set a format style to date
+		                             BS.filesMediaView = new BS.FilesMediaView(); 
+		                             var datVal =  BS.filesMediaView.formatDateVal(message.data.timeCreated);
+		    			                    
+//		                             // if message conatains googledoc url
+//		                             if(messageType == "googleDocs")
+//		 							 {
+//		                            	 
+//		                            	 var datas = {
+//		                            			 "datas" : data,
+//		                            			 "datVal" :datVal,
+//		                            			 "previewImage" : "images/google_docs_image.png",
+//		                            			 "type" : "googleDoc"
+//			 							 }	
+//		 								 var source = $("#tpl-messages_with_docs").html();
+//		 	         		  						
+//		     						 }
+//		                             // if message conatains messages only without any uploaded files
+//		 							 else if(messageType == "messageOnly")
+//		 							 {
+		 								 var source = $("#tpl-discussion-messages").html();
+//		     						 }
+//		                             // if message conatains  uploaded files
+//		 							 else
+//		 							 {
+//		 								 if(data.messageType.name == "Image")
+//		 								 {
+//		 									 var source = $("#tpl-messages_with_images").html();
+//		 								 }
+//		 								 else if(data.messageType.name == "Video")
+//		 								 {
+//		 									 var source = $("#tpl-messages_with_images").html();
+//		 								 }
+//		 								 else
+//		 								 {
+//		 									 var previewImage = '';
+//		 									 var commenImage ="";
+//		 									 var type = "";
+//		     								 
+//		 									 /* check its extensions and set corresponding preview icon images */
+//		 									 if(extension == 'Ppt')
+//		 									 {
+//		 										 previewImage= "images/presentations_image.png";
+//		 										 type = "ppt";
+//		 									 }
+//		 									 else if(extension == 'Doc')
+//		 									 {
+//		 										 previewImage= "images/docs_image.png";
+//		 										 type = "doc";
+//		 									 }
+//		 									 else if(extension == 'Pdf')
+//		 									 {
+//		 										 previewImage= data.anyPreviewImageUrl;
+//		 										 type = "pdf";
+//		 									 }
+//		 									 else
+//		 									 {
+//		 										 previewImage= "images/textimage.png";
+//		 										 commenImage = "true";
+//		 										 type = "doc";
+//										 	 }
+//		     									
+//		 									 var datas = {
+//		 											 "datas" : data,
+//		 											 "datVal" :datVal,
+//		 											 "previewImage" :previewImage,
+//		 											 "extension" : extension,
+//		 											 "commenImage" : commenImage,
+//		 											 "type" : type
+//								        	 }	
+//		     								
+//		 								     var source = $("#tpl-messages_with_docs").html();
+//		     		  						 
+//										 }
+		 	         								
+//		     						 }
+		            			                    
+		                             var template = Handlebars.compile(source);
+		                             $('#all-messages').prepend(template(datas));
+
+		                             //get profile image of logged user
+		                             $('img#'+message.data.id.id+'-img').attr("src", BS.profileImageUrl);
+		                            
+		  							 if(linkTag)
+		  								 $('p#'+message.data.id.id+'-id').html(linkTag);
+		  						
+		  							 var url=message.data.messageBody;				
+		  							 if(message.data.messageType.name == "Text")
+		  							 {  
+		  								 //to check the extension of the url                                            
+		                                 if(!url.match(/^(https:\/\/docs.google.com\/)/)) 
+		                                 {	
+		                                	 // embedly
+		                                	 $('p#'+message.data.id.id+'-id').embedly({
+		                                		 maxWidth: 200,
+		 	                                	 wmode: 'transparent',
+		                                		 method: 'after',
+		                                		 key:'4d205b6a796b11e1871a4040d3dc5c07'
+				  	  					 	 });
+		                                 }
+		                                 else
+		                                 {            
+		                                	//insert google doc image for doc url
+		                                 }        
+		                         	 }                                          
+		                             else      //insert value to hidden field
+		                             {
+		                            	 $('input#'+message.data.id.id+'-url').val(msgUrl);  
+		                             }                                           
+						 	   }
+	       		 		   }
+				 	   }
 			 
-	      }
-	    })
+			 	   }
+		 	   })
 	    
 	    
-	    /* auto push functionality for comments */
+		 	   /* auto push functionality for comments */
 	    
-	     PUBNUB.subscribe({
+		 	   PUBNUB.subscribe({
 	
-	      channel : "comment",
-	      restore : false,
+		 		   channel : "comment",
+		 		   restore : false,
 	
-	      callback : function(message) { 
+		 		   callback : function(message) { 
 	    	  
-	    	  if(message.pagePushUid != self.pagePushUid)
-	  		  {
+		 			   if(message.pagePushUid != self.pagePushUid)
+		 			   {
 	    		   
-	    	    if(!document.getElementById(message.data.id.id))
-	    		{
-		    	     var parent = message.parent;
-		    	     var data = message.data;
-		    	     var cmtCount = message.cmtCount;
-		    	     var prifileImage = message.prifileImage;
-		    	      
-			    	 var comments = $("#tpl-comments").html();
-					 var commentsTemplate = Handlebars.compile(comments);
-						 
-					 $('#'+parent+'-commentlists').append(commentsTemplate(data));
-					 $('#'+data.id.id+'-image').attr("src" ,prifileImage );
-						 
-					 /* for comment Header   */
-					 var cmdHead = $("#tpl-comment-header").html();
-					 var cmdHeadTemplate = Handlebars.compile(cmdHead);
-					 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
-					 $('#'+parent+'-showComment').addClass('disabled');
-						 
-					 if(!$('#'+parent+'-commentlists').is(':visible'))
-					 {  
-							 $('#'+parent+'-showComment').removeClass('disabled');
-							 $('#'+parent+'-hideComment').addClass('disabled');
-							 $('#'+data.id.id+'-newCmtImage').attr("src" ,prifileImage );
-					 }
-	    		}
-	  		}
-	      }
+		 				   if(!document.getElementById(message.data.id.id))
+		 				   {
+		 					   var parent = message.parent;
+		 					   var data = message.data;
+		 					   var totalComments = message.cmtCount;
+		 					   var prifileImage = message.prifileImage;
+				    	      
+		 					   
+		 					   
+		 					   var comments = $("#tpl-discussion-messages-comment").html();
+		 					   var commentsTemplate = Handlebars.compile(comments);
+	   							 
+		 					   $('#'+parent+'-allComments').prepend(commentsTemplate(data));
+		 					   $('#'+data.id.id+'-image').attr("src" ,BS.profileImageUrl );
+   							 
+		 					   if(!$('#'+parent+'-allComments').is(':visible'))
+		 					   {  
+		 						   var newComments = $("#tpl-discussion-messages-newComment").html();
+		 						   var newCmtTemplate = Handlebars.compile(newComments);
+		 						   $('#'+parent+'-newCommentList').prepend(newCmtTemplate(data));
+		 						   $('#'+data.id.id+'-newCmtImage').attr("src" ,BS.profileImageUrl );
+   								
+		 					   }
+		 					   $('#'+parent+'-show-hide').text("Hide All");
+		 					   $('#'+parent+'-totalComment').text(totalComments);
+
+	 				   	   }
+ 			   		   }
+ 		   		   }
 	
-	    })
+ 	   		   })
 	    
-	    /* for message Rocks */
-	    PUBNUB.subscribe({
-	
-	      channel : "msgRock",
-	      restore : false,
-	      callback : function(message) {
-	    	  if(message.pagePushUid != self.pagePushUid)
-	  		  {   	  
-	    		  $('li#'+message.msgId+'').find('.rock-message').find('i').html(message.data);
-	  		  }
-			 
-	      }
-	
-	    })
+		       /* for message Rocks */
+ 	   		   PUBNUB.subscribe({
+		
+ 	   			   channel : "msgRock",
+ 	   			   restore : false,
+ 	   			   callback : function(message) {
+ 	   				   if(message.pagePushUid != self.pagePushUid)
+ 	   				   {   	  
+ 	   					   $('#'+message.msgId+'-msgRockCount').find('span').html(message.data);
+ 	   				   }
+		   		   }
+	   		   })
 	    
-	    /* for Comment Rocks */
-	    PUBNUB.subscribe({
+	   		   /* for Comment Rocks */
+	   		   PUBNUB.subscribe({
 	
-	      channel : "commentRock",
-	      restore : false,
-	      callback : function(message) {
-	    	  if(message.pagePushUid != self.pagePushUid)
-	  		  {   	  
-	    		  $('li#'+message.commentId+'').find('i').find('i').html(message.data);
-	  		  }
-	      }
-	
-	    })
-	
-	  },
+	   			   channel : "commentRock",
+	   			   restore : false,
+	   			   callback : function(message) {
+	   				   if(message.pagePushUid != self.pagePushUid)
+	   				   {   	  
+	   					   $('#'+message.commentId+'-rockCount').html(message.data);
+//	   					   $('li#'+message.commentId+'').find('i').find('i').html(message.data);
+	   				   }
+	   			   }
+	   		   })
+ 		},
 	  
 	  
 	  
