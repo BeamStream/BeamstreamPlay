@@ -173,7 +173,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	                                        +''+doc.documentDescription+' </p> </div></a>'
 	                                        +'<h5 class="doctitle" id="'+doc.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
 	                                        +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#">'
-	                                        +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
+	                                        +'</a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
 	                                        +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
 	                         $('#coverdocs').html(content);                     
 	                      });
@@ -206,7 +206,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	                                        +''+doc.documentDescription+' </p> </div></a>'
 	                                        +'<h5 class="doctitle" id="'+doc.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
 	                                        +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#">'
-	                                        +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
+	                                        +'</a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
 	                                        +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
 	                           $('#coverdoc_com').html(content);                     
                
@@ -270,16 +270,15 @@ BS.FilesMediaView = Backbone.View.extend({
                             {
                              _.each(images, function(image) {
                                   	var datVal =  self.formatDateVal(image.creationDate);  
-	                                content= '<div class="image-wrapper hovereffect" id="'+image.id.id+'"> <div class="hover-div"><img class="filmdeapicture" width="210px" height="141px" src="'+image.mediaUrl+'"><div class="hover-text">'               
+	                                content= '<div class="image-wrapper hovereffect" id="'+image.id.id+'"> <div class="hover-div"><img class="filmedia-picture" src="'+image.mediaUrl+'"><div class="hover-text">'               
 	                                +'<div class="comment-wrapper comment-wrapper2">'
 	                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
 	                                +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#imagelist" style="text-decoration: none"><div id="media-'+image.id.id+'" ><h4>'+image.name+'</h4>'                            
 	                                +'<p class="doc-description">'+image.description+'</p></div></a>'
 	                                +'<h5 class="imgtitle" id="'+image.id.id+'"> Title & Description</h5>'          
-	                                +'<span>State</span>'
-	                                +' <span class="date">datVal</span>' 
+	                                +'<div class="dateinfo"><span>State</span><span>datVal</span></div>'
 	                                +'</div></div></div>'
-	                                +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"><span class="right-arrow"></span></a>'
+	                                +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
 	                                +'<ul class="comment-list">'
 	                                +'<li><a class="eye-icon" href="#">87</a></li>'
 	                                +'<li><a class="hand-icon" href="#">5</a></li>'
@@ -351,7 +350,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                 arraypictures=videos;
                                 coverpicture=arraypictures[arraypictures.length-1];
                                   _.each(videos, function(video) {
-                                content= '<div class="image-wrapper hovereffect"><div class="hover-div"><img class="videoimage" src="'+coverpicture.frameURL+'"/><div class="hover-text">'
+                                content= '<div class="image-wrapper hovereffect"><div class="hover-div"><img class="filmedia-picture" src="'+coverpicture.frameURL+'"/><div class="hover-text">'
                                             +'<div class="comment-wrapper comment-wrapper2">'
                                             +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
                                             +'<a href="#" class="hand-icon"></a>'
@@ -360,9 +359,8 @@ BS.FilesMediaView = Backbone.View.extend({
                                             +'<a id="profile-videos" style="text-decoration: none" href="#videos"><div id="media-'+video.id.id+'" ><h4>'+video.name+'</h4>'       
                                             +'<p class="doc-description">'+video.description+' </p></div></a>'
                                             +'<h5 class="videotitle" id="'+video.id.id+'"> Title & Description</h5>'          
-                                            +'<span>State</span>'
-                                            +' <span class="date">datVal</span>' 
-                                            +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
+                                            +'<div calss="date-info"><span>State</span><span>datVal</span></div>'                                         
+                                            +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"></a>'
                                             +'<ul class="comment-list">'
                                             +'<li><a class="eye-icon" href="#">87</a></li>'
                                             +'<li><a class="hand-icon" href="#">5</a></li>'
@@ -424,9 +422,9 @@ BS.FilesMediaView = Backbone.View.extend({
                                         +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#audioview" style="text-decoration: none">'
                                         +'<h4> '+audio.documentName+'</h4> <p class="doc-description">'                
                                         +''+audio.documentDescription+' </p></a>'
-                                        +'<h5 class="audiotitle" id="'+audio.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
+                                        +'<h5 class="audiotitle" id="'+audio.id.id+'"> Title & Description</h5><div calss="dateinfo"><span>State</span><span>'+datVal+'</span></div>'
                                         +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon music" href="#">'
-                                        +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
+                                        +'</a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
                                         +'<li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
                          
                                $('#coveraudio').html(content); 
@@ -461,7 +459,7 @@ BS.FilesMediaView = Backbone.View.extend({
          */
         spreadsheet :function(eventName){
              content= '<div class="hover-div"><img src="images/video_image.png"/><div class="hover-text"><div class="image-wrapper"><a id="profile-videos" href="#videos"><img src="images/image2.jpg"></a>'
-                        +'</div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
+                        +'</div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"></a>'
                         +'<ul class="comment-list">'
                         +'<li><a class="eye-icon" href="#">87</a></li>'
                         +'<li><a class="hand-icon" href="#">5</a></li>'
@@ -489,9 +487,9 @@ BS.FilesMediaView = Backbone.View.extend({
                                         +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#presentationview" style="text-decoration: none">'
                                         +' <div id="media-'+ppt.id.id+'" ><h4>'+ppt.documentName+'</h4> <p class="doc-description" id="'+ppt.id.id+'" >'                
                                         +''+ppt.documentDescription+' </p></div></a>'
-                                        +'<h5 class="presentationtitle" id="'+ppt.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
+                                        +'<h5 class="presentationtitle" id="'+ppt.id.id+'"> Title & Description</h5><div calss="dateinfo"><span>State</span><span>'+datVal+'</span></div>'
                                         +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon presentation" href="#">'
-                                        +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
+                                        +'</a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
                                         +'<li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
                          
                                $('#coverpresentation').html(content); 
@@ -554,9 +552,9 @@ BS.FilesMediaView = Backbone.View.extend({
                                         +'<div id="media-'+pdf.id.id+'" ><h4> '+pdf.documentName+'</h4> <p class="doc-description" id="'+pdf.id.id+'" >'                
                                         +'<input type="hidden" id="id-'+pdf.id.id+'" value="'+pdf.documentURL+'">'
                                         +''+pdf.documentDescription+' </p></div></a>'
-                                        +'<h5 class="pdftitle" id="'+pdf.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
+                                        +'<h5 class="pdftitle" id="'+pdf.id.id+'"> Title & Description</h5><div calss="dateinfo"><span>State</span><span>'+datVal+'</span></div>'
                                         +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon pdf" href="#">'
-                                        +'<span class="right-arrow"></span></a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
+                                        +'</a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
                                         +'<li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
                          
                                $('#coverpdf').html(content); 
@@ -604,7 +602,7 @@ BS.FilesMediaView = Backbone.View.extend({
          */
         links :function(eventName){
              content= '<div class="hover-div"><img src="images/video_image.png"/><div class="hover-text"><div class="image-wrapper"><a id="profile-videos" href="#videos"><img src="images/image2.jpg"></a>'
-                        +'</div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"><span class="right-arrow"></span></a>'
+                        +'</div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"></a>'
                         +'<ul class="comment-list">'
                         +'<li><a class="eye-icon" href="#">87</a></li>'
                         +'<li><a class="hand-icon" href="#">5</a></li>'

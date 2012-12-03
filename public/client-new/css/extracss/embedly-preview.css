@@ -153,8 +153,8 @@
 
 .item {
   margin: 10px 0;
-  border-top: 1px solid #DDD;
-  padding: 10px 0; }
+
+}
   .item.video .media iframe, .item.video .media object, .item.video .media embed, .item.video .media img, .item.rich .media iframe, .item.rich .media object, .item.rich .media embed, .item.rich .media img, .item.photo .media iframe, .item.photo .media object, .item.photo .media embed, .item.photo .media img {
     margin: 10px auto;
     display: block; }

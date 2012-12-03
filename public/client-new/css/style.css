@@ -2565,6 +2565,10 @@ div.hover-div{
  /*    margin:1px 0px 0px 0px;  */
 
  } 
+ 
+ 
+.filmedia-picture{width:100%;}
+ 
 
 div.hover-div:hover .hover-text{ 
      display:block;         
@@ -2587,7 +2591,12 @@ div.hover-div:hover .hover-text{
  	font-family: 'Ubuntu', sans-serif; 
  	font-weight:500; 
  	margin:0 0 5px 0; 
- 	cursor: pointer;float:left;line-height:20px; width:100%; text-align:left;
+ 	cursor: pointer;line-height:20px; width:100%; text-align:left;
+ } 
+ 
+ 
+  .image-wrapper p.emptyfiles{ 
+ 	text-align:center;line-height:150px;font-weight:bold;
  } 
 
 .image-wrapper h5{ 
@@ -2619,15 +2628,54 @@ border-radius: 4px 0 0 4px;
     padding: 5px 5px 0;
     right: 0;
     top: 31px;
-    width: 21px;
+    width: 21px;float:right;
 }
-.comment-wrapper2 a{
-/* 	margin:0 0 0 10px !important; */
-margin: 0 0 3px 4px !important;
-}
+
 .comment-wrapper a{
 	position:relative;	
 }
+
+
+.comment-wrapper2 a {
+    display: block;
+    float: left;
+    height: 17px;
+    margin: 0 12px 0 0;
+    width: 17px;
+}
+
+.message-icon{
+	background:url(../images/like.png) no-repeat 0px 3px;
+}
+
+.tag-icon{
+	background:url(../images/like.png) no-repeat 0px 2px;
+}
+
+.share-icon{
+	background:url(../images/like.png) no-repeat 0px 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*
@@ -2652,12 +2700,14 @@ margin: 0 0 3px 4px !important;
  	margin:0 0 8px 0; 
  } 
  
+ .dateinfo{width:100%;float:left; }
+ .dateinfo span{float:left; font-weight:bold;text-align:left; }
 
  .image-wrapper span{ 
  	float:left; 
  	display:block; 
  	font-size:12px; 
- 	color: #888; 
+ 	color: #888; line-height:20px;width:50%;
  } 
  .image-wrapper1 { 
  	width:188px; 
