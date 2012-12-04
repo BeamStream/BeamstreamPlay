@@ -18,49 +18,8 @@
 	BS.StreamView = Backbone.View.extend({
 	
 		 events :{
-	   /*        "mouseenter .trigger" : "mouseOver",
-	           "mouseleave .trigger" : "mouseOut",
-	           "click #classstream" :"classStream",
-	           "click #projectStream" :"projectstream",
-	           "click #studyStream" :"studyStream",
-	           "click #groupStream" :"groupStream",
-	           "click #peerStream" : "peerStream",
-	           "click #friendStream" :"friendStream",
-	           "click #streams-list li" : "selectOneStream",
-	           "click #post-msg": "postMessage",
-	           "click ul#select-streams li a" : "showStreamList",
-	//           "click #icon-up" :"slideUp",
-	//           "click #icon-down" : "slideDown",
-	           "click i.rock-message" : "rockMessage",
-	           "mouseenter i.rock-message" : "showUnrockMessage",
-	           "click i.rock-comment" :"rockComments",
-	           "mouseenter i.rock-comment" : "showUnrockComment",
-	           "mouseenter a#rocks" : "showRockers",
-	           "click a.rock" : "preventDefault",
-	           "mouseenter a#cmtrock" : "showCommentRockers",
-	           "click .edit_profilepicture" : "showProfilePage",
-	           "click .nav-tabs li" : "showActive",
-	           "click .class-nav-list li" :"showListActive",
-	           "keypress #msg" : "postMessageOnEnterKey",
-	           "click .comment": "showCommentSection",
-	           "keypress .add_message_comment" : "addComment",
-	           "click .hide_comments" : "hideComments",
-	           "click .show_comments" : "showComments",
-	           "click #sort-messages li a" : "sortMessages",
-	           "keypress #sort_by_key" : "sortMessagesByKey",
-	           "click .msg-follow" : "followMessage",
-	           "click .social_media" : "uncheckPrivate",
-	           "click #id-private" : "makePrivate",
-	           "click .username a" : "renderPublicProfile",
-	           "click .delete_msg" : "deleteMessage",
-	           "click .delete_comment" : "deleteComment",
-	           "click .doc" : "showUploadBox",
-	           "change #upload-files" : "getUploadedData",
-		   "click .strmdoc" : "showStrmDocPopup",        
-	            "click .uploaded" : "StrmMediaPopup", 
-	           "mouseenter a.strmdoc" : "showDocTitle"         */
 			 
-			 /* For new design work -- polling */
+			 /* For new design work  */
 			 "click .close-btn" : "closeStreamTab",
 			 "click .cancel-btn " : "closeRemoveOption",
 			 "click .stream-tab a" : "renderSubMenuPages",
@@ -80,7 +39,9 @@
 			 "click #upload-files" : "showUploadSection",
 			 "change #upload-files-area" : "getUploadedData",
 			 "click #private-to-list li" :"selectPrivateToList",
-			 "click #private-to" : "checkPrivateAccess"
+			 "click #private-to" : "checkPrivateAccess",
+			 "click #sortBy-list" : "sortMessages",
+			 "keypress #sort_by_key" : "sortMessagesByKey",
 	//		 "click .ask-button" :"askQuestions",
 	//		 "click .add-poll " : "displayOptionsEntry",
 	//		 "click #add_more_options" :"addMoreOptions"
@@ -193,7 +154,7 @@
 	
 	        
 			/* pagination on scrolling */
-		//	BS.msgSortedType = '';
+			BS.msgSortedType = '';
 		//	BS.pagenum = 1;
 		//	BS.pageForVotes = 1;
 		//	BS.pageForDate = 1;
@@ -255,7 +216,7 @@
 	    },
 	    
 	    /**
-	     * get all streams
+	     * NEW THEME - get all streams
 	     */
 	    getStreams :function(){
 	    	 
@@ -302,33 +263,6 @@
 			    	     middleContentTemplate = Handlebars.compile(middleContentSource);
 			    	     $('#common-middle-contents').html(middleContentTemplate);
 			    	     
-			    	     
-						 
-	//					 $('#streams-list li:first').addClass('active');
-						 
-						 
-	//					 $('#streams-list').html(streams);
-	//					 $('#streams-list li:first').addClass('active');
-	//					 
-	//					 // display the messages of the first stream in the stream list by default
-	//                     var streamId = $('#streams-list li.active a').attr('id');
-	//                     var streamName = $('#streams-list li.active a').attr('name');
-	//                     
-	//                     // render sub menus in stream page
-	//                     var source = $("#tpl-stream-page-menus").html();
-	//             		 var template = Handlebars.compile(source);
-	//             		 $('#sub-menus').html(template({streamName : streamName}));
-	//             		 
-	//             	     // right one list
-	//             		 $('#public-classes').html(classStreams);
-	//             		 
-	//             		 //set active class on right top
-	//	                 $('#public-classes').find('li.active').removeClass('active');
-	//	              	 $('#public-classes').find('li#'+streamId+'').addClass('active');
-	//	              	 $('.timeline_items').html("");
-	//	              	 BS.pagenum =1;  
-	//                     if(streamId)
-	//                      self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
 					}
 			 });
 	    },
@@ -486,8 +420,8 @@
 	     */
 	    getAllMessages :function(streamid,pageNo,limit){
 	    	
-	    	 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-	         var trueurl='';
+//	    	 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+//	         var trueurl='';
 	         var self = this;
 	         /* get all messages of a stream  */
 			 $.ajax({
@@ -500,232 +434,7 @@
 					},
 					dataType : "json",
 					success : function(data) {
-						 
-						//hide page loader image
-						if(!data.length)
-							$('.page-loader').hide();
-							   
-						//display the messages
-						_.each(data, function(data) {
-							var messageType ='';
-							var msgBody = data.messageBody;
-	                                                        
-							//var links =  msgBody.match(BS.urlRegex); 
-	                        var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
-	                        	trueurl= msgUrlw;    
-	                            return msgUrlw;
-	                        });
-	                        
-	                        //to get the extension of the uploaded file
-	                        var extension = (trueurl).match(pattern);  
-	                        
-                           
-	                        if(data.messageType.name == "Text")
-	                        {    
-	                            	 
-		                         //to check whether the url is a google doc url or not
-	                             if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) 
-	                             {
-	                            	 messageType = "googleDocs";
-	                             }
-	                             else
-	                             {
-	                            	 messageType = "messageOnly";
-	                                 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-	                                       return '<a target="_blank" href="' + url + '">' + url + '</a>';
-	                                 });
-	                             }
-	                        }
-	                        else
-	                        {          
-	                             // set first letter of extension in capital letter  
-	   		                	 extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
-	   		                	    return letter.toUpperCase();
-	   		                	 });
-	                                  
-	                        }
-	                       
-							var datas = {
- 							 	 "datas" : data,
- 						    }
-                            BS.filesMediaView = new BS.FilesMediaView(); 
-			                var datVal =  BS.filesMediaView.formatDateVal(data.timeCreated);
-								
-//							if(messageType == "googleDocs")
-//							{
-								 
-//								var datas = {
-//										    "datas" : data,
-//		                                    "datVal" :datVal,
-//		                                    "previewImage" : "images/google_docs_image.png",
-//		                                    "type" : "googleDoc"
-//							     }	
-//								var source = $("#tpl-messages_with_docs").html();
-		  						
-//							}
-//							else if(messageType == "messageOnly")
-//							{
-								
-								var source = $("#tpl-discussion-messages").html();
-		  						
-//							}
-//							else
-//							{
-//								if(data.messageType.name == "Image")
-//								{
-//									var source = $("#tpl-messages_with_images").html();
-//			  						
-//								}
-//								else if(data.messageType.name == "Video")
-//								{
-//									var source = $("#tpl-messages_with_images").html();
-//			  						
-//								}
-//								else
-//								{
-//									var previewImage = '';
-//									var commenImage ="";
-//									var type = "";
-//									 
-//									if(extension == 'Ppt')
-//									{
-//			                            previewImage= "images/presentations_image.png";
-//			                            type = "ppt";
-//			                            
-//									}
-//									else if(extension == 'Doc')
-//									{
-//										previewImage= "images/docs_image.png";
-//										type = "doc";
-//										 	
-//									}
-//									else if(extension == 'Pdf')
-//									{
-//										 
-//										previewImage= data.anyPreviewImageUrl;
-//										type = "pdf";
-//									}
-//									else
-//									{
-//										previewImage= "images/textimage.png";
-//										commenImage = "true";
-//										type = "doc";
-//										
-//									}
-//									
-//									var datas = {
-//										    "datas" : data,
-//		                                    "datVal" :datVal,
-//		                                    "previewImage" :previewImage,
-//		                                    "extension" : extension,
-//		                                    "commenImage" : commenImage,
-//		                                    "type" : type
-//							        }	
-//								
-//								    var source = $("#tpl-messages_with_docs").html();
-		  						
-//							  }
-									
-//							}
-							
-//							$('.right-container').html(rightContentTemplate(topMenuDetails));
-							var template = Handlebars.compile(source);
-//	  						$('.page-loader').hide();
-	  						$('#all-messages').append(template(datas));
-	  						
-	  						/* check whether the user is follwer of a message or not */
-	  				         $.ajax({
-	  				    			type : 'POST',
-	  				    			url : BS.isAFollower,
-	  				    			data : {
-	  				    				 messageId : data.id.id
-	  				    			},
-	  				    			dataType : "json",
-	  				    			success : function(status) {
-	  				    				 if(status == "true")
-	  				    					 $('#'+data.id.id+'-follow').text("Unfollow");
-	  				    			}
-	  				    	 });
-		  						 
-	  						 /* get profile images for messages */
-	  				         $.ajax({
-	  				    			type : 'POST',
-	  				    			url : BS.profileImage,
-	  				    			data : {
-	  				    				 userId :  data.userId.id
-	  				    			},
-	  				    			dataType : "json",
-	  				    			success : function(pofiledata) {
-	  				    				var imgUrl;
-	  				    				if(pofiledata.status)
-	  				    				 {
-	  				    					imgUrl = "images/profile-img.png";
-	  				    				 }
-	  				    				 else
-	  				    				 {   
-	  				    					 // shoe primary profile image 
-	  				    					 if(pofiledata.contentType.name == "Image")
-	  				    					 {
-	  				    						imgUrl = pofiledata.mediaUrl;
-	  				    					 }
-	  				    					 // shoe primary profile video 
-	  				    					 else
-	  				    					 {
-	  				    						imgUrl = pofiledata.frameURL;
-	  				    					 }
-	  				    				 }
-	  				    				$('img#'+data.id.id+'-img').attr("src", imgUrl);
-	  				    			}
-	  				    	 });
-		  				           
-	  						 if(linkTag)
-	  							 $('p#'+data.id.id+'-id').html(linkTag);
-		  						 
-                             var url=data.messageBody;
-                             if(data.messageType.name == "Text"){   
-	                                             
-	                             if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
-		                             // embedly
-		                             $('p#'+data.id.id+'-id').embedly({
-		                                     maxWidth: 200,
-		                                     msg : 'https://assets0.assembla.com/images/assembla-logo-home.png?1352833813',
-				                             wmode: 'transparent',
-				                             method: 'after',
-				                             key:'4d205b6a796b11e1871a4040d3dc5c07'
-		                             });
-	                              }
-
-	                         }
-	                         else       
-	                         {
-	                            	 
-	                            	 if(data.messageType.name == "Image")
-	                            	 {
-	                            		   
-//	                            		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
-	 
-
-	                            	 }
-	                            	 else if(data.messageType.name == "Video")
-	                            	 {
-//	                            		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>';
-	                            	 }
-	                            	 else
-	                            	 {
-	                            	 }
-	                            	 
-//	                                 $('input#'+data.id.id+'-url').val(msgUrl); 
-	                            	 
-//	                            	 /* for video popups */
-//	                                 $("area[rel^='prettyPhoto']").prettyPhoto();
-//	              					 $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
-//	              					 $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
-	              			
-	                           }
-
-		  						 
-		  					   self.showAllComments(data.id.id);
-					      });
+						self.displayMessages(data);
 					}
 			 });
 	    	
@@ -1578,6 +1287,362 @@
         	else
         		$('#select-privateTo').text("Class");
         },
+        
+        /**
+         *  NEW THEME - Sort Messages/Discussions
+         */
+        sortMessages: function(eventName){
+        	eventName.preventDefault();
+        	var self = this;
+        	var streamId = $('.sortable li.active').attr('id');
+        	$('#sortBy-select').text($(eventName.target).text());
+        	
+        	var sortBy = $(eventName.target).attr('name');
+        	if(sortBy == "most-recent")
+        	{
+        		BS.msgSortedType = "date";
+        		$('#all-messages').html('');
+        		BS.pageForDate = 1;
+        		self.sortByMostRecent(streamId,BS.pageForDate,BS.pageLimit);
+        		
+        	}
+        	else if(sortBy == "highest-rated")
+        	{
+        		BS.msgSortedType = "vote";
+        		$('#all-messages').html('');
+        		BS.pageForVotes = 1;
+        		self.sortByHighestRated(streamId,BS.pageForVotes,BS.pageLimit)
+        	}
+        		
+        },
+        
+        /**
+		 * NEW THEME - sort messages by keyword
+		 */
+		 sortMessagesByKey :function(eventName){
+			
+			 var self = this;
+	 		 if(eventName.which == 13) {
+	 			 
+	 			 BS.msgSortedType = "keyword";
+	 			 BS.pageForKeyword = 1;
+	 			 $('#all-messages').html('');
+				 var keyword = $('#sort_by_key').val();
+				 var streamId =$('.sortable li.active').attr('id');
+				 self.sortBykeyword(streamId,keyword,BS.pageForKeyword,BS.pageLimit);
+				
+			 } 
+		 },
+		 
+		 /**
+		  * NEW THEME - get messages and sort by keywords
+		  */
+		 sortBykeyword :function(streamId,keyword,pageNo,limit){
+			 var self = this;
+			 $.ajax({
+		  			type : 'POST',
+		  			url :BS.sortByKey,
+		  			data : {
+		  				 streamId :streamId,
+		  				 keyword : keyword,
+		  				 pageNo : pageNo,
+		  				 limit  : limit
+		  			},
+		  			dataType : "json",
+				  	success : function(data) {
+				  		//hide page loader image
+//					  	if(!data.length)
+//							$('.page-loader').hide();
+				  		self.displayMessages(data);
+				  	}
+		  		});
+		 },
+		 
+        /**
+         * NEW THEME - sort messages by Most Recent 
+         */
+        sortByMostRecent: function(streamId,pageNo,limit){
+        	var self = this;
+        	$.ajax({
+        		type : 'POST',
+   	  			url : BS.sortByDate,
+   	  			data : {
+   	  				 streamId :streamId,
+   	  				 pageNo : pageNo,
+   	  				 limit  : limit
+   	  			},
+   	  			dataType : "json",
+   			  	success : function(data) {
+   			  		self.displayMessages(data);
+   			  	}
+   	  		});
+        },
+        
+        /**
+         * NEW THEME - sort messages by highest rated
+         */
+        sortByHighestRated: function(streamId,pageNo,limit){
+        	
+        	var self =this;
+    		$.ajax({
+    			type : 'POST',
+	  			url : BS.sortByVote,
+	  			data : {
+	  				 streamId :streamId,
+	  				 pageNo : pageNo,
+	  				 limit  : limit
+	  				 
+	  			},
+	  			dataType : "json",
+			  	success : function(data) {
+			  		
+			  	  //hide page loader image
+//					if(!data.length)
+//						$('.page-loader').hide();
+			  		self.displayMessages(data);
+			  	}
+	  		});
+        },
+        
+       
+		 
+        /**
+         * NEW THEME - Display messages 
+         */
+        displayMessages: function(data){
+        	
+        	var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+        	var trueurl='';
+        	var self = this;
+        	
+			//hide page loader image
+//			if(!data.length)
+//				$('.page-loader').hide();
+				   
+			//display the messages
+			_.each(data, function(data) {
+				var messageType ='';
+				var msgBody = data.messageBody;
+                                                
+				//var links =  msgBody.match(BS.urlRegex); 
+                var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
+                	trueurl= msgUrlw;    
+                    return msgUrlw;
+                });
+                
+                //to get the extension of the uploaded file
+                var extension = (trueurl).match(pattern);  
+                
+               
+                if(data.messageType.name == "Text")
+                {    
+                    	 
+                     //to check whether the url is a google doc url or not
+                     if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) 
+                     {
+                    	 messageType = "googleDocs";
+                     }
+                     else
+                     {
+                    	 messageType = "messageOnly";
+                         var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+                               return '<a target="_blank" href="' + url + '">' + url + '</a>';
+                         });
+                     }
+                }
+                else
+                {          
+                     // set first letter of extension in capital letter  
+	                	 extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+	                	    return letter.toUpperCase();
+	                	 });
+                          
+                }
+               
+				var datas = {
+					 	 "datas" : data,
+				    }
+                BS.filesMediaView = new BS.FilesMediaView(); 
+                var datVal =  BS.filesMediaView.formatDateVal(data.timeCreated);
+					
+//				if(messageType == "googleDocs")
+//				{
+					 
+//					var datas = {
+//							    "datas" : data,
+//                                "datVal" :datVal,
+//                                "previewImage" : "images/google_docs_image.png",
+//                                "type" : "googleDoc"
+//				     }	
+//					var source = $("#tpl-messages_with_docs").html();
+						
+//				}
+//				else if(messageType == "messageOnly")
+//				{
+					
+					var source = $("#tpl-discussion-messages").html();
+						
+//				}
+//				else
+//				{
+//					if(data.messageType.name == "Image")
+//					{
+//						var source = $("#tpl-messages_with_images").html();
+//  						
+//					}
+//					else if(data.messageType.name == "Video")
+//					{
+//						var source = $("#tpl-messages_with_images").html();
+//  						
+//					}
+//					else
+//					{
+//						var previewImage = '';
+//						var commenImage ="";
+//						var type = "";
+//						 
+//						if(extension == 'Ppt')
+//						{
+//                            previewImage= "images/presentations_image.png";
+//                            type = "ppt";
+//                            
+//						}
+//						else if(extension == 'Doc')
+//						{
+//							previewImage= "images/docs_image.png";
+//							type = "doc";
+//							 	
+//						}
+//						else if(extension == 'Pdf')
+//						{
+//							 
+//							previewImage= data.anyPreviewImageUrl;
+//							type = "pdf";
+//						}
+//						else
+//						{
+//							previewImage= "images/textimage.png";
+//							commenImage = "true";
+//							type = "doc";
+//							
+//						}
+//						
+//						var datas = {
+//							    "datas" : data,
+//                                "datVal" :datVal,
+//                                "previewImage" :previewImage,
+//                                "extension" : extension,
+//                                "commenImage" : commenImage,
+//                                "type" : type
+//				        }	
+//					
+//					    var source = $("#tpl-messages_with_docs").html();
+						
+//				  }
+						
+//				}
+				
+//				$('.right-container').html(rightContentTemplate(topMenuDetails));
+				var template = Handlebars.compile(source);
+//					$('.page-loader').hide();
+					$('#all-messages').append(template(datas));
+					
+					/* check whether the user is follwer of a message or not */
+			         $.ajax({
+			    			type : 'POST',
+			    			url : BS.isAFollower,
+			    			data : {
+			    				 messageId : data.id.id
+			    			},
+			    			dataType : "json",
+			    			success : function(status) {
+			    				 if(status == "true")
+			    					 $('#'+data.id.id+'-follow').text("Unfollow");
+			    			}
+			    	 });
+						 
+					 /* get profile images for messages */
+			         $.ajax({
+			    			type : 'POST',
+			    			url : BS.profileImage,
+			    			data : {
+			    				 userId :  data.userId.id
+			    			},
+			    			dataType : "json",
+			    			success : function(pofiledata) {
+			    				var imgUrl;
+			    				if(pofiledata.status)
+			    				 {
+			    					imgUrl = "images/profile-img.png";
+			    				 }
+			    				 else
+			    				 {   
+			    					 // shoe primary profile image 
+			    					 if(pofiledata.contentType.name == "Image")
+			    					 {
+			    						imgUrl = pofiledata.mediaUrl;
+			    					 }
+			    					 // shoe primary profile video 
+			    					 else
+			    					 {
+			    						imgUrl = pofiledata.frameURL;
+			    					 }
+			    				 }
+			    				$('img#'+data.id.id+'-img').attr("src", imgUrl);
+			    			}
+			    	 });
+				           
+					 if(linkTag)
+						 $('p#'+data.id.id+'-id').html(linkTag);
+						 
+                 var url=data.messageBody;
+                 if(data.messageType.name == "Text"){   
+                                     
+                     if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
+                         // embedly
+                         $('p#'+data.id.id+'-id').embedly({
+                                 maxWidth: 200,
+                                 msg : 'https://assets0.assembla.com/images/assembla-logo-home.png?1352833813',
+	                             wmode: 'transparent',
+	                             method: 'after',
+	                             key:'4d205b6a796b11e1871a4040d3dc5c07'
+                         });
+                      }
+
+                 }
+                 else       
+                 {
+                    	 
+                    	 if(data.messageType.name == "Image")
+                    	 {
+                    		   
+//                    		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
+
+
+                    	 }
+                    	 else if(data.messageType.name == "Video")
+                    	 {
+//                    		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>';
+                    	 }
+                    	 else
+                    	 {
+                    	 }
+                    	 
+//                         $('input#'+data.id.id+'-url').val(msgUrl); 
+                    	 
+//                    	 /* for video popups */
+//                         $("area[rel^='prettyPhoto']").prettyPhoto();
+//      					 $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
+//      					 $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
+      			
+                   }
+
+						 
+					   self.showAllComments(data.id.id);
+		      });
+		
+        },
+        
 	    /**
 	     * get all class streams of a user
 	     */
@@ -1791,275 +1856,8 @@
 		   BS.pagenum = 1;
 		   this.getMessageInfo(id,BS.pagenum,BS.pageLimit);
 	    },
-	    
-	    /**
-	     * post a message
-	     */
-//	    postMessage :function(eventName){
-//	   
-//	      // upload file 
-//	    var self = this;
-//	    var streamId = $('#streams-list li.active a').attr('id');
-//	    var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-//	    var message = $('#msg').val();
-//	    var trueurl='';
-//	     if(this.file )
-//	     {
-//	    	 $('#file-upload-loader').css("display","block");
-//	
-//	    	 var data;
-//	         data = new FormData();
-//	         data.append('docDescription',message);
-//	         data.append('docData', self.file);  
-//	         data.append('streamId', streamId);  
-//	         
-//	         /* post profile page details */
-//	         $.ajax({
-//	             type: 'POST',
-//	             data: data,
-//	             url: BS.uploaddocFrmComputer,
-//	             cache: false,
-//	             contentType: false,
-//	             processData: false,
-//	             dataType : "json",
-//	             success: function(data){
-//	            	 self.file = "";
-//	            	 $('#file-upload-loader').css("display","none");
-//	            	 $('.upload-box').css("display","none");
-//	//                 console.log(data);
-//	                	 
-//	//	                	 var datas = {
-//	//	                             "datas" : data,
-//	//		                 }						  
-//	//		                 var source = $("#tpl-messages").html();
-//	//		                 var template = Handlebars.compile(source);
-//	//		                 $('.timeline_items').prepend(template(datas));
-//	                    
-//	             }
-//	         }); 
-//	     }
-//	     else
-//	     {
-//		      //var urlLink ='';
-//		      var self= this;
-//		      /* get message details from form */
-//		      var messageAccess;
-//		      
-//		     var message = $('#msg').val(); 
-//		      BS.updatedMsg =  message;
-//		      if(!message.match(/^[\s]*$/))
-//		      {   
-//			      var msgAccess =  $('#id-private').attr('checked');
-//			  	  if(msgAccess == "checked")
-//			  	  {
-//			  		messageAccess = "Private";
-//			  	  }
-//			  	  else
-//			  	  {
-//			  		messageAccess = "Public";
-//			  	  }
-//			  	  
-//			  	  //find link part from the message
-//			      var link =  message.match(BS.urlRegex); 
-//			       
-//			      if(link)
-//			      {  
-//		                   
-//			    	 if(!BS.urlRegex2.test(link[0])) {
-//			    		urlLink = "http://" + link[0];
-//			  	  	 }
-//			    	 else
-//			    	 {
-//			    		 urlLink =link[0];
-//			    	 }
-//			    	 
-//		                 
-//		                var msgBody = message;
-//		                var link =  msgBody.match(BS.urlRegex);                             
-//		                var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
-//		                    trueurl= msgUrlw;                                                                  
-//		                    return msgUrlw;
-//		                    });
-//		                var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file                                                                                                            
-//		                if(!extension){                           //to check the extension of the url             
-//		//                  if(!urlLink.match(uploadedurl))   //To check whether it is google docs or not
-//		//                  {
-//		
-//		                if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
-//		                                  {
-//		                        if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
-//		                            {                                     
-//		                            /* post url information */                           
-//		                            $.ajax({
-//		                                    type : 'POST',
-//		                                    url : BS.bitly,
-//		                                    data : {
-//		                                             link : urlLink
-//		                                    },
-//		                                    dataType : "json",
-//		                                    success : function(data) {                                      
-//		                                             message = message.replace(link[0],data.data.url);
-//		                                             self.postMsg(message,streamId,messageAccess);
-//		                                    }
-//		                                    });
-//		                        }
-//		                        else
-//		                        {  
-//		                            self.postMsg(message,streamId,messageAccess);
-//		                        }
-//		                  }  //doc
-//		                  else    //for docupload
-//		                  {     
-//			    		 self.postMsg(message,streamId,messageAccess);
-//		                  }
-//		                 
-//		                }
-//		                else    //for docupload
-//			    	 {     
-//			    		 self.postMsg(message,streamId,messageAccess);
-//			    	 } 
-//		                 
-//		                }
-//		                //if link not present
-//		                else
-//		                {                
-//			    	  self.postMsg(message,streamId,messageAccess);
-//		                }
-//		                }
-//	            }
-//	        },
-	        /**
-	        * post message with shortURL if present
-	        */
-	        postMsg:function(message,streamId,messageAccess){
-	            var self = this; 
-	            var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-	            var trueurl='';
-	            /* post message information */
-	            $.ajax({
-	  			type : 'POST',
-	  			url : BS.postMessage,
-	  			data : {
-	  				message : message,
-	  				streamId : streamId,
-	  				messageAccess :messageAccess
-	  			},
-	  			dataType : "json",
-	  			success : function(data) {
-	  				
-	                   /* if status is failure (not join a class or school) then show a dialog box */      
-	  				   if(data.status == "Failure")
-	  				   {
-	  					 var alert = '<div id="dialog" title="Message !">You need to add a stream first.</br><a  onClick="closeAlert();" class="alert-msg " href="#create_stream"> Create Stream</a></div>';
-	  					 $('#alert-popup').html(alert);
-	  					 $( "#dialog" ).dialog({
-	
-		  					autoOpen: false ,
-		  					modal: true,
-		  					draggable: false,
-		  				    resizable: false
-	
-	  					 });
-	  					 $( "#dialog" ).dialog('open');
-	  					 $( "#dialog" ).dialog({ height: 100 });
-	  					
-	  				   }
-	  				   else
-	  				   {
-	                                        // append the message to message list
-	                                       _.each(data, function(data) {
-	//                                              var url=data.messageBody;
-	//                                              if(!url.match(uploadedurl)) {
-	  						    /*auto ajax push */
-	                                        var streamId = $('#streams-list li.active a').attr('id');
-	                                        PUBNUB.publish({
-	  		                         channel : "stream",
-	  		                         message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,prifileImage : BS.profileImageUrl}
-	                                        })
-	  							
-	                                        var msgBody = data.messageBody;
-	//  							var link =  msgBody.match(BS.urlRegex);                                                   
-	                                        var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
-	                                            trueurl= msgUrlw;                                                                  
-	                                            return msgUrlw;
-	                                        });
-	                                        var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file                                                  
-	                                        if(!extension){                           //to check the extension of the url                                    
-	                                            if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) {      //insert googledoc in seperste tag
-	                                            var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-	                                                return '<a class="strmdoc" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
-	                                            });
-	                                            }
-	                                            else{
-	                                            var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-	                                                return '<a target="_blank" href="' + url + '">' + url + '</a>';
-	                                            });
-	                                            }
-	                                        }                                                      
-	                                        else{         //url has extension
-	                                            var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
-	                                                return '<a class="uploaded" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
-	                                           });
-	                                        }
-	  							  
-	                                        var datas = {
-	                                                     "datas" : data,
-	                                        }						  
-	                                        var source = $("#tpl-messages").html();
-	                                        var template = Handlebars.compile(source);
-	                                        $('.timeline_items').prepend(template(datas));
-	                                    // } //docs
-	//                                           else	{
-	//                                               var content = '<iframe class="gwt-Frame" style="width: 100%; position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; height: 493px; " frameborder="0" src="https://docs.google.com/a/knoldus.com/document/d/1Hy-3zxC4ywQ3d5lLG0AuDVHFJyXsVlpYDTU9ZaTsj5w/edit"></iframe>'
-	//                                           bitly
-	//                                          } 
-	  	  						//get profile image of logged user
-	                                        $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
-	  	  						if(linkTag)
-	  	  						   $('div#'+data.id.id+'-id').html(linkTag);
-	  	  						
-	                                        var url=data.messageBody;				
-	                                if(!extension){   //to check the extension of the url                                            
-	                                if(!url.match(/^(https:\/\/docs.google.com\/)/)) {	
-	                            	 
-		  	  						 // embedly
-			  	  					 $('div#'+data.id.id+'-id').embedly({
-				 					   	  maxWidth: 200,
-				 				          wmode: 'transparent',
-				 				          method: 'after',
-				 					      key:'4d205b6a796b11e1871a4040d3dc5c07'
-			  	  					 });
-	                                }
-	                                else{            //insert google doc image for doc url
-	                                var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
-	                                     $('input#'+data.id.id+'-url').val(msgUrl);
-	                                     return msgUrl;
-	                                    
-	                                 });
-	                            	  //$('input#'+data.id.id+'-url').val(msgUrl);
-	                                    var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
-	                                    $('#'+data.id.id+'-docurl').html(content);
-	                                }        
-	                            }                                          
-	                            else      //insert value to hidden field
-	                            {
-	                              $('input#'+data.id.id+'-url').val(msgUrl);  
-	                            }                                           
-	                        });
-	                _.each(data, function(data) {
-	                showJanrainShareWidget(data.messageBody, 'View my Beamstream post', 'http://beamstream.com', data.messageBody);
-	                });
-	                }                                   
-	                /* delete default embedly preview */
-	  				  $('div.selector').attr('display','none');
-	  				  $('.emdform').find('div.selector').remove();
-	  		          $('.emdform').find('input[type="hidden"].preview_input').remove(); 
-	                $('#msg').val("");
-	
-	  			}
-	  		});
-	    	
-	    } ,
+
+	       
 	    
 	    /**
 	     * get all details about messages and its comments of a stream
@@ -2249,62 +2047,7 @@
 		},
 		
 	 
-		 /**
-		  * slide up for left most stream list
-		  */
-	//	 slideUp :function(eventName){
-	////		 eventName.preventDefault();
-	////		 $('#streams-list').slideUp();
-	////       alert("testing slideUp");
-	//                 $('#streams-list').vsPrevPage();   
-	//		 
-	//	 },
-	//	 /**
-	//	  * slide down for left most stream list
-	//	  */
-	//	 slideDown:function(eventName){
-	//           //   alert("testing slideDown");
-	////		 eventName.preventDefault();
-	////		 $('#streams-list').slideDown();
-	//                
-	//                 $('#streams-list').vsNextPage();   
-	//	 },
-		 
-		
-		 
-//		 /**
-//		  * Rock comments
-//		  */
-//		 rockComments :function(eventName){
-//			 
-//			 eventName.preventDefault();
-//			 var element = eventName.target.parentElement;
-//			 var commentId =$(element).closest('li').attr('id');
-//			 var messageId =$(element).closest('li').parent('ul').parent('article').parent('li').attr('id');
-//			 var self = this;
-//			 $.ajax({
-//	             type: 'POST',
-//	             url:BS.rockingTheComment,
-//	             data:{
-//	            	  commentId:commentId,
-//	            	  messageId : messageId
-//	             },
-//	             dataType:"json",
-//	             success:function(data){
-//	            	 
-//	            	// display the count in icon
-//	            	$('li#'+commentId+'').find('i').find('i').html(data);
-//	            	
-//	            	/*auto push */
-//					var streamId = $('#streams-list li.active a').attr('id');
-//					  PUBNUB.publish({
-//	                      channel : "commentRock",
-//	                      message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,commentId:commentId }
-//	                 })
-//	 
-//	             }
-//	          });
-//		 },
+	
 		 
 		 /**
 		  * get list of message rockers 
@@ -2633,276 +2376,11 @@
 			 
 		 },
 		 
-//		 /**
-//		  * post message on enter key press
-//		  */
-//		 postMessageOnEnterKey : function(eventName){
-//			 var self = this;
-//			 
-//			 if(eventName.which == 13) {
-//				 self.postMessage(); 
-//			 }
-//			 if(eventName.which == 32){
-//				 
-//				 var text = $('#msg').val();
-//			     var links =  text.match(BS.urlRegex); 
-//					 
-//					  /* create bitly for each url in text */
-//		//			 _.each(links, function(link) {
-//						  
-//					 if(links)
-//				     {
-//						 
-//						 if(!BS.urlRegex2.test(links[0])) {
-//					    		urlLink = "http://" + links[0];
-//					  	 }
-//					     else
-//					     {
-//					    		urlLink =links[0];
-//					     }
-//						 
-//						 if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
-//			             { 
-//							 /* don't create bitly for shortened  url */
-//							 if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
-//							 {
-//						    	  /* create bitly  */
-//						          $.ajax({
-//						    			type : 'POST',
-//						    			url : BS.bitly,
-//						    			data : {
-//						    				 link : urlLink 
-//						    			},
-//						    			dataType : "json",
-//						    			success : function(data) {
-//						    				 var msg = $('#msg').val();
-//						    				 message = msg.replace(links[0],data.data.url);
-//						    				 $('#msg').val(message);
-//						    				
-//						    			}
-//						    		});
-//						          
-//	//					          var preview = {
-//	//					        	        submit : function(e, data){
-//	//					        	        	
-//	//					        	          e.preventDefault();
-//	//					        	          console.log(data);
-//	//					        	          this.display.create(data);
-//	//					        	          
-//	//					        	        }
-//	//					        	      }
-//						          $('#msg').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
-//						          
-//						          
-//					        }
-//			             }
-//	                           
-//				      }
-//		//				});
-//			 }
-//			 
-//		 },
-//		 /**
-//		  * show all comments of a message
-//		  */
-//		 showAllComments :function(msgId)
-//		 {
-//		     var count = 0;
-//			 var parentMsg = msgId;
-//			 var parent =$('#'+parentMsg+'').closest('li').attr('id');
-//	 		  
-//			 $.ajax({
-//	             type: 'POST',
-//	             url: BS.allCommentsForAMessage,
-//	             data:{
-//	            	  messageId:parent
-//	             },
-//	             dataType:"json",
-//	             success:function(datas){
-//	            	 
-//	            	 var cmtCount  = datas.length;
-//	            	 
-//	            	 _.each(datas, function(data) {
-//	            		 
-//			  			 var comments = $("#tpl-comments").html();
-//						 var commentsTemplate = Handlebars.compile(comments);
-//						 $('#'+parent+'-commentlists').prepend(commentsTemplate(data));
-//						 
-//						 /* get profile images for comments */
-//					      $.ajax({
-//					    			type : 'POST',
-//					    			url : BS.profileImage,
-//					    			data : {
-//					    				 userId :  data.userId.id
-//					    			},
-//					    			dataType : "json",
-//					    			success : function(pofiledata) {
-//					    				var imgUrl;
-//	  				    				if(pofiledata.status)
-//	  				    				 {
-//	  				    					  
-//	  				    					imgUrl = "images/unknown.jpeg";
-//	  						    	        	 
-//	  				    				 }
-//	  				    				 else
-//	  				    				 {   
-//	  				    					 // shoe primary profile image 
-//	  				    					 if(pofiledata.contentType.name == "Image")
-//	  				    					 {
-//	  				    						imgUrl = pofiledata.mediaUrl;
-//	  				    					 }
-//	  				    					 // shoe primary profile video 
-//	  				    					 else
-//	  				    					 {
-//	  				    						imgUrl = pofiledata.frameURL;
-//	  				    					 }
-//	  				    				 }
-//					    				$('#'+data.id.id+'-image').attr("src" ,imgUrl); 
-//					    			}
-//					      });
-//						  
-//			  		});
-//	            	 if(cmtCount)
-//	                 {
-//	            		 /* for comment Header   */
-//	        			 var cmdHead = $("#tpl-comment-header").html();
-//	        			 var cmdHeadTemplate = Handlebars.compile(cmdHead);
-//	        			 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
-//	        			 $('#'+parent+'-hideComment').addClass('disabled');
-//	        			 $('#'+parent+'-commentlists').hide();
-//	                 }
-//	            	
-//	              
-//	             }
-//	          });
-//		 },
-		 /**
-		  * show comment section
-		  */
-		 showCommentSection : function(eventName){
-			 eventName.preventDefault();
-			 var parentMsg = eventName.target.id;
-			 var parent =$('#'+parentMsg+'').closest('li').attr('id');
-			 
-			 /* for comment box */
-			 var commentBox = $("#comment-box").html();
-			 var cmtBoxTemplate = Handlebars.compile(commentBox);
-			 $('#'+parent+'-add-comment').html(cmtBoxTemplate({parentId : parent}));
-			 
-		 },
-		 
-//		 /**
-//		  * add comments for messages
-//		  */
-//		 addComment : function(eventName){
-//			 
-//			 var parentMsg = eventName.target.id;
-//			 var parent =$('#'+parentMsg+'').closest('li').attr('id');
-//			 var cmtCount =  $('#'+parent+'-cmtCount').text();
-//			 var self =this;
-//			 /* post comments on enter key press */
-//			 if(eventName.which == 13) {
-//				 
-//				 eventName.preventDefault(); 
-//				 var commentText = $('#'+parent+'-cmtBox').val();
-//				
-//				 /* post comments information */
-//			        $.ajax({
-//			  			type : 'POST',
-//			  			url : BS.newComment,
-//			  			data : {
-//			  				messageId : parent,
-//			  				comment : commentText
-//			  			},
-//			  			dataType : "json",
-//					  	success : function(datas) { 
-//					  				 
-//					  		$('#'+parent+'-cmtBox').val('');
-//					  	    
-//					  		_.each(datas, function(data) {
-//					  			 cmtCount++; 
-//					  			 var comments = $("#tpl-comments").html();
-//								 var commentsTemplate = Handlebars.compile(comments);
-//								 
-//								 $('#'+parent+'-commentlists').append(commentsTemplate(data));
-//								 $('#'+data.id.id+'-image').attr("src" ,BS.profileImageUrl );
-//								 
-//								 if(!$('#'+parent+'-commentlists').is(':visible'))
-//								 {  
-//									 var newComments = $("#tpl-new-comments").html();
-//									 var newCmtTemplate = Handlebars.compile(newComments);
-//									 $('#'+parent+'-newcommentlists').append(newCmtTemplate(data));
-//									 $('#'+data.id.id+'-newCmtImage').attr("src" ,BS.profileImageUrl );
-//								 }
-//								 
-//								/* auto push */
-//			  					var streamId = $('#streams-list li.active a').attr('id');
-//				                 PUBNUB.publish({
-//				                         channel : "comment",
-//				                         message : { pagePushUid: self.pagePushUid ,data:data,parent:parent,cmtCount:cmtCount,prifileImage : BS.profileImageUrl}
-//				                 })
-//								 
-//					  		});
-//					  				
-//							 /* for comment Header   */
-//							 var cmdHead = $("#tpl-comment-header").html();
-//							 var cmdHeadTemplate = Handlebars.compile(cmdHead);
-//							 $('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
-//					  		 $('#'+parent+'-showComment').addClass('disabled');
-//	//				  		 $('#'+parent+'-cmtCount').html(cmtCount);
-//	 
-//					  	}
-//			  		});
-//	
-//			 }
-//		 },
-		 
-		 /**
-		  * hide comments under each messages
-		  */
-		 
-		 hideComments :function(eventName){
-			 
-			 eventName.preventDefault(); 
-			
-			 var parentMsg = eventName.target.id;
-			 var parent =$('#'+parentMsg+'').closest('li').attr('id');		
-			 
-			 $hide = $('#'+parent+'-hideComment');
-	         $show = $('#'+parent+'-showComment'); 
-	         $comments = $('#'+parent+'-commentlists');
-	         $newComments = $('#'+parent+'-newcommentlists');
-			 if ($comments.is(':visible') ||  $newComments.is(':visible')) {
-	             $show.removeClass('disabled');
-	             $hide.addClass('disabled');
-	             $('#'+parent+'-newcommentlists').html("");
-	             $comments.slideUp();
-	         }
-		 },
-		 
-		 /**
-		  * show comments under each messages
-		  */
-		 showComments :function(eventName){
-			 eventName.preventDefault(); 
-			 
-			 var parentMsg = eventName.target.id;
-			 var parent =$('#'+parentMsg+'').closest('li').attr('id');		
-			 $hide = $('#'+parent+'-hideComment');
-	         $show = $('#'+parent+'-showComment'); 
-	         $comments = $('#'+parent+'-commentlists');
-	         if (!$comments.is(':visible')) {
-	             $hide.removeClass('disabled');
-	             $show.addClass('disabled');
-	             $('#'+parent+'-newcommentlists').html('');
-	             $comments.slideDown();
-	         }
-		 },
 		 
 		 /**
 		  *  sort stream messages
 		  */
-		 sortMessages:function(eventName){
+		 sortMessagess:function(eventName){
 			 eventName.preventDefault(); 
 			 var self = this;
 			 var sortKey = eventName.target.id;
@@ -2939,91 +2417,9 @@
 				 
 		 },
 		 
-		 /**
-		  * sort by keyword
-		  */
-		 sortMessagesByKey :function(eventName){
-			
-			 var self = this;
-	 		 if(eventName.which == 13) {
-	 			 
-	 			 BS.msgSortedType = "keyword";
-	 			 BS.pageForKeyword = 1;
-	 			 $(".timeline_items").html('');
-				 var keyword = $('#sort_by_key').val();
-				 var streamId = $('#public-classes').find('li.active').attr('id') ;
-				 self.sortBykeyword(streamId,keyword,BS.pageForKeyword,BS.pageLimit);
-				
-			 } 
-		 },
+		 
 		 
 		 /**
-		  * get all messages and diplay in the sorted order
-		  */
-		 displayMessages : function(data){
-			 
-			  //display the messages
-	 		   var self = this;
-			  _.each(data, function(data) {
-					
-					var msgBody = data.messageBody;
-					var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-			             return '<a target="_blank" href="' + url + '">' + url + '</a>';
-			        });
-					  
-					var datas = {
-					 	 "datas" : data,
-				     }
-					  
-					 var source = $("#tpl-messages").html();
-						 var template = Handlebars.compile(source);
-						 $('.timeline_items').append(template(datas));
-						 
-						 /* get profile images for messages */
-				          $.ajax({
-				    			type : 'POST',
-				    			url : BS.profileImage,
-				    			data : {
-				    				 userId :  data.userId.id
-				    			},
-				    			dataType : "json",
-				    			success : function(pofiledata) {
-				    				     var imgUrl;
-					    				if(pofiledata.status)
-					    				 {
-					    					imgUrl = "images/unknown.jpeg";
-					    				 }
-					    				 else
-					    				 {   
-					    					 // shoe primary profile image 
-					    					 if(pofiledata.contentType.name == "Image")
-					    					 {
-					    						imgUrl = pofiledata.mediaUrl;
-					    					 }
-					    					 // shoe primary profile video 
-					    					 else
-					    					 {
-					    						imgUrl = pofiledata.frameURL;
-					    					 }
-					    				 }
-				    				$('img#'+data.id.id+'-img').attr("src", imgUrl);
-				    			}
-				    		});
-						 if(linkTag)
-						  $('div#'+data.id.id+'-id').html(linkTag);
-						 
-					     // embedly
-						 $('div#'+data.id.id+'-id').embedly({
-						   	  maxWidth: 200,
-					          wmode: 'transparent',
-					          method: 'after',
-						      key:'4d205b6a796b11e1871a4040d3dc5c07'
-				         });
-						 
-						self.showAllComments(data.id.id);
-		         });
-	 	
-		 },
 
 		 /**
 		  * get messages and sort by votes 
@@ -3050,30 +2446,7 @@
 		  		});
 		 },
 		 
-		 /**
-		  *get messages and sort by keuwords
-		  */
-		 sortBykeyword :function(streamId,keyword,pageNo,limit){
-			 var self = this;
-			 $.ajax({
-		  			type : 'POST',
-		  			url :BS.sortByKey,
-		  			data : {
-		  				 streamId :streamId,
-		  				 keyword : keyword,
-		  				 pageNo : pageNo,
-		  				 limit  : limit
-		  				 
-		  			},
-		  			dataType : "json",
-				  	success : function(data) {
-				  	  //hide page loader image
-					  if(!data.length)
-						   $('.page-loader').hide();
-				  	  self.displayMessages(data);
-				  	}
-		  		});
-		 },
+		
 		 
 		 /**
 		  * get messages and sort by data
@@ -3099,50 +2472,6 @@
 		 },
 		 
 		 /**
-		  * when a user clicks on a social media icon or icons for sharing the check mark is un checked.
-		  */
-		 uncheckPrivate :function(eventName){
-			 eventName.preventDefault(); 
-			 $('#id-private').attr('checked',false);
-			 var seletedId = eventName.target.parentElement.id;
-			 if($('#'+seletedId).hasClass('active'))
-			 {
-				 $('#'+seletedId).removeClass('active');
-				 
-			 }
-			 else
-			 {
-				 $('#'+seletedId).addClass('active');
-			 }
-			 
-		 },
-		 
-		 /**
-		   * upload files
-		   */
-		  showUploadBox :function(eventName){
-			  eventName.preventDefault(); 
-			  $('.upload-box').css("display","block");
-			  
-		  },
-		 
-		 
-		 /**
-		  * @TODO
-		  */
-		 makePrivate :function(){
-			 if($('#id-private').attr('checked')== 'checked')
-			    $('li.social_media a').removeClass('active');
-		 },
-		 
-		 /**
-		  * prevent default action 
-		  */
-		 preventDefault : function(eventName){
-			 eventName.preventDefault(); 
-		 },
-		 
-		 /**
 		  * render public profile view
 		  */
 		 
@@ -3150,13 +2479,6 @@
 			 console.log(eventName.target.id);
 		 },
 		 
-		 /** 
-		  * make bitly
-		  */
-		 makeBitly : function(eventName){
-			 console.log("dgdfg");
-		 },
-	
 	
 	
 	    /**
@@ -3228,9 +2550,6 @@
 					 { 
 						 if(message.streamId==streamId)
 			       		 	{
-	//							$('.timeline_items').html("");
-	//							self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
-					
 							 	if(!document.getElementById(message.data.id.id))
 							 	{	
 							 		
@@ -3545,44 +2864,6 @@
 	                    onTotalScrollOffset:0 /*bottom reached offset: integer (pixels)*/
 	                    }                   
 	                });
-	                
-	                
-	                
-	                
-	                
-	//                 $.ajax({
-	//                type : 'GET',
-	//                url :  BS.onlineUsers,
-	//                dataType : "json",
-	//                success : function(docs) {
-	//                    
-	//                console.log('online users -'+docs);
-	////                    if(docs.length != 0)  {
-	////                        
-	////                                                   }
-	//               }
-	//          });
-	                
-	                
-	                
-	                
-	//            });
-	     
-	     
-	     
-	     
-	//     $("#streams-list").mb_vSlider({ //default attributes of the mb.vSlider
-	         
-	//				//template:"searchResult.html"
-	//				totalElements:120, //this param is used only in ajax modality and should be set dynamically.
-	//				easing:"easeInOutCubic",
-	//				slideTimer:1000,
-	//				nextEl:"#vSup",
-	//				prevEl:"#vSdown",
-	//				height:100,
-	//				width:200
-	
-	//			})
 	   }
 	   
 	});

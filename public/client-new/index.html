@@ -360,12 +360,12 @@
             <div class="question-sort">
               <h5>SORT BY</h5>
               <div class="btn-group dropdown-outer">
-                <button class="btn normal-dropdown">Most Recent</button>
+                <button class="btn normal-dropdown" id="sortBy-select" >Most Recent</button>
                 <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                <ul class="dropdown-menu display-sub">
-                  <li><a href="#">Most Recent</a></li>
-                  <li><a href="#">Highest Rated</a></li>
-                  <li><a href="#">Most Shared </a></li>
+                <ul class="dropdown-menu display-sub" id="sortBy-list" >
+                  <li><a href="#" name="most-recent" >Most Recent</a></li>
+                  <li><a href="#" name="highest-rated" >Highest Rated</a></li>
+                  <li><a href="#" name="most-shared" >Most Shared </a></li>
                 </ul>
               </div>
               <div class="btn-group dropdown-outer">
@@ -380,7 +380,7 @@
                 </ul>
               </div>
               <form class="all-search">
-                <input type="text" class="quest-search" placeholder="Search Discussions">
+                <input type="text" id="sort_by_key" class="quest-search" placeholder="Search Discussions">
               </form>
             </div>
             <div class="clear"></div>
@@ -426,7 +426,8 @@
                     </ul>
                   </div>
                    <ul class="social-icons">
-                    <li class="google-plus"><a href="#">Google plus</a></li>
+                   <span>Share On</span>
+                    <li class="google-plus active"><a href="#">Google plus</a></li>
                     <li class="plus"><a href="#">p</a></li>
                     <li class="twitter"> <a href="#">Twitter</a></li>
                     <li class="facebook"><a href="#"> face book</a></li>
@@ -610,7 +611,7 @@
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
-                      <ul class="follow-name-left">
+                      <ul class="follow-name-left show-all-block">
                         <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks"><span>{{datas.rocks}}</span></a></li>
                         <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
 						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
@@ -785,7 +786,7 @@
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="follow-names">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left ">
                       <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                     </ul>
                     <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
@@ -820,7 +821,7 @@
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
-                      <ul class="follow-name-left">
+                      <ul class="follow-name-left show-all-block">
                         <li><a href="#" class="rocks"><span>57</span></a></li>
                         <a class="btn grey-buttons active" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
 						<a  class="btn grey-buttons  href="#">Show All</a>
@@ -860,7 +861,7 @@
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
-                      <ul class="follow-name-left">
+                      <ul class="follow-name-left show-all-block">
                         <li><a href="#" class="rocks"><span>57</span></a></li>
                         <a class="btn grey-buttons active" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
                       </ul>
@@ -1140,7 +1141,7 @@
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
-                      <ul class="follow-name-left">
+                      <ul class="follow-name-left show-all-block">
                         <li><a href="#" class="rocks"><span>57</span></a></li>
                         <a class="btn grey-buttons active" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
                       </ul>
@@ -1179,7 +1180,7 @@
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
-                      <ul class="follow-name-left">
+                      <ul class="follow-name-left show-all-block">
                         <li><a href="#" class="rocks"><span>57</span></a></li>
                         <a class="btn grey-buttons active" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
                       </ul>
@@ -1643,45 +1644,4 @@
         <script src="lib/jquery.mousewheel.min.js"></script>
         <script>!window.jQuery.ui && document.write(unescape('%3Cscript src="lib/jquery-ui-1.8.21.custom.min.js"%3E%3C/script%3E'))</script>
         <script src="lib/jquery.mCustomScrollbar.js"></script>
-
-   
-<script>
-        $(document).ready(function() {
-   // FIXME: this is temporary hack, remove it later.
-        $('.menu a').click(function() {
-        var $this = $(this);
-        $this
-            .closest('ul')
-            .find('li a').removeClass('active').end()
-            .end()
-            .closest('li a').addClass('active');               
-            });
-
-        $('.stream-tab a').click(function() {
-        var $this = $(this);
-        $this
-            .closest('ul')
-            .find('li a').removeClass('active').end()
-            .end()
-            .closest('li a').addClass('active');              
-            });
-        });
-</script>    
-<script>
-        // show and hide the comments
-        $(document).ready(function() {  
-	        $(".showmessage").click(function (eventName) {
-		        eventName.preventDefault();
-		        $('#comments').slideToggle(600); 
-	        });
-	        
-        });
-</script>   
-<script>
-        $("#chat-status").click(function() {
-        $('#user-online').toggle('slow');
-        });
-        
-        
-</script>
 </html>
