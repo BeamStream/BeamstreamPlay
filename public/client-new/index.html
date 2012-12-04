@@ -1566,15 +1566,18 @@
 <script>
         // show and hide the comments
         $(document).ready(function() {  
-        $(".showmessage").click(function (eventName) {
-        eventName.preventDefault();
-        $('#comments').slideToggle(600); 
-        });
+	        $(".showmessage").click(function (eventName) {
+		        eventName.preventDefault();
+		        $('#comments').slideToggle(600); 
+	        });
+	        
         });
 </script>   
 <script>
         $("#chat-status").click(function() {
         $('#user-online').toggle('slow');
         });
+        
+        
 </script>
 </html>
