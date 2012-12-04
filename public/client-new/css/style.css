@@ -1146,8 +1146,8 @@ ul.answer li a:hover {
 }
 
 ul.social-icons {
-		float: right;
-		padding-top: 8px;
+		float: left;
+		padding-top: 8px; margin-left:30px;
 }
 
 ul.social-icons li {
@@ -1165,42 +1165,64 @@ ul.social-icons li a {
 }
 
 ul.social-icons li.google-plus {
+		background-position:left -21px;
+}
+
+ul.social-icons li.google-plus:hover {
+		background-position:left top;
+}
+ul.social-icons li.google-plus.active {
 		background-position:left top;
 }
 
-ul.social-icons li.plus {
-		background-position:-25px top;
-}
 
-ul.social-icons li.plus:hover {
+ul.social-icons li.plus {
 		background-position:-25px -21px;
 }
 
-ul.social-icons li.twitter {
-		background-position:-51px top;
+ul.social-icons li.plus:hover{
+		background-position:-25px top;
+}
+ul.social-icons li.plus.active {
+		background-position:-25px top;
 }
 
-ul.social-icons li.twitter:hover {
+ul.social-icons li.twitter {
 		background-position:-51px -21px;
 }
 
-ul.social-icons li.facebook {
-		background-position:-74px top;
+ul.social-icons li.twitter:hover {
+		background-position:-51px top;
+}
+ul.social-icons li.twitter.active {
+		background-position:-51px top;
 }
 
-ul.social-icons li.facebook:hover {
+ul.social-icons li.facebook {
 		background-position:-74px -21px;
 }
 
-ul.social-icons li.in {
-		background-position:-94px top;
+ul.social-icons li.facebook:hover{
+		background-position:-74px top;
+}
+ul.social-icons li.facebook.active {
+		background-position:-74px top;
 }
 
-ul.social-icons li.in:hover {
+
+ul.social-icons li.in {
 		background-position:-94px -21px;
 }
 
-ul.social-icons li:hover {
+ul.social-icons li.in:hover{
+		background-position:-94px top;
+}
+ul.social-icons li.in.active  {
+		background-position:-94px top;
+}
+
+
+ul.social-icons li:hover{
 		background-position: left -21px;
 }
 
@@ -1303,6 +1325,23 @@ ul.follow-name-left li a.rocks {
 }
 
 ul.follow-name-left li a.rocks:hover {
+		background: url("../images/rocks-icon-a1-a.png") no-repeat scroll center top transparent;
+		color: #5299BD;
+		display: block;
+		font-weight: bold;
+		width:25px;
+		text-align:center;
+}
+
+ul.follow-name-left li a.rocks-up {
+		background: url("../images/rocks-icon-1.png") no-repeat scroll center top transparent;
+		color: #5299BD;
+		display: block;
+		font-weight: bold;
+		width:25px;
+		text-align:center;
+}
+ul.follow-name-left li a.rocks-up:hover {
 		background: url("../images/rocks-icon-a.png") no-repeat scroll center top transparent;
 		color: #5299BD;
 		display: block;
@@ -1310,6 +1349,11 @@ ul.follow-name-left li a.rocks:hover {
 		width:25px;
 		text-align:center;
 }
+ul.follow-name-left li a.rocks-up span {
+		display:block;
+		padding-top:22px;
+}
+
 
 ul.follow-name-left li a.rocks-answer {
 		background: url("../images/rocks-icon.png") no-repeat scroll left top transparent;
@@ -2097,16 +2141,16 @@ ul.discussion-info li:nth-child(2n) {
 }
 
 .follow-comment textarea {
-		padding:3% !important;
+		
 		background: none repeat scroll 0 0 #FFFFFF;
 		border-radius: 8px 8px 8px 8px;
 		box-shadow: 0 2px 2px 0 #999999 inset;
 		color: #3F5A6C;
 		resize:none;
 		width:94%;
-		height:5px;
+		height:30px;
 		
-    font-size: 18px;
+    font-size:16px;
 
 
 
@@ -2706,7 +2750,22 @@ padding:0 5% 0 10%;
 .dateinfo span.date{float:right;padding:0 8px 0 0;}
 
 
+.add-message-comment{padding:10px;}
 
+
+.social-icons span{padding-right:15px;
+
+color: #717171;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+
+
+
+}
+
+
+.show-all-block{width:100% !important;}
 
 
 

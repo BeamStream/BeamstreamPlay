@@ -1015,10 +1015,10 @@ ul.stream-tab li a span {
 	padding:2% 3%;
 }
 ul.social-icons{
-	clear:both;
+	
 	float:left;
 	margin:0;
-	padding:10px 0 0 0;
+
 }
 .answer-conatiner {
 		display:block;
@@ -1410,10 +1410,10 @@ ul.stream-tab li a span {
 	padding:2% 3%;
 }
 ul.social-icons{
-	clear:both;
+	/*clear:both;
 	float:left;
 	margin:0;
-	padding:10px 0 0 0;
+	padding:10px 0 0 0;*/
 }
 .answer-conatiner {
 		display:block;
