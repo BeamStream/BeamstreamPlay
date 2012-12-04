@@ -2753,6 +2753,10 @@ padding:0 5% 0 10%;
      box-shadow: inset 1px 1px 5px 1px #f4f7fd; 
  	margin:10px; 
  } 
+ 
+ .cover-picture{
+     padding-top: 24px;
+ }
   
  #default-image{ 
      position:relative; 

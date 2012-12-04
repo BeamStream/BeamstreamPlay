@@ -1,137 +1,139 @@
+/***
+	 * BeamStream
+	 *
+	 * Author                : Cuckoo Anna (cuckoo@toobler.com)
+	 * Company               : Toobler
+	 * Email:                : info@toobler.com
+	 * Web site              : http://www.toobler.com
+	 * Created               : 20/September/2012
+	 * Description           : Backbone view for main stream page
+	 * ==============================================================================================
+	 * Change History:
+	 * ----------------------------------------------------------------------------------------------
+	 * Sl.No.  Date   Author   Description
+	 * ----------------------------------------------------------------------------------------------
+	 *
+	 * 
+     */
+    
 BS.FilesMediaView = Backbone.View.extend({
-
-	events: {
-       //         "click a#file-type" : "showFilesTypes",
-       //         "click ul.file-type li a" : "hideList",
-       //         "click '.nav a" : "addActive",
-        //        "click #gdoc_uploadbutton" : "uploadFile",
-       //         "click .doctitle" : "editDocTitle",
-       //         "click .imgtitle" : "editImgTitle",
-       //         "click .videotitle" : "editVideoTitle",  
-       //         "click .audiotitle" : "editAudioTitle",
-       //         "click .pdftitle" : "editPdfTitle",
-       //         "click .presentationtitle" : "editPresentationTitle",
-       //         "mouseenter #uploadmedia_dr":"uploadMediadwn",
-        //        "mouseleave #dropdownnew":"uploadMediaup",
-       //         "click #links_dr":"linksMenuList",
-       //         "click #links_uploadbutton":"linkupload",
-       //         "click #docs_dr":"docsMenuList",  
-       //         "click #googledocs_mycomp":"showFileForm",
-       //         "click #googledocs_dr":"googleDocs",
-        //        "click #importfrmlink_dr": "importFromLink",                
-        //        "click #video_dr":"videoMenuList",
-       //         "click #youtube_dr":"youtubeMenu",
-       //         "click #video_uploadbutton":"videoUpload",
-       //         "click #audio_dr":"audioMenuList",               
-       //         "click #vialink_dr":"audioVialink",
-       //         "click #audio_uploadbutton":"audioUpload",
-      //          "click #presentations_dr":"presentationMenuList",
-       //         "click #presvialink_dr":"presentationVialink",
-      //          "click #press_uploadbutton":"presentationUpload",
-       //         "click #docfrmcomputer_uploadbutton": "saveMyFile",
-       //         'change #doc-from-computer' :'displayImage',
-       //         'click #docfrmcomputer_closePopup': "hidePopUpBlock"
                 
-//              "click #select_dr":"selectboxdwn",
-//              "blur #select_dr":"selectboxup"
-//              "click #profile-images":"listProfileImages",
-//              "click .google_doc" : "showDocPopup",
-//              "click .filter-options li a" : "filterDocs"
- 
-	      
-	 },
+            events: {
+                //         "click a#file-type" : "showFilesTypes",
+                //         "click ul.file-type li a" : "hideList",
+                //         "click '.nav a" : "addActive",
+                 //        "click #gdoc_uploadbutton" : "uploadFile",
+                //         "click .doctitle" : "editDocTitle",
+                //         "click .imgtitle" : "editImgTitle",
+                //         "click .videotitle" : "editVideoTitle",  
+                //         "click .audiotitle" : "editAudioTitle",
+                //         "click .pdftitle" : "editPdfTitle",
+                //         "click .presentationtitle" : "editPresentationTitle",
+                //        "mouseenter #uploadmedia_dr":"uploadMediadwn",
+                 //       "mouseleave #dropdownnew":"uploadMediaup",
+                //        "click #links_dr":"linksMenuList",
+                //        "click #links_uploadbutton":"linkupload",
+                //        "click #docs_dr":"docsMenuList",  
+                //        "click #googledocs_mycomp":"showFileForm",
+                //        "click #googledocs_dr":"googleDocs",
+                 //       "click #importfrmlink_dr": "importFromLink",                
+                 //       "click #video_dr":"videoMenuList",
+                //        "click #youtube_dr":"youtubeMenu",
+                //        "click #video_uploadbutton":"videoUpload",
+                //        "click #audio_dr":"audioMenuList",               
+                //        "click #vialink_dr":"audioVialink",
+                //        "click #audio_uploadbutton":"audioUpload",
+               //         "click #presentations_dr":"presentationMenuList",
+                //        "click #presvialink_dr":"presentationVialink",
+               //         "click #press_uploadbutton":"presentationUpload",
+                //        "click #docfrmcomputer_uploadbutton": "saveMyFile",
+                //        'change #doc-from-computer' :'displayImage',
+                //        'click #docfrmcomputer_closePopup': "hidePopUpBlock"
+              
+ //                       "click #select_dr":"selectboxdwn",
+ //                       "blur #select_dr":"selectboxup"
+ //                       "click #profile-images":"listProfileImages",
+//                        "click .google_doc" : "showDocPopup",
+//                        "click .filter-options li a" : "filterDocs"
+                        },
 	
-    initialize:function () {       
-     	 	       
-        console.log('Initializing Files and Media  View');       
-        this.source = $("#tpl-files-media").html();
-        this.template = Handlebars.compile(this.source);
-     	    this.pictres();	
-        this.videos();   
-        this.docsList();
-        this.docFromComputer();
-     //   this.audio();  
-//           this.spreadsheet();  
-        this.presentation();  
-        this.pdffiles();
-        this.docFromComputer();
-//        this.links(); 
-     //   this.template= _.template($("#tpl-files-media").html());
-
-        
+            initialize:function () {         	 	       
+                console.log('Initializing Files and Media  View');       
+                this.source = $("#tpl-files-media").html();
+                this.template = Handlebars.compile(this.source);
+                this.pictres();	
+                this.videos();   
+                this.docsList();
+                this.docFromComputer();
+     //           this.audio();  
+//                this.spreadsheet();  
+                this.presentation();  
+                this.pdffiles();
+                this.docFromComputer();
+//                this.links(); 
+     //           this.template= _.template($("#tpl-files-media").html()); 
     },
 
-    render:function (eventName) {
-    	
-        $(this.el).html(this.template);
-        return this;
-    },
+            render:function (eventName) {
+                $(this.el).html(this.template);
+                return this;
+                },
     
-    /**
-     * show file types
-     */
-    showFilesTypes :function(eventName){
-    	
-    	eventName.preventDefault();
-    	$('.file-type').slideDown();
-    	
-    },
+            /**
+            * show file types
+            */
+            showFilesTypes :function(eventName){ 	
+                eventName.preventDefault();
+                $('.file-type').slideDown();	
+                },
     
-    /**
-     * hide file types
-     */
-    hideList : function(eventName){
-    	
-    	eventName.preventDefault();
-    	$('.file-type').slideUp();
-    	
-    },
-    //TODO
-    addActive : function(eventName){
-		 var id = eventName.target;
-		 var $this = $(id);
-		console.log( $this);
-	     if (!$this.is('.dropdown-toggle')) {
-	         $this
-	             .closest('ul')
-	             .find('li').removeClass('active').end()
-	             .end()
-	             .closest('li').addClass('active');
-	     }
-	 },
+            /**
+             * hide file types
+             */
+            hideList : function(eventName){
+                eventName.preventDefault();
+                $('.file-type').slideUp();
+                },
+            //TODO
+            addActive : function(eventName){
+                var id = eventName.target;
+                var $this = $(id);
+                if (!$this.is('.dropdown-toggle')) {
+                    $this
+                    .closest('ul')
+                    .find('li').removeClass('active').end()
+                    .end()
+                    .closest('li').addClass('active');
+                    }
+                },
          
-      /*
-        * Author:Cuckoo Anna on 09July2012
-        * For Uploading docs
-        * docType can be one of "GoogleDocs", "YoutubeVideo", "Other".
-        * docAccess can be one of "Private", "Public", "Restricted", "Stream".
-      */  
-     uploadFile : function()
-     {
-        /* post the documents details */
-       
-         var documentModel = new BS.Document();
-         if($("#gdoc-url").val().length != 0){
-             
-         documentModel.set({
-                docName : $("#gdoc-name").val(),
-                docURL : $("#gdoc-url").val(),  
-                docAccess: 'Public',
-                docType: 'GoogleDocs',
-                streamId: $("#doc-class-list").val(),
-                docDescription: $("#gdoc-description").val()
-          });
-            
-          var documentData = JSON.stringify(documentModel);
-          console.log(documentData);
-         
-              var self = this;
-                      $.ajax({
+            /*
+              * Author:Cuckoo Anna on 09July2012
+              * For Uploading docs
+              * docType can be one of "GoogleDocs", "YoutubeVideo", "Other".
+              * docAccess can be one of "Private", "Public", "Restricted", "Stream".
+            */  
+            uploadFile : function()
+            {
+                /* post the documents details */
+                var documentModel = new BS.Document();
+                if($("#gdoc-url").val().length != 0){
+                    documentModel.set({
+                    docName : $("#gdoc-name").val(),
+                    docURL : $("#gdoc-url").val(),  
+                    docAccess: 'Public',
+                    docType: 'GoogleDocs',
+                    streamId: $("#doc-class-list").val(),
+                    docDescription: $("#gdoc-description").val()
+                    });
+                var documentData = JSON.stringify(documentModel);
+                var self = this;
+                    $.ajax({
                     type : 'POST',
                     url : BS.docUpload,
                     data : {
-                            data : documentData
-                            },
+                        data : documentData
+                        },
                     dataType : "json",
                     success : function(data) {
                         if(data.status == 'Failure')
@@ -143,115 +145,132 @@ BS.FilesMediaView = Backbone.View.extend({
                                 console.log("Doc Uploaded Successfully");
                             }
                         }           
-            });
-         }
-         $("#dropdownnew").find('ul').hide(250); 
-        },
+                    });
+                    }
+                $("#dropdownnew").find('ul').hide(250); 
+                },
       
-        docsList : function()
-        {  
-             var i = 1;
-             var self = this;
-             BS.user.fetch({ success:function(e) {
+            /**
+            * NEW THEME-Display the google doc
+            */    
+            docsList : function(){  
+                var i = 1;
+                var self = this;
+                BS.user.fetch({ success:function(e) {
+                /* get profile images for user */
+                $.ajax({
+                    type : 'GET',
+                    url :  BS.getAllDocs,
+                    dataType : "json",
+                    success : function(docs) {
+                        if(docs.length != 0)  {
+                            _.each(docs, function(doc) {
+                            var datVal =  self.formatDateVal(doc.creationDate);                   
+                            content= '<div class="image-wrapper hovereffect" id="'+doc.id.id+'">'
+                                +' <div class="hover-div"><img class="cover-picture" src="images/google_docs_image.png ">'
+                                +'<div class="hover-text">'               
+                                +'<div class="comment-wrapper">'                                
+                                +'<a href="#googledocs" style="text-decoration: none">'
+                                +' <div id="media-'+doc.id.id+'" >'
+                                +' <h4>'+doc.documentName+'</h4>'                                
+                                +'<div class="description-info"><div class="description-left"><p class="doc-description">'+doc.documentDescription+'</p></div></a>'
+                                +' <div class="comment-wrapper2">'
+                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon"></a>'
+                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+                                +'</div></div></div>'
+                                +'<h5 class="doctitle" id="'+doc.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
+                                +'</div></div></div>'
+                                +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
+                                +'<ul class="comment-list">'
+                                +'<li><a class="eye-icon" href="#">87</a></li>'
+                                +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li>'
+                                +'<li><a class="message-icon" href="#">10</a></li>'
+                                +'</ul>'
+                                +'</div>';
+                            $('#coverdocs').html(content);                     
+                            });
+                        }
+                        }
+                    });
+                }});
+                },
 
-             /* get profile images for user */
-              $.ajax({
-	                type : 'GET',
-	                url :  BS.getAllDocs,
-	                dataType : "json",
-	                success : function(docs) {
-	                    if(docs.length != 0)  {
-	                      _.each(docs, function(doc) {
-	                           var datVal =  self.formatDateVal(doc.creationDate);                   
-	                           var content ='<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'">'
-	                                        +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
-	                                        +'<div class="hover-div"><img src="images/google_docs_image.png "/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
-	                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
-	                                        +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#googledocs" style="text-decoration: none">'
-	                                        +'<div id="media-'+doc.id.id+'" ><h4> '+doc.documentName+'</h4> <p class="google_doc doc-description" id="'+doc.id.id+'" >'
-	                                         +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
-	                                        +''+doc.documentDescription+' </p> </div></a>'
-	                                        +'<h5 class="doctitle" id="'+doc.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
-	                                        +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#">'
-	                                        +'</a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
-	                                        +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
-	                         $('#coverdocs').html(content);                     
-	                      });
-	                   }
-	               }
-               });
-
-            }});
-
-        },
-        
-        docFromComputer :function(){
-
-            var self = this;
-            $.ajax({
+            /**
+            * NEW THEME-Display the doc files uploaded from computer
+            */       
+            docFromComputer :function(){
+                var self = this;
+                $.ajax({
                 type : 'GET',
                 url :  BS.getAllDOCSFilesForAUser,
                 dataType : "json",
                 success : function(docs) {
                     if(docs.length != 0)  {
-                      _.each(docs, function(doc) {
-	                           var datVal =  self.formatDateVal(doc.creationDate);                      
-	                           var content ='<div class="image-wrapper hovereffect google_doc" id="'+doc.id.id+'">'
-	                                        +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
-	                                        +'<div class="hover-div"><img src="images/docs_image.png  "/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
-	                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
-	                                        +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#docs" style="text-decoration: none">'
-	                                        +'<div id="media-'+doc.id.id+'" ><h4> '+doc.documentName+'</h4> <p class="google_doc doc-description" id="'+doc.id.id+'" >'
-	                                         +'<input type="hidden" id="id-'+doc.id.id+'" value="'+doc.documentURL+'">'
-	                                        +''+doc.documentDescription+' </p> </div></a>'
-	                                        +'<h5 class="doctitle" id="'+doc.id.id+'"> Title & Description</h5><span>State</span><span class="date">'+datVal+'</span> '
-	                                        +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon data" href="#">'
-	                                        +'</a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
-	                                        +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
-	                           $('#coverdoc_com').html(content);                     
-               
-                    });
-                 }
-               }
-          });
-           
-        },
+                    _.each(docs, function(doc) {
+                    var datVal =  self.formatDateVal(doc.creationDate);                      
+                    var content= '<div class="image-wrapper hovereffect" id="'+doc.id.id+'">'
+                        +' <div class="hover-div"><img class="cover-picture" src="images/docs_image.png">'
+                        +'<div class="hover-text">'               
+                        +'<div class="comment-wrapper">'                                
+                        +'<a href="#docs" style="text-decoration: none">'
+                        +' <div id="media-'+doc.id.id+'" >'
+                        +' <h4>'+doc.documentName+'</h4>'                                
+                        +'<div class="description-info"><div class="description-left"><p class="doc-description">'+doc.documentDescription+'</p></div></a>'
+                        +' <div class="comment-wrapper2">'
+                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon"></a>'
+                        +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+                        +'</div></div></div>'
+                        +'<h5 class="doctitle" id="'+doc.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+                        +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
+                        +'</div></div></div>'
+                        +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
+                        +'<ul class="comment-list">'
+                        +'<li><a class="eye-icon" href="#">87</a></li>'
+                        +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li>'
+                        +'<li><a class="message-icon" href="#">10</a></li>'
+                        +'</ul>'
+                        +'</div>';                
+                        $('#coverdoc_com').html(content);   
+                        });
+                    }
+                    }
+                });
+                },
         
          /*
          *Edit the document title 
          */
-        editDocTitle :function(eventName){ 
-        	
-            var docId = eventName.currentTarget.id;             
-            var docUrl = $('input#id-'+docId).val(); 
-           
-            $.ajax({
-                type : 'POST',
-                url :  BS.getOneDocs,
-                data : {
+            editDocTitle :function(eventName){        	
+                var docId = eventName.currentTarget.id;             
+                var docUrl = $('input#id-'+docId).val(); 
+                $.ajax({
+                    type : 'POST',
+                    url :  BS.getOneDocs,
+                    data : {
                         documentId: docId  
-                },
-                dataType : "json",
-                success : function(docs) {           
+                        },
+                    dataType : "json",
+                    success : function(docs) {           
 	                var datas = {
-		                "id" : docId,
-		                "url" : docUrl,
-		                "type" : 'Docs',
-		                "title" : docs[0].documentName,
-		                "description" :docs[0].documentDescription
-	                }
-		            BS.mediaeditview = new  BS.MediaEditView();
-		            BS.mediaeditview.render(datas);
-		            $('#gdocedit').html(BS.mediaeditview.el);            
-               }
-            });          
-        },
+                            "id" : docId,
+                            "url" : docUrl,
+                            "type" : 'Docs',
+                            "title" : docs[0].documentName,
+                            "description" :docs[0].documentDescription
+                            }
+                        BS.mediaeditview = new  BS.MediaEditView();
+                        BS.mediaeditview.render(datas);
+                        $('#gdocedit').html(BS.mediaeditview.el);            
+                        }
+                    });          
+                },
         
-         /*
-         *function to show pictures in filesmediaview
-         */
-         pictres : function()
-         {  
+            /*
+            *function to show pictures in filesmediaview
+            */
+            pictres : function()
+            {  
             var self = this;
             var arraypictures = new Array();
             var content='';
@@ -259,8 +278,8 @@ BS.FilesMediaView = Backbone.View.extend({
             BS.user.fetch({ success:function(e) {
                 /* get images for user */
                 $.ajax({
-                        type : 'GET',
-                        url :  BS.allProfileImages,
+                    type : 'GET',
+                    url :  BS.allProfileImages,
                         data : {
                                 'userId': e.attributes.id.id
                         },
@@ -269,38 +288,30 @@ BS.FilesMediaView = Backbone.View.extend({
                             if(images.length != 0)
                             {
                              _.each(images, function(image) {
-                                  	var datVal =  self.formatDateVal(image.creationDate);  
-	                                content= '<div class="image-wrapper hovereffect" id="'+image.id.id+'"> <div class="hover-div"><img class="filmedia-picture" src="'+image.mediaUrl+'"><div class="hover-text">'               
-	                               
-                                       
-                                           
-                                        +'<div class="comment-wrapper">'   
-                                    
-                                        +'<a href="#imagelist" style="text-decoration: none">'
-                                        +' <div id="media-'+image.id.id+'" >'
-                                        +' <h4>'+image.name+'</h4>' 
-                                    
-	                                +'<div class="description-info"><div class="description-left"><p class="doc-description">'+image.description+'</p></div></a>'
-                                        +' <div class="comment-wrapper2">'
-                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon"></a>'
-	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
-                                        +'</div></div></div>'
-	                                +'<h5 class="imgtitle" id="'+image.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
-	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
-	                                +'</div></div></div>'
-                                    
-                                    
-                                    
-                                    
-	                                +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
-	                                +'<ul class="comment-list">'
-	                                +'<li><a class="eye-icon" href="#">87</a></li>'
-	                                +'<li><a class="hand-icon" href="#">5</a></li>'
-	                                +'<li><a class="message-icon" href="#">10</a></li>'
-	                                +'</ul>'
-	                                +'</div>';
-                                       
-	                                $('#coverimage').html(content);  
+                            var datVal =  self.formatDateVal(image.creationDate);  
+                            content= '<div class="image-wrapper hovereffect" id="'+image.id.id+'">'
+                                +' <div class="hover-div"><img class="filmedia-picture" src="'+image.mediaUrl+'">'
+                                +'<div class="hover-text">'               
+                                +'<div class="comment-wrapper">'                                
+                                +'<a href="#imagelist" style="text-decoration: none">'
+                                +' <div id="media-'+image.id.id+'" >'
+                                +' <h4>'+image.name+'</h4>'                                
+                                +'<div class="description-info"><div class="description-left"><p class="doc-description">'+image.description+'</p></div></a>'
+                                +' <div class="comment-wrapper2">'
+                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon"></a>'
+                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+                                +'</div></div></div>'
+                                +'<h5 class="imgtitle" id="'+image.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
+                                +'</div></div></div>'
+                                +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
+                                +'<ul class="comment-list">'
+                                +'<li><a class="eye-icon" href="#">87</a></li>'
+                                +'<li><a class="hand-icon" href="#">5</a></li>'
+                                +'<li><a class="message-icon" href="#">10</a></li>'
+                                +'</ul>'
+                                +'</div>'; 
+                            $('#coverimage').html(content);  
                               });
                             }
                         }
@@ -364,21 +375,28 @@ BS.FilesMediaView = Backbone.View.extend({
                                 arraypictures=videos;
                                 coverpicture=arraypictures[arraypictures.length-1];
                                   _.each(videos, function(video) {
-                                content= '<div class="image-wrapper hovereffect"><div class="hover-div"><img class="filmedia-picture" src="'+coverpicture.frameURL+'"/><div class="hover-text">'
-                                            +'<div class="comment-wrapper comment-wrapper2">'
-                                            +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
-                                            +'<a href="#" class="hand-icon"></a>'
-                                            +'<a href="#" class="message-icon"></a>'
-                                            +'<a href="#" class="share-icon"></a></div>'
-                                            +'<a id="profile-videos" style="text-decoration: none" href="#videos"><div id="media-'+video.id.id+'" ><h4>'+video.name+'</h4>'       
-                                            +'<p class="doc-description">'+video.description+' </p></div></a>'
-                                            +'<h5 class="videotitle" id="'+video.id.id+'"> Title & Description</h5>'          
-                                            +'<div calss="date-info"><span>State</span><span>datVal</span></div>'                                         
-                                            +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"></a>'
-                                            +'<ul class="comment-list">'
-                                            +'<li><a class="eye-icon" href="#">87</a></li>'
-                                            +'<li><a class="hand-icon" href="#">5</a></li>'
-                                            +'<li><a class="message-icon" href="#">10</a></li></ul></div>';
+                                content= '<div class="image-wrapper hovereffect">'
+                                        +' <div class="hover-div"><img class="filmedia-picture" src="'+coverpicture.frameURL+'">'
+                                        +'<div class="hover-text">'               
+                                        +'<div class="comment-wrapper">'                                
+                                        +'<a href="#videos" style="text-decoration: none">'
+                                        +' <div id="media-'+video.id.id+'" >'
+                                        +' <h4>'+video.name+'</h4>'                                
+	                                +'<div class="description-info"><div class="description-left"><p class="doc-description">'+video.description+'</p></div></a>'
+                                        +' <div class="comment-wrapper2">'
+                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon"></a>'
+	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+                                        +'</div></div></div>'
+	                                +'<h5 class="videotitle" id="'+video.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
+	                                +'</div></div></div>'
+	                                +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
+	                                +'<ul class="comment-list">'
+	                                +'<li><a class="eye-icon" href="#">87</a></li>'
+	                                +'<li><a class="hand-icon" href="#">5</a></li>'
+	                                +'<li><a class="message-icon" href="#">10</a></li>'
+	                                +'</ul>'
+	                                +'</div>';
                                  $('#covervideo').html(content);  
                                   });
                             }
@@ -429,18 +447,29 @@ BS.FilesMediaView = Backbone.View.extend({
                         success : function(data) {
 //                            if(docs.length != 0)  {
                               _.each(data, function(audio) {
-                                   var datVal =  self.formatDateVal(audio.creationDate);     
-                                  var content ='<div class="image-wrapper hovereffect google_doc">'                                     
-                                        +'<div class="hover-div"><img src="images/audio_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
-                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
-                                        +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#audioview" style="text-decoration: none">'
-                                        +'<h4> '+audio.documentName+'</h4> <p class="doc-description">'                
-                                        +''+audio.documentDescription+' </p></a>'
-                                        +'<h5 class="audiotitle" id="'+audio.id.id+'"> Title & Description</h5><div calss="dateinfo"><span>State</span><span>'+datVal+'</span></div>'
-                                        +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon music" href="#">'
-                                        +'</a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
-                                        +'<li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
-                         
+                               var datVal =  self.formatDateVal(audio.creationDate);     
+                           var content= '<div class="image-wrapper hovereffect">'
+                                        +' <div class="hover-div"><img class="cover-picture" src="images/audio_image.png">'
+                                        +'<div class="hover-text">'               
+                                        +'<div class="comment-wrapper">'                                
+                                        +'<a href="#audioview" style="text-decoration: none">'
+                                        +' <div id="media-'+audio.id.id+'" >'
+                                        +' <h4>'+audio.documentName+'</h4>'                                
+	                                +'<div class="description-info"><div class="description-left"><p class="doc-description">'+audio.documentDescription+'</p></div></a>'
+                                        +' <div class="comment-wrapper2">'
+                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon"></a>'
+	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+                                        +'</div></div></div>'
+	                                +'<h5 class="audiotitle" id="'+audio.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
+	                                +'</div></div></div>'
+	                                +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
+	                                +'<ul class="comment-list">'
+	                                +'<li><a class="eye-icon" href="#">87</a></li>'
+	                                +'<li><a class="hand-icon" href="#">5</a></li>'
+	                                +'<li><a class="message-icon" href="#">10</a></li>'
+	                                +'</ul>'
+	                                +'</div>';
                                $('#coveraudio').html(content); 
                                
                               });
@@ -472,7 +501,7 @@ BS.FilesMediaView = Backbone.View.extend({
          * 
          */
         spreadsheet :function(eventName){
-             content= '<div class="hover-div"><img src="images/video_image.png"/><div class="hover-text"><div class="image-wrapper"><a id="profile-videos" href="#videos"><img src="images/image2.jpg"></a>'
+             content= '<div class="hover-div"><img class="cover-picture" src="images/video_image.png"/><div class="hover-text"><div class="image-wrapper"><a id="profile-videos" href="#videos"><img src="images/image2.jpg"></a>'
                         +'</div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"></a>'
                         +'<ul class="comment-list">'
                         +'<li><a class="eye-icon" href="#">87</a></li>'
@@ -495,17 +524,28 @@ BS.FilesMediaView = Backbone.View.extend({
 //                            if(docs.length != 0)  {
                               _.each(ppts, function(ppt) {
                                    var datVal =  self.formatDateVal(ppt.creationDate);     
-                                  var content ='<div class="image-wrapper hovereffect google_doc">'                                     
-                                        +'<div class="hover-div"><img src="images/presentations_image.png"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
-                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
-                                        +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#presentationview" style="text-decoration: none">'
-                                        +' <div id="media-'+ppt.id.id+'" ><h4>'+ppt.documentName+'</h4> <p class="doc-description" id="'+ppt.id.id+'" >'                
-                                        +''+ppt.documentDescription+' </p></div></a>'
-                                        +'<h5 class="presentationtitle" id="'+ppt.id.id+'"> Title & Description</h5><div calss="dateinfo"><span>State</span><span>'+datVal+'</span></div>'
-                                        +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon presentation" href="#">'
-                                        +'</a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
-                                        +'<li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
-                         
+                            var content= '<div class="image-wrapper hovereffect" id="'+ppt.id.id+'">'
+                                        +' <div class="hover-div"><img class="cover-picture" src="images/presentations_image.png">'
+                                        +'<div class="hover-text">'               
+                                        +'<div class="comment-wrapper">'                                
+                                        +'<a href="#presentationview" style="text-decoration: none">'
+                                        +' <div id="media-'+ppt.id.id+'" >'
+                                        +' <h4>'+ppt.documentName+'</h4>'                                
+	                                +'<div class="description-info"><div class="description-left"><p class="doc-description">'+ppt.documentDescription+'</p></div></a>'
+                                        +' <div class="comment-wrapper2">'
+                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon"></a>'
+	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+                                        +'</div></div></div>'
+	                                +'<h5 class="presentationtitle" id="'+ppt.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
+	                                +'</div></div></div>'
+	                                +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
+	                                +'<ul class="comment-list">'
+	                                +'<li><a class="eye-icon" href="#">87</a></li>'
+	                                +'<li><a class="hand-icon" href="#">5</a></li>'
+	                                +'<li><a class="message-icon" href="#">10</a></li>'
+	                                +'</ul>'
+	                                +'</div>';
                                $('#coverpresentation').html(content); 
                                
                               });
@@ -559,18 +599,30 @@ BS.FilesMediaView = Backbone.View.extend({
 //                            if(docs.length != 0)  {
                               _.each(pdfs, function(pdf) {
                                    var datVal =  self.formatDateVal(pdf.creationDate);     
-                                  var content ='<div class="image-wrapper hovereffect google_doc">'                                     
-                                        +'<div class="hover-div"><img src="'+pdf.previewImageUrl+'"/><div class="hover-text"><div class="comment-wrapper comment-wrapper2">'
-                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
-                                        +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#pdflistview" style="text-decoration: none">'
-                                        +'<div id="media-'+pdf.id.id+'" ><h4> '+pdf.documentName+'</h4> <p class="doc-description" id="'+pdf.id.id+'" >'                
-                                        +'<input type="hidden" id="id-'+pdf.id.id+'" value="'+pdf.documentURL+'">'
-                                        +''+pdf.documentDescription+' </p></div></a>'
-                                        +'<h5 class="pdftitle" id="'+pdf.id.id+'"> Title & Description</h5><div calss="dateinfo"><span>State</span><span>'+datVal+'</span></div>'
-                                        +'</div></div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon pdf" href="#">'
-                                        +'</a><ul class="comment-list"><li><a class="eye-icon" href="#"></a></li>'
-                                        +'<li><a class="hand-icon" href="#">5</a></li><li><a class="message-icon" href="#"></a></li></ul></div>'; 
-                         
+             
+                             var content= '<div class="image-wrapper hovereffect" id="'+pdf.id.id+'">'
+                                        +' <div class="hover-div"><img class="filmedia-picture" src="'+pdf.previewImageUrl+'">'
+                                        +'<div class="hover-text">'               
+                                        +'<div class="comment-wrapper">'                                
+                                        +'<a href="#pdflistview" style="text-decoration: none">'
+                                        +' <div id="media-'+pdf.id.id+'" >'
+                                        +' <h4>'+pdf.name+'</h4>'                                
+	                                +'<div class="description-info"><div class="description-left"><p class="doc-description">'+pdf.description+'</p></div></a>'
+                                        +' <div class="comment-wrapper2">'
+                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon"></a>'
+	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+                                        +'</div></div></div>'
+	                                +'<h5 class="pdftitle" id="'+pdf.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
+	                                +'</div></div></div>'
+	                                +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
+	                                +'<ul class="comment-list">'
+	                                +'<li><a class="eye-icon" href="#">87</a></li>'
+	                                +'<li><a class="hand-icon" href="#">5</a></li>'
+	                                +'<li><a class="message-icon" href="#">10</a></li>'
+	                                +'</ul>'
+	                                +'</div>';
+         
                                $('#coverpdf').html(content); 
                                
                               });
@@ -615,7 +667,7 @@ BS.FilesMediaView = Backbone.View.extend({
          * 
          */
         links :function(eventName){
-             content= '<div class="hover-div"><img src="images/video_image.png"/><div class="hover-text"><div class="image-wrapper"><a id="profile-videos" href="#videos"><img src="images/image2.jpg"></a>'
+             content= '<div class="hover-div"><img class="cover-picture" src="images/video_image.png"/><div class="hover-text"><div class="image-wrapper"><a id="profile-videos" href="#videos"><img src="images/image2.jpg"></a>'
                         +'</div></div><div class="comment-wrapper comment-wrapper1"> <a class="common-icon video" href="#"></a>'
                         +'<ul class="comment-list">'
                         +'<li><a class="eye-icon" href="#">87</a></li>'
