@@ -29,6 +29,7 @@
 			 "click .follow-button" : "followMessage",
 			 "click .rock-message" : "rockMessage",
 			 "click .rocks" : "rockMessage",
+			 "click .rocks-up" : "rockMessage",
 			 "click .add-comment" : "showCommentTextArea",
 			 "click .show-all" : "showAllList",
 			 "click .show-all-comments" : "showAllCommentList",
@@ -40,8 +41,10 @@
 			 "change #upload-files-area" : "getUploadedData",
 			 "click #private-to-list li" :"selectPrivateToList",
 			 "click #private-to" : "checkPrivateAccess",
+			 "click #share-discussions li a" : "actvateShareIcon",
 			 "click #sortBy-list" : "sortMessages",
 			 "keypress #sort_by_key" : "sortMessagesByKey",
+			
 	//		 "click .ask-button" :"askQuestions",
 	//		 "click .add-poll " : "displayOptionsEntry",
 	//		 "click #add_more_options" :"addMoreOptions"
@@ -1047,7 +1050,18 @@
 	            },
 	            dataType:"json",
 	            success:function(data){
-	            	 
+	            	console.log($('#'+messageId+'-msgRockCount').attr('class')); 
+	            	if($('#'+messageId+'-msgRockCount').hasClass('rocks'))
+	            	{
+	            		$('#'+messageId+'-msgRockCount').removeClass('rocks');
+	            		$('#'+messageId+'-msgRockCount').addClass('rocks-up');
+	            	}
+	            	else
+	            	{
+	            		$('#'+messageId+'-msgRockCount').removeClass('rocks-up');
+	            		$('#'+messageId+'-msgRockCount').addClass('rocks');
+	            	}
+	            	
 	            	// display the count in icon
 	                $('#'+messageId+'-msgRockCount').find('span').html(data);
 	                //auto push
@@ -1283,9 +1297,29 @@
         checkPrivateAccess: function (eventName) {
         	
         	if($('#private-to').attr('checked')!= 'checked')
+        	{
         		$('#select-privateTo').text("Public");
+            	
+        	}
         	else
+        	{
         		$('#select-privateTo').text("Class");
+        		$('#share-discussions li.active').removeClass('active');
+        	}
+        		
+        },
+        
+        /**
+         * NEW THEME - actvate share icon on selection
+         */
+        actvateShareIcon: function(eventName){
+        	eventName.preventDefault();
+        	$('#private-to').attr('checked',false);
+        	$('#select-privateTo').text("Public");
+        	$('#share-discussions li.active').removeClass('active');
+        	$(eventName.target).parents('li').addClass('active');
+        	
+        	
         },
         
         /**
@@ -1560,6 +1594,30 @@
 			    					 $('#'+data.id.id+'-follow').text("Unfollow");
 			    			}
 			    	 });
+			         
+			         
+			         /* make a call to check whether the logged user is already rock this message*/ 
+					 $.ajax({
+			             type: 'POST',
+			             url:BS.isARockerOfMessage,
+			             data:{
+			            	 messageId:data.id.id
+			             },
+			             dataType:"json",
+			             success:function(result){
+			            	 if(result == "true")
+			            	 {
+			            		 $('#'+data.id.id+'-msgRockCount').removeClass('rocks-up');
+			            		 $('#'+data.id.id+'-msgRockCount').addClass('rocks');			            		 
+			            	 }
+			            	 else
+			            	 {
+			            		 $('#'+data.id.id+'-msgRockCount').removeClass('rocks');
+			            		 $('#'+data.id.id+'-msgRockCount').addClass('rocks-up');
+			            	 }
+			            	 
+			             }
+			          });
 						 
 					 /* get profile images for messages */
 			         $.ajax({
