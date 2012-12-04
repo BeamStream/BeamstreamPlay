@@ -271,14 +271,28 @@ BS.FilesMediaView = Backbone.View.extend({
                              _.each(images, function(image) {
                                   	var datVal =  self.formatDateVal(image.creationDate);  
 	                                content= '<div class="image-wrapper hovereffect" id="'+image.id.id+'"> <div class="hover-div"><img class="filmedia-picture" src="'+image.mediaUrl+'"><div class="hover-text">'               
-	                                +'<div class="comment-wrapper comment-wrapper2">'
-	                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>'
-	                                +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a></div><a href="#imagelist" style="text-decoration: none"><div id="media-'+image.id.id+'" ><h4>'+image.name+'</h4>'                            
-	                                +'<p class="doc-description">'+image.description+'</p></div></a>'
-	                                +'<h5 class="imgtitle" id="'+image.id.id+'"> Title & Description</h5>'          
-	                                +'<div class="dateinfo"><span>State</span><span>datVal</span></div>'
+	                               
+                                       
+                                           
+                                        +'<div class="comment-wrapper">'   
+                                    
+                                        +'<a href="#imagelist" style="text-decoration: none">'
+                                        +' <div id="media-'+image.id.id+'" >'
+                                        +' <h4>'+image.name+'</h4>' 
+                                    
+	                                +'<div class="description-info"><div class="description-left"><p class="doc-description">'+image.description+'</p></div></a>'
+                                        +' <div class="comment-wrapper2">'
+                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon"></a>'
+	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+                                        +'</div></div></div>'
+	                                +'<h5 class="imgtitle" id="'+image.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
 	                                +'</div></div></div>'
-	                                +'<div class="comment-wrapper comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
+                                    
+                                    
+                                    
+                                    
+	                                +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
 	                                +'<ul class="comment-list">'
 	                                +'<li><a class="eye-icon" href="#">87</a></li>'
 	                                +'<li><a class="hand-icon" href="#">5</a></li>'
