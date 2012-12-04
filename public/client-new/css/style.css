@@ -2564,7 +2564,7 @@ div.hover-div{
      display:block; 
      height:130px !important; 
      position:relative; 
-     text-align:center; margin:10px;overflow:hidden;
+     text-align:center;overflow:hidden;
      -webkit-border-radius:3px;
 		-moz-border-radius:3px;
 		border-radius:3px;
