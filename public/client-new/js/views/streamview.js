@@ -79,7 +79,8 @@
 			 "keypress #msg-area" : "postMessageOnEnterKey",
 			 "click #upload-files" : "showUploadSection",
 			 "change #upload-files-area" : "getUploadedData",
-			 "click #private-to-list li" :"selectPrivateToList"
+			 "click #private-to-list li" :"selectPrivateToList",
+			 "click #private-to" : "checkPrivateAccess"
 	//		 "click .ask-button" :"askQuestions",
 	//		 "click .add-poll " : "displayOptionsEntry",
 	//		 "click #add_more_options" :"addMoreOptions"
@@ -190,6 +191,7 @@
 			/* for PUBNUB auto push */
 	        this.setupPushConnection();
 	
+	        
 			/* pagination on scrolling */
 		//	BS.msgSortedType = '';
 		//	BS.pagenum = 1;
@@ -1559,8 +1561,23 @@
         selectPrivateToList: function(eventName){
         	eventName.preventDefault();
         	$('#select-privateTo').text($(eventName.target).text());
+        	
+        	//uncheck private check box when select Public
+        	if($(eventName.target).text() == "Public")
+        		$('#private-to').attr('checked',false);
         },
         
+        
+        /**
+         * NEW THEME - select Private / Public ( social share ) options 
+         */
+        checkPrivateAccess: function (eventName) {
+        	
+        	if($('#private-to').attr('checked')!= 'checked')
+        		$('#select-privateTo').text("Public");
+        	else
+        		$('#select-privateTo').text("Class");
+        },
 	    /**
 	     * get all class streams of a user
 	     */
