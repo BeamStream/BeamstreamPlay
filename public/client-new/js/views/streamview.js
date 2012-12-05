@@ -158,54 +158,53 @@
 	        
 			/* pagination on scrolling */
 			BS.msgSortedType = '';
-		//	BS.pagenum = 1;
-		//	BS.pageForVotes = 1;
-		//	BS.pageForDate = 1;
-		//	BS.pageForKeyword = 1;
-		//	BS.pageLimit = 10;
-		//    var self = this;
-		//    self.file = "";
-		/*	$(window).bind('scroll', function (ev) {
-				var streamPage = $('nav li.active').attr('id');
-				if(streamPage == "streamsGroups")
+			BS.pagenum = 1;
+			BS.pageForVotes = 1;
+			BS.pageForDate = 1;
+			BS.pageForKeyword = 1;
+			BS.pageLimit = 10;
+		    var self = this;
+		    self.file = "";
+			$(window).bind('scroll', function (ev) {
+				var scrollTop =$(window).scrollTop();
+				var docheight = $(document).height();
+				var widheight = $(window).height();
+				if(scrollTop + 1 == docheight- widheight || scrollTop == docheight- widheight){
+			 	   var t = $('#all-messages').find('div.follow-container');
+			 	   console.log(t.length);
+				   if(t.length != 0)
+				   {
+						$('.page-loader').show();
+						var streamId = $('.sortable li.active').attr('id');
+					
+						if(BS.msgSortedType == "")
+						{    
+							BS.pagenum++;
+							self.getAllMessages(streamId,BS.pagenum,BS.pageLimit);
+						}
+						else if(BS.msgSortedType == "vote")
+						{    
+							BS.pageForVotes++
+							self.sortByHighestRated(streamId,BS.pageForVotes,BS.pageLimit)
+						}
+						else if(BS.msgSortedType == "keyword")
+						{
+							BS.pageForKeyword++;
+							var keyword = $('#sort_by_key').val();
+							self.sortBykeyword(streamId,keyword,BS.pageForKeyword,BS.pageLimit);
+						}
+						else if(BS.msgSortedType == "date")
+						{
+							 BS.pageForDate++;
+							 self.sortByMostRecent(streamId,BS.pageForDate,BS.pageLimit);
+						}
+				   }
+				 }
+				else
 				{
-					var scrollTop =$(window).scrollTop();
-					var docheight = $(document).height();
-					var widheight = $(window).height();
-					if(scrollTop + 1 == docheight- widheight || scrollTop == docheight- widheight){
-				 	   var t = $('.timeline_items').find('li');
-					   if(t.length != 0)
-					   {
-							$('.page-loader').show();
-							var streamId = $('#streams-list li.active a').attr('id');
-						
-							if(BS.msgSortedType == "")
-							{    BS.pagenum++;
-								self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
-							}
-							else if(BS.msgSortedType == "vote")
-							{    BS.pageForVotes++
-								 self.sortByVotes(streamId,BS.pageForVotes,BS.pageLimit)
-							}
-							else if(BS.msgSortedType == "keyword")
-							{
-								BS.pageForKeyword++;
-								var keyword = $('#sort_by_key').val();
-								self.sortBykeyword(streamId,keyword,BS.pageForKeyword,BS.pageLimit);
-							}
-							else if(BS.msgSortedType == "date")
-							{
-								 BS.pageForDate++;
-								 self.sortByDate(streamId,BS.pageForDate,BS.pageLimit);
-							}
-					   }
-					 }
-					else
-					{
-						  $('.page-loader').hide();
-					}
+					  $('.page-loader').hide();
 				}
-			 });          */
+			 });          
 	    },
 	 
 	    /**
@@ -595,6 +594,7 @@
 		    var trueurl='';
 	        if(this.file )
 	        {
+	        	
 //	        	$('#file-upload-loader').css("display","block");
 
 	        	var data;
@@ -696,9 +696,9 @@
 	    						
   						}
 	                           
-//                        var template = Handlebars.compile(source);
-//                        $('.timeline_items').prepend(template(datas));
-//                        $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
+                        var template = Handlebars.compile(source);
+                        $('#all-messages').prepend(template(datas));
+                        $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
 //                        $('input#'+data.id.id+'-url').val(msgUrl); 
 	                      	 
                       	/* for video popups */
@@ -1386,8 +1386,8 @@
 				  	success : function(data) {
 				  		 
 				  		//hide page loader image
-//					  	if(!data.length)
-//							$('.page-loader').hide();
+					  	if(!data.length)
+							$('.page-loader').hide();
 				  		self.displayMessages(data);
 				  	}
 		  		});
@@ -1408,6 +1408,9 @@
    	  			},
    	  			dataType : "json",
    			  	success : function(data) {
+   			  		//hide page loader image
+				  	if(!data.length)
+						$('.page-loader').hide();
    			  		self.displayMessages(data);
    			  	}
    	  		});
@@ -1432,8 +1435,8 @@
 			  	success : function(data) {
 			  		
 			  	  //hide page loader image
-//					if(!data.length)
-//						$('.page-loader').hide();
+					if(!data.length)
+						$('.page-loader').hide();
 			  		self.displayMessages(data);
 			  	}
 	  		});
@@ -1451,8 +1454,8 @@
         	var self = this;
         	
 			//hide page loader image
-//			if(!data.length)
-//				$('.page-loader').hide();
+			if(!data.length)
+				$('.page-loader').hide();
 				   
 			//display the messages
 			_.each(data, function(data) {

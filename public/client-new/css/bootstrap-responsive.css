@@ -980,8 +980,15 @@ ul.stream-tab li a span {
 }
 .dropdown-outer{
 	width:34%;
-	margin:0 2% 0 0;
+	
 }
+
+.overview-jumbmenu {
+
+    padding: 0 5% 0 0;
+}
+
+
 .ask-outer {
 	padding:4%;
 }
@@ -1047,7 +1054,7 @@ ul.social-icons{
 /*  Overview  */
 .event-block-blue {
 		width:89%;
-			margin:4% 4% 0  4%;
+			margin:1% 4% 0  4%;
 
 }
 
@@ -1129,10 +1136,6 @@ ul.social-icons{
 }
 
 .menu ul li a span{ left:10px; }
-
-
-
-
 
 
 
@@ -1824,6 +1827,14 @@ ul.social-icons{
 
 
 
+.overview-jumbmenu {
+		
+		padding: 0 12% 0 0;
+}
+
+
+
+
 
 
 
@@ -2027,7 +2038,7 @@ ul.stream-tab li a span {
 /*  Overview  */
 .event-block-blue {
 		width:87%;
-			margin:4% 4% 0  4%;
+			margin:2% 4% 0  4%;
 
 }
 .turn-btn {
@@ -2056,7 +2067,7 @@ ul.stream-tab li a span {
 
 
 .sortable li {
-								width:90%;
+		width:90%;
 }
 
 

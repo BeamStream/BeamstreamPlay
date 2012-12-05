@@ -181,7 +181,7 @@ body {
 		height: 20px;
 		left: 20px;
 		position: absolute;
-		top: 24px;
+		top:19px;
 		width: 22px;
 }
 
@@ -1316,42 +1316,42 @@ ul.follow-name-left li a:hover {
 }
 
 ul.follow-name-left li a.rocks {
-		background: url("../images/rocks-icon.png") no-repeat scroll center top transparent;
-		color: #5299BD;
-		display: block;
-		font-weight: bold;
-		width:25px;
-		text-align:center;
+                background: url("../images/rocks-icon.png") no-repeat scroll center top transparent;
+                color: #5299BD;
+                display: block;
+                font-weight: bold;
+                width:25px;
+                text-align:center;
 }
 
 ul.follow-name-left li a.rocks:hover {
-		background: url("../images/rocks-icon-a1-a.png") no-repeat scroll center top transparent;
-		color: #5299BD;
-		display: block;
-		font-weight: bold;
-		width:25px;
-		text-align:center;
+                background: url("../images/rocks-icon-a1-a.png") no-repeat scroll center top transparent;
+                color: #5299BD;
+                display: block;
+                font-weight: bold;
+                width:25px;
+                text-align:center;
 }
 
 ul.follow-name-left li a.rocks-up {
-		background: url("../images/rocks-icon-1.png") no-repeat scroll center top transparent;
-		color: #5299BD;
-		display: block;
-		font-weight: bold;
-		width:25px;
-		text-align:center;
+                background: url("../images/rocks-icon-1.png") no-repeat scroll center top transparent;
+                color: #5299BD;
+                display: block;
+                font-weight: bold;
+                width:25px;
+                text-align:center;
 }
 ul.follow-name-left li a.rocks-up:hover {
-		background: url("../images/rocks-icon-a.png") no-repeat scroll center top transparent;
-		color: #5299BD;
-		display: block;
-		font-weight: bold;
-		width:25px;
-		text-align:center;
+                background: url("../images/rocks-icon-a.png") no-repeat scroll center top transparent;
+                color: #5299BD;
+                display: block;
+                font-weight: bold;
+                width:25px;
+                text-align:center;
 }
 ul.follow-name-left li a.rocks-up span {
-		display:block;
-		padding-top:22px;
+                display:block;
+                padding-top:22px;
 }
 
 
@@ -1463,7 +1463,7 @@ ul.follow-bottom-menu li a.rocks {
 		border: 1px solid #ABAEB1;
 		border-radius: 4px 4px 4px 4px;
 		color: #353535;
-		font-size: 12px;
+		font-size: 13px;
 		font-weight: bold;
 		margin-right: 1%;
 		padding: 4px 15px;
@@ -1711,7 +1711,7 @@ li.sortable-placeholder {
 .overview-jumbmenu {
 		float: right;
 		margin: 8px 0 0;
-		padding: 0 7% 0 0;
+		padding: 0 7% 0 0;width:30%;
 }
 
 ul.recent-questions {
@@ -2812,10 +2812,6 @@ color: #717171;
      box-shadow: inset 1px 1px 5px 1px #f4f7fd; 
  	margin:10px; 
  } 
- 
- .cover-picture{
-     padding-top: 24px;
- }
   
  #default-image{ 
      position:relative; 
@@ -2911,7 +2907,7 @@ color: #717171;
   ul.comment-list li a:hover { 
  	opacity:.50;
 filter:alpha(opacity=50);
-filter: “alpha(opacity=50)”;
+filter: â€œalpha(opacity=50)â€�;
 text-decoration:none;
  }
  .eye-icon{ 
