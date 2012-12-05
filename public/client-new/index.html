@@ -1558,23 +1558,61 @@
               <li><a href="#">Most Recent </a></li>
               <li><a href="#">Oldest</a></li>
             </ul>
-            <div class="clear"></div>
+           <div class="clear"></div> 
           </div>
           <div class="calender-outer overview-boxes browse-outer">
             <h2>My Profile <a href="#" class="btn blue-buttons showmessage browse-file ">View All</a></h2>
            <ul class="profil-pic-outer" id="grid">  
                
   
-           <!--   <div class="clear"></div>  -->
+             <div class="clear"></div> 
             </ul>
           </div>
         </div>
-        <div class="clear"></div>
+        <div class="clear"></div>  
       </div>
-         
-            
         </script>
         
+        
+        <!-- template for single bucket in image -->
+<script type="text/x-handlebars-template" id="tpl-single-image">
+    <li id="file-docs-'{{imageCount}}" class="item"  data-date-created="{{image.dateCreated}}" data-rock="{{image.rocks}}">  
+  <div id="{{image.id.id}}"   name="single-doc">
+<div class="image-wrapper hovereffect" >
+  <div class="hover-div"><img class="filmedia-picture" src="{{image.mediaUrl}}">
+    <div class="hover-text">               
+     <div class="comment-wrapper" id="{{image.id.id}}">                                
+     <div id="media-{{image.id.id}}">
+      <h4>{{image.name}}</h4>                                
+      <div class="description-info"><div class="description-left">
+        <p class="doc-description"><div class="gallery clearfix"></div>
+				<div class="gallery clearfix hrtxt">
+					<a href="{{image.mediaUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
+						<p class="google_doc doc-description" id="{{image.id.id}}">
+						<input type="hidden" id="id-{{image.id.id}}" value="doc.url"> {{image.description}}</p>
+					</a>
+					</div></div></p>
+      </div>
+      <div class="comment-wrapper2">
+      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>
+      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
+      </div></div></div>
+      <h5 class="imgtitle" id="{{image.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
+     <div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>
+    </div>
+   </div>
+  </div>
+  <div class="comment-wrapper1"> 
+   <a class="common-icon camera" href="#"></a>
+    <ul id="{{image.id.id}}-activities" class="comment-list">
+     <li><a class="eye-icon" href="#">87</a></li>
+     <li><a class="hand-icon show_rockers" href="#">{{image.rocks}}</a></li>
+     <li><a class="message-icon" href="#">10</a></li>
+    </ul>
+</div>
+   </div>  
+</li>
+ </script>   
             <!-------backbone library files----->
         <script src="lib/underscore-min.js"></script>
         <script src="lib/backbone.js"></script>
