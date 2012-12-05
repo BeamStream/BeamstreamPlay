@@ -1357,7 +1357,7 @@
 			
 			 var self = this;
 	 		 if(eventName.which == 13) {
-	 			 
+	 			eventName.preventDefault();
 	 			 BS.msgSortedType = "keyword";
 	 			 BS.pageForKeyword = 1;
 	 			 $('#all-messages').html('');
@@ -1384,6 +1384,7 @@
 		  			},
 		  			dataType : "json",
 				  	success : function(data) {
+				  		 
 				  		//hide page loader image
 //					  	if(!data.length)
 //							$('.page-loader').hide();
