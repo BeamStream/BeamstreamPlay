@@ -1298,13 +1298,13 @@
 		                   }});   
 		                   BS.imagelistview = new BS.ImageListView({})
 		                   BS.imagelistview.render();  
-		                   $('#content').html(BS.imagelistview.el); 
-		                   $('.file-type').hide();   //to hide the filetype menu
+		                   $('#body-content').html(BS.imagelistview.el); 
+		//                   $('.file-type').hide();   //to hide the filetype menu
 		             
 	  					}
 						else {
-							console.log("From Stream => login");
-							BS.AppRouter.navigate("login", {trigger: true});
+			//				console.log("From Stream => login");
+			//				BS.AppRouter.navigate("login", {trigger: true});
 						}
 					
 		           }});		
