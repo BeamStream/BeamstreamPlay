@@ -1153,7 +1153,7 @@
 			                      
 							
 							// Call common Shuffling function         
-			//                shufflingOnSorting(); 
+			                shufflingOnSorting(); 
 	                                
 						}
 						else {
