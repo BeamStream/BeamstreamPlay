@@ -18,7 +18,7 @@
     
 BS.FilesMediaView = Backbone.View.extend({
                 
-            events: {
+        events: {
                 //         "click a#file-type" : "showFilesTypes",
                 //         "click ul.file-type li a" : "hideList",
                 //         "click '.nav a" : "addActive",
@@ -55,7 +55,11 @@ BS.FilesMediaView = Backbone.View.extend({
  //                       "click #profile-images":"listProfileImages",
 //                        "click .google_doc" : "showDocPopup",
 //                        "click .filter-options li a" : "filterDocs"
-                        },
+        	
+        	 "click #view-by-list" : "selectViewByAll",
+        	 "click #view-files-byrock-list" : "selectViewByRock",
+            		
+            },
 	
             initialize:function () {         	 	       
                 console.log('Initializing Files and Media  View');       
@@ -74,11 +78,32 @@ BS.FilesMediaView = Backbone.View.extend({
      //           this.template= _.template($("#tpl-files-media").html()); 
     },
 
+    
             render:function (eventName) {
                 $(this.el).html(this.template);
                 return this;
                 },
     
+                
+                /**
+                 * NEW THEME - view files 
+                 */
+                selectViewByAll: function(eventName){
+                	eventName.preventDefault();
+                	$('#view-by-select').text($(eventName.target).text());
+                },
+                
+                
+                /**
+                 * NEW THEME - view files 
+                 */
+                selectViewByRock: function(eventName){
+                	eventName.preventDefault();
+                	$('#view-files-byrock-select').text($(eventName.target).text());
+                },
+                
+                
+                
             /**
             * show file types
             */

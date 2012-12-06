@@ -38,8 +38,12 @@
 <!-- end  -->
 
 <!--  Shuffle in media page -->
-<!-- <script type="text/javascript" src="lib/extralib/jquery.shuffle.js"></script> -->
+<script type="text/javascript" src="lib/extralib/jquery.shuffle.js"></script>
 <!-- end  -->
+
+<!-- Bootstrap modal js -->
+<!-- <script type="text/javascript" src="lib/bootstrap-modal.js"></script> -->
+<!--  End  -->
 
 </head>
 
@@ -59,6 +63,9 @@
     <div class="main-container" id="body-content">      
 
         <!----  body content--->
+<!--         <div id="test"> -->
+<!--         dsdfsdf -->
+<!--         </div> -->
       
     </div>
   </div>
@@ -379,9 +386,9 @@
                 </ul>
               </div>
               <div class="btn-group dropdown-outer">
-                <button class="btn normal-dropdown ">This Week</button>
+                <button class="btn normal-dropdown " id="date-sort-select">This Week</button>
                 <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                <ul class="dropdown-menu display-sub">
+                <ul class="dropdown-menu display-sub" id="date-sort-list">
                   <li><a href="#">Today</a></li>
                   <li><a href="#">This Week</a></li>
                   <li><a href="#">This Month </a></li>
@@ -415,7 +422,12 @@
                       </div>
                     </div>
                   </div>
-                  <a  id="post-button" class="ask-button">POST</a> </div>
+                  <a  id="post-button" class="ask-button">POST</a>
+                  <div id="file-upload-loader" style="display :none;">  
+							<img src ="images/loading.gif"> 
+        		</div>
+                   </div>
+                  
                 <div class="ask-iconinfo">
                   <ul class="icons-ask">
                     <li><a id="upload-files"  href="#"><img src="images/attach.png" width="22" height="20"></a></li>
@@ -451,7 +463,7 @@
           <div id= "all-messages">
 
           </div>
-		 <div class ="page-loader " style="background-color: #D9E9F6; border: 1px solid #D8DFEA;height: 20px; margin: 0 auto 5px; padding-top: 4px; text-align: center;  width: 639px;" ><img src ="images/loading-bars.gif"></div> 
+		 <div class ="page-loader"><img src ="images/loading-bars.gif"></div> 
         </div>
 </script>
 
@@ -492,7 +504,7 @@
                       <li ><a class="add-comment" href="#"> Comment</a></li>
                       <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
                     </ul>
-<!--                     <a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a> </div> -->
+                    <a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a>
                   </div>
                   <div id="{{datas.id.id}}-addComments" class="follow-comment">
 					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." ></textarea>
@@ -592,7 +604,7 @@
                       <li ><a class="add-comment" href="#"> Comment</a></li>
                       <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
                     </ul>
-<!-- 					<a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a> </div> -->
+					<a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a> 
                   </div>
                   <div id="{{datas.id.id}}-addComments" class="follow-comment">
 					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." ></textarea>
@@ -693,7 +705,7 @@
                       <li ><a class="add-comment" href="#"> Comment</a></li>
                       <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
                     </ul>
-<!-- 					<a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a> </div> -->
+					<a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a>  
                   </div>
                   <div id="{{datas.id.id}}-addComments" class="follow-comment">
 					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." ></textarea>
@@ -1352,9 +1364,9 @@
               <li>
                 <div class="settings-menu">
                   <div class="btn-group">
-                    <button class="btn seetings-toggle sort-toogle ">All Files </button>
+                    <button id="view-by-select" class="btn seetings-toggle sort-toogle ">All Files </button>
                     <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
-                    <ul class="dropdown-menu">
+                    <ul id="view-by-list" class="dropdown-menu">
                       <li><a href="#">All Files</a></li>
                       <li><a href="#">My Profile Media</a></li>
                       <li><a href="#">My Docs </a></li>
@@ -1362,14 +1374,13 @@
                   </div>
                 </div>
               </li>
-              <!--<li><a href="#"> By Highest Rocks</a></li> -->
               <li>
 
 				<div class="settings-menu">
                   <div class="btn-group">
-                    <button class="btn seetings-toggle sort-toogle ">By Highest Rocks</button>
+                    <button id="view-files-byrock-select" class="btn seetings-toggle sort-toogle ">By Highest Rocks</button>
                     <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class=" settings-caret"></span></button>
-                    <ul class="dropdown-menu">
+                    <ul id="view-files-byrock-list" class="dropdown-menu">
  					  <li><a href="#">By Highest Rocks</a></li>
                       <li><a href="#">By Tag</a></li>
                     </ul>
@@ -1710,70 +1721,70 @@
 	/* implemented  the shuffle plugin on sorting */
 	function shufflingOnSorting(){
 		 
-//         // instantiate the shuffle plugin
-//         $('#grid').shuffle({
-//             key : 'all',
-//             speed : 800,
-//             easing : 'ease-out'
-//         });
+        // instantiate the shuffle plugin
+        $('#grid').shuffle({
+            key : 'all',
+            speed : 800,
+            easing : 'ease-out'
+        });
                         
-//         // Set up button clicks
-//         $('.filter-options li').on('click', function() {
+        // Set up button clicks
+        $('.filter-options li').on('click', function() {
         	
-//             var $this = $(this),
-//                 $grid = $('#grid');
+            var $this = $(this),
+                $grid = $('#grid');
             
-//             $('.filter-options .active').removeClass('active');
-//             $this.addClass('active');
+            $('.filter-options .active').removeClass('active');
+            $this.addClass('active');
 
-//             $grid.shuffle($this.data('group'));
-//         });
+            $grid.shuffle($this.data('group'));
+        });
         
-//         $('.sort_by li').on('click', function() {
+        $('.sort_by li').on('click', function() {
         	 
-//             var $this = $(this),
-//                 $grid = $('#grid'),
-//                 sort = $this.data('sort'),
-//                 opts = {};
+            var $this = $(this),
+                $grid = $('#grid'),
+                sort = $this.data('sort'),
+                opts = {};
 
-//             $('.sort_by .active').removeClass('active');
-//             $this.addClass('active');
+            $('.sort_by .active').removeClass('active');
+            $this.addClass('active');
 
-//             // We're given the element wrapped in jQuery
-//             if (sort === 'date-oldest') {
-//                 opts = {
-//                     by: function($el) {
-//                         return $el.data('date-created');
-//                     }
-//                 }
-//             } else if (sort === 'date-recent') {
+            // We're given the element wrapped in jQuery
+            if (sort === 'date-oldest') {
+                opts = {
+                    by: function($el) {
+                        return $el.data('date-created');
+                    }
+                }
+            } else if (sort === 'date-recent') {
             	
-//                 opts = {
-//                      by: function($el) {
-//                             return $el.data('date-created');
-//                      },
-//                      reverse :true
-//                 }
-//             } else if (sort === 'title') {
-//                 opts = {
-//                     by: function($el) {
-//                         return $el.data('title').toLowerCase();
-//                     }
-//                 }
-//             }else if (sort === 'rocks') {
+                opts = {
+                     by: function($el) {
+                            return $el.data('date-created');
+                     },
+                     reverse :true
+                }
+            } else if (sort === 'title') {
+                opts = {
+                    by: function($el) {
+                        return $el.data('title').toLowerCase();
+                    }
+                }
+            }else if (sort === 'rocks') {
             	
-//                 opts = {
-//                         by: function($el) {
-//                         	return $el.data('rock');
+                opts = {
+                        by: function($el) {
+                        	return $el.data('rock');
                         	
-//                         },
-//                         reverse :true
-//                     }
-//                 }
+                        },
+                        reverse :true
+                    }
+                }
          
-//             // Filter elements
-//             $grid.shuffle('sort', opts);
-//         });
+            // Filter elements
+            $grid.shuffle('sort', opts);
+        });
         
 	}
 	

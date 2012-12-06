@@ -34,6 +34,7 @@
 			 "click .show-all" : "showAllList",
 			 "click .show-all-comments" : "showAllCommentList",
 			 "keypress .add-message-comment" : "addMessageComments",
+			 "focusout .add-message-comment" : "removeCommentTextArea",
 			 "click .rock-comments" : "rockComment",
 			 "click .rocks-small a" : "rockComment",
 			 "keypress #msg-area" : "postMessageOnEnterKey",
@@ -43,6 +44,7 @@
 			 "click #private-to" : "checkPrivateAccess",
 			 "click #share-discussions li a" : "actvateShareIcon",
 			 "click #sortBy-list" : "sortMessages",
+			 "click #date-sort-list" : "sortMessagesWithinAPeriod",
 			 "keypress #sort_by_key" : "sortMessagesByKey",
 			
 	//		 "click .ask-button" :"askQuestions",
@@ -594,7 +596,7 @@
 	        if(this.file )
 	        {
 	        	
-//	        	$('#file-upload-loader').css("display","block");
+	        	$('#file-upload-loader').css("display","block");
 
 	        	var data;
 	            data = new FormData();
@@ -615,7 +617,7 @@
 	                success: function(data){
 	                	$('#msg-area').val("");
 	              	    self.file = "";
-//	              	    $('#file-upload-loader').css("display","none");
+	              	    $('#file-upload-loader').css("display","none");
 	              	    $('.embed-info').css("display","none");
 	                  	 
 	  	                var datas = {
@@ -1099,6 +1101,19 @@
 			
         },
         
+        /**
+         * NEW THEME - remove the comment text area when it lost focus without any content
+         */
+        removeCommentTextArea: function(eventName){
+        	
+        	var parent =$(eventName.target).parents('div.follow-container').attr('id');
+        	
+        	//slide up the comment text area if the text is empty
+        	if($(eventName.target).val() == "")
+        	{
+        		 $('#'+parent+'-addComments').slideUp(200); 
+        	}
+        },
         
         /**
          *  NEW THEME - post new comments on enter key press
@@ -1129,7 +1144,7 @@
    				  	success : function(datas) { 
    				  				 
    				  		$('#'+parent+'-msgComment').val('');
-   				  	   $('#'+parent+'-addComments').slideUp(200); 
+   				  	    $('#'+parent+'-addComments').slideUp(200); 
    				  		
    				  		_.each(datas, function(data) {
    				  			totalComments++; 
@@ -1329,6 +1344,14 @@
         
         	
         	
+        },
+        
+        /**
+         * NEW THEME - sort messages within a period 
+         */
+        sortMessagesWithinAPeriod: function(eventName){
+        	eventName.preventDefault();
+        	$('#date-sort-select').text($(eventName.target).text());
         },
         
         /**
