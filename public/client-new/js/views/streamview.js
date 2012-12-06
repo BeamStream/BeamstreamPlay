@@ -870,78 +870,78 @@
                              BS.filesMediaView = new BS.FilesMediaView(); 
                              var datVal =  BS.filesMediaView.formatDateVal(data.timeCreated);
     			                    
-//                             // if message conatains googledoc url
-//                             if(messageType == "googleDocs")
-// 							 {
-//                            	 
-//                            	 var datas = {
-//                            			 "datas" : data,
-//                            			 "datVal" :datVal,
-//                            			 "previewImage" : "images/google_docs_image.png",
-//                            			 "type" : "googleDoc"
-//	 							 }	
-// 								 var source = $("#tpl-messages_with_docs").html();
-// 	         		  						
-//     						 }
-//                             // if message conatains messages only without any uploaded files
-// 							 else if(messageType == "messageOnly")
-// 							 {
+                             // if message conatains googledoc url
+                             if(messageType == "googleDocs")
+ 							 {
+                            	 
+                            	 var datas = {
+                            			 "datas" : data,
+                            			 "datVal" :datVal,
+                            			 "previewImage" : "images/google_docs_image.png",
+                            			 "type" : "googleDoc"
+	 							 }	
+ 								 var source = $("#tpl-messages_with_docs").html();
+ 	         		  						
+     						 }
+                             // if message conatains messages only without any uploaded files
+ 							 else if(messageType == "messageOnly")
+ 							 {
  								 var source = $("#tpl-discussion-messages").html();
-//     						 }
-//                             // if message conatains  uploaded files
-// 							 else
-// 							 {
-// 								 if(data.messageType.name == "Image")
-// 								 {
-// 									 var source = $("#tpl-messages_with_images").html();
-// 								 }
-// 								 else if(data.messageType.name == "Video")
-// 								 {
-// 									 var source = $("#tpl-messages_with_images").html();
-// 								 }
-// 								 else
-// 								 {
-// 									 var previewImage = '';
-// 									 var commenImage ="";
-// 									 var type = "";
-//     								 
-// 									 /* check its extensions and set corresponding preview icon images */
-// 									 if(extension == 'Ppt')
-// 									 {
-// 										 previewImage= "images/presentations_image.png";
-// 										 type = "ppt";
-// 									 }
-// 									 else if(extension == 'Doc')
-// 									 {
-// 										 previewImage= "images/docs_image.png";
-// 										 type = "doc";
-// 									 }
-// 									 else if(extension == 'Pdf')
-// 									 {
-// 										 previewImage= data.anyPreviewImageUrl;
-// 										 type = "pdf";
-// 									 }
-// 									 else
-// 									 {
-// 										 previewImage= "images/textimage.png";
-// 										 commenImage = "true";
-// 										 type = "doc";
-//								 	 }
-//     									
-// 									 var datas = {
-// 											 "datas" : data,
-// 											 "datVal" :datVal,
-// 											 "previewImage" :previewImage,
-// 											 "extension" : extension,
-// 											 "commenImage" : commenImage,
-// 											 "type" : type
-//						        	 }	
-//     								
-// 								     var source = $("#tpl-messages_with_docs").html();
-//     		  						 
-//								 }
+     						 }
+                             // if message conatains  uploaded files
+ 							 else
+ 							 {
+ 								 if(data.messageType.name == "Image")
+ 								 {
+ 									 var source = $("#tpl-messages_with_images").html();
+ 								 }
+ 								 else if(data.messageType.name == "Video")
+ 								 {
+ 									 var source = $("#tpl-messages_with_images").html();
+ 								 }
+ 								 else
+ 								 {
+ 									 var previewImage = '';
+ 									 var commenImage ="";
+ 									 var type = "";
+     								 
+ 									 /* check its extensions and set corresponding preview icon images */
+ 									 if(extension == 'Ppt')
+ 									 {
+ 										 previewImage= "images/presentations_image.png";
+ 										 type = "ppt";
+ 									 }
+ 									 else if(extension == 'Doc')
+ 									 {
+ 										 previewImage= "images/docs_image.png";
+ 										 type = "doc";
+ 									 }
+ 									 else if(extension == 'Pdf')
+ 									 {
+ 										 previewImage= data.anyPreviewImageUrl;
+ 										 type = "pdf";
+ 									 }
+ 									 else
+ 									 {
+ 										 previewImage= "images/textimage.png";
+ 										 commenImage = "true";
+ 										 type = "doc";
+								 	 }
+     									
+ 									 var datas = {
+ 											 "datas" : data,
+ 											 "datVal" :datVal,
+ 											 "previewImage" :previewImage,
+ 											 "extension" : extension,
+ 											 "commenImage" : commenImage,
+ 											 "type" : type
+						        	 }	
+     								
+ 								     var source = $("#tpl-messages_with_docs").html();
+     		  						 
+								 }
  	         								
-//     						 }
+     						 }
             			                    
                              var template = Handlebars.compile(source);
                              $('#all-messages').prepend(template(datas));
@@ -1503,82 +1503,81 @@
                 BS.filesMediaView = new BS.FilesMediaView(); 
                 var datVal =  BS.filesMediaView.formatDateVal(data.timeCreated);
 					
-//				if(messageType == "googleDocs")
-//				{
-					 
-//					var datas = {
-//							    "datas" : data,
-//                                "datVal" :datVal,
-//                                "previewImage" : "images/google_docs_image.png",
-//                                "type" : "googleDoc"
-//				     }	
-//					var source = $("#tpl-messages_with_docs").html();
+				if(messageType == "googleDocs")
+				{
+					var datas = {
+							    "datas" : data,
+                                "datVal" :datVal,
+                                "previewImage" : "images/google_docs_image.png",
+                                "type" : "googleDoc"
+				     }	
+					var source = $("#tpl-messages_with_docs").html();
 						
-//				}
-//				else if(messageType == "messageOnly")
-//				{
+				}
+				else if(messageType == "messageOnly")
+				{
 					
 					var source = $("#tpl-discussion-messages").html();
 						
-//				}
-//				else
-//				{
-//					if(data.messageType.name == "Image")
-//					{
-//						var source = $("#tpl-messages_with_images").html();
-//  						
-//					}
-//					else if(data.messageType.name == "Video")
-//					{
-//						var source = $("#tpl-messages_with_images").html();
-//  						
-//					}
-//					else
-//					{
-//						var previewImage = '';
-//						var commenImage ="";
-//						var type = "";
-//						 
-//						if(extension == 'Ppt')
-//						{
-//                            previewImage= "images/presentations_image.png";
-//                            type = "ppt";
-//                            
-//						}
-//						else if(extension == 'Doc')
-//						{
-//							previewImage= "images/docs_image.png";
-//							type = "doc";
-//							 	
-//						}
-//						else if(extension == 'Pdf')
-//						{
-//							 
-//							previewImage= data.anyPreviewImageUrl;
-//							type = "pdf";
-//						}
-//						else
-//						{
-//							previewImage= "images/textimage.png";
-//							commenImage = "true";
-//							type = "doc";
-//							
-//						}
-//						
-//						var datas = {
-//							    "datas" : data,
-//                                "datVal" :datVal,
-//                                "previewImage" :previewImage,
-//                                "extension" : extension,
-//                                "commenImage" : commenImage,
-//                                "type" : type
-//				        }	
-//					
-//					    var source = $("#tpl-messages_with_docs").html();
+				}
+				else
+				{
+					if(data.messageType.name == "Image")
+					{
+						var source = $("#tpl-messages_with_images").html();
+  						
+					}
+					else if(data.messageType.name == "Video")
+					{
+						var source = $("#tpl-messages_with_images").html();
+  						
+					}
+					else
+					{
+						var previewImage = '';
+						var commenImage ="";
+						var type = "";
+						 
+						if(extension == 'Ppt')
+						{
+                            previewImage= "images/presentations_image.png";
+                            type = "ppt";
+                            
+						}
+						else if(extension == 'Doc')
+						{
+							previewImage= "images/docs_image.png";
+							type = "doc";
+							 	
+						}
+						else if(extension == 'Pdf')
+						{
+							 
+							previewImage= data.anyPreviewImageUrl;
+							type = "pdf";
+						}
+						else
+						{
+							previewImage= "images/textimage.png";
+							commenImage = "true";
+							type = "doc";
+							
+						}
 						
-//				  }
+						var datas = {
+							    "datas" : data,
+                                "datVal" :datVal,
+                                "previewImage" :previewImage,
+                                "extension" : extension,
+                                "commenImage" : commenImage,
+                                "type" : type
+				        }	
+					
+					    var source = $("#tpl-messages_with_docs").html();
 						
-//				}
+				  }
+						
+				}
 				
 //				$('.right-container').html(rightContentTemplate(topMenuDetails));
 				var template = Handlebars.compile(source);

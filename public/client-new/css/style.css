@@ -1390,8 +1390,7 @@ ul.follow-name-left li a.rocks span {
 
 .follow-bottom {
 		display: block;
-		overflow: hidden;
-		padding: 1% 0;
+			padding: 1% 0;
 }
 
 ul.follow-bottom-menu {
@@ -2753,19 +2752,59 @@ padding:0 5% 0 10%;
 .add-message-comment{padding:10px;}
 
 
-.social-icons span{padding-right:15px;
-
-color: #717171;
+.social-icons span{
+	padding-right:15px;
+	color: #717171;
     float: left;
     font-size: 14px;
     font-weight: bold;
-
-
-
 }
 
 
 .show-all-block{width:100% !important;}
+
+
+.doc{
+	
+	float:left;  
+	margin:1% 0 1% 0;;
+	background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 0 1px #CDD4DB;
+    display: block;
+    float: left;
+    overflow: hidden;
+    width:30%;
+
+}
+
+
+
+
+
+.doc-image{width:50% !important;margin:0 auto;padding:8% 0 0 0;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

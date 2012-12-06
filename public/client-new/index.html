@@ -31,6 +31,13 @@
 <script src="lib/extralib/embedly-preview.js" type="text/javascript"></script>
 <!-- end  -->
 
+<!--  prettyPhoto -->
+<!-- <link -->
+<!-- 	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" -->
+<!-- 	rel="stylesheet" type="text/css" /> -->
+<!-- <link rel="stylesheet" href="css/extracss/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" /> -->
+<!-- <script src="lib/extralib/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script> -->
+
 </head>
 
 <body>
@@ -469,14 +476,14 @@
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="follow-names">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                       <li><span id="{{datas.userId.id}}" >@{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </span> -  {{datas.timeCreated}}  -  {{datas.messageAccess.name}}</li>
                     </ul>
                     <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button">follow</a></div>
                   </div>
                   <p id="{{datas.id.id}}-id" >{{datas.messageBody}}</p>
                   <div class="follow-bottom">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                    
                       <li><a class="rock-message" href="#">Rock</a></li>
                       <li ><a class="add-comment" href="#"> Comment</a></li>
@@ -522,14 +529,57 @@
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="follow-names">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                       <li><span id="{{datas.userId.id}}" >@{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </span> -  {{datas.timeCreated}}  -  {{datas.messageAccess.name}}</li>
                     </ul>
                     <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button">follow</a></div>
                   </div>
-                  <p id="{{datas.id.id}}-id" >{{datas.messageBody}}</p>
+                  <!-- <p id="{{datas.id.id}}-id" >{{datas.messageBody}}</p> -->
+                  
+                  <!-- start doc section -->
+                  <div id="Docs" class="doc">
+					<div id=" " class="image-wrapper hovereffect">
+                  	<div class="hover-div">
+                    	<img src="{{datas.anyPreviewImageUrl}}" class="filmedia-picture">
+                    	<div class="hover-text">
+                    		<div class="comment-wrapper">
+                    			<a style="text-decoration: none" href=""> </a>
+                    			<div id="media-{{datas.id.id}}">
+                    				<a style="text-decoration: none" href="">
+                   						 <h4>Media Name</h4>
+                				    </a>
+                				    <div class="description-info">
+                				    	<a style="text-decoration: none;" href="{{datas.messageBody}}" rel="prettyPhoto">
+                				    		<div class="description-left">
+                				    			<p class="doc-description"> Media Description..</p>
+                				    		</div>
+                				    	</a> 
+                				    	<div class="comment-wrapper2">
+                				    	   <a data-original-title="Search by Users" class="tag-icon" href="#"></a>
+                				    	   <a class="hand-icon" href="#"></a>
+                				    	   <a class="message-icon" href="#"></a>    
+                				    	   <a class="share-icon" href="#"></a>
+                				    	</div>
+                				    </div>
+                				 </div>
+                				 <h5 id="{{image.id.id}}" class="imgtitle">
+                				 	<span><img src="images/title-plus.png"></span>
+                				 	 Title &amp; Description
+                				 </h5>
+                				 <div class="dateinfo">
+                				 	<span class="state">State</span>
+                				 	<span class="date">datVal</span>
+                				 </div>
+                			</div>
+                		</div>
+                   </div>
+                   </div>
+                  </div>
+                  <!-- End doc section -->
+                  
+                  
                   <div class="follow-bottom">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                    
                       <li><a class="rock-message" href="#">Rock</a></li>
                       <li ><a class="add-comment" href="#"> Comment</a></li>
@@ -574,14 +624,62 @@
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="follow-names">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                       <li><span id="{{datas.userId.id}}" >@{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </span> -  {{datas.timeCreated}}  -  {{datas.messageAccess.name}}</li>
                     </ul>
                     <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button">follow</a></div>
                   </div>
-                  <p id="{{datas.id.id}}-id" >{{datas.messageBody}}</p>
+                 <!-- <p id="{{datas.id.id}}-id" >{{datas.messageBody}}</p> -->
+                  
+                   <!-- start doc section -->
+                  <div id="Docs" class="doc">
+					<div id=" " class="image-wrapper hovereffect">
+                  	<div class="hover-div">
+                  	   <div class="doc-image">
+                  		{{#if commenImage }}
+                 			 <img  src="{{previewImage}}" class="cover-picture" /> <h3 class="common-doctext" >{{extension}}</h3>
+                 		{{else}}
+                 			<img  src="{{previewImage}}" class="cover-picture" /> 
+                         {{/if}}
+                  		</div>
+                    	<div class="hover-text">
+                    		<div class="comment-wrapper">
+                    			<a style="text-decoration: none" href=""> </a>
+                    			<div id="media-{{datas.id.id}}">
+                    				<a style="text-decoration: none" href="">
+                   						 <h4>Document Name</h4>
+                				    </a>
+                				    <div class="description-info">
+                				    	<a style="text-decoration: none" href="">
+                				    		<div class="description-left">
+                				    			<p class="doc-description"> Document Description..</p>
+                				    		</div>
+                				    	</a> 
+                				    	<div class="comment-wrapper2">
+                				    	   <a data-original-title="Search by Users" class="tag-icon" href="#"></a>
+                				    	   <a class="hand-icon" href="#"></a>
+                				    	   <a class="message-icon" href="#"></a>    
+                				    	   <a class="share-icon" href="#"></a>
+                				    	</div>
+                				    </div>
+                				 </div>
+                				 <h5 id="{{image.id.id}}" class="imgtitle">
+                				 	<span><img src="images/title-plus.png"></span>
+                				 	 Title &amp; Description
+                				 </h5>
+                				 <div class="dateinfo">
+                				 	<span class="state">State</span>
+                				 	<span class="date">{{datVal}}</span>
+                				 </div>
+                			</div>
+                		</div>
+                   </div>
+                   </div>
+                  </div>
+                  <!-- End doc section -->
+                  
                   <div class="follow-bottom">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                    
                       <li><a class="rock-message" href="#">Rock</a></li>
                       <li ><a class="add-comment" href="#"> Comment</a></li>
@@ -624,7 +722,7 @@
                         </div>
                         <div class="answer-description-info">
                           <div class="follow-names">
-                            <ul class="follow-name-left">
+                            <ul class="follow-name-left show-all-block">
                               <li><span>@{{firstNameofCommentPoster}} {{lastNameofCommentPoster}} </span> -  {{timeCreated}}  -  Public</li>
                               <li ><a href="#" class="rock-comments" >Rock</a></li>
                               <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
@@ -648,7 +746,7 @@
                         </div>
                         <div class="answer-description-info">
                           <div class="follow-names">
-                            <ul class="follow-name-left">
+                            <ul class="follow-name-left show-all-block">
                               <li><span>@{{firstNameofCommentPoster}} {{lastNameofCommentPoster}} </span> -  {{timeCreated}}  -  Public</li>
                               <li ><a href="#" class="rock-comments" >Rock</a></li>
                               <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
@@ -771,7 +869,7 @@
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="follow-names">
-                    <ul class="follow-name-left ">
+                    <ul class="follow-name-left show-all-block">
                       <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                     </ul>
                     <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
@@ -795,7 +893,7 @@
                       <span class="chart-count"><span class="red">50%</span></span> </div>
                   </div>
                   <div class="follow-bottom">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                       <li><a href="#">Rock</a></li>
                       <li><a href="#"> Answer</a></li>
                       <li><a href="#"> Comment</a></li>
@@ -828,14 +926,14 @@
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="follow-names">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                       <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                     </ul>
                     <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
                   </div>
                   <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
                   <div class="follow-bottom">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                       <li ><a href="#">Rock</a></li>
                       <li ><a href="#"> Answer</a></li>
                       <li><a href="#"> Comment</a></li>
@@ -860,7 +958,7 @@
                         </div>
                         <div class="answer-description-info">
                           <div class="follow-names">
-                            <ul class="follow-name-left">
+                            <ul class="follow-name-left show-all-block">
                               <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                               <li ><a href="#">Rock</a></li>
                               <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
@@ -879,7 +977,7 @@
                         </div>
                         <div class="answer-description-info">
                           <div class="follow-names">
-                            <ul class="follow-name-left">
+                            <ul class="follow-name-left show-all-block" >
                               <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                               <li ><a href="#">Rock</a></li>
                               <li ><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
@@ -1098,7 +1196,7 @@
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="follow-names">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                       <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                     </ul>
                     <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
@@ -1115,7 +1213,7 @@
                   </div>
                   
                   <div class="follow-bottom">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                       <li><a href="#">Rock</a></li>
                       <li><a href="#"> Answer</a></li>
                       <li><a href="#"> Comment</a></li>
@@ -1147,14 +1245,14 @@
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="follow-names">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                       <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                     </ul>
                     <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
                   </div>
                   <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
                   <div class="follow-bottom">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                       <li ><a href="#">Rock</a></li>
                       <li ><a href="#"> Answer</a></li>
                       <li><a href="#"> Comment</a></li>
@@ -1179,7 +1277,7 @@
                         </div>
                         <div class="answer-description-info">
                           <div class="follow-names">
-                            <ul class="follow-name-left">
+                            <ul class="follow-name-left show-all-block">
                               <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                               <li ><a href="#">Rock</a></li>
                               <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
@@ -1198,7 +1296,7 @@
                         </div>
                         <div class="answer-description-info">
                           <div class="follow-names">
-                            <ul class="follow-name-left">
+                            <ul class="follow-name-left show-all-block">
                               <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                               <li ><a href="#">Rock</a></li>
                               <li ><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
