@@ -1644,7 +1644,8 @@
           </div>
           <div class="calender-outer overview-boxes browse-outer">
             <h2>My Profile <a href="#" class="btn blue-buttons showmessage browse-file ">View All</a></h2>
-           <ul class="profil-pic-outer" id="grid">  
+           <div class="clear"></div> 
+            <ul class="profil-pic-outer" id="grid">  
                
   
              <div class="clear"></div> 
@@ -1694,7 +1695,155 @@
 </div>
    </div>  
 </li>
- </script>   
+ </script> 
+ 
+ <!-- template for single bucket for video -->
+<script type="text/x-handlebars-template" id="tpl-single-video">
+        <li id="file-docs-'{{videoCount}}" class="item"  data-date-created="{{video.dateCreated}}" data-rock="{{video.rocks}}" class="item">  
+  <div id="{{video.id.id}}"   name="single-doc">
+ <div class="image-wrapper hovereffect" >
+  <div class="hover-div"><img class="filmedia-picture" src="{{video.frameURL}}">
+    <div class="hover-text">               
+     <div class="comment-wrapper" id="{{video.id.id}}">                                
+     <div id="media-{{video.id.id}}">
+      <h4>{{video.name}}</h4>                                
+      <div class="description-info"><div class="description-left">
+        <p class="doc-description"><div class="gallery clearfix"></div>
+				<div class="gallery clearfix hrtxt">
+					<a href="{{video.mediaUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
+						<p class="google_doc doc-description" id="{{video.id.id}}">
+						<input type="hidden" id="id-{{video.id.id}}" value="doc.url"> {{video.description}}</p>
+					</a>
+					</div></div></p>
+      </div>
+      <div class="comment-wrapper2">
+      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>
+      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
+      </div></div></div>
+      <h5 class="videotitle" id="{{video.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
+     <div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>
+    </div>
+   </div>
+  </div>
+  <div class="comment-wrapper1"> 
+   <a class="common-icon camera" href="#"></a>
+    <ul id="{{video.id.id}}-activities" class="comment-list">
+     <li><a class="eye-icon" href="#">87</a></li>
+     <li><a class="hand-icon show_rockers" href="#">{{video.rocks}}</a></li>
+     <li><a class="message-icon" href="#">10</a></li>
+    </ul>
+</div>
+   <div id="{{video.id.id}}-docRockers-list" class="docRockers_popup"></div>
+   </div>  
+</li>
+</script> 
+
+<!-- template for single bucket in google doc-->
+<script type="text/x-handlebars-template" id="tpl-single-bucket">
+           <li id="file-docs-'{{docCount}}" class="item"  data-date-created="{{doc.creationDate}}" data-rock="{{doc.documentRocks}}" class="item">  
+  <div id="{{doc.id.id}}"   name="single-doc">
+ <div class="image-wrapper hovereffect" >
+  <div class="hover-div"><img class="cover-picture" src="images/textimage.png">
+    <div class="hover-text">               
+     <div class="comment-wrapper" id="{{doc.id.id}}">                                
+     <div id="media-{{doc.id.id}}">
+      <h4>{{doc.documentName}}</h4>                                
+      <div class="description-info"><div class="description-left">
+        <p class="doc-description">{{doc.documentDescription}}</p>
+      </div>
+      <div class="comment-wrapper2">
+      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon show_rockers"></a>
+      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
+      </div></div></div>
+      <h5 class="doctitle" id="{{doc.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
+     <div class="dateinfo"><span class="state">State</span><span class="date">{{datVal}}</span></div>
+    </div>
+   </div>
+  </div>
+  <div class="comment-wrapper1"> 
+   <a class="common-icon camera" href="#"></a>
+    <ul id="{{doc.id.id}}-activities" class="comment-list">
+     <li><a class="eye-icon" href="#">87</a></li>
+     <li><a class="hand-icon show_rockers" href="#">{{doc.documentRocks}}</a></li>
+     <li><a class="message-icon" href="#">10</a></li>
+    </ul>
+</div>
+   <div id="{{doc.id.id}}-docRockers-list" class="docRockers_popup"></div>
+   </div>  
+</li> 
+</script>   
+
+<!-- template for single bucket in presentation view -->
+<script type="text/x-handlebars-template" id="tpl-single-presentation">
+   
+        <li id="file-docs-'{{count}}" class="item"  data-date-created="{{ppt.creationDate}}" data-rock="{{ppt.documentRocks}}" class="item">  
+  <div id="{{ppt.id.id}}"   name="single-doc">
+ <div class="image-wrapper hovereffect" >
+  <div class="hover-div"><img class="cover-picture" src="images/presentations_image.png">
+    <div class="hover-text">               
+     <div class="comment-wrapper" id="{{ppt.id.id}}">                                
+     <div id="media-{{ppt.id.id}}">
+      <h4>{{ppt.documentName}}</h4>                                
+      <div class="description-info"><div class="description-left">
+        <p class="doc-description mediapopup">{{ppt.documentDescription}}</p>
+      </div>
+      <div class="comment-wrapper2">
+      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon show_rockers"></a>
+      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
+      </div></div></div>
+      <h5 class="presentationtitle" id="{{ppt.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
+     <div class="dateinfo"><span class="state">State</span><span class="date">{{datVal}}</span></div>
+    </div>
+   </div>
+  </div>
+  <div class="comment-wrapper1"> 
+   <a class="common-icon camera" href="#"></a>
+    <ul id="{{ppt.id.id}}-activities" class="comment-list">
+     <li><a class="eye-icon" href="#">87</a></li>
+     <li><a class="hand-icon show_rockers" href="#">{{ppt.documentRocks}}</a></li>
+     <li><a class="message-icon" href="#">10</a></li>
+    </ul>
+</div>
+   <div id="{{ppt.id.id}}-docRockers-list" class="docRockers_popup"></div>
+   </div>  
+</li>
+ </script>  
+ 
+ <!-- template for single bucket in pdf-list view -->
+  <script type="text/x-handlebars-template" id="tpl-single-pdf">
+            <li id="file-docs-'{{count}}" data-date-created="{{pdf.creationDate}}" data-rock="{{pdf.documentRocks}}" class="item">  
+  <div id="{{pdf.id.id}}"   name="single-doc">
+ <div class="image-wrapper hovereffect" >
+  <div class="hover-div"><img class="filmedia-picture" src="{{pdf.previewImageUrl}}">
+    <div class="hover-text">               
+     <div class="comment-wrapper" id="{{pdf.id.id}}">                                
+     <div id="media-{{pdf.id.id}}">
+      <h4>{{pdf.documentName}}</h4>                                
+      <div class="description-info"><div class="description-left">
+        <p class="doc-description mediapopup">{{pdf.documentDescription}}</p>
+      </div>
+      <div class="comment-wrapper2">
+      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon show_rockers"></a>
+      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
+      </div></div></div>
+      <h5 class="pdftitle" id="{{pdf.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
+     <div class="dateinfo"><span class="state">State</span><span class="date">{{datVal}}</span></div>
+    </div>
+   </div>
+  </div>
+  <div class="comment-wrapper1"> 
+   <a class="common-icon camera" href="#"></a>
+    <ul id="{{pdf.id.id}}-activities" class="comment-list">
+     <li><a class="eye-icon" href="#">87</a></li>
+     <li><a class="hand-icon show_rockers" href="#">{{pdf.documentRocks}}</a></li>
+     <li><a class="message-icon" href="#">10</a></li>
+    </ul>
+</div>
+   <div id="{{pdf.id.id}}-docRockers-list" class="docRockers_popup"></div>
+   </div>  
+</li>
+   </script>   
+    
             <!-------backbone library files----->
         <script src="lib/underscore-min.js"></script>
         <script src="lib/backbone.js"></script>
