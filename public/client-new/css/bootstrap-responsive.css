@@ -1130,22 +1130,34 @@ ul.social-icons{
 
 
 .menu ul li a {
- 
-    padding: 18px 8px 20px 38px;
- 
-}
 
+    padding: 12px 20px 20px 35px;
+
+}
 .menu ul li a span{ left:10px; }
 
 
 
 
 
+.answer-description-info {
+		width: 80%;
+}
+
+
+.answer-conatiner {
+   
+    padding:2%;
+    width: 96%;
+}
+
+#file-upload-loader{
+    right: 50%;
+    top: 48%;
 
 
 
-
-
+}
 
 
 }
@@ -2118,9 +2130,10 @@ ul.stream-tab li a span {
 }
 .menu ul li a {
 
-    padding: 18px 20px 20px 55px;
+    padding: 12px 20px 20px 55px;
 
 }
+
 
 .profile-button {
 		padding: 2px 12px;
@@ -2134,4 +2147,13 @@ ul.stream-tab li a span {
 ul.then-by {
 width:100%; padding:20px 0  0 0;
 }
+#file-upload-loader{
+  
+    right: 23%;
+    top: 40%;
+
+
+
+}
+
 
