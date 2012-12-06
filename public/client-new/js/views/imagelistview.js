@@ -57,7 +57,7 @@ BS.ImageListView = Backbone.View.extend({
                         });                  
                             
                         // Call common Shuffling function         
-                        shufflingOnSorting();
+           //             shufflingOnSorting();
                         
                         
                         /* for image view popups */

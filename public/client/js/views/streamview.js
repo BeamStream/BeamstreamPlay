@@ -97,6 +97,7 @@ BS.StreamView = Backbone.View.extend({
 				var widheight = $(window).height();
 				if(scrollTop + 1 == docheight- widheight || scrollTop == docheight- widheight){
 			 	   var t = $('.timeline_items').find('li');
+			 	  
 				   if(t.length != 0)
 				   {
 						$('.page-loader').show();

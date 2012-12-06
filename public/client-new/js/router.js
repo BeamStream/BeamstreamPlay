@@ -1120,7 +1120,7 @@
 						if(e.get('loggedin') == true) {  
 	
 			//				$("#dialog").dialog('close');
-			//				$('#content').children().detach();
+			//				$('#body-content').children().detach();
 			//				$('#school-popup').children().detach();
 							
 					
@@ -1187,7 +1187,7 @@
 								   $('.nav-collapse').html(this.navView.render().el);
 								   $('nav li.active').removeClass('active');
 								   
-								   $('#right-photo').attr("src",BS.profileImageUrl);
+								   $('#right-top-photo').attr("src",BS.profileImageUrl);
 						       
 							 }});
 			//				 if(!BS.settingsView)
@@ -1216,25 +1216,25 @@
 	            	BS.user.fetch({ success:function(e) {
 						if(e.get('loggedin') == true) {  
 	            	
-			                  $('#content').children().detach();
+			                  $('#body-content').children().detach();
 			                  console.log("befor nav View");
 			                  BS.user.fetch({ success:function(e){
 								   //get main menu
 								   this.navView = new BS.NavView({ model: BS.user });
 								   this.navView.showProfilePic();
-								   $('.nav-collapse').html(this.navView.render().el);
-								   $('nav li.active').removeClass('active');
-								   $('#file-media').addClass('active');					   
-								   $('#right-photo').attr("src",BS.profileImageUrl);			       
+								   $('#topheader').html(this.navView.render().el);
+								   $('li a.active').removeClass('active');
+								   $('#menu-browsemedia').addClass('active');					   
+								   $('#right-top-photo').attr("src",BS.profileImageUrl);			       
 						       }});                             
 			                    BS.googledocsview = new BS.GoogleDocsView({
 			                         model : BS.user
 							   });
 			                   BS.googledocsview.render();  
-			                   $('#content').html(BS.googledocsview.el);
-			                   $('.file-type').hide();
+			                   $('#body-content').html(BS.googledocsview.el);
+			   //                $('.file-type').hide();
 			  //               BS.googledocsview.test();
-							   $(".checkbox").dgStyle();                                
+			//				   $(".checkbox").dgStyle();                                
 	                    
 						}
 						else {
@@ -1252,21 +1252,21 @@
 	            	 BS.user.fetch({ success:function(e) {
 	 					if(e.get('loggedin') == true) {  
 	 						
-		                  $('#content').children().detach();
+		                  $('#body-content').children().detach();
 		                  console.log("befor nav View");
 		                  BS.user.fetch({ success:function(e){
 							   //get main menu
 							   this.navView = new BS.NavView({ model: BS.user });
 							   this.navView.showProfilePic();
-							   $('.nav-collapse').html(this.navView.render().el);
-							   $('nav li.active').removeClass('active');
-							   $('#file-media').addClass('active');					   
-							   $('#right-photo').attr("src",BS.profileImageUrl);			       
+							   $('#topheader').html(this.navView.render().el);
+							   $('li a.active').removeClass('active');
+							   $('#menu-browsemedia').addClass('active');					   
+							   $('#right-top-photo').attr("src",BS.profileImageUrl);			       
 					       }}); 
 		                  BS.doclistview = new BS.DocListView();
 		                  BS.doclistview.render();
-		                  $('#content').html(BS.doclistview.el); 
-		                  $('.file-type').hide();   //to hide the filetype menu
+		                  $('#body-content').html(BS.doclistview.el); 
+		//                  $('.file-type').hide();   //to hide the filetype menu
 		                  
 	 					}
 						else {
@@ -1286,15 +1286,15 @@
 	            	 BS.user.fetch({ success:function(e) {
 	  					if(e.get('loggedin') == true) {  
 	  						
-		                   $('#content').children().detach();
+		                   $('#body-content').children().detach();
 		                   BS.user.fetch({ success:function(e){
 							   //get main menu
 							   this.navView = new BS.NavView({ model: BS.user });
 							   this.navView.showProfilePic();
-							   $('.nav-collapse').html(this.navView.render().el);
-							   $('nav li.active').removeClass('active');
-							   $('#file-media').addClass('active');					   
-							   $('#right-photo').attr("src",BS.profileImageUrl);			       
+							   $('#topheader').html(this.navView.render().el);
+							   $('li a.active').removeClass('active');
+							   $('#menu-browsemedia').addClass('active');					   
+							   $('#right-top-photo').attr("src",BS.profileImageUrl);			       
 		                   }});   
 		                   BS.imagelistview = new BS.ImageListView({})
 		                   BS.imagelistview.render();  
@@ -1319,20 +1319,20 @@
 	            	 BS.user.fetch({ success:function(e) {
 	   					if(e.get('loggedin') == true) {  
 	   						
-			                 $('#content').children().detach();                 
+			                 $('#body-content').children().detach();                 
 			                 BS.user.fetch({ success:function(e){
 								   //get main menu
 								   this.navView = new BS.NavView({ model: BS.user });
 								   this.navView.showProfilePic();
-								   $('.nav-collapse').html(this.navView.render().el);
-								   $('nav li.active').removeClass('active');
-								   $('#file-media').addClass('active');					   
-								   $('#right-photo').attr("src",BS.profileImageUrl);			       
+								   $('#topheader').html(this.navView.render().el);
+								   $('li a.active').removeClass('active');
+								   $('#menu-browsemedia').addClass('active');					   
+								   $('#right-top-photo').attr("src",BS.profileImageUrl);			       
 							 }});
 			                 BS.videolistview = new BS.VideoListView();
 			                 BS.videolistview.render();
-			                 $('#content').html(BS.videolistview.el); 
-			                 $('.file-type').hide();   //to hide the filetype menu
+			                 $('#body-content').html(BS.videolistview.el); 
+		//	                 $('.file-type').hide();   //to hide the filetype menu
 	   					}
 						else {
 							console.log("From Stream => login");
@@ -1349,21 +1349,21 @@
 	             audioList:function(){
 	            	 BS.user.fetch({ success:function(e) {
 	    					if(e.get('loggedin') == true) {  
-				                 $('#content').children().detach();
+				                 $('#body-content').children().detach();
 				                 console.log("audioList");
 				                 BS.user.fetch({ success:function(e){
 									   //get main menu
 									   this.navView = new BS.NavView({ model: BS.user });
 									   this.navView.showProfilePic();
-									   $('.nav-collapse').html(this.navView.render().el);
-									   $('nav li.active').removeClass('active');
-									   $('#file-media').addClass('active');					   
-									   $('#right-photo').attr("src",BS.profileImageUrl);			       
+									   $('#topheader').html(this.navView.render().el);
+									   $('li a.active').removeClass('active');
+									   $('#menu-browsemedia').addClass('active');					   
+									   $('#right-top-photo').attr("src",BS.profileImageUrl);			       
 								 }});
 				                 BS.audiolistview=new BS.AudioListView();
 				                 BS.audiolistview.render();
-				                 $('#content').html(BS.audiolistview.el); 
-				                 $('.file-type').hide();   //to hide the filetype menu
+				                 $('#body-content').html(BS.audiolistview.el); 
+		//		                 $('.file-type').hide();   //to hide the filetype menu
 	    					}
 	    					else {
 	    						console.log("From Stream => login");
@@ -1381,21 +1381,21 @@
 	                	BS.user.fetch({ success:function(e) {
 	     					if(e.get('loggedin') == true) { 
 	     						
-			                    $('#content').children().detach();
+			                    $('#body-content').children().detach();
 			                    console.log("presentationList");   
 			                    BS.user.fetch({ success:function(e){
 									   //get main menu
 									   this.navView = new BS.NavView({ model: BS.user });
 									   this.navView.showProfilePic();
-									   $('.nav-collapse').html(this.navView.render().el);
-									   $('nav li.active').removeClass('active');
-									   $('#file-media').addClass('active');					   
-									   $('#right-photo').attr("src",BS.profileImageUrl);			       
+									   $('#topheader').html(this.navView.render().el);
+									   $('li a.active').removeClass('active');
+									   $('#menu-browsemedia').addClass('active');					   
+									   $('#right-top-photo').attr("src",BS.profileImageUrl);			       
 							    }});
 			                    BS.presentationview =new BS.PresentationView();
 			                    BS.presentationview.render();
-			                    $('#content').html(BS.presentationview.el); 
-			                    $('.file-type').hide();   //to hide the filetype menu
+			                    $('#body-content').html(BS.presentationview.el); 
+		//	                    $('.file-type').hide();   //to hide the filetype menu
 	     					}
 	    					else {
 	    						console.log("From Stream => login");
@@ -1412,21 +1412,21 @@
 	                pdflistview: function(){
 	                	BS.user.fetch({ success:function(e) {
 	     					if(e.get('loggedin') == true) { 
-			                     $('#content').children().detach();
+			                     $('#body-content').children().detach();
 			                     console.log("presentationList"); 
 			                     BS.user.fetch({ success:function(e){
 									   //get main menu
 									   this.navView = new BS.NavView({ model: BS.user });
 									   this.navView.showProfilePic();
-									   $('.nav-collapse').html(this.navView.render().el);
-									   $('nav li.active').removeClass('active');
-									   $('#file-media').addClass('active');					   
-									   $('#right-photo').attr("src",BS.profileImageUrl);			       
+									   $('#topheader').html(this.navView.render().el);
+									   $('li a.active').removeClass('active');
+									   $('#menu-browsemedia').addClass('active');					   
+									   $('#right-top-photo').attr("src",BS.profileImageUrl);			       
 			                     }});  
 			                    BS.pdflistview =new BS.PdfListView();
 			                    BS.pdflistview.render();
-			                    $('#content').html(BS.pdflistview.el); 
-			                    $('.file-type').hide();   //to hide the filetype menu
+			                    $('#body-content').html(BS.pdflistview.el); 
+		//	                    $('.file-type').hide();   //to hide the filetype menu
 	     					}
 	    					else {
 	    						console.log("From Stream => login");
