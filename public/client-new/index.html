@@ -32,11 +32,14 @@
 <!-- end  -->
 
 <!--  prettyPhoto -->
-<!-- <link -->
-<!-- 	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" -->
-<!-- 	rel="stylesheet" type="text/css" /> -->
-<!-- <link rel="stylesheet" href="css/extracss/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" /> -->
-<!-- <script src="lib/extralib/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script> -->
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/extracss/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+<script src="lib/extralib/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+<!-- end  -->
+
+<!--  Shuffle in media page -->
+<!-- <script type="text/javascript" src="lib/extralib/jquery.shuffle.js"></script> -->
+<!-- end  -->
 
 </head>
 
@@ -489,6 +492,7 @@
                       <li ><a class="add-comment" href="#"> Comment</a></li>
                       <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
                     </ul>
+<!--                     <a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a> </div> -->
                   </div>
                   <div id="{{datas.id.id}}-addComments" class="follow-comment">
 					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." ></textarea>
@@ -549,11 +553,14 @@
                    						 <h4>Media Name</h4>
                 				    </a>
                 				    <div class="description-info">
-                				    	<a style="text-decoration: none;" href="{{datas.messageBody}}" rel="prettyPhoto">
+                				       <div class="gallery clearfix"></div>
+									    <div class="gallery clearfix">
+                				    	<a   href="{{datas.messageBody}}" rel="prettyPhoto">
                 				    		<div class="description-left">
                 				    			<p class="doc-description"> Media Description..</p>
                 				    		</div>
                 				    	</a> 
+                				    	</div>
                 				    	<div class="comment-wrapper2">
                 				    	   <a data-original-title="Search by Users" class="tag-icon" href="#"></a>
                 				    	   <a class="hand-icon" href="#"></a>
@@ -585,6 +592,7 @@
                       <li ><a class="add-comment" href="#"> Comment</a></li>
                       <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
                     </ul>
+<!-- 					<a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a> </div> -->
                   </div>
                   <div id="{{datas.id.id}}-addComments" class="follow-comment">
 					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." ></textarea>
@@ -685,6 +693,7 @@
                       <li ><a class="add-comment" href="#"> Comment</a></li>
                       <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
                     </ul>
+<!-- 					<a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a> </div> -->
                   </div>
                   <div id="{{datas.id.id}}-addComments" class="follow-comment">
 					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." ></textarea>
@@ -905,7 +914,7 @@
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
-                        <li><a href="#" class="rocks"><span>57</span></a></li>
+                        <li><a href="#" class="rocks-up"><span>0</span></a></li>
                         <a class="btn grey-buttons active" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
 						<a  class="btn grey-buttons  href="#">Show All</a>
                       </ul>
@@ -945,7 +954,7 @@
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
-                        <li><a href="#" class="rocks"><span>57</span></a></li>
+                        <li><a href="#" class="rocks"><span>1</span></a></li>
                         <a class="btn grey-buttons active" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
                       </ul>
                       <a class="btn blue-buttons showmessage" href="#">Show All</a> </div>
@@ -1353,17 +1362,16 @@
                   </div>
                 </div>
               </li>
-              <li><a href="#"> By Highest Rocks</a></li>
+              <!--<li><a href="#"> By Highest Rocks</a></li> -->
               <li>
 
 				<div class="settings-menu">
                   <div class="btn-group">
-                    <button class="btn seetings-toggle sort-toogle ">By Tag</button>
+                    <button class="btn seetings-toggle sort-toogle ">By Highest Rocks</button>
                     <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class=" settings-caret"></span></button>
                     <ul class="dropdown-menu">
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products </a></li>
+ 					  <li><a href="#">By Highest Rocks</a></li>
+                      <li><a href="#">By Tag</a></li>
                     </ul>
                   </div>
                 </div>
@@ -1844,15 +1852,102 @@
 </li>
    </script>   
     
-            <!-------backbone library files----->
-        <script src="lib/underscore-min.js"></script>
-        <script src="lib/backbone.js"></script>
-        <script src="lib/handlebars-1.0.0.beta.6.js"></script>
-            <!-------backbone library files----->
-        <script src="js/app.js"></script>  
-        <script src="js/setup.js"></script> 
-        <script src="js/views/settingsview.js"></script>
-            <!-- <script src="js/views/janrainview.js"></script> -->
+
+ </script>   
+ 
+ 	<!-- ------------------ extra scripts --------------------->
+	<script type="text/javascript">
+	
+	/* implemented  the shuffle plugin on sorting */
+	function shufflingOnSorting(){
+		 
+         // instantiate the shuffle plugin
+         $('#grid').shuffle({
+             key : 'all',
+             speed : 800,
+             easing : 'ease-out'
+         });
+                        
+         // Set up button clicks
+         $('.filter-options li').on('click', function() {
+        	
+             var $this = $(this),
+                 $grid = $('#grid');
+            
+             $('.filter-options .active').removeClass('active');
+             $this.addClass('active');
+
+             $grid.shuffle($this.data('group'));
+         });
+        
+         $('.sort_by li').on('click', function() {
+        	 
+             var $this = $(this),
+                 $grid = $('#grid'),
+                 sort = $this.data('sort'),
+                 opts = {};
+
+             $('.sort_by .active').removeClass('active');
+             $this.addClass('active');
+
+             // We're given the element wrapped in jQuery
+             if (sort === 'date-oldest') {
+                 opts = {
+                     by: function($el) {
+                         return $el.data('date-created');
+                     }
+                 }
+             } else if (sort === 'date-recent') {
+            	
+                 opts = {
+                      by: function($el) {
+                             return $el.data('date-created');
+                      },
+                      reverse :true
+                 }
+             } else if (sort === 'title') {
+                 opts = {
+                     by: function($el) {
+                         return $el.data('title').toLowerCase();
+                     }
+                 }
+             }else if (sort === 'rocks') {
+            	
+                 opts = {
+                         by: function($el) {
+                         	return $el.data('rock');
+                        	
+                         },
+                         reverse :true
+                     }
+                 }
+         
+             // Filter elements
+             $grid.shuffle('sort', opts);
+         });
+        
+	}
+	
+	</script>
+	<!-- ----------End  extra scripts  here---------------->
+	
+	
+ 
+	 <!-------backbone library files----->
+	<script src="lib/underscore-min.js"></script>
+	<script src="lib/backbone.js"></script>
+	<script src="lib/handlebars-1.0.0.beta.6.js"></script>
+	
+	<!-------backbone library files----->
+	<script src="js/app.js"></script>  
+	<script src="js/setup.js"></script> 
+	<script src="js/views/settingsview.js"></script>
+	
+ 	<!-- Social lib (todo: incorporated into backbone) -->
+ 	<script src="js/BS_social.js"></script>
+
+    <!-- <script src="js/views/janrainview.js"></script> -->
+
 	<script src="js/views/loginview.js"></script>
 	<script src="js/views/forgotpasswordview.js"></script>
 	<script src="js/views/streamview.js"></script>

@@ -171,7 +171,6 @@
 				var widheight = $(window).height();
 				if(scrollTop + 1 == docheight- widheight || scrollTop == docheight- widheight){
 			 	   var t = $('#all-messages').find('div.follow-container');
-			 	   console.log(t.length);
 				   if(t.length != 0)
 				   {
 						$('.page-loader').show();
@@ -976,9 +975,9 @@
                             	 $('input#'+data.id.id+'-url').val(msgUrl);  
                              }                                           
 		    	 		 });
-//			    	 	 _.each(data, function(data) {
-//			    	 		 showJanrainShareWidget(data.messageBody, 'View my Beamstream post', 'http://beamstream.com', data.messageBody);
-//			    	 	 });
+			    	 	 _.each(data, function(data) {
+			    	 		 showJanrainShareWidget(data.messageBody, 'View my Beamstream post', 'http://beamstream.com', data.messageBody);
+			    	 	 });
 		     		 }      
    				     
    				     /* delete default embedly preview */
@@ -1130,6 +1129,7 @@
    				  	success : function(datas) { 
    				  				 
    				  		$('#'+parent+'-msgComment').val('');
+   				  	   $('#'+parent+'-addComments').slideUp(200); 
    				  		
    				  		_.each(datas, function(data) {
    				  			totalComments++; 
@@ -1314,10 +1314,19 @@
          */
         actvateShareIcon: function(eventName){
         	eventName.preventDefault();
+        	console.log($(eventName.target));
         	$('#private-to').attr('checked',false);
         	$('#select-privateTo').text("Public");
-        	$('#share-discussions li.active').removeClass('active');
-        	$(eventName.target).parents('li').addClass('active');
+        	if($(eventName.target).parents('li').hasClass('active'))
+        	{
+        		$(eventName.target).parents('li').removeClass('active');
+        	}
+        	else
+        	{
+        		$(eventName.target).parents('li').addClass('active');
+        	}
+        	
+        
         	
         	
         },
@@ -1583,7 +1592,7 @@
 				var template = Handlebars.compile(source);
 //					$('.page-loader').hide();
 					$('#all-messages').append(template(datas));
-					
+					$('.drag-rectangle').tooltip();		
 					/* check whether the user is follwer of a message or not */
 			         $.ajax({
 			    			type : 'POST',
@@ -1691,15 +1700,15 @@
                     	 
 //                         $('input#'+data.id.id+'-url').val(msgUrl); 
                     	 
-//                    	 /* for video popups */
-//                         $("area[rel^='prettyPhoto']").prettyPhoto();
-//      					 $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
-//      					 $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
+                    	 /* for video popups */
+                         $("area[rel^='prettyPhoto']").prettyPhoto();
+      					 $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
+      					 $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
       			
                    }
-
+                   
 						 
-					   self.showAllComments(data.id.id);
+				   self.showAllComments(data.id.id);
 		      });
 		
         },
