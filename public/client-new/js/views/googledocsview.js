@@ -58,7 +58,8 @@ BS.GoogleDocsView = Backbone.View.extend({
  								}	
  			                	var source = $("#tpl-single-bucket").html();
  		                        var template = Handlebars.compile(source);				    
- 		                        $('#grid').append(template(datas));         
+ 		                        $('#grid').append(template(datas)); 
+                                        console.log("")
  		                        $(".doc_comment_section").hide("slide", { direction: "up" }, 1);                        
  		                        i++;
  	                     });  
@@ -66,7 +67,7 @@ BS.GoogleDocsView = Backbone.View.extend({
  	                    // Call common Shuffling function         
  		                shufflingOnSorting(); 
  		                
- 	                    self.pagination();                                       
+ 	            //        self.pagination();                                       
                      }
 
                  });        

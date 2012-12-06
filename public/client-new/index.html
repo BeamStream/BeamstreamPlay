@@ -38,7 +38,7 @@
 <!-- end  -->
 
 <!--  Shuffle in media page -->
-<!-- <script type="text/javascript" src="lib/extralib/jquery.shuffle.js"></script> -->
+ <script type="text/javascript" src="lib/extralib/jquery.shuffle.js"></script> 
 <!-- end  -->
 
 </head>
@@ -1652,7 +1652,7 @@
           </div>
           <div class="calender-outer overview-boxes browse-outer">
             <h2>My Profile <a href="#" class="btn blue-buttons showmessage browse-file ">View All</a></h2>
-           <div class="clear"></div> 
+ 
             <ul class="profil-pic-outer" id="grid">  
                
   
@@ -1661,6 +1661,7 @@
           </div>
         </div>
         <div class="clear"></div>  
+      </div>
       </div>
         </script>
         
@@ -1675,15 +1676,16 @@
      <div class="comment-wrapper" id="{{image.id.id}}">                                
      <div id="media-{{image.id.id}}">
       <h4>{{image.name}}</h4>                                
-      <div class="description-info"><div class="description-left">
-        <p class="doc-description"><div class="gallery clearfix"></div>
-				<div class="gallery clearfix hrtxt">
-					<a href="{{image.mediaUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
-						<p class="google_doc doc-description" id="{{image.id.id}}">
-						<input type="hidden" id="id-{{image.id.id}}" value="doc.url"> {{image.description}}</p>
-					</a>
-					</div></div></p>
-      </div>
+      <div class="description-info">      
+         <div class="gallery"></div>
+	 <div class="gallery hrtxt">
+           <a href="{{image.mediaUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
+              <div class="description-left">   
+              <p class="google_doc doc-description" id="{{image.id.id}}"><input type="hidden" id="id-{{image.id.id}}" value="doc.url"> {{image.description}}</p>
+	    </div>
+           </a>
+	 </div>     
+    
       <div class="comment-wrapper2">
       <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>
       <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
@@ -1693,6 +1695,7 @@
     </div>
    </div>
   </div>
+</div>  
   <div class="comment-wrapper1"> 
    <a class="common-icon camera" href="#"></a>
     <ul id="{{image.id.id}}-activities" class="comment-list">
@@ -1701,7 +1704,7 @@
      <li><a class="message-icon" href="#">10</a></li>
     </ul>
 </div>
-   </div>  
+</div>
 </li>
  </script> 
  
@@ -1710,45 +1713,48 @@
         <li id="file-docs-'{{videoCount}}" class="item"  data-date-created="{{video.dateCreated}}" data-rock="{{video.rocks}}" class="item">  
   <div id="{{video.id.id}}"   name="single-doc">
  <div class="image-wrapper hovereffect" >
-  <div class="hover-div"><img class="filmedia-picture" src="{{video.frameURL}}">
-    <div class="hover-text">               
-     <div class="comment-wrapper" id="{{video.id.id}}">                                
-     <div id="media-{{video.id.id}}">
-      <h4>{{video.name}}</h4>                                
-      <div class="description-info"><div class="description-left">
-        <p class="doc-description"><div class="gallery clearfix"></div>
-				<div class="gallery clearfix hrtxt">
-					<a href="{{video.mediaUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
-						<p class="google_doc doc-description" id="{{video.id.id}}">
-						<input type="hidden" id="id-{{video.id.id}}" value="doc.url"> {{video.description}}</p>
-					</a>
-					</div></div></p>
-      </div>
-      <div class="comment-wrapper2">
-      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>
-      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
-      </div></div></div>
-      <h5 class="videotitle" id="{{video.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
-     <div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>
+       <div class="hover-div"><img class="filmedia-picture" src="{{video.frameURL}}">
+          <div class="hover-text">               
+            <div class="comment-wrapper" id="{{video.id.id}}">                                
+                 <div id="media-{{video.id.id}}">
+                    <h4>{{video.name}}</h4>                                
+                    <div class="description-info">
+                       <div class="gallery"></div>
+                         <div class="gallery hrtxt">
+                          <a href="{{video.mediaUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
+                            <div class="description-left">
+                              <p class="google_doc doc-description" id="{{video.id.id}}"><input type="hidden" id="id-{{video.id.id}}" value="doc.url"> {{video.description}}</p>
+                            </div>
+                          </a>
+                       </div>
+                       <div class="comment-wrapper2">
+                        <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>
+                        <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
+                       </div>
+                     </div>
+                  </div>
+                <h5 class="videotitle" id="{{video.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
+                <div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>
+            </div>
+          </div>
+       </div>
     </div>
+   <div class="comment-wrapper1"> 
+    <a class="common-icon camera" href="#"></a>
+     <ul id="{{video.id.id}}-activities" class="comment-list">
+      <li><a class="eye-icon" href="#">87</a></li>
+      <li><a class="hand-icon show_rockers" href="#">{{video.rocks}}</a></li>
+      <li><a class="message-icon" href="#">10</a></li>
+     </ul>
    </div>
-  </div>
-  <div class="comment-wrapper1"> 
-   <a class="common-icon camera" href="#"></a>
-    <ul id="{{video.id.id}}-activities" class="comment-list">
-     <li><a class="eye-icon" href="#">87</a></li>
-     <li><a class="hand-icon show_rockers" href="#">{{video.rocks}}</a></li>
-     <li><a class="message-icon" href="#">10</a></li>
-    </ul>
-</div>
    <div id="{{video.id.id}}-docRockers-list" class="docRockers_popup"></div>
-   </div>  
+  </div> 
 </li>
 </script> 
 
 <!-- template for single bucket in google doc-->
 <script type="text/x-handlebars-template" id="tpl-single-bucket">
-           <li id="file-docs-'{{docCount}}" class="item"  data-date-created="{{doc.creationDate}}" data-rock="{{doc.documentRocks}}" class="item">  
+ <li id="file-docs-'{{docCount}}"  data-date-created="{{doc.creationDate}}" data-rock="{{doc.documentRocks}}" class="item">  
   <div id="{{doc.id.id}}"   name="single-doc">
  <div class="image-wrapper hovereffect" >
   <div class="hover-div"><img class="cover-picture" src="images/textimage.png">
@@ -1768,6 +1774,7 @@
     </div>
    </div>
   </div>
+ </div>
   <div class="comment-wrapper1"> 
    <a class="common-icon camera" href="#"></a>
     <ul id="{{doc.id.id}}-activities" class="comment-list">
@@ -1804,6 +1811,7 @@
     </div>
    </div>
   </div>
+ </div>
   <div class="comment-wrapper1"> 
    <a class="common-icon camera" href="#"></a>
     <ul id="{{ppt.id.id}}-activities" class="comment-list">
@@ -1839,6 +1847,7 @@
     </div>
    </div>
   </div>
+ </div>
   <div class="comment-wrapper1"> 
    <a class="common-icon camera" href="#"></a>
     <ul id="{{pdf.id.id}}-activities" class="comment-list">
