@@ -1212,7 +1212,7 @@
 				* display Google docs list in another view
 				*/
 	            googleDocs : function(){
-	
+	            	
 	            	BS.user.fetch({ success:function(e) {
 						if(e.get('loggedin') == true) {  
 	            	
