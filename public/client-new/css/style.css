@@ -1172,9 +1172,11 @@ ul.social-icons li.google-plus {
 
 ul.social-icons li.google-plus:hover {
 		background-position:left top;
+		background-color: #BCBCBC;
 }
 ul.social-icons li.google-plus.active {
 		background-position:left top;
+		background-color: #BCBCBC;
 }
 
 
@@ -1184,9 +1186,12 @@ ul.social-icons li.plus {
 
 ul.social-icons li.plus:hover{
 		background-position:-25px top;
+		background-color: #BCBCBC;
+		
 }
 ul.social-icons li.plus.active {
 		background-position:-25px top;
+		background-color: #BCBCBC;
 }
 
 ul.social-icons li.twitter {
@@ -1195,9 +1200,11 @@ ul.social-icons li.twitter {
 
 ul.social-icons li.twitter:hover {
 		background-position:-51px top;
+		background-color: #BCBCBC;
 }
 ul.social-icons li.twitter.active {
 		background-position:-51px top;
+		background-color: #BCBCBC;
 }
 
 ul.social-icons li.facebook {
@@ -1206,9 +1213,11 @@ ul.social-icons li.facebook {
 
 ul.social-icons li.facebook:hover{
 		background-position:-74px top;
+		background-color: #BCBCBC;
 }
 ul.social-icons li.facebook.active {
 		background-position:-74px top;
+		background-color: #BCBCBC;
 }
 
 
@@ -1218,9 +1227,11 @@ ul.social-icons li.in {
 
 ul.social-icons li.in:hover{
 		background-position:-94px top;
+		background-color: #BCBCBC;
 }
 ul.social-icons li.in.active  {
 		background-position:-94px top;
+		background-color: #BCBCBC;
 }
 
 
@@ -1334,6 +1345,46 @@ ul.follow-name-left li a.rocks:hover {
                 width:25px;
                 text-align:center;
 }
+
+/* rock message */
+ul.follow-name-left li a.rocks-message {
+                background: url("../images/rocks-icon-less-arrow.png") no-repeat scroll center top transparent;
+                color: #5299BD;
+                display: block;
+                font-weight: bold;
+                width:25px;
+                text-align:center;
+}
+
+ul.follow-name-left li a.rocks-message-plus {
+                background: url("../images/rocks-icon-a1-plus.png") no-repeat scroll center top transparent;
+                color: #5299BD;
+                display: block;
+                font-weight: bold;
+                width:25px;
+                text-align:center;
+}
+ul.follow-name-left li a.rocks-message-minus {
+                background: url("../images/rocks-icon-a1-mius.png") no-repeat scroll center top transparent;
+                color: #5299BD;
+                display: block;
+                font-weight: bold;
+                width:25px;
+                text-align:center;
+}
+ul.follow-name-left li a.rocks-message span {
+                display:block;
+                padding-top:22px;
+}
+ul.follow-name-left li a.rocks-message-minus span {
+                display:block;
+                padding-top:22px;
+}
+ul.follow-name-left li a.rocks-message-plus span {
+                display:block;
+                padding-top:22px;
+}
+/*end */
 
 ul.follow-name-left li a.rocks-up {
                 background: url("../images/rocks-icon-1.png") no-repeat scroll center top transparent;

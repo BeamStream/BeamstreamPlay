@@ -662,9 +662,8 @@
 				//	   	   $('.modal-backdrop').hide();
 					      
 
-				//	       $('.page-loader').hide();
+					       $('.page-loader').hide();
 				      	
-				//	       $(".checkbox").dgStyle();
 					        
 				//	       $('.with-tooltips a, .with-tooltip').each(function() {
 				//	           var $this = $(this);

@@ -65,9 +65,6 @@
     <div class="main-container" id="body-content">      
 
         <!----  body content--->
-<!--         <div id="test"> -->
-<!--         dsdfsdf -->
-<!--         </div> -->
       
     </div>
   </div>
@@ -372,102 +369,7 @@
         </div>
 </script>
 
-<!--   stream's discussion  Middle_container  template  -->
- <script type="text/x-handlebars-template" id="tpl-discussion-middle-contents">
-<div class="stream-wrapper">
-          <div class="question-info">
-            <div class="question-sort">
-              <h5>SORT BY</h5>
-              <div class="btn-group dropdown-outer">
-                <button class="btn normal-dropdown" id="sortBy-select" >Most Recent</button>
-                <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                <ul class="dropdown-menu display-sub" id="sortBy-list" >
-                  <li><a href="#" name="most-recent" >Most Recent</a></li>
-                  <li><a href="#" name="highest-rated" >Highest Rated</a></li>
-                  <li><a href="#" name="most-shared" >Most Shared </a></li>
-                </ul>
-              </div>
-              <div class="btn-group dropdown-outer">
-                <button class="btn normal-dropdown " id="date-sort-select">This Week</button>
-                <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                <ul class="dropdown-menu display-sub" id="date-sort-list">
-                  <li><a href="#">Today</a></li>
-                  <li><a href="#">This Week</a></li>
-                  <li><a href="#">This Month </a></li>
- 				  <li><a href="#">All Dates </a></li>
 
-                </ul>
-              </div>
-              <form class="all-search">
-                <input type="text" id="sort_by_key" class="quest-search" placeholder="Search Discussions">
-              </form>
-            </div>
-            <div class="clear"></div>
-          </div>
-          <div class="ask-outer">
-            <div class="ask-content">
-              <div class="follw-left">
-                <div class="small-image">
-                  <div class="ask-img"><img id="main-photo" src=""></div>
-                </div>
-              </div>
-              <div  class="ask-info">
-                <div class="ask-comment">
-                  <div class="ask-left">
-                    <form class="question-ask ask-disccution">
-                      <textarea id="msg-area" name="" cols="" rows="" class="question-ask-search" placeholder="Speak your mind...."></textarea>
-                    </form>
-                    <div class="embed-info">
-                      <div class="upload-conatiner">
-                        <h5> Select an image or video file on your computer.</h5>
-                        <input id="upload-files-area" name="upload-files-area" type="file">
-                      </div>
-                    </div>
-                  </div>
-                  <a  id="post-button" class="ask-button">POST</a>
-                  <div id="file-upload-loader" style="display :none;">  
-							<img src ="images/loading.gif"> 
-        		</div>
-                   </div>
-                  
-                <div class="ask-iconinfo">
-                  <ul class="icons-ask">
-                    <li><a id="upload-files"  href="#"><img src="images/attach.png" width="22" height="20"></a></li>
-                    <li><a href="#"><img src="images/card.png" width="18" height="19"></a></li>
-                  </ul>
-                  <label class="checkbox private-chaeck">
-                    <input id="private-to" type="checkbox"  checked="checked">
-                    Pivate to:</label>
-                  <div class="btn-group class-dropdown">
-                    <button class="btn class-dropdown-bg" id="select-privateTo" >Class</button>
-                    <button class="btn class-dropdown-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                    <ul class="dropdown-menu" id="private-to-list" >
-                      <li><a href="#">Class</a></li>
-                      <li><a href="#">Degree Program</a></li>
-                      <li><a href="#">My Graduating Year </a></li>
-					  <li><a href="#">My School</a></li>
-					  <li><a href="#">Public</a></li>
-                    </ul>
-                  </div>
-                   <ul id="share-discussions" class="social-icons">
-                   <span>Share On:</span>
-                    <li class="google-plus"><a href="#">Google plus</a></li>
-                    <li class="plus"><a href="#">p</a></li>
-                    <li class="twitter"> <a href="#">Twitter</a></li>
-                    <li class="facebook"><a href="#"> face book</a></li>
-                    <li class="in"><a href="#"> in</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="clear"></div>
-          </div>
-          <div id= "all-messages">
-
-          </div>
-		 <div class ="page-loader"><img src ="images/loading-bars.gif"></div> 
-        </div>
-</script>
 
 <!--   stream's Calendar  Middle_container  template  -->
  <script type="text/x-handlebars-template" id="tpl-clendar-middle-contents">
@@ -517,7 +419,7 @@
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
-                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks"><span>{{datas.rocks}}</span></a></li>
+                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message"><span>{{datas.rocks}}</span></a></li>
                         <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
 						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
                       </ul>
@@ -609,7 +511,7 @@
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
-                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks"><span>{{datas.rocks}}</span></a></li>
+                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message"><span>{{datas.rocks}}</span></a></li>
                         <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
 						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
                       </ul>
@@ -713,7 +615,7 @@
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
-                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks"><span>{{datas.rocks}}</span></a></li>
+                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message"><span>{{datas.rocks}}</span></a></li>
                         <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
 						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
                       </ul>
@@ -791,6 +693,104 @@
     </div>
 </script> 
 
+
+<!--   stream's discussion  Middle_container  template  -->
+ <script type="text/x-handlebars-template" id="tpl-discussion-middle-contents">
+<div class="stream-wrapper">
+          <div class="question-info">
+            <div class="question-sort">
+              <h5>SORT BY</h5>
+              <div class="btn-group dropdown-outer">
+                <button class="btn normal-dropdown" id="sortBy-select" >Most Recent</button>
+                <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
+                <ul class="dropdown-menu display-sub" id="sortBy-list" >
+                  <li><a href="#" name="most-recent" >Most Recent</a></li>
+                  <li><a href="#" name="highest-rated" >Highest Rated</a></li>
+                  <li><a href="#" name="most-shared" >Most Shared </a></li>
+                </ul>
+              </div>
+              <div class="btn-group dropdown-outer">
+                <button class="btn normal-dropdown " id="date-sort-select">This Week</button>
+                <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
+                <ul class="dropdown-menu display-sub" id="date-sort-list">
+                  <li><a href="#">Today</a></li>
+                  <li><a href="#">This Week</a></li>
+                  <li><a href="#">This Month </a></li>
+ 				  <li><a href="#">All Dates </a></li>
+
+                </ul>
+              </div>
+              <form class="all-search">
+                <input type="text" id="sort_by_key" class="quest-search" placeholder="Search Discussions">
+              </form>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="ask-outer">
+            <div class="ask-content">
+              <div class="follw-left">
+                <div class="small-image">
+                  <div class="ask-img"><img id="main-photo" src=""></div>
+                </div>
+              </div>
+              <div  class="ask-info">
+                <div class="ask-comment">
+                  <div class="ask-left">
+                    <form class="question-ask ask-disccution">
+                      <textarea id="msg-area" name="" cols="" rows="" class="question-ask-search" placeholder="Speak your mind...."></textarea>
+                    </form>
+                    <div class="embed-info">
+                      <div class="upload-conatiner">
+                        <h5> Select an image or video file on your computer.</h5>
+                        <input id="upload-files-area" name="upload-files-area" type="file">
+                      </div>
+                    </div>
+                  </div>
+                  <a  id="post-button" class="ask-button">POST</a>
+                  <div id="file-upload-loader" style="display :none;">  
+							<img src ="images/loading.gif"> 
+        		</div>
+                   </div>
+                  
+                <div class="ask-iconinfo">
+                  <ul class="icons-ask">
+                    <li><a id="upload-files"  href="#"><img src="images/attach.png" width="22" height="20"></a></li>
+                    <li><a href="#"><img src="images/card.png" width="18" height="19"></a></li>
+                  </ul>
+                  <label class="checkbox private-chaeck">
+                    <input id="private-to" type="checkbox"  checked="checked">
+                    Pivate to:</label>
+                  <div class="btn-group class-dropdown">
+                    <button class="btn class-dropdown-bg" id="select-privateTo" >Class</button>
+                    <button class="btn class-dropdown-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
+                    <ul class="dropdown-menu" id="private-to-list" >
+                      <li><a href="#">Class</a></li>
+                      <li><a href="#">Degree Program</a></li>
+                      <li><a href="#">My Graduating Year </a></li>
+					  <li><a href="#">My School</a></li>
+					  <li><a href="#">Public</a></li>
+                    </ul>
+                  </div>
+                   <ul id="share-discussions" class="social-icons">
+                   <span>Share On:</span>
+                    <li class="google-plus"><a href="#">Google plus</a></li>
+                    <li class="plus"><a href="#">p</a></li>
+                    <li class="twitter"> <a href="#">Twitter</a></li>
+                    <li class="facebook"><a href="#"> face book</a></li>
+                    <li class="in"><a href="#"> in</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div id= "all-messages">
+
+          </div>
+		 <div class ="page-loader"><img src ="images/loading-bars.gif"></div> 
+        </div>
+</script>
+
 <!--   stream's questions  Middle_container  template  -->
  <script type="text/x-handlebars-template" id="tpl-questions-middle-contents">
 <div class="stream-wrapper">
@@ -798,27 +798,31 @@
             <div class="question-sort">
               <h5>SORT BY</h5>
               <div class="btn-group dropdown-outer">
-                <button class="btn normal-dropdown">Most Recent</button>
+                <button class="btn normal-dropdown" id="sortBy-select" >Most Recent</button>
                 <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                <ul class="dropdown-menu display-sub">
-                  <li><a href="#">Most Recent</a></li>
-                  <li><a href="#">Highest Rated</a></li>
-                  <li><a href="#">Most Shared </a></li>
+                <ul class="dropdown-menu display-sub" id="sortBy-list" >
+                  <li><a href="#" name="most-recent" >Most Recent</a></li>
+                  <li><a href="#" name="highest-rated" >Highest Rated</a></li>
+                  <li><a href="#" name="most-shared" >Most Shared </a></li>
                 </ul>
               </div>
-              <div class="btn-group dropdown-outer">
-                <button class="btn normal-dropdown ">This Week</button>
+              
+               <div class="btn-group dropdown-outer">
+                <button class="btn normal-dropdown " id="date-sort-select">This Week</button>
                 <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                <ul class="dropdown-menu display-sub">
+                <ul class="dropdown-menu display-sub" id="date-sort-list">
                   <li><a href="#">Today</a></li>
                   <li><a href="#">This Week</a></li>
                   <li><a href="#">This Month </a></li>
  				  <li><a href="#">All Dates </a></li>
+
                 </ul>
               </div>
+              
               <form class="all-search">
                 <input type="text" class="quest-search" placeholder="Search Questions">
               </form>
+              
               <a href="#" class="unanswerd active-text">20 Unanswered</a> <a href="#" class="unanswerd">12 Answered</a> </div>
             <div class="clear"></div>
           </div>
@@ -833,18 +837,18 @@
                 <div class="ask-comment ask-type-area ">
                   <div class="ask-left">
                     <form class="question-ask">
-                      <textarea placeholder="Ask your own question here....." class="question-ask-search" rows="" cols="" name=""></textarea>
+                      <textarea id="Q-area" placeholder="Ask your own question here....." class="question-ask-search" rows="" cols="" name=""></textarea>
                     </form>
                     <ul class="answer" style="display:none">
                       <li>
-                        <input name="Answer Is Yes" type="text" id="Answer Is Yes"  placeholder="Add 1st Poll Option">
+                        <input name="Answer Is Yes" type="text" id="option1"  placeholder="Add 1st Poll Option">
                       <li>
-                        <input name="Add Option" type="text" id="Add Option" placeholder="Add 2nd Poll Option">
+                        <input name="Add Option" type="text" id="option2" placeholder="Add 2nd Poll Option">
                       </li>
                       <a href="#" class="add-option">Another Poll Option</a>
                     </ul>
                   </div>
-                  <a href="#" class="ask-button">ASK</a> </div>
+                  <a  id="post-question" href="#" class="ask-button">ASK</a> </div>
                 <div class="ask-iconinfo">
                   <ul class="icons-ask">
                     <li><img src="images/attach.png" width="22" height="20"></li>
@@ -878,6 +882,13 @@
             </div>
             <div class="clear"></div>
           </div>
+          
+<!--           <div id= "all-questions"> -->
+
+<!--           </div> -->
+<!-- 		 <div class ="page-loader" ><img src ="images/loading-bars.gif"></div>  -->
+		 
+		 
           <div class="ask-outer follow-container">
             <div class="ask-content">
               <div class="follw-left">
@@ -1015,6 +1026,7 @@
             </div>
           </div>
         </div>
+</div>
 </script>  
 
 

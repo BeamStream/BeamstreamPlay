@@ -3,9 +3,14 @@ BS.Question = Backbone.Model.extend({
 	
 	defaults: {
     	
-		id:null,
+//		id:null,
+//		question:null,
+//		options:null,
 		question:null,
-		options:null,
+		streamId:null,
+		access:null,
+//		pollsOptions:null
+		
          
     },
 });
