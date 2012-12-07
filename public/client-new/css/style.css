@@ -2609,6 +2609,9 @@ ul.profil-pic-outer li {
   font-size:14px; color:#4a6a86;text-align:left; padding:8px 0 8px 8px; float:left;width: 90%;
   
 }
+.cover-picture{
+     padding-top: 25px;
+}
 div.hover-div{ 
      display:block; 
      height:150px !important; 
