@@ -2737,7 +2737,12 @@ font-weight:700;
     
   
  } 
-
+.common-doctext {
+ font-size: 16px;
+ font-family: 'Covered By Your Grace', cursive;
+ color: #77808B !important;
+ line-height: 10px !important;
+}
 
 .comment-wrapper2{
 /* 	width:116px; */
@@ -3013,7 +3018,7 @@ float: right;
          float:left; 
  	position:relative; 
  	border-bottom-left-radius: 3px !important; 
- 	background:url(../images/icons.png) -2px  5px  no-repeat #4a6a86;
+ 	background:url(../images/icons-thump.png) -2px  5px  no-repeat #4a6a86;
  } 
  .right-arrow{ 
  	width:6px !important; 

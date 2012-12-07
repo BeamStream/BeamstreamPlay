@@ -49,7 +49,7 @@ BS.VideoListView = Backbone.View.extend({
                         });                  
         
                         // Call common Shuffling function         
-          //              shufflingOnSorting();
+                        shufflingOnSorting();
                         
                         /* for video popups */
                         $("area[rel^='prettyPhoto']").prettyPhoto();
