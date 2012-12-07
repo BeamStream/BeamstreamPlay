@@ -25,7 +25,8 @@ BS.DocListView = Backbone.View.extend({
             
             /* To list the documents in the view */        
             docsList : function(eventName)
-            {    
+            { 
+                var extensionpattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
                 var i = 1;
                 var j=1;
                 var self = this;             
@@ -37,18 +38,27 @@ BS.DocListView = Backbone.View.extend({
 	                	$('#grid').html(""); 
 	                	var content = '';
 	                	_.each(docs, function(doc) {
-			                	BS.filesMediaView = new BS.FilesMediaView(); 
+                                                BS.filesMediaView = new BS.FilesMediaView(); 
 			                	var datVal =  BS.filesMediaView.formatDateVal(doc.creationDate);
+                                                var extension = (doc.documentURL).match(extensionpattern); 
+			                	
+			                	// set first letter of extension in capital letter  
+			                	extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+			                	    return letter.toUpperCase();
+			                	});
+                                                console.log('extension'+extension);
 			                	var datas = {
 			                                    "doc" : doc,
 			                                    "datVal" :datVal,
 			                                    "docCount" : i,
-			                                    "image" :'docs_image.png'
+			                                    "image" :'textimage.png',
+                                                            "extension" : extension
 								}	
 			                	
 			                	var source = $("#tpl-single-bucket").html();
 		                        var template = Handlebars.compile(source);				    
-		                        $('#grid').append(template(datas));         
+		                        $('#grid').append(template(datas)); 
+                                                console.log("test"+doc+datVal);
 		                        $(".doc_comment_section").hide("slide", { direction: "up" }, 1);                        
 		                        i++;
 	                     }); 

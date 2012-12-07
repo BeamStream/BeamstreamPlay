@@ -51,7 +51,7 @@ BS.DocListView = Backbone.View.extend({
 			                                    "doc" : doc,
 			                                    "datVal" :datVal,
 			                                    "docCount" : i,
-			                                    "image" :'docs_image.png',
+			                                    "image" :'textimage.png',
 			                                    "extension" : extension
 								}	
 			                	

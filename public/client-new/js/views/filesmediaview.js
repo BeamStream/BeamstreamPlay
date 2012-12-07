@@ -206,7 +206,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                 +'<h5 class="doctitle" id="'+doc.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
                                 +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
                                 +'</div></div></div>'
-                                +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
+                                +'<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>'
                                 +'<ul class="comment-list">'
                                 +'<li><a class="eye-icon" href="#">87</a></li>'
                                 +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li>'
@@ -225,6 +225,7 @@ BS.FilesMediaView = Backbone.View.extend({
             * NEW THEME-Display the doc files uploaded from computer
             */       
             docFromComputer :function(){
+                var extensionpattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
                 var self = this;
                 $.ajax({
                 type : 'GET',
@@ -232,10 +233,15 @@ BS.FilesMediaView = Backbone.View.extend({
                 dataType : "json",
                 success : function(docs) {
                     if(docs.length != 0)  {
-                    _.each(docs, function(doc) {
+                    _.each(docs, function(doc) {  
+                        var extension = (doc.documentURL).match(extensionpattern); 
+                                        // set first letter of extension in capital letter  
+                        extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+                            return letter.toUpperCase();
+                            });
                     var datVal =  self.formatDateVal(doc.creationDate);                      
                     var content= '<div class="image-wrapper hovereffect" id="'+doc.id.id+'">'
-                        +' <div class="hover-div"><img class="cover-picture" src="images/docs_image.png">'
+                        +' <div class="hover-div"><img class="cover-picture" src="images/textimage.png"><h3 class="common-doctext" >'+extension+'</h3>'
                         +'<div class="hover-text">'               
                         +'<div class="comment-wrapper">'                                
                         +'<a href="#docs" style="text-decoration: none">'
@@ -249,7 +255,7 @@ BS.FilesMediaView = Backbone.View.extend({
                         +'<h5 class="doctitle" id="'+doc.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
                         +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
                         +'</div></div></div>'
-                        +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
+                        +'<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>'
                         +'<ul class="comment-list">'
                         +'<li><a class="eye-icon" href="#">87</a></li>'
                         +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li>'
@@ -415,7 +421,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	                                +'<h5 class="videotitle" id="'+video.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
 	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
 	                                +'</div></div></div>'
-	                                +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
+	                                +'<div class="comment-wrapper1"> <a class="common-icon video" href="#"></a>'
 	                                +'<ul class="comment-list">'
 	                                +'<li><a class="eye-icon" href="#">87</a></li>'
 	                                +'<li><a class="hand-icon" href="#">5</a></li>'
@@ -488,7 +494,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	                                +'<h5 class="audiotitle" id="'+audio.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
 	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
 	                                +'</div></div></div>'
-	                                +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
+	                                +'<div class="comment-wrapper1"> <a class="common-icon music" href="#"></a>'
 	                                +'<ul class="comment-list">'
 	                                +'<li><a class="eye-icon" href="#">87</a></li>'
 	                                +'<li><a class="hand-icon" href="#">5</a></li>'
@@ -564,7 +570,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	                                +'<h5 class="presentationtitle" id="'+ppt.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
 	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
 	                                +'</div></div></div>'
-	                                +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
+	                                +'<div class="comment-wrapper1"> <a class="common-icon presentation" href="#"></a>'
 	                                +'<ul class="comment-list">'
 	                                +'<li><a class="eye-icon" href="#">87</a></li>'
 	                                +'<li><a class="hand-icon" href="#">5</a></li>'
@@ -640,7 +646,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	                                +'<h5 class="pdftitle" id="'+pdf.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
 	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
 	                                +'</div></div></div>'
-	                                +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
+	                                +'<div class="comment-wrapper1"> <a class="common-icon pdf" href="#"></a>'
 	                                +'<ul class="comment-list">'
 	                                +'<li><a class="eye-icon" href="#">87</a></li>'
 	                                +'<li><a class="hand-icon" href="#">5</a></li>'

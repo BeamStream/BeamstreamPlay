@@ -1227,13 +1227,11 @@
 								   $('#menu-browsemedia').addClass('active');					   
 								   $('#right-top-photo').attr("src",BS.profileImageUrl);			       
 						       }});                             
-			                    BS.googledocsview = new BS.GoogleDocsView({
-			                         model : BS.user
-							   });
+			                    BS.googledocsview = new BS.GoogleDocsView({});
 			                   BS.googledocsview.render();  
 			                   $('#body-content').html(BS.googledocsview.el);
 			   //                $('.file-type').hide();
-			  //               BS.googledocsview.test();
+			      //           BS.googledocsview.test();
 			//				   $(".checkbox").dgStyle();                                
 	                    
 						}
