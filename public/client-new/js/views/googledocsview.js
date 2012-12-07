@@ -41,13 +41,14 @@ BS.GoogleDocsView = Backbone.View.extend({
                  var self = this;
                     
                  /* get profile images for user */
-                 $('#grid').html(""); 
+                 
                  $.ajax({
                      type : 'GET',
                      url :  BS.getAllDocs,
                      dataType : "json",
                      success : function(docs) {
- 	                    var content = '';                   
+                    	 $('#grid').html(""); 
+ 	                     var content = '';                   
  	                    _.each(docs, function(doc) {                    
  			                	var datVal =  self.formatDateVal(doc.creationDate);
  			                	var datas = {
@@ -59,7 +60,6 @@ BS.GoogleDocsView = Backbone.View.extend({
  			                	var source = $("#tpl-single-bucket").html();
  		                        var template = Handlebars.compile(source);				    
  		                        $('#grid').append(template(datas)); 
-                                        console.log("")
  		                        $(".doc_comment_section").hide("slide", { direction: "up" }, 1);                        
  		                        i++;
  	                     });  

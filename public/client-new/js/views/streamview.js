@@ -34,6 +34,7 @@
 			 "click .show-all" : "showAllList",
 			 "click .show-all-comments" : "showAllCommentList",
 			 "keypress .add-message-comment" : "addMessageComments",
+			 "keyup .add-message-comment" : "deleteCommentText",
 			 "focusout .add-message-comment" : "removeCommentTextArea",
 			 "click .rock-comments" : "rockComment",
 			 "click .rocks-small a" : "rockComment",
@@ -1116,6 +1117,17 @@
         },
         
         /**
+         * NEW THEME -- hide comment test area when we delete the comment text from text area
+         */
+        deleteCommentText: function(eventName){
+        	var element = eventName.target.parentElement;
+        	var parent =$(element).parents('div.follow-container').attr('id');
+        	var commentText = $('#'+parent+'-msgComment').val();
+        	if(commentText == "")
+        		$('#'+parent+'-addComments').slideUp(200); 
+        },
+        
+        /**
          *  NEW THEME - post new comments on enter key press
          */
         addMessageComments: function(eventName){
@@ -1123,6 +1135,9 @@
         	var element = eventName.target.parentElement;
         	var parent =$(element).parents('div.follow-container').attr('id');
         	var totalComments =  $('#'+parent+'-totalComment').text();
+        	var commentText = $('#'+parent+'-msgComment').val();
+        	
+
         	 
         	var self =this;
         
@@ -1130,7 +1145,7 @@
         	if(eventName.which == 13) {
         		
         		eventName.preventDefault(); 
-   			 	var commentText = $('#'+parent+'-msgComment').val();
+   			 	
 //   			
    			 	/* post comments information */
    		        $.ajax({
@@ -1302,7 +1317,15 @@
         	
         	//uncheck private check box when select Public
         	if($(eventName.target).text() == "Public")
+        	{
         		$('#private-to').attr('checked',false);
+        	}
+        	else
+        	{
+        		$('#private-to').attr('checked',true);
+        		$('#share-discussions li.active').removeClass('active');
+        	}
+        		
         },
         
         
@@ -1328,8 +1351,8 @@
          * NEW THEME - actvate share icon on selection
          */
         actvateShareIcon: function(eventName){
+        	
         	eventName.preventDefault();
-        	console.log($(eventName.target));
         	$('#private-to').attr('checked',false);
         	$('#select-privateTo').text("Public");
         	if($(eventName.target).parents('li').hasClass('active'))

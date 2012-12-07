@@ -2610,7 +2610,7 @@ ul.profil-pic-outer li {
   
 }
 .cover-picture{
-     padding-top: 25px;
+     padding-top: 20px;
 }
 div.hover-div{ 
      display:block; 
@@ -2791,7 +2791,11 @@ padding:0 5% 0 10%;
 
 
 
-.doc-image{width:50% !important;margin:0 auto;padding:8% 0 0 0;}
+.doc-image{
+	width:50% !important;
+	margin:0 auto;
+/* 	padding:8% 0 0 0; */
+}
 
 
 
