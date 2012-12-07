@@ -505,8 +505,9 @@
                       <li><a class="rock-message" href="#">Rock</a></li>
                       <li ><a class="add-comment" href="#"> Comment</a></li>
                       <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+                      <li><a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a></li>
                     </ul>
-                    <a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a>
+                    
                   </div>
                   <div id="{{datas.id.id}}-addComments" class="follow-comment">
 					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." ></textarea>
@@ -533,6 +534,9 @@
             <div class="clear"></div>
           </div>
 </script>
+
+
+
 
 
 <!--   templete for stream discussions messages with videos/ images --> 
@@ -556,45 +560,32 @@
                   
                   <!-- start doc section -->
                   <div id="Docs" class="doc">
-					<div id=" " class="image-wrapper hovereffect">
-                  	<div class="hover-div">
-                    	<img src="{{datas.anyPreviewImageUrl}}" class="filmedia-picture">
-                    	<div class="hover-text">
-                    		<div class="comment-wrapper">
-                    			<a style="text-decoration: none" href=""> </a>
-                    			<div id="media-{{datas.id.id}}">
-                    				<a style="text-decoration: none" href="">
-                   						 <h4>Media Name</h4>
-                				    </a>
-                				    <div class="description-info">
-                				       <div class="gallery clearfix"></div>
-									    <div class="gallery clearfix">
-                				    	<a   href="{{datas.messageBody}}" rel="prettyPhoto">
-                				    		<div class="description-left">
-                				    			<p class="doc-description"> Media Description..</p>
-                				    		</div>
-                				    	</a> 
-                				    	</div>
-                				    	<div class="comment-wrapper2">
-                				    	   <a data-original-title="Search by Users" class="tag-icon" href="#"></a>
-                				    	   <a class="hand-icon" href="#"></a>
-                				    	   <a class="message-icon" href="#"></a>    
-                				    	   <a class="share-icon" href="#"></a>
-                				    	</div>
-                				    </div>
-                				 </div>
-                				 <h5 id="{{image.id.id}}" class="imgtitle">
-                				 	<span><img src="images/title-plus.png"></span>
-                				 	 Title &amp; Description
-                				 </h5>
-                				 <div class="dateinfo">
-                				 	<span class="state">State</span>
-                				 	<span class="date">datVal</span>
-                				 </div>
-                			</div>
-                		</div>
-                   </div>
-                   </div>
+					<div class="image-wrapper hovereffect">
+					  <div class="hover-div"><img src="{{datas.anyPreviewImageUrl}}" class="filmedia-picture">
+					    <div class="hover-text">               
+					     <div id="{{datas.id.id}}" class="comment-wrapper">                                
+					     <div id="media-{{datas.id.id}}">
+					      <h4>Media Name</h4>                                
+					      <div class="description-info">      
+					         <div class="gallery"></div>
+						 <div class="gallery hrtxt">
+					           <a rel="prettyPhoto[gallery2]" style="text-decoration: none" href="{{datas.anyPreviewImageUrl}}">
+					              <div class="description-left">   
+					              <p id="{{datas.id.id}}" class="google_doc doc-description"><input type="hidden" value="doc.url" id="id-{{datas.id.id}}"> Media Description..</p>
+						    </div>
+					           </a>
+						 </div>     
+					    
+					      <div class="comment-wrapper2">
+					      <a data-original-title="Search by Users" class="tag-icon" href="#"></a><a class="hand-icon" href="#"></a>
+					      <a class="message-icon" href="#"></a><a class="share-icon" href="#"></a>
+					      </div></div></div>
+					      <h5 id="{{datas.id.id}}" class="imgtitle"><span><img src="images/title-plus.png"></span> Title &amp; Description</h5>         
+					     <div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>
+					    </div>
+					   </div>
+					  </div>
+</div>
                   </div>
                   <!-- End doc section -->
                   
@@ -605,12 +596,14 @@
                       <li><a class="rock-message" href="#">Rock</a></li>
                       <li ><a class="add-comment" href="#"> Comment</a></li>
                       <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+                      <li><a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a></li> 
                     </ul>
-					<a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a> 
+					
                   </div>
                   <div id="{{datas.id.id}}-addComments" class="follow-comment">
-					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." ></textarea>
-				 </div>
+				     <textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." ></textarea>
+				   </div>
+                
                 </div>
                 <div class="answer-info">
                   <div class="answer-conatiner">
@@ -633,6 +626,8 @@
             <div class="clear"></div>
           </div>
 </script>
+
+
 
 <!--   templete for stream discussions messages with docs --> 
  <script type="text/x-handlebars-template" id="tpl-messages_with_docs">
@@ -706,8 +701,9 @@
                       <li><a class="rock-message" href="#">Rock</a></li>
                       <li ><a class="add-comment" href="#"> Comment</a></li>
                       <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+                      <li><a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a>  </li>
                     </ul>
-					<a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a>  
+					
                   </div>
                   <div id="{{datas.id.id}}-addComments" class="follow-comment">
 					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." ></textarea>

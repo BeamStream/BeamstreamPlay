@@ -903,7 +903,7 @@ ul.stream-tab li a span {
 		display:none;
 		position :absolute;
 		right:30px;
-		bottom:25px;
+/* 		bottom:25px; */
 		background-image: url("../images/flag.png");
 }
 
