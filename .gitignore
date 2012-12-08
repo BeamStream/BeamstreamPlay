@@ -12,3 +12,4 @@ bin
 
 *.db
 /nbproject/private/
+data/.DS_Store
