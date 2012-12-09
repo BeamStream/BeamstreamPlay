@@ -200,10 +200,10 @@ object UserController extends Controller {
 
   def testNeo4jAddFriends = Action { implicit request =>
     var node: Node = SocialGraphEmbeddedNeo4j.findOrCreateBSNode(50, "Dirk", "Nowitzki")
-    var node1: Neo4jFriend = new Neo4jFriend("hotpotato1", "forum1", 51, null)
-    var node2: Neo4jFriend = new Neo4jFriend("hotpotato2", "forum2", 52, null)
-    var node3: Neo4jFriend = new Neo4jFriend("hotpotato3", "forum3", 53, null)
-    var node4: Neo4jFriend = new Neo4jFriend("hotpotato4", "forum4", 54, null)
+    var node1: Neo4jFriend = new Neo4jFriend("hotpotato1", "forum1", 51, null, null)
+    var node2: Neo4jFriend = new Neo4jFriend("hotpotato2", "forum2", 52, null, null)
+    var node3: Neo4jFriend = new Neo4jFriend("hotpotato3", "forum3", 53, null, null)
+    var node4: Neo4jFriend = new Neo4jFriend("hotpotato4", "forum4", 54, null, null)
     val friends = Array(node1, node2, node3, node4)
     val worked = this.addFriendNeo4j(friends, 50)
     print("addFriends successful: " + worked + "\n")
@@ -234,6 +234,8 @@ object UserController extends Controller {
     }
     for (friend <- friends) {
       var node2: Node = SocialGraphEmbeddedNeo4j.createBSNode(friend.userId, friend.firstName, friend.lastName, node)
+      //TODO: userId should be an String EmailAddress rather than an Integer.  Must replace this when ready
+      SendEmail.inviteUserToBeamstreamWithReferral(friend.emailaddress, userId.toString())
     }
     SocialGraphEmbeddedNeo4j.shutDown()
     Ok(write(new ResulttoSent("Success", "Users added to Social stack")))
