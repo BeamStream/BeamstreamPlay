@@ -14,7 +14,6 @@ POST /betaUser   controllers.JoinBeamStream.regsisterToBeamStreamBeta
 POST /users      controllers.UserController.findUser
 GET /onlineUsers  controllers.UserController.getAllOnlineUsers
 POST /inviteUser   controllers.UserController.inviteUserToBeamstream
-POST /inviteUserReferral   controllers.UserController.inviteUserToBeamstreamWithReferral
 POST  /followUser            controllers.UserController.followUser
 #Browser Closed
 
