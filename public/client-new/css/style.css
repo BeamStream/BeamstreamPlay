@@ -2752,7 +2752,8 @@ div.hover-div{
  
  
  
-.filmedia-picture{width:100%;}
+.filmedia-picture{width:100%; height:100%;}
+ 
  
 
 div.hover-div:hover .hover-text{ 
