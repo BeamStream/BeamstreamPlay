@@ -141,7 +141,8 @@ BS.PresentationView = Backbone.View.extend({
 			  }
                 BS.mediafilepopupview = new BS.MediaFilePopupView();
                 BS.mediafilepopupview.render(pptdatas);          
-                $('#gdocedit').html(BS.mediafilepopupview.el);      
+                $('#gdocedit').html(BS.mediafilepopupview.el); 
+                $('#bootstrap_popup').modal('show');
                   }
                     });     
             
@@ -172,6 +173,7 @@ BS.PresentationView = Backbone.View.extend({
                 BS.mediaeditview = new  BS.MediaEditView();
                 BS.mediaeditview.render(pptdatas);
                 $('#gdocedit').html(BS.mediaeditview.el);
+                  $('#bootstrap_popup').modal('show');
                         }
                 });
                 },

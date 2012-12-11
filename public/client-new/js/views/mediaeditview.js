@@ -97,7 +97,10 @@ BS.MediaEditView = Backbone.View.extend({
 //          var docId = eventName.currentTarget.id;
             var mediatype = $("#edittype").val(); 
             eventName.preventDefault(); 
-            $('#gdocedit').children().detach();                 
+//            $('#gdocedit').children().detach();    
+//$('#bootstrap_popup').modal({show:false});
+   $('#bootstrap_popup').modal('hide')  
+
         }
         
 });

@@ -1783,7 +1783,7 @@ li.sortable-placeholder {
 		margin: 0 0 10px;
 		overflow: hidden;
 		padding: 0 0 20px;
-}
+             }
 
 .overview-boxes h3 {
 		color: #314653;
@@ -2577,7 +2577,7 @@ ul.profil-pic-outer li {
 		overflow:hidden;
 		float:left;
 		margin:0 1% 1% 1%;
-		width:23%;
+		width:18.2%;
 		box-shadow: 0 0px 0px 1px #cdd4db;
 }
 
@@ -3077,7 +3077,7 @@ float: right;
  	margin:0; 
  } 
  ul.comment-list li { 
- 	width: 40px !important; 
+ 	width:35px !important; 
  	height: 23px !important; 
  	border:none !important; 
  	border-bottom-right-radius:0 !important; 
@@ -3087,7 +3087,7 @@ float: right;
  	margin:0px 0 0 0; 
  	line-height:16px; 
  	background: none; 
-         padding: 6px 10px 0; 
+         padding: 6px 6px 0; 
  } 
  ul.comment-list li a { 
  	font-size:12px; 
@@ -3114,7 +3114,12 @@ text-decoration:none;
  	background:url(../images/right-comment-icon.png) no-repeat 0px 3px; 
  } 
 
+.questions-info{min-height:265px;}
 
-
+ .discussion-info{min-height:360px;}
  
+ .deadline-info{min-height:150px;}
  
+ .recent-activities{min-height:388px;}
+ 
+ .calendar-events{min-height:270px;}

@@ -137,7 +137,8 @@ BS.DocListView = Backbone.View.extend({
            
 
             
-                showDocPopup :function(eventName){           
+                showDocPopup :function(eventName){ 
+                     console.log("test is ok for doclist");
                     var docId = eventName.currentTarget.id;  
                     $.ajax({                                       
                         type : 'POST',
@@ -155,7 +156,8 @@ BS.DocListView = Backbone.View.extend({
                             }
                     BS.mediafilepopupview = new BS.MediaFilePopupView();
                     BS.mediafilepopupview.render(pdfdatas);            
-                    $('#gdocedit').html(BS.mediafilepopupview.el);       
+                    $('#gdocedit').html(BS.mediafilepopupview.el); 
+                    $('#bootstrap_popup').modal('show');
                     }
                     });                             
                 },
@@ -183,7 +185,8 @@ BS.DocListView = Backbone.View.extend({
 			  }
                         BS.mediaeditview = new  BS.MediaEditView();
                         BS.mediaeditview.render(pdfdatas);
-                        $('#gdocedit').html(BS.mediaeditview.el);         
+                        $('#gdocedit').html(BS.mediaeditview.el);  
+                          $('#bootstrap_popup').modal('show');
                         }
                         });
                     },

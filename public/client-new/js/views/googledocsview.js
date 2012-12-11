@@ -6,9 +6,9 @@ BS.GoogleDocsView = Backbone.View.extend({
      //           "click '.nav a" : "addActive",
      //           "click #gdoc_uploadbutton" : "uploadFile",
 //              "click #profile-images":"listProfileImages",
-     //           "click .mediapopup" : "showDocPopup",
+                "click .mediapopup" : "showDocPopup",
      //           "click .filter-options li a" : "filterDocs",
-     //           "click .doctitle" : "editDocTitle",
+                "click .doctitle" : "editDocTitle",
     //            "click #prevslid" : "previous",
      //           "click #nextslid" : "next",
       //          "click .rock_docs" : "rocksDocuments",
@@ -51,8 +51,8 @@ BS.GoogleDocsView = Backbone.View.extend({
                           $('#grid').html(""); 
  	                    var content = '';                   
  	                    _.each(docs, function(doc) { 
-                                         //	BS.filesMediaView = new BS.FilesMediaView(); 
-
+                                  console.log('doc -'+doc.documentURL);
+                                         	BS.filesMediaView = new BS.FilesMediaView();                      
  			                	var datVal =  self.formatDateVal(doc.creationDate);
  			                	var datas = {
  			                                    "doc" : doc,
@@ -221,13 +221,14 @@ BS.GoogleDocsView = Backbone.View.extend({
             * Edited By Aswathy @TODO
             * For Doc popups
             */
-//            showDocPopup :function(eventName){           
-//                var docId = eventName.currentTarget.id;
-//                var docUrl = $('input#id-'+docId).val();     
-//                BS.gdocpopupview = new BS.GdocPopupView();
-//                BS.gdocpopupview.render(docUrl);           
-//                $('#gdocedit').html(BS.gdocpopupview.el);            
-//            },
+            showDocPopup :function(eventName){           
+                var docId = eventName.currentTarget.id;
+                var docUrl = $('input#id-'+docId).val();     
+                BS.gdocpopupview = new BS.GdocPopupView();
+                BS.gdocpopupview.render(docUrl);           
+                $('#gdocedit').html(BS.gdocpopupview.el); 
+                $('#bootstrap_popup').modal('show');
+            },
             
             /**
              * filter docs.. and prevent default action
@@ -239,30 +240,31 @@ BS.GoogleDocsView = Backbone.View.extend({
             /*Edit the document title
             * 
             */  
-//            editDocTitle :function(eventName){  
-//                var docId = eventName.currentTarget.id;             // id to get corresponding docs   
-//                var docUrl = $('input#id-'+docId).val();
-//                $.ajax({                                       
-//                        type : 'POST',
-//                        url :  BS.getOneDocs,
-//                        data : {
-//                                documentId: docId  
-//                                },
-//                        dataType : "json",
-//                        success : function(docs) {                          
-//                             var datas = {
-//                             "id" : docId,
-//                             "url" : docUrl,
-//                             "type" : 'Docs',
-//                             "title" : docs[0].documentName,
-//                             "description" : docs[0].documentDescription
-//			  }
-//                BS.mediaeditview = new  BS.MediaEditView();
-//                BS.mediaeditview.render(datas);
-//                $('#gdocedit').html(BS.mediaeditview.el);         
-//                  }
-//                });
-//            },
+            editDocTitle :function(eventName){  
+                var docId = eventName.currentTarget.id;             // id to get corresponding docs   
+                var docUrl = $('input#id-'+docId).val();
+                $.ajax({                                       
+                        type : 'POST',
+                        url :  BS.getOneDocs,
+                        data : {
+                                documentId: docId  
+                                },
+                        dataType : "json",
+                        success : function(docs) {                          
+                             var datas = {
+                             "id" : docId,
+                             "url" : docUrl,
+                             "type" : 'Docs',
+                             "title" : docs[0].documentName,
+                             "description" : docs[0].documentDescription
+			  }
+                BS.mediaeditview = new  BS.MediaEditView();
+                BS.mediaeditview.render(datas);
+                $('#gdocedit').html(BS.mediaeditview.el);  
+                  $('#bootstrap_popup').modal('show');
+                  }
+                });
+            },
        
             /**
             * Rocks Google docs

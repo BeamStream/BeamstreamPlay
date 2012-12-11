@@ -23,6 +23,7 @@
 <link href="css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
 <script type="text/JavaScript" src="lib/jquery-1.js"></script>
 <script type="text/JavaScript" src="lib/jquery.js"></script>
+<script type="text/JavaScript" src="lib/bootstrap-modal.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700' rel='stylesheet' type='text/css'>
 <script type="text/JavaScript" src="lib/bootstrap.js"></script>
 
@@ -233,7 +234,9 @@
 <!--   stream's overview  Middle_container  template  -->
  <script type="text/x-handlebars-template" id="tpl-overview-middle-contents">
 <div class="overview-left-container">
-          <div class="overview-boxes">
+    
+   
+          <div class="overview-boxes recent-activities">
             <div class="recent-box-header">
               <h3> Recent Activity</h3>
               <div class="btn-group dropdown-outer overview-jumbmenu">
@@ -287,7 +290,9 @@
                 <span>15 min. ago</span> </li>
             </ul>
           </div>
-          <div class="overview-boxes">
+           
+      
+          <div class="overview-boxes calendar-events">
             <div class="recent-box-header">
               <h3>Calendar &amp; Events</h3>
               <a href="#" class="view-calender">View Calendar</a> </div>
@@ -299,8 +304,10 @@
             <h6>Ch. 5 Business Exam</h6>
             <span>10/18/2012</span> </a> <a href="#" class="event-block-blue"><span class="plus">Add Event</span></a> </div>
         </div>
+  
         <div class="overview-right-container">
-          <div class="overview-boxes">
+         
+          <div class="overview-boxes deadline-info">
             <div class="recent-box-header">
               <h3>Deadlines</h3>
             </div>
@@ -312,7 +319,9 @@
               </li>
             </ul>
           </div>
-          <div class="overview-boxes">
+       
+           
+          <div class="overview-boxes discussion-info">
             <div class="recent-box-header">
               <h3>Discussions</h3>
             </div>
@@ -344,7 +353,10 @@
               </li>
             </ul>
           </div>
-          <div class="overview-boxes">
+      
+            
+   
+          <div class="overview-boxes questions-info">
             <div class="recent-box-header">
               <h3>Questions</h3>
             </div>
@@ -368,6 +380,7 @@
             </ul>
           </div>
         </div>
+     
 </script>
 
 
@@ -1674,7 +1687,7 @@
           </div>
           <div class="calender-outer overview-boxes browse-outer">
             <h2>My Profile <a href="#" class="btn blue-buttons showmessage browse-file ">View All</a></h2>
- 
+             <div id="gdocedit" ></div> 
             <ul class="profil-pic-outer" id="grid">  
                
   
@@ -1784,7 +1797,8 @@
      <div class="comment-wrapper" id="{{doc.id.id}}">                                
      <div id="media-{{doc.id.id}}">
       <h4>{{doc.documentName}}</h4>                                
-      <div class="description-info"><div class="description-left">
+      <div class="description-info"><div class="description-left mediapopup" id="{{doc.id.id}}">
+        <input type="hidden" id="id-{{doc.id.id}}" value="{{doc.documentURL}}">      
         <p class="doc-description">{{doc.documentDescription}}</p>
       </div>
       <div class="comment-wrapper2">
@@ -1808,8 +1822,45 @@
    <div id="{{doc.id.id}}-docRockers-list" class="docRockers_popup"></div>
    </div>  
 </li> 
-</script>   
+</script> 
 
+<!-- Documents popup window to show documents -->
+<script type="text/x-handlebars-template" id="document-popup-tpl">
+ <div id="bootstrap_popup" class="modal hide fade in" style="display: none; ">
+            <div class="modal-header">
+              <a class="close" data-dismiss="modal">×</a>
+              <h3></h3>
+            </div>
+            <div class="modal-body">
+              <h4>google Docs</h4>
+              <p><iframe src="{{docUrl}}" scrolling="NO"  width="963" height="500" style="border: none">
+                    <p>Your browser does not support iframes.</p>
+                    </iframe> </p>		        
+            </div>
+            <div class="modal-footer">
+             
+            </div>
+  </div>
+</script>
+
+<!-- Documents popup window to show presentation/pdf etc.. -->
+<script type="text/x-handlebars-template" id="mediafiles-popup-tpl">
+<div id="bootstrap_popup" class="modal hide fade in" style="display: none; ">
+            <div class="modal-header">
+              <a class="close" data-dismiss="modal">×</a>
+              <h3></h3>
+            </div>
+            <div class="modal-body">
+              <h4>{{title}}</h4>
+              <p><iframe src="http://docs.google.com/gview?url={{url}}&embedded=true" scrolling="NO"  width="963" height="500" style="border: none">
+                    <p>Your browser does not support iframes.</p>
+                    </iframe> </p>		        
+            </div>
+            <div class="modal-footer">
+             
+            </div>
+  </div>
+</script>
 <!-- template for single bucket in presentation view -->
 <script type="text/x-handlebars-template" id="tpl-single-presentation">
    
@@ -1818,11 +1869,11 @@
  <div class="image-wrapper hovereffect" >
   <div class="hover-div"><img class="cover-picture" src="images/presentations_image.png">
     <div class="hover-text">               
-     <div class="comment-wrapper" id="{{ppt.id.id}}">                                
+     <div class="comment-wrapper" >                                
      <div id="media-{{ppt.id.id}}">
       <h4>{{ppt.documentName}}</h4>                                
-      <div class="description-info"><div class="description-left">
-        <p class="doc-description mediapopup">{{ppt.documentDescription}}</p>
+      <div class="description-info"><div class="description-left mediapopup" id="{{ppt.id.id}}">
+        <p class="doc-description ">{{ppt.documentDescription}}</p>
       </div>
       <div class="comment-wrapper2">
       <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon show_rockers"></a>
@@ -1854,11 +1905,11 @@
  <div class="image-wrapper hovereffect" >
   <div class="hover-div"><img class="filmedia-picture" src="{{pdf.previewImageUrl}}">
     <div class="hover-text">               
-     <div class="comment-wrapper" id="{{pdf.id.id}}">                                
+     <div class="comment-wrapper" >                                
      <div id="media-{{pdf.id.id}}">
       <h4>{{pdf.documentName}}</h4>                                
-      <div class="description-info"><div class="description-left">
-        <p class="doc-description mediapopup">{{pdf.documentDescription}}</p>
+      <div class="description-info"><div class="description-left mediapopup" id="{{pdf.id.id}}">
+        <p class="doc-description ">{{pdf.documentDescription}}</p>
       </div>
       <div class="comment-wrapper2">
       <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon show_rockers"></a>
@@ -1883,8 +1934,41 @@
 </li>
    </script>   
     
+<!-- Documents edit template-->
+<script type="text/x-handlebars-template" id="document-edit-tpl">
 
- </script>   
+<div id="bootstrap_popup" class="modal hide fade in" style="display: none; ">
+            <div class="modal-header">
+              <a class="close" data-dismiss="modal">×</a>
+              <h3></h3>
+            </div>
+            <div class="modal-body">
+              <h4>Edit {{type}}</h4>
+               <input type="hidden" id="edittype" value="{{type}}">
+               <div id="error" class="invalid-validation" style="margin-left:20px; color:red;"></div>
+              <p>
+              <form name="add-new-school-form" id="add-new-school-form">
+         <label>Title name</label>
+            <input type="text" placeholder="NAME of {{type}}" value="{{title}}">
+              
+                        <label name="media-title" for="school-name">Title </label>
+                        <input type="text" name="schoolName" id="media-title" placeholder="NAME of {{type}}" value="{{title}}">
+                        <input type="hidden" id="parent-Id" value="">
+                        <input type="text" id="parent-Id" value="" name="test">
+           
+                        <label name="media-description" for="website">Description<span class="star"> </span></label>
+                        <textarea id="media-description" class="gdoc-description" placeholder="DESCRIPTION of {{type}}" >        
+                        {{description}}</textarea>
+              
+        </form>
+           </p>		        
+            </div>
+            <div class="modal-footer">
+             <a href="#" id ="sveeditdoc" class="btn btn-primary pull-left btn-success"  >Save</a>
+            </div>
+  </div>
+
+</script>  
  
  	<!-- ------------------ extra scripts --------------------->
 	<script type="text/javascript">
