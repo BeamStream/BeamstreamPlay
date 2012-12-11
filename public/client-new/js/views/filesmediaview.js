@@ -54,8 +54,8 @@ BS.FilesMediaView = Backbone.View.extend({
  //                       "blur #select_dr":"selectboxup"
  //                       "click #profile-images":"listProfileImages",
 //                        "click .google_doc" : "showDocPopup",
-//                        "click .filter-options li a" : "filterDocs"
-        	
+                       
+        	 "click .then-by li a" : "filterDocs",
         	 "click #view-by-list" : "selectViewByAll",
         	 "click #view-files-byrock-list" : "selectViewByRock",
             		
@@ -175,6 +175,12 @@ BS.FilesMediaView = Backbone.View.extend({
                 $("#dropdownnew").find('ul').hide(250); 
                 },
       
+                /**
+                 * NEW THEM - filter docs.. and prevent default action
+                 */
+                filterDocs :function (eventName){
+                	 eventName.preventDefault();
+                },
             /**
             * NEW THEME-Display the google doc
             */    
@@ -1037,12 +1043,7 @@ BS.FilesMediaView = Backbone.View.extend({
     		newwindow=window.open(docUrl,'','height=550,width=1100,top=100,left=250');
         	 
         },
-        /**
-         * filter docs.. and prevent default action
-         */
-        filterDocs :function (eventName){
-        	 eventName.preventDefault();
-        },
+       
         
         /*
          * Save docs from My computer

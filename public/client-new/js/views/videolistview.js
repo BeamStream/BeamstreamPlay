@@ -4,8 +4,10 @@ BS.VideoListView = Backbone.View.extend({
                 "click ul.file-type li a" : "hideList",
                 "click .videotitle" : "editVideoTitle",
                 "click .rock_docs" : "rocksVideos",
-                "click .show_rockers" : "showDocRockers"
+                "click .show_rockers" : "showDocRockers",
 //                 "hover .videotitle" : "editVideoTitle"              //#345 should only hover over, not click
+                "click .then-by li a" : "filterDocs",
+                "click #view-files-byrock-list" : "selectViewByRock",
              },
     
             initialize:function(){
@@ -16,6 +18,21 @@ BS.VideoListView = Backbone.View.extend({
             render:function (eventName) {
                 $(this.el).html(this.template);
                 return this;
+                },
+                
+                /**
+                 * NEW THEM - filter docs.. and prevent default action
+                 */
+                filterDocs :function (eventName){
+                	 eventName.preventDefault();
+                },
+                
+                /**
+                 * NEW THEME - view files 
+                 */
+                selectViewByRock: function(eventName){
+                	eventName.preventDefault();
+                	$('#view-files-byrock-select').text($(eventName.target).text());
                 },
             
             /**

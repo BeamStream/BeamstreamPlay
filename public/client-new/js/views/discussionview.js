@@ -45,7 +45,8 @@
 			 "keypress #sort_by_key" : "sortMessagesByKey",
 			 "mouseenter .rocks-message":"showUnrockMessage",
 			 "mouseleave .rocks-message-plus":"showMessageIcon",
-			 "mouseleave .rocks-message-minus":"showMessageIcon"
+			 "mouseleave .rocks-message-minus":"showMessageIcon",
+			 "click .who-rocked-it" : "showRockersList"
 
 		},
 	
@@ -121,9 +122,8 @@
 	     */
 	    getAllMessages :function(streamid,pageNo,limit){
 	    	
-//	    	 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-//	         var trueurl='';
 	         var self = this;
+	         
 	         /* get all messages of a stream  */
 			 $.ajax({
 					type : 'POST',
@@ -147,7 +147,7 @@
 	    showAllComments: function(msgId){
 	    	var count = 0;
 			var parentMsg = msgId;
-//			var parent =$('#'+parentMsg+'').closest('li').attr('id');
+
 			$.ajax({
 				type: 'POST',
 	            url: BS.allCommentsForAMessage,
@@ -201,12 +201,7 @@
 	                {
 	        	    	$('#'+parentMsg+'-totalComment').html(cmtCount);
 	        	    	$('#'+parentMsg+'-allComments').hide();
-//	        	    	/* for comment Header   */
-//	        	    	var cmdHead = $("#tpl-comment-header").html();
-//	        	    	var cmdHeadTemplate = Handlebars.compile(cmdHead);
-//	        	    	$('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
-//	        	    	$('#'+parent+'-hideComment').addClass('disabled');
-//	        	    	$('#'+parent+'-commentlists').hide();
+
 	                }
 	            }
 			});
@@ -270,7 +265,7 @@
 	     * NEW THEME - post messages on post button click 
 	     */
 	    postMessage: function(eventName){
-//	    	eventName.preventDefault();
+	    	
 	    	// upload file 
 	        var self = this;
 	        var streamId =  $('.sortable li.active').attr('id');
@@ -868,6 +863,10 @@
    							 
    							if(!$('#'+parent+'-allComments').is(':visible'))
    							{  
+   								
+   								$('#'+parent+'-msgRockers').slideUp(1);
+   								$('#'+parent+'-newCommentList').slideDown(1);
+
    								var newComments = $("#tpl-discussion-messages-newComment").html();
    								var newCmtTemplate = Handlebars.compile(newComments);
    								$('#'+parent+'-newCommentList').prepend(newCmtTemplate(data));
@@ -900,12 +899,14 @@
 			var messageId =$(element).parents('div.follow-container').attr('id');
 			if($('#'+messageId+'-allComments').is(":visible"))
 			{
+				$('#'+messageId+'-msgRockers').slideUp(1);
 				$('#'+messageId+'-newCommentList').html('');
 				$('#'+messageId+'-allComments').slideUp(600); 
 				$('#'+messageId+'-show-hide').text("Show All");
 			}
 			else
 			{
+				$('#'+messageId+'-msgRockers').slideUp(1);
 				$('#'+messageId+'-newCommentList').html('');
 				$('#'+messageId+'-allComments').slideDown(600); 
 				$('#'+messageId+'-show-hide').text("Hide All");
@@ -921,12 +922,14 @@
 			var messageId =$(element).parents('div.follow-container').attr('id');
 			if($('#'+messageId+'-show-hide').text() == "Hide All")
             {
+				$('#'+messageId+'-msgRockers').slideUp(1);
 				$('#'+messageId+'-newCommentList').html('');
 				$('#'+messageId+'-allComments').slideUp(600); 
 				$(eventName.target).text("Show All");
             }
 			else
 			{
+				$('#'+messageId+'-msgRockers').slideUp(1);
 				$('#'+messageId+'-newCommentList').html('');
 				$('#'+messageId+'-allComments').slideDown(600);
 				$(eventName.target).text("Hide All");
@@ -1503,6 +1506,72 @@
 			 $('#'+messageId+'-msgRockCount').removeClass('rocks-message-plus');
 			 $('#'+messageId+'-msgRockCount').removeClass('rocks-message-minus');
 			 $('#'+messageId+'-msgRockCount').addClass('rocks-message');
+			 
+		 },
+		 
+		 /**
+		  * NEW THEME - show Message rockers list 
+		  */
+		 showRockersList: function(eventName){
+			 
+			 eventName.preventDefault();
+	        	
+	        	var element = eventName.target.parentElement;
+				var messageId =$(element).parents('div.follow-container').attr('id');
+			    if($('#'+messageId+'-msgRockers').is(':visible'))
+			    {
+			    	 
+			    	$('#'+messageId+'-msgRockers').slideUp(600); 
+			    }
+			    else
+			    {
+					$.ajax({
+			             type: 'POST',
+			             url:BS.rockersList,
+			             data:{
+			            	  messageId:messageId
+			             },
+			             dataType:"json",
+			             success:function(data){
+			            	 $('#'+messageId+'-msgRockers').html("");
+			            	  // prepair rockers list
+			            	_.each(data, function(rocker) {
+								 
+			            		var messageRockers = $("#tpl-message-rockers").html();
+							    var messageRockersTemplate = Handlebars.compile(messageRockers);
+							    $('#'+messageId+'-msgRockers').append(messageRockersTemplate({rocker:rocker}));
+						    });
+			            	 
+			            	$('#'+messageId+'-allComments').slideUp();
+			            	$('#'+messageId+'-newCommentList').slideUp();
+			            	
+			            	$('#'+messageId+'-msgRockers').slideDown(600); 
+			 
+	//		        		$('#hover-lists-'+msgId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
+	//		        		$('#hover-lists-'+msgId+'').html(ul);
+			             }
+			          });
+			    }
+				
+//				if($('#'+messageId+'-show-hide').text() == "Hide All")
+//	            {
+//					$('#'+messageId+'-newCommentList').html('');
+//					$('#'+messageId+'-allComments').slideUp(600); 
+//					$(eventName.target).text("Show All");
+//	            }
+//				else
+//				{
+//					$('#'+messageId+'-newCommentList').html('');
+//					$('#'+messageId+'-allComments').slideDown(600);
+//					$(eventName.target).text("Hide All");
+//				}
+//				
+				
+//				 eventName.preventDefault();
+//				 var element = eventName.target.parentElement;
+//				 var msgId =$(element).closest('li').attr('id');
+//				 var position = $('li#'+msgId+'').find('i').position();
+//				 this.getRockers(msgId,position);
 			 
 		 },
         

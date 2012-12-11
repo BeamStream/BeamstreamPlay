@@ -195,7 +195,16 @@
  <script type="text/x-handlebars-template" id="tpl-stream-right-container">
  <div class="stream-header">
           <div class="stream-header-left">
-            <h2>{{streamName}}<a href="#">Show Details</a></h2>
+            <h2>{{streamName}}<a href="#" id="show-info" >Show Details</a></h2>
+			<div class="show-info">
+            
+            <p>This is going to be some basic into text about this specific stream, what the course is about... short and to the point.</p>
+            
+            <a href="#">Business</a>
+             <a href="#">Florida</a>
+              <a href="#">Money</a>
+            
+            </div>
             <ul class="strem-header-info">
               <li class="mebers">35 Members</li>
               <li class="claimed">Claimed By: <a href="#">Professor Smith</a> </li>
@@ -217,10 +226,10 @@
           <div class="stream-top-shadow"><img src="images/shadow.png"/></div>
         </div>
         <ul class="stream-tab">
-          <li> <a id="overview_tab" href="#"  class="active"><span>123</span>Overview</a> </li>
-          <li> <a id="discussion_tab" href="#" ><span>12</span> Discussions</a> </li>
+          <li> <a id="overview_tab" href="#"  class="active">Overview</a> </li>
+          <li> <a id="discussion_tab" href="#" > Discussions</a> </li>
           <li> <a id="question_tab" href="#">Questions</a> </li>
-          <li> <a id="deadline_tab" href="#"><span>1</span> Deadlines</a> </li>
+          <li> <a id="deadline_tab" href="#"> Deadlines</a> </li>
           <li> <a id="calendar_tab" href="#">Calendar</a> </li>
         </ul>
         <div id="common-middle-contents">
@@ -409,7 +418,7 @@
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="follow-names">
-                    <ul class="follow-name-left show-all-block">
+                    <ul class="follow-name-left ">
                       <li><span id="{{datas.userId.id}}" >@{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </span> -  {{datas.timeCreated}}  -  {{datas.messageAccess.name}}</li>
                     </ul>
                     <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button">follow</a></div>
@@ -434,14 +443,16 @@
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
                         <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message"><span>{{datas.rocks}}</span></a></li>
-                        <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
+                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
 						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
                       </ul>
                        
                       </div>
                       <div id="{{datas.id.id}}-allComments" class="comment-wrapper">
                       </div>
-					  <div id="{{datas.id.id}}-newCommentList" class="comment-wrapper">
+					  <div id="{{datas.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
+                      </div>
+                       <div id="{{datas.id.id}}-msgRockers" class="comment-wrapper" style="display: none;">
                       </div>
                   </div>
                 </div>
@@ -467,7 +478,7 @@
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="follow-names">
-                    <ul class="follow-name-left show-all-block">
+                    <ul class="follow-name-left ">
                       <li><span id="{{datas.userId.id}}" >@{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </span> -  {{datas.timeCreated}}  -  {{datas.messageAccess.name}}</li>
                     </ul>
                     <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button">follow</a></div>
@@ -476,32 +487,67 @@
                   
                   <!-- start doc section -->
                   <div id="Docs" class="doc">
-					<div class="image-wrapper hovereffect">
-					  <div class="hover-div"><img src="{{datas.anyPreviewImageUrl}}" class="filmedia-picture">
+                  
+                  <div  class="item">  
+					  <div id="{{datas.id.id}}"   name="single-doc">
+					<div class="image-wrapper hovereffect" >
+					  <div class="hover-div"><img class="filmedia-picture" src="{{datas.anyPreviewImageUrl}}">
 					    <div class="hover-text">               
-					     <div id="{{datas.id.id}}" class="comment-wrapper">                                
+					     <div class="comment-wrapper" id="{{image.id.id}}">                                
 					     <div id="media-{{datas.id.id}}">
 					      <h4>Media Name</h4>                                
 					      <div class="description-info">      
 					         <div class="gallery"></div>
 						 <div class="gallery hrtxt">
-					           <a rel="prettyPhoto" style="text-decoration: none" href="{{datas.anyPreviewImageUrl}}">
+					           <a href="{{datas.anyPreviewImageUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
 					              <div class="description-left">   
-					              <p id="{{datas.id.id}}" class="google_doc doc-description"><input type="hidden" value="doc.url" id="id-{{datas.id.id}}"> Media Description..</p>
+					              <p class="google_doc doc-description" id="{{datas.id.id}}"><input type="hidden" id="id-{{datas.id.id}}" value="doc.url">Media Description</p>
 						    </div>
 					           </a>
 						 </div>     
 					    
 					      <div class="comment-wrapper2">
-					      <a data-original-title="Search by Users" class="tag-icon" href="#"></a><a class="hand-icon" href="#"></a>
-					      <a class="message-icon" href="#"></a><a class="share-icon" href="#"></a>
+					      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>
+					      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
 					      </div></div></div>
-					      <h5 id="{{datas.id.id}}" class="imgtitle"><span><img src="images/title-plus.png"></span> Title &amp; Description</h5>         
+					      <h5 class="imgtitle" id="{{datas.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
 					     <div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>
 					    </div>
 					   </div>
 					  </div>
-</div>
+					</div>  
+					
+					</div>
+			</div>
+                  
+                  
+                  
+<!-- 					<div class="image-wrapper hovereffect"> -->
+<!-- 					  <div class="hover-div"><img src="{{datas.anyPreviewImageUrl}}" class="filmedia-picture"> -->
+<!-- 					    <div class="hover-text">                -->
+<!-- 					     <div id="{{datas.id.id}}" class="comment-wrapper">                                 -->
+<!-- 					     <div id="media-{{datas.id.id}}"> -->
+<!-- 					      <h4>Media Name</h4>                                 -->
+<!-- 					      <div class="description-info">       -->
+<!-- 					         <div class="gallery"></div> -->
+<!-- 						 <div class="gallery hrtxt"> -->
+<!-- 					           <a rel="prettyPhoto" style="text-decoration: none" href="{{datas.anyPreviewImageUrl}}"> -->
+<!-- 					              <div class="description-left">    -->
+<!-- 					              <p id="{{datas.id.id}}" class="google_doc doc-description"><input type="hidden" value="doc.url" id="id-{{datas.id.id}}"> Media Description..</p> -->
+<!-- 						    </div> -->
+<!-- 					           </a> -->
+<!-- 						 </div>      -->
+					    
+<!-- 					      <div class="comment-wrapper2"> -->
+<!-- 					      <a data-original-title="Search by Users" class="tag-icon" href="#"></a><a class="hand-icon" href="#"></a> -->
+<!-- 					      <a class="message-icon" href="#"></a><a class="share-icon" href="#"></a> -->
+<!-- 					      </div></div></div> -->
+<!-- 					      <h5 id="{{datas.id.id}}" class="imgtitle"><span><img src="images/title-plus.png"></span> Title &amp; Description</h5>          -->
+<!-- 					     <div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div> -->
+<!-- 					    </div> -->
+<!-- 					   </div> -->
+<!-- 					  </div> -->
+<!-- </div> -->
                   </div>
                   <!-- End doc section -->
                   
@@ -526,14 +572,16 @@
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
                         <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message"><span>{{datas.rocks}}</span></a></li>
-                        <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
+                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
 						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
                       </ul>
                        
                       </div>
                       <div id="{{datas.id.id}}-allComments" class="comment-wrapper">
                       </div>
-					  <div id="{{datas.id.id}}-newCommentList" class="comment-wrapper">
+					  <div id="{{datas.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
+                      </div>
+					 <div id="{{datas.id.id}}-msgRockers" class="comment-wrapper" style="display: none;">
                       </div>
                   </div>
                 </div>
@@ -557,7 +605,7 @@
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="follow-names">
-                    <ul class="follow-name-left show-all-block">
+                    <ul class="follow-name-left">
                       <li><span id="{{datas.userId.id}}" >@{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </span> -  {{datas.timeCreated}}  -  {{datas.messageAccess.name}}</li>
                     </ul>
                     <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button">follow</a></div>
@@ -566,48 +614,95 @@
                   
                    <!-- start doc section -->
                   <div id="Docs" class="doc">
-					<div id=" " class="image-wrapper hovereffect">
-                  	<div class="hover-div">
-                  	   <div class="doc-image">
+                  
+                  <div class="item">  
+				  <div    name="single-doc">
+				 <div class="image-wrapper hovereffect" >
+				  <div class="hover-div">
+				   <div class="doc-image">
                   		{{#if commenImage }}
                  			 <img  src="{{previewImage}}" class="cover-picture" /> <h3 class="common-doctext" >{{extension}}</h3>
                  		{{else}}
                  			<img  src="{{previewImage}}" class="cover-picture" /> 
                          {{/if}}
-                  		</div>
-                    	<div class="hover-text">
-                    		<div class="comment-wrapper">
-                    			<a style="text-decoration: none" href=""> </a>
-                    			<div id="media-{{datas.id.id}}">
-                    				<a style="text-decoration: none" href="">
-                   						 <h4>Document Name</h4>
-                				    </a>
-                				    <div class="description-info">
-                				    	<a style="text-decoration: none" href="">
-                				    		<div class="description-left">
-                				    			<p class="doc-description"> Document Description..</p>
-                				    		</div>
-                				    	</a> 
-                				    	<div class="comment-wrapper2">
-                				    	   <a data-original-title="Search by Users" class="tag-icon" href="#"></a>
-                				    	   <a class="hand-icon" href="#"></a>
-                				    	   <a class="message-icon" href="#"></a>    
-                				    	   <a class="share-icon" href="#"></a>
-                				    	</div>
-                				    </div>
-                				 </div>
-                				 <h5 id="{{image.id.id}}" class="imgtitle">
-                				 	<span><img src="images/title-plus.png"></span>
-                				 	 Title &amp; Description
-                				 </h5>
-                				 <div class="dateinfo">
-                				 	<span class="state">State</span>
-                				 	<span class="date">{{datVal}}</span>
-                				 </div>
-                			</div>
-                		</div>
-                   </div>
-                   </div>
+                  	</div>
+				    <div class="hover-text">               
+				     <div class="comment-wrapper" id="{{doc.id.id}}">                                
+				     <div id="media-{{datas.id.id}}">
+				      <h4>Document Name</h4>                                
+				      <div class="description-info"><div class="description-left mediapopup" id="{{doc.id.id}}">
+				        <input type="hidden"  value="">      
+				        <p class="doc-description">Document Description..</p>
+				      </div>
+				      <div class="comment-wrapper2">
+				      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon show_rockers"></a>
+				      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
+				      </div></div></div>
+				      <h5 class="doctitle"  id="{{image.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
+				     <div class="dateinfo"><span class="state">State</span><span class="date">{{datVal}}</span></div>
+				    </div>
+				   </div>
+				  </div>
+				 </div>
+				
+				   <div id="{{doc.id.id}}-docRockers-list" class="docRockers_popup"></div>
+				   </div>  
+				</div> 
+                  
+                  
+                  
+                  
+                  
+                  
+<!-- 					<div id=" " class="image-wrapper hovereffect"> -->
+<!--                   	<div class="hover-div"> -->
+<!--                   	   <div class="doc-image"> -->
+<!--                   		{{#if commenImage }} -->
+<!--                  			 <img  src="{{previewImage}}" class="cover-picture" /> <h3 class="common-doctext" >{{extension}}</h3> -->
+<!--                  		{{else}} -->
+<!--                  			<img  src="{{previewImage}}" class="cover-picture" />  -->
+<!--                          {{/if}} -->
+<!--                   		</div> -->
+<!--                     	<div class="hover-text"> -->
+<!--                     		<div class="comment-wrapper"> -->
+<!--                     			<a style="text-decoration: none" href=""> </a> -->
+<!--                     			<div id="media-{{datas.id.id}}"> -->
+<!--                     				<a style="text-decoration: none" href=""> -->
+<!--                    						 <h4>Document Name</h4> -->
+<!--                 				    </a> -->
+<!--                 				    <div class="description-info"> -->
+<!--                 				    	<a style="text-decoration: none" href=""> -->
+<!--                 				    		<div class="description-left"> -->
+<!--                 				    			<p class="doc-description"> Document Description..</p> -->
+<!--                 				    		</div> -->
+<!--                 				    	</a>  -->
+<!--                 				    	<div class="comment-wrapper2"> -->
+<!--                 				    	   <a data-original-title="Search by Users" class="tag-icon" href="#"></a> -->
+<!--                 				    	   <a class="hand-icon" href="#"></a> -->
+<!--                 				    	   <a class="message-icon" href="#"></a>     -->
+<!--                 				    	   <a class="share-icon" href="#"></a> -->
+<!--                 				    	</div> -->
+<!--                 				    </div> -->
+<!--                 				 </div> -->
+<!--                 				 <h5 id="{{image.id.id}}" class="imgtitle"> -->
+<!--                 				 	<span><img src="images/title-plus.png"></span> -->
+<!--                 				 	 Title &amp; Description -->
+<!--                 				 </h5> -->
+<!--                 				 <div class="dateinfo"> -->
+<!--                 				 	<span class="state">State</span> -->
+<!--                 				 	<span class="date">{{datVal}}</span> -->
+<!--                 				 </div> -->
+<!--                 			</div> -->
+<!--                 		</div> -->
+<!--                    </div> -->
+<!--                    </div> -->
+                   
+                   
+                   
+                   
+                   
+                   
+                   
                   </div>
                   <!-- End doc section -->
                   
@@ -630,14 +725,16 @@
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
                         <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message"><span>{{datas.rocks}}</span></a></li>
-                        <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
+                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
 						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
                       </ul>
                        
                       </div>
                       <div id="{{datas.id.id}}-allComments" class="comment-wrapper">
                       </div>
-					  <div id="{{datas.id.id}}-newCommentList" class="comment-wrapper">
+					  <div id="{{datas.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
+                      </div>
+ 					 <div id="{{datas.id.id}}-msgRockers" class="comment-wrapper" style="display: none;">
                       </div>
                   </div>
                 </div>
@@ -665,6 +762,26 @@
                             </ul>
                           </div>
                           <p>{{commentBody}}</p>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+</script>
+
+
+<!--  comment templete for stream discussions messages  comments-->
+ <script type="text/x-handlebars-template" id="tpl-message-rockers">
+ <div class="answer-description"  >
+                        <div class="follw-left">
+                          
+                        </div>
+                        <div class="answer-description-info">
+                          <div class="follow-names">
+                            <ul class="follow-name-left show-all-block">
+                              <li><span>@{{rocker}} </span> </li>
+                              
+                            </ul>
+                          </div>
+                         
                         </div>
                         <div class="clear"></div>
                       </div>
@@ -950,7 +1067,7 @@
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
                         <li><a href="#" class="rocks-up"><span>0</span></a></li>
-                        <a class="btn grey-buttons active" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
+                        <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
 						<a  class="btn grey-buttons  href="#">Show All</a>
                       </ul>
                        
@@ -990,7 +1107,7 @@
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
                         <li><a href="#" class="rocks"><span>1</span></a></li>
-                        <a class="btn grey-buttons active" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
+                        <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
                       </ul>
                       <a class="btn blue-buttons showmessage" href="#">Show All</a> </div>
                     <div class="comment-wrapper" id="comments">
@@ -1122,7 +1239,7 @@
       <div class="right-container">
         <div class="stream-header">
           <div class="stream-header-left">
-            <h2>Intro to Business<a href="#">Show Details</a></h2>
+            <h2>Intro to Business<a id="show-details" href="#">Show Details</a></h2>
             <ul class="strem-header-info">
               <li class="mebers">35 Members</li>
               <li class="claimed">Claimed By: <a href="#">Professor Smith</a> </li>
@@ -1143,10 +1260,10 @@
           <div class="stream-top-shadow"><img src="images/shadow.png"/></div>
         </div>
         <ul class="stream-tab">
-          <li> <a href="#"><span>123</span>Overview</a> </li>
-          <li> <a href="#"><span>12</span> Discussions</a> </li>
+          <li> <a href="#">Overview</a> </li>
+          <li> <a href="#"> Discussions</a> </li>
           <li> <a href="#" class="active">Questions</a> </li>
-          <li> <a href="#"><span>1</span> Deadlines</a> </li>
+          <li> <a href="#"> Deadlines</a> </li>
           <li> <a href="#">Calendar</a> </li>
         </ul>
         <div class="stream-wrapper">
@@ -1271,7 +1388,7 @@
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
                         <li><a href="#" class="rocks"><span>57</span></a></li>
-                        <a class="btn grey-buttons active" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
+                        <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
                       </ul>
                       <a class="btn blue-buttons showmessage" href="#">Show All</a> </div>
                   </div>
@@ -1310,7 +1427,7 @@
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
                         <li><a href="#" class="rocks"><span>57</span></a></li>
-                        <a class="btn grey-buttons active" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
+                        <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
                       </ul>
                       <a class="btn blue-buttons showmessage" href="#">Show All</a> </div>
                     <div class="comment-wrapper" id="comments">
@@ -1388,7 +1505,7 @@
               <li>
                 <div class="settings-menu">
                   <div class="btn-group">
-                    <button id="view-by-select" class="btn seetings-toggle sort-toogle ">All Files </button>
+                    <button id="view-by-select" class="btn seetings-toggle sort-toogle sort-toogle-none">All Files </button>
                     <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
                     <ul id="view-by-list" class="dropdown-menu">
                       <li><a href="#">All Files</a></li>
@@ -1402,10 +1519,10 @@
 
 				<div class="settings-menu">
                   <div class="btn-group">
-                    <button id="view-files-byrock-select" class="btn seetings-toggle sort-toogle ">By Highest Rocks</button>
+                    <button  id="view-files-byrock-select" class="btn seetings-toggle sort-toogle  sort-toogle-none">By Highest Rocks</button>
                     <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class=" settings-caret"></span></button>
                     <ul id="view-files-byrock-list" class="dropdown-menu">
- 					  <li><a href="#">By Highest Rocks</a></li>
+ 					  <li data-sort="rocks"><a href="#">By Highest Rocks</a></li>
                       <li><a href="#">By Tags</a></li>
                     </ul>
                   </div>
@@ -1416,7 +1533,7 @@
               <li>
                 <div class="settings-menu">
                   <div class="btn-group">
-                    <button class="btn seetings-toggle sort-toogle ">Category </button>
+                    <button class="btn seetings-toggle sort-toogle sort-toogle-none">Category </button>
                     <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
                     <ul class="dropdown-menu">
                       <li><a href="#">Products</a></li>
@@ -1430,7 +1547,7 @@
                 <div class="settings-menu">
                   <div class="btn-group">
                     <button class="btn seetings-toggle sort-toogle ">by Class/School </button>
-                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class=" settings-caret"></span></button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle sort-toogle-btn"> <span class=" settings-caret"></span></button>
                     <ul class="dropdown-menu">
                       <li><a href="#">Products</a></li>
                       <li><a href="#">Products</a></li>
@@ -1442,10 +1559,10 @@
             </ul>
             <ul class="then-by">
               <h6>Then by</h6>
-              <li><a href="#">Date</a></li>
-              <li><a href="#">All </a></li>
-              <li><a href="#">Most Recent </a></li>
-              <li><a href="#">Oldest</a></li>
+              <li ><a href="#">Date</a></li>
+              <li data-group="all"><a href="#">All </a></li>
+              <li data-group="recent"><a href="#">Most Recent </a></li>
+              <li data-group="oldest"> <a href="#">Oldest</a></li>
             </ul>
             <div class="clear"></div>
           </div>
@@ -1622,7 +1739,7 @@
               <li>
                 <div class="settings-menu">
                   <div class="btn-group">
-                    <button class="btn seetings-toggle sort-toogle ">File Type </button>
+                    <button class="btn seetings-toggle sort-toogle sort-toogle-none">File Type </button>
                     <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
                     <ul class="dropdown-menu">
                       <li><a href="#">All Files</a></li>
@@ -1632,17 +1749,16 @@
                   </div>
                 </div>
               </li>
-              <li><a href="#"> By Highest Rocks</a></li>
+               
               <li>
 
 				<div class="settings-menu">
                   <div class="btn-group">
-                    <button class="btn seetings-toggle sort-toogle ">By Tag</button>
+                    <button  id="view-files-byrock-select" class="btn seetings-toggle sort-toogle  sort-toogle-none">By Highest Rocks</button>
                     <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class=" settings-caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products </a></li>
+                    <ul id="view-files-byrock-list" class="dropdown-menu">
+ 					  <li data-sort="rocks"><a href="#">By Highest Rocks</a></li>
+                      <li><a href="#">By Tags</a></li>
                     </ul>
                   </div>
                 </div>
@@ -1652,7 +1768,7 @@
               <li>
                 <div class="settings-menu">
                   <div class="btn-group">
-                    <button class="btn seetings-toggle sort-toogle ">Category </button>
+                    <button class="btn seetings-toggle sort-toogle sort-toogle-none ">Category </button>
                     <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
                     <ul class="dropdown-menu">
                       <li><a href="#">Products</a></li>
@@ -1666,7 +1782,7 @@
                 <div class="settings-menu">
                   <div class="btn-group">
                     <button class="btn seetings-toggle sort-toogle ">by Class/School </button>
-                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class=" settings-caret"></span></button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle sort-toogle-btn"> <span class=" settings-caret"></span></button>
                     <ul class="dropdown-menu">
                       <li><a href="#">Products</a></li>
                       <li><a href="#">Products</a></li>
@@ -1679,9 +1795,9 @@
             <ul class="then-by">
               <h6>Then by</h6>
               <li><a href="#">Date</a></li>
-              <li><a href="#">All </a></li>
-              <li><a href="#">Most Recent </a></li>
-              <li><a href="#">Oldest</a></li>
+              <li data-group="all"><a href="#">All </a></li>
+              <li data-sort="date-recent"><a href="#">Most Recent </a></li>
+              <li data-sort="date-oldest"><a href="#">Oldest</a></li>
             </ul>
            <div class="clear"></div> 
           </div>
@@ -1721,9 +1837,11 @@
            </a>
 	 </div>     
     
-      <div class="comment-wrapper2">
-      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>
-      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
+      <div  id="{{image.id.id}}" class="comment-wrapper2">
+      <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
+	  <a href="#" class="hand-icon rock_docs"></a>
+      <a href="#" class="message-icon"></a>
+	  <a href="#" class="share-icon"></a>
       </div></div></div>
       <h5 class="imgtitle" id="{{image.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
      <div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>
@@ -1734,9 +1852,9 @@
   <div class="comment-wrapper1"> 
    <a class="common-icon camera" href="#"></a>
     <ul id="{{image.id.id}}-activities" class="comment-list">
-     <li><a class="eye-icon" href="#">87</a></li>
+     <li><a class="eye-icon" href="#">0</a></li>
      <li><a class="hand-icon show_rockers" href="#">{{image.rocks}}</a></li>
-     <li><a class="message-icon" href="#">10</a></li>
+     <li><a class="message-icon" href="#">0</a></li>
     </ul>
 </div>
 </div>
@@ -1762,8 +1880,9 @@
                             </div>
                           </a>
                        </div>
-                       <div class="comment-wrapper2">
-                        <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>
+                       <div  id="{{video.id.id}}" class="comment-wrapper2">
+                        <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
+						<a href="#" class="hand-icon rock_docs"></a>
                         <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
                        </div>
                      </div>
@@ -1777,9 +1896,9 @@
    <div class="comment-wrapper1"> 
     <a class="common-icon camera" href="#"></a>
      <ul id="{{video.id.id}}-activities" class="comment-list">
-      <li><a class="eye-icon" href="#">87</a></li>
+      <li><a class="eye-icon" href="#">0</a></li>
       <li><a class="hand-icon show_rockers" href="#">{{video.rocks}}</a></li>
-      <li><a class="message-icon" href="#">10</a></li>
+      <li><a class="message-icon" href="#">0</a></li>
      </ul>
    </div>
    <div id="{{video.id.id}}-docRockers-list" class="docRockers_popup"></div>
@@ -1801,8 +1920,9 @@
         <input type="hidden" id="id-{{doc.id.id}}" value="{{doc.documentURL}}">      
         <p class="doc-description">{{doc.documentDescription}}</p>
       </div>
-      <div class="comment-wrapper2">
-      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon show_rockers"></a>
+      <div   id="{{doc.id.id}}" class="comment-wrapper2">
+      <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
+      <a href="#" class="hand-icon rock_docs"></a>
       <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
       </div></div></div>
       <h5 class="doctitle" id="{{doc.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
@@ -1814,9 +1934,9 @@
   <div class="comment-wrapper1"> 
    <a class="common-icon camera" href="#"></a>
     <ul id="{{doc.id.id}}-activities" class="comment-list">
-     <li><a class="eye-icon" href="#">87</a></li>
+     <li><a class="eye-icon" href="#">0</a></li>
      <li><a class="hand-icon show_rockers" href="#">{{doc.documentRocks}}</a></li>
-     <li><a class="message-icon" href="#">10</a></li>
+     <li><a class="message-icon" href="#">0</a></li>
     </ul>
 </div>
    <div id="{{doc.id.id}}-docRockers-list" class="docRockers_popup"></div>
@@ -1875,8 +1995,8 @@
       <div class="description-info"><div class="description-left mediapopup" id="{{ppt.id.id}}">
         <p class="doc-description ">{{ppt.documentDescription}}</p>
       </div>
-      <div class="comment-wrapper2">
-      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon show_rockers"></a>
+      <div id="{{ppt.id.id}}"  class="comment-wrapper2">
+      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_docs"></a>
       <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
       </div></div></div>
       <h5 class="presentationtitle" id="{{ppt.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
@@ -1888,9 +2008,9 @@
   <div class="comment-wrapper1"> 
    <a class="common-icon camera" href="#"></a>
     <ul id="{{ppt.id.id}}-activities" class="comment-list">
-     <li><a class="eye-icon" href="#">87</a></li>
+     <li><a class="eye-icon" href="#">0</a></li>
      <li><a class="hand-icon show_rockers" href="#">{{ppt.documentRocks}}</a></li>
-     <li><a class="message-icon" href="#">10</a></li>
+     <li><a class="message-icon" href="#">0</a></li>
     </ul>
 </div>
    <div id="{{ppt.id.id}}-docRockers-list" class="docRockers_popup"></div>
@@ -1911,8 +2031,9 @@
       <div class="description-info"><div class="description-left mediapopup" id="{{pdf.id.id}}">
         <p class="doc-description ">{{pdf.documentDescription}}</p>
       </div>
-      <div class="comment-wrapper2">
-      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon show_rockers"></a>
+      <div id="{{pdf.id.id}}" class="comment-wrapper2">
+      <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
+     <a href="#" class="hand-icon rock_docs"></a>
       <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
       </div></div></div>
       <h5 class="pdftitle" id="{{pdf.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
@@ -1924,9 +2045,9 @@
   <div class="comment-wrapper1"> 
    <a class="common-icon camera" href="#"></a>
     <ul id="{{pdf.id.id}}-activities" class="comment-list">
-     <li><a class="eye-icon" href="#">87</a></li>
+     <li><a class="eye-icon" href="#">0</a></li>
      <li><a class="hand-icon show_rockers" href="#">{{pdf.documentRocks}}</a></li>
-     <li><a class="message-icon" href="#">10</a></li>
+     <li><a class="message-icon" href="#">0</a></li>
     </ul>
 </div>
    <div id="{{pdf.id.id}}-docRockers-list" class="docRockers_popup"></div>
@@ -1983,28 +2104,22 @@
         });
                         
         // Set up button clicks
-        $('.filter-options li').on('click', function() {
+        $('.then-by li ').on('click', function() {
         	
             var $this = $(this),
-                $grid = $('#grid');
+                $grid = $('#grid'),
+	            sort = $this.data('sort'),
+	            opts = {};
             
-            $('.filter-options .active').removeClass('active');
-            $this.addClass('active');
+            $('.then-by li a.active').removeClass('active');
+            $this.find('a').addClass('active');
 
             $grid.shuffle($this.data('group'));
-        });
-        
-        $('.sort_by li').on('click', function() {
-        	 
-            var $this = $(this),
-                $grid = $('#grid'),
-                sort = $this.data('sort'),
-                opts = {};
-
-            $('.sort_by .active').removeClass('active');
-            $this.addClass('active');
-
-            // We're given the element wrapped in jQuery
+            
+            
+            
+            
+         // We're given the element wrapped in jQuery
             if (sort === 'date-oldest') {
                 opts = {
                     by: function($el) {
@@ -2038,7 +2153,47 @@
          
             // Filter elements
             $grid.shuffle('sort', opts);
+            
+            
         });
+       
+        
+        
+     // Set up button clicks
+        $('#view-files-byrock-list li ').on('click', function() {
+        	 
+            var $this = $(this),
+                $grid = $('#grid'),
+	            sort = $this.data('sort'),
+	            opts = {};
+            
+//             $('.then-by li a.active').removeClass('active');
+//             $this.find('a').addClass('active');
+
+//             $grid.shuffle($this.data('group'));
+            
+            
+            
+            
+         // We're given the element wrapped in jQuery
+         if (sort === 'rocks') {
+            	
+                opts = {
+                        by: function($el) {
+                        	return $el.data('rock');
+                        	
+                        },
+                        reverse :true
+                    }
+         }
+         
+            // Filter elements
+            $grid.shuffle('sort', opts);
+            
+            
+        });
+        
+      
         
 	}
 	
