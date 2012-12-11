@@ -3224,6 +3224,7 @@ text-decoration:none;
  .recent-activities{min-height:388px;}
  
  .calendar-events{min-height:270px;}
+<<<<<<< HEAD
  
  
  
@@ -3266,6 +3267,16 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 		padding: 0 5% !important;}
 		
 
-		
- 
- 
+  /* Edited by aswathy */
+ .modal form .element {
+	float: left;
+        margin-right: 10px;
+        width: 100%;
+}
+.popup_text{
+     border-style:solid;
+     border-width:1px;
+    border-color:#AFA6A6;
+   
+}
+
