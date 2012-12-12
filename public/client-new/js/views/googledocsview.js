@@ -11,10 +11,12 @@ BS.GoogleDocsView = Backbone.View.extend({
                 "click .doctitle" : "editDocTitle",
     //            "click #prevslid" : "previous",
      //           "click #nextslid" : "next",
-      //          "click .rock_docs" : "rocksDocuments",
+                "click .rock_docs" : "rocksDocuments",
 //              "click .doc_msg" : "commentDocuments",
      //           "click .show_rockers" : "showDocRockers"
-//              "click .comment_button" : "postDocComment"
+//              "click .comment_button" : "postDocComment",
+                "click .then-by li a" : "filterDocs",
+                "click #view-files-byrock-list" : "selectViewByRock",
             },
                  
             initialize:function() {
@@ -28,6 +30,21 @@ BS.GoogleDocsView = Backbone.View.extend({
             render:function (eventName) {
                 $(this.el).html(this.template);
                 return this;
+            },
+            
+            /**
+             * NEW THEM - filter docs.. and prevent default action
+             */
+            filterDocs :function (eventName){
+            	 eventName.preventDefault();
+            },
+            
+            /**
+             * NEW THEME - view files 
+             */
+            selectViewByRock: function(eventName){
+            	eventName.preventDefault();
+            	$('#view-files-byrock-select').text($(eventName.target).text());
             },
             
             /*
@@ -267,26 +284,26 @@ BS.GoogleDocsView = Backbone.View.extend({
             },
        
             /**
-            * Rocks Google docs
+            * NEW THEME -  Rocks Google docs
             */
-//            rocksDocuments:function(eventName){ 	   
-//                    eventName.preventDefault();
-//                    var element = eventName.target.parentElement;
-//                    var docId =$(element).attr('id');
-//	  		 // post documentId and get Rockcount 
-//                    $.ajax({
-//	               type: 'POST',
-//	               url:BS.rockDocs,
-//	               data:{
-//	            	   documentId:docId
-//	               },
-//	               dataType:"json",
-//	               success:function(data){	              	 
-//	              	// display the rocks count  
-//	            	$('#'+docId+'-activities li a.hand-icon').html(data);	   
-//	               }
-//	            });
-//       },
+            rocksDocuments:function(eventName){ 	   
+                    eventName.preventDefault();
+                    var element = eventName.target.parentElement;
+                    var docId =$(element).attr('id');
+	  		 // post documentId and get Rockcount 
+                    $.ajax({
+	               type: 'POST',
+	               url:BS.rockDocs,
+	               data:{
+	            	   documentId:docId
+	               },
+	               dataType:"json",
+	               success:function(data){	              	 
+	              	// display the rocks count  
+	            	$('#'+docId+'-activities li a.hand-icon').html(data);	   
+	               }
+	            });
+       },
        /**
         * comments google documents
         */

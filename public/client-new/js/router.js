@@ -982,54 +982,53 @@
 				},
 	
 				/**
-				 * display class stream screen
+				 *  NEW THEME - display class stream screen
 				 */
 				classStream : function() {
 					
-					 BS.user.fetch({ success:function(e) {
-							if(e.get('loggedin') == true) {  
-	 
-								$("#dialog").dialog('close');
-								$('#school-popup').children().detach();
-								BS.classStreamView = new BS.ClassStreamView();
-								BS.classStreamView.render();
-								$('#school-popup').html(BS.classStreamView.el);
-								$("#dialog" ).dialog('close');
-				                $('#for-new-school').hide();
-								/* get all schoolIds under a class */
-								$
-										.ajax({
-											type : 'GET',
-											url : BS.schoolJson,
-											dataType : "json",
-											success : function(datas) {
-				
-												var sSelect = '<select id="schools" class="small selectBox">';
-												_.each(datas, function(data) {
-													sSelect += '<option value ="' + data.assosiatedSchoolId.id
-															+ '" > ' + data.schoolName
-															+ '</option>';
-												});
-												sSelect += '</select>';
-				//								sSelect += '<option value ="add-school" > Add School</option></select>';
-												$('#sShool').html(sSelect);
-												$(".modal select:visible").selectBox();
-											}
-										});
-				
-								
-								$(".radio").dgStyle();
-								$(".modal select:visible").selectBox();
-								$('.modal .datepicker').datepicker();
+					BS.user.fetch({ success:function(e) {
+						if(e.get('loggedin') == true) {  
+	                        
+//							$("#dialog").dialog('close');
+//							$('#school-popup').children().detach();
+							BS.classStreamView = new BS.ClassStreamView();
+							BS.classStreamView.render();
+							$('#beam-popups').html(BS.classStreamView.el);
+							$('#class-stream-popup').modal('show');
+//							$("#dialog" ).dialog('close');
+//			                $('#for-new-school').hide();
+							/* get all schoolIds under a class */
+//							$.ajax({
+//								type : 'GET',
+//								url : BS.schoolJson,
+//								dataType : "json",
+//								success : function(datas) {
+//	
+//									var sSelect = '<select id="schools" class="small selectBox">';
+//									_.each(datas, function(data) {
+//										sSelect += '<option value ="' + data.assosiatedSchoolId.id
+//												+ '" > ' + data.schoolName
+//												+ '</option>';
+//									});
+//									sSelect += '</select>';
+//	//								sSelect += '<option value ="add-school" > Add School</option></select>';
+//									$('#sShool').html(sSelect);
+//									$(".modal select:visible").selectBox();
+//								}
+//							});
+//								
+//							$(".radio").dgStyle();
+//							$(".modal select:visible").selectBox();
+//							$('.modal .datepicker').datepicker();
 					
-							}
-							else {
-								console.log("From Stream => login");
-								BS.AppRouter.navigate("login", {trigger: true});
-							}
+						}
+						else {
+							console.log("From Stream => login");
+							BS.AppRouter.navigate("login", {trigger: true});
+						}
 						
-			           }});		
-				},
+		            }});		
+			    },
 	
 				/**
 				 * display project stream screen

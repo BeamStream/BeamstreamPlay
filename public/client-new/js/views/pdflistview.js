@@ -6,7 +6,9 @@ BS.PdfListView = Backbone.View.extend({
                 "click #prevslid" : "previous",
                 "click #nextslid" : "next",
                 "click .rock_docs" : "rocksDocuments",
-                "click .show_rockers" : "showDocRockers"
+                "click .show_rockers" : "showDocRockers",
+                "click .then-by li a" : "filterDocs",
+                "click #view-files-byrock-list" : "selectViewByRock",
              },
     
             initialize:function(){
@@ -20,6 +22,20 @@ BS.PdfListView = Backbone.View.extend({
             	
                 $(this.el).html(this.template);
                 return this;
+            },
+            /**
+             * NEW THEM - filter docs.. and prevent default action
+             */
+            filterDocs :function (eventName){
+            	 eventName.preventDefault();
+            },
+            
+            /**
+             * NEW THEME - view files 
+             */
+            selectViewByRock: function(eventName){
+            	eventName.preventDefault();
+            	$('#view-files-byrock-select').text($(eventName.target).text());
             },
           
             pdflisting :function(eventName){

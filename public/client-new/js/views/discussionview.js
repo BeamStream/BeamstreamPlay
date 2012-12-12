@@ -45,7 +45,10 @@
 			 "keypress #sort_by_key" : "sortMessagesByKey",
 			 "mouseenter .rocks-message":"showUnrockMessage",
 			 "mouseleave .rocks-message-plus":"showMessageIcon",
-			 "mouseleave .rocks-message-minus":"showMessageIcon"
+			 "mouseleave .rocks-message-minus":"showMessageIcon",
+			 "click .who-rocked-it" : "showRockersList",
+			 "click .rock_media" : "rocksMedias",
+			 "click .rock_documents" : "rocksDocuments",
 
 		},
 	
@@ -65,7 +68,9 @@
 			BS.pageLimit = 10;
 			var self = this;
 			self.file = "";
+			
 			$(window).bind('scroll', function (ev) {
+				
 				var scrollTop =$(window).scrollTop();
 				var docheight = $(document).height();
 				var widheight = $(window).height();
@@ -121,9 +126,8 @@
 	     */
 	    getAllMessages :function(streamid,pageNo,limit){
 	    	
-//	    	 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-//	         var trueurl='';
 	         var self = this;
+	         
 	         /* get all messages of a stream  */
 			 $.ajax({
 					type : 'POST',
@@ -145,9 +149,10 @@
 	     * NEW THEME - fetch and show all comments of a message
 	     */
 	    showAllComments: function(msgId){
+	    	
 	    	var count = 0;
 			var parentMsg = msgId;
-//			var parent =$('#'+parentMsg+'').closest('li').attr('id');
+
 			$.ajax({
 				type: 'POST',
 	            url: BS.allCommentsForAMessage,
@@ -201,20 +206,17 @@
 	                {
 	        	    	$('#'+parentMsg+'-totalComment').html(cmtCount);
 	        	    	$('#'+parentMsg+'-allComments').hide();
-//	        	    	/* for comment Header   */
-//	        	    	var cmdHead = $("#tpl-comment-header").html();
-//	        	    	var cmdHeadTemplate = Handlebars.compile(cmdHead);
-//	        	    	$('#'+parent+'-header').html(cmdHeadTemplate({parentId : parent , cmtCount : cmtCount}));
-//	        	    	$('#'+parent+'-hideComment').addClass('disabled');
-//	        	    	$('#'+parent+'-commentlists').hide();
+
 	                }
 	            }
 			});
 	    },
+	    
 	    /**
 	     * NEW THEME - post message on enter key
 	     */
 	    postMessageOnEnterKey: function(eventName){
+	    	
 	    	var self = this;
 			 
 			if(eventName.which == 13) {
@@ -266,11 +268,12 @@
 			    }
 		 	}
     	},
+    	
 	    /**
 	     * NEW THEME - post messages on post button click 
 	     */
 	    postMessage: function(eventName){
-//	    	eventName.preventDefault();
+	    	
 	    	// upload file 
 	        var self = this;
 	        var streamId =  $('.sortable li.active').attr('id');
@@ -322,6 +325,12 @@
 	  	                		"datas" : data,
 	  		            }						  
 
+	  	                /* Pubnub auto push */
+	  	                PUBNUB.publish({
+	  	                	channel : "stream",
+	  	                		message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,prifileImage : BS.profileImageUrl}
+	  	                }) 
+                      
 //                        $('input#'+data.id.id+'-url').val(msgUrl);  
                         $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
 	                           
@@ -724,7 +733,7 @@
  	                /* Auto push */   
  		        	var streamId =  $('.sortable li.active').attr('id');
 // 	                PUBNUB.publish({
-// 	                	channel : "stream",
+// 	                	channel : "msgFollow",
 // 	                    message : { pagePushUid: self.pagePushUid ,streamId:streamId}
 // 	                })
 	            }
@@ -868,6 +877,10 @@
    							 
    							if(!$('#'+parent+'-allComments').is(':visible'))
    							{  
+   								
+   								$('#'+parent+'-msgRockers').slideUp(1);
+   								$('#'+parent+'-newCommentList').slideDown(1);
+
    								var newComments = $("#tpl-discussion-messages-newComment").html();
    								var newCmtTemplate = Handlebars.compile(newComments);
    								$('#'+parent+'-newCommentList').prepend(newCmtTemplate(data));
@@ -900,12 +913,14 @@
 			var messageId =$(element).parents('div.follow-container').attr('id');
 			if($('#'+messageId+'-allComments').is(":visible"))
 			{
+				$('#'+messageId+'-msgRockers').slideUp(1);
 				$('#'+messageId+'-newCommentList').html('');
 				$('#'+messageId+'-allComments').slideUp(600); 
 				$('#'+messageId+'-show-hide').text("Show All");
 			}
 			else
 			{
+				$('#'+messageId+'-msgRockers').slideUp(1);
 				$('#'+messageId+'-newCommentList').html('');
 				$('#'+messageId+'-allComments').slideDown(600); 
 				$('#'+messageId+'-show-hide').text("Hide All");
@@ -921,12 +936,14 @@
 			var messageId =$(element).parents('div.follow-container').attr('id');
 			if($('#'+messageId+'-show-hide').text() == "Hide All")
             {
+				$('#'+messageId+'-msgRockers').slideUp(1);
 				$('#'+messageId+'-newCommentList').html('');
 				$('#'+messageId+'-allComments').slideUp(600); 
 				$(eventName.target).text("Show All");
             }
 			else
 			{
+				$('#'+messageId+'-msgRockers').slideUp(1);
 				$('#'+messageId+'-newCommentList').html('');
 				$('#'+messageId+'-allComments').slideDown(600);
 				$(eventName.target).text("Hide All");
@@ -992,6 +1009,7 @@
          * NEW THEME -  get uploaded files 
          */
         getUploadedData: function(e){
+        	
         	var self = this;;
     	    file = e.target.files[0];
     	    var reader = new FileReader();
@@ -1009,6 +1027,7 @@
          * NEW THEME - select private to class options
          */
         selectPrivateToList: function(eventName){
+        	
         	eventName.preventDefault();
         	$('#select-privateTo').text($(eventName.target).text());
         	
@@ -1061,15 +1080,13 @@
         		$(eventName.target).parents('li').addClass('active');
         	}
         	
-        
-        	
-        	
         },
         
         /**
          * NEW THEME - sort messages within a period 
          */
         sortMessagesWithinAPeriod: function(eventName){
+        	
         	eventName.preventDefault();
         	$('#date-sort-select').text($(eventName.target).text());
         },
@@ -1078,6 +1095,7 @@
          *  NEW THEME - Sort Messages/Discussions
          */
         sortMessages: function(eventName){
+        	
         	eventName.preventDefault();
         	var self = this;
         	var streamId = $('.sortable li.active').attr('id');
@@ -1149,6 +1167,7 @@
          * NEW THEME - sort messages by Most Recent 
          */
         sortByMostRecent: function(streamId,pageNo,limit){
+        	
         	var self = this;
         	$.ajax({
         		type : 'POST',
@@ -1194,8 +1213,6 @@
 	  		});
         },
         
-       
-		 
         /**
          * NEW THEME - Display messages 
          */
@@ -1243,9 +1260,13 @@
                 else
                 {          
                      // set first letter of extension in capital letter  
-	                	 extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
-	                	    return letter.toUpperCase();
-	                	 });
+                	  if(extension)
+                	  {
+                		  extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+                			  return letter.toUpperCase();
+  	                	  }); 
+                	  }
+	                	 
                           
                 }
                
@@ -1458,941 +1479,152 @@
         
         
         /**
-		  * NEW THEME - show  
+		  * NEW THEME - show  + / - symbols on rock icons 
 		  */
-		 showUnrockMessage:function(eventName){
-			 eventName.preventDefault();
-			 var element = eventName.target.parentElement;
+		showUnrockMessage:function(eventName){
+			eventName.preventDefault();
+			var element = eventName.target.parentElement;
 			 
-			 var messageId =$(element).parents('div.follow-container').attr('id');
+			var messageId =$(element).parents('div.follow-container').attr('id');
 			  
 			 /* make a call to check whether the logged user is already rock this message*/ 
-			 $.ajax({
-	             type: 'POST',
-	             url:BS.isARockerOfMessage,
-	             data:{
-	            	 messageId:messageId
-	             },
-	             dataType:"json",
-	             success:function(data){
-	            	 	if(data == "true")
-		            	 {
-		            		 $('#'+messageId+'-msgRockCount').removeClass('rocks-message');
-		            		 $('#'+messageId+'-msgRockCount').addClass('rocks-message-minus');			            		 
-		            	 }
-		            	 else
-		            	 {
-		            		 $('#'+messageId+'-msgRockCount').removeClass('rocks-message');
-		            		 $('#'+messageId+'-msgRockCount').addClass('rocks-message-plus');
-		            	 }
+			$.ajax({
+				type: 'POST',
+				url:BS.isARockerOfMessage,
+				data:{
+					messageId:messageId
+				},
+				dataType:"json",
+				success:function(data){
+					if(data == "true")
+	            	{
+	            		$('#'+messageId+'-msgRockCount').removeClass('rocks-message');
+	            		$('#'+messageId+'-msgRockCount').addClass('rocks-message-minus');			            		 
+	            	}
+	            	else
+	            	{
+	            		$('#'+messageId+'-msgRockCount').removeClass('rocks-message');
+	            		$('#'+messageId+'-msgRockCount').addClass('rocks-message-plus');
+	            	}
 	            	 
-	             }
-	          });
+			    }
+            });
 			 
+	 	},
+		 
+		/**
+		 * NEW THEME 
+		 */
+		showMessageIcon: function (eventName){
+			
+			eventName.preventDefault();
+			var element = eventName.target.parentElement;
+	 
+			var messageId =$(element).parents('div.follow-container').attr('id');
+			$('#'+messageId+'-msgRockCount').removeClass('rocks-message-plus');
+			$('#'+messageId+'-msgRockCount').removeClass('rocks-message-minus');
+			$('#'+messageId+'-msgRockCount').addClass('rocks-message');
 			 
-		 },
+		},
 		 
 		 /**
-		  * NEW THEME 
+		  * NEW THEME - show Message rockers list 
 		  */
-		 showMessageIcon: function (eventName){
-			 eventName.preventDefault();
-			 var element = eventName.target.parentElement;
+		showRockersList: function(eventName){
 			 
-			 var messageId =$(element).parents('div.follow-container').attr('id');
-			 $('#'+messageId+'-msgRockCount').removeClass('rocks-message-plus');
-			 $('#'+messageId+'-msgRockCount').removeClass('rocks-message-minus');
-			 $('#'+messageId+'-msgRockCount').addClass('rocks-message');
-			 
-		 },
-        
-	    /**
-	     * get all class streams of a user
-	     */
-	    getClassStreams: function(type){
-	    	 
-	    	 var self =this;
-	 		 $.ajax({
-	 				type : 'GET',
-	 				url : BS.classStreamsForUser,
-	 				dataType : "json",
-	 				success : function(datas) {
-	 					 var classStreams ='';
-	 					 var streams ='';
-	 					 _.each(datas, function(data) {
-	 						 
-	 						streams+= '<li  ><span class="flag-piece"></span><a id ="'+data.id.id+'" name ="'+data.streamName+'" href="#">'+data.streamName+' <i class="icon"></i></a><span class="popout_arrow"><span></span></span></li>';
-	 						classStreams+= '<li  id="'+data.id.id+'"><a id="'+data.id.id+'"  href="#">'+data.streamName+'</a></li>';
-	 					 });
-	 					 if(type == 'sort')
-	 					 {
-	 						 $('#streams-list').html(streams);
-	 						 $('#streams-list li:first').addClass('active');
-	 						 
-	 						 // display the messages of the first stream in the stream list by default
-	 	                     var streamId = $('#streams-list li.active a').attr('id');
-	 	                     var streamName = $('#streams-list li.active a').attr('name');
-	 	                     
-	 	                     //right one list
-	 	             		 $('#public-classes').html(classStreams);
-	
-	 	                     //set active class on right top
-	 	                     $('#public-classes').find('li.active').removeClass('active');
-	 	              	     $('#public-classes').find('li#'+streamId+'').addClass('active');
-	 	                     
-	 	                     // render sub menus in stream page
-	 	                     var source = $("#tpl-stream-page-menus").html();
-	 	             		 var template = Handlebars.compile(source);
-	 	             		 $('#sub-menus').html(template({streamName : streamName}));
-	 	             		 $('.timeline_items').html("");
-	 	             		 BS.pagenum =1;
-	 	             		 if(streamId)
-	 	             			self.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
-	 	             	 
-	 					 }
-	 					 else if(type == "public")
-	 					 {
-	 						 $('#public-classes').html(classStreams);
-	 						 
-	 						 //set active  for the same activated class at left 
-	 						 var sId = $('#streams-list li.active a').attr('id');
-	 						 $('#public-classes').find('li#'+sId+'').addClass('active');
-	 					 }
-	 				}
-	 		 });
-	    },
-	   
-	    /**
-	     *  hover over for Create Stream button
-	     */
-	    mouseOver:function () {
-	    	 
-	    	 // stops the hide event if we move from the trigger to the popup element
-		     if (this.hideDelayTimer) clearTimeout(this.hideDelayTimer);
-	           
-		     // don't trigger the animation again if we're being shown, or already visible
-		     if (this.shown) {
-		        return;
-		     } else 
-		     {
-		    	this.beingShown = true;
-	            var x= $('#create_stream').position();
-	            var top = x.top - 45;
-		        // reset position of popup box
-		    	$('.popup').css({
-			        top:  top,
-			        left: 380,
-			        display: 'block' // brings the popup back in to view
-		        })
-		        // (we're using chaining on the popup) now animate it's opacity and position
-		        .animate({
-			        top: '-=' + this.distance + 'px',
-			        opacity: 1
-		        },this.time, 'swing', function() {  
-			        // once the animation is complete, set the tracker variables
-			        this.beingShown = false;
-			        this. shown = true;
-		        });
-		      }
-	    },
-	    
-	    /**
-	     *  hide hover over list for Create Stream button
-	     */ 
-	    mouseOut:function (){
-	    	 
-	    	  // reset the timer if we get fired again - avoids double animations
-		      if (this.hideDelayTimer) clearTimeout(this.hideDelayTimer);
-		      
-		      // store the timer so that it can be cleared in the mouseover if required
-		      this.hideDelayTimer = setTimeout(function () {
-		    	  
-		    	  this.hideDelayTimer = null;
-		    	  $('.popup').animate({
-			          top: '-=' + this.distance + 'px',
-			          opacity: 0
-		          }, this.time, 'swing', function () {
-			          // once the animate is complete, set the tracker variables
-			          this.shown = false;
-			          // hide the popup entirely after the effect (opacity alone doesn't do the job)
-			          $('.popup').css('display', 'none');
-		        });
-		      }, this.hideDelay);
-	    },
-	 
-	    /**
-	     * display class stream
-	     */
-	    classStream :function(eventName) {
-	    	eventName.preventDefault();
-	    	BS.AppRouter.navigate("classStream", {trigger: true});
-	    },
-	    
-	    /**
-	     * display Project stream screen
-	     */
-	    projectstream :function(eventName) {
-	    	 
-	    	$('.modal-backdrop').show();
-	    	this.projectStream = new BS.ProjectStreamView();
-	    	this.projectStream.render();
-	    	$('#school-popup').html(this.projectStream.el);
-	    
-	    },
-	    
-	    /**
-	     * display Study stream
-	     */
-	    studyStream :function(eventName) {
-	    	 
-	    	$('.modal-backdrop').show();
-	    	this.studytStream = new BS.StudyStreamView();
-	    	this.studytStream.render();
-	    	$('#school-popup').html(this.studytStream.el);
-	    
-	    },
-	    
-	    /**
-	     * display Group stream
-	     */
-	    groupStream :function(eventName) {
-	    	 
-	    	$('.modal-backdrop').show();
-	    	this.grouptStream = new BS.GroupStreamView();
-	    	this.grouptStream.render();
-	    	$('#school-popup').html(this.grouptStream.el);
-	    
-	    },
-	    
-	    /**
-	     * display Peer stream
-	     */
-	    peerStream :function(eventName) {
-	    	 
-	    	$('.modal-backdrop').show();
-	    	this.peertStream = new BS.PeerStreamView();
-	    	this.peertStream.render();
-	    	$('#school-popup').html(this.peertStream.el);
-	    
-	    },
-	    
-	    /**
-	     * display friend stream
-	     */
-	    friendStream :function(eventName) {
-	    	 
-	    	$('.modal-backdrop').show();
-	    	this.friendStream = new BS.FriendStreamView();
-	    	this.friendStream.render();
-	    	$('#school-popup').html(this.friendStream.el);
-	    
-	    },
-	    
-	    /**
-	     * select one stream from stream list
-	     */
-	    selectOneStream :function(eventName){
-	       eventName.preventDefault();
-	       var id = eventName.target.id;
-	       var streamName = eventName.target.name;
-	      
-	       streamName = $('#'+id+'').text();
-	
-	       $('#streams-list li.active').removeClass('active');
-	       $('#'+id).parents('li').addClass('active');
-	      
-	       $('#sort-messages').find('li.active').removeClass('active');
-		   $('#highest-rated').closest('li').addClass('active');
-			 
-	       //set active class on right top
-	       $('#public-classes').find('li.active').removeClass('active');
-		   $('#public-classes').find('li#'+id+'').addClass('active');
-	      
-	       // render sub menus in stream page
-	       var source = $("#tpl-stream-page-menus").html();
-		   var template = Handlebars.compile(source);
-		   $('#sub-menus').html(template({streamName : streamName}));
-			 
-	       // call the method to display the messages of the selected stream
-		   $('.timeline_items').html("");
-		  
-		   BS.pagenum = 1;
-		   this.getMessageInfo(id,BS.pagenum,BS.pageLimit);
-	    },
-
-	       
-	    
-	    /**
-	     * get all details about messages and its comments of a stream
-	     */
-	    getMessageInfo :function(streamid,pageNo,limit){
-	        var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-	         var trueurl='';
-	         var self = this;
-	         /* get all messages of a stream  */
-			 $.ajax({
-					type : 'POST',
-					url : BS.streamMessages,
-					data :{
-						streamId :streamid,
-						pageNo : pageNo,
-						limit : limit
-						
-					},
-					dataType : "json",
-					success : function(data) {
-						 
-						   //hide page loader image
-						   if(!data.length)
-							   $('.page-loader').hide();
-							   
-						    //display the messages
-						  _.each(data, function(data) {
-							  
-								var msgBody = data.messageBody;
-	                                                        
-	//                                                        var links =  msgBody.match(BS.urlRegex); 
-	                                                        var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
-	                                                               trueurl= msgUrlw;    
-	                                                               
-	                                                                return msgUrlw;
-	                                                             });
-	                                                       var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file                                                  
-	                                                        if(!extension){                           //to check the extension of the url
-	                                                        if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) {
-	                                                            
-	                                                             var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-	                                                                 return '<a class="strmdoc" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
-	                                                            });
-	                                                        }
-	                                                        else{
-	                                                                    var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-	                                                                 return '<a target="_blank" href="' + url + '">' + url + '</a>';
-	                                                            });
-	                                                        }
-	                                                        }
-	                                                         else{         //url has extension
-	                                                             var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
-	                                                                 return '<a class="uploaded" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
-	                                                            });
-	                                                         }
-								var datas = {
-	 							 	 "datas" : data,
-	 						    }
-								  
-								var source = $("#tpl-messages").html();
-		  						var template = Handlebars.compile(source);
-		  						$('.page-loader').hide();
-		  						$('.timeline_items').append(template(datas));
-		  						 
-		  						/* check whether the user is follwer of a message or not */
-		  				         $.ajax({
-		  				    			type : 'POST',
-		  				    			url : BS.isAFollower,
-		  				    			data : {
-		  				    				 messageId : data.id.id
-		  				    			},
-		  				    			dataType : "json",
-		  				    			success : function(status) {
-		  				    				 if(status == "true")
-		  				    				   $('#'+data.id.id+'-follow').html("Unfollow");
-		  				    			}
-		  				    	 });
-		  						 
-		  						 /* get profile images for messages */
-		  				          $.ajax({
-		  				    			type : 'POST',
-		  				    			url : BS.profileImage,
-		  				    			data : {
-		  				    				 userId :  data.userId.id
-		  				    			},
-		  				    			dataType : "json",
-		  				    			success : function(pofiledata) {
-		  				    				var imgUrl;
-		  				    				if(pofiledata.status)
-		  				    				 {
-		  				    					imgUrl = "images/unknown.jpeg";
-		  				    				 }
-		  				    				 else
-		  				    				 {   
-		  				    					 // shoe primary profile image 
-		  				    					 if(pofiledata.contentType.name == "Image")
-		  				    					 {
-		  				    						imgUrl = pofiledata.mediaUrl;
-		  				    					 }
-		  				    					 // shoe primary profile video 
-		  				    					 else
-		  				    					 {
-		  				    						imgUrl = pofiledata.frameURL;
-		  				    					 }
-		  				    				 }
-		  				    				$('img#'+data.id.id+'-img').attr("src", imgUrl);
-		  				    			}
-		  				    		});
-		  				           
-		  						 if(linkTag)
-		  						  $('div#'+data.id.id+'-id').html(linkTag);
-		  						 
-	                                                         var url=data.messageBody;
-	                                                         if(!extension){   //to check the extension of the url
-	                                                         
-	                                                        if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
-	                                                                // embedly
-	                                                                    $('div#'+data.id.id+'-id').embedly({
-	                                                                             maxWidth: 200,
-	                                                                             msg : 'https://assets0.assembla.com/images/assembla-logo-home.png?1352833813',
-	                                                                     wmode: 'transparent',
-	                                                                     method: 'after',
-	                                                                         key:'4d205b6a796b11e1871a4040d3dc5c07'
-	                                                            });
-	                                                        }
-	                                                        
-	                                                        else
-	                                                            {
-	 
-	                                                        	var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
-	                                                                    
-	                                                                $('input#'+data.id.id+'-url').val(msgUrl);
-	                                                                return msgUrl;
-	                                                             });
-	//                                                        	$('input#'+data.id.id+'-url').val(msgUrl);
-	                                                            var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
-	                                                            $('#'+data.id.id+'-docurl').html(content);
-	                                                            }
-	                                                         }
-	                                                         else      //insert value to hidden field
-	                                                            {
-	                                                              $('input#'+data.id.id+'-url').val(msgUrl);  
-	                                                            }
-		  						 
-		  						self.showAllComments(data.id.id);
-					         });
-					}
-			 });
-	    	
-	    },
-	    
-	    /**
-	     * show stream list corresponds to each streamtype
-	     */
-	    showStreamList:function(eventName){
-	    	
-	     	eventName.preventDefault();
-	    	var id = eventName.target.id;
-	    	$('#select-streams li.active').removeClass('active');
-	  	    $('#'+id).parents('li').addClass('active');
-	  	    $('#streams-list').slideUp();
-	  	    // show all streams
-	  	    if(id == 'all-streams')
-	  	    {
-	  	    	 this.getStreams();
-	  	    	// this.getClassStreams("public");
-	  	    	
-	  	    }
-	  	    // show all classStreams
-	  	    else if(id == 'classStreams-list')
-	  	    {
-	//  	    	$('#streams-list').html('');
-	  	    	this.getClassStreams("sort");
-	  	    }
-	  	    // show all projectStreams
-	  	    else if(id == 'projectStreams-list')
-	  	    {
-	  	    	 $('.timeline_items').html("");
-	  	    	 $('#streams-list').html('');
-	  	    	 $('#public-classes').html('');
-	  	    }
-	  	    else
-	  	    {
-	  	    	console.log("else case");
-	  	    }
-	  	   $('#streams-list').slideDown();
+			eventName.preventDefault();
+	        	
+        	var element = eventName.target.parentElement;
+			var messageId =$(element).parents('div.follow-container').attr('id');
+		    if($('#'+messageId+'-msgRockers').is(':visible'))
+		    {
+		    	 
+		    	$('#'+messageId+'-msgRockers').slideUp(600); 
+		    }
+		    else
+		    {
+		    	$.ajax({
+		    		type: 'POST',
+		    		url:BS.rockersList,
+		    		data:{
+		    			messageId:messageId
+		    		},
+		    		dataType:"json",
+		    		success:function(data){
+		    			$('#'+messageId+'-msgRockers').html("");
+		    			// prepair rockers list
+		    			_.each(data, function(rocker) {
+					 
+		    				var messageRockers = $("#tpl-message-rockers").html();
+		    				var messageRockersTemplate = Handlebars.compile(messageRockers);
+		    				$('#'+messageId+'-msgRockers').append(messageRockersTemplate({rocker:rocker}));
+		    			});
+            	 
+		            	$('#'+messageId+'-allComments').slideUp();
+		            	$('#'+messageId+'-newCommentList').slideUp();
+            	
+		            	$('#'+messageId+'-msgRockers').slideDown(600); 
+ 
+//		        		$('#hover-lists-'+msgId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
+//		        		$('#hover-lists-'+msgId+'').html(ul);
+	             	}
+	            });
+		    }
+				
 		},
 		
-	 
-	
-		 
-		 /**
-		  * get list of message rockers 
-		  */
-		 getRockers :function(msgId,position){
-			  
-			 $.ajax({
-	             type: 'POST',
-	             url:BS.rockersList,
-	             data:{
-	            	  messageId:msgId
-	             },
-	             dataType:"json",
-	             success:function(data){
-	            	 
-	            	  // prepair rockers list
-	            	  var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">Who Rocked it ?</div><ul class="rock-list">';
-	            	_.each(data, function(rocker) {
-						 
-	            		ul+= '<li>'+rocker+'</li>';
-				    });
-	            	ul+='</ul>';
-	 
-	        		$('#hover-lists-'+msgId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
-	        		$('#hover-lists-'+msgId+'').html(ul);
-	             }
-	          });
-		 },
-		 
-		 /**
-		  * show UnRock Message  Only if a user has already Rocked the message
-		  */
-//		 showUnrockMessage:function(eventName){
-//			 eventName.preventDefault();
-//			 var element = eventName.target.parentElement;
-//			 var msgId =$(element).closest('li').attr('id');
-//			  
-//			 /* make a call to check whether the logged user is already rock this message*/ 
-//			 $.ajax({
-//	             type: 'POST',
-//	             url:BS.isARockerOfMessage,
-//	             data:{
-//	            	 messageId:msgId
-//	             },
-//	             dataType:"json",
-//	             success:function(data){
-//	            	 if(data == "true")
-//	            	 {
-//	            		// popup says "UnRock Message 
-//		               	var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">UnRock Message</div>';
-//		    
-//		           		$('#hover-lists-'+msgId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
-//		           		$('#hover-lists-'+msgId+'').html(ul);
-//	            	 }
-//	            	 
-//	             }
-//	          });
-//			 
-//			 
-//		 },
-		 
-		 /**
-		  * show UnRock Comment  Only if a user has already Rocked comment
-		  */
-		 showUnrockComment:function(eventName){
-			 eventName.preventDefault();
-			 var element = eventName.target.parentElement;
-			 var commentId =$(element).closest('li').attr('id');
-			 var messageId =$(element).closest('li').parent('ul').parent('article').parent('li').attr('id');
-			  
-			 /* make a call to check whether the logged user is already rock this comment*/ 
-			 $.ajax({
-	             type: 'POST',
-	             url: BS.isARockerOfComment,
-	             data:{
-	            	 commentId:commentId,
-	             },
-	             dataType:"json",
-	             success:function(data){
-	            	 
-	            	 if(data== 'true')
-	            	 {
-	            		// popup says "UnRock Comment 
-	               	  	var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">UnRock Comment</div>';
-		           		$('#cmthover-lists-'+commentId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
-		           		$('#cmthover-lists-'+commentId+'').html(ul);
-	            	 }
-	            	 
-	             }
-	          });
-	 
-			 
-			 
-		 },
-		 
-		 /**
-		  * show rockers list on hover over
-		  */
-		 showRockers:function(eventName){
-			 eventName.preventDefault();
-			 var element = eventName.target.parentElement;
-			 var msgId =$(element).closest('li').attr('id');
-			 var position = $('li#'+msgId+'').find('i').position();
-			 this.getRockers(msgId,position);
-	 
-		 },
-		 /**
-		  * show comment rockers list on hover over
-		  */
-		 showCommentRockers:function(eventName){
-			 
-			 eventName.preventDefault();
-			 var element = eventName.target.parentElement;
-			 var commentId =$(element).closest('li').attr('id');
-			 var position = $('li#'+commentId+'').find('i').position();
-			 var messageId =$(element).closest('li').parent('ul').parent('article').parent('li').attr('id');
-			 
-			 $.ajax({
-	             type: 'POST',
-	             url: BS.commentRockers,
-	             data:{
-	            	  commentId:commentId,
-	            	  messageId :messageId
-	             },
-	             dataType:"json",
-	             success:function(data){
-	            	 
-	            	  // prepair rockers list
-	            	  var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">Who Rocked it ?</div><ul class="rock-list">';
-	            	_.each(data, function(rocker) {
-						 
-	            		ul+= '<li>'+rocker+'</li>';
-				    });
-	            	ul+='</ul>';
-	 
-	        		$('#cmthover-lists-'+commentId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
-	        		$('#cmthover-lists-'+commentId+'').html(ul);
-	             }
-	          });
-	 
-		 },
-		 
-		 /*
-		  * delete a message
-		  */
-		 deleteMessage :function(eventName){
-			 eventName.preventDefault();
-			 var messageId = eventName.target.id;
-			 var ownerId = $('ul.timeline_items li#'+messageId).attr('name');
-			 // check whether the  message owner is the logged user or not
-			 if(localStorage["loggedUserInfo"] == ownerId)
-			 {
-				 var alert = '<div id="msg-dialog-'+messageId+'" name="'+messageId+'" title="Delete !">Are you sure you want to delete this message?</br></div>';
-				 $('#alert-popup').html(alert);
-				 $('#msg-dialog-'+messageId).dialog({
-	
-						autoOpen: false ,
-						modal: true,
-						draggable: false,
-					    resizable: false,
-					    buttons: { 
-					    	 
-					    	 "Delete": function() { 
-					    		 
-					    		 // delete particular message
-					    		 $.ajax({
-					                 type: 'POST',
-					                 url: BS.deleteMessage,
-					                 data:{
-					                	  messageId :messageId
-					                 },
-					                 dataType:"json",
-					                 success:function(data){
-					                	 if(data.status == "Success")
-					                	 {
-					                		 $('ul.timeline_items li#'+messageId).remove();
-								    		 $('#msg-dialog-'+messageId).dialog("close");
-					                	 }
-					                	 else
-					                	 {
-					                		$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
-					                 		$('.error-msg').html(data.message);
-					                	 }
-					                	 
-					                 }
-					              });
-					    		
-			                  
-			                 },
-			                 "Cancel": function() { 
-			                	 $('#msg-dialog-'+messageId).dialog('close');
-				              },
-				        }
-			         
-					 });
-				 	$('#msg-dialog-'+messageId).dialog('open');
-				 	$('#msg-dialog-'+messageId).dialog({ height: 100 });
-				
-			 }
-			 else
-			 {
-				 $('#display_message').css('padding-top','100px');
-				 $('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
-	      		 $('.error-msg').html("You're Not Authorised To Delete This Message");
-			 }
-					 
-			 
-		 },
-		 
-		 /**
-		  * delete comment
-		  */
-		 deleteComment :function(eventName){
-			 eventName.preventDefault();
-			 
-			 var element = eventName.target.parentElement;
-			 var commentId =$(element).closest('li').attr('id');
-			 var messageId =$(element).closest('li').parent('ul').parent('article').parent('li').attr('id');
-			 var ownerId = $('#'+commentId).attr('name'); 
-			 
-			// check whether the  comment owner is the logged user or not
-			 if(localStorage["loggedUserInfo"] == ownerId)
-			 {
-				 var alert = '<div id="comment-dialog-'+commentId+'" title="Delete !">Are you sure you want to delete this comment?</br></div>';
-				 $('#alert-popup').html(alert);
-				 $('#comment-dialog-'+commentId).dialog({
-		
-						autoOpen: false ,
-						modal: true,
-						draggable: false,
-					    resizable: false,
-					    buttons: { 
-					    	 
-					    	 "Delete": function() { 
-					    		 
-					    		 // delete particular message
-					    		 $.ajax({
-					                 type: 'POST',
-					                 url: BS.deleteTheComment,
-					                 data:{
-					                	  messageId :messageId,
-					                	  commentId :commentId
-					                 },
-					                 dataType:"json",
-					                 success:function(data){
-					                	 if(data.status == "Success")
-					                	 {
-					                		 var commentCount = $('#'+messageId+'-cmtCount').text();
-								    		 if(commentCount == 1)
-								    		 {
-								    			 $('#'+messageId+'-header').html("");
-								    		 }
-								    		 else
-								    		 {
-								    			 $('#'+messageId+'-cmtCount').text(commentCount-1);
-								    		 }
-								    		 $('#'+messageId+'-commentlists li#'+commentId).remove();
-								    		 $('#comment-dialog-'+commentId).dialog('close');
-					                	 }
-					                	 else
-					                	 {
-					                		$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
-					                 		$('.error-msg').html(data.message);
-					                	 }
-					                	
-					                 }
-					              });
-				
-			                  
-			                 },
-			                 "Cancel": function() { 
-			                	 $('#comment-dialog-'+commentId).dialog('close');
-				              },
-				        }
-			         
-					 });
-				 	$('#comment-dialog-'+commentId).dialog('open');
-				 	$('#comment-dialog-'+commentId).dialog({ height: 100 });
-			 }
-			 else
-			 {
-				 $('#display_message').css('padding-top','100px');
-				 $('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
-	      		 $('.error-msg').html("You're Not Authorised To Delete This Comment");
-			 }
-		 },
-	 
-		 /**
-		  * navigate to profile page to edit profile pic
-		  */
-		 showProfilePage : function(eventName){
-			  
-			 eventName.preventDefault();
-			 localStorage["editProfile"] = "true";
-			 BS.AppRouter.navigate("profile", {trigger: true});
-		 },
-		 
-		 /**
-		  * show as active 
-		  */
-		 showActive :  function(eventName){
-			  
-			 $('.nav-tabs li.active').removeClass('active');
-			 $(eventName.target).parents('li').addClass('active');
-		 },
-		 
-		 /**
-		  * active li on class list
-		  */
-		 showListActive : function(eventName){
-			 eventName.preventDefault();
-			 
-			 var streamId = eventName.target.id;
-			 $('.class-nav-list li.active').removeClass('active');
-			 $(eventName.target).parents('li').addClass('active');
-			 
-			 //set active class on right top
-	         $('#streams-list').find('li.active').removeClass('active');
-	   	     $('#streams-list').find('a#'+streamId+'').parent('li').addClass('active');
-	   	     
-	   	     // call the method to display the messages of the selected stream
-	   	     $('.timeline_items').html("");
-	   	     
-	   	     BS.pagenum = 1;
-	   	     this.getMessageInfo(streamId,BS.pagenum,BS.pageLimit);
-			 
-		 },
-		 
-		 
-		 /**
-		  *  sort stream messages
-		  */
-		 sortMessagess:function(eventName){
-			 eventName.preventDefault(); 
-			 var self = this;
-			 var sortKey = eventName.target.id;
-			 var streamId = $('#public-classes').find('li.active').attr('id') ;
-			 $('#sort-messages').find('li.active').removeClass('active');
-			 $('#'+sortKey+'').closest('li').addClass('active');	
+		/**
+		 * NEW THEME - Rock Media files (Images /Videos ) 
+		 */
+		rocksMedias: function(eventName){
 			
-			 if(sortKey == "highest-rated")
-			 {
-				 BS.msgSortedType = "vote";
-				 $(".timeline_items").html('');
-				 BS.pageForVotes = 1;
-				 self.sortByVotes(streamId,BS.pageForVotes,BS.pageLimit)
-			 }
-			 else if(sortKey == "date")
-			 {
-				 BS.msgSortedType = "date";
-				 $(".timeline_items").html('');
-				 BS.pageForDate = 1;
-				 self.sortByDate(streamId,BS.pageForDate,BS.pageLimit);
-	 
-			 }
-			 else if(sortKey == "profile-relevance")
-			 {
-				 
-			 }
-	//		 else if(sortKey == "vote")
-	//		 {
-	//			 BS.msgSortedType = "vote";
-	//			 $(".timeline_items").html('');
-	//			 BS.pageForVotes = 1;
-	//			 self.sortByVotes(streamId,BS.pageForVotes,BS.pageLimit)
-	//		 }
-				 
-		 },
-		 
-		 
-		 
-		 /**
-
-		 /**
-		  * get messages and sort by votes 
-		  */
-		 sortByVotes :function(streamId,pageNo,limit){
-			 var self =this;
-			 $.ajax({
-		  			type : 'POST',
-		  			url : BS.sortByVote,
-		  			data : {
-		  				 streamId :streamId,
-		  				 pageNo : pageNo,
-		  				 limit  : limit
-		  				 
-		  			},
-		  			dataType : "json",
-				  	success : function(data) {
-				  		
-				  	  //hide page loader image
-						if(!data.length)
-							$('.page-loader').hide();
-				  		self.displayMessages(data);
-				  	}
-		  		});
-		 },
-		 
-		
-		 
-		 /**
-		  * get messages and sort by data
-		  */
-		 sortByDate : function(streamId,pageNo,limit){
-			 var self = this;
-			 $.ajax({
-		  			type : 'POST',
-		  			url : BS.sortByDate,
-		  			data : {
-		  				 streamId :streamId,
-		  				 pageNo : pageNo,
-		  				 limit  : limit
-		  			},
-		  			dataType : "json",
-				  	success : function(data) {
-				  	  //hide page loader image
-						if(!data.length)
-							$('.page-loader').hide();
-				  		self.displayMessages(data);
-				  	}
-		  		});
-		 },
-		 
-		 /**
-		  * render public profile view
-		  */
-		 
-		 renderPublicProfile :function (eventName){
-			 console.log(eventName.target.id);
-		 },
-		 
-	
-	
-	    /**
-	     *For showing stream google docs in popup
-	     */
-	      showStrmDocPopup: function(eventName){
-	             eventName.preventDefault(); 
-	             var element = eventName.target.id;
-	             var docUrl = $('input#'+element+'-url').val();
-	//             var data = '<iframe src="'+docUrl+'" scrolling="NO"  width="963" height="500" style="border: none"> '
-	//                 +'<p>Your browser does not support iframes.</p>'
-	//                    '</iframe> ';
-	            
-	             BS.streamdocview = new BS.StreamDocView();
-	             BS.streamdocview.render(docUrl);           
-	             $('#streamdocview').html(BS.streamdocview.el);   
-	         },
-	         
-	    
-	     StrmMediaPopup: function(eventName){
-	             eventName.preventDefault(); 
-	             var element = eventName.target.id;
-	             var docUrl = $('input#'+element+'-url').val();
-	           
-	               var docfrmcomputer='http://docs.google.com/gview?url='+docUrl+'&embedded=true '             
-	             BS.streamdocview = new BS.StreamDocView();
-	             BS.streamdocview.render(docfrmcomputer);           
-	             $('#streamdocview').html(BS.streamdocview.el);   
-	         },
-	     
-	      /**
-	
-		  * show the title when hover over the gogoledoc image
-		  */
-		 showDocTitle:function(eventName){
-			 eventName.preventDefault();
+			eventName.preventDefault();
+			var element = eventName.target.parentElement;
+            var imageId =$(element).attr('id');
+//            var parent = $('div#'+imageId).parent('li');
+           
+	  	   	// post mediaId and get Rockcount 
+            $.ajax({
+                type: 'POST',
+                url:BS.rockTheUsermedia,
+                data:{
+                	userMediaId:imageId
+                },
+                dataType:"json",
+                success:function(data){	              	 
+	              	// display the rocks count  
+//	                $('#'+imageId+'-activities li a.hand-icon').html(data);	   
+//	                $(parent).attr('data-rock',data);
+             
+	            }
+            });
 			
-			 var element = eventName.target.parentElement;
-			 var msgId =$(element).closest('li').attr('id');
-			 var position = $('li#'+msgId+'').find('i').position();
-	                 
-	                 var content = 'Click Here To Start Collaboration';
-			 $('#hover-lists-'+msgId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
-	                 $('#hover-lists-'+msgId+'').html(content);
-	 
-		 },
-		 
+		},
 		
-		 
-		 
-		 
+		/**
+		 * NEW THEME - rocks other uploaded files 
+		 */
+		rocksDocuments: function(eventName){
+			
+			eventName.preventDefault();
+            var element = eventName.target.parentElement;
+            var docId =$(element).attr('id');
+            
+	  		// post documentId and get Rockcount 
+            $.ajax({
+            	type: 'POST',
+            	url:BS.rockDocs,
+            	data:{
+            		documentId:docId
+            	},
+            	dataType:"json",
+            	success:function(data){	              	 
+            		// display the rocks count  
+//            		$('#'+docId+'-activities li a.hand-icon').html(data);	   
+            	}
+        	});
+		},
+ 
 	 
 	   /**
 	    * NEW THEME - PUBNUB real time push
@@ -2402,6 +1634,7 @@
 			 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
 			 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
 			 var trueurl='';
+			
 			 /* for message posting */
 			 PUBNUB.subscribe({
 				 channel : "stream",
@@ -2415,7 +1648,7 @@
 			       		 	{
 							 	if(!document.getElementById(message.data.id.id))
 							 	{	
-							 		
+							 		 var messageType = '';
 							 		 var msgBody = message.data.messageBody;
 		                             var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
 		                            	 trueurl= msgUrlw;                                                                  
@@ -2459,91 +1692,100 @@
 		                             BS.filesMediaView = new BS.FilesMediaView(); 
 		                             var datVal =  BS.filesMediaView.formatDateVal(message.data.timeCreated);
 		    			                    
-//		                             // if message conatains googledoc url
-//		                             if(messageType == "googleDocs")
-//		 							 {
-//		                            	 
-//		                            	 var datas = {
-//		                            			 "datas" : data,
-//		                            			 "datVal" :datVal,
-//		                            			 "previewImage" : "images/google_docs_image.png",
-//		                            			 "type" : "googleDoc"
-//			 							 }	
-//		 								 var source = $("#tpl-messages_with_docs").html();
-//		 	         		  						
-//		     						 }
-//		                             // if message conatains messages only without any uploaded files
-//		 							 else if(messageType == "messageOnly")
-//		 							 {
+		                             // if message conatains googledoc url
+		                             if(messageType == "googleDocs")
+		 							 {
+		                            	 
+		                            	 var datas = {
+		                            			 "datas" : message.data,
+		                            			 "datVal" :datVal,
+		                            			 "previewImage" : "images/google_docs_image.png",
+		                            			 "type" : "googleDoc"
+			 							 }	
+		 								 var source = $("#tpl-messages_with_docs").html();
+		 	         		  						
+		     						 }
+		                             // if message conatains messages only without any uploaded files
+		 							 else if(messageType == "messageOnly")
+		 							 {
 		 								 var source = $("#tpl-discussion-messages").html();
-//		     						 }
-//		                             // if message conatains  uploaded files
-//		 							 else
-//		 							 {
-//		 								 if(data.messageType.name == "Image")
-//		 								 {
-//		 									 var source = $("#tpl-messages_with_images").html();
-//		 								 }
-//		 								 else if(data.messageType.name == "Video")
-//		 								 {
-//		 									 var source = $("#tpl-messages_with_images").html();
-//		 								 }
-//		 								 else
-//		 								 {
-//		 									 var previewImage = '';
-//		 									 var commenImage ="";
-//		 									 var type = "";
-//		     								 
-//		 									 /* check its extensions and set corresponding preview icon images */
-//		 									 if(extension == 'Ppt')
-//		 									 {
-//		 										 previewImage= "images/presentations_image.png";
-//		 										 type = "ppt";
-//		 									 }
-//		 									 else if(extension == 'Doc')
-//		 									 {
-//		 										 previewImage= "images/docs_image.png";
-//		 										 type = "doc";
-//		 									 }
-//		 									 else if(extension == 'Pdf')
-//		 									 {
-//		 										 previewImage= data.anyPreviewImageUrl;
-//		 										 type = "pdf";
-//		 									 }
-//		 									 else
-//		 									 {
-//		 										 previewImage= "images/textimage.png";
-//		 										 commenImage = "true";
-//		 										 type = "doc";
-//										 	 }
-//		     									
-//		 									 var datas = {
-//		 											 "datas" : data,
-//		 											 "datVal" :datVal,
-//		 											 "previewImage" :previewImage,
-//		 											 "extension" : extension,
-//		 											 "commenImage" : commenImage,
-//		 											 "type" : type
-//								        	 }	
-//		     								
-//		 								     var source = $("#tpl-messages_with_docs").html();
-//		     		  						 
-//										 }
+		     						 }
+		                             // if message conatains  uploaded files
+		 							 else
+		 							 {
+		 								 if(message.data.messageType.name == "Image")
+		 								 {
+		 									  
+		 									 var source = $("#tpl-messages_with_images").html();
+		 								 }
+		 								 else if(message.data.messageType.name == "Video")
+		 								 {
+		 									 var source = $("#tpl-messages_with_images").html();
+		 								 }
+		 								 else
+		 								 {
+		 									 var previewImage = '';
+		 									 var commenImage ="";
+		 									 var type = "";
+		     								 
+		 									 /* check its extensions and set corresponding preview icon images */
+		 									 if(extension == 'Ppt')
+		 									 {
+		 										 previewImage= "images/presentations_image.png";
+		 										 type = "ppt";
+		 									 }
+		 									 else if(extension == 'Doc')
+		 									 {
+		 										 previewImage= "images/docs_image.png";
+		 										 type = "doc";
+		 									 }
+		 									 else if(extension == 'Pdf')
+		 									 {
+		 										 previewImage= message.data.anyPreviewImageUrl;
+		 										 type = "pdf";
+		 									 }
+		 									 else
+		 									 {
+		 										 previewImage= "images/textimage.png";
+		 										 commenImage = "true";
+		 										 type = "doc";
+										 	 }
+		     									
+		 									
+		 									 var datas = {
+		 											 "datas" : message.data,
+		 											 "datVal" :datVal,
+		 											 "previewImage" :previewImage,
+		 											 "extension" : extension,
+		 											 "commenImage" : commenImage,
+		 											 "type" : type
+								        	 }	
+		     								
+		 								     var source = $("#tpl-messages_with_docs").html();
+		     		  						 
+										 }
 		 	         								
-//		     						 }
+		     						 }
 		            			                    
 		                             var template = Handlebars.compile(source);
 		                             $('#all-messages').prepend(template(datas));
 
 		                             //get profile image of logged user
 		                             $('img#'+message.data.id.id+'-img').attr("src", BS.profileImageUrl);
-		                            
-		  							 if(linkTag)
-		  								 $('p#'+message.data.id.id+'-id').html(linkTag);
+		                             
+		                             /* for video popups */
+		                             $("area[rel^='prettyPhoto']").prettyPhoto();
+		                             $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
+		                             $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
+		                 			
 		  						
 		  							 var url=message.data.messageBody;				
 		  							 if(message.data.messageType.name == "Text")
 		  							 {  
+		  								 
+		  								 if(linkTag)
+			  								 $('p#'+message.data.id.id+'-id').html(linkTag);
+		  								 
 		  								 //to check the extension of the url                                            
 		                                 if(!url.match(/^(https:\/\/docs.google.com\/)/)) 
 		                                 {	
@@ -2571,6 +1813,7 @@
 			 	   }
 		 	   })
 	    
+		 	   
 	    
 		 	   /* auto push functionality for comments */
 	    

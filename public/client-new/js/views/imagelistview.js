@@ -7,7 +7,9 @@ BS.ImageListView = Backbone.View.extend({
        //         "click #nextslid" : "next",
                 "click .imgtitle" : "editImgTitle",
                 "click .rock_docs" : "rocksImages",
-                "click .show_rockers" : "showImageRockers"
+                "click .show_rockers" : "showImageRockers",
+                "click .then-by li a" : "filterDocs",
+                "click #view-files-byrock-list" : "selectViewByRock",
              },
     
             initialize:function(){
@@ -20,7 +22,14 @@ BS.ImageListView = Backbone.View.extend({
                 $(this.el).html(this.template);
                 return this;
                 },
-            
+                
+                /**
+                 * NEW THEME - view files 
+                 */
+                selectViewByRock: function(eventName){
+                	eventName.preventDefault();
+                	$('#view-files-byrock-select').text($(eventName.target).text());
+                },
             /*
             * function to display all pictures
             */               
@@ -73,6 +82,14 @@ BS.ImageListView = Backbone.View.extend({
 
             }});
             },
+            
+            /**
+             * NEW THEM - filter docs.. and prevent default action
+             */
+            filterDocs :function (eventName){
+            	 eventName.preventDefault();
+            },
+            
             
             /*
             * pagination for Imagelistview

@@ -25,77 +25,14 @@
 			 "click .stream-tab a" : "renderSubMenuPages",
 			 "click #chat-status" : "openOnlineUsersWindow",
 			 "click .sortable li" : "renderRightContenetsOfSelectedStream",
+			 "click #show-info" :"showDetails",
+			 "mouseenter #show-stream-types" : "showStreamTypesPopup",
+			 "mouseleave #show-stream-types" : "hideStreamTypesPopup",
+			 "click #classstream" :"ShowClassStreamPopup",
 
-			
-	//		 "click .ask-button" :"askQuestions",
-	//		 "click .add-poll " : "displayOptionsEntry",
-	//		 "click #add_more_options" :"addMoreOptions"
-	 
-	           
 		 },
 		 
-	//	 /**
-	//	  * New - Design --Ask Questions 
-	//	  * 
-	//	  */
-	//	 askQuestions : function(eventName){
-	//		 eventName.preventDefault();
-	//		 var questionText = $('#question').val();
-	//		 var options = new BS.OptionCollection();
-	//		 
-	//		 for(var i=1 ; i <= BS.options ; i++)
-	//		 {
-	//			 var option = new BS.Option();
-	//			 var optionData = $('#option'+i).val();
-	//			 option.set({optionId:i ,optionData:optionData});
-	//			 options.add(option);
-	//		 }
-	////		 var optionInfo = JSON.stringify(options);
-	//		 var question = new BS.Question();
-	//		 question.set({id:1 ,question:questionText ,options:options});
-	//		 var questionInfo = JSON.stringify(question);
-	//		 console.log("---"  + questionInfo);
-	//		 BS.options = 0;
-	//		 data = {
-	//				 question : question2,
-	//				 pollsOptions : optionInfo
-	//		 }
-	//		 console.log(data);
-			 
-			 /* post profile page details */
-	//         $.ajax({
-	//             type: 'POST',
-	//             data:{data: questionInfo},
-	//             url: BS.newQuestion,
-	//             cache: false,
-	//             dataType : "json",
-	//             success: function(data){
-	//            	 
-	//             }
-	//         }); 
-	//		  
-	//	 },
-	//	 /**
-	//	  * New -Design -- display option entry fields 
-	//	  */
-	//	 displayOptionsEntry : function (eventName){
-	//		 eventName.preventDefault();
-	//		 BS.options = 2;
-	//		  
-	//		 $('.answer').css('display', 'block');
-	//	 },
-	//	 
-	//	 /**
-	//	  * New-Design --- Add more options 
-	//	  */
-	//	 addMoreOptions : function(eventName){
-	//		 eventName.preventDefault();
-	//		 var options =' <li> <input type="text" id="option'+BS.options+'" placeholder="Add an Option"></li>';
-	//		 var parent = $('#add_more_options').parents('li');
-	//		 $(parent).before(options);
-	//		 console.log(parent);
-	//		 
-	//	 },
+	
 	
 	    initialize:function () {
 	    	
@@ -103,6 +40,9 @@
 	     	BS.urlRegex1 = /(https?:\/\/[^\s]+)/g;
 	     	BS.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\./]*$/i ;
 	     	BS.urlRegex2 =  /^((http|https|ftp):\/\/)/;
+	     	
+			BS.activeDiv = '<div class="active-curve"><img src="images/active-curve.png" width="20" height="58"></div>';
+
 	     	
     		this.source = $("#tpl-main-stream").html();
     		this.template = Handlebars.compile(this.source);
@@ -121,6 +61,66 @@
 	       this.getStreams();
 	       $(this.el).html(this.template({"data":this.model.toJSON(),"schools" : BS.mySchools}));
 	       return this;
+	    },
+	    
+	    /**
+	     * NEW THEME - display a popup that showa all type of streams  
+	     */
+	    showStreamTypesPopup: function(){
+	    	 
+	    	// stops the hide event if we move from the trigger to the popup element
+	    	if (this.hideDelayTimer) clearTimeout(this.hideDelayTimer);
+	           
+	    	// don't trigger the animation again if we're being shown, or already visible
+	    	if (this.shown) {
+	    		return;
+	    	}else 
+	    	{
+	    		this.beingShown = true;
+	    		var x= $('#streams-list-block').position();
+	    		var top = x.top - 85;
+	    		// reset position of popup box
+	    		$('.streams-popup').css({
+	    			top:  top,
+	    			left: 355,
+	    			display: 'block' // brings the popup back in to view
+	    		})
+	    		// (we're using chaining on the popup) now animate it's opacity and position
+		        .animate({
+			        	top: '-=' + this.distance + 'px',
+			        	opacity: 1
+		        	},this.time, 'swing', function() {  
+	        		// once the animation is complete, set the tracker variables
+	        		this.beingShown = false;
+	        		this. shown = true;
+	        	});
+    		}
+	    	
+	    },
+	    
+	    /**
+	     * NEW THEME - hide popup that showa all type of streams  
+	     */
+	    hideStreamTypesPopup: function(){
+	    	
+	    	// reset the timer if we get fired again - avoids double animations
+	    	if (this.hideDelayTimer) clearTimeout(this.hideDelayTimer);
+		      
+	    	// store the timer so that it can be cleared in the mouseover if required
+	    	this.hideDelayTimer = setTimeout(function () {
+	    	  
+	    		this.hideDelayTimer = null;
+	    		$('.streams-popup').animate({
+	    				top: '-=' + this.distance + 'px',
+	    				opacity: 0
+	    			}, this.time, 'swing', function () {
+    				// once the animate is complete, set the tracker variables
+    				this.shown = false;
+    				// hide the popup entirely after the effect (opacity alone doesn't do the job)
+    				$('.streams-popup').css('display', 'none');
+		        });
+	    	}, this.hideDelay);
+	    	
 	    },
 	    
 	    /**
@@ -153,6 +153,9 @@
 						 
 						 // make first li as active li
 						 $('#sortable4 li:first').addClass('active');
+						 
+						 $('#sortable4 li:first').append(BS.activeDiv);
+						 
 						 var streamName = $('#sortable4 li.active a').attr('name');
 						 
 						 // dynamic details for top stream submenus 
@@ -240,7 +243,10 @@
 	     * NEW THEME - render right contenets of a selected stream
 	     */
 	    renderRightContenetsOfSelectedStream: function(eventName){
+	    	
 	    	eventName.preventDefault();
+	    	if($('a.done').text() == 'DONE')
+	    		return;
 		    var id = eventName.target.id;
 		    if(!id)
 		    	return;
@@ -248,8 +254,14 @@
 		      
 		    streamName = $('#'+id+'').text();
 		
+		    // set active style for stream 
+		    $('.sortable li.active').find('div.active-curve').remove();
 		    $('.sortable li.active').removeClass('active');
+		   
 		    $('.sortable li#'+id).addClass('active');
+		    $('.sortable li.active').append(BS.activeDiv);
+		    
+		    
 		    
 		    // dynamic details for top stream submenus 
 			var topMenuDetails = {
@@ -325,6 +337,23 @@
 	    	
 	    },
 	    
+	    /**
+	     * NEW THEME - show stream details on top 
+	     */
+	    showDetails: function(eventName){
+	    	eventName.preventDefault();
+	    	$('.show-info').toggle(100);
+	    	
+	    },
+	    
+	    /**
+	     * NEW THEME - show class stream page popup
+	     */
+	    ShowClassStreamPopup: function(eventName){
+	    	eventName.preventDefault();
+	    	BS.AppRouter.navigate("classStream", {trigger: true});
+	    },
+	    
 	  /*
 	  * slider for stream list
 	   */
@@ -339,9 +368,18 @@
 		            frameRate: 20,
 		            speed: 8,
 		            
-	            });		
+	            });	
+	            
+	            var activeStream = '';
+	            
 	            $(".done").toggle(function () {         
 	                  $('a.done').text('DONE');
+	                  
+	                  activeStream =  $('.sortable li.active').attr('id');
+	                  $('.sortable li.active').find('div.active-curve').remove();
+	      		      $('.sortable li.active').removeClass('active');
+	      		     
+	      		       
 	                  $('span.close-btn').show();
 	                  $('div.drag-icon').show();
 	                  $('#sortable1, #sortable2').sortable();
@@ -355,7 +393,12 @@
 				    	  connectWith: '.connected'
 				      });
 			    },function () { 
+			    	
 	                 $('a.done').text('EDIT');  
+	                 
+	                 $('.sortable li#'+activeStream).addClass('active');
+	     		     $('.sortable li.active').append(BS.activeDiv);
+	     		     
 	                 $('span.close-btn').hide(); 
 	                 $('div.drag-icon').hide();
 	                 $('#sortable1').remove(); 
@@ -368,7 +411,23 @@
 	 	     	    	 var StreamName = $(this).attr('name');
 	 	     	    	 if($(this).hasClass('red-active'))
 	 	     	    	 {
-	 	     	    		var removeOption = '<a  id ="'+streamId+'" name ="'+StreamName+'"  href="#" class="icon1">'+StreamName+'</a>';
+	 	     	    		 
+	 	     	    		var removeOption = '<a  id ="'+streamId+'" name ="'+StreamName+'"  href="#" class="icon1">'+StreamName+'</a>'
+	 	     	    		+'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange" style="display: none;">'
+	 	     	    		+'<img src="images/menu-left-icon.png">'
+	 	     	    		+'</div>'
+	 	     	    		+'<span class="close-btn drag-rectangle" data-original-title="Delete" style="display: none;">'
+	 	     	    		+'<img src="images/close.png">'
+	 	     	    		+'</span>';
+	 	     	    		 
+	 	     	    		if(streamId == activeStream )
+	 	     	    		{
+	 	     	    			removeOption+= '<div class="active-curve">'
+	 	     	    				       +'<img width="20" height="58" src="images/active-curve.png">'
+	 	     	    				       +'</div>';
+	 	     	    		}
+	 	     	    		 
+	 	     	    		
 	 	     	    		$(this).removeClass("icon1 red-active");
 	 	     	    		$(this).html(removeOption);
 	 		     	    	$('.drag-rectangle').tooltip()	
