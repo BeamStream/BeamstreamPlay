@@ -489,28 +489,28 @@
                   <div id="Docs" class="doc">
                   
                   <div  class="item">  
-					  <div id="{{datas.id.id}}"   name="single-doc">
+					  <div id="{{datas.docIdIfAny.id}}"   name="single-doc">
 					<div class="image-wrapper hovereffect" >
 					  <div class="hover-div"><img class="filmedia-picture" src="{{datas.anyPreviewImageUrl}}">
 					    <div class="hover-text">               
-					     <div class="comment-wrapper" id="{{image.id.id}}">                                
-					     <div id="media-{{datas.id.id}}">
+					     <div class="comment-wrapper" id="{{datas.docIdIfAny.id}}">                                
+					     <div id="media-{{datas.docIdIfAny.id}}">
 					      <h4>Media Name</h4>                                
 					      <div class="description-info">      
 					         <div class="gallery"></div>
 						 <div class="gallery hrtxt">
 					           <a href="{{datas.anyPreviewImageUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
 					              <div class="description-left">   
-					              <p class="google_doc doc-description" id="{{datas.id.id}}"><input type="hidden" id="id-{{datas.id.id}}" value="doc.url">Media Description</p>
+					              <p class="google_doc doc-description" id="{{datas.docIdIfAny.id}}"><input type="hidden" id="id-{{datas.docIdIfAny.id}}" value="doc.url">Media Description</p>
 						    </div>
 					           </a>
 						 </div>     
 					    
-					      <div class="comment-wrapper2">
-					      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon"></a>
+					      <div id="{{datas.docIdIfAny.id}}" class="comment-wrapper2">
+					      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_media"></a>
 					      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
 					      </div></div></div>
-					      <h5 class="imgtitle" id="{{datas.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
+					      <h5 class="imgtitle" id="{{datas.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
 					     <div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>
 					    </div>
 					   </div>
@@ -519,35 +519,7 @@
 					
 					</div>
 			</div>
-                  
-                  
-                  
-<!-- 					<div class="image-wrapper hovereffect"> -->
-<!-- 					  <div class="hover-div"><img src="{{datas.anyPreviewImageUrl}}" class="filmedia-picture"> -->
-<!-- 					    <div class="hover-text">                -->
-<!-- 					     <div id="{{datas.id.id}}" class="comment-wrapper">                                 -->
-<!-- 					     <div id="media-{{datas.id.id}}"> -->
-<!-- 					      <h4>Media Name</h4>                                 -->
-<!-- 					      <div class="description-info">       -->
-<!-- 					         <div class="gallery"></div> -->
-<!-- 						 <div class="gallery hrtxt"> -->
-<!-- 					           <a rel="prettyPhoto" style="text-decoration: none" href="{{datas.anyPreviewImageUrl}}"> -->
-<!-- 					              <div class="description-left">    -->
-<!-- 					              <p id="{{datas.id.id}}" class="google_doc doc-description"><input type="hidden" value="doc.url" id="id-{{datas.id.id}}"> Media Description..</p> -->
-<!-- 						    </div> -->
-<!-- 					           </a> -->
-<!-- 						 </div>      -->
-					    
-<!-- 					      <div class="comment-wrapper2"> -->
-<!-- 					      <a data-original-title="Search by Users" class="tag-icon" href="#"></a><a class="hand-icon" href="#"></a> -->
-<!-- 					      <a class="message-icon" href="#"></a><a class="share-icon" href="#"></a> -->
-<!-- 					      </div></div></div> -->
-<!-- 					      <h5 id="{{datas.id.id}}" class="imgtitle"><span><img src="images/title-plus.png"></span> Title &amp; Description</h5>          -->
-<!-- 					     <div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div> -->
-<!-- 					    </div> -->
-<!-- 					   </div> -->
-<!-- 					  </div> -->
-<!-- </div> -->
+
                   </div>
                   <!-- End doc section -->
                   
@@ -627,81 +599,28 @@
                          {{/if}}
                   	</div>
 				    <div class="hover-text">               
-				     <div class="comment-wrapper" id="{{doc.id.id}}">                                
-				     <div id="media-{{datas.id.id}}">
+				     <div class="comment-wrapper" id="{{datas.docIdIfAny.id}}">                                
+				     <div id="media-{{datas.docIdIfAny.id}}">
 				      <h4>Document Name</h4>                                
-				      <div class="description-info"><div class="description-left mediapopup" id="{{doc.id.id}}">
+				      <div class="description-info"><div class="description-left mediapopup" id="{{datas.docIdIfAny.id}}">
 				        <input type="hidden"  value="">      
 				        <p class="doc-description">Document Description..</p>
 				      </div>
-				      <div class="comment-wrapper2">
-				      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon show_rockers"></a>
+				      <div id="{{datas.docIdIfAny.id}}" class="comment-wrapper2">
+				      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_documents"></a>
 				      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
 				      </div></div></div>
-				      <h5 class="doctitle"  id="{{image.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
+				      <h5 class="doctitle"  id="{{datas.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
 				     <div class="dateinfo"><span class="state">State</span><span class="date">{{datVal}}</span></div>
 				    </div>
 				   </div>
 				  </div>
 				 </div>
 				
-				   <div id="{{doc.id.id}}-docRockers-list" class="docRockers_popup"></div>
+				   <div id="{{datas.docIdIfAny.id}}-docRockers-list" class="docRockers_popup"></div>
 				   </div>  
 				</div> 
-                  
-                  
-                  
-                  
-                  
-                  
-<!-- 					<div id=" " class="image-wrapper hovereffect"> -->
-<!--                   	<div class="hover-div"> -->
-<!--                   	   <div class="doc-image"> -->
-<!--                   		{{#if commenImage }} -->
-<!--                  			 <img  src="{{previewImage}}" class="cover-picture" /> <h3 class="common-doctext" >{{extension}}</h3> -->
-<!--                  		{{else}} -->
-<!--                  			<img  src="{{previewImage}}" class="cover-picture" />  -->
-<!--                          {{/if}} -->
-<!--                   		</div> -->
-<!--                     	<div class="hover-text"> -->
-<!--                     		<div class="comment-wrapper"> -->
-<!--                     			<a style="text-decoration: none" href=""> </a> -->
-<!--                     			<div id="media-{{datas.id.id}}"> -->
-<!--                     				<a style="text-decoration: none" href=""> -->
-<!--                    						 <h4>Document Name</h4> -->
-<!--                 				    </a> -->
-<!--                 				    <div class="description-info"> -->
-<!--                 				    	<a style="text-decoration: none" href=""> -->
-<!--                 				    		<div class="description-left"> -->
-<!--                 				    			<p class="doc-description"> Document Description..</p> -->
-<!--                 				    		</div> -->
-<!--                 				    	</a>  -->
-<!--                 				    	<div class="comment-wrapper2"> -->
-<!--                 				    	   <a data-original-title="Search by Users" class="tag-icon" href="#"></a> -->
-<!--                 				    	   <a class="hand-icon" href="#"></a> -->
-<!--                 				    	   <a class="message-icon" href="#"></a>     -->
-<!--                 				    	   <a class="share-icon" href="#"></a> -->
-<!--                 				    	</div> -->
-<!--                 				    </div> -->
-<!--                 				 </div> -->
-<!--                 				 <h5 id="{{image.id.id}}" class="imgtitle"> -->
-<!--                 				 	<span><img src="images/title-plus.png"></span> -->
-<!--                 				 	 Title &amp; Description -->
-<!--                 				 </h5> -->
-<!--                 				 <div class="dateinfo"> -->
-<!--                 				 	<span class="state">State</span> -->
-<!--                 				 	<span class="date">{{datVal}}</span> -->
-<!--                 				 </div> -->
-<!--                 			</div> -->
-<!--                 		</div> -->
-<!--                    </div> -->
-<!--                    </div> -->
-                   
-                   
-                   
-                   
-                   
-                   
+
                    
                   </div>
                   <!-- End doc section -->
