@@ -753,8 +753,8 @@ Create a Class</a>
 				     <div class="comment-wrapper" id="{{datas.docIdIfAny.id}}">                                
 				     <div id="media-{{datas.docIdIfAny.id}}">
 				      <h4>Document Name</h4>                                
-				      <div class="description-info"><div class="description-left mediapopup" id="{{datas.docIdIfAny.id}}">
-				        <input type="hidden"  value="">      
+				      <div id="{{datas.docIdIfAny.id}}" class="description-info mediapopup"><div class="description-left mediapopup" id="{{datas.docIdIfAny.id}}">
+				        <input type="hidden" id="{{datas.docIdIfAny.id}}"  value="{{datas.messageBody}}">      
 				        <p class="doc-description">Document Description..</p>
 				      </div>
 				      <div id="{{datas.docIdIfAny.id}}" class="comment-wrapper2">
@@ -988,6 +988,7 @@ Create a Class</a>
           <div id= "all-messages">
 
           </div>
+          <div id="doc-views"></div>
 		 <div class ="page-loader"><img src ="images/loading-bars.gif"></div> 
         </div>
 </script>
