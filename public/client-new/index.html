@@ -67,9 +67,12 @@
     <div class="main-container" id="body-content">      
 
         <!----  body content--->
-      
+        
     </div>
+    <!--  for poups -->
+    <div id="beam-popups"></div>
   </div>
+  
 </article>
 <div pub-key="pub-a8c5db9f-8482-4092-b9e4-44fda38a9d51"
 		sub-key="sub-315698a6-0b22-11e2-80cd-aba6e1687b8d" ssl="off"
@@ -77,6 +80,135 @@
 	<script src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
 </body>
 <!-------------------------------------------  backbone templates ------------------------------------------>
+
+<!--  Class stream template -->
+<script type="text/x-handlebars-template" id="tpl-class-stream">
+    <div id="class-stream-popup" class="modal hide fade in" style="display:block;">
+     <div id="new-school-view" ></div>
+     <div class="modal-header">
+    <div class="control-button">
+	<a href="#"><img id="close-stream" class="close-button" src="images/close-button.png"></a>
+    </div>
+    <h1 class="pull-left">Create a class stream</h1>
+  </div>
+   <div id="error" class="invalid-validation" style="margin-left: 22px;"></div> 
+  
+  <div class="modal-body">
+    <form>
+      <fieldset class="class-pop">
+        <div class="form-row class-row">
+          <div class="element" id="div-school">
+               <label name="schools" for="schools">School</label>
+               <div id ="sShool" > 
+               <select id="schools" class="small">
+                      
+               </select>
+              </div>
+          </div>
+          <div class="element" id="for-new-school">
+            <label name="new-school" for="school-name">Enter New School</label>
+            <input type="text" id="new-school" value="" placeholder="School Name" class="large ">
+            <input  type="hidden" id="new-school-id">
+			
+          </div>
+        </div>
+        <div class="form-row class-row">
+           <div class="element ">
+            <label name="class_name" for="class-name">Class name</label>
+            <input type="text" id="class_name" class="validate[required] medium class_name" placeholder="Class name">
+			<div id="ps" class="class-info-popup"></div>
+          </div>
+            <div class="element" id="div-time">
+              <label name= "class-time" for="class-time">Class time</label>
+              <select id="class-time" class="time">
+				  {{#each times}}
+                        <option value="{{this.time}}">{{this.time}}</option>
+                  {{/each}}
+              </select>
+          </div>
+          <div class="element">
+            <label name="class-code" for="class-code">Class code</label>
+            <input type="text" id="class-code" class="validate[required] small class_code" placeholder="Class code">
+          </div>
+         
+          <div class="element">
+            <label name="date-started" for="date-started">Month/Year started</label>
+            <input class="small datepicker cal" type="text" placeholder="Date" id="date-started"/>
+          </div>
+          <div class="element" id="div-school-type">
+            <label name="semester" for="semester">Semester or Quarter</label>
+            <select id="semester" class="small">
+              <option value="semester" >Semester</option>
+              <option value="quarter">Quarter</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row class-row">
+          <div class="element">
+            <label name="educator-mail" for="educator-mail" class="plus-sign">Add Educators via Email</label>
+            <input type="text" id="educator-mail" placeholder="Educator's Email" class="large">
+          </div>
+          <div class="element">
+           <label   class="plus-sign align-middle">Add Classmates & Friends</label>
+          <div class="social-block class-social">
+                    <a class="facebook" href="#"></a>
+                    <a class="twitter" href="#"></a>
+                    <a class="linkedin" href="#"></a>
+                    <a class="google" href="#"></a>
+                    <a class="mail" href="#"></a>
+                    <img src="images/or_email.png">
+                 </div>
+                 
+           </div>
+          <div class="element">
+            <label name="classmates-mail" for="classmates-mail">(seperate by comma)</label>
+            <input type="text" id="classmates-mail" placeholder="Classmates Email, Friend's" class="large">
+          </div>
+        </div>
+        <div class="form-row">
+          <div id="class-tags">
+          <div class="element">
+            <label name="tag1" for="tag1"  class="plus-sign">Add Class Tag 1</label>
+            <input type="text" id="tag1" placeholder="Tag 1" class="large tag-position">
+            <i class="icon-middle-tag tag-place"></i>
+          </div>
+          <div class="element">
+            <label name= "tag2" for="tag2" class="plus-sign">Add Class Tag 2</label>
+            <input type="text" id="tag2" placeholder="Tag 2" class="large tag-position">
+			<i class="icon-middle-tag tag-place"></i>
+          </div>
+          <div class="element">
+            <label name = "tag3" for="tag3" class="plus-sign">Add Class Tag 3</label>
+            <input type="text" id="tag3" placeholder="Tag 3" class="large tag-position">
+			<i class="icon-middle-tag tag-place"></i>
+          </div>
+         </div>
+        </div>
+        <div class="form-row class-row">
+         <legend style="float:left !important;"class="legend legend-add" id="add-tags">ADD MORE TAGS</legend>
+         </div>
+         <div id="student-number" class="studentno-popup"></div>
+      </fieldset>
+    </form>
+  </div>
+<div class="modal-footer">
+ 
+<a id="joinClass" class="btn btn-primary pull-left" href="#joinClass">
+	<div id="join-class-loader" style="display :none;">  
+		<img src ="images/loading.gif"> 
+	 </div>
+   Join a Class</a>
+<a id="createClass" class="btn btn-success pull-right" href="#createClass">
+	<div id="create-class-loader" style="display :none;">  
+		<img src ="images/loading.gif"> 
+	 </div>
+Create a Class</a>
+</div>
+</div>
+</script>
+
+
+
 <!-- ---- mainmenu  templates ------- -->
 <script type="text/x-handlebars-template" id="tpl-navs">
      <div class="container-fluid"> <a href="index.html" class="brand"><img src="images/logo.png" width="148" height="37"></a>
@@ -154,7 +286,26 @@
               </div>
               <div class="arrow-block arrow-block-down"></div>
             </div>
-            <div class="straem-block"> <a href="#"><span><img src="images/plus.png" width="23" height="22"></span><span class="text">New Stream</span></a> </div>
+            <div id="show-stream-types"  class="straem-block"> 
+            	<a  id="streams-list-block" href="#">
+            		<span><img src="images/plus.png" width="23" height="22"></span>
+            		<span class="text">New Stream</span>
+          		</a> 
+          		
+          		<div class="streams-popup">                   
+                       <div class="streams-list-block">
+                        <span ><img src="images/arrow-left.png"></span>
+                        <ul>
+                         <li><a  id ="classstream" href="#classStream">ClassStream </a> <img src="images/small_hand.png"> Collaborate within your class</li>
+						 <li><a id="projectStream" href="#projectStream">ProjectStream </a><img src="images/small_hand.png"> Shortterm  projects w/ an end date - choose to add to your profile upon completion</li>
+                         <li><a id="studyStream" href="#studyStream">StudyStream  </a><img src="images/small_hand.png"> Study Group of students from your class, degree program, school and beyond</li>
+					 	 <li><a id ="groupStream" href="#groupStream">GroupStream </a><img src="images/small_hand.png"> Ongoing groups about anything, make them public or private </li>
+						 <li><a id="peerStream" href="#peerStream">PeerStream  </a><img src="images/small_hand.png"> Students or Professors:Stay connected w/ your peer</li>
+						 <li><a id ="friendStream" href="#friendStream">FriendStream  </a><img src="images/small_hand.png"> Collaborate and stay in touch w/ your friends</li>
+                        </ul>
+                 </div>
+                 </div>
+          	</div>
           </div>
           <div class="chat-box">
             <div class="chat-window">
@@ -1477,8 +1628,8 @@
               </li>
             </ul>
             <ul class="then-by">
-              <h6>Then by</h6>
-              <li ><a href="#">Date</a></li>
+              <h6>Then View by</h6>
+              <li data-group="all" ><a href="#">Date</a></li>
               <li data-group="all"><a href="#">All </a></li>
               <li data-group="recent"><a href="#">Most Recent </a></li>
               <li data-group="oldest"> <a href="#">Oldest</a></li>
@@ -1712,8 +1863,8 @@
               </li>
             </ul>
             <ul class="then-by">
-              <h6>Then by</h6>
-              <li><a href="#">Date</a></li>
+              <h6>Then View by</h6>
+              <li data-group="all"><a href="#">Date</a></li>
               <li data-group="all"><a href="#">All </a></li>
               <li data-sort="date-recent"><a href="#">Most Recent </a></li>
               <li data-sort="date-oldest"><a href="#">Oldest</a></li>
@@ -2084,13 +2235,6 @@
                 $grid = $('#grid'),
 	            sort = $this.data('sort'),
 	            opts = {};
-            
-//             $('.then-by li a.active').removeClass('active');
-//             $this.find('a').addClass('active');
-
-//             $grid.shuffle($this.data('group'));
-            
-            
             
             
          // We're given the element wrapped in jQuery

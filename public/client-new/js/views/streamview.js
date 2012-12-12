@@ -25,7 +25,10 @@
 			 "click .stream-tab a" : "renderSubMenuPages",
 			 "click #chat-status" : "openOnlineUsersWindow",
 			 "click .sortable li" : "renderRightContenetsOfSelectedStream",
-			 "click #show-info" :"showDetails"
+			 "click #show-info" :"showDetails",
+			 "mouseenter #show-stream-types" : "showStreamTypesPopup",
+			 "mouseleave #show-stream-types" : "hideStreamTypesPopup",
+			 "click #classstream" :"ShowClassStreamPopup",
 
 		 },
 		 
@@ -58,6 +61,66 @@
 	       this.getStreams();
 	       $(this.el).html(this.template({"data":this.model.toJSON(),"schools" : BS.mySchools}));
 	       return this;
+	    },
+	    
+	    /**
+	     * NEW THEME - display a popup that showa all type of streams  
+	     */
+	    showStreamTypesPopup: function(){
+	    	 
+	    	// stops the hide event if we move from the trigger to the popup element
+	    	if (this.hideDelayTimer) clearTimeout(this.hideDelayTimer);
+	           
+	    	// don't trigger the animation again if we're being shown, or already visible
+	    	if (this.shown) {
+	    		return;
+	    	}else 
+	    	{
+	    		this.beingShown = true;
+	    		var x= $('#streams-list-block').position();
+	    		var top = x.top - 85;
+	    		// reset position of popup box
+	    		$('.streams-popup').css({
+	    			top:  top,
+	    			left: 355,
+	    			display: 'block' // brings the popup back in to view
+	    		})
+	    		// (we're using chaining on the popup) now animate it's opacity and position
+		        .animate({
+			        	top: '-=' + this.distance + 'px',
+			        	opacity: 1
+		        	},this.time, 'swing', function() {  
+	        		// once the animation is complete, set the tracker variables
+	        		this.beingShown = false;
+	        		this. shown = true;
+	        	});
+    		}
+	    	
+	    },
+	    
+	    /**
+	     * NEW THEME - hide popup that showa all type of streams  
+	     */
+	    hideStreamTypesPopup: function(){
+	    	
+	    	// reset the timer if we get fired again - avoids double animations
+	    	if (this.hideDelayTimer) clearTimeout(this.hideDelayTimer);
+		      
+	    	// store the timer so that it can be cleared in the mouseover if required
+	    	this.hideDelayTimer = setTimeout(function () {
+	    	  
+	    		this.hideDelayTimer = null;
+	    		$('.streams-popup').animate({
+	    				top: '-=' + this.distance + 'px',
+	    				opacity: 0
+	    			}, this.time, 'swing', function () {
+    				// once the animate is complete, set the tracker variables
+    				this.shown = false;
+    				// hide the popup entirely after the effect (opacity alone doesn't do the job)
+    				$('.streams-popup').css('display', 'none');
+		        });
+	    	}, this.hideDelay);
+	    	
 	    },
 	    
 	    /**
@@ -281,6 +344,14 @@
 	    	eventName.preventDefault();
 	    	$('.show-info').toggle(100);
 	    	
+	    },
+	    
+	    /**
+	     * NEW THEME - show class stream page popup
+	     */
+	    ShowClassStreamPopup: function(eventName){
+	    	eventName.preventDefault();
+	    	BS.AppRouter.navigate("classStream", {trigger: true});
 	    },
 	    
 	  /*

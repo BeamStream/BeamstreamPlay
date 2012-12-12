@@ -58,6 +58,8 @@ BS.FilesMediaView = Backbone.View.extend({
         	 "click .then-by li a" : "filterDocs",
         	 "click #view-by-list" : "selectViewByAll",
         	 "click #view-files-byrock-list" : "selectViewByRock",
+        	 "click .rock-medias" : "rocksMeidas",
+        	 "click .rock_docs" : "rocksDocuments",
             		
             },
 	
@@ -102,6 +104,54 @@ BS.FilesMediaView = Backbone.View.extend({
                 	$('#view-files-byrock-select').text($(eventName.target).text());
                 },
                 
+                /**
+                 * NEW THEME - rocks media( images/videos) 
+                 */
+                rocksMeidas: function(eventName){
+                	eventName.preventDefault();
+                	var element = eventName.target.parentElement;
+                	var imageId =$(element).attr('id');
+                	var parent = $('div#'+imageId).parent('li');
+                
+                	// post documentId and get Rockcount 
+                	$.ajax({
+                		type: 'POST',
+                		url:BS.rockTheUsermedia,
+                		data:{
+                			userMediaId:imageId
+                		},
+                		dataType:"json",
+                		success:function(data){	              	 
+                			// display the rocks count  
+                			$('#'+imageId+'-activities li a.hand-icon').html(data);	   
+                			$(parent).attr('data-rock',data);
+                  
+                		}
+                	});
+                },
+                
+                /**
+                 * NEW THEME - rocks other documents 
+                 */
+                rocksDocuments: function(eventName){
+                	
+                	eventName.preventDefault();
+                    var element = eventName.target.parentElement;
+                    var docId =$(element).attr('id');
+                    // post documentId and get Rockcount 
+                    $.ajax({
+                    	type: 'POST',
+                    	url:BS.rockDocs,
+                    	data:{
+                    		documentId:docId
+                    	},
+                    	dataType:"json",
+                    	success:function(data){	              	 
+                    		// display the rocks count  
+                    		$('#'+docId+'-activities li a.hand-icon').html(data);	   
+                    	}
+                    });
+                },
                 
                 
             /**
@@ -205,18 +255,18 @@ BS.FilesMediaView = Backbone.View.extend({
                                 +' <div id="media-'+doc.id.id+'" >'
                                 +' <h4>'+doc.documentName+'</h4>'                                
                                 +'<div class="description-info"><div class="description-left"><p class="doc-description">'+doc.documentDescription+'</p></div></a>'
-                                +' <div class="comment-wrapper2">'
-                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon"></a>'
+                                +' <div id="'+doc.id.id+'" class="comment-wrapper2">'
+                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
                                 +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
                                 +'</div></div></div>'
                                 +'<h5 class="doctitle" id="'+doc.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
                                 +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
                                 +'</div></div></div>'
                                 +'<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>'
-                                +'<ul class="comment-list">'
-                                +'<li><a class="eye-icon" href="#">87</a></li>'
+                                +'<ul id="'+doc.id.id+'-activities" class="comment-list">'
+                                +'<li><a class="eye-icon" href="#">0</a></li>'
                                 +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li>'
-                                +'<li><a class="message-icon" href="#">10</a></li>'
+                                +'<li><a class="message-icon" href="#">0</a></li>'
                                 +'</ul>'
                                 +'</div>';
                             $('#coverdocs').html(content);                     
@@ -254,18 +304,18 @@ BS.FilesMediaView = Backbone.View.extend({
                         +' <div id="media-'+doc.id.id+'" >'
                         +' <h4>'+doc.documentName+'</h4>'                                
                         +'<div class="description-info"><div class="description-left"><p class="doc-description">'+doc.documentDescription+'</p></div></a>'
-                        +' <div class="comment-wrapper2">'
-                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon"></a>'
+                        +' <div id="'+doc.id.id+'" class="comment-wrapper2">'
+                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
                         +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
                         +'</div></div></div>'
                         +'<h5 class="doctitle" id="'+doc.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
                         +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
                         +'</div></div></div>'
                         +'<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>'
-                        +'<ul class="comment-list">'
-                        +'<li><a class="eye-icon" href="#">87</a></li>'
+                        +'<ul id="'+doc.id.id+'-activities" class="comment-list">'
+                        +'<li><a class="eye-icon" href="#">0</a></li>'
                         +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li>'
-                        +'<li><a class="message-icon" href="#">10</a></li>'
+                        +'<li><a class="message-icon" href="#">0</a></li>'
                         +'</ul>'
                         +'</div>';                
                         $('#coverdoc_com').html(content);   
@@ -325,6 +375,7 @@ BS.FilesMediaView = Backbone.View.extend({
                             if(images.length != 0)
                             {
                              _.each(images, function(image) {
+                            	 
                             var datVal =  self.formatDateVal(image.creationDate);  
                             content= '<div class="image-wrapper hovereffect" id="'+image.id.id+'">'
                                 +' <div class="hover-div"><img class="filmedia-picture" src="'+image.mediaUrl+'">'
@@ -334,18 +385,18 @@ BS.FilesMediaView = Backbone.View.extend({
                                 +' <div id="media-'+image.id.id+'" >'
                                 +' <h4>'+image.name+'</h4>'                                
                                 +'<div class="description-info"><div class="description-left"><p class="doc-description">'+image.description+'</p></div></a>'
-                                +' <div class="comment-wrapper2">'
-                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon"></a>'
+                                +' <div id="'+image.id.id+'" class="comment-wrapper2">'
+                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock-medias"></a>'
                                 +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
                                 +'</div></div></div>'
                                 +'<h5 class="imgtitle" id="'+image.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
                                 +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
                                 +'</div></div></div>'
                                 +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
-                                +'<ul class="comment-list">'
-                                +'<li><a class="eye-icon" href="#">87</a></li>'
-                                +'<li><a class="hand-icon" href="#">5</a></li>'
-                                +'<li><a class="message-icon" href="#">10</a></li>'
+                                +'<ul id="'+image.id.id+'-activities"  class="comment-list">'
+                                +'<li><a class="eye-icon" href="#">0</a></li>'
+                                +'<li><a class="hand-icon" href="#">'+image.rocks+'</a></li>'
+                                +'<li><a class="message-icon" href="#">0</a></li>'
                                 +'</ul>'
                                 +'</div>'; 
                             $('#coverimage').html(content);  
@@ -420,18 +471,18 @@ BS.FilesMediaView = Backbone.View.extend({
                                         +' <div id="media-'+video.id.id+'" >'
                                         +' <h4>'+video.name+'</h4>'                                
 	                                +'<div class="description-info"><div class="description-left"><p class="doc-description">'+video.description+'</p></div></a>'
-                                        +' <div class="comment-wrapper2">'
-                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon"></a>'
+                                        +' <div id="'+video.id.id+'" class="comment-wrapper2">'
+                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock-medias"></a>'
 	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
                                         +'</div></div></div>'
 	                                +'<h5 class="videotitle" id="'+video.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
 	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
 	                                +'</div></div></div>'
 	                                +'<div class="comment-wrapper1"> <a class="common-icon video" href="#"></a>'
-	                                +'<ul class="comment-list">'
-	                                +'<li><a class="eye-icon" href="#">87</a></li>'
-	                                +'<li><a class="hand-icon" href="#">5</a></li>'
-	                                +'<li><a class="message-icon" href="#">10</a></li>'
+	                                +'<ul id="'+video.id.id+'-activities" class="comment-list">'
+	                                +'<li><a class="eye-icon" href="#">0</a></li>'
+	                                +'<li><a class="hand-icon" href="#">'+video.rocks+'</a></li>'
+	                                +'<li><a class="message-icon" href="#">0</a></li>'
 	                                +'</ul>'
 	                                +'</div>';
                                  $('#covervideo').html(content);  
@@ -569,18 +620,18 @@ BS.FilesMediaView = Backbone.View.extend({
                                         +' <div id="media-'+ppt.id.id+'" >'
                                         +' <h4>'+ppt.documentName+'</h4>'                                
 	                                +'<div class="description-info"><div class="description-left"><p class="doc-description">'+ppt.documentDescription+'</p></div></a>'
-                                        +' <div class="comment-wrapper2">'
-                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon"></a>'
+                                        +' <div id="'+ppt.id.id+'" class="comment-wrapper2">'
+                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
 	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
                                         +'</div></div></div>'
 	                                +'<h5 class="presentationtitle" id="'+ppt.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
 	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
 	                                +'</div></div></div>'
 	                                +'<div class="comment-wrapper1"> <a class="common-icon presentation" href="#"></a>'
-	                                +'<ul class="comment-list">'
-	                                +'<li><a class="eye-icon" href="#">87</a></li>'
-	                                +'<li><a class="hand-icon" href="#">5</a></li>'
-	                                +'<li><a class="message-icon" href="#">10</a></li>'
+	                                +'<ul id="'+ppt.id.id+'-activities" class="comment-list">'
+	                                +'<li><a class="eye-icon" href="#">0</a></li>'
+	                                +'<li><a class="hand-icon" href="#">'+ppt.documentRocks+'</a></li>'
+	                                +'<li><a class="message-icon" href="#">0</a></li>'
 	                                +'</ul>'
 	                                +'</div>';
                                $('#coverpresentation').html(content); 
@@ -645,18 +696,18 @@ BS.FilesMediaView = Backbone.View.extend({
                                         +' <div id="media-'+pdf.id.id+'" >'
                                         +' <h4>'+pdf.name+'</h4>'                                
 	                                +'<div class="description-info"><div class="description-left"><p class="doc-description">'+pdf.description+'</p></div></a>'
-                                        +' <div class="comment-wrapper2">'
-                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon"></a>'
+                                        +' <div id="'+pdf.id.id+'" class="comment-wrapper2">'
+                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
 	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
                                         +'</div></div></div>'
 	                                +'<h5 class="pdftitle" id="'+pdf.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
 	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
 	                                +'</div></div></div>'
 	                                +'<div class="comment-wrapper1"> <a class="common-icon pdf" href="#"></a>'
-	                                +'<ul class="comment-list">'
-	                                +'<li><a class="eye-icon" href="#">87</a></li>'
-	                                +'<li><a class="hand-icon" href="#">5</a></li>'
-	                                +'<li><a class="message-icon" href="#">10</a></li>'
+	                                +'<ul id="'+pdf.id.id+'-activities" class="comment-list">'
+	                                +'<li><a class="eye-icon" href="#">0</a></li>'
+	                                +'<li><a class="hand-icon" href="#">'+pdf.documentRocks+'</a></li>'
+	                                +'<li><a class="message-icon" href="#">0</a></li>'
 	                                +'</ul>'
 	                                +'</div>';
          

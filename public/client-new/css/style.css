@@ -3275,3 +3275,65 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
    
 }
 
+
+
+
+/*Added By Aswathy */
+.streams-popup{
+	position: absolute;
+    display: none; /* keeps the popup hidden if no JS available */
+    z-index :999;
+}
+.streams-list-block{
+	display:block;
+	color: #FFFFFF;
+ 	padding: 10px 0 5px 15px;
+	width: 710px;
+	height: 210px;
+	background:#3A4046;
+	border-radius: 5px 5px 5px 5px;
+	position:relative;
+}
+.streams-list-block span{
+	position:absolute;
+	left:-10px;
+	top: 103px;
+/*     background:url("../images/arrow-left.png") no-repeat left center; */
+}
+.streams-list-block ul{
+    list-style: none;
+    margin:0px;
+}
+.streams-list-block ul li {
+	width: 700px;
+	display:block;
+	text-align: left;
+	overflow:hidden;
+	float:left;
+/* 	border-bottom:1px dotted #908e8f; */
+	padding: 10px 0 0;
+}
+.streams-list-block ul li+li {
+	background:url("../images/dotted_bg.png") repeat-x top;
+}
+.streams-list-block ul li img{
+	margin:0 10px;
+	float:left;
+}
+.streams-list-block ul li a{
+	color: #FFFFFF;
+    display: block;
+    float: left;
+    font-weight: normal;
+    line-height: 21px;
+    padding-left:3px;
+    padding-right:3px;
+    text-decoration: none;
+    width: 82px !important;
+	
+}
+.streams-list-block ul li a:hover{
+	text-decoration:underline;
+	color:#49a7d3;
+}
+
