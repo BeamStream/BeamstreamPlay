@@ -188,6 +188,7 @@ BS.VideoListView = Backbone.View.extend({
 				    BS.mediaeditview = new  BS.MediaEditView();
 				    BS.mediaeditview.render(imagedatas);
 				    $('#gdocedit').html(BS.mediaeditview.el);
+                                     $('#bootstrap_popup').modal('show');
                 }
 		   });
             

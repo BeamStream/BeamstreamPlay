@@ -64,8 +64,9 @@
 </header>
 <article>
   <div class="container-fluid">
+      <div id="edit-popup"></div>
     <div class="main-container" id="body-content">      
-
+    
         <!----  body content--->
         
     </div>
@@ -1542,7 +1543,7 @@ Create a Class</a>
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> 
                 <div class="clear"></div>
               </div>
             </div>
@@ -1559,7 +1560,207 @@ Create a Class</a>
       
       <div class="right-container browse-conatiner">
         <div class="stream-header browse-header">
-          <h6>Upload Media/Docs</h6>
+     <!--     <h6 id="uploadmedia_dr">Upload Media/Docs</h6>   -->
+          
+          <!--- for drop down menu--->
+          
+          <!-- /.nav-collapse -->
+            <ul id="dropdownnew" class="no-image">
+              <li class="leftplusicon"><a id="uploadmedia_dr" class="leftplusicon-a" href="#">Upload Media/Docs: </a>
+                <ul id="uploadmediachild_dr" >
+                <span class="arrow-top"></span>
+                  <li id="childone_dr"><a id="links_dr" href="#">Links</a>
+                     <ul id="linksmenu_dr" class="largeli fixingmenu_dr">
+                        <span class="arrow-left"></span>
+                         <li><input type="text" class="dropdowntext" placeholder="http://www.PasteLinksHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Links"></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Links">
+                             <select id="link-category-list" class="dropdownselect">
+                                <option>Class Links</option>
+								<option>EdTech Tool</option>
+								<option>Reference Material</option>
+								<option>Tutorial</option>
+								<option>Presentation</option>
+								<option>Amusement</option>
+								<option class="enterfromcatgry">Enter New Catagory</option>
+                             </select>
+                           </li>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+								<select class="dropdownselect" id="link-class-list">
+									<option>Save to Class</option>
+                                	<option>Profile</option>
+									<option>My Docs</option>
+								</select>
+						  </li>
+                          <li><input type="button" class="upload_button" id="links_uploadbutton"></li>
+                       </ul>   
+                  </li>
+                  <li id="childtwo_dr"><a id="docs_dr"href="#">Papers  &  Docs</a>
+                   <ul id="docsmenu_dr" class="fixingmenu_dr">
+                           <span class="arrow-left"></span>
+                            <li id="childtwo_one_dr"><a  id="googledocs_mycomp"  href="#">My Computer</a>
+                                <ul id='dooclinkchild_dr' class="largeli">
+                                    <span class="arrow-left"></span>
+                                    <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+									<li class="private">
+										<label  style="color:white;" for="id-private">
+											<input  id="id-private" type="checkbox" checked="checked">
+											Private
+										</label>
+									</li>
+                                    
+                                    <li style="margin-right:10px;" ><select class="dropdownselect" id="doc-class-list-computer">
+                                     <option>Save to Class</option>							
+                                        </select>  </li>      
+                                    <span id="loader-message"></span></br>
+
+									<li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"></li>
+                                    <li><a  style="color:white;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                            </ul>
+                            </li>
+                            
+                            <li id="childtwo_two_dr"><a id="googledocs_dr" href="#">Google Docs</a>
+                                <ul id="googledocschild_dr">
+                                    <span class="arrow-left"></span>
+                                    <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                    <li><a id="importfrmlink_dr" href="#">Import From Link</a>
+                                        <ul id='frmlinkchild_dr' class="largeli">
+                                            <span class="arrow-left"></span>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small" id="gdoc-name" placeholder="NAME of Doc"></li>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
+												<select id="doc-category-list" class="dropdownselect">
+													<option>Class Doc</option>
+													<option>Class Notes</option>
+													<option>Reference Material</option>
+													<option>Tutorial</option>
+													<option>Presentation</option>
+													<option>Project Doc</option>
+													<option>Lecture</option>
+													<option class="enterfromcatgry">Enter New Catagory</option>
+												</select>
+											</li>
+                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+											<select class="dropdownselect" id="doc-class-list">
+												<option>Save to Class</option>
+												
+											</select>
+											</li>
+											<li class="private">
+										     <label  style="color:white;" for="id-private">
+											    <input  id="doc-private" type="checkbox" checked="checked">
+											     Private
+										    </label>
+									</li>
+                                            <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>    
+                      </ul>  
+                  </li>
+                  <li id="childthree_dr"><a id ="video_dr" href="#">Video</a>
+                       <ul id="videomenu_dr" class="fixingmenu_dr">
+                    <span class="arrow-left"></span>
+                      <li><a href="#">My Computer</a></li>
+                      <li><a id="youtube_dr" href="#">YouTube</a>
+                        <ul id='youtubechild_dr' class="largeli">
+                        <span class="arrow-left"></span>
+                          <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Video"></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video">
+								<select id="video-category-list" class="dropdownselect">
+									<option>Class Video</option>
+									<option>Profile Video</option>
+									<option>Reference Material</option>
+									<option>Tutorial</option>
+									<option>Presentation</option>
+									<option>Project Presentation</option>
+									<option>Project Video</option>
+									<option>Lecture</option>
+									<option class="enterfromcatgry">Enter New Catagory</option>
+								</select>
+						</li>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+							<select class="dropdownselect" id="video-class-list">
+								<option>Save to Class</option>
+								<option>Profile</option>
+								<option>My Docs</option>
+							</select>
+						  </li>
+                          <li><input type="button" class="upload_button" id="video_uploadbutton"></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li id="childfour_dr"><a id="audio_dr" href="#">Audio</a>
+                      <ul id="audiomenu_dr" class="fixingmenu_dr">
+                     <span class="arrow-left"></span>
+                      <li><a href="#">My Computer</a></li>
+                      <li><a id="vialink_dr" href="#">Via Link</a>
+                        <ul id='vialinkchild_dr' class="largeli">
+                        <span class="arrow-left"></span>
+                          <li><input type="text" class="dropdowntext" placeholder="http://www.PasteAudioURLHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Audio"></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Audio File">
+								<select id="audio-category-list"  class="dropdownselect">
+									<option>Class Audio</option>
+									<option>Class Notes</option>
+									<option>Reference Material</option>
+									<option>Tutorial</option>
+									<option>Presentation</option>
+									<option>Project Audio</option>
+									<option>Lecture</option>
+									<option class="enterfromcatgry">Enter New Catagory</option>
+								</select>
+							</li>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+							<select class="dropdownselect" id="audio-class-list">
+							   <option>Save to Class</option>
+							   <option>Profile</option>
+							   <option>My Docs</option>
+							</select>
+						 </li>
+                          <li><input type="button" class="upload_button" id="audio_uploadbutton"></li>
+                        </ul>
+                      </li>
+                    </ul> 
+                  </li>
+                  <li id="childfive_dr"><a id="presentations_dr" href="#">Presentations</a>
+                      <ul id="presentationmenu_dr" class="fixingmenu_dr">
+                     <span class="arrow-left"></span>
+                      <li><a href="#">My Computer</a></li>
+                      <li><a id="presvialink_dr" href="#">Via Link</a>
+                        <ul id='presvialinkchild_dr' class="largeli">
+                        <span class="arrow-left"></span>
+                          <li><input type="text" class="dropdowntext" placeholder="http://www.PasteLinkHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Presentations"></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Presentations File">
+                            <select id="presentation-category-list" class="dropdownselect">
+                                      <option>Class Presentation</option>
+									  <option >Assignment</option>
+									  <option>Tutorial</option>
+ 									  <option >Presentation</option>
+									  <option >Project Presentation</option>
+									  <option >Event Presentation</option>
+                                      <option class="enterfromcatgry">Enter New Catagory</option>
+                            </select>
+                           </li>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+								<select id="presentation-class-list" class="dropdownselect">
+									<option>Save to Class</option>
+									<option>Profile</option>
+									<option>My Docs</option>
+								</select>
+						 </li>
+                          <li><input type="button" class="upload_button" id="press_uploadbutton"></li>
+                        </ul>
+                      </li>
+                    </ul>   
+                  </li>
+                   
+                </ul>
+              </li> 
+            </ul>
+            <!-- /.nav-collapse -->  
+           <!--- for drop down menu--->
+          
+          
           <form class="navbar-form browse-search-block ">
             <input type="text" placeholder="Search Media/docs" class="browse-search">
             <button class="btn header-button browse-go" type="submit">Go</button>
@@ -1652,27 +1853,27 @@ Create a Class</a>
            
            
        <li  data-groups='["recent"]' id="coverimage" data-date-created="11/06/2012" class="item" >
-           <div class="image-wrapper"><div class="hover-div"><div id="profile-images"><img class="cover-picture" src="images/pictures_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Images </p></div></div></div>
+         <div class="image-wrapper"><div class="hover-div"><div id="profile-images"><img class="cover-picture" src="images/pictures_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Images </p></div></div></div>
           <div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
               <li><a class="hand-icon" href="#">5</a></li>
               <li><a class="message-icon" href="#">10</a></li>
             </ul>
-          </div>  
+          </div>
         </li>
         <li data-groups='["oldest"]' data-date-created="2010-09-14" id="covervideo" class="item">
-         <div class="image-wrapper"><div class="hover-div"><div id="profile-videos"><img class="cover-picture" src="images/video_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Videos </p></div></div> </div>
+       <div class="image-wrapper"><div class="hover-div"><div id="profile-videos"><img class="cover-picture" src="images/video_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Videos </p></div></div> </div>
           <div class="comment-wrapper1"> <a class="common-icon video" href="#"></a>
             <ul class="comment-list">
               <li><a class="eye-icon" href="#">87</a></li>
               <li><a class="hand-icon" href="#">5</a></li>
               <li><a class="message-icon" href="#">10</a></li>
             </ul>
-          </div>  
+          </div> 
         </li>        
         <li id="coverdocs"  data-groups='["recent"]' data-date-created="11/07/2012" class="item">
-          <div class="image-wrapper" id="google-docs"><div class="hover-div"><a class="google-docs-image" href="#googledocs"><img class="cover-picture" src="images/google_docs_image.png"></a>  
+       <div class="image-wrapper" id="google-docs"><div class="hover-div"><a class="google-docs-image" href="#googledocs"><img class="cover-picture" src="images/google_docs_image.png"></a>  
           <div class="hover-text"><p class="emptyfiles"> No Uploaded Docs </p></div></div></div>
           <div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>
             <ul class="comment-list">
@@ -1683,7 +1884,7 @@ Create a Class</a>
           </div>   
         </li>        
         <li id="coveraudio" data-groups='["oldest"]' data-date-created="12/06/2011" class="item" >
-              <div class="image-wrapper coveraud"> 
+         <div class="image-wrapper coveraud"> 
                <div class="hover-div"><img class="cover-picture" src="images/audio_image.png"/><div class="hover-text"> 
                  <p class="emptyfiles"> No Uploaded Audio </p></div>
                </div>
@@ -1694,10 +1895,10 @@ Create a Class</a>
                   <li><a class="hand-icon" href="#">5</a></li>
                   <li><a class="message-icon" href="#">10</a></li>
               </ul>
-           </div>  
+           </div> 
         </li>
         <li id="coverspreadsheet"  data-groups='["recent"]' data-date-created="11/10/2012" class="item">
-         <div class="image-wrapper">
+       <div class="image-wrapper">
             <div class="hover-div"><img class="cover-picture" src="images/spreadsheets_image.png"/><div class="hover-text"> 
                <p class="emptyfiles"> No Uploaded Spreadsheets </p>
               </div> 
@@ -1708,10 +1909,10 @@ Create a Class</a>
                  <li><a class="hand-icon" href="#">5</a></li>
                  <li><a class="message-icon" href="#">10</a></li>
               </ul>
-           </div>   
+           </div>  
         </li>
         <li id="coverpresentation" data-groups='["oldest"]' data-date-created="11/09/2012" class="item">
-           <div class="image-wrapper"> 
+         <div class="image-wrapper"> 
               <div class="hover-div"><img class="cover-picture" src="images/presentations_image.png"/>
                <div class="hover-text">  <p class="emptyfiles"> No Uploaded Presentations </p></div>        
               </div>
@@ -1722,7 +1923,7 @@ Create a Class</a>
                 <li><a class="hand-icon" href="#">5</a></li>
                 <li><a class="message-icon" href="#">10</a></li>
             </ul>
-          </div>       
+          </div>  
        </li>
        <li id="coverpdf" data-groups='["oldest"]' data-date-created="09/06/2012" class="item">
          <div class="image-wrapper">
@@ -1736,10 +1937,11 @@ Create a Class</a>
                 <li><a class="hand-icon" href="#">5</a></li>
                 <li><a class="message-icon" href="#">10</a></li>
               </ul>        
-           </div>           
+
+           </div>         
         </li>
         <li id="coverdoc_com"  data-groups='["recent"]' data-date-created="11/06/2012" class="item">
-         <div class="image-wrapper"> 
+       <div class="image-wrapper"> 
              <div class="hover-div"><img class="cover-picture" src="images/docs_image.png"/>
                <div class="hover-text">     
                 <p class="emptyfiles"> No Uploaded Docs </p>
@@ -1752,10 +1954,10 @@ Create a Class</a>
                 <li><a class="hand-icon" href="#">5</a></li>
                 <li><a class="message-icon" href="#">10</a></li>
              </ul>
-          </div>       
+          </div>   
         </li>       
         <li id="coverlink"  data-groups='["recent"]' data-date-created="11/06/2010" class="item" >
-            <div class="image-wrapper"> 
+     <div class="image-wrapper"> 
              <div class="hover-div"><img class="cover-picture" src="images/links_image.png"/>
                <div class="hover-text">     
                 <p class="emptyfiles"> No Uploaded Links </p>
@@ -1768,7 +1970,7 @@ Create a Class</a>
                 <li><a class="hand-icon" href="#">5</a></li>
                 <li><a class="message-icon" href="#">10</a></li>
              </ul>
-          </div>          
+          </div>   
         </li>       
     <!--  </ul>  -->
     

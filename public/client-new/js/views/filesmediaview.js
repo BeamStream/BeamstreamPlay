@@ -23,32 +23,32 @@ BS.FilesMediaView = Backbone.View.extend({
                 //         "click ul.file-type li a" : "hideList",
                 //         "click '.nav a" : "addActive",
                  //        "click #gdoc_uploadbutton" : "uploadFile",
-                //         "click .doctitle" : "editDocTitle",
-                //         "click .imgtitle" : "editImgTitle",
-                //         "click .videotitle" : "editVideoTitle",  
+                         "click .doctitle" : "editDocTitle",
+                         "click .imgtitle" : "editImgTitle",
+                         "click .videotitle" : "editVideoTitle",  
                 //         "click .audiotitle" : "editAudioTitle",
-                //         "click .pdftitle" : "editPdfTitle",
-                //         "click .presentationtitle" : "editPresentationTitle",
-                //        "mouseenter #uploadmedia_dr":"uploadMediadwn",
-                 //       "mouseleave #dropdownnew":"uploadMediaup",
-                //        "click #links_dr":"linksMenuList",
-                //        "click #links_uploadbutton":"linkupload",
-                //        "click #docs_dr":"docsMenuList",  
-                //        "click #googledocs_mycomp":"showFileForm",
-                //        "click #googledocs_dr":"googleDocs",
-                 //       "click #importfrmlink_dr": "importFromLink",                
-                 //       "click #video_dr":"videoMenuList",
-                //        "click #youtube_dr":"youtubeMenu",
-                //        "click #video_uploadbutton":"videoUpload",
-                //        "click #audio_dr":"audioMenuList",               
-                //        "click #vialink_dr":"audioVialink",
-                //        "click #audio_uploadbutton":"audioUpload",
-               //         "click #presentations_dr":"presentationMenuList",
-                //        "click #presvialink_dr":"presentationVialink",
-               //         "click #press_uploadbutton":"presentationUpload",
-                //        "click #docfrmcomputer_uploadbutton": "saveMyFile",
-                //        'change #doc-from-computer' :'displayImage',
-                //        'click #docfrmcomputer_closePopup': "hidePopUpBlock"
+                         "click .pdftitle" : "editPdfTitle",
+                         "click .presentationtitle" : "editPresentationTitle",
+                        "mouseenter #uploadmedia_dr":"uploadMediadwn",
+                        "mouseleave #dropdownnew":"uploadMediaup",
+                        "click #links_dr":"linksMenuList",
+                        "click #links_uploadbutton":"linkupload",
+                        "click #docs_dr":"docsMenuList",  
+                        "click #googledocs_mycomp":"showFileForm",
+                        "click #googledocs_dr":"googleDocs",
+                        "click #importfrmlink_dr": "importFromLink",                
+                        "click #video_dr":"videoMenuList",
+                        "click #youtube_dr":"youtubeMenu",
+                        "click #video_uploadbutton":"videoUpload",
+                        "click #audio_dr":"audioMenuList",               
+                        "click #vialink_dr":"audioVialink",
+                        "click #audio_uploadbutton":"audioUpload",
+                        "click #presentations_dr":"presentationMenuList",
+                        "click #presvialink_dr":"presentationVialink",
+                        "click #press_uploadbutton":"presentationUpload",
+                        "click #docfrmcomputer_uploadbutton": "saveMyFile",
+                        'change #doc-from-computer' :'displayImage',
+                        'click #docfrmcomputer_closePopup': "hidePopUpBlock",
               
  //                       "click #select_dr":"selectboxdwn",
  //                       "blur #select_dr":"selectboxup"
@@ -63,8 +63,7 @@ BS.FilesMediaView = Backbone.View.extend({
             		
             },
 	
-            initialize:function () {         	 	       
-                console.log('Initializing Files and Media  View');       
+            initialize:function () {         	 	            
                 this.source = $("#tpl-files-media").html();
                 this.template = Handlebars.compile(this.source);
                 this.pictres();	
@@ -348,7 +347,8 @@ BS.FilesMediaView = Backbone.View.extend({
                             }
                         BS.mediaeditview = new  BS.MediaEditView();
                         BS.mediaeditview.render(datas);
-                        $('#gdocedit').html(BS.mediaeditview.el);            
+                        $('#edit-popup').html(BS.mediaeditview.el);  
+                          $('#bootstrap_popup').modal('show');
                         }
                     });          
                 },
@@ -435,7 +435,8 @@ BS.FilesMediaView = Backbone.View.extend({
                     }    
 		            BS.mediaeditview = new  BS.MediaEditView();
 		            BS.mediaeditview.render(imagedatas);
-		            $('#gdocedit').html(BS.mediaeditview.el);
+		            $('#edit-popup').html(BS.mediaeditview.el);
+                             $('#bootstrap_popup').modal('show');
                }
            });
             
@@ -517,7 +518,8 @@ BS.FilesMediaView = Backbone.View.extend({
 	                     }
 			            BS.mediaeditview = new  BS.MediaEditView();
 			            BS.mediaeditview.render(imagedatas);
-			            $('#gdocedit').html(BS.mediaeditview.el);
+			            $('#edit-popup').html(BS.mediaeditview.el);
+                                     $('#bootstrap_popup').modal('show');
 	                }
 	           });
           },
@@ -666,7 +668,8 @@ BS.FilesMediaView = Backbone.View.extend({
 			  }
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(pptdatas);
-            $('#gdocedit').html(BS.mediaeditview.el);
+            $('#edit-popup').html(BS.mediaeditview.el);
+            $('#bootstrap_popup').modal('show');
                         }
            });
             },
@@ -735,7 +738,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                 documentId: pdfId  
                                 },
                         dataType : "json",
-                        success : function(pdfs) {                          
+                        success : function(pdfs) {   
                              var pdfdatas = {
                              "id" : pdfs[0].id.id,
                              "url" : pdfs[0].documentURL,
@@ -745,7 +748,8 @@ BS.FilesMediaView = Backbone.View.extend({
 			  }
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(pdfdatas);
-            $('#gdocedit').html(BS.mediaeditview.el);         
+            $('#edit-popup').html(BS.mediaeditview.el); 
+            $('#bootstrap_popup').modal('show');
                   }
                     });
         },         
@@ -787,8 +791,8 @@ BS.FilesMediaView = Backbone.View.extend({
          */
         uploadMediadwn :function(eventName){
             eventName.preventDefault();
-            if(!$('#uploadmediachild_dr').is(":visible") ) 
-            $("#uploadmediachild_dr").show("slide", { direction: "up" }, 10);
+            if(!$('#uploadmediachild_dr').is(":visible") )       
+              $("#uploadmediachild_dr").slideDown();
         },
         
         /* Function for uploadmedia 
@@ -855,7 +859,6 @@ BS.FilesMediaView = Backbone.View.extend({
             eventName.preventDefault();
             $("#childtwo_two_dr").find('ul').hide(200);
             $("#dooclinkchild_dr").animate({width: 'toggle'},130);
-            console.log(" my computer");
             //select box for stream
             var i='';
             var optioncontent=''; 
@@ -864,10 +867,8 @@ BS.FilesMediaView = Backbone.View.extend({
 			url : BS.allStreamsForAUser,
 			dataType : "json",
                         success : function(options) {
-                                    console.log(" my computer success");
                         	 optioncontent+='<option>Save to Class</option>'
                              _.each(options, function(option) {
-                                  console.log(option.id.id);
 	                              optioncontent+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
 	                              i++;
                               });
@@ -887,7 +888,6 @@ BS.FilesMediaView = Backbone.View.extend({
          */
          googleDocs:function(eventName){
             eventName.preventDefault();
-            console.log("test");
             $("#childtwo_one_dr").find('ul').hide(200);
             $("#googledocschild_dr").animate({width: 'toggle'},130);
         },
@@ -897,7 +897,6 @@ BS.FilesMediaView = Backbone.View.extend({
          * (childmenu from Import from link )
          */
         importFromLink:function(eventName){
-            console.log("selectbox");
             eventName.preventDefault();
             $("#frmlinkchild_dr").animate({width: 'toggle'},150);
             var i='';
@@ -910,11 +909,9 @@ BS.FilesMediaView = Backbone.View.extend({
                             
                         	 content+='<option>Save to Class</option>'
                              _.each(options, function(option) {
-                                  console.log(option.id.id);
 	                              content+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
 	                              i++;
                               });
-                        	  console.log(content);
                               $('#doc-class-list').html(content); 
                               }
 					
@@ -1080,7 +1077,7 @@ BS.FilesMediaView = Backbone.View.extend({
         uploadMediaup :function(eventName){
              eventName.preventDefault();
              if(!$('.fixingmenu_dr').is(":visible") ) 
-             $("#uploadmediachild_dr").hide("slide", { direction: "up" }, 10); 
+             $("#uploadmediachild_dr").slideUp(50); 
         },
         
         /**
@@ -1104,12 +1101,27 @@ BS.FilesMediaView = Backbone.View.extend({
                 eventName.preventDefault();
                  var self = this;
                 var status = true;
+                var message ='';
                 var streamId = $("#doc-class-list-computer").val();
+                
+                //get message access private ? / public ?
+                var docAccess;
+                var access =  $('#id-private').attr('checked');
+                if(access == "checked")
+                {
+                	docAccess = "Private";
+                }
+                else
+                {
+                	docAccess = "Public";
+                }
+                
                 var data;
                 data = new FormData();
                 data.append('streamId', streamId);
+                data.append('docAccess' ,docAccess);
                 data.append('docData', this.image);  
-                
+                data.append('docDescription',message);
                 document.getElementById('loader-message').innerHTML="<img src='images/loading.gif'>";
                 
                 /* post profile page details */
@@ -1122,7 +1134,7 @@ BS.FilesMediaView = Backbone.View.extend({
                     processData: false,
                     dataType : "json",
                     success: function(data){
-                        if(data.status == "Success") 
+                        if(data!== " ") 
                             {
                                 document.getElementById('loader-message').innerHTML = data.message;
                                 self.docsList();
@@ -1133,7 +1145,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                 $("#dooclinkchild_dr").hide(200);
                             }
                     }
-                });
+                }); 
          },
          
              /**
