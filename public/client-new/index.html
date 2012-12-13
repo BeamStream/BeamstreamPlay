@@ -594,7 +594,7 @@ Create a Class</a>
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
-                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message"><span>{{datas.rocks}}</span></a></li>
+                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message uprocks-message"><span>{{datas.rocks}}</span></a></li>
                         <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
 						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
                       </ul>
@@ -647,13 +647,13 @@ Create a Class</a>
 					    <div class="hover-text">               
 					     <div class="comment-wrapper" id="{{datas.docIdIfAny.id}}">                                
 					     <div id="media-{{datas.docIdIfAny.id}}">
-					      <h4>Media Name</h4>                                
+					      <h4 id="name-{{datas.docIdIfAny.id}}" >Media Name</h4>                                
 					      <div class="description-info">      
 					         <div class="gallery"></div>
 						 <div class="gallery hrtxt">
 					           <a href="{{datas.anyPreviewImageUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
 					              <div class="description-left">   
-					              <p class="google_doc doc-description" id="{{datas.docIdIfAny.id}}"><input type="hidden" id="id-{{datas.docIdIfAny.id}}" value="doc.url">Media Description</p>
+					              <p class="google_doc doc-description" id="description-{{datas.docIdIfAny.id}}"><input type="hidden" id="id-{{datas.docIdIfAny.id}}" value="doc.url">Media Description</p>
 						    </div>
 					           </a>
 						 </div>     
@@ -695,7 +695,7 @@ Create a Class</a>
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
-                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message"><span>{{datas.rocks}}</span></a></li>
+                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message uprocks-message"><span>{{datas.rocks}}</span></a></li>
                         <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
 						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
                       </ul>
@@ -753,10 +753,10 @@ Create a Class</a>
 				    <div class="hover-text">               
 				     <div class="comment-wrapper" id="{{datas.docIdIfAny.id}}">                                
 				     <div id="media-{{datas.docIdIfAny.id}}">
-				      <h4>Document Name</h4>                                
-				      <div  class="description-info "><div name={{type}} data-placement="left" rel="tooltip" data-original-title="Click to View " class="description-left mediapopup drag-rectangle" id="{{datas.docIdIfAny.id}}">
+				      <h4 id="name-{{datas.docIdIfAny.id}}" >Document Name</h4>                                
+				      <div  class="description-info "><div name={{type}}  class="description-left mediapopup drag-rectangle" id="{{datas.docIdIfAny.id}}">
 				        <input type="hidden" id="id-{{datas.docIdIfAny.id}}"  value="{{datas.messageBody}}">      
-				        <p class="doc-description">Document Description..</p>
+				        <p class="doc-description" id="description-{{datas.docIdIfAny.id}}" >Document Description..</p>
 				      </div>
 				      <div id="{{datas.docIdIfAny.id}}" class="comment-wrapper2">
 				      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_documents"></a>
@@ -795,7 +795,7 @@ Create a Class</a>
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
-                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message"><span>{{datas.rocks}}</span></a></li>
+                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message uprocks-message"><span>{{datas.rocks}}</span></a></li>
                         <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
 						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
                       </ul>
@@ -2177,7 +2177,7 @@ Create a Class</a>
        </div>
     </div>
    <div class="comment-wrapper1"> 
-    <a class="common-icon camera" href="#"></a>
+    <a class="common-icon video" href="#"></a>
      <ul id="{{video.id.id}}-activities" class="comment-list">
       <li><a class="eye-icon" href="#">0</a></li>
       <li><a class="hand-icon show_rockers" href="#">{{video.rocks}}</a></li>
@@ -2215,7 +2215,7 @@ Create a Class</a>
   </div>
  </div>
   <div class="comment-wrapper1"> 
-   <a class="common-icon camera" href="#"></a>
+   <a class="common-icon data" href="#"></a>
     <ul id="{{doc.id.id}}-activities" class="comment-list">
      <li><a class="eye-icon" href="#">0</a></li>
      <li><a class="hand-icon show_rockers" href="#">{{doc.documentRocks}}</a></li>
@@ -2289,7 +2289,7 @@ Create a Class</a>
   </div>
  </div>
   <div class="comment-wrapper1"> 
-   <a class="common-icon camera" href="#"></a>
+   <a class="common-icon data" href="#"></a>
     <ul id="{{ppt.id.id}}-activities" class="comment-list">
      <li><a class="eye-icon" href="#">0</a></li>
      <li><a class="hand-icon show_rockers" href="#">{{ppt.documentRocks}}</a></li>
@@ -2326,7 +2326,7 @@ Create a Class</a>
   </div>
  </div>
   <div class="comment-wrapper1"> 
-   <a class="common-icon camera" href="#"></a>
+   <a class="common-icon pdf" href="#"></a>
     <ul id="{{pdf.id.id}}-activities" class="comment-list">
      <li><a class="eye-icon" href="#">0</a></li>
      <li><a class="hand-icon show_rockers" href="#">{{pdf.documentRocks}}</a></li>

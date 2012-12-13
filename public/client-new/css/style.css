@@ -1390,7 +1390,7 @@ ul.follow-name-left li a.rocks:hover {
 }
 
 /* rock message */
-ul.follow-name-left li a.rocks-message {
+ul.follow-name-left li a.uprocks-message {
                 background: url("../images/rocks-icon-less-arrow.png") no-repeat scroll center top transparent;
                 color: #5299BD;
                 display: block;
@@ -1399,7 +1399,16 @@ ul.follow-name-left li a.rocks-message {
                 text-align:center;
 }
 
-ul.follow-name-left li a.rocks-message-plus {
+ul.follow-name-left li a.downrocks-message {
+                background: url("../images/rocks-icon-less-arrow.png") no-repeat scroll center top transparent;
+                color: #5299BD;
+                display: block;
+                font-weight: bold;
+                width:25px;
+                text-align:center;
+}
+
+ul.follow-name-left li a.uprocks-message:hover {
                 background: url("../images/rocks-icon-a1-plus.png") no-repeat scroll center top transparent;
                 color: #5299BD;
                 display: block;
@@ -1407,7 +1416,7 @@ ul.follow-name-left li a.rocks-message-plus {
                 width:25px;
                 text-align:center;
 }
-ul.follow-name-left li a.rocks-message-minus {
+ul.follow-name-left li a.downrocks-message:hover {
                 background: url("../images/rocks-icon-a1-mius.png") no-repeat scroll center top transparent;
                 color: #5299BD;
                 display: block;
@@ -1531,17 +1540,11 @@ ul.follow-bottom-menu li a.rocks {
 }
 
 .answer-conatiner {
-		-moz-border-bottom-colors: none;
-		-moz-border-left-colors: none;
-		-moz-border-right-colors: none;
-		-moz-border-top-colors: none;
+		
 		background: none repeat scroll 0 0 #FFFFFF;
-		border-color: -moz-use-text-color #CDD4DB #CDD4DB;
-		border-image: none;
+
+			border: 1px solid #CDD4DB;
 		border-radius: 0 0 7px 7px;
-		border-right: 1px solid #CDD4DB;
-		border-style: none solid solid;
-		border-width: medium 1px 1px;
 		margin: 0 auto;
 		overflow:hidden;
 		display:block;
@@ -2611,9 +2614,9 @@ ul.profil-pic-outer li {
 		display:block;
 		overflow:hidden;
 		float:left;
-		margin:0 1% 1% 1%;
-		width:18.2%;
-		box-shadow: 0 0px 0px 1px #cdd4db;
+		margin:0 1% 2% 1%;
+		width:18%;
+		box-shadow: 0 0px 0px 1px #3d5869;
 }
 
 .browse-search-block {
@@ -2740,7 +2743,7 @@ ul.profil-pic-outer li {
 }
 div.hover-div{ 
      display:block; 
-     height:150px !important; 
+     height:180px !important; 
      position:relative; 
      text-align:center;overflow:hidden;
     
@@ -2880,7 +2883,7 @@ border-radius: 4px 0 0 4px;
     text-align:left;
     word-wrap: break-word;
 
-  margin: 0px 0 5px 8px; background:url(../images/comment-icon.png) no-repeat 5px 4px #f4f6f8;height:65px;
+  margin: 0px 0 15px 8px; background:url(../images/comment-icon.png) no-repeat 5px 4px #f4f6f8;height:65px;
 
 border-radius: 4px;
 padding:0 5% 0 10%;
@@ -3079,7 +3082,7 @@ ul.strem-header-info {
  	margin:0 0 8px 0; 
  } 
  
- .dateinfo{width:100%;float:left; padding:2px 0 0 0; }
+ .dateinfo{width:100%;float:left; padding:12px 0 0 0; }
  .dateinfo span{float:left; font-weight:400;text-align:left;color:#343841 !important;}
 
  .image-wrapper span{ 
@@ -3107,7 +3110,7 @@ ul.strem-header-info {
  .hover-text{ 
      display:none; 
      clear:both; 
-     height:154px; 
+     height:184px; 
      
      color:white;  
     width:100%; 
@@ -3148,14 +3151,27 @@ ul.strem-header-info {
  	position:relative;	 
  } */
  .common-icon{ 
- 	width: 44px; 
+ 	width:20%; 
  	height: 37px; 
          display: block; 
          float:left; 
  	position:relative; 
  	border-bottom-left-radius: 3px !important; 
- 	background:url(../images/icons-thump.png) -2px  5px  no-repeat #4a6a86;
+ 	background:url(../images/icons-thump.png) left 5px no-repeat #4a6a86;
  } 
+.music{background:url(../images/icons-thump.png) -152px 5px no-repeat #4a6a86;}
+
+.video{background:url(../images/icons-thump.png) -100px 5px no-repeat #4a6a86;} 
+.data{background:url(../images/icons-thump.png) -300px 5px no-repeat #4a6a86;}
+
+.presentation{background:url(../images/icons-thump.png) -300px 5px no-repeat #4a6a86;}
+
+.pdf{background:url(../images/icons-thump.png) -199px 5px no-repeat #4a6a86;}
+
+.link{background:url(../images/icons-thump.png) -52px 5px no-repeat #4a6a86;}
+
+
+
  .right-arrow{ 
  	width:6px !important; 
  	height:10px !important; 
@@ -3168,7 +3184,7 @@ ul.strem-header-info {
  ul.comment-list { 
  	list-style:none; 
  	display:block; 
- 	padding:5px 10px 0 0; 
+ 	padding:5px 5px 0 0; 
  	float:right; 
  	margin:0; 
  } 

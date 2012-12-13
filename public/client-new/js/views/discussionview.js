@@ -43,9 +43,9 @@
 			 "click #sortBy-list" : "sortMessages",
 			 "click #date-sort-list" : "sortMessagesWithinAPeriod",
 			 "keypress #sort_by_key" : "sortMessagesByKey",
-			 "mouseenter .rocks-message":"showUnrockMessage",
-			 "mouseleave .rocks-message-plus":"showMessageIcon",
-			 "mouseleave .rocks-message-minus":"showMessageIcon",
+//			 "mouseenter .rocks-message":"showUnrockMessage",
+//			 "mouseleave .rocks-message-plus":"showMessageIcon",
+//			 "mouseleave .rocks-message-minus":"showMessageIcon",
 			 "click .who-rocked-it" : "showRockersList",
 			 "click .rock_media" : "rocksMedias",
 			 "click .rock_documents" : "rocksDocuments",
@@ -766,16 +766,16 @@
 	            dataType:"json",
 	            success:function(data){
 	            	console.log($('#'+messageId+'-msgRockCount').attr('class')); 
-//	            	if($('#'+messageId+'-msgRockCount').hasClass('rocks'))
-//	            	{
-//	            		$('#'+messageId+'-msgRockCount').removeClass('rocks');
-//	            		$('#'+messageId+'-msgRockCount').addClass('rocks-up');
-//	            	}
-//	            	else
-//	            	{
-//	            		$('#'+messageId+'-msgRockCount').removeClass('rocks-up');
-//	            		$('#'+messageId+'-msgRockCount').addClass('rocks');
-//	            	}
+	            	if($('#'+messageId+'-msgRockCount').hasClass('downrocks-message'))
+	            	{
+	            		$('#'+messageId+'-msgRockCount').removeClass('downrocks-message');
+	            		$('#'+messageId+'-msgRockCount').addClass('uprocks-message');
+	            	}
+	            	else
+	            	{
+	            		$('#'+messageId+'-msgRockCount').removeClass('uprocks-message');
+	            		$('#'+messageId+'-msgRockCount').addClass('downrocks-message');
+	            	}
 	            	
 	            	// display the count in icon
 	                $('#'+messageId+'-msgRockCount').find('span').html(data);
@@ -1448,27 +1448,28 @@
 			         
 			         
 			         /* make a call to check whether the logged user is already rock this message*/ 
-//					 $.ajax({
-//			             type: 'POST',
-//			             url:BS.isARockerOfMessage,
-//			             data:{
-//			            	 messageId:data.id.id
-//			             },
-//			             dataType:"json",
-//			             success:function(result){
-//			            	 if(result == "true")
-//			            	 {
-//			            		 $('#'+data.id.id+'-msgRockCount').removeClass('rocks-up');
-//			            		 $('#'+data.id.id+'-msgRockCount').addClass('rocks');			            		 
-//			            	 }
-//			            	 else
-//			            	 {
-//			            		 $('#'+data.id.id+'-msgRockCount').removeClass('rocks');
-//			            		 $('#'+data.id.id+'-msgRockCount').addClass('rocks-up');
-//			            	 }
-//			            	 
-//			             }
-//			          });
+					 $.ajax({
+			             type: 'POST',
+			             url:BS.isARockerOfMessage,
+			             data:{
+			            	 messageId:data.id.id
+			             },
+			             dataType:"json",
+			             success:function(result){
+			            	 if(result == "true")
+			            	 {
+			            		 $('#'+data.id.id+'-msgRockCount').removeClass('uprocks-message');
+			            		 $('#'+data.id.id+'-msgRockCount').addClass('downrocks-message');
+			            		            		 
+			            	 }
+			            	 else
+			            	 {
+			            		 $('#'+data.id.id+'-msgRockCount').removeClass('downrocks-message');
+			            		 $('#'+data.id.id+'-msgRockCount').addClass('uprocks-message');			 
+			            	 }
+			            	 
+			             }
+			          });
 						 
 					 /* get profile images for messages */
 			         $.ajax({

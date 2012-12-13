@@ -62,8 +62,6 @@
 	                },
 	                dataType : "json",
 	                success : function(data) {
-                             console.log(data);
-                            console.log(data[0].description);
 	                    var content = '';
 	                    if(data.status == 'Failure')
 	                    {
@@ -71,7 +69,7 @@
 	                    }
 	                    else
 	                    {
-	                            alert("Doc Edit Successfully");
+	                           alert("Doc Edit Successfully");
 	                           content= '<h4>'+data[0].documentName+'</h4>'                              
                                                 +'<div class="description-info"><div class="description-left mediapopup" id="'+data[0].id.id+'">'
                                                 +'<input type="hidden" id="id-'+data[0].id.id+'" value="'+data[0].documentURL+'">'      
@@ -81,8 +79,11 @@
                                                 +'<a href="#" class="hand-icon rock_docs"></a>'
                                                 +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>'
                                                  +'</div></div>';
+	                           
+	                           
+	                          
 	                            $('#media-'+data[0].id.id+'').html(content);
-                                     $('#bootstrap_popup').modal('hide');   
+                                $('#bootstrap_popup').modal('hide');   
 
 	                     }
 	                 }           
@@ -120,6 +121,8 @@
                                                +'<a href="#" class="hand-icon rock_docs"></a>'
                                               +'  <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>'
                                                +' </div></div>';
+
+	                               
 	                            $('#media-'+data[0].id.id+'').html(content);
                                     $('#bootstrap_popup').modal('hide');
 	                        }
