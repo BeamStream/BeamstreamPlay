@@ -137,6 +137,7 @@
 					dataType : "json",
 					success : function(datas) {
 						 var streams ='';
+						 BS.myClasses = '';
 						 var classStreams ='';
 						 _.each(datas, function(data) {
 							 
@@ -144,8 +145,16 @@
 			                        +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>'
 			                        +'<span class="close-btn drag-rectangle" data-original-title="Delete"><img  src="images/close.png"></span>'
 			                        +'</li>';
+							 
+							 
+							 BS.myClasses+= '<li><a id ="'+data.id.id+'" href="#">'+data.streamName+'</a></li>';
 							    
 						 });
+						 
+						 BS.myClasses+= '<li><a href="#">Degree Program</a></li>'
+							 			+'<li><a href="#">My Graduating Year </a></li>'
+							 			+'<li><a href="#">My School</a></li>'
+							 			+'<li><a href="#">Public</a></li>';
 						  
 						 
 						 $('#sortable4').html(streams);
@@ -290,7 +299,7 @@
 	    	$('.stream-tab a.active').removeClass('active');
 		    $('#'+subMenu).addClass('active');
 		    var streamId =  $('.sortable li.active').attr('id');
-		    
+		    var streamName= $('.sortable li.active').text();
 	    	
 	    	if(subMenu == "calendar_tab")
 		    {
@@ -305,6 +314,9 @@
 				BS.discussionView = new BS.DiscussionView();
 				BS.discussionView.render();
   				$('#common-middle-contents').html(BS.discussionView.el);
+  				
+  				$('#select-privateTo').text(streamName);
+  				$('#private-to-list').html(BS.myClasses);
   				$('.page-loader').hide();
   				
   				// get all messages

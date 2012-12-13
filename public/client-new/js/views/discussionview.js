@@ -49,6 +49,7 @@
 			 "click .who-rocked-it" : "showRockersList",
 			 "click .rock_media" : "rocksMedias",
 			 "click .rock_documents" : "rocksDocuments",
+			 "click .mediapopup": "showFilesInAPopup"
 
 		},
 	
@@ -1049,6 +1050,7 @@
          * NEW THEME - select Private / Public ( social share ) options 
          */
         checkPrivateAccess: function (eventName) {
+        	var streamName = $('.sortable li.active').text();
         	
         	if($('#private-to').attr('checked')!= 'checked')
         	{
@@ -1057,7 +1059,7 @@
         	}
         	else
         	{
-        		$('#select-privateTo').text("Class");
+        		$('#select-privateTo').text(streamName);
         		$('#share-discussions li.active').removeClass('active');
         	}
         		
@@ -1625,6 +1627,28 @@
         	});
 		},
  
+		/**
+		 * NEW THEME - Show uploaded files in a popups
+		 */
+		showFilesInAPopup: function(eventName){
+			var docId = eventName.currentTarget.id;
+			var fileType = $(eventName.currentTarget).attr('name');
+            
+            
+            if(fileType == "googleDoc")
+            {
+            	var docUrl = $('input#id-'+docId).val(); 
+            }
+            else
+            {
+            	var docUrl = "http://docs.google.com/gview?url="+$('input#id-'+docId).val()+"&embedded=true"; 
+            }
+            var gdocpopupview = new BS.GdocPopupView();
+            gdocpopupview.render(docUrl);           
+            $('#doc-views').html(gdocpopupview.el); 
+            $('#bootstrap_popup').modal('show');
+			
+		},
 	 
 	   /**
 	    * NEW THEME - PUBNUB real time push

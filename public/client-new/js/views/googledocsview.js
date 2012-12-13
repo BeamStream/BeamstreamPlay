@@ -238,7 +238,8 @@ BS.GoogleDocsView = Backbone.View.extend({
             * Edited By Aswathy @TODO
             * For Doc popups
             */
-            showDocPopup :function(eventName){           
+            showDocPopup :function(eventName){   
+            	
                 var docId = eventName.currentTarget.id;
                 var docUrl = $('input#id-'+docId).val();     
                 BS.gdocpopupview = new BS.GdocPopupView();

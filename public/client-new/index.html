@@ -587,7 +587,7 @@ Create a Class</a>
                     
                   </div>
                   <div id="{{datas.id.id}}-addComments" class="follow-comment">
-					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." ></textarea>
+					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'" ></textarea>
 				 </div>
                 </div>
                 <div class="answer-info">
@@ -687,7 +687,7 @@ Create a Class</a>
 					
                   </div>
                   <div id="{{datas.id.id}}-addComments" class="follow-comment">
-				     <textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." ></textarea>
+				     <textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.."  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'"></textarea>
 				   </div>
                 
                 </div>
@@ -754,8 +754,8 @@ Create a Class</a>
 				     <div class="comment-wrapper" id="{{datas.docIdIfAny.id}}">                                
 				     <div id="media-{{datas.docIdIfAny.id}}">
 				      <h4>Document Name</h4>                                
-				      <div id="{{datas.docIdIfAny.id}}" class="description-info mediapopup"><div class="description-left mediapopup" id="{{datas.docIdIfAny.id}}">
-				        <input type="hidden" id="{{datas.docIdIfAny.id}}"  value="{{datas.messageBody}}">      
+				      <div  class="description-info "><div name={{type}} class="description-left mediapopup" id="{{datas.docIdIfAny.id}}">
+				        <input type="hidden" id="id-{{datas.docIdIfAny.id}}"  value="{{datas.messageBody}}">      
 				        <p class="doc-description">Document Description..</p>
 				      </div>
 				      <div id="{{datas.docIdIfAny.id}}" class="comment-wrapper2">
@@ -788,7 +788,7 @@ Create a Class</a>
 					
                   </div>
                   <div id="{{datas.id.id}}-addComments" class="follow-comment">
-					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." ></textarea>
+					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'" ></textarea>
 				 </div>
                 </div>
                 <div class="answer-info">
@@ -939,7 +939,7 @@ Create a Class</a>
                 <div class="ask-comment">
                   <div class="ask-left">
                     <form class="question-ask ask-disccution">
-                      <textarea id="msg-area" name="" cols="" rows="" class="question-ask-search" placeholder="Speak your mind...."></textarea>
+                      <textarea id="msg-area" name="" cols="" rows="" class="question-ask-search" placeholder="Speak your mind...."  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Speak your mind....'"></textarea>
                     </form>
                     <div class="embed-info">
                       <div class="upload-conatiner">
@@ -963,14 +963,14 @@ Create a Class</a>
                     <input id="private-to" type="checkbox"  checked="checked">
                     Pivate to:</label>
                   <div class="btn-group class-dropdown">
-                    <button class="btn class-dropdown-bg" id="select-privateTo" >Class</button>
+                    <button class="btn class-dropdown-bg" id="select-privateTo" ></button>
                     <button class="btn class-dropdown-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
                     <ul class="dropdown-menu" id="private-to-list" >
-                      <li><a href="#">Class</a></li>
+                     <1-- <li><a href="#">Class</a></li>
                       <li><a href="#">Degree Program</a></li>
                       <li><a href="#">My Graduating Year </a></li>
 					  <li><a href="#">My School</a></li>
-					  <li><a href="#">Public</a></li>
+					  <li><a href="#">Public</a></li> -->
                     </ul>
                   </div>
                    <ul id="share-discussions" class="social-icons">
@@ -1040,7 +1040,7 @@ Create a Class</a>
                 <div class="ask-comment ask-type-area ">
                   <div class="ask-left">
                     <form class="question-ask">
-                      <textarea id="Q-area" placeholder="Ask your own question here....." class="question-ask-search" rows="" cols="" name=""></textarea>
+                      <textarea id="Q-area" placeholder="Ask your own question here....." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ask your own question here.....'" class="question-ask-search" rows="" cols="" name=""></textarea>
                     </form>
                     <ul class="answer" style="display:none">
                       <li>
