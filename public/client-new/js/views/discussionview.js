@@ -49,7 +49,9 @@
 			 "click .who-rocked-it" : "showRockersList",
 			 "click .rock_media" : "rocksMedias",
 			 "click .rock_documents" : "rocksDocuments",
-			 "click .mediapopup": "showFilesInAPopup"
+			 "click .mediapopup": "showFilesInAPopup",
+			 "click .editMediaTitle": "editMediaTitle",
+			 "click .editDocTitle": "editDocTitle"
 
 		},
 	
@@ -1216,6 +1218,71 @@
         },
         
         /**
+         * NEW THEME - edit media title and description (images/videos)
+         */
+        editMediaTitle: function(eventName){
+        	
+        	var mediaId = eventName.currentTarget.id;      
+        	
+            /* post new title and description */
+            $.ajax({  
+        	
+                 type : 'POST',
+                 url :  BS.getMedia,
+                 data : {
+                 	userMediaId: mediaId  
+                 },
+                 dataType : "json",
+                 success : function(media) {   
+                 	
+                     var mediaDatas = {
+                 		   "id" : media[0].id.id,
+                 		   "url" : media[0].mediaUrl,
+                 		   "type" : 'UserMedia',
+                 		   "title" : media[0].name,
+                 		   "description" : media[0].description
+                     }    
+ 		            BS.mediaeditview = new  BS.MediaEditView();
+ 		            BS.mediaeditview.render(mediaDatas);
+ 		            $('#doc-views').html(BS.mediaeditview.el);
+ 		            $('#bootstrap_popup').modal('show');
+                }
+            });
+        },
+        
+        
+        /**
+         * NEW THEME - edit docs title and description (images/videos)
+         */
+        editDocTitle: function(eventName){
+        	
+        	var docId = eventName.currentTarget.id;             
+            var docUrl = $('input#id-'+docId).val(); 
+            
+            $.ajax({
+                type : 'POST',
+                url :  BS.getOneDocs,
+                data : {
+                    documentId: docId  
+                    },
+                dataType : "json",
+                success : function(docs) {           
+                var datas = {
+                        "id" : docId,
+                        "url" : docUrl,
+                        "type" : 'Docs',
+                        "title" : docs[0].documentName,
+                        "description" :docs[0].documentDescription
+                        }
+                    BS.mediaeditview = new  BS.MediaEditView();
+                    BS.mediaeditview.render(datas);
+                    $('#edit-popup').html(BS.mediaeditview.el);  
+                    $('#bootstrap_popup').modal('show');
+                }
+            });    
+        },
+        
+        /**
          * NEW THEME - Display messages 
          */
         displayMessages: function(data){
@@ -1268,8 +1335,6 @@
                 			  return letter.toUpperCase();
   	                	  }); 
                 	  }
-	                	 
-                          
                 }
                
 				var datas = {
@@ -1281,11 +1346,11 @@
 				if(messageType == "googleDocs")
 				{
 					var datas = {
-							    "datas" : data,
-                                "datVal" :datVal,
-                                "previewImage" : "images/google_docs_image.png",
-                                "type" : "googleDoc"
-				     }	
+					    "datas" : data,
+	                    "datVal" :datVal,
+	                    "previewImage" : "images/google_docs_image.png",
+	                    "type" : "googleDoc"
+					}	
 					var source = $("#tpl-messages_with_docs").html();
 						
 				}
@@ -1631,6 +1696,7 @@
 		 * NEW THEME - Show uploaded files in a popups
 		 */
 		showFilesInAPopup: function(eventName){
+			
 			var docId = eventName.currentTarget.id;
 			var fileType = $(eventName.currentTarget).attr('name');
             

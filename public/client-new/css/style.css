@@ -2806,6 +2806,8 @@ font-weight:700;
  	
  	
         float:left;margin-left:8px;
+        
+        cursor: pointer;
  } 
  
  
@@ -3419,6 +3421,9 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 .streams-list-block ul li a:hover{
 	text-decoration:underline;
 	color:#49a7d3;
+}
+.mediapopup{
+	cursor: pointer;
 }
 
 

@@ -9,6 +9,7 @@ BS.DocListView = Backbone.View.extend({
                 "click .show_rockers" : "showDocRockers",
                 "click .then-by li a" : "filterDocs",
                 "click #view-files-byrock-list" : "selectViewByRock",
+                "click #by-class-list li" :"sortByClass",
             },     
     
             initialize:function() {
@@ -40,6 +41,15 @@ BS.DocListView = Backbone.View.extend({
             	$('#view-files-byrock-select').text($(eventName.target).text());
             },
             
+            /**
+             * NEW THEME - sort files by class/School
+             */
+            sortByClass: function(eventName){
+            	
+            	eventName.preventDefault();
+            	$('#by-class-select').text("by "+$(eventName.target).text());
+
+            },
             /* To list the documents in the view */        
             docsList : function(eventName)
             { 
