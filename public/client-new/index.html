@@ -662,7 +662,7 @@ Create a Class</a>
 					      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_media"></a>
 					      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
 					      </div></div></div>
-					      <h5 class="imgtitle" id="{{datas.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
+					      <h5 class="editMediaTitle" id="{{datas.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
 					     <div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>
 					    </div>
 					   </div>
@@ -754,7 +754,7 @@ Create a Class</a>
 				     <div class="comment-wrapper" id="{{datas.docIdIfAny.id}}">                                
 				     <div id="media-{{datas.docIdIfAny.id}}">
 				      <h4>Document Name</h4>                                
-				      <div  class="description-info "><div name={{type}} class="description-left mediapopup" id="{{datas.docIdIfAny.id}}">
+				      <div  class="description-info "><div name={{type}} data-placement="left" rel="tooltip" data-original-title="Click to View " class="description-left mediapopup drag-rectangle" id="{{datas.docIdIfAny.id}}">
 				        <input type="hidden" id="id-{{datas.docIdIfAny.id}}"  value="{{datas.messageBody}}">      
 				        <p class="doc-description">Document Description..</p>
 				      </div>
@@ -762,7 +762,7 @@ Create a Class</a>
 				      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_documents"></a>
 				      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
 				      </div></div></div>
-				      <h5 class="doctitle"  id="{{datas.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
+				      <h5 class="editDocTitle"   id="{{datas.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
 				     <div class="dateinfo"><span class="state">State</span><span class="date">{{datVal}}</span></div>
 				    </div>
 				   </div>
@@ -1818,12 +1818,9 @@ Create a Class</a>
               <li>
                 <div class="settings-menu">
                   <div class="btn-group">
-                    <button class="btn seetings-toggle sort-toogle ">by Class/School </button>
+                    <button class="btn seetings-toggle sort-toogle " id="by-class-select">by All Classes/Schools </button>
                     <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle sort-toogle-btn"> <span class=" settings-caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products </a></li>
+                    <ul class="dropdown-menu" id="by-class-list" >
                     </ul>
                   </div>
                 </div>
@@ -2054,12 +2051,9 @@ Create a Class</a>
               <li>
                 <div class="settings-menu">
                   <div class="btn-group">
-                    <button class="btn seetings-toggle sort-toogle ">by Class/School </button>
+                    <button class="btn seetings-toggle sort-toogle " id="by-class-select" >by All Classes/Schools </button>
                     <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle sort-toogle-btn"> <span class=" settings-caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products </a></li>
+                    <ul class="dropdown-menu" id="by-class-list">
                     </ul>
                   </div>
                 </div>

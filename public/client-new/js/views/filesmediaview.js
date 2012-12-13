@@ -60,6 +60,7 @@ BS.FilesMediaView = Backbone.View.extend({
         	 "click #view-files-byrock-list" : "selectViewByRock",
         	 "click .rock-medias" : "rocksMeidas",
         	 "click .rock_docs" : "rocksDocuments",
+        	 "click #by-class-list li" :"sortByClass",
             		
             },
 	
@@ -127,6 +128,16 @@ BS.FilesMediaView = Backbone.View.extend({
                   
                 		}
                 	});
+                },
+                
+                /**
+                 * NEW THEME - sort files by class/School
+                 */
+                sortByClass: function(eventName){
+                	
+                	eventName.preventDefault();
+                	$('#by-class-select').text("by "+$(eventName.target).text());
+
                 },
                 
                 /**

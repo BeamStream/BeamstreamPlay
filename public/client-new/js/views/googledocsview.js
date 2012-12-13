@@ -17,6 +17,7 @@ BS.GoogleDocsView = Backbone.View.extend({
 //              "click .comment_button" : "postDocComment",
                 "click .then-by li a" : "filterDocs",
                 "click #view-files-byrock-list" : "selectViewByRock",
+                "click #by-class-list li" :"sortByClass",
             },
                  
             initialize:function() {
@@ -37,6 +38,16 @@ BS.GoogleDocsView = Backbone.View.extend({
              */
             filterDocs :function (eventName){
             	 eventName.preventDefault();
+            },
+            
+            /**
+             * NEW THEME - sort files by class/School
+             */
+            sortByClass: function(eventName){
+            	
+            	eventName.preventDefault();
+            	$('#by-class-select').text("by "+$(eventName.target).text());
+
             },
             
             /**

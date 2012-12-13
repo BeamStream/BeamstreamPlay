@@ -1141,6 +1141,12 @@
 							BS.filesMediaView.render();
 							$('#body-content').html(BS.filesMediaView.el);
 							
+							self.getAllClasses();
+							
+							
+							 
+							
+							
 							//get profile videos
 			//				var profileView = new BS.ProfileView();
 //					     	profileView.getProfileVideos();
@@ -1162,6 +1168,34 @@
 		           }});		
 	                         
 	
+				},
+				
+				/**
+				 * NEW THEME - get all classes 
+				 */
+				getAllClasses: function(){
+					/* get all streams  */
+					 $.ajax({
+							type : 'GET',
+							url : BS.allStreamsForAUser,
+							dataType : "json",
+							success : function(datas) {
+								 
+								 var myClasses = '';
+								 var classStreams ='';
+								 _.each(datas, function(data) {
+									 
+									 myClasses+= '<li><a id ="'+data.id.id+'" href="#">'+data.streamName+'</a></li>';
+									    
+								 });
+								 myClasses+= '<li><a href="#">Degree Program</a></li>'
+									 			+'<li><a href="#">My Graduating Year </a></li>'
+									 			+'<li><a href="#">My School</a></li>'
+									 			+'<li><a href="#">All Classes/Schools</a></li>';
+								 
+								 $('#by-class-list').html(myClasses);
+							}
+					 });
 				},
 				
 				/**
@@ -1211,6 +1245,7 @@
 				*/
 	            googleDocs : function(){
 	            	
+	            	var self= this;
 	            	BS.user.fetch({ success:function(e) {
 						if(e.get('loggedin') == true) {  
 	            	
@@ -1228,6 +1263,7 @@
 			                    BS.googledocsview = new BS.GoogleDocsView({});
 			                   BS.googledocsview.render();  
 			                   $('#body-content').html(BS.googledocsview.el);
+			                   self.getAllClasses();
 			   //                $('.file-type').hide();
 			      //           BS.googledocsview.test();
 			//				   $(".checkbox").dgStyle();                                
@@ -1245,6 +1281,8 @@
 				* display docs list in another view
 				*/       
 	             docsFromComputer : function(){
+	            	 
+	            	 var self=this;
 	            	 BS.user.fetch({ success:function(e) {
 	 					if(e.get('loggedin') == true) {  
 	 						
@@ -1262,6 +1300,7 @@
 		                  BS.doclistview = new BS.DocListView();
 		                  BS.doclistview.render();
 		                  $('#body-content').html(BS.doclistview.el); 
+		                  self.getAllClasses();
 		//                  $('.file-type').hide();   //to hide the filetype menu
 		                  
 	 					}
@@ -1278,7 +1317,7 @@
 	             */
 	
 	             imageList: function(){
-	            	 
+	            	 var self = this;
 	            	 BS.user.fetch({ success:function(e) {
 	  					if(e.get('loggedin') == true) {  
 	  						
@@ -1295,6 +1334,8 @@
 		                   BS.imagelistview = new BS.ImageListView({})
 		                   BS.imagelistview.render();  
 		                   $('#body-content').html(BS.imagelistview.el); 
+		                   self.getAllClasses();
+		                   
 		//                   $('.file-type').hide();   //to hide the filetype menu
 		             
 	  					}
@@ -1312,6 +1353,7 @@
 	             */
 	             videoList :function(){
 	            	 
+	            	 var self=this;
 	            	 BS.user.fetch({ success:function(e) {
 	   					if(e.get('loggedin') == true) {  
 	   						
@@ -1328,6 +1370,8 @@
 			                 BS.videolistview = new BS.VideoListView();
 			                 BS.videolistview.render();
 			                 $('#body-content').html(BS.videolistview.el); 
+			                 
+			                 self.getAllClasses();
 		//	                 $('.file-type').hide();   //to hide the filetype menu
 	   					}
 						else {
@@ -1343,6 +1387,8 @@
 	             *
 	             */
 	             audioList:function(){
+	            	 
+	            	 var self= this;
 	            	 BS.user.fetch({ success:function(e) {
 	    					if(e.get('loggedin') == true) {  
 				                 $('#body-content').children().detach();
@@ -1359,6 +1405,8 @@
 				                 BS.audiolistview=new BS.AudioListView();
 				                 BS.audiolistview.render();
 				                 $('#body-content').html(BS.audiolistview.el); 
+				                 
+				                 self.getAllClasses();
 		//		                 $('.file-type').hide();   //to hide the filetype menu
 	    					}
 	    					else {
@@ -1374,6 +1422,8 @@
 		             *
 		             */
 	                presentationList:function(){
+	                	
+	                	var self=this;
 	                	BS.user.fetch({ success:function(e) {
 	     					if(e.get('loggedin') == true) { 
 	     						
@@ -1391,6 +1441,7 @@
 			                    BS.presentationview =new BS.PresentationView();
 			                    BS.presentationview.render();
 			                    $('#body-content').html(BS.presentationview.el); 
+			                    self.getAllClasses();
 		//	                    $('.file-type').hide();   //to hide the filetype menu
 	     					}
 	    					else {
@@ -1406,6 +1457,8 @@
 	                 *
 	                 */
 	                pdflistview: function(){
+	                	
+	                	var self =this;
 	                	BS.user.fetch({ success:function(e) {
 	     					if(e.get('loggedin') == true) { 
 			                     $('#body-content').children().detach();
@@ -1422,6 +1475,7 @@
 			                    BS.pdflistview =new BS.PdfListView();
 			                    BS.pdflistview.render();
 			                    $('#body-content').html(BS.pdflistview.el); 
+			                    self.getAllClasses();
 		//	                    $('.file-type').hide();   //to hide the filetype menu
 	     					}
 	    					else {

@@ -10,6 +10,7 @@ BS.ImageListView = Backbone.View.extend({
                 "click .show_rockers" : "showImageRockers",
                 "click .then-by li a" : "filterDocs",
                 "click #view-files-byrock-list" : "selectViewByRock",
+                "click #by-class-list li" :"sortByClass",
              },
     
             initialize:function(){
@@ -29,6 +30,16 @@ BS.ImageListView = Backbone.View.extend({
                 selectViewByRock: function(eventName){
                 	eventName.preventDefault();
                 	$('#view-files-byrock-select').text($(eventName.target).text());
+                },
+                
+                /**
+                 * NEW THEME - sort files by class/School
+                 */
+                sortByClass: function(eventName){
+                	
+                	eventName.preventDefault();
+                	$('#by-class-select').text("by "+$(eventName.target).text());
+
                 },
             /*
             * function to display all pictures
