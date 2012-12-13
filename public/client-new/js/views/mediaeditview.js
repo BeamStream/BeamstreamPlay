@@ -71,17 +71,9 @@
 	                    }
 	                    else
 	                    {
-	                            alert("Doc Edit Successfully");
-	                           content= '<h4>'+data[0].documentName+'</h4>'                              
-                                                +'<div class="description-info"><div class="description-left mediapopup" id="'+data[0].id.id+'">'
-                                                +'<input type="hidden" id="id-'+data[0].id.id+'" value="'+data[0].documentURL+'">'      
-                                                +'<p class="doc-description ">'+data[0].documentDescription+'</p></div>'     
-                                                +' <div id="'+data[0].id.id+'" class="comment-wrapper2">'
-                                                 +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
-                                                +'<a href="#" class="hand-icon rock_docs"></a>'
-                                                +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>'
-                                                 +'</div></div>';
-	                            $('#media-'+data[0].id.id+'').html(content);
+	                            alert("Doc Edit Successfully"); 
+                                      $('#description-'+data[0].id.id+'').text(data[0].documentDescription);
+                                      $('#name-'+data[0].id.id+'').text(data[0].documentName);
                                      $('#bootstrap_popup').modal('hide');   
 
 	                     }
@@ -111,16 +103,8 @@
 
 	                        {
 	                            alert("Edit Successfully");
-	                               content= '<h4>'+data[0].name+'</h4>  '                              
-                                                +'<div class="description-info"><div class="description-left mediapopup" id="'+data[0].id.id+'">'
-                                                  +'<input type="hidden" id="id-'+data[0].id.id+'" value="'+data[0].mediaUrl+'">'      
-                                                  +'<p class="doc-description ">'+data[0].description+'</p></div>'     
-                                               +' <div id="'+data[0].id.id+'" class="comment-wrapper2">'
-                                               +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
-                                               +'<a href="#" class="hand-icon rock_docs"></a>'
-                                              +'  <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>'
-                                               +' </div></div>';
-	                            $('#media-'+data[0].id.id+'').html(content);
+                                    $('#description-'+data[0].id.id+'').text(data[0].description);
+                                    $('#name-'+data[0].id.id+'').text(data[0].name);    
                                     $('#bootstrap_popup').modal('hide');
 	                        }
 	                    }           
