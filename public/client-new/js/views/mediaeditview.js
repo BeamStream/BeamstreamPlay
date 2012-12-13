@@ -39,6 +39,8 @@ BS.MediaEditView = Backbone.View.extend({
 	                },
 	                dataType : "json",
 	                success : function(data) {
+                             console.log(data);
+                            console.log(data[0].description);
 	                    var content = '';
 	                    if(data.status == 'Failure')
 	                    {
@@ -47,10 +49,15 @@ BS.MediaEditView = Backbone.View.extend({
 	                    else
 	                    {
 	                            alert("Doc Edit Successfully");
-	                            content='<h4> '+data[0].documentName+'</h4>'
-	                                    +'<p class="mediapopup doc-description" id="'+data[0].id.id+'" >'
-	                                    +'<input type="hidden" id="id-'+data[0].id.id+'" value="'+data[0].documentURL+'">'
-	                                    +''+data[0].documentDescription+' </p>';
+	                           content= '<h4>'+data[0].documentName+'</h4>'                              
+                                                +'<div class="description-info"><div class="description-left mediapopup" id="'+data[0].id.id+'">'
+                                                +'<input type="hidden" id="id-'+data[0].id.id+'" value="'+data[0].documentURL+'">'      
+                                                +'<p class="doc-description ">'+data[0].documentDescription+'</p></div>'     
+                                                +' <div id="'+data[0].id.id+'" class="comment-wrapper2">'
+                                                 +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
+                                                +'<a href="#" class="hand-icon rock_docs"></a>'
+                                                +'<a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>'
+                                                 +'</div></div>';
 	                            $('#media-'+data[0].id.id+'').html(content);
 	                            $('#gdocedit').children().detach(); 
 	                     }
@@ -78,10 +85,15 @@ BS.MediaEditView = Backbone.View.extend({
 	                    else
 	                        {
 	                            alert("Edit Successfully");
-	                            content='<h4> '+data[0].name+'</h4>'
-	                                    +'<p class="mediapopup doc-description" id="'+data[0].id.id+'" >'
-	                                    +'<input type="hidden" id="id-'+data[0].id.id+'" value="'+data[0].mediaUrl+'">'
-	                                    +''+data[0].description+' </p>';
+	                               content= '<h4>'+data[0].name+'</h4>  '                              
+                                                +'<div class="description-info"><div class="description-left mediapopup" id="'+data[0].id.id+'">'
+                                                  +'<input type="hidden" id="id-'+data[0].id.id+'" value="'+data[0].mediaUrl+'">'      
+                                                  +'<p class="doc-description ">'+data[0].description+'</p></div>'     
+                                               +' <div id="'+data[0].id.id+'" class="comment-wrapper2">'
+                                               +' <a href="#" class="tag-icon" data-original-title="Search by Users"></a>'
+                                               +'<a href="#" class="hand-icon rock_docs"></a>'
+                                              +'  <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>'
+                                               +' </div></div>';
 	                            $('#media-'+data[0].id.id+'').html(content);
 	                            $('#gdocedit').children().detach(); 
 	                        }
