@@ -11,6 +11,7 @@ BS.ImageListView = Backbone.View.extend({
                 "click .then-by li a" : "filterDocs",
                 "click #view-files-byrock-list" : "selectViewByRock",
                 "click #by-class-list li" :"sortByClass",
+                "click #category-list li" :"sortBycategory",
              },
     
             initialize:function(){
@@ -41,6 +42,14 @@ BS.ImageListView = Backbone.View.extend({
                 	$('#by-class-select').text("by "+$(eventName.target).text());
 
                 },
+                
+                /**
+                 * NEW THEME - sort files by category
+                 */
+                sortBycategory: function(eventName){
+                	eventName.preventDefault();
+                	$('#category-list-select').text($(eventName.target).text());
+                },
             /*
             * function to display all pictures
             */               
@@ -52,8 +61,10 @@ BS.ImageListView = Backbone.View.extend({
                 var arraypictures = new Array();
                 var content='';
                 var coverpicture;            
-                BS.user.fetch({ success:function(e) {                   
-                                  /* get profile images for user */
+                BS.user.fetch({ success:function(e) {    
+                	
+                	
+                   /* get profile images for user */
                     $.ajax({
                         type : 'GET',
                         url :  BS.allProfileImages,
@@ -62,10 +73,12 @@ BS.ImageListView = Backbone.View.extend({
                         	     $('#grid').html("");    
                                 _.each(images, function(image) {  
                                 	
+                                	BS.filesMediaView = new BS.FilesMediaView(); 
+                                    var datVal =  BS.filesMediaView.formatDateVal(image.dateCreated);
 
                                 	var datas = {
                                             "image" : image,
-//                                            "datVal" :datVal,
+                                            "datVal" :datVal,
                                             "imageCount" : i
                                 	}	
 

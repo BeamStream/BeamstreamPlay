@@ -10,6 +10,7 @@ BS.PdfListView = Backbone.View.extend({
                 "click .then-by li a" : "filterDocs",
                 "click #view-files-byrock-list" : "selectViewByRock",
                 "click #by-class-list li" :"sortByClass",
+                "click #category-list li" :"sortBycategory",
              },
     
             initialize:function(){
@@ -47,6 +48,14 @@ BS.PdfListView = Backbone.View.extend({
             	eventName.preventDefault();
             	$('#by-class-select').text("by "+$(eventName.target).text());
 
+            },
+            
+            /**
+             * NEW THEME - sort files by category
+             */
+            sortBycategory: function(eventName){
+            	eventName.preventDefault();
+            	$('#category-list-select').text($(eventName.target).text());
             },
           
             pdflisting :function(eventName){

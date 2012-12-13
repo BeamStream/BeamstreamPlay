@@ -323,9 +323,12 @@
 	              	    self.file = "";
 	              	    $('#file-upload-loader').css("display","none");
 	              	    $('.embed-info').css("display","none");
+	              	    
+	              	    var datVal =  BS.filesMediaView.formatDateVal(data.timeCreated);
 	                  	 
 	  	                var datas = {
 	  	                		"datas" : data,
+	  	                		"datVal" :datVal,
 	  		            }						  
 
 	  	                /* Pubnub auto push */
@@ -353,7 +356,8 @@
 	  	                extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
 	  	                	return letter.toUpperCase();
 	  	                });
-	  	                var datVal =  BS.filesMediaView.formatDateVal(data.timeCreated);
+	  	               
+	  	                
 	    		                  
 	                    if(data.messageType.name == "Image")
 	  					{
@@ -1336,12 +1340,16 @@
   	                	  }); 
                 	  }
                 }
-               
-				var datas = {
-					 	 "datas" : data,
-				    }
+                
                 BS.filesMediaView = new BS.FilesMediaView(); 
                 var datVal =  BS.filesMediaView.formatDateVal(data.timeCreated);
+                
+				var datas = {
+					 	 "datas" : data,
+					 	"datVal":datVal
+				    }
+               
+                
 					
 				if(messageType == "googleDocs")
 				{
@@ -1773,14 +1781,15 @@
 		   	   		                	 });
 
 		                    		 }
-		   							  
+		                             var datVal =  BS.filesMediaView.formatDateVal(message.data.timeCreated);
 		                             var datas = {
 		                            		 "datas" : message.data,
+		                            		 "datVal":datVal
 		                             }	
 		                              
 		                             // set a format style to date
 		                             BS.filesMediaView = new BS.FilesMediaView(); 
-		                             var datVal =  BS.filesMediaView.formatDateVal(message.data.timeCreated);
+		                             
 		    			                    
 		                             // if message conatains googledoc url
 		                             if(messageType == "googleDocs")

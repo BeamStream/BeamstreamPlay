@@ -18,6 +18,7 @@ BS.GoogleDocsView = Backbone.View.extend({
                 "click .then-by li a" : "filterDocs",
                 "click #view-files-byrock-list" : "selectViewByRock",
                 "click #by-class-list li" :"sortByClass",
+                "click #category-list li" :"sortBycategory",
             },
                  
             initialize:function() {
@@ -58,6 +59,15 @@ BS.GoogleDocsView = Backbone.View.extend({
             	$('#view-files-byrock-select').text($(eventName.target).text());
             },
             
+            
+            /**
+             * NEW THEME - sort files by category
+             */
+            sortBycategory: function(eventName){
+            	eventName.preventDefault();
+            	$('#category-list-select').text($(eventName.target).text());
+            },
+            
             /*
              *   To list the documents in the view        
              *
@@ -79,9 +89,11 @@ BS.GoogleDocsView = Backbone.View.extend({
                           $('#grid').html(""); 
  	                    var content = '';                   
  	                    _.each(docs, function(doc) { 
-                                  console.log('doc -'+doc.documentURL);
-                                         	BS.filesMediaView = new BS.FilesMediaView();                      
+ 	                    	
+                             	BS.filesMediaView = new BS.FilesMediaView();                      
  			                	var datVal =  self.formatDateVal(doc.creationDate);
+ 			                	console.log(doc.creationDate);
+ 			                	console.log(datVal);
  			                	var datas = {
  			                                    "doc" : doc,
  			                                    "datVal" :datVal,
@@ -242,7 +254,7 @@ BS.GoogleDocsView = Backbone.View.extend({
                 var curr_date = d.getDate();
                 var curr_month = d.getMonth() + 1; //Months are zero based
                 var curr_year = d.getFullYear();
-                return curr_date + " " + m_names[curr_month] + ", " + curr_year;
+                return curr_date + " " + m_names[d.getMonth()] + ", " + curr_year;
             },
         
             /**

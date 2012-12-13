@@ -10,6 +10,7 @@ BS.PresentationView = Backbone.View.extend({
                 "click .then-by li a" : "filterDocs",
                 "click #view-files-byrock-list" : "selectViewByRock",
                 "click #by-class-list li" :"sortByClass",
+                "click #category-list li" :"sortBycategory",
             },
 
     
@@ -37,6 +38,14 @@ BS.PresentationView = Backbone.View.extend({
              selectViewByRock: function(eventName){
              	eventName.preventDefault();
              	$('#view-files-byrock-select').text($(eventName.target).text());
+             },
+             
+             /**
+              * NEW THEME - sort files by category
+              */
+             sortBycategory: function(eventName){
+             	eventName.preventDefault();
+             	$('#category-list-select').text($(eventName.target).text());
              },
              
              

@@ -9,6 +9,7 @@ BS.VideoListView = Backbone.View.extend({
                 "click .then-by li a" : "filterDocs",
                 "click #view-files-byrock-list" : "selectViewByRock",
                 "click #by-class-list li" :"sortByClass",
+                "click #category-list li" :"sortBycategory",
              },
     
             initialize:function(){
@@ -45,6 +46,14 @@ BS.VideoListView = Backbone.View.extend({
                 	$('#by-class-select').text("by "+$(eventName.target).text());
 
                 },
+                
+                /**
+                 * NEW THEME - sort files by category
+                 */
+                sortBycategory: function(eventName){
+                	eventName.preventDefault();
+                	$('#category-list-select').text($(eventName.target).text());
+                },
             
             /**
             * list all videos in seperate view
@@ -64,11 +73,15 @@ BS.VideoListView = Backbone.View.extend({
                      dataType : "json",                                                               
                      success : function(videos) {
                         $('#grid').html("");    
-                        _.each(videos, function(video) {                                 	
+                        _.each(videos, function(video) {  
+                        	
+                        	BS.filesMediaView = new BS.FilesMediaView(); 
+                            var datVal =  BS.filesMediaView.formatDateVal(video.dateCreated);
+                            
                         	var datas = {
 		                          "video" : video,
-		//                         "datVal" :datVal,
-		                           "videoCount" : i
+		                          "datVal" :datVal,
+		                          "videoCount" : i
                             }	
                             var source = $("#tpl-single-video").html();
                             var template = Handlebars.compile(source);				    

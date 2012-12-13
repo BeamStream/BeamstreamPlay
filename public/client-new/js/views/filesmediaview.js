@@ -61,6 +61,7 @@ BS.FilesMediaView = Backbone.View.extend({
         	 "click .rock-medias" : "rocksMeidas",
         	 "click .rock_docs" : "rocksDocuments",
         	 "click #by-class-list li" :"sortByClass",
+        	 "click #category-list li" :"sortBycategory",
             		
             },
 	
@@ -138,6 +139,14 @@ BS.FilesMediaView = Backbone.View.extend({
                 	eventName.preventDefault();
                 	$('#by-class-select').text("by "+$(eventName.target).text());
 
+                },
+                
+                /**
+                 * NEW THEME - sort files by category
+                 */
+                sortBycategory: function(eventName){
+                	eventName.preventDefault();
+                	$('#category-list-select').text($(eventName.target).text());
                 },
                 
                 /**
@@ -270,7 +279,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                 +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
                                 +'</div></div></div>'
                                 +'<h5 class="doctitle" id="'+doc.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
-                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
+                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
                                 +'</div></div></div>'
                                 +'<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>'
                                 +'<ul id="'+doc.id.id+'-activities" class="comment-list">'
@@ -387,7 +396,7 @@ BS.FilesMediaView = Backbone.View.extend({
                             {
                              _.each(images, function(image) {
                             	 
-                            var datVal =  self.formatDateVal(image.creationDate);  
+                            var datVal =  self.formatDateVal(image.dateCreated);  
                             content= '<div class="image-wrapper hovereffect" id="'+image.id.id+'">'
                                 +' <div class="hover-div"><img class="filmedia-picture" src="'+image.mediaUrl+'">'
                                 +'<div class="hover-text">'               
@@ -401,7 +410,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                 +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
                                 +'</div></div></div>'
                                 +'<h5 class="imgtitle" id="'+image.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
-                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
+                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
                                 +'</div></div></div>'
                                 +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
                                 +'<ul id="'+image.id.id+'-activities"  class="comment-list">'
@@ -475,6 +484,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                 arraypictures=videos;
                                 coverpicture=arraypictures[arraypictures.length-1];
                                   _.each(videos, function(video) {
+                                	  var datVal =  self.formatDateVal(video.dateCreated);   
                                 content= '<div class="image-wrapper hovereffect">'
                                         +' <div class="hover-div"><img class="filmedia-picture" src="'+coverpicture.frameURL+'">'
                                         +'<div class="hover-text">'               
@@ -488,7 +498,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
                                         +'</div></div></div>'
 	                                +'<h5 class="videotitle" id="'+video.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
-	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
+	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
 	                                +'</div></div></div>'
 	                                +'<div class="comment-wrapper1"> <a class="common-icon video" href="#"></a>'
 	                                +'<ul id="'+video.id.id+'-activities" class="comment-list">'
@@ -562,7 +572,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
                                         +'</div></div></div>'
 	                                +'<h5 class="audiotitle" id="'+audio.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
-	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
+	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
 	                                +'</div></div></div>'
 	                                +'<div class="comment-wrapper1"> <a class="common-icon music" href="#"></a>'
 	                                +'<ul class="comment-list">'
@@ -638,7 +648,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
                                         +'</div></div></div>'
 	                                +'<h5 class="presentationtitle" id="'+ppt.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
-	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
+	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
 	                                +'</div></div></div>'
 	                                +'<div class="comment-wrapper1"> <a class="common-icon presentation" href="#"></a>'
 	                                +'<ul id="'+ppt.id.id+'-activities" class="comment-list">'
@@ -715,7 +725,7 @@ BS.FilesMediaView = Backbone.View.extend({
 	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
                                         +'</div></div></div>'
 	                                +'<h5 class="pdftitle" id="'+pdf.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
-	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>'
+	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
 	                                +'</div></div></div>'
 	                                +'<div class="comment-wrapper1"> <a class="common-icon pdf" href="#"></a>'
 	                                +'<ul id="'+pdf.id.id+'-activities" class="comment-list">'
@@ -784,14 +794,15 @@ BS.FilesMediaView = Backbone.View.extend({
          */
         formatDateVal: function(dateVal)
         {
+        	
             var m_names = new Array("January", "February", "March", 
-            "April", "May", "June", "July", "August", "September", 
-            "October", "November", "December");
-                            var d = new Date(dateVal);
-                            var curr_date = d.getDate();
-                            var curr_month = d.getMonth() + 1; //Months are zero based
-                            var curr_year = d.getFullYear();
-                            return curr_date + " " + m_names[curr_month] + ", " + curr_year;
+						            "April", "May", "June", "July", "August", "September", 
+						            "October", "November", "December");
+            var d = new Date(dateVal);
+            var curr_date = d.getDate();
+            var curr_month = d.getMonth() + 1; //Months are zero based
+            var curr_year = d.getFullYear();
+            return curr_date + " " + m_names[d.getMonth()] + ", " + curr_year;
         },
         
         /**

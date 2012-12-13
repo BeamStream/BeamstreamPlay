@@ -663,7 +663,7 @@ Create a Class</a>
 					      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
 					      </div></div></div>
 					      <h5 class="editMediaTitle" id="{{datas.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
-					     <div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>
+					     <div class="dateinfo"><span class="state">State</span><span class="date">{{datVal}}</span></div>
 					    </div>
 					   </div>
 					  </div>
@@ -1805,12 +1805,20 @@ Create a Class</a>
               <li>
                 <div class="settings-menu">
                   <div class="btn-group">
-                    <button class="btn seetings-toggle sort-toogle sort-toogle-none">Category </button>
+                    <button class="btn seetings-toggle sort-toogle sort-toogle-none" id="category-list-select" >Category </button>
                     <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products </a></li>
+                    <ul class="dropdown-menu" id="category-list" >
+                      <li><a href="#">Class Document</a></li>
+                      <li><a href="#">Assignment</a></li>
+                      <li><a href="#">Homework </a></li>
+						<li><a href="#">Notes</a></li>
+                      <li><a href="#">Project</a></li>
+                      <li><a href="#">Lecture </a></li>
+					 <li><a href="#">Reference Material</a></li>
+                      <li><a href="#">Tutorial</a></li>
+                      <li><a href="#">EdTech Tool </a></li>
+						<li><a href="#">Amusement+</a></li>
+                      <li><a href="#">Add a new category </a></li>
                     </ul>
                   </div>
                 </div>
@@ -2038,12 +2046,20 @@ Create a Class</a>
               <li>
                 <div class="settings-menu">
                   <div class="btn-group">
-                    <button class="btn seetings-toggle sort-toogle sort-toogle-none ">Category </button>
+                    <button class="btn seetings-toggle sort-toogle sort-toogle-none " id="category-list-select" >Category </button>
                     <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products </a></li>
+                    <ul class="dropdown-menu" id="category-list" >
+                       <li><a href="#">Class Document</a></li>
+                      <li><a href="#">Assignment</a></li>
+                      <li><a href="#">Homework </a></li>
+						<li><a href="#">Notes</a></li>
+                      <li><a href="#">Project</a></li>
+                      <li><a href="#">Lecture </a></li>
+					 <li><a href="#">Reference Material</a></li>
+                      <li><a href="#">Tutorial</a></li>
+                      <li><a href="#">EdTech Tool </a></li>
+						<li><a href="#">Amusement+</a></li>
+                      <li><a href="#">Add a new category </a></li>
                     </ul>
                   </div>
                 </div>
@@ -2111,7 +2127,7 @@ Create a Class</a>
 	  <a href="#" class="share-icon"></a>
       </div></div></div>
       <h5 class="imgtitle" id="{{image.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
-     <div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>
+     <div class="dateinfo"><span class="state">State</span><span class="date">{{datVal}}</span></div>
     </div>
    </div>
   </div>
@@ -2155,7 +2171,7 @@ Create a Class</a>
                      </div>
                   </div>
                 <h5 class="videotitle" id="{{video.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
-                <div class="dateinfo"><span class="state">State</span><span class="date">datVal</span></div>
+                <div class="dateinfo"><span class="state">State</span><span class="date">{{datVal}}</span></div>
             </div>
           </div>
        </div>
@@ -2326,34 +2342,34 @@ Create a Class</a>
 <script type="text/x-handlebars-template" id="document-edit-tpl">
 
 <div id="bootstrap_popup" class="modal hide fade in" style="display: none; ">
-            <div class="modal-header">
-              <a class="close" data-dismiss="modal">×</a>
-              <h3></h3>
-            </div>
-            <div class="modal-body">
-              <h4>Edit {{type}}</h4>
-               <input type="hidden" id="edittype" value="{{type}}">
-               <div id="error" class="invalid-validation" style="margin-left:20px; color:red;"></div>
-              <p>
-              <form name="add-new-school-form" id="add-new-school-form">
-         
-                  <div class="element">
-                        <label name="media-title" for="school-name">Title </label>
-                        <input class="popup_text" type="text" name="schoolName" id="media-title" placeholder="NAME of {{type}}" value="{{title}}">
-                        <input type="hidden" id="parent-Id" value="">
-                  </div>
-                   <div class="element">
-                        <label name="media-description" for="website">Description<span class="star"> </span></label>
-                        <textarea class="popup_text" id="media-description" class="gdoc-description" placeholder="DESCRIPTION of {{type}}" >        
-                        {{description}}</textarea>
-                   </div>
-        </form>
-           </p>		        
-            </div>
-            <div class="modal-footer">
-             <a href="#" id ="sveeditdoc" class="btn btn-primary pull-left btn-success"  >Save</a>
-            </div>
-  </div>
+	<div class="modal-header">
+     	<a class="close" data-dismiss="modal">×</a>
+        <h3></h3>
+    </div>
+	<div class="modal-body">
+  		<h4>Edit {{type}}</h4>
+  	    <input type="hidden" id="edittype" value="{{type}}">
+ 		<div id="error" class="invalid-validation" style="margin-left:20px; color:red;"></div>
+		<p>
+			<form name="add-new-school-form" id="add-new-school-form">
+
+    			<div class="element">
+		          <label name="media-title" for="school-name">Title </label>
+		          <input class="popup_text" type="text" name="schoolName" id="media-title" placeholder="NAME of {{type}}" value="{{title}}">
+		          <input type="hidden" id="parent-Id" value="">
+    			</div>
+     			<div class="element">
+		          <label name="media-description" for="website">Description<span class="star"> </span></label>
+		          <textarea class="popup_text" id="media-description" class="gdoc-description" placeholder="DESCRIPTION of {{type}}" >        
+		          {{description}}</textarea>
+    	  	   </div>
+       	 </form>
+        </p>		        
+    </div>
+    <div class="modal-footer">
+     <a href="#" id ="sveeditdoc" class="btn btn-primary pull-left btn-success"  >Save</a>
+    </div>
+</div>
 
 </script>  
  
