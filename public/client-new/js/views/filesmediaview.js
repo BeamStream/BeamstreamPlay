@@ -368,7 +368,7 @@ BS.FilesMediaView = Backbone.View.extend({
                         BS.mediaeditview = new  BS.MediaEditView();
                         BS.mediaeditview.render(datas);
                         $('#edit-popup').html(BS.mediaeditview.el);  
-                          $('#bootstrap_popup').modal('show');
+                        $('#edit-bootstrap_popup').modal('show');
                         }
                     });          
                 },
@@ -456,7 +456,7 @@ BS.FilesMediaView = Backbone.View.extend({
 		            BS.mediaeditview = new  BS.MediaEditView();
 		            BS.mediaeditview.render(imagedatas);
 		            $('#edit-popup').html(BS.mediaeditview.el);
-                             $('#bootstrap_popup').modal('show');
+		            $('#edit-bootstrap_popup').modal('show');
                }
            });
             
@@ -540,7 +540,7 @@ BS.FilesMediaView = Backbone.View.extend({
 			            BS.mediaeditview = new  BS.MediaEditView();
 			            BS.mediaeditview.render(imagedatas);
 			            $('#edit-popup').html(BS.mediaeditview.el);
-                                     $('#bootstrap_popup').modal('show');
+			            $('#edit-bootstrap_popup').modal('show');
 	                }
 	           });
           },
@@ -690,7 +690,7 @@ BS.FilesMediaView = Backbone.View.extend({
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(pptdatas);
             $('#edit-popup').html(BS.mediaeditview.el);
-            $('#bootstrap_popup').modal('show');
+            $('#edit-bootstrap_popup').modal('show');
                         }
            });
             },
@@ -772,7 +772,7 @@ BS.FilesMediaView = Backbone.View.extend({
             BS.mediaeditview = new  BS.MediaEditView();
             BS.mediaeditview.render(pdfdatas);
             $('#edit-popup').html(BS.mediaeditview.el); 
-            $('#bootstrap_popup').modal('show');
+            $('#edit-bootstrap_popup').modal('show');
                   }
                     });
         },         
