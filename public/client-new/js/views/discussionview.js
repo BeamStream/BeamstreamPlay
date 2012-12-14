@@ -1249,7 +1249,7 @@
  		            BS.mediaeditview = new  BS.MediaEditView();
  		            BS.mediaeditview.render(mediaDatas);
  		            $('#doc-views').html(BS.mediaeditview.el);
- 		            $('#bootstrap_popup').modal('show');
+ 		           $('#edit-bootstrap_popup').modal('show');
                 }
             });
         },
@@ -1259,7 +1259,7 @@
          * NEW THEME - edit docs title and description (images/videos)
          */
         editDocTitle: function(eventName){
-        	
+        	 
         	var docId = eventName.currentTarget.id;             
             var docUrl = $('input#id-'+docId).val(); 
             
@@ -1281,7 +1281,7 @@
                     BS.mediaeditview = new  BS.MediaEditView();
                     BS.mediaeditview.render(datas);
                     $('#edit-popup').html(BS.mediaeditview.el);  
-                    $('#bootstrap_popup').modal('show');
+                    $('#edit-bootstrap_popup').modal('show');
                 }
             });    
         },
@@ -1705,7 +1705,8 @@
 		 * NEW THEME - Show uploaded files in a popups
 		 */
 		showFilesInAPopup: function(eventName){
-			
+			 
+			$('#doc-views').html('');
 			var docId = eventName.currentTarget.id;
 			var fileType = $(eventName.currentTarget).attr('name');
             

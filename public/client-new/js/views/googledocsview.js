@@ -302,7 +302,7 @@ BS.GoogleDocsView = Backbone.View.extend({
                 BS.mediaeditview = new  BS.MediaEditView();
                 BS.mediaeditview.render(datas);
                 $('#gdocedit').html(BS.mediaeditview.el);  
-                  $('#bootstrap_popup').modal('show');
+                $('#edit-bootstrap_popup').modal('show');
                   }
                 });
             },

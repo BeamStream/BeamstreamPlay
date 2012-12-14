@@ -3301,44 +3301,76 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
     width: 27px;
     z-index: 999;
 }
-#dropdownnew, #dropdownnew ul {
-	list-style:none;
-	list-style-type:none;
-	list-style-position:outside;
+#dropdownnew{
+	 list-style:none;
 	position:relative;
 	line-height:1.5em;
-	width:120px;
 	float:left;
 	display:block;
 	z-index:999;
-	border-radius: 3px 3px 3px 3px;
-	box-shadow: 0 1px 1px 0px #000;
-	background: url(../images/filetype_bg.jpg) repeat;      /* add image  and also using "g-icon.png"*/
-	border:1px solid #3c4247;
-	padding:3px 0;
-	margin:0 20px 0 0;
+	padding:5px 25px 5px 0;
+	
 }
+
+ #dropdownnew ul {
+
+ 
+ list-style:none;
+ 
+ 
+ 	background-color: #ffffff;
+		border: 1px solid #ccc;
+		border: 1px solid rgba(0, 0, 0, 0.2);
+       *border-right-width: 2px;
+        *border-bottom-width: 2px;
+		-webkit-border-radius: 6px;
+		-moz-border-radius: 6px;
+		border-radius: 6px;
+		-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+		-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+		box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+ 
+	
+
+}
+
+
+ #dropdownnew ul li {
+ width:100%;
+
+}
+
+ #dropdownnew ul li a {
+ font-size:13px; background:none; 
+
+}
+
+
+
+
+
 #dropdownnew a {
 	text-decoration:none;
-	width:90px;
+	 background: url("../images/upload.png") no-repeat scroll 5px 0 transparent;
 	display:block;
-	font-family: 'Ubuntu', sans-serif;
-	font-weight:500;
-	color:#bfbfbf;
-	font-size:13px;
+	
+	font-weight:400;
+	color:#2f4553;
+	font-size:16px;
 	text-shadow:none;
 	line-height:25px;
+	/*
 	border-top:1px solid #646c75;
 	border-bottom:1px solid #646c75;
 	background: url(../images/filetype_bg.jpg) repeat;
-	padding: 0 0 0 15px;
+	*/
+	padding: 0 0 0 30px;
 }
 #dropdownnew a:hover {
-	color:#fff;
-	background-color:#3e4449;
-	border-top:1px solid #94999f;
-	border-bottom:1px solid #777;
-	background:#3e4449;
+	color:#2f4553;
+	
+	
+
 }
 #dropdownnew li {
 	float:left;
@@ -3350,11 +3382,7 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 	width:13em;
 	top:2em;
 }
-#dropdownnew li ul a {
-	width:12em;
-	height:auto;
-	float:left;
-}
+
 #dropdownnew ul ul {
 	top:auto;
 }
@@ -3373,7 +3401,7 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
     border-radius: 6px 6px 6px 6px !important;
     height: 155px !important;
     padding: 15px !important;
-    width: 435px !important;
+    width: 435px !important; background:#fff;
 }
 
 

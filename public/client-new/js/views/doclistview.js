@@ -222,7 +222,7 @@ BS.DocListView = Backbone.View.extend({
                         BS.mediaeditview = new  BS.MediaEditView();
                         BS.mediaeditview.render(pdfdatas);
                         $('#gdocedit').html(BS.mediaeditview.el);  
-                          $('#bootstrap_popup').modal('show');
+                        $('#edit-bootstrap_popup').modal('show');
                         }
                         });
                     },
