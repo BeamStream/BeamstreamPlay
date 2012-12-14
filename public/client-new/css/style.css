@@ -178,15 +178,15 @@ body {
 }
 
 .menu ul li a span {
-		height: 20px;
+		height: 28px;
 		left: 20px;
 		position: absolute;
-		top:19px;
+		top:12px;
 		width: 22px;
 }
 
 .menu ul li a span.my-stream {
-		background: url("../images/my-stream.png") no-repeat scroll 0 0 transparent;
+		background: url("../images/my-stream.png") no-repeat scroll 0 2px transparent;
 }
 
 .menu ul li a .browse-media {
@@ -194,11 +194,11 @@ body {
 }
 
 .menu ul li a .connections {
-		background: url("../images/connections.png") no-repeat scroll 0 0 transparent;
+		background: url("../images/connections.png") no-repeat scroll 0 2px transparent;
 }
 
 .menu ul li a .other {
-		background: url("../images/other.png") no-repeat scroll 0 0 transparent;
+		background: url("../images/other.png") no-repeat scroll 0 3px transparent;
 }
 
 .menu ul li a:hover,
@@ -207,7 +207,7 @@ body {
 		color: #314653;
 		background-image: url(../images/menu-arrow.png), url(../images/bg.jpg);
 		background-repeat:no-repeat;
-		background-position: center 38px, top right;
+		background-position: center 32px, top right;
 }
 
 .menu ul li a:hover span,
@@ -727,15 +727,16 @@ ul.stream-tab li a span {
 		clear: both;
 		display: block;
 		margin: 0 0 10px;
-		overflow: hidden;
-		padding: 0 0 20px;
 }
 
 .question-info {
 		background:#E3E5E6;
 		height:10%;
 		float:left;
-		width:100%;
+		width:96%;
+		-webkit-border-radius:10px;
+		-moz-border-radius:10px 10px 0 0 ;
+		border-radius:10px 10px 0 0 ;
 }
 
 .question-info h2 {
@@ -797,11 +798,9 @@ ul.stream-tab li a span {
 		margin-bottom: 0;
 		width: 100%;
 }
-
 .ask-disccution {
 		border-bottom:none;
 }
-
 .question-ask-search {
 		color: #3F5A6C;
 		font-size: 18px;
@@ -811,13 +810,11 @@ ul.stream-tab li a span {
 		min-height:30px;
 		max-height:50px;
 }
-
 .dropdown-outer {
 		float: left;
 		padding: 0 5% 0 0;
 		width: 19%;
 }
-
 .question-sort h5 {
 		color: #8B969F;
 		float: left;
@@ -826,7 +823,6 @@ ul.stream-tab li a span {
 		line-height: 30px;
 		padding: 0 10px 0 0;
 }
-
 .normal-dropdown {
 		background: none repeat scroll 0 0 #FFFFFF;
 		border-bottom: 0 none;
@@ -839,7 +835,6 @@ ul.stream-tab li a span {
 		text-align: left;
 		width: 100%;
 }
-
 .blue-button {
 		background: #3e79a9;
 		background: -webkit-gradient(linear, 0 0, 0 bottom, from(#3e79a9), to(#5197bc));
@@ -855,14 +850,12 @@ ul.stream-tab li a span {
 		padding: 0 12px;
 		behavior: url(css/PIE.htc);
 }
-
 .sort-caret {
 		border-left: 8px solid transparent;
 		border-right: 8px solid transparent;
 		border-top: 8px solid #FFFFFF;
 		display: inline-block;
 }
-
 .sort-text {
 		color: #8B969F;
 		float: left;
@@ -871,24 +864,20 @@ ul.stream-tab li a span {
 		line-height: 30px;
 		padding-right: 1%;
 }
-
 .ask-outer {
 		background: none repeat scroll 0 0 #E3E5E6;
 		clear: both;
 		display: block;
 		margin:10px 0 0 0;
 }
-
 .ask-content {
 		display: block;
 }
-
 .ask-img {
 		float: left;
 		margin: 1% 0 10px;
 		width: 66%;
 }
-
 .ask-img img {
 		width: 100%;
 		border:solid 1px #000;
@@ -897,7 +886,6 @@ ul.stream-tab li a span {
 		border-radius: 5px;
 		behavior: url(css/PIE.htc);
 }
-
 .delete_msg {
 		width :21px;
 		height:24px;
@@ -915,11 +903,9 @@ ul.stream-tab li a span {
 .ask-type-area {
 		background: none repeat scroll 0 0 #FFFFFF;
 }
-
 .ask-type-area:hover {
 		background: none repeat scroll 0 0 #FFFFFF !important;
 }
-
 .ask-type-area:hover.ask-type-area:after,
 .ask-type-area:before {
 		border: medium solid transparent;
@@ -2449,6 +2435,7 @@ Browse and Media
 
 .browse-right {
 		float:right;
+	
 }
 
 .green-btn {
@@ -2471,7 +2458,7 @@ Browse and Media
 }
 
 .green-btn:hover {
-		background: #d79f1e;
+		background: #c6c8c9;
 }
 
 .green-btn span.visual {
@@ -2479,7 +2466,7 @@ Browse and Media
 }
 
 .green-btn span.texter {
-		background:url(../images/orange-line.png) left repeat-y;
+		background:url(../images/line-new.png) left repeat-y;
 		float:left;
 		height:40px;
 		color: #FFFFFF;
@@ -2513,7 +2500,11 @@ Browse and Media
 }
 
 .green-btn-new:hover {
-		background: #457b49;
+		background: #adadad;
+}
+
+a.activebtn {
+		background:#adadad !important;
 }
 
 .bowse-info {
@@ -2552,7 +2543,7 @@ ul.sort li a:hover {
 		float:left;
 		font-size:16px;
 		color:#314653;
-		padding:0 16px 0 10px;
+		padding:4px 16px 0 10px;
 		height:22px;
 }
 
@@ -2594,7 +2585,7 @@ ul.then-by li a:hover {
 		font-size:27px;
 		font-weight:700;
 		text-align:left;
-		padding:0 0 0 13px;
+		padding:0 0 10px 13px;
 }
 
 ul.profil-pic-outer {
@@ -2621,6 +2612,7 @@ ul.profil-pic-outer li {
 
 .browse-search-block {
 		float:left;
+		width:30%;
 }
 
 .browse-file {
@@ -3341,7 +3333,7 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 }
 
  #dropdownnew ul li a {
- font-size:13px; background:none; 
+ font-size:14px; background:none; 
 
 }
 

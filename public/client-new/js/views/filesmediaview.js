@@ -62,6 +62,9 @@ BS.FilesMediaView = Backbone.View.extend({
         	 "click .rock_docs" : "rocksDocuments",
         	 "click #by-class-list li" :"sortByClass",
         	 "click #category-list li" :"sortBycategory",
+        	 "click .browse-right a" :"selectViewStyle",
+        	 "click #view-by-date-list" : "selectViewByDate",
+        	 
             		
             },
 	
@@ -96,6 +99,13 @@ BS.FilesMediaView = Backbone.View.extend({
                 	$('#view-by-select').text($(eventName.target).text());
                 },
                 
+                /**
+                 * NEW THEME - view files by date 
+                 */
+                selectViewByDate: function(eventName){
+                	eventName.preventDefault();
+                	$('#view-by-date-select').text($(eventName.target).text());
+                },
                 
                 /**
                  * NEW THEME - view files 
@@ -129,6 +139,15 @@ BS.FilesMediaView = Backbone.View.extend({
                   
                 		}
                 	});
+                },
+                
+                /**
+                 * NEW THEME - select files view style
+                 */
+                selectViewStyle: function(eventName){
+                	eventName.preventDefault();
+                	$('.browse-right a.activebtn').removeClass('activebtn');
+                	$(eventName.target).parents('a').addClass('activebtn');
                 },
                 
                 /**
@@ -394,6 +413,22 @@ BS.FilesMediaView = Backbone.View.extend({
                         success : function(images) {
                             if(images.length != 0)
                             {
+                            	
+//                            	content='<li  data-groups="["recent"]" id="coverimage" data-date-created="11/06/2012" class="item" >'
+//                            			+'<div class="image-wrapper"><div class="hover-div">'
+//                            			+'<div id="profile-images"><img class="cover-picture" src="images/pictures_image.png">'
+//                            			+'</div><div class="hover-text"><p class="emptyfiles"> No Uploaded Images </p>'
+//                            			+'</div></div></div>'
+//                            			+'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
+//                            			+'<ul class="comment-list">'
+//                            			+'<li><a class="eye-icon" href="#">87</a></li>'
+//                            			+'<li><a class="hand-icon" href="#">5</a></li>'
+//                            			+'<li><a class="message-icon" href="#">10</a></li>'
+//                            			+'</ul>'
+//                            			+'</div>'
+//                            			+'</li>';
+//                            	 $('#grid').append
+                            	
                              _.each(images, function(image) {
                             	 
                             var datVal =  self.formatDateVal(image.dateCreated);  
