@@ -107,7 +107,8 @@
                                     $('#description-'+data[0].id.id+'').text(data[0].description);
                                     $('#name-'+data[0].id.id+'').text(data[0].name);    
 
-                                    $('#bootstrap_popup').modal('hide');
+//                                    $('#bootstrap_popup').modal('hide');
+                                    $('#edit-bootstrap_popup').modal('hide');   
 	                        }
 	                    }           
 	                });  
