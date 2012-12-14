@@ -3397,6 +3397,13 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 }
 
 
+.attach-drop{ float:left;}
+
+.attach-drop-bg{ background:url(../images/attach.png) no-repeat; display:block;width:25px;height:30px;overflow:hidden;}
+.attach-drop-button{ background:none !important; display:block;width:25px;height:30px;overflow:hidden; left:-8px; }
+
+
+
 
 
 
