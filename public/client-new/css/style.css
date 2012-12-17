@@ -2588,7 +2588,7 @@ ul.then-by li a:hover {
 ul.profil-pic-outer {
 		padding:20px 0 0 0;
 		border-bottom:solid 2px #dde0e3;
-                display: block;
+                display: block; min-height:900px;
  
     
 }
@@ -3390,12 +3390,20 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 }
 
 
-.attach-drop{ float:left;}
+.attach-drop{ float:left;width:22px;padding:5px 0 0 0;}
 
 .attach-drop-bg{ background:url(../images/attach.png) no-repeat; display:block;width:25px;height:30px;overflow:hidden;}
-.attach-drop-button{ background:none !important; display:block;width:25px;height:30px;overflow:hidden; left:-8px; }
 
 
+.active-new{ background:#dadada !important; display:block;width:25px;height:30px;overflow:hidden;
+
+}
+.attach-drop-button{ background:none !important; display:block;width:25px;height:30px;overflow:hidden; left:-26px; }
+
+.attach-caret{
+	border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+}
 
 
 

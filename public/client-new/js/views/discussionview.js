@@ -1016,14 +1016,27 @@
          */
         showUploadSection: function(eventName){
         	eventName.preventDefault();
-        	if($('.embed-info').is(":visible"))
-        	{
-        		$('.embed-info').css("display","none");
-        	}
-        	else
-        	{
-        		$('.embed-info').css("display","block");
-        	}
+//        	console.log($('div#upload-files')) ;
+//        	$('div#upload-files').addClass('active');
+//        	
+//        	if($(eventName.target).parents('li').hasClass('active'))
+//        	{
+//        		$(eventName.target).parents('li').removeClass('active');
+//        	}
+//        	else
+//        	{
+//        		$(eventName.target).parents('li').addClass('active');
+//        	}
+        	
+        	
+//        	if($('.embed-info').is(":visible"))
+//        	{
+//        		$('.embed-info').css("display","none");
+//        	}
+//        	else
+//        	{
+//        		$('.embed-info').css("display","block");
+//        	}
         	
         	
         	

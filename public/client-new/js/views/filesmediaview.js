@@ -285,7 +285,7 @@ BS.FilesMediaView = Backbone.View.extend({
                         	 
                         	 _.each(docs, function(doc) {
                                  var datVal =  self.formatDateVal(doc.creationDate);                   
-                                 docContent= '<li data-date-created="'+doc.creationDate+'" class="item" >'
+                                 docContent= '<li data-groups="["recent"]" data-date-created="'+doc.creationDate+'" class="item" >'
                                 	 +'<div class="image-wrapper hovereffect" id="'+doc.id.id+'">'
                                      +' <div class="hover-div"><img class="cover-picture" src="images/google_docs_image.png ">'
                                      +'<div class="hover-text">'               
@@ -365,7 +365,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                  return letter.toUpperCase();
                                  });
                          var datVal =  self.formatDateVal(doc.creationDate);                      
-                          comContent=  '<li   data-date-created="'+doc.creationDate+'" class="item" >'
+                          comContent=  '<li  data-groups="["oldest"]"  data-date-created="'+doc.creationDate+'" class="item" >'
                         	 +'<div class="image-wrapper hovereffect" id="'+doc.id.id+'">'
                              +' <div class="hover-div"><img class="cover-picture" src="images/textimage.png"><h3 class="common-doctext" >'+extension+'</h3>'
                              +'<div class="hover-text">'               
@@ -478,7 +478,7 @@ BS.FilesMediaView = Backbone.View.extend({
                             	_.each(images, function(image) {
                             		
                             		var datVal =  self.formatDateVal(image.dateCreated);  
-                            		picContent='<li   data-date-created="'+image.dateCreated+'" class="item" >'
+                            		picContent='<li  data-groups="["recent"]" data-date-created="'+image.dateCreated+'" class="item" >'
                             			+'<div class="image-wrapper hovereffect"  id="'+image.id.id+'"><div class="hover-div">'
                             			+'<img class="filmedia-picture" src="'+image.mediaUrl+'">'
                             			+'<div class="hover-text">'
@@ -597,7 +597,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                 
                                 _.each(videos, function(video) {
                               	  	var datVal =  self.formatDateVal(video.dateCreated);   
-                              	  	videoContent= '<li data-date-created="'+video.dateCreated+'" class="item" >'
+                              	  	videoContent= '<li data-groups="["oldest"]" data-date-created="'+video.dateCreated+'" class="item" >'
 	                            	      +'<div class="image-wrapper hovereffect">'
 	                                      +' <div class="hover-div"><img class="filmedia-picture" src="'+video.frameURL+'">'
 	                                      +'<div class="hover-text">'               
@@ -624,6 +624,7 @@ BS.FilesMediaView = Backbone.View.extend({
                           			
                                 });
                                 $('.files-list').append(videoContent);
+                                shufflingOnSorting(); 
 //                                  _.each(videos, function(video) {
 //                                	  var datVal =  self.formatDateVal(video.dateCreated);   
 //                                content= '<div class="image-wrapper hovereffect">'
@@ -700,7 +701,7 @@ BS.FilesMediaView = Backbone.View.extend({
 //                            if(docs.length != 0)  {
                               _.each(data, function(audio) {
                                var datVal =  self.formatDateVal(audio.creationDate);     
-                           var content= '<div class="image-wrapper hovereffect">'
+                           var content= '<div data-groups="["recent"]" class="image-wrapper hovereffect">'
                                         +' <div class="hover-div"><img class="cover-picture" src="images/audio_image.png">'
                                         +'<div class="hover-text">'               
                                         +'<div class="comment-wrapper">'                                
@@ -777,7 +778,7 @@ BS.FilesMediaView = Backbone.View.extend({
                             	var presContent;
                             	  _.each(ppts, function(ppt) {
                                       var datVal =  self.formatDateVal(ppt.creationDate);     
-                               presContent= '<li   data-date-created="'+ppt.creationDate+'" class="item" >'
+                               presContent= '<li  data-groups="["recent"]"  data-date-created="'+ppt.creationDate+'" class="item" >'
                             	   			+'<div class="image-wrapper hovereffect" id="'+ppt.id.id+'">'
                                            +' <div class="hover-div"><img class="cover-picture" src="images/presentations_image.png">'
                                            +'<div class="hover-text">'               
@@ -804,6 +805,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                   
                                  });
                             	  $('.files-list').append(presContent); 
+                            	  shufflingOnSorting(); 
                             	
 //                              _.each(ppts, function(ppt) {
 //                                   var datVal =  self.formatDateVal(ppt.creationDate);     
@@ -886,7 +888,7 @@ BS.FilesMediaView = Backbone.View.extend({
                             	_.each(pdfs, function(pdf) {
                                     var datVal =  self.formatDateVal(pdf.creationDate);     
               
-                               pdfContent= '<li   data-date-created="'+pdf.creationDate+'" class="item" >'
+                               pdfContent= '<li  data-groups="["oldest"]"  data-date-created="'+pdf.creationDate+'" class="item" >'
                             	         +'<div class="image-wrapper hovereffect" id="'+pdf.id.id+'">'
                                          +' <div class="hover-div"><img class="filmedia-picture" src="'+pdf.previewImageUrl+'">'
                                          +'<div class="hover-text">'               
@@ -914,6 +916,7 @@ BS.FilesMediaView = Backbone.View.extend({
  	                                +'</div></li>';
                                });
                             	$('.files-list').append(pdfContent); 
+                            	shufflingOnSorting(); 
                             	
 //                              _.each(pdfs, function(pdf) {
 //                                   var datVal =  self.formatDateVal(pdf.creationDate);     
