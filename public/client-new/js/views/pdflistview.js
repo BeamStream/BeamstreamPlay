@@ -11,6 +11,7 @@ BS.PdfListView = Backbone.View.extend({
                 "click #view-files-byrock-list" : "selectViewByRock",
                 "click #by-class-list li" :"sortByClass",
                 "click #category-list li" :"sortBycategory",
+                "click #view-by-date-list" : "selectViewByDate",
              },
     
             initialize:function(){
@@ -48,6 +49,14 @@ BS.PdfListView = Backbone.View.extend({
             	eventName.preventDefault();
             	$('#by-class-select').text("by "+$(eventName.target).text());
 
+            },
+            
+            /**
+             * NEW THEME - view files by date 
+             */
+            selectViewByDate: function(eventName){
+            	eventName.preventDefault();
+            	$('#view-by-date-select').text($(eventName.target).text());
             },
             
             /**

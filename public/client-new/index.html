@@ -955,8 +955,26 @@ Create a Class</a>
                    </div>
                   
                 <div class="ask-iconinfo">
+  	          <div class="btn-group attach-drop">
+              <button  id="upload-files" data-original-title="Upload Files" class="btn attach-drop-bg drag-rectangle"></button>
+              <button class="btn attach-drop-button " data-toggle="dropdown"> <span class="caret sort-caret attach-caret"></span></button>
+              <ul class="dropdown-menu">
+                 <li><a href="#">Class Document</a></li>
+                      <li><a href="#">Assignment</a></li>
+                      <li><a href="#">Homework </a></li>
+						<li><a href="#">Notes</a></li>
+                      <li><a href="#">Project</a></li>
+                      <li><a href="#">Lecture </a></li>
+					 <li><a href="#">Reference Material</a></li>
+                      <li><a href="#">Tutorial</a></li>
+                      <li><a href="#">EdTech Tool </a></li>
+						<li><a href="#">Amusement</a></li>
+              </ul>
+            </div>
+
+
                   <ul class="icons-ask">
-                    <li><a id="upload-files"  href="#"><img src="images/attach.png" width="22" height="20"></a></li>
+                  <!-- <li class="drag-rectangle"  data-original-title="Upload Files" ><a id="upload-files"  href="#"><img src="images/attach.png" width="22" height="20"></a></li>-->
                     <li><a href="#"><img src="images/card.png" width="18" height="19"></a></li>
                   </ul>
                   <label class="checkbox private-chaeck">
@@ -2138,7 +2156,7 @@ Create a Class</a>
           </form>
           <div class="browse-right">
             <h6 class="small"> View as </h6>
-            <a href="#" class="green-btn"><span class="visual"><img src="images/visual-icon.png" width="20" height="22"></span><span class="texter">Visual Files</span></a> <a href="#" class="green-btn"><span class="visual"><img src="images/file.png" width="20" height="24"></span><span class="texter">Files Folder</span></a> </div>
+            <a href="#" class="green-btn activebtn"><span class="visual"><img src="images/visual-icon.png" width="20" height="22"></span><span class="texter">Visual Files</span></a> <a href="#" class="green-btn"><span class="visual"><img src="images/file.png" width="20" height="24"></span><span class="texter">Files Folder</span></a> </div>
           <div class="stream-top-shadow"><img src="images/shadow.png"></div>
         </div>
         <div class="bowse-info">
@@ -2188,8 +2206,8 @@ Create a Class</a>
 					 <li><a href="#">Reference Material</a></li>
                       <li><a href="#">Tutorial</a></li>
                       <li><a href="#">EdTech Tool </a></li>
-						<li><a href="#">Amusement+</a></li>
-                      <li><a href="#">Add a new category </a></li>
+						<li><a href="#">Amusement</a></li>
+                      <input type="text" placeholder="+Add a new category" > 
                     </ul>
                   </div>
                 </div>
@@ -2207,10 +2225,20 @@ Create a Class</a>
             </ul>
             <ul class="then-by">
               <h6>Then View by</h6>
-              <li data-group="all" ><a href="#">Date</a></li>
-              <li data-group="all"><a href="#">All </a></li>
-              <li data-group="recent"><a href="#">Most Recent </a></li>
-              <li data-group="oldest"> <a href="#">Oldest</a></li>
+              <li data-group="all" >
+
+				<div class="settings-menu">
+                  <div class="btn-group">
+                    <button class="btn seetings-toggle sort-toogle " id="view-by-date-select">All Date</button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle sort-toogle-btn"> <span class=" settings-caret"></span></button>
+                    <ul class="dropdown-menu" id="view-by-date-list">
+					<li><a href="#">Most Recent</a></li>
+					<li><a  href="#">Oldest</a></li>
+					<li><a  href="#">All Date</a></li>
+					</ul>
+                  </div>
+                </div>
+				</li>
             </ul>
             <div class="clear"></div>
           </div>
@@ -2228,7 +2256,7 @@ Create a Class</a>
                       <ul class="file-list" >  -->
            
            
-       <li  data-groups='["recent"]' id="coverimage" data-date-created="11/06/2012" class="item" >
+        <li  data-groups='["recent"]' id="coverimage" data-date-created="11/06/2012" class="item" >
          <div class="image-wrapper"><div class="hover-div"><div id="profile-images"><img class="cover-picture" src="images/pictures_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Images </p></div></div></div>
           <div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>
             <ul class="comment-list">
@@ -2347,7 +2375,7 @@ Create a Class</a>
                 <li><a class="message-icon" href="#">10</a></li>
              </ul>
           </div>   
-        </li>       
+        </li>      
     <!--  </ul>  -->
     
     
@@ -2429,8 +2457,8 @@ Create a Class</a>
 					 <li><a href="#">Reference Material</a></li>
                       <li><a href="#">Tutorial</a></li>
                       <li><a href="#">EdTech Tool </a></li>
-						<li><a href="#">Amusement+</a></li>
-                      <li><a href="#">Add a new category </a></li>
+						<li><a href="#">Amusement</a></li>
+                      <input type="text" placeholder="+Add a new category" >
                     </ul>
                   </div>
                 </div>
@@ -2448,10 +2476,21 @@ Create a Class</a>
             </ul>
             <ul class="then-by">
               <h6>Then View by</h6>
-              <li data-group="all"><a href="#">Date</a></li>
-              <li data-group="all"><a href="#">All </a></li>
-              <li data-sort="date-recent"><a href="#">Most Recent </a></li>
-              <li data-sort="date-oldest"><a href="#">Oldest</a></li>
+              <li data-group="all">
+
+<div class="settings-menu">
+                  <div class="btn-group">
+                    <button class="btn seetings-toggle sort-toogle " id="view-by-date-select">All Date</button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle sort-toogle-btn"> <span class=" settings-caret"></span></button>
+                    <ul class="dropdown-menu" id="view-by-date-list">
+					<li><a href="#">Most Recent</a></li>
+					<li><a  href="#">Oldest</a></li>
+					<li><a  href="#">All Date</a></li>
+					</ul>
+                  </div>
+                </div>
+</li>
+             
             </ul>
            <div class="clear"></div> 
           </div>
