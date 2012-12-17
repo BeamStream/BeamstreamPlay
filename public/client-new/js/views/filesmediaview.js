@@ -880,7 +880,7 @@ BS.FilesMediaView = Backbone.View.extend({
                         url :  BS.getAllPDFFilesForAUser,
                         dataType : "json",
                         success : function(pdfs) {
-                        	
+	
                             if(pdfs.length != 0)  {
                             	 var pdfContent ;
                             	_.each(pdfs, function(pdf) {
@@ -900,6 +900,7 @@ BS.FilesMediaView = Backbone.View.extend({
                                          +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
                                          +'</div></div></div>'
  	                                +'<h5 class="pdftitle" id="'+pdf.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+
 
  	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
  	                                +'</div></div></div>'
@@ -1018,17 +1019,17 @@ BS.FilesMediaView = Backbone.View.extend({
          *  (slide down menu)
          * 
          */
-        uploadMediadwn :function(eventName){
+        uploadMediadwn :function(eventName){         
             eventName.preventDefault();
             if(!$('#uploadmediachild_dr').is(":visible") )       
-              $("#uploadmediachild_dr").slideDown();
+              $("#uploadmediachild_dr").slideDown();         
         },
         
         /* Function for uploadmedia 
          * (childmenu from Links)
          */
         linksMenuList:function(eventName){
-            eventName.preventDefault();
+     eventName.preventDefault();
             $("#childtwo_dr").find('ul').hide(200);
             $("#childthree_dr").find('ul').hide(200);
             $("#childfour_dr").find('ul').hide(200);
@@ -1053,7 +1054,7 @@ BS.FilesMediaView = Backbone.View.extend({
 					
 					  
 		 });
-                 
+                                 
             },
             
         
@@ -1170,7 +1171,7 @@ BS.FilesMediaView = Backbone.View.extend({
          */
         youtubeMenu:function(eventName){
             eventName.preventDefault();
-            $("#youtubechild_dr").animate({width: 'toggle'},350);
+            $("#youtubechild_dr").animate({width: 'toggle'},130);
             var i='';
             var content=''; 
             $.ajax({
@@ -1206,11 +1207,11 @@ BS.FilesMediaView = Backbone.View.extend({
         
         audioMenuList:function(eventName){
             eventName.preventDefault();
-            $("#childone_dr").find('ul').hide(200);
-            $("#childtwo_dr").find('ul').hide(200);
-            $("#childthree_dr").find('ul').hide(200);
-            $("#childfive_dr").find('ul').hide(200);
-            $("#audiomenu_dr").animate({width: 'toggle'},150);
+//            $("#childone_dr").find('ul').hide(200);
+//            $("#childtwo_dr").find('ul').hide(200);
+//            $("#childthree_dr").find('ul').hide(200);
+//            $("#childfive_dr").find('ul').hide(200);
+//            $("#audiomenu_dr").animate({width: 'toggle'},150);
         },
         
         /*

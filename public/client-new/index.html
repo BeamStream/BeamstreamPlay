@@ -1579,6 +1579,11 @@ Create a Class</a>
         </div>
       </div>
         </script>     
+        
+ 
+        
+        
+        
     
         <!----------------------  Browse Media  templates  --------------->
         
@@ -1597,32 +1602,48 @@ Create a Class</a>
               <li class="leftplusicon"><a id="uploadmedia_dr" class="leftplusicon-a" href="#">Upload Media/Docs: </a>
                 <ul id="uploadmediachild_dr" >
                 
-                  <li id="childone_dr"><a id="links_dr" href="#">Links</a>
-                     <ul id="linksmenu_dr" class="largeli fixingmenu_dr">
+                    
+                 
+                    
+              <li id="childthree_dr"><a id ="video_dr" href="#">Class Document</a>
+                       <ul id="videomenu_dr" class="fixingmenu_dr">
+                    <span class="arrow-left"></span>
+                            <li><a href="#">My Computer</a></li>
+                      <li><a id="youtube_dr" href="#">Via Link</a>
+                        <ul id='youtubechild_dr' class="largeli">
                         <span class="arrow-left"></span>
-                         <li><input type="text" class="dropdowntext" placeholder="http://www.PasteLinksHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Links"></li>
-                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Links">
-                             <select id="link-category-list" class="dropdownselect">
-                                <option>Class Links</option>
-								<option>EdTech Tool</option>
-								<option>Reference Material</option>
-								<option>Tutorial</option>
-								<option>Presentation</option>
-								<option>Amusement</option>
-								<option class="enterfromcatgry">Enter New Catagory</option>
-                             </select>
-                           </li>
-                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
-								<select class="dropdownselect" id="link-class-list">
-									<option>Save to Class</option>
-                                	<option>Profile</option>
-									<option>My Docs</option>
+                          <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small" placeholder="NAME of Video"></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video">
+								<select id="video-category-list" class="dropdownselect">
+									<option>Class Video</option>
+									<option>Profile Video</option>
+									<option>Reference Material</option>
+									<option>Tutorial</option>
+									<option>Presentation</option>
+									<option>Project Presentation</option>
+									<option>Project Video</option>
+									<option>Lecture</option>
+									<option class="enterfromcatgry">Enter New Catagory</option>
 								</select>
+						</li>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+							<select class="dropdownselect" id="video-class-list">
+								<option>Save to Class</option>
+								<option>Profile</option>
+								<option>My Docs</option>
+							</select>
 						  </li>
-                          <li><input type="button" class="upload_button" id="links_uploadbutton"></li>
-                       </ul>   
+                          <li><input type="button" class="upload_button" id="video_uploadbutton"></li>
+                        </ul>
+                      </li>
+                    </ul>
                   </li>
-                  <li id="childtwo_dr"><a id="docs_dr"href="#">Papers  &  Docs</a>
+                  
+                  
+                  
+                  
+                  
+                  <li id="childtwo_dr"><a id="docs_dr"href="#">Assignment</a>
                    <ul id="docsmenu_dr" class="fixingmenu_dr">
                            <span class="arrow-left"></span>
                             <li id="childtwo_one_dr"><a  id="googledocs_mycomp"  href="#">My Computer</a>
@@ -1685,7 +1706,343 @@ Create a Class</a>
                             </li>    
                       </ul>  
                   </li>
-                  <li id="childthree_dr"><a id ="video_dr" href="#">Video</a>
+                  
+                  
+                  
+                   <li id="childtwo_dr"><a id="audio_dr"href="#">Homework</a>
+                   <ul id="docsmenu_dr" class="fixingmenu_dr">
+                           <span class="arrow-left"></span>
+                            <li id="childtwo_one_dr"><a  id="googledocs_mycomp"  href="#">My Computer</a>
+                                <ul id='dooclinkchild_dr' class="largeli">
+                                    <span class="arrow-left"></span>
+                                    <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+									<li class="private">
+										<label  style="color:white;" for="id-private">
+											<input  id="id-private" type="checkbox" checked="checked">
+											Private
+										</label>
+									</li>
+                                    
+                                    <li style="margin-right:10px;" ><select class="dropdownselect" id="doc-class-list-computer">
+                                     <option>Save to Class</option>							
+                                        </select>  </li>      
+                                    <span id="loader-message"></span></br>
+
+									<li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"></li>
+                                    <li><a  style="color:white;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                            </ul>
+                            </li>
+                            
+                            <li id="childtwo_two_dr"><a id="googledocs_dr" href="#">Google Docs</a>
+                                <ul id="googledocschild_dr">
+                                    <span class="arrow-left"></span>
+                                    <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                    <li><a id="importfrmlink_dr" href="#">Import From Link</a>
+                                        <ul id='frmlinkchild_dr' class="largeli">
+                                            <span class="arrow-left"></span>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small" id="gdoc-name" placeholder="NAME of Doc"></li>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
+												<select id="doc-category-list" class="dropdownselect">
+													<option>Class Doc</option>
+													<option>Class Notes</option>
+													<option>Reference Material</option>
+													<option>Tutorial</option>
+													<option>Presentation</option>
+													<option>Project Doc</option>
+													<option>Lecture</option>
+													<option class="enterfromcatgry">Enter New Catagory</option>
+												</select>
+											</li>
+                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+											<select class="dropdownselect" id="doc-class-list">
+												<option>Save to Class</option>
+												
+											</select>
+											</li>
+											<li class="private">
+										     <label  style="color:white;" for="id-private">
+											    <input  id="doc-private" type="checkbox" checked="checked">
+											     Private
+										    </label>
+									</li>
+                                            <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>    
+                      </ul>  
+                  </li>
+                  
+                  
+          
+                  
+                          <li id="childtwo_dr"><a id="audio_dr"href="#">Notes</a>
+                   <ul id="docsmenu_dr" class="fixingmenu_dr">
+                           <span class="arrow-left"></span>
+                            <li id="childtwo_one_dr"><a  id="googledocs_mycomp"  href="#">My Computer</a>
+                                <ul id='dooclinkchild_dr' class="largeli">
+                                    <span class="arrow-left"></span>
+                                    <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+									<li class="private">
+										<label  style="color:white;" for="id-private">
+											<input  id="id-private" type="checkbox" checked="checked">
+											Private
+										</label>
+									</li>
+                                    
+                                    <li style="margin-right:10px;" ><select class="dropdownselect" id="doc-class-list-computer">
+                                     <option>Save to Class</option>							
+                                        </select>  </li>      
+                                    <span id="loader-message"></span></br>
+
+									<li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"></li>
+                                    <li><a  style="color:white;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                            </ul>
+                            </li>
+                            
+                            <li id="childtwo_two_dr"><a id="googledocs_dr" href="#">Google Docs</a>
+                                <ul id="googledocschild_dr">
+                                    <span class="arrow-left"></span>
+                                    <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                    <li><a id="importfrmlink_dr" href="#">Import From Link</a>
+                                        <ul id='frmlinkchild_dr' class="largeli">
+                                            <span class="arrow-left"></span>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small" id="gdoc-name" placeholder="NAME of Doc"></li>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
+												<select id="doc-category-list" class="dropdownselect">
+													<option>Class Doc</option>
+													<option>Class Notes</option>
+													<option>Reference Material</option>
+													<option>Tutorial</option>
+													<option>Presentation</option>
+													<option>Project Doc</option>
+													<option>Lecture</option>
+													<option class="enterfromcatgry">Enter New Catagory</option>
+												</select>
+											</li>
+                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+											<select class="dropdownselect" id="doc-class-list">
+												<option>Save to Class</option>
+												
+											</select>
+											</li>
+											<li class="private">
+										     <label  style="color:white;" for="id-private">
+											    <input  id="doc-private" type="checkbox" checked="checked">
+											     Private
+										    </label>
+									</li>
+                                            <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>    
+                      </ul>  
+                  </li>
+                  
+                  
+                  
+                          <li id="childtwo_dr"><a id="audio_dr"href="#">Projects</a>
+                   <ul id="docsmenu_dr" class="fixingmenu_dr">
+                           <span class="arrow-left"></span>
+                            <li id="childtwo_one_dr"><a  id="googledocs_mycomp"  href="#">My Computer</a>
+                                <ul id='dooclinkchild_dr' class="largeli">
+                                    <span class="arrow-left"></span>
+                                    <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+									<li class="private">
+										<label  style="color:white;" for="id-private">
+											<input  id="id-private" type="checkbox" checked="checked">
+											Private
+										</label>
+									</li>
+                                    
+                                    <li style="margin-right:10px;" ><select class="dropdownselect" id="doc-class-list-computer">
+                                     <option>Save to Class</option>							
+                                        </select>  </li>      
+                                    <span id="loader-message"></span></br>
+
+									<li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"></li>
+                                    <li><a  style="color:white;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                            </ul>
+                            </li>
+                            
+                            <li id="childtwo_two_dr"><a id="googledocs" href="#">Google Docs</a>
+                                <ul id="googledocschild_dr">
+                                    <span class="arrow-left"></span>
+                                    <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                    <li><a id="importfrmlink_dr" href="#">Import From Link</a>
+                                        <ul id='frmlinkchild_dr' class="largeli">
+                                            <span class="arrow-left"></span>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small" id="gdoc-name" placeholder="NAME of Doc"></li>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
+												<select id="doc-category-list" class="dropdownselect">
+													<option>Class Doc</option>
+													<option>Class Notes</option>
+													<option>Reference Material</option>
+													<option>Tutorial</option>
+													<option>Presentation</option>
+													<option>Project Doc</option>
+													<option>Lecture</option>
+													<option class="enterfromcatgry">Enter New Catagory</option>
+												</select>
+											</li>
+                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+											<select class="dropdownselect" id="doc-class-list">
+												<option>Save to Class</option>
+												
+											</select>
+											</li>
+											<li class="private">
+										     <label  style="color:white;" for="id-private">
+											    <input  id="doc-private" type="checkbox" checked="checked">
+											     Private
+										    </label>
+									</li>
+                                            <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>    
+                      </ul>  
+                  </li>
+                  
+                  
+                  
+                  
+                          <li id="childtwo_dr"><a id="audio_dr"href="#">Lecture</a>
+                   <ul id="docsmenu_dr" class="fixingmenu_dr">
+                           <span class="arrow-left"></span>
+                            <li id="childtwo_one_dr"><a  id="googledocs_mycomp"  href="#">My Computer</a>
+                                <ul id='dooclinkchild_dr' class="largeli">
+                                    <span class="arrow-left"></span>
+                                    <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+									<li class="private">
+										<label  style="color:white;" for="id-private">
+											<input  id="id-private" type="checkbox" checked="checked">
+											Private
+										</label>
+									</li>
+                                    
+                                    <li style="margin-right:10px;" ><select class="dropdownselect" id="doc-class-list-computer">
+                                     <option>Save to Class</option>							
+                                        </select>  </li>      
+                                    <span id="loader-message"></span></br>
+
+									<li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"></li>
+                                    <li><a  style="color:white;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                            </ul>
+                            </li>
+                            
+                            <li id="childtwo_two_dr"><a id="googledocs_dr" href="#">Google Docs</a>
+                                <ul id="googledocschild_dr">
+                                    <span class="arrow-left"></span>
+                                    <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                    <li><a id="importfrmlink_dr" href="#">Import From Link</a>
+                                        <ul id='frmlinkchild_dr' class="largeli">
+                                            <span class="arrow-left"></span>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small" id="gdoc-name" placeholder="NAME of Doc"></li>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
+												<select id="doc-category-list" class="dropdownselect">
+													<option>Class Doc</option>
+													<option>Class Notes</option>
+													<option>Reference Material</option>
+													<option>Tutorial</option>
+													<option>Presentation</option>
+													<option>Project Doc</option>
+													<option>Lecture</option>
+													<option class="enterfromcatgry">Enter New Catagory</option>
+												</select>
+											</li>
+                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+											<select class="dropdownselect" id="doc-class-list">
+												<option>Save to Class</option>
+												
+											</select>
+											</li>
+											<li class="private">
+										     <label  style="color:white;" for="id-private">
+											    <input  id="doc-private" type="checkbox" checked="checked">
+											     Private
+										    </label>
+									</li>
+                                            <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>    
+                      </ul>  
+                  </li>
+                  
+               
+                  
+                          <li id="childtwo_dr"><a id="audio_dr"href="#">Reference Material</a>
+                   <ul id="docsmenu_dr" class="fixingmenu_dr">
+                           <span class="arrow-left"></span>
+                            <li id="childtwo_one_dr"><a  id="googledocs_mycomp"  href="#">My Computer</a>
+                                <ul id='dooclinkchild_dr' class="largeli">
+                                    <span class="arrow-left"></span>
+                                    <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+									<li class="private">
+										<label  style="color:white;" for="id-private">
+											<input  id="id-private" type="checkbox" checked="checked">
+											Private
+										</label>
+									</li>
+                                    
+                                    <li style="margin-right:10px;" ><select class="dropdownselect" id="doc-class-list-computer">
+                                     <option>Save to Class</option>							
+                                        </select>  </li>      
+                                    <span id="loader-message"></span></br>
+
+									<li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"></li>
+                                    <li><a  style="color:white;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                            </ul>
+                            </li>
+                            
+                            <li id="childtwo_two_dr"><a id="googledocs_dr" href="#">Google Docs</a>
+                                <ul id="googledocschild_dr">
+                                    <span class="arrow-left"></span>
+                                    <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                    <li><a id="importfrmlink_dr" href="#">Import From Link</a>
+                                        <ul id='frmlinkchild_dr' class="largeli">
+                                            <span class="arrow-left"></span>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small" id="gdoc-name" placeholder="NAME of Doc"></li>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
+												<select id="doc-category-list" class="dropdownselect">
+													<option>Class Doc</option>
+													<option>Class Notes</option>
+													<option>Reference Material</option>
+													<option>Tutorial</option>
+													<option>Presentation</option>
+													<option>Project Doc</option>
+													<option>Lecture</option>
+													<option class="enterfromcatgry">Enter New Catagory</option>
+												</select>
+											</li>
+                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+											<select class="dropdownselect" id="doc-class-list">
+												<option>Save to Class</option>
+												
+											</select>
+											</li>
+											<li class="private">
+										     <label  style="color:white;" for="id-private">
+											    <input  id="doc-private" type="checkbox" checked="checked">
+											     Private
+										    </label>
+									</li>
+                                            <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>    
+                      </ul>  
+                  </li>
+                  
+                  
+                  
+                  
+                  <li id="childthree_dr"><a id ="audio_dr" href="#">Tutorial</a>
                        <ul id="videomenu_dr" class="fixingmenu_dr">
                     <span class="arrow-left"></span>
                       <li><a href="#">My Computer</a></li>
@@ -1718,7 +2075,11 @@ Create a Class</a>
                       </li>
                     </ul>
                   </li>
-                  <li id="childfour_dr"><a id="audio_dr" href="#">Audio</a>
+                  
+                  
+                  
+                  
+                  <li id="childfour_dr"><a id="audio_dr" href="#">EdTech Tool</a>
                       <ul id="audiomenu_dr" class="fixingmenu_dr">
                      <span class="arrow-left"></span>
                       <li><a href="#">My Computer</a></li>
@@ -1750,7 +2111,12 @@ Create a Class</a>
                       </li>
                     </ul> 
                   </li>
-                  <li id="childfive_dr"><a id="presentations_dr" href="#">Presentations</a>
+                  
+                  
+                  
+                  
+                  
+                  <li id="childfive_dr"><a id="presentations_dr" href="#">Amusement+</a>
                       <ul id="presentationmenu_dr" class="fixingmenu_dr">
                      <span class="arrow-left"></span>
                       <li><a href="#">My Computer</a></li>
@@ -1782,8 +2148,13 @@ Create a Class</a>
                     </ul>   
                   </li>
                    
+                  
+                  
+                  
+                  
+                  
                 </ul>
-              </li> 
+              </li>               
             </ul>
             <!-- /.nav-collapse -->  
            <!--- for drop down menu--->
