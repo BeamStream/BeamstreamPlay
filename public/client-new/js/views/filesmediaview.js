@@ -74,9 +74,8 @@ BS.FilesMediaView = Backbone.View.extend({
                 this.pictres();	
                 this.videos();   
                 this.docsList();
-                this.docFromComputer();
-     //           this.audio();  
-//                this.spreadsheet();  
+//     //           this.audio();  
+                this.spreadsheet();  
                 this.presentation();  
                 this.pdffiles();
                 this.docFromComputer();
@@ -275,7 +274,7 @@ BS.FilesMediaView = Backbone.View.extend({
             docsList : function(){  
                 var i = 1;
                 var self = this;
-                BS.user.fetch({ success:function(e) {
+//                BS.user.fetch({ success:function(e) {
                 /* get profile images for user */
                 $.ajax({
                     type : 'GET',
@@ -283,36 +282,67 @@ BS.FilesMediaView = Backbone.View.extend({
                     dataType : "json",
                     success : function(docs) {
                         if(docs.length != 0)  {
-                            _.each(docs, function(doc) {
-                            var datVal =  self.formatDateVal(doc.creationDate);                   
-                            content= '<div class="image-wrapper hovereffect" id="'+doc.id.id+'">'
-                                +' <div class="hover-div"><img class="cover-picture" src="images/google_docs_image.png ">'
-                                +'<div class="hover-text">'               
-                                +'<div class="comment-wrapper">'                                
-                                +'<a href="#googledocs" style="text-decoration: none">'
-                                +' <div id="media-'+doc.id.id+'" >'
-                                +' <h4 id="name-'+doc.id.id+'">'+doc.documentName+'</h4>'                                
-                                +'<div class="description-info"><div class="description-left"><p id="description-'+doc.id.id+'" class="doc-description">'+doc.documentDescription+'</p></div></a>'
-                                +' <div id="'+doc.id.id+'" class="comment-wrapper2">'
-                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
-                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
-                                +'</div></div></div>'
-                                +'<h5 class="doctitle" id="'+doc.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
-                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
-                                +'</div></div></div>'
-                                +'<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>'
-                                +'<ul id="'+doc.id.id+'-activities" class="comment-list">'
-                                +'<li><a class="eye-icon" href="#">0</a></li>'
-                                +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li>'
-                                +'<li><a class="message-icon" href="#">0</a></li>'
-                                +'</ul>'
-                                +'</div>';
-                            $('#coverdocs').html(content);                     
-                            });
+                        	 
+                        	 _.each(docs, function(doc) {
+                                 var datVal =  self.formatDateVal(doc.creationDate);                   
+                                 docContent= '<li data-date-created="'+doc.creationDate+'" class="item" >'
+                                	 +'<div class="image-wrapper hovereffect" id="'+doc.id.id+'">'
+                                     +' <div class="hover-div"><img class="cover-picture" src="images/google_docs_image.png ">'
+                                     +'<div class="hover-text">'               
+                                     +'<div class="comment-wrapper">'                                
+                                     +'<a href="#googledocs" style="text-decoration: none">'
+                                     +' <div id="media-'+doc.id.id+'" >'
+                                     +' <h4 id="name-'+doc.id.id+'">'+doc.documentName+'</h4>'                                
+                                     +'<div class="description-info"><div class="description-left"><p id="description-'+doc.id.id+'" class="doc-description">'+doc.documentDescription+'</p></div></a>'
+                                     +' <div id="'+doc.id.id+'" class="comment-wrapper2">'
+                                     +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
+                                     +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+                                     +'</div></div></div>'
+                                     +'<h5 class="doctitle" id="'+doc.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+                                     +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
+                                     +'</div></div></div>'
+                                     +'<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>'
+                                     +'<ul id="'+doc.id.id+'-activities" class="comment-list">'
+                                     +'<li><a class="eye-icon" href="#">0</a></li>'
+                                     +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li>'
+                                     +'<li><a class="message-icon" href="#">0</a></li>'
+                                     +'</ul>'
+                                     +'</div></li>';
+                                
+                                 });
+                        	 $('.files-list').append(docContent);             
+                        	
+                        	
+//                            _.each(docs, function(doc) {
+//                            var datVal =  self.formatDateVal(doc.creationDate);                   
+//                            content= '<div class="image-wrapper hovereffect" id="'+doc.id.id+'">'
+//                                +' <div class="hover-div"><img class="cover-picture" src="images/google_docs_image.png ">'
+//                                +'<div class="hover-text">'               
+//                                +'<div class="comment-wrapper">'                                
+//                                +'<a href="#googledocs" style="text-decoration: none">'
+//                                +' <div id="media-'+doc.id.id+'" >'
+//                                +' <h4 id="name-'+doc.id.id+'">'+doc.documentName+'</h4>'                                
+//                                +'<div class="description-info"><div class="description-left"><p id="description-'+doc.id.id+'" class="doc-description">'+doc.documentDescription+'</p></div></a>'
+//                                +' <div id="'+doc.id.id+'" class="comment-wrapper2">'
+//                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
+//                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+//                                +'</div></div></div>'
+//                                +'<h5 class="doctitle" id="'+doc.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+//                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
+//                                +'</div></div></div>'
+//                                +'<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>'
+//                                +'<ul id="'+doc.id.id+'-activities" class="comment-list">'
+//                                +'<li><a class="eye-icon" href="#">0</a></li>'
+//                                +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li>'
+//                                +'<li><a class="message-icon" href="#">0</a></li>'
+//                                +'</ul>'
+//                                +'</div>';
+//                            $('#coverdocs').html(content);                     
+//                            });
                         }
                         }
                     });
-                }});
+//                }});
                 },
 
             /**
@@ -327,37 +357,72 @@ BS.FilesMediaView = Backbone.View.extend({
                 dataType : "json",
                 success : function(docs) {
                     if(docs.length != 0)  {
-                    _.each(docs, function(doc) {  
-                        var extension = (doc.documentURL).match(extensionpattern); 
-                                        // set first letter of extension in capital letter  
-                        extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
-                            return letter.toUpperCase();
-                            });
-                    var datVal =  self.formatDateVal(doc.creationDate);                      
-                    var content= '<div class="image-wrapper hovereffect" id="'+doc.id.id+'">'
-                        +' <div class="hover-div"><img class="cover-picture" src="images/textimage.png"><h3 class="common-doctext" >'+extension+'</h3>'
-                        +'<div class="hover-text">'               
-                        +'<div class="comment-wrapper">'                                
-                        +'<a href="#docs" style="text-decoration: none">'
-                        +' <div id="media-'+doc.id.id+'" >'
-                        +' <h4 id="name-'+doc.id.id+'">'+doc.documentName+'</h4>'                                
-                        +'<div class="description-info"><div class="description-left"><p class="doc-description" id="description-'+doc.id.id+'">'+doc.documentDescription+'</p></div></a>'
-                        +' <div id="'+doc.id.id+'" class="comment-wrapper2">'
-                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
-                        +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
-                        +'</div></div></div>'
-                        +'<h5 class="doctitle" id="'+doc.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
-                        +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
-                        +'</div></div></div>'
-                        +'<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>'
-                        +'<ul id="'+doc.id.id+'-activities" class="comment-list">'
-                        +'<li><a class="eye-icon" href="#">0</a></li>'
-                        +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li>'
-                        +'<li><a class="message-icon" href="#">0</a></li>'
-                        +'</ul>'
-                        +'</div>';                
-                        $('#coverdoc_com').html(content);   
-                        });
+                    	var comContent;
+                    	 _.each(docs, function(doc) {  
+                             var extension = (doc.documentURL).match(extensionpattern); 
+                                             // set first letter of extension in capital letter  
+                             extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+                                 return letter.toUpperCase();
+                                 });
+                         var datVal =  self.formatDateVal(doc.creationDate);                      
+                          comContent=  '<li   data-date-created="'+doc.creationDate+'" class="item" >'
+                        	 +'<div class="image-wrapper hovereffect" id="'+doc.id.id+'">'
+                             +' <div class="hover-div"><img class="cover-picture" src="images/textimage.png"><h3 class="common-doctext" >'+extension+'</h3>'
+                             +'<div class="hover-text">'               
+                             +'<div class="comment-wrapper">'                                
+                             +'<a href="#docs" style="text-decoration: none">'
+                             +' <div id="media-'+doc.id.id+'" >'
+                             +' <h4 id="name-'+doc.id.id+'">'+doc.documentName+'</h4>'                                
+                             +'<div class="description-info"><div class="description-left"><p class="doc-description" id="description-'+doc.id.id+'">'+doc.documentDescription+'</p></div></a>'
+                             +' <div id="'+doc.id.id+'" class="comment-wrapper2">'
+                             +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
+                             +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+                             +'</div></div></div>'
+                             +'<h5 class="doctitle" id="'+doc.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+                             +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
+                             +'</div></div></div>'
+                             +'<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>'
+                             +'<ul id="'+doc.id.id+'-activities" class="comment-list">'
+                             +'<li><a class="eye-icon" href="#">0</a></li>'
+                             +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li>'
+                             +'<li><a class="message-icon" href="#">0</a></li>'
+                             +'</ul>'
+                             +'</div></li>';                
+                            
+                             });
+                    	 $('.files-list').append(comContent);   
+                    	
+//                    _.each(docs, function(doc) {  
+//                        var extension = (doc.documentURL).match(extensionpattern); 
+//                                        // set first letter of extension in capital letter  
+//                        extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+//                            return letter.toUpperCase();
+//                            });
+//                    var datVal =  self.formatDateVal(doc.creationDate);                      
+//                    var content= '<div class="image-wrapper hovereffect" id="'+doc.id.id+'">'
+//                        +' <div class="hover-div"><img class="cover-picture" src="images/textimage.png"><h3 class="common-doctext" >'+extension+'</h3>'
+//                        +'<div class="hover-text">'               
+//                        +'<div class="comment-wrapper">'                                
+//                        +'<a href="#docs" style="text-decoration: none">'
+//                        +' <div id="media-'+doc.id.id+'" >'
+//                        +' <h4 id="name-'+doc.id.id+'">'+doc.documentName+'</h4>'                                
+//                        +'<div class="description-info"><div class="description-left"><p class="doc-description" id="description-'+doc.id.id+'">'+doc.documentDescription+'</p></div></a>'
+//                        +' <div id="'+doc.id.id+'" class="comment-wrapper2">'
+//                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
+//                        +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+//                        +'</div></div></div>'
+//                        +'<h5 class="doctitle" id="'+doc.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+//                        +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
+//                        +'</div></div></div>'
+//                        +'<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>'
+//                        +'<ul id="'+doc.id.id+'-activities" class="comment-list">'
+//                        +'<li><a class="eye-icon" href="#">0</a></li>'
+//                        +'<li><a class="hand-icon" href="#">'+doc.documentRocks+'</a></li>'
+//                        +'<li><a class="message-icon" href="#">0</a></li>'
+//                        +'</ul>'
+//                        +'</div>';                
+//                        $('#coverdoc_com').html(content);   
+//                        });
                     }
                     }
                 });
@@ -401,66 +466,77 @@ BS.FilesMediaView = Backbone.View.extend({
             var arraypictures = new Array();
             var content='';
             var coverpicture;           
-            BS.user.fetch({ success:function(e) {
                 /* get images for user */
                 $.ajax({
                     type : 'GET',
                     url :  BS.allProfileImages,
-                        data : {
-                                'userId': e.attributes.id.id
-                        },
                         dataType : "json",
                         success : function(images) {
                             if(images.length != 0)
                             {
                             	
-//                            	content='<li  data-groups="["recent"]" id="coverimage" data-date-created="11/06/2012" class="item" >'
-//                            			+'<div class="image-wrapper"><div class="hover-div">'
-//                            			+'<div id="profile-images"><img class="cover-picture" src="images/pictures_image.png">'
-//                            			+'</div><div class="hover-text"><p class="emptyfiles"> No Uploaded Images </p>'
-//                            			+'</div></div></div>'
-//                            			+'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
-//                            			+'<ul class="comment-list">'
-//                            			+'<li><a class="eye-icon" href="#">87</a></li>'
-//                            			+'<li><a class="hand-icon" href="#">5</a></li>'
-//                            			+'<li><a class="message-icon" href="#">10</a></li>'
-//                            			+'</ul>'
-//                            			+'</div>'
-//                            			+'</li>';
-//                            	 $('#grid').append
+                            	_.each(images, function(image) {
+                            		
+                            		var datVal =  self.formatDateVal(image.dateCreated);  
+                            		picContent='<li   data-date-created="'+image.dateCreated+'" class="item" >'
+                            			+'<div class="image-wrapper hovereffect"  id="'+image.id.id+'"><div class="hover-div">'
+                            			+'<img class="filmedia-picture" src="'+image.mediaUrl+'">'
+                            			+'<div class="hover-text">'
+                            			+'<div class="comment-wrapper"> '
+                            			+'<a href="#imagelist" style="text-decoration: none">'
+                            			+' <div id="media-'+image.id.id+'" >'
+                            			+' <h4 id="name-'+image.id.id+'">'+image.name+'</h4>'
+                            			+'<div class="description-info"><div class="description-left"><p class="doc-description" id="description-'+image.id.id+'" >'+image.description+'</p></div></a>'
+                            			+' <div id="'+image.id.id+'" class="comment-wrapper2">'
+                            			+'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock-medias"></a>'
+                                       	+'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+                                       	+'</div></div></div>'
+                                       	+'<h5 class="imgtitle" id="'+image.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+                                       	+'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
+                                       	+'</div></div></div>'
+                                       	+'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
+                            			+'<ul id="'+image.id.id+'-activities" class="comment-list">'
+                            			+'<li><a class="eye-icon" href="#">0</a></li>'
+                                        +'<li><a class="hand-icon" href="#">'+image.rocks+'</a></li>'
+                                        +'<li><a class="message-icon" href="#">0</a></li>'
+                                        +'</ul>'
+                            			+'</div>'
+                            			+'</li>';
+                            		 });
+                            	 	$('.files-list').append(picContent);
                             	
-                             _.each(images, function(image) {
-                            	 
-                            var datVal =  self.formatDateVal(image.dateCreated);  
-                            content= '<div class="image-wrapper hovereffect" id="'+image.id.id+'">'
-                                +' <div class="hover-div"><img class="filmedia-picture" src="'+image.mediaUrl+'">'
-                                +'<div class="hover-text">'               
-                                +'<div class="comment-wrapper">'                                
-                                +'<a href="#imagelist" style="text-decoration: none">'
-                                +' <div id="media-'+image.id.id+'" >'
-                                +' <h4 id="name-'+image.id.id+'">'+image.name+'</h4>'                                
-                                +'<div class="description-info"><div class="description-left"><p class="doc-description" id="description-'+image.id.id+'" >'+image.description+'</p></div></a>'
-                                +' <div id="'+image.id.id+'" class="comment-wrapper2">'
-                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock-medias"></a>'
-                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
-                                +'</div></div></div>'
-                                +'<h5 class="imgtitle" id="'+image.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
-                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
-                                +'</div></div></div>'
-                                +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
-                                +'<ul id="'+image.id.id+'-activities"  class="comment-list">'
-                                +'<li><a class="eye-icon" href="#">0</a></li>'
-                                +'<li><a class="hand-icon" href="#">'+image.rocks+'</a></li>'
-                                +'<li><a class="message-icon" href="#">0</a></li>'
-                                +'</ul>'
-                                +'</div>'; 
-                            $('#coverimage').html(content);  
-                              });
+//                             _.each(images, function(image) {
+//                            	 
+//                            var datVal =  self.formatDateVal(image.dateCreated);  
+//                            content= '<div class="image-wrapper hovereffect" id="'+image.id.id+'">'
+//                                +' <div class="hover-div"><img class="filmedia-picture" src="'+image.mediaUrl+'">'
+//                                +'<div class="hover-text">'               
+//                                +'<div class="comment-wrapper">'                                
+//                                +'<a href="#imagelist" style="text-decoration: none">'
+//                                +' <div id="media-'+image.id.id+'" >'
+//                                +' <h4 id="name-'+image.id.id+'">'+image.name+'</h4>'                                
+//                                +'<div class="description-info"><div class="description-left"><p class="doc-description" id="description-'+image.id.id+'" >'+image.description+'</p></div></a>'
+//                                +' <div id="'+image.id.id+'" class="comment-wrapper2">'
+//                                +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock-medias"></a>'
+//                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+//                                +'</div></div></div>'
+//                                +'<h5 class="imgtitle" id="'+image.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+//                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
+//                                +'</div></div></div>'
+//                                +'<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>'
+//                                +'<ul id="'+image.id.id+'-activities"  class="comment-list">'
+//                                +'<li><a class="eye-icon" href="#">0</a></li>'
+//                                +'<li><a class="hand-icon" href="#">'+image.rocks+'</a></li>'
+//                                +'<li><a class="message-icon" href="#">0</a></li>'
+//                                +'</ul>'
+//                                +'</div>'; 
+//                            $('#coverimage').html(content);  
+//                              });
                             }
                         }
                });
 
-            }});
+//            }});
 
         },
         
@@ -505,7 +581,7 @@ BS.FilesMediaView = Backbone.View.extend({
             var arrayvideos = new Array();
             var content='';
             var coverpicture; 
-            BS.user.fetch({ success:function(e) {
+//            BS.user.fetch({ success:function(e) {
               /* get videos for user */
               $.ajax({
                         type : 'GET',
@@ -518,37 +594,67 @@ BS.FilesMediaView = Backbone.View.extend({
                             {
                                 arraypictures=videos;
                                 coverpicture=arraypictures[arraypictures.length-1];
-                                  _.each(videos, function(video) {
-                                	  var datVal =  self.formatDateVal(video.dateCreated);   
-                                content= '<div class="image-wrapper hovereffect">'
-                                        +' <div class="hover-div"><img class="filmedia-picture" src="'+coverpicture.frameURL+'">'
-                                        +'<div class="hover-text">'               
-                                        +'<div class="comment-wrapper">'                                
-                                        +'<a href="#videos" style="text-decoration: none">'
-                                        +' <div id="media-'+video.id.id+'" >'
-                                        +' <h4 id="name-'+video.id.id+'">'+video.name+'</h4>'                                
-	                                +'<div class="description-info"><div class="description-left"><p id="description-'+video.id.id+'" class="doc-description">'+video.description+'</p></div></a>'
-                                        +' <div id="'+video.id.id+'" class="comment-wrapper2">'
-                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock-medias"></a>'
-	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
-                                        +'</div></div></div>'
-	                                +'<h5 class="videotitle" id="'+video.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
-	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
-	                                +'</div></div></div>'
-	                                +'<div class="comment-wrapper1"> <a class="common-icon video" href="#"></a>'
-	                                +'<ul id="'+video.id.id+'-activities" class="comment-list">'
-	                                +'<li><a class="eye-icon" href="#">0</a></li>'
-	                                +'<li><a class="hand-icon" href="#">'+video.rocks+'</a></li>'
-	                                +'<li><a class="message-icon" href="#">0</a></li>'
-	                                +'</ul>'
-	                                +'</div>';
-                                 $('#covervideo').html(content);  
-                                  });
+                                
+                                _.each(videos, function(video) {
+                              	  	var datVal =  self.formatDateVal(video.dateCreated);   
+                              	  	videoContent= '<li data-date-created="'+video.dateCreated+'" class="item" >'
+	                            	      +'<div class="image-wrapper hovereffect">'
+	                                      +' <div class="hover-div"><img class="filmedia-picture" src="'+video.frameURL+'">'
+	                                      +'<div class="hover-text">'               
+	                                      +'<div class="comment-wrapper">'                                
+	                                      +'<a href="#videos" style="text-decoration: none">'
+	                                      +' <div id="media-'+video.id.id+'" >'
+	                                      +' <h4 id="name-'+video.id.id+'">'+video.name+'</h4>'                                
+	                                      +'<div class="description-info"><div class="description-left"><p id="description-'+video.id.id+'" class="doc-description">'+video.description+'</p></div></a>'
+	                                      +' <div id="'+video.id.id+'" class="comment-wrapper2">'
+	                                      +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock-medias"></a>'
+	                                      +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+	                                      +'</div></div></div>'
+		                              	  +'<h5 class="videotitle" id="'+video.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+		                              	  +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
+		                              	  +'</div></div></div>'
+		                              	  +'<div class="comment-wrapper1"> <a class="common-icon video" href="#"></a>'
+		                              	  +'<ul id="'+video.id.id+'-activities" class="comment-list">'
+		                              	  +'<li><a class="eye-icon" href="#">0</a></li>'
+		                              	  +'<li><a class="hand-icon" href="#">'+video.rocks+'</a></li>'
+		                              	  +'<li><a class="message-icon" href="#">0</a></li>'
+		                              	  +'</ul>'
+		                              	  +'</div></li>';
+                              
+                          			
+                                });
+                                $('.files-list').append(videoContent);
+//                                  _.each(videos, function(video) {
+//                                	  var datVal =  self.formatDateVal(video.dateCreated);   
+//                                content= '<div class="image-wrapper hovereffect">'
+//                                        +' <div class="hover-div"><img class="filmedia-picture" src="'+coverpicture.frameURL+'">'
+//                                        +'<div class="hover-text">'               
+//                                        +'<div class="comment-wrapper">'                                
+//                                        +'<a href="#videos" style="text-decoration: none">'
+//                                        +' <div id="media-'+video.id.id+'" >'
+//                                        +' <h4 id="name-'+video.id.id+'">'+video.name+'</h4>'                                
+//	                                +'<div class="description-info"><div class="description-left"><p id="description-'+video.id.id+'" class="doc-description">'+video.description+'</p></div></a>'
+//                                        +' <div id="'+video.id.id+'" class="comment-wrapper2">'
+//                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock-medias"></a>'
+//	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+//                                        +'</div></div></div>'
+//	                                +'<h5 class="videotitle" id="'+video.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+//	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
+//	                                +'</div></div></div>'
+//	                                +'<div class="comment-wrapper1"> <a class="common-icon video" href="#"></a>'
+//	                                +'<ul id="'+video.id.id+'-activities" class="comment-list">'
+//	                                +'<li><a class="eye-icon" href="#">0</a></li>'
+//	                                +'<li><a class="hand-icon" href="#">'+video.rocks+'</a></li>'
+//	                                +'<li><a class="message-icon" href="#">0</a></li>'
+//	                                +'</ul>'
+//	                                +'</div>';
+//                                 $('#covervideo').html(content);  
+//                                  });
                             }
                         }
                });
 
-            }});
+//            }});
         },
         
         /*
@@ -667,35 +773,66 @@ BS.FilesMediaView = Backbone.View.extend({
                         url :  BS.getAllPPTFilesForAUser,
                         dataType : "json",
                         success : function(ppts) {
-//                            if(docs.length != 0)  {
-                              _.each(ppts, function(ppt) {
-                                   var datVal =  self.formatDateVal(ppt.creationDate);     
-                            var content= '<div class="image-wrapper hovereffect" id="'+ppt.id.id+'">'
-                                        +' <div class="hover-div"><img class="cover-picture" src="images/presentations_image.png">'
-                                        +'<div class="hover-text">'               
-                                        +'<div class="comment-wrapper">'                                
-                                        +'<a href="#presentationview" style="text-decoration: none">'
-                                        +' <div id="media-'+ppt.id.id+'" >'
-                                        +' <h4 id="name-'+ppt.id.id+'">'+ppt.documentName+'</h4>'                                
-	                                +'<div class="description-info"><div class="description-left"><p id="description-'+ppt.id.id+'" class="doc-description">'+ppt.documentDescription+'</p></div></a>'
-                                        +' <div id="'+ppt.id.id+'" class="comment-wrapper2">'
-                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
-	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
-                                        +'</div></div></div>'
-	                                +'<h5 class="presentationtitle" id="'+ppt.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
-	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
-	                                +'</div></div></div>'
-	                                +'<div class="comment-wrapper1"> <a class="common-icon presentation" href="#"></a>'
-	                                +'<ul id="'+ppt.id.id+'-activities" class="comment-list">'
-	                                +'<li><a class="eye-icon" href="#">0</a></li>'
-	                                +'<li><a class="hand-icon" href="#">'+ppt.documentRocks+'</a></li>'
-	                                +'<li><a class="message-icon" href="#">0</a></li>'
-	                                +'</ul>'
-	                                +'</div>';
-                               $('#coverpresentation').html(content); 
-                               
-                              });
-//                        }
+                            if(ppts.length != 0)  {
+                            	var presContent;
+                            	  _.each(ppts, function(ppt) {
+                                      var datVal =  self.formatDateVal(ppt.creationDate);     
+                               presContent= '<li   data-date-created="'+ppt.creationDate+'" class="item" >'
+                            	   			+'<div class="image-wrapper hovereffect" id="'+ppt.id.id+'">'
+                                           +' <div class="hover-div"><img class="cover-picture" src="images/presentations_image.png">'
+                                           +'<div class="hover-text">'               
+                                           +'<div class="comment-wrapper">'                                
+                                           +'<a href="#presentationview" style="text-decoration: none">'
+                                           +' <div id="media-'+ppt.id.id+'" >'
+                                           +' <h4 id="name-'+ppt.id.id+'">'+ppt.documentName+'</h4>'                                
+   	                                +'<div class="description-info"><div class="description-left"><p id="description-'+ppt.id.id+'" class="doc-description">'+ppt.documentDescription+'</p></div></a>'
+                                           +' <div id="'+ppt.id.id+'" class="comment-wrapper2">'
+                                           +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
+   	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+                                           +'</div></div></div>'
+   	                                +'<h5 class="presentationtitle" id="'+ppt.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+   	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
+   	                                +'</div></div></div>'
+   	                                +'<div class="comment-wrapper1"> <a class="common-icon presentation" href="#"></a>'
+   	                                +'<ul id="'+ppt.id.id+'-activities" class="comment-list">'
+   	                                +'<li><a class="eye-icon" href="#">0</a></li>'
+   	                                +'<li><a class="hand-icon" href="#">'+ppt.documentRocks+'</a></li>'
+   	                                +'<li><a class="message-icon" href="#">0</a></li>'
+   	                                +'</ul>'
+   	                                +'</div></li>';
+                                  
+                                  
+                                 });
+                            	  $('.files-list').append(presContent); 
+                            	
+//                              _.each(ppts, function(ppt) {
+//                                   var datVal =  self.formatDateVal(ppt.creationDate);     
+//                            var content= '<div class="image-wrapper hovereffect" id="'+ppt.id.id+'">'
+//                                        +' <div class="hover-div"><img class="cover-picture" src="images/presentations_image.png">'
+//                                        +'<div class="hover-text">'               
+//                                        +'<div class="comment-wrapper">'                                
+//                                        +'<a href="#presentationview" style="text-decoration: none">'
+//                                        +' <div id="media-'+ppt.id.id+'" >'
+//                                        +' <h4 id="name-'+ppt.id.id+'">'+ppt.documentName+'</h4>'                                
+//	                                +'<div class="description-info"><div class="description-left"><p id="description-'+ppt.id.id+'" class="doc-description">'+ppt.documentDescription+'</p></div></a>'
+//                                        +' <div id="'+ppt.id.id+'" class="comment-wrapper2">'
+//                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
+//	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+//                                        +'</div></div></div>'
+//	                                +'<h5 class="presentationtitle" id="'+ppt.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+//	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
+//	                                +'</div></div></div>'
+//	                                +'<div class="comment-wrapper1"> <a class="common-icon presentation" href="#"></a>'
+//	                                +'<ul id="'+ppt.id.id+'-activities" class="comment-list">'
+//	                                +'<li><a class="eye-icon" href="#">0</a></li>'
+//	                                +'<li><a class="hand-icon" href="#">'+ppt.documentRocks+'</a></li>'
+//	                                +'<li><a class="message-icon" href="#">0</a></li>'
+//	                                +'</ul>'
+//	                                +'</div>';
+//                               $('#coverpresentation').html(content); 
+//                               
+//                              });
+                        }
                         }
                });
             
@@ -735,7 +872,7 @@ BS.FilesMediaView = Backbone.View.extend({
          * 
          */
         pdffiles :function(eventName){
-            
+        	
             
                var self = this;
             $.ajax({
@@ -743,39 +880,72 @@ BS.FilesMediaView = Backbone.View.extend({
                         url :  BS.getAllPDFFilesForAUser,
                         dataType : "json",
                         success : function(pdfs) {
-//                            if(docs.length != 0)  {
-                              _.each(pdfs, function(pdf) {
-                                   var datVal =  self.formatDateVal(pdf.creationDate);     
-             
-                             var content= '<div class="image-wrapper hovereffect" id="'+pdf.id.id+'">'
-                                        +' <div class="hover-div"><img class="filmedia-picture" src="'+pdf.previewImageUrl+'">'
-                                        +'<div class="hover-text">'               
-                                        +'<div class="comment-wrapper">'                                
-                                        +'<a href="#pdflistview" style="text-decoration: none">'
-                                        +' <div id="media-'+pdf.id.id+'" >'
-                                        +' <h4 id="name-'+pdf.id.id+'">'+pdf.name+'</h4>'                                
-	                                +'<div class="description-info"><div class="description-left"><p id="description-'+pdf.id.id+'" class="doc-description">'+pdf.description+'</p></a>'
-                                        +' <div id="'+pdf.id.id+'" class="comment-wrapper2">'
-                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></div></div></a>'
-	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
-                                        +'</div></div></div>'
-	                                +'<h5 class="pdftitle" id="'+pdf.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+                        	
+                            if(pdfs.length != 0)  {
+                            	 var pdfContent ;
+                            	_.each(pdfs, function(pdf) {
+                                    var datVal =  self.formatDateVal(pdf.creationDate);     
+              
+                               pdfContent= '<li   data-date-created="'+pdf.creationDate+'" class="item" >'
+                            	         +'<div class="image-wrapper hovereffect" id="'+pdf.id.id+'">'
+                                         +' <div class="hover-div"><img class="filmedia-picture" src="'+pdf.previewImageUrl+'">'
+                                         +'<div class="hover-text">'               
+                                         +'<div class="comment-wrapper">'                                
+                                         +'<a href="#pdflistview" style="text-decoration: none">'
+                                         +' <div id="media-'+pdf.id.id+'" >'
+                                         +' <h4 id="name-'+pdf.id.id+'">'+pdf.name+'</h4>'                                
+                                         +'<div class="description-info"><div class="description-left"><p id="description-'+pdf.id.id+'" class="doc-description">'+pdf.description+'</p></div></a>'
+                                         +' <div id="'+pdf.id.id+'" class="comment-wrapper2">'
+                                         +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
+                                         +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+                                         +'</div></div></div>'
+ 	                                +'<h5 class="pdftitle" id="'+pdf.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
 
-	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
-	                                +'</div></div></div>'
+ 	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
+ 	                                +'</div></div></div>'
 
-	                                +'<div class="comment-wrapper1"> <a class="common-icon pdf" href="#"></a>'
-	                                +'<ul id="'+pdf.id.id+'-activities" class="comment-list">'
-	                                +'<li><a class="eye-icon" href="#">0</a></li>'
-	                                +'<li><a class="hand-icon" href="#">'+pdf.documentRocks+'</a></li>'
-	                                +'<li><a class="message-icon" href="#">0</a></li>'
-	                                +'</ul>'
-	                                +'</div>';
-         
-                               $('#coverpdf').html(content); 
-                               
-                              });
-//                        }
+ 	                                +'<div class="comment-wrapper1"> <a class="common-icon pdf" href="#"></a>'
+ 	                                +'<ul id="'+pdf.id.id+'-activities" class="comment-list">'
+ 	                                +'<li><a class="eye-icon" href="#">0</a></li>'
+ 	                                +'<li><a class="hand-icon" href="#">'+pdf.documentRocks+'</a></li>'
+ 	                                +'<li><a class="message-icon" href="#">0</a></li>'
+ 	                                +'</ul>'
+ 	                                +'</div></li>';
+                               });
+                            	$('.files-list').append(pdfContent); 
+                            	
+//                              _.each(pdfs, function(pdf) {
+//                                   var datVal =  self.formatDateVal(pdf.creationDate);     
+//             
+//                             var content= '<div class="image-wrapper hovereffect" id="'+pdf.id.id+'">'
+//                                        +' <div class="hover-div"><img class="filmedia-picture" src="'+pdf.previewImageUrl+'">'
+//                                        +'<div class="hover-text">'               
+//                                        +'<div class="comment-wrapper">'                                
+//                                        +'<a href="#pdflistview" style="text-decoration: none">'
+//                                        +' <div id="media-'+pdf.id.id+'" >'
+//                                        +' <h4 id="name-'+pdf.id.id+'">'+pdf.name+'</h4>'                                
+//	                                +'<div class="description-info"><div class="description-left"><p id="description-'+pdf.id.id+'" class="doc-description">'+pdf.description+'</p></a>'
+//                                        +' <div id="'+pdf.id.id+'" class="comment-wrapper2">'
+//                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></div></div></a>'
+//	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
+//                                        +'</div></div></div>'
+//	                                +'<h5 class="pdftitle" id="'+pdf.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
+//
+//	                                +'<div class="dateinfo"><span class="state">State</span><span class="date">'+datVal+'</span></div>'
+//	                                +'</div></div></div>'
+//
+//	                                +'<div class="comment-wrapper1"> <a class="common-icon pdf" href="#"></a>'
+//	                                +'<ul id="'+pdf.id.id+'-activities" class="comment-list">'
+//	                                +'<li><a class="eye-icon" href="#">0</a></li>'
+//	                                +'<li><a class="hand-icon" href="#">'+pdf.documentRocks+'</a></li>'
+//	                                +'<li><a class="message-icon" href="#">0</a></li>'
+//	                                +'</ul>'
+//	                                +'</div>';
+//         
+//                               $('#coverpdf').html(content); 
+//                               
+//                              });
+                        }
                         }
                });
             

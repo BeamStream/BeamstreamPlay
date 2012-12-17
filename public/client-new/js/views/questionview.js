@@ -43,7 +43,11 @@
 			 
 			 
 			 "click .add-poll " : "addPollOptionsArea",
-			 "click .add-option" : "addMorePollOptions"
+			 "click .add-option" : "addMorePollOptions",
+			 "click #private-to" : "checkPrivateAccess",
+			 "click #private-to-list li" :"selectPrivateToList",
+			 "click #share-discussions li a" : "actvateShareIcon",
+			 "click #question-file-upload li " : "uploadFiles"
 		},
 	
 		initialize : function() {
@@ -96,7 +100,78 @@
 	         
 		},
 		
+		
+		/**
+         * NEW THEME - select Private / Public ( social share ) options 
+         */
+        checkPrivateAccess: function (eventName) {
+        	var streamName = $('.sortable li.active').text();
+        	
+        	if($('#private-to').attr('checked')!= 'checked')
+        	{
+        		$('#select-privateTo').text("Public");
+            	
+        	}
+        	else
+        	{
+        		$('#select-privateTo').text(streamName);
+        		$('#share-discussions li.active').removeClass('active');
+        	}
+        		
+        },
+        
+        
+        /**
+         * NEW THEME - select private to class options
+         */
+        selectPrivateToList: function(eventName){
+        	
+        	eventName.preventDefault();
+        	$('#select-privateTo').text($(eventName.target).text());
+        	
+        	//uncheck private check box when select Public
+        	if($(eventName.target).text() == "Public")
+        	{
+        		$('#private-to').attr('checked',false);
+        	}
+        	else
+        	{
+        		$('#private-to').attr('checked',true);
+        		$('#share-discussions li.active').removeClass('active');
+        	}
+        		
+        },
+        
+        
+        /**
+         * NEW THEME - actvate share icon on selection
+         */
+        actvateShareIcon: function(eventName){
+        	
+        	eventName.preventDefault();
+        	$('#private-to').attr('checked',false);
+        	$('#select-privateTo').text("Public");
+        	if($(eventName.target).parents('li').hasClass('active'))
+        	{
+        		$(eventName.target).parents('li').removeClass('active');
+        	}
+        	else
+        	{
+        		$(eventName.target).parents('li').addClass('active');
+        	}
+        	
+        },
 
+        /**
+         * NEW THEME -show  Upload files option when we select category
+         */
+   		 uploadFiles: function(eventName){
+   			 eventName.preventDefault();
+   			 $('#upload-files-area').click();
+   		 },
+   	 
+   	 
+   	 
 		/**
 		 * click to view areas for adding poll options
 		 */

@@ -51,7 +51,8 @@
 			 "click .rock_documents" : "rocksDocuments",
 			 "click .mediapopup": "showFilesInAPopup",
 			 "click .editMediaTitle": "editMediaTitle",
-			 "click .editDocTitle": "editDocTitle"
+			 "click .editDocTitle": "editDocTitle",
+			 "click #discussion-file-upload li " : "uploadFiles"
 
 		},
 	
@@ -421,6 +422,13 @@
     					$(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
     					$(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
 	        			
+                    },
+                    error:function(error){
+                    	alert("You need to add a stream first.");
+                    	self.file = "";
+	              	    $('#file-upload-loader').css("display","none");
+                    	$('#msg-area').val("");
+                    	$('.embed-info').css("display","none");
                     }
                 }); 
         	}
@@ -493,6 +501,14 @@
     	 },
     	 
     	 /**
+    	  * NEW THEME -show  Upload files option when we select category
+    	  */
+    	 uploadFiles: function(eventName){
+    		 eventName.preventDefault();
+    		 $('#upload-files-area').click();
+    	 },
+    	 
+    	 /**
     	  * NEW THEME - POST message details to server 	
     	  */
     	 postMsgToServer: function(message,streamId,messageAccess){
@@ -516,6 +532,7 @@
             		 /* if status is failure (not join a class or school) then show a dialog box */      
    				     if(data.status == "Failure")
    				     {
+   				    	 alert("You need to add a stream first.");
 //						 var alert = '<div id="dialog" title="Message !">You need to add a stream first.</br><a  onClick="closeAlert();" class="alert-msg " href="#create_stream"> Create Stream</a></div>';
 //						 $('#alert-popup').html(alert);
 //						 

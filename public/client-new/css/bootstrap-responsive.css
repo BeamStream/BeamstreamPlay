@@ -1131,7 +1131,7 @@ ul.social-icons{
 
 .menu ul li a {
 
-    padding: 12px 20px 20px 35px;
+    padding: 12px 10px 20px 35px;
 
 }
 .menu ul li a span{ left:10px; }
@@ -1155,9 +1155,33 @@ ul.social-icons{
     right: 44%;
     top: 48%;
 
+}
 
+ul.then-by {
+    float: left;
 
 }
+
+
+
+ul.profil-pic-outer li {
+
+		margin: 0 1% 2% 3%;
+        width: 29%;
+		
+}
+
+.menu ul li a:hover,
+.menu ul li a.active {
+
+		background-position: center 40px, top right;
+}
+
+.menu ul li a:hover span,
+.menu ul li a.active span {
+		background-position: 0 -16px;
+}
+
 
 
 }
@@ -2152,8 +2176,29 @@ width:100%; padding:20px 0  0 0;
     right: 23%;
     top: 25%;
 
+}
+
+
+ul.profil-pic-outer li {
+
+		margin:0 1% 2% 1%;
+		width:18%;
+		
+}
+
+
+.menu ul li a:hover,
+.menu ul li a.active {
+
+		background-position: center 32px, top right;
+}
+
+.menu ul li a:hover span,
+.menu ul li a.active span {
+		background-position: 0 -21px;
+}
+
 
 
 }
-
 

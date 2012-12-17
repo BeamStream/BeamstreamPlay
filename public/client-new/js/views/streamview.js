@@ -331,6 +331,11 @@
 				BS.questionView = new BS.QuestionView();
 				BS.questionView.render();
   				$('#common-middle-contents').html(BS.questionView.el);
+  				
+  				$('#select-privateTo').text(streamName);
+  				$('#private-to-list').html(BS.myClasses);
+  				
+  				$('.drag-rectangle').tooltip();	
   			    $('.page-loader').hide();
 		    }
 		    else if(subMenu == "deadline_tab")
