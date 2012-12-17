@@ -719,9 +719,9 @@ BS.FilesMediaView = Backbone.View.extend({
                                         +'<a href="#pdflistview" style="text-decoration: none">'
                                         +' <div id="media-'+pdf.id.id+'" >'
                                         +' <h4 id="name-'+pdf.id.id+'">'+pdf.name+'</h4>'                                
-	                                +'<div class="description-info"><div class="description-left"><p id="description-'+pdf.id.id+'" class="doc-description">'+pdf.description+'</p></a>'
+	                                +'<div class="description-info"><div class="description-left"><p id="description-'+pdf.id.id+'" class="doc-description">'+pdf.description+'</p></div></a>'
                                         +' <div id="'+pdf.id.id+'" class="comment-wrapper2">'
-                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></div></div></a>'
+                                        +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
 	                                +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
                                         +'</div></div></div>'
 	                                +'<h5 class="pdftitle" id="'+pdf.id.id+'"><span><img src="images/title-plus.png"></span> Title & Description</h5>'          
@@ -813,17 +813,17 @@ BS.FilesMediaView = Backbone.View.extend({
          *  (slide down menu)
          * 
          */
-        uploadMediadwn :function(eventName){
+        uploadMediadwn :function(eventName){         
             eventName.preventDefault();
             if(!$('#uploadmediachild_dr').is(":visible") )       
-              $("#uploadmediachild_dr").slideDown();
+              $("#uploadmediachild_dr").slideDown();         
         },
         
         /* Function for uploadmedia 
          * (childmenu from Links)
          */
         linksMenuList:function(eventName){
-            eventName.preventDefault();
+     eventName.preventDefault();
             $("#childtwo_dr").find('ul').hide(200);
             $("#childthree_dr").find('ul').hide(200);
             $("#childfour_dr").find('ul').hide(200);
@@ -848,7 +848,7 @@ BS.FilesMediaView = Backbone.View.extend({
 					
 					  
 		 });
-                 
+                                 
             },
             
         
@@ -965,7 +965,7 @@ BS.FilesMediaView = Backbone.View.extend({
          */
         youtubeMenu:function(eventName){
             eventName.preventDefault();
-            $("#youtubechild_dr").animate({width: 'toggle'},350);
+            $("#youtubechild_dr").animate({width: 'toggle'},130);
             var i='';
             var content=''; 
             $.ajax({
@@ -1001,11 +1001,11 @@ BS.FilesMediaView = Backbone.View.extend({
         
         audioMenuList:function(eventName){
             eventName.preventDefault();
-            $("#childone_dr").find('ul').hide(200);
-            $("#childtwo_dr").find('ul').hide(200);
-            $("#childthree_dr").find('ul').hide(200);
-            $("#childfive_dr").find('ul').hide(200);
-            $("#audiomenu_dr").animate({width: 'toggle'},150);
+//            $("#childone_dr").find('ul').hide(200);
+//            $("#childtwo_dr").find('ul').hide(200);
+//            $("#childthree_dr").find('ul').hide(200);
+//            $("#childfive_dr").find('ul').hide(200);
+//            $("#audiomenu_dr").animate({width: 'toggle'},150);
         },
         
         /*
