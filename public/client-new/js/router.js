@@ -1191,7 +1191,8 @@
 								 myClasses+= '<li><a href="#">Degree Program</a></li>'
 									 			+'<li><a href="#">My Graduating Year </a></li>'
 									 			+'<li><a href="#">My School</a></li>'
-									 			+'<li><a href="#">All Classes/Schools</a></li>';
+									 			+'<li><a href="#">All Classes & Schools</a></li>' 
+                                                                                                +'<li><a href="#">Public</a></li>'; 
 								 
 								 $('#by-class-list').html(myClasses);
 							}
