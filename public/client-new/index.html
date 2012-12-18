@@ -955,10 +955,10 @@ Create a Class</a>
                    </div>
                   
                 <div class="ask-iconinfo">
-  	          <div class="btn-group attach-drop">
-              <button  id="upload-files" data-original-title="Upload Files" class="btn attach-drop-bg drag-rectangle"></button>
-              <button class="btn attach-drop-button " data-toggle="dropdown"> <span class="caret sort-caret attach-caret"></span></button>
-              <ul class="dropdown-menu">
+  	          <div class="btn-group attach-drop ">
+              <button  id="upload-files" data-original-title="Upload Files" class="btn attach-drop-bg drag-rectangle "></button>
+              <button class="btn attach-drop-button drag-rectangle" data-toggle="dropdown" data-original-title="Upload Files"> <span  class="caret sort-caret1 attach-caret "></span></button>
+              <ul id="discussion-file-upload"  class="dropdown-menu ">
                  <li><a href="#">Class Document</a></li>
                       <li><a href="#">Assignment</a></li>
                       <li><a href="#">Homework </a></li>
@@ -969,6 +969,7 @@ Create a Class</a>
                       <li><a href="#">Tutorial</a></li>
                       <li><a href="#">EdTech Tool </a></li>
 						<li><a href="#">Amusement</a></li>
+					<input type="text" placeholder="+Add a new category">
               </ul>
             </div>
 
@@ -984,11 +985,7 @@ Create a Class</a>
                     <button class="btn class-dropdown-bg" id="select-privateTo" ></button>
                     <button class="btn class-dropdown-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
                     <ul class="dropdown-menu" id="private-to-list" >
-                     <1-- <li><a href="#">Class</a></li>
-                      <li><a href="#">Degree Program</a></li>
-                      <li><a href="#">My Graduating Year </a></li>
-					  <li><a href="#">My School</a></li>
-					  <li><a href="#">Public</a></li> -->
+                      
                     </ul>
                   </div>
                    <ul id="share-discussions" class="social-icons">
@@ -1043,7 +1040,7 @@ Create a Class</a>
               <form class="all-search">
                 <input type="text" class="quest-search" placeholder="Search Questions">
               </form>
-              
+              <input id="upload-files-area" name="upload-files-area" type="file" style="display:none;" >
               <a href="#" class="unanswerd active-text">20 Unanswered</a> <a href="#" class="unanswerd">12 Answered</a> </div>
             <div class="clear"></div>
           </div>
@@ -1071,26 +1068,39 @@ Create a Class</a>
                   </div>
                   <a  id="post-question" href="#" class="ask-button">ASK</a> </div>
                 <div class="ask-iconinfo">
-                  <ul class="icons-ask">
-                    <li><img src="images/attach.png" width="22" height="20"></li>
+				   <div class="btn-group attach-drop">
+              		<button  id="upload-files" data-original-title="Upload Files" class="btn attach-drop-bg drag-rectangle"></button>
+             		 <button data-original-title="Upload Files" class="btn attach-drop-button drag-rectangle" data-toggle="dropdown"> <span class="caret sort-caret1 attach-caret"></span></button>
+            		  <ul id="question-file-upload" class="dropdown-menu">
+              		   <li><a href="#">Class Document</a></li>
+                      <li><a href="#">Assignment</a></li>
+                      <li><a href="#">Homework </a></li>
+						<li><a href="#">Notes</a></li>
+                      <li><a href="#">Project</a></li>
+                      <li><a href="#">Lecture </a></li>
+					 <li><a href="#">Reference Material</a></li>
+                      <li><a href="#">Tutorial</a></li>
+                      <li><a href="#">EdTech Tool </a></li>
+						<li><a href="#">Amusement</a></li>
+						<input type="text" placeholder="+Add a new category">
+              		</ul>
+           		 </div>
+          		        <ul class="icons-ask">
+                  
                     <li><img src="images/card.png" width="18" height="19"></li>
                   </ul>
                   <label class="checkbox private-chaeck">
-                    <input type="checkbox"  checked="checked">
+                    <input  id="private-to" type="checkbox"  checked="checked">
                     Pivate to:</label>
                   <div class="btn-group class-dropdown">
-                    <button class="btn class-dropdown-bg">Class</button>
+                    <button class="btn class-dropdown-bg" id="select-privateTo" >Class</button>
                     <button class="btn class-dropdown-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Class</a></li>
-                      <li><a href="#">Degree Program</a></li>
-                      <li><a href="#">My Graduating Year </a></li>
-					  <li><a href="#">My School</a></li>
-					  <li><a href="#">Public</a></li>
+                    <ul class="dropdown-menu" id="private-to-list">
+                       
                     </ul>
                   </div>
                   <a href="#" class="add-poll ">Add Poll</a>
-                  <ul class="social-icons">
+                  <ul  id="share-discussions" class="social-icons">
 					<span>Share On:</span>
                     <li class="google-plus"><a href="#">Google plus</a></li>
                     <li class="plus"><a href="#">p</a></li>
@@ -2272,18 +2282,12 @@ Create a Class</a>
           <div class="calender-outer overview-boxes browse-outer">
             <h2>My Profile <a href="#" class="btn blue-buttons showmessage browse-file ">View All</a></h2>
            
+          
+           <ul class="profil-pic-outer files-list" id="grid">         
+           <div class="clear"></div>
+           <!-- 
            
-           
-           <ul class="profil-pic-outer" id="grid">         
-           <!--  <li>Box1 </li>
-             <li>Box 2</li>
-             <li>Box 3</li>
-             <li>Box 4</li> 
-           
-                      <ul class="file-list" >  -->
-           
-           
-        <li  data-groups='["recent"]' id="coverimage" data-date-created="11/06/2012" class="item" >
+          <li  data-groups='["recent"]' id="coverimage" data-date-created="11/06/2012" class="item" >
          <div class="image-wrapper"><div class="hover-div"><div id="profile-images"><img class="cover-picture" src="images/pictures_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Images </p></div></div></div>
           <div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>
             <ul class="comment-list">
@@ -2334,6 +2338,7 @@ Create a Class</a>
                <p class="emptyfiles"> No Uploaded Spreadsheets </p>
               </div> 
             </div>
+            </div>
            <div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>
               <ul class="comment-list">
                  <li><a class="eye-icon" href="#">87</a></li>
@@ -2361,6 +2366,7 @@ Create a Class</a>
              <div class="hover-div"><img class="cover-picture" src="images/pdp_image.png"/><div class="hover-text">    
                 <p class="emptyfiles"> No Uploaded Files </p>
               </div>
+           </div>
            </div>
            <div class="comment-wrapper1"> <a class="common-icon pdf" href="#"></a>
               <ul class="comment-list">
@@ -2402,14 +2408,15 @@ Create a Class</a>
                 <li><a class="message-icon" href="#">10</a></li>
              </ul>
           </div>   
-        </li>      
-    <!--  </ul>  -->
+        </li>       -->
+    
     
     
     
            
               <div class="clear"></div>
             </ul>
+           
           </div>
         </div>
         <div class="clear"></div>

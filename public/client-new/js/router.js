@@ -572,7 +572,7 @@
 						   $('#content').children().detach();
 						   
 				//		   $('.modal').css('display','none');
-						   BS.user.fetch({ success:function(e) {
+//						   BS.user.fetch({ success:function(e) {
 							  
 							   //store logged user details
 						       BS.loggedUserInfo  = e;
@@ -677,7 +677,7 @@
 	//			           }, 500);                  
 				               
 					        
-				}});
+//				}});
 						   
 						   
 							 
@@ -1123,7 +1123,7 @@
 							
 					
 							// $('#right-photo').attr("src",BS.profileImageUrl);
-							 BS.user.fetch({ success:function(e) {
+//							 BS.user.fetch({ success:function(e) {
 								   //get main menu
 								   this.navView = new BS.NavView({ model: BS.user });
 								   this.navView.showProfilePic();
@@ -1132,7 +1132,7 @@
 								   $('#menu-browsemedia').addClass('active');
 								   $('#right-top-photo').attr("src",BS.profileImageUrl);
 						       
-							 }});
+//							 }});
 							 
 							BS.filesMediaView = new BS.FilesMediaView({
 								model : BS.user
@@ -1212,7 +1212,7 @@
 							$('#school-popup').children().detach();
 							
 			                 
-							 BS.user.fetch({ success:function(e) {
+//							 BS.user.fetch({ success:function(e) {
 							   
 								   //get main menu
 								   this.navView = new BS.NavView({ model: BS.user });
@@ -1222,7 +1222,7 @@
 								   
 								   $('#right-top-photo').attr("src",BS.profileImageUrl);
 						       
-							 }});
+//							 }});
 			//				 if(!BS.settingsView)
 			//				 {
 								 BS.settingsView = new BS.SettingsView();

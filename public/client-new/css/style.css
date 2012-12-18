@@ -207,13 +207,10 @@ body {
 		color: #314653;
 		background-image: url(../images/menu-arrow.png), url(../images/bg.jpg);
 		background-repeat:no-repeat;
-		background-position: center 32px, top right;
+	
 }
 
-.menu ul li a:hover span,
-.menu ul li a.active span {
-		background-position: 0 -21px;
-}
+
 
 .home-content {
 		-moz-border-bottom-colors: none;
@@ -1176,7 +1173,7 @@ ul.social-icons li.google-plus.active {
 		background-color: #BCBCBC;
 
     	border-radius: 2px 2px 2px 2px;border:solid 1px #717171;
-    	
+  	
 }
 
 
@@ -2591,7 +2588,7 @@ ul.then-by li a:hover {
 ul.profil-pic-outer {
 		padding:20px 0 0 0;
 		border-bottom:solid 2px #dde0e3;
-                display: block;
+                display: block; min-height:900px;
  
     
 }
@@ -2605,8 +2602,6 @@ ul.profil-pic-outer li {
 		display:block;
 		overflow:hidden;
 		float:left;
-		margin:0 1% 2% 1%;
-		width:18%;
 		box-shadow: 0 0px 0px 1px #3d5869;
 }
 
@@ -2731,7 +2726,7 @@ ul.profil-pic-outer li {
   
 }
 .cover-picture{
-     padding-top: 20px;
+     padding-top:35px;
 }
 div.hover-div{ 
      display:block; 
@@ -2932,8 +2927,7 @@ padding:0 5% 0 10%;
 
 #grid .item {
   
-    margin-top: 20px;
-    margin-right: 20px;
+   
 }
 
  .page-loader{
@@ -3176,9 +3170,8 @@ ul.strem-header-info {
  ul.comment-list { 
  	list-style:none; 
  	display:block; 
- 	padding:5px 5px 0 0; 
- 	float:right; 
- 	margin:0; 
+ 	padding:10px 5px 0 0; 
+  	margin:0; 
  } 
  ul.comment-list li { 
  	width:35px !important; 
@@ -3191,7 +3184,7 @@ ul.strem-header-info {
  	margin:0px 0 0 0; 
  	line-height:16px; 
  	background: none; 
-         padding: 6px 6px 0; 
+       
  } 
  ul.comment-list li a { 
  	font-size:12px; 
@@ -3380,7 +3373,7 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 }
 #dropdownnew li ul ul {
 	left:12em;
-	margin:0px 0 0 10px;
+	margin:-22px 0 0 10px;
 }
 .upload_button {
     background: url("../images/upload_button.png") no-repeat scroll 0 0 transparent !important;        /* add image  */
@@ -3397,12 +3390,20 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 }
 
 
-.attach-drop{ float:left;}
+.attach-drop{ float:left;width:22px;padding:5px 0 0 0;}
 
 .attach-drop-bg{ background:url(../images/attach.png) no-repeat; display:block;width:25px;height:30px;overflow:hidden;}
-.attach-drop-button{ background:none !important; display:block;width:25px;height:30px;overflow:hidden; left:-8px; }
 
 
+.active-new{ background:#dadada !important; display:block;width:25px;height:30px;overflow:hidden;
+
+}
+.attach-drop-button{ background:none !important; display:block;width:25px;height:30px;overflow:hidden; left:-26px; }
+
+.attach-caret{
+	border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+}
 
 
 
