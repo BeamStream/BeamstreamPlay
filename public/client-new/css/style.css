@@ -3357,7 +3357,15 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 	border-bottom:1px solid #646c75;
 	background: url(../images/filetype_bg.jpg) repeat;
 	*/
-	padding: 0 0 0 30px;
+	padding: 0 0 0 40px; 
+ 
+/*
+ background: url("../images/upload.png") no-repeat scroll left center transparent;
+    color: #314653;
+    float: left;
+    font-size: 16px;
+    height: 22px;
+    margin-top: 10px;  */
 }
 #dropdownnew a:hover {
 	color:#2f4553;
