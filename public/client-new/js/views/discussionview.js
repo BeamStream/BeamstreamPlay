@@ -35,7 +35,9 @@
 			 "click .rock-comments" : "rockComment",
 			 "click .rocks-small a" : "rockComment",
 			 "keypress #msg-area" : "postMessageOnEnterKey",
-			 "click #upload-files" : "showUploadSection",
+//			 "click #upload-files" : "showUploadSection",
+			 "click #upload-files1" : "showUploadSection",
+
 			 "change #upload-files-area" : "getUploadedData",
 			 "click #private-to-list li" :"selectPrivateToList",
 			 "click #private-to" : "checkPrivateAccess",
@@ -52,7 +54,12 @@
 			 "click .mediapopup": "showFilesInAPopup",
 			 "click .editMediaTitle": "editMediaTitle",
 			 "click .editDocTitle": "editDocTitle",
-			 "click #discussion-file-upload li " : "uploadFiles"
+			 "click #discussion-file-upload li " : "uploadFiles",
+			 "mouseenter .mediapopup": "showCursorMessage",
+			 "mouseout  .mediapopup": "hideCursorMessage",
+			 "mouseenter .photo-popup": "showCursorMessage",
+			 "mouseout  .photo-popup": "hideCursorMessage",
+			 
 
 		},
 	
@@ -123,6 +130,20 @@
 			
 			$(this.el).html(this.template);
 			return this;
+		},
+		
+		/**
+		 * NEW THEME - show a cursor message on files-media preview
+		 */
+		showCursorMessage: function(){
+			$.cursorMessage('Click to view ', {hideTimeout:0});
+		},
+		
+		/**
+		 * NEW THEME - show a cursor message on files-media preview
+		 */
+		hideCursorMessage: function(){
+			$.hideCursorMessage();
 		},
 		
 		  /**
@@ -321,6 +342,7 @@
 	                dataType : "json",
 	                success: function(data){
 	                	$('#msg-area').val("");
+	                	$('#uploded-file').hide();
 	              	    self.file = "";
 	              	    $('#file-upload-loader').css("display","none");
 	              	    $('.embed-info').css("display","none");
@@ -1054,6 +1076,9 @@
         	/* capture the file informations */
             reader.onload = (function(f){
             	self.file = file;
+            	
+            	$('#uploded-file').html(f.name);
+            	$('#uploded-file').show();
             })(file);
              
             // read the  file as data URL
@@ -1902,7 +1927,7 @@
 		                             $('#all-messages').prepend(template(datas));
 
 		                             //get profile image of logged user
-		                             $('img#'+message.data.id.id+'-img').attr("src", BS.profileImageUrl);
+		                             $('img#'+message.data.id.id+'-img').attr("src", message.prifileImage);
 		                             
 		                             /* for video popups */
 		                             $("area[rel^='prettyPhoto']").prettyPhoto();
@@ -1971,14 +1996,14 @@
 		 					   var commentsTemplate = Handlebars.compile(comments);
 	   							 
 		 					   $('#'+parent+'-allComments').prepend(commentsTemplate(data));
-		 					   $('#'+data.id.id+'-image').attr("src" ,BS.profileImageUrl );
+		 					   $('#'+data.id.id+'-image').attr("src" ,message.prifileImage );
    							 
 		 					   if(!$('#'+parent+'-allComments').is(':visible'))
 		 					   {  
 		 						   var newComments = $("#tpl-discussion-messages-newComment").html();
 		 						   var newCmtTemplate = Handlebars.compile(newComments);
 		 						   $('#'+parent+'-newCommentList').prepend(newCmtTemplate(data));
-		 						   $('#'+data.id.id+'-newCmtImage').attr("src" ,BS.profileImageUrl );
+		 						   $('#'+data.id.id+'-newCmtImage').attr("src" ,message.prifileImage );
    								
 		 					   }
 		 					   $('#'+parent+'-show-hide').text("Hide All");

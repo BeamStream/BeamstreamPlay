@@ -49,6 +49,13 @@
 <!-- <script type="text/javascript" src="lib/bootstrap-modal.js"></script> -->
 <!--  End  -->
 
+
+<!-- cursor Message -->
+<link rel="stylesheet" href="css/extracss/jquery.cursorMessage.css" type="text/css" />
+<script src="lib/extralib/jquery.cursorMessage.js" type="text/javascript"></script>
+<!-- End -->
+
+
 </head>
 
 <body>
@@ -652,7 +659,7 @@ Create a Class</a>
 					         <div class="gallery"></div>
 						 <div class="gallery hrtxt">
 					           <a href="{{datas.anyPreviewImageUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
-					              <div class="description-left">   
+					              <div class="description-left photo-popup">   
 					              <p class="google_doc doc-description" id="description-{{datas.docIdIfAny.id}}"><input type="hidden" id="id-{{datas.docIdIfAny.id}}" value="doc.url">Media Description</p>
 						    </div>
 					           </a>
@@ -941,6 +948,9 @@ Create a Class</a>
                     <form class="question-ask ask-disccution">
                       <textarea id="msg-area" name="" cols="" rows="" class="question-ask-search" placeholder="Speak your mind...."  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Speak your mind....'"></textarea>
                     </form>
+					<ul id="uploded-file"  style="display:none;" class="answer">
+                     
+                    </ul>
                     <div class="embed-info">
                       <div class="upload-conatiner">
                         <h5> Select an image or video file on your computer.</h5>
@@ -955,9 +965,9 @@ Create a Class</a>
                    </div>
                   
                 <div class="ask-iconinfo">
-  	          <div class="btn-group attach-drop ">
+  	          <div id="upload-files1" class="btn-group attach-drop ">
               <button  id="upload-files" data-original-title="Upload Files" class="btn attach-drop-bg drag-rectangle "></button>
-              <button class="btn attach-drop-button drag-rectangle" data-toggle="dropdown" data-original-title="Upload Files"> <span  class="caret sort-caret1 attach-caret "></span></button>
+              <button id="upload-files2" class="btn attach-drop-button drag-rectangle" data-toggle="dropdown" data-original-title="Upload Files"> <span  id="upload-files3" class="caret sort-caret1 attach-caret "></span></button>
               <ul id="discussion-file-upload"  class="dropdown-menu ">
                  <li><a href="#">Class Document</a></li>
                       <li><a href="#">Assignment</a></li>
