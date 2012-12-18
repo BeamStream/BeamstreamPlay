@@ -2602,7 +2602,12 @@ ul.profil-pic-outer li {
 		display:block;
 		overflow:hidden;
 		float:left;
-		box-shadow: 0 0px 0px 1px #3d5869;
+		box-shadow: 0 0px 0px 1px #CDD4DB;
+}
+
+ul.profil-pic-outer li.lessborder {
+
+		box-shadow:none;
 }
 
 .browse-search-block {
@@ -3138,12 +3143,15 @@ ul.strem-header-info {
  } */
  .common-icon{ 
  	width:20%; 
- 	height: 37px; 
-         display: block; 
-         float:left; 
+ 	height:38px; 
+    display: block; 
+    float:left; 
  	position:relative; 
  	border-bottom-left-radius: 3px !important; 
  	background:url(../images/icons-thump.png) left 5px no-repeat #4a6a86;
+
+ 	
+ 	
  } 
 .music{background:url(../images/icons-thump.png) -152px 5px no-repeat #4a6a86;}
 
@@ -3170,8 +3178,8 @@ ul.strem-header-info {
  ul.comment-list { 
  	list-style:none; 
  	display:block; 
- 	padding:10px 5px 0 0; 
-  	margin:0; 
+ 	padding:4% 0 0 5%; 
+  	margin:0;float:left; width:75%;
  } 
  ul.comment-list li { 
  	width:35px !important; 
@@ -3200,7 +3208,7 @@ filter: â€œalpha(opacity=50)â€�;
 text-decoration:none;
  }
  .eye-icon{ 
- 	background:url(../images/right-eye-icon.png) no-repeat 0px 4px; 
+ 	background:url(../images/right-eye-icon.png) no-repeat 0px 2px; 
  } 
 
  .hand-icon{ 
@@ -3404,6 +3412,15 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 	border-left: 8px solid transparent;
     border-right: 8px solid transparent;
 }
+
+.the-by-view{ width:165px !important;}
+.then-by-dropdown{ left:-118px !important;}
+
+
+
+
+
+
 
 
 
