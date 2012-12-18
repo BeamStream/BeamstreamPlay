@@ -15,7 +15,7 @@
 if(jQuery) {
 	( function($) {
 	$.cursorMessageData = {}; // needed for e.g. timeoutId
-	//start registring mouse coöridnates from the start!
+	//start registring mouse coï¿½ridnates from the start!
 
 	$(window).ready(function(e) {
 		if ($('#cursorMessageDiv').length==0) {
@@ -36,14 +36,15 @@ if(jQuery) {
 			if( options.offsetY == undefined ) options.offsetY = 5;
 			if( options.hideTimeout == undefined ) options.hideTimeout = 1000;
 
-			$('#cursorMessageDiv').html(message).fadeIn('slow');
+			$('#cursorMessageDiv').html(message).fadeIn('medium');
 			if (jQuery.cursorMessageData.hideTimeoutId != undefined)  clearTimeout(jQuery.cursorMessageData.hideTimeoutId);
 			if (options.hideTimeout>0) jQuery.cursorMessageData.hideTimeoutId = setTimeout($.hideCursorMessage, options.hideTimeout);
 			jQuery.cursorMessageData.options = options;
 			$._showCursorMessage();
 		},
 		hideCursorMessage: function() {
-			$('#cursorMessageDiv').fadeOut('slow');
+//			$('#cursorMessageDiv').fadeOut('fast');
+			$('#cursorMessageDiv').hide();
 		},
 		_showCursorMessage: function() {
 			$('#cursorMessageDiv').css({ top: ($.cursorMessageData.mouseY + $.cursorMessageData.options.offsetY)+'px', left: ($.cursorMessageData.mouseX + $.cursorMessageData.options.offsetX) });
