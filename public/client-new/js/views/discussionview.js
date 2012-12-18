@@ -146,6 +146,7 @@
 			$.hideCursorMessage();
 		},
 		
+		
 		  /**
 	     * NEW THEME - get all messages of a stream
 	     */
@@ -1072,6 +1073,8 @@
         	var self = this;;
     	    file = e.target.files[0];
     	    var reader = new FileReader();
+    	    
+    	   
     	      
         	/* capture the file informations */
             reader.onload = (function(f){
@@ -1079,6 +1082,7 @@
             	
             	$('#uploded-file').html(f.name);
             	$('#uploded-file').show();
+            	
             })(file);
              
             // read the  file as data URL
