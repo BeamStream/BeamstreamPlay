@@ -35,6 +35,7 @@ BS.FilesMediaView = Backbone.View.extend({
                         "click #links_uploadbutton":"linkupload",
                         "click #docs_dr":"docsMenuList",  
                         "click #googledocs_mycomp":"showFileForm",
+                         "click #Assignment_mycomp":"assignFileForm",            //ano
                         "click #googledocs_dr":"googleDocs",
                         "click #importfrmlink_dr": "importFromLink",                
                         "click #video_dr":"videoMenuList",
@@ -940,6 +941,32 @@ BS.FilesMediaView = Backbone.View.extend({
             
         },
         
+         /*
+         * Function for uploadmedia 
+         * (childmenu from googledocs)
+         */
+         assignFileForm:function(eventName){
+            eventName.preventDefault();
+            $("#childtwo_three_dr").find('ul').hide(200);
+             $("#childtwo_you_dr").find('ul').hide(200);
+            $("#Assignlinkchild_dr").animate({width: 'toggle'},130);
+            //select box for stream
+            var i='';
+            var optioncontent=''; 
+            $.ajax({
+			type : 'GET',
+			url : BS.allStreamsForAUser,
+			dataType : "json",
+                        success : function(options) {
+                        	 optioncontent+='<option>Save to Class</option>'
+                             _.each(options, function(option) {
+	                              optioncontent+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
+	                              i++;
+                              });                     	  
+                              $('#doc-class-list-computer').html(optioncontent); 
+                              }										  
+		 });         
+        },
         
         /*
          * Function for uploadmedia 
@@ -947,7 +974,7 @@ BS.FilesMediaView = Backbone.View.extend({
          */
          googleDocs:function(eventName){
             eventName.preventDefault();
-            $("#childtwo_one_dr").find('ul').hide(200);
+            $("#childtwo_onedoc_dr").find('ul').hide(200);
             $("#googledocschild_dr").animate({width: 'toggle'},130);
         },
         
@@ -1000,6 +1027,7 @@ BS.FilesMediaView = Backbone.View.extend({
          */
         youtubeMenu:function(eventName){
             eventName.preventDefault();
+             $("#childtwo_one_dr").find('ul').hide(200);
             $("#youtubechild_dr").animate({width: 'toggle'},130);
             var i='';
             var content=''; 
