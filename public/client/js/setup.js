@@ -9,9 +9,9 @@ Backbone.history.start();
 * Config Variables for Url externalization
 */
 
-BS.URLRequired ="http://localhost:9000";  
+//BS.URLRequired ="http://localhost:9000";  
 //BS.URLRequired ="http://localhost:9000";
-//BS.URLRequired ="http://192.168.10.24:9000"; 
+BS.URLRequired ="http://192.168.10.24:9000"; 
 
 //BS.URLRequired ="http://www.beamstream.com";
  
