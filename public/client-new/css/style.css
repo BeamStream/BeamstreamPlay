@@ -3409,9 +3409,12 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 
 .attach-drop{ float:left;width:22px;padding:5px 0 0 0;}
 
-.attach-drop-bg,.active-new{ background:url(../images/attach.png) no-repeat; display:block;width:25px;height:30px;overflow:hidden;}
+.attach-drop-bg{ background:url(../images/attach.png) no-repeat; display:block;width:25px;height:30px;overflow:hidden;}
 
 
+.active-new{background:url(../images/attach-a.png) no-repeat #fff;  display:block;width:25px;height:30px;
+
+ border-radius:6px;
 
 
 
