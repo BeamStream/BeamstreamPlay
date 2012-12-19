@@ -18,56 +18,49 @@
     
 BS.FilesMediaView = Backbone.View.extend({
                 
-        events: {
-                //         "click a#file-type" : "showFilesTypes",
-                //         "click ul.file-type li a" : "hideList",
-                //         "click '.nav a" : "addActive",
-                 //        "click #gdoc_uploadbutton" : "uploadFile",
-                         "click .doctitle" : "editDocTitle",
-                         "click .imgtitle" : "editImgTitle",
-                         "click .videotitle" : "editVideoTitle",  
-                //         "click .audiotitle" : "editAudioTitle",
-                         "click .pdftitle" : "editPdfTitle",
-                         "click .presentationtitle" : "editPresentationTitle",
-                        "mouseenter #uploadmedia_dr":"uploadMediadwn",
-                        "mouseleave #dropdownnew":"uploadMediaup",
-                        "click #links_dr":"linksMenuList",
-                        "click #links_uploadbutton":"linkupload",
-                        "click #docs_dr":"docsMenuList",  
-                        "click #googledocs_mycomp":"showFileForm",
-                         "click #Assignment_mycomp":"assignFileForm",            //ano
-                        "click #googledocs_dr":"googleDocs",
-                        "click #importfrmlink_dr": "importFromLink",                
-                        "click #video_dr":"videoMenuList",
-                        "click #youtube_dr":"youtubeMenu",
-                        "click #video_uploadbutton":"videoUpload",
-                        "click #audio_dr":"audioMenuList",               
-                        "click #vialink_dr":"audioVialink",
-                        "click #audio_uploadbutton":"audioUpload",
-                        "click #presentations_dr":"presentationMenuList",
-                        "click #presvialink_dr":"presentationVialink",
-                        "click #press_uploadbutton":"presentationUpload",
-                        "click #docfrmcomputer_uploadbutton": "saveMyFile",
-                        'change #doc-from-computer' :'displayImage',
-                        'click #docfrmcomputer_closePopup': "hidePopUpBlock",
-              
- //                       "click #select_dr":"selectboxdwn",
- //                       "blur #select_dr":"selectboxup"
- //                       "click #profile-images":"listProfileImages",
-//                        "click .google_doc" : "showDocPopup",
-                       
-        	 "click .then-by li a" : "filterDocs",
-        	 "click #view-by-list" : "selectViewByAll",
-        	 "click #view-files-byrock-list" : "selectViewByRock",
-        	 "click .rock-medias" : "rocksMeidas",
-        	 "click .rock_docs" : "rocksDocuments",
-        	 "click #by-class-list li" :"sortByClass",
-        	 "click #category-list li" :"sortBycategory",
-        	 "click .browse-right a" :"selectViewStyle",
-        	 "click #view-by-date-list" : "selectViewByDate",
-        	 
-            		
-            },
+            events: {
+                //"click #gdoc_uploadbutton" : "uploadFile",
+                "click .doctitle" : "editDocTitle",
+                "click .imgtitle" : "editImgTitle",
+                "click .videotitle" : "editVideoTitle",  
+                //"click .audiotitle" : "editAudioTitle",
+                "click .pdftitle" : "editPdfTitle",
+                "click .presentationtitle" : "editPresentationTitle",
+                "mouseenter #uploadmedia_dr":"uploadMediadwn",
+                "mouseleave #dropdownnew":"uploadMediaup",
+                "click #links_dr":"linksMenuList",
+                "click #links_uploadbutton":"linkupload",
+                "click #docs_dr":"docsMenuList",  
+                "click #googledocs_mycomp":"showFileForm",
+                 "click #Assignment_mycomp":"assignFileForm",            
+                "click #googledocs_dr":"googleDocs",
+                "click #importfrmlink_dr": "importFromLink",                
+                "click #video_dr":"videoMenuList",
+                "click #youtube_dr":"youtubeMenu",
+                "click #video_uploadbutton":"videoUpload",
+                "click #audio_dr":"audioMenuList",               
+                "click #vialink_dr":"audioVialink",
+                "click #audio_uploadbutton":"audioUpload",
+                "click #presentations_dr":"presentationMenuList",
+                "click #presvialink_dr":"presentationVialink",
+                "click #press_uploadbutton":"presentationUpload",
+                "click #docfrmcomputer_uploadbutton": "saveMyFile",
+                'change #doc-from-computer' :'displayImage',
+                'click #docfrmcomputer_closePopup': "hidePopUpBlock",    
+                //"click #select_dr":"selectboxdwn",
+                //"blur #select_dr":"selectboxup"
+                //"click #profile-images":"listProfileImages",
+                //"click .google_doc" : "showDocPopup",                       
+                "click .then-by li a" : "filterDocs",
+                "click #view-by-list" : "selectViewByAll",
+                "click #view-files-byrock-list" : "selectViewByRock",
+                "click .rock-medias" : "rocksMeidas",
+                "click .rock_docs" : "rocksDocuments",
+                "click #by-class-list li" :"sortByClass",
+                "click #category-list li" :"sortBycategory",
+                "click .browse-right a" :"selectViewStyle",
+                "click #view-by-date-list" : "selectViewByDate",	
+                },
 	
             initialize:function () {         	 	            
                 this.source = $("#tpl-files-media").html();
@@ -75,70 +68,67 @@ BS.FilesMediaView = Backbone.View.extend({
                 this.pictres();	
                 this.videos();   
                 this.docsList();
-//     //           this.audio();  
+                //this.audio();  
                 this.spreadsheet();  
                 this.presentation();  
                 this.pdffiles();
                 this.docFromComputer();
-//                this.links(); 
-     //           this.template= _.template($("#tpl-files-media").html()); 
-    },
+                //this.links(); 
+                //this.template= _.template($("#tpl-files-media").html()); 
+                },
 
-    
             render:function (eventName) {
                 $(this.el).html(this.template);
                 return this;
                 },
-    
-                
+                   
                 /**
                  * NEW THEME - view files 
                  */
-                selectViewByAll: function(eventName){
-                	eventName.preventDefault();
-                	$('#view-by-select').text($(eventName.target).text());
+            selectViewByAll: function(eventName){
+                eventName.preventDefault();
+                $('#view-by-select').text($(eventName.target).text());
                 },
                 
                 /**
                  * NEW THEME - view files by date 
                  */
-                selectViewByDate: function(eventName){
-                	eventName.preventDefault();
-                	$('#view-by-date-select').text($(eventName.target).text());
+            selectViewByDate: function(eventName){
+                eventName.preventDefault();
+                $('#view-by-date-select').text($(eventName.target).text());
                 },
                 
                 /**
                  * NEW THEME - view files 
                  */
-                selectViewByRock: function(eventName){
-                	eventName.preventDefault();
-                	$('#view-files-byrock-select').text($(eventName.target).text());
+            selectViewByRock: function(eventName){
+                eventName.preventDefault();
+                $('#view-files-byrock-select').text($(eventName.target).text());
                 },
                 
-                /**
-                 * NEW THEME - rocks media( images/videos) 
-                 */
-                rocksMeidas: function(eventName){
-                	eventName.preventDefault();
-                	var element = eventName.target.parentElement;
-                	var imageId =$(element).attr('id');
-                	var parent = $('div#'+imageId).parent('li');
-                
-                	// post documentId and get Rockcount 
-                	$.ajax({
-                		type: 'POST',
-                		url:BS.rockTheUsermedia,
-                		data:{
-                			userMediaId:imageId
-                		},
-                		dataType:"json",
-                		success:function(data){	              	 
-                			// display the rocks count  
-                			$('#'+imageId+'-activities li a.hand-icon').html(data);	   
-                			$(parent).attr('data-rock',data);
-                  
-                		}
-                	});
+            /**
+             * NEW THEME - rocks media( images/videos) 
+             */
+            rocksMeidas: function(eventName){
+                eventName.preventDefault();
+                var element = eventName.target.parentElement;
+                var imageId =$(element).attr('id');
+                var parent = $('div#'+imageId).parent('li');
+
+                // post documentId and get Rockcount 
+                $.ajax({
+                    type: 'POST',
+                    url:BS.rockTheUsermedia,
+                    data:{
+                            userMediaId:imageId
+                    },
+                    dataType:"json",
+                    success:function(data){	              	 
+                        // display the rocks count  
+                        $('#'+imageId+'-activities li a.hand-icon').html(data);	   
+                        $(parent).attr('data-rock',data);
+                        }
+                    });
                 },
                 
                 /**
@@ -191,34 +181,6 @@ BS.FilesMediaView = Backbone.View.extend({
                     });
                 },
                 
-                
-            /**
-            * show file types
-            */
-            showFilesTypes :function(eventName){ 	
-                eventName.preventDefault();
-                $('.file-type').slideDown();	
-                },
-    
-            /**
-             * hide file types
-             */
-            hideList : function(eventName){
-                eventName.preventDefault();
-                $('.file-type').slideUp();
-                },
-            //TODO
-            addActive : function(eventName){
-                var id = eventName.target;
-                var $this = $(id);
-                if (!$this.is('.dropdown-toggle')) {
-                    $this
-                    .closest('ul')
-                    .find('li').removeClass('active').end()
-                    .end()
-                    .closest('li').addClass('active');
-                    }
-                },
          
             /*
               * Author:Cuckoo Anna on 09July2012
