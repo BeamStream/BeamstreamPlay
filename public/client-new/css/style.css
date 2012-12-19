@@ -1052,7 +1052,7 @@ ul.answer li a:hover {
 		background: linear-gradient(#5da7c6, #468bb4);
 		-pie-background: linear-gradient(#5da7c6, #468bb4);
 		border-radius: 5px 5px 5px 5px;
-		color: #396A84;
+		color: #396A84 !important;
 		display: block;
 		font-size: 36px;
 		font-weight: bold;
@@ -2876,7 +2876,7 @@ border-radius: 4px 0 0 4px;
     text-align:left;
     word-wrap: break-word;
 
-  margin: 0px 0 15px 8px; background:url(../images/comment-icon.png) no-repeat 5px 4px #f4f6f8;height:65px;
+  margin: 0px 0 15px 8px; background:url(../images/comment-icon.png) no-repeat 5px 4px;height:65px;
 
 border-radius: 4px;
 padding:0 5% 0 10%;
@@ -3012,17 +3012,34 @@ ul.strem-header-info {
 		width:100%;
 }
 
+.filter-option {
+    background: none repeat scroll 0 0 #FFFFFF !important;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 2px 2px 0 #AAAAAA inset !important;
+    color: #564D4D;
+    float: left;
+    font-size: 20px;
+    font-weight: 400;
+    height: 45px !important;
+    line-height: 45px;
+    text-align: center;
+    width: 60px;
+}
+ 
+ 
+.btn-success .caret
+{
+    border-color: #AAAAAA transparent;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-top: 9px solid #AAAAAA;
+    margin-left: 10px !important;
+    margin-top: 18px !important;
+}
+ 
+ 
+ 
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
  
  
  
@@ -3286,6 +3303,8 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
    
 }
 
+.edit-title-div{height:130px; display:block;}
+
                                     /* For dropdown menu  */
 .arrow-top {
     background: url("../images/file_type_icon.png") no-repeat scroll 5px 0 transparent;  /* add image  */
@@ -3303,6 +3322,14 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 	display:block;
 	z-index:999;
 	padding:5px 25px 5px 0;
+	
+}
+
+
+#dropdownnew .dropdown-menu ul{
+	
+	display:block; left:10px;
+	
 	
 }
 
@@ -3401,7 +3428,7 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 }
 .largeli {
     border-radius: 6px 6px 6px 6px !important;
-    height: 155px !important;
+    
     padding: 15px !important;
     width: 435px !important; background:#fff;
 }
@@ -3412,7 +3439,7 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 .attach-drop-bg{ background:url(../images/attach.png) no-repeat; display:block;width:25px;height:30px;overflow:hidden;}
 
 
-.active-new{background:url(../images/attach-a.png) no-repeat #fff;  display:block;width:25px;height:30px;
+.active-new{background:url(../images/attach-a.png) no-repeat;  display:block;width:25px;height:30px;
 
  border-radius:6px;
 
@@ -3492,9 +3519,10 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 		margin-top: -11px;
 }
 
+.attach-dropdwon{ left:-75px;}
+.dropdowntext{display:block; width:100%; padding:10px 0;}
 
-
-
+.dropdowntext-small{ width:94%;}
 
 
 

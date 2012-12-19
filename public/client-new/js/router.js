@@ -1143,6 +1143,12 @@
 							
 							self.getAllClasses();
 							
+							 $('.selectpicker').selectpicker();
+
+						        $('.selectpicker-info').selectpicker({
+						          style: 'btn-success'
+						        });
+							
 							
 							 
 							

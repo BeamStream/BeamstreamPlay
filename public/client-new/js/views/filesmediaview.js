@@ -65,6 +65,7 @@ BS.FilesMediaView = Backbone.View.extend({
         	 "click #category-list li" :"sortBycategory",
         	 "click .browse-right a" :"selectViewStyle",
         	 "click #view-by-date-list" : "selectViewByDate",
+        	 "click #uploadmediachild_dr li": "removeOptions"
         	 
             		
             },
@@ -90,6 +91,13 @@ BS.FilesMediaView = Backbone.View.extend({
                 return this;
                 },
     
+                /**
+                 * NEW THEME - hide visual drop down list
+                 */
+                
+                removeOptions:function(eventName){
+                	eventName.stopPropagation();
+                },
                 
                 /**
                  * NEW THEME - view files 

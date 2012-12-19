@@ -28,7 +28,7 @@ BS.SingleUser = Backbone.Model.extend({
 			    	url : BS.loggedInUserJson,
 			    	dataType : "json",
 			    	success : function(data) {
-			    		     
+			    		    BS.loggedUserId = data.id.id;
 				    		if(data == "Session Has Been Expired") 
 				    		{
 				    			
