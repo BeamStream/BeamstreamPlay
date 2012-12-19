@@ -1,6 +1,7 @@
 BS.MediaFilePopupView = Backbone.View.extend({
  events: {	
-		"click #popup-close" : "close"              
+		"click #popup-close" : "close",
+                "click .download" : "download"
 	 },
     
     initialize: function(){
@@ -15,8 +16,9 @@ BS.MediaFilePopupView = Backbone.View.extend({
         */
         render:function (datas) {
             $(this.el).html(this.template(datas));
+              this.mediadatas=datas;
             return this;
-    
+          
         },
         
        /**
@@ -25,6 +27,16 @@ BS.MediaFilePopupView = Backbone.View.extend({
         close:function(eventName){
             eventName.preventDefault(); 
             $('#gdocedit').children().detach(); 
+        },
+        
+        /**
+        * function to download files
+        */
+        download:function(eventName){
+            eventName.preventDefault(); 
+            console.log("test"+this.mediadatas.url);
+           // $('#gdocedit').children().detach(); 
+           window.location = this.mediadatas.url;
         }
         
  })
