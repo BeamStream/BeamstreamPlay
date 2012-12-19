@@ -61,6 +61,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 "click #category-list li" :"sortBycategory",
                 "click .browse-right a" :"selectViewStyle",
                 "click #view-by-date-list" : "selectViewByDate",	
+                "click #uploadmediachild_dr li" :"removeOptions"
                 },
 
 	
