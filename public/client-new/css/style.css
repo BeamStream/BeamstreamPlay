@@ -2217,10 +2217,12 @@ ul.discussion-info li:nth-child(2n) {
 }
 
 .embed-info {
-		display:block;
 		float:left;
 		width:100%;
-		display:none;
+/* 		display:none; */
+		
+		position: absolute;
+		z-index: -1;
 }
 
 .upload-conatiner {

@@ -59,6 +59,7 @@
 			 "mouseout  .mediapopup": "hideCursorMessage",
 			 "mouseenter .photo-popup": "showCursorMessage",
 			 "mouseout  .photo-popup": "hideCursorMessage",
+			 "click .dropdown-menu input":"addCategory"
 			 
 
 		},
@@ -146,6 +147,15 @@
 			$.hideCursorMessage();
 		},
 		
+		/**
+		 * NEW THEME stop propagation and enter new category
+		 */
+		addCategory: function(eventName){
+		 
+			eventName.stopPropagation();
+//			$('#discussion-file-upload').toggle();
+			
+		},
 		
 		  /**
 	     * NEW THEME - get all messages of a stream
@@ -528,7 +538,9 @@
     	  */
     	 uploadFiles: function(eventName){
     		 eventName.preventDefault();
+    		 
     		 $('#upload-files-area').click();
+    		  
     	 },
     	 
     	 /**
