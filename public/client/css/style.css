@@ -1603,8 +1603,8 @@ span.edit_profilepicture_icon{
  
 .janrainContent div + div{
 	width: 200px !important;
-	background-color:#fff !important;
-	margin-top:10px !important;
+/*	background-color:#fff !important;
+	margin-top:10px !important;  */
 	color: black !important;
 }
 .janrainSwitchAccountLink{
