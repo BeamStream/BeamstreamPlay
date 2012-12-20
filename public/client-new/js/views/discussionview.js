@@ -59,14 +59,16 @@
 			 "mouseout  .mediapopup": "hideCursorMessage",
 			 "mouseenter .photo-popup": "showCursorMessage",
 			 "mouseout  .photo-popup": "hideCursorMessage",
-			 "click .dropdown-menu input":"addCategory"
+			 "click .dropdown-menu input":"addCategory",
+			 
 			 
 
 		},
 	
 		initialize : function() {
 			
-			console.log('Initializing Discussion View');
+			console.log('Initializing Discussion View' + BS.loggedUserId);
+			
 			this.setupPushConnection();
 			this.source = $("#tpl-discussion-middle-contents").html();
 			this.template = Handlebars.compile(this.source);
@@ -148,15 +150,15 @@
 		},
 		
 		/**
-		 * NEW THEME stop propagation and enter new category
+		 * NEW THEME  - stop propagation and enter new category
 		 */
 		addCategory: function(eventName){
 		 
 			eventName.stopPropagation();
-//			$('#discussion-file-upload').toggle();
 			
 		},
 		
+	
 		  /**
 	     * NEW THEME - get all messages of a stream
 	     */
@@ -352,6 +354,16 @@
 	                processData: false,
 	                dataType : "json",
 	                success: function(data){
+	                	var owner = "";
+	    				if(data.userId.id == BS.loggedUserId)
+	    				{
+	    					owner = "true";
+	    				}
+	    				else
+	    				{
+	    					owner = "";
+	    				}
+	                	
 	                	$('#msg-area').val("");
 	                	$('#uploded-file').hide();
 	              	    self.file = "";
@@ -363,6 +375,7 @@
 	  	                var datas = {
 	  	                		"datas" : data,
 	  	                		"datVal" :datVal,
+	  	                		"owner": owner
 	  		            }						  
 
 	  	                /* Pubnub auto push */
@@ -438,7 +451,8 @@
                                 "previewImage" :previewImage,
                                 "extension" : extension,
                                 "commenImage" : commenImage,
-                                "type" : type
+                                "type" : type,
+                                "owner": owner
   					        }	
 	  						
   						    var source = $("#tpl-messages_with_docs").html();
@@ -969,9 +983,15 @@
         showAllCommentList: function(eventName){
         	eventName.preventDefault();
         	var element = eventName.target.parentElement;
+        	var parentUl = $(eventName.target).parent('ul');
+        	
 			var messageId =$(element).parents('div.follow-container').attr('id');
+			
+			$(parentUl).find('a.active').removeClass('active');
+			
 			if($('#'+messageId+'-allComments').is(":visible"))
 			{
+				$(eventName.target).removeClass('active');
 				$('#'+messageId+'-msgRockers').slideUp(1);
 				$('#'+messageId+'-newCommentList').html('');
 				$('#'+messageId+'-allComments').slideUp(600); 
@@ -979,6 +999,7 @@
 			}
 			else
 			{
+				$(eventName.target).addClass('active');
 				$('#'+messageId+'-msgRockers').slideUp(1);
 				$('#'+messageId+'-newCommentList').html('');
 				$('#'+messageId+'-allComments').slideDown(600); 
@@ -992,12 +1013,15 @@
         	eventName.preventDefault();
         	
         	var element = eventName.target.parentElement;
+        	var parentUl = $(eventName.target).parents('ul');
+        	$(parentUl).find('a.active').removeClass('active');
 			var messageId =$(element).parents('div.follow-container').attr('id');
 			if($('#'+messageId+'-show-hide').text() == "Hide All")
             {
 				$('#'+messageId+'-msgRockers').slideUp(1);
 				$('#'+messageId+'-newCommentList').html('');
 				$('#'+messageId+'-allComments').slideUp(600); 
+				$(eventName.target).removeClass('active');
 				$(eventName.target).text("Show All");
             }
 			else
@@ -1005,6 +1029,7 @@
 				$('#'+messageId+'-msgRockers').slideUp(1);
 				$('#'+messageId+'-newCommentList').html('');
 				$('#'+messageId+'-allComments').slideDown(600);
+				$(eventName.target).addClass('active');
 				$(eventName.target).text("Hide All");
 			}
 			
@@ -1051,28 +1076,18 @@
          */
         showUploadSection: function(eventName){
         	eventName.preventDefault();
-//        	console.log($('div#upload-files')) ;
-//        	$('div#upload-files').addClass('active');
-//        	
-//        	if($(eventName.target).parents('li').hasClass('active'))
-//        	{
-//        		$(eventName.target).parents('li').removeClass('active');
-//        	}
-//        	else
-//        	{
-//        		$(eventName.target).parents('li').addClass('active');
-//        	}
-        	
-        	
-//        	if($('.embed-info').is(":visible"))
-//        	{
-//        		$('.embed-info').css("display","none");
-//        	}
-//        	else
-//        	{
-//        		$('.embed-info').css("display","block");
-//        	}
-        	
+        	 
+        	// remove active class from upload icon
+        	if($('#upload-files1').hasClass('open'))
+        	{
+        		$('#upload-files').removeClass('active-new');
+        		$('#upload-files').addClass('attach-drop-bg');
+        	}
+        	else
+        	{
+        		$('#upload-files').removeClass('attach-drop-bg');
+        		$('#upload-files').addClass('active-new');
+        	}
         	
         	
         },
@@ -1096,9 +1111,14 @@
             	$('#uploded-file').show();
             	
             })(file);
+            
+            
              
             // read the  file as data URL
             reader.readAsDataURL(file);
+            
+            $('#upload-files').removeClass('active-new');
+ 		    $('#upload-files').addClass('attach-drop-bg'); 
         },
         
         /**
@@ -1372,6 +1392,16 @@
 				   
 			//display the messages
 			_.each(data, function(data) {
+				 
+				var owner = "";
+				if(data.userId.id == BS.loggedUserId)
+				{
+					owner = "true";
+				}
+				else
+				{
+					owner = "";
+				}
 				var messageType ='';
 				var msgBody = data.messageBody;
                                                 
@@ -1417,7 +1447,8 @@
                 
 				var datas = {
 					 	 "datas" : data,
-					 	"datVal":datVal
+					 	 "datVal":datVal,
+					 	 "owner" :owner
 				    }
                
                 
@@ -1428,7 +1459,8 @@
 					    "datas" : data,
 	                    "datVal" :datVal,
 	                    "previewImage" : "images/google_docs_image.png",
-	                    "type" : "googleDoc"
+	                    "type" : "googleDoc",
+                    	 "owner" :owner
 					}	
 					var source = $("#tpl-messages_with_docs").html();
 						
@@ -1489,7 +1521,8 @@
                                 "previewImage" :previewImage,
                                 "extension" : extension,
                                 "commenImage" : commenImage,
-                                "type" : type
+                                "type" : type,
+                                "owner" :owner
 				        }	
 					
 					    var source = $("#tpl-messages_with_docs").html();
@@ -1682,11 +1715,15 @@
 			eventName.preventDefault();
 	        	
         	var element = eventName.target.parentElement;
+        	var parentUl = $(eventName.target).parent('ul');
+			$(parentUl).find('a.active').removeClass('active');
+			
 			var messageId =$(element).parents('div.follow-container').attr('id');
 		    if($('#'+messageId+'-msgRockers').is(':visible'))
 		    {
 		    	 
 		    	$('#'+messageId+'-msgRockers').slideUp(600); 
+		    	$(eventName.target).removeClass('active');
 		    }
 		    else
 		    {
@@ -1706,6 +1743,8 @@
 		    				var messageRockersTemplate = Handlebars.compile(messageRockers);
 		    				$('#'+messageId+'-msgRockers').append(messageRockersTemplate({rocker:rocker}));
 		    			});
+		    			
+		    			$(eventName.target).addClass('active');
             	 
 		            	$('#'+messageId+'-allComments').slideUp();
 		            	$('#'+messageId+'-newCommentList').slideUp();

@@ -18,6 +18,7 @@
     
 BS.FilesMediaView = Backbone.View.extend({
                 
+
             events: {
                 //"click #gdoc_uploadbutton" : "uploadFile",
                 "click .doctitle" : "editDocTitle",
@@ -60,7 +61,9 @@ BS.FilesMediaView = Backbone.View.extend({
                 "click #category-list li" :"sortBycategory",
                 "click .browse-right a" :"selectViewStyle",
                 "click #view-by-date-list" : "selectViewByDate",	
+                "click #uploadmediachild_dr li" :"removeOptions"
                 },
+
 	
             initialize:function () {         	 	            
                 this.source = $("#tpl-files-media").html();
@@ -81,7 +84,17 @@ BS.FilesMediaView = Backbone.View.extend({
                 $(this.el).html(this.template);
                 return this;
                 },
-                   
+
+    
+            /**
+             * NEW THEME - hide visual drop down list
+             */
+            
+             removeOptions:function(eventName){
+            	eventName.stopPropagation();
+                },
+                
+
                 /**
                 * NEW THEME - view files 
                 */

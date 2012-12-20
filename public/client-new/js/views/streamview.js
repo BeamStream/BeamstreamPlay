@@ -270,8 +270,6 @@
 		    $('.sortable li#'+id).addClass('active');
 		    $('.sortable li.active').append(BS.activeDiv);
 		    
-		    
-		    
 		    // dynamic details for top stream submenus 
 			var topMenuDetails = {
 					 streamName : streamName,
@@ -455,7 +453,7 @@
 	                 
 	                 
 	            });		
-	//	$(window).load(function(){		
+	            
 	            $('.drag-rectangle').tooltip()		
 	            $("#user-online").mCustomScrollbar({
 	                set_width:false, /*optional element width: boolean, pixels, percentage*/
