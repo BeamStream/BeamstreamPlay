@@ -574,9 +574,14 @@ Create a Class</a>
 <div id= "{{datas.id.id}}" class="ask-outer follow-container">
             <div class="ask-content">
               <div class="follw-left">
-                <div class="small-image">
-                  <div class="ask-img"><img id="{{datas.id.id}}-img" src=""></div>
-                  <a href="#" class="follow-button">follow</a> </div>
+                <div   class="small-image">
+                  <div  class="ask-img"><img id="{{datas.id.id}}-img" src=""></div>
+					{{#if owner}}
+						
+                    {{else}}
+               		   <a href="#" id="{{datas.userId.id}}" class="follow-button follow-user">follow</a>
+					{{/if}}
+                     </div>
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">
@@ -584,7 +589,7 @@ Create a Class</a>
                     <ul class="follow-name-left ">
                       <li><span id="{{datas.userId.id}}" >@{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </span> -  {{datas.timeCreated}}  -  {{datas.messageAccess.name}}</li>
                     </ul>
-                    <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button">follow</a></div>
+                    <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button follow-message">follow</a></div>
                   </div>
                   <p id="{{datas.id.id}}-id" >{{datas.messageBody}}</p>
                   <div class="follow-bottom">
@@ -634,9 +639,13 @@ Create a Class</a>
 <div id= "{{datas.id.id}}" class="ask-outer follow-container">
             <div class="ask-content">
               <div class="follw-left">
-                <div class="small-image">
-                  <div class="ask-img"><img id="{{datas.id.id}}-img" src=""></div>
-                  <a href="#" class="follow-button">follow</a> </div>
+                <div   class="small-image">
+                  <div  class="ask-img"><img id="{{datas.id.id}}-img" src=""></div>
+					{{#if owner}}
+                    {{else}}		
+                  <a href="#"  id="{{datas.userId.id}}" class="follow-button follow-user">follow</a> 
+					{{/if}}
+				</div>
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">
@@ -644,7 +653,7 @@ Create a Class</a>
                     <ul class="follow-name-left ">
                       <li><span id="{{datas.userId.id}}" >@{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </span> -  {{datas.timeCreated}}  -  {{datas.messageAccess.name}}</li>
                     </ul>
-                    <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button">follow</a></div>
+                    <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button follow-message">follow</a></div>
                   </div>
                   <!-- <p id="{{datas.id.id}}-id" >{{datas.messageBody}}</p> -->
                   
@@ -738,9 +747,13 @@ Create a Class</a>
 <div id= "{{datas.id.id}}" class="ask-outer follow-container">
             <div class="ask-content">
               <div class="follw-left">
-                <div class="small-image">
-                  <div class="ask-img"><img id="{{datas.id.id}}-img" src=""></div>
-                  <a href="#" class="follow-button">follow</a> </div>
+                <div  class="small-image">
+                  <div class="ask-img" ><img id="{{datas.id.id}}-img" src=""></div>
+					{{#if owner}}
+                    {{else}}
+                  <a id="{{datas.userId.id}}"  href="#" class="follow-button follow-user">follow</a>  
+					{{/if}}
+					</div>
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">
@@ -748,7 +761,7 @@ Create a Class</a>
                     <ul class="follow-name-left">
                       <li><span id="{{datas.userId.id}}" >@{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </span> -  {{datas.timeCreated}}  -  {{datas.messageAccess.name}}</li>
                     </ul>
-                    <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button">follow</a></div>
+                    <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button follow-message">follow</a></div>
                   </div>
                  <!-- <p id="{{datas.id.id}}-id" >{{datas.messageBody}}</p> -->
                   
@@ -2319,7 +2332,7 @@ Create a Class</a>
             <div class="clear"></div>
           </div>
           <div class="calender-outer overview-boxes browse-outer">
-            <h2>My Profile <a href="#" class="btn blue-buttons showmessage browse-file ">View All</a></h2>
+           <!-- <h2>My Profile <a href="#" class="btn blue-buttons showmessage browse-file ">View All</a></h2> -->
            
           
            <ul class="profil-pic-outer files-list" id="grid">         
@@ -2570,7 +2583,7 @@ Create a Class</a>
            <div class="clear"></div> 
           </div>
           <div class="calender-outer overview-boxes browse-outer">
-            <h2>My Profile <a href="#" class="btn blue-buttons showmessage browse-file ">View All</a></h2>
+           <!-- <h2>My Profile <a href="#" class="btn blue-buttons showmessage browse-file ">View All</a></h2> -->
              <div id="gdocedit" ></div> 
             <ul class="profil-pic-outer" id="grid">  
                
@@ -3018,11 +3031,6 @@ Create a Class</a>
 	<script src="js/views/streamview.js"></script>
 	<script src="js/views/classstreamview.js"></script>
 	<script src="js/views/profileview.js"></script>
-<!-- 	<script src="js/views/projectstreamview.js"></script> -->
-<!-- 	<script src="js/views/studystreamview.js"></script> -->
-<!-- 	<script src="js/views/groupstreamview.js"></script> -->
-<!-- 	<script src="js/views/peerstreamview.js"></script> -->
-<!-- 	<script src="js/views/friendstreamview.js"></script> -->
 	<script src="js/models/loginmodel.js"></script>
 	<script src="js/views/verifyemailview.js"></script>
 	<script src="js/models/emailverificationmodel.js"></script>
@@ -3031,10 +3039,8 @@ Create a Class</a>
 	<script src="js/models/basicprofilemodel.js"></script>
 	<script src="js/views/homeview.js"></script>
 	<script src="js/views/schoolview.js"></script>
-<!-- 	<script src="js/views/editschoolview.js"></script> -->
 	<script src="js/models/schoolmodel.js"></script>
 	<script src="js/views/classview.js"></script>
-<!-- 	<script src="js/views/editclassview.js"></script> -->
 	<script src="js/models/classmodel.js"></script>
 	<script src="js/models/profilemodel.js"></script>
 	<script src="js/views/newschoolview.js"></script>

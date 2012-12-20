@@ -20,7 +20,7 @@
 		events : {
 			
 			 "click #post-button" : "postMessage",
-			 "click .follow-button" : "followMessage",
+			 "click .follow-message" : "followMessage",
 			 "click .rock-message" : "rockMessage",
 			 "click .rocks-message" : "rockMessage",
 			 "click .rocks-message-minus" : "rockMessage",
@@ -55,11 +55,12 @@
 			 "click .editMediaTitle": "editMediaTitle",
 			 "click .editDocTitle": "editDocTitle",
 			 "click #discussion-file-upload li " : "uploadFiles",
-			 "mouseenter .mediapopup": "showCursorMessage",
+			 "mouseover .mediapopup": "showCursorMessage",
 			 "mouseout  .mediapopup": "hideCursorMessage",
-			 "mouseenter .photo-popup": "showCursorMessage",
+			 "mouseover .photo-popup": "showCursorMessage",
 			 "mouseout  .photo-popup": "hideCursorMessage",
 			 "click .dropdown-menu input":"addCategory",
+			 "click .follow-user" : "followUser"
 			 
 			 
 
@@ -180,6 +181,57 @@
 						self.displayMessages(data);
 					}
 			 });
+	    	
+	    },
+	    
+	    /**
+	     * NEW THEME - Functio for follow user
+	     */
+	    followUser: function(eventName){
+	    	
+	    	eventName.preventDefault();
+	    	var userId = eventName.target.id;
+	    	
+	    	var text = $(eventName.target).text();
+	    	
+	    	
+	    	$.ajax({
+ 				type: 'POST',
+ 		        url:BS.followUser,
+ 		        data:{
+ 		        	userId:userId
+ 		        },
+ 		        dataType:"json",
+ 		        success:function(data){
+ 		        	 
+ 		        	//set display
+ 		        	if(text == "Unfollow")
+ 		    		{
+ 		        		$('a.follow-user').each(function() {
+ 		        			 
+ 		        			if($(this).attr('id') == userId)
+ 		        			{
+ 		        				$(this).text("Follow");
+ 		        			}
+ 		        			
+ 		        		});
+ 		        		
+ 		    		}
+ 		        	else
+ 		        	{
+ 		        		$('a.follow-user').each(function() {
+		        			 
+ 		        			if($(this).attr('id') == userId)
+ 		        			{
+ 		        				$(this).text("Unfollow");
+ 		        			}
+ 		        			
+ 		        		});
+ 		        	}
+ 		        	 
+ 
+	            }
+	        });
 	    	
 	    },
 	    

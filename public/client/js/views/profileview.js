@@ -293,6 +293,60 @@ BS.ProfileView = Backbone.View.extend({
         		     $('#profile-photo').attr("name", f.name);
         		     $('#imagedata').val(e.target.result);
         		     $('#imagedata').attr("name", f.name);
+        		     
+        		     
+        		     /* for  image Croping */ 
+        		     BS.cropImageView = new BS.CropImageView();
+    				 BS.cropImageView.render(e.target.result);
+    				$('#image-crop-popup').html(BS.cropImageView.el);
+    				
+    				
+    				var jcrop_api, boundx, boundy;
+    			      
+    			      $('#target').Jcrop({
+    			        onChange: updatePreview,
+    			        onSelect: updatePreview,
+    			        aspectRatio: 1
+    			      },function(){
+    				        // Use the API to get the real image size
+    				        var bounds = this.getBounds();
+    				        boundx = bounds[0];
+    				        boundy = bounds[1];
+    				        // Store the API in the jcrop_api variable
+    				        jcrop_api = this;
+    			      });
+
+    			      function updatePreview(c)
+    			      {
+    			    	    $('#x').val(c.x);
+    						$('#y').val(c.y);
+    						$('#w').val(c.w);
+    						$('#h').val(c.h);
+    						
+    						var rx = 100 / c.w;
+    						var ry = 100 / c.h;
+    						
+    						var h1= parseInt($('.jcrop-holder').css('height'));
+    						var w1 = parseInt($('.jcrop-holder').css('width'));
+    						
+    						$('#preview').css({
+    							width: Math.round(rx * w1) + 'px',
+    							height: Math.round(ry * h1) + 'px',
+    							marginLeft: '-' + Math.round(rx * c.x) + 'px',
+    							marginTop: '-' + Math.round(ry * c.y) + 'px'
+    						});
+    						$('#profile-photo').css({
+    							width: Math.round(rx * w1) + 'px',
+    							height: Math.round(ry * h1) + 'px',
+    							marginLeft: '-' + Math.round(rx * c.x) + 'px',
+    							marginTop: '-' + Math.round(ry * c.y) + 'px'
+    						});
+    						
+    						
+
+    			      };
+    			      
+    			      
         		
         		 };
             })(file);

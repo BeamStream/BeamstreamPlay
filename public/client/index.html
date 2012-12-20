@@ -87,6 +87,12 @@ body {
 <script type="text/javascript" src="lib/jquery.exif.js"></script>
 <script type="text/javascript" src="http://jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js"></script> 
 <!-- End -->
+
+<!--  jcrop - crpping images -->
+<link rel="stylesheet" href="css/jquery.Jcrop.css" type="text/css" />
+ <script src="lib/jquery.Jcrop.js" type="text/javascript"></script>
+
+    <!-- End -->
       
 
 </head>
@@ -1714,6 +1720,44 @@ Create a Class</a>
 </script>
 
 
+
+<!-- Image Crop-->
+<script type="text/x-handlebars-template" id="image-crop-tpl">
+ <div class="modal-backdrop in"></div>
+    <div class="modal add-new-school  modal-popups" style="display:block; left: 29% !important;top: 40% !important;width: 942px !important;">
+     
+		<a href="#"><img id="popup-close" class="close-button1" src="images/close-button.png"></a>
+       
+     
+    <div class="modal-body">
+        <form name="add-new-school-form"  >
+            <fieldset>
+				 <table>
+			      <tr>
+			        <td>
+			          <img src="{{image}}" id="target" alt="Flowers" />
+			        </td>
+			        <td>
+			          <div style="width:100px;height:100px;overflow:hidden;">
+			            <img src="{{image}}" id="preview" alt="Preview" class="jcrop-preview" />
+			          </div>
+			           
+			        </td>
+			      </tr>
+			    </table>
+			<input type="hidden" id="x" name="x" /> <input
+					type="hidden" id="y" name="y" /> <input type="hidden" id="w"
+					name="w" /> <input type="hidden" id="h" name="h" />
+					
+            </fieldset>
+        </form>
+           <a href="#" id="crop"  class="btn btn-primary pull-left"  >Crop Image</a>
+    </div>
+    
+ </div>
+</script>
+
+
 <!-- School Registration template-->
 <script type="text/x-handlebars-template" id="tpl-school-reg">
   <div class="modal-backdrop in"></div>
@@ -2670,6 +2714,7 @@ Create a Class</a>
 	<script type="text/x-handlebars-template" id="tpl-profile-reg">
   <div class="modal-backdrop in"></div>
     <div class="modal school-popup modal-pull-top in modal-popups" style="display:block;">
+		<div name="image-crop" id="image-crop-popup" ></div>
     <div class="modal-header">
         <div class="control-button">
         {{#unless edit}}
@@ -2705,11 +2750,11 @@ Create a Class</a>
                         <label name="profile-image" for="profile-photo">Profile photo</label>
                         <span class="profile-thumb">
                            <div id="img"></div>
-                           <div id="default-image">
+                           <div id="default-image" style="height: 100px; width: 100px; overflow:hidden;">
                            {{#if primaryImage}}
-                              <img id="profile-photo" src="{{primaryImage}}" style="width:95px; height:90px;" alt="no photo" name="profile-photo" exif="true">
+                              <img id="profile-photo" src="{{primaryImage}}"  style="max-width: none !important;" alt="no photo" name="profile-photo" exif="true">
                            {{else}}
-                             <img id="profile-photo" src="images/no-photo.png" style="width:95px; height:90px;" alt="no photo" name="profile-photo" exif="true">
+                             <img id="profile-photo" src="images/no-photo.png" style="max-width: none !important;"  alt="no photo" name="profile-photo" exif="true">
                            {{/if}}
 							<div id="image-loader" style="display :none;">  
 			                   <img src ="images/loading.gif"> 
@@ -4388,6 +4433,9 @@ Create a Class</a>
 	<script src="js/models/documentmodel.js"></script>
 	<script src="js/views/streamdocview.js"></script>
 	<script src="js/views/invitepeopleview.js"></script>
+	
+	
+	<script src="js/views/imagecropview.js"></script>
 
 
 
@@ -4530,6 +4578,9 @@ Create a Class</a>
 		
 		
 	</script>
+	
+	
+	
 
 	<script type="text/javascript" src="lib/css3-mediaqueries.js"></script>
 
