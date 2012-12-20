@@ -50,8 +50,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 'click #docfrmcomputer_closePopup': "hidePopUpBlock",    
                 //"click #select_dr":"selectboxdwn",
                 //"blur #select_dr":"selectboxup"
-                //"click #profile-images":"listProfileImages",
-                //"click .google_doc" : "showDocPopup",                       
+                //"click #profile-images":"listProfileImages",                       
                 "click .then-by li a" : "filterDocs",
                 "click #view-by-list" : "selectViewByAll",
                 "click #view-files-byrock-list" : "selectViewByRock",
@@ -774,7 +773,7 @@ BS.FilesMediaView = Backbone.View.extend({
         
                 /**
                 * 
-                * Function for uploadmedia (dropdown menu)
+                * NEW THEME-Function for uploadmedia (dropdown menu)
                 *  (slide down menu)
                 * 
                 */
@@ -784,7 +783,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 $("#uploadmediachild_dr").slideDown();         
                 },
         
-                /* Function for uploadmedia (dropdown menu)
+                /* NEW THEME-Function for uploadmedia (dropdown menu)
                 * (childmenu from Links)
                 */
             linksMenuList:function(eventName){
@@ -814,7 +813,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 },
  
                 /*
-                * Function for uploadmedia (dropdown menu)
+                * NEW THEME-Function for uploadmedia (dropdown menu)
                 * (linksupload button)
                 *
                 */
@@ -824,7 +823,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 },
         
                 /*
-                * Function for uploadmedia (dropdown menu)
+                * NEW THEME-Function for uploadmedia (dropdown menu)
                 * (childmenu from papers and docs)
                 */
             docsMenuList:function(eventName){
@@ -837,7 +836,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 },
         
                 /*
-                * Function for uploadmedia (dropdown menu)
+                * NEW THEME-Function for uploadmedia (dropdown menu)
                 * (childmenu from googledocs)
                 */
             showFileForm:function(eventName){
@@ -863,7 +862,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 },
         
                 /*
-                * Function for uploadmedia (dropdown menu)
+                * NEW THEME-Function for uploadmedia (dropdown menu)
                 * (childmenu from googledocs)
                 */
             assignFileForm:function(eventName){
@@ -890,7 +889,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 },
         
                 /*
-                * Function for uploadmedia (dropdown menu)
+                * NEW THEME-Function for uploadmedia (dropdown menu)
                 * (childmenu from googledocs)
                 */
             googleDocs:function(eventName){
@@ -900,7 +899,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 },
         
                 /*
-                * Function for uploadmedia 
+                * NEW THEME-Function for uploadmedia (dropdown menu)
                 * (childmenu from Import from link )
                 */
             importFromLink:function(eventName){
@@ -924,7 +923,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 },
                
                 /*
-                *Function for uploadmedia 
+                * NEW THEME-Function for uploadmedia (dropdown menu)
                 * (childmenu from video)
                 */
             videoMenuList:function(eventName){
@@ -937,7 +936,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 },
         
                 /*
-                *Function for uploadmedia 
+                * NEW THEME-Function for uploadmedia (dropdown menu)
                 * (childmenu from youtube)
                 */
             youtubeMenu:function(eventName){
@@ -947,161 +946,147 @@ BS.FilesMediaView = Backbone.View.extend({
                 var i='';
                 var content=''; 
                 $.ajax({
-			type : 'GET',
-			url : BS.allStreamsForAUser,
-			dataType : "json",
-			success : function(options) {
-				            content+='<option>Save to Class</option>'
-                            _.each(options, function(option) {
-	                             content+= '<option>'+option.streamName+'</option>';
-	                             i++;
-                             });
-				            content+='<option>Profile</option>'
-								   +'<option>My Docs</option>';
-                            $('#video-class-list').html(content);
-                         }		  
-		 });
-        },
-        
-        /*
-         *Function for uploadmedia 
-         * (childmenu from youtube and upload video)
-         */
-        videoUpload:function(eventName){
-            eventName.preventDefault();
-            $("#dropdownnew").find('ul').hide(250); 
-        },
-        
-        /*
-         *Function for uploadmedia 
-         * (childmenu from audio)
-         */
-        
-        audioMenuList:function(eventName){
-            eventName.preventDefault();
-//            $("#childone_dr").find('ul').hide(200);
-//            $("#childtwo_dr").find('ul').hide(200);
-//            $("#childthree_dr").find('ul').hide(200);
-//            $("#childfive_dr").find('ul').hide(200);
-//            $("#audiomenu_dr").animate({width: 'toggle'},150);
-        },
-        
-        /*
-         *Function for uploadmedia 
-         * (childmenu from audio vialink)
-         */
-        audioVialink:function(eventName){
-            eventName.preventDefault();
-            $("#vialinkchild_dr").animate({width: 'toggle'},350); 
-            var i='';
-            var content=''; 
-            $.ajax({
                     type : 'GET',
                     url : BS.allStreamsForAUser,
                     dataType : "json",
-                    success : function(options) {
-                        	content+='<option>Save to Class</option>'
-                            _.each(options, function(option) {
-                                 content+= '<option>'+option.streamName+'</option>';
-                                 i++;
-                              });
-                        	  content+='<option>Profile</option>'
-								+'<option>My Docs</option>';
-                              $('#audio-class-list').html(content); 
-                              }	  
+                success : function(options) {
+                    content+='<option>Save to Class</option>'
+                    _.each(options, function(option) {
+                    content+= '<option>'+option.streamName+'</option>';
+                    i++;
+                    });
+                    content+='<option>Profile</option>'
+                           +'<option>My Docs</option>';
+                    $('#video-class-list').html(content);
+                    }		  
 		 });
-        },
+                },
         
-         /*
-         * Function for uploadmedia 
-         * (upload button to upload audio)
-         */
-        audioUpload:function(eventName){
-            eventName.preventDefault();
-            $("#dropdownnew").find('ul').hide(200); 
-        },
-    
-        /*
-         * Function for uploadmedia 
-         * (childmenu from presentation)
-         *
-         */
-        presentationMenuList:function(eventName){
-            eventName.preventDefault();
-            $("#childone_dr").find('ul').hide(200);
-            $("#childtwo_dr").find('ul').hide(200);
-            $("#childfour_dr").find('ul').hide(200);
-            $("#childthree_dr").find('ul').hide(200);
-            $("#presentationmenu_dr").animate({width: 'toggle'},150);
-        },
-        
-         /*
-         * Function for uploadmedia 
-         * (childmenu from presentation vialink)
-         *
-         */
-        presentationVialink:function(eventName){
-            eventName.preventDefault();
-            $("#presvialinkchild_dr").animate({width: 'toggle'},350);
-            var i='';
-            var content=''; 
-            $.ajax({
-			type : 'GET',
-			url : BS.allStreamsForAUser,
-			dataType : "json",
-			success : function(options) {
-							  content+='<option>Save to Class</option>'
-                              _.each(options, function(option) {
-                                 content+= '<option>'+option.streamName+'</option>';
-                              i++;
-                              });
-                              content+='<option>Profile</option>'
-									+'<option>My Docs</option>';
-                              $('#presentation-class-list').html(content); 
-                              }	  
-		 });
-        },
-        
-         /*
-         * Function for uploadmedia 
-         * (upload button to upload presentation)
-         *
-         */
-        presentationUpload:function(eventName){
-            eventName.preventDefault();
-            $("#dropdownnew").find('ul').hide(250); 
-        },
-    
-        /**
-         * For uploadmedia menu
-         *  for slide up
-         */
-        uploadMediaup :function(eventName){
-             eventName.preventDefault();
-             if(!$('.fixingmenu_dr').is(":visible") ) 
-             $("#uploadmediachild_dr").slideUp(50); 
-        },
-        
-        /**
-         * Edited By Aswathy @TODO
-         * For Doc popups
-         */
-        showDocPopup :function(eventName){
- 
-        	var docId = eventName.currentTarget.id;
-        	var docUrl = $('input#id-'+docId).val();
-    		newwindow=window.open(docUrl,'','height=550,width=1100,top=100,left=250');
-        	 
-        },
-       
-        
-        /*
-         * Save docs from My computer
-         */
-         saveMyFile: function(eventName)
-         {
+                /*
+                * NEW THEME-Function for uploadmedia (dropdown menu)
+                * (childmenu from youtube and upload video)
+                */
+            videoUpload:function(eventName){
                 eventName.preventDefault();
-                 var self = this;
+                $("#dropdownnew").find('ul').hide(250); 
+                },
+        
+                /*
+                * NEW THEME-Function for uploadmedia (dropdown menu)
+                * (childmenu from audio)
+                */
+        
+            audioMenuList:function(eventName){
+                eventName.preventDefault();
+    //            $("#childone_dr").find('ul').hide(200);
+    //            $("#childtwo_dr").find('ul').hide(200);
+    //            $("#childthree_dr").find('ul').hide(200);
+    //            $("#childfive_dr").find('ul').hide(200);
+    //            $("#audiomenu_dr").animate({width: 'toggle'},150);
+                },
+        
+                /*
+                * NEW THEME-Function for uploadmedia (dropdown menu)
+                * (childmenu from audio vialink)
+                */
+            audioVialink:function(eventName){
+                eventName.preventDefault();
+                $("#vialinkchild_dr").animate({width: 'toggle'},350); 
+                var i='';
+                var content=''; 
+                $.ajax({
+                    type : 'GET',
+                    url : BS.allStreamsForAUser,
+                    dataType : "json",
+                success : function(options) {
+                    content+='<option>Save to Class</option>'
+                    _.each(options, function(option) {
+                    content+= '<option>'+option.streamName+'</option>';
+                    i++;
+                    });
+                    content+='<option>Profile</option>'
+                    +'<option>My Docs</option>';
+                    $('#audio-class-list').html(content); 
+                    }	  
+		 });
+                },
+        
+                /*
+                * NEW THEME-Function for uploadmedia (dropdown menu)
+                * (upload button to upload audio)
+                */
+            audioUpload:function(eventName){
+                eventName.preventDefault();
+                $("#dropdownnew").find('ul').hide(200); 
+                },
+    
+                /*
+                * NEW THEME-Function for uploadmedia (dropdown menu)
+                * (childmenu from presentation)
+                *
+                */
+            presentationMenuList:function(eventName){
+                eventName.preventDefault();
+                $("#childone_dr").find('ul').hide(200);
+                $("#childtwo_dr").find('ul').hide(200);
+                $("#childfour_dr").find('ul').hide(200);
+                $("#childthree_dr").find('ul').hide(200);
+                $("#presentationmenu_dr").animate({width: 'toggle'},150);
+                },
+        
+                /*
+                * NEW THEME-Function for uploadmedia (dropdown menu)
+                * (childmenu from presentation vialink)
+                *
+                */
+            presentationVialink:function(eventName){
+                eventName.preventDefault();
+                $("#presvialinkchild_dr").animate({width: 'toggle'},350);
+                var i='';
+                var content=''; 
+                $.ajax({
+                    type : 'GET',
+                    url : BS.allStreamsForAUser,
+                    dataType : "json",
+                success : function(options) {
+                    content+='<option>Save to Class</option>'
+                    _.each(options, function(option) {
+                    content+= '<option>'+option.streamName+'</option>';
+                    i++;
+                    });
+                    content+='<option>Profile</option>'
+                        +'<option>My Docs</option>';
+                        $('#presentation-class-list').html(content); 
+                        }	  
+                    });
+                    },
+        
+                /*
+                * NEW THEME-Function for uploadmedia (dropdown menu)
+                * (upload button to upload presentation)
+                *
+                */
+            presentationUpload:function(eventName){
+                eventName.preventDefault();
+                $("#dropdownnew").find('ul').hide(250); 
+                },
+    
+                /**
+                * For uploadmedia menu  (dropdown menu)
+                *  for slide up
+                */
+            uploadMediaup :function(eventName){
+                eventName.preventDefault();
+                if(!$('.fixingmenu_dr').is(":visible") ) 
+                $("#uploadmediachild_dr").slideUp(50); 
+                },
+
+                /*
+                * NEW THEME-Save docs from My computer
+                */
+            saveMyFile: function(eventName){
+                eventName.preventDefault();
+                var self = this;
                 var status = true;
                 var message ='';
                 var streamId = $("#doc-class-list-computer").val();
@@ -1136,49 +1121,39 @@ BS.FilesMediaView = Backbone.View.extend({
                     processData: false,
                     dataType : "json",
                     success: function(data){
-                        if(data!== " ") 
-                            {
-                                document.getElementById('loader-message').innerHTML = data.message;
-                                self.docsList();
-                                self.docFromComputer();
-                                self.audio();
-                                self.presentation();
-                                self.pdffiles();  
-                                $("#dooclinkchild_dr").hide(200);
-                            }
+                        if(data!== " ") {
+                        document.getElementById('loader-message').innerHTML = data.message;
+                        self.docsList();
+                        self.docFromComputer();
+                        self.audio();
+                        self.presentation();
+                        self.pdffiles();  
+                        $("#dooclinkchild_dr").hide(200);
+                        }
                     }
-                }); 
-         },
+                    }); 
+                },
          
-             /**
-     * display profile photo
-     */
-    
-    displayImage:function (e) {
-    	 var self = this;;
-    	 file = e.target.files[0];
-    	 
-    	
-         var reader = new FileReader();
-      
+                /**
+                * display profile photo
+                */ 
+            displayImage:function (e) {
+                var self = this;;
+                file = e.target.files[0];
+                var reader = new FileReader();      
         	 /* capture the file informations */
-             reader.onload = (function(f){
-            	 
-            	 self.image = file;
-            	
-            })(file);
-             
-            // read the image file as data URL
-            reader.readAsDataURL(file);
-         
-    },
+                reader.onload = (function(f){         	 
+                self.image = file;          	
+                })(file);          
+                // read the image file as data URL
+                reader.readAsDataURL(file);        
+                },
     
-    hidePopUpBlock: function()
-    {
-            $("#dooclinkchild_dr").find('ul').hide(100);
-            $("#docsmenu_dr").find('ul').hide(200);
-            $("#childtwo_dr").find('ul').hide(200);
-            $("#uploadmediachild_dr").find('ul').hide(200);
-    }
+            hidePopUpBlock: function(){
+                $("#dooclinkchild_dr").find('ul').hide(100);
+                $("#docsmenu_dr").find('ul').hide(200);
+                $("#childtwo_dr").find('ul').hide(200);
+                $("#uploadmediachild_dr").find('ul').hide(200);
+                }
 });
 
