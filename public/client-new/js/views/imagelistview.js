@@ -13,6 +13,8 @@ BS.ImageListView = Backbone.View.extend({
                 "click #by-class-list li" :"sortByClass",
                 "click #category-list li" :"sortBycategory",
                 "click #view-by-date-list" : "selectViewByDate",
+                "mouseenter .photo-popup": "showCursorMessage",
+                "mouseout  .photo-popup": "hideCursorMessage",
              },
     
             initialize:function(){
@@ -284,7 +286,21 @@ BS.ImageListView = Backbone.View.extend({
                  }
               });
       	   
-         }
+         },
+         
+                /**
+		 * NEW THEME - show a cursor message on files-media preview
+		 */
+		showCursorMessage: function(){
+			$.cursorMessage('Click to view ', {hideTimeout:0});
+		},
+		
+		/**
+		 * NEW THEME - show a cursor message on files-media preview
+		 */
+		hideCursorMessage: function(){
+			$.hideCursorMessage();
+		}
 
         
             
