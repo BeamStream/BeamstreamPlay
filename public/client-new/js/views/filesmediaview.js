@@ -61,6 +61,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 "click .browse-right a" :"selectViewStyle",
                 "click #view-by-date-list" : "selectViewByDate",	
                 "click #uploadmediachild_dr li" :"removeOptions"
+               
                 },
 
 	
@@ -1155,5 +1156,6 @@ BS.FilesMediaView = Backbone.View.extend({
                 $("#childtwo_dr").find('ul').hide(200);
                 $("#uploadmediachild_dr").find('ul').hide(200);
                 }
+                
 });
 
