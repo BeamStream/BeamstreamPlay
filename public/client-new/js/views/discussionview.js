@@ -1394,14 +1394,14 @@
 			_.each(data, function(data) {
 				 
 				var owner = "";
-//				if(data.userId.id == BS.loggedUserId)
-//				{
-//					owner = "true";
-//				}
-//				else
-//				{
-//					owner = "";
-//				}
+				if(data.userId.id == BS.loggedUserId)
+				{
+					owner = "true";
+				}
+				else
+				{
+					owner = "";
+				}
 				var messageType ='';
 				var msgBody = data.messageBody;
                                                 
