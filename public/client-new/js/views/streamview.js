@@ -26,8 +26,8 @@
 			 "click #chat-status" : "openOnlineUsersWindow",
 			 "click .sortable li" : "renderRightContenetsOfSelectedStream",
 			 "click #show-info" :"showDetails",
-			 "mouseenter #show-stream-types" : "showStreamTypesPopup",
-			 "mouseleave #show-stream-types" : "hideStreamTypesPopup",
+//			 "mouseenter #show-stream-types" : "showStreamTypesPopup",
+//			 "mouseleave #show-stream-types" : "hideStreamTypesPopup",
 			 "click #classstream" :"ShowClassStreamPopup",
 
 		 },
