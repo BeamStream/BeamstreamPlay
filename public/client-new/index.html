@@ -2712,7 +2712,7 @@ Create a Class</a>
       <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
       </div></div></div>
       <h5 class="doctitle" id="{{doc.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
-     <div class="dateinfo"><span class="state">State</span><span class="date">{{datVal}}</span></div>
+     <div class="dateinfo"><span class="state">{{doc.documentAccess.name}}</span><span class="date">{{datVal}}</span></div>
     </div>
    </div>
   </div>
@@ -2930,7 +2930,7 @@ Create a Class</a>
       <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
       </div></div></div>
       <h5 class="presentationtitle" id="{{ppt.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
-     <div class="dateinfo"><span class="state">State</span><span class="date">{{datVal}}</span></div>
+     <div class="dateinfo"><span class="state">{{ppt.documentAccess.name}}</span><span class="date">{{datVal}}</span></div>
     </div>
    </div>
   </div>
@@ -2967,7 +2967,7 @@ Create a Class</a>
       <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
       </div></div></div>
       <h5 class="pdftitle" id="{{pdf.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
-     <div class="dateinfo"><span class="state">State</span><span class="date">{{datVal}}</span></div>
+     <div class="dateinfo"><span class="state">{{pdf.documentAccess.name}}</span><span class="date">{{datVal}}</span></div>
     </div>
    </div>
   </div>
@@ -3118,8 +3118,22 @@ Create a Class</a>
 	}
 	
 	</script>
-	
-	
+        
+        <!-- ------------------Method to format date and returns --------------------->
+	<script type="text/javascript">
+             function formatDateVal(dateVal)
+                {
+                var m_names = new Array("January", "February", "March", 
+                                    "April", "May", "June", "July", "August", "September", 
+                                    "October", "November", "December");
+                var d = new Date(dateVal);
+                var curr_date = d.getDate();
+                var curr_month = d.getMonth() + 1; //Months are zero based
+                var curr_year = d.getFullYear();
+                return curr_date + " " + m_names[d.getMonth()] + ", " + curr_year;
+                }
+        </script>    
+	   
 	 <script type="text/javascript">
       window.onload=function(){
         $('.selectpicker').selectpicker();

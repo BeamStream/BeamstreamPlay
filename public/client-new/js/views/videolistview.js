@@ -72,7 +72,6 @@ BS.VideoListView = Backbone.View.extend({
                 var arrayvideos = new Array();
                 var content='';
                 var coverpicture; 
-                BS.user.fetch({ success:function(e) {
                 /* get videos for user */
                 $.ajax({
                     type : 'GET',
@@ -81,8 +80,7 @@ BS.VideoListView = Backbone.View.extend({
                 success : function(videos) {
                     $('#grid').html("");    
                     _.each(videos, function(video) {                        	
-                            BS.filesMediaView = new BS.FilesMediaView(); 
-                            var datVal =  BS.filesMediaView.formatDateVal(video.dateCreated);                          
+                            var datVal =formatDateVal(video.dateCreated);                          
                             var datas = {
                                 "video" : video,
                                 "datVal" :datVal,
@@ -101,8 +99,7 @@ BS.VideoListView = Backbone.View.extend({
                         $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});   
                     }
                     });
-
-                }});
+              
             }, 
        
             

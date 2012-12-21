@@ -72,7 +72,7 @@ BS.ImageListView = Backbone.View.extend({
                 var arraypictures = new Array();
                 var content='';
                 var coverpicture;            
-                BS.user.fetch({ success:function(e) {    
+      
                 	
                 	
                    /* get profile images for user */
@@ -83,9 +83,7 @@ BS.ImageListView = Backbone.View.extend({
                         success : function(images) {
                         	     $('#grid').html("");    
                                 _.each(images, function(image) {  
-                                	
-                                	BS.filesMediaView = new BS.FilesMediaView(); 
-                                    var datVal =  BS.filesMediaView.formatDateVal(image.dateCreated);
+                                    var datVal = formatDateVal(image.dateCreated);
 
                                 	var datas = {
                                             "image" : image,
@@ -115,7 +113,7 @@ BS.ImageListView = Backbone.View.extend({
                       }
                });
 
-            }});
+        
             },
             
             /**

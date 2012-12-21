@@ -78,8 +78,7 @@ BS.PresentationView = Backbone.View.extend({
                 success : function(ppts) {                      	
                 $('#grid').html(""); 
                 _.each(ppts, function(ppt) { 
-                    BS.filesMediaView = new BS.FilesMediaView();  
-                    var datVal = BS.filesMediaView.formatDateVal(ppt.creationDate);     
+                    var datVal = formatDateVal(ppt.creationDate);     
                     var pptdata={
                         "ppt" : ppt,
                         "datVal" :datVal,
