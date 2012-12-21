@@ -77,9 +77,8 @@ BS.PdfListView = Backbone.View.extend({
                     dataType : "json",
                 success : function(pdfs) {
                         $('#grid').html(""); 
-                        _.each(pdfs, function(pdf) { 
-                        BS.filesMediaView = new BS.FilesMediaView();                                   
-                        var datVal = BS.filesMediaView.formatDateVal(pdf.creationDate);     
+                        _.each(pdfs, function(pdf) {                                 
+                        var datVal = formatDateVal(pdf.creationDate);     
                         var pdfdata={
                             "pdf" : pdf,
                             "datVal" :datVal,

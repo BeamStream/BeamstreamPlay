@@ -86,11 +86,8 @@ BS.GoogleDocsView = Backbone.View.extend({
                 success : function(docs) {
                     $('#grid').html(""); 
                     var content = '';                   
-                    _.each(docs, function(doc) { 	                	
-                        BS.filesMediaView = new BS.FilesMediaView();                      
-                        var datVal =  self.formatDateVal(doc.creationDate);
-                        console.log(doc.creationDate);
-                        console.log(datVal);
+                    _.each(docs, function(doc) { 	                	                  
+                        var datVal =formatDateVal(doc.creationDate);
                         var datas = {
                             "doc" : doc,
                             "datVal" :datVal,
@@ -107,20 +104,6 @@ BS.GoogleDocsView = Backbone.View.extend({
                     shufflingOnSorting();               
                     }
                     });        
-                },
-
-                /*
-                * NEW THEME -Format date and returns 
-                */
-            formatDateVal: function(dateVal){
-                var m_names = new Array("January", "February", "March", 
-                "April", "May", "June", "July", "August", "September", 
-                "October", "November", "December");
-                var d = new Date(dateVal);
-                var curr_date = d.getDate();
-                var curr_month = d.getMonth() + 1; //Months are zero based
-                var curr_year = d.getFullYear();
-                return curr_date + " " + m_names[d.getMonth()] + ", " + curr_year;
                 },
         
                 /**

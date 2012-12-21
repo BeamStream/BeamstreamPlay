@@ -47,7 +47,6 @@
 	    	
 	  		BS.user = new BS.SingleUser();
 	    	BS.user.authenticate();
-			console.log("Success Testing");
 	    	var self = this;
 	    	BS.idLogin = '';
 	        BS.mySchools = '';
@@ -1013,15 +1012,13 @@
             	
 		                  $('#body-content').children().detach();
 		                  console.log("befor nav View");
-		                  BS.user.fetch({ success:function(e){
 							   //get main menu
 							   this.navView = new BS.NavView({ model: BS.user });
 							   this.navView.showProfilePic();
 							   $('#topheader').html(this.navView.render().el);
 							   $('li a.active').removeClass('active');
 							   $('#menu-browsemedia').addClass('active');					   
-							   $('#right-top-photo').attr("src",BS.profileImageUrl);			       
-					       }});                             
+							   $('#right-top-photo').attr("src",BS.profileImageUrl);			       					                                 
 		                    BS.googledocsview = new BS.GoogleDocsView({});
 		                   BS.googledocsview.render();  
 		                   $('#body-content').html(BS.googledocsview.el);
@@ -1049,16 +1046,13 @@
  					if(e.get('loggedin') == true) {  
  						
 	                  $('#body-content').children().detach();
-	                  console.log("befor nav View");
-	                  BS.user.fetch({ success:function(e){
 						   //get main menu
 						   this.navView = new BS.NavView({ model: BS.user });
 						   this.navView.showProfilePic();
 						   $('#topheader').html(this.navView.render().el);
 						   $('li a.active').removeClass('active');
 						   $('#menu-browsemedia').addClass('active');					   
-						   $('#right-top-photo').attr("src",BS.profileImageUrl);			       
-				       }}); 
+						   $('#right-top-photo').attr("src",BS.profileImageUrl);			       			
 	                  BS.doclistview = new BS.DocListView();
 	                  BS.doclistview.render();
 	                  $('#body-content').html(BS.doclistview.el); 
@@ -1084,15 +1078,13 @@
   					if(e.get('loggedin') == true) {  
   						
 	                   $('#body-content').children().detach();
-	                   BS.user.fetch({ success:function(e){
 						   //get main menu
 						   this.navView = new BS.NavView({ model: BS.user });
 						   this.navView.showProfilePic();
 						   $('#topheader').html(this.navView.render().el);
 						   $('li a.active').removeClass('active');
 						   $('#menu-browsemedia').addClass('active');					   
-						   $('#right-top-photo').attr("src",BS.profileImageUrl);			       
-	                   }});   
+						   $('#right-top-photo').attr("src",BS.profileImageUrl);			        
 	                   BS.imagelistview = new BS.ImageListView({})
 	                   BS.imagelistview.render();  
 	                   $('#body-content').html(BS.imagelistview.el); 
@@ -1117,22 +1109,18 @@
             	 
             	 var self=this;
             	 BS.user.fetch({ success:function(e) {
-   					if(e.get('loggedin') == true) {  
-   						
+   					if(e.get('loggedin') == true) {    						
 		                 $('#body-content').children().detach();                 
-		                 BS.user.fetch({ success:function(e){
 							   //get main menu
 							   this.navView = new BS.NavView({ model: BS.user });
 							   this.navView.showProfilePic();
 							   $('#topheader').html(this.navView.render().el);
 							   $('li a.active').removeClass('active');
 							   $('#menu-browsemedia').addClass('active');					   
-							   $('#right-top-photo').attr("src",BS.profileImageUrl);			       
-						 }});
+							   $('#right-top-photo').attr("src",BS.profileImageUrl);			       						
 		                 BS.videolistview = new BS.VideoListView();
 		                 BS.videolistview.render();
-		                 $('#body-content').html(BS.videolistview.el); 
-		                 
+		                 $('#body-content').html(BS.videolistview.el); 	                 
 		                 self.getAllClasses();
 	//	                 $('.file-type').hide();   //to hide the filetype menu
    					}
@@ -1155,7 +1143,6 @@
     					if(e.get('loggedin') == true) {  
 			                 $('#body-content').children().detach();
 			                 console.log("audioList");
-			                 BS.user.fetch({ success:function(e){
 								   //get main menu
 								   this.navView = new BS.NavView({ model: BS.user });
 								   this.navView.showProfilePic();
@@ -1163,7 +1150,6 @@
 								   $('li a.active').removeClass('active');
 								   $('#menu-browsemedia').addClass('active');					   
 								   $('#right-top-photo').attr("src",BS.profileImageUrl);			       
-							 }});
 			                 BS.audiolistview=new BS.AudioListView();
 			                 BS.audiolistview.render();
 			                 $('#body-content').html(BS.audiolistview.el); 
@@ -1191,7 +1177,6 @@
      						
 		                    $('#body-content').children().detach();
 		                    console.log("presentationList");   
-		                    BS.user.fetch({ success:function(e){
 								   //get main menu
 								   this.navView = new BS.NavView({ model: BS.user });
 								   this.navView.showProfilePic();
@@ -1199,7 +1184,6 @@
 								   $('li a.active').removeClass('active');
 								   $('#menu-browsemedia').addClass('active');					   
 								   $('#right-top-photo').attr("src",BS.profileImageUrl);			       
-						    }});
 		                    BS.presentationview =new BS.PresentationView();
 		                    BS.presentationview.render();
 		                    $('#body-content').html(BS.presentationview.el); 
@@ -1225,7 +1209,6 @@
      					if(e.get('loggedin') == true) { 
 		                     $('#body-content').children().detach();
 		                     console.log("presentationList"); 
-		                     BS.user.fetch({ success:function(e){
 								   //get main menu
 								   this.navView = new BS.NavView({ model: BS.user });
 								   this.navView.showProfilePic();
@@ -1233,7 +1216,7 @@
 								   $('li a.active').removeClass('active');
 								   $('#menu-browsemedia').addClass('active');					   
 								   $('#right-top-photo').attr("src",BS.profileImageUrl);			       
-		                     }});  
+		               
 		                    BS.pdflistview =new BS.PdfListView();
 		                    BS.pdflistview.render();
 		                    $('#body-content').html(BS.pdflistview.el); 
@@ -1246,6 +1229,6 @@
     					}
     				
     	           }});	
-              },
-	              
+              }
+	                
 			});

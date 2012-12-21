@@ -15,7 +15,7 @@ BS.DocListView = Backbone.View.extend({
                 },     
     
             initialize:function() {          	
-                console.log("google docs view is loded");
+                console.log("docs view is loded");
                 this.docsList();   
                 this.source = $("#tpl-docsview").html();
                 this.template = Handlebars.compile(this.source);
@@ -82,15 +82,13 @@ BS.DocListView = Backbone.View.extend({
                     $('#grid').html(""); 
                     var content = '';
                     _.each(docs, function(doc) {
-                        BS.filesMediaView = new BS.FilesMediaView(); 
-                        var datVal =  BS.filesMediaView.formatDateVal(doc.creationDate);
+                        var datVal = formatDateVal(doc.creationDate);
                         var extension = (doc.documentURL).match(extensionpattern); 
 
                         // set first letter of extension in capital letter  
                         extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
                             return letter.toUpperCase();
                         });
-                        console.log('extension'+extension);
                         var datas = {
                             "doc" : doc,
                             "datVal" :datVal,
