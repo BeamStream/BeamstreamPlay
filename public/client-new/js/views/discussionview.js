@@ -422,7 +422,7 @@
 	              	    $('#file-upload-loader').css("display","none");
 	              	    $('.embed-info').css("display","none");
 	              	    
-	              	    var datVal =  BS.filesMediaView.formatDateVal(data.timeCreated);
+	              	    var datVal = formatDateVal(data.timeCreated);
 	                  	 
 	  	                var datas = {
 	  	                		"datas" : data,
@@ -700,8 +700,8 @@
                              }	
                               
                              // set a format style to date
-                             BS.filesMediaView = new BS.FilesMediaView(); 
-                             var datVal =  BS.filesMediaView.formatDateVal(data.timeCreated);
+//                             BS.filesMediaView = new BS.FilesMediaView(); 
+                             var datVal = formatDateVal(data.timeCreated);
     			                    
                              // if message conatains googledoc url
                              if(messageType == "googleDocs")
@@ -1494,8 +1494,8 @@
                 	  }
                 }
                 
-                BS.filesMediaView = new BS.FilesMediaView(); 
-                var datVal =  BS.filesMediaView.formatDateVal(data.timeCreated);
+//                BS.filesMediaView = new BS.FilesMediaView(); 
+                var datVal =  formatDateVal(data.timeCreated);
                 
 				var datas = {
 					 	 "datas" : data,
@@ -1945,7 +1945,7 @@
 		   	   		                	 });
 
 		                    		 }
-		                             var datVal =  BS.filesMediaView.formatDateVal(message.data.timeCreated);
+		                             var datVal =  formatDateVal(message.data.timeCreated);
 		                             var datas = {
 		                            		 "datas" : message.data,
 		                            		 "datVal":datVal
