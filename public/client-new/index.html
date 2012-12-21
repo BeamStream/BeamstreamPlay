@@ -59,6 +59,12 @@
  <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap-select.css">
  <script src="lib/bootstrap-select.js"></script>
  <!--  End --> 
+ 
+ 
+ <!-- jcrop - crop images  -->
+ <link rel="stylesheet" href="css/extracss/jquery.Jcrop.css" type="text/css" />
+ <script src="lib/extralib/jquery.Jcrop.js" type="text/javascript"></script>
+ <!--  end -->
 
 </head>
 
@@ -239,9 +245,8 @@ Create a Class</a>
                 <button class="btn seetings-toggle">Settings</button>
                 <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class="caret settings-caret"></span></button>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products </a></li>
+                  <li id="edit-profile" ><a href="#">Edit Profile</a></li>
+                  
                 </ul>
               </div>
             </div>
@@ -2744,6 +2749,148 @@ Create a Class</a>
   </div>
 </script>
 
+
+<!-- @TODO edit profile view  -->
+<!-- Documents popup window to show documents -->
+<script type="text/x-handlebars-template" id="edit-profile-tpl">
+ <div id="edit-profile-popup" class="modal hide fade in" style="display: none; ">
+<div name="image-crop" id="image-crop-view" ></div>
+            <div class="modal-header">
+              <a class="close" data-dismiss="modal">×</a>
+              <h3></h3>
+            </div>
+            <div class="modal-body">
+              <form name="profile-form" id ="profile-form"  method="POST" enctype="multipart/form-data">
+            <fieldset>
+                <legend class="legend">Profile info</legend>
+              
+                <div class="form-row">
+                    <div class="element" style="float: left !important; margin-left: 60px !important; margin-right: 10px; width: 399px !important;">
+                        <label name="profile-image" for="profile-photo">Profile photo</label>
+                        <span class="profile-thumb">
+                           <div id="img"></div>
+                           <div id="default-image" style="height: 100px; width: 100px; overflow:hidden;">
+                          
+                             <img id="profile-photo" src="images/no-photo.png" style="max-width: none !important;"  alt="no photo" name="profile-photo" exif="true">
+                            
+							<div id="image-loader" style="display :none;">  
+			                   <img src ="images/loading.gif"> 
+                            </div>
+                           </div>
+                        </span>
+                        <div class="profile-upload-box">
+							<input id="profile-image" type="file"  name="profile-image" >
+                             <div style="margin-top:10px;" id="remove-image" ><div id="image-info" style="display:none;"></div><a style="display:none;" class ="delete-image" href="#" ><img src="images/close button1.png"></a> </div>
+                              
+                            
+                        </div>
+                        <div class ="make-it">
+                        <ul class="add-type">
+
+                        <li><div class="profile-radio"><input  id="img-primary"  type="radio"  checked="checked" value=true name="img-status" /></div><span>Make it Primary</span></li>
+					    <li><div class="profile-radio"><input  type="radio" id="img-secondary" name="img-status" value=false /></div><span>Make It Secondary</span></li>
+                        </ul>
+                       </div>
+                    </div>
+                    <div class="element last"style="float: left !important; margin-left: 60px !important; margin-right: 10px; width: 399px !important;">
+                        <label name="my-video" for="profile-video">Profile video</label>
+                        <span class="profile-thumb">
+                          
+                              <img id="profile-video" src="images/no-video.png"  style="width:95px; height:90px;" alt="no video" name="profile-video">
+                           
+						</span>
+                        <div class="profile-upload-box">
+							<input type="file" name="my-video" id="my-video"/>
+                             <div style="margin-top:10px;" id="remove-video" ><div id="video-info" style="display:none;"></div> <a style="display:none;" class ="delete-video" href="#" ><img src="images/close button1.png"></a> </div>
+                        </div>
+                         <div class ="make-it">
+                        <ul class="add-type">
+
+                        <li><div class="profile-radio"><input type="radio" id="video-primary" name="video-status" value=true /></div><span>Make it Primary</span></li>
+					    <li><div class="profile-radio"><input type="radio" id="video-secondary" checked="checked" value=false  name="video-status" /></div><span>Make It Secondary</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-row-label">&nbsp;</div>
+                <div class="form-row">
+                   
+                    <div class="element">
+                        <label name="upload" for="upload">Upload</label>
+                        <select id="upload" class="large" name="upload">
+							<option value="Links">Links</option>
+							<option value="Documents">Documents</option>
+							<option value="PDF's">PDF's</option>
+							<option value="Videos">Videos</option>
+                            <option value="Presentation">Presentation</option>
+                            <option value="Audio">Audio</option>
+ 							<option value="Spredsheets">Spredsheets</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+			<input type="hidden"   id="imagedata" />
+            <input type="hidden"   id="videodata" />
+        </form>
+                       
+            </div>
+            
+                  
+
+			 	<div class="progress-container" style="margin-left: 250px; margin-top: 5px;width: 400px;">
+				
+			    <div class="progress progress-striped active">
+			        <div class="bar" style="width: 0%;"></div>
+			    </div> 
+<!-- 				<label id="wait" style="text-align: center;" >Please Wait.... </label></br> -->
+		       
+				</div> 
+		
+		        <a style="margin-bottom: 15px;margin-left: 50px;" href="#messages" class="btn btn-primary pull-left"  id="save" >Save & Exit</a>
+		         
+             
+  </div>
+</script>
+
+
+<!-- @TODO edit profile view  -->
+<!-- Image Crop view -->
+<script type="text/x-handlebars-template" id="image-crop-tpl">
+ <div id="image-crop-popup" class="modal hide fade in" style="display: none; height:600px; top:45% !important;">
+            <div class="modal-header">
+              <a class="close" data-dismiss="modal">×</a>
+              <h3></h3>
+            </div>
+            <div class="modal-body">
+               <form name="add-new-school-form"  >
+            <fieldset>
+				 <table>
+			      <tr>
+			        <td>
+			          <img   src="{{image}}" id="target" alt="Flowers" />
+			        </td>
+			        <td>
+			          <div style="width:100px;height:100px;overflow:hidden; margin-left:10px;">
+			            <img src="{{image}}" id="preview" alt="Preview" class="jcrop-preview" />
+			          </div>
+			           
+			        </td>
+			      </tr>
+			    </table>
+			<input type="hidden" id="x" name="x" /> <input
+					type="hidden" id="y" name="y" /> <input type="hidden" id="w"
+					name="w" /> <input type="hidden" id="h" name="h" />
+					
+            </fieldset>
+        </form>
+           <a href="#" id="crop"  class="btn btn-primary pull-left"  >Crop Image</a>
+                       
+            </div>
+       
+  </div>
+</script>
+
+
 <!-- Documents popup window to show presentation/pdf etc.. -->
 <script type="text/x-handlebars-template" id="mediafiles-popup-tpl">
 <div id="bootstrap_popup" class="modal hide fade in" style="display: none; ">
@@ -2967,9 +3114,7 @@ Create a Class</a>
             
             
         });
-        
-      
-        
+
 	}
 	
 	</script>
@@ -3071,6 +3216,11 @@ Create a Class</a>
 	<script src="js/views/questionview.js"></script>
 	<script src="js/views/calendarview.js"></script>
 	<script src="js/views/deadlineview.js"></script>
+	
+	
+	<!-- edit profile -->
+	<script src="js/views/editprofileview.js"></script>
+	<script src="js/views/imagecropview.js"></script>
 
 	<!-- End -->
 	

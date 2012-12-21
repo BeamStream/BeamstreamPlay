@@ -40,6 +40,8 @@
 	        "presentationview": "presentationList",
 	        "pdflistview":"pdflistview",
 	        "settings" : "settings",
+	        
+	       
 	
 	    },
 	    
@@ -434,7 +436,7 @@
 		   BS.user.fetch({ success:function(e) {
 			   if(e.get('loggedin') == true) {  
 		     
-				   $("#dialog").dialog('close');
+//				   $("#dialog").dialog('close');
 			       BS.profileView = new BS.ProfileView();
 			       BS.profileView.render();
 			       $('#school-popup').html(BS.profileView.el); 
@@ -460,8 +462,7 @@
 				
 		  }});
 	   },
-	  
-	   
+ 
 	   /**
 	    * display main stream page
 	    */
