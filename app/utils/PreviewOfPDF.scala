@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
-
 import org.dopdf.document.model.PageDetail
 import org.dopdf.document.read.pdf.PDFDocumentReader
 
