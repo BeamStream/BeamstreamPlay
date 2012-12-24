@@ -198,10 +198,10 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     val newClass = Class(new ObjectId, "001", "Physics", ClassType.Semester, "9:00PM", formatter.parse("21-03-12"), new ObjectId, List(stream.id))
     val otherNewClass = Class(new ObjectId, "001", "Physics", ClassType.Semester, "9:00PM", formatter.parse("22-03-12"), new ObjectId, List(oneMoreStream.id))
 
-    val message5 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Private), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message5 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.PrivateToClass), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
     val message1 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
     val message2 = Message(new ObjectId, "some message2", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
-    val message3 = Message(new ObjectId, "some message3", Option(MessageType.Audio), Option(MessageAccess.Private), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message3 = Message(new ObjectId, "some message3", Option(MessageType.Audio), Option(MessageAccess.PrivateToClass), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
     val message4 = Message(new ObjectId, "some message4", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
 
     Message.createMessage(message5)
@@ -215,7 +215,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
 
     val message6 = Message(new ObjectId, "Neelkanth", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(oneMoreStream.id), "", "", 0, List(), List(), 0, List())
     val message7 = Message(new ObjectId, "Sachdeva", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(oneMoreStream.id), "", "", 0, List(), List(), 0, List())
-    val message8 = Message(new ObjectId, "Consultant", Option(MessageType.Audio), Option(MessageAccess.Private), formatter.parse("21-01-12"), user.id, Option(oneMoreStream.id), "", "", 0, List(), List(), 0, List())
+    val message8 = Message(new ObjectId, "Consultant", Option(MessageType.Audio), Option(MessageAccess.PrivateToClass), formatter.parse("21-01-12"), user.id, Option(oneMoreStream.id), "", "", 0, List(), List(), 0, List())
     val message9 = Message(new ObjectId, "Developer", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-07-12"), user.id, Option(oneMoreStream.id), "", "", 0, List(), List(), 0, List())
 
     Message.createMessage(message6)
