@@ -9,28 +9,28 @@ object onlineUserCache {
   /**
    * Activate The User Session
    */
-  
+
   def setOffline(userIdkey: String) = {
-    onlineUser --= List(userIdkey)
+    onlineUser filterNot (List(userIdkey) contains)
     Cache.set("Online Users", onlineUser)
     onlineUser.length
   }
-  
+
   /**
    * Deactivate The User Session
    */
-  
+
   def setOnline(userIdkey: String): Int = {
     onlineUser ++= List(userIdkey)
     Cache.set("Online Users", onlineUser)
     onlineUser.length
   }
-  
+
   /**
-   * List Of All Online Users 
+   * List Of All Online Users
    */
-def returnOnlineUsers={
-  Cache.get("Online Users")
-}
-  
+  def returnOnlineUsers = {
+    Cache.get("Online Users")
+  }
+
 }
