@@ -24,8 +24,9 @@ object MessageType extends Enumeration {
 
 object MessageAccess extends Enumeration {
   type MessageAccess = Value
-  val Private = Value(0, "Private")
-  val Public = Value(1, "Public")
+  val Public = Value(0, "Public")
+  val PrivateToClass = Value(1, "PrivateToClass")
+  val PrivateToSchool = Value(2, "PrivateToSchool")
 }
 
 case class Message(@Key("_id") id: ObjectId,
@@ -191,7 +192,7 @@ object Message { //extends CommentConsumer {
       case true =>
         // Unfollow a message
         //SelectedmessagetoRock.follows
-        MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(followers = (SelectedmessagetoRock.followers filterNot(List(userId) contains))), false, false, new WriteConcern)
+        MessageDAO.update(MongoDBObject("_id" -> messageId), SelectedmessagetoRock.copy(followers = (SelectedmessagetoRock.followers filterNot (List(userId) contains))), false, false, new WriteConcern)
         val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
         MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(follows = (updatedMessage.follows - 1)), false, false, new WriteConcern)
         val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
