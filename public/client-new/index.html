@@ -16,67 +16,56 @@
 <title>Beam Stream</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="css/jquery.simplyscroll.css" media="all" type="text/css">
 <link href="css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
 <script type="text/JavaScript" src="lib/jquery-1.js"></script>
 <script type="text/JavaScript" src="lib/jquery.js"></script>
+<script type="text/JavaScript" src="lib/bootstrap-modal.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700' rel='stylesheet' type='text/css'>
 <script type="text/JavaScript" src="lib/bootstrap.js"></script>
-    <!-----------left Container scroller --->
-<script type="text/javascript"> 
-    (function($) {
-//        $(function() { //on DOM ready
-//            $(".scroller").simplyScroll({
-//            customClass: 'vert',
-//            orientation: 'vertical',
-//            auto: false,
-//            manualMode: 'loop',
-//            frameRate: 20,
-//            speed: 5
-//            });		
-//        $('#sortable1, #sortable2').sortable();
-//        $('#sortable3').sortable({
-//            items: ':not(.disabled)'
-//            });
-//        $('#sortable-with-handles').sortable({
-//            handle: '.handle'
-//            });
-//        $('#sortable4, #sortable5').sortable({
-//            connectWith: '.connected'
-//            });		
-//	});	
-//	$(window).load(function(){		
-//            $('.drag-rectangle').tooltip()		
-//            $("#user-online").mCustomScrollbar({
-//                set_width:false, /*optional element width: boolean, pixels, percentage*/
-//                set_height:false, /*optional element height: boolean, pixels, percentage*/
-//                horizontalScroll:false, /*scroll horizontally: boolean*/
-//                scrollInertia:550, /*scrolling inertia: integer (milliseconds)*/
-//                scrollEasing:"easeOutCirc", /*scrolling easing: string*/
-//                mouseWheel:"auto", /*mousewheel support and velocity: boolean, "auto", integer*/
-//                autoDraggerLength:true, /*auto-adjust scrollbar dragger length: boolean*/
-//                scrollButtons:{ /*scroll buttons*/
-//                    enable:false, /*scroll buttons support: boolean*/
-//                    scrollType:"continuous", /*scroll buttons scrolling type: "continuous", "pixels"*/
-//                    scrollSpeed:20, /*scroll buttons continuous scrolling speed: integer*/
-//                    scrollAmount:40 /*scroll buttons pixels scroll amount: integer (pixels)*/
-//                    },
-//                advanced:{
-//                    updateOnBrowserResize:true, /*update scrollbars on browser resize (for layouts based on percentages): boolean*/
-//                    updateOnContentResize:false, /*auto-update scrollbars on content resize (for dynamic content): boolean*/
-//                    autoExpandHorizontalScroll:false /*auto expand width for horizontal scrolling: boolean*/
-//                    },
-//                callbacks:{
-//                    onScroll:function(){}, /*user custom callback function on scroll event*/
-//                    onTotalScroll:function(){}, /*user custom callback function on bottom reached event*/
-//                    onTotalScrollOffset:0 /*bottom reached offset: integer (pixels)*/
-//                    }
-//                });
-//            });			
-    })(jQuery);        
-</script>
+
+<!-- embedly preview js -->
+<link rel="stylesheet" href="css/extracss/embedly-preview.css" type="text/css" />
+<script src="lib/extralib/jquery.embedly.min.js" type="text/javascript"></script>
+<script src="lib/extralib/embedly-preview.js" type="text/javascript"></script>
+<!-- end  -->
+
+<!--  prettyPhoto -->
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/extracss/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+<script src="lib/extralib/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+<!-- end  -->
+
+<!--  Shuffle in media page -->
+
+ <script type="text/javascript" src="lib/extralib/jquery.shuffle.js"></script> 
+
+<!-- end  -->
+
+<!-- Bootstrap modal js -->
+<!-- <script type="text/javascript" src="lib/bootstrap-modal.js"></script> -->
+<!--  End  -->
+
+
+<!-- cursor Message -->
+<link rel="stylesheet" href="css/extracss/jquery.cursorMessage.css" type="text/css" />
+<script src="lib/extralib/jquery.cursorMessage.js" type="text/javascript"></script>
+<!-- End -->
+
+<!-- select box  style js  -->
+ <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap-select.css">
+ <script src="lib/bootstrap-select.js"></script>
+ <!--  End --> 
+ 
+ 
+ <!-- jcrop - crop images  -->
+ <link rel="stylesheet" href="css/extracss/jquery.Jcrop.css" type="text/css" />
+ <script src="lib/extralib/jquery.Jcrop.js" type="text/javascript"></script>
+ <!--  end -->
+
 </head>
 
 <body>
@@ -92,16 +81,153 @@
 </header>
 <article>
   <div class="container-fluid">
+      <div id="edit-popup"></div>
     <div class="main-container" id="body-content">      
-
+    
         <!----  body content--->
-      
+        
     </div>
+    <!--  for poups -->
+    <div id="beam-popups"></div>
   </div>
+  
 </article>
+<div pub-key="pub-a8c5db9f-8482-4092-b9e4-44fda38a9d51"
+		sub-key="sub-315698a6-0b22-11e2-80cd-aba6e1687b8d" ssl="off"
+		origin="pubsub.pubnub.com" id="pubnub"></div>
+	<script src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
 </body>
-<!--  backbone templates  -->
-        <!--  mainmenu  templates  -->
+<!-------------------------------------------  backbone templates ------------------------------------------>
+
+<!--  Class stream template -->
+<script type="text/x-handlebars-template" id="tpl-class-stream">
+    <div id="class-stream-popup" class="modal hide fade in" style="display:block;">
+     <div id="new-school-view" ></div>
+     <div class="modal-header">
+    <div class="control-button">
+	<a href="#"><img id="close-stream" class="close-button" src="images/close-button.png"></a>
+    </div>
+    <h1 class="pull-left">Create a class stream</h1>
+  </div>
+   <div id="error" class="invalid-validation" style="margin-left: 22px;"></div> 
+  
+  <div class="modal-body">
+    <form>
+      <fieldset class="class-pop">
+        <div class="form-row class-row">
+          <div class="element" id="div-school">
+               <label name="schools" for="schools">School</label>
+               <div id ="sShool" > 
+               <select id="schools" class="small">
+                      
+               </select>
+              </div>
+          </div>
+          <div class="element" id="for-new-school">
+            <label name="new-school" for="school-name">Enter New School</label>
+            <input type="text" id="new-school" value="" placeholder="School Name" class="large ">
+            <input  type="hidden" id="new-school-id">
+			
+          </div>
+        </div>
+        <div class="form-row class-row">
+           <div class="element ">
+            <label name="class_name" for="class-name">Class name</label>
+            <input type="text" id="class_name" class="validate[required] medium class_name" placeholder="Class name">
+			<div id="ps" class="class-info-popup"></div>
+          </div>
+            <div class="element" id="div-time">
+              <label name= "class-time" for="class-time">Class time</label>
+              <select id="class-time" class="time">
+				  {{#each times}}
+                        <option value="{{this.time}}">{{this.time}}</option>
+                  {{/each}}
+              </select>
+          </div>
+          <div class="element">
+            <label name="class-code" for="class-code">Class code</label>
+            <input type="text" id="class-code" class="validate[required] small class_code" placeholder="Class code">
+          </div>
+         
+          <div class="element">
+            <label name="date-started" for="date-started">Month/Year started</label>
+            <input class="small datepicker cal" type="text" placeholder="Date" id="date-started"/>
+          </div>
+          <div class="element" id="div-school-type">
+            <label name="semester" for="semester">Semester or Quarter</label>
+            <select id="semester" class="small">
+              <option value="semester" >Semester</option>
+              <option value="quarter">Quarter</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row class-row">
+          <div class="element">
+            <label name="educator-mail" for="educator-mail" class="plus-sign">Add Educators via Email</label>
+            <input type="text" id="educator-mail" placeholder="Educator's Email" class="large">
+          </div>
+          <div class="element">
+           <label   class="plus-sign align-middle">Add Classmates & Friends</label>
+          <div class="social-block class-social">
+                    <a class="facebook" href="#"></a>
+                    <a class="twitter" href="#"></a>
+                    <a class="linkedin" href="#"></a>
+                    <a class="google" href="#"></a>
+                    <a class="mail" href="#"></a>
+                    <img src="images/or_email.png">
+                 </div>
+                 
+           </div>
+          <div class="element">
+            <label name="classmates-mail" for="classmates-mail">(seperate by comma)</label>
+            <input type="text" id="classmates-mail" placeholder="Classmates Email, Friend's" class="large">
+          </div>
+        </div>
+        <div class="form-row">
+          <div id="class-tags">
+          <div class="element">
+            <label name="tag1" for="tag1"  class="plus-sign">Add Class Tag 1</label>
+            <input type="text" id="tag1" placeholder="Tag 1" class="large tag-position">
+            <i class="icon-middle-tag tag-place"></i>
+          </div>
+          <div class="element">
+            <label name= "tag2" for="tag2" class="plus-sign">Add Class Tag 2</label>
+            <input type="text" id="tag2" placeholder="Tag 2" class="large tag-position">
+			<i class="icon-middle-tag tag-place"></i>
+          </div>
+          <div class="element">
+            <label name = "tag3" for="tag3" class="plus-sign">Add Class Tag 3</label>
+            <input type="text" id="tag3" placeholder="Tag 3" class="large tag-position">
+			<i class="icon-middle-tag tag-place"></i>
+          </div>
+         </div>
+        </div>
+        <div class="form-row class-row">
+         <legend style="float:left !important;"class="legend legend-add" id="add-tags">ADD MORE TAGS</legend>
+         </div>
+         <div id="student-number" class="studentno-popup"></div>
+      </fieldset>
+    </form>
+  </div>
+<div class="modal-footer">
+ 
+<a id="joinClass" class="btn btn-primary pull-left" href="#joinClass">
+	<div id="join-class-loader" style="display :none;">  
+		<img src ="images/loading.gif"> 
+	 </div>
+   Join a Class</a>
+<a id="createClass" class="btn btn-success pull-right" href="#createClass">
+	<div id="create-class-loader" style="display :none;">  
+		<img src ="images/loading.gif"> 
+	 </div>
+Create a Class</a>
+</div>
+</div>
+</script>
+
+
+
+<!-- ---- mainmenu  templates ------- -->
 <script type="text/x-handlebars-template" id="tpl-navs">
      <div class="container-fluid"> <a href="index.html" class="brand"><img src="images/logo.png" width="148" height="37"></a>
       <form class="navbar-form pull-left search-block">
@@ -112,16 +238,15 @@
       <div class="header-profile">
         <div class="header-icon"><img src="images/icon.png" width="31" height="32"></div>
         <div class="public-profile">
-          <div class="profile-img"><img src="images/profile-img.png" width="41" height="41"></div>
+          <div class="profile-img"><img id="right-top-photo" src="" width="41" height="41"></div>
           <div class="profile-info"> <a href="#" class="profile-button">Public Profile</a>
             <div class="settings-menu">
               <div class="btn-group">
                 <button class="btn seetings-toggle">Settings</button>
                 <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class="caret settings-caret"></span></button>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products </a></li>
+                  <li id="edit-profile" ><a href="#">Edit Profile</a></li>
+                  
                 </ul>
               </div>
             </div>
@@ -142,9 +267,10 @@
     </div>
 </script> 
 
+
+
         <!--  streamview   templates  -->
 <script type="text/x-handlebars-template" id="tpl-main-stream">
-          
       <!--------------------------------------Left Container---------------------------------------->
      
       
@@ -156,40 +282,47 @@
                 <button class="btn display-dropdown">Display All Streams</button>
                 <button class="btn display-toggle" data-toggle="dropdown"> <span class="caret display-caret"></span></button>
                 <ul class="dropdown-menu display-sub">
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products </a></li>
+                  <li><a href="#">Class Streams</a></li>
+                  <li><a href="#">Project Streams</a></li>
+                  <li><a href="#">Study Streams</a></li>
+				  <li><a href="#">Group Streams</a></li>
+				  <li><a href="#">Peer Streams</a></li>
+				  <li><a href="#">Friends Streams</a></li>
+				  <li><a href="#">Major Streams</a></li>
+
                 </ul>
               </div>
-              <a href="#" class="done">EDIT</a> </div>
+              <a href="#" class="done">EDIT </a> </div>
             <div class="display-scroller">
               <div class="arrow-block"><span class="caret arrow-up"></span></div>
               <div class="scroll-menu scroller">
                 <ul id="sortable4" class="connected sortable list">
-                  <li class="icon1"><a href="#" class="icon1">Calculus <span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span> </a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li><a href="#" class="icon1">Intro to Java<span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span> </a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li><a href="#" class="icon1">Intro to Business <span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li><a href="#" class="icon2">Best Buddies<span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li><a href="#" class="icon1">Research<span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li><a href="#" class="icon3">Study Team <span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li class="red-bg"> <a href="#" class="read-more">Remove</a> <a href="#" class="cancel">Cancel</a> </li>
+                 
+
                 </ul>
               </div>
               <div class="arrow-block arrow-block-down"></div>
             </div>
-            <div class="straem-block"> <a href="#"><span><img src="images/plus.png" width="23" height="22"></span><span class="text">New Stream</span></a> </div>
+            <div id="show-stream-types"  class="straem-block"> 
+            	<a  id="streams-list-block" href="#">
+            		<span><img src="images/plus.png" width="23" height="22"></span>
+            		<span class="text">New Stream</span>
+          		</a> 
+          		
+          		<div class="streams-popup">                   
+                       <div class="streams-list-block">
+                        <span ><img src="images/arrow-left.png"></span>
+                        <ul>
+                         <li><a  id ="classstream" href="#classStream">ClassStream </a> <img src="images/small_hand.png"> Collaborate within your class</li>
+						 <li><a id="projectStream" href="#projectStream">ProjectStream </a><img src="images/small_hand.png"> Shortterm  projects w/ an end date - choose to add to your profile upon completion</li>
+                         <li><a id="studyStream" href="#studyStream">StudyStream  </a><img src="images/small_hand.png"> Study Group of students from your class, degree program, school and beyond</li>
+					 	 <li><a id ="groupStream" href="#groupStream">GroupStream </a><img src="images/small_hand.png"> Ongoing groups about anything, make them public or private </li>
+						 <li><a id="peerStream" href="#peerStream">PeerStream  </a><img src="images/small_hand.png"> Students or Professors:Stay connected w/ your peer</li>
+						 <li><a id ="friendStream" href="#friendStream">FriendStream  </a><img src="images/small_hand.png"> Collaborate and stay in touch w/ your friends</li>
+                        </ul>
+                 </div>
+                 </div>
+          	</div>
           </div>
           <div class="chat-box">
             <div class="chat-window">
@@ -220,50 +353,617 @@
       <!--------------------------------------Right Conatiner---------------------------------------->
       
       <div class="right-container">
-        <div class="stream-header">
+
+           <!-- ----Render Right_Container template here----- -->
+
+      </div>   
+</script> 
+
+<!--   streamview  Right_Container  template  -->
+ <script type="text/x-handlebars-template" id="tpl-stream-right-container">
+ <div class="stream-header">
           <div class="stream-header-left">
-            <h2>Intro to Business<a href="#">Show Details</a></h2>
+            <h2>{{streamName}}<a href="#" id="show-info" >Show Details</a></h2>
+			<div class="show-info">
+            
+            <p>This is going to be some basic into text about this specific stream, what the course is about... short and to the point.</p>
+            
+            <a href="#">Business</a>
+             <a href="#">Florida</a>
+              <a href="#">Money</a>
+            
+            </div>
             <ul class="strem-header-info">
               <li class="mebers">35 Members</li>
               <li class="claimed">Claimed By: <a href="#">Professor Smith</a> </li>
             </ul>
           </div>
-          <div class="stream-header-right">
-            <div class="stream-top-btn"><a href="#"><span><img src="images/follow-icon.png" width="26" height="24"></span><span 		class="text">New Stream</span></a></div>
-          </div>
+          <div class="stream-header-right"> 
+           	<a href="#" class="green-btn green-btn-new">
+           		<span class="visual visual-new">
+           			<img src="images/plus.png" width="23" height="22">
+           		</span>
+           		<span class="texter texter-new">
+           			<span>
+           				<img src="images/members-icon.png" width="22" height="21">
+           			</span>to this class
+           		</span>
+           	</a> 
+           </div>
+
           <div class="stream-top-shadow"><img src="images/shadow.png"/></div>
         </div>
         <ul class="stream-tab">
-          <li> <a href="#"><span>123</span>Overview</a> </li>
-          <li> <a href="#"  class="active"><span>12</span> Discussions</a> </li>
-          <li> <a href="#">Questions</a> </li>
-          <li> <a href="#"><span>1</span> Deadlines</a> </li>
-          <li> <a href="#">Calendar</a> </li>
+          <li> <a id="overview_tab" href="#"  class="active">Overview</a> </li>
+          <li> <a id="discussion_tab" href="#" > Discussions</a> </li>
+          <li> <a id="question_tab" href="#">Questions</a> </li>
+          <li> <a id="deadline_tab" href="#"> Deadlines</a> </li>
+          <li> <a id="calendar_tab" href="#">Calendar</a> </li>
         </ul>
-        <div class="stream-wrapper">
+        <div id="common-middle-contents">
+            <!-----include  Middle_container templete here ------->
+       </div>
+</script>
+
+
+
+
+<!--   stream's overview  Middle_container  template  -->
+ <script type="text/x-handlebars-template" id="tpl-overview-middle-contents">
+<div class="overview-left-container">
+    
+   
+          <div class="overview-boxes recent-activities">
+            <div class="recent-box-header">
+              <h3> Recent Activity</h3>
+              <div class="btn-group dropdown-outer overview-jumbmenu">
+                <button class="btn normal-dropdown">ALL ACTIVITY</button>
+                <button data-toggle="dropdown" class="btn blue-button "> <span class="caret sort-caret"></span></button>
+                <ul class="dropdown-menu display-sub">
+                  <li><a href="#">Products</a></li>
+                  <li><a href="#">Products</a></li>
+                  <li><a href="#">Products </a></li>
+                </ul>
+              </div>
+            </div>
+            <ul class="recent-questions">
+              <li>
+                <div class="recent-piacture"><img src="images/recent-image.jpg" height="38" width="40"> </div>
+                <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
+                <span>15 min. ago</span>
+                <div class="round-red"><img src="images/round-red.png" height="9" width="10"></div>
+              </li>
+              <li>
+                <div class="recent-piacture"><img src="images/recent-image1.jpg" height="38" width="40"> </div>
+                <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
+                <span>15 min. ago</span>
+                <div class="round-red"><img src="images/round-red.png" height="9" width="10"></div>
+              </li>
+              <li>
+                <div class="recent-piacture"><img src="images/recent-image2.jpg" height="38" width="40"> </div>
+                <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
+                <span>15 min. ago</span>
+                <div class="round-red"><img src="images/round-red.png" height="9" width="10"></div>
+              </li>
+              <li>
+                <div class="recent-piacture"><img src="images/recent-image3.jpg" height="38" width="40"> </div>
+                <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
+                <span>15 min. ago</span> </li>
+              <li>
+                <div class="recent-piacture"><img src="images/recent-image1.jpg" height="38" width="40"> </div>
+                <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
+                <span>15 min. ago</span> </li>
+              <li>
+                <div class="recent-piacture"><img src="images/recent-image2.jpg" height="38" width="40"> </div>
+                <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
+                <span>15 min. ago</span> </li>
+              <li>
+                <div class="recent-piacture"><img src="images/recent-image3.jpg" height="38" width="40"> </div>
+                <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
+                <span>15 min. ago</span> </li>
+              <li>
+                <div class="recent-piacture"><img src="images/recent-image1.jpg" height="38" width="40"> </div>
+                <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
+                <span>15 min. ago</span> </li>
+            </ul>
+          </div>
+           
+      
+          <div class="overview-boxes calendar-events">
+            <div class="recent-box-header">
+              <h3>Calendar &amp; Events</h3>
+              <a href="#" class="view-calender">View Calendar</a> </div>
+            <a href="#" class="event-block-blue">
+            <h3>In 4 Days</h3>
+            <h6>Ch. 5 Business Exam</h6>
+            <span>10/18/2012</span> </a> <a href="#" class="event-block-blue">
+            <h3>In 4 Days</h3>
+            <h6>Ch. 5 Business Exam</h6>
+            <span>10/18/2012</span> </a> <a href="#" class="event-block-blue"><span class="plus">Add Event</span></a> </div>
+        </div>
+  
+        <div class="overview-right-container">
+         
+          <div class="overview-boxes deadline-info">
+            <div class="recent-box-header">
+              <h3>Deadlines</h3>
+            </div>
+            <ul class="recent-questions">
+              <li>
+                <p> <a href="#" class="blue-text">5 Page Report on Business </a></p>
+                <span class="dead-date">Due on 10/20/2012</span> <a href="#" class="details-btn">details</a> <a href="#" class="turn-btn">Turn In</a>
+                <div class="round-red"><img src="images/round-red.png" height="9" width="10"></div>
+              </li>
+            </ul>
+          </div>
+       
+           
+          <div class="overview-boxes discussion-info">
+            <div class="recent-box-header">
+              <h3>Discussions</h3>
+            </div>
+            <ul class="discussion-info">
+              <li>
+                <div class="discussion-block">
+                  <div class="discussion-head">
+                    <div class="discussion-pic"><img src="images/discussion-pic.jpg" height="24" width="26"></div>
+                    <span class="discussion-title">By <a href="#" class="blue-text">Alina K.</a></span> <span class="discussion-date">2 days ago</span> </div>
+                  <p>"If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up..." <a href="#" class="comment">21 Comments</a></p>
+                  <div class="round-red"><img src="images/round-red.png" height="9" width="10"></div>
+                </div>
+              </li>
+              <li>
+                <div class="discussion-block">
+                  <div class="discussion-head">
+                    <div class="discussion-pic"><img src="images/discussion-pic.jpg" height="24" width="26"></div>
+                    <span class="discussion-title">By <a href="#" class="blue-text">Alina K.</a></span> <span class="discussion-date">2 days ago</span> </div>
+                  <p>"If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up..." <a href="#" class="comment">21 Comments</a></p>
+                </div>
+              </li>
+              <li>
+                <div class="discussion-block">
+                  <div class="discussion-head">
+                    <div class="discussion-pic"><img src="images/discussion-pic.jpg" height="24" width="26"></div>
+                    <span class="discussion-title">By <a href="#" class="blue-text">Alina K.</a></span> <span class="discussion-date">2 days ago</span> </div>
+                  <p>"If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up..." <a href="#" class="comment">21 Comments</a></p>
+                </div>
+              </li>
+            </ul>
+          </div>
+      
+            
+   
+          <div class="overview-boxes questions-info">
+            <div class="recent-box-header">
+              <h3>Questions</h3>
+            </div>
+            <ul class="discussion-info">
+              <li>
+                <div class="discussion-block">
+                  <div class="discussion-head">
+                    <div class="discussion-pic"><img src="images/discussion-pic.jpg" height="24" width="26"></div>
+                    <span class="discussion-title">By <a href="#" class="blue-text">Alina K.</a></span> <span class="discussion-date">2 days ago</span> </div>
+                  <p>"If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up..." <a href="#" class="comment">21 Comments</a></p>
+                </div>
+              </li>
+              <li>
+                <div class="discussion-block">
+                  <div class="discussion-head">
+                    <div class="discussion-pic"><img src="images/discussion-pic.jpg" height="24" width="26"></div>
+                    <span class="discussion-title">By <a href="#" class="blue-text">Alina K.</a></span> <span class="discussion-date">2 days ago</span> </div>
+                  <p>"If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up..." <a href="#" class="comment">21 Comments</a></p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+     
+</script>
+
+
+
+<!--   stream's Calendar  Middle_container  template  -->
+ <script type="text/x-handlebars-template" id="tpl-clendar-middle-contents">
+	<div class="calender-outer overview-boxes">
+          <h3>Calendar Coming <span>Soon!</span></h3>
+          <a href="#" class="rock-btn"><span>57</span> <span class="rocktext">
+          <h2>Rock It</h2>
+          <p> Click to make us work harder.</p>
+          </span> </a> 
+    </div>
+</script> 
+
+
+<!--  message templete for stream discussions -->
+ <script type="text/x-handlebars-template" id="tpl-discussion-messages">
+<div id= "{{datas.id.id}}" class="ask-outer follow-container">
+            <div class="ask-content">
+              <div class="follw-left">
+                <div   class="small-image">
+                  <div  class="ask-img"><img id="{{datas.id.id}}-img" src=""></div>
+					{{#if owner}}
+						
+                    {{else}}
+               		   <a href="#" id="{{datas.userId.id}}" class="follow-button follow-user">follow</a>
+					{{/if}}
+                     </div>
+              </div>
+              <div  class="ask-info">
+                <div class="ask-comment">
+                  <div class="follow-names">
+                    <ul class="follow-name-left ">
+                      <li><span id="{{datas.userId.id}}" >@{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </span> -  {{datas.timeCreated}}  -  {{datas.messageAccess.name}}</li>
+                    </ul>
+                    <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button follow-message">follow</a></div>
+                  </div>
+                  <p id="{{datas.id.id}}-id" >{{datas.messageBody}}</p>
+                  <div class="follow-bottom">
+                    <ul class="follow-name-left show-all-block">
+                   
+                      <li><a class="rock-message" href="#">Rock</a></li>
+                      <li ><a class="add-comment" href="#"> Comment</a></li>
+                      <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+                      <li><a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a></li>
+                    </ul>
+                    
+                  </div>
+                  <div id="{{datas.id.id}}-addComments" class="follow-comment">
+					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'" ></textarea>
+				 </div>
+                </div>
+                <div class="answer-info">
+                  <div class="answer-conatiner">
+                    <div class="button-block">
+                      <ul class="follow-name-left show-all-block">
+                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message uprocks-message"><span>{{datas.rocks}}</span></a></li>
+                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
+						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
+                      </ul>
+                       
+                      </div>
+                      <div id="{{datas.id.id}}-allComments" class="comment-wrapper">
+                      </div>
+					  <div id="{{datas.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
+                      </div>
+                       <div id="{{datas.id.id}}-msgRockers" class="comment-wrapper" style="display: none;">
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+</script>
+
+
+
+
+
+<!--   templete for stream discussions messages with videos/ images --> 
+ <script type="text/x-handlebars-template" id="tpl-messages_with_images">
+<div id= "{{datas.id.id}}" class="ask-outer follow-container">
+            <div class="ask-content">
+              <div class="follw-left">
+                <div   class="small-image">
+                  <div  class="ask-img"><img id="{{datas.id.id}}-img" src=""></div>
+					{{#if owner}}
+                    {{else}}		
+                  <a href="#"  id="{{datas.userId.id}}" class="follow-button follow-user">follow</a> 
+					{{/if}}
+				</div>
+              </div>
+              <div  class="ask-info">
+                <div class="ask-comment">
+                  <div class="follow-names">
+                    <ul class="follow-name-left ">
+                      <li><span id="{{datas.userId.id}}" >@{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </span> -  {{datas.timeCreated}}  -  {{datas.messageAccess.name}}</li>
+                    </ul>
+                    <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button follow-message">follow</a></div>
+                  </div>
+                  <!-- <p id="{{datas.id.id}}-id" >{{datas.messageBody}}</p> -->
+                  
+                  <!-- start doc section -->
+                  <div id="Docs" class="doc">
+                  
+                  <div  class="item">  
+					  <div id="{{datas.docIdIfAny.id}}"   name="single-doc">
+					<div class="image-wrapper hovereffect" >
+					  <div class="hover-div"><img class="filmedia-picture" src="{{datas.anyPreviewImageUrl}}">
+					    <div class="hover-text">               
+					     <div class="comment-wrapper" id="{{datas.docIdIfAny.id}}">                                
+					     <div id="media-{{datas.docIdIfAny.id}}">
+					      <h4 id="name-{{datas.docIdIfAny.id}}" >Media Name</h4>                                
+					      <div class="description-info">      
+					         <div class="gallery"></div>
+						 <div class="gallery hrtxt">
+					           <a href="{{datas.anyPreviewImageUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
+					              <div class="description-left photo-popup">   
+					              <p class="google_doc doc-description" id="description-{{datas.docIdIfAny.id}}"><input type="hidden" id="id-{{datas.docIdIfAny.id}}" value="doc.url">Media Description</p>
+						    </div>
+					           </a>
+						 </div>     
+					    
+					      <div id="{{datas.docIdIfAny.id}}" class="comment-wrapper2">
+					      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_media"></a>
+					      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
+					      </div></div></div>
+					      
+					      <div class="edit-title-div">
+							{{#if owner}}
+					      <h5 class="editMediaTitle" id="{{datas.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span>Edit Title & Description</h5>
+					      {{/if}} 
+					      </div>        
+					     <div class="dateinfo"><span class="state">State</span><span class="date">{{datVal}}</span></div>
+					    </div>
+					   </div>
+					  </div>
+					</div>  
+					
+					</div>
+			</div>
+
+                  </div>
+                  <!-- End doc section -->
+                  
+                  
+                  <div class="follow-bottom">
+                    <ul class="follow-name-left show-all-block">
+                   
+                      <li><a class="rock-message" href="#">Rock</a></li>
+                      <li ><a class="add-comment" href="#"> Comment</a></li>
+                      <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+                      <li><a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a></li> 
+                    </ul>
+					
+                  </div>
+                  <div id="{{datas.id.id}}-addComments" class="follow-comment">
+				     <textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.."  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'"></textarea>
+				   </div>
+                
+                </div>
+                <div class="answer-info">
+                  <div class="answer-conatiner">
+                    <div class="button-block">
+                      <ul class="follow-name-left show-all-block">
+                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message uprocks-message"><span>{{datas.rocks}}</span></a></li>
+                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
+						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
+                      </ul>
+                       
+                      </div>
+                      <div id="{{datas.id.id}}-allComments" class="comment-wrapper">
+                      </div>
+					  <div id="{{datas.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
+                      </div>
+					 <div id="{{datas.id.id}}-msgRockers" class="comment-wrapper" style="display: none;">
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+</script>
+
+
+
+<!--   templete for stream discussions messages with docs --> 
+ <script type="text/x-handlebars-template" id="tpl-messages_with_docs">
+<div id= "{{datas.id.id}}" class="ask-outer follow-container">
+            <div class="ask-content">
+              <div class="follw-left">
+                <div  class="small-image">
+                  <div class="ask-img" ><img id="{{datas.id.id}}-img" src=""></div>
+					{{#if owner}}
+                    {{else}}
+                  <a id="{{datas.userId.id}}"  href="#" class="follow-button follow-user">follow</a>  
+					{{/if}}
+					</div>
+              </div>
+              <div  class="ask-info">
+                <div class="ask-comment">
+                  <div class="follow-names">
+                    <ul class="follow-name-left">
+                      <li><span id="{{datas.userId.id}}" >@{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </span> -  {{datas.timeCreated}}  -  {{datas.messageAccess.name}}</li>
+                    </ul>
+                    <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button follow-message">follow</a></div>
+                  </div>
+                 <!-- <p id="{{datas.id.id}}-id" >{{datas.messageBody}}</p> -->
+                  
+                   <!-- start doc section -->
+                  <div id="Docs" class="doc">
+                  
+                  <div class="item">  
+				  <div    name="single-doc">
+				 <div class="image-wrapper hovereffect" >
+				  <div class="hover-div">
+				   <div class="doc-image">
+                  		{{#if commenImage }}
+                 			 <img  src="{{previewImage}}" class="cover-picture" /> <h3 class="common-doctext" >{{extension}}</h3>
+                 		{{else}}
+                 			<img  src="{{previewImage}}" class="cover-picture" /> 
+                         {{/if}}
+                  	</div>
+				    <div class="hover-text">               
+				     <div class="comment-wrapper" id="{{datas.docIdIfAny.id}}">                                
+				     <div id="media-{{datas.docIdIfAny.id}}">
+				      <h4 id="name-{{datas.docIdIfAny.id}}" >Document Name</h4>                                
+				      <div  class="description-info "><div name={{type}}  class="description-left mediapopup drag-rectangle" id="{{datas.docIdIfAny.id}}">
+				        <input type="hidden" id="id-{{datas.docIdIfAny.id}}"  value="{{datas.messageBody}}">      
+				        <p class="doc-description" id="description-{{datas.docIdIfAny.id}}" >Document Description..</p>
+				      </div>
+				      <div id="{{datas.docIdIfAny.id}}" class="comment-wrapper2">
+				      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_documents"></a>
+				      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
+				      </div></div></div>
+						
+					      <div class="edit-title-div">
+						{{#if owner}}
+				     	 <h5 class="editDocTitle"   id="{{datas.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span>Edit Title & Description</h5>
+							{{/if}}         
+                    	  </div>
+						
+				     <div class="dateinfo"><span class="state">State</span><span class="date">{{datVal}}</span></div>
+				    </div>
+				   </div>
+				  </div>
+				 </div>
+				
+				   <div id="{{datas.docIdIfAny.id}}-docRockers-list" class="docRockers_popup"></div>
+				   </div>  
+				</div> 
+
+                   
+                  </div>
+                  <!-- End doc section -->
+                  
+                  <div class="follow-bottom">
+                    <ul class="follow-name-left show-all-block">
+                   
+                      <li><a class="rock-message" href="#">Rock</a></li>
+                      <li ><a class="add-comment" href="#"> Comment</a></li>
+                      <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+                      <li><a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a>  </li>
+                    </ul>
+					
+                  </div>
+                  <div id="{{datas.id.id}}-addComments" class="follow-comment">
+					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'" ></textarea>
+				 </div>
+                </div>
+                <div class="answer-info">
+                  <div class="answer-conatiner">
+                    <div class="button-block">
+                      <ul class="follow-name-left show-all-block">
+                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message uprocks-message"><span>{{datas.rocks}}</span></a></li>
+                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
+						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
+                      </ul>
+                       
+                      </div>
+                      <div id="{{datas.id.id}}-allComments" class="comment-wrapper">
+                      </div>
+					  <div id="{{datas.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
+                      </div>
+ 					 <div id="{{datas.id.id}}-msgRockers" class="comment-wrapper" style="display: none;">
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+</script>
+
+<!--  comment templete for stream discussions messages  comments-->
+ <script type="text/x-handlebars-template" id="tpl-discussion-messages-comment">
+ <div class="answer-description"  id="{{id.id}}">
+                        <div class="follw-left">
+                          <div class="small-image">
+                            <div class="ask-img"><img id="{{id.id}}-image" src="images/profile-img.png"></div>
+                          </div>
+                        </div>
+                        <div class="answer-description-info">
+                          <div class="follow-names">
+                            <ul class="follow-name-left show-all-block">
+                              <li><span>@{{firstNameofCommentPoster}} {{lastNameofCommentPoster}} </span> -  {{timeCreated}}  -  Public</li>
+                              <li ><a href="#" class="rock-comments" >Rock</a></li>
+                              <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
+                                 <li class="rocks-small"><a id="{{{id.id}}-rockCount" href="#">{{{rocks}}</a></li>
+                            </ul>
+                          </div>
+                          <p>{{commentBody}}</p>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+</script>
+
+
+<!--  comment templete for stream discussions messages  comments-->
+ <script type="text/x-handlebars-template" id="tpl-message-rockers">
+ <div class="answer-description"  >
+                        <div class="follw-left">
+                          
+                        </div>
+                        <div class="answer-description-info">
+                          <div class="follow-names">
+                            <ul class="follow-name-left show-all-block">
+                              <li><span>@{{rocker}} </span> </li>
+                              
+                            </ul>
+                          </div>
+                         
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+</script>
+
+
+<!--  comment templete for newly added comments -->
+ <script type="text/x-handlebars-template" id="tpl-discussion-messages-newComment">
+ <div class="answer-description" id="{{id.id}}">
+                        <div class="follw-left">
+                          <div class="small-image">
+                            <div class="ask-img"><img id="{{id.id}}-newCmtImage" src="images/profile-img.png"></div>
+                          </div>
+                        </div>
+                        <div class="answer-description-info">
+                          <div class="follow-names">
+                            <ul class="follow-name-left show-all-block">
+                              <li><span>@{{firstNameofCommentPoster}} {{lastNameofCommentPoster}} </span> -  {{timeCreated}}  -  Public</li>
+                              <li ><a href="#" class="rock-comments" >Rock</a></li>
+                              <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
+                                 <li class="rocks-small"><a id="{{{id.id}}-rockCount" href="#">{{{rocks}}</a></li>
+                            </ul>
+                          </div>
+                          <p>{{commentBody}}</p>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+</script>
+
+
+
+<!--   stream's Deadline  Middle_container  template  -->
+ <script type="text/x-handlebars-template" id="tpl-deadline-middle-contents">
+	<div class="calender-outer overview-boxes">
+          <h3>Deadlines Coming <span>Soon!</span></h3>
+          <a href="#" class="rock-btn"><span>57</span> <span class="rocktext">
+          <h2>Rock It</h2>
+          <p> Click to make us work harder.</p>
+          </span> </a> 
+    </div>
+</script> 
+
+
+<!--   stream's discussion  Middle_container  template  -->
+ <script type="text/x-handlebars-template" id="tpl-discussion-middle-contents">
+<div class="stream-wrapper">
           <div class="question-info">
             <div class="question-sort">
               <h5>SORT BY</h5>
               <div class="btn-group dropdown-outer">
-                <button class="btn normal-dropdown">Highest Rated</button>
+                <button class="btn normal-dropdown" id="sortBy-select" >Most Recent</button>
                 <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                <ul class="dropdown-menu display-sub">
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products </a></li>
+                <ul class="dropdown-menu display-sub" id="sortBy-list" >
+                  <li><a href="#" name="most-recent" >Most Recent</a></li>
+                  <li><a href="#" name="highest-rated" >Highest Rated</a></li>
+                  <li><a href="#" name="most-shared" >Most Shared </a></li>
                 </ul>
               </div>
               <div class="btn-group dropdown-outer">
-                <button class="btn normal-dropdown ">This Week</button>
+                <button class="btn normal-dropdown " id="date-sort-select">This Week</button>
                 <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                <ul class="dropdown-menu display-sub">
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products </a></li>
+                <ul class="dropdown-menu display-sub" id="date-sort-list">
+                  <li><a href="#">Today</a></li>
+                  <li><a href="#">This Week</a></li>
+                  <li><a href="#">This Month </a></li>
+ 				  <li><a href="#">All Dates </a></li>
+
                 </ul>
               </div>
               <form class="all-search">
-                <input type="text" class="quest-search" placeholder="Search discussions">
+                <input type="text" id="sort_by_key" class="quest-search" placeholder="Search Discussions">
               </form>
             </div>
             <div class="clear"></div>
@@ -272,85 +972,248 @@
             <div class="ask-content">
               <div class="follw-left">
                 <div class="small-image">
-                  <div class="ask-img"><img src="images/profile-img.png"></div>
+                  <div class="ask-img"><img id="main-photo" src=""></div>
                 </div>
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="ask-left">
                     <form class="question-ask ask-disccution">
-                      <textarea name="" cols="" rows="" class="question-ask-search" placeholder="Speak your mind...."></textarea>
+                      <textarea id="msg-area" name="" cols="" rows="" class="question-ask-search" placeholder="Speak your mind...."  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Speak your mind....'"></textarea>
                     </form>
+					<ul id="uploded-file"  style="display:none; font-style: italic;" class="answer">
+                     
+                    </ul>
                     <div class="embed-info">
                       <div class="upload-conatiner">
                         <h5> Select an image or video file on your computer.</h5>
-                        <input name="" type="file">
+                        <input type="file" id="upload-files-area" name="upload-files-area" >
                       </div>
                     </div>
                   </div>
-                  <a href="#" class="ask-button">POST</a> </div>
+                  <a  id="post-button" class="ask-button">POST</a>
+                  <div id="file-upload-loader" style="display :none;">  
+							<img src ="images/loading.gif"> 
+        		</div>
+                   </div>
+                  
                 <div class="ask-iconinfo">
+  	          <div id="upload-files1" class="btn-group attach-drop ">
+              <button  id="upload-files" data-original-title="Upload Files" class="btn attach-drop-bg drag-rectangle "></button>
+              <button id="upload-files2" class="btn attach-drop-button drag-rectangle" data-toggle="dropdown" data-original-title="Upload Files"> <span  id="upload-files3" class="caret sort-caret1 attach-caret "></span></button>
+              <ul id="discussion-file-upload"  class="dropdown-menu  attach-dropdwon">
+                 <li><a href="#">Class Document</a></li>
+                      <li><a href="#">Assignment</a></li>
+                      <li><a href="#">Homework </a></li>
+						<li><a href="#">Notes</a></li>
+                      <li><a href="#">Project</a></li>
+                      <li><a href="#">Lecture </a></li>
+					 <li><a href="#">Reference Material</a></li>
+                      <li><a href="#">Tutorial</a></li>
+                      <li><a href="#">EdTech Tool </a></li>
+						<li><a href="#">Amusement</a></li>
+					<input type="text" placeholder="+Add a new category">
+              </ul>
+            </div>
+
+
                   <ul class="icons-ask">
-                    <li><a href="#"><img src="images/attach.png" width="22" height="20"></a></li>
+                  <!-- <li class="drag-rectangle"  data-original-title="Upload Files" ><a id="upload-files"  href="#"><img src="images/attach.png" width="22" height="20"></a></li>-->
                     <li><a href="#"><img src="images/card.png" width="18" height="19"></a></li>
                   </ul>
                   <label class="checkbox private-chaeck">
-                    <input type="checkbox"  checked="checked">
+                    <input id="private-to" type="checkbox"  checked="checked">
                     Pivate to:</label>
                   <div class="btn-group class-dropdown">
-                    <button class="btn class-dropdown-bg">Class</button>
+                    <button class="btn class-dropdown-bg" id="select-privateTo" ></button>
                     <button class="btn class-dropdown-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products </a></li>
+                    <ul class="dropdown-menu" id="private-to-list" >
+                      
                     </ul>
                   </div>
-                  <ul class="social-icons">
-                    <li><a href="#"><img src="images/google-plus.png" width="25" height="22"></a></li>
-                    <li><a href="#"><img src="images/p.png" width="25" height="22"></a></li>
-                    <li><a href="#"><img src="images/twitter.png" width="25" height="22"></a></li>
-                    <li><a href="#"><img src="images/face-book.png" width="25" height="22"></a></li>
-                    <li><a href="#"><img src="images/in.png" width="25" height="22"></a></li>
+                   <ul id="share-discussions" class="social-icons">
+                   <span>Share On:</span>
+                    <li class="google-plus"><a href="#">Google plus</a></li>
+                    <li class="plus"><a href="#">p</a></li>
+                    <li class="twitter"> <a href="#">Twitter</a></li>
+                    <li class="facebook"><a href="#"> face book</a></li>
+                    <li class="in"><a href="#"> in</a></li>
                   </ul>
                 </div>
               </div>
             </div>
             <div class="clear"></div>
           </div>
+          <div id= "all-messages">
+
+          </div>
+          <div id="doc-views"></div>
+		 <div class ="page-loader"><img src ="images/loading-bars.gif"></div> 
+        </div>
+</script>
+
+<!--   stream's questions  Middle_container  template  -->
+ <script type="text/x-handlebars-template" id="tpl-questions-middle-contents">
+<div class="stream-wrapper">
+          <div class="question-info">
+            <div class="question-sort">
+              <h5>SORT BY</h5>
+              <div class="btn-group dropdown-outer">
+                <button class="btn normal-dropdown" id="sortBy-select" >Most Recent</button>
+                <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
+                <ul class="dropdown-menu display-sub" id="sortBy-list" >
+                  <li><a href="#" name="most-recent" >Most Recent</a></li>
+                  <li><a href="#" name="highest-rated" >Highest Rated</a></li>
+                  <li><a href="#" name="most-shared" >Most Shared </a></li>
+                </ul>
+              </div>
+              
+               <div class="btn-group dropdown-outer">
+                <button class="btn normal-dropdown " id="date-sort-select">This Week</button>
+                <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
+                <ul class="dropdown-menu display-sub" id="date-sort-list">
+                  <li><a href="#">Today</a></li>
+                  <li><a href="#">This Week</a></li>
+                  <li><a href="#">This Month </a></li>
+ 				  <li><a href="#">All Dates </a></li>
+
+                </ul>
+              </div>
+              
+              <form class="all-search">
+                <input type="text" class="quest-search" placeholder="Search Questions">
+              </form>
+              <input id="upload-files-area" name="upload-files-area" type="file" style="display:none;" >
+              <a href="#" class="unanswerd active-text">20 Unanswered</a> <a href="#" class="unanswerd">12 Answered</a> </div>
+            <div class="clear"></div>
+          </div>
+          <div class="ask-outer">
+            <div class="ask-content">
+              <div class="follw-left">
+                <div class="small-image">
+                  <div class="ask-img"><img src="images/picture.jpg"></div>
+                </div>
+              </div>
+              <div  class="ask-info">
+                <div class="ask-comment ask-type-area ">
+                  <div class="ask-left">
+                    <form class="question-ask">
+                      <textarea id="Q-area" placeholder="Ask your own question here....." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ask your own question here.....'" class="question-ask-search" rows="" cols="" name=""></textarea>
+                    </form>
+                    <ul class="answer" style="display:none">
+                      <li>
+                        <input name="Answer Is Yes" type="text" id="option1"  placeholder="Add 1st Poll Option">
+                      <li>
+                        <input name="Add Option" type="text" id="option2" placeholder="Add 2nd Poll Option">
+                      </li>
+                      <a href="#" class="add-option">Another Poll Option</a>
+                    </ul>
+                  </div>
+                  <a  id="post-question" href="#" class="ask-button">ASK</a> </div>
+                <div class="ask-iconinfo">
+				   <div class="btn-group attach-drop">
+              		<button  id="upload-files" data-original-title="Upload Files" class="btn attach-drop-bg drag-rectangle"></button>
+             		 <button data-original-title="Upload Files" class="btn attach-drop-button drag-rectangle" data-toggle="dropdown"> <span class="caret sort-caret1 attach-caret"></span></button>
+            		  <ul id="question-file-upload" class="dropdown-menu">
+              		   <li><a href="#">Class Document</a></li>
+                      <li><a href="#">Assignment</a></li>
+                      <li><a href="#">Homework </a></li>
+						<li><a href="#">Notes</a></li>
+                      <li><a href="#">Project</a></li>
+                      <li><a href="#">Lecture </a></li>
+					 <li><a href="#">Reference Material</a></li>
+                      <li><a href="#">Tutorial</a></li>
+                      <li><a href="#">EdTech Tool </a></li>
+						<li><a href="#">Amusement</a></li>
+						<input type="text" placeholder="+Add a new category">
+              		</ul>
+           		 </div>
+          		        <ul class="icons-ask">
+                  
+                    <li><img src="images/card.png" width="18" height="19"></li>
+                  </ul>
+                  <label class="checkbox private-chaeck">
+                    <input  id="private-to" type="checkbox"  checked="checked">
+                    Pivate to:</label>
+                  <div class="btn-group class-dropdown">
+                    <button class="btn class-dropdown-bg" id="select-privateTo" >Class</button>
+                    <button class="btn class-dropdown-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
+                    <ul class="dropdown-menu" id="private-to-list">
+                       
+                    </ul>
+                  </div>
+                  <a href="#" class="add-poll ">Add Poll</a>
+                  <ul  id="share-discussions" class="social-icons">
+					<span>Share On:</span>
+                    <li class="google-plus"><a href="#">Google plus</a></li>
+                    <li class="plus"><a href="#">p</a></li>
+                    <li class="twitter"> <a href="#">Twitter</a></li>
+                    <li class="facebook"><a href="#"> face book</a></li>
+                    <li class="in"><a href="#"> in</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          
+<!--           <div id= "all-questions"> -->
+
+<!--           </div> -->
+<!-- 		 <div class ="page-loader" ><img src ="images/loading-bars.gif"></div>  -->
+		 
+		 
           <div class="ask-outer follow-container">
             <div class="ask-content">
               <div class="follw-left">
                 <div class="small-image">
-                  <div class="ask-img"><img src="images/profile-img.png"></div>
+                  <div class="ask-img"><img src="images/picture.jpg"></div>
                   <a href="#" class="follow-button">follow</a> </div>
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="follow-names">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                       <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                     </ul>
                     <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
                   </div>
                   <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
-                  <div class="follow-bottom">
-                    <ul class="follow-name-left">
-                   
-                      <li><a href="#">Rock</a></li>
-                      <li ><a href="#"> Comment</a></li>
-                      <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
-                    </ul>
+                  <div class="comment-nofication">
+                    <div class="comment-nofication-left">
+                      <fieldset>
+                        <input type="radio" id="radio-1-1" name="radio-1-set" class="regular-radio" checked />
+                        <label for="radio-1-1"></label>
+                        <label>Yellow</label>
+                      </fieldset>
+                      <fieldset>
+                        <input type="radio" id="radio-1-2" name="radio-1-set" class="regular-radio  red" />
+                        <label for="radio-1-2"></label>
+                        <label>Red</label>
+                      </fieldset>
+                    </div>
+                    <div class="chart"> <span class="chart-count"><span class="yellow">50%</span></span>
+                      <div class="chart-round"> <img src="images/pie-chart.png" width="113" height="113"></div>
+                      <span class="chart-count"><span class="red">50%</span></span> </div>
                   </div>
+                  <div class="follow-bottom">
+                    <ul class="follow-name-left show-all-block">
+                      <li><a href="#">Rock</a></li>
+                      <li><a href="#"> Answer</a></li>
+                      <li><a href="#"> Comment</a></li>
+                      <li ><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+                    </ul>
+                    <a id="50b710d5e4b08b73aaa7b269" href="#" class="delete_msg"></a> </div>
                 </div>
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
-                      <ul class="follow-name-left">
-                        <li><a href="#" class="rocks"><span>57 </span></a></li>
-                        <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn grey-buttons" href="#"> <span>43</span> Comments</a>
+                      <ul class="follow-name-left show-all-block">
+                        <li><a href="#" class="rocks-up"><span>0</span></a></li>
+                        <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
+						<a  class="btn grey-buttons  href="#">Show All</a>
                       </ul>
-                      <a class="btn blue-buttons" href="#">Show All</a> </div>
+                       
                   </div>
                 </div>
               </div>
@@ -361,78 +1224,73 @@
             <div class="ask-content">
               <div class="follw-left">
                 <div class="small-image">
-                  <div class="ask-img"><img src="images/profile-img.png"></div>
+                  <div class="ask-img"><img src="images/picture.jpg"></div>
                   <a href="#" class="follow-button">follow</a> </div>
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="follow-names">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                       <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                     </ul>
                     <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
                   </div>
                   <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
                   <div class="follow-bottom">
-                    <ul class="follow-name-left">
-                   
-                      <li><a href="#">Rock</a></li>
+                    <ul class="follow-name-left show-all-block">
+                      <li ><a href="#">Rock</a></li>
+                      <li ><a href="#"> Answer</a></li>
                       <li><a href="#"> Comment</a></li>
                       <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
                     </ul>
                   </div>
-                  <div class="follow-comment">
-                    <textarea cols="" rows="" >Comment</textarea>
-                  </div>
                 </div>
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
-                      <ul class="follow-name-left">
-                        <li><a href="#" class="rocks"><span>57  </span></a></li>
-                        <a class="btn grey-buttons" href="#">Who Rocked It?</a><a class="btn grey-buttons" href="#"> <span>43</span> Comments</a>
+                      <ul class="follow-name-left show-all-block">
+                        <li><a href="#" class="rocks"><span>1</span></a></li>
+                        <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
                       </ul>
-                      <a class="btn blue-buttons" href="#">Show All</a> </div>
-                    <div class="comment-wrapper">
+                      <a class="btn blue-buttons showmessage" href="#">Show All</a> </div>
+                    <div class="comment-wrapper" id="comments">
                       <div class="answer-description">
                         <div class="follw-left">
                           <div class="small-image">
-                            <div class="ask-img"><img src="images/profile-img.png"></div>
+                            <div class="ask-img"><img src="images/picture.jpg"></div>
                           </div>
                         </div>
                         <div class="answer-description-info">
                           <div class="follow-names">
-                            <ul class="follow-name-left">
+                            <ul class="follow-name-left show-all-block">
                               <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
-                              <li><a href="#">Rock</a></li>
-                              <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
-                                   <li class="rocks-small"><a href="#">75</a></li>
+                              <li ><a href="#">Rock</a></li>
+                              <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
+                              <li class="rocks-small"><a href="#">75</a></li>
                             </ul>
                           </div>
                           <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
                         </div>
                         <div class="clear"></div>
                       </div>
-                      <div class="comment-wrapper">
-                        <div class="answer-description">
-                          <div class="follw-left">
-                            <div class="small-image">
-                              <div class="ask-img"><img src="images/profile-img.png"></div>
-                            </div>
+                      <div class="answer-description">
+                        <div class="follw-left">
+                          <div class="small-image">
+                            <div class="ask-img"><img src="images/picture.jpg"></div>
                           </div>
-                          <div class="answer-description-info">
-                            <div class="follow-names">
-                              <ul class="follow-name-left">
-                                <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
-                                <li><a href="#">Rock</a></li>
-                                <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
-                                   <li class="rocks-small"><a href="#">75</a></li>
-                              </ul>
-                            </div>
-                            <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
-                          </div>
-                          <div class="clear"></div>
                         </div>
+                        <div class="answer-description-info">
+                          <div class="follow-names">
+                            <ul class="follow-name-left show-all-block" >
+                              <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
+                              <li ><a href="#">Rock</a></li>
+                              <li ><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
+                              <li class="rocks-small"><a href="#">75</a></li>
+                            </ul>
+                          </div>
+                          <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
+                        </div>
+                        <div class="clear"></div>
                       </div>
                     </div>
                   </div>
@@ -442,14 +1300,13 @@
             </div>
           </div>
         </div>
-      </div>
-      
-</script> 
+</div>
+</script>  
 
-         <!--  Questions  templates  -->
+
+<!--  Questions  templates  -->
 <script type="text/x-handlebars-template" id="tpl-questions">
-            <!--------------------------------------Left Container---------------------------------------->
-   
+      <!--------------------------------------Left Container---------------------------------------->
       
       <div class="left-container">
         <aside>
@@ -464,11 +1321,11 @@
                   <li><a href="#">Products </a></li>
                 </ul>
               </div>
-              <a href="#" class="done">EDIT </a> </div>
+              <a href="#" class="done">DONE </a> </div>
             <div class="display-scroller">
               <div class="arrow-block"><span class="caret arrow-up"></span></div>
               <div class="scroll-menu scroller">
-                <ul id="sortable4" class="connected sortable list">
+                <ul id="sortable4f" class="connected sortable list">
                   <li class="icon1"><a href="#" class="icon1">Calculus <span class="menu-count"> 543</span><span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span> </a>
                     <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
                   </li>
@@ -525,22 +1382,31 @@
       <div class="right-container">
         <div class="stream-header">
           <div class="stream-header-left">
-            <h2>Intro to Business<a href="#">Show Details</a></h2>
+            <h2>Intro to Business<a id="show-details" href="#">Show Details</a></h2>
             <ul class="strem-header-info">
               <li class="mebers">35 Members</li>
               <li class="claimed">Claimed By: <a href="#">Professor Smith</a> </li>
             </ul>
           </div>
-          <div class="stream-header-right">
-            <div class="stream-top-btn"><a href="#"><span><images src="images/follow-icon.png" width="26" height="24"></span><span 		class="text">New Stream</span></a></div>
-          </div>
+           <div class="stream-header-right"> 
+           	<a href="#" class="green-btn green-btn-new">
+           		<span class="visual visual-new">
+           			<img src="images/plus.png" width="23" height="22">
+           		</span>
+           		<span class="texter texter-new">
+           			<span>
+           				<img src="images/members-icon.png" width="22" height="21">
+           			</span>to this class
+           		</span>
+           	</a> 
+           </div>
           <div class="stream-top-shadow"><img src="images/shadow.png"/></div>
         </div>
         <ul class="stream-tab">
-          <li> <a href="#"><span>123</span>Overview</a> </li>
-          <li> <a href="#"><span>12</span> Discussions</a> </li>
+          <li> <a href="#">Overview</a> </li>
+          <li> <a href="#"> Discussions</a> </li>
           <li> <a href="#" class="active">Questions</a> </li>
-          <li> <a href="#"><span>1</span> Deadlines</a> </li>
+          <li> <a href="#"> Deadlines</a> </li>
           <li> <a href="#">Calendar</a> </li>
         </ul>
         <div class="stream-wrapper">
@@ -566,9 +1432,9 @@
                 </ul>
               </div>
               <form class="all-search">
-                <input type="text" class="quest-search" placeholder="Search All Questions">
+                <input type="text" class="quest-search" placeholder="Search Questions">
               </form>
-              <a href="#" class="unanswerd">20 Unanswered</a> <a href="#" class="unanswerd">12 Answered</a> </div>
+              <a href="#" class="unanswerd active-text">20 Unanswered</a> <a href="#" class="unanswerd">12 Answered</a> </div>
             <div class="clear"></div>
           </div>
           <div class="ask-outer">
@@ -586,12 +1452,12 @@
                     </form>
                     <ul class="answer" style="display:none">
                       <li>
-                        <input name="Answer Is Yes" type="text" id="Answer Is Yes"  placeholder="Enter First Possible Answer">
+                        <input name="Answer Is Yes" type="text" id="Answer Is Yes"  placeholder="Add 1st Poll Option">
                       <li>
-                        <input name="Add Option" type="text" id="Add Option" placeholder="Enter Second Possible Answer">
+                        <input name="Add Option" type="text" id="Add Option" placeholder="Add 2nd Poll Option">
                         </li>
                         
-                        <a href="#" class="add-option">Add Additional Answers</a>
+                        <a href="#" class="add-option">Another Poll Option</a>
                     </ul>
                   </div>
                   <a href="#" class="ask-button">ASK</a> </div>
@@ -613,12 +1479,12 @@
                     </ul>
                   </div>
                   <a href="#" class="add-poll ">Add Poll</a>
-                  <ul class="social-icons">
-                    <li><img src="images/google-plus.png" width="25" height="22"></li>
-                    <li><img src="images/p.png" width="25" height="22"></li>
-                    <li><img src="images/twitter.png" width="25" height="22"></li>
-                    <li><img src="images/face-book.png" width="25" height="22"></li>
-                    <li><img src="images/in.png" width="25" height="22"></li>
+                   <ul class="social-icons">
+                    <li class="google-plus"><a href="#">Google plus</a></li>
+                    <li class="plus"><a href="#">p</a></li>
+                    <li class="twitter"> <a href="#">Twitter</a></li>
+                    <li class="facebook"><a href="#"> face book</a></li>
+                    <li class="in"><a href="#"> in</a></li>
                   </ul>
                 </div>
               </div>
@@ -635,7 +1501,7 @@
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="follow-names">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                       <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                     </ul>
                     <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
@@ -652,7 +1518,7 @@
                   </div>
                   
                   <div class="follow-bottom">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                       <li><a href="#">Rock</a></li>
                       <li><a href="#"> Answer</a></li>
                       <li><a href="#"> Comment</a></li>
@@ -663,9 +1529,9 @@
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
-                      <ul class="follow-name-left">
+                      <ul class="follow-name-left show-all-block">
                         <li><a href="#" class="rocks"><span>57</span></a></li>
-                        <a class="btn grey-buttons" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
+                        <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
                       </ul>
                       <a class="btn blue-buttons showmessage" href="#">Show All</a> </div>
                   </div>
@@ -684,14 +1550,14 @@
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="follow-names">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                       <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                     </ul>
                     <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
                   </div>
                   <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
                   <div class="follow-bottom">
-                    <ul class="follow-name-left">
+                    <ul class="follow-name-left show-all-block">
                       <li ><a href="#">Rock</a></li>
                       <li ><a href="#"> Answer</a></li>
                       <li><a href="#"> Comment</a></li>
@@ -702,9 +1568,9 @@
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
-                      <ul class="follow-name-left">
+                      <ul class="follow-name-left show-all-block">
                         <li><a href="#" class="rocks"><span>57</span></a></li>
-                        <a class="btn grey-buttons" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
+                        <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
                       </ul>
                       <a class="btn blue-buttons showmessage" href="#">Show All</a> </div>
                     <div class="comment-wrapper" id="comments">
@@ -716,7 +1582,7 @@
                         </div>
                         <div class="answer-description-info">
                           <div class="follow-names">
-                            <ul class="follow-name-left">
+                            <ul class="follow-name-left show-all-block">
                               <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                               <li ><a href="#">Rock</a></li>
                               <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
@@ -735,7 +1601,7 @@
                         </div>
                         <div class="answer-description-info">
                           <div class="follow-names">
-                            <ul class="follow-name-left">
+                            <ul class="follow-name-left show-all-block">
                               <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                               <li ><a href="#">Rock</a></li>
                               <li ><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
@@ -748,7 +1614,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> 
                 <div class="clear"></div>
               </div>
             </div>
@@ -756,27 +1622,1574 @@
         </div>
       </div>
         </script>     
+        
+ 
+        
+        
+        
     
+        <!----------------------  Browse Media  templates  --------------->
+        
+        <script type="text/x-handlebars-template" id="tpl-files-media">
+            
+      <!--------------------------------------Right Conatiner---------------------------------------->
+      
+      <div class="right-container browse-conatiner">
+        <div class="stream-header browse-header">
+     <!--     <h6 id="uploadmedia_dr">Upload Media/Docs</h6>   -->
+          
+          <!--- for drop down menu--->
+          
+          <!-- /.nav-collapse -->
+            <ul id="dropdownnew" class="no-image">
+              <li class="leftplusicon"><a id="uploadmedia_dr" class="leftplusicon-a" href="#">Upload Media/Docs: </a>
+                <ul id="uploadmediachild_dr" >
+                
+                    
+                 
+                    
+              <li id="childthree_dr"><a id ="video_dr" href="#">Class Document</a>
+                       <ul id="videomenu_dr" class="fixingmenu_dr">
+                    <span class="arrow-left"></span>
+                           
+                            
+                            
+                                    <li id="childtwo_one_dr"><a  id="Assignment_mycomp"  href="#">My Computer</a>
+                                <ul id='Assignlinkchild_dr' class="largeli">
+                                    <span class="arrow-left"></span>
+                                    <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+									<li class="private">
+										<label  style="color:black;" for="id-private">
+											<input  id="id-private" type="checkbox" checked="checked">
+											Private
+										</label>
+									</li>
+                                    
+                                    <li style="margin-right:10px;" ><select class="dropdownselect" id="doc-class-list-computer">
+                                     <option>Save to Class</option>							
+                                        </select>  </li>      
+                                    <span id="loader-message"></span></br>
 
-            <!-------backbone library files----->
-        <script src="lib/underscore-min.js"></script>
-        <script src="lib/backbone.js"></script>
-        <script src="lib/handlebars-1.0.0.beta.6.js"></script>
-            <!-------backbone library files----->
-        <script src="js/app.js"></script>  
-        <script src="js/setup.js"></script> 
-        <script src="js/views/settingsview.js"></script>
-            <!-- <script src="js/views/janrainview.js"></script> -->
+									<li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"></li>
+                                    <li><a  style="color:white;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                            </ul>
+                            </li>
+                            
+                            
+                            
+                       
+                      <li id="childtwo_you_dr"><a id="youtube_dr" href="#">Via Link</a>
+                        <ul id='youtubechild_dr' class="largeli">
+                        <span class="arrow-left"></span>
+                          <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small quest-search" placeholder="NAME of Video"></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video">
+								
+
+                           <select name="select" class="selectpicker-info " style="display: none;">
+                               <option selected="selected" >01</option>
+               					<option>02</option>
+             					 <option>03</option>
+           					 </select>
+
+								<!--<select id="video-category-list" class="dropdownselect">
+									<option>Class Video</option>
+									<option>Profile Video</option>
+									<option>Reference Material</option>
+									<option>Tutorial</option>
+									<option>Presentation</option>
+									<option>Project Presentation</option>
+									<option>Project Video</option>
+									<option>Lecture</option>
+									<option class="enterfromcatgry">Enter New Catagory</option>
+								</select> -->
+						</li>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+							<select class="dropdownselect" id="video-class-list">
+								<option>Save to Class</option>
+								<option>Profile</option>
+								<option>My Docs</option>
+							</select>
+						  </li>
+                          <li><input type="button" class="upload_button" id="video_uploadbutton"></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  
+                  
+                  
+                  
+                  
+                  <li id="childtwo_dr"><a id="docs_dr"href="#">Assignment</a>
+                   <ul id="docsmenu_dr" class="fixingmenu_dr">
+                           <span class="arrow-left"></span>
+                            <li id="childtwo_onedoc_dr"><a  id="googledocs_mycomp"  href="#">My Computer</a>
+                                
+                                <ul id='dooclinkchild_dr' class="largeli">
+                                    <span class="arrow-left"></span>
+                                    <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+									<li class="private">
+										<label  style="color:black;" for="id-private">
+											<input  id="id-private" type="checkbox" checked="checked">
+											Private
+										</label>
+									</li>
+                                    
+                                    <li style="margin-right:10px;" ><select class="dropdownselect" id="doc-class-list-computer">
+                                     <option>Save to Class</option>							
+                                        </select>  </li>      
+                                    <span id="loader-message"></span></br>
+
+									<li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"></li>
+                                    <li><a  style="color:white;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                            </ul>
+                            </li>
+                            
+                            <li id="childtwo_two_dr"><a id="googledocs_dr" href="#">Google Docs</a>
+                                <ul id="googledocschild_dr">
+                                    <span class="arrow-left"></span>
+                                    <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                    <li><a id="importfrmlink_dr" href="#">Import From Link</a>
+                                        <ul id='frmlinkchild_dr' class="largeli">
+                                            <span class="arrow-left"></span>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small quest-search" id="gdoc-name" placeholder="NAME of Doc"></li>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
+												<select id="doc-category-list" class="dropdownselect">
+													<option>Class Doc</option>
+													<option>Class Notes</option>
+													<option>Reference Material</option>
+													<option>Tutorial</option>
+													<option>Presentation</option>
+													<option>Project Doc</option>
+													<option>Lecture</option>
+													<option class="enterfromcatgry">Enter New Catagory</option>
+												</select>
+											</li>
+                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+											<select class="dropdownselect" id="doc-class-list">
+												<option>Save to Class</option>
+												
+											</select>
+											</li>
+											<li class="private">
+										     <label  style="color:white;" for="id-private">
+											    <input  id="doc-private" type="checkbox" checked="checked">
+											     Private
+										    </label>
+									</li>
+                                            <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>    
+                      </ul>  
+                  </li>
+                  
+                  
+                  
+                   <li id="childtwo_dr"><a id="audio_dr"href="#">Homework</a>
+                   <ul id="docsmenu_dr" class="fixingmenu_dr">
+                           <span class="arrow-left"></span>
+                            <li id="childtwo_one_dr"><a  id="googledocs_mycomp"  href="#">My Computer</a>
+                                <ul id='dooclinkchild_dr' class="largeli">
+                                    <span class="arrow-left"></span>
+                                    <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+									<li class="private">
+										<label  style="color:white;" for="id-private">
+											<input  id="id-private" type="checkbox" checked="checked">
+											Private
+										</label>
+									</li>
+                                    
+                                    <li style="margin-right:10px;" ><select class="dropdownselect" id="doc-class-list-computer">
+                                     <option>Save to Class</option>							
+                                        </select>  </li>      
+                                    <span id="loader-message"></span></br>
+
+									<li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"></li>
+                                    <li><a  style="color:white;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                            </ul>
+                            </li>
+                            
+                            <li id="childtwo_two_dr"><a id="googledocs_dr" href="#">Google Docs</a>
+                                <ul id="googledocschild_dr">
+                                    <span class="arrow-left"></span>
+                                    <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                    <li><a id="importfrmlink_dr" href="#">Import From Link</a>
+                                        <ul id='frmlinkchild_dr' class="largeli">
+                                            <span class="arrow-left"></span>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small quest-search" id="gdoc-name" placeholder="NAME of Doc"></li>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
+												<select id="doc-category-list" class="dropdownselect">
+													<option>Class Doc</option>
+													<option>Class Notes</option>
+													<option>Reference Material</option>
+													<option>Tutorial</option>
+													<option>Presentation</option>
+													<option>Project Doc</option>
+													<option>Lecture</option>
+													<option class="enterfromcatgry">Enter New Catagory</option>
+												</select>
+											</li>
+                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+											<select class="dropdownselect" id="doc-class-list">
+												<option>Save to Class</option>
+												
+											</select>
+											</li>
+											<li class="private">
+										     <label  style="color:white;" for="id-private">
+											    <input  id="doc-private" type="checkbox" checked="checked">
+											     Private
+										    </label>
+									</li>
+                                            <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>    
+                      </ul>  
+                  </li>
+                  
+                  
+          
+                  
+                          <li id="childtwo_dr"><a id="audio_dr"href="#">Notes</a>
+                   <ul id="docsmenu_dr" class="fixingmenu_dr">
+                           <span class="arrow-left"></span>
+                            <li id="childtwo_one_dr"><a  id="googledocs_mycomp"  href="#">My Computer</a>
+                                <ul id='dooclinkchild_dr' class="largeli">
+                                    <span class="arrow-left"></span>
+                                    <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+									<li class="private">
+										<label  style="color:white;" for="id-private">
+											<input  id="id-private" type="checkbox" checked="checked">
+											Private
+										</label>
+									</li>
+                                    
+                                    <li style="margin-right:10px;" ><select class="dropdownselect" id="doc-class-list-computer">
+                                     <option>Save to Class</option>							
+                                        </select>  </li>      
+                                    <span id="loader-message"></span></br>
+
+									<li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"></li>
+                                    <li><a  style="color:white;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                            </ul>
+                            </li>
+                            
+                            <li id="childtwo_two_dr"><a id="googledocs_dr" href="#">Google Docs</a>
+                                <ul id="googledocschild_dr">
+                                    <span class="arrow-left"></span>
+                                    <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                    <li><a id="importfrmlink_dr" href="#">Import From Link</a>
+                                        <ul id='frmlinkchild_dr' class="largeli">
+                                            <span class="arrow-left"></span>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small quest-search" id="gdoc-name" placeholder="NAME of Doc"></li>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
+												<select id="doc-category-list" class="dropdownselect">
+													<option>Class Doc</option>
+													<option>Class Notes</option>
+													<option>Reference Material</option>
+													<option>Tutorial</option>
+													<option>Presentation</option>
+													<option>Project Doc</option>
+													<option>Lecture</option>
+													<option class="enterfromcatgry">Enter New Catagory</option>
+												</select>
+											</li>
+                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+											<select class="dropdownselect" id="doc-class-list">
+												<option>Save to Class</option>
+												
+											</select>
+											</li>
+											<li class="private">
+										     <label  style="color:white;" for="id-private">
+											    <input  id="doc-private" type="checkbox" checked="checked">
+											     Private
+										    </label>
+									</li>
+                                            <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>    
+                      </ul>  
+                  </li>
+                  
+                  
+                  
+                          <li id="childtwo_dr"><a id="audio_dr"href="#">Projects</a>
+                   <ul id="docsmenu_dr" class="fixingmenu_dr">
+                           <span class="arrow-left"></span>
+                            <li id="childtwo_one_dr"><a  id="googledocs_mycomp"  href="#">My Computer</a>
+                                <ul id='dooclinkchild_dr' class="largeli">
+                                    <span class="arrow-left"></span>
+                                    <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+									<li class="private">
+										<label  style="color:white;" for="id-private">
+											<input  id="id-private" type="checkbox" checked="checked">
+											Private
+										</label>
+									</li>
+                                    
+                                    <li style="margin-right:10px;" ><select class="dropdownselect" id="doc-class-list-computer">
+                                     <option>Save to Class</option>							
+                                        </select>  </li>      
+                                    <span id="loader-message"></span></br>
+
+									<li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"></li>
+                                    <li><a  style="color:white;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                            </ul>
+                            </li>
+                            
+                            <li id="childtwo_two_dr"><a id="googledocs" href="#">Google Docs</a>
+                                <ul id="googledocschild_dr">
+                                    <span class="arrow-left"></span>
+                                    <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                    <li><a id="importfrmlink_dr" href="#">Import From Link</a>
+                                        <ul id='frmlinkchild_dr' class="largeli">
+                                            <span class="arrow-left"></span>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small quest-search" id="gdoc-name" placeholder="NAME of Doc"></li>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
+												<select id="doc-category-list" class="dropdownselect">
+													<option>Class Doc</option>
+													<option>Class Notes</option>
+													<option>Reference Material</option>
+													<option>Tutorial</option>
+													<option>Presentation</option>
+													<option>Project Doc</option>
+													<option>Lecture</option>
+													<option class="enterfromcatgry">Enter New Catagory</option>
+												</select>
+											</li>
+                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+											<select class="dropdownselect" id="doc-class-list">
+												<option>Save to Class</option>
+												
+											</select>
+											</li>
+											<li class="private">
+										     <label  style="color:white;" for="id-private">
+											    <input  id="doc-private" type="checkbox" checked="checked">
+											     Private
+										    </label>
+									</li>
+                                            <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>    
+                      </ul>  
+                  </li>
+                  
+                  
+                  
+                  
+                          <li id="childtwo_dr"><a id="audio_dr"href="#">Lecture</a>
+                   <ul id="docsmenu_dr" class="fixingmenu_dr">
+                           <span class="arrow-left"></span>
+                            <li id="childtwo_one_dr"><a  id="googledocs_mycomp"  href="#">My Computer</a>
+                                <ul id='dooclinkchild_dr' class="largeli">
+                                    <span class="arrow-left"></span>
+                                    <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+									<li class="private">
+										<label  style="color:white;" for="id-private">
+											<input  id="id-private" type="checkbox" checked="checked">
+											Private
+										</label>
+									</li>
+                                    
+                                    <li style="margin-right:10px;" ><select class="dropdownselect" id="doc-class-list-computer">
+                                     <option>Save to Class</option>							
+                                        </select>  </li>      
+                                    <span id="loader-message"></span></br>
+
+									<li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"></li>
+                                    <li><a  style="color:white;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                            </ul>
+                            </li>
+                            
+                            <li id="childtwo_two_dr"><a id="googledocs_dr" href="#">Google Docs</a>
+                                <ul id="googledocschild_dr">
+                                    <span class="arrow-left"></span>
+                                    <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                    <li><a id="importfrmlink_dr" href="#">Import From Link</a>
+                                        <ul id='frmlinkchild_dr' class="largeli">
+                                            <span class="arrow-left"></span>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small quest-search" id="gdoc-name" placeholder="NAME of Doc"></li>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
+												<select id="doc-category-list" class="dropdownselect">
+													<option>Class Doc</option>
+													<option>Class Notes</option>
+													<option>Reference Material</option>
+													<option>Tutorial</option>
+													<option>Presentation</option>
+													<option>Project Doc</option>
+													<option>Lecture</option>
+													<option class="enterfromcatgry">Enter New Catagory</option>
+												</select>
+											</li>
+                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+											<select class="dropdownselect" id="doc-class-list">
+												<option>Save to Class</option>
+												
+											</select>
+											</li>
+											<li class="private">
+										     <label  style="color:white;" for="id-private">
+											    <input  id="doc-private" type="checkbox" checked="checked">
+											     Private
+										    </label>
+									</li>
+                                            <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>    
+                      </ul>  
+                  </li>
+                  
+               
+                  
+                          <li id="childtwo_dr"><a id="audio_dr"href="#">Reference Material</a>
+                   <ul id="docsmenu_dr" class="fixingmenu_dr">
+                           <span class="arrow-left"></span>
+                            <li id="childtwo_one_dr"><a  id="googledocs_mycomp"  href="#">My Computer</a>
+                                <ul id='dooclinkchild_dr' class="largeli">
+                                    <span class="arrow-left"></span>
+                                    <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+									<li class="private">
+										<label  style="color:white;" for="id-private">
+											<input  id="id-private" type="checkbox" checked="checked">
+											Private
+										</label>
+									</li>
+                                    
+                                    <li style="margin-right:10px;" ><select class="dropdownselect" id="doc-class-list-computer">
+                                     <option>Save to Class</option>							
+                                        </select>  </li>      
+                                    <span id="loader-message"></span></br>
+
+									<li><input type="button" id="docfrmcomputer_uploadbutton" class="upload_button"></li>
+                                    <li><a  style="color:white;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                            </ul>
+                            </li>
+                            
+                            <li id="childtwo_two_dr"><a id="googledocs_dr" href="#">Google Docs</a>
+                                <ul id="googledocschild_dr">
+                                    <span class="arrow-left"></span>
+                                    <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                    <li><a id="importfrmlink_dr" href="#">Import From Link</a>
+                                        <ul id='frmlinkchild_dr' class="largeli">
+                                            <span class="arrow-left"></span>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small quest-search" id="gdoc-name" placeholder="NAME of Doc"></li>
+                                            <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
+												<select id="doc-category-list" class="dropdownselect">
+													<option>Class Doc</option>
+													<option>Class Notes</option>
+													<option>Reference Material</option>
+													<option>Tutorial</option>
+													<option>Presentation</option>
+													<option>Project Doc</option>
+													<option>Lecture</option>
+													<option class="enterfromcatgry">Enter New Catagory</option>
+												</select>
+											</li>
+                                            <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+											<select class="dropdownselect" id="doc-class-list">
+												<option>Save to Class</option>
+												
+											</select>
+											</li>
+											<li class="private">
+										     <label  style="color:white;" for="id-private">
+											    <input  id="doc-private" type="checkbox" checked="checked">
+											     Private
+										    </label>
+									</li>
+                                            <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>    
+                      </ul>  
+                  </li>
+                  
+                  
+                  
+                  
+                  <li id="childthree_dr"><a id ="audio_dr" href="#">Tutorial</a>
+                       <ul id="videomenu_dr" class="fixingmenu_dr">
+                    <span class="arrow-left"></span>
+                      <li><a href="#">My Computer</a></li>
+                      <li><a id="youtube_dr" href="#">YouTube</a>
+                        <ul id='youtubechild_dr' class="largeli">
+                        <span class="arrow-left"></span>
+                          <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small quest-search" placeholder="NAME of Video"></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video">
+								<select id="video-category-list" class="dropdownselect">
+									<option>Class Video</option>
+									<option>Profile Video</option>
+									<option>Reference Material</option>
+									<option>Tutorial</option>
+									<option>Presentation</option>
+									<option>Project Presentation</option>
+									<option>Project Video</option>
+									<option>Lecture</option>
+									<option class="enterfromcatgry">Enter New Catagory</option>
+								</select>
+						</li>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+							<select class="dropdownselect" id="video-class-list">
+								<option>Save to Class</option>
+								<option>Profile</option>
+								<option>My Docs</option>
+							</select>
+						  </li>
+                          <li><input type="button" class="upload_button" id="video_uploadbutton"></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  
+                  
+                  
+                  
+                  <li id="childfour_dr"><a id="audio_dr" href="#">EdTech Tool</a>
+                      <ul id="audiomenu_dr" class="fixingmenu_dr">
+                     <span class="arrow-left"></span>
+                      <li><a href="#">My Computer</a></li>
+                      <li><a id="vialink_dr" href="#">Via Link</a>
+                        <ul id='vialinkchild_dr' class="largeli">
+                        <span class="arrow-left"></span>
+                          <li><input type="text" class="dropdowntext" placeholder="http://www.PasteAudioURLHere.com"><input type="text" class="dropdowntext-small quest-search" placeholder="NAME of Audio"></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Audio File">
+								<select id="audio-category-list"  class="dropdownselect">
+									<option>Class Audio</option>
+									<option>Class Notes</option>
+									<option>Reference Material</option>
+									<option>Tutorial</option>
+									<option>Presentation</option>
+									<option>Project Audio</option>
+									<option>Lecture</option>
+									<option class="enterfromcatgry">Enter New Catagory</option>
+								</select>
+							</li>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+							<select class="dropdownselect" id="audio-class-list">
+							   <option>Save to Class</option>
+							   <option>Profile</option>
+							   <option>My Docs</option>
+							</select>
+						 </li>
+                          <li><input type="button" class="upload_button" id="audio_uploadbutton"></li>
+                        </ul>
+                      </li>
+                    </ul> 
+                  </li>
+                  
+                  
+                  
+                  
+                  
+                  <li id="childfive_dr"><a id="presentations_dr" href="#">Amusement</a>
+                      <ul id="presentationmenu_dr" class="fixingmenu_dr">
+                     <span class="arrow-left"></span>
+                      <li><a href="#">My Computer</a></li>
+                      <li><a id="presvialink_dr" href="#">Via Link</a>
+                        <ul id='presvialinkchild_dr' class="largeli">
+                        <span class="arrow-left"></span>
+                          <li><input type="text" class="dropdowntext" placeholder="http://www.PasteLinkHere.com"><input type="text" class="dropdowntext-small quest-search" placeholder="NAME of Presentations"></li>
+                          <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Presentations File">
+                            <select id="presentation-category-list" class="dropdownselect">
+                                      <option>Class Presentation</option>
+									  <option >Assignment</option>
+									  <option>Tutorial</option>
+ 									  <option >Presentation</option>
+									  <option >Project Presentation</option>
+									  <option >Event Presentation</option>
+                                      <option class="enterfromcatgry">Enter New Catagory</option>
+                            </select>
+                           </li>
+                          <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+								<select id="presentation-class-list" class="dropdownselect">
+									<option>Save to Class</option>
+									<option>Profile</option>
+									<option>My Docs</option>
+								</select>
+						 </li>
+                          <li><input type="button" class="upload_button" id="press_uploadbutton"></li>
+                        </ul>
+                      </li>
+                    </ul>   
+                  </li>
+                  <li><a id="presentations_dr" href="#">Public</a></li>
+                   
+                  
+                  
+                  
+                  
+                  
+                </ul>
+              </li>               
+            </ul>
+            <!-- /.nav-collapse -->   
+           <!--- for drop down menu--->
+          
+          
+          <form class="navbar-form browse-search-block ">
+            <input type="text" placeholder="Search Media/docs" class="browse-search">
+            <button class="btn header-button browse-go" type="submit">Go</button>
+          </form>
+          <div class="browse-right">
+            <h6 class="small"> View as </h6>
+            <a href="#" class="green-btn activebtn"><span class="visual"><img src="images/visual-icon.png" width="20" height="22"></span><span class="texter">Visual Files</span></a> <a href="#" class="green-btn"><span class="visual"><img src="images/file.png" width="20" height="24"></span><span class="texter">Files Folder</span></a> </div>
+          <div class="stream-top-shadow"><img src="images/shadow.png"></div>
+        </div>
+        <div class="bowse-info">
+          <div class="browse-menu">
+            <ul class="sort">
+              <h6>View</h6>
+              <li>
+                <div class="settings-menu">
+                  <div class="btn-group">
+                    <button id="view-by-select" class="btn seetings-toggle sort-toogle sort-toogle-none">All Files </button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                    <ul id="view-by-list" class="dropdown-menu">
+                      <li><a href="#">All Files</a></li>
+                      <li><a href="#">My Profile Media</a></li>
+                      <li><a href="#">My Docs </a></li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li>
+
+				<div class="settings-menu">
+                  <div class="btn-group">
+                    <button  id="view-files-byrock-select" class="btn seetings-toggle sort-toogle  sort-toogle-none">By Highest Rocks</button>
+                    <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class=" settings-caret"></span></button>
+                    <ul id="view-files-byrock-list" class="dropdown-menu">
+ 					  <li data-sort="rocks"><a href="#">By Highest Rocks</a></li>
+                      <li><a href="#">By Tags</a></li>
+                    </ul>
+                  </div>
+                </div>
+
+
+              </li>
+              <li>
+                <div class="settings-menu">
+                  <div class="btn-group">
+                    <button class="btn seetings-toggle sort-toogle sort-toogle-none" id="category-list-select" >Category </button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                    <ul class="dropdown-menu" id="category-list" >
+                      <li><a href="#">Class Document</a></li>
+                      <li><a href="#">Assignment</a></li>
+                      <li><a href="#">Homework </a></li>
+						<li><a href="#">Notes</a></li>
+                      <li><a href="#">Project</a></li>
+                      <li><a href="#">Lecture </a></li>
+					 <li><a href="#">Reference Material</a></li>
+                      <li><a href="#">Tutorial</a></li>
+                      <li><a href="#">EdTech Tool </a></li>
+						<li><a href="#">Amusement</a></li>
+                      <input type="text" placeholder="+Add a new category" > 
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li>
+
+				<div class="settings-menu">
+                  <div class="btn-group">
+                    <button class="btn seetings-toggle sort-toogle sort-toogle-none"  id="by-class-select" >by All Classes & Schools </button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                    <ul class="dropdown-menu"  id="by-class-list" >
+                    </ul>
+                  </div>
+                </div>
+
+              </li>
+            </ul>
+            <ul class="then-by">
+              <h6>Then View by</h6>
+              <li data-group="all" >
+				
+				 <div class="settings-menu">
+                  <div class="btn-group">
+                    <button class="btn seetings-toggle sort-toogle sort-toogle-none"  id="view-by-date-select" >All Date </button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                    <ul class="dropdown-menu" id="view-by-date-list" >
+                     <li><a href="#">Most Recent</a></li>
+					<li><a  href="#">Oldest</a></li>
+					<li><a  href="#">All Date</a></li>
+
+                    </ul>
+                  </div>
+                </div>
+
+				
+				</li>
+            </ul>
+            <div class="clear"></div>
+          </div>
+          <div class="calender-outer overview-boxes browse-outer">
+           <!-- <h2>My Profile <a href="#" class="btn blue-buttons showmessage browse-file ">View All</a></h2> -->
+           
+          
+           <ul class="profil-pic-outer files-list" id="grid">         
+           <div class="clear"></div>
+           <!-- 
+           
+          <li  data-groups='["recent"]' id="coverimage" data-date-created="11/06/2012" class="item" >
+         <div class="image-wrapper"><div class="hover-div"><div id="profile-images"><img class="cover-picture" src="images/pictures_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Images </p></div></div></div>
+          <div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>
+        </li>
+        <li data-groups='["oldest"]' data-date-created="2010-09-14" id="covervideo" class="item">
+       <div class="image-wrapper"><div class="hover-div"><div id="profile-videos"><img class="cover-picture" src="images/video_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Videos </p></div></div> </div>
+          <div class="comment-wrapper1"> <a class="common-icon video" href="#"></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div> 
+        </li>        
+        <li id="coverdocs"  data-groups='["recent"]' data-date-created="11/07/2012" class="item">
+       <div class="image-wrapper" id="google-docs"><div class="hover-div"><a class="google-docs-image" href="#googledocs"><img class="cover-picture" src="images/google_docs_image.png"></a>  
+          <div class="hover-text"><p class="emptyfiles"> No Uploaded Docs </p></div></div></div>
+          <div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>
+            <ul class="comment-list">
+              <li><a class="eye-icon" href="#">87</a></li>
+              <li><a class="hand-icon" href="#">5</a></li>
+              <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>   
+        </li>        
+        <li id="coveraudio" data-groups='["oldest"]' data-date-created="12/06/2011" class="item" >
+         <div class="image-wrapper coveraud"> 
+               <div class="hover-div"><img class="cover-picture" src="images/audio_image.png"/><div class="hover-text"> 
+                 <p class="emptyfiles"> No Uploaded Audio </p></div>
+               </div>
+            </div>                   
+            <div class="comment-wrapper1"> <a class="common-icon music" href="#"></a>
+               <ul class="comment-list"> 
+                  <li><a class="eye-icon" href="#">87</a></li>
+                  <li><a class="hand-icon" href="#">5</a></li>
+                  <li><a class="message-icon" href="#">10</a></li>
+              </ul>
+           </div> 
+        </li>
+        <li id="coverspreadsheet"  data-groups='["recent"]' data-date-created="11/10/2012" class="item">
+       <div class="image-wrapper">
+            <div class="hover-div"><img class="cover-picture" src="images/spreadsheets_image.png"/><div class="hover-text"> 
+               <p class="emptyfiles"> No Uploaded Spreadsheets </p>
+              </div> 
+            </div>
+            </div>
+           <div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>
+              <ul class="comment-list">
+                 <li><a class="eye-icon" href="#">87</a></li>
+                 <li><a class="hand-icon" href="#">5</a></li>
+                 <li><a class="message-icon" href="#">10</a></li>
+              </ul>
+           </div>  
+        </li>
+        <li id="coverpresentation" data-groups='["oldest"]' data-date-created="11/09/2012" class="item">
+         <div class="image-wrapper"> 
+              <div class="hover-div"><img class="cover-picture" src="images/presentations_image.png"/>
+               <div class="hover-text">  <p class="emptyfiles"> No Uploaded Presentations </p></div>        
+              </div>
+           </div> 
+           <div class="comment-wrapper1"> <a class="common-icon presentation" href="#"></a>
+             <ul class="comment-list">
+                <li><a class="eye-icon" href="#">87</a></li>
+                <li><a class="hand-icon" href="#">5</a></li>
+                <li><a class="message-icon" href="#">10</a></li>
+            </ul>
+          </div>  
+       </li>
+       <li id="coverpdf" data-groups='["oldest"]' data-date-created="09/06/2012" class="item">
+         <div class="image-wrapper">
+             <div class="hover-div"><img class="cover-picture" src="images/pdp_image.png"/><div class="hover-text">    
+                <p class="emptyfiles"> No Uploaded Files </p>
+              </div>
+           </div>
+           </div>
+           <div class="comment-wrapper1"> <a class="common-icon pdf" href="#"></a>
+              <ul class="comment-list">
+                <li><a class="eye-icon" href="#">87</a></li>
+                <li><a class="hand-icon" href="#">5</a></li>
+                <li><a class="message-icon" href="#">10</a></li>
+              </ul>        
+
+           </div>         
+        </li>
+        <li id="coverdoc_com"  data-groups='["recent"]' data-date-created="11/06/2012" class="item">
+       <div class="image-wrapper"> 
+             <div class="hover-div"><img class="cover-picture" src="images/docs_image.png"/>
+               <div class="hover-text">     
+                <p class="emptyfiles"> No Uploaded Docs </p>
+               </div>
+             </div> 
+          </div>
+          <div class="comment-wrapper1"> <a class="common-icon link" href="#"></a>
+             <ul class="comment-list">
+                <li><a class="eye-icon" href="#">87</a></li>
+                <li><a class="hand-icon" href="#">5</a></li>
+                <li><a class="message-icon" href="#">10</a></li>
+             </ul>
+          </div>   
+        </li>       
+        <li id="coverlink"  data-groups='["recent"]' data-date-created="11/06/2010" class="item" >
+     <div class="image-wrapper"> 
+             <div class="hover-div"><img class="cover-picture" src="images/links_image.png"/>
+               <div class="hover-text">     
+                <p class="emptyfiles"> No Uploaded Links </p>
+               </div>
+             </div> 
+          </div>
+          <div class="comment-wrapper1"> <a class="common-icon link" href="#"></a>
+             <ul class="comment-list">
+                <li><a class="eye-icon" href="#">87</a></li>
+                <li><a class="hand-icon" href="#">5</a></li>
+                <li><a class="message-icon" href="#">10</a></li>
+             </ul>
+          </div>   
+        </li>       -->
+    
+    
+    
+    
+           
+              <div class="clear"></div>
+            </ul>
+           
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+         
+            
+        </script>
+        
+         <!---------------------uploaded items view----------------------->
+        
+                <script type="text/x-handlebars-template" id="tpl-docsview">
+            
+      <!--------------------------------------Right Conatiner---------------------------------------->
+      
+      <div class="right-container browse-conatiner">
+        <div class="stream-header browse-header">
+          <h6>Upload Media/Docs</h6>
+          <form class="navbar-form browse-search-block ">
+            <input type="text" placeholder="Search Media/docs" class="browse-search">
+            <button class="btn header-button browse-go" type="submit">Go</button>
+          </form>
+          <div class="browse-right">
+            <h6 class="small"> View as </h6>
+            <a href="#" class="green-btn"><span class="visual"><img src="images/visual-icon.png" width="20" height="22"></span><span class="texter">Visual Files</span></a> <a href="#" class="green-btn"><span class="visual"><img src="images/file.png" width="20" height="24"></span><span class="texter">Files Folder</span></a> </div>
+          <div class="stream-top-shadow"><img src="images/shadow.png"></div>
+        </div>
+        <div class="bowse-info">
+          <div class="browse-menu">
+            <ul class="sort">
+              <h6>View</h6>
+              <li>
+                <div class="settings-menu">
+                  <div class="btn-group">
+                    <button class="btn seetings-toggle sort-toogle sort-toogle-none">File Type </button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">All Files</a></li>
+                      <li><a href="#">My Profile Media</a></li>
+                      <li><a href="#">My Docs </a></li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+               
+              <li>
+
+				<div class="settings-menu">
+                  <div class="btn-group">
+                    <button  id="view-files-byrock-select" class="btn seetings-toggle sort-toogle  sort-toogle-none">By Highest Rocks</button>
+                    <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class=" settings-caret"></span></button>
+                    <ul id="view-files-byrock-list" class="dropdown-menu">
+ 					  <li data-sort="rocks"><a href="#">By Highest Rocks</a></li>
+                      <li><a href="#">By Tags</a></li>
+                    </ul>
+                  </div>
+                </div>
+
+
+              </li>
+              <li>
+                <div class="settings-menu">
+                  <div class="btn-group">
+                    <button class="btn seetings-toggle sort-toogle sort-toogle-none " id="category-list-select" >Category </button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                    <ul class="dropdown-menu" id="category-list" >
+                       <li><a href="#">Class Document</a></li>
+                      <li><a href="#">Assignment</a></li>
+                      <li><a href="#">Homework </a></li>
+						<li><a href="#">Notes</a></li>
+                      <li><a href="#">Project</a></li>
+                      <li><a href="#">Lecture </a></li>
+					 <li><a href="#">Reference Material</a></li>
+                      <li><a href="#">Tutorial</a></li>
+                      <li><a href="#">EdTech Tool </a></li>
+						<li><a href="#">Amusement</a></li>
+                      <input type="text" placeholder="+Add a new category" >
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li>
+               <div class="settings-menu">
+                  <div class="btn-group">
+                    <button class="btn seetings-toggle sort-toogle sort-toogle-none"  id="by-class-select" >by All Classes & Schools </button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                    <ul class="dropdown-menu"  id="by-class-list" >
+                    </ul>
+                  </div>
+                </div>
+
+              </li>
+            </ul>
+            <ul class="then-by">
+              <h6>Then View by</h6>
+              <li data-group="all" >
+				
+				 <div class="settings-menu">
+                  <div class="btn-group">
+                    <button class="btn seetings-toggle sort-toogle sort-toogle-none"  id="view-by-date-select" >All Date </button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                    <ul class="dropdown-menu" id="view-by-date-list" >
+                     <li><a href="#">Most Recent</a></li>
+					<li><a  href="#">Oldest</a></li>
+					<li><a  href="#">All Date</a></li>
+
+                    </ul>
+                  </div>
+                </div>
+</li>
+             
+            </ul>
+           <div class="clear"></div> 
+          </div>
+          <div class="calender-outer overview-boxes browse-outer">
+           <!-- <h2>My Profile <a href="#" class="btn blue-buttons showmessage browse-file ">View All</a></h2> -->
+             <div id="gdocedit" ></div> 
+            <ul class="profil-pic-outer" id="grid">  
+               
+  
+             <div class="clear"></div> 
+            </ul>
+          </div>
+        </div>
+        <div class="clear"></div>  
+      </div>
+      </div>
+        </script>
+        
+        
+        <!-- template for single bucket in image -->
+<script type="text/x-handlebars-template" id="tpl-single-image">
+    <li id="file-docs-'{{imageCount}}" class="item"  data-date-created="{{image.dateCreated}}" data-rock="{{image.rocks}}">  
+  <div id="{{image.id.id}}"   name="single-doc">
+<div class="image-wrapper hovereffect" >
+  <div class="hover-div"><img class="filmedia-picture" src="{{image.mediaUrl}}">
+    <div class="hover-text">               
+     <div class="comment-wrapper" id="{{image.id.id}}">                                
+     <div id="media-{{image.id.id}}">
+      <h4 id="name-{{image.id.id}}" >{{image.name}}</h4>                                
+      <div class="description-info">      
+         <div class="gallery"></div>
+	 <div class="gallery hrtxt">
+           <a href="{{image.mediaUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
+              <div class="description-left photo-popup">   
+              <p class="google_doc doc-description" id="description-{{image.id.id}}"><input type="hidden" id="id-{{image.id.id}}" value="doc.url"> {{image.description}}</p>
+	    </div>
+           </a>
+	 </div>     
+    
+      <div  id="{{image.id.id}}" class="comment-wrapper2">
+      <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
+	  <a href="#" class="hand-icon rock_docs"></a>
+      <a href="#" class="message-icon"></a>
+	  <a href="#" class="share-icon"></a>
+      </div></div></div>
+      <h5 class="imgtitle" id="{{image.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
+     <div class="dateinfo"><span class="state">{{image.access.name}}</span><span class="date">{{datVal}}</span></div>
+    </div>
+   </div>
+  </div>
+</div>  
+  <div class="comment-wrapper1"> 
+   <a class="common-icon camera" href="#"></a>
+    <ul id="{{image.id.id}}-activities" class="comment-list">
+     <li><a class="eye-icon" href="#">0</a></li>
+     <li><a class="hand-icon show_rockers" href="#">{{image.rocks}}</a></li>
+     <li><a class="message-icon" href="#">0</a></li>
+    </ul>
+</div>
+</div>
+</li>
+ </script> 
+ 
+ <!-- template for single bucket for video -->
+<script type="text/x-handlebars-template" id="tpl-single-video">
+        <li id="file-docs-'{{videoCount}}" class="item"  data-date-created="{{video.dateCreated}}" data-rock="{{video.rocks}}" class="item">  
+  <div id="{{video.id.id}}"   name="single-doc">
+ <div class="image-wrapper hovereffect" >
+       <div class="hover-div"><img class="filmedia-picture" src="{{video.frameURL}}">
+          <div class="hover-text">               
+            <div class="comment-wrapper" id="{{video.id.id}}">                                
+                 <div id="media-{{video.id.id}}">
+                    <h4 id="name-{{video.id.id}}">{{video.name}}</h4>                                
+                    <div class="description-info">
+                       <div class="gallery"></div>
+                         <div class="gallery hrtxt">
+                          <a href="{{video.mediaUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
+                            <div class="description-left photo-popup">
+                              <p class="google_doc doc-description" id="description-{{video.id.id}}"><input type="hidden" id="id-{{video.id.id}}" value="doc.url"> {{video.description}}</p>
+                            </div>
+                          </a>
+                       </div>
+                       <div  id="{{video.id.id}}" class="comment-wrapper2">
+                        <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
+						<a href="#" class="hand-icon rock_docs"></a>
+                        <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
+                       </div>
+                     </div>
+                  </div>
+                <h5 class="videotitle" id="{{video.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
+                <div class="dateinfo"><span class="state">{{video.access.name}}</span><span class="date">{{datVal}}</span></div>
+            </div>
+          </div>
+       </div>
+    </div>
+   <div class="comment-wrapper1"> 
+    <a class="common-icon video" href="#"></a>
+     <ul id="{{video.id.id}}-activities" class="comment-list">
+      <li><a class="eye-icon" href="#">0</a></li>
+      <li><a class="hand-icon show_rockers" href="#">{{video.rocks}}</a></li>
+      <li><a class="message-icon" href="#">0</a></li>
+     </ul>
+   </div>
+   <div id="{{video.id.id}}-docRockers-list" class="docRockers_popup"></div>
+  </div> 
+</li>
+</script> 
+
+<!-- template for single bucket in google doc-->
+<script type="text/x-handlebars-template" id="tpl-single-bucket">
+ <li id="file-docs-'{{docCount}}"  data-date-created="{{doc.creationDate}}" data-rock="{{doc.documentRocks}}" class="item">  
+  <div id="{{doc.id.id}}"   name="single-doc">
+ <div class="image-wrapper hovereffect" >
+  <div class="hover-div"><img class="cover-picture" src="images/{{image}}"><h3 class="common-doctext" >{{extension}}</h3>
+    <div class="hover-text">               
+     <div class="comment-wrapper" id="{{doc.id.id}}">                                
+     <div id="media-{{doc.id.id}}">
+      <h4 id="name-{{doc.id.id}}">{{doc.documentName}}</h4>                                
+      <div class="description-info"><div class="description-left mediapopup" id="{{doc.id.id}}">
+        <input type="hidden" id="id-{{doc.id.id}}" value="{{doc.documentURL}}">      
+        <p class="doc-description" id="description-{{doc.id.id}}" >{{doc.documentDescription}}</p>
+      </div>
+      <div   id="{{doc.id.id}}" class="comment-wrapper2">
+      <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
+      <a href="#" class="hand-icon rock_docs"></a>
+      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
+      </div></div></div>
+      <h5 class="doctitle" id="{{doc.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
+     <div class="dateinfo"><span class="state">{{doc.documentAccess.name}}</span><span class="date">{{datVal}}</span></div>
+    </div>
+   </div>
+  </div>
+ </div>
+  <div class="comment-wrapper1"> 
+   <a class="common-icon data" href="#"></a>
+    <ul id="{{doc.id.id}}-activities" class="comment-list">
+     <li><a class="eye-icon" href="#">0</a></li>
+     <li><a class="hand-icon show_rockers" href="#">{{doc.documentRocks}}</a></li>
+     <li><a class="message-icon" href="#">0</a></li>
+    </ul>
+</div>
+   <div id="{{doc.id.id}}-docRockers-list" class="docRockers_popup"></div>
+   </div>  
+</li> 
+</script> 
+
+<!-- Documents popup window to show documents -->
+<script type="text/x-handlebars-template" id="document-popup-tpl">
+ <div id="bootstrap_popup" class="modal hide fade in" style="display: none; ">
+            <div class="modal-header">
+              <a class="close" data-dismiss="modal">×</a>
+              <h3></h3>
+            </div>
+            <div class="modal-body">
+              <h4>google Docs</h4>
+              <p><iframe src="{{docUrl}}" scrolling="NO"  width="963" height="500" style="border: none">
+                    <p>Your browser does not support iframes.</p>
+                    </iframe> </p>		        
+            </div>
+            <div class="modal-footer">
+             
+            </div>
+  </div>
+</script>
+
+
+<!-- @TODO edit profile view  -->
+<!-- Documents popup window to show documents -->
+<script type="text/x-handlebars-template" id="edit-profile-tpl">
+ <div id="edit-profile-popup" class="modal hide fade in" style="display: none; ">
+<div name="image-crop" id="image-crop-view" ></div>
+            <div class="modal-header">
+              <a class="close" data-dismiss="modal">×</a>
+              <h3></h3>
+            </div>
+            <div class="modal-body">
+              <form name="profile-form" id ="profile-form"  method="POST" enctype="multipart/form-data">
+            <fieldset>
+                <legend class="legend">Profile info</legend>
+              
+                <div class="form-row">
+                    <div class="element" style="float: left !important; margin-left: 60px !important; margin-right: 10px; width: 399px !important;">
+                        <label name="profile-image" for="profile-photo">Profile photo</label>
+                        <span class="profile-thumb">
+                           <div id="img"></div>
+                           <div id="default-image" style="height: 100px; width: 100px; overflow:hidden;">
+                          
+                             <img id="profile-photo" src="images/no-photo.png" style="max-width: none !important;"  alt="no photo" name="profile-photo" exif="true">
+                            
+							<div id="image-loader" style="display :none;">  
+			                   <img src ="images/loading.gif"> 
+                            </div>
+                           </div>
+                        </span>
+                        <div class="profile-upload-box">
+							<input id="profile-image" type="file"  name="profile-image" >
+                             <div style="margin-top:10px;" id="remove-image" ><div id="image-info" style="display:none;"></div><a style="display:none;" class ="delete-image" href="#" ><img src="images/close button1.png"></a> </div>
+                              
+                            
+                        </div>
+                        <div class ="make-it">
+                        <ul class="add-type">
+
+                        <li><div class="profile-radio"><input  id="img-primary"  type="radio"  checked="checked" value=true name="img-status" /></div><span>Make it Primary</span></li>
+					    <li><div class="profile-radio"><input  type="radio" id="img-secondary" name="img-status" value=false /></div><span>Make It Secondary</span></li>
+                        </ul>
+                       </div>
+                    </div>
+                    <div class="element last"style="float: left !important; margin-left: 60px !important; margin-right: 10px; width: 399px !important;">
+                        <label name="my-video" for="profile-video">Profile video</label>
+                        <span class="profile-thumb">
+                          
+                              <img id="profile-video" src="images/no-video.png"  style="width:95px; height:90px;" alt="no video" name="profile-video">
+                           
+						</span>
+                        <div class="profile-upload-box">
+							<input type="file" name="my-video" id="my-video"/>
+                             <div style="margin-top:10px;" id="remove-video" ><div id="video-info" style="display:none;"></div> <a style="display:none;" class ="delete-video" href="#" ><img src="images/close button1.png"></a> </div>
+                        </div>
+                         <div class ="make-it">
+                        <ul class="add-type">
+
+                        <li><div class="profile-radio"><input type="radio" id="video-primary" name="video-status" value=true /></div><span>Make it Primary</span></li>
+					    <li><div class="profile-radio"><input type="radio" id="video-secondary" checked="checked" value=false  name="video-status" /></div><span>Make It Secondary</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-row-label">&nbsp;</div>
+                <div class="form-row">
+                   
+                    <div class="element">
+                        <label name="upload" for="upload">Upload</label>
+                        <select id="upload" class="large" name="upload">
+							<option value="Links">Links</option>
+							<option value="Documents">Documents</option>
+							<option value="PDF's">PDF's</option>
+							<option value="Videos">Videos</option>
+                            <option value="Presentation">Presentation</option>
+                            <option value="Audio">Audio</option>
+ 							<option value="Spredsheets">Spredsheets</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+			<input type="hidden"   id="imagedata" />
+            <input type="hidden"   id="videodata" />
+        </form>
+                       
+            </div>
+            
+                  
+
+			 	<div class="progress-container" style="margin-left: 250px; margin-top: 5px;width: 400px;">
+				
+			    <div class="progress progress-striped active">
+			        <div class="bar" style="width: 0%;"></div>
+			    </div> 
+<!-- 				<label id="wait" style="text-align: center;" >Please Wait.... </label></br> -->
+		       
+				</div> 
+		
+		        <a style="margin-bottom: 15px;margin-left: 50px;" href="#messages" class="btn btn-primary pull-left"  id="save" >Save & Exit</a>
+		         
+             
+  </div>
+</script>
+
+
+<!-- @TODO edit profile view  -->
+<!-- Image Crop view -->
+<script type="text/x-handlebars-template" id="image-crop-tpl">
+ <div id="image-crop-popup" class="modal hide fade in" style="display: none; height:600px; top:45% !important;">
+            <div class="modal-header">
+              <a class="close" data-dismiss="modal">×</a>
+              <h3></h3>
+            </div>
+            <div class="modal-body">
+               <form name="add-new-school-form"  >
+            <fieldset>
+				 <table>
+			      <tr>
+			        <td>
+			          <img   src="{{image}}" id="target" alt="Flowers" />
+			        </td>
+			        <td>
+			          <div style="width:100px;height:100px;overflow:hidden; margin-left:10px;">
+			            <img src="{{image}}" id="preview" alt="Preview" class="jcrop-preview" />
+			          </div>
+			           
+			        </td>
+			      </tr>
+			    </table>
+			<input type="hidden" id="x" name="x" /> <input
+					type="hidden" id="y" name="y" /> <input type="hidden" id="w"
+					name="w" /> <input type="hidden" id="h" name="h" />
+					
+            </fieldset>
+        </form>
+           <a href="#" id="crop"  class="btn btn-primary pull-left"  >Crop Image</a>
+                       
+            </div>
+       
+  </div>
+</script>
+
+
+<!-- Documents popup window to show presentation/pdf etc.. -->
+<script type="text/x-handlebars-template" id="mediafiles-popup-tpl">
+<div id="bootstrap_popup" class="modal hide fade in" style="display: none; ">
+            <div class="modal-header">
+              <a class="close" data-dismiss="modal">×</a>
+              <input type="button" onclick="download()">
+              <div class="downloadbutton"><button class="btn btn-mini download" type="button">Download</button></div>
+              <h3></h3>
+            </div>
+            <div class="modal-body">
+              <h4>{{title}}</h4>
+              <p><iframe src="http://docs.google.com/gview?url={{url}}&embedded=true" scrolling="NO"  width="963" height="500" style="border: none">
+                    <p>Your browser does not support iframes.</p>
+                    </iframe> </p>		        
+            </div>
+            <div class="modal-footer">
+            
+            </div>
+  </div>
+</script>
+<!-- template for single bucket in presentation view -->
+<script type="text/x-handlebars-template" id="tpl-single-presentation">
+   
+        <li id="file-docs-'{{count}}" class="item"  data-date-created="{{ppt.creationDate}}" data-rock="{{ppt.documentRocks}}" class="item">  
+  <div id="{{ppt.id.id}}"   name="single-doc">
+ <div class="image-wrapper hovereffect" >
+  <div class="hover-div"><img class="cover-picture" src="images/presentations_image.png">
+    <div class="hover-text">               
+     <div class="comment-wrapper" >                                
+     <div id="media-{{ppt.id.id}}">
+      <h4 id="name-{{ppt.id.id}}">{{ppt.documentName}}</h4>                                
+      <div class="description-info"><div class="description-left mediapopup" id="{{ppt.id.id}}">
+        <p class="doc-description " id="description-{{ppt.id.id}}" >{{ppt.documentDescription}}</p>
+      </div>
+      <div id="{{ppt.id.id}}"  class="comment-wrapper2">
+      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_docs"></a>
+      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
+      </div></div></div>
+      <h5 class="presentationtitle" id="{{ppt.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
+     <div class="dateinfo"><span class="state">{{ppt.documentAccess.name}}</span><span class="date">{{datVal}}</span></div>
+    </div>
+   </div>
+  </div>
+ </div>
+  <div class="comment-wrapper1"> 
+   <a class="common-icon data" href="#"></a>
+    <ul id="{{ppt.id.id}}-activities" class="comment-list">
+     <li><a class="eye-icon" href="#">0</a></li>
+     <li><a class="hand-icon show_rockers" href="#">{{ppt.documentRocks}}</a></li>
+     <li><a class="message-icon" href="#">0</a></li>
+    </ul>
+</div>
+   <div id="{{ppt.id.id}}-docRockers-list" class="docRockers_popup"></div>
+   </div>  
+</li>
+ </script>  
+ 
+ <!-- template for single bucket in pdf-list view -->
+  <script type="text/x-handlebars-template" id="tpl-single-pdf">
+            <li id="file-docs-'{{count}}" data-date-created="{{pdf.creationDate}}" data-rock="{{pdf.documentRocks}}" class="item">  
+  <div id="{{pdf.id.id}}"   name="single-doc">
+ <div class="image-wrapper hovereffect" >
+  <div class="hover-div"><img class="filmedia-picture" src="{{pdf.previewImageUrl}}">
+    <div class="hover-text">               
+     <div class="comment-wrapper" >                                
+     <div id="media-{{pdf.id.id}}">
+      <h4 id="name-{{video.id.id}}">{{pdf.documentName}}</h4>                                
+      <div class="description-info"><div class="description-left mediapopup" id="{{pdf.id.id}}">
+        <p class="doc-description " id="description-{{pdf.id.id}}">{{pdf.documentDescription}}</p>
+      </div>
+      <div id="{{pdf.id.id}}" class="comment-wrapper2">
+      <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
+     <a href="#" class="hand-icon rock_docs"></a>
+      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
+      </div></div></div>
+      <h5 class="pdftitle" id="{{pdf.id.id}}"><span><img src="images/title-plus.png"></span> Title & Description</h5>         
+     <div class="dateinfo"><span class="state">{{pdf.documentAccess.name}}</span><span class="date">{{datVal}}</span></div>
+    </div>
+   </div>
+  </div>
+ </div>
+  <div class="comment-wrapper1"> 
+   <a class="common-icon pdf" href="#"></a>
+    <ul id="{{pdf.id.id}}-activities" class="comment-list">
+     <li><a class="eye-icon" href="#">0</a></li>
+     <li><a class="hand-icon show_rockers" href="#">{{pdf.documentRocks}}</a></li>
+     <li><a class="message-icon" href="#">0</a></li>
+    </ul>
+</div>
+   <div id="{{pdf.id.id}}-docRockers-list" class="docRockers_popup"></div>
+   </div>  
+</li>
+   </script>   
+    
+<!-- Documents edit template-->
+<script type="text/x-handlebars-template" id="document-edit-tpl">
+
+<div id="edit-bootstrap_popup" class="modal hide fade in" style="display: none; ">
+	<div class="modal-header">
+     	<a class="close" data-dismiss="modal">×</a>
+        <h3></h3>
+    </div>
+	<div class="modal-body">
+  		<h4>Edit {{type}}</h4>
+  	    <input type="hidden" id="edittype" value="{{type}}">
+ 		<div id="error" class="invalid-validation" style="margin-left:20px; color:red;"></div>
+		<p>
+			<form name="add-new-school-form" id="add-new-school-form">
+
+    			<div class="element">
+		          <label name="media-title" for="school-name">Title </label>
+		          <input class="popup_text" type="text" name="schoolName" id="media-title" placeholder="NAME of {{type}}" value="{{title}}">
+		          <input type="hidden" id="parent-Id" value="">
+    			</div>
+     			<div class="element">
+		          <label name="media-description" for="website">Description<span class="star"> </span></label>
+		          <textarea class="popup_text" id="media-description" class="gdoc-description" placeholder="DESCRIPTION of {{type}}" >        
+		          {{description}}</textarea>
+    	  	   </div>
+       	 </form>
+        </p>		        
+    </div>
+    <div class="modal-footer">
+     <a href="#" id ="sveeditdoc" class="btn btn-primary pull-left btn-success"  >Save</a>
+    </div>
+</div>
+
+</script>  
+ 
+ 	<!-- ------------------ extra scripts --------------------->
+	<script type="text/javascript">
+	
+	/* implemented  the shuffle plugin on sorting */
+	function shufflingOnSorting(){
+        // instantiate the shuffle plugin
+        $('#grid').shuffle({
+            key : 'all',
+            speed : 800,
+            easing : 'ease-out'
+        });
+                        
+        // Set up button clicks
+        $('.then-by li ').on('click', function() {
+        	
+            var $this = $(this),
+                $grid = $('#grid'),
+	            sort = $this.data('sort'),
+	            opts = {};
+            
+            $('.then-by li a.active').removeClass('active');
+            $this.find('a').addClass('active');
+
+            $grid.shuffle($this.data('group'));
+            
+            
+            
+            
+         // We're given the element wrapped in jQuery
+            if (sort === 'date-oldest') {
+                opts = {
+                    by: function($el) {
+                        return $el.data('date-created');
+                    }
+                }
+            } else if (sort === 'date-recent') {
+            	
+                opts = {
+                     by: function($el) {
+                            return $el.data('date-created');
+                     },
+                     reverse :true
+                }
+            } else if (sort === 'title') {
+                opts = {
+                    by: function($el) {
+                        return $el.data('title').toLowerCase();
+                    }
+                }
+            }else if (sort === 'rocks') {
+            	
+                opts = {
+                        by: function($el) {
+                        	return $el.data('rock');
+                        	
+                        },
+                        reverse :true
+                    }
+                }
+         
+            // Filter elements
+            $grid.shuffle('sort', opts);
+            
+            
+        });
+       
+        
+        
+     // Set up button clicks
+        $('#view-files-byrock-list li ').on('click', function() {
+        	 
+            var $this = $(this),
+                $grid = $('#grid'),
+	            sort = $this.data('sort'),
+	            opts = {};
+            
+            
+         // We're given the element wrapped in jQuery
+         if (sort === 'rocks') {
+            	
+                opts = {
+                        by: function($el) {
+                        	return $el.data('rock');
+                        	
+                        },
+                        reverse :true
+                    }
+         }
+         
+            // Filter elements
+            $grid.shuffle('sort', opts);
+            
+            
+        });
+
+	}
+	
+	</script>
+        
+        <!-- ------------------Method to format date and returns --------------------->
+	<script type="text/javascript">
+             function formatDateVal(dateVal)
+                {
+                var m_names = new Array("January", "February", "March", 
+                                    "April", "May", "June", "July", "August", "September", 
+                                    "October", "November", "December");
+                var d = new Date(dateVal);
+                var curr_date = d.getDate();
+                var curr_month = d.getMonth() + 1; //Months are zero based
+                var curr_year = d.getFullYear();
+                return curr_date + " " + m_names[d.getMonth()] + ", " + curr_year;
+                }
+        </script>    
+	   
+	 <script type="text/javascript">
+      window.onload=function(){
+        $('.selectpicker').selectpicker();
+
+        $('.selectpicker-info').selectpicker({
+          style: 'btn-success'
+        });
+        
+      
+      };
+    </script>
+    
+	<script>
+	
+	    // remove the active class from drop down menu
+		$('body').click(function() {
+			 
+		   if($('#upload-files1').hasClass('open'))
+		   {
+			   $('#upload-files').removeClass('active-new');
+    		   $('#upload-files').addClass('attach-drop-bg');  
+		   }
+		   
+		   /**
+            * NEW THEME - hide visual drop down list
+            */
+           
+          	$('#uploadmediachild_dr').find('li').find('ul').hide(200);
+          	$('#uploadmediachild_dr').hide(200);
+		   
+		});
+	</script>
+	<!-- ----------End  extra scripts  here---------------->
+	
+	
+ 
+	 <!-------backbone library files----->
+	<script src="lib/underscore-min.js"></script>
+	<script src="lib/backbone.js"></script>
+	<script src="lib/handlebars-1.0.0.beta.6.js"></script>
+	
+	<!-------backbone library files----->
+	<script src="js/app.js"></script>  
+	<script src="js/setup.js"></script> 
+	<script src="js/views/settingsview.js"></script>
+	
+ 	<!-- Social lib (todo: incorporated into backbone) -->
+ 	<script src="js/BS_social.js"></script>
+
+    <!-- <script src="js/views/janrainview.js"></script> -->
+
 	<script src="js/views/loginview.js"></script>
 	<script src="js/views/forgotpasswordview.js"></script>
 	<script src="js/views/streamview.js"></script>
 	<script src="js/views/classstreamview.js"></script>
 	<script src="js/views/profileview.js"></script>
-	<script src="js/views/projectstreamview.js"></script>
-	<script src="js/views/studystreamview.js"></script>
-	<script src="js/views/groupstreamview.js"></script>
-	<script src="js/views/peerstreamview.js"></script>
-	<script src="js/views/friendstreamview.js"></script>
 	<script src="js/models/loginmodel.js"></script>
 	<script src="js/views/verifyemailview.js"></script>
 	<script src="js/models/emailverificationmodel.js"></script>
@@ -785,10 +3198,8 @@
 	<script src="js/models/basicprofilemodel.js"></script>
 	<script src="js/views/homeview.js"></script>
 	<script src="js/views/schoolview.js"></script>
-	<script src="js/views/editschoolview.js"></script>
 	<script src="js/models/schoolmodel.js"></script>
 	<script src="js/views/classview.js"></script>
-	<script src="js/views/editclassview.js"></script>
 	<script src="js/models/classmodel.js"></script>
 	<script src="js/models/profilemodel.js"></script>
 	<script src="js/views/newschoolview.js"></script>
@@ -810,9 +3221,20 @@
 	<script src="js/models/documentmodel.js"></script>
 	<script src="js/views/streamdocview.js"></script>
 	
+	
 	<!--  New Design -- Question -->
 	<script src="js/models/questionmodel.js"></script>
 	<script src="js/models/optionmodel.js"></script>
+	<script src="js/views/discussionview.js"></script>
+	<script src="js/views/overview.js"></script>
+	<script src="js/views/questionview.js"></script>
+	<script src="js/views/calendarview.js"></script>
+	<script src="js/views/deadlineview.js"></script>
+	
+	
+	<!-- edit profile -->
+	<script src="js/views/editprofileview.js"></script>
+	<script src="js/views/imagecropview.js"></script>
 
 	<!-- End -->
 	
@@ -822,42 +3244,4 @@
         <script src="lib/jquery.mousewheel.min.js"></script>
         <script>!window.jQuery.ui && document.write(unescape('%3Cscript src="lib/jquery-ui-1.8.21.custom.min.js"%3E%3C/script%3E'))</script>
         <script src="lib/jquery.mCustomScrollbar.js"></script>
-
-   
-<script>
-        $(document).ready(function() {
-   // FIXME: this is temporary hack, remove it later.
-        $('.menu a').click(function() {
-        var $this = $(this);
-        $this
-            .closest('ul')
-            .find('li a').removeClass('active').end()
-            .end()
-            .closest('li a').addClass('active');               
-            });
-
-        $('.stream-tab a').click(function() {
-        var $this = $(this);
-        $this
-            .closest('ul')
-            .find('li a').removeClass('active').end()
-            .end()
-            .closest('li a').addClass('active');              
-            });
-        });
-</script>    
-<script>
-        // show and hide the comments
-        $(document).ready(function() {  
-        $(".showmessage").click(function (eventName) {
-        eventName.preventDefault();
-        $('#comments').slideToggle(600); 
-        });
-        });
-</script>   
-<script>
-        $("#chat-status").click(function() {
-        $('#user-online').toggle('slow');
-        });
-</script>
 </html>

@@ -544,9 +544,7 @@ BS.AppRouter = Backbone.Router.extend({
 				   $('#middle-content').children().detach();
 				   $('nav li.active').removeClass('active');
 				   $('nav li a#streamsGroups').parents('li').addClass('active');
-				  
-				  
-			           
+           
 					   $('#school-popup').children().detach(); 
 					   $('#content').children().detach();
 					   

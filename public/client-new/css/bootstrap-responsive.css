@@ -440,9 +440,11 @@
 	  width:20% !important;
 	 }
 	 .search-block {
+				 /*
 	width:50% !important;
+	*/
 	float:left;
-	padding:1% 0 0 10% !important;
+	padding:1% 0 0 18% !important;
 }
 .header-search{
 	width:60% !important;
@@ -451,10 +453,6 @@
 		width:93% !important;
 }
 
-.stream-header-right{
-	width:32% !important;
-	float:right;
-}
 
 
 
@@ -475,6 +473,20 @@
 	padding: 5px 0; width:47% !important;
 }
 
+.browse-header h6 {
+		padding:0 20px 0 40px !important;
+}
+
+.browse-header h6.small {
+		padding-right:10px !important; 
+}
+
+
+ul.then-by {
+width:auto !important;
+ padding:0 !important;
+\
+}
 
 
 
@@ -859,11 +871,9 @@
 	padding:1%;
 }
 .stream-header-left{
-	width:60%;
 	float:left;
 }
 .stream-header-right{
-	width:35%;
 	float:right;
 }
 .left-container {
@@ -878,14 +888,12 @@
 	padding:3%;
 }
 .stream-header-left{
-	width:100%;
+		
 	display:block;
 	overflow:hidden;
 	padding:0 0 20px 0;
 }
 .stream-header-right{
-	width:100%;
-	clear:both;
 }
 .left-menu {
 	 -webkit-border-radius: 12px 12px 0 0;
@@ -972,8 +980,15 @@ ul.stream-tab li a span {
 }
 .dropdown-outer{
 	width:34%;
-	margin:0 2% 0 0;
+	
 }
+
+.overview-jumbmenu {
+
+    padding: 0 5% 0 0;
+}
+
+
 .ask-outer {
 	padding:4%;
 }
@@ -1007,10 +1022,10 @@ ul.stream-tab li a span {
 	padding:2% 3%;
 }
 ul.social-icons{
-	clear:both;
+	
 	float:left;
 	margin:0;
-	padding:10px 0 0 0;
+
 }
 .answer-conatiner {
 		display:block;
@@ -1019,21 +1034,27 @@ ul.social-icons{
 		margin:0 0 0 20px;
 		padding:4% 0 4% 4%;
 }
-.header-menu {
-	margin:0 0 10px 0 !important;
-}
+
 .menu ul li a:hover, .menu ul li a.active {
-		-webkit-border-radius:15px;
-		-moz-border-radius:15px;
-		border-radius:15px;
+		-webkit-border-radius:15px 15px 0 0;
+		-moz-border-radius:15px 15px 0 0;
+		border-radius:15px 15px 0 0;
 }
+
+
+.profile-button {
+		padding: 2px 30px;
+
+}
+
+
 
 
 
 /*  Overview  */
 .event-block-blue {
 		width:89%;
-			margin:4% 4% 0  4%;
+			margin:1% 4% 0  4%;
 
 }
 
@@ -1050,6 +1071,115 @@ ul.social-icons{
 
 .rock-btn {
 		margin:0 0 0 30%;
+}
+
+
+
+.browse-header h6 {
+		padding:0 20px 0 40px;
+}
+
+.browse-header h6.small {
+		padding-right:5px 
+}
+.browse-search{ width:90%;}
+
+.browse-search-block{ width:65%;}
+
+.browse-right{ width:100%; padding:20px  0 0 0;}
+
+.green-btn span.texter {
+		padding:0 70px;
+}
+
+.green-btn span.visual {
+		padding:9px 20px;
+}
+
+
+.green-btn span.texter {
+		padding:0 32px;
+}
+
+.green-btn span.visual {
+		padding:9px 20px;
+}
+.green-btn span.visual-new {
+		padding:9px 10px;
+}
+.green-btn span.texter-new{ padding: 0 10px;}
+
+
+
+.browse-header h6 {
+		padding:0 20px 0 40px;
+}
+
+.browse-header h6.small {
+		padding-right:5px;
+		padding-left:0px !important;
+}
+
+
+
+
+.browse-search{ width:85%;}
+
+.browse-search-block{ }
+
+
+
+.menu ul li a {
+
+    padding: 12px 10px 20px 35px;
+
+}
+.menu ul li a span{ left:10px; }
+
+
+
+
+
+.answer-description-info {
+		width: 80%;
+}
+
+
+.answer-conatiner {
+   
+    padding:2%;
+    width: 96%;
+}
+
+#file-upload-loader{
+    right: 44%;
+    top: 48%;
+
+}
+
+ul.then-by {
+    float: left;
+
+}
+
+
+
+ul.profil-pic-outer li {
+
+		margin: 0 1% 2% 3%;
+        width: 29%;
+		
+}
+
+.menu ul li a:hover,
+.menu ul li a.active {
+
+		background-position: center 40px, top right;
+}
+
+.menu ul li a:hover span,
+.menu ul li a.active span {
+		background-position: 0 -16px;
 }
 
 
@@ -1192,11 +1322,13 @@ ul.social-icons{
 	padding:3%;
 }
 .stream-header-left{
-	width:100%;
-	display:block;
 	overflow:hidden;
 	padding:0 0 20px 0;
+		float:left; margin-left:20%;
+  
 }
+
+
 .stream-header-right{
 	width:100%;
 	clear:both;
@@ -1317,10 +1449,10 @@ ul.stream-tab li a span {
 	padding:2% 3%;
 }
 ul.social-icons{
-	clear:both;
+	/*clear:both;
 	float:left;
 	margin:0;
-	padding:10px 0 0 0;
+	padding:10px 0 0 0;*/
 }
 .answer-conatiner {
 		display:block;
@@ -1372,6 +1504,139 @@ ul.social-icons{
 .answer-description-info {
 		width: 75%;
 }
+
+
+.browse-right{ width:100%; padding:20px  0 0 0;}
+
+.green-btn span.texter {
+		padding:0 32px;
+}
+
+.green-btn span.visual {
+		padding:9px 20px;
+}
+
+
+
+.green-btn span.visual-new {
+		padding:9px 10px;
+}
+.green-btn span.texter-new{ padding: 0 10px;}
+
+
+
+
+.browse-header h6 {
+		padding:0 20px 0 40px;
+}
+
+.browse-header h6.small {
+		padding-right:5px 
+}
+
+
+.browse-search{ width:85%;}
+
+.browse-search-block{ width:60%;}
+
+.header-wrapper {
+
+		padding: 10px;
+}
+
+
+.menu{	background-image: url(../images/bg.jpg);  width:100%; margin:20px 0 0 0;
+
+ border-radius: 15px 15px 0 0; height:80px; padding:2% 0%;
+
+}
+.menu ul li  {
+	padding:0 20px;
+}
+
+.menu ul li a {
+		color: #2f4553;  display:block; height:70px; line-height:80px; 
+}
+
+.menu ul li a:hover,
+.menu ul li a.active {
+		border-top:none;
+		background: url(../images/menu-arrow.png) center 50px no-repeat;
+
+}
+
+.menu ul li a:hover span,
+.menu ul li a.active span {
+		background-position: 0 -21px;
+}
+.menu ul li a span{
+	
+    left: 33px;
+    top: 8px;
+				}
+
+
+
+.profile-button {
+		padding: 5px 100px; margin-top:2px; margin-right:20px;
+
+}
+
+
+
+
+
+}
+
+@media (max-width: 765px) {
+
+
+.green-btn-new{ margin-left:20%;}
+.green-btn span.texter-new{ padding:0 60px;}
+
+
+.menu ul li  {
+	padding:0 17px;
+}
+
+
+}
+
+
+@media (max-width: 764px) {
+
+
+.menu ul li  {
+	padding:0 15px;
+}
+
+
+}
+
+@media (max-width: 763px) {
+
+
+.menu ul li  {
+	padding:0 14px;
+}
+
+
+}
+
+@media (max-width: 762px) {
+
+
+.menu ul li  {
+	padding:0 10px;
+}
+
+
+}
+
+
+
+
+
 
 
 }
@@ -1445,6 +1710,9 @@ ul.social-icons{
 .sortable li {
 								width:60%;
 }
+
+
+
 
 }
 
@@ -1595,6 +1863,17 @@ ul.social-icons{
 
 
 
+.overview-jumbmenu {
+		
+		padding: 0 12% 0 0;
+}
+
+
+
+
+
+
+
   
   
 }
@@ -1602,6 +1881,19 @@ ul.social-icons{
   .sortable li {
 								width:90%;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 	}
 	
 @media (min-width: 550px) {
@@ -1615,6 +1907,19 @@ ul.social-icons{
   .sortable li {
 								width:92%;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 	}
 
 @media (min-width: 980px) {
@@ -1665,10 +1970,7 @@ ul.social-icons{
 	width:60%;
 	float:left;
 }
-.stream-header-right{
-	width:40%;
-	float:right;
-}
+
 .left-menu {
 	 -webkit-border-radius: 12px 0 0 12px;
        -moz-border-radius: 12px 0 0 12px;
@@ -1772,7 +2074,7 @@ ul.stream-tab li a span {
 /*  Overview  */
 .event-block-blue {
 		width:87%;
-			margin:4% 4% 0  4%;
+			margin:2% 4% 0  4%;
 
 }
 .turn-btn {
@@ -1801,7 +2103,7 @@ ul.stream-tab li a span {
 
 
 .sortable li {
-								width:90%;
+		width:90%;
 }
 
 
@@ -1819,4 +2121,84 @@ ul.stream-tab li a span {
 		padding: 0 20px 50px;
 }
 
+
+.stream-top-btn a span {
+
+		padding: 12px 25px;
 }
+
+
+
+.browse-header h6 {
+		padding:0 5px 0 40px;
+}
+
+.browse-header h6.small {
+		padding-right:5px;
+}
+
+.green-btn span.texter {
+		padding:0 8px;
+}
+
+.green-btn span.visual {
+		padding:9px 5px;
+}
+
+.stream-header-right{
+	float:right;
+}
+
+.header-wrapper {
+		padding: 0 20px;
+}
+.menu ul li a {
+
+    padding:8px 20px 15px 55px;
+
+}
+
+
+.profile-button {
+		padding: 2px 12px;
+
+}
+
+.browse-header h6.small {
+		padding-left:0px !important;
+}
+
+ul.then-by {
+width:100%; padding:20px 0  0 0;
+}
+#file-upload-loader{
+  
+    right: 23%;
+    top: 25%;
+
+}
+
+
+ul.profil-pic-outer li {
+
+		margin:0 1% 2% 1%;
+		width:18%;
+		
+}
+
+
+.menu ul li a:hover,
+.menu ul li a.active {
+
+		background-position: center 32px, top right;
+}
+
+.menu ul li a:hover span,
+.menu ul li a.active span {
+		background-position: 0 -21px;
+}
+
+
+
+}
+

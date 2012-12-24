@@ -29,6 +29,8 @@ body {
 
 <link type="text/css" rel="stylesheet" href="css/jquery.selectBox.css" />
 <link type="text/css" rel="stylesheet" href="css/datepicker.css" />
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <!-- End of Le styles -->
 
 
@@ -85,6 +87,12 @@ body {
 <script type="text/javascript" src="lib/jquery.exif.js"></script>
 <script type="text/javascript" src="http://jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js"></script> 
 <!-- End -->
+
+<!--  jcrop - crpping images -->
+<link rel="stylesheet" href="css/jquery.Jcrop.css" type="text/css" />
+ <script src="lib/jquery.Jcrop.js" type="text/javascript"></script>
+
+    <!-- End -->
       
 
 </head>
@@ -481,7 +489,7 @@ body {
 <li id="file-docs-{{docCount}}" data-date-created="{{doc.creationDate}}" data-rock="{{doc.documentRocks}}" class="item" > 
   <div id="{{doc.id.id}}"   name="single-doc">
     <div class="image-wrapper hovereffect" >
-      <div class="hover-div"><img style="padding-top:25px; "src="images/textimage.png"/> <h3 class="common-doctext" >{{extension}}</h3>
+      <div class="hover-div"><img style="padding-top:25px;" src="images/{{image}}"/> <h3 class="common-doctext" >{{extension}}</h3>
 	      <div class="hover-text"> 
 	         <div id="{{doc.id.id}}" class="comment-wrapper comment-wrapper2">
 	            <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
@@ -1712,6 +1720,44 @@ Create a Class</a>
 </script>
 
 
+
+<!-- Image Crop-->
+<script type="text/x-handlebars-template" id="image-crop-tpl">
+ <div class="modal-backdrop in"></div>
+    <div class="modal add-new-school  modal-popups" style="display:block; left: 29% !important;top: 40% !important;width: 942px !important;">
+     
+		<a href="#"><img id="popup-close" class="close-button1" src="images/close-button.png"></a>
+       
+     
+    <div class="modal-body">
+        <form name="add-new-school-form"  >
+            <fieldset>
+				 <table>
+			      <tr>
+			        <td>
+			          <img src="{{image}}" id="target" alt="Flowers" />
+			        </td>
+			        <td>
+			          <div style="width:100px;height:100px;overflow:hidden;">
+			            <img src="{{image}}" id="preview" alt="Preview" class="jcrop-preview" />
+			          </div>
+			           
+			        </td>
+			      </tr>
+			    </table>
+			<input type="hidden" id="x" name="x" /> <input
+					type="hidden" id="y" name="y" /> <input type="hidden" id="w"
+					name="w" /> <input type="hidden" id="h" name="h" />
+					
+            </fieldset>
+        </form>
+           <a href="#" id="crop"  class="btn btn-primary pull-left"  >Crop Image</a>
+    </div>
+    
+ </div>
+</script>
+
+
 <!-- School Registration template-->
 <script type="text/x-handlebars-template" id="tpl-school-reg">
   <div class="modal-backdrop in"></div>
@@ -2668,6 +2714,7 @@ Create a Class</a>
 	<script type="text/x-handlebars-template" id="tpl-profile-reg">
   <div class="modal-backdrop in"></div>
     <div class="modal school-popup modal-pull-top in modal-popups" style="display:block;">
+		<div name="image-crop" id="image-crop-popup" ></div>
     <div class="modal-header">
         <div class="control-button">
         {{#unless edit}}
@@ -2703,11 +2750,11 @@ Create a Class</a>
                         <label name="profile-image" for="profile-photo">Profile photo</label>
                         <span class="profile-thumb">
                            <div id="img"></div>
-                           <div id="default-image">
+                           <div id="default-image" style="height: 100px; width: 100px; overflow:hidden;">
                            {{#if primaryImage}}
-                              <img id="profile-photo" src="{{primaryImage}}" style="width:95px; height:90px;" alt="no photo" name="profile-photo" exif="true">
+                              <img id="profile-photo" src="{{primaryImage}}"  style="max-width: none !important;" alt="no photo" name="profile-photo" exif="true">
                            {{else}}
-                             <img id="profile-photo" src="images/no-photo.png" style="width:95px; height:90px;" alt="no photo" name="profile-photo" exif="true">
+                             <img id="profile-photo" src="images/no-photo.png" style="max-width: none !important;"  alt="no photo" name="profile-photo" exif="true">
                            {{/if}}
 							<div id="image-loader" style="display :none;">  
 			                   <img src ="images/loading.gif"> 
@@ -2835,6 +2882,7 @@ Create a Class</a>
     
     <div id ="middle-part" class="container content_area wrapper_con">
       <div class="container-inner">
+        <div id="docEdit" ></div>
         <div class="row">
 
           <div class="col span2 left_column" style="margin-left: 10px !important;">
@@ -3460,9 +3508,9 @@ Create a Class</a>
 
  
  </script>
+ <!--  For stream page image preview with hover over effect -->
  
- 
- <script type="text/x-handlebars-template" id="tpl-messages_with_attached_files">
+ <script type="text/x-handlebars-template" id="tpl-messages_with_images">
  
  <li id= "{{datas.id.id}}" name ="{{datas.userId.id}}">
  <article class="message_item">
@@ -3495,12 +3543,12 @@ Create a Class</a>
 									<a href="#" class="message-icon"></a>
 									<a href="#" class="share-icon"></a>
 								</div>
-								<div id="media-{{datas.id.id}}" ><h4>{{image.name}}</h4>
+								<div id="media-{{datas.id.id}}" ><h4>Media Name</h4>
 								<div class="gallery clearfix"></div>
 								<div class="gallery clearfix hrtxt">
-									<a href="{{datas.anyPreviewImageUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
+									<a href="{{datas.messageBody}}" style="text-decoration: none" rel="prettyPhoto">
 										<p class="google_doc doc-description" id="{{datas.id.id}}">
-										<input type="hidden" id="id-{{datas.id.id}}" value="doc.url"> {{datas.description}}</p>
+										<input type="hidden" id="id-{{datas.id.id}}" value="doc.url"> Media Description..</p>
 									</a>
 									</div></div>
 									<h5 class="imgtitle" id="{{image.id.id}}"> Title & Description</h5>
@@ -3510,10 +3558,99 @@ Create a Class</a>
 							</div>
 						 </div>
 					 </div>
-					 
+					
 					<div id="{{image.id.id}}-docRockers-list" class="docRockers_popup"></div>
 				   </div>
              </div>
+             <input type="hidden" id="{{datas.id.id}}-url" value="" > 
+          
+       <div class="actions actions with-tooltips tooltips-top btn-group">
+         <a class="rock " href="#rock" data-original-title="hello"><i class="rocked rock-message"><i>{{datas.rocks}}</i></i><span class="popout_arrow"><span></span></span></a>
+         <a class="rock" id="rocks" href="#rock">Rocked it!</a>
+         <span class="separator">-</span>
+         <a class="comment" id ="{{datas.id.id}}-comment" href="#comment">Comment</a>
+         <span class="separator">-</span>
+         <a id="{{datas.id.id}}-follow" class="follow msg-follow" href="#follow">Follow</a>
+         <div id="hover-lists-{{datas.id.id}}" class="msg-rockers-list">
+        </div>
+       </div>
+       <div id ="{{datas.id.id}}-rockers" class="actions with-tooltips tooltips-top btn-group">
+          
+       </div>
+     </div>
+     
+   </div>
+   <div id="{{datas.id.id}}-header"> </div>
+   <ul class="comments" id="{{datas.id.id}}-commentlists"></ul>
+   <ul class="comments" id="{{datas.id.id}}-3_comments"></ul>
+   <ul class="comments" id="{{datas.id.id}}-newcommentlists"></ul>
+   <div id="{{datas.id.id}}-add-comment"></div>
+   </article>
+   
+   <a id="{{datas.id.id}}" href="#" class="delete_msg" ></a>
+</li>
+
+
+ 
+ </script>
+ 
+ <!--  For stream page Google document preview image icon with hover over effect -->
+ <script type="text/x-handlebars-template" id="tpl-messages_with_docs">
+ 
+ <li id= "{{datas.id.id}}" name ="{{datas.userId.id}}">
+ <article class="message_item">
+   <div class="comment_wrapper">
+     <div class="photo_container">
+       <img id="{{datas.id.id}}-img" src="{{datas.imageUrl}}" width="46" height="46">
+     </div>
+    
+     <div class="content_container">
+       <div class="meta_data">
+         
+           <span class="username"><a id="{{datas.userId.id}}" href="#user-profile">{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </a></span>
+         <span class="separator">-</span>
+         <time datetime="2011-12-01" pubdate>{{datas.timeCreated}}</time>
+         <span class="separator">-</span>
+         <span class="visibility">{{datas.messageAccess.name}}</span>
+       </div>
+
+           <div id="{{datas.docIdIfAny.id}}"   name="single-doc">
+			    <div class="image-wrapper hovereffect" >
+                   
+			     		 <div class="hover-div">
+                           {{#if commenImage }}
+                              <img style="padding-top:25px;" src="{{previewImage}}"/> <h3 class="common-doctext" >{{extension}}</h3>
+                           {{else}}
+                              <img  src="{{previewImage}}"/> 
+                           {{/if}}
+                   
+				      <div class="hover-text"> 
+				         <div id="{{datas.id.id}}" class="comment-wrapper comment-wrapper2">
+				            <a href="#" class="tag-icon" data-original-title="Search by Users"></a>
+				            <a href="#" class="hand-icon rock_docs" ></a>
+				            <a href="#" class="message-icon doc_msg"></a>
+				            <a href="#" class="share-icon"></a>
+				          </div>
+				          <div id="media-{{datas.id.id}}" ><h4>Document Name</h4>
+				            <p class="mediapopup doc-description" id="{{datas.id.id}}" >
+				               <input type="hidden" id="id-{{datas.id.id}}" value="{{datas.documentURL}}">
+				             Document Description..
+				            </p>
+				          </div>
+				          <h5 class="doctitle" id="{{datas.id.id}}"> Title & Description</h5>
+				          <span>State</span>
+				          <span class="date">{{datVal}}</span>
+				        </div> 
+				   </div>
+				  </div>                                                    
+			       <input type="hidden" id="{{datas.id.id}}-mediaUrl" value="{{datas.messageBody}}" > 
+					<input type="hidden" id="{{datas.id.id}}-docType" value="{{type}}" > 
+					<input type="hidden" id="{{datas.id.id}}-docId" value="{{datas.docIdIfAny.id}}" > 
+                 
+         
+			      <div id="{{datas.id.id}}-docRockers-list" class="docRockers_popup"></div>
+			      <div id="{{datas.id.id}}-rockFiles" class="rock_files_tooltip"></div> 
+			   </div>
              <input type="hidden" id="{{datas.id.id}}-url" value="" > 
           
        <div class="actions actions with-tooltips tooltips-top btn-group">
@@ -4296,6 +4433,9 @@ Create a Class</a>
 	<script src="js/models/documentmodel.js"></script>
 	<script src="js/views/streamdocview.js"></script>
 	<script src="js/views/invitepeopleview.js"></script>
+	
+	
+	<script src="js/views/imagecropview.js"></script>
 
 
 
@@ -4438,6 +4578,9 @@ Create a Class</a>
 		
 		
 	</script>
+	
+	
+	
 
 	<script type="text/javascript" src="lib/css3-mediaqueries.js"></script>
 

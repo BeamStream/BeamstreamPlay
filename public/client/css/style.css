@@ -1603,8 +1603,8 @@ span.edit_profilepicture_icon{
  
 .janrainContent div + div{
 	width: 200px !important;
-	background-color:#fff !important;
-	margin-top:10px !important;
+/*	background-color:#fff !important;
+	margin-top:10px !important;  */
 	color: black !important;
 }
 .janrainSwitchAccountLink{
@@ -1766,7 +1766,6 @@ span.edit_profilepicture_icon{
           hyphens: auto;
 
 }
-
 
 .embed
 {
@@ -2736,4 +2735,15 @@ div.uploaded a{
 .ext_images{
 	margin-bottom: 10px;
     margin-left: 16px;
+}
+/* hover over on stream page */
+.content_container div div.image-wrapper{
+	border-top: 1px solid #DDDDDD;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+	margin-bottom: 10px;
+}
+#docEdit div div.gdocpopup{
+	left: 35% !important;
+    top: 50% !important;
+    width: 1040px !important;
 }

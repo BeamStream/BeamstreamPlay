@@ -40,10 +40,15 @@ BS.StreamView = Backbone.View.extend({
            "click .delete_comment" : "deleteComment",
            "click .doc" : "showUploadBox",
            "change #upload-files" : "getUploadedData",
-	   "click .strmdoc" : "showStrmDocPopup",        
-            "click .uploaded" : "StrmMediaPopup", 
+           "click .strmdoc" : "showStrmDocPopup",        
+           "click .uploaded" : "StrmMediaPopup", 
            "mouseenter a.strmdoc" : "showDocTitle",
-           "click #invite" : "inviteClassmatesFriends"
+           "click #invite" : "inviteClassmatesFriends",
+           "click .mediapopup" : "showFilesInAPopup",
+           "click #popup-close" : "closeDocView" ,
+//           "mouseenter .rock_docs" : "showRockFilesMessage"
+          
+           
 
            
 	 },
@@ -92,6 +97,7 @@ BS.StreamView = Backbone.View.extend({
 				var widheight = $(window).height();
 				if(scrollTop + 1 == docheight- widheight || scrollTop == docheight- widheight){
 			 	   var t = $('.timeline_items').find('li');
+			 	  
 				   if(t.length != 0)
 				   {
 						$('.page-loader').show();
@@ -456,11 +462,11 @@ BS.StreamView = Backbone.View.extend({
 	                	 var datas = {
 	                             "datas" : data,
 		                 }						  
-		                 var source = $("#tpl-messages").html();
-		                 var template = Handlebars.compile(source);
-		                 $('.timeline_items').prepend(template(datas));
-                         var content = '<div class="uploaded"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
-                         $('#'+data.id.id+'-docurl').html(content);
+//		                 var source = $("#tpl-messages").html();
+//		                 var template = Handlebars.compile(source);
+//		                 $('.timeline_items').prepend(template(datas));
+//                         var content = '<div class="uploaded"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
+//                         $('#'+data.id.id+'-docurl').html(content);
                          $('input#'+data.id.id+'-url').val(msgUrl);  
                          $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
                          
@@ -474,68 +480,133 @@ BS.StreamView = Backbone.View.extend({
                          });
                          var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file    
                          
-                         if(data.messageType.name == "Image")
-                    	 {
-                    		   
-                        	 var linkTag =  data.messageBody.replace(BS.urlRegex1, function(url) {                                               
-                                 return '<div style="clear: none !important;" class="gallery clearfix"  ></div><div class="gallery clearfix " style="clear: none !important;"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + url + '">' + url + '</a></div>';
-                              });
-//                        	 
-                    		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
-
-
-                    	 }
-                    	 else if(data.messageType.name == "Video")
-                    	 {
-                    		 var linkTag =  data.messageBody.replace(BS.urlRegex1, function(url) {                                               
-                                 return '<div style="clear: none !important;" class="gallery clearfix" ></div><div class="gallery clearfix " style="clear: none !important;"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + url + '">' + url + '</a></div>';
-                              });
-                    		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>';
-                    	 }
-                    	 else
-                    	 {
-                    		 var linkTag =  data.messageBody.replace(BS.urlRegex1, function(url) {                                               
-                                 return '<a class="uploaded" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
-                              });
-                    		  var previewImage = '';
-                    		 if(extension[1] == 'ppt')
-                    		 {
-                    			  
-                    			 
-                    			 previewImage = "images/presentations_image.png";
-                        		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
-
-                    		 }
-                    		 else if(extension[1] == 'doc')
-                    		 {
-                    			 previewImage = "images/docs_image.png";
-                        		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
-
-                    		 }
-                    		 else if(extension[1] == 'pdf')
-                    		 {
-                    			 previewImage = data.anyPreviewImageUrl;
-                        		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
-
-                    		 }
-                    		 else
-                    		 {
-                    			// set first letter of extension in capital letter  
- 			                	extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
- 			                	    return letter.toUpperCase();
- 			                	});
- 			                	
-                    			 previewImage = "images/textimage.png";
-                        		 var content = '<div class="uploaded"><a class="uploaded previw-pdf" id="'+data.id.id+'" style="postion:relative;"  href="' + msgUrl + '"><img class="ext_images"  id="'+data.id.id+'" src="'+previewImage+'" /><h3 class="extension_files" >'+extension+'</h3></a></div>'
-
-                    		 }
-
-                             
-                    	 }
-                         if(linkTag)
-	  						  $('div#'+data.id.id+'-id').html(linkTag);
+//                         if(data.messageType.name == "Image")
+//                    	 {
+//                    		   
+//                        	 var linkTag =  data.messageBody.replace(BS.urlRegex1, function(url) {                                               
+//                                 return '<div style="clear: none !important;" class="gallery clearfix"  ></div><div class="gallery clearfix " style="clear: none !important;"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + url + '">' + url + '</a></div>';
+//                              });
+////                        	 
+//                    		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
+//
+//
+//                    	 }
+//                    	 else if(data.messageType.name == "Video")
+//                    	 {
+//                    		 var linkTag =  data.messageBody.replace(BS.urlRegex1, function(url) {                                               
+//                                 return '<div style="clear: none !important;" class="gallery clearfix" ></div><div class="gallery clearfix " style="clear: none !important;"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + url + '">' + url + '</a></div>';
+//                              });
+//                    		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>';
+//                    	 }
+//                    	 else
+//                    	 {
+//                    		 var linkTag =  data.messageBody.replace(BS.urlRegex1, function(url) {                                               
+//                                 return '<a class="uploaded" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
+//                              });
+//                    		  var previewImage = '';
+//                    		 if(extension[1] == 'ppt')
+//                    		 {
+//                    			  
+//                    			 
+//                    			 previewImage = "images/presentations_image.png";
+//                        		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
+//
+//                    		 }
+//                    		 else if(extension[1] == 'doc')
+//                    		 {
+//                    			 previewImage = "images/docs_image.png";
+//                        		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
+//
+//                    		 }
+//                    		 else if(extension[1] == 'pdf')
+//                    		 {
+//                    			 previewImage = data.anyPreviewImageUrl;
+//                        		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
+//
+//                    		 }
+//                    		 else
+//                    		 {
+//                    			// set first letter of extension in capital letter  
+// 			                	extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+// 			                	    return letter.toUpperCase();
+// 			                	});
+// 			                	
+//                    			 previewImage = "images/textimage.png";
+//                        		 var content = '<div class="uploaded"><a class="uploaded previw-pdf" id="'+data.id.id+'" style="postion:relative;"  href="' + msgUrl + '"><img class="ext_images"  id="'+data.id.id+'" src="'+previewImage+'" /><h3 class="extension_files" >'+extension+'</h3></a></div>'
+//
+//                    		 }
+//
+//                             
+//                    	 }
                          
-                    	 $('#'+data.id.id+'-docurl').html(content);
+                        // set first letter of extension in capital letter  
+	                	 extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+	                	    return letter.toUpperCase();
+	                	 });
+	                	 var datVal =  BS.filesMediaView.formatDateVal(data.timeCreated);
+  		                 console.log(data);
+                         if(data.messageType.name == "Image")
+						{
+							var source = $("#tpl-messages_with_images").html();
+	  						
+						}
+						else if(data.messageType.name == "Video")
+						{
+							var source = $("#tpl-messages_with_images").html();
+	  						
+						}
+						else
+						{
+							var previewImage = '';
+							var commenImage ="";
+							var type = "";
+							 
+							if(extension == 'Ppt')
+							{
+	                            previewImage= "images/presentations_image.png";
+	                            type = "ppt";
+	                            
+							}
+							else if(extension == 'Doc')
+							{
+								previewImage= "images/docs_image.png";
+								type = "doc";
+								 	
+							}
+							else if(extension == 'Pdf')
+							{
+								 
+								previewImage= data.anyPreviewImageUrl;
+								type = "pdf";
+							}
+							else
+							{
+								previewImage= "images/textimage.png";
+								commenImage = "true";
+								type = "doc";
+								
+							}
+							
+							var datas = {
+								    "datas" : data,
+                                    "datVal" :datVal,
+                                    "previewImage" :previewImage,
+                                    "extension" : extension,
+                                    "commenImage" : commenImage,
+                                    "type" : type
+					        }	
+						
+						    var source = $("#tpl-messages_with_docs").html();
+  						
+						}
+                         
+                         var template = Handlebars.compile(source);
+                         $('.timeline_items').prepend(template(datas));
+                         $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
+//                         if(linkTag)
+//	  						  $('div#'+data.id.id+'-id').html(linkTag);
+                         
+//                    	 $('#'+data.id.id+'-docurl').html(content);
                          // console.log("data-"+data.anyPreviewImageUrl);
                          $('input#'+data.id.id+'-url').val(msgUrl); 
                     	 
@@ -551,12 +622,12 @@ BS.StreamView = Backbone.View.extend({
      }
      else
      {
+    	  
 	      //var urlLink ='';
 	      var self= this;
 	      /* get message details from form */
 	      
-	      
-	     var message = $('#msg').val(); 
+	      var message = $('#msg').val(); 
 	      BS.updatedMsg =  message;
 	      if(!message.match(/^[\s]*$/))
 	      {   
@@ -584,14 +655,14 @@ BS.StreamView = Backbone.View.extend({
 	                    return msgUrlw;
 	                    });
 	                var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file                                                                                                            
-	                if(!extension){                           //to check the extension of the url             
+//	                if(!extension){                           //to check the extension of the url             
 	//                  if(!urlLink.match(uploadedurl))   //To check whether it is google docs or not
 	//                  {
 	
 	                if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   //To check whether it is google docs or not
-	                                  {
+	                {
 	                        if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
-	                            {                                     
+	                        {                                     
 	                            /* post url information */                           
 	                            $.ajax({
 	                                    type : 'POST',
@@ -610,26 +681,26 @@ BS.StreamView = Backbone.View.extend({
 	                        {  
 	                            self.postMsg(message,streamId,messageAccess);
 	                        }
-	                  }  //doc
-	                  else    //for docupload
-	                  {     
-		    		 self.postMsg(message,streamId,messageAccess);
-	                  }
+	                 }  //doc
+	                 else    //for docupload
+	                 {     
+	                	 self.postMsg(message,streamId,messageAccess);
+	                 }
 	                 
-	                }
-	                else    //for docupload
-		    	 {     
-		    		 self.postMsg(message,streamId,messageAccess);
-		    	 } 
+//	                }
+//	                else    //for docupload
+//		    	 {     
+//		    		 self.postMsg(message,streamId,messageAccess);
+//		    	 } 
 	                 
-	                }
-	                //if link not present
-	                else
-	                {                
-		    	  self.postMsg(message,streamId,messageAccess);
-	                }
-	                }
+                }
+                //if link not present
+                else
+                {                
+                	self.postMsg(message,streamId,messageAccess);
+                }
             }
+          }
         },
         /**
         * post message with shortURL if present
@@ -686,29 +757,125 @@ BS.StreamView = Backbone.View.extend({
                                             trueurl= msgUrlw;                                                                  
                                             return msgUrlw;
                                         });
-                                        var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file                                                  
-                                        if(!extension){                           //to check the extension of the url                                    
-                                            if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) {      //insert googledoc in seperste tag
-                                            var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-                                                return '<a class="strmdoc" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
-                                            });
+                                        var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file
+                                        console.log(extension);
+                                        if(data.messageType.name == "Text")                           //to check the extension of the url
+                                        {	
+                                        	console.log(data);
+                                            if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) 
+                                            {   
+                                            	messageType = "googleDocs";
+                                            	//insert googledoc in seperste tag
+//	                                            var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+//	                                                return '<a class="strmdoc" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
+//	                                            });
                                             }
-                                            else{
-                                            var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-                                                return '<a target="_blank" href="' + url + '">' + url + '</a>';
-                                            });
+                                            else
+                                            {    
+                                            	console.log("ggg");
+                                            	messageType = "messageOnly";
+	                                            var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+	                                                return '<a target="_blank" href="' + url + '">' + url + '</a>';
+	                                            });
+	                                             
                                             }
                                         }                                                      
-                                        else{         //url has extension
-                                            var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
-                                                return '<a class="uploaded" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
-                                           });
+                                        else
+                                        {         //url has extension
+                                        	 // set first letter of extension in capital letter  
+	           	   		                	 extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+	           	   		                	    return letter.toUpperCase();
+	           	   		                	 });
+//                                            var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
+//                                                return '<a class="uploaded" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
+//                                           });
                                         }
   							  
                                         var datas = {
-                                                     "datas" : data,
-                                        }						  
-                                        var source = $("#tpl-messages").html();
+                                             "datas" : data,
+                                        }	
+                                        
+                                        BS.filesMediaView = new BS.FilesMediaView(); 
+           			                    var datVal =  BS.filesMediaView.formatDateVal(data.timeCreated);
+           			                    
+	           			                 if(messageType == "googleDocs")
+	         							{
+	         								 
+	         								var datas = {
+	         										    "datas" : data,
+	         		                                    "datVal" :datVal,
+	         		                                    "previewImage" : "images/google_docs_image.png",
+	         		                                    "type" : "googleDoc"
+	         							     }	
+	         								var source = $("#tpl-messages_with_docs").html();
+	         		  						
+	         							}
+	         							else if(messageType == "messageOnly")
+	         							{
+	         								
+	         								var source = $("#tpl-messages").html();
+	         		  						
+	         							}
+	         							else
+	         							{
+	         								if(data.messageType.name == "Image")
+	         								{
+	         									var source = $("#tpl-messages_with_images").html();
+	         			  						
+	         								}
+	         								else if(data.messageType.name == "Video")
+	         								{
+	         									var source = $("#tpl-messages_with_images").html();
+	         			  						
+	         								}
+	         								else
+	         								{
+	         									var previewImage = '';
+	         									var commenImage ="";
+	         									var type = "";
+	         									 
+	         									if(extension == 'Ppt')
+	         									{
+	         			                            previewImage= "images/presentations_image.png";
+	         			                            type = "ppt";
+	         			                            
+	         									}
+	         									else if(extension == 'Doc')
+	         									{
+	         										previewImage= "images/docs_image.png";
+	         										type = "doc";
+	         										 	
+	         									}
+	         									else if(extension == 'Pdf')
+	         									{
+	         										 
+	         										previewImage= data.anyPreviewImageUrl;
+	         										type = "pdf";
+	         									}
+	         									else
+	         									{
+	         										previewImage= "images/textimage.png";
+	         										commenImage = "true";
+	         										type = "doc";
+	         										
+	         									}
+	         									
+	         									var datas = {
+	         										    "datas" : data,
+	         		                                    "datVal" :datVal,
+	         		                                    "previewImage" :previewImage,
+	         		                                    "extension" : extension,
+	         		                                    "commenImage" : commenImage,
+	         		                                    "type" : type
+	         							        }	
+	         								
+	         								    var source = $("#tpl-messages_with_docs").html();
+	         		  						
+	         								}
+	         								
+	         							}
+           			                    
+//                                        var source = $("#tpl-messages").html();
                                         var template = Handlebars.compile(source);
                                         $('.timeline_items').prepend(template(datas));
                                     // } //docs
@@ -721,36 +888,37 @@ BS.StreamView = Backbone.View.extend({
   	  						if(linkTag)
   	  						   $('div#'+data.id.id+'-id').html(linkTag);
   	  						
-                                        var url=data.messageBody;				
-                                if(!extension){   //to check the extension of the url                                            
-                                if(!url.match(/^(https:\/\/docs.google.com\/)/)) {	
-                            	 
-	  	  						 // embedly
-		  	  					 $('div#'+data.id.id+'-id').embedly({
-			 					   	  maxWidth: 200,
-			 				          wmode: 'transparent',
-			 				          method: 'after',
-			 					      key:'4d205b6a796b11e1871a4040d3dc5c07'
-		  	  					 });
-                                }
-                                else{            //insert google doc image for doc url
-                                var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
-                                     $('input#'+data.id.id+'-url').val(msgUrl);
-                                     return msgUrl;
-                                    
-                                 });
-                            	  //$('input#'+data.id.id+'-url').val(msgUrl);
-                                    var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/google_docs_image.png " /></a></div>'
-                                    $('#'+data.id.id+'-docurl').html(content);
-                                }        
-                            }                                          
-                            else      //insert value to hidden field
-                            {
-                                //for now
-//                                var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
-//                                    $('#'+data.id.id+'-docurl').html(content);
-                              $('input#'+data.id.id+'-url').val(msgUrl);  
-                            }                                           
+                                 var url=data.messageBody;				
+                                if(data.messageType.name == "Text")
+                                {   //to check the extension of the url                                            
+	                                if(!url.match(/^(https:\/\/docs.google.com\/)/)) 
+	                                {	
+			  	  						 // embedly
+				  	  					 $('div#'+data.id.id+'-id').embedly({
+					 					   	  maxWidth: 200,
+					 				          wmode: 'transparent',
+					 				          method: 'after',
+					 					      key:'4d205b6a796b11e1871a4040d3dc5c07'
+				  	  					 });
+	                                }
+	                                else
+	                                {            //insert google doc image for doc url
+//		                                 var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
+//		                                     $('input#'+data.id.id+'-url').val(msgUrl);
+//		                                     return msgUrl;
+//		                                 });
+//	                            	     //$('input#'+data.id.id+'-url').val(msgUrl);
+//	                                     var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/google_docs_image.png " /></a></div>'
+//	                                     $('#'+data.id.id+'-docurl').html(content);
+	                                }        
+                                }                                          
+	                            else      //insert value to hidden field
+	                            {
+	                                //for now
+	//                                var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/googledocs.jpg" /></a></div>'
+	//                                    $('#'+data.id.id+'-docurl').html(content);
+	                              $('input#'+data.id.id+'-url').val(msgUrl);  
+	                            }                                           
                         });
                 _.each(data, function(data) {
                 showJanrainShareWidget(data.messageBody, 'View my Beamstream post', 'http://beamstream.com', data.messageBody);
@@ -793,7 +961,7 @@ BS.StreamView = Backbone.View.extend({
 						   
 					    //display the messages
 					  _.each(data, function(data) {
- 
+						    var messageType ='';
 							var msgBody = data.messageBody;
                                                         
 							//var links =  msgBody.match(BS.urlRegex); 
@@ -801,19 +969,25 @@ BS.StreamView = Backbone.View.extend({
 	                             trueurl= msgUrlw;    
 	                             return msgUrlw;
                              });
-                             var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file                                                  
-                             if(!extension)
-                             {                           //to check the extension of the url
+                             var extension = (trueurl).match(pattern);   //to get the extension of the uploaded file  
+                            
+		                	 
+//                             if(!extension)
+                             if(data.messageType.name == "Text")
+                             {    
+                            	 
+                            	 //to check the extension of the url
 	                             if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) 
 	                             {
 	                                
 	                            	 messageType = "googleDocs";
-	                                  var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
-	                                     return '<a class="strmdoc" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
-	                                  });
+//	                                  var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+//	                                     return '<a class="strmdoc" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
+//	                                  });
 	                              }
 	                              else
 	                              {
+	                            	
 	                            	  messageType = "messageOnly";
 	                                  var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
 	                                       return '<a target="_blank" href="' + url + '">' + url + '</a>';
@@ -822,39 +996,120 @@ BS.StreamView = Backbone.View.extend({
                             }
                             else
                             {          
-                            	
+	                             // set first letter of extension in capital letter  
+	   		                	 extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+	   		                	    return letter.toUpperCase();
+	   		                	 });
                             	
                             	 
-                            	 if(data.messageType.name == "Image")
-                            	 {
-                            		 
-                            		 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
-                                         return '<div style="clear: none !important;" class="gallery clearfix"  ></div><div class="gallery clearfix " style="clear: none !important;"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + url + '">' + url + '</a></div>';
-                                      });
-                            	 }
-                            	 else  if(data.messageType.name == "Video")
-                            	 {
-                            		 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
-                                         return '<div style="clear: none !important;" class="gallery clearfix" ></div><div class="gallery clearfix " style="clear: none !important;"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + url + '">' + url + '</a></div>';
-                                      });
-                            	 }
-                            	 else
-                            	 {
-                            		 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
-                                         return '<a class="uploaded" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
-                                      });
-                            	 }
+//                            	 if(data.messageType.name == "Image")
+//                            	 {
+//                            		 
+//                            		 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
+//                                         return '<div style="clear: none !important;" class="gallery clearfix"  ></div><div class="gallery clearfix " style="clear: none !important;"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + url + '">' + url + '</a></div>';
+//                                      });
+//                            	 }
+//                            	 else  if(data.messageType.name == "Video")
+//                            	 {
+//                            		 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
+//                                         return '<div style="clear: none !important;" class="gallery clearfix" ></div><div class="gallery clearfix " style="clear: none !important;"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + url + '">' + url + '</a></div>';
+//                                      });
+//                            	 }
+//                            	 else
+//                            	 {
+//                            		 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {                                               
+//                                         return '<a class="uploaded" id="'+data.id.id+'"  href="' + url + '">' + url + '</a>';
+//                                      });
+//                            	 }
                                   
                             }
 							var datas = {
  							 	 "datas" : data,
  						    }
+                             BS.filesMediaView = new BS.FilesMediaView(); 
+			                 var datVal =  BS.filesMediaView.formatDateVal(data.timeCreated);
 							
+							if(messageType == "googleDocs")
+							{
+								 
+								var datas = {
+										    "datas" : data,
+		                                    "datVal" :datVal,
+		                                    "previewImage" : "images/google_docs_image.png",
+		                                    "type" : "googleDoc"
+							     }	
+								var source = $("#tpl-messages_with_docs").html();
+		  						
+							}
+							else if(messageType == "messageOnly")
+							{
+								
+								var source = $("#tpl-messages").html();
+		  						
+							}
+							else
+							{
+								if(data.messageType.name == "Image")
+								{
+									var source = $("#tpl-messages_with_images").html();
+			  						
+								}
+								else if(data.messageType.name == "Video")
+								{
+									var source = $("#tpl-messages_with_images").html();
+			  						
+								}
+								else
+								{
+									var previewImage = '';
+									var commenImage ="";
+									var type = "";
+									 
+									if(extension == 'Ppt')
+									{
+			                            previewImage= "images/presentations_image.png";
+			                            type = "ppt";
+			                            
+									}
+									else if(extension == 'Doc')
+									{
+										previewImage= "images/docs_image.png";
+										type = "doc";
+										 	
+									}
+									else if(extension == 'Pdf')
+									{
+										 
+										previewImage= data.anyPreviewImageUrl;
+										type = "pdf";
+									}
+									else
+									{
+										previewImage= "images/textimage.png";
+										commenImage = "true";
+										type = "doc";
+										
+									}
+									
+									var datas = {
+										    "datas" : data,
+		                                    "datVal" :datVal,
+		                                    "previewImage" :previewImage,
+		                                    "extension" : extension,
+		                                    "commenImage" : commenImage,
+		                                    "type" : type
+							        }	
+								
+								    var source = $("#tpl-messages_with_docs").html();
+		  						
+								}
+								
+							}
 							
-							var source = $("#tpl-messages").html();
-	  						var template = Handlebars.compile(source);
+							var template = Handlebars.compile(source);
 	  						$('.page-loader').hide();
 	  						$('.timeline_items').append(template(datas));
+							
 	  						 
 	  						/* check whether the user is follwer of a message or not */
 	  				         $.ajax({
@@ -905,7 +1160,7 @@ BS.StreamView = Backbone.View.extend({
 	  						  $('div#'+data.id.id+'-id').html(linkTag);
 	  						 
                              var url=data.messageBody;
-                             if(!extension){   //to check the extension of the url
+                             if(data.messageType.name == "Text"){   //to check the extension of the url
                                              
 	                             if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
 		                             // embedly
@@ -920,13 +1175,13 @@ BS.StreamView = Backbone.View.extend({
 	                              else
 	                              {
 	 
-	                                   var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
-	                                          $('input#'+data.id.id+'-url').val(msgUrl);
-	                                          return msgUrl;
-	                                    });
-	                                   //$('input#'+data.id.id+'-url').val(msgUrl);
-	                                    var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/google_docs_image.png " /></a></div>'
-	                                    $('#'+data.id.id+'-docurl').html(content);
+//	                                   var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrl) {
+//	                                          $('input#'+data.id.id+'-url').val(msgUrl);
+//	                                          return msgUrl;
+//	                                    });
+//	                                   //$('input#'+data.id.id+'-url').val(msgUrl);
+//	                                    var content = '<div class="stream-doc-block"><a class="strmdoc" id="'+data.id.id+'"  href="' + msgUrl + '"><img  id="'+data.id.id+'" src="images/google_docs_image.png " /></a></div>'
+//	                                    $('#'+data.id.id+'-docurl').html(content);
 	                              }
                              }
                              else      //insert value to hidden field
@@ -935,52 +1190,52 @@ BS.StreamView = Backbone.View.extend({
                             	 if(data.messageType.name == "Image")
                             	 {
                             		   
-                            		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
+//                            		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
  
 
                             	 }
                             	 else if(data.messageType.name == "Video")
                             	 {
-                            		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>';
+//                            		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>';
                             	 }
                             	 else
                             	 {
-                            		  var previewImage = '';
-                            		 if(extension[1] == 'ppt')
-                            		 {
-                            			  
-                            			 
-                            			 previewImage = "images/presentations_image.png";
-                                		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
-
-                            		 }
-                            		 else if(extension[1] == 'doc')
-                            		 {
-                            			 previewImage = "images/docs_image.png";
-                                		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
-
-                            		 }
-                            		 else if(extension[1] == 'pdf')
-                            		 {
-                            			 previewImage = data.anyPreviewImageUrl;
-                                		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
-
-                            		 }
-                            		 else
-                            		 {
-//                            			 set first letter of extension in capital letter  
-         			                	extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
-         			                	    return letter.toUpperCase();
-         			                	});
-         			                	
-                            			 previewImage = "images/textimage.png";
-                                		 var content = '<div class="uploaded"><a class="uploaded previw-pdf" id="'+data.id.id+'" style="postion:relative;"  href="' + msgUrl + '"><img class="ext_images"  id="'+data.id.id+'" src="'+previewImage+'" /><h3 class="extension_files" >'+extension+'</h3></a></div>'
-
-                            		 }
+//                            		  var previewImage = '';
+//                            		 if(extension[1] == 'ppt')
+//                            		 {
+//                            			  
+//                            			 
+//                            			 previewImage = "images/presentations_image.png";
+//                                		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
+//
+//                            		 }
+//                            		 else if(extension[1] == 'doc')
+//                            		 {
+//                            			 previewImage = "images/docs_image.png";
+//                                		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
+//
+//                            		 }
+//                            		 else if(extension[1] == 'pdf')
+//                            		 {
+//                            			 previewImage = data.anyPreviewImageUrl;
+//                                		 var content = '<div class="uploaded"><a class="uploaded " id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+previewImage+'" height="50" width="150" /></a></div>'
+//
+//                            		 }
+//                            		 else
+//                            		 {
+////                            			 set first letter of extension in capital letter  
+//         			                	extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+//         			                	    return letter.toUpperCase();
+//         			                	});
+//         			                	
+//                            			 previewImage = "images/textimage.png";
+//                                		 var content = '<div class="uploaded"><a class="uploaded previw-pdf" id="'+data.id.id+'" style="postion:relative;"  href="' + msgUrl + '"><img class="ext_images"  id="'+data.id.id+'" src="'+previewImage+'" /><h3 class="extension_files" >'+extension+'</h3></a></div>'
+//
+//                            		 }
 
                                      
                             	 }
-                            	 $('#'+data.id.id+'-docurl').html(content);
+//                            	 $('#'+data.id.id+'-docurl').html(content);
 //                               //console.log("data-"+data.anyPreviewImageUrl);
                                  $('input#'+data.id.id+'-url').val(msgUrl); 
                             	 
@@ -1000,6 +1255,70 @@ BS.StreamView = Backbone.View.extend({
     	
     },
     
+    /**
+     * view all uploaded files in a popups
+     */
+    showFilesInAPopup : function(eventName){
+    	  
+    	 var messgeId = eventName.currentTarget.id;
+    	  
+    	 var docType =  $('#'+messgeId +'-docType').val();
+    	 var docUrl = $('input#'+messgeId+'-mediaUrl').val(); 
+    	 /* render google docs */ 
+    	 
+    	 if(docType == "googleDoc")
+    	 {
+    		     
+             BS.gdocpopupview = new BS.GdocPopupView();
+             BS.gdocpopupview.render(docUrl);   
+             $('#docEdit').html(BS.gdocpopupview.el);  
+    	 }
+    	 else
+    	 {
+    		
+    		 var docId = $('#'+messgeId +'-docId').val();
+    		 $.ajax({                                       
+                 type : 'POST',
+                 url :  BS.getOneDocs,
+                 data : {
+                         documentId: docId
+                         },
+                 dataType : "json",
+                 success : function(doc) { 
+                 	    
+                         var docData = {
+                         "id" : doc[0].id.id,
+                         "url" : doc[0].documentURL,
+                         "title" : doc[0].documentName
+                         }
+                         BS.mediafilepopupview = new BS.MediaFilePopupView();
+                         BS.mediafilepopupview.render(docData);            
+                         $('#docEdit').html(BS.mediafilepopupview.el);  
+                 }
+             });     
+    	 }
+        
+          
+         
+    },
+    /**
+     * close file view popups
+     */
+    closeDocView : function(eventName){
+    	 eventName.preventDefault(); 
+         $('#docEdit').children().detach(); 
+    	
+    },
+//    /**
+//     * show Rock/Unrock message for files 
+//     */
+//    showRockFilesMessage :function(){
+//    	// popup says "UnRock Message 
+//       	var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">Rock /UnRock Files</div>';
+//
+//   		$('#hover-lists-'+msgId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
+//   		$('#hover-lists-'+msgId+'').html(ul);
+//    },
     /**
      * show stream list corresponds to each streamtype
      */
@@ -1176,6 +1495,14 @@ BS.StreamView = Backbone.View.extend({
 	    
 	           		$('#hover-lists-'+msgId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
 	           		$('#hover-lists-'+msgId+'').html(ul);
+            	 }
+            	 else
+            	 {
+            		// popup says "UnRock Message 
+ 	               	var ul = '<div style="font:italic bold 12px Georgia, serif; margin:0 0 10px;">Rock Message</div>';
+ 	    
+ 	           		$('#hover-lists-'+msgId+'').fadeIn("fast").delay(1000).fadeOut('fast'); 
+ 	           		$('#hover-lists-'+msgId+'').html(ul);
             	 }
             	 
              }
