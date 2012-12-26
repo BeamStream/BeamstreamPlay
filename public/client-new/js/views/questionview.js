@@ -26,7 +26,8 @@
 			 "click #private-to" : "checkPrivateAccess",
 			 "click #private-to-list li" :"selectPrivateToList",
 			 "click #share-discussions li a" : "actvateShareIcon",
-			 "click #question-file-upload li " : "uploadFiles"
+			 "click #question-file-upload li " : "uploadFiles",
+			 "change #upload-files-area" : "getUploadedData",
 		},
 	
 		initialize : function() {
@@ -58,22 +59,39 @@
 			 
 			var questionAccess;
 	        var queAccess =  $('#private-to').attr('checked');
+	        var privateTo = $('#select-privateTo').text();
+	        
 		    if(queAccess == "checked")
 		    {
-		    	questionAccess = "Private";
+		    	if(privateTo == "My School")
+		    	{
+		    		questionAccess = "PrivateToSchool";
+		    	}
+		    	else
+		    	{
+		    		questionAccess = "PrivateToClass";
+		    	}
+		    	
 		    }
 		    else
 		    {
 		    	questionAccess = "Public";
 		    }
 		    
-		    var pollOptions =[];
-		    
+		    var pollOptions ='';
+		 
 		    for (var i=1; i<= BS.options ; i++)
 		    {
-		    	pollOptions.push($('#option'+i).val());
+//		    	pollOptions.push($('#option'+i).val());
+		    	pollOptions+= '"'+$('#option'+i).val()+'",' ;
+		    	 
 		    }
-		    pollOptions = JSON.stringify(pollOptions);
+//		    pollOptions = JSON.stringify(myObject);
+		    
+       	 
+//       	 var source = $("#tpl-questions_with_polls").html();
+//       	 var template = Handlebars.compile(source);
+//       	 $('#all-questions').prepend(template);
 		    
 //		    var questionModel = new BS.Question();
 //		    questionModel.set({
@@ -101,10 +119,48 @@
 	             dataType : "json",
 	             success: function(data){
 	            	 
+//	            	 $('#Q-area').val("");
+//	            	 $('#pollArea').slideToggle(700); 
+//	            	 $('#uploded-file').hide();
+//	            	 
+//	            	 
+//	            	 var source = $("#tpl-questions_with_polls").html();
+//	            	 var template = Handlebars.compile(source);
+//	            	 $('#all-questions').prepend(template(datas));
+	            	 
 	             }
 	         }); 
 	         
 		},
+		
+		/**
+         * NEW THEME -  get uploaded files 
+         */
+        getUploadedData: function(e){
+        	
+        	var self = this;;
+    	    file = e.target.files[0];
+    	    var reader = new FileReader();
+    	    
+    	   
+    	      
+        	/* capture the file informations */
+            reader.onload = (function(f){
+            	self.file = file;
+            	
+            	$('#uploded-file').html(f.name);
+            	$('#uploded-file').show();
+            	
+            })(file);
+            
+            
+             
+            // read the  file as data URL
+            reader.readAsDataURL(file);
+          
+        },
+        
+        
 		
 		/**
          * NEW THEME - select Private / Public ( social share ) options 
@@ -179,7 +235,7 @@
 		addPollOptionsArea: function(eventName){
 			eventName.preventDefault();
 			BS.options = 2;
-			$('.answer').slideToggle(700); 
+			$('#pollArea').slideToggle(700); 
 		},
 		
 		/**
