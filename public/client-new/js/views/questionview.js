@@ -85,7 +85,7 @@
 		 
 		    for (var i=1; i<= BS.options ; i++)
 		    {
-		    	pollOptions+= '"'+$('#option'+i).val()+'",' ;
+		    	pollOptions+= $('#option'+i).val()+',' ;
 		    	 
 		    }
 		    pollOptions = pollOptions.substring(0, pollOptions.length - 1);
@@ -119,17 +119,17 @@
 	             url: BS.newQuestion,
 	             cache: false,
 	             dataType : "json",
-	             success: function(data){
+	             success: function(datas){
 	            	 
-//	            	 $('#Q-area').val("");
-//	            	 $('#pollArea').slideToggle(700); 
-//	            	 $('#uploded-file').hide();
-//	            	 
-//	            	 
-//	            	 var source = $("#tpl-questions_with_polls").html();
-//	            	 var template = Handlebars.compile(source);
-//	            	 $('#all-questions').prepend(template(datas));
-	            	 
+	            	 _.each(datas, function(data) {
+		            	 $('#Q-area').val("");
+		            	 $('#pollArea').slideUp(700); 
+		            	 $('#uploded-file').hide();
+		            	 
+		            	 var source = $("#tpl-questions_with_polls").html();
+		            	 var template = Handlebars.compile(source);
+		            	 $('#all-questions').prepend(template({data:data}));
+	            	 });
 	             }
 	         }); 
 	         

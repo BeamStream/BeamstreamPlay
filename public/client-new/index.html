@@ -1313,26 +1313,26 @@ Create a Class</a>
 
 <!--   templete for stream discussions messages with videos/ images --> 
  <script type="text/x-handlebars-template" id="tpl-questions_with_polls">
-<div id="{{datas.id.id}}" class="ask-outer follow-container">
+<div id="{{data.id.id}}" class="ask-outer follow-container">
 
 		<div class="ask-content">
               <div class="follw-left">
                 <div class="small-image">
-                  <div class="ask-img"><img  id="{{datas.id.id}}-img" src="images/picture.jpg"></div>
+                  <div class="ask-img"><img  id="{{data.id.id}}-img" src="images/picture.jpg"></div>
                   {{#if owner}}
                   {{else}}
-                  	<a href="#"  id="{{datas.userId.id}}" class="follow-button follow-user">follow</a> </div>
+                  	<a href="#"  id="{{data.userId.id}}" class="follow-button follow-user">follow</a> </div>
                   {{/if}}
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="follow-names">
-                    <ul class="follow-name-left show-all-block">
-                      <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
+                    <ul class="follow-name-left">
+                      <li><span>@{{data.firstNameofQuestionAsker}} {{data.lastNameofQuestionAsker}} </span> -  {{data.creationDate}}  - {{data.questionAccess.name}}</li>
                     </ul>
-                    <div class="follow-right"><a href="#"  id="{{datas.id.id}}-follow" class="follow-button follow-question">follow</a></div>
+                    <div class="follow-right"><a href="#"  id="{{data.id.id}}-follow" class="follow-button follow-question">follow</a></div>
                   </div>
-                  <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
+                  <p>{{data.questionBody}}</p>
                   <div class="comment-nofication">
                     <div class="comment-nofication-left">
                       <fieldset>
@@ -1357,17 +1357,19 @@ Create a Class</a>
                       <li><a href="#" class="add-comment" > Comment</a></li>
                       <li ><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
                     </ul>
-                    <a id=" " href="#" class="delete_msg"></a> </div>
+                    <a id=" " href="#" class="delete_msg"></a> 
+                    </div>
+                    <div id="" class="follow-comment" style="display:none;">
+				<textarea id="" class="add-question-comment add-message-comment" onblur="this.placeholder = 'Add Comments..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
+				</div>
                 </div>
 
-				<div id="" class="follow-comment" style="display:none;">
-				<textarea id="" class="add-question-comment" onblur="this.placeholder = 'Add Comments..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
-				</div>
+				
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
-                        <li><a href="#" id="{{datas.id.id}}-qstRockCount" class="uprocks-message rocks-question"><span>0</span></a></li>
+                        <li><a href="#" id="{{datas.id.id}}-qstRockCount" class="uprocks-message rocks-question"><span>{{data.rocks}}</span></a></li>
                         <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
 						<a  class="btn grey-buttons  href="#">Show All</a>
                       </ul>
