@@ -1876,15 +1876,37 @@
             if(fileType == "googleDoc")
             {
             	var docUrl = $('input#id-'+docId).val(); 
+            	
+            	var gdocpopupview = new BS.GdocPopupView();
+            	gdocpopupview.render(docUrl,"googleDoc");           
+             	$('#doc-views').html(gdocpopupview.el); 
+             	$('#bootstrap_popup').modal('show');
             }
             else
             {
+            	
             	var docUrl = "http://docs.google.com/gview?url="+$('input#id-'+docId).val()+"&embedded=true"; 
+            	 
+            	$.ajax({                                       
+                    type : 'POST',
+                    url :  BS.getOneDocs,
+                    data : {
+                            documentId: docId
+                            },
+                    dataType : "json",
+                    success : function(doc) { 
+                    	    
+                           
+                        	var gdocpopupview = new BS.GdocPopupView();
+                        	gdocpopupview.render(docUrl,doc[0].documentName);           
+                        	$('#doc-views').html(gdocpopupview.el); 
+                        	$('#bootstrap_popup').modal('show');
+                            
+                    }
+                });
+       		 
             }
-            var gdocpopupview = new BS.GdocPopupView();
-            gdocpopupview.render(docUrl);           
-            $('#doc-views').html(gdocpopupview.el); 
-            $('#bootstrap_popup').modal('show');
+           
 			
 		},
 	 

@@ -13,8 +13,14 @@ BS.GdocPopupView = Backbone.View.extend({
         /**
         * render gdocs edit screen
         */
-        render:function (docUrl) {
-            $(this.el).html(this.template({"docUrl":docUrl}));
+        render:function (docUrl,title) {
+        	
+        	var docData = {
+                     
+                     "docUrl" : docUrl,
+                     "title" : title
+        	}
+            $(this.el).html(this.template(docData));
             return this;
         
         },
