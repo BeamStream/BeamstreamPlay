@@ -136,7 +136,7 @@ object UserController extends Controller {
    */
 
   def getAllOnlineUsers = Action { implicit request =>
-    
+
     var onlineUsersAlongWithDetails: List[OnlineUsers] = List()
     (onlineUserCache.returnOnlineUsers.isEmpty == true) match {
       case false =>
@@ -145,12 +145,18 @@ object UserController extends Controller {
           for (eachUserId <- userIdList.asInstanceOf[List[String]]) {
             val userWithDetailedInfo = User.getUserProfile(new ObjectId(eachUserId))
             val profilePicForUser = UserMedia.getProfilePicForAUser(new ObjectId(eachUserId))
-            onlineUsersAlongWithDetails ++= List(new OnlineUsers(userWithDetailedInfo.id, userWithDetailedInfo.firstName,
-              userWithDetailedInfo.lastName, profilePicForUser(0).mediaUrl))
+            if (profilePicForUser.isEmpty) {
+              onlineUsersAlongWithDetails ++= List(new OnlineUsers(userWithDetailedInfo.id, userWithDetailedInfo.firstName,
+                userWithDetailedInfo.lastName, ""))
+            } else {
+              onlineUsersAlongWithDetails ++= List(new OnlineUsers(userWithDetailedInfo.id, userWithDetailedInfo.firstName,
+                userWithDetailedInfo.lastName, profilePicForUser(0).mediaUrl))
+            }
+
           }
         }
-      Ok(write(onlineUsersAlongWithDetails)).as("application/json")
-     
+        Ok(write(onlineUsersAlongWithDetails)).as("application/json")
+
       case true => Ok(write("No one is online at this moment")).as("application/json")
     }
   }
