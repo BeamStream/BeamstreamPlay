@@ -1,7 +1,6 @@
 package controllers
 import org.bson.types.ObjectId
 import org.neo4j.graphdb.Node
-
 import models.ResulttoSent
 import models.User
 import models.User
@@ -22,6 +21,9 @@ import play.mvc.Http.Request
 import utils._
 import utils.SocialGraphEmbeddedNeo4j
 import utils.onlineUserCache
+import scala.collection.immutable.List
+import models.UserMedia
+import models.OnlineUsers
 
 object UserController extends Controller {
 
@@ -134,10 +136,21 @@ object UserController extends Controller {
    */
 
   def getAllOnlineUsers = Action { implicit request =>
+    
+    var onlineUsersAlongWithDetails: List[OnlineUsers] = List()
     (onlineUserCache.returnOnlineUsers.isEmpty == true) match {
       case false =>
-        println(for (userId <- onlineUserCache.returnOnlineUsers) yield User.getUserProfile(userId.asInstanceOf[ObjectId]))
-        Ok(write(onlineUserCache.returnOnlineUsers)).as("application/json")
+
+        for (userIdList <- onlineUserCache.returnOnlineUsers) {
+          for (eachUserId <- userIdList.asInstanceOf[List[String]]) {
+            val userWithDetailedInfo = User.getUserProfile(new ObjectId(eachUserId))
+            val profilePicForUser = UserMedia.getProfilePicForAUser(new ObjectId(eachUserId))
+            onlineUsersAlongWithDetails ++= List(new OnlineUsers(userWithDetailedInfo.id, userWithDetailedInfo.firstName,
+              userWithDetailedInfo.lastName, profilePicForUser(0).mediaUrl))
+          }
+        }
+      Ok(write(onlineUsersAlongWithDetails)).as("application/json")
+     
       case true => Ok(write("No one is online at this moment")).as("application/json")
     }
   }
