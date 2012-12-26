@@ -135,7 +135,9 @@ object UserController extends Controller {
 
   def getAllOnlineUsers = Action { implicit request =>
     (onlineUserCache.returnOnlineUsers.isEmpty == true) match {
-      case false => Ok(write(onlineUserCache.returnOnlineUsers)).as("application/json")
+      case false =>
+        println(for (userId <- onlineUserCache.returnOnlineUsers) yield User.getUserProfile(userId.asInstanceOf[ObjectId]))
+        Ok(write(onlineUserCache.returnOnlineUsers)).as("application/json")
       case true => Ok(write("No one is online at this moment")).as("application/json")
     }
   }
@@ -146,8 +148,8 @@ object UserController extends Controller {
   def inviteUserToBeamstream = Action { implicit request =>
     val userJsonMap = request.body.asFormUrlEncoded.get
     val emailList = userJsonMap("data").toList.head.split(",").toList
-    for (eachEmail <- emailList)  SendEmail.inviteUserToBeamstream(eachEmail)
-    Ok(write(ResulttoSent("Success","Invitations has been sent"))).as("application/json")
+    for (eachEmail <- emailList) SendEmail.inviteUserToBeamstream(eachEmail)
+    Ok(write(ResulttoSent("Success", "Invitations has been sent"))).as("application/json")
   }
   /**
    *  Find User By ID
@@ -251,17 +253,16 @@ object UserController extends Controller {
     println("Online Users" + noOfOnLineUsers)
     Ok
   }
-  
+
   /**
- * Follow User
- */
-  
+   * Follow User
+   */
+
   def followUser = Action { implicit request =>
-     val userIdToFollowJsonMap = request.body.asFormUrlEncoded.get
+    val userIdToFollowJsonMap = request.body.asFormUrlEncoded.get
     val userId = userIdToFollowJsonMap("userId").toList(0)
-    val followers=User.followUser(new ObjectId(request.session.get("userId").get),new ObjectId(userId))
+    val followers = User.followUser(new ObjectId(request.session.get("userId").get), new ObjectId(userId))
     Ok(write(followers.toString)).as("application/json")
   }
-  
-  
+
 }
