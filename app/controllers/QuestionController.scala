@@ -50,17 +50,18 @@ object QuestionController extends Controller {
   def newQuestion = Action { implicit request =>
 
     val questionJsonMap = request.body.asFormUrlEncoded.get
-    val question = questionJsonMap("data").toList(0)
-    val questionJson = net.liftweb.json.parse(question)
-    val questionBody = (questionJson \ "question").extract[String]
-    val streamId = new ObjectId((questionJson \ "streamId").extract[String])
-    val questionAccess = (questionJson \ "access").extract[String]
+
+    val streamId = questionJsonMap("streamId").toList(0)
+    val questionBody = questionJsonMap("questionBody").toList(0)
+    val questionAccess = questionJsonMap("questionAccess").toList(0)
+    val pollsOptions = questionJsonMap("pollsOptions").toList(0)
+
     val userId = new ObjectId(request.session.get("userId").get)
     val user = User.getUserProfile(userId)
     val questionToAsk = new Question(new ObjectId, questionBody, userId,
-      QuestionAccess.withName(questionAccess), streamId, user.firstName, user.lastName, new Date, 0, List(), List(), List(), List())
+      QuestionAccess.withName(questionAccess), new ObjectId(streamId), user.firstName, user.lastName, new Date, 0, List(), List(), List(), List())
     val questionId = Question.addQuestion(questionToAsk)
-
+    println("Question created")
     /**
      * Add  Poll To Question
      */
