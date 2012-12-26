@@ -13,12 +13,6 @@ import utils.MongoHQConfig
 case class ResulttoSent(status: String,
   message: String)
 
-//case class DocResulttoSent(docId: ObjectId,
-//  docUrl: String,
-//  previewImageUrl: String,
-//  docDescription: String,
-//  var message: Option[Message] = None)
-
 //Resultant Class Details
 case class ClassWithNoOfUsers(usersMap: Map[String, Int],
   classToReturn: Class)
@@ -26,9 +20,8 @@ case class ClassWithNoOfUsers(usersMap: Map[String, Int],
 case class OptionOfQuestion(@Key("_id") id: ObjectId,
   name: String,
   assosiates: List[ObjectId])
-  
-  
-  
+
+case class OnlineUsers(@Key("_id") id: ObjectId, firstName: String, lastName: String, profileImageUrl: String)
 
 object OptionOfQuestionDAO extends SalatDAO[OptionOfQuestion, ObjectId](collection = MongoHQConfig.mongoDB("optionofquestion"))
 
