@@ -28,6 +28,9 @@
 			 "click #share-discussions li a" : "actvateShareIcon",
 			 "click #question-file-upload li " : "uploadFiles",
 			 "change #upload-files-area" : "getUploadedData",
+			 "click .add-comment" : "showCommentTextArea",
+			 "click .follow-question" : "followQuestion",
+			 "click .rocks-question" : "rockQuestion",
 		},
 	
 		initialize : function() {
@@ -82,11 +85,10 @@
 		 
 		    for (var i=1; i<= BS.options ; i++)
 		    {
-//		    	pollOptions.push($('#option'+i).val());
 		    	pollOptions+= '"'+$('#option'+i).val()+'",' ;
 		    	 
 		    }
-//		    pollOptions = JSON.stringify(myObject);
+		    pollOptions = pollOptions.substring(0, pollOptions.length - 1);
 		    
        	 
 //       	 var source = $("#tpl-questions_with_polls").html();
@@ -161,6 +163,113 @@
         },
         
         
+        /**
+         * NEW THEME - Show comment text area on click
+         */
+        showCommentTextArea: function(eventName){
+        	eventName.preventDefault();
+        	var element = eventName.target.parentElement;
+			var questionId =$(element).parents('div.follow-container').attr('id');
+			
+//			// show / hide commet text area 
+//			if($('#'+questionId+'-addComments').is(":visible"))
+//			{
+//				
+//				$('#'+questionId+'-msgComment').val('');
+//				$('#'+questionId+'-addComments').slideToggle(300); 
+//				
+//				
+//			}
+//			else
+//			{
+//				$('#'+questionId+'-msgComment').val('');
+//				$('#'+questionId+'-addComments').slideToggle(200); 
+//				
+//			}
+			
+        },
+        
+        
+        /**
+		  * NEW THEME - Follow a question
+		  */
+        followQuestion: function(eventName){
+			eventName.preventDefault();
+			 
+			var element = eventName.target.parentElement;
+			var questionId =$(element).parents('div.follow-container').attr('id');
+			
+			var text = $('#'+eventName.target.id).text();
+		
+			var self =this;
+			$.ajax({
+				type: 'POST',
+		        url:BS.followQuestion,
+		        data:{
+		        	questionId:questionId
+		        },
+		        dataType:"json",
+		        success:function(data){
+		        	
+		        	//set display
+		        	if(text == "Unfollow")
+		    		{
+		        		 $('#'+eventName.target.id).text("Follow");
+		    		}
+		        	else
+		        	{
+		        		$('#'+eventName.target.id).text("Unfollow");
+		        	}
+		        	 
+	                /* Auto push */   
+		        	var streamId =  $('.sortable li.active').attr('id');
+ 
+	            }
+	        });
+	    },
+	    
+	    
+	    /**
+	     * NEW THEME - Rocking questions
+	     */
+	    rockQuestion: function(eventName){
+	    	
+	    	eventName.preventDefault();
+			var element = eventName.target.parentElement;
+			var questionId =$(element).parents('div.follow-container').attr('id');
+			var self = this;
+			
+			$.ajax({
+				type: 'POST',
+	            url:BS.rockedQuestion,
+	            data:{
+	            	questionId:questionId
+	            },
+	            dataType:"json",
+	            success:function(data){
+	            	 
+	            	if($('#'+questionId+'-qstRockCount').hasClass('downrocks-message'))
+	            	{
+	            		$('#'+questionId+'-qstRockCount').removeClass('downrocks-message');
+	            		$('#'+questionId+'-qstRockCount').addClass('uprocks-message');
+	            	}
+	            	else
+	            	{
+	            		$('#'+questionId+'-qstRockCount').removeClass('uprocks-message');
+	            		$('#'+questionId+'-qstRockCount').addClass('downrocks-message');
+	            	}
+	            	
+	            	// display the count in icon
+	                $('#'+questionId+'-qstRockCount').find('span').html(data);
+	                //auto push
+	                var streamId =  $('.sortable li.active').attr('id');
+					PUBNUB.publish({
+						channel : "questionRock",
+	                    message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,questionId:questionId}
+	                })
+             	}
+            });
+        },
 		
 		/**
          * NEW THEME - select Private / Public ( social share ) options 

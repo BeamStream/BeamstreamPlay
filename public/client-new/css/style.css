@@ -1406,7 +1406,7 @@ ul.follow-name-left li a.downrocks-message:hover {
                 width:25px;
                 text-align:center;
 }
-ul.follow-name-left li a.rocks-message span {
+ul.follow-name-left li a.rocks-message span, ul.follow-name-left li a.rocks-question span {
                 display:block;
                 padding-top:22px;
 }

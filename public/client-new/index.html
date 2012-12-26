@@ -1160,7 +1160,7 @@ Create a Class</a>
             <div class="clear"></div>
           </div>
           
-          <div id= "all-questions" class="ask-outer follow-container">
+          <div id= "all-questions" >
 
           </div>
           
@@ -1313,12 +1313,16 @@ Create a Class</a>
 
 <!--   templete for stream discussions messages with videos/ images --> 
  <script type="text/x-handlebars-template" id="tpl-questions_with_polls">
-<div class="ask-content">
-            <div class="ask-content">
+<div id="{{datas.id.id}}" class="ask-outer follow-container">
+
+		<div class="ask-content">
               <div class="follw-left">
                 <div class="small-image">
-                  <div class="ask-img"><img src="images/picture.jpg"></div>
-                  <a href="#" class="follow-button">follow</a> </div>
+                  <div class="ask-img"><img  id="{{datas.id.id}}-img" src="images/picture.jpg"></div>
+                  {{#if owner}}
+                  {{else}}
+                  	<a href="#"  id="{{datas.userId.id}}" class="follow-button follow-user">follow</a> </div>
+                  {{/if}}
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">
@@ -1326,71 +1330,58 @@ Create a Class</a>
                     <ul class="follow-name-left show-all-block">
                       <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
                     </ul>
-                    <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
+                    <div class="follow-right"><a href="#"  id="{{datas.id.id}}-follow" class="follow-button follow-question">follow</a></div>
                   </div>
                   <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
+                  <div class="comment-nofication">
+                    <div class="comment-nofication-left">
+                      <fieldset>
+                        <input type="radio" id="radio-1-1" name="radio-1-set" class="regular-radio" checked />
+                        <label for="radio-1-1"></label>
+                        <label>Yellow</label>
+                      </fieldset>
+                      <fieldset>
+                        <input type="radio" id="radio-1-2" name="radio-1-set" class="regular-radio  red" />
+                        <label for="radio-1-2"></label>
+                        <label>Red</label>
+                      </fieldset>
+                    </div>
+                    <div class="chart"> <span class="chart-count"><span class="yellow">50%</span></span>
+                      <div class="chart-round"> <img src="images/pie-chart.png" width="113" height="113"></div>
+                      <span class="chart-count"><span class="red">50%</span></span> </div>
+                  </div>
                   <div class="follow-bottom">
                     <ul class="follow-name-left show-all-block">
-                      <li ><a href="#">Rock</a></li>
-                      <li ><a href="#"> Answer</a></li>
-                      <li><a href="#"> Comment</a></li>
-                      <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+                      <li><a class="rocks-question" href="#">Rock</a></li>
+                      <li><a href="#"> Answer</a></li>
+                      <li><a href="#" class="add-comment" > Comment</a></li>
+                      <li ><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
                     </ul>
-                  </div>
+                    <a id=" " href="#" class="delete_msg"></a> </div>
                 </div>
+
+				<div id="" class="follow-comment" style="display:none;">
+				<textarea id="" class="add-question-comment" onblur="this.placeholder = 'Add Comments..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
+				</div>
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
-					<ul class="follow-name-left show-all-block">
-                        <li><a href="#" id="{{datas.id.id}}-questRockCount" class="rocks-message uprocks-message"><span>10</span></a></li>
-                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
-						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
+                      <ul class="follow-name-left show-all-block">
+                        <li><a href="#" id="{{datas.id.id}}-qstRockCount" class="uprocks-message rocks-question"><span>0</span></a></li>
+                        <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
+						<a  class="btn grey-buttons  href="#">Show All</a>
                       </ul>
-                    <div class="comment-wrapper" id="comments">
-<!--                       <div class="answer-description"> -->
-<!--                         <div class="follw-left"> -->
-<!--                           <div class="small-image"> -->
-<!--                             <div class="ask-img"><img src="images/picture.jpg"></div> -->
-<!--                           </div> -->
-<!--                         </div> -->
-<!--                         <div class="answer-description-info"> -->
-<!--                           <div class="follow-names"> -->
-<!--                             <ul class="follow-name-left show-all-block"> -->
-<!--                               <li><span>@AlinaK </span> -  12/1/2011  -  Public</li> -->
-<!--                               <li ><a href="#">Rock</a></li> -->
-<!--                               <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li> -->
-<!--                               <li class="rocks-small"><a href="#">75</a></li> -->
-<!--                             </ul> -->
-<!--                           </div> -->
-<!--                           <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p> -->
-<!--                         </div> -->
-<!--                         <div class="clear"></div> -->
+                      
+                      <div class="comment-wrapper" id="comments">
                       </div>
-<!--                       <div class="answer-description"> -->
-<!--                         <div class="follw-left"> -->
-<!--                           <div class="small-image"> -->
-<!--                             <div class="ask-img"><img src="images/picture.jpg"></div> -->
-<!--                           </div> -->
-<!--                         </div> -->
-<!--                         <div class="answer-description-info"> -->
-<!--                           <div class="follow-names"> -->
-<!--                             <ul class="follow-name-left show-all-block" > -->
-<!--                               <li><span>@AlinaK </span> -  12/1/2011  -  Public</li> -->
-<!--                               <li ><a href="#">Rock</a></li> -->
-<!--                               <li ><a href="#"><img width="22" height="20" src="images/site.png"></a></li> -->
-<!--                               <li class="rocks-small"><a href="#">75</a></li> -->
-<!--                             </ul> -->
-<!--                           </div> -->
-<!--                           <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p> -->
-<!--                         </div> -->
-<!--                         <div class="clear"></div> -->
-<!--                       </div> -->
-                    </div>
+                       
                   </div>
                 </div>
-                <div class="clear"></div>
               </div>
             </div>
+            <div class="clear"></div>
+          </div>
+
           </div>
 </script>
 
