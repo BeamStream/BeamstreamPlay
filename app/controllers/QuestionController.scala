@@ -65,14 +65,14 @@ object QuestionController extends Controller {
     /**
      * Add  Poll To Question
      */
-    if (questionJsonMap.contains(("pollsOptions"))) {
-      val pollsOptionsList = List("", "")
-      for (pollsOption <- pollsOptionsList) {
-        val optionOfPoll = OptionOfQuestion(new ObjectId, pollsOption, List())
-        val optionOfAPollId = OptionOfQuestionDAO.insert(optionOfPoll)
-        Question.addPollToQuestion(optionOfAPollId.get, questionId)
-      }
-    }
+//    if (questionJsonMap.contains(("pollsOptions"))) {
+//      val pollsOptionsList = List("", "")
+//      for (pollsOption <- pollsOptionsList) {
+//        val optionOfPoll = new OptionOfQuestion(new ObjectId, pollsOption, List())
+//        val optionOfAPollId = OptionOfQuestionDAO.insert(optionOfPoll)
+//        Question.addPollToQuestion(optionOfAPollId.get, questionId)
+//      }
+//    }
 
     val questionObtained = Question.findQuestionById(questionId)
     Ok(write(List(questionObtained))).as("application/json")
