@@ -46,6 +46,7 @@
 	     	
     		this.source = $("#tpl-main-stream").html();
     		this.template = Handlebars.compile(this.source);
+                this.getonlineusers();
 	    		
     		// for pagination in message feed
 			BS.pageForKeyword = 1;
@@ -186,6 +187,66 @@
 					}
 			 });
 	    },
+            
+            
+               /**
+                * NEW THEME- Use the method to list the onlineusers
+                */
+            getonlineusers : function(eventName){
+                var content = '<li class="online"> <a href="#"><img src="images/chat-imge.jpg" width="30" height="28"> <span>Me </span> <span class="online-chat">Online</span></a> </li>'                           
+                var self = this;
+                $.ajax({
+                    type : 'GET',
+                    url : BS.onlineUsers,
+                    dataType : "json",
+                success : function(users) {
+                    console.log(users);
+                    var usersnumber =users.length+1;
+                        _.each(users, function(user) {   
+                            content +='<li> <a href="#"><img src="'+user.profileImageUrl+'" width="30" height="28"> <span>'+user.firstName+' </span> <span class="online-chat">Online</span></a> </li>'
+                            });                                       
+                    $('#onlinechatbox').append(content);  
+                    self.Scrollbar();
+                    },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    $('#onlinechatbox').append(content); 
+                    self.Scrollbar(); 
+                    }
+                    });                  
+                },
+                
+                    /**
+                    * NEW THEME- method to display scroller in onlineusers box
+                    */
+                Scrollbar :function(eventName){
+                    console.log("scroll bar");
+                    $("#user-online").mCustomScrollbar({
+	                set_width:false, /*optional element width: boolean, pixels, percentage*/
+	                set_height:false, /*optional element height: boolean, pixels, percentage*/
+	                horizontalScroll:false, /*scroll horizontally: boolean*/
+	                scrollInertia:550, /*scrolling inertia: integer (milliseconds)*/
+	                scrollEasing:"easeOutCirc", /*scrolling easing: string*/
+	                mouseWheel:"auto", /*mousewheel support and velocity: boolean, "auto", integer*/
+	                autoDraggerLength:true, /*auto-adjust scrollbar dragger length: boolean*/
+	                scrollButtons:{ /*scroll buttons*/
+	                    enable:false, /*scroll buttons support: boolean*/
+	                    scrollType:"continuous", /*scroll buttons scrolling type: "continuous", "pixels"*/
+	                    scrollSpeed:20, /*scroll buttons continuous scrolling speed: integer*/
+	                    scrollAmount:40 /*scroll buttons pixels scroll amount: integer (pixels)*/
+	                    },
+	                advanced:{
+	                    updateOnBrowserResize:true, /*update scrollbars on browser resize (for layouts based on percentages): boolean*/
+	                    updateOnContentResize:false, /*auto-update scrollbars on content resize (for dynamic content): boolean*/
+	                    autoExpandHorizontalScroll:false /*auto expand width for horizontal scrolling: boolean*/
+	                    },
+	                callbacks:{
+	                    onScroll:function(){}, /*user custom callback function on scroll event*/
+	                    onTotalScroll:function(){}, /*user custom callback function on bottom reached event*/
+	                    onTotalScrollOffset:0 /*bottom reached offset: integer (pixels)*/
+	                    }                   
+	                }); 
+                },
+	    
 	    
 	    /**
 	     * NEW THEME- open a close option below the stream name tab (left side container)  to close that stream 
@@ -455,31 +516,6 @@
 	            });		
 	            
 	            $('.drag-rectangle').tooltip()		
-	            $("#user-online").mCustomScrollbar({
-	                set_width:false, /*optional element width: boolean, pixels, percentage*/
-	                set_height:false, /*optional element height: boolean, pixels, percentage*/
-	                horizontalScroll:false, /*scroll horizontally: boolean*/
-	                scrollInertia:550, /*scrolling inertia: integer (milliseconds)*/
-	                scrollEasing:"easeOutCirc", /*scrolling easing: string*/
-	                mouseWheel:"auto", /*mousewheel support and velocity: boolean, "auto", integer*/
-	                autoDraggerLength:true, /*auto-adjust scrollbar dragger length: boolean*/
-	                scrollButtons:{ /*scroll buttons*/
-	                    enable:false, /*scroll buttons support: boolean*/
-	                    scrollType:"continuous", /*scroll buttons scrolling type: "continuous", "pixels"*/
-	                    scrollSpeed:20, /*scroll buttons continuous scrolling speed: integer*/
-	                    scrollAmount:40 /*scroll buttons pixels scroll amount: integer (pixels)*/
-	                    },
-	                advanced:{
-	                    updateOnBrowserResize:true, /*update scrollbars on browser resize (for layouts based on percentages): boolean*/
-	                    updateOnContentResize:false, /*auto-update scrollbars on content resize (for dynamic content): boolean*/
-	                    autoExpandHorizontalScroll:false /*auto expand width for horizontal scrolling: boolean*/
-	                    },
-	                callbacks:{
-	                    onScroll:function(){}, /*user custom callback function on scroll event*/
-	                    onTotalScroll:function(){}, /*user custom callback function on bottom reached event*/
-	                    onTotalScrollOffset:0 /*bottom reached offset: integer (pixels)*/
-	                    }                   
-	                });
 	   }
 	   
 	});
