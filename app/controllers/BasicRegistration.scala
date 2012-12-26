@@ -33,7 +33,6 @@ object BasicRegistration extends Controller {
   */
 
   def basicRegistration = Action { implicit request =>
-
     val tokenJSON = request.body.asFormUrlEncoded.get
     val tokenString = tokenJSON("token").toList(0)
     val findToken = TokenDAO.find(MongoDBObject("tokenString" -> tokenString)).toList
