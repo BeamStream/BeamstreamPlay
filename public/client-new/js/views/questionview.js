@@ -53,20 +53,48 @@
 			
 			eventName.preventDefault();
 			var question = $('#Q-area').val();
-			console.log(question);
+			 
 			var streamId =  $('.sortable li.active').attr('id');
-			
-			var question = new BS.Question();
-			question.set({question:question ,streamId:streamId ,access:"public"});
-			var questionInfo = JSON.stringify(question);
- 
+			 
+			var questionAccess;
+	        var queAccess =  $('#private-to').attr('checked');
+		    if(queAccess == "checked")
+		    {
+		    	questionAccess = "Private";
+		    }
+		    else
+		    {
+		    	questionAccess = "Public";
+		    }
+		    
+		    var pollOptions =[];
+		    
+		    for (var i=1; i<= BS.options ; i++)
+		    {
+		    	pollOptions.push($('#option'+i).val());
+		    }
+		    pollOptions = JSON.stringify(pollOptions);
+		    
+//		    var questionModel = new BS.Question();
+//		    questionModel.set({
+//				
+//				id : 1 ,     
+//				questionBody : question,
+//				streamId : streamId,
+//				questionAccess : questionAccess,
+//				pollsOptions: pollOptions
+//			});
+//		    
+//		    var data = JSON.stringify(questionModel);
+//		    console.log(data);
 			/* post profile page details */
 	         $.ajax({
 	             type: 'POST',
 	             data: {
-	            	 question : question,
-					 streamId : streamId,
-					 access :"Publlic"
+	            	 questionBody : question,
+	            	 streamId : streamId,
+					 questionAccess :questionAccess,
+					 pollsOptions: pollOptions
 	             },
 	             url: BS.newQuestion,
 	             cache: false,

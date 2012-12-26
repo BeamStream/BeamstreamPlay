@@ -21,14 +21,12 @@
 		
 		defaults: {
 	    	
-	//		id:null,
-	//		question:null,
-	//		options:null,
-			question:null,
+			id:null,
+			questionBody:null,
 			streamId:null,
-			access:null,
-	//		pollsOptions:null
-			
+			questionAccess:null,
+			pollsOptions:null,
+		 
 	         
 	    },
 	});
