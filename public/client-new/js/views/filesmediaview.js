@@ -71,7 +71,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 this.pictres();	
                 this.videos();   
                 this.docsList();
-                //this.audio();  
+                this.audio();  
                 this.spreadsheet();  
                 this.presentation();  
                 this.pdffiles();
