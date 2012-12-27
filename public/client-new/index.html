@@ -1357,7 +1357,7 @@ Create a Class</a>
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
-                        <li><a href="#" id="{{datas.question.id.id}}-qstRockCount" class="uprocks-message rocks-question"><span>{{data.question.rocks}}</span></a></li>
+                        <li><a href="#" id="{{data.question.id.id}}-qstRockCount" class="uprocks-message rocks-question"><span>{{rocks}}</span></a></li>
                         <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
 						<a  class="btn grey-buttons  href="#">Show All</a>
                       </ul>
@@ -1367,11 +1367,11 @@ Create a Class</a>
                        
                   </div>
                   
-                  <div id="{{datas.question.id.id}}-allComments" class="comment-wrapper">
+                  <div id="{{data.question.id.id}}-allComments" class="comment-wrapper">
                   </div>
-				  <div id="{{datas.question.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
+				  <div id="{{data.question.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
                   </div>
-			 	  <div id="{{datas.question.id.id}}-questionRockers" class="comment-wrapper" style="display: none;">
+			 	  <div id="{{data.question.id.id}}-questionRockers" class="comment-wrapper" style="display: none;">
                   </div>
                 </div>
               </div>
@@ -1411,6 +1411,25 @@ Create a Class</a>
                       </div>
 </script>
 
+
+<!--  comment templete for stream questionrockers-->
+ <script type="text/x-handlebars-template" id="tpl-question-rockers">
+ <div class="answer-description"  >
+                        <div class="follw-left">
+                          
+                        </div>
+                        <div class="answer-description-info">
+                          <div class="follow-names">
+                            <ul class="follow-name-left show-all-block">
+                              <li><span>@{{rocker}} </span> </li>
+                              
+                            </ul>
+                          </div>
+                         
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+</script>
 
 
 <!--  Questions  templates  -->

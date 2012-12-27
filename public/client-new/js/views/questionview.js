@@ -202,7 +202,7 @@
 			     			
 			            	 var source = $("#tpl-questions_with_polls").html();
 			            	 var template = Handlebars.compile(source);
-			            	 $('#all-questions').prepend(template({data:data,owner: owner}));
+			            	 $('#all-questions').prepend(template({data:data,owner: owner ,rocks:data.question.rockers.length}));
 		             }
 		         });
 			}
@@ -717,21 +717,21 @@
 		    		},
 		    		dataType:"json",
 		    		success:function(data){
-//		    			$('#'+questionId+'-questionRockers').html("");
-//		    			// prepair rockers list
-//		    			_.each(data, function(rocker) {
-//					 
-////		    				var questionRockers = $("#tpl-message-rockers").html();
-////		    				var questionRockersTemplate = Handlebars.compile(questionRockers);
-////		    				$('#'+questionId+'-questionRockers').append(questionRockersTemplate({rocker:rocker}));
-//		    			});
-//		    			
-//		    			$(eventName.target).addClass('active');
-//           	 
-//		            	$('#'+questionId+'-allComments').slideUp();
-//		            	$('#'+questionId+'-newCommentList').slideUp();
-//           	
-//		            	$('#'+questionId+'-msgRockers').slideDown(600); 
+		    			$('#'+questionId+'-questionRockers').html("");
+		    			// prepair rockers list
+		    			_.each(data, function(rocker) {
+					 
+		    				var questionRockers = $("#tpl-question-rockers").html();
+		    				var questionRockersTemplate = Handlebars.compile(questionRockers);
+		    				$('#'+questionId+'-questionRockers').append(questionRockersTemplate({rocker:rocker}));
+		    			});
+		    			
+		    			$(eventName.target).addClass('active');
+           	 
+		            	$('#'+questionId+'-allComments').slideUp();
+		            	$('#'+questionId+'-newCommentList').slideUp();
+           	
+		            	$('#'+questionId+'-questionRockers').slideDown(600); 
 
  
 	             	}
