@@ -117,92 +117,94 @@
 //			eventName.preventDefault();
 			var question = $('#Q-area').val();
 			 
-			var streamId =  $('.sortable li.active').attr('id');
+			if(!question.match(/^[\s]*$/))
+			{
+				var streamId =  $('.sortable li.active').attr('id');
+				 
+				var questionAccess;
+		        var queAccess =  $('#private-to').attr('checked');
+		        var privateTo = $('#select-privateTo').text();
+		        
+			    if(queAccess == "checked")
+			    {
+			    	if(privateTo == "My School")
+			    	{
+			    		questionAccess = "PrivateToSchool";
+			    	}
+			    	else
+			    	{
+			    		questionAccess = "PrivateToClass";
+			    	}
+			    	
+			    }
+			    else
+			    {
+			    	questionAccess = "Public";
+			    }
+			    
+			    
+			    
+			    var pollOptions ='';
 			 
-			var questionAccess;
-	        var queAccess =  $('#private-to').attr('checked');
-	        var privateTo = $('#select-privateTo').text();
-	        
-		    if(queAccess == "checked")
-		    {
-		    	if(privateTo == "My School")
-		    	{
-		    		questionAccess = "PrivateToSchool";
-		    	}
-		    	else
-		    	{
-		    		questionAccess = "PrivateToClass";
-		    	}
-		    	
-		    }
-		    else
-		    {
-		    	questionAccess = "Public";
-		    }
-		    
-		    
-		    
-		    var pollOptions ='';
-		 
-		    for (var i=1; i<= BS.options ; i++)
-		    {
-		    	pollOptions+= $('#option'+i).val()+',' ;
-		    	 
-		    }
-		    pollOptions = pollOptions.substring(0, pollOptions.length - 1);
-		    
-       	 
-//       	 var source = $("#tpl-questions_with_polls").html();
-//       	 var template = Handlebars.compile(source);
-//       	 $('#all-questions').prepend(template);
-		    
-//		    var questionModel = new BS.Question();
-//		    questionModel.set({
-//				
-//				id : 1 ,     
-//				questionBody : question,
-//				streamId : streamId,
-//				questionAccess : questionAccess,
-//				pollsOptions: pollOptions
-//			});
-//		    
-//		    var data = JSON.stringify(questionModel);
-//		    console.log(data);
-			/* post profile page details */
-	         $.ajax({
-	             type: 'POST',
-	             data: {
-	            	 questionBody : question,
-	            	 streamId : streamId,
-					 questionAccess :questionAccess,
-					 pollsOptions: pollOptions
-	             },
-	             url: BS.newQuestion,
-	             cache: false,
-	             dataType : "json",
-	             success: function(datas){
-	            	 
-	            	 _.each(datas, function(data) {
-		            	 $('#Q-area').val("");
-		            	 $('#pollArea').slideUp(700); 
-		            	 $('#uploded-file').hide();
+			    for (var i=1; i<= BS.options ; i++)
+			    {
+			    	pollOptions+= $('#option'+i).val()+',' ;
+			    	$('#option'+i).val('');
+			    }
+			    pollOptions = pollOptions.substring(0, pollOptions.length - 1);
+			    
+			    //get poll options
+			    var info ;
+			    if(pollOptions == '')
+			    {
+			    	info = {
+			            	 questionBody : question,
+			            	 streamId : streamId,
+							 questionAccess :questionAccess,
+			             }
+			    }
+			    else
+			    {
+			    	info = {
+			            	 questionBody : question,
+			            	 streamId : streamId,
+							 questionAccess :questionAccess,
+							 pollsOptions: pollOptions
+			             }
+			    }
+	       	 
+
+				/* post profile page details */
+		         $.ajax({
+		             type: 'POST',
+		             data: info,
+		             url: BS.newQuestion,
+		             cache: false,
+		             dataType : "json",
+		             success: function(data){
 		            	 
-		            	 var owner = "";
-     					 if(data.userId.id == BS.loggedUserId)
-     					 {
-		     				owner = "true";
-     					 }
-     					 else
-     					 {
-		     				owner = "";
-     					 }
-		     			
-		            	 var source = $("#tpl-questions_with_polls").html();
-		            	 var template = Handlebars.compile(source);
-		            	 $('#all-questions').prepend(template({data:data,owner: owner}));
-	            	 });
-	             }
-	         }); 
+		            		 console.log(data);
+			            	 $('#Q-area').val("");
+			            	 $('#pollArea').slideUp(700); 
+			            	 $('#uploded-file').hide();
+			            	 BS.options = 0;
+			            	 
+			            	 var owner = "";
+	     					 if(data.question.userId.id == BS.loggedUserId)
+	     					 {
+			     				owner = "true";
+	     					 }
+	     					 else
+	     					 {
+			     				owner = "";
+	     					 }
+			     			
+			            	 var source = $("#tpl-questions_with_polls").html();
+			            	 var template = Handlebars.compile(source);
+			            	 $('#all-questions').prepend(template({data:data,owner: owner}));
+		             }
+		         });
+			}
 	         
 		},
 		
