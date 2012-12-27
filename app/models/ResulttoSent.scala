@@ -25,7 +25,8 @@ case class OnlineUsers(@Key("_id") id: ObjectId, firstName: String, lastName: St
 
 object OptionOfQuestionDAO extends SalatDAO[OptionOfQuestion, ObjectId](collection = MongoHQConfig.mongoDB("optionofquestion"))
 
-
+// Question With Polls
+case class QuestionWithPoll(question : Question , polls : List[OptionOfQuestion])
 
 
 

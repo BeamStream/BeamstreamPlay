@@ -29,6 +29,7 @@ import play.api.libs.json._
 import models.OptionOfQuestion
 import models.OptionOfQuestionDAO
 import models.QuestionPolling
+import models.QuestionWithPoll
 
 /**
  * This controller class is used to store and retrieve all the information about Question and Answers.
@@ -42,10 +43,9 @@ object QuestionController extends Controller {
     override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
   } + new ObjectIdSerializer
 
-  /*
- * 
- * Asking A New Question
- */
+  /**
+   * Asking A New Question
+   */
 
   def newQuestion = Action { implicit request =>
 
@@ -58,7 +58,7 @@ object QuestionController extends Controller {
     val userId = new ObjectId(request.session.get("userId").get)
     val user = User.getUserProfile(userId)
     val questionToAsk = new Question(new ObjectId, questionBody, userId,
-      QuestionAccess.withName(questionAccess), new ObjectId(streamId), user.firstName, user.lastName, new Date, 0, List(), List(), List(), List())
+      QuestionAccess.withName(questionAccess), new ObjectId(streamId), user.firstName, user.lastName, new Date, List(), List(), List(), List())
     val questionId = Question.addQuestion(questionToAsk)
     val pollsList = pollsOptions.split(",").toList
     /**
@@ -73,8 +73,14 @@ object QuestionController extends Controller {
     }
 
     val questionObtained = Question.findQuestionById(questionId)
-    Ok(write(List(questionObtained))).as("application/json")
-
+    var pollsOfquestionObtained: List[OptionOfQuestion] = List()
+    if (questionObtained.get.pollOptions.isEmpty.equals(false)) {
+      for (pollId <- questionObtained.get.pollOptions) {
+        val pollObtained = QuestionPolling.findOptionOfAQuestionById(pollId)
+        pollsOfquestionObtained ++= List(pollObtained.get)
+      }
+    }
+    Ok(write(new QuestionWithPoll(questionObtained.get, pollsOfquestionObtained))).as("application/json")
   }
 
   /**
