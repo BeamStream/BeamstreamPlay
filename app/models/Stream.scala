@@ -156,7 +156,6 @@ object Stream {
     for (user <- stream.usersOfStream) {
       val userObtained = User.getUserProfile(user)
       if( ! userObtained.id.equals(userIdWhoHasJoinedTheStream)){
-          println("Inside If" + ! userObtained.id.equals(userIdWhoHasJoinedTheStream))
     	  SendEmail.notifyUsersOfStreamForANewUser(userObtained.email, userWhoHasJoinedTheStream.firstName, userWhoHasJoinedTheStream.lastName, stream.streamName)
       }
     }

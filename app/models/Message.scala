@@ -261,15 +261,15 @@ object Message { //extends CommentConsumer {
   }
 
   /*
-   * Delete A Message
+   * Delete A Message (Either Stream Admin Or The User Who Has Posted The Message)
    */
 
   def deleteMessagePermanently(messageId: ObjectId, userId: ObjectId) = {
     var deletedMessageSuccessfully = false
     val messageToRemove = Message.findMessageById(messageId).get
     val commentsOfMessageToBeRemoved = messageToRemove.comments
-
-    if (messageToRemove.userId == userId) {
+    val streamObtained = Stream.findStreamById(messageToRemove.streamId.get)
+    if (messageToRemove.userId == userId || streamObtained.creatorOfStream == userId) {
       MessageDAO.remove(messageToRemove)
       for (commentId <- commentsOfMessageToBeRemoved) {
         val commentToBeremoved = Comment.findCommentById(commentId)
