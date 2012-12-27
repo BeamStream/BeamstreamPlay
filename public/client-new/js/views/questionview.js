@@ -35,7 +35,9 @@
 			 "click .follow-user" : "followUser",
 			 "click .who-rocked-it" : "showRockersList",
 			 "keypress .add-question-comment" : "addQuestionComments",
+			 "focusout .add-question-comment" : "removeCommentTextArea",
 			 "click .show-all-comments" : "showAllCommentList",
+			 "click .show-all" : "showAllList",
 		},
 	
 		initialize : function() {
@@ -726,7 +728,7 @@
 //                   }
                    
 						 
-//				   self.showAllComments(data.userId.id.id);
+				   self.showAllComments(data.question.userId.id);
 		      });
 		
         },
@@ -793,7 +795,7 @@
 
 			$.ajax({
 				type: 'POST',
-	            url: BS.allCommentsForAQuestion,
+	            url: BS.allComments,
 	            data:{
 	            	questionId:parentQst
 	            },
@@ -983,7 +985,7 @@
         	var totalComments =  $('#'+parent+'-totalComment').text();
         	var commentText = $('#'+parent+'-questionComment').val();
         	
-
+            
         	 
         	var self =this;
         
@@ -992,7 +994,8 @@
         		
         		eventName.preventDefault(); 
    			 	
-//   			
+   		 	  if(!commentText.match(/^[\s]*$/))
+   		 	  {
    			 	/* post comments information */
    		        $.ajax({
    		        	type : 'POST',
@@ -1028,6 +1031,7 @@
    								
    							}
    							$('#'+parent+'-show-hide').text("Hide All");
+   							 
    							$('#'+parent+'-totalComment').text(totalComments);
    							/* auto push */
    		  					var streamId = $('.sortable li.active').attr('id');
@@ -1040,6 +1044,7 @@
 
 			  	    }
 	  		    });
+   		 	  }
 	        }
         },
         
@@ -1074,5 +1079,47 @@
 			}
         },
 	 
+        /**
+         * NEW THEME - show / hide all comments ..
+         */
+        showAllList: function(eventName){
+        	eventName.preventDefault();
+        	
+        	var element = eventName.target.parentElement;
+        	var parentUl = $(eventName.target).parents('ul');
+        	$(parentUl).find('a.active').removeClass('active');
+			var questionId =$(element).parents('div.follow-container').attr('id');
+			if($('#'+questionId+'-show-hide').text() == "Hide All")
+            {
+				$('#'+questionId+'-questionRockers').slideUp(1);
+				$('#'+questionId+'-newCommentList').html('');
+				$('#'+questionId+'-allComments').slideUp(600); 
+				$(eventName.target).removeClass('active');
+				$(eventName.target).text("Show All");
+            }
+			else
+			{
+				$('#'+questionId+'-questionRockers').slideUp(1);
+				$('#'+questionId+'-newCommentList').html('');
+				$('#'+questionId+'-allComments').slideDown(600);
+				$(eventName.target).addClass('active');
+				$(eventName.target).text("Hide All");
+			}
+			
+        },
+        
+        /**
+         * NEW THEME - remove the comment text area when it lost focus without any content
+         */
+        removeCommentTextArea: function(eventName){
+        	
+        	var parent =$(eventName.target).parents('div.follow-container').attr('id');
+        	
+        	//slide up the comment text area if the text is empty
+        	if($(eventName.target).val() == "")
+        	{
+        		 $('#'+parent+'-addComments').slideUp(200); 
+        	}
+        },
 	  
 	});

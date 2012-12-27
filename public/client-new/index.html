@@ -1322,23 +1322,7 @@ Create a Class</a>
                   </div>
                   <p>{{data.question.questionBody}}</p>
                   <div id="{{data.question.id.id}}-poll-Option-area">
-<!--                   <div class="comment-nofication" id="{{data.question.id.id}}-pollOptions"> -->
-<!--                     <div class="comment-nofication-left"> -->
-<!--                       <fieldset> -->
-<!--                         <input type="radio" id="radio-1-1" name="radio-1-set" class="regular-radio" checked /> -->
-<!--                         <label for="radio-1-1"></label> -->
-<!--                         <label>Yellow</label> -->
-<!--                       </fieldset> -->
-<!--                       <fieldset> -->
-<!--                         <input type="radio" id="radio-1-2" name="radio-1-set" class="regular-radio  red" /> -->
-<!--                         <label for="radio-1-2"></label> -->
-<!--                         <label>Red</label> -->
-<!--                       </fieldset> -->
-<!--                     </div> -->
-<!--                     <div class="chart"> <span class="chart-count"><span class="yellow">50%</span></span> -->
-<!--                       <div class="chart-round"> <img src="images/pie-chart.png" width="113" height="113"></div> -->
-<!--                       <span class="chart-count"><span class="red">50%</span></span> </div> -->
-<!--                   </div> -->
+ 
                   </div>
                   <div class="follow-bottom">
                     <ul class="follow-name-left show-all-block">
@@ -1350,22 +1334,18 @@ Create a Class</a>
                     <a id=" " href="#" class="delete_msg"></a> 
                     </div>
                     <div id="{{data.question.id.id}}-addComments" class="follow-comment" style="display:none;">
-				<textarea id="{{data.question.id.id}}-questionComment" class="add-question-comment add-question-comment" onblur="this.placeholder = 'Add Comments..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
+				    <textarea id="{{data.question.id.id}}-questionComment" class="add-question-comment add-question-comment" placeholder="Add Comments.."  onblur="this.placeholder = 'Add Comments..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
 				</div>
                 </div>
 
-				
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
                         <li><a href="#" id="{{data.question.id.id}}-qstRockCount" class="uprocks-message rocks-question"><span>{{rocks}}</span></a></li>
-                        <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons show-all-comments" id="{{data.question.id.id}}-totalComment" href="#"><span>0</span> Comments</a> <a class="btn grey-buttons " href="#"> <span>0</span> Answers</a>
-						<a  class="btn grey-buttons  show-all" href="#">Show All</a>
+                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons show-all-comments"  href="#"><span id="{{data.question.id.id}}-totalComment" >0</span> Comments</a> <a class="btn grey-buttons " href="#"> <span>0</span> Answers</a>
+						<a  class="btn grey-buttons  show-all" id="{{data.question.id.id}}-show-hide" href="#">Show All</a>
                       </ul>
-                      
-<!--                       <div class="comment-wrapper" id="comments"> -->
-<!--                       </div> -->
                        
                   </div>
                   

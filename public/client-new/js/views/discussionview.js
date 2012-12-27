@@ -986,7 +986,8 @@
         		
         		eventName.preventDefault(); 
    			 	
-//   			
+   			 if(!commentText.match(/^[\s]*$/))
+   			 {
    			 	/* post comments information */
    		        $.ajax({
    		        	type : 'POST',
@@ -1035,6 +1036,7 @@
 
 			  	    }
 	  		    });
+   			 }
 	        }
         },
         
