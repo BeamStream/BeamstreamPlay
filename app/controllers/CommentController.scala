@@ -56,8 +56,8 @@ object CommentController extends Controller {
             commentPoster.firstName, commentPoster.lastName, 0, List())
           val commentId = Comment.createComment(comment)
           Message.addCommentToMessage(commentId, new ObjectId(messageId))
-          val message=Message.findMessageById(new ObjectId(messageId)).get
-          if(!(message.docIdIfAny==None)) RockDocOrMedia.commentDocOrMedia(message.docIdIfAny.get,commentId)
+          val message = Message.findMessageById(new ObjectId(messageId)).get
+          if (!(message.docIdIfAny == None)) RockDocOrMedia.commentDocOrMedia(message.docIdIfAny.get, commentId)
           Ok(write(List(comment))).as("application/json")
 
         case false => (commentJson.contains(("docId"))) match {
@@ -117,9 +117,16 @@ object CommentController extends Controller {
           val commentsForADocument = Comment.getAllComments(Document.findDocumentById(new ObjectId(docId)).get.commentsOnDocument)
           Ok(write(commentsForADocument)).as("application/json")
 
-        case false =>
-          Ok(write(new ResulttoSent("Failure", "IdNotFound")))
+        case false => (jsonWithid.contains(("questionId"))) match {
+          case true =>
 
+            val docId = jsonWithid("questionId").toList(0)
+            val commentsForAQuestion = Comment.getAllComments(Question.findQuestionById(new ObjectId(docId)).get.comments)
+            Ok(write(commentsForAQuestion)).as("application/json")
+
+          case false =>
+            Ok(write(new ResulttoSent("Failure", "IdNotFound")))
+        }
       }
     }
 

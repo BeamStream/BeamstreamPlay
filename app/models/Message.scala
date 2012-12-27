@@ -24,7 +24,7 @@ object MessageType extends Enumeration {
 
 object MessageAccess extends Enumeration {
   type MessageAccess = Value
-  val Public = Value(0, "Public")
+   val Public = Value(0, "Public")
   val PrivateToClass = Value(1, "PrivateToClass")
   val PrivateToSchool = Value(2, "PrivateToSchool")
 }
