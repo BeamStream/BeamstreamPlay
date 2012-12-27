@@ -245,7 +245,7 @@
 
 			$.ajax({
 				type: 'POST',
-	            url: BS.allCommentsForAMessage,
+	            url: BS.allComments,
 	            data:{
 	            	messageId:parentMsg
 	            },

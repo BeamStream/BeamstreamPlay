@@ -1300,15 +1300,15 @@ Create a Class</a>
 
 <!--   templete for stream discussions messages with videos/ images --> 
  <script type="text/x-handlebars-template" id="tpl-questions_with_polls">
-<div id="{{data.id.id}}" class="ask-outer follow-container">
+<div id="{{data.question.id.id}}" class="ask-outer follow-container">
 
 		<div class="ask-content">
               <div class="follw-left">
                 <div class="small-image">
-                  <div class="ask-img"><img  id="{{data.id.id}}-img" src="images/picture.jpg"></div>
+                  <div class="ask-img"><img  id="{{data.question.id.id}}-img" src="images/picture.jpg"></div>
                   {{#if owner}}
                   {{else}}
-                  	<a href="#"  id="{{data.userId.id}}" class="follow-button follow-user">follow</a>
+                  	<a href="#"  id="{{data.question.userId.id}}" class="follow-button follow-user">follow</a>
                   {{/if}}
 				 </div>
               </div>
@@ -1316,27 +1316,29 @@ Create a Class</a>
                 <div class="ask-comment">
                   <div class="follow-names">
                     <ul class="follow-name-left">
-                      <li><span>@{{data.firstNameofQuestionAsker}} {{data.lastNameofQuestionAsker}} </span> -  {{data.creationDate}}  - {{data.questionAccess.name}}</li>
+                      <li><span>@{{data.question.firstNameofQuestionAsker}} {{data.question.lastNameofQuestionAsker}} </span> -  {{data.question.creationDate}}  - {{data.question.questionAccess.name}}</li>
                     </ul>
-                    <div class="follow-right"><a href="#"  id="{{data.id.id}}-follow" class="follow-button follow-question">follow</a></div>
+                    <div class="follow-right"><a href="#"  id="{{data.question.id.id}}-follow" class="follow-button follow-question">follow</a></div>
                   </div>
-                  <p>{{data.questionBody}}</p>
-                  <div class="comment-nofication">
-                    <div class="comment-nofication-left">
-                      <fieldset>
-                        <input type="radio" id="radio-1-1" name="radio-1-set" class="regular-radio" checked />
-                        <label for="radio-1-1"></label>
-                        <label>Yellow</label>
-                      </fieldset>
-                      <fieldset>
-                        <input type="radio" id="radio-1-2" name="radio-1-set" class="regular-radio  red" />
-                        <label for="radio-1-2"></label>
-                        <label>Red</label>
-                      </fieldset>
-                    </div>
-                    <div class="chart"> <span class="chart-count"><span class="yellow">50%</span></span>
-                      <div class="chart-round"> <img src="images/pie-chart.png" width="113" height="113"></div>
-                      <span class="chart-count"><span class="red">50%</span></span> </div>
+                  <p>{{data.question.questionBody}}</p>
+                  <div id="{{data.question.id.id}}-poll-Option-area">
+<!--                   <div class="comment-nofication" id="{{data.question.id.id}}-pollOptions"> -->
+<!--                     <div class="comment-nofication-left"> -->
+<!--                       <fieldset> -->
+<!--                         <input type="radio" id="radio-1-1" name="radio-1-set" class="regular-radio" checked /> -->
+<!--                         <label for="radio-1-1"></label> -->
+<!--                         <label>Yellow</label> -->
+<!--                       </fieldset> -->
+<!--                       <fieldset> -->
+<!--                         <input type="radio" id="radio-1-2" name="radio-1-set" class="regular-radio  red" /> -->
+<!--                         <label for="radio-1-2"></label> -->
+<!--                         <label>Red</label> -->
+<!--                       </fieldset> -->
+<!--                     </div> -->
+<!--                     <div class="chart"> <span class="chart-count"><span class="yellow">50%</span></span> -->
+<!--                       <div class="chart-round"> <img src="images/pie-chart.png" width="113" height="113"></div> -->
+<!--                       <span class="chart-count"><span class="red">50%</span></span> </div> -->
+<!--                   </div> -->
                   </div>
                   <div class="follow-bottom">
                     <ul class="follow-name-left show-all-block">
@@ -1347,8 +1349,8 @@ Create a Class</a>
                     </ul>
                     <a id=" " href="#" class="delete_msg"></a> 
                     </div>
-                    <div id="" class="follow-comment" style="display:none;">
-				<textarea id="" class="add-question-comment add-message-comment" onblur="this.placeholder = 'Add Comments..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
+                    <div id="{{data.question.id.id}}-addComments" class="follow-comment" style="display:none;">
+				<textarea id="{{data.question.id.id}}-questionComment" class="add-question-comment add-question-comment" onblur="this.placeholder = 'Add Comments..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
 				</div>
                 </div>
 
@@ -1357,9 +1359,9 @@ Create a Class</a>
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
-                        <li><a href="#" id="{{datas.id.id}}-qstRockCount" class="uprocks-message rocks-question"><span>{{data.rocks}}</span></a></li>
-                        <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
-						<a  class="btn grey-buttons  href="#">Show All</a>
+                        <li><a href="#" id="{{data.question.id.id}}-qstRockCount" class="uprocks-message rocks-question"><span>{{rocks}}</span></a></li>
+                        <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons show-all-comments" id="{{data.question.id.id}}-totalComment" href="#"><span>0</span> Comments</a> <a class="btn grey-buttons " href="#"> <span>0</span> Answers</a>
+						<a  class="btn grey-buttons  show-all" href="#">Show All</a>
                       </ul>
                       
 <!--                       <div class="comment-wrapper" id="comments"> -->
@@ -1367,11 +1369,11 @@ Create a Class</a>
                        
                   </div>
                   
-                  <div id="{{datas.id.id}}-allComments" class="comment-wrapper">
+                  <div id="{{data.question.id.id}}-allComments" class="comment-wrapper">
                   </div>
-				  <div id="{{datas.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
+				  <div id="{{data.question.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
                   </div>
-			 	  <div id="{{datas.id.id}}-questionRockers" class="comment-wrapper" style="display: none;">
+			 	  <div id="{{data.question.id.id}}-questionRockers" class="comment-wrapper" style="display: none;">
                   </div>
                 </div>
               </div>
@@ -1380,6 +1382,29 @@ Create a Class</a>
           </div>
 
           </div>
+</script>
+
+
+<!--  comment templete for stream questions poll oprions  comments-->
+ <script type="text/x-handlebars-template" id="tpl-question-poll-percentage">
+<div class="comment-nofication" >
+   <div class="comment-nofication-left" id="{{data.question.id.id}}-pollOptions">
+
+   </div>
+   <div class="chart"> <span class="chart-count"><span class="yellow">50%</span></span>
+     <div class="chart-round"> <img src="images/pie-chart.png" width="113" height="113"></div>
+     <span class="chart-count"><span class="red">50%</span></span> </div>
+ </div>
+</script>
+
+
+<!--  comment templete for stream questions poll oprions  comments -->
+ <script type="text/x-handlebars-template" id="tpl-question-poll">
+	<fieldset>  
+       <input type="radio" id="{{poll.id.id}}" name="radio-1-set" class="regular-radio" checked />
+       <label for="{{poll.id.id}}"></label>
+       <label>{{poll.name}}</label>
+     </fieldset>
 </script>
 
 
@@ -1406,6 +1431,25 @@ Create a Class</a>
                       </div>
 </script>
 
+
+<!--  comment templete for stream questionrockers-->
+ <script type="text/x-handlebars-template" id="tpl-question-rockers">
+ <div class="answer-description"  >
+                        <div class="follw-left">
+                          
+                        </div>
+                        <div class="answer-description-info">
+                          <div class="follow-names">
+                            <ul class="follow-name-left show-all-block">
+                              <li><span>@{{rocker}} </span> </li>
+                              
+                            </ul>
+                          </div>
+                         
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+</script>
 
 
 <!--  Questions  templates  -->

@@ -103,7 +103,7 @@ object QuestionController extends Controller {
     val id = questionIdJsonMap("questionId").toList(0)
     val totalRocks = Question.rockTheQuestion(new ObjectId(id), new ObjectId(request.session.get("userId").get))
     val totalRocksJson = write(totalRocks.toString)
-    Ok(write(totalRocksJson)).as("application/json")
+    Ok(totalRocksJson).as("application/json")
   }
 
   /**
@@ -114,7 +114,7 @@ object QuestionController extends Controller {
     val id = questionIdJsonMap("questionId").toList(0)
     val rockers = Question.rockersNameOfAQuestion(new ObjectId(id))
     val rockersJson = write(rockers)
-    Ok(write(rockersJson)).as("application/json")
+    Ok(rockersJson).as("application/json")
   }
   /**
    * Follow Question
@@ -147,6 +147,34 @@ object QuestionController extends Controller {
     val questionDeleted = Question.deleteQuestionPermanently(new ObjectId(questionId), new ObjectId(request.session.get("userId").get))
     if (questionDeleted == true) Ok(write(new ResulttoSent("Success", "Question Has Been Deleted")))
     else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Question")))
+  }
+
+  //==================================================//
+  //======Displays all the question within a Stream===//
+  //==================================================//
+  def getAllQuestionForAStreamWithPagination = Action { implicit request =>
+    val streamIdJsonMap = request.body.asFormUrlEncoded.get
+    val streamId = streamIdJsonMap("streamId").toList(0)
+    val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
+    val messagesPerPage = streamIdJsonMap("limit").toList(0).toInt
+    val allQuestionsForAStream = Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+
+    var questionsWithPolls: List[QuestionWithPoll] = List()
+    var pollsOfquestionObtained: List[OptionOfQuestion] = List()
+
+    for (question <- allQuestionsForAStream) {
+      if (question.pollOptions.size != 0) {
+        for (pollId <- question.pollOptions) {
+          val pollObtained = QuestionPolling.findOptionOfAQuestionById(pollId)
+          pollsOfquestionObtained ++= List(pollObtained.get)
+        }
+        questionsWithPolls ++= List(new QuestionWithPoll(question, pollsOfquestionObtained))
+      } else {
+        questionsWithPolls ++= List(new QuestionWithPoll(question, pollsOfquestionObtained))
+      }
+    }
+    val allQuestionForAStreamJson = write(questionsWithPolls)
+    Ok(allQuestionForAStreamJson).as("application/json")
   }
 
 }

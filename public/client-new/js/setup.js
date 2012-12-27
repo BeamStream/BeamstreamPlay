@@ -80,7 +80,7 @@ BS.bitly = BS.URLRequired+"/bitly";
 //POST comment
 BS.newComment = BS.URLRequired+"/newComment";
 //Get all comments of a message
-BS.allCommentsForAMessage = BS.URLRequired+"/allCommentsForAMessage";
+BS.allComments = BS.URLRequired+"/allComments";
 //for forgot password
 BS.forgotPassword = BS.URLRequired+"/forgotPassword";
 //sort messages
@@ -159,6 +159,8 @@ BS.onlineUsers = BS.URLRequired+"/onlineUsers";
 BS.newQuestion =BS.URLRequired+"/newQuestion";
 BS.rockQuestion =BS.URLRequired+"/rockQuestion";
 BS.followQuestion =BS.URLRequired+"/followQuestion";
+BS.giveMeRockersOfQuestion =BS.URLRequired+"/giveMeRockersOfQuestion";
+BS.getAllQuestionsOfAStream =BS.URLRequired+"/getAllQuestionForAStream";
 
  
 
