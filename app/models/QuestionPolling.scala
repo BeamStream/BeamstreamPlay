@@ -30,8 +30,8 @@ object QuestionPolling {
  */
 
   def findOptionOfAQuestionById(optionId: ObjectId): Option[OptionOfQuestion] = {
-    val question = OptionOfQuestionDAO.findOneByID(optionId)
-    question
+    val optionOfQuestion = OptionOfQuestionDAO.findOneByID(optionId)
+    optionOfQuestion
   }
 
   

@@ -38,7 +38,6 @@ case class Question(@Key("_id") id: ObjectId,
   firstNameofQuestionAsker: String,
   lastNameofQuestionAsker: String,
   creationDate: Date,
-  rocks: Int,
   rockers: List[ObjectId],
   comments: List[ObjectId],
   answers: List[ObjectId],
@@ -81,15 +80,11 @@ object Question {
       case true =>
         QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToRock.copy(rockers = (questionToRock.rockers filterNot (List(userId) contains))), false, false, new WriteConcern)
         val updatedQuestion = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-        QuestionDAO.update(MongoDBObject("_id" -> questionId), updatedQuestion.copy(rocks = (updatedQuestion.rocks - 1)), false, false, new WriteConcern)
-        val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-        question.rocks
+        updatedQuestion.rockers.size
       case false =>
         QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToRock.copy(rockers = (questionToRock.rockers ++ List(userId))), false, false, new WriteConcern)
         val updatedQuestion = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-        QuestionDAO.update(MongoDBObject("_id" -> questionId), updatedQuestion.copy(rocks = (updatedQuestion.rocks + 1)), false, false, new WriteConcern)
-        val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-        question.rocks
+         updatedQuestion.rockers.size
     }
   }
 
@@ -129,7 +124,7 @@ object Question {
 
   def totalRocks(questionId: ObjectId): Int = {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-    question.rocks
+    question.rockers.size
   }
 
   /*
