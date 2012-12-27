@@ -1321,22 +1321,22 @@ Create a Class</a>
                     <div class="follow-right"><a href="#"  id="{{data.id.id}}-follow" class="follow-button follow-question">follow</a></div>
                   </div>
                   <p>{{data.questionBody}}</p>
-                  <div class="comment-nofication">
-                    <div class="comment-nofication-left">
-                      <fieldset>
-                        <input type="radio" id="radio-1-1" name="radio-1-set" class="regular-radio" checked />
-                        <label for="radio-1-1"></label>
-                        <label>Yellow</label>
-                      </fieldset>
-                      <fieldset>
-                        <input type="radio" id="radio-1-2" name="radio-1-set" class="regular-radio  red" />
-                        <label for="radio-1-2"></label>
-                        <label>Red</label>
-                      </fieldset>
-                    </div>
-                    <div class="chart"> <span class="chart-count"><span class="yellow">50%</span></span>
-                      <div class="chart-round"> <img src="images/pie-chart.png" width="113" height="113"></div>
-                      <span class="chart-count"><span class="red">50%</span></span> </div>
+                  <div class="comment-nofication" id="{{data.id.id}}-pollOptions">
+<!--                     <div class="comment-nofication-left"> -->
+<!--                       <fieldset> -->
+<!--                         <input type="radio" id="radio-1-1" name="radio-1-set" class="regular-radio" checked /> -->
+<!--                         <label for="radio-1-1"></label> -->
+<!--                         <label>Yellow</label> -->
+<!--                       </fieldset> -->
+<!--                       <fieldset> -->
+<!--                         <input type="radio" id="radio-1-2" name="radio-1-set" class="regular-radio  red" /> -->
+<!--                         <label for="radio-1-2"></label> -->
+<!--                         <label>Red</label> -->
+<!--                       </fieldset> -->
+<!--                     </div> -->
+<!--                     <div class="chart"> <span class="chart-count"><span class="yellow">50%</span></span> -->
+<!--                       <div class="chart-round"> <img src="images/pie-chart.png" width="113" height="113"></div> -->
+<!--                       <span class="chart-count"><span class="red">50%</span></span> </div> -->
                   </div>
                   <div class="follow-bottom">
                     <ul class="follow-name-left show-all-block">
@@ -1382,6 +1382,11 @@ Create a Class</a>
           </div>
 </script>
 
+
+<!--  comment templete for stream questions poll oprions  comments-->
+ <script type="text/x-handlebars-template" id="tpl-question-poll">
+
+</script>
 
 <!--  comment templete for stream questions  comments-->
  <script type="text/x-handlebars-template" id="tpl-question-comment">
