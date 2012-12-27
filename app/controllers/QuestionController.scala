@@ -103,7 +103,7 @@ object QuestionController extends Controller {
     val id = questionIdJsonMap("questionId").toList(0)
     val totalRocks = Question.rockTheQuestion(new ObjectId(id), new ObjectId(request.session.get("userId").get))
     val totalRocksJson = write(totalRocks.toString)
-    Ok(write(totalRocksJson)).as("application/json")
+    Ok(totalRocksJson).as("application/json")
   }
 
   /**
