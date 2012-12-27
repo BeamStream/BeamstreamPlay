@@ -114,7 +114,7 @@ object QuestionController extends Controller {
     val id = questionIdJsonMap("questionId").toList(0)
     val rockers = Question.rockersNameOfAQuestion(new ObjectId(id))
     val rockersJson = write(rockers)
-    Ok(write(rockersJson)).as("application/json")
+    Ok(rockersJson).as("application/json")
   }
   /**
    * Follow Question
