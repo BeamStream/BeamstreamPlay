@@ -193,7 +193,7 @@
                 * NEW THEME- Use the method to list the onlineusers
                 */
             getonlineusers : function(eventName){
-                var content = '<li class="online"> <a href="#"><img src="images/chat-imge.jpg" width="30" height="28"> <span>Me </span> <span class="online-chat">Online</span></a> </li>'                           
+                var content = '';                           
                 var self = this;
                 $.ajax({
                     type : 'GET',
@@ -215,10 +215,12 @@
                     },
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
                     content += '<li class="online">  <span>Their is no online users </span>  </li>';   
+                    $('.online-count').text('Chat('+usersnumber+')');
                     $('#onlinechatbox').append(content); 
                     self.Scrollbar(); 
                     }
-                    });                  
+                    }); 
+            //         $('#onlinechatbox').append(content);
                 },
                 
                 /**
