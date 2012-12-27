@@ -326,11 +326,10 @@ Create a Class</a>
           </div>
           <div class="chat-box" >
              <div class="chat-window">
-                 <div id="chat-status" class="chat-open"><span class="online-count">Chat(..)</span> <span class="chat-show"><img src="images/down-arrow.png" width="15" height="8"></span></div>
+                 <div id="chat-status" class="chat-open"><span class="online-count">Chat(0)</span> <span class="chat-show"><img src="images/down-arrow.png" width="15" height="8"></span></div>
           <div id="user-online" class="scroll-block chat-view">
             <ul id="onlinechatbox">
-             
-                 
+              <li class="online"> <a href="#"><img src="images/chat-imge.jpg" width="30" height="28"> <span>Me </span> <span class="online-chat">Online</span></a> </li>                
             </ul>
           </div>
         </div>
@@ -1100,7 +1099,7 @@ Create a Class</a>
                        
                     </ul>
                   </div>
-                  <a  id="post-question" href="#" class="ask-button">ASK</a> </div>
+                  <a  id="post-question"  class="ask-button">ASK</a> </div>
                 <div class="ask-iconinfo">
 				   <div class="btn-group attach-drop">
               		<button  id="upload-files" data-original-title="Upload Files" class="btn attach-drop-bg drag-rectangle"></button>
@@ -1309,8 +1308,9 @@ Create a Class</a>
                   <div class="ask-img"><img  id="{{data.id.id}}-img" src="images/picture.jpg"></div>
                   {{#if owner}}
                   {{else}}
-                  	<a href="#"  id="{{data.userId.id}}" class="follow-button follow-user">follow</a> </div>
+                  	<a href="#"  id="{{data.userId.id}}" class="follow-button follow-user">follow</a>
                   {{/if}}
+				 </div>
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">
@@ -1362,9 +1362,16 @@ Create a Class</a>
 						<a  class="btn grey-buttons  href="#">Show All</a>
                       </ul>
                       
-                      <div class="comment-wrapper" id="comments">
-                      </div>
+<!--                       <div class="comment-wrapper" id="comments"> -->
+<!--                       </div> -->
                        
+                  </div>
+                  
+                  <div id="{{datas.id.id}}-allComments" class="comment-wrapper">
+                  </div>
+				  <div id="{{datas.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
+                  </div>
+			 	  <div id="{{datas.id.id}}-questionRockers" class="comment-wrapper" style="display: none;">
                   </div>
                 </div>
               </div>
@@ -1373,6 +1380,30 @@ Create a Class</a>
           </div>
 
           </div>
+</script>
+
+
+<!--  comment templete for stream questions  comments-->
+ <script type="text/x-handlebars-template" id="tpl-question-comment">
+ <div class="answer-description"  id="{{id.id}}">
+                        <div class="follw-left">
+                          <div class="small-image">
+                            <div class="ask-img"><img id="{{id.id}}-image" src="images/profile-img.png"></div>
+                          </div>
+                        </div>
+                        <div class="answer-description-info">
+                          <div class="follow-names">
+                            <ul class="follow-name-left show-all-block">
+                              <li><span>@{{firstNameofCommentPoster}} {{lastNameofCommentPoster}} </span> -  {{timeCreated}}  -  Public</li>
+                              <li ><a href="#" class="rock-comments" >Rock</a></li>
+                              <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
+                                 <li class="rocks-small"><a id="{{{id.id}}-rockCount" href="#">{{{rocks}}</a></li>
+                            </ul>
+                          </div>
+                          <p>{{commentBody}}</p>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
 </script>
 
 
