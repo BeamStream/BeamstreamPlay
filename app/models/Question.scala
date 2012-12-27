@@ -43,7 +43,7 @@ case class Question(@Key("_id") id: ObjectId,
   comments: List[ObjectId],
   answers: List[ObjectId],
   followers: List[ObjectId],
-  pollOptions: Option[List[ObjectId]] = None)
+  pollOptions: List[ObjectId] = Nil)
 
 object Question {
 
@@ -219,7 +219,7 @@ object Question {
    */
   def addPollToQuestion(pollId: ObjectId, questionId: ObjectId) = {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(pollOptions = Option((question.pollOptions.getOrElse(Nil) ++ List(pollId)))), false, false, new WriteConcern)
+    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(pollOptions = question.pollOptions ++ List(pollId)), false, false, new WriteConcern)
   }
 }
 
