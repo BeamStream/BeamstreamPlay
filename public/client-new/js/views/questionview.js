@@ -501,10 +501,13 @@
 //                
                 var datVal =  formatDateVal(data.question.creationDate);
                 
+                
+                
 				var datas = {
-					 	 "datas" : data,
+					 	 "data" : data,
 					 	 "datVal":datVal,
-					 	 "owner" :owner
+					 	 "owner" :owner,
+					 	 "rocks" : data.question.rockers.length
 				    }
                
                 
@@ -587,47 +590,67 @@
 //						
 //				}
 				
-				   var template = Handlebars.compile(source);
-					$('#all-questions').append(template(datas));
-					$('.drag-rectangle').tooltip();		
+				var template = Handlebars.compile(source);
+				$('#all-questions').append(template(datas));
+				$('.drag-rectangle').tooltip();	
+					
+					
+				 var pollCount = data.polls.length;
+            	 
+            	 //render each poll options and its polling percentage
+            	 if(pollCount > 0)
+            	 {
+            		 var source = $("#tpl-question-poll-percentage").html();
+	            	 var template = Handlebars.compile(source);
+	            	 $('#'+data.question.id.id+'-poll-Option-area').html(template({data:data}));
+            	 
+	            	 var pollIndex = 0;
+            		 _.each(data.polls, function(poll) {
+            			 pollIndex++;
+	            		 var pollSource = $("#tpl-question-poll").html();
+		            	 var pollTemplate = Handlebars.compile(pollSource);
+		            	 $('#'+data.question.id.id+'-pollOptions').prepend(pollTemplate({poll:poll, pollIndex:pollIndex}));
+            		 });
+            	 }
+	            	 
 					/* check whether the user is follwer of a message or not */
-			         $.ajax({
-			    			type : 'POST',
-			    			url : BS.isAFollower,
-			    			data : {
-			    				 questionId : data.question.id.id
-			    			},
-			    			dataType : "json",
-			    			success : function(status) {
-			    				 if(status == "true")
-			    					 $('#'+data.question.id.id+'-follow').text("Unfollow");
-			    			}
-			    	 });
+//			         $.ajax({
+//			    			type : 'POST',
+//			    			url : BS.isAFollower,
+//			    			data : {
+//			    				 questionId : data.question.id.id
+//			    			},
+//			    			dataType : "json",
+//			    			success : function(status) {
+//			    				 if(status == "true")
+//			    					 $('#'+data.question.id.id+'-follow').text("Unfollow");
+//			    			}
+//			    	 });
 			         
 			         
 			         /* make a call to check whether the logged user is already rock this message*/ 
-					 $.ajax({
-			             type: 'POST',
-			             url:BS.isARockerOfQuestion,
-			             data:{
-			            	 questionId:data.question.id.id
-			             },
-			             dataType:"json",
-			             success:function(result){
-			            	 if(result == "true")
-			            	 {
-			            		 $('#'+data.question.id.id+'-qstRockCount').removeClass('uprocks-message');
-			            		 $('#'+data.question.id.id+'-qstRockCount').addClass('downrocks-message');
-			            		            		 
-			            	 }
-			            	 else
-			            	 {
-			            		 $('#'+data.question.id.id+'-qstRockCount').removeClass('downrocks-message');
-			            		 $('#'+data.question.id.id+'-qstRockCount').addClass('uprocks-message');			 
-			            	 }
-			            	 
-			             }
-			          });
+//					 $.ajax({
+//			             type: 'POST',
+//			             url:BS.isARockerOfQuestion,
+//			             data:{
+//			            	 questionId:data.question.id.id
+//			             },
+//			             dataType:"json",
+//			             success:function(result){
+//			            	 if(result == "true")
+//			            	 {
+//			            		 $('#'+data.question.id.id+'-qstRockCount').removeClass('uprocks-message');
+//			            		 $('#'+data.question.id.id+'-qstRockCount').addClass('downrocks-message');
+//			            		            		 
+//			            	 }
+//			            	 else
+//			            	 {
+//			            		 $('#'+data.question.id.id+'-qstRockCount').removeClass('downrocks-message');
+//			            		 $('#'+data.question.id.id+'-qstRockCount').addClass('uprocks-message');			 
+//			            	 }
+//			            	 
+//			             }
+//			          });
 						 
 					 /* get profile images for messages */
 			         $.ajax({
@@ -660,11 +683,11 @@
 			    			}
 			    	 });
 				           
-					 if(linkTag)
-						 $('p#'+data.question.id.id+'-id').html(linkTag);
+//					 if(linkTag)
+//						 $('p#'+data.question.id.id+'-id').html(linkTag);
 						 
                  var url=data.questionBody;
-                 if(data.questionType.name == "Text"){   
+//                 if(data.questionType.name == "Text"){   
                                      
 //                     if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
 //                         // embedly
@@ -676,37 +699,34 @@
 //	                             key:'4d205b6a796b11e1871a4040d3dc5c07'
 //                         });
 //                      }
-
-                 }
-                 else       
-                 {
-                    	 
-                    	 if(data.questionType.name == "Image")
-                    	 {
-                    		   
-//                    		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
-
-
-                    	 }
-                    	 else if(data.questionType.name == "Video")
-                    	 {
-//                    		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>';
-                    	 }
-                    	 else
-                    	 {
-                    	 }
-                    	 
-//                         $('input#'+data.id.id+'-url').val(msgUrl); 
-                    	 
-                    	 /* for video popups */
-                         $("area[rel^='prettyPhoto']").prettyPhoto();
-      					 $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
-      					 $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
-      			
-                   }
+//
+//                 }
+//                 else       
+//                 {
+//                    	 
+//                    	 if(data.questionType.name == "Image")
+//                    	 {
+//                    		   
+//
+//
+//                    	 }
+//                    	 else if(data.questionType.name == "Video")
+//                    	 {
+//                    	 }
+//                    	 else
+//                    	 {
+//                    	 }
+//                    	 
+//                    	 
+//                    	 /* for video popups */
+//                         $("area[rel^='prettyPhoto']").prettyPhoto();
+//      					 $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
+//      					 $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
+//      			
+//                   }
                    
 						 
-				   self.showAllComments(data.userId.id.id);
+//				   self.showAllComments(data.userId.id.id);
 		      });
 		
         },
