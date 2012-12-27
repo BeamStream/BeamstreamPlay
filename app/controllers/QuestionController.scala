@@ -137,5 +137,17 @@ object QuestionController extends Controller {
     Ok(write(votes.toString)).as("application/json")
   }
 
+  /**
+   * Delete A Question
+   */
+
+  def deleteQuestion = Action { implicit request =>
+    val questionIdJsonMap = request.body.asFormUrlEncoded.get
+    val questionId = questionIdJsonMap("questionId").toList(0)
+    val questionDeleted = Question.deleteQuestionPermanently(new ObjectId(questionId), new ObjectId(request.session.get("userId").get))
+    if (questionDeleted == true) Ok(write(new ResulttoSent("Success", "Question Has Been Deleted")))
+    else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Question")))
+  }
+
 }
 

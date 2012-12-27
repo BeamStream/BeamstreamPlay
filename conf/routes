@@ -129,6 +129,7 @@ GET /getAllQuestionsForAUser               controllers.QuestionController.getAll
 POST /giveMeRockersOfQuestion            controllers.QuestionController.giveMeRockers
 POST  /followQuestion            controllers.QuestionController.followQuestion
 POST  /voteAnOptionOfAQuestion   controllers.QuestionController.voteAnOptionOfAQuestion
+POST /deleteQuestion               controllers.QuestionController.deleteQuestion
                  
 
 #bitly

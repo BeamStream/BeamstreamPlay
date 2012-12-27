@@ -84,7 +84,7 @@ object Question {
       case false =>
         QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToRock.copy(rockers = (questionToRock.rockers ++ List(userId))), false, false, new WriteConcern)
         val updatedQuestion = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-         updatedQuestion.rockers.size
+        updatedQuestion.rockers.size
     }
   }
 
@@ -160,14 +160,14 @@ object Question {
   }
 
   /*
-   * Delete A Question
+   * Delete A Question (Either Stream Admin Or The User Who Has Posted The Question)
    */
 
   def deleteQuestionPermanently(questionId: ObjectId, userId: ObjectId) = {
     var deletedQuestionSuccessfully = false
     val questionToRemove = Question.findQuestionById(questionId).get
-
-    if (questionToRemove.userId == userId) {
+   val streamObtained = Stream.findStreamById(questionToRemove.streamId)
+    if (questionToRemove.userId == userId || streamObtained.creatorOfStream==userId) {
       QuestionDAO.remove(questionToRemove)
       deletedQuestionSuccessfully = true
       deletedQuestionSuccessfully
@@ -191,7 +191,7 @@ object Question {
     val questionToFollow = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     (questionToFollow.followers.contains(userIdOfFollower)) match {
       case true =>
-        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToFollow.copy(followers = (questionToFollow.followers filterNot( List(userIdOfFollower) contains))), false, false, new WriteConcern)
+        QuestionDAO.update(MongoDBObject("_id" -> questionId), questionToFollow.copy(followers = (questionToFollow.followers filterNot (List(userIdOfFollower) contains))), false, false, new WriteConcern)
         val updatedQuestionWithAddedIdOfFollower = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
         updatedQuestionWithAddedIdOfFollower.followers.size
       case false =>
