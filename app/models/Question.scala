@@ -135,6 +135,15 @@ object Question {
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(answers = (question.answers ++ List(answerId))), false, false, new WriteConcern)
   }
 
+  /**
+   * Pagination For Questions
+   */
+
+  def getAllQuestionForAStreamWithPagination(streamId: ObjectId, pageNumber: Int, questionPerPage: Int): List[Question] = {
+    val questionsRetrieved = QuestionDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).skip((pageNumber - 1) * questionPerPage).limit(questionPerPage).toList
+    questionsRetrieved
+  }
+
   /*
    * Sort Question within a stream on the basis of total rocks (#403)
    */
@@ -166,8 +175,8 @@ object Question {
   def deleteQuestionPermanently(questionId: ObjectId, userId: ObjectId) = {
     var deletedQuestionSuccessfully = false
     val questionToRemove = Question.findQuestionById(questionId).get
-   val streamObtained = Stream.findStreamById(questionToRemove.streamId)
-    if (questionToRemove.userId == userId || streamObtained.creatorOfStream==userId) {
+    val streamObtained = Stream.findStreamById(questionToRemove.streamId)
+    if (questionToRemove.userId == userId || streamObtained.creatorOfStream == userId) {
       QuestionDAO.remove(questionToRemove)
       deletedQuestionSuccessfully = true
       deletedQuestionSuccessfully
