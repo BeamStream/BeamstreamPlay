@@ -21,8 +21,10 @@ object onlineUserCache {
    */
 
   def setOnline(userIdkey: String): Int = {
-    onlineUser ++= List(userIdkey)
-    Cache.set("Online Users", onlineUser)
+    if (onlineUser.contains(userIdkey) == false) {
+      onlineUser ++= List(userIdkey)
+      Cache.set("Online Users", onlineUser)
+    }
     onlineUser.length
   }
 
