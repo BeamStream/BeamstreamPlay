@@ -62,16 +62,18 @@ object QuestionController extends Controller {
     val questionToAsk = new Question(new ObjectId, questionBody, userId,
       QuestionAccess.withName(questionAccess), new ObjectId(streamId), user.firstName, user.lastName, new Date, 0, List(), List(), List(), List())
     val questionId = Question.addQuestion(questionToAsk)
-    println("Question created")
     val pollsList=pollsOptions.split(",").toList
     /**
      * Add  Poll To Question
      */
     if (questionJsonMap.contains(("pollsOptions"))) {
       for (pollsOption <- pollsList) {
+         println("**** Create Poll")
+         println(pollsOption)
         val optionOfPoll = new OptionOfQuestion(new ObjectId, pollsOption, List())
         val optionOfAPollId = OptionOfQuestionDAO.insert(optionOfPoll)
-        Question.addPollToQuestion(optionOfAPollId.get, questionId)
+        //Question.addPollToQuestion(optionOfAPollId.get, questionId)
+        println("**** Done Poll")
       }
     }
 
