@@ -20,7 +20,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 
 
             events: {
-                //"click #gdoc_uploadbutton" : "uploadFile",
+                "click .gdoc_uploadbutton" : "uploadFile",
                 "click .doctitle" : "editDocTitle",
                 "click .imgtitle" : "editImgTitle",
                 "click .videotitle" : "editVideoTitle",  
@@ -29,18 +29,24 @@ BS.FilesMediaView = Backbone.View.extend({
                 "click .presentationtitle" : "editPresentationTitle",
                 "mouseenter #uploadmedia_dr":"uploadMediadwn",
                 "mouseleave #dropdownnew":"uploadMediaup",
+                            "click #classdoc_dr":"classdocMenuList",
+                            "click .classdocument_mycomp":"classdocFileForm",
+                             "click .vialink_dr":"vialinkMenu",
+                             "click #vialink_uploadbutton":"vialinkUpload",
+                              "click .googledocs_dr":"googleDocs",
+                              "click #assignment_dr":"assignmentMenuList", 
+                              "click .importfrmlink_dr": "importFromLink",
                 "click #links_dr":"linksMenuList",
-                "click #links_uploadbutton":"linkupload",
-                "click #docs_dr":"docsMenuList",  
+                "click #links_uploadbutton":"linkupload",  
                 "click #googledocs_mycomp":"showFileForm",
-                 "click #Assignment_mycomp":"assignFileForm",            
-                "click #googledocs_dr":"googleDocs",
-                "click #importfrmlink_dr": "importFromLink",                
-                "click #video_dr":"videoMenuList",
-                "click #youtube_dr":"youtubeMenu",
-                "click #video_uploadbutton":"videoUpload",
+                         
+               
+                                
+               
+               
+                
                 "click #audio_dr":"audioMenuList",               
-                "click #vialink_dr":"audioVialink",
+ //               "click #vialink_dr":"audioVialink",
                 "click #audio_uploadbutton":"audioUpload",
                 "click #presentations_dr":"presentationMenuList",
                 "click #presvialink_dr":"presentationVialink",
@@ -207,7 +213,7 @@ BS.FilesMediaView = Backbone.View.extend({
                     docURL : $("#gdoc-url").val(),  
                     docAccess: 'Public',
                     docType: 'GoogleDocs',
-                    streamId: $("#doc-class-list").val(),
+                    streamId: $(".doc-class-list").val(),
                     docDescription: $("#gdoc-description").val()
                     });
                     var documentData = JSON.stringify(documentModel);
@@ -815,13 +821,19 @@ BS.FilesMediaView = Backbone.View.extend({
                 * NEW THEME-Function for uploadmedia (dropdown menu)
                 * (childmenu from papers and docs)
                 */
-            docsMenuList:function(eventName){
+            assignmentMenuList:function(eventName){
                 eventName.preventDefault();
-                $("#childone_dr").find('ul').hide(100);
+                $("#childone_dr").find('ul').hide(200);
                 $("#childthree_dr").find('ul').hide(200);
                 $("#childfour_dr").find('ul').hide(200);
                 $("#childfive_dr").find('ul').hide(200);
-                $("#docsmenu_dr").animate({width: 'toggle'},150);
+                $("#childsix_dr").find('ul').hide(200);
+                $("#childseven_dr").find('ul').hide(200);
+                $("#childeight_dr").find('ul').hide(200);
+                $("#childnine_dr").find('ul').hide(200);
+                $("#childten_dr").find('ul').hide(200);
+                $("#childeleven_dr").find('ul').hide(200);
+                $("#assigncmenu_dr").animate({width: 'toggle'},150);
                 },
         
                 /*
@@ -845,7 +857,7 @@ BS.FilesMediaView = Backbone.View.extend({
                     optioncontent+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
                     i++;
                         });                      	  
-                    $('#doc-class-list-computer').html(optioncontent); 
+                    $('.doc-class-list-computer').html(optioncontent); 
                     }		  
                 });          
                 },
@@ -854,11 +866,13 @@ BS.FilesMediaView = Backbone.View.extend({
                 * NEW THEME-Function for uploadmedia (dropdown menu)
                 * (childmenu from googledocs)
                 */
-            assignFileForm:function(eventName){
+            classdocFileForm:function(eventName){
                 eventName.preventDefault();
-                $("#childtwo_three_dr").find('ul').hide(200);
-                 $("#childtwo_you_dr").find('ul').hide(200);
-                $("#Assignlinkchild_dr").animate({width: 'toggle'},130);
+                console.log($(eventName.target).next().attr('class'))
+                $(".childone_two_dr").find('ul').hide(200);
+                $(".childone_three_dr").find('ul').hide(200);
+            //  $(".classdocchild_dr").animate({width: 'toggle'},130);
+                $(eventName.target).next().animate({width: 'toggle'},130);
                 //select box for stream
                 var i='';
                 var optioncontent=''; 
@@ -872,7 +886,7 @@ BS.FilesMediaView = Backbone.View.extend({
                     optioncontent+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
                     i++;
                     });                     	  
-                    $('#doc-class-list-computer').html(optioncontent); 
+                    $('.doc-class-list-computer').html(optioncontent); 
                     }										  
                     });         
                 },
@@ -883,8 +897,10 @@ BS.FilesMediaView = Backbone.View.extend({
                 */
             googleDocs:function(eventName){
                 eventName.preventDefault();
-                $("#childtwo_onedoc_dr").find('ul').hide(200);
-                $("#googledocschild_dr").animate({width: 'toggle'},130);
+                $(".childone_one_dr").find('ul').hide(200);
+                $(".childone_two_dr").find('ul').hide(200);
+//                $("#googledocschild_dr").animate({width: 'toggle'},130);
+                $(eventName.target).next().animate({width: 'toggle'},130); 
                 },
         
                 /*
@@ -893,7 +909,8 @@ BS.FilesMediaView = Backbone.View.extend({
                 */
             importFromLink:function(eventName){
                 eventName.preventDefault();
-                $("#frmlinkchild_dr").animate({width: 'toggle'},150);
+//                $("#frmlinkchild_dr").animate({width: 'toggle'},150);
+                $(eventName.target).next().animate({width: 'toggle'},130);
                 var i='';
                 var content=''; 
                 $.ajax({
@@ -906,7 +923,7 @@ BS.FilesMediaView = Backbone.View.extend({
                     content+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
                     i++;
                     });
-                    $('#doc-class-list').html(content); 
+                    $('.doc-class-list').html(content); 
                     }		  
                 });
                 },
@@ -915,23 +932,31 @@ BS.FilesMediaView = Backbone.View.extend({
                 * NEW THEME-Function for uploadmedia (dropdown menu)
                 * (childmenu from video)
                 */
-            videoMenuList:function(eventName){
-                eventName.preventDefault();
-                $("#childone_dr").find('ul').hide(200);
+           classdocMenuList:function(eventName){
+                eventName.preventDefault();              
                 $("#childtwo_dr").find('ul').hide(200);
+                $("#childthree_dr").find('ul').hide(200);
                 $("#childfour_dr").find('ul').hide(200);
                 $("#childfive_dr").find('ul').hide(200);
-                $("#videomenu_dr").animate({width: 'toggle'},130);
+                $("#childsix_dr").find('ul').hide(200);
+                $("#childseven_dr").find('ul').hide(200);
+                $("#childeight_dr").find('ul').hide(200);
+                $("#childnine_dr").find('ul').hide(200);
+                $("#childten_dr").find('ul').hide(200);
+                $("#childeleven_dr").find('ul').hide(200);
+                $("#classdocmenu_dr").animate({width: 'toggle'},130);
                 },
         
                 /*
                 * NEW THEME-Function for uploadmedia (dropdown menu)
                 * (childmenu from youtube)
                 */
-            youtubeMenu:function(eventName){
+            vialinkMenu:function(eventName){
                 eventName.preventDefault();
-                $("#childtwo_one_dr").find('ul').hide(200);
-                $("#youtubechild_dr").animate({width: 'toggle'},130);
+                $(".childone_one_dr").find('ul').hide(200);
+                $(".childone_three_dr").find('ul').hide(200);
+//                $("#vialinkchild_dr").animate({width: 'toggle'},130);
+                  $(eventName.target).next().animate({width: 'toggle'},130);
                 var i='';
                 var content=''; 
                 $.ajax({
@@ -946,7 +971,7 @@ BS.FilesMediaView = Backbone.View.extend({
                     });
                     content+='<option>Profile</option>'
                            +'<option>My Docs</option>';
-                    $('#video-class-list').html(content);
+                    $('#link-class-list').html(content);
                     }		  
 		 });
                 },
@@ -955,7 +980,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 * NEW THEME-Function for uploadmedia (dropdown menu)
                 * (childmenu from youtube and upload video)
                 */
-            videoUpload:function(eventName){
+            vialinkUpload:function(eventName){
                 eventName.preventDefault();
                 $("#dropdownnew").find('ul').hide(250); 
                 },
@@ -1078,7 +1103,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 var self = this;
                 var status = true;
                 var message ='';
-                var streamId = $("#doc-class-list-computer").val();
+                var streamId = $(".doc-class-list-computer").val();
                 
                 //get message access private ? / public ?
                 var docAccess;
