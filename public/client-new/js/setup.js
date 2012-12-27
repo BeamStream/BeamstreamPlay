@@ -159,6 +159,8 @@ BS.onlineUsers = BS.URLRequired+"/onlineUsers";
 BS.newQuestion =BS.URLRequired+"/newQuestion";
 BS.rockQuestion =BS.URLRequired+"/rockQuestion";
 BS.followQuestion =BS.URLRequired+"/followQuestion";
+BS.giveMeRockersOfQuestion =BS.URLRequired+"/giveMeRockersOfQuestion";
+BS.getAllQuestionsOfAStream =BS.URLRequired+"/getAllQuestionsForAUser";
 
  
 

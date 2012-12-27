@@ -32,7 +32,8 @@
 			 "click .add-comment" : "showCommentTextArea",
 			 "click .follow-question" : "followQuestion",
 			 "click .rocks-question" : "rockQuestion",
-			 "click .follow-user" : "followUser"
+			 "click .follow-user" : "followUser",
+			 "click .who-rocked-it" : "showRockersList",
 		},
 	
 		initialize : function() {
@@ -395,7 +396,7 @@
 	         /* get all messages of a stream  */
 			 $.ajax({
 					type : 'POST',
-					url : BS.streamQuestions,
+					url : BS.getAllQuestionsOfAStream,
 					data :{
 						streamId :streamid,
 						pageNo : pageNo,
@@ -687,6 +688,57 @@
 		
         },
         
+        
+        /**
+		  * NEW THEME - show question rockers list 
+		  */
+		showRockersList: function(eventName){
+			 
+			eventName.preventDefault();
+	        	
+	       	var element = eventName.target.parentElement;
+	       	var parentUl = $(eventName.target).parent('ul');
+			$(parentUl).find('a.active').removeClass('active');
+			
+			var questionId =$(element).parents('div.follow-container').attr('id');
+		    if($('#'+questionId+'-questionRockers').is(':visible'))
+		    {
+		    	 
+		    	$('#'+questionId+'-questionRockers').slideUp(600); 
+		    	$(eventName.target).removeClass('active');
+		    }
+		    else
+		    {
+		    	$.ajax({
+		    		type: 'POST',
+		    		url:BS.giveMeRockersOfQuestion,
+		    		data:{
+		    			questionId:questionId
+		    		},
+		    		dataType:"json",
+		    		success:function(data){
+//		    			$('#'+questionId+'-questionRockers').html("");
+//		    			// prepair rockers list
+//		    			_.each(data, function(rocker) {
+//					 
+////		    				var questionRockers = $("#tpl-message-rockers").html();
+////		    				var questionRockersTemplate = Handlebars.compile(questionRockers);
+////		    				$('#'+questionId+'-questionRockers').append(questionRockersTemplate({rocker:rocker}));
+//		    			});
+//		    			
+//		    			$(eventName.target).addClass('active');
+//           	 
+//		            	$('#'+questionId+'-allComments').slideUp();
+//		            	$('#'+questionId+'-newCommentList').slideUp();
+//           	
+//		            	$('#'+questionId+'-msgRockers').slideDown(600); 
+
+ 
+	             	}
+	            });
+		    }
+				
+		},
         
         /**
 	     * NEW THEME - fetch and show all comments of a question
