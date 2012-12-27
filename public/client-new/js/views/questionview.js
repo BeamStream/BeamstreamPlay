@@ -209,19 +209,21 @@
 			            	 
 			            	 var pollCount = data.polls.length;
 			            	 
-//			            	 //render each poll options and its polling percentage
-//			            	 if(pollCount > 0)
-//			            	 {
-//			            		 var source = $("#tpl-question-poll-percentage").html();
-//				            	 var template = Handlebars.compile(source);
-//				            	 $('#all-questions').prepend(template({data:data,owner: owner ,rocks:data.question.rockers.length}));
-//			            	 
-//			            		 _.each(data.polls, function(poll) {
-//				            		 var source = $("#tpl-question-poll").html();
-//					            	 var template = Handlebars.compile(source);
-//					            	 $('#all-questions').prepend(template({data:data,owner: owner ,rocks:data.question.rockers.length}));
-//			            		 });
-//			            	 }
+			            	 //render each poll options and its polling percentage
+			            	 if(pollCount > 0)
+			            	 {
+			            		 var source = $("#tpl-question-poll-percentage").html();
+				            	 var template = Handlebars.compile(source);
+				            	 $('#'+data.question.id.id+'-poll-Option-area').html(template({data:data}));
+			            	 
+				            	 var pollIndex = 0;
+			            		 _.each(data.polls, function(poll) {
+			            			 pollIndex++;
+				            		 var pollSource = $("#tpl-question-poll").html();
+					            	 var pollTemplate = Handlebars.compile(pollSource);
+					            	 $('#'+data.question.id.id+'-pollOptions').prepend(pollTemplate({poll:poll, pollIndex:pollIndex}));
+			            		 });
+			            	 }
 			            	 
 			            	 
 		             }
@@ -449,7 +451,7 @@
 			_.each(data, function(data) {
 				 
 				var owner = "";
-				if(data.userId.id == BS.loggedUserId)
+				if(data.question.userId.id == BS.loggedUserId)
 				{
 					owner = "true";
 				}
@@ -458,7 +460,7 @@
 					owner = "";
 				}
 				var questionType ='';
-				var questionBody = data.questionBody;
+				var questionBody = data.question.questionBody;
                                                 
 				//var links =  msgBody.match(BS.urlRegex); 
                 var qstUrl=  questionBody.replace(BS.urlRegex1, function(qstUrlw) {
