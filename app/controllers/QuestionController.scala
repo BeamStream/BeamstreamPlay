@@ -167,15 +167,15 @@ object QuestionController extends Controller {
         for (pollId <- question.pollOptions) {
           val pollObtained = QuestionPolling.findOptionOfAQuestionById(pollId)
           pollsOfquestionObtained ++= List(pollObtained.get)
-          questionsWithPolls ++= List(new QuestionWithPoll(question, pollsOfquestionObtained))
         }
-      }
-      else{
-         questionsWithPolls ++= List(new QuestionWithPoll(question, pollsOfquestionObtained))
+        questionsWithPolls ++= List(new QuestionWithPoll(question, pollsOfquestionObtained))
+      } else {
+        questionsWithPolls ++= List(new QuestionWithPoll(question, pollsOfquestionObtained))
       }
     }
-
+    println(questionsWithPolls)
     val allQuestionForAStreamJson = write(questionsWithPolls)
+
     Ok(allQuestionForAStreamJson).as("application/json")
   }
 
