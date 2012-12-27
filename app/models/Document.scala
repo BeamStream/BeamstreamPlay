@@ -26,10 +26,9 @@ import java.net.URL
 
 object DocumentAccess extends Enumeration {
   type DocumentAccess = Value
-  val Private = Value(0, "Private")
-  val Public = Value(1, "Public")
-  val Restricted = Value(2, "Restricted")
-  val Stream = Value(3, "Stream")
+  val Public = Value(0, "Public")
+  val PrivateToClass = Value(1, "PrivateToClass")
+  val PrivateToSchool = Value(2, "PrivateToSchool")
 
 }
 
@@ -39,7 +38,7 @@ object DocumentAccess extends Enumeration {
 object DocType extends Enumeration {
   type DocType = Value
   val GoogleDocs = Value(0, "GoogleDocs")
-  val Other = Value(3, "Other")
+  val Other = Value(1, "Other")
 }
 
 case class Document(@Key("_id") id: ObjectId,
@@ -165,7 +164,8 @@ object Document extends RockConsumer {
         updatedDocumentWithAddedIdOfFollower.documentFollwers.size
     }
   }
-
+  
+//TODO : Should Be Removed 
   // Add Rock to Doc If Message Contains docIdIfAny
   def rockTheMediaOrDoc(idToBeRocked: ObjectId, userId: ObjectId) {
     val docToBeRocked = Document.findDocumentById(idToBeRocked)

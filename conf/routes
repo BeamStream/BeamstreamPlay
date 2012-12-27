@@ -42,20 +42,20 @@ POST /deleteMessage                               controllers.MessageController.
 #Comments
 POST   /newComment                   controllers.CommentController.newComment
 POST  /newAnswer                     controllers.CommentController.newAnswer
-POST    /allCommentsForAMessage       controllers.CommentController.getAllComments
+POST    /allComments                  controllers.CommentController.getAllComments
 POST    /rockingTheComment            controllers.CommentController.rockingTheComment
 POST    /commentRockers                controllers.CommentController.commentRockers
 POST    /deleteTheComment              controllers.CommentController.deleteTheComment
 POST /isARockerOfComment               controllers.CommentController.isARocker
 
 #Document
-GET  /getAllDocumentsForAUser    controllers.DocumentController.getAllGoogleDocumentsForAUser
+GET  /getAllDocumentsForAUser           controllers.DocumentController.getAllGoogleDocumentsForAUser
 POST /changeTitleAndDescriptionForADocument controllers.DocumentController.changeTitleAndDescriptionForADocument
-POST /newDocument controllers.DocumentController.newDocument
-POST /rockTheDocument                    controllers.DocumentController.rockTheDocument
-POST /getRockers controllers.DocumentController.giveMeRockersOfDocument
-POST /getDocument controllers.DocumentController.getDocument
-POST /getDocumentFromDisk controllers.DocumentController.getDocumentFromDisk
+POST /newDocument                       controllers.DocumentController.newDocument
+POST /rockTheDocument                   controllers.DocumentController.rockTheDocument
+POST /getRockers                        controllers.DocumentController.giveMeRockersOfDocument
+POST /getDocument                       controllers.DocumentController.getDocument
+POST /getDocumentFromDisk               controllers.DocumentController.getDocumentFromDisk
 POST /followDocument                    controllers.DocumentController.followDocument
 
 #Schools

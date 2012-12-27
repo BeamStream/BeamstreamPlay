@@ -36,11 +36,10 @@ import utils.DocsUploadOnAmazon
 import models.UserMediaType
 import utils.ExtractFrameFromVideo
 import models.MessageType
+import models.MessageAccess
 import utils.PreviewOfPDF
 /**
  * This controller class is used to store and retrieve all the information about documents.
- *
- * @author Kishen
  */
 
 object DocumentController extends Controller {
@@ -78,7 +77,7 @@ object DocumentController extends Controller {
           val docId = Document.addDocument(documentToCreate)
           val user = User.getUserProfile(userId)
           //Create A Message As Well To Display The Doc Creation In Stream
-          val message = Message(new ObjectId, url, Option(MessageType.Document), None, date, userId, Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List())
+          val message = Message(new ObjectId, url, Option(MessageType.Document), Option(MessageAccess.withName(access)), date, userId, Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List())
           Message.createMessage(message)
           val docObtained = Document.findDocumentById(docId)
           val docJson = write(List(docObtained))
@@ -265,7 +264,7 @@ object DocumentController extends Controller {
     val media = new UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Image, DocumentAccess.withName(docAccess), false, "", 0, List(), List())
     val mediaId = UserMedia.saveMediaForUser(media)
     //Create A Message As Well To Display The Doc Creation In Stream
-    val message = Message(new ObjectId, docURL, Option(MessageType.Image), None, new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(docURL), Option(mediaId.get))
+    val message = Message(new ObjectId, docURL, Option(MessageType.Image),  Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(docURL), Option(mediaId.get))
     Message.createMessage(message)
     message
     //new DocResulttoSent(mediaId.get, docURL, docURL, docDescription, Option(message))
@@ -280,7 +279,7 @@ object DocumentController extends Controller {
     val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docNameOnAmazon + "Frame"
     val media = new UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Video, DocumentAccess.withName(docAccess), false, videoFrameURL, 0, List(), List())
     val mediaId = UserMedia.saveMediaForUser(media)
-    val message = Message(new ObjectId, docURL, Option(MessageType.Video), None, new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(videoFrameURL), Option(mediaId.get))
+    val message = Message(new ObjectId, docURL, Option(MessageType.Video), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(videoFrameURL), Option(mediaId.get))
     Message.createMessage(message)
     message
     //new DocResulttoSent(mediaId.get, docURL, videoFrameURL, docDescription, Option(message))
@@ -293,7 +292,7 @@ object DocumentController extends Controller {
     val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, userId, DocumentAccess.withName(docAccess),
       streamId, new Date, new Date, 0, List(), List(), List(), previewImageUrl)
     val documentId = Document.addDocument(documentCreated)
-    val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(previewImageUrl), Option(documentId))
+    val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(previewImageUrl), Option(documentId))
     Message.createMessage(message)
     message
     //new DocResulttoSent(documentId, docURL, documentCreated.previewImageUrl, docDescription, Option(message))
@@ -305,7 +304,7 @@ object DocumentController extends Controller {
     val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, userId, DocumentAccess.withName(docAccess),
       streamId, new Date, new Date, 0, List(), List(), List(), "")
     val documentId = Document.addDocument(documentCreated)
-    val message = Message(new ObjectId, docURL, Option(MessageType.Document), None, new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), None, Option(documentId))
+    val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), None, Option(documentId))
     Message.createMessage(message)
     message
     //new DocResulttoSent(documentId, docURL, documentCreated.previewImageUrl, docDescription, Option(message))
