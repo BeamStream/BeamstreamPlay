@@ -148,6 +148,20 @@ object QuestionController extends Controller {
     if (questionDeleted == true) Ok(write(new ResulttoSent("Success", "Question Has Been Deleted")))
     else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Question")))
   }
+  
+   //==================================================//
+  //======Displays all the question within a Stream===//
+  //==================================================//
+  def getAllQuestionForAStreamWithPagination = Action { implicit request =>
+    val streamIdJsonMap = request.body.asFormUrlEncoded.get
+    val streamId = streamIdJsonMap("streamId").toList(0)
+    val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
+    val messagesPerPage = streamIdJsonMap("limit").toList(0).toInt
+    val allQuestionsForAStream = Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+    val allQuestionForAStreamJson = write(allQuestionsForAStream)
+    Ok(allQuestionForAStreamJson).as("application/json")
+  }
+
 
 }
 
