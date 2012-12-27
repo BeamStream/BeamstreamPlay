@@ -163,10 +163,15 @@ object QuestionController extends Controller {
     var pollsOfquestionObtained: List[OptionOfQuestion] = List()
 
     for (question <- allQuestionsForAStream) {
-      for (pollId <- question.pollOptions) {
-        val pollObtained = QuestionPolling.findOptionOfAQuestionById(pollId)
-        pollsOfquestionObtained ++= List(pollObtained.get)
-        questionsWithPolls ++= List(new QuestionWithPoll(question, pollsOfquestionObtained))
+      if (question.pollOptions.size != 0) {
+        for (pollId <- question.pollOptions) {
+          val pollObtained = QuestionPolling.findOptionOfAQuestionById(pollId)
+          pollsOfquestionObtained ++= List(pollObtained.get)
+          questionsWithPolls ++= List(new QuestionWithPoll(question, pollsOfquestionObtained))
+        }
+      }
+      else{
+         questionsWithPolls ++= List(new QuestionWithPoll(question, pollsOfquestionObtained))
       }
     }
 
