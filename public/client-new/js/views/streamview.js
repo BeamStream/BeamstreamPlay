@@ -195,17 +195,35 @@
             getonlineusers : function(eventName){
                 var content = '';                           
                 var self = this;
+                console.log("our id ="+BS.loggedUserId);
                 $.ajax({
                     type : 'GET',
                     url : BS.onlineUsers,
                     dataType : "json",
                 success : function(users) {
-                    var usersnumber =users.length;
+                    var usersnumber =users.length-1;
                          if(users.length != 0)  {
-                        _.each(users, function(user) {   
-                            content +='<li> <a href="#"><img src="'+user.profileImageUrl+'" width="30" height="28"> <span>'+user.firstName+' </span> <span class="online-chat">Online</span></a> </li>'
-                            });
-                         }
+                            _.each(users, function(user) {
+                                console.log("user.id- "+user.id.id);
+                                if(BS.loggedUserId!=user.id.id){
+                                    if(user.profileImageUrl =='')  {
+                                        content +='<li> <a href="#"><img src="images/chat-imge.jpg" width="30" height="28"> <span>'+user.firstName+' </span> <span class="online-chat">Online</span></a> </li>'
+                                        }
+                                    else{
+                                        content +='<li> <a href="#"><img src="'+user.profileImageUrl+'" width="30" height="28"> <span>'+user.firstName+' </span> <span class="online-chat">Online</span></a> </li>'
+                                        }
+                                }
+                                else{
+                                    if(user.profileImageUrl =='')  {
+                                        content +='<li class="online"> <a href="#"><img src="images/chat-imge.jpg" width="30" height="28"> <span>Me</span> <span class="online-chat">Online</span></a> </li>'
+                                        }
+                                    else{
+                                        content +='<li class="online"> <a href="#"><img src="'+user.profileImageUrl+'" width="30" height="28"> <span>Me</span> <span class="online-chat">Online</span></a> </li>'
+                                        }
+                                }    
+                                    
+                                });
+                            }
                          else{
                             content += '<li class="nouser">  <span>Their is no online users </span>  </li>';  
                          }
