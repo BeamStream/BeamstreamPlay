@@ -2890,7 +2890,7 @@ padding:0 5% 0 10%;
 .dateinfo span.date{float:right;padding:0 8px 0 0;}
 
 
-.add-message-comment{padding:10px;}
+.add-message-comment, .add-question-comment{padding:10px;}
 
 
 .social-icons span{
