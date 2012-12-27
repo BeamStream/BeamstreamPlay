@@ -150,11 +150,16 @@ BS.isARockerOfComment =BS.URLRequired+"/isARockerOfComment";
 // Follow User
 BS.followUser =BS.URLRequired+"/followUser";
 
+
 /* New -design */
- 
-BS.newQuestion =BS.URLRequired+"/newQuestion";
 //get details of online users
 BS.onlineUsers = BS.URLRequired+"/onlineUsers"; 
+
+/* for question page */
+BS.newQuestion =BS.URLRequired+"/newQuestion";
+BS.rockQuestion =BS.URLRequired+"/rockQuestion";
+BS.followQuestion =BS.URLRequired+"/followQuestion";
+
  
 
 

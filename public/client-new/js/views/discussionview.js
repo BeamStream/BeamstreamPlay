@@ -374,9 +374,18 @@
 	        //get message access private ? / public ?
 	        var messageAccess;
 	        var msgAccess =  $('#private-to').attr('checked');
+	        var privateTo = $('#select-privateTo').text();
 		    if(msgAccess == "checked")
 		    {
-		    	messageAccess = "Private";
+		    	if(privateTo == "My School")
+		    	{
+		    		messageAccess = "PrivateToSchool";
+		    	}
+		    	else
+		    	{
+		    		messageAccess = "PrivateToClass";
+		    	}
+		    	 
 		    }
 		    else
 		    {

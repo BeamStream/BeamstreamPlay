@@ -335,6 +335,12 @@
   				
   				$('.drag-rectangle').tooltip();	
   			    $('.page-loader').hide();
+  			    
+  			    // get all questions
+  				BS.QPagenum =1;  
+                if(streamId)
+                	BS.questionView.getAllQuestions(streamId,BS.QPagenum,BS.pageLimit);
+                
 		    }
 		    else if(subMenu == "deadline_tab")
 		    {
