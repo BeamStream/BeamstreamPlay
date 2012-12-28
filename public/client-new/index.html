@@ -66,6 +66,10 @@
  <script src="lib/extralib/jquery.Jcrop.js" type="text/javascript"></script>
  <!--  end -->
 
+
+<!-- for making pie charts -->
+<script type="text/JavaScript" src="lib/extralib/raphael.js"></script>
+<!-- end -->
 </head>
 
 <body>
@@ -1371,9 +1375,12 @@ Create a Class</a>
    <div class="comment-nofication-left" id="{{data.question.id.id}}-pollOptions">
 
    </div>
-   <div class="chart"> <span class="chart-count"><span class="yellow">50%</span></span>
-     <div class="chart-round"> <img src="images/pie-chart.png" width="113" height="113"></div>
-     <span class="chart-count"><span class="red">50%</span></span> </div>
+   <div class="chart">
+<!--     <span class="chart-count"><span class="yellow">50%</span></span> -->
+     <div id="{{data.question.id.id}}-piechart" class="chart-round"> 
+<!--      <img src="images/pie-chart.png" width="113" height="113"> -->
+     </div>
+<!--      <span class="chart-count"><span class="red">50%</span></span> </div> -->
  </div>
 </script>
 
@@ -1381,7 +1388,7 @@ Create a Class</a>
 <!--  comment templete for stream questions poll oprions  comments -->
  <script type="text/x-handlebars-template" id="tpl-question-poll">
 	<fieldset>  
-       <input type="radio" id="{{poll.id.id}}" name="radio-1-set" class="regular-radio" checked />
+       <input type="radio" id="{{poll.id.id}}" name="{{question}}" class="regular-radio red"  />
        <label for="{{poll.id.id}}"></label>
        <label>{{poll.name}}</label>
      </fieldset>
@@ -3703,6 +3710,125 @@ Create a Class</a>
 		   
 		});
 	</script>
+	
+	<!-- for pie charts  -->
+	<script>
+// $('document').ready(function() {
+	function Donut(paper) {
+	    this.paper = paper;
+	    this.chart = paper.set();
+	    
+	    this.pathdefs = [];
+	    
+	    this.originAngle = -90;
+	    this.startAngle = this.originAngle;
+	
+	    this.total = 0;
+	    this.speed = 350;
+	    
+	    this.rad = Math.PI / 180;
+	    
+	    this.selected = null;
+	    
+	    // for animating properties of a path
+	    this.paper.customAttributes.segment = function(cx, cy, innerRadius, outerRadius, startAngle, endAngle) {
+	        
+	        var ox1 = cx + outerRadius * Math.cos(startAngle * rad),
+	            ox2 = cx + outerRadius * Math.cos(endAngle * rad),
+	            oy1 = cy + outerRadius * Math.sin(startAngle * rad),
+	            oy2 = cy + outerRadius * Math.sin(endAngle * rad),
+	        
+	            ix1 = cx + innerRadius * Math.cos(startAngle * rad),
+	            ix2 = cx + innerRadius * Math.cos(endAngle * rad),
+	            iy1 = cy + innerRadius * Math.sin(startAngle * rad),
+	            iy2 = cy + innerRadius * Math.sin(endAngle * rad);
+	        
+	        return { path:[   ["M", ix1, iy1],
+	                          ["L", ox1, oy1],
+	                          ["A", outerRadius, outerRadius, 0, +(endAngle - startAngle > 180), 1, ox2, oy2],                            
+	                          ["L", ix2, iy2],
+	                          ["A", innerRadius, innerRadius, 0, +(endAngle - startAngle > 180), 0, ix1, iy1],    
+	                          ["z"] ],
+	                }
+	    }
+	}
+	
+	Donut.prototype = {
+	    
+	    create : function (cx, cy, ir, or, data, labels, stroke) {
+	        
+	        this.cx = cx;
+	        this.cy = cy;
+	        this.ir = ir;
+	        this.or = or;
+	        
+	        this.data = data;
+	        this.labels = labels;
+	        
+	        var len = data.length;
+	        var i = 0;
+	        this.total = 0;
+	        while ( i < len ) {
+	            this.total += this.data[i++].value;
+	        }
+	        
+	        i = 0;
+	        while (i < len) {
+	            this._createSlice(i++);
+	        }
+	        
+	    },
+	        
+
+	                          
+	    _createSlice : function  (index) {
+	    	 
+	        var value = this.data[index].value,
+	            angle = 360 * value / this.total;
+// 	            colorGrade = (index+2) * 10;
+// 	        console.log("colorGrade" + colorGrade);
+	        var colorGrade ;
+	        if(index == 0)
+	        {
+	        	colorGrade = '#4C9351' //green
+	        	
+	        }
+	        else if(index == 1)
+	        {
+	        	colorGrade = '#DDAE23'; // bule
+	        }
+	        else if(index == 2)
+	        {
+	        	colorGrade = '#5299BD' // black
+	        }
+	            halfangle = this.startAngle + (angle / 2),
+	            delta = 30
+	                
+	            
+	            var attributes = {  segment:[this.cx, this.cy, this.ir, this.or, this.startAngle, this.startAngle + angle],
+	            		fill:colorGrade, 
+// 						fill:'rgba('0','255','240','+colorGrade/100+')', 
+	                                stroke:null,
+	                              };
+	           
+	            var p = this.paper.path().attr(attributes);
+	
+	            p.cx = this.cx;
+	            p.cy = this.cy;
+	            p.ir = this.ir;
+	            p.or = this.or;
+	            p.startAngle = this.startAngle;
+	            p.angle = angle;
+
+	
+	            this.startAngle += angle;
+	    },
+	}
+	 
+	var rad = Math.PI / 180;
+    var donut = [];          
+
+</script>
 	<!-- ----------End  extra scripts  here---------------->
 	
 	

@@ -1129,7 +1129,7 @@
                           channel : "commentRock",
                           message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,commentId:commentId }
                     })
-     
+//     
                 }
             });
         },

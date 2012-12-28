@@ -190,7 +190,7 @@
             
             
                /**
-                * NEW THEME- Use the method to list the onlineusers
+                * NEW THEME- Use the method to list the online users
                 */
             getonlineusers : function(eventName){
                 var content = ''; 
@@ -231,16 +231,16 @@
                 	 }
                      else
                      {
-                        content += '<li class="nouser">  <span>Their is no online users </span>  </li>';  
+//                        content += '<li class="nouser">  <span>Their is no online users </span>  </li>';  
                      }
                     $('#onlinechatbox').append(content);
                     $('.online-count').text('Chat('+usersnumber+')');
                     self.Scrollbar();
                     },
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                    content += '<li class="online">  <span>Their is no online users </span>  </li>';   
+//                    content += '<li class="online">  <span>Their is no other online users </span>  </li>';   
                     $('.online-count').text('Chat(0)');
-                    $('#onlinechatbox').append(content); 
+//                    $('#onlinechatbox').append(content); 
                     self.Scrollbar(); 
                     }
                     }); 
