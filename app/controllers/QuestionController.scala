@@ -152,6 +152,7 @@ object QuestionController extends Controller {
   //==================================================//
   //======Displays all the question within a Stream===//
   //==================================================//
+ 
   def getAllQuestionForAStreamWithPagination = Action { implicit request =>
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
@@ -160,19 +161,20 @@ object QuestionController extends Controller {
     val allQuestionsForAStream = Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
 
     var questionsWithPolls: List[QuestionWithPoll] = List()
-    var pollsOfquestionObtained: List[OptionOfQuestion] = List()
 
     for (question <- allQuestionsForAStream) {
-      if (question.pollOptions.size != 0) {
+      var pollsOfquestionObtained: List[OptionOfQuestion] = List()
+      if (question.pollOptions.size.equals(0) == false) {
         for (pollId <- question.pollOptions) {
           val pollObtained = QuestionPolling.findOptionOfAQuestionById(pollId)
           pollsOfquestionObtained ++= List(pollObtained.get)
         }
         questionsWithPolls ++= List(new QuestionWithPoll(question, pollsOfquestionObtained))
       } else {
-        questionsWithPolls ++= List(new QuestionWithPoll(question, pollsOfquestionObtained))
+        questionsWithPolls ++= List(new QuestionWithPoll(question, List()))
       }
     }
+    println(questionsWithPolls)
     val allQuestionForAStreamJson = write(questionsWithPolls)
     Ok(allQuestionForAStreamJson).as("application/json")
   }

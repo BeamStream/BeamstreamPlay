@@ -17,7 +17,7 @@ class FilesTest extends FunSuite with BeforeAndAfter {
   test("Get All Audio Files") {
     val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(), List())
     val userId = User.createUser(user)
-    val firstDocumentToCreate = new Document(new ObjectId, "Neel'sFile.jpg", "Neel'sFile", "http://neel.ly/Neel'sFile.jpg", DocType.Other, userId, DocumentAccess.PrivateToClassToClass, new ObjectId, new Date, new Date, 0, List(), List(), List(), "")
+    val firstDocumentToCreate = new Document(new ObjectId, "Neel'sFile.jpg", "Neel'sFile", "http://neel.ly/Neel'sFile.jpg", DocType.Other, userId, DocumentAccess.PrivateToClass, new ObjectId, new Date, new Date, 0, List(), List(), List(), "")
     val secondDocumentToCreate = new Document(new ObjectId, "Neel'sFile.mp3", "Neel'sFile", "http://neel.ly/Neel'sFile.mp3", DocType.Other, userId, DocumentAccess.PrivateToClass, new ObjectId, new Date, new Date, 0, List(), List(), List(), "")
     val thirdDocumentToCreate = new Document(new ObjectId, "Neel'sFile.mp4", "Neel'sFile", "http://neel.ly/Neel'sFile.mp4", DocType.Other, userId, DocumentAccess.PrivateToClass, new ObjectId, new Date, new Date, 0, List(), List(), List(), "")
     Document.addDocument(firstDocumentToCreate)
