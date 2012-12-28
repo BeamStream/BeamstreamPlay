@@ -140,7 +140,6 @@ object UserController extends Controller {
     var onlineUsersAlongWithDetails: List[OnlineUsers] = List()
     (onlineUserCache.returnOnlineUsers.isEmpty == true) match {
       case false =>
-
         for (userIdList <- onlineUserCache.returnOnlineUsers) {
           for (eachUserId <- userIdList.asInstanceOf[List[String]]) {
             val userWithDetailedInfo = User.getUserProfile(new ObjectId(eachUserId))
@@ -157,7 +156,7 @@ object UserController extends Controller {
         }
         Ok(write(onlineUsersAlongWithDetails)).as("application/json")
 
-      case true => Ok(write("No one is online at this moment")).as("application/json")
+      case true => Ok(write(onlineUsersAlongWithDetails)).as("application/json")
     }
   }
 
