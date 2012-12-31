@@ -401,15 +401,18 @@
                     $('#progressbar').show();        //progress bar 
                     $('.progress-container').show();                           
                     BS.progress = setInterval(function() {
-                        BS.bar = $('.bar');	    		   
-                        if (BS.bar.width()== 392) {
+                        BS.bar = $('.bar');
+                        
+                        if (BS.bar.width()== 200) {
                             clearInterval(BS.progress);
 //	    		    $('.progress').removeClass('active');
 	    		    } 
                         else {
                                 BS.bar.width( BS.bar.width()+8);
                             }
-	    		    BS.bar.text( BS.bar.width()/4 + "%");
+	    		    BS.bar.text( BS.bar.width()/2 + "%");
+                            console.log("BS.bar.text-"+BS.bar.text());
+                            console.log("BS.bar.width()"+BS.bar.width());
 	    		}, 800);
                         
                     var data;
