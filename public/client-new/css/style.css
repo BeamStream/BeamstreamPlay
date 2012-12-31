@@ -3603,8 +3603,8 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 }
 /* @TODO for pie chart Added By Aswathy*/
 svg{
-	height: 160px !important;
-	width: 166px !important;
+/* 	height: 160px !important; */
+/* 	width: 166px !important; */
 }
 
 

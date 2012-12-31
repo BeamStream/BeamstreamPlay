@@ -30,6 +30,8 @@
 			 "click #question-file-upload li " : "uploadFiles",
 			 "change #upload-files-area" : "getUploadedData",
 			 "click .add-comment" : "showCommentTextArea",
+			 "click .rock-comments" : "rockComment",
+			 "click .rocks-small a" : "rockComment",
 			 "click .follow-question" : "followQuestion",
 			 "click .rocks-question" : "rockQuestion",
 			 "click .follow-user" : "followUser",
@@ -38,7 +40,8 @@
 			 "focusout .add-question-comment" : "removeCommentTextArea",
 			 "click .show-all-comments" : "showAllCommentList",
 			 "click .show-all" : "showAllList",
-			 "click .regular-radio": "polling"
+			 "click .regular-radio": "polling",
+			 
 		},
 	
 		initialize : function() {
@@ -46,6 +49,56 @@
 			console.log('Initializing QuestionView');
 			this.source = $("#tpl-questions-middle-contents").html();
 			this.template = Handlebars.compile(this.source);
+			
+			BS.questionSortedType = '';
+			BS.pagenum = 1;
+			BS.pageForVotes = 1;
+			BS.pageForDate = 1;
+			BS.pageForKeyword = 1;
+			BS.pageLimit = 10;
+			var self = this;
+			self.file = "";
+			
+			$(window).bind('scroll', function (ev) {
+				
+				var scrollTop =$(window).scrollTop();
+				var docheight = $(document).height();
+				var widheight = $(window).height();
+				if(scrollTop + 1 == docheight- widheight || scrollTop == docheight- widheight){
+			 	   var t = $('#all-questions').find('div.follow-container');
+				   if(t.length != 0)
+				   {
+						$('.page-loader').show();
+						var streamId = $('.sortable li.active').attr('id');
+					
+						if(BS.questionSortedType == "")
+						{    
+							BS.pagenum++;
+							self.getAllQuestions(streamId,BS.pagenum,BS.pageLimit);
+						}
+						else if(BS.questionSortedType == "vote")
+						{    
+							BS.pageForVotes++
+							self.sortByHighestRated(streamId,BS.pageForVotes,BS.pageLimit)
+						}
+						else if(BS.questionSortedType == "keyword")
+						{
+							BS.pageForKeyword++;
+							var keyword = $('#sort_by_key').val();
+							self.sortBykeyword(streamId,keyword,BS.pageForKeyword,BS.pageLimit);
+						}
+						else if(BS.questionSortedType == "date")
+						{
+							 BS.pageForDate++;
+							 self.sortByMostRecent(streamId,BS.pageForDate,BS.pageLimit);
+						}
+				   }
+				 }
+				else
+				{
+					  $('.page-loader').hide();
+				}
+			 });  
 			 
 		},
 		
@@ -65,9 +118,14 @@
 //			eventName.preventDefault();
 			var element = eventName.target.parentElement;
 			var questionId =$(element).parents('div.follow-container').attr('id');
-			var values = [{value:10},
-			              {value:12}];
-			donut[questionId].create(100, 100, 45, 56, values);
+			
+			/* updating pie charts */ 
+			var values = [11,15,23];
+            $("#"+questionId+"-piechart").find('svg').remove();
+            donut[questionId] = new Donut(new Raphael(""+questionId+"-piechart", 200,200));
+            donut[questionId].create(100, 100, 44, 55,100, values);
+        	 
+			
 		},
 		
 		 /**
@@ -112,8 +170,8 @@
 				    			},
 				    			dataType : "json",
 				    			success : function(data) {
-				    				 var qst = $('#qst-area').val();
-				    				 question = msg.replace(links[0],data.data.url);
+				    				 var qst = $('#Q-area').val();
+				    				 question = qst.replace(links[0],data.data.url);
 				    				 $('#Q-area').val(question);
 						    				
 				    			}
@@ -132,130 +190,669 @@
 		 */
 		postQuestion: function(eventName){
 			
-//			eventName.preventDefault();
-			var question = $('#Q-area').val();
-			 
-			if(!question.match(/^[\s]*$/))
-			{
-				var streamId =  $('.sortable li.active').attr('id');
-				 
-				var questionAccess;
-		        var queAccess =  $('#private-to').attr('checked');
-		        var privateTo = $('#select-privateTo').text();
-		        
-			    if(queAccess == "checked")
-			    {
-			    	if(privateTo == "My School")
-			    	{
-			    		questionAccess = "PrivateToSchool";
-			    	}
-			    	else
-			    	{
-			    		questionAccess = "PrivateToClass";
-			    	}
-			    	
-			    }
-			    else
-			    {
-			    	questionAccess = "Public";
-			    }
-			    
-			    
-			    
-			    var pollOptions ='';
-			 
-			    for (var i=1; i<= BS.options ; i++)
-			    {
-			    	pollOptions+= $('#option'+i).val()+',' ;
-			    	$('#option'+i).val('');
-			    }
-			    pollOptions = pollOptions.substring(0, pollOptions.length - 1);
-			    
-			    //get poll options
-			    var info ;
-			    if(pollOptions == '')
-			    {
-			    	info = {
-			            	 questionBody : question,
-			            	 streamId : streamId,
-							 questionAccess :questionAccess,
-			             }
-			    }
-			    else
-			    {
-			    	info = {
-			            	 questionBody : question,
-			            	 streamId : streamId,
-							 questionAccess :questionAccess,
-							 pollsOptions: pollOptions
-			             }
-			    }
-	       	 
-
-				/* post profile page details */
-		         $.ajax({
-		             type: 'POST',
-		             data: info,
-		             url: BS.newQuestion,
-		             cache: false,
-		             dataType : "json",
-		             success: function(data){
-		            	 
-		            		 // remove question text and poll options after post
-			            	 $('#Q-area').val("");
-			            	 $('#pollArea').slideUp(700); 
-			            	 $('#uploded-file').hide();
-			            	 BS.options = 0;
-			            	 
-			            	 //check whether the question owner is logged user or not
-			            	 var owner = "";
-	     					 if(data.question.userId.id == BS.loggedUserId)
-	     					 {
-			     				owner = "true";
-	     					 }
-	     					 else
-	     					 {
-			     				owner = "";
-	     					 }
-			     			
-			            	 var source = $("#tpl-questions_with_polls").html();
-			            	 var template = Handlebars.compile(source);
-			            	 $('#all-questions').prepend(template({data:data,owner: owner ,rocks:data.question.rockers.length}));
-			            	 
-			            	 var pollCount = data.polls.length;
-			            	 
-			            	 //render each poll options and its polling percentage
-			            	 if(pollCount > 0)
-			            	 {
-			            		 var source = $("#tpl-question-poll-percentage").html();
-				            	 var template = Handlebars.compile(source);
-				            	 $('#'+data.question.id.id+'-poll-Option-area').html(template({data:data}));
-			            	 
-				            	 var pollIndex = 0;
-			            		 _.each(data.polls, function(poll) {
-			            			 pollIndex++;
-				            		 var pollSource = $("#tpl-question-poll").html();
-					            	 var pollTemplate = Handlebars.compile(pollSource);
-					            	 $('#'+data.question.id.id+'-pollOptions').prepend(pollTemplate({poll:poll, pollIndex:pollIndex ,question:data.question.id.id}));
-			            		 });
-			            		 
-			            		 /* creating pie charts */ 
-				            	 var values = [{value:5},
-			            		              {value:15}];
-			            		
-				            	 donut[data.question.id.id] = new Donut(new Raphael(""+data.question.id.id+"-piechart", 200,200));
-				            	 donut[data.question.id.id].create(100, 100, 44, 55, values);
-			            	 }
-			            	 
-			            	
-			            	
-			            	 
-		             }
-		         });
-			}
+			
+			// upload file 
+	        var self = this;
+	        var streamId =  $('.sortable li.active').attr('id');
+	        var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+	        var question = $('#Q-area').val();
+	        
+	      
+	        //get message access private ? / public ?
+	        var questionAccess;
+	        var queAccess =  $('#private-to').attr('checked');
+	        var privateTo = $('#select-privateTo').text();
+		    if(queAccess == "checked")
+		    {
+		    	if(privateTo == "My School")
+		    	{
+		    		questionAccess = "PrivateToSchool";
+		    	}
+		    	else
+		    	{
+		    		questionAccess = "PrivateToClass";
+		    	}
+		    	 
+		    }
+		    else
+		    {
+		    	questionAccess = "Public";
+		    }
+		    
+		    var trueurl='';
+	        if(this.file )
+	        {
+//	        	 @ TODO
+//	        	$('#file-upload-loader').css("display","block");
+//
+//	        	var data;
+//	            data = new FormData();
+//	            data.append('docDescription',message);
+//	            data.append('docAccess' ,messageAccess);
+//	            data.append('docData', self.file);  
+//	            data.append('streamId', streamId);  
+//	           
+//	            /* post profile page details */
+//	            $.ajax({
+//	            	type: 'POST',
+//	                data: data,
+//	                url: BS.uploaddocFrmComputer,
+//	                cache: false,
+//	                contentType: false,
+//	                processData: false,
+//	                dataType : "json",
+//	                success: function(data){
+//	                	var owner = "";
+//	    				if(data.userId.id == BS.loggedUserId)
+//	    				{
+//	    					owner = "true";
+//	    				}
+//	    				else
+//	    				{
+//	    					owner = "";
+//	    				}
+//	                	
+//	                	$('#msg-area').val("");
+//	                	$('#uploded-file').hide();
+//	              	    self.file = "";
+//	              	    $('#file-upload-loader').css("display","none");
+//	              	    $('.embed-info').css("display","none");
+//	              	    
+//	              	    var datVal = formatDateVal(data.timeCreated);
+//	                  	 
+//	  	                var datas = {
+//	  	                		"datas" : data,
+//	  	                		"datVal" :datVal,
+//	  	                		"owner": owner
+//	  		            }						  
+//
+//	  	                /* Pubnub auto push */
+//	  	                PUBNUB.publish({
+//	  	                	channel : "stream",
+//	  	                		message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,prifileImage : BS.profileImageUrl}
+//	  	                }) 
+//                      
+////                        $('input#'+data.id.id+'-url').val(msgUrl);  
+//                        $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
+//	                           
+//	                           
+//                        /*show image preview icons  */
+//	                    
+//                        //var links =  msgBody.match(BS.urlRegex); 
+//                        var msgUrl=  data.messageBody.replace(BS.urlRegex1, function(msgUrlw) {
+//                        	trueurl= msgUrlw;    
+//                            return msgUrlw;
+//                        });
+//                        var extension = (trueurl).match(pattern);  //to get the extension of the uploaded file    
+//	                           
+//
+//	                           
+//	                    // set first letter of extension in capital letter  
+//	  	                extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+//	  	                	return letter.toUpperCase();
+//	  	                });
+//	  	               
+//	  	                
+//	    		                  
+//	                    if(data.messageType.name == "Image")
+//	  					{
+//	                    	var source = $("#tpl-messages_with_images").html();
+//	  	  						
+//	  					}
+//	  					else if(data.messageType.name == "Video")
+//	  					{
+//	  						var source = $("#tpl-messages_with_images").html();
+//	  	  						
+//	  					}
+//	  					else
+//	  					{
+//	  						var previewImage = '';
+//	  						var commenImage ="";
+//	  						var type = "";
+//	  							 
+//	  						if(extension == 'Ppt')
+//	  						{
+//	  							previewImage= "images/presentations_image.png";
+//	  	                        type = "ppt";
+//	  						}
+//	  						else if(extension == 'Doc')
+//	  						{
+//  								previewImage= "images/docs_image.png";
+//  								type = "doc";
+//	  						}
+//	  						else if(extension == 'Pdf')
+//	  						{
+//  								previewImage= data.anyPreviewImageUrl;
+//  								type = "pdf";
+//	  						}
+//  							else
+//  							{
+//  								previewImage= "images/textimage.png";
+//  								commenImage = "true";
+//  								type = "doc";
+//	  								
+//  							}
+//	  							
+//  							var datas = {
+//							    "datas" : data,
+//                                "datVal" :datVal,
+//                                "previewImage" :previewImage,
+//                                "extension" : extension,
+//                                "commenImage" : commenImage,
+//                                "type" : type,
+//                                "owner": owner
+//  					        }	
+//	  						
+//  						    var source = $("#tpl-messages_with_docs").html();
+//	    						
+//  						}
+//	                           
+//                        var template = Handlebars.compile(source);
+//                        $('#all-messages').prepend(template(datas));
+//                        $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
+////                        $('input#'+data.id.id+'-url').val(msgUrl); 
+//	                      	 
+//                      	/* for video popups */
+//	                    $("area[rel^='prettyPhoto']").prettyPhoto();
+//    					$(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
+//    					$(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
+//	        			
+//                    },
+//                    error:function(error){
+//                    	alert("You need to add a stream first.");
+//                    	self.file = "";
+//	              	    $('#file-upload-loader').css("display","none");
+//                    	$('#msg-area').val("");
+//                    	$('.embed-info').css("display","none");
+//                    }
+//                });       
+        	}
+	        else
+	        {
+	        	 
+	  	        /* get message details from form */
+	  	        BS.updatedQuestion =  question;
+	  	        if(!question.match(/^[\s]*$/))
+	  	        {   
+	  	        	
+	  	        	
+	  	        	
+	  	        	//find link part from the message
+	  		        var link =  question.match(BS.urlRegex); 
+	  		       
+	  		        if(link)
+	  		        {  
+	  		        	if(!BS.urlRegex2.test(link[0])) {
+	  		        		urlLink = "http://" + link[0];
+	  		  	  	    }
+	  		    	    else
+	  		    	    {
+	  		    	    	urlLink =link[0];
+	  		    	    }
+	  	                 
+	  	                var questionBody = question;
+	  	                var link =  questionBody.match(BS.urlRegex);                             
+	  	                var qstUrl=  questionBody.replace(BS.urlRegex1, function(qstUrlw) {
+	  	                    trueurl= qstUrlw;                                                                  
+	  	                    return qstUrlw;
+	  	                });
+	  	                
+	  	                //to get the extension of the uploaded file 
+	  	                var extension = (trueurl).match(pattern);
+	  	                
+	  	                //To check whether it is google docs or not
+	  	                if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   
+	  	                {
+	  	                	if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
+	  	                    {                                     
+	  	                		/* post url information */                           
+  	                            $.ajax({
+  	                            	type : 'POST',
+	  	                            url : BS.bitly,
+	  	                            data : {
+	  	                            	link : urlLink
+	  	                            },
+	  	                            dataType : "json",
+	  	                            success : function(data) {                                      
+                                         question = question.replace(link[0],data.data.url);
+                                         self.postQuestionToServer(question,streamId,questionAccess);
+	  	                            }
+  	                             });
+  	                         }
+  	                         else
+  	                         {  
+  	                        	 self.postQuestionToServer(question,streamId,questionAccess);
+  	                         }
+                 		 }  //doc
+	  	                 else    //for docupload
+	  	                 {     
+	  	                	 self.postQuestionToServer(question,streamId,questionAccess);
+	  	                 }
+                     }
+	                 //if link not present
+	                 else
+	                 {                
+	                	 self.postQuestionToServer(question,streamId,questionAccess);
+	                 }
+              	 }
+             }
+			
+			
+			
+			
+			
+			
+			
+////			eventName.preventDefault();
+//			var question = $('#Q-area').val();
+//			 
+//			if(!question.match(/^[\s]*$/))
+//			{
+//				var streamId =  $('.sortable li.active').attr('id');
+//				 
+//				var questionAccess;
+//		        var queAccess =  $('#private-to').attr('checked');
+//		        var privateTo = $('#select-privateTo').text();
+//		        
+//			    if(queAccess == "checked")
+//			    {
+//			    	if(privateTo == "My School")
+//			    	{
+//			    		questionAccess = "PrivateToSchool";
+//			    	}
+//			    	else
+//			    	{
+//			    		questionAccess = "PrivateToClass";
+//			    	}
+//			    	
+//			    }
+//			    else
+//			    {
+//			    	questionAccess = "Public";
+//			    }
+//			    
+//			    
+//			    
+//			    var pollOptions ='';
+//			 
+//			    for (var i=1; i<= BS.options ; i++)
+//			    {
+//			    	pollOptions+= $('#option'+i).val()+',' ;
+//			    	$('#option'+i).val('');
+//			    }
+//			    pollOptions = pollOptions.substring(0, pollOptions.length - 1);
+//			    
+//			    //get poll options
+//			    var info ;
+//			    if(pollOptions == '')
+//			    {
+//			    	info = {
+//			            	 questionBody : question,
+//			            	 streamId : streamId,
+//							 questionAccess :questionAccess,
+//			             }
+//			    }
+//			    else
+//			    {
+//			    	info = {
+//			            	 questionBody : question,
+//			            	 streamId : streamId,
+//							 questionAccess :questionAccess,
+//							 pollsOptions: pollOptions
+//			             }
+//			    }
+//	       	 
+//
+//				/* post profile page details */
+//		         $.ajax({
+//		             type: 'POST',
+//		             data: info,
+//		             url: BS.newQuestion,
+//		             cache: false,
+//		             dataType : "json",
+//		             success: function(data){
+//		            	 
+//		            		 // remove question text and poll options after post
+//			            	 $('#Q-area').val("");
+//			            	 $('#pollArea').slideUp(700); 
+//			            	 $('#uploded-file').hide();
+//			            	 $('.embed-info').css("display","none");
+//			            	 BS.options = 0;
+//			            	 
+//			            	 //check whether the question owner is logged user or not
+//			            	 var owner = "";
+//	     					 if(data.question.userId.id == BS.loggedUserId)
+//	     					 {
+//			     				owner = "true";
+//	     					 }
+//	     					 else
+//	     					 {
+//			     				owner = "";
+//	     					 }
+//			     			
+//			            	 var source = $("#tpl-questions_with_polls").html();
+//			            	 var template = Handlebars.compile(source);
+//			            	 $('#all-questions').prepend(template({data:data,owner: owner ,rocks:data.question.rockers.length}));
+//			            	 
+//			            	 var pollCount = data.polls.length;
+//			            	 
+//			            	 //render each poll options and its polling percentage
+//			            	 if(pollCount > 0)
+//			            	 {
+//			            		 var source = $("#tpl-question-poll-percentage").html();
+//				            	 var template = Handlebars.compile(source);
+//				            	 $('#'+data.question.id.id+'-poll-Option-area').html(template({data:data}));
+//			            	 
+//				            	 var pollIndex = 0;
+//			            		 _.each(data.polls, function(poll) {
+//			            			 pollIndex++;
+//				            		 var pollSource = $("#tpl-question-poll").html();
+//					            	 var pollTemplate = Handlebars.compile(pollSource);
+//					            	 $('#'+data.question.id.id+'-pollOptions').prepend(pollTemplate({poll:poll, pollIndex:pollIndex ,question:data.question.id.id}));
+//			            		 });
+//			            		 
+//			            		 /* creating pie charts */ 
+////			            		 var values = [10,15,23];
+////			            			
+////			            		 donut[data.question.id.id] = new Donut(new Raphael(""+data.question.id.id+"-piechart", 200,200));
+////			                	 donut[data.question.id.id].create(100, 100, 44, 55,100, values);
+//			            		 
+//			            	 }
+//			            	 
+//			            	
+//			            	
+//			            	 
+//		             }
+//		         });
+//			}
 	         
 		},
 		
+		
+		
+		 /**
+   	  * NEW THEME - POST question details to server 	
+   	  */
+		postQuestionToServer: function(question,streamId,questionAccess){
+   		 
+   		 	var self = this; 
+            var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+            var trueurl='';
+            
+            
+            
+            var pollOptions ='';
+		    for (var i=1; i<= BS.options ; i++)
+		    {
+		    	pollOptions+= $('#option'+i).val()+',' ;
+		    	$('#option'+i).val('');
+		    }
+		    pollOptions = pollOptions.substring(0, pollOptions.length - 1);
+		    
+		    //get poll options
+		    var info ;
+		    if(pollOptions == '')
+		    {
+		    	info = {
+		            	 questionBody : question,
+		            	 streamId : streamId,
+						 questionAccess :questionAccess,
+		             }
+		    }
+		    else
+		    {
+		    	info = {
+		            	 questionBody : question,
+		            	 streamId : streamId,
+						 questionAccess :questionAccess,
+						 pollsOptions: pollOptions
+		             }
+		    }
+            
+		    
+		    
+            /* post question information to server */
+	         $.ajax({
+	             type: 'POST',
+	             data: info,
+	             url: BS.newQuestion,
+	             cache: false,
+	             dataType : "json",
+	             success: function(data){
+  				
+           		 /* if status is failure (not join a class or school) then show a dialog box */      
+  				     if(data.status == "Failure")
+  				     {
+  				    	 alert("You need to add a stream first.");
+//						 var alert = '<div id="dialog" title="Message !">You need to add a stream first.</br><a  onClick="closeAlert();" class="alert-msg " href="#create_stream"> Create Stream</a></div>';
+//						 $('#alert-popup').html(alert);
+//						 
+//						 $( "#dialog" ).dialog({
+//							 autoOpen: false ,
+//							 modal: true,
+//		  					 draggable: false,
+//		  				     resizable: false
+//						 });
+//						 
+//						 $( "#dialog" ).dialog('open');
+//						 $( "#dialog" ).dialog({ height: 100 });
+  					
+			         }
+  				     else
+  				     {
+  				    	 
+  				    	 // remove question text and poll options after post
+		            	 $('#Q-area').val("");
+		            	 $('#pollArea').slideUp(700); 
+		            	 $('#uploded-file').hide();
+		            	 $('.embed-info').css("display","none");
+		            	 BS.options = 0;
+		            	 
+		            	 //check whether the question owner is logged user or not
+		            	 var owner = "";
+     					 if(data.question.userId.id == BS.loggedUserId)
+     					 {
+		     				owner = "true";
+     					 }
+     					 else
+     					 {
+		     				owner = "";
+     					 }
+		     			
+     					 
+     					 
+     					 var questionBody = data.question.questionBody;
+     					 var qstUrl=  questionBody.replace(BS.urlRegex1, function(qstUrlw) {
+                       	 trueurl= qstUrlw;                                                                  
+                       	 return qstUrlw;
+                        });
+                        
+                        //to get the extension of the uploaded file
+                        var extension = (trueurl).match(pattern);  
+                        
+                        // @ TODO 
+                        //to check whether the url is a google doc url or not
+//                        if(data.questioType.name == "Text")                          
+//                        {	
+//                       	 if(questionBody.match(/^(https:\/\/docs.google.com\/)/)) 
+//                            {   
+//                       		questioType = "googleDocs";
+//
+//                            }
+//                       	 else
+//                       	 {    
+//                       		 questioType = "messageOnly";
+                       		 var linkTag =  questionBody.replace(BS.urlRegex1, function(url) {
+                       			 return '<a target="_blank" href="' + url + '">' + url + '</a>';
+                       		 });
+//                                             
+//                       	 }
+//                        }                                                      
+//                        else
+//                        {         
+//                            // url has extension then set first letter of extension in capital letter  
+//	   		                	 extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+//	   		                		 return letter.toUpperCase();
+//	   		                	 });
+//
+//               		 }
+//							  
+//                        var datas = {
+//                       		 "datas" : data,
+//                        }	
+//                         
+//                        // set a format style to date
+////                        BS.filesMediaView = new BS.FilesMediaView(); 
+//                        var datVal = formatDateVal(data.timeCreated);
+//			                    
+//                        // if message conatains googledoc url
+//                        if(questionType == "googleDocs")
+//						 {
+//                       	 
+//                       	 var datas = {
+//                       			 "datas" : data,
+//                       			 "datVal" :datVal,
+//                       			 "previewImage" : "images/google_docs_image.png",
+//                       			 "type" : "googleDoc"
+// 							 }	
+//							 var source = $("#tpl-messages_with_docs").html();
+//         		  						
+//						 }
+//                        // if message conatains messages only without any uploaded files
+//						 else if(messageType == "messageOnly")
+//						 {
+//							 var source = $("#tpl-discussion-messages").html();
+//						 }
+//                        // if message conatains  uploaded files
+//						 else
+//						 {
+//							 if(data.messageType.name == "Image")
+//							 {
+//								 var source = $("#tpl-messages_with_images").html();
+//							 }
+//							 else if(data.messageType.name == "Video")
+//							 {
+//								 var source = $("#tpl-messages_with_images").html();
+//							 }
+//							 else
+//							 {
+//								 var previewImage = '';
+//								 var commenImage ="";
+//								 var type = "";
+//								 
+//								 /* check its extensions and set corresponding preview icon images */
+//								 if(extension == 'Ppt')
+//								 {
+//									 previewImage= "images/presentations_image.png";
+//									 type = "ppt";
+//								 }
+//								 else if(extension == 'Doc')
+//								 {
+//									 previewImage= "images/docs_image.png";
+//									 type = "doc";
+//								 }
+//								 else if(extension == 'Pdf')
+//								 {
+//									 previewImage= data.anyPreviewImageUrl;
+//									 type = "pdf";
+//								 }
+//								 else
+//								 {
+//									 previewImage= "images/textimage.png";
+//									 commenImage = "true";
+//									 type = "doc";
+//							 	 }
+//									
+//								 var datas = {
+//										 "datas" : data,
+//										 "datVal" :datVal,
+//										 "previewImage" :previewImage,
+//										 "extension" : extension,
+//										 "commenImage" : commenImage,
+//										 "type" : type
+//					        	 }	
+//								
+//							     var source = $("#tpl-messages_with_docs").html();
+//		  						 
+//							 }
+//         								
+//						 }
+     					 
+     					 
+		            	 var source = $("#tpl-questions_with_polls").html();
+		            	 var template = Handlebars.compile(source);
+		            	 $('#all-questions').prepend(template({data:data,owner: owner ,rocks:data.question.rockers.length}));
+		            	 
+		            	 var pollCount = data.polls.length;
+		            	 
+		            	 //render each poll options and its polling percentage
+		            	 if(pollCount > 0)
+		            	 {
+		            		 var source = $("#tpl-question-poll-percentage").html();
+			            	 var template = Handlebars.compile(source);
+			            	 $('#'+data.question.id.id+'-poll-Option-area').html(template({data:data}));
+		            	 
+			            	 var pollIndex = 0;
+		            		 _.each(data.polls, function(poll) {
+		            			 pollIndex++;
+			            		 var pollSource = $("#tpl-question-poll").html();
+				            	 var pollTemplate = Handlebars.compile(pollSource);
+				            	 $('#'+data.question.id.id+'-pollOptions').prepend(pollTemplate({poll:poll, pollIndex:pollIndex ,question:data.question.id.id}));
+		            		 });
+		            		 
+		            		 /* creating pie charts */ 
+//		            		 var values = [10,15,23];
+//		            			
+//		            		 donut[data.question.id.id] = new Donut(new Raphael(""+data.question.id.id+"-piechart", 200,200));
+//		                	 donut[data.question.id.id].create(100, 100, 44, 55,100, values);
+		            		 
+		            	 }
+		            	 
+		            	//get profile image of logged user
+                       $('img#'+data.question.id.id+'-img').attr("src", BS.profileImageUrl);
+                       
+                       if(linkTag)
+							 $('p#'+data.question.id.id+'-id').html(linkTag);
+					
+						 var url=data.question.questionBody;				
+//						 if(data.messageType.name == "Text")
+//						 {  
+//							 //to check the extension of the url                                            
+	                          if(!url.match(/^(https:\/\/docs.google.com\/)/)) 
+	                          {	
+	                         	 // embedly
+	                         	 $('p#'+data.question.id.id+'-id').embedly({
+	                         		 maxWidth: 200,
+	                              	 wmode: 'transparent',
+	                         		 method: 'after',
+	                         		 key:'4d205b6a796b11e1871a4040d3dc5c07'
+		  	  					 	 });
+	                          }
+	                          else
+	                          {            
+	                         	//insert google doc image for doc url
+	                          }        
+//	                  	 }                                          
+//						 else      //insert value to hidden field
+//						 {
+//	                     	 $('input#'+data.id.id+'-url').val(msgUrl);  
+//						 } 
+	                          
+                          _.each(data, function(data) {
+ 			    	 		 showJanrainShareWidget(data.messageBody, 'View my Beamstream post', 'http://beamstream.com', data.messageBody);
+ 			    	 	 });
+                          
+                          /* delete default embedly preview */
+     			  		 $('div.selector').attr('display','none');
+     			  		 $('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
+     			  		 $('div.selector').remove();
+       				  	 $('#Q-area').val("");
+	             }
+   	 		 }
+    		 });
+		 },
+		 
+		 
 		/**
          * NEW THEME -  get uploaded files 
          */
@@ -507,9 +1104,9 @@
 //                     else
 //                     {
 //                    	 questionType = "messageOnly";
-//                         var linkTag =  questionBody.replace(BS.urlRegex1, function(url) {
-//                               return '<a target="_blank" href="' + url + '">' + url + '</a>';
-//                         });
+                         var linkTag =  questionBody.replace(BS.urlRegex1, function(url) {
+                               return '<a target="_blank" href="' + url + '">' + url + '</a>';
+                         });
 //                     }
 //                }
 //                else
@@ -638,11 +1235,10 @@
             		 
             		 
             		 /* creating pie charts */ 
-                	 var values = [{value:5},
-            		              {value:15}];
+                	 var values = [10,15,23];
             		
                 	 donut[data.question.id.id] = new Donut(new Raphael(""+data.question.id.id+"-piechart", 200,200));
-                	 donut[data.question.id.id].create(100, 100, 44, 55, values);
+                	 donut[data.question.id.id].create(100, 100, 44, 55,100, values);
             	 }
             	 
             	
@@ -717,22 +1313,22 @@
 			    			}
 			    	 });
 				           
-//					 if(linkTag)
-//						 $('p#'+data.question.id.id+'-id').html(linkTag);
+					 if(linkTag)
+						 $('p#'+data.question.id.id+'-id').html(linkTag);
 						 
-                 var url=data.questionBody;
+                 var url=data.question.questionBody;
 //                 if(data.questionType.name == "Text"){   
                                      
-//                     if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
-//                         // embedly
-//                         $('p#'+data.question.id.id+'-id').embedly({
-//                                 maxWidth: 200,
-//                                 msg : 'https://assets0.assembla.com/images/assembla-logo-home.png?1352833813',
-//	                             wmode: 'transparent',
-//	                             method: 'after',
-//	                             key:'4d205b6a796b11e1871a4040d3dc5c07'
-//                         });
-//                      }
+                     if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
+                         // embedly
+                         $('p#'+data.question.id.id+'-id').embedly({
+                                 maxWidth: 200,
+                                 msg : 'https://assets0.assembla.com/images/assembla-logo-home.png?1352833813',
+	                             wmode: 'transparent',
+	                             method: 'after',
+	                             key:'4d205b6a796b11e1871a4040d3dc5c07'
+                         });
+                      }
 //
 //                 }
 //                 else       
@@ -1152,6 +1748,42 @@
         	{
         		 $('#'+parent+'-addComments').slideUp(200); 
         	}
+        },
+        
+        /**
+         * NEW THEME - Rock comments
+         */
+        rockComment: function(eventName){
+        	
+        	eventName.preventDefault();
+        	
+        	var commentId = $(eventName.target).parents('div.answer-description').attr('id');
+        	var questionId = $(eventName.target).parents('div.follow-container').attr('id');
+        	var self = this;
+        	
+        	/* Rock comment */
+    		$.ajax({
+    			type: 'POST',
+                url:BS.rockingTheComment,
+                data:{
+                	commentId:commentId,
+                	questionId : questionId
+                },
+                dataType:"json",
+                success:function(data){
+                	 
+                	// display the count in icon
+                	$('#'+commentId+'-rockCount').html(data);
+                	
+                	/*auto push */
+    				var streamId = $('.sortable li.active').attr('id');
+//    				PUBNUB.publish({
+//                          channel : "commentRock",
+//                          message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,commentId:commentId }
+//                    })
+//     
+                }
+            });
         },
 	  
 	});
