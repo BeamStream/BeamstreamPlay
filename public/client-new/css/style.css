@@ -3606,5 +3606,23 @@ svg{
 	height: 160px !important;
 	width: 166px !important;
 }
+/* progress bar */
+.progress-container
+{
+        margin-left: 250px;
+        margin-top: 5px;
+        width: 400px;
+}
+.progress{
+        background:url("../images/shadow.jpg") repeat-x !important;
+        border:1px solid #3d7ca8 !important;
+        height:25px !important;
+}
+
+.progress-striped .bar {
+        background:url("../images/inner_shadow.jpg") repeat-x !important;
+        height:25px !important;
+     
+}
 
 

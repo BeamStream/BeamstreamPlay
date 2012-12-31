@@ -86,7 +86,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 this.pictres();	
                 this.videos();   
                 this.docsList();
-                this.audio();  
+//                this.audio();  
                 this.spreadsheet();  
                 this.presentation();  
                 this.pdffiles();
@@ -548,7 +548,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 dataType : "json",
                 success : function(data) {
               //if(docs.length != 0)  {
-                _.each(data, function(audio) {F
+                _.each(data, function(audio) {
                 var datVal = formatDateVal(audio.creationDate);     
                 var content= '<div data-groups="["recent"]" class="image-wrapper hovereffect">'
                 +' <div class="hover-div"><img class="cover-picture" src="images/audio_image.png">'
@@ -1273,27 +1273,30 @@ BS.FilesMediaView = Backbone.View.extend({
                 var self = this;
                 var status = true;
                 var message ='';
-                var streamId = $("#doc-class-list-computer").val();
+                var streamId = $(".doc-class-list-computer").val();
                 
                 //get message access private ? / public ?
                 var docAccess;
                 var access =  $('#id-private').attr('checked');
                 if(access == "checked")
                 {
-                	docAccess = "Private";
+                	docAccess = "PrivateToSchool";
                 }
                 else
                 {
-                	docAccess = "Public";
+                	docAccess = "PrivateToClass";
                 }
-                
+                                console.log(docAccess);
+
                 var data;
                 data = new FormData();
                 data.append('streamId', streamId);
-                data.append('docAccess' ,docAccess);
+                data.append('docAccess',docAccess);
                 data.append('docData', this.image);  
                 data.append('docDescription',message);
                 document.getElementById('loader-message').innerHTML="<img src='images/loading.gif'>";
+                
+                console.log("streamId -"+streamId+","+"docAccess - "+docAccess+","+"message -"+message)
                 
                 /* post profile page details */
                 $.ajax({
@@ -1309,7 +1312,7 @@ BS.FilesMediaView = Backbone.View.extend({
                         document.getElementById('loader-message').innerHTML = data.message;
                         self.docsList();
                         self.docFromComputer();
-                        self.audio();
+//                        self.audio();
                         self.presentation();
                         self.pdffiles();  
                         $("#dooclinkchild_dr").hide(200);

@@ -396,9 +396,23 @@
 	        if(this.file )
 	        {
 	        	
-	        	$('#file-upload-loader').css("display","block");
-
-	        	var data;
+                    $('#file-upload-loader').css("display","block");
+                        
+                    $('#progressbar').show();        //progress bar 
+                    $('.progress-container').show();                           
+                    BS.progress = setInterval(function() {
+                        BS.bar = $('.bar');	    		   
+                        if (BS.bar.width()== 392) {
+                            clearInterval(BS.progress);
+//	    		    $('.progress').removeClass('active');
+	    		    } 
+                        else {
+                                BS.bar.width( BS.bar.width()+8);
+                            }
+	    		    BS.bar.text( BS.bar.width()/4 + "%");
+	    		}, 800);
+                        
+                    var data;
 	            data = new FormData();
 	            data.append('docDescription',message);
 	            data.append('docAccess' ,messageAccess);
@@ -424,9 +438,18 @@
 	    				{
 	    					owner = "";
 	    				}
-	                	
-	                	$('#msg-area').val("");
-	                	$('#uploded-file').hide();
+                          
+                          if(data.status == "Success") 
+		   			    {
+                            BS.bar = $('.bar');        //progress bar
+                            BS.bar.width(400);
+                            BS.bar.text("100%");
+                            clearInterval(BS.progress);
+                                 
+                                            }
+                            $('#msg-area').val("");
+                            $('#uploded-file').hide();
+                            $('#progressbar').hide();
 	              	    self.file = "";
 	              	    $('#file-upload-loader').css("display","none");
 	              	    $('.embed-info').css("display","none");
@@ -1172,6 +1195,7 @@
             	
             	$('#uploded-file').html(f.name);
             	$('#uploded-file').show();
+                $('#progressbar').show();    
             	
             })(file);
             
