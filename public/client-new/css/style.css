@@ -3610,14 +3610,14 @@ svg{
 /* progress bar */
 .progress-container
 {
-        margin-left: 250px;
-        margin-top: 5px;
-        width: 400px;
+        margin-left: 1px;
+        margin-top: 1px;
+        width: 200px;
 }
 .progress{
         background:url("../images/shadow.jpg") repeat-x !important;
         border:1px solid #3d7ca8 !important;
-        height:25px !important;
+        height:15px !important;
 }
 
 .progress-striped .bar {
