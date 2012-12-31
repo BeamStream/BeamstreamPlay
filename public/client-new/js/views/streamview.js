@@ -190,10 +190,11 @@
             
             
                /**
-                * NEW THEME- Use the method to list the onlineusers
+                * NEW THEME- Use the method to list the online users
                 */
             getonlineusers : function(eventName){
-                var content = '';                           
+                var content = ''; 
+                var me = '';
                 var self = this;
                 console.log("our id ="+BS.loggedUserId);
                 $.ajax({
@@ -201,32 +202,48 @@
                     url : BS.onlineUsers,
                     dataType : "json",
                 success : function(users) {
-                    var usersnumber =users.length;
-                         if(users.length != 0)  {
-                            _.each(users, function(user) {
-                                if(user.profileImageUrl =='')  {
-                                    content +='<li> <a href="#"><img src="images/chat-imge.jpg" width="30" height="28"> <span>'+user.firstName+' </span> <span class="online-chat">Online</span></a> </li>'
-                                    }
-                                else{
-                                    content +='<li> <a href="#"><img src="'+user.profileImageUrl+'" width="30" height="28"> <span>'+user.firstName+' </span> <span class="online-chat">Online</span></a> </li>'
-                                    }                                   
-                                });
-                            }
-                         else{
-                            content += '<li class="nouser">  <span>Their is no online users </span>  </li>';  
-                         }
+                	var usersnumber = 0;
+                    
+                    if(users.length != 0)  {
+                    	  usersnumber =users.length-1;
+                    	_.each(users, function(user) {
+                        	
+	                        	var image ;
+	                            if(user.profileImageUrl =='')
+	                            {
+	                            	image = "images/chat-imge.jpg";
+	                            }
+	                            else
+	                            {
+	                            	image = user.profileImageUrl;
+	                            }
+	                            if(BS.loggedUserId == user.id.id )
+	                            {
+	                            	me +='<a href="#"><img src="'+image+'" width="30" height="28"> <span>Me </span> <span class="online-chat">Online</span></a> ';
+	                            	$('#me').html(me);
+	                            }
+	                            else
+	                            {
+		                            content +='<li> <a href="#"><img src="'+image+'" width="30" height="28"> <span>'+user.firstName+' </span> <span class="online-chat">Online</span></a> </li>'
+	                            }
+                                  
+                            });
+                	 }
+                     else
+                     {
+//                        content += '<li class="nouser">  <span>Their is no online users </span>  </li>';  
+                     }
                     $('#onlinechatbox').append(content);
                     $('.online-count').text('Chat('+usersnumber+')');
                     self.Scrollbar();
                     },
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                    content += '<li class="online">  <span>Their is no online users </span>  </li>';   
-                    $('.online-count').text('Chat('+usersnumber+')');
-                    $('#onlinechatbox').append(content); 
+//                    content += '<li class="online">  <span>Their is no other online users </span>  </li>';   
+                    $('.online-count').text('Chat(0)');
+//                    $('#onlinechatbox').append(content); 
                     self.Scrollbar(); 
                     }
                     }); 
-            //         $('#onlinechatbox').append(content);
                 },
                 
                 /**

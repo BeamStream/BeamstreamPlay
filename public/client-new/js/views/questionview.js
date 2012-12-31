@@ -38,6 +38,7 @@
 			 "focusout .add-question-comment" : "removeCommentTextArea",
 			 "click .show-all-comments" : "showAllCommentList",
 			 "click .show-all" : "showAllList",
+			 "click .regular-radio": "polling"
 		},
 	
 		initialize : function() {
@@ -55,6 +56,18 @@
 		    
 			$(this.el).html(this.template);
 			return this;
+		},
+		
+		/**
+		 * NEW THEME - polling
+		 */
+		polling:function(eventName){
+//			eventName.preventDefault();
+			var element = eventName.target.parentElement;
+			var questionId =$(element).parents('div.follow-container').attr('id');
+			var values = [{value:10},
+			              {value:12}];
+			donut[questionId].create(100, 100, 45, 56, values);
 		},
 		
 		 /**
@@ -223,10 +236,19 @@
 			            			 pollIndex++;
 				            		 var pollSource = $("#tpl-question-poll").html();
 					            	 var pollTemplate = Handlebars.compile(pollSource);
-					            	 $('#'+data.question.id.id+'-pollOptions').prepend(pollTemplate({poll:poll, pollIndex:pollIndex}));
+					            	 $('#'+data.question.id.id+'-pollOptions').prepend(pollTemplate({poll:poll, pollIndex:pollIndex ,question:data.question.id.id}));
 			            		 });
+			            		 
+			            		 /* creating pie charts */ 
+				            	 var values = [{value:5},
+			            		              {value:15}];
+			            		
+				            	 donut[data.question.id.id] = new Donut(new Raphael(""+data.question.id.id+"-piechart", 200,200));
+				            	 donut[data.question.id.id].create(100, 100, 44, 55, values);
 			            	 }
 			            	 
+			            	
+			            	
 			            	 
 		             }
 		         });
@@ -611,9 +633,19 @@
             			 pollIndex++;
 	            		 var pollSource = $("#tpl-question-poll").html();
 		            	 var pollTemplate = Handlebars.compile(pollSource);
-		            	 $('#'+data.question.id.id+'-pollOptions').prepend(pollTemplate({poll:poll, pollIndex:pollIndex}));
+		            	 $('#'+data.question.id.id+'-pollOptions').prepend(pollTemplate({poll:poll, pollIndex:pollIndex,question:data.question.id.id}));
             		 });
+            		 
+            		 
+            		 /* creating pie charts */ 
+                	 var values = [{value:5},
+            		              {value:15}];
+            		
+                	 donut[data.question.id.id] = new Donut(new Raphael(""+data.question.id.id+"-piechart", 200,200));
+                	 donut[data.question.id.id].create(100, 100, 44, 55, values);
             	 }
+            	 
+            	
 	            	 
 					/* check whether the user is follwer of a message or not */
 //			         $.ajax({

@@ -2635,7 +2635,7 @@ ul.profil-pic-outer li.lessborder {
 
 .chart {
 		float: left;
-		margin: 10px;
+		margin-top: -28px;
 }
 
 .chart-count {
@@ -3600,6 +3600,11 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 }
 .mediapopup{
 	cursor: pointer;
+}
+/* @TODO for pie chart Added By Aswathy*/
+svg{
+	height: 160px !important;
+	width: 166px !important;
 }
 
 
