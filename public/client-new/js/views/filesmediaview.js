@@ -29,13 +29,22 @@ BS.FilesMediaView = Backbone.View.extend({
                 "click .presentationtitle" : "editPresentationTitle",
                 "mouseenter #uploadmedia_dr":"uploadMediadwn",
                 "mouseleave #dropdownnew":"uploadMediaup",
-                            "click #classdoc_dr":"classdocMenuList",
-                            "click .classdocument_mycomp":"classdocFileForm",
-                             "click .vialink_dr":"vialinkMenu",
-                             "click #vialink_uploadbutton":"vialinkUpload",
-                              "click .googledocs_dr":"googleDocs",
-                              "click #assignment_dr":"assignmentMenuList", 
-                              "click .importfrmlink_dr": "importFromLink",
+                    "click #classdoc_dr":"classdocMenuList",
+                    "click .classdocument_mycomp":"classdocFileForm",
+                    "click .vialink_dr":"vialinkMenu",
+                    "click #vialink_uploadbutton":"vialinkUpload",
+                     "click .googledocs_dr":"googleDocs",
+                     "click #assignment_dr":"assignmentMenuList", 
+                     "click .importfrmlink_dr": "importFromLink",
+                     "click #homework_dr":"homeMenuList",
+                     "click #notes_dr":"notesMenuList",
+                     "click #projects_dr":"projectsMenuList",
+                     "click #lecture_dr":"lectureMenuList",
+                     "click #reference_dr":"referenceMenuList",
+                     "click #tutorial_dr":"tutorialMenuList",
+                     "click #edtech_dr":"edtechMenuList",
+                     "click #amusement_dr":"amusementMenuList",
+                     "click #public_dr":"publicMenuList",
                 "click #links_dr":"linksMenuList",
                 "click #links_uploadbutton":"linkupload",  
                 "click #googledocs_mycomp":"showFileForm",
@@ -48,7 +57,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 "click #audio_dr":"audioMenuList",               
  //               "click #vialink_dr":"audioVialink",
                 "click #audio_uploadbutton":"audioUpload",
-                "click #presentations_dr":"presentationMenuList",
+               
                 "click #presvialink_dr":"presentationVialink",
                 "click #press_uploadbutton":"presentationUpload",
                 "click #docfrmcomputer_uploadbutton": "saveMyFile",
@@ -213,7 +222,7 @@ BS.FilesMediaView = Backbone.View.extend({
                     docURL : $("#gdoc-url").val(),  
                     docAccess: 'Public',
                     docType: 'GoogleDocs',
-                    streamId: $(".doc-class-list").val(),
+                    streamId: $("#doc-class-list").val(),
                     docDescription: $("#gdoc-description").val()
                     });
                     var documentData = JSON.stringify(documentModel);
@@ -835,6 +844,160 @@ BS.FilesMediaView = Backbone.View.extend({
                 $("#childeleven_dr").find('ul').hide(200);
                 $("#assigncmenu_dr").animate({width: 'toggle'},150);
                 },
+                
+            
+                
+                                /*
+                * NEW THEME-Function for uploadmedia (dropdown menu)
+                * (childmenu from homework)
+                */
+            homeMenuList:function(eventName){
+                eventName.preventDefault();
+                $("#childone_dr").find('ul').hide(200);
+                $("#childtwo_dr").find('ul').hide(200);
+                $("#childfour_dr").find('ul').hide(200);
+                $("#childfive_dr").find('ul').hide(200);
+                $("#childsix_dr").find('ul').hide(200);
+                $("#childseven_dr").find('ul').hide(200);
+                $("#childeight_dr").find('ul').hide(200);
+                $("#childnine_dr").find('ul').hide(200);
+                $("#childten_dr").find('ul').hide(200);
+                $("#childeleven_dr").find('ul').hide(200);
+                $("#homeworkmenu_dr").animate({width: 'toggle'},150);
+                },
+                
+                /*
+                * NEW THEME-Function for uploadmedia (dropdown menu)
+                * (childmenu from Notes)
+                */
+            notesMenuList:function(eventName){
+                eventName.preventDefault();
+                $("#childone_dr").find('ul').hide(200);
+                $("#childtwo_dr").find('ul').hide(200);
+                $("#childthree_dr").find('ul').hide(200);
+                $("#childfive_dr").find('ul').hide(200);
+                $("#childsix_dr").find('ul').hide(200);
+                $("#childseven_dr").find('ul').hide(200);
+                $("#childeight_dr").find('ul').hide(200);
+                $("#childnine_dr").find('ul').hide(200);
+                $("#childten_dr").find('ul').hide(200);
+                $("#childeleven_dr").find('ul').hide(200);
+                $("#notesmenu_dr").animate({width: 'toggle'},150);
+                },
+                
+                /*
+                * NEW THEME-Function for uploadmedia (dropdown menu)
+                * (childmenu from projects)
+                */
+            projectsMenuList:function(eventName){
+                eventName.preventDefault();
+                $("#childone_dr").find('ul').hide(200);
+                $("#childtwo_dr").find('ul').hide(200);
+                $("#childthree_dr").find('ul').hide(200);
+                $("#childfour_dr").find('ul').hide(200);
+                $("#childsix_dr").find('ul').hide(200);
+                $("#childseven_dr").find('ul').hide(200);
+                $("#childeight_dr").find('ul').hide(200);
+                $("#childnine_dr").find('ul').hide(200);
+                $("#childten_dr").find('ul').hide(200);
+                $("#childeleven_dr").find('ul').hide(200);
+                $("#projectsmenu_dr").animate({width: 'toggle'},150);
+                },
+                
+                /*
+                * NEW THEME-Function for uploadmedia (dropdown menu)
+                * (childmenu from lecture)
+                */
+            lectureMenuList:function(eventName){
+                eventName.preventDefault();
+                $("#childone_dr").find('ul').hide(200);
+                $("#childtwo_dr").find('ul').hide(200);
+                $("#childthree_dr").find('ul').hide(200);
+                $("#childfour_dr").find('ul').hide(200);
+                $("#childfive_dr").find('ul').hide(200);
+                $("#childseven_dr").find('ul').hide(200);
+                $("#childeight_dr").find('ul').hide(200);
+                $("#childnine_dr").find('ul').hide(200);
+                $("#childten_dr").find('ul').hide(200);
+                $("#childeleven_dr").find('ul').hide(200);
+                $("#lecturemenu_dr").animate({width: 'toggle'},150);
+                },
+                
+                /*
+                * NEW THEME-Function for uploadmedia (dropdown menu)
+                * (childmenu from reference)
+                */
+            referenceMenuList:function(eventName){
+                eventName.preventDefault();
+                $("#childone_dr").find('ul').hide(200);
+                $("#childtwo_dr").find('ul').hide(200);
+                $("#childthree_dr").find('ul').hide(200);
+                $("#childfour_dr").find('ul').hide(200);
+                $("#childfive_dr").find('ul').hide(200);
+                $("#childsix_dr").find('ul').hide(200);
+                $("#childeight_dr").find('ul').hide(200);
+                $("#childnine_dr").find('ul').hide(200);
+                $("#childten_dr").find('ul').hide(200);
+                $("#childeleven_dr").find('ul').hide(200);
+                $("#referencemenu_dr").animate({width: 'toggle'},150);
+                },
+                
+                  /*
+                * NEW THEME-Function for uploadmedia (dropdown menu)
+                * (childmenu from tutorial)
+                */
+            tutorialMenuList:function(eventName){
+                eventName.preventDefault();
+                $("#childone_dr").find('ul').hide(200);
+                $("#childtwo_dr").find('ul').hide(200);
+                $("#childthree_dr").find('ul').hide(200);
+                $("#childfour_dr").find('ul').hide(200);
+                $("#childfive_dr").find('ul').hide(200);
+                $("#childsix_dr").find('ul').hide(200);
+                $("#childseven_dr").find('ul').hide(200);
+                $("#childnine_dr").find('ul').hide(200);
+                $("#childten_dr").find('ul').hide(200);
+                $("#childeleven_dr").find('ul').hide(200);
+                $("#tutorialmenu_dr").animate({width: 'toggle'},150);
+                },
+                
+                /*
+                * NEW THEME-Function for uploadmedia (dropdown menu)
+                * (childmenu from 'EdTech tool')
+                */
+            edtechMenuList:function(eventName){
+                eventName.preventDefault();
+                $("#childone_dr").find('ul').hide(200);
+                $("#childtwo_dr").find('ul').hide(200);
+                $("#childthree_dr").find('ul').hide(200);
+                $("#childfour_dr").find('ul').hide(200);
+                $("#childfive_dr").find('ul').hide(200);
+                $("#childsix_dr").find('ul').hide(200);
+                $("#childseven_dr").find('ul').hide(200);
+                $("#childeight_dr").find('ul').hide(200);
+                $("#childten_dr").find('ul').hide(200);
+                $("#childeleven_dr").find('ul').hide(200);
+                $("#edtechmenu_dr").animate({width: 'toggle'},150);
+                },
+                
+                /*
+                * NEW THEME-Function for uploadmedia (dropdown menu)
+                * (childmenu from 'Amusement')
+                */
+            amusementMenuList:function(eventName){
+                eventName.preventDefault();
+                $("#childone_dr").find('ul').hide(200);
+                $("#childtwo_dr").find('ul').hide(200);
+                $("#childthree_dr").find('ul').hide(200);
+                $("#childfour_dr").find('ul').hide(200);
+                $("#childfive_dr").find('ul').hide(200);
+                $("#childsix_dr").find('ul').hide(200);
+                $("#childseven_dr").find('ul').hide(200);
+                $("#childeight_dr").find('ul').hide(200);
+                $("#childnine_dr").find('ul').hide(200);
+                $("#childeleven_dr").find('ul').hide(200);
+                $("#amusementmenu_dr").animate({width: 'toggle'},150);
+                },
         
                 /*
                 * NEW THEME-Function for uploadmedia (dropdown menu)
@@ -857,7 +1020,7 @@ BS.FilesMediaView = Backbone.View.extend({
                     optioncontent+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
                     i++;
                         });                      	  
-                    $('.doc-class-list-computer').html(optioncontent); 
+                    $('#doc-class-list-computer').html(optioncontent); 
                     }		  
                 });          
                 },
@@ -885,7 +1048,8 @@ BS.FilesMediaView = Backbone.View.extend({
                     _.each(options, function(option) {
                     optioncontent+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
                     i++;
-                    });                     	  
+                    });                     
+                    console.log(optioncontent);
                     $('.doc-class-list-computer').html(optioncontent); 
                     }										  
                     });         
@@ -923,7 +1087,7 @@ BS.FilesMediaView = Backbone.View.extend({
                     content+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
                     i++;
                     });
-                    $('.doc-class-list').html(content); 
+                    $('#doc-class-list').html(content); 
                     }		  
                 });
                 },
@@ -1036,16 +1200,22 @@ BS.FilesMediaView = Backbone.View.extend({
     
                 /*
                 * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (childmenu from presentation)
+                * (childmenu from public)
                 *
                 */
-            presentationMenuList:function(eventName){
+            publicMenuList:function(eventName){
                 eventName.preventDefault();
                 $("#childone_dr").find('ul').hide(200);
                 $("#childtwo_dr").find('ul').hide(200);
-                $("#childfour_dr").find('ul').hide(200);
                 $("#childthree_dr").find('ul').hide(200);
-                $("#presentationmenu_dr").animate({width: 'toggle'},150);
+                $("#childfour_dr").find('ul').hide(200);
+                $("#childfive_dr").find('ul').hide(200);
+                $("#childsix_dr").find('ul').hide(200);
+                $("#childseven_dr").find('ul').hide(200);
+                $("#childeight_dr").find('ul').hide(200);
+                $("#childnine_dr").find('ul').hide(200);
+                $("#childten_dr").find('ul').hide(200);
+                $("#publicmenu_dr").animate({width: 'toggle'},150);
                 },
         
                 /*
@@ -1103,7 +1273,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 var self = this;
                 var status = true;
                 var message ='';
-                var streamId = $(".doc-class-list-computer").val();
+                var streamId = $("#doc-class-list-computer").val();
                 
                 //get message access private ? / public ?
                 var docAccess;
