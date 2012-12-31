@@ -2352,6 +2352,7 @@ ul.discussion-info li:nth-child(2n) {
 		width:100%;
 		display:block;
 		overflow:hidden;
+		float: left;
 }
 
 .comment-nofication h6 {

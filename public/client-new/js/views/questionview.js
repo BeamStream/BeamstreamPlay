@@ -50,6 +50,7 @@
 			this.source = $("#tpl-questions-middle-contents").html();
 			this.template = Handlebars.compile(this.source);
 			
+//			this.setupPushConnection();
 			BS.questionSortedType = '';
 			BS.pagenum = 1;
 			BS.pageForVotes = 1;
@@ -648,6 +649,13 @@
 		            	 $('.embed-info').css("display","none");
 		            	 BS.options = 0;
 		            	 
+		            	 /* PUBNUB -- AUTO AJAX PUSH */ 
+//			    		 var streamId =  $('.sortable li.active').attr('id');
+//                         PUBNUB.publish({
+//                        	 channel : "question",
+//		                         message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,prifileImage : BS.profileImageUrl}
+//                         }) 
+		            	 
 		            	 //check whether the question owner is logged user or not
 		            	 var owner = "";
      					 if(data.question.userId.id == BS.loggedUserId)
@@ -801,10 +809,10 @@
 		            		 });
 		            		 
 		            		 /* creating pie charts */ 
-//		            		 var values = [10,15,23];
-//		            			
-//		            		 donut[data.question.id.id] = new Donut(new Raphael(""+data.question.id.id+"-piechart", 200,200));
-//		                	 donut[data.question.id.id].create(100, 100, 44, 55,100, values);
+		            		 var values = [10,15,23];
+		            			
+		            		 donut[data.question.id.id] = new Donut(new Raphael(""+data.question.id.id+"-piechart", 200,200));
+		                	 donut[data.question.id.id].create(100, 100, 44, 55,100, values);
 		            		 
 		            	 }
 		            	 
@@ -1785,5 +1793,268 @@
                 }
             });
         },
+        
+        
+        /**
+ 	    * NEW THEME - PUBNUB real time push
+ 	    */
+ 		 setupPushConnection: function() {
+ 			 var self = this;
+ 			 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
+ 			 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+ 			 var trueurl='';
+ 			
+ 			 /* for message posting */
+ 			 PUBNUB.subscribe({
+ 				 channel : "question",
+ 				 restore : false,
+ 				 callback : function(message) {
+ 	
+ 					 var streamId = $('.sortable li.active').attr('id');
+ 					 if (message.pagePushUid != self.pagePushUid)
+ 					 { 
+ 						 if(message.streamId==streamId)
+ 			       		 	{
+ 							 	if(!document.getElementById(message.data.id.id))
+ 							 	{	
+ 							 		 var messageType = '';
+ 							 		 var msgBody = message.data.messageBody;
+ 		                             var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
+ 		                            	 trueurl= msgUrlw;                                                                  
+ 		                            	 return msgUrlw;
+ 		                             });
+ 		                             
+ 		                             //to get the extension of the uploaded file
+ 		                             var extension = (trueurl).match(pattern);  
+ 		                             
+ 		                             //to check whether the url is a google doc url or not
+ 		                             if(message.data.messageType.name == "Text")                          
+ 		                             {	
+ 		                            	 if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) 
+ 		                                 {   
+ 		                            		 messageType = "googleDocs";
+
+ 		                                 }
+ 		                            	 else
+ 		                            	 {    
+ 		                            		 messageType = "messageOnly";
+ 		                            		 var linkTag =  msgBody.replace(BS.urlRegex1, function(url) {
+ 		                            			 return '<a target="_blank" href="' + url + '">' + url + '</a>';
+ 		                            		 });
+ 		 	                                             
+ 		                            	 }
+ 		                             }                                                      
+ 		                             else
+ 		                             {         
+ 		                                 // url has extension then set first letter of extension in capital letter  
+ 		   	   		                	 extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+ 		   	   		                		 return letter.toUpperCase();
+ 		   	   		                	 });
+
+ 		                    		 }
+ 		                             var datVal =  formatDateVal(message.data.timeCreated);
+ 		                             var datas = {
+ 		                            		 "datas" : message.data,
+ 		                            		 "datVal":datVal
+ 		                             }	
+ 		                              
+ 		                             // set a format style to date
+ 		                             BS.filesMediaView = new BS.FilesMediaView(); 
+ 		                             
+ 		    			                    
+ 		                             // if message conatains googledoc url
+ 		                             if(messageType == "googleDocs")
+ 		 							 {
+ 		                            	 
+ 		                            	 var datas = {
+ 		                            			 "datas" : message.data,
+ 		                            			 "datVal" :datVal,
+ 		                            			 "previewImage" : "images/google_docs_image.png",
+ 		                            			 "type" : "googleDoc"
+ 			 							 }	
+ 		 								 var source = $("#tpl-messages_with_docs").html();
+ 		 	         		  						
+ 		     						 }
+ 		                             // if message conatains messages only without any uploaded files
+ 		 							 else if(messageType == "messageOnly")
+ 		 							 {
+ 		 								 var source = $("#tpl-discussion-messages").html();
+ 		     						 }
+ 		                             // if message conatains  uploaded files
+ 		 							 else
+ 		 							 {
+ 		 								 if(message.data.messageType.name == "Image")
+ 		 								 {
+ 		 									  
+ 		 									 var source = $("#tpl-messages_with_images").html();
+ 		 								 }
+ 		 								 else if(message.data.messageType.name == "Video")
+ 		 								 {
+ 		 									 var source = $("#tpl-messages_with_images").html();
+ 		 								 }
+ 		 								 else
+ 		 								 {
+ 		 									 var previewImage = '';
+ 		 									 var commenImage ="";
+ 		 									 var type = "";
+ 		     								 
+ 		 									 /* check its extensions and set corresponding preview icon images */
+ 		 									 if(extension == 'Ppt')
+ 		 									 {
+ 		 										 previewImage= "images/presentations_image.png";
+ 		 										 type = "ppt";
+ 		 									 }
+ 		 									 else if(extension == 'Doc')
+ 		 									 {
+ 		 										 previewImage= "images/docs_image.png";
+ 		 										 type = "doc";
+ 		 									 }
+ 		 									 else if(extension == 'Pdf')
+ 		 									 {
+ 		 										 previewImage= message.data.anyPreviewImageUrl;
+ 		 										 type = "pdf";
+ 		 									 }
+ 		 									 else
+ 		 									 {
+ 		 										 previewImage= "images/textimage.png";
+ 		 										 commenImage = "true";
+ 		 										 type = "doc";
+ 										 	 }
+ 		     									
+ 		 									
+ 		 									 var datas = {
+ 		 											 "datas" : message.data,
+ 		 											 "datVal" :datVal,
+ 		 											 "previewImage" :previewImage,
+ 		 											 "extension" : extension,
+ 		 											 "commenImage" : commenImage,
+ 		 											 "type" : type
+ 								        	 }	
+ 		     								
+ 		 								     var source = $("#tpl-messages_with_docs").html();
+ 		     		  						 
+ 										 }
+ 		 	         								
+ 		     						 }
+ 		            			                    
+ 		                             var template = Handlebars.compile(source);
+ 		                             $('#all-messages').prepend(template(datas));
+
+ 		                             //get profile image of logged user
+ 		                             $('img#'+message.data.id.id+'-img').attr("src", message.prifileImage);
+ 		                             
+ 		                             /* for video popups */
+ 		                             $("area[rel^='prettyPhoto']").prettyPhoto();
+ 		                             $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
+ 		                             $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
+ 		                 			
+ 		  						
+ 		  							 var url=message.data.messageBody;				
+ 		  							 if(message.data.messageType.name == "Text")
+ 		  							 {  
+ 		  								 
+ 		  								 if(linkTag)
+ 			  								 $('p#'+message.data.id.id+'-id').html(linkTag);
+ 		  								 
+ 		  								 //to check the extension of the url                                            
+ 		                                 if(!url.match(/^(https:\/\/docs.google.com\/)/)) 
+ 		                                 {	
+ 		                                	 // embedly
+ 		                                	 $('p#'+message.data.id.id+'-id').embedly({
+ 		                                		 maxWidth: 200,
+ 		 	                                	 wmode: 'transparent',
+ 		                                		 method: 'after',
+ 		                                		 key:'4d205b6a796b11e1871a4040d3dc5c07'
+ 				  	  					 	 });
+ 		                                 }
+ 		                                 else
+ 		                                 {            
+ 		                                	//insert google doc image for doc url
+ 		                                 }        
+ 		                         	 }                                          
+ 		                             else      //insert value to hidden field
+ 		                             {
+ 		                            	 $('input#'+message.data.id.id+'-url').val(msgUrl);  
+ 		                             }                                           
+ 						 	   }
+ 	       		 		   }
+ 				 	   }
+ 			 
+ 			 	   }
+ 		 	   })
+ 	    
+ 		 	   
+ 	    
+ 		 	   /* auto push functionality for comments */
+ 	    
+ 		 	   PUBNUB.subscribe({
+ 	
+ 		 		   channel : "comment",
+ 		 		   restore : false,
+ 	
+ 		 		   callback : function(message) { 
+ 	    	  
+ 		 			   if(message.pagePushUid != self.pagePushUid)
+ 		 			   {
+ 	    		   
+ 		 				   if(!document.getElementById(message.data.id.id))
+ 		 				   {
+ 		 					   var parent = message.parent;
+ 		 					   var data = message.data;
+ 		 					   var totalComments = message.cmtCount;
+ 		 					   var prifileImage = message.prifileImage;
+ 				    	      
+ 		 					   
+ 		 					   
+ 		 					   var comments = $("#tpl-discussion-messages-comment").html();
+ 		 					   var commentsTemplate = Handlebars.compile(comments);
+ 	   							 
+ 		 					   $('#'+parent+'-allComments').prepend(commentsTemplate(data));
+ 		 					   $('#'+data.id.id+'-image').attr("src" ,message.prifileImage );
+    							 
+ 		 					   if(!$('#'+parent+'-allComments').is(':visible'))
+ 		 					   {  
+ 		 						   var newComments = $("#tpl-discussion-messages-newComment").html();
+ 		 						   var newCmtTemplate = Handlebars.compile(newComments);
+ 		 						   $('#'+parent+'-newCommentList').prepend(newCmtTemplate(data));
+ 		 						   $('#'+data.id.id+'-newCmtImage').attr("src" ,message.prifileImage );
+    								
+ 		 					   }
+ 		 					   $('#'+parent+'-show-hide').text("Hide All");
+ 		 					   $('#'+parent+'-totalComment').text(totalComments);
+
+ 	 				   	   }
+  			   		   }
+  		   		   }
+ 	
+  	   		   })
+ 	    
+ 		       /* for message Rocks */
+  	   		   PUBNUB.subscribe({
+ 		
+  	   			   channel : "msgRock",
+  	   			   restore : false,
+  	   			   callback : function(message) {
+  	   				   if(message.pagePushUid != self.pagePushUid)
+  	   				   {   	  
+  	   					   $('#'+message.msgId+'-msgRockCount').find('span').html(message.data);
+  	   				   }
+ 		   		   }
+ 	   		   })
+ 	    
+ 	   		   /* for Comment Rocks */
+ 	   		   PUBNUB.subscribe({
+ 	
+ 	   			   channel : "commentRock",
+ 	   			   restore : false,
+ 	   			   callback : function(message) {
+ 	   				   if(message.pagePushUid != self.pagePushUid)
+ 	   				   {   	  
+ 	   					   $('#'+message.commentId+'-rockCount').html(message.data);
+// 	   					   $('li#'+message.commentId+'').find('i').find('i').html(message.data);
+ 	   				   }
+ 	   			   }
+ 	   		   })
+  		},
 	  
 	});
