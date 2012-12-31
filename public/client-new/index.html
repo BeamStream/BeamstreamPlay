@@ -1092,7 +1092,7 @@ Create a Class</a>
             <div class="ask-content">
               <div class="follw-left">
                 <div class="small-image">
-                  <div class="ask-img"><img src="images/picture.jpg"></div>
+                  <div class="ask-img"><img id="main-photo" src=""></div>
                 </div>
               </div>
               <div  class="ask-info">
@@ -1308,6 +1308,8 @@ Create a Class</a>
 <!--             </div> -->
 <!--           </div> -->
 <!--         </div> -->
+
+ <div class ="page-loader"><img src ="images/loading-bars.gif"></div> 
 </div>
 </script>  
 
@@ -1319,7 +1321,7 @@ Create a Class</a>
 		<div class="ask-content">
               <div class="follw-left">
                 <div class="small-image">
-                  <div class="ask-img"><img  id="{{data.question.id.id}}-img" src="images/picture.jpg"></div>
+                  <div class="ask-img"><img  id="{{data.question.id.id}}-img" src=""></div>
                   {{#if owner}}
                   {{else}}
                   	<a href="#"  id="{{data.question.userId.id}}" class="follow-button follow-user">follow</a>
@@ -1334,7 +1336,7 @@ Create a Class</a>
                     </ul>
                     <div class="follow-right"><a href="#"  id="{{data.question.id.id}}-follow" class="follow-button follow-question">follow</a></div>
                   </div>
-                  <p>{{data.question.questionBody}}</p>
+                  <p id="{{data.question.id.id}}-id" >{{data.question.questionBody}}</p>
                   <div id="{{data.question.id.id}}-poll-Option-area">
  
                   </div>
@@ -1344,8 +1346,9 @@ Create a Class</a>
                       <li><a href="#"> Answer</a></li>
                       <li><a href="#" class="add-comment" > Comment</a></li>
                       <li ><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+  					 <a id=" " href="#" class="delete_msg"></a> 
                     </ul>
-                    <a id=" " href="#" class="delete_msg"></a> 
+                   
                     </div>
                     <div id="{{data.question.id.id}}-addComments" class="follow-comment" style="display:none;">
 				    <textarea id="{{data.question.id.id}}-questionComment" class="add-question-comment add-question-comment" placeholder="Add Comments.."  onblur="this.placeholder = 'Add Comments..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
@@ -3709,121 +3712,85 @@ Create a Class</a>
 	
 	<!-- for pie charts  -->
 	<script>
-// $('document').ready(function() {
 	function Donut(paper) {
-	    this.paper = paper;
-	    this.chart = paper.set();
-	    
-	    this.pathdefs = [];
-	    
-	    this.originAngle = -90;
-	    this.startAngle = this.originAngle;
-	
-	    this.total = 0;
-	    this.speed = 350;
-	    
-	    this.rad = Math.PI / 180;
-	    
-	    this.selected = null;
-	    
-	    // for animating properties of a path
-	    this.paper.customAttributes.segment = function(cx, cy, innerRadius, outerRadius, startAngle, endAngle) {
-	        
-	        var ox1 = cx + outerRadius * Math.cos(startAngle * rad),
-	            ox2 = cx + outerRadius * Math.cos(endAngle * rad),
-	            oy1 = cy + outerRadius * Math.sin(startAngle * rad),
-	            oy2 = cy + outerRadius * Math.sin(endAngle * rad),
-	        
-	            ix1 = cx + innerRadius * Math.cos(startAngle * rad),
-	            ix2 = cx + innerRadius * Math.cos(endAngle * rad),
-	            iy1 = cy + innerRadius * Math.sin(startAngle * rad),
-	            iy2 = cy + innerRadius * Math.sin(endAngle * rad);
-	        
-	        return { path:[   ["M", ix1, iy1],
-	                          ["L", ox1, oy1],
-	                          ["A", outerRadius, outerRadius, 0, +(endAngle - startAngle > 180), 1, ox2, oy2],                            
-	                          ["L", ix2, iy2],
-	                          ["A", innerRadius, innerRadius, 0, +(endAngle - startAngle > 180), 0, ix1, iy1],    
-	                          ["z"] ],
-	                }
-	    }
+		 this.paper = paper,
+	     this.rad = Math.PI / 180,
+	     this.chart = paper.set();
+	 this.sector = function(cx, cy, r, r2, startAngle, endAngle, params) {
+	     //console.log(params.fill);
+	     var x1 = cx + r * Math.cos(-startAngle * this.rad),
+	         x2 = cx + r * Math.cos(-endAngle * this.rad),
+	         y1 = cy + r * Math.sin(-startAngle * this.rad),
+	         y2 = cy + r * Math.sin(-endAngle * this.rad),
+	         xx1 = cx + r2 * Math.cos(-startAngle * this.rad),
+	         xx2 = cx + r2 * Math.cos(-endAngle * this.rad),
+	         yy1 = cy + r2 * Math.sin(-startAngle * this.rad),
+	         yy2 = cy + r2 * Math.sin(-endAngle * this.rad);
+	     
+	     
+	     return paper.path(["M", xx1, yy1,
+	                        "L", x1, y1,
+	                        "A", r, r, 0, +(endAngle - startAngle > 180), 0, x2, y2,
+	                        "L", xx2, yy2,
+	                        "A", this.rin, this.rin, 0, +(endAngle - startAngle > 180), 1, xx1, yy1, "z"]
+	                      ).attr(params);
+	     
+	 }
 	}
-	
+
+
 	Donut.prototype = {
-	    
-	    create : function (cx, cy, ir, or, data, labels, stroke) {
-	        
-	        this.cx = cx;
-	        this.cy = cy;
-	        this.ir = ir;
-	        this.or = or;
-	        
-	        this.data = data;
-	        this.labels = labels;
-	        
-	        var len = data.length;
-	        var i = 0;
-	        this.total = 0;
-	        while ( i < len ) {
-	            this.total += this.data[i++].value;
-	        }
-	        
-	        i = 0;
-	        while (i < len) {
-	            this._createSlice(i++);
-	        }
-	        
-	    },
-	        
-
-	                          
-	    _createSlice : function  (index) {
-	    	 
-	        var value = this.data[index].value,
-	            angle = 360 * value / this.total;
-// 	            colorGrade = (index+2) * 10;
-// 	        console.log("colorGrade" + colorGrade);
-	        var colorGrade ;
-	        if(index == 0)
-	        {
-	        	colorGrade = '#4C9351' //green
-	        	
-	        }
-	        else if(index == 1)
-	        {
-	        	colorGrade = '#DDAE23'; // bule
-	        }
-	        else if(index == 2)
-	        {
-	        	colorGrade = '#5299BD' // black
-	        }
-	            halfangle = this.startAngle + (angle / 2),
-	            delta = 30
-	                
-	            
-	            var attributes = {  segment:[this.cx, this.cy, this.ir, this.or, this.startAngle, this.startAngle + angle],
-	            		fill:colorGrade, 
-// 						fill:'rgba('0','255','240','+colorGrade/100+')', 
-	                                stroke:null,
-	                              };
-	           
-	            var p = this.paper.path().attr(attributes);
-	
-	            p.cx = this.cx;
-	            p.cy = this.cy;
-	            p.ir = this.ir;
-	            p.or = this.or;
-	            p.startAngle = this.startAngle;
-	            p.angle = angle;
-
-	
-	            this.startAngle += angle;
-	    },
-	}
-	 
-	var rad = Math.PI / 180;
-    var donut = [];          
-
+		    
+		    create : function (cx, cy, r, rin, rout, values, labels, stroke) {
+		 
+		        this.cx = cx;
+		        this.cy = cy;
+		        this.r = r;
+		        this.rin = rin;
+		        this.rout = rout;
+		        
+		        this.angle=0;
+		        this.start = 0
+		        
+		        this.values = values;
+		        this.labels = labels;
+		        this.stroke = stroke;
+		        
+		        var len = values.length;
+		        var i = 0;
+		        this.total = 0;
+		        
+		        for (var i = 0; i < len; i++) {
+		        	this.total += this.values[i];
+		        }
+		        
+		        i = 0;
+		        while (i < len) {
+		            this._createSlice(i++);
+		        }
+		        
+		    },
+		    
+		    
+		    _createSlice : function  (j) {
+		    	  
+		    	var value = this.values[j],
+	            angleplus = 360 * value / this.total,
+	            popangle = this.angle + (angleplus / 2),
+	            color = Raphael.hsb(this.start, .75, 1),
+	            ms = 500,
+	            delta = 30,
+	            bcolor = Raphael.hsb(this.start, 1, 1),
+	            p = this.sector(this.cx, this.cy, this.r, this.rin,this.angle, this.angle + angleplus, {fill: "90-" + bcolor + "-" + color, stroke: this.stroke, "stroke-width": 1}),
+	            bigp = this.sector(this.cx, this.cy, this.rout, this.rin, this.angle, this.angle + angleplus, {fill: "90-" + bcolor + "-" + color, stroke: this.stroke, "stroke-width": 1}).hide(),
+	            txt = this.paper.text(this.cx + (this.r + delta + 10) * Math.cos(-popangle * this.rad), this.cy + (this.r + delta +1) * Math.sin(-popangle * this.rad),this.values[j]+'%').attr({fill: bcolor, stroke: "none", opacity: 1, "font-size": 14 , "font-weight":"bold"});
+		    	this.angle += angleplus;
+		    	this.chart.push(p);
+		    	this.chart.push(txt);
+	            this.start += .1;
+		    },
+		}
+    var donut =[];
 </script>
 	<!-- ----------End  extra scripts  here---------------->
 	
