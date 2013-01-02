@@ -60,7 +60,7 @@ BS.FilesMediaView = Backbone.View.extend({
                
                 "click #presvialink_dr":"presentationVialink",
                 "click #press_uploadbutton":"presentationUpload",
-                "click #docfrmcomputer_uploadbutton": "saveMyFile",
+                "click .docfrmcomputer_uploadbutton": "saveMyFile",
                 'change #doc-from-computer' :'displayImage',
                 'click #docfrmcomputer_closePopup': "hidePopUpBlock",    
                 //"click #select_dr":"selectboxdwn",
