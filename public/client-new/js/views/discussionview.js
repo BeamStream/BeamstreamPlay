@@ -17,7 +17,8 @@
      */
 	BS.DiscussionView = Backbone.View.extend({
 	
-		events : {
+		events : {	
+
 			
 			 "click #post-button" : "postMessage",
 			 "click .follow-message" : "followMessage",
@@ -559,6 +560,7 @@
                         var template = Handlebars.compile(source);
                         $('#all-messages').prepend(template(datas));
                         $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
+                        $('.drag-rectangle').tooltip();	
 //                        $('input#'+data.id.id+'-url').val(msgUrl); 
 	                      	 
                       	/* for video popups */
@@ -811,6 +813,7 @@
             			                    
                              var template = Handlebars.compile(source);
                              $('#all-messages').prepend(template(datas));
+                             $('.drag-rectangle').tooltip();	
 
                              //get profile image of logged user
                              $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);

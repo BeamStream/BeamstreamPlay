@@ -145,6 +145,7 @@
 							 
 							 streams+='<li id ="'+data.id.id+'" name="'+data.streamName+'" ><a  id ="'+data.id.id+'" name ="'+data.streamName+'"  href="#" class="icon1">'+data.streamName+'</a>'
 			                        +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>'
+//			                        +'<span class="menu-count"> 10</span>'
 			                        +'<span class="close-btn drag-rectangle" data-original-title="Delete"><img  src="images/close.png"></span>'
 			                        +'</li>';
 							 

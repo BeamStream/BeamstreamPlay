@@ -256,6 +256,7 @@ Create a Class</a>
                 <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class="caret settings-caret"></span></button>
                 <ul class="dropdown-menu">
                   <li id="edit-profile" ><a href="#">Edit Profile</a></li>
+ 				 <li id="sign-out" ><a href="#">Sign Out</a></li>
                   
                 </ul>
               </div>
@@ -607,7 +608,7 @@ Create a Class</a>
                   <div id="{{datas.id.id}}-addComments" class="follow-comment">
 					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'" ></textarea>
 				 </div>
-				 <a id="{{datas.id.id}}" href="#" class="delete_post" ></a>
+				 <a id="{{datas.id.id}}" href="#" data-original-title="Delete" href="#" class="delete_post drag-rectangle" ></a>
                 </div>
                 <div class="answer-info">
                   <div class="answer-conatiner">
@@ -717,8 +718,8 @@ Create a Class</a>
                   </div>
                   <div id="{{datas.id.id}}-addComments" class="follow-comment">
 				     <textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.."  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'"></textarea>
-				   </div>
-                <a id="{{datas.id.id}}" href="#" class="delete_post" ></a>
+				   </div>   
+                <a id="{{datas.id.id}}" data-original-title="Delete" href="#" class="delete_post drag-rectangle" ></a>
                 </div>
                 <div class="answer-info">
                   <div class="answer-conatiner">
@@ -830,7 +831,7 @@ Create a Class</a>
                   <div id="{{datas.id.id}}-addComments" class="follow-comment">
 					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'" ></textarea>
 				 </div>
-				 <a id="{{datas.id.id}}" href="#" class="delete_post" ></a>
+				 <a id="{{datas.id.id}}" href="#" data-original-title="Delete" href="#" class="delete_post drag-rectangle"></a>
                 </div>
                 <div class="answer-info">
                   <div class="answer-conatiner">
@@ -1357,14 +1358,14 @@ Create a Class</a>
                       <li><a href="#"> Answer</a></li>
                       <li><a href="#" class="add-comment" > Comment</a></li>
                       <li ><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
-  					 <a id=" " href="#" class="delete_msg"></a> 
+  					 <a id=" " href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a> 
                     </ul>
                    
                     </div>
                     <div id="{{data.question.id.id}}-addComments" class="follow-comment" style="display:none;">
 				    <textarea id="{{data.question.id.id}}-questionComment" class="add-question-comment add-question-comment" placeholder="Add Comments.."  onblur="this.placeholder = 'Add Comments..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
 				</div>
-				<a id="{{data.question.id.id}}" href="#" class="delete_post" ></a>
+				<a id="{{data.question.id.id}}" href="#" data-original-title="Delete" class="delete_post drag-rectangle" ></a>
                 </div>
 
                 <div class="answer-info">

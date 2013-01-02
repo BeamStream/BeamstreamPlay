@@ -1849,7 +1849,7 @@
         	 var source = $("#tpl-questions_with_polls").html();
         	 var template = Handlebars.compile(source);
         	 $('#all-questions').prepend(template({data:data,owner: owner ,rocks:data.question.rockers.length}));
-        	 
+        	 $('.drag-rectangle').tooltip();	
         	 var pollCount = data.polls.length;
         	 
         	 //render each poll options and its polling percentage

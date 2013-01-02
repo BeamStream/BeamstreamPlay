@@ -23,7 +23,8 @@
 	//   	 "click #class-pop" : "renderClassPopups",
 	//   	 "click #sign-out" : "signOut",
 	   	 "click nav li" : "showActiveClass",
-	   	 "click #edit-profile":"editProfile"
+	   	 "click #edit-profile":"editProfile",
+	   	"click #sign-out":"signOut"
 	//   	 "click #settings" : "renderSettings"
 	     
 	   },
@@ -146,8 +147,8 @@
 						 BS.user.set('loggedin', false);
 					 
 						 
-						 $('#middle-content').children().detach();
-						 BS.AppRouter.navigate("login", {trigger: true});
+//						 $('#middle-content').children().detach();
+//						 BS.AppRouter.navigate("login", {trigger: true});
 					}
 			 });
 		 },
