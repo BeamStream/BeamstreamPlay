@@ -60,7 +60,8 @@
 			 "mouseover .photo-popup": "showCursorMessage",
 			 "mouseout  .photo-popup": "hideCursorMessage",
 			 "click .dropdown-menu input":"addCategory",
-			 "click .follow-user" : "followUser"
+			 "click .follow-user" : "followUser",
+			 "click .delete_post" : "deleteMessage",
 			 
 			 
 
@@ -351,6 +352,15 @@
 				    			}
 				    		});
 
+//							 var preview = {
+//					        	        submit : function(e, data){
+//					        	        	
+//					        	          e.preventDefault();
+//					        	          console.log(data);
+//					        	          this.display.create(data);
+//					        	          
+//					        	        }
+//			        	      }
 							$('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 						          
 				        }
@@ -668,19 +678,7 @@
             		 /* if status is failure (not join a class or school) then show a dialog box */      
    				     if(data.status == "Failure")
    				     {
-   				    	 alert("You need to add a stream first.");
-//						 var alert = '<div id="dialog" title="Message !">You need to add a stream first.</br><a  onClick="closeAlert();" class="alert-msg " href="#create_stream"> Create Stream</a></div>';
-//						 $('#alert-popup').html(alert);
-//						 
-//						 $( "#dialog" ).dialog({
-//							 autoOpen: false ,
-//							 modal: true,
-//		  					 draggable: false,
-//		  				     resizable: false
-//						 });
-//						 
-//						 $( "#dialog" ).dialog('open');
-//						 $( "#dialog" ).dialog({ height: 100 });
+   				    	 bootbox.alert("You need to add a stream first.");
    					
 			         }
    				     else
@@ -1148,6 +1146,7 @@
                 	 
                 	// display the count in icon
                 	$('#'+commentId+'-rockCount').html(data);
+                	$('#'+commentId+'-mrockCount').html(data);
                 	
                 	/*auto push */
     				var streamId = $('.sortable li.active').attr('id');
@@ -2204,12 +2203,67 @@
 	   				   if(message.pagePushUid != self.pagePushUid)
 	   				   {   	  
 	   					   $('#'+message.commentId+'-rockCount').html(message.data);
-//	   					   $('li#'+message.commentId+'').find('i').find('i').html(message.data);
+	   					   $('#'+message.commentId+'-mrockCount').html(message.data);
 	   				   }
 	   			   }
 	   		   })
  		},
 		
 	 
+ 		/**
+ 	    * delete a message
+	    */
+ 		deleteMessage :function(eventName){
+ 			 eventName.preventDefault();
+ 			 var messageId = eventName.target.id;
+ 			 var ownerId = $('div#'+messageId).attr('name');
+ 			 
+ 			 if(localStorage["loggedUserInfo"] == ownerId)
+ 			 {
+	 			 bootbox.dialog("Are you sure you want to delete this message?", [{
+	
+	 				"label" : "DELETE",
+	 				"class" : "btn-primary",
+	 				"callback": function() {
+	 					
+	 					 // delete particular message
+			    		 $.ajax({
+			                 type: 'POST',
+			                 url: BS.deleteMessage,
+			                 data:{
+			                	  messageId :messageId
+			                 },
+			                 dataType:"json",
+			                 success:function(data){
+			                	 if(data.status == "Success")
+			                	 {
+			                		 
+			                		 $('div#'+messageId).remove();
+						    		  
+			                	 }
+			                	 else
+			                	 {
+			                		 bootbox.alert("You're Not Authorised To Delete This Message");
+			                	 }
+			                	 
+			                 }
+			              });
+	 				}
+	
+	 			 }, 
+	 			 {
+				 	"label" : "CANCEL",
+				 	"class" : "btn-primary",
+	 				"callback": function() {
+	 					console.log("ok");
+	 				}
+	 			 }]);
+ 			 }
+ 			 else
+ 			 {
+ 				bootbox.alert("You're Not Authorised To Delete This Message");
+ 			 }
+ 			 
+ 		 },
 	  
 	});

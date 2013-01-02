@@ -29,6 +29,7 @@
 //			 "mouseenter #show-stream-types" : "showStreamTypesPopup",
 //			 "mouseleave #show-stream-types" : "hideStreamTypesPopup",
 			 "click #classstream" :"ShowClassStreamPopup",
+			 
 
 		 },
 		 
