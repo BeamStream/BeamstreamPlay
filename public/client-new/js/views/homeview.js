@@ -145,7 +145,7 @@
 						 localStorage["regInfo"] = '';
 						 
 						 BS.user.set('loggedin', false);
-					 
+						 bootbox.alert("Sign out  : Success");
 						 
 //						 $('#middle-content').children().detach();
 //						 BS.AppRouter.navigate("login", {trigger: true});
