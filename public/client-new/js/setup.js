@@ -161,6 +161,7 @@ BS.rockQuestion =BS.URLRequired+"/rockQuestion";
 BS.followQuestion =BS.URLRequired+"/followQuestion";
 BS.giveMeRockersOfQuestion =BS.URLRequired+"/giveMeRockersOfQuestion";
 BS.getAllQuestionsOfAStream =BS.URLRequired+"/getAllQuestionForAStream";
+BS.deleteQuestion =BS.URLRequired+"/deleteQuestion";
 
  
 

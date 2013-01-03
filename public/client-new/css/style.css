@@ -866,6 +866,8 @@ ul.stream-tab li a span {
 		clear: both;
 		display: block;
 		margin:10px 0 0 0;
+		
+		position:relative;
 }
 .ask-content {
 		display: block;
@@ -3624,6 +3626,29 @@ svg{
         background:url("../images/inner_shadow.jpg") repeat-x !important;
         height:25px !important;
      
+}
+
+
+/** for delete mes/question button : Added By Aswathy*/
+.delete_post{
+ 	background-image: url("../images/close1.png");
+    display: none;
+    height: 15px;
+    position: absolute;
+    right: 1px;
+    top: 2px;
+    width: 15px;
+}
+.delete_post:hover{
+	background-image: url("../images/close_hover.png");
+}
+div.ask-comment:hover .delete_post{
+	display:block;
+}
+.bootbox{
+	margin-left: -170px !important;
+	width: auto !important;
+	top:75% !important;
 }
 
 

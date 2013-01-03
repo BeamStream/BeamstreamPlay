@@ -402,7 +402,7 @@ BS.FilesMediaView = Backbone.View.extend({
                         {
                         _.each(images, function(image) {                            		
                         var datVal = formatDateVal(image.dateCreated);  
-                        picContent='<li  data-groups="["recent"]" data-date-created="'+image.dateCreated+'" class="item" >'
+                        picContent='<li   data-rock="'+image.rocks+'" data-date-created="'+image.dateCreated+'" class="item" >'
                             +'<div class="image-wrapper hovereffect"  id="'+image.id.id+'"><div class="hover-div">'
                             +'<img class="filmedia-picture" src="'+image.mediaUrl+'">'
                             +'<div class="hover-text">'
@@ -482,7 +482,7 @@ BS.FilesMediaView = Backbone.View.extend({
                     coverpicture=arraypictures[arraypictures.length-1];                               
                     _.each(videos, function(video) {
                     var datVal = formatDateVal(video.dateCreated);   
-                    videoContent= '<li data-groups="["oldest"]" data-date-created="'+video.dateCreated+'" class="item" >'
+                    videoContent= '<li data-rock="'+video.rocks+'" data-date-created="'+video.dateCreated+'" class="item" >'
                         +'<div class="image-wrapper hovereffect">'
                         +' <div class="hover-div"><img class="filmedia-picture" src="'+video.frameURL+'">'
                         +'<div class="hover-text">'               

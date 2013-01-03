@@ -23,7 +23,8 @@
 	//   	 "click #class-pop" : "renderClassPopups",
 	//   	 "click #sign-out" : "signOut",
 	   	 "click nav li" : "showActiveClass",
-	   	 "click #edit-profile":"editProfile"
+	   	 "click #edit-profile":"editProfile",
+	   	"click #sign-out":"signOut"
 	//   	 "click #settings" : "renderSettings"
 	     
 	   },
@@ -144,10 +145,10 @@
 						 localStorage["regInfo"] = '';
 						 
 						 BS.user.set('loggedin', false);
-					 
+						 bootbox.alert("Sign out  : Success");
 						 
-						 $('#middle-content').children().detach();
-						 BS.AppRouter.navigate("login", {trigger: true});
+//						 $('#middle-content').children().detach();
+//						 BS.AppRouter.navigate("login", {trigger: true});
 					}
 			 });
 		 },
