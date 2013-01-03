@@ -898,6 +898,10 @@
 		                                
 						BS.filesMediaView.render();
 						$('#body-content').html(BS.filesMediaView.el);
+                                                
+                                                BS.uploadmediaview =new BS.UploadmediaView({});
+                                                BS.uploadmediaview.render();
+                                                $('#upload_media').html(BS.uploadmediaview.el);
 						
 						self.getAllClasses();
 						
@@ -1079,6 +1083,7 @@
   					if(e.get('loggedin') == true) {  
   						
 	                   $('#body-content').children().detach();
+                            $('#upload_media').children().detach();
 						   //get main menu
 						   this.navView = new BS.NavView({ model: BS.user });
 						   this.navView.showProfilePic();
@@ -1089,6 +1094,10 @@
 	                   BS.imagelistview = new BS.ImageListView({})
 	                   BS.imagelistview.render();  
 	                   $('#body-content').html(BS.imagelistview.el); 
+                            BS.uploadmediaview =new BS.UploadmediaView({});
+                            BS.uploadmediaview.render();
+                            $('#upload_media').html(BS.uploadmediaview.el);
+                           
 	                   self.getAllClasses();
 	                   
 	//                   $('.file-type').hide();   //to hide the filetype menu

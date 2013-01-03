@@ -27,42 +27,47 @@ BS.FilesMediaView = Backbone.View.extend({
                 //"click .audiotitle" : "editAudioTitle",
                 "click .pdftitle" : "editPdfTitle",
                 "click .presentationtitle" : "editPresentationTitle",
-                "mouseenter #uploadmedia_dr":"uploadMediadwn",
-                "mouseleave #dropdownnew":"uploadMediaup",
-                    "click #classdoc_dr":"classdocMenuList",
-                    "click .classdocument_mycomp":"classdocFileForm",
-                    "click .vialink_dr":"vialinkMenu",
-                    "click #vialink_uploadbutton":"vialinkUpload",
-                     "click .googledocs_dr":"googleDocs",
-                     "click #assignment_dr":"assignmentMenuList", 
-                     "click .importfrmlink_dr": "importFromLink",
-                     "click #homework_dr":"homeMenuList",
-                     "click #notes_dr":"notesMenuList",
-                     "click #projects_dr":"projectsMenuList",
-                     "click #lecture_dr":"lectureMenuList",
-                     "click #reference_dr":"referenceMenuList",
-                     "click #tutorial_dr":"tutorialMenuList",
-                     "click #edtech_dr":"edtechMenuList",
-                     "click #amusement_dr":"amusementMenuList",
-                     "click #public_dr":"publicMenuList",
-                "click #links_dr":"linksMenuList",
-                "click #links_uploadbutton":"linkupload",  
-                "click #googledocs_mycomp":"showFileForm",
+                
+                
+//                "mouseenter #uploadmedia_dr":"uploadMediadwn",
+//                "mouseleave #dropdownnew":"uploadMediaup",
+//                    "click #classdoc_dr":"classdocMenuList",
+//                    "click .classdocument_mycomp":"classdocFileForm",
+//                    "click .vialink_dr":"vialinkMenu",
+//                    "click #vialink_uploadbutton":"vialinkUpload",
+//                     "click .googledocs_dr":"googleDocs",
+//                     "click #assignment_dr":"assignmentMenuList", 
+//                     "click .importfrmlink_dr": "importFromLink",
+//                     "click #homework_dr":"homeMenuList",
+//                     "click #notes_dr":"notesMenuList",
+//                     "click #projects_dr":"projectsMenuList",
+//                     "click #lecture_dr":"lectureMenuList",
+//                     "click #reference_dr":"referenceMenuList",
+//                     "click #tutorial_dr":"tutorialMenuList",
+//                     "click #edtech_dr":"edtechMenuList",
+//                     "click #amusement_dr":"amusementMenuList",
+//                     "click #public_dr":"publicMenuList",
+//                "click #links_dr":"linksMenuList",
+//                "click #links_uploadbutton":"linkupload",  
+//                "click #googledocs_mycomp":"showFileForm",
                          
                
                                 
                
                
                 
-                "click #audio_dr":"audioMenuList",               
- //               "click #vialink_dr":"audioVialink",
-                "click #audio_uploadbutton":"audioUpload",
+//                "click #audio_dr":"audioMenuList",               
+             //   "click #vialink_dr":"audioVialink",
+//                "click #audio_uploadbutton":"audioUpload",
                
-                "click #presvialink_dr":"presentationVialink",
-                "click #press_uploadbutton":"presentationUpload",
-                "click .docfrmcomputer_uploadbutton": "saveMyFile",
-                'change #doc-from-computer' :'displayImage',
-                'click #docfrmcomputer_closePopup': "hidePopUpBlock",    
+//                "click #presvialink_dr":"presentationVialink",
+//                "click #press_uploadbutton":"presentationUpload",
+//                "click .docfrmcomputer_uploadbutton": "saveMyFile",
+                 'click #docfrmcomputer_closePopup': "hidePopUpBlock", 
+                 
+                 
+                
+                'change #doc-from-computer' :'displayImage',            
                 //"click #select_dr":"selectboxdwn",
                 //"blur #select_dr":"selectboxup"
                 //"click #profile-images":"listProfileImages",                       
@@ -775,96 +780,96 @@ BS.FilesMediaView = Backbone.View.extend({
              
            
         
-                /**
-                * 
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                *  (slide down menu)
-                * 
-                */
-            uploadMediadwn :function(eventName){         
-                eventName.preventDefault();
-                if(!$('#uploadmediachild_dr').is(":visible") )       
-                $("#uploadmediachild_dr").slideDown();         
-                },
+//                /**
+//                * 
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                *  (slide down menu)
+//                * 
+//                */
+//            uploadMediadwn :function(eventName){         
+//                eventName.preventDefault();
+//                if(!$('#uploadmediachild_dr').is(":visible") )       
+//                $("#uploadmediachild_dr").slideDown();         
+//                },
         
-                /* NEW THEME-Function for uploadmedia (dropdown menu)
-                * (childmenu from Links)
-                */
-            linksMenuList:function(eventName){
-                eventName.preventDefault();
-                $("#childtwo_dr").find('ul').hide(200);
-                $("#childthree_dr").find('ul').hide(200);
-                $("#childfour_dr").find('ul').hide(200);
-                $("#childfive_dr").find('ul').hide(200);
-                $("#linksmenu_dr").animate({width: 'toggle'},120);
-                var i='';
-                var content='';       
-                $.ajax({
-                    type : 'GET',
-                    url : BS.allStreamsForAUser,
-                    dataType : "json",
-                success : function(options) {
-                    content+='<option>Save to Class</option>'
-                    _.each(options, function(option) {
-                        content+= '<option>'+option.streamName+'</option>';
-                        i++;
-                        });
-                    content+='<option>Profile</option>'
-                           +'<option>My Docs</option>';             
-                    $('#link-class-list').html(content); 
-                    }		  
-                    });                               
-                },
+//                /* NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (childmenu from Links)
+//                */
+//            linksMenuList:function(eventName){
+//                eventName.preventDefault();
+//                $("#childtwo_dr").find('ul').hide(200);
+//                $("#childthree_dr").find('ul').hide(200);
+//                $("#childfour_dr").find('ul').hide(200);
+//                $("#childfive_dr").find('ul').hide(200);
+//                $("#linksmenu_dr").animate({width: 'toggle'},120);
+//                var i='';
+//                var content='';       
+//                $.ajax({
+//                    type : 'GET',
+//                    url : BS.allStreamsForAUser,
+//                    dataType : "json",
+//                success : function(options) {
+//                    content+='<option>Save to Class</option>'
+//                    _.each(options, function(option) {
+//                        content+= '<option>'+option.streamName+'</option>';
+//                        i++;
+//                        });
+//                    content+='<option>Profile</option>'
+//                           +'<option>My Docs</option>';             
+//                    $('#link-class-list').html(content); 
+//                    }		  
+//                    });                               
+//                },
  
-                /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (linksupload button)
-                *
-                */
-            linkupload: function(eventName){
-                eventName.preventDefault();
-                $("#dropdownnew").find('ul').hide(250); 
-                },
+//                /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (linksupload button)
+//                *
+//                */
+//            linkupload: function(eventName){
+//                eventName.preventDefault();
+//                $("#dropdownnew").find('ul').hide(250); 
+//                },
         
-                /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (childmenu from papers and docs)
-                */
-            assignmentMenuList:function(eventName){
-                eventName.preventDefault();
-                $("#childone_dr").find('ul').hide(200);
-                $("#childthree_dr").find('ul').hide(200);
-                $("#childfour_dr").find('ul').hide(200);
-                $("#childfive_dr").find('ul').hide(200);
-                $("#childsix_dr").find('ul').hide(200);
-                $("#childseven_dr").find('ul').hide(200);
-                $("#childeight_dr").find('ul').hide(200);
-                $("#childnine_dr").find('ul').hide(200);
-                $("#childten_dr").find('ul').hide(200);
-                $("#childeleven_dr").find('ul').hide(200);
-                $("#assigncmenu_dr").animate({width: 'toggle'},150);
-                },
-                
+//                /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (childmenu from papers and docs)
+//                */
+//            assignmentMenuList:function(eventName){
+//                eventName.preventDefault();
+//                $("#childone_dr").find('ul').hide(200);
+//                $("#childthree_dr").find('ul').hide(200);
+//                $("#childfour_dr").find('ul').hide(200);
+//                $("#childfive_dr").find('ul').hide(200);
+//                $("#childsix_dr").find('ul').hide(200);
+//                $("#childseven_dr").find('ul').hide(200);
+//                $("#childeight_dr").find('ul').hide(200);
+//                $("#childnine_dr").find('ul').hide(200);
+//                $("#childten_dr").find('ul').hide(200);
+//                $("#childeleven_dr").find('ul').hide(200);
+//                $("#assigncmenu_dr").animate({width: 'toggle'},150);
+//                },
+//                
             
                 
-                                /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (childmenu from homework)
-                */
-            homeMenuList:function(eventName){
-                eventName.preventDefault();
-                $("#childone_dr").find('ul').hide(200);
-                $("#childtwo_dr").find('ul').hide(200);
-                $("#childfour_dr").find('ul').hide(200);
-                $("#childfive_dr").find('ul').hide(200);
-                $("#childsix_dr").find('ul').hide(200);
-                $("#childseven_dr").find('ul').hide(200);
-                $("#childeight_dr").find('ul').hide(200);
-                $("#childnine_dr").find('ul').hide(200);
-                $("#childten_dr").find('ul').hide(200);
-                $("#childeleven_dr").find('ul').hide(200);
-                $("#homeworkmenu_dr").animate({width: 'toggle'},150);
-                },
+//                                /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (childmenu from homework)
+//                */
+//            homeMenuList:function(eventName){
+//                eventName.preventDefault();
+//                $("#childone_dr").find('ul').hide(200);
+//                $("#childtwo_dr").find('ul').hide(200);
+//                $("#childfour_dr").find('ul').hide(200);
+//                $("#childfive_dr").find('ul').hide(200);
+//                $("#childsix_dr").find('ul').hide(200);
+//                $("#childseven_dr").find('ul').hide(200);
+//                $("#childeight_dr").find('ul').hide(200);
+//                $("#childnine_dr").find('ul').hide(200);
+//                $("#childten_dr").find('ul').hide(200);
+//                $("#childeleven_dr").find('ul').hide(200);
+//                $("#homeworkmenu_dr").animate({width: 'toggle'},150);
+//                },
                 
                 /*
                 * NEW THEME-Function for uploadmedia (dropdown menu)
@@ -885,145 +890,145 @@ BS.FilesMediaView = Backbone.View.extend({
                 $("#notesmenu_dr").animate({width: 'toggle'},150);
                 },
                 
-                /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (childmenu from projects)
-                */
-            projectsMenuList:function(eventName){
-                eventName.preventDefault();
-                $("#childone_dr").find('ul').hide(200);
-                $("#childtwo_dr").find('ul').hide(200);
-                $("#childthree_dr").find('ul').hide(200);
-                $("#childfour_dr").find('ul').hide(200);
-                $("#childsix_dr").find('ul').hide(200);
-                $("#childseven_dr").find('ul').hide(200);
-                $("#childeight_dr").find('ul').hide(200);
-                $("#childnine_dr").find('ul').hide(200);
-                $("#childten_dr").find('ul').hide(200);
-                $("#childeleven_dr").find('ul').hide(200);
-                $("#projectsmenu_dr").animate({width: 'toggle'},150);
-                },
+//                /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (childmenu from projects)
+//                */
+//            projectsMenuList:function(eventName){
+//                eventName.preventDefault();
+//                $("#childone_dr").find('ul').hide(200);
+//                $("#childtwo_dr").find('ul').hide(200);
+//                $("#childthree_dr").find('ul').hide(200);
+//                $("#childfour_dr").find('ul').hide(200);
+//                $("#childsix_dr").find('ul').hide(200);
+//                $("#childseven_dr").find('ul').hide(200);
+//                $("#childeight_dr").find('ul').hide(200);
+//                $("#childnine_dr").find('ul').hide(200);
+//                $("#childten_dr").find('ul').hide(200);
+//                $("#childeleven_dr").find('ul').hide(200);
+//                $("#projectsmenu_dr").animate({width: 'toggle'},150);
+//                },
                 
-                /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (childmenu from lecture)
-                */
-            lectureMenuList:function(eventName){
-                eventName.preventDefault();
-                $("#childone_dr").find('ul').hide(200);
-                $("#childtwo_dr").find('ul').hide(200);
-                $("#childthree_dr").find('ul').hide(200);
-                $("#childfour_dr").find('ul').hide(200);
-                $("#childfive_dr").find('ul').hide(200);
-                $("#childseven_dr").find('ul').hide(200);
-                $("#childeight_dr").find('ul').hide(200);
-                $("#childnine_dr").find('ul').hide(200);
-                $("#childten_dr").find('ul').hide(200);
-                $("#childeleven_dr").find('ul').hide(200);
-                $("#lecturemenu_dr").animate({width: 'toggle'},150);
-                },
+//                /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (childmenu from lecture)
+//                */
+//            lectureMenuList:function(eventName){
+//                eventName.preventDefault();
+//                $("#childone_dr").find('ul').hide(200);
+//                $("#childtwo_dr").find('ul').hide(200);
+//                $("#childthree_dr").find('ul').hide(200);
+//                $("#childfour_dr").find('ul').hide(200);
+//                $("#childfive_dr").find('ul').hide(200);
+//                $("#childseven_dr").find('ul').hide(200);
+//                $("#childeight_dr").find('ul').hide(200);
+//                $("#childnine_dr").find('ul').hide(200);
+//                $("#childten_dr").find('ul').hide(200);
+//                $("#childeleven_dr").find('ul').hide(200);
+//                $("#lecturemenu_dr").animate({width: 'toggle'},150);
+//                },
                 
-                /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (childmenu from reference)
-                */
-            referenceMenuList:function(eventName){
-                eventName.preventDefault();
-                $("#childone_dr").find('ul').hide(200);
-                $("#childtwo_dr").find('ul').hide(200);
-                $("#childthree_dr").find('ul').hide(200);
-                $("#childfour_dr").find('ul').hide(200);
-                $("#childfive_dr").find('ul').hide(200);
-                $("#childsix_dr").find('ul').hide(200);
-                $("#childeight_dr").find('ul').hide(200);
-                $("#childnine_dr").find('ul').hide(200);
-                $("#childten_dr").find('ul').hide(200);
-                $("#childeleven_dr").find('ul').hide(200);
-                $("#referencemenu_dr").animate({width: 'toggle'},150);
-                },
+//                /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (childmenu from reference)
+//                */
+//            referenceMenuList:function(eventName){
+//                eventName.preventDefault();
+//                $("#childone_dr").find('ul').hide(200);
+//                $("#childtwo_dr").find('ul').hide(200);
+//                $("#childthree_dr").find('ul').hide(200);
+//                $("#childfour_dr").find('ul').hide(200);
+//                $("#childfive_dr").find('ul').hide(200);
+//                $("#childsix_dr").find('ul').hide(200);
+//                $("#childeight_dr").find('ul').hide(200);
+//                $("#childnine_dr").find('ul').hide(200);
+//                $("#childten_dr").find('ul').hide(200);
+//                $("#childeleven_dr").find('ul').hide(200);
+//                $("#referencemenu_dr").animate({width: 'toggle'},150);
+//                },
                 
-                  /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (childmenu from tutorial)
-                */
-            tutorialMenuList:function(eventName){
-                eventName.preventDefault();
-                $("#childone_dr").find('ul').hide(200);
-                $("#childtwo_dr").find('ul').hide(200);
-                $("#childthree_dr").find('ul').hide(200);
-                $("#childfour_dr").find('ul').hide(200);
-                $("#childfive_dr").find('ul').hide(200);
-                $("#childsix_dr").find('ul').hide(200);
-                $("#childseven_dr").find('ul').hide(200);
-                $("#childnine_dr").find('ul').hide(200);
-                $("#childten_dr").find('ul').hide(200);
-                $("#childeleven_dr").find('ul').hide(200);
-                $("#tutorialmenu_dr").animate({width: 'toggle'},150);
-                },
+//                  /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (childmenu from tutorial)
+//                */
+//            tutorialMenuList:function(eventName){
+//                eventName.preventDefault();
+//                $("#childone_dr").find('ul').hide(200);
+//                $("#childtwo_dr").find('ul').hide(200);
+//                $("#childthree_dr").find('ul').hide(200);
+//                $("#childfour_dr").find('ul').hide(200);
+//                $("#childfive_dr").find('ul').hide(200);
+//                $("#childsix_dr").find('ul').hide(200);
+//                $("#childseven_dr").find('ul').hide(200);
+//                $("#childnine_dr").find('ul').hide(200);
+//                $("#childten_dr").find('ul').hide(200);
+//                $("#childeleven_dr").find('ul').hide(200);
+//                $("#tutorialmenu_dr").animate({width: 'toggle'},150);
+//                },
                 
-                /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (childmenu from 'EdTech tool')
-                */
-            edtechMenuList:function(eventName){
-                eventName.preventDefault();
-                $("#childone_dr").find('ul').hide(200);
-                $("#childtwo_dr").find('ul').hide(200);
-                $("#childthree_dr").find('ul').hide(200);
-                $("#childfour_dr").find('ul').hide(200);
-                $("#childfive_dr").find('ul').hide(200);
-                $("#childsix_dr").find('ul').hide(200);
-                $("#childseven_dr").find('ul').hide(200);
-                $("#childeight_dr").find('ul').hide(200);
-                $("#childten_dr").find('ul').hide(200);
-                $("#childeleven_dr").find('ul').hide(200);
-                $("#edtechmenu_dr").animate({width: 'toggle'},150);
-                },
+//                /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (childmenu from 'EdTech tool')
+//                */
+//            edtechMenuList:function(eventName){
+//                eventName.preventDefault();
+//                $("#childone_dr").find('ul').hide(200);
+//                $("#childtwo_dr").find('ul').hide(200);
+//                $("#childthree_dr").find('ul').hide(200);
+//                $("#childfour_dr").find('ul').hide(200);
+//                $("#childfive_dr").find('ul').hide(200);
+//                $("#childsix_dr").find('ul').hide(200);
+//                $("#childseven_dr").find('ul').hide(200);
+//                $("#childeight_dr").find('ul').hide(200);
+//                $("#childten_dr").find('ul').hide(200);
+//                $("#childeleven_dr").find('ul').hide(200);
+//                $("#edtechmenu_dr").animate({width: 'toggle'},150);
+//                },
                 
-                /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (childmenu from 'Amusement')
-                */
-            amusementMenuList:function(eventName){
-                eventName.preventDefault();
-                $("#childone_dr").find('ul').hide(200);
-                $("#childtwo_dr").find('ul').hide(200);
-                $("#childthree_dr").find('ul').hide(200);
-                $("#childfour_dr").find('ul').hide(200);
-                $("#childfive_dr").find('ul').hide(200);
-                $("#childsix_dr").find('ul').hide(200);
-                $("#childseven_dr").find('ul').hide(200);
-                $("#childeight_dr").find('ul').hide(200);
-                $("#childnine_dr").find('ul').hide(200);
-                $("#childeleven_dr").find('ul').hide(200);
-                $("#amusementmenu_dr").animate({width: 'toggle'},150);
-                },
+//                /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (childmenu from 'Amusement')
+//                */
+//            amusementMenuList:function(eventName){
+//                eventName.preventDefault();
+//                $("#childone_dr").find('ul').hide(200);
+//                $("#childtwo_dr").find('ul').hide(200);
+//                $("#childthree_dr").find('ul').hide(200);
+//                $("#childfour_dr").find('ul').hide(200);
+//                $("#childfive_dr").find('ul').hide(200);
+//                $("#childsix_dr").find('ul').hide(200);
+//                $("#childseven_dr").find('ul').hide(200);
+//                $("#childeight_dr").find('ul').hide(200);
+//                $("#childnine_dr").find('ul').hide(200);
+//                $("#childeleven_dr").find('ul').hide(200);
+//                $("#amusementmenu_dr").animate({width: 'toggle'},150);
+//                },
         
-                /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (childmenu from googledocs)
-                */
-            showFileForm:function(eventName){
-                eventName.preventDefault();
-                $("#childtwo_two_dr").find('ul').hide(200);
-                $("#dooclinkchild_dr").animate({width: 'toggle'},130);
-                //select box for stream
-                var i='';
-                var optioncontent=''; 
-                $.ajax({
-                    type : 'GET',
-                    url : BS.allStreamsForAUser,
-                    dataType : "json",
-                success : function(options) {
-                    optioncontent+='<option>Save to Class</option>'
-                    _.each(options, function(option) {
-                    optioncontent+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
-                    i++;
-                        });                      	  
-                    $('#doc-class-list-computer').html(optioncontent); 
-                    }		  
-                });          
-                },
+//                /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (childmenu from googledocs)
+//                */
+//            showFileForm:function(eventName){
+//                eventName.preventDefault();
+//                $("#childtwo_two_dr").find('ul').hide(200);
+//                $("#dooclinkchild_dr").animate({width: 'toggle'},130);
+//                //select box for stream
+//                var i='';
+//                var optioncontent=''; 
+//                $.ajax({
+//                    type : 'GET',
+//                    url : BS.allStreamsForAUser,
+//                    dataType : "json",
+//                success : function(options) {
+//                    optioncontent+='<option>Save to Class</option>'
+//                    _.each(options, function(option) {
+//                    optioncontent+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
+//                    i++;
+//                        });                      	  
+//                    $('#doc-class-list-computer').html(optioncontent); 
+//                    }		  
+//                });          
+//                },
         
                 /*
                 * NEW THEME-Function for uploadmedia (dropdown menu)
@@ -1055,99 +1060,99 @@ BS.FilesMediaView = Backbone.View.extend({
                     });         
                 },
         
-                /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (childmenu from googledocs)
-                */
-            googleDocs:function(eventName){
-                eventName.preventDefault();
-                $(".childone_one_dr").find('ul').hide(200);
-                $(".childone_two_dr").find('ul').hide(200);
-//                $("#googledocschild_dr").animate({width: 'toggle'},130);
-                $(eventName.target).next().animate({width: 'toggle'},130); 
-                },
+//                /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (childmenu from googledocs)
+//                */
+//            assignmentMenuList:function(eventName){
+//                eventName.preventDefault();
+//                $(".childone_one_dr").find('ul').hide(200);
+//                $(".childone_two_dr").find('ul').hide(200);
+////                $("#googledocschild_dr").animate({width: 'toggle'},130);
+//                $(eventName.target).next().animate({width: 'toggle'},130); 
+//                },
         
-                /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (childmenu from Import from link )
-                */
-            importFromLink:function(eventName){
-                eventName.preventDefault();
-//                $("#frmlinkchild_dr").animate({width: 'toggle'},150);
-                $(eventName.target).next().animate({width: 'toggle'},130);
-                var i='';
-                var content=''; 
-                $.ajax({
-                    type : 'GET',
-                    url : BS.allStreamsForAUser,
-                    dataType : "json",
-                success : function(options) {                          
-                    content+='<option>Save to Class</option>'
-                    _.each(options, function(option) {
-                    content+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
-                    i++;
-                    });
-                    $('#doc-class-list').html(content); 
-                    }		  
-                });
-                },
+//                /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (childmenu from Import from link )
+//                */
+//            importFromLink:function(eventName){
+//                eventName.preventDefault();
+////                $("#frmlinkchild_dr").animate({width: 'toggle'},150);
+//                $(eventName.target).next().animate({width: 'toggle'},130);
+//                var i='';
+//                var content=''; 
+//                $.ajax({
+//                    type : 'GET',
+//                    url : BS.allStreamsForAUser,
+//                    dataType : "json",
+//                success : function(options) {                          
+//                    content+='<option>Save to Class</option>'
+//                    _.each(options, function(option) {
+//                    content+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
+//                    i++;
+//                    });
+//                    $('#doc-class-list').html(content); 
+//                    }		  
+//                });
+//                },
                
-                /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (childmenu from video)
-                */
-           classdocMenuList:function(eventName){
-                eventName.preventDefault();              
-                $("#childtwo_dr").find('ul').hide(200);
-                $("#childthree_dr").find('ul').hide(200);
-                $("#childfour_dr").find('ul').hide(200);
-                $("#childfive_dr").find('ul').hide(200);
-                $("#childsix_dr").find('ul').hide(200);
-                $("#childseven_dr").find('ul').hide(200);
-                $("#childeight_dr").find('ul').hide(200);
-                $("#childnine_dr").find('ul').hide(200);
-                $("#childten_dr").find('ul').hide(200);
-                $("#childeleven_dr").find('ul').hide(200);
-                $("#classdocmenu_dr").animate({width: 'toggle'},130);
-                },
-        
+//                /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (childmenu from video)
+//                */
+//           classdocMenuList:function(eventName){
+//                eventName.preventDefault();              
+//                $("#childtwo_dr").find('ul').hide(200);
+//                $("#childthree_dr").find('ul').hide(200);
+//                $("#childfour_dr").find('ul').hide(200);
+//                $("#childfive_dr").find('ul').hide(200);
+//                $("#childsix_dr").find('ul').hide(200);
+//                $("#childseven_dr").find('ul').hide(200);
+//                $("#childeight_dr").find('ul').hide(200);
+//                $("#childnine_dr").find('ul').hide(200);
+//                $("#childten_dr").find('ul').hide(200);
+//                $("#childeleven_dr").find('ul').hide(200);
+//                $("#classdocmenu_dr").animate({width: 'toggle'},130);
+//                },
+//        
                 /*
                 * NEW THEME-Function for uploadmedia (dropdown menu)
                 * (childmenu from youtube)
                 */
-            vialinkMenu:function(eventName){
-                eventName.preventDefault();
-                $(".childone_one_dr").find('ul').hide(200);
-                $(".childone_three_dr").find('ul').hide(200);
-//                $("#vialinkchild_dr").animate({width: 'toggle'},130);
-                  $(eventName.target).next().animate({width: 'toggle'},130);
-                var i='';
-                var content=''; 
-                $.ajax({
-                    type : 'GET',
-                    url : BS.allStreamsForAUser,
-                    dataType : "json",
-                success : function(options) {
-                    content+='<option>Save to Class</option>'
-                    _.each(options, function(option) {
-                    content+= '<option>'+option.streamName+'</option>';
-                    i++;
-                    });
-                    content+='<option>Profile</option>'
-                           +'<option>My Docs</option>';
-                    $('#link-class-list').html(content);
-                    }		  
-		 });
-                },
-        
-                /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (childmenu from youtube and upload video)
-                */
-            vialinkUpload:function(eventName){
-                eventName.preventDefault();
-                $("#dropdownnew").find('ul').hide(250); 
-                },
+//            vialinkMenu:function(eventName){
+//                eventName.preventDefault();
+//                $(".childone_one_dr").find('ul').hide(200);
+//                $(".childone_three_dr").find('ul').hide(200);
+////                $("#vialinkchild_dr").animate({width: 'toggle'},130);
+//                  $(eventName.target).next().animate({width: 'toggle'},130);
+//                var i='';
+//                var content=''; 
+//                $.ajax({
+//                    type : 'GET',
+//                    url : BS.allStreamsForAUser,
+//                    dataType : "json",
+//                success : function(options) {
+//                    content+='<option>Save to Class</option>'
+//                    _.each(options, function(option) {
+//                    content+= '<option>'+option.streamName+'</option>';
+//                    i++;
+//                    });
+//                    content+='<option>Profile</option>'
+//                           +'<option>My Docs</option>';
+//                    $('#link-class-list').html(content);
+//                    }		  
+//		 });
+//                },
+//        
+//                /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (childmenu from youtube and upload video)
+//                */
+//            vialinkUpload:function(eventName){
+//                eventName.preventDefault();
+//                $("#dropdownnew").find('ul').hide(250); 
+//                },
         
                 /*
                 * NEW THEME-Function for uploadmedia (dropdown menu)
@@ -1189,137 +1194,137 @@ BS.FilesMediaView = Backbone.View.extend({
 		 });
                 },
         
-                /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (upload button to upload audio)
-                */
-            audioUpload:function(eventName){
-                eventName.preventDefault();
-                $("#dropdownnew").find('ul').hide(200); 
-                },
+//                /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (upload button to upload audio)
+//                */
+//            audioUpload:function(eventName){
+//                eventName.preventDefault();
+//                $("#dropdownnew").find('ul').hide(200); 
+//                },
     
-                /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (childmenu from public)
-                *
-                */
-            publicMenuList:function(eventName){
-                eventName.preventDefault();
-                $("#childone_dr").find('ul').hide(200);
-                $("#childtwo_dr").find('ul').hide(200);
-                $("#childthree_dr").find('ul').hide(200);
-                $("#childfour_dr").find('ul').hide(200);
-                $("#childfive_dr").find('ul').hide(200);
-                $("#childsix_dr").find('ul').hide(200);
-                $("#childseven_dr").find('ul').hide(200);
-                $("#childeight_dr").find('ul').hide(200);
-                $("#childnine_dr").find('ul').hide(200);
-                $("#childten_dr").find('ul').hide(200);
-                $("#publicmenu_dr").animate({width: 'toggle'},150);
-                },
+//                /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (childmenu from public)
+//                *
+//                */
+//            publicMenuList:function(eventName){
+//                eventName.preventDefault();
+//                $("#childone_dr").find('ul').hide(200);
+//                $("#childtwo_dr").find('ul').hide(200);
+//                $("#childthree_dr").find('ul').hide(200);
+//                $("#childfour_dr").find('ul').hide(200);
+//                $("#childfive_dr").find('ul').hide(200);
+//                $("#childsix_dr").find('ul').hide(200);
+//                $("#childseven_dr").find('ul').hide(200);
+//                $("#childeight_dr").find('ul').hide(200);
+//                $("#childnine_dr").find('ul').hide(200);
+//                $("#childten_dr").find('ul').hide(200);
+//                $("#publicmenu_dr").animate({width: 'toggle'},150);
+//                },
         
-                /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (childmenu from presentation vialink)
-                *
-                */
-            presentationVialink:function(eventName){
-                eventName.preventDefault();
-                $("#presvialinkchild_dr").animate({width: 'toggle'},350);
-                var i='';
-                var content=''; 
-                $.ajax({
-                    type : 'GET',
-                    url : BS.allStreamsForAUser,
-                    dataType : "json",
-                success : function(options) {
-                    content+='<option>Save to Class</option>'
-                    _.each(options, function(option) {
-                    content+= '<option>'+option.streamName+'</option>';
-                    i++;
-                    });
-                    content+='<option>Profile</option>'
-                        +'<option>My Docs</option>';
-                        $('#presentation-class-list').html(content); 
-                        }	  
-                    });
-                    },
+//                /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (childmenu from presentation vialink)
+//                *
+//                */
+//            presentationVialink:function(eventName){
+//                eventName.preventDefault();
+//                $("#presvialinkchild_dr").animate({width: 'toggle'},350);
+//                var i='';
+//                var content=''; 
+//                $.ajax({
+//                    type : 'GET',
+//                    url : BS.allStreamsForAUser,
+//                    dataType : "json",
+//                success : function(options) {
+//                    content+='<option>Save to Class</option>'
+//                    _.each(options, function(option) {
+//                    content+= '<option>'+option.streamName+'</option>';
+//                    i++;
+//                    });
+//                    content+='<option>Profile</option>'
+//                        +'<option>My Docs</option>';
+//                        $('#presentation-class-list').html(content); 
+//                        }	  
+//                    });
+//                    },
         
-                /*
-                * NEW THEME-Function for uploadmedia (dropdown menu)
-                * (upload button to upload presentation)
-                *
-                */
-            presentationUpload:function(eventName){
-                eventName.preventDefault();
-                $("#dropdownnew").find('ul').hide(250); 
-                },
+//                /*
+//                * NEW THEME-Function for uploadmedia (dropdown menu)
+//                * (upload button to upload presentation)
+//                *
+//                */
+//            presentationUpload:function(eventName){
+//                eventName.preventDefault();
+//                $("#dropdownnew").find('ul').hide(250); 
+//                },
     
-                /**
-                * For uploadmedia menu  (dropdown menu)
-                *  for slide up
-                */
-            uploadMediaup :function(eventName){
-                eventName.preventDefault();
-                if(!$('.fixingmenu_dr').is(":visible") ) 
-                $("#uploadmediachild_dr").slideUp(50); 
-                },
+//                /**
+//                * For uploadmedia menu  (dropdown menu)
+//                *  for slide up
+//                */
+//            uploadMediaup :function(eventName){
+//                eventName.preventDefault();
+//                if(!$('.fixingmenu_dr').is(":visible") ) 
+//                $("#uploadmediachild_dr").slideUp(50); 
+//                },
 
-                /*
-                * NEW THEME-Save docs from My computer
-                */
-            saveMyFile: function(eventName){
-                eventName.preventDefault();
-                var self = this;
-                var status = true;
-                var message ='';
-                var streamId = $(".doc-class-list-computer").val();
-                
-                //get message access private ? / public ?
-                var docAccess;
-                var access =  $('#id-private').attr('checked');
-                if(access == "checked")
-                {
-                	docAccess = "PrivateToSchool";
-                }
-                else
-                {
-                	docAccess = "PrivateToClass";
-                }
-                                console.log(docAccess);
-
-                var data;
-                data = new FormData();
-                data.append('streamId', streamId);
-                data.append('docAccess',docAccess);
-                data.append('docData', this.image);  
-                data.append('docDescription',message);
-                document.getElementById('loader-message').innerHTML="<img src='images/loading.gif'>";
-                
-                console.log("streamId -"+streamId+","+"docAccess - "+docAccess+","+"message -"+message)
-                
-                /* post profile page details */
-                $.ajax({
-                    type: 'POST',
-                    data: data,
-                    url: BS.uploaddocFrmComputer,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    dataType : "json",
-                    success: function(data){
-                        if(data!== " ") {
-                        document.getElementById('loader-message').innerHTML = data.message;
-                        self.docsList();
-                        self.docFromComputer();
-//                        self.audio();
-                        self.presentation();
-                        self.pdffiles();  
-                        $("#dooclinkchild_dr").hide(200);
-                        }
-                    }
-                    }); 
-                },
+//                /*
+//                * NEW THEME-Save docs from My computer
+//                */
+//            saveMyFile: function(eventName){
+//                eventName.preventDefault();
+//                var self = this;
+//                var status = true;
+//                var message ='';
+//                var streamId = $(".doc-class-list-computer").val();
+//                
+//                //get message access private ? / public ?
+//                var docAccess;
+//                var access =  $('#id-private').attr('checked');
+//                if(access == "checked")
+//                {
+//                	docAccess = "PrivateToSchool";
+//                }
+//                else
+//                {
+//                	docAccess = "PrivateToClass";
+//                }
+//                                console.log(docAccess);
+//
+//                var data;
+//                data = new FormData();
+//                data.append('streamId', streamId);
+//                data.append('docAccess',docAccess);
+//                data.append('docData', this.image);  
+//                data.append('docDescription',message);
+//                document.getElementById('loader-message').innerHTML="<img src='images/loading.gif'>";
+//                
+//                console.log("streamId -"+streamId+","+"docAccess - "+docAccess+","+"message -"+message)
+//                
+//                /* post profile page details */
+//                $.ajax({
+//                    type: 'POST',
+//                    data: data,
+//                    url: BS.uploaddocFrmComputer,
+//                    cache: false,
+//                    contentType: false,
+//                    processData: false,
+//                    dataType : "json",
+//                    success: function(data){
+//                        if(data!== " ") {
+//                        document.getElementById('loader-message').innerHTML = data.message;
+//                        self.docsList();
+//                        self.docFromComputer();
+////                        self.audio();
+//                        self.presentation();
+//                        self.pdffiles();  
+//                        $("#dooclinkchild_dr").hide(200);
+//                        }
+//                    }
+//                    }); 
+//                },
          
                 /**
                 * display profile photo
