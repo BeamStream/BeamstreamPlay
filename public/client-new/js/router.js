@@ -1027,6 +1027,9 @@
 		                    BS.googledocsview = new BS.GoogleDocsView({});
 		                   BS.googledocsview.render();  
 		                   $('#body-content').html(BS.googledocsview.el);
+                                    BS.uploadmediaview =new BS.UploadmediaView({});
+                                    BS.uploadmediaview.render();
+                                    $('#upload_media').html(BS.uploadmediaview.el);
 		                   self.getAllClasses();
 		   //                $('.file-type').hide();
 		      //           BS.googledocsview.test();
@@ -1060,7 +1063,10 @@
 						   $('#right-top-photo').attr("src",BS.profileImageUrl);			       			
 	                  BS.doclistview = new BS.DocListView();
 	                  BS.doclistview.render();
-	                  $('#body-content').html(BS.doclistview.el); 
+	                  $('#body-content').html(BS.doclistview.el);
+                        BS.uploadmediaview =new BS.UploadmediaView({});
+                        BS.uploadmediaview.render();
+                        $('#upload_media').html(BS.uploadmediaview.el);
 	                  self.getAllClasses();
 	//                  $('.file-type').hide();   //to hide the filetype menu
 	                  
@@ -1130,7 +1136,10 @@
 							   $('#right-top-photo').attr("src",BS.profileImageUrl);			       						
 		                 BS.videolistview = new BS.VideoListView();
 		                 BS.videolistview.render();
-		                 $('#body-content').html(BS.videolistview.el); 	                 
+		                 $('#body-content').html(BS.videolistview.el); 
+                                BS.uploadmediaview =new BS.UploadmediaView({});
+                                BS.uploadmediaview.render();
+                                $('#upload_media').html(BS.uploadmediaview.el);
 		                 self.getAllClasses();
 	//	                 $('.file-type').hide();   //to hide the filetype menu
    					}
@@ -1163,7 +1172,9 @@
 			                 BS.audiolistview=new BS.AudioListView();
 			                 BS.audiolistview.render();
 			                 $('#body-content').html(BS.audiolistview.el); 
-			                 
+                                        BS.uploadmediaview =new BS.UploadmediaView({});
+                                        BS.uploadmediaview.render();
+                                        $('#upload_media').html(BS.uploadmediaview.el);
 			                 self.getAllClasses();
 	//		                 $('.file-type').hide();   //to hide the filetype menu
     					}
@@ -1197,6 +1208,9 @@
 		                    BS.presentationview =new BS.PresentationView();
 		                    BS.presentationview.render();
 		                    $('#body-content').html(BS.presentationview.el); 
+                                    BS.uploadmediaview =new BS.UploadmediaView({});
+                                    BS.uploadmediaview.render();
+                                    $('#upload_media').html(BS.uploadmediaview.el);
 		                    self.getAllClasses();
 	//	                    $('.file-type').hide();   //to hide the filetype menu
      					}
@@ -1230,6 +1244,9 @@
 		                    BS.pdflistview =new BS.PdfListView();
 		                    BS.pdflistview.render();
 		                    $('#body-content').html(BS.pdflistview.el); 
+                                    BS.uploadmediaview =new BS.UploadmediaView({});
+                                    BS.uploadmediaview.render();
+                                    $('#upload_media').html(BS.uploadmediaview.el);
 		                    self.getAllClasses();
 	//	                    $('.file-type').hide();   //to hide the filetype menu
      					}
