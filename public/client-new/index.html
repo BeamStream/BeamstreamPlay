@@ -4003,6 +4003,14 @@ Create a Class</a>
 		   
 		});
 	    
+		// @TODO remove the cursormesssage 
+		$('body').mousemove(function(eventName) {
+			if(!$(eventName.target).hasClass('mediapopup') && !$(eventName.target).hasClass('photo-popup') )
+			{
+				$.hideCursorMessage();
+			}
+		});
+	    
 		
 	</script>
 	
