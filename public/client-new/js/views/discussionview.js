@@ -453,18 +453,20 @@
 	    					owner = "";
 	    				}
                           
-                          if(data.status == "Success") 
-		   			    {
+//                      if(data.status == "Success") 
+//		   			    {
                             BS.bar = $('.bar');        //progress bar
                             BS.bar.width(400);
                             BS.bar.text("100%");
                             clearInterval(BS.progress);
                                  
-                                            }
-                            $('#msg-area').val("");
-                            $('#uploded-file').hide();
-                            $('#progressbar').hide();
+//                        }
+                            
+                        $('#msg-area').val("");
+                        $('#uploded-file').hide();
+                        $('#progressbar').hide();
 	              	    self.file = "";
+	              	    
 	              	    $('#file-upload-loader').css("display","none");
 	              	    $('.embed-info').css("display","none");
 	              	    
@@ -730,8 +732,19 @@
 
                     		 }
    							  
+                             var owner = "";
+ 	    					 if(data.userId.id == BS.loggedUserId)
+ 	    					 {
+     	    					owner = "true";
+ 	    					 }
+ 	    					 else
+ 	    					 {
+     	    					owner = "";
+ 	    					 }
+     	    				
                              var datas = {
                             		 "datas" : data,
+                            		 "owner": owner
                              }	
                               
                              // set a format style to date
@@ -746,7 +759,8 @@
                             			 "datas" : data,
                             			 "datVal" :datVal,
                             			 "previewImage" : "images/google_docs_image.png",
-                            			 "type" : "googleDoc"
+                            			 "type" : "googleDoc",
+                            			 "owner": owner
 	 							 }	
  								 var source = $("#tpl-messages_with_docs").html();
  	         		  						
@@ -802,7 +816,8 @@
  											 "previewImage" :previewImage,
  											 "extension" : extension,
  											 "commenImage" : commenImage,
- 											 "type" : type
+ 											 "type" : type,
+ 											 "owner": owner
 						        	 }	
      								
  								     var source = $("#tpl-messages_with_docs").html();

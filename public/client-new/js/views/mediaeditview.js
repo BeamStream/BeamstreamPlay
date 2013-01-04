@@ -49,6 +49,12 @@
             eventName.preventDefault(); 
             var self = this;
             
+            if($("#media-title").val().match(/^[\s]*$/) || $("#media-description").val().match(/^[\s]*$/))
+            {
+            	alert("Please fill all fields");
+            	return;
+            }
+            	
             /* for all other documents */
             if (this.docdatas.type=='Docs') {
             	$.ajax({
@@ -102,10 +108,10 @@
 	                    else
 
 	                        {
-	                            alert("Edit Successfullydfdf");
-
-                                    $('#description-'+data[0].id.id+'').text(data[0].description);
-                                    $('#name-'+data[0].id.id+'').text(data[0].name);    
+	                            alert("Edit Successfully");
+	                            
+                                    	$('#description-'+data[0].id.id+'').text(data[0].description);
+                                    	$('#name-'+data[0].id.id+'').text(data[0].name); 
 
 //                                    $('#bootstrap_popup').modal('hide');
                                     $('#edit-bootstrap_popup').modal('hide');   

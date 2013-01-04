@@ -269,7 +269,18 @@ BS.FilesMediaView = Backbone.View.extend({
                 success : function(docs) {
                     if(docs.length != 0)  {
                         _.each(docs, function(doc) {
-                        var datVal = formatDateVal(doc.creationDate);                   
+                        var datVal = formatDateVal(doc.creationDate); 
+                        var docDescription , docName;
+                        if(doc.documentName)
+                        	docName = doc.documentName;
+                        else
+                        	docName = "No Document Name";
+                        
+                        if(doc.documentDescription)
+                        	docDescription = doc.documentDescription;
+                        else
+                        	docDescription = "No Document Description";
+                        
                         docContent= '<li data-groups="["recent"]" data-date-created="'+doc.creationDate+'" class="item" >'
                             +'<div class="image-wrapper hovereffect" id="'+doc.id.id+'">'
                             +' <div class="hover-div"><img class="cover-picture" src="images/google_docs_image.png ">'
@@ -277,8 +288,8 @@ BS.FilesMediaView = Backbone.View.extend({
                             +'<div class="comment-wrapper">'                                
                             +'<a href="#googledocs" style="text-decoration: none">'
                             +' <div id="media-'+doc.id.id+'" >'
-                            +' <h4 id="name-'+doc.id.id+'">'+doc.documentName+'</h4>'                                
-                            +'<div class="description-info"><div class="description-left"><p id="description-'+doc.id.id+'" class="doc-description">'+doc.documentDescription+'</p></div></a>'
+                            +' <h4 id="name-'+doc.id.id+'">'+docName+'</h4>'                                
+                            +'<div class="description-info"><div class="description-left"><p id="description-'+doc.id.id+'" class="doc-description">'+docDescription+'</p></div></a>'
                             +' <div id="'+doc.id.id+'" class="comment-wrapper2">'
                             +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
                             +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
@@ -319,7 +330,22 @@ BS.FilesMediaView = Backbone.View.extend({
                     extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
                         return letter.toUpperCase();
                         });
-                    var datVal = formatDateVal(doc.creationDate);                      
+                    var datVal = formatDateVal(doc.creationDate);    
+                    
+                    
+                    // check if description and name is there or not
+                    var docDescription , docName;
+                    if(doc.documentName)
+                    	docName = doc.documentName;
+                    else
+                    	docName = "No Document Name";
+                    
+                    if(doc.documentDescription)
+                    	docDescription = doc.documentDescription;
+                    else
+                    	docDescription = "No Document Description";
+                    
+                    
                     comContent=  '<li  data-groups="["oldest"]"  data-date-created="'+doc.creationDate+'" class="item" >'
                         +'<div class="image-wrapper hovereffect" id="'+doc.id.id+'">'
                         +' <div class="hover-div"><img class="cover-picture" src="images/textimage.png"><h3 class="common-doctext" >'+extension+'</h3>'
@@ -327,8 +353,8 @@ BS.FilesMediaView = Backbone.View.extend({
                         +'<div class="comment-wrapper">'                                
                         +'<a href="#docs" style="text-decoration: none">'
                         +' <div id="media-'+doc.id.id+'" >'
-                        +' <h4 id="name-'+doc.id.id+'">'+doc.documentName+'</h4>'                                
-                        +'<div class="description-info"><div class="description-left"><p class="doc-description" id="description-'+doc.id.id+'">'+doc.documentDescription+'</p></div></a>'
+                        +' <h4 id="name-'+doc.id.id+'">'+docName+'</h4>'                                
+                        +'<div class="description-info"><div class="description-left"><p class="doc-description" id="description-'+doc.id.id+'">'+docDescription+'</p></div></a>'
                         +' <div id="'+doc.id.id+'" class="comment-wrapper2">'
                         +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
                         +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
@@ -397,6 +423,19 @@ BS.FilesMediaView = Backbone.View.extend({
                         {
                         _.each(images, function(image) {                            		
                         var datVal = formatDateVal(image.dateCreated);  
+                        
+                        var imageDescription , imageName;
+                        if(image.name)
+                        	imageName = image.name;
+                        else
+                        	imageName = "No Image Name";
+                        
+                        if(image.description)
+                        	imageDescription = image.description;
+                        else
+                        	imageDescription = "No Image Description";
+                        
+                        
                         picContent='<li   data-rock="'+image.rocks+'" data-date-created="'+image.dateCreated+'" class="item" >'
                             +'<div class="image-wrapper hovereffect"  id="'+image.id.id+'"><div class="hover-div">'
                             +'<img class="filmedia-picture" src="'+image.mediaUrl+'">'
@@ -404,8 +443,8 @@ BS.FilesMediaView = Backbone.View.extend({
                             +'<div class="comment-wrapper"> '
                             +'<a href="#imagelist" style="text-decoration: none">'
                             +' <div id="media-'+image.id.id+'" >'
-                            +' <h4 id="name-'+image.id.id+'">'+image.name+'</h4>'
-                            +'<div class="description-info"><div class="description-left"><p class="doc-description" id="description-'+image.id.id+'" >'+image.description+'</p></div></a>'
+                            +' <h4 id="name-'+image.id.id+'">'+imageName+'</h4>'
+                            +'<div class="description-info"><div class="description-left"><p class="doc-description" id="description-'+image.id.id+'" >'+imageDescription+'</p></div></a>'
                             +' <div id="'+image.id.id+'" class="comment-wrapper2">'
                             +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock-medias"></a>'
                             +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
@@ -477,6 +516,20 @@ BS.FilesMediaView = Backbone.View.extend({
                     coverpicture=arraypictures[arraypictures.length-1];                               
                     _.each(videos, function(video) {
                     var datVal = formatDateVal(video.dateCreated);   
+                    
+                    // check if description and name is there or not
+                    var videoDescription , videoName;
+                    if(video.name)
+                    	videoName = video.name;
+                    else
+                    	videoName = "No Video Name";
+                    
+                    if(video.description)
+                    	videoDescription = video.description;
+                    else
+                    	videoDescription = "No Video Description";
+                    
+                    
                     videoContent= '<li data-rock="'+video.rocks+'" data-date-created="'+video.dateCreated+'" class="item" >'
                         +'<div class="image-wrapper hovereffect">'
                         +' <div class="hover-div"><img class="filmedia-picture" src="'+video.frameURL+'">'
@@ -484,8 +537,8 @@ BS.FilesMediaView = Backbone.View.extend({
                         +'<div class="comment-wrapper">'                                
                         +'<a href="#videos" style="text-decoration: none">'
                         +' <div id="media-'+video.id.id+'" >'
-                        +' <h4 id="name-'+video.id.id+'">'+video.name+'</h4>'                                
-                        +'<div class="description-info"><div class="description-left"><p id="description-'+video.id.id+'" class="doc-description">'+video.description+'</p></div></a>'
+                        +' <h4 id="name-'+video.id.id+'">'+videoName+'</h4>'                                
+                        +'<div class="description-info"><div class="description-left"><p id="description-'+video.id.id+'" class="doc-description">'+videoDescription+'</p></div></a>'
                         +' <div id="'+video.id.id+'" class="comment-wrapper2">'
                         +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock-medias"></a>'
                         +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
@@ -622,7 +675,20 @@ BS.FilesMediaView = Backbone.View.extend({
                     if(ppts.length != 0)  {
                         var presContent;
                         _.each(ppts, function(ppt) {
-                        var datVal = formatDateVal(ppt.creationDate);     
+                        var datVal = formatDateVal(ppt.creationDate);   
+                        
+                        // check if description and name is there or not
+                        var pptDescription , pptName;
+                        if(ppt.documentName)
+                        	pptName = ppt.documentName;
+                        else
+                        	pptName = "No Document Name";
+                        
+                        if(ppt.documentDescription)
+                        	pptDescription = ppt.documentDescription;
+                        else
+                        	pptDescription = "No Document Description";
+                        
                         presContent= '<li  data-groups="["recent"]"  data-date-created="'+ppt.creationDate+'" class="item" >'
                             +'<div class="image-wrapper hovereffect" id="'+ppt.id.id+'">'
                             +' <div class="hover-div"><img class="cover-picture" src="images/presentations_image.png">'
@@ -630,8 +696,8 @@ BS.FilesMediaView = Backbone.View.extend({
                             +'<div class="comment-wrapper">'                                
                             +'<a href="#presentationview" style="text-decoration: none">'
                             +' <div id="media-'+ppt.id.id+'" >'
-                            +' <h4 id="name-'+ppt.id.id+'">'+ppt.documentName+'</h4>'                                
-                            +'<div class="description-info"><div class="description-left"><p id="description-'+ppt.id.id+'" class="doc-description">'+ppt.documentDescription+'</p></div></a>'
+                            +' <h4 id="name-'+ppt.id.id+'">'+pptName+'</h4>'                                
+                            +'<div class="description-info"><div class="description-left"><p id="description-'+ppt.id.id+'" class="doc-description">'+pptDescription+'</p></div></a>'
                             +' <div id="'+ppt.id.id+'" class="comment-wrapper2">'
                             +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
                             +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'
@@ -697,7 +763,21 @@ BS.FilesMediaView = Backbone.View.extend({
                     if(pdfs.length != 0)  {
                     var pdfContent ;
                     _.each(pdfs, function(pdf) {
-                    var datVal = formatDateVal(pdf.creationDate);                
+                    var datVal = formatDateVal(pdf.creationDate);   
+                    
+                    // check if description and name is there or not
+                    var pdfDescription ,pdfName;
+                    if(pdf.documentName)
+                    	pdfName = pdf.documentName;
+                    else
+                    	pdfName = "No Document Name";
+                    
+                    if(pdf.documentDescription)
+                    	pdfDescription = pdf.documentDescription;
+                    else
+                    	pdfDescription = "No Document Description";
+                    
+                    
                     pdfContent= '<li  data-groups="["oldest"]"  data-date-created="'+pdf.creationDate+'" class="item" >'
                         +'<div class="image-wrapper hovereffect" id="'+pdf.id.id+'">'
                         +' <div class="hover-div"><img class="filmedia-picture" src="'+pdf.previewImageUrl+'">'
@@ -705,8 +785,8 @@ BS.FilesMediaView = Backbone.View.extend({
                         +'<div class="comment-wrapper">'                                
                         +'<a href="#pdflistview" style="text-decoration: none">'
                         +' <div id="media-'+pdf.id.id+'" >'
-                        +' <h4 id="name-'+pdf.id.id+'">'+pdf.documentName+'</h4>'                                
-                        +'<div class="description-info"><div class="description-left"><p id="description-'+pdf.id.id+'" class="doc-description">'+pdf.documentDescription+'</p></div></a>'
+                        +' <h4 id="name-'+pdf.id.id+'">'+pdfName+'</h4>'                                
+                        +'<div class="description-info"><div class="description-left"><p id="description-'+pdf.id.id+'" class="doc-description">'+pdfDescription+'</p></div></a>'
                         +' <div id="'+pdf.id.id+'" class="comment-wrapper2">'
                         +'<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   <a href="#" class="hand-icon rock_docs"></a>'
                         +'<a href="#" class="message-icon"></a>    <a href="#" class="share-icon"></a>'

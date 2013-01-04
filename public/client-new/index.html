@@ -672,13 +672,13 @@ Create a Class</a>
 					    <div class="hover-text">               
 					     <div class="comment-wrapper" id="{{datas.docIdIfAny.id}}">                                
 					     <div id="media-{{datas.docIdIfAny.id}}">
-					      <h4 id="name-{{datas.docIdIfAny.id}}" >Media Name</h4>                                
+					      <h4 id="name-{{datas.docIdIfAny.id}}" >No Media Name</h4>                                
 					      <div class="description-info">      
 					         <div class="gallery"></div>
 						 <div class="gallery hrtxt">
 					           <a href="{{datas.anyPreviewImageUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
 					              <div class="description-left photo-popup">   
-					              <p class="google_doc doc-description" id="description-{{datas.docIdIfAny.id}}"><input type="hidden" id="id-{{datas.docIdIfAny.id}}" value="doc.url">Media Description</p>
+					              <p class="google_doc doc-description" id="description-{{datas.docIdIfAny.id}}"><input type="hidden" id="id-{{datas.docIdIfAny.id}}" value="doc.url">No Media Description</p>
 						    </div>
 					           </a>
 						 </div>     
@@ -788,10 +788,10 @@ Create a Class</a>
 				    <div class="hover-text">               
 				     <div class="comment-wrapper" id="{{datas.docIdIfAny.id}}">                                
 				     <div id="media-{{datas.docIdIfAny.id}}">
-				      <h4 id="name-{{datas.docIdIfAny.id}}" >Document Name</h4>                                
+				      <h4 id="name-{{datas.docIdIfAny.id}}" >No Document Name</h4>                                
 				      <div  class="description-info "><div name={{type}}  class="description-left mediapopup drag-rectangle" id="{{datas.docIdIfAny.id}}">
 				        <input type="hidden" id="id-{{datas.docIdIfAny.id}}"  value="{{datas.messageBody}}">      
-				        <p class="doc-description" id="description-{{datas.docIdIfAny.id}}" >Document Description..</p>
+				        <p class="doc-description" id="description-{{datas.docIdIfAny.id}}" >No Document Description..</p>
 				      </div>
 				      <div id="{{datas.docIdIfAny.id}}" class="comment-wrapper2">
 				      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_documents"></a>
@@ -1355,7 +1355,7 @@ Create a Class</a>
                   <div class="follow-bottom">
                     <ul class="follow-name-left show-all-block">
                       <li><a class="rocks-question" href="#">Rock</a></li>
-                      <li><a href="#"> Answer</a></li>
+                      <li  id="{{data.question.id.id}}-Answer"><a href="#"> Answer</a></li>
                       <li><a href="#" class="add-comment" > Comment</a></li>
                       <li ><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
   					 <a id=" " href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a> 
@@ -3190,13 +3190,13 @@ Create a Class</a>
     <div class="hover-text">               
      <div class="comment-wrapper" id="{{image.id.id}}">                                
      <div id="media-{{image.id.id}}">
-      <h4 id="name-{{image.id.id}}" >{{image.name}}</h4>                                
+      <h4 id="name-{{image.id.id}}" >{{#if image.name}}{{image.name}}{{else}}No Image Name {{/if}}</h4>                                
       <div class="description-info">      
          <div class="gallery"></div>
 	 <div class="gallery hrtxt">
            <a href="{{image.mediaUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
               <div class="description-left photo-popup">   
-              <p class="google_doc doc-description" id="description-{{image.id.id}}"><input type="hidden" id="id-{{image.id.id}}" value="doc.url"> {{image.description}}</p>
+              <p class="google_doc doc-description" id="description-{{image.id.id}}"><input type="hidden" id="id-{{image.id.id}}" value="doc.url"> {{#if image.description}}{{image.description}}{{else}} No Image Description {{/if}}</p>
 	    </div>
            </a>
 	 </div>     
@@ -3740,6 +3740,8 @@ Create a Class</a>
           	$('#uploadmediachild_dr').hide(200);
 		   
 		});
+	    
+		
 	</script>
 	
 	<!-- for pie charts  -->
@@ -3748,6 +3750,7 @@ Create a Class</a>
 		 this.paper = paper,
 	     this.rad = Math.PI / 180,
 	     this.chart = paper.set();
+		 
 	 this.sector = function(cx, cy, r, r2, startAngle, endAngle, params) {
 	     //console.log(params.fill);
 	     var x1 = cx + r * Math.cos(-startAngle * this.rad),
@@ -3758,14 +3761,14 @@ Create a Class</a>
 	         xx2 = cx + r2 * Math.cos(-endAngle * this.rad),
 	         yy1 = cy + r2 * Math.sin(-startAngle * this.rad),
 	         yy2 = cy + r2 * Math.sin(-endAngle * this.rad);
+
+	    	 return paper.path(["M", xx1, yy1,
+		                        "L", x1, y1,
+		                        "A", r, r, 0, +(endAngle - startAngle > 180), 0, x2, y2,
+		                        "L", xx2, yy2,
+		                        "A", this.rin, this.rin, 0, +(endAngle - startAngle > 180), 1, xx1, yy1, "z"]
+		                      ).attr(params);
 	     
-	     
-	     return paper.path(["M", xx1, yy1,
-	                        "L", x1, y1,
-	                        "A", r, r, 0, +(endAngle - startAngle > 180), 0, x2, y2,
-	                        "L", xx2, yy2,
-	                        "A", this.rin, this.rin, 0, +(endAngle - startAngle > 180), 1, xx1, yy1, "z"]
-	                      ).attr(params);
 	     
 	 }
 	}
@@ -3805,21 +3808,33 @@ Create a Class</a>
 		    
 		    
 		    _createSlice : function  (j) {
-		    	  
-		    	var value = this.values[j],
-	            angleplus = 360 * value / this.total,
-	            popangle = this.angle + (angleplus / 2),
-	            color = Raphael.hsb(this.start, .75, 1),
-	            ms = 500,
-	            delta = 30,
-	            bcolor = Raphael.hsb(this.start, 1, 1),
-	            p = this.sector(this.cx, this.cy, this.r, this.rin,this.angle, this.angle + angleplus, {fill: "90-" + bcolor + "-" + color, stroke: this.stroke, "stroke-width": 1}),
-	            bigp = this.sector(this.cx, this.cy, this.rout, this.rin, this.angle, this.angle + angleplus, {fill: "90-" + bcolor + "-" + color, stroke: this.stroke, "stroke-width": 1}).hide(),
-	            txt = this.paper.text(this.cx + (this.r + delta + 10) * Math.cos(-popangle * this.rad), this.cy + (this.r + delta +1) * Math.sin(-popangle * this.rad),this.values[j]+'%').attr({fill: bcolor, stroke: "none", opacity: 1, "font-size": 14 , "font-weight":"bold"});
-		    	this.angle += angleplus;
-		    	this.chart.push(p);
-		    	this.chart.push(txt);
-	            this.start += .1;
+		    	var value = this.values[j];
+		            var angleplus = 360 * value / this.total,
+		            countPer = (100 * value / this.total).toFixed(2);
+		            var popangle = this.angle + (angleplus / 2),
+		            color = Raphael.hsb(this.start, .75, 1),
+		            ms = 500,
+		            delta = 30;
+		            var totalangle = this.angle + angleplus;
+		            
+		            var bcolor = Raphael.hsb(this.start, 1, 1);
+		            if(totalangle  == 360)
+		            {
+			           var p = this.sector(this.cx, this.cy, this.r, this.rin,this.angle, totalangle-0.00017453292, {fill: "90-" + bcolor + "-" + color, stroke: this.stroke, "stroke-width": 1});
+			           bigp = this.sector(this.cx, this.cy, this.rout, this.rin, this.angle,totalangle-0.00017453292, {fill: "90-" + bcolor + "-" + color, stroke: this.stroke, "stroke-width": 1}).hide();
+
+		            }
+		            else
+		            {
+			           var p = this.sector(this.cx, this.cy, this.r, this.rin,this.angle, this.angle + angleplus, {fill: "90-" + bcolor + "-" + color, stroke: this.stroke, "stroke-width": 1});
+			           bigp = this.sector(this.cx, this.cy, this.rout, this.rin, this.angle, this.angle + angleplus, {fill: "90-" + bcolor + "-" + color, stroke: this.stroke, "stroke-width": 1}).hide();
+
+		            }
+		            var txt = this.paper.text(this.cx + (this.r + delta + 40) * Math.cos(-popangle * this.rad), this.cy + (this.r + delta +10) * Math.sin(-popangle * this.rad),countPer+'%').attr({fill: bcolor, stroke: "none", opacity: 1, "font-size": 14 , "font-weight":"bold"});
+			    	this.angle += angleplus;
+			    	this.chart.push(p);
+			    	this.chart.push(txt);
+		            this.start += .1;
 		    },
 		}
     var donut =[];
