@@ -1303,10 +1303,11 @@ var Mustache = function() {
 						return false
 					}
 				}
-				var k = encodeURIComponent(j.find("img").eq((n / -100)).attr(
-						"src"));
+				var k = j.find("img").eq((n / -100)).attr("src");
 				h.find("#id_thumbnail_url").val(k);
 				j.css("left", n + "px")
+//                                console.log(k);
+//                                 console.log(j.find("img").eq((n / -100)).attr("src"));
 			},
 			nothumb : function(i) {
 				i.preventDefault();
@@ -1325,7 +1326,8 @@ var Mustache = function() {
 				var i = this.title;
 				j.one("blur", function(n) {
 					var m = e(n.target);
-					h.find("#id_title").val(encodeURIComponent(m.val()));
+                                        console.log('titl-'+e(n.target));
+					h.find("#id_title").val(m.val());
 					var l = e("<a/>").attr({
 						"class" : "title",
 						href : "#"
@@ -1344,7 +1346,8 @@ var Mustache = function() {
 				var k = this.description;
 				i.one("blur", function(n) {
 					var m = e(n.target);
-					h.find("#id_description").val(encodeURIComponent(m.val()));
+                                        console.log('description-'+e(n.target));
+				h.find("#id_description").val(e(n.target));
 					var l = e("<a/>").attr({
 						"class" : "description",
 						href : "#"
@@ -1756,11 +1759,15 @@ var Mustache = function() {
 		return g
 	}
 	e.fn.preview = function(f, g) {
+            console.log("in preview");
+            
 		 
 		e(this).each(function(h, j) {
 			 
 			e.preview = new c(e(this), f)
 		});
+//                console.log(this.getStatusUrl());
+//                     console.log(j.find("img").eq((n / -100)).attr("src"));
 		return this
 	}
 })(jQuery);

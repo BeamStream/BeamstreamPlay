@@ -352,6 +352,26 @@
 						    				
 				    			}
 				    		});
+                                                    
+//					          var preview = {          //from old for test
+//					        	        submit : function(e, data){
+//					        	        	
+//					        	          e.preventDefault();
+//					        	          console.log(data);
+//					        	          this.display.create(data);
+//					        	          
+//					        	        }
+//					        	      }
+
+                                                var preview = {
+                                                    // Instead of posting to the server, send the object to display for
+                                                    // rendering to the feed.
+                                                    submit : function(e, data){
+                                                      e.preventDefault();
+                                                      this.display.create(data);
+                                                      console.log(data);
+                                                    }
+                                                }
 
 //							 var preview = {
 //					        	        submit : function(e, data){
@@ -421,10 +441,12 @@
                         else {
                                 BS.bar.width( BS.bar.width()+8);
                             }
-	    		    BS.bar.text( BS.bar.width()/2 + "%");
-                            console.log("BS.bar.text-"+BS.bar.text());
-                            console.log("BS.bar.width()"+BS.bar.width());
+	    		    BS.bar.text( BS.bar.width()/2 + "%");                       
 	    		}, 800);
+                        
+                    var imgsrc=$('input#id_thumbnail_url').val();       //to get preview image ,title and description
+                    var title=$('input#id_title').val();
+                    var description=$('input#id_description').val();
                         
                     var data;
 	            data = new FormData();
@@ -432,6 +454,10 @@
 	            data.append('docAccess' ,messageAccess);
 	            data.append('docData', self.file);  
 	            data.append('streamId', streamId);  
+                    
+//                    data.append('imgsrc', decodeURIComponent(imgsrc));    //to append preview image ,title and description
+//                    data.append('title', decodeURIComponent(title));  
+//                    data.append('description', decodeURIComponent(description));  
 	           
 	            /* post profile page details */
 	            $.ajax({
@@ -667,14 +693,21 @@
              var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
              var trueurl='';
              
+             var imgsrc=$('input#id_thumbnail_url').val();        //to get preview image ,title and description
+             var title=$('input#id_title').val();
+             var description=$('input#id_description').val();
+             console.log(decodeURIComponent(imgsrc)+","+decodeURIComponent(title)+","+decodeURIComponent(description));
              /* post message information to server */
              $.ajax({
             	 type : 'POST',
             	 url : BS.postMessage,
             	 data : {
-            		 message : message,
-					 streamId : streamId,
-					 messageAccess :messageAccess
+//                        imgsrc:decodeURIComponent(imgsrc),       //to append preview image ,title and description
+//                        title:decodeURIComponent(title),
+//                        description:decodeURIComponent(description),
+                        message : message,
+                        streamId : streamId,
+                        messageAccess :messageAccess
             	 },
             	 dataType : "json",
             	 success : function(data) {
@@ -934,7 +967,6 @@
 	            },
 	            dataType:"json",
 	            success:function(data){
-	            	console.log($('#'+messageId+'-msgRockCount').attr('class')); 
 	            	if($('#'+messageId+'-msgRockCount').hasClass('downrocks-message'))
 	            	{
 	            		$('#'+messageId+'-msgRockCount').removeClass('downrocks-message');
