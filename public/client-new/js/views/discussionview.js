@@ -429,31 +429,35 @@
 	        	
                     $('#file-upload-loader').css("display","block");
                         
+                    
                     $('#progressbar').show();        //progress bar 
                     $('.progress-container').show();                           
                     BS.progress = setInterval(function() {
+                    	
                         BS.bar = $('.bar');
-                        
                         if (BS.bar.width()== 200) {
+                        	
                             clearInterval(BS.progress);
-//	    		    $('.progress').removeClass('active');
-	    		    } 
-                        else {
-                                BS.bar.width( BS.bar.width()+8);
-                            }
-	    		    BS.bar.text( BS.bar.width()/2 + "%");                       
-	    		}, 800);
+//	    		            $('.progress').removeClass('active');
+	    		        } 
+                        else 
+                        {
+                            BS.bar.width( BS.bar.width()+8);
+                        }
+                        BS.bar.text( BS.bar.width()/2 + "%"); 
+                        
+                    }, 800);
                         
                     var imgsrc=$('input#id_thumbnail_url').val();       //to get preview image ,title and description
                     var title=$('input#id_title').val();
                     var description=$('input#id_description').val();
                         
                     var data;
-	            data = new FormData();
-	            data.append('docDescription',message);
-	            data.append('docAccess' ,messageAccess);
-	            data.append('docData', self.file);  
-	            data.append('streamId', streamId);  
+		            data = new FormData();
+		            data.append('docDescription',message);
+		            data.append('docAccess' ,messageAccess);
+		            data.append('docData', self.file);  
+		            data.append('streamId', streamId);  
                     
 //                    data.append('imgsrc', decodeURIComponent(imgsrc));    //to append preview image ,title and description
 //                    data.append('title', decodeURIComponent(title));  
@@ -479,18 +483,16 @@
 	    					owner = "";
 	    				}
                           
-//                      if(data.status == "Success") 
-//		   			    {
-                            BS.bar = $('.bar');        //progress bar
-                            BS.bar.width(400);
-                            BS.bar.text("100%");
-                            clearInterval(BS.progress);
+	    				// set progress bar as 100 %
+                        BS.bar = $('.bar');        
+                        BS.bar.width(200);
+                        BS.bar.text("100%");
+                        clearInterval(BS.progress);
                                  
-//                        }
                             
                         $('#msg-area').val("");
                         $('#uploded-file').hide();
-                        $('#progressbar').hide();
+                       
 	              	    self.file = "";
 	              	    
 	              	    $('#file-upload-loader').css("display","none");
@@ -504,6 +506,9 @@
 	  	                		"owner": owner
 	  		            }						  
 
+	  	                $('#progressbar').hide();
+	  	                
+	  	                
 	  	                /* Pubnub auto push */
 	  	                PUBNUB.publish({
 	  	                	channel : "stream",
@@ -598,7 +603,7 @@
 	        			
                     },
                     error:function(error){
-                    	alert("You need to add a stream first.");
+                    	bootbox.alert("You need to add a stream first.");
                     	self.file = "";
 	              	    $('#file-upload-loader').css("display","none");
                     	$('#msg-area').val("");
@@ -1244,6 +1249,11 @@
         	/* capture the file informations */
             reader.onload = (function(f){
             	self.file = file;
+            	
+            	BS.bar = $('.bar');        //progress bar
+                BS.bar.width('');
+                BS.bar.text("");
+                clearInterval(BS.progress);
             	
             	$('#uploded-file').html(f.name);
             	$('#uploded-file').show();
