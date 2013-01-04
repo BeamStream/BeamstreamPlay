@@ -1040,10 +1040,10 @@
 	            	 $('#'+data.question.id.id+'-poll-Option-area').html(template({data:data}));
             	 
 	            	 var pollIndex = 0;
-	            	 var values = [];
+//	            	 var values = [];
             		 _.each(data.polls, function(poll) {
             			 pollIndex++;
-            			 values.push(pollIndex);
+//            			 values.push(pollIndex);
 	            		 var pollSource = $("#tpl-question-poll").html();
 		            	 var pollTemplate = Handlebars.compile(pollSource);
 		            	 $('#'+data.question.id.id+'-pollOptions').append(pollTemplate({poll:poll, pollIndex:pollIndex,question:data.question.id.id}));
@@ -1051,7 +1051,7 @@
             		 
             		 
             		 /* creating pie charts */ 
-            		
+            		 var values = [20,15];
                 	 donut[data.question.id.id] = new Donut(new Raphael(""+data.question.id.id+"-piechart", 200,200));
                 	 donut[data.question.id.id].create(100, 100, 30, 55,100, values);
             	 }
@@ -1863,18 +1863,18 @@
         		 var source = $("#tpl-question-poll-percentage").html();
             	 var template = Handlebars.compile(source);
             	 $('#'+data.question.id.id+'-poll-Option-area').html(template({data:data}));
-            	 var values = [];
+//            	 var values = [];
             	 var pollIndex = 0;
         		 _.each(data.polls, function(poll) {
         			 pollIndex++;
-        			 values.push(pollIndex);
+//        			 values.push(pollIndex);
             		 var pollSource = $("#tpl-question-poll").html();
 	            	 var pollTemplate = Handlebars.compile(pollSource);
 	            	 $('#'+data.question.id.id+'-pollOptions').append(pollTemplate({poll:poll, pollIndex:pollIndex ,question:data.question.id.id}));
         		 });
         		 
         		 /* creating pie charts */ 
-        			
+        		 var values = [50,50];
         		 donut[data.question.id.id] = new Donut(new Raphael(""+data.question.id.id+"-piechart", 200,200));
             	 donut[data.question.id.id].create(100, 100, 30, 55,100, values);
         		 
