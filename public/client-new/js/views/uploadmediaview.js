@@ -24,59 +24,58 @@
 		events : {
                                  
                 
-                "mouseenter #uploadmedia_dr":"uploadMediadwn",
-                "mouseleave #dropdownnew":"uploadMediaup",
-                    "click #classdoc_dr":"classdocMenuList",
-                    "click .classdocument_mycomp":"classdocFileForm",
-                    "click .vialink_dr":"vialinkMenu",
-                    "click #vialink_uploadbutton":"vialinkUpload",
-                     "click .googledocs_dr":"googleDocs",
-                     "click #assignment_dr":"assignmentMenuList", 
-                     "click .importfrmlink_dr": "importFromLink",
-                     "click #homework_dr":"homeMenuList",
-                     "click #notes_dr":"notesMenuList",
-                     "click #projects_dr":"projectsMenuList",
-                     "click #lecture_dr":"lectureMenuList",
-                     "click #reference_dr":"referenceMenuList",
-                     "click #tutorial_dr":"tutorialMenuList",
-                     "click #edtech_dr":"edtechMenuList",
-                     "click #amusement_dr":"amusementMenuList",
-                     "click #public_dr":"publicMenuList",
-                "click #links_dr":"linksMenuList",
-                "click #links_uploadbutton":"linkupload",  
-                "click #googledocs_mycomp":"showFileForm",
-                  "click #gdoc_uploadbutton" : "uploadFile",
+            "mouseenter #uploadmedia_dr":"uploadMediadwn",
+            "mouseleave #dropdownnew":"uploadMediaup",
+            "click #classdoc_dr":"classdocMenuList",
+            "click .classdocument_mycomp":"classdocFileForm",
+            "click .vialink_dr":"vialinkMenu",
+            "click #vialink_uploadbutton":"vialinkUpload",
+            "click .googledocs_dr":"googleDocs",
+            "click #assignment_dr":"assignmentMenuList", 
+            "click .importfrmlink_dr": "importFromLink",
+            "click #homework_dr":"homeMenuList",
+            "click #notes_dr":"notesMenuList",
+            "click #projects_dr":"projectsMenuList",
+            "click #lecture_dr":"lectureMenuList",
+            "click #reference_dr":"referenceMenuList",
+            "click #tutorial_dr":"tutorialMenuList",
+            "click #edtech_dr":"edtechMenuList",
+            "click #amusement_dr":"amusementMenuList",
+            "click #public_dr":"publicMenuList",
+            "click #links_dr":"linksMenuList",
+            "click #links_uploadbutton":"linkupload",  
+            "click #googledocs_mycomp":"showFileForm",
+            "click #gdoc_uploadbutton" : "uploadFile",
                   
 
-                "click #audio_dr":"audioMenuList",               
- //               "click #vialink_dr":"audioVialink",
-                "click #audio_uploadbutton":"audioUpload",
+            "click #audio_dr":"audioMenuList",               
+ //         "click #vialink_dr":"audioVialink",
+            "click #audio_uploadbutton":"audioUpload",
                
-                "click #presvialink_dr":"presentationVialink",
-                "click #press_uploadbutton":"presentationUpload",
-                "click .docfrmcomputer_uploadbutton": "saveMyFile",
-                 'click #docfrmcomputer_closePopup': "hidePopUpBlock", 
-                     'change #doc-from-computer' :'displayImage',  
+            "click #presvialink_dr":"presentationVialink",
+            "click #press_uploadbutton":"presentationUpload",
+            "click .docfrmcomputer_uploadbutton": "saveMyFile",
+            'click #docfrmcomputer_closePopup': "hidePopUpBlock", 
+            'change #doc-from-computer' :'displayImage',  
                  
-                  "click #uploadmediachild_dr li" :"removeOptions",
-                  'change .dropdownselect' :'dropdownselect',
-                  'change .gdoc-url' :'gdocurlonchange'
+            "click #uploadmediachild_dr li" :"removeOptions",
+            'change .dropdownselect' :'dropdownselect',
+//            'change .gdoc-url' :'gdocurlonchange'
                   
                  
 			 
 		},
 	
-		initialize : function() {
-                        	console.log('Initializinguploadmediaview');
-                                this.source = $("#tpl-uploadedmediaview").html();
-                                this.template = Handlebars.compile(this.source);
-//                                alert( BS.AppRouter.routes[Backbone.history.fragment] );
-                                 this.streamid="";
+            initialize : function() {
+                console.log('Initializinguploadmediaview');
+                this.source = $("#tpl-uploadedmediaview").html();
+                this.template = Handlebars.compile(this.source);
+//              alert( BS.AppRouter.routes[Backbone.history.fragment] );
+                this.streamid="";
                 },
-                render : function(eventName) {
-		    
-			$(this.el).html(this.template);
-			return this;
+            render : function(eventName) {		    
+                $(this.el).html(this.template);
+                return this;
 		},
                 
                 /**
@@ -108,8 +107,9 @@
                 */
            classdocMenuList:function(eventName){
                 eventName.preventDefault();    
-                 console.log("new view--2");
-                    $('.link-dropdwn').html("");  
+                $('.link-dropdwn').html("");  
+                $('.dropdwnmycomputer').html(""); 
+                $('.dropdwnmycomputer').css("display","none");
                 $("#childtwo_dr").find('ul').hide(200);
                 $("#childthree_dr").find('ul').hide(200);
                 $("#childfour_dr").find('ul').hide(200);
@@ -133,8 +133,13 @@
                 console.log($(eventName.target).next().attr('class'))
                 $(".childone_two_dr").find('ul').hide(200);
                 $(".childone_three_dr").find('ul').hide(200);
-            //  $(".classdocchild_dr").animate({width: 'toggle'},130);
-                $(eventName.target).next().animate({width: 'toggle'},130);
+                $(".classdocchild_dr").animate({width: 'toggle'},130);
+//              $(eventName.target).next().animate({width: 'toggle'},130);
+                var source = $("#tpl-mycomputerdropdown").html();
+                var template = Handlebars.compile(source);				    
+                $(eventName.target).next().append(template()); 
+            
+                
                 //select box for stream
                 var i='';
                 var optioncontent=''; 
@@ -162,8 +167,8 @@
                 eventName.preventDefault();
                 $(".childone_one_dr").find('ul').hide(200);
                 $(".childone_three_dr").find('ul').hide(200);
-//                $("#vialinkchild_dr").animate({width: 'toggle'},130);
-                  $(eventName.target).next().animate({width: 'toggle'},130);
+//              $("#vialinkchild_dr").animate({width: 'toggle'},130);
+                $(eventName.target).next().animate({width: 'toggle'},130);
                 var i='';
                 var content=''; 
                 $.ajax({
@@ -210,7 +215,9 @@
                 */
             assignmentMenuList:function(eventName){
                 eventName.preventDefault();
-                 $('.link-dropdwn').html("");   
+                $('.link-dropdwn').html(""); 
+                $('.dropdwnmycomputer').html(""); 
+                $('.dropdwnmycomputer').css("display","none");
                 $("#childone_dr").find('ul').hide(200);
                 $("#childthree_dr").find('ul').hide(200);
                 $("#childfour_dr").find('ul').hide(200);
@@ -237,11 +244,10 @@
                 $(eventName.target).next().animate({width: 'toggle'},130);
                 var i='';
                 var content=''; 
-                 $('.link-dropdwn').html("");   
-                 console.log(  $(eventName.target).next());
+                $('.link-dropdwn').html("");   
                 var source = $("#tpl-lindropdown").html();
                 var template = Handlebars.compile(source);				    
-               $(eventName.target).next().append(template()); 
+                $(eventName.target).next().append(template()); 
                 $.ajax({
                     type : 'GET',
                     url : BS.allStreamsForAUser,
@@ -253,7 +259,6 @@
                     i++;
                     });
                     $('#doc-class-list').html(content); 
-                    console.log($('doc-class-list'));
                     }		  
                 });
                 },
@@ -264,7 +269,9 @@
                 */
             homeMenuList:function(eventName){
                 eventName.preventDefault();
-                 $('.link-dropdwn').html("");  
+                $('.link-dropdwn').html("");  
+                $('.dropdwnmycomputer').html(""); 
+                $('.dropdwnmycomputer').css("display","none");
                 $("#childone_dr").find('ul').hide(200);
                 $("#childtwo_dr").find('ul').hide(200);
                 $("#childfour_dr").find('ul').hide(200);
@@ -286,7 +293,9 @@
                 */
             notesMenuList:function(eventName){
                 eventName.preventDefault();
-                 $('.link-dropdwn').html("");  
+                $('.link-dropdwn').html("");
+                $('.dropdwnmycomputer').html(""); 
+                $('.dropdwnmycomputer').css("display","none");
                 $("#childone_dr").find('ul').hide(200);
                 $("#childtwo_dr").find('ul').hide(200);
                 $("#childthree_dr").find('ul').hide(200);
@@ -308,7 +317,9 @@
                 */
             projectsMenuList:function(eventName){
                 eventName.preventDefault();
-                 $('.link-dropdwn').html(""); 
+                $('.link-dropdwn').html(""); 
+                $('.dropdwnmycomputer').html(""); 
+                $('.dropdwnmycomputer').css("display","none");
                 $("#childone_dr").find('ul').hide(200);
                 $("#childtwo_dr").find('ul').hide(200);
                 $("#childthree_dr").find('ul').hide(200);
@@ -330,7 +341,9 @@
                 */
             lectureMenuList:function(eventName){
                 eventName.preventDefault();
-                $('.link-dropdwn').html("");  
+                $('.link-dropdwn').html(""); 
+                $('.dropdwnmycomputer').html(""); 
+                $('.dropdwnmycomputer').css("display","none");
                 $("#childone_dr").find('ul').hide(200);
                 $("#childtwo_dr").find('ul').hide(200);
                 $("#childthree_dr").find('ul').hide(200);
@@ -352,7 +365,9 @@
                 */
             referenceMenuList:function(eventName){
                 eventName.preventDefault();
-                $('.link-dropdwn').html("");  
+                $('.link-dropdwn').html(""); 
+                $('.dropdwnmycomputer').html(""); 
+                $('.dropdwnmycomputer').css("display","none");
                 $("#childone_dr").find('ul').hide(200);
                 $("#childtwo_dr").find('ul').hide(200);
                 $("#childthree_dr").find('ul').hide(200);
@@ -374,7 +389,9 @@
                 */
             tutorialMenuList:function(eventName){
                 eventName.preventDefault();
-                 $('.link-dropdwn').html("");  
+                $('.link-dropdwn').html("");
+                $('.dropdwnmycomputer').html(""); 
+                $('.dropdwnmycomputer').css("display","none");
                 $("#childone_dr").find('ul').hide(200);
                 $("#childtwo_dr").find('ul').hide(200);
                 $("#childthree_dr").find('ul').hide(200);
@@ -396,7 +413,9 @@
                 */
             edtechMenuList:function(eventName){
                 eventName.preventDefault();
-                 $('.link-dropdwn').html("");  
+                $('.link-dropdwn').html("");  
+                $('.dropdwnmycomputer').html(""); 
+                $('.dropdwnmycomputer').css("display","none");
                 $("#childone_dr").find('ul').hide(200);
                 $("#childtwo_dr").find('ul').hide(200);
                 $("#childthree_dr").find('ul').hide(200);
@@ -418,7 +437,9 @@
                 */
             amusementMenuList:function(eventName){
                 eventName.preventDefault();
-                $('.link-dropdwn').html("");  
+                $('.link-dropdwn').html(""); 
+                $('.dropdwnmycomputer').html(""); 
+                $('.dropdwnmycomputer').css("display","none");
                 $("#childone_dr").find('ul').hide(200);
                 $("#childtwo_dr").find('ul').hide(200);
                 $("#childthree_dr").find('ul').hide(200);
@@ -441,7 +462,9 @@
                 */
             publicMenuList:function(eventName){
                 eventName.preventDefault();
-                  $('.link-dropdwn').html(""); 
+                $('.link-dropdwn').html(""); 
+                $('.dropdwnmycomputer').html("");
+                $('.dropdwnmycomputer').css("display","none");
                 $("#childone_dr").find('ul').hide(200);
                 $("#childtwo_dr").find('ul').hide(200);
                 $("#childthree_dr").find('ul').hide(200);
@@ -615,18 +638,29 @@
                 {
                 	docAccess = "PrivateToClass";
                 }
-                                console.log(docAccess);
-
+                BS.bar = $('.bar');        //To set progress bar null
+                BS.bar.width('');
+                BS.bar.text("");                 
+                $('#progressbar').show();        //progress bar 
+                $('.progress-container').show();    
+                BS.progress = setInterval(function() {
+                    BS.bar = $('.bar');                     
+                    if (BS.bar.width()== 200) {
+                        clearInterval(BS.progress);
+    //                  $('.progress').removeClass('active');
+                        } 
+                    else {
+                        BS.bar.width( BS.bar.width()+8);
+                        }
+                    BS.bar.text( BS.bar.width()/2 + "%");                       
+                    }, 800);
                 var data;
                 data = new FormData();
                 data.append('streamId', streamId);
                 data.append('docAccess',docAccess);
                 data.append('docData', this.image);  
                 data.append('docDescription',message);
-                document.getElementById('loader-message').innerHTML="<img src='images/loading.gif'>";
-                
-                console.log("streamId -"+streamId+","+"docAccess - "+docAccess+","+"message -"+message)
-                
+                document.getElementById('loader-message').innerHTML="<img src='images/loading.gif'>";                       
                 /* post profile page details */
                 $.ajax({
                     type: 'POST',
@@ -637,74 +671,64 @@
                     processData: false,
                     dataType : "json",
                     success: function(data){
-                        if(data!== " ") {
-                        document.getElementById('loader-message').innerHTML = data.message;
-//                        var status 
-             //           BS.filesMediaView.docsList();
-             //           BS.filesMediaView.docFromComputer();
-//                        self.audio();
-             //           BS.filesMediaView.presentation();
-              //          BS.filesMediaView.pdffiles();  
-                          console.log(BS.AppRouter.routes[Backbone.history.fragment]);
-                        
-                        switch (BS.AppRouter.routes[Backbone.history.fragment])
-                        {
-                            case "filesMedia":
-                               console.log("files and media");
-                                $("#dooclinkchild_dr").hide(200);
-//                               BS.filesMediaView = new BS.FilesMediaView();
-                                $('.files-list').html("");                                
-                                BS.filesMediaView.pictres();	
-                                BS.filesMediaView.videos();   
-                                BS.filesMediaView.spreadsheet();                                
-                                BS.filesMediaView.docsList();
-                                BS.filesMediaView.docFromComputer();
-//                              BS.filesMediaView.audio();
-                                 BS.filesMediaView.presentation();
-                                 BS.filesMediaView.pdffiles();  
+                        if(data!== " ") {                      
+                            BS.bar = $('.bar');        //progress bar
+                            BS.bar.width(400);
+                            BS.bar.text("100%");
+                            clearInterval(BS.progress);                       
+                            bootbox.alert("Uploaded Successfully.");                      
+                            switch (BS.AppRouter.routes[Backbone.history.fragment])
+                                {
+                                case "filesMedia":
+                                    $("#dooclinkchild_dr").hide(200);
+    //                               BS.filesMediaView = new BS.FilesMediaView();
+                                    $('.files-list').html("");                                
+                                    BS.filesMediaView.pictres();	
+                                    BS.filesMediaView.videos();   
+                                    BS.filesMediaView.spreadsheet();                                
+                                    BS.filesMediaView.docsList();
+                                    BS.filesMediaView.docFromComputer();
+    //                              BS.filesMediaView.audio();
+                                    BS.filesMediaView.presentation();
+                                    BS.filesMediaView.pdffiles();  
 
                                 break;
-                            case "googleDocs":
-                               console.log("googleDocs");
-                                 BS.GoogleDocsView.docsList(); 
+                                case "googleDocs":
+                                    BS.googledocsview.docsList(); 
                                 break;
-                            case "docsFromComputer":
-                               console.log("docsFromComputer");
-//                                 BS.doclistview = new BS.DocListView();
-                                    BS.doclistview.docsList();  
-                                    
+                                case "docsFromComputer":
+                                    BS.doclistview.docsList();                                    
                                 break;
-                            case "imageList":
-                                console.log("imageList");
-                                     BS.ImageListView.pictres();
+                                case "imageList":
+                                     BS.imagelistview.pictres();
                                 break;
-                            case "videoList":
-                               console.log("videoList");
-                                   BS.VideoListView.videolisting();
+                                case "videoList":
+                                   BS.videolistview.videolisting();
                                 break;
-                            case "audioList":
-                               console.log("audioList");
-                                BS.AudioListView.audio();  
+                                case "audioList":
+                                    BS.audiolistview.audio();  
                                 break;
-                            case "pdflistview":
-                               console.log("pdflistview");
-                                    BS.PdfListView.pdflisting();  
+                                case "pdflistview":
+                                     BS.pdflistview.pdflisting();  
                                 break;
-                            case "presentationList":
-                                 console.log("presentationview....");
+                                case "presentationList":
                                    BS.presentationview.presentation();     
                                 break;
-                            default:
-                               console.log("no value");
+                                default:
+                                    console.log("no value");
                                 break;
+                                }
+                                $("#dooclinkchild_dr").hide(200);
+                            }                        
+                        else
+                            {
+                                 bootbox.alert("Failed.Please try again");
+                            }
+                            BS.bar = $('.bar');        //progress bar
+                            BS.bar.width('');
+                            BS.bar.text("");  
+                            $('#progressbar').hide();
                         }
-                        
-                        
-                        
-                        
-                        $("#dooclinkchild_dr").hide(200);
-                        }
-                    }
                     }); 
                 },
                 
@@ -715,10 +739,7 @@
                 * docAccess can be one of "Private", "Public", "Restricted", "Stream".
                 */  
             uploadFile : function(){
-                                      /* Upload the googledocs from url with details */
-                                      console.log("drop");
-                                      console.log("docName-"+$("#gdoc-name").val()+", docURL-"+$("#gdoc-url").val()+", docDescription -"+$("#gdoc-description").val());
-//                                         $("#tpl-lindropdown").destroy();
+                    /* Upload the googledocs from url with details */
                 var documentModel = new BS.Document();
                 if($("#gdoc-url").val().length != 0){
                     documentModel.set({
@@ -741,25 +762,38 @@
                         dataType : "json",
                     success : function(data) {
                         if(data.status == 'Failure')
-                            alert("Failed.Please try again");
+                            bootbox.alert("Failed.Please try again");
                         else
                             {
-                            alert("Doc Uploaded Successfully");
-                                 BS.filesMediaView.docsList(); 
-                                console.log("Doc Uploaded Successfully");
+                             bootbox.alert("Doc Uploaded Successfully.");                                
+                        switch (BS.AppRouter.routes[Backbone.history.fragment])
+                            {
+                            case "filesMedia":
+                                $("#dooclinkchild_dr").hide(200);
+                                $('.files-list').html("");                                
+                                BS.filesMediaView.pictres();	
+                                BS.filesMediaView.videos();   
+                                BS.filesMediaView.spreadsheet();                                
+                                BS.filesMediaView.docsList();
+                                BS.filesMediaView.docFromComputer();
+//                              BS.filesMediaView.audio();
+                                BS.filesMediaView.presentation();
+                                BS.filesMediaView.pdffiles();  
+                                break;
+                            case "googleDocs":
+                                 BS.googledocsview.docsList(); 
+                                break;                           
+                            default:
+                               console.log("no value");
+                                break;
+                            }
                             }
                         }           
                     });
                     }
                 $("#dropdownnew").find('ul').hide(250); 
                 },
-                
-                
-                
-                
-                
-                
-                
+
                 hidePopUpBlock: function(){
                 $("#dooclinkchild_dr").find('ul').hide(100);
                 $("#docsmenu_dr").find('ul').hide(200);
@@ -767,34 +801,27 @@
                 $("#uploadmediachild_dr").find('ul').hide(200);
                 },
                 
-                    /**
+             /**
              * NEW THEME - hide visual drop down list
              */
             
-             removeOptions:function(eventName){
+            removeOptions:function(eventName){
             	eventName.stopPropagation();
                 },
                 
-                    dropdownselect :function(eventName){
-                       eventName.preventDefault();
-//                       $(eventName.target).val()
-//                       console.log("on select - "+$(eventName.target).val());
-//                       var id=$(eventName.target).val();
-//                       $(eventName.target).parent().parent().attr('id',id);
-                       this.streamid=$(eventName.target).val();
-                       console.log(this.streamid);
-//                       this.streamid="";
-//                       console.log("=="+this.streamid);
-                    },
+            dropdownselect :function(eventName){
+                eventName.preventDefault();
+                this.streamid=$(eventName.target).val();
+                }
                     
-                    gdocurlonchange :function(eventName){
-                       eventName.preventDefault();
-
-                        console.log("url");
-                        var streamurl=$(eventName.target).val();
-                        console.log(streamurl);
-//                   
-                    }
+//            gdocurlonchange :function(eventName){
+//                eventName.preventDefault();
+//
+//                        console.log("url");
+//                        var streamurl=$(eventName.target).val();
+//                        console.log(streamurl);
+////                   
+//                    }
         
                 
 });
