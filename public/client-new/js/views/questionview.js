@@ -124,7 +124,7 @@
 			/* updating pie charts */ 
 			var pollscount = [2,0,0];
 			 
-			var values = [10,5,4];
+			var values = [10,10,10,10];
             $("#"+questionId+"-piechart").find('svg').remove();
             donut[questionId] = new Donut(new Raphael(""+questionId+"-piechart", 200,200));
             donut[questionId].create(100, 100, 30, 55,100, values);
@@ -1040,16 +1040,17 @@
 	            	 $('#'+data.question.id.id+'-poll-Option-area').html(template({data:data}));
             	 
 	            	 var pollIndex = 0;
+	            	 var values = [];
             		 _.each(data.polls, function(poll) {
             			 pollIndex++;
+            			 values.push(pollIndex);
 	            		 var pollSource = $("#tpl-question-poll").html();
 		            	 var pollTemplate = Handlebars.compile(pollSource);
-		            	 $('#'+data.question.id.id+'-pollOptions').prepend(pollTemplate({poll:poll, pollIndex:pollIndex,question:data.question.id.id}));
+		            	 $('#'+data.question.id.id+'-pollOptions').append(pollTemplate({poll:poll, pollIndex:pollIndex,question:data.question.id.id}));
             		 });
             		 
             		 
             		 /* creating pie charts */ 
-                	 var values = [10,10,40];
             		
                 	 donut[data.question.id.id] = new Donut(new Raphael(""+data.question.id.id+"-piechart", 200,200));
                 	 donut[data.question.id.id].create(100, 100, 30, 55,100, values);
@@ -1862,17 +1863,17 @@
         		 var source = $("#tpl-question-poll-percentage").html();
             	 var template = Handlebars.compile(source);
             	 $('#'+data.question.id.id+'-poll-Option-area').html(template({data:data}));
-        	 
+            	 var values = [];
             	 var pollIndex = 0;
         		 _.each(data.polls, function(poll) {
         			 pollIndex++;
+        			 values.push(pollIndex);
             		 var pollSource = $("#tpl-question-poll").html();
 	            	 var pollTemplate = Handlebars.compile(pollSource);
 	            	 $('#'+data.question.id.id+'-pollOptions').append(pollTemplate({poll:poll, pollIndex:pollIndex ,question:data.question.id.id}));
         		 });
         		 
         		 /* creating pie charts */ 
-        		 var values = [4,0,2];
         			
         		 donut[data.question.id.id] = new Donut(new Raphael(""+data.question.id.id+"-piechart", 200,200));
             	 donut[data.question.id.id].create(100, 100, 30, 55,100, values);
