@@ -121,7 +121,6 @@
                 $("#childten_dr").find('ul').hide(200);
                 $("#childeleven_dr").find('ul').hide(200);
                 $("#classdocmenu_dr").animate({width: 'toggle'},130);
-                $("#classdocmenu_dr").show(130);
                 },
                 
                               /*
@@ -164,7 +163,9 @@
                 * (childmenu from youtube)
                 */
             vialinkMenu:function(eventName){
-                eventName.preventDefault();
+                eventName.preventDefault(); 
+                $('.dropdwnmycomputer').html(""); 
+                $('.dropdwnmycomputer').css("display","none");
                 $(".childone_one_dr").find('ul').hide(200);
                 $(".childone_three_dr").find('ul').hide(200);
 //              $("#vialinkchild_dr").animate({width: 'toggle'},130);
@@ -203,6 +204,8 @@
                 */
             googleDocs:function(eventName){
                 eventName.preventDefault();
+                $('.dropdwnmycomputer').html(""); 
+                $('.dropdwnmycomputer').css("display","none");
                 $(".childone_one_dr").find('ul').hide(200);
                 $(".childone_two_dr").find('ul').hide(200);
 //                $("#googledocschild_dr").animate({width: 'toggle'},130);
