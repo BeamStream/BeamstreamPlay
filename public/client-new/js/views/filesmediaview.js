@@ -20,7 +20,7 @@ BS.FilesMediaView = Backbone.View.extend({
                 
 
             events: {
-                "click .gdoc_uploadbutton" : "uploadFile",
+//                "click .gdoc_uploadbutton" : "uploadFile",
                 "click .doctitle" : "editDocTitle",
                 "click .imgtitle" : "editImgTitle",
                 "click .videotitle" : "editVideoTitle",  
@@ -212,47 +212,47 @@ BS.FilesMediaView = Backbone.View.extend({
                 },
                 
          
-                /*
-                * Author:Cuckoo Anna on 09July2012
-                * For Uploading docs
-                * docType can be one of "GoogleDocs", "YoutubeVideo", "Other".
-                * docAccess can be one of "Private", "Public", "Restricted", "Stream".
-                */  
-            uploadFile : function(){
-                                      /* Upload the googledocs from url with details */
-                var documentModel = new BS.Document();
-                if($("#gdoc-url").val().length != 0){
-                    documentModel.set({
-                    docName : $("#gdoc-name").val(),
-                    docURL : $("#gdoc-url").val(),  
-                    docAccess: 'Public',
-                    docType: 'GoogleDocs',
-                    streamId: $("#doc-class-list").val(),
-                    docDescription: $("#gdoc-description").val()
-                    });
-                    var documentData = JSON.stringify(documentModel);
-                    var self = this;
-                    $.ajax({
-                        type : 'POST',
-                        url : BS.docUpload,
-                        data : {
-                            data : documentData
-                            },
-                        dataType : "json",
-                    success : function(data) {
-                        if(data.status == 'Failure')
-                            alert("Failed.Please try again");
-                        else
-                            {
-                            alert("Doc Uploaded Successfully");
-                                self.docsList(); 
-                                console.log("Doc Uploaded Successfully");
-                            }
-                        }           
-                    });
-                    }
-                $("#dropdownnew").find('ul').hide(250); 
-                },
+//                /*
+//                * Author:Cuckoo Anna on 09July2012
+//                * For Uploading docs
+//                * docType can be one of "GoogleDocs", "YoutubeVideo", "Other".
+//                * docAccess can be one of "Private", "Public", "Restricted", "Stream".
+//                */  
+//            uploadFile : function(){
+//                                      /* Upload the googledocs from url with details */
+//                var documentModel = new BS.Document();
+//                if($("#gdoc-url").val().length != 0){
+//                    documentModel.set({
+//                    docName : $("#gdoc-name").val(),
+//                    docURL : $("#gdoc-url").val(),  
+//                    docAccess: 'Public',
+//                    docType: 'GoogleDocs',
+//                    streamId: $("#doc-class-list").val(),
+//                    docDescription: $("#gdoc-description").val()
+//                    });
+//                    var documentData = JSON.stringify(documentModel);
+//                    var self = this;
+//                    $.ajax({
+//                        type : 'POST',
+//                        url : BS.docUpload,
+//                        data : {
+//                            data : documentData
+//                            },
+//                        dataType : "json",
+//                    success : function(data) {
+//                        if(data.status == 'Failure')
+//                            alert("Failed.Please try again");
+//                        else
+//                            {
+//                            alert("Doc Uploaded Successfully");
+//                                self.docsList(); 
+//                                console.log("Doc Uploaded Successfully");
+//                            }
+//                        }           
+//                    });
+//                    }
+//                $("#dropdownnew").find('ul').hide(250); 
+//                },
       
                 /**
                 * NEW THEM - filter docs.. and prevent default action
