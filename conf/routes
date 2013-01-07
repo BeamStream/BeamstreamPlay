@@ -21,6 +21,8 @@ POST  /followUser            controllers.UserController.followUser
 #Other
 GET  /browserClosed          controllers.UserController.browserClosed
 GET /returnProgress                    controllers.MediaController.returnProgress
+GET /returnFlag                    controllers.MediaController.returnFlag
+
 
 #Streams
 GET /allStreamsForAUser controllers.StreamController.getAllStreamForAUser
