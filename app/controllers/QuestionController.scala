@@ -175,7 +175,6 @@ object QuestionController extends Controller {
         questionsWithPolls ++= List(new QuestionWithPoll(question, List()))
       }
     }
-    println(questionsWithPolls)
     val allQuestionForAStreamJson = write(questionsWithPolls)
     Ok(allQuestionForAStreamJson).as("application/json")
   }
