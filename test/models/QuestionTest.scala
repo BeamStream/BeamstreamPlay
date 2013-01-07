@@ -137,9 +137,9 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
     val userId = User.createUser(user)
     val option = OptionOfQuestion(new ObjectId, "Poll1", List())
     val pollId = OptionOfQuestionDAO.insert(option)
-    assert(QuestionPolling.findOptionOfAQuestionById(pollId.get).get.assosiates.size===0)
+    assert(QuestionPolling.findOptionOfAQuestionById(pollId.get).get.voters.size===0)
     QuestionPolling.voteTheOptionOfAQuestion(pollId.get, userId)
-    assert(QuestionPolling.findOptionOfAQuestionById(pollId.get).get.assosiates.size===1)
+    assert(QuestionPolling.findOptionOfAQuestionById(pollId.get).get.voters.size===1)
   }
 
   after {
