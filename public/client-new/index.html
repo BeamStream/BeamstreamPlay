@@ -21,7 +21,9 @@
 <link href="css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="css/jquery.simplyscroll.css" media="all" type="text/css">
 <link href="css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />  
-<!--<script type="text/JavaScript" src="lib/jquery.ui.touch-punch.min.js"></script> -->
+<!--- to ipad problem  
+<script type="text/JavaScript" src="lib/jquery-ui.min.js"></script> 
+<script type="text/JavaScript" src="lib/jquery.ui.touch-punch.min.js"></script>  --->
 <script type="text/JavaScript" src="lib/jquery-1.js"></script>
 <script type="text/JavaScript" src="lib/jquery.js"></script>
 <script type="text/JavaScript" src="lib/bootstrap-modal.js"></script>
@@ -1911,140 +1913,11 @@ Create a Class</a>
             <div class="clear"></div>
           </div>
           <div class="calender-outer overview-boxes browse-outer">
-           <!-- <h2>My Profile <a href="#" class="btn blue-buttons showmessage browse-file ">View All</a></h2> -->
+
            
           
            <ul class="profil-pic-outer files-list" id="grid">         
            <div class="clear"></div>
-           <!-- 
-           
-          <li  data-groups='["recent"]' id="coverimage" data-date-created="11/06/2012" class="item" >
-         <div class="image-wrapper"><div class="hover-div"><div id="profile-images"><img class="cover-picture" src="images/pictures_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Images </p></div></div></div>
-          <div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>
-        </li>
-        <li data-groups='["oldest"]' data-date-created="2010-09-14" id="covervideo" class="item">
-       <div class="image-wrapper"><div class="hover-div"><div id="profile-videos"><img class="cover-picture" src="images/video_image.png"></div><div class="hover-text"><p class="emptyfiles"> No Uploaded Videos </p></div></div> </div>
-          <div class="comment-wrapper1"> <a class="common-icon video" href="#"></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div> 
-        </li>        
-        <li id="coverdocs"  data-groups='["recent"]' data-date-created="11/07/2012" class="item">
-       <div class="image-wrapper" id="google-docs"><div class="hover-div"><a class="google-docs-image" href="#googledocs"><img class="cover-picture" src="images/google_docs_image.png"></a>  
-          <div class="hover-text"><p class="emptyfiles"> No Uploaded Docs </p></div></div></div>
-          <div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>
-            <ul class="comment-list">
-              <li><a class="eye-icon" href="#">87</a></li>
-              <li><a class="hand-icon" href="#">5</a></li>
-              <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>   
-        </li>        
-        <li id="coveraudio" data-groups='["oldest"]' data-date-created="12/06/2011" class="item" >
-         <div class="image-wrapper coveraud"> 
-               <div class="hover-div"><img class="cover-picture" src="images/audio_image.png"/><div class="hover-text"> 
-                 <p class="emptyfiles"> No Uploaded Audio </p></div>
-               </div>
-            </div>                   
-            <div class="comment-wrapper1"> <a class="common-icon music" href="#"></a>
-               <ul class="comment-list"> 
-                  <li><a class="eye-icon" href="#">87</a></li>
-                  <li><a class="hand-icon" href="#">5</a></li>
-                  <li><a class="message-icon" href="#">10</a></li>
-              </ul>
-           </div> 
-        </li>
-        <li id="coverspreadsheet"  data-groups='["recent"]' data-date-created="11/10/2012" class="item">
-       <div class="image-wrapper">
-            <div class="hover-div"><img class="cover-picture" src="images/spreadsheets_image.png"/><div class="hover-text"> 
-               <p class="emptyfiles"> No Uploaded Spreadsheets </p>
-              </div> 
-            </div>
-            </div>
-           <div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>
-              <ul class="comment-list">
-                 <li><a class="eye-icon" href="#">87</a></li>
-                 <li><a class="hand-icon" href="#">5</a></li>
-                 <li><a class="message-icon" href="#">10</a></li>
-              </ul>
-           </div>  
-        </li>
-        <li id="coverpresentation" data-groups='["oldest"]' data-date-created="11/09/2012" class="item">
-         <div class="image-wrapper"> 
-              <div class="hover-div"><img class="cover-picture" src="images/presentations_image.png"/>
-               <div class="hover-text">  <p class="emptyfiles"> No Uploaded Presentations </p></div>        
-              </div>
-           </div> 
-           <div class="comment-wrapper1"> <a class="common-icon presentation" href="#"></a>
-             <ul class="comment-list">
-                <li><a class="eye-icon" href="#">87</a></li>
-                <li><a class="hand-icon" href="#">5</a></li>
-                <li><a class="message-icon" href="#">10</a></li>
-            </ul>
-          </div>  
-       </li>
-       <li id="coverpdf" data-groups='["oldest"]' data-date-created="09/06/2012" class="item">
-         <div class="image-wrapper">
-             <div class="hover-div"><img class="cover-picture" src="images/pdp_image.png"/><div class="hover-text">    
-                <p class="emptyfiles"> No Uploaded Files </p>
-              </div>
-           </div>
-           </div>
-           <div class="comment-wrapper1"> <a class="common-icon pdf" href="#"></a>
-              <ul class="comment-list">
-                <li><a class="eye-icon" href="#">87</a></li>
-                <li><a class="hand-icon" href="#">5</a></li>
-                <li><a class="message-icon" href="#">10</a></li>
-              </ul>        
-
-           </div>         
-        </li>
-        <li id="coverdoc_com"  data-groups='["recent"]' data-date-created="11/06/2012" class="item">
-       <div class="image-wrapper"> 
-             <div class="hover-div"><img class="cover-picture" src="images/docs_image.png"/>
-               <div class="hover-text">     
-                <p class="emptyfiles"> No Uploaded Docs </p>
-               </div>
-             </div> 
-          </div>
-          <div class="comment-wrapper1"> <a class="common-icon link" href="#"></a>
-             <ul class="comment-list">
-                <li><a class="eye-icon" href="#">87</a></li>
-                <li><a class="hand-icon" href="#">5</a></li>
-                <li><a class="message-icon" href="#">10</a></li>
-             </ul>
-          </div>   
-        </li>       
-        <li id="coverlink"  data-groups='["recent"]' data-date-created="11/06/2010" class="item" >
-     <div class="image-wrapper"> 
-             <div class="hover-div"><img class="cover-picture" src="images/links_image.png"/>
-               <div class="hover-text">     
-                <p class="emptyfiles"> No Uploaded Links </p>
-               </div>
-             </div> 
-          </div>
-          <div class="comment-wrapper1"> <a class="common-icon link" href="#"></a>
-             <ul class="comment-list">
-                <li><a class="eye-icon" href="#">87</a></li>
-                <li><a class="hand-icon" href="#">5</a></li>
-                <li><a class="message-icon" href="#">10</a></li>
-             </ul>
-          </div>   
-        </li>       -->
-    
-    
-    
-    
-           
               <div class="clear"></div>
             </ul>
            
@@ -2069,30 +1942,6 @@ Create a Class</a>
                               
                               <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer' >
-                                      
-                                      <!--
-                                      <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
-                                      <li class="private">
-                                          <label  style="color:black;" for="id-private">
-                                              <input  id="id-private" type="checkbox" checked="checked">Private
-                                          </label>
-                                      </li>
-                                      <li style="margin-right:10px;" >
-                                          <select class="dropdownselect doc-class-list-computer">
-                                              <option>Save to Class</option>							
-                                          </select>
-                                      </li>      
-                                      <span id="loader-message"></span></br>                                       
-                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
-                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
-                                      <li id="progressbar" style="display:none; list-style: none">
-                                        <div class="progress-container" >
-                                            <div class="progress progress-striped active">
-                                              <div class="bar" style="width: 0%;"></div>
-                                            </div> 
-                                        </div> 
-                                        </li>
-                                        -->
                                   </ul>
                               </li>
                               
@@ -2125,85 +1974,21 @@ Create a Class</a>
                                       <li><a class="importfrmlink_dr" href="#">Import From Link</a>
                                           
                                           <ul class="frmlinkchild_dr largeli link-dropdwn">
-                                              
-                                              
-                                          <!--    
-                                              <span class="arrow-left"></span>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small quest-search" id="gdoc-name" placeholder="NAME of Doc"></li>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
-                                                  <select id="doc-category-list" class="dropdownselect">
-                                                      <option>Class Doc</option>
-                                                      <option>Class Notes</option>
-                                                      <option>Reference Material</option>
-                                                      <option>Tutorial</option>
-                                                      <option>Presentation</option>
-                                                      <option>Project Doc</option>
-                                                      <option>Lecture</option>
-                                                      <option class="enterfromcatgry">Enter New Catagory</option>
-                                                  </select>
-                                              </li>
-                                              <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
-                                                  <select class="dropdownselect doc-class-list">
-                                                      <option>Save to Class</option>
-
-                                                  </select>
-                                              </li>
-                                              <li class="private">
-                                                  <label  style="color:black;" for="id-private">
-                                                      <input  id="doc-private" type="checkbox" checked="checked">
-                                                      Private
-                                                  </label>
-                                              </li>
-                                              <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
-                                          
-                                          -->
-                                          
                                           </ul>
                                           
                                           
                                       </li>
                                   </ul>
                               </li>   
-                              
-                              
                       </ul>  
                   </li>
-                  
-                  
-                  
-                  
-                  
                   
                   <li id="childtwo_dr"><a id="assignment_dr"href="#">Assignment</a>
                    <ul id="assigncmenu_dr" class="fixingmenu_dr">
                               
                              
                            <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
-                                  <ul class='classdocchild_dr largeli dropdwnmycomputer' >
-                                      
-                                      <!--
-                                      <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
-                                      <li class="private">
-                                          <label  style="color:black;" for="id-private">
-                                              <input  id="id-private" type="checkbox" checked="checked">Private
-                                          </label>
-                                      </li>
-                                      <li style="margin-right:10px;" >
-                                          <select class="dropdownselect doc-class-list-computer">
-                                              <option>Save to Class</option>							
-                                          </select>
-                                      </li>      
-                                      <span id="loader-message"></span></br>                                       
-                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
-                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
-                                      <li id="progressbar" style="display:none; list-style: none">
-                                        <div class="progress-container" >
-                                            <div class="progress progress-striped active">
-                                              <div class="bar" style="width: 0%;"></div>
-                                            </div> 
-                                        </div> 
-                                        </li>
-                                        -->
+                                  <ul class='classdocchild_dr largeli dropdwnmycomputer' >                             
                                   </ul>
                               </li>
                               
@@ -2236,47 +2021,13 @@ Create a Class</a>
                                       <li><a class="importfrmlink_dr" href="#">Import From Link</a>
                                           
                                           <ul class="frmlinkchild_dr largeli link-dropdwn">
-                                              
-                                              
-                                          <!--    
-                                              <span class="arrow-left"></span>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small quest-search" id="gdoc-name" placeholder="NAME of Doc"></li>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
-                                                  <select id="doc-category-list" class="dropdownselect">
-                                                      <option>Class Doc</option>
-                                                      <option>Class Notes</option>
-                                                      <option>Reference Material</option>
-                                                      <option>Tutorial</option>
-                                                      <option>Presentation</option>
-                                                      <option>Project Doc</option>
-                                                      <option>Lecture</option>
-                                                      <option class="enterfromcatgry">Enter New Catagory</option>
-                                                  </select>
-                                              </li>
-                                              <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
-                                                  <select class="dropdownselect doc-class-list">
-                                                      <option>Save to Class</option>
-
-                                                  </select>
-                                              </li>
-                                              <li class="private">
-                                                  <label  style="color:black;" for="id-private">
-                                                      <input  id="doc-private" type="checkbox" checked="checked">
-                                                      Private
-                                                  </label>
-                                              </li>
-                                              <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
-                                          
-                                          -->
-                                          
+                              
                                           </ul>
-                                          
-                                          
+                                                                                  
                                       </li>
                                   </ul>
                               </li>   
-                              
-                              
+                   
                       </ul>  
                   </li>
                   
@@ -2288,30 +2039,7 @@ Create a Class</a>
                        
                          <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer' >
-                                      
-                                      <!--
-                                      <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
-                                      <li class="private">
-                                          <label  style="color:black;" for="id-private">
-                                              <input  id="id-private" type="checkbox" checked="checked">Private
-                                          </label>
-                                      </li>
-                                      <li style="margin-right:10px;" >
-                                          <select class="dropdownselect doc-class-list-computer">
-                                              <option>Save to Class</option>							
-                                          </select>
-                                      </li>      
-                                      <span id="loader-message"></span></br>                                       
-                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
-                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
-                                      <li id="progressbar" style="display:none; list-style: none">
-                                        <div class="progress-container" >
-                                            <div class="progress progress-striped active">
-                                              <div class="bar" style="width: 0%;"></div>
-                                            </div> 
-                                        </div> 
-                                        </li>
-                                        -->
+     
                                   </ul>
                               </li>
                               
@@ -2344,39 +2072,7 @@ Create a Class</a>
                                       <li><a class="importfrmlink_dr" href="#">Import From Link</a>
                                           
                                           <ul class="frmlinkchild_dr largeli link-dropdwn">
-                                              
-                                              
-                                          <!--    
-                                              <span class="arrow-left"></span>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small quest-search" id="gdoc-name" placeholder="NAME of Doc"></li>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
-                                                  <select id="doc-category-list" class="dropdownselect">
-                                                      <option>Class Doc</option>
-                                                      <option>Class Notes</option>
-                                                      <option>Reference Material</option>
-                                                      <option>Tutorial</option>
-                                                      <option>Presentation</option>
-                                                      <option>Project Doc</option>
-                                                      <option>Lecture</option>
-                                                      <option class="enterfromcatgry">Enter New Catagory</option>
-                                                  </select>
-                                              </li>
-                                              <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
-                                                  <select class="dropdownselect doc-class-list">
-                                                      <option>Save to Class</option>
-
-                                                  </select>
-                                              </li>
-                                              <li class="private">
-                                                  <label  style="color:black;" for="id-private">
-                                                      <input  id="doc-private" type="checkbox" checked="checked">
-                                                      Private
-                                                  </label>
-                                              </li>
-                                              <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
-                                          
-                                          -->
-                                          
+   
                                           </ul>
                                           
                                           
@@ -2396,30 +2092,6 @@ Create a Class</a>
                        
                          <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer' >
-                                      
-                                      <!--
-                                      <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
-                                      <li class="private">
-                                          <label  style="color:black;" for="id-private">
-                                              <input  id="id-private" type="checkbox" checked="checked">Private
-                                          </label>
-                                      </li>
-                                      <li style="margin-right:10px;" >
-                                          <select class="dropdownselect doc-class-list-computer">
-                                              <option>Save to Class</option>							
-                                          </select>
-                                      </li>      
-                                      <span id="loader-message"></span></br>                                       
-                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
-                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
-                                      <li id="progressbar" style="display:none; list-style: none">
-                                        <div class="progress-container" >
-                                            <div class="progress progress-striped active">
-                                              <div class="bar" style="width: 0%;"></div>
-                                            </div> 
-                                        </div> 
-                                        </li>
-                                        -->
                                   </ul>
                               </li>
                               
@@ -2452,39 +2124,7 @@ Create a Class</a>
                                       <li><a class="importfrmlink_dr" href="#">Import From Link</a>
                                           
                                           <ul class="frmlinkchild_dr largeli link-dropdwn">
-                                              
-                                              
-                                          <!--    
-                                              <span class="arrow-left"></span>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small quest-search" id="gdoc-name" placeholder="NAME of Doc"></li>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
-                                                  <select id="doc-category-list" class="dropdownselect">
-                                                      <option>Class Doc</option>
-                                                      <option>Class Notes</option>
-                                                      <option>Reference Material</option>
-                                                      <option>Tutorial</option>
-                                                      <option>Presentation</option>
-                                                      <option>Project Doc</option>
-                                                      <option>Lecture</option>
-                                                      <option class="enterfromcatgry">Enter New Catagory</option>
-                                                  </select>
-                                              </li>
-                                              <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
-                                                  <select class="dropdownselect doc-class-list">
-                                                      <option>Save to Class</option>
-
-                                                  </select>
-                                              </li>
-                                              <li class="private">
-                                                  <label  style="color:black;" for="id-private">
-                                                      <input  id="doc-private" type="checkbox" checked="checked">
-                                                      Private
-                                                  </label>
-                                              </li>
-                                              <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
-                                          
-                                          -->
-                                          
+                                     
                                           </ul>
                                           
                                           
@@ -2503,30 +2143,7 @@ Create a Class</a>
                        
                        <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer' >
-                                      
-                                      <!--
-                                      <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
-                                      <li class="private">
-                                          <label  style="color:black;" for="id-private">
-                                              <input  id="id-private" type="checkbox" checked="checked">Private
-                                          </label>
-                                      </li>
-                                      <li style="margin-right:10px;" >
-                                          <select class="dropdownselect doc-class-list-computer">
-                                              <option>Save to Class</option>							
-                                          </select>
-                                      </li>      
-                                      <span id="loader-message"></span></br>                                       
-                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
-                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
-                                      <li id="progressbar" style="display:none; list-style: none">
-                                        <div class="progress-container" >
-                                            <div class="progress progress-striped active">
-                                              <div class="bar" style="width: 0%;"></div>
-                                            </div> 
-                                        </div> 
-                                        </li>
-                                        -->
+
                                   </ul>
                               </li>
                               
@@ -2559,39 +2176,7 @@ Create a Class</a>
                                       <li><a class="importfrmlink_dr" href="#">Import From Link</a>
                                           
                                           <ul class="frmlinkchild_dr largeli link-dropdwn">
-                                              
-                                              
-                                          <!--    
-                                              <span class="arrow-left"></span>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small quest-search" id="gdoc-name" placeholder="NAME of Doc"></li>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
-                                                  <select id="doc-category-list" class="dropdownselect">
-                                                      <option>Class Doc</option>
-                                                      <option>Class Notes</option>
-                                                      <option>Reference Material</option>
-                                                      <option>Tutorial</option>
-                                                      <option>Presentation</option>
-                                                      <option>Project Doc</option>
-                                                      <option>Lecture</option>
-                                                      <option class="enterfromcatgry">Enter New Catagory</option>
-                                                  </select>
-                                              </li>
-                                              <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
-                                                  <select class="dropdownselect doc-class-list">
-                                                      <option>Save to Class</option>
-
-                                                  </select>
-                                              </li>
-                                              <li class="private">
-                                                  <label  style="color:black;" for="id-private">
-                                                      <input  id="doc-private" type="checkbox" checked="checked">
-                                                      Private
-                                                  </label>
-                                              </li>
-                                              <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
-                                          
-                                          -->
-                                          
+      
                                           </ul>
                                           
                                           
@@ -2612,29 +2197,6 @@ Create a Class</a>
                         <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer' >
                                       
-                                      <!--
-                                      <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
-                                      <li class="private">
-                                          <label  style="color:black;" for="id-private">
-                                              <input  id="id-private" type="checkbox" checked="checked">Private
-                                          </label>
-                                      </li>
-                                      <li style="margin-right:10px;" >
-                                          <select class="dropdownselect doc-class-list-computer">
-                                              <option>Save to Class</option>							
-                                          </select>
-                                      </li>      
-                                      <span id="loader-message"></span></br>                                       
-                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
-                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
-                                      <li id="progressbar" style="display:none; list-style: none">
-                                        <div class="progress-container" >
-                                            <div class="progress progress-striped active">
-                                              <div class="bar" style="width: 0%;"></div>
-                                            </div> 
-                                        </div> 
-                                        </li>
-                                        -->
                                   </ul>
                               </li>
                               
@@ -2667,38 +2229,7 @@ Create a Class</a>
                                           
                                           <ul class="frmlinkchild_dr largeli link-dropdwn">
                                               
-                                              
-                                          <!--    
-                                              <span class="arrow-left"></span>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small quest-search" id="gdoc-name" placeholder="NAME of Doc"></li>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
-                                                  <select id="doc-category-list" class="dropdownselect">
-                                                      <option>Class Doc</option>
-                                                      <option>Class Notes</option>
-                                                      <option>Reference Material</option>
-                                                      <option>Tutorial</option>
-                                                      <option>Presentation</option>
-                                                      <option>Project Doc</option>
-                                                      <option>Lecture</option>
-                                                      <option class="enterfromcatgry">Enter New Catagory</option>
-                                                  </select>
-                                              </li>
-                                              <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
-                                                  <select class="dropdownselect doc-class-list">
-                                                      <option>Save to Class</option>
-
-                                                  </select>
-                                              </li>
-                                              <li class="private">
-                                                  <label  style="color:black;" for="id-private">
-                                                      <input  id="doc-private" type="checkbox" checked="checked">
-                                                      Private
-                                                  </label>
-                                              </li>
-                                              <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
-                                          
-                                          -->
-                                          
+                     
                                           </ul>
                                           
                                           
@@ -2717,30 +2248,7 @@ Create a Class</a>
                        
                         <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer' >
-                                      
-                                      <!--
-                                      <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
-                                      <li class="private">
-                                          <label  style="color:black;" for="id-private">
-                                              <input  id="id-private" type="checkbox" checked="checked">Private
-                                          </label>
-                                      </li>
-                                      <li style="margin-right:10px;" >
-                                          <select class="dropdownselect doc-class-list-computer">
-                                              <option>Save to Class</option>							
-                                          </select>
-                                      </li>      
-                                      <span id="loader-message"></span></br>                                       
-                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
-                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
-                                      <li id="progressbar" style="display:none; list-style: none">
-                                        <div class="progress-container" >
-                                            <div class="progress progress-striped active">
-                                              <div class="bar" style="width: 0%;"></div>
-                                            </div> 
-                                        </div> 
-                                        </li>
-                                        -->
+                     
                                   </ul>
                               </li>
                               
@@ -2772,39 +2280,7 @@ Create a Class</a>
                                       <li><a class="importfrmlink_dr" href="#">Import From Link</a>
                                           
                                           <ul class="frmlinkchild_dr largeli link-dropdwn">
-                                              
-                                              
-                                          <!--    
-                                              <span class="arrow-left"></span>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small quest-search" id="gdoc-name" placeholder="NAME of Doc"></li>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
-                                                  <select id="doc-category-list" class="dropdownselect">
-                                                      <option>Class Doc</option>
-                                                      <option>Class Notes</option>
-                                                      <option>Reference Material</option>
-                                                      <option>Tutorial</option>
-                                                      <option>Presentation</option>
-                                                      <option>Project Doc</option>
-                                                      <option>Lecture</option>
-                                                      <option class="enterfromcatgry">Enter New Catagory</option>
-                                                  </select>
-                                              </li>
-                                              <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
-                                                  <select class="dropdownselect doc-class-list">
-                                                      <option>Save to Class</option>
-
-                                                  </select>
-                                              </li>
-                                              <li class="private">
-                                                  <label  style="color:black;" for="id-private">
-                                                      <input  id="doc-private" type="checkbox" checked="checked">
-                                                      Private
-                                                  </label>
-                                              </li>
-                                              <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
-                                          
-                                          -->
-                                          
+                                                            
                                           </ul>
                                           
                                           
@@ -2824,30 +2300,7 @@ Create a Class</a>
                            
                    <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer'>
-                                      
-                                      <!--
-                                      <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
-                                      <li class="private">
-                                          <label  style="color:black;" for="id-private">
-                                              <input  id="id-private" type="checkbox" checked="checked">Private
-                                          </label>
-                                      </li>
-                                      <li style="margin-right:10px;" >
-                                          <select class="dropdownselect doc-class-list-computer">
-                                              <option>Save to Class</option>							
-                                          </select>
-                                      </li>      
-                                      <span id="loader-message"></span></br>                                       
-                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
-                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
-                                      <li id="progressbar" style="display:none; list-style: none">
-                                        <div class="progress-container" >
-                                            <div class="progress progress-striped active">
-                                              <div class="bar" style="width: 0%;"></div>
-                                            </div> 
-                                        </div> 
-                                        </li>
-                                        -->
+        
                                   </ul>
                               </li>
                               
@@ -2880,39 +2333,7 @@ Create a Class</a>
                                       <li><a class="importfrmlink_dr" href="#">Import From Link</a>
                                           
                                           <ul class="frmlinkchild_dr largeli link-dropdwn">
-                                              
-                                              
-                                          <!--    
-                                              <span class="arrow-left"></span>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small quest-search" id="gdoc-name" placeholder="NAME of Doc"></li>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
-                                                  <select id="doc-category-list" class="dropdownselect">
-                                                      <option>Class Doc</option>
-                                                      <option>Class Notes</option>
-                                                      <option>Reference Material</option>
-                                                      <option>Tutorial</option>
-                                                      <option>Presentation</option>
-                                                      <option>Project Doc</option>
-                                                      <option>Lecture</option>
-                                                      <option class="enterfromcatgry">Enter New Catagory</option>
-                                                  </select>
-                                              </li>
-                                              <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
-                                                  <select class="dropdownselect doc-class-list">
-                                                      <option>Save to Class</option>
-
-                                                  </select>
-                                              </li>
-                                              <li class="private">
-                                                  <label  style="color:black;" for="id-private">
-                                                      <input  id="doc-private" type="checkbox" checked="checked">
-                                                      Private
-                                                  </label>
-                                              </li>
-                                              <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
-                                          
-                                          -->
-                                          
+                                
                                           </ul>
                                           
                                           
@@ -2933,30 +2354,7 @@ Create a Class</a>
                           
                    <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer' >
-                                      
-                                      <!--
-                                      <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
-                                      <li class="private">
-                                          <label  style="color:black;" for="id-private">
-                                              <input  id="id-private" type="checkbox" checked="checked">Private
-                                          </label>
-                                      </li>
-                                      <li style="margin-right:10px;" >
-                                          <select class="dropdownselect doc-class-list-computer">
-                                              <option>Save to Class</option>							
-                                          </select>
-                                      </li>      
-                                      <span id="loader-message"></span></br>                                       
-                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
-                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
-                                      <li id="progressbar" style="display:none; list-style: none">
-                                        <div class="progress-container" >
-                                            <div class="progress progress-striped active">
-                                              <div class="bar" style="width: 0%;"></div>
-                                            </div> 
-                                        </div> 
-                                        </li>
-                                        -->
+         
                                   </ul>
                               </li>
                               
@@ -2989,38 +2387,7 @@ Create a Class</a>
                                           
                                           <ul class="frmlinkchild_dr largeli link-dropdwn">
                                               
-                                              
-                                          <!--    
-                                              <span class="arrow-left"></span>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small quest-search" id="gdoc-name" placeholder="NAME of Doc"></li>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
-                                                  <select id="doc-category-list" class="dropdownselect">
-                                                      <option>Class Doc</option>
-                                                      <option>Class Notes</option>
-                                                      <option>Reference Material</option>
-                                                      <option>Tutorial</option>
-                                                      <option>Presentation</option>
-                                                      <option>Project Doc</option>
-                                                      <option>Lecture</option>
-                                                      <option class="enterfromcatgry">Enter New Catagory</option>
-                                                  </select>
-                                              </li>
-                                              <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
-                                                  <select class="dropdownselect doc-class-list">
-                                                      <option>Save to Class</option>
-
-                                                  </select>
-                                              </li>
-                                              <li class="private">
-                                                  <label  style="color:black;" for="id-private">
-                                                      <input  id="doc-private" type="checkbox" checked="checked">
-                                                      Private
-                                                  </label>
-                                              </li>
-                                              <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
-                                          
-                                          -->
-                                          
+     
                                           </ul>
                                           
                                           
@@ -3043,29 +2410,6 @@ Create a Class</a>
                     <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer'>
                                       
-                                      <!--
-                                      <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
-                                      <li class="private">
-                                          <label  style="color:black;" for="id-private">
-                                              <input  id="id-private" type="checkbox" checked="checked">Private
-                                          </label>
-                                      </li>
-                                      <li style="margin-right:10px;" >
-                                          <select class="dropdownselect doc-class-list-computer">
-                                              <option>Save to Class</option>							
-                                          </select>
-                                      </li>      
-                                      <span id="loader-message"></span></br>                                       
-                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
-                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
-                                      <li id="progressbar" style="display:none; list-style: none">
-                                        <div class="progress-container" >
-                                            <div class="progress progress-striped active">
-                                              <div class="bar" style="width: 0%;"></div>
-                                            </div> 
-                                        </div> 
-                                        </li>
-                                        -->
                                   </ul>
                               </li>
                               
@@ -3098,39 +2442,6 @@ Create a Class</a>
                                       <li><a class="importfrmlink_dr" href="#">Import From Link</a>
                                           
                                           <ul class="frmlinkchild_dr largeli link-dropdwn">
-                                              
-                                              
-                                          <!--    
-                                              <span class="arrow-left"></span>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small quest-search" id="gdoc-name" placeholder="NAME of Doc"></li>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
-                                                  <select id="doc-category-list" class="dropdownselect">
-                                                      <option>Class Doc</option>
-                                                      <option>Class Notes</option>
-                                                      <option>Reference Material</option>
-                                                      <option>Tutorial</option>
-                                                      <option>Presentation</option>
-                                                      <option>Project Doc</option>
-                                                      <option>Lecture</option>
-                                                      <option class="enterfromcatgry">Enter New Catagory</option>
-                                                  </select>
-                                              </li>
-                                              <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
-                                                  <select class="dropdownselect doc-class-list">
-                                                      <option>Save to Class</option>
-
-                                                  </select>
-                                              </li>
-                                              <li class="private">
-                                                  <label  style="color:black;" for="id-private">
-                                                      <input  id="doc-private" type="checkbox" checked="checked">
-                                                      Private
-                                                  </label>
-                                              </li>
-                                              <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
-                                          
-                                          -->
-                                          
                                           </ul>
                                           
                                           
@@ -3147,30 +2458,7 @@ Create a Class</a>
                           
                          <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer'>
-                                      
-                                      <!--
-                                      <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
-                                      <li class="private">
-                                          <label  style="color:black;" for="id-private">
-                                              <input  id="id-private" type="checkbox" checked="checked">Private
-                                          </label>
-                                      </li>
-                                      <li style="margin-right:10px;" >
-                                          <select class="dropdownselect doc-class-list-computer">
-                                              <option>Save to Class</option>							
-                                          </select>
-                                      </li>      
-                                      <span id="loader-message"></span></br>                                       
-                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
-                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
-                                      <li id="progressbar" style="display:none; list-style: none">
-                                        <div class="progress-container" >
-                                            <div class="progress progress-striped active">
-                                              <div class="bar" style="width: 0%;"></div>
-                                            </div> 
-                                        </div> 
-                                        </li>
-                                        -->
+  
                                   </ul>
                               </li>
                               
@@ -3203,37 +2491,7 @@ Create a Class</a>
                                           
                                           <ul class="frmlinkchild_dr largeli link-dropdwn">
                                               
-                                              
-                                          <!--    
-                                              <span class="arrow-left"></span>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-url" placeholder="http://www.PasteGDocURLHere.com"><input type="text" class="dropdowntext-small quest-search" id="gdoc-name" placeholder="NAME of Doc"></li>
-                                              <li><input type="text" class="dropdowntext" id="gdoc-description" placeholder="DESCRIPTION of Doc">
-                                                  <select id="doc-category-list" class="dropdownselect">
-                                                      <option>Class Doc</option>
-                                                      <option>Class Notes</option>
-                                                      <option>Reference Material</option>
-                                                      <option>Tutorial</option>
-                                                      <option>Presentation</option>
-                                                      <option>Project Doc</option>
-                                                      <option>Lecture</option>
-                                                      <option class="enterfromcatgry">Enter New Catagory</option>
-                                                  </select>
-                                              </li>
-                                              <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
-                                                  <select class="dropdownselect doc-class-list">
-                                                      <option>Save to Class</option>
-
-                                                  </select>
-                                              </li>
-                                              <li class="private">
-                                                  <label  style="color:black;" for="id-private">
-                                                      <input  id="doc-private" type="checkbox" checked="checked">
-                                                      Private
-                                                  </label>
-                                              </li>
-                                              <li><input type="button" class="upload_button" id="gdoc_uploadbutton"> <span calss="msg"> </span></li>
-                                          
-                                          -->
+    
                                           
                                           </ul>
                                           
