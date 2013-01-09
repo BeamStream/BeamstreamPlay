@@ -3660,3 +3660,23 @@ div.ask-comment:hover .delete_post{
 }*/
 
 
+
+/* Added by Aswathy for poll option coloring */
+.regular-radio.option1:checked + label:after{
+	background: #ff0000 !important;
+}
+.regular-radio.option2:checked + label:after{
+	background: #ff9900 !important;
+}
+.regular-radio.option3:checked + label:after{
+	background: #ccff00 !important;
+}
+.regular-radio.option4:checked + label:after{
+	background: #32ff00 !important;
+}
+.regular-radio.option5:checked + label:after {
+		background: #00ff65 !important;
+
+}
+
+

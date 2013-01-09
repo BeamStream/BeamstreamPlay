@@ -134,7 +134,8 @@ object QuestionController extends Controller {
     val optionOfAQuestionIdJsonMap = request.body.asFormUrlEncoded.get
     val optionOfAQuestionId = optionOfAQuestionIdJsonMap("optionOfAQuestionId").toList(0)
     val votes = QuestionPolling.voteTheOptionOfAQuestion(new ObjectId(optionOfAQuestionId), new ObjectId(request.session.get("userId").get))
-    Ok(write(votes.toString)).as("application/json")
+    val optionOfAQuestion=QuestionPolling.findOptionOfAQuestionById(new ObjectId(optionOfAQuestionId))
+    Ok(write(optionOfAQuestion)).as("application/json")
   }
   
 
