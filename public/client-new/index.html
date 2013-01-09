@@ -1358,7 +1358,7 @@ Create a Class</a>
                   <div class="follow-bottom">
                     <ul class="follow-name-left show-all-block">
                       <li><a class="rocks-question" href="#">Rock</a></li>
-                      <li  id="{{data.question.id.id}}-Answer"><a href="#"> Answer</a></li>
+                      <li  id="{{data.question.id.id}}-Answer" ><a href="#" class="add-answer"> Answer</a></li>
                       <li><a href="#" class="add-comment" > Comment</a></li>
                       <li ><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
   					 <a id=" " href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a> 
@@ -1368,6 +1368,9 @@ Create a Class</a>
                     <div id="{{data.question.id.id}}-addComments" class="follow-comment" style="display:none;">
 				    <textarea id="{{data.question.id.id}}-questionComment" class="add-question-comment add-question-comment" placeholder="Add Comments.."  onblur="this.placeholder = 'Add Comments..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
 				</div>
+				<div id="{{data.question.id.id}}-addAnswer" class="follow-comment" style="display:none;">
+                    <textarea id="{{data.question.id.id}}-questionsAnswer" class="add-question-comment add-question-comment" placeholder="Add Answers.."  onblur="this.placeholder = 'Add Answers..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
+				</div>	
 				<a id="{{data.question.id.id}}" href="#" data-original-title="Delete" class="delete_post drag-rectangle" ></a>
                 </div>
 
@@ -1417,9 +1420,10 @@ Create a Class</a>
 <!--  comment templete for stream questions poll oprions  comments -->
  <script type="text/x-handlebars-template" id="tpl-question-poll">
 	<fieldset>  
-       <input type="radio" id="{{poll.id.id}}" value="{{poll.id.id}}" name="{{question}}" class="regular-radio red"  />
+       <input type="radio" id="{{poll.id.id}}" value="{{poll.id.id}}" name="{{question}}" class="regular-radio option{{pollIndex}}"  />
        <label for="{{poll.id.id}}" value="{{color}}"></label>
        <label>{{poll.name}}</label>
+       <input type="hidden" id="{{poll.id.id}}-voteCount" class="{{question}}-polls" value="{{voteCount}}" >
      </fieldset>
 </script>
 
