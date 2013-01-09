@@ -1417,8 +1417,8 @@ Create a Class</a>
 <!--  comment templete for stream questions poll oprions  comments -->
  <script type="text/x-handlebars-template" id="tpl-question-poll">
 	<fieldset>  
-       <input type="radio" id="{{poll.id.id}}" name="{{question}}" class="regular-radio red"  />
-       <label for="{{poll.id.id}}"></label>
+       <input type="radio" id="{{poll.id.id}}" value="{{poll.id.id}}" name="{{question}}" class="regular-radio red"  />
+       <label for="{{poll.id.id}}" value="{{color}}"></label>
        <label>{{poll.name}}</label>
      </fieldset>
 </script>

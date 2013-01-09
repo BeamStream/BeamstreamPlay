@@ -117,26 +117,30 @@
 		 * NEW THEME - polling
 		 */
 		polling:function(eventName){
-//                    console.log("poll");
+//          console.log("poll");
 //			eventName.preventDefault();
-                    var element = eventName.target.parentElement;
-                    var questionId =$(element).parents('div.follow-container').attr('id');
-              
-                             
-                             
-                $.ajax({
-                    type: 'POST',
-                    url:BS.votepoll,
-                    data:{
-    	            optionOfAQuestionId:questionId
-                    },
-                    dataType:"json",
-                    success:function(data){	              	 
-    	        console.log(data);
-                 
-    	            }
-                });
-                  console.log('data');            
+	        var element = eventName.target.parentElement;
+	        var questionId =$(element).parents('div.follow-container').attr('id');
+	        
+            var optionId = $('input[name='+questionId+']:checked').val();
+            
+//            var label = $("label[for='"+optionId+"']").val();
+           
+            console.log(label);
+            $.ajax({
+                type: 'POST',
+                url:BS.votepoll,
+                data:{
+                	optionOfAQuestionId:optionId
+                },
+                dataType:"json",
+                success:function(data){	              	 
+                	console.log(data);
+             
+	            }
+            });
+            
+            console.log('data');            
                              
                              
                              
@@ -1875,7 +1879,7 @@
         	 $('#all-questions').prepend(template({data:data,owner: owner ,rocks:data.question.rockers.length}));
         	 $('.drag-rectangle').tooltip();	
         	 var pollCount = data.polls.length;
-        	 
+        	 BS.color = 0;
         	 //render each poll options and its polling percentage
         	 if(pollCount > 0)
         	 {
@@ -1886,11 +1890,14 @@
 //            	 var values = [];
             	 var pollIndex = 0;
         		 _.each(data.polls, function(poll) {
+        			 var radioColor = Raphael.hsb(BS.color, 1, 1);
+ 		            
         			 pollIndex++;
 //        			 values.push(pollIndex);
             		 var pollSource = $("#tpl-question-poll").html();
 	            	 var pollTemplate = Handlebars.compile(pollSource);
-	            	 $('#'+data.question.id.id+'-pollOptions').append(pollTemplate({poll:poll, pollIndex:pollIndex ,question:data.question.id.id}));
+	            	 $('#'+data.question.id.id+'-pollOptions').append(pollTemplate({poll:poll, pollIndex:pollIndex ,question:data.question.id.id, color:radioColor}));
+	            	 BS.color += .1;
         		 });
         		 
         		 /* creating pie charts */ 
