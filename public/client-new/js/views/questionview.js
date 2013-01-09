@@ -126,7 +126,7 @@
             
 //            var label = $("label[for='"+optionId+"']").val();
            
-            console.log(label);
+            
             $.ajax({
                 type: 'POST',
                 url:BS.votepoll,
