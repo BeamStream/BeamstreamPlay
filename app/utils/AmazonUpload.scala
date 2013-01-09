@@ -130,6 +130,11 @@ class AmazonUpload {
 }
 
 object ProgressBar {
+  var flag = false
+ 
+  def setFlag(value: Boolean) = {
+    flag = value
+  }
   // var progressMap: Map[String, Int] = Map()
   def setProgressBar(userId: String, progress: Int) {
     //progressMap += (userId -> progress)
