@@ -139,7 +139,6 @@ object ProgressBar {
 }
 
 object DocsUploadOnAmazon {
-
   def uploadFileToAmazon(profilePicName: String, profilePic: File) {
     val bucketName = "BeamStream"
     val AWS_ACCESS_KEY_RAW = Play.current.configuration.getString("A_A_K").get

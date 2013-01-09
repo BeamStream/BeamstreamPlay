@@ -6,33 +6,32 @@ import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 
 object QuestionPolling {
-  
-/**
+
+  /**
    * Vote The Option Of A Question's Poll
    */
 
   def voteTheOptionOfAQuestion(optionOfAQuestionId: ObjectId, userId: ObjectId) = {
 
     val optionOfAQuestion = OptionOfQuestionDAO.find(MongoDBObject("_id" -> optionOfAQuestionId)).toList(0)
-    (optionOfAQuestion.assosiates.contains(userId)) match {
+    (optionOfAQuestion.voters.contains(userId)) match {
       case true =>
-        optionOfAQuestion.assosiates.size
+        optionOfAQuestion.voters.size
       case false =>
         //Rocking a message
-        OptionOfQuestionDAO.update(MongoDBObject("_id" -> optionOfAQuestionId), optionOfAQuestion.copy(assosiates = (optionOfAQuestion.assosiates ++ List(userId))), false, false, new WriteConcern)
+        OptionOfQuestionDAO.update(MongoDBObject("_id" -> optionOfAQuestionId), optionOfAQuestion.copy(voters = (optionOfAQuestion.voters ++ List(userId))), false, false, new WriteConcern)
         val updatedOptionOfQuestion = OptionOfQuestionDAO.find(MongoDBObject("_id" -> optionOfAQuestionId)).toList(0)
-        updatedOptionOfQuestion.assosiates.size
+        updatedOptionOfQuestion.voters.size
     }
-  }
-  
-   /*
+  }: Int
+
+  /*
  * Find OptionOfQuestion by Id
  */
 
-  def findOptionOfAQuestionById(optionId: ObjectId): Option[OptionOfQuestion] = {
+  def findOptionOfAQuestionById(optionId: ObjectId) = {
     val optionOfQuestion = OptionOfQuestionDAO.findOneByID(optionId)
     optionOfQuestion
-  }
+  }: Option[OptionOfQuestion]
 
-  
 }

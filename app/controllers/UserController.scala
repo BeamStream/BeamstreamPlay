@@ -151,11 +151,9 @@ object UserController extends Controller {
               onlineUsersAlongWithDetails ++= List(new OnlineUsers(userWithDetailedInfo.id, userWithDetailedInfo.firstName,
                 userWithDetailedInfo.lastName, profilePicForUser(0).mediaUrl))
             }
-
           }
         }
         Ok(write(onlineUsersAlongWithDetails)).as("application/json")
-
       case true => Ok(write(onlineUsersAlongWithDetails)).as("application/json")
     }
   }

@@ -136,6 +136,7 @@ object QuestionController extends Controller {
     val votes = QuestionPolling.voteTheOptionOfAQuestion(new ObjectId(optionOfAQuestionId), new ObjectId(request.session.get("userId").get))
     Ok(write(votes.toString)).as("application/json")
   }
+  
 
   /**
    * Delete A Question
@@ -174,7 +175,6 @@ object QuestionController extends Controller {
         questionsWithPolls ++= List(new QuestionWithPoll(question, List()))
       }
     }
-    println(questionsWithPolls)
     val allQuestionForAStreamJson = write(questionsWithPolls)
     Ok(allQuestionForAStreamJson).as("application/json")
   }

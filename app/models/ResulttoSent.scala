@@ -19,7 +19,7 @@ case class ClassWithNoOfUsers(usersMap: Map[String, Int],
 
 case class OptionOfQuestion(@Key("_id") id: ObjectId,
   name: String,
-  assosiates: List[ObjectId])
+  voters: List[ObjectId])
 
 case class OnlineUsers(@Key("_id") id: ObjectId, firstName: String, lastName: String, profileImageUrl: String)
 

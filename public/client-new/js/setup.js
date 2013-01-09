@@ -8,8 +8,8 @@ Backbone.history.start();
 /*
 * Config Variables for Url externalization
 */
-BS.URLRequired ="http://localhost:9000";   
-//BS.URLRequired ="http://192.168.10.24:9000";   
+//BS.URLRequired ="http://localhost:9000";   
+BS.URLRequired ="http://192.168.10.24:9000";   
 
 
 //BS.URLRequired ="http://www.beamstream.com";
@@ -162,6 +162,7 @@ BS.followQuestion =BS.URLRequired+"/followQuestion";
 BS.giveMeRockersOfQuestion =BS.URLRequired+"/giveMeRockersOfQuestion";
 BS.getAllQuestionsOfAStream =BS.URLRequired+"/getAllQuestionForAStream";
 BS.deleteQuestion =BS.URLRequired+"/deleteQuestion";
+BS.votepoll=BS.URLRequired+"/voteAnOptionOfAQuestion";
 
  
 

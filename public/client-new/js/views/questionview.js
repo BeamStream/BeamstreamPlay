@@ -117,10 +117,29 @@
 		 * NEW THEME - polling
 		 */
 		polling:function(eventName){
+//                    console.log("poll");
 //			eventName.preventDefault();
-			var element = eventName.target.parentElement;
-			var questionId =$(element).parents('div.follow-container').attr('id');
-			
+                    var element = eventName.target.parentElement;
+                    var questionId =$(element).parents('div.follow-container').attr('id');
+              
+                             
+                             
+                $.ajax({
+                    type: 'POST',
+                    url:BS.votepoll,
+                    data:{
+    	            optionOfAQuestionId:questionId
+                    },
+                    dataType:"json",
+                    success:function(data){	              	 
+    	        console.log(data);
+                 
+    	            }
+                });
+                  console.log('data');            
+                             
+                             
+                             
 			/* updating pie charts */ 
 			var pollscount = [2,0,0];
 			 
@@ -574,7 +593,7 @@
 		
 		
 		
-		 /**
+            /**
    	  * NEW THEME - POST question details to server 	
    	  */
 		postQuestionToServer: function(question,streamId,questionAccess){
@@ -1042,6 +1061,7 @@
 	            	 var pollIndex = 0;
 //	            	 var values = [];
             		 _.each(data.polls, function(poll) {
+//                             console.log(poll);
             			 pollIndex++;
 //            			 values.push(pollIndex);
 	            		 var pollSource = $("#tpl-question-poll").html();
