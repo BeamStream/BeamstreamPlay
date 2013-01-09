@@ -118,8 +118,8 @@ object MediaController extends Controller {
     ProgressBar.setProgressBar(request.session.get("userId").get, 0)
     //ProgressStatus.addProgress(request.session.get("userId").get,0)
     val mediaJsonMap = request.body.asFormUrlEncoded.toMap
-    val imageStatus = mediaJsonMap("imageStatus").toList(0).toBoolean
-    val videoStatus = mediaJsonMap("videoStatus").toList(0).toBoolean
+    val imageStatus = mediaJsonMap("imageStatus").toList.head.toBoolean
+    val videoStatus = mediaJsonMap("videoStatus").toList.head.toBoolean
     var imageNameOnAmazon = ""
     var videoFileNameOnnAmazon = ""
     var imageNameToStore=""

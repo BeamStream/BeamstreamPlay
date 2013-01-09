@@ -24,7 +24,7 @@ object CommentController extends Controller {
   def newComment = Action { implicit request =>
 
     val commentJson = request.body.asFormUrlEncoded.get
-
+    
     /**
      * Visitors Pattern approach
      */
@@ -76,7 +76,6 @@ object CommentController extends Controller {
           case false => (commentJson.contains(("questionId"))) match {
 
             case true =>
-
               val questionId = commentJson("questionId").toList(0)
               val commentText = commentJson("comment").toList(0)
               val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
@@ -119,9 +118,11 @@ object CommentController extends Controller {
 
         case false => (jsonWithid.contains(("questionId"))) match {
           case true =>
-
-            val docId = jsonWithid("questionId").toList(0)
-            val commentsForAQuestion = Comment.getAllComments(Question.findQuestionById(new ObjectId(docId)).get.comments)
+            
+            val questionId = jsonWithid("questionId").toList(0)
+            println(questionId)
+            val commentsForAQuestion = Comment.getAllComments(Question.findQuestionById(new ObjectId(questionId)).get.comments)
+            println(commentsForAQuestion)
             Ok(write(commentsForAQuestion)).as("application/json")
 
           case false =>

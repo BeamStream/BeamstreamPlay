@@ -23,7 +23,7 @@ object Comment {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
 
-  /*
+  /**
    * Create a new Comment
    */
 
@@ -33,7 +33,7 @@ object Comment {
 
   }
 
-  /*
+  /**
    * Remove a Comment
    */
 
@@ -41,7 +41,7 @@ object Comment {
     val commentId = CommentDAO.remove(comment)
   }
 
-  /*
+  /**
    * Find Comment by Id
    */
 
@@ -50,7 +50,7 @@ object Comment {
     commentObtained
   }
 
-  /*
+  /**
    * Rocking the comment
    */
 
@@ -77,7 +77,7 @@ object Comment {
 
   }
 
-  /*
+  /**
    *  Increase the number of counts
    */
   def commentsRockersNames(commentId: ObjectId): List[String] = {
@@ -86,7 +86,7 @@ object Comment {
     rockersName
   }
 
-  /*
+  /**
    * get All comments 
    * 
    * @Purpose : getting Comments for any Model(have to pass the List[ObjectId])
@@ -101,7 +101,7 @@ object Comment {
     allCommentsForAModel
   }
 
-  /*
+  /**
    * Delete A Comment
    */
 
@@ -117,21 +117,18 @@ object Comment {
     }
   }
 
-  /*
+  /**
    * Is a Rocker 
    * @ Purpose: identify if the user has rocked a comment or not
    */
 
   def isARocker(commentId: ObjectId, userId: Object): Boolean = {
     val comment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList(0)
-
     (comment.rockers.contains(userId)) match {
       case true => true
       case false => false
     }
-
   }
-
 }
 
 object CommentDAO extends SalatDAO[Comment, ObjectId](collection = MongoHQConfig.mongoDB("comment"))
