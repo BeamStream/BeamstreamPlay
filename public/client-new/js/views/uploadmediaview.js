@@ -123,7 +123,7 @@
                 $("#classdocmenu_dr").animate({width: 'toggle'},130);
                 },
                 
-                              /*
+                /*
                 * NEW THEME-Function for uploadmedia (dropdown menu)
                 * (childmenu from googledocs)
                 */
