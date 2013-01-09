@@ -30,6 +30,7 @@
 			 "click #question-file-upload li " : "uploadFiles",
 			 "change #upload-files-area" : "getUploadedData",
 			 "click .add-comment" : "showCommentTextArea",
+			 "click .add-answer" : "showAnswerTextArea",
 			 "click .rock-comments" : "rockComment",
 			 "click .rocks-small a" : "rockComment",
 			 "click .follow-question" : "followQuestion",
@@ -117,15 +118,16 @@
 		 * NEW THEME - polling
 		 */
 		polling:function(eventName){
-//          console.log("poll");
-//			eventName.preventDefault();
+			
 	        var element = eventName.target.parentElement;
 	        var questionId =$(element).parents('div.follow-container').attr('id');
 	        
             var optionId = $('input[name='+questionId+']:checked').val();
             
-//            var label = $("label[for='"+optionId+"']").val();
-           
+            $('input[name='+questionId+']').addClass('option1');
+            var values = [];
+            
+//            var label = $("label[for='"+optionId+"']").attr('value');
             
             $.ajax({
                 type: 'POST',
@@ -135,22 +137,28 @@
                 },
                 dataType:"json",
                 success:function(data){	              	 
-                	console.log(data);
+                	
+                     var voteCount = data.voters.length;
+                     $('input#'+data.id.id+'-voteCount').val(voteCount);
+                     
+                     //get all poll options vote count
+                     $('input.'+questionId+'-polls').each(function() {
+                     	values.push(parseInt($(this).val()));
+                 	 });
+                     
+                     /* updating pie charts */ 
+                     $("#"+questionId+"-piechart").find('svg').remove();
+                     donut[questionId] = new Donut(new Raphael(""+questionId+"-piechart", 200,200));
+                     donut[questionId].create(100, 100, 30, 55,100, values);
+                     
+                     $("input[name="+questionId+"]").attr('disabled',true);
              
 	            }
             });
             
-            console.log('data');            
+           
                              
-                             
-                             
-			/* updating pie charts */ 
-			var pollscount = [2,0,0];
-			 
-			var values = [10,10,10,10];
-            $("#"+questionId+"-piechart").find('svg').remove();
-            donut[questionId] = new Donut(new Raphael(""+questionId+"-piechart", 200,200));
-            donut[questionId].create(100, 100, 30, 55,100, values);
+			
         	 
 			
 		},
@@ -740,9 +748,45 @@
 				$('#'+questionId+'-addComments').slideToggle(200); 
 				
 			}
+			if($('#'+questionId+'-addAnswer').is(":visible"))
+			{
+				$('#'+questionId+'-questionsAnswer').val('');
+				$('#'+questionId+'-addAnswer').slideToggle(300); 
+			}
 			
         },
         
+        
+        /**
+         * NEW THEME - Show answer text area on click
+         */
+        showAnswerTextArea: function(eventName){
+        	eventName.preventDefault();
+        	var element = eventName.target.parentElement;
+			var questionId =$(element).parents('div.follow-container').attr('id');
+			
+			// show / hide commet text area 
+			if($('#'+questionId+'-addAnswer').is(":visible"))
+			{
+				
+				$('#'+questionId+'-questionsAnswer').val('');
+				$('#'+questionId+'-addAnswer').slideToggle(300); 
+				
+			}
+			else
+			{
+				$('#'+questionId+'-questionsAnswer').val('');
+				$('#'+questionId+'-addAnswer').slideToggle(200); 
+				
+			}
+			
+			if($('#'+questionId+'-addComments').is(":visible"))
+			{
+				$('#'+questionId+'-questionComment').val('');
+				$('#'+questionId+'-addComments').slideToggle(200); 
+			}
+			
+        },
         
         /**
 		  * NEW THEME - Follow a question
@@ -1061,23 +1105,47 @@
             		 var source = $("#tpl-question-poll-percentage").html();
 	            	 var template = Handlebars.compile(source);
 	            	 $('#'+data.question.id.id+'-poll-Option-area').html(template({data:data}));
-            	 
-	            	 var pollIndex = 0;
-//	            	 var values = [];
+	            	 BS.color = 0;
+	            	 var pollIndex = 0,isAlreadyVoted = false ,myAnswer ='';
+	            	 var values = [], totalVotes = 0;
             		 _.each(data.polls, function(poll) {
-//                             console.log(poll);
+            			 var radioColor = Raphael.hsb(BS.color, 1, 1);
             			 pollIndex++;
-//            			 values.push(pollIndex);
+            			 
+            			 values.push(poll.voters.length);
+            			 totalVotes += poll.voters.length;
+            			 
+            			 //check whether the user is already voted or not
+            			 _.each(poll.voters, function(voter) {
+            				  
+            				 if(voter.id == BS.loggedUserId)
+            				 {
+            					 isAlreadyVoted = true;
+            					 myAnswer = poll.id.id;
+            				 }
+            				
+            			  });
+            			 
 	            		 var pollSource = $("#tpl-question-poll").html();
 		            	 var pollTemplate = Handlebars.compile(pollSource);
-		            	 $('#'+data.question.id.id+'-pollOptions').append(pollTemplate({poll:poll, pollIndex:pollIndex,question:data.question.id.id}));
+		            	 $('#'+data.question.id.id+'-pollOptions').append(pollTemplate({poll:poll, pollIndex:pollIndex,question:data.question.id.id, color : radioColor,voteCount:poll.voters.length}));
+		            	 BS.color += .1;
             		 });
             		 
+            		 if(totalVotes != 0)
+            		 {
+            			 /* creating pie charts */ 
+                    	 donut[data.question.id.id] = new Donut(new Raphael(""+data.question.id.id+"-piechart", 200,200));
+                    	 donut[data.question.id.id].create(100, 100, 30, 55,100, values);
+            		 }
             		 
-            		 /* creating pie charts */ 
-            		 var values = [20,15];
-                	 donut[data.question.id.id] = new Donut(new Raphael(""+data.question.id.id+"-piechart", 200,200));
-                	 donut[data.question.id.id].create(100, 100, 30, 55,100, values);
+            		 //disable the polling option if already polled
+            		 if(isAlreadyVoted == true)
+            		 {
+            			 $("input[id="+myAnswer+"]").attr('checked',true);
+            			 $("input[name="+data.question.id.id+"]").attr('disabled',true);
+            		 }
+            		
             	 }
             	 
             	
@@ -1887,23 +1955,29 @@
         		 var source = $("#tpl-question-poll-percentage").html();
             	 var template = Handlebars.compile(source);
             	 $('#'+data.question.id.id+'-poll-Option-area').html(template({data:data}));
-//            	 var values = [];
+            	 var values = [];
             	 var pollIndex = 0;
+            	 var totalVotes = 0;
         		 _.each(data.polls, function(poll) {
         			 var radioColor = Raphael.hsb(BS.color, 1, 1);
- 		            
         			 pollIndex++;
-//        			 values.push(pollIndex);
+        			 
+        			 values.push(poll.voters.length);
+        			 totalVotes += poll.voters.length;
+        			 
             		 var pollSource = $("#tpl-question-poll").html();
 	            	 var pollTemplate = Handlebars.compile(pollSource);
-	            	 $('#'+data.question.id.id+'-pollOptions').append(pollTemplate({poll:poll, pollIndex:pollIndex ,question:data.question.id.id, color:radioColor}));
+	            	 $('#'+data.question.id.id+'-pollOptions').append(pollTemplate({poll:poll, pollIndex:pollIndex ,question:data.question.id.id, color:radioColor, voteCount :poll.voters.length}));
 	            	 BS.color += .1;
         		 });
         		 
-        		 /* creating pie charts */ 
-        		 var values = [50,50];
-        		 donut[data.question.id.id] = new Donut(new Raphael(""+data.question.id.id+"-piechart", 200,200));
-            	 donut[data.question.id.id].create(100, 100, 30, 55,100, values);
+        		 if(totalVotes != 0)
+        		 {
+        			 /* creating pie charts */ 
+            		 donut[data.question.id.id] = new Donut(new Raphael(""+data.question.id.id+"-piechart", 200,200));
+                	 donut[data.question.id.id].create(100, 100, 30, 55,100, values);
+        		 }
+        		 
         		 
         	 }
         	 
