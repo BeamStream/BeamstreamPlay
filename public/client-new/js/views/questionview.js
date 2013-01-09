@@ -1263,7 +1263,7 @@
 //                   }
                    
 						 
-				   self.showAllComments(data.question.userId.id);
+				   self.showAllComments(data.question.id.id);
 		      });
 		
         },
