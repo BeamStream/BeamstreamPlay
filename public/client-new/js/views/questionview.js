@@ -124,10 +124,9 @@
 	        
             var optionId = $('input[name='+questionId+']:checked').val();
             
-            $('input[name='+questionId+']').addClass('option1');
+//            $('input[name='+questionId+']').addClass('option1');
             var values = [];
             
-//            var label = $("label[for='"+optionId+"']").attr('value');
             
             $.ajax({
                 type: 'POST',
@@ -150,6 +149,13 @@
                      $("#"+questionId+"-piechart").find('svg').remove();
                      donut[questionId] = new Donut(new Raphael(""+questionId+"-piechart", 200,200));
                      donut[questionId].create(100, 100, 30, 55,100, values);
+                     
+                     var streamId =  $('.sortable li.active').attr('id');
+                     //Auto push 
+                     PUBNUB.publish({
+                    	 channel : "voting",
+	                         message : { pagePushUid:self.pagePushUid ,streamId:streamId,data:data,questionId:questionId,userId:BS.loggedUserId}
+                     }) 
                      
                      $("input[name="+questionId+"]").attr('disabled',true);
              
@@ -667,8 +673,10 @@
   				    	 // remove question text and poll options after post
 		            	 $('#Q-area').val("");
 		            	 $('#pollArea').slideUp(700); 
+		            	 $('.moreOptions').remove();
 		            	 $('#uploded-file').hide();
 		            	 $('.embed-info').css("display","none");
+		            	 
 		            	 BS.options = 0;
 		            	 
 		            	 /* PUBNUB -- AUTO AJAX PUSH */ 
@@ -1481,10 +1489,11 @@
 			
 			eventName.preventDefault();
 			BS.options++;
+			 
 			if(BS.options == 3)
-				var options ='<li><input type="text"   id="option'+BS.options+'" placeholder="Add 3rd Poll Option" name="Add Option"> </li>';
+				var options ='<li class="moreOptions"><input type="text"   id="option'+BS.options+'" placeholder="Add 3rd Poll Option" name="Add Option"> </li>';
 			else
-				var options ='<li><input type="text"   id="option'+BS.options+'" placeholder="Add '+BS.options+'th Poll Option" name="Add Option"> </li>';
+				var options ='<li class="moreOptions"><input type="text"   id="option'+BS.options+'" placeholder="Add '+BS.options+'th Poll Option" name="Add Option"> </li>';
 
 			var parent = $('#add_more_options').parents('li');
 			$('.answer li').last().after(options);
@@ -1801,6 +1810,45 @@
  	   				   }
  	   			   }
  	   		   })
+ 	   		   
+ 	   		   
+   		    /* for questio voting */
+ 			 PUBNUB.subscribe({
+ 				 channel : "voting",
+ 				 restore : false,
+ 				 callback : function(message) {
+ 					 
+ 					 var streamId = $('.sortable li.active').attr('id');
+ 					 if (message.pagePushUid != self.pagePushUid)
+ 					 {   
+ 						 if(message.streamId==streamId)
+	       		 		 {
+ 							 if(document.getElementById(message.questionId))
+ 							 {
+ 								 var values = [];
+ 								 $('input#'+message.data.id.id+'-voteCount').val(message.data.voters.length);
+ 			                     
+ 			                     //get all poll options vote count
+ 			                     $('input.'+message.questionId+'-polls').each(function() {
+ 			                     	values.push(parseInt($(this).val()));
+ 			                 	 });
+ 			                     
+ 								 /* updating pie charts */ 
+ 			                     $("#"+message.questionId+"-piechart").find('svg').remove();
+ 			                     donut[message.questionId] = new Donut(new Raphael(""+message.questionId+"-piechart", 200,200));
+ 			                     donut[message.questionId].create(100, 100, 30, 55,100, values);
+ 							 }
+ 							 if(message.userId == BS.loggedUserId)
+ 							{
+ 								 $("input[id="+message.data.id.id+"]").attr('checked',true);
+ 								$("input[name="+message.questionId+"]").attr('disabled',true);
+ 								
+ 							}
+	       		 		 }
+ 			 
+ 					 }
+			 	}
+	 	   })
   		},
   		
   		

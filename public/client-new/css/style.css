@@ -3678,5 +3678,6 @@ div.ask-comment:hover .delete_post{
 		background: #00ff65 !important;
 
 }
+.chart-round tspan{ float:left; width:40px;}
 
 

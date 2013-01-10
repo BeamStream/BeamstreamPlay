@@ -3343,7 +3343,7 @@ Create a Class</a>
 		    _createSlice : function  (j) {
 		    	var value = this.values[j];
 		            var angleplus = 360 * value / this.total,
-		            countPer = (100 * value / this.total).toFixed(2);
+		            countPer = (100 * value / this.total).toFixed(0);
 		            var popangle = this.angle + (angleplus / 2),
 		            color = Raphael.hsb(this.start, .75, 1),
 		            ms = 500,
@@ -3363,7 +3363,7 @@ Create a Class</a>
 			           bigp = this.sector(this.cx, this.cy, this.rout, this.rin, this.angle, this.angle + angleplus, {fill: "90-" + bcolor + "-" + color, stroke: this.stroke, "stroke-width": 1}).hide();
 
 		            }
-		            var txt = this.paper.text(this.cx + (this.r + delta + 40) * Math.cos(-popangle * this.rad), this.cy + (this.r + delta +10) * Math.sin(-popangle * this.rad),countPer+'%').attr({fill: bcolor, stroke: "none", opacity: 1, "font-size": 14 , "font-weight":"bold"});
+		            var txt = this.paper.text(this.cx + (this.r + delta + 15) * Math.cos(-popangle * this.rad), this.cy + (this.r + delta +1) * Math.sin(-popangle * this.rad),countPer+'%').attr({fill: bcolor, stroke: "none", opacity: 1, "font-size": 14 , "font-weight":"bold"});
 			    	this.angle += angleplus;
 			    	this.chart.push(p);
 			    	this.chart.push(txt);
