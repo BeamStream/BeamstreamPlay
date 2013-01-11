@@ -39,6 +39,7 @@
 			 "click .who-rocked-it" : "showRockersList",
 			 "keypress .add-question-comment" : "addQuestionComments",
 			 "focusout .add-question-comment" : "removeCommentTextArea",
+			
 			 "click .show-all-comments" : "showAllCommentList",
 			 "click .show-all" : "showAllList",
 			 "click .regular-radio": "polling",
@@ -755,11 +756,16 @@
 			else
 			{
 				$('#'+questionId+'-comment-ans-area').html('');
-				var commentArea = '<div id="'+questionId+'-addComments" class="follow-comment" style="display:none;">'
-			          +'<textarea id="'+questionId+'-questionComment" class="add-question-comment add-question-comment" placeholder="Add Comments.."  onblur="this.placeholder = "Add Comments.."" onfocus="this.placeholder = """ placeholder="" cols="" rows=""></textarea>'
-				      +'</div>';
 				
-				$('#'+questionId+'-comment-ans-area').html(commentArea);
+				var source = $("#tpl-add-comment").html();
+				var template = Handlebars.compile(source);
+				$('#'+questionId+'-comment-ans-area').html(template({questionId:questionId}));
+				
+//				var commentArea = '<div id="'+questionId+'-addComments" class="follow-comment" style="display:none;">'
+//			          +'<textarea id="'+questionId+'-questionComment" class="add-question-comment add-question-comment" placeholder="Add Comments.."  onblur="this.placeholder = "Add Comments.."" onfocus="this.placeholder = """ placeholder="" cols="" rows=""></textarea>'
+//				      +'</div>';
+				
+//				$('#'+questionId+'-comment-ans-area').html(commentArea);
 				
 				$('#'+questionId+'-questionComment').val('');
 				$('#'+questionId+'-addComments').slideToggle(200); 
@@ -795,11 +801,21 @@
 			{
 				
 				$('#'+questionId+'-comment-ans-area').html('');
-				var answerArea ='<div id="'+questionId+'-addAnswer" class="follow-comment" style="display:none;">'
-		                        +'<textarea id="'+questionId+'-questionsAnswer" class="add-question-comment add-question-comment" placeholder="Add Answers.."  onblur="this.placeholder = "Add Answers.."" onfocus="this.placeholder = """ placeholder="" cols="" rows=""></textarea>'
-				                +'</div>' 
+				
+				var source = $("#tpl-add-answer").html();
+				var template = Handlebars.compile(source);
+				$('#'+questionId+'-comment-ans-area').html(template({questionId:questionId}));
+				
+				
+//				var answerArea ='<div id="'+questionId+'-addAnswer" class="follow-comment" style="display:none;">'
+//		                        +'<textarea id="'+questionId+'-questionsAnswer" class="add-question-comment add-question-comment" placeholder="Add Answers.."  onblur="this.placeholder = ""Add Answers.."" onfocus="this.placeholder = """ placeholder="" cols="" rows=""></textarea>'
+//				                +'</div>' 
+				                
+//                var answerArea ="<div id='"+questionId+"'-addAnswer' class='follow-comment' style='display:none;'>"
+//				                +"<textarea id='"+questionId+"-questionsAnswer' class='add-question-comment add-question-comment' placeholder='Add Answers..'  onblur='this.placeholder = "Add Answers.."' onfocus="this.placeholder = """ placeholder="" cols="" rows=""></textarea>'
+//				                +'</div>' 
 		                        
-	            $('#'+questionId+'-comment-ans-area').html(answerArea);
+//	            $('#'+questionId+'-comment-ans-area').html(answerArea);
 				$('#'+questionId+'-questionsAnswer').val('');
 				$('#'+questionId+'-addAnswer').slideToggle(200); 
 				
@@ -1676,11 +1692,20 @@
         removeCommentTextArea: function(eventName){
         	
         	var parent =$(eventName.target).parents('div.follow-container').attr('id');
-        	
+        	 
         	//slide up the comment text area if the text is empty
         	if($(eventName.target).val() == "")
         	{
-        		 $('#'+parent+'-addComments').slideUp(200); 
+        		 
+        		if($('#'+parent+'-addComments').is(":visible"))
+    			{
+        		  $('#'+parent+'-addComments').slideUp(200); 
+    			}
+        		if($('#'+parent+'-addAnswer').is(":visible"))
+    			{
+        		  $('#'+parent+'-addAnswer').slideUp(200); 
+    			}
+        		 
         	}
         },
         

@@ -314,6 +314,7 @@
 	    	// set previous style for li
 	    	var removeOption = '<a  id ="'+streamId+'" name ="'+StreamName+'"  href="#" class="icon1">'+StreamName+'</a>'
 			                   +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>'
+			                   +'<span class="menu-count" style="display:none;"> 10</span>'
 			                   +'<span class="close-btn drag-rectangle" data-original-title="Delete"><img  src="images/close.png"></span>';
 
  	    	$(eventName.target).parents('li').removeClass("icon1 red-active");
@@ -354,7 +355,7 @@
 		    	return;
 		    var streamName = eventName.target.name;
 		      
-		    streamName = $('#'+id+'').text();
+		    streamName = $('#'+id+'').attr('name');
 		
 		    // set active style for stream 
 		    $('.sortable li.active').find('div.active-curve').remove();
@@ -487,12 +488,12 @@
 	            
 	            $(".done").toggle(function () {         
 	                  $('a.done').text('DONE');
-	                  
+	                 
 	                  activeStream =  $('.sortable li.active').attr('id');
 	                  $('.sortable li.active').find('div.active-curve').remove();
 	      		      $('.sortable li.active').removeClass('active');
 	      		     
-	      		       
+	      		      $('.menu-count').hide();
 	                  $('span.close-btn').show();
 	                  $('div.drag-icon').show();
 	                  $('#sortable1, #sortable2').sortable();
@@ -514,6 +515,8 @@
 	     		     
 	                 $('span.close-btn').hide(); 
 	                 $('div.drag-icon').hide();
+	                 
+	                 $('.menu-count').show();
 	                 $('#sortable1').remove(); 
 	                 $('#sortable4, #sortable5').sortable('destroy');
 	                 $('li').removeAttr('draggable');
@@ -529,6 +532,7 @@
 	 	     	    		+'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange" style="display: none;">'
 	 	     	    		+'<img src="images/menu-left-icon.png">'
 	 	     	    		+'</div>'
+	 	     	    		+'<span class="menu-count" > 10</span>'
 	 	     	    		+'<span class="close-btn drag-rectangle" data-original-title="Delete" style="display: none;">'
 	 	     	    		+'<img src="images/close.png">'
 	 	     	    		+'</span>';

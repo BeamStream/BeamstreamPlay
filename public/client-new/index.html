@@ -1264,6 +1264,21 @@ Create a Class</a>
 </script>
 
 
+<!--   text area for add comment  --> 
+ <script type="text/x-handlebars-template" id="tpl-add-comment">
+<div id="{{questionId}}-addComments" class="follow-comment" style="display:none;">  
+	<textarea id="{{questionId}}-questionComment" class="add-question-comment add-question-comment" placeholder="Add Comments.."  onblur="this.placeholder = 'Add Comments..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
+</div>
+</script>
+
+
+<!--   text area for add answer --> 
+ <script type="text/x-handlebars-template" id="tpl-add-answer">
+<div id="{{questionId}}-addAnswer" class="follow-comment" style="display:none;">  
+    <textarea id="{{questionId}}-questionsAnswer" class="add-question-comment add-question-comment" placeholder="Add Answers.."  onblur="this.placeholder = 'Add Answers..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
+</div>	
+</script>
+
 <!--  comment templete for stream questions poll oprions  comments-->
  <script type="text/x-handlebars-template" id="tpl-question-poll-percentage">
 <div class="comment-nofication" >
@@ -2792,11 +2807,11 @@ Create a Class</a>
 	    // remove the active class from drop down menu
 		$('body').click(function() {
 			 
-		   if($('#upload-files1').hasClass('open'))
-		   {
-			   $('#upload-files').removeClass('active-new');
-    		   $('#upload-files').addClass('attach-drop-bg');  
-		   }
+// 		   if($('#upload-files1').hasClass('open'))
+// 		   {
+// 			   $('#upload-files').removeClass('active-new');
+//     		   $('#upload-files').addClass('attach-drop-bg');  
+// 		   }
 		   
 		   /**
             * NEW THEME - hide visual drop down list
