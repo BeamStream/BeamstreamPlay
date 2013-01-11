@@ -126,11 +126,11 @@
     float: left;
     overflow: hidden;
     width: 70%;
-    padding:10px 0 0 9px;
+    padding:10px 0 0 0;
 }
   
   
-  }
+  
     .selector .attributes .meta .favicon {
       width: 16px;
       height: 16px;
