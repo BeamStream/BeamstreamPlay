@@ -382,7 +382,8 @@
 //					        	          
 //					        	        }
 //			        	      }
-							$('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+							$('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07',
+								});
 						          
 				        }
 		            }
@@ -1221,16 +1222,16 @@
         	eventName.preventDefault();
         	 
         	// remove active class from upload icon
-        	if($('#upload-files1').hasClass('open'))
-        	{
-        		$('#upload-files').removeClass('active-new');
-        		$('#upload-files').addClass('attach-drop-bg');
-        	}
-        	else
-        	{
-        		$('#upload-files').removeClass('attach-drop-bg');
-        		$('#upload-files').addClass('active-new');
-        	}
+//        	if($('#upload-files1').hasClass('open'))
+//        	{
+//        		$('#upload-files').removeClass('active-new');
+//        		$('#upload-files').addClass('attach-drop-bg');
+//        	}
+//        	else
+//        	{
+//        		$('#upload-files').removeClass('attach-drop-bg');
+//        		$('#upload-files').addClass('active-new');
+//        	}
         	
         	
         },
@@ -1266,8 +1267,8 @@
             // read the  file as data URL
             reader.readAsDataURL(file);
             
-            $('#upload-files').removeClass('active-new');
- 		    $('#upload-files').addClass('attach-drop-bg'); 
+//            $('#upload-files').removeClass('active-new');
+// 		    $('#upload-files').addClass('attach-drop-bg'); 
         },
         
         /**
