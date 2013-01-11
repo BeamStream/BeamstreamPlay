@@ -3,34 +3,27 @@
   position: relative;
   display: none;
   min-height: 85px;
-  margin-right:3px !important;    
-  border-top:1px dashed #CCCCCC;
-  padding: 10px 5px 5px 5px !important;
-  /* URL Selector */
-  
- }
- .selector .emdthumbnail {
-   float: left;
-   margin: 0 10px 0 0;
-   position: relative; 
-    
- }
-    .selector .emdthumbnail .items {
+  /* URL Selector */ }
+  .selector .thumbnail {
+    float: left;
+    margin: 0 10px 0 0;
+    position: relative; }
+    .selector .thumbnail .items {
       position: relative;
       overflow: hidden;
       padding: 0px; }
-      .selector .emdthumbnail .items .images {
+      .selector .thumbnail .items .images {
         position: absolute;
         width: 300em;
         margin: 0px;
         padding: 0px;
         left: 0px; }
-        .selector .emdthumbnail .items .images li {
+        .selector .thumbnail .items .images li {
           list-style: none;
           float: left;
           margin: 0px;
           padding: 0px; }
-    .selector .emdthumbnail .nothumb {
+    .selector .thumbnail .nothumb {
       right: 2px;
       font-weight: bold;
       top: 1px; }
@@ -54,83 +47,90 @@
     width: 520px;
     height: 70px;
     margin: 5px 0; }
-  .selector.large .emdthumbnail {
+  .selector.large .thumbnail {
     width: 560px; }
-    .selector.large .emdthumbnail a.left, .selector.large .emdthumbnail a.right {
+    .selector.large .thumbnail a.left, .selector.large .thumbnail a.right {
       display: block;
       float: left;
       width: 20px;
       text-align: center;
       padding: 100px 0 0 0; }
-    .selector.large .emdthumbnail .items {
+    .selector.large .thumbnail .items {
       height: 300px;
       width: 400px;
       margin: 0 50px;
       float: left; }
-      .selector.large .emdthumbnail .items .images li {
+      .selector.large .thumbnail .items .images li {
         width: 400px; }
-      .selector.large .emdthumbnail .items .images img {
+      .selector.large .thumbnail .items .images img {
         max-width: 400px;
         max-height: 300px;
         margin: 0 auto;
         display: block; }
-  .selector.rich .emdthumbnail, .selector.small .emdthumbnail {
+  .selector.rich .thumbnail, .selector.small .thumbnail {
     width: 100px; }
-    .selector.rich .emdthumbnail .items, .selector.small .emdthumbnail .items {
+    .selector.rich .thumbnail .items, .selector.small .thumbnail .items {
       height: 100px;
       width: 100px; }
-      .selector.rich .emdthumbnail .items .images li, .selector.small .emdthumbnail .items .images li {
+      .selector.rich .thumbnail .items .images li, .selector.small .thumbnail .items .images li {
         width: 100px; }
-      .selector.rich .emdthumbnail .items .images img, .selector.small .emdthumbnail .items .images img {
+      
+      
+         .selector.rich .thumbnail .items .images li, .selector.small .thumbnail .items .images li img {
+       padding-top:30px; height:60px; }
+      
+      .selector.rich .thumbnail .items .images img, .selector.small .thumbnail .items .images img {
         width: 100px; }
-    .selector.rich .emdthumbnail .emdcontrols, .selector.small .emdthumbnail .emdcontrols {
-     top: 0px;
+    .selector.rich .thumbnail .controls, .selector.small .thumbnail .controls {
+      top: 0px;
       left: 0px;
-/* top: 3px; */
-/* left: -114px; */
-      width: 100px;
+      width: 100%;
       position: absolute;
-      height: 16px;
+      height:30px;
       z-index: 1;
       background-color: #222;
       opacity: 0.5; }
-      .selector.rich .emdthumbnail .emdcontrols .left, .selector.rich .emdthumbnail .emdcontrols .right, .selector.rich .emdthumbnail .emdcontrols .nothumb, .selector.small .emdthumbnail .emdcontrols .left, .selector.small .emdthumbnail .emdcontrols .right, .selector.small .emdthumbnail .emdcontrols .nothumb {
+      .selector.rich .thumbnail .controls .left, .selector.rich .thumbnail .controls .right, .selector.rich .thumbnail .controls .nothumb, .selector.small .thumbnail .controls .left, .selector.small .thumbnail .controls .right, .selector.small .thumbnail .controls .nothumb {
         display: block;
         position: absolute;
-        top: -2px;
+        top: 2px;
         color: #fff; }
-        .selector.rich .emdthumbnail .emdcontrols .left:hover, .selector.rich .emdthumbnail .emdcontrols .right:hover, .selector.rich .emdthumbnail .emdcontrols .nothumb:hover, .selector.small .emdthumbnail .emdcontrols .left:hover, .selector.small .emdthumbnail .emdcontrols .right:hover, .selector.small .emdthumbnail .emdcontrols .nothumb:hover {
+        .selector.rich .thumbnail .controls .left:hover, .selector.rich .thumbnail .controls .right:hover, .selector.rich .thumbnail .controls .nothumb:hover, .selector.small .thumbnail .controls .left:hover, .selector.small .thumbnail .controls .right:hover, .selector.small .thumbnail .controls .nothumb:hover {
           text-decoration: none; }
-.selector.rich .emdthumbnail .emdcontrols .nothumb, .selector.small .emdthumbnail .emdcontrols .nothumb {
-     right: 2px;
-     font-weight: bold;
-     top: -1px;
-}
-      .selector.rich .emdthumbnail .emdcontrols .left, .selector.small .emdthumbnail .emdcontrols .left {
-        left: 4px; }
-      .selector.rich .emdthumbnail .emdcontrols .right, .selector.small .emdthumbnail .emdcontrols .right {
-        left: 18px; }
+      .selector.rich .thumbnail .controls .nothumb, .selector.small .thumbnail .controls .nothumb {
+        right:-15px;
+        font-weight: bold;
+        top: 5px; }
+      .selector.rich .thumbnail .controls .left, .selector.small .thumbnail .controls .left {
+        left: 2px; }
+      .selector.rich .thumbnail .controls .right, .selector.small .thumbnail .controls .right {
+        left:28px; }
   .selector.small .attributes {
     margin: 0 0 0 110px; }
-    .attributes input{ width:240px !important;}
-    
-   textarea.description { width:240px !important;}
   .selector.rich .title {
     font-size: 14px;
     margin: 0 0 10px;
-    display: block;  }
+    display: block; }
   .selector .attributes a {
     text-decoration: none; }
     .selector .attributes a.title:hover, .selector .attributes a.description:hover {
       text-decoration: none;
-      background-color: #FFF6D9; }
+  }
     .selector .attributes a.description {
       color: #000; }
     .selector .attributes a.title {
       margin: 0 0 5px;
-      display: block;font-weight:bold; }
+      display: block; }
   .selector .attributes .meta {
-    display: block; }
+   display: block;
+    float: left;
+    overflow: hidden;
+    width: 70%;
+    padding:10px 0 0 9px;
+}
+  
+  
+  }
     .selector .attributes .meta .favicon {
       width: 16px;
       height: 16px;
@@ -140,10 +140,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    display: none; 
-    margin: 3px 2px 0 0;
-    
-    }
+    display: none; }
 
 .loading {
   display: none; }
@@ -152,11 +149,9 @@
     margin: 10px auto; }
 
 .item {
-	/*
   margin: 10px 0;
-  */
-
-}
+  border-top: 1px solid #DDD;
+  padding: 10px 0; }
   .item.video .media iframe, .item.video .media object, .item.video .media embed, .item.video .media img, .item.rich .media iframe, .item.rich .media object, .item.rich .media embed, .item.rich .media img, .item.photo .media iframe, .item.photo .media object, .item.photo .media embed, .item.photo .media img {
     margin: 10px auto;
     display: block; }
@@ -172,11 +167,11 @@
     line-height: 1.2em;
     margin: 10px 0;
     padding: 5px; }
-  .item .emdthumbnail {
+  .item .thumbnail {
     margin: 10px 10px 10px 5px;
     width: 105px;
     float: left; }
-    .item .emdthumbnail a {
+    .item .thumbnail a {
       display: table-cell;
       width: 100px;
       height: 75px;
@@ -185,11 +180,11 @@
       vertical-align: middle;
       position: relative;
       text-align: center; }
-    .item .emdthumbnail img {
+    .item .thumbnail img {
       max-width: 100px;
       vertical-align: middle;
       max-height: 75px; }
-    .item .emdthumbnail.video .overlay, .item .emdthumbnail.rich .overlay {
+    .item .thumbnail.video .overlay, .item .thumbnail.rich .overlay {
       background-image: url(../images/play.png);
       width: 26px;
       height: 25px;
@@ -223,12 +218,3 @@ html[xmlns] .clearfix {
 
 * html .clearfix {
   height: 1%; }
-.attributes a , .attributes p {
-	font-size :11px !important;
-	line-height: 13px !important;
-	font-family: "ubuntu",sans-serif !important;
-	margin: 0 0 5px !important;
-}
-.emdform{
-	margin-bottom : 0px !important;
-}

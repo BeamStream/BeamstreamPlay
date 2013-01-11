@@ -2188,6 +2188,12 @@ ul.discussion-info li:nth-child(2n) {
 		font-size:13px;
 }
 
+.chat-view ul li a img{
+		
+		height:28px;
+		
+}
+
 .chat-view ul li a:hover {
 		text-decoration:none;
 		color:#5a6d78;
@@ -3699,3 +3705,10 @@ div.ask-comment:hover .delete_post{
 .chart-round tspan{ float:left; width:40px;}
 
 
+.controls a{margin-right:20px;}
+
+.controls a.left{font-size:18px; color:#fff;}
+
+.controls a.right{font-size:18px; color:#fff;}
+
+.controls a.nothumb{font-size:18px; color:#fff;}
