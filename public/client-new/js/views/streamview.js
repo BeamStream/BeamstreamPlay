@@ -236,12 +236,12 @@
 //                        content += '<li class="nouser">  <span>Their is no online users </span>  </li>';  
                      }
                     $('#onlinechatbox').append(content);
-                    $('.online-count').text('Chat('+usersnumber+')');
+                    $('.online-count').text('Online('+usersnumber+')');
                     self.Scrollbar();
                     },
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
 //                    content += '<li class="online">  <span>Their is no other online users </span>  </li>';   
-                    $('.online-count').text('Chat(0)');
+                    $('.online-count').text('Online(0)');
 //                    $('#onlinechatbox').append(content); 
                     self.Scrollbar(); 
                     }
