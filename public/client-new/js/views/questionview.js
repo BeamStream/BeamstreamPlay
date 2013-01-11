@@ -264,12 +264,12 @@
 	        if(this.file )
 	        {
 //	        	 @ TODO
-//	        	$('#file-upload-loader').css("display","block");
+	        	$('#file-upload-loader').css("display","block");
 //
 //	        	var data;
 //	            data = new FormData();
-//	            data.append('docDescription',message);
-//	            data.append('docAccess' ,messageAccess);
+//	            data.append('docDescription',question);
+//	            data.append('docAccess' ,questionAccess);
 //	            data.append('docData', self.file);  
 //	            data.append('streamId', streamId);  
 //	           
@@ -293,7 +293,7 @@
 //	    					owner = "";
 //	    				}
 //	                	
-//	                	$('#msg-area').val("");
+//	                	$('#Q-area').val("");
 //	                	$('#uploded-file').hide();
 //	              	    self.file = "";
 //	              	    $('#file-upload-loader').css("display","none");
@@ -313,7 +313,7 @@
 //	  	                		message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,prifileImage : BS.profileImageUrl}
 //	  	                }) 
 //                      
-////                        $('input#'+data.id.id+'-url').val(msgUrl);  
+////                    $('input#'+data.id.id+'-url').val(msgUrl);  
 //                        $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
 //	                           
 //	                           
@@ -741,6 +741,8 @@
         	var element = eventName.target.parentElement;
 			var questionId =$(element).parents('div.follow-container').attr('id');
 			
+			
+			
 			// show / hide commet text area 
 			if($('#'+questionId+'-addComments').is(":visible"))
 			{
@@ -752,15 +754,22 @@
 			}
 			else
 			{
+				$('#'+questionId+'-comment-ans-area').html('');
+				var commentArea = '<div id="'+questionId+'-addComments" class="follow-comment" style="display:none;">'
+			          +'<textarea id="'+questionId+'-questionComment" class="add-question-comment add-question-comment" placeholder="Add Comments.."  onblur="this.placeholder = "Add Comments.."" onfocus="this.placeholder = """ placeholder="" cols="" rows=""></textarea>'
+				      +'</div>';
+				
+				$('#'+questionId+'-comment-ans-area').html(commentArea);
+				
 				$('#'+questionId+'-questionComment').val('');
 				$('#'+questionId+'-addComments').slideToggle(200); 
 				
 			}
-			if($('#'+questionId+'-addAnswer').is(":visible"))
-			{
-				$('#'+questionId+'-questionsAnswer').val('');
-				$('#'+questionId+'-addAnswer').slideToggle(300); 
-			}
+//			if($('#'+questionId+'-addAnswer').is(":visible"))
+//			{
+//				$('#'+questionId+'-questionsAnswer').val('');
+//				$('#'+questionId+'-addAnswer').slideToggle(300); 
+//			}
 			
         },
         
@@ -773,6 +782,7 @@
         	var element = eventName.target.parentElement;
 			var questionId =$(element).parents('div.follow-container').attr('id');
 			
+			
 			// show / hide commet text area 
 			if($('#'+questionId+'-addAnswer').is(":visible"))
 			{
@@ -783,16 +793,23 @@
 			}
 			else
 			{
+				
+				$('#'+questionId+'-comment-ans-area').html('');
+				var answerArea ='<div id="'+questionId+'-addAnswer" class="follow-comment" style="display:none;">'
+		                        +'<textarea id="'+questionId+'-questionsAnswer" class="add-question-comment add-question-comment" placeholder="Add Answers.."  onblur="this.placeholder = "Add Answers.."" onfocus="this.placeholder = """ placeholder="" cols="" rows=""></textarea>'
+				                +'</div>' 
+		                        
+	            $('#'+questionId+'-comment-ans-area').html(answerArea);
 				$('#'+questionId+'-questionsAnswer').val('');
 				$('#'+questionId+'-addAnswer').slideToggle(200); 
 				
 			}
 			
-			if($('#'+questionId+'-addComments').is(":visible"))
-			{
-				$('#'+questionId+'-questionComment').val('');
-				$('#'+questionId+'-addComments').slideToggle(200); 
-			}
+//			if($('#'+questionId+'-addComments').is(":visible"))
+//			{
+//				$('#'+questionId+'-questionComment').val('');
+//				$('#'+questionId+'-addComments').remove(); 
+//			}
 			
         },
         
@@ -1110,6 +1127,7 @@
             	 if(pollCount > 0)
             	 {
             		 $('#'+data.question.id.id+'-Answer').hide();
+            		 $('#'+data.question.id.id+'-Answerbutton').hide();
             		 var source = $("#tpl-question-poll-percentage").html();
 	            	 var template = Handlebars.compile(source);
 	            	 $('#'+data.question.id.id+'-poll-Option-area').html(template({data:data}));
@@ -2000,6 +2018,7 @@
         	 if(pollCount > 0)
         	 {
         		 $('#'+data.question.id.id+'-Answer').hide();
+        		 $('#'+data.question.id.id+'-Answerbutton').hide();
         		 var source = $("#tpl-question-poll-percentage").html();
             	 var template = Handlebars.compile(source);
             	 $('#'+data.question.id.id+'-poll-Option-area').html(template({data:data}));

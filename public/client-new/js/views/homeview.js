@@ -22,7 +22,7 @@
 	//   	 "click #school-pop" : "renderPopups",
 	//   	 "click #class-pop" : "renderClassPopups",
 	//   	 "click #sign-out" : "signOut",
-	   	 "click nav li" : "showActiveClass",
+	   	 "click nav li a" : "showActiveClass",
 	   	 "click #edit-profile":"editProfile",
 	   	"click #sign-out":"signOut"
 	//   	 "click #settings" : "renderSettings"

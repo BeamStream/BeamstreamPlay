@@ -31,9 +31,12 @@
 <script type="text/JavaScript" src="lib/bootstrap.js"></script>
 
 <!-- embedly preview js -->
-<link rel="stylesheet" href="css/extracss/embedly-preview.css" type="text/css" />
+<!-- <link rel="stylesheet" href="css/extracss/embedly-preview.css" type="text/css" /> -->
+
+<script src="http://scripts.embed.ly/p/0.2/jquery.preview.full.min.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="http://scripts.embed.ly/p/0.2/css/preview.css" />
 <script src="lib/extralib/jquery.embedly.min.js" type="text/javascript"></script>
-<script src="lib/extralib/embedly-preview.js" type="text/javascript"></script>
+<!-- <script src="lib/extralib/embedly-preview.js" type="text/javascript"></script> -->
 <!-- end  -->
 
 <!--  prettyPhoto -->
@@ -1069,7 +1072,7 @@ Create a Class</a>
 </script>
 
 <!--   stream's questions  Middle_container  template  -->
- <script type="text/x-handlebars-template" id="tpl-questions-middle-contents">
+<script type="text/x-handlebars-template" id="tpl-questions-middle-contents">
 <div class="stream-wrapper">
           <div class="question-info">
             <div class="question-sort">
@@ -1128,7 +1131,10 @@ Create a Class</a>
                        
                     </ul>
                   </div>
-                  <a  id="post-question"  class="ask-button">ASK</a> </div>
+                  <a  id="post-question"  class="ask-button">ASK</a> 
+<div id="file-upload-loader" style="display :none;">  
+							<img src ="images/loading.gif"> 
+        		</div></div>
                 <div class="ask-iconinfo">
 				   <div class="btn-group attach-drop">
               		<button  id="upload-files" data-original-title="Upload Files" class="btn attach-drop-bg drag-rectangle"></button>
@@ -1180,150 +1186,6 @@ Create a Class</a>
 
           </div>
           
-<!--           <div id= "all-questions"> -->
-
-<!--           </div> -->
-<!-- 		 <div class ="page-loader" ><img src ="images/loading-bars.gif"></div>  -->
-		 
-		 
-<!--           <div class="ask-outer follow-container"> -->
-<!--             <div class="ask-content"> -->
-<!--               <div class="follw-left"> -->
-<!--                 <div class="small-image"> -->
-<!--                   <div class="ask-img"><img src="images/picture.jpg"></div> -->
-<!--                   <a href="#" class="follow-button">follow</a> </div> -->
-<!--               </div> -->
-<!--               <div  class="ask-info"> -->
-<!--                 <div class="ask-comment"> -->
-<!--                   <div class="follow-names"> -->
-<!--                     <ul class="follow-name-left show-all-block"> -->
-<!--                       <li><span>@AlinaK </span> -  12/1/2011  -  Public</li> -->
-<!--                     </ul> -->
-<!--                     <div class="follow-right"><a href="#" class="follow-button">follow</a></div> -->
-<!--                   </div> -->
-<!--                   <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p> -->
-<!--                   <div class="comment-nofication"> -->
-<!--                     <div class="comment-nofication-left"> -->
-<!--                       <fieldset> -->
-<!--                         <input type="radio" id="radio-1-1" name="radio-1-set" class="regular-radio" checked /> -->
-<!--                         <label for="radio-1-1"></label> -->
-<!--                         <label>Yellow</label> -->
-<!--                       </fieldset> -->
-<!--                       <fieldset> -->
-<!--                         <input type="radio" id="radio-1-2" name="radio-1-set" class="regular-radio  red" /> -->
-<!--                         <label for="radio-1-2"></label> -->
-<!--                         <label>Red</label> -->
-<!--                       </fieldset> -->
-<!--                     </div> -->
-<!--                     <div class="chart"> <span class="chart-count"><span class="yellow">50%</span></span> -->
-<!--                       <div class="chart-round"> <img src="images/pie-chart.png" width="113" height="113"></div> -->
-<!--                       <span class="chart-count"><span class="red">50%</span></span> </div> -->
-<!--                   </div> -->
-<!--                   <div class="follow-bottom"> -->
-<!--                     <ul class="follow-name-left show-all-block"> -->
-<!--                       <li><a href="#">Rock</a></li> -->
-<!--                       <li><a href="#"> Answer</a></li> -->
-<!--                       <li><a href="#"> Comment</a></li> -->
-<!--                       <li ><a href="#"><img src="images/site.png" width="22" height="20"></a></li> -->
-<!--                     </ul> -->
-<!--                     <a id="50b710d5e4b08b73aaa7b269" href="#" class="delete_msg"></a> </div> -->
-<!--                 </div> -->
-<!--                 <div class="answer-info"> -->
-<!--                   <div class="answer-conatiner"> -->
-<!--                     <div class="button-block"> -->
-<!--                       <ul class="follow-name-left show-all-block"> -->
-<!--                         <li><a href="#" class="rocks-up"><span>0</span></a></li> -->
-<!--                         <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a> -->
-<!-- 						<a  class="btn grey-buttons  href="#">Show All</a> -->
-<!--                       </ul> -->
-                       
-<!--                   </div> -->
-<!--                 </div> -->
-<!--               </div> -->
-<!--             </div> -->
-<!--             <div class="clear"></div> -->
-<!--           </div> -->
-<!--           <div class="ask-outer follow-container"> -->
-<!--             <div class="ask-content"> -->
-<!--               <div class="follw-left"> -->
-<!--                 <div class="small-image"> -->
-<!--                   <div class="ask-img"><img src="images/picture.jpg"></div> -->
-<!--                   <a href="#" class="follow-button">follow</a> </div> -->
-<!--               </div> -->
-<!--               <div  class="ask-info"> -->
-<!--                 <div class="ask-comment"> -->
-<!--                   <div class="follow-names"> -->
-<!--                     <ul class="follow-name-left show-all-block"> -->
-<!--                       <li><span>@AlinaK </span> -  12/1/2011  -  Public</li> -->
-<!--                     </ul> -->
-<!--                     <div class="follow-right"><a href="#" class="follow-button">follow</a></div> -->
-<!--                   </div> -->
-<!--                   <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p> -->
-<!--                   <div class="follow-bottom"> -->
-<!--                     <ul class="follow-name-left show-all-block"> -->
-<!--                       <li ><a href="#">Rock</a></li> -->
-<!--                       <li ><a href="#"> Answer</a></li> -->
-<!--                       <li><a href="#"> Comment</a></li> -->
-<!--                       <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li> -->
-<!--                     </ul> -->
-<!--                   </div> -->
-<!--                 </div> -->
-<!--                 <div class="answer-info"> -->
-<!--                   <div class="answer-conatiner"> -->
-<!--                     <div class="button-block"> -->
-<!--                       <ul class="follow-name-left show-all-block"> -->
-<!--                         <li><a href="#" class="rocks"><span>1</span></a></li> -->
-<!--                         <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a> -->
-<!--                       </ul> -->
-<!--                       <a class="btn blue-buttons showmessage" href="#">Show All</a> </div> -->
-<!--                     <div class="comment-wrapper" id="comments"> -->
-<!--                       <div class="answer-description"> -->
-<!--                         <div class="follw-left"> -->
-<!--                           <div class="small-image"> -->
-<!--                             <div class="ask-img"><img src="images/picture.jpg"></div> -->
-<!--                           </div> -->
-<!--                         </div> -->
-<!--                         <div class="answer-description-info"> -->
-<!--                           <div class="follow-names"> -->
-<!--                             <ul class="follow-name-left show-all-block"> -->
-<!--                               <li><span>@AlinaK </span> -  12/1/2011  -  Public</li> -->
-<!--                               <li ><a href="#">Rock</a></li> -->
-<!--                               <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li> -->
-<!--                               <li class="rocks-small"><a href="#">75</a></li> -->
-<!--                             </ul> -->
-<!--                           </div> -->
-<!--                           <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p> -->
-<!--                         </div> -->
-<!--                         <div class="clear"></div> -->
-<!--                       </div> -->
-<!--                       <div class="answer-description"> -->
-<!--                         <div class="follw-left"> -->
-<!--                           <div class="small-image"> -->
-<!--                             <div class="ask-img"><img src="images/picture.jpg"></div> -->
-<!--                           </div> -->
-<!--                         </div> -->
-<!--                         <div class="answer-description-info"> -->
-<!--                           <div class="follow-names"> -->
-<!--                             <ul class="follow-name-left show-all-block" > -->
-<!--                               <li><span>@AlinaK </span> -  12/1/2011  -  Public</li> -->
-<!--                               <li ><a href="#">Rock</a></li> -->
-<!--                               <li ><a href="#"><img width="22" height="20" src="images/site.png"></a></li> -->
-<!--                               <li class="rocks-small"><a href="#">75</a></li> -->
-<!--                             </ul> -->
-<!--                           </div> -->
-<!--                           <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p> -->
-<!--                         </div> -->
-<!--                         <div class="clear"></div> -->
-<!--                       </div> -->
-<!--                     </div> -->
-<!--                   </div> -->
-<!--                 </div> -->
-<!--                 <div class="clear"></div> -->
-<!--               </div> -->
-<!--             </div> -->
-<!--           </div> -->
-<!--         </div> -->
-
  <div class ="page-loader"><img src ="images/loading-bars.gif"></div> 
 </div>
 </script>  
@@ -1365,12 +1227,13 @@ Create a Class</a>
                     </ul>
                    
                     </div>
-                    <div id="{{data.question.id.id}}-addComments" class="follow-comment" style="display:none;">
-				    <textarea id="{{data.question.id.id}}-questionComment" class="add-question-comment add-question-comment" placeholder="Add Comments.."  onblur="this.placeholder = 'Add Comments..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
-				</div>
-				<div id="{{data.question.id.id}}-addAnswer" class="follow-comment" style="display:none;">
-                    <textarea id="{{data.question.id.id}}-questionsAnswer" class="add-question-comment add-question-comment" placeholder="Add Answers.."  onblur="this.placeholder = 'Add Answers..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
-				</div>	
+                    <div id= "{{data.question.id.id}}-comment-ans-area" class="comment-ans" ></div>
+<!--                     <div id="{{data.question.id.id}}-addComments" class="follow-comment" style="display:none;"> -->
+<!-- 				    <textarea id="{{data.question.id.id}}-questionComment" class="add-question-comment add-question-comment" placeholder="Add Comments.."  onblur="this.placeholder = 'Add Comments..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea> -->
+<!-- 				</div> -->
+<!-- 				<div id="{{data.question.id.id}}-addAnswer" class="follow-comment" style="display:none;"> -->
+<!--                     <textarea id="{{data.question.id.id}}-questionsAnswer" class="add-question-comment add-question-comment" placeholder="Add Answers.."  onblur="this.placeholder = 'Add Answers..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea> -->
+<!-- 				</div>	 -->
 				<a id="{{data.question.id.id}}" href="#" data-original-title="Delete" class="delete_post drag-rectangle" ></a>
                 </div>
 
@@ -1379,7 +1242,7 @@ Create a Class</a>
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
                         <li><a href="#" id="{{data.question.id.id}}-qstRockCount" class="uprocks-message rocks-question"><span>{{rocks}}</span></a></li>
-                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons show-all-comments"  href="#"><span id="{{data.question.id.id}}-totalComment" >0</span> Comments</a> <a class="btn grey-buttons " href="#"> <span>0</span> Answers</a>
+                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons show-all-comments"  href="#"><span id="{{data.question.id.id}}-totalComment" >0</span> Comments</a> <a id="{{data.question.id.id}}-Answerbutton" class="btn grey-buttons " href="#"> <span>0</span> Answers</a>
 						<a  class="btn grey-buttons  show-all" id="{{data.question.id.id}}-show-hide" href="#">Show All</a>
                       </ul>
                        
@@ -1494,328 +1357,6 @@ Create a Class</a>
 </script>
 
 
-<!--  Questions  templates  -->
-<script type="text/x-handlebars-template" id="tpl-questions">
-      <!--------------------------------------Left Container---------------------------------------->
-      
-      <div class="left-container">
-        <aside>
-          <div class="left-menu">
-            <div class="display-stream">
-              <div class="btn-group stream-dropdown">
-                <button class="btn display-dropdown">Display All Streams</button>
-                <button class="btn display-toggle" data-toggle="dropdown"> <span class="caret display-caret"></span></button>
-                <ul class="dropdown-menu display-sub">
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products </a></li>
-                </ul>
-              </div>
-              <a href="#" class="done">DONE </a> </div>
-            <div class="display-scroller">
-              <div class="arrow-block"><span class="caret arrow-up"></span></div>
-              <div class="scroll-menu scroller">
-                <ul id="sortable4f" class="connected sortable list">
-                  <li class="icon1"><a href="#" class="icon1">Calculus <span class="menu-count"> 543</span><span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span> </a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li><a href="#" class="icon1">Intro to Java<span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span> </a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li><a href="#" class="icon1">Intro to Business <span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li><a href="#" class="icon2">Best Buddies<span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li><a href="#" class="icon1">Research<span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li><a href="#" class="icon3">Study Team <span class="close-btn drag-rectangle" data-original-title="Close"><img src="images/close.png"></span></a>
-                    <div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>
-                  </li>
-                  <li class="red-bg"> <a href="#" class="read-more">Remove</a> <a href="#" class="cancel">Cancel</a> </li>
-                </ul>
-              </div>
-              <div class="arrow-block arrow-block-down"></div>
-            </div>
-            <div class="straem-block"> <a href="#"><span><img src="images/plus.png" width="23" height="22"></span><span class="text">New Stream</span></a> </div>
-          </div>
-          <div class="chat-box">
-            <div class="chat-window">
-              <div id="chat-status" class="chat-open"><span>Chat(4)</span> <span class="chat-show"><img src="images/down-arrow.png" width="15" height="8"></span></div>
-              <div id="user-online" class="scroll-block chat-view">
-                <ul>
-                  <li class="online"> <a href="#"><img src="images/chat-imge.jpg" width="30" height="28"> <span>Me </span> <span class="online-chat">Online</span></a> </li>
-                  <li> <a href="#"><img src="images/chat-imge-03.jpg" width="30" height="28"> <span>Alina Kay </span> <span class="offline-chat"><img src="images/online-icon.png" width="12" height="13"></span></a> </li>
-                  <li><a href="#"><img src="images/chat-imge-02.jpg" width="30" height="28"> <span>Eduard Loban </span> <span class="offline-chat"><img src="images/online-icon.png" width="12" height="13"></span></a> </li>
-                  <li><a href="#"><img src="images/chat-imge-05.jpg" width="30" height="28"> <span>Donald Carter </span> <span class="offline-chat"><img src="images/online-icon.png" width="12" height="13"></span></a> </li>
-                  <li> <a href="#"><img src="images/chat-imge-04.jpg" width="30" height="28"> <span>Alina Kay </span> <span class="offline-chat"><img src="images/online-icon.png" width="12" height="13"></span></a> </li>
-                  <li><a href="#"><img src="images/chat-imge.jpg" width="30" height="28"> <span>Eduard Loban </span> <span class="offline-chat"><img src="images/online-icon.png" width="12" height="13"></span></a> </li>
-                  <li> <a href="#"><img src="images/chat-imge-05.jpg" width="30" height="28"> <span>Alina Kay </span> <span class="offline-chat"><img src="images/online-icon.png" width="12" height="13"></span></a> </li>
-                  <li><a href="#"><img src="images/chat-imge-04.jpg" width="30" height="28"> <span>Donald Carter </span> <span class="offline-chat"><img src="images/online-icon.png" width="12" height="13"></span></a> </li>
-                  <li> <a href="#"><img src="images/chat-imge-03.jpg" width="30" height="28"> <span>Alina Kay </span> <span class="offline-chat"><img src="images/online-icon.png" width="12" height="13"></span></a> </li>
-                  <li> <a href="#"><img src="images/chat-imge-05.jpg" width="30" height="28"> <span>Eduard Loban </span> <span class="offline-chat"><img src="images/online-icon.png" width="12" height="13"></span></a> </li>
-                  <li> <a href="#"><img src="images/chat-imge-03.jpg" width="30" height="28"> <span>Alina Kay </span> <span class="offline-chat"><img src="images/online-icon.png" width="12" height="13"></span></a> </li>
-                  <li> <a href="#"><img src="images/chat-imge-02.jpg" width="30" height="28"> <span>Donald Carter </span> <span class="offline-chat"><img src="images/online-icon.png" width="12" height="13"></span></a> </li>
-                  <li> <a href="#"><img src="images/chat-imge-05.jpg" width="30" height="28"> <span>Alina Kay </span> <span class="offline-chat"><img src="images/online-icon.png" width="12" height="13"></span></a> </li>
-                  <li><a href="#"><img src="images/chat-imge-04.jpg" width="30" height="28"> <span>Eduard Loban </span> <span class="offline-chat"><img src="images/online-icon.png" width="12" height="13"></span></a> </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </aside>
-      </div>
-      
-      <!--------------------------------------Right Conatiner---------------------------------------->
-      
-      <div class="right-container">
-        <div class="stream-header">
-          <div class="stream-header-left">
-            <h2>Intro to Business<a id="show-details" href="#">Show Details</a></h2>
-            <ul class="strem-header-info">
-              <li class="mebers">35 Members</li>
-              <li class="claimed">Claimed By: <a href="#">Professor Smith</a> </li>
-            </ul>
-          </div>
-           <div class="stream-header-right"> 
-           	<a href="#" class="green-btn green-btn-new">
-           		<span class="visual visual-new">
-           			<img src="images/plus.png" width="23" height="22">
-           		</span>
-           		<span class="texter texter-new">
-           			<span>
-           				<img src="images/members-icon.png" width="22" height="21">
-           			</span>to this class
-           		</span>
-           	</a> 
-           </div>
-          <div class="stream-top-shadow"><img src="images/shadow.png"/></div>
-        </div>
-        <ul class="stream-tab">
-          <li> <a href="#">Overview</a> </li>
-          <li> <a href="#"> Discussions</a> </li>
-          <li> <a href="#" class="active">Questions</a> </li>
-          <li> <a href="#"> Deadlines</a> </li>
-          <li> <a href="#">Calendar</a> </li>
-        </ul>
-        <div class="stream-wrapper">
-          <div class="question-info">
-            <div class="question-sort">
-              <h5>SORT BY</h5>
-              <div class="btn-group dropdown-outer">
-                <button class="btn normal-dropdown">Highest Rated</button>
-                <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                <ul class="dropdown-menu display-sub">
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products </a></li>
-                </ul>
-              </div>
-              <div class="btn-group dropdown-outer">
-                <button class="btn normal-dropdown ">This Week</button>
-                <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                <ul class="dropdown-menu display-sub">
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products </a></li>
-                </ul>
-              </div>
-              <form class="all-search">
-                <input type="text" class="quest-search" placeholder="Search Questions">
-              </form>
-              <a href="#" class="unanswerd active-text">20 Unanswered</a> <a href="#" class="unanswerd">12 Answered</a> </div>
-            <div class="clear"></div>
-          </div>
-          <div class="ask-outer">
-            <div class="ask-content">
-              <div class="follw-left">
-                <div class="small-image">
-                  <div class="ask-img"><img src="images/profile-img.png"></div>
-                </div>
-              </div>
-              <div  class="ask-info">
-                <div class="ask-comment">
-                  <div class="ask-left">
-                    <form class="question-ask">
-                      <input type="text" class="question-ask-search"  placeholder="Ask your own question here....">
-                    </form>
-                    <ul class="answer" style="display:none">
-                      <li>
-                        <input name="Answer Is Yes" type="text" id="Answer Is Yes"  placeholder="Add 1st Poll Option">
-                      <li>
-                        <input name="Add Option" type="text" id="Add Option" placeholder="Add 2nd Poll Option">
-                        </li>
-                        
-                        <a href="#" class="add-option">Another Poll Option</a>
-                    </ul>
-                  </div>
-                  <a href="#" class="ask-button">ASK</a> </div>
-                <div class="ask-iconinfo">
-                  <ul class="icons-ask">
-                    <li><img src="images/attach.png" width="22" height="20"></li>
-                    <li><img src="images/card.png" width="18" height="19"></li>
-                  </ul>
-                  <label class="checkbox private-chaeck">
-                    <input type="checkbox"  checked="checked">
-                    Pivate to:</label>
-                  <div class="btn-group class-dropdown">
-                    <button class="btn class-dropdown-bg">Class</button>
-                    <button class="btn class-dropdown-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Products </a></li>
-                    </ul>
-                  </div>
-                  <a href="#" class="add-poll ">Add Poll</a>
-                   <ul class="social-icons">
-                    <li class="google-plus"><a href="#">Google plus</a></li>
-                    <li class="plus"><a href="#">p</a></li>
-                    <li class="twitter"> <a href="#">Twitter</a></li>
-                    <li class="facebook"><a href="#"> face book</a></li>
-                    <li class="in"><a href="#"> in</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="clear"></div>
-          </div>
-          <div class="ask-outer follow-container">
-            <div class="ask-content">
-              <div class="follw-left">
-                <div class="small-image">
-                  <div class="ask-img"><img src="images/profile-img.png"></div>
-                  <a href="#" class="follow-button">follow</a> </div>
-              </div>
-              <div  class="ask-info">
-                <div class="ask-comment">
-                  <div class="follow-names">
-                    <ul class="follow-name-left show-all-block">
-                      <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
-                    </ul>
-                    <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
-                  </div>
-                  <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
-                  
-                  <div class="comment-nofication">
-                  
-                              
-                <fieldset>  <input name="" type="radio" value=""><label>Yellow</label></fieldset>
-                    <fieldset>  <input name="" type="radio" value=""> <label>Red</label></fieldset>
-                  
-                  
-                  </div>
-                  
-                  <div class="follow-bottom">
-                    <ul class="follow-name-left show-all-block">
-                      <li><a href="#">Rock</a></li>
-                      <li><a href="#"> Answer</a></li>
-                      <li><a href="#"> Comment</a></li>
-                      <li ><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="answer-info">
-                  <div class="answer-conatiner">
-                    <div class="button-block">
-                      <ul class="follow-name-left show-all-block">
-                        <li><a href="#" class="rocks"><span>57</span></a></li>
-                        <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
-                      </ul>
-                      <a class="btn blue-buttons showmessage" href="#">Show All</a> </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="clear"></div>
-          </div>
-          <div class="ask-outer follow-container">
-            <div class="ask-content">
-              <div class="follw-left">
-                <div class="small-image">
-                  <div class="ask-img"><img src="images/profile-img.png"></div>
-                  <a href="#" class="follow-button">follow</a> </div>
-              </div>
-              <div  class="ask-info">
-                <div class="ask-comment">
-                  <div class="follow-names">
-                    <ul class="follow-name-left show-all-block">
-                      <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
-                    </ul>
-                    <div class="follow-right"><a href="#" class="follow-button">follow</a></div>
-                  </div>
-                  <p>If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up, and shouldn't we see 12AM becoming noon at some point in time? I've been thinking about this and can't figure it out.</p>
-                  <div class="follow-bottom">
-                    <ul class="follow-name-left show-all-block">
-                      <li ><a href="#">Rock</a></li>
-                      <li ><a href="#"> Answer</a></li>
-                      <li><a href="#"> Comment</a></li>
-                      <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="answer-info">
-                  <div class="answer-conatiner">
-                    <div class="button-block">
-                      <ul class="follow-name-left show-all-block">
-                        <li><a href="#" class="rocks"><span>57</span></a></li>
-                        <a class="btn grey-buttons active who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons" href="#"><span>43</span> Comments</a> <a class="btn grey-buttons" href="#"> <span>7</span> Answers</a>
-                      </ul>
-                      <a class="btn blue-buttons showmessage" href="#">Show All</a> </div>
-                    <div class="comment-wrapper" id="comments">
-                      <div class="answer-description">
-                        <div class="follw-left">
-                          <div class="small-image">
-                            <div class="ask-img"><img src="images/profile-img.png"></div>
-                          </div>
-                        </div>
-                        <div class="answer-description-info">
-                          <div class="follow-names">
-                            <ul class="follow-name-left show-all-block">
-                              <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
-                              <li ><a href="#">Rock</a></li>
-                              <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
-                                 <li class="rocks-small"><a href="#">75</a></li>
-                            </ul>
-                          </div>
-                          <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
-                        </div>
-                        <div class="clear"></div>
-                      </div>
-                      <div class="answer-description">
-                        <div class="follw-left">
-                          <div class="small-image">
-                            <div class="ask-img"><img src="images/profile-img.png"></div>
-                          </div>
-                        </div>
-                        <div class="answer-description-info">
-                          <div class="follow-names">
-                            <ul class="follow-name-left show-all-block">
-                              <li><span>@AlinaK </span> -  12/1/2011  -  Public</li>
-                              <li ><a href="#">Rock</a></li>
-                              <li ><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
-                                 <li class="rocks-small"><a href="#">75</a></li>
-                            </ul>
-                          </div>
-                          <p> Well actually that is why we have a thing called a "Leap Year" every 4 years on February 29th. It adds up an extra day every 4 years.</p>
-                        </div>
-                        <div class="clear"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div> 
-                <div class="clear"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-        </script>     
-        
- 
-        
-        
         
     
         <!----------------------  Browse Media  templates  --------------->
@@ -3363,7 +2904,7 @@ Create a Class</a>
 			           bigp = this.sector(this.cx, this.cy, this.rout, this.rin, this.angle, this.angle + angleplus, {fill: "90-" + bcolor + "-" + color, stroke: this.stroke, "stroke-width": 1}).hide();
 
 		            }
-		            var txt = this.paper.text(this.cx + (this.r + delta + 15) * Math.cos(-popangle * this.rad), this.cy + (this.r + delta +1) * Math.sin(-popangle * this.rad),countPer+'%').attr({fill: bcolor, stroke: "none", opacity: 1, "font-size": 14 , "font-weight":"bold"});
+		            var txt = this.paper.text(this.cx + (this.r + delta + 15) * Math.cos(-popangle * this.rad), this.cy + (this.r + delta +1) * Math.sin(-popangle * this.rad),countPer+'%').attr({fill: "#3F5A6C", stroke: "none", opacity: 1, "font-size": 14 , "font-weight":"bold"});
 			    	this.angle += angleplus;
 			    	this.chart.push(p);
 			    	this.chart.push(txt);

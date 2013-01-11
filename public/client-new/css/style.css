@@ -3676,8 +3676,26 @@ div.ask-comment:hover .delete_post{
 }
 .regular-radio.option5:checked + label:after {
 		background: #00ff65 !important;
-
 }
+.regular-radio.option6:checked + label:after {
+		background: #00ffff !important;
+}
+.regular-radio.option7:checked + label:after {
+		background: #0065ff !important;
+}
+.regular-radio.option8:checked + label:after {
+		background: #3200ff !important;
+}
+.regular-radio.option9:checked + label:after {
+		background: #cb00ff !important;
+}
+.regular-radio.option10:checked + label:after {
+		background: #ff0099 !important;
+}
+.comment-ans{
+	padding: 1%;
+}
+
 .chart-round tspan{ float:left; width:40px;}
 
 
