@@ -15,11 +15,14 @@ import models.Comment
 import models.ResulttoSent
 import models.Question
 import models.RockDocOrMedia
+import java.text.SimpleDateFormat
 
 object CommentController extends Controller {
 
-  implicit val formats = new net.liftweb.json.DefaultFormats {
+ implicit val formats = new net.liftweb.json.DefaultFormats {
+    override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
   } + new ObjectIdSerializer
+
 
   def newComment = Action { implicit request =>
 
@@ -172,7 +175,7 @@ object CommentController extends Controller {
    * Is a Rocker
    * @ Purpose: identify if the user has rocked the comment or not
    */
-  def isARocker = Action { implicit request =>
+  def isARocker = Action { implicit request => 
     {
       val commentIdJsonMap = request.body.asFormUrlEncoded.get
       val commentId = commentIdJsonMap("commentId").toList(0)
