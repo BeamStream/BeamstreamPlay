@@ -950,7 +950,7 @@
 							 var classStreams ='';
 							 _.each(datas, function(data) {
 								 
-								 myClasses+= '<li><a id ="'+data.id.id+'" href="#">'+data.streamName+'</a></li>';
+								 myClasses+= '<li><a id ="'+data._1.id.id+'" href="#">'+data._1.streamName+'</a></li>';
 								    
 							 });
 							 myClasses+= '<li><a href="#">Degree Program</a></li>'

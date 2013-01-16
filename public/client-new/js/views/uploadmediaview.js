@@ -149,7 +149,7 @@
                 success : function(options) {
                     optioncontent+='<option>Save to Class</option>'
                     _.each(options, function(option) {
-                    optioncontent+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
+                    optioncontent+= '<option value="'+option._1.id.id+'">'+option._1.streamName+'</option>';
                     i++;
                     });                     
                     console.log(optioncontent);
