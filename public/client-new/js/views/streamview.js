@@ -143,14 +143,14 @@
 						 var classStreams ='';
 						 _.each(datas, function(data) {
 							 
-							 streams+='<li id ="'+data.id.id+'" name="'+data.streamName+'" ><a  id ="'+data.id.id+'" name ="'+data.streamName+'"  href="#" class="icon1">'+data.streamName+'</a>'
+							 console.log(data._1.streamName);
+							 streams+='<li id ="'+data._1.id.id+'" name="'+data._1.streamName+'" data-userCount = "'+data._2+'"><a  id ="'+data._1.id.id+'" name ="'+data._1.streamName+'"  href="#" class="icon1">'+data._1.streamName+'</a>'
 			                        +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>'
-			                        +'<span class="menu-count"> 10</span>'
+			                        +'<span class="menu-count"> '+data._2+'</span>'
 			                        +'<span class="close-btn drag-rectangle" data-original-title="Delete"><img  src="images/close.png"></span>'
 			                        +'</li>';
-							 
-							 
-							 BS.myClasses+= '<li><a id ="'+data.id.id+'" href="#">'+data.streamName+'</a></li>';
+ 						 
+							 BS.myClasses+= '<li><a id ="'+data._1.id.id+'" href="#">'+data._1.streamName+'</a></li>';
 							    
 						 });
 						 
@@ -310,11 +310,12 @@
 	    	var self = this;
 	    	var streamId = $(eventName.target).parents('li').attr('id');
 	    	var StreamName = $(eventName.target).parents('li').attr('name');
+	    	var userCount = $(eventName.target).parents('li').attr('data-userCount');
 	    	
 	    	// set previous style for li
 	    	var removeOption = '<a  id ="'+streamId+'" name ="'+StreamName+'"  href="#" class="icon1">'+StreamName+'</a>'
 			                   +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>'
-			                   +'<span class="menu-count" style="display:none;"> 10</span>'
+			                   +'<span class="menu-count" style="display:none;"> '+userCount+'</span>'
 			                   +'<span class="close-btn drag-rectangle" data-original-title="Delete"><img  src="images/close.png"></span>';
 
  	    	$(eventName.target).parents('li').removeClass("icon1 red-active");
@@ -525,6 +526,7 @@
 	                 $("#sortable4 li").each(function(n) {
 	                	 var streamId = $(this).attr('id');
 	 	     	    	 var StreamName = $(this).attr('name');
+	 	     	    	 var userCount = $(this).attr('data-userCount');
 	 	     	    	 if($(this).hasClass('red-active'))
 	 	     	    	 {
 	 	     	    		 
@@ -532,7 +534,7 @@
 	 	     	    		+'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange" style="display: none;">'
 	 	     	    		+'<img src="images/menu-left-icon.png">'
 	 	     	    		+'</div>'
-	 	     	    		+'<span class="menu-count" > 10</span>'
+	 	     	    		+'<span class="menu-count" > '+userCount+'</span>'
 	 	     	    		+'<span class="close-btn drag-rectangle" data-original-title="Delete" style="display: none;">'
 	 	     	    		+'<img src="images/close.png">'
 	 	     	    		+'</span>';
