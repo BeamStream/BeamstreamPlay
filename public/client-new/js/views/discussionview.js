@@ -63,7 +63,8 @@
 			 "click .dropdown-menu input":"addCategory",
 			 "click .follow-user" : "followUser",
 			 "click .delete_post" : "deleteMessage",
-			 
+			 "click .delete_comment" : "deleteComment"
+			  
 			 
 
 		},
@@ -300,6 +301,7 @@
 	        	    	$('#'+parentMsg+'-allComments').hide();
 
 	                }
+	        	    $('.drag-rectangle').tooltip();
 	            }
 			});
 	    },
@@ -1106,6 +1108,7 @@
    							$('#'+parent+'-totalComment').text(totalComments);
    							/* auto push */
    		  					var streamId = $('.sortable li.active').attr('id');
+   		  				    $('.drag-rectangle').tooltip();
    			                PUBNUB.publish({
    			                	channel : "comment",
 		                        message : { pagePushUid: self.pagePushUid ,data:data,parent:parent,cmtCount:totalComments,prifileImage : BS.profileImageUrl}
@@ -2235,6 +2238,7 @@
 		 					   }
 		 					   $('#'+parent+'-show-hide').text("Hide All");
 		 					   $('#'+parent+'-totalComment').text(totalComments);
+		 					    
 
 	 				   	   }
  			   		   }
@@ -2326,5 +2330,67 @@
  			 }
  			 
  		 },
+ 		 
+ 		 
+ 		/**
+ 	    * delete a Comment
+	    */
+ 		deleteComment :function(eventName){
+ 			
+ 			 eventName.preventDefault();
+ 			 var commentId = eventName.target.id;
+ 			 var ownerId = $(eventName.target).attr('data-username');
+ 			 var messageId = $(eventName.target).parents('div.ask-outer').attr('id');
+ 			 
+ 			 if(localStorage["loggedUserInfo"] == ownerId)
+ 			 {
+	 			 bootbox.dialog("Are you sure you want to delete this comment?", [{
+	
+	 				"label" : "DELETE",
+	 				"class" : "btn-primary",
+	 				"callback": function() {
+	 					
+	 					 // delete particular message
+			    		 $.ajax({
+			                 type: 'POST',
+			                 url: BS.deleteTheComment,
+			                 data:{
+			                	 messageId :messageId,
+			                	 commentId :commentId
+			                 },
+			                 dataType:"json",
+			                 success:function(data){
+			                	 if(data.status == "Success")
+			                	 {
+			                		 var commentCount = $('#'+messageId+'-totalComment').text()
+			                		 $('div#'+commentId).remove();
+			                		 $('#'+messageId+'-totalComment').text(commentCount-1);
+						    		  
+			                	 }
+			                	 else
+			                	 {
+			                		 bootbox.alert("You're Not Authorised To Delete This Comment");
+			                	 }
+			                	 
+			                 }
+			              });
+	 				}
+	
+	 			 }, 
+	 			 {
+				 	"label" : "CANCEL",
+				 	"class" : "btn-primary",
+	 				"callback": function() {
+	 					console.log("ok");
+	 				}
+	 			 }]);
+ 			 }
+ 			 else
+ 			 {
+ 				bootbox.alert("You're Not Authorised To Delete This Comment");
+ 			 }
+ 			 
+ 		 },
+ 		  
 	  
 	});

@@ -1592,6 +1592,7 @@ ul.follow-bottom-menu li a.rocks {
 .answer-description-info {
 		float: right;
 		padding: 0 5% 0 0;
+		position:relative;
 }
 
 .answer-description-info p {
@@ -3651,6 +3652,24 @@ svg{
 div.ask-comment:hover .delete_post{
 	display:block;
 }
+
+.delete_comment{
+ 	background-image: url("../images/close1.png");
+    display: none;
+    height: 15px;
+    position: absolute !important;
+    right: 40px;
+    top: 0;
+    width: 15px;
+}
+.delete_comment:hover{
+	background-image: url("../images/close_hover.png");
+}
+
+div.answer-description:hover .delete_comment{
+	display:block;
+}
+
 .bootbox{
 	margin-left: -170px !important;
 	width: auto !important;
