@@ -176,7 +176,7 @@ object QuestionController extends Controller {
         questionsWithPolls ++= List(new QuestionWithPoll(question, List()))
       }
     }
-    val allQuestionForAStreamJson = write(questionsWithPolls)
+    val allQuestionForAStreamJson = write(questionsWithPolls.reverse)
     Ok(allQuestionForAStreamJson).as("application/json")
   }
 
