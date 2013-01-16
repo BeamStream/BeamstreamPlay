@@ -1704,29 +1704,29 @@
 			    	 });
 			         
 			         
-			         /* make a call to check whether the logged user is already rock this message*/ 
-					 $.ajax({
-			             type: 'POST',
-			             url:BS.isARockerOfMessage,
-			             data:{
-			            	 messageId:data.id.id
-			             },
-			             dataType:"json",
-			             success:function(result){
-			            	 if(result == "true")
-			            	 {
-			            		 $('#'+data.id.id+'-msgRockCount').removeClass('uprocks-message');
-			            		 $('#'+data.id.id+'-msgRockCount').addClass('downrocks-message');
-			            		            		 
-			            	 }
-			            	 else
-			            	 {
-			            		 $('#'+data.id.id+'-msgRockCount').removeClass('downrocks-message');
-			            		 $('#'+data.id.id+'-msgRockCount').addClass('uprocks-message');			 
-			            	 }
-			            	 
-			             }
-			          });
+//			         /* make a call to check whether the logged user is already rock this message*/ 
+//					 $.ajax({
+//			             type: 'POST',
+//			             url:BS.isARockerOfMessage,
+//			             data:{
+//			            	 messageId:data.id.id
+//			             },
+//			             dataType:"json",
+//			             success:function(result){
+//			            	 if(result == "true")
+//			            	 {
+//			            		 $('#'+data.id.id+'-msgRockCount').removeClass('uprocks-message');
+//			            		 $('#'+data.id.id+'-msgRockCount').addClass('downrocks-message');
+//			            		            		 
+//			            	 }
+//			            	 else
+//			            	 {
+//			            		 $('#'+data.id.id+'-msgRockCount').removeClass('downrocks-message');
+//			            		 $('#'+data.id.id+'-msgRockCount').addClass('uprocks-message');			 
+//			            	 }
+//			            	 
+//			             }
+//			          });
 						 
 					 /* get profile images for messages */
 			         $.ajax({
