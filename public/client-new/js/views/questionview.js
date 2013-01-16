@@ -21,6 +21,7 @@
 			 "click #post-question" : "postQuestion",
 			 "keypress #Q-area" : "postQuestionOnEnterKey",
 			 "click #sortBy-list" : "sortQuestions",
+			 "keypress #sort_by_key" : "sortQuestionsByKey",
 			 "click #date-sort-list" : "sortQuestionsWithinAPeriod",
 			 "click .add-poll " : "addPollOptionsArea",
 			 "click .add-option" : "addMorePollOptions",
@@ -1538,12 +1539,132 @@
          */
 		sortQuestions: function(eventName){
         	
+//        	eventName.preventDefault();
+//        	var self = this;
+//        	var streamId = $('.sortable li.active').attr('id');
+//        	$('#sortBy-select').text($(eventName.target).text());
+        	
+        	
         	eventName.preventDefault();
         	var self = this;
         	var streamId = $('.sortable li.active').attr('id');
         	$('#sortBy-select').text($(eventName.target).text());
+        	
+        	var sortBy = $(eventName.target).attr('name');
+        	if(sortBy == "most-recent")
+        	{
+        		BS.msgSortedType = "date";
+        		$('#all-messages').html('');
+        		BS.pageForDate = 1;
+        		self.sortByMostRecent(streamId,BS.pageForDate,BS.pageLimit);
+        		
+        	}
+        	else if(sortBy == "highest-rated")
+        	{
+        		BS.msgSortedType = "vote";
+        		$('#all-messages').html('');
+        		BS.pageForVotes = 1;
+        		self.sortByHighestRated(streamId,BS.pageForVotes,BS.pageLimit)
+        	}
 
         },
+        
+        /**
+		 * NEW THEME - sort questions by keyword
+		 */
+		 sortQuestionsByKey :function(eventName){
+			
+			 var self = this;
+	 		 if(eventName.which == 13) {
+	 			eventName.preventDefault();
+	 			 BS.msgSortedType = "keyword";
+	 			 BS.pageForKeyword = 1;
+	 			 $('#all-messages').html('');
+				 var keyword = $('#sort_by_key').val();
+				 var streamId =$('.sortable li.active').attr('id');
+				 self.sortBykeyword(streamId,keyword,BS.pageForKeyword,BS.pageLimit);
+				
+			 } 
+		 },
+		 
+		 /**
+		  * NEW THEME - get questions and sort by keywords
+		  */
+		 sortBykeyword :function(streamId,keyword,pageNo,limit){
+			 var self = this;
+			 $.ajax({
+		  			type : 'POST',
+		  			url :BS.sortByKey,
+		  			data : {
+		  				 streamId :streamId,
+		  				 keyword : keyword,
+		  				 pageNo : pageNo,
+		  				 limit  : limit
+		  			},
+		  			dataType : "json",
+				  	success : function(data) {
+				  		 
+				  		//hide page loader image
+					  	if(!data.length)
+							$('.page-loader').hide();
+				  		self.displayQuestions(data);
+				  	}
+		  		});
+		 },
+        
+        /**
+         * NEW THEME - sort questions by highest rated
+         */
+        sortByHighestRated: function(streamId,pageNo,limit){
+        	
+        	var self =this;
+    		$.ajax({
+    			type : 'POST',
+	  			url : BS.sortByVote,
+	  			data : {
+	  				 streamId :streamId,
+	  				 pageNo : pageNo,
+	  				 limit  : limit
+	  				 
+	  			},
+	  			dataType : "json",
+			  	success : function(data) {
+			  		
+			  	  //hide page loader image
+					if(!data.length)
+						$('.page-loader').hide();
+			  		self.displayQuestions(data);
+			  	}
+	  		});
+        },
+        
+        
+        
+        /**
+         * NEW THEME - sort questions by Most Recent 
+         */
+        sortByMostRecent: function(streamId,pageNo,limit){
+        	
+        	var self = this;
+        	$.ajax({
+        		type : 'POST',
+   	  			url : BS.sortByDate,
+   	  			data : {
+   	  				 streamId :streamId,
+   	  				 pageNo : pageNo,
+   	  				 limit  : limit
+   	  			},
+   	  			dataType : "json",
+   			  	success : function(data) {
+   			  		//hide page loader image
+				  	if(!data.length)
+						$('.page-loader').hide();
+   			  		self.displayQuestions(data);
+   			  	}
+   	  		});
+        },
+        
+        
         
         /**
          * NEW THEME - sort questions within a period 
