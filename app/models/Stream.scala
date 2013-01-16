@@ -53,11 +53,11 @@ object Stream {
   /*
    * Get all streams for a user
    */
-  def getAllStreamforAUser(userId: ObjectId): List[Stream] = {
-    var allStreamForAUser: List[Stream] = List()
+  def getAllStreamforAUser(userId: ObjectId): List[(Stream, Int)] = {
+    var allStreamForAUser: List[(Stream, Int)] = List()
     val streams = StreamDAO.find(MongoDBObject())
     for (stream <- streams) {
-      if (stream.usersOfStream.contains(userId)) allStreamForAUser ++= List(stream)
+      if (stream.usersOfStream.contains(userId)) allStreamForAUser ++= List((stream, stream.usersOfStream.size))
     }
     allStreamForAUser
   }
@@ -119,7 +119,7 @@ object Stream {
    * No. of Users Attending Class
    */
 
-  def usersAttendingClass(streamId: ObjectId)= {
+  def usersAttendingClass(streamId: ObjectId) = {
     val streamObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     streamObtained.usersOfStream
   }
@@ -141,7 +141,7 @@ object Stream {
         resultToSent = ResulttoSent("Failure", "You Do Not Have Rights To Delete This Stream")
       }
     } else {
-      StreamDAO.update(MongoDBObject("_id" -> streamId), streamObtained.copy(usersOfStream = (streamObtained.usersOfStream filterNot( List(userId) contains))), false, false, new WriteConcern)
+      StreamDAO.update(MongoDBObject("_id" -> streamId), streamObtained.copy(usersOfStream = (streamObtained.usersOfStream filterNot (List(userId) contains))), false, false, new WriteConcern)
       resultToSent = ResulttoSent("Success", "You've Successfully Removed From This Stream")
     }
     resultToSent
@@ -155,8 +155,8 @@ object Stream {
     val stream = Stream.findStreamById(streamId)
     for (user <- stream.usersOfStream) {
       val userObtained = User.getUserProfile(user)
-      if( ! userObtained.id.equals(userIdWhoHasJoinedTheStream)){
-    	  SendEmail.notifyUsersOfStreamForANewUser(userObtained.email, userWhoHasJoinedTheStream.firstName, userWhoHasJoinedTheStream.lastName, stream.streamName)
+      if (!userObtained.id.equals(userIdWhoHasJoinedTheStream)) {
+        SendEmail.notifyUsersOfStreamForANewUser(userObtained.email, userWhoHasJoinedTheStream.firstName, userWhoHasJoinedTheStream.lastName, stream.streamName)
       }
     }
 
