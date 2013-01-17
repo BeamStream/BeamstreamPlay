@@ -26,14 +26,14 @@
 	            classTime:null,
 	            className:null,
 	            startingDate:null,
-	            classType:null,
+	            classType:null
 	
-	        },
+	        }
 	        
 	});
 
 	BS.ClassCollection = Backbone.Collection.extend({
 	
-	    model:BS.Class, 
+	    model:BS.Class 
 		
 	});
