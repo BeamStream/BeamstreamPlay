@@ -140,8 +140,7 @@ object Question {
    */
 
   def getAllQuestionForAStreamWithPagination(streamId: ObjectId, pageNumber: Int, questionPerPage: Int): List[Question] = {
-    val questionsRetrieved = QuestionDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).skip((pageNumber - 1) * questionPerPage).limit(questionPerPage).toList
-    questionsRetrieved
+    QuestionDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).skip((pageNumber - 1) * questionPerPage).limit(questionPerPage).toList
   }
 
   /*
