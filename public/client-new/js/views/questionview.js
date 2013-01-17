@@ -992,7 +992,7 @@
 				   
 			//display the messages
 			_.each(data, function(data) {
-				 
+				
 				var owner = "";
 				if(data.question.userId.id == BS.loggedUserId)
 				{
@@ -1554,7 +1554,8 @@
         	if(sortBy == "most-recent")
         	{
         		BS.msgSortedType = "date";
-        		$('#all-messages').html('');
+        		
+        		$('#all-questions').html('');
         		BS.pageForDate = 1;
         		self.sortByMostRecent(streamId,BS.pageForDate,BS.pageLimit);
         		
@@ -1562,7 +1563,7 @@
         	else if(sortBy == "highest-rated")
         	{
         		BS.msgSortedType = "vote";
-        		$('#all-messages').html('');
+        		$('#all-questions').html('');
         		BS.pageForVotes = 1;
         		self.sortByHighestRated(streamId,BS.pageForVotes,BS.pageLimit)
         	}
@@ -1579,7 +1580,7 @@
 	 			eventName.preventDefault();
 	 			 BS.msgSortedType = "keyword";
 	 			 BS.pageForKeyword = 1;
-	 			 $('#all-messages').html('');
+	 			 $('#all-questions').html('');
 				 var keyword = $('#sort_by_key').val();
 				 var streamId =$('.sortable li.active').attr('id');
 				 self.sortBykeyword(streamId,keyword,BS.pageForKeyword,BS.pageLimit);
@@ -1620,7 +1621,7 @@
         	var self =this;
     		$.ajax({
     			type : 'POST',
-	  			url : BS.sortByVote,
+	  			url : BS.sortQuestionsByRock,
 	  			data : {
 	  				 streamId :streamId,
 	  				 pageNo : pageNo,
@@ -1648,7 +1649,7 @@
         	var self = this;
         	$.ajax({
         		type : 'POST',
-   	  			url : BS.sortByDate,
+   	  			url : BS.getAllQuestionsOfAStream,
    	  			data : {
    	  				 streamId :streamId,
    	  				 pageNo : pageNo,

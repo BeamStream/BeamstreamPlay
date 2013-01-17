@@ -33,7 +33,7 @@ POST /deleteStream              controllers.StreamController.deleteTheStream
 
 
 #Messages
-POST /newMessage controllers.MessageController.newMessage
+POST /newMessage                              controllers.MessageController.newMessage
 POST /getAllMessagesForAStream                controllers.MessageController.getAllMessagesForAStreamWithPagination
 POST /getAllMessagesForAStreamSortedbyDate    controllers.MessageController.getAllMessagesForAStreamWithPagination
 POST /getAllMessagesForAStreamSortedbyRocks   controllers.MessageController.getAllMessagesForAStreamSortedbyRocks
@@ -133,7 +133,7 @@ POST  /followQuestion            controllers.QuestionController.followQuestion
 POST  /voteAnOptionOfAQuestion   controllers.QuestionController.voteAnOptionOfAQuestion
 POST /deleteQuestion               controllers.QuestionController.deleteQuestion
 POST /getAllQuestionForAStream                controllers.QuestionController.getAllQuestionForAStreamWithPagination
-                 
+POST /getAllQuestionsForAStreamSortedbyRocks   controllers.QuestionController.getAllQuestionsForAStreamSortedbyRocks                
 
 #bitly
 POST /bitly   controllers.MessageController.getShortUrlViabitly 

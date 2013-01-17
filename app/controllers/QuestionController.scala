@@ -134,10 +134,9 @@ object QuestionController extends Controller {
     val optionOfAQuestionIdJsonMap = request.body.asFormUrlEncoded.get
     val optionOfAQuestionId = optionOfAQuestionIdJsonMap("optionOfAQuestionId").toList(0)
     val votes = QuestionPolling.voteTheOptionOfAQuestion(new ObjectId(optionOfAQuestionId), new ObjectId(request.session.get("userId").get))
-    val optionOfAQuestion=QuestionPolling.findOptionOfAQuestionById(new ObjectId(optionOfAQuestionId))
+    val optionOfAQuestion = QuestionPolling.findOptionOfAQuestionById(new ObjectId(optionOfAQuestionId))
     Ok(write(optionOfAQuestion)).as("application/json")
   }
-  
 
   /**
    * Delete A Question
@@ -154,16 +153,36 @@ object QuestionController extends Controller {
   //==================================================//
   //======Displays all the question within a Stream===//
   //==================================================//
- 
+
   def getAllQuestionForAStreamWithPagination = Action { implicit request =>
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
     val messagesPerPage = streamIdJsonMap("limit").toList(0).toInt
     val allQuestionsForAStream = Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+    val allQuestionForAStreamJson = write( returnQuestionsWithPolls(allQuestionsForAStream))
+    Ok(allQuestionForAStreamJson).as("application/json")
+  }
 
+  //==================================================================//
+  //======Displays all the messages within a Stream sorted by rocks===//
+  //================================================================//
+  def getAllQuestionsForAStreamSortedbyRocks = Action { implicit request =>
+    val streamIdJsonMap = request.body.asFormUrlEncoded.get
+    val streamId = streamIdJsonMap("streamId").toList(0)
+    val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
+    val questionsPerPage = streamIdJsonMap("limit").toList(0).toInt
+    val getAllQuestionsForAStream = Question.getAllQuestionsForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, questionsPerPage)
+    println(returnQuestionsWithPolls(getAllQuestionsForAStream))
+    val allQuestionsForAStreamJson = write(returnQuestionsWithPolls(getAllQuestionsForAStream))
+    Ok(allQuestionsForAStreamJson).as("application/json")
+  }
+  
+/**
+ * Takes a List of Questions and Return Question with respective polls
+ */
+  private def returnQuestionsWithPolls(allQuestionsForAStream: List[Question]) = {
     var questionsWithPolls: List[QuestionWithPoll] = List()
-
     for (question <- allQuestionsForAStream) {
       var pollsOfquestionObtained: List[OptionOfQuestion] = List()
       if (question.pollOptions.size.equals(0) == false) {
@@ -176,9 +195,8 @@ object QuestionController extends Controller {
         questionsWithPolls ++= List(new QuestionWithPoll(question, List()))
       }
     }
-    val allQuestionForAStreamJson = write(questionsWithPolls.reverse)
-    Ok(allQuestionForAStreamJson).as("application/json")
-  }
+    questionsWithPolls
+  }: List[QuestionWithPoll]
 
 }
 
