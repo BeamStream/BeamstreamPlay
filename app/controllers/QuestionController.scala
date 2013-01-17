@@ -176,7 +176,10 @@ object QuestionController extends Controller {
     val allQuestionsForAStreamJson = write(returnQuestionsWithPolls(getAllQuestionsForAStream))
     Ok(allQuestionsForAStreamJson).as("application/json")
   }
-
+  
+/**
+ * Takes a List of Questions and Return Question with respective polls
+ */
   private def returnQuestionsWithPolls(allQuestionsForAStream: List[Question]) = {
     var questionsWithPolls: List[QuestionWithPoll] = List()
     for (question <- allQuestionsForAStream) {
