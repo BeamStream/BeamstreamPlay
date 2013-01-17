@@ -173,7 +173,6 @@ object QuestionController extends Controller {
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
     val questionsPerPage = streamIdJsonMap("limit").toList(0).toInt
     val getAllQuestionsForAStream = Question.getAllQuestionsForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, questionsPerPage)
-    println(returnQuestionsWithPolls(getAllQuestionsForAStream))
     val allQuestionsForAStreamJson = write(returnQuestionsWithPolls(getAllQuestionsForAStream))
     Ok(allQuestionsForAStreamJson).as("application/json")
   }
@@ -187,8 +186,9 @@ object QuestionController extends Controller {
     val pageNo = keywordJsonMap("pageNo").toList(0).toInt
     val messagesPerPage = keywordJsonMap("limit").toList(0).toInt
     val allQuestionsForAStream = Question.getAllQuestionsForAStreambyKeyword(keyword, pageNo, messagesPerPage)
-    val allQuestionsForAStreamJson = write(allQuestionsForAStream)
+    val allQuestionsForAStreamJson = write(returnQuestionsWithPolls(allQuestionsForAStream))
     Ok(allQuestionsForAStreamJson).as("application/json")
+
   }
 
   /**
