@@ -178,6 +178,20 @@ object QuestionController extends Controller {
     val allQuestionForAStreamJson = write(questionsWithPolls)
     Ok(allQuestionForAStreamJson).as("application/json")
   }
+  
+  
+  //==================================================================//
+  //======Displays all the messages within a Stream sorted by rocks===//
+  //================================================================//
+  def getAllQuestionsForAStreamSortedbyRocks = Action { implicit request =>
+    val streamIdJsonMap = request.body.asFormUrlEncoded.get
+    val streamId = streamIdJsonMap("streamId").toList(0)
+    val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
+    val questionsPerPage = streamIdJsonMap("limit").toList(0).toInt
+    val getAllQuestionsForAStream = Question.getAllQuestionsForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, questionsPerPage)
+    val allQuestionsForAStreamJson = write(getAllQuestionsForAStream)
+    Ok(allQuestionsForAStreamJson).as("application/json")
+  }
 
 }
 
