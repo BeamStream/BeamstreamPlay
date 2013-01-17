@@ -161,7 +161,6 @@ object QuestionController extends Controller {
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
     val messagesPerPage = streamIdJsonMap("limit").toList(0).toInt
     val allQuestionsForAStream = Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
-
     var questionsWithPolls: List[QuestionWithPoll] = List()
 
     for (question <- allQuestionsForAStream) {
@@ -176,7 +175,7 @@ object QuestionController extends Controller {
         questionsWithPolls ++= List(new QuestionWithPoll(question, List()))
       }
     }
-    val allQuestionForAStreamJson = write(questionsWithPolls.reverse)
+    val allQuestionForAStreamJson = write(questionsWithPolls)
     Ok(allQuestionForAStreamJson).as("application/json")
   }
 
