@@ -83,7 +83,7 @@ object MessageController extends Controller {
     Ok(totalRocksJson).as("application/json")
   }
 
-  /*
+  /**
     * Rockers of message
     */
   def giveMeRockers = Action { implicit request =>
@@ -94,7 +94,7 @@ object MessageController extends Controller {
     Ok(WeAreRockersJson).as("application/json")
   }
 
-  /*
+  /**
    * Give Short Url Json Via bitly
    */
 
