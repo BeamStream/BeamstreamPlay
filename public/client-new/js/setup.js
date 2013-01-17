@@ -167,6 +167,8 @@ BS.giveMeRockersOfQuestion =BS.URLRequired+"/giveMeRockersOfQuestion";
 BS.getAllQuestionsOfAStream =BS.URLRequired+"/getAllQuestionForAStream";
 BS.deleteQuestion =BS.URLRequired+"/deleteQuestion";
 BS.votepoll=BS.URLRequired+"/voteAnOptionOfAQuestion";
+BS.sortQuestionsByRock =BS.URLRequired+"/getAllQuestionsForAStreamSortedbyRocks";
+
 
  
 
