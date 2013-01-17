@@ -1620,7 +1620,7 @@
         	var self =this;
     		$.ajax({
     			type : 'POST',
-	  			url : BS.sortByVote,
+	  			url : BS.sortQuestionsByRock,
 	  			data : {
 	  				 streamId :streamId,
 	  				 pageNo : pageNo,
@@ -1648,7 +1648,7 @@
         	var self = this;
         	$.ajax({
         		type : 'POST',
-   	  			url : BS.sortByDate,
+   	  			url : BS.getAllQuestionsOfAStream,
    	  			data : {
    	  				 streamId :streamId,
    	  				 pageNo : pageNo,
