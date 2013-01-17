@@ -1595,7 +1595,7 @@
 			 var self = this;
 			 $.ajax({
 		  			type : 'POST',
-		  			url :BS.sortByKey,
+		  			url :BS.sortQuestionsByKey,
 		  			data : {
 		  				 streamId :streamId,
 		  				 keyword : keyword,

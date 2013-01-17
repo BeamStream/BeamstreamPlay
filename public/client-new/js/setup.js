@@ -168,6 +168,7 @@ BS.getAllQuestionsOfAStream =BS.URLRequired+"/getAllQuestionForAStream";
 BS.deleteQuestion =BS.URLRequired+"/deleteQuestion";
 BS.votepoll=BS.URLRequired+"/voteAnOptionOfAQuestion";
 BS.sortQuestionsByRock =BS.URLRequired+"/getAllQuestionsForAStreamSortedbyRocks";
+BS.sortQuestionsByKey = BS.URLRequired+"/getAllQuestionsForAStreambyKeyword";
 
 
  
