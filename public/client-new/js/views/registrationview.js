@@ -23,9 +23,9 @@
 //	
 		initialize : function() {
 //			 
-//			console.log('Initializing Basic Registration View');
-//			this.source = $("#tpl-basic-profile").html();
-//			this.template = Handlebars.compile(this.source);
+			console.log('Initializing Basic Registration View');
+			this.source = $("#tpl-userregistration_home").html();
+			this.template = Handlebars.compile(this.source);
 //			
 //			// for edit user details
 //			BS.regBack = false;
@@ -38,8 +38,8 @@
 //			 this.iam = eventName.iam;
 //			 this.mailId = eventName.mail;
 //			 
-//			 $(this.el).html(this.template);
-//			 return this;
+			 $(this.el).html(this.template);
+			 return this;
 //			
 		}
 //
