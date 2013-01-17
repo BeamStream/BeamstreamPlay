@@ -173,6 +173,7 @@ object QuestionController extends Controller {
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
     val questionsPerPage = streamIdJsonMap("limit").toList(0).toInt
     val getAllQuestionsForAStream = Question.getAllQuestionsForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, questionsPerPage)
+    println(returnQuestionsWithPolls(getAllQuestionsForAStream))
     val allQuestionsForAStreamJson = write(returnQuestionsWithPolls(getAllQuestionsForAStream))
     Ok(allQuestionsForAStreamJson).as("application/json")
   }
