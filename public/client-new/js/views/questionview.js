@@ -21,7 +21,7 @@
 			 "click #post-question" : "postQuestion",
 			 "keypress #Q-area" : "postQuestionOnEnterKey",
 			 "click #sortBy-list" : "sortQuestions",
-			 "keypress #sort_by_key" : "sortQuestionsByKey",
+			 "keypress #sortQ_by_key" : "sortQuestionsByKey",
 			 "click #date-sort-list" : "sortQuestionsWithinAPeriod",
 			 "click .add-poll " : "addPollOptionsArea",
 			 "click .add-option" : "addMorePollOptions",
@@ -89,7 +89,7 @@
 						else if(BS.questionSortedType == "keyword")
 						{
 							BS.pageForKeyword++;
-							var keyword = $('#sort_by_key').val();
+							var keyword = $('#sortQ_by_key').val();
 							self.sortBykeyword(streamId,keyword,BS.pageForKeyword,BS.pageLimit);
 						}
 						else if(BS.questionSortedType == "date")
@@ -1581,7 +1581,7 @@
 	 			 BS.msgSortedType = "keyword";
 	 			 BS.pageForKeyword = 1;
 	 			 $('#all-questions').html('');
-				 var keyword = $('#sort_by_key').val();
+				 var keyword = $('#sortQ_by_key').val();
 				 var streamId =$('.sortable li.active').attr('id');
 				 self.sortBykeyword(streamId,keyword,BS.pageForKeyword,BS.pageLimit);
 				
