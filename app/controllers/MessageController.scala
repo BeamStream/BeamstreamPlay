@@ -143,7 +143,7 @@ object MessageController extends Controller {
     Ok(allMessagesForAStreamJson).as("application/json")
   }
 
-  /*
+  /**
    * Follow the messages
    */
 

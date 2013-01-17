@@ -160,12 +160,12 @@ object QuestionController extends Controller {
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
     val messagesPerPage = streamIdJsonMap("limit").toList(0).toInt
     val allQuestionsForAStream = Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
-    val allQuestionForAStreamJson = write( returnQuestionsWithPolls(allQuestionsForAStream))
+    val allQuestionForAStreamJson = write(returnQuestionsWithPolls(allQuestionsForAStream))
     Ok(allQuestionForAStreamJson).as("application/json")
   }
 
   //==================================================================//
-  //======Displays all the messages within a Stream sorted by rocks===//
+  //======Displays all the questions within a Stream sorted by rocks===//
   //================================================================//
   def getAllQuestionsForAStreamSortedbyRocks = Action { implicit request =>
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
@@ -177,10 +177,23 @@ object QuestionController extends Controller {
     val allQuestionsForAStreamJson = write(returnQuestionsWithPolls(getAllQuestionsForAStream))
     Ok(allQuestionsForAStreamJson).as("application/json")
   }
-  
-/**
- * Takes a List of Questions and Return Question with respective polls
- */
+
+  //==================================================================//
+  //======Displays all the questions within a Stream for a keyword===//
+  //================================================================//
+  def getAllQuestionsForAStreambyKeyword = Action { implicit request =>
+    val keywordJsonMap = request.body.asFormUrlEncoded.get
+    val keyword = keywordJsonMap("keyword").toList(0)
+    val pageNo = keywordJsonMap("pageNo").toList(0).toInt
+    val messagesPerPage = keywordJsonMap("limit").toList(0).toInt
+    val allQuestionsForAStream = Question.getAllQuestionsForAStreambyKeyword(keyword, pageNo, messagesPerPage)
+    val allQuestionsForAStreamJson = write(allQuestionsForAStream)
+    Ok(allQuestionsForAStreamJson).as("application/json")
+  }
+
+  /**
+   * Takes a List of Questions and Return Question with respective polls
+   */
   private def returnQuestionsWithPolls(allQuestionsForAStream: List[Question]) = {
     var questionsWithPolls: List[QuestionWithPoll] = List()
     for (question <- allQuestionsForAStream) {

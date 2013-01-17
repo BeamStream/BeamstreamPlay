@@ -224,6 +224,14 @@ object Question {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(pollOptions = question.pollOptions ++ List(pollId)), false, false, new WriteConcern)
   }
+  
+   /**
+   * get all questions within a stream on the basis of keyword
+   */
+  def getAllQuestionsForAStreambyKeyword(keyword: String, pageNumber: Int, messagesPerPage: Int): List[Question] = {
+    val keyWordregExp = (""".*""" + keyword + """.*""").r
+    QuestionDAO.find(MongoDBObject("questionBody" -> keyWordregExp)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+  }
 }
 
 object QuestionDAO extends SalatDAO[Question, ObjectId](collection = MongoHQConfig.mongoDB("question"))

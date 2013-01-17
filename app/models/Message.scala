@@ -24,7 +24,7 @@ object MessageType extends Enumeration {
 
 object MessageAccess extends Enumeration {
   type MessageAccess = Value
-   val Public = Value(0, "Public")
+  val Public = Value(0, "Public")
   val PrivateToClass = Value(1, "PrivateToClass")
   val PrivateToSchool = Value(2, "PrivateToSchool")
 }
@@ -150,14 +150,12 @@ object Message { //extends CommentConsumer {
     val messages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList.sortBy(message => message.timeCreated)
     messages
   }
-  /*
+  /**
    * get all messages within a stream on the basis of keyword
    */
   def getAllMessagesForAKeyword(keyword: String, pageNumber: Int, messagesPerPage: Int): List[Message] = {
     val keyWordregExp = (""".*""" + keyword + """.*""").r
-    val messsagesRetrieved = MessageDAO.find(MongoDBObject("messageBody" -> keyWordregExp)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
-    messsagesRetrieved
-
+    MessageDAO.find(MongoDBObject("messageBody" -> keyWordregExp)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 
   /*
@@ -165,7 +163,7 @@ object Message { //extends CommentConsumer {
  */
 
   def getAllMessagesForAStreamWithPagination(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
-   MessageDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    MessageDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 
   /*
