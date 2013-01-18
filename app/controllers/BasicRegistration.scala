@@ -28,7 +28,7 @@ object BasicRegistration extends Controller {
     override def dateFormatter = new SimpleDateFormat("dd/MM/yyyy")
   } + new ObjectIdSerializer
 
-  /*
+  /**
   * Basic Registration Permissions for a User  via Token authentication   
   */
 
@@ -45,7 +45,7 @@ object BasicRegistration extends Controller {
     }
   }
 
-  /*
+  /**
    * Registering a new User to Beamstream
    */
 
@@ -67,15 +67,8 @@ object BasicRegistration extends Controller {
       val profile = (parsedUserJson \ "profile").extract[String]
       val alias = (parsedUserJson \ "alias").extract[String]
       val useCurrentLocation = (parsedUserJson \ "useCurrentLocation").extract[Boolean]
-
-      //      val encryptedPassword =   utils.ConversionUtility.encryptPassword(password)
-      //      val encryptedConfirmPassword = utils.ConversionUtility.encryptPassword(confirmPassword)
-
       val encryptedPassword = (new PasswordHashing).encryptThePassword(password)
       val encryptedConfirmPassword = (new PasswordHashing).encryptThePassword(confirmPassword)
-
-      //val user = User.findUserbyId(new ObjectId(id))
-
       (id == "1") match {
 
         case true =>
@@ -117,7 +110,7 @@ object BasicRegistration extends Controller {
     }
   }
 
-  /*
+  /**
    * Send the verification mail to the User
    */
 

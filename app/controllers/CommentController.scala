@@ -33,7 +33,6 @@ object CommentController extends Controller {
      */
 
     //    val consumers: List[CommentConsumer] = List(Message, Document)
-    //
     //    val messageId = commentJson("messageId").toList(0)
     //    val commentText = commentJson("comment").toList(0)
     //    val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
@@ -43,6 +42,7 @@ object CommentController extends Controller {
     //    consumers.map(_.addComment(new ObjectId(messageId), commentId))
     //    Ok(write(List(comment))).as("application/json")
 
+    
     try {
       /**
        * Direct Approach

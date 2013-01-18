@@ -28,6 +28,8 @@ object OptionOfQuestionDAO extends SalatDAO[OptionOfQuestion, ObjectId](collecti
 // Question With Polls
 case class QuestionWithPoll(question : Question , polls : List[OptionOfQuestion])
 
-
-
+/**
+ * Document Results After Uploading From Main Stream
+ */
+case class DocResulttoSent(message:Message,docName: String,docDescription:String )
 
