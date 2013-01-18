@@ -281,7 +281,6 @@ object DocumentController extends Controller {
     val mediaId = UserMedia.saveMediaForUser(media)
     val message = Message(new ObjectId, docURL, Option(MessageType.Video), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(videoFrameURL), Option(mediaId.get))
     Message.createMessage(message)
-    
     new DocResulttoSent(message,documentName,docDescription)
   }
 

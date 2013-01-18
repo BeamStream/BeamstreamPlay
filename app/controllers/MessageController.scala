@@ -26,6 +26,9 @@ import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
 import models.ResulttoSent
 import utils.bitlyAuth
+import models.DocResulttoSent
+import models.UserMedia
+import models.Document
 
 object MessageController extends Controller {
 
@@ -58,7 +61,6 @@ object MessageController extends Controller {
 
   }
 
-
   //==================================================//
   //======Displays all the messages within a Stream===//
   //==================================================//
@@ -68,7 +70,7 @@ object MessageController extends Controller {
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
     val messagesPerPage = streamIdJsonMap("limit").toList(0).toInt
     val allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
-    val allMessagesForAStreamJson = write(allMessagesForAStream)
+    val allMessagesForAStreamJson = write(messagesAlongWithDocDescription(allMessagesForAStream))
     Ok(allMessagesForAStreamJson).as("application/json")
   }
 
@@ -84,8 +86,8 @@ object MessageController extends Controller {
   }
 
   /**
-    * Rockers of message
-    */
+   * Rockers of message
+   */
   def giveMeRockers = Action { implicit request =>
     val messageIdJsonMap = request.body.asFormUrlEncoded.get
     val messageId = messageIdJsonMap("messageId").toList(0)
@@ -136,10 +138,10 @@ object MessageController extends Controller {
   def getAllMessagesForAStreambyKeyword = Action { implicit request =>
     val keywordJsonMap = request.body.asFormUrlEncoded.get
     val keyword = keywordJsonMap("keyword").toList(0)
-     val streamId = keywordJsonMap("streamId").toList(0)
+    val streamId = keywordJsonMap("streamId").toList(0)
     val pageNo = keywordJsonMap("pageNo").toList(0).toInt
     val messagesPerPage = keywordJsonMap("limit").toList(0).toInt
-    val allMessagesForAStream = Message.getAllMessagesForAKeyword(keyword,new ObjectId(streamId), pageNo, messagesPerPage)
+    val allMessagesForAStream = Message.getAllMessagesForAKeyword(keyword, new ObjectId(streamId), pageNo, messagesPerPage)
     val allMessagesForAStreamJson = write(allMessagesForAStream)
     Ok(allMessagesForAStreamJson).as("application/json")
   }
@@ -160,7 +162,7 @@ object MessageController extends Controller {
   }
 
   /**
-   * Is a follower 
+   * Is a follower
    * @ Purpose: identify if the user is following a message or not
    */
   def isAFollower = Action { implicit request =>
@@ -171,9 +173,9 @@ object MessageController extends Controller {
       Ok(write(isAFollowerOfMessage.toString)).as("application/json")
     }
   }
-  
+
   /**
-   * Is a Rocker 
+   * Is a Rocker
    * @ Purpose: identify if the user is following a message or not
    */
   def isARocker = Action { implicit request =>
@@ -194,9 +196,33 @@ object MessageController extends Controller {
     val messageId = messageIdJsonMap("messageId").toList(0)
     val messsageDeleted = Message.deleteMessagePermanently(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
     if (messsageDeleted == true) Ok(write(new ResulttoSent("Success", "Message Has Been Deleted")))
-    else Ok(write(new ResulttoSent("Failure","You're Not Authorised To Delete This Message")))
+    else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Message")))
   }
+
+  /**
+   * Fetch messages along with document details if message contains any document
+   */
+
+  private def messagesAlongWithDocDescription(messages: List[Message]) = {
+    var messsageWithDocResults: List[DocResulttoSent] = List()
+
+    messages map {
+      case message =>
+        if (message.docIdIfAny != None) {
+          val userMedia = UserMedia.findMediaById(message.docIdIfAny.get)
+          if (userMedia != None) {
+            messsageWithDocResults ++= List(new DocResulttoSent(message, userMedia.get.name, userMedia.get.description))
+          } else {
+            val document = Document.findDocumentById(message.docIdIfAny.get)
+            messsageWithDocResults ++= List(new DocResulttoSent(message, document.get.documentName, document.get.documentDescription))
+          }
+        }
+    }
+    messsageWithDocResults
+  }: List[DocResulttoSent]
+
 }
+
 
 
 
