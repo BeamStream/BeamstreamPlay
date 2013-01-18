@@ -23,7 +23,7 @@
 	
 		events : {
                                  
-                
+			"click #uploadmedia_dr":"preventDefault",
             "mouseenter #uploadmedia_dr":"uploadMediadwn",
             "mouseleave #dropdownnew":"uploadMediaup",
             "click #classdoc_dr":"classdocMenuList",
@@ -89,6 +89,10 @@
                 console.log("new view");
                 if(!$('#uploadmediachild_dr').is(":visible") )       
                 $("#uploadmediachild_dr").slideDown();         
+                },
+                
+                preventDefault : function(eventName){
+                	eventName.preventDefault();
                 },
                 
                 /**
@@ -258,7 +262,7 @@
                 success : function(options) {                          
                     content+='<option>Save to Class</option>'
                     _.each(options, function(option) {
-                    content+= '<option value="'+option.id.id+'">'+option.streamName+'</option>';
+                    content+= '<option value="'+option._1.id.id+'">'+option._1.streamName+'</option>';
                     i++;
                     });
                     $('#doc-class-list').html(content); 
