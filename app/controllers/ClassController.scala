@@ -26,7 +26,7 @@ object ClassController extends Controller {
     override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer //+ new CollectionSerializer
 
-  /*
+  /**
    * Add a class to a user (Intact)
    */
 
@@ -45,7 +45,7 @@ object ClassController extends Controller {
 
   }
 
-  /*
+  /**
    *  Return the class JSON for auto populate the classes on class stream
    *  @Purpose : Class code and class name autopoulate on class stream page
    *  
@@ -61,7 +61,7 @@ object ClassController extends Controller {
     Ok(classListJson).as("application/json")
   }
 
-  /*
+  /**
    *  Return the class JSON for auto populate the classes on class stream
    *  @Purpose : Class code and class name autopoulate on class stream page
    *  
@@ -78,7 +78,7 @@ object ClassController extends Controller {
 
   }
 
-  /*
+  /**
    * Edit Class Functionality
    * @Purpose: Getting all classes for a user
    */
