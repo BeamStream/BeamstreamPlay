@@ -183,9 +183,10 @@ object QuestionController extends Controller {
   def getAllQuestionsForAStreambyKeyword = Action { implicit request =>
     val keywordJsonMap = request.body.asFormUrlEncoded.get
     val keyword = keywordJsonMap("keyword").toList(0)
+    val streamId = keywordJsonMap("streamId").toList(0)
     val pageNo = keywordJsonMap("pageNo").toList(0).toInt
     val messagesPerPage = keywordJsonMap("limit").toList(0).toInt
-    val allQuestionsForAStream = Question.getAllQuestionsForAStreambyKeyword(keyword, pageNo, messagesPerPage)
+    val allQuestionsForAStream = Question.getAllQuestionsForAStreambyKeyword(keyword,new ObjectId(streamId), pageNo, messagesPerPage)
     val allQuestionsForAStreamJson = write(returnQuestionsWithPolls(allQuestionsForAStream))
     Ok(allQuestionsForAStreamJson).as("application/json")
 

@@ -228,9 +228,9 @@ object Question {
    /**
    * get all questions within a stream on the basis of keyword
    */
-  def getAllQuestionsForAStreambyKeyword(keyword: String, pageNumber: Int, messagesPerPage: Int): List[Question] = {
+  def getAllQuestionsForAStreambyKeyword(keyword: String,streamId:ObjectId, pageNumber: Int, messagesPerPage: Int): List[Question] = {
     val keyWordregExp = (""".*""" + keyword + """.*""").r
-    QuestionDAO.find(MongoDBObject("questionBody" -> keyWordregExp)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    QuestionDAO.find(MongoDBObject("questionBody" -> keyWordregExp,"streamId"-> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 }
 
