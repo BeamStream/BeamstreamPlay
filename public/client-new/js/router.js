@@ -28,7 +28,8 @@
 	        "class":"classReg",
 	        "profile":"profileReg",
 	        "streams":"mainStream",
-	        "basicRegistration/token/:token/iam/:iam/emailId/:email":"basicRegistration",
+                "registration":"basicRegistration",
+//	        "basicRegistration/token/:token/iam/:iam/emailId/:email":"",
 	        "basicRegistration":"basicRegistrationViaJanRain",
 	        "classStream":"classStream",
 	        "filesMedia" : "filesMedia",
@@ -575,7 +576,7 @@
 	    */
 	    basicRegistration: function(token,iam,email) {
 	    	
-	//	    BS.user.fetch({ success:function(e) {
+/*	//	    BS.user.fetch({ success:function(e) {
 	//		  	   if(e.get('loggedin') == false) {  
 				       $("#dialog").dialog('close');  
 				       BS.token = token;
@@ -672,7 +673,19 @@
 	//				}
 	//			
 	//	      }});
-		       
+		     */  
+                    
+                    
+//                this.navView = new BS.NavView({ model: BS.user });
+//                 this.navView.showProfilePic();
+//                $('.nav-collapse').html(this.navView.render().el);
+                console.log("registration");
+                BS.registrationView = new BS.RegistrationView();
+                
+                BS.registrationView.render();
+                $('body').html(BS.registrationView.el);
+                    
+                    
 	
 		  },
 	

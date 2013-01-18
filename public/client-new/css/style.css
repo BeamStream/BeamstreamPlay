@@ -3731,3 +3731,287 @@ div.answer-description:hover .delete_comment{
 .controls a.right{font-size:18px; color:#fff;}
 
 .controls a.nothumb{font-size:18px; color:#fff;}
+/*
+
+Sign Up
+
+*/
+
+
+.signup-container {
+		background:url(../images/signup-bg.png) center top no-repeat;
+}
+
+.signup-outer {
+		margin:0 auto;
+		width:80%;
+}
+
+.signup-outer h3 {
+		padding:40px 0 20px 0;
+		color:#fff;
+		font-weight:400;
+		font-size:18px;
+                line-height: 40px;
+}
+
+.signup-outer h3 span {
+		float:right;
+		font-size:13px;
+}
+
+.signup-outer h3 a {
+		float:right;
+		font-size:13px;
+		padding:0 25px;
+		height:30px;
+		line-height:30px;
+		color:#fff;
+		margin:4px 0 0 10px;
+		text-align: center;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+		-webkit-box-shadow: #000 0px 2px 3px;
+		-moz-box-shadow: #000 0px 2px 3px;
+		box-shadow: #000 0px 2px 3px;
+		background: #dba921;
+		background: -webkit-gradient(linear, 0 0, 0 bottom, from(#dba921), to(#d59b1d));
+		background: -webkit-linear-gradient(#dba921, #d59b1d);
+		background: -moz-linear-gradient(#dba921, #d59b1d);
+		background: -ms-linear-gradient(#dba921, #d59b1d);
+		background: -o-linear-gradient(#dba921, #d59b1d);
+		background: linear-gradient(#dba921, #d59b1d);
+		-pie-background: linear-gradient(#dba921, #d59b1d);
+		behavior: url(css/PIE.htc);
+}
+
+.signup-outer h3 a:hover {
+		text-decoration:none;
+		background:#daa821;
+}
+
+.sign-up-conent {
+		background:url(../images/signup-border.png);
+		-webkit-box-shadow: #000 0px 1px 8px;
+		-moz-box-shadow: #000 0px 1px 8px;
+		box-shadow: #000 0px 1px 8px;
+		-webkit-border-radius:3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+		behavior: url(css/PIE.htc);
+		padding:10px;
+}
+
+.sign-up-whitebg {
+		background:#fff;
+}
+
+ul.sign-menu {
+		background:url(../images/sign-line.png) left 140px repeat-x;
+		list-style:none;
+		padding:30px 0 70px 0;
+		display:block;
+		overflow:hidden;
+}
+
+ul.sign-menu li {
+		width:500px;
+		margin:0 auto;
+}
+
+ul.sign-menu li a {
+		margin:0 25px;
+		display:block;
+		height:115px;
+		float:left;
+		color:#425e71;
+}
+
+ul.sign-menu li a:hover {
+		color:#d59a1c;
+		text-decoration:none;
+}
+
+ul.sign-menu li a span {
+		text-align:center;
+		display:block;
+		padding:0 0 12px 0;
+}
+
+ul.signup-register {
+		list-style:none;
+		display:block;
+		overflow:hidden;
+		width:80%;
+		margin:0 auto;
+}
+
+ul.signup-register h5 {
+		color:#9cabb5;
+		font-weight:400;
+		font-size:16px;
+}
+
+ul.signup-register li {
+		float:left;
+		border-right:solid 1px #d9dee1;
+		width:48%;
+}
+
+ul.signup-register li.lastblock {
+		border-right:0px;
+		padding:0 0 0 60px;
+		width:40%;
+		float:right;
+}
+
+ul.signup-register li.lastblock a {
+		height:58px;
+		-webkit-border-radius:3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+		behavior: url(css/PIE.htc);
+		display:block;
+		line-height:58px;
+		margin:20px 0 0 0;
+		color:#fff;
+		font-size:16px;
+		font-weight:700;
+}
+
+ul.signup-register li.lastblock a span {
+		float:left;
+		padding:0 10px;
+}
+
+ul.signup-register li.lastblock a span.shadow {
+		float:left;
+		background:url(../images/sign-shadow.png) left no-repeat;
+		width:66%;
+		text-align:center;
+}
+
+ul.signup-register li.lastblock a.facebook {
+		background: #4c8dc1;
+		background: -webkit-gradient(linear, 0 0, 0 bottom, from(#4c8dc1), to(#3e75b3));
+		background: -webkit-linear-gradient(#4c8dc1, #3e75b3);
+		background: -moz-linear-gradient(#4c8dc1, #3e75b3);
+		background: -ms-linear-gradient(#4c8dc1, #3e75b3);
+		background: -o-linear-gradient(#4c8dc1, #3e75b3);
+		background: linear-gradient(#4c8dc1, #3e75b3);
+		-pie-background: linear-gradient(#4c8dc1, #3e75b3);
+		behavior: url(/PIE.htc);
+}
+
+ul.signup-register li.lastblock a.twitter {
+		background: #27aacb;
+		background: -webkit-gradient(linear, 0 0, 0 bottom, from(#27aacb), to(#2098bf));
+		background: -webkit-linear-gradient(#27aacb, #2098bf);
+		background: -moz-linear-gradient(#27aacb, #2098bf);
+		background: -ms-linear-gradient(#27aacb, #2098bf);
+		background: -o-linear-gradient(#27aacb, #2098bf);
+		background: linear-gradient(#27aacb, #2098bf);
+		-pie-background: linear-gradient(#27aacb, #2098bf);
+		behavior: url(/PIE.htc);
+}
+
+ul.signup-register li.lastblock a.google {
+		background: #bc4d4d;
+		background: -webkit-gradient(linear, 0 0, 0 bottom, from(#bc4d4d), to(#ae3f3f));
+		background: -webkit-linear-gradient(#bc4d4d, #ae3f3f);
+		background: -moz-linear-gradient(#bc4d4d, #ae3f3f);
+		background: -ms-linear-gradient(#bc4d4d, #ae3f3f);
+		background: -o-linear-gradient(#bc4d4d, #ae3f3f);
+		background: linear-gradient(#bc4d4d, #ae3f3f);
+		-pie-background: linear-gradient(#bc4d4d, #ae3f3f);
+		behavior: url(/PIE.htc);
+}
+
+ul.signup-register li.lastblock a.link-in {
+		background: #0b9dd0;
+		background: -webkit-gradient(linear, 0 0, 0 bottom, from(#0b9dd0), to(#0988c6));
+		background: -webkit-linear-gradient(#0b9dd0, #0988c6);
+		background: -moz-linear-gradient(#0b9dd0, #0988c6);
+		background: -ms-linear-gradient(#0b9dd0, #0988c6);
+		background: -o-linear-gradient(#0b9dd0, #0988c6);
+		background: linear-gradient(#0b9dd0, #0988c6);
+		-pie-background: linear-gradient(#0b9dd0, #0988c6);
+		behavior: url(/PIE.htc);
+}
+
+ul.signup-register li fieldset {
+		float:left;
+		width:75%;
+		height:58px;
+		margin:20px 0 0 0;
+		background: none repeat scroll 0 0 #FFFFFF;
+		padding:0px;
+		border-radius: 8px 8px 8px 8px;
+		box-shadow: 0 2px 2px 0 #999999 inset;
+		padding:0 0 0 70px;
+		color: #3F5A6C;
+		position:relative;
+}
+
+ul.signup-register li fieldset.message {
+		background:url(../images/message.png) 15px 17px no-repeat #fff;
+}
+
+ul.signup-register li fieldset.password {
+		background:url(../images/password.png) 15px 15px no-repeat #fff;
+}
+
+ul.signup-register li input {
+		background:none;
+		height:58px;
+		color:#c0c1c2;
+		font-size:16px;
+}
+
+.sign-tick {
+		position:absolute;
+		right:18px;
+		top:18px;
+}
+
+.header-menu-inner {
+		margin-bottom: -4px !important;
+}
+
+.register-menu-block {
+		padding:40px 0;
+		float:left;
+}
+
+.register-btn {
+		background: #57975b;
+		font-size:16px;
+		background: -webkit-gradient(linear, 0 0, 0 bottom, from(#57975b), to(#417545));
+		background: -webkit-linear-gradient(#57975b, #417545);
+		background: -moz-linear-gradient(#57975b, #417545);
+		background: -ms-linear-gradient(#57975b, #417545);
+		background: -o-linear-gradient(#57975b, #417545);
+		background: linear-gradient(#57975b, #417545);
+		color:#fff;
+		-pie-background: linear-gradient(#57975b, #417545);
+		display:block;
+		padding:0px 60px;
+		height:50px;
+		line-height:50px;
+		margin-left:20%;
+		-webkit-border-radius:4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		behavior: url(css/PIE.htc);
+}
+
+.register-btn:hover {
+		background: #4a834e;
+		text-decoration:none;
+		color:#fff;
+}
+
+.register-cancel {
+		float:left;
+}
