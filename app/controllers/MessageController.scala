@@ -205,7 +205,6 @@ object MessageController extends Controller {
 
   private def messagesAlongWithDocDescription(messages: List[Message]) = {
     var messsageWithDocResults: List[DocResulttoSent] = List()
-
     messages map {
       case message =>
         if (message.docIdIfAny != None) {
