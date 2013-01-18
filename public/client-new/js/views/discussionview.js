@@ -739,7 +739,7 @@
   		                         message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,prifileImage : BS.profileImageUrl}
                              }) 
    							
-                             var msgBody = data.messageBody;
+                             var msgBody = data.message.messageBody;
                              var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
                             	 trueurl= msgUrlw;                                                                  
                             	 return msgUrlw;
@@ -749,7 +749,7 @@
                              var extension = (trueurl).match(pattern);  
                              
                              //to check whether the url is a google doc url or not
-                             if(data.messageType.name == "Text")                          
+                             if(data.message.messageType.name == "Text")                          
                              {	
                             	 if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) 
                                  {   
@@ -775,7 +775,7 @@
                     		 }
    							  
                              var owner = "";
- 	    					 if(data.userId.id == BS.loggedUserId)
+ 	    					 if(data.message.userId.id == BS.loggedUserId)
  	    					 {
      	    					owner = "true";
  	    					 }
@@ -791,7 +791,7 @@
                               
                              // set a format style to date
 //                             BS.filesMediaView = new BS.FilesMediaView(); 
-                             var datVal = formatDateVal(data.timeCreated);
+                             var datVal = formatDateVal(data.message.timeCreated);
     			                    
                              // if message conatains googledoc url
                              if(messageType == "googleDocs")
@@ -815,11 +815,11 @@
                              // if message conatains  uploaded files
  							 else
  							 {
- 								 if(data.messageType.name == "Image")
+ 								 if(data.message.messageType.name == "Image")
  								 {
  									 var source = $("#tpl-messages_with_images").html();
  								 }
- 								 else if(data.messageType.name == "Video")
+ 								 else if(data.message.messageType.name == "Video")
  								 {
  									 var source = $("#tpl-messages_with_images").html();
  								 }
@@ -873,19 +873,19 @@
                              $('.drag-rectangle').tooltip();	
 
                              //get profile image of logged user
-                             $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
+                             $('img#'+data.message.id.id+'-img').attr("src", BS.profileImageUrl);
                             
   							 if(linkTag)
-  								 $('p#'+data.id.id+'-id').html(linkTag);
+  								 $('p#'+data.message.id.id+'-id').html(linkTag);
   						
-  							 var url=data.messageBody;				
-  							 if(data.messageType.name == "Text")
+  							 var url=data.message.messageBody;				
+  							 if(data.message.messageType.name == "Text")
   							 {  
   								 //to check the extension of the url                                            
                                  if(!url.match(/^(https:\/\/docs.google.com\/)/)) 
                                  {	
                                 	 // embedly
-                                	 $('p#'+data.id.id+'-id').embedly({
+                                	 $('p#'+data.message.id.id+'-id').embedly({
                                 		 maxWidth: 200,
  	                                	 wmode: 'transparent',
                                 		 method: 'after',
@@ -899,11 +899,11 @@
                          	 }                                          
                              else      //insert value to hidden field
                              {
-                            	 $('input#'+data.id.id+'-url').val(msgUrl);  
+                            	 $('input#'+data.message.id.id+'-url').val(msgUrl);  
                              }                                           
 		    	 		 });
 			    	 	 _.each(data, function(data) {
-			    	 		 showJanrainShareWidget(data.messageBody, 'View my Beamstream post', 'http://beamstream.com', data.messageBody);
+			    	 		 showJanrainShareWidget(data.messageBody, 'View my Beamstream post', 'http://beamstream.com', data.message.messageBody);
 			    	 	 });
 		     		 }      
    				     
@@ -1060,7 +1060,7 @@
         	var totalComments =  $('#'+parent+'-totalComment').text();
         	var commentText = $('#'+parent+'-msgComment').val();
         	
-
+           console.log(commentText);
         	 
         	var self =this;
         
