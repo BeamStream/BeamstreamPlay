@@ -29,7 +29,7 @@
 	        "profile":"profileReg",
 	        "streams":"mainStream",
                 "registration":"basicRegistration",
-	        "basicRegistration/token/:token/iam/:iam/emailId/:email":"",
+//	        "basicRegistration/token/:token/iam/:iam/emailId/:email":"",
 	        "basicRegistration":"basicRegistrationViaJanRain",
 	        "classStream":"classStream",
 	        "filesMedia" : "filesMedia",

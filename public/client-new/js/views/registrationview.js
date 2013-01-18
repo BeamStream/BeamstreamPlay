@@ -20,26 +20,19 @@
 		events : {
 			"click #registeration":"register"
 		},
-//	
 		initialize : function() {
-//			 
+			
 			console.log('Initializing Basic Registration View');
 			this.source = $("#tpl-userregistration_home").html();
 			this.template = Handlebars.compile(this.source);
-//			
-//			// for edit user details
-//			BS.regBack = false;
-//	
+	
 		},
-//	 
+		
 		render : function(eventName) {
-//			 
-//			//get mail informations
-//			 this.iam = eventName.iam;
-//			 this.mailId = eventName.mail;
-//			 
+			
 			 $(this.el).html(this.template);
 			 return this;
+
 //			
 		},
                 register: function(eventName){
@@ -100,4 +93,5 @@
             
             
             
+
 	});
