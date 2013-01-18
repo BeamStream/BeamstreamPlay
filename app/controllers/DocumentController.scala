@@ -81,7 +81,7 @@ object DocumentController extends Controller {
           val message = Message(new ObjectId, url, Option(MessageType.Document), Option(MessageAccess.withName(access)), date, userId, Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List())
           Message.createMessage(message)
           val docObtained = Document.findDocumentById(docId)
-          val docJson = write(new DocResulttoSent(message,docObtained.get.documentName,docObtained.get.documentDescription))
+          val docJson = write(List(docObtained))
           Ok(docJson).as("application/json")
         } catch {
           case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem During Uploading Google Docs"))).as("application/json")
