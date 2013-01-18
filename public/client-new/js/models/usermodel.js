@@ -19,8 +19,8 @@
         BS.UserModel = Backbone.Model.extend({
     
             defaults: {	        	
-                type:null,
-                emailid:null,
+                iam:null,
+                email:null,
                 password:null,
                 confirmPassword:null
 //                firstName:null,
@@ -33,6 +33,8 @@
 //                graduate:null,
 //                cellNumber:null,
 //                location:null
-	        }
+	        },
+                
+                url:BS.verifyEmail
     
 });

@@ -288,88 +288,82 @@ Create a Class</a>
      <!-- template for registration home page -->
         <script type="text/x-handlebars-template" id="tpl-userregistration_home">
     <header>
-        
-        
-
 <div id="topheader" class="header-wrapper">
-<div>
-<div class="container-fluid">
-<a class="brand" href="index.html">
-<img width="148" height="37" src="images/logo.png">
-</a>
-<form class="navbar-form pull-left search-block">
-<input class="header-search" type="text" placeholder="Search Class, Person, Etc">
-<button class="btn header-button" type="submit">Search</button>
-<a href="index.html">Advanced</a>
-</form>
-<div class="header-profile">
-<div class="header-icon">
-<img id="right-top-photo" width="41" height="41" src="images/profile-img.png">
-</div>
-<div class="public-profile">
-<div class="profile-info">
-<a class="profile-button" href="#">Public Profile</a>
-<div class="settings-menu">
-<div class="btn-group">
-<button class="btn seetings-toggle">Settings</button>
-<button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown">
-<span class="caret settings-caret"></span>
-</button>
-<ul class="dropdown-menu">
-<li id="edit-profile">
-<a href="#">Edit Profile</a>
-</li>
-<li id="sign-out">
-<a href="#">Sign Out</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="header-menu header-menu-inner">
-<nav class="menu">
-<ul class="nav">
-<li>
-<a id="menu-mystreams" class="active" href="#">
-<span class="my-stream"></span>
-My Streams
-</a>
-</li>
-<li>
-<a id="menu-browsemedia" href="#">
-<span class="browse-media"></span>
-Browse Media
-</a>
-</li>
-<li>
-<a id="menu-connections" href="#">
-<span class="connections"></span>
-Connections
-</a>
-</li>
-<li>
-<a id="menu-otherstuff" href="#">
-<span class="other"></span>
-Other Stuff
-</a>
-</li>
-<li>
-<a id="menu-morestuff" href="#">
-<span class="other"></span>
-Even More Stuff
-</a>
-</li>
-</ul>
-</nav>
-</div>
-</div>
-</div>
-
-        
-        
+    <div>
+        <div class="container-fluid">
+            <a class="brand" href="index.html">
+                <img width="148" height="37" src="images/logo.png">
+            </a>
+            <form class="navbar-form pull-left search-block">
+                <input class="header-search" type="text" placeholder="Search Class, Person, Etc">
+                <button class="btn header-button" type="submit">Search</button>
+                <a href="index.html">Advanced</a>
+            </form>
+            <div class="header-profile">
+                <div class="header-icon">
+                    <img id="right-top-photo" width="41" height="41" src="images/profile-img.png">
+                </div>
+                <div class="public-profile">
+                    <div class="profile-info">
+                        <a class="profile-button" href="#">Public Profile</a>
+                        <div class="settings-menu">
+                            <div class="btn-group">
+                                <button class="btn seetings-toggle">Settings</button>
+                                <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown">
+                                    <span class="caret settings-caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li id="edit-profile">
+                                        <a href="#">Edit Profile</a>
+                                    </li>
+                                    <li id="sign-out">
+                                        <a href="#">Sign Out</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-menu header-menu-inner">
+            <nav class="menu">
+                <ul class="nav">
+                    <li>
+                        <a id="menu-mystreams" class="active" href="#">
+                            <span class="my-stream"></span>
+                            My Streams
+                        </a>
+                    </li>
+                    <li>
+                        <a id="menu-browsemedia" href="#">
+                            <span class="browse-media"></span>
+                            Browse Media
+                        </a>
+                    </li>
+                    <li>
+                        <a id="menu-connections" href="#">
+                            <span class="connections"></span>
+                            Connections
+                        </a>
+                    </li>
+                    <li>
+                        <a id="menu-otherstuff" href="#">
+                            <span class="other"></span>
+                            Other Stuff
+                        </a>
+                    </li>
+                    <li>
+                        <a id="menu-morestuff" href="#">
+                            <span class="other"></span>
+                            Even More Stuff
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>      
 </header>
 <article>
   <div class="container-fluid signup-container">
@@ -392,19 +386,19 @@ Even More Stuff
                 <h5>Register with Email</h5>
                 <form action="" method="get">
                   <fieldset class="message">
-                    <input name="" type="text" placeholder="School Email">
+                    <input name="" type="text" placeholder="School Email" id="mailid">
                     <div class="sign-tick"><img src="images/tick.png" width="17" height="13"></div>
                   </fieldset>
                   <fieldset class="password">
-                    <input name="" type="text" placeholder="Password">
+                    <input name="" type="text" placeholder="Password" id="userpassword">
                     <div class="sign-tick"><img src="images/close-sign.png" width="13" height="13"></div>
                   </fieldset>
                   <fieldset class="password">
-                    <input name="" type="text" placeholder="Confirm Password ">
+                    <input name="" type="text" placeholder="Confirm Password " id="confirmpassword">
                     <div class="sign-tick"><img src="images/tick.png" width="17" height="13"></div>
                   </fieldset>
                 </form>
-                <div class="register-menu-block"> <a href="#" class="register-btn">Register</a><a href="#" class="register-cancel">Cancel</a> </div>
+                <div class="register-menu-block"> <a href="#" id="registeration" class="register-btn">Register</a><a href="#" class="register-cancel">Cancel</a> </div>
               </li>
               <li class="lastblock">
                 <h5>Register with...</h5>
@@ -3120,9 +3114,9 @@ Even More Stuff
 	<script src="js/models/documentmodel.js"></script>
 	<script src="js/views/streamdocview.js"></script>
 	
-	
+	<script src="js/models/usermodel.js"></script>
 	<!--  New Design -- Question -->
-	<script src="js/views/questionview.js"></script>
+	<script src="js/views/questionview.js"></script>   
 	<script src="js/models/questionmodel.js"></script>
 <!-- 	<script src="js/models/optionmodel.js"></script> -->
 	<script src="js/views/discussionview.js"></script>

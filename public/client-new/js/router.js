@@ -40,7 +40,7 @@
 	        "audioview": "audioList",
 	        "presentationview": "presentationList",
 	        "pdflistview":"pdflistview",
-	        "settings" : "settings",
+	        "settings" : "settings"
 	        
 	       
 	
