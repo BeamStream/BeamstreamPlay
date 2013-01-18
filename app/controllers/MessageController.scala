@@ -54,7 +54,7 @@ object MessageController extends Controller {
           messagePoster.firstName, messagePoster.lastName, 0, List(), List(), 0, List())
         val messageId = Message.createMessage(messageToCreate)
         val messageObtained = Message.findMessageById(messageId)
-        val messageJson = write(new DocResulttoSent(messageObtained.get,"",""))
+        val messageJson = write(List(new DocResulttoSent(messageObtained.get,"","")))
         Ok(messageJson).as("application/json")
 
     }
