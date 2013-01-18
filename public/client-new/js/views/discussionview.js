@@ -477,7 +477,7 @@
 	                dataType : "json",
 	                success: function(data){
 	                	var owner = "";
-	    				if(data.userId.id == BS.loggedUserId)
+	    				if(data.message.userId.id == BS.loggedUserId)
 	    				{
 	    					owner = "true";
 	    				}
@@ -501,12 +501,13 @@
 	              	    $('#file-upload-loader').css("display","none");
 	              	    $('.embed-info').css("display","none");
 	              	    
-	              	    var datVal = formatDateVal(data.timeCreated);
+	              	    var datVal = formatDateVal(data.message.timeCreated);
 	                  	 
 	  	                var datas = {
 	  	                		"datas" : data,
 	  	                		"datVal" :datVal,
-	  	                		"owner": owner
+	  	                		"owner": owner,
+	  	                		
 	  		            }						  
 
 	  	                $('#progressbar').hide();
@@ -515,17 +516,17 @@
 	  	                /* Pubnub auto push */
 	  	                PUBNUB.publish({
 	  	                	channel : "stream",
-	  	                		message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,prifileImage : BS.profileImageUrl}
+	  	                		message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data.message,prifileImage : BS.profileImageUrl}
 	  	                }) 
                       
 //                        $('input#'+data.id.id+'-url').val(msgUrl);  
-                        $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
+                        $('img#'+data.message.id.id+'-img').attr("src", BS.profileImageUrl);
 	                           
 	                           
                         /*show image preview icons  */
 	                    
                         //var links =  msgBody.match(BS.urlRegex); 
-                        var msgUrl=  data.messageBody.replace(BS.urlRegex1, function(msgUrlw) {
+                        var msgUrl=  data.message.messageBody.replace(BS.urlRegex1, function(msgUrlw) {
                         	trueurl= msgUrlw;    
                             return msgUrlw;
                         });
@@ -540,12 +541,12 @@
 	  	               
 	  	                
 	    		                  
-	                    if(data.messageType.name == "Image")
+	                    if(data.message.messageType.name == "Image")
 	  					{
 	                    	var source = $("#tpl-messages_with_images").html();
 	  	  						
 	  					}
-	  					else if(data.messageType.name == "Video")
+	  					else if(data.message.messageType.name == "Video")
 	  					{
 	  						var source = $("#tpl-messages_with_images").html();
 	  	  						
@@ -568,7 +569,7 @@
 	  						}
 	  						else if(extension == 'Pdf')
 	  						{
-  								previewImage= data.anyPreviewImageUrl;
+  								previewImage= data.message.anyPreviewImageUrl;
   								type = "pdf";
 	  						}
   							else
@@ -595,7 +596,7 @@
 	                           
                         var template = Handlebars.compile(source);
                         $('#all-messages').prepend(template(datas));
-                        $('img#'+data.id.id+'-img').attr("src", BS.profileImageUrl);
+                        $('img#'+data.message.id.id+'-img').attr("src", BS.profileImageUrl);
                         $('.drag-rectangle').tooltip();	
 //                        $('input#'+data.id.id+'-url').val(msgUrl); 
 	                      	 
@@ -1547,7 +1548,7 @@
 			_.each(data, function(data) {
 				 
 				var owner = "";
-				if(data.userId.id == BS.loggedUserId)
+				if(data.message.userId.id == BS.loggedUserId)
 				{
 					owner = "true";
 				}
@@ -1556,7 +1557,7 @@
 					owner = "";
 				}
 				var messageType ='';
-				var msgBody = data.messageBody;
+				var msgBody = data.message.messageBody;
                                                 
 				//var links =  msgBody.match(BS.urlRegex); 
                 var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
@@ -1568,7 +1569,7 @@
                 var extension = (trueurl).match(pattern);  
                 
                
-                if(data.messageType.name == "Text")
+                if(data.message.messageType.name == "Text")
                 {    
                     	 
                      //to check whether the url is a google doc url or not
@@ -1596,7 +1597,7 @@
                 }
                 
 //                BS.filesMediaView = new BS.FilesMediaView(); 
-                var datVal =  formatDateVal(data.timeCreated);
+                var datVal =  formatDateVal(data.message.timeCreated);
                 
 				var datas = {
 					 	 "datas" : data,
@@ -1626,12 +1627,12 @@
 				}
 				else
 				{
-					if(data.messageType.name == "Image")
+					if(data.message.messageType.name == "Image")
 					{
 						var source = $("#tpl-messages_with_images").html();
   						
 					}
-					else if(data.messageType.name == "Video")
+					else if(data.message.messageType.name == "Video")
 					{
 						var source = $("#tpl-messages_with_images").html();
   						
@@ -1694,12 +1695,12 @@
 			    			type : 'POST',
 			    			url : BS.isAFollower,
 			    			data : {
-			    				 messageId : data.id.id
+			    				 messageId : data.message.id.id
 			    			},
 			    			dataType : "json",
 			    			success : function(status) {
 			    				 if(status == "true")
-			    					 $('#'+data.id.id+'-follow').text("Unfollow");
+			    					 $('#'+data.message.id.id+'-follow').text("Unfollow");
 			    			}
 			    	 });
 			         
@@ -1709,20 +1710,20 @@
 			             type: 'POST',
 			             url:BS.isARockerOfMessage,
 			             data:{
-			            	 messageId:data.id.id
+			            	 messageId:data.message.id.id
 			             },
 			             dataType:"json",
 			             success:function(result){
 			            	 if(result == "true")
 			            	 {
-			            		 $('#'+data.id.id+'-msgRockCount').removeClass('uprocks-message');
-			            		 $('#'+data.id.id+'-msgRockCount').addClass('downrocks-message');
+			            		 $('#'+data.message.id.id+'-msgRockCount').removeClass('uprocks-message');
+			            		 $('#'+data.message.id.id+'-msgRockCount').addClass('downrocks-message');
 			            		            		 
 			            	 }
 			            	 else
 			            	 {
-			            		 $('#'+data.id.id+'-msgRockCount').removeClass('downrocks-message');
-			            		 $('#'+data.id.id+'-msgRockCount').addClass('uprocks-message');			 
+			            		 $('#'+data.message.id.id+'-msgRockCount').removeClass('downrocks-message');
+			            		 $('#'+data.message.id.id+'-msgRockCount').addClass('uprocks-message');			 
 			            	 }
 			            	 
 			             }
@@ -1733,7 +1734,7 @@
 			    			type : 'POST',
 			    			url : BS.profileImage,
 			    			data : {
-			    				 userId :  data.userId.id
+			    				 userId :  data.message.userId.id
 			    			},
 			    			dataType : "json",
 			    			success : function(pofiledata) {
@@ -1755,19 +1756,19 @@
 			    						imgUrl = pofiledata.frameURL;
 			    					 }
 			    				 }
-			    				$('img#'+data.id.id+'-img').attr("src", imgUrl);
+			    				$('img#'+data.message.id.id+'-img').attr("src", imgUrl);
 			    			}
 			    	 });
 				           
 					 if(linkTag)
-						 $('p#'+data.id.id+'-id').html(linkTag);
+						 $('p#'+data.message.id.id+'-id').html(linkTag);
 						 
-                 var url=data.messageBody;
-                 if(data.messageType.name == "Text"){   
+                 var url=data.message.messageBody;
+                 if(data.message.messageType.name == "Text"){   
                                      
                      if(!url.match(/^(https:\/\/docs.google.com\/)/)) {
                          // embedly
-                         $('p#'+data.id.id+'-id').embedly({
+                         $('p#'+data.message.id.id+'-id').embedly({
                                  maxWidth: 200,
                                  msg : 'https://assets0.assembla.com/images/assembla-logo-home.png?1352833813',
 	                             wmode: 'transparent',
@@ -1780,14 +1781,14 @@
                  else       
                  {
                     	 
-                    	 if(data.messageType.name == "Image")
+                    	 if(data.message.messageType.name == "Image")
                     	 {
                     		   
 //                    		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto"  id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>'
 
 
                     	 }
-                    	 else if(data.messageType.name == "Video")
+                    	 else if(data.message.messageType.name == "Video")
                     	 {
 //                    		 var content = '<div  class="gallery clearfix " style="clear: none !important;"></div><div class="gallery clearfix hrtxt"><a rel="prettyPhoto" id="'+data.id.id+'"  href="' + msgUrl + '"><img class="previw-pdf" id="'+data.id.id+'" src="'+data.anyPreviewImageUrl+'" height="50" width="150" /></a></div>';
                     	 }
@@ -1805,7 +1806,7 @@
                    }
                    
 						 
-				   self.showAllComments(data.id.id);
+				   self.showAllComments(data.message.id.id);
 		      });
 		
         },
