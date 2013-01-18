@@ -136,9 +136,10 @@ object MessageController extends Controller {
   def getAllMessagesForAStreambyKeyword = Action { implicit request =>
     val keywordJsonMap = request.body.asFormUrlEncoded.get
     val keyword = keywordJsonMap("keyword").toList(0)
+     val streamId = keywordJsonMap("streamId").toList(0)
     val pageNo = keywordJsonMap("pageNo").toList(0).toInt
     val messagesPerPage = keywordJsonMap("limit").toList(0).toInt
-    val allMessagesForAStream = Message.getAllMessagesForAKeyword(keyword, pageNo, messagesPerPage)
+    val allMessagesForAStream = Message.getAllMessagesForAKeyword(keyword,new ObjectId(streamId), pageNo, messagesPerPage)
     val allMessagesForAStreamJson = write(allMessagesForAStream)
     Ok(allMessagesForAStreamJson).as("application/json")
   }
@@ -147,7 +148,7 @@ object MessageController extends Controller {
    * Follow the messages
    */
 
-  /*
+  /**
    * Rock the message
    */
   def followTheMessage = Action { implicit request =>

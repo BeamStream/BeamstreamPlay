@@ -153,9 +153,9 @@ object Message { //extends CommentConsumer {
   /**
    * get all messages within a stream on the basis of keyword
    */
-  def getAllMessagesForAKeyword(keyword: String, pageNumber: Int, messagesPerPage: Int): List[Message] = {
+  def getAllMessagesForAKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
     val keyWordregExp = (""".*""" + keyword + """.*""").r
-    MessageDAO.find(MongoDBObject("messageBody" -> keyWordregExp)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    MessageDAO.find(MongoDBObject("messageBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 
   /*
