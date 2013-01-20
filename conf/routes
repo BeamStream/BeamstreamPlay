@@ -11,149 +11,152 @@ POST /betaUser   controllers.JoinBeamStream.regsisterToBeamStreamBeta
 
 
 #User
-GET /users      	controllers.UserController.findUser
-GET /onlineUsers  	controllers.UserController.getAllOnlineUsers
-POST /inviteUser   	controllers.UserController.inviteUserToBeamstream
-POST /followUser    controllers.UserController.followUser
+POST /users      controllers.UserController.findUser
+GET /onlineUsers  controllers.UserController.getAllOnlineUsers
+POST /inviteUser   controllers.UserController.inviteUserToBeamstream
+POST  /followUser            controllers.UserController.followUser
 #Browser Closed
 
 
 #Other
-GET /browserClosed          controllers.UserController.browserClosed
-GET /returnProgress          controllers.MediaController.returnProgress
+GET  /browserClosed          controllers.UserController.browserClosed
+GET /returnProgress                    controllers.MediaController.returnProgress
+GET /returnFlag                    controllers.MediaController.returnFlag
+
 
 #Streams
-GET /allStreamsForAUser 		controllers.StreamController.getAllStreamForAUser
-GET /allClassStreamsForAUser 	controllers.StreamController.allClassStreamsForAUser
+GET /allStreamsForAUser controllers.StreamController.getAllStreamForAUser
+GET /allClassStreamsForAUser controllers.StreamController.allClassStreamsForAUser
 POST /noOfUsersAttendingAClass  controllers.StreamController.noOfUsersAttendingAClass
-DELETE /stream              	controllers.StreamController.deleteTheStream
+POST /deleteStream              controllers.StreamController.deleteTheStream
 
 
 
 #Messages
-POST /message 									controllers.MessageController.newMessage
-GET  /messagesForAStream                		controllers.MessageController.getAllMessagesForAStreamWithPagination
-GET  /messagesForAStreamSortedbyDate    		controllers.MessageController.getAllMessagesForAStreamWithPagination
-GET  /messagesForAStreamSortedbyRocks   		controllers.MessageController.getAllMessagesForAStreamSortedbyRocks
-GET  /messagesForAStreambyKeyword 				controllers.MessageController.getAllMessagesForAStreambyKeyword
-GET  /publicMessagesFromAllStreamsForAUser   	controllers.StreamController.allPublicMessagesFromAllStreamsForAUser
-DELETE /message                             	controllers.MessageController.deleteTheMessage
+POST /newMessage                              controllers.MessageController.newMessage
+POST /getAllMessagesForAStream                controllers.MessageController.getAllMessagesForAStreamWithPagination
+POST /getAllMessagesForAStreamSortedbyDate    controllers.MessageController.getAllMessagesForAStreamWithPagination
+POST /getAllMessagesForAStreamSortedbyRocks   controllers.MessageController.getAllMessagesForAStreamSortedbyRocks
+POST /getAllMessagesForAStreambyKeyword controllers.MessageController.getAllMessagesForAStreambyKeyword
+POST /allPublicMessagesFromAllStreamsForAUser     controllers.StreamController.allPublicMessagesFromAllStreamsForAUser
+POST /deleteMessage                               controllers.MessageController.deleteTheMessage
 
 #Comments
-POST  /comment                   		controllers.CommentController.newComment
-POST  /answer                     		controllers.CommentController.newAnswer
-GET   /comments                  		controllers.CommentController.getAllComments
-POST  /rockingTheComment            	controllers.CommentController.rockingTheComment
-GET   /commentRockers                	controllers.CommentController.commentRockers
-DELETE  /comment              			controllers.CommentController.deleteTheComment
-POST 	/isARockerOfComment             controllers.CommentController.isARocker
+POST   /newComment                   controllers.CommentController.newComment
+POST  /newAnswer                     controllers.CommentController.newAnswer
+POST    /allComments                  controllers.CommentController.getAllComments
+POST    /rockingTheComment            controllers.CommentController.rockingTheComment
+POST    /commentRockers                controllers.CommentController.commentRockers
+POST    /deleteTheComment              controllers.CommentController.deleteTheComment
+POST    /isARockerOfComment               controllers.CommentController.isARocker
 
 #Document
-GET  /documentsForAUser           		controllers.DocumentController.getAllGoogleDocumentsForAUser
-PUT  /changeTitleAndDescriptionForADocument controllers.DocumentController.changeTitleAndDescriptionForADocument
-POST /document                       	controllers.DocumentController.newDocument
+GET  /getAllDocumentsForAUser           controllers.DocumentController.getAllGoogleDocumentsForAUser
+POST /changeTitleAndDescriptionForADocument controllers.DocumentController.changeTitleAndDescriptionForADocument
+POST /newDocument                       controllers.DocumentController.newDocument
 POST /rockTheDocument                   controllers.DocumentController.rockTheDocument
-GET  /rockers                        	controllers.DocumentController.giveMeRockersOfDocument
-GET  /document                       	controllers.DocumentController.getDocument
-GET  /documentFromDisk               	controllers.DocumentController.getDocumentFromDisk
+POST /getRockers                        controllers.DocumentController.giveMeRockersOfDocument
+POST /getDocument                       controllers.DocumentController.getDocument
+POST /getDocumentFromDisk               controllers.DocumentController.getDocumentFromDisk
 POST /followDocument                    controllers.DocumentController.followDocument
 
 #Schools
 
-POST /school 							controllers.SchoolController.addANewSchool
-GET  /schoolForAUser 					controllers.SchoolController.getAllSchoolForAUser
-GET  /schoolNamebyId 					controllers.SchoolController.getSchoolName
-GET  /schoolsForAutopopulate     		controllers.SchoolController.getAllSchoolsForAutopopulate
+POST /school controllers.SchoolController.addANewSchool
+GET /getAllSchoolForAUser controllers.SchoolController.getAllSchoolForAUser
+POST /getSchoolNamebyId controllers.SchoolController.getSchoolName
+POST  /getAllSchoolsForAutopopulate      controllers.SchoolController.getAllSchoolsForAutopopulate
 
 
 #UpdateUserInfo
-POST /detailed_reg 						controllers.DetailedRegistration.addInfo
+POST /detailed_reg controllers.DetailedRegistration.addInfo
 
 
 #Class
 POST /class                             controllers.ClassController.addClass
-GET  /allClassesForAUser             	controllers.ClassController.getAllClassesForAUser
-GET  /autoPopulateClassesbyCode 		controllers.ClassController.findClasstoAutoPopulatebyCode
-GET  /autoPopulateClassesbyName 		controllers.ClassController.findClasstoAutoPopulatebyName
+GET  /getAllClassesForAUser             controllers.ClassController.getAllClassesForAUser
+POST /autoPopulateClassesbyCode controllers.ClassController.findClasstoAutoPopulatebyCode
+POST /autoPopulateClassesbyName controllers.ClassController.findClasstoAutoPopulatebyName
 
 #Getting the School JSON
-GET /schoolJson 						controllers.DetailedRegistration.getSchoolsForLoggedInUser
-GET /loggedInUserJson 					controllers.UserController.returnUserJson
+GET /schoolJson controllers.DetailedRegistration.getSchoolsForLoggedInUser
+GET /loggedInUserJson controllers.UserController.returnUserJson
 
 #Basic Registration
-POST /verifyToken          	controllers.BasicRegistration.basicRegistration
-POST /registerNewUser      	controllers.BasicRegistration.newUser
-POST /sendEmailToNewUser   	controllers.BasicRegistration.emailSent
+POST /verifyToken          controllers.BasicRegistration.basicRegistration
+POST /registerNewUser      controllers.BasicRegistration.newUser
+POST /getEmailforNewUser   controllers.BasicRegistration.emailSent
 
 #Destroy session
-POST /signOut 				controllers.UserController.signOut
+GET /signOut controllers.UserController.signOut
 
 
 #Janrain -- Deprecated, see '# Social' below.
 #POST /userPage  controllers.UserController.registerUserViaSocialSite
-#GET  /getJSONviaJanrain controllers.UserController.registerUserViaSocialSite
+#GET /getJSONviaJanrain controllers.UserController.registerUserViaSocialSite
 #POST /getContactsViaJanrain controllers.UserController.getContactsViaSocialSite
-#GET  /getContactsViaJanrain controllers.UserController.getContactsViaSocialSite
+#GET /getContactsViaJanrain controllers.UserController.getContactsViaSocialSite
 
 # Social
 POST /social/social_authentication   controllers.SocialController.authenticateUser
 
 #Media
-GET  /mediafromPost 				controllers.MediaController.getMedia
-GET  /profilePicForAUser      		controllers.MediaController.getProfilePicForAUser
-PUT  /changeTitleAndDescriptionUserMedia    controllers.MediaController.changeTitleAndDescriptionUserMedia
-GET  /allProfilePicForAUser   		controllers.MediaController.getAllProfilePicForAUser
-GET  /allProfileVideoForAUser   	controllers.MediaController.getAllProfileVideoForAUser
-POST /rockTheUsermedia            	controllers.MediaController.rockTheUsermedia
-GET  /giveMeRockersOfUserMedia    	controllers.MediaController.giveMeRockersOfUserMedia
-GET  /media 						controllers.MediaController.getUserMedia
+POST /getMediafromPost controllers.MediaController.getMedia
+POST /getProfilePicForAUser      controllers.MediaController.getProfilePicForAUser
+POST /changeTitleAndDescriptionUserMedia    controllers.MediaController.changeTitleAndDescriptionUserMedia
+GET /getAllProfilePicForAUser   controllers.MediaController.getAllProfilePicForAUser
+GET /getAllProfileVideoForAUser   controllers.MediaController.getAllProfileVideoForAUser
+POST /rockTheUsermedia            controllers.MediaController.rockTheUsermedia
+POST /giveMeRockersOfUserMedia    controllers.MediaController.giveMeRockersOfUserMedia
+POST /getMedia controllers.MediaController.getUserMedia
 
 
 #Message Rocks & Follows
-POST /rockedIt 						controllers.MessageController.rockedTheMessage
-GET  /messageRockers 				controllers.MessageController.giveMeRockers
-POST /followMessage  				controllers.MessageController.followTheMessage
-GET  /isAFollower    				controllers.MessageController.isAFollower
-GET  /isARockerOfMessage   			controllers.MessageController.isARocker
+POST /rockedIt controllers.MessageController.rockedTheMessage
+POST /returnRockers controllers.MessageController.giveMeRockers
+POST /followMessage  controllers.MessageController.followTheMessage
+POST /isAFollower    controllers.MessageController.isAFollower
+POST /isARockerOfMessage   controllers.MessageController.isARocker
 
 #Files
-GET /audioFilesOfAUser  			controllers.DocumentController.getAllAudioFilesForAUser
-GET /PPTFilesForAUser  				controllers.DocumentController.getAllPPTFilesForAUser
-GET /PDFFilesForAUser  				controllers.DocumentController.getAllPDFFilesForAUser
-GET /DOCSFilesForAUser  			controllers.DocumentController.getAllDOCSFilesForAUser
+GET /audioFilesOfAUser  controllers.DocumentController.getAllAudioFilesForAUser
+GET /getAllPPTFilesForAUser  controllers.DocumentController.getAllPPTFilesForAUser
+GET /getAllPDFFilesForAUser  controllers.DocumentController.getAllPDFFilesForAUser
+GET /getAllDOCSFilesForAUser  controllers.DocumentController.getAllDOCSFilesForAUser
 
 #Questions
-POST /question               		controllers.QuestionController.newQuestion
-POST /rockQuestion               	controllers.QuestionController.rockTheQuestion
-GET  /questionsForAUser        		controllers.QuestionController.getAllQuestionsForAUser
-GET  /rockersOfQuestion            	controllers.QuestionController.giveMeRockers
-POST /followQuestion            	controllers.QuestionController.followQuestion
-POST /voteAnOptionOfAQuestion   	controllers.QuestionController.voteAnOptionOfAQuestion
-DELETE /question               		controllers.QuestionController.deleteQuestion
-GET /questionForAStream             controllers.QuestionController.getAllQuestionForAStreamWithPagination
-                 
+POST /newQuestion               controllers.QuestionController.newQuestion
+POST /rockQuestion               controllers.QuestionController.rockTheQuestion
+GET /getAllQuestionsForAUser               controllers.QuestionController.getAllQuestionsForAUser
+POST /giveMeRockersOfQuestion            controllers.QuestionController.giveMeRockers
+POST  /followQuestion            controllers.QuestionController.followQuestion
+POST  /voteAnOptionOfAQuestion   controllers.QuestionController.voteAnOptionOfAQuestion
+POST /deleteQuestion               controllers.QuestionController.deleteQuestion
+POST /getAllQuestionForAStream                controllers.QuestionController.getAllQuestionForAStreamWithPagination
+POST /getAllQuestionsForAStreamSortedbyRocks   controllers.QuestionController.getAllQuestionsForAStreamSortedbyRocks                
+POST /getAllQuestionsForAStreambyKeyword controllers.QuestionController.getAllQuestionsForAStreambyKeyword
 
 #bitly
-POST /bitly   						controllers.MessageController.getShortUrlViabitly 
+POST /bitly   controllers.MessageController.getShortUrlViabitly 
 
 #Password Recovery
-POST  /forgotPassword          		controllers.UserController.forgotPassword
+POST  /forgotPassword          controllers.UserController.forgotPassword
 
 #Public Profile
-GET   /publicMessages          		controllers.PublicProfileController.getAllPublicMessagesForAUser
-GET   /publicProfileInfo          	controllers.PublicProfileController.getPublicProfileOfAUser
-GET   /allPublicDocuments        	controllers.PublicProfileController.getAllPublicDocumentForAUser
+POST  /allPublicMessages          controllers.PublicProfileController.getAllPublicMessagesForAUser
+POST  /publicProfileInfo          controllers.PublicProfileController.getPublicProfileOfAUser
+POST  /allPublicDocuments        controllers.PublicProfileController.getAllPublicDocumentForAUser
 
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET  /beamstream/*file              controllers.Assets.at(path="/public/client", file)
+GET  /beamstream/*file                   controllers.Assets.at(path="/public/client", file)
 
 # For Rendering the new design
-GET  /beamstream-new/*file          controllers.Assets.at(path="/public/client-new", file)
+GET  /beamstream-new/*file                   controllers.Assets.at(path="/public/client-new", file)
 
 #NEO4J Baby
-GET  /testNeo4j          			controllers.UserController.testNeo4j
-GET  /testNeo4jFindNode          	controllers.UserController.testNeo4jFindNode
-GET  /testNeo4jAddFriends          	controllers.UserController.testNeo4jAddFriends
-GET  /testNeo4jPrintFriends         controllers.UserController.testNeo4jPrintFriends
+GET  /testNeo4j          controllers.UserController.testNeo4j
+GET  /testNeo4jFindNode          controllers.UserController.testNeo4jFindNode
+GET  /testNeo4jAddFriends          controllers.UserController.testNeo4jAddFriends
+GET  /testNeo4jPrintFriends          controllers.UserController.testNeo4jPrintFriends
