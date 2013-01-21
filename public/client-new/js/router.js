@@ -28,7 +28,7 @@
 	        "class":"classReg",
 	        "profile":"profileReg",
 	        "streams":"mainStream",
-                "registration":"basicRegistration",
+                "signup":"signup",
 //	        "basicRegistration/token/:token/iam/:iam/emailId/:email":"",
 	        "basicRegistration":"basicRegistrationViaJanRain",
 	        "classStream":"classStream",
@@ -574,7 +574,7 @@
 	    /**
 	    * registration after email verification
 	    */
-	    basicRegistration: function(token,iam,email) {
+	    signup: function(token,iam,email) {
 	    	
 /*	//	    BS.user.fetch({ success:function(e) {
 	//		  	   if(e.get('loggedin') == false) {  
@@ -681,10 +681,10 @@
 //                $('.nav-collapse').html(this.navView.render().el);
                 console.log("registration");
                      var usermodel = new BS.UserModel();
-                BS.registrationView = new BS.RegistrationView({model:usermodel});
+                BS.signupview = new BS.SignUpView({model:usermodel});
                 
-                BS.registrationView.render();
-                $('body').html(BS.registrationView.el);
+                BS.signupview.render();
+                $('body').html(BS.signupview.el);
                     
                     
 	
