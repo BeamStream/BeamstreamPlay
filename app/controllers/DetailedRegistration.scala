@@ -28,7 +28,7 @@ object DetailedRegistration extends Controller {
     override def dateFormatter = new SimpleDateFormat("dd/MM/yyyy")
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
-  /*
+  /**
    * Sends the field values & profile related info to User Model for adding the info of a User
    * @Purpose :-
    * - Will Create the School & Edit the School as well
@@ -50,7 +50,7 @@ object DetailedRegistration extends Controller {
     }
   }
 
-  /*
+  /**
    * Returns the Schools with their respective school Ids (Tag : Dup)
    */
 

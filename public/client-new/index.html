@@ -709,15 +709,15 @@ Create a Class</a>
 
 <!--  message templete for stream discussions -->
  <script type="text/x-handlebars-template" id="tpl-discussion-messages">
-<div id= "{{datas.id.id}}" class="ask-outer follow-container" name ="{{datas.userId.id}}">
+<div id= "{{datas.message.id.id}}" class="ask-outer follow-container" name ="{{datas.message.userId.id}}">
             <div class="ask-content">
               <div class="follw-left">
                 <div   class="small-image">
-                  <div  class="ask-img"><img id="{{datas.id.id}}-img" src=""></div>
+                  <div  class="ask-img"><img id="{{datas.message.id.id}}-img" src=""></div>
 					{{#if owner}}
 						
                     {{else}}
-               		   <a href="#" id="{{datas.userId.id}}" class="follow-button follow-user">follow</a>
+               		   <a href="#" id="{{datas.message.userId.id}}" class="follow-button follow-user">follow</a>
 					{{/if}}
                      </div>
               </div>
@@ -725,11 +725,11 @@ Create a Class</a>
                 <div class="ask-comment">
                   <div class="follow-names">
                     <ul class="follow-name-left ">
-                      <li><span id="{{datas.userId.id}}" >@{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </span> -  {{datas.timeCreated}}  -  {{datas.messageAccess.name}}</li>
+                      <li><span id="{{datas.message.userId.id}}" >@{{datas.message.firstNameofMsgPoster}} {{datas.message.lastNameofMsgPoster}} </span> -  {{datas.message.timeCreated}}  -  {{datas.message.messageAccess.name}}</li>
                     </ul>
-                    <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button follow-message">follow</a></div>
+                    <div class="follow-right"><a id="{{datas.message.id.id}}-follow" href="#" class="follow-button follow-message">follow</a></div>
                   </div>
-                  <p id="{{datas.id.id}}-id" >{{datas.messageBody}}</p>
+                  <p id="{{datas.message.id.id}}-id" >{{datas.message.messageBody}}</p>
                   <div class="follow-bottom">
                     <ul class="follow-name-left show-all-block">
                    
@@ -740,26 +740,26 @@ Create a Class</a>
                     </ul>
                     
                   </div>
-                  <div id="{{datas.id.id}}-addComments" class="follow-comment">
-					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'" ></textarea>
+                  <div id="{{datas.message.id.id}}-addComments" class="follow-comment">
+					<textarea id="{{datas.message.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'" ></textarea>
 				 </div>
-				 <a id="{{datas.id.id}}" href="#" data-original-title="Delete" href="#" class="delete_post drag-rectangle" ></a>
+				 <a id="{{datas.message.id.id}}" href="#" data-original-title="Delete" href="#" class="delete_post drag-rectangle" ></a>
                 </div>
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
-                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message uprocks-message"><span>{{datas.rocks}}</span></a></li>
-                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
-						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
+                        <li><a href="#" id="{{datas.message.id.id}}-msgRockCount" class="rocks-message uprocks-message"><span>{{datas.message.rocks}}</span></a></li>
+                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.message.id.id}}-totalComment" >0</span> Comments</a>
+						<a id="{{datas.message.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
                       </ul>
                        
                       </div>
-                      <div id="{{datas.id.id}}-allComments" class="comment-wrapper">
+                      <div id="{{datas.message.id.id}}-allComments" class="comment-wrapper">
                       </div>
-					  <div id="{{datas.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
+					  <div id="{{datas.message.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
                       </div>
-                       <div id="{{datas.id.id}}-msgRockers" class="comment-wrapper" style="display: none;">
+                       <div id="{{datas.message.id.id}}-msgRockers" class="comment-wrapper" style="display: none;">
                       </div>
                   </div>
                 </div>
@@ -776,14 +776,14 @@ Create a Class</a>
 
 <!--   templete for stream discussions messages with videos/ images --> 
  <script type="text/x-handlebars-template" id="tpl-messages_with_images">
-<div id= "{{datas.id.id}}" class="ask-outer follow-container" name ="{{datas.userId.id}}">
+<div id= "{{datas.message.id.id}}" class="ask-outer follow-container" name ="{{datas.message.userId.id}}">
             <div class="ask-content">
               <div class="follw-left">
                 <div   class="small-image">
-                  <div  class="ask-img"><img id="{{datas.id.id}}-img" src=""></div>
+                  <div  class="ask-img"><img id="{{datas.message.id.id}}-img" src=""></div>
 					{{#if owner}}
                     {{else}}		
-                  <a href="#"  id="{{datas.userId.id}}" class="follow-button follow-user">follow</a> 
+                  <a href="#"  id="{{datas.message.userId.id}}" class="follow-button follow-user">follow</a> 
 					{{/if}}
 				</div>
               </div>
@@ -791,44 +791,46 @@ Create a Class</a>
                 <div class="ask-comment">
                   <div class="follow-names">
                     <ul class="follow-name-left ">
-                      <li><span id="{{datas.userId.id}}" >@{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </span> -  {{datas.timeCreated}}  -  {{datas.messageAccess.name}}</li>
+                      <li><span id="{{datas.userId.id}}" >@{{datas.message.firstNameofMsgPoster}} {{datas.message.lastNameofMsgPoster}} </span> -  {{datas.message.timeCreated}}  -  {{datas.message.messageAccess.name}}</li>
                     </ul>
-                    <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button follow-message">follow</a></div>
+                    <div class="follow-right"><a id="{{datas.message.id.id}}-follow" href="#" class="follow-button follow-message">follow</a></div>
                   </div>
-                  <!-- <p id="{{datas.id.id}}-id" >{{datas.messageBody}}</p> -->
+				  {{#if datas.docDescription}}
+                  <p id="{{datas.message.id.id}}-id" >{{datas.docDescription}}</p> 
+                  {{/if}}
                   
                   <!-- start doc section -->
                   <div id="Docs" class="doc">
                   
                   <div  class="item">  
-					  <div id="{{datas.docIdIfAny.id}}"   name="single-doc">
+					  <div id="{{datas.message.docIdIfAny.id}}"   name="single-doc">
 					<div class="image-wrapper hovereffect" >
-					  <div class="hover-div"><img class="filmedia-picture" src="{{datas.anyPreviewImageUrl}}">
+					  <div class="hover-div"><img class="filmedia-picture" src="{{datas.message.anyPreviewImageUrl}}">
 					    <div class="hover-text">               
-					     <div class="comment-wrapper" id="{{datas.docIdIfAny.id}}">                                
-					     <div id="media-{{datas.docIdIfAny.id}}">
-					      <h4 id="name-{{datas.docIdIfAny.id}}" >No Media Name</h4>                                
+					     <div class="comment-wrapper" id="{{datas.message.docIdIfAny.id}}">                                
+					     <div id="media-{{datas.message.docIdIfAny.id}}">
+					      <h4 id="name-{{datas.message.docIdIfAny.id}}" >{{#if datas.docName}}{{datas.docName}}{{else}}No Media Name{{/if}}</h4>                                
 					      <div class="description-info">      
 					         <div class="gallery"></div>
 						 <div class="gallery hrtxt">
-					           <a href="{{datas.anyPreviewImageUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
+					           <a href="{{datas.message.anyPreviewImageUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
 					              <div class="description-left photo-popup">   
-					              <p class="google_doc doc-description" id="description-{{datas.docIdIfAny.id}}"><input type="hidden" id="id-{{datas.docIdIfAny.id}}" value="doc.url">No Media Description</p>
+					              <p class="google_doc doc-description" id="description-{{datas.message.docIdIfAny.id}}"><input type="hidden" id="id-{{datas.message.docIdIfAny.id}}" value="doc.url">{{#if datas.docDescription}}{{datas.docDescription}}{{else}}No Media Description{{/if}}</p>
 						    </div>
 					           </a>
 						 </div>     
 					    
-					      <div id="{{datas.docIdIfAny.id}}" class="comment-wrapper2">
+					      <div id="{{datas.message.docIdIfAny.id}}" class="comment-wrapper2">
 					      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_media"></a>
 					      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
 					      </div></div></div>
 					      
 					      <div class="edit-title-div">
 							{{#if owner}}
-					      <h5 class="editMediaTitle" id="{{datas.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span>Edit Title & Description</h5>
+					      <h5 class="editMediaTitle" id="{{datas.message.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span>Edit Title & Description</h5>
 					      {{/if}} 
 					      </div>        
-					     <div class="dateinfo"><span class="state">{{datas.messageAccess.name}}</span><span class="date">{{datVal}}</span></div>
+					     <div class="dateinfo"><span class="state">{{datas.message.messageAccess.name}}</span><span class="date">{{datVal}}</span></div>
 					    </div>
 					   </div>
 					  </div>
@@ -851,26 +853,26 @@ Create a Class</a>
                     </ul>
 					
                   </div>
-                  <div id="{{datas.id.id}}-addComments" class="follow-comment">
-				     <textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.."  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'"></textarea>
+                  <div id="{{datas.message.id.id}}-addComments" class="follow-comment">
+				     <textarea id="{{datas.message.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.."  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'"></textarea>
 				   </div>   
-                <a id="{{datas.id.id}}" data-original-title="Delete" href="#" class="delete_post drag-rectangle" ></a>
+                <a id="{{datas.message.id.id}}" data-original-title="Delete" href="#" class="delete_post drag-rectangle" ></a>
                 </div>
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
-                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message uprocks-message"><span>{{datas.rocks}}</span></a></li>
-                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
-						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
+                        <li><a href="#" id="{{datas.message.id.id}}-msgRockCount" class="rocks-message uprocks-message"><span>{{datas.message.rocks}}</span></a></li>
+                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.message.id.id}}-totalComment" >0</span> Comments</a>
+						<a id="{{datas.message.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
                       </ul>
                        
                       </div>
-                      <div id="{{datas.id.id}}-allComments" class="comment-wrapper">
+                      <div id="{{datas.message.id.id}}-allComments" class="comment-wrapper">
                       </div>
-					  <div id="{{datas.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
+					  <div id="{{datas.message.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
                       </div>
-					 <div id="{{datas.id.id}}-msgRockers" class="comment-wrapper" style="display: none;">
+					 <div id="{{datas.message.id.id}}-msgRockers" class="comment-wrapper" style="display: none;">
                       </div>
                   </div>
                 </div>
@@ -885,14 +887,14 @@ Create a Class</a>
 
 <!--   templete for stream discussions messages with docs --> 
  <script type="text/x-handlebars-template" id="tpl-messages_with_docs">
-<div id= "{{datas.id.id}}" class="ask-outer follow-container" name ="{{datas.userId.id}}">
+<div id= "{{datas.message.id.id}}" class="ask-outer follow-container" name ="{{datas.message.userId.id}}">
             <div class="ask-content">
               <div class="follw-left">
                 <div  class="small-image">
-                  <div class="ask-img" ><img id="{{datas.id.id}}-img" src=""></div>
+                  <div class="ask-img" ><img id="{{datas.message.id.id}}-img" src=""></div>
 					{{#if owner}}
                     {{else}}
-                  <a id="{{datas.userId.id}}"  href="#" class="follow-button follow-user">follow</a>  
+                  <a id="{{datas.message.userId.id}}"  href="#" class="follow-button follow-user">follow</a>  
 					{{/if}}
 					</div>
               </div>
@@ -900,11 +902,11 @@ Create a Class</a>
                 <div class="ask-comment">
                   <div class="follow-names">
                     <ul class="follow-name-left">
-                      <li><span id="{{datas.userId.id}}" >@{{datas.firstNameofMsgPoster}} {{datas.lastNameofMsgPoster}} </span> -  {{datas.timeCreated}}  -  {{datas.messageAccess.name}}</li>
+                      <li><span id="{{datas.message.userId.id}}" >@{{datas.message.firstNameofMsgPoster}} {{datas.message.lastNameofMsgPoster}} </span> -  {{datas.message.timeCreated}}  -  {{datas.message.messageAccess.name}}</li>
                     </ul>
-                    <div class="follow-right"><a id="{{datas.id.id}}-follow" href="#" class="follow-button follow-message">follow</a></div>
+                    <div class="follow-right"><a id="{{datas.message.id.id}}-follow" href="#" class="follow-button follow-message">follow</a></div>
                   </div>
-                 <!-- <p id="{{datas.id.id}}-id" >{{datas.messageBody}}</p> -->
+                 <!-- <p id="{{datas.message.id.id}}-id" >{{datas.message.messageBody}}</p> -->
                   
                    <!-- start doc section -->
                   <div id="Docs" class="doc">
@@ -921,31 +923,31 @@ Create a Class</a>
                          {{/if}}
                   	</div>
 				    <div class="hover-text">               
-				     <div class="comment-wrapper" id="{{datas.docIdIfAny.id}}">                                
-				     <div id="media-{{datas.docIdIfAny.id}}">
-				      <h4 id="name-{{datas.docIdIfAny.id}}" >No Document Name</h4>                                
+				     <div class="comment-wrapper" id="{{datas.message.docIdIfAny.id}}">                                
+				     <div id="media-{{datas.message.docIdIfAny.id}}">
+				      <h4 id="name-{{datas.message.docIdIfAny.id}}" >{{#if datas.docName}}{{datas.docName}}{{else}}No Document Name{{/if}}</h4>                                
 				      <div  class="description-info "><div name={{type}}  class="description-left mediapopup drag-rectangle" id="{{datas.docIdIfAny.id}}">
-				        <input type="hidden" id="id-{{datas.docIdIfAny.id}}"  value="{{datas.messageBody}}">      
-				        <p class="doc-description" id="description-{{datas.docIdIfAny.id}}" >No Document Description..</p>
+				        <input type="hidden" id="id-{{datas.message.docIdIfAny.id}}"  value="{{datas.message.messageBody}}">      
+				        <p class="doc-description" id="description-{{datas.message.docIdIfAny.id}}" >{{#if datas.docDescription}}{{datas.docDescription}}{{else}}No Document Description..{{/if}}</p>
 				      </div>
-				      <div id="{{datas.docIdIfAny.id}}" class="comment-wrapper2">
+				      <div id="{{datas.message.docIdIfAny.id}}" class="comment-wrapper2">
 				      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_documents"></a>
 				      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
 				      </div></div></div>
 						
 					      <div class="edit-title-div">
 						{{#if owner}}
-				     	 <h5 class="editDocTitle"   id="{{datas.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span>Edit Title & Description</h5>
+				     	 <h5 class="editDocTitle"   id="{{datas.message.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span>Edit Title & Description</h5>
 							{{/if}}         
                     	  </div>
 						
-				     <div class="dateinfo"><span class="state">{{datas.messageAccess.name}}</span><span class="date">{{datVal}}</span></div>
+				     <div class="dateinfo"><span class="state">{{datas.message.messageAccess.name}}</span><span class="date">{{datVal}}</span></div>
 				    </div>
 				   </div>
 				  </div>
 				 </div>
 				
-				   <div id="{{datas.docIdIfAny.id}}-docRockers-list" class="docRockers_popup"></div>
+				   <div id="{{datas.message.docIdIfAny.id}}-docRockers-list" class="docRockers_popup"></div>
 				   </div>  
 				</div> 
 
@@ -963,26 +965,26 @@ Create a Class</a>
                     </ul>
 					
                   </div>
-                  <div id="{{datas.id.id}}-addComments" class="follow-comment">
-					<textarea id="{{datas.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'" ></textarea>
+                  <div id="{{datas.message.id.id}}-addComments" class="follow-comment">
+					<textarea id="{{datas.message.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'" ></textarea>
 				 </div>
-				 <a id="{{datas.id.id}}" href="#" data-original-title="Delete" href="#" class="delete_post drag-rectangle"></a>
+				 <a id="{{datas.message.id.id}}" href="#" data-original-title="Delete" href="#" class="delete_post drag-rectangle"></a>
                 </div>
                 <div class="answer-info">
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
-                        <li><a href="#" id="{{datas.id.id}}-msgRockCount" class="rocks-message uprocks-message"><span>{{datas.rocks}}</span></a></li>
-                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.id.id}}-totalComment" >0</span> Comments</a>
-						<a id="{{datas.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
+                        <li><a href="#" id="{{datas.message.id.id}}-msgRockCount" class="rocks-message uprocks-message"><span>{{datas.message.rocks}}</span></a></li>
+                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{datas.message.id.id}}-totalComment" >0</span> Comments</a>
+						<a id="{{datas.message.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
                       </ul>
                        
                       </div>
-                      <div id="{{datas.id.id}}-allComments" class="comment-wrapper">
+                      <div id="{{datas.message.id.id}}-allComments" class="comment-wrapper">
                       </div>
-					  <div id="{{datas.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
+					  <div id="{{datas.message.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
                       </div>
- 					 <div id="{{datas.id.id}}-msgRockers" class="comment-wrapper" style="display: none;">
+ 					 <div id="{{datas.message.id.id}}-msgRockers" class="comment-wrapper" style="display: none;">
                       </div>
                   </div>
                 </div>
