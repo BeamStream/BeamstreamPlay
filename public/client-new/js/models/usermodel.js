@@ -19,10 +19,10 @@
         BS.UserModel = Backbone.Model.extend({
     
             defaults: {	        	
-             //   iam:null,
-            //    mailid:null,
-             //   userpassword:null,
-             //   confirmpassword:null
+                iam:0
+//                mailid:null,
+//                userpassword:null,
+//                confirmpassword:null
 //                firstName:null,
 //                lastName:null,
 //                schoolName:null,
@@ -35,24 +35,29 @@
 //                location:null
 	        },
                 
-                url:BS.verifyEmail,
+                url:BS.verifyEmail,      
                 
-//                 BS.email= "/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i";
-                
+                    /**
+                    * model side validation
+                    */
                 validate: function(attrs, options) {
-                             var email_filter    = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                             var errors=new Array();
-//                    if (attrs.userpassword != attrs.confirmpassword) {
-////                    return "passwors ia not same as confirmPassword";
-//                        errors.push({name: 'password', error: 'error in password'});
-//                    }
-                   if (!email_filter.test(attrs.mailid)) 
+                    var email_filter    = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;                         
+//                    var errors=new Array();
+//                    errors =[];
+                    if (!email_filter.test(attrs.mailid)) 
                        {
-                        errors.push({name: 'email', error: 'Please enter a valid email address'});
-//                        return "passwors ia not same as confirmPassword";
-
-                    }
-                     return errors;
+//                        errors.push({name: 'email', error: 'Please enter a valid email address'});
+                        return "email";
+                        }
+                    if (attrs.userpassword == '') {
+//                        errors.push({name: 'userpassword', error: 'Please enter a valid password'});
+                        return "userpassword";             
+                        }
+                    if (attrs.confirmpassword == '') {
+//                        errors.push({name: 'confirmpassword', error: 'Please enter a valid confirmpassword'});
+                        return "confirmpassword";        
+                        }
+//                    return errors;
                     }
                     
     
