@@ -18,7 +18,9 @@
 	BS.RegistrationView = Backbone.View.extend({
 	
 		events : {
-			"click #registeration":"register"
+			"click #registeration":"register",
+                        "click .menu-pic":"getValue",
+                        "focusout .home_reg":"valdation"
 		},
 		initialize : function() {
 			
@@ -38,56 +40,41 @@
                 register: function(eventName){
                     eventName.preventDefault();
                     console.log("registre");
-                    var usermodel = new BS.UserModel();
-                    console.log("mail- "+$('#mailid').val()+", pass- "+$('#userpassword').val()+", confrm-"+$('#confirmpassword').val());
-                    
-                    usermodel.set({
-                        
-                        /*
-			id : id,
-			iam : this.iam,
-			email : this.mailId,
-			schoolName : $('#school-name').val(),
-			userName : $('#user-name').val(),
-			alias :"" ,
-			password : $('#password1').val(),
-			confirmPassword :  $('#password_again').val(),
-			firstName : $('#first-name').val(),
-			lastName : $('#last-name').val(),
-			location : $('#location').val(),
-			profile :"",
-			useCurrentLocation : useCurrentLocation,
-                        
-                         
-  */
+             
 
+                },
+                getValue:function(eventName){
+                      eventName.preventDefault();
+                      console.log("i am");
+//                      console.log(eventName.currentTarget.id);
+                      $("#usertype").val(eventName.currentTarget.id);
+                      console.log($('input#usertype').val());
+                },
+                valdation:function(eventName,param){
+                     eventName.preventDefault();
+                     var id=eventName.currentTarget.id
+                     var value=$('#'+id).val();   
+//                     console.log(id+":"+value);
+                      var map = {};
+                        map[id] = value;
                         
-                       
-//                iam:null,
-                email:$('#mailid').val(),
-                password:$('#userpassword').val(),
-                confirmPassword:$('#confirmpassword').val()
-                /*
-//                firstName:null,
-//                lastName:null,
-//                schoolName:null,
-//                major:null,
-//                aboutYourself:null,
-//                gradeLevel:null,
-//                degreeProgram:null,
-//                graduate:null,
-//                cellNumber:null,
-//                location:null
-    */
-		}); 
-                var regDetails = JSON.stringify(usermodel);
-                console.log(regDetails);
-                
-                 usermodel.save();
-
+                                 this.model.on("error", function(model, error) {                 
+//                  console.log(error);
+                 
+                  _.each(error, function(eror) {
+//                      console.log(eror);
+                       console.log(eror.error);
+                  })
+                });
+                        this.model.set(map);
+//                      console.log($('#'+id).val());
+                          var regDetails = JSON.stringify( this.model);
+//                console.log("modeo -"+regDetails);
+               console.log(  this.model.get("mailid"));
+                      
                 }
-//
             
+                
             
             
             
