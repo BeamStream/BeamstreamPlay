@@ -680,7 +680,8 @@
 //                 this.navView.showProfilePic();
 //                $('.nav-collapse').html(this.navView.render().el);
                 console.log("registration");
-                BS.registrationView = new BS.RegistrationView();
+                     var usermodel = new BS.UserModel();
+                BS.registrationView = new BS.RegistrationView({model:usermodel});
                 
                 BS.registrationView.render();
                 $('body').html(BS.registrationView.el);
