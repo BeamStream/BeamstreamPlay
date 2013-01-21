@@ -47,7 +47,7 @@
 //                        errors.push({name: 'password', error: 'error in password'});
 //                    }
                    if (!email_filter.test(attrs.mailid)) 
-                       {
+                    {
                         errors.push({name: 'email', error: 'Please enter a valid email address'});
 //                        return "passwors ia not same as confirmPassword";
 

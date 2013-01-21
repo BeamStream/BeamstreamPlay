@@ -1,11 +1,11 @@
  /***
 	 * BeamStream
 	 *
-	 * Author                : Cuckoo Anna (cuckoo@toobler.com)
+	 * Author                : Aswathy P.R (aswathy@toobler.com)
 	 * Company               : Toobler
 	 * Email:                : info@toobler.com
 	 * Web site              : http://www.toobler.com
-	 * Created               : 17/January/2013
+	 * Created               : 18/January/2013
 	 * Description           : Backbone view for registration
 	 * ==============================================================================================
 	 * Change History:
@@ -18,14 +18,14 @@
 	BS.RegistrationView = Backbone.View.extend({
 	
 		events : {
-			"click #registeration":"register",
-                        "click .menu-pic":"getValue",
-                        "focusout .home_reg":"valdation"
+			"click #done_step1" : "completeFirstStep",
+			"click #done_step2" : "comepleteSecondStep"
 		},
+		
 		initialize : function() {
 			
-			console.log('Initializing Basic Registration View');
-			this.source = $("#tpl-userregistration_home").html();
+			console.log('Initializing Basic Registrationdf View');
+			this.source = $("#tpl-registration").html();
 			this.template = Handlebars.compile(this.source);
 	
 		},
@@ -34,51 +34,30 @@
 			
 			 $(this.el).html(this.template);
 			 return this;
-
-//			
 		},
-                register: function(eventName){
-                    eventName.preventDefault();
-                    console.log("registre");
-             
-
-                },
-                getValue:function(eventName){
-                      eventName.preventDefault();
-                      console.log("i am");
-//                      console.log(eventName.currentTarget.id);
-                      $("#usertype").val(eventName.currentTarget.id);
-                      console.log($('input#usertype').val());
-                },
-                valdation:function(eventName,param){
-                     eventName.preventDefault();
-                     var id=eventName.currentTarget.id
-                     var value=$('#'+id).val();   
-//                     console.log(id+":"+value);
-                      var map = {};
-                        map[id] = value;
-                        
-                                 this.model.on("error", function(model, error) {                 
-//                  console.log(error);
-                 
-                  _.each(error, function(eror) {
-//                      console.log(eror);
-                       console.log(eror.error);
-                  })
-                });
-                        this.model.set(map);
-//                      console.log($('#'+id).val());
-                          var regDetails = JSON.stringify( this.model);
-//                console.log("modeo -"+regDetails);
-               console.log(  this.model.get("mailid"));
-                      
-                }
-            
-                
-            
-            
-            
-            
+		
+		/**
+		 * first step registration - janRain 
+		 */
+		completeFirstStep: function(eventName){
+			eventName.preventDefault();
+			$('#step_1').hide(500);
+			$('#step1_block').removeClass('active-border');
+			$('#step2_block').addClass('active-border');
+			$('#step_2').show(500);
+		},
+		
+		/**
+		 *  second step registration 
+		 */
+		comepleteSecondStep: function(eventName){
+			eventName.preventDefault();
+			$('#step_2').hide(500);
+			$('#step2_block').removeClass('active-border');
+//			$('#step3_block').addClass('active-border');
+			$('#step_3').show(500);
+		}
+       
             
 
 	});

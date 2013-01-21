@@ -485,9 +485,17 @@
 ul.then-by {
 width:auto !important;
  padding:0 !important;
-\
+
 }
 
+/************/
+/*Register*/
+
+.upload-photo {
+   left: 30% !important;
+    top: 14% !important;
+    width: 40% !important;
+}
 
 
 }
@@ -2199,6 +2207,78 @@ ul.profil-pic-outer li {
 }
 
 
+/***********************/
+
+
+/*Register*/
+
+.upload-photo {
+	   left: 23%;
+    top: 14%;
+    width: 54%;
+}
+
+.profile-left-container {
+		width:23%;
+}
+
+.profile-right-container {
+		width:23%;
+}
+
+
+.profile-center-container {
+		width:54%;
+		min-height:1000px;
+}
+
+.round-block {
+		height: 559px;
+		left:19%;
+		top:13%;
+		width: 62%;
+}
+
+
+.step-box {
+		height:250px;
+		width:28%;
+		left:34%;
+		top:-50px;
+		padding:2%;
+}
+
+.upload-box {
+		top:140px;
+}
+
+
+.step-box1 {
+		height:84px;
+		width:50%;
+		left:46%;
+		top:30px;
+		padding:2%;
+}
+
+
+.step-box2 {
+		height:84px;
+		width:38%;
+		position:relative;
+		left:0%;
+		top:30px;
+		padding:2%;
 
 }
+
+
+
+
+}
+
+
+
+
+
 

@@ -28,9 +28,10 @@
 	        "class":"classReg",
 	        "profile":"profileReg",
 	        "streams":"mainStream",
-                "signup":"signup",
+            "signup":"signup",
+            "registration":"registration",
 //	        "basicRegistration/token/:token/iam/:iam/emailId/:email":"",
-	        "basicRegistration":"basicRegistrationViaJanRain",
+//	        "basicRegistration":"basicRegistrationViaJanRain",
 	        "classStream":"classStream",
 	        "filesMedia" : "filesMedia",
 	        "googledocs" : "googleDocs",
@@ -572,123 +573,49 @@
 	   },
  
 	    /**
-	    * registration after email verification
+	    * New  sign up Page  
 	    */
 	    signup: function(token,iam,email) {
 	    	
-/*	//	    BS.user.fetch({ success:function(e) {
-	//		  	   if(e.get('loggedin') == false) {  
-				       $("#dialog").dialog('close');  
-				       BS.token = token;
-				       BS.iam = iam;
-				       BS.email = email;
-				       if(localStorage["regInfo"])
-					   {
-						  
-					       var regDetails =JSON.parse(localStorage["regInfo"]);
-					       BS.registrationView = new BS.RegistrationView();
-					       
-					       _.each(regDetails, function(data) {
-					    	   
-					    	   var datas = {
-										"data" : data
-							   }
-						       BS.registrationView.render(datas);
-						       $('#school-popup').html(BS.registrationView.el);
-						       $('#registration-form fieldset').html('');
-						       
-						       var source = $("#basic-profile").html();
-							   var template = Handlebars.compile(source);
-							   $('#registration-form fieldset').html(template(datas));
-							   $(".checkbox").dgStyle();
-				//		       $("#registration-form").validate();
-						       $("#registration-form").validate({
-										rules: {
-											password1: "required",
-											password_again: {
-										      equalTo: "#password1"
-										    }
-										  }
-									});
-							  
-							});
-					
-					   }
-				       else
-				       {
-				    	   
-				    	   BS.user.fetch({ success:function(e) {
-								if(e.get('loggedin') == false) {  
-									// verify the token
-									$.ajax({
-						  				type : 'POST',
-						  				url : BS.verifyToken,
-						  				data : {
-						  					token : token
-						  	                 },
-						  				dataType : "json",
-						  				success : function(data) {
-						  						if (data.status == "Success") {
-						  	
-						  								BS.registrationView = new BS.RegistrationView();
-						  								var mailInfo = {
-						  										iam : iam,
-						  										mail : email
-						  								};
-						  								BS.registrationView.render(mailInfo);
-						  	
-						  								$('#school-popup').html(BS.registrationView.el);
-							  							localStorage["regInfo"] ='';
-							  							$('#jan-iam').hide();
-							  							$(".checkbox").dgStyle();
-							  							 $("#registration-form").validate({
-							  								rules: {
-							  									password1: "required",
-							  									password_again: {
-							  								      equalTo: "#password1"
-							  								    }
-							  								  }
-							  							});
-						  					     }
-						  						 else 
-						  						 {
-						  							alert("Token Expiredd");
-						  						  }
-						  	
-						  					}
-						  				});
-								}
-								else {
-									console.log("From Stream => login");
-									BS.AppRouter.navigate("login", {trigger: true});
-								}
-							
-					      }});
-						  		   
-				         }
-	//		  	    }
-	//				else {
-	//					console.log("From Stream => login");
-	//					BS.AppRouter.navigate("login", {trigger: true});
-	//				}
-	//			
-	//	      }});
-		     */  
-                    
-                    
-//                this.navView = new BS.NavView({ model: BS.user });
-//                 this.navView.showProfilePic();
-//                $('.nav-collapse').html(this.navView.render().el);
-                console.log("registration");
-                     var usermodel = new BS.UserModel();
-                BS.signupview = new BS.SignUpView({model:usermodel});
-                
-                BS.signupview.render();
-                $('body').html(BS.signupview.el);
-                    
-                    
+	    	console.log("registration");
+	        var usermodel = new BS.UserModel();
+	        BS.signupview = new BS.SignUpView({model:usermodel});
+	        
+	        BS.signupview.render();
+	        $('body').html(BS.signupview.el);
+	        
 	
-		  },
+	    },
+		  
+	    /**
+	     *  
+	     *  New registration pages 
+	     */
+	    registration: function(){
+	    	
+			var self = this;
+	    	
+	    	// render top menu
+	    	this.navView = new BS.NavView({ model: BS.user });
+	    	$('#topheader').html(this.navView.render().el);
+	    	
+	    	//render middle content
+	    	BS.registrationView = new BS.RegistrationView();
+	    	BS.registrationView.render();
+	    	$('#body-content').html(BS.registrationView.el);
+	    	
+	    	// for drop down box style
+	    	$('.selectpicker').selectpicker();
+	    	$('.selectpicker-info').selectpicker({
+	           style: 'register-select'
+	    	});
+	    	
+	    	//for tool tip
+//	    	$('.location-toolip').tooltip({template:'<div class="tooltip loactionblue"><div class="tooltip-inner"></div></div>'})
+//			$('.register-toolip-outer').tooltip({template:'<div class="tooltip register-right-toolip"><div class="tooltip-inner"></div></div>'})
+			
+			  
+	    },
 	
 		  /**
 		   * basicRegistrationViaJanRain

@@ -285,7 +285,7 @@ Create a Class</a>
 </script> 
 
         
-     <!-- template for registration home page -->
+     <!-- template for signup page / home page -->
         <script type="text/x-handlebars-template" id="tpl-userregistration_home">
     <header>
 <div id="topheader" class="header-wrapper">
@@ -413,7 +413,112 @@ Create a Class</a>
         </script>
      
 
+<!--  templates for new registration steps  -->
+<script type="text/x-handlebars-template" id="tpl-registration">
+ <div class="profile-wrapper">
+        <div class="profile-left-container">
+        <h6><span>*</span>Required Fields </h6>
+          <div id="step2_block" class="profile-white registration-info ">
+            <input name="" type="text" placeholder="First Name">
+            <input name="" type="text" placeholder="Last Name">
+            <div class="alert-register"><span>*Last Name will not be shown publicly</span></div>
+            <input name="" type="text" placeholder="School Name">
+            <input name="" type="text" placeholder="Major " >
+            <textarea name="" cols="" rows="" placeholder="Tell us a little about yourself."></textarea>
+            <div class="profile-select-block">
+              <select name="select" class="selectpicker-info " style="display: none;">
+                <option selected="selected" >Grade Level?</option>
+                <option>My Feed 2</option>
+                <option>My Feed 3</option>
+              </select>
+              <div class="select-arrow-white"><img src="images/white-arrow.png" width="15" height="8"></div>
+            </div>
+            <div class="profile-select-block">
+              <select name="select" class="selectpicker-info " style="display: none;">
+                <option selected="selected" >Degree Program?</option>
+                <option>My Feed 2</option>
+                <option>My Feed 3</option>
+              </select>
+              <div class="select-arrow-white"><img src="images/white-arrow.png" width="15" height="8"></div>
+            </div>
+            <div class="profile-select-block">
+              <select name="select" class="selectpicker-info " style="display: none;">
+                <option selected="selected" >Graduated?</option>
+                <option>My Feed 2</option>
+                <option>My Feed 3</option>
+              </select>
+              <div class="select-arrow-white"><img src="images/white-arrow.png" width="15" height="8"></div>
+            </div>
+            <input name="" type="text" placeholder="Location" class="location-note">
+            
+            <span class="location-icon location-toolip" data-original-title="Use Current Location"><img src="images/loacation-icon.png" width="16" height="20"></span>
+         
+            <input name="" type="text" placeholder="Cell Number">
+            <div class="alert-register"><span>*For mobile usage options.</span></div>
+          </div>
+        </div>
+        <div class="profile-center-container">
 
+          <ul class="profile-top-menu profile-white register-top-white">
+            <h3> Add Personality</h3>
+            <h5>Coming Soon</h5>
+          </ul>
+          <div class="roud-slider">
+         	  <div id="step_1" class="step-box step-box1">
+	              <h3>Step 1 of 3 </h3>
+	              <h4>Connect Your Social Networks</h4>
+	              <a href="#">BROWSE</a> <a id="done_step1" href="#">DONE</a> 
+              </div>
+              
+              <div id="step_2" style="display:none;" class="step-box step-box1 step-box2">
+	              <h3>Step 2 of 3 </h3>
+	              <h4>Basci Profile Section</h4>
+		          <a href="#">BROWSE</a> <a id="done_step2" href="#">DONE</a> 
+	          </div>
+	          
+	          <div id="step_3" style="display:none;" class="step-box">
+	              <h3>Step 3 of 3 </h3>
+	              <h4>Upload Your Main Profile Photo</h4>
+	              <a href="#">BROWSE</a> <a id="done_step3" href="#">DONE</a> 
+              </div>
+            
+            <div class="round-block upload-photo step-one-photo"> <a href="#">
+              
+              </a> </div>
+            <ul class="profile-top-menu profile-white register-top-white photo-project">
+              <h3> Add Photos / Projects</h3>
+              <h5>Add on NExt Page</h5>
+            </ul>
+          </div>
+        </div>
+        <div class="profile-right-container">
+          <div id="step1_block" class="profile-white active-border">
+            <h5>Connect with:</h5>
+            <ul class="register-social">
+              <li>
+                <div class="tick-register"><img src="images/tick-new.png" width="29" height="23"></div>
+                 <a class="facebook register-toolip-outer" href="#" data-original-title="Sweet, Lookin good!"> <span><img width="33" height="34" src="images/face-book-icon.png"></span> <span class="shadow">Facebook</span></a>
+                <div class="social-close"><img src="images/social-close.png" width="9" height="9"></div>
+              </li>
+              <li>
+                <div class="tick-register"><img src="images/tick-new.png" width="29" height="23"></div>
+                <a class="twitter register-toolip-outer" href="#" data-original-title="Sweet, Lookin good!"> <span><img src="images/twitter-icon.png" width="33" height="34"></span> <span class="shadow">Twitter</span></a>
+                <div class="social-close"><img src="images/social-close.png" width="9" height="9"></div>
+              </li>
+              <li class="box-active"> <a class="google" href="#"> <span><img src="images/google-plus-icon.png" width="33" height="34"></span> <span class="shadow">Google</span></a> </li>
+              <li class="box-active"> <a class="link-in" href="#"> <span><img src="images/in-icon.png" width="33" height="34"></span> <span class="shadow">Link In</span></a> </li>
+            </ul>
+            <div class="clear"></div>
+          </div>
+          <div class="profile-white">
+            <div class="add-skills">
+              <h3> Add Interests / Skills</h3>
+              <h5>Coming Soon</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+</script>
 
         <!--  streamview   templates  -->
 <script type="text/x-handlebars-template" id="tpl-main-stream">
@@ -3117,6 +3222,7 @@ Create a Class</a>
 	<script src="js/views/streamdocview.js"></script>
 	
 	<script src="js/models/usermodel.js"></script>
+	<script src="js/views/registrationview.js"></script>
 	<!--  New Design -- Question -->
 	<script src="js/views/questionview.js"></script>   
 	<script src="js/models/questionmodel.js"></script>
