@@ -18,6 +18,7 @@
 
         BS.UserModel = Backbone.Model.extend({
     
+
                 defaults: {	        	
                     iam:0
     //                mailid:null,
@@ -40,6 +41,7 @@
                         /**
                         * model side validation
                         */
+
                 validate: function(attrs, options) {
                     var email_filter    = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;                         
                     var errors =[];

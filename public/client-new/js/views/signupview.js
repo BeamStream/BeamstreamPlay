@@ -76,6 +76,7 @@
                         }
                     },
 
+
                     /**
                     * Method to set the value of "i am"
                     */
@@ -83,6 +84,7 @@
                     eventName.preventDefault();
                     $("#usertype").val(eventName.currentTarget.id);
                     },
+
 
                     /**
                     * Method for validation (validation done in out of focus of the field)

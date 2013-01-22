@@ -578,44 +578,32 @@
 	    signup: function(token,iam,email) {
 	    	
 
-	    	console.log("registration");
+	    	console.log("signup");
 	        BS.usermodel = new BS.UserModel();
-	        BS.signupview = new BS.SignUpView({model:BS.usermodel});
-	        
-	        BS.signupview.render();
-	        $('body').html(BS.signupview.el);
+        
+	        this.navView = new BS.NavView({ model: BS.usermodel });
+	    	$('#topheader').html(this.navView.render().el);
+	    	
+	    	//render middle content
+	    	BS.signupview = new BS.SignUpView({model:BS.usermodel});
+	    	BS.signupview.render();
+	    	$('#body-content').html(BS.signupview.el);
 	        
 
 	
 	    },
 		  
 	    /**
-	     *  
-	     *  New registration pages 
+	     * Description  : For New registration pages  
+	     * Author 		: Aswathy . P.R
 	     */
 	    registration: function(){
 	    	
-			var self = this;
-	    	
-	    	// render top menu
-	    	this.navView = new BS.NavView({ model: BS.user });
-	    	$('#topheader').html(this.navView.render().el);
-	    	
-	    	//render middle content
+			console.log("Registration steps here..");
+			
+	    	//render registartion view
 	    	BS.registrationView = new BS.RegistrationView({model:BS.usermodel});
 	    	BS.registrationView.render();
-	    	$('#body-content').html(BS.registrationView.el);
-	    	
-	    	// for drop down box style
-	    	$('.selectpicker').selectpicker();
-	    	$('.selectpicker-info').selectpicker({
-	           style: 'register-select'
-	    	});
-	    	
-	    	//for tool tip
-//	    	$('.location-toolip').tooltip({template:'<div class="tooltip loactionblue"><div class="tooltip-inner"></div></div>'})
-//			$('.register-toolip-outer').tooltip({template:'<div class="tooltip register-right-toolip"><div class="tooltip-inner"></div></div>'})
-			
 			  
 	    },
 	
@@ -842,9 +830,9 @@
 						BS.filesMediaView.render();
 						$('#body-content').html(BS.filesMediaView.el);
                                                 
-                                                BS.uploadmediaview =new BS.UploadmediaView({});
-                                                BS.uploadmediaview.render();
-                                                $('#upload_media').html(BS.uploadmediaview.el);
+                        BS.uploadmediaview =new BS.UploadmediaView({});
+                        BS.uploadmediaview.render();
+                        $('#upload_media').html(BS.uploadmediaview.el);
 						
 						self.getAllClasses();
 						
