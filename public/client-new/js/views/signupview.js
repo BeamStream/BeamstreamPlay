@@ -27,6 +27,11 @@
                 console.log('Initializing Basic Registration View');
                 this.source = $("#tpl-userregistration_home").html();
                 this.template = Handlebars.compile(this.source);	
+                
+                this.model.on("error", function(model, error) {                 
+                    console.log(error);
+ 
+                    });
 		},
 		
             render : function(eventName) {			
@@ -42,10 +47,22 @@
                 var password= $('#userpassword').val();
                 var confirmPassword =  $('#confirmpassword').val();                
                 if(password===confirmPassword){                        //validation :- compare the password and confirmPassword
-                    this.model.set({
-                        password:password,
-                        confirmPassword:confirmPassword
-                        })
+                   var t =  this.model.set({
+                	   iam:$('input#usertype').val(),
+                       mailid:$('#mailid').val(),
+                       userpassword:password,
+                       confirmpassword:confirmPassword
+                        });
+                   console.log(t);
+                   if(t == false)
+                	 {
+                	   console.log("error");
+                	 }
+                   else
+                	  {
+                	   this.model.save();
+                	  }
+//                    this.model.save();
                     }
                 else{
                     console.log(" 'confirmPassword' is not match with 'Password' ")
@@ -72,13 +89,13 @@
                 
                 var map = {};                  //create json variable
                 map[id] = value;
-                this.model.on("error", function(model, error) {                 
-                    console.log('error');
-//                  _.each(error, function(eror) {
-////                     console.log(eror);
-//                       console.log(eror.error);
-//                      })
-                    });
+//                this.model.on("error", function(model, error) {                 
+//                    console.log('error');
+////                  _.each(error, function(eror) {
+//////                     console.log(eror);
+////                       console.log(eror.error);
+////                      })
+//                    });
                 this.model.set(map);
                 
 //                var regDetails = JSON.stringify( this.model);

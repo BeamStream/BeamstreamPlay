@@ -19,7 +19,7 @@
         BS.UserModel = Backbone.Model.extend({
     
             defaults: {	        	
-                iam:0
+//                iam:0
 //                mailid:null,
 //                userpassword:null,
 //                confirmpassword:null
@@ -45,11 +45,11 @@
                     var email_filter    = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;                         
 //                    var errors=new Array();
 //                    errors =[];
-                    if (!email_filter.test(attrs.mailid)) 
-                       {
-//                        errors.push({name: 'email', error: 'Please enter a valid email address'});
-                        return "email";
-                        }
+//                    if (!email_filter.test(attrs.mailid)) 
+//                       {
+////                        errors.push({name: 'email', error: 'Please enter a valid email address'});
+//                        return "email";
+//                        }
                     if (attrs.userpassword == '') {
 //                        errors.push({name: 'userpassword', error: 'Please enter a valid password'});
                         return "userpassword";             

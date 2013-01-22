@@ -578,8 +578,8 @@
 	    signup: function(token,iam,email) {
 	    	
 	    	console.log("registration");
-	        var usermodel = new BS.UserModel();
-	        BS.signupview = new BS.SignUpView({model:usermodel});
+	        BS.usermodel = new BS.UserModel();
+	        BS.signupview = new BS.SignUpView({model:BS.usermodel});
 	        
 	        BS.signupview.render();
 	        $('body').html(BS.signupview.el);
@@ -600,7 +600,7 @@
 	    	$('#topheader').html(this.navView.render().el);
 	    	
 	    	//render middle content
-	    	BS.registrationView = new BS.RegistrationView();
+	    	BS.registrationView = new BS.RegistrationView({model:BS.usermodel});
 	    	BS.registrationView.render();
 	    	$('#body-content').html(BS.registrationView.el);
 	    	
