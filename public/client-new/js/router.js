@@ -578,12 +578,16 @@
 	    signup: function(token,iam,email) {
 	    	
 
-	    	console.log("registration");
+	    	console.log("signup");
 	        BS.usermodel = new BS.UserModel();
-	        BS.signupview = new BS.SignUpView({model:BS.usermodel});
-	        
-	        BS.signupview.render();
-	        $('body').html(BS.signupview.el);
+        
+	        this.navView = new BS.NavView({ model: BS.usermodel });
+	    	$('#topheader').html(this.navView.render().el);
+	    	
+	    	//render middle content
+	    	BS.signupview = new BS.SignUpView({model:BS.usermodel});
+	    	BS.signupview.render();
+	    	$('#body-content').html(BS.signupview.el);
 	        
 
 	
@@ -596,7 +600,11 @@
 	    registration: function(){
 	    	
 			var self = this;
-	    	
+			console.log("registration");
+			
+			//detach body contents inorder to fill it with new view
+			$('#body-content').children().detach(); 
+			
 	    	// render top menu
 	    	this.navView = new BS.NavView({ model: BS.user });
 	    	$('#topheader').html(this.navView.render().el);
@@ -842,9 +850,9 @@
 						BS.filesMediaView.render();
 						$('#body-content').html(BS.filesMediaView.el);
                                                 
-                                                BS.uploadmediaview =new BS.UploadmediaView({});
-                                                BS.uploadmediaview.render();
-                                                $('#upload_media').html(BS.uploadmediaview.el);
+                        BS.uploadmediaview =new BS.UploadmediaView({});
+                        BS.uploadmediaview.render();
+                        $('#upload_media').html(BS.uploadmediaview.el);
 						
 						self.getAllClasses();
 						

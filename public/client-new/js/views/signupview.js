@@ -59,7 +59,8 @@
                         if(tes)
                             this.model.save(); 
 
-                             BS.AppRouter.navigate("registration");
+                        BS.AppRouter.navigate("registration", {trigger: true});
+                             
 //                    }
                       
 

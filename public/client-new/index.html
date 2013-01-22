@@ -96,16 +96,17 @@
   </div>
 </header>
 <article>
-  <div class="container-fluid" id="">
-      <div id="edit-popup"></div>
-    <div class="main-container" id="body-content">      
-    
-        <!----  body content--->
-        
-    </div>
+  <div id="body-content" >
+  	<!--   body content- -->
+  </div>
+
+  <div id="edit-popup">
+    <!-- doc edit popups -->
+  </div>
+
+
     <!--  for poups -->
     <div id="beam-popups"></div>
-  </div>
   
 </article>
 <div pub-key="pub-a8c5db9f-8482-4092-b9e4-44fda38a9d51"
@@ -271,7 +272,7 @@ Create a Class</a>
         </div>
       </div>
     </div>
-    <div class="header-menu">
+    <div class="header-menu header-menu-inner">
       <nav class="menu">
         <ul class="nav">
           <li><a href="#" id="menu-mystreams" class="active"><span class="my-stream"></span>My Streams</a></li>
@@ -287,85 +288,7 @@ Create a Class</a>
         
      <!-- template for signup page / home page -->
         <script type="text/x-handlebars-template" id="tpl-userregistration_home">
-    <header>
-<div id="topheader" class="header-wrapper">
-    <div>
-        <div class="container-fluid">
-            <a class="brand" href="index.html">
-                <img width="148" height="37" src="images/logo.png">
-            </a>
-            <form class="navbar-form pull-left search-block">
-                <input class="header-search" type="text" placeholder="Search Class, Person, Etc">
-                <button class="btn header-button" type="submit">Search</button>
-                <a href="index.html">Advanced</a>
-            </form>
-            <div class="header-profile">
-                <div class="header-icon">
-                    <img id="right-top-photo" width="41" height="41" src="images/profile-img.png">
-                </div>
-                <div class="public-profile">
-                    <div class="profile-info">
-                        <a class="profile-button" href="#">Public Profile</a>
-                        <div class="settings-menu">
-                            <div class="btn-group">
-                                <button class="btn seetings-toggle">Settings</button>
-                                <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown">
-                                    <span class="caret settings-caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li id="edit-profile">
-                                        <a href="#">Edit Profile</a>
-                                    </li>
-                                    <li id="sign-out">
-                                        <a href="#">Sign Out</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="header-menu header-menu-inner">
-            <nav class="menu">
-                <ul class="nav">
-                    <li>
-                        <a id="menu-mystreams" class="active" href="#">
-                            <span class="my-stream"></span>
-                            My Streams
-                        </a>
-                    </li>
-                    <li>
-                        <a id="menu-browsemedia" href="#">
-                            <span class="browse-media"></span>
-                            Browse Media
-                        </a>
-                    </li>
-                    <li>
-                        <a id="menu-connections" href="#">
-                            <span class="connections"></span>
-                            Connections
-                        </a>
-                    </li>
-                    <li>
-                        <a id="menu-otherstuff" href="#">
-                            <span class="other"></span>
-                            Other Stuff
-                        </a>
-                    </li>
-                    <li>
-                        <a id="menu-morestuff" href="#">
-                            <span class="other"></span>
-                            Even More Stuff
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</div>      
-</header>
-<article>
+   
   <div class="container-fluid signup-container">
     <div class="main-container ">
       <div class="signup-outer">
@@ -409,16 +332,18 @@ Create a Class</a>
       </div>
     </div>
   </div>
-</article>
+ 
         </script>
      
 
 <!--  templates for new registration steps  -->
 <script type="text/x-handlebars-template" id="tpl-registration">
+<div class="container-fluid">
+ <div class="main-container ">
  <div class="profile-wrapper">
         <div class="profile-left-container">
         <h6><span>*</span>Required Fields </h6>
-          <div id="step2_block" class="profile-white registration-info ">
+          <div id="step2_block" class="profile-white registration-info box-active">
             <input name="" type="text" placeholder="First Name">
             <input name="" type="text" placeholder="Last Name">
             <div class="alert-register"><span>*Last Name will not be shown publicly</span></div>
@@ -482,7 +407,7 @@ Create a Class</a>
 	              <a href="#">BROWSE</a> <a id="done_step3" href="#">DONE</a> 
               </div>
              <div id="upload-step" >
-	             <div class="round-block upload-photo step-one-photo"> 
+	             <div id="step3_block" class="round-block upload-photo step-one-photo  "> 
 	             <a href="#"> </a> 
 	             </div>
              </div>
@@ -523,13 +448,16 @@ Create a Class</a>
           </div>
         </div>
       </div>
+      </div>
+      </div>
 </script>
 
         <!--  streamview   templates  -->
 <script type="text/x-handlebars-template" id="tpl-main-stream">
       <!--------------------------------------Left Container---------------------------------------->
      
-      
+      <div class="container-fluid">
+    <div class="main-container"> 
       <div class="left-container">
         <aside>
           <div class="left-menu">
@@ -597,7 +525,9 @@ Create a Class</a>
       
       <div class="right-container">
            <!-- ----Render Right_Container template here----- -->
-      </div>   
+      </div>  
+      </div>
+      </div> 
 </script> 
 
 
@@ -1619,7 +1549,8 @@ Create a Class</a>
         <script type="text/x-handlebars-template" id="tpl-files-media">
             
       <!--------------------------------------Right Conatiner---------------------------------------->
-      
+       <div class="container-fluid">
+    <div class="main-container"> 
       <div class="right-container browse-conatiner">
           <div  id="upload_media">
 
@@ -1725,6 +1656,9 @@ Create a Class</a>
         </div>
         <div class="clear"></div>
       </div>       
+      </div>
+      </div>
+      
         </script>
         
         
@@ -2394,7 +2328,8 @@ Create a Class</a>
                 <script type="text/x-handlebars-template" id="tpl-docsview">
             
       <!--------------------------------------Right Conatiner---------------------------------------->
-      
+       <div class="container-fluid">
+    <div class="main-container"> 
       <div class="right-container browse-conatiner">
         <div  id="upload_media">
 
@@ -2499,6 +2434,8 @@ Create a Class</a>
         <div class="clear"></div>  
       </div>
       </div>
+      </div>
+      
         </script>
         
         

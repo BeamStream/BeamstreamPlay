@@ -43,6 +43,7 @@
 			eventName.preventDefault();
 			$('#step_1').hide(500);
 			$('#step1_block').removeClass('active-border');
+			$('#step2_block').removeClass('box-active');
 			$('#step2_block').addClass('active-border');
 			$('#step_2').show(500);
 			console.log(this.model);
@@ -58,7 +59,7 @@
 			
 //			$("#step2_block *").disable();
 			
-			var upload_block = '<div class="round-block upload-photo"> <a href="#">'
+			var upload_block = '<div id="step3_block" class="round-block upload-photo"> <a href="#">'
 								+'<div class="upload-box">'
 								+'<div class="upload-plus">Upload</div>'
 								+'</div>'
