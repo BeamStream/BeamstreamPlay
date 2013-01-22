@@ -43,22 +43,34 @@
                 validate: function(attrs, options) {
 
                     var email_filter    = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;                         
+                                       var errors =[];
+                                       
+                    if (!attrs.userpassword || attrs.confirmpassword)
+//                        return "No inputs";  
+                     errors.push({name: 'no inputs', error: 'Please enter correct inputs'});
+//                       
+//                                                         
 //                    var errors=new Array();
-//                    errors =[];
-//                    if (!email_filter.test(attrs.mailid)) 
-//                       {
-////                        errors.push({name: 'email', error: 'Please enter a valid email address'});
+
+
+                    if (!email_filter.test(attrs.mailid)) 
+                       {
+                        errors.push({name: 'email', error: 'Please enter a valid email address'});
 //                        return "email";
+
+                        }
+
+                     
+                    
+//                    if (attrs.userpassword == '') {
+////                        errors.push({name: 'userpassword', error: 'Please enter a valid password'});
+//                        return "userpassword";             
 //                        }
-                    if (attrs.userpassword == '') {
-//                        errors.push({name: 'userpassword', error: 'Please enter a valid password'});
-                        return "userpassword";             
-                        }
-                    if (attrs.confirmpassword == '') {
-//                        errors.push({name: 'confirmpassword', error: 'Please enter a valid confirmpassword'});
-                        return "confirmpassword";        
-                        }
-//                    return errors;
+//                    if (attrs.confirmpassword == '') {
+////                        errors.push({name: 'confirmpassword', error: 'Please enter a valid confirmpassword'});
+//                        return "confirmpassword";        
+//                        }
+                    return errors;
 
                     }
                     

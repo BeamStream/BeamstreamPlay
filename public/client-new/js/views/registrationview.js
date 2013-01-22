@@ -45,6 +45,7 @@
 			$('#step1_block').removeClass('active-border');
 			$('#step2_block').addClass('active-border');
 			$('#step_2').show(500);
+			console.log(this.model);
 		},
 		
 		/**
@@ -54,7 +55,15 @@
 			eventName.preventDefault();
 			$('#step_2').hide(500);
 			$('#step2_block').removeClass('active-border');
-//			$('#step3_block').addClass('active-border');
+			
+//			$("#step2_block *").disable();
+			
+			var upload_block = '<div class="round-block upload-photo"> <a href="#">'
+								+'<div class="upload-box">'
+								+'<div class="upload-plus">Upload</div>'
+								+'</div>'
+								+'</a> </div>';
+			$('#upload-step').html(upload_block);
 			$('#step_3').show(500);
 		}
        

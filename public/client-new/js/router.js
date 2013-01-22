@@ -577,6 +577,7 @@
 	    */
 	    signup: function(token,iam,email) {
 	    	
+
 	    	console.log("registration");
 	        BS.usermodel = new BS.UserModel();
 	        BS.signupview = new BS.SignUpView({model:BS.usermodel});
@@ -584,6 +585,7 @@
 	        BS.signupview.render();
 	        $('body').html(BS.signupview.el);
 	        
+
 	
 	    },
 		  
