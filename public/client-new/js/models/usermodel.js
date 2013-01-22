@@ -41,6 +41,7 @@
                     * model side validation
                     */
                 validate: function(attrs, options) {
+
                     var email_filter    = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;                         
                                        var errors =[];
                                        
@@ -56,6 +57,7 @@
                         errors.push({name: 'email', error: 'Please enter a valid email address'});
 //                        return "email";
                         }
+
                      
                     
 //                    if (attrs.userpassword == '') {
@@ -67,6 +69,7 @@
 //                        return "confirmpassword";        
 //                        }
                     return errors;
+
                     }
                     
     
