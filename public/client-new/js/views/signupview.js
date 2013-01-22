@@ -26,7 +26,8 @@
             initialize : function() {		
                 console.log('Initializing Basic Registration View');
                 this.source = $("#tpl-userregistration_home").html();
-                this.template = Handlebars.compile(this.source);	
+                this.template = Handlebars.compile(this.source);              
+                this.model.on("error", this.onerror,this);                
 		},
 		
             render : function(eventName) {			
@@ -35,22 +36,33 @@
 		},
                 
                 /**
-                * Method to register the details 
+                * Method to register the details (save the details to backend)
                 */
             register: function(eventName){
                 eventName.preventDefault();
                 var password= $('#userpassword').val();
                 var confirmPassword =  $('#confirmpassword').val();                
-                if(password===confirmPassword){                        //validation :- compare the password and confirmPassword
-                    this.model.set({
-                        password:password,
-                        confirmPassword:confirmPassword
-                        })
+                if(password===confirmPassword ){                        //validation :- compare the password and confirmPassword
+                 var tes = this.model.set({
+                        
+                        iam:$('input#usertype').val(),
+                        mailid:$('#mailid').val(),
+                        userpassword:password,
+                        confirmpassword:confirmPassword
+                        
+                        });
+                        console.log(" -"+tes)
+//                        if(tes !=false){
+                        if(tes)
+                            this.model.save();   
+//                    }
+                      
                     }
                 else{
                     console.log(" 'confirmPassword' is not match with 'Password' ")
                     }
-             
+                var regDetails = JSON.stringify( this.model);
+                console.log("modeo -"+regDetails);
 
                 },
                 
@@ -65,24 +77,29 @@
                 /**
                 * Method for validation (validation done in out of focus of the field)
                 */
-            valdation:function(eventName,param){
+            valdation:function(eventName){
                 eventName.preventDefault();
                 var id=eventName.currentTarget.id
                 var value=$('#'+id).val();   
                 
                 var map = {};                  //create json variable
                 map[id] = value;
-                this.model.on("error", function(model, error) {                 
-                    console.log('error');
-//                  _.each(error, function(eror) {
-////                     console.log(eror);
-//                       console.log(eror.error);
-//                      })
-                    });
+//
                 this.model.set(map);
+
                 
-//                var regDetails = JSON.stringify( this.model);
-//                console.log("modeo -"+regDetails);
+                var regDetails = JSON.stringify( this.model);
+                console.log("modeo -"+regDetails);
                       
+                },
+                
+            onerror: function( model, error ) {
+
+                        _.each( error, function( fieldName ) {
+//
+                       console.log(fieldName.name);
+//
+                            });
+//                console.log(error);
                 }
 	});
