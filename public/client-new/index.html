@@ -344,41 +344,50 @@ Create a Class</a>
         <div class="profile-left-container">
         <h6><span>*</span>Required Fields </h6>
           <div id="step2_block" class="profile-white registration-info box-active">
-            <input name="" type="text" placeholder="First Name">
-            <input name="" type="text" placeholder="Last Name">
+            <input id="firstName" name="firstName" type="text" placeholder="First Name">
+            <input id="lastName"  name="lastName" type="text" placeholder="Last Name">
             <div class="alert-register"><span>*Last Name will not be shown publicly</span></div>
-            <input name="" type="text" placeholder="School Name">
-            <input name="" type="text" placeholder="Major " >
-            <textarea name="" cols="" rows="" placeholder="Tell us a little about yourself."></textarea>
+            <input id="schoolName" name="schoolName" type="text" placeholder="School Name">
+            <input id="major" name="major" type="text" placeholder="Major " >
+            <textarea id="aboutYourself" name="aboutYourself" cols="" rows="" placeholder="Tell us a little about yourself."></textarea>
             <div class="profile-select-block">
-              <select name="select" class="selectpicker-info " style="display: none;">
-                <option selected="selected" >Grade Level?</option>
-                <option>My Feed 2</option>
-                <option>My Feed 3</option>
+              <select id="gradeLevel" name="gradeLevel" class="selectpicker-info " style="display: none;">
+                <option  name="" selected="selected" >Grade Level?</option>
+                <option value="Freshman">Freshman</option>
+                <option value="Sophomore">Sophomore</option>
+                <option value="Junior">Junior</option>
+                <option value="Senior">Senior</option>
+                <option value="Graduated(Master's)">Graduated(Master's)</option>
+                <option value="Graduated(Phd)">Graduated(Phd)</option>
+                <option value="Other">Other</option>
               </select>
               <div class="select-arrow-white"><img src="images/white-arrow.png" width="15" height="8"></div>
             </div>
             <div class="profile-select-block">
-              <select name="select" class="selectpicker-info " style="display: none;">
+              <select id="degreeProgram" name="degreeProgram" class="selectpicker-info " style="display: none;">
                 <option selected="selected" >Degree Program?</option>
-                <option>My Feed 2</option>
-                <option>My Feed 3</option>
+                <option value="Assosiates(AA)">Assosiates(AA)</option>
+                <option value="Bachelor's">Bachelor's</option>
+                <option value="Master's">Master's</option>
+                <option value="Doctorate(Phd)">Doctorate(Phd)</option>
+                <option value="Other">Other</option>
               </select>
               <div class="select-arrow-white"><img src="images/white-arrow.png" width="15" height="8"></div>
             </div>
             <div class="profile-select-block">
-              <select name="select" class="selectpicker-info " style="display: none;">
+              <select id="graduate" name="graduate" class="selectpicker-info " style="display: none;">
                 <option selected="selected" >Graduated?</option>
-                <option>My Feed 2</option>
-                <option>My Feed 3</option>
+                <option value="attending">Still Attending</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
               </select>
               <div class="select-arrow-white"><img src="images/white-arrow.png" width="15" height="8"></div>
             </div>
-            <input name="" type="text" placeholder="Location" class="location-note">
+            <input id="location" name="location" type="text" placeholder="Location" class="location-note">
             
             <span class="location-icon location-toolip" data-original-title="Use Current Location"><img src="images/loacation-icon.png" width="16" height="20"></span>
          
-            <input name="" type="text" placeholder="Cell Number">
+            <input id="cellNumber" name="cellNumber" type="text" placeholder="Cell Number">
             <div class="alert-register"><span>*For mobile usage options.</span></div>
           </div>
         </div>

@@ -35,7 +35,8 @@
 //                location:null
 	        },
                 
-                url:BS.verifyEmail,      
+                urlRoot:'http://192.168.10.118:3000/test',      
+                
                 
                     /**
                     * model side validation

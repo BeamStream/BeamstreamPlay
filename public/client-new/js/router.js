@@ -594,36 +594,16 @@
 	    },
 		  
 	    /**
-	     *  
-	     *  New registration pages 
+	     * Description  : For New registration pages  
+	     * Author 		: Aswathy . P.R
 	     */
 	    registration: function(){
 	    	
-			var self = this;
-			console.log("registration");
+			console.log("Registration steps here..");
 			
-			//detach body contents inorder to fill it with new view
-			$('#body-content').children().detach(); 
-			
-	    	// render top menu
-	    	this.navView = new BS.NavView({ model: BS.user });
-	    	$('#topheader').html(this.navView.render().el);
-	    	
-	    	//render middle content
+	    	//render registartion view
 	    	BS.registrationView = new BS.RegistrationView({model:BS.usermodel});
 	    	BS.registrationView.render();
-	    	$('#body-content').html(BS.registrationView.el);
-	    	
-	    	// for drop down box style
-	    	$('.selectpicker').selectpicker();
-	    	$('.selectpicker-info').selectpicker({
-	           style: 'register-select'
-	    	});
-	    	
-	    	//for tool tip
-//	    	$('.location-toolip').tooltip({template:'<div class="tooltip loactionblue"><div class="tooltip-inner"></div></div>'})
-//			$('.register-toolip-outer').tooltip({template:'<div class="tooltip register-right-toolip"><div class="tooltip-inner"></div></div>'})
-			
 			  
 	    },
 	
