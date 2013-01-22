@@ -43,11 +43,9 @@
                 validate: function(attrs, options) {
 
                     var email_filter    = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;                         
-                                       var errors =[];
+//                                       var errors =[];
                                        
-                    if (!attrs.userpassword || attrs.confirmpassword)
-//                        return "No inputs";  
-                     errors.push({name: 'no inputs', error: 'Please enter correct inputs'});
+
 //                       
 //                                                         
 //                    var errors=new Array();
@@ -55,11 +53,19 @@
 
                     if (!email_filter.test(attrs.mailid)) 
                        {
-                        errors.push({name: 'email', error: 'Please enter a valid email address'});
-//                        return "email";
+//                        errors.push({name: 'email', error: 'Please enter a valid email address'});
+                        return "No";
 
                         }
+//                        
+                        if (!attrs.userpassword){
+                        return "No";  
+                                }
+//                     errors.push({name: 'no inputs', error: 'Please enter correct inputs'});
 
+                        if(!attrs.confirmpassword) {
+                            return "No";
+                        }
                      
                     
 //                    if (attrs.userpassword == '') {
@@ -70,7 +76,7 @@
 ////                        errors.push({name: 'confirmpassword', error: 'Please enter a valid confirmpassword'});
 //                        return "confirmpassword";        
 //                        }
-                    return errors;
+//                    return errors;
 
                     }
                     

@@ -57,7 +57,9 @@
                         console.log(" -"+tes)
 //                        if(tes !=false){
                         if(tes)
-                            this.model.save();   
+                            this.model.save(); 
+
+                             BS.AppRouter.navigate("registration");
 //                    }
                       
 
@@ -90,7 +92,7 @@
                 map[id] = value;
 
 //
-
+//                this.model.validate(id:) ;
                 this.model.set(map);
 
                 
@@ -101,11 +103,13 @@
                 
             onerror: function( model, error ) {
 
-                        _.each( error, function( fieldName ) {
-//
-                       console.log(fieldName.name);
-//
-                            });
-//                console.log(error);
+//                        _.each( error, function( fieldName ) {
+////
+//                       console.log(fieldName.name);
+////
+//                            });
+                if (error){
+                console.log(error); }
+            
                 }
 	});
