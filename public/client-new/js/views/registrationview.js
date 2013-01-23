@@ -72,9 +72,9 @@
 			$('#step_2').show(500);
 			
 			
-//			var newUser = new BS.UserModel({id :1});
+			var newUser = new BS.UserModel();
 //			newUser.url = "/user/" + 12;
-//			newUser.fetch();
+			newUser.fetch();
 //			console.log(BS.usermodel.get('mailid'));
 		},
 		

@@ -56,17 +56,19 @@
     //                console.log(regDetails);
                     var self = this;
                     if(response !=false){
-                        this.model.save({}, {
-                            success : function(model, response) {								
-    //                                self.model.set({
-    //                                        id : response
-    //                                });
-                                    BS.AppRouter.navigate("registration");						
-                                    },
-                            error : function(model, response) {
-                                    console.log("error ");
-                                    }
-                            });    
+                    	this.model.save();
+//                        this.model.save({}, {
+//                            success : function(model, response) {								
+//    //                                self.model.set({
+//    //                                        id : response
+//    //                                });
+//                                    BS.AppRouter.navigate("registration");						
+//                                    },
+//                            error : function(model, response) {
+//                                    console.log("error ");
+//                                    }
+//                            });    
+                    	BS.AppRouter.navigate("registration", {trigger: true});
                         }
                         }
                     else{

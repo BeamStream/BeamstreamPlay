@@ -18,8 +18,8 @@
 
         BS.UserModel = Backbone.Model.extend({
     
-                defaults: {	        	
-                    iam:0
+        	defaults: {	        	
+        		iam:0
     //                mailid:null,
     //                userpassword:null,
     //                confirmpassword:null
@@ -33,31 +33,38 @@
     //                graduate:null,
     //                cellNumber:null,
     //                location:null
-                    },
+            },
 
-                    url:BS.verifyEmail,      
+            url:BS.verifyEmail,   
+//            urlRoot:'http://192.168.10.118:3000/test',
+                    
+                    
+            /* @ TODO .Will remove this after getting server methods */ 
+            sync: function(method, model, options){  
+                options.dataType = "jsonp";  
+                return Backbone.sync(method, model, options);  
+            },  
 
-                        /**
-                        * model side validation
-                        */
+            /**
+            * model side validation
+            */
+            validate: function(attrs, options) {
+                var email_filter    = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;                         
+                var errors =[];
+                if ((_.has(attrs,"mailid"))&&(!email_filter.test(attrs.mailid))) {
+                    errors.push({name: 'mailid', error: 'Please enter a valid email address'});
+                    }
+//                        
+                if ( (_.has(attrs,"userpassword"))&&(attrs.userpassword==="") )  {  
+                    errors.push({name: 'userpassword', error: 'Please enter a valid email address'});
+                    }
+                    
+                if ( (_.has(attrs,"confirmpassword"))&&(attrs.confirmpassword==="") )  {  
+                    errors.push({name: 'confirmpassword', error: 'Please enter a valid email address'});
+                    }
 
-                validate: function(attrs, options) {
-                    var email_filter    = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;                         
-                    var errors =[];
-                    if ((_.has(attrs,"mailid"))&&(!email_filter.test(attrs.mailid))) {
-                        errors.push({name: 'mailid', error: 'Please enter a valid email address'});
-                        }
-    //                        
-                    if ( (_.has(attrs,"userpassword"))&&(attrs.userpassword==="") )  {  
-                        errors.push({name: 'userpassword', error: 'Please enter a valid email address'});
-                        }
-                        
-                    if ( (_.has(attrs,"confirmpassword"))&&(attrs.confirmpassword==="") )  {  
-                        errors.push({name: 'confirmpassword', error: 'Please enter a valid email address'});
-                        }
+                if ( errors.length ) return errors;
 
-                    if ( errors.length ) return errors;
-
-                    }    
+                }    
 
 });
