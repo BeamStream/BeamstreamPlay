@@ -87,12 +87,13 @@ function loadJanrainShareWidget() {
 /**
  * Documentation here.
  */
-function showJanrainShareWidget(message, title, url, description) {
+function showJanrainShareWidget(message, title, url, description ,selected_media) {
   janrain.engage.share.reset();
   janrain.engage.share.setMessage(message);
   janrain.engage.share.setTitle(title);
   janrain.engage.share.setUrl(url);
   janrain.engage.share.setDescription(description);
+  janrain.engage.share.setProviders(selected_media);
   janrain.engage.share.show();
 }
 

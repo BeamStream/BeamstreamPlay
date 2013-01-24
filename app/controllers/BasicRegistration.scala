@@ -85,7 +85,6 @@ object BasicRegistration extends Controller {
                   val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
                   val createdUser = User.getUserProfile(IdOfUserCreted)
                   val noOfOnLineUsers = onlineUserCache.setOnline(IdOfUserCreted.toString)
-                  println("Online Users" + noOfOnLineUsers)
                   Ok(write(List(createdUser))).withSession(RegistrationSession)
                 case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
               }

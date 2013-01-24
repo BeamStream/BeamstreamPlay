@@ -1233,11 +1233,11 @@ Create a Class</a>
                   </div>
                    <ul id="share-discussions" class="social-icons">
                    <span>Share On:</span>
-                    <li class="google-plus"><a href="#">Google plus</a></li>
-                    <li class="plus"><a href="#">p</a></li>
-                    <li class="twitter"> <a href="#">Twitter</a></li>
-                    <li class="facebook"><a href="#"> face book</a></li>
-                    <li class="in"><a href="#"> in</a></li>
+                    <li name="google" class="google-plus"><a href="#">Google plus</a></li>
+                    <li name="plus" class="plus"><a href="#">p</a></li>
+                    <li  name="twitter" class="twitter"> <a href="#">Twitter</a></li>
+                    <li name="facebook" class="facebook"><a href="#"> face book</a></li>
+                    <li name="linkedin" class="in"><a href="#"> in</a></li>
                   </ul>
                 </div>
               </div>
@@ -1351,11 +1351,12 @@ Create a Class</a>
                   <a href="#" class="add-poll ">Add Poll</a>
                   <ul  id="share-discussions" class="social-icons">
 					<span>Share On:</span>
-                    <li class="google-plus"><a href="#">Google plus</a></li>
-                    <li class="plus"><a href="#">p</a></li>
-                    <li class="twitter"> <a href="#">Twitter</a></li>
-                    <li class="facebook"><a href="#"> face book</a></li>
-                    <li class="in"><a href="#"> in</a></li>
+                    <li name="google" class="google-plus"><a href="#">Google plus</a></li>
+                    <li name="plus" class="plus"><a href="#">p</a></li>
+                    <li  name="twitter" class="twitter"> <a href="#">Twitter</a></li>
+                    <li name="facebook" class="facebook"><a href="#"> face book</a></li>
+                    <li name="linkedin" class="in"><a href="#"> in</a></li>
+
                   </ul>
                 </div>
               </div>
@@ -3016,6 +3017,17 @@ Create a Class</a>
 			}
 		});
 	    
+		
+		Array.prototype.remove = function() {
+		    var what, a = arguments, L = a.length, ax;
+		    while (L && this.length) {
+		        what = a[--L];
+		        while ((ax = this.indexOf(what)) !== -1) {
+		            this.splice(ax, 1);
+		        }
+		    }
+		    return this;
+		};
 		
 	</script>
 	
