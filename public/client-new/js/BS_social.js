@@ -94,24 +94,6 @@ function showJanrainShareWidget(message, title, url, description ,selected_media
   janrain.engage.share.setUrl(url);
   janrain.engage.share.setDescription(description);
   janrain.engage.share.setProviders(selected_media);
-  /* show selected media only */
-//  switch(selected_media){
-//  
-//	  case "google-plus": 
-//		  janrain.engage.share.setProviders(['google']);
-//		  break;
-//	  case "in": 
-//		  janrain.engage.share.setProviders(['linkedin']);
-//		  break;
-//	  case "twitter": 
-//		  janrain.engage.share.setProviders(['twitter']);
-//		  break;
-//	  case "facebook": 
-//		  janrain.engage.share.setProviders(['facebook']);
-//		  break;
-//	  
-//  }
-  
   janrain.engage.share.show();
 }
 
