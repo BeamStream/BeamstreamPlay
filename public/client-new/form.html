@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <script src="js/apps/common/modernizr-2.6.1.min.js"></script>
+        <link href="css/main.css" media="screen" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+
+        <div id="form" data-model="person" data-module="view/personView">
+            <div class="row-grp">
+                <label>First Name: </label><div class="field"><input type="text" data-name="person.firstName" name="firstName" /></div>
+            </div>
+            <div class="row-grp">
+                <label>Last Name: </label><div class="field"><input type="text" data-name="person.lastName" name="lastName" /></div>
+            </div>
+            <div class="row-grp">
+                <label>Age: </label><div class="field"><input type="text" data-name="person.age" name="age" /></div>
+            </div>
+        </div>
+
+       <script data-main="js/main" src="js/libs/require/require.js"></script>
+    </body>
+</html>

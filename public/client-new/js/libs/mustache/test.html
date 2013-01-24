@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Untitled Document</title>
+  <script language="javascript" type="text/javascript" src="mustache.js"></script>
+  <script type="text/javascript" src="../jquery/jquery-1.7.1.min.js"></script>
+
+</head>
+
+<body>
+  <div id="sampleArea"></div>
+
+<script>
+var person = {
+    firstName: "Christophe",
+    lastName: "Coenraets",
+    blogURL: "http://coenraets.org"
+};
+var template = "<h1>{{firstName}} {{lastName}}</h1>Blog: {{blogURL}}";
+var html = Mustache.to_html(template, person);
+$('#sampleArea').html(html);
+</script>
+</body>
+</html>
