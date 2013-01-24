@@ -63,6 +63,7 @@
 			BS.pageLimit = 10;
 			var self = this;
 			self.file = "";
+			BS.Q_selected_medias = [];
 			
 			$(window).bind('scroll', function (ev) {
 				
@@ -690,11 +691,12 @@
 		            	 
                          //call a common function to display questions 
                          self.showQuestion(streamId,data,BS.profileImageUrl);
-
-	                          
-                         _.each(data, function(data) {
- 			    	 		 showJanrainShareWidget(data.messageBody, 'View my Beamstream post', 'http://beamstream.com', data.messageBody);
-	    	 	 		 });
+                         console.log(BS.Q_selected_medias);
+                         if(BS.Q_selected_medias.length != 0){
+	                         _.each(data, function(data) {
+	 			    	 		 showJanrainShareWidget(question, 'View my Beamstream post', 'http://beamstream.com', question,BS.Q_selected_medias);
+		    	 	 		 });
+                         }
                           
                           /* delete default embedly preview */
      			  		 $('div.selector').attr('display','none');
@@ -1440,11 +1442,13 @@
         	$('#select-privateTo').text("Public");
         	if($(eventName.target).parents('li').hasClass('active'))
         	{
+        		BS.Q_selected_medias.remove($(eventName.target).parents('li').attr('name'));
         		$(eventName.target).parents('li').removeClass('active');
         	}
         	else
         	{
         		$(eventName.target).parents('li').addClass('active');
+        		BS.Q_selected_medias.push($(eventName.target).parents('li').attr('name'));
         	}
         	
         },

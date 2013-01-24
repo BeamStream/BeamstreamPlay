@@ -1335,8 +1335,6 @@
         		
         		BS.selected_medias.remove($(eventName.target).parents('li').attr('name'));
         		$(eventName.target).parents('li').removeClass('active');
-        		console.log(2222);
-        		console.log(BS.selected_medias);
         		 
         	}
         	else
@@ -1344,8 +1342,7 @@
         		
         		BS.selected_medias.push($(eventName.target).parents('li').attr('name'));
         		$(eventName.target).parents('li').addClass('active');
-        		console.log(2222);
-        		console.log(BS.selected_medias);
+         
         	}
         	
         },
