@@ -77,7 +77,7 @@
 			this.source = $("#tpl-discussion-middle-contents").html();
 			this.template = Handlebars.compile(this.source);
 			
-			
+			BS.selected_medias = [];
 			BS.msgSortedType = '';
 			BS.pagenum = 1;
 			BS.pageForVotes = 1;
@@ -902,9 +902,14 @@
                             	 $('input#'+data.message.id.id+'-url').val(msgUrl);  
                              }                                           
 		    	 		 });
-			    	 	 _.each(data, function(data) {
-			    	 		 showJanrainShareWidget(data.messageBody, 'View my Beamstream post', 'http://beamstream.com', data.message.messageBody);
-			    	 	 });
+   				    	 
+//   				    	 var selected_media  = $('#share-discussions li.active').attr('name');
+   				    	 console.log(BS.selected_medias);
+   				    	 if(BS.selected_medias.length != 0){
+				    	 	 _.each(data, function(data) {
+				    	 		 showJanrainShareWidget(data.message.messageBody, 'View my Beamstream post', 'http://beamstream.com', data.message.messageBody ,BS.selected_medias);
+				    	 	 });
+   				    	 }
 		     		 }      
    				     
    				     /* delete default embedly preview */
@@ -1322,15 +1327,25 @@
         actvateShareIcon: function(eventName){
         	
         	eventName.preventDefault();
+        	
         	$('#private-to').attr('checked',false);
         	$('#select-privateTo').text("Public");
         	if($(eventName.target).parents('li').hasClass('active'))
         	{
+        		
+        		BS.selected_medias.remove($(eventName.target).parents('li').attr('name'));
         		$(eventName.target).parents('li').removeClass('active');
+        		console.log(2222);
+        		console.log(BS.selected_medias);
+        		 
         	}
         	else
         	{
+        		
+        		BS.selected_medias.push($(eventName.target).parents('li').attr('name'));
         		$(eventName.target).parents('li').addClass('active');
+        		console.log(2222);
+        		console.log(BS.selected_medias);
         	}
         	
         },
