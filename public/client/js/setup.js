@@ -18,7 +18,6 @@ Backbone.history.start();
 
 //BS.URLRequired ="http://www.beamstream.com";
  
-
 BS.URLRequired ="http://test.beamstream.com"
 
 	
