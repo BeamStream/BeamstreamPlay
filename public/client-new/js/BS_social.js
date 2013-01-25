@@ -84,6 +84,28 @@ function loadJanrainShareWidget() {
   s.parentNode.insertBefore(e, s);
 }
 
+//var janrainShareOnload = function() {
+//	  var facebookButton = document.getElementById("shareFacebook");
+//	  facebookButton.onclick = function() {
+//	    janrain.engage.share.loginAndSend({
+//	      "provider":"facebook",
+//	      "mode":"broadcast",
+//	      "contacts":[],
+//	      "title":"AOL",
+//	      "url":"http://aol.com",
+//	      "description":"The best web service ever",
+//	      "message":"You've got mail!",
+//	      "image":"http://aol.com/logo.png",
+//	      "media":"http://aol.com/promo.swf",
+//	      "actionLink":{
+//	        "name":"Instant Message",
+//	        "link":"http://aim.com/"
+//	      }
+//	    });
+//	  };
+//	};
+	
+	
 /**
  * Documentation here.
  */
@@ -94,6 +116,7 @@ function showJanrainShareWidget(message, title, url, description ,selected_media
   janrain.engage.share.setUrl(url);
   janrain.engage.share.setDescription(description);
   janrain.engage.share.setProviders(selected_media);
+//  janrain.engage.share.setProviders(['pinterest']);
   janrain.engage.share.show();
 }
 

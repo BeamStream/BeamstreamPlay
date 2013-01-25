@@ -675,6 +675,10 @@
   				    	 
   				    	 // remove question text and poll options after post
 		            	 $('#Q-area').val("");
+		            	 
+		            	 $('#share-discussions li.active').removeClass('active');
+		            	 
+		            	 
 		            	 $('#pollArea').slideUp(700); 
 		            	 $('.moreOptions').remove();
 		            	 $('#uploded-file').hide();
@@ -703,6 +707,8 @@
      			  		 $('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
      			  		 $('div.selector').remove();
        				  	 $('#Q-area').val("");
+       				     $('#share-discussions li.active').removeClass('active');
+       				     BS.Q_selected_medias = [];
 	             }
    	 		 }
     		 });
