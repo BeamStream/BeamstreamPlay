@@ -19,7 +19,7 @@
 	
 			events : {
 			    "click #registeration":"register",
-			    "click .menu-pic":"getValue",
+			    "click .menu-pic":"getUserTypeValue",
 			    "focusout .home_reg":"valdation"
 		    },
 	
@@ -84,9 +84,13 @@
 		    /**
 		    * Method to set the value of "i am"
 		    */
-			getValue:function(eventName){
+		    getUserTypeValue:function(eventName){
 			    eventName.preventDefault();
+			    console.log(eventName.currentTarget);
+			    $('.menu-pic div.active').removeClass('active');
+			    $(eventName.currentTarget).find('div').addClass('active');
 			    $("#usertype").val(eventName.currentTarget.id);
+			    
 		    },
 	
 	
