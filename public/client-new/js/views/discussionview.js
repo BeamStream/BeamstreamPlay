@@ -599,7 +599,10 @@
                         $('img#'+data.message.id.id+'-img').attr("src", BS.profileImageUrl);
                         $('.drag-rectangle').tooltip();	
 //                        $('input#'+data.id.id+'-url').val(msgUrl); 
-	                      	 
+	                      
+	                    BS.selected_medias = [];
+	                    $('#share-discussions li.active').removeClass('active');
+	                    
                       	/* for video popups */
 	                    $("area[rel^='prettyPhoto']").prettyPhoto();
     					$(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
@@ -917,6 +920,9 @@
 			  		 $('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
 			  		 $('div.selector').remove();
    				  	 $('#msg-area').val("");
+   				     $('#share-discussions li.active').removeClass('active');
+   				     BS.selected_medias = [];
+   				     console.log(BS.selected_medias);
 
     	 		 }
      		 });
