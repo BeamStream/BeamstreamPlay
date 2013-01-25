@@ -3756,8 +3756,10 @@ Sign Up
 }
 
 .signup-outer h3 span {
-		float:right;
-		font-size:13px;
+	float: right;
+    font-size: 13px;
+    text-align: right;
+    width:48%;
 }
 
 .signup-outer h3 a {
@@ -3804,15 +3806,17 @@ Sign Up
 }
 
 .sign-up-whitebg {
-		background:#fff;
+		background:#f7f9fa;
 }
 
 ul.sign-menu {
-		background:url(../images/sign-line.png) left 140px repeat-x;
+		background:url(../images/sign-line.png) left bottom repeat-x #fff;
 		list-style:none;
-		padding:30px 0 70px 0;
+		padding:30px 0 90px 0;
 		display:block;
-		overflow:hidden;
+		width:100%;
+		position:relative;
+		margin-bottom: 100px;
 }
 
 ul.sign-menu li {
@@ -3948,7 +3952,8 @@ ul.signup-register li fieldset {
 		background: none repeat scroll 0 0 #FFFFFF;
 		padding:0px;
 		border-radius: 8px 8px 8px 8px;
-		box-shadow: 0 2px 2px 0 #999999 inset;
+		box-shadow: 0 2px 4px 0 #999999 inset;
+		border-bottom:solid 1px #fff;
 		padding:0 0 0 70px;
 		color: #3F5A6C;
 		position:relative;
@@ -3969,12 +3974,18 @@ ul.signup-register li input {
 		font-size:16px;
 }
 
-.sign-tick {
+.sign-tick, .sign-close {
 		position:absolute;
 		right:18px;
-		top:18px;
+		top:25px;
+		background:url(../images/tick.png) no-repeat;
+		width:17px;
+		height:13px;
 }
-
+.sign-close{
+background:url(../images/close-sign.png) no-repeat;	
+	
+}
 .header-menu-inner {
 		margin-bottom: -4px !important;
 }
@@ -4559,6 +4570,20 @@ ul.gallery-pic li img {
 		background:#f7f9fa;
 }
 
+.registration-info fieldset {
+		position:relative;
+}
+
+.red-star{
+color:#da1f1f;
+position:absolute;
+right:10px;
+top:11px;
+font-size:16px;
+font-weight:700;}
+
+.select-star{right:50px;}
+
 .registration-info input {
 		height:37px;
 		background:#fff;
@@ -4580,7 +4605,7 @@ ul.gallery-pic li img {
 }
 
 .location-note {
-		width:75% !important;
+		width:78% !important;
 		float:left;
 }
 
@@ -4783,7 +4808,10 @@ ul.register-social li a {
 
 .tick-register {
 		float:left;
-		padding:30px 0 0 0;
+		margin:30px 0 0 0;
+		background:url(../images/tick-new.png) no-repeat;
+		width:29px;
+		height: 23px;
 }
 
 ul.register-social li a {
@@ -4798,6 +4826,10 @@ ul.register-social li a {
 		color:#fff;
 		font-size:15px;
 		font-weight:700;
+		opacity: 0.5;
+}
+ul.register-social li a:hover, .register-social li a.active{
+		opacity:inherit !important;
 }
 
 ul.register-social li a span {
@@ -5548,9 +5580,19 @@ ul.email-social-icons li.other2 {
 }
 
 .register-right-toolip:after {
-	left: 100%; border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none;
+	left: 100%; 
+	border: solid transparent; 
+	content: " "; 
+	height: 0; 
+	width: 0; 
+	position: absolute; 
+	pointer-events: none;
 }
 
 .register-right-toolip:after {
-		border-color: rgba(57, 80, 96, 0); border-left-color: #395060; border-width:6px; top: 50%; margin-top: -5px;
+		border-color: rgba(57, 80, 96, 0); 
+		border-left-color: #395060; 
+		border-width:6px; 
+		top: 50%; 
+		margin-top: -5px;
 }

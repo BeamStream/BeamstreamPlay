@@ -1192,6 +1192,60 @@ ul.profil-pic-outer li {
 
 
 
+
+/*Register*/
+
+.profile-left-container {
+		width:30%;
+}
+.profile-right-container {
+		width:30%;
+}
+.profile-center-container {
+		width:40%;
+		min-height:1000px;
+}
+.round-block {
+		height: 559px;
+	 left: 6%;
+		top:13%;
+		width: 87%;
+}
+
+
+.step-box {
+    height: 250px;
+    left: 8%;
+    padding: 2%;
+    top: -50px;
+    width: 79%;
+}
+
+.upload-box {
+		top:100px;
+				left:-8px;
+}
+
+.step-box1 {
+		    height: 100px;
+    left: 16%;
+    padding: 2%;
+    top: 30px;
+    width: 80%;
+}
+
+.step-box2 {
+
+		left:0%;
+		top:30px;
+		padding:2%;
+
+}
+
+
+
+
+
 }
 
 @media (max-width: 767px) {
@@ -2232,6 +2286,31 @@ ul.profil-pic-outer li {
 		min-height:1000px;
 }
 
+
+
+
+/*Register*/
+
+.upload-photo {
+	   left: 23%;
+    top: 14%;
+    width: 54%;
+}
+
+.profile-left-container {
+		width:23%;
+}
+
+.profile-right-container {
+		width:23%;
+}
+
+
+.profile-center-container {
+		width:54%;
+		min-height:1000px;
+}
+
 .round-block {
 		height: 559px;
 		left:19%;
@@ -2271,6 +2350,10 @@ ul.profil-pic-outer li {
 		padding:2%;
 
 }
+
+
+
+
 
 
 
