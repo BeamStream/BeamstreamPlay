@@ -863,9 +863,9 @@ width:auto !important;
 	padding:4.5% 3.5% 3.5% 4.5%;
 }
 .public-profile {
-	width:70%;
-	height:40px;
-	padding:4%;
+	height: 45px;
+    padding: 7% 0 0 4%;
+    width: 70%;
 }
 .left-container {
 	width:20%;
@@ -1051,7 +1051,7 @@ ul.social-icons{
 
 
 .profile-button {
-		padding: 2px 30px;
+		padding:1% 8%;
 
 }
 
@@ -1062,23 +1062,22 @@ ul.social-icons{
 /*  Overview  */
 .event-block-blue {
 		width:89%;
-			margin:1% 4% 0  4%;
+		margin:1% 4% 0  4%;
 
 }
-
   .turn-btn {
 	 margin: 5px 0px 15px 7px;
 	 padding: 5px 0; width:48% ;
 }
 
 .details-btn {
-		 margin: 5px 0px 15px 7px;
+	margin: 5px 0px 15px 7px;
 	padding: 5px 0; width:48% ;
 }
 
 
 .rock-btn {
-		margin:0 0 0 30%;
+	margin:0 0 0 30%;
 }
 
 
@@ -2014,8 +2013,8 @@ ul.social-icons{
 }
 .public-profile {
 	width:60%;
-	height:40px;
-	padding:4%;
+	height:45px;
+	padding:6% 0 0 4%;
 }
 .left-container {
 	width:25%;
@@ -2216,13 +2215,15 @@ ul.stream-tab li a span {
 }
 .menu ul li a {
 
-    padding:8px 20px 15px 55px;
+    padding:15px 20px 22px 55px;
 
 }
 
 
 .profile-button {
 		padding: 2px 12px;
+		margin-right: 2%;
+        padding: 1% 4%;
 
 }
 
@@ -2252,7 +2253,7 @@ ul.profil-pic-outer li {
 .menu ul li a:hover,
 .menu ul li a.active {
 
-		background-position: center 32px, top right;
+		background-position: center 45px, top right;
 }
 
 .menu ul li a:hover span,
