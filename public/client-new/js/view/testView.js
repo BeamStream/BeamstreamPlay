@@ -3,8 +3,8 @@ define(['view/baseView'], function(BaseView){
 	TestView = BaseView.extend({
 		objName: 'TestView',
 		
+		
 	})
-	
 	return TestView;
 });
 

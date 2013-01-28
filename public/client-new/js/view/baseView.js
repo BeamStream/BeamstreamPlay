@@ -7,9 +7,9 @@
 define(['view/container',
         'model/baseModel',
         'collection/baseCollection',
-        'widgets/modal',
+//        'widgets/modal',
         'apps/common/templatemanager'
-        ], function(Container, BaseModel, BaseCollection, Modal, TemplateManager) {
+        ], function(Container, BaseModel, BaseCollection, TemplateManager) {
 
 	var BaseView; 
 	BaseView = Container.extend({
