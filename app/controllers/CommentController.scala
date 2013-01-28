@@ -28,20 +28,6 @@ object CommentController extends Controller {
 
     val commentJson = request.body.asFormUrlEncoded.get
     
-    /**
-     * Visitors Pattern approach
-     */
-
-    //    val consumers: List[CommentConsumer] = List(Message, Document)
-    //    val messageId = commentJson("messageId").toList(0)
-    //    val commentText = commentJson("comment").toList(0)
-    //    val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-    //    val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
-    //      commentPoster.firstName, commentPoster.lastName, 0, List())
-    //    val commentId = Comment.createComment(comment)
-    //    consumers.map(_.addComment(new ObjectId(messageId), commentId))
-    //    Ok(write(List(comment))).as("application/json")
-
     
     try {
       /**

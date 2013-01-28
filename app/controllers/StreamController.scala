@@ -30,6 +30,9 @@ object StreamController extends Controller {
     override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
+  /**
+   * Check the cookies if login exists & taking corresponding actions
+   */
   def index = Action { implicit request =>
     val playCookiee = request.cookies.get("PLAY_SESSION")
     if (playCookiee == None) Redirect("/beamstream/home.html")
@@ -40,9 +43,8 @@ object StreamController extends Controller {
     }
   }
 
-  /*
+  /**
    * Get All Stream for a user
-   * 
    */
   def getAllStreamForAUser = Action { implicit request =>
     val allStreamsForAUser = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
@@ -50,9 +52,8 @@ object StreamController extends Controller {
     Ok(allStreamsForAUserJson).as("application/json")
   }
 
-  /*
+  /**
    * Get All Class Stream for a user
-   * 
    */
   def allClassStreamsForAUser = Action { implicit request =>
     val allClassStreamsForAUser = Stream.allClassStreamsForAUser(new ObjectId(request.session.get("userId").get))
@@ -60,7 +61,7 @@ object StreamController extends Controller {
     Ok(allStreamsForAUserJson).as("application/json")
   }
 
-  /*
+  /**
    * Show the no. of users attending classes
    * @Purpose: For Showing no. of classes
    */
@@ -73,7 +74,7 @@ object StreamController extends Controller {
     Ok(write(rolesOfUsers)).as("application/json")
   }
 
-  /*
+  /**
    * Get All Public Messages For A User
    * @Purpose: For Public Profile (Stream Specific Results)
    */
