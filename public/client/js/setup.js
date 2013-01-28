@@ -10,12 +10,12 @@ Backbone.history.start();
 */
 
 
-BS.URLRequired ="http://localhost:9000"; 
+//BS.URLRequired ="http://localhost:9000"; 
 
 //BS.URLRequired ="http://www.beamstream.com";
  
 
-//BS.URLRequired ="http://test.beamstream.com"
+BS.URLRequired ="http://test.beamstream.com"
 
 	
 // For Login Page
