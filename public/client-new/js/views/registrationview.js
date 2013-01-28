@@ -36,9 +36,13 @@
 			//detach body contents inorder to fill it with new view
 			$('#body-content').children().detach(); 
 			
-			/* @TODO   render top menu */  
-	    	this.navView = new BS.NavView({ model: BS.user});
-	    	$('#topheader').html(this.navView.render().el);
+//			/* @TODO   render top menu */  
+//	    	this.navView = new BS.NavView({ model: BS.user});
+//	    	$('#topheader').html(this.navView.render().el);
+			
+			var source = $("#header-for-registration").html();
+			var template = Handlebars.compile(source);
+			$('#topheader').html(template);
 			
 	    	/*render middle content */
 			$(this.el).html(this.template);
