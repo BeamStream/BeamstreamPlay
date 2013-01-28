@@ -265,9 +265,9 @@ object DocumentController extends Controller {
     val media = new UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Image, DocumentAccess.withName(docAccess), false, "", 0, List(), List())
     val mediaId = UserMedia.saveMediaForUser(media)
     //Create A Message As Well To Display The Doc Creation In Stream
-    val message = Message(new ObjectId, docURL, Option(MessageType.Image),  Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(docURL), Option(mediaId.get))
+    val message = Message(new ObjectId, docURL, Option(MessageType.Image), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(docURL), Option(mediaId.get))
     Message.createMessage(message)
-    new DocResulttoSent(message,documentName,docDescription)
+    new DocResulttoSent(message, documentName, docDescription)
   }
 
   /**
@@ -281,7 +281,7 @@ object DocumentController extends Controller {
     val mediaId = UserMedia.saveMediaForUser(media)
     val message = Message(new ObjectId, docURL, Option(MessageType.Video), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(videoFrameURL), Option(mediaId.get))
     Message.createMessage(message)
-    new DocResulttoSent(message,documentName,docDescription)
+    new DocResulttoSent(message, documentName, docDescription)
   }
 
   /**
@@ -293,10 +293,10 @@ object DocumentController extends Controller {
     val documentId = Document.addDocument(documentCreated)
     val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(previewImageUrl), Option(documentId))
     Message.createMessage(message)
-    new DocResulttoSent(message,documentName,docDescription)
+    new DocResulttoSent(message, documentName, docDescription)
   }
   /**
-   * Save Pdf
+   * Save other documents
    */
   private def saveOtherDOcFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User, docNameOnAmazon: String) = {
     val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, userId, DocumentAccess.withName(docAccess),
@@ -304,7 +304,21 @@ object DocumentController extends Controller {
     val documentId = Document.addDocument(documentCreated)
     val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), None, Option(documentId))
     Message.createMessage(message)
-   new DocResulttoSent(message,documentName,docDescription)
+    new DocResulttoSent(message, documentName, docDescription)
+  }
+
+  /**
+   * Get view count of a document
+   */
+
+  def viewCount = Action { implicit request =>
+    val documentDetailsJsonMap = request.body.asFormUrlEncoded.get
+    val docId = documentDetailsJsonMap("docId").toList(0)
+    val mediaFile = UserMedia.findMediaById(new ObjectId(docId))
+    if (mediaFile != None) {
+      UserMedia.increaseViewCountOfUsermedia(mediaFile.get.id)
+    } else Document.increaseViewCountOfADocument(new ObjectId(docId))
+    Ok
   }
 }
 

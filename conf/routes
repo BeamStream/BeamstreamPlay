@@ -59,6 +59,7 @@ POST /getRockers                        controllers.DocumentController.giveMeRoc
 POST /getDocument                       controllers.DocumentController.getDocument
 POST /getDocumentFromDisk               controllers.DocumentController.getDocumentFromDisk
 POST /followDocument                    controllers.DocumentController.followDocument
+POST /viewCount                         controllers.DocumentController.viewCount
 
 #Schools
 
