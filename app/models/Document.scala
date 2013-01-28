@@ -55,7 +55,8 @@ case class Document(@Key("_id") id: ObjectId,
   documentRockers: List[ObjectId],
   commentsOnDocument: List[ObjectId],
   documentFollwers: List[ObjectId],
-  previewImageUrl: String)
+  previewImageUrl: String,
+  views: Int = 0)
 
 object Document extends RockConsumer {
 
@@ -164,8 +165,18 @@ object Document extends RockConsumer {
         updatedDocumentWithAddedIdOfFollower.documentFollwers.size
     }
   }
-  
-//TODO : Should Be Removed 
+
+  /**
+   * Increasing View Count
+   */
+  def increaseViewCountOfADocument(docId: ObjectId) {
+    val docFound = DocumentDAO.find(MongoDBObject("_id" -> docId)).toList(0)
+    DocumentDAO.update(MongoDBObject("_id" -> docId), docFound.copy(views = (docFound.views + 1)), false, false, new WriteConcern)
+    val updatedDocFound = DocumentDAO.find(MongoDBObject("_id" -> docId)).toList(0)
+    updatedDocFound.views
+  }
+
+  //TODO : To Be Removed if visitors pattern will not be used
   // Add Rock to Doc If Message Contains docIdIfAny
   def rockTheMediaOrDoc(idToBeRocked: ObjectId, userId: ObjectId) {
     val docToBeRocked = Document.findDocumentById(idToBeRocked)
