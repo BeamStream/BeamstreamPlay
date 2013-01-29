@@ -1,0 +1,51 @@
+body{margin:0; padding:0; font-size:13px;}
+ul, li{margin:0; padding:0;}
+li{list-style: none; padding:10px; border-bottom:1px solid #ddd;}
+.image{width:100px; height:100px; display:inline-block; vertical-align: top; border:1px solid #ddd; margin-right:10px; overflow: hidden}
+.desc{width:75%; display:inline-block; vertical-align: top;}
+h2, h3{padding:0; margin:0;}
+h2{font-size:22px;}
+h3{font-size:17px;}
+input{
+	border-radius: 5px;
+	border:2px solid #999;
+	border-radius: 8px 8px 8px 8px;
+    box-shadow: 0 2px 2px 0 #999999 inset;
+    color: #3F5A6C;
+    height: 48px;
+	padding:4px 10px;
+	font-size: 36px;
+	width:500px;
+}
+.field-change{
+	background:#fff;
+	border:2px solid green;
+	box-shadow: 0 2px 2px 0 green inset;
+}
+.invalid{
+	border: 2px solid #cc0033 !important;
+	box-shadow: 0 2px 2px 0 #cc0033 inset;
+}
+.field-error{display: block; color:#cc0033;}
+.holder .error{
+	color:red; 
+}
+
+.row-grp{
+	clear:both;
+	display:block;
+	width:100%;
+	margin-bottom:10px;
+	border-bottom:1px solid #ddd;
+	padding:10px;
+}
+.row-grp label{
+	width:130px;
+	display: inline-block;
+	vertical-align: middle;
+	font-size:20px;
+}
+.row-grp .field{
+	display: inline-block;
+	vertical-align: top;
+}

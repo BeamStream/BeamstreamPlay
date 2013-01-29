@@ -9,6 +9,7 @@ tmp
 .target/
 bin
 .settings
+.sbt
 
 *.db
 /nbproject/private/
