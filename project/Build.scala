@@ -40,4 +40,10 @@ object ApplicationBuild extends Build {
     lessEntryPoints <<= baseDirectory(customLessEntryPoints),
 
     resolvers += "xuggle repo" at "http://xuggle.googlecode.com/svn/trunk/repo/share/java/"
+).settings(
+
+resolvers += "Sonatype Nexus Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
+
+        resolvers += "Sonatype Nexus Releases" at "https://oss.sonatype.org/content/repositories/releases"
+
 )}
