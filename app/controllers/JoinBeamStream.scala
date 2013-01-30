@@ -7,6 +7,7 @@ import net.liftweb.json.Serialization.{ read, write }
 import models.BetaUser
 import org.bson.types.ObjectId
 import models.UserType
+import actors.UtilityActor
 
 object JoinBeamStream extends Controller {
 
@@ -25,6 +26,7 @@ object JoinBeamStream extends Controller {
       case true => Ok(write(new ResulttoSent("Success", "You've been already added to the Beamstream's beta users list")))
       case false =>
         BetaUser.addBetaUser(userToCreate)
+        UtilityActor.sendMailWhenBetaUserRegisters
         Ok(write(new ResulttoSent("Success", "Congratulations! You've been added to the Beamstream's beta users list")))
     }
 
