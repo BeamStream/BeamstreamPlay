@@ -4,6 +4,11 @@
 
 # Home page
 GET / controllers.StreamController.index
+GET /overview        		controllers.Overview.index
+GET /questions        		controllers.Questions.questions
+GET /discussions       		controllers.Discussions.discussions
+GET /deadlines        		controllers.Deadlines.deadlines
+GET /calendar        		controllers.Calendar.calendar
 
 
 # Templating Demo
