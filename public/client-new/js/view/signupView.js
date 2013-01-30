@@ -8,6 +8,9 @@ define(['view/baseView'], function(BaseView){
 //		clickRow: function(e){
 //			$(e.target).css({'color':'red'});
 //		}
+                onAfterInit: function(){
+			this.data.reset({})
+		}
 
 
 		
