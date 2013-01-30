@@ -26,7 +26,7 @@ object JoinBeamStream extends Controller {
       case true => Ok(write(new ResulttoSent("Success", "You've been already added to the Beamstream's beta users list")))
       case false =>
         BetaUser.addBetaUser(userToCreate)
-        UtilityActor.sendMailWhenBetaUserRegisters
+        UtilityActor.sendMailWhenBetaUserRegisters(userToCreate.emailId)
         Ok(write(new ResulttoSent("Success", "Congratulations! You've been added to the Beamstream's beta users list")))
     }
 
