@@ -16,11 +16,14 @@ import java.text.DateFormat
 @RunWith(classOf[JUnitRunner])
 class BetaUserTest extends FunSuite with BeforeAndAfter {
 
+  before {
+    BetaUserDAO.remove(MongoDBObject("emailId" -> ".*".r))
+  }
+
   test("Add Beta User & Find Beta User") {
-    val betaUser = BetaUser(new ObjectId, UserType.Educator, "neelkanth@knoldus.com")
+    val betaUser = BetaUser(new ObjectId, "neelkanth@knoldus.com")
     BetaUser.addBetaUser(betaUser)
     assert(BetaUser.findBetaUserbyEmail("neelkanth@knoldus.com").size === 1)
-    assert(BetaUser.findBetaUserbyEmail("neelkanth@knoldus.com").head.userType === UserType.Educator)
   }
 
   after {
