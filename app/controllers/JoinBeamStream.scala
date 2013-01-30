@@ -12,18 +12,19 @@ object JoinBeamStream extends Controller {
 
   implicit val formats = DefaultFormats
 
+  /**
+   *  Beta Users Registration
+   */
   def regsisterToBeamStreamBeta = Action { implicit request =>
     val userInfoJsonMap = request.body.asFormUrlEncoded.get
+    val emailId = userInfoJsonMap("email").toList(0)
+    val userToCreate = new BetaUser(new ObjectId, emailId)
 
-    val iam = userInfoJsonMap("iam").toList(0)
-    val email = userInfoJsonMap("email").toList(0)
-    val userToCreate = new BetaUser(new ObjectId, UserType.apply(iam.toInt), email)
-
-    val betaUsersFound = BetaUser.findBetaUserbyEmail(email)
+    val betaUsersFound = BetaUser.findBetaUserbyEmail(emailId)
     (!betaUsersFound.isEmpty) match {
       case true => Ok(write(new ResulttoSent("Success", "You've been already added to the Beamstream's beta users list")))
       case false =>
-        val userId = BetaUser.addBetaUser(userToCreate)
+        BetaUser.addBetaUser(userToCreate)
         Ok(write(new ResulttoSent("Success", "Congratulations! You've been added to the Beamstream's beta users list")))
     }
 
