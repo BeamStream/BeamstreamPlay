@@ -8,11 +8,13 @@ import utils.SendEmail
 import javax.mail.internet.InternetAddress
 import javax.mail.Message
 import play.api.Play
+import play.api.i18n.Messages
 
 /**
  * Actor Creation
  */
 class SendMailActor extends Actor {
+
   def receive = {
     case messageReceived: String ⇒
 
@@ -20,14 +22,8 @@ class SendMailActor extends Actor {
       val recepientAddress = new InternetAddress(messageReceived)
       authenticatedMessageAndSession._1.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
       authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress);
-      authenticatedMessageAndSession._1.setSubject("Registration Process On BeamStream");
-      authenticatedMessageAndSession._1.setContent(
-
-        "Thank you for registering at <b>Beamstream</b>. We're stoked!. " +
-          "Stay tuned with us as we evolve." +
-          "<br>" + "<br>" + "<br>" +
-          "Cheers," + "<br>" +
-          "The Really Nice Beamstream Folks , US" + "<br>", "text/html");
+      authenticatedMessageAndSession._1.setSubject("Beta User Registration On BeamStream");
+      authenticatedMessageAndSession._1.setContent(Messages("BetaUserRegistrationMessage"), "text/html");
       val transport = authenticatedMessageAndSession._2.getTransport("smtp");
       transport.connect("smtp.gmail.com", "aswathy@toobler.com", Play.current.configuration.getString("email_password").get)
       transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
