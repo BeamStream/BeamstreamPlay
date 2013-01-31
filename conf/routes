@@ -6,6 +6,9 @@
 GET / controllers.StreamController.index
 
 
+# Templating Demo
+GET /template controllers.TemplateController.index
+
 #Beta Users
 POST /betaUser   controllers.JoinBeamStream.regsisterToBeamStreamBeta
 
