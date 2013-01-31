@@ -9,6 +9,9 @@ GET / controllers.StreamController.index
 #Beta Users
 POST /betaUser   controllers.JoinBeamStream.regsisterToBeamStreamBeta
 
+# Template Try
+POST /betaUserviaTemplate   controllers.JoinBeamStream.regsisterToBeamStreamBetaviaTeplate
+GET  /betaUserviaTemplate   controllers.JoinBeamStream.betaUserRegistration
 
 #User
 POST /users      controllers.UserController.findUser
