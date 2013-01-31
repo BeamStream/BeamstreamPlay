@@ -14,10 +14,10 @@ import play.api.Play
  */
 class SendMailActor extends Actor {
   def receive = {
-    case emailId: String ⇒
+    case messageReceived: String ⇒
 
       val authenticatedMessageAndSession = SendEmail.setEmailCredentials
-      val recepientAddress = new InternetAddress(emailId)
+      val recepientAddress = new InternetAddress(messageReceived)
       authenticatedMessageAndSession._1.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
       authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress);
       authenticatedMessageAndSession._1.setSubject("Registration Process On BeamStream");
