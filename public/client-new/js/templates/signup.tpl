@@ -13,6 +13,8 @@
 		* -
   -->
   
+  
+  
 
 <div class="container-fluid signup-container">
     <div class="main-container ">

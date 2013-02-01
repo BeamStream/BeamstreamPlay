@@ -512,11 +512,11 @@
 
 	  	                $('#progressbar').hide();
 	  	                
-	  	                
+	  	                console.log(55);
 	  	                /* Pubnub auto push */
 	  	                PUBNUB.publish({
 	  	                	channel : "stream",
-	  	                		message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data.message,prifileImage : BS.profileImageUrl}
+	  	                		message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,prifileImage : BS.profileImageUrl}
 	  	                }) 
                       
 //                        $('input#'+data.id.id+'-url').val(msgUrl);  
@@ -2050,10 +2050,10 @@
 					 { 
 						 if(message.streamId==streamId)
 			       		 	{
-							 	if(!document.getElementById(message.data.id.id))
-							 	{	
+							 	if(!document.getElementById(message.data.message.id.id))
+							 	{	 
 							 		 var messageType = '';
-							 		 var msgBody = message.data.messageBody;
+							 		 var msgBody = message.data.message.messageBody;
 		                             var msgUrl=  msgBody.replace(BS.urlRegex1, function(msgUrlw) {
 		                            	 trueurl= msgUrlw;                                                                  
 		                            	 return msgUrlw;
@@ -2063,7 +2063,7 @@
 		                             var extension = (trueurl).match(pattern);  
 		                             
 		                             //to check whether the url is a google doc url or not
-		                             if(message.data.messageType.name == "Text")                          
+		                             if(message.data.message.messageType.name == "Text")                          
 		                             {	
 		                            	 if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) 
 		                                 {   
@@ -2087,7 +2087,7 @@
 		   	   		                	 });
 
 		                    		 }
-		                             var datVal =  formatDateVal(message.data.timeCreated);
+		                             var datVal =  formatDateVal(message.data.message.timeCreated);
 		                             var datas = {
 		                            		 "datas" : message.data,
 		                            		 "datVal":datVal
@@ -2118,12 +2118,12 @@
 		                             // if message conatains  uploaded files
 		 							 else
 		 							 {
-		 								 if(message.data.messageType.name == "Image")
+		 								 if(message.data.message.messageType.name == "Image")
 		 								 {
 		 									  
 		 									 var source = $("#tpl-messages_with_images").html();
 		 								 }
-		 								 else if(message.data.messageType.name == "Video")
+		 								 else if(message.data.message.messageType.name == "Video")
 		 								 {
 		 									 var source = $("#tpl-messages_with_images").html();
 		 								 }
@@ -2146,7 +2146,7 @@
 		 									 }
 		 									 else if(extension == 'Pdf')
 		 									 {
-		 										 previewImage= message.data.anyPreviewImageUrl;
+		 										 previewImage= message.data.message.anyPreviewImageUrl;
 		 										 type = "pdf";
 		 									 }
 		 									 else
@@ -2176,7 +2176,7 @@
 		                             $('#all-messages').prepend(template(datas));
 
 		                             //get profile image of logged user
-		                             $('img#'+message.data.id.id+'-img').attr("src", message.prifileImage);
+		                             $('img#'+message.data.message.id.id+'-img').attr("src", message.prifileImage);
 		                             
 		                             /* for video popups */
 		                             $("area[rel^='prettyPhoto']").prettyPhoto();
@@ -2185,17 +2185,17 @@
 		                 			
 		  						
 		  							 var url=message.data.messageBody;				
-		  							 if(message.data.messageType.name == "Text")
+		  							 if(message.data.message.messageType.name == "Text")
 		  							 {  
 		  								 
 		  								 if(linkTag)
-			  								 $('p#'+message.data.id.id+'-id').html(linkTag);
+			  								 $('p#'+message.data.message.id.id+'-id').html(linkTag);
 		  								 
 		  								 //to check the extension of the url                                            
 		                                 if(!url.match(/^(https:\/\/docs.google.com\/)/)) 
 		                                 {	
 		                                	 // embedly
-		                                	 $('p#'+message.data.id.id+'-id').embedly({
+		                                	 $('p#'+message.data.message.id.id+'-id').embedly({
 		                                		 maxWidth: 200,
 		 	                                	 wmode: 'transparent',
 		                                		 method: 'after',
@@ -2209,7 +2209,7 @@
 		                         	 }                                          
 		                             else      //insert value to hidden field
 		                             {
-		                            	 $('input#'+message.data.id.id+'-url').val(msgUrl);  
+		                            	 $('input#'+message.data.message.id.id+'-url').val(msgUrl);  
 		                             }                                           
 						 	   }
 	       		 		   }

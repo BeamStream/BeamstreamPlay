@@ -3754,7 +3754,7 @@ Sign Up
 
 .signup-outer {
 		margin:0 auto;
-		width:70%;
+
 }
 
 .signup-outer h3 {
@@ -3822,11 +3822,12 @@ Sign Up
 ul.sign-menu {
 		background:url(../images/sign-line.png) left bottom repeat-x #fff;
 		list-style:none;
-		padding:30px 0 90px 0;
+		padding:30px 0 0px 0;
 		display:block;
 		width:100%;
 		position:relative;
-		margin-bottom: 100px;
+		margin-bottom:80px;
+		height:110px;
 }
 
 ul.sign-menu li {
@@ -3857,7 +3858,6 @@ ul.signup-register {
 		list-style:none;
 		display:block;
 		overflow:hidden;
-		width:80%;
 		margin:0 auto;
 }
 
