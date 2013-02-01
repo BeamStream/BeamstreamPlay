@@ -3820,6 +3820,8 @@ Sign Up
 
 .sign-up-whitebg {
 		background:#f7f9fa;
+		display:block;
+		overflow:hidden;
 }
 
 ul.sign-menu {
@@ -3834,16 +3836,16 @@ ul.sign-menu {
 }
 
 ul.sign-menu li {
-		width:500px;
+		width:100%;
 		margin:0 auto;
+		text-align:center;;
 }
 
 ul.sign-menu li a {
 		margin:0 25px;
-		display:block;
+		display:inline-block;
 		height:115px;
-		float:left;
-		color:#a0aeb8;
+			color:#a0aeb8;
 		font-weight:600;
 		font-size: 14px;
 }
@@ -3864,6 +3866,7 @@ ul.signup-register {
 		display:block;
 		overflow:hidden;
 		margin:0 auto;
+		float:left;
 }
 
 ul.signup-register h5 {

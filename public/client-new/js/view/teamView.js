@@ -8,8 +8,6 @@ define(['view/baseView'], function(BaseView){
 		clickRow: function(e){
 			$(e.target).css({'color':'red'});
 		}
-
-
 		
 	})
 	return TeamView;
