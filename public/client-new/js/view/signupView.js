@@ -16,7 +16,7 @@
 * 
 */
 
-define(['view/formView' ,'model/user'], function(FormView , UserModel){
+define(['view/formView'], function(FormView){
 	var signupView;
 	signupView = FormView.extend({
 		objName: 'signupView',
@@ -25,29 +25,17 @@ define(['view/formView' ,'model/user'], function(FormView , UserModel){
 		events:{
 			'click #registeration': 'registration'
 		},
-				
+
 		onAfterInit: function(){
+			console.log(this.data);
 			this.data.reset();
 		},
-
-
 		/**
 		 * @TODO  user registration 
 		 */
 		registration:function(e){
 			e.preventDefault();
-			var user = new UserModel();
-			
-			user.set({
-				mailId :  $('#mailid').val(),
-				password :  $('#password').val(),
-				confirmPassword : $('#confirmPassword').val(),
-				 
-			});
-			
-			var userDetails = JSON.stringify(user);
-			console.log(userDetails);
-			user.save();
+			this.saveForm();
 			
 		},
 		

@@ -454,6 +454,13 @@
 }
 
 
+/*Sign Up*/
+
+.signup-outer {
+		width:70% !important;
+}
+
+
 
 
 /*  Overview  */
@@ -1651,15 +1658,11 @@ ul.social-icons{
 
 @media (max-width: 765px) {
 
-
 .green-btn-new{ margin-left:20%;}
 .green-btn span.texter-new{ padding:0 60px;}
-
-
 .menu ul li  {
 	padding:0 17px;
 }
-
 
 }
 
@@ -1959,29 +1962,15 @@ ul.social-icons{
 	
 @media (min-width: 550px) {
   .sortable li {
-								width:91%;
+	width:91%;
 }
 	}
-	
-	
+
 	@media (min-width: 600px) {
   .sortable li {
-								width:92%;
+  width:92%;
+ }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-	}
 
 @media (min-width: 980px) {
   .nav-collapse.collapse {
@@ -2352,8 +2341,15 @@ ul.profil-pic-outer li {
 
 }
 
+/*Sign Up*/
 
+.signup-outer {
+		width:85%;
+}
 
+ul.signup-register {
+		width:80%;
+}
 
 
 

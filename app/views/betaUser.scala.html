@@ -1,0 +1,15 @@
+@(betaUserRegsitrationForm : Form[String],message:String) 
+
+@import helper._
+
+@helper.form(action = routes.JoinBeamStream.regsisterToBeamStreamBetaviaTeplate) {
+
+<fieldset>@inputText(betaUserRegsitrationForm("email"),	'_label -> "Email" )</fieldset>
+<input type="submit" value="Join the Beta List ">
+
+<script type="text/javascript">
+var messageRetreived="@message"
+if(messageRetreived !="") alert(messageRetreived)
+</script>
+
+}

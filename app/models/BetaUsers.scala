@@ -8,22 +8,26 @@ import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import com.mongodb.casbah.commons.MongoDBObject
 
-case class BetaUser(@Key("_id") id: ObjectId, userType: UserType.Value , emailId: String)
+case class BetaUser(@Key("_id") id: ObjectId, emailId: String)
+
 object BetaUser {
 
-   
-  
-  def addBetaUser(betaUser: BetaUser): ObjectId = {
-    val betaUserId = BetaUserDAO.insert(betaUser)
-    betaUserId.get
-  }
- /*
-  * Find User By Id
-  */
+  /**
+   * Add Beta User
+   */
+  def addBetaUser(betaUser: BetaUser) = {
+    BetaUserDAO.insert(betaUser)
+  }: Option[ObjectId]
 
-  def findBetaUserbyEmail(email: String): List[BetaUser] = {
-    val userFound = BetaUserDAO.find(MongoDBObject("emailId" -> email)).toList
-    userFound
-  }
+  /**
+   * Find User By Id
+   */
+
+  def findBetaUserbyEmail(email: String) = {
+    BetaUserDAO.find(MongoDBObject("emailId" -> email)).toList
+  }: List[BetaUser]
+
 }
+
+
 object BetaUserDAO extends SalatDAO[BetaUser, ObjectId](collection = MongoHQConfig.mongoDB("betausers"))
