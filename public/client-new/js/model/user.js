@@ -1,4 +1,4 @@
- /***
+/***
 * BeamStream
 *
 * Author                : Aswathy P.R (aswathy@toobler.com)
@@ -32,6 +32,27 @@ define(['model/baseModel'], function(BaseModel) {
 			confirmPassword: {
 				required: true,
 //				equalTo: 'password'
+			},
+                        firstName: {
+				required: true
+			},
+			lastName: {
+				required: true
+			},
+			schoolName: {
+				required: true
+			},
+			major: {
+				required: true
+			},
+			aboutYourself: {
+				required: true
+			},
+			location: {
+				required: true
+			},
+			cellNumber: {				
+                                pattern: 'phone'
 			}
 		}
 

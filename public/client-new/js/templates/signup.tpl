@@ -1,4 +1,20 @@
- <div class="container-fluid signup-container">
+<!-- 	* BeamStream
+		*
+		* Author                : Aswathy P.R (aswathy@toobler.com)
+		* Company               : Toobler
+		* Email:                : info@toobler.com
+		* Web site              : http://www.toobler.com
+		* Created               : 29/January/2013
+		* Description           : Templates for sign up page
+		* ==============================================================================================
+		* Change History:
+		* ----------------------------------------------------------------------------------------------
+		* Sl.No.  Date   Author   Description
+		* -
+  -->
+  
+
+<div class="container-fluid signup-container">
     <div class="main-container ">
       <div class="signup-outer">
         <h3>Registration Options <span>Already have an account? <a href="#">Sign In</a></span></h3>
@@ -12,8 +28,6 @@
 	         <div class="sign-up-tick"></div>
 
               </div>
-
-
                 </a> <a href="#"> <span>I'm an Educator</span>
                 <div class="menu-pic" id="1"><img src="images/educator.png" width="115" height="115">
                <div class="sign-up-tick"></div>
@@ -28,16 +42,16 @@
               <li>
                 <h5>Register with Email</h5>
                 <form action="" method="get">
-                  <fieldset class="message ">
-                    <input class="home_reg" name="" type="text" placeholder="School Email" id="mailid">
+                  <fieldset class="message field">
+                    <input class="home_reg" data-name="user.mailId" name="mailId" type="text" placeholder="School Email" id="mailid">
                     <div class="sign-tick"></div>
                   </fieldset>
-                  <fieldset class="password">
-                    <input class="home_reg" name="" type="password" placeholder="Password" id="userpassword">
+                  <fieldset class="password field">
+                    <input class="home_reg" data-name="user.password" name="password" type="password" placeholder="Password" id="password">
                     <div class="sign-close"></div>
                   </fieldset>
-                  <fieldset class="password">
-                    <input class="home_reg"name="" type="password" placeholder="Confirm Password " id="confirmpassword">
+                  <fieldset class="password field">
+                    <input class="home_reg" data-name="user.confirmPassword" name="confirmPassword"  type="password" placeholder="Confirm Password " id="confirmPassword">
                     <div class="sign-tick"></div>
                   </fieldset>
                 </form>
