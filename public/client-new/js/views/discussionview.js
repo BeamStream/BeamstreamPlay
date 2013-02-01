@@ -512,7 +512,7 @@
 
 	  	                $('#progressbar').hide();
 	  	                
-	  	                console.log(55);
+	  	               
 	  	                /* Pubnub auto push */
 	  	                PUBNUB.publish({
 	  	                	channel : "stream",
@@ -609,13 +609,13 @@
     					$(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
 	        			
                     },
-                    error:function(error){
-                    	bootbox.alert("You need to add a stream first.");
-                    	self.file = "";
-	              	    $('#file-upload-loader').css("display","none");
-                    	$('#msg-area').val("");
-                    	$('.embed-info').css("display","none");
-                    }
+//                    error:function(error){
+////                    	bootbox.alert("You need to add a stream first.");
+//                    	self.file = "";
+//	              	    $('#file-upload-loader').css("display","none");
+//                    	$('#msg-area').val("");
+//                    	$('.embed-info').css("display","none");
+//                    }
                 }); 
         	}
 	        else
@@ -700,6 +700,7 @@
     	  * NEW THEME - POST message details to server 	
     	  */
     	 postMsgToServer: function(message,streamId,messageAccess){
+    		 
     		 
     		 var self = this; 
              var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
