@@ -3770,6 +3770,7 @@ Sign Up
     font-size: 13px;
     text-align: right;
     width:65%;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 .signup-outer h3 a {
@@ -3796,6 +3797,8 @@ Sign Up
 		background: linear-gradient(#dba921, #d59b1d);
 		-pie-background: linear-gradient(#dba921, #d59b1d);
 		behavior: url(css/PIE.htc);
+		text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+		font-weight:600;
 }
 
 .signup-outer h3 a:hover {
@@ -3840,7 +3843,9 @@ ul.sign-menu li a {
 		display:block;
 		height:115px;
 		float:left;
-		color:#425e71;
+		color:#a0aeb8;
+		font-weight:600;
+		font-size: 14px;
 }
 
 ul.sign-menu li a:hover {
@@ -3864,34 +3869,41 @@ ul.signup-register {
 ul.signup-register h5 {
 		color:#9cabb5;
 		font-weight:400;
-		font-size:16px;
+		font-size:18px;
 }
 
 ul.signup-register li {
 		float:left;
 		border-right:solid 1px #d9dee1;
-		width:48%;
+		width:56%;
+		position:relative;
 }
+
 
 ul.signup-register li.lastblock {
 		border-right:0px;
 		padding:0 0 0 60px;
-		width:40%;
+		width:33%;
 		float:right;
 }
 
 ul.signup-register li.lastblock a {
 		height:58px;
-		-webkit-border-radius:3px;
-		-moz-border-radius: 3px;
-		border-radius: 3px;
-		behavior: url(css/PIE.htc);
-		display:block;
+			display:block;
 		line-height:58px;
 		margin:20px 0 0 0;
 		color:#fff;
 		font-size:16px;
 		font-weight:700;
+		-webkit-border-radius:5px;
+       -moz-border-radius:5px;
+       border-radius:5px;
+       behavior: url(css/pie/PIE.htc);
+       text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+ul.signup-register li a:hover{
+opacity:0.8;
 }
 
 ul.signup-register li.lastblock a span {
@@ -3956,17 +3968,21 @@ ul.signup-register li.lastblock a.link-in {
 
 ul.signup-register li fieldset {
 		float:left;
-		width:75%;
+		width:70%;
 		height:58px;
 		margin:20px 0 0 0;
 		background: none repeat scroll 0 0 #FFFFFF;
 		padding:0px;
-		border-radius: 8px 8px 8px 8px;
 		box-shadow: 0 2px 4px 0 #999999 inset;
 		border-bottom:solid 1px #fff;
 		padding:0 0 0 70px;
 		color: #3F5A6C;
 		position:relative;
+		-webkit-border-radius:5px;
+       -moz-border-radius:5px;
+       border-radius:5px;
+       behavior: url(css/pie/PIE.htc);
+		
 }
 
 ul.signup-register li fieldset.message {
@@ -3981,7 +3997,7 @@ ul.signup-register li input {
 		background:none;
 		height:58px;
 		color:#c0c1c2;
-		font-size:16px;
+		font-size:18px;
 }
 
 .sign-tick, .sign-close {
@@ -4032,7 +4048,20 @@ opacity: .7;
 
 	}
 
+.sign-or{position:absolute;right:0px;background:#f6f8f9;
+-webkit-border-radius:20px;
+       -moz-border-radius:20px;
+       border-radius:20px;
+       behavior: url(css/pie/PIE.htc);
+       border:solid 1px #d3d9dc;
+       padding:5px;
+       height:16px; width:16px;
+       right:-14px;
+       top:0px;
+       line-height:16px; text-align:center; color:#a0a4a7;font-size: 10px;font-weight:600;text-transform:uppercase;
 
+
+}
 
 
 
@@ -4065,17 +4094,17 @@ text-shadow: 1px 1px 1px #616161;
 }
 
 .register-menu-block {
-		padding:40px 0;
+		padding:40px 0 0 0;
 		float:left;
 		display: inline-block;
         width: 100%;
 }
 
-.register-menu-block span {padding-right:15px;}
+.register-menu-block span {padding-right:8px;}
 
 .register-btn {
 		background: #57975b;
-		font-size:16px;
+		font-size:18px;
 		background: -webkit-gradient(linear, 0 0, 0 bottom, from(#57975b), to(#417545));
 		background: -webkit-linear-gradient(#57975b, #417545);
 		background: -moz-linear-gradient(#57975b, #417545);
@@ -4094,6 +4123,8 @@ text-shadow: 1px 1px 1px #616161;
 		border-radius: 4px;
 		behavior: url(css/PIE.htc);
 		float:left;
+		text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+		font-weight:600;
 }
 
 
