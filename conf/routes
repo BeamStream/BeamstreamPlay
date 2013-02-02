@@ -5,10 +5,10 @@
 # Home page
 GET / controllers.StreamController.index
 GET /overview        		controllers.Overview.index
-GET /questions        		controllers.Questions.questions
-GET /discussions       		controllers.Discussions.discussions
-GET /deadlines        		controllers.Deadlines.deadlines
-GET /calendar        		controllers.Calendar.calendar
+GET /questions        		controllers.Questions.index
+GET /discussions       		controllers.Discussions.index
+GET /deadlines        		controllers.Deadlines.index
+GET /calendar        		controllers.Calendar.index
 
 
 # Templating Demo
