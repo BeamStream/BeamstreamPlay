@@ -37,9 +37,7 @@ define(['view/formView'], function(FormView){
 			this.saveForm();
 			
 		},
-//		serverError: function(){
-//			alert(453);
-//		},
+
 		
  
 	})
