@@ -16,7 +16,7 @@
 * 
 */
 
-define(['view/formView'], function(FormView){
+define(['view/formView','../../lib/bootstrap.min'], function(FormView ,Bootstrap){
 	var betaUserView;
 	betaUserView = FormView.extend({
 		objName: 'betaUserView',
@@ -33,9 +33,10 @@ define(['view/formView'], function(FormView){
 		 * @TODO  beta userregistration 
 		 */
 		betaUserRegistration: function(e){
-			
+			console.log(45);
 			e.preventDefault();
-			this.saveForm();
+
+//			this.saveForm();
 			
 		},
 
