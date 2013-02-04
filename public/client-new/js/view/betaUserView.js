@@ -33,6 +33,7 @@ define(['view/formView'], function(FormView){
 		 * @TODO  beta userregistration 
 		 */
 		betaUserRegistration: function(e){
+			
 			e.preventDefault();
 			this.saveForm();
 			

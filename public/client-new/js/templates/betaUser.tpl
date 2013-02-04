@@ -40,11 +40,11 @@
     </div>
     <div class="banner-content"> <a href="#" class="btn-share"></a>
       <div class="form-content">
-        <div class="join-form">
+        <div class="join-form field"  >
           <h6>Stay up to date as we evolve.</h6>
           <span class="join-email"></span>
-          <input type="text" placeholder="Enter Your Email Address">
-          <a href="#myModal" role="button" class="btn-blue btn-join" data-toggle="modal">Join The Beta List</a> </div>
+          <input type="text" placeholder="Enter Your Email Address" data-name="user.mailId" name="mailId" >
+          <a id="betaRegister" href="#myModal" role="button" class="btn-blue btn-join" data-toggle="modal">Join The Beta List</a> </div>
       </div>
       <h3>A <span>FREE</span> Social Learning Network, Built for Higher Education</h3>
     </div>
