@@ -46,7 +46,6 @@ define(['view/container',
 			}
 		},
 		initialize: function(options, callback) {
-			console.log(this)
 			var that = this;
 			_.bindAll(this, 'add', 'remove', 'getTemplate', 'createData', 'getModel', 'fetch', 'set', 'render', 'onAfterRender');
 
