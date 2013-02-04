@@ -52,58 +52,37 @@ function loadJanrainShareWidget() {
   if (typeof window.janrain.settings.share !== 'object') window.janrain.settings.share = {};
   if (typeof window.janrain.settings.packages !== 'object') janrain.settings.packages = [];
   janrain.settings.packages.push('share');
-
+    
   /* _______________ can edit below this line _______________ */
-
-  janrain.settings.share.message = 'Join Beamstream!';
-  janrain.settings.share.title = 'Beamstream!';
-  janrain.settings.share.url = 'http://beamstream.com';
-  janrain.settings.share.description = 'Join Beamstream now!';
-  janrain.settings.share.embed = false;
-
+    
+  janrain.settings.share.message = "Janrain is really amazing.";
+  janrain.settings.share.title = "Janrain is awesome!";
+  janrain.settings.share.url = "http://janrain.com/";
+  janrain.settings.share.description = "Janrain is more awesome than ever before.";
+    
   /* _______________ can edit above this line _______________ */
-
+    
   function isReady() { janrain.ready = true; };
   if (document.addEventListener) {
-      document.addEventListener("DOMContentLoaded", isReady, false);
+  document.addEventListener("DOMContentLoaded", isReady, false);
   } else {
-      window.attachEvent('onload', isReady);
+  window.attachEvent('onload', isReady);
   }
-
+    
   var e = document.createElement('script');
   e.type = 'text/javascript';
   e.id = 'janrainWidgets';
-
+    
   if (document.location.protocol === 'https:') {
-    e.src = 'https://rpxnow.com/js/lib/beamstream/widget.js';
+  e.src = 'https://rpxnow.com/js/lib/widget-examples-pro/share_beta.js';
   } else {
-    e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/widget.js';
+  e.src = 'http://widget-cdn.rpxnow.com/js/lib/widget-examples-pro/share_beta.js';
   }
-
+    
   var s = document.getElementsByTagName('script')[0];
   s.parentNode.insertBefore(e, s);
 }
 
-//var janrainShareOnload = function() {
-//	  var facebookButton = document.getElementById("shareFacebook");
-//	  facebookButton.onclick = function() {
-//	    janrain.engage.share.loginAndSend({
-//	      "provider":"facebook",
-//	      "mode":"broadcast",
-//	      "contacts":[],
-//	      "title":"AOL",
-//	      "url":"http://aol.com",
-//	      "description":"The best web service ever",
-//	      "message":"You've got mail!",
-//	      "image":"http://aol.com/logo.png",
-//	      "media":"http://aol.com/promo.swf",
-//	      "actionLink":{
-//	        "name":"Instant Message",
-//	        "link":"http://aim.com/"
-//	      }
-//	    });
-//	  };
-//	};
 	
 	
 /**
@@ -116,7 +95,7 @@ function showJanrainShareWidget(message, title, url, description ,selected_media
   janrain.engage.share.setUrl(url);
   janrain.engage.share.setDescription(description);
   janrain.engage.share.setProviders(selected_media);
-//  janrain.engage.share.setProviders(['pinterest']);
+//  janrain.engage.share.setProviders(['email']);
   janrain.engage.share.show();
 }
 

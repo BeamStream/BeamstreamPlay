@@ -13,7 +13,7 @@
 		* -
   -->
   
- <html lang="en">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <title>BeamStream</title>
@@ -107,10 +107,10 @@
           with your connections.</h2>
       </div>
       <ul class="modal-share">
-        <li> <a href="#" class="f-share"><span></span>Share on Facebook</a> </li>
-        <li> <a href="#" class="t-share"><span></span>Share on Twitter</a> </li>
-        <li> <a href="#" class="g-share"><span></span>Share on Google+</a> </li>
-        <li> <a href="#" class="l-share"><span></span>Share on Linkedin</a> </li>
+        <li id="facebook"> <a href="#" class="f-share"><span></span>Share on Facebook</a> </li>
+        <li id="twitter"> <a href="#" class="t-share"><span></span>Share on Twitter</a> </li>
+        <li id="email"> <a href="#" class="g-share"><span></span>Share on Google+</a> </li>
+        <li id="linkedin" > <a href="#" class="l-share"><span></span>Share on Linkedin</a> </li>
       </ul>
     </div>
   </div>
@@ -131,10 +131,10 @@
           with your connections.</h2>
       </div>
       <ul class="modal-share">
-        <li> <a href="#" class="f-share"><span></span>Share on Facebook</a> </li>
-        <li> <a href="#" class="t-share"><span></span>Share on Twitter</a> </li>
-        <li> <a href="#" class="g-share"><span></span>Share on Google+</a> </li>
-        <li> <a href="#" class="l-share"><span></span>Share on Linkedin</a> </li>
+        <li id="facebook" > <a href="#" class="f-share"><span></span>Share on Facebook</a> </li>
+        <li id="twitter"> <a href="#" class="t-share"><span></span>Share on Twitter</a> </li>
+        <li id="email" > <a href="#" class="g-share"><span></span>Share on Google+</a> </li>
+        <li id="linkedin"> <a href="#" class="l-share"><span></span>Share on Linkedin</a> </li>
       </ul>
     </div>
   </div>

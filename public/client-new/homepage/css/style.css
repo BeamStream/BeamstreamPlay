@@ -710,3 +710,7 @@ ul.modal-share li a:hover{
 }
 
 
+/* Added by Aswathy  - for janRain popups*/
+#janrain-share{
+	z-index:999999 !important;
+}
