@@ -15,8 +15,6 @@ GET /calendar        		controllers.Calendar.index
 GET /template controllers.TemplateController.index
 
 
-
-
 #User
 POST /users      controllers.UserController.findUser
 GET /onlineUsers  controllers.UserController.getAllOnlineUsers
