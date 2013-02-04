@@ -15,35 +15,13 @@ object JoinBeamStream extends Controller {
   implicit val formats = DefaultFormats
 
   /**
-   * Beta User Registration Form
-   */
-  val betaUserRegsitrationForm = Form("email" -> email)
-
-  /**
    *  Beta User Page Rendering
    */
 
   def betaUserRegistration = Action {
-    Ok(views.html.betaUser(betaUserRegsitrationForm, ""))
+    Ok(views.html.betaUser())
   }
 
-  /**
-   *  Beta Users Registration
-   */
-  def regsisterToBeamStreamBetaviaTeplate = Action { implicit request =>
-
-    betaUserRegsitrationForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.betaUser(errors, "")),
-      betaUserRegsitrationForm => {
-        println(request.body.asFormUrlEncoded.get("email").toList(0))
-        UtilityActor.sendMailWhenBetaUserRegisters(request.body.asFormUrlEncoded.get("email").toList(0))
-        Ok(views.html.betaUser(JoinBeamStream.betaUserRegsitrationForm,  "Congratulations! You've been added to the Beamstream's beta users list"))
-      })
-
-  }
-
-  
-  
   /**
    *  Beta Users Registration
    */
