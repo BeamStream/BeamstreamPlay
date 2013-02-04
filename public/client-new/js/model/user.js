@@ -33,7 +33,7 @@ define(['model/baseModel'], function(BaseModel) {
 				required: true,
 //				equalTo: 'password'
 			},
-                        firstName: {
+            firstName: {
 				required: true
 			},
 			lastName: {
@@ -52,7 +52,7 @@ define(['model/baseModel'], function(BaseModel) {
 				required: true
 			},
 			cellNumber: {				
-                                pattern: 'phone'
+                pattern: 'phone'
 			}
 		}
 

@@ -21,6 +21,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
+
 <body>
 <header id="header">
   <div class="container">
@@ -38,13 +39,14 @@
       <h1>College <span>just got easier</span></h1>
       <h3>& a whole lot more<span>social.</span></h3>
     </div>
-    <div class="banner-content"> <a href="#" class="btn-share"></a>
+    <div class="banner-content">
+    <a href="#modalShare" role="button" class="btn-share" data-toggle="modal"></a>
       <div class="form-content">
-        <div class="join-form field"  >
+        <div class="join-form">
           <h6>Stay up to date as we evolve.</h6>
           <span class="join-email"></span>
-          <input type="text" placeholder="Enter Your Email Address" data-name="user.mailId" name="mailId" >
-          <a id="betaRegister" href="#myModal" role="button" class="btn-blue btn-join" data-toggle="modal">Join The Beta List</a> </div>
+          <input type="text" placeholder="Enter Your Email Address">
+          <a href="#modalJoin" role="button" class="btn-blue btn-join" data-toggle="modal">Join The Beta List</a> </div>
       </div>
       <h3>A <span>FREE</span> Social Learning Network, Built for Higher Education</h3>
     </div>
@@ -86,10 +88,10 @@
 <div class="btm-footer">
   <h6>©2013 BeamStream. All Rights Reserved</h6>
 </div>
-<!-- Modal -->
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- Modal Join-->
+<div id="modalJoin" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
     <h3 id="myModalLabel"><span>Congratulations,</span> you've joined the beta list for the most awesome college collaboration network in the universe! </h3>
     <h5>(ok maybe the <span>only</span> college collaboration network)</h5>
   </div>
@@ -99,8 +101,33 @@
     </div>
     <div class="share-content">
       <div class="share-info">
+      	<span class="arrow-bg"></span>
         <h5>Want to be an exclusive 1st User? </h5>
-        <h2>Share    
+        <h2>Share<img src="beamstream-new/homepage/img/beamstream-blue.jpg">    
+          with your connections.</h2>
+      </div>
+      <ul class="modal-share">
+        <li> <a href="#" class="f-share"><span></span>Share on Facebook</a> </li>
+        <li> <a href="#" class="t-share"><span></span>Share on Twitter</a> </li>
+        <li> <a href="#" class="g-share"><span></span>Share on Google+</a> </li>
+        <li> <a href="#" class="l-share"><span></span>Share on Linkedin</a> </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal Share-->
+<div id="modalShare" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+  <div class="modal-body">    
+    <div class="share-content">
+      <div class="share-info">
+      	<span class="arrow-bg"></span>
+        <h2>Share<img src="beamstream-new/homepage/img/beamstream-blue.jpg">    
           with your connections.</h2>
       </div>
       <ul class="modal-share">

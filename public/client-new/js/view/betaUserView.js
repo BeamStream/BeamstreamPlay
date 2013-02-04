@@ -16,7 +16,7 @@
 * 
 */
 
-define(['view/formView','../../lib/bootstrap.min'], function(FormView ,Bootstrap){
+define(['view/formView','../../lib/bootstrap.min'], function(FormView ,Bootstrap ){
 	var betaUserView;
 	betaUserView = FormView.extend({
 		objName: 'betaUserView',
@@ -26,17 +26,15 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView ,Bootstrap
 		},
 
 		onAfterInit: function(){
-			this.data.reset();
+			this.data.reset({'mailId':''});
 		},
 		
 		/**
-		 * @TODO  beta userregistration 
+		 * @TODO  beta user registration 
 		 */
 		betaUserRegistration: function(e){
-			console.log(45);
 			e.preventDefault();
-
-//			this.saveForm();
+			this.saveForm();
 			
 		},
 
