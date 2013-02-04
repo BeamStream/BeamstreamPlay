@@ -1,19 +1,8 @@
-@(betaUserRegsitrationForm : Form[String],message:String) 
+
 
 @import helper._
 <script src="beamstream-new/js/apps/common/modernizr-2.6.1.min.js"></script>
 
-<!-- @helper.form(action = routes.JoinBeamStream.regsisterToBeamStreamBetaviaTeplate) { -->
-<!-- <fieldset>@inputText(betaUserRegsitrationForm("email"),	'_label -> "Email" )</fieldset> -->
-<!-- <input type="submit" value="Join the Beta List "> -->
-
-
-<!-- <script type="text/javascript"> -->
-<!-- // var messageRetreived="@message" -->
-<!-- // if(messageRetreived !="") alert(messageRetreived) -->
-<!-- </script> -->
-
-<!-- } -->
 
 <!--TODO: The data-url => /betaUserviaTemplate should handle GET/POST --> 
 <div  id="betaUserRegistration" data-model="user" data-url="" data-tpl="templates/betaUser.tpl" data-module="view/betaUserView"></div>  
