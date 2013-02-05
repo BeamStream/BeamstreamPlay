@@ -1117,6 +1117,9 @@ left:10px;
 }
  @media (max-width: 767px) {
  body {
+ background:#000;
+
+ 
 }
  .navbar-fixed-top,  .navbar-fixed-bottom,  .navbar-static-top {
  margin-right: -20px;
@@ -2015,8 +2018,8 @@ padding:20px 0 0 0;
 }
  .step-box1 {
  height:84px;
- width:50%;
- left:46%;
+ width:45%;
+ left:51%;
  top:30px;
  padding:2%;
 }
