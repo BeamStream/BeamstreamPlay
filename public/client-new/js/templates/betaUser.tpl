@@ -45,7 +45,9 @@
         <div class="join-form field">
           <h6>Stay up to date as we evolve.</h6>
           <span class="join-email"></span>
+
           <input type="text" placeholder="Enter Your Email Address" data-name="user.mailId" name="mailId" >
+
           <a href="#modalJoin" role="button" class="btn-blue btn-join" data-toggle="modal">Join The Beta List</a> </div>
       </div>
       <h3>A <span>FREE</span> Social Learning Network, Built for Higher Education</h3>
