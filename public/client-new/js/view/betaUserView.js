@@ -16,27 +16,46 @@
 * 
 */
 
-define(['view/formView','../../lib/bootstrap.min'], function(FormView ,Bootstrap){
+define(['view/formView','../../lib/bootstrap.min',], function(FormView ,Bootstrap ){
 	var betaUserView;
 	betaUserView = FormView.extend({
 		objName: 'betaUserView',
 		
 		events:{
-			'click #betaRegister': 'betaUserRegistration'
+			'click #betaRegister': 'betaUserRegistration',
+			'click .modal-share li': 'shareOnSocialMedia',
+			'click .modal-share li': 'shareOnSocialMedia',
+			 
 		},
-
+		
+		
 		onAfterInit: function(){
-			this.data.reset();
+			this.data.reset({'mailId':''});
+			
 		},
 		
 		/**
-		 * @TODO  beta userregistration 
+		 * @TODO  beta user registration 
 		 */
 		betaUserRegistration: function(e){
-			console.log(45);
 			e.preventDefault();
+
+//			this.saveForm();
+			
+		},
 		
+		/**
+		 * share beamstream on SocialMedia
+		 */
+		shareOnSocialMedia: function(e){
+			e.preventDefault();
+			//For social media sharing 
+			this.socialMediad = [];
+			this.socialMediad.push($(e.target).parent('li').attr('id'));
+			
+			showJanrainShareWidget('', 'View my Beamstream post', 'http://beamstream.com', '' ,this.socialMediad);
 		}
+		
 
 
 		

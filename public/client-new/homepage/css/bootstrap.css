@@ -5095,7 +5095,7 @@ input[type="submit"].btn.btn-mini {
   bottom: 0;
   left: 0;
   z-index: 1040;
-  background-color: #000000;
+  background-color: #192128;
 }
 
 .modal-backdrop.fade {
@@ -5104,8 +5104,8 @@ input[type="submit"].btn.btn-mini {
 
 .modal-backdrop,
 .modal-backdrop.fade.in {
-  opacity: 0.8;
-  filter: alpha(opacity=80);
+  opacity: 0.9;
+  filter: alpha(opacity=90);
 }
 
 .modal {
@@ -5113,8 +5113,8 @@ input[type="submit"].btn.btn-mini {
   top: 10%;
   left: 50%;
   z-index: 1050;
-  width: 800px;
-  margin-left: -400px;
+  width: 780px;
+  margin-left: -390px;
   background-color: #ffffff;
   border: 1px solid #999;
   border: 1px solid rgba(0, 0, 0, 0.3);
@@ -5123,9 +5123,9 @@ input[type="submit"].btn.btn-mini {
      -moz-border-radius: 20px;
           border-radius: 20px;
   outline: none;
-  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-     -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-          box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+     -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
   -webkit-background-clip: padding-box;
      -moz-background-clip: padding-box;
           background-clip: padding-box;
@@ -5144,6 +5144,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .modal-header {
+	position:relative;
 	text-align:center;
   padding: 30px 30px 60px 30px;
 }
