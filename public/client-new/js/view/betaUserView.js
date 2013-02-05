@@ -30,8 +30,7 @@ define(['view/formView','../../lib/bootstrap.min',], function(FormView ,Bootstra
 		
 		
 		onAfterInit: function(){
-			this.data.reset({'mailId':''});
-			
+			this.data.reset();
 		},
 		
 		/**
