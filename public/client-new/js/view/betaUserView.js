@@ -40,8 +40,7 @@ define(['view/formView','../../lib/bootstrap.min',], function(FormView ,Bootstra
 		 */
 		betaUserRegistration: function(e){
 			e.preventDefault();
-
-//			this.saveForm();
+			this.saveForm();
 			
 		},
 		
@@ -50,16 +49,14 @@ define(['view/formView','../../lib/bootstrap.min',], function(FormView ,Bootstra
 		 */
 		shareOnSocialMedia: function(e){
 			e.preventDefault();
+			
 			//For social media sharing 
 			this.socialMediad = [];
 			this.socialMediad.push($(e.target).parent('li').attr('id'));
 			
-			showJanrainShareWidget('', 'View my Beamstream post', 'http://beamstream.com', '' ,this.socialMediad);
+			showJanrainShareWidget('A FREE Social Learning Network, Built for Higher Education', 'View my Beamstream post', 'http://www.beamstream.com', '' ,this.socialMediad);
 		}
-		
 
-
-		
 	})
 	return betaUserView;
 });

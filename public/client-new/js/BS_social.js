@@ -88,7 +88,7 @@ function loadJanrainShareWidget() {
 /**
  * Documentation here.
  */
-function showJanrainShareWidget(message, title, url, description ,selected_media) {
+function showJanrainShareWidget(message, title, url, description ,selected_media) { 
   janrain.engage.share.reset();
   janrain.engage.share.setMessage(message);
   janrain.engage.share.setTitle(title);
