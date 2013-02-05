@@ -35,13 +35,11 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView ,Bootstrap
 		betaUserRegistration: function(e){
 			console.log(45);
 			e.preventDefault();
+		
+		}
 
-//			this.saveForm();
-			
-		},
 
 		
- 
 	})
 	return betaUserView;
 });
