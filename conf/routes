@@ -10,18 +10,13 @@ GET /deadlines        		controllers.Deadlines.index
 GET /calendar        		controllers.Calendar.index
 
 
-<<<<<<< HEAD
 #Beta Users
 POST /betaUser   						controllers.JoinBeamStream.regsisterToBeamStreamBeta
 
 # Template Try
-POST /betaUserviaTemplate				controllers.JoinBeamStream.regsisterToBeamStreamBetaviaTeplate
+POST /betaUserviaTemplate				controllers.JoinBeamStream.betaUserRegistration
 GET  /betaUserviaTemplate   			controllers.JoinBeamStream.betaUserRegistration
-=======
-# Templating Demo
-GET /template controllers.TemplateController.index
 
->>>>>>> 04f82b93ec49a57844cf10f358134f6e41468202
 
 #User
 POST /users      						controllers.UserController.findUser
@@ -171,17 +166,11 @@ GET  /beamstream/*file                   		controllers.Assets.at(path="/public/c
 GET  /beamstream-new/*file                   	controllers.Assets.at(path="/public/client-new", file)
 
 #NEO4J Baby
-<<<<<<< HEAD
+
 GET  /testNeo4j          						controllers.UserController.testNeo4j
 GET  /testNeo4jFindNode          				controllers.UserController.testNeo4jFindNode
 GET  /testNeo4jAddFriends          				controllers.UserController.testNeo4jAddFriends
 GET  /testNeo4jPrintFriends          			controllers.UserController.testNeo4jPrintFriends
-=======
-GET  /testNeo4j          controllers.UserController.testNeo4j
-GET  /testNeo4jFindNode          controllers.UserController.testNeo4jFindNode
-GET  /testNeo4jAddFriends          controllers.UserController.testNeo4jAddFriends
-GET  /testNeo4jPrintFriends          controllers.UserController.testNeo4jPrintFriends
->>>>>>> 04f82b93ec49a57844cf10f358134f6e41468202
 
 
 

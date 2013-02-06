@@ -21,7 +21,7 @@ object JoinBeamStream extends Controller {
   def betaUserRegistration = Action {
     Ok(views.html.betaUser())
   }
-
+  
   /**
    *  Beta Users Registration
    */

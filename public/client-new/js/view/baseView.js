@@ -46,9 +46,11 @@ define(['view/container',
 			}
 		},
 		initialize: function(options, callback) {
+			console.log(this)
 			var that = this;
 			_.bindAll(this, 'add', 'remove', 'getTemplate', 'createData', 'getModel', 'fetch', 'set', 'render', 'onAfterRender');
 
+			this.options.data=this.options.data||{};
 			this._onBeforeInit();
 
 			if(this.showLoader) 
@@ -316,11 +318,10 @@ define(['view/container',
 			
 			require(['model/' +  this.modelURL], function(Model){
 				that.data.model = Model;
-				
+				that.data.reset(that.options.data);
 				if(that.data.url && _.isEmpty(that.options.data))
 					that.fetch();
-				else
-					that.data.reset(that.options.data);
+				
 					
 				
 				return this;
