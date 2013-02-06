@@ -24,7 +24,6 @@ define(['view/formView','../../lib/bootstrap.min',], function(FormView ,Bootstra
 		events:{
 			'click #betaRegister': 'betaUserRegistration',
 			'click .modal-share li': 'shareOnSocialMedia',
-			'click .modal-share li': 'shareOnSocialMedia',
 			 
 		},
 		
@@ -38,8 +37,22 @@ define(['view/formView','../../lib/bootstrap.min',], function(FormView ,Bootstra
 		 */
 		betaUserRegistration: function(e){
 			e.preventDefault();
-			this.saveForm();
-			
+			var status = this.saveForm( );
+		},
+		
+		/**
+		 * @TODO call on form save success
+		 */
+		success: function(response){
+			alert("save success" );
+			$("#modalJoin").modal('show');  
+		},
+		
+		/**
+		 * @TODO call on form save error
+		 */
+		error: function(e){
+			alert("error on server call !!" );
 		},
 		
 		/**

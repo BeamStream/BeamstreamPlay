@@ -19,11 +19,11 @@
 define(['model/baseModel'], function(BaseModel) {
 	var User = BaseModel.extend({ 
 		objName: 'User',
-//		url: '/user', 
 		validation: {
 			mailId: {
 				required: true,
-				pattern: 'email'
+				pattern: 'email',
+//				msg: 'Please provide your first name'
 			} ,
 			password: {
 				required: true,
@@ -54,7 +54,14 @@ define(['model/baseModel'], function(BaseModel) {
 			cellNumber: {				
                 pattern: 'phone'
 			}
-		}
+		},
+		
+//		showError:function(){
+//			alert("Invalid emailid");
+//		},
+//		showValid: function(){
+//			console.log("sss  ");
+//		}
 
 	});
 	return User;

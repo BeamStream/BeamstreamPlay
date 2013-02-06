@@ -714,3 +714,6 @@ ul.modal-share li a:hover{
 #janrain-share{
 	z-index:999999 !important;
 }
+.error{
+	color:red;
+}
