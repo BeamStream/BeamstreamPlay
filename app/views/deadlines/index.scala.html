@@ -1,6 +1,17 @@
-@main(title = "Beamstream Deadlines") {
+@(message: String)
+@meta = {}
+@CSS = {}
+@JS = {}
+@bodyCls = {}
+@bodyModule = {}
+@bodyJS = {}
+@sideBar = {
+  <h1>Deadline Sidebar</h1>
+}
 
-  <h1>Deadlines Content</h1>
-  
+
+@main("Deadline", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar){
+    
+    <div>Deadline</div>
     
 }

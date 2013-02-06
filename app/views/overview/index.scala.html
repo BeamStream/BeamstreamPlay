@@ -1,6 +1,17 @@
-@main(title = "Beamstream Overview") {
+@(message: String)
+@meta = {}
+@CSS = {}
+@JS = {}
+@bodyCls = {}
+@bodyModule = {}
+@bodyJS = {}
+@sideBar = {
+  <h1>Sidebar</h1>
+}
 
-  <h1>Overview Content</h1>
-  
+
+@main("Overview", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar){
+    
+    <div>Overview</div>
     
 }

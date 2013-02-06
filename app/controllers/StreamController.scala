@@ -33,8 +33,10 @@ object StreamController extends Controller {
   /**
    * Check the cookies if login exists & taking corresponding actions
    */
+  
   def index = Action { implicit request =>
     val playCookiee = request.cookies.get("PLAY_SESSION")
+    
     if (playCookiee == None) Redirect("/beamstream/home.html")
     else {
       val noOfOnLineUsers = onlineUserCache.setOnline(request.session.get("userId").get)

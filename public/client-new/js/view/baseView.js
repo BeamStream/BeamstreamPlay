@@ -56,7 +56,7 @@ define(['view/container',
 				this.addLoader();
 			
 			this.setProperty();
-			this.createData();
+			this.setModel();
 
 
 			_.defer(function(){
@@ -184,7 +184,10 @@ define(['view/container',
 					},
 					error: function(resp, status, xhr){
 						//manually firing reset for error handler to catch if url response has error, then show user "No Data" rather than loader icon
-						that.data.trigger('reset')
+						if(that.data.length)
+							that.data.trigger('reset');
+						else
+							that.set({});
 					}
 				});
 			}
