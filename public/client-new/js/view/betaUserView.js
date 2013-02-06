@@ -16,32 +16,45 @@
 * 
 */
 
-define(['view/formView'], function(FormView){
+define(['view/formView','../../lib/bootstrap.min',], function(FormView ,Bootstrap ){
 	var betaUserView;
 	betaUserView = FormView.extend({
 		objName: 'betaUserView',
 		
 		events:{
-			'click #betaRegister': 'betaUserRegistration'
+			'click #betaRegister': 'betaUserRegistration',
+			'click .modal-share li': 'shareOnSocialMedia',
+			'click .modal-share li': 'shareOnSocialMedia',
+			 
 		},
-
+		
+		
 		onAfterInit: function(){
-			this.data.reset();
+			this.data.reset({'mailId': ''});
 		},
 		
 		/**
-		 * @TODO  beta userregistration 
+		 * @TODO  beta user registration 
 		 */
 		betaUserRegistration: function(e){
 			e.preventDefault();
 			this.saveForm();
 			
 		},
-//		serverError: function(){
-//			alert(453);
-//		},
 		
- 
+		/**
+		 * share beamstream on SocialMedia
+		 */
+		shareOnSocialMedia: function(e){
+			e.preventDefault();
+			
+			//For social media sharing 
+			this.socialMediad = [];
+			this.socialMediad.push($(e.target).parent('li').attr('id'));
+			
+			showJanrainShareWidget('A FREE Social Learning Network, Built for Higher Education', 'View my Beamstream post', 'http://www.beamstream.com', '' ,this.socialMediad);
+		}
+
 	})
 	return betaUserView;
 });
