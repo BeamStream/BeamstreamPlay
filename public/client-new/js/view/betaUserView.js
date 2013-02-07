@@ -49,9 +49,8 @@ define(['view/formView','../../lib/bootstrap.min',], function(FormView ,Bootstra
 		 */
 		success: function(model, data){
 			
-			alert(data.message);
 			$('#mailId').val('');
-			if(data.message == "Congratulations! You've been added to the Beamstream's beta users list")
+			if(data.message == "Allow To Register")
 				$("#modalJoin").modal('show');  
 		},
 		
