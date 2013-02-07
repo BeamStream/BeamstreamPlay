@@ -16,7 +16,7 @@
 * 
 */
 
-define(['view/formView','../../lib/bootstrap.min',], function(FormView ,Bootstrap ){
+define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap ){
 	var betaUserView;
 	betaUserView = FormView.extend({
 		objName: 'betaUserView',
@@ -51,7 +51,9 @@ define(['view/formView','../../lib/bootstrap.min',], function(FormView ,Bootstra
 			
 			$('#mailId').val('');
 			if(data.message == "Allow To Register")
-				$("#modalJoin").modal('show');  
+				$("#modalJoin").modal('show'); 
+			else
+				alert(data.message);
 		},
 		
 		/**

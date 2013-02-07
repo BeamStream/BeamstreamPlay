@@ -1,31 +1,26 @@
+@(message: String)
+@meta = {
+}
+@CSS = {
+	<link href="beamstream-new/homepage/css/style.css" rel="stylesheet" type="text/css">
+	<link href="beamstream-new/homepage/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<link href="beamstream-new/homepage/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
+}
+@JS = {
 
-
-@import helper._
-
-
-
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>BeamStream</title>
-<meta name="description" content="" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="beamstream-new/homepage/css/style.css" rel="stylesheet" type="text/css">
-<link href="beamstream-new/homepage/css/bootstrap.css" rel="stylesheet" type="text/css">
-<link href="beamstream-new/homepage/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
-
-<script src="beamstream-new/js/apps/common/modernizr-2.6.1.min.js"></script>
-<!-- <script type="text/javascript" src="beamstream-new/lib/bootstrap.min.js"></script> -->
-<script src="beamstream-new/js/BS_social.js"></script>
+	<script src="beamstream-new/js/apps/common/modernizr-2.6.1.min.js"></script>
+	<script src="beamstream-new/js/BS_social.js"></script>
+}
+@bodyCls = {}
+@bodyModule = {}
+@bodyJS = {
+}
 
 
 
-
-</head>
-
-<body>
-<div  id="betaUserRegistration" data-model="user" data-url="betaUser" data-module="view/betaUserView">
+@main("Beamstream Application", "Body", CSS, JS, bodyModule, bodyJS){
+    
+  <div  id="betaUserRegistration" data-model="user" data-url="betaUser" data-module="view/betaUserView">
 <header id="header">
   <div class="container">
     <h1><a href="#" title="BeamStream"></a></h1>
@@ -49,7 +44,7 @@
           <h6>Stay up to date as we evolve.</h6>
           <span class="join-email"></span>
 
-          <input type="text" placeholder="Enter Your Email Address" data-name="user.mailId" name="mailId" >
+          <input type="text" id ="mailId" placeholder="Enter Your Email Address" data-name="user.mailId" name="mailId" >
 
           <a href="#" id="betaRegister" role="button" class="btn-blue btn-join" data-toggle="modal">Join The Beta List</a> </div>
       </div>
@@ -145,27 +140,8 @@
   </div>
 </div>
 </div>
-</body>
-</html>
-
-
-
-<!-- <!--TODO: The data-url => /betaUserviaTemplate should handle GET/POST -->  -->
-<!-- <div  id="betaUserRegistration" data-model="user" data-url="betaUserviaTemplate" data-module="view/betaUserView"> -->
-	
-<!-- <h3>Join The Bete List</h3> -->
- 
-<!-- <form> -->
-<!--     <div class="row-grp"> -->
-<!--         <label>Email Address </label> -->
-<!--         <div class="field"><input type="text" placeholder="Enter Your Email Address"  data-name="user.mailId" name="mailId" /></div> -->
-<!--     </div></br> -->
-<!--     <div class="row-grp"> -->
-<!--       <button id="betaRegister" type="button">Join The Beta List</button>  -->
-<!--     </div> -->
-<!-- </form> -->
-
- 
-<!-- </div>   -->
 
 <script data-main="beamstream-new/js/main" src="beamstream-new/js/libs/require/require.js"></script>
+ 
+}
+
