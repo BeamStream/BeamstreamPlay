@@ -30,6 +30,7 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap 
 		
 		onAfterInit: function(){
 			this.data.reset();
+//			model.clear();
 		},
 		
 		/**
@@ -51,9 +52,14 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap 
 			
 			$('#mailId').val('');
 			if(data.message == "Allow To Register")
+			{
+				this.data.clear();
 				$("#modalJoin").modal('show'); 
+			}
 			else
+			{
 				alert(data.message);
+			}
 		},
 		
 		/**
