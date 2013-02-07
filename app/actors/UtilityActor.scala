@@ -9,6 +9,7 @@ import javax.mail.internet.InternetAddress
 import javax.mail.Message
 import play.api.Play
 import play.api.i18n.Messages
+import akka.actor.PoisonPill
 
 /**
  * Actor Creation
@@ -17,7 +18,6 @@ class SendMailActor extends Actor {
 
   def receive = {
     case messageReceived: String ⇒
-
       val authenticatedMessageAndSession = SendEmail.setEmailCredentials
       val recepientAddress = new InternetAddress(messageReceived)
       authenticatedMessageAndSession._1.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
@@ -27,6 +27,7 @@ class SendMailActor extends Actor {
       val transport = authenticatedMessageAndSession._2.getTransport("smtp");
       transport.connect("smtp.gmail.com", "aswathy@toobler.com", Play.current.configuration.getString("email_password").get)
       transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
+      self ! PoisonPill
   }
 }
 
@@ -42,6 +43,7 @@ object UtilityActor {
   def sendMailWhenBetaUserRegisters(emailId: String) = {
     val sendMailActor = Akka.system.actorOf(Props[SendMailActor], name = "sendMailActor")
     sendMailActor ! emailId
+    
   }
 
 }

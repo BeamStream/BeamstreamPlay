@@ -49,11 +49,11 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap 
 		 * @TODO call on form save success
 		 */
 		success: function(model, data){
-			
+//			var self = this;
 			$('#mailId').val('');
 			if(data.message == "Allow To Register")
 			{
-				this.data.clear();
+				
 				$("#modalJoin").modal('show'); 
 			}
 			else
