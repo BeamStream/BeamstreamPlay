@@ -1067,7 +1067,7 @@ left:10px;
  background-position: center 40px, top right;
 }
  .menu ul li a:hover span, .menu ul li a.active span {
- background-position: 0 -16px;
+  background-position: 0 -33px;
 }
 
 
@@ -1955,7 +1955,7 @@ padding:20px 0 0 0;
  background-position: center 45px, top right;
 }
  .menu ul li a:hover span, .menu ul li a.active span {
- background-position: 0 -21px;
+ background-position: 0 -33px;
 }
 
 

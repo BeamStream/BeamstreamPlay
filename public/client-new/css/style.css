@@ -188,39 +188,38 @@ behavior: url(/pie/PIE.htc);
 }
 
 .menu ul li a span {
-		height: 28px;
+	
+		height: 20px;
 		left: 20px;
 		position: absolute;
-		top:20px;
+		top:19px;
 		width: 22px;
+		background:url(../images/spryte.png)  left top no-repeat	
 }
 
 .menu ul li a span.my-stream {
-		background: url("../images/my-stream.png") no-repeat scroll 0 2px transparent;
+				background-position:0 -33px;
 }
 
 .menu ul li a .browse-media {
-		background: url("../images/browse-media.png") no-repeat scroll 0 0 transparent;
+	background-position: -33px top;
 }
 
 .menu ul li a .connections {
-		background: url("../images/connections.png") no-repeat scroll 0 2px transparent;
+	background-position: -67px top;
 }
 
 .menu ul li a .other {
-		background: url("../images/other.png") no-repeat scroll 0 3px transparent;
+		background-position: -93px top;
 }
 
 .menu ul li a:hover,
 .menu ul li a.active {
 		border-top: 4px solid #2F4553;
 		color: #314653;
-		background-image: url(../images/menu-arrow.png), url(../images/bg.jpg);
-		background-repeat:no-repeat;
-	
+		background: url(../images/spryte.png) -41px 40px no-repeat , url(../images/bg.jpg);
+
 }
-
-
 
 .home-content {
 		-moz-border-bottom-colors: none;
@@ -457,6 +456,7 @@ behavior: url(/pie/PIE.htc);
 
 .straem-block {
 		padding: 20px 15px;
+		margin-top: 20px;
 }
 
 .straem-block a {
@@ -477,10 +477,12 @@ behavior: url(/pie/PIE.htc);
 }
 
 .straem-block a span {
-		background: none repeat scroll 0 0 transparent;
+	  background:url(../images/spryte.png) -177px -17px;
 		float: left;
-		padding: 12px 10px;
+		padding: 20px 24px;
+				
 }
+
 
 .straem-block a span.text {
 		background: url("../images/line-btn.jpg") repeat-y scroll left top transparent;
@@ -510,7 +512,7 @@ behavior: url(/pie/PIE.htc);
 }
 
 .stream-header h2 {
-		background: url("../images/lock.png") no-repeat scroll 0 5px transparent;
+		background:url(../images/spryte.png) -4px -275px;
 		color: #3D5869;
 		font-size: 29px;
 		font-weight: 600;
@@ -570,12 +572,12 @@ ul.strem-header-info li a:hover {
 }
 
 ul.strem-header-info li.mebers {
-		background: url("../images/members.png") no-repeat scroll 0 0 transparent;
+		background:url(../images/spryte.png) -4px -311px;
 		padding-left: 25px;
 }
 
 ul.strem-header-info li.claimed {
-		background: url("../images/pen.png") no-repeat scroll 6px 2px transparent;
+			background:url(../images/spryte.png) -4px -336px;
 		padding-left: 25px;
 }
 
@@ -1741,19 +1743,19 @@ ul.sortable li a:hover {
 }
 
 ul.sortable li a.icon1 {
-		background: url("../images/icon01.png") no-repeat scroll left 7px transparent;
+		background:url(../images/spryte.png) -2px -179px;
 }
 
 ul.sortable li a.red-active-icon1 {
-		background: url("../images/iocn01-active.png") no-repeat scroll left 7px transparent;
+			background:url(../images/spryte.png) -2px -149px;
 }
 
 ul.sortable li a.icon2 {
-		background: url("../images/icon02.png") no-repeat scroll left center transparent;
+			background:url(../images/spryte.png) -2px -215px;
 }
 
 ul.sortable li a.icon3 {
-		background: url("../images/icon03.png") no-repeat scroll left center transparent;
+		bbackground:url(../images/spryte.png) -2px -120px;
 }
 
 ul.sortable li.red-bg {
@@ -1886,6 +1888,8 @@ ul.recent-questions li span.dead-date {
 		left: -20px;
 		position: absolute;
 		top: 5px;
+		background:url(../images/spryte.png) -128px -427px;
+		width:12px; height:16px;
 }
 
 .view-calender {
@@ -2149,10 +2153,13 @@ ul.discussion-info li:nth-child(2n) {
 }
 
 .chat-open span {
+	
 		color:#3d5869;
 		font-weight:700;
-		background:url(../images/online-icon.png) left no-repeat;
-		padding:0 0 0 20px;
+		color:#3d5869;
+	   font-weight:700;
+	   background:url(../images/spryte.png) -6px -253px;
+	   padding:0 0 0 20px;
 }
 
 .chat-open span.chat-show {
@@ -2220,11 +2227,12 @@ ul.discussion-info li:nth-child(2n) {
 }
 
 .online-chat {
-		background:url(../images/online-icon.png) right no-repeat;
+			 background:url(../images/spryte.png) 42px -246px;
 		float:right;
 		text-decoration:underline;
 		color:#827e7e;
 		padding:0 20px 0 0 !important;
+		
 }
 
 .online-chat:hover {
@@ -2349,7 +2357,7 @@ ul.discussion-info li:nth-child(2n) {
 		color:#fff;
 		font-size:11px;
 		font-weight:700;
-		background:url(../images/members-icon.png) 8px no-repeat #475259;
+		background:url(../images/spryte.png) -25px -56px  #475259;
 }
 
 .menu-count-red {
