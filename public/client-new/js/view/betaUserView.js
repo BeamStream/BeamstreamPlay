@@ -37,22 +37,31 @@ define(['view/formView','../../lib/bootstrap.min',], function(FormView ,Bootstra
 		 */
 		betaUserRegistration: function(e){
 			e.preventDefault();
-			var status = this.saveForm( );
+			
+			// save only if user enter mail id
+			if($('#mailId').val())
+				var status = this.saveForm( );
+			
 		},
 		
 		/**
 		 * @TODO call on form save success
 		 */
-		success: function(response){
-			alert("save success" );
-			$("#modalJoin").modal('show');  
+		success: function(model, data){
+			
+			alert(data.message);
+			$('#mailId').val('');
+			if(data.message == "Congratulations! You've been added to the Beamstream's beta users list")
+				$("#modalJoin").modal('show');  
 		},
 		
 		/**
 		 * @TODO call on form save error
 		 */
 		error: function(e){
-			alert("error on server call !!" );
+			
+			alert("Plaese try again !!" );
+			$('#mailId').val('');
 		},
 		
 		/**
