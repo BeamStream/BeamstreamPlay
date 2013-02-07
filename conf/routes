@@ -10,12 +10,11 @@ GET /deadlines        		controllers.Deadlines.index
 GET /calendar        		controllers.Calendar.index
 
 
-#Beta Users
-POST /betaUser   						controllers.JoinBeamStream.regsisterToBeamStreamBeta
+
 
 # Template Try
-POST /betaUserviaTemplate				controllers.JoinBeamStream.betaUserRegistration
-GET  /betaUserviaTemplate   			controllers.JoinBeamStream.betaUserRegistration
+#POST /betaUserviaTemplate				controllers.JoinBeamStream.betaUserRegistration
+#GET  /betaUserviaTemplate   			controllers.JoinBeamStream.betaUserRegistration
 
 
 #User
@@ -178,7 +177,7 @@ GET  /testNeo4jPrintFriends          			controllers.UserController.testNeo4jPrin
 
 
 # New Controller mapping
-GET  /                   controllers.Application.index
+#GET  /                   controllers.Application.index
 
 
 # Map static resources from the /public folder to the /assets URL path
@@ -191,7 +190,7 @@ GET  /images/*file        	controllers.Assets.at(path="/public/images", file)
 
 
 POST /betaUser  controllers.JoinBeamStream.regsisterToBeamStreamBeta
-GET /betaUser   controllers.JoinBeamStream.betaUserRegistration
+GET /           controllers.JoinBeamStream.betaUserRegistration
                                                     
 
 
