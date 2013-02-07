@@ -177,7 +177,7 @@ GET  /testNeo4jPrintFriends          			controllers.UserController.testNeo4jPrin
 
 
 # New Controller mapping
-#GET  /                   controllers.Application.index
+GET  /test                   controllers.Application.index
 
 
 # Map static resources from the /public folder to the /assets URL path

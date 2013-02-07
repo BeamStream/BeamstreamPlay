@@ -377,6 +377,8 @@ behavior: url(/pie/PIE.htc);
 .close-btn {
 		float: right;
 		margin: -20px 20px 0;
+	    background:url(../images/spryte.png) -159px -32px;
+		height:18px; width:18px;	 
 }
 
 .remove-btn {
@@ -1158,6 +1160,7 @@ ul.social-icons li {
 
 ul.social-icons li:hover {
 		border:solid 1px #bbbdbf;
+		background-color: #BCBCBC;
 
 }
 
@@ -1170,108 +1173,68 @@ ul.social-icons li a {
 		width:26px;
 }
 
+
 ul.social-icons li.google-plus {
-		background-position:left -21px;
+	background:url(../images/spryte.png) -1px -424px;
 }
 
 ul.social-icons li.google-plus:hover {
-		background-position:left top;
-		background-color: #BCBCBC;
-		
+	background:url(../images/spryte.png) -1px -445px #BCBCBC;}
 
-  border-radius:6px;
-   
-}
 ul.social-icons li.google-plus.active {
-		background-position:left top;
-		background-color: #BCBCBC;
-
-    	border-radius:6px;
-  	
+		background:url(../images/spryte.png) -1px -445px #BCBCBC;
 }
-
 
 ul.social-icons li.plus {
-		background-position:-25px -21px;
+	background:url(../images/spryte.png) -26px -425px;
 }
 
-ul.social-icons li.plus:hover{
-		background-position:-25px top;
-		background-color: #BCBCBC;		
-		
-       border-radius:6px;
-   
-		
+ul.social-icons li.plus:hover {
+			background:url(../images/spryte.png) -26px -446px #BCBCBC;
 }
+
 ul.social-icons li.plus.active {
-		background-position:-25px top;
-		background-color: #BCBCBC;
-	
-      border-radius:6px;
+		background:url(../images/spryte.png) -26px -446px #BCBCBC;
 }
 
 ul.social-icons li.twitter {
-		background-position:-51px -21px;
+			background:url(../images/spryte.png) -51px -424px;
 }
 
 ul.social-icons li.twitter:hover {
-		background-position:-51px top;
-		background-color: #BCBCBC;
-		
-	
-   border-radius:6px;
-    
+		background:url(../images/spryte.png) -51px -445px #BCBCBC;
 }
-ul.social-icons li.twitter.active {
-		background-position:-51px top;
-		background-color: #BCBCBC;
-		
 
-   border-radius:6px;
-   
+ul.social-icons li.twitter.active {
+		background-position:-51px top #BCBCBC;
 }
 
 ul.social-icons li.facebook {
-		background-position:-74px -21px;
+		background:url(../images/spryte.png) -75px -424px;
 }
 
-ul.social-icons li.facebook:hover{
-		background-position:-74px top;
-		background-color: #BCBCBC;
-		
-		
- border-radius:6px;
-    
+ul.social-icons li.facebook:hover {
+		background:url(../images/spryte.png) -75px -445px #BCBCBC;
 }
+
 ul.social-icons li.facebook.active {
-		background-position:-74px top;
-		background-color: #BCBCBC;
-		
-	
-   border-radius:6px;
-    
+			background:url(../images/spryte.png) -75px -445px #BCBCBC;
 }
-
 
 ul.social-icons li.in {
-		background-position:-94px -21px;
+	background:url(../images/spryte.png) -97px -424px;
 }
 
-ul.social-icons li.in:hover{
-		background-position:-94px top;
-		background-color: #BCBCBC;
-		
-	
-    border-radius:6px;
-    
+ul.social-icons li.in:hover {
+		background:url(../images/spryte.png) -97px -445px #BCBCBC;
 }
-ul.social-icons li.in.active  {
-		background-position:-94px top;
-		background-color: #BCBCBC;
-				
-        border-radius:6px;
-    
+
+ul.social-icons li.in.active {
+		background:url(../images/spryte.png) -97px -445px #BCBCBC;
 }
+
+
+
 
 
 ul.social-icons li:hover{
@@ -1362,6 +1325,15 @@ ul.follow-name-left li a {
 		text-decoration: underline;
 }
 
+
+ul.follow-name-left li a.comment-icon{background:url(../images/spryte.png) -2px -470px;
+  display: inline-block;
+    height: 26px;
+    width:26px;
+}
+
+
+
 ul.follow-name-left li a:hover {
 		color: #5299BD;
 		text-decoration: none;
@@ -1377,7 +1349,7 @@ ul.follow-name-left li a.rocks {
 }
 
 ul.follow-name-left li a.rocks:hover {
-                background: url("../images/rocks-icon-a1-a.png") no-repeat scroll center top transparent;
+                background:url(../images/spryte.png) -589px -447px;
                 color: #5299BD;
                 display: block;
                 font-weight: bold;
@@ -1386,8 +1358,9 @@ ul.follow-name-left li a.rocks:hover {
 }
 
 /* rock message */
+
 ul.follow-name-left li a.uprocks-message {
-                background: url("../images/rocks-icon-less-arrow.png") no-repeat scroll center top transparent;
+               background:url(../images/spryte.png) -741px -447px;
                 color: #5299BD;
                 display: block;
                 font-weight: bold;
@@ -1396,7 +1369,7 @@ ul.follow-name-left li a.uprocks-message {
 }
 
 ul.follow-name-left li a.downrocks-message {
-                background: url("../images/rocks-icon-less-arrow.png") no-repeat scroll center top transparent;
+                background:url(../images/spryte.png) -827px -447px;
                 color: #5299BD;
                 display: block;
                 font-weight: bold;
@@ -1405,7 +1378,7 @@ ul.follow-name-left li a.downrocks-message {
 }
 
 ul.follow-name-left li a.uprocks-message:hover {
-                background: url("../images/rocks-icon-a1-plus.png") no-repeat scroll center top transparent;
+                 background:url(../images/spryte.png) -786px -447px;
                 color: #5299BD;
                 display: block;
                 font-weight: bold;
@@ -1413,7 +1386,7 @@ ul.follow-name-left li a.uprocks-message:hover {
                 text-align:center;
 }
 ul.follow-name-left li a.downrocks-message:hover {
-                background: url("../images/rocks-icon-a1-mius.png") no-repeat scroll center top transparent;
+                 background:url(../images/spryte.png) -637px -447px;
                 color: #5299BD;
                 display: block;
                 font-weight: bold;
@@ -1670,11 +1643,17 @@ ul.follow-bottom-icons li:hover {
 }
 
 .drag-icon {
+		
+		
+	
 		float: left;
 		height: 30px;
 		left:-21px;
 		position: absolute;
-		top: 16px;
+		top: 11px;
+		width:26px; height:26px;
+		background:url(../images/spryte.png) -127px -26px;
+		
 }
 
 #demos section {
@@ -2489,7 +2468,21 @@ Browse and Media
 
 .green-btn span.visual {
 		float:left;
+		   background:url(../images/spryte.png) -181px -21px;
+			width:37px;
+			height: 36px;		
 }
+
+.green-btn span.visual-dot {
+		   background:url(../images/spryte.png) 2px -1021px;
+		
+}
+
+.green-btn span.visual-line {
+			   background:url(../images/spryte.png) 2px -1054px;
+	
+}
+
 
 .green-btn span.texter {
 		background:url(../images/line-new.png) left repeat-y;
@@ -2510,7 +2503,11 @@ Browse and Media
 
 .green-btn span.texter-new span {
 		background:none;
-		padding:0 5px 0 0;
+		background:url(../images/spryte.png) -28px -52px;		
+		float: left;
+    height: 30px;
+    width:30px;				
+		
 }
 
 .green-btn-new {
@@ -2526,7 +2523,7 @@ Browse and Media
 }
 
 .green-btn-new:hover {
-		background: #adadad;
+			background: #457b49;
 }
 
 a.activebtn {
@@ -3194,22 +3191,23 @@ ul.strem-header-info {
     float:left; 
  	position:relative; 
  	border-bottom-left-radius: 3px !important; 
- 	background:url(../images/icons-thump.png) left 5px no-repeat #4a6a86;
 
- 	
+background:url(../images/spryte.png) #4a6a86;
  	
  } 
-.music{background:url(../images/icons-thump.png) -152px 5px no-repeat #4a6a86;}
+.music{background-position:-453px -845px;}
 
-.video{background:url(../images/icons-thump.png) -100px 5px no-repeat #4a6a86;} 
-.data{background:url(../images/icons-thump.png) -300px 5px no-repeat #4a6a86;}
+.video{background-position:-772px -407px }
 
-.presentation{background:url(../images/icons-thump.png) -300px 5px no-repeat #4a6a86;}
+.data{background-position:-813px -407px}
 
-.pdf{background:url(../images/icons-thump.png) -199px 5px no-repeat #4a6a86;}
+.presentation{background-position:-896px -407px;}
 
-.link{background:url(../images/icons-thump.png) -52px 5px no-repeat #4a6a86;}
+.pdf{background-position:-938px -407px}
 
+
+.link{background-position:-793px -407px}
+.camera{background-position:-732px -407px }
 
 
  .right-arrow{ 
@@ -3254,15 +3252,15 @@ filter: â€œalpha(opacity=50)â€�;
 text-decoration:none;
  }
  .eye-icon{ 
- 	background:url(../images/right-eye-icon.png) no-repeat 0px 2px; 
+background:url(../images/spryte.png) -354px -845px;
  } 
 
  .hand-icon{ 
- 	background:url(../images/right-rock-icon.png) no-repeat 0px 1px; 
+ 	background:url(../images/spryte.png) -405px -845px; 
  } 
  
  .message-icon{ 
- 	background:url(../images/right-comment-icon.png) no-repeat 0px 3px; 
+ 	background:url(../images/spryte.png) -453px -845px; 
  } 
  
  
@@ -3400,7 +3398,8 @@ background: linear-gradient(#EAECEE, #DCDEE1) repeat scroll 0 0 transparent;
 
 #dropdownnew a {
 	text-decoration:none;
-	 background: url("../images/upload.png") no-repeat scroll 5px 0 transparent;
+	background:url(../images/spryte.png) -128px -840px;
+
 	display:block;
 	
 	font-weight:400;
@@ -3919,9 +3918,20 @@ opacity:0.8;
 }
 
 ul.signup-register li.lastblock a span {
-		float:left;
-		padding:0 10px;
+
+		  float: left;
+    height: 57px;
+    margin: 0 0 0 10px;
+    width: 39px;
 }
+
+ul.signup-register li.lastblock a span.facebook-icon{background:url(../images/spryte.png) -2px -521px;}
+ul.signup-register li.lastblock a span.twitter-icon{background:url(../images/spryte.png) -2px -597px;}
+ul.signup-register li.lastblock a span.google-icon{background:url(../images/spryte.png) -2px -521px;}
+ul.signup-register li.lastblock a span.twitter-icon{background:url(../images/spryte.png) -2px -674px;}
+ul.signup-register li.lastblock a span.link-in-icon{background:url(../images/spryte.png) -2px -752px;}
+
+
 
 ul.signup-register li.lastblock a span.shadow {
 		float:left;
@@ -3998,11 +4008,11 @@ ul.signup-register li fieldset {
 }
 
 ul.signup-register li fieldset.message {
-		background:url(../images/message.png) 15px 17px no-repeat #fff;
+		background:url(../images/spryte.png) -229px -399px;
 }
 
 ul.signup-register li fieldset.password {
-		background:url(../images/password.png) 22px 15px no-repeat #fff;
+	background:url(../images/spryte.png) -229px -458px;
 }
 
 ul.signup-register li input {
@@ -4015,13 +4025,15 @@ ul.signup-register li input {
 .sign-tick, .sign-close {
 		position:absolute;
 		right:18px;
-		top:25px;
-		background:url(../images/tick.png) no-repeat;
-		width:17px;
-		height:13px;
+		position:absolute;
+		right:18px;
+		top:18px;
+		width:22px; height:22px;		
+		background:url(../images/spryte.png) -152px -424px;		
+		
 }
 .sign-close{
-background:url(../images/close-sign.png) no-repeat;	
+background:url(../images/spryte.png) -177px -424px;		
 	
 }
 
@@ -4112,7 +4124,11 @@ text-shadow: 1px 1px 1px #616161;
         width: 100%;
 }
 
-.register-menu-block span {padding-right:8px;}
+.register-menu-block span {padding-right:8px;
+
+
+
+}
 
 .register-btn {
 		background: #57975b;
@@ -4140,6 +4156,7 @@ text-shadow: 1px 1px 1px #616161;
 }
 
 
+.register-btn span{background:url(../images/spryte.png)-37px -348px;width:30px;height:38px;float:left;}
 
 
 .register-btn:hover {
