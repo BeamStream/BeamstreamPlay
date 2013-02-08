@@ -29,8 +29,8 @@ object BasicRegistration extends Controller {
   } + new ObjectIdSerializer
 
   /**
-  * Basic Registration Permissions for a User  via Token authentication   
-  */
+   * Basic Registration Permissions for a User  via Token authentication
+   */
 
   def basicRegistration = Action { implicit request =>
     val tokenJSON = request.body.asFormUrlEncoded.get
@@ -138,15 +138,55 @@ object BasicRegistration extends Controller {
       case ex => Ok(write(new ResulttoSent("Failure", "Email Sending Failed")))
     }
   }
-  
+
   /**
    * *****************************************************Rearchitecture with Templating******************************
    */
 
-  
-  def signUpPage  = Action { implicit request =>
+  /**
+   * SignUp Page Rendering (RA)
+   */
+  def signUpPage = Action { implicit request =>
     Ok(views.html.signup())
   }
-  
-  
+
+  /**
+   * Registering a new User to Beamstream (RA)
+   */
+
+  def registerNewUser = Action { implicit request =>
+    try {
+      val userJSONMap = request.body.asFormUrlEncoded.get
+      val userJson = userJSONMap("data").toList(0)
+      val parsedUserJson = net.liftweb.json.parse(userJson)
+      val iam = (parsedUserJson \ "iam").extract[String]
+      val emailId = (parsedUserJson \ "email").extract[String]
+      val password = (parsedUserJson \ "password").extract[String]
+      val confirmPassword = (parsedUserJson \ "confirmPassword").extract[String]
+      val encryptedPassword = (new PasswordHashing).encryptThePassword(password)
+      val encryptedConfirmPassword = (new PasswordHashing).encryptThePassword(confirmPassword)
+
+      val canUserRegister = User.isUserAlreadyRegistered(emailId)
+      (canUserRegister == true) match {
+
+        case true =>
+
+          (encryptedPassword == encryptedConfirmPassword) match {
+            case true =>
+              val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", "", encryptedPassword, "", "", "", List(), List(), List(), List(), List(), List())
+              val IdOfUserCreted = User.createUser(userToCreate)
+              val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
+              val createdUser = User.getUserProfile(IdOfUserCreted)
+              val noOfOnLineUsers = onlineUserCache.setOnline(IdOfUserCreted.toString)
+              Ok(write(List(createdUser))).withSession(RegistrationSession)
+            case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
+          }
+
+        case false =>
+          Ok(write(new ResulttoSent("Failure", "This User Email Is Already Taken"))).as("application/json")
+      }
+    } catch {
+      case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem During Registration"))).as("application/json")
+    }
+  }
 }
