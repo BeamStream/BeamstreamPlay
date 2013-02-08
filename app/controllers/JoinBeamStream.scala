@@ -15,7 +15,7 @@ object JoinBeamStream extends Controller {
   implicit val formats = DefaultFormats
 
   /**
-   *  Beta User Page Rendering
+   *  Beta User Page Rendering (RA)
    */
 
   def betaUserRegistration = Action {
@@ -23,7 +23,7 @@ object JoinBeamStream extends Controller {
   }
 
   /**
-   *  Beta Users Registration
+   *  Beta Users Registration (RA)
    */
   def regsisterToBeamStreamBeta = Action { implicit request =>
     val userInfoJsonMap = request.body.asJson.get
