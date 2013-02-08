@@ -39,7 +39,7 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap)
 		 */
 		betaUserRegistration: function(e){
 			e.preventDefault();
-			
+			$("#modalJoin").modal('show'); 
 			// save only when user enter mail id
 			if($('#mailId').val()){
 				var status = this.saveForm( );
@@ -106,7 +106,7 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap)
 			}
 			else
 			{
-				shareMessage = "I just locked in my beta invite for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors & looks amazing. I can't wait to try it! You can get on the priority beta list two! Just click http://bstre.am/k7lXGw";
+				shareMessage = "I just locked in my beta invite for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors & looks amazing. I can't wait to try it! You can get on the priority beta list two! Just click http://test.beamstream.com/";
 			}
 			
 			showJanrainShareWidget(shareMessage, 'View my Beamstream post', 'http://bstre.am/k7lXGw', '' ,this.socialMedia);
@@ -132,7 +132,7 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap)
 			}
 			else
 			{
-				shareMessage = "Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far! http://bstre.am/k7lXGw";
+				shareMessage = "Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far! http://test.beamstream.com/";
 			}
 			
 			$('#modalShare').modal('hide');
