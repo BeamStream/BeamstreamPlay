@@ -279,6 +279,7 @@ ul.link-block li{
 	text-align:center;
 	margin:0 2%;
 	padding:12% 3% 5% 3%;
+	min-height: 120px;
 }
 ul.link-block li .img-circle{
 	width:110px;
@@ -529,7 +530,8 @@ ul.f-share li a:hover{
 	padding:30px 0 0 0;
 }
 .share-info{
-	width:45%;
+	width:48%;
+	min-height:100px;
 	display:block;
 	float:left;
 	position:relative;
@@ -543,7 +545,7 @@ ul.f-share li a:hover{
 	-webkit-box-shadow: inset -5px 0 5px rgba(0, 0, 0, 0.1);
      -moz-box-shadow: inset -5px 0 5px rgba(0, 0, 0, 0.1);
           box-shadow: inset -5px 0 5px rgba(0, 0, 0, 0.1);
-	margin:50px 0 0 0;
+	margin:80px 0 0 0;
 	padding:3%;
 }
 .arrow-bg{
@@ -552,7 +554,7 @@ ul.f-share li a:hover{
 	display:block;
 	background:url(../img/arw-bg.png) no-repeat;
 	position:absolute;
-	top:-22px;
+	top:-30px;
 	right:-20px;
 }
 .share-info h2{
@@ -646,6 +648,17 @@ ul.modal-share li a.l-share{
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0b9ed1', endColorstr='#ff0989c7', GradientType=0);
 }
 
+ ul.modal-share li a.e-share{
+ background-color: #6e9928;
+ background-image: -moz-linear-gradient(top, #86ab30, #6e9928);
+ background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#86ab30), to(#6e9928));
+ background-image: -webkit-linear-gradient(top, #86ab30, #6e9928);
+ background-image: -o-linear-gradient(top, #86ab30, #6e9928);
+ background-image: linear-gradient(to bottom, #86ab30, #6e9928);
+ background-repeat: repeat-x;
+ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff86ab30', endColorstr='#ff6e9928', GradientType=0);
+}
+
 ul.modal-share li a span{
 	width:60px;
 	height:58px;
@@ -669,6 +682,9 @@ ul.modal-share li a.g-share span{
 }
 ul.modal-share li a.l-share span{
 	background-position:-180px 0;	
+}
+ul.modal-share li a.e-share span{
+ background-position:-240px 0; 
 }
 ul.modal-share li a:hover{
 	text-decoration:none;
@@ -714,13 +730,13 @@ ul.modal-share li a:hover{
         z-index:999999 !important;
 }
 .error{
-        font-family: 'calibrii';
-        font-size:18px;
-        font-weight:normal;
-        color: #fa6c6c;
+    font-family: 'calibrii';
+    font-size:18px;
+    font-weight:normal;
+    color: #fa6c6c;
     left: 20px;
     position: absolute;
     top: -30px;
     line-height:20px;
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
