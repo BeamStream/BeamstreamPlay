@@ -28,7 +28,7 @@ object JoinBeamStream extends Controller {
   def regsisterToBeamStreamBeta = Action { implicit request =>
     val userInfoJsonMap = request.body.asJson.get
     val emailId = (userInfoJsonMap \ "mailId").as[String]
-
+    
     // Create Beta User
     val userToCreate = new BetaUser(new ObjectId, emailId)
 
