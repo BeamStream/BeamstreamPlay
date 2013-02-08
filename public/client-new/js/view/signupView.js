@@ -20,38 +20,37 @@ define(['view/formView'], function(FormView){
 	var signupView;
 	signupView = FormView.extend({
 		objName: 'signupView',
-
 		
 		events:{
-                        "click .menu-pic":"getUserTypeValue",
+            'click .menu-pic':'getUserTypeValue',
 			'click #registeration': 'registration'
                         
 		},
 
 		onAfterInit: function(){
-//			console.log(this.data);
 			this.data.reset();
 		},
+		
+		
 		/**
 		 * @TODO  user registration 
 		 */
 		registration:function(e){
 			e.preventDefault();
 			this.saveForm();
-			
 		},
-               onFocus: function(e){},
+       
                 
-                    /**
-                    * Method to set the value of "i am"
-                    */
-                getUserTypeValue:function(eventName){
-                    eventName.preventDefault();
-                    $('.menu-pic div.active').removeClass('active');
-                    $(eventName.currentTarget).find('div').addClass('active');
-                    $("#usertype").val(eventName.currentTarget.id);	
-                     this.data.reset({'iam' : eventName.currentTarget.id});		    
-		    }
+        /**
+        * Method to set the value of "iam"
+        */
+		getUserTypeValue:function(eventName){
+	        eventName.preventDefault();
+	        $('.menu-pic div.active').removeClass('active');
+	        $(eventName.currentTarget).find('div').addClass('active');
+	        $("#usertype").val(eventName.currentTarget.id);	
+	        this.data.reset({'iam' : eventName.currentTarget.id});		    
+		}
 		
  
 	})
