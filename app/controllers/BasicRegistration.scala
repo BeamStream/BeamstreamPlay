@@ -156,13 +156,11 @@ object BasicRegistration extends Controller {
 
   def signUpUser = Action { implicit request =>
     try {
-      val userJSONMap = request.body.asFormUrlEncoded.get
-      val userJson = userJSONMap("data").toList(0)
-      val parsedUserJson = net.liftweb.json.parse(userJson)
-      val iam = (parsedUserJson \ "iam").extract[String]
-      val emailId = (parsedUserJson \ "email").extract[String]
-      val password = (parsedUserJson \ "password").extract[String]
-      val confirmPassword = (parsedUserJson \ "confirmPassword").extract[String]
+      val userInfoJsonMap = request.body.asJson.get
+      val iam = (userInfoJsonMap \ "iam").as[String]
+      val emailId = (userInfoJsonMap \ "mailId").as[String]
+      val password = (userInfoJsonMap \ "password").as[String]
+      val confirmPassword = (userInfoJsonMap \ "confirmPassword").as[String]
       val encryptedPassword = (new PasswordHashing).encryptThePassword(password)
       val encryptedConfirmPassword = (new PasswordHashing).encryptThePassword(confirmPassword)
 

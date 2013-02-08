@@ -197,7 +197,7 @@ GET /                    controllers.JoinBeamStream.betaUserRegistration
 #Signup 
 
 GET /signup              controllers.BasicRegistration.signUpPage
-POST /signUpUser    controllers.BasicRegistration.signUpUser
+POST /signup         controllers.BasicRegistration.signUpUser
 
 #Registration
 GET /registration              controllers.Registration.registration
