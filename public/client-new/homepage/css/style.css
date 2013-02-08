@@ -530,6 +530,7 @@ ul.f-share li a:hover{
 }
 .share-info{
 	width:45%;
+        min-height: 120px;
 	display:block;
 	float:left;
 	position:relative;

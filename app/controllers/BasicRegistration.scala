@@ -138,5 +138,15 @@ object BasicRegistration extends Controller {
       case ex => Ok(write(new ResulttoSent("Failure", "Email Sending Failed")))
     }
   }
+  
+  /**
+   * *****************************************************Rearchitecture with Templating******************************
+   */
 
+  
+  def signUpPage  = Action { implicit request =>
+    Ok(views.html.signup())
+  }
+  
+  
 }

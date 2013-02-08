@@ -16,7 +16,7 @@
 * 
 */
 
-define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap ){
+define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap){
 	var betaUserView;
 	betaUserView = FormView.extend({
 		objName: 'betaUserView',
@@ -29,8 +29,7 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap 
 		
 		
 		onAfterInit: function(){
-			this.data.reset();
-//			model.clear();
+			this.data.reset({'name':'sss'});
 		},
 		
 		/**
@@ -39,9 +38,10 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap 
 		betaUserRegistration: function(e){
 			e.preventDefault();
 			
-			// save only if user enter mail id
-			if($('#mailId').val())
+			// save only wen user enter mail id
+			if($('#mailId').val()){
 				var status = this.saveForm( );
+			}
 			
 		},
 		
@@ -49,11 +49,10 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap 
 		 * @TODO call on form save success
 		 */
 		success: function(model, data){
-//			var self = this;
+			var self = this;
 			$('#mailId').val('');
 			if(data.message == "Allow To Register")
 			{
-				
 				$("#modalJoin").modal('show'); 
 			}
 			else

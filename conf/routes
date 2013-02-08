@@ -188,10 +188,16 @@ GET  /images/*file        	controllers.Assets.at(path="/public/images", file)
 
 ################################### Beamstream  Rearchitecture Routes ################################################
 
+#Beta User Registration
+POST /betaUser           controllers.JoinBeamStream.regsisterToBeamStreamBeta
+GET /                    controllers.JoinBeamStream.betaUserRegistration
 
-POST /betaUser  controllers.JoinBeamStream.regsisterToBeamStreamBeta
-GET /           controllers.JoinBeamStream.betaUserRegistration
-GET /betaUser           controllers.JoinBeamStream.betaUserRegistration
+
+#Signup 
+
+GET /signup              controllers.BasicRegistration.signUpPage
+
+
                                                     
 
 
