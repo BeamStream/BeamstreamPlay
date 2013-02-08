@@ -530,7 +530,6 @@ ul.f-share li a:hover{
 }
 .share-info{
 	width:45%;
-        min-height: 120px;
 	display:block;
 	float:left;
 	position:relative;
@@ -710,19 +709,18 @@ ul.modal-share li a:hover{
 	padding:10px 0 0 0 !important;
 }
 
-
 /* Added by Aswathy  - for janRain popups*/
 #janrain-share{
-	z-index:999999 !important;
+        z-index:999999 !important;
 }
 .error{
-	font-family: 'calibrii';
-	font-size:18px;
-	font-weight:normal;
-	color: #fa6c6c;
+        font-family: 'calibrii';
+        font-size:18px;
+        font-weight:normal;
+        color: #fa6c6c;
     left: 20px;
     position: absolute;
     top: -30px;
     line-height:20px;
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
