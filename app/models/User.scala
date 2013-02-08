@@ -36,7 +36,7 @@ case class User(@Key("_id") id: ObjectId,
 }
 
 object User {
- 
+
   /*
    * Add info to a user((For SchoolAutopoulate thing))
    * 
@@ -118,13 +118,10 @@ object User {
       }
   }
 
-
   // Check if the User already registered
   def isAlreadyRegistered(userEmail: String, userName: String): Boolean = {
-
     val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
     val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userName)).toList
-
     (userHavingSameMailId.isEmpty && userHavingSameUserName.isEmpty) match {
       case true => true
       case false => false
@@ -207,7 +204,7 @@ object User {
     val userToFolow = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
     (userToFolow.followers.contains(userId)) match {
       case true =>
-        UserDAO.update(MongoDBObject("_id" -> userId), userToFolow.copy(followers = (userToFolow.followers filterNot( List(userIdOfFollower) contains))), false, false, new WriteConcern)
+        UserDAO.update(MongoDBObject("_id" -> userId), userToFolow.copy(followers = (userToFolow.followers filterNot (List(userIdOfFollower) contains))), false, false, new WriteConcern)
         val updatedUserWithAddedIdOfFollower = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
         updatedUserWithAddedIdOfFollower.followers.size
       case false =>
@@ -216,6 +213,19 @@ object User {
         updatedUserWithAddedIdOfFollower.followers.size
     }
   }
+
+  /**
+   * ****************************************Beamstream rearchitecture**********************************************
+   */
+
+  // Check if the User already registered
+  def isUserAlreadyRegistered(userEmail: String) = {
+    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
+    (userHavingSameMailId.isEmpty) match {
+      case true => true
+      case false => false
+    }
+  }: Boolean
 }
 
 /*

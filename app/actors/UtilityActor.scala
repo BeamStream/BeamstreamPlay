@@ -39,7 +39,7 @@ import akka.dispatch.Future
 object UtilityActor {
 
   /**
-   * Send Mail to beta user who registers on Beamstream
+   * Send Email Clubbed through Future
    */
   def sendMailWhenBetaUserRegisters(emailId: String) = {
     implicit val system = Akka.system
@@ -49,7 +49,7 @@ object UtilityActor {
   }
 
   /**
-   * Send Email Clubbed through Future
+   * Send Mail to beta user who registers on Beamstream
    */
   def sendMail(emailId: String) = {
     val authenticatedMessageAndSession = SendEmail.setEmailCredentials
@@ -61,7 +61,5 @@ object UtilityActor {
     val transport = authenticatedMessageAndSession._2.getTransport("smtp");
     transport.connect("smtp.gmail.com", "aswathy@toobler.com", Play.current.configuration.getString("email_password").get)
     transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
-
   }
-
 }
