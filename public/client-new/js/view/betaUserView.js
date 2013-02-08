@@ -39,7 +39,7 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap)
 		 */
 		betaUserRegistration: function(e){
 			e.preventDefault();
-			
+			$("#modalJoin").modal('show'); 
 			// save only when user enter mail id
 			if($('#mailId').val()){
 				var status = this.saveForm( );
