@@ -154,7 +154,7 @@ object BasicRegistration extends Controller {
    * Registering a new User to Beamstream (RA)
    */
 
-  def registerNewUser = Action { implicit request =>
+  def signUpUser = Action { implicit request =>
     try {
       val userJSONMap = request.body.asFormUrlEncoded.get
       val userJson = userJSONMap("data").toList(0)

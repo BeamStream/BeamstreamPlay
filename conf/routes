@@ -190,14 +190,17 @@ GET  /images/*file        	controllers.Assets.at(path="/public/images", file)
 
 #Beta User Registration
 POST /betaUser           controllers.JoinBeamStream.regsisterToBeamStreamBeta
+GET /betaUser                    controllers.JoinBeamStream.betaUserRegistration
 GET /                    controllers.JoinBeamStream.betaUserRegistration
 
 
 #Signup 
 
 GET /signup              controllers.BasicRegistration.signUpPage
-POST /registerNewUser    controllers.BasicRegistration.registerNewUser
+POST /signUpUser    controllers.BasicRegistration.signUpUser
 
+#Registration
+GET /registration              controllers.Registration.registration
                                                     
 
 
