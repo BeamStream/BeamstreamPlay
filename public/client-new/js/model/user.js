@@ -19,21 +19,25 @@
 define(['model/baseModel'], function(BaseModel) {
 	var User = BaseModel.extend({ 
 		objName: 'User',
+                defaults: {	        	
+        		iam:0
+                },
 		validation: {
+
 			mailId: {
 				required: true,
 				pattern: 'email',
 //				msg: 'Please provide your first name'
 			} ,
 			password: {
-				required: true,
-				pattern: 'password'
+				required: true
+//				pattern: 'password'
 			},
 			confirmPassword: {
-				required: true,
+				required: true
 //				equalTo: 'password'
 			},
-            firstName: {
+                        firstName: {
 				required: true
 			},
 			lastName: {

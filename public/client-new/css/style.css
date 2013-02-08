@@ -9,11 +9,21 @@
 
 body {
 		background: url("../images/bg.jpg") repeat scroll 0 0 transparent;
-		font-family: 'Open Sans', sans-serif;
+		font-family: 'Roboto', sans-serif;
 }
 
 .header-wrapper {
-		background: none repeat scroll 0 0 #334956 !important;
+	
+	background: #334956;
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(#334956), to(#3f5a6b));
+background: -webkit-linear-gradient(#334956, #3f5a6b);
+background: -moz-linear-gradient(#334956, #3f5a6b);
+background: -ms-linear-gradient(#334956, #3f5a6b);
+background: -o-linear-gradient(#334956, #3f5a6b);
+background: linear-gradient(#334956, #3f5a6b);
+-pie-background: linear-gradient(#334956, #3f5a6b);
+behavior: url(css/PIE.htc);
+		
 		border-bottom: 4px solid #2F4553;
 		padding:0 0 0 10px;
 		position:relative;;
@@ -25,10 +35,12 @@ body {
 
 .search-block a {
 		color: #798E9A;
-		font-size: 11px;
+		font-size: 12px;
 		font-weight: bold;
-		margin: 0 0 0 5px;
+		margin: 0 0 0 10px;
 		text-decoration: underline;
+		float:left;
+		line-height:50px;
 }
 
 .search-block a:hover {
@@ -37,21 +49,23 @@ body {
 }
 
 .header-search {
-		background: #BAC3C9;
-background: -webkit-gradient(linear, 0 0, 0 bottom, from(#BAC3C9), to(#E9EEF2));
-background: -webkit-linear-gradient(#BAC3C9, #E9EEF2);
-background: -moz-linear-gradient(#BAC3C9, #E9EEF2);
-background: -ms-linear-gradient(#BAC3C9, #E9EEF2);
-background: -o-linear-gradient(#BAC3C9, #E9EEF2);
-background: linear-gradient(#BAC3C9, #E9EEF2);
--pie-background: linear-gradient(#BAC3C9, #E9EEF2);
-behavior: url(/pie/PIE.htc);
-		
-		border-radius: 4px 0 0 4px;
-		box-shadow: 0 1px 0 #D6DBDE inset;
-		color: #3D5869;
-		height: 30px;
+		background: #e6ebf0;
+		border-top:solid 1px #d6dbde;
+		-webkit-box-shadow: inset 0 6px 5px rgba(0, 0, 0, 0.2);
+		-moz-box-shadow: inset 0 6px 5px rgba(0, 0, 0, 0.2);
+		box-shadow: inset 0 6px 5px rgba(0, 0, 0, 0.2);
+        behavior: url(css/PIE.htc);
+         -webkit-border-radius:6px 0 0 6px;
+        -moz-border-radius:6px 0 0 6px;
+        border-radius:6px 0 0 6px;
+		color: #3d5869;
+		font-weight:400;
+		font-size:14px;
+		height:26px;
 		padding: 5px 10px !important;
+		float:left;
+		
+
 }
 
 .header-button {
@@ -68,10 +82,12 @@ behavior: url(/pie/PIE.htc);
 		color: #E9EEF2;
 		font-size: 16px;
 		font-weight: bold;
-		height: 40px;
+		height:37px;
+		line-height:36px;
 		margin-left: -4px;
 		margin-top: 5px;
-		padding: 0 15px;
+		padding: 0 20px;
+		float:left;
 }
 
 .header-profile {
@@ -80,17 +96,36 @@ behavior: url(/pie/PIE.htc);
 		border-radius: 0 0 8px 8px;
 		box-shadow: 0 0 10px #1D2A32 inset;
 		display: block;
+		float:right;
+		height:62px;
+		
 }
 
-.header-icon {
+.header-icon{
 		border-right: 1px solid #293A44;
 		float: left;
 		text-align: center;
+padding:10px;
+		
+		
+}
+
+.header-icon img{height: 40px; width:40px;
+
+-webkit-border-radius:3px;
+-moz-border-radius:3px;
+border-radius:3px;
+border:solid 1px #1e2930;
+
+
 }
 
 .public-profile {
 		border-left: 1px solid #40535F;
 		float: left;
+		height:30px;
+		padding:15px;
+		width:70%;
 }
 
 .profile-img {
@@ -112,11 +147,13 @@ behavior: url(/pie/PIE.htc);
 		border-top: 1px solid #81C9F8;
 		color: #FFFFFF;
 		float: left;
-		font-size: 12px;
-		font-weight: bold;
-		margin: 1px 0 0;
-		text-align: center;
+		font-size: 13px;
+		font-weight:500;
+		margin: 1px 10px 0 0;
+		text-align: center;line-height:18px;
 		text-shadow: 1px 1px 1px #888888;
+		padding:3px 15px;height:20px;
+		
 }
 
 .profile-button:hover {
@@ -125,14 +162,16 @@ behavior: url(/pie/PIE.htc);
 }
 
 .settings-menu {
-		
 		text-align: center;
+		float:left;
+		
 }
 
 .profile-info {
 		display: block;
-	
-}
+
+		
+	}
 
 .seetings-toggle {
 		background: none repeat scroll 0 0 transparent;
@@ -180,46 +219,74 @@ behavior: url(/pie/PIE.htc);
 .menu ul li a {
 		color: #E9EEF2;
 		font-size: 15px;
-		font-weight: 600;
+		font-weight: 500;
 		line-height: 30px;
 		margin: 0 3px 0 0;
 		position: relative;
 		text-decoration: none;
 }
 
-.menu ul li a span {
-	
+.menu ul li a span {	
 		height: 20px;
 		left: 20px;
 		position: absolute;
-		top:19px;
+		top:15px;
 		width: 22px;
 		background:url(../images/spryte.png)  left top no-repeat	
 }
 
-.menu ul li a span.my-stream {
-				background-position:0 -33px;
+.menu ul li a.my-stream span {
+		background-position:0 0;
 }
 
-.menu ul li a .browse-media {
-	background-position: -33px top;
+.menu ul li a.browse-media span{
+	background-position: -33px 0;
 }
 
-.menu ul li a .connections {
-	background-position: -67px top;
+.menu ul li a.connections span {
+	background-position:-66px 0;
 }
 
-.menu ul li a .other {
-		background-position: -93px top;
+.menu ul li a.other span {
+	background-position:-99px 0;
 }
+
 
 .menu ul li a:hover,
 .menu ul li a.active {
-		border-top: 4px solid #2F4553;
 		color: #314653;
-		background: url(../images/spryte.png) -41px 40px no-repeat , url(../images/bg.jpg);
-
+		background:url(../images/bg.jpg);
+		border-top:solid 1px #fff;
+		-webkit-box-shadow: #2f4553 0px -4px 0px;
+        -moz-box-shadow: #2f4553 0px -4px 0px;
+        box-shadow: #2f4553 0px -4px 0px;
+		
+		}
+		
+	
+.menu ul li a.my-stream:hover span, .menu ul li a.my-stream.active span{
+		background-position:0 -33px;
 }
+	
+.menu ul li a.browse-media:hover span, .menu ul li a.browse-media.active span{
+		background-position:-33px -33px;
+}
+
+.menu ul li a.connections:hover span, .menu ul li a.connections.active span{
+		background-position:-66px -33px;
+}
+
+.menu ul li a.connections:hover span, .menu ul li a.connections.active span{
+		background-position:-66px -33px;
+}
+
+.menu ul li a.other:hover span, .menu ul li a.other.active span{
+		background-position:-99px -33px;
+}		
+
+
+	
+
 
 .home-content {
 		-moz-border-bottom-colors: none;
@@ -321,7 +388,7 @@ behavior: url(/pie/PIE.htc);
 .settings-caret {
 		border-left: 7px solid transparent;
 		border-right: 7px solid transparent;
-		border-top: 7px solid #8B979F;
+		border-top: 7px solid #798e9a;
 		display: inline-block;
 }
 
@@ -649,7 +716,7 @@ ul.stream-tab li {
 ul.stream-tab li a {
 		background: none repeat scroll 0 0 #FFFFFF;
 		border: 2px solid #E9EEF2;
-		border-radius: 10px 10px 10px 10px;
+
 		color: #8B969F;
 		display: block;
 		float: left;
@@ -658,6 +725,9 @@ ul.stream-tab li a {
 		text-align: center;
 		text-decoration: none;
 		text-transform: uppercase;
+		-webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
 }
 
 ul.stream-tab li a:hover {
@@ -839,12 +909,14 @@ ul.stream-tab li a span {
 		border-bottom: 0 none;
 		border-radius: 8px 8px 8px 8px;
 		box-shadow: 0 2px 5px 0 #C9C9C9 inset;
-		color: #2F4553;
-		float: left;
-		height: 30px;
-		padding-left: 10px;
-		text-align: left;
-		width: 100%;
+		color:#8b969f;
+		float:left;
+		height:30px;
+		padding-left:10px;
+		text-align:left;
+		width:100%;
+		font-size:12px;
+		font-weight:500;
 }
 .blue-button {
 		background: #3e79a9;
@@ -1787,17 +1859,17 @@ li.sortable-placeholder {
              }
 
 .overview-boxes h3 {
-		color: #314653;
-		float: left;
-		font-size: 26px;
-		font-weight: 700;
+		color:#314653;
+		float:left;
+		font-size:26px;
+		font-weight:500;
 		margin: 0;
 }
 
 .recent-box-header {
 		display: block;
 		float: left;
-		padding: 2% 4%;
+		padding:3% 4%;
 		width: 92%;
 }
 
@@ -1994,6 +2066,15 @@ ul.discussion-info li {
 		overflow: hidden;
 		padding: 10px 0;
 		width: 100%;
+		 -moz-box-shadow:
+        inset 5px 0 5px -8px #333,
+        inset -5px 0 5px -8px #333;
+    -webkit-box-shadow:
+       inset 5px 0 5px -8px #333,
+        inset -5px 0 5px -8px #333;
+    box-shadow:
+       inset 5px 0 5px -8px #333,
+        inset -5px 0 5px -8px #333;
 }
 ul.discussion-info li:nth-child(2n+1) {
  background: none repeat scroll 0 0 #E8E9EB;
@@ -2207,7 +2288,7 @@ ul.discussion-info li:nth-child(2n) {
 }
 
 .online-chat {
-			 background:url(../images/spryte.png) 42px -246px;
+			 background:url(../images/spryte.png) 35px -246px;
 		float:right;
 		text-decoration:underline;
 		color:#827e7e;
@@ -4822,6 +4903,10 @@ font-weight:700;}
 .location-icon {
 		float:left;
 		padding:7px 0 0 7px;
+		background:url(../images/spryte.png) -25px -56px;
+		width:20px;
+		height:26px;
+		
 }
 
 .upload-photo {
@@ -4956,9 +5041,10 @@ ul.register-social li a {
 .tick-register {
 		float:left;
 		margin:30px 0 0 0;
-		background:url(../images/tick-new.png) no-repeat;
+		background:url(../images/spryte.png) -71px -368px;
 		width:29px;
-		height: 23px;
+		height:38px;
+		
 }
 
 ul.register-social li a {
