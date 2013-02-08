@@ -715,8 +715,6 @@ ul.modal-share li a:hover{
 #janrain-share{
 	z-index:999999 !important;
 }
-
-/* for validation errors*/
 .error{
 	font-family: 'calibrii';
 	font-size:18px;
@@ -728,4 +726,3 @@ ul.modal-share li a:hover{
     line-height:20px;
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
-
