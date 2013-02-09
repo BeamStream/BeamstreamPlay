@@ -130,12 +130,10 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap)
 			if(seletedMedia == 'twitter')
 			{
 				shareMessage = "Get on the 1st user's beta list for @beamstream: @A #social #learning network built for #highered. http://bstre.am/k7lXGw #edtech";
-//				showJanrainShareWidget(shareMessage, 'View my Beamstream post', 'http://bstre.am/k7lXGw', '' ,this.socialMediad);
 			}
 			else
 			{
 				shareMessage = "Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far! http://www.beamstream.com/";
-//				showJanrainShareWidget(shareMessage, 'View my Beamstream post', 'http://bstre.am/k7lXGw', '' ,this.socialMediad);
 			}
 			
 			showJanrainShareWidget(shareMessage, 'View my Beamstream post', 'http://bstre.am/k7lXGw', '' ,this.socialMediad);
