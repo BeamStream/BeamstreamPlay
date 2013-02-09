@@ -18,4 +18,5 @@ libraryDependencies <+= sbtVersion(v => "com.github.siasia" %% "xsbt-web-plugin"
 
 //addSbtPlugin("play" % "sbt-plugin" % "2.0.2")
 
+
 //libraryDependencies <+= sbtVersion(v => "com.github.siasia" %% "xsbt-web-plugin" % (v+"-0.2.11.1"))
