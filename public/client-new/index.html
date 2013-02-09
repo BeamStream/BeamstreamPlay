@@ -32,9 +32,7 @@
 <script type="text/JavaScript" src="lib/jquery-1.js"></script>
 <script type="text/JavaScript" src="lib/jquery.js"></script>
 <script type="text/JavaScript" src="lib/bootstrap-modal.js"></script>
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700'
-	rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700,500italic,700italic' rel='stylesheet' type='text/css'>
 <script type="text/JavaScript" src="lib/bootstrap.js"></script>
 
 <!-- embedly preview js -->
@@ -107,7 +105,7 @@
 	<!--------------------------------------Header ---------------------------------------->
 
 	<header>
-		<div  id="topheader">
+		<div id="topheader">
 
 			<!----menu part--->
 
@@ -275,7 +273,7 @@ Create a Class</a>
         <div class="header-icon"><img id="right-top-photo" src="" width="41" height="41"></div>
         <div class="public-profile">
          
-          <div class="profile-info"> <a href="#" class="profile-button">Public Profile</a>
+       <a href="#" class="profile-button">Public Profile</a>
             <div class="settings-menu">
               <div class="btn-group">
                 <button class="btn seetings-toggle">Settings</button>
@@ -287,18 +285,18 @@ Create a Class</a>
                 </ul>
               </div>
             </div>
-          </div>
+
         </div>
       </div>
     </div>
     <div class="header-menu header-menu-inner">
       <nav class="menu">
         <ul class="nav">
-          <li><a href="#" id="menu-mystreams" class="active"><span class="my-stream"></span>My Streams</a></li>
-          <li><a href="#" id="menu-browsemedia" ><span class="browse-media"></span>Browse Media</a></li>
-          <li><a href="#" id="menu-connections"> <span class="connections"></span>Connections</a></li>
-          <li><a href="#" id="menu-otherstuff"> <span class="other"></span>Other Stuff</a></li>
-          <li><a href="#" id="menu-morestuff"> <span class="other"></span>Even More Stuff</a></li>
+          <li><a href="#" id="menu-mystreams" class="my-stream active"><span></span>My Streams</a></li>
+          <li><a href="#" id="menu-browsemedia" class="browse-media"><span></span>Browse Media</a></li>
+          <li><a href="#" id="menu-connections" class="connections"><span></span>Connections</a></li>
+          <li><a href="#" id="menu-otherstuff" class="other"> <span></span>Other Stuff</a></li>
+          <li><a href="#" id="menu-morestuff" class="other"> <span></span>Even More Stuff</a></li>
         </ul>
       </nav>
     </div>
@@ -415,13 +413,16 @@ Create a Class</a>
                     <div class="sign-tick"></div>
                   </fieldset>
                 </form>
-                <div class="register-menu-block"> <a href="#" id="registeration" class="register-btn"><span><img src="images/register-pen.png" width="24" height="25"></span>Register</a><a href="#" class="register-cancel">Cancel</a> </div>
+                <div class="register-menu-block"> <a href="#" id="registeration" class="register-btn"><span></span>Register</a><a href="#" class="register-cancel">Cancel</a> </div>
               
                   <div class="sign-or">or</div>
                  </li>
               <li class="lastblock">
                 <h5>Register with...</h5>
-                <a href="#" class="facebook"> <span><img src="images/face-book-icon.png" width="33" height="34"></span> <span class="shadow">Facebook</span></a> <a href="#" class="twitter"> <span><img src="images/twitter-icon.png" width="33" height="34"></span> <span class="shadow">Twitter</span></a> <a href="#" class="google"> <span><img src="images/google-plus-icon.png" width="33" height="34"></span> <span class="shadow">Google</span></a> <a href="#" class="link-in"> <span><img src="images/in-icon.png" width="33" height="34"></span> <span class="shadow">Link In</span></a> </li>
+                <a href="#" class="facebook"> <span class="facebook-icon"></span> <span class="shadow">Facebook</span></a> 
+               <a href="#" class="twitter"> <span class="twitter-icon"></span> <span class="shadow">Twitter</span></a> 
+               <a href="#" class="google"> <span class="google-icon"></span> <span class="shadow">Google</span></a> 
+              <a href="#" class="link-in"> <span class="link-in-icon"></span> <span class="shadow">Link In</span></a> </li>
             </ul>
           </div>
         </div>
@@ -504,7 +505,7 @@ Create a Class</a>
             <fieldset>
             <input id="location" name="location" type="text" placeholder="Location" class="location-note">
             <span class="red-star select-star">*</span>
-             <span class="location-icon location-toolip" data-original-title="Use Current Location"><img src="images/loacation-icon.png" width="16" height="20"></span>
+             <span class="location-icon location-toolip" data-original-title="Use Current Location"></span>
            </fieldset>
             
            
@@ -686,11 +687,11 @@ Create a Class</a>
           <div class="stream-header-right"> 
            	<a href="#" class="green-btn green-btn-new">
            		<span class="visual visual-new">
-           			<img src="images/plus.png" width="23" height="22">
+           			
            		</span>
            		<span class="texter texter-new">
            			<span>
-           				<img src="images/members-icon.png" width="22" height="21">
+           				
            			</span>to this class
            		</span>
            	</a> 
@@ -909,7 +910,7 @@ Create a Class</a>
                    
                       <li><a class="rock-message" href="#">Rock</a></li>
                       <li ><a class="add-comment" href="#"> Comment</a></li>
-                      <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+                      <li><a class="comment-icon" href="#"></a></li>
                       <li><a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a></li>
                     </ul>
                     
@@ -1022,7 +1023,7 @@ Create a Class</a>
                    
                       <li><a class="rock-message" href="#">Rock</a></li>
                       <li ><a class="add-comment" href="#"> Comment</a></li>
-                      <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+                      <li><a class="comment-icon" href="#"></a></li>
                       <li><a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a></li> 
                     </ul>
 					
@@ -1134,7 +1135,7 @@ Create a Class</a>
                    
                       <li><a class="rock-message" href="#">Rock</a></li>
                       <li ><a class="add-comment" href="#"> Comment</a></li>
-                      <li><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+                      <li><a class="comment-icon" href="#"></a></li>
                       <li><a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a>  </li>
                     </ul>
 					
@@ -1183,7 +1184,7 @@ Create a Class</a>
                             <ul class="follow-name-left show-all-block">
                               <li><span>@{{firstNameofCommentPoster}} {{lastNameofCommentPoster}} </span> -  {{timeCreated}}  -  Public</li>
                               <li ><a href="#" class="rock-comments" >Rock</a></li>
-                              <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
+                              <li><a class="comment-icon" href="#"></a></li>
                                  <li class="rocks-small"><a id="{{{id.id}}-mrockCount" href="#">{{{rocks}}</a></li>
                             </ul>
                           </div>
@@ -1229,7 +1230,7 @@ Create a Class</a>
                             <ul class="follow-name-left show-all-block">
                               <li><span>@{{firstNameofCommentPoster}} {{lastNameofCommentPoster}} </span> -  {{timeCreated}}  -  Public</li>
                               <li ><a href="#" class="rock-comments" >Rock</a></li>
-                              <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
+                              <li><a class="comment-icon" href="#"></a></li>
                                  <li class="rocks-small"><a id="{{{id.id}}-rockCount" href="#">{{{rocks}}</a></li>
                             </ul>
                           </div>
@@ -1534,7 +1535,7 @@ Create a Class</a>
                       <li><a class="rocks-question" href="#">Rock</a></li>
                       <li  id="{{data.question.id.id}}-Answer" ><a href="#" class="add-answer"> Answer</a></li>
                       <li><a href="#" class="add-comment" > Comment</a></li>
-                      <li ><a href="#"><img src="images/site.png" width="22" height="20"></a></li>
+                      <li><a class="comment-icon" href="#"></a></li>
   					 <a id=" " href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a> 
                     </ul>
                    
@@ -1632,7 +1633,7 @@ Create a Class</a>
                             <ul class="follow-name-left show-all-block">
                               <li><span>@{{firstNameofCommentPoster}} {{lastNameofCommentPoster}} </span> -  {{timeCreated}}  -  Public</li>
                               <li ><a href="#" class="rock-comments" >Rock</a></li>
-                              <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
+                              <li><a class="comment-icon" href="#"></a></li>
                                  <li class="rocks-small"><a id="{{{id.id}}-rockCount" href="#">{{{rocks}}</a></li>
                             </ul>
                           </div>
@@ -1655,7 +1656,7 @@ Create a Class</a>
                             <ul class="follow-name-left show-all-block">
                               <li><span>@{{firstNameofCommentPoster}} {{lastNameofCommentPoster}} </span> -  {{timeCreated}}  -  Public</li>
                               <li ><a href="#" class="rock-comments" >Rock</a></li>
-                              <li><a href="#"><img width="22" height="20" src="images/site.png"></a></li>
+                              <li><a class="comment-icon" href="#"></a></li>
                                  <li class="rocks-small"><a id="{{{id.id}}-nrockCount" href="#">{{{rocks}}</a></li>
                             </ul>
                           </div>
@@ -2402,7 +2403,7 @@ Create a Class</a>
           </form>
           <div class="browse-right">
             <h6 class="small"> View as </h6>
-            <a href="#" class="green-btn activebtn"><span class="visual"><img src="images/visual-icon.png" width="20" height="22"></span><span class="texter">Visual Files</span></a> <a href="#" class="green-btn"><span class="visual"><img src="images/file.png" width="20" height="24"></span><span class="texter">Files Folder</span></a> </div>
+            <a href="#" class="green-btn activebtn"><span class="visual visual-dot"></span><span class="texter">Visual Files</span></a> <a href="#" class="green-btn"><span class="visual visual-line"></span><span class="texter">Files Folder</span></a> </div>
           <div class="stream-top-shadow"><img src="images/shadow.png"></div>
          
            </div>
@@ -2999,168 +3000,154 @@ Create a Class</a>
 
 <!-- ------------------ extra scripts --------------------->
 <script type="text/javascript">
-	
 	/* implemented  the shuffle plugin on sorting */
-	function shufflingOnSorting(){
-        // instantiate the shuffle plugin
-        $('#grid').shuffle({
-            key : 'all',
-            speed : 800,
-            easing : 'ease-out'
-        });
-                        
-        // Set up button clicks
-        $('#view-by-date-list li').on('click', function() {
-        	 
-            var $this = $(this),
-                $grid = $('#grid'),
-	            sort = $this.data('sort'),
-	            opts = {};
+	function shufflingOnSorting() {
+		// instantiate the shuffle plugin
+		$('#grid').shuffle({
+			key : 'all',
+			speed : 800,
+			easing : 'ease-out'
+		});
 
-            $grid.shuffle($this.data('group'));
-            
-            
-            
-            
-         // We're given the element wrapped in jQuery
-            if (sort === 'date-oldest') {
-                opts = {
-                    by: function($el) {
-                        return $el.data('date-created');
-                    }
-                }
-            } else if (sort === 'date-recent') {
-            	
-                opts = {
-                     by: function($el) {
-                            return $el.data('date-created');
-                     },
-                     reverse :true
-                }
-            } else if (sort === 'title') {
-                opts = {
-                    by: function($el) {
-                        return $el.data('title').toLowerCase();
-                    }
-                }
-            }else if (sort === 'rocks') {
-            	
-                opts = {
-                        by: function($el) {
-                        	return $el.data('rock');
-                        	
-                        },
-                        reverse :true
-                    }
-                }
-         
-            // Filter elements
-            $grid.shuffle('sort', opts);
-            
-            
-        });
-       
-        
-        
-     // Set up button clicks
-        $('#view-files-byrock-list li ').on('click', function() {
-        	 
-            var $this = $(this),
-                $grid = $('#grid'),
-	            sort = $this.data('sort'),
-	            opts = {};
-            
-             
-         // We're given the element wrapped in jQuery
-         if (sort === 'rocks') {
-            	
-                opts = {
-                        by: function($el) {
-                        	return $el.data('rock');
-                        	
-                        },
-                        reverse :true
-                    }
-         }
-         
-            // Filter elements
-            $grid.shuffle('sort', opts);
-            
-            
-        });
+		// Set up button clicks
+		$('#view-by-date-list li').on(
+				'click',
+				function() {
+
+					var $this = $(this), $grid = $('#grid'), sort = $this
+							.data('sort'), opts = {};
+
+					$grid.shuffle($this.data('group'));
+
+					// We're given the element wrapped in jQuery
+					if (sort === 'date-oldest') {
+						opts = {
+							by : function($el) {
+								return $el.data('date-created');
+							}
+						}
+					} else if (sort === 'date-recent') {
+
+						opts = {
+							by : function($el) {
+								return $el.data('date-created');
+							},
+							reverse : true
+						}
+					} else if (sort === 'title') {
+						opts = {
+							by : function($el) {
+								return $el.data('title').toLowerCase();
+							}
+						}
+					} else if (sort === 'rocks') {
+
+						opts = {
+							by : function($el) {
+								return $el.data('rock');
+
+							},
+							reverse : true
+						}
+					}
+
+					// Filter elements
+					$grid.shuffle('sort', opts);
+
+				});
+
+		// Set up button clicks
+		$('#view-files-byrock-list li ').on(
+				'click',
+				function() {
+
+					var $this = $(this), $grid = $('#grid'), sort = $this
+							.data('sort'), opts = {};
+
+					// We're given the element wrapped in jQuery
+					if (sort === 'rocks') {
+
+						opts = {
+							by : function($el) {
+								return $el.data('rock');
+
+							},
+							reverse : true
+						}
+					}
+
+					// Filter elements
+					$grid.shuffle('sort', opts);
+
+				});
 
 	}
-	
-	</script>
+</script>
 
 <!-- ------------------Method to format date and returns --------------------->
 <script type="text/javascript">
-             function formatDateVal(dateVal)
-                {
-                var m_names = new Array("January", "February", "March", 
-                                    "April", "May", "June", "July", "August", "September", 
-                                    "October", "November", "December");
-                var d = new Date(dateVal);
-                var curr_date = d.getDate();
-                var curr_month = d.getMonth() + 1; //Months are zero based
-                var curr_year = d.getFullYear();
-                return curr_date + " " + m_names[d.getMonth()] + ", " + curr_year;
-                }
-        </script>
+	function formatDateVal(dateVal) {
+		var m_names = new Array("January", "February", "March", "April", "May",
+				"June", "July", "August", "September", "October", "November",
+				"December");
+		var d = new Date(dateVal);
+		var curr_date = d.getDate();
+		var curr_month = d.getMonth() + 1; //Months are zero based
+		var curr_year = d.getFullYear();
+		return curr_date + " " + m_names[d.getMonth()] + ", " + curr_year;
+	}
+</script>
 
 <script type="text/javascript">
-      window.onload=function(){
-        $('.selectpicker').selectpicker();
+	window.onload = function() {
+		$('.selectpicker').selectpicker();
 
-        $('.selectpicker-info').selectpicker({
-          style: 'btn-success'
-        });
-        
-      
-      };
-    </script>
+		$('.selectpicker-info').selectpicker({
+			style : 'btn-success'
+		});
+
+	};
+</script>
 
 <script>
-	
-	    // remove the active class from drop down menu
-		$('body').click(function() {
-			 
-// 		   if($('#upload-files1').hasClass('open'))
-// 		   {
-// 			   $('#upload-files').removeClass('active-new');
-//     		   $('#upload-files').addClass('attach-drop-bg');  
-// 		   }
-		   
-		   /**
-            * NEW THEME - hide visual drop down list
-            */
-           
-          	$('#uploadmediachild_dr').find('li').find('ul').hide(200);
-          	$('#uploadmediachild_dr').hide(200);
-		   
-		});
-	    
-		// @TODO remove the cursormesssage 
-		$('body').mousemove(function(eventName) {
-			if(!$(eventName.target).hasClass('mediapopup') && !$(eventName.target).hasClass('photo-popup') )
-			{
-				$.hideCursorMessage();
+	// remove the active class from drop down menu
+	$('body').click(function() {
+
+		// 		   if($('#upload-files1').hasClass('open'))
+		// 		   {
+		// 			   $('#upload-files').removeClass('active-new');
+		//     		   $('#upload-files').addClass('attach-drop-bg');  
+		// 		   }
+
+		/**
+		 * NEW THEME - hide visual drop down list
+		 */
+
+		$('#uploadmediachild_dr').find('li').find('ul').hide(200);
+		$('#uploadmediachild_dr').hide(200);
+
+	});
+
+	// @TODO remove the cursormesssage 
+	$('body').mousemove(
+			function(eventName) {
+				if (!$(eventName.target).hasClass('mediapopup')
+						&& !$(eventName.target).hasClass('photo-popup')) {
+					$.hideCursorMessage();
+				}
+			});
+
+	Array.prototype.remove = function() {
+		var what, a = arguments, L = a.length, ax;
+		while (L && this.length) {
+			what = a[--L];
+			while ((ax = this.indexOf(what)) !== -1) {
+				this.splice(ax, 1);
 			}
-		});
-	    
-		
-		Array.prototype.remove = function() {
-		    var what, a = arguments, L = a.length, ax;
-		    while (L && this.length) {
-		        what = a[--L];
-		        while ((ax = this.indexOf(what)) !== -1) {
-		            this.splice(ax, 1);
-		        }
-		    }
-		    return this;
-		};
-		
-	</script>
+		}
+		return this;
+	};
+</script>
 
 <!-- for pie charts  -->
 <script>

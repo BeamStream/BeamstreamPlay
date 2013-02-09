@@ -90,13 +90,22 @@ function loadJanrainShareWidget() {
  */
 function showJanrainShareWidget(message, title, url, description ,selected_media) { 
   janrain.engage.share.reset();
+  
+  /* @TODO for beta user registration popups */
+  janrain.events.onModalClose.addHandler(function(response) {
+	  if(localStorage["shareWidget"])
+		  $('#'+localStorage["shareWidget"]).modal('show');
+  });
+  
+  
   janrain.engage.share.setMessage(message);
   janrain.engage.share.setTitle(title);
   janrain.engage.share.setUrl(url);
   janrain.engage.share.setDescription(description);
   janrain.engage.share.setProviders(selected_media);
-//  janrain.engage.share.setProviders(['facebook']);
   janrain.engage.share.show();
+  
+ 
 }
 
 /**
@@ -267,4 +276,7 @@ function janRainLogin(info) {
 	});
 
 }
+
+
+
 loadJanrainShareWidget();

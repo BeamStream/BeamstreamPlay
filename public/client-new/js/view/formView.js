@@ -85,6 +85,7 @@ define(
 						},
 						_onFocus: function(e){this.onFocus(e);},
 						onFocus: function(e){
+                                                    console.log("test");
 							var pNode = $(e.target).parents('.ui-custom')[0]?$(e.target).parents('.ui-custom')[0]:e.target.parentNode, eDiv=$(pNode).find('.field-error')[0];
 							if($(e.target).parents('.ui-custom')[0])
 								$($(e.target).parents('.ui-custom')[0]).addClass('focus');
