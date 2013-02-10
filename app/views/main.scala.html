@@ -13,13 +13,30 @@
     @meta
     @CSS
     <link rel="shortcut icon" type="image/png" href="images/favicon.png">
+
     @JS
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
     <script src="beamstream-new/lib/bootstrap.min.js" type="text/javascript"></script> 
     <script>
       /* for beta user share popups */ 
       localStorage["shareWidget"] ='';
     </script>
+    <script type="text/javascript">
+
+	 var _gaq = _gaq || [];
+	 var pluginUrl = 
+	  '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+	   _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+	   _gaq.push(['_setAccount', 'UA-18936722-1']);
+	   _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
    
     
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
