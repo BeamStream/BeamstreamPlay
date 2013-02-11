@@ -60,7 +60,7 @@ define(['view/formView'], function(FormView){
 
                     if(data.status == 'Success')
                     {
-                            alert('Signup successfull');
+                            alert('Signup successfull \n\nPlease check your mail.');
                     }
                     else
                     {
