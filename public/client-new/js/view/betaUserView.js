@@ -80,9 +80,9 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap)
 			$("#errorMessage").modal('show'); 
 			
 			// hide error popup after 6 seconds 
-//			setTimeout(function() {
-//				$("#errorMessage").modal('hide'); 
-//			}, 6000);
+			setTimeout(function() {
+				$("#errorMessage").modal('hide'); 
+			}, 6000);
 			$('#mailId').val('');
 		},
 		
