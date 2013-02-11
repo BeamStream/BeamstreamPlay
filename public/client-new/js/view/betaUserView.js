@@ -31,7 +31,7 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap)
 		
 		
 		onAfterInit: function(){
-			this.data.reset({'name':'sss'});
+			this.data.reset();
 		},
 		
 		/**
