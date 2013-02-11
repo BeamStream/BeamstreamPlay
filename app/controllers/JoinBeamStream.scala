@@ -34,11 +34,10 @@ object JoinBeamStream extends Controller {
 
     val betaUsersFound = BetaUser.findBetaUserbyEmail(emailId)
     (!betaUsersFound.isEmpty) match {
-      case true => Ok(write(new ResulttoSent("Success", "You've been already added to the Beamstream's beta users list")))
+      case true => Ok(write(new ResulttoSent("Success", "You've been already added to the Beamstream's beta users list"))).as("application/json")
       case false =>
         BetaUser.addBetaUser(userToCreate)
         UtilityActor.sendMailWhenBetaUserRegisters(userToCreate.emailId)
-        //Ok(write(new ResulttoSent("Success", "Congratulations! You've been added to the Beamstream's beta users list")))
         val successJson = write(new ResulttoSent("Success", "Allow To Register"))
         Ok(successJson).as("application/json")
     }

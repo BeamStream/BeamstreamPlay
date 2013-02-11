@@ -31,7 +31,7 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap)
 		
 		
 		onAfterInit: function(){
-			this.data.reset({'name':'sss'});
+			this.data.reset();
 		},
 		
 		/**
@@ -106,7 +106,7 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap)
 			}
 			else
 			{
-				shareMessage = "I just locked in my beta invite for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors & looks amazing. I can't wait to try it! You can get on the priority beta list two! Just click http://test.beamstream.com/";
+				shareMessage = "I just locked in my beta invite for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors & looks amazing. I can't wait to try it! You can get on the priority beta list two! Just click http://www.beamstream.com/";
 			}
 			
 			showJanrainShareWidget(shareMessage, 'View my Beamstream post', 'http://bstre.am/k7lXGw', '' ,this.socialMedia);
@@ -126,16 +126,16 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap)
 			
 			/* set share message for each providers */ 
 			var shareMessage = '';
+			$('#modalShare').modal('hide');
 			if(seletedMedia == 'twitter')
 			{
 				shareMessage = "Get on the 1st user's beta list for @beamstream: @A #social #learning network built for #highered. http://bstre.am/k7lXGw #edtech";
 			}
 			else
 			{
-				shareMessage = "Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far! http://test.beamstream.com/";
+				shareMessage = "Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far! http://www.beamstream.com/";
 			}
 			
-			$('#modalShare').modal('hide');
 			showJanrainShareWidget(shareMessage, 'View my Beamstream post', 'http://bstre.am/k7lXGw', '' ,this.socialMediad);
 		},
 		

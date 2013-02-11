@@ -74,9 +74,9 @@ function loadJanrainShareWidget() {
   e.id = 'janrainWidgets';
     
   if (document.location.protocol === 'https:') {
-  e.src = 'https://rpxnow.com/js/lib/widget-examples-pro/share_beta.js';
+  e.src = 'https://rpxnow.com/js/lib/beamstream/share_beta.js';
   } else {
-  e.src = 'http://widget-cdn.rpxnow.com/js/lib/widget-examples-pro/share_beta.js';
+  e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/share_beta.js';
   }
     
   var s = document.getElementsByTagName('script')[0];
@@ -105,7 +105,6 @@ function showJanrainShareWidget(message, title, url, description ,selected_media
   janrain.engage.share.setProviders(selected_media);
   janrain.engage.share.show();
   
- 
 }
 
 /**
