@@ -22,62 +22,63 @@ define(['view/formView'], function(FormView){
 		objName: 'signupView',
 		
 		events:{
-	        'click .menu-pic':'getUserTypeValue',
-	        'click #registeration': 'registration'
-                        
+                    'click .menu-pic':'getUserTypeValue',
+                    'click #registeration': 'registration'                       
 		},
 
-		onAfterInit: function(){
-			this.data.reset({'iam':'0'});
-		},
+		onAfterInit: function(){	
+                    $('.sign-tick').hide(); 
+                    $('.sign-close').hide(); 
+                },
+                
 		
-		
-		/**
-		 * @TODO  user registration 
-		 */
-		registration:function(e){
-			
-	        e.preventDefault();
-	        this.saveForm();
-	        $('#mailid').val('');   
-	        $('#password').val('');
-	        $('#confirmPassword').val('');
-	        
-		},
+                    
+                    /**
+                    * @TODO  user registration 
+                    */
+		registration:function(e){	
+                    e.preventDefault();
+                    
+                    // save only when user enter mailid ,password, confirmPassword
+                    if($('#mailid').val()&&$('#password').val()&&$('#confirmPassword').val()){                      
+                        this.saveForm( );
+                    }  
+                    
+                    $('#mailid').val('');   
+                    $('#password').val('');
+                    $('#confirmPassword').val('');        
+                },
 
-		onBlur: function(e){
-           e.preventDefault();
-		},
           
-		/**
-		 * on form save success
-		 */
+                    /**
+                    * on form save success
+                    */
 		success: function(model, data){
     	   
-			var self = this;
-			$('#mailId').val('');
-			
-			if(data.status == 'Success')
-			{
-				alert('Signup successfull');
-			}
-			else
-			{
-				alert(data.message);
-			}
-			
-			
+                    var self = this;
+                    $('#mailId').val('');
+
+                    if(data.status == 'Success')
+                    {
+                            alert('Signup successfull');
+                    }
+                    else
+                    {
+                            alert(data.message);
+                    }		
 		},
                 
-        /**
-        * Method to set the value of "iam"
-        */
-        getUserTypeValue:function(eventName){
-	        eventName.preventDefault();
-	        $('.menu-pic div.active').removeClass('active');
-	        $(eventName.currentTarget).find('div').addClass('active');
-	        $("#usertype").val(eventName.currentTarget.id);	
-	        this.data.reset({'iam' : eventName.currentTarget.id});	
+                    /**
+                    * Method to set the value of "iam"
+                    */
+                getUserTypeValue:function(eventName){
+                    eventName.preventDefault();
+                    
+                    $('.menu-pic div.active').removeClass('active');
+                    $(eventName.currentTarget).find('div').addClass('active');
+                    
+                    $("#usertype").val(eventName.currentTarget.id);	
+                    this.data.reset({'iam' : eventName.currentTarget.id});	
                
 		}
 		

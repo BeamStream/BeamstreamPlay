@@ -5831,3 +5831,16 @@ ul.email-social-icons li.other2 {
 		top: 50%; 
 		margin-top: -5px;
 }
+/* Added by CuckooAnna  - for error msg */
+
+.error{
+    font-family: 'calibrii';
+    font-size:11px;
+    font-weight:normal;
+    color: #F83434;
+    left: 5px;
+    position: absolute;
+    top: -20px;
+    line-height:20px;
+   /* text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); */
+}
