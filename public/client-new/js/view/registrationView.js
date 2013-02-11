@@ -53,7 +53,6 @@ define(['view/formView','model/user'], function(FormView,UserModel){
 		comepleteSecondStep: function(e){
 			
 			e.preventDefault();
-			
 			var firstName = $('#firstName').val();
 			var lastName = $('#lastName').val();
 			var schoolName = $('#schoolName').val();
