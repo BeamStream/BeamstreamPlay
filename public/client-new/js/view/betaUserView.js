@@ -60,7 +60,13 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap)
 			}
 			else
 			{
-				alert(data.message);
+				localStorage["shareWidget"] = 'errorMessage';
+				$("#errorMessage").modal('show'); 
+				
+				// hide error popup after 6 seconds 
+				setTimeout(function() {
+					$("#errorMessage").modal('hide'); 
+				}, 6000);
 			}
 		},
 		
@@ -68,8 +74,15 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap)
 		/**
 		 * @TODO call on form save error
 		 */
-		error: function(e){			
-			alert("Plaese try again !!" );
+		error: function(e){	
+			
+			localStorage["shareWidget"] = 'errorMessage';
+			$("#errorMessage").modal('show'); 
+			
+			// hide error popup after 6 seconds 
+			setTimeout(function() {
+				$("#errorMessage").modal('hide'); 
+			}, 6000);
 			$('#mailId').val('');
 		},
 		
@@ -98,14 +111,18 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap)
 			
 			/* set share message for each providers */ 
 			var shareMessage = '';
-			if(seletedMedia == 'twitter')
-			{
-				shareMessage = "Got on the beta list 4 @beamstream A #highered #social #learning network. Get on the priority beta list 2 http://bstre.am/k7lXGw #edtech";
+			if(seletedMedia == 'twitter'){
+				
+				shareMessage = "Got on the beta list 4 @beamstream A #highered #social #learning network. Get on the priority beta list 2 #edtech";
 				 
 			}
-			else
-			{
-				shareMessage = "I just locked in my beta invite for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors & looks amazing. I can't wait to try it! You can get on the priority beta list two! Just click http://www.beamstream.com/";
+			else if(seletedMedia == 'email'){
+				
+				shareMessage = "I just locked in my beta invite for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors & looks amazing. I can't wait to try it! You can get on the priority beta list two! Just click ";
+			}
+			else{
+				
+				shareMessage = "I just locked in my beta invite for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors & looks amazing. I can't wait to try it! You can get on the priority beta list two! Just click http://bstre.am/k7lXGw";
 			}
 			
 			showJanrainShareWidget(shareMessage, 'View my Beamstream post', 'http://bstre.am/k7lXGw', '' ,this.socialMedia);
@@ -126,13 +143,17 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap)
 			/* set share message for each providers */ 
 			var shareMessage = '';
 			$('#modalShare').modal('hide');
-			if(seletedMedia == 'twitter')
-			{
-				shareMessage = "Get on the 1st user's beta list for @beamstream: @A #social #learning network built for #highered. http://bstre.am/k7lXGw #edtech";
+			if(seletedMedia == 'twitter'){
+				
+				shareMessage = "Get on the 1st user's beta list for @beamstream: @A #social #learning network built for #highered. #edtech";
 			}
-			else
-			{
-				shareMessage = "Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far! http://www.beamstream.com/";
+			else if(seletedMedia == 'email'){
+				
+				shareMessage = "Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far! ";
+			}
+			else{
+				
+				shareMessage = "Get on the exclusive beta list for BeamStream, a Social Learning Network for Colleges & Universities. It's built for college students & professors. It's lookin' pretty sweet so far! http://bstre.am/k7lXGw";
 			}
 			
 			showJanrainShareWidget(shareMessage, 'View my Beamstream post', 'http://bstre.am/k7lXGw', '' ,this.socialMediad);
