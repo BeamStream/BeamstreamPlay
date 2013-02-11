@@ -85,7 +85,6 @@ define(
 						},
 						_onFocus: function(e){this.onFocus(e);},
 						onFocus: function(e){
-                                                    console.log("test");
 							var pNode = $(e.target).parents('.ui-custom')[0]?$(e.target).parents('.ui-custom')[0]:e.target.parentNode, eDiv=$(pNode).find('.field-error')[0];
 							if($(e.target).parents('.ui-custom')[0])
 								$($(e.target).parents('.ui-custom')[0]).addClass('focus');
@@ -204,7 +203,7 @@ define(
 						serverError : function(model, data) {
 							var that = this;
 							if (_.isObject(data)) {
-								
+								console.log(this.data.models[0]);
 								this.data.models[0].showError();
 							} else {
 								var error_msg = this.$('.error_msg_area')[0];

@@ -18,5 +18,4 @@ addSbtPlugin("com.typesafe.startscript" % "xsbt-start-script-plugin" % "0.5.2")
 
 addSbtPlugin("play" % "sbt-plugin" % "2.0.2")
 
-
 libraryDependencies <+= sbtVersion(v => "com.github.siasia" %% "xsbt-web-plugin" % (v+"-0.2.11.1"))
