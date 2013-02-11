@@ -22,13 +22,13 @@ define(['view/formView'], function(FormView){
 		objName: 'signupView',
 		
 		events:{
-            'click .menu-pic':'getUserTypeValue',
-			'click #registeration': 'registration'
+	        'click .menu-pic':'getUserTypeValue',
+	        'click #registeration': 'registration'
                         
 		},
 
 		onAfterInit: function(){
-			this.data.reset({'iam' :'1'});
+			this.data.reset({'iam':'0'});
 		},
 		
 		
@@ -36,20 +36,43 @@ define(['view/formView'], function(FormView){
 		 * @TODO  user registration 
 		 */
 		registration:function(e){
-			e.preventDefault();
-			this.saveForm();
+			
+	        e.preventDefault();
+	        this.saveForm();
+	        $('#mailid').val('');   
+	        $('#password').val('');
+	        $('#confirmPassword').val('');
+	        
 		},
-       
+
+		onBlur: function(e){
+           e.preventDefault();
+		},
+          
+		/**
+		 * on form save success
+		 */
+		success: function(model, data){
+    	   
+			var self = this;
+			$('#mailId').val('');
+			if(!data.status == "Failure")
+			{
+				alert('Signup successfull');
+			}
+			
+		},
                 
         /**
         * Method to set the value of "iam"
         */
-		getUserTypeValue:function(eventName){
+        getUserTypeValue:function(eventName){
 	        eventName.preventDefault();
 	        $('.menu-pic div.active').removeClass('active');
 	        $(eventName.currentTarget).find('div').addClass('active');
 	        $("#usertype").val(eventName.currentTarget.id);	
-	        this.data.reset({'iam' : eventName.currentTarget.id});		    
+	        this.data.reset({'iam' : eventName.currentTarget.id});	
+               
 		}
 		
  

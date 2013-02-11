@@ -19,7 +19,7 @@
 define(['model/baseModel'], function(BaseModel) {
 	var User = BaseModel.extend({ 
 		objName: 'User',
-       
+
 		validation: {
 
 			mailId: {
@@ -59,12 +59,14 @@ define(['model/baseModel'], function(BaseModel) {
 		},
 		
 //		showError:function(){
-//			alert("Invalid emailid");
+//			console.log("no");
 //		},
 //		showValid: function(){
 //			console.log("sss  ");
 //		}
+               
 
 	});
+        
 	return User;
 });
