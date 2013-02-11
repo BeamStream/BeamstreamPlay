@@ -200,7 +200,7 @@ GET /signup              controllers.BasicRegistration.signUpPage
 POST /signup         controllers.BasicRegistration.signUpUser
 
 #Registration
-GET /registration              controllers.Registration.registration
+GET   /token/:authToken/userId/:userId               controllers.Registration.registration(authToken:String,userId:String)
                                                     
 
 

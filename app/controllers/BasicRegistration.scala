@@ -157,7 +157,7 @@ object BasicRegistration extends Controller {
    */
 
   def signUpUser = Action { implicit request =>
-//    try {
+    try {
       val userInfoJsonMap = request.body.asJson.get
       println(userInfoJsonMap)
       val iam = (userInfoJsonMap \ "iam").as[String]
@@ -177,7 +177,7 @@ object BasicRegistration extends Controller {
               val IdOfUserCreted = User.createUser(userToCreate)
               val createdUser = User.getUserProfile(IdOfUserCreted)
               UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.toString,tokenEmail.securityToken,emailId)
-              Ok(write(List(createdUser))).as("application/json")
+              Ok(write(new ResulttoSent("Success","SignUp Successful"))).as("application/json")
               
             case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
           }
@@ -185,8 +185,8 @@ object BasicRegistration extends Controller {
         case false =>
           Ok(write(new ResulttoSent("Failure", "This User Email Is Already Taken"))).as("application/json")
       }
-//    } catch {
-//      case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem During Registration"))).as("application/json")
-//    }
+    } catch {
+      case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem During Registration"))).as("application/json")
+    }
   }
 }
