@@ -21,6 +21,8 @@ import play.cache.Cache
 import utils.PasswordHashing
 import utils.PasswordHashing
 import utils.onlineUserCache
+import actors.UtilityActor
+import utils.tokenEmail
 
 object BasicRegistration extends Controller {
 
@@ -155,15 +157,15 @@ object BasicRegistration extends Controller {
    */
 
   def signUpUser = Action { implicit request =>
-    try {
+//    try {
       val userInfoJsonMap = request.body.asJson.get
+      println(userInfoJsonMap)
       val iam = (userInfoJsonMap \ "iam").as[String]
       val emailId = (userInfoJsonMap \ "mailId").as[String]
       val password = (userInfoJsonMap \ "password").as[String]
       val confirmPassword = (userInfoJsonMap \ "confirmPassword").as[String]
       val encryptedPassword = (new PasswordHashing).encryptThePassword(password)
       val encryptedConfirmPassword = (new PasswordHashing).encryptThePassword(confirmPassword)
-
       val canUserRegister = User.isUserAlreadyRegistered(emailId)
       (canUserRegister == true) match {
 
@@ -173,18 +175,18 @@ object BasicRegistration extends Controller {
             case true =>
               val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", "", encryptedPassword, "", "", "", List(), List(), List(), List(), List(), List())
               val IdOfUserCreted = User.createUser(userToCreate)
-              val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
               val createdUser = User.getUserProfile(IdOfUserCreted)
-              val noOfOnLineUsers = onlineUserCache.setOnline(IdOfUserCreted.toString)
-              Ok(write(List(createdUser))).withSession(RegistrationSession)
+              UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.toString,tokenEmail.securityToken,emailId)
+              Ok(write(List(createdUser))).as("application/json")
+              
             case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
           }
 
         case false =>
           Ok(write(new ResulttoSent("Failure", "This User Email Is Already Taken"))).as("application/json")
       }
-    } catch {
-      case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem During Registration"))).as("application/json")
-    }
+//    } catch {
+//      case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem During Registration"))).as("application/json")
+//    }
   }
 }
