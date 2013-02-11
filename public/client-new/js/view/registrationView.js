@@ -30,6 +30,9 @@ define(['view/formView','model/user'], function(FormView,UserModel){
 			this.data.reset();
 //            this.saveForm();
 		},
+		render: function(token){
+			console.log(token);
+		},
         
 		/**
 		 * complete step1 registration process
