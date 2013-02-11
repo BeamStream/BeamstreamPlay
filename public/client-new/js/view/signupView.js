@@ -28,7 +28,7 @@ define(['view/formView'], function(FormView){
 		},
 
 		onAfterInit: function(){
-			this.data.reset();
+			this.data.reset({'iam' :'1'});
 		},
 		
 		
