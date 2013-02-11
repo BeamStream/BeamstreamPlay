@@ -56,10 +56,16 @@ define(['view/formView'], function(FormView){
     	   
 			var self = this;
 			$('#mailId').val('');
-			if(!data.status == "Failure")
+			
+			if(data.status == 'Success')
 			{
 				alert('Signup successfull');
 			}
+			else
+			{
+				alert(data.message);
+			}
+			
 			
 		},
                 
