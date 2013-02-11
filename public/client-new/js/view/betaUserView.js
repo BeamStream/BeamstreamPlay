@@ -68,8 +68,7 @@ define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap)
 		/**
 		 * @TODO call on form save error
 		 */
-		error: function(e){
-			
+		error: function(e){			
 			alert("Plaese try again !!" );
 			$('#mailId').val('');
 		},
