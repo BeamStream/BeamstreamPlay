@@ -30,10 +30,17 @@ define(['view/formView','model/user'], function(FormView,UserModel){
 			this.data.reset();
 //            this.saveForm();
 		},
-		render: function(token){
-			console.log(token);
+		render: function(){
+			console.log($('#userId').val());
+//			console.log(this.getDelta);
+//			var myModel = new UserModel();
+//			UserModel.fetch();
+//			this.fetch();
 		},
-        
+//        fetch: function(){
+////        	console.log(this.data.url);
+//        	this.data.fetch();
+//        },
 		/**
 		 * complete step1 registration process
 		 */
@@ -48,6 +55,8 @@ define(['view/formView','model/user'], function(FormView,UserModel){
             $('#step2_block').removeClass('box-active');
             $('#step2_block').addClass('active-border');
             $('#step_2').show(500);
+//            this.reset({id:1});
+//            this.fetch();
         },
                 
         /**

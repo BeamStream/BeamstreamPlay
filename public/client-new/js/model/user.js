@@ -19,9 +19,10 @@
 define(['model/baseModel'], function(BaseModel) {
 	var User = BaseModel.extend({ 
 		objName: 'User',
-                defaults: {	        	
+//		idAttribute: "_id",
+        defaults: {	        	
                     iam:'0'
-                },
+        },
                 
 		validation: {
 

@@ -178,7 +178,7 @@ define(['view/container',
 			
 			if(this.data.url){
 				that.data.fetch({
-					success: function(data){
+					success: function(data){ 
 						//console.log('fetch success', that);
 						that._onAfterFetch.apply(that, arguments);
 					},

@@ -1,3 +1,4 @@
+@(token: String, userId: String)
 @CSS = {
 	<link href="/beamstream-new/css/style.css" rel="stylesheet" type="text/css" />
     <link href="/beamstream-new/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
@@ -65,12 +66,12 @@
     </div>
    </header> 
    <article>
-   <div  id="registration"   data-model="user" data-url="registration" data-module="view/registrationView" >
+   <div  id="registration"   data-model="user" data-url="/registration" data-module="view/registrationView" >
     <div class="container-fluid">
  	<div class="main-container ">
  	<div class="profile-wrapper">
         <div class="profile-left-container">
-        <h6><span>*</span>Required Fields </h6>
+        <h6><span>*</span>Required Fields </h6> <input type="hidden" id="userId" value="5118ac6384aedd1ffa29e715" >
           <div id="step2_block" class="profile-white registration-info box-active">
             <fieldset>  
             <input id="firstName" name="firstName" type="text" placeholder="First Name">
@@ -215,6 +216,5 @@
       </div>
       </div>
    </article>
-   <script data-main="/beamstream-new/js/main" src="/beamstream-new/js/libs/require/require.js"></script>
     
 }
