@@ -1,16 +1,220 @@
-@meta = {}
-@CSS = {}
-@JS = {}
+@CSS = {
+	<link href="/beamstream-new/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/beamstream-new/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
+    <link href="/beamstream-new/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/beamstream-new/css/jquery.simplyscroll.css" media="all" type="text/css">
+    <link href="/beamstream-new/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" 	rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/beamstream-new/css/extracss/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+    <link rel="stylesheet" href="/beamstream-new/css/extracss/jquery.cursorMessage.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/beamstream-new/css/bootstrap-select.css">
+    <link rel="stylesheet" href="/beamstream-new/css/extracss/jquery.Jcrop.css" type="text/css" />
+}
+@JS = {
+	<script src="/beamstream-new/js/apps/common/modernizr-2.6.1.min.js"></script>
+}
 @bodyCls = {}
 @bodyModule = {}
 @bodyJS = {}
-@sideBar = {
-  <h1>Sidebar</h1>
-}
 
 
-@main("Registration", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar){
-    
-    <h1> Registration Page </h1>
+@main("Registration", "Body",CSS, JS, bodyModule, bodyJS){
+ <header>
+  <div class="header-wrapper">
+	<div class="registration-header"><h6>Fill out the requited information below to continue. You can edit/add details later. </h6></div>
+     <div class="container-fluid"> <a href="index.html" class="brand"><img src="/beamstream-new/images/logo.png" width="148" height="37"></a>
+      <form class="navbar-form pull-left search-block">
+        <input type="text" class="header-search" placeholder="Search Class, Person, Etc">
+        <button type="submit" class="btn header-button">Search</button>
+        <a href="index.html">Advanced</a>
+      </form>
+      <div class="header-profile">
+        <div class="header-icon"><img id="right-top-photo" src="" width="41" height="41"></div>
+        <div class="public-profile">
+         
+          <div class="profile-info"> <a href="#" class="profile-button">Public Profile</a>
+            <div class="settings-menu">
+              <div class="btn-group">
+                <button class="btn seetings-toggle">Settings</button>
+                <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class="caret settings-caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li id="edit-profile" ><a href="#">Edit Profile</a></li>
+ 				 <li id="sign-out" ><a href="#">Sign Out</a></li>
+                  
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header-menu header-menu-inner">
+      <nav class="menu">
+        <ul class="nav">
+          <li  ><a  href="#" id="menu-mystreams" ><span class="my-stream"></span>My Streams</a></li>
+          <li><a href="#" id="menu-browsemedia" ><span class="browse-media"></span>Browse Media</a></li>
+          <li><a href="#" id="menu-connections"> <span class="connections"></span>Connections</a></li>
+          <li><a href="#" id="menu-otherstuff"> <span class="other"></span>Other Stuff</a></li>
+          <li><a href="#" id="menu-morestuff"> <span class="other"></span>Even More Stuff</a></li>
+        </ul>
+      </nav>
+    </div>
+    </div>
+   </header> 
+   <article>
+   <div  id="registration"   data-model="user" data-url="registration" data-module="view/registrationView" >
+    <div class="container-fluid">
+ 	<div class="main-container ">
+ 	<div class="profile-wrapper">
+        <div class="profile-left-container">
+        <h6><span>*</span>Required Fields </h6>
+          <div id="step2_block" class="profile-white registration-info box-active">
+            <fieldset>  
+            <input id="firstName" name="firstName" type="text" placeholder="First Name">
+            <span class="red-star">*</span>
+            </fieldset>
+            <fieldset>  
+            <input id="lastName"  name="lastName" type="text" placeholder="Last Name">
+              <span class="red-star">*</span>
+            </fieldset>
+            <div class="alert-register"><span>*Last Name will not be shown publicly</span></div>
+            <fieldset>  
+            <input id="schoolName" name="schoolName" type="text" placeholder="School Name">
+              <span class="red-star">*</span>
+            </fieldset>
+            <fieldset>  
+            <input id="major" name="major" type="text" placeholder="Major " >
+             <span class="red-star">*</span>
+            </fieldset>
+            <textarea id="aboutYourself" name="aboutYourself" cols="" rows="" placeholder="Tell us a little about yourself."></textarea>
+            <div class="profile-select-block">
+              <fieldset>  
+              <select id="gradeLevel" name="gradeLevel" class="selectpicker-info " style="display: none;">
+                <option  name="" selected="selected" >Grade Level?</option>
+                <option value="Freshman">Freshman</option>
+                <option value="Sophomore">Sophomore</option>
+                <option value="Junior">Junior</option>
+                <option value="Senior">Senior</option>
+                <option value="Graduated(Master's)">Graduated(Master's)</option>
+                <option value="Graduated(Phd)">Graduated(Phd)</option>
+                <option value="Other">Other</option>
+              </select>
+               <span class="red-star select-star">*</span>
+               </fieldset>
+              <div class="select-arrow-white"><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
+            </div>
+            <div class="profile-select-block">
+              <fieldset>
+              <select id="degreeProgram" name="degreeProgram" class="selectpicker-info " style="display: none;">
+                <option selected="selected" >Degree Program?</option>
+                <option value="Assosiates(AA)">Assosiates(AA)</option>
+                <option value="Bachelor's">Bachelor's</option>
+                <option value="Master's">Master's</option>
+                <option value="Doctorate(Phd)">Doctorate(Phd)</option>
+                <option value="Other">Other</option>
+              </select>
+               <span class="red-star select-star">*</span>
+              </fieldset>
+              <div class="select-arrow-white"><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
+            </div>
+            <div class="profile-select-block">
+          
+              <fieldset>   
+              <select id="graduate" name="graduate" class="selectpicker-info " style="display: none;">
+                <option selected="selected" >Graduated?</option>
+                <option value="attending">Still Attending</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+               <span class="red-star select-star">*</span>
+              </fieldset>
+              <div class="select-arrow-white"><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
+            </div>
+            <fieldset>
+            <input id="location" name="location" type="text" placeholder="Location" class="location-note">
+            <span class="red-star select-star">*</span>
+             <span class="location-icon location-toolip" data-original-title="Use Current Location"></span>
+           </fieldset>
+            
+           
+         
+            <input id="cellNumber" name="cellNumber" type="text" placeholder="Cell Number">
+            <div class="alert-register"><span>*For mobile usage options.</span></div>
+          </div>
+        </div>
+        <div class="profile-center-container">
+
+          <ul class="profile-top-menu profile-white register-top-white">
+            <h3> Add Personality</h3>
+            <h5>Coming Soon</h5>
+          </ul>
+          <div class="roud-slider">
+         	  <div id="step_1" class="step-box step-box1">
+	              <h3>Step 1 of 3 </h3>
+	              <h4>Connect Your Social Networks</h4>
+	              <a href="#">RESET</a> <a id="done_step1" href="#">NEXT</a> 
+              </div>
+              
+              <div id="step_2" style="display:none;" class="step-box step-box1 step-box2">
+	              <h3>Step 2 of 3 </h3>
+	              <h4>Basci Profile Section</h4>
+		          <a href="#">RESET</a> <a id="done_step2" href="#">NEXT</a> 
+	          </div>
+	          
+	          <div id="step_3" style="display:none;" class="step-box">
+	              <h3>Step 3 of 3 </h3>
+	              <h4>Upload Your Main Profile Photo</h4>
+	              <a href="#">BROWSE</a> <a id="done_step3" href="#">DONE</a> 
+              </div>
+             <div id="upload-step" >
+	             <div id="step3_block" class="round-block upload-photo step-one-photo  "> 
+	             <a href="#"> </a> 
+	             </div>
+             </div>
+              
+             
+              
+              
+            <ul class="profile-top-menu profile-white register-top-white photo-project">
+              <h3> Add Photos / Projects</h3>
+              <h5>Add on NExt Page</h5>
+            </ul>
+          </div>
+        </div>
+        <div class="profile-right-container">
+          <div id="step1_block" class="profile-white active-border">
+            <h5>Connect with:</h5>
+            <ul class="register-social">
+              <li>
+                <div class="tick-register"></div>
+                 <a class="facebook register-toolip-outer" href="#" data-original-title="Sweet, Lookin good!"> <span><img width="33" height="34" src="/beamstream-new/images/face-book-icon.png"></span> <span class="shadow">Facebook</span></a>
+                <div class="social-close"><img src="/beamstream-new/images/social-close.png" width="9" height="9"></div>
+              </li>
+              <li>
+                <div class="tick-register"></div>
+                <a class="twitter register-toolip-outer" href="#" data-original-title="Sweet, Lookin good!"> <span><img src="/beamstream-new/images/twitter-icon.png" width="33" height="34"></span> <span class="shadow">Twitter</span></a>
+                <div class="social-close"><img src="/beamstream-new/images/social-close.png" width="9" height="9"></div>
+              </li>
+              <li> <a class="google" href="#"> <span><img src="/beamstream-new/images/google-plus-icon.png" width="33" height="34"></span> <span class="shadow">Google</span></a> </li>
+              <li> <a class="link-in" href="#"> <span><img src="/beamstream-new/images/in-icon.png" width="33" height="34"></span> <span class="shadow">Linkedin</span></a> </li>
+            </ul>
+            <div class="clear"></div>
+          </div>
+          <div class="profile-white">
+            <div class="add-skills">
+              <h3> Add Interests / Skills</h3>
+              <h5>Coming Soon</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
+      </div>
+   </article>
+   <script data-main="/beamstream-new/js/main" src="/beamstream-new/js/libs/require/require.js"></script>
     
 }

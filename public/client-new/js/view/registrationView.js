@@ -1,12 +1,12 @@
 /***
 * BeamStream
 *
-* Author                : Cuckoo Anna (cuckoo@toobler.com)
+* Author                : Aswathy P .R (aswathy@toobler.com)
 * Company               : Toobler
 * Email:                : info@toobler.com
 * Web site              : http://www.toobler.com
 * Created               : 29/January/2013
-* Description           : Backbone model for user details 
+* Description           : Backbone view for registration steps
 * ==============================================================================================
 * Change History:
 * ----------------------------------------------------------------------------------------------
@@ -20,34 +20,42 @@ define(['view/formView','model/user'], function(FormView,UserModel){
 	RegistrationView = FormView.extend({
 		objName: 'RegistrationView',
                 
-                events : {
+        events : {
 			"click #done_step1" : "completeFirstStep",
 			"click #done_step2" : "comepleteSecondStep"
 			 
 		},
-                 onAfterInit: function(){
-//                     var user = new UserModel();
-//                    console.log("registration..")
+		
+		onAfterInit: function(){
 			this.data.reset();
-//                        this.saveForm();
+//            this.saveForm();
 		},
-                
-                completeFirstStep: function(){
-                    console.log(" first step ...")
-                    $('#step_1').hide(500);
-                    $('#step1_block').removeClass('active-border');
-                    $('#step2_block').removeClass('box-active');
-                    $('#step2_block').addClass('active-border');
-                    $('#step_2').show(500);
-                },
-                
-                /**
-		 *  second step registration 
+		render: function(token){
+			console.log(token);
+		},
+        
+		/**
+		 * complete step1 registration process
 		 */
-		comepleteSecondStep: function(eventName){
+        completeFirstStep: function(e){
+        	
+        	e.preventDefault();
+            console.log("Complete first step ...")
+            
+            /* disable first step and enable step 2 block */
+            $('#step_1').hide(500);
+            $('#step1_block').removeClass('active-border');
+            $('#step2_block').removeClass('box-active');
+            $('#step2_block').addClass('active-border');
+            $('#step_2').show(500);
+        },
+                
+        /**
+		 * complete step2 registration process - user details form
+		 */
+		comepleteSecondStep: function(e){
 			
-			eventName.preventDefault();
-			
+			e.preventDefault();
 			var firstName = $('#firstName').val();
 			var lastName = $('#lastName').val();
 			var schoolName = $('#schoolName').val();
@@ -65,7 +73,7 @@ define(['view/formView','model/user'], function(FormView,UserModel){
 			console.log("graduate" + graduate);
 			console.log("cellNumber" + cellNumber);
 			console.log("location" + location);
-                       this.saveForm();
+            this.saveForm();
 			
 			
 			

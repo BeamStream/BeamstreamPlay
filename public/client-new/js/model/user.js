@@ -20,8 +20,9 @@ define(['model/baseModel'], function(BaseModel) {
 	var User = BaseModel.extend({ 
 		objName: 'User',
                 defaults: {	        	
-        		iam:0
+                    iam:'0'
                 },
+                
 		validation: {
 
 			mailId: {
@@ -56,17 +57,19 @@ define(['model/baseModel'], function(BaseModel) {
 				required: true
 			},
 			cellNumber: {				
-                pattern: 'phone'
+                        pattern: 'phone'
 			}
-		},
+                    },
 		
 //		showError:function(){
-//			alert("Invalid emailid");
+//			console.log("no");
 //		},
 //		showValid: function(){
 //			console.log("sss  ");
 //		}
+               
 
 	});
+        
 	return User;
 });

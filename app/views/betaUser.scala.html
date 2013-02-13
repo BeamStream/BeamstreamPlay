@@ -1,4 +1,4 @@
-@(message: String)
+
 @meta = {
 }
 @CSS = {
@@ -39,6 +39,17 @@ $(document).ready(function() {
         $('#twitterfollowers').append(data.followers_count+" Followers"); 
         }) // end getJSON
 })
+</script>
+<div id="fb-root"></div>
+
+<script>
+//    (function(d, s, id) {
+//  var js, fjs = d.getElementsByTagName(s)[0];
+//  if (d.getElementById(id)) return;
+//  js = d.createElement(s); js.id = id;
+//  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+//  fjs.parentNode.insertBefore(js, fjs);
+//}(document, 'script', 'facebook-jssdk'));
 </script>
   <div  id="betaUserRegistration" data-model="user" data-url="betaUser" data-module="view/betaUserView">
 <header id="header">
@@ -95,12 +106,20 @@ $(document).ready(function() {
 <footer id="footer">
   <div class="container">
     <ul class="f-share">
-      <li> <a href="https://twitter.com/#!/BeamStream" target="_blank" class="t-follow"><span></span>Follow Us</a><span id="twitterfollowers"></span>  
-        
+      <li> <a href="#" target="_blank" class="t-follow"><span></span>Follow Us</a><span id="twitterfollowers"></span>         
        </li>  
        
-      <li> <a href="http://www.facebook.com/pages/BeamStream/100810133312475" target="_blank" class="f-like"><span></span>Like Us</a> <span id="facebooklikes"></span> 
+    <li> <a href="http://www.facebook.com/pages/BeamStream/100810133312475" target="_blank" class="f-like"><span></span>Like Us</a> <span id="facebooklikes"></span> 
     </li>
+<!--  <li class="twt">
+  <iframe allowtransparency="true" frameborder="0" scrolling="no"
+  src="//platform.twitter.com/widgets/follow_button.html?screen_name=BeamStream&showcount=false&show_count=false"
+  style="width:300px; height:20px;"></iframe>
+    </li>
+    <li>
+        
+ <div class="fb-like" data-href="http://www.facebook.com/pages/BeamStream/100810133312475" data-send="false" data-layout="button_count" data-width="850" data-show-faces="true" data-font="arial"></div>
+    </li> -->
     </ul>
     <ul class="f-menu">
       <li><a href="#" class="active">Login</a></li>
@@ -137,6 +156,32 @@ $(document).ready(function() {
         <li id="linkedin" > <a href="#" class="l-share"><span></span>Share on Linkedin</a> </li>
         <li id="email"> <a href="#" class="e-share"><span></span>Share by Email</a> </li>
       </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Error Popup-->
+<div id="errorMessage" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+   
+    <h3 id="myModalLabel"> Wow, you like us, you really like us! Don't worry you can share BeamStream with even more friends.
+Awww, we like you too... </h3>
+    <h5>(ok maybe the <span>only</span> college collaboration network)</h5>
+  </div>
+  <div class="modal-body">
+    <div class="modal-email"><img src="beamstream-new/homepage/img/modal-email.jpg">
+      <h4>Stay tuned for your official invite via email</h4>
+    </div>
+    <div class="share-content">
+      <div class="share-info">
+      	<span class="arrow-bg"></span>
+        <h5>Want to be an exclusive 1st User? </h5>
+        <h2>Share<img src="beamstream-new/homepage/img/beamstream-blue.jpg">    
+          with your connections.</h2>
+      </div>
+     
     </div>
   </div>
 </div>

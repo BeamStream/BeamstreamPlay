@@ -1,10 +1,20 @@
 package controllers
 import play.api.mvc._
+import models.Token
 
 object Registration extends Controller {
 
-  def registration = Action {
-    Ok(views.html.registration())
+  
+  /**
+   * Regsitration after Mail
+   */
+  def registration(token: String, userId: String) = Action {
+
+    (Token.findToken(token).isEmpty) match {
+      case false => Ok(views.html.registration())
+      case true => Ok("Token has been expired")
+    }
+
   }
 
 }

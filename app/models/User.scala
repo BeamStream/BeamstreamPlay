@@ -218,7 +218,7 @@ object User {
    * ****************************************Beamstream rearchitecture**********************************************
    */
 
-  // Check if the User already registered
+ // Check if the User already registered (RA)
   def isUserAlreadyRegistered(userEmail: String) = {
     val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
     (userHavingSameMailId.isEmpty) match {
@@ -229,7 +229,7 @@ object User {
 }
 
 /*
- * User Types
+ * User Types (RA)
  */
 object UserType extends Enumeration {
   val Student = Value(0, "Student")
