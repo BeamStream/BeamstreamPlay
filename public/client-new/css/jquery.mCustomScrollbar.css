@@ -1,9 +1,11 @@
 /* basic scrollbar styling */
 /* vertical scrollbar */
+.mCustomScrollBox{margin-top: 10px;}
 .mCSB_container{
 	width:auto;
 	margin-right:0px;
 	overflow:hidden;
+
 }
 .mCSB_container.mCS_no_scrollbar{
 	margin-right:0;
@@ -126,6 +128,7 @@
 /* default scrollbar colors and backgrounds */
 .mCustomScrollBox .mCSB_scrollTools{
 	opacity:0.75;
+	right:-5px;
 }
 .mCustomScrollBox:hover .mCSB_scrollTools{
 	opacity:1;
@@ -135,26 +138,24 @@
 	background:rgba(0,0,0,0.4);
 	filter:"alpha(opacity=40)"; -ms-filter:"alpha(opacity=40)";
 		
-	 background:#c8d2d8; -moz-border-radius: 30px; -webkit-border-radius: 30px; border-radius: 30px; padding:2px;	width:5px;		
+	 background:#c3cdd3; -moz-border-radius: 30px; -webkit-border-radius: 30px; border-radius: 30px;width:6px;		
 								
 																 /* old ie */
 }
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
-
-		
-	 width:5px;  background:#6a7176; -moz-box-shadow: inset 0px 0px 1px #333; -webkit-box-shadow: inset 0px 0px 1px #333; box-shadow: inset 0px 0px 1px #333; -moz-border-radius: 30px; -webkit-border-radius: 30px; border-radius: 30px; margin-top:3px;	
-								
-		
-				
+	   width:6px; 
+	   background:#6a7176; 
+	  -moz-border-radius: 30px;
+	  -webkit-border-radius: 30px;
+	   border-radius: 30px;
+			
 }
 .mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar{
-	background:rgba(255,255,255,0.85);
-	filter:"alpha(opacity=85)"; -ms-filter:"alpha(opacity=85)"; /* old ie */
-}
+	background:#4d5256;
+	}
 .mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
 .mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar{
-	background:rgba(255,255,255,0.9);
-	filter:"alpha(opacity=90)"; -ms-filter:"alpha(opacity=90)"; /* old ie */
+		background:#4d5256;
 }
 
 
