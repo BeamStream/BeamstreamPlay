@@ -439,7 +439,10 @@ Create a Class</a>
  <div class="main-container ">
  <div class="profile-wrapper">
         <div class="profile-left-container">
-        <h6><span>*</span>Required Fields </h6>
+  		<div class="req-field">
+ 		<span>*</span><h6>Required Fields </h6>
+		</div>
+       
           <div id="step2_block" class="profile-white registration-info box-active">
             <fieldset>  
             <input id="firstName" name="firstName" type="text" placeholder="First Name">
@@ -538,8 +541,8 @@ Create a Class</a>
 	              <h4>Upload Your Main Profile Photo</h4>
 	              <a href="#">BROWSE</a> <a id="done_step3" href="#">DONE</a> 
               </div>
-             <div id="upload-step" >
-	             <div id="step3_block" class="round-block upload-photo step-one-photo  "> 
+             <div id="upload-step">
+	             <div id="step3_block" class="round-block upload-photo step-one-photo"> 
 	             <a href="#"> </a> 
 	             </div>
              </div>
@@ -560,12 +563,12 @@ Create a Class</a>
               <li>
                 <div class="tick-register"></div>
                  <a class="facebook register-toolip-outer" href="#" data-original-title="Sweet, Lookin good!"> <span><img width="33" height="34" src="images/face-book-icon.png"></span> <span class="shadow">Facebook</span></a>
-                <div class="social-close"><img src="images/social-close.png" width="9" height="9"></div>
+                <div class="social-close"></div>
               </li>
               <li>
                 <div class="tick-register"></div>
                 <a class="twitter register-toolip-outer" href="#" data-original-title="Sweet, Lookin good!"> <span><img src="images/twitter-icon.png" width="33" height="34"></span> <span class="shadow">Twitter</span></a>
-                <div class="social-close"><img src="images/social-close.png" width="9" height="9"></div>
+                <div class="social-close"></div>
               </li>
               <li> <a class="google" href="#"> <span><img src="images/google-plus-icon.png" width="33" height="34"></span> <span class="shadow">Google</span></a> </li>
               <li> <a class="link-in" href="#"> <span><img src="images/in-icon.png" width="33" height="34"></span> <span class="shadow">Linkedin</span></a> </li>
@@ -721,7 +724,7 @@ Create a Class</a>
     
    
           <div class="overview-boxes recent-activities">
-            <div class="recent-box-header">
+            <div class="content-header">
               <h3> Recent Activity</h3>
               <div class="btn-group dropdown-outer overview-jumbmenu">
                 <button class="btn normal-dropdown">ALL ACTIVITY</button>
@@ -777,36 +780,54 @@ Create a Class</a>
            
       
           <div class="overview-boxes calendar-events">
-            <div class="recent-box-header">
+            <div class="content-header">
               <h3>Calendar &amp; Events</h3>
               <a href="#" class="view-calender">View Calendar</a> </div>
-            <a href="#" class="event-block-blue">
+
+            <div class="calender-wrapper">
+
+
+<a href="#">
             <h3>In 4 Days</h3>
             <h6>Ch. 5 Business Exam</h6>
-            <span>10/18/2012</span> </a> <a href="#" class="event-block-blue">
-            <h3>In 4 Days</h3>
-            <h6>Ch. 5 Business Exam</h6>
-            <span>10/18/2012</span> </a> <a href="#" class="event-block-blue"><span class="plus">Add Event</span></a> </div>
+            <span>10/18/2012</span> </a> 
+
+
+
+ <a href="#">
+            <h3>In 1 Week</h3>
+            <h6>End of School Party</h6>
+            <span>10/22/2012</span> </a>
+
+
+    <a href="#" class="add-event"><span class="plus">Add Event</span></a> 
+
+</div>
+        </div>
         </div>
   
         <div class="overview-right-container">
          
           <div class="overview-boxes deadline-info">
-            <div class="recent-box-header">
+            <div class="content-header">
               <h3>Deadlines</h3>
             </div>
-            <ul class="recent-questions">
-              <li>
-                <p> <a href="#" class="blue-text">5 Page Report on Business </a></p>
-                <span class="dead-date">Due on 10/20/2012</span> <a href="#" class="details-btn">details</a> <a href="#" class="turn-btn">Turn In</a>
-                <div class="round-red"></div>
-              </li>
-            </ul>
+            <div class="deadline-content">
+             
+                <h5> <a href="#" class="blue-text">5 Page Report on Business </a></h5>
+                <h6>Due on 10/20/2012</h6> 
+<div class="deadline-btn">
+             	<a href="#" class="details-btn">details</a> 
+				<a href="#" class="turn-btn">Turn In</a>
+</div>
+                <span class="round-red"></sapn>
+          
+            </div>
           </div>
        
            
           <div class="overview-boxes discussion-info">
-            <div class="recent-box-header">
+            <div class="content-header">
               <h3>Discussions</h3>
             </div>
             <ul class="discussion-info">
@@ -841,7 +862,7 @@ Create a Class</a>
             
    
           <div class="overview-boxes questions-info">
-            <div class="recent-box-header">
+            <div class="content-header">
               <h3>Questions</h3>
             </div>
             <ul class="discussion-info">

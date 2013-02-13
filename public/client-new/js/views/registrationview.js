@@ -114,7 +114,7 @@
 			$('#step_2').hide(500);
 			$('#step2_block').removeClass('active-border');
 			
-			var upload_block = '<div id="step3_block" class="round-block upload-photo"> <a href="#">'
+			var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo"> <a href="#">'
 								+'<div class="upload-box">'
 								+'<div class="upload-plus">Upload</div>'
 								+'</div>'
