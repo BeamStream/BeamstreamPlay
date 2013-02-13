@@ -14,7 +14,7 @@
     </head>
     <body>
 
-        <div id="form" data-model="person" data-module="view/personView">
+        <div id="form"  data-url="save" data-model="person" data-module="view/personView">
             <div class="row-grp">
                 <label>First Name: </label><div class="field"><input type="text" data-name="person.firstName" name="firstName" /></div>
             </div>
@@ -24,6 +24,9 @@
             <div class="row-grp">
                 <label>Age: </label><div class="field"><input type="text" data-name="person.age" name="age" /></div>
             </div>
+             <button id="save" type="button">Save</button> </br></br>
+             <button id="singleFieldValidation" type="button">Validate First Name</button> </br></br>
+             <button id="setField" type="button">set Single Field </button>
         </div>
         
 

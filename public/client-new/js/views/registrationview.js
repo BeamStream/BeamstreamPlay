@@ -114,11 +114,18 @@
 			$('#step_2').hide(500);
 			$('#step2_block').removeClass('active-border');
 			
-			var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo"> <a href="#">'
-								+'<div class="upload-box">'
-								+'<div class="upload-plus">Upload</div>'
-								+'</div>'
-								+'</a> </div>';
+//			var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo"> <a href="#">'
+//								+'<div class="upload-box">'
+//								+'<div class="upload-plus">Upload</div>'
+//								+'</div>'
+//								+'</a> </div>';\\
+//			<div class="round-block upload-photo step-one-photo" id="step3_block"> 
+//            <a href="#"> </a> 
+//            </div>
+			
+			var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo">'
+							    +'<a href="#"><div class="upload-box"><div class="upload-plus">Upload</div></div></a>'
+				                +'</div>';
 			$('#upload-step').html(upload_block);
 			$('#step_3').show(500);
 			
