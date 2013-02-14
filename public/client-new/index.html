@@ -59,7 +59,7 @@
 
 <!--  Shuffle in media page -->
 
-<script type="text/javascript" src="lib/extralib/jquery.shuffle.js"></script>
+<!-- <script type="text/javascript" src="lib/extralib/jquery.shuffle.js"></script> -->
 
 <!-- end  -->
 
@@ -517,12 +517,18 @@ Create a Class</a>
             <div class="alert-register"><span>*For mobile usage options.</span></div>
           </div>
         </div>
-        <div class="profile-center-container">
 
-          <ul class="profile-top-menu profile-white register-top-white">
+
+          <div class="middle-container">
+
+<ul class="profile-top-menu profile-white register-top-white">
             <h3> Add Personality</h3>
             <h5>Coming Soon</h5>
           </ul>
+
+
+  <div class="profile-center-container">
+
           <div class="roud-slider">
          	  <div id="step_1" class="step-box step-box1">
 	              <h3>Step 1 of 3 </h3>
@@ -541,20 +547,35 @@ Create a Class</a>
 	              <h4>Upload Your Main Profile Photo</h4>
 	              <a href="#">BROWSE</a> <a id="done_step3" href="#">DONE</a> 
               </div>
+
+
+
              <div id="upload-step">
 	             <div id="step3_block" class="round-block upload-photo step-one-photo"> 
 	             <a href="#"> </a> 
 	             </div>
              </div>
-              
-             
-              
-              
-            <ul class="profile-top-menu profile-white register-top-white photo-project">
+
+
+
+</div>
+
+            
+           
+          </div>
+          
+          
+          
+           <ul class="profile-top-menu profile-white register-top-white photo-project">
               <h3> Add Photos / Projects</h3>
               <h5>Add on NExt Page</h5>
             </ul>
-          </div>
+          
+          
+          
+          
+          
+          
         </div>
         <div class="profile-right-container">
           <div id="step1_block" class="profile-white active-border">
@@ -562,16 +583,16 @@ Create a Class</a>
             <ul class="register-social">
               <li>
                 <div class="tick-register"></div>
-                 <a class="facebook register-toolip-outer" href="#" data-original-title="Sweet, Lookin good!"> <span><img width="33" height="34" src="images/face-book-icon.png"></span> <span class="shadow">Facebook</span></a>
+                 <a class="facebook register-toolip-outer" href="#" data-original-title="Sweet, Lookin good!"> <span class="facebook"></span> <span class="shadow">Facebook</span></a>
                 <div class="social-close"></div>
               </li>
               <li>
                 <div class="tick-register"></div>
-                <a class="twitter register-toolip-outer" href="#" data-original-title="Sweet, Lookin good!"> <span><img src="images/twitter-icon.png" width="33" height="34"></span> <span class="shadow">Twitter</span></a>
+                <a class="twitter register-toolip-outer" href="#" data-original-title="Sweet, Lookin good!"> <span class="twitter"></span> <span class="shadow">Twitter</span></a>
                 <div class="social-close"></div>
               </li>
-              <li> <a class="google" href="#"> <span><img src="images/google-plus-icon.png" width="33" height="34"></span> <span class="shadow">Google</span></a> </li>
-              <li> <a class="link-in" href="#"> <span><img src="images/in-icon.png" width="33" height="34"></span> <span class="shadow">Linkedin</span></a> </li>
+              <li> <a class="google" href="#"> <span class="google-plus"></span> <span class="shadow">Google</span></a> </li>
+              <li> <a class="link-in" href="#"> <span class="link-in"></span> <span class="shadow">Linkedin</span></a> </li>
             </ul>
             <div class="clear"></div>
           </div>
@@ -669,7 +690,7 @@ Create a Class</a>
 
 <!--   streamview  Right_Container  template  -->
 <script type="text/x-handlebars-template"
-	id="tpl-stream-right-container">
+id="tpl-stream-right-container">
  <div class="stream-header">
           <div class="stream-header-left">
             <h2>{{streamName}}<a href="#" id="show-info" >Show Details</a></h2>
@@ -904,18 +925,18 @@ Create a Class</a>
 
 
 <!--  message templete for stream discussions -->
-<script type="text/x-handlebars-template" id="tpl-discussion-messages">
+<script type="text/x-handlebars-template" id="tpl-discussion-messages">	
 <div id= "{{datas.message.id.id}}" class="ask-outer follow-container" name ="{{datas.message.userId.id}}">
             <div class="ask-content">
               <div class="follw-left">
-                <div   class="small-image">
+               
                   <div  class="ask-img"><img id="{{datas.message.id.id}}-img" src=""></div>
 					{{#if owner}}
 						
                     {{else}}
                		   <a href="#" id="{{datas.message.userId.id}}" class="follow-button follow-user">follow</a>
 					{{/if}}
-                     </div>
+              
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">
@@ -975,13 +996,13 @@ Create a Class</a>
 <div id= "{{datas.message.id.id}}" class="ask-outer follow-container" name ="{{datas.message.userId.id}}">
             <div class="ask-content">
               <div class="follw-left">
-                <div   class="small-image">
+             
                   <div  class="ask-img"><img id="{{datas.message.id.id}}-img" src=""></div>
 					{{#if owner}}
                     {{else}}		
                   <a href="#"  id="{{datas.message.userId.id}}" class="follow-button follow-user">follow</a> 
 					{{/if}}
-				</div>
+		
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">
@@ -1086,13 +1107,12 @@ Create a Class</a>
 <div id= "{{datas.message.id.id}}" class="ask-outer follow-container" name ="{{datas.message.userId.id}}">
             <div class="ask-content">
               <div class="follw-left">
-                <div  class="small-image">
-                  <div class="ask-img" ><img id="{{datas.message.id.id}}-img" src=""></div>
+               <div class="ask-img" ><img id="{{datas.message.id.id}}-img" src=""></div>
 					{{#if owner}}
                     {{else}}
                   <a id="{{datas.message.userId.id}}"  href="#" class="follow-button follow-user">follow</a>  
 					{{/if}}
-					</div>
+				
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">
@@ -1195,10 +1215,8 @@ Create a Class</a>
 <script type="text/x-handlebars-template"
 	id="tpl-discussion-messages-comment">
  <div class="answer-description"  id="{{id.id}}">
-                        <div class="follw-left">
-                          <div class="small-image">
-                            <div class="ask-img"><img id="{{id.id}}-image" src="images/profile-img.png"></div>
-                          </div>
+                        <div class="follw-left">          
+                            <div class="ask-img"><img id="{{id.id}}-image" src="images/profile-img.png"></div>                      
                         </div>
                         <div class="answer-description-info">
                           <div class="follow-names">
@@ -1242,9 +1260,7 @@ Create a Class</a>
 	id="tpl-discussion-messages-newComment">
  <div class="answer-description" id="{{id.id}}">
                         <div class="follw-left">
-                          <div class="small-image">
                             <div class="ask-img"><img id="{{id.id}}-newCmtImage" src="images/profile-img.png"></div>
-                          </div>
                         </div>
                         <div class="answer-description-info">
                           <div class="follow-names">
@@ -1312,9 +1328,7 @@ Create a Class</a>
           <div class="ask-outer">
             <div class="ask-content">
               <div class="follw-left">
-                <div class="small-image">
                   <div class="ask-img"><img id="main-photo" src=""></div>
-                </div>
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">
@@ -1442,9 +1456,7 @@ Create a Class</a>
           <div class="ask-outer">
             <div class="ask-content">
               <div class="follw-left">
-                <div class="small-image">
                   <div class="ask-img"><img id="main-photo" src=""></div>
-                </div>
               </div>
               <div  class="ask-info">
                 <div class="ask-comment ask-type-area ">
@@ -1531,13 +1543,11 @@ Create a Class</a>
 
 		<div class="ask-content">
               <div class="follw-left">
-                <div class="small-image">
                   <div class="ask-img"><img  id="{{data.question.id.id}}-img" src=""></div>
                   {{#if owner}}
                   {{else}}
                   	<a href="#"  id="{{data.question.userId.id}}" class="follow-button follow-user">follow</a>
                   {{/if}}
-				 </div>
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">
@@ -1645,9 +1655,7 @@ Create a Class</a>
 <script type="text/x-handlebars-template" id="tpl-question-comment">
  <div class="answer-description"  id="{{id.id}}">
                         <div class="follw-left">
-                          <div class="small-image">
                             <div class="ask-img"><img id="{{id.id}}-image" src="images/profile-img.png"></div>
-                          </div>
                         </div>
                         <div class="answer-description-info">
                           <div class="follow-names">
@@ -1668,9 +1676,7 @@ Create a Class</a>
 <script type="text/x-handlebars-template" id="tpl-question-newcomment">
  <div class="answer-description"  id="{{id.id}}">
                         <div class="follw-left">
-                          <div class="small-image">
                             <div class="ask-img"><img id="{{id.id}}-image" src="images/profile-img.png"></div>
-                          </div>
                         </div>
                         <div class="answer-description-info">
                           <div class="follow-names">
@@ -3019,90 +3025,360 @@ Create a Class</a>
 
 </script>
 
+<!-- new profile template-->
+<script type="text/x-handlebars-template" id="newprofileview-tpl">
+
+ <header>
+      <div id="topheader">
+          <!----menu part--->	
+          <div class="header-wrapper">
+              <div class="container-fluid"> <a href="index.html" class="brand"><img src="beamstream-new/images/logo.png" width="148" height="37"></a>
+                  <form class="navbar-form pull-left search-block">
+                      <input type="text" class="header-search" placeholder="Search Class, Person, Etc">
+                      <button type="submit" class="btn header-button">Search</button>
+                      <a href="index.html">Advanced</a>
+                  </form>
+                  <div class="header-profile">
+                      <div class="header-icon"><img id="right-top-photo" src="" width="41" height="41"></div>
+                      <div class="public-profile">
+
+                          <a href="#" class="profile-button">Public Profile</a>
+                          <div class="settings-menu">
+                              <div class="btn-group">
+                                  <button class="btn seetings-toggle">Settings</button>
+                                  <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class="caret settings-caret"></span></button>
+                                  <ul class="dropdown-menu">
+                                      <li id="edit-profile" ><a href="#">Edit Profile</a></li>
+                                      <li id="sign-out" ><a href="#">Sign Out</a></li>
+
+                                  </ul>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+              <div class="header-menu header-menu-inner">
+                  <nav class="menu">
+                      <ul class="nav">
+                          <li><a href="#" id="menu-mystreams" class="my-stream active"><span></span>My Streams</a></li>
+                          <li><a href="#" id="menu-browsemedia" class="browse-media"><span></span>Browse Media</a></li>
+                          <li><a href="#" id="menu-connections" class="connections"><span></span>Connections</a></li>
+                          <li><a href="#" id="menu-otherstuff" class="other"> <span></span>Other Stuff</a></li>
+                          <li><a href="#" id="menu-morestuff" class="other"> <span></span>Even More Stuff</a></li>
+                      </ul>
+                  </nav>
+              </div>
+          </div>
+      </div>
+  </header>
+<article>
+  <div class="container-fluid">
+    <div class="main-container ">
+      <div class="profile-wrapper">
+        <div class="profile-left-container">
+          <div class="profile-white">
+            <h2>Joseph Whitefield</h2>
+            <div class="profile-social-icons"> <a href="#" class="profile-twitter">Twitter</a> <a href="#" class="profile-facebook">Facebook</a> <a href="#" class="profile-in">in</a> <a href="#" class="profile-rss">rss</a> </div>
+            <p>I'm a web/graphic designer blah blah. Things I wanna say about myself will go here.</p>
+            <ul class="whitefield">
+              <li class="location"><a href="#">Sarasota, FL</a></li>
+              <li class="home"><a href="#">Uni. of South Florida</a></li>
+              <li class="science"><a href="#">Bachelor's Science</a></li>
+              <li class="fisherman"><a href="#">Freshman <span>/ Class of 2016</span></a></li>
+            </ul>
+            <a href="#" class="follow-david">Follow David</a> </div>
+          <div class="profile-white">
+            <div class="profile-select-block">
+              <select name="select" class="selectpicker-info " style="display: none;">
+                <option selected="selected" >My Feed</option>
+                <option>My Feed 2</option>
+                <option>My Feed 3</option>
+              </select>
+              <div class="select-arrow-white"><img src="images/white-arrow.png" width="15" height="8"></div>
+            </div>
+            <ul class="feed-info">
+              <li>
+                <p>I was really excited when I heard about the awesome thing i read on... </p>
+                <span><a href="#" class="profile-readmore">Read More </a> 15 min</span> </li>
+              <li>
+                <p>I was really excited when I heard about the awesome thing i read on... </p>
+                <span><a href="#" class="profile-readmore">Read More </a> 15 min</span> </li>
+              <li>
+                <p>I was really excited when I heard about the awesome thing i read on... </p>
+                <span><a href="#" class="profile-readmore">Read More </a> 15 min</span> </li>
+              <li>
+                <p>I was really excited when I heard about the awesome thing i read on... </p>
+                <span><a href="#" class="profile-readmore">Read More </a> 15 min</span> </li>
+              <li>
+                <p>I was really excited when I heard about the awesome thing i read on... </p>
+                <span><a href="#" class="profile-readmore">Read More </a> 15 min</span> </li>
+              <li>
+                <p>I was really excited when I heard about the awesome thing i read on... </p>
+                <span><a href="#" class="profile-readmore">Read More </a> 15 min</span> </li>
+            </ul>
+            <a href="#" class="show-more">Show More</a> </div>
+        </div>
+        
+        
+        <div class="middle-container">
+        
+         <ul class="profile-top-menu profile-white">
+              <a href="#">
+            <div class="profile-round-btn">10</div>
+            <span>Workers</span> </a>
+             <a href="#">
+            <div class="profile-round-btn">18</div>
+            <span>Bookworm</span> </a> 
+            <a href="#">
+            <div class="profile-round-btn">10</div>
+            <span>Shy</span> </a> 
+            <a href="#">
+            <div class="profile-round-btn">3</div>
+            <span>Funny</span> </a>
+             <a href="#">
+            <div class="profile-round-btn">10</div>
+            <span>Add</span> </a>
+          </ul>
+        
+        
+        
+            <div class="user-center-container">
+
+           <div class="round-area">
+            <div class="roud-slider">
+              <div class="about-block"></div>
+            </div>
+          </div>
+           </div>
+           
+           
+           
+           
+           
+                        <div class="profile-top-menu profile-white profile-gallery">
+              <ul class="stream-tab ">
+          <li class="profile-bottom-nav"> <a class="active" href="#">Pics / video</a> </li>
+          <li class="profile-bottom-nav"> <a href="#">Projects</a> </li>
+           </ul>  
+        
+        
+        
+        <ul class="gallery-pic">
+        
+        <li><img src="images/gallery1.jpg"></li>
+             <li><img src="images/gallery2.jpg" ></li>
+                  <li><img src="images/gallery3.jpg" ></li>
+                  <li><img src="images/gallery4.jpg" ></li>
+                        <li><img src="images/gallery5.jpg" ></li>
+                              <li><img src="images/gallery6.jpg" ></li>
+                                    <li><img src="images/gallery7.jpg" ></li>
+                                          <li><img src="images/gallery8.jpg" ></li>
+                                                <li><img src="images/gallery9.jpg" ></li>
+        
+       
+        </ul>
+              <div class="gallery-bottom-btn">
+      <div class="show-more-block"> <a href="#" class="show-more show-right">Show More</a> <a href="#" class="icons-right"><img src="images/plus-right.png" width="15" height="15"></a> <a href="#" class="icons-right"><img src="images/pencil.png" width="15" height="14"></a> </div>  
+        </div>
+
+               <div class="clear"></div>
+               </div> 
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           </div>
+        <div class="profile-right-container">
+          <div class="profile-white">
+            <ul class="profile-skills">
+              <div class="skills-tittle"> <span class="skills">Skills</span> <span class="skills-year">12</span> <span class="skills-rocks">Rocks</span> </div>
+              <li>
+                <div class="skills-block"><span class="skills">Photoshop </span> <span class="skills-year">12 </span>
+                  <div class="skill-rock"> <span>12</span> </div>
+                </div>
+                <ul class="skills-grade">
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                </ul>
+              </li>
+              <li>
+                <div class="skills-block"><span class="skills">Web Design </span> <span class="skills-year">4 </span>
+                  <div class="skill-rock"> <span>12</span> </div>
+                </div>
+                <ul class="skills-grade">
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                </ul>
+              </li>
+              <li>
+                <div class="skills-block"><span class="skills">Illustrator </span> <span class="skills-year">5 </span>
+                  <div class="skill-rock"> <span>7</span> </div>
+                </div>
+                <ul class="skills-grade">
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                </ul>
+              </li>
+              <li>
+                <div class="skills-block"><span class="skills register-toolip-outer" >Branding </span> <span class="skills-year">2 </span>
+                  <a class="skill-rock register-toolip-outer" href="#" data-original-title="Sweet, Lookin good!"> <span>5</span> </a>
+                </div>
+                <ul class="skills-grade">
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                </ul>
+              </li>
+              <li>
+                <div class="skills-block"><span class="skills">Drawing </span> <span class="skills-year">12 </span>
+                  <div class="skill-rock"> <span>8</span> </div>
+                </div>
+                <ul class="skills-grade">
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="show-more-block"> <a href="#" class="show-more show-right">Show More</a> <a href="#" class="icons-right"><img src="images/plus-right.png" width="15" height="15"></a> <a href="#" class="icons-right"><img src="images/pencil.png" width="15" height="14"></a> </div>
+            <div class="clear"></div>
+          </div>
+          <div class="profile-white">
+            <ul class="profile-skills">
+              <div class="skills-tittle">Activities</div>
+              <div class="activities-image">
+                <center>
+                  <img src="images/activities-round.jpg" width="180" height="290">
+                </center>
+              </div>
+            </ul>
+            <div class="show-more-block"> <a href="#" class="show-more show-right">Show More</a> <a href="#" class="icons-right"><img src="images/plus-right.png" width="15" height="15"></a> <a href="#" class="icons-right"><img src="images/pencil.png" width="15" height="14"></a> </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+</body>
+    
+</script>    
 <!-- ------------------ extra scripts --------------------->
 <script type="text/javascript">
-	/* implemented  the shuffle plugin on sorting */
-	function shufflingOnSorting() {
-		// instantiate the shuffle plugin
-		$('#grid').shuffle({
-			key : 'all',
-			speed : 800,
-			easing : 'ease-out'
-		});
+// 	/* implemented  the shuffle plugin on sorting */
+// 	function shufflingOnSorting() {
+// 		// instantiate the shuffle plugin
+// 		$('#grid').shuffle({
+// 			key : 'all',
+// 			speed : 800,
+// 			easing : 'ease-out'
+// 		});
 
-		// Set up button clicks
-		$('#view-by-date-list li').on(
-				'click',
-				function() {
+// 		// Set up button clicks
+// 		$('#view-by-date-list li').on(
+// 				'click',
+// 				function() {
 
-					var $this = $(this), $grid = $('#grid'), sort = $this
-							.data('sort'), opts = {};
+// 					var $this = $(this), $grid = $('#grid'), sort = $this
+// 							.data('sort'), opts = {};
 
-					$grid.shuffle($this.data('group'));
+// 					$grid.shuffle($this.data('group'));
 
-					// We're given the element wrapped in jQuery
-					if (sort === 'date-oldest') {
-						opts = {
-							by : function($el) {
-								return $el.data('date-created');
-							}
-						}
-					} else if (sort === 'date-recent') {
+// 					// We're given the element wrapped in jQuery
+// 					if (sort === 'date-oldest') {
+// 						opts = {
+// 							by : function($el) {
+// 								return $el.data('date-created');
+// 							}
+// 						}
+// 					} else if (sort === 'date-recent') {
 
-						opts = {
-							by : function($el) {
-								return $el.data('date-created');
-							},
-							reverse : true
-						}
-					} else if (sort === 'title') {
-						opts = {
-							by : function($el) {
-								return $el.data('title').toLowerCase();
-							}
-						}
-					} else if (sort === 'rocks') {
+// 						opts = {
+// 							by : function($el) {
+// 								return $el.data('date-created');
+// 							},
+// 							reverse : true
+// 						}
+// 					} else if (sort === 'title') {
+// 						opts = {
+// 							by : function($el) {
+// 								return $el.data('title').toLowerCase();
+// 							}
+// 						}
+// 					} else if (sort === 'rocks') {
 
-						opts = {
-							by : function($el) {
-								return $el.data('rock');
+// 						opts = {
+// 							by : function($el) {
+// 								return $el.data('rock');
 
-							},
-							reverse : true
-						}
-					}
+// 							},
+// 							reverse : true
+// 						}
+// 					}
 
-					// Filter elements
-					$grid.shuffle('sort', opts);
+// 					// Filter elements
+// 					$grid.shuffle('sort', opts);
 
-				});
+// 				});
 
-		// Set up button clicks
-		$('#view-files-byrock-list li ').on(
-				'click',
-				function() {
+// 		// Set up button clicks
+// 		$('#view-files-byrock-list li ').on(
+// 				'click',
+// 				function() {
 
-					var $this = $(this), $grid = $('#grid'), sort = $this
-							.data('sort'), opts = {};
+// 					var $this = $(this), $grid = $('#grid'), sort = $this
+// 							.data('sort'), opts = {};
 
-					// We're given the element wrapped in jQuery
-					if (sort === 'rocks') {
+// 					// We're given the element wrapped in jQuery
+// 					if (sort === 'rocks') {
 
-						opts = {
-							by : function($el) {
-								return $el.data('rock');
+// 						opts = {
+// 							by : function($el) {
+// 								return $el.data('rock');
 
-							},
-							reverse : true
-						}
-					}
+// 							},
+// 							reverse : true
+// 						}
+// 					}
 
-					// Filter elements
-					$grid.shuffle('sort', opts);
+// 					// Filter elements
+// 					$grid.shuffle('sort', opts);
 
-				});
+// 				});
 
-	}
+// 	}
 </script>
 
 <!-- ------------------Method to format date and returns --------------------->
@@ -3360,6 +3636,8 @@ Create a Class</a>
 <script src="js/views/imagecropview.js"></script>
 
 <!-- End -->
+<!-- newprofile -->
+<script src="js/views/newprofileview.js"></script>
 
 <script src="js/router.js"></script>
 <script type="text/javascript" src="lib/css3-mediaqueries.js"></script>

@@ -314,6 +314,8 @@ border:solid 1px #1e2930;
 .main-container {
 		clear: both;
 		display: block;
+
+	
 }
 
 .left-side {
@@ -712,9 +714,8 @@ ul.stream-tab {
 		display: block;
 		float: left;
 		list-style: none outside none;
-		margin: 25px 0;
-		padding: 0;
-		width: 100%;
+		padding:2% 0;
+		width:92%;
 }
 
 ul.stream-tab li {
@@ -902,8 +903,8 @@ ul.stream-tab li a span {
 }
 .dropdown-outer {
 		float: left;
-		padding: 0 5% 0 0;
-		width: 19%;
+	    margin: 0 50px 0 0 !important;
+  		width: 20%;
 }
 .question-sort h5 {
 		color: #8B969F;
@@ -1759,6 +1760,7 @@ ul.follow-bottom-icons li:hover {
 		background:url(../images/menu-bg.png) right repeat-y #323e46;
 		cursor:pointer;
 		line-height:30px;
+		width:91%;
 }
 
 
@@ -1835,6 +1837,7 @@ ul.sortable li.red-bg {
 		float: left;
 		margin: 0;
 		min-height: 100px;
+		background:url(../images/menu-bg.png) right repeat-y;
 
 }
 
@@ -1901,7 +1904,7 @@ ul.recent-questions {
 		float: left;
 		list-style: none outside none;
 		margin: 0;
-		padding:0 3% 0;
+		padding:2% 3% 0;
 		width: 92%;
 }
 
@@ -3937,8 +3940,8 @@ Sign Up
 		padding:40px 0 20px 0;
 		color:#fff;
 		font-weight:400;
-		font-size:18px;
-                line-height: 40px;
+		font-size:19px;
+        line-height: 40px;
 }
 
 .signup-outer h3 span {
@@ -4055,16 +4058,13 @@ ul.signup-register h5 {
 ul.signup-register li {
 		float:left;
 		border-right:solid 1px #d9dee1;
-		width:56%;
-		position:relative;
+	    position:relative;
 }
 
 
 ul.signup-register li.lastblock {
 		border-right:0px;
-		padding:0 0 0 60px;
-		width:33%;
-		float:right;
+			float:right;
 }
 
 ul.signup-register li.lastblock a {
@@ -4314,7 +4314,6 @@ text-shadow: 1px 1px 1px #616161;
 		padding:0px 60px;
 		height:50px;
 		line-height:50px;
-		margin-left:20%;
 		-webkit-border-radius:4px;
 		-moz-border-radius: 4px;
 		border-radius: 4px;
@@ -4352,6 +4351,12 @@ text-shadow: 1px 1px 1px #616161;
 Profile Added on 21st Jan 2013
 
 */
+
+.middle-container{
+	display:block;
+	float:left;
+}
+
 
 .profile-wrapper {
 		padding:50px 0 0 0;
@@ -4502,11 +4507,16 @@ ul.whitefield li a span {
 }
 
 .profile-center-container {
-		float:left;
-		background-image:url(../images/prifile-graph.png);
+		    background-image:url(../images/prifile-graph.png);
 			background-repeat:no-repeat;
+			height:570px;
 }
-
+.user-center-container {
+		background-image:url(../images/prifile-graph.png);
+		background-repeat:no-repeat;
+		 background-position: center 18%;
+		 height:570px;
+		}
 .profile-right-container {
 		float:left;
 }
@@ -4519,6 +4529,7 @@ ul.whitefield li a span {
 		display:block;
 		width:100%;
 		margin:20px 0 0 0;
+		text-transform:uppercase;
 		-webkit-border-radius:4px;
 		-moz-border-radius: 4px;
 		border-radius: 4px;
@@ -4657,6 +4668,7 @@ ul.feed-info li span {
 		-webkit-border-radius:4px;
 		-moz-border-radius: 4px;
 		border-radius: 4px;
+		text-transform:uppercase;
 		behavior: url(css/PIE.htc);
 }
 
@@ -4705,18 +4717,20 @@ ul.profile-top-menu a:hover {
 
 ul.profile-top-menu a span {
 		color:#3a5263;
+		font-size: 13px; 
+		font-weight:700;
 }
 
 .profile-round-btn {
 		background:#000;
-		height: 53px;
-		width: 53px;
+		height:40px;
+		width: 40px;
 		-moz-border-radius: 51px;
 		border-radius: 51px;
-		line-height:53px;
+		line-height:39px;
 		text-align:center;
 		font-weight:700;
-		font-size:18px;
+		font-size:20px;
 		background: #4386b1;
 		background: -webkit-gradient(linear, 0 0, 0 bottom, from(#4386b1), to(#61abc9));
 		background: -webkit-linear-gradient(#4386b1, #61abc9);
@@ -4745,6 +4759,15 @@ ul.profile-top-menu a span {
 			position:relative;
 			z-index:1;
 	
+}
+
+.about-block{
+	 background: url("../images/roun-slider.png") no-repeat scroll 0 0 / 100% auto transparent;
+	
+          margin:0 auto;
+       position:relative;
+
+
 }
 
 
@@ -4871,16 +4894,21 @@ ul.skills-grade li {
 .profile-gallery {
 		padding:0;
 		padding-bottom:15px;
+		width:60%;
+		margin:0 auto;
 }
 
 ul.gallery-pic {
 		list-style:none;
+		margin:0 0 10px 0;
+		float:left;
+	
 }
 
 ul.gallery-pic li {
 		float:left;
-		padding: 0 1.1% 1.1% 1.1%;
-		width: 31%;
+		padding: 0 0 1% 1%;
+		width: 32%;
 }
 
 ul.gallery-pic li img {
@@ -5014,6 +5042,8 @@ font-weight:500;}
 		display:block;
 		margin:0 auto;
 		background-size:100%; 
+		  position: relative;
+         top:-16px;
 	
 }
 
@@ -5024,8 +5054,11 @@ font-weight:500;}
 }
 
 .step-3-photo { 
-	margin:115px auto !important;
+	margin:0 auto !important;
+
 }
+
+.step-3-photo a{position:relative;top:98px;}
 
 
 /*
@@ -5056,14 +5089,15 @@ font-weight:500;}
 		z-index:-1;
  		height:250px;
  		width:28%;
- left:34%;
- top:-110px;
- padding:2%;
-	
+        left:34%;
+        top:-20px;
+        padding:2%;
+	 
 }
 
 .step-box1 {
-		background: url(../images/step-shadow.png) right no-repeat #df3d3d;
+		background:url(../images/spryte.png) right 0 #df3d3d;
+		
 		position:relative;
 		-webkit-border-radius: 8px 0 0 8px;
 		-moz-border-radius: 8px 0 0 8px;
@@ -5097,8 +5131,7 @@ font-weight:500;}
 		text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 .step-box a {
-		
-		-webkit-border-radius:3px;
+				-webkit-border-radius:3px;
 		-moz-border-radius:3px;
 		border-radius:3px;
 		behavior: url(css/PIE.htc);
@@ -5110,7 +5143,7 @@ font-weight:500;}
 		margin-left:5%;
 		width:40%;
 		text-align:center;
-		font-weight:700;
+		font-weight:500;
 				background:#b23131;
 		color:#6a2828;
 			border-top:solid 1px #7a2222;
@@ -5137,6 +5170,9 @@ ul.register-social li
 		right:6px;
 		position: absolute;
 		top:15px;
+			background:url(../images/spryte.png) -200px -425px;
+			width: 20px;
+			height: 20px;
 }
 .box-active {
 		opacity: 0.5;
@@ -5177,8 +5213,37 @@ ul.register-social li a:hover, .register-social li a.active{
 
 ul.register-social li a span {
 		float:left;
-		padding:0 10px;
+		width:57px;
+		height:58px; 
+		
 }
+
+ul.register-social li a span.facebook {
+	
+	background:url(../images/spryte.png) 8px -519px;
+
+}
+
+
+ul.register-social li a span.google-plus {
+	
+	background:url(../images/spryte.png) 8px -674px;
+
+}
+
+ul.register-social li a span.link-in {
+	
+	background:url(../images/spryte.png) 8px -752px;
+
+}
+
+
+ul.register-social li a span.twitter {
+	
+	background:url(../images/spryte.png) 8px -597px;
+
+}
+
 
 ul.register-social li a span.shadow {
 		float:left;
@@ -5267,7 +5332,7 @@ ul.register-social li a.link-in {
 
 .photo-project {
 		position:relative;
-		top:100px;
+			padding:10% 0 !important;
 	}
 
 .upload-box {

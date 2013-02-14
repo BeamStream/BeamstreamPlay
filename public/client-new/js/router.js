@@ -41,7 +41,8 @@
 	        "audioview": "audioList",
 	        "presentationview": "presentationList",
 	        "pdflistview":"pdflistview",
-	        "settings" : "settings"
+	        "settings" : "settings",
+	        "newprofile":"newProfile"
 	        
 	       
 	
@@ -1187,6 +1188,20 @@
     					}
     				
     	           }});	
-              }
+              },
+              
+              /**
+               *display new profile page for design
+               */
+              newProfile: function(){
+            	  
+            	  console.log("newprofileview"); 
+            
+            	  BS.newprofileview =new BS.NewProfileView();
+            	  BS.newprofileview.render();
+            	  $('body').html(BS.newprofileview.el); 
+
+  	          
+            }
 	                
 			});
