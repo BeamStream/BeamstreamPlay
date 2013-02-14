@@ -20,99 +20,21 @@
 @bodyCls = {}
 @bodyModule = {}
 @bodyJS = {}
+@sideBar = {
+  
+}
+@header = {
+  @views.html.header.render
+}
+@footer = {
+}
 
 
-
-@main("Sign up ", "Body", meta, CSS, JS, bodyModule, bodyJS){
+@main("Sign up ", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
 
 <div  id="signup"   data-model="user" data-url="signup" data-module="view/signupView">
     
- 
-    
-  <header>
-        <div id="topheader">
-            <div>
-                <div class="header-wrapper">
-                    <div class="container-fluid">
-                        <a class="brand" href="index.html">
-                            <img width="148" height="37" src="beamstream-new/images/logo.png">
-                        </a>
-                        <form class="navbar-form pull-left search-block">
-                            <input class="header-search" type="text" placeholder="Search Class, Person, Etc">
-                            <button class="btn header-button" type="submit">Search</button>
-                            <a href="index.html">Advanced</a>
-                        </form>
-                        <div class="header-profile">
-                            <div class="header-icon">
-                                <img id="right-top-photo" width="41" height="41" src="">
-                            </div>
-                            <div class="public-profile">
-                                <div class="profile-info">
-                                    <a class="profile-button" href="#">Public Profile</a>
-                                    <div class="settings-menu">
-                                        <div class="btn-group">
-                                            <button class="btn seetings-toggle">Settings</button>
-                                            <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown">
-                                                <span class="caret settings-caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li id="edit-profile">
-                                                    <a href="#">Edit Profile</a>
-                                                </li>
-                                                <li id="sign-out">
-                                                    <a href="#">Sign Out</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="header-menu header-menu-inner">
-                        <nav class="menu">
-                            <ul class="nav">
-                                <li>
-                                    <a id="menu-mystreams" class="my-stream active" href="#">
-                                        <span></span>
-                                        My Streams
-                                    </a>
-                                </li>
-                                <li>
-                                    <a id="menu-browsemedia" class="browse-media" href="#">
-                                        <span></span>
-                                        Browse Media
-                                    </a>
-                                </li>
-                                <li>
-                                    <a id="menu-connections" class="connections" href="#">
-                                        <span></span>
-                                        Connections
-                                    </a>
-                                </li>
-                                <li>
-                                    <a id="menu-otherstuff" class="other" href="#">
-                                        <span></span>
-                                        Other Stuff
-                                    </a>
-                                </li>
-                                <li>
-                                    <a id="menu-morestuff" class="other" href="#">
-                                        <span></span>
-                                        Even More Stuff
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-   
-    
-    
-    
+
     <div class="container-fluid signup-container">
     <div class="main-container ">
       <div class="signup-outer">
