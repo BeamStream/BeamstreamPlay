@@ -34,9 +34,9 @@ define(['view/formView'], function(FormView){
 			this.data.reset();
 
 			/* set style for select boxes */
-			$('.selectpicker-info').selectpicker({
-		       style: 'register-select'
-			});
+//			$('.selectpicker-info').selectpicker({
+//		       style: 'register-select'
+//			});
 //			$('.location-toolip').tooltip({template:'<div class="tooltip loactionblue"><div class="tooltip-inner"></div></div>'});
 		},
 		
