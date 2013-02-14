@@ -11,7 +11,7 @@ object Registration extends Controller {
   def registration(token: String, userId: String) = Action {
 
     (Token.findToken(token).isEmpty) match {
-      case false => Ok(views.html.registration())
+      case false => Ok(views.html.registration(token: String, userId: String))
       case true => Ok("Token has been expired")
     }
 
