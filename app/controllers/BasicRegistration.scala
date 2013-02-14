@@ -157,9 +157,9 @@ object BasicRegistration extends Controller {
    */
 
   def signUpUser = Action { implicit request =>
+   
     try {
       val userInfoJsonMap = request.body.asJson.get
-      println(userInfoJsonMap)
       val iam = (userInfoJsonMap \ "iam").as[String]
       val emailId = (userInfoJsonMap \ "mailId").as[String]
       val password = (userInfoJsonMap \ "password").as[String]
@@ -167,10 +167,9 @@ object BasicRegistration extends Controller {
       val encryptedPassword = (new PasswordHashing).encryptThePassword(password)
       val encryptedConfirmPassword = (new PasswordHashing).encryptThePassword(confirmPassword)
       val canUserRegister = User.isUserAlreadyRegistered(emailId)
+     
       (canUserRegister == true) match {
-
         case true =>
-
           (encryptedPassword == encryptedConfirmPassword) match {
             case true =>
               val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", "", encryptedPassword, "", "", "", List(), List(), List(), List(), List(), List())
@@ -178,10 +177,8 @@ object BasicRegistration extends Controller {
               val createdUser = User.getUserProfile(IdOfUserCreted)
               UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.toString,tokenEmail.securityToken,emailId)
               Ok(write(new ResulttoSent("Success","SignUp Successful"))).as("application/json")
-              
             case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
           }
-
         case false =>
           Ok(write(new ResulttoSent("Failure", "This User Email Is Already Taken"))).as("application/json")
       }
