@@ -715,7 +715,7 @@ ul.stream-tab {
 		float: left;
 		list-style: none outside none;
 		padding:2% 0;
-		width:92%;
+		width:98%;
 }
 
 ul.stream-tab li {
@@ -774,6 +774,49 @@ ul.stream-tab li a span {
 		border:solid 1px #fff;
 		behavior: url(css/PIE.htc);
 }
+
+
+ul.stream-tab li a.activeafter, ul.stream-tab li a.active:before {
+ top: 100%;
+ border: solid transparent;
+ content: " ";
+ height: 0;
+ width: 0;
+ position: absolute;
+ pointer-events: none;
+}
+ ul.stream-tab li a.active:after {
+ border-color: rgba(214, 156, 29, 0);
+ border-top-color: #dbaa22;
+ border-width: 20px;
+ left: 50%;
+ margin-left: -20px;
+}
+ ul.stream-tab li a.active:before {
+ border-color: rgba(197, 141, 27, 0);
+ border-top-color: #dbaa22;
+ border-width: 15px;
+ left: 54%;
+ margin-left: -21px;
+}
+ul.stream-tab li a span {
+ position:absolute;
+ top:-10px;
+ left:45%;
+ font-size:12px;
+ padding:2px 4px;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 .questions {
 		background: linear-gradient(#D4991C, #DBAA22) repeat scroll 0 0 transparent;
@@ -903,7 +946,7 @@ ul.stream-tab li a span {
 }
 .dropdown-outer {
 		float: left;
-	    margin: 0 50px 0 0 !important;
+	    margin: 0 40px 0 0 !important;
   		width: 20%;
 }
 .question-sort h5 {
@@ -1760,7 +1803,6 @@ ul.follow-bottom-icons li:hover {
 		background:url(../images/menu-bg.png) right repeat-y #323e46;
 		cursor:pointer;
 		line-height:30px;
-		width:91%;
 }
 
 
@@ -1837,7 +1879,6 @@ ul.sortable li.red-bg {
 		float: left;
 		margin: 0;
 		min-height: 100px;
-		background:url(../images/menu-bg.png) right repeat-y;
 
 }
 
@@ -4438,19 +4479,19 @@ ul.whitefield li {
 }
 
 ul.whitefield li.location {
-		background:url(../images/location-icon.png) 10px 8px no-repeat #f8f9fa;
+				background:url(../images/spryte.png) 3px -885px #f8f9fa;
 }
 
 ul.whitefield li.home {
-		background:url(../images/home-icon.png) 10px 8px no-repeat #f8f9fa;
+		background:url(../images/spryte.png) 3px -918px #f8f9fa;
 }
 
 ul.whitefield li.science {
-		background:url(../images/bachlors-icon.png) 10px 10px no-repeat #f8f9fa;
+		background:url(../images/spryte.png) 3px -957px #f8f9fa;
 }
 
 ul.whitefield li.fisherman {
-		background:url(../images/fisherman-icon.png) 10px 10px no-repeat #f8f9fa;
+		background:url(../images/spryte.png) 3px -994px #f8f9fa;
 }
 
 ul.whitefield li a {
@@ -4467,35 +4508,42 @@ ul.whitefield li a span {
 		font-size:11px;
 }
 
+
 .profile-social-icons {
 		width:100%;
 		display:block;
 		text-align:center;
 }
 
+
+
+
 .profile-social-icons a {
-		background:url(../images/socila-icons-profile.png) no-repeat;
 		width:28px;
 		height:28px;
 		display:inline-block;
 		text-indent:-999px;
+	
 }
 
 .profile-social-icons a.profile-twitter {
-		background-position:left top;
+	background:url(../images/spryte.png) -1px -835px ;
 }
 
 .profile-social-icons a.profile-facebook {
-		background-position:-29px top;
+		background:url(../images/spryte.png) -28px -835px ;
 }
 
 .profile-social-icons a.profile-in {
-		background-position:-56px top;
+		background:url(../images/spryte.png) -56px -835px ;
 }
 
 .profile-social-icons a.profile-rss {
-		background-position:-84px top;
+		background:url(../images/spryte.png) -82px -835px ;
 }
+
+
+
 
 .profile-white p {
 		color:#8a9299;
@@ -4549,9 +4597,10 @@ ul.whitefield li a span {
 		text-decoration:none;
 }
 
-.profile-bottom-nav {
-		width:30% !important;
-}
+
+
+
+
 
 /*strat select block*/
 
@@ -4604,16 +4653,18 @@ ul.whitefield li a span {
 		top:-1px;
 }
 
-.gallery-bottom-btn {
-		padding:5% 5% 5% 30%;
+
+.show-more-block a {
+		float:left;
 }
+
 
 /*end select block*/
 	
 	
 ul.feed-info {
 		list-style:none;
-		padding:5px 0;
+		padding:5px 0 20px;
 }
 
 ul.feed-info li {
@@ -4664,7 +4715,6 @@ ul.feed-info li span {
 		text-align:center;
 		display:block;
 		width:100%;
-		margin:20px 0 0 0;
 		-webkit-border-radius:4px;
 		-moz-border-radius: 4px;
 		border-radius: 4px;
@@ -4762,10 +4812,10 @@ ul.profile-top-menu a span {
 }
 
 .about-block{
-	 background: url("../images/roun-slider.png") no-repeat scroll 0 0 / 100% auto transparent;
-	
-          margin:0 auto;
-       position:relative;
+	 background: url("../images/roun-slider.png") no-repeat;
+	 background-size:100%;
+	 margin:0 auto;
+     position:relative;
 
 
 }
@@ -4868,17 +4918,32 @@ ul.skills-grade li {
 
 .show-right {
 		width:70%;
-		margin:0px;
-}
+	}
 
-.show-more-block a {
-		float:left;
-}
 
 .icons-right {
-		padding:10px 0 0 10px;
+	
 		float:right !important;
+		width:20px;
+	    height:60px;
+	    margin-top:2px;
 }
+
+
+.bottom-plus{
+	
+	background:url(../images/spryte.png)  -161px -354px;
+	}
+
+
+.bottom-pencil{
+	
+	background:url(../images/spryte.png)  -133px -354px;
+	}
+
+
+
+
 
 .activities-image {
 		float:left;
@@ -5043,7 +5108,7 @@ font-weight:500;}
 		margin:0 auto;
 		background-size:100%; 
 		  position: relative;
-         top:-16px;
+         top:-39px;
 	
 }
 

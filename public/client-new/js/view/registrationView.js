@@ -41,6 +41,7 @@ define(['view/formView'], function(FormView){
 		},
 		
 
+
 		/**
 		 * complete step1 registration process
 		 */
@@ -55,6 +56,9 @@ define(['view/formView'], function(FormView){
             $('#step2_block').removeClass('box-active');
             $('#step2_block').addClass('active-border');
             $('#step_2').show(500);
+//            console.log(this.getModel);
+//            this.add("id", "111");
+//            this.fetch();
             
         },
                 

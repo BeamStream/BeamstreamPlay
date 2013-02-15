@@ -408,13 +408,7 @@
 
 .sortable.connected {
 
-		width:99% !important;
-}
-
-
-.overview-jumbmenu {
-	padding: 0 7% 0 0 !important;
-
+		width:93% !important;
 }
 
 .straem-block a span.text {
@@ -891,15 +885,6 @@ width:auto !important;
     margin-top:0;
 }
 
-.sortable li.active {
-     width:92%;
-}
-
-
-.sortable.connected {
-
-		width:100%;
-}
 
 .straem-block a span.text {
 		padding: 15px 50px;
@@ -1059,6 +1044,35 @@ ul.signup-register li.lastblock {
 }
 
 
+.sortable.connected {
+		width:96%;
+}
+
+
+.sortable li {
+		width:96%;
+}
+
+
+
+.profile-bottom-nav {
+		width:40%;
+}
+
+
+.gallery-bottom-btn {
+		padding:5% 5% 5% 5%;
+}
+
+
+.show-right {
+		width:65%;
+	
+}
+
+.user-center-container {
+		 height:350px;
+} 
 
 
 /*
@@ -1120,10 +1134,18 @@ ul.signup-register li.lastblock {
  margin-top:15px;
 }
 
-ul.stream-tab li {
- width:96%;
- margin:1% 2%;
+.profile-bottom-nav {
+		width:40%;
 }
+
+
+
+ul.stream-tab li {
+ width:98%;
+ margin:2% 2%;
+}
+
+
 ul.stream-tab li a {
  width:92%;
  background:#f3f5f6;
@@ -1962,9 +1984,6 @@ padding:0 5% 5% 5%;
     margin-bottom: 15px;
 }
 
-.sortable li.active {
-     width:91%;
-}
 
 
 .sortable.connected {
@@ -1978,11 +1997,6 @@ padding:0 5% 5% 5%;
 
 }
 
-.overview-jumbmenu {
-	
-padding: 0 10% 0 0;
-
-}
 .straem-block a {
 	width:90%;
 	}
@@ -2067,6 +2081,30 @@ ul.signup-register li.lastblock {
         padding:2%;
 	 
 }
+
+
+.sortable.connected {
+		width:85%;
+}
+
+
+.sortable li {
+		width:96%;
+}
+
+
+.profile-bottom-nav {
+		width:30% !important;
+}
+
+
+.gallery-bottom-btn {
+		padding:5% 5% 5% 30%;
+}
+
+.show-right {
+		width:70%;
+}
    
 
 /*
@@ -2119,36 +2157,7 @@ ul.stream-tab li a {
  width:80%;
  padding:7% 10%;
 }
-ul.stream-tab li a.activeafter, ul.stream-tab li a.active:before {
- top: 100%;
- border: solid transparent;
- content: " ";
- height: 0;
- width: 0;
- position: absolute;
- pointer-events: none;
-}
- ul.stream-tab li a.active:after {
- border-color: rgba(214, 156, 29, 0);
- border-top-color: #dbaa22;
- border-width: 20px;
- left: 50%;
- margin-left: -20px;
-}
- ul.stream-tab li a.active:before {
- border-color: rgba(197, 141, 27, 0);
- border-top-color: #dbaa22;
- border-width: 15px;
- left: 54%;
- margin-left: -21px;
-}
-ul.stream-tab li a span {
- position:absolute;
- top:-10px;
- left:45%;
- font-size:12px;
- padding:2px 4px;
-}
+
 .question-info {
  padding:1% 2% 0 2%;
 }
@@ -2297,12 +2306,13 @@ padding:20px 0 0 0;
  
 }
  .step-box2 {
- height:84px;
+ height:107px;
  width:38%;
  position:relative;
  left:0%;
  top:30px;
  padding:2%;
+ 
 }
 
 /*Sign Up*/

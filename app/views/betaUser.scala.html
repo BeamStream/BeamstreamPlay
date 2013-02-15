@@ -2,38 +2,45 @@
 @meta = {
 }
 @CSS = {
-	
+	<link href="beamstream-new/homepage/css/style.css" rel="stylesheet" type="text/css">
+    <link href="beamstream-new/homepage/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="beamstream-new/homepage/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
 }
 @JS = {
   <script src="beamstream-new/js/BS_social.js"></script>
+  
+<!--   <script src="/beamstream-new/lib/bootstrap.min.js"></script> -->
 }
 @bodyCls = {}
 @bodyModule = {}
-@bodyJS = {}
+@bodyJS = {
+    <script type="text/javascript">
+		$(document).ready(function() {
+	    twitterusername="BeamStream";
+	    fburl="http://www.facebook.com/pages/BeamStream/100810133312475";
+	
+	      // Get Number of Facebook Shares
+	    $.getJSON('http://graph.facebook.com/'+fburl,
+	        function(data) {
+	        $('#facebooklikes').append(data.likes+" Likes");   
+	        });
+	
+	      // Get Number of Tweet Count
+	    $.getJSON('http://twitter.com/users/' + twitterusername + '.json?callback=?',
+	        function(data){
+	        $('#twitterfollowers').append(data.followers_count+" Followers"); 
+	        }) // end getJSON
+		})
+	</script>
+	
+}
 @sideBar = {}
 
 
 
 @main("Beamstream", "Body", meta, CSS, JS, bodyModule, bodyJS){
 
-    <script type="text/javascript">
-$(document).ready(function() {
-    twitterusername="BeamStream";
-    fburl="http://www.facebook.com/pages/BeamStream/100810133312475";
 
-      // Get Number of Facebook Shares
-    $.getJSON('http://graph.facebook.com/'+fburl,
-        function(data) {
-        $('#facebooklikes').append(data.likes+" Likes");   
-        });
-
-      // Get Number of Tweet Count
-    $.getJSON('http://twitter.com/users/' + twitterusername + '.json?callback=?',
-        function(data){
-        $('#twitterfollowers').append(data.followers_count+" Followers"); 
-        }) // end getJSON
-})
-</script>
 <div id="fb-root"></div>
 
 <script>

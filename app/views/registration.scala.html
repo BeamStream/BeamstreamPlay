@@ -1,6 +1,25 @@
 @(userId:String)
-@CSS = {}
-@JS = {}
+@CSS = {
+	<link href="/beamstream-new/css/style.css" rel="stylesheet" type="text/css" />    
+    <link href="/beamstream-new/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" /> 
+    <link href="/beamstream-new/css/bootstrap.css" rel="stylesheet" type="text/css" /> 
+    <link rel="stylesheet" type="text/css" media="screen" href="/beamstream-new/css/bootstrap-select.css">
+    <link href='http://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'> 
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700' rel='stylesheet' type='text/css'>
+     
+    <link rel="stylesheet" href="/beamstream-new/css/jquery.simplyscroll.css" media="all" type="text/css"> 
+    <link href="/beamstream-new/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" /> 
+   
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" 	rel="stylesheet" type="text/css" />
+      
+    <link rel="stylesheet" href="/beamstream-new/css/extracss/jquery.Jcrop.css" type="text/css" />
+    
+}
+@JS = {
+	<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>
+    <script type="text/JavaScript" src="/beamstream-new/lib/jquery-1.js"></script>
+    <script type="text/JavaScript" src="/beamstream-new/lib/jquery.js"></script>
+}
 @bodyCls = {}
 @bodyModule = {}
 @bodyJS = {}
@@ -51,7 +70,7 @@
 
 @main("Registration", "Body",CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
    <article>
-   <div  id="registration"   data-model="user" data-url="/loggedInUserJson" data-module="view/registrationView" >
+   <div  id="registration"   data-model="user" data-url="/registration" data-module="view/registrationView" >
    
    <div class="container-fluid">
  <div class="main-container ">

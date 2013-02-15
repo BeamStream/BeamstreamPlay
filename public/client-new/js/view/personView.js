@@ -17,6 +17,8 @@ define(['view/formView'], function(FormView){
 		 * save form data
 		 */
 		SaveData: function(){
+//			dataToSave.isValid(true)
+//			console.log(this.getModel());
 			this.saveForm();
 		},
 		

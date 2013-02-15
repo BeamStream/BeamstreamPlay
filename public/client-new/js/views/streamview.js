@@ -145,9 +145,9 @@
 							 
 							 console.log(data._1.streamName);
 							 streams+='<li id ="'+data._1.id.id+'" name="'+data._1.streamName+'" data-userCount = "'+data._2+'"><a  id ="'+data._1.id.id+'" name ="'+data._1.streamName+'"  href="#" class="icon1">'+data._1.streamName+'</a>'
-			                        +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>'
+			                        +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"></div>'
 			                        +'<span class="menu-count"> '+data._2+'</span>'
-			                        +'<span class="close-btn drag-rectangle" data-original-title="Delete"><img  src="images/close.png"></span>'
+			                        +'<span class="close-btn drag-rectangle" data-original-title="Delete"></span>'
 			                        +'</li>';
  						 
 							 BS.myClasses+= '<li><a id ="'+data._1.id.id+'" href="#">'+data._1.streamName+'</a></li>';
@@ -292,7 +292,7 @@
 	    	// set new style for li
              
             var removeOption = '<a href="#" class="red-active-icon1">'+StreamName+' </a>'
-            				   +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>'
+            				   +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"></div>'
             				   +'<span class="remove-btn"><a href="#">Remove</a></span> <span class="remove-btn cancel-btn "><a href="#">Cancel</a></span>';
 	    	
 	    	$(eventName.target).parents('li').addClass("icon1 red-active");
@@ -314,9 +314,9 @@
 	    	
 	    	// set previous style for li
 	    	var removeOption = '<a  id ="'+streamId+'" name ="'+StreamName+'"  href="#" class="icon1">'+StreamName+'</a>'
-			                   +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"><img src="images/menu-left-icon.png"></div>'
+			                   +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"></div>'
 			                   +'<span class="menu-count" style="display:none;"> '+userCount+'</span>'
-			                   +'<span class="close-btn drag-rectangle" data-original-title="Delete"><img  src="images/close.png"></span>';
+			                   +'<span class="close-btn drag-rectangle" data-original-title="Delete"></span>';
 
  	    	$(eventName.target).parents('li').removeClass("icon1 red-active");
 	    	$(eventName.target).parents('li').html(removeOption);
@@ -532,11 +532,9 @@
 	 	     	    		 
 	 	     	    		var removeOption = '<a  id ="'+streamId+'" name ="'+StreamName+'"  href="#" class="icon1">'+StreamName+'</a>'
 	 	     	    		+'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange" style="display: none;">'
-	 	     	    		+'<img src="images/menu-left-icon.png">'
 	 	     	    		+'</div>'
 	 	     	    		+'<span class="menu-count" > '+userCount+'</span>'
 	 	     	    		+'<span class="close-btn drag-rectangle" data-original-title="Delete" style="display: none;">'
-	 	     	    		+'<img src="images/close.png">'
 	 	     	    		+'</span>';
 	 	     	    		 
 	 	     	    		if(streamId == activeStream )
