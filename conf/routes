@@ -188,6 +188,7 @@ POST /signup         	controllers.BasicRegistration.signUpUser
 
 #Registration
 GET   /token/:authToken/userId/:userId               controllers.Registration.registration(authToken:String,userId:String)
+GET   /renderRegistartion                                  controllers.Registration.renderRegistartion
 
 #Asynchronous Services
 # To create a resource on the server, use POST.
