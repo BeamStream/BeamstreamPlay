@@ -15,34 +15,34 @@
 *
 * 
 */ -->
- <div class="container-fluid">
+  <div class="container-fluid">
  <div class="main-container ">
  <div class="profile-wrapper">
         <div class="profile-left-container">
   		<div class="req-field">
  		<span>*</span><h6>Required Fields </h6>
-		</div><h1>@userId</h1>
+		</div>
        
           <div id="step2_block" class="profile-white registration-info box-active">
              <fieldset class="field">  
-            <input id="firstName"  data-name="user.firstName" name="firstName"  type="text" placeholder="First Name">
+            <input id="firstName"  data-name="user.firstName" name="firstName" value=""  type="text" placeholder="First Name">
             <span class="red-star">*</span>
             </fieldset>
             <fieldset class="field">  
-            <input id="lastName"  data-name="user.lastName" name="lastName"  type="text" placeholder="Last Name">
+            <input id="lastName"  data-name="user.lastName" name="lastName"  value="" type="text" placeholder="Last Name">
               <span class="red-star">*</span>
             </fieldset>
             <div class="alert-register"><span>*Last Name will not be shown publicly</span></div>
             <fieldset class="field">  
-            <input id="schoolName"  data-name="user.schoolName" name="schoolName"   type="text" placeholder="School Name">
+            <input id="schoolName"  data-name="user.schoolName" name="schoolName" value=""  type="text" placeholder="School Name">
               <span class="red-star">*</span>
             </fieldset>
             <fieldset class="field">  
-            <input id="major"  data-name="user.major" name="major"   type="text" placeholder="Major " >
+            <input id="major"  data-name="user.major" name="major" value=""  type="text" placeholder="Major " >
              <span class="red-star">*</span>
             </fieldset>
              <div class="field">
-             <textarea id="aboutYourself" data-name="user.aboutYourself" name="aboutYourself"  name="aboutYourself" cols="" rows="" placeholder="Tell us a little about yourself."></textarea>
+             <textarea id="aboutYourself" data-name="user.aboutYourself" value="" name="aboutYourself"  name="aboutYourself" cols="" rows="" placeholder="Tell us a little about yourself."></textarea>
             </div>
             <div class="profile-select-block">
               <fieldset class="field">  
@@ -88,12 +88,12 @@
               <div class="select-arrow-white"><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
             </div>
             <fieldset class="field">
-            <input id="location" data-name="user.location" name="location" type="text" placeholder="Location" class="location-note">
+            <input id="location" data-name="user.location" name="location" value="" type="text" placeholder="Location" class="location-note">
             <span class="red-star select-star">*</span>
              <span class="location-icon location-toolip" data-original-title="Use Current Location"></span>
            </fieldset>
             
-           
+          
            <fieldset class="field">
             <input id="cellNumber" data-name="user.cellNumber" name="cellNumber" type="text" placeholder="Cell Number">
             </fieldset>
@@ -130,10 +130,11 @@
               </div>
 
 
-
+ <input type="file" id="uploadProfilePic" name="uploadProfilePic"  style="display:none;"> 
              <div id="upload-step">
 	             <div id="step3_block" class="round-block upload-photo step-one-photo"> 
 	             <a class="browse" href="#"> </a> 
+	            
 	             </div>
              </div>
 
@@ -151,13 +152,13 @@
           <div id="step1_block" class="profile-white active-border">
             <h5>Connect with:</h5>
             <ul class="register-social">
-              <li>
-                <div class="tick-register"></div>
+              <li >
+                
                  <a class="facebook register-toolip-outer" href="#" data-original-title="Sweet, Lookin good!"> <span class="facebook"></span> <span class="shadow">Facebook</span></a>
                 <div class="social-close"></div>
               </li>
               <li>
-                <div class="tick-register"></div>
+                 
                 <a class="twitter register-toolip-outer" href="#" data-original-title="Sweet, Lookin good!"> <span class="twitter"></span> <span class="shadow">Twitter</span></a>
                 <div class="social-close"></div>
               </li>
@@ -176,3 +177,10 @@
       </div>
       </div>
       </div>
+      
+      
+<script>
+$('.selectpicker-info').selectpicker({
+    style: 'register-select'
+	});
+</script>

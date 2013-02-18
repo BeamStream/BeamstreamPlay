@@ -19,9 +19,20 @@
 define(['model/baseModel'], function(BaseModel) {
 	var User = BaseModel.extend({ 
 		objName: 'User',
-//		idAttribute: "_id",
         defaults: {	        	
-                    iam:'0'
+//            iam:'0',
+            mailId:'',
+            password:'',
+            confirmPassword:'',
+            firstName:'',
+            lastName:'',
+            schoolName:'',
+            major:'',
+            gradeLevel:'',
+            degreeProgram:'',
+            graduate:'',
+            location:''
+          
         },
                 
 		validation: {
@@ -29,7 +40,6 @@ define(['model/baseModel'], function(BaseModel) {
 			mailId: {
 				required: true,
 				pattern: 'email',
-//				msg: 'Please provide your first name'
 			} ,
 			password: {
 				required: true
@@ -39,7 +49,7 @@ define(['model/baseModel'], function(BaseModel) {
 				required: true
 //				equalTo: 'password'
 			},
-                        firstName: {
+            firstName: {
 				required: true
 			},
 			lastName: {
@@ -54,21 +64,23 @@ define(['model/baseModel'], function(BaseModel) {
 			aboutYourself: {
 				required: true
 			},
+			gradeLevel: {
+				required: true
+			},
+			degreeProgram: {
+				required: true
+			},
+			graduate: {
+				required: true
+			},
 			location: {
 				required: true
 			},
 			cellNumber: {				
-                        pattern: 'phone'
+                pattern: 'phone'
 			}
-                    },
-		
-//		showError:function(){
-//			console.log("no");
-//		},
-//		showValid: function(){
-//			console.log("sss  ");
-//		}
-               
+        },
+  
 
 	});
         

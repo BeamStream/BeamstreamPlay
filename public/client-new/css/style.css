@@ -5255,6 +5255,17 @@ ul.register-social li
 		width:100%;
 		position:relative;
 }
+
+ul.register-social li.active
+{
+background: url("../images/tick.png") no-repeat scroll 5px 32px transparent;
+	
+}
+ul.register-social li.active a
+{
+opacity:inherit !important;
+	
+}
 .social-close {
 		right:6px;
 		position: absolute;

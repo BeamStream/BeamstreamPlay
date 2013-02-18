@@ -15,7 +15,7 @@
 *
 * 
 */
-define(['view/formView'], function(FormView){
+define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, BootstrapSelect){
 	var RegistrationView;
 	RegistrationView = FormView.extend({
 		objName: 'RegistrationView',
@@ -26,21 +26,74 @@ define(['view/formView'], function(FormView){
 			'click #step2-reset' : 'resetStep2Form',
 			'click .browse' : 'uploadProfilePic',
 			'change #uploadProfilePic' :'changePicture',
+			'click #done_step3':'completeRegistration',
+			'click .register-social':'connectMedia'
 			 
 		},
 		
 		onAfterInit: function(){
 			
 			this.data.reset();
-
+            
 			/* set style for select boxes */
 //			$('.selectpicker-info').selectpicker({
 //		       style: 'register-select'
 //			});
 //			$('.location-toolip').tooltip({template:'<div class="tooltip loactionblue"><div class="tooltip-inner"></div></div>'});
 		},
+// @TODO
+//		onAfterRender: function(){
+//			console.log(localStorage["step1Stauts"]);
+//			var self = this;
+//			if(localStorage["registration"] == "step2"){
+//				this.disableStepOne();
+//				this.enableStepTwo();
+//			}
+//			else if(localStorage["registration"] == "step3"){
+//				self.disableStepOne();
+//				self.enableStepThree();
+//			}
+//			
+//		},
+        
+		/**
+		 * activate step 1 registration block
+		 */
+		disableStepOne: function(){
+			
+			$('#step_1').hide();
+            $('#step1_block').removeClass('active-border');
+            $('#step2_block').removeClass('box-active');
+		},
 		
-
+		/**
+		 * activate step 2 registration block
+		 */
+		enableStepTwo: function(){
+			$('#step_1').hide(500);
+            $('#step1_block').removeClass('active-border');
+            $('#step2_block').removeClass('box-active');
+            $('#step2_block').addClass('active-border');
+            $('#step_2').show(500);
+		},
+		
+		/**
+		 * activate step 3 registration block
+		 */
+		enableStepThree: function(){
+			$('#step_2').hide(500);
+			$('#step2_block').removeClass('active-border');
+			
+			var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo">'
+			    +'<a class="browse" href="#"> <img src="" id="profile-photo"> <div class="upload-box"><div class="upload-plus">Upload</div></div></a>'
+                +'</div>';
+			$('#upload-step').html(upload_block);
+			$('#step_3').show(500);
+			
+//			localStorage["registration"] = "step3" ;
+			this.saveForm();
+		},
+		
 
 		/**
 		 * complete step1 registration process
@@ -49,16 +102,10 @@ define(['view/formView'], function(FormView){
         	
         	e.preventDefault();
             console.log("Complete first step ...")
-            
+//            localStorage["registration"] = "step2" ;
             /* disable first step and enable step 2 block */
-            $('#step_1').hide(500);
-            $('#step1_block').removeClass('active-border');
-            $('#step2_block').removeClass('box-active');
-            $('#step2_block').addClass('active-border');
-            $('#step_2').show(500);
-//            console.log(this.getModel);
-//            this.add("id", "111");
-//            this.fetch();
+            this.enableStepTwo();
+
             
         },
                 
@@ -69,22 +116,9 @@ define(['view/formView'], function(FormView){
 			
 			e.preventDefault();
             var t = this.saveForm();
-            console.log(t);
             
-            $('#step_2').hide(500);
-			$('#step2_block').removeClass('active-border');
-			
-//			var upload_block = '<div id="step3_block" class="round-block upload-photo"> <a class="browse" href="#">'
-//								+'<div class="upload-box">'
-//								+'<div class="upload-plus">Upload</div>'
-//								+'</div>'
-//								+'</a> </div>';
-//			
-			var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo">'
-			    +'<a class="browse" href="#"> <img src="" id="profile-photo"> <div class="upload-box"><div class="upload-plus">Upload</div></div></a>'
-                +'</div>';
-			$('#upload-step').html(upload_block);
-			$('#step_3').show(500);
+            /* enable step 3*/
+            this.enableStepThree();
 			
 		},
 		
@@ -129,7 +163,7 @@ define(['view/formView'], function(FormView){
 		 * upload profile picture or profile video
 		 */
 		uploadProfilePic: function(e){
-			e.preventDefault();
+			e.preventDefault(); 
 			$('#uploadProfilePic').click();
 		},
 		
@@ -173,7 +207,33 @@ define(['view/formView'], function(FormView){
 	            // read the image file as data URL
 	            reader.readAsDataURL(file);   
 	         }
+		},
+		
+		/**
+		 * complete registration steps
+		 */
+		completeRegistration: function(){
+			localStorage["registration"] = "step1";
+		},
+		
+		
+		/**
+		 * connect to social medias
+		 */
+		connectMedia: function(e){
+			e.preventDefault();
+            /* activate selected medias */
+			if($(e.target).parents('li').hasClass('active')){
+				$(e.target).parents('li').removeClass('active');
+			}
+			else{
+				$(e.target).parents('li').addClass('active');
+			}
+			
 		}
+		
+		
+		
 	})
 	return RegistrationView;
 });

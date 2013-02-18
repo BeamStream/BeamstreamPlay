@@ -39,9 +39,7 @@ define(['view/formView'], function(FormView){
             e.preventDefault();
             
             // @TODO validation - save only when user enter mailid ,password, confirmPassword
-            if($('#mailid').val()&&$('#password').val()&&$('#confirmPassword').val()){                      
                 this.saveForm( );
-            }  
             
             $('#mailid').val('');   
             $('#password').val('');
