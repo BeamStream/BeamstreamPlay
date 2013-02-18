@@ -19,7 +19,9 @@ define(['view/formView'], function(FormView){
 		SaveData: function(){
 //			dataToSave.isValid(true)
 //			console.log(this.getModel());
+//			this.data.models[0].set({'san':'te3454'});
 			this.saveForm();
+//			console.log(this.data.models[0].get('san'));
 		},
 		
 		/**
