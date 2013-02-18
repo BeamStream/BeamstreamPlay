@@ -444,8 +444,24 @@ ul.signup-register li.lastblock {
 }
 
    
+ .green-btn {
 
+		margin:0 0 0 15px !important;
+}
+ 
+ 
+ .green-btn span.texter {
+		 padding:0 20px;
+         font-size:15px;
+		
+		 
+}
+  
 
+ ul.profil-pic-outer li {
+ margin: 0 1% 2% 1% !important;
+ width:18% !important;
+}
 
 
 /*
@@ -1075,6 +1091,29 @@ ul.signup-register li.lastblock {
 } 
 
 
+.browse-right {
+	float: left;
+	padding:20px 0 0 0;
+	display:block;
+
+}
+
+.browse-search{width:84%;}
+
+
+
+ul.sort{padding-bottom:10px;}
+
+
+  
+ ul.profil-pic-outer li {
+  margin: 0 1% 1%;
+    width: 31%;
+}
+   
+
+
+
 /*
 
 768-view
@@ -1270,16 +1309,11 @@ ul.social-icons {
  .browse-header h6.small {
  padding-right:5px
 }
-.browse-search {
-width:90%;
-}
+
  .browse-search-block {
 width:65%;
 }
- .browse-right {
-width:100%;
-padding:20px 0 0 0;
-}
+
  .green-btn span.texter {
  padding:0 70px;
 }
@@ -1287,9 +1321,6 @@ padding:20px 0 0 0;
  /*
  padding:9px 20px;
  */
-}
- .green-btn span.texter {
- padding:0 32px;
 }
 
 
@@ -1303,11 +1334,8 @@ padding: 0 10px;
  padding-right:5px;
  padding-left:0px !important;
 }
- .browse-search {
-width:85%;
-}
- .browse-search-block {
-}
+
+
  .menu ul li a {
  padding: 12px 10px 20px 35px;
 }
@@ -1328,10 +1356,7 @@ left:10px;
  ul.then-by {
  float: left;
 }
- ul.profil-pic-outer li {
- margin: 0 1% 2% 3%;
- width: 29%;
-}
+
  .menu ul li a:hover, .menu ul li a.active {
  background-position: center 40px, top right;
 }
@@ -1650,13 +1675,7 @@ ul.social-icons {
  .answer-description-info {
  width: 75%;
 }
- .browse-right {
-width:100%;
-padding:20px 0 0 0;
-}
- .green-btn span.texter {
- padding:0 32px;
-}
+
  .green-btn span.visual {
  /*
  padding:9px 20px;
@@ -1674,9 +1693,7 @@ padding: 0 10px;
  .browse-header h6.small {
  padding-right:5px
 }
- .browse-search {
-width:85%;
-}
+
  .browse-search-block {
 width:60%;
 }
@@ -2106,6 +2123,36 @@ ul.signup-register li.lastblock {
 		width:70%;
 }
    
+ .browse-right {
+		float:right;
+	
+}
+   
+ 
+ 
+ .green-btn {
+
+		margin:0  0 0px 10px;
+}
+ 
+ 
+ 
+ .green-btn span.texter {
+		 padding:0 7px;
+		font-size:15px;
+		
+		 
+}
+  
+ ul.profil-pic-outer li {
+   margin: 0 3% 2%;
+    width: 27%;
+}
+   
+   
+   
+   
+   
 
 /*
 
@@ -2254,17 +2301,10 @@ ul.stream-tab li a {
  .browse-header h6.small {
  padding-left:0px !important;
 }
- ul.then-by {
-width:100%;
-padding:20px 0 0 0;
-}
+
 #file-upload-loader {
  right: 23%;
  top: 25%;
-}
- ul.profil-pic-outer li {
- margin:0 1% 2% 1%;
- width:18%;
 }
 
 

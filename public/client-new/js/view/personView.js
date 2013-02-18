@@ -5,13 +5,14 @@ define(['view/formView'], function(FormView){
 		events : {
 			'click #save' : 'SaveData',
 			'click #singleFieldValidation' : 'validateSingleField',
-			'click #setField' : 'setSingleField'
+			'click #setField' : 'setSingleField',
+			'click #setCollection': 'setCollection'
 			
 		},
 		
 		onAfterInit: function(){
 			
-			this.data.reset();
+			//this.data.reset();
 		},
 		/**
 		 * save form data
@@ -36,7 +37,13 @@ define(['view/formView'], function(FormView){
 		 * like http://documentcloud.github.com/backbone/#Model-set
 		 */
 		setSingleField: function(){
-			alert("set Single Attribute To Model");
+			this.data.models[0].set('firstName', "Viet");
+			this.render();
+			console.log(this.data.models[0])
+		},
+		setCollection: function(){
+			this.set({firstName: 'John', lastName: 'Doe'});
+			console.log(this.data.models[0])
 		}
 	})
 	return PersonView;
