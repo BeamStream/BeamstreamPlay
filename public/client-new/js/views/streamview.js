@@ -42,7 +42,7 @@
 	     	BS.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\./]*$/i ;
 	     	BS.urlRegex2 =  /^((http|https|ftp):\/\/)/;
 	     	
-			BS.activeDiv = '<div class="active-curve"><img src="images/active-curve.png" width="20" height="58"></div>';
+			BS.activeDiv = '<div class="active-curve"></div>';
 
 	     	
     		this.source = $("#tpl-main-stream").html();
@@ -540,7 +540,6 @@
 	 	     	    		if(streamId == activeStream )
 	 	     	    		{
 	 	     	    			removeOption+= '<div class="active-curve">'
-	 	     	    				       +'<img width="20" height="58" src="images/active-curve.png">'
 	 	     	    				       +'</div>';
 	 	     	    		}
 	 	     	    		 

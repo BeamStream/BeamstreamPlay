@@ -19,6 +19,7 @@
 define(['model/baseModel'], function(BaseModel) {
 	var User = BaseModel.extend({ 
 		objName: 'User',
+
         defaults: {	        	
 //            iam:'0',
             mailId:'',
@@ -34,6 +35,7 @@ define(['model/baseModel'], function(BaseModel) {
             location:''
           
         },
+
                 
 		validation: {
 
