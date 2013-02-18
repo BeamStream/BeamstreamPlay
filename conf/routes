@@ -16,7 +16,6 @@ GET /calendar        		controllers.Calendar.index
 #POST /betaUserviaTemplate				controllers.JoinBeamStream.betaUserRegistration
 #GET  /betaUserviaTemplate   			controllers.JoinBeamStream.betaUserRegistration
 
-
 #User
 POST /users      						controllers.UserController.findUser
 GET /onlineUsers  						controllers.UserController.getAllOnlineUsers
@@ -24,20 +23,16 @@ POST /inviteUser   						controllers.UserController.inviteUserToBeamstream
 POST  /followUser            			controllers.UserController.followUser
 #Browser Closed
 
-
 #Other
 GET  /browserClosed          						controllers.UserController.browserClosed
 GET /returnProgress                    				controllers.MediaController.returnProgress
 GET /returnFlag                    					controllers.MediaController.returnFlag
-
 
 #Streams
 GET /allStreamsForAUser 							controllers.StreamController.getAllStreamForAUser
 GET /allClassStreamsForAUser 						controllers.StreamController.allClassStreamsForAUser
 POST /noOfUsersAttendingAClass  					controllers.StreamController.noOfUsersAttendingAClass
 POST /deleteStream              					controllers.StreamController.deleteTheStream
-
-
 
 #Messages
 POST /newMessage                              		controllers.MessageController.newMessage
@@ -69,16 +64,13 @@ POST /followDocument                    		controllers.DocumentController.followD
 POST /viewCount                         		controllers.DocumentController.viewCount
 
 #Schools
-
 POST /school 									controllers.SchoolController.addANewSchool
 GET /getAllSchoolForAUser 						controllers.SchoolController.getAllSchoolForAUser
 POST /getSchoolNamebyId 						controllers.SchoolController.getSchoolName
 POST  /getAllSchoolsForAutopopulate      		controllers.SchoolController.getAllSchoolsForAutopopulate
 
-
 #UpdateUserInfo
 POST /detailed_reg 								controllers.DetailedRegistration.addInfo
-
 
 #Class
 POST /class                             		controllers.ClassController.addClass
@@ -98,7 +90,6 @@ POST /getEmailforNewUser   						controllers.BasicRegistration.emailSent
 #Destroy session
 GET /signOut 									controllers.UserController.signOut
 
-
 #Janrain -- Deprecated, see '# Social' below.
 #POST /userPage  								controllers.UserController.registerUserViaSocialSite
 #GET /getJSONviaJanrain 						controllers.UserController.registerUserViaSocialSite
@@ -117,7 +108,6 @@ GET /getAllProfileVideoForAUser   				controllers.MediaController.getAllProfileV
 POST /rockTheUsermedia            				controllers.MediaController.rockTheUsermedia
 POST /giveMeRockersOfUserMedia    				controllers.MediaController.giveMeRockersOfUserMedia
 POST /getMedia 									controllers.MediaController.getUserMedia
-
 
 #Message Rocks & Follows
 POST /rockedIt 									controllers.MessageController.rockedTheMessage
@@ -155,8 +145,6 @@ POST  /allPublicMessages          				controllers.PublicProfileController.getAll
 POST  /publicProfileInfo          				controllers.PublicProfileController.getPublicProfileOfAUser
 POST  /allPublicDocuments        				controllers.PublicProfileController.getAllPublicDocumentForAUser
 
-
-
 # Map static resources from the /public folder to the /assets URL path
 GET  /assets/*file               				controllers.Assets.at(path="/public", file)
 GET  /beamstream/*file                   		controllers.Assets.at(path="/public/client", file)
@@ -165,7 +153,6 @@ GET  /beamstream/*file                   		controllers.Assets.at(path="/public/c
 GET  /beamstream-new/*file                   	controllers.Assets.at(path="/public/client-new", file)
 
 #NEO4J Baby
-
 GET  /testNeo4j          						controllers.UserController.testNeo4j
 GET  /testNeo4jFindNode          				controllers.UserController.testNeo4jFindNode
 GET  /testNeo4jAddFriends          				controllers.UserController.testNeo4jAddFriends
@@ -189,18 +176,27 @@ GET  /images/*file        	controllers.Assets.at(path="/public/images", file)
 ################################### Beamstream  Rearchitecture Routes ################################################
 
 #Beta User Registration
-POST /betaUser           controllers.JoinBeamStream.regsisterToBeamStreamBeta
-GET /betaUser                    controllers.JoinBeamStream.betaUserRegistration
-GET /                    controllers.JoinBeamStream.betaUserRegistration
+POST /betaUser          controllers.JoinBeamStream.regsisterToBeamStreamBeta
+GET /betaUser           controllers.JoinBeamStream.betaUserRegistration
+GET /                   controllers.JoinBeamStream.betaUserRegistration
 
 
 #Signup 
 
-GET /signup              controllers.BasicRegistration.signUpPage
-POST /signup         controllers.BasicRegistration.signUpUser
+GET /signup             controllers.BasicRegistration.signUpPage
+POST /signup         	controllers.BasicRegistration.signUpUser
 
 #Registration
 GET   /token/:authToken/userId/:userId               controllers.Registration.registration(authToken:String,userId:String)
+
+#Asynchronous Services
+# To create a resource on the server, use POST.
+# To retrieve a resource, use GET.
+# To change the state of a resource or to update it, use PUT.
+# To remove or delete a resource, use DELETE.
+
+
+
                                                     
 
 
