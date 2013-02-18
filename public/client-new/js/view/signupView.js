@@ -39,10 +39,10 @@ define(['view/formView'], function(FormView){
             e.preventDefault();
             
             // @TODO validation - save only when user enter mailid ,password, confirmPassword
-            if($('#mailid').val()&&$('#password').val()&&$('#confirmPassword').val()){                      
+            if($('#mailid').val()&&$('#password').val()&&$('#confirmPassword').val()){  
+                this.data.models[0].set({'iam':$("#usertype").val()});
                 this.saveForm( );
             }  
-            
             $('#mailid').val('');   
             $('#password').val('');
             $('#confirmPassword').val('');        
@@ -77,9 +77,8 @@ define(['view/formView'], function(FormView){
 	        $('.menu-pic div.active').removeClass('active');
 	        $(eventName.currentTarget).find('div').addClass('active');
 	        
+                
 	        $("#usertype").val(eventName.currentTarget.id);	
-	        this.data.reset({'iam' : eventName.currentTarget.id});	
-               
 		}
 		
  
