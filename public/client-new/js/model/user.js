@@ -22,17 +22,17 @@ define(['model/baseModel'], function(BaseModel) {
 
         defaults: {	        	
 //            iam:'0',
-            mailId:'',
-            password:'',
-            confirmPassword:'',
-            firstName:'',
-            lastName:'',
-            schoolName:'',
-            major:'',
-            gradeLevel:'',
-            degreeProgram:'',
-            graduate:'',
-            location:''
+//            mailId:'',
+//            password:'',
+//            confirmPassword:'',
+//            firstName:'',
+//            lastName:'',
+//            schoolName:'',
+//            major:'',
+//            gradeLevel:'',
+//            degreeProgram:'',
+//            graduate:'',
+//            location:''
           
         },
 
