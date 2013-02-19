@@ -86,8 +86,21 @@ Backbone.Validate = (function() {
 			pattern: function(field, regex){
 				if ( hasValue(attributes[field]) && !attributes[field].toString().match(patterns[regex] || regex) ) {
 					addError(field, I18n.t('errors.'+ field + '.pattern' + '.'+regex));
-        }
-  		}
+				}
+			},
+			/*Added by Aswathy */ 
+			equalTo: function(field1,field2){
+				if( hasValue(attributes[field2]) && attributes[field2].toString() !== attributes[field1].toString()){
+					addError(field1, I18n.t("These passwords don't match. Try again"));
+				}
+
+			},
+			minLength: function(field,minLength) {
+	            if (!hasValue(attributes[field]) || trim(attributes[field]).length < minLength) {
+	            	addError(field, I18n.t('errors.'+ field + '.minLength'));
+	            }
+	        }
+			
 		};
 		
 		if (!forceUpdate) {

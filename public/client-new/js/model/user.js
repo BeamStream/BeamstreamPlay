@@ -44,12 +44,13 @@ define(['model/baseModel'], function(BaseModel) {
 				pattern: 'email',
 			} ,
 			password: {
-				required: true
+				required: true,
+				minLength : 6
 //				pattern: 'password'
 			},
 			confirmPassword: {
-				required: true
-//				equalTo: 'password'
+				required: true,
+				equalTo: "password"
 			},
             firstName: {
 				required: true

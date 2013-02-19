@@ -1,20 +1,18 @@
-<!--/***
-* BeamStream
-*
-* Author                : Cuckoo Anna (cuckoo@toobler.com)
-* Company               : Toobler
-* Email:                : info@toobler.com
-* Web site              : http://www.toobler.com
-* Created               : 29/January/2013
-* Description           : Backbone model for user details 
-* ==============================================================================================
-* Change History:
-* ----------------------------------------------------------------------------------------------
-* Sl.No.  Date   Author   Description
-* ----------------------------------------------------------------------------------------------
-*
-* 
-*/ -->
+<!-- 	* BeamStream
+		*
+		* Author                : Aswathy P.R (aswathy@toobler.com)
+		* Company               : Toobler
+		* Email:                : info@toobler.com
+		* Web site              : http://www.toobler.com
+		* Created               : 14/February/2013
+		* Description           : Templates for registration page
+		* ==============================================================================================
+		* Change History:
+		* ----------------------------------------------------------------------------------------------
+		* Sl.No.  Date   Author   Description
+		* -
+  -->
+  
   <div class="container-fluid">
  <div class="main-container ">
  <div class="profile-wrapper">

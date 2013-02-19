@@ -24,7 +24,8 @@ define(['view/formView'], function(FormView){
 		events:{
 	        'click .menu-pic':'getUserTypeValue',
 	        'click #registeration': 'registration',
-	        'click .lastblock a' : 'socialMediaSignup'
+	        'click .lastblock a' : 'socialMediaSignup',
+	        'keypress #password' : 'clearConfirmPasswordField'
 		},
 
 		onAfterInit: function(){	
@@ -93,6 +94,13 @@ define(['view/formView'], function(FormView){
 		socialMediaSignup: function(e){
 			e.preventDefault();
 			console.log($(e.target).parents('a').attr('id'));
+		},
+		
+		/**
+		 * clear confirm password field when we change the password
+		 */
+		clearConfirmPasswordField: function(){
+			$('#confirmPassword').val('');
 		}
  
 	})
