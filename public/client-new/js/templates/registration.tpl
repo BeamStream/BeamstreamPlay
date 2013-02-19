@@ -126,14 +126,14 @@
 	          <div id="step_3" style="display:none;" class="step-box">
 	              <h3>Step 3 of 3 </h3>
 	              <h4>Upload Your Main Profile Photo</h4>
-	              <a class="browse" href="#">BROWSE</a> <a id="done_step3" href="#">DONE</a> 
+	              <a class="browse" href="#">BROWSE </a> <a id="done_step3" href="#">DONE</a> 
               </div>
 
 
  <input type="file" id="uploadProfilePic" name="uploadProfilePic"  style="display:none;"> 
              <div id="upload-step">
 	             <div id="step3_block" class="round-block upload-photo step-one-photo"> 
-	             <a class="browse" href="#"> </a> 
+	             <a ><img src="/beamstream-new/images/step-one-pic1.png" width="148" height="37" id="profile-photo"> </a> 
 	            
 	             </div>
              </div>

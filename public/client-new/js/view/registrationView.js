@@ -85,7 +85,7 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 			$('#step2_block').removeClass('active-border');
 			
 			var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo">'
-			    +'<a class="browse" href="#"> <img src="" id="profile-photo"> <div class="upload-box"><div class="upload-plus">Upload</div></div></a>'
+			    +'<a class="browse" href="#"><img src="/beamstream-new/images/upload-photo.png" width="148" height="37" id="profile-photo"> <div class="upload-box"><div class="upload-plus">Upload</div></div></a>'
                 +'</div>';
 			$('#upload-step').html(upload_block);
 			$('#step_3').show(500);
