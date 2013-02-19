@@ -45,7 +45,7 @@ define(['view/formView'], function(FormView){
 
 
             if($('#mailid').val()&&$('#password').val()&&$('#confirmPassword').val()){  
-                this.data.models[0].set({'iam':$("#usertype").val()});
+                this.data.models[0].set('iam',$("#usertype").val());
                 this.saveForm( );
             }  
 
@@ -82,8 +82,8 @@ define(['view/formView'], function(FormView){
 	        
 	        $('.menu-pic div.active').removeClass('active');
 	        $(eventName.currentTarget).find('div').addClass('active');
-	        
-                
+	                     
+                             
 	        $("#usertype").val(eventName.currentTarget.id);	
 		},
 		
