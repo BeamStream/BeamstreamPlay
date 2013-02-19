@@ -5126,7 +5126,7 @@ font-weight:500;}
 }
 
 .upload-photo a {
-		background:url(../images/upload-photo.png) no-repeat;
+	
 		display:block;
 		margin:0 auto;
 		background-size:100%; 
@@ -5146,8 +5146,17 @@ font-weight:500;}
 
 }
 
-.step-3-photo a{position:relative;top:98px;}
+.step-3-photo a{position:relative;top:98px;
 
+
+
+}
+
+.upload-photo a img{
+	background-size:100%;
+	background-color:#fff;
+
+}
 
 /*
 .step-one-photo a {

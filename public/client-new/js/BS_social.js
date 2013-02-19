@@ -1,45 +1,39 @@
 function showJanrainSigninWidget() {
 
-  //console.log('showJanrainSigninWidget called.');
+	/* Modified by Aswathy for janRain login*/ 
+	 
+	if (typeof window.janrain !== 'object') window.janrain = {};
+    window.janrain.settings = {};
+    
+    janrain.settings.tokenUrl = 'http://localhost:9000/social/social_authentication';
+    janrain.settings.custom = true;
 
-  // Temporary hack to not conflict with previously written code.
-  // TODO: Remove need for janRainCount check
-//  var janRainCount = $('.janrainContent').length;
-//  if(janRainCount > 0) {
-//    return;
-//  }
-
-  if (typeof window.janrain !== 'object') window.janrain = {};
-  if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
-
-  janrain.settings.tokenUrl = BS.social_authentication;
-  janrain.settings.tokenAction = 'event';
-  janrain.settings.providers = ['facebook', 'twitter', 'linkedin', 'google'];
-  // Hack to hide the "Register via" text
-  janrain.settings.fontColor = "#4599d2";
-
-  function isReady() {
-    janrain.ready = true;
-  };
-  if (document.addEventListener) {
-    document.addEventListener("DOMContentLoaded", isReady, false);
-  } else {
+    function isReady() { janrain.ready = true; };
+    if (document.addEventListener) {
+    document.addEventListener("DOMContentLoaded",
+        isReady, false);
+    } else {
     window.attachEvent('onload', isReady);
-  }
+    }
 
-  var e = document.createElement('script');
-  e.type = 'text/javascript';
-  e.id = 'janrainAuthWidget';
+    var e = document.createElement('script');
+    e.type = 'text/javascript';
+    e.id = 'janrainAuthWidget';
 
-  if (document.location.protocol === 'https:') {
+    if (document.location.protocol === 'https:') {
     e.src = 'https://rpxnow.com/js/lib/beamstream/engage.js';
-  } else {
+    } else {
     e.src = 'http://widget-cdn.rpxnow.com/js/lib/beamstream/engage.js';
-  }
+    }
 
-  var s = document.getElementsByTagName('script')[0];
-  s.parentNode.insertBefore(e, s);
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(e, s);
+    
+
+
 }
+
+
 
 /**
  * Documentation here.
@@ -107,12 +101,23 @@ function showJanrainShareWidget(message, title, url, description ,selected_media
   
 }
 
+
+
 /**
  * Documentation here.
  * TODO: Implement a queue system to fire off submitted functions.
  */
 function janrainWidgetOnload() {
+	
+	/* for janRain sign up - set beamstream's design style to sign-in widget*/
+	var buttons = document.getElementsByClassName("socialMediaSignup");
+	for (var i = 0; i < buttons.length; i++) {  
+	  janrain.engage.signin.setProviderFlow(buttons[i],buttons[i].id);
+	}
+	
+	
   janrain.events.onProviderLoginToken.addHandler(function (response) {
+	
     $.ajax({
       type: "POST",
       url: BS.social_authentication,
@@ -276,6 +281,6 @@ function janRainLogin(info) {
 
 }
 
-
-
+showJanrainSigninWidget();
 loadJanrainShareWidget();
+

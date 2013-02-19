@@ -23,15 +23,18 @@ define(['view/formView'], function(FormView){
 		
 		events:{
 	        'click .menu-pic':'getUserTypeValue',
-	        'click #registeration': 'registration'                       
+	        'click #registeration': 'registration',
+	        'click .lastblock a' : 'socialMediaSignup'
 		},
 
 		onAfterInit: function(){	
+			this.data.reset({'password':'','mailId':'','confirmPassword':''});
 	        $('.sign-tick').hide(); 
 	        $('.sign-close').hide(); 
+	        
         },
-                
-                    
+            
+                            
         /**
         * @TODO  user registration 
         */
@@ -82,8 +85,15 @@ define(['view/formView'], function(FormView){
 	        
                 
 	        $("#usertype").val(eventName.currentTarget.id);	
-		}
+		},
 		
+		/**
+		 *  sign up via social media 
+		 */
+		socialMediaSignup: function(e){
+			e.preventDefault();
+			console.log($(e.target).parents('a').attr('id'));
+		}
  
 	})
 	return signupView;
