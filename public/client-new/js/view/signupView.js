@@ -39,8 +39,7 @@ define(['view/formView'], function(FormView){
             e.preventDefault();
             
             // @TODO validation - save only when user enter mailid ,password, confirmPassword
-
-			this.data.models[0].set({'iam':$("#usertype").val()});
+            this.data.models[0].set({'iam':$("#usertype").val()});
             this.saveForm( );
 
             $('#mailid').val('');   
