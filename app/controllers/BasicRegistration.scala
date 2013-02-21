@@ -142,14 +142,18 @@ object BasicRegistration extends Controller {
   }
 
   /**
-   * *****************************************************Rearchitecture with Templating******************************
+   * ***************************************************** Rearchitecture with Templating ******************************
    */
 
   /**
    * SignUp Page Rendering (RA)
    */
   def signUpPage = Action { implicit request =>
-    Ok(views.html.signup())
+    try {
+      Ok(views.html.signup())
+    } catch {
+      case ex => Ok("Oops..There was some errors")
+    }
   }
 
   /**
@@ -157,7 +161,7 @@ object BasicRegistration extends Controller {
    */
 
   def signUpUser = Action { implicit request =>
-   
+
     try {
       val userInfoJsonMap = request.body.asJson.get
       val iam = (userInfoJsonMap \ "iam").as[String]
@@ -167,7 +171,7 @@ object BasicRegistration extends Controller {
       val encryptedPassword = (new PasswordHashing).encryptThePassword(password)
       val encryptedConfirmPassword = (new PasswordHashing).encryptThePassword(confirmPassword)
       val canUserRegister = User.isUserAlreadyRegistered(emailId)
-     
+
       (canUserRegister == true) match {
         case true =>
           (encryptedPassword == encryptedConfirmPassword) match {
@@ -175,15 +179,15 @@ object BasicRegistration extends Controller {
               val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", "", encryptedPassword, "", "", "", List(), List(), List(), List(), List(), List())
               val IdOfUserCreted = User.createUser(userToCreate)
               val createdUser = User.getUserProfile(IdOfUserCreted)
-              UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.toString,tokenEmail.securityToken,emailId)
-              Ok(write(new ResulttoSent("Success","SignUp Successful"))).as("application/json")
+              UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.toString, tokenEmail.securityToken, emailId)
+              Ok(write(new ResulttoSent("Success", "SignUp Successful"))).as("application/json")
             case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
           }
         case false =>
           Ok(write(new ResulttoSent("Failure", "This User Email Is Already Taken"))).as("application/json")
       }
     } catch {
-      case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem During Registration"))).as("application/json")
+      case ex => Ok("Oops..There was some errors")
     }
   }
 }
