@@ -67,7 +67,7 @@ object Class {
 
           val user = User.getUserProfile(userId)
 
-          if (user.classId.contains(eachclass.id)) {
+          if (user.classes.contains(eachclass.id)) {
             println("Edit Class Case")
             val classObtained = Class.findClassListById(eachclass.id)
             ClassDAO.update(MongoDBObject("_id" -> eachclass.id), classObtained(0).copy(
@@ -184,7 +184,7 @@ object Class {
    */
   def getAllClassesIdsForAUser(userId: ObjectId): List[ObjectId] = {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    user.classId
+    user.classes
 
   }
 

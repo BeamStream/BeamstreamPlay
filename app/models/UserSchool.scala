@@ -15,7 +15,6 @@ import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 
 case class UserSchool(@Key("_id") id: ObjectId,
-  schoolName: String,
   assosiatedSchoolId: ObjectId,
   year: Year.Value,
   degree: Degree.Value,
@@ -54,32 +53,38 @@ object UserSchool {
     * @Purpose : Will Edit The schools as well with Creation
     */
 
-  def createSchool(userSchools: List[UserSchool], userId: ObjectId): ResulttoSent = {
-
-    var resultToSend = new ResulttoSent("", "")
-
-    if (UserSchool.duplicateSchoolExistesInSubmittedList(userSchools) == true) {
-      resultToSend = ResulttoSent("Failure", "Do Not Enter The Same School Twice")
-      resultToSend
-    } else {
-      for (userSchool <- userSchools) {
-        val userSchoolObtained = UserSchool.userSchoolsForAUser(userSchool.id)
-        if (userSchoolObtained.size == 1) {
-          UserSchoolDAO.update(MongoDBObject("_id" -> userSchool.id), userSchool, false, false, new WriteConcern)
-          resultToSend = ResulttoSent("Success", "Schools Updated Successfully")
-          println("CheckPoint 1")
-        } else if (isUserAlreadyContainsTheSchoolThatUserWantsToJoin(userSchool.assosiatedSchoolId, userId) == true) {
-          resultToSend = ResulttoSent("Success", "You've already Joined The " + userSchool.schoolName + " School") //#413
-          println("CheckPoint 2")
-        } else {
-          UserSchoolDAO.insert(userSchool)
-          resultToSend = ResulttoSent("Success", "Schools Added Successfully")
-          println("CheckPoint 3")
-        }
-      }
-      resultToSend
-    }
-
+  //  def createSchool(userSchools: List[UserSchool], userId: ObjectId): ResulttoSent = {
+  //
+  //    var resultToSend = new ResulttoSent("", "")
+  //
+  //    if (UserSchool.duplicateSchoolExistesInSubmittedList(userSchools) == true) {
+  //      resultToSend = ResulttoSent("Failure", "Do Not Enter The Same School Twice")
+  //      resultToSend
+  //    } else {
+  //      for (userSchool <- userSchools) {
+  //        val userSchoolObtained = UserSchool.userSchoolsForAUser(userSchool.id)
+  //        if (userSchoolObtained.size == 1) {
+  //          UserSchoolDAO.update(MongoDBObject("_id" -> userSchool.id), userSchool, false, false, new WriteConcern)
+  //          resultToSend = ResulttoSent("Success", "Schools Updated Successfully")
+  //          println("CheckPoint 1")
+  //        } else if (isUserAlreadyContainsTheSchoolThatUserWantsToJoin(userSchool.assosiatedSchoolId, userId) == true) {
+  //          resultToSend = ResulttoSent("Success", "You've already Joined The  School") //#413
+  //          println("CheckPoint 2")
+  //        } else {
+  //          UserSchoolDAO.insert(userSchool)
+  //          resultToSend = ResulttoSent("Success", "Schools Added Successfully")
+  //          println("CheckPoint 3")
+  //        }
+  //      }
+  //      resultToSend
+  //    }
+  //
+  //  }
+/**
+ * Create a new User School (RA)
+ */
+  def createSchool(userSchool: UserSchool) {
+    UserSchoolDAO.insert(userSchool)
   }
   /*
    * Removes a school
@@ -103,7 +108,7 @@ object UserSchool {
    */
   def getAllSchoolforAUser(userId: ObjectId): List[ObjectId] = {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    user.schoolId
+    user.schools
 
   }
 
@@ -140,28 +145,28 @@ object UserSchool {
   /*
    * is Duplicate School Exists In Database
    */
-  def duplicateSchoolExistes(schoolList: List[UserSchool]): Boolean = {
-    var schoolFetchCount: Int = 0
-    for (eachSchool <- schoolList) {
-      val schoolFetched = SchoolDAO.find(MongoDBObject("schoolName" -> eachSchool.schoolName)).toList
-      if (!schoolFetched.isEmpty) schoolFetchCount += 1
-    }
-
-    if (schoolFetchCount == 0) false else true
-  }
+//  def duplicateSchoolExistes(schoolList: List[UserSchool]): Boolean = {
+//    var schoolFetchCount: Int = 0
+//    for (eachSchool <- schoolList) {
+//      val schoolFetched = SchoolDAO.find(MongoDBObject("schoolName" -> eachSchool.schoolName)).toList
+//      if (!schoolFetched.isEmpty) schoolFetchCount += 1
+//    }
+//
+//    if (schoolFetchCount == 0) false else true
+//  }
 
   /*
    * is Duplicate School Exists In List 
    */
-  def duplicateSchoolExistesInSubmittedList(schoolList: List[UserSchool]): Boolean = {
-    var schoolFetchCount: Int = 0
-    for (eachSchool <- schoolList) {
-      val schoolFetched = schoolList.filter(x => x.schoolName == eachSchool.schoolName)
-      if (schoolFetched.size > 1) schoolFetchCount += 1
-    }
-
-    if (schoolFetchCount == 0) false else true
-  }
+//  def duplicateSchoolExistesInSubmittedList(schoolList: List[UserSchool]): Boolean = {
+//    var schoolFetchCount: Int = 0
+//    for (eachSchool <- schoolList) {
+//      val schoolFetched = schoolList.filter(x => x.schoolName == eachSchool.schoolName)
+//      if (schoolFetched.size > 1) schoolFetchCount += 1
+//    }
+//
+//    if (schoolFetchCount == 0) false else true
+//  }
 
   /*
    * Is user contains already the Coming School that he wants to Join

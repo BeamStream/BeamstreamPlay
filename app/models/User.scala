@@ -29,30 +29,35 @@ case class User(@Key("_id") id: ObjectId,
   socialProfile: String,
   about: String,
   contact: String,
-  streams: List[ObjectId],
-  schoolId: List[ObjectId],
-  classId: List[ObjectId],
+  schools: List[ObjectId],
+  classes: List[ObjectId],
   documents: List[ObjectId],
   questions: List[ObjectId],
   followers: List[ObjectId])
 
 object User {
 
-  /*
-   * Add info to a user((For SchoolAutopoulate thing))
-   * 
+  /**
+   * Add info to a user (RA)
    */
 
-  def addInfo(schoolList: List[UserSchool], userid: ObjectId) = {
+  def addInfo(schoolList: List[UserSchool], userId: ObjectId) = {
     for (school <- schoolList) {
-      val userSchoolIds = User.getUserProfile(userid).schoolId
-
+      val userSchoolIds = User.getUserProfile(userId).schools
       (userSchoolIds.contains(school.id)) match {
-        case true => println("School Id already in user Schools")
-        case false => User.addSchoolToUser(userid, school.id)
+        case true => println("School Id already in user schools")
+        case false => User.addSchoolToUser(userId, school.id)
       }
-
     }
+  }
+
+  /**
+   * Adds a school to User (RA)
+   */
+
+  def addSchoolToUser(userId: ObjectId, schoolId: ObjectId) {
+    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
+    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(schools = (user.schools ++ List(schoolId))), false, false, new WriteConcern)
   }
 
   /*
@@ -131,21 +136,12 @@ object User {
   }
 
   /*
-   * Adds a school to User 
-   */
-
-  def addSchoolToUser(userId: ObjectId, schoolId: ObjectId) {
-    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(schoolId = (user.schoolId ++ List(schoolId))), false, false, new WriteConcern)
-  }
-
-  /*
    * Add a Class to user
    */
   def addClassToUser(userId: ObjectId, classId: List[ObjectId]) {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    if (!user.classId.contains(classId(0))) {
-      UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classId = (user.classId ++ classId)), false, false, new WriteConcern)
+    if (!user.classes.contains(classId(0))) {
+      UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classes = (user.classes ++ classId)), false, false, new WriteConcern)
     }
   }
   /*
