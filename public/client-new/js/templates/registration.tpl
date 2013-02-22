@@ -44,7 +44,7 @@
             </div>
             <div class="profile-select-block">
               <fieldset class="field">  
-              <select id="year" data-name="user.year" name="year" class="selectpicker-info " style="display: none;">
+              <select id="gradeLevel" data-name="user.gradeLevel" name="gradeLevel" class="selectpicker-info " style="display: none;">
                 <option value="" selected="selected" >Grade Level?</option>
                 <option value="Freshman">Freshman</option>
                 <option value="Sophomore">Sophomore</option>
@@ -60,7 +60,7 @@
             </div>
             <div class="profile-select-block">
               <fieldset class="field">
-              <select id="degree" data-name="user.degree" name="degree" class="selectpicker-info " style="display: none;">
+              <select id="degreeProgram" data-name="user.degreeProgram" name="degreeProgram" class="selectpicker-info " style="display: none;">
                 <option selected="selected" value="" >Degree Program?</option>
                 <option value="Assosiates(AA)">Assosiates(AA)</option>
                 <option value="Bachelor's">Bachelor's</option>
@@ -75,7 +75,7 @@
             <div class="profile-select-block">
           
               <fieldset class="field">   
-              <select id="graduated" data-name="user.graduated" name="graduated" class="selectpicker-info " style="display: none;">
+              <select id="graduate" data-name="user.graduate" name="graduate" class="selectpicker-info " style="display: none;">
                 <option selected="selected"  value="">Graduated?</option>
                 <option value="attending">Still Attending</option>
                 <option value="yes">Yes</option>

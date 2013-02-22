@@ -35,29 +35,12 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 			
 			this.data.reset();
 			this.profile = null;
-			/* set style for select boxes */
-//			$('.selectpicker-info').selectpicker({
-//		       style: 'register-select'
-//			});
-//			$('.location-toolip').tooltip({template:'<div class="tooltip loactionblue"><div class="tooltip-inner"></div></div>'});
-			
+
 		},
-// @TODO
+		// @TODO
 		onAfterRender: function(){
-//			console.log(localStorage["step1Stauts"]);
-//			var self = this;
-//			if(localStorage["registration"] == "step2"){
-//				this.disableStepOne();
-//				this.enableStepTwo();
-//			}
-//			else if(localStorage["registration"] == "step3"){
-//				self.disableStepOne();
-//				self.enableStepThree();
-//			}
-			
 			/* set default values to model values */
-			console.log($('#myUserId').val());
-			this.data.models[0].set({'userId':$('#myUserId').val() ,'firstName':'' ,'lastName':'','schoolName':'' ,'major':'','year':'' ,'degree':'' ,'graduated':'' ,'location':''});
+			this.data.models[0].set({'userId':$('#myUserId').val() ,'firstName':'' ,'lastName':'','schoolName':'' ,'major':'','gradeLevel':'' ,'degreeProgram':'' ,'graduate':'' ,'location':''});
 
 		},
         
@@ -95,8 +78,7 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 			$('#upload-step').html(upload_block);
 			$('#step_3').show(500);
 			
-////			localStorage["registration"] = "step3" ;
-//			this.saveForm();
+
 		},
 		
 
@@ -121,11 +103,8 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 		comepleteSecondStep: function(e){
 			
 			e.preventDefault();
-//			this.enableStepThree();
 			this.saveForm();
-            
 
-			
 		},
 		
 		/**
@@ -134,7 +113,8 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 		success: function(model, data){
 			
             /* enable step 3*/
-			this.enableStepThree();
+			if(data != "Oops there were errors during registration")
+				this.enableStepThree();
 
 		},
 		
@@ -166,12 +146,9 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 		 */
 		changeProfile: function(e){
 			
-//	    	 $('#profile-photo').attr("src","");
-//	    	 $('#profile-photo').attr("src","images/loading1.gif");
-	    	 
-	    	 var self = this;;
-	    	 file = e.target.files[0]; 
-	         
+	    	 var self = this;
+	    	 var file = e.target.files[0]; 
+	        
 	         var reader = new FileReader();
 	         
 	         /* Only process image files. */
@@ -179,8 +156,6 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 	        	 
 	        	 console.log("Error: file type not allowed");
 	        	 $('#profile-photo').attr("src","/beamstream-new/images/upload-photo.png");
-//			     $('#profile-photo').attr("name", "profile-photo");
-//			     $('.delete-image').hide();
 			     $('#profile-error').html('File type not allowed !!');
 	 
 	         }
@@ -190,12 +165,12 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 	        	 /* capture the file informations */
 	             reader.onload = (function(f){
 	            	 
-//	            	 self.profile = file;
-	            	 
+	            	 self.profile = file;
+	            	 console.log(self.profile);
 	            	 return function(e){
-	            		 self.profile = e.target.result;
 	            		 $('#profile-error').html('');
 	        		     $('#profile-photo').attr("src",e.target.result);
+	        		     self.name = f.name;
 	        		
 	        		 };
 	            })(file);
@@ -210,16 +185,14 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 		 */
 		completeRegistration: function(e){
 			e.preventDefault();
-			this.data.models[0].set('profileData', this.profile );
-//			this.data.models[0].save({'profileData':"dfdf"}, {
-//				success : function(data){
-//        	    	
-//        	    	iconsol.elog("ss");
-//        	    },
-//        	    error: function(r){
-//        	    	console.log(343);
-//        	    }
-//			});
+			
+			var data;
+        	data = new FormData();
+     	    data.append('imageData', this.profile);
+     	    console.log(this.profile);
+     	    console.log(data);
+			this.data.models[0].set('profileName', this.name );
+			this.data.models[0].set('profileData',this.profile);
 			
             this.saveForm();
 //			localStorage["registration"] = "step1";

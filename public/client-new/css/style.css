@@ -6126,3 +6126,13 @@ ul.email-social-icons li.other2 {
     line-height:20px;
    /* text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); */
 }
+
+
+/**Added by Aswathy for error message on step 3 */
+#profile-error{
+	color: #FA6C6C;
+    font-size: 14px;
+    left: -120px;
+    position: relative;
+    top: -60px;
+}

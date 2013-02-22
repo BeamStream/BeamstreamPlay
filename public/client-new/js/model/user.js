@@ -66,13 +66,13 @@ define(['model/baseModel'], function(BaseModel) {
 			aboutYourself: {
 				required: true
 			},
-			year: {
+			gradeLevel: {
 				required: true
 			},
-			degree: {
+			degreeProgram: {
 				required: true
 			},
-			graduated: {
+			graduate: {
 				required: true
 			},
 			location: {
