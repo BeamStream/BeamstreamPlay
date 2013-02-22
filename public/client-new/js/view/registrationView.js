@@ -25,7 +25,7 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 			'click #done_step2' : 'comepleteSecondStep',
 			'click #step2-reset' : 'resetStep2Form',
 			'click .browse' : 'uploadProfilePic',
-			'change #uploadProfilePic' :'changePicture',
+			'change #uploadProfilePic' :'changeProfile',
 			'click #done_step3':'completeRegistration',
 			'click .register-social':'connectMedia'
 			 
@@ -34,7 +34,7 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 		onAfterInit: function(){
 			
 			this.data.reset();
-			
+			this.profile = null;
 			/* set style for select boxes */
 //			$('.selectpicker-info').selectpicker({
 //		       style: 'register-select'
@@ -57,7 +57,7 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 			
 			/* set default values to model values */
 			console.log($('#myUserId').val());
-			this.data.models[0].set({'userId':$('#myUserId').val() ,'firstName':'' ,'lastName':'','schoolName':'' ,'major':'','gradeLevel':'' ,'degreeProgram':'' ,'graduate':'' ,'location':''});
+			this.data.models[0].set({'userId':$('#myUserId').val() ,'firstName':'' ,'lastName':'','schoolName':'' ,'major':'','year':'' ,'degree':'' ,'graduated':'' ,'location':''});
 
 		},
         
@@ -91,7 +91,7 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 			
 			var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo">'
 			    +'<a class="browse" href="#"><img src="/beamstream-new/images/upload-photo.png" width="148" height="37" id="profile-photo"> <div class="upload-box"><div class="upload-plus">Upload</div></div></a>'
-                +'</div>';
+                +'<div id="profile-error" ></div>  </div>';
 			$('#upload-step').html(upload_block);
 			$('#step_3').show(500);
 			
@@ -121,7 +121,7 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 		comepleteSecondStep: function(e){
 			
 			e.preventDefault();
-			
+//			this.enableStepThree();
 			this.saveForm();
             
 
@@ -164,7 +164,7 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 		/**
 		 * Change profile pic or profile video 
 		 */
-		changePicture: function(e){
+		changeProfile: function(e){
 			
 //	    	 $('#profile-photo').attr("src","");
 //	    	 $('#profile-photo').attr("src","images/loading1.gif");
@@ -178,10 +178,10 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 	         if (!file.type.match('image.*') && !file.type.match('video.*')) {
 	        	 
 	        	 console.log("Error: file type not allowed");
-//	        	 $('#profile-photo').attr("src","images/no-photo.png");
+	        	 $('#profile-photo').attr("src","/beamstream-new/images/upload-photo.png");
 //			     $('#profile-photo').attr("name", "profile-photo");
 //			     $('.delete-image').hide();
-//			     $('#image-info').html('File type not allowed');
+			     $('#profile-error').html('File type not allowed !!');
 	 
 	         }
 	         else
@@ -190,9 +190,11 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 	        	 /* capture the file informations */
 	             reader.onload = (function(f){
 	            	 
-	            	 self.image = file;
+//	            	 self.profile = file;
+	            	 
 	            	 return function(e){
-	            		
+	            		 self.profile = e.target.result;
+	            		 $('#profile-error').html('');
 	        		     $('#profile-photo').attr("src",e.target.result);
 	        		
 	        		 };
@@ -204,10 +206,23 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 		},
 		
 		/**
-		 * complete registration steps
+		 * complete registration steps 3
 		 */
-		completeRegistration: function(){
-			localStorage["registration"] = "step1";
+		completeRegistration: function(e){
+			e.preventDefault();
+			this.data.models[0].set('profileData', this.profile );
+//			this.data.models[0].save({'profileData':"dfdf"}, {
+//				success : function(data){
+//        	    	
+//        	    	iconsol.elog("ss");
+//        	    },
+//        	    error: function(r){
+//        	    	console.log(343);
+//        	    }
+//			});
+			
+            this.saveForm();
+//			localStorage["registration"] = "step1";
 		},
 		
 		

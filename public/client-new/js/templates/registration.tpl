@@ -44,7 +44,7 @@
             </div>
             <div class="profile-select-block">
               <fieldset class="field">  
-              <select id="gradeLevel" data-name="user.gradeLevel" name="gradeLevel" class="selectpicker-info " style="display: none;">
+              <select id="year" data-name="user.year" name="year" class="selectpicker-info " style="display: none;">
                 <option value="" selected="selected" >Grade Level?</option>
                 <option value="Freshman">Freshman</option>
                 <option value="Sophomore">Sophomore</option>
@@ -60,7 +60,7 @@
             </div>
             <div class="profile-select-block">
               <fieldset class="field">
-              <select id="degreeProgram" data-name="user.degreeProgram" name="degreeProgram" class="selectpicker-info " style="display: none;">
+              <select id="degree" data-name="user.degree" name="degree" class="selectpicker-info " style="display: none;">
                 <option selected="selected" value="" >Degree Program?</option>
                 <option value="Assosiates(AA)">Assosiates(AA)</option>
                 <option value="Bachelor's">Bachelor's</option>
@@ -75,7 +75,7 @@
             <div class="profile-select-block">
           
               <fieldset class="field">   
-              <select id="graduate" data-name="user.graduate" name="graduate" class="selectpicker-info " style="display: none;">
+              <select id="graduated" data-name="user.graduated" name="graduated" class="selectpicker-info " style="display: none;">
                 <option selected="selected"  value="">Graduated?</option>
                 <option value="attending">Still Attending</option>
                 <option value="yes">Yes</option>
@@ -90,7 +90,6 @@
             <span class="red-star select-star">*</span>
              <span class="location-icon location-toolip" data-original-title="Use Current Location"></span>
            </fieldset>
-            
           
            <fieldset class="field">
             <input id="cellNumber" data-name="user.cellNumber" name="cellNumber" type="text" placeholder="Cell Number">
@@ -131,8 +130,10 @@
  <input type="file" id="uploadProfilePic" name="uploadProfilePic"  style="display:none;"> 
              <div id="upload-step">
 	             <div id="step3_block" class="round-block upload-photo step-one-photo"> 
-	             <a ><img src="/beamstream-new/images/step-one-pic1.png" width="148" height="37" id="profile-photo"> </a> 
+	             <a ><img src="/beamstream-new/images/step-one-pic1.png" width="148" height="37" id="profile-photo">
 	            
+	             </a> 
+	             
 	             </div>
              </div>
 

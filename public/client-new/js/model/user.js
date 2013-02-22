@@ -19,7 +19,6 @@
 define(['model/baseModel'], function(BaseModel) {
 	var User = BaseModel.extend({ 
 		objName: 'User',
-
         defaults: {	        	
 //            iam:'0',
 //            mailId:'',
@@ -67,13 +66,13 @@ define(['model/baseModel'], function(BaseModel) {
 			aboutYourself: {
 				required: true
 			},
-			gradeLevel: {
+			year: {
 				required: true
 			},
-			degreeProgram: {
+			degree: {
 				required: true
 			},
-			graduate: {
+			graduated: {
 				required: true
 			},
 			location: {
