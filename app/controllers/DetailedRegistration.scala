@@ -36,19 +36,19 @@ object DetailedRegistration extends Controller {
    * - Create the school from class stream page 
    */
 
-  def addInfo = Action { implicit request =>
-    val schoolListJsonMap = request.body.asFormUrlEncoded.get
-    val schoolListJson = schoolListJsonMap("data").toList
-    val schoolList = net.liftweb.json.parse(schoolListJson(0)).extract[List[UserSchool]]
-    val resultObtained = UserSchool.createSchool(schoolList, new ObjectId(request.session.get("userId").get))
-
-    if (resultObtained.status == "Success") {
-      User.addInfo(schoolList, new ObjectId(request.session.get("userId").get))
-      Ok(write(schoolList)).as("application/json")
-    } else {
-      Ok(write(resultObtained)).as("application/json")
-    }
-  }
+//  def addInfo = Action { implicit request =>
+//    val schoolListJsonMap = request.body.asFormUrlEncoded.get
+//    val schoolListJson = schoolListJsonMap("data").toList
+//    val schoolList = net.liftweb.json.parse(schoolListJson(0)).extract[List[UserSchool]]
+//    val resultObtained = UserSchool.createSchool(schoolList, new ObjectId(request.session.get("userId").get))
+//
+//    if (resultObtained.status == "Success") {
+//      User.addInfo(schoolList, new ObjectId(request.session.get("userId").get))
+//      Ok(write(schoolList)).as("application/json")
+//    } else {
+//      Ok(write(resultObtained)).as("application/json")
+//    }
+//  }
 
   /**
    * Returns the Schools with their respective school Ids (Tag : Dup)

@@ -3,10 +3,20 @@ import play.api.mvc._
 import models.Token
 import models.User
 import org.bson.types.ObjectId
+import models.School
+import models.UserSchool
+import models.Year
+import models.Degree
+import models.Graduated
+import net.liftweb.json.{ parse, DefaultFormats }
+import net.liftweb.json.Serialization.{ read, write }
+import models.RegistrationResults
+
 object Registration extends Controller {
+  implicit val formats = DefaultFormats
 
   /**
-   * Regsitration after Mail (RA)
+   * Registration after Mail (RA)
    */
   def registration(token: String, userId: String) = Action {
     (Token.findToken(token).isEmpty) match {
@@ -19,7 +29,7 @@ object Registration extends Controller {
    * User Registration In Detail (RA)
    */
   def registerUser = Action { implicit request =>
-//    try {
+    try {
       val jsonReceived = request.body.asJson.get
       val userId = (jsonReceived \ "userId").as[String]
       val firstName = (jsonReceived \ "firstName").as[String]
@@ -34,9 +44,15 @@ object Registration extends Controller {
       val cellNumber = (jsonReceived \ "cellNumber").as[String]
       User.updateUser(new ObjectId(userId), firstName, lastName, location, about, cellNumber)
 
-      Ok("Updated")
-//    } catch {
-//      case ex => Ok("Oops some error occurred")
-//    }
+      val schoolId = School.addNewSchool(new School(new ObjectId, schoolName, ""))
+      val userSchool = new UserSchool(new ObjectId, schoolId, Year.withName(gradeLevel), Degree.withName(degreeProgram), major, Graduated.withName(graduate),
+        None, None, "", List())
+      UserSchool.createSchool(userSchool)
+      User.addInfo(List(userSchool), new ObjectId(userId))
+      val userCreated = User.getUserProfile(new ObjectId(userId))
+      Ok(write(RegistrationResults(userCreated, userSchool))).as("application/json")
+    } catch {
+      case ex => Ok(write("Oops there were errors during registration")).as("application/json")
+    }
   }
 }

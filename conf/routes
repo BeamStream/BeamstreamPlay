@@ -70,7 +70,7 @@ POST /getSchoolNamebyId 						controllers.SchoolController.getSchoolName
 POST  /getAllSchoolsForAutopopulate      		controllers.SchoolController.getAllSchoolsForAutopopulate
 
 #UpdateUserInfo
-POST /detailed_reg 								controllers.DetailedRegistration.addInfo
+#POST /detailed_reg 								controllers.DetailedRegistration.addInfo
 
 #Class
 POST /class                             		controllers.ClassController.addClass
