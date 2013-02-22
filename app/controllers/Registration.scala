@@ -10,12 +10,13 @@ import models.Degree
 import models.Graduated
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
+import models.RegistrationResults
 
 object Registration extends Controller {
   implicit val formats = DefaultFormats
 
   /**
-   * Regsitration after Mail (RA)
+   * Registration after Mail (RA)
    */
   def registration(token: String, userId: String) = Action {
     (Token.findToken(token).isEmpty) match {
@@ -48,7 +49,8 @@ object Registration extends Controller {
         None, None, "", List())
       UserSchool.createSchool(userSchool)
       User.addInfo(List(userSchool), new ObjectId(userId))
-      Ok(write("Registration Successful")).as("application/json")
+      val userCreated = User.getUserProfile(new ObjectId(userId))
+      Ok(write(RegistrationResults(userCreated, userSchool))).as("application/json")
     } catch {
       case ex => Ok(write("Oops there were errors during registration")).as("application/json")
     }

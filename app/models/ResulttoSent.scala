@@ -33,3 +33,7 @@ case class QuestionWithPoll(question : Question , polls : List[OptionOfQuestion]
  */
 case class DocResulttoSent(message:Message,docName: String,docDescription:String )
 
+/**
+ * User & User School details after Registration
+ */
+case class RegistrationResults(user:User, userSchool:UserSchool)
