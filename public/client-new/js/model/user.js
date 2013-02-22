@@ -80,7 +80,7 @@ define(['model/baseModel'], function(BaseModel) {
 				required: true
 			},
 			cellNumber: {				
-                pattern: 'phone'
+//                pattern: 'phone'
 			}
         },
   

@@ -34,15 +34,16 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 		onAfterInit: function(){
 			
 			this.data.reset();
-            
+			
 			/* set style for select boxes */
 //			$('.selectpicker-info').selectpicker({
 //		       style: 'register-select'
 //			});
 //			$('.location-toolip').tooltip({template:'<div class="tooltip loactionblue"><div class="tooltip-inner"></div></div>'});
+			
 		},
 // @TODO
-//		onAfterRender: function(){
+		onAfterRender: function(){
 //			console.log(localStorage["step1Stauts"]);
 //			var self = this;
 //			if(localStorage["registration"] == "step2"){
@@ -53,8 +54,12 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 //				self.disableStepOne();
 //				self.enableStepThree();
 //			}
-//			
-//		},
+			
+			/* set default values to model values */
+			console.log($('#myUserId').val());
+			this.data.models[0].set({'id':$('#myUserId').val() ,'firstName':'' ,'lastName':'','schoolName':'' ,'major':'','gradeLevel':'' ,'degreeProgram':'' ,'graduate':'' ,'location':''});
+
+		},
         
 		/**
 		 * activate step 1 registration block
@@ -90,8 +95,8 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 			$('#upload-step').html(upload_block);
 			$('#step_3').show(500);
 			
-//			localStorage["registration"] = "step3" ;
-			this.saveForm();
+////			localStorage["registration"] = "step3" ;
+//			this.saveForm();
 		},
 		
 
@@ -101,7 +106,8 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
         completeFirstStep: function(e){
         	
         	e.preventDefault();
-            console.log("Complete first step ...")
+            console.log("Complete first step ...");
+           
 //            localStorage["registration"] = "step2" ;
             /* disable first step and enable step 2 block */
             this.enableStepTwo();
@@ -115,10 +121,10 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 		comepleteSecondStep: function(e){
 			
 			e.preventDefault();
-            var t = this.saveForm();
+			
+			this.saveForm();
             
-            /* enable step 3*/
-            this.enableStepThree();
+
 			
 		},
 		
@@ -127,20 +133,8 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 		 */
 		success: function(model, data){
 			
-			/* disable second step and enable step 3 block */
-			$('#step_2').hide(500);
-			$('#step2_block').removeClass('active-border');
-			
-//			var upload_block = '<div id="step3_block" class="round-block upload-photo"> <a class="browse" href="#">'
-//								+'<div class="upload-box">'
-//								+'<div class="upload-plus">Upload</div>'
-//								+'</div>'
-//								+'</a> </div>';
-			var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo">'
-			    +'<a class="browse" href="#"> <img src="" id="profile-photo"> <div class="upload-box"><div class="upload-plus">Upload</div></div></a>'
-                +'</div>';
-			$('#upload-step').html(upload_block);
-			$('#step_3').show(500);
+            /* enable step 3*/
+			this.enableStepThree();
 
 		},
 		
