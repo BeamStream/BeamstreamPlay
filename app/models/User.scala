@@ -19,7 +19,7 @@ import utils.PasswordHashing
 case class User(@Key("_id") id: ObjectId,
   userType: UserType.Value,
   email: String,
-  val firstName: String,
+  firstName: String,
   lastName: String,
   userName: String,
   alias: String,
@@ -27,13 +27,14 @@ case class User(@Key("_id") id: ObjectId,
   orgName: String,
   location: String,
   socialProfile: String,
+  about: String,
+  contact: String,
   streams: List[ObjectId],
   schoolId: List[ObjectId],
   classId: List[ObjectId],
   documents: List[ObjectId],
   questions: List[ObjectId],
-  followers: List[ObjectId]) {
-}
+  followers: List[ObjectId])
 
 object User {
 
@@ -218,7 +219,7 @@ object User {
    * ****************************************Beamstream rearchitecture**********************************************
    */
 
- // Check if the User already registered (RA)
+  // Check if the User already registered (RA)
   def isUserAlreadyRegistered(userEmail: String) = {
     val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
     (userHavingSameMailId.isEmpty) match {
@@ -226,6 +227,14 @@ object User {
       case false => false
     }
   }: Boolean
+
+  /**
+   * Update User Information
+   */
+  def updateUser(userId: ObjectId, firstName: String, lastName: String, location: String, about: String, contact: String) {
+    val userToUpdate = User.getUserProfile(userId)
+    UserDAO.update(MongoDBObject("_id" -> userId), userToUpdate.copy(firstName = firstName, lastName = lastName, location = location, about = about, contact = contact), false, false, new WriteConcern)
+  }
 }
 
 /*

@@ -142,7 +142,7 @@ POST  /forgotPassword          					controllers.UserController.forgotPassword
 
 #Public Profile
 POST  /allPublicMessages          				controllers.PublicProfileController.getAllPublicMessagesForAUser
-POST  /publicProfileInfo          				controllers.PublicProfileController.getPublicProfileOfAUser
+#POST  /publicProfileInfo          				controllers.PublicProfileController.getPublicProfileOfAUser
 POST  /allPublicDocuments        				controllers.PublicProfileController.getAllPublicDocumentForAUser
 
 # Map static resources from the /public folder to the /assets URL path
@@ -188,6 +188,8 @@ POST /signup         	controllers.BasicRegistration.signUpUser
 
 #Registration
 GET   /token/:authToken/userId/:userId               controllers.Registration.registration(authToken:String,userId:String)
+POST  /registration                                  controllers.Registration.registerUser
+
 
 #Asynchronous Services
 # To create a resource on the server, use POST.
