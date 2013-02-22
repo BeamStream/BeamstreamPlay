@@ -57,7 +57,7 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 			
 			/* set default values to model values */
 			console.log($('#myUserId').val());
-			this.data.models[0].set({'id':$('#myUserId').val() ,'firstName':'' ,'lastName':'','schoolName':'' ,'major':'','gradeLevel':'' ,'degreeProgram':'' ,'graduate':'' ,'location':''});
+			this.data.models[0].set({'userId':$('#myUserId').val() ,'firstName':'' ,'lastName':'','schoolName':'' ,'major':'','gradeLevel':'' ,'degreeProgram':'' ,'graduate':'' ,'location':''});
 
 		},
         
