@@ -6136,3 +6136,9 @@ ul.email-social-icons li.other2 {
     position: relative;
     top: -60px;
 }
+/* for loader on school autopopulate */
+.loading{
+	position: absolute;
+    right: 25px;
+    top: 9px;
+}
