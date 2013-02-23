@@ -115,6 +115,7 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
             /* enable step 3*/
 			if(data != "Oops there were errors during registration")
 				this.enableStepThree();
+                            console.log(JSON.stringify(this.data.models[0]));
 
 		},
 		
