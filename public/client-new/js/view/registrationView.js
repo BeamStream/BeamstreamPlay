@@ -15,7 +15,7 @@
 *
 * 
 */
-define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, BootstrapSelect){
+define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min'], function(FormView, BootstrapSelect,Bootstrap){
 	var RegistrationView;
 	RegistrationView = FormView.extend({
 		objName: 'RegistrationView',
@@ -27,7 +27,9 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 			'click .browse' : 'uploadProfilePic',
 			'change #uploadProfilePic' :'changeProfile',
 			'click #done_step3':'completeRegistration',
-			'click .register-social':'connectMedia'
+			'click .register-social':'connectMedia',
+			"keyup #schoolName" : "populateSchools",
+		    "focusin #schoolName" : "populateSchools",
 			 
 		},
 		
@@ -35,12 +37,38 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 			
 			this.data.reset();
 			this.profile = null;
-
+			/* set style for select boxes */
+//			$('.selectpicker-info').selectpicker({
+//		       style: 'register-select'
+//			});
+//			$('.location-toolip').tooltip({template:'<div class="tooltip loactionblue"><div class="tooltip-inner"></div></div>'});
+			
 		},
-		// @TODO
-		onAfterRender: function(){
+		
+		onBeforeRender: function(){
+			
 			/* set default values to model values */
 			this.data.models[0].set({'userId':$('#myUserId').val() ,'firstName':'' ,'lastName':'','schoolName':'' ,'major':'','gradeLevel':'' ,'degreeProgram':'' ,'graduate':'' ,'location':''});
+
+		},
+		
+		/**
+		 * @TODO
+		 */ 
+		onAfterRender: function(){
+//			console.log(localStorage["registrationDetails"]);
+//			var self = this;
+//			if(localStorage["registration"] == "step2"){
+//				this.disableStepOne();
+//				this.enableStepTwo();
+//			}
+//			else if(localStorage["registration"] == "step3"){
+//				self.disableStepOne();
+//				self.enableStepThree();
+//			}
+			
+			/* set default values to model values */
+//			this.data.models[0].set({'userId':$('#myUserId').val() ,'firstName':'' ,'lastName':'','schoolName':'' ,'major':'','gradeLevel':'' ,'degreeProgram':'' ,'graduate':'' ,'location':''});
 
 		},
         
@@ -78,7 +106,8 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 			$('#upload-step').html(upload_block);
 			$('#step_3').show(500);
 			
-
+////			localStorage["registration"] = "step3" ;
+//			this.saveForm();
 		},
 		
 
@@ -89,7 +118,6 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
         	
         	e.preventDefault();
             console.log("Complete first step ...");
-           
 //            localStorage["registration"] = "step2" ;
             /* disable first step and enable step 2 block */
             this.enableStepTwo();
@@ -104,7 +132,6 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 			
 			e.preventDefault();
 			this.saveForm();
-
 		},
 		
 		/**
@@ -115,7 +142,8 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
             /* enable step 3*/
 			if(data != "Oops there were errors during registration")
 				this.enableStepThree();
-                            console.log(JSON.stringify(this.data.models[0]));
+
+			console.log(this.data.models[0].attributes);
 
 		},
 		
@@ -147,6 +175,9 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 		 */
 		changeProfile: function(e){
 			
+//	    	 $('#profile-photo').attr("src","");
+//	    	 $('#profile-photo').attr("src","images/loading1.gif");
+	    	 
 	    	 var self = this;
 	    	 var file = e.target.files[0]; 
 	        
@@ -157,6 +188,8 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 	        	 
 	        	 console.log("Error: file type not allowed");
 	        	 $('#profile-photo').attr("src","/beamstream-new/images/upload-photo.png");
+//			     $('#profile-photo').attr("name", "profile-photo");
+//			     $('.delete-image').hide();
 			     $('#profile-error').html('File type not allowed !!');
 	 
 	         }
@@ -169,6 +202,7 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 	            	 self.profile = file;
 	            	 console.log(self.profile);
 	            	 return function(e){
+//	            		 self.profile = e.target.result;
 	            		 $('#profile-error').html('');
 	        		     $('#profile-photo').attr("src",e.target.result);
 	        		     self.name = f.name;
@@ -213,7 +247,54 @@ define(['view/formView' ,'../../lib/bootstrap-select'], function(FormView, Boots
 				$(e.target).parents('li').addClass('active');
 			}
 			
-		}
+		},
+		
+		
+		/**
+	     * auto populate school
+	     */
+	    populateSchools :function(eventName){
+	    	var id = eventName.target.id;
+	    	var text = $('#'+id).val();
+	    	var self =this;
+	        if(text)
+	        {
+	        	$('.loading').css("display","block");
+	        	var newSchool = text;
+	        	
+				/* post the text that we type to get matched school */
+				 $.ajax({
+					type : 'POST',
+					url : "/getAllSchoolsForAutopopulate",
+					data : {
+						data : text,
+					},
+					dataType : "json",
+					success : function(datas) {
+		
+						var codes = '';
+						 
+						var allSchoolInfo = datas;
+						var schoolNames = [];
+						_.each(datas, function(data) {
+							schoolNames.push(data.schoolName);
+				         });
+		                              
+						//set auto populate schools
+						$('#'+id).autocomplete({
+						    source:schoolNames,
+						    select: function(event, ui) { 
+						    	var text = ui.item.value; 
+						    	 
+						    }
+						});
+						$('.loading').css("display","none");
+		 
+					}
+				});
+	        }
+			
+	    }
 		
 		
 		

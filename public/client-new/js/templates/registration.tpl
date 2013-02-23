@@ -34,6 +34,7 @@
             <fieldset class="field">  
             <input id="schoolName"  data-name="user.schoolName" name="schoolName" value=""  type="text" placeholder="School Name">
               <span class="red-star">*</span>
+              <span class="loading" style="display:none;"> <img src ="/beamstream/images/loading.gif"></span>
             </fieldset>
             <fieldset class="field">  
             <input id="major"  data-name="user.major" name="major" value=""  type="text" placeholder="Major " >

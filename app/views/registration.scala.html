@@ -20,6 +20,28 @@
     <script type="text/JavaScript" src="/beamstream-new/lib/jquery-1.js"></script>
     <script type="text/JavaScript" src="/beamstream-new/lib/jquery.js"></script>
     <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>
+<!--     <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.min.js"></script> -->
+    
+    <!--  for +Add New School option in autopopulate -->
+	<script type="text/javascript">
+	    /* render addnew school screen */
+		function populateAddNewSchool(parentId) {
+	    	$('#newSchoolModal').modal("show");
+            console.log($('#schoolName').attr('value'));
+			$('#new-school').val($('#schoolName').val());
+
+// 			if (localStorage["schoolFromPrev"] == $('#prev-school').attr(
+// 					"value")) {
+// 				console.log("Ok");
+// 				$('#my-school').val(localStorage["schoolFromPrev"]);
+// 			}
+// 			if (BS.newSchool) {
+// 				$('#my-school').val(BS.newSchool);
+// 			}
+
+// 			$('#parent-Id').attr("value", parentId);
+		}
+		</script>
 
 }
 @bodyCls = {}
@@ -75,12 +97,41 @@
 
 @main("Registration", "Body",CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
    <article>
-   <!-- set method url as data-url --> 
-   <div  id="registration"   data-model="user" data-url="/registration" data-module="view/registrationView"  data-tpl="templates/registration.tpl">
    
-  
-      </div>
-   </article>
+	   <!-- set method url as data-url --> 
+	   <div  id="registration"   data-model="user" data-url="/registration" data-module="view/registrationView"  data-tpl="templates/registration.tpl">
+	   </div>
+	 
+	 
+	   <!-- for new school popups-->
+	   <div  id="addSchoolView"  data-model="school"  data-url="newShcool" data-module="view/addNewSchoolView"  >
+			<div id="newSchoolModal" style="top: 65% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-header">
+				    <h3>Add my school to Beamstream</h3><button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
+				  </div>
+				  <div class="modal-body">    
+ 		  			<div class="share-content">
+			      
+						<div class="field">
+	                        <h1><label for="school-name" name="my-school">Name of your school </label></h1>
+	                        <input  id="new-school" type="text" placeholder="School Name" data-name="school.schoolName" name="schoolName">
+	                        <input type="hidden" value="school-name" id="parent-Id">
+	                    </div><br><br>
+	               
+	       
+	                    <div class="field">
+	                        <label for="website" name="website">School website <span class="star"> </span></label>
+	                        <input type="text" placeholder="School website" data-name="school.schoolWebsite" name="schoolWebsite">
+	                    </div>
+			                  
+						<br><br>
+						 <a id="addSchool" class="btn btn-primary pull-left" href="#">Add My School</a>
+			      	
+			    	</div>
+			  	</div>
+	 		</div>			
+	</div>
+	</article>
 
 
 
