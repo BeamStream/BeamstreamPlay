@@ -22,26 +22,21 @@
     <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>
 <!--     <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.min.js"></script> -->
     
+    
     <!--  for +Add New School option in autopopulate -->
 	<script type="text/javascript">
-	    /* render addnew school screen */
+	
+	    /* render addnew school popup */
 		function populateAddNewSchool(parentId) {
+	    	
 	    	$('#newSchoolModal').modal("show");
+	    	
+	    	//TODO
             console.log($('#schoolName').attr('value'));
 			$('#new-school').val($('#schoolName').val());
 
-// 			if (localStorage["schoolFromPrev"] == $('#prev-school').attr(
-// 					"value")) {
-// 				console.log("Ok");
-// 				$('#my-school').val(localStorage["schoolFromPrev"]);
-// 			}
-// 			if (BS.newSchool) {
-// 				$('#my-school').val(BS.newSchool);
-// 			}
-
-// 			$('#parent-Id').attr("value", parentId);
 		}
-		</script>
+	</script>
 
 }
 @bodyCls = {}
@@ -98,12 +93,12 @@
 @main("Registration", "Body",CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
    <article>
    
-	   <!-- set method url as data-url --> 
+	   <!------ for registration page------->
 	   <div  id="registration"   data-model="user" data-url="/registration" data-module="view/registrationView"  data-tpl="templates/registration.tpl">
 	   </div>
 	 
 	 
-	   <!-- for new school popups-->
+	   <!------ for new school popups------->
 	   <div  id="addSchoolView"  data-model="school"  data-url="newShcool" data-module="view/addNewSchoolView"  >
 			<div id="newSchoolModal" style="top: 65% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-header">

@@ -29,7 +29,9 @@ define(['view/formView'], function(FormView){
 			this.data.reset();
 	        
         },
-        
+        /**
+         * add new school to beamstream
+         */
         addNewSchool: function(e){
         	e.preventDefault();
         	this.saveForm();

@@ -19,8 +19,6 @@
 define(['model/baseModel'], function(BaseModel) {
 	var School = BaseModel.extend({ 
 		objName: 'School',
-      
-
 	});
         
 	return School;
