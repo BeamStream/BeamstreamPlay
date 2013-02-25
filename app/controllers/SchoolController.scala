@@ -21,12 +21,12 @@ object SchoolController extends Controller {
   } + new ObjectIdSerializer
 
   /**
-   * Add a new school
+   * Add a new school (RA)
    */
   def addANewSchool = Action { implicit request =>
-    val schoolInfojsonMap = request.body.asFormUrlEncoded.get
-    val schoolName = schoolInfojsonMap("schoolName").toList(0)
-    val schoolWebsite = schoolInfojsonMap("schoolWebsite").toList(0)
+    val schoolInfojsonMap = request.body.asJson.get
+    val schoolName = (schoolInfojsonMap \ "schoolName").as[String]
+    val schoolWebsite = (schoolInfojsonMap \ "schoolWebsite").as[String]
     val schools = School.findSchoolByName(schoolName)
     if (!schools.isEmpty) Ok(write("School Already Exists")).as("application/json")
     else {

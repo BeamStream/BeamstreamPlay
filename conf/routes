@@ -191,6 +191,9 @@ GET   /token/:authToken/userId/:userId               controllers.Registration.re
 POST  /registration                                  controllers.Registration.registerUser
 
 
+#Add a School
+POST /school 									controllers.SchoolController.addANewSchool
+
 #Asynchronous Services
 # To create a resource on the server, use POST.
 # To retrieve a resource, use GET.
