@@ -11,8 +11,8 @@ case class School(@Key("_id") id: ObjectId, schoolName: String, schoolWebsite: S
 
 object School {
 
-  /*
-   * Add New School
+  /**
+   * Add New School (RA)
    */
 
   def addNewSchool(school: School): ObjectId = {
@@ -20,8 +20,8 @@ object School {
     schoolId.get
   }
 
-  /*
-   * Get All School for autopopulate school screen
+  /**
+   * Get All School for autopopulate school screen (RA)
    */
 
   def getAllSchoolsFromDB(patternReceived: String): List[School] = {

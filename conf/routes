@@ -67,7 +67,7 @@ POST /viewCount                         		controllers.DocumentController.viewCou
 POST /school 									controllers.SchoolController.addANewSchool
 GET /getAllSchoolForAUser 						controllers.SchoolController.getAllSchoolForAUser
 POST /getSchoolNamebyId 						controllers.SchoolController.getSchoolName
-POST  /getAllSchoolsForAutopopulate      		controllers.SchoolController.getAllSchoolsForAutopopulate
+
 
 #UpdateUserInfo
 #POST /detailed_reg 								controllers.DetailedRegistration.addInfo
@@ -189,6 +189,11 @@ POST /signup         	controllers.BasicRegistration.signUpUser
 #Registration
 GET   /token/:authToken/userId/:userId               controllers.Registration.registration(authToken:String,userId:String)
 POST  /registration                                  controllers.Registration.registerUser
+
+
+#Add a School
+POST /school 									controllers.SchoolController.addANewSchool
+POST  /getAllSchoolsForAutopopulate      		controllers.SchoolController.getAllSchoolsForAutopopulate
 
 
 #Asynchronous Services
