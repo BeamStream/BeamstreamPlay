@@ -37,7 +37,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 			
 			this.data.reset();
 			this.profile = null;
-			
+
 		},
 		
 		onBeforeRender: function(){
@@ -92,7 +92,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
         	
         	e.preventDefault();
             console.log("Complete first step ...");
-//            localStorage["registration"] = "step2" ;
+            
             /* disable first step and enable step 2 block */
             this.enableStepTwo();
 
@@ -105,6 +105,9 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 		comepleteSecondStep: function(e){
 			
 			e.preventDefault();
+			
+			//@TODO set school details to modal 
+    		this.data.models[0].set({'schoolName' : $('#schoolName').val() , 'associatedSchoolId' :$('#associatedSchoolId').val()} );
 			this.saveForm();
 		},
 		
@@ -116,9 +119,6 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
             /* enable step 3*/
 			if(data != "Oops there were errors during registration")
 				this.enableStepThree();
-
-			console.log(this.data.models[0].attributes);
-
 		},
 		
 		/**
@@ -126,7 +126,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 		 */
 		resetStep2Form: function(e){
 			
-			e.preventDefault();
+			e.preventDefault(); 
 		    $('button#degreeProgram span:first').text('Degree Program?');
 		    $('button#gradeLevel span:first').text('Grade Level?');
 		    $('button#graduate span:first').text('Graduated?');
@@ -148,7 +148,6 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 		 * Change profile pic or profile video 
 		 */
 		changeProfile: function(e){
-
 	    	 
 	    	 var self = this;
 	    	 var file = e.target.files[0]; 
@@ -160,7 +159,6 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 	        	 
 	        	 console.log("Error: file type not allowed");
 	        	 $('#profile-photo').attr("src","/beamstream-new/images/upload-photo.png");
-
 			     $('#profile-error').html('File type not allowed !!');
 	 
 	         }
@@ -187,7 +185,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 		},
 		
 		/**
-		 * @TODO complete registration steps 3
+		 * complete registration steps 3
 		 */
 		completeRegistration: function(e){
 			e.preventDefault();
@@ -195,7 +193,8 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 			var data;
         	data = new FormData();
      	    data.append('imageData', this.profile);
-
+     	    console.log(this.profile);
+     	    console.log(data);
 			this.data.models[0].set('profileName', this.name );
 			this.data.models[0].set('profileData',this.profile);
 			
@@ -246,14 +245,25 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 						var allSchoolInfo = datas;
 						var schoolNames = [];
 						_.each(datas, function(data) {
-							schoolNames.push(data.schoolName);
+							
+							schoolNames.push({
+								label: data.schoolName,
+								value: data.schoolName,
+								id : data.id.id
+							});
+							
 				         });
 		                              
 						//set auto populate schools
 						$('#'+id).autocomplete({
 						    source:schoolNames,
 						    select: function(event, ui) { 
-						    	var text = ui.item.value; 
+						    	var text = ui.item.value;
+						    	
+						    	/* set the school details  to modal */
+						    	if(ui.item.value)
+						    		self.data.models[0].set({'schoolName' : ui.item.value , 'associatedSchoolId' :ui.item.id} );
+						    		
 						    	 
 						    }
 						});

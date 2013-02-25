@@ -1,4 +1,4 @@
-@(userId:String)
+@(userId:String , userInfoJson:Option[String])
 @CSS = {
 	<link href="/beamstream-new/css/style.css" rel="stylesheet" type="text/css" />    
     <link href="/beamstream-new/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" /> 
@@ -20,7 +20,7 @@
     <script type="text/JavaScript" src="/beamstream-new/lib/jquery-1.js"></script>
     <script type="text/JavaScript" src="/beamstream-new/lib/jquery.js"></script>
     <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>
-<!--     <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.min.js"></script> -->
+    <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.min.js"></script>
     
     
     <!--  for +Add New School option in autopopulate -->
@@ -91,6 +91,7 @@
 @footer = {}
 
 @main("Registration", "Body",CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
+@println(userId, userInfoJson)
    <article>
    
 	   <!------ for registration page------->
@@ -98,7 +99,7 @@
 	   </div>
 	 
 	 
-	   <!------ for new school popups------->
+	   <!---- for new school popups----->
 	   <div  id="addSchoolView"  data-model="school"  data-url="/school" data-module="view/addNewSchoolView"  >
 			<div id="newSchoolModal" style="top: 65% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-header">

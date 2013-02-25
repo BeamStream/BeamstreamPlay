@@ -33,6 +33,7 @@
             <div class="alert-register"><span>*Last Name will not be shown publicly</span></div>
             <fieldset class="field">  
             <input id="schoolName"  data-name="user.schoolName" name="schoolName" value=""  type="text" placeholder="School Name">
+            <input type="hidden" id="associatedSchoolId" >
               <span class="red-star">*</span>
               <span class="loading" style="display:none;"> <img src ="/beamstream/images/loading.gif"></span>
             </fieldset>

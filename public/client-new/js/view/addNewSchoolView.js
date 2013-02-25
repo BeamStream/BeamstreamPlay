@@ -27,15 +27,36 @@ define(['view/formView'], function(FormView){
 
 		onAfterInit: function(){	
 			this.data.reset();
+			
 	        
         },
+        
         /**
          * add new school to beamstream
          */
         addNewSchool: function(e){
         	e.preventDefault();
         	this.saveForm();
-        }
+        },
+        
+        /**
+         * add new school success
+         */
+        success: function(model, data){
+			
+			if(data != "School Already Exists"){
+				/** @TODO  keep the school details */ 
+				$('#schoolName').val(this.data.models[0].get('schoolName'));
+				$('#associatedSchoolId').attr('value',this.data.models[0].get('id'));
+				$('#newSchoolModal').modal("hide");
+			}
+			else{
+				alert(data);
+			}
+				
+
+
+		},
         
  
 	})
