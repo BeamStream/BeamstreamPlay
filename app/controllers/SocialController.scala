@@ -26,6 +26,7 @@ import play.api.Play.current
 import utils.onlineUserCache
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
+import models.UserType
 
 object SocialController extends Controller {
   implicit val formats = DefaultFormats
@@ -46,8 +47,17 @@ object SocialController extends Controller {
       val res = promise.get
       val body = res.getBody
       val json = Json.parse(body)
-      val identifier = (json \ "profile" \ "identifier").asOpt[String]
-      Ok(json)
+      val providerName = (json \ "profile" \ "providerName").asOpt[String].get
+
+      if (providerName == "Facebook") { println(json); Ok("From Facebook") }
+      else if (providerName == "Twitter") { println(json); Ok("From Twitter") }
+      else if (providerName == "Google") {
+        val verifiedEmail = (json \ "profile" \ "verifiedEmail").asOpt[String].get
+        val userToCreate = new User(new ObjectId, UserType.Professional, verifiedEmail, "", "", "", "", None, "", "", "", "", "", None, List(), List(), List(), List(), List())
+        val IdOfUserCreted = User.createUser(userToCreate)
+        Ok(views.html.registration(IdOfUserCreted.toString))
+      } else if (providerName == "LinkedIn") { println(json); Ok("From LinkedIn") }
+      else { Ok("Other") }
       //    identifier match {
       //      case Some(id) => {
       //        Ok(body).as("application/json").withSession(

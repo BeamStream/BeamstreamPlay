@@ -23,12 +23,13 @@ case class User(@Key("_id") id: ObjectId,
   lastName: String,
   userName: String,
   alias: String,
-  password: String,
+  password: Option[String],
   orgName: String,
   location: String,
   socialProfile: String,
   about: String,
   contact: String,
+  socialNetwork:Option[String],
   schools: List[ObjectId],
   classes: List[ObjectId],
   documents: List[ObjectId],
@@ -187,7 +188,7 @@ object User {
     (user.size == 0) match {
       case true => false
       case false =>
-        val deryptedPassword = (new PasswordHashing).decryptThePassword(user(0).password)
+        val deryptedPassword = (new PasswordHashing).decryptThePassword(user(0).password.get)
         SendEmail.sendPassword(emailId, deryptedPassword)
         true
     }
