@@ -1,4 +1,4 @@
-@(userId:String)
+@(userId:String , userInfoJson:Option[String])
 @CSS = {
 	<link href="/beamstream-new/css/style.css" rel="stylesheet" type="text/css" />    
     <link href="/beamstream-new/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" /> 
@@ -91,6 +91,7 @@
 @footer = {}
 
 @main("Registration", "Body",CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
+@println(userId, userInfoJson)
    <article>
    
 	   <!------ for registration page------->
