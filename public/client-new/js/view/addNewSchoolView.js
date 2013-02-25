@@ -26,7 +26,7 @@ define(['view/formView'], function(FormView){
 		},
 
 		onAfterInit: function(){	
-			this.data.reset();
+			this.data.reset({'schoolName':'','schoolWebsite':''});
 			
 	        
         },
@@ -36,6 +36,8 @@ define(['view/formView'], function(FormView){
          */
         addNewSchool: function(e){
         	e.preventDefault();
+        	$('#schoolName').val('');
+        	$('#schoolWebsite').val('');
         	this.saveForm();
         },
         
