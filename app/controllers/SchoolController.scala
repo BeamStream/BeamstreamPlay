@@ -32,7 +32,7 @@ object SchoolController extends Controller {
     else {
       val schoolToCreate = new School(new ObjectId, schoolName, schoolWebsite)
       val schoolId = School.addNewSchool(schoolToCreate)
-      Ok(write(schoolId)).as("application/json")
+      Ok(write(schoolToCreate)).as("application/json")
     }
   }
 
