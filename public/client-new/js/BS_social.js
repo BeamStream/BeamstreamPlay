@@ -6,6 +6,7 @@ function showJanrainSigninWidget() {
     window.janrain.settings = {};
     
     janrain.settings.tokenUrl = 'http://localhost:9000/social/social_authentication';
+//    janrain.settings.tokenAction = 'event';
     janrain.settings.custom = true;
 
     function isReady() { janrain.ready = true; };
@@ -117,117 +118,117 @@ function janrainWidgetOnload() {
 	
 	
   janrain.events.onProviderLoginToken.addHandler(function (response) {
-	  
+	  console.log(5656);
     $.ajax({
       type: "POST",
-      url: BS.social_authentication,
+      url: 'http://localhost:9000/social/social_authentication',
       data: "token=" + response.token,
       success: function (res) {
         console.log(res);
         if (res != null) {
 
-          if (res.stat == "ok") {
-
-            setTimeout(
-
-            function () {
-              localStorage["providerName"] = res.profile.providerName;
-              /*  Facebook signUp */
-              if (res.profile.providerName == "Facebook") {
-                if ((res['profile']['address']) === undefined)
-                  localStorage["location"] = '';
-                else
-                  localStorage["location"] = res.profile.address.formatted;
-                  localStorage["first-name"] = res.profile.name.givenName;
-                  localStorage["last-name"] = res.profile.name.familyName;
-                  localStorage["email"] = res.profile.preferredUsername;
-                }
-                /* LinkedIn signUp */
-                else if (res.profile.providerName == "LinkedIn") {
-                  var addre=null;
-                  //console.log('address- '+res.profile.address.formatted);
-                  if ((res['profile']['address']) === undefined)
-                   { localStorage["location"] = ''; }
-                  else {        
-                               //code to finout location using geocode and reverse geocoding
-                   geocoder = new google.maps.Geocoder();
-                   var address = res.profile.address.formatted;
-                   geocoder.geocode( { 'address': address}, function(results, status) {
-                   if (status == google.maps.GeocoderStatus.OK) {
-                   var data=results[0].geometry.location.$a+','+results[0].geometry.location.ab;
-                   var latlngStr = data.split(',', 2);
-                   var lat = parseFloat(latlngStr[0]);
-                   var lng = parseFloat(latlngStr[1]);
-                   var latlng = new google.maps.LatLng(lat, lng);
-                   geocoder.geocode({'latLng': latlng}, function(results, status) {
-                   if (status == google.maps.GeocoderStatus.OK) {
-                    if (results[3]) {
-                     var address=results[3].formatted_address;
-                     var splitaddress=address.split(",");			
-                     localStorage["location"] = splitaddress[0];
-                    } 
-                    else {
-                    localStorage["location"] = '';
-                    }
-                   } 
-                   else {
-                 localStorage["location"] = '';
-                   }
-                   });
-                   } else {
-            localStorage["location"] = '';
-                   }
-                   });      
-                 }
-                localStorage["first-name"] = res.profile.name.givenName;
-                localStorage["last-name"] = res.profile.name.familyName;
-                localStorage["email"] = res.profile.preferredUsername;
-              }
-              /* Twitter signUp */
-              else if (res.profile.providerName == "Twitter") {
-                // split the name into first name and last name
-                var formattedName = res.profile.name.formatted;
-                var parts = formattedName.split(' ');
-                if(parts.length > 1 ) {
-                  var firstName = formattedName.substr(0,formattedName.indexOf(' '));
-                  var lastName = formattedName.substr(formattedName.indexOf(' ')+1);
-                  localStorage["first-name"] = firstName;
-                  localStorage["last-name"] = lastName;
-                }
-                if(parts.length == 1) {
-                  localStorage["first-name"] = res.profile.name.formatted;
-                  localStorage["last-name"] = "";
-                }
-                localStorage["email"] = res.profile.preferredUsername;
-              }
-              /* Google signUp*/
-              else if (res.profile.providerName == "Google") {
-                localStorage["first-name"] = res.profile.name.givenName;
-                localStorage["last-name"] = res.profile.name.familyName;
-                localStorage["email"] = res.profile.preferredUsername;
-              } else {
-                console.log("Not from Social sites");
-              }
-
-              BS.JsonFromSocialSite = res;
-              if (res.profile.preferredUsername) localStorage["preferredUsername"] = res.profile.preferredUsername;
-              if (res.profile.identifier) localStorage["identifier"] = res.profile.identifier;
-              var loginModel = new BS.Login();
-              loginModel.set({
-                email: res.profile.preferredUsername,
-                password: "",
-                rememberMe: false
-              });
-
-              var loginDetails = JSON.stringify(loginModel);
-
-              setTimeout(function () {
-                janRainLogin(loginDetails);
-              }, 1000);
-
-            }, 1000);
-
-          }
+//          if (res.stat == "ok") {
+//
+//            setTimeout(
+//
+//            function () {
+//              localStorage["providerName"] = res.profile.providerName;
+//              /*  Facebook signUp */
+//              if (res.profile.providerName == "Facebook") {
+//                if ((res['profile']['address']) === undefined)
+//                  localStorage["location"] = '';
+//                else
+//                  localStorage["location"] = res.profile.address.formatted;
+//                  localStorage["first-name"] = res.profile.name.givenName;
+//                  localStorage["last-name"] = res.profile.name.familyName;
+//                  localStorage["email"] = res.profile.preferredUsername;
+//                }
+//                /* LinkedIn signUp */
+//                else if (res.profile.providerName == "LinkedIn") {
+//                  var addre=null;
+//                  //console.log('address- '+res.profile.address.formatted);
+//                  if ((res['profile']['address']) === undefined)
+//                   { localStorage["location"] = ''; }
+//                  else {        
+//                               //code to finout location using geocode and reverse geocoding
+//                   geocoder = new google.maps.Geocoder();
+//                   var address = res.profile.address.formatted;
+//                   geocoder.geocode( { 'address': address}, function(results, status) {
+//                   if (status == google.maps.GeocoderStatus.OK) {
+//                   var data=results[0].geometry.location.$a+','+results[0].geometry.location.ab;
+//                   var latlngStr = data.split(',', 2);
+//                   var lat = parseFloat(latlngStr[0]);
+//                   var lng = parseFloat(latlngStr[1]);
+//                   var latlng = new google.maps.LatLng(lat, lng);
+//                   geocoder.geocode({'latLng': latlng}, function(results, status) {
+//                   if (status == google.maps.GeocoderStatus.OK) {
+//                    if (results[3]) {
+//                     var address=results[3].formatted_address;
+//                     var splitaddress=address.split(",");			
+//                     localStorage["location"] = splitaddress[0];
+//                    } 
+//                    else {
+//                    localStorage["location"] = '';
+//                    }
+//                   } 
+//                   else {
+//                 localStorage["location"] = '';
+//                   }
+//                   });
+//                   } else {
+//            localStorage["location"] = '';
+//                   }
+//                   });      
+//                 }
+//                localStorage["first-name"] = res.profile.name.givenName;
+//                localStorage["last-name"] = res.profile.name.familyName;
+//                localStorage["email"] = res.profile.preferredUsername;
+//              }
+//              /* Twitter signUp */
+//              else if (res.profile.providerName == "Twitter") {
+//                // split the name into first name and last name
+//                var formattedName = res.profile.name.formatted;
+//                var parts = formattedName.split(' ');
+//                if(parts.length > 1 ) {
+//                  var firstName = formattedName.substr(0,formattedName.indexOf(' '));
+//                  var lastName = formattedName.substr(formattedName.indexOf(' ')+1);
+//                  localStorage["first-name"] = firstName;
+//                  localStorage["last-name"] = lastName;
+//                }
+//                if(parts.length == 1) {
+//                  localStorage["first-name"] = res.profile.name.formatted;
+//                  localStorage["last-name"] = "";
+//                }
+//                localStorage["email"] = res.profile.preferredUsername;
+//              }
+//              /* Google signUp*/
+//              else if (res.profile.providerName == "Google") {
+//                localStorage["first-name"] = res.profile.name.givenName;
+//                localStorage["last-name"] = res.profile.name.familyName;
+//                localStorage["email"] = res.profile.preferredUsername;
+//              } else {
+//                console.log("Not from Social sites");
+//              }
+//
+//              BS.JsonFromSocialSite = res;
+//              if (res.profile.preferredUsername) localStorage["preferredUsername"] = res.profile.preferredUsername;
+//              if (res.profile.identifier) localStorage["identifier"] = res.profile.identifier;
+//              var loginModel = new BS.Login();
+//              loginModel.set({
+//                email: res.profile.preferredUsername,
+//                password: "",
+//                rememberMe: false
+//              });
+//
+//              var loginDetails = JSON.stringify(loginModel);
+//
+//              setTimeout(function () {
+//                janRainLogin(loginDetails);
+//              }, 1000);
+//
+//            }, 1000);
+//
+//          }
         }
       }
     });
