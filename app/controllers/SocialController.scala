@@ -24,44 +24,58 @@ import utils.SocialGraphEmbeddedNeo4j
 import play.api.cache.Cache
 import play.api.Play.current
 import utils.onlineUserCache
+import net.liftweb.json.{ parse, DefaultFormats }
+import net.liftweb.json.Serialization.{ read, write }
+import models.UserType
 
 object SocialController extends Controller {
-
+  implicit val formats = DefaultFormats
   /**
-   * Authenticate users for Janrain Engage.
+   * Authenticate users for Janrain Engage. (RA)
    * http://developers.janrain.com/documentation/api/auth_info/
-   * 
+   *
    * Returns a JSON of user profile information
    */
   def authenticateUser = Action { implicit request =>
-    val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
-    val token = tokenList(0)
-    val apiKey = Play.current.configuration.getString("janrain_apiKey").get
-  	val URL = "https://rpxnow.com/api/v2/auth_info"
-  	
-  	val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
-  	val res = promise.get
-  	val body = res.getBody
+    try {
 
-  	val json = Json.parse(body)
-  	val identifier = (json \ "profile" \ "identifier").asOpt[String]
+      val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
+      val token = tokenList(0)
+      val apiKey = Play.current.configuration.getString("janrain_apiKey").get
+      val URL = "https://rpxnow.com/api/v2/auth_info"
+      val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
+      val res = promise.get
+      val body = res.getBody
+      val json = Json.parse(body)
+      val providerName = (json \ "profile" \ "providerName").asOpt[String].get
 
-    identifier match {
-      case Some(id) => {
-        Ok(body).as("application/json").withSession(
-          session + ("social_identifier" -> id)
-        )
-      }
-      case None => {
-        Ok(body).as("application/json")
-      }
+      if (providerName == "Facebook") { println(json); Ok("From Facebook") }
+      else if (providerName == "Twitter") { println(json); Ok("From Twitter") }
+      else if (providerName == "Google") {
+        val verifiedEmail = (json \ "profile" \ "verifiedEmail").asOpt[String].get
+        val userToCreate = new User(new ObjectId, UserType.Professional, verifiedEmail, "", "", "", "", Option(providerName), "", "", "", "", "", None, List(), List(), List(), List(), List())
+        val IdOfUserCreted = User.createUser(userToCreate)
+        Ok(views.html.registration(IdOfUserCreted.toString, Option(json.toString)))
+      } else if (providerName == "LinkedIn") { println(json); Ok("From LinkedIn") }
+      else { Ok("Other") }
+      //    identifier match {
+      //      case Some(id) => {
+      //        Ok(body).as("application/json").withSession(
+      //          session + ("social_identifier" -> id))
+      //      }
+      //      case None => {
+      //        Ok(body).as("application/json")
+      //      }
+      //    }
+    } catch {
+      case ex => Ok(write("Something wrong happend")).as("application/json")
     }
   }
 
   /**
    * Get a list of all the social contacts related to the user.
    * http://developers.janrain.com/documentation/api/get_contacts/
-   * 
+   *
    * Returns a JSON of user contact information
    */
   def getContacts = Action { implicit request =>

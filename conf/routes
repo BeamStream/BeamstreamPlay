@@ -67,7 +67,7 @@ POST /viewCount                         		controllers.DocumentController.viewCou
 POST /school 									controllers.SchoolController.addANewSchool
 GET /getAllSchoolForAUser 						controllers.SchoolController.getAllSchoolForAUser
 POST /getSchoolNamebyId 						controllers.SchoolController.getSchoolName
-POST  /getAllSchoolsForAutopopulate      		controllers.SchoolController.getAllSchoolsForAutopopulate
+
 
 #UpdateUserInfo
 #POST /detailed_reg 								controllers.DetailedRegistration.addInfo
@@ -96,8 +96,7 @@ GET /signOut 									controllers.UserController.signOut
 #POST /getContactsViaJanrain 					controllers.UserController.getContactsViaSocialSite
 #GET /getContactsViaJanrain 					controllers.UserController.getContactsViaSocialSite
 
-# Social
-POST /social/social_authentication   			controllers.SocialController.authenticateUser
+
 
 #Media
 POST /getMediafromPost 							controllers.MediaController.getMedia
@@ -193,6 +192,10 @@ POST  /registration                                  controllers.Registration.re
 
 #Add a School
 POST /school 									controllers.SchoolController.addANewSchool
+POST  /getAllSchoolsForAutopopulate      		controllers.SchoolController.getAllSchoolsForAutopopulate
+
+# Social
+POST /social/social_authentication   			controllers.SocialController.authenticateUser
 
 #Asynchronous Services
 # To create a resource on the server, use POST.
