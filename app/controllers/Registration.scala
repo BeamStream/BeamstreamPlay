@@ -34,7 +34,7 @@ object Registration extends Controller {
       val userId = (jsonReceived \ "userId").as[String]
       val firstName = (jsonReceived \ "firstName").as[String]
       val lastName = (jsonReceived \ "lastName").as[String]
-      val assosiatedSchoolId = (jsonReceived \ "assosiatedSchoolId").as[String]
+      val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
       val schoolName = (jsonReceived \ "schoolName").as[String]
       val major = (jsonReceived \ "major").as[String]
       val gradeLevel = (jsonReceived \ "gradeLevel").as[String]
@@ -45,7 +45,7 @@ object Registration extends Controller {
       val cellNumber = (jsonReceived \ "cellNumber").as[String]
       User.updateUser(new ObjectId(userId), firstName, lastName, location, about, cellNumber)
 
-      val userSchool = new UserSchool(new ObjectId, new ObjectId(assosiatedSchoolId), Year.withName(gradeLevel), Degree.withName(degreeProgram), major, Graduated.withName(graduate),
+      val userSchool = new UserSchool(new ObjectId, new ObjectId(associatedSchoolId), Year.withName(gradeLevel), Degree.withName(degreeProgram), major, Graduated.withName(graduate),
         None, None, "", List())
       UserSchool.createSchool(userSchool)
       User.addInfo(List(userSchool), new ObjectId(userId))
