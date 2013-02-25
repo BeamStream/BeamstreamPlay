@@ -67,7 +67,7 @@ POST /viewCount                         		controllers.DocumentController.viewCou
 POST /school 									controllers.SchoolController.addANewSchool
 GET /getAllSchoolForAUser 						controllers.SchoolController.getAllSchoolForAUser
 POST /getSchoolNamebyId 						controllers.SchoolController.getSchoolName
-POST  /getAllSchoolsForAutopopulate      		controllers.SchoolController.getAllSchoolsForAutopopulate
+
 
 #UpdateUserInfo
 #POST /detailed_reg 								controllers.DetailedRegistration.addInfo
@@ -193,6 +193,8 @@ POST  /registration                                  controllers.Registration.re
 
 #Add a School
 POST /school 									controllers.SchoolController.addANewSchool
+POST  /getAllSchoolsForAutopopulate      		controllers.SchoolController.getAllSchoolsForAutopopulate
+
 
 #Asynchronous Services
 # To create a resource on the server, use POST.

@@ -24,15 +24,19 @@ object SchoolController extends Controller {
    * Add a new school (RA)
    */
   def addANewSchool = Action { implicit request =>
-    val schoolInfojsonMap = request.body.asJson.get
-    val schoolName = (schoolInfojsonMap \ "schoolName").as[String]
-    val schoolWebsite = (schoolInfojsonMap \ "schoolWebsite").as[String]
-    val schools = School.findSchoolByName(schoolName)
-    if (!schools.isEmpty) Ok(write("School Already Exists")).as("application/json")
-    else {
-      val schoolToCreate = new School(new ObjectId, schoolName, schoolWebsite)
-      val schoolId = School.addNewSchool(schoolToCreate)
-      Ok(write(schoolToCreate)).as("application/json")
+    try {
+      val schoolInfojsonMap = request.body.asJson.get
+      val schoolName = (schoolInfojsonMap \ "schoolName").as[String]
+      val schoolWebsite = (schoolInfojsonMap \ "schoolWebsite").as[String]
+      val schools = School.findSchoolByName(schoolName)
+      if (!schools.isEmpty) Ok(write("School Already Exists")).as("application/json")
+      else {
+        val schoolToCreate = new School(new ObjectId, schoolName, schoolWebsite)
+        val schoolId = School.addNewSchool(schoolToCreate)
+        Ok(write(schoolToCreate)).as("application/json")
+      }
+    } catch {
+      case ex => Ok(write("There was some errors during add school"))
     }
   }
 
@@ -60,14 +64,18 @@ object SchoolController extends Controller {
   }
 
   /**
-   * All Schools From database
+   * All Schools From database(RA)
    * @Purpose: For autopopulate schools on school screen'
    */
   def getAllSchoolsForAutopopulate = Action { implicit request =>
-    val schoolNameStartingStringJsonMap = request.body.asFormUrlEncoded.get
-    val schoolNamesStartingCharacter = schoolNameStartingStringJsonMap("data").toList(0)
-    val allSchools = School.getAllSchoolsFromDB(schoolNamesStartingCharacter)
-    Ok(write(allSchools)).as("application/json")
-  }
+    try {
+      val schoolNameStartingStringJsonMap = request.body.asFormUrlEncoded.get
+      val schoolNamesStartingCharacter = schoolNameStartingStringJsonMap("data").toList(0)
+      val allSchools = School.getAllSchoolsFromDB(schoolNamesStartingCharacter)
+      Ok(write(allSchools)).as("application/json")
+    } catch {
+      case ex => Ok(write("There was some errors while autopopulating schools"))
+    }
 
+  }
 }

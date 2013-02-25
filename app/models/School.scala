@@ -20,8 +20,8 @@ object School {
     schoolId.get
   }
 
-  /*
-   * Get All School for autopopulate school screen
+  /**
+   * Get All School for autopopulate school screen (RA)
    */
 
   def getAllSchoolsFromDB(patternReceived: String): List[School] = {
