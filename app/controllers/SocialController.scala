@@ -24,44 +24,48 @@ import utils.SocialGraphEmbeddedNeo4j
 import play.api.cache.Cache
 import play.api.Play.current
 import utils.onlineUserCache
+import net.liftweb.json.{ parse, DefaultFormats }
+import net.liftweb.json.Serialization.{ read, write }
 
 object SocialController extends Controller {
-
+  implicit val formats = DefaultFormats
   /**
-   * Authenticate users for Janrain Engage.
+   * Authenticate users for Janrain Engage. (RA)
    * http://developers.janrain.com/documentation/api/auth_info/
-   * 
+   *
    * Returns a JSON of user profile information
    */
   def authenticateUser = Action { implicit request =>
-    val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
-    val token = tokenList(0)
-    val apiKey = Play.current.configuration.getString("janrain_apiKey").get
-  	val URL = "https://rpxnow.com/api/v2/auth_info"
-  	
-  	val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
-  	val res = promise.get
-  	val body = res.getBody
+    try {
 
-  	val json = Json.parse(body)
-  	val identifier = (json \ "profile" \ "identifier").asOpt[String]
-
-    identifier match {
-      case Some(id) => {
-        Ok(body).as("application/json").withSession(
-          session + ("social_identifier" -> id)
-        )
-      }
-      case None => {
-        Ok(body).as("application/json")
-      }
+      val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
+      val token = tokenList(0)
+      val apiKey = Play.current.configuration.getString("janrain_apiKey").get
+      val URL = "https://rpxnow.com/api/v2/auth_info"
+      val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
+      val res = promise.get
+      val body = res.getBody
+      val json = Json.parse(body)
+      val identifier = (json \ "profile" \ "identifier").asOpt[String]
+      Ok(json)
+      //    identifier match {
+      //      case Some(id) => {
+      //        Ok(body).as("application/json").withSession(
+      //          session + ("social_identifier" -> id))
+      //      }
+      //      case None => {
+      //        Ok(body).as("application/json")
+      //      }
+      //    }
+    } catch {
+      case ex => Ok(write("Something wrong happend")).as("application/json")
     }
   }
 
   /**
    * Get a list of all the social contacts related to the user.
    * http://developers.janrain.com/documentation/api/get_contacts/
-   * 
+   *
    * Returns a JSON of user contact information
    */
   def getContacts = Action { implicit request =>
