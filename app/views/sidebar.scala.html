@@ -1,2 +1,70 @@
+<script src="/beamstream-new/js/apps/common/modernizr-2.6.1.min.js"></script>
+<script src="/beamstream-new/lib/jquery.mCustomScrollbar.js"></script>
+<script type="text/javascript" src="/beamstream-new/lib/jquery.simplyscroll.js"></script>
+<script src="/beamstream-new/lib/jquery.mousewheel.min.js"></script>
+<link href="/beamstream-new/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
 
-  <h1>Sidebar Content</h1>
+<div class="left-container">
+    <aside>
+        <div  id="sidebar"   data-model="stream" data-url="/allStreamsForAUser" data-module="view/streamSliderView">      
+            <div class="left-menu">
+                <div class="display-stream">
+                    <div class="btn-group stream-dropdown">
+                        <button class="btn display-dropdown">Display All Streams</button>
+                        <button class="btn display-toggle" data-toggle="dropdown"> <span class="caret display-caret"></span></button>
+                        <ul class="dropdown-menu display-sub">
+                            <li><a href="#">Class Streams</a></li>
+                            <li><a href="#">Project Streams</a></li>
+                            <li><a href="#">Study Streams</a></li>
+                            <li><a href="#">Group Streams</a></li>
+                            <li><a href="#">Peer Streams</a></li>
+                            <li><a href="#">Friends Streams</a></li>
+                            <li><a href="#">Major Streams</a></li>                     
+                        </ul>
+                    </div>
+                    <a href="#" class="done">EDIT </a> </div>
+                <div class="display-scroller">
+                    <div class="arrow-block"><span class="caret arrow-up"></span></div>
+                    <div class="scroll-menu scroller">
+                        <ul id="sortable4" class="connected sortable list">                  
+                        </ul>
+                    </div>
+                    <div class="arrow-block arrow-block-down"></div>
+                </div>
+                <div id="show-stream-types"  class="straem-block"> 
+                    <a  id="streams-list-block" href="#">
+                        <span></span>
+                        <span class="text">New Stream</span>
+                    </a>               
+                    <div class="streams-popup">                   
+                        <div class="streams-list-block">
+                            <span ><img src="/beamstream-new/images/arrow-left.png"></span>
+                            <ul>
+                                <li><a  id ="classstream" href="#classStream">ClassStream </a> <img src="/beamstream-new/images/small_hand.png"> Collaborate within your class</li>
+                                <li><a id="projectStream" href="#projectStream">ProjectStream </a><img src="/beamstream-new/images/small_hand.png"> Shortterm  projects w/ an end date - choose to add to your profile upon completion</li>
+                                <li><a id="studyStream" href="#studyStream">StudyStream  </a><img src="/beamstream-new/images/small_hand.png"> Study Group of students from your class, degree program, school and beyond</li>
+                                <li><a id ="groupStream" href="#groupStream">GroupStream </a><img src="/beamstream-new/images/small_hand.png"> Ongoing groups about anything, make them public or private </li>
+                                <li><a id="peerStream" href="#peerStream">PeerStream  </a><img src="/beamstream-new/images/small_hand.png"> Students or Professors:Stay connected w/ your peer</li>
+                                <li><a id ="friendStream" href="#friendStream">FriendStream  </a><img src="/beamstream-new/images/small_hand.png"> Collaborate and stay in touch w/ your friends</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>       
+        </div>    
+        <div  id="online"   data-model="user" data-url="/onlineUsers" data-module="view/onlineUserView">       
+            <div class="chat-box" >
+                <div class="chat-window">
+                    <div id="chat-status" class="chat-open"><span class="online-count">Online(0)</span> <span class="chat-show"></span></div>
+                    <div id="user-online" class="scroll-block chat-view">
+                        <ul id="onlinechatbox">
+                            <li id="me" class="online"> <a href="#"><img src="/beamstream-new/images/chat-imge.jpg" width="30" height="28"> <span>Me </span> <span class="online-chat">Online</span></a> </li>   
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+</div>
+
+ <script data-main="beamstream-new/js/main" src="/beamstream-new/js/libs/require/require.js"></script>

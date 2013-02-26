@@ -119,7 +119,6 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
             /* enable step 3*/
 			if(data != "Oops there were errors during registration")
 				this.enableStepThree();
-
 		},
 		
 		/**
