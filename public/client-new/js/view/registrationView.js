@@ -194,9 +194,9 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 			// @TODO using FormData
 			var data;
         	data = new FormData();
-     	    data.append('imageData', this.profile);
+     	    data.append('profileData', this.profile);
      	    
-     	    this.data.models[0].set('profileName', data);
+     	    this.data.models[0].set('profileData', data);
      	    
 //			this.data.models[0].set('profileName', this.name );
 //			this.data.models[0].set('profileData',this.profile);
