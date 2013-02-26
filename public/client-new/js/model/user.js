@@ -19,23 +19,31 @@
 define(['model/baseModel'], function(BaseModel) {
 	var User = BaseModel.extend({ 
 		objName: 'User',
-        defaults: {	        	
-//            iam:'0',
-//            mailId:'',
-//            password:'',
-//            confirmPassword:'',
-//            firstName:'',
-//            lastName:'',
-//            schoolName:'',
-//            major:'',
-//            gradeLevel:'',
-//            degreeProgram:'',
-//            graduate:'',
-//            location:''
-          
+        defaults: {	   
+        	
         },
-
-                
+        /**
+         *@TODO  parse the response data 
+         */
+        parse:function(response){
+        	if(response == "Oops there were errors during registration")
+        		return;
+        	
+        	response.firstName = response.user.firstName;
+        	response.lastName = response.user.lastName;
+        	response.major = response.userSchool.major;
+        	response.aboutYourself = response.user.about;
+        	response.gradeLevel = response.userSchool.year.name;
+        	response.degreeProgram = response.userSchool.degree.name;
+        	response.graduate = response.userSchool.graduated.name;
+        	response.location = response.user.location;
+        	response.cellNumber = response.user.contact;
+        	
+        	delete response.user;
+        	delete response.userSchool;
+        	localStorage["registrationDetails"] = JSON.stringify(response);
+        	return response;
+        },
 		validation: {
 
 			mailId: {

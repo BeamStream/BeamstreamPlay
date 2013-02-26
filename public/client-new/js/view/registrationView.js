@@ -196,8 +196,10 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
         	data = new FormData();
      	    data.append('imageData', this.profile);
      	    
-			this.data.models[0].set('profileName', this.name );
-			this.data.models[0].set('profileData',this.profile);
+     	    this.data.models[0].set('profileName', data);
+     	    
+//			this.data.models[0].set('profileName', this.name );
+//			this.data.models[0].set('profileData',this.profile);
 			
             this.saveForm();
 		},
