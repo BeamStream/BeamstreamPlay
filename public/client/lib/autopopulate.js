@@ -2865,7 +2865,7 @@ bounceslide:function(a){
                    * */
                 console.log(e.value);
                   if(!e.value)
-                  {
+                  {  
                 	  var parentId = b.element.attr('id');
                 	  populateAddNewSchool(parentId);
                   }
@@ -2958,19 +2958,17 @@ _resizeMenu:function(){
     var a=this.menu.element;
     a.outerWidth(Math.max(a.width("").outerWidth()+1,this.element.outerWidth()))
     },
-_renderMenu:function(b,c){
+_renderMenu:function(b,c){ 
 	var d=this;
     a.each(c,function(a,c){
         d._renderItem(b,c)
         })
         /* Edited By Aswathy */
         if(d.element.attr('name') == "schoolName")
-            a("<li class='new_school'></li>").data("item.autocomplete",c).append(a("<a></a>").text('+ Add New School')).appendTo(b)
+            a("<li class='new_school'></li>").data("item.autocomplete",c).append(a("<a ></a>").text('+ Add New School')).appendTo(b)
     },
 _renderItem:function(b,c){
-	//if(c.status)
-        //     return a("<li></li>").data("item.autocomplete",c).append(a("<a></a>").text(c.label)).append(a("<span class='stud' src='images/icons/icon_lock.png'></span>").text(c.students)).append(a("<span class='stud' src='images/icons/icon_lock.png'></span>").text(c.students)).appendTo(b)
-       // else
+
              return a("<li></li>").data("item.autocomplete",c).append(a("<a></a>").text(c.label)).appendTo(b)
     },
 _move:function(a,b){

@@ -102,6 +102,7 @@ function showJanrainShareWidget(message, title, url, description) {
  */
 function janrainWidgetOnload() {
   janrain.events.onProviderLoginToken.addHandler(function (response) {
+	  
     $.ajax({
       type: "POST",
       url: BS.social_authentication,
