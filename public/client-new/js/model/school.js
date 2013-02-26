@@ -20,16 +20,32 @@ define(['model/baseModel'], function(BaseModel) {
 	var School = BaseModel.extend({ 
 		objName: 'School',
 		
+		defaults: {	   
+			schoolName:'',
+			schoolWebsite:''
+        },
+	        
 		/**
          *@TODO  parse the response data 
          */
         parse:function(response){
-        	if(response == "School Already Exists")
+        	if(response == "There was some errors during add school" || response == "School Already Exists")
         		return;
         	
         	response.id = response.id.id;
         	delete response.id.id;
         	return response;
+        },
+        
+        validation: {
+        	schoolName: {
+        		required: true
+        	},
+        	schoolWebsite: {
+        		required: true,
+				pattern: 'website',
+			} 
+			
         },
 	});
         

@@ -106,19 +106,19 @@
 				    <h3>Add my school to Beamstream</h3><button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
 				  </div>
 				  <div class="modal-body">    
- 		  			<div class="share-content">
+ 		  			<div id="newSchoolForm" class="share-content">
 			      
-						<div class="field">
+						<fieldset class="field"  style="position:relative"> 
 	                        <h1><label for="school-name" name="my-school">Name of your school </label></h1>
-	                        <input  id="new-school" type="text" placeholder="School Name" data-name="school.schoolName" name="schoolName">
+	                        <input  id="new-school" data-name="school.schoolName" name="schoolName" type="text" placeholder="School Name" >
 	                        <input type="hidden" value="school-name" id="parent-Id">
-	                    </div><br><br>
+	                    </fieldset><br><br>
 	               
 	       
-	                    <div class="field">
+	                    <fieldset class="field"  style="position:relative"> 
 	                        <label for="website" name="website">School website <span class="star"> </span></label>
-	                        <input type="text" placeholder="School website" data-name="school.schoolWebsite" name="schoolWebsite">
-	                    </div>
+	                        <input id="schoolWebsite" type="text" data-name="school.schoolWebsite" name="schoolWebsite" placeholder="School website" >
+	                    </fieldset>
 			                  
 						<br><br>
 						 <a id="addSchool" class="btn btn-primary pull-left" href="#">Add My School</a>

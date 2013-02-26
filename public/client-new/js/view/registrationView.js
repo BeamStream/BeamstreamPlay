@@ -190,13 +190,15 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 		completeRegistration: function(e){
 			e.preventDefault();
 			
+			// @TODO using FormData
 			var data;
         	data = new FormData();
      	    data.append('imageData', this.profile);
-     	    console.log(this.profile);
-     	    console.log(data);
-			this.data.models[0].set('profileName', this.name );
-			this.data.models[0].set('profileData',this.profile);
+     	    
+     	    this.data.models[0].set('profileName', data);
+     	    
+//			this.data.models[0].set('profileName', this.name );
+//			this.data.models[0].set('profileData',this.profile);
 			
             this.saveForm();
 		},

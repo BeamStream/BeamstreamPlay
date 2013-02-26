@@ -21,7 +21,9 @@ Backbone.Validate = (function() {
 		//Only allow letters, numbers, underscore
 		//password: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{6,}$/; 
 		//Allow letters, numbers, special characters, at least lowercase, capital, number
-		password: /(?=.*\d)(?=.*[a-z]).{8,}/
+		password: /(?=.*\d)(?=.*[a-z]).{8,}/,
+		//Added by Aswathy
+		website : /^(([\w]+:)?\/\/)?(([\d\w]|%[a-fA-f\d]{2,2})+(:([\d\w]|%[a-fA-f\d]{2,2})+)?@)?([\d\w][-\d\w]{0,253}[\d\w]\.)+[\w]{2,4}(:[\d]+)?(\/([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)*(\?(&amp;?([-+_~.\d\w]|%[a-fA-f\d]{2,2})=?)*)?(#([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)?$/
 	};
 	var format = function() {
 		var text = arguments[0],
@@ -57,7 +59,7 @@ Backbone.Validate = (function() {
 			return false;
 		};
 		var addError = function(field, message) {
-			if (_.isUndefined(errors[field])) {
+			if (_.isUndefined(errors[field])) { 
 				errors[field] = {};
 			}
 			errors[field] = message;

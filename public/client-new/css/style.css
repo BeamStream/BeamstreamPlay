@@ -6128,6 +6128,9 @@ ul.email-social-icons li.other2 {
 }
 
 
+
+
+/** @TODO will remove */
 /**Added by Aswathy for error message on step 3 */
 #profile-error{
 	color: #FA6C6C;
@@ -6141,4 +6144,8 @@ ul.email-social-icons li.other2 {
 	position: absolute;
     right: 25px;
     top: 9px;
+}
+/* for add new school view errors */
+#newSchoolForm .error{
+	top: -15px !important;
 }

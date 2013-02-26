@@ -53,7 +53,7 @@ object SocialController extends Controller {
       else if (providerName == "Twitter") { println(json); Ok("From Twitter") }
       else if (providerName == "Google") {
         val verifiedEmail = (json \ "profile" \ "verifiedEmail").asOpt[String].get
-        val userToCreate = new User(new ObjectId, UserType.Professional, verifiedEmail, "", "", "", "", Option(providerName), "", "", "", "", "", None, List(), List(), List(), List(), List())
+        val userToCreate = new User(new ObjectId, UserType.Professional, verifiedEmail, "", "", "", "", None, "", "", "", "", "", Option(providerName), List(), List(), List(), List(), List())
         val IdOfUserCreted = User.createUser(userToCreate)
         Ok(views.html.registration(IdOfUserCreted.toString, Option(json.toString)))
       } else if (providerName == "LinkedIn") { println(json); Ok("From LinkedIn") }
