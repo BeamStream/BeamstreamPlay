@@ -1,4 +1,5 @@
 @(userId:String , userInfoJson:Option[String])
+@meta = {}
 @CSS = {
 	<link href="/beamstream-new/css/style.css" rel="stylesheet" type="text/css" />    
     <link href="/beamstream-new/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" /> 
@@ -86,17 +87,18 @@
       </nav>
     </div>
     </div>
-   </header> 
+   </header>
 }
 @footer = {}
 
-@main("Registration", "Body",CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
+@main("Registration", "Body",CSS,meta, JS, bodyModule, bodyJS, sideBar, header, footer){
 @println(userId, userInfoJson)
 
    
 	   <!------ for registration page------->
 	   <div  id="registration"   data-model="user" data-url="/registration" data-module="view/registrationView"  data-tpl="templates/registration.tpl">
-	   </div>
+               
+           </div>
 	 
 	 
 	   <!---- for new school popups----->

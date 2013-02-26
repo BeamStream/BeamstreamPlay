@@ -81,6 +81,7 @@ BS.ProfileView = Backbone.View.extend({
 	            $('.progress-container').show();
 	    		
 	    		var data;
+	    		
 	        	data = new FormData();
 	     	    data.append('imageData', this.image);
 	     	    data.append('videoData', this.video);
