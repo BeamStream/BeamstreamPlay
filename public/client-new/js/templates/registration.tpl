@@ -13,8 +13,6 @@
 		* -
   -->
   
-  <div class="container-fluid">
- <div class="main-container ">
  <div class="profile-wrapper">
         <div class="profile-left-container">
   		<div class="req-field">
@@ -176,8 +174,7 @@
           </div>
         </div>
       </div>
-      </div>
-      </div>
+ 
       
       
 <script>
