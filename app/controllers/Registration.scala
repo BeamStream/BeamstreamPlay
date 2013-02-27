@@ -11,9 +11,11 @@ import models.Graduated
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 import models.RegistrationResults
+import utils.ObjectIdSerializer
 
 object Registration extends Controller {
-  implicit val formats = DefaultFormats
+ implicit val formats = new net.liftweb.json.DefaultFormats {
+  } + new ObjectIdSerializer
 
   /**
    * Registration after Mail (RA)
