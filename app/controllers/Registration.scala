@@ -18,9 +18,11 @@ object Registration extends Controller {
   /**
    * Registration after Mail (RA)
    */
-  def registration(token: String, userId: String) = Action {
+  def registration = Action { implicit request =>
+    val token = request.queryString("token").toList(0)
+    val userId = request.queryString("userId").toList(0)
     (Token.findToken(token).isEmpty) match {
-      case false => Ok(views.html.registration(userId,None))
+      case false => Ok(views.html.registration(userId, None))
       case true => Ok("Token has been expired")
     }
   }
@@ -52,7 +54,7 @@ object Registration extends Controller {
       val userCreated = User.getUserProfile(new ObjectId(userId))
       Ok(write(RegistrationResults(userCreated, userSchool))).as("application/json")
     } catch {
-      case ex => Ok(write("Oops there were errors during registration")).as("application/json")
+      case ex => InternalServerError(write("Oops there were errors during registration")).as("application/json")
     }
   }
 }
