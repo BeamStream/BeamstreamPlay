@@ -99,7 +99,7 @@ GET /signOut 									controllers.UserController.signOut
 
 
 #Media
-POST /getMediafromPost 							controllers.MediaController.getMedia
+#POST /getMediafromPost 							controllers.MediaController.getMedia
 POST /getProfilePicForAUser      				controllers.MediaController.getProfilePicForAUser
 POST /changeTitleAndDescriptionUserMedia    	controllers.MediaController.changeTitleAndDescriptionUserMedia
 GET /getAllProfilePicForAUser   				controllers.MediaController.getAllProfilePicForAUser
@@ -188,6 +188,8 @@ POST /signup         	controllers.BasicRegistration.signUpUser
 #Registration
 GET   /registration                                  controllers.Registration.registration
 POST  /registration                                  controllers.Registration.registerUser
+PUT   /registration/:id   							controllers.MediaController.getMedia(id:String)
+
 
 
 #Add a School
