@@ -54,7 +54,7 @@ object Registration extends Controller {
       val userCreated = User.getUserProfile(new ObjectId(userId))
       Ok(write(RegistrationResults(userCreated, userSchool))).as("application/json")
     } catch {
-      case ex => InternalServerError(write("Oops there were errors during registration")).as("application/json")
+      case exception => InternalServerError(write("Oops there were errors during registration")).as("application/json")
     }
   }
 }
