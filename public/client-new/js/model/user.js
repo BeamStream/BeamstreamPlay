@@ -30,7 +30,7 @@ define(['model/baseModel'], function(BaseModel) {
         	// @TODO some case we don't need to parse the response 
         	if(response == "Oops there were errors during registration" || response.message)
         		return;
-//        	response.id = response.user.id;
+        	response.id = response.user.id.id;
         	response.firstName = response.user.firstName;
         	response.lastName = response.user.lastName;
         	response.major = response.userSchool.major;
