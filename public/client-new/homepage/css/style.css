@@ -740,3 +740,9 @@ ul.modal-share li a:hover{
     line-height:20px;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
+.landing-fluid{
+	
+ 	padding-left: 0px !important;
+    padding-right: 0px !important;
+	
+}
