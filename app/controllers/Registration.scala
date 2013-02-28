@@ -33,7 +33,7 @@ object Registration extends Controller {
    * User Registration In Detail (RA)
    */
   def registerUser = Action { implicit request =>
-    try {
+//    try {
       val jsonReceived = request.body.asJson.get
       val userId = (jsonReceived \ "userId").as[String]
       val firstName = (jsonReceived \ "firstName").as[String]
@@ -49,14 +49,14 @@ object Registration extends Controller {
       val cellNumber = (jsonReceived \ "cellNumber").as[String]
       User.updateUser(new ObjectId(userId), firstName, lastName, location, about, cellNumber)
 
-      val userSchool = new UserSchool(new ObjectId, new ObjectId(associatedSchoolId), Year.withName(gradeLevel), Degree.withName(degreeProgram), major, Graduated.withName(graduate),
+      val userSchool = new UserSchool(new ObjectId, new ObjectId(associatedSchoolId), schoolName,Year.withName(gradeLevel), Degree.withName(degreeProgram), major, Graduated.withName(graduate),
         None, None, "", List())
       UserSchool.createSchool(userSchool)
       User.addInfo(List(userSchool), new ObjectId(userId))
       val userCreated = User.getUserProfile(new ObjectId(userId))
-      Ok(write(RegistrationResults(userCreated, userSchool))).as("application/json")
-    } catch {
-      case exception => InternalServerError(write("Oops there were errors during registration")).as("application/json")
-    }
+      Ok(write(RegistrationResults(userCreated, userSchool))).as("application/json").withSession("userId"-> userId)
+//    } catch {
+//      case exception => InternalServerError(write("Oops there were errors during registration")).as("application/json")
+//    }
   }
 }

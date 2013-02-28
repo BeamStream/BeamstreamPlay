@@ -3,8 +3,6 @@ import org.bson.types.ObjectId
 import org.neo4j.graphdb.Node
 import models.ProfileImageProviderCache
 import models.ResulttoSent
-import models.User
-import models.User
 import models.UserMedia
 import net.liftweb.json.Serialization.read
 import net.liftweb.json.Serialization.write
@@ -20,13 +18,13 @@ import play.api._
 import play.libs._
 import play.mvc.Http.Request
 import utils._
-import utils.SocialGraphEmbeddedNeo4j
 import play.api.cache.Cache
 import play.api.Play.current
 import utils.onlineUserCache
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 import models.UserType
+import models.User
 
 object SocialController extends Controller {
   implicit val formats = DefaultFormats
@@ -68,7 +66,7 @@ object SocialController extends Controller {
       //      }
       //    }
     } catch {
-      case ex => Ok(write("Something wrong happend")).as("application/json")
+      case ex => InternalServerError(write("Something wrong happend")).as("application/json")
     }
   }
 

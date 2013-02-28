@@ -50,15 +50,15 @@ object DetailedRegistration extends Controller {
 //    }
 //  }
 
-  /**
-   * Returns the Schools with their respective school Ids (Tag : Dup)
-   */
-
-  def getSchoolsForLoggedInUser = Action { implicit request =>
-    val schoolIdList = UserSchool.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
-    val finalSchooList = UserSchool.getAllSchools(schoolIdList)
-    val schoolListJSON = write(finalSchooList)
-    Ok(schoolListJSON).as("application/json")
-  }
+//  /**
+//   * Returns the Schools with their respective school Ids (Tag : Dup)
+//   */
+//
+//  def getSchoolsForLoggedInUser = Action { implicit request =>
+//    val schoolIdList = UserSchool.getAllSchoolforAUser(new ObjectId(request.session.get("userId").get))
+//    val finalSchooList = UserSchool.getAllSchools(schoolIdList)
+//    val schoolListJSON = write(finalSchooList)
+//    Ok(schoolListJSON).as("application/json")
+//  }
 
 }

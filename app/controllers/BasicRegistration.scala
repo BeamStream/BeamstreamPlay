@@ -82,7 +82,7 @@ object BasicRegistration extends Controller {
 
               (encryptedPassword == encryptedConfirmPassword) match {
                 case true =>
-                  val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, alias, Option(encryptedPassword), schoolName, location, profile,"","", None,List(), List(), List(), List(), List())
+                  val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, alias, Option(encryptedPassword), schoolName, location, profile, "", "", None, List(), List(), List(), List(), List())
                   val IdOfUserCreted = User.createUser(userToCreate)
                   val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
                   val createdUser = User.getUserProfile(IdOfUserCreted)
@@ -142,7 +142,7 @@ object BasicRegistration extends Controller {
   }
 
   /**
-   * ***************************************************** Rearchitecture with Templating ******************************
+   * ***************************************************** Re architecture ******************************
    */
 
   /**
@@ -152,7 +152,7 @@ object BasicRegistration extends Controller {
     try {
       Ok(views.html.signup())
     } catch {
-      case ex => Ok("Oops..There was some errors")
+      case ex => InternalServerError(write("Oops there was errors")).as("application/json")
     }
   }
 
@@ -176,7 +176,7 @@ object BasicRegistration extends Controller {
         case true =>
           (encryptedPassword == encryptedConfirmPassword) match {
             case true =>
-              val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", "", Option(encryptedPassword), "", "", "","","",None, List(), List(), List(), List(), List())
+              val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", "", Option(encryptedPassword), "", "", "", "", "", None, List(), List(), List(), List(), List())
               val IdOfUserCreted = User.createUser(userToCreate)
               val createdUser = User.getUserProfile(IdOfUserCreted)
               UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.toString, tokenEmail.securityToken, emailId)
@@ -187,7 +187,7 @@ object BasicRegistration extends Controller {
           Ok(write(new ResulttoSent("Failure", "This User Email Is Already Taken"))).as("application/json")
       }
     } catch {
-      case ex => Ok("Oops..There was some errors")
+      case ex => InternalServerError(write("Oops there was errors during Signup")).as("application/json")
     }
   }
 }

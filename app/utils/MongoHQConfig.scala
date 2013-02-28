@@ -4,7 +4,6 @@ import play.api.Play
 
 object MongoHQConfig {
 
-  
   /**
    * This all will come from "application.conf" file
    */
@@ -21,8 +20,8 @@ object MongoHQConfig {
   /**
    * For Local Testing
    */
-//  
-//            val mongoDB = MongoConnection("", 27017)("beamstream1")
-//            mongoDB.authenticate("", "")
+  //  
+  //            val mongoDB = MongoConnection("", 27017)("beamstream1")
+  //            mongoDB.authenticate("", "")
 
 }

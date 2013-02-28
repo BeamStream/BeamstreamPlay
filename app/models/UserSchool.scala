@@ -16,6 +16,7 @@ import net.liftweb.json.Serialization.{ read, write }
 
 case class UserSchool(@Key("_id") id: ObjectId,
   assosiatedSchoolId: ObjectId,
+  schoolName:String,
   year: Year.Value,
   degree: Degree.Value,
   major: String,

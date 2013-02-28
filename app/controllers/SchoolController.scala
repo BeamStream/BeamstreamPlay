@@ -36,20 +36,25 @@ object SchoolController extends Controller {
         Ok(write(schoolToCreate)).as("application/json")
       }
     } catch {
-      case ex => Ok(write("There was some errors during add school"))
+      case ex => InternalServerError(write("There was some errors during add school")).as("application/json")
     }
   }
 
   /**
-   * Provides All School For a User (Duplicacy seen : exactly like /schoolJson)
+   * Provides All School For a User (RA)
    */
   def getAllSchoolForAUser = Action { implicit request =>
+    try{
     val userId = new ObjectId(request.session.get("userId").get)
     val schoolIdList = UserSchool.getAllSchoolforAUser(userId)
     val getAllSchoolsForAUser = UserSchool.getAllSchools(schoolIdList)
     val SchoolListJson = write(getAllSchoolsForAUser)
     Ok(SchoolListJson).as("application/json")
+    }
+    catch{
+      case exception =>  InternalServerError(write("There was some errors during fetching the schools")).as("application/json")
 
+    }
   }
 
   /**
