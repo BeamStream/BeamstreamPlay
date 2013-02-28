@@ -137,7 +137,7 @@ object User {
   }
 
   /**
-   * Add a Class to user
+   * Add a Class to user (RA)
    */
   def addClassToUser(userId: ObjectId, classId: List[ObjectId]) {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)

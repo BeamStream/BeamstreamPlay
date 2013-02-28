@@ -95,4 +95,12 @@ object UtilityActor {
     Token.addToken(token)
   }
 
+  /**
+   * Mail After Stream Creation
+   */
+  def sendEmailAfterStreamCreation(email: String, streamName: String, newStream: Boolean) {
+    implicit val system = Akka.system
+    val future = Future { SendEmail.mailAfterStreamCreation(email, streamName, newStream) }
+  }
+
 }
