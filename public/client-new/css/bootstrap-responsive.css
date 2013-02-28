@@ -2382,3 +2382,43 @@ ul.stream-tab li a {
  ul.signup-register {
 padding:0 5% 5% 5%;
 }
+
+
+/*Invite Friend*/
+
+
+.classic-information-left {
+ width:60%;
+}
+ .classic-information-left input.big-text {
+ width:96%;
+ margin:10px 0;
+}
+ .invite-class-select {
+ margin-right:6%;
+ width:26%;
+}
+ .classic-information-block h5 {
+ padding:0 0 8px 0;
+}
+ .classic-information-right {
+ float:right;
+ width:30%;
+}
+ ul.access-menu li a {
+ height:24px;
+ border-bottom: solid 2px #aaaaaa;
+ -webkit-border-radius: 2px;
+ -moz-border-radius: 2px;
+ border-radius: 2px;
+ line-height:24px;
+ width:70%;
+ float:left;
+ padding:3px 0 3px 35px;
+}
+ .join-freind-btn {
+ padding:0 4%;
+}
+ .invite-bottom-btn {
+padding:20px 0;
+}
