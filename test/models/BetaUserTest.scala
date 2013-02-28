@@ -13,6 +13,9 @@ import org.joda.time.LocalDateTime
 import org.bson.types.ObjectId
 import java.text.DateFormat
 
+/**
+ * ********************************Re-architecture ***********************************************
+ */
 @RunWith(classOf[JUnitRunner])
 class BetaUserTest extends FunSuite with BeforeAndAfter {
 
@@ -20,9 +23,15 @@ class BetaUserTest extends FunSuite with BeforeAndAfter {
     BetaUserDAO.remove(MongoDBObject("emailId" -> ".*".r))
   }
 
-  test("Add Beta User & Find Beta User") {
+  test("Add Beta User") {
     val betaUser = BetaUser(new ObjectId, "neelkanth@knoldus.com")
-    BetaUser.addBetaUser(betaUser)
+    val betaUserId = BetaUser.addBetaUser(betaUser)
+    assert(betaUserId.get === betaUser.id)
+  }
+
+  test("Find Beta User") {
+    val betaUser = BetaUser(new ObjectId, "neelkanth@knoldus.com")
+    val betaUserId = BetaUser.addBetaUser(betaUser)
     assert(BetaUser.findBetaUserbyEmail("neelkanth@knoldus.com").size === 1)
   }
 
