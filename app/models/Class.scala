@@ -183,8 +183,8 @@ object Class {
     classObtained
   }
 
-  /*
-   * Get all classes for a user
+  /**
+   * Get all classes for a user (RA)
    */
   def getAllClassesIdsForAUser(userId: ObjectId): List[ObjectId] = {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
@@ -239,7 +239,7 @@ object Class {
     val streamId = Stream.createStream(streamToCreate)
     Stream.attachStreamtoClass(streamId, classId.get)
     val user = User.getUserProfile(userId)
-    UtilityActor.sendEmailAfterStreamCreation(user.email, classCreated.className, true)
+    //UtilityActor.sendEmailAfterStreamCreation(user.email, classCreated.className, true)
   }
 }
 
