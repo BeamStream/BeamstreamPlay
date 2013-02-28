@@ -136,8 +136,8 @@ object Class {
     classesWithNoofUsers
   }
 
-  /*
-   * Find the class by name with no of users return
+  /**
+   * Find the class by name with no of users return (RA)
    */
 
   def findClassByName(name: String, schoolId: ObjectId): List[ClassWithNoOfUsers] = {

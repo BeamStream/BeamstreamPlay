@@ -155,8 +155,8 @@ object User {
 
   }
 
-  /*
-   * Counting the No. of User with a particular Role
+  /**
+   * Counting the No. of User with a particular Role (RA)
    */
   def countRolesOfAUser(usersList: List[ObjectId]): Map[String, Int] = {
     var map: Map[String, Int] = Map()
@@ -167,7 +167,6 @@ object User {
       map += (value.toString -> count)
     }
     map
-
   }
 
   /*
