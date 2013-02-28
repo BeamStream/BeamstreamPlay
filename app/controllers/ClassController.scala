@@ -93,5 +93,11 @@ object ClassController extends Controller {
       case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem To Get List Of Classes For A User")))
     }
   }
+  
+  //-------------------------- Rearchitecture Page -----------------------------------------//
+  
+  def renderClassPage  = Action { implicit request =>
+    Ok(views.html.classpage())
+  }
 
 }

@@ -199,6 +199,10 @@ POST  /getAllSchoolsForAutopopulate      		controllers.SchoolController.getAllSc
 # Social
 POST /social/social_authentication   			controllers.SocialController.authenticateUser
 
+
+#Class
+GET  /class                                    controllers.ClassController.renderClassPage
+
 #Asynchronous Services
 # To create a resource on the server, use POST.
 # To retrieve a resource, use GET.
