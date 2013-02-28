@@ -27,7 +27,7 @@ object ClassController extends Controller {
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer //+ new CollectionSerializer
 
   /**
-   * Add a class to a user (Intact)
+   * Add a class to a user (RA)
    */
 
   def addClass = Action { implicit request =>
@@ -40,7 +40,7 @@ object ClassController extends Controller {
       val refreshedClasses = Class.getAllRefreshedClasss(classList)
       Ok(write((refreshedClasses))).as("application/json")
     } catch {
-      case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem During Class Creation")))
+      case ex => InternalServerError(write(new ResulttoSent("Failure", "There Was Some Problem During Class Creation")))
     }
 
   }
@@ -48,7 +48,7 @@ object ClassController extends Controller {
   /**
    *  Return the class JSON for auto populate the classes on class stream
    *  @Purpose : Class code and class name autopoulate on class stream page
-   *  
+   *
    */
 
   def findClasstoAutoPopulatebyCode = Action { implicit request =>
@@ -64,7 +64,7 @@ object ClassController extends Controller {
   /**
    *  Return the class JSON for auto populate the classes on class stream
    *  @Purpose : Class code and class name autopoulate on class stream page
-   *  
+   *
    */
 
   def findClasstoAutoPopulatebyName = Action { implicit request =>
@@ -93,11 +93,16 @@ object ClassController extends Controller {
       case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem To Get List Of Classes For A User")))
     }
   }
-  
-  //-------------------------- Rearchitecture Page -----------------------------------------//
-  
-  def renderClassPage  = Action { implicit request =>
+
+  /**
+   * ------------------------- Re architecture  -----------------------------------------------------------------------------------
+   */
+
+  def renderClassPage = Action { implicit request =>
     Ok(views.html.classpage())
   }
 
+  def createClass = Action { implicit request =>
+    Ok
+  }
 }

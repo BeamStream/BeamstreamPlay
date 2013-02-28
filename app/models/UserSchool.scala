@@ -16,7 +16,7 @@ import net.liftweb.json.Serialization.{ read, write }
 
 case class UserSchool(@Key("_id") id: ObjectId,
   assosiatedSchoolId: ObjectId,
-  schoolName:String,
+  schoolName: String,
   year: Year.Value,
   degree: Degree.Value,
   major: String,
@@ -81,9 +81,10 @@ object UserSchool {
   //    }
   //
   //  }
-/**
- * Create a new User School (RA)
- */
+
+  /**
+   * Create a new User School (RA)
+   */
   def createSchool(userSchool: UserSchool) {
     UserSchoolDAO.insert(userSchool)
   }
@@ -146,28 +147,28 @@ object UserSchool {
   /*
    * is Duplicate School Exists In Database
    */
-//  def duplicateSchoolExistes(schoolList: List[UserSchool]): Boolean = {
-//    var schoolFetchCount: Int = 0
-//    for (eachSchool <- schoolList) {
-//      val schoolFetched = SchoolDAO.find(MongoDBObject("schoolName" -> eachSchool.schoolName)).toList
-//      if (!schoolFetched.isEmpty) schoolFetchCount += 1
-//    }
-//
-//    if (schoolFetchCount == 0) false else true
-//  }
+  //  def duplicateSchoolExistes(schoolList: List[UserSchool]): Boolean = {
+  //    var schoolFetchCount: Int = 0
+  //    for (eachSchool <- schoolList) {
+  //      val schoolFetched = SchoolDAO.find(MongoDBObject("schoolName" -> eachSchool.schoolName)).toList
+  //      if (!schoolFetched.isEmpty) schoolFetchCount += 1
+  //    }
+  //
+  //    if (schoolFetchCount == 0) false else true
+  //  }
 
   /*
    * is Duplicate School Exists In List 
    */
-//  def duplicateSchoolExistesInSubmittedList(schoolList: List[UserSchool]): Boolean = {
-//    var schoolFetchCount: Int = 0
-//    for (eachSchool <- schoolList) {
-//      val schoolFetched = schoolList.filter(x => x.schoolName == eachSchool.schoolName)
-//      if (schoolFetched.size > 1) schoolFetchCount += 1
-//    }
-//
-//    if (schoolFetchCount == 0) false else true
-//  }
+  //  def duplicateSchoolExistesInSubmittedList(schoolList: List[UserSchool]): Boolean = {
+  //    var schoolFetchCount: Int = 0
+  //    for (eachSchool <- schoolList) {
+  //      val schoolFetched = schoolList.filter(x => x.schoolName == eachSchool.schoolName)
+  //      if (schoolFetched.size > 1) schoolFetchCount += 1
+  //    }
+  //
+  //    if (schoolFetchCount == 0) false else true
+  //  }
 
   /*
    * Is user contains already the Coming School that he wants to Join

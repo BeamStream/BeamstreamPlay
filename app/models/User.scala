@@ -29,7 +29,7 @@ case class User(@Key("_id") id: ObjectId,
   socialProfile: String,
   about: String,
   contact: String,
-  socialNetwork:Option[String],
+  socialNetwork: Option[String],
   schools: List[ObjectId],
   classes: List[ObjectId],
   documents: List[ObjectId],
@@ -94,12 +94,12 @@ object User {
 
   }
 
-  /*
- * Creates a User
- */
+  /**
+   * Creates a User (RA)
+   */
   def createUser(user: User): ObjectId = {
     val userCreated = UserDAO.insert(user)
-    userCreated.get.asInstanceOf[ObjectId]
+    userCreated.get
   }
 
   /*
@@ -136,7 +136,7 @@ object User {
 
   }
 
-  /*
+  /**
    * Add a Class to user
    */
   def addClassToUser(userId: ObjectId, classId: List[ObjectId]) {
@@ -145,8 +145,8 @@ object User {
       UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classes = (user.classes ++ classId)), false, false, new WriteConcern)
     }
   }
-  /*
-   * Get the Details of a user
+  /**
+   * Get the Details of a user (RA)
    */
 
   def getUserProfile(userId: ObjectId): User = {
@@ -243,4 +243,4 @@ object UserType extends Enumeration {
   val Professional = Value(2, "Professional")
 }
 
-object UserDAO extends SalatDAO[User, Int](collection = MongoHQConfig.mongoDB("user"))
+object UserDAO extends SalatDAO[User, ObjectId](collection = MongoHQConfig.mongoDB("user"))

@@ -71,7 +71,7 @@ POST /getSchoolNamebyId 						controllers.SchoolController.getSchoolName
 #POST /detailed_reg 								controllers.DetailedRegistration.addInfo
 
 #Class
-POST /class                             		controllers.ClassController.addClass
+#POST /class                             		controllers.ClassController.addClass
 GET  /getAllClassesForAUser             		controllers.ClassController.getAllClassesForAUser
 POST /autoPopulateClassesbyCode 				controllers.ClassController.findClasstoAutoPopulatebyCode
 POST /autoPopulateClassesbyName 				controllers.ClassController.findClasstoAutoPopulatebyName
@@ -201,6 +201,8 @@ POST /social/social_authentication   			controllers.SocialController.authenticat
 
 #Class
 GET  /class                                    controllers.ClassController.renderClassPage
+POST /class                             		controllers.ClassController.createClass
+
 
 #Asynchronous Services
 # To create a resource on the server, use POST.
