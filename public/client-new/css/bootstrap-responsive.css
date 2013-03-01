@@ -2392,7 +2392,8 @@ padding:0 5% 5% 5%;
 }
  .classic-information-left input.big-text {
  width:96%;
- margin:10px 0;
+ margin:15px 0 15px;
+
 }
  .invite-class-select {
  margin-right:6%;

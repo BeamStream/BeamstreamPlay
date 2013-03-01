@@ -1,11 +1,17 @@
 @meta = {}
-@CSS = {}
+@CSS = {
+<link rel="stylesheet" type="text/css" media="screen" href="/beamstream-new/css/bootstrap-select.css">
+<link type="text/css" rel="stylesheet" href="/beamstream-new/css/datepicker.css" />
+}
 @JS = {
+<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="/beamstream-new/lib/bootstrap-datepicker.js"></script>
 }
 @bodyCls = {}
 @bodyModule = {}
 @bodyJS = {
-  
+<!-- <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap-select.js"></script> -->
+
 }
 @sideBar = {
  	@views.html.sidebar.render
@@ -18,199 +24,11 @@
 }
 
 
-@main("Sign up ", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
+@main("Class ", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
 
-
-     <div class="right-container">
-        <div class="classic-information-block">
-          <div class="classic-information-left">
-            <h5>Class Information</h5>
-              
-              <div class="btn-group invite-dropdown-outer  invite-grade-select">
-                <button class="btn normal-dropdown invite-drop">Grade Level?</button>
-                <button data-toggle="dropdown" class="btn blue-button invite-drop"> <span class="caret sort-caret"></span></button>
-                <ul class="dropdown-menu display-sub">
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products </a></li>
-                </ul>
-              </div>
-              
-              <input type="text" placeholder="Class Code" name="" class="small-text">
-
-
-              <input type="text" placeholder="Class or Stream Name" name="" class="big-text">
-
-
-              <div class="btn-group invite-dropdown-outer invite-class-select">
-                <button class="btn normal-dropdown invite-drop">Class Time</button>
-                <button data-toggle="dropdown" class="btn blue-button invite-drop"> <span class="caret sort-caret"></span></button>
-                <ul class="dropdown-menu display-sub">
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products </a></li>
-                </ul>
-              </div>
-              <div class="btn-group invite-dropdown-outer invite-class-select">
-                <button class="btn normal-dropdown invite-drop">Calendar</button>
-                <button data-toggle="dropdown" class="btn blue-button invite-drop"> <span class="caret sort-caret"></span></button>
-                <ul class="dropdown-menu display-sub">
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products </a></li>
-                </ul>
-              </div>
-              <div class="btn-group invite-dropdown-outer invite-class-select-last">
-                <button class="btn normal-dropdown invite-drop ">Semester</button>
-                <button data-toggle="dropdown" class="btn blue-button invite-drop"> <span class="caret sort-caret"></span></button>
-                <ul class="dropdown-menu display-sub">
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products</a></li>
-                  <li><a href="#">Products </a></li>
-                </ul>
-              </div>
-              
-              <div class="invite-bottom-btn">
-              
-             <a href="#myModal" role="button" class="follow-david invite-freind-btn"data-toggle="modal"><span></span>Invite Friends</a> 
-                 <a href="#" class="invite-educator">Invite Educator To Claim</a>
-              
-              
-              </div>
-
-           </div>
-          <div class="classic-information-right">
-            <h5> Class access</h5>
-            <ul class="access-menu">
-              <li><a href="#" class="open-online">Open Online Class</a></li>
-              <li><a href="#" class="invite-only"> Invite Only</a></li>
-              <li><a href="#" class="users-request">Users Requests</a>
-                <div class="orange-tick"></div>
-              </li>
-              <a href="#" class="follow-david join-freind-btn">Create (Join) Stream</a>
-            </ul>
-          </div>
-        </div>
-      
-      
-        <div id="myModal" class="modal hide fade invite-pop-up" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class=" pop-close">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close <img src="images/close-pop.png" width="22" height="22"></button>
-          </div>
-          <div class="invite-pop-outer">
-            <div class="invite-pop-info">
-              <div class="pop-up-header">
-                <h3>Invite your people to BeamStream</h3>
-              </div>
-              <div class="pop-up-container">
-              
-              <div class="pop-info-block">
-              <div class="pop-up-container-left">
-                  <div class="pop-email-box">
-                    <input type="text" name="" placeholder="Email Address">
-             	     <a href="#"> Send from your email client</a>
-                    <ul class="email-social-icons">
-                      <li class="yahoo"><a href="#">Yahoo</a></li>
-                      <li class="google-plus"><a href="#">Yahoo</a></li>
-                      <li class="msn"><a href="#">Yahoo</a></li>
-                      <li class="other"><a href="#">Yahoo</a></li>
-                      <li class="other1"><a href="#">Yahoo</a></li>
-                      <li class="other2"><a href="#">Yahoo</a></li>
-                      <span> Import contacts from services above.</span>
-                    </ul>
-                  </div>
-                  <div class="pop-other-accounts">
-                    <h3> Connect other accounts</h3>
-                    <ul class="register-social">
-                      <li>
-                        <div class="tick-register"><img width="19" height="15" src="/beamstream-new/images/green-tick.png"></div>
-                        <a href="#" class="facebook"> <span><img width="33" height="34" src="images/face-book-icon.png"></span> <span class="shadow">Facebook</span></a> </li>
-                      <li>
-                        <div class="tick-register"><img width="19" height="15" src="images/green-tick.png"></div>
-                        <a href="#" class="twitter"> <span><img width="33" height="34" src="images/twitter-icon.png"></span> <span class="shadow">Twitter</span></a> </li>
-                      <li> <a href="#" class="google"> <span><img width="33" height="34" src="images/google-plus-icon.png"></span> <span class="shadow">Google</span></a> </li>
-                      <li> <a href="#" class="link-in"> <span><img width="33" height="34" src="images/in-icon.png"></span> <span class="shadow">Link In</span></a> </li>
-                    </ul>
-                  </div>
-                </div>
-
-              <div class="pop-up-container-right">
-                  <h4> 1,289 All My Friends <span>(by connected accounts)</span> </h4>
-                  <div class="stream-wrapper pop-chat-block">
-                    <div class="search-all-freinds">
-                      <input type="text" name="" placeholder="Search all friends ">
-                      <div class="btn-group invite-dropdown-outer pop-select-right">
-                        <button class="btn normal-dropdown invite-drop show-all-pop-up">Show All</button>
-                        <button class="btn blue-button invite-drop" data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                        <ul class="dropdown-menu display-sub">
-                          <li><a href="#">Products</a></li>
-                          <li><a href="#">Products</a></li>
-                          <li><a href="#">Products </a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="pop-up-scroll-block">
-                      <div id="user-online1" class="scroll-block scroll-chat-view scroll-block-popup">
-                      <a href="#" class="scroll-select-all">Select All</a>
-                      <div class="pop-up-scroll-container pop-scroll-left">
-                   <ul>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message-single">Message</a><a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                </ul>
-                      </div>
-                      
-                      <div class="pop-up-scroll-container pop-scroll-right">
-                   <ul>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message-single">Message</a><a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                  <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick"><img src="images/green-tick.png" width="19" height="15"></div> </li>
-                </ul>
-                      </div>
-                      </div>
-                      </div>
-                    </div>
-                  </div>
-
-              </div>
-
-               <div class="pop-bottom">  </div>
-                  <div class"clear"></div>
-                </div>
-                <div class="clear"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+<div  id="class-page"  data-url="/class"  data-model="class"  data-module="view/classView" data-tpl="templates/class.tpl"  >
  
-<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap-select.js"></script>
-<script type="text/javascript">
-        $('.selectpicker-info').selectpicker({
-          style: 'register-select invite-selecter'
-        });
-</script>
+</div>
    
     
 }

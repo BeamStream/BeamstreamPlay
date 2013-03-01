@@ -48,7 +48,7 @@ define(['view/baseView','../../lib/jquery.mCustomScrollbar','../../lib/jquery.mo
 //                   }
 //               });
                 
-               this.data.models[0].set({"san":"5"});
+//               this.data.models[0].set({"san":"5"});
                 
                 $("#user-online").mCustomScrollbar({
                     

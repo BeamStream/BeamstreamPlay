@@ -4641,8 +4641,28 @@ ul.whitefield li a span {
 		z-index:9999;
 }
 
+.invite-school-arrow {
+
+position: absolute;
+right: 38px;
+top: 10px;
+z-index:9999;
+
+}
+
+.invite-small-arrow{
+
+
+
+position: absolute;
+right: 10px;
+top: 10px;
+z-index:9999;
+
+}
+
 .selectpicker-info span.filter-option {
-		max-width:100% !important;
+		max-width:85% !important;
 }
 
 .selectpicker-info .profile-select {
@@ -5518,12 +5538,16 @@ ul.register-social li a.link-in {
 		width:50%;
 }
 
+
+
+.invite-sub-dropdown{top:36px !important;}
+
 .selectpicker-info .invite-selecter {
 		background: none repeat scroll 0 0 #fff;
 		box-shadow: 0 0 0 1px #CDD4DB;
 		color: #2f4553;
 		float:left;
-		height:36px;
+		height:39px;
 }
 
 .invite-class-select {
@@ -5552,7 +5576,7 @@ ul.register-social li a.link-in {
 		background:#00 !important;
 		height:35px;
 		background:#fff;
-		padding:0 2%;
+		padding:0 12px;
 		-webkit-border-radius: 5px;
 		-moz-border-radius: 5px;
 		border-radius: 5px;
@@ -5614,6 +5638,7 @@ ul.access-menu li {
 		display:block;
 		overflow:hidden;
 }
+
 
 ul.access-menu li a {
 		background: url(../images/class-icon.png) no-repeat #f0f0f0;
@@ -6158,12 +6183,107 @@ ul.email-social-icons li.other2 {
 }
 
 .invite-grade-select{
-width:45%;
-
+width:50%;
 float: left;
-    padding: 0 5% 0 0;
+padding: 0 5% 0 0;
 }
 
+
+.invite-small-select{width:25%;
+    float: left;
+    margin-right:27px;
+    width:30%;
+
+}
+.invite-calender{position:relative;width:35%; float:left;}
+.calender-box{width: 75% !important; height: 38px !important; }
+div.datepicker{
+	font-size: 13px ;
+	 width: 240px !important; 
+}
+
+.new-arrow  {
+		background-image: -moz-linear-gradient(#3E79A9, #529ABE);
+    border-radius: 0 4px 4px 0;
+    display: block;
+    float: right;
+    height: 40px;
+    margin: 0;
+    position: relative;
+    right: 24px;
+    top: -39px;
+    width: 40px;
+}
+
+
+
+.invite-small-last{ margin:0px;}
+
+.invite-grade-select .bootstrap-select .dropdown-menu{top:35px; width:170px;}
+
+
+.invite-small-select .bootstrap-select .dropdown-menu{top:35px; width:170px;}
+
+
+
+
+
+/* For autopopulate */
+.ui-autocomplete a{
+	background-color: #4F9ABA;
+	color:#fff !important; 
+	font-weight: 700;
+}
+.ui-autocomplete a:hover{
+	font-weight: 700 !important; 
+	background-color: #498fb3 !important;
+	border: 1px solid #498fb3 !important; 
+}
+.ui-autocomplete{
+	z-index: 9999 !important; 
+	background-color: #4F9ABA !important; 
+    border: 1px solid #4F9ABA !important; 
+    color: #222222 !important; 
+    background-image:none !important;
+}
+.ui-state-hover{
+	background-color: #498fb3 !important;  
+	background:none !important; 
+}
+
+.class-image{
+	background-image: url("../images/user-icon.png");
+	background-repeat:no-repeat;
+	background-position: left center;
+	color: #000;
+	padding-left: 30px;
+	text-align: right;
+	margin-left: 20px;
+	text-transform: uppercase;
+	font-weight: normal;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	
+}
+.ui-autocomplete{
+	 min-height: 30px;
+}
+.ui-autocomplete:after {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #4F9ABA;
+    content: "";
+    display: inline-block;
+    height: 0;
+    vertical-align: top;
+    width: 0;
+     z-index:9000;
+    left:30px;
+    top:-9px;
+    position: absolute;;
+    
+   
+}
 
 /** @TODO will remove */
 /**Added by Aswathy for error message on step 3 */
@@ -6174,13 +6294,28 @@ float: left;
     position: relative;
     top: -60px;
 }
+
+
+
+
+
+
 /* for loader on school autopopulate */
 .loading{
 	position: absolute;
     right: 25px;
     top: 9px;
 }
+
 /* for add new school view errors */
 #newSchoolForm .error{
 	top: -15px !important;
+}
+
+/* for class page error messages */
+#class-page .error{
+    top: -80px !important;
+}
+#startingDate ,.new-arrow{
+	cursor: pointer;
 }

@@ -6,7 +6,7 @@
 	 * Email:                : info@toobler.com
 	 * Web site              : http://www.toobler.com
 	 * Created               : 20/September/2012
-	 * Description           : Backbone view for main stream page
+	 * Description           : Backbone view for side bar 
 	 * ==============================================================================================
 	 * Change History:
 	 * ----------------------------------------------------------------------------------------------
@@ -15,23 +15,27 @@
 	 *
 	 * 
 */
-define(['view/baseView','../../lib/jquery.simplyscroll','../../lib/bootstrap'], function(BaseView,simplyscroll,bootstrap){
-            var streamSliderView;
-            streamSliderView = BaseView.extend({
-            objName: 'streamSliderView',
+define(['view/baseView',
+        '../../lib/jquery.simplyscroll',
+        '../../lib/bootstrap'
+        ],function(BaseView,simplyscroll,bootstrap){
+	
+    var streamSliderView;
+    streamSliderView = BaseView.extend({
+    	
+        objName: 'streamSliderView',
                 
-            onAfterInit: function(){
-                this.data.reset();
-                console.log("streamSliderView");
-                this.getStreams();
-                this.slider();
-            },
+        onAfterInit: function(){
+            this.data.reset({'title':'slider'});
+//            console.log(this.data.model[0]);
+        },
+            
                 
                      
-                /*
-                * slider for stream list
-                */
-	   slider: function(){
+        /*
+        * slider for stream list
+        */
+        slider: function(){
                 var activeDiv = '<div class="active-curve"><img src="/beamstream-new/images/active-curve.png" width="20" height="58"></div>';
                 $('span.close-btn').hide();     
                 $('div.drag-icon').hide();

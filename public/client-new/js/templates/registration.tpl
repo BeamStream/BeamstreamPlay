@@ -12,7 +12,12 @@
 		* Sl.No.  Date   Author   Description
 		* -
   -->
-  
+ 
+ <script>
+$('.selectpicker-info').selectpicker({
+    style: 'register-select'
+	});
+</script> 
 
  <div class="profile-wrapper">
         <div class="profile-left-container">
@@ -179,8 +184,3 @@
 
       
       
-<script>
-$('.selectpicker-info').selectpicker({
-    style: 'register-select'
-	});
-</script>
