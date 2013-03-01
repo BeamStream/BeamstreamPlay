@@ -102,5 +102,5 @@ object StreamController extends Controller {
     Ok(write(result)).as("application/json")
 
   }
-
+  
 }
