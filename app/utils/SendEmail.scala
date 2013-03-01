@@ -20,9 +20,10 @@ object SendEmail {
     val props = new Properties
     props.setProperty("mail.transport.protocol", "smtp");
     props.setProperty("mail.smtp.starttls.enable", "true");
-    props.setProperty("mail.host", "smtp.gmail.com");
-    props.setProperty("mail.user", "aswathy@toobler.com");
-    props.setProperty("mail.password", Play.current.configuration.getString("email_password").get)
+    props.setProperty("mail.smtp.port", "587");
+    props.setProperty("mail.smtp.host", "smtp.gmail.com");
+    props.setProperty("mail.smtp.user", Play.current.configuration.getString("email_address").get);
+    props.setProperty("mail.smtp.password", Play.current.configuration.getString("email_password").get)
     val session = Session.getDefaultInstance(props, null);
     val mimeMessage = new MimeMessage(session)
     (mimeMessage, session)
@@ -46,7 +47,7 @@ object SendEmail {
         "Cheers," + "<br>" +
         "The Really Nice Beamstream Folks , US" + "<br>", "text/html");
     val transport = authenticatedMessageAndSession._2.getTransport("smtp");
-    transport.connect("smtp.gmail.com", "aswathy@toobler.com", Play.current.configuration.getString("email_password").get)
+    transport.connect("smtp.gmail.com", Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
 
     transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
     val token = new Token((new ObjectId), authToken)
@@ -102,7 +103,7 @@ object SendEmail {
     }
 
     val transport = authenticatedMessageAndSession._2.getTransport("smtp");
-    transport.connect("smtp.gmail.com", "aswathy@toobler.com", Play.current.configuration.getString("email_password").get)
+    transport.connect("smtp.gmail.com", Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
 
     transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
   }
@@ -173,7 +174,7 @@ object SendEmail {
     authenticatedMessageAndSession._1.setSubject(subject)
     authenticatedMessageAndSession._1.setContent(content, "text/html")
     val transport = authenticatedMessageAndSession._2.getTransport("smtp");
-    transport.connect("smtp.gmail.com", "aswathy@toobler.com", Play.current.configuration.getString("email_password").get)
+    transport.connect("smtp.gmail.com", Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
     transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
   }
 
