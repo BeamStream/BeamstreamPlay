@@ -2,7 +2,7 @@
 # ~~~~
 
 # Home page
-GET /overview        		controllers.Overview.index
+GET /overview                                                            	controllers.Overview.index
 GET /questions        		controllers.Questions.index
 GET /discussions       		controllers.Discussions.index
 GET /deadlines        		controllers.Deadlines.index
@@ -203,6 +203,9 @@ GET  /class                                    controllers.ClassController.rende
 POST /class                             		controllers.ClassController.createClass
 POST /autoPopulateClassesbyCode 				controllers.ClassController.findClasstoAutoPopulatebyCode
 POST /autoPopulateClassesbyName 				controllers.ClassController.findClasstoAutoPopulatebyName
+
+#User
+GET  /loginUser/:username/:password				controllers.UserController.loginUser(username:String, password:String)
 
 #Asynchronous Services
 # To create a resource on the server, use POST.
