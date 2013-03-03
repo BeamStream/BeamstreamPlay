@@ -278,4 +278,35 @@ object UserController extends Controller {
     Ok(write(followers.toString)).as("application/json")
   }
 
+  /**
+   * ------------------------- Re architecture  -----------------------------------------------------------------------------------
+   */
+  
+/*
+ * Find and Authenticate the user to proceed.  This a modification to FindUser as a GET
+ */
+  def loginUser(username:String, password:String) = Action { implicit request =>
+
+    val encryptedPassword = (new PasswordHashing).encryptThePassword(password)
+
+    val authenticatedUser = getAuthenticatedUser(username, encryptedPassword)
+
+    authenticatedUser match {
+      case Some(user) =>
+        val jsonStatus = new ResulttoSent("success", "Login Successful")
+        val statusToSend = write(jsonStatus)
+        val userSession = request.session + ("userId" -> user.id.toString)
+        val authenticatedUserJson = write(user)
+        val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
+        println("Online Users" + noOfOnLineUsers)
+        Ok(statusToSend).withSession(userSession)
+
+      case None =>
+        val jsonStatus = new ResulttoSent("failure", "Login Unsuccessful")
+        val statusToSend = write(jsonStatus)
+        Ok(statusToSend).as("application/json")
+    }
+
+  }
+
 }
