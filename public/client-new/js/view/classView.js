@@ -83,11 +83,12 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
          */
         populateClassNames :function(eventName){
         	
+        	var self = this ;
     		var text = $('#className').val(); 
     		var selectedSchoolId = $('#schoolId').val() ;
             
     		/* call auto populate  only when class name is there */ 
-    		if(text){
+    		if(text != '' && selectedSchoolId !=''){
     			
     			/* post the text that we type to get matched school */
 	   			 $.ajax({
@@ -95,6 +96,7 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
 	   				url : "/autoPopulateClassesbyName",
 	   				data : {
 	   					data : text,
+	   					schoolId:selectedSchoolId
 	   				},
 	   				dataType : "json",
 	   				success : function(datas) {
@@ -109,6 +111,7 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
 	   							label: data.schoolName,
 	   							value: data.schoolName,
 	   							id : data.id.id,
+	   							data: data
 	//   							stud : 123,
 	//   							edu : 2,
 	//   							prof : 3
@@ -129,7 +132,8 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
 	   					    	var text = ui.item.value;
 	   					    	
 	   					    	/* set the school details  to modal */
-	   					    	 
+	   					    	var id = ui.item.id
+	   					    	self.displayFieldsForName(id,ui.item.data);
 	   					    }
 	   					});
 	   	 
@@ -139,6 +143,14 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
     		}
     		
         },
+        
+        /**
+         * display all other fields of selected class 
+         */
+        displayFieldsForName: function(id,data){
+        	console.log(data);
+        },
+        
         
         /**
          * create or join streams
