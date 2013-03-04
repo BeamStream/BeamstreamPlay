@@ -69,14 +69,16 @@ object ClassController extends Controller {
    */
 
   def findClasstoAutoPopulatebyName = Action { implicit request =>
-
-    val classNameMap = request.body.asFormUrlEncoded.get
-    val className = classNameMap("data").toList(0)
-    val assosiatedSchoolId = classNameMap("assosiatedSchoolId").toList(0)
-    val classList = Class.findClassByName(className, new ObjectId(assosiatedSchoolId))
-    val classListJson = write(classList)
-    Ok(classListJson).as("application/json")
-
+    try {
+      val classNameMap = request.body.asFormUrlEncoded.get
+      val className = classNameMap("data").toList(0)
+      val assosiatedSchoolId = classNameMap("schoolId").toList(0)
+      val classList = Class.findClassByName(className, new ObjectId(assosiatedSchoolId))
+      val classListJson = write(classList)
+      Ok(classListJson).as("application/json")
+    } catch {
+      case exception => InternalServerError("Class Autopopulate Failed")
+    }
   }
 
   /**
