@@ -169,7 +169,6 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 	             reader.onload = (function(f){
 	            	 
 	            	 self.profile = file;
-	            	 console.log(self.profile);
 	            	 return function(e){
 //	            		 self.profile = e.target.result;
 	            		 $('#profile-error').html('');
@@ -208,14 +207,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 	       	    	
 	       	    }
      	    });
-     	   
-     	   
-//     	    this.data.models[0].set('profileData', data);
-     	    
-//			this.data.models[0].set('profileName', this.name );
-//			this.data.models[0].set('profileData',this.profile);
-			
-//            this.saveForm();
+
 		},
 		
 		
@@ -233,7 +225,6 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 			}
 			
 		},
-		
 		
 		/**
 	     * auto populate school

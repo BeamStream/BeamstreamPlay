@@ -84,72 +84,60 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
         populateClassNames :function(eventName){
         	
     		var text = $('#className').val(); 
-//    		console.log(text);
     		var selectedSchoolId = $('#schoolId').val() ;
-//    		console.log(selectedSchoolId);
-//    		self.displayFieldsForName(text,identity);
+            
+    		/* call auto populate  only when class name is there */ 
+    		if(text){
+    			
+    			/* post the text that we type to get matched school */
+	   			 $.ajax({
+	   				type : 'POST',
+	   				url : "/autoPopulateClassesbyName",
+	   				data : {
+	   					data : text,
+	   				},
+	   				dataType : "json",
+	   				success : function(datas) {
+	   	
+	   					var codes = '';
+	   					 
+	   					var allSchoolInfo = datas;
+	   					var schoolNames = [];
+	   					_.each(datas, function(data) {
+	   						
+	   						schoolNames.push({
+	   							label: data.schoolName,
+	   							value: data.schoolName,
+	   							id : data.id.id,
+	//   							stud : 123,
+	//   							edu : 2,
+	//   							prof : 3
+	//   							label:data.classToReturn.className + " - Students:" +data.usersMap.Student + " Educators:"+data.usersMap.Educator + " Professionals:"+data.usersMap.Professional,
+	//   							value:data.classToReturn.className ,
+	//   							id :data.classToReturn.id.id ,
+	//   							data:data.usersMap.Student,
+	//   							students : data.usersMap.Student,
+	//   							educators : data.usersMap.Educators,
+	   						});
+	   						
+	   			         });
+	   	                              
+	   					//set auto populate schools
+	   					$('#className').autocomplete({
+	   					    source:schoolNames,
+	   					    select: function(event, ui) { 
+	   					    	var text = ui.item.value;
+	   					    	
+	   					    	/* set the school details  to modal */
+	   					    	 
+	   					    }
+	   					});
+	   	 
+	   				}
+	   			 });
+           	
+    		}
     		
-//    		/* post the text that we type to get matched classes */
-//    		 $.ajax({
-//    			type : 'POST',
-//    			url : "/autoPopulateClassesbyName",
-//    			data : {
-//    				data : text,
-//    				assosiatedSchoolId : selectedSchoolId
-//    			},
-//    			dataType : "json",
-//    			success : function(datas) {
-//
-//    			}
-//    		});
-    		
-    		/* post the text that we type to get matched school */
-			 $.ajax({
-				type : 'POST',
-				url : "/getAllSchoolsForAutopopulate",
-				data : {
-					data : text,
-				},
-				dataType : "json",
-				success : function(datas) {
-	
-					var codes = '';
-					 
-					var allSchoolInfo = datas;
-					var schoolNames = [];
-					_.each(datas, function(data) {
-						
-						schoolNames.push({
-							label: data.schoolName,
-							value: data.schoolName,
-							id : data.id.id,
-//							stud : 123,
-//							edu : 2,
-//							prof : 3
-//							label:data.classToReturn.className + " - Students:" +data.usersMap.Student + " Educators:"+data.usersMap.Educator + " Professionals:"+data.usersMap.Professional,
-//							value:data.classToReturn.className ,
-//							id :data.classToReturn.id.id ,
-//							data:data.usersMap.Student,
-//							students : data.usersMap.Student,
-//							educators : data.usersMap.Educators,
-						});
-						
-			         });
-	                              
-					//set auto populate schools
-					$('#className').autocomplete({
-					    source:schoolNames,
-					    select: function(event, ui) { 
-					    	var text = ui.item.value;
-					    	
-					    	/* set the school details  to modal */
-					    	 
-					    }
-					});
-	 
-				}
-			 });
-        	
         },
         
         /**
@@ -160,6 +148,14 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
         	this.saveForm();
         },
         
+        
+        /**
+		 * class form success
+		 */
+		success: function(model, data){
+			
+			alert(data.message);
+		},
         /**
          * set active class to selected class access 
          */
