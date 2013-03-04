@@ -1,0 +1,36 @@
+
+@meta = {
+}
+@CSS = {
+	<link href="beamstream-new/homepage/css/style.css" rel="stylesheet" type="text/css">
+    <link href="beamstream-new/homepage/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="beamstream-new/homepage/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
+}
+@JS = {
+	
+  	<script src="beamstream-new/js/BS_social.js"></script>
+
+}
+@bodyCls = {
+
+}
+@bodyModule = {}
+@bodyJS = {
+	
+}
+@sideBar = {}
+
+
+
+@main("Beamstream", "Body", meta, CSS, JS, bodyModule, bodyJS){
+
+
+	<div>Login</div>
+	
+	Send JSON data: "email" and "password" to: 		
+	POST  /loginUser	
+	
+	On Failure: Receive a JSON Failure response
+	On Success: Forwards to Discussions page
+ 
+}
