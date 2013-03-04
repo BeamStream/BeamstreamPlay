@@ -69,9 +69,10 @@ class ObjectIdSerializer extends Serializer[ObjectId] {
 
   def deserialize(implicit format: Formats) = {
     case (TypeInfo(Class, _), json) => json match {
-      case JInt(s) => new ObjectId
+      //      case JInt(s) => new ObjectId
+      //      case List(JInt(s)) => new ObjectId
       case JString(s) => new ObjectId(s)
-      case List(JInt(s)) => new ObjectId
+      case net.liftweb.json.JNothing => new ObjectId
       case x => throw new MappingException("Can't convert " + x + " to ObjectId")
     }
   }

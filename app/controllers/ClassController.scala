@@ -17,6 +17,7 @@ import models.UserSchool
 import models.User
 import models.ResulttoSent
 import models.Class
+import models.ResulttoSent
 
 object ClassController extends Controller {
 
@@ -30,20 +31,20 @@ object ClassController extends Controller {
    * Add a class to a user (RA)
    */
 
-//  def addClass = Action { implicit request =>
-//    try {
-//      val classListJsonMap = request.body.asFormUrlEncoded.get
-//      val classJsonList = classListJsonMap("data").toList.head
-//      val classListTemp = net.liftweb.json.parse(classJsonList)
-//      val classList = net.liftweb.json.parse(classJsonList).extract[List[Class]]
-//      val resultToSent = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
-//      val refreshedClasses = Class.getAllRefreshedClasss(classList)
-//      Ok(write((refreshedClasses))).as("application/json")
-//    } catch {
-//      case ex => InternalServerError(write(new ResulttoSent("Failure", "There Was Some Problem During Class Creation")))
-//    }
-//
-//  }
+  def addClass = Action { implicit request =>
+    try {
+      val classListJsonMap = request.body.asFormUrlEncoded.get
+      val classJsonList = classListJsonMap("data").toList.head
+      val classListTemp = net.liftweb.json.parse(classJsonList)
+      val classList = net.liftweb.json.parse(classJsonList).extract[List[Class]]
+      //      val resultToSent = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
+      val refreshedClasses = Class.getAllRefreshedClasss(classList)
+      Ok(write((refreshedClasses))).as("application/json")
+    } catch {
+      case ex => InternalServerError(write(new ResulttoSent("Failure", "There Was Some Problem During Class Creation")))
+    }
+
+  }
 
   /**
    *  Return the class JSON for auto populate the classes on class stream
@@ -103,6 +104,12 @@ object ClassController extends Controller {
   }
 
   def createClass = Action { implicit request =>
-    Ok
+    try {
+      val classCreated = net.liftweb.json.parse(request.body.asJson.get.toString).extract[Class]
+      Class.createClass(classCreated, new ObjectId(request.session.get("userId").get))
+      Ok(write(new ResulttoSent("Success", "Class Created Successfully"))).as("application/json")
+    } catch {
+      case exception => InternalServerError("Class Creation Failed")
+    }
   }
 }
