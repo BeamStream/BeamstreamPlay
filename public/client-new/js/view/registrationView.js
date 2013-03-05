@@ -78,7 +78,11 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 			
 			var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo">'
 			    +'<a class="browse" href="#"><img src="/beamstream-new/images/upload-photo.png" width="148" height="37" id="profile-photo"> <div class="upload-box"><div class="upload-plus">Upload</div></div></a>'
-                +'<div id="profile-error" ></div>  </div>';
+                +'<div id="profile-error" ></div>'
+//                +'<div><div class="progress progress-success progress-striped active">'
+//                +'<div class="bar"></div>'
+//                +'</div></div>'	
+                +'</div>';
 			$('#upload-step').html(upload_block);
 			$('#step_3').show(500);
 
@@ -95,7 +99,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
             
             /* disable first step and enable step 2 block */
             this.enableStepTwo();
-
+//            this.enableStepThree();
             
         },
                 
@@ -203,7 +207,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 	       	    contentType: false,
 	       	    processData: false,
 	       	    success: function(data){
-	       	    	alert("Ok");
+	       	    	console.log(data);
 	       	    	
 	       	    }
      	    });

@@ -3881,6 +3881,11 @@ svg{
         background:url("../images/shadow.jpg") repeat-x !important;
         border:1px solid #3d7ca8 !important;
         height:15px !important;
+        
+        
+        left: -186px;
+    	position: relative;
+    	top: -30px;
 }
 
 .progress-striped .bar {
