@@ -24,8 +24,8 @@ POST  /followUser            			controllers.UserController.followUser
 
 #Other
 GET  /browserClosed          						controllers.UserController.browserClosed
-GET /returnProgress                    				controllers.MediaController.returnProgress
-GET /returnFlag                    					controllers.MediaController.returnFlag
+#GET /returnProgress                    				controllers.MediaController.returnProgress
+#GET /returnFlag                    					controllers.MediaController.returnFlag
 
 #Streams
 GET /allStreamsForAUser 							controllers.StreamController.getAllStreamForAUser
@@ -58,7 +58,7 @@ POST /newDocument                       		controllers.DocumentController.newDocu
 POST /rockTheDocument                   		controllers.DocumentController.rockTheDocument
 POST /getRockers                        		controllers.DocumentController.giveMeRockersOfDocument
 POST /getDocument                       		controllers.DocumentController.getDocument
-POST /getDocumentFromDisk               		controllers.DocumentController.getDocumentFromDisk
+#POST /getDocumentFromDisk               		controllers.DocumentController.getDocumentFromDisk
 POST /followDocument                    		controllers.DocumentController.followDocument
 POST /viewCount                         		controllers.DocumentController.viewCount
 
@@ -103,7 +103,7 @@ GET /getAllProfilePicForAUser   				controllers.MediaController.getAllProfilePic
 GET /getAllProfileVideoForAUser   				controllers.MediaController.getAllProfileVideoForAUser
 POST /rockTheUsermedia            				controllers.MediaController.rockTheUsermedia
 POST /giveMeRockersOfUserMedia    				controllers.MediaController.giveMeRockersOfUserMedia
-POST /getMedia 									controllers.MediaController.getUserMedia
+#POST /getMedia 									controllers.MediaController.getUserMedia
 
 #Message Rocks & Follows
 POST /rockedIt 									controllers.MessageController.rockedTheMessage
@@ -185,7 +185,6 @@ POST /signup         	controllers.BasicRegistration.signUpUser
 #Registration
 GET   /registration                                 controllers.Registration.registration
 POST  /registration                                 controllers.Registration.registerUser
-PUT   /registration/:id   							controllers.MediaController.getMedia(id:String)
 
 
 
