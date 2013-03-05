@@ -231,7 +231,7 @@ object Class {
   /**
    * ********************************************** Re architecture ****************************************
    */
-  def createClass(classCreated: Class, userId: ObjectId){
+  def createClass(classCreated: Class, userId: ObjectId) {
     val classId = ClassDAO.insert(classCreated)
     User.addClassToUser(userId, List(classId.get))
     // Create the Stream for this class

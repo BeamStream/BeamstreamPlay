@@ -210,6 +210,10 @@ POST  /loginUser								controllers.UserController.findUser
 #Login/Signin
 GET /login										controllers.Login.index
 
+
+# Media
+POST /media 							controllers.MediaController.media
+
 #Asynchronous Services
 # To create a resource on the server, use POST.
 # To retrieve a resource, use GET.
