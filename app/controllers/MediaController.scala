@@ -124,21 +124,25 @@ object MediaController extends Controller {
    */
 
   def media = Action(parse.multipartFormData) { request =>
-    var imageNameOnAmazon = ""
-    var imageFilename = ""
-    request.body.file("imageData").map { imageData =>
-      imageFilename = imageData.filename
-      val contentType = imageData.contentType.get
-      val uniqueString = tokenEmail.securityToken
-      val imageFileObtained: File = imageData.ref.file.asInstanceOf[File]
-      imageNameOnAmazon = uniqueString + imageFilename.replaceAll("\\s", "") // Security Over the images files
-      (new AmazonUpload).uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
+    try {
+      var imageNameOnAmazon = ""
+      var imageFilename = ""
+      request.body.file("profileData").map { profileData =>
+        imageFilename = profileData.filename
+        val contentType = profileData.contentType.get
+        val uniqueString = tokenEmail.securityToken
+        val imageFileObtained: File = profileData.ref.file.asInstanceOf[File]
+        imageNameOnAmazon = uniqueString + imageFilename.replaceAll("\\s", "") // Security Over the images files
+        (new AmazonUpload).uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
 
-    }.get
-    val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
-    val media = new UserMedia(new ObjectId, imageFilename, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, DocumentAccess.Public, true, "", 0, List(), List(), 0)
-    UserMedia.saveMediaForUser(media)
-    Ok
+      }.get
+      val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
+      val media = new UserMedia(new ObjectId, imageFilename, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, DocumentAccess.Public, true, "", 0, List(), List(), 0)
+      UserMedia.saveMediaForUser(media)
+      Ok(views.html.classpage())
+    } catch {
+      case exception => InternalServerError("Oops , Photo Upload Unsuccessful")
+    }
   }
 
   /**
