@@ -123,7 +123,7 @@ object MediaController extends Controller {
    * }
    */
 
-  def media = Action(parse.multipartFormData) { request =>
+  def media = Action(parse.multipartFormData) { implicit request =>
     try {
       var imageNameOnAmazon = ""
       var imageFilename = ""
