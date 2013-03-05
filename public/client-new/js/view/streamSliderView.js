@@ -26,11 +26,10 @@ define(['view/baseView',
         objName: 'streamSliderView',
                 
         onAfterInit: function(){
+        	
             this.data.reset({'title':'slider'});
-//            console.log(this.data.model[0]);
         },
             
-                
                      
         /*
         * slider for stream list

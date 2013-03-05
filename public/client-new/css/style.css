@@ -5526,12 +5526,10 @@ ul.register-social li a.link-in {
 
 .classic-information-left {
 		float:left;
-		width:60%;
-}
+	}
 
 .classic-information-right {
 		float:right;
-		width:30%;
 }
 
 .invite-select {
@@ -6209,13 +6207,13 @@ div.datepicker{
     float: right;
     height: 40px;
     margin: 0;
-    position: relative;
+    position:absolute;
     right: 24px;
-    top: -39px;
+    top:0px;
     width: 40px;
 }
 
-
+.new-arrow span{padding:10px 0px; display:block; text-align:center;}
 
 .invite-small-last{ margin:0px;}
 
@@ -6224,8 +6222,7 @@ div.datepicker{
 
 .invite-small-select .bootstrap-select .dropdown-menu{top:35px; width:170px;}
 
-
-
+.invite-small-select .bootstrap-select .dropdown-menu ul{height:150px;overflow-x:hidden;}
 
 
 /* For autopopulate */

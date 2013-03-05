@@ -26,8 +26,10 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
 		events:{
 			'keyup #className' :'populateClassNames',
 		    'focusin #className':'populateClassNames',
-		    'click #create-stream' : "createOrJoinStream",
-		    'click .access-menu li' : "activateClassAccess"
+		    'click #create-stream' : 'createOrJoinStream',
+		    'click .access-menu li' : 'activateClassAccess',
+		    'change #schoolId' : 'clearAllClasses',
+		    'click .date-arrow' : 'showCalendar'
 		    
 		},
 
@@ -151,6 +153,12 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
         	console.log(data);
         },
         
+        /**
+         * clear all classes when we select 
+         */
+        clearAllClasses: function(){
+//        	$('#className').val("");
+        },
         
         /**
          * create or join streams
@@ -176,6 +184,9 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
         	alert(45);
         }
  
+		/**
+		 * show Calendar
+		 */
 	})
 	return classView;
 });

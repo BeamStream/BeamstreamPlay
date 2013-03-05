@@ -184,7 +184,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 		},
 		
 		/**
-		 * complete registration steps 3
+		 *  steps 3 registration - image/video upload
 		 */
 		completeRegistration: function(e){
 			e.preventDefault();
@@ -198,12 +198,12 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
      	    $.ajax({
 	       	    type: 'POST',
 	       	    data: data,
-	       	    url: "/registration",
+	       	    url: "/media",
 	       	    cache: false,
 	       	    contentType: false,
 	       	    processData: false,
 	       	    success: function(data){
-	       	    	
+	       	    	alert("Ok");
 	       	    	
 	       	    }
      	    });

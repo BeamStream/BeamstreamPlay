@@ -1121,7 +1121,17 @@ ul.sort{padding-bottom:10px;}
 }
    
 
+  .classic-information-left {
+		width:100%;
+}
+ 
+.classic-information-right {
+		width:100%;
+}
+ .classic-information-left input.big-text {
+ margin:15px 0;
 
+}
 
 /*
 
@@ -2170,8 +2180,17 @@ ul.signup-register li.lastblock {
 }
    
    
-   
-   
+  .classic-information-left {
+		width:60%;
+}
+ 
+.classic-information-right {
+		width:30%;
+}  
+ .classic-information-left input.big-text {
+ margin:15px 0;
+
+}   
 
 /*
 
@@ -2392,7 +2411,6 @@ padding:0 5% 5% 5%;
 }
  .classic-information-left input.big-text {
  width:96%;
- margin:15px 0 15px;
 
 }
  .invite-class-select {
