@@ -28,8 +28,8 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 			'change #uploadProfilePic' :'changeProfile',
 			'click #done_step3':'completeRegistration',
 			'click .register-social':'connectMedia',
-			"keyup #schoolName" : "populateSchools",
-		    "focusin #schoolName" : "populateSchools",
+			'keyup #schoolName' : 'populateSchools',
+		    'focusin #schoolName' : 'populateSchools',
 			 
 		},
 		
@@ -99,7 +99,6 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
             
             /* disable first step and enable step 2 block */
             this.enableStepTwo();
-//            this.enableStepThree();
             
         },
                 
@@ -110,7 +109,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 			
 			e.preventDefault();
 			
-			//@TODO set school details to modal 
+			//set school details to modal 
     		this.data.models[0].set({'schoolName' : $('#schoolName').val() , 'associatedSchoolId' :$('#associatedSchoolId').val()} );
 			this.saveForm();
 		},
@@ -164,7 +163,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 	        	 console.log("Error: file type not allowed");
 	        	 $('#profile-photo').attr("src","/beamstream-new/images/upload-photo.png");
 			     $('#profile-error').html('File type not allowed !!');
-	 
+			     self.profile = '';
 	         }
 	         else
 	         {
@@ -174,7 +173,6 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 	            	 
 	            	 self.profile = file;
 	            	 return function(e){
-//	            		 self.profile = e.target.result;
 	            		 $('#profile-error').html('');
 	        		     $('#profile-photo').attr("src",e.target.result);
 	        		     self.name = f.name;
@@ -193,24 +191,35 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 		completeRegistration: function(e){
 			e.preventDefault();
 			
-			// @TODO using FormData
-			var data;
-        	data = new FormData();
-     	    data.append('profileData', this.profile);
-     	    
-     	    
-     	    $.ajax({
-	       	    type: 'POST',
-	       	    data: data,
-	       	    url: "/media",
-	       	    cache: false,
-	       	    contentType: false,
-	       	    processData: false,
-	       	    success: function(data){
-	       	    	console.log(data);
-	       	    	
-	       	    }
-     	    });
+			/* post the image / video data as mutiform data */
+			if(this.profile)
+			{
+				var data;
+	        	data = new FormData();
+	     	    data.append('profileData', this.profile);
+	     	    
+	     	    $.ajax({
+		       	    type: 'POST',
+		       	    data: data,
+		       	    url: "/media",
+		       	    cache: false,
+		       	    contentType: false,
+		       	    processData: false,
+		       	    success: function(data){
+		       	    	
+		       	    	// @TODO redirect to class page on upload success
+		       	    	if(data.status == "Success")
+		       	    		window.location = "/class";
+		       	    	else
+		       	    		alert(data.message);
+		       	    	
+		       	    }
+	     	    });
+			}
+			else
+			{
+				$('#profile-error').html('Please select your profile image/video');
+			}
 
 		},
 		
@@ -220,6 +229,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 		 */
 		connectMedia: function(e){
 			e.preventDefault();
+			
             /* activate selected medias */
 			if($(e.target).parents('li').hasClass('active')){
 				$(e.target).parents('li').removeClass('active');
@@ -286,8 +296,6 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 	        }
 			
 	    }
-		
-		
 		
 	})
 	return RegistrationView;

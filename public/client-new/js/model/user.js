@@ -43,7 +43,6 @@ define(['model/baseModel'], function(BaseModel) {
         	
         	delete response.user;
         	delete response.userSchool;
-//        	localStorage["registrationDetails"] = JSON.stringify(response);
         	return response;
         },
         

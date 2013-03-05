@@ -29,7 +29,7 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
 		    'click #create-stream' : 'createOrJoinStream',
 		    'click .access-menu li' : 'activateClassAccess',
 		    'change #schoolId' : 'clearAllClasses',
-		    'click .date-arrow' : 'showCalendar'
+//		    'click .date-arrow' : 'showCalendar'
 		    
 		},
 
@@ -114,15 +114,7 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
 	   							value: data.schoolName,
 	   							id : data.id.id,
 	   							data: data
-	//   							stud : 123,
-	//   							edu : 2,
-	//   							prof : 3
-	//   							label:data.classToReturn.className + " - Students:" +data.usersMap.Student + " Educators:"+data.usersMap.Educator + " Professionals:"+data.usersMap.Professional,
-	//   							value:data.classToReturn.className ,
-	//   							id :data.classToReturn.id.id ,
-	//   							data:data.usersMap.Student,
-	//   							students : data.usersMap.Student,
-	//   							educators : data.usersMap.Educators,
+
 	   						});
 	   						
 	   			         });
@@ -182,11 +174,9 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
         activateClassAccess: function(e){
         	e.preventDefault();
         	alert(45);
-        }
+        },
  
-		/**
-		 * show Calendar
-		 */
+	
 	})
 	return classView;
 });

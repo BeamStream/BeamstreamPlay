@@ -14,16 +14,15 @@ body {
 
 .header-wrapper {
 	
-	background: #334956;
-background: -webkit-gradient(linear, 0 0, 0 bottom, from(#334956), to(#3f5a6b));
-background: -webkit-linear-gradient(#334956, #3f5a6b);
-background: -moz-linear-gradient(#334956, #3f5a6b);
-background: -ms-linear-gradient(#334956, #3f5a6b);
-background: -o-linear-gradient(#334956, #3f5a6b);
-background: linear-gradient(#334956, #3f5a6b);
--pie-background: linear-gradient(#334956, #3f5a6b);
-behavior: url(css/PIE.htc);
-		
+		background: #334956;
+		background: -webkit-gradient(linear, 0 0, 0 bottom, from(#334956), to(#3f5a6b));
+		background: -webkit-linear-gradient(#334956, #3f5a6b);
+		background: -moz-linear-gradient(#334956, #3f5a6b);
+		background: -ms-linear-gradient(#334956, #3f5a6b);
+		background: -o-linear-gradient(#334956, #3f5a6b);
+		background: linear-gradient(#334956, #3f5a6b);
+		-pie-background: linear-gradient(#334956, #3f5a6b);
+		behavior: url(css/PIE.htc);
 		border-bottom: 4px solid #2F4553;
 		padding:0 0 0 10px;
 		position:relative;;
@@ -3881,11 +3880,6 @@ svg{
         background:url("../images/shadow.jpg") repeat-x !important;
         border:1px solid #3d7ca8 !important;
         height:15px !important;
-        
-        
-        left: -186px;
-    	position: relative;
-    	top: -30px;
 }
 
 .progress-striped .bar {
@@ -4647,29 +4641,22 @@ ul.whitefield li a span {
 }
 
 .invite-school-arrow {
-
 position: absolute;
-right: 38px;
-top: 10px;
+right:44px;
+top:8px;
 z-index:9999;
-
 }
 
 .invite-small-arrow{
-
-
-
 position: absolute;
 right: 10px;
 top: 10px;
 z-index:9999;
-
 }
 
 .selectpicker-info span.filter-option {
-		max-width:85% !important;
+ max-width:85% !important;
 }
-
 .selectpicker-info .profile-select {
 		width:100% !important;
 		border:solid 1px #9b9b9b;
@@ -5699,6 +5686,8 @@ ul.access-menu li a:hover {
 		border-bottom: solid 2px #b4871a;
 }
 
+ul.access-menu li a.active {background-color:#d8a21f;}
+
 .orange-tick {
 		float:left;
 		padding-left:10px;
@@ -6206,7 +6195,7 @@ div.datepicker{
 }
 
 .new-arrow  {
-		background-image: -moz-linear-gradient(#3E79A9, #529ABE);
+	background-image: -moz-linear-gradient(#3E79A9, #529ABE);
     border-radius: 0 4px 4px 0;
     display: block;
     float: right;
@@ -6214,7 +6203,7 @@ div.datepicker{
     margin: 0;
     position:absolute;
     right: 24px;
-    top:0px;
+    top:0;
     width: 40px;
 }
 
@@ -6227,7 +6216,7 @@ div.datepicker{
 
 .invite-small-select .bootstrap-select .dropdown-menu{top:35px; width:170px;}
 
-.invite-small-select .bootstrap-select .dropdown-menu ul{height:150px;overflow-x:hidden;}
+.scroll-select .bootstrap-select .dropdown-menu ul{height:150px;overflow-x:hidden;}
 
 
 /* For autopopulate */
