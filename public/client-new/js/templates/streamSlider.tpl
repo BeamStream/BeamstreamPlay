@@ -29,6 +29,7 @@
                 <li><a href="#">Major Streams</a></li>                     
             </ul>
         </div>
+        
         <a href="#" class="done">EDIT  </a> </div>
         <div class="display-scroller">
             <div class="arrow-block"><span class="caret arrow-up"></span></div>

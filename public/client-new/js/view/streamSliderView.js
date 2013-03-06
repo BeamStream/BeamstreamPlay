@@ -27,8 +27,15 @@ define(['view/baseView',
                 
         onAfterInit: function(){
         	
-            this.data.reset({'title':'slider'});
+            this.data.reset();
         },
+        
+//        render:function(){
+//			if ((this.data.models.length === 0 || (this.data.models[0].attributes.content && this.data.models[0].attributes.content.length === 0 ))) 
+//				console.log("No data");
+//			else
+//				console.log("Data is there");
+//        },
             
                      
         /*
