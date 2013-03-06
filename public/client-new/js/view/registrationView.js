@@ -275,8 +275,11 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 							});
 							
 				         });
-						if(schoolNames.length == 0)
-	   	                	 return;            
+//						if(schoolNames.length == 0){
+//							$('.loading').css("display","none");
+//							return;      
+//						}
+	   	                	       
 						//set auto populate schools
 						$('#'+id).autocomplete({
 						    source:schoolNames,
