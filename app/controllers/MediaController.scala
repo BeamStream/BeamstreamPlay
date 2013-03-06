@@ -149,7 +149,7 @@ object MediaController extends Controller {
    * obtaining the profile Picture
    * @ Purpose: fetches the recent profile picture for a user
    */
-
+/*
   def getProfilePicForAUser = Action { implicit request =>
     val userIdJsonMap = request.body.asFormUrlEncoded.get
     val userIdReceived = userIdJsonMap("userId").toList(0)
@@ -162,7 +162,7 @@ object MediaController extends Controller {
     }
 
   }
-
+*/
   /*
    * Get All Photos for a user
    */
@@ -231,6 +231,30 @@ object MediaController extends Controller {
         val mediaJson = write(List(mediaFound.get))
         Ok(mediaJson).as("application/json")
     }
+  }
+  
+  
+  
+/*
+ * ***********************************************************REARCHITECTED CODE****************************************************************
+ * ***********************************************************REARCHITECTED CODE****************************************************************
+ */
+  
+  /**
+   * obtaining the profile Picture
+   * @ Purpose: fetches the recent profile picture for a user
+   */
+
+  def getProfilePicForAUser = Action { implicit request =>
+    val userIdReceived = request.queryString("userId").toList(0)
+    val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userIdReceived))
+    if (!mediaObtained.size.equals(0)) {
+      val MediaJson = write(mediaObtained.last)
+      Ok(MediaJson).as("application/json")
+    } else {
+      Ok(write(new ResulttoSent("Failure", "No picture found for this user")))
+    }
+
   }
 
 }
