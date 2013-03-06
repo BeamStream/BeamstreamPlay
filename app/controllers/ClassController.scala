@@ -109,7 +109,8 @@ object ClassController extends Controller {
     try {
       val classCreated = net.liftweb.json.parse(request.body.asJson.get.toString).extract[Class]
       Class.createClass(classCreated, new ObjectId(request.session.get("userId").get))
-      Ok(write(new ResulttoSent("Success", "Class Created Successfully"))).as("application/json")
+      Ok(views.html.stream())
+      //Ok(write(new ResulttoSent("Success", "Class Created Successfully"))).as("application/json")
     } catch {
       case exception => InternalServerError("Class Creation Failed")
     }
