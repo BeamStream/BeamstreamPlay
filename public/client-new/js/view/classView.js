@@ -166,7 +166,7 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
 		 */
 		success: function(model, data){
 			
-			alert(data.message);
+//			alert(data.message);
 		},
         /**
          * set active class to selected class access 
@@ -175,6 +175,8 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
         	e.preventDefault();
         	alert(45);
         },
+        
+        
  
 	
 	})
