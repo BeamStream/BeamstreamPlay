@@ -110,18 +110,20 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
 	   					_.each(datas, function(data) {
 	   						
 	   						classNames.push({
-	   							label: data.schoolName,
-	   							value: data.schoolName,
-	   							id : data.id.id,
-	   							data: data
+	   							label: data.classToReturn.className,
+	   							value: data.classToReturn.className,
+	   							id : data.classToReturn.id.id,
+	   							info: data.usersMap.Student +" Students," + data.usersMap.Educator + " Educators,"+ data.usersMap.Professional + " Professionals ",
 
 	   						});
 	   						
 	   			         });
+	   					
 	   	                 if(classNames.length == 0)
 	   	                	 return;
-	   					//set auto populate schools
-	   					$('#className').autocomplete({
+	   	                 
+	   	                 //set auto populate schools
+	   	                 $('#className').autocomplete({
 	   					    source:classNames,
 	   					    select: function(event, ui) { 
 	   					    	var text = ui.item.value;
@@ -130,7 +132,7 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
 	   					    	var id = ui.item.id
 	   					    	self.displayFieldsForName(id,ui.item.data);
 	   					    }
-	   					});
+	   	                 });
 	   	 
 	   				}
 	   			 });
