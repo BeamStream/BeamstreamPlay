@@ -105,11 +105,11 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
 	   	
 	   					var codes = '';
 	   					 
-	   					var allSchoolInfo = datas;
-	   					var schoolNames = [];
+	   					var allClassInfo = datas;
+	   					var classNames = [];
 	   					_.each(datas, function(data) {
 	   						
-	   						schoolNames.push({
+	   						classNames.push({
 	   							label: data.schoolName,
 	   							value: data.schoolName,
 	   							id : data.id.id,
@@ -118,10 +118,11 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
 	   						});
 	   						
 	   			         });
-	   	                              
+	   	                 if(classNames.length == 0)
+	   	                	 return;
 	   					//set auto populate schools
 	   					$('#className').autocomplete({
-	   					    source:schoolNames,
+	   					    source:classNames,
 	   					    select: function(event, ui) { 
 	   					    	var text = ui.item.value;
 	   					    	
