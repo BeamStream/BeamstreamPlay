@@ -64,6 +64,7 @@ object MessageController extends Controller {
   //==================================================//
   //======Displays all the messages within a Stream===//
   //==================================================//
+  /*
   def getAllMessagesForAStreamWithPagination = Action { implicit request =>
     val streamIdJsonMap = request.body.asFormUrlEncoded.get
     val streamId = streamIdJsonMap("streamId").toList(0)
@@ -72,7 +73,7 @@ object MessageController extends Controller {
     val allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
     val allMessagesForAStreamJson = write(messagesAlongWithDocDescription(allMessagesForAStream))
     Ok(allMessagesForAStreamJson).as("application/json")
-  }
+  }*/
 
   /*
    * Rock the message
@@ -222,7 +223,28 @@ object MessageController extends Controller {
     }
     messsageWithDocResults
   }: List[DocResulttoSent]
+  
+  
+  /*
+ * ***********************************************************REARCHITECTED CODE****************************************************************
+ * ***********************************************************REARCHITECTED CODE****************************************************************
+ */
 
+
+//==================================================//
+  //======Displays all the messages within a Stream===//
+  //==================================================//
+  def getAllMessagesForAStreamWithPagination = Action { implicit request =>
+    val streamId = request.queryString("streamId").toList(0)
+    val pageNo = request.queryString("pageNo").toList(0).toInt
+    val messagesPerPage = request.queryString("limit").toList(0).toInt
+    val allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+    val allMessagesForAStreamJson = write(messagesAlongWithDocDescription(allMessagesForAStream))
+    Ok(allMessagesForAStreamJson).as("application/json")
+  }
+  
+  
+  
 }
 
 
