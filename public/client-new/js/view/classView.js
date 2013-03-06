@@ -130,7 +130,9 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
 	   					    	
 	   					    	/* set the school details  to modal */
 	   					    	var id = ui.item.id
-	   					    	self.displayFieldsForName(id,ui.item.data);
+					    		self.data.models[0].set({'id' : ui.item.id});
+
+//	   					    	self.displayFieldsForName(id,ui.item.data);
 	   					    }
 	   	                 });
 	   	 
@@ -168,7 +170,7 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
 		 * class form success
 		 */
 		success: function(model, data){
-			
+//			window.location = "/class";
 //			alert(data.message);
 		},
         /**
