@@ -18,12 +18,12 @@
 
 
 define(['view/formView'], function(FormView){
-	var loginView;
-	loginView = FormView.extend({
-		objName: 'loginView',
+	var LoginView;
+	LoginView = FormView.extend({
+		objName: 'LoginView',
 		
 		events:{
-                    'click #login': 'login'
+                'click #login': 'login'
 		},
 
 		onAfterInit: function(){	
@@ -72,5 +72,5 @@ define(['view/formView'], function(FormView){
       
  
 	})
-	return loginView;
+	return LoginView;
 });

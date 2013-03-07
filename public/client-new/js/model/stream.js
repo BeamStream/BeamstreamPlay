@@ -24,14 +24,13 @@ define(['model/baseModel'], function(BaseModel) {
          *@TODO  parse the response data because the response json is different
          */
 //        parse:function(response){
-//        	
 //        	// @TODO some case we don't need to parse the response 
 //        	if(response == "Oops there were errors during registration" || response.message)
 //        		return;
-//        	response.id = response.id.id;
-//        	response.schoolName = response.schoolName;
-//        	delete response.id.id;
-//        	delete response.schoolName;
+////        	response.id = response.id.id;
+//        	response.schoolName = response._1.schoolName;
+////        	delete response.id.id;
+//        	delete response._1.schoolName;
 //        	return response;
 //        },
 

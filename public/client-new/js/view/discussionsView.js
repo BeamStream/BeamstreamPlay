@@ -1,21 +1,35 @@
 /***
-	 * BeamStream
-	 *
-	 * Author                : Cuckoo Anna (cuckoo@toobler.com)
-	 * Company               : Toobler
-	 * Email:                : info@toobler.com
-	 * Web site              : http://www.toobler.com
-	 * Created               : 20/September/2012
-	 * Description           : Backbone view for main stream page
-	 * ==============================================================================================
-	 * Change History:
-	 * ----------------------------------------------------------------------------------------------
-	 * Sl.No.  Date   Author   Description
-	 * ----------------------------------------------------------------------------------------------
-	 *
-	 * 
+* BeamStream
+*
+* Author                : Aswathy .P.R (aswathy@toobler.com)
+* Company               : Toobler
+* Email:                : info@toobler.com
+* Web site              : http://www.toobler.com
+* Created               : 07/March/2013
+* Description           : Backbone view for discussion tab
+* ==============================================================================================
+* Change History:
+* ----------------------------------------------------------------------------------------------
+* Sl.No.  Date   Author   Description
+* ----------------------------------------------------------------------------------------------
+*
+* 
 */
 
-define(['view/baseView','../../lib/bootstrap.min'], function(FormView,Bootstrap){
-    
+
+define(['view/formView'], function(FormView){
+	var Discussions;
+	Discussions = FormView.extend({
+		objName: 'Discussion',
+		
+		events:{
+//                'click #login': 'login'
+		},
+
+		onAfterInit: function(){	
+            this.data.reset();
+        },
+ 
+	})
+	return Discussions;
 });

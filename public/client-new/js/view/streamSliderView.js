@@ -16,11 +16,12 @@
 	 * 
 */
 define(['view/baseView',
+        'text!templates/newStreamList.tpl',
         '../../lib/jquery.simplyscroll',
         '../../lib/bootstrap'
-        ],function(BaseView,simplyscroll,bootstrap){
+        ],function(BaseView, NewStreamTpl, simplyscroll,bootstrap){
 	
-    var streamSliderView;
+    var streamSliderView; 
     streamSliderView = BaseView.extend({
     	
         objName: 'streamSliderView',
@@ -30,15 +31,17 @@ define(['view/baseView',
             this.data.reset();
         },
         
-//        render:function(){
-//			if ((this.data.models.length === 0 || (this.data.models[0].attributes.content && this.data.models[0].attributes.content.length === 0 ))) 
-//				console.log("No data");
-//			else
-//				console.log("Data is there");
-//        },
-            
+        /**
+         * if there is no streams for a user then show another view
+         */
+        displayNoResult: function(callback){
+			
+			var compiledTemplate = Handlebars.compile(NewStreamTpl);
+			this.$(".content").html(compiledTemplate);
+			
+		},
                      
-        /*
+        /**
         * slider for stream list
         */
         slider: function(){

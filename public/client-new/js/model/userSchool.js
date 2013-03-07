@@ -19,34 +19,8 @@
 define(['model/baseModel'], function(BaseModel) {
 	var userSchool = BaseModel.extend({ 
 		objName: 'userSchool',
-		url:'/getAllSchoolForAUser'
-//		defaults: {	   
-//			schoolName:'',
-//			schoolWebsite:''
-//        },
-//	        
-//		/**
-//         *@TODO  parse the response data 
-//         */
-//        parse:function(response){
-//        	if(response == "There was some errors during add school" || response == "School Already Exists")
-//        		return;
-//        	
-//        	response.id = response.id.id;
-//        	delete response.id.id;
-//        	return response;
-//        },
-//        
-//        validation: {
-//        	schoolName: {
-//        		required: true
-//        	},
-//        	schoolWebsite: {
-//        		required: true,
-//				pattern: 'website',
-//			} 
-//			
-//        },
+		url:'/getAllSchoolForAUser',
+
 	});
         
 	

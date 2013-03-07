@@ -130,9 +130,9 @@ define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepi
 	   					    	
 	   					    	/* set the school details  to modal */
 	   					    	var id = ui.item.id
-					    		self.data.models[0].set({'id' : ui.item.id});
+//					    		self.data.models[0].set({'id' : ui.item.id});
 
-//	   					    	self.displayFieldsForName(id,ui.item.data);
+	   					    	self.displayFieldsForName(id,ui.item.data);
 	   					    }
 	   	                 });
 	   	 
