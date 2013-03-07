@@ -16,8 +16,11 @@
 * 
 */
 
-define(['view/formView','../../lib/bootstrap-select','../../lib/bootstrap-datepicker','model/userSchool'],
-	function(FormView ,BootstrapSelect,Datepicker ,userSchool){
+define(['view/formView',
+        '../../lib/bootstrap-select',
+        '../../lib/bootstrap-datepicker',
+        'model/userSchool'
+        ],function(FormView ,BootstrapSelect,Datepicker ,userSchool){
 	
 	var classView;
 	classView = FormView.extend({

@@ -16,7 +16,7 @@
 * 
 */
 
-define(['view/formView','../../lib/bootstrap.min'], function(FormView,Bootstrap){
+define(['view/formView','../../lib/bootstrap-modal'], function(FormView,Bootstrap){
 	var betaUserView;
 	betaUserView = FormView.extend({
 		objName: 'betaUserView',
