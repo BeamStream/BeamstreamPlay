@@ -220,7 +220,7 @@ GET /getAllMessagesForAStream                	controllers.MessageController.getA
 GET /getProfilePicForAUser      				controllers.MediaController.getProfilePicForAUser
 
 # Comments
-#GET /allComments           						controllers.CommentController.getAllComments
+GET /allComments           						controllers.CommentController.getAllComments
 
 #Asynchronous Services
 # To create a resource on the server, use POST.
