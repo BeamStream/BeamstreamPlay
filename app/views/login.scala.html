@@ -1,36 +1,79 @@
-
-@meta = {
-}
-@CSS = {
-	<link href="beamstream-new/homepage/css/style.css" rel="stylesheet" type="text/css">
-    <link href="beamstream-new/homepage/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="beamstream-new/homepage/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
-}
+@meta = {}
+@CSS = {}
 @JS = {
-	
-  	<script src="beamstream-new/js/BS_social.js"></script>
-
+<script src="beamstream-new/js/BS_social.js"></script>
 }
-@bodyCls = {
-
-}
+@bodyCls = {}
 @bodyModule = {}
 @bodyJS = {
-	
+    <script type="text/javascript">
+       $('div.container-fluid').last().addClass('signup-container');
+    </script>
 }
 @sideBar = {}
+@header = {
+  @views.html.header.render
+}
+@footer = {}
 
 
+@main("Sign up ", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
 
-@main("Beamstream", "Body", meta, CSS, JS, bodyModule, bodyJS){
+<div  id="login"  data-model="user" data-url="loginUser" data-module="view/loginView">
+    
+
+      <div class="signup-outer">
+        <h3>Registration Options <span>Don't have an account? <a href="/signup">Sign UP</a></span></h3>
+        <div class="sign-up-conent">
+          <div class="sign-up-whitebg">
+            <ul class="sign-menu">
+              <li> <a href="#"> <span>I'm a Student</span>
+
+                <div class="menu-pic" id="0"><img src="/beamstream-new/images/student.png" width="115" height="115">
+
+	         <div class="sign-up-tick active"></div>
+
+              </div>
+                </a> <a href="#"> <span>I'm an Educator</span>
+                <div class="menu-pic" id="1"><img src="/beamstream-new/images/educator.png" width="115" height="115">
+               <div class="sign-up-tick"></div>
+               </div>
+                </a> <a href="#"> <span>I'm a Professional</span>
+                <div class="menu-pic" id="2"><img src="/beamstream-new/images/preffesional.png">
+                <div class="sign-up-tick"></div>
+               </div>
+                </a> </li>
+            </ul>
+              <input type="hidden" value="0" id="usertype">
+            <ul class="signup-register">
+              <li>
+                <h5>Login with Email</h5>
+                <form action="" method="get">
+                  <fieldset class="message field">
+                    <input class="home_reg" data-name="user.mailId"  name="mailId" type="text"  placeholder="School Email" id="mailid">
+                    <div class="sign-tick"></div>
+                  </fieldset>
+                  <fieldset class="password field">
+                    <input class="home_reg" data-name="user.password" name="password" type="password" placeholder="Password" id="password">
+                    <div class="sign-close"></div>
+                  </fieldset>
+                </form>
+                <div class="register-menu-block"> <a href="#" id="login" class="register-btn"><span></span>Register</a><a href="#" class="register-cancel">Cancel</a> </div>
+                <div class="sign-or">or</div>
+              </li>
+              
+              <li class="lastblock">
+                <a id="facebook" href="#" class="facebook socialMediaSignup"> <span class="facebook-icon"></span> <span class="shadow">Facebook</span></a> 
+               <a id="twitter" href="#" class="twitter socialMediaSignup"> <span class="twitter-icon"></span> <span class="shadow">Twitter</span></a> 
+               <a id="google"  href="#" class="google socialMediaSignup"> <span class="google-icon"></span> <span class="shadow">Google</span></a> 
+              <a id="linkedin" href="#" class="link-in socialMediaSignup"> <span class="link-in-icon"></span> <span class="shadow">Linkedin</span></a> </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
-	<div>Login</div>
-	
-	Send JSON data: "email" and "password" to: 		
-	POST  /loginUser	
-	
-	On Failure: Receive a JSON Failure response
-	On Success: Forwards to Discussions page
- 
+   
+    
 }

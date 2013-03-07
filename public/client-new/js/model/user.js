@@ -50,7 +50,7 @@ define(['model/baseModel'], function(BaseModel) {
 
 			mailId: {
 				required: true,
-				pattern: 'email',
+				pattern: 'email'
 			} ,
 			password: {
 				required: true,
@@ -88,9 +88,9 @@ define(['model/baseModel'], function(BaseModel) {
 				required: true
 			},
 			cellNumber: {				
-                pattern: 'phone'
+                            pattern: 'phone'
 			}
-        },
+        }
   
 
 	});
