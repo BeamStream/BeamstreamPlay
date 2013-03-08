@@ -72,9 +72,6 @@ define(['model/baseModel'], function(BaseModel) {
 			major: {
 				required: true
 			},
-			aboutYourself: {
-				required: true
-			},
 			gradeLevel: {
 				required: true
 			},
@@ -88,7 +85,7 @@ define(['model/baseModel'], function(BaseModel) {
 				required: true
 			},
 			cellNumber: {				
-                            pattern: 'phone'
+                pattern: 'phone'
 			}
         }
   

@@ -43,7 +43,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 		onBeforeRender: function(){
 			
 			/* set default values to model values */
-			this.data.models[0].set({'userId':$('#myUserId').val() ,'firstName':'' ,'lastName':'','schoolName':'' ,'major':'','gradeLevel':'' ,'degreeProgram':'' ,'graduate':'' ,'location':''});
+			this.data.models[0].set({'userId':$('#myUserId').val() ,'firstName':'' ,'lastName':'','schoolName':'' ,'major':'','gradeLevel':'' ,'degreeProgram':'' ,'graduate':'' ,'location':'' ,'aboutYourself' :'', 'cellNumber':''});
 
 		},
 		
@@ -109,9 +109,13 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 			
 			e.preventDefault();
 			
+			if(!$('#associatedSchoolId').val()){
+				alert('Please select existing School or add a new one');
+				return;
+			}
+				
 			//set school details to modal 
-			
-				this.data.models[0].set({'schoolName' : $('#schoolName').val() , 'associatedSchoolId' :$('#associatedSchoolId').val()} );
+			this.data.models[0].set({'schoolName' : $('#schoolName').val() , 'associatedSchoolId' :$('#associatedSchoolId').val()} );
 			this.saveForm();
 		},
 		

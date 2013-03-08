@@ -187,7 +187,6 @@ define(['view/formView',
          */
         createOrJoinStream: function(e){
         	e.preventDefault();
-        	console.log(this.data.models[0]);
         	this.saveForm();
         },
         
@@ -204,7 +203,6 @@ define(['view/formView',
          */
         activateClassAccess: function(e){
         	e.preventDefault();
-        	alert(45);
         },
         
         
