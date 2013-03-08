@@ -39,12 +39,6 @@
                 </div>
                 <div class="arrow-block arrow-block-down"></div>
             </div>
-            <div id="show-stream-types"  class="straem-block"> 
-                <a  id="streams-list-block" href="#">
-                    <span></span>
-                    <span class="text">New Stream</span>
-                </a>               
-               
-            </div>
+           
         </div>
 </div> 

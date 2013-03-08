@@ -110,7 +110,8 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 			e.preventDefault();
 			
 			//set school details to modal 
-    		this.data.models[0].set({'schoolName' : $('#schoolName').val() , 'associatedSchoolId' :$('#associatedSchoolId').val()} );
+			
+				this.data.models[0].set({'schoolName' : $('#schoolName').val() , 'associatedSchoolId' :$('#associatedSchoolId').val()} );
 			this.saveForm();
 		},
 		
@@ -247,6 +248,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 	    	var id = eventName.target.id;
 	    	var text = $('#'+id).val();
 	    	var self =this;
+	    	this.status = false;
 	        if(text)
 	        {
 	        	$('.loading').css("display","block");
@@ -275,10 +277,6 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 							});
 							
 				         });
-//						if(schoolNames.length == 0){
-//							$('.loading').css("display","none");
-//							return;      
-//						}
 	   	                	       
 						//set auto populate schools
 						$('#'+id).autocomplete({
@@ -287,8 +285,12 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 						    	var text = ui.item.value;
 						    	
 						    	/* set the school details  to modal */
-						    	if(ui.item.value)
-						    		self.data.models[0].set({'schoolName' : ui.item.value , 'associatedSchoolId' :ui.item.id} );
+						    	if(ui.item.value){
+						    		console.log(ui.item.id);
+						    		$('#associatedSchoolId').attr('value',ui.item.id);
+//						    		self.data.models[0].set({'schoolName' : ui.item.value , 'associatedSchoolId' :ui.item.id} );
+
+						    	}
 						    		
 						    	 
 						    }

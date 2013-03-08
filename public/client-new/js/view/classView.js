@@ -91,7 +91,8 @@ define(['view/formView',
         	var self = this ;
     		var text = $('#className').val(); 
     		var selectedSchoolId = $('#schoolId').val() ;
-            
+    		self.data.models[0].removeAttr('id');
+    		
     		/* call auto populate  only when class name is there */ 
     		if(text != '' && selectedSchoolId !=''){
     			
@@ -133,7 +134,8 @@ define(['view/formView',
 	   					    	
 	   					    	/* set the school details  to modal */
 	   					    	var id = ui.item.id
-//					    		self.data.models[0].set({'id' : ui.item.id});
+	   					    	console.log(ui.item.id);
+					    		self.data.models[0].set({'id' : ui.item.id});
 
 	   					    	self.displayFieldsForName(id,ui.item.data);
 	   					    }
