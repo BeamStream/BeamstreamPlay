@@ -65,15 +65,6 @@ object UserController extends Controller {
   }
   */
 
-  def getAuthenticatedUser(userEmailorName: String, userPassword: String): Option[User] = {
-    userPassword.isEmpty match {
-      case true =>
-        User.findUserComingViaSocailSite(userEmailorName)
-      case false =>
-        User.findUser(userEmailorName, userPassword)
-    }
-  }
-
   /*
    * Register User via social sites
    * Deprecated in favor of SocialController.authenticateUser
@@ -281,41 +272,39 @@ object UserController extends Controller {
   }
 
   /**
-   * ------------------------- Re architecture  -----------------------------------------------------------------------------------
+   * ------------------------- Re architecture  ----------------------------------------------------------------------
    */
-  
-/*
- * Find and Authenticate the user to proceed. 
- */
+  /**
+   * Find and Authenticate the user to proceed. (RA)
+   */
   def findUser = Action { implicit request =>
-  	
+
     try {
       val jsonReceived = request.body.asJson.get
-      val userEmailorName = (jsonReceived \ "email").as[String]
+      val userEmailorName = (jsonReceived \ "mailId").as[String]
       val userPassword = (jsonReceived \ "password").as[String]
-    
+
       val encryptedPassword = (new PasswordHashing).encryptThePassword(userPassword)
 
-      val authenticatedUser = getAuthenticatedUser(userEmailorName, encryptedPassword)
+      val authenticatedUser = User.getAuthenticatedUser(userEmailorName, encryptedPassword)
 
       authenticatedUser match {
-      	case Some(user) =>
-      		val userSession = request.session + ("userId" -> user.id.toString)
-      		val authenticatedUserJson = write(user)
-      		val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
-      		println("Online Users" + noOfOnLineUsers)
-      		Ok(views.html.discussions.discussions("DISCUSSIONS_DATA")).withSession(userSession)
+        case Some(user) =>
+          val userSession = request.session + ("userId" -> user.id.toString)
+          val authenticatedUserJson = write(user)
+          val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
+          println("Online Users" + noOfOnLineUsers)
+          Ok(views.html.discussions.discussions("DISCUSSIONS_DATA")).withSession(userSession)
 
-      	case None =>
-      		val jsonStatus = new ResulttoSent("failure", "Login Unsuccessful")
-      		val statusToSend = write(jsonStatus)
-      		Ok(statusToSend).as("application/json")
+        case None =>
+          val jsonStatus = new ResulttoSent("Failure", "Login Unsuccessful")
+          val statusToSend = write(jsonStatus)
+          Ok(statusToSend).as("application/json")
       }
 
     } catch {
       case exception => InternalServerError(write("Oops there were errors during registration")).as("application/json")
     }
   }
-
 
 }

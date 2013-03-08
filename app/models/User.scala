@@ -231,6 +231,19 @@ object User {
     val userToUpdate = User.getUserProfile(userId)
     UserDAO.update(MongoDBObject("_id" -> userId), userToUpdate.copy(firstName = firstName, lastName = lastName, location = location, about = about, contact = contact), false, false, new WriteConcern)
   }
+
+  /**
+   * Get Authenticated User
+   */
+
+  def getAuthenticatedUser(userEmailorName: String, userPassword: String): Option[User] = {
+    userPassword.isEmpty match {
+      case true =>
+        User.findUserComingViaSocailSite(userEmailorName)
+      case false =>
+        User.findUser(userEmailorName, userPassword)
+    }
+  }
 }
 
 /*

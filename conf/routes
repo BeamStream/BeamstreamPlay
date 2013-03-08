@@ -16,7 +16,7 @@ GET /calendar        		controllers.Calendar.index
 #GET  /betaUserviaTemplate   			controllers.JoinBeamStream.betaUserRegistration
 
 #User
-POST /users      						controllers.UserController.findUser
+#POST /users      						controllers.UserController.findUser
 GET /onlineUsers  						controllers.UserController.getAllOnlineUsers
 POST /inviteUser   						controllers.UserController.inviteUserToBeamstream
 POST  /followUser            			controllers.UserController.followUser
@@ -208,6 +208,7 @@ POST  /loginUser								controllers.UserController.findUser
 
 #Login/Signin
 GET /login										controllers.Login.index
+POST /login      						        controllers.UserController.findUser
 
 
 # Media
