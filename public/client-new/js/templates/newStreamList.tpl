@@ -30,11 +30,14 @@
             </ul>
         </div>
         
-        <h1 style="color:white;">Please create stream here</h1>
+        <h3 style="color:white;">Please Create Your First Stream Here</h3>
         <div class="display-scroller">
             <div class="arrow-block"><span class="caret arrow-up"></span></div>
                 <div class="scroll-menu scroller">
-                    <ul id="sortable4" class="connected sortable list">                  
+                    <ul id="sortable4" class="connected sortable list">       
+                 
+                    
+                    
                     </ul>
                 </div>
                 <div class="arrow-block arrow-block-down"></div>

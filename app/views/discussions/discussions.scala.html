@@ -18,6 +18,8 @@
 
 @main("My Stream", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
     
+<div  id="MyStream"   data-model="" data-url="" data-module="view/myStreamView"  >
+    
    <div class="right-container">
     <div class="stream-header">
           <div class="stream-header-left">
@@ -58,16 +60,24 @@
 <!--           <li> <a id="deadline_tab" href="#"> Deadlines</a> </li> -->
 <!--           <li> <a id="calendar_tab" href="#">Calendar</a> </li> -->
 <!--         </ul> -->
-        
-        
+
+		<ul class=" nav nav-tabs " id="myTab">
+ 		 	<li  class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
+			<li><a href="#discussions" data-toggle="tab">Discussions</a></li>
+			<li><a href="#questions" data-toggle="tab">Questions</a></li>
+			<li><a href="#deadlines" data-toggle="tab">Deadlines</a></li>
+			<li><a href="#calendar" data-toggle="tab">Calendar</a></li>
+		</ul>
+
         <div class="tab-content">
-  			<div class="tab-pane " id="overview" data-url="" data-model="" data-module="view/overView"  data-tpl="templates/overview.tpl" >Overview</div>
-		  	<div class="tab-pane active" id="discussions"  data-url="" data-model="" data-module="view/discussionsView"  data-tpl="templates/discussions.tpl">Discussions</div>
-		  	<div class="tab-pane "  id="questions"   data-module="view/questionsView"  data-tpl="templates/questions.tpl">Questions</div>
-		  	<div class="tab-pane " id="deadlines" data-module="view/deadlinesView"  data-tpl="templates/deadlines.tpl">Deadlines</div>
-		  	<div class="tab-pane " id="calendar"   data-module="view/calendarView"  data-tpl="templates/calendar.tpl">Calendar</div>
+  			<div class="tab-pane active" id="overview" data-url="" data-model="" data-module="view/overView"  data-tpl="templates/overview.tpl" ></div>
+		  	<div class="tab-pane " id="discussions"  data-url="" data-model="" data-module="view/discussionsView"  data-tpl="templates/discussions.tpl"></div>
+		  	<div class="tab-pane "  id="questions"   data-module="view/questionsView"  data-tpl="templates/questions.tpl"></div>
+		  	<div class="tab-pane " id="deadlines" data-module="view/deadlinesView"  data-tpl="templates/deadlines.tpl"></div>
+		  	<div class="tab-pane " id="calendar"   data-module="view/calendarView"  data-tpl="templates/calendar.tpl"></div>
 	 	</div>
   
+
         </div>
-       
+    </div>
 }
