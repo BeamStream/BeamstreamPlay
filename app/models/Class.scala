@@ -165,23 +165,22 @@ object Class {
     for (theclass <- ClassDAO.find(MongoDBObject("classTime" -> regexp)).toList) yield theclass
   }
 
-  /*
-   * Find a class by Id
+  /**
+   * Find a class by Id (RA)
    */
 
   def findClasssById(classId: ObjectId): Class = {
-    val classObtained = ClassDAO.find(MongoDBObject("_id" -> classId)).toList(0)
-    classObtained
+    ClassDAO.find(MongoDBObject("_id" -> classId)).toList(0)
   }
 
-  /*
-   * Find a class List by Id
-   */
-
-  def findClassListById(classId: ObjectId): List[Class] = {
-    val classObtained = ClassDAO.find(MongoDBObject("_id" -> classId)).toList
-    classObtained
-  }
+  //  /*
+  //   * Find a class List by Id
+  //   */
+  //
+  //  def findClassListById(classId: ObjectId): List[Class] = {
+  //    val classObtained = ClassDAO.find(MongoDBObject("_id" -> classId)).toList
+  //    classObtained
+  //  }
 
   /**
    * Get all classes for a user (RA)

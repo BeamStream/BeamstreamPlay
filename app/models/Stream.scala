@@ -26,8 +26,8 @@ object Stream {
     streams.toList
   }
 
-  /*
-   * Create the New Stream
+  /**
+   * Create the New Stream(RA)
    */
 
   def createStream(stream: Stream): ObjectId = {
@@ -42,8 +42,8 @@ object Stream {
     StreamDAO.remove(stream)
   }
 
-  /*
-   * Attach a Stream to a Class
+  /**
+   * Attach a Stream to a Class (RA)
    */
   def attachStreamtoClass(streamId: ObjectId, classId: ObjectId) {
     val expectedClass = ClassDAO.find(MongoDBObject("_id" -> classId)).toList(0)
@@ -82,13 +82,13 @@ object Stream {
     allProjectStreamsForAUser
   }
 
-  /*
-   * join stream
+  /**
+   * join stream (RA)
    */
 
   def joinStream(streamId: ObjectId, userId: ObjectId): ResulttoSent = {
+  
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
-
     if (!stream.usersOfStream.contains(userId)) {
       StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream ++ List(userId))), false, false, new WriteConcern)
       ResulttoSent("Success", "Joined Stream Successfully")

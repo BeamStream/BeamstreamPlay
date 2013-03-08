@@ -107,9 +107,21 @@ object ClassController extends Controller {
 
   def createClass = Action { implicit request =>
     try {
-      val classCreated = net.liftweb.json.parse(request.body.asJson.get.toString).extract[Class]
-      Class.createClass(classCreated, new ObjectId(request.session.get("userId").get))
-      Ok(views.html.stream())
+      println(request.body.asJson.get)
+      val jsonReceived = request.body.asJson.get
+      val id = (jsonReceived \ "id").asOpt[String]
+      if (id == None) {
+        println("Create Stream Case")
+        val classCreated = net.liftweb.json.parse(request.body.asJson.get.toString).extract[Class]
+        Class.createClass(classCreated, new ObjectId(request.session.get("userId").get))
+        Ok(views.html.stream())
+      } else {
+        println("Join Stream Case")
+        val classesobtained = Class.findClasssById(new ObjectId(id.get))
+        models.Stream.joinStream(classesobtained.streams(0), new ObjectId(request.session.get("userId").get))
+        User.addClassToUser(new ObjectId(request.session.get("userId").get), List(new ObjectId(id.get)))
+        Ok(views.html.stream())
+      }
       //Ok(write(new ResulttoSent("Success", "Class Created Successfully"))).as("application/json")
     } catch {
       case exception => InternalServerError("Class Creation Failed")
