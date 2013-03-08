@@ -57,7 +57,7 @@
 
               
                <div class="invite-small-select invite-small-last profile-select-block field" >
-                <select  data-name="class.classType" name="classType" class="selectpicker-info " style="display: none;">
+                <select id="classType" data-name="class.classType" name="classType" class="selectpicker-info " style="display: none;">
                   <option value="semester">Semester</option>
 				<option value="quarter">Quarter</option>
                 </select>

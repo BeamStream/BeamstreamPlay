@@ -65,7 +65,7 @@ define(['view/formView',
        		        var time = hours+':'+minutes+''+ampm ;
        		        
        		        //add time values ti ClassTime field
-       		        $('#classTime').append('<option>'+time+'</option>');
+       		        $('#classTime').append('<option value="'+time+'">'+time+'</option>');
        		 }
        		
        		//get school names and its ids and added to school dropdown list 
@@ -92,6 +92,7 @@ define(['view/formView',
     		var text = $('#className').val(); 
     		var selectedSchoolId = $('#schoolId').val() ;
     		self.data.models[0].removeAttr('id');
+
     		
     		/* call auto populate  only when class name is there */ 
     		if(text != '' && selectedSchoolId !=''){
@@ -110,33 +111,32 @@ define(['view/formView',
 	   					var codes = '';
 	   					 
 	   					var allClassInfo = datas;
-	   					var classNames = [];
+	   					self.classNames = [];
 	   					_.each(datas, function(data) {
 	   						
-	   						classNames.push({
+	   						self.classNames.push({
 	   							label: data.classToReturn.className,
 	   							value: data.classToReturn.className,
 	   							id : data.classToReturn.id.id,
 	   							info: data.usersMap.Student +" Students," + data.usersMap.Educator + " Educators,"+ data.usersMap.Professional + " Professionals ",
+	   							data:data
 
 	   						});
 	   						
 	   			         });
 	   					
-	   	                 if(classNames.length == 0)
+	   	                 if(self.classNames.length == 0)
 	   	                	 return;
 	   	                 
 	   	                 //set auto populate schools
 	   	                 $('#className').autocomplete({
-	   					    source:classNames,
+	   					    source:self.classNames,
 	   					    select: function(event, ui) { 
 	   					    	var text = ui.item.value;
+	   					    	var id = ui.item.id
 	   					    	
 	   					    	/* set the school details  to modal */
-	   					    	var id = ui.item.id
-	   					    	console.log(ui.item.id);
-					    		self.data.models[0].set({'id' : ui.item.id});
-
+					    		self.data.models[0].set({'id' : ui.item.id , 'className' :ui.item.value ,'classTime' :ui.item.data.classToReturn.classTime ,'startingDate' :ui.item.data.classToReturn.startingDate,'classType':ui.item.data.classToReturn.classType ,'classCode': ui.item.data.classToReturn.classCode });
 	   					    	self.displayFieldsForName(id,ui.item.data);
 	   					    }
 	   	                 });
@@ -152,14 +152,34 @@ define(['view/formView',
          * display all other fields of selected class 
          */
         displayFieldsForName: function(id,data){
-        	console.log(data);
+        	$('#classCode').val(data.classToReturn.classCode);
+        	$('#startingDate').val(data.classToReturn.startingDate);
+        	$('#classType').val(data.classToReturn.classTime);
+        	$('#classTime span.filter-option').text(data.classToReturn.classTime);
+        	
+        	if(data.classToReturn.classType == "quarter")
+        	{
+        		$('#classType span.filter-option').text("Quarter");
+        	}
+        	else
+        	{
+				 $('#classType span.filter-option').text("Semester");
+        	}
+        	
+        	
+        	
         },
         
         /**
-         * clear all classes when we select 
+         * clear all class details when we select a school 
          */
         clearAllClasses: function(){
-//        	$('#className').val("");
+        	this.classNames = [];
+        	$('#className').val("");
+        	$('#classCode').val("");
+        	$('#classTime span.filter-option').text("Class Time");
+        	$('#startingDate').val("Date");
+        	$('#classType span.filter-option').text("Semester");
         },
         
         /**
@@ -183,7 +203,6 @@ define(['view/formView',
          */
         activateClassAccess: function(e){
         	e.preventDefault();
-        	alert(45);
         },
         
         
