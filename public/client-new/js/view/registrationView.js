@@ -43,7 +43,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 		onBeforeRender: function(){
 			
 			/* set default values to model values */
-			this.data.models[0].set({'userId':$('#myUserId').val() ,'firstName':'' ,'lastName':'','schoolName':'' ,'major':'','gradeLevel':'' ,'degreeProgram':'' ,'graduate':'' ,'location':''});
+			this.data.models[0].set({'userId':$('#myUserId').val() ,'firstName':'' ,'lastName':'','schoolName':'' ,'major':'','gradeLevel':'' ,'degreeProgram':'' ,'graduate':'' ,'location':'' ,'aboutYourself' :'', 'cellNumber':''});
 
 		},
 		
@@ -79,9 +79,6 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 			var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo">'
 			    +'<a class="browse" href="#"><img src="/beamstream-new/images/upload-photo.png" width="148" height="37" id="profile-photo"> <div class="upload-box"><div class="upload-plus">Upload</div></div></a>'
                 +'<div id="profile-error" ></div>'
-//                +'<div><div class="progress progress-success progress-striped active">'
-//                +'<div class="bar"></div>'
-//                +'</div></div>'	
                 +'</div>';
 			$('#upload-step').html(upload_block);
 			$('#step_3').show(500);
@@ -109,9 +106,16 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 			
 			e.preventDefault();
 			
+			/* @TODO only select a school from existing list or add new school */
+			if($('#schoolName').val()){
+				if(!$('#associatedSchoolId').val()){
+					alert('Please select existing School or add a new one');
+					return;
+				}
+			}
+
 			//set school details to modal 
-			
-				this.data.models[0].set({'schoolName' : $('#schoolName').val() , 'associatedSchoolId' :$('#associatedSchoolId').val()} );
+			this.data.models[0].set({'schoolName' : $('#schoolName').val() , 'associatedSchoolId' :$('#associatedSchoolId').val()} );
 			this.saveForm();
 		},
 		
@@ -195,6 +199,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 			/* post the image / video data as mutiform data */
 			if(this.profile)
 			{
+				$('.profile-loading').css("display","block");
 				var data;
 	        	data = new FormData();
 	     	    data.append('profileData', this.profile);
@@ -208,11 +213,15 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 		       	    processData: false,
 		       	    success: function(data){
 		       	    	
-		       	    	// @TODO redirect to class page on upload success
-		       	    	if(data.status == "Success")
+		       	    	// @TODO redirect to class page on upload success from UI side 
+		       	    	if(data.status == "Success"){
+		       	    		$('.profile-loading').css("display","block");
 		       	    		window.location = "/class";
-		       	    	else
+		       	    	}
+		       	    	else{
 		       	    		alert(data.message);
+		       	    	}
+		       	    		
 		       	    	
 		       	    }
 	     	    });
@@ -289,10 +298,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 						    		console.log(ui.item.id);
 						    		$('#associatedSchoolId').attr('value',ui.item.id);
 //						    		self.data.models[0].set({'schoolName' : ui.item.value , 'associatedSchoolId' :ui.item.id} );
-
 						    	}
-						    		
-						    	 
 						    }
 						});
 						$('.loading').css("display","none");

@@ -33,7 +33,7 @@ object Registration extends Controller {
    * User Registration In Detail (RA)
    */
   def registerUser = Action { implicit request =>
-//    try {
+    try {
       val jsonReceived = request.body.asJson.get
       println(jsonReceived)
       val userId = (jsonReceived \ "userId").as[String]
@@ -56,8 +56,8 @@ object Registration extends Controller {
       User.addInfo(List(userSchool), new ObjectId(userId))
       val userCreated = User.getUserProfile(new ObjectId(userId))
       Ok(write(RegistrationResults(userCreated, userSchool))).as("application/json").withSession("userId"-> userId)
-//    } catch {
-//      case exception => InternalServerError(write("Oops there were errors during registration")).as("application/json")
-//    }
+    } catch {
+      case exception => InternalServerError(write("Oops there were errors during registration")).as("application/json")
+    }
   }
 }
