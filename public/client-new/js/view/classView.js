@@ -32,7 +32,6 @@ define(['view/formView',
 		    'click #create-stream' : 'createOrJoinStream',
 		    'click .access-menu li' : 'activateClassAccess',
 		    'change #schoolId' : 'clearAllClasses',
-//		    'click .date-arrow' : 'showCalendar'
 		    
 		},
 
@@ -47,7 +46,6 @@ define(['view/formView',
         },
         onAfterRender: function(){
         	
-        	 
         	/* calculate time from 12:00AM to 11:45PM */
          	var timeValues = new Array;
        		var hours, minutes, ampm;
@@ -140,10 +138,8 @@ define(['view/formView',
 	   					    	self.displayFieldsForName(id,ui.item.data);
 	   					    }
 	   	                 });
-	   	 
 	   				}
 	   			 });
-           	
     		}
     		
         },
@@ -165,9 +161,6 @@ define(['view/formView',
         	{
 				 $('#classType span.filter-option').text("Semester");
         	}
-        	
-        	
-        	
         },
         
         /**
@@ -178,7 +171,7 @@ define(['view/formView',
         	$('#className').val("");
         	$('#classCode').val("");
         	$('#classTime span.filter-option').text("Class Time");
-        	$('#startingDate').val("Date");
+//        	$('#startingDate').val("Date");
         	$('#classType span.filter-option').text("Semester");
         },
         
@@ -195,18 +188,15 @@ define(['view/formView',
 		 * class form success
 		 */
 		success: function(model, data){
-//			window.location = "/class";
 //			alert(data.message);
 		},
+		
         /**
          * set active class to selected class access 
          */
         activateClassAccess: function(e){
         	e.preventDefault();
         },
-        
-        
- 
 	
 	})
 	return classView;

@@ -26,19 +26,16 @@ define(['view/baseView'], function(BaseView){
 		},
 		
 		events:{
-//			'click #myTab li': 'tabHandler'
+			'click #myTab a': 'tabHandler'
 		},
 		
 		tabHandler: function(e){
-//			e.preventDefault();
-//			$('#questions_tab').addClass('active');
-//			console.log(33);
-//			$('#questions_tab').tab('show');
-			
-//			$('a[data-toggle="tab"]').on('shown', function (e) {
+			console.log(this);
+			$('a[data-toggle="tab"]').on('shown', function (e) {
+				
 //				if($(e.target.href)[0].children==0)
-//					//initalize view
-//			});
+					//initalize view
+			});
 		}
 		
 		

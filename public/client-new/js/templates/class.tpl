@@ -20,18 +20,13 @@
           <div class="classic-information-left">
             <h5>Class Information</h5>
               
-             
-	              <div class="profile-select-block invite-select invite-grade-select" >
-	                <fieldset class="field">
+	              <div class="profile-select-block invite-select invite-grade-select field" >
 	                <select id="schoolId" data-name="class.schoolId" name="schoolId"  class="selectpicker-info " style="display: none;">
 	                  <option selected="selected" value="" >School Name?</option>
 	                </select>
-	                </fieldset>
 	                
 	                <div class="invite-school-arrow "><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
 	              </div>
-              
-          
               
               <div class="field"> 
               	<input id="classCode"  data-name="class.classCode" name="classCode"  type="text" placeholder="Class Code" name="" class="small-text ">
@@ -39,7 +34,6 @@
 			  <div class="field"> 
               <input id="className" data-name="class.className" name="className" type="text" placeholder="Class or Stream Name" name="" class="big-text">
  			 </div>
-
               
               <div class="invite-small-select profile-select-block field scroll-select" >
                 <select id="classTime" data-name="class.classTime" name="classTime" class="selectpicker-info " style="display: none;">
@@ -54,8 +48,6 @@
  				<div class="new-arrow date-arrow"><span><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></span></div>
               </div>
             
-
-              
                <div class="invite-small-select invite-small-last profile-select-block field" >
                 <select id="classType" data-name="class.classType" name="classType" class="selectpicker-info " style="display: none;">
                   <option value="semester">Semester</option>
@@ -68,7 +60,6 @@
               
              <a href="#myModal" role="button" class="follow-david invite-freind-btn"data-toggle="modal"><span></span>Invite Friends</a> 
                  <a href="#" class="invite-educator">Invite Educator To Claim</a>
-              
               
               </div>
 

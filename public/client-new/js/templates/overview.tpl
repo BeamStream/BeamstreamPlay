@@ -31,41 +31,41 @@
             </div>
             <ul class="recent-questions">
               <li>
-                <div class="recent-piacture"><img src="images/recent-image.jpg" height="38" width="40"> </div>
+                <div class="recent-piacture"><img src="/beamstream-new/images/recent-image.jpg" height="38" width="40"> </div>
                 <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
                 <span>15 min. ago</span>
                 <div class="round-red"></div>
               </li>
               <li>
-                <div class="recent-piacture"><img src="images/recent-image1.jpg" height="38" width="40"> </div>
+                <div class="recent-piacture"><img src="/beamstream-new/images/recent-image1.jpg" height="38" width="40"> </div>
                 <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
                 <span>15 min. ago</span>
                 <div class="round-red"></div>
               </li>
               <li>
-                <div class="recent-piacture"><img src="images/recent-image2.jpg" height="38" width="40"> </div>
+                <div class="recent-piacture"><img src="/beamstream-new/images/recent-image2.jpg" height="38" width="40"> </div>
                 <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
                 <span>15 min. ago</span>
                 <div class="round-red"></div>
               </li>
               <li>
-                <div class="recent-piacture"><img src="images/recent-image3.jpg" height="38" width="40"> </div>
+                <div class="recent-piacture"><img src="/beamstream-new/images/recent-image3.jpg" height="38" width="40"> </div>
                 <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
                 <span>15 min. ago</span> </li>
               <li>
-                <div class="recent-piacture"><img src="images/recent-image1.jpg" height="38" width="40"> </div>
+                <div class="recent-piacture"><img src="/beamstream-new/images/recent-image1.jpg" height="38" width="40"> </div>
                 <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
                 <span>15 min. ago</span> </li>
               <li>
-                <div class="recent-piacture"><img src="images/recent-image2.jpg" height="38" width="40"> </div>
+                <div class="recent-piacture"><img src="/beamstream-new/images/recent-image2.jpg" height="38" width="40"> </div>
                 <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
                 <span>15 min. ago</span> </li>
               <li>
-                <div class="recent-piacture"><img src="images/recent-image3.jpg" height="38" width="40"> </div>
+                <div class="recent-piacture"><img src="/beamstream-new/images/recent-image3.jpg" height="38" width="40"> </div>
                 <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
                 <span>15 min. ago</span> </li>
               <li>
-                <div class="recent-piacture"><img src="images/recent-image1.jpg" height="38" width="40"> </div>
+                <div class="recent-piacture"><img src="/beamstream-new/images/recent-image1.jpg" height="38" width="40"> </div>
                 <p> <a href="#" class="blue-text">Alina K. </a> asked a <a href="#" class="blue-text">question.</a>.</p>
                 <span>15 min. ago</span> </li>
             </ul>
@@ -127,7 +127,7 @@
               <li>
                 <div class="discussion-block">
                   <div class="discussion-head">
-                    <div class="discussion-pic"><img src="images/discussion-pic.jpg" height="24" width="26"></div>
+                    <div class="discussion-pic"><img src="/beamstream-new/images/discussion-pic.jpg" height="24" width="26"></div>
                     <span class="discussion-title">By <a href="#" class="blue-text">Alina K.</a></span> <span class="discussion-date">2 days ago</span> </div>
                   <p>"If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up..." <a href="#" class="comment">21 Comments</a></p>
                   <div class="round-red"></div>
@@ -136,7 +136,7 @@
               <li>
                 <div class="discussion-block">
                   <div class="discussion-head">
-                    <div class="discussion-pic"><img src="images/discussion-pic.jpg" height="24" width="26"></div>
+                    <div class="discussion-pic"><img src="/beamstream-new/images/discussion-pic.jpg" height="24" width="26"></div>
                     <span class="discussion-title">By <a href="#" class="blue-text">Alina K.</a></span> <span class="discussion-date">2 days ago</span> </div>
                   <p>"If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up..." <a href="#" class="comment">21 Comments</a></p>
                 </div>
@@ -144,7 +144,7 @@
               <li>
                 <div class="discussion-block">
                   <div class="discussion-head">
-                    <div class="discussion-pic"><img src="images/discussion-pic.jpg" height="24" width="26"></div>
+                    <div class="discussion-pic"><img src="/beamstream-new/images/discussion-pic.jpg" height="24" width="26"></div>
                     <span class="discussion-title">By <a href="#" class="blue-text">Alina K.</a></span> <span class="discussion-date">2 days ago</span> </div>
                   <p>"If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up..." <a href="#" class="comment">21 Comments</a></p>
                 </div>
@@ -162,7 +162,7 @@
               <li>
                 <div class="discussion-block">
                   <div class="discussion-head">
-                    <div class="discussion-pic"><img src="/beamstream-new/images/discussion-pic.jpg" height="24" width="26"></div>
+                    <div class="discussion-pic"><img src="/beamstream-new/images//discussion-pic.jpg" height="24" width="26"></div>
                     <span class="discussion-title">By <a href="#" class="blue-text">Alina K.</a></span> <span class="discussion-date">2 days ago</span> </div>
                   <p>"If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up..." <a href="#" class="comment">21 Comments</a></p>
                 </div>
@@ -170,7 +170,7 @@
               <li>
                 <div class="discussion-block">
                   <div class="discussion-head">
-                    <div class="discussion-pic"><img src="images/discussion-pic.jpg" height="24" width="26"></div>
+                    <div class="discussion-pic"><img src="/beamstream-new/images/discussion-pic.jpg" height="24" width="26"></div>
                     <span class="discussion-title">By <a href="#" class="blue-text">Alina K.</a></span> <span class="discussion-date">2 days ago</span> </div>
                   <p>"If one day is not exactly 24hrs and is in fact 23hr 56 mins, shouldn't the error add up..." <a href="#" class="comment">21 Comments</a></p>
                 </div>

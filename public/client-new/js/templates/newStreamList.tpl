@@ -15,33 +15,24 @@
 
 
 <div class="left-menu">
-	<div class="display-stream">
-		<div class="btn-group stream-dropdown">
-			<button class="btn display-dropdown">Display All Streams</button>
-            <button class="btn display-toggle" data-toggle="dropdown"> <span class="caret display-caret"></span></button>
-            <ul class="dropdown-menu display-sub">
-                <li><a href="#">Class Streams</a></li>
-                <li><a href="#">Project Streams</a></li>
-                <li><a href="#">Study Streams</a></li>
-                <li><a href="#">Group Streams</a></li>
-                <li><a href="#">Peer Streams</a></li>
-                <li><a href="#">Friends Streams</a></li>
-                <li><a href="#">Major Streams</a></li>                     
-            </ul>
-        </div>
-        
-        <h3 style="color:white;">Please Create Your First Stream Here</h3>
-        <div class="display-scroller">
-            <div class="arrow-block"><span class="caret arrow-up"></span></div>
-                <div class="scroll-menu scroller">
-                    <ul id="sortable4" class="connected sortable list">       
-                 
-                    
-                    
-                    </ul>
-                </div>
-                <div class="arrow-block arrow-block-down"></div>
-            </div>
-           
-        </div>
-</div> 
+            <div class="display-stream">
+              <div class="btn-group stream-dropdown">
+                <button class="btn display-dropdown">Display All Streams</button>
+                <button data-toggle="dropdown" class="btn display-toggle"> <span class="caret display-caret"></span></button>
+                <ul class="dropdown-menu display-sub">
+                  <li><a href="#">Class Streams</a></li>
+                  <li><a href="#">Project Streams</a></li>
+                  <li><a href="#">Study Streams</a></li>
+				  <li><a href="#">Group Streams</a></li>
+				  <li><a href="#">Peer Streams</a></li>
+				  <li><a href="#">Friends Streams</a></li>
+				  <li><a href="#">Major Streams</a></li>
+
+                </ul>
+              </div>
+               </div>
+               
+               <ul class="no-stream">
+               <li><a href="#">Create Your First Stream Here </a></li>
+               </ul>
+          </div>
