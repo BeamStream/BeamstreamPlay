@@ -78,7 +78,7 @@ object DocumentController extends Controller {
           val docId = Document.addDocument(documentToCreate)
           val user = User.getUserProfile(userId)
           //Create A Message As Well To Display The Doc Creation In Stream
-          val message = Message(new ObjectId, url, Option(MessageType.Document), Option(MessageAccess.withName(access)), date, userId, Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List())
+          val message = Message(new ObjectId, url, Option(MessageType.Document), Option(MessageAccess.withName(access)), date, userId, Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List(), profileImageUrl=None)
           Message.createMessage(message)
           val docObtained = Document.findDocumentById(docId)
           val docJson = write(List(docObtained))
@@ -291,7 +291,7 @@ object DocumentController extends Controller {
     val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, userId, DocumentAccess.withName(docAccess),
       streamId, new Date, new Date, 0, List(), List(), List(), previewImageUrl)
     val documentId = Document.addDocument(documentCreated)
-    val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(previewImageUrl), Option(documentId))
+    val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), Option(previewImageUrl), None, Option(documentId))
     Message.createMessage(message)
     new DocResulttoSent(message, documentName, docDescription)
   }
@@ -302,7 +302,7 @@ object DocumentController extends Controller {
     val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, userId, DocumentAccess.withName(docAccess),
       streamId, new Date, new Date, 0, List(), List(), List(), "")
     val documentId = Document.addDocument(documentCreated)
-    val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), None, Option(documentId))
+    val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, List(), List(), 0, List(), None, None, Option(documentId))
     Message.createMessage(message)
     new DocResulttoSent(message, documentName, docDescription)
   }
