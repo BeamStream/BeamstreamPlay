@@ -138,6 +138,16 @@ class ClassTest extends FunSuite with BeforeAndAfter {
     assert(Class.getAllClassesIdsForAUser(userId).size === 1)
     assert(StreamDAO.find(MongoDBObject()).toList(0).streamName === "IT")
   }
+  test("Find Class By Name") {
+    val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List())
+    val userId = User.createUser(user1)
+    assert(Class.getAllClassesIdsForAUser(userId).size === 0)
+    Class.createClass(classToBeCretaed, userId)
+    assert(ClassDAO.find(MongoDBObject()).size === 1)
+    assert(ClassDAO.find(MongoDBObject()).toList(0).className === "IT")
+    val classesFoundForASachool=Class.findClassByName("I" ,new ObjectId("47cc67093475061e3d95369d"))
+    assert(classesFoundForASachool.size==1)
+  }
   after {
     ClassDAO.remove(MongoDBObject("className" -> ".*".r))
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))

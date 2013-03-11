@@ -136,26 +136,7 @@ object Class {
     classesWithNoofUsers
   }
 
-  /**
-   * Find the class by name with no of users return (RA)
-   */
-
-  def findClassByName(name: String, schoolId: ObjectId): List[ClassWithNoOfUsers] = {
-    val namePattern = Pattern.compile("^" + name, Pattern.CASE_INSENSITIVE)
-    var classesWithNoofUsers: List[ClassWithNoOfUsers] = List()
-    val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
-    (classFound.isEmpty) match {
-      case true =>
-      case false =>
-        for (eachClass <- classFound) {
-          val stream = Stream.findStreamById(eachClass.streams(0))
-          val mapOfUsersAttendingTheClassSeparatedbyCatagory = User.countRolesOfAUser(stream.usersOfStream)
-          classesWithNoofUsers ++= List(ClassWithNoOfUsers(mapOfUsersAttendingTheClassSeparatedbyCatagory, eachClass))
-        }
-    }
-    classesWithNoofUsers
-  }
-
+ 
   /*
    * Finding the class by Time
    */
@@ -240,6 +221,27 @@ object Class {
     val user = User.getUserProfile(userId)
     UtilityActor.sendEmailAfterStreamCreation(user.email, classCreated.className, true)
   }
+  
+   /**
+   * Find the class by name with no of users return (RA)
+   */
+
+  def findClassByName(name: String, schoolId: ObjectId): List[ClassWithNoOfUsers] = {
+    val namePattern = Pattern.compile("^" + name, Pattern.CASE_INSENSITIVE)
+    var classesWithNoofUsers: List[ClassWithNoOfUsers] = List()
+    val classFound = ClassDAO.find(MongoDBObject("schoolId" -> schoolId, "className" -> namePattern)).toList
+    (classFound.isEmpty) match {
+      case true =>
+      case false =>
+        for (eachClass <- classFound) {
+          val stream = Stream.findStreamById(eachClass.streams(0))
+          val mapOfUsersAttendingTheClassSeparatedbyCatagory = User.countRolesOfAUser(stream.usersOfStream)
+          classesWithNoofUsers ++= List(ClassWithNoOfUsers(mapOfUsersAttendingTheClassSeparatedbyCatagory, eachClass))
+        }
+    }
+    classesWithNoofUsers
+  }
+
 }
 
 object ClassType extends Enumeration {

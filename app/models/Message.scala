@@ -9,6 +9,7 @@ import com.mongodb.casbah.MongoConnection
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import java.util.Date
+import scala.collection.mutable.ListBuffer
 
 import java.util.Calendar
 import java.text.DateFormat
@@ -28,7 +29,7 @@ object MessageAccess extends Enumeration {
   val PrivateToClass = Value(1, "PrivateToClass")
   val PrivateToSchool = Value(2, "PrivateToSchool")
 }
-
+		
 case class Message(@Key("_id") id: ObjectId,
   messageBody: String,
   messageType: Option[MessageType.Value],
@@ -44,6 +45,7 @@ case class Message(@Key("_id") id: ObjectId,
   follows: Int,
   followers: List[ObjectId],
   anyPreviewImageUrl: Option[String] = None,
+  profileImageUrl: Option[String] = None,
   docIdIfAny: Option[ObjectId] = None)
 
 object Message { //extends CommentConsumer {
@@ -278,6 +280,30 @@ object Message { //extends CommentConsumer {
     }
   }
 
+  	/*
+	 * Return a copy of the Message with an ProfileImageURL attached
+	 */
+	def getMessageWithProfileImageURL(allMessagesForAStream:List[Message]):List[Message] = {
+	  	val messageList = new ListBuffer[Message]
+    
+	    allMessagesForAStream.foreach(i =>  {
+	      val media = UserMedia.findUserMediaByUserId(i.userId);
+	      if(media.hasNext) {
+	        val media = UserMedia.findUserMediaByUserId(i.userId);
+		      if(media.hasNext) {
+		        val item = media.next()
+		        var newMessage = i.copy(profileImageUrl = 
+		                   Some(item.mediaUrl))
+		        messageList.append(newMessage)
+		      }
+	      } else
+	    	messageList.append(i)
+	    })
+	    
+	    messageList.toList
+	}
+	
+	
 }
 
 object MessageDAO extends SalatDAO[Message, ObjectId](collection = MongoHQConfig.mongoDB("message"))

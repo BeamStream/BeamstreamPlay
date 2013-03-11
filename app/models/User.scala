@@ -61,31 +61,13 @@ object User {
     UserDAO.update(MongoDBObject("_id" -> userId), user.copy(schools = (user.schools ++ List(schoolId))), false, false, new WriteConcern)
   }
 
-  /*
-   * find the user for Authentication by email and password
-   * 
-   */
-  def findUser(userEmailorName: String, password: String): Option[User] = {
-    val authenticatedUserviaEmail = UserDAO.find(MongoDBObject("email" -> userEmailorName, "password" -> password))
-    val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userEmailorName, "password" -> password))
-
-    (authenticatedUserviaEmail.isEmpty && authenticatedUserviaName.isEmpty) match {
-      case true => // No user
-        None
-      case false =>
-        if (authenticatedUserviaEmail.isEmpty) Option(authenticatedUserviaName.toList(0))
-        else Option(authenticatedUserviaEmail.toList(0))
-    }
-
-  }
-
-  /*
-   * Find user coming from social site with the UserName
+  /**
+   * Find user coming from social site with the UserName (RA )
    * @Purpose : Authenticate user via user name only
    */
 
-  def findUserComingViaSocailSite(userName: String): Option[User] = {
-    val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userName))
+  def findUserComingViaSocailSite(userName: String, socialNetwork: String): Option[User] = {
+    val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userName, "socialNetwork" -> Option(socialNetwork)))
 
     (authenticatedUserviaName.isEmpty) match {
       case true => None
@@ -125,16 +107,16 @@ object User {
       }
   }
 
-  // Check if the User already registered
-  def isAlreadyRegistered(userEmail: String, userName: String): Boolean = {
-    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
-    val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userName)).toList
-    (userHavingSameMailId.isEmpty && userHavingSameUserName.isEmpty) match {
-      case true => true
-      case false => false
-    }
-
-  }
+//  // Check if the User already registered
+//  def isAlreadyRegistered(userEmail: String, userName: String): Boolean = {
+//    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
+//    val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userName)).toList
+//    (userHavingSameMailId.isEmpty && userHavingSameUserName.isEmpty) match {
+//      case true => true
+//      case false => false
+//    }
+//
+//  }
 
   /**
    * Add a Class to user (RA)
@@ -215,12 +197,15 @@ object User {
    * ****************************************Beamstream rearchitecture**********************************************
    */
 
-  // Check if the User already registered (RA)
-  def isUserAlreadyRegistered(userEmail: String) = {
-    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
-    (userHavingSameMailId.isEmpty) match {
-      case true => true
-      case false => false
+  /**
+   * Check if the User has already registered (RA)
+   */
+  def isUserAlreadyRegistered(userEmailOrName: String) = {
+    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmailOrName))
+    val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userEmailOrName))
+    (userHavingSameMailId.isEmpty && userHavingSameUserName.isEmpty) match {
+      case true => false
+      case false => true
     }
   }: Boolean
 
@@ -233,17 +218,23 @@ object User {
   }
 
   /**
-   * Get Authenticated User
+   * find the user for Authentication by email and password (RA)
+   *
    */
+  def findUser(userEmailorName: String, password: String): Option[User] = {
+    val authenticatedUserviaEmail = UserDAO.find(MongoDBObject("email" -> userEmailorName, "password" -> password))
+    val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userEmailorName, "password" -> password))
 
-  def getAuthenticatedUser(userEmailorName: String, userPassword: String): Option[User] = {
-    userPassword.isEmpty match {
-      case true =>
-        User.findUserComingViaSocailSite(userEmailorName)
+    (authenticatedUserviaEmail.isEmpty && authenticatedUserviaName.isEmpty) match {
+      case true => // No user
+        None
       case false =>
-        User.findUser(userEmailorName, userPassword)
+        if (authenticatedUserviaEmail.isEmpty) Option(authenticatedUserviaName.toList(0))
+        else Option(authenticatedUserviaEmail.toList(0))
     }
+
   }
+
 }
 
 /*
