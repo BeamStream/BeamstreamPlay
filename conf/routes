@@ -81,8 +81,8 @@ GET /loggedInUserJson 							controllers.UserController.returnUserJson
 
 #Basic Registration
 POST /verifyToken          						controllers.BasicRegistration.basicRegistration
-POST /registerNewUser      						controllers.BasicRegistration.newUser
-POST /getEmailforNewUser   						controllers.BasicRegistration.emailSent
+#POST /registerNewUser      						controllers.BasicRegistration.newUser
+#POST /getEmailforNewUser   						controllers.BasicRegistration.emailSent
 
 #Destroy session
 GET /signOut 									controllers.UserController.signOut
