@@ -198,7 +198,7 @@ object User {
    */
 
   /**
-   * Check if the User already registered (RA)
+   * Check if the User has already registered (RA)
    */
   def isUserAlreadyRegistered(userEmailOrName: String) = {
     val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmailOrName))
