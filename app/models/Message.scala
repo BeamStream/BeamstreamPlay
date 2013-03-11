@@ -9,6 +9,7 @@ import com.mongodb.casbah.MongoConnection
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import java.util.Date
+import scala.collection.mutable.ListBuffer
 
 import java.util.Calendar
 import java.text.DateFormat
@@ -282,16 +283,27 @@ object Message { //extends CommentConsumer {
   	/*
 	 * Return a copy of the Message with an ProfileImageURL attached
 	 */
-	def getMessageWithProfileImageURL(message:Message):Message = {
-	  val media = UserMedia.findUserMediaByUserId(message.userId);
+	def getMessageWithProfileImageURL(allMessagesForAStream:List[Message]):List[Message] = {
+	  	val messageList = new ListBuffer[Message]
+    
+	    allMessagesForAStream.foreach(i =>  {
+	      val media = UserMedia.findUserMediaByUserId(i.userId);
 	      if(media.hasNext) {
-	        val item = media.next()
-	        var newMessage = message.copy(profileImageUrl = 
-	                   Some(item.mediaUrl))
-	        newMessage
-	      }
-	   message
+	        val media = UserMedia.findUserMediaByUserId(i.userId);
+		      if(media.hasNext) {
+		        val item = media.next()
+		        var newMessage = i.copy(profileImageUrl = 
+		                   Some(item.mediaUrl))
+		        messageList.append(newMessage)
+		      }
+	      } else
+	    	messageList.append(i)
+	    })
+	    
+	    messageList.toList
 	}
+	
+	
 }
 
 object MessageDAO extends SalatDAO[Message, ObjectId](collection = MongoHQConfig.mongoDB("message"))

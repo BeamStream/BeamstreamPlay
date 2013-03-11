@@ -240,22 +240,9 @@ object MessageController extends Controller {
     val streamId = request.queryString("streamId").toList(0)
     val pageNo = request.queryString("pageNo").toList(0).toInt
     val messagesPerPage = request.queryString("limit").toList(0).toInt
-    val messageList = new ListBuffer[Message]
     
     var allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
-    allMessagesForAStream.foreach(i =>  {
-      val media = UserMedia.findUserMediaByUserId(i.userId);
-      if(media.hasNext) {
-        val media = UserMedia.findUserMediaByUserId(i.userId);
-	      if(media.hasNext) {
-	        val item = media.next()
-	        var newMessage = i.copy(profileImageUrl = 
-	                   Some(item.mediaUrl))
-	        messageList.append(newMessage)
-	      }
-      } else
-    	messageList.append(i)
-    })
+    val messageList = Message.getMessageWithProfileImageURL(allMessagesForAStream)
     
     val allMessagesForAStreamJson = write(messagesAlongWithDocDescription(messageList.toList))
     Ok(allMessagesForAStreamJson).as("application/json")
