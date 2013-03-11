@@ -30,6 +30,12 @@ object UserMediaType extends Enumeration {
 }
 
 object UserMedia extends RockConsumer {
+  
+  //Find userMedia by userId
+  def findUserMediaByUserId(userId: ObjectId) = {
+    val userMediaObtained = UserMediaDAO.find(MongoDBObject("userId" -> userId, "isPrimary" -> true))
+    userMediaObtained
+  }
 
   /**
    * Save User Media

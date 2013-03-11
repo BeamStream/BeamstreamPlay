@@ -29,6 +29,7 @@ import utils.bitlyAuth
 import models.DocResulttoSent
 import models.UserMedia
 import models.Document
+import scala.collection.mutable.ListBuffer
 
 object MessageController extends Controller {
 
@@ -51,7 +52,7 @@ object MessageController extends Controller {
         val messageBody = messageListJsonMap("message").toList(0)
         val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
         val messageToCreate = new Message(new ObjectId, messageBody, Option(MessageType.Text), Option(MessageAccess.withName(messageAccess)), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)),
-          messagePoster.firstName, messagePoster.lastName, 0, List(), List(), 0, List())
+          messagePoster.firstName, messagePoster.lastName, 0, List(), List(), 0, List(),profileImageUrl=None)
         val messageId = Message.createMessage(messageToCreate)
         val messageObtained = Message.findMessageById(messageId)
         val messageJson = write(List(new DocResulttoSent(messageObtained.get,"","")))
@@ -235,15 +236,48 @@ object MessageController extends Controller {
   //======Displays all the messages within a Stream===//
   //==================================================//
   def getAllMessagesForAStreamWithPagination = Action { implicit request =>
+    
     val streamId = request.queryString("streamId").toList(0)
     val pageNo = request.queryString("pageNo").toList(0).toInt
     val messagesPerPage = request.queryString("limit").toList(0).toInt
-    val allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
-    val allMessagesForAStreamJson = write(messagesAlongWithDocDescription(allMessagesForAStream))
+    val messageList = new ListBuffer[Message]
+    
+    var allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+    allMessagesForAStream.foreach(i =>  {
+      val media = UserMedia.findUserMediaByUserId(i.userId);
+      if(media.hasNext) {
+        val media = UserMedia.findUserMediaByUserId(i.userId);
+	      if(media.hasNext) {
+	        val item = media.next()
+	        var newMessage = i.copy(profileImageUrl = 
+	                   Some(item.mediaUrl))
+	        messageList.append(newMessage)
+	      }
+      } else
+    	messageList.append(i)
+    })
+    
+    val allMessagesForAStreamJson = write(messagesAlongWithDocDescription(messageList.toList))
     Ok(allMessagesForAStreamJson).as("application/json")
   }
   
-  
+  /*  Remove after testing
+  def testNewMessage = Action { implicit request =>
+        val streamId = "123456789012345678901234"
+        val messageAccess = "PrivateToClass"
+        val messageBody = "yoyoyo daniel"
+        val messagePoster = User.getUserProfile(new ObjectId("5139962c03648332bde48712"))
+        val messageToCreate = new Message(new ObjectId, messageBody, Option(MessageType.Text), 
+            Option(MessageAccess.withName(messageAccess)), 
+            new Date, new ObjectId("5139962c03648332bde48712"), 
+        		Option(new ObjectId(streamId)),"Daniol", "Hewster", 0, List(), List(), 0, List(),None)
+        val messageId = Message.createMessage(messageToCreate)
+        val messageObtained = Message.findMessageById(messageId)
+        val messageJson = write(List(new DocResulttoSent(messageObtained.get,"","")))
+        Ok(messageJson).as("application/json")
+
+  }
+  */
   
 }
 
