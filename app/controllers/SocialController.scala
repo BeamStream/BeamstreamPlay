@@ -28,13 +28,14 @@ import models.User
 
 object SocialController extends Controller {
   implicit val formats = DefaultFormats
+
   /**
    * Authenticate users for Janrain Engage. (RA)
    * http://developers.janrain.com/documentation/api/auth_info/
    *
    * Returns a JSON of user profile information
    */
-  def authenticateUser = Action { implicit request =>
+  def signUpViaSocialSites = Action { implicit request =>
     try {
 
       val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
@@ -56,6 +57,32 @@ object SocialController extends Controller {
   }
 
   /**
+   * LogIn via social sites
+   */
+  def logInViaSocialSites = Action { implicit request =>
+
+    try {
+      val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
+      val token = tokenList(0)
+      val apiKey = Play.current.configuration.getString("janrain_apiKey").get
+      val URL = "https://rpxnow.com/api/v2/auth_info"
+      val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
+      val res = promise.get
+      val body = res.getBody
+      val json = Json.parse(body)
+      val providerName = (json \ "profile" \ "providerName").asOpt[String].get
+      val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
+      val authenticatedUser = User.findUserComingViaSocailSite(preferredUsername, providerName)
+      val userSession = request.session + ("userId" -> authenticatedUser.get.id.toString)
+      val noOfOnLineUsers = onlineUserCache.setOnline(authenticatedUser.get.id.toString)
+      println("Online Users" + noOfOnLineUsers)
+      Ok(views.html.discussions.discussions("DISCUSSIONS_DATA")).withSession(userSession)
+
+    } catch {
+      case ex => InternalServerError(write("Login Failed")).as("application/json")
+    }
+  }
+  /**
    * Get a list of all the social contacts related to the user.
    * http://developers.janrain.com/documentation/api/get_contacts/
    *
@@ -65,7 +92,6 @@ object SocialController extends Controller {
     session.get("social_identifier").map { identifier =>
       val apiKey = Play.current.configuration.getString("janrain_apiKey").get
       val URL = "https://rpxnow.com/api/v2/get_contacts"
-
       val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("identifier", identifier).setQueryParameter("apiKey", apiKey).get
       val res = promise.get
       val body = res.getBody
