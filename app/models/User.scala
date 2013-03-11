@@ -197,12 +197,15 @@ object User {
    * ****************************************Beamstream rearchitecture**********************************************
    */
 
-  // Check if the User already registered (RA)
-  def isUserAlreadyRegistered(userEmail: String) = {
-    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
-    (userHavingSameMailId.isEmpty) match {
-      case true => true
-      case false => false
+  /**
+   * Check if the User already registered (RA)
+   */
+  def isUserAlreadyRegistered(userEmailOrName: String) = {
+    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmailOrName))
+    val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userEmailOrName))
+    (userHavingSameMailId.isEmpty && userHavingSameUserName.isEmpty) match {
+      case true => false
+      case false => true
     }
   }: Boolean
 

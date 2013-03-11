@@ -138,8 +138,29 @@ class UserTest extends FunSuite with BeforeAndAfter {
     assert(userObtained.firstName === "Neelkanth")
     assert(userObtained.location === "Rewari")
   }
-  after {
 
+  test("Find User Coming via social sites") {
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", Option("Google"), List(), List(), List(), List(), List())
+    val userId = User.createUser(user1)
+    val userCreated = User.getUserProfile(userId)
+    User.updateUser(userId, "Neelkanth", "Sachdeva", "Rewari", "", "")
+    val userObtained = User.getUserProfile(userId)
+    val userFound = User.findUser("NeelS", "Neel")
+    assert(userFound.size === 1)
+  }
+
+  test("Is the User Already Registered") {
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", Option("Google"), List(), List(), List(), List(), List())
+    val userId = User.createUser(user1)
+    val userCreated = User.getUserProfile(userId)
+    User.updateUser(userId, "Neelkanth", "Sachdeva", "Rewari", "", "")
+    val userObtained = User.getUserProfile(userId)
+    val userFound = User.isUserAlreadyRegistered("NeelS")
+    assert(userFound === true)
+    val userFoundWithSameEmail = User.isUserAlreadyRegistered("neel@knoldus.com")
+    assert(userFoundWithSameEmail === true)
+  }
+  after {
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
   }
 
