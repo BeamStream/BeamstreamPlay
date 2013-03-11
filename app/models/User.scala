@@ -107,16 +107,16 @@ object User {
       }
   }
 
-  // Check if the User already registered
-  def isAlreadyRegistered(userEmail: String, userName: String): Boolean = {
-    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
-    val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userName)).toList
-    (userHavingSameMailId.isEmpty && userHavingSameUserName.isEmpty) match {
-      case true => true
-      case false => false
-    }
-
-  }
+//  // Check if the User already registered
+//  def isAlreadyRegistered(userEmail: String, userName: String): Boolean = {
+//    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
+//    val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userName)).toList
+//    (userHavingSameMailId.isEmpty && userHavingSameUserName.isEmpty) match {
+//      case true => true
+//      case false => false
+//    }
+//
+//  }
 
   /**
    * Add a Class to user (RA)
