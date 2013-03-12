@@ -53,11 +53,11 @@ object Stream {
   /*
    * Get all streams for a user
    */
-  def getAllStreamforAUser(userId: ObjectId): List[(Stream, Int)] = {
-    var allStreamForAUser: List[(Stream, Int)] = List()
+  def getAllStreamforAUser(userId: ObjectId): List[StreamResult] = {
+    var allStreamForAUser: List[StreamResult] = List()
     val streams = StreamDAO.find(MongoDBObject())
     for (stream <- streams) {
-      if (stream.usersOfStream.contains(userId)) allStreamForAUser ++= List((stream, stream.usersOfStream.size))
+      if (stream.usersOfStream.contains(userId)) allStreamForAUser ++= List(new StreamResult(stream, stream.usersOfStream.size))
     }
     allStreamForAUser
   }

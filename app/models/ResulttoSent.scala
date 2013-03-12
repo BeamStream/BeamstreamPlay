@@ -37,3 +37,5 @@ case class DocResulttoSent(message:Message,docName: String,docDescription:String
  * User & User School details after Registration
  */
 case class RegistrationResults(user:User, userSchool:UserSchool)
+
+case class StreamResult(stream:Stream,users:Int)
