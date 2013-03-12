@@ -293,7 +293,9 @@ object UserController extends Controller {
           val authenticatedUserJson = write(user)
           val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
           println("Online Users" + noOfOnLineUsers)
-          Ok(views.html.discussions.discussions("DISCUSSIONS_DATA")).withSession(userSession)
+          val jsonStatus = new ResulttoSent("Success", "Login Successful")
+          val statusToSend = write(jsonStatus)
+          Ok(statusToSend).as("application/json")
 
         case None =>
           val jsonStatus = new ResulttoSent("Failure", "Login Unsuccessful")
