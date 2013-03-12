@@ -84,34 +84,72 @@ object CommentController extends Controller {
     }
   }
 
+//  /**   (Chages By Dan)
+//   * Method for retrieving all the comments based on the input
+//   */
+//
+//  def getAllComments = Action { implicit request =>
+//    val messageId = request.queryString("messageId").toList(0)
+//    val docId = request.queryString("docId").toList(0)
+//    val questionId = request.queryString("questionId").toList(0)
+//
+//    if(messageId != null) {
+//        val commentsForAMessage = Comment.getAllComments(Message.findMessageById(new ObjectId(messageId)).get.comments)
+//        val commentList = Comment.getCommentWithProfileImageURL(commentsForAMessage)
+//	    val allCommentsForAStreamJson = write(commentList.toList)
+//	    Ok(allCommentsForAStreamJson).as("application/json")
+//    } else if(docId != null) {
+//        val commentsForADocument = Comment.getAllComments(Document.findDocumentById(new ObjectId(docId)).get.commentsOnDocument)
+//        val commentList = Comment.getCommentWithProfileImageURL(commentsForADocument)
+//	    val allCommentsForAStreamJson = write(commentList.toList)
+//	    Ok(allCommentsForAStreamJson).as("application/json")
+//    } else if(questionId != null) {
+//        println(questionId)
+//        val commentsForAQuestion = Comment.getAllComments(Question.findQuestionById(new ObjectId(questionId)).get.comments)
+//        println(commentsForAQuestion)
+//        val commentList = Comment.getCommentWithProfileImageURL(commentsForAQuestion)
+//	    val allCommentsForAStreamJson = write(commentList.toList)
+//	    Ok(allCommentsForAStreamJson).as("application/json")
+//    } else {
+//        Ok(write(new ResulttoSent("Failure", "IdNotFound")))
+//    }
+//
+//  }
+  
   /**
    * Method for retrieving all the comments based on the input
    */
 
   def getAllComments = Action { implicit request =>
-    val messageId = request.queryString("messageId").toList(0)
-    val docId = request.queryString("docId").toList(0)
-    val questionId = request.queryString("questionId").toList(0)
+    val jsonWithid = request.body.asFormUrlEncoded.get
 
-    if(messageId != null) {
+    (jsonWithid.contains(("messageId"))) match {
+      case true =>
+
+        val messageId = jsonWithid("messageId").toList(0)
         val commentsForAMessage = Comment.getAllComments(Message.findMessageById(new ObjectId(messageId)).get.comments)
-        val commentList = Comment.getCommentWithProfileImageURL(commentsForAMessage)
-	    val allCommentsForAStreamJson = write(commentList.toList)
-	    Ok(allCommentsForAStreamJson).as("application/json")
-    } else if(docId != null) {
-        val commentsForADocument = Comment.getAllComments(Document.findDocumentById(new ObjectId(docId)).get.commentsOnDocument)
-        val commentList = Comment.getCommentWithProfileImageURL(commentsForADocument)
-	    val allCommentsForAStreamJson = write(commentList.toList)
-	    Ok(allCommentsForAStreamJson).as("application/json")
-    } else if(questionId != null) {
-        println(questionId)
-        val commentsForAQuestion = Comment.getAllComments(Question.findQuestionById(new ObjectId(questionId)).get.comments)
-        println(commentsForAQuestion)
-        val commentList = Comment.getCommentWithProfileImageURL(commentsForAQuestion)
-	    val allCommentsForAStreamJson = write(commentList.toList)
-	    Ok(allCommentsForAStreamJson).as("application/json")
-    } else {
-        Ok(write(new ResulttoSent("Failure", "IdNotFound")))
+        Ok(write(commentsForAMessage)).as("application/json")
+
+      case false => (jsonWithid.contains(("docId"))) match {
+        case true =>
+
+          val docId = jsonWithid("docId").toList(0)
+          val commentsForADocument = Comment.getAllComments(Document.findDocumentById(new ObjectId(docId)).get.commentsOnDocument)
+          Ok(write(commentsForADocument)).as("application/json")
+
+        case false => (jsonWithid.contains(("questionId"))) match {
+          case true =>
+            
+            val questionId = jsonWithid("questionId").toList(0)
+            println(questionId)
+            val commentsForAQuestion = Comment.getAllComments(Question.findQuestionById(new ObjectId(questionId)).get.comments)
+            println(commentsForAQuestion)
+            Ok(write(commentsForAQuestion)).as("application/json")
+
+          case false =>
+            Ok(write(new ResulttoSent("Failure", "IdNotFound")))
+        }
+      }
     }
 
   }

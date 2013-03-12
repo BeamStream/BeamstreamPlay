@@ -30,7 +30,7 @@ object UserMediaType extends Enumeration {
 }
 
 object UserMedia extends RockConsumer {
-  
+
   //Find userMedia by userId
   def findUserMediaByUserId(userId: ObjectId) = {
     val userMediaObtained = UserMediaDAO.find(MongoDBObject("userId" -> userId, "isPrimary" -> true))
@@ -61,8 +61,7 @@ object UserMedia extends RockConsumer {
  * Get profile picture for a user
  */
   def getProfilePicForAUser(userId: ObjectId): List[UserMedia] = {
-    val mediaObtained = UserMediaDAO.find(MongoDBObject("userId" -> userId, "isPrimary" -> true)).toList
-    mediaObtained
+    UserMediaDAO.find(MongoDBObject("userId" -> userId, "isPrimary" -> true)).toList
   }
 
   /*
@@ -165,7 +164,7 @@ object UserMedia extends RockConsumer {
     val updatedUserMedia1 = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
     updatedUserMedia1.views
   }
-  
+
   //TODO : Add Rock to Media If Message Contains docIdIfAny
   def rockTheMediaOrDoc(idToBeRocked: ObjectId, userId: ObjectId) {
     val userMedia = UserMedia.findMediaById(idToBeRocked)
