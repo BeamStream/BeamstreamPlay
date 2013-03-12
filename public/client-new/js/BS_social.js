@@ -1,11 +1,11 @@
-function showJanrainSigninWidget() {
+function showJanrainSigninWidget(tokenUrl) {
 
 	/* Modified by Aswathy for janRain login*/ 
-	 
+	 console.log(tokenUrl);
 	if (typeof window.janrain !== 'object') window.janrain = {};
     window.janrain.settings = {};
     
-    janrain.settings.tokenUrl = 'http://localhost:9000/social/social_authentication';
+    janrain.settings.tokenUrl = tokenUrl;
 //    janrain.settings.tokenAction = 'event';
     janrain.settings.custom = true;
 
@@ -119,13 +119,13 @@ function janrainWidgetOnload() {
 	
   janrain.events.onProviderLoginToken.addHandler(function (response) {
 	  console.log(5656);
-    $.ajax({
-      type: "POST",
-      url: 'http://localhost:9000/social/social_authentication',
-      data: "token=" + response.token,
-      success: function (res) {
-        console.log(res);
-        if (res != null) {
+//    $.ajax({
+//      type: "POST",
+//      url: 'http://localhost:9000/social/social_authentication',
+//      data: "token=" + response.token,
+//      success: function (res) {
+//        console.log(res);
+//        if (res != null) {
 
 //          if (res.stat == "ok") {
 //
@@ -229,9 +229,9 @@ function janrainWidgetOnload() {
 //            }, 1000);
 //
 //          }
-        }
-      }
-    });
+//        }
+//      }
+//    });
   });
 }
 
@@ -281,7 +281,6 @@ function janRainLogin(info) {
 	});
 
 }
-
-showJanrainSigninWidget();
+//showJanrainSigninWidget();
 //loadJanrainShareWidget();
 
