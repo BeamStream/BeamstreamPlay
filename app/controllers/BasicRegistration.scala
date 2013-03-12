@@ -51,95 +51,95 @@ object BasicRegistration extends Controller {
    * Registering a new User to Beamstream
    */
 
-  def newUser = Action { implicit request =>
-    try {
-      val userJSONMap = request.body.asFormUrlEncoded.get
-      val userJson = userJSONMap("data").toList(0)
-      val parsedUserJson = net.liftweb.json.parse(userJson)
-      val id = (parsedUserJson \ "id").extract[String]
-      val iam = (parsedUserJson \ "iam").extract[String]
-      val emailId = (parsedUserJson \ "email").extract[String]
-      val schoolName = (parsedUserJson \ "schoolName").extract[String]
-      val userName = (parsedUserJson \ "userName").extract[String]
-      val password = (parsedUserJson \ "password").extract[String]
-      val confirmPassword = (parsedUserJson \ "confirmPassword").extract[String]
-      val firstName = (parsedUserJson \ "firstName").extract[String]
-      val lastName = (parsedUserJson \ "lastName").extract[String]
-      val location = (parsedUserJson \ "location").extract[String]
-      val profile = (parsedUserJson \ "profile").extract[String]
-      val alias = (parsedUserJson \ "alias").extract[String]
-      val useCurrentLocation = (parsedUserJson \ "useCurrentLocation").extract[Boolean]
-      val encryptedPassword = (new PasswordHashing).encryptThePassword(password)
-      val encryptedConfirmPassword = (new PasswordHashing).encryptThePassword(confirmPassword)
-      (id == "1") match {
+//  def newUser = Action { implicit request =>
+//    try {
+//      val userJSONMap = request.body.asFormUrlEncoded.get
+//      val userJson = userJSONMap("data").toList(0)
+//      val parsedUserJson = net.liftweb.json.parse(userJson)
+//      val id = (parsedUserJson \ "id").extract[String]
+//      val iam = (parsedUserJson \ "iam").extract[String]
+//      val emailId = (parsedUserJson \ "email").extract[String]
+//      val schoolName = (parsedUserJson \ "schoolName").extract[String]
+//      val userName = (parsedUserJson \ "userName").extract[String]
+//      val password = (parsedUserJson \ "password").extract[String]
+//      val confirmPassword = (parsedUserJson \ "confirmPassword").extract[String]
+//      val firstName = (parsedUserJson \ "firstName").extract[String]
+//      val lastName = (parsedUserJson \ "lastName").extract[String]
+//      val location = (parsedUserJson \ "location").extract[String]
+//      val profile = (parsedUserJson \ "profile").extract[String]
+//      val alias = (parsedUserJson \ "alias").extract[String]
+//      val useCurrentLocation = (parsedUserJson \ "useCurrentLocation").extract[Boolean]
+//      val encryptedPassword = (new PasswordHashing).encryptThePassword(password)
+//      val encryptedConfirmPassword = (new PasswordHashing).encryptThePassword(confirmPassword)
+//      (id == "1") match {
+//
+//        case true =>
+//
+//          val canUserRegister = User.isAlreadyRegistered(emailId, userName)
+//          (canUserRegister == true) match {
+//
+//            case true =>
+//
+//              (encryptedPassword == encryptedConfirmPassword) match {
+//                case true =>
+//                  val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, alias, Option(encryptedPassword), schoolName, location, profile, "", "", None, List(), List(), List(), List(), List())
+//                  val IdOfUserCreted = User.createUser(userToCreate)
+//                  val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
+//                  val createdUser = User.getUserProfile(IdOfUserCreted)
+//                  val noOfOnLineUsers = onlineUserCache.setOnline(IdOfUserCreted.toString)
+//                  Ok(write(List(createdUser))).withSession(RegistrationSession)
+//                case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
+//              }
+//
+//            case false =>
+//              Ok(write(new ResulttoSent("Failure", "This User Email or Name Is Already Taken"))).as("application/json")
+//          }
+//
+//        case false =>
+//          (encryptedPassword == encryptedConfirmPassword) match {
+//            case true =>
+//              val user = User.getUserProfile(new ObjectId(id))
+//              UserDAO.update(MongoDBObject("_id" -> new ObjectId(id)), user.copy(
+//                userType = UserType.apply(iam.toInt), email = emailId, firstName = firstName, lastName = lastName, userName = userName, alias = alias, password = Option(encryptedPassword), orgName = schoolName,
+//                location = location, socialProfile = profile), false, false, new WriteConcern)
+//              Ok(write(List(User.getUserProfile(new ObjectId(id))))).as("application/json")
+//            case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
+//          }
+//      }
+//    } catch {
+//      case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem During Registration"))).as("application/json")
+//    }
+//  }
 
-        case true =>
-
-          val canUserRegister = User.isAlreadyRegistered(emailId, userName)
-          (canUserRegister == true) match {
-
-            case true =>
-
-              (encryptedPassword == encryptedConfirmPassword) match {
-                case true =>
-                  val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, firstName, lastName, userName, alias, Option(encryptedPassword), schoolName, location, profile, "", "", None, List(), List(), List(), List(), List())
-                  val IdOfUserCreted = User.createUser(userToCreate)
-                  val RegistrationSession = request.session + ("userId" -> IdOfUserCreted.toString)
-                  val createdUser = User.getUserProfile(IdOfUserCreted)
-                  val noOfOnLineUsers = onlineUserCache.setOnline(IdOfUserCreted.toString)
-                  Ok(write(List(createdUser))).withSession(RegistrationSession)
-                case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
-              }
-
-            case false =>
-              Ok(write(new ResulttoSent("Failure", "This User Email or Name Is Already Taken"))).as("application/json")
-          }
-
-        case false =>
-          (encryptedPassword == encryptedConfirmPassword) match {
-            case true =>
-              val user = User.getUserProfile(new ObjectId(id))
-              UserDAO.update(MongoDBObject("_id" -> new ObjectId(id)), user.copy(
-                userType = UserType.apply(iam.toInt), email = emailId, firstName = firstName, lastName = lastName, userName = userName, alias = alias, password = Option(encryptedPassword), orgName = schoolName,
-                location = location, socialProfile = profile), false, false, new WriteConcern)
-              Ok(write(List(User.getUserProfile(new ObjectId(id))))).as("application/json")
-            case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
-          }
-      }
-    } catch {
-      case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem During Registration"))).as("application/json")
-    }
-  }
-
-  /**
-   * Send the verification mail to the User
-   */
-
-  def emailSent = Action { implicit request =>
-    try {
-      val userInformationMap = request.body.asFormUrlEncoded.get
-      val tempUserInformationJson = userInformationMap("data").toList(0)
-      val userInformationJson = net.liftweb.json.parse(tempUserInformationJson)
-      val iam = (userInformationJson \ "iam").extract[String]
-      val emailId = (userInformationJson \ "email").extract[String]
-
-      val canUserRegister = User.isAlreadyRegistered(emailId, "")
-
-      (canUserRegister == true) match {
-        case true =>
-          SendEmail.sendEmail(emailId, iam)
-          val jsonResponseToSent = new ResulttoSent("Success", "Email Sent Successfully")
-          val finalJson = write(jsonResponseToSent)
-          Ok(finalJson).as("application/json")
-
-        case false =>
-          Ok(write(new ResulttoSent("Failure", "Already registered")))
-
-      }
-    } catch {
-      case ex => Ok(write(new ResulttoSent("Failure", "Email Sending Failed")))
-    }
-  }
+//  /**
+//   * Send the verification mail to the User
+//   */
+//
+//  def emailSent = Action { implicit request =>
+//    try {
+//      val userInformationMap = request.body.asFormUrlEncoded.get
+//      val tempUserInformationJson = userInformationMap("data").toList(0)
+//      val userInformationJson = net.liftweb.json.parse(tempUserInformationJson)
+//      val iam = (userInformationJson \ "iam").extract[String]
+//      val emailId = (userInformationJson \ "email").extract[String]
+//
+//      val canUserRegister = User.isAlreadyRegistered(emailId, "")
+//
+//      (canUserRegister == true) match {
+//        case true =>
+//          SendEmail.sendEmail(emailId, iam)
+//          val jsonResponseToSent = new ResulttoSent("Success", "Email Sent Successfully")
+//          val finalJson = write(jsonResponseToSent)
+//          Ok(finalJson).as("application/json")
+//
+//        case false =>
+//          Ok(write(new ResulttoSent("Failure", "Already registered")))
+//
+//      }
+//    } catch {
+//      case ex => Ok(write(new ResulttoSent("Failure", "Email Sending Failed")))
+//    }
+//  }
 
   /**
    * ***************************************************** Re architecture ******************************

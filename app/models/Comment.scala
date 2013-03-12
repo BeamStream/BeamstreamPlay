@@ -9,6 +9,7 @@ import com.novus.salat.global._
 import java.text.DateFormat
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
+import scala.collection.mutable.ListBuffer
 
 case class Comment(@Key("_id") id: ObjectId,
   commentBody: String,
@@ -17,6 +18,7 @@ case class Comment(@Key("_id") id: ObjectId,
   firstNameofCommentPoster: String,
   lastNameofCommentPoster: String,
   rocks: Int,
+  profileImageUrl: Option[String] = None,
   rockers: List[ObjectId])
 
 object Comment {
@@ -129,7 +131,31 @@ object Comment {
       case false => false
     }
   }
+  
+  /*
+	 * Return a copy of the Comment with an ProfileImageURL attached
+	 */
+	def getCommentWithProfileImageURL(allMessagesForAStream:List[Comment]):List[Comment] = {
+	  	val commentList = new ListBuffer[Comment]
+    
+	    allMessagesForAStream.foreach(i =>  {
+	      val media = UserMedia.findUserMediaByUserId(i.userId);
+	      if(media.hasNext) {
+	        val media = UserMedia.findUserMediaByUserId(i.userId);
+		      if(media.hasNext) {
+		        val item = media.next()
+		        var newMessage = i.copy(profileImageUrl = 
+		                   Some(item.mediaUrl))
+		        commentList.append(newMessage)
+		      }
+	      } else
+	    	commentList.append(i)
+	    })
+	    
+	    commentList.toList
+	}
 }
+	
 
 object CommentDAO extends SalatDAO[Comment, ObjectId](collection = MongoHQConfig.mongoDB("comment"))
 
