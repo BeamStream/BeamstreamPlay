@@ -31,9 +31,11 @@ case class QuestionWithPoll(question : Question , polls : List[OptionOfQuestion]
 /**
  * Document Results After Uploading From Main Stream
  */
-case class DocResulttoSent(message:Message,docName: String,docDescription:String )
+case class DocResulttoSent(message:Message,docName: String,docDescription:String,var profilePic:Option[String]=None, var comments:Option[List[Comment]]=None)
 
 /**
  * User & User School details after Registration
  */
 case class RegistrationResults(user:User, userSchool:UserSchool)
+
+case class StreamResult(stream:Stream,usersOfStream:Int)

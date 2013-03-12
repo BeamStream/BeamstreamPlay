@@ -30,6 +30,7 @@ import models.DocResulttoSent
 import models.UserMedia
 import models.Document
 import scala.collection.mutable.ListBuffer
+import models.Comment
 
 object MessageController extends Controller {
 
@@ -52,10 +53,10 @@ object MessageController extends Controller {
         val messageBody = messageListJsonMap("message").toList(0)
         val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
         val messageToCreate = new Message(new ObjectId, messageBody, Option(MessageType.Text), Option(MessageAccess.withName(messageAccess)), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)),
-          messagePoster.firstName, messagePoster.lastName, 0, List(), List(), 0, List(),profileImageUrl=None)
+          messagePoster.firstName, messagePoster.lastName, 0, List(), List(), 0, List())
         val messageId = Message.createMessage(messageToCreate)
-        val messageObtained = Message.findMessageById(messageId)
-        val messageJson = write(List(new DocResulttoSent(messageObtained.get,"","")))
+        val messageObtained = Message.findMessageById(messageId.get)
+        val messageJson = write(List(new DocResulttoSent(messageObtained.get, "", "",None,None)))
         Ok(messageJson).as("application/json")
 
     }
@@ -201,53 +202,29 @@ object MessageController extends Controller {
     else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Message")))
   }
 
-  /**
-   * Fetch messages along with document details if message contains any document
-   */
+ 
 
-  private def messagesAlongWithDocDescription(messages: List[Message]) = {
-    var messsageWithDocResults: List[DocResulttoSent] = List()
-    messages map {
-      case message =>
-        if (message.docIdIfAny != None) {
-          val userMedia = UserMedia.findMediaById(message.docIdIfAny.get)
-          if (userMedia != None) {
-            messsageWithDocResults ++= List(new DocResulttoSent(message, userMedia.get.name, userMedia.get.description))
-          } else {
-            val document = Document.findDocumentById(message.docIdIfAny.get)
-            messsageWithDocResults ++= List(new DocResulttoSent(message, document.get.documentName, document.get.documentDescription))
-          }
-        } else {
-          messsageWithDocResults ++= List(new DocResulttoSent(message, "", ""))
-        }
-
-    }
-    messsageWithDocResults
-  }: List[DocResulttoSent]
-  
-  
   /*
  * ***********************************************************REARCHITECTED CODE****************************************************************
  * ***********************************************************REARCHITECTED CODE****************************************************************
  */
 
-
-//==================================================//
+  //==================================================//
   //======Displays all the messages within a Stream===//
   //==================================================//
-  def getAllMessagesForAStreamWithPagination = Action { implicit request =>
-    
-    val streamId = request.queryString("streamId").toList(0)
-    val pageNo = request.queryString("pageNo").toList(0).toInt
-    val messagesPerPage = request.queryString("limit").toList(0).toInt
-    
-    var allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
-    val messageList = Message.getMessageWithProfileImageURL(allMessagesForAStream)
-    
-    val allMessagesForAStreamJson = write(messagesAlongWithDocDescription(messageList.toList))
-    Ok(allMessagesForAStreamJson).as("application/json")
-  }
-  
+  //  def getAllMessagesForAStreamWithPagination = Action { implicit request =>
+  //
+  //    val streamId = request.queryString("streamId").toList(0)
+  //    val pageNo = request.queryString("pageNo").toList(0).toInt
+  //    val messagesPerPage = request.queryString("limit").toList(0).toInt
+  //
+  //    var allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+  //    val messageList = Message.getMessageWithProfileImageURL(allMessagesForAStream)
+  //
+  //    val allMessagesForAStreamJson = write(messagesAlongWithDocDescription(messageList.toList))
+  //    Ok(allMessagesForAStreamJson).as("application/json")
+  //  }
+
   /*  Remove after testing
   def testNewMessage = Action { implicit request =>
         val streamId = "123456789012345678901234"
@@ -265,7 +242,17 @@ object MessageController extends Controller {
 
   }
   */
-  
+
+  def allMessagesForAStream = Action { implicit request =>
+    val streamIdJsonMap = request.body.asJson.get
+    val streamId = (streamIdJsonMap \ "streamId").as[String]
+    val pageNo = (streamIdJsonMap \ "pageNo").as[Int]
+    val messagesPerPage = (streamIdJsonMap \ "limit").as[Int]
+    val allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+    val messagesWithDescription = Message.messagesAlongWithDocDescription(allMessagesForAStream)
+    Ok
+  }
+
 }
 
 

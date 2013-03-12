@@ -29,7 +29,7 @@ object MessageAccess extends Enumeration {
   val PrivateToClass = Value(1, "PrivateToClass")
   val PrivateToSchool = Value(2, "PrivateToSchool")
 }
-		
+
 case class Message(@Key("_id") id: ObjectId,
   messageBody: String,
   messageType: Option[MessageType.Value],
@@ -45,7 +45,7 @@ case class Message(@Key("_id") id: ObjectId,
   follows: Int,
   followers: List[ObjectId],
   anyPreviewImageUrl: Option[String] = None,
-  profileImageUrl: Option[String] = None,
+  //profileImageUrl: Option[String] = None,
   docIdIfAny: Option[ObjectId] = None)
 
 object Message { //extends CommentConsumer {
@@ -53,12 +53,10 @@ object Message { //extends CommentConsumer {
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
 
   /**
-   * Create a new message
+   * Create a new message (RA)
    */
-  def createMessage(message: Message): ObjectId = {
-    val messageId = MessageDAO.insert(message)
-    messageId.get
-
+  def createMessage(message: Message): Option[ObjectId] = {
+    MessageDAO.insert(message)
   }
 
   /**
@@ -279,31 +277,60 @@ object Message { //extends CommentConsumer {
       deletedMessageSuccessfully
     }
   }
+  /**
+   * ****************************************Rearchitecture*****************************************************
+   */
 
-  	/*
+  /**
+   * Fetch messages along with document details if message contains any document
+   */
+
+  def messagesAlongWithDocDescription(messages: List[Message]) = {
+    var messsageWithDocResults: List[DocResulttoSent] = List()
+    var profilePicForUser = ""
+    messages map {
+      case message =>
+        val userMedia = UserMedia.getProfilePicForAUser(message.userId)
+        if (!userMedia.isEmpty) profilePicForUser = userMedia(0).mediaUrl
+        val comments = Comment.getAllComments(message.comments)
+        if (message.docIdIfAny != None) {
+          val userMedia = UserMedia.findMediaById(message.docIdIfAny.get)
+          if (userMedia != None) {
+            messsageWithDocResults ++= List(new DocResulttoSent(message, userMedia.get.name, userMedia.get.description, Option(profilePicForUser), Option(comments)))
+          } else {
+            val document = Document.findDocumentById(message.docIdIfAny.get)
+            messsageWithDocResults ++= List(new DocResulttoSent(message, document.get.documentName, document.get.documentDescription, Option(profilePicForUser), Option(comments)))
+          }
+        } else {
+          messsageWithDocResults ++= List(new DocResulttoSent(message, "", "", Option(profilePicForUser), Option(comments)))
+        }
+
+    }
+    messsageWithDocResults
+  }: List[DocResulttoSent]
+  /*
 	 * Return a copy of the Message with an ProfileImageURL attached
 	 */
-	def getMessageWithProfileImageURL(allMessagesForAStream:List[Message]):List[Message] = {
-	  	val messageList = new ListBuffer[Message]
-    
-	    allMessagesForAStream.foreach(i =>  {
-	      val media = UserMedia.findUserMediaByUserId(i.userId);
-	      if(media.hasNext) {
-	        val media = UserMedia.findUserMediaByUserId(i.userId);
-		      if(media.hasNext) {
-		        val item = media.next()
-		        var newMessage = i.copy(profileImageUrl = 
-		                   Some(item.mediaUrl))
-		        messageList.append(newMessage)
-		      }
-	      } else
-	    	messageList.append(i)
-	    })
-	    
-	    messageList.toList
-	}
-	
-	
+  //	def getMessageWithProfileImageURL(allMessagesForAStream:List[Message]):List[Message] = {
+  //	  	val messageList = new ListBuffer[Message]
+  //    
+  //	    allMessagesForAStream.foreach(i =>  {
+  //	      val media = UserMedia.findUserMediaByUserId(i.userId);
+  //	      if(media.hasNext) {
+  //	        val media = UserMedia.findUserMediaByUserId(i.userId);
+  //		      if(media.hasNext) {
+  //		        val item = media.next()
+  //		        var newMessage = i.copy(profileImageUrl = 
+  //		                   Some(item.mediaUrl))
+  //		        messageList.append(newMessage)
+  //		      }
+  //	      } else
+  //	    	messageList.append(i)
+  //	    })
+  //	    
+  //	    messageList.toList
+  //	}
+
 }
 
 object MessageDAO extends SalatDAO[Message, ObjectId](collection = MongoHQConfig.mongoDB("message"))

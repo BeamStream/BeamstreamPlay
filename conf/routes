@@ -35,8 +35,8 @@ POST /deleteStream              					controllers.StreamController.deleteTheStrea
 
 #Messages
 POST /newMessage                              		controllers.MessageController.newMessage
-POST /getAllMessagesForAStream                		controllers.MessageController.getAllMessagesForAStreamWithPagination
-POST /getAllMessagesForAStreamSortedbyDate    		controllers.MessageController.getAllMessagesForAStreamWithPagination
+#POST /getAllMessagesForAStream                		controllers.MessageController.getAllMessagesForAStreamWithPagination
+#POST /getAllMessagesForAStreamSortedbyDate    		controllers.MessageController.getAllMessagesForAStreamWithPagination
 POST /getAllMessagesForAStreamSortedbyRocks   		controllers.MessageController.getAllMessagesForAStreamSortedbyRocks
 POST /getAllMessagesForAStreambyKeyword          	controllers.MessageController.getAllMessagesForAStreambyKeyword
 POST /allPublicMessagesFromAllStreamsForAUser     	controllers.StreamController.allPublicMessagesFromAllStreamsForAUser
@@ -213,14 +213,19 @@ POST /login      						        controllers.UserController.findUser
 # Media
 POST /media 									controllers.MediaController.media
 
-# Messages
-GET /getAllMessagesForAStream                	controllers.MessageController.getAllMessagesForAStreamWithPagination
 
+
+#-------Dan-------#
+# Messages
+#GET /getAllMessagesForAStream                	controllers.MessageController.getAllMessagesForAStreamWithPagination
 # Media
 GET /getProfilePicForAUser      				controllers.MediaController.getProfilePicForAUser
-
 # Comments
 GET /allComments           						controllers.CommentController.getAllComments
+#-------Dan-------#
+
+# Messages + Comments + ProfilePicUrl
+POST   /allMessagesForAStream                  controllers.MessageController.allMessagesForAStream
 
 # Social
 POST /social/social_authentication   			controllers.SocialController.signUpViaSocialSites
