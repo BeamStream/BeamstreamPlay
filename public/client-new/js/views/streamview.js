@@ -143,14 +143,14 @@
 						 var classStreams ='';
 						 _.each(datas, function(data) {
 							 
-							 console.log(data._1.streamName);
-							 streams+='<li id ="'+data._1.id.id+'" name="'+data._1.streamName+'" data-userCount = "'+data._2+'"><a  id ="'+data._1.id.id+'" name ="'+data._1.streamName+'"  href="#" class="icon1">'+data._1.streamName+'</a>'
+							 console.log(data.stream.streamName);
+							 streams+='<li id ="'+data.stream.id.id+'" name="'+data.stream.streamName+'" data-userCount = "'+data.usersOfStream+'"><a  id ="'+data.stream.id.id+'" name ="'+data.stream.streamName+'"  href="#" class="icon1">'+data.stream.streamName+'</a>'
 			                        +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"></div>'
-			                        +'<span class="menu-count"> '+data._2+'</span>'
+			                        +'<span class="menu-count"> '+data.usersOfStream+'</span>'
 			                        +'<span class="close-btn drag-rectangle" data-original-title="Delete"></span>'
 			                        +'</li>';
  						 
-							 BS.myClasses+= '<li><a id ="'+data._1.id.id+'" href="#">'+data._1.streamName+'</a></li>';
+							 BS.myClasses+= '<li><a id ="'+data.stream.id.id+'" href="#">'+data.stream.streamName+'</a></li>';
 							    
 						 });
 						 

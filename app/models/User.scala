@@ -204,8 +204,8 @@ object User {
     val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmailOrName))
     val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userEmailOrName))
     (userHavingSameMailId.isEmpty && userHavingSameUserName.isEmpty) match {
-      case true => false
-      case false => true
+      case true => true
+      case false => false
     }
   }: Boolean
 
