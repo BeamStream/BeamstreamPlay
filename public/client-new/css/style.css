@@ -29,8 +29,8 @@ ul.follow-name-left li a.downrocks-message,
 ul.follow-name-left li a.uprocks-message:hover,
 ul.follow-name-left li a.downrocks-message:hover,
 ul.icons-ask li,
-ul.icons-ask li.attach,
-ul.icons-ask li.tag,
+.attach,
+.tag,
 .drag-icon,
 .active-curve,
 .icon1,
@@ -41,7 +41,6 @@ ul.icons-ask li.tag,
 .chat-open span,
 .chat-show,
 .online-chat,
-.menu-count,
 .green-btn span.visual,
 .green-btn span.visual-dot,
 .green-btn span.visual-line,
@@ -495,7 +494,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#478cb4', endCo
 		border-bottom:solid 1px #612020;
 		color:#fff;
 		font-size:11px;
-		font-weight:700;
 		padding:0 5px;
 		position:absolute;
 		width:50px!important;
@@ -506,6 +504,8 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#478cb4', endCo
 }
 
 .remove-btn a {
+		font-size:11px !important;
+		font-weight:700;
 		padding:0 2px!important;
 		height:20px!important;
 		line-height:20px!important
@@ -811,8 +811,8 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ce4848', endCo
 		padding:2px 4px
 }
 
-ul.stream-tab li a .activeafter,
-ul.stream-tab li a .active:before {
+ul.stream-tab li a.activeafter,
+ul.stream-tab li a.active:before {
 		top:100%;
 		border:solid transparent;
 		content:" ";
@@ -822,7 +822,7 @@ ul.stream-tab li a .active:before {
 		pointer-events:none
 }
 
-ul.stream-tab li a .active:after {
+ul.stream-tab li a.active:after {
 		border-color:rgba(214, 156, 29, 0);
 		border-top-color:#dbaa22;
 		border-width:20px;
@@ -830,7 +830,7 @@ ul.stream-tab li a .active:after {
 		margin-left:-20px
 }
 
-ul.stream-tab li a .active:before {
+ul.stream-tab li a.active:before {
 		border-color:rgba(197, 141, 27, 0);
 		border-top-color:#dbaa22;
 		border-width:15px;
@@ -1354,49 +1354,49 @@ ul.social-icons li a {
 		width:26px
 }
 
-ul.social-icons li .google-plus {
+ul.social-icons li.google-plus {
 		background-position:-1px -424px
 }
 
-ul.social-icons li .google-plus:hover,
-ul.social-icons li .google-plus.active {
-		background-position:-1px -445px #bcbcbc
+ul.social-icons li.google-plus:hover,
+ul.social-icons li.google-plus.active {
+		background:url(../images/spryte.png) no-repeat -1px -445px #bcbcbc;
 }
 
-ul.social-icons li .plus {
+ul.social-icons li.plus {
 		background-position:-26px -425px
 }
 
-ul.social-icons li .plus:hover,
-ul.social-icons li .plus.active {
-		background-position:-26px -446px #bcbcbc
+ul.social-icons li.plus:hover,
+ul.social-icons li.plus.active {
+		background:url(../images/spryte.png)-26px -446px #bcbcbc
 }
 
-ul.social-icons li .twitter {
+ul.social-icons li.twitter {
 		background-position:-51px -424px
 }
 
-ul.social-icons li .twitter:hover,
-ul.social-icons li .twitter.active {
-		background-position:-51px -445px #bcbcbc
+ul.social-icons li.twitter:hover,
+ul.social-icons li.twitter.active {
+		background:url(../images/spryte.png)-51px -445px #bcbcbc
 }
 
-ul.social-icons li .facebook {
+ul.social-icons li.facebook {
 		background-position:-75px -424px
 }
 
-ul.social-icons li .facebook:hover,
-ul.social-icons li .facebook.active {
-		background-position:-75px -445px #bcbcbc
+ul.social-icons li.facebook:hover,
+ul.social-icons li.facebook.active {
+		background:url(../images/spryte.png)-75px -445px #bcbcbc
 }
 
-ul.social-icons li .in {
+ul.social-icons li.in {
 		background-position:-97px -424px
 }
 
-ul.social-icons li .in:hover,
-ul.social-icons li .in.active {
-		background-position:-97px -445px #bcbcbc
+ul.social-icons li.in:hover,
+ul.social-icons li.in.active {
+		background:url(../images/spryte.png) -97px -445px #bcbcbc
 }
 
 .follow-container {
@@ -1626,16 +1626,16 @@ ul.icons-ask li:hover {
 		filter:alpha(opacity=700)
 }
 
-ul.icons-ask li .active {
+ul.icons-ask li.active {
 		background:#c1c3c5;
 		display:block
 }
 
-ul.icons-ask li .attach {
+ul.icons-ask li.attach {
 		background-position:-1px -362px
 }
 
-ul.icons-ask li .tag {
+ul.icons-ask li.tag {
 		background-position:-1px -390px
 }
 
@@ -1739,9 +1739,14 @@ ul.follow-bottom-icons li:hover {
 		color:#323e46!important
 }
 
-.sortable li .red-active {
+.sortable li.red-active {
 		background:#b93737
 }
+
+.sortable li a.red-active-icon1 {
+		background:url(../images/spryte.png) -2px -149px
+}
+
 
 .active-curve {
 		float:left;
@@ -2134,7 +2139,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5ba4c4', endCo
 		color:#fff
 }
 
-.rock-btn span .rocktext {
+.rock-btn span.rocktext {
 		background:url(../images/rock-line.jpg) left repeat-y;
 		padding:0 50x!important;
 		height:100px
@@ -2179,7 +2184,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5ba4c4', endCo
 		padding:0 0 0 20px
 }
 
-.chat-open span.chat-show {
+.chat-open span .chat-show {
 		float:right;
 		background:0;
 		background-position:-184px -363px;
@@ -2372,9 +2377,8 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5ba4c4', endCo
 		color:#fff;
 		font-size:11px;
 		font-weight:700;
-		background-position:-25px -56px #475259
+		background:url(../images/spryte.png) -25px -56px #475259;
 }
-
 .menu-count-red {
 		background:#952525
 }
@@ -5849,7 +5853,7 @@ div.datepicker {
 		background:-ms-linear-gradient(bottom, #529abe, #3e79a9);
 		background:-moz-linear-gradient(center bottom, #529abe 0, #3e79a9 100%);
 		background:-o-linear-gradient(#3e79a9, #529abe);
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3e79a9', endColorstr='#529abe', GradientType=0);
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3e79a9', endColorstr='#529abe', GradientType=0);
 		-webkit-border-radius:0 4px 4px 0;
 		-moz-border-radius:0 4px 4px 0;
 		border-radius:0 4px 4px 0;
@@ -6038,3 +6042,18 @@ ul.follow-name-left .rocks-small a {
 ul.follow-name-left .rocks-small a:hover {
 		background:url(../images/rocks-icon-arrow-small-a.png) left 5px no-repeat
 }
+
+ul.no-stream{display:inline-block;list-style:none;width:100%;min-height:200px;}
+
+ul.no-stream li{float:left;width:90%; background:#B93737;height:30px;line-height:30px; 
+
+padding:8px 5%;}
+
+ul.no-stream li a, ul.no-stream li a:hover{background:url(../images/spryte.png) repeat  -2px -
+
+149px;display:block; padding-left:30px;
+
+color:#fff; cursor:pointer;text-decoration:none;
+
+}
+

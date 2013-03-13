@@ -38,13 +38,13 @@
                 
                     <ul id="sortable4" class="connected sortable list">  
                        {{#each data}}
-                             <li id ="{{this.stream.id.id}}" name="{this.stream.streamName}" data-userCount = "{{this.usersOfStream}}">
-								<a  id ="{{this.stream.id.id}}"  name ="{this.stream.streamName}"  href="#" class="icon1">{{this.stream.streamName}}</a>
+                             <li id ="{{this.stream.id.id}}" name="{{this.stream.streamName}}" data-userCount = "{{this.usersOfStream}}">
+								<a  id ="{{this.stream.id.id}}"  name ="{{this.stream.streamName}}"  href="#" class="icon1">{{this.stream.streamName}}</a>
 								<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"></div>
-								<span class="menu-count"> </span>
+								<span class="menu-count">{{this.usersOfStream}}</span>
 								<span class="close-btn drag-rectangle" data-original-title="Delete"></span>
 								</li>  
-						{{/each}}s     
+						{{/each}}   
                     </ul>
                 </div>
                 <div class="arrow-block arrow-block-down"></div>
