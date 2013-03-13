@@ -282,29 +282,22 @@ object UserController extends Controller {
       val jsonReceived = request.body.asJson.get
       val userEmailorName = (jsonReceived \ "mailId").as[String]
       val userPassword = (jsonReceived \ "password").as[String]
-
       val encryptedPassword = (new PasswordHashing).encryptThePassword(userPassword)
-
       val authenticatedUser = User.findUser(userEmailorName, encryptedPassword)
-
       authenticatedUser match {
         case Some(user) =>
           val userSession = request.session + ("userId" -> user.id.toString)
           val authenticatedUserJson = write(user)
           val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
           println("Online Users" + noOfOnLineUsers)
-          val jsonStatus = new ResulttoSent("Success", "Login Successful")
-          val statusToSend = write(jsonStatus)
-          Ok(statusToSend).as("application/json")
+          Ok(write(new ResulttoSent("Success", "Login Successful"))).as("application/json")
 
         case None =>
-          val jsonStatus = new ResulttoSent("Failure", "Login Unsuccessful")
-          val statusToSend = write(jsonStatus)
-          Ok(statusToSend).as("application/json")
+          Ok(write(new ResulttoSent("Failure", "Login Unsuccessful"))).as("application/json")
       }
 
     } catch {
-      case exception => InternalServerError(write("Oops there were errors during registration")).as("application/json")
+      case exception => InternalServerError(write("Oops there were errors during Login")).as("application/json")
     }
   }
 
