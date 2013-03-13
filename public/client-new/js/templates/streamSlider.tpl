@@ -36,7 +36,15 @@
             <div class="arrow-block"><span class="caret arrow-up"></span></div>
                 <div class="scroll-menu scroller">
                 
-                    <ul id="sortable4" class="connected sortable list">                  
+                    <ul id="sortable4" class="connected sortable list">  
+                       {{#each data}}
+                             <li id ="{{this.stream.id.id}}" name="{this.stream.streamName}" data-userCount = "{{this.usersOfStream}}">
+								<a  id ="{{this.stream.id.id}}"  name ="{this.stream.streamName}"  href="#" class="icon1">{{this.stream.streamName}}</a>
+								<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"></div>
+								<span class="menu-count"> </span>
+								<span class="close-btn drag-rectangle" data-original-title="Delete"></span>
+								</li>  
+						{{/each}}s     
                     </ul>
                 </div>
                 <div class="arrow-block arrow-block-down"></div>

@@ -17,9 +17,10 @@
 */
 define(['view/baseView',
         'text!templates/newStreamList.tpl',
+        'text!templates/streamSlider.tpl',
         '../../lib/jquery.simplyscroll',
         '../../lib/bootstrap'
-        ],function(BaseView, NewStreamTpl, simplyscroll,bootstrap){
+        ],function(BaseView, NewStreamTpl,StreamList, simplyscroll,bootstrap){
 	
     var streamSliderView; 
     streamSliderView = BaseView.extend({
@@ -38,6 +39,13 @@ define(['view/baseView',
 			
 			var compiledTemplate = Handlebars.compile(NewStreamTpl);
 			this.$(".content").html(compiledTemplate);
+			
+		},
+		
+		displayPage: function(callback){
+			console.log("434");
+			var compiledTemplate = Handlebars.compile(StreamList);
+			this.$(".content").html( compiledTemplate({data: this.data.toJSON()}));
 			
 		},
                      

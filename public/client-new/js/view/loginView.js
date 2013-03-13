@@ -60,7 +60,7 @@ define(['view/formView'], function(FormView){
 
             if(data.status == 'Success')
             {
-                alert('Login successfull');
+            	window.location = "/stream";
             }
             else
             {
