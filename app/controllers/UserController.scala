@@ -291,11 +291,9 @@ object UserController extends Controller {
           val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
           println("Online Users" + noOfOnLineUsers)
           Ok(write(new ResulttoSent("Success", "Login Successful"))).as("application/json")
-
         case None =>
           Ok(write(new ResulttoSent("Failure", "Login Unsuccessful"))).as("application/json")
       }
-
     } catch {
       case exception => InternalServerError(write("Oops there were errors during Login")).as("application/json")
     }

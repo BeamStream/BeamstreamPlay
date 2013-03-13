@@ -102,5 +102,15 @@ object StreamController extends Controller {
     Ok(write(result)).as("application/json")
 
   }
+  /**
+   * ****************************************** Re-architecture ****************************************************
+   */
+  
+  /**
+   * Renders the stream page
+   */
+  def renderStreamPage = Action {
+    Ok(views.html.stream())
+  }
   
 }
