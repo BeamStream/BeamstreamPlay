@@ -42,4 +42,3 @@ case class RegistrationResults(user:User, userSchool:UserSchool)
  * Stream Result 
  */
 case class StreamResult(stream:Stream,usersOfStream:Int)
-case class Streams(streams:List[StreamResult])

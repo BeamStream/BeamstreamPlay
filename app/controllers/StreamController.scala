@@ -22,7 +22,6 @@ import models.Class
 import models.ResulttoSent
 import models.Message
 import utils.onlineUserCache
-import models.Streams
 
 object StreamController extends Controller {
 
@@ -34,10 +33,10 @@ object StreamController extends Controller {
   /**
    * Check the cookies if login exists & take corresponding actions
    */
-  
+
   def index = Action { implicit request =>
     val playCookiee = request.cookies.get("PLAY_SESSION")
-    
+
     if (playCookiee == None) Redirect("/beamstream/home.html")
     else {
       val noOfOnLineUsers = onlineUserCache.setOnline(request.session.get("userId").get)
@@ -51,7 +50,7 @@ object StreamController extends Controller {
    */
   def getAllStreamForAUser = Action { implicit request =>
     val allStreamsForAUser = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
-    Ok(write(new Streams(allStreamsForAUser))).as("application/json")
+    Ok(write(allStreamsForAUser)).as("application/json")
   }
 
   /**
@@ -104,12 +103,12 @@ object StreamController extends Controller {
   /**
    * ****************************************** Re-architecture ****************************************************
    */
-  
+
   /**
    * Renders the stream page
    */
   def renderStreamPage = Action {
     Ok(views.html.stream())
   }
-  
+
 }
