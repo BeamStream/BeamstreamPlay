@@ -48,8 +48,8 @@ object SocialController extends Controller {
       val json = Json.parse(body)
       val providerName = (json \ "profile" \ "providerName").asOpt[String].get
       val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
-      val isAlreadyRegistered = User.isUserAlreadyRegistered(preferredUsername)
-      if (isAlreadyRegistered == false) {
+      val canUserRegister = User.isUserAlreadyRegistered(preferredUsername)
+      if (canUserRegister == true) {
         val userToCreate = new User(new ObjectId, UserType.Professional, "", "", "", preferredUsername, "", None, "", "", "", "", "", Option(providerName), List(), List(), List(), List(), List())
         val IdOfUserCreted = User.createUser(userToCreate)
         Ok(views.html.registration(IdOfUserCreted.toString, Option(json.toString)))

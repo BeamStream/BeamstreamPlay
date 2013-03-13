@@ -31,7 +31,7 @@ object StreamController extends Controller {
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
   /**
-   * Check the cookies if login exists & taking corresponding actions
+   * Check the cookies if login exists & take corresponding actions
    */
   
   def index = Action { implicit request =>
@@ -51,6 +51,7 @@ object StreamController extends Controller {
   def getAllStreamForAUser = Action { implicit request =>
     val allStreamsForAUser = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
     val allStreamsForAUserJson = write(allStreamsForAUser)
+    println(allStreamsForAUserJson)
     Ok(allStreamsForAUserJson).as("application/json")
   }
 
@@ -98,7 +99,6 @@ object StreamController extends Controller {
     val deleteStream = DetailsJsonMap("deleteStream").toList(0).toBoolean
     val removeAccess = DetailsJsonMap("removeAccess").toList(0).toBoolean
     val result = Stream.deleteStreams(new ObjectId(request.session.get("userId").get), new ObjectId(streamId), deleteStream, removeAccess)
-    println(write(result))
     Ok(write(result)).as("application/json")
 
   }
