@@ -2,20 +2,15 @@ package controllers
 import play.api.mvc.Controller
 import play.api._
 import play.api.mvc._
-import play.api.mvc.Response
 import models.Stream
-import play.api.data._
-import play.api.data.Forms._
 import play.api.Play.current
 import models.Message
 import models.User
 import org.bson.types.ObjectId
 import play.api.cache.Cache
 import models.Media
-import com.mongodb.gridfs.GridFSDBFile
 import models.UserType
 import java.io.File
-import play.api.libs.iteratee.Enumerator
 import java.util.Date
 import models.MessageAccess
 import models.MessageType
@@ -29,7 +24,6 @@ import utils.bitlyAuth
 import models.DocResulttoSent
 import models.UserMedia
 import models.Document
-import scala.collection.mutable.ListBuffer
 import models.Comment
 import models.ResulttoSent
 
@@ -44,6 +38,7 @@ object MessageController extends Controller {
   //==========================//
 
   def newMessage = Action { implicit request =>
+    var profilePicForUser = ""
     val messageListJsonMap = request.body.asJson.get
     println(messageListJsonMap)
     val streamId = (messageListJsonMap \ "streamId").as[String]
@@ -55,7 +50,9 @@ object MessageController extends Controller {
       messagePoster.firstName, messagePoster.lastName, 0, List(), List(), 0, List())
     val messageId = Message.createMessage(messageToCreate)
     val messageObtained = Message.findMessageById(messageId.get)
-    val messageJson = write(List(new DocResulttoSent(messageObtained.get, "", "", None, None)))
+    val userMedia = UserMedia.getProfilePicForAUser(messageObtained.get.userId)
+    if (!userMedia.isEmpty) profilePicForUser = userMedia(0).mediaUrl
+    val messageJson = write(List(new DocResulttoSent(messageObtained.get, "", "", Option(profilePicForUser), None)))
     Ok(messageJson).as("application/json")
 
   }

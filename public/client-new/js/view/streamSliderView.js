@@ -51,6 +51,8 @@ define(['view/baseView',
         	
         	
         	/* render the stream title and description view based on selected stream */
+        	$('.stream-header-left').attr('data-value',$('.sortable li.active').attr('id') );
+        	
         	var streamName = $('.sortable li.active').attr('name');
         	var compiledTemplate = Handlebars.compile(StreamTitle);
 			$('.stream-header-left').html(compiledTemplate({data: this.data.toJSON()[0]}));

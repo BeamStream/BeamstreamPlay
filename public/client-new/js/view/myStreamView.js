@@ -35,6 +35,7 @@ define(['view/baseView'], function(BaseView){
 		tabHandler: function(e){
 			$('#myTab a.active').removeClass('active');
 			$(e.target).addClass('active');
+			
 //			$('a[data-toggle="tab"]').on('shown', function (e) {
 //				
 ////				if($(e.target.href)[0].children==0)
