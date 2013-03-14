@@ -245,7 +245,7 @@ object MessageController extends Controller {
       val messagesWithDescription = Message.messagesAlongWithDocDescription(allMessagesForAStream)
       Ok(write(messagesWithDescription)).as("application/json")
     } catch {
-      case exception => InternalServerError(write(new ResulttoSent("Failure", "Problem during message retreival")))
+      case exception => InternalServerError(write(new ResulttoSent("Failure", "Problem during message retrieval")))
     }
   }
 
