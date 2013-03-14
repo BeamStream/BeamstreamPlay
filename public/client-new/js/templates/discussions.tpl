@@ -37,9 +37,13 @@
 
                 </ul>
               </div>
+              
+              
               <form class="all-search">
                 <input type="text" id="sort_by_key" class="quest-search" placeholder="Search Discussions">
               </form>
+              
+              
             </div>
             <div class="clear"></div>
           </div>
@@ -48,6 +52,8 @@
               <div class="follw-left">
                   <div class="ask-img"><img id="main-photo" src=""></div>
               </div>
+              
+              
               <div  class="ask-info">
                 <div class="ask-comment">
                   <div class="ask-left">
@@ -76,7 +82,7 @@
                   </div>
                   <a  id="post-button" class="ask-button">POST</a>
                   <div id="file-upload-loader" style="display :none;">  
-							<img src ="images/loading.gif"> 
+							<!-- <img src ="images/loading.gif"> -->
         		</div>
                    </div>
                   
@@ -125,6 +131,7 @@
                 </div>
               </div>
             </div>
+            
             <div class="clear"></div>
           </div>
         </div>

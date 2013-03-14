@@ -71,7 +71,7 @@
                   </div>
                   <a  id="post-question"  class="ask-button">ASK</a> 
 <div id="file-upload-loader" style="display :none;">  
-							<img src ="images/loading.gif"> 
+							<!--<img src ="images/loading.gif"> -->
         		</div></div>
                 <div class="ask-iconinfo">
 				   <div class="btn-group attach-drop">

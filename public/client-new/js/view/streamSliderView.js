@@ -18,9 +18,10 @@
 define(['view/baseView',
         'text!templates/newStreamList.tpl',
         'text!templates/streamSlider.tpl',
+        'text!templates/streamTitle.tpl',
         '../../lib/jquery.simplyscroll',
         '../../lib/bootstrap'
-        ],function(BaseView, NewStreamTpl,StreamList, simplyscroll,bootstrap){
+        ],function(BaseView, NewStreamTpl,StreamList,StreamTitle, simplyscroll,bootstrap){
 	
     var streamSliderView; 
     streamSliderView = BaseView.extend({
@@ -47,6 +48,12 @@ define(['view/baseView',
         	this.slider();
         	$('#sortable4 li:first').addClass('active');
         	$('#sortable4 li:first').append(this.activeDiv);
+        	
+        	
+        	/* render the stream title and description view based on selected stream */
+        	var streamName = $('.sortable li.active').attr('name');
+        	var compiledTemplate = Handlebars.compile(StreamTitle);
+			$('.stream-header-left').html(compiledTemplate({data: this.data.toJSON()[0]}));
 		},
 		
         /**
