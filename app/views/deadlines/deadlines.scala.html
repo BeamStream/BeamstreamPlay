@@ -1,13 +1,14 @@
 @(message: String)
 @meta = {}
-@CSS = {}
-@JS = {}
+@CSS = {
+<link rel="stylesheet" type="text/css" media="screen" href="/beamstream-new/css/bootstrap-select.css">
+}
+@JS = {
+<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.min.js"></script>
+}
 @bodyCls = {}
 @bodyModule = {}
 @bodyJS = {}
-@sideBar = {
-  @views.html.sidebar.render
-}
 @header = {
   @views.html.header.render
 }
@@ -16,8 +17,8 @@
 }
 
 
-@main("Deadlines", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
-    
-    <div>Deadlines</div>
-    
+@main("Media", "Body", meta, CSS, JS, bodyModule, bodyJS, header, footer){
+
+  Deadlines
+
 }
