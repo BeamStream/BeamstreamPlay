@@ -114,13 +114,13 @@ object ClassController extends Controller {
         println("Create Stream Case")
         val classCreated = net.liftweb.json.parse(request.body.asJson.get.toString).extract[Class]
         Class.createClass(classCreated, new ObjectId(request.session.get("userId").get))
-        Ok(views.html.stream())
+        Ok(write(new ResulttoSent("Success","Class Created Successfully")))
       } else {
         println("Join Stream Case")
         val classesobtained = Class.findClasssById(new ObjectId(id.get))
         models.Stream.joinStream(classesobtained.streams(0), new ObjectId(request.session.get("userId").get))
         User.addClassToUser(new ObjectId(request.session.get("userId").get), List(new ObjectId(id.get)))
-        Ok(views.html.stream())
+        Ok(write(new ResulttoSent("Success","Class Joined Successfully")))
       }
       //Ok(write(new ResulttoSent("Success", "Class Created Successfully"))).as("application/json")
     } catch {

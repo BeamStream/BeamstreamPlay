@@ -31,12 +31,12 @@ object StreamController extends Controller {
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer
 
   /**
-   * Check the cookies if login exists & taking corresponding actions
+   * Check the cookies if login exists & take corresponding actions
    */
-  
+
   def index = Action { implicit request =>
     val playCookiee = request.cookies.get("PLAY_SESSION")
-    
+
     if (playCookiee == None) Redirect("/beamstream/home.html")
     else {
       val noOfOnLineUsers = onlineUserCache.setOnline(request.session.get("userId").get)
@@ -50,8 +50,7 @@ object StreamController extends Controller {
    */
   def getAllStreamForAUser = Action { implicit request =>
     val allStreamsForAUser = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
-    val allStreamsForAUserJson = write(allStreamsForAUser)
-    Ok(allStreamsForAUserJson).as("application/json")
+    Ok(write(allStreamsForAUser)).as("application/json")
   }
 
   /**
@@ -98,9 +97,18 @@ object StreamController extends Controller {
     val deleteStream = DetailsJsonMap("deleteStream").toList(0).toBoolean
     val removeAccess = DetailsJsonMap("removeAccess").toList(0).toBoolean
     val result = Stream.deleteStreams(new ObjectId(request.session.get("userId").get), new ObjectId(streamId), deleteStream, removeAccess)
-    println(write(result))
     Ok(write(result)).as("application/json")
 
   }
-  
+  /**
+   * ****************************************** Re-architecture ****************************************************
+   */
+
+  /**
+   * Renders the stream page
+   */
+  def renderStreamPage = Action {
+    Ok(views.html.stream())
+  }
+
 }

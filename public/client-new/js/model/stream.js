@@ -19,7 +19,7 @@
 define(['model/baseModel'], function(BaseModel) {
 	var Stream = BaseModel.extend({ 
 		objName: 'Stream',
-	        
+//		url:'/allStreamsForAUser',
         /**
          *@TODO  parse the response data because the response json is different
          */

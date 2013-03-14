@@ -17,7 +17,7 @@
 */
 
 
-define(['view/formView'], function(FormView){
+define(['view/formView', 'model/stream'], function(FormView ,Stream){
 	var LoginView;
 	LoginView = FormView.extend({
 		objName: 'LoginView',
@@ -29,7 +29,10 @@ define(['view/formView'], function(FormView){
 		onAfterInit: function(){	
             this.data.reset();
             $('.sign-tick').hide(); 
-            $('.sign-close').hide(); 	        
+            $('.sign-close').hide(); 
+            
+            this.stream = new Stream();
+			this.stream.fetch();
         },
         
          
@@ -60,7 +63,8 @@ define(['view/formView'], function(FormView){
 
             if(data.status == 'Success')
             {
-                alert('Login successfull');
+            	console.log(this.stream);
+            	window.location = "/stream";
             }
             else
             {

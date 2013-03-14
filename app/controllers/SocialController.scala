@@ -48,8 +48,8 @@ object SocialController extends Controller {
       val json = Json.parse(body)
       val providerName = (json \ "profile" \ "providerName").asOpt[String].get
       val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
-      val isAlreadyRegistered = User.isUserAlreadyRegistered(preferredUsername)
-      if (isAlreadyRegistered == false) {
+      val canUserRegister = User.isUserAlreadyRegistered(preferredUsername)
+      if (canUserRegister == true) {
         val userToCreate = new User(new ObjectId, UserType.Professional, "", "", "", preferredUsername, "", None, "", "", "", "", "", Option(providerName), List(), List(), List(), List(), List())
         val IdOfUserCreted = User.createUser(userToCreate)
         Ok(views.html.registration(IdOfUserCreted.toString, Option(json.toString)))
@@ -66,29 +66,28 @@ object SocialController extends Controller {
    */
   def logInViaSocialSites = Action { implicit request =>
 
-    //    try {
-    val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
-    val token = tokenList(0)
-    val apiKey = Play.current.configuration.getString("janrain_apiKey").get
-    val URL = "https://rpxnow.com/api/v2/auth_info"
-    val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
-    val res = promise.get
-    val body = res.getBody
-    val json = Json.parse(body)
-    val providerName = (json \ "profile" \ "providerName").asOpt[String].get
-    val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
-    val authenticatedUser = User.findUserComingViaSocailSite(preferredUsername, providerName)
-    if (authenticatedUser == None) {
-      Ok("No User Found").as("application/json")
-    } else {
-      val userSession = request.session + ("userId" -> authenticatedUser.get.id.toString)
-      val noOfOnLineUsers = onlineUserCache.setOnline(authenticatedUser.get.id.toString)
-      println("Online Users" + noOfOnLineUsers)
-      Ok(views.html.discussions.discussions("DISCUSSIONS_DATA")).withSession(userSession)
+    try {
+      val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
+      val token = tokenList(0)
+      val apiKey = Play.current.configuration.getString("janrain_apiKey").get
+      val URL = "https://rpxnow.com/api/v2/auth_info"
+      val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
+      val res = promise.get
+      val body = res.getBody
+      val json = Json.parse(body)
+      val providerName = (json \ "profile" \ "providerName").asOpt[String].get
+      val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
+      val authenticatedUser = User.findUserComingViaSocailSite(preferredUsername, providerName)
+      if (authenticatedUser == None) {
+        Ok("No User Found").as("application/json")
+      } else {
+        val userSession = request.session + ("userId" -> authenticatedUser.get.id.toString)
+        val noOfOnLineUsers = onlineUserCache.setOnline(authenticatedUser.get.id.toString)
+        Ok(views.html.discussions.discussions("DISCUSSIONS_DATA")).withSession(userSession)
+      }
+    } catch {
+      case ex => InternalServerError(write("Login Failed")).as("application/json")
     }
-    //    } catch {
-    //      case ex => InternalServerError(write("Login Failed")).as("application/json")
-    //    }
   }
   /**
    * Get a list of all the social contacts related to the user.

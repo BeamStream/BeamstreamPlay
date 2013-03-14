@@ -185,10 +185,19 @@ define(['view/formView',
         
         
         /**
-		 * class form success
+		 * class form success and redirect to stream page
 		 */
 		success: function(model, data){
-//			alert(data.message);
+			if(data.status == "Success"){
+   	    		window.location = "/stream";
+   	    	}
+   	    	else{
+   	    		alert(data.message);
+   	    	}
+		},
+		
+		serverError : function(model, data) {
+			console.log(data.response);
 		},
 		
         /**
