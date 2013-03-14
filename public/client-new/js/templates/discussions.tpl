@@ -134,6 +134,10 @@
             
             <div class="clear"></div>
           </div>
+          
+          <div id= "all-messages">
+
+          </div>
         </div>
      
 

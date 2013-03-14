@@ -1,4 +1,4 @@
- <h2>{{data.stream.streamName}}<a href="#" id="show-info" >Show Details</a></h2>
+ <h2  >{{data.stream.streamName}}<a href="#" id="show-info" >Show Details</a></h2>
  
 <div class="show-info">
 

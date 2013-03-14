@@ -405,12 +405,12 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#478cb4', endCo
 }
 
 .display-toggle {
-		-webkit-border-radius:0 4px 4px 0;
-		-moz-border-radius:0 4px 4px 0;
-		border-radius:0 4px 4px 0;
+		-webkit-border-radius:0 4px 4px 0 !important;
+		-moz-border-radius:0 4px 4px 0 !important;
+		border-radius:0 4px 4px 0 !important;
 		background:#1d2123;
-		border-bottom:1px solid #747c81!important;
-		border-top:1px solid #1d2123;
+		border-bottom:1px solid #747c81 !important;
+		border-top:1px solid #1d2123 !important;
 		box-shadow:none!important;
 		height:40px;
 		padding:0 5%!important;
@@ -993,10 +993,10 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#cd4747', endCo
 		background:-ms-linear-gradient(bottom, #5197bc, #5197bc);
 		background:-moz-linear-gradient(center bottom, #5197bc 0, #5197bc 100%);
 		background:-o-linear-gradient(#5197bc, #5197bc);
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5197bc', endColorstr='#5197bc', GradientType=0);
-		-webkit-border-radius:0 4px 4px 0;
-		-moz-border-radius:0 4px 4px 0;
-		border-radius:0 4px 4px 0;
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5197bc', endColorstr='#5197bc', GradientType=0);
+		-webkit-border-radius:0 4px 4px 0 !important;
+		-moz-border-radius:0 4px 4px 0 !important;
+		border-radius:0 4px 4px 0 !important;
 		border:0;
 		height:30px;
 		padding:0 12px;
@@ -1258,10 +1258,10 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#478cb4', endCo
 		background:-ms-linear-gradient(bottom, #dcdee1, #eaecee);
 		background:-moz-linear-gradient(center bottom, #dcdee1 0, #eaecee 100%);
 		background:-o-linear-gradient(#eaecee, #dcdee1);
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eaecee', endColorstr='#dcdee1', GradientType=0);
-		-webkit-border-radius:0 4px 4px 0;
-		-moz-border-radius:0 4px 4px 0;
-		border-radius:0 4px 4px 0;
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eaecee', endColorstr='#dcdee1', GradientType=0);
+		-webkit-border-radius:0 4px 4px 0 !important;
+		-moz-border-radius:0 4px 4px 0 !important;
+		border-radius:0 4px 4px 0 !important;
 		border:1px solid #c1c1c1;
 		height:30px;
 		padding:0 5%!important
@@ -1987,9 +1987,9 @@ ul.discussion-info {
 }
 
 ul.discussion-info li {
-		-webkit-box-shadow:inset 5px 0 5px -8px #333 inset -5px 0 5px -8px #333;
-		-moz-box-shadow:inset 5px 0 5px -8px #333 inset -5px 0 5px -8px #333;
-		box-shadow:inset 5px 0 5px -8px #333 inset -5px 0 5px -8px #333;
+		 -moz-box-shadow:inset 5px 0 5px -8px #333,inset -5px 0 5px -8px #333;
+   		 -webkit-box-shadow:inset 5px 0 5px -8px #333,inset -5px 0 5px -8px #333;
+   		 box-shadow:inset 5px 0 5px -8px #333,inset -5px 0 5px -8px #333;
 		display:block;
 		overflow:hidden;
 		width:88%;
@@ -2140,18 +2140,21 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5ba4c4', endCo
 .chat-open span {
 		color:#3d5869;
 		font-weight:700;
-		font-size:15px;
-		background-position:-6px -253px;
-		padding:0 0 0 20px
+		color:#3d5869;
+	   font-weight:700;
+	   font-size:15px;
+	   background:url(../images/spryte.png) -6px -253px;
+	   padding:0 0 0 20px;
+	   
 }
 
-.chat-open span .chat-show {
+.chat-open span.chat-show {
 		float:right;
-		background:0;
-		background-position:-184px -363px;
-		width:6px;
-		height:20px
+		background:none;
+		 background:url(../images/spryte.png) -184px -363px;
+		 width:6px; height:20px;
 }
+
 
 .chat-view {
 		width:100%;

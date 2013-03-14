@@ -18,8 +18,9 @@
 
 
 define(['view/formView',
-        'model/discussion'
-        ], function(FormView, Discussion){
+        'model/discussion',
+        'text!templates/discussionMessage.tpl',
+        ], function(FormView, DiscussionModel ,DiscussionMessage){
 	var Discussions;
 	Discussions = FormView.extend({
 		objName: 'Discussion',
@@ -30,10 +31,36 @@ define(['view/formView',
 			 'click #private-to' : 'checkPrivateAccess',
 		 },
 
-		onAfterInit: function(){	
+		 
+		 onAfterInit: function(){	
             this.data.reset();
-        },
+            this.pagenum = 1;
+            this.pageLimit = 10;
+            this.discussion = new DiscussionModel();
+		 },
         
+        
+		 /**
+         * after render 
+         */
+		 onAfterRender: function(){
+        	 
+        	
+        	/* @TODO display all messages of a stream  on message feed */
+        	var streamId =  $('#myStream').attr('data-value');
+        	this.discussion.url = "/allMessagesForAStream/"+streamId+"/"+this.pageLimit+"/"+this.pagenum;
+        	this.discussion.fetch();
+        	
+        	 _.each(this.discussion, function(message) {
+	    		var compiledTemplate = Handlebars.compile(DiscussionMessage);
+	    		$('#all-messages').prepend( compiledTemplate({data:message}));
+		    		
+    		 });
+		},
+		
+        /**
+         * post messages 
+         */
         postMessage: function(){
         	
         	var self = this;
@@ -62,9 +89,26 @@ define(['view/formView',
 		  	    messageAccess = "Public";
 		    }
 		    
-		    this.discussion = new Discussion();
-		    this.discussion.set({'streamId' : streamId, 'message' :message, 'messageAccess':messageAccess});
-		    this.discussion.save();
+		    this.discussion.url = "/newMessage";
+		    // set values to model
+		    this.discussion.save({streamId : streamId, message :message, messageAccess:messageAccess},{
+		    	success : function(model, response) {
+		    		
+		    		   $('#msg-area').val("");
+		    		  /* display the posted message on feed */
+		    		 _.each(response, function(message) {
+		    			 
+			    		var compiledTemplate = Handlebars.compile(DiscussionMessage);
+			    		$('#all-messages').prepend( compiledTemplate({data:message}));
+			    		
+		    		 });
+		    	},
+		    	error : function(model, response) {
+		    		
+                    console.log("error");
+		    	}
+
+		    });
 		    
         },
         
