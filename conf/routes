@@ -210,17 +210,17 @@ POST /media 									controllers.MediaController.media
 
 
 
-#-------Dan-------#
+
 # Messages
 #GET /getAllMessagesForAStream                	controllers.MessageController.getAllMessagesForAStreamWithPagination
 # Media
-GET /getProfilePicForAUser      				controllers.MediaController.getProfilePicForAUser
+#GET /getProfilePicForAUser      				controllers.MediaController.getProfilePicForAUser
 # Comments
-GET /allComments           						controllers.CommentController.getAllComments
-#-------Dan-------#
+#GET /allComments           						controllers.CommentController.getAllComments
+
 
 # Messages + Comments + ProfilePicUrl
-POST   /allMessagesForAStream                  controllers.MessageController.allMessagesForAStream
+GET   /allMessagesForAStream/:streamId/:messagesPerPage/:pageNo controllers.MessageController.allMessagesForAStream(streamId:String,messagesPerPage:Int,pageNo:Int)
 
 # Social
 POST /social/social_authentication   			controllers.SocialController.signUpViaSocialSites
