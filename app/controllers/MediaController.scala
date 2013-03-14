@@ -254,7 +254,14 @@ object MediaController extends Controller {
     } else {
       Ok(write(new ResulttoSent("Failure", "No picture found for this user")))
     }
-
   }
 
+  /**
+   * Render Browse Media Page
+   */
+  
+  def browseMedia  = Action { implicit  request =>
+    Ok(views.html.browsemedia())
+  }
+  
 }

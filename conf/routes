@@ -230,6 +230,9 @@ POST /social/social_login  			            controllers.SocialController.logInViaS
 
 GET /stream                                      controllers.StreamController.renderStreamPage
 
+#Files & Media
+
+GET  /browsemedia                              controllers.MediaController.browseMedia
 #Asynchronous Services
 # To create a resource on the server, use POST.
 # To retrieve a resource, use GET.
