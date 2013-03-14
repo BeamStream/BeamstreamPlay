@@ -6,7 +6,8 @@ define(['view/formView'], function(FormView){
 			'click #save' : 'SaveData',
 			'click #singleFieldValidation' : 'validateSingleField',
 			'click #setField' : 'setSingleField',
-			'click #setCollection': 'setCollection'
+			'click #setCollection': 'setCollection',
+			'click #post-button' : 'postMessage',
 			
 		},
 		
@@ -17,7 +18,8 @@ define(['view/formView'], function(FormView){
 		/**
 		 * save form data
 		 */
-		SaveData: function(){
+		postMessage: function(){
+			alert(55);
 //			dataToSave.isValid(true)
 //			console.log(this.getModel());
 //			this.data.models[0].set({'san':'te3454'});

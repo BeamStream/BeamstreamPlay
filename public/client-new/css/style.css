@@ -74,11 +74,10 @@ body {
 		background:-ms-linear-gradient(bottom, #3f5a6b, #334956);
 		background:-moz-linear-gradient(center bottom, #3f5a6b 0, #334956 100%);
 		background:-o-linear-gradient(#334956, #3f5a6b);
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#334956', endColorstr='#3f5a6b', GradientType=0);
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#334956', endColorstr='#3f5a6b', GradientType=0);
 		border-bottom:4px solid #2f4553;
 		padding:0 0 0 10px;
 		position:relative;
-		behavior:url(css/PIE.htc)
 }
 
 .brand {
@@ -115,7 +114,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#334956', endCo
 		height:26px;
 		padding:5px 10px!important;
 		float:left;
-		behavior:url(css/PIE.htc)
 }
 
 .header-button {
@@ -124,7 +122,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#334956', endCo
 		background:-ms-linear-gradient(bottom, #529abe, #3f7baa);
 		background:-moz-linear-gradient(center bottom, #529abe 0, #3f7baa 100%);
 		background:-o-linear-gradient(#3f7baa, #529abe);
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3f7baa', endColorstr='#529abe', GradientType=0);
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3f7baa', endColorstr='#529abe', GradientType=0);
 		-webkit-border-radius:0 4px 4px 0;
 		-moz-border-radius:0 4px 4px 0;
 		border-radius:0 4px 4px 0;
@@ -224,8 +222,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#478cb4', endCo
 		box-shadow:none!important;
 		color:#798e9a;
 		font-size:14px;
-		padding-right:0;
-		padding-top:4px;
+		padding:4px 0 0 0;
 		text-shadow:none
 }
 
@@ -292,15 +289,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#478cb4', endCo
 		background-position:left top no-repeat
 }
 
-.menu ul span {
-		height:20px;
-		left:20px;
-		position:absolute;
-		top:15px;
-		width:22px;
-		background-position:left top no-repeat
-}
-
 .menu ul .my-stream span {
 		background-position:0 0
 }
@@ -340,20 +328,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#478cb4', endCo
 .display-stream {
 		float:left
 }
-
-.home-content {
-		background:url(../images/content-bg.png) repeat-x left bottom #fff;
-		border-color:#d0d5d8 #d0d5d8 -moz-use-text-color;
-		border-image:none;
-		border-style:solid solid none;
-		border-width:1px 1px medium;
-		float:left;
-		margin-left:0!important;
-		margin-top:20px;
-		padding:10px 10px 20px;
-		width:85%!important
-}
-
 .main-container {
 		clear:both;
 		display:block
@@ -386,7 +360,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#478cb4', endCo
 		text-align:left;
 		text-shadow:none;
 		padding:0 0 0 5%;
-		behavior:url(css/PIE.htc)
 }
 
 .display-sub {
@@ -440,8 +413,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#478cb4', endCo
 		border-top:1px solid #1d2123;
 		box-shadow:none!important;
 		height:40px;
-		padding-left:5%!important;
-		padding-right:5%!important
+		padding:0 5%!important;
 }
 
 .done {
@@ -457,7 +429,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#478cb4', endCo
 
 .done:hover {
 		background:#d59a1c;
-		color:#fff;
 		text-decoration:none
 }
 
@@ -591,7 +562,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d3951b', endCo
 		border-top:1px solid #e9cc91;
 		display:inline-block;
 		overflow:hidden;
-		behavior:url(css/PIE.htc)
 }
 
 .straem-block a span {
@@ -712,7 +682,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#56975b', endCo
 		border-radius:4px;
 		display:block;
 		overflow:hidden;
-		behavior:url(css/PIE.htc)
 }
 
 .stream-top-btn a:hover {
@@ -722,7 +691,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#56975b', endCo
 		background:-moz-linear-gradient(center bottom, #438247 0, #336336 100%);
 		background:-o-linear-gradient(#336336, #438247);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#336336', endColorstr='#438247', GradientType=0);
-		behavior:url(css/PIE.htc)
 }
 
 .stream-top-btn a span {
@@ -786,7 +754,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d4991c', endCo
 		border:1px solid #dbaa22;
 		color:#fff;
 		position:relative;
-		behavior:url(css/PIE.htc)
 }
 
 ul.stream-tab li a span {
@@ -803,7 +770,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ce4848', endCo
 		font-weight:600;
 		line-height:16px;
 		border:solid 1px #fff;
-		behavior:url(css/PIE.htc);
 		position:absolute;
 		top:-10px;
 		left:45%;
@@ -1034,7 +1000,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5197bc', endCo
 		border:0;
 		height:30px;
 		padding:0 12px;
-		behavior:url(css/PIE.htc)
 }
 
 .sort-caret {
@@ -1077,7 +1042,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5197bc', endCo
 		-webkit-border-radius:5px;
 		-moz-border-radius:5px;
 		border-radius:5px;
-		behavior:url(css/PIE.htc)
 }
 
 .delete_msg {
@@ -1430,7 +1394,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3a713d', endCo
 		text-decoration:none;
 		text-shadow:1px 1px 1px #888;
 		text-transform:uppercase;
-		behavior:url(css/PIE.htc)
 }
 
 .follow-button:hover {
@@ -1535,7 +1498,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeff1', endCo
 		font-weight:bold;
 		margin-right:1%;
 		padding:4px 15px;
-		behavior:url(css/PIE.htc)
 }
 
 .grey-buttons span {
@@ -2007,7 +1969,6 @@ ul.recent-questions li span .dead-date {
 		background:-moz-linear-gradient(center bottom, #4d9451 0, #396f3c 100%);
 		background:-o-linear-gradient(#396f3c, #4d9451);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#396f3c', endColorstr='#4d9451', GradientType=0);
-		behavior:url(css/PIE.htc);
 		color:#fff;
 		text-shadow:1px 1px 1px #888
 }
@@ -2488,7 +2449,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d2941b', endCo
 		border-radius:4px;
 		display:block;
 		overflow:hidden;
-		behavior:url(css/PIE.htc);
 		float:left;
 		margin:0 0 0 15px
 }
@@ -2544,7 +2504,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d2941b', endCo
 		background:-moz-linear-gradient(center bottom, #417545 0, #56975b 100%);
 		background:-o-linear-gradient(#56975b, #417545);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#56975b', endColorstr='#417545', GradientType=0);
-		behavior:url(css/PIE.htc)
 }
 
 .green-btn-new:hover {
@@ -2644,7 +2603,6 @@ ul.profil-pic-outer li {
 		-moz-box-shadow:0 0 0 1px #cdd4db;
 		box-shadow:0 0 0 1px #cdd4db;
 		background:#fff;
-		behavior:url(css/PIE.htc);
 		display:block;
 		overflow:hidden;
 		float:left
@@ -2828,7 +2786,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d2941b', endCo
 		-webkit-border-radius:4px;
 		-moz-border-radius:4px;
 		border-radius:4px;
-		behavior:url(css/PIE.htc);
 		color:#fff;
 		font-weight:700;
 		font-size:12px;
@@ -3480,21 +3437,22 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eaecee', endCo
 		overflow:hidden
 }
 
-.active-new {
-		-webkit-border-radius:6px;
-		-moz-border-radius:6px;
-		border-radius:6px;
-		background:url(../images/attach-a.png) no-repeat;
+.active-new,
+.attach-drop-button {
 		display:block;
 		width:25px;
 		height:30px
 }
 
+.active-new {
+		-webkit-border-radius:6px;
+		-moz-border-radius:6px;
+		border-radius:6px;
+		background:url(../images/attach-a.png) no-repeat
+}
+
 .attach-drop-button {
 		background:none!important;
-		display:block;
-		width:25px;
-		height:30px;
 		overflow:hidden;
 		left:-26px
 }
@@ -3649,8 +3607,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eaecee', endCo
 		float:left;
 		font-weight:normal;
 		line-height:21px;
-		padding-left:3px;
-		padding-right:3px;
+		padding:0 3px;
 		text-decoration:none;
 		width:82px!important
 }
@@ -3792,7 +3749,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dba921', endCo
 		-moz-box-shadow:#000 0 1px 8px;
 		box-shadow:#000 0 1px 8px;
 		background:url(../images/signup-border.png);
-		behavior:url(css/PIE.htc);
 		padding:10px
 }
 
@@ -3876,7 +3832,6 @@ ul.signup-register li.lastblock a {
 		color:#fff;
 		font-size:16px;
 		font-weight:700;
-		behavior:url(css/pie/PIE.htc);
 		text-shadow:1px 1px 1px rgba(0, 0, 0, 0.4)
 }
 
@@ -3925,7 +3880,6 @@ ul.signup-register li.lastblock a.facebook {
 		background:-moz-linear-gradient(center bottom, #3e75b3 0, #4c8dc1 100%);
 		background:-o-linear-gradient(#4c8dc1, #3e75b3);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4c8dc1', endColorstr='#3e75b3', GradientType=0);
-		behavior:url(/PIE.htc)
 }
 
 ul.signup-register li.lastblock a.twitter {
@@ -3935,7 +3889,6 @@ ul.signup-register li.lastblock a.twitter {
 		background:-moz-linear-gradient(center bottom, #2098bf 0, #27aacb 100%);
 		background:-o-linear-gradient(#27aacb, #2098bf);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#27aacb', endColorstr='#2098bf', GradientType=0);
-		behavior:url(/PIE.htc)
 }
 
 ul.signup-register li.lastblock a.google {
@@ -3945,7 +3898,6 @@ ul.signup-register li.lastblock a.google {
 		background:-moz-linear-gradient(center bottom, #ae3f3f 0, #bc4d4d 100%);
 		background:-o-linear-gradient(#bc4d4d, #ae3f3f);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bc4d4d', endColorstr='#ae3f3f', GradientType=0);
-		behavior:url(/PIE.htc)
 }
 
 ul.signup-register li.lastblock a.link-in {
@@ -3955,7 +3907,6 @@ ul.signup-register li.lastblock a.link-in {
 		background:-moz-linear-gradient(center bottom, #0988c6 0, #0b9dd0 100%);
 		background:-o-linear-gradient(#0b9dd0, #0988c6);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#0b9dd0', endColorstr='#0988c6', GradientType=0);
-		behavior:url(/PIE.htc)
 }
 
 ul.signup-register li fieldset {
@@ -3975,7 +3926,6 @@ ul.signup-register li fieldset {
 		padding:0 0 0 70px;
 		color:#3f5a6c;
 		position:relative;
-		behavior:url(css/pie/PIE.htc)
 }
 
 ul.signup-register li fieldset.message {
@@ -4013,7 +3963,6 @@ ul.signup-register li input {
 		border-radius:65px;
 		width:115px;
 		height:115px;
-		behavior:url(css/PIE.htc);
 		position:relative
 }
 
@@ -4046,7 +3995,6 @@ ul.signup-register li input {
 		position:absolute;
 		right:0;
 		background:#f6f8f9;
-		behavior:url(css/pie/PIE.htc);
 		border:solid 1px #d3d9dc;
 		padding:5px;
 		height:16px;
@@ -4117,7 +4065,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#57975b', endCo
 		padding:0 60px;
 		height:50px;
 		line-height:50px;
-		behavior:url(css/PIE.htc);
 		float:left;
 		text-shadow:1px 1px 1px rgba(0, 0, 0, 0.5);
 		font-weight:500
@@ -4193,7 +4140,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#57975b', endCo
 		background:#fff;
 		list-style:none;
 		padding:5%;
-		behavior:url(css/PIE.htc);
 		margin:0 0 60px 0
 }
 
@@ -4296,22 +4242,20 @@ ul.whitefield li .fisherman {
 		background:url(../images/spryte.png) -82px -835px
 }
 
-.profile-center-container {
+.profile-center-container,
+.user-center-container {
 		background-image:url(../images/prifile-graph.png);
 		background-repeat:no-repeat;
 		height:570px
 }
 
 .user-center-container {
-		background-image:url(../images/prifile-graph.png);
-		background-repeat:no-repeat;
-		background-position:center 18%;
-		height:570px
+		background-position:center 18%
 }
 
 .profile-right-container {
-		float:left
-}
+		float:left;
+		}
 
 .follow-david {
 		background:#438348;
@@ -4331,7 +4275,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#336437', endCo
 		width:100%;
 		margin:20px 0 0 0;
 		text-transform:uppercase;
-		behavior:url(css/PIE.htc)
 }
 
 .follow-david:hover {
@@ -4466,7 +4409,6 @@ ul.feed-info li span {
 		display:block;
 		width:100%;
 		text-transform:uppercase;
-		behavior:url(css/PIE.htc)
 }
 
 .show-more:hover {
@@ -4534,7 +4476,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4386b1', endCo
 		text-align:center;
 		font-weight:700;
 		font-size:20px;
-		behavior:url(css/PIE.htc);
 		margin:0 auto
 }
 
@@ -4599,7 +4540,6 @@ ul.profile-skills li {
 		background:-o-linear-gradient(#395161, #456377);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#395161', endColorstr='#456377', GradientType=0);
 		height:32px;
-		behavior:url(css/PIE.htc);
 		line-height:32px;
 		color:#fff;
 		font-weight:700
@@ -4621,7 +4561,6 @@ ul.skills-grade li {
 		background:-moz-linear-gradient(center bottom, #58a1c2 0, #4a8fb6 100%);
 		background:-o-linear-gradient(#4a8fb6, #58a1c2);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4a8fb6', endColorstr='#58a1c2', GradientType=0);
-		behavior:url(css/PIE.htc);
 		width:10%;
 		height:6px;
 		margin-right:1px;
@@ -4641,7 +4580,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4a8fb6', endCo
 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4a8fb6', endColorstr='#5aa3c4', GradientType=0);
 		float:right;
 		width:20%;
-		behavior:url(/PIE.htc);
 		text-align:center
 }
 
@@ -4732,35 +4670,11 @@ ul.gallery-pic li img {
 		background:#fff;
 		padding:0 5%;
 		box-shadow:0 0 0 1px #cdd4db;
-		behavior:url(css/PIE.htc);
 		width:90%;
 		margin:0 0 8px 0;
 		color:#425e71;
 		font-size:15px;
 		font-weight:400
-}
-
-.registration-info input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="datetime"]:focus,
-input[type="datetime-local"]:focus,
-input[type="date"]:focus,
-input[type="month"]:focus,
-input[type="time"]:focus,
-input[type="week"]:focus,
-input[type="number"]:focus,
-input[type="email"]:focus,
-input[type="url"]:focus,
-input[type="search"]:focus,
-input[type="tel"]:focus,
-input[type="color"]:focus,
-.uneditable-input:focus {
-		border-color:rgba(82, 168, 236, 0.8);
-		outline:0;
-		outline:thin dotted \9;
-		-webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.075) 0 0 8px rgba(82, 168, 236, 0.6);
-		-moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.075) 0 0 8px rgba(82, 168, 236, 0.6);
-		box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.075) 0 0 8px rgba(82, 168, 236, 0.6)
 }
 
 .registration-info input span {
@@ -4785,7 +4699,6 @@ input[type="color"]:focus,
 		font-size:15px;
 		font-weight:400;
 		height:90px;
-		behavior:url(css/PIE.htc);
 		width:90%;
 		margin:0 0 8px 0;
 		resize:none;
@@ -4883,7 +4796,6 @@ input[type="color"]:focus,
 		-moz-border-radius:8px 8px 0 0;
 		border-radius:8px 8px 0 0;
 		background:url(../images/spryte.png) -44px 242px #df3d3d;
-		behavior:url(css/PIE.htc);
 		position:absolute;
 		z-index:0;
 		height:250px;
@@ -4899,7 +4811,6 @@ input[type="color"]:focus,
 		border-radius:8px 0 0 8px;
 		background:url(../images/spryte.png) right 0 #df3d3d;
 		position:relative;
-		behavior:url(css/PIE.htc);
 		z-index:9999
 }
 
@@ -4909,31 +4820,29 @@ input[type="color"]:focus,
 		border-radius:0 8px 8px 0;
 		background:url(../images/spryte.png) -2px -1121px #df3d3d;
 		position:relative;
-		behavior:url(css/PIE.htc);
 		z-index:9999
+}
+.step-box h3,
+.step-box h4 {
+		color:#fff;
+		text-shadow:1px 1px 1px rgba(0, 0, 0, 0.5)
 }
 
 .step-box h3 {
 		font-size:18px;
-		color:#fff;
 		line-height:30px;
-		text-shadow:1px 1px 1px rgba(0, 0, 0, 0.5);
 		font-weight:500
 }
 
 .step-box h4 {
 		font-size:15px;
-		color:#fff;
 		font-weight:400;
-		padding-bottom:10px;
-		text-shadow:1px 1px 1px rgba(0, 0, 0, 0.5)
+		padding-bottom:10px
 }
-
 .step-box a {
 		-webkit-border-radius:3px;
 		-moz-border-radius:3px;
 		border-radius:3px;
-		behavior:url(css/PIE.htc);
 		font-size:12px;
 		line-height:22px;
 		height:22px;
@@ -4986,9 +4895,13 @@ ul.register-social li.active a {
 }
 
 .box-active {
-		opacity:.5
+		-moz-opacity:.5;
+		-khtml-opacity:.5;
+		-webkit-opacity:.5;
+		opacity:.5;
+		-ms-filter:alpha(opacity=50);
+		filter:alpha(opacity=50)
 }
-
 ul.register-social li a {
 		float:right;
 		width:82%
@@ -5007,7 +4920,6 @@ ul.register-social li a {
 		-moz-border-radius:3px;
 		border-radius:3px;
 		height:58px;
-		behavior:url(css/PIE.htc);
 		display:block;
 		line-height:58px;
 		margin:15px 0 0 0;
@@ -5058,8 +4970,7 @@ ul.register-social li a.facebook {
 		background:-ms-linear-gradient(bottom, #3e75b3, #4c8dc1);
 		background:-moz-linear-gradient(center bottom, #3e75b3 0, #4c8dc1 100%);
 		background:-o-linear-gradient(#4c8dc1, #3e75b3);
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4c8dc1', endColorstr='#3e75b3', GradientType=0);
-		behavior:url(/PIE.htc)
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4c8dc1', endColorstr='#3e75b3', GradientType=0);
 }
 
 ul.register-social li a.twitter {
@@ -5068,8 +4979,7 @@ ul.register-social li a.twitter {
 		background:-ms-linear-gradient(bottom, #2098bf, #27aacb);
 		background:-moz-linear-gradient(center bottom, #2098bf 0, #27aacb 100%);
 		background:-o-linear-gradient(#27aacb, #2098bf);
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#27aacb', endColorstr='#2098bf', GradientType=0);
-		behavior:url(/PIE.htc)
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#27aacb', endColorstr='#2098bf', GradientType=0);
 }
 
 ul.register-social li a.google {
@@ -5079,7 +4989,7 @@ ul.register-social li a.google {
 		background:-moz-linear-gradient(center bottom, #ae3f3f 0, #bc4d4d 100%);
 		background:-o-linear-gradient(#bc4d4d, #ae3f3f);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bc4d4d', endColorstr='#ae3f3f', GradientType=0);
-		behavior:url(/PIE.htc)
+
 }
 
 ul.register-social li a.link-in {
@@ -5089,7 +4999,7 @@ ul.register-social li a.link-in {
 		background:-moz-linear-gradient(center bottom, #0988c6 0, #0b9dd0 100%);
 		background:-o-linear-gradient(#0b9dd0, #0988c6);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#0b9dd0', endColorstr='#0988c6', GradientType=0);
-		behavior:url(/PIE.htc)
+
 }
 
 .register-top-white {
@@ -5219,7 +5129,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#0b9dd0', endCo
 		height:35px;
 		background:#fff;
 		padding:0 12px;
-		behavior:url(css/PIE.htc);
 		color:#425e71;
 		font-size:15px;
 		font-weight:400;
@@ -5285,7 +5194,6 @@ ul.access-menu li a {
 		line-height:28px;
 		border-bottom:solid 2px #aaa;
 		color:#9e9e9e;
-		behavior:url(css/PIE.htc);
 		padding-left:10px;
 		width:70%;
 		padding-left:10%;
@@ -5440,7 +5348,6 @@ ul.access-menu li a.active {
 		background:#fff;
 		height:39px;
 		padding:0 2%;
-		behavior:url(css/PIE.htc);
 		color:#425e71;
 		font-size:15px;
 		font-weight:400;
@@ -5540,7 +5447,6 @@ ul.email-social-icons li .other2 {
 		height:38px;
 		background:#fff;
 		padding:0 2%;
-		behavior:url(css/PIE.htc);
 		color:#425e71;
 		font-size:15px;
 		font-weight:400;

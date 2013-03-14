@@ -31,6 +31,7 @@ import models.UserMedia
 import models.Document
 import scala.collection.mutable.ListBuffer
 import models.Comment
+import models.ResulttoSent
 
 object MessageController extends Controller {
 
@@ -43,23 +44,19 @@ object MessageController extends Controller {
   //==========================//
 
   def newMessage = Action { implicit request =>
-    val messageListJsonMap = request.body.asFormUrlEncoded.get
-    (messageListJsonMap.contains(("streamId"))) match {
-      case false =>
-        Ok(write(new ResulttoSent("Failure", "StreamIdNotFound")))
-      case true =>
-        val streamId = messageListJsonMap("streamId").toList(0)
-        val messageAccess = messageListJsonMap("messageAccess").toList(0)
-        val messageBody = messageListJsonMap("message").toList(0)
-        val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-        val messageToCreate = new Message(new ObjectId, messageBody, Option(MessageType.Text), Option(MessageAccess.withName(messageAccess)), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)),
-          messagePoster.firstName, messagePoster.lastName, 0, List(), List(), 0, List())
-        val messageId = Message.createMessage(messageToCreate)
-        val messageObtained = Message.findMessageById(messageId.get)
-        val messageJson = write(List(new DocResulttoSent(messageObtained.get, "", "",None,None)))
-        Ok(messageJson).as("application/json")
-
-    }
+    val messageListJsonMap = request.body.asJson.get
+    println(messageListJsonMap)
+    val streamId = (messageListJsonMap \ "streamId").as[String]
+    val messageAccess = (messageListJsonMap \ "messageAccess").as[String]
+    val messageBody = (messageListJsonMap \ "message").as[String]
+    println(streamId)
+    val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+    val messageToCreate = new Message(new ObjectId, messageBody, Option(MessageType.Text), Option(MessageAccess.withName(messageAccess)), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)),
+      messagePoster.firstName, messagePoster.lastName, 0, List(), List(), 0, List())
+    val messageId = Message.createMessage(messageToCreate)
+    val messageObtained = Message.findMessageById(messageId.get)
+    val messageJson = write(List(new DocResulttoSent(messageObtained.get, "", "", None, None)))
+    Ok(messageJson).as("application/json")
 
   }
 
@@ -202,8 +199,6 @@ object MessageController extends Controller {
     else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Message")))
   }
 
- 
-
   /*
  * ***********************************************************REARCHITECTED CODE****************************************************************
  * ***********************************************************REARCHITECTED CODE****************************************************************
@@ -243,14 +238,15 @@ object MessageController extends Controller {
   }
   */
 
-  def allMessagesForAStream = Action { implicit request =>
-    val streamIdJsonMap = request.body.asJson.get
-    val streamId = (streamIdJsonMap \ "streamId").as[String]
-    val pageNo = (streamIdJsonMap \ "pageNo").as[Int]
-    val messagesPerPage = (streamIdJsonMap \ "limit").as[Int]
-    val allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
-    val messagesWithDescription = Message.messagesAlongWithDocDescription(allMessagesForAStream)
-    Ok
+  def allMessagesForAStream(streamId: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
+
+    try {
+      val allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+      val messagesWithDescription = Message.messagesAlongWithDocDescription(allMessagesForAStream)
+      Ok(write(messagesWithDescription)).as("application/json")
+    } catch {
+      case exception => InternalServerError(write(new ResulttoSent("Failure", "Problem during message retrieval")))
+    }
   }
 
 }

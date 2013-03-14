@@ -26,19 +26,30 @@ define(['view/baseView'], function(BaseView){
 		},
 		
 		events:{
-			'click #myTab a': 'tabHandler'
+			'click #myTab a': 'tabHandler',
+			'click #show-info' :'showDetails',
 		},
+		
+
 		
 		tabHandler: function(e){
 			$('#myTab a.active').removeClass('active');
 			$(e.target).addClass('active');
-			console.log();
 //			$('a[data-toggle="tab"]').on('shown', function (e) {
 //				
 ////				if($(e.target.href)[0].children==0)
 //					//initalize view
 //			});
-		}
+		},
+		
+		/**
+	     * show stream details on top 
+	     */
+	    showDetails: function(eventName){
+	    	eventName.preventDefault();
+	    	$('.show-info').toggle(100);
+	    	
+	    },
 		
 		
 		

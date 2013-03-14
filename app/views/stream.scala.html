@@ -1,6 +1,8 @@
 @meta = {}
 @CSS = {}
-@JS = {}
+@JS = {
+<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>
+}
 @bodyCls = {}
 @bodyModule = {}
 @bodyJS = {}
@@ -22,20 +24,20 @@
    <div class="right-container">
     <div class="stream-header">
           <div class="stream-header-left">
-            <h2>physics<a href="#" id="show-info" >Show Details</a></h2>
-            <div class="show-info">
+<!--             <h2><a href="#" id="show-info" >Show Details</a></h2> -->
+<!--             <div class="show-info"> -->
             
-            <p>This is going to be some basic into text about this specific stream, what the course is about... short and to the point.</p>
+<!--             <p>This is going to be some basic into text about this specific stream, what the course is about... short and to the point.</p> -->
             
-            <a href="#">Business</a>
-             <a href="#">Florida</a>
-              <a href="#">Money</a>
+<!--             <a href="#">Business</a> -->
+<!--              <a href="#">Florida</a> -->
+<!--               <a href="#">Money</a> -->
             
-            </div>
-            <ul class="strem-header-info">
-              <li class="mebers">35 Members</li>
-              <li class="claimed">Claimed By: <a href="#">Professor Smith</a> </li>
-            </ul>
+<!--             </div> -->
+<!--             <ul class="strem-header-info"> -->
+<!--               <li class="mebers"> Members</li> -->
+<!--               <li class="claimed">Claimed By: <a href="#"></a> </li> -->
+<!--             </ul> -->
           </div>
           <div class="stream-header-right"> 
            	<a href="#" class="green-btn green-btn-new">
@@ -52,13 +54,7 @@
 
           <div class="stream-top-shadow"><img src="/beamstream-new/images/shadow.png"/></div>
         </div>
-<!--         <ul class="stream-tab"> -->
-<!--           <li> <a id="overview_tab" href="#"  class="active">Overview</a> </li> -->
-<!--           <li> <a id="discussion_tab" href="/discussions" > Discussions</a> </li> -->
-<!--           <li> <a id="question_tab" href="/questions">Questions</a> </li> -->
-<!--           <li> <a id="deadline_tab" href="#"> Deadlines</a> </li> -->
-<!--           <li> <a id="calendar_tab" href="#">Calendar</a> </li> -->
-<!--         </ul> -->
+
 
 		<ul class="stream-tab" id="myTab">
  		 	<li><a href="#overview" class="active" data-toggle="tab">Overview</a></li>
@@ -69,7 +65,7 @@
 		</ul>
 
         <div class="tab-content">
-  			<div class="tab-pane active" id="overview" data-url="/overView/ffgfg" data-model="userSchool" data-module="view/overView"  data-tpl="templates/overview.tpl" ></div>
+  			<div class="tab-pane active" id="overview" data-url="/overView" data-model="userSchool" data-module="view/overView"  data-tpl="templates/overview.tpl" ></div>
 		  	<div class="tab-pane " id="discussions"  data-url="/discussions" data-model="userSchool" data-module="view/discussionsView"  data-tpl="templates/discussions.tpl"></div>
 		  	<div class="tab-pane "  id="questions" data-url="/questions"  data-model="userSchool" data-module="view/questionsView"  data-tpl="templates/questions.tpl"></div>
 		  	<div class="tab-pane " id="deadlines" data-url="/deadlines" data-model="userSchool" data-module="view/deadlinesView"  data-tpl="templates/deadlines.tpl"></div>
