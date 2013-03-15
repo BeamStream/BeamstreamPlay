@@ -98,7 +98,7 @@ $('.selectpicker-info').selectpicker({
            </fieldset>
           
            <fieldset class="field">
-            <input id="cellNumber" data-name="user.cellNumber" name="cellNumber" type="text" placeholder="Cell Number">
+            <input id="cellNumber" data-name="user.cellNumber" name="cellNumber" type="text" placeholder="(999) 999-9999">
             </fieldset>
             <div class="alert-register"><span>*For mobile usage options.</span></div>
           </div>
