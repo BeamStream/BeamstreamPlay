@@ -1,0 +1,744 @@
+@meta = {}
+@CSS = {
+	<link rel="stylesheet" type="text/css" media="screen" href="/beamstream-new/css/bootstrap-select.css">
+}
+
+@JS = {
+	<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.min.js"></script>
+	
+}
+
+@bodyCls = {}
+@bodyModule = {}
+@bodyJS = {
+<script type="text/javascript">
+$(' nav li a.active').removeClass('active');
+$('#menu-browsemedia').addClass('active');
+    </script>
+}
+@sideBar = {
+ 	
+}
+@header = {
+@views.html.header.render
+}
+
+@footer = {
+  @views.html.footer.render
+}
+
+@main("Media", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar,header, footer){
+
+
+
+<!--  <div class="container-fluid"> -->
+<!--     <div class="main-container">  -->
+    <div class="right-container browse-conatiner">
+     <div class="stream-header browse-header">
+          <ul id="dropdownnew" class="no-image">
+              <li class="leftplusicon"><a id="uploadmedia_dr" class="leftplusicon-a" href="#">Upload Media/Docs: </a>
+                  <ul id="uploadmediachild_dr" >
+                      
+                       <li id="childone_dr"><a id ="classdoc_dr" href="#">Class Document</a>
+                          <ul id="classdocmenu_dr" class="fixingmenu_dr">                              
+                              
+                              <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
+                                  <ul class='classdocchild_dr largeli dropdwnmycomputer' >
+                                  </ul>
+                              </li>                              
+
+                              <li class="childone_two_dr"><a class="vialink_dr" href="#">Via Link</a>
+                                  <ul class="vialinkchild_dr largeli">
+                                      <span class="arrow-left"></span>
+                                      <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small quest-search" placeholder="NAME of Video"></li>
+                                      <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video">
+                                          <select name="select" class="selectpicker-info " style="display: none;">
+                                              <option selected="selected" >01</option>
+                                              <option>02</option>
+                                              <option>03</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+                                          <select class="dropdownselect" id="link-class-list">
+                                              <option>Save to Class</option>
+                                              <option>Profile</option>
+                                              <option>My Docs</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="button" class="upload_button" id="vialink_uploadbutton"></li>
+                                  </ul>
+                              </li>
+                              
+                                  <li class="childone_three_dr"><a class="googledocs_dr" href="#">Google Docs</a>
+                                  <ul class="googledocschild_dr">
+                                      <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                      <li><a class="importfrmlink_dr" href="#">Import From Link</a>
+                                          
+                                          <ul class="frmlinkchild_dr largeli link-dropdwn">
+                                          </ul>
+                                          
+                                          
+                                      </li>
+                                  </ul>
+                              </li>   
+                      </ul>  
+                  </li>
+                  
+                  <li id="childtwo_dr"><a id="assignment_dr"href="#">Assignment</a>
+                   <ul id="assigncmenu_dr" class="fixingmenu_dr">
+                              
+                             
+                           <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
+                                  <ul class='classdocchild_dr largeli dropdwnmycomputer' >                             
+                                  </ul>
+                              </li>
+                              
+
+                              <li class="childone_two_dr"><a class="vialink_dr" href="#">Via Link</a>
+                                  <ul class="vialinkchild_dr largeli">
+                                      <span class="arrow-left"></span>
+                                      <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small quest-search" placeholder="NAME of Video"></li>
+                                      <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video">
+                                          <select name="select" class="selectpicker-info " style="display: none;">
+                                              <option selected="selected" >01</option>
+                                              <option>02</option>
+                                              <option>03</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+                                          <select class="dropdownselect" id="link-class-list">
+                                              <option>Save to Class</option>
+                                              <option>Profile</option>
+                                              <option>My Docs</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="button" class="upload_button" id="vialink_uploadbutton"></li>
+                                  </ul>
+                              </li>
+                              
+                                <li class="childone_three_dr"><a class="googledocs_dr" href="#">Google Docs</a>
+                                  <ul class="googledocschild_dr">
+                                      <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                      <li><a class="importfrmlink_dr" href="#">Import From Link</a>
+                                          
+                                          <ul class="frmlinkchild_dr largeli link-dropdwn">
+                              
+                                          </ul>
+                                                                                  
+                                      </li>
+                                  </ul>
+                              </li>   
+                   
+                      </ul>  
+                  </li>
+                  
+                  
+                  
+                   <li id="childthree_dr"><a id="homework_dr"href="#">Homework</a>
+                   <ul id="homeworkmenu_dr" class="fixingmenu_dr">
+                       
+                       
+                         <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
+                                  <ul class='classdocchild_dr largeli dropdwnmycomputer' >
+     
+                                  </ul>
+                              </li>
+                              
+
+                              <li class="childone_two_dr"><a class="vialink_dr" href="#">Via Link</a>
+                                  <ul class="vialinkchild_dr largeli">
+                                      <span class="arrow-left"></span>
+                                      <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small quest-search" placeholder="NAME of Video"></li>
+                                      <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video">
+                                          <select name="select" class="selectpicker-info " style="display: none;">
+                                              <option selected="selected" >01</option>
+                                              <option>02</option>
+                                              <option>03</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+                                          <select class="dropdownselect" id="link-class-list">
+                                              <option>Save to Class</option>
+                                              <option>Profile</option>
+                                              <option>My Docs</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="button" class="upload_button" id="vialink_uploadbutton"></li>
+                                  </ul>
+                              </li>
+                              
+                              <li class="childone_three_dr"><a class="googledocs_dr" href="#">Google Docs</a>
+                                  <ul class="googledocschild_dr">
+                                      <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                      <li><a class="importfrmlink_dr" href="#">Import From Link</a>
+                                          
+                                          <ul class="frmlinkchild_dr largeli link-dropdwn">
+   
+                                          </ul>
+                                          
+                                          
+                                      </li>
+                                  </ul>
+                              </li>   
+                              
+                              
+                      </ul>  
+                  </li>
+                  
+                  
+          
+                  
+                <li id="childfour_dr"><a id="notes_dr"href="#">Notes</a>
+                   <ul id="notesmenu_dr" class="fixingmenu_dr">
+                       
+                         <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
+                                  <ul class='classdocchild_dr largeli dropdwnmycomputer' >
+                                  </ul>
+                              </li>
+                              
+
+                              <li class="childone_two_dr"><a class="vialink_dr" href="#">Via Link</a>
+                                  <ul class="ialinkchild_dr largeli">
+                                      <span class="arrow-left"></span>
+                                      <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small quest-search" placeholder="NAME of Video"></li>
+                                      <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video">
+                                          <select name="select" class="selectpicker-info " style="display: none;">
+                                              <option selected="selected" >01</option>
+                                              <option>02</option>
+                                              <option>03</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+                                          <select class="dropdownselect" id="link-class-list">
+                                              <option>Save to Class</option>
+                                              <option>Profile</option>
+                                              <option>My Docs</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="button" class="upload_button" id="vialink_uploadbutton"></li>
+                                  </ul>
+                              </li>
+                              
+                            <li class="childone_three_dr"><a class="googledocs_dr" href="#">Google Docs</a>
+                                  <ul class="googledocschild_dr">
+                                      <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                      <li><a class="importfrmlink_dr" href="#">Import From Link</a>
+                                          
+                                          <ul class="frmlinkchild_dr largeli link-dropdwn">
+                                     
+                                          </ul>
+                                          
+                                          
+                                      </li>
+                                  </ul>
+                              </li>   
+                              
+                              
+                      </ul>  
+                  </li>
+                  
+                  
+                  
+                          <li id="childfive_dr"><a id="projects_dr"href="#">Projects</a>
+                   <ul id="projectsmenu_dr" class="fixingmenu_dr">
+                       
+                       <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
+                                  <ul class='classdocchild_dr largeli dropdwnmycomputer' >
+
+                                  </ul>
+                              </li>
+                              
+
+                              <li class="childone_two_dr"><a class="vialink_dr" href="#">Via Link</a>
+                                  <ul class="vialinkchild_dr largeli">
+                                      <span class="arrow-left"></span>
+                                      <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small quest-search" placeholder="NAME of Video"></li>
+                                      <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video">
+                                          <select name="select" class="selectpicker-info " style="display: none;">
+                                              <option selected="selected" >01</option>
+                                              <option>02</option>
+                                              <option>03</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+                                          <select class="dropdownselect" id="link-class-list">
+                                              <option>Save to Class</option>
+                                              <option>Profile</option>
+                                              <option>My Docs</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="button" class="upload_button" id="vialink_uploadbutton"></li>
+                                  </ul>
+                              </li>
+                              
+                              <li class="childone_three_dr"><a class="googledocs_dr" href="#">Google Docs</a>
+                                  <ul class="googledocschild_dr">
+                                      <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                      <li><a class="importfrmlink_dr" href="#">Import From Link</a>
+                                          
+                                          <ul class="frmlinkchild_dr largeli link-dropdwn">
+      
+                                          </ul>
+                                          
+                                          
+                                      </li>
+                                  </ul>
+                              </li>   
+                              
+                              
+                      </ul>  
+                  </li>
+                  
+                  
+                  
+                  
+                          <li id="childsix_dr"><a id="lecture_dr"href="#">Lecture</a>
+                   <ul id="lecturemenu_dr" class="fixingmenu_dr">
+                       
+                        <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
+                                  <ul class='classdocchild_dr largeli dropdwnmycomputer' >
+                                      
+                                  </ul>
+                              </li>
+                              
+
+                              <li class="childone_two_dr"><a class="vialink_dr" href="#">Via Link</a>
+                                  <ul class="vialinkchild_dr largeli">
+                                      <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small quest-search" placeholder="NAME of Video"></li>
+                                      <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video">
+                                          <select name="select" class="selectpicker-info " style="display: none;">
+                                              <option selected="selected" >01</option>
+                                              <option>02</option>
+                                              <option>03</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+                                          <select class="dropdownselect" id="link-class-list">
+                                              <option>Save to Class</option>
+                                              <option>Profile</option>
+                                              <option>My Docs</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="button" class="upload_button" id="vialink_uploadbutton"></li>
+                                  </ul>
+                              </li>
+                              
+                              <li class="childone_three_dr"><a class="googledocs_dr" href="#">Google Docs</a>
+                                  <ul class="googledocschild_dr">
+                                      <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                      <li><a class="importfrmlink_dr" href="#">Import From Link</a>
+                                          
+                                          <ul class="frmlinkchild_dr largeli link-dropdwn">
+                                              
+                     
+                                          </ul>
+                                          
+                                          
+                                      </li>
+                                  </ul>
+                              </li>   
+                              
+                              
+                      </ul>  
+                  </li>
+                  
+               
+                  
+                          <li id="childseven_dr"><a id="reference_dr"href="#">Reference Material</a>
+                   <ul id="referencemenu_dr" class="fixingmenu_dr">
+                       
+                        <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
+                                  <ul class='classdocchild_dr largeli dropdwnmycomputer' >
+                     
+                                  </ul>
+                              </li>
+                              
+
+                              <li class="childone_two_dr"><a class="vialink_dr" href="#">Via Link</a>
+                                  <ul class="vialinkchild_dr largeli">
+                                      <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small quest-search" placeholder="NAME of Video"></li>
+                                      <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video">
+                                          <select name="select" class="selectpicker-info " style="display: none;">
+                                              <option selected="selected" >01</option>
+                                              <option>02</option>
+                                              <option>03</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+                                          <select class="dropdownselect" id="link-class-list">
+                                              <option>Save to Class</option>
+                                              <option>Profile</option>
+                                              <option>My Docs</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="button" class="upload_button" id="vialink_uploadbutton"></li>
+                                  </ul>
+                              </li>
+                              
+                          <li class="childone_three_dr"><a class="googledocs_dr" href="#">Google Docs</a>
+                                  <ul class="googledocschild_dr">
+                                      <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                      <li><a class="importfrmlink_dr" href="#">Import From Link</a>
+                                          
+                                          <ul class="frmlinkchild_dr largeli link-dropdwn">
+                                                            
+                                          </ul>
+                                          
+                                          
+                                      </li>
+                                  </ul>
+                              </li>   
+                              
+                              
+                      </ul>  
+                  </li>
+                  
+                  
+                  
+                  
+                  <li id="childeight_dr"><a id ="tutorial_dr" href="#">Tutorial</a>
+                       <ul id="tutorialmenu_dr" class="fixingmenu_dr">
+                           
+                   <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
+                                  <ul class='classdocchild_dr largeli dropdwnmycomputer'>
+        
+                                  </ul>
+                              </li>
+                              
+
+                              <li class="childone_two_dr"><a class="vialink_dr" href="#">Via Link</a>
+                                  <ul class="vialinkchild_dr largeli">
+                                      <span class="arrow-left"></span>
+                                      <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small quest-search" placeholder="NAME of Video"></li>
+                                      <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video">
+                                          <select name="select" class="selectpicker-info " style="display: none;">
+                                              <option selected="selected" >01</option>
+                                              <option>02</option>
+                                              <option>03</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+                                          <select class="dropdownselect" id="link-class-list">
+                                              <option>Save to Class</option>
+                                              <option>Profile</option>
+                                              <option>My Docs</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="button" class="upload_button" id="vialink_uploadbutton"></li>
+                                  </ul>
+                              </li>
+                              
+                               <li class="childone_three_dr"><a class="googledocs_dr" href="#">Google Docs</a>
+                                  <ul class="googledocschild_dr">
+                                      <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                      <li><a class="importfrmlink_dr" href="#">Import From Link</a>
+                                          
+                                          <ul class="frmlinkchild_dr largeli link-dropdwn">
+                                
+                                          </ul>
+                                          
+                                          
+                                      </li>
+                                  </ul>
+                              </li>   
+                              
+                              
+                      </ul>  
+                  </li>
+                  
+                  
+                  
+                  
+                  <li id="childnine_dr"><a id="edtech_dr" href="#">EdTech Tool</a>
+                      <ul id="edtechmenu_dr" class="fixingmenu_dr">
+                          
+                          
+                   <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
+                                  <ul class='classdocchild_dr largeli dropdwnmycomputer' >
+         
+                                  </ul>
+                              </li>
+                              
+
+                              <li class="childone_two_dr"><a class="vialink_dr" href="#">Via Link</a>
+                                  <ul class="vialinkchild_dr largeli">
+                                      <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small quest-search" placeholder="NAME of Video"></li>
+                                      <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video">
+                                          <select name="select" class="selectpicker-info " style="display: none;">
+                                              <option selected="selected" >01</option>
+                                              <option>02</option>
+                                              <option>03</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+                                          <select class="dropdownselect" id="link-class-list">
+                                              <option>Save to Class</option>
+                                              <option>Profile</option>
+                                              <option>My Docs</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="button" class="upload_button" id="vialink_uploadbutton"></li>
+                                  </ul>
+                              </li>
+                              
+                            <li class="childone_three_dr"><a class="googledocs_dr" href="#">Google Docs</a>
+                                  <ul class="googledocschild_dr">
+                                      <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                      <li><a class="importfrmlink_dr" href="#">Import From Link</a>
+                                          
+                                          <ul class="frmlinkchild_dr largeli link-dropdwn">
+                                              
+     
+                                          </ul>
+                                          
+                                          
+                                      </li>
+                                  </ul>
+                              </li>   
+                              
+                              
+                      </ul>  
+                  </li>
+                  
+                  
+                  
+                  
+                  
+                  <li id="childten_dr"><a id="amusement_dr" href="#">Amusement</a>
+                      <ul id="amusementmenu_dr" class="fixingmenu_dr">
+                          
+                          
+                    <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
+                                  <ul class='classdocchild_dr largeli dropdwnmycomputer'>
+                                      
+                                  </ul>
+                              </li>
+                              
+
+                              <li class="childone_two_dr"><a class="vialink_dr" href="#">Via Link</a>
+                                  <ul class='vialinkchild_dr largeli'>
+                                      <span class="arrow-left"></span>
+                                      <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small quest-search" placeholder="NAME of Video"></li>
+                                      <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video">
+                                          <select name="select" class="selectpicker-info " style="display: none;">
+                                              <option selected="selected" >01</option>
+                                              <option>02</option>
+                                              <option>03</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+                                          <select class="dropdownselect" id="link-class-list">
+                                              <option>Save to Class</option>
+                                              <option>Profile</option>
+                                              <option>My Docs</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="button" class="upload_button" id="vialink_uploadbutton"></li>
+                                  </ul>
+                              </li>
+                              
+                              <li class="childone_three_dr"><a class="googledocs_dr" href="#">Google Docs</a>
+                                  <ul class="googledocschild_dr">
+                                      <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                      <li><a class="importfrmlink_dr" href="#">Import From Link</a>
+                                          
+                                          <ul class="frmlinkchild_dr largeli link-dropdwn">
+                                          </ul>
+                                          
+                                          
+                                      </li>
+                                  </ul>
+                              </li>   
+                              
+                              
+                      </ul>  
+                  </li>
+                  
+                    <li id="childeleven_dr"><a id="public_dr" href="#">Public</a>
+                        <ul id="publicmenu_dr" class="fixingmenu_dr">
+                          
+                         <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
+                                  <ul class='classdocchild_dr largeli dropdwnmycomputer'>
+  
+                                  </ul>
+                              </li>
+                              
+
+                              <li class="childone_two_dr"><a class="vialink_dr" href="#">Via Link</a>
+                                  <ul class="vialinkchild_dr largeli">
+                                      <li><input type="text" class="dropdowntext" placeholder="http://www.PasteYouTubeURLHere.com"><input type="text" class="dropdowntext-small quest-search" placeholder="NAME of Video"></li>
+                                      <li><input type="text" class="dropdowntext" placeholder="DESCRIPTION of Video">
+                                          <select name="select" class="selectpicker-info " style="display: none;">
+                                              <option selected="selected" >01</option>
+                                              <option>02</option>
+                                              <option>03</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
+                                          <select class="dropdownselect" id="link-class-list">
+                                              <option>Save to Class</option>
+                                              <option>Profile</option>
+                                              <option>My Docs</option>
+                                          </select>
+                                      </li>
+                                      <li><input type="button" class="upload_button" id="vialink_uploadbutton"></li>
+                                  </ul>
+                              </li>
+                              
+                              <li class="childone_three_dr"><a class="googledocs_dr" href="#">Google Docs</a>
+                                  <ul class="googledocschild_dr">
+                                      <li><a class="gdoc-form" href="#"><span>From</span><img class="gdoc-icon" src="images/g-icon.png"></a> </li>
+                                      <li><a class="importfrmlink_dr" href="#">Import From Link</a>
+                                          
+                                          <ul class="frmlinkchild_dr largeli link-dropdwn">
+                                              
+    
+                                          
+                                          </ul>
+                                          
+                                          
+                                      </li>
+                                  </ul>
+                              </li>   
+                              
+                              
+                      </ul>  
+                  </li>  
+                              
+                              
+                              
+                      </ul> 
+                  </li>
+                   
+                  
+                  
+                  
+                  
+                  
+                </ul>
+              </li>               
+            </ul>
+            <!-- /.nav-collapse -->   
+           <!--- for drop down menu--->
+          
+          
+          <form class="navbar-form browse-search-block ">
+            <input type="text" placeholder="Search Media/docs" class="browse-search">
+            <button class="btn header-button browse-go" type="submit">Go</button>
+          </form>
+          <div class="browse-right">
+            <h6 class="small"> View as </h6>
+            <a href="#" class="green-btn activebtn"><span class="visual visual-dot"></span><span class="texter">Visual Files</span></a> <a href="#" class="green-btn"><span class="visual visual-line"></span><span class="texter">Files Folder</span></a> </div>
+          <div class="stream-top-shadow"><img src="images/shadow.png"></div>
+         
+           </div>
+           
+           
+           
+        <div class="bowse-info">
+          <div class="browse-menu">
+            <ul class="sort">
+              <h6>View</h6>
+              <li>
+                <div class="settings-menu">
+                  <div class="btn-group">
+                    <button id="view-by-select" class="btn seetings-toggle sort-toogle sort-toogle-none">All Files </button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                    <ul id="view-by-list" class="dropdown-menu">
+                      <li><a href="#">All Files</a></li>
+                      <li><a href="#">My Profile Media</a></li>
+                      <li><a href="#">My Docs </a></li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li>
+                  
+                <div class="settings-menu">
+                  <div class="btn-group">
+                    <button  id="view-files-byrock-select" class="btn seetings-toggle sort-toogle  sort-toogle-none">By Highest Rocks</button>
+                    <button class="btn dropdown-toggle seetings-toggle" data-toggle="dropdown"> <span class=" settings-caret"></span></button>
+                    <ul id="view-files-byrock-list" class="dropdown-menu">
+ 					  <li data-sort="rocks"><a href="#">By Highest Rocks</a></li>
+                      <li><a href="#">By Tags</a></li>
+                    </ul>
+                  </div>
+                </div>
+
+
+              </li>
+              <li>
+                <div class="settings-menu">
+                  <div class="btn-group">
+                    <button class="btn seetings-toggle sort-toogle sort-toogle-none" id="category-list-select" >Category </button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                    <ul class="dropdown-menu" id="category-list" >
+                      <li><a href="#">Class Document</a></li>
+                      <li><a href="#">Assignment</a></li>
+                      <li><a href="#">Homework </a></li>
+						<li><a href="#">Notes</a></li>
+                      <li><a href="#">Project</a></li>
+                      <li><a href="#">Lecture </a></li>
+					 <li><a href="#">Reference Material</a></li>
+                      <li><a href="#">Tutorial</a></li>
+                      <li><a href="#">EdTech Tool </a></li>
+						<li><a href="#">Amusement</a></li>
+                      <input type="text" placeholder="+Add a new category" > 
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li>
+
+				<div class="settings-menu">
+                  <div class="btn-group">
+                    <button class="btn seetings-toggle sort-toogle sort-toogle-none"  id="by-class-select" >by All Classes & Schools </button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                    <ul class="dropdown-menu"  id="by-class-list" >
+                    </ul>
+                  </div>
+                </div>
+
+              </li>
+            </ul>
+            <ul class="then-by">
+              <h6>Then View by</h6>
+              <li data-group="all" >
+				
+				 <div class="settings-menu">
+                  <div class="btn-group">
+                    <button class="btn seetings-toggle sort-toogle sort-toogle-none"  id="view-by-date-select" >All Date </button>
+                    <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
+                    <ul class="dropdown-menu" id="view-by-date-list" >
+                     <li><a href="#">Most Recent</a></li>
+					<li><a  href="#">Oldest</a></li>
+					<li><a  href="#">All Date</a></li>
+
+                    </ul>
+                  </div>
+                </div>
+
+				
+				</li>
+            </ul>
+            <div class="clear"></div>
+          </div>
+          <div class="calender-outer overview-boxes browse-outer">
+
+           
+          
+           <ul class="profil-pic-outer files-list" id="grid">         
+           <div class="clear"></div>
+              <div class="clear"></div>
+            </ul>
+           
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>       
+<!--       </div> -->
+<!--       </div> -->
+
+
+
+}

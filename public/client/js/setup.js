@@ -10,7 +10,6 @@ Backbone.history.start();
 */
 
 
-
 BS.URLRequired ="http://localhost:9000";   
 
 //BS.URLRequired ="http://192.168.2.31:9000"; 
