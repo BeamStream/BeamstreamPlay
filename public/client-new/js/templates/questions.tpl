@@ -18,9 +18,9 @@
             <div class="question-sort">
               <h5>SORT BY</h5>
               <div class="btn-group dropdown-outer">
-                <button class="btn normal-dropdown" id="sortBy-select" >Most Recent</button>
+                <button class="btn normal-dropdown" id="sortQuestionBy-select" >Most Recent</button>
                 <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                <ul class="dropdown-menu display-sub" id="sortBy-list" >
+                <ul class="dropdown-menu display-sub" id="sortQuestionBy-list" >
                   <li><a href="#" name="most-recent" >Most Recent</a></li>
                   <li><a href="#" name="highest-rated" >Highest Rated</a></li>
                   <li><a href="#" name="most-shared" >Most Shared </a></li>
@@ -28,9 +28,9 @@
               </div>
               
                <div class="btn-group dropdown-outer">
-                <button class="btn normal-dropdown " id="date-sort-select">This Week</button>
+                <button class="btn normal-dropdown " id="sortQueByDate-select">This Week</button>
                 <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                <ul class="dropdown-menu display-sub" id="date-sort-list">
+                <ul class="dropdown-menu display-sub" id="sortQueByDate-list">
                   <li><a href="#">Today</a></li>
                   <li><a href="#">This Week</a></li>
                   <li><a href="#">This Month </a></li>
@@ -98,10 +98,10 @@
                   <label class="checkbox private-chaeck">
                     <input  id="private-to" type="checkbox"  checked="checked">
                     Pivate to:</label>
-                  <div class="btn-group class-dropdown">
-                    <button class="btn class-dropdown-bg" id="select-privateTo" >Class</button>
+                  <div class="btn-group class-dropdown ">
+                    <button class="btn class-dropdown-bg" id="Q-privateTo-select" >Class</button>
                     <button class="btn class-dropdown-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                    <ul class="dropdown-menu" id="private-to-list">
+                    <ul class="dropdown-menu Q-stream-list" id="Q-privatelist">
                        
                     </ul>
                   </div>

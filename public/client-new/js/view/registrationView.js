@@ -97,7 +97,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min',
             /* disable first step and enable step 2 block */
             this.enableStepTwo();
             
-        		$("#cellNumber").mask("(999) 999-9999",{placeholder:"  "});
+    		$("#cellNumber").mask("(999) 999-9999",{placeholder:"  "});
         },
                 
         /**

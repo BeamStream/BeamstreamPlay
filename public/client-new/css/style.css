@@ -22,7 +22,7 @@ ul.social-icons li.in,
 ul.social-icons li.in:hover,
 ul.social-icons li.in.active,
 ul.social-icons li.plus,
-ul.follow-name-left li a.comment-icon,
+.comment-icon,
 ul.follow-name-left li a.rocks:hover,
 ul.follow-name-left li a.uprocks-message,
 ul.follow-name-left li a.downrocks-message,
@@ -4300,7 +4300,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#336437', endCo
 
 .invite-school-arrow {
 		position:absolute;
-		right:44px;
+		right:10px;
 		top:8px;
 		z-index:9999
 }
@@ -5730,7 +5730,6 @@ ul.email-social-icons li .other2 {
 .invite-grade-select {
 		width:50%;
 		float:left;
-		padding:0 5% 0 0
 }
 
 .invite-small-select {
@@ -5742,7 +5741,7 @@ ul.email-social-icons li .other2 {
 
 .invite-calender {
 		position:relative;
-		width:35%;
+		width:34%;
 		float:left
 }
 
@@ -5771,7 +5770,7 @@ div.datepicker {
 		height:40px;
 		margin:0;
 		position:absolute;
-		right:24px;
+		right:9px;
 		top:0;
 		width:40px
 }
@@ -5862,7 +5861,7 @@ ul.follow-name-left li a:hover {
 		text-decoration:none
 }
 
-ul.follow-name-left li a .rocks-answer {
+ul.follow-name-left li a.rocks-answer {
 		background:url(../images/rocks-icon.png) no-repeat left top;
 		color:#5299bd;
 		display:block;
@@ -5871,7 +5870,7 @@ ul.follow-name-left li a .rocks-answer {
 		height:30px
 }
 
-ul.follow-name-left li a .rocks-up {
+ul.follow-name-left li a.rocks-up {
 		background:url(../images/rocks-icon-1.png) no-repeat center top;
 		color:#5299bd;
 		display:block;
@@ -5880,16 +5879,16 @@ ul.follow-name-left li a .rocks-up {
 		text-align:center
 }
 
-ul.follow-name-left li a .rocks-up span {
+ul.follow-name-left li a.rocks-up span {
 		display:block;
 		padding-top:22px
 }
 
-ul.follow-name-left li a .rocks-up:hover {
+ul.follow-name-left li a.rocks-up:hover {
 		background:url(../images/rocks-icon-a.png) no-repeat center top
 }
 
-ul.follow-name-left li a .comment-icon {
+ul.follow-name-left li a.comment-icon {
 		background-position:-2px -470px;
 		display:inline-block;
 		height:26px;
@@ -5909,8 +5908,8 @@ ul.follow-name-left li a .rocks:hover {
 		background-position:-589px -447px
 }
 
-ul.follow-name-left li a .uprocks-message,
-ul.follow-name-left li a .downrocks-message {
+ul.follow-name-left li a.uprocks-message,
+ul.follow-name-left li a.downrocks-message {
 		color:#5299bd;
 		display:block;
 		font-weight:bold;
@@ -5918,28 +5917,28 @@ ul.follow-name-left li a .downrocks-message {
 		text-align:center
 }
 
-ul.follow-name-left li a .uprocks-message {
+ul.follow-name-left li a.uprocks-message {
 		background-position:-741px -447px
 }
 
-ul.follow-name-left li a .downrocks-message {
+ul.follow-name-left li a.downrocks-message {
 		background-position:-827px -447px
 }
 
-ul.follow-name-left li a .rocks-message span,
-ul.follow-name-left li a .rocks-question span,
-ul.follow-name-left li a .rocks-message-minus span,
-ul.follow-name-left li a .rocks-message-plus span,
-ul.follow-name-left li a .rocks span {
+ul.follow-name-left li a.rocks-message span,
+ul.follow-name-left li a.rocks-question span,
+ul.follow-name-left li a.rocks-message-minus span,
+ul.follow-name-left li a.rocks-message-plus span,
+ul.follow-name-left li a.rocks span {
 		display:block;
 		padding-top:22px
 }
 
-ul.follow-name-left .rocks-small {
+ul.follow-name-left.rocks-small {
 		color:#5299bd
 }
 
-ul.follow-name-left .rocks-small a {
+ul.follow-name-left.rocks-small a {
 		color:#5299bd;
 		background:url(../images/rocks-icon-arrow-small.png) left 5px no-repeat;
 		padding-left:25px;
@@ -5948,9 +5947,30 @@ ul.follow-name-left .rocks-small a {
 		font-weight:bold
 }
 
-ul.follow-name-left .rocks-small a:hover {
+ul.follow-name-left.rocks-small a:hover {
 		background:url(../images/rocks-icon-arrow-small-a.png) left 5px no-repeat
 }
+
+ul.follow-name-left li a.uprocks-message:hover {
+                 background:url(../images/spryte.png) -786px -447px;
+                color: #5299BD;
+                display: block;
+                font-weight: bold;
+                width:25px;
+                text-align:center;
+}
+ul.follow-name-left li a.downrocks-message:hover {
+                 background:url(../images/spryte.png) -637px -447px;
+                color: #5299BD;
+                display: block;
+                font-weight: bold;
+                width:25px;
+                text-align:center;
+}
+
+
+
+
 
 ul.no-stream{display:inline-block;list-style:none;width:100%;min-height:200px;}
 
