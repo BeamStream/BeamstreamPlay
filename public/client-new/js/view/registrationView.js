@@ -15,7 +15,7 @@
 *
 * 
 */
-define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min'], function(FormView, BootstrapSelect,Bootstrap){
+define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min','../../lib/jquery.maskedinput'], function(FormView, BootstrapSelect,Bootstrap,MaskedInput){
 	var RegistrationView;
 	RegistrationView = FormView.extend({
 		objName: 'RegistrationView',
@@ -97,6 +97,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
             /* disable first step and enable step 2 block */
             this.enableStepTwo();
             
+        		$("#cellNumber").mask("(999) 999-9999",{placeholder:"  "});
         },
                 
         /**
@@ -104,7 +105,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 		 */
 		comepleteSecondStep: function(e){
 			
-			e.preventDefault();
+			e.preventDefault();				
 			
 			/* @TODO only select a school from existing list or add new school */
 			if($('#schoolName').val()){
@@ -113,7 +114,7 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min']
 					return;
 				}
 			}
-
+			
 			//set school details to modal 
 			this.data.models[0].set({'schoolName' : $('#schoolName').val() , 'associatedSchoolId' :$('#associatedSchoolId').val()} );
 			this.saveForm();
