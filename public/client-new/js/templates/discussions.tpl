@@ -113,10 +113,10 @@
                   <label class="checkbox private-chaeck">
                     <input id="private-to" type="checkbox"  checked="checked">
                     Pivate to:</label>
-                  <div class="btn-group class-dropdown">
-                    <button class="btn class-dropdown-bg" id="select-privateTo" ></button>
+                  <div class="btn-group class-dropdown "  >
+                    <button class="btn class-dropdown-bg " id="select-privateTo" ></button>
                     <button class="btn class-dropdown-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-                    <ul class="dropdown-menu" id="private-to-list" >
+                    <ul class="dropdown-menu stream-list" id="private-to-list" >
                       
                     </ul>
                   </div>

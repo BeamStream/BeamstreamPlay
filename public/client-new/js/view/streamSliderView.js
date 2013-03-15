@@ -19,9 +19,10 @@ define(['view/baseView',
         'text!templates/newStreamList.tpl',
         'text!templates/streamSlider.tpl',
         'text!templates/streamTitle.tpl',
+        'text!templates/privateToList.tpl',
         '../../lib/jquery.simplyscroll',
         '../../lib/bootstrap'
-        ],function(BaseView, NewStreamTpl,StreamList,StreamTitle, simplyscroll,bootstrap){
+        ],function(BaseView, NewStreamTpl,StreamList,StreamTitle, PrivateToList, simplyscroll,bootstrap){
 	
     var streamSliderView; 
     streamSliderView = BaseView.extend({
@@ -54,8 +55,14 @@ define(['view/baseView',
         	$('.stream-header-left').attr('data-value',$('.sortable li.active').attr('id') );
         	
         	var streamName = $('.sortable li.active').attr('name');
+        	var userCount =$('.sortable li.active').attr('data-userCount');
+        	$('#select-privateTo').text(streamName);
+        	$('#Q-privateTo-select').text(streamName);
+        	
+        	
         	var compiledTemplate = Handlebars.compile(StreamTitle);
-			$('.stream-header-left').html(compiledTemplate({data: this.data.toJSON()[0]}));
+			$('.stream-header-left').html(compiledTemplate({streamName: streamName ,userCount:userCount }));
+			
 		},
 		
         /**
@@ -72,13 +79,20 @@ define(['view/baseView',
          * if there is a streams then add to the stream list
          */
 		displayPage: function(callback){
+			
+			/* for the private to list section on Discussion and Question page */ 
+			var listTemplate = Handlebars.compile(PrivateToList);
+			$('.stream-list').html( listTemplate({data: this.data.toJSON()}));
+			$('#Q-privatelist').html(listTemplate({data: this.data.toJSON()}));
+			
+			/* render the left stream list */
 			var compiledTemplate = Handlebars.compile(StreamList);
 			this.$(".content").html( compiledTemplate({data: this.data.toJSON()}));
 			
 		},
                      
         /**
-        * slider effectfor stream list
+        * slider effect for stream list
         */
         slider: function(){
         	
@@ -221,6 +235,7 @@ define(['view/baseView',
 		    var streamName = eventName.target.name;
 		      
 		    streamName = $('#'+id+'').attr('name');
+		    
 		
 		    // set active style for stream 
 		    $('.sortable li.active').find('div.active-curve').remove();
@@ -228,22 +243,12 @@ define(['view/baseView',
 		   
 		    $('.sortable li#'+id).addClass('active');
 		    $('.sortable li.active').append(this.activeDiv);
+		    var userCount = $('.sortable li.active').attr('data-userCount');
 		    
-		    // dynamic details for top stream submenus 
-//			var topMenuDetails = {
-//					 streamName : streamName,
-//			}
-//			
-//			var currentlyActiveSubMenu = $('.stream-tab a.active').attr('id');
-//			 
-//			
-//			/* render right container contents corresponds to each streams*/
-//	        rightContentSource = $("#tpl-stream-right-container").html();
-//	        rightContentTemplate = Handlebars.compile(rightContentSource);
-//	        $('.right-container').html(rightContentTemplate(topMenuDetails));
-//	        
-//	        //render middle contents
-//	        this.renderMiddleContents(currentlyActiveSubMenu);
+		    var compiledTemplate = Handlebars.compile(StreamTitle);
+		    $('.stream-header-left').html(compiledTemplate({streamName: streamName ,userCount:userCount }));
+		    
+
 	    	
 	    },
     })

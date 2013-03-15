@@ -22,7 +22,7 @@ define(['view/baseView'], function(BaseView){
 		objName: 'MyStreamView',
 		
 		onAfterInit: function(){
-			this.data.reset({'firstName':'John', 'lastName': 'Doe'})
+			this.data.reset()
 		},
 		
 		events:{

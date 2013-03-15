@@ -1,3 +1,19 @@
+<!-- 	* BeamStream
+		*
+		* Author                : Aswathy P.R (aswathy@toobler.com)
+		* Company               : Toobler
+		* Email:                : info@toobler.com
+		* Web site              : http://www.toobler.com
+		* Created               : 15/March/2013
+		* Description           : Templates Discussion page messages
+		* ==============================================================================================
+		* Change History:
+		* ----------------------------------------------------------------------------------------------
+		* Sl.No.  Date   Author   Description
+		* -
+  -->
+
+
 <div id= "{{data.message.id.id}}" class="ask-outer follow-container" name ="{{data.message.userId.id}}">
             <div class="ask-content">
               <div class="follw-left">
