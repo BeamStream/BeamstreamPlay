@@ -57,19 +57,6 @@ object MessageController extends Controller {
 
   }
 
-  //==================================================//
-  //======Displays all the messages within a Stream===//
-  //==================================================//
-  /*
-  def getAllMessagesForAStreamWithPagination = Action { implicit request =>
-    val streamIdJsonMap = request.body.asFormUrlEncoded.get
-    val streamId = streamIdJsonMap("streamId").toList(0)
-    val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
-    val messagesPerPage = streamIdJsonMap("limit").toList(0).toInt
-    val allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
-    val allMessagesForAStreamJson = write(messagesAlongWithDocDescription(allMessagesForAStream))
-    Ok(allMessagesForAStreamJson).as("application/json")
-  }*/
 
   /*
    * Rock the message
@@ -201,39 +188,6 @@ object MessageController extends Controller {
  * ***********************************************************REARCHITECTED CODE****************************************************************
  */
 
-  //==================================================//
-  //======Displays all the messages within a Stream===//
-  //==================================================//
-  //  def getAllMessagesForAStreamWithPagination = Action { implicit request =>
-  //
-  //    val streamId = request.queryString("streamId").toList(0)
-  //    val pageNo = request.queryString("pageNo").toList(0).toInt
-  //    val messagesPerPage = request.queryString("limit").toList(0).toInt
-  //
-  //    var allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
-  //    val messageList = Message.getMessageWithProfileImageURL(allMessagesForAStream)
-  //
-  //    val allMessagesForAStreamJson = write(messagesAlongWithDocDescription(messageList.toList))
-  //    Ok(allMessagesForAStreamJson).as("application/json")
-  //  }
-
-  /*  Remove after testing
-  def testNewMessage = Action { implicit request =>
-        val streamId = "123456789012345678901234"
-        val messageAccess = "PrivateToClass"
-        val messageBody = "yoyoyo daniel"
-        val messagePoster = User.getUserProfile(new ObjectId("5139962c03648332bde48712"))
-        val messageToCreate = new Message(new ObjectId, messageBody, Option(MessageType.Text), 
-            Option(MessageAccess.withName(messageAccess)), 
-            new Date, new ObjectId("5139962c03648332bde48712"), 
-        		Option(new ObjectId(streamId)),"Daniol", "Hewster", 0, List(), List(), 0, List(),None)
-        val messageId = Message.createMessage(messageToCreate)
-        val messageObtained = Message.findMessageById(messageId)
-        val messageJson = write(List(new DocResulttoSent(messageObtained.get,"","")))
-        Ok(messageJson).as("application/json")
-
-  }
-  */
 
   def allMessagesForAStream(streamId: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
 
