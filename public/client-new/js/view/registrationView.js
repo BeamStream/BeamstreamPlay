@@ -30,6 +30,8 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min',
 			'click .register-social':'connectMedia',
 			'keyup #schoolName' : 'populateSchools',
 		    'focusin #schoolName' : 'populateSchools',
+		    'change #degreeProgram': 'addOtherDegree',
+		    'change #graduate': 'showGraduateType'
 			 
 		},
 		
@@ -112,6 +114,11 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min',
 					alert('Please select existing School or add a new one');
 					return;
 				}
+			}
+			
+			//set a default value only when we select Other degree
+			if(!$('#otherDegree').is(':hidden') && !$('#otherDegree').val()){
+				this.data.models[0].set({'otherDegree':''});
 			}
 			
 			//set school details to modal 
@@ -307,6 +314,51 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min',
 				});
 	        }
 			
+	    },
+	    
+	    /**
+	     * add text box field a enter degree when we choose 'Other' from  Degre Program  
+	     */
+	    addOtherDegree:function(eventName){
+	    	
+	    	  var id = eventName.target.id;
+	    	  console.log($('#'+id).val());
+	    	  if($('#'+id).val()== "Other")
+	    	  {
+	    		  $('#otherDegree').show();
+//	    		  
+	    	  }
+	    	  else
+	    	  {
+	    		  $('#otherDegree').hide();
+	    	  }
+	    	  
+	    	  
+	    },
+	    
+	    /**
+	     * to display 'degree expected' or 'date' field
+	     */
+	    showGraduateType:function(eventName){
+	    	var id = eventName.target.id;
+	    	var dat='#'+id;
+	    	var value = $('#graduate').val();
+	    	if(value == "attending" || value == "no")
+	    	{
+				$('#graduationDate-set').hide();
+				$('#degreeExpected-set').show();
+	    	}
+	    	else if(value == "yes")
+	    	{
+				$('#degreeExpected-set').hide();
+				$('#graduationDate-set').show();
+				$('.datepicker').datepicker();
+	    	}
+	    	else
+	    	{
+				$('#degreeExpected-set').hide();
+				$('#graduationDate-set').hide();
+	    	}
 	    }
 		
 	})
