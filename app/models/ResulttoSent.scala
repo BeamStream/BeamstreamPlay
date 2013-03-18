@@ -26,7 +26,7 @@ case class OnlineUsers(@Key("_id") id: ObjectId, firstName: String, lastName: St
 object OptionOfQuestionDAO extends SalatDAO[OptionOfQuestion, ObjectId](collection = MongoHQConfig.mongoDB("optionofquestion"))
 
 // Question With Polls
-case class QuestionWithPoll(question : Question , polls : List[OptionOfQuestion])
+case class QuestionWithPoll(question : Question, var profilePic:Option[String]=None, var comments:Option[List[Comment]]=None, polls : List[OptionOfQuestion])
 
 /**
  * Document Results After Uploading From Main Stream
