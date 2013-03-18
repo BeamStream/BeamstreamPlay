@@ -32,7 +32,7 @@
               	<input id="classCode"  data-name="class.classCode" name="classCode"  type="text" placeholder="Class Code" name="" class="small-text ">
               </div>
 			  <div class="field"> 
-              <input id="className" data-name="class.className" name="className" type="text" placeholder="Class or Stream Name" name="" class="big-text">
+              <input id="className" data-name="class.className" name="className" type="text" placeholder="Enter the name of your first class" name="" class="big-text">
  			 </div>
               
               <div class="invite-small-select profile-select-block field scroll-select" >
