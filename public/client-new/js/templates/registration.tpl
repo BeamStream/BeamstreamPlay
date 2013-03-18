@@ -78,6 +78,12 @@ $('.selectpicker-info').selectpicker({
               </fieldset>
               <div class="select-arrow-white"><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
             </div>
+            
+            <fieldset class="field">  
+            <input style="display:none;" type="text" placeholder="Degree " value="" name="otherDegree" data-name="user.otherDegree" id="otherDegree">
+             <span class="red-star">*</span>
+            </fieldset>
+            
             <div class="profile-select-block">
           
               <fieldset class="field">   
@@ -91,7 +97,34 @@ $('.selectpicker-info').selectpicker({
               </fieldset>
               <div class="select-arrow-white"><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
             </div>
-            <fieldset class="field">
+            
+             <div id="degreeExpected-set" class="profile-select-block" style="display: none;">
+              <fieldset  class="field" >   
+              <select id="degreeExpected" data-name="user.degreeExpected" name="degreeExpected" class="selectpicker-info ">
+               	<option value="Winter 2012">Winter 2012</option>
+				<option value="Summer 2013">Summer 2013</option>
+				<option value="Winter 2013">Winter 2013</option>
+				<option value="Summer 2014">Summer 2014</option>
+				<option value="Winter 2014">Winter 2014</option>
+				<option value="Summer 2015">Summer 2015</option>
+				<option value="Winter 2015">Winter 2015</option>
+				<option value="No Degree Expected">No Degree Expected</option>
+              </select>
+               <span class="red-star select-star">*</span>
+              </fieldset>
+              <div class="select-arrow-white"><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
+            </div>
+            
+            
+            <fieldset id="graduationDate-set" class="field" style="display:none;"> 
+        	 	<input id="graduationDate" data-name="user.graduationDate" value="" name="graduationDate"  class="datepicker calender-box" type="text" placeholder="Date"  />
+				<div class="new-arrow date-arrow"><span><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></span></div>
+          	</fieldset>
+            
+            
+            
+            
+            <fieldset class="field location-block">
             <input id="location" data-name="user.location" name="location" value="" type="text" placeholder="Location" class="location-note">
             <span class="red-star select-star">*</span>
              <span class="location-icon location-toolip" data-original-title="Use Current Location"></span>
