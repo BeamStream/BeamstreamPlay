@@ -115,7 +115,7 @@ GET /getAllDOCSFilesForAUser  					controllers.DocumentController.getAllDOCSFile
 
 #Questions
 POST /newQuestion               				controllers.QuestionController.newQuestion
-POST /rockQuestion               				controllers.QuestionController.rockTheQuestion
+PUT  /rockQuestion               				controllers.QuestionController.rockTheQuestion
 GET /getAllQuestionsForAUser               		controllers.QuestionController.getAllQuestionsForAUser
 POST /giveMeRockersOfQuestion            		controllers.QuestionController.giveMeRockers
 PUT  /followQuestion            				controllers.QuestionController.followQuestion
