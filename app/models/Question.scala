@@ -232,6 +232,39 @@ object Question {
     val keyWordregExp = (""".*""" + keyword + """.*""").r
     QuestionDAO.find(MongoDBObject("questionBody" -> keyWordregExp,"streamId"-> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
+  
+  
+    /**
+   * ****************************************Rearchitecture*****************************************************
+   */
+
+
+  /**
+   * Takes a List of Questions and Return Question with respective polls
+   */
+  def returnQuestionsWithPolls(allQuestionsForAStream: List[Question]) = {
+    var questionsWithPolls: List[QuestionWithPoll] = List()
+    var profilePicForUser = ""
+    
+    for (question <- allQuestionsForAStream) {
+      //Get profilePic and Comments
+      val userMedia = UserMedia.getProfilePicForAUser(question.userId)
+      if (!userMedia.isEmpty) profilePicForUser = userMedia(0).mediaUrl
+      val comments = Comment.getAllComments(question.comments)
+      
+      var pollsOfquestionObtained: List[OptionOfQuestion] = List()
+      if (question.pollOptions.size.equals(0) == false) {
+        for (pollId <- question.pollOptions) {
+          val pollObtained = QuestionPolling.findOptionOfAQuestionById(pollId)
+          pollsOfquestionObtained ++= List(pollObtained.get)
+        }
+        questionsWithPolls ++= List(new QuestionWithPoll(question, Option(profilePicForUser), Option(comments), pollsOfquestionObtained))
+      } else {
+        questionsWithPolls ++= List(new QuestionWithPoll(question, Option(profilePicForUser), Option(comments), List()))
+      }
+    }
+    questionsWithPolls
+  }: List[QuestionWithPoll]
 }
 
 object QuestionDAO extends SalatDAO[Question, ObjectId](collection = MongoHQConfig.mongoDB("question"))

@@ -81,7 +81,7 @@ object QuestionController extends Controller {
         pollsOfquestionObtained ++= List(pollObtained.get)
       }
     }
-    Ok(write(new QuestionWithPoll(questionObtained.get, pollsOfquestionObtained))).as("application/json")
+    Ok(write(new QuestionWithPoll(questionObtained.get, None, None, pollsOfquestionObtained))).as("application/json")
   }
 
   /**
@@ -160,7 +160,7 @@ object QuestionController extends Controller {
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
     val messagesPerPage = streamIdJsonMap("limit").toList(0).toInt
     val allQuestionsForAStream = Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
-    val allQuestionForAStreamJson = write(returnQuestionsWithPolls(allQuestionsForAStream))
+    val allQuestionForAStreamJson = write(Question.returnQuestionsWithPolls(allQuestionsForAStream))
     Ok(allQuestionForAStreamJson).as("application/json")
   }
 
@@ -173,7 +173,7 @@ object QuestionController extends Controller {
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
     val questionsPerPage = streamIdJsonMap("limit").toList(0).toInt
     val getAllQuestionsForAStream = Question.getAllQuestionsForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, questionsPerPage)
-    val allQuestionsForAStreamJson = write(returnQuestionsWithPolls(getAllQuestionsForAStream))
+    val allQuestionsForAStreamJson = write(Question.returnQuestionsWithPolls(getAllQuestionsForAStream))
     Ok(allQuestionsForAStreamJson).as("application/json")
   }
 
@@ -187,30 +187,26 @@ object QuestionController extends Controller {
     val pageNo = keywordJsonMap("pageNo").toList(0).toInt
     val messagesPerPage = keywordJsonMap("limit").toList(0).toInt
     val allQuestionsForAStream = Question.getAllQuestionsForAStreambyKeyword(keyword,new ObjectId(streamId), pageNo, messagesPerPage)
-    val allQuestionsForAStreamJson = write(returnQuestionsWithPolls(allQuestionsForAStream))
+    val allQuestionsForAStreamJson = write(Question.returnQuestionsWithPolls(allQuestionsForAStream))
     Ok(allQuestionsForAStreamJson).as("application/json")
 
   }
 
-  /**
-   * Takes a List of Questions and Return Question with respective polls
-   */
-  private def returnQuestionsWithPolls(allQuestionsForAStream: List[Question]) = {
-    var questionsWithPolls: List[QuestionWithPoll] = List()
-    for (question <- allQuestionsForAStream) {
-      var pollsOfquestionObtained: List[OptionOfQuestion] = List()
-      if (question.pollOptions.size.equals(0) == false) {
-        for (pollId <- question.pollOptions) {
-          val pollObtained = QuestionPolling.findOptionOfAQuestionById(pollId)
-          pollsOfquestionObtained ++= List(pollObtained.get)
-        }
-        questionsWithPolls ++= List(new QuestionWithPoll(question, pollsOfquestionObtained))
-      } else {
-        questionsWithPolls ++= List(new QuestionWithPoll(question, List()))
-      }
+  
+/*
+ * ***********************************************************REARCHITECTED CODE****************************************************************
+ * ***********************************************************REARCHITECTED CODE****************************************************************
+ */
+  def getAllQuestionForAStream(streamId: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
+
+    try {
+      val allQuestionsForAStream = Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+      val allQuestionForAStreamJson = write(Question.returnQuestionsWithPolls(allQuestionsForAStream))
+      Ok(allQuestionForAStreamJson).as("application/json")
+    } catch {
+      case exception => InternalServerError(write(new ResulttoSent("Failure", "Problem during message retrieval")))
     }
-    questionsWithPolls
-  }: List[QuestionWithPoll]
+  }
 
 }
 

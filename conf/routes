@@ -121,7 +121,7 @@ POST /giveMeRockersOfQuestion            		controllers.QuestionController.giveMe
 POST  /followQuestion            				controllers.QuestionController.followQuestion
 POST  /voteAnOptionOfAQuestion  				controllers.QuestionController.voteAnOptionOfAQuestion
 POST /deleteQuestion               				controllers.QuestionController.deleteQuestion
-POST /getAllQuestionForAStream                	controllers.QuestionController.getAllQuestionForAStreamWithPagination
+#POST /getAllQuestionForAStream                	controllers.QuestionController.getAllQuestionForAStreamWithPagination
 POST /getAllQuestionsForAStreamSortedbyRocks   	controllers.QuestionController.getAllQuestionsForAStreamSortedbyRocks                
 POST /getAllQuestionsForAStreambyKeyword 		controllers.QuestionController.getAllQuestionsForAStreambyKeyword
 
@@ -211,7 +211,7 @@ POST /media 									controllers.MediaController.media
 
 
 # Messages + Comments + ProfilePicUrl
-GET   /allMessagesForAStream/:streamId/:messagesPerPage/:pageNo controllers.MessageController.allMessagesForAStream(streamId:String,messagesPerPage:Int,pageNo:Int)
+GET   /allMessagesForAStream/:streamId/:messagesPerPage/:pageNo 			controllers.MessageController.allMessagesForAStream(streamId:String,messagesPerPage:Int,pageNo:Int)
 
 # Social
 POST /social/social_authentication   			controllers.SocialController.signUpViaSocialSites
@@ -219,11 +219,16 @@ POST /social/social_login  			            controllers.SocialController.logInViaS
 
 #Stream
 
-GET /stream                                      controllers.StreamController.renderStreamPage
+GET /stream                                     controllers.StreamController.renderStreamPage
 
 #Files & Media
 
-GET  /browsemedia                              controllers.MediaController.browseMedia
+GET  /browsemedia                              	controllers.MediaController.browseMedia
+
+#Questions
+GET /getAllQuestionForAStream/:streamId/:messagesPerPage/:pageNo            controllers.QuestionController.getAllQuestionForAStream(streamId:String,messagesPerPage:Int,pageNo:Int)
+
+
 #Asynchronous Services
 # To create a resource on the server, use POST.
 # To retrieve a resource, use GET.
