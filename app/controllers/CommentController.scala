@@ -85,27 +85,26 @@ object CommentController extends Controller {
    */
 
   def getAllComments = Action { implicit request =>
-    val jsonWithid = request.body.asFormUrlEncoded.get
+    val jsonWithid = request.body.asJson.get
 
-    (jsonWithid.contains(("messageId"))) match {
+    ((jsonWithid \ "messageId").asOpt[String] != None) match {
       case true =>
 
-        val messageId = jsonWithid("messageId").toList(0)
+        val messageId = (jsonWithid \ "messageId").as[String]
         val commentsForAMessage = Comment.getAllComments(Message.findMessageById(new ObjectId(messageId)).get.comments)
         Ok(write(commentsForAMessage)).as("application/json")
 
-      case false => (jsonWithid.contains(("docId"))) match {
+      case false => ((jsonWithid \ "docId").asOpt[String] != None) match {
         case true =>
 
-          val docId = jsonWithid("docId").toList(0)
+          val docId = (jsonWithid \ "docId").as[String]
           val commentsForADocument = Comment.getAllComments(Document.findDocumentById(new ObjectId(docId)).get.commentsOnDocument)
           Ok(write(commentsForADocument)).as("application/json")
 
-        case false => (jsonWithid.contains(("questionId"))) match {
+        case false => ((jsonWithid \ "questionId").asOpt[String] != None) match {
           case true =>
 
-            val questionId = jsonWithid("questionId").toList(0)
-            println(questionId)
+            val questionId = (jsonWithid \ "questionId").as[String]
             val commentsForAQuestion = Comment.getAllComments(Question.findQuestionById(new ObjectId(questionId)).get.comments)
             println(commentsForAQuestion)
             Ok(write(commentsForAQuestion)).as("application/json")
