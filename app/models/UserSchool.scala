@@ -23,7 +23,7 @@ case class UserSchool(@Key("_id") id: ObjectId,
   graduated: Graduated.Value,
   graduationDate: Option[Date],
   degreeExpected: Option[DegreeExpected.Value],
-  otherDegree: String,
+  otherDegree: Option[String],
   classes: List[Class])
 
 object UserSchool {
