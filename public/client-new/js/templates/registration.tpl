@@ -101,7 +101,8 @@ $('.selectpicker-info').selectpicker({
              <div id="degreeExpected-set" class="profile-select-block" style="display: none;">
               <fieldset  class="field" >   
               <select id="degreeExpected" data-name="user.degreeExpected" name="degreeExpected" class="selectpicker-info ">
-               	<option value="Winter 2012">Winter 2012</option>
+         	 	<option selected="selected" value="">Degree Expected?</option>
+              	<option value="Winter 2012">Winter 2012</option>
 				<option value="Summer 2013">Summer 2013</option>
 				<option value="Winter 2013">Winter 2013</option>
 				<option value="Summer 2014">Summer 2014</option>

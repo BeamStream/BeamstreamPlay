@@ -131,6 +131,11 @@ define(['view/formView' ,
 				this.data.models[0].set({'graduationDate':''});
 			}
 			
+			//set validation for other graduationDate field
+			if(!$('#degreeExpected-set').is(':hidden') && !$('#degreeExpected').val()){
+				this.data.models[0].set({'degreeExpected':''});
+			}
+			
 			//set school details to modal 
 			this.data.models[0].set({'schoolName' : $('#schoolName').val() , 'associatedSchoolId' :$('#associatedSchoolId').val()} );
 			this.saveForm();

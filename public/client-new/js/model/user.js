@@ -92,6 +92,9 @@ define(['model/baseModel'], function(BaseModel) {
 			},
 			graduationDate: {
 				required: true
+			},
+			degreeExpected:{
+				required: true
 			}
         }
   
