@@ -121,9 +121,14 @@ define(['view/formView' ,
 				}
 			}
 			
-			//set a default value only when we select Other degree
+			//set validation for other degree field
 			if(!$('#otherDegree').is(':hidden') && !$('#otherDegree').val()){
 				this.data.models[0].set({'otherDegree':''});
+			}
+			
+			//set validation for other graduationDate field
+			if(!$('#graduationDate').is(':hidden') && !$('#graduationDate').val()){
+				this.data.models[0].set({'graduationDate':''});
 			}
 			
 			//set school details to modal 
