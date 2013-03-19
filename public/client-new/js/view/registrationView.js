@@ -15,7 +15,12 @@
 *
 * 
 */
-define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min','../../lib/jquery.maskedinput'], function(FormView, BootstrapSelect,Bootstrap,MaskedInput){
+define(['view/formView' ,
+        '../../lib/bootstrap-select',
+        '../../lib/bootstrap.min',
+        '../../lib/jquery.maskedinput',
+        '../../lib/bootstrap-datepicker',
+        ], function(FormView, BootstrapSelect,Bootstrap,MaskedInput, Datepicker){
 	var RegistrationView;
 	RegistrationView = FormView.extend({
 		objName: 'RegistrationView',
