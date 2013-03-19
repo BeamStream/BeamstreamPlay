@@ -45,7 +45,7 @@ define(['view/formView',
             this.data.reset();
             this.pagenum = 1;
             this.pageLimit = 10;
-            this.discussion = new DiscussionModel();
+            
             this.comment = new CommentModel();
 		 },
         
@@ -100,6 +100,7 @@ define(['view/formView',
 		  	    messageAccess = "Public";
 		    }
 		    
+		    this.discussion = new DiscussionModel();
 		    this.discussion.url = "/newMessage";
 		    // set values to model
 		    this.discussion.save({streamId : streamId, message :message, messageAccess:messageAccess},{
@@ -264,7 +265,7 @@ define(['view/formView',
 	   				  		$('#'+parent+'-addComments').slideUp(200);
 	   				  		
 	   	   				    /* display the posted comment  */
-	   			    		_.each(datas, function(comment) {
+	   			    		_.each(response, function(comment) {
 		   			    			 
 	   				    		var compiledTemplate = Handlebars.compile(DiscussionComment);
 	   				    		$('#'+parent+'-allComments').prepend( compiledTemplate({data:comment}));

@@ -86,6 +86,9 @@ define(['model/baseModel'], function(BaseModel) {
 			},
 			cellNumber: {				
                 pattern: 'phone'
+			},
+			otherDegree:{
+				required: true
 			}
         }
   

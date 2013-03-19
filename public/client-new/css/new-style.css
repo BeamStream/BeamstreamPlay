@@ -102,3 +102,8 @@
 	background-color: #498fb3 !important;  
 	background:none !important; 
 }
+
+.location-block{
+	display:block;
+	width:100%;
+}

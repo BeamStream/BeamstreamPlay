@@ -19,27 +19,24 @@ import java.text.SimpleDateFormat
 
 object CommentController extends Controller {
 
- implicit val formats = new net.liftweb.json.DefaultFormats {
+  implicit val formats = new net.liftweb.json.DefaultFormats {
     override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
   } + new ObjectIdSerializer
 
-
   def newComment = Action { implicit request =>
 
-    val commentJson = request.body.asFormUrlEncoded.get
-    
-    
+    val commentJson = request.body.asJson.get
+
     try {
       /**
        * Direct Approach
        */
 
-      (commentJson.contains(("messageId"))) match {
+      ((commentJson \ "messageId").asOpt[String] != None) match {
 
         case true =>
-
-          val messageId = commentJson("messageId").toList(0)
-          val commentText = commentJson("comment").toList(0)
+          val messageId = (commentJson \ "messageId").as[String]
+          val commentText = (commentJson \ "comment").as[String]
           val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
           val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
             commentPoster.firstName, commentPoster.lastName, 0, None, List())
@@ -49,12 +46,11 @@ object CommentController extends Controller {
           if (!(message.docIdIfAny == None)) RockDocOrMedia.commentDocOrMedia(message.docIdIfAny.get, commentId)
           Ok(write(List(comment))).as("application/json")
 
-        case false => (commentJson.contains(("docId"))) match {
+        case false => ((commentJson \ "docId").asOpt[String] != None) match {
 
           case true =>
-
-            val docId = commentJson("docId").toList(0)
-            val commentText = commentJson("comment").toList(0)
+            val docId = (commentJson \ "docId").as[String]
+            val commentText = (commentJson \ "comment").as[String]
             val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
             val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
               commentPoster.firstName, commentPoster.lastName, 0, None, List())
@@ -62,11 +58,11 @@ object CommentController extends Controller {
             Document.addCommentToDocument(commentId, new ObjectId(docId))
             Ok(write(List(comment))).as("application/json")
 
-          case false => (commentJson.contains(("questionId"))) match {
+          case false => ((commentJson \ "questionId").asOpt[String] != None) match {
 
             case true =>
-              val questionId = commentJson("questionId").toList(0)
-              val commentText = commentJson("comment").toList(0)
+              val questionId = (commentJson \ "questionId").as[String]
+              val commentText = (commentJson \ "comment").as[String]
               val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
               val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
                 commentPoster.firstName, commentPoster.lastName, 0, None, List())
@@ -84,33 +80,31 @@ object CommentController extends Controller {
     }
   }
 
-  
   /**
    * Method for retrieving all the comments based on the input
    */
 
   def getAllComments = Action { implicit request =>
-    val jsonWithid = request.body.asFormUrlEncoded.get
+    val jsonWithid = request.body.asJson.get
 
-    (jsonWithid.contains(("messageId"))) match {
+    ((jsonWithid \ "messageId").asOpt[String] != None) match {
       case true =>
 
-        val messageId = jsonWithid("messageId").toList(0)
+        val messageId = (jsonWithid \ "messageId").as[String]
         val commentsForAMessage = Comment.getAllComments(Message.findMessageById(new ObjectId(messageId)).get.comments)
         Ok(write(commentsForAMessage)).as("application/json")
 
-      case false => (jsonWithid.contains(("docId"))) match {
+      case false => ((jsonWithid \ "docId").asOpt[String] != None) match {
         case true =>
 
-          val docId = jsonWithid("docId").toList(0)
+          val docId = (jsonWithid \ "docId").as[String]
           val commentsForADocument = Comment.getAllComments(Document.findDocumentById(new ObjectId(docId)).get.commentsOnDocument)
           Ok(write(commentsForADocument)).as("application/json")
 
-        case false => (jsonWithid.contains(("questionId"))) match {
+        case false => ((jsonWithid \ "questionId").asOpt[String] != None) match {
           case true =>
-            
-            val questionId = jsonWithid("questionId").toList(0)
-            println(questionId)
+
+            val questionId = (jsonWithid \ "questionId").as[String]
             val commentsForAQuestion = Comment.getAllComments(Question.findQuestionById(new ObjectId(questionId)).get.comments)
             println(commentsForAQuestion)
             Ok(write(commentsForAQuestion)).as("application/json")
@@ -162,7 +156,7 @@ object CommentController extends Controller {
    * Is a Rocker
    * @ Purpose: identify if the user has rocked the comment or not
    */
-  def isARocker = Action { implicit request => 
+  def isARocker = Action { implicit request =>
     {
       val commentIdJsonMap = request.body.asFormUrlEncoded.get
       val commentId = commentIdJsonMap("commentId").toList(0)
