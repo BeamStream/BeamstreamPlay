@@ -4017,13 +4017,13 @@ ul.signup-register li input {
 }
 
 .registration-header {
-		-moz-opacity:.9;
-		-khtml-opacity:.9;
-		-webkit-opacity:.9;
-		opacity:.9;
-		-ms-filter:alpha(opacity=90);
-		filter:alpha(opacity=90);
-		background:#fff;
+		-moz-opacity:.8;
+		-khtml-opacity:.8;
+		-webkit-opacity:.8;
+		opacity:.8;
+		-ms-filter:alpha(opacity=80);
+		filter:alpha(opacity=80);
+		background:#000;
 		display:block;
 		height:103%;
 		left:0;
@@ -4034,11 +4034,11 @@ ul.signup-register li input {
 }
 
 .registration-header h6 {
-		color:##385160;
+		color:#fff;
 		padding-left:40px;
 		line-height:142px;
 		font-size:14px;
-		text-shadow:none;
+		text-shadow:1px 1px 1px #616161;
 }
 
 .register-menu-block {
@@ -6008,13 +6008,18 @@ width:100%;
 }
 
  .invite-bottom-btn a.invite-orange-btn{
-  		background:#D3951B;
-		background:-webkit-gradient(linear, left bottom, left top, color-stop(0, #D3951B), color-stop(1, #D3951B));
-		background:-ms-linear-gradient(bottom, #D3951B, #D3951B);
-		background:-moz-linear-gradient(center bottom, #D3951B 0, #D3951B 100%);
-		background:-o-linear-gradient(#D3951B, #D3951B);
-		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#D3951B', endColorstr='#D3951B', GradientType=0);
+  		background:#dbaa22;
+		background:-webkit-gradient(linear, left bottom, left top, color-stop(0, #dbaa22), color-stop(1, #d4991c));
+		background:-ms-linear-gradient(bottom, #dbaa22, #d4991c);
+		background:-moz-linear-gradient(center bottom, #dbaa22 0, #d4991c 100%);
+		background:-o-linear-gradient(#d4991c, #dbaa22);
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d4991c', endColorstr='#dbaa22', GradientType=0);
+		border:1px solid #dbaa22;
 		margin-right:1%;
+		text-decoration: none;
+ }
+  .invite-bottom-btn a.invite-orange-btn:hover{
+  		color: #f4e5bc;
  }
  
   .invite-bottom-btn a.invite-green-btn{
@@ -6024,6 +6029,10 @@ width:100%;
 		background:-moz-linear-gradient(center bottom, #438348 0, #336437 100%);
 		background:-o-linear-gradient(#336437, #438348);
 		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#336437', endColorstr='#438348', GradientType=0);
+		text-decoration: none;
+  }
+  .invite-bottom-btn a.invite-green-btn:hover{
+		color: #d9e6da;
   }
  
 
