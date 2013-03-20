@@ -78,7 +78,7 @@ object DocumentController extends Controller {
           val docId = Document.addDocument(documentToCreate)
           val user = User.getUserProfile(userId)
           //Create A Message As Well To Display The Doc Creation In Stream
-          val message = Message(new ObjectId, url, Option(MessageType.Document), Option(MessageAccess.withName(access)), date, userId, Option(new ObjectId(streamId)), user.firstName, user.lastName, 0, List(), List(), 0, List())
+          val message = Message(new ObjectId, url, Option(MessageType.Document), Option(MessageAccess.withName(access)), date, userId, Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, List(), List(), 0, List())
           Message.createMessage(message)
           val docObtained = Document.findDocumentById(docId)
           val docJson = write(List(docObtained))
@@ -187,18 +187,18 @@ object DocumentController extends Controller {
             val user = User.getUserProfile(userId)
   
             if (isImage == true) {
-              val uploadResults = saveImageFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user)
+              val uploadResults = saveImageFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get)
               resultToSend = Option(uploadResults)
             } else if (isVideo == true) {
-              val uploadResults = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user, docNameOnAmazom)
+              val uploadResults = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom)
               resultToSend = Option(uploadResults)
             } else {
               if (isPdf == true) {
                 val previewImageUrl = PreviewOfPDF.convertPdfToImage(documentReceived, docNameOnAmazom)
-                val uploadResults = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user, docNameOnAmazom, previewImageUrl)
+                val uploadResults = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, previewImageUrl)
                 resultToSend = Option(uploadResults)
               } else {
-                val uploadResults = saveOtherDOcFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user, docNameOnAmazom)
+                val uploadResults = saveOtherDOcFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom)
                 resultToSend = Option(uploadResults)
               }
             }

@@ -44,7 +44,7 @@ object User {
 
   def addInfo(schoolList: List[UserSchool], userId: ObjectId) = {
     for (school <- schoolList) {
-      val userSchoolIds = User.getUserProfile(userId).schools
+      val userSchoolIds = User.getUserProfile(userId).get.schools
       (userSchoolIds.contains(school.id)) match {
         case true => println("School Id already in user schools")
         case false => User.addSchoolToUser(userId, school.id)
@@ -107,16 +107,16 @@ object User {
       }
   }
 
-//  // Check if the User already registered
-//  def isAlreadyRegistered(userEmail: String, userName: String): Boolean = {
-//    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
-//    val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userName)).toList
-//    (userHavingSameMailId.isEmpty && userHavingSameUserName.isEmpty) match {
-//      case true => true
-//      case false => false
-//    }
-//
-//  }
+  //  // Check if the User already registered
+  //  def isAlreadyRegistered(userEmail: String, userName: String): Boolean = {
+  //    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
+  //    val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userName)).toList
+  //    (userHavingSameMailId.isEmpty && userHavingSameUserName.isEmpty) match {
+  //      case true => true
+  //      case false => false
+  //    }
+  //
+  //  }
 
   /**
    * Add a Class to user (RA)
@@ -131,10 +131,9 @@ object User {
    * Get the Details of a user (RA)
    */
 
-  def getUserProfile(userId: ObjectId): User = {
+  def getUserProfile(userId: ObjectId): Option[User] = {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    return user
-
+    Option(user)
   }
 
   /**
@@ -214,7 +213,7 @@ object User {
    */
   def updateUser(userId: ObjectId, firstName: String, lastName: String, location: String, about: String, contact: String) {
     val userToUpdate = User.getUserProfile(userId)
-    UserDAO.update(MongoDBObject("_id" -> userId), userToUpdate.copy(firstName = firstName, lastName = lastName, location = location, about = about, contact = contact), false, false, new WriteConcern)
+    UserDAO.update(MongoDBObject("_id" -> userId), userToUpdate.get.copy(firstName = firstName, lastName = lastName, location = location, about = about, contact = contact), false, false, new WriteConcern)
   }
 
   /**

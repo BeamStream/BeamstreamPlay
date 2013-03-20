@@ -57,7 +57,7 @@ object QuestionController extends Controller {
     val userId = new ObjectId(request.session.get("userId").get)
     val user = User.getUserProfile(userId)
     val questionToAsk = new Question(new ObjectId, questionBody, userId,
-      QuestionAccess.withName(questionAccess), new ObjectId(streamId), user.firstName, user.lastName, new Date, List(), List(), List(), List())
+      QuestionAccess.withName(questionAccess), new ObjectId(streamId), user.get.firstName, user.get.lastName, new Date, List(), List(), List(), List())
     val questionId = Question.addQuestion(questionToAsk)
 
     /**
