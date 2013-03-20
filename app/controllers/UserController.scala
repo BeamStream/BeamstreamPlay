@@ -24,6 +24,7 @@ import utils.onlineUserCache
 import scala.collection.immutable.List
 import models.UserMedia
 import models.OnlineUsers
+import models.ResulttoSent
 
 object UserController extends Controller {
 
@@ -116,9 +117,13 @@ object UserController extends Controller {
    */
 
   def signOut = Action { implicit request =>
-    val noOfOnLineUsers = onlineUserCache.setOffline(request.session.get("userId").get)
-    println("Online Users" + noOfOnLineUsers)
-    Ok.withNewSession
+    try {
+      val noOfOnLineUsers = onlineUserCache.setOffline(request.session.get("userId").get)
+      println("Online Users" + noOfOnLineUsers)
+      Ok(write(new ResulttoSent("Success", "Signed Out"))).withNewSession
+    } catch {
+      case exception => Ok(write(new ResulttoSent("Failure", "Sign Out Failed")))
+    }
   }
 
   /**
@@ -290,7 +295,7 @@ object UserController extends Controller {
           val authenticatedUserJson = write(user)
           val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
           println("Online Users" + noOfOnLineUsers)
-          Ok(write(new ResulttoSent("Success", "Login Successful"))).as("application/json")
+          Ok(write(new ResulttoSent("Success", "Login Successful"))).as("application/json").withSession(userSession)
         case None =>
           Ok(write(new ResulttoSent("Failure", "Login Unsuccessful"))).as("application/json")
       }
