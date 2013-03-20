@@ -22,23 +22,20 @@ define(['view/formView'], function(FormView){
 		objName: 'newSchoolView',
 		
 		events:{
-	         'click #addSchool' : 'addNewSchool'
+//	         'click #addSchool' : 'addNewSchool'
 		},
 
 		onAfterInit: function(){	
-			this.data.reset({'schoolName':'','schoolWebsite':''});
-			
-	        
+			this.data.reset({'schoolWebsite':''});
         },
         
         /**
          * add new school to beamstream
          */
-        addNewSchool: function(e){
-        	e.preventDefault();
-        	
-        	this.saveForm();
-        },
+//        addNewSchool: function(e){
+//        	e.preventDefault();
+//        	this.saveForm();
+//        },
         
         /**
          * add new school success

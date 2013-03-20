@@ -21,8 +21,8 @@ define(['model/baseModel'], function(BaseModel) {
 		objName: 'School',
 		
 		defaults: {	   
-			schoolName:'',
-			schoolWebsite:''
+			schoolWebsite:'',
+			schoolName:''
         },
 	        
 		/**

@@ -121,7 +121,7 @@ define(
 							
 							this.onChange(e);
 						},
-						onChange : function(e) {
+						onChange : function(e) { 
 							var that = this, i = 0, attr = {}, ptr = attr, name = e.target.getAttribute('name'), form = this.$('.content')[0], value;
 							
 							if(e.target.getAttribute('data-format')=='phone')
