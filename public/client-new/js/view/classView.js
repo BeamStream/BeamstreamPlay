@@ -32,6 +32,7 @@ define(['view/formView',
 		    'click #create-stream' : 'createOrJoinStream',
 		    'click .access-menu li' : 'activateClassAccess',
 		    'change #schoolId' : 'clearAllClasses',
+		    'keyup #classCode' :'populateClassCodes',
 		    
 		},
 
@@ -146,11 +147,92 @@ define(['view/formView',
     		
         },
         
+        
+        /**
+		 * populate  List of class codes - matching a class code
+		 */
+        populateClassCodes :function(eventName){
+			
+			var id = eventName.target.id;
+			var self = this;
+			  
+			var text = $('#classCode').val(); 
+			var identity = id.replace(/[^\d.,]+/,'');
+			var selectedSchoolId = $('#schoolId').val() ;
+			self.data.models[0].removeAttr('id');
+			$('#create-stream').text("Create Stream");
+			
+			/* post the text that we type to get matched classes */
+			if(text != '' && selectedSchoolId !=''){
+			
+				 $.ajax({
+					type : 'POST',
+					url : '/autoPopulateClassesbyCode',
+					data : {
+						data : text,
+						assosiatedSchoolId : selectedSchoolId
+					},
+					dataType : "json",
+					success : function(datas) {
+						var codes = '';
+						var allClassInfo = datas;
+						self.classCodes = []; 
+						_.each(datas, function(data) {
+							self.classCodes.push({
+								label:data.classToReturn.classCode ,
+								value:data.classToReturn.classCode ,
+								id :data.classToReturn.id.id ,
+								data:data
+						    });
+		
+							 
+				        });
+						
+						 if(self.classCodes.length == 0)
+	   	                	 return;
+						
+						//set auto populate functionality for class code
+						$('#classCode').autocomplete({
+							    source: self.classCodes,
+							    select: function(event, ui) {
+							    	
+							    	var id = ui.item.id; 
+							    	$('#create-stream').text("Joins Stream");
+							    	/* set the  details  to modal */
+						    		self.data.models[0].set({'id' : ui.item.id , 'className' :ui.item.value ,'classTime' :ui.item.data.classToReturn.classTime ,'startingDate' :ui.item.data.classToReturn.startingDate,'classType':ui.item.data.classToReturn.classType ,'classCode': ui.item.data.classToReturn.classCode });
+		   					    	
+							    	self.displayFiledsForCode(id,ui.item.data);
+							    	
+							    }
+						 });
+					}
+				});
+			}
+		},
         /**
          * display all other fields of selected class 
          */
         displayFieldsForName: function(id,data){
         	$('#classCode').val(data.classToReturn.classCode);
+        	$('#startingDate').val(data.classToReturn.startingDate);
+        	$('#classType').val(data.classToReturn.classTime);
+        	$('#classTime span.filter-option').text(data.classToReturn.classTime);
+        	
+        	if(data.classToReturn.classType == "quarter")
+        	{
+        		$('#classType span.filter-option').text("Quarter");
+        	}
+        	else
+        	{
+				 $('#classType span.filter-option').text("Semester");
+        	}
+        },
+        
+        /**
+         * display all other fields of selected class  code
+         */
+        displayFiledsForCode: function(id,data){
+        	$('#className').val(data.classToReturn.className);
         	$('#startingDate').val(data.classToReturn.startingDate);
         	$('#classType').val(data.classToReturn.classTime);
         	$('#classTime span.filter-option').text(data.classToReturn.classTime);
@@ -208,6 +290,8 @@ define(['view/formView',
         activateClassAccess: function(e){
         	e.preventDefault();
         },
+        
+       
 	
 	})
 	return classView;
