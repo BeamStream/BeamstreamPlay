@@ -72,7 +72,7 @@
               <li><a href="#" class="users-request">Users Requests</a>
                 <div class="orange-tick"></div>
               </li>
-              <a id="create-stream" href="#" class="follow-david join-freind-btn">Create (Join) Stream</a>
+              <a id="create-stream" href="#" class="follow-david join-freind-btn">Create Stream</a>
             </ul>
           </div>
         </div>
