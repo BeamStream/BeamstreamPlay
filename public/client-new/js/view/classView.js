@@ -273,7 +273,7 @@ define(['view/formView',
 		 */
 		success: function(model, data){
 			if(data.status == "Success"){
-//   	    		window.location = "/stream";
+   	    		window.location = "/stream";
    	    	}
    	    	else{
    	    		alert(data.message);
