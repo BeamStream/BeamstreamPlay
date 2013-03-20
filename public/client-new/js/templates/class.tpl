@@ -75,7 +75,6 @@
               <li><a href="#" class="users-request">Users Requests</a>
                 <div class="orange-tick"></div>
               </li>
-              
             </ul>
           </div>
         </div>

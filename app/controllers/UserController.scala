@@ -135,11 +135,11 @@ object UserController extends Controller {
             val userWithDetailedInfo = User.getUserProfile(new ObjectId(eachUserId))
             val profilePicForUser = UserMedia.getProfilePicForAUser(new ObjectId(eachUserId))
             if (profilePicForUser.isEmpty) {
-              onlineUsersAlongWithDetails ++= List(new OnlineUsers(userWithDetailedInfo.id, userWithDetailedInfo.firstName,
-                userWithDetailedInfo.lastName, ""))
+              onlineUsersAlongWithDetails ++= List(new OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+                userWithDetailedInfo.get.lastName, ""))
             } else {
-              onlineUsersAlongWithDetails ++= List(new OnlineUsers(userWithDetailedInfo.id, userWithDetailedInfo.firstName,
-                userWithDetailedInfo.lastName, profilePicForUser(0).mediaUrl))
+              onlineUsersAlongWithDetails ++= List(new OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+                userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl))
             }
           }
         }

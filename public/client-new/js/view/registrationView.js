@@ -15,7 +15,12 @@
 *
 * 
 */
-define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min','../../lib/jquery.maskedinput'], function(FormView, BootstrapSelect,Bootstrap,MaskedInput){
+define(['view/formView' ,
+        '../../lib/bootstrap-select',
+        '../../lib/bootstrap.min',
+        '../../lib/jquery.maskedinput',
+        '../../lib/bootstrap-datepicker',
+        ], function(FormView, BootstrapSelect,Bootstrap,MaskedInput, Datepicker){
 	var RegistrationView;
 	RegistrationView = FormView.extend({
 		objName: 'RegistrationView',
@@ -116,13 +121,23 @@ define(['view/formView' ,'../../lib/bootstrap-select','../../lib/bootstrap.min',
 				}
 			}
 			
-			//set a default value only when we select Other degree
+			//set validation for other degree field
 			if(!$('#otherDegree').is(':hidden') && !$('#otherDegree').val()){
 				this.data.models[0].set({'otherDegree':''});
 			}
 			
+			//set validation for other graduationDate field
+			if(!$('#graduationDate').is(':hidden') && !$('#graduationDate').val()){
+				this.data.models[0].set({'graduationDate':''});
+			}
+			
+			//set validation for degreeExpected field
+			if(!$('#degreeExpected-set').is(':hidden') && !$('#degreeExpected').val()){
+				this.data.models[0].set({'degreeExpected':''});
+			}
+			
 			//set school details to modal 
-			this.data.models[0].set({'schoolName' : $('#schoolName').val() , 'associatedSchoolId' :$('#associatedSchoolId').val()} );
+			this.data.models[0].set({'schoolName' : $('#schoolName').val() , 'associatedSchoolId' :$('#associatedSchoolId').val()});
 			this.saveForm();
 		},
 		

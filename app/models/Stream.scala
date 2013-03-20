@@ -9,6 +9,7 @@ import scala.collection.JavaConversions._
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import utils.SendEmail
+import actors.UtilityActor
 
 case class Stream(@Key("_id") id: ObjectId,
   streamName: String,
@@ -87,10 +88,14 @@ object Stream {
    */
 
   def joinStream(streamId: ObjectId, userId: ObjectId): ResulttoSent = {
-  
+
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     if (!stream.usersOfStream.contains(userId)) {
       StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream ++ List(userId))), false, false, new WriteConcern)
+      println("Join Stream Dne by me----------")
+      val user = User.getUserProfile(userId)
+      UtilityActor.sendEmailAfterStreamCreation(user.get.email, stream.streamName, false)
+      UtilityActor.sendEmailAfterStreamCreationToNotifyOtherUsers(streamId, userId)
       ResulttoSent("Success", "Joined Stream Successfully")
     } else {
       ResulttoSent("Failure", "You've already joined the stream")
@@ -147,19 +152,20 @@ object Stream {
     resultToSent
   }
 
-  /*
-   * Notify Other Users Of A Stream About New User That Has Been Joined In A Stream
+  /**
+   * Notify Other Users Of A Stream About New User That Has Been Joined In A Stream (RA)
    */
   def sendMailToUsersOfStream(streamId: ObjectId, userIdWhoHasJoinedTheStream: ObjectId) = {
+    println("2 2 future--------")
     val userWhoHasJoinedTheStream = User.getUserProfile(userIdWhoHasJoinedTheStream)
     val stream = Stream.findStreamById(streamId)
     for (user <- stream.usersOfStream) {
       val userObtained = User.getUserProfile(user)
-      if (!userObtained.id.equals(userIdWhoHasJoinedTheStream)) {
-        SendEmail.notifyUsersOfStreamForANewUser(userObtained.email, userWhoHasJoinedTheStream.firstName, userWhoHasJoinedTheStream.lastName, stream.streamName)
+      if (!userObtained.get.id.equals(userIdWhoHasJoinedTheStream)) {
+        SendEmail.notifyUsersOfStreamForANewUser(userObtained.get.email, userWhoHasJoinedTheStream.get.firstName, userWhoHasJoinedTheStream.get.lastName, stream.streamName)
       }
     }
-
+    println("Ok Done Now-----------------")
   }
 
 }

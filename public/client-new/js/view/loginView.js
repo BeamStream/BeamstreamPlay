@@ -23,7 +23,8 @@ define(['view/formView', 'model/stream'], function(FormView ,Stream){
 		objName: 'LoginView',
 		
 		events:{
-                'click #login': 'login'
+	        'click #login': 'login',
+	        'keyup #password' : 'loginOnEnterKeyPress',
 		},
 
 		onAfterInit: function(){	
@@ -47,11 +48,13 @@ define(['view/formView', 'model/stream'], function(FormView ,Stream){
             if($('#mailid').val()&&$('#password').val()){  
                 this.saveForm( );
             }  
+            if(!$('#mailid').val() && !$('#password').val()){
+            	alert("Please enter your login credentials");
+            }
 
-            $('#mailid').val('');   
             $('#password').val('');
         },
-
+        
           
         /**
         * on form save success
@@ -71,8 +74,19 @@ define(['view/formView', 'model/stream'], function(FormView ,Stream){
                 alert(data.message);
             }		
 
-		}
-                
+		},
+		
+		/**
+		 * login on enter key press on password field
+		 */
+		loginOnEnterKeyPress: function(eventName){
+			var self = this;
+			if(eventName.which == 13) {
+				self.login(eventName); 
+			}
+		},
+		
+	     
       
  
 	})

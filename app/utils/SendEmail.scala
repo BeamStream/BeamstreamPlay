@@ -77,6 +77,7 @@ object SendEmail {
    * Send Mail After Stream Creation & Joining
    */
   def mailAfterStreamCreation(emailId: String, streamName: String, newStream: Boolean) {
+     println("1 2 future--------")
     val authenticatedMessageAndSession = SendEmail.setEmailCredentials
     val recepientAddress = new InternetAddress(emailId)
     authenticatedMessageAndSession._1.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
@@ -100,6 +101,7 @@ object SendEmail {
           "Start sharing now & be a Beamstream's Rocker" + "<br>" + "<br>" ++ "<br>" +
           "Cheers," + "<br>" +
           "The Really Nice Beamstream Folks , US" + "<br>", "text/html")
+          
     }
 
     val transport = authenticatedMessageAndSession._2.getTransport("smtp");
@@ -121,7 +123,7 @@ object SendEmail {
         "Cheers," + "<br>" +
         "The Really Nice Beamstream Folks , US" + "<br>"
 
-    sendMessage(emailId, subject, content)
+    sendMessage(emailId, subject, content)	
   }
 
   /**

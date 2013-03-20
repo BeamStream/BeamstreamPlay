@@ -18,9 +18,9 @@
 		BS.SignUpView = Backbone.View.extend({
 	
 			events : {
-			    "click #registeration":"register",
-			    "click .menu-pic":"getUserTypeValue",
-			    "focusout .home_reg":"valdation"
+			    'click #registeration':'register',
+			    'click .menu-pic':'getUserTypeValue',
+			    'focusout .home_reg':'valdation'
 		    },
 	
 			initialize : function() {		

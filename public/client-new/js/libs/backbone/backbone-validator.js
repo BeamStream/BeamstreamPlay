@@ -72,7 +72,10 @@ Backbone.Validate = (function() {
 		var validators = {
 			required: function(field) {
 				if ( !( hasValue(attributes[field]) || isPlaceHolder(field) )) {						 
-					addError(field, I18n.t('errors.'+ field + '.required'));
+//					addError(field, I18n.t('errors.'+ field + '.required'));
+					
+					// Added by Aswathy 
+					addError(field,"This filed is required");
 				}
 			},
 			acceptance: function(field) {

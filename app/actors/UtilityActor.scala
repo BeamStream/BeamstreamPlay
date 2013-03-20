@@ -73,7 +73,6 @@ object UtilityActor {
     val future = Future { sendMailAfterSignUp(userId, authToken, emailId) }
   }
 
-  
   def sendMailAfterSignUp(userId: String, authToken: String, emailId: String) {
     val server = Play.current.configuration.getString("server").get
     val authenticatedMessageAndSession = SendEmail.setEmailCredentials
@@ -100,8 +99,17 @@ object UtilityActor {
    * Mail After Stream Creation
    */
   def sendEmailAfterStreamCreation(email: String, streamName: String, newStream: Boolean) {
+    println("1 1 future--------")
     implicit val system = Akka.system
     val future = Future { SendEmail.mailAfterStreamCreation(email, streamName, newStream) }
+  }
+  /**
+   * Mail After Stream Creation
+   */
+  def sendEmailAfterStreamCreationToNotifyOtherUsers(streamId: ObjectId, userIdWhoHasJoinedTheStream: ObjectId) {
+     println("2 1 future--------")
+    implicit val system = Akka.system
+    val future = Future { models.Stream.sendMailToUsersOfStream(streamId, userIdWhoHasJoinedTheStream) }
   }
 
 }
