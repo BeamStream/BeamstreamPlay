@@ -43,7 +43,7 @@
                 <div class="invite-small-arrow"><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
               </div>
               
-              <div class="invite-calender field">  <input id="startingDate" data-name="class.startingDate" value="" name="startingDate"  class="datepicker calender-box" type="text" placeholder="Date" />
+              <div class="invite-calender field">  <input id="startingDate" data-name="class.startingDate" value="" name="startingDate"  class="datepicker calender-box" type="text" placeholder="Class start date" />
  
  				<div class="new-arrow date-arrow"><span><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></span></div>
               </div>
@@ -58,11 +58,14 @@
               
               <div class="invite-bottom-btn">
               
-             <a href="#myModal" role="button" class="follow-david invite-freind-btn"data-toggle="modal"><span></span>Invite Friends</a> 
-                 <a href="#" class="invite-educator">Invite Educator To Claim</a>
-              
+            <a href="#myModal" class="invite-orange-btn" data-toggle="modal">Add More Classmates</a>
+             <a href="#" class="invite-orange-btn">Invite Educator To Claim</a>
+              <a href="#" id="create-stream" class="invite-green-btn">Create (Join) Stream</a>
+            
+            
+                
               </div>
-
+              
            </div>
           <div class="classic-information-right">
             <h5> Class access</h5>
@@ -72,7 +75,7 @@
               <li><a href="#" class="users-request">Users Requests</a>
                 <div class="orange-tick"></div>
               </li>
-              <a id="create-stream" href="#" class="follow-david join-freind-btn">Create (Join) Stream</a>
+              
             </ul>
           </div>
         </div>
