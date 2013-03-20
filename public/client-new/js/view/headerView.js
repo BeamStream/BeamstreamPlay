@@ -42,8 +42,14 @@ define(['view/formView'], function(FormView){
 					type : 'GET',
 					url : '/signOut',
 					dataType : "json",
-					success : function(datas) {
-						
+					success : function(data) {
+						if(data.status == "Success"){
+							window.location = "/login";
+						}
+						else
+						{
+							alert(data.message);
+						}
 					}
 			 });
 		 },

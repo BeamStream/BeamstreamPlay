@@ -19,8 +19,9 @@
 define(['view/formView',
         '../../lib/bootstrap-select',
         '../../lib/bootstrap-datepicker',
+        '../../lib/bootstrap-modal',
         'model/userSchool'
-        ],function(FormView ,BootstrapSelect,Datepicker ,userSchool){
+        ],function(FormView ,BootstrapSelect,Datepicker , BootstrapModal, userSchool){
 	
 	var classView;
 	classView = FormView.extend({
@@ -33,6 +34,8 @@ define(['view/formView',
 		    'click .access-menu li' : 'activateClassAccess',
 		    'change #schoolId' : 'clearAllClasses',
 		    'keyup #classCode' :'populateClassCodes',
+		    'click #addMoreClass' : 'addMoreClasses',
+		    'click #startBeam' : 'startBeamstream'
 		    
 		},
 
@@ -273,11 +276,21 @@ define(['view/formView',
 		 */
 		success: function(model, data){
 			if(data.status == "Success"){
-   	    		window.location = "/stream";
+				$("#selectNextStep").modal('show'); 
    	    	}
    	    	else{
    	    		alert(data.message);
    	    	}
+			
+			/* clear all form fields */
+			this.data.models[0].removeAttr('message');
+			this.data.models[0].removeAttr('status');
+			$('#className').val('');
+			$('#classCode').val('');
+        	$('#startingDate').val('');
+        	$('#classType').val('');
+        	$('#classTime span.filter-option').text("Class Time");
+			$('#classType span.filter-option').text("Semester");
 		},
 		
 		serverError : function(model, data) {
@@ -291,8 +304,21 @@ define(['view/formView',
         	e.preventDefault();
         },
         
+        /**
+         * stay on class page to add more classes 
+         */
+        addMoreClasses: function(e){
+        	e.preventDefault();
+        	$("#selectNextStep").modal('hide');
+        },
        
-	
+        /**
+         * go to stream page 
+         */
+        startBeamstream: function(e){
+        	e.preventDefault();
+        	window.location = "/stream";
+        }
 	})
 	return classView;
 });

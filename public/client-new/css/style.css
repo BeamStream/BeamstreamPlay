@@ -4302,14 +4302,14 @@ ul.whitefield li .fisherman {
 		position:absolute;
 		right:10px;
 		top:8px;
-		z-index:9999
+		z-index:100;
 }
 
 .invite-small-arrow {
 		position:absolute;
 		right:10px;
 		top:10px;
-		z-index:9999
+		z-index:100;
 }
 
 .selectpicker-info span.filter-option {
