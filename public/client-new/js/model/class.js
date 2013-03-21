@@ -29,15 +29,6 @@ define(['model/baseModel'], function(BaseModel) {
 			classType:'semester'
 		},
 		
-		/**
-         *@TODO  parse the response data because the response json is different
-         */
-//        parse:function(response){
-//        	
-//        	delete response.user;
-//        	delete response.userSchool;
-//        	return response;
-//        },
 		
 		validation: {
 			schoolId: {
