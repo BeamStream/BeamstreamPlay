@@ -83,6 +83,7 @@ object SocialController extends Controller {
       } else {
         val userSession = request.session + ("userId" -> authenticatedUser.get.id.toString)
         val noOfOnLineUsers = onlineUserCache.setOnline(authenticatedUser.get.id.toString)
+        println(noOfOnLineUsers)
         Ok(views.html.discussions.discussions("DISCUSSIONS_DATA")).withSession(userSession)
       }
     } catch {
