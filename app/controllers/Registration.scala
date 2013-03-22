@@ -16,6 +16,8 @@ import models.DegreeExpected
 import java.text.SimpleDateFormat
 import java.util.Date
 import models.DegreeExpected
+import models.OnlineUsers
+import utils.onlineUserCache
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -38,7 +40,7 @@ object Registration extends Controller {
    * User Registration In Detail (RA)
    */
   def registerUser = Action { implicit request =>
-//    try {
+    try {
       val jsonReceived = request.body.asJson.get
       var degreeExpectedSeason: Option[DegreeExpected.Value] = None
       var graduationDateFound: Option[Date] = None
@@ -66,9 +68,10 @@ object Registration extends Controller {
       UserSchool.createSchool(userSchool)
       User.addInfo(List(userSchool), new ObjectId(userId))
       val userCreated = User.getUserProfile(new ObjectId(userId))
+      onlineUserCache.setOnline(userId)
       Ok(write(RegistrationResults(userCreated.get, userSchool))).as("application/json").withSession("userId" -> userId)
-//    } catch {
-//      case exception => InternalServerError(write("Oops there were errors during registration")).as("application/json")
-//    }
+    } catch {
+      case exception => InternalServerError(write("Oops there were errors during registration")).as("application/json")
+    }
   }
 }

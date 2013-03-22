@@ -107,7 +107,7 @@ object StreamController extends Controller {
   /**
    * Renders the stream page
    */
-  def renderStreamPage = Action {
+  def renderStreamPage = Action { implicit request =>
     Ok(views.html.stream())
   }
 
