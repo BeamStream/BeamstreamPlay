@@ -66,7 +66,6 @@ define(['view/formView', 'model/stream'], function(FormView ,Stream){
 
             if(data.status == 'Success')
             {
-            	console.log(this.stream);
             	window.location = "/stream";
             }
             else

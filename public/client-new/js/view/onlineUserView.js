@@ -16,7 +16,7 @@
 	 * 
 */
 
-define(['view/baseView','../../lib/jquery.mCustomScrollbar','../../lib/jquery.mousewheel.min','../../lib/jquery.simplyscroll','../../lib/bootstrap'], function(BaseView,mCustomScrollbar,mousewheel,simplyscroll,bootstrap){
+define(['baseView','../../lib/jquery.mCustomScrollbar','../../lib/jquery.mousewheel.min','../../lib/jquery.simplyscroll','../../lib/bootstrap'], function(BaseView,mCustomScrollbar,mousewheel,simplyscroll,bootstrap){
             var onlineUserView;
 	onlineUserView = BaseView.extend({
 		objName: 'onlineUserView',

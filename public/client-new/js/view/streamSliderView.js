@@ -1,38 +1,21 @@
-/***
-	 * BeamStream
-	 *
-	 * Author                : Cuckoo Anna (cuckoo@toobler.com)
-	 * Company               : Toobler
-	 * Email:                : info@toobler.com
-	 * Web site              : http://www.toobler.com
-	 * Created               : 20/September/2012
-	 * Description           : Backbone view for side bar 
-	 * ==============================================================================================
-	 * Change History:
-	 * ----------------------------------------------------------------------------------------------
-	 * Sl.No.  Date   Author   Description
-	 * ----------------------------------------------------------------------------------------------
-	 *
-	 * 
-*/
-define(['view/baseView',
+define(['baseView',
         'text!templates/newStreamList.tpl',
         'text!templates/streamSlider.tpl',
         'text!templates/streamTitle.tpl',
         'text!templates/privateToList.tpl',
-        '../../lib/jquery.simplyscroll',
-        '../../lib/bootstrap'
-        ],function(BaseView, NewStreamTpl,StreamList,StreamTitle, PrivateToList, simplyscroll,bootstrap){
+        '../../lib/jquery.simplyscroll'
+        ],function(BaseView, NewStreamTpl,StreamList,StreamTitle, PrivateToList, simplyscroll){
 	
     var streamSliderView; 
     streamSliderView = BaseView.extend({
     	
         objName: 'streamSliderView',
-        
+        streamId: null,
         events:{
         	 'click .close-btn' : 'closeStreamTab',
 			 'click .cancel-btn' : 'closeRemoveOption',
 			 'click .sortable li' : 'renderRightContenetsOfSelectedStream',
+			 'click .sortable li': 'setStreamId'
 		},
                 
         onAfterInit: function(){
@@ -63,6 +46,8 @@ define(['view/baseView',
         	var compiledTemplate = Handlebars.compile(StreamTitle);
 			$('.stream-header-left').html(compiledTemplate({streamName: streamName ,userCount:userCount }));
 			
+			
+			this.streamId = (this.data.models[0])?this.data.models[0].get('stream').id.id:null;
 		},
 		
         /**
@@ -89,6 +74,9 @@ define(['view/baseView',
 			var compiledTemplate = Handlebars.compile(StreamList);
 			this.$(".content").html( compiledTemplate(this.data.toJSON()));
 			
+		},
+		setStreamId: function(e){
+			this.streamId = e.target.id;
 		},
                      
         /**

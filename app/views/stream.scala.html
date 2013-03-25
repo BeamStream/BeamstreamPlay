@@ -1,10 +1,7 @@
 @meta = {}
 @CSS = {}
-@JS = {
-<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>
-<!--     <script src="http://cdn.pubnub.com/pubnub-3.4.min.js"></script> -->
+@JS = {}
 
-}
 @bodyCls = {}
 @bodyModule = {}
 @bodyJS = {
@@ -60,23 +57,39 @@
         </div>
 
 
-		<ul class="stream-tab" id="myTab">
- 		 	<li><a href="#overview" class="active" data-toggle="tab">Overview</a></li>
-			<li><a href="#discussions" data-toggle="tab" >Discussions</a></li>
-			<li><a href="#questions"  data-toggle="tab">Questions</a></li>
-			<li><a href="#deadlines"  data-toggle="tab">Deadlines</a></li>
-			<li><a href="#calendar" data-toggle="tab">Calendar</a></li>
+		<ul class="nav-tabs stream-tab" id="streamTab">
+ 		 	<li class="active"><a href="#overView" data-toggle="tab">Overview</a></li>
+			<li><a href="#discussionsView" data-toggle="tab" >Discussions</a></li>
+			<li><a href="#questionsView"  data-toggle="tab">Questions</a></li>
+			<li><a href="#deadlinesView"  data-toggle="tab">Deadlines</a></li>
+			<li><a href="#calendarView" data-toggle="tab">Calendar</a></li>
 		</ul>
 
         <div class="tab-content">
-  			<div class="tab-pane active" id="overview" data-url="/overView" data-model="userSchool" data-module="view/overView"  data-tpl="templates/overview.tpl" ></div>
+  			<div class="tab-pane active" id="overView" data-model="userSchool" data-tpl="templates/overview.tpl" ></div>
   			
   			<!--   to get all messages of a stream - How to make call like  data-url="/allMessagesForAStream/streamId/pageLimit/pageNo" dynamically ?  --> 
-		  	<div class="tab-pane " id="discussions"  data-url="/allMessagesForAStream/streamId/pageLimit/pageNo" data-model="userSchool" data-module="view/discussionsView"  data-tpl="templates/discussions.tpl"></div>
+		  	<div class="tab-pane " id="discussionsView" data-model="userSchool" data-tpl="templates/discussions.tpl"></div>
 		  	
-		  	<div class="tab-pane "  id="questions" data-url="/questions"  data-model="userSchool" data-module="view/questionsView"  data-tpl="templates/questions.tpl"></div>
-		  	<div class="tab-pane " id="deadlines" data-url="/deadlines" data-model="userSchool" data-module="view/deadlinesView"  data-tpl="templates/deadlines.tpl"></div>
-		  	<div class="tab-pane " id="calendar"  data-url="/calendar"  data-model="userSchool" data-module="view/calendarView"  data-tpl="templates/calendar.tpl"></div>
+		  	<div class="tab-pane "  id="questionsView" data-model="userSchool" data-tpl="templates/questions.tpl"></div>
+		  	<div class="tab-pane " id="deadlinesView" data-url="/deadlines" data-model="userSchool" data-tpl="templates/deadlines.tpl">
+		  		<div class="calender-outer overview-boxes">
+		          <h3>Deadlines Coming <span>Soon!</span></h3>
+		          <a href="#" class="rock-btn"><span>57</span> <span class="rocktext">
+		          <h2>Rock It</h2>
+		          <p> Click to make us work harder.</p>
+		          </span> </a> 
+		    	</div>
+		  	</div>
+		  	<div class="tab-pane " id="calendarView">
+		  		<div class="calender-outer overview-boxes">
+		          <h3>Calendar Coming <span>Soon!</span></h3>
+		          <a href="#" class="rock-btn"><span>57</span> <span class="rocktext">
+		          <h2>Rock It</h2>
+		          <p> Click to make us work harder.</p>
+		          </span> </a> 
+				</div>
+		  	</div>
 	 	</div>
   
 

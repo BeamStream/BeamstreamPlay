@@ -1,22 +1,3 @@
-/***
-* BeamStream
-*
-* Author                : Aswathy .P.R (aswathy@toobler.com)
-* Company               : Toobler
-* Email:                : info@toobler.com
-* Web site              : http://www.toobler.com
-* Created               : 07/March/2013
-* Description           : Backbone view for discussion tab
-* ==============================================================================================
-* Change History:
-* ----------------------------------------------------------------------------------------------
-* Sl.No.  Date   Author   Description
-* ----------------------------------------------------------------------------------------------
-*
-* 
-*/
-
-
 define(['view/formView',
         'model/discussion',
         'model/comment',
