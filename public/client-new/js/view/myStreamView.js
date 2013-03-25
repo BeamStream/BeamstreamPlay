@@ -28,6 +28,7 @@ define(['view/baseView'], function(BaseView){
 		events:{
 			'click #myTab a': 'tabHandler',
 			'click #show-info' :'showDetails',
+			'click .sortable li' : 'renderRightContenetsOfSelectedStream',
 		},
 		
 
@@ -51,7 +52,9 @@ define(['view/baseView'], function(BaseView){
 	    	$('.show-info').toggle(100);
 	    	
 	    },
-		
+	    renderRightContenetsOfSelectedStream: function(){
+	    	alert(45);
+	    }
 		
 		
 	})

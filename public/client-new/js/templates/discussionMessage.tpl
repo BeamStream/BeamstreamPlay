@@ -61,6 +61,31 @@
                        
                       </div>
                       <div id="{{data.message.id.id}}-allComments" class="comment-wrapper">
+                      
+                      {{#each data.comments}}
+                      
+                       <div class="answer-description"  id="{{this.id.id}}">
+                        <div class="follw-left">          
+                            <div class="ask-img"><img id="{{this.id.id}}-image" src=""></div>                      
+                        </div>
+                        <div class="answer-description-info">
+                          <div class="follow-names">
+                            <ul class="follow-name-left show-all-block">
+                              <li><span>@{{this.firstNameofCommentPoster}} {{this.lastNameofCommentPoster}} </span> -  {{this.timeCreated}}  -  Public</li>
+                              <li ><a href="#" class="rock-comments" >Rock</a></li>
+                              <li><a class="comment-icon" href="#"></a></li>
+                                 <li class="rocks-small"><a id="{{{this.id.id}}-mrockCount" href="#">{{{this.rocks}}</a></li>
+                            </ul>
+                          </div>
+                          <p>{{this.commentBody}}</p>
+                          <a id="{{id.id}}" href="#" data-username={{this.userId.id}} data-original-title="Delete" class="delete_comment drag-rectangle" ></a>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                      
+                      
+                      {{/each}}
+                      
                       </div>
 					  <div id="{{data.message.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
                       </div>
