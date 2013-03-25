@@ -38,7 +38,6 @@ define(['pageView', 'view/streamSliderView', 'view/overView', 'view/discussionsV
 	    }
 		
 		
-		
 	})
 	return MyStreamView;
 });

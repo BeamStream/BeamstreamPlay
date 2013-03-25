@@ -26,7 +26,7 @@ define(['view/formView',
             this.data.reset();
             this.pagenum = 1;
             this.pageLimit = 10;
-            
+            this.setupPushConnection();
             this.comment = new CommentModel();
 		 },
         
@@ -88,6 +88,14 @@ define(['view/formView',
 		    	success : function(model, response) {
 		    		
 		    		   $('#msg-area').val("");
+		    		   
+		    		   /* PUBNUB -- AUTO AJAX PUSH */ 
+                       PUBNUB.publish({
+                      	 channel : "stream",
+	                         message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response}
+                       }) 
+                       
+                       
 		    		  /* display the posted message on feed */
 		    		 _.each(response, function(message) {
 		    			 
@@ -302,6 +310,40 @@ define(['view/formView',
 				self.postMessage(); 
 			}
     	},
+    	
+    	
+    	 /**
+	     * PUBNUB real time push
+	     */
+		 setupPushConnection: function() {
+			 var self = this;
+			 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
+			 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+			 var trueurl='';
+			
+			 /* for message posting */
+			 PUBNUB.subscribe({
+				 channel : "stream",
+				 restore : false,
+				 callback : function(message) {
+					 var streamId = $('.sortable li.active').attr('id');
+					 if (message.pagePushUid != self.pagePushUid)
+					 { 
+						 if(message.streamId==streamId)
+			       		 	{
+							 /* display the posted message on feed */
+		  		    		 _.each(message.data, function(message) {
+		  			    		var compiledTemplate = Handlebars.compile(DiscussionMessage);
+		  			    		$('#all-messages').prepend( compiledTemplate({data:message}));
+		  			    		
+		  		    		 });
+			       		 	}
+				 	   }
+			 
+			 	   }
+		 	   })
+	    		   		
+ 		},
  
 	})
 	return Discussions;

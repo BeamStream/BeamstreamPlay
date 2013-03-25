@@ -276,13 +276,21 @@ define(['view/formView',
 		 */
 		success: function(model, data){
 			if(data.status == "Success"){
-				
-				window.location = "/stream";
+				$("#selectNextStep").modal('show'); 
    	    	}
    	    	else{
    	    		alert(data.message);
    	    	}
-			
+
+			/* clear all form fields */
+			this.data.models[0].removeAttr('message');
+			this.data.models[0].removeAttr('status');
+			$('#className').val('');
+			$('#classCode').val('');
+         	$('#startingDate').val('');
+        	$('#classType').val('');
+        	$('#classTime span.filter-option').text("Class Time");
+			$('#classType span.filter-option').text("Semester");
 		},
 		
 		serverError : function(model, data) {

@@ -464,6 +464,23 @@ ul.signup-register li.lastblock {
 }
 
 
+
+  .vert .simply-scroll-clip {
+		width:106% !important;
+}
+
+.simply-scroll-container { 
+				width:100% !important;
+}
+
+.simply-scroll-btn-up {
+		width:100% !important;
+
+}
+.simply-scroll-btn-down { 
+width:100% !important;
+}
+
 /*
 
 1200-view
@@ -1125,21 +1142,26 @@ ul.sort{padding-bottom:10px;}
 
 }
 
+
+.simply-scroll-container { 
+				width:110%;
+}
+
+.simply-scroll-btn-up {
+		width:90.8%;
+
+}
+
+.simply-scroll-btn-down { 
+width:90.8%;
+
+}
+
 /*
 
 768-view
 
 */
-
-
-
-
-
-
-
-
-
-
 
 .left-container {
  width:20%;
@@ -1973,14 +1995,10 @@ padding:0 5% 5% 5%;
 
 }
 
-
 .round-red {
 		left:-17px;
 	
 }
-
-
-
 .calender-wrapper a{min-height:100px;}
    
    
@@ -1993,35 +2011,26 @@ padding:0 5% 5% 5%;
  		width:350px;
  		height:350px;
 }
-
-
-
-
 ul.signup-register li {
 		width:53%;
 		
 }
 
-
 ul.signup-register li.lastblock {
 		width:40%;
 
 }
-
    .middle-container{
 	width:54%;
 
 }
-
    .about-block{
     height:350px;
     width:350px;
      top:102px;
 
    }
-   
-   
-   
+  
    .step-box {
 		height:250px;
  		width:28%;
@@ -2030,14 +2039,12 @@ ul.signup-register li.lastblock {
         padding:2%;
 	 
 }
-
-
 .sortable.connected {
 		width:85%;
 }
 
 .sortable li {
-		width:94%;
+		width:97%;
 }
 
 .profile-bottom-nav {
@@ -2102,27 +2109,23 @@ ul.signup-register li.lastblock {
 
 }   
 
+.simply-scroll-container {
+				width:126%;
+}
+
+.simply-scroll-btn-up {
+		width:79%;
+}
+.simply-scroll-btn-down { 
+width:79%;
+}
+
+
 /*
 
 980-view
 
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .left-container {
  width:25%;

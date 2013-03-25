@@ -341,7 +341,6 @@ define(['view/formView' ,
 	    	  if($('#'+id).val()== "Other")
 	    	  {
 	    		  $('#otherDegree').show();
-//	    		  
 	    	  }
 	    	  else
 	    	  {
@@ -374,7 +373,8 @@ define(['view/formView' ,
 				$('#degreeExpected-set').hide();
 				$('#graduationDate-set').hide();
 	    	}
-	    }
+	    },
+	    
 		
 	})
 	return RegistrationView;

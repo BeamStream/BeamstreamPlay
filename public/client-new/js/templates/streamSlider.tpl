@@ -31,17 +31,17 @@
         </div>
         
         
-        <a href="#" class="done">EDIT </a> </div>
+        <a href="#" data-value = "active" class="done">EDIT </a> </div>
         <div class="display-scroller">
             <div class="arrow-block"><span class="caret arrow-up"></span></div>
                 <div class="scroll-menu scroller">
                 
                     <ul id="sortable4" class="connected sortable list">  
-                       {{#each data}}
-                             <li id ="{{this.stream.id.id}}" name="{{this.stream.streamName}}" data-userCount = "{{this.usersOfStream}}">
-								<a  id ="{{this.stream.id.id}}"  name ="{{this.stream.streamName}}"  href="#" class="icon1">{{this.stream.streamName}}</a>
+                       {{#each .}}
+                             <li id ="{{stream.id.id}}" name="{{stream.streamName}}" data-userCount = "{{usersOfStream}}">
+								<a  id ="{{stream.id.id}}"  name ="{{stream.streamName}}"  href="#" class="icon1">{{stream.streamName}}</a>
 								<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"></div>
-								<span class="menu-count">{{this.usersOfStream}}</span>
+								<span class="menu-count">{{usersOfStream}}</span>
 								<span class="close-btn drag-rectangle" data-original-title="Delete"></span>
 								</li>  
 						{{/each}}   

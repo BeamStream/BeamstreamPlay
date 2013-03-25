@@ -72,7 +72,7 @@ define(['baseView',
 			
 			/* render the left stream list */
 			var compiledTemplate = Handlebars.compile(StreamList);
-			this.$(".content").html( compiledTemplate({data: this.data.toJSON()}));
+			this.$(".content").html( compiledTemplate(this.data.toJSON()));
 			
 		},
 		setStreamId: function(e){
@@ -97,7 +97,8 @@ define(['baseView',
             });		            
             var activeStream = '';            
             $(".done").toggle(function () {         
-                    $('a.done').text('DONE');	                 
+                    $('a.done').text('DONE');	
+                    $('a.done').attr('data-value','inActive');
                     activeStream =  $('.sortable li.active').attr('id');
                     $('.sortable li.active').find('div.active-curve').remove();
                     $('.sortable li.active').removeClass('active');	      		     
@@ -117,6 +118,7 @@ define(['baseView',
 		    },function () { 
 		    	
                  $('a.done').text('EDIT');  
+                 $('a.done').attr('data-value','active');
                  
                  $('.sortable li#'+activeStream).addClass('active');
      		     $('.sortable li.active').append(activeDiv);
@@ -215,8 +217,11 @@ define(['baseView',
 	    renderRightContenetsOfSelectedStream: function(eventName){
 	    	
 	    	eventName.preventDefault();
-	    	if($('a.done').text() == 'DONE')
+	    	
+	    	// disable the content rendering when the stream list is on edit 
+	    	if($('a.done').attr('data-value') == "inActive")
 	    		return;
+	    	
 		    var id = eventName.target.id;
 		    if(!id)
 		    	return;
@@ -238,7 +243,8 @@ define(['baseView',
 		    
 
 	    	
-	    },
+	    }
+	  
     })
             
     return streamSliderView;
