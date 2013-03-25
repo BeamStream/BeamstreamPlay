@@ -36,7 +36,7 @@ Note all DIVs are generated and should not be hard-coded
 .simply-scroll-container { /* Container DIV - automatically generated */
 		position: relative;
 		left:-21px;
-				width:100%;
+	
 }
 
 .simply-scroll-clip { /* Clip DIV - automatically generated */
@@ -65,7 +65,6 @@ Note all DIVs are generated and should not be hard-coded
 
 .simply-scroll-btn {
 		position: absolute;
-		width: 15px;
 		height: 8px;
 		z-index:3;
 		cursor: pointer;
@@ -104,13 +103,11 @@ Note all DIVs are generated and should not be hard-coded
 .simply-scroll-btn-up {
 		right: 6px;
 		top: 6px;
-		width:100%;
 		display:block;
 		overflow:hidden;
 		background-position: -120px -34px;
 		top:-18px !important; left:21px;
-		
-background:url(../images/scroll-arrow-up.png)  center 5px no-repeat #16191c;		
+		background:url(../images/scroll-arrow-up.png)  center 5px no-repeat #16191c;		
 }
 
 .simply-scroll-btn-up.disabled {
@@ -235,24 +232,18 @@ background:url(../images/scroll-arrow-up.png)  center 5px no-repeat #16191c;
 		overflow:hidden;
 		margin:0px;
 		position:relative;
-				width:106%; 
-								left:-29px; padding-left:30px;
-								
+		left:-29px; 
+		padding-left:30px;
 }
-
 .vert .simply-scroll-list {
 }
-
 .vert .simply-scroll-list li {
 	
 }
-
 .vert .simply-scroll-list li img {
 }
-
 .vert .simply-scroll-btn {
 }
-
 .vert .simply-scroll-btn-up { /* modified btn pos */
 		right: 0;
 		top: 0;
@@ -260,20 +251,15 @@ background:url(../images/scroll-arrow-up.png)  center 5px no-repeat #16191c;
 		overflow:hidden;
 		height:18px; 
 }
-
 .vert .simply-scroll-btn-up.disabled {
 }
-
-
-
 .vert .simply-scroll-btn-down { /* modified btn pos */
 		top: 330px;
-		width:100%;
 		display:block;
 		overflow:hidden;
 		height:18px;
-				left:21px; width:100%;
-			
+		left:21px;
+
 }
 
 .vert .simply-scroll-btn-down.disabled {

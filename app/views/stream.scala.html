@@ -2,10 +2,14 @@
 @CSS = {}
 @JS = {
 <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>
+<!--     <script src="http://cdn.pubnub.com/pubnub-3.4.min.js"></script> -->
+
 }
 @bodyCls = {}
 @bodyModule = {}
-@bodyJS = {}
+@bodyJS = {
+<script src="http://cdn.pubnub.com/pubnub-3.4.min.js"></script>
+}
 @sideBar = {
   @views.html.sidebar.render
 }
@@ -68,7 +72,7 @@
   			<div class="tab-pane active" id="overview" data-url="/overView" data-model="userSchool" data-module="view/overView"  data-tpl="templates/overview.tpl" ></div>
   			
   			<!--   to get all messages of a stream - How to make call like  data-url="/allMessagesForAStream/streamId/pageLimit/pageNo" dynamically ?  --> 
-		  	<div class="tab-pane " id="discussions"  data-url="" data-model="userSchool" data-module="view/discussionsView"  data-tpl="templates/discussions.tpl"></div>
+		  	<div class="tab-pane " id="discussions"  data-url="/allMessagesForAStream/streamId/pageLimit/pageNo" data-model="userSchool" data-module="view/discussionsView"  data-tpl="templates/discussions.tpl"></div>
 		  	
 		  	<div class="tab-pane "  id="questions" data-url="/questions"  data-model="userSchool" data-module="view/questionsView"  data-tpl="templates/questions.tpl"></div>
 		  	<div class="tab-pane " id="deadlines" data-url="/deadlines" data-model="userSchool" data-module="view/deadlinesView"  data-tpl="templates/deadlines.tpl"></div>
@@ -78,4 +82,10 @@
 
         </div>
     </div>
+    
+    <!-- FOR PubNub -->
+     <div pub-key="pub-a8c5db9f-8482-4092-b9e4-44fda38a9d51"
+		sub-key="sub-315698a6-0b22-11e2-80cd-aba6e1687b8d" ssl="off"
+		origin="pubsub.pubnub.com" id="pubnub">
+	</div>
 }
