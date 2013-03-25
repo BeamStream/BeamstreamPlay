@@ -286,32 +286,7 @@ define(['view/formView',
 	   			    	}
 	
 	   			    });
-   			 		
 
-//   	   			 	/* post comments information */
-//   	   		        $.ajax({
-//   	   		        	type : 'POST',
-//   	   		  			url : '/newComment',
-//   	   		  			data : {
-//   	   		  				messageId : parent,
-//   	   		  				comment : commentText
-//   	   		  			},
-//   	   		  			dataType : "json",
-//   	   				  	success : function(datas) {
-//   	   				  		
-//   	   				  		
-//   	   				  		$('#'+parent+'-msgComment').val('');
-//   	   				  		$('#'+parent+'-addComments').slideUp(200); 
-//	   	   				    /* display the posted comment  */
-//	   			    		_.each(datas, function(comment) {
-//		   			    			 
-//	   				    		var compiledTemplate = Handlebars.compile(DiscussionComment);
-//	   				    		$('#'+parent+'-allComments').prepend( compiledTemplate({data:comment}));
-//		   				    		
-//	   			    		 });
-//   	   				  	}
-//   		  		    });
-   	   			 
    			 	}
    			 	
 	        }
