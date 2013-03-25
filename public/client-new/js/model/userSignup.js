@@ -6,7 +6,7 @@
 * Email:                : info@toobler.com
 * Web site              : http://www.toobler.com
 * Created               : 29/January/2013
-* Description           : Backbone model for user login details 
+* Description           : Backbone model for user signup details 
 * ==============================================================================================
 * Change History:
 * ----------------------------------------------------------------------------------------------
@@ -19,9 +19,11 @@
 define(['model/user'], function(User) {
 	var UserLogin = User.extend({ 
 		
-		defaults: {	   
+		defaults: {	  
+			iam : 0,
         	mailId: '',
 			password: '',
+			confirmPassword: '',
 
         },
 		validation: {
@@ -32,7 +34,12 @@ define(['model/user'], function(User) {
 			} ,
 			password: {
 				required: true,
-			}
+				minLength : 6
+			},
+			confirmPassword: {
+				required: true,
+				equalTo: "password"
+			},
         }
   
 

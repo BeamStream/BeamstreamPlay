@@ -16,11 +16,11 @@
 * 
 */
 define(['view/formView' ,
-        '../../lib/bootstrap-select',
         '../../lib/bootstrap.min',
+        '../../lib/bootstrap-select',
         '../../lib/jquery.maskedinput',
         '../../lib/bootstrap-datepicker',
-        ], function(FormView, BootstrapSelect,Bootstrap,MaskedInput, Datepicker){
+        ], function(FormView, Bootstrap,BootstrapSelect,MaskedInput, Datepicker){
 	var RegistrationView;
 	RegistrationView = FormView.extend({
 		objName: 'RegistrationView',
@@ -44,14 +44,15 @@ define(['view/formView' ,
 			
 			this.data.reset();
 			this.profile = null;
-
+			
 		},
 		
-		onBeforeRender: function(){
+		onAfterRender: function(){
 			
-			/* set default values to model values */
-			this.data.models[0].set({'userId':$('#myUserId').val() ,'firstName':'' ,'lastName':'','schoolName':'' ,'major':'','gradeLevel':'' ,'degreeProgram':'' ,'graduate':'' ,'location':'' ,'aboutYourself' :'', 'cellNumber':''});
-
+			/* set style for select boxes */
+			$('.selectpicker-info').selectpicker({
+			    style: 'register-select'
+			});
 		},
 		
         
@@ -112,6 +113,7 @@ define(['view/formView' ,
 		comepleteSecondStep: function(e){
 			
 			e.preventDefault();				
+			this.data.url="/registration";
 			
 			/* @TODO only select a school from existing list or add new school */
 			if($('#schoolName').val()){
@@ -135,9 +137,8 @@ define(['view/formView' ,
 			if(!$('#degreeExpected-set').is(':hidden') && !$('#degreeExpected').val()){
 				this.data.models[0].set({'degreeExpected':''});
 			}
-			
 			//set school details to modal 
-			this.data.models[0].set({'schoolName' : $('#schoolName').val() , 'associatedSchoolId' :$('#associatedSchoolId').val()});
+			this.data.models[0].set({'userId':$('#myUserId').val(),'schoolName' : $('#schoolName').val() , 'associatedSchoolId' :$('#associatedSchoolId').val()});
 			this.saveForm();
 		},
 		

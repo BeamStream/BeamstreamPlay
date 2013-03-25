@@ -13,11 +13,6 @@
 		* -
   -->
  
- <script>
-$('.selectpicker-info').selectpicker({
-    style: 'register-select'
-	});
-</script> 
 
  <div class="profile-wrapper">
         <div class="profile-left-container">

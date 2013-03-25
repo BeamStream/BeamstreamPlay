@@ -17,7 +17,7 @@
 */
 
 
-define(['view/formView', 'model/stream'], function(FormView ,Stream){
+define(['view/formView'], function(FormView ){
 	var LoginView;
 	LoginView = FormView.extend({
 		objName: 'LoginView',
@@ -31,31 +31,18 @@ define(['view/formView', 'model/stream'], function(FormView ,Stream){
             this.data.reset();
             $('.sign-tick').hide(); 
             $('.sign-close').hide(); 
-            
-            this.stream = new Stream();
-			this.stream.fetch();
         },
         
-         
-                            
         /**
         * @TODO  user registration 
         */
         login:function(e){	
             e.preventDefault();
-    
-            // @TODO validation - save only when user enter mailid ,password
-            if($('#mailid').val()&&$('#password').val()){  
-                this.saveForm( );
-            }  
-            if(!$('#mailid').val() && !$('#password').val()){
-            	alert("Please enter your login credentials");
-            }
-
-            $('#password').val('');
+            this.data.url = "/login";
+            this.saveForm();
+ 
         },
         
-          
         /**
         * on form save success
         */
@@ -63,13 +50,15 @@ define(['view/formView', 'model/stream'], function(FormView ,Stream){
     	   
             var self = this;
             $('#mailId').val('');
-
+            
+            // On login success redirect to stream page
             if(data.status == 'Success')
             {
             	window.location = "/stream";
             }
             else
             {
+            	$('#password').val('');
                 alert(data.message);
             }		
 
@@ -84,9 +73,6 @@ define(['view/formView', 'model/stream'], function(FormView ,Stream){
 				self.login(eventName); 
 			}
 		},
-		
-	     
-      
  
 	})
 	return LoginView;

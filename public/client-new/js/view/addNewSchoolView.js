@@ -22,26 +22,24 @@ define(['view/formView'], function(FormView){
 		objName: 'newSchoolView',
 		
 		events:{
-//	         'click #addSchool' : 'addNewSchool'
+	         'click #addSchool' : 'addNewSchool'
 		},
-
-		onAfterInit: function(){	
-			this.data.reset({'schoolWebsite':''});
-        },
         
         /**
          * add new school to beamstream
          */
-//        addNewSchool: function(e){
-//        	e.preventDefault();
-//        	this.saveForm();
-//        },
+        addNewSchool: function(e){
+        	
+        	e.preventDefault();
+        	// set data url 
+        	this.data.url="/school";
+        	this.saveForm();
+        },
         
         /**
          * add new school success
          */
         success: function(model, data){
-			
 			if(data != "School Already Exists"){
 				/** @TODO  keep the school details */ 
 				$('#schoolName').val(this.data.models[0].get('schoolName'));

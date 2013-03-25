@@ -19,9 +19,18 @@
 define(['baseModel'], function(BaseModel) {
 	var User = BaseModel.extend({ 
 		objName: 'User',
-		url: '/login',
         defaults: {	   
         	
+            firstName: '',
+			lastName: '',
+			schoolName: '',
+			major: '',
+			gradeLevel: '',
+			degreeProgram: '',
+			graduate: '',
+			location: '',
+			cellNumber: ''
+
         },
         /**
          *@TODO  parse the response data because the response json is different
@@ -49,18 +58,6 @@ define(['baseModel'], function(BaseModel) {
         
 		validation: {
 
-			mailId: {
-				required: true,
-				pattern: 'email'
-			} ,
-			password: {
-				required: true,
-				minLength : 6
-			},
-			confirmPassword: {
-				required: true,
-				equalTo: "password"
-			},
             firstName: {
 				required: true
 			},

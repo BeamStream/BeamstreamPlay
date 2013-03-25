@@ -9,23 +9,13 @@
     <link type="text/css" rel="stylesheet" href="/beamstream-new/css/datepicker.css" />
     <link href='http://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'> 
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" 	rel="stylesheet" type="text/css" />
-    
-<!--     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700' rel='stylesheet' type='text/css'> -->
-<!--     <link rel="stylesheet" href="/beamstream-new/css/jquery.simplyscroll.css" media="all" type="text/css">  -->
-<!--     <link href="/beamstream-new/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />  -->
-<!--     <link rel="stylesheet" href="/beamstream-new/css/extracss/jquery.Jcrop.css" type="text/css" /> -->
-   
-      
-    
+
 }
 @JS = {
-	
-<!--     <script type="text/JavaScript" src="/beamstream-new/lib/jquery-1.js"></script> -->
-<!--     <script type="text/JavaScript" src="/beamstream-new/lib/jquery.js"></script> -->
-<!-- 	<script src="lib/jquery.maskedinput.js" type="text/javascript"></script> -->
     <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>
-    <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/beamstream-new/lib/bootstrap-datepicker.js"></script>
+<!--     <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.min.js"></script> -->
+<!--     <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap-select.js"></script> -->
+<!--     <script type="text/javascript" src="/beamstream-new/lib/bootstrap-datepicker.js"></script> -->
     
     
     
@@ -37,7 +27,7 @@
 		function populateAddNewSchool(parentId,schoolName) {
 	    	
 	    	$('#newSchoolModal').modal("show");
-	    	
+	    	// shows the entered school name on registration page in a add new school popup
 			$('#new-school').attr('value',schoolName);
 
 		}
@@ -100,13 +90,13 @@
 
 
 	   <!------ for registration page------->
-	   <div  id="registration"   data-model="user" data-url="/registration" data-module="view/registrationView"  data-tpl="templates/registration.tpl">
+	   <div  id="registration"   data-model="user"  data-module="view/registrationView"  data-tpl="templates/registration.tpl">
                
         </div>
 	 
 	 
 	   <!---- for new school popups----->
-	   <div  id="addSchoolView"  data-model="school"  data-url="/school" data-module="view/addNewSchoolView"  >
+	   <div  id="addSchoolView"  data-model="school"  data-module="view/addNewSchoolView"  >
 			<div id="newSchoolModal" style="top: 65% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-header">
 				    <h3>Add my school to Beamstream</h3><button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -127,7 +117,7 @@
 	                    </fieldset>
 			                  
 						<br><br>
-						 <a id="addSchool" class="btn btn-primary pull-left btn-icon-save" href="#">Add My School</a>
+						 <a id="addSchool" class="btn btn-primary pull-left " href="#">Add My School</a>
 			      	
 			    	</div>
 			  	</div>

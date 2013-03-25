@@ -33,20 +33,16 @@ define(['view/formView'], function(FormView){
             $('.sign-tick').hide(); 
             $('.sign-close').hide(); 	        
         },
-        
-         
-                            
+                  
         /**
         * @TODO  user registration 
         */
         registration:function(e){	
             e.preventDefault();
-    
-            // @TODO validation - save only when user enter mailid ,password, confirmPassword
-            if($('#mailid').val()&&$('#password').val()&&$('#confirmPassword').val()){  
-                this.data.models[0].set('iam',$("#usertype").val());
-                this.saveForm( );
-            }  
+            this.data.url ="/signup";
+            
+            this.data.models[0].set('iam',$("#usertype").val());
+            this.saveForm( );
 
             $('#mailid').val('');   
             $('#password').val('');
