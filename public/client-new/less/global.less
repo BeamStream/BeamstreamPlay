@@ -1,0 +1,92 @@
+ul, ol, li{
+	list-style:none;
+}
+
+#streamTab{
+	border:none;
+	margin:20px 0;
+	li{
+		margin: 0 2%;
+    	width: 16%;
+		a {
+			padding: 7% 10%;
+    		width: 80%;
+			-webkit-border-radius:8px;
+			-moz-border-radius:8px;
+			border-radius:8px;
+			background:#fff;
+			border:2px solid #e9eef2;
+			color:#8b969f;
+			display:block;
+			float:left;
+			font-size:13px;
+			font-weight:700;
+			text-align:center;
+			text-decoration:none;
+			text-transform:uppercase
+		}
+	
+		a:hover {
+			border-color:#d7a01e
+		}
+	
+		&.active a{
+			background:#dbaa22;
+			background:-webkit-gradient(linear, left bottom, left top, color-stop(0, #dbaa22), color-stop(1, #d4991c));
+			background:-ms-linear-gradient(bottom, #dbaa22, #d4991c);
+			background:-moz-linear-gradient(center bottom, #dbaa22 0, #d4991c 100%);
+			background:-o-linear-gradient(#d4991c, #dbaa22);
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d4991c', endColorstr='#dbaa22', GradientType=0);
+			border:1px solid #dbaa22;
+			color:#fff;
+			position:relative;
+		}
+	
+		a span {
+			background:#a72929;
+			background:-webkit-gradient(linear, left bottom, left top, color-stop(0, #a72929), color-stop(1, #ce4848));
+			background:-ms-linear-gradient(bottom, #a72929, #ce4848);
+			background:-moz-linear-gradient(center bottom, #a72929 0, #ce4848 100%);
+			background:-o-linear-gradient(#ce4848, #a72929);
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ce4848', endColorstr='#a72929', GradientType=0);
+			-webkit-border-radius:2px;
+			-moz-border-radius:2px;
+			border-radius:2px;
+			color:#fff;
+			font-weight:600;
+			line-height:16px;
+			border:solid 1px #fff;
+			position:absolute;
+			top:-10px;
+			left:45%;
+			font-size:12px;
+			padding:2px 4px
+		}
+	
+		&.active a:before {
+			top:100%;
+			border:solid transparent;
+			content:" ";
+			height:0;
+			width:0;
+			position:absolute;
+			pointer-events:none
+		}
+	
+		&.active a:after {
+			border-color:rgba(214, 156, 29, 0);
+			border-top-color:#dbaa22;
+			border-width:20px;
+			left:50%;
+			margin-left:-20px
+		}
+	
+		&.active a:before {
+			border-color:rgba(197, 141, 27, 0);
+			border-top-color:#dbaa22;
+			border-width:15px;
+			left:54%;
+			margin-left:-21px
+		}
+	}
+}

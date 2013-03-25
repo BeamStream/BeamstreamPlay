@@ -16,9 +16,10 @@
 * 
 */
 
-define(['model/baseModel'], function(BaseModel) {
+define(['baseModel'], function(BaseModel) {
 	var User = BaseModel.extend({ 
 		objName: 'User',
+		url: '/login',
         defaults: {	   
         	
         },

@@ -4,12 +4,17 @@
  * Extends: Backbone.View
  * Objective: Render view on the from external/string templates
  */
-define(['view/container',
-        'model/baseModel',
-        'collection/baseCollection',
-//        'widgets/modal',
-        'apps/common/templatemanager'
+define(['container',
+        'baseModel',
+        'baseCollection',
+        'apps/common/templatemanager',
         ], function(Container, BaseModel, BaseCollection, TemplateManager) {
+
+	/** 
+    Inherit from Container.
+    @exports BaseView
+    @version 1.0
+	*/
 
 	var BaseView; 
 	BaseView = Container.extend({
@@ -28,11 +33,10 @@ define(['view/container',
 			effect: 'blind'
 		},
 		childs: [],
-		events: {},
 		isRender: false,
-		preloader: '<div class="preloader"><div class="mask"></div><span class="loader">Loading...</span></div>',
-		showLoader: false,
-		viewOptions: ['model', 'collection', 'el', 'id', 'attributes', 'className', 'tagName'],
+		events: {
+		},
+		/** @constructor */
 		constructor: function(){	
 			if (this.constructor.__super__.events) {
 				var node = this.constructor.__super__;
@@ -40,24 +44,28 @@ define(['view/container',
 					this.events = _.extend({}, this.events, node.events);
 					node=node.constructor.__super__;
 				}
+				//this.events = _.extend( {}, this.constructor.__super__.events, this.events );
 				Backbone.View.apply( this, arguments );
 			}else{
 				this.constructor.__super__.constructor.apply( this, arguments );
 			}
 		},
 		initialize: function(options, callback) {
+			console.log(this)
 			var that = this;
-			_.bindAll(this, 'add', 'remove', 'getTemplate', 'createData', 'getModel', 'fetch', 'set', 'render', 'onAfterRender');
+			_.bindAll(this, 'add', 'remove', 'getTemplate', 'fetch', 'set', 'render', 'onAfterRender', 'onWidgetEvent');
 
-			this.options.data=this.options.data||{};
 			this._onBeforeInit();
-
+			
+			this.options.data=options.data || {};
 			if(this.showLoader) 
 				this.addLoader();
 			
 			this.setProperty();
 			this.setModel();
+			//this.createData();
 
+			this.getError && this.getError();
 
 			_.defer(function(){
 				that._onAfterInit.apply(that, arguments);
@@ -67,6 +75,7 @@ define(['view/container',
 			return this;
 		},
 		render: function(callback) {
+			//console.log('render called', this);
 
 			if(this.tplUrl && !this.tpl) {
 
@@ -80,7 +89,8 @@ define(['view/container',
 				var compiledTemplate;
 				this.empty();
 				
-				this.$('.content')[0] || this.$el.append('<div class="content"></div>');
+				this.$('.panel-body')[0] || this.$el.append('<div class="panel-body"></div>');
+				this.$('.content')[0] || this.$('.panel-body').append('<div class="content"></div>');
 
 				if ((this.data.models.length === 0 || (this.data.models[0].attributes.content && this.data.models[0].attributes.content.length === 0 ))) 
 					this.displayNoResult();
@@ -88,11 +98,10 @@ define(['view/container',
 					this.displayPage();
 					
 				this.isRender = true;
-				callback && callback();
 				this._onAfterRender();
-				
 			}
 			this.removeLoader();
+			
 			return this; 
 		},
 		add: function(model, options) {
@@ -120,6 +129,7 @@ define(['view/container',
 			if (this.beforeClose) {
 				this.beforeClose();
 			}
+			//ToDO: Make sure to run a loop to kill all childViews
 			if(this.childs){
 				_.each(this.childs, function(view){
 					view.close();
@@ -129,92 +139,68 @@ define(['view/container',
 			this.destroy();
 			this.unbind();
 		},
-		createData: function(){
-			var that=this;
-			this.data = this.options.collection ? new this.options.collection() : new BaseCollection();	
-			this.data.view = this;
-			this.data.url = this.data.baseURL = this.url;
-			this.data.modelURL = $(this.el).data('model') ? $(this.el).data('model') : 'baseModel';
-
-			if(this.data.modelURL && this.data.url)
-				this.getModel(this.fetch);
-			else if(this.data.modelURL)
-				this.getModel();
-
-			this.data.bind('add', function(){}, this);
-
-			this.data.bind('reset', function(){
-				that.update();
-				_.defer(that.render); 
-			}, this)
-
+		createChildView: function(){
+			Module.execute(this.$('.panel-body'))
 		},
 		destroy: function(){
+			//COMPLETELY UNBIND THE VIEW
 			this.undelegateEvents();
 
 			$(this.el).removeData().unbind(); 
 
+			//Remove view from DOM
 			this.remove();  
 			Backbone.View.prototype.remove.call(this);
 
 		},
 		displayNoResult: function(callback){
 			this.animate.effect='fade';
-			this.$(".content").html("<span class='no-data'>No Result</div>");
+			this.$(".content").html("<span class='no-data'>No Data</div>");
+			this.$("div.content").data("loaded","true");
 			
 		},
 		displayPage: function(callback){
-			var compiledTemplate = Handlebars.compile(this.tpl);
-			this.$(".content").html( compiledTemplate(this.data.toJSON()[0]));
+			compiledTemplate = Handlebars.compile(this.tpl);
+			//the stringify/parse strips out Backbone scaffolding. toJSON() still keeps it.
+			this.$(".content").html( compiledTemplate(JSON.parse(JSON.stringify(this.data))) );
+			this.$("div.content").data("loaded","true");
 			
 		},
 		empty: function(){
 			this.$('.content').empty();
 		},
-		fetch: function(){
+		fetch: function(options){
+			//console.log('fetching', this)
 			var that = this;
+			options = options?options:{};
 			if(!this.$('.preloader')[0])
 				this.addLoader();
 			
 			if(this.data.url){
 				that.data.fetch({
-					success: function(data){ 
+					data: options,
+					success: function(data){
 						//console.log('fetch success', that);
 						that._onAfterFetch.apply(that, arguments);
 					},
 					error: function(resp, status, xhr){
 						//manually firing reset for error handler to catch if url response has error, then show user "No Data" rather than loader icon
-						if(that.data.length)
-							that.data.trigger('reset');
-						else
-							that.set({});
+						that.data.trigger('reset')
 					}
 				});
 			}
+			return this;
 		},
 		getAttributs: function(){
 			return this;
 		},
-		getModel: function(callback){
-			this.modelURL = $(this.el).data('model') ? $(this.el).data('model') : 'baseModel';
-			var that=this;
-			require(['model/' +  this.modelURL], function(Model){
-				that.data.model = Model;
-				callback && callback();
-
-				if(!that.url && _.isEmpty(that.data.models)){
-					that.set({}, {silent: true});
-					that.data.models[0]._previousAttributes = {};
-				}
-				return this;
-			});
-
-		},
 		getTemplate: function(callback){
+			//debug.log('getTemplate ', this);
 			this.tplUrl = this.options.tplUrl ? this.options.tplUrl : $(this.el).data('tpl');
 			var that = this;
 			TemplateManager.get(this.tplUrl, function(template){
 				that.tpl = template;
+				//console.log('finish getting template', that, callback)
 				that.render();
 				callback && callback();
 			})
@@ -226,18 +212,6 @@ define(['view/container',
 		},
 		hideAll: function(){
 			this.$el.hide();
-		},
-		isNode: function(o){
-			return (
-					typeof Node === "object" ? o instanceof Node : 
-						o && typeof o === "object" && typeof o.nodeType === "number" && typeof o.nodeName==="string"
-			);
-		},
-		isElement:function(o){
-			return (
-					typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
-						o && typeof o === "object" && o.nodeType === 1 && typeof o.nodeName==="string"
-			);
 		},
 		_onAfterFetch: function(){
 			this.onAfterFetch();
@@ -254,11 +228,13 @@ define(['view/container',
 			return this;
 		},
 		_onAfterRender: function(){
+			$("a[data-toggle=popover]").popover({html: true}).click(function(e) { e.preventDefault() });
+			$("a[data-toggle=modal]").popover({}).click(function(e) { e.preventDefault() });
+			
 			this.onAfterRender();
 			return this;
 		},
-		onAfterRender: function(){
-			if (this.filterSortView) this.filterSortView.sortRender();
+		onAfterRender: function(callback){
 			return this;
 		},
 		_onBeforeInit: function(){
@@ -279,10 +255,16 @@ define(['view/container',
 			var obj = {};
 			delete obj;
 		},
-		onWidgetEvent: function(e, widget){},
+		onWidgetEvent: function(e, widget){
+			//debug.log('widget', widget)
+		},
 		onRender: function(){
 			if(this.tplUrl)
 				this.getTemplate();
+		},
+		repaint: function(){
+			//this.effect= this.isRender ? 'fade':'blind';
+			this.render();
 		},
 		remove: function(callback) {
 			callback && callback();
@@ -290,6 +272,7 @@ define(['view/container',
 		},
 		removeLoader: function(){
 			var that=this;
+			//setTimeout(function(){ that.$('.preloader').hide('fade', 1000, function(){$(that).remove();}); }, 300);
 			this.$('.preloader').hide('fade', 1000, function(){$(this).remove();});
 			return this;
 		},
@@ -312,17 +295,20 @@ define(['view/container',
 			this.modelURL = $(this.el).data('model') ? $(this.el).data('model') : 'baseModel';
 			this.data.bind('reset', function(){
 				that.update();
+				//that._data = _.deepClone(that.data, true)
 				_.defer(that.render); 
 			}, this);
 			
 			require(['model/' +  this.modelURL], function(Model){
 				that.data.model = Model;
-				that.data.reset(that.options.data);
+				
 				if(that.data.url && _.isEmpty(that.options.data))
 					that.fetch();
-				
+				else
+					that.data.reset(that.options.data);
 					
 				
+				//callback && callback();
 				return this;
 			});
 			
@@ -336,7 +322,7 @@ define(['view/container',
 		    }
 			 
 			this.url= (this.options.url)? this.options.url: $(this.el).data('url');
-			this.tplUrl = $(this.el).data('tpl');
+			this.tplUrl = this.options.tplUrl ? this.options.tplUrl : $(this.el).data('tpl');
 		},
 		setURL: function(url){
 			this.url = url;
@@ -344,6 +330,7 @@ define(['view/container',
 			return this;
 		},
 		show: function(selector, view) {
+			//ToDo
 			if (this.currentView)
 				this.currentView.close();
 			$(selector).html(view.render().el);
@@ -354,6 +341,7 @@ define(['view/container',
 			return this.objName;
 		},
 		unBind: function(el, ev){
+			//Usage: view.unBind([{'click':'.btn-icon-save'},{'click':'.btn-icon-cancel'}])
 			var that=this;
 			if(_.isObject(el)){
 				_.each(el, function(event){
@@ -364,6 +352,7 @@ define(['view/container',
 				$(this.el).undelegate(el, ev);
 		},
 		update: function(){
+			//ToDo
 			return this;
 		}
 	});

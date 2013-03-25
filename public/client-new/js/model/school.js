@@ -16,7 +16,7 @@
 * 
 */
 
-define(['model/baseModel'], function(BaseModel) {
+define(['baseModel'], function(BaseModel) {
 	var School = BaseModel.extend({ 
 		objName: 'School',
 		

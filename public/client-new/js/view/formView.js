@@ -5,7 +5,7 @@
  * Objective: Extends from BaseView.  Manage form events
  */
 define(
-		[ 'view/baseView'],
+		['baseView'],
 		function(BaseView, SelectBox, Errors) {
 
 			var FormView;

@@ -1189,47 +1189,6 @@ ul.sort{padding-bottom:10px;}
 }
 
 
-
-ul.stream-tab li {
- width:98%;
- margin:2% 2%;
-}
-
-
-ul.stream-tab li a {
- width:92%;
- background:#f3f5f6;
- font-size:15px;
- text-align:left;
- padding:2.5% 4%;
-}
-ul.stream-tab li a.active {
- position:static !important;
-}
-ul.stream-tab li a:hover {
- background:#fff;
-}
-ul.stream-tab li a.active:hover {
- cursor:default;
- background: -webkit-gradient(linear, 0 0, 0 bottom, from(#d4991c), to(#dbaa22));
- background: -webkit-linear-gradient(#d4991c, #dbaa22);
- background: -moz-linear-gradient(#d4991c, #dbaa22);
- background: -ms-linear-gradient(#d4991c, #dbaa22);
- background: -o-linear-gradient(#d4991c, #dbaa22);
- background: linear-gradient(#d4991c, #dbaa22);
- -pie-background: linear-gradient(#d4991c, #dbaa22);
-}
- ul.stream-tab li a span {
- position:absolute;
- top:10px;
- right:10px;
- font-size:13px;
- -webkit-border-radius:5px;
- -moz-border-radius:5px;
- border-radius:5px;
- margin:0;
- padding:5px 8px;
-}
 .question-info {
  padding:2% 5% 4% 5%;
 }
@@ -1556,44 +1515,6 @@ margin-left:20%;
  margin:5px 0 15px 5px;
 }
 
-ul.stream-tab li {
- width:96%;
- margin:1% 2%;
-}
-ul.stream-tab li a {
- width:92%;
- background:#f3f5f6;
- font-size:15px;
- text-align:left;
- padding:2.5% 4%;
-}
-ul.stream-tab li a.active {
- position:static !important;
-}
-ul.stream-tab li a:hover {
- background:#fff;
-}
-ul.stream-tab li a.active:hover {
- cursor:default;
- background: -webkit-gradient(linear, 0 0, 0 bottom, from(#d4991c), to(#dbaa22));
- background: -webkit-linear-gradient(#d4991c, #dbaa22);
- background: -moz-linear-gradient(#d4991c, #dbaa22);
- background: -ms-linear-gradient(#d4991c, #dbaa22);
- background: -o-linear-gradient(#d4991c, #dbaa22);
- background: linear-gradient(#d4991c, #dbaa22);
- -pie-background: linear-gradient(#d4991c, #dbaa22);
-}
- ul.stream-tab li a span {
- position:absolute;
- top:10px;
- right:10px;
- font-size:13px;
- -webkit-border-radius:5px;
- -moz-border-radius:5px;
- border-radius:5px;
- margin:0;
- padding:5px 8px;
-}
 .question-info {
  padding:2% 5% 4% 5%;
 }
@@ -2222,14 +2143,6 @@ ul.signup-register li.lastblock {
  -webkit-border-radius: 12px 0 0 12px;
  -moz-border-radius: 12px 0 0 12px;
  border-radius: 12px 0 0 12px;
-}
-ul.stream-tab li {
- width:16%;
- margin:0 2%;
-}
-ul.stream-tab li a {
- width:80%;
- padding:7% 10%;
 }
 
 .question-info {

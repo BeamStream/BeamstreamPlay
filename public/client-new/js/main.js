@@ -12,19 +12,27 @@ requirejs.config({
 		moduleActivator: 'apps/common/module-activator',
 		text: 'libs/text/text',
 		phoneformat: 'apps/common/PhoneFormat',
-		baseView: "view/baseView",
+		container: "view/container.min",
+		baseView: "view/baseView.min",
+		pageView: "view/pageView.min",
 		formView: "view/formView",
-		baseModel: "model/baseModel",
-		baseCollection: "collection/baseCollection"
+		baseModel: "model/baseModel.min",
+		baseCollection: "collection/baseCollection.min"
 	},
     shim: {
-    	'baseView': {
-    		deps: ['backbone']
-    	},
         'backbone': {
             deps: ['underscore', 'jquery', 'json2', 'jqueryUI'],
             exports: 'Backbone'
         },
+        'baseView': {
+    		deps: ['backbone', 'container']
+    	},
+    	'pageView': {
+    		deps: ['backbone', 'container']
+    	},
+    	'baseCollection': {
+    		deps: ['backbone', 'baseModel']
+    	},
 		'placeholder': {
 			deps: ['jquery']
 		},

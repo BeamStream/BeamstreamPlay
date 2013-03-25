@@ -1,48 +1,22 @@
-/***
-* BeamStream
-*
-* Author                : Aswathy .P.R (aswathy@toobler.com)
-* Company               : Toobler
-* Email:                : info@toobler.com
-* Web site              : http://www.toobler.com
-* Created               : 07/March/2013
-* Description           : Backbone view for main stream page
-* ==============================================================================================
-* Change History:
-* ----------------------------------------------------------------------------------------------
-* Sl.No.  Date   Author   Description
-* ----------------------------------------------------------------------------------------------
-*
-* 
-*/
-
-define(['view/baseView'], function(BaseView){
+define(['pageView', 'view/streamSliderView', 'view/overView', 'view/discussionsView', 'view/questionsView', 'view/deadlinesView', 'view/calendarView'], 
+	function(PageView, StreamSliderView, OverView, DiscussionsView, QuestionsView, DeadlinesView, CalendarView){
 	var MyStreamView;
-	MyStreamView = BaseView.extend({
+	MyStreamView = PageView.extend({
 		objName: 'MyStreamView',
-		
-		onAfterInit: function(){
-			this.data.reset()
-		},
-		
 		events:{
-			'click #myTab a': 'tabHandler',
-			'click #show-info' :'showDetails',
+			'click #streamTab a': 'tabHandler',
+			'click #show-info' :'showDetails'
 		},
-		
-
-		
-		tabHandler: function(e){
-			$('#myTab a.active').removeClass('active');
-			$(e.target).addClass('active');
-			
-//			$('a[data-toggle="tab"]').on('shown', function (e) {
-//				
-////				if($(e.target.href)[0].children==0)
-//					//initalize view
-//			});
+		messagesPerPage: 10,
+		pageNo: 0,
+		init: function(){
+			this.addView(new StreamSliderView({el: '#sidebar'}));
+			this.addView(new OverView({el: $('#overView')}));
+			this.addView(new DiscussionsView({el: $('#discussionsView')}));
+			this.addView(new QuestionsView({el: $('#questionsView')}));
+			this.addView(new DeadlinesView({el: $('#deadlinesView')}));
+			this.addView(new CalendarView({el: $('#calendarView')}));
 		},
-		
 		/**
 	     * show stream details on top 
 	     */
@@ -51,6 +25,17 @@ define(['view/baseView'], function(BaseView){
 	    	$('.show-info').toggle(100);
 	    	
 	    },
+	    tabHandler: function(e){
+	    	var tabId=$(e.target).attr('href').replace('#',''), view;
+	    	
+	    	if(tabId=='discussionsView' || tabId=="questionsView"){
+	    		view = this.getViewById(tabId);
+	    		if(view){
+	    			view.data.url="/allMessagesForAStream";
+	    			view.fetch({'streamId': this.getViewById('sidebar').streamId, 'messagesPerPage': this.messagesPerPage, 'pageNo': this.pageNo});
+	    		}
+	    	}
+	    }
 		
 		
 		

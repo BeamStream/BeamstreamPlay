@@ -16,7 +16,7 @@
 * 
 */
 
-define(['model/baseModel'], function(BaseModel) {
+define(['baseModel'], function(BaseModel) {
 	var Discussion = BaseModel.extend({ 
 		objName: 'Discussion',
 		url:'/newMessage',
