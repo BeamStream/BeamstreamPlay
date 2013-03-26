@@ -160,16 +160,19 @@ object MessageController extends Controller {
    */
   def allMessagesForAStream = Action { implicit request =>
     val streamId = request.queryString("streamId").toList(0)
-    val pageNo = request.queryString("pageNo").toList(0).asInstanceOf[Int]
-    val messagesPerPage = request.queryString("messagesPerPage").toList(0).asInstanceOf[Int]
+    val pageNo = request.queryString("pageNo").toList(0).toInt
+    val messagesPerPage = request.queryString("messagesPerPage").toList(0).toInt
     val sortBy = request.queryString("sortBy").toList(0)
     var allMessagesForAStream: List[Message] = List()
     try {
       if (sortBy == "date") {
-        allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo.toInt, messagesPerPage)
+        println("In this case_>>>>>>ss>>>>>")
+        val messagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+        allMessagesForAStream = messagesForAStream
       } else if (sortBy == "rock") {
         allMessagesForAStream = Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
       }
+
       val messagesWithDescription = Message.messagesAlongWithDocDescription(allMessagesForAStream)
       Ok(write(messagesWithDescription)).as("application/json")
     } catch {

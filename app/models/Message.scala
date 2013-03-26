@@ -178,7 +178,7 @@ object Message { //extends CommentConsumer {
    */
 
   def getAllMessagesForAStreamWithPagination(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
-    MessageDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    MessageDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("timeCreated" -> -1))	.toList
   }
 
  
@@ -303,7 +303,7 @@ object Message { //extends CommentConsumer {
    * Fetch messages along with document details if message contains any document
    */
 
-  def messagesAlongWithDocDescription(messages: List[Message]) = {
+  def messagesAlongWithDocDescription(messages: List[Message]):List[DocResulttoSent] = {
     var messsageWithDocResults: List[DocResulttoSent] = List()
     var profilePicForUser = ""
     messages map {
@@ -325,7 +325,7 @@ object Message { //extends CommentConsumer {
 
     }
     messsageWithDocResults
-  }: List[DocResulttoSent]
+  }	
 
 }
 
