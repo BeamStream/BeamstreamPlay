@@ -74,6 +74,17 @@ object Message { //extends CommentConsumer {
     MessageDAO.remove(message)
   }
 
+  
+   /**
+   * Find Message by Id
+   * @param  messageId is the id of the message to be searched
+   */
+
+  def findMessageById(messageId: ObjectId): Option[Message] = {
+    val messageObtained = MessageDAO.findOneByID(messageId)
+    messageObtained
+  }
+ 
   /**
    * All Public message for a user
    * @param streamId is the id of the stream for which the messages are required
@@ -170,16 +181,7 @@ object Message { //extends CommentConsumer {
     MessageDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 
-  /**
-   * Find Message by Id
-   * @param  messageId is the id of the message to be searched
-   */
-
-  def findMessageById(messageId: ObjectId): Option[Message] = {
-    val messageObtained = MessageDAO.findOneByID(messageId)
-    messageObtained
-  }
-
+ 
   /**
    * Follow the message
    * @param  messageId is the id of the message to be searched
