@@ -34,90 +34,15 @@ object Class {
   implicit val formats = DefaultFormats
 
   /**
-   * Create the new Classes
-   */
-  //  def createClass(classList: List[Class], userId: ObjectId): ResulttoSent = {
-  //
-  //    /**
-  // * Check if the duplicate code exists in database
-  // * @if yes then return true else return false
-  // * Local Function for duplication removal
-  // */
-  //
-  //    /**
-  //   * is Duplicate Class Exists In List (Local Function)
-  //   */
-  //    def duplicateClassExistesInSubmittedList(classList: List[Class]): Boolean = {
-  //      var classFetchCount: Int = 0
-  //      for (eachClass <- classList) {
-  //        val classFetchedbyFilteringClassCode = classList.filter(x => x.classCode == eachClass.classCode)
-  //        val classFetchedbyFilteringClassName = classList.filter(x => x.className == eachClass.className)
-  //        if (classFetchedbyFilteringClassCode.size > 1 || classFetchedbyFilteringClassName.size > 1) classFetchCount += 1
-  //      }
-  //      if (classFetchCount == 0) false else true
-  //    }
-  //
-  //    /**
-  //     * Class Creation Starts Here by calling the duplicate code validation method
-  //     */
-  //    if (duplicateClassExistesInSubmittedList(classList) == true) ResulttoSent("Failure", "Duplicates Class Code or Name Provided")
-  //
-  //    else {
-  //
-  //      for (eachclass <- classList) {
-  //        val classesobtained = Class.findClassListById(eachclass.id)
-  //
-  //        if (!classesobtained.isEmpty) {
-  //
-  //          val user = User.getUserProfile(userId)
-  //
-  //          if (user.classes.contains(eachclass.id)) {
-  //            println("Edit Class Case")
-  //            val classObtained = Class.findClassListById(eachclass.id)
-  //            ClassDAO.update(MongoDBObject("_id" -> eachclass.id), classObtained(0).copy(
-  //              classCode = eachclass.classCode,
-  //              className = eachclass.className,
-  //              classType = eachclass.classType,
-  //              classTime = eachclass.classTime,
-  //              schoolId = eachclass.schoolId,
-  //              startingDate = eachclass.startingDate), false, false, new WriteConcern)
-  //            val streamOfTheComingClass = Stream.findStreamById(classObtained(0).streams(0))
-  //            StreamDAO.update(MongoDBObject("_id" -> classObtained(0).streams(0)), streamOfTheComingClass.copy(streamName = eachclass.className), false, false, new WriteConcern)
-  //          } else {
-  //            println("Join Stream Case")
-  //            Stream.joinStream(classesobtained(0).streams(0), userId)
-  //            User.addClassToUser(userId, List(eachclass.id))
-  //            SendEmail.mailAfterStreamCreation(user.email, eachclass.className, false)
-  //            Stream.sendMailToUsersOfStream(classesobtained(0).streams(0), userId)
-  //          }
-  //
-  //        } else {
-  //          println("Create class Case")
-  //          val classId = ClassDAO.insert(eachclass)
-  //          User.addClassToUser(userId, List(new ObjectId(classId.get.toString)))
-  //          // Create the Stream for this class
-  //          val streamToCreate = new Stream(new ObjectId, eachclass.className, StreamType.Class, userId, List(userId), true, List())
-  //          val streamId = Stream.createStream(streamToCreate)
-  //          Stream.attachStreamtoClass(streamId, new ObjectId(classId.get.toString))
-  //
-  //          val user = User.getUserProfile(userId)
-  //          SendEmail.mailAfterStreamCreation(user.email, eachclass.className, true)
-  //        }
-  //      }
-  //      ResulttoSent("Success", "User has successfully added his classes")
-  //    }
-  //  }
-
-  /*
    * Delete A Class
    * @Purpose Delete A Class
    */
-  def deleteClass(myclass: Class) {
+  def deleteClass(myclass: Class): Unit = {
     ClassDAO.remove(myclass)
   }
 
-  /*
-   * Finding the class by Code
+  /**
+   * Finding the class by Code (RA)
    */
 
   def findClassByCode(code: String, schoolId: ObjectId): List[ClassWithNoOfUsers] = {
@@ -136,8 +61,7 @@ object Class {
     classesWithNoofUsers
   }
 
- 
-  /*
+  /**
    * Finding the class by Time
    */
 
@@ -150,18 +74,13 @@ object Class {
    * Find a class by Id (RA)
    */
 
-  def findClasssById(classId: ObjectId): Class = {
-    ClassDAO.find(MongoDBObject("_id" -> classId)).toList(0)
+  def findClasssById(classId: ObjectId): Option[Class] = {
+    val classFound = ClassDAO.find(MongoDBObject("_id" -> classId)).toList
+    (classFound.isEmpty.equals(false)) match {
+      case true => Option(classFound.head)
+      case false => None
+    }
   }
-
-  //  /*
-  //   * Find a class List by Id
-  //   */
-  //
-  //  def findClassListById(classId: ObjectId): List[Class] = {
-  //    val classObtained = ClassDAO.find(MongoDBObject("_id" -> classId)).toList
-  //    classObtained
-  //  }
 
   /**
    * Get all classes for a user (RA)
@@ -169,11 +88,10 @@ object Class {
   def getAllClassesIdsForAUser(userId: ObjectId): List[ObjectId] = {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
     user.classes
-
   }
 
-  /*
-   * get all class List
+  /**
+   * get all class List (RA)
    */
 
   def getAllClasses(classIdList: List[ObjectId]): List[Class] = {
@@ -185,9 +103,9 @@ object Class {
     classList
   }
 
-  /*
+  /**
    * @Purpose :   Getting All Classes for a user
-   * 
+   *
    */
   def getAllClassesForAUser(userId: ObjectId): List[Class] = {
     val classesIdsOfAUser = Class.getAllClassesIdsForAUser(userId)
@@ -221,8 +139,8 @@ object Class {
     val user = User.getUserProfile(userId)
     UtilityActor.sendEmailAfterStreamCreation(user.get.email, classCreated.className, true)
   }
-  
-   /**
+
+  /**
    * Find the class by name with no of users return (RA)
    */
 
