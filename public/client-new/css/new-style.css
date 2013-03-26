@@ -115,3 +115,17 @@
 #addMoreClass{
 	margin-right: 5%;
 }
+
+/* @TODO */
+.time-text{
+float: left;
+    margin-right: 10px;
+    width: 15% !important
+	}
+.time_select{
+	width:11% !important;
+	
+}
+.time_select div.dropdown-menu{
+	width:20% !important;
+}

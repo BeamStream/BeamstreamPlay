@@ -5,8 +5,8 @@
 * Company               : Toobler
 * Email:                : info@toobler.com
 * Web site              : http://www.toobler.com
-* Created               : 29/January/2013
-* Description           : Backbone model for steam details 
+* Created               : 26/March/2013
+* Description           : View for class page contents
 * ==============================================================================================
 * Change History:
 * ----------------------------------------------------------------------------------------------
@@ -16,14 +16,22 @@
 * 
 */
 
-define(['baseModel'], function(BaseModel) {
-	var Stream = BaseModel.extend({ 
-		objName: 'Stream',
-//		url:'/allStreamsForAUser',
-
-
-
-	});
-        
-	return Stream;
+define(['pageView', 'view/streamSliderView', 'view/classView'], 
+	function(PageView, StreamSliderView, ClassView){
+	var ClassPageView;
+	ClassPageView = PageView.extend({
+		objName: 'ClassPageView',
+		events:{
+		},
+		init: function(){
+			this.addView(new StreamSliderView({el: '#sidebar'}));
+			this.addView(new ClassView({el: $('#classView')}));
+		},
+		
+	
+		
+		
+	})
+	return ClassPageView;
 });
+

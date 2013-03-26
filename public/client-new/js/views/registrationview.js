@@ -74,12 +74,7 @@
 			$('#step2_block').removeClass('box-active');
 			$('#step2_block').addClass('active-border');
 			$('#step_2').show(500);
-			
-			
-//			var newUser = new BS.UserModel();
-//			newUser.url = "/user/" + 12;
-//			newUser.fetch();
-//			console.log(BS.usermodel.get('mailid'));
+
 		},
 		
 		/**
@@ -99,29 +94,12 @@
 			var graduate = $('#graduate').val();
 			var cellNumber = $('#cellNumber').val();
 			var location = $('#location').val();
-			
-			
-			console.log("gradeLevel" + gradeLevel);
-			console.log("degreeProgram" + degreeProgram);
-			console.log("graduate" + graduate);
-			console.log("cellNumber" + cellNumber);
-			console.log("location" + location);
-			
-			
-			
+
 			
 			/* disable second step and enable step 3 block */
 			$('#step_2').hide(500);
 			$('#step2_block').removeClass('active-border');
-			
-//			var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo"> <a href="#">'
-//								+'<div class="upload-box">'
-//								+'<div class="upload-plus">Upload</div>'
-//								+'</div>'
-//								+'</a> </div>';\\
-//			<div class="round-block upload-photo step-one-photo" id="step3_block"> 
-//            <a href="#"> </a> 
-//            </div>
+
 			
 			var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo">'
 							    +'<a href="#"><div class="upload-box"><div class="upload-plus">Upload</div></div></a>'

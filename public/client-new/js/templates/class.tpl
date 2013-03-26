@@ -32,16 +32,24 @@
               	<input id="classCode"  data-name="class.classCode"  name="classCode"  type="text" placeholder="Class Code" name="" class="small-text ">
               </div>
 			  <div class="field"> 
-              <input id="className" data-name="class.className" name="className" type="text" placeholder="Enter the name of your first class" name="" class="big-text">
+              <input id="className" data-name="class.className" name="className" type="text" placeholder="Enter the name of your first class"  class="big-text">
  			 </div>
               
-              <div class="invite-small-select profile-select-block field scroll-select" >
-                <select id="classTime" data-name="class.classTime" name="classTime" class="selectpicker-info " style="display: none;">
-                  <option selected="selected" value="">Class Time</option>
+               <div class="field"> 
+              	<input id="classTime"  data-name="class.classTime"  name="classTime"  type="text" placeholder="Class Time"  class="time-text">
+             
+            <div class="invite-small-select profile-select-block field time_select" >
+                <select id="time" class="selectpicker-info " name="time" style="display: none;">
+                  <option selected="selected" value="AM">AM</option>.
+                  <option value="PM">PM</option>
                   
                 </select>
                 <div class="invite-small-arrow"><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
               </div>
+             
+              </div>
+               
+              
               
               <div class="invite-calender field">  <input id="startingDate" data-name="class.startingDate" value="" name="startingDate"  class="datepicker calender-box" type="text" placeholder="Class start date" />
  

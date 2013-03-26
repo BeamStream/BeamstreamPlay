@@ -32,7 +32,7 @@ define(['pageView', 'view/streamSliderView', 'view/overView', 'view/discussionsV
 	    		view = this.getViewById(tabId);
 	    		if(view){
 	    			view.data.url="/allMessagesForAStream";
-	    			view.fetch({'streamId': this.getViewById('sidebar').streamId, 'messagesPerPage': this.messagesPerPage, 'pageNo': this.pageNo});
+	    			view.fetch({'streamId': this.getViewById('sidebar').streamId, 'sortBy': 'date', 'messagesPerPage': this.messagesPerPage, 'pageNo': this.pageNo});
 	    		}
 	    	}
 	    }

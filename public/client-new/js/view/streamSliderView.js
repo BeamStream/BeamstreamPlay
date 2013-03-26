@@ -15,7 +15,7 @@ define(['baseView',
         	 'click .close-btn' : 'closeStreamTab',
 			 'click .cancel-btn' : 'closeRemoveOption',
 			 'click .sortable li' : 'renderRightContenetsOfSelectedStream',
-			 'click .sortable li': 'setStreamId'
+//			 'click .sortable li': 'setStreamId'
 		},
                 
         onAfterInit: function(){
@@ -76,7 +76,7 @@ define(['baseView',
 			
 		},
 		setStreamId: function(e){
-			this.streamId = e.target.id;
+//			this.streamId = e.target.id;
 		},
                      
         /**
@@ -217,7 +217,7 @@ define(['baseView',
 	    renderRightContenetsOfSelectedStream: function(eventName){
 	    	
 	    	eventName.preventDefault();
-	    	
+	    	this.streamId = eventName.target.id;
 	    	// disable the content rendering when the stream list is on edit 
 	    	if($('a.done').attr('data-value') == "inActive")
 	    		return;

@@ -37,7 +37,7 @@ define(['view/formView',
 		 onAfterRender: function(){
         	 
         	/* @TODO display all messages of a stream  on message feed */
-        	var streamId =  $('#myStream').attr('data-value');
+        	var streamId =  $('#myStream').attr('data-value'); 
 //        	this.discussion.url = "/allMessagesForAStream/"+streamId+"/"+this.pageLimit+"/"+this.pagenum;
 //        	this.discussion.fetch();
 //        	

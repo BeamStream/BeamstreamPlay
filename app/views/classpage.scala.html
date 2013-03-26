@@ -12,7 +12,7 @@
 @bodyModule = {}
 @bodyJS = {
 <!-- <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap-select.js"></script> -->
-
+<script type="text/JavaScript" src="/beamstream-new/lib/jquery.maskedinput.js"></script>
 }
 @sideBar = {
  	@views.html.sidebar.render
@@ -26,12 +26,11 @@
 
 
 @main("Class ", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
-
-<div  id="class-page"  data-url="/class"  data-model="class"  data-module="view/classView" data-tpl="templates/class.tpl"  >
+<div  id="class-page"     data-module="view/classPageView">
+<div  id="classView"    data-model="class"   data-tpl="templates/class.tpl" >
  
- 
-  
+   
 </div>
    
-    
+ </div>   
 }
