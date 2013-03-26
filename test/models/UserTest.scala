@@ -126,17 +126,17 @@ class UserTest extends FunSuite with BeforeAndAfter {
   test("Get User Profile") {
     val userId = User.createUser(user1)
     val userObtained = User.getUserProfile(userId)
-    assert(userObtained.email === "neel@knoldus.com")
+    assert(userObtained.get.email === "neel@knoldus.com")
   }
 
   test("Update User") {
     val userId = User.createUser(user1)
     val user = User.getUserProfile(userId)
-    assert(user.firstName === "")
+    assert(user.get.firstName === "")
     User.updateUser(userId, "Neelkanth", "Sachdeva", "Rewari", "", "")
     val userObtained = User.getUserProfile(userId)
-    assert(userObtained.firstName === "Neelkanth")
-    assert(userObtained.location === "Rewari")
+    assert(userObtained.get.firstName === "Neelkanth")
+    assert(userObtained.get.location === "Rewari")
   }
 
   test("Find User Coming via social sites") {
