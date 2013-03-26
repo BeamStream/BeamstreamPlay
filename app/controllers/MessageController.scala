@@ -158,11 +158,15 @@ object MessageController extends Controller {
   /**
    * All messages for a stream sorted by date & rock along with the limits
    */
-  def allMessagesForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
+  def allMessagesForAStream = Action { implicit request =>
+    val streamId = request.queryString("streamId").toList(0)
+    val pageNo = request.queryString("pageNo").toList(0).asInstanceOf[Int]
+    val messagesPerPage = request.queryString("messagesPerPage").toList(0).asInstanceOf[Int]
+    val sortBy = request.queryString("sortBy").toList(0)
     var allMessagesForAStream: List[Message] = List()
     try {
       if (sortBy == "date") {
-        allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+        allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo.toInt, messagesPerPage)
       } else if (sortBy == "rock") {
         allMessagesForAStream = Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
       }

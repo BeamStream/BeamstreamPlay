@@ -194,7 +194,8 @@ POST /media 									controllers.MediaController.media
 
 
 # Messages + Comments + ProfilePicUrl
-GET   /allMessagesForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo 			controllers.MessageController.allMessagesForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
+GET   /allMessagesForAStream                        	controllers.MessageController.allMessagesForAStream
+#/:streamId/:sortBy/:messagesPerPage/:pageNo 		(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
 
 # Social
 POST /social/social_authentication   			controllers.SocialController.signUpViaSocialSites
