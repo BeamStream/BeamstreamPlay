@@ -45,7 +45,6 @@ case class Message(@Key("_id") id: ObjectId,
   follows: Int,
   followers: List[ObjectId],
   anyPreviewImageUrl: Option[String] = None,
-  //profileImageUrl: Option[String] = None,
   docIdIfAny: Option[ObjectId] = None)
 
 object Message { //extends CommentConsumer {
@@ -55,52 +54,57 @@ object Message { //extends CommentConsumer {
   /**
    * Create a new message (RA)
    */
-  def createMessage(message: Message): Option[ObjectId] = {
+  def createMessage(message: Message) = {
     MessageDAO.insert(message)
-  }
+  }: Option[ObjectId]
 
   /**
    *
    */
+
   private def validateUserHasRightToPost(userId: ObjectId, streamId: ObjectId): Boolean = {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     stream.usersOfStream.contains(userId)
   }
 
+  /**
+   * Delete Message
+   */
   def removeMessage(message: Message) {
     MessageDAO.remove(message)
   }
 
   /**
-   * Get all messages from a stream
+   * All Public message for a user
+   * @param streamId is the id of the stream for which the messages are required
    */
-  def getAllMessagesForAStream(streamId: ObjectId): List[Message] = {
-    val messsages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList
-    messsages
-  }
-
   def getAllPublicMessagesForAStream(streamId: ObjectId): List[Message] = {
     MessageDAO.find(MongoDBObject("streamId" -> streamId, "messageAccess" -> "Public")).toList
   }
 
+  /**
+   * All Public message for a user
+   * @param userId is the id of the user for which the messages are required
+   */
   def getAllMessagesForAUser(userId: ObjectId): List[Message] = {
     MessageDAO.find(MongoDBObject("userId" -> userId)).toList
   }
 
   /**
    * Get all public messages for a user
+   *  @param userId is the id of the user for which the messages are required
    */
   def getAllPublicMessagesForAUser(userId: ObjectId) = {
     MessageDAO.find(MongoDBObject("userId" -> userId, "messageAccess" -> "Public")).toList
   }
 
-  /*
+  /**
    *  Increase the no. of counts
+   *   @param messageId is the id of the message for which the rockers are required
    */
   def rockersNames(messageId: ObjectId): List[String] = {
     val messageRocked = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-    val rockersName = User.giveMeTheRockers(messageRocked.rockers)
-    rockersName
+    User.giveMeTheRockers(messageRocked.rockers)
   }
 
   /*
@@ -135,39 +139,40 @@ object Message { //extends CommentConsumer {
 
   /**
    * Sort messages within a stream on the basis of total rocks
+   *  @param streamId is the id of the stream
+   *  @param pageNumber is the page number
+   *  @param messagesPerPage is the limit of messages per page
    */
 
   def getAllMessagesForAStreamSortedbyRocks(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
     MessageDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("rocks" -> -1, "timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 
-  /*
-   * Sort messages within a stream on the basis of time created
-   * TODO We can remove it because it is now assosiated with Pagination method
-   */
-
-  def getAllMessagesForAStreamSortedbyDate(streamId: ObjectId): List[Message] = {
-    val messages = MessageDAO.find(MongoDBObject("streamId" -> streamId)).toList.sortBy(message => message.timeCreated)
-    messages
-  }
   /**
    * get all messages within a stream on the basis of keyword
+   * @param streamId is the id of the stream
+   *  @param pageNumber is the page number
+   *  @param messagesPerPage is the limit of messages per page
    */
   def getAllMessagesForAKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
     val keyWordregExp = (""".*""" + keyword + """.*""").r
     MessageDAO.find(MongoDBObject("messageBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 
-  /*
- * Pagination For messages
- */
+  /**
+   * @param streamId is the id of the stream
+   *  @param pageNumber is the page number
+   *  @param messagesPerPage is the limit of messages per page
+   * Pagination For messages
+   */
 
   def getAllMessagesForAStreamWithPagination(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
     MessageDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 
-  /*
+  /**
    * Find Message by Id
+   * @param  messageId is the id of the message to be searched
    */
 
   def findMessageById(messageId: ObjectId): Option[Message] = {
@@ -175,8 +180,11 @@ object Message { //extends CommentConsumer {
     messageObtained
   }
 
-  /*
+  /**
    * Follow the message
+   * @param  messageId is the id of the message to be searched
+   * @param  userId is the id of follower
+   *
    * @Purpose: Update followers and returns the no. of followers
    */
 
@@ -204,9 +212,11 @@ object Message { //extends CommentConsumer {
 
   }
 
-  /*
-   * Is a follower 
-   * @ Purpose: identify if the user is following a message or not
+  /**
+   * Is a follower
+   * @Purpose: identify if the user is following a message or not
+   * @param  messageId is the id of the message to be searched
+   * @param  userId is the id of follower
    */
 
   def isAFollower(messageId: ObjectId, userId: Object): Boolean = {
@@ -219,9 +229,11 @@ object Message { //extends CommentConsumer {
 
   }
 
-  /*
-   * Is a Rocker 
-   * @ Purpose: identify if the user has rocked a message or not
+  /**
+   * Is a Rocker
+   * @Purpose: identify if the user has rocked a message or not
+   * @param  messageId is the id of the message to be searched
+   * @param  userId is the id of follower
    */
 
   def isARocker(messageId: ObjectId, userId: Object): Boolean = {
@@ -234,9 +246,9 @@ object Message { //extends CommentConsumer {
 
   }
 
-  /*
-  * Getting all public messages For All the Streams of a user
-  */
+  /**
+   * Getting all public messages For All the Streams of a user
+   */
 
   def getAllPublicMessagesForAUser(classesForAUser: List[Class]): List[Message] = {
     var publicMessagesForAUser: List[Message] = List()
@@ -247,16 +259,20 @@ object Message { //extends CommentConsumer {
     publicMessagesForAUser
   }
 
-  /*
+  /**
    * Add Comment To Message
+   * @param  commentId is the id of the comment which is created
+   * @param  messageId is the id of message to which this comments belongs
    */
   def addCommentToMessage(commentId: ObjectId, messageId: ObjectId) = {
     val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
     MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments ++ List(commentId))), false, false, new WriteConcern)
   }
 
-  /*
+  /**
    * Delete A Message (Either Stream Admin Or The User Who Has Posted The Message)
+   *  @param  messageId is the id of the message to e deleted
+   * @param  userId is the id of owner of message
    */
 
   def deleteMessagePermanently(messageId: ObjectId, userId: ObjectId) = {
@@ -308,28 +324,6 @@ object Message { //extends CommentConsumer {
     }
     messsageWithDocResults
   }: List[DocResulttoSent]
-  /*
-	 * Return a copy of the Message with an ProfileImageURL attached
-	 */
-  //	def getMessageWithProfileImageURL(allMessagesForAStream:List[Message]):List[Message] = {
-  //	  	val messageList = new ListBuffer[Message]
-  //    
-  //	    allMessagesForAStream.foreach(i =>  {
-  //	      val media = UserMedia.findUserMediaByUserId(i.userId);
-  //	      if(media.hasNext) {
-  //	        val media = UserMedia.findUserMediaByUserId(i.userId);
-  //		      if(media.hasNext) {
-  //		        val item = media.next()
-  //		        var newMessage = i.copy(profileImageUrl = 
-  //		                   Some(item.mediaUrl))
-  //		        messageList.append(newMessage)
-  //		      }
-  //	      } else
-  //	    	messageList.append(i)
-  //	    })
-  //	    
-  //	    messageList.toList
-  //	}
 
 }
 

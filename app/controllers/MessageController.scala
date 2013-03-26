@@ -91,31 +91,6 @@ object MessageController extends Controller {
   }
 
   //==================================================================//
-  //======Displays all the messages within a Stream sorted by date===//
-  //================================================================//
-  //TODO we can remove this method because now it has assembled with getAllMessagesForAStream
-  def getAllMessagesForAStreamSortedbyDate = Action { implicit request =>
-    val streamIdJsonMap = request.body.asFormUrlEncoded.get
-    val streamId = streamIdJsonMap("streamId").toList(0)
-    val allMessagesForAStream = Message.getAllMessagesForAStreamSortedbyDate(new ObjectId(streamId))
-    val allMessagesForAStreamJson = write(allMessagesForAStream)
-    Ok(allMessagesForAStreamJson).as("application/json")
-  }
-
-  //==================================================================//
-  //======Displays all the messages within a Stream sorted by rocks===//
-  //================================================================//
-  def getAllMessagesForAStreamSortedbyRocks = Action { implicit request =>
-    val streamIdJsonMap = request.body.asFormUrlEncoded.get
-    val streamId = streamIdJsonMap("streamId").toList(0)
-    val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
-    val messagesPerPage = streamIdJsonMap("limit").toList(0).toInt
-    val allMessagesForAStream = Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
-    val allMessagesForAStreamJson = write(allMessagesForAStream)
-    Ok(allMessagesForAStreamJson).as("application/json")
-  }
-
-  //==================================================================//
   //======Displays all the messages within a Stream for a keyword===//
   //================================================================//
   def getAllMessagesForAStreambyKeyword = Action { implicit request =>
@@ -128,10 +103,6 @@ object MessageController extends Controller {
     val allMessagesForAStreamJson = write(allMessagesForAStream)
     Ok(allMessagesForAStreamJson).as("application/json")
   }
-
-  /**
-   * Follow the messages
-   */
 
   /**
    * Rock the message
@@ -162,12 +133,10 @@ object MessageController extends Controller {
    * @ Purpose: identify if the user is following a message or not
    */
   def isARocker = Action { implicit request =>
-    {
-      val messageIdJsonMap = request.body.asFormUrlEncoded.get
-      val messageId = messageIdJsonMap("messageId").toList(0)
-      val isARockerOfMessage = Message.isARocker(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
-      Ok(write(isARockerOfMessage.toString)).as("application/json")
-    }
+    val messageIdJsonMap = request.body.asFormUrlEncoded.get
+    val messageId = messageIdJsonMap("messageId").toList(0)
+    val isARockerOfMessage = Message.isARocker(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
+    Ok(write(isARockerOfMessage.toString)).as("application/json")
   }
 
   /**
@@ -182,15 +151,21 @@ object MessageController extends Controller {
     else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Message")))
   }
 
-  /*
- * ***********************************************************REARCHITECTED CODE****************************************************************
- * ***********************************************************REARCHITECTED CODE****************************************************************
- */
+  /**
+   * ***********************************************************REARCHITECTED CODE****************************************************************
+   */
 
-  def allMessagesForAStream(streamId: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
-
+  /**
+   * All messages for a stream sorted by date & rock along with the limits
+   */
+  def allMessagesForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
+    var allMessagesForAStream: List[Message] = List()
     try {
-      val allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+      if (sortBy == "date") {
+        allMessagesForAStream = Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+      } else if (sortBy == "rock") {
+        allMessagesForAStream = Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
+      }
       val messagesWithDescription = Message.messagesAlongWithDocDescription(allMessagesForAStream)
       Ok(write(messagesWithDescription)).as("application/json")
     } catch {
