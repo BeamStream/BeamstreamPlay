@@ -1,4 +1,20 @@
-
+/***
+* BeamStream
+*
+* Author                : Cuckoo Anna(cuckoo@toobler.com)
+* Company               : Toobler
+* Email:                : info@toobler.com
+* Web site              : http://www.toobler.com
+* Created               : 27/March/2013
+* Description           : Backbone view for recover password page
+* ==============================================================================================
+* Change History:
+* ----------------------------------------------------------------------------------------------
+* Sl.No.  Date   Author   Description
+* ----------------------------------------------------------------------------------------------
+*
+* 
+*/
 
 define(['view/formView'], function(FormView){
 	var RecoverPassword;
@@ -14,12 +30,18 @@ define(['view/formView'], function(FormView){
             this.data.reset();
         },
         
+        /**
+         * post email address to recover the password
+         */
         postEmailId : function(eventName){        	
         	eventName.preventDefault();  
         	this.data.url ="/forgotPassword";
             this.saveForm();
         },
         
+        /**
+         * on success
+         */
         success: function(model, data){
         	alert(4545);
         	var self = this;
@@ -37,8 +59,10 @@ define(['view/formView'], function(FormView){
     		}
         },
         
+        /**
+         * redirected to login page on cancel button click
+         */
         cancel : function(){	
-        	
         	 window.location = "/login";
         }
  

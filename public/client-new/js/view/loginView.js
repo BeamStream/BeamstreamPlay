@@ -25,7 +25,6 @@ define(['view/formView'], function(FormView ){
 		events:{
 	        'click #login': 'login',
 	        'keyup #password' : 'loginOnEnterKeyPress',
-	        'click #forgot-pwd' : 'showRecoverPage'
 		},
 
 		onAfterInit: function(){	
@@ -74,11 +73,7 @@ define(['view/formView'], function(FormView ){
 				self.login(eventName); 
 			}
 		},
-		
-		showRecoverPage: function(e){
-			e.preventDefault();
-			window.location = "/deadlines";
-		}
+
  
 	})
 	return LoginView;

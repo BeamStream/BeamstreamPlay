@@ -136,3 +136,7 @@ ul.recover li{
 #recover{
 	padding: 0px !important;
 }
+#forgot-pwd{
+	float:left;
+	margin-top:3%;
+}
