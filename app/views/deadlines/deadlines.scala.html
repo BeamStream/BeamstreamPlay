@@ -1,24 +1,86 @@
 @(message: String)
 @meta = {}
 @CSS = {
-<link rel="stylesheet" type="text/css" media="screen" href="/beamstream-new/css/bootstrap-select.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="/beamstream-new/css/bootstrap-select.css">
+	<link href="/beamstream-new/css/style.css" rel="stylesheet" type="text/css" />    
+    <link href="/beamstream-new/css/new-style.css" rel="stylesheet" type="text/css" />    
+    <link href="/beamstream-new/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" /> 
+    <link href="/beamstream-new/css/bootstrap.css" rel="stylesheet" type="text/css" /> 
+
 }
 @JS = {
-<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.min.js"></script>
+	<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.min.js"></script>
+	<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>	
+    <script type="text/JavaScript" src="/beamstream-new/lib/jquery.js"></script>
+
 }
 @bodyCls = {}
 @bodyModule = {}
-@bodyJS = {}
+@bodyJS = {
+	<script type="text/javascript">
+       $('div.container-fluid').last().addClass('signup-container');       
+    </script>
+}
 @header = {
-  @views.html.header.render
+ 
 }
 @footer = {
   @views.html.footer.render
 }
 
 
-@main("Media", "Body", meta, CSS, JS, bodyModule, bodyJS, header, footer){
+@main("Recover", "Body", meta, CSS, JS, bodyModule, bodyJS, header, footer){
+<div  id="recoverpwd"  data-model="recoverPwd"   data-module="view/forgotPasswordView"  >
 
-  Deadlines
+<div class="signup-outer">
+        <h3>Forgot password</h3>
+        <div class="sign-up-conent">
+          <div class="sign-up-whitebg">
+            <ul class="sign-menu">
+				<li> <a href="#"> <span>I'm a Student</span>
+
+                <div class="menu-pic" id="0"><img src="/beamstream-new/images/student.png" width="115" height="115">
+
+	         <div class="sign-up-tick active"></div>
+
+              </div>
+                </a> <a href="#"> <span>I'm an Educator</span>
+                <div class="menu-pic" id="1"><img src="/beamstream-new/images/educator.png" width="115" height="115">
+               <div class="sign-up-tick"></div>
+               </div>
+                </a> <a href="#"> <span>I'm a Professional</span>
+                <div class="menu-pic" id="2"><img src="/beamstream-new/images/preffesional.png">
+                <div class="sign-up-tick"></div>
+               </div>
+                </a> </li>
+            </ul>
+              <input type="hidden" value="0" id="usertype">
+            <ul class="signup-register recover">
+              <li>
+                <h5>Email</h5>
+                <form action="" method="get">
+                  <fieldset class="message field">
+                    <input class="home_reg" data-name="user.mailId"  name="mailId" type="text"  placeholder="Email" id="mailid">
+                  </fieldset>
+                  
+                </form>
+                <div class="register-menu-block"> <a href="#" id="recover" class="register-btn">Recover Password</a><a href="#" class="register-cancel">Cancel</a> </div>
+<!--                 <div class="sign-or">or</div> -->
+              </li>
+              
+              <li class="lastblock">
+              </li>
+            </ul>
+          
+          </div>
+        </div>
+      </div>
+
+
+
+</div>
+
+
+
 
 }

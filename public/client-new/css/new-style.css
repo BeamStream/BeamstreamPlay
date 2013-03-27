@@ -116,7 +116,7 @@
 	margin-right: 5%;
 }
 
-/* @TODO */
+/***** @TODO ******/
 .time-text{
 float: left;
     margin-right: 10px;
@@ -128,4 +128,11 @@ float: left;
 }
 .time_select div.dropdown-menu{
 	width:20% !important;
+}
+/* for recover pasword */
+ul.recover li{
+	border-right: none !important;
+}
+#recover{
+	padding: 0px !important;
 }

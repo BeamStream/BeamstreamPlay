@@ -1,7 +1,17 @@
 @meta = {}
-@CSS = {}
+@CSS = {
+	<link href="/beamstream-new/css/style.css" rel="stylesheet" type="text/css" />    
+    <link href="/beamstream-new/css/new-style.css" rel="stylesheet" type="text/css" />    
+    <link href="/beamstream-new/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" /> 
+    <link href="/beamstream-new/css/bootstrap.css" rel="stylesheet" type="text/css" /> 
+    <link href='http://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'> 
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />  
+}
 @JS = {
-<script src="beamstream-new/js/BS_social.js"></script>
+	<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>
+    <script type="text/JavaScript" src="/beamstream-new/lib/jquery-1.js"></script>
+    <script type="text/JavaScript" src="/beamstream-new/lib/jquery.js"></script>
+	<script src="beamstream-new/js/BS_social.js"></script>
 }
 @bodyCls = {}
 @bodyModule = {}
@@ -13,9 +23,7 @@
     </script>
 }
 @sideBar = {}
-@header = {
-  @views.html.header.render
-}
+@header = {}
 @footer = {}
 
 
@@ -70,6 +78,8 @@
                <a id="google"  href="#" class="google socialMediaSignup"> <span class="google-icon"></span> <span class="shadow">Google</span></a> 
               <a id="linkedin" href="#" class="link-in socialMediaSignup"> <span class="link-in-icon"></span> <span class="shadow">Linkedin</span></a> </li>
             </ul>
+            <div class="element"> <a id="forgot-pwd" href="#">Forgot password?</a>
+          </div>
           </div>
         </div>
       </div>
