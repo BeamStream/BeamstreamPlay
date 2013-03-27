@@ -19,8 +19,9 @@
 			        <div id="user-online" class="scroll-block chat-view">
 			            <ul id="onlinechatbox">
 			            {{#each .}}
-			                <li id="me" class="online"> <a href="#"><img src="{{profileImageUrl}}" width="30" height="28"> <span>{{firstName}}</span> <span class="online-chat">Online</span></a> </li>
-			            {{each}}   
+	            		 		<li id="me" > <a href="#"><img src="{{profileImageUrl}}" width="30" height="28"> <span>{{firstName}}</span> <span class="online-chat">Online</span></a> </li>
+		            	{{/each}}
+			            
 			            </ul>
 			    	</div>
 			    </div>

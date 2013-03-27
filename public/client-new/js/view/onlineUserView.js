@@ -10,47 +10,59 @@
 	 * ==============================================================================================
 	 * Change History:
 	 * ----------------------------------------------------------------------------------------------
-	 * Sl.No.  Date   Author   Description
+	 * SlNo.   Date          Author         Description
 	 * ----------------------------------------------------------------------------------------------
-	 *
+	 * 1.      27March2013   Aswathy.P.R    added showOrHideWidget() 
+	 * 
 	 * 
 */
 
-define(['baseView','../../lib/jquery.mCustomScrollbar','../../lib/jquery.mousewheel.min','../../lib/jquery.simplyscroll','../../lib/bootstrap'], function(BaseView,mCustomScrollbar,mousewheel,simplyscroll,bootstrap){
-            var onlineUserView;
+define(['baseView',
+        'text!templates/onlineUsers.tpl',
+        '../../lib/jquery.mCustomScrollbar',
+        '../../lib/jquery.mousewheel.min',
+        '../../lib/jquery.simplyscroll',
+        '../../lib/bootstrap',
+        ], function(BaseView,OnlineUsers,mCustomScrollbar,mousewheel,simplyscroll,bootstrap){
+	
+    var onlineUserView;
 	onlineUserView = BaseView.extend({
 		objName: 'onlineUserView',
 
-                onAfterInit: function(){
-			this.data.reset();
-                        console.log("test");
-                        this.Scrollbar();
-//                        this.slider();
-//                        this.lider();
-                    	
-
-
+		 events:{
+        	 'click #chat-status' : 'showOrHideWidget',
 		},
-                
-                      /**
-                * NEW THEME- method to display scroller in onlineusers box
-                */
-            Scrollbar :function(eventName){
-                console.log("scroll bar");
-                
-//                    this.fetch();
-//                      var test=this.getModel();
-//               console.log(test);
+		
+        onAfterInit: function(){
+        	this.data.reset();
+		},		
 
-//                      this.data.fetch({
-//                   success: function(data){
-////                       console.log(data);
-//                   }
-//               });
-                
-//               this.data.models[0].set({"san":"5"});
-                
-                $("#user-online").mCustomScrollbar({
+		/**
+		 * show/hide the online users list
+		 */
+		showOrHideWidget: function(){
+			$('#user-online').toggle('slow');
+		},
+		
+		/**
+         * if there is no other online users 
+         */
+		displayNoResult: function(callback){
+			
+			var compiledTemplate = Handlebars.compile(OnlineUsers);
+			this.$(".content").html( compiledTemplate(this.data.toJSON()));			
+		},
+
+		onAfterRender: function(){
+			this.scroll();
+		},
+		
+		/**
+        *  method to provide scrolling functionality in onlineusers box
+        */
+		scroll :function(eventName){
+			
+			$("#user-online").mCustomScrollbar({
                     
                     set_width:false, /*optional element width: boolean, pixels, percentage*/
                     set_height:false, /*optional element height: boolean, pixels, percentage*/
@@ -64,21 +76,21 @@ define(['baseView','../../lib/jquery.mCustomScrollbar','../../lib/jquery.mousewh
                         scrollType:"continuous", /*scroll buttons scrolling type: "continuous", "pixels"*/
                         scrollSpeed:20, /*scroll buttons continuous scrolling speed: integer*/
                         scrollAmount:40 /*scroll buttons pixels scroll amount: integer (pixels)*/
-                        },
+                    },
                     advanced:{
                         updateOnBrowserResize:true, /*update scrollbars on browser resize (for layouts based on percentages): boolean*/
                         updateOnContentResize:false, /*auto-update scrollbars on content resize (for dynamic content): boolean*/
                         autoExpandHorizontalScroll:false /*auto expand width for horizontal scrolling: boolean*/
-                        },
+                    },
                     callbacks:{
                         onScroll:function(){}, /*user custom callback function on scroll event*/
                         onTotalScroll:function(){}, /*user custom callback function on bottom reached event*/
                         onTotalScrollOffset:0 /*bottom reached offset: integer (pixels)*/
-                        }                   
-                    }); 
-                },
+                    }                   
+             }); 
+		},
            
                 
-                })
+     })
 	return onlineUserView;
 });
