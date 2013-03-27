@@ -3,7 +3,8 @@ define(['view/formView',
         'model/comment',
         'text!templates/discussionMessage.tpl',
         'text!templates/discussionComment.tpl',
-        ], function(FormView, DiscussionModel, CommentModel , DiscussionMessage ,DiscussionComment){
+        'text!templates/privateToList.tpl',
+        ], function(FormView, DiscussionModel, CommentModel , DiscussionMessage ,DiscussionComment,PrivateToList){
 	var Discussions;
 	Discussions = FormView.extend({
 		objName: 'Discussion',
@@ -21,7 +22,9 @@ define(['view/formView',
 			 'keypress #msg-area' : 'postMessageOnEnterKey',
 		 },
 
-		 
+		 messagesPerPage: 10,
+		 pageNo: 0,
+			
 		 onAfterInit: function(){	
             this.data.reset();
             this.pagenum = 1;
@@ -36,18 +39,13 @@ define(['view/formView',
          */
 		 onAfterRender: function(){
         	 
-        	/* @TODO display all messages of a stream  on message feed */
         	var streamId =  $('#myStream').attr('data-value'); 
-//        	this.discussion.url = "/allMessagesForAStream/"+streamId+"/"+this.pageLimit+"/"+this.pagenum;
-//        	this.discussion.fetch();
-//        	
-//        	 _.each(this.discussion, function(message) {
-//	    		var compiledTemplate = Handlebars.compile(DiscussionMessage);
-//	    		$('#all-messages').prepend( compiledTemplate({data:message}));
-//		    		
-//    		 });
+        	
+        	/* for the private to list section on Discussion and Question page */ 
+//			var listTemplate = Handlebars.compile(PrivateToList);
+//			$('.stream-list').html(listTemplate(this.myStreams.toJSON()));
+//			$('#Q-privatelist').html(listTemplate({data: this.data.toJSON()}));
 		},
-		
 		
 		
         /**
@@ -161,6 +159,8 @@ define(['view/formView',
         	var self = this;
         	var streamId = $('.sortable li.active').attr('id');
         	$('#sortBy-select').text($(eventName.target).text());
+        	
+			this.fetch({'streamId': streamId, 'sortBy': 'date', 'messagesPerPage': this.messagesPerPage, 'pageNo': this.pageNo});
         		
         },
         

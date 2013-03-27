@@ -20,7 +20,7 @@ define(['view/formView',
         '../../lib/bootstrap-select',
         '../../lib/bootstrap-datepicker',
         '../../lib/bootstrap-modal',
-        '../../lib/jquery.maskedinput',
+        '../../lib/jquery.meio.mask',
         'model/userSchool'
         ],function(FormView ,BootstrapSelect,Datepicker , BootstrapModal, MaskedInput,userSchool){
 	
@@ -81,7 +81,8 @@ define(['view/formView',
         		style: 'register-select invite-selecter'
         	});
        		
-       		$("#classTime").mask("99:99",{placeholder:" "});
+       		//set time format
+       		$("#classTime").setMask('12:59');
        		
        		// set date picker style
        		$('.datepicker').datepicker();

@@ -18,7 +18,7 @@
 define(['view/formView' ,
         '../../lib/bootstrap.min',
         '../../lib/bootstrap-select',
-        '../../lib/jquery.maskedinput',
+        '../../lib/jquery.meio.mask',
         '../../lib/bootstrap-datepicker',
         ], function(FormView, Bootstrap,BootstrapSelect,MaskedInput, Datepicker){
 	var RegistrationView;
@@ -104,7 +104,7 @@ define(['view/formView' ,
             
             /* disable first step and enable step 2 block */
             this.enableStepTwo();
-    		$("#cellNumber").mask("(999) 999-9999",{placeholder:" "});
+            $("#cellNumber").setMask('(999) 999-9999');
         },
                 
         /**

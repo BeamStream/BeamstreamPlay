@@ -1,5 +1,13 @@
-define(['pageView', 'view/streamSliderView', 'view/overView', 'view/discussionsView', 'view/questionsView', 'view/deadlinesView', 'view/calendarView'], 
-	function(PageView, StreamSliderView, OverView, DiscussionsView, QuestionsView, DeadlinesView, CalendarView){
+define(['pageView',
+        'view/streamSliderView', 
+        'view/overView', 
+        'view/discussionsView', 
+        'view/questionsView', 
+        'view/deadlinesView', 
+        'view/calendarView',
+        'text!templates/privateToList.tpl',
+        ], 
+	function(PageView, StreamSliderView, OverView, DiscussionsView, QuestionsView, DeadlinesView, CalendarView ,PrivateToListTpl){
 	var MyStreamView;
 	MyStreamView = PageView.extend({
 		objName: 'MyStreamView',
@@ -10,6 +18,7 @@ define(['pageView', 'view/streamSliderView', 'view/overView', 'view/discussionsV
 		messagesPerPage: 10,
 		pageNo: 0,
 		init: function(){
+			
 			this.addView(new StreamSliderView({el: '#sidebar'}));
 			this.addView(new OverView({el: $('#overView')}));
 			this.addView(new DiscussionsView({el: $('#discussionsView')}));
@@ -17,6 +26,7 @@ define(['pageView', 'view/streamSliderView', 'view/overView', 'view/discussionsV
 			this.addView(new DeadlinesView({el: $('#deadlinesView')}));
 			this.addView(new CalendarView({el: $('#calendarView')}));
 		},
+		
 		/**
 	     * show stream details on top 
 	     */
@@ -31,8 +41,11 @@ define(['pageView', 'view/streamSliderView', 'view/overView', 'view/discussionsV
 	    	if(tabId=='discussionsView' || tabId=="questionsView"){
 	    		view = this.getViewById(tabId);
 	    		if(view){
+	    			view.myStreams = this.getViewById('sidebar').myStreams;
+	    			
 	    			view.data.url="/allMessagesForAStream";
 	    			view.fetch({'streamId': this.getViewById('sidebar').streamId, 'sortBy': 'date', 'messagesPerPage': this.messagesPerPage, 'pageNo': this.pageNo});
+
 	    		}
 	    	}
 	    }

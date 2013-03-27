@@ -21,8 +21,8 @@
                 <button class="btn normal-dropdown" id="sortBy-select" >Most Recent</button>
                 <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
                 <ul class="dropdown-menu display-sub" id="sortBy-list" >
-                  <li><a href="#" name="most-recent" >Most Recent</a></li>
-                  <li><a href="#" name="highest-rated" >Highest Rated</a></li>
+                  <li><a href="#" name="most-recent" value="date">Most Recent</a></li>
+                  <li><a href="#" name="highest-rated" value="rock">Highest Rated</a></li>
                   <li><a href="#" name="most-shared" >Most Shared </a></li>
                 </ul>
               </div>
@@ -117,6 +117,7 @@
                     <button class="btn class-dropdown-bg " id="select-privateTo" ></button>
                     <button class="btn class-dropdown-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
                     <ul class="dropdown-menu stream-list" id="private-to-list" >
+                    
                       
                     </ul>
                   </div>
