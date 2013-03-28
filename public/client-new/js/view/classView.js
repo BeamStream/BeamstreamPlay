@@ -20,7 +20,7 @@ define(['view/formView',
         '../../lib/bootstrap-select',
         '../../lib/bootstrap-datepicker',
         '../../lib/bootstrap-modal',
-        '../../lib/jquery.maskedinput',
+        '../../lib/jquery.meio.mask',
         'model/userSchool'
         ],function(FormView ,BootstrapSelect,Datepicker , BootstrapModal, MaskedInput,userSchool){
 	
@@ -36,8 +36,8 @@ define(['view/formView',
 		    'change #schoolId' : 'clearAllClasses',
 		    'keyup #classCode' :'populateClassCodes',
 		    'click #addMoreClass' : 'addMoreClasses',
-		    'click #startBeam' : 'startBeamstream'
-		    
+		    'click #startBeam' : 'startBeamstream',
+		    'focus #classTime' : 'setDefaultTime'
 		},
 
 		onAfterInit: function(){	
@@ -81,13 +81,18 @@ define(['view/formView',
         		style: 'register-select invite-selecter'
         	});
        		
-       		$("#classTime").mask("99:99",{placeholder:" "});
-       		
+      		
        		// set date picker style
        		$('.datepicker').datepicker();
         },
         
-        
+        /**
+         * set default time for class time 
+         */
+        setDefaultTime: function(){
+        	$("#classTime").setMask({mask : '12:59', maxLength:5, defaultValue: '0000'});
+       		
+        },
         /**
          * auto populate class names - matching a class name
          */
@@ -222,7 +227,8 @@ define(['view/formView',
         	$('#classCode').val(data.classToReturn.classCode);
         	$('#startingDate').val(data.classToReturn.startingDate);
         	$('#classType').val(data.classToReturn.classTime);
-        	$('#classTime span.filter-option').text(data.classToReturn.classTime);
+        	$('#classTime').val(data.classToReturn.classTime.substr(0, 5));
+        	$('#time span.filter-option').text(data.classToReturn.classTime.substr(5, 7));
         	
         	if(data.classToReturn.classType == "quarter")
         	{
@@ -241,7 +247,8 @@ define(['view/formView',
         	$('#className').val(data.classToReturn.className);
         	$('#startingDate').val(data.classToReturn.startingDate);
         	$('#classType').val(data.classToReturn.classTime);
-        	$('#classTime span.filter-option').text(data.classToReturn.classTime);
+        	$('#classTime').val(data.classToReturn.classTime.substr(0, 5));
+        	$('#time span.filter-option').text(data.classToReturn.classTime.substr(5, 7));
         	
         	if(data.classToReturn.classType == "quarter")
         	{

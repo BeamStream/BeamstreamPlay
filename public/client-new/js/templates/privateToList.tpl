@@ -14,8 +14,8 @@
   -->
 
 
-	 {{#each data}}
-		<li><a id="{{this.stream.id.id}}" name="{{this.stream.streamName}}" href="#">{{this.stream.streamName}}</a></li>   
+	 {{#each .}}
+		<li><a id="{{stream.id.id}}" name="{{stream.streamName}}" href="#">{{stream.streamName}}</a></li>   
 	 {{/each}}
 	<li>
 		<a href="#">Degree Program</a>

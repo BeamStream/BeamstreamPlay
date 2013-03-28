@@ -48,6 +48,7 @@ define(['baseView',
 			
 			
 			this.streamId = (this.data.models[0])?this.data.models[0].get('stream').id.id:null;
+			this.myStreams = (this.data)?this.data:null;
 		},
 		
         /**
@@ -68,7 +69,7 @@ define(['baseView',
 			/* for the private to list section on Discussion and Question page */ 
 			var listTemplate = Handlebars.compile(PrivateToList);
 			$('.stream-list').html( listTemplate({data: this.data.toJSON()}));
-			$('#Q-privatelist').html(listTemplate({data: this.data.toJSON()}));
+//			$('#Q-privatelist').html(listTemplate({data: this.data.toJSON()}));
 			
 			/* render the left stream list */
 			var compiledTemplate = Handlebars.compile(StreamList);

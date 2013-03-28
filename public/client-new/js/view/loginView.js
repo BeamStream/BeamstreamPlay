@@ -73,6 +73,7 @@ define(['view/formView'], function(FormView ){
 				self.login(eventName); 
 			}
 		},
+
  
 	})
 	return LoginView;
