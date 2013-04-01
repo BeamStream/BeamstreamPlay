@@ -41,9 +41,8 @@ define(['view/formView','../../lib/bootstrap-modal'], function(FormView,Bootstra
 			e.preventDefault();
 			
 			// save only when user enter mail id
-			if($('#mailId').val()){
-				var status = this.saveForm( );
-			}
+			this.data.url = "/betaUser";
+			var status = this.saveForm( );
 			
 		},
 		
@@ -68,6 +67,7 @@ define(['view/formView','../../lib/bootstrap-modal'], function(FormView,Bootstra
 					$("#errorMessage").modal('hide'); 
 				}, 6000);
 			}
+			this.data.reset({mailId : ''});
 		},
 		
 		
