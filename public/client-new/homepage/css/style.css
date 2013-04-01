@@ -18,30 +18,7 @@
 	border:0;
 	outline:0;
 }
-@font-face {
-font-family: 'calibri';
-src: url('../fonts/calibri.eot?') format('eot'),
-url('../fonts/calibri.woff') format('woff'),
-url('../fonts/calibri.ttf') format('truetype');
-}
-@font-face {
-font-family: 'calibrib';
-src: url('../fonts/calibrib.eot?') format('eot'),
-url('../fonts/calibrib.woff') format('woff'),
-url('../fonts/calibrib.ttf') format('truetype');
-}
-@font-face {
-font-family: 'calibrii';
-src: url('../fonts/calibrii.eot?') format('eot'),
-url('../fonts/calibrii.woff') format('woff'),
-url('../fonts/calibrii.ttf') format('truetype');
-}
-@font-face {
-font-family: 'calibriz';
-src: url('../fonts/calibriz.eot?') format('eot'),
-url('../fonts/calibriz.woff') format('woff'),
-url('../fonts/calibriz.ttf') format('truetype');
-}
+
 /*
 ---------------------------------------------
   HEADER
@@ -494,7 +471,7 @@ ul.f-share li a:hover{
 	padding:20px 0 60px 0;
 }
 .btm-footer h6{
-	font-family: 'calibri';
+	font-family: 'Droid Sans', sans-serif;
 	font-size:13px;
 	font-weight:700;
 	color:#b3bcc1;
@@ -520,7 +497,7 @@ ul.f-share li a:hover{
 	margin:-6px 20px 0 0;
 }
 .modal-email h4{
-	font-family: 'calibrib';
+	font-family: 'Droid Sans', sans-serif;
 	font-size:19px;
 	font-weight:normal;
 	color:#b2b7ba;
@@ -562,7 +539,7 @@ ul.f-share li a:hover{
 	right:-20px;
 }
 .share-info h2{
-	font-family: 'calibrib';
+	font-family: 'Droid Sans', sans-serif;
 	font-size:33px;
 	font-weight:normal;
 	color:#4190d6;
@@ -574,7 +551,7 @@ ul.f-share li a:hover{
 	margin:0 10px;
 }
 .share-info h5{
-	font-family: 'calibrib';
+	font-family: 'Droid Sans', sans-serif;
 	font-size:19px;
 	font-weight:normal;
 	color:#b2b7ba;
@@ -603,7 +580,7 @@ ul.modal-share li a{
 	-webkit-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;
-	font-family: 'calibrib';
+	font-family: 'Droid Sans', sans-serif;
 	font-size:19px;
 	font-weight:normal;
 	color:#fff;	
@@ -702,7 +679,7 @@ ul.modal-share li a:hover{
 	position:absolute;
 	top:-40px;
 	right:20px;
-	font-family: 'calibrib';
+	font-family: 'Droid Sans', sans-serif;
 	font-size:13px;
 	font-weight:normal;
 	color:#fff;	

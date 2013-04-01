@@ -223,7 +223,7 @@ textarea {
 
 body {
   margin: 0;
-  font-family: 'calibri';
+  font-family: 'Droid Sans', sans-serif;
   font-size: 14px;
   line-height: 20px;
   color: #333333;
@@ -1045,7 +1045,7 @@ input,
 button,
 select,
 textarea {
-  font-family: 'calibri';
+  font-family: 'Droid Sans', sans-serif;
 }
 
 label {
@@ -4442,7 +4442,7 @@ input[type="submit"].btn.btn-mini {
 .navbar-search .search-query {
   padding: 4px 14px;
   margin-bottom: 0;
-  font-family: 'calibri';
+font-family: 'Droid Sans', sans-serif;
   font-size: 13px;
   font-weight: normal;
   line-height: 1;
@@ -5154,7 +5154,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .modal-header h3 {
-	font-family: 'calibri';
+	font-family: 'Droid Sans', sans-serif;
 	font-size:27px;
 	font-weight:normal;
 	color:#565e65;	
@@ -5163,10 +5163,10 @@ input[type="submit"].btn.btn-mini {
   padding:0 0 10px 0;
 }
 .modal-header h3 span {
-	font-family: 'calibrib';
+	font-family: 'Droid Sans', sans-serif;
 }
 .modal-header h5 {
-	font-family: 'calibri';
+	font-family: 'Droid Sans', sans-serif;
 	font-size:19px;
 	font-weight:normal;
 	color:#9aa0a6;	
@@ -5174,7 +5174,7 @@ input[type="submit"].btn.btn-mini {
   line-height: 30px;
 }
 .modal-header h5 span {
-	font-family: 'calibriz';
+	font-family: 'Droid Sans', sans-serif;
 }
 .modal-body {
 	width:90%;
