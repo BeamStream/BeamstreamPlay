@@ -19,7 +19,6 @@
 define(['baseModel'], function(BaseModel) {
 	var Discussion = BaseModel.extend({ 
 		objName: 'Discussion',
-//		urlRoot:'/newMessage',
 		defaults:{
 		},
 		

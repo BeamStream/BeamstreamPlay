@@ -14,6 +14,8 @@
   -->
 
 {{#each .}}
+
+
 <div id= "{{message.id.id}}" class="ask-outer follow-container" name ="{{message.userId.id}}">
             <div class="ask-content">
               <div class="follw-left">
@@ -55,12 +57,12 @@
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
                         <li><a href="#" id="{{message.id.id}}-msgRockCount" class="rocks-message uprocks-message"><span>{{message.rocks}}</span></a></li>
-                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{message.id.id}}-totalComment" >0</span> Comments</a>
+                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{message.id.id}}-totalComment" >{{comments.length}}</span> Comments</a>
 						<a id="{{message.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
                       </ul>
                        
                       </div>
-                      <div id="{{message.id.id}}-allComments" class="comment-wrapper">
+                      <div id="{{message.id.id}}-allComments" class="comment-wrapper" >
                       
                       {{#each comments}}
                       

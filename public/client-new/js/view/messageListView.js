@@ -24,17 +24,22 @@ define(['view/formView'],function(FormView ){
 		messagesPerPage: 10,
 		pageNo: 0,
 		events:{
-			
 		},
 
 		onAfterInit: function(){	
 			this.data.reset();
         },
         
+        onAfterRender: function(){
+        	$('.comment-wrapper').hide();
+        },
+        
         displayNoResult : function(callback) {
 			this.animate.effect = "fade";
 			this.$(".content").html("");
 		},
+		
+        
        
 	})
 	return messageListView;

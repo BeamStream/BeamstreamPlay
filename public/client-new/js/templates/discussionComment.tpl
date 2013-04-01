@@ -13,22 +13,23 @@
 		* -
   -->
 
-
-<div class="answer-description"  id="{{data.id.id}}">
+{{#each .}}
+<div class="answer-description"  id="{{id.id}}">
     <div class="follw-left">          
-        <div class="ask-img"><img id="{{data.id.id}}-image" src=""></div>                      
+        <div class="ask-img"><img id="{{id.id}}-image" src=""></div>                      
     </div>
     <div class="answer-description-info">
       <div class="follow-names">
         <ul class="follow-name-left show-all-block">
-          <li><span>@{{data.firstNameofCommentPoster}} {{data.lastNameofCommentPoster}} </span> -  {{data.timeCreated}}  -  Public</li>
+          <li><span>@{{firstNameofCommentPoster}} {{lastNameofCommentPoster}} </span> -  {{timeCreated}}  -  Public</li>
           <li ><a href="#" class="rock-comments" >Rock</a></li>
           <li><a class="comment-icon" href="#"></a></li>
-             <li class="rocks-small"><a id="{{{data.id.id}}-mrockCount" href="#">{{{data.rocks}}</a></li>
+             <li class="rocks-small"><a id="{{{id.id}}-mrockCount" href="#">{{{rocks}}</a></li>
         </ul>
       </div>
-      <p>{{data.commentBody}}</p>
-      <a id="{{data.id.id}}" href="#" data-username={{data.userId.id}} data-original-title="Delete" class="delete_comment drag-rectangle" ></a>
+      <p>{{commentBody}}</p>
+      <a id="{{id.id}}" href="#" data-username={{userId.id}} data-original-title="Delete" class="delete_comment drag-rectangle" ></a>
     </div>
     <div class="clear"></div>
   </div>
+  {{/each}}

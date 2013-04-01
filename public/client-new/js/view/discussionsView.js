@@ -2,10 +2,12 @@ define(['view/formView',
         'model/discussion',
         'model/comment',
         'view/messageListView',
+//        '../../lib/jquery.preview.full.min',
+        '../../lib/extralib/jquery.embedly.min',
         'text!templates/discussionMessage.tpl',
         'text!templates/discussionComment.tpl',
         'text!templates/privateToList.tpl',
-        ], function(FormView, DiscussionModel, CommentModel ,MessageListView, DiscussionMessage ,DiscussionComment,PrivateToList){
+        ], function(FormView, DiscussionModel, CommentModel ,MessageListView, JqueryEmbedly , DiscussionMessage ,DiscussionComment,PrivateToList){
 	var Discussions;
 	Discussions = FormView.extend({
 		objName: 'Discussion',
@@ -21,13 +23,14 @@ define(['view/formView',
 			 'click .add-comment' : 'showCommentTextArea',
 			 'keypress .add-message-comment' : 'addMessageComments',
 			 'keypress #msg-area' : 'postMessageOnEnterKey',
+			 'click .show-all-comments' : 'showAllCommentList',
+			 'click .show-all' : 'showAllList',
 		 },
 
 		 messagesPerPage: 10,
 		 pageNo: 0,
 			
 		 init: function(){
-			 
 			this.addView(new MessageListView({el: $('#messageListView')}));
 		 },
 			
@@ -35,33 +38,15 @@ define(['view/formView',
             this.data.reset();
             this.pagenum = 1;
             this.pageLimit = 10;
+            
+            this.urlRegex2 =  /^((http|https|ftp):\/\/)/,
+            this.urlRegex1 = /(https?:\/\/[^\s]+)/g,
+            this.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\./]*$/i ;
+		    
             this.setupPushConnection();
             this.comment = new CommentModel();
 		 },
 		 
-		 displayPage: function(callback){
-
-				console.log(this.data.toJSON());
-//				/* render the left stream list */
-//				var compiledTemplate = Handlebars.compile(StreamList);
-//				this.$(".content").html( compiledTemplate(this.data.toJSON()));
-				
-		},
-			
-        
-		 /**
-         * after render 
-         */
-		 onAfterRender: function(){
-        	 
-        	var streamId =  $('#myStream').attr('data-value'); 
-        	
-        	/* for the private to list section on Discussion and Question page */ 
-			var listTemplate = Handlebars.compile(PrivateToList);
-			$('.stream-list').html(listTemplate(this.myStreams.toJSON()));
-//			$('#Q-privatelist').html(listTemplate({data: this.data.toJSON()}));
-		},
-		
 		
         /**
          * post messages 
@@ -72,52 +57,84 @@ define(['view/formView',
  	        var streamId =  $('.sortable li.active').attr('id');
  	        var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
  	        var message = $('#msg-area').val();
- 	        
- 	       //get message access private ? / public ?
-	        var messageAccess;
-	        var msgAccess =  $('#private-to').attr('checked');
-	        var privateTo = $('#select-privateTo').text();
-		    if(msgAccess == "checked")
-		    {
-		    	if(privateTo == "My School")
-		    	{
-		    		messageAccess = "PrivateToSchool";
-		    	}
-		    	else
-		    	{
-		    		messageAccess = "PrivateToClass";
-		    	}
-		    	 
-		    }
-		    else
-		    {
-		  	    messageAccess = "Public";
-		    }
-		    
-		    this.data.url = "/newMessage";
-		    // set values to model
-		    this.data.models[0].save({streamId : streamId, message :message, messageAccess:messageAccess},{
-		    	success : function(model, response) {
-		    		
-		    		$('#msg-area').val("");
-		    		   
-	    		  	/* PUBNUB -- AUTO AJAX PUSH */ 
-		    		PUBNUB.publish({
-		    			channel : "stream",
-		    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response}
-		    		}) 
-                       
-		    		/* display the posted message on feed */
-		    		var compiledTemplate = Handlebars.compile(DiscussionMessage);
-		    		$('#messageListView div.content').prepend( compiledTemplate(response));
-		    		
-		    	},
-		    	error : function(model, response) {
-		    		$('#msg-area').val("");
-                    console.log("error");
-		    	}
+ 	        if(message){
+ 	        	//get message access private ? / public ?
+ 		        var messageAccess;
+ 		        var msgAccess =  $('#private-to').attr('checked');
+ 		        var privateTo = $('#select-privateTo').text();
+ 			    if(msgAccess == "checked")
+ 			    {
+ 			    	if(privateTo == "My School")
+ 			    	{
+ 			    		messageAccess = "PrivateToSchool";
+ 			    	}
+ 			    	else
+ 			    	{
+ 			    		messageAccess = "PrivateToClass";
+ 			    	}
+ 			    	 
+ 			    }
+ 			    else
+ 			    {
+ 			  	    messageAccess = "Public";
+ 			    }
+ 			    
+ 			    this.data.url = "/newMessage";
+ 			    // set values to model
+ 			    this.data.models[0].save({streamId : streamId, message :message, messageAccess:messageAccess},{
+ 			    	success : function(model, response) {
+ 			    		
+ 			    		   
+ 		    		  	/* PUBNUB -- AUTO AJAX PUSH */ 
+ 			    		PUBNUB.publish({
+ 			    			channel : "stream",
+ 			    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response}
+ 			    		}) 
+ 	                       
+ 			    		var msgBody = response[0].message.messageBody;
+ 			    		var msgUrl=  msgBody.replace(self.urlRegex1, function(msgUrlw) {
+ 			    			trueurl= msgUrlw;                                                                  
+ 			    			return msgUrlw;
+ 			    		});
+ 	                             
+ 			    		//to get the extension of the uploaded file
+// 			    		var extension = (trueurl).match(pattern);  
+ 			    		
+ 			    		var linkTag =  msgBody.replace(self.urlRegex1, function(url) {
+ 	           			 	return '<a target="_blank" href="' + url + '">' + url + '</a>';
+ 	           		 	});
+ 	                             
+ 			    		/* display the posted message on feed */
+ 			    		var compiledTemplate = Handlebars.compile(DiscussionMessage);
+ 			    		$('#messageListView div.content').prepend(compiledTemplate(response));
+ 			    		
+ 			    		 if(linkTag)
+ 			    			 $('p#'+response[0].message.id.id+'-id').html(linkTag);
+ 			    		
+ 			    		 // embedly
+ 			    		$('p#'+response[0].message.id.id+'-id').embedly({
+ 	               		 	maxWidth: 200,
+ 	               		 	wmode: 'transparent',
+ 	               		 	method: 'after',
+ 	               		 	key:'4d205b6a796b11e1871a4040d3dc5c07'
+ 					 	 });
+ 	               	 
+ 			    		/* delete default embedly preview */
+ 			    		$('div.selector').attr('display','none');
+ 			    		$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
+ 			    		$('div.selector').remove();
+ 			    		$('.preview_input').remove();
+ 			    		$('#msg-area').val("");
+ 			    		
+ 			    	},
+ 			    	error : function(model, response) {
+ 			    		$('#msg-area').val("");
+ 	                    console.log("error");
+ 			    	}
 
-		    });
+ 			    });
+ 	        }
+ 	       
 		    
         },
         
@@ -263,19 +280,31 @@ define(['view/formView',
 	   			 	
    			 	if(!commentText.match(/^[\s]*$/))
    			 	{
-   			 		this.comment.save({comment : commentText, messageId :parent},{
+//   			 		this.data.url = "/newComment";
+   			 			this.comment.save({comment : commentText, messageId :parent},{
 	   			    	success : function(model, response) {
 		   			    		
 	   			    		$('#'+parent+'-msgComment').val('');
 	   				  		$('#'+parent+'-addComments').slideUp(200);
 	   				  		
 	   	   				    /* display the posted comment  */
-	   			    		_.each(response, function(comment) {
 		   			    			 
 	   				    		var compiledTemplate = Handlebars.compile(DiscussionComment);
-	   				    		$('#'+parent+'-allComments').prepend( compiledTemplate({data:comment}));
-		   				    		
-	   			    		 });
+	   				    		$('#'+parent+'-allComments').prepend(compiledTemplate(response));
+	   				    		
+	   				    		if(!$('#'+parent+'-allComments').is(':visible'))
+	   							{  
+	   								
+	   								$('#'+parent+'-msgRockers').slideUp(1);
+	   								$('#'+parent+'-newCommentList').slideDown(1);
+
+	   								var newComments = $("#tpl-discussion-messages-newComment").html();
+	   								$('#'+parent+'-newCommentList').prepend(compiledTemplate(response));
+	   								
+	   							}
+	   				    		totalComments++; 
+	   				    		$('#'+parent+'-show-hide').text("Hide All");
+	   							$('#'+parent+'-totalComment').text(totalComments);
 	   			    	},
 	   			    	error : function(model, response) {
 	   			    		
@@ -296,9 +325,61 @@ define(['view/formView',
 	    postMessageOnEnterKey: function(eventName){
 	    	
 	    	var self = this;
-			 
+	    	
 			if(eventName.which == 13) {
 				self.postMessage(); 
+			}
+			if(eventName.which == 32){
+				var text = $('#msg-area').val();
+				var links =  text.match(this.urlRegex); 
+				 /* create bitly for each url in text */
+				if(links)
+				{
+					if(!self.urlRegex2.test(links[0])) {
+						urlLink = "http://" + links[0];
+				  	}
+			     	else
+			     	{
+			    		urlLink =links[0];
+			     	}
+						 
+					//To check whether it is google docs or not
+					if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))  
+		            { 
+						/* don't create bitly for shortened  url */
+						if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
+						{
+							/* create bitly  */
+							$.ajax({
+				    			type : 'POST',
+				    			url : "bitly",
+				    			data : {
+				    				 link : urlLink 
+				    			},
+				    			dataType : "json",
+				    			success : function(data) {
+				    				 var msg = $('#msg-area').val();
+				    				 message = msg.replace(links[0],data.data.url);
+				    				 $('#msg-area').val(message);
+						    				
+				    			}
+				    		});
+                                                    
+                            var preview = {
+                                // Instead of posting to the server, send the object to display for
+                                // rendering to the feed.
+                                submit : function(e, data){
+                                  e.preventDefault();
+//                                  this.display.create(data);
+                                  
+                                }
+                            }
+
+//							$('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+						          
+				        }
+		            }
+			    }
 			}
     	},
     	
@@ -335,7 +416,66 @@ define(['view/formView',
 		 	   })
 	    		   		
  		},
+ 		
+ 		 /**
+         * Show / hide all comments of a message
+         */
+        showAllCommentList: function(eventName){
+        	eventName.preventDefault();
+        	var element = eventName.target.parentElement;
+        	var parentUl = $(eventName.target).parent('ul');
+        	
+			var messageId =$(element).parents('div.follow-container').attr('id');
+			
+			$(parentUl).find('a.active').removeClass('active');
+			
+			if($('#'+messageId+'-allComments').is(":visible"))
+			{
+				$(eventName.target).removeClass('active');
+				$('#'+messageId+'-msgRockers').slideUp(1);
+				$('#'+messageId+'-newCommentList').html('');
+				$('#'+messageId+'-allComments').slideUp(600); 
+				$('#'+messageId+'-show-hide').text("Show All");
+			}
+			else
+			{
+				$(eventName.target).addClass('active');
+				$('#'+messageId+'-msgRockers').slideUp(1);
+				$('#'+messageId+'-newCommentList').html('');
+				$('#'+messageId+'-allComments').slideDown(600); 
+				$('#'+messageId+'-show-hide').text("Hide All");
+			}
+        },
  
+        /**
+         * show / hide all comments ..
+         */
+        showAllList: function(eventName){
+        	eventName.preventDefault();
+        	
+        	var element = eventName.target.parentElement;
+        	var parentUl = $(eventName.target).parents('ul');
+        	$(parentUl).find('a.active').removeClass('active');
+			var messageId =$(element).parents('div.follow-container').attr('id');
+			if($('#'+messageId+'-show-hide').text() == "Hide All")
+            {
+				$('#'+messageId+'-msgRockers').slideUp(1);
+				$('#'+messageId+'-newCommentList').html('');
+				$('#'+messageId+'-allComments').slideUp(600); 
+				$(eventName.target).removeClass('active');
+				$(eventName.target).text("Show All");
+            }
+			else
+			{
+				$('#'+messageId+'-msgRockers').slideUp(1);
+				$('#'+messageId+'-newCommentList').html('');
+				$('#'+messageId+'-allComments').slideDown(600);
+				$(eventName.target).addClass('active');
+				$(eventName.target).text("Hide All");
+			}
+			
+        },
+        
 	})
 	return Discussions;
 });
