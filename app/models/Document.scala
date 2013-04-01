@@ -32,7 +32,7 @@ object DocumentAccess extends Enumeration {
 
 }
 
-/*
+/**
  * Enumeration for the document type
  */
 object DocType extends Enumeration {

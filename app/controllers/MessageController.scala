@@ -47,7 +47,7 @@ object MessageController extends Controller {
     println(streamId)
     val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val messageToCreate = new Message(new ObjectId, messageBody, Option(MessageType.Text), Option(MessageAccess.withName(messageAccess)), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)),
-      messagePoster.get.firstName, messagePoster.get.lastName, 0, List(), List(), 0, List())
+      messagePoster.get.firstName, messagePoster.get.lastName, 0, Nil, Nil, 0, Nil)
     val messageId = Message.createMessage(messageToCreate)
     val messageObtained = Message.findMessageById(messageId.get)
     val userMedia = UserMedia.getProfilePicForAUser(messageObtained.get.userId)

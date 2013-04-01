@@ -13,15 +13,12 @@ object tokenEmail {
   }
 
   def securityToken: String = {
-
-    val uuid = UUID.randomUUID();
-    val randomUUIDString = uuid.toString();
-    randomUUIDString
+    UUID.randomUUID.toString
   }
- 
+
 }
 
-//Try
+
 
 
 
