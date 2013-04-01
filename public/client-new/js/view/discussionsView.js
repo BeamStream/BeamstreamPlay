@@ -1,10 +1,11 @@
 define(['view/formView',
         'model/discussion',
         'model/comment',
+        'view/messageListView',
         'text!templates/discussionMessage.tpl',
         'text!templates/discussionComment.tpl',
         'text!templates/privateToList.tpl',
-        ], function(FormView, DiscussionModel, CommentModel , DiscussionMessage ,DiscussionComment,PrivateToList){
+        ], function(FormView, DiscussionModel, CommentModel ,MessageListView, DiscussionMessage ,DiscussionComment,PrivateToList){
 	var Discussions;
 	Discussions = FormView.extend({
 		objName: 'Discussion',
@@ -25,6 +26,11 @@ define(['view/formView',
 		 messagesPerPage: 10,
 		 pageNo: 0,
 			
+		 init: function(){
+			 
+			this.addView(new MessageListView({el: $('#messageListView')}));
+		 },
+			
 		 onAfterInit: function(){	
             this.data.reset();
             this.pagenum = 1;
@@ -32,7 +38,16 @@ define(['view/formView',
             this.setupPushConnection();
             this.comment = new CommentModel();
 		 },
-        
+		 
+		 displayPage: function(callback){
+
+				console.log(this.data.toJSON());
+//				/* render the left stream list */
+//				var compiledTemplate = Handlebars.compile(StreamList);
+//				this.$(".content").html( compiledTemplate(this.data.toJSON()));
+				
+		},
+			
         
 		 /**
          * after render 
@@ -42,8 +57,8 @@ define(['view/formView',
         	var streamId =  $('#myStream').attr('data-value'); 
         	
         	/* for the private to list section on Discussion and Question page */ 
-//			var listTemplate = Handlebars.compile(PrivateToList);
-//			$('.stream-list').html(listTemplate(this.myStreams.toJSON()));
+			var listTemplate = Handlebars.compile(PrivateToList);
+			$('.stream-list').html(listTemplate(this.myStreams.toJSON()));
 //			$('#Q-privatelist').html(listTemplate({data: this.data.toJSON()}));
 		},
 		
@@ -79,31 +94,26 @@ define(['view/formView',
 		  	    messageAccess = "Public";
 		    }
 		    
-		    this.discussion = new DiscussionModel();
-		    this.discussion.url = "/newMessage";
+		    this.data.url = "/newMessage";
 		    // set values to model
-		    this.discussion.save({streamId : streamId, message :message, messageAccess:messageAccess},{
+		    this.data.models[0].save({streamId : streamId, message :message, messageAccess:messageAccess},{
 		    	success : function(model, response) {
 		    		
-		    		   $('#msg-area').val("");
+		    		$('#msg-area').val("");
 		    		   
-		    		   /* PUBNUB -- AUTO AJAX PUSH */ 
-                       PUBNUB.publish({
-                      	 channel : "stream",
-	                         message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response}
-                       }) 
+	    		  	/* PUBNUB -- AUTO AJAX PUSH */ 
+		    		PUBNUB.publish({
+		    			channel : "stream",
+		    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response}
+		    		}) 
                        
-                       
-		    		  /* display the posted message on feed */
-		    		 _.each(response, function(message) {
-		    			 
-			    		var compiledTemplate = Handlebars.compile(DiscussionMessage);
-			    		$('#all-messages').prepend( compiledTemplate({data:message}));
-			    		
-		    		 });
+		    		/* display the posted message on feed */
+		    		var compiledTemplate = Handlebars.compile(DiscussionMessage);
+		    		$('#messageListView div.content').prepend( compiledTemplate(response));
+		    		
 		    	},
 		    	error : function(model, response) {
-		    		
+		    		$('#msg-area').val("");
                     console.log("error");
 		    	}
 
@@ -158,10 +168,16 @@ define(['view/formView',
         	eventName.preventDefault();
         	var self = this;
         	var streamId = $('.sortable li.active').attr('id');
-        	$('#sortBy-select').text($(eventName.target).text());
+        	var sortKey = $(eventName.target).attr('value');
         	
-			this.fetch({'streamId': streamId, 'sortBy': 'date', 'messagesPerPage': this.messagesPerPage, 'pageNo': this.pageNo});
-        		
+        	/* render the message list */
+        	view = this.getViewById('messageListView');
+    		if(view){
+    			view.fetch({'streamId': streamId, 'sortBy': sortKey, 'messagesPerPage': this.messagesPerPage, 'pageNo': this.pageNo});
+
+    		}
+
+			$('#sortBy-select').text($(eventName.target).text());
         },
         
         /**

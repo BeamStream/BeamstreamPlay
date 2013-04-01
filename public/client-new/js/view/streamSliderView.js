@@ -1,10 +1,11 @@
 define(['baseView',
+        'view/messageListView',
         'text!templates/newStreamList.tpl',
         'text!templates/streamSlider.tpl',
         'text!templates/streamTitle.tpl',
         'text!templates/privateToList.tpl',
         '../../lib/jquery.simplyscroll'
-        ],function(BaseView, NewStreamTpl,StreamList,StreamTitle, PrivateToList, simplyscroll){
+        ],function(BaseView,MessageListView, NewStreamTpl,StreamList,StreamTitle, PrivateToList, simplyscroll){
 	
     var streamSliderView; 
     streamSliderView = BaseView.extend({
@@ -15,7 +16,11 @@ define(['baseView',
         	 'click .close-btn' : 'closeStreamTab',
 			 'click .cancel-btn' : 'closeRemoveOption',
 			 'click .sortable li' : 'renderRightContenetsOfSelectedStream',
-//			 'click .sortable li': 'setStreamId'
+		},
+		
+		init: function(){
+			
+			this.addView(new MessageListView({el: $('#messageListView')}));
 		},
                 
         onAfterInit: function(){
@@ -68,18 +73,15 @@ define(['baseView',
 			
 			/* for the private to list section on Discussion and Question page */ 
 			var listTemplate = Handlebars.compile(PrivateToList);
-			$('.stream-list').html( listTemplate({data: this.data.toJSON()}));
-//			$('#Q-privatelist').html(listTemplate({data: this.data.toJSON()}));
+			$('#private-to-list').html( listTemplate(this.data.toJSON()));
+			$('#Q-privatelist').html(listTemplate( this.data.toJSON()));
 			
 			/* render the left stream list */
 			var compiledTemplate = Handlebars.compile(StreamList);
 			this.$(".content").html( compiledTemplate(this.data.toJSON()));
 			
 		},
-		setStreamId: function(e){
-//			this.streamId = e.target.id;
-		},
-                     
+		
         /**
         * slider effect for stream list
         */
@@ -213,37 +215,58 @@ define(['baseView',
 	    },
     	    
 	    /**
-	     * render right contenets of a selected stream
+	     * render right block contents  of a selected stream
 	     */
 	    renderRightContenetsOfSelectedStream: function(eventName){
 	    	
 	    	eventName.preventDefault();
 	    	this.streamId = eventName.target.id;
+	    	
 	    	// disable the content rendering when the stream list is on edit 
 	    	if($('a.done').attr('data-value') == "inActive")
 	    		return;
 	    	
-		    var id = eventName.target.id;
-		    if(!id)
+		    if(!eventName.target.id)
 		    	return;
-		    var streamName = eventName.target.name;
 		      
-		    streamName = $('#'+id+'').attr('name');
-		    
+		    var streamName = $('#'+this.streamId+'').attr('name');
+		    $('#select-privateTo').text(streamName);
+		    $('#Q-privateTo-select').text(streamName);
+		   
 		
 		    // set active style for stream 
 		    $('.sortable li.active').find('div.active-curve').remove();
 		    $('.sortable li.active').removeClass('active');
 		   
-		    $('.sortable li#'+id).addClass('active');
+		    $('.sortable li#'+this.streamId).addClass('active');
 		    $('.sortable li.active').append(this.activeDiv);
 		    var userCount = $('.sortable li.active').attr('data-userCount');
 		    
 		    var compiledTemplate = Handlebars.compile(StreamTitle);
 		    $('.stream-header-left').html(compiledTemplate({streamName: streamName ,userCount:userCount }));
 		    
-
+		    
+		    //render active tab contents
+		    var activeTab = $('.stream-tab li.active').attr('id');
+	        this.renderTabContents(activeTab);
+ 
+	    },
+	    
+	    /**
+	     * render tab contents of selected stream
+	     */
+	    renderTabContents: function(activeTab){
 	    	
+	    	if(activeTab=='discussion' || activeTab=="question"){ 
+	    		/* fetch all messages of a stream for messageListView */
+	    		view = this.getViewById('messageListView');
+	    		if(view){
+	    			
+	    			view.data.url="/allMessagesForAStream";
+	    			view.fetch({'streamId': this.streamId, 'sortBy': 'date', 'messagesPerPage': 12, 'pageNo': 0});
+
+	    		}
+	    	}
 	    }
 	  
     })
