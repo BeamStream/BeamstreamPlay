@@ -2,12 +2,12 @@ define(['view/formView',
         'model/discussion',
         'model/comment',
         'view/messageListView',
-//        '../../lib/jquery.preview.full.min',
+        '../../lib/jquery.preview.full.min',
         '../../lib/extralib/jquery.embedly.min',
         'text!templates/discussionMessage.tpl',
         'text!templates/discussionComment.tpl',
         'text!templates/privateToList.tpl',
-        ], function(FormView, DiscussionModel, CommentModel ,MessageListView, JqueryEmbedly , DiscussionMessage ,DiscussionComment,PrivateToList){
+        ], function(FormView, DiscussionModel, CommentModel ,MessageListView, JqueryPreview, JqueryEmbedly , DiscussionMessage ,DiscussionComment,PrivateToList){
 	var Discussions;
 	Discussions = FormView.extend({
 		objName: 'Discussion',
@@ -375,7 +375,7 @@ define(['view/formView',
                                 }
                             }
 
-//							$('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+							$('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 						          
 				        }
 		            }
