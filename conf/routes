@@ -1,14 +1,6 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
-GET 	/overview               controllers.Overview.index
-GET 	/questions        		controllers.Questions.index
-GET 	/discussions       		controllers.Discussions.index
-#GET 	/deadlines        		controllers.Deadlines.index
-GET 	/recover        		controllers.Deadlines.index
-GET 	/calendar        		controllers.Calendar.index
-
 #User
 GET 	/onlineUsers  								controllers.UserController.getAllOnlineUsers
 POST  	/followUser            						controllers.UserController.followUser
