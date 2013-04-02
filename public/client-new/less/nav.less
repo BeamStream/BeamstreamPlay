@@ -1,0 +1,85 @@
+.header-menu {
+		clear: both;
+		display: block;
+		margin-bottom: -12px;
+		overflow: hidden;
+		padding: 15px 0 0 20px;
+}
+.menu {
+		float: left;
+				
+		ul {
+			margin: 0;
+
+					li {
+						float: left;
+						line-height: 60px;
+						list-style: none;
+						margin: 5px 0 0;					
+						}	
+						
+						a {
+						color:@light-white;
+						font-size: 15px;
+						font-weight: 500;
+						line-height: 30px;
+						margin: 0 3px 0 0;
+						position: relative;
+						text-decoration: none;
+												
+						&:hover, &.active {
+						.box-shadow( #2f4553 0px -4px 0px);
+						color: @dark-blue;
+						background:url(../images/bg.jpg);
+						border-top:solid 1px #fff;								
+						}
+										
+						}
+						a span {	
+						height: 20px;
+						left: 20px;
+						position: absolute;
+						top:15px;
+						width: 22px;
+						background-position:left top no-repeat;		
+						}	
+						
+						.my-stream {
+							  span {								
+								  background-position:0 0;
+							  }	
+								  &:hover span, &.active span{
+								  background-position:0 -33px;
+								  }					
+						}
+						
+						.browse-media {
+							  span{
+									  background-position: -33px 0;										
+							  }
+							  
+							  &:hover span, &.active span{
+							  background-position:-33px -33px;
+							  }
+						}
+						.connections {
+						span{
+								background-position:-66px 0;						
+								}		
+								
+								&:hover span, &.active span{
+								background-position:-66px -33px;
+								}
+						}
+						
+						.other {
+						span{
+								background-position:-99px 0;							
+								}	
+										
+								&:hover span, &.active span{
+								background-position:-99px -33px;
+								}
+						}
+		}			
+}

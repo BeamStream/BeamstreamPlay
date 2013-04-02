@@ -1,0 +1,327 @@
+.registration-info input {
+		 .rounded(@radius: 5px);
+		height:37px;
+		background:@white;
+		padding:0 5%;
+		box-shadow: 0 0 0 1px #CDD4DB;
+		width:90%;
+		margin:0 0 8px 0;
+		color:#425e71;
+		font-size:15px;
+		font-weight:400;
+}
+.registration-info input span {
+		color:#F00;
+}
+
+.red-star{
+color:#da1f1f;
+position:absolute;
+right:10px;
+top:9px;
+font-size:23px;
+font-weight:500;}
+
+.select-star{right:50px;}
+
+.location-note {
+		width:78% !important;
+		float:left;
+}
+.registration-info textarea {
+		 .rounded(@radius: 5px);		
+		.box-shadow(0 0 0 1px #CDD4DB);		 
+		height:37px;
+		background:@white;
+		color:#425e71;
+		font-size:15px;
+		font-weight:400;
+		height:90px;
+		width:90%;
+		margin:0 0 8px 0;
+		resize:none;
+		padding:4% 5%;
+}
+
+.selectpicker-info .register-select {
+		.box-shadow(0 0 0 1px #CDD4DB);
+		width:100% !important;
+		background:@white;
+		line-height:39px;
+		padding-left:5%;
+		color: #2f4553;
+		height:39px;
+}
+
+.register-select.btn .caret {
+		 .rounded(@radius:  0px 4px 4px 0px);	
+		height:40px;
+		background-image:#3e79a9 url(../images/white-arrow.png) no-repeat;
+		background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#3e79a9), to(#529abe));
+		background-image: -webkit-linear-gradient(#3e79a9, #529abe);
+		background-image: -moz-linear-gradient(#3e79a9, #529abe);
+		background-image: -ms-linear-gradient(#3e79a9, #529abe);
+		background-image: -o-linear-gradient(#3e79a9, #529abe);
+		background-image: linear-gradient(#3e79a9, #529abe);
+		-pie-background: linear-gradient(#3e79a9, #529abe);
+		width:40px;
+		margin:0px;
+		right:-2px;
+		position:relative;
+		display:block;
+		top:-1px;
+}
+
+.alert-register {
+		font-size:11px;
+		color:#9fa6aa;
+		padding-bottom:10px;
+}
+
+.alert-register span {
+		background:url(../images/alert.png) right no-repeat;
+		padding:0 15px 0 0;
+		font-size:11px;
+		color:#9fa6aa;
+}
+
+.location-icon {
+		float:left;
+		padding:7px 0 0 7px;
+		background:url(../images/spryte.png)  -93px -360px;
+		width:20px;
+		height:26px;
+}
+
+.upload-photo {
+ 		display:block;
+ 		margin:0 auto;
+}
+.upload-photo a {
+	
+		display:block;
+		margin:0 auto;
+		background-size:100%; 
+		  position: relative;
+         top:-39px;
+}
+.upload-photo a:hover {
+		background:url(../images/upload-photo1.png) no-repeat;
+		background-size:100%; 
+}
+.step-3-photo { 
+	margin:0 auto !important;
+}
+.step-3-photo a{
+		position:relative;top:98px;
+}
+
+.upload-photo a img{
+	background-size:100%;
+	background-color:#fff;
+
+}
+.step-box {
+		 .rounded(@radius: 8px 8px 0 0);
+		background:url(../images/spryte.png) -44px 242px #df3d3d;
+		position:absolute;
+		z-index:0;
+ 		height:250px;
+ 		width:28%;
+        left:34%;
+        top:-20px;
+        padding:2%;
+	 
+}
+.step-box1 {
+		.rounded(@radius:  8px 0 0 8px);	
+		background:url(../images/spryte.png) right 0 #df3d3d;
+		position:relative;
+		z-index:9999;
+}
+.step-box2 {
+		 .rounded(@radius:  0px 8px 8px 0px);
+	    background:url(../images/spryte.png) -2px -1121px #df3d3d;
+		position:relative;
+		z-index:9999;
+}
+.step-box h3, .step-box h4{
+		color:#fff;
+		text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+.step-box h3 {
+		font-size:18px;
+		line-height:30px;
+		font-weight:500;
+}
+.step-box h4 {
+		font-size:15px;
+		font-weight:400;
+
+		padding-bottom:10px;
+}
+.step-box a {
+		 .rounded(@radius: 3px);	
+		font-size:12px;
+		line-height:22px;
+		height:22px;
+		display:inline-block;
+		float:left;
+		margin-left:5%;
+		width:40%;
+		text-align:center;
+		font-weight:500;
+		background:#b23131;
+		color:#6a2828;
+		border-top:solid 1px #7a2222;
+		border-bottom: solid 1px #e66e6e;
+		border-left:solid 1px #a12c2c;
+		border-right:solid 1px #9f2c2c;
+}
+.step-box a:hover {
+		background:@white;
+		color:#df3d3d;
+		border:solid 1px #fff;	
+		text-decoration:none;
+}
+ul.register-social {
+		list-style:none;
+}
+ul.register-social li {
+		float:left;
+		width:100%;
+		position:relative;
+}
+
+ul.register-social li.active {
+background: url(../images/tick.png) no-repeat scroll 5px 32px transparent;
+	
+}
+ul.register-social li.active a {
+opacity:inherit !important;
+	
+}
+.social-close {
+		right:6px;
+		position: absolute;
+		top:15px;
+		background:url(../images/spryte.png) -200px -425px;
+		width: 20px;
+		height: 20px;
+}
+.box-active {
+		.opacity(0.5);
+}
+ul.register-social li a {
+		float:right;
+		width:82%;
+}
+
+.tick-register {
+		float:left;
+		margin:30px 0 0 0;
+		background:url(../images/spryte.png) -71px -368px;
+		width:29px;
+		height:38px;
+}
+
+ul.register-social li a {
+		 .rounded(@radius:3px);		
+		height:58px;
+		display:block;
+		line-height:58px;
+		margin:15px 0 0 0;
+		color:#fff;
+		font-size:15px;
+		font-weight:700;
+		opacity: 0.5;
+		text-shadow: 1px 1px 1px #616161;
+}
+ul.register-social li a:hover, .register-social li a.active{
+		opacity:inherit !important;
+}
+ul.register-social li a span {
+		float:left;
+		width:57px;
+		height:58px; 
+}
+ul.register-social li a span.facebook {
+	background:url(../images/spryte.png) 8px -519px;
+}
+
+ul.register-social li a span.google-plus {
+	background:url(../images/spryte.png) 8px -674px;
+}
+
+ul.register-social li a span.link-in {
+	background:url(../images/spryte.png) 8px -752px;
+}
+ul.register-social li a span.twitter {
+	background:url(../images/spryte.png) 8px -597px;
+}
+ul.register-social li a span.shadow {
+		float:left;
+		background:url(../images/sign-shadow.png) left no-repeat;
+		width:50%;
+		text-align:center;
+}
+
+ul.register-social li a.facebook {
+		.gradient(#3e75b3, #3e75b3,  #4c8dc1);	
+}
+
+ul.register-social li a.twitter {
+		.gradient(#2098bf, #2098bf,  #27aacb);	
+}
+
+ul.register-social li a.google {
+		.gradient(#ae3f3f, #ae3f3f,  #bc4d4d);
+}
+ul.register-social li a.link-in {
+		.gradient(#0988c6, #0988c6,  #0b9dd0);
+}
+.register-top-white {
+		width:45%;
+}
+
+.add-skills {
+		padding:27% 0;
+}
+
+.add-skills h3 {
+		color: #C5CDD2;
+		font-size: 18px;
+		font-weight: 400;
+		line-height: 20px;
+		padding-top: 10px;
+		text-align: center;
+}
+.add-skills h5 {
+		color: #CEA94A;
+		font-size:11px;
+		font-weight:500;
+		padding-bottom: 10px;
+		text-align: center;
+		text-transform: uppercase;
+}
+.photo-project1 {
+		top:185px !important;
+}
+.photo-project {
+		position:relative;
+			padding:10% 0 !important;
+	}
+.upload-box {
+		position:relative;
+		text-align:center;
+}
+.upload-plus {
+		background:url(../images/upload-plus.png) left top no-repeat;
+		float:left;
+		margin:0 0 0 35%;
+		padding:0 0 0 35px;
+		height:30px;
+		font-size:16px;
+		color:#fff;
+		line-height:23px;
+}
