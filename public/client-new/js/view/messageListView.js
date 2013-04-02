@@ -6,7 +6,7 @@
 * Email:                : info@toobler.com
 * Web site              : http://www.toobler.com
 * Created               : 28/February/2013
-* Description           : View for class page
+* Description           : View for Message List on discussion page
 * ==============================================================================================
 * Change History:
 * ----------------------------------------------------------------------------------------------
@@ -32,6 +32,7 @@ define(['view/formView'],function(FormView ){
         
         onAfterRender: function(){
         	$('.comment-wrapper').hide();
+        	
         },
         
         displayNoResult : function(callback) {
