@@ -84,9 +84,7 @@ GET 	/getAllQuestionsForAUser               		controllers.QuestionController.get
 POST 	/giveMeRockersOfQuestion            		controllers.QuestionController.giveMeRockers
 PUT  	/followQuestion            					controllers.QuestionController.followQuestion
 POST  	/voteAnOptionOfAQuestion  					controllers.QuestionController.voteAnOptionOfAQuestion
-POST 	/deleteQuestion               				controllers.QuestionController.deleteQuestion
-#POST 	/getAllQuestionForAStream                	controllers.QuestionController.getAllQuestionForAStreamWithPagination
-POST 	/getAllQuestionsForAStreamSortedbyRocks   	controllers.QuestionController.getAllQuestionsForAStreamSortedbyRocks                
+POST 	/deleteQuestion               				controllers.QuestionController.deleteQuestion              
 POST 	/getAllQuestionsForAStreambyKeyword 		controllers.QuestionController.getAllQuestionsForAStreambyKeyword
 
 #bitly
@@ -186,7 +184,7 @@ GET 	/stream                                     controllers.StreamController.re
 GET  	/browsemedia                              	controllers.MediaController.browseMedia
 
 #Questions
-GET 	/getAllQuestionForAStream/:streamId/:messagesPerPage/:pageNo            controllers.QuestionController.getAllQuestionForAStream(streamId:String,messagesPerPage:Int,pageNo:Int)
+GET 	/getAllQuestionForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo            controllers.QuestionController.getAllQuestionForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
 
 
 
