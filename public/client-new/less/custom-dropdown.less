@@ -1,0 +1,113 @@
+.dropdown-outer {
+		float: left;
+	    margin: 0 55px 0 0 !important;
+  		width: 20%;
+}
+.normal-dropdown {
+		.box-shadow( 0 2px 5px 0 #C9C9C9 inset);
+		.rounded(@radius:8px);
+		background:@white;
+		border-bottom:none;
+     	color:#8b969f;
+		float:left;
+		height:30px;
+		padding-left:10px;
+		text-align:left;
+		width:100%;
+		font-size:13px !important;
+		font-weight:500;
+}
+.class-dropdown {
+		float: left;
+		margin: 0 10px;
+		width: 25%;
+}
+
+.class-dropdown-bg {
+		.rounded(@radius:4px);
+		background: @white;
+		border: 1px solid #C1C1C1;
+		font-size: 14px !important;
+		height: 30px;
+		line-height: 13px !important;
+		padding: 2% 5%;
+		text-align: left;
+		width: 85%;
+		color:#5d5d5d;
+}
+
+.class-dropdown-button {
+		.gradient(#DCDEE1, #DCDEE1,  #EAECEE);	
+		.rounded(@radius: 0 4px 4px 0);
+		border: 1px solid #C1C1C1;
+		height: 30px;
+		padding: 0 5% !important;
+}
+
+#dropdownnew{
+	 list-style:none;
+	position:relative;
+	line-height:1.5em;
+	float:left;
+	display:block;
+	z-index:999;
+	padding:5px 25px 5px 0;
+}
+#dropdownnew .dropdown-menu ul{
+	display:block; 
+	left:10px;
+}
+ #dropdownnew ul {
+		  .rounded(@radius: 6px);	
+	     .box-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+ 		list-style:none;
+ 		background-color: @white;
+		border: 1px solid #ccc;
+		border: 1px solid rgba(0, 0, 0, 0.2);
+       *border-right-width: 2px;
+        *border-bottom-width: 2px;
+}
+ #dropdownnew ul li {
+ width:100%;
+}
+ #dropdownnew ul li a {
+ font-size:15px; background:none; 
+}
+#dropdownnew a {
+	text-decoration:none;
+	background-position:-128px -840px;
+	display:block;
+	font-weight:400;
+	color:#2f4553;
+	font-size:16px;
+	text-shadow:none;
+	line-height:25px;
+	padding: 0 0 0 40px; 
+}
+#dropdownnew a:hover {
+	color:#2f4553;
+}
+#dropdownnew li {
+	float:left;
+	position:relative;
+}
+#dropdownnew ul {
+	position:absolute;
+	display:none;
+	width:13em;
+	top:2em;
+}
+
+#dropdownnew ul ul {
+	top:auto;
+}
+#dropdownnew li ul ul {
+	left:12em;
+	margin:-22px 0 0 10px;
+}
+
+.invite-grade-select .bootstrap-select .dropdown-menu{top:35px; width:170px;}
+
+.invite-small-select .bootstrap-select .dropdown-menu{top:35px; width:170px;}
+
+.scroll-select .bootstrap-select .dropdown-menu ul{height:150px;overflow-x:hidden;}
