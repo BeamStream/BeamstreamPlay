@@ -126,7 +126,6 @@ define(['view/formView',
  			                	self.bar.width(200);
  			                	self.bar.text("100%");
  		                        clearInterval(self.progress);
- 		                                 
  		                            
  		                        $('#msg-area').val("");
  		                        $('#uploded-file').hide();
@@ -135,13 +134,11 @@ define(['view/formView',
  			              	    
  			              	    $('#file-upload-loader').css("display","none");
  			              	    
- 			              	    
  			              	    var datVal = formatDateVal(data.message.timeCreated);
  			  	                
  			  	                $('.progress-container').hide();
  			  	                $('#uploded-file-area').hide();
  			                           
- 			                    
  		                        //var links =  msgBody.match(BS.urlRegex); 
  		                        var msgUrl=  data.message.messageBody.replace(this.urlRegex1, function(msgUrlw) {
  		                        	trueurl= msgUrlw;    
@@ -158,80 +155,12 @@ define(['view/formView',
  	 			  	                	return letter.toUpperCase();
  	 			  	                });
  		                        }
- 			  	               
-// 			                    if(data.message.messageType.name == "Image")
-// 			  					{
-// 			                    	var source = $("#tpl-messages_with_images").html();
-// 			  	  						
-// 			  					}
-// 			  					else if(data.message.messageType.name == "Video")
-// 			  					{
-// 			  						var source = $("#tpl-messages_with_images").html();
-// 			  	  						
-// 			  					}
-// 			  					else
-// 			  					{
-// 			  						var previewImage = '';
-// 			  						var commenImage ="";
-// 			  						var type = "";
-// 			  							 
-// 			  						if(extension == 'Ppt')
-// 			  						{
-// 			  							previewImage= "images/presentations_image.png";
-// 			  	                        type = "ppt";
-// 			  						}
-// 			  						else if(extension == 'Doc')
-// 			  						{
-// 		  								previewImage= "images/docs_image.png";
-// 		  								type = "doc";
-// 			  						}
-// 			  						else if(extension == 'Pdf')
-// 			  						{
-// 		  								previewImage= data.message.anyPreviewImageUrl;
-// 		  								type = "pdf";
-// 			  						}
-// 		  							else
-// 		  							{
-// 		  								previewImage= "images/textimage.png";
-// 		  								commenImage = "true";
-// 		  								type = "doc";
-// 			  								
-// 		  							}
-// 			  							
-// 		  							var datas = {
-// 									    "datas" : data,
-// 		                                "datVal" :datVal,
-// 		                                "previewImage" :previewImage,
-// 		                                "extension" : extension,
-// 		                                "commenImage" : commenImage,
-// 		                                "type" : type,
-// 		                                "owner": owner
-// 		  					        }	
-// 			  						
-// 		  						    var source = $("#tpl-messages_with_docs").html();
-// 			    						
-// 		  						}
-// 			                    
+ 			  	              
  			                   /* display the posted message on feed */
 		 			    		var compiledTemplate = Handlebars.compile(DiscussionMessage);
 		 			    		$('#messageListView div.content').prepend(compiledTemplate([data]));
- 			                           
-// 		                        var template = Handlebars.compile(source);
-// 		                        $('#all-messages').prepend(template(datas));
-// 		                        $('img#'+data.message.id.id+'-img').attr("src", BS.profileImageUrl);
-// 		                        $('.drag-rectangle').tooltip();	
- 		//                        $('input#'+data.id.id+'-url').val(msgUrl); 
- 			                      
-// 			                    BS.selected_medias = [];
-// 			                    $('#share-discussions li.active').removeClass('active');
- 			                    
- 		                      	/* for video popups */
-// 			                    $("area[rel^='prettyPhoto']").prettyPhoto();
-// 		    					$(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
-// 		    					$(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
- 			        			
+ 			                 
  		                    }
-
  		                }); 
  			        	
  			        }
@@ -300,7 +229,6 @@ define(['view/formView',
 		    
         },
         
-        
         /**
 	     * post message on enter key
 	     */
@@ -318,9 +246,6 @@ define(['view/formView',
 				self.generateBitly(links);
 			}
     	},
-    	
-    	
-    	
         
         /**
          * actvate share icon on selection
@@ -692,31 +617,6 @@ define(['view/formView',
 		    
 			var self = this;
 			
-			/* @TODO -- FOR TEST  --- rock message */ 
-//			$.ajax({
-//				type: 'PUT',
-//	            url:'/rockedIt',
-//	            data:{
-//	            	messageId:messageId
-//	            },
-//	            dataType:"json",
-//	            success:function(data){
-//	            	if($('#'+messageId+'-msgRockCount').hasClass('downrocks-message'))
-//	            	{
-//	            		$('#'+messageId+'-msgRockCount').removeClass('downrocks-message');
-//	            		$('#'+messageId+'-msgRockCount').addClass('uprocks-message');
-//	            	}
-//	            	else
-//	            	{
-//	            		$('#'+messageId+'-msgRockCount').removeClass('uprocks-message');
-//	            		$('#'+messageId+'-msgRockCount').addClass('downrocks-message');
-//	            	}
-//	            	
-//	            	// display the count in icon
-//	                $('#'+messageId+'-msgRockCount').find('span').html(data);
-//	               
-//             	}
-//            });
         },
         
         /**
@@ -753,35 +653,6 @@ define(['view/formView',
 
 		    });
 
-			
-//			var self =this;
-//			$.ajax({
-//				type: 'PUT',
-//		        url:'/followMessage',
-//		        data:{
-//		        	messageId:messageId
-//		        },
-//		        dataType:"json",
-//		        success:function(data){
-//		        	
-//		        	//set display
-//		        	if(text == "Unfollow")
-//		    		{
-//		        		 $('#'+eventName.target.id).text("Follow");
-//		    		}
-//		        	else
-//		        	{
-//		        		$('#'+eventName.target.id).text("Unfollow");
-//		        	}
-//		        	 
-//	                /* Auto push */   
-//		        	var streamId =  $('.sortable li.active').attr('id');
-////	                PUBNUB.publish({
-////	                	channel : "msgFollow",
-////	                    message : { pagePushUid: self.pagePushUid ,streamId:streamId}
-////	                })
-//	            }
-//	        });
 	    },
 	    
 	    /**
@@ -811,25 +682,6 @@ define(['view/formView',
 		    	}
 
 		    });
- 		
-	 		
-//        	/* @TODO -- FOR TEST --- Rock comment */
-//    		$.ajax({
-//    			type: 'PUT',
-//                url:'/rockingTheComment',
-//                data:{
-//                	commentId:commentId,
-//                	messageId : messageId
-//                },
-//                dataType:"json",
-//                success:function(data){
-//                	 
-//                	// display the count in icon
-//                	$('#'+commentId+'-rockCount').html(data);
-//                	$('#'+commentId+'-mrockCount').html(data);
-//                	
-//                }
-//            });
         },
         
         /**
