@@ -23,8 +23,13 @@ define(['view/formView',
 			 'click .add-comment' : 'showCommentTextArea',
 			 'keypress .add-message-comment' : 'addMessageComments',
 			 'keypress #msg-area' : 'postMessageOnEnterKey',
+			 'click .rocks-message' : 'rockMessage',
 			 'click .show-all-comments' : 'showAllCommentList',
 			 'click .show-all' : 'showAllList',
+			 'click .rock-message' : 'rockMessage',
+			 'click .follow-message' : 'followMessage',
+			 'click .rock-comments': 'rockComment',
+			 'click .rocks-small a' : 'rockComment',
 		 },
 
 		 messagesPerPage: 10,
@@ -61,10 +66,10 @@ define(['view/formView',
  	        	//get message access private ? / public ?
  		        var messageAccess;
  		        var msgAccess =  $('#private-to').attr('checked');
- 		        var privateTo = $('#select-privateTo').text();
+ 		        var privateTo = $('#select-privateTo').attr('value');
  			    if(msgAccess == "checked")
  			    {
- 			    	if(privateTo == "My School")
+ 			    	if(privateTo == "privateToSchool")
  			    	{
  			    		messageAccess = "PrivateToSchool";
  			    	}
@@ -134,10 +139,30 @@ define(['view/formView',
 
  			    });
  	        }
- 	       
 		    
         },
         
+        
+        /**
+	     * post message on enter key
+	     */
+	    postMessageOnEnterKey: function(eventName){
+	    	
+	    	var self = this;
+	    	
+			if(eventName.which == 13) {
+				self.postMessage(); 
+			}
+			if(eventName.which == 32){
+				var text = $('#msg-area').val();
+				var links =  text.match(this.urlRegex); 
+				 /* create bitly for each url in text */
+				self.generateBitly(links);
+			}
+    	},
+    	
+    	
+    	
         
         /**
          * actvate share icon on selection
@@ -148,6 +173,8 @@ define(['view/formView',
         	
         	$('#private-to').attr('checked',false);
         	$('#select-privateTo').text("Public");
+        	$('#select-privateTo').attr('value', 'public');
+        	
         	if($(eventName.target).parents('li').hasClass('active'))
         	{
         		$(eventName.target).parents('li').removeClass('active');
@@ -168,6 +195,7 @@ define(['view/formView',
         	if($('#private-to').attr('checked')!= 'checked')
         	{
         		$('#select-privateTo').text("Public");
+        		
         	}
         	else
         	{
@@ -190,7 +218,11 @@ define(['view/formView',
         	/* render the message list */
         	view = this.getViewById('messageListView');
     		if(view){
-    			view.fetch({'streamId': streamId, 'sortBy': sortKey, 'messagesPerPage': this.messagesPerPage, 'pageNo': this.pageNo});
+    			
+    			view.data.url="/allMessagesForAStream/"+streamId+"/"+sortKey+"/"+view.messagesPerPage+"/"+view.pageNo;
+    			view.fetch();
+    			
+//    			view.fetch({'streamId': streamId, 'sortBy': sortKey, 'messagesPerPage': this.messagesPerPage, 'pageNo': this.pageNo});
 
     		}
 
@@ -223,9 +255,9 @@ define(['view/formView',
         	
         	eventName.preventDefault();
         	$('#select-privateTo').text($(eventName.target).text());
-        	
+        	$('#select-privateTo').attr('value', $(eventName.target).attr('value'));
         	//uncheck private check box when select Public
-        	if($(eventName.target).text() == "Public")
+        	if($(eventName.target).attr('value') == "public")
         	{
         		$('#private-to').attr('checked',false);
         	}
@@ -319,70 +351,7 @@ define(['view/formView',
         },
         
         
-        /**
-	     * post message on enter key
-	     */
-	    postMessageOnEnterKey: function(eventName){
-	    	
-	    	var self = this;
-	    	
-			if(eventName.which == 13) {
-				self.postMessage(); 
-			}
-			if(eventName.which == 32){
-				var text = $('#msg-area').val();
-				var links =  text.match(this.urlRegex); 
-				 /* create bitly for each url in text */
-				if(links)
-				{
-					if(!self.urlRegex2.test(links[0])) {
-						urlLink = "http://" + links[0];
-				  	}
-			     	else
-			     	{
-			    		urlLink =links[0];
-			     	}
-						 
-					//To check whether it is google docs or not
-					if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))  
-		            { 
-						/* don't create bitly for shortened  url */
-						if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
-						{
-							/* create bitly  */
-							$.ajax({
-				    			type : 'POST',
-				    			url : "bitly",
-				    			data : {
-				    				 link : urlLink 
-				    			},
-				    			dataType : "json",
-				    			success : function(data) {
-				    				 var msg = $('#msg-area').val();
-				    				 message = msg.replace(links[0],data.data.url);
-				    				 $('#msg-area').val(message);
-						    				
-				    			}
-				    		});
-                                                    
-                            var preview = {
-                                // Instead of posting to the server, send the object to display for
-                                // rendering to the feed.
-                                submit : function(e, data){
-                                  e.preventDefault();
-//                                  this.display.create(data);
-                                  
-                                }
-                            }
-
-							$('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
-						          
-				        }
-		            }
-			    }
-			}
-    	},
-    	
+       
     	
     	 /**
 	     * PUBNUB real time push
@@ -474,6 +443,237 @@ define(['view/formView',
 				$(eventName.target).text("Hide All");
 			}
 			
+        },
+        
+        /**
+    	 * generate bitly and preview for url
+    	 */
+    	generateBitly: function(links){
+    		var self = this;
+    		if(links)
+			{
+				if(!self.urlRegex2.test(links[0])) {
+					urlLink = "http://" + links[0];
+			  	}
+		     	else
+		     	{
+		    		urlLink =links[0];
+		     	}
+					 
+				//To check whether it is google docs or not
+				if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))  
+	            { 
+					/* don't create bitly for shortened  url */
+					if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
+					{
+						/* create bitly  */
+						$.ajax({
+			    			type : 'POST',
+			    			url : "bitly",
+			    			data : {
+			    				 link : urlLink 
+			    			},
+			    			dataType : "json",
+			    			success : function(data) {
+			    				 var msg = $('#msg-area').val();
+			    				 message = msg.replace(links[0],data.data.url);
+			    				 $('#msg-area').val(message);
+					    				
+			    			}
+			    		});
+                                                
+                        var preview = {
+                            // Instead of posting to the server, send the object to display for
+                            // rendering to the feed.
+                            submit : function(e, data){
+                              e.preventDefault();
+                              
+                            }
+                        }
+
+						$('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+					          
+			        }
+	            }
+		    }
+    	},
+    	
+    	/**
+	     *  Rocking messages
+	     */
+	    rockMessage: function(eventName){
+	    	
+	    	eventName.preventDefault();
+			var element = eventName.target.parentElement;
+			var messageId =$(element).parents('div.follow-container').attr('id');
+			
+			this.data.url = "/rockedIt";
+			
+			// set values to model
+		    this.data.models[0].save({id : messageId},{
+		    	success : function(model, response) {
+		    		
+		    		if($('#'+messageId+'-msgRockCount').hasClass('downrocks-message'))
+	            	{
+	            		$('#'+messageId+'-msgRockCount').removeClass('downrocks-message');
+	            		$('#'+messageId+'-msgRockCount').addClass('uprocks-message');
+	            	}
+	            	else
+	            	{
+	            		$('#'+messageId+'-msgRockCount').removeClass('uprocks-message');
+	            		$('#'+messageId+'-msgRockCount').addClass('downrocks-message');
+	            	}
+	            	
+	            	// display the count in icon
+	                $('#'+messageId+'-msgRockCount').find('span').html(data);
+		    		
+		    	},
+		    	error : function(model, response) {
+                    console.log("error");
+		    	}
+
+		    });
+		    
+			var self = this;
+			
+			/* @TODO -- FOR TEST  --- rock message */ 
+//			$.ajax({
+//				type: 'PUT',
+//	            url:'/rockedIt',
+//	            data:{
+//	            	messageId:messageId
+//	            },
+//	            dataType:"json",
+//	            success:function(data){
+//	            	if($('#'+messageId+'-msgRockCount').hasClass('downrocks-message'))
+//	            	{
+//	            		$('#'+messageId+'-msgRockCount').removeClass('downrocks-message');
+//	            		$('#'+messageId+'-msgRockCount').addClass('uprocks-message');
+//	            	}
+//	            	else
+//	            	{
+//	            		$('#'+messageId+'-msgRockCount').removeClass('uprocks-message');
+//	            		$('#'+messageId+'-msgRockCount').addClass('downrocks-message');
+//	            	}
+//	            	
+//	            	// display the count in icon
+//	                $('#'+messageId+'-msgRockCount').find('span').html(data);
+//	               
+//             	}
+//            });
+        },
+        
+        /**
+		  * Follow a message
+		  */
+		followMessage: function(eventName){
+			eventName.preventDefault();
+			 
+			var element = eventName.target.parentElement;
+			var messageId =$(element).parents('div.follow-container').attr('id');
+			
+			var text = $('#'+eventName.target.id).text();
+			
+			this.data.url = "/followMessage";
+			
+			// set values to model
+		    this.data.models[0].save({id : messageId},{
+		    	success : function(model, response) {
+		    		//set display
+		        	if(text == "Unfollow")
+		    		{
+		        		 $('#'+eventName.target.id).text("Follow");
+		    		}
+		        	else
+		        	{
+		        		$('#'+eventName.target.id).text("Unfollow");
+		        	}
+		        	 
+		    		
+		    	},
+		    	error : function(model, response) {
+                    console.log("error");
+		    	}
+
+		    });
+
+			
+//			var self =this;
+//			$.ajax({
+//				type: 'PUT',
+//		        url:'/followMessage',
+//		        data:{
+//		        	messageId:messageId
+//		        },
+//		        dataType:"json",
+//		        success:function(data){
+//		        	
+//		        	//set display
+//		        	if(text == "Unfollow")
+//		    		{
+//		        		 $('#'+eventName.target.id).text("Follow");
+//		    		}
+//		        	else
+//		        	{
+//		        		$('#'+eventName.target.id).text("Unfollow");
+//		        	}
+//		        	 
+//	                /* Auto push */   
+//		        	var streamId =  $('.sortable li.active').attr('id');
+////	                PUBNUB.publish({
+////	                	channel : "msgFollow",
+////	                    message : { pagePushUid: self.pagePushUid ,streamId:streamId}
+////	                })
+//	            }
+//	        });
+	    },
+	    
+	    /**
+         *  Rock comments
+         */
+        rockComment: function(eventName){
+        	
+        	eventName.preventDefault();
+        	
+        	var commentId = $(eventName.target).parents('div.answer-description').attr('id');
+        	var messageId = $(eventName.target).parents('div.follow-container').attr('id');
+        	var self = this;
+        	
+        	this.data.url = "/rockingTheComment";
+			
+			// set values to model
+		    this.data.models[0].save({id : messageId ,commentId: commentId},{
+		    	success : function(model, response) {
+		    		
+		    		// display the count in icon
+                	$('#'+commentId+'-rockCount').html(data);
+                	$('#'+commentId+'-mrockCount').html(data);
+		        	 
+		    	},
+		    	error : function(model, response) {
+                    console.log("error");
+		    	}
+
+		    });
+ 		
+	 		
+//        	/* @TODO -- FOR TEST --- Rock comment */
+//    		$.ajax({
+//    			type: 'PUT',
+//                url:'/rockingTheComment',
+//                data:{
+//                	commentId:commentId,
+//                	messageId : messageId
+//                },
+//                dataType:"json",
+//                success:function(data){
+//                	 
+//                	// display the count in icon
+//                	$('#'+commentId+'-rockCount').html(data);
+//                	$('#'+commentId+'-mrockCount').html(data);
+//                	
+//                }
+//            });
         },
         
 	})

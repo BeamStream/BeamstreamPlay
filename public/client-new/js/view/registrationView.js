@@ -20,7 +20,8 @@ define(['view/formView' ,
         '../../lib/bootstrap-select',
         '../../lib/jquery.meio.mask',
         '../../lib/bootstrap-datepicker',
-        ], function(FormView, Bootstrap,BootstrapSelect,MaskedInput, Datepicker){
+        'text!templates/registration.tpl',
+        ], function(FormView, Bootstrap,BootstrapSelect,MaskedInput, Datepicker ,RegistrationTpl){
 	var RegistrationView;
 	RegistrationView = FormView.extend({
 		objName: 'RegistrationView',
@@ -39,13 +40,17 @@ define(['view/formView' ,
 		    'change #graduate': 'showGraduateType'
 			 
 		},
-		
+		init: function(){
+			this.data.url="/ddd";
+			this.data.fetch();
+		},
 		onAfterInit: function(){
 			
 			this.data.reset();
 			this.profile = null;
 			
 		},
+
 		
 		onAfterRender: function(){
 			
@@ -53,6 +58,8 @@ define(['view/formView' ,
 			$('.selectpicker-info').selectpicker({
 			    style: 'register-select'
 			});
+			
+			
 		},
 		
         

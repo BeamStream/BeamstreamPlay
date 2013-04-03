@@ -22,7 +22,7 @@
        
           <div id="step2_block" class="profile-white registration-info box-active">
              <fieldset class="field">  
-            <input id="firstName"  data-name="user.firstName" name="firstName" value=""  type="text" placeholder="First Name">
+            <input id="firstName"  data-name="user.firstName" name="firstName" value="{{stat}}"  type="text" placeholder="First Name">
             <span class="red-star">*</span>
             </fieldset>
             <fieldset class="field">  
