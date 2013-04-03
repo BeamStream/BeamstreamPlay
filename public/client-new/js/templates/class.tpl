@@ -22,7 +22,7 @@
               
 	              <div class="profile-select-block invite-select invite-grade-select field" >
 	                <select id="schoolId" data-name="class.schoolId" name="schoolId"  class="selectpicker-info " style="display: none;">
-	                  <option selected="selected" value="" >School Name?</option>
+	                  <option selected="selected" value="" >School Name</option>
 	                </select>
 	                
 	                <div class="invite-school-arrow "><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
@@ -32,7 +32,7 @@
               	<input id="classCode"  data-name="class.classCode"  name="classCode"  type="text" placeholder="Class Code" name="" class="small-text ">
               </div>
 			  <div class="field"> 
-              <input id="className" data-name="class.className" name="className" type="text" placeholder="Enter the name of your first class"  class="big-text">
+              <input id="className" data-name="class.className" name="className" type="text" placeholder="Enter the name of your class"  class="big-text">
  			 </div>
               
                <div class="field"> 
@@ -63,7 +63,7 @@
                 </select>
                 <div class="invite-small-arrow"><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
               </div>
-              
+             
               <div class="invite-bottom-btn">
               
             <a href="#myModal" class="invite-orange-btn" data-toggle="modal">Add More Classmates</a>
