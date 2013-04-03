@@ -1,0 +1,289 @@
+
+.left-container {
+}
+
+.left-side {
+		margin-top: 20px;
+		padding-top: 20px;
+}
+
+.left-menu {
+		background: url(../images/menu-bg.png) repeat-y right center #323E46;
+		float: right;
+		margin-bottom: 20px;
+}
+
+.clear {
+		clear: both;
+}
+
+.display-stream {
+		float:left;
+}
+
+.display-dropdown {
+ .box-shadow( inset 0 1px 1px rgba(0, 0, 0, 0.8));
+		background: #41505A;
+		border-bottom: 1px solid #747C81 !important;
+		color: #8b979f;
+		font-size: 16px !important;
+		height: 40px;
+		text-align: left;
+		text-shadow: none;
+		padding:0 0 0 5%;
+}
+
+.display-sub {
+		background: none #323E46;
+		border: 1px solid #475259;
+		margin-top: 7px;
+		width: 83%;
+ a {
+ clear: both;
+ color: #8B979F;
+ display: block;
+ font-weight: normal;
+ line-height: 30px;
+ padding: 3px 20px;
+ white-space: nowrap;
+}
+}
+
+.display-sub ul li a {
+ color: @white-color;
+}
+
+.display-sub li > a:hover,
+.display-sub li > a:focus,
+.dropdown-submenu:hover > a {
+ color:  @white-color;
+		text-decoration: none;
+}
+
+.display-caret {
+		border-left: 8px solid transparent;
+		border-right: 8px solid transparent;
+		border-top: 8px solid #8B979F;
+		display: inline-block;
+}
+
+.settings-caret {
+		border-left: 7px solid transparent;
+		border-right: 7px solid transparent;
+		border-top: 7px solid #798e9a;
+		display: inline-block;
+}
+
+.display-toggle {
+ .rounded(@radius:  0 4px 4px 0);
+		background: #1D2123;
+		border-bottom: 1px solid #747C81 !important;
+		border-top: 1px solid #1D2123;
+		box-shadow: none !important;
+		height: 40px;
+		padding:0 5% !important;
+}
+
+.done {
+		background:#5299BD;
+ .rounded(@radius:4px);
+ color:  @white-color;
+		float: right;
+		font-weight:700;
+		font-size:13px;
+ &:hover {
+ background: #D59A1C;
+ text-decoration: none;
+}
+}
+
+.display-scroller {
+		clear: both;
+}
+
+.arrow-block {
+		cursor: pointer;
+		display: block;
+		overflow: hidden;
+		text-align: center;
+		height:15px;
+		width: 100%;
+}
+
+.arrow-block-down {
+		height:0px !important;
+}
+
+.close-btn {
+		float: right;
+		margin: -20px 20px 0;
+		background-position:-159px -32px;
+		height:18px;
+		width:18px;
+}
+
+.remove-btn {
+ .rounded(@radius: 3px);
+ background:@dark-red;
+		border-bottom:solid 1px #612020;
+ color:  @white-color;
+		padding: 0px 5px;
+		position:absolute;
+		width:50px !important;
+		text-align:center !important;
+		right:15px;
+		top:5px;
+		text-transform:uppercase;
+ a {
+ font-size: 11px;
+ font-weight: 700;
+ padding:0px 2px !important;
+ height:20px !important;
+ line-height:20px !important;
+}
+ &:hover {
+ background:@meroon;
+}
+}
+
+.cancel-btn {
+ color:  @white-color;
+		font-size: 11px;
+		font-weight: 700;
+		padding: 0px 5px;
+		position:absolute;
+		right:15px;
+		top:25px;
+		background:none;
+		border:none;
+		text-decoration:underline;
+ a {
+ padding:0px 2px !important;
+ height:20px !important;
+ line-height:20px !important;
+}
+ &:hover {
+ background:none;
+ text-decoration:none;
+}
+}
+
+.read-more {
+ .rounded(@radius:4px);
+ background:@dark-red;
+		border-bottom: 3px solid #612020;
+		float: left;
+		font-size: 13px !important;
+		font-weight: 600;
+		padding: 2px 22px !important;
+		text-transform: uppercase;
+}
+
+.cancel {
+		float: left;
+		font-size: 12px !important;
+		font-weight: 600;
+		padding-left: 10px !important;
+		padding-top: 2px;
+		text-decoration: underline;
+		text-transform: uppercase;
+ a {
+ color:  @white-color;
+ font-size: 13px !important;
+ font-weight: bold;
+ padding-left: 0 !important;
+ text-decoration: underline;
+ text-transform: uppercase;
+}
+}
+
+/*=====
+Left menu
+===============*/
+
+.sortable {
+ .grid {
+overflow: hidden;
+}
+
+li {
+		border-top: 1px solid #475259;
+		height: 31px;
+		list-style: none;
+		padding: 8px 0 8px 15px !important;
+		position: relative;
+		left:21px;
+		background:url(../images/menu-bg.png) right repeat-y #323e46;
+		cursor:pointer;
+		line-height:30px;
+ &:hover {
+ background: #293339;
+}
+
+.red-bg {
+		background: #B93737;
+		display: block;
+		overflow: hidden;
+		padding: 10px 30px;
+}
+
+a {
+ color:  @white-color;
+		display: block;
+		font-size: 16px;
+		padding-left: 35px;
+		padding-right:30px;
+		line-height:30px;
+		height:30px;
+ &:hover {
+text-decoration: none;
+}
+
+.icon1 {
+		background-position: -2px -179px;
+}
+
+.icon2 {
+		background-position: -2px -215px;
+}
+
+.icon3 {
+		background-position: -2px -120px;
+}
+
+.red-active-icon1 {
+		background:url(../images/spryte.png) -2px -149px;
+}
+}
+ &.active {
+ background:url(../images/active-art.png) right repeat-y #fff;
+ a {
+color:#323e46 !important;
+}
+}
+
+.red-active {
+		background:#b93737;
+}
+}
+}
+
+.active-curve {
+		float: left;
+		height:58px;
+		width:20px;
+		left:-20px;
+		position: absolute;
+		top:0px;
+		background-position:-2px -61px;
+}
+
+.handle {
+		cursor: move;
+}
+
+.sortable.connected {
+		float: left;
+		margin: 0;
+		min-height: 100px;
+}

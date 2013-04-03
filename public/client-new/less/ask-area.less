@@ -1,0 +1,397 @@
+
+.ask-outer {
+		background: #E3E5E6;
+		clear: both;
+		display: block;
+		margin:10px 0 0 0;
+		position:relative;
+}
+
+.ask-content {
+		display: block;
+}
+
+.ask-img {
+		float: left;
+		margin: 1% 0 10px;
+		width: 66%;
+ img {
+ width: 100%;
+ border:solid 1px #000;
+ .rounded(@radius:5px);
+}
+}
+
+.delete_msg {
+		width :21px;
+		height:24px;
+		display:none;
+		position :absolute;
+		right:30px;
+		background-position: -286px -363px;
+ &:hover {
+ background-position: -327px -363px;
+}
+}
+
+.ask-type-area {
+ background:@white;
+ &:hover {
+ background:@white !important;
+}
+}
+
+.ask-type-area:hover.ask-type-area:after,
+.ask-type-area:before {
+		border: medium solid transparent;
+		content: " ";
+		height: 0;
+		pointer-events: none;
+		position: absolute;
+		right: 100%;
+		width: 0;
+}
+
+.ask-type-area:hover.ask-type-area:after {
+		border-color: rgba(255, 255, 255, 0) #FFFFFF rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) !important;
+		border-width: 15px;
+		margin-top: -25px;
+		top: 60px;
+}
+
+.ask-type-area:hover.ask-type-area:before {
+		border-color: rgba(205, 212, 219, 0) #848484 rgba(205, 212, 219, 0) rgba(205, 212, 219, 0) !important;
+		border-width: 15px;
+		margin-top: -25px;
+		top: 60px;
+}
+
+.ask-comment {
+ .rounded(@radius:7px);
+ background:@white;
+		border: 1px solid #CDD4DB;
+		float: left;
+		position: relative;
+		width: 96%;
+ p {
+color:@blue-color;
+font-size: 15px;
+}
+
+a {
+		color:#000;
+}
+ &:hover.delete_msg {
+ display:block;
+}
+ &:after, &:before {
+ border: medium solid transparent;
+ content: " ";
+ height: 0;
+ pointer-events: none;
+ position: absolute;
+ right: 100%;
+ width: 0;
+ top: 60px;
+}
+ &:after {
+ border-color: rgba(255, 255, 255, 0) #FFFFFF rgba(255, 255, 255, 0) rgba(255, 255, 255, 0);
+ border-width: 15px;
+ margin-top: -25px;
+}
+ &:before {
+ border-color: rgba(205, 212, 219, 0) #CDD4DB rgba(205, 212, 219, 0) rgba(205, 212, 219, 0);
+ border-width: 16px;
+ margin-top: -26px;
+}
+}
+
+.ask-info {
+		float: left;
+}
+
+.ask-iconinfo {
+		float: left;
+		padding-top: 1%;
+		width: 100%;
+}
+
+ul.answer {
+		float: left;
+		margin: 5px 0 0 0px;
+		padding: 0;
+		width:100%;
+		border-top: 1px solid #CDD4DB;
+ li {
+ line-height: 20px;
+ list-style:none;
+ margin:0 0 0 15px;
+ width:50%;
+ &:hover {
+ color: #5299BD;
+}
+ a {
+ color: #9D9E9E;
+ font-size: 13px;
+ font-weight: 600;
+ &:hover {
+ color: #5299BD;
+ text-decoration: none;
+}
+}
+ input {
+ color: #9D9E9E;
+ width:100%;
+ height:25px;
+}
+}
+}
+
+.ask-button {
+ .gradient(#468bb4, #468bb4, #5da7c6);
+ .rounded(@radius: 5px);
+		color: #396A84 !important;
+		display: block;
+		font-size: 36px;
+		font-weight: bold;
+		height: 55px;
+		line-height: 52px;
+		text-align: center;
+		text-decoration: none;
+		text-shadow: 1px 1px 1px #A1C5D9;
+		cursor: pointer;
+ &:hover {
+ .gradient(#539ABE, #539ABE, #478CB4);
+ text-decoration: none;
+}
+}
+
+.icon-ask {
+		float: left;
+		padding-left: 2%;
+		width: 2%;
+}
+
+.private-chaeck {
+		color: #717171;
+		float: left;
+		font-size: 14px;
+		font-weight:400;
+		line-height: 24px;
+		padding: 3px 0 0;
+}
+
+.add-poll {
+		color: #5299BD;
+		font-size: 12px;
+		font-weight: bold;
+		line-height: 30px;
+		margin: 0 0 0 20px;
+		text-decoration: underline;
+ &:hover {
+ color: #5299BD;
+ text-decoration: none;
+}
+}
+
+.comment-wrapper {
+		clear: both;
+		display: block;
+		overflow: hidden;
+ a {
+ position:relative;
+}
+}
+
+ul.social-icons {
+		float: left;
+		padding-top: 8px;
+		margin-left:30px;
+ li {
+ float: left;
+ list-style: none outside none;
+border:solid 1px #e3e5e6;
+ background:url(../images/social-cons.png) no-repeat;
+margin-right:5px;
+ &:hover {
+ border:solid 1px #bbbdbf;
+ background-position: left -21px #BCBCBC;
+}
+ a {
+ text-indent:-9999px;
+ display:block;
+ overflow:hidden;
+ float:left;
+ width:26px;
+}
+ .google-plus {
+ background-position:-1px -424px;
+ &:hover, &.active {
+ background-position:-1px -445px #BCBCBC;
+}
+}
+ .plus {
+ background-position:-26px -425px;
+ &:hover, &.active {
+ background-position:-26px -446px #BCBCBC;
+}
+}
+ .twitter {
+ background-position:-51px -424px;
+ &:hover, &.active {
+ background-position:-51px -445px #BCBCBC;
+}
+}
+ .facebook {
+ background-position: -75px -424px;
+ &:hover, &.active {
+ background-position: -75px -445px #BCBCBC;
+}
+}
+ .in {
+ background-position: -97px -424px;
+ &:hover, &.active {
+ background-position: -97px -445px #BCBCBC;
+}
+}
+}
+}
+
+.follow-container {
+		background: none;
+}
+
+.follw-left {
+		float: left;
+}
+
+.small-image {
+		float: left;
+		width: 100%;
+}
+
+.follow-button {
+ .gradient(#4c9351, #4c9351, #3a713d);
+ .rounded(@radius:4px);
+ color:  @white-color;
+		float: left;
+		font-size: 10px;
+		font-weight: bold;
+		padding: 0 8px;
+		text-decoration: none;
+		text-shadow: 1px 1px 1px #888888;
+		text-transform: uppercase;
+ &:hover {
+ color: #D4D4D4;
+ text-decoration: none;
+}
+}
+
+.follow-names {
+ color: @grey-color;
+		display: block;
+		font-size: 13px;
+		overflow: hidden;
+		padding: 0 0 1%;
+}
+
+.follow-right {
+		float: right;
+}
+
+.follow-names span {
+		color: #5299BD;
+		font-weight: bold;
+}
+
+.ask-comment .follow-button {
+		float: right;
+		margin: 5px 0 0;
+		color:#fff;
+}
+
+.follow-bottom {
+		display: block;
+		padding: 1% 0;
+}
+
+ul.follow-bottom-menu {
+		float: left;
+		margin-left: 0;
+		width: 40%;
+}
+
+ul.follow-bottom-menu li {
+		float: left;
+		line-height: 30px;
+		list-style: none;
+		padding-right: 4%;
+}
+
+ul.follow-bottom-menu li a {
+		color: #D8A21F;
+		font-size: 12px;
+		font-weight: bold;
+		text-decoration: underline;
+}
+
+ul.follow-bottom-menu li a:hover {
+		text-decoration: none;
+}
+
+ul.follow-bottom-menu li a.rocks {
+		background: url(../images/rocks-icon.png) no-repeat left top;
+		color: #5299BD;
+		display: block;
+		height: 30px;
+		padding-left: 35%;
+}
+
+.follow-icons {
+		float: left;
+}
+
+ul.icons-ask {
+		float: left;
+		margin-left: 7px;
+		padding: 3px 0 0;
+ li {
+ float: left;
+ list-style: none outside none;
+ margin: 0 10px 0 0;
+ background-position: -1px -362px;
+ width:25px;
+ cursor:pointer;
+ height:28px;
+ &:hover {
+ .opacity(7);
+}
+ .active {
+ background:#c1c3c5;
+display:block;
+}
+ .attach {
+ background-position: -1px -362px;
+}
+ .tag {
+ background-position: -1px -390px;
+}
+}
+}
+
+ul.follow-bottom-icons {
+		float: right;
+		margin:28px 0 0 0;
+ li {
+ float: left;
+ list-style: none outside none;
+ padding-left: 20px;
+ &:hover {
+ .opacity(7);
+}
+}
+}
+
+.follow-bottom-icons-answer {
+		margin:0px !important;
+}
