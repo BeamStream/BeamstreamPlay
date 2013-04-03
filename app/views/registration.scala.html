@@ -28,7 +28,7 @@
 	    	
 	    	$('#newSchoolModal').modal("show");
 	    	// shows the entered school name on registration page in a add new school popup
-			$('#new-school').attr('value',schoolName);
+// 			$('#new-school').attr('value',schoolName);
 
 		}
 	</script>
@@ -88,9 +88,8 @@
 @main("Registration", "Body",CSS,meta, JS, bodyModule, bodyJS, sideBar, header, footer){
 @println(userId, userInfoJson)
 
-
 	   <!------ for registration page------->
-	   <div  id="registration"  data-model="user"  data-module="view/registrationView"  data-tpl="templates/registration.tpl">
+	   <div  id="registration" value='@userInfoJson'  data-model="user"  data-module="view/registrationView"  data-tpl="templates/registration.tpl">
                
         </div>
 	 
