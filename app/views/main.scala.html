@@ -11,6 +11,8 @@
   <head>
     <title>@title</title>
     @meta
+    
+    <!-- --Start---- -->
     <!-- css for landing page  is different from the css files for inner pages $ to avoid some conflicts commented some css here -->
      <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/beamstream-new/css/style.css" rel="stylesheet" type="text/css" />    
@@ -20,6 +22,8 @@
     <link href='http://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'> 
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" 	rel="stylesheet" type="text/css" />  -->
 	<link href="/beamstream-new/css/global.css" rel="stylesheet" type="text/css" /> 
+	<!-- ----End--- -->
+	
     @CSS
     <script src="/beamstream-new/js/apps/common/modernizr-2.6.1.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
@@ -30,7 +34,20 @@
       /* for beta user share popups */ 
       localStorage["shareWidget"] ='';
 
+      /*  Method to format date and returns */
+		function formatDateVal(dateVal) {
+			var m_names = new Array("January", "February", "March", "April", "May",
+					"June", "July", "August", "September", "October", "November",
+					"December");
+			var d = new Date(dateVal);
+			var curr_date = d.getDate();
+			var curr_month = d.getMonth() + 1; //Months are zero based
+			var curr_year = d.getFullYear();
+			return curr_date + " " + m_names[d.getMonth()] + ", " + curr_year;
+		}
+
     </script>
+	   
     <script type="text/javascript">
 
 	 var _gaq = _gaq || [];

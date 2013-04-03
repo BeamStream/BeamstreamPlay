@@ -31,7 +31,7 @@ define(['view/formView'],function(FormView ){
         },
         
         onAfterRender: function(){
-        	$('.comment-wrapper').hide();
+        	$('.commentList').hide();
         	
         },
         
