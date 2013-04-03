@@ -18,9 +18,10 @@
 define(['view/formView' ,
         '../../lib/bootstrap.min',
         '../../lib/bootstrap-select',
+        '../../lib/bootstrap-modal',
         '../../lib/jquery.meio.mask',
         '../../lib/bootstrap-datepicker',
-        ], function(FormView, Bootstrap,BootstrapSelect,MaskedInput, Datepicker){
+        ], function(FormView, Bootstrap,BootstrapSelect,BootstrapModal,MaskedInput, Datepicker){
 	var RegistrationView;
 	RegistrationView = FormView.extend({
 		objName: 'RegistrationView',
@@ -32,6 +33,8 @@ define(['view/formView' ,
 			'click .browse' : 'uploadProfilePic',
 			'change #uploadProfilePic' :'changeProfile',
 			'click #done_step3':'completeRegistration',
+			'click #addPhoto' : 'uploadProfilePic',
+			'click #continue' : 'noprofilepic',
 			'click .register-social':'connectMedia',
 			'keyup #schoolName' : 'populateSchools',
 		    'focusin #schoolName' : 'populateSchools',
@@ -162,7 +165,7 @@ define(['view/formView' ,
 		    $('button#gradeLevel span:first').text('Grade Level?');
 		    $('button#graduate span:first').text('Graduated?');
 			$('#step2_block input').attr('value','');
-			$('#step2_block textarea').attr('value','')
+			$('#step2_block textarea').attr('value','');
 			$('.error').remove();
 			
 		},
@@ -172,6 +175,7 @@ define(['view/formView' ,
 		 */
 		uploadProfilePic: function(e){
 			e.preventDefault(); 
+			$("#selectUploadPhoto").modal('hide');
 			$('#uploadProfilePic').click();
 		},
 		
@@ -251,9 +255,15 @@ define(['view/formView' ,
 			}
 			else
 			{
-				$('#profile-error').html('Please select your profile image/video');
+				$("#selectUploadPhoto").modal('show');
 			}
 
+		},
+		
+		noprofilepic: function(e){		
+			e.preventDefault();
+			$("#selectUploadPhoto").modal('hide');
+			window.location = "/class";		
 		},
 		
 		

@@ -22,7 +22,7 @@
        
           <div id="step2_block" class="profile-white registration-info box-active">
              <fieldset class="field">  
-            <input id="firstName"  data-name="user.firstName" name="firstName" value=""  type="text" placeholder="First Name">
+            <input id="firstName"  data-name="user.firstName" name="firstName" value="{{stat}}"  type="text" placeholder="First Name">
             <span class="red-star">*</span>
             </fieldset>
             <fieldset class="field">  
@@ -175,6 +175,19 @@
 		</div>
  
         </div>
+        
+        <!---- for  popups after Upload Photo----->
+			<div id="selectUploadPhoto" style="top: 65% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-header">
+				    <h3>Are you sure you don't want add your stunning profile pic?</h3><button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
+				  </div>
+				  <div class="modal-body">    
+				  <div class="invite-bottom-btn">
+ 		  			<a id="addPhoto" class="invite-green-btn" href="#">Yes upload photo</a>  
+ 		  			<a id="continue" class="invite-green-btn" href="#">Don't upload CONTINUE </a>
+ 		  			</div>
+			  	</div>
+	 		</div>	
 
            <ul class="profile-top-menu profile-white register-top-white photo-project">
               <h3> Add Photos / Projects</h3>

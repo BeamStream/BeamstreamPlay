@@ -108,6 +108,19 @@ Handlebars.registerHelper('log', function(context) {
   Handlebars.log(context);
 });
 
+/**
+ * Added by Aswathy.P.R
+ * for ifequal functionality
+ */
+Handlebars.registerHelper('ifequal', function (val1, val2,options) {
+    if (val1 === val2) {
+    	return options.fn(this);
+    }
+    else{
+    	return options.inverse(this);
+    }
+});
+
 }(this.Handlebars));
 ;
 // lib/handlebars/compiler/parser.js

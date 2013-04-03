@@ -15,17 +15,17 @@
 
 
 	 {{#each .}}
-		<li><a id="{{stream.id.id}}" name="{{stream.streamName}}" href="#">{{stream.streamName}}</a></li>   
+		<li><a id="{{stream.id.id}}" name="{{stream.streamName}}" value="PrivateToClass" href="#">{{stream.streamName}}</a></li>   
 	 {{/each}}
 	<li>
-		<a href="#">Degree Program</a>
+		<a href="#" value="degreeProgram" >Degree Program</a>
 	</li>
 	<li>
-		<a href="#">My Graduating Year </a>
+		<a href="#" value="graduateYear">My Graduating Year </a>
 	</li>
 	<li>
-		<a href="#">My School</a>
+		<a href="#" value="privateToSchool" >My School</a>
 	</li>
 	<li>
-		<a href="#">Public</a>
+		<a href="#" value="public" >Public</a>
 	</li>

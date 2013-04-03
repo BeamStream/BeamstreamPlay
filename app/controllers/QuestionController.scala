@@ -197,10 +197,18 @@ object QuestionController extends Controller {
  * ***********************************************************REARCHITECTED CODE****************************************************************
  * ***********************************************************REARCHITECTED CODE****************************************************************
  */
-  def getAllQuestionForAStream(streamId: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
+  def getAllQuestionForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
 
     try {
-      val allQuestionsForAStream = Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+      
+      val allQuestionsForAStream = (sortBy == "date") match {
+        case true => Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+        case false => (sortBy == "rock") match {
+          case true => Question.getAllQuestionsForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
+          case false => Nil
+        }
+      }
+      
       val allQuestionForAStreamJson = write(Question.returnQuestionsWithPolls(allQuestionsForAStream))
       Ok(allQuestionForAStreamJson).as("application/json")
     } catch {

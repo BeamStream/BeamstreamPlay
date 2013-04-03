@@ -47,8 +47,12 @@ define(['pageView',
 	    		view = this.getViewById('messageListView');
 	    		if(view){
 	    			view.myStreams = this.getViewById('sidebar').myStreams;
-	    			view.data.url="/allMessagesForAStream";
-	    			view.fetch({'streamId': this.getViewById('sidebar').streamId, 'sortBy': 'date', 'messagesPerPage': view.messagesPerPage, 'pageNo': view.pageNo});
+	    			
+	    			view.data.url="/allMessagesForAStream/"+this.getViewById('sidebar').streamId+"/date/"+view.messagesPerPage+"/"+view.pageNo;
+	    			view.fetch();
+	    			
+//	    			view.data.url="/allMessagesForAStream";
+//	    			view.fetch({'streamId': this.getViewById('sidebar').streamId, 'sortBy': 'date', 'messagesPerPage': view.messagesPerPage, 'pageNo': view.pageNo});
 
 	    		}
 	    	}

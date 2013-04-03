@@ -262,8 +262,11 @@ define(['baseView',
 	    		view = this.getViewById('messageListView');
 	    		if(view){
 	    			
-	    			view.data.url="/allMessagesForAStream";
-	    			view.fetch({'streamId': this.streamId, 'sortBy': 'date', 'messagesPerPage': 12, 'pageNo': 0});
+	    			view.data.url="/allMessagesForAStream/"+this.streamId+"/date/"+10+"/"+0;
+	    			view.fetch();
+
+//	    			view.data.url="/allMessagesForAStream";
+//	    			view.fetch({'streamId': this.streamId, 'sortBy': 'date', 'messagesPerPage': 12, 'pageNo': 0});
 
 	    		}
 	    	}
