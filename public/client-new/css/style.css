@@ -3924,13 +3924,13 @@ ul.signup-register li input {
 }
 
 .registration-header {
-		-moz-opacity:.8;
-		-khtml-opacity:.8;
-		-webkit-opacity:.8;
-		opacity:.8;
-		-ms-filter:alpha(opacity=80);
-		filter:alpha(opacity=80);
-		background:#000;
+		-moz-opacity:.9;
+		-khtml-opacity:.9;
+		-webkit-opacity:.9;
+		opacity:.9;
+		-ms-filter:alpha(opacity=90);
+		filter:alpha(opacity=90);
+		background:#fff;
 		display:block;
 		height:103%;
 		left:0;
@@ -3941,11 +3941,11 @@ ul.signup-register li input {
 }
 
 .registration-header h6 {
-		color:#fff;
+		color:#385160;
 		padding-left:40px;
 		line-height:142px;
 		font-size:14px;
-		text-shadow:1px 1px 1px #616161;
+		text-shadow:none;
 }
 
 .register-menu-block {

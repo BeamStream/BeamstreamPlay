@@ -140,3 +140,11 @@ ul.recover li{
 	float:left;
 	margin-top:3%;
 }
+/*********for image upload popup*******/
+#selectUploadPhoto{
+	width: 53%;
+	left: 60%;
+}
+#addPhoto{
+	margin-right: 5%;
+}
