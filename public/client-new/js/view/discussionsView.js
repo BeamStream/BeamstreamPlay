@@ -137,26 +137,10 @@ define(['view/formView',
  			              	    
  			              	    
  			              	    var datVal = formatDateVal(data.message.timeCreated);
- 			                  	 
-// 			  	                var datas = {
-// 			  	                		"datas" : data,
-// 			  	                		"datVal" :datVal,
-// 			  	                		"owner": owner,
-// 			  	                		
-// 			  		            }	
  			  	                
  			  	                $('.progress-container').hide();
  			  	                $('#uploded-file-area').hide();
- 			  	                
- 			  	               
-// 			  	                /* Pubnub auto push */
-// 			  	                PUBNUB.publish({
-// 			  	                	channel : "stream",
-// 			  	                		message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:data,prifileImage : BS.profileImageUrl}
-// 			  	                }) 
- 		                      
  			                           
- 		                        /*show image preview icons  */
  			                    
  		                        //var links =  msgBody.match(BS.urlRegex); 
  		                        var msgUrl=  data.message.messageBody.replace(this.urlRegex1, function(msgUrlw) {
@@ -546,12 +530,10 @@ define(['view/formView',
 					 { 
 						 if(message.streamId==streamId)
 			       		 	{
-							 /* display the posted message on feed */
-		  		    		 _.each(message.data, function(message) {
+							   /* display the posted message on feed */
 		  			    		var compiledTemplate = Handlebars.compile(DiscussionMessage);
-		  			    		$('#all-messages').prepend( compiledTemplate({data:message}));
+		  			    		$('#messageListView div.content').prepend( compiledTemplate(message.data));
 		  			    		
-		  		    		 });
 			       		 	}
 				 	   }
 			 
