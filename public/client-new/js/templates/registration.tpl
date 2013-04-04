@@ -146,19 +146,20 @@
          	  <div id="step_1" class="step-box step-box1">
 	              <h3>Step 1 of 3 </h3>
 	              <h4>Make registration a breeze - Connect Your Social Networks</h4>
-	              <a href="#">RESET</a> <a id="done_step1" href="#">NEXT</a> 
+	              <a id ="skip_step1" href="#">Skip this step</a> <a id="done_step1" href="#">Continue</a> 
               </div>
               
               <div id="step_2" style="display:none;" class="step-box step-box1 step-box2 step-two">
 	              <h3>Step 2 of 3 </h3>
-	              <h4>Basci Profile Section</h4>
-		          <a id="step2-reset" href="#">RESET</a> <a id="done_step2" href="#">NEXT</a> 
+	              <h4>Basic Profile Section</h4>
+		          <a id="step2-reset" href="#">Reset</a> <a id="done_step2" href="#">Continue</a> 
+		          
 	          </div>
 	          
 	          <div id="step_3" style="display:none;" class="step-box">
 	              <h3>Step 3 of 3 </h3>
 	              <h4>Upload Your Main Profile Photo</h4> <span class="profile-loading" style="display:none;;"> <img src ="/beamstream/images/loading.gif"></span>
-	              <a class="browse" href="#">BROWSE </a> <a id="done_step3" href="#">DONE</a> 
+	              <a id="skip_step3" href="#">Skip this step</a> <a class="browse" href="#">Continue </a>  
               </div>
 
 
