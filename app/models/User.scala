@@ -16,6 +16,7 @@ import com.mongodb.casbah.WriteConcern
 import utils.SendEmailUtility
 import utils.PasswordHashingUtil
 import utils.PasswordHashingUtil
+import play.api.libs.json.JsValue
 
 case class User(@Key("_id") id: ObjectId,
   userType: UserType.Value,
@@ -35,7 +36,8 @@ case class User(@Key("_id") id: ObjectId,
   classes: List[ObjectId],
   documents: List[ObjectId],
   questions: List[ObjectId],
-  followers: List[ObjectId])
+  followers: List[ObjectId],
+  socialJson: Option[JsValue])
 
 object User {
 
