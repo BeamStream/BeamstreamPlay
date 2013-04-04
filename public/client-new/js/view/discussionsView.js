@@ -631,10 +631,12 @@ define(['view/formView',
 			
 			var text = $('#'+eventName.target.id).text();
 			
-			this.data.url = "/followMessage";
+//			this.data.url = "/followMessage";
 			
 			// set values to model
-		    this.data.models[0].save({id : messageId},{
+			var Discussion = new DiscussionModel();
+			Discussion.urlRoot = "/followMessage";
+			Discussion.save({id : messageId},{
 		    	success : function(model, response) {
 		    		//set display
 		        	if(text == "Unfollow")
