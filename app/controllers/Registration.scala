@@ -45,8 +45,9 @@ object Registration extends Controller {
    * User Registration In Detail (RA)
    */
   def registerUser = Action { implicit request =>
-    try {
+//    try {
       val jsonReceived = request.body.asJson.get
+      println(jsonReceived)
       var degreeExpectedSeason: Option[DegreeExpected.Value] = None
       var graduationDateFound: Option[Date] = None
       val userId = (jsonReceived \ "userId").as[String]
@@ -75,8 +76,8 @@ object Registration extends Controller {
       val userCreated = User.getUserProfile(new ObjectId(userId))
       onlineUserCache.setOnline(userId)
       Ok(write(RegistrationResults(userCreated.get, userSchool))).as("application/json").withSession("userId" -> userId)
-    } catch {
-      case exception => InternalServerError(write("Oops there were errors during registration")).as("application/json")
-    }
+//    } catch {
+//      case exception => InternalServerError(write("Oops there were errors during registration")).as("application/json")
+//    }
   }
 }

@@ -113,18 +113,7 @@ object Class {
     classesOfAUser
   }
 
-  /**
-   * Get All Refreshed Classes
-   */
-
-  def getAllRefreshedClasss(classes: List[Class]): List[Class] = {
-    var classList: List[Class] = List()
-    for (eachClass <- classes) {
-      val classObtained = ClassDAO.find(MongoDBObject("_id" -> eachClass.id)).toList
-      classList ++= classObtained
-    }
-    classList
-  }
+ 
 
   /**
    * ********************************************** Re architecture ****************************************
@@ -133,7 +122,7 @@ object Class {
     val classId = ClassDAO.insert(classCreated)
     User.addClassToUser(userId, List(classId.get))
     // Create the Stream for this class
-    val streamToCreate = new Stream(new ObjectId, classCreated.className, StreamType.Class, userId, List(userId), true, List())
+    val streamToCreate = Stream(new ObjectId, classCreated.className, StreamType.Class, userId, List(userId), true, List())
     val streamId = Stream.createStream(streamToCreate)
     Stream.attachStreamtoClass(streamId, classId.get)
     val user = User.getUserProfile(userId)
