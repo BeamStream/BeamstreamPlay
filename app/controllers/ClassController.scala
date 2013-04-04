@@ -120,7 +120,7 @@ object ClassController extends Controller {
         val classesobtained = Class.findClasssById(new ObjectId(id.get))
         val resultToSend = models.Stream.joinStream(classesobtained.get.streams(0), new ObjectId(request.session.get("userId").get))
         if (resultToSend.status == "Success") User.addClassToUser(new ObjectId(request.session.get("userId").get), List(new ObjectId(id.get)))
-        Ok(write(resultToSend)).as("application/json")
+        Ok(write(classesobtained)).as("application/json")
       }
     } catch {
       case exception => InternalServerError("Class Creation Failed")
