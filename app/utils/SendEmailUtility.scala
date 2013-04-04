@@ -10,7 +10,7 @@ import models.Token
 import org.bson.types.ObjectId
 import play.api.Play
 
-object SendEmail {
+object SendEmailUtility {
 
   /**
    * Send Mail Credentials
@@ -29,33 +29,34 @@ object SendEmail {
     (mimeMessage, session)
   }: (MimeMessage, Session)
 
-  //TODO : Will be Integrated through Actors
-  def sendEmail(emailId: String, iam: String) = {
-    val server = Play.current.configuration.getString("server").get // Server address from play configuration
-    val authToken = tokenEmail.securityToken
-    val authenticatedMessageAndSession = SendEmail.setEmailCredentials
-    val recepientAddress = new InternetAddress(emailId)
-    authenticatedMessageAndSession._1.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
-    authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress);
-    authenticatedMessageAndSession._1.setSubject("Registration Process On BeamStream");
-    authenticatedMessageAndSession._1.setContent(
-
-      "Thank you for registering at <b>Beamstream</b>. We're stoked!." +
-        " Please validate your identity and complete your registration by clicking on this link " +
-        "<a href='" + server + "/beamstream/index.html#basicRegistration" + "/token/" + authToken + "/iam/" + iam + "/emailId/" + emailId + "'> Register On BeamStream</a>"
-        + "<br>" + "<br>" + "<br>" +
-        "Cheers," + "<br>" +
-        "The Really Nice Beamstream Folks , US" + "<br>", "text/html");
-    val transport = authenticatedMessageAndSession._2.getTransport("smtp");
-    transport.connect("smtp.gmail.com", Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
-
-    transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
-    val token = new Token((new ObjectId), authToken)
-    Token.addToken(token)
-  }
+  //  //TODO : Will be Integrated through Actors
+  //  def sendEmail(emailId: String, iam: String) = {
+  //    val server = Play.current.configuration.getString("server").get // Server address from play configuration
+  //    val authToken = tokenEmail.securityToken
+  //    val authenticatedMessageAndSession = SendEmail.setEmailCredentials
+  //    val recepientAddress = new InternetAddress(emailId)
+  //    authenticatedMessageAndSession._1.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
+  //    authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress);
+  //    authenticatedMessageAndSession._1.setSubject("Registration Process On BeamStream");
+  //    authenticatedMessageAndSession._1.setContent(
+  //
+  //      "Thank you for registering at <b>Beamstream</b>. We're stoked!." +
+  //        " Please validate your identity and complete your registration by clicking on this link " +
+  //        "<a href='" + server + "/beamstream/index.html#basicRegistration" + "/token/" + authToken + "/iam/" + iam + "/emailId/" + emailId + "'> Register On BeamStream</a>"
+  //        + "<br>" + "<br>" + "<br>" +
+  //        "Cheers," + "<br>" +
+  //        "The Really Nice Beamstream Folks , US" + "<br>", "text/html");
+  //    val transport = authenticatedMessageAndSession._2.getTransport("smtp");
+  //    transport.connect("smtp.gmail.com", Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
+  //
+  //    transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
+  //    val token = new Token((new ObjectId), authToken)
+  //    Token.addToken(token)
+  //  }
 
   /**
    * Forgot Password Functionality
+   * @param
    */
   def sendPassword(emailId: String, password: String) {
 
@@ -77,8 +78,7 @@ object SendEmail {
    * Send Mail After Stream Creation & Joining
    */
   def mailAfterStreamCreation(emailId: String, streamName: String, newStream: Boolean) {
-     println("1 2 future--------")
-    val authenticatedMessageAndSession = SendEmail.setEmailCredentials
+    val authenticatedMessageAndSession = SendEmailUtility.setEmailCredentials
     val recepientAddress = new InternetAddress(emailId)
     authenticatedMessageAndSession._1.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
     authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress)
@@ -101,7 +101,7 @@ object SendEmail {
           "Start sharing now & be a Beamstream's Rocker" + "<br>" + "<br>" ++ "<br>" +
           "Cheers," + "<br>" +
           "The Really Nice Beamstream Folks , US" + "<br>", "text/html")
-          
+
     }
 
     val transport = authenticatedMessageAndSession._2.getTransport("smtp");
@@ -123,16 +123,14 @@ object SendEmail {
         "Cheers," + "<br>" +
         "The Really Nice Beamstream Folks , US" + "<br>"
 
-    sendMessage(emailId, subject, content)	
+    sendMessage(emailId, subject, content)
   }
 
   /**
    * Invite User
    */
 
-  /**
-   * Notify  The User When New User Joins A Stream
-   */
+  
   def inviteUserToBeamstream(emailId: String) {
 
     val content =
@@ -150,9 +148,7 @@ object SendEmail {
    * Invite User with Friend user who referred the user
    */
 
-  /**
-   * Notify  The User When New User Joins A Stream
-   */
+  
   def inviteUserToBeamstreamWithReferral(emailId: String, friend: String) {
     val content =
       "Hello Dear , " + "<br>" + "<br>" +
@@ -169,7 +165,7 @@ object SendEmail {
    * Sends an email given an emailId, Subject, and Message Content
    */
   def sendMessage(emailId: String, subject: String, content: String) {
-    val authenticatedMessageAndSession = SendEmail.setEmailCredentials
+    val authenticatedMessageAndSession = SendEmailUtility.setEmailCredentials
     val recepientAddress = new InternetAddress(emailId)
     authenticatedMessageAndSession._1.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
     authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress)

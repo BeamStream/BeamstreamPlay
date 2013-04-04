@@ -4,14 +4,16 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
-
 import org.dopdf.document.model.PageDetail
 import org.dopdf.document.read.pdf.PDFDocumentReader
-
 import javax.imageio.ImageIO
 
-object PreviewOfPDF {
+object PreviewOfPDFUtil {
 
+  /**
+   * @param docReceived is the pdf file
+   * @param docName is the name of the pdf file
+   */
   def convertPdfToImage(docReceived: File, docName: String) = {
     val byteArrayOutPutStream: ByteArrayOutputStream = new ByteArrayOutputStream
     val inputStream = new FileInputStream(docReceived)

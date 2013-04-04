@@ -13,7 +13,7 @@ import java.io.InputStream
 import models.School
 import org.bson.types.ObjectId
 
-object ReadingSpreadsheet extends App {
+object ReadingSpreadsheetUtil extends App {
 
   /**
    * Read Schools From Spreadsheet and Save In Database If  Not Exist Already

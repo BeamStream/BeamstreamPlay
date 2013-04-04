@@ -14,7 +14,13 @@ import java.awt.image.DataBufferByte
 import java.io.ByteArrayInputStream
 import java.io.InputStream
 
-object ExtractFrameFromVideo  {
+object ExtractFrameFromVideoUtil  {
+  
+  /**
+   * Extracting a Frame From Video
+   * @param filePath is the path of the Video from which the frame has to be extracted
+   */
+  
   def extractFrameFromVideo(filePath: String): InputStream = {
     var ip: InputStream = null
     var count = 0
