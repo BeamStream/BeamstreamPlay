@@ -37,7 +37,7 @@ case class User(@Key("_id") id: ObjectId,
   documents: List[ObjectId],
   questions: List[ObjectId],
   followers: List[ObjectId],
-  socialJson: Option[JsValue])
+  socialJson: Option[String])
 
 object User {
 
@@ -82,9 +82,8 @@ object User {
   /**
    * Creates a User (RA)
    */
-  def createUser(user: User): ObjectId = {
-    val userCreated = UserDAO.insert(user)
-    userCreated.get
+  def createUser(user: User): Option[ObjectId] = {
+    UserDAO.insert(user)
   }
 
   /*
