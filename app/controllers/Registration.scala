@@ -1,22 +1,20 @@
 package controllers
-import play.api.mvc._
-import models.Token
-import models.User
-import org.bson.types.ObjectId
-import models.School
-import models.UserSchool
-import models.Year
-import models.Degree
-import models.Graduated
-import net.liftweb.json.{ parse, DefaultFormats }
-import net.liftweb.json.Serialization.{ read, write }
-import models.RegistrationResults
-import utils.ObjectIdSerializer
-import models.DegreeExpected
+
 import java.text.SimpleDateFormat
 import java.util.Date
+import org.bson.types.ObjectId
+import models.Degree
 import models.DegreeExpected
-import models.OnlineUsers
+import models.Graduated
+import models.RegistrationResults
+import models.Token
+import models.User
+import models.UserSchool
+import models.Year
+import net.liftweb.json.Serialization.write
+import play.api.mvc.Action
+import play.api.mvc.Controller
+import utils.ObjectIdSerializer
 import utils.onlineUserCache
 
 object Registration extends Controller {

@@ -7,10 +7,14 @@ import com.mongodb.casbah.MongoConnection
 
 case class AmazonProgress(userId: String, percentage: Int)
 
-object ProgressStatus {
+object ProgressStatusUtil {
 
+  /**
+   * Add Progress 
+   * @param userId is the Id of the User
+   * @param percentage is the percentage of the done progress
+   */
   def addProgress(userId: String, percentage: Int) = {
-
     val amazonProgressObj = AmazonProgressDAO.find(MongoDBObject("userId" -> userId)).toList
     (!amazonProgressObj.isEmpty) match {
       case true => AmazonProgressDAO.update(MongoDBObject("userId" -> userId), new AmazonProgress(userId, percentage), false, false, new WriteConcern)
@@ -18,7 +22,11 @@ object ProgressStatus {
     }
 
   }
-
+ /**
+   * Find Progress 
+   * @param userId is the Id of the User
+   * 
+   */
   def findProgress(userId: String) = {
     val amazonProgressObj = AmazonProgressDAO.find(MongoDBObject("userId" -> userId)).toList
     (!amazonProgressObj.isEmpty) match {

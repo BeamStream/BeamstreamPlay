@@ -13,12 +13,11 @@ import net.liftweb.json.parse
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.AmazonUpload
-import utils.CompressFile
-import utils.ExtractFrameFromVideo
+import utils.CompressFileUtil
+import utils.ExtractFrameFromVideoUtil
 import utils.ObjectIdSerializer
-//import utils.ProgressBar
-import utils.tokenEmail
-import utils.ProgressStatus
+import utils.tokenEmailUtil
+import utils.ProgressStatusUtil
 import java.util.Date
 import java.text.SimpleDateFormat
 import models.Message
@@ -124,13 +123,13 @@ object MediaController extends Controller {
    */
 
   def media = Action(parse.multipartFormData) { implicit request =>
-//    try {
+    try {
       var imageNameOnAmazon = ""
       var imageFilename = ""
       request.body.file("profileData").map { profileData =>
         imageFilename = profileData.filename
         val contentType = profileData.contentType.get
-        val uniqueString = tokenEmail.securityToken
+        val uniqueString = tokenEmailUtil.securityToken
         val imageFileObtained: File = profileData.ref.file.asInstanceOf[File]
         imageNameOnAmazon = uniqueString + imageFilename.replaceAll("\\s", "") // Security Over the images files
         (new AmazonUpload).uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
@@ -140,16 +139,16 @@ object MediaController extends Controller {
       val media = new UserMedia(new ObjectId, imageFilename, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, DocumentAccess.Public, true, "", 0, List(), List(), 0)
       UserMedia.saveMediaForUser(media)
       Ok(write(new ResulttoSent("Success", "Profile Photo Uploaded Successfully"))).as("application/json")
-//    } catch {
-//      case exception => InternalServerError("Oops , Photo Upload Unsuccessful")
-//    }
+    } catch {
+      case exception => InternalServerError("Oops , Photo Upload Unsuccessful")
+    }
   }
 
   /**
    * obtaining the profile Picture
    * @ Purpose: fetches the recent profile picture for a user
    */
-/*
+  /*
   def getProfilePicForAUser = Action { implicit request =>
     val userIdJsonMap = request.body.asFormUrlEncoded.get
     val userIdReceived = userIdJsonMap("userId").toList(0)
@@ -163,15 +162,17 @@ object MediaController extends Controller {
 
   }
 */
-  /*
+
+  /**
    * Get All Photos for a user
+   *
    */
   def getAllProfilePicForAUser = Action { implicit request =>
     val allProfileMediaForAUser = UserMedia.getAllProfilePicForAUser(new ObjectId(request.session.get("userId").get))
     Ok(write(allProfileMediaForAUser)).as("application/json")
   }
 
-  /*
+  /**
    * Get All Video for a user for a user
    * @Purpose : Show all Video For A User
    */
@@ -192,9 +193,9 @@ object MediaController extends Controller {
     Ok(totalRocksJson).as("application/json")
   }
 
-  /*
-    * Rockers of a document
-    */
+  /**
+   * Rockers of a document
+   */
   def giveMeRockersOfUserMedia = Action { implicit request =>
     val userMediaIdJsonMap = request.body.asFormUrlEncoded.get
     val userMediaId = userMediaIdJsonMap("userMediaId").toList(0)
@@ -203,9 +204,9 @@ object MediaController extends Controller {
     Ok(rockersJson).as("application/json")
   }
 
-  /*
-      * Change the title and description
-      */
+  /**
+   * Change the title and description
+   */
   def changeTitleAndDescriptionUserMedia = Action { implicit request =>
     val mediaIdJsonMap = request.body.asFormUrlEncoded.get
     val id = mediaIdJsonMap("userMediaId").toList(0)
@@ -232,14 +233,11 @@ object MediaController extends Controller {
         Ok(mediaJson).as("application/json")
     }
   }
-  
-  
-  
-/*
- * ***********************************************************REARCHITECTED CODE****************************************************************
- * ***********************************************************REARCHITECTED CODE****************************************************************
- */
-  
+
+  /**
+   * ***********************************************************REARCHITECTED CODE****************************************************************
+   */
+
   /**
    * obtaining the profile Picture
    * @ Purpose: fetches the recent profile picture for a user
@@ -259,9 +257,9 @@ object MediaController extends Controller {
   /**
    * Render Browse Media Page
    */
-  
-  def browseMedia  = Action { implicit  request =>
+
+  def browseMedia = Action { implicit request =>
     Ok(views.html.browsemedia())
   }
-  
+
 }

@@ -16,7 +16,7 @@ import java.text._
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 import utils.ObjectIdSerializer
-import utils.SendEmail
+import utils.SendEmailUtility
 import actors.UtilityActor
 
 case class Class(@Key("_id") id: ObjectId,

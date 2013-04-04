@@ -37,7 +37,6 @@ object SocialController extends Controller {
    */
   def signUpViaSocialSites = Action { implicit request =>
     try {
-
       val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
       val token = tokenList(0)
       val apiKey = Play.current.configuration.getString("janrain_apiKey").get
@@ -46,9 +45,10 @@ object SocialController extends Controller {
       val res = promise.get
       val body = res.getBody
       val json = Json.parse(body)
+      println(json)
       val providerName = (json \ "profile" \ "providerName").asOpt[String].get
       val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
-      val canUserRegister = User.isUserAlreadyRegistered(preferredUsername)
+      val canUserRegister = User.canUserRegister(preferredUsername)
       if (canUserRegister == true) {
         val userToCreate = new User(new ObjectId, UserType.Professional, "", "", "", preferredUsername, "", None, "", "", "", "", "", Option(providerName), List(), List(), List(), List(), List())
         val IdOfUserCreted = User.createUser(userToCreate)

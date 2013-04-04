@@ -159,7 +159,7 @@ object UserController extends Controller {
   def inviteUserToBeamstream = Action { implicit request =>
     val userJsonMap = request.body.asFormUrlEncoded.get
     val emailList = userJsonMap("data").toList.head.split(",").toList
-    for (eachEmail <- emailList) SendEmail.inviteUserToBeamstream(eachEmail)
+    for (eachEmail <- emailList) SendEmailUtility.inviteUserToBeamstream(eachEmail)
     Ok(write(ResulttoSent("Success", "Invitations has been sent"))).as("application/json")
   }
   /**
@@ -248,7 +248,7 @@ object UserController extends Controller {
     for (friend <- friends) {
       var node2: Node = SocialGraphEmbeddedNeo4j.createBSNode(friend.userId, friend.firstName, friend.lastName, node)
       //TODO: userId should be an String EmailAddress rather than an Integer.  Must replace this when ready
-      SendEmail.inviteUserToBeamstreamWithReferral(friend.emailaddress, userId.toString())
+      SendEmailUtility.inviteUserToBeamstreamWithReferral(friend.emailaddress, userId.toString())
     }
     SocialGraphEmbeddedNeo4j.shutDown()
     Ok(write(new ResulttoSent("Success", "Users added to Social stack")))
@@ -287,7 +287,7 @@ object UserController extends Controller {
       val jsonReceived = request.body.asJson.get
       val userEmailorName = (jsonReceived \ "mailId").as[String]
       val userPassword = (jsonReceived \ "password").as[String]
-      val encryptedPassword = (new PasswordHashing).encryptThePassword(userPassword)
+      val encryptedPassword = (new PasswordHashingUtil).encryptThePassword(userPassword)
       val authenticatedUser = User.findUser(userEmailorName, encryptedPassword)
       authenticatedUser match {
         case Some(user) =>

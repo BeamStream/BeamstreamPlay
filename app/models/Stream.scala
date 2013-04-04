@@ -8,7 +8,7 @@ import com.mongodb.casbah.MongoConnection
 import scala.collection.JavaConversions._
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
-import utils.SendEmail
+import utils.SendEmailUtility
 import actors.UtilityActor
 
 case class Stream(@Key("_id") id: ObjectId,
@@ -162,7 +162,7 @@ object Stream {
     for (user <- stream.usersOfStream) {
       val userObtained = User.getUserProfile(user)
       if (!userObtained.get.id.equals(userIdWhoHasJoinedTheStream)) {
-        SendEmail.notifyUsersOfStreamForANewUser(userObtained.get.email, userWhoHasJoinedTheStream.get.firstName, userWhoHasJoinedTheStream.get.lastName, stream.streamName)
+        SendEmailUtility.notifyUsersOfStreamForANewUser(userObtained.get.email, userWhoHasJoinedTheStream.get.firstName, userWhoHasJoinedTheStream.get.lastName, stream.streamName)
       }
     }
     println("Ok Done Now-----------------")

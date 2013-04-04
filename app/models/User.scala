@@ -13,8 +13,9 @@ import play.cache.Cache
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 import com.mongodb.casbah.WriteConcern
-import utils.SendEmail
-import utils.PasswordHashing
+import utils.SendEmailUtility
+import utils.PasswordHashingUtil
+import utils.PasswordHashingUtil
 
 case class User(@Key("_id") id: ObjectId,
   userType: UserType.Value,
@@ -168,8 +169,8 @@ object User {
     (user.size == 0) match {
       case true => false
       case false =>
-        val deryptedPassword = (new PasswordHashing).decryptThePassword(user(0).password.get)
-        SendEmail.sendPassword(emailId, deryptedPassword)
+        val deryptedPassword = (new PasswordHashingUtil).decryptThePassword(user(0).password.get)
+        SendEmailUtility.sendPassword(emailId, deryptedPassword)
         true
     }
   }
@@ -199,7 +200,7 @@ object User {
   /**
    * Check if the User has already registered (RA)
    */
-  def isUserAlreadyRegistered(userEmailOrName: String) = {
+  def canUserRegister(userEmailOrName: String) = {
     val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmailOrName))
     val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userEmailOrName))
     (userHavingSameMailId.isEmpty && userHavingSameUserName.isEmpty) match {

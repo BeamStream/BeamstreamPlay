@@ -170,7 +170,7 @@ object UserSchool {
   //    if (schoolFetchCount == 0) false else true
   //  }
 
-  /*
+  /**
    * Is user contains already the Coming School that he wants to Join
    */
 

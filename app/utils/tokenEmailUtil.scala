@@ -3,8 +3,11 @@ import java.security.SecureRandom
 import java.security.MessageDigest
 import java.util.UUID
 
-object tokenEmail {
+object tokenEmailUtil {
 
+  /**
+   * Generate the security token
+   */
   def generateToken: String = {
     val secureRandom = SecureRandom.getInstance("SHA1PRNG");
     val digest = MessageDigest.getInstance("SHA-256");
@@ -12,6 +15,9 @@ object tokenEmail {
     new String(digest.digest((secureRandom.nextLong() + "").getBytes()))
   }
 
+  /**
+   * Generate the security token using UUID
+   */
   def securityToken: String = {
     UUID.randomUUID.toString
   }

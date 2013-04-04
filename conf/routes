@@ -159,7 +159,7 @@ POST 	/autoPopulateClassesbyCode 				controllers.ClassController.findClasstoAuto
 POST 	/autoPopulateClassesbyName 				controllers.ClassController.findClasstoAutoPopulatebyName
 
 #Login/Signin
-GET 	/login									controllers.Login.index
+#GET 	/login									controllers.Login.index
 POST 	/login      						    controllers.UserController.findUser
 
 

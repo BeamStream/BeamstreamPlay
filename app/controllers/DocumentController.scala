@@ -27,18 +27,18 @@ import models.ResulttoSent
 import play.api.libs.json._
 import play.api.mvc.Action
 import models.ProfileImageProviderCache
-import utils.CompressFile
+import utils.CompressFileUtil
 import models.UserMedia
-import utils.tokenEmail
+import utils.tokenEmailUtil
 import utils.AmazonUpload
 import models.Files
 import utils.DocsUploadOnAmazon
 import models.UserMediaType
-import utils.ExtractFrameFromVideo
+import utils.ExtractFrameFromVideoUtil
 import models.MessageType
 import models.MessageAccess
-import utils.PreviewOfPDF
 import models.DocResulttoSent
+import utils.PreviewOfPDFUtil
 /**
  * This controller class is used to store and retrieve all the information about documents.
  */
@@ -177,9 +177,9 @@ object DocumentController extends Controller {
             val isVideo = contentType.contains("video")
             val isPdf = contentType.contains("pdf")
             val docAccess = documentJsonMap("docAccess").toList(0)
-            val uniqueString = tokenEmail.securityToken
+            val uniqueString = tokenEmailUtil.securityToken
             val documentReceived: File = docData.ref.file.asInstanceOf[File]
-            val docUniqueKey = tokenEmail.securityToken
+            val docUniqueKey = tokenEmailUtil.securityToken
             val docNameOnAmazom = (docUniqueKey + documentName).replaceAll("\\s", "")
             DocsUploadOnAmazon.uploadFileToAmazon(docNameOnAmazom, documentReceived)
             val docURL = "https://s3.amazonaws.com/BeamStream/" + docNameOnAmazom
@@ -194,7 +194,7 @@ object DocumentController extends Controller {
               resultToSend = Option(uploadResults)
             } else {
               if (isPdf == true) {
-                val previewImageUrl = PreviewOfPDF.convertPdfToImage(documentReceived, docNameOnAmazom)
+                val previewImageUrl = PreviewOfPDFUtil.convertPdfToImage(documentReceived, docNameOnAmazom)
                 val uploadResults = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, previewImageUrl)
                 resultToSend = Option(uploadResults)
               } else {
@@ -274,7 +274,7 @@ object DocumentController extends Controller {
      * Save Video
      */
     private def saveVideoFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User, docNameOnAmazon: String) = {
-      val frameOfVideo = ExtractFrameFromVideo.extractFrameFromVideo(docURL)
+      val frameOfVideo = ExtractFrameFromVideoUtil.extractFrameFromVideo(docURL)
       (new AmazonUpload).uploadCompressedFileToAmazon(docNameOnAmazon + "Frame", frameOfVideo, 0, false, userId.toString)
       val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docNameOnAmazon + "Frame"
       val media = new UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Video, DocumentAccess.withName(docAccess), false, videoFrameURL, 0, List(), List())

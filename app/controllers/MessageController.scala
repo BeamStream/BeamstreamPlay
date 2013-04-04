@@ -1,31 +1,20 @@
 package controllers
-import play.api.mvc.Controller
-import play.api._
-import play.api.mvc._
-import models.Stream
-import play.api.Play.current
-import models.Message
-import models.User
-import org.bson.types.ObjectId
-import play.api.cache.Cache
-import models.Media
-import models.UserType
-import java.io.File
+
+import java.text.SimpleDateFormat
 import java.util.Date
+import org.bson.types.ObjectId
+import models.DocResulttoSent
+import models.Message
 import models.MessageAccess
 import models.MessageType
-import net.liftweb.json.{ parse, DefaultFormats }
-import net.liftweb.json.Serialization.{ read, write }
-import java.text.SimpleDateFormat
-import utils.EnumerationSerializer
-import utils.ObjectIdSerializer
 import models.ResulttoSent
-import utils.bitlyAuth
-import models.DocResulttoSent
+import models.User
 import models.UserMedia
-import models.Document
-import models.Comment
-import models.ResulttoSent
+import net.liftweb.json.Serialization.write
+import play.api.mvc.Action
+import play.api.mvc.Controller
+import utils.ObjectIdSerializer
+import utils.bitlyAuthUtil
 
 object MessageController extends Controller {
 
@@ -86,7 +75,7 @@ object MessageController extends Controller {
   def getShortUrlViabitly = Action { implicit request =>
     val longUrlMap = request.body.asFormUrlEncoded.get
     val longUrl = longUrlMap("link").toList(0)
-    val shortUrlJson = bitlyAuth.returnShortUrlViabitly(longUrl)
+    val shortUrlJson = bitlyAuthUtil.returnShortUrlViabitly(longUrl)
     Ok(shortUrlJson).as("application/json")
   }
 
