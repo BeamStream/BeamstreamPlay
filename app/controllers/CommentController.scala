@@ -76,7 +76,7 @@ object CommentController extends Controller {
 
       }
     } catch {
-      case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem During Posting Comment"))).as("application/json")
+      case exception => InternalServerError("There Was Some Problem During Posting Comment")
     }
   }
 
@@ -85,34 +85,38 @@ object CommentController extends Controller {
    */
 
   def getAllComments = Action { implicit request =>
-    val jsonWithid = request.body.asJson.get
+    try {
+      val jsonWithid = request.body.asJson.get
 
-    ((jsonWithid \ "messageId").asOpt[String] != None) match {
-      case true =>
-
-        val messageId = (jsonWithid \ "messageId").as[String]
-        val commentsForAMessage = Comment.getAllComments(Message.findMessageById(new ObjectId(messageId)).get.comments)
-        Ok(write(commentsForAMessage)).as("application/json")
-
-      case false => ((jsonWithid \ "docId").asOpt[String] != None) match {
+      ((jsonWithid \ "messageId").asOpt[String] != None) match {
         case true =>
 
-          val docId = (jsonWithid \ "docId").as[String]
-          val commentsForADocument = Comment.getAllComments(Document.findDocumentById(new ObjectId(docId)).get.commentsOnDocument)
-          Ok(write(commentsForADocument)).as("application/json")
+          val messageId = (jsonWithid \ "messageId").as[String]
+          val commentsForAMessage = Comment.getAllComments(Message.findMessageById(new ObjectId(messageId)).get.comments)
+          Ok(write(commentsForAMessage)).as("application/json")
 
-        case false => ((jsonWithid \ "questionId").asOpt[String] != None) match {
+        case false => ((jsonWithid \ "docId").asOpt[String] != None) match {
           case true =>
 
-            val questionId = (jsonWithid \ "questionId").as[String]
-            val commentsForAQuestion = Comment.getAllComments(Question.findQuestionById(new ObjectId(questionId)).get.comments)
-            println(commentsForAQuestion)
-            Ok(write(commentsForAQuestion)).as("application/json")
+            val docId = (jsonWithid \ "docId").as[String]
+            val commentsForADocument = Comment.getAllComments(Document.findDocumentById(new ObjectId(docId)).get.commentsOnDocument)
+            Ok(write(commentsForADocument)).as("application/json")
 
-          case false =>
-            Ok(write(new ResulttoSent("Failure", "IdNotFound")))
+          case false => ((jsonWithid \ "questionId").asOpt[String] != None) match {
+            case true =>
+
+              val questionId = (jsonWithid \ "questionId").as[String]
+              val commentsForAQuestion = Comment.getAllComments(Question.findQuestionById(new ObjectId(questionId)).get.comments)
+              println(commentsForAQuestion)
+              Ok(write(commentsForAQuestion)).as("application/json")
+
+            case false =>
+              Ok(write(new ResulttoSent("Failure", "IdNotFound")))
+          }
         }
       }
+    } catch {
+      case exception => InternalServerError("Can't get the comments")
     }
 
   }
@@ -121,11 +125,13 @@ object CommentController extends Controller {
    * Rocking a comment
    */
 
-  def rockingTheComment = Action { implicit request =>
-    val commentDetailsJson = request.body.asFormUrlEncoded.get
-    val commentId = commentDetailsJson("commentId").toList(0)
-    val totalRocksForAComment = Comment.rockTheComment(new ObjectId(commentId), new ObjectId(request.session.get("userId").get))
-    Ok(write(totalRocksForAComment.toString)).as("application/json")
+  def rockingTheComment(commentId: String) = Action { implicit request =>
+    try {
+      val totalRocksForAComment = Comment.rockTheComment(new ObjectId(commentId), new ObjectId(request.session.get("userId").get))
+      Ok(write(totalRocksForAComment.toString)).as("application/json")
+    } catch {
+      case exception => InternalServerError("Can't rock the comment")
+    }
   }
 
   /**
@@ -174,7 +180,7 @@ object CommentController extends Controller {
     val answerText = commentJson("answer").toList(0)
     val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val comment = new Comment(new ObjectId, answerText, new Date, new ObjectId(request.session.get("userId").get),
-      commentPoster.get.firstName, commentPoster.get	.lastName, 0, None, List())
+      commentPoster.get.firstName, commentPoster.get.lastName, 0, None, List())
     val answerId = Comment.createComment(comment)
     Question.addAnswerToQuestion(new ObjectId(questionId), answerId)
     Ok(write(List(comment))).as("application/json")

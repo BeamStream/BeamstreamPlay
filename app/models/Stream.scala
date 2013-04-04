@@ -92,7 +92,6 @@ object Stream {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     if (!stream.usersOfStream.contains(userId)) {
       StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream ++ List(userId))), false, false, new WriteConcern)
-      println("Join Stream Dne by me----------")
       val user = User.getUserProfile(userId)
       UtilityActor.sendEmailAfterStreamCreation(user.get.email, stream.streamName, false)
       UtilityActor.sendEmailAfterStreamCreationToNotifyOtherUsers(streamId, userId)
@@ -135,21 +134,22 @@ object Stream {
 
   def deleteStreams(userId: ObjectId, streamId: ObjectId, deleteStatus: Boolean, removeAccess: Boolean): ResulttoSent = {
 
-    var resultToSent = new ResulttoSent("", "")
     val streamObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
 
-    if (deleteStatus == true) {
-      if (streamObtained.creatorOfStream == userId) {
-        Stream.deleteStream(streamObtained)
-        resultToSent = ResulttoSent("Success", "Stream Removed SuccessFully")
-      } else {
-        resultToSent = ResulttoSent("Failure", "You Do Not Have Rights To Delete This Stream")
+    val resultToSend = (deleteStatus == true) match {
+      case true =>
+        if (streamObtained.creatorOfStream == userId) {
+          Stream.deleteStream(streamObtained)
+          ResulttoSent("Success", "Stream Removed SuccessFully")
+        } else {
+          ResulttoSent("Failure", "You Do Not Have Rights To Delete This Stream")
+        }
+      case false => {
+        StreamDAO.update(MongoDBObject("_id" -> streamId), streamObtained.copy(usersOfStream = (streamObtained.usersOfStream filterNot (List(userId) contains))), false, false, new WriteConcern)
+        ResulttoSent("Success", "You've Successfully Removed From This Stream")
       }
-    } else {
-      StreamDAO.update(MongoDBObject("_id" -> streamId), streamObtained.copy(usersOfStream = (streamObtained.usersOfStream filterNot (List(userId) contains))), false, false, new WriteConcern)
-      resultToSent = ResulttoSent("Success", "You've Successfully Removed From This Stream")
     }
-    resultToSent
+    resultToSend
   }
 
   /**
