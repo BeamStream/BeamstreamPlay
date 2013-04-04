@@ -33,6 +33,13 @@ object Registration extends Controller {
       case true => Ok("Token has been expired")
     }
   }
+  /**
+   * renders the login page
+   * @return
+   */
+  def loginPage = Action {
+    Ok(views.html.login())
+  }
 
   /**
    * User Registration In Detail (RA)
