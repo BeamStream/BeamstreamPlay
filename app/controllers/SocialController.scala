@@ -62,7 +62,7 @@ object SocialController extends Controller {
         Ok(write("User Has been already registered")).as("application/json")
       }
     } catch {
-      case ex => InternalServerError(write("Something wrong happend")).as("application/json")
+      case exception => InternalServerError(write("Something wrong happend")).as("application/json")
     }
   }
 
