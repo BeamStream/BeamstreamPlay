@@ -588,10 +588,11 @@ define(['view/formView',
 			var element = eventName.target.parentElement;
 			var messageId =$(element).parents('div.follow-container').attr('id');
 			
-			this.data.url = "/rockedIt";
 			
 			// set values to model
-		    this.data.models[0].save({id : messageId},{
+			var Discussion = new DiscussionModel();
+			Discussion.urlRoot = "/rockedIt";
+			Discussion.save({id : messageId},{
 		    	success : function(model, response) {
 		    		
 		    		if($('#'+messageId+'-msgRockCount').hasClass('downrocks-message'))
