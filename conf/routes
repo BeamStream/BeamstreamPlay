@@ -24,7 +24,7 @@ POST 	/deleteMessage                              controllers.MessageController.
 POST   	/newComment               					controllers.CommentController.newComment
 POST  	/newAnswer                 					controllers.CommentController.newAnswer
 POST    /allComments           						controllers.CommentController.getAllComments
-PUT     /rockingTheComment        					controllers.CommentController.rockingTheComment
+PUT     /rockingTheComment/:commentId      		    controllers.CommentController.rockingTheComment(commentId:String)
 POST    /commentRockers          					controllers.CommentController.commentRockers
 POST    /deleteTheComment         					controllers.CommentController.deleteTheComment
 POST    /isARockerOfComment       					controllers.CommentController.isARocker
@@ -65,7 +65,7 @@ POST 	/rockTheUsermedia            				controllers.MediaController.rockTheUserme
 POST 	/giveMeRockersOfUserMedia    				controllers.MediaController.giveMeRockersOfUserMedia
 
 #Message Rocks & Follows
-PUT  	/rockedIt 									controllers.MessageController.rockedTheMessage
+PUT  	/rockedIt/:messageId     					controllers.MessageController.rockedTheMessage(messageId:String)
 POST 	/returnRockers 								controllers.MessageController.giveMeRockers
 PUT  	/followMessage  							controllers.MessageController.followTheMessage
 POST 	/isAFollower    							controllers.MessageController.isAFollower

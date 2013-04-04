@@ -46,12 +46,10 @@ object MessageController extends Controller {
 
   }
 
-  /*
+  /**
    * Rock the message
    */
-  def rockedTheMessage = Action { implicit request =>
-    val messageIdJsonMap = request.body.asFormUrlEncoded.get
-    val messageId = messageIdJsonMap("messageId").toList(0)
+  def rockedTheMessage(messageId: String) = Action { implicit request =>
     val totalRocks = Message.rockedIt(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
     val totalRocksJson = write(totalRocks.toString)
     Ok(totalRocksJson).as("application/json")
@@ -147,7 +145,7 @@ object MessageController extends Controller {
   /**
    * All messages for a stream sorted by date & rock along with the limits
    */
-  def allMessagesForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int) = Action { implicit request =>
+  def allMessagesForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
 
     try {
 
