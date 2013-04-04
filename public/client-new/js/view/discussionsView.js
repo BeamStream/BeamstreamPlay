@@ -396,7 +396,9 @@ define(['view/formView',
    			 	if(!commentText.match(/^[\s]*$/))
    			 	{
 //   			 		this.data.url = "/newComment";
-   			 			this.comment.save({comment : commentText, messageId :parent},{
+   			 			var comment = new CommentModel();
+   			 			comment.urlRoot = "/newComment";
+   			 			comment.save({comment : commentText, messageId :parent},{
 	   			    	success : function(model, response) {
 		   			    		
 	   			    		$('#'+parent+'-msgComment').val('');
@@ -664,15 +666,16 @@ define(['view/formView',
         rockComment: function(eventName){
         	
         	eventName.preventDefault();
-        	
+        	console.log(33);
         	var commentId = $(eventName.target).parents('div.answer-description').attr('id');
         	var messageId = $(eventName.target).parents('div.follow-container').attr('id');
         	var self = this;
         	
-        	this.data.url = "/rockingTheComment";
-			
+//        	this.data.url = "/rockingTheComment";
+        	var comment = new CommentModel();
+        	comment.urlRoot = "/rockingTheComment";
 			// set values to model
-		    this.data.models[0].save({id : messageId ,commentId: commentId},{
+        	comment.save({id : commentId },{
 		    	success : function(model, response) {
 		    		
 		    		// display the count in icon
