@@ -27,24 +27,24 @@ object ClassController extends Controller {
     override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer //+ new CollectionSerializer
 
-  /**
-   * Add a class to a user (RA)
-   */
-
-  def addClass = Action { implicit request =>
-    try {
-      val classListJsonMap = request.body.asFormUrlEncoded.get
-      val classJsonList = classListJsonMap("data").toList.head
-      val classListTemp = net.liftweb.json.parse(classJsonList)
-      val classList = net.liftweb.json.parse(classJsonList).extract[List[Class]]
-      //      val resultToSent = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
-      val refreshedClasses = Class.getAllRefreshedClasss(classList)
-      Ok(write((refreshedClasses))).as("application/json")
-    } catch {
-      case ex => InternalServerError(write(new ResulttoSent("Failure", "There Was Some Problem During Class Creation")))
-    }
-
-  }
+//  /**
+//   * Add a class to a user (RA)
+//   */
+//
+//  def addClass = Action { implicit request =>
+//    try {
+//      val classListJsonMap = request.body.asFormUrlEncoded.get
+//      val classJsonList = classListJsonMap("data").toList.head
+//      val classListTemp = net.liftweb.json.parse(classJsonList)
+//      val classList = net.liftweb.json.parse(classJsonList).extract[List[Class]]
+//      //      val resultToSent = Class.createClass(classList, new ObjectId(request.session.get("userId").get))
+//      val refreshedClasses = Class.getAllRefreshedClasss(classList)
+//      Ok(write((refreshedClasses))).as("application/json")
+//    } catch {
+//      case ex => InternalServerError(write(new ResulttoSent("Failure", "There Was Some Problem During Class Creation")))
+//    }
+//
+//  }
 
   /**
    *  Return the class JSON for auto populate the classes on class stream

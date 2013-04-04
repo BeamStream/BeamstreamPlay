@@ -57,7 +57,7 @@ object SocialController extends Controller {
       if (canUserRegister == true) {
         val userToCreate = new User(new ObjectId, UserType.Professional, emailId, "", "", preferredUsername, "", None, "", "", "", "", "", Option(providerName), Nil, Nil, Nil, Nil, Nil, Option(json.toString))
         val IdOfUserCreted = User.createUser(userToCreate)
-        Ok(views.html.registration(IdOfUserCreted.toString, Option(json.toString)))
+        Ok(views.html.registration(IdOfUserCreted.get.toString, Option(json.toString)))
       } else {
         Ok(write("User Has been already registered")).as("application/json")
       }
