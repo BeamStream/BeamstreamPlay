@@ -83,7 +83,7 @@ object BasicRegistration extends Controller {
             case true =>
               val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", "", Option(encryptedPassword), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil,None)
               val IdOfUserCreted = User.createUser(userToCreate)
-              val createdUser = User.getUserProfile(IdOfUserCreted)
+              val createdUser = User.getUserProfile(IdOfUserCreted.get)
               UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.toString, tokenEmailUtil.securityToken, emailId)
               Ok(write(new ResulttoSent("Success", "SignUp Successful"))).as("application/json")
             case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
