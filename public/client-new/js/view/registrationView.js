@@ -50,7 +50,7 @@ define(['view/formView' ,
 			
 			this.data.reset();
 			this.profile = null;
-			
+			console.log("test");
 		},
 		
 		/**
