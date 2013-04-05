@@ -28,14 +28,14 @@ define(['view/formView' ,
 		objName: 'RegistrationView',
                 
         events : {
-        	
+       	
         	'click #skip_step1' : 'completeFirstStep',
 			'click #done_step1' : 'completeFirstStep',
 			'click #done_step2' : 'comepleteSecondStep',
 			'click #step2-reset' : 'resetStep2Form',
-			'click .browse' : 'continuestep3',
+			'click .browse' : 'uploadProfilePic',
 			'change #uploadProfilePic' :'changeProfile',
-			'click #skip_step3':'completeRegistration',
+			'click #done_step3':'completeRegistration',
 			'click #addPhoto' : 'uploadProfilePic',
 			'click #continue' : 'noprofilepic',
 			'click .register-social':'connectMedia',
@@ -53,6 +53,76 @@ define(['view/formView' ,
 			
 		},
 		
+		/**
+         * @TODO JanRain Sign up 
+         */
+		displayPage: function(callback){
+			
+			// get user informations from Social site ( janRain sign up case ) 
+			var userInfo = jQuery.parseJSON($('#registration').attr('data-value'));
+			var compiledTemplate = Handlebars.compile(RegistrationTpl);
+            
+			
+			if(userInfo == null){  // signup via email
+				
+				this.$(".content").html( compiledTemplate(this.data));
+			} 
+			else{                  //signup  via janRain
+				if (userInfo.stat == "ok") {
+					
+					var firstName , lastName , location , email ;
+					firstName = userInfo.profile.name.givenName;
+					lastName = userInfo.profile.name.familyName;
+					 
+					 
+					if (userInfo.profile.providerName == "Twitter"){
+						 
+						var formattedName = userInfo.profile.name.formatted;
+						var parts = formattedName.split(' ');
+						if(parts.length > 1 ) {
+							firstName = formattedName.substr(0,formattedName.indexOf(' '));
+							lastName = formattedName.substr(formattedName.indexOf(' ')+1);
+						}
+						if(parts.length == 1) {
+							firstName = userInfo.profile.name.formatted;
+							lastName ='';
+						}
+						 
+						if(userInfo.profile.address === undefined){
+							console.log("no location");
+						}
+						else{
+							location = userInfo.profile.address.formatted;
+						}
+					}
+					else if(userInfo.profile.providerName == "Facebook"){
+
+						if(userInfo.profile.address === undefined){
+							console.log("no location");
+						}
+						else{
+							location = userInfo.profile.address.formatted;
+						}
+						email = userInfo.profile.email;
+					}
+					else if (userInfo.profile.providerName == "LinkedIn") {
+						
+						console.log("signup via LinkedIn");
+					}
+					else if (userInfo.profile.providerName == "Google") {
+						
+						console.log("signup via Google");
+						email = userInfo.profile.email;
+					}
+					else{
+						console.log("Not from registraed social site");
+					}
+						 
+					userInfo = { "status" : "true" , "firstName" : firstName,"lastName": lastName,"location": location, "email": email  };
+					this.$(".content").html( compiledTemplate(userInfo));
+				}
+			}
+		},
 		
 		onAfterRender: function(){
 			
@@ -117,9 +187,9 @@ define(['view/formView' ,
         /**
 		 * complete step2 registration process - user details form
 		 */
-        comepleteSecondStep: function(e){
+		comepleteSecondStep: function(e){
 			
-			e.preventDefault();					
+			e.preventDefault();				
 			this.data.url="/registration";
 			
 			/* @TODO only select a school from existing list or add new school */
@@ -159,7 +229,6 @@ define(['view/formView' ,
 				this.enableStepThree();
 		},
 		
-		
 		/**
 		 * reset step 2 form values - clear all form values 
 		 */
@@ -179,10 +248,9 @@ define(['view/formView' ,
 		 * upload profile picture or profile video
 		 */
 		uploadProfilePic: function(e){
-			e.preventDefault();				
-		    $("#selectUploadPhoto").modal('hide');
+			e.preventDefault(); 
+			$("#selectUploadPhoto").modal('hide');
 			$('#uploadProfilePic').click();
-			
 		},
 		
 		/**
@@ -223,12 +291,15 @@ define(['view/formView' ,
 	         }
 		},
 		
-		continuestep3 : function(e){
-			
+		/**
+		 *  steps 3 registration - image/video upload
+		 */
+		completeRegistration: function(e){
 			e.preventDefault();
+			
 			/* post the image / video data as mutiform data */
 			if(this.profile)
-			{				
+			{
 				$('.profile-loading').css("display","block");
 				var data;
 	        	data = new FormData();
@@ -256,18 +327,11 @@ define(['view/formView' ,
 		       	    }
 	     	    });
 			}
-			else{
-				
-				$('#addPhoto').click();
+			else
+			{
+				$("#selectUploadPhoto").modal('show');
 			}
-			
-		},
-		/**
-		 *  steps 3 registration - image/video upload
-		 */
-		completeRegistration: function(e){
-			e.preventDefault();
-			$("#selectUploadPhoto").modal('show');
+
 		},
 		
 		noprofilepic: function(e){		
