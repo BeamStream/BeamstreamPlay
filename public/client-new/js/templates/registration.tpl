@@ -22,13 +22,22 @@
        
           <div id="step2_block" class="profile-white registration-info box-active">
              <fieldset class="field">  
-            <input id="firstName"  data-name="user.firstName" name="firstName" value="{{stat}}"  type="text" placeholder="First Name">
+            <input id="firstName"  data-name="user.firstName" name="firstName" value="{{firstName}}"   type="text" placeholder="First Name">
             <span class="red-star">*</span>
             </fieldset>
+            
             <fieldset class="field">  
-            <input id="lastName"  data-name="user.lastName" name="lastName"  value="" type="text" placeholder="Last Name">
+            <input id="lastName"  data-name="user.lastName" name="lastName"  value="{{lastName}}" type="text" placeholder="Last Name">
               <span class="red-star">*</span>
             </fieldset>
+            
+            {{#if status}}
+	            <fieldset class="field"> 
+	   		    <input id="mailId"  data-name="user.mailId" name="mailId"  value="{{email}}" type="text" placeholder="Email">
+	    	  	<span class="red-star">*</span>
+	            </fieldset>
+            {{/if}}
+            
             <div class="alert-register"><span>*Last Name will not be shown publicly</span></div>
             <fieldset class="field">  
             <input id="schoolName"  data-name="user.schoolName" name="schoolName" value=""  type="text" placeholder="School Name">
@@ -121,7 +130,7 @@
             
             
             <fieldset class="field location-block">
-            <input id="location" data-name="user.location" name="location" value="" type="text" placeholder="Location" class="location-note">
+            <input id="location" data-name="user.location" name="location" value="{{location}}" type="text" placeholder="Location" class="location-note">
             <span class="red-star select-star">*</span>
              <span class="location-icon location-toolip" data-original-title="Use Current Location"></span>
            </fieldset>
