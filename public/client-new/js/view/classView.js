@@ -50,26 +50,6 @@ define(['view/formView',
 	        
         },
         onAfterRender: function(){
-        	
-        	/* calculate time from 12:00AM to 11:45PM */
-//         	var timeValues = new Array;
-//       		var hours, minutes, ampm;
-//       		for(var i = 0; i <= 1425; i += 15){
-//       		        hours = Math.floor(i / 60);
-//       		        minutes = i % 60;
-//       		        if (minutes < 10){
-//       		            minutes = '0' + minutes; // adding leading zero
-//       		        }
-//       		        ampm = hours % 24 < 12 ? 'AM' : 'PM';
-//       		        hours = hours % 12;
-//       		        if (hours === 0){
-//       		            hours = 12;
-//       		        }
-//       		        var time = hours+':'+minutes+''+ampm ;
-//       		        
-//       		        //add time values ti ClassTime field
-//       		        $('#classTime').append('<option value="'+time+'">'+time+'</option>');
-//       		 }
        		
        		//get school names and its ids and added to school dropdown list 
        		_.each(this.users.attributes, function(school) {
@@ -80,7 +60,6 @@ define(['view/formView',
        		$('.selectpicker-info').selectpicker({
         		style: 'register-select invite-selecter'
         	});
-       		
       		
        		// set date picker style
        		$('.datepicker').datepicker();
@@ -268,7 +247,6 @@ define(['view/formView',
         	$('#className').val("");
         	$('#classCode').val("");
         	$('#classTime span.filter-option').text("Class Time");
-//        	$('#startingDate').val("Date");
         	$('#classType span.filter-option').text("Semester");
         },
         

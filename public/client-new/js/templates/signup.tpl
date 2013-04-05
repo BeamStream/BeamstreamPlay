@@ -25,17 +25,17 @@
             <ul class="sign-menu">
               <li> <a href="#"> <span>I'm a Student</span>
 
-                <div class="menu-pic" id="0"><img src="images/student.png" width="115" height="115">
+                <div class="menu-pic" value="student" id="0"><img src="images/student.png" width="115" height="115">
 
 	         <div class="sign-up-tick"></div>
 
               </div>
                 </a> <a href="#"> <span>I'm an Educator</span>
-                <div class="menu-pic" id="1"><img src="images/educator.png" width="115" height="115">
+                <div class="menu-pic" value="educator" id="1"><img src="images/educator.png" width="115" height="115">
                <div class="sign-up-tick"></div>
                </div>
                 </a> <a href="#"> <span>I'm a Professional</span>
-                <div class="menu-pic" id="2"><img src="images/preffesional.png">
+                <div class="menu-pic" value="preffesional" id="2"><img src="images/preffesional.png">
                 <div class="sign-up-tick"></div>
                </div>
                 </a> <input type="hidden" id="usertype" value=""></li>
