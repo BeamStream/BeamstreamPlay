@@ -28,6 +28,8 @@ define(['view/formView' ,
 		objName: 'RegistrationView',
                 
         events : {
+       	
+        	'click #skip_step1' : 'completeFirstStep',
 			'click #done_step1' : 'completeFirstStep',
 			'click #done_step2' : 'comepleteSecondStep',
 			'click #step2-reset' : 'resetStep2Form',
