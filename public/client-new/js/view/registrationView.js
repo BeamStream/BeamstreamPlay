@@ -21,7 +21,8 @@ define(['view/formView' ,
         '../../lib/bootstrap-modal',
         '../../lib/jquery.meio.mask',
         '../../lib/bootstrap-datepicker',
-        ], function(FormView, Bootstrap,BootstrapSelect,BootstrapModal,MaskedInput, Datepicker){
+        'text!templates/registration.tpl',
+        ], function(FormView, Bootstrap,BootstrapSelect,BootstrapModal,MaskedInput, Datepicker ,RegistrationTpl){
 	var RegistrationView;
 	RegistrationView = FormView.extend({
 		objName: 'RegistrationView',
@@ -49,6 +50,20 @@ define(['view/formView' ,
 			this.profile = null;
 			
 		},
+		
+//		/**
+//         * 
+////         */
+//		displayPage: function(callback){
+//			
+//			// get user informations from Social site ( janRain sign up case ) 
+//			var userInfo = jQuery.parseJSON($('#registration').attr('value'));
+//			
+//			var compiledTemplate = Handlebars.compile(RegistrationTpl);
+//			
+//			this.$(".content").html( compiledTemplate(this.data.toJSON()));
+//			
+//		},
 		
 		onAfterRender: function(){
 			
