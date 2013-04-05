@@ -172,6 +172,7 @@
               </div>
 
 
+
  <input type="file" id="uploadProfilePic" name="uploadProfilePic"  style="display:none;"> 
              <div id="upload-step">
 	             <div id="step3_block" class="round-block upload-photo step-one-photo"> 

@@ -33,9 +33,9 @@ define(['view/formView' ,
 			'click #done_step1' : 'completeFirstStep',
 			'click #done_step2' : 'comepleteSecondStep',
 			'click #step2-reset' : 'resetStep2Form',
-			'click .browse' : 'uploadProfilePic',
+			'click .browse' : 'continuestep3',
 			'change #uploadProfilePic' :'changeProfile',
-			'click #done_step3':'completeRegistration',
+			'click #skip_step3':'completeRegistration',
 			'click #addPhoto' : 'uploadProfilePic',
 			'click #continue' : 'noprofilepic',
 			'click .register-social':'connectMedia',
@@ -248,9 +248,10 @@ define(['view/formView' ,
 		 * upload profile picture or profile video
 		 */
 		uploadProfilePic: function(e){
-			e.preventDefault(); 
-			$("#selectUploadPhoto").modal('hide');
+			e.preventDefault();				
+		    $("#selectUploadPhoto").modal('hide');
 			$('#uploadProfilePic').click();
+			
 		},
 		
 		/**
@@ -291,15 +292,14 @@ define(['view/formView' ,
 	         }
 		},
 		
-		/**
-		 *  steps 3 registration - image/video upload
-		 */
-		completeRegistration: function(e){
-			e.preventDefault();
+		
+		
+		continuestep3 : function(e){
 			
+			e.preventDefault();
 			/* post the image / video data as mutiform data */
 			if(this.profile)
-			{
+			{				
 				$('.profile-loading').css("display","block");
 				var data;
 	        	data = new FormData();
@@ -327,11 +327,18 @@ define(['view/formView' ,
 		       	    }
 	     	    });
 			}
-			else
-			{
-				$("#selectUploadPhoto").modal('show');
+			else{
+				
+				$('#addPhoto').click();
 			}
-
+			
+		},
+		/**
+		 *  steps 3 registration - image/video upload
+		 */
+		completeRegistration: function(e){
+			e.preventDefault();
+			$("#selectUploadPhoto").modal('show');
 		},
 		
 		noprofilepic: function(e){		
