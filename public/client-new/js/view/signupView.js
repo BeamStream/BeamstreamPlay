@@ -79,6 +79,7 @@ define(['view/formView'], function(FormView){
             $(eventName.currentTarget).find('div').addClass('active');
 
             $("#usertype").val(eventName.currentTarget.id);	
+            console.log($(eventName.currentTarget).attr('value'));
 		},
 		
         /**

@@ -179,34 +179,9 @@ define(['view/formView',
 		 			    			channel : "stream",
 		 			    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response}
 		 			    		}) 
-		 	                       
-		 			    		var msgBody = response[0].message.messageBody;
-		 			    		var msgUrl=  msgBody.replace(self.urlRegex1, function(msgUrlw) {
-		 			    			trueurl= msgUrlw;                                                                  
-		 			    			return msgUrlw;
-		 			    		});
-		 	                             
-		 			    		//to get the extension of the uploaded file
-//		 			    		var extension = (trueurl).match(pattern);  
-		 			    		
-		 			    		var linkTag =  msgBody.replace(self.urlRegex1, function(url) {
-		 	           			 	return '<a target="_blank" href="' + url + '">' + url + '</a>';
-		 	           		 	});
-		 	                             
-		 			    		/* display the posted message on feed */
-		 			    		var compiledTemplate = Handlebars.compile(DiscussionMessage);
-		 			    		$('#messageListView div.content').prepend(compiledTemplate(response));
-		 			    		
-		 			    		 if(linkTag)
-		 			    			 $('p#'+response[0].message.id.id+'-id').html(linkTag);
-		 			    		
-		 			    		 // embedly
-		 			    		$('p#'+response[0].message.id.id+'-id').embedly({
-		 	               		 	maxWidth: 200,
-		 	               		 	wmode: 'transparent',
-		 	               		 	method: 'after',
-		 	               		 	key:'4d205b6a796b11e1871a4040d3dc5c07'
-		 					 	 });
+		 	                     
+		 			    		// show the posted message on feed
+		 			    		self.showPostedMessage(response);
 		 	               	 
 		 			    		/* delete default embedly preview */
 		 			    		$('div.selector').attr('display','none');
@@ -402,26 +377,16 @@ define(['view/formView',
 	   			    	success : function(model, response) {
 		   			    		
 	   			    		$('#'+parent+'-msgComment').val('');
-	   				  		$('#'+parent+'-addComments').slideUp(200);
-	   				  		
-	   	   				    /* display the posted comment  */
-		   			    			 
-	   				    		var compiledTemplate = Handlebars.compile(DiscussionComment);
-	   				    		$('#'+parent+'-allComments').prepend(compiledTemplate(response));
-	   				    		
-	   				    		if(!$('#'+parent+'-allComments').is(':visible'))
-	   							{  
-	   								
-	   								$('#'+parent+'-msgRockers').slideUp(1);
-	   								$('#'+parent+'-newCommentList').slideDown(1);
-
-	   								var newComments = $("#tpl-discussion-messages-newComment").html();
-	   								$('#'+parent+'-newCommentList').prepend(compiledTemplate(response));
-	   								
-	   							}
-	   				    		totalComments++; 
-	   				    		$('#'+parent+'-show-hide').text("Hide All");
-	   							$('#'+parent+'-totalComment').text(totalComments);
+	   							
+   			    			// shows the posted comment
+   			    		    self.showPostedComment(response,parent,totalComments);
+   			    		    
+   							/* pubnum auto push */
+   							PUBNUB.publish({
+   			                	channel : "comment",
+		                        message : { pagePushUid: self.pagePushUid ,data:response,parent:parent,cmtCount:totalComments}
+   			                })
+	   			                
 	   			    	},
 	   			    	error : function(model, response) {
 	   			    		
@@ -435,39 +400,64 @@ define(['view/formView',
 	        }
         },
         
-        
+        /**
+         * show the posted message 
+         */
+        showPostedMessage : function(response){
+        	
+        	var msgBody = response[0].message.messageBody;
+	    		var msgUrl=  msgBody.replace(self.urlRegex1, function(msgUrlw) {
+	    			trueurl= msgUrlw;                                                                  
+	    			return msgUrlw;
+	    		});
+                      
+	    		//to get the extension of the uploaded file
+//	    		var extension = (trueurl).match(pattern);  
+	    		
+	    		var linkTag =  msgBody.replace(self.urlRegex1, function(url) {
+    			 	return '<a target="_blank" href="' + url + '">' + url + '</a>';
+    		 	});
+                      
+	    		/* display the posted message on feed */
+	    		var compiledTemplate = Handlebars.compile(DiscussionMessage);
+	    		$('#messageListView div.content').prepend(compiledTemplate(response));
+	    		
+	    		 if(linkTag)
+	    			 $('p#'+response[0].message.id.id+'-id').html(linkTag);
+	    		
+	    		 // embedly
+	    		$('p#'+response[0].message.id.id+'-id').embedly({
+        		 	maxWidth: 200,
+        		 	wmode: 'transparent',
+        		 	method: 'after',
+        		 	key:'4d205b6a796b11e1871a4040d3dc5c07'
+			 	 });
+        },
        
+        /**
+         * show posted comment
+         */
+        showPostedComment: function(response,parent,totalComments){
+        	
+	  		$('#'+parent+'-addComments').slideUp(200);
+	  		
+		    /* display the posted comment  */
+    		var compiledTemplate = Handlebars.compile(DiscussionComment);
+    		$('#'+parent+'-allComments').prepend(compiledTemplate(response));
+    		
+    		if(!$('#'+parent+'-allComments').is(':visible'))
+			{  
+				$('#'+parent+'-msgRockers').slideUp(1);
+				$('#'+parent+'-newCommentList').slideDown(1);
+				$('#'+parent+'-newCommentList').prepend(compiledTemplate(response));
+				
+			}
+    		totalComments++; 
+    		$('#'+parent+'-show-hide').text("Hide All");
+			$('#'+parent+'-totalComment').text(totalComments);
+        },
     	
-    	 /**
-	     * PUBNUB real time push
-	     */
-		 setupPushConnection: function() {
-			 var self = this;
-			 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
-			 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-			 var trueurl='';
-			
-			 /* for message posting */
-			 PUBNUB.subscribe({
-				 channel : "stream",
-				 restore : false,
-				 callback : function(message) {
-					 var streamId = $('.sortable li.active').attr('id');
-					 if (message.pagePushUid != self.pagePushUid)
-					 { 
-						 if(message.streamId==streamId)
-			       		 	{
-							   /* display the posted message on feed */
-		  			    		var compiledTemplate = Handlebars.compile(DiscussionMessage);
-		  			    		$('#messageListView div.content').prepend( compiledTemplate(message.data));
-		  			    		
-			       		 	}
-				 	   }
-			 
-			 	   }
-		 	   })
-	    		   		
- 		},
+    	 
  		
  		 /**
          * Show / hide all comments of a message
@@ -589,7 +579,7 @@ define(['view/formView',
 	    	eventName.preventDefault();
 			var element = eventName.target.parentElement;
 			var messageId =$(element).parents('div.follow-container').attr('id');
-			
+			var streamId =  $('.sortable li.active').attr('id');
 			
 			// set values to model
 			var Discussion = new DiscussionModel();
@@ -609,7 +599,13 @@ define(['view/formView',
 	            	}
 	            	
 	            	// display the count in icon
-	                $('#'+messageId+'-msgRockCount').find('span').html(data);
+	                $('#'+messageId+'-msgRockCount').find('span').html(response);
+	                
+	                /* ajax auto push for message rock */
+	                PUBNUB.publish({
+						channel : "msgRock",
+	                    message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,msgId:messageId}
+	                })
 		    		
 		    	},
 		    	error : function(model, response) {
@@ -666,9 +662,9 @@ define(['view/formView',
         rockComment: function(eventName){
         	
         	eventName.preventDefault();
-        	console.log(33);
         	var commentId = $(eventName.target).parents('div.answer-description').attr('id');
         	var messageId = $(eventName.target).parents('div.follow-container').attr('id');
+        	var streamId =  $('.sortable li.active').attr('id');
         	var self = this;
         	
 //        	this.data.url = "/rockingTheComment";
@@ -679,8 +675,14 @@ define(['view/formView',
 		    	success : function(model, response) {
 		    		
 		    		// display the count in icon
-                	$('#'+commentId+'-rockCount').html(data);
-                	$('#'+commentId+'-mrockCount').html(data);
+                	$('#'+commentId+'-rockCount').html(response);
+                	$('#'+commentId+'-mrockCount').html(response);
+                	
+                	/* pubnub auto push for rock message */
+                	PUBNUB.publish({
+                        channel : "commentRock",
+                        message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,commentId:commentId }
+                	})
 		        	 
 		    	},
 		    	error : function(model, response) {
@@ -717,6 +719,84 @@ define(['view/formView',
             reader.readAsDataURL(file);
 
         },
+        
+        
+        /**
+	     * PUBNUB real time push
+	     */
+		 setupPushConnection: function() {
+			 var self = this;
+			 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
+			 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+			 var trueurl='';
+			
+			 /* for message posting */
+			 PUBNUB.subscribe({
+				 channel : "stream",
+				 restore : false,
+				 callback : function(message) {
+					 var streamId = $('.sortable li.active').attr('id');
+					 if (message.pagePushUid != self.pagePushUid)
+					 { 
+						 if(message.streamId==streamId)
+			       		 	{
+							    // show the posted message on feed
+							 	self.showPostedMessage(message.data);
+			       		 	}
+				 	   }
+			 
+			 	   }
+		 	   })
+		 	   
+		 	   /* auto push functionality for comments */
+		 	   PUBNUB.subscribe({
+	
+		 		   channel : "comment",
+		 		   restore : false,
+	
+		 		   callback : function(message) { 
+	    	  
+		 			   if(message.pagePushUid != self.pagePushUid)
+		 			   {
+		 				   if(!document.getElementById(message.data[0].id.id))
+		 				   {
+		 					  // shows the posted comment
+		 					  self.showPostedComment(message.data,message.parent,message.cmtCount);
+
+	 				   	   }
+ 			   		   }
+ 		   		   }
+	
+ 	   		   })
+ 	   		   
+ 	   		   /* for Comment Rocks */
+	   		   PUBNUB.subscribe({
+	
+	   			   channel : "commentRock",
+	   			   restore : false,
+	   			   callback : function(message) { 
+	   				   if(message.pagePushUid != self.pagePushUid)
+	   				   {   	  
+	   					   $('#'+message.commentId+'-rockCount').html(message.data);
+	   					   $('#'+message.commentId+'-mrockCount').html(message.data);
+	   				   }
+	   			   }
+	   		   })
+	   		   
+	   		    /* for message Rocks */
+ 	   		   PUBNUB.subscribe({
+		
+ 	   			   channel : "msgRock",
+ 	   			   restore : false,
+ 	   			   callback : function(message) {
+ 	   				   if(message.pagePushUid != self.pagePushUid)
+ 	   				   {   	  
+ 	   					   $('#'+message.msgId+'-msgRockCount').find('span').html(message.data);
+ 	   				   }
+		   		   }
+	   		   })
+	    		   		
+ 		},
         
 	})
 	return Discussions;
