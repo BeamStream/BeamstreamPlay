@@ -80,7 +80,7 @@ define(['view/formView',
  			  	    messageAccess = "Public";
  			    }
  			    
- 			    var trueurl='';
+ 			    var trueUrl='';
  			    if(streamId){
  			    	
  			    	/* if there is any files for uploading  */ 
@@ -120,7 +120,7 @@ define(['view/formView',
  			                processData: false,
  			                dataType : "json",
  			                success: function(data){
- 			                	 console.log(data);		                          
+ 			                	
  			    				// set progress bar as 100 %
  			                	self.bar = $('.bar');        
  			                	self.bar.width(200);
@@ -143,30 +143,16 @@ define(['view/formView',
  			              	    
  			  	                $('.progress-container').hide();
  			  	                $('#uploded-file-area').hide();
+ 			  	                
+ 			  	                /* Pubnub auto push */
+ 			  	                PUBNUB.publish({
+ 			  	                	channel : "stream",
+ 			  	                		message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:[data]}
+ 			  	                }) 
+ 			  	                
  			                           
- 		                        //var links =  msgBody.match(BS.urlRegex); 
- 		                        var msgUrl=  data.message.messageBody.replace(self.urlRegex1, function(msgUrlw) {
- 		                        	trueurl= msgUrlw;    
- 		                            return msgUrlw;
- 		                        });
- 		                        
- 		                        //to get the extension of the uploaded file 
- 		                        if(trueurl)
- 		                        	var extension = (trueurl).match(pattern); 
- 		                        
- 			                    // set first letter of extension in capital letter  
- 		                        if(extension){
- 		                        	 extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
- 	 			  	                	return letter.toUpperCase();
- 	 			  	                });
- 		                        }
- 		                        
+ 			  	                self.showPostedMessage([data]);
  		                      
- 			  	              
- 			                   /* display the posted message on feed */
-		 			    		var compiledTemplate = Handlebars.compile(DiscussionMessage);
-		 			    		$('#messageListView div.content').prepend(compiledTemplate([data]));
- 			                 
  		                    }
  		                }); 
  			        	
@@ -412,33 +398,147 @@ define(['view/formView',
          */
         showPostedMessage : function(response){
         	
-        	var msgBody = response[0].message.messageBody;
+        	var trueUrl='',messageType , self= this;
+            var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+            
+        	_.each(response, function(data) {
+        		 
+	        	var msgBody = data.message.messageBody;
+	        	
 	    		var msgUrl=  msgBody.replace(self.urlRegex1, function(msgUrlw) {
-	    			trueurl= msgUrlw;                                                                  
+	    			trueUrl= msgUrlw;                                                                  
 	    			return msgUrlw;
 	    		});
-                      
+	                 
+	    		console.log(trueUrl);
 	    		//to get the extension of the uploaded file
-//	    		var extension = (trueurl).match(pattern);  
+	    		if(trueUrl)
+	    			var extension = (trueUrl).match(pattern);  
 	    		
-	    		var linkTag =  msgBody.replace(self.urlRegex1, function(url) {
-    			 	return '<a target="_blank" href="' + url + '">' + url + '</a>';
-    		 	});
-                      
-	    		/* display the posted message on feed */
-	    		var compiledTemplate = Handlebars.compile(DiscussionMessage);
-	    		$('#messageListView div.content').prepend(compiledTemplate(response));
 	    		
-	    		 if(linkTag)
-	    			 $('p#'+response[0].message.id.id+'-id').html(linkTag);
+	    		//to check whether the url is a google doc url or not
+	            if(data.message.messageType.name == "Text")                          
+	            {	
+	           	 	if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) 
+	                {   
+	           	 		messageType = "googleDocs";
+	                }
+	           	 	else
+	           	 	{    
+		           		 messageType = "messageOnly";
+		           		 var linkTag =  msgBody.replace(self.urlRegex1, function(url) {
+		           			 return '<a target="_blank" href="' + url + '">' + url + '</a>';
+		           		 });
+	                                 
+	           	 	}
+	            }                                                      
+	            else
+	            {         
+	                // url has extension then set first letter of extension in capital letter  
+	            	if(extension){
+	            		extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+	               		 	return letter.toUpperCase();
+	               	 	});
+	            	}
+	   		 	}
+	            
+	            var datas = {
+	           		 "datas" : data,
+	           		 "datVal" :datVal,
+	            }	
+	             
+	            // set a format style to date
+	            var datVal = formatDateVal(data.message.timeCreated);
+	                   
+	            // if message conatains googledoc url
+	            if(messageType == "googleDocs")
+	            {
+	           	 
+	           	 	var datas = {
+	           			 "data" : data,
+	           			 "datVal" :datVal,
+	           			 "previewImage" : "/beamstream-new/images/google_docs_image.png",
+	           			 "type" : "googleDoc",
+	           	 	}	
+			  						
+	            }
+	            // if message conatains messages only without any uploaded files
+	            else if(messageType == "messageOnly")
+	            {
+	            	var datas = {
+	   	           		 "data" : data,
+	   	           		 "datVal" :datVal,
+	   	            }	
+	            	
+	            }
+	            // if message conatains  uploaded files
+	            else
+	            {
+	            	if(data.message.messageType.name == "Image" || data.message.messageType.name == "Video")
+	            	{
+	            		 
+	            		var datas = {
+	       	           		 "data" : data,
+	       	           		 "datVal" :datVal,
+	       	            }	
+	            	}
+	            	else
+	            	{
+	            		var previewImage = '';
+	            		var commenImage ="";
+	            		var type = "";
+						 
+	            		/* check its extensions and set corresponding preview icon images */
+	            		if(extension == 'Ppt')
+	            		{
+	            			previewImage= "/beamstream-new/images/presentations_image.png";
+	            			type = "ppt";
+	            		}
+	            		else if(extension == 'Doc')
+	            		{
+	            			previewImage= "/beamstream-new/images/docs_image.png";
+	            			type = "doc";
+	            		}
+	            		else if(extension == 'Pdf')
+	            		{
+	            			previewImage= data.anyPreviewImageUrl;
+	            			type = "pdf";
+	            		}
+	            		else
+	            		{
+	            			previewImage= "/beamstream-new/images/textimage.png";
+	            			commenImage = "true";
+	            			type = "doc";
+	            		}
+							
+	            		var datas = {
+	            				"data" : data,
+	            				"datVal" :datVal,
+	            				"previewImage" :previewImage,
+	            				"extension" : extension,
+	            				"commenImage" : commenImage,
+	            				"type" : type,
+	            		}	
+	            		
+	            	}
+									
+	            }
 	    		
-	    		 // embedly
+	            var compiledTemplate = Handlebars.compile(DiscussionMessage);
+	            $('#messageListView div.content').prepend(compiledTemplate(datas));
+	            
+	            if(linkTag)
+	            	$('p#'+response[0].message.id.id+'-id').html(linkTag);
+	    		
+	            // embedly
 	    		$('p#'+response[0].message.id.id+'-id').embedly({
-        		 	maxWidth: 200,
-        		 	wmode: 'transparent',
-        		 	method: 'after',
-        		 	key:'4d205b6a796b11e1871a4040d3dc5c07'
+	    		 	maxWidth: 200,
+	    		 	wmode: 'transparent',
+	    		 	method: 'after',
+	    		 	key:'4d205b6a796b11e1871a4040d3dc5c07'
 			 	 });
+    		
+        	});
         },
        
         /**
@@ -735,7 +835,7 @@ define(['view/formView',
 			 var self = this;
 			 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
 			 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-			 var trueurl='';
+			 var trueUrl='';
 			
 			 /* for message posting */
 			 PUBNUB.subscribe({

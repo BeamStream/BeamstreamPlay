@@ -27,7 +27,7 @@ define(['view/formView',
 	var classView;
 	classView = FormView.extend({
 		objName: 'classView',
-		
+		schools:'',
 		events:{
 			'keyup #className' :'populateClassNames',
 		    'focusin #className':'populateClassNames',
@@ -44,27 +44,26 @@ define(['view/formView',
 			this.data.reset();
 			
 			/*fetch userSchool model  to get all schools of a user*/
-			this.users = new userSchool();
-			this.users.fetch();
-			
-	        
+			var users = new userSchool();
+			users.fetch({
+				success : function(data, response) {
+					//get school names and its ids and added to school dropdown list 
+		       		_.each(response, function(school) {
+		       			$('#schoolId').append('<option value="'+school.assosiatedSchoolId.id+'">'+school.schoolName+'</option>');
+		       		});
+		       		
+		       		//set select box style
+			   		$('.selectpicker-info').selectpicker({
+			    		style: 'register-select invite-selecter'
+			    	});
+			  		
+			   		// set date picker style
+			   		$('.datepicker').datepicker();
+		       		
+				}
+			});
         },
-        onAfterRender: function(){
-       		
-       		//get school names and its ids and added to school dropdown list 
-       		_.each(this.users.attributes, function(school) {
-       			$('#schoolId').append('<option value="'+school.assosiatedSchoolId.id+'">'+school.schoolName+'</option>');
-       		});
-       		
-       		// set select box style
-       		$('.selectpicker-info').selectpicker({
-        		style: 'register-select invite-selecter'
-        	});
-      		
-       		// set date picker style
-       		$('.datepicker').datepicker();
-        },
-        
+
         /**
          * set default time for class time 
          */
