@@ -86,9 +86,9 @@ BS.allComments = BS.URLRequired+"/allComments";
 //for forgot password
 BS.forgotPassword = BS.URLRequired+"/forgotPassword";
 //sort messages
-BS.sortByDate = BS.URLRequired+"/getAllMessagesForAStreamSortedbyDate";
-BS.sortByVote =BS.URLRequired+"/getAllMessagesForAStreamSortedbyRocks";
-BS.sortByKey = BS.URLRequired+"/getAllMessagesForAStreambyKeyword";
+//BS.sortByDate = BS.URLRequired+"/getAllMessagesForAStreamSortedbyDate";    // use /allMessagesForAStream
+//BS.sortByVote =BS.URLRequired+"/getAllMessagesForAStreamSortedbyRocks";
+//BS.sortByKey = BS.URLRequired+"/getAllMessagesForAStreambyKeyword";
 //Message Follow
 BS.followMessage =BS.URLRequired+"/followMessage";
 //check follower
@@ -102,13 +102,13 @@ BS.commentRockers = BS.URLRequired+"/commentRockers";
 // get profile videos 
 BS.allProfileVideos = BS.URLRequired+"/getAllProfileVideoForAUser";
 //get no of users attending class
-BS.noOfUsersAttendingAClass = BS.URLRequired+"/noOfUsersAttendingAClass";
+BS.noOfUsersAttendingAClass = BS.URLRequired+"/noOfUsersAttendingAClass";  //GET 	/noOfUsersAttendingAClass/:streamId
 //populate class codes
 BS.autoPopulateClassesbyCode = BS.URLRequired+"/autoPopulateClassesbyCode";
 //populate class names
 BS.autoPopulateClassesbyName = BS.URLRequired+"/autoPopulateClassesbyName";
 //DeleteStrewams
-BS.deleteStream = BS.URLRequired+"/deleteStream";
+BS.deleteStream = BS.URLRequired+"/remove/stream";	//PUT 	/remove/stream/:streamId/:deleteStream/:removeAccess
 //Add new school name $ website
 BS.addSchool =  BS.URLRequired+"/school";
 //save edit document
@@ -136,7 +136,7 @@ BS.giveMeRockersOfUserMedia = BS.URLRequired+"/giveMeRockersOfUserMedia";
 //Get data progress
 BS.dataProgress = BS.URLRequired+"/returnProgress";
 // delete Message
-BS.deleteMessage = BS.URLRequired+"/deleteMessage";
+BS.deleteMessage = BS.URLRequired+"/remove/message";		//PUT 	/remove/message/:messageId
 // delete Comments
 BS.deleteTheComment = BS.URLRequired+"/deleteTheComment";
 // browser close 

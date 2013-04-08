@@ -130,9 +130,7 @@ object MessageController extends Controller {
    * Delete A Message
    */
 
-  def deleteTheMessage = Action { implicit request =>
-    val messageIdJsonMap = request.body.asFormUrlEncoded.get
-    val messageId = messageIdJsonMap("messageId").toList(0)
+  def deleteTheMessage(messageId:String) = Action { implicit request =>
     val messsageDeleted = Message.deleteMessagePermanently(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
     if (messsageDeleted == true) Ok(write(new ResulttoSent("Success", "Message Has Been Deleted")))
     else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Message")))

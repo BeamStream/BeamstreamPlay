@@ -5,17 +5,17 @@
 GET  	/browserClosed          					controllers.UserController.browserClosed
 
 #Streams
-GET 	/allClassStreamsForAUser 					controllers.StreamController.allClassStreamsForAUser
-POST 	/noOfUsersAttendingAClass  					controllers.StreamController.noOfUsersAttendingAClass
-POST 	/deleteStream              					controllers.StreamController.deleteTheStream
+GET 	/allClassStreamsForAUser 								controllers.StreamController.allClassStreamsForAUser
+GET 	/noOfUsersAttendingAClass/:streamId  					controllers.StreamController.noOfUsersAttendingAClass(streamId:String)
+PUT 	/remove/stream/:streamId/:deleteStream/:removeAccess    controllers.StreamController.deleteTheStream(streamId:String, deleteStream:Boolean, removeAccess:Boolean)
 
 #Messages
-POST 	/getAllMessagesForAStreambyKeyword         	controllers.MessageController.getAllMessagesForAStreambyKeyword
+#POST 	/getAllMessagesForAStreambyKeyword         	controllers.MessageController.getAllMessagesForAStreambyKeyword
 #POST 	/allPublicMessagesFromAllStreamsForAUser    controllers.StreamController.allPublicMessagesFromAllStreamsForAUser
-POST 	/deleteMessage                              controllers.MessageController.deleteTheMessage
+PUT 	/remove/message/:messageId                  controllers.MessageController.deleteTheMessage(messageId:String)
 
 #Comments
-POST  	/newAnswer                 					controllers.CommentController.newAnswer
+POST  	/answer                 					controllers.CommentController.newAnswer
 POST    /allComments           						controllers.CommentController.getAllComments
 POST    /commentRockers          					controllers.CommentController.commentRockers
 POST    /deleteTheComment         					controllers.CommentController.deleteTheComment
