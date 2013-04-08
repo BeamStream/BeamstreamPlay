@@ -22,13 +22,22 @@
        
           <div id="step2_block" class="profile-white registration-info box-active">
              <fieldset class="field">  
-            <input id="firstName"  data-name="user.firstName" name="firstName" value="{{stat}}"  type="text" placeholder="First Name">
+            <input id="firstName"  data-name="user.firstName" name="firstName" value="{{firstName}}"   type="text" placeholder="First Name">
             <span class="red-star">*</span>
             </fieldset>
+            
             <fieldset class="field">  
-            <input id="lastName"  data-name="user.lastName" name="lastName"  value="" type="text" placeholder="Last Name">
+            <input id="lastName"  data-name="user.lastName" name="lastName"  value="{{lastName}}" type="text" placeholder="Last Name">
               <span class="red-star">*</span>
             </fieldset>
+            
+            {{#if status}}
+	            <fieldset class="field"> 
+	   		    <input id="mailId"  data-name="user.mailId" name="mailId"  value="{{email}}" type="text" placeholder="Email">
+	    	  	<span class="red-star">*</span>
+	            </fieldset>
+            {{/if}}
+            
             <div class="alert-register"><span>*Last Name will not be shown publicly</span></div>
             <fieldset class="field">  
             <input id="schoolName"  data-name="user.schoolName" name="schoolName" value=""  type="text" placeholder="School Name">
@@ -121,7 +130,7 @@
             
             
             <fieldset class="field location-block">
-            <input id="location" data-name="user.location" name="location" value="" type="text" placeholder="Location" class="location-note">
+            <input id="location" data-name="user.location" name="location" value="{{location}}" type="text" placeholder="Location" class="location-note">
             <span class="red-star select-star">*</span>
              <span class="location-icon location-toolip" data-original-title="Use Current Location"></span>
            </fieldset>
@@ -146,20 +155,22 @@
          	  <div id="step_1" class="step-box step-box1">
 	              <h3>Step 1 of 3 </h3>
 	              <h4>Make registration a breeze - Connect Your Social Networks</h4>
-	              <a href="#">RESET</a> <a id="done_step1" href="#">NEXT</a> 
+	              <a id ="skip_step1" href="#">Skip this step</a> <a id="done_step1" href="#">Continue</a> 
               </div>
               
               <div id="step_2" style="display:none;" class="step-box step-box1 step-box2 step-two">
 	              <h3>Step 2 of 3 </h3>
-	              <h4>Basci Profile Section</h4>
-		          <a id="step2-reset" href="#">RESET</a> <a id="done_step2" href="#">NEXT</a> 
+	              <h4>Basic Profile Section</h4>
+		          <a id="step2-reset" href="#">Reset</a> <a id="done_step2" href="#">Continue</a> 
+		          
 	          </div>
 	          
 	          <div id="step_3" style="display:none;" class="step-box">
 	              <h3>Step 3 of 3 </h3>
 	              <h4>Upload Your Main Profile Photo</h4> <span class="profile-loading" style="display:none;;"> <img src ="/beamstream/images/loading.gif"></span>
-	              <a class="browse" href="#">BROWSE </a> <a id="done_step3" href="#">DONE</a> 
+	              <a id="skip_step3" href="#">Skip this step</a> <a class="browse" href="#">Continue </a>  
               </div>
+
 
 
  <input type="file" id="uploadProfilePic" name="uploadProfilePic"  style="display:none;"> 

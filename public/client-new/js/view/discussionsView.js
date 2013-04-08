@@ -120,7 +120,7 @@ define(['view/formView',
  			                processData: false,
  			                dataType : "json",
  			                success: function(data){
- 			                	 		                          
+ 			                	 console.log(data);		                          
  			    				// set progress bar as 100 %
  			                	self.bar = $('.bar');        
  			                	self.bar.width(200);
@@ -136,25 +136,32 @@ define(['view/formView',
  			              	    
  			              	    var datVal = formatDateVal(data.message.timeCreated);
  			  	                
+ 			              	    var datas = {
+ 		  	                		"data" : data,
+ 		  	                		"datVal" :datVal
+ 			              	    }	
+ 			              	    
  			  	                $('.progress-container').hide();
  			  	                $('#uploded-file-area').hide();
  			                           
  		                        //var links =  msgBody.match(BS.urlRegex); 
- 		                        var msgUrl=  data.message.messageBody.replace(this.urlRegex1, function(msgUrlw) {
+ 		                        var msgUrl=  data.message.messageBody.replace(self.urlRegex1, function(msgUrlw) {
  		                        	trueurl= msgUrlw;    
  		                            return msgUrlw;
  		                        });
  		                        
  		                        //to get the extension of the uploaded file 
  		                        if(trueurl)
- 		                        	var extension = (trueurl).match(pattern);     
- 			                           
+ 		                        	var extension = (trueurl).match(pattern); 
+ 		                        
  			                    // set first letter of extension in capital letter  
  		                        if(extension){
  		                        	 extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
  	 			  	                	return letter.toUpperCase();
  	 			  	                });
  		                        }
+ 		                        
+ 		                      
  			  	              
  			                   /* display the posted message on feed */
 		 			    		var compiledTemplate = Handlebars.compile(DiscussionMessage);

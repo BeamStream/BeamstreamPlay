@@ -147,6 +147,7 @@
 
 <!-- for messages with Document -->
 {{#ifequal message.messageType.name "Document"}}
+
 <div id= "{{message.id.id}}" class="ask-outer follow-container" name ="{{message.userId.id}}">
             <div class="ask-content">
               <div class="follw-left">
@@ -173,7 +174,7 @@
 				  <div    name="single-doc">
 				 <div class="image-wrapper hovereffect" >
 				  <div class="hover-div">
-				   <div class="doc-image">
+				   <div class="doc-image">{{commenImage}}
                   		{{#if commenImage }}
                  			 <img  src="{{previewImage}}" class="cover-picture" /> <h3 class="common-doctext" >{{extension}}</h3>
                  		{{else}}

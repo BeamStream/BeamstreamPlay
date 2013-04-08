@@ -32,6 +32,7 @@ define(['view/formView'], function(FormView){
         	
         	e.preventDefault();
         	// set data url 
+        	this.data.models[0].set({'schoolName':$('#new-school').val()});
         	this.data.url="/school";
         	this.saveForm();
         },
