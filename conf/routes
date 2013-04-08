@@ -1,30 +1,22 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-#User
-GET 	/onlineUsers  								controllers.UserController.getAllOnlineUsers
-POST  	/followUser            						controllers.UserController.followUser
-
 #Other
 GET  	/browserClosed          					controllers.UserController.browserClosed
 
 #Streams
-GET 	/allStreamsForAUser 						controllers.StreamController.getAllStreamForAUser
 GET 	/allClassStreamsForAUser 					controllers.StreamController.allClassStreamsForAUser
 POST 	/noOfUsersAttendingAClass  					controllers.StreamController.noOfUsersAttendingAClass
 POST 	/deleteStream              					controllers.StreamController.deleteTheStream
 
 #Messages
-POST 	/newMessage                              	controllers.MessageController.newMessage
 POST 	/getAllMessagesForAStreambyKeyword         	controllers.MessageController.getAllMessagesForAStreambyKeyword
 #POST 	/allPublicMessagesFromAllStreamsForAUser    controllers.StreamController.allPublicMessagesFromAllStreamsForAUser
 POST 	/deleteMessage                              controllers.MessageController.deleteTheMessage
 
 #Comments
-POST   	/newComment               					controllers.CommentController.newComment
 POST  	/newAnswer                 					controllers.CommentController.newAnswer
 POST    /allComments           						controllers.CommentController.getAllComments
-PUT     /rockingTheComment/:commentId      		    controllers.CommentController.rockingTheComment(commentId:String)
 POST    /commentRockers          					controllers.CommentController.commentRockers
 POST    /deleteTheComment         					controllers.CommentController.deleteTheComment
 POST    /isARockerOfComment       					controllers.CommentController.isARocker
@@ -36,12 +28,10 @@ POST 	/newDocument                       			controllers.DocumentController.newDo
 POST 	/rockTheDocument                   			controllers.DocumentController.rockTheDocument
 POST 	/getRockers                        			controllers.DocumentController.giveMeRockersOfDocument
 POST 	/getDocument                       			controllers.DocumentController.getDocument
-POST 	/getDocumentFromDisk               			controllers.DocumentController.getDocumentFromDisk
 POST 	/followDocument                    			controllers.DocumentController.followDocument
 POST 	/viewCount                         			controllers.DocumentController.viewCount
 
 #Schools
-POST 	/school 									controllers.SchoolController.addANewSchool
 POST 	/getSchoolNamebyId 							controllers.SchoolController.getSchoolName
 
 #Class
@@ -65,9 +55,7 @@ POST 	/rockTheUsermedia            				controllers.MediaController.rockTheUserme
 POST 	/giveMeRockersOfUserMedia    				controllers.MediaController.giveMeRockersOfUserMedia
 
 #Message Rocks & Follows
-PUT  	/rockedIt/:messageId     					controllers.MessageController.rockedTheMessage(messageId:String)
 POST 	/returnRockers 								controllers.MessageController.giveMeRockers
-PUT  	/followMessage  							controllers.MessageController.followTheMessage
 POST 	/isAFollower    							controllers.MessageController.isAFollower
 POST 	/isARockerOfMessage   						controllers.MessageController.isARocker
 
@@ -89,9 +77,6 @@ POST 	/getAllQuestionsForAStreambyKeyword 		controllers.QuestionController.getAl
 
 #bitly
 POST 	/bitly   									controllers.MessageController.getShortUrlViabitly 
-
-#Password Recovery
-POST  	/forgotPassword          					controllers.UserController.forgotPassword
 
 #Public Profile
 POST  	/allPublicMessages          				controllers.PublicProfileController.getAllPublicMessagesForAUser
@@ -132,6 +117,9 @@ POST 	/betaUser          	controllers.JoinBeamStream.regsisterToBeamStreamBeta
 GET 	/betaUser           controllers.JoinBeamStream.betaUserRegistration
 GET 	/                   controllers.JoinBeamStream.betaUserRegistration
 
+#User
+GET 	/onlineUsers  								controllers.UserController.getAllOnlineUsers
+PUT  	/followUser            						controllers.UserController.followUser
 
 #Signup 
 
@@ -150,8 +138,6 @@ POST  	/getAllSchoolsForAutopopulate      			controllers.SchoolController.getAll
 GET 	/getAllSchoolForAUser						controllers.SchoolController.getAllSchoolForAUser
 
 
-
-
 #Class
 GET  	/class                                  controllers.ClassController.renderClassPage
 POST 	/class                             		controllers.ClassController.createClass
@@ -162,31 +148,41 @@ POST 	/autoPopulateClassesbyName 				controllers.ClassController.findClasstoAuto
 GET 	/login									controllers.Registration.loginPage
 POST 	/login      						    controllers.UserController.findUser
 
-
 # Media
 POST 	/media 									controllers.MediaController.media
 
-
-
 # Messages + Comments + ProfilePicUrl
 GET   	/allMessagesForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo		controllers.MessageController.allMessagesForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
+POST 	/newMessage                              	controllers.MessageController.newMessage
+POST   	/newComment               					controllers.CommentController.newComment
+PUT  	/followMessage  							controllers.MessageController.followTheMessage
+PUT     /rockingTheComment/:commentId      		    controllers.CommentController.rockingTheComment(commentId:String)
+
+#Message Rocks & Follows
+PUT  	/rockedIt/:messageId     					controllers.MessageController.rockedTheMessage(messageId:String)
 
 # Social
 POST 	/social/social_authentication   			controllers.SocialController.signUpViaSocialSites
 POST 	/social/social_login  			            controllers.SocialController.logInViaSocialSites
 
 #Stream
-
 GET 	/stream                                     controllers.StreamController.renderStreamPage
+GET 	/allStreamsForAUser 						controllers.StreamController.getAllStreamForAUser
+
+#School
+POST 	/school 									controllers.SchoolController.addANewSchool
 
 #Files & Media
-
 GET  	/browsemedia                              	controllers.MediaController.browseMedia
 
 #Questions
 GET 	/getAllQuestionForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo            controllers.QuestionController.getAllQuestionForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
 
+#Documents
+POST 	/getDocumentFromDisk               			controllers.DocumentController.getDocumentFromDisk
 
+#Password Recovery
+POST  	/forgotPassword          					controllers.UserController.forgotPassword
 
 
 #Asynchronous Services
