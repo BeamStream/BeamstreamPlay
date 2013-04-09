@@ -74,7 +74,7 @@ BS.profileImage = BS.URLRequired+"/getProfilePicForAUser";
 // Gel all profile images
 BS.allProfileImages = BS.URLRequired+"/getAllProfilePicForAUser";
 //Get all class streams of a user
-BS.classStreamsForUser = BS.URLRequired+"/allClassStreamsForAUser";
+BS.classStreamsForUser = BS.URLRequired+"/streams";
 //Get all school for autopopulate
 BS.autoPopulateSchools = BS.URLRequired+"/getAllSchoolsForAutopopulate";
 //POST bitly
@@ -102,7 +102,7 @@ BS.commentRockers = BS.URLRequired+"/commentRockers";
 // get profile videos 
 BS.allProfileVideos = BS.URLRequired+"/getAllProfileVideoForAUser";
 //get no of users attending class
-BS.noOfUsersAttendingAClass = BS.URLRequired+"/noOfUsersAttendingAClass";  //GET 	/noOfUsersAttendingAClass/:streamId
+BS.noOfUsersAttendingAClass = BS.URLRequired+"/noOfUsers/stream";  //GET 	 /noOfUsers/stream/:streamId
 //populate class codes
 BS.autoPopulateClassesbyCode = BS.URLRequired+"/autoPopulateClassesbyCode";
 //populate class names
@@ -124,11 +124,11 @@ BS.uploaddocFrmComputer = BS.URLRequired+"/getDocumentFromDisk";
 //Get audio Files of a User
 BS.getaudioFilesOfAUser = BS.URLRequired+"/audioFilesOfAUser";
 //get all ppt Files of a user
-BS.getAllPPTFilesForAUser = BS.URLRequired+"/getAllPPTFilesForAUser";
+BS.getAllPPTFilesForAUser = BS.URLRequired+"/allPPTFilesForAUser";
 //get all pdf Files of a user
-BS.getAllPDFFilesForAUser = BS.URLRequired+"/getAllPDFFilesForAUser";
+BS.getAllPDFFilesForAUser = BS.URLRequired+"/allPDFFilesForAUser";
 // Get All Docs of a user (docs upload from computer)
-BS.getAllDOCSFilesForAUser = BS.URLRequired+"/getAllDOCSFilesForAUser";
+BS.getAllDOCSFilesForAUser = BS.URLRequired+"/allDOCSFilesForAUser";
 // Rock Video /image 
 BS.rockTheUsermedia = BS.URLRequired+"/rockTheUsermedia";
 // Rockers list - image /video
@@ -158,15 +158,15 @@ BS.followUser =BS.URLRequired+"/followUser";
 BS.onlineUsers = BS.URLRequired+"/onlineUsers"; 
 
 /* for question page */
-BS.newQuestion =BS.URLRequired+"/newQuestion";
-BS.rockQuestion =BS.URLRequired+"/rockQuestion";
-BS.followQuestion =BS.URLRequired+"/followQuestion";
-BS.giveMeRockersOfQuestion =BS.URLRequired+"/giveMeRockersOfQuestion";
-BS.getAllQuestionsOfAStream =BS.URLRequired+"/getAllQuestionForAStream";
-BS.deleteQuestion =BS.URLRequired+"/deleteQuestion";
-BS.votepoll=BS.URLRequired+"/voteAnOptionOfAQuestion";
-BS.sortQuestionsByRock =BS.URLRequired+"/getAllQuestionsForAStreamSortedbyRocks";
-BS.sortQuestionsByKey = BS.URLRequired+"/getAllQuestionsForAStreambyKeyword";
+BS.newQuestion =BS.URLRequired+"/question";
+BS.rockQuestion =BS.URLRequired+"/rock/question";							//PUT  	/rock/question/:questionId
+BS.followQuestion =BS.URLRequired+"/follow/question";						//PUT  	/follow/question/:questionId
+BS.giveMeRockersOfQuestion =BS.URLRequired+"/rockersOf/question";			//GET 	/rockersOf/question/:questionId
+BS.getAllQuestionsOfAStream =BS.URLRequired+"/getAllQuestionForAStream";	
+BS.deleteQuestion =BS.URLRequired+"/remove/question";						//PUT 	/remove/question/:questionId
+BS.votepoll=BS.URLRequired+"/voteAnOptionOf/question";						//PUT  	/voteAnOptionOf/question/:optionId
+//BS.sortQuestionsByRock =BS.URLRequired+"/getAllQuestionsForAStreamSortedbyRocks";  //deprecated use /getAllQuestionsForAStream
+//BS.sortQuestionsByKey = BS.URLRequired+"/getAllQuestionsForAStreambyKeyword";
 
 
  

@@ -5,8 +5,8 @@
 GET  	/browserClosed          					controllers.UserController.browserClosed
 
 #Streams
-GET 	/allClassStreamsForAUser 								controllers.StreamController.allClassStreamsForAUser
-GET 	/noOfUsersAttendingAClass/:streamId  					controllers.StreamController.noOfUsersAttendingAClass(streamId:String)
+GET 	/streams				 								controllers.StreamController.allClassStreamsForAUser
+GET 	/noOfUsers/stream/:streamId  							controllers.StreamController.noOfUsersAttendingAClass(streamId:String)
 PUT 	/remove/stream/:streamId/:deleteStream/:removeAccess    controllers.StreamController.deleteTheStream(streamId:String, deleteStream:Boolean, removeAccess:Boolean)
 
 #Messages
@@ -61,27 +61,27 @@ POST 	/isARockerOfMessage   						controllers.MessageController.isARocker
 
 #Files
 GET 	/audioFilesOfAUser  						controllers.DocumentController.getAllAudioFilesForAUser
-GET 	/getAllPPTFilesForAUser  					controllers.DocumentController.getAllPPTFilesForAUser
-GET 	/getAllPDFFilesForAUser  					controllers.DocumentController.getAllPDFFilesForAUser
-GET 	/getAllDOCSFilesForAUser  					controllers.DocumentController.getAllDOCSFilesForAUser
+GET 	/allPPTFilesForAUser  						controllers.DocumentController.getAllPPTFilesForAUser
+GET 	/allPDFFilesForAUser  						controllers.DocumentController.getAllPDFFilesForAUser
+GET 	/allDOCSFilesForAUser  						controllers.DocumentController.getAllDOCSFilesForAUser
 
 #Questions
-POST 	/newQuestion               					controllers.QuestionController.newQuestion
-PUT  	/rockQuestion               				controllers.QuestionController.rockTheQuestion
-GET 	/getAllQuestionsForAUser               		controllers.QuestionController.getAllQuestionsForAUser
-POST 	/giveMeRockersOfQuestion            		controllers.QuestionController.giveMeRockers
-PUT  	/followQuestion            					controllers.QuestionController.followQuestion
-POST  	/voteAnOptionOfAQuestion  					controllers.QuestionController.voteAnOptionOfAQuestion
-POST 	/deleteQuestion               				controllers.QuestionController.deleteQuestion              
-POST 	/getAllQuestionsForAStreambyKeyword 		controllers.QuestionController.getAllQuestionsForAStreambyKeyword
+POST 	/question               					controllers.QuestionController.newQuestion
+PUT  	/rock/question/:questionId                	controllers.QuestionController.rockTheQuestion
+GET 	/questions				            		controllers.QuestionController.getAllQuestionsForAUser(userId:String)
+GET 	/rockersOf/question/:questionId        		controllers.QuestionController.giveMeRockers(questionId:String)
+PUT  	/follow/question/:questionId            	controllers.QuestionController.followQuestion(questionId:String)
+PUT  	/voteAnOptionOf/question/:optionId  		controllers.QuestionController.voteAnOptionOfAQuestion(optionId:String)
+PUT 	/remove/question/:questionId                controllers.QuestionController.deleteQuestion(questionId:String)              
+#POST 	/getAllQuestionsForAStreambyKeyword 		controllers.QuestionController.getAllQuestionsForAStreambyKeyword
 
 #bitly
 POST 	/bitly   									controllers.MessageController.getShortUrlViabitly 
 
 #Public Profile
-POST  	/allPublicMessages          				controllers.PublicProfileController.getAllPublicMessagesForAUser
+GET  	/publicMessages/user/:userId          		controllers.PublicProfileController.getAllPublicMessagesForAUser(userId:String)
 #POST  	/publicProfileInfo          				controllers.PublicProfileController.getPublicProfileOfAUser
-POST  	/allPublicDocuments        					controllers.PublicProfileController.getAllPublicDocumentForAUser
+GET  	/publicDocuments/user/:userId        		controllers.PublicProfileController.getAllPublicDocumentForAUser(userId:String)
 
 
 

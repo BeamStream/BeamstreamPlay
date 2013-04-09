@@ -20,11 +20,7 @@ object PublicProfileController extends Controller {
    * All Public Messages For A User
    */
 
-  def getAllPublicMessagesForAUser = Action { implicit request =>
-    val userIdJsonMap = request.body.asFormUrlEncoded.get
-    val userIdJson = userIdJsonMap("data").toList(0)
-    val parsedUserIdjson = net.liftweb.json.parse(userIdJson)
-    val userId = (parsedUserIdjson \ "userId").extract[String]
+  def getAllPublicMessagesForAUser(userId:String) = Action { implicit request =>
     val messages = Message.getAllPublicMessagesForAUser(new ObjectId(userId))
     Ok(write(messages)).as("application/json")
   }
@@ -44,11 +40,7 @@ object PublicProfileController extends Controller {
   /**
    * Get All Public Documents For A User
    */
-  def getAllPublicDocumentForAUser = Action { implicit request =>
-    val userIdJsonMap = request.body.asFormUrlEncoded.get
-    val userIdJson = userIdJsonMap("data").toList(0)
-    val parsedUserIdjson = net.liftweb.json.parse(userIdJson)
-    val userId = (parsedUserIdjson \ "userId").extract[String]
+  def getAllPublicDocumentForAUser(userId:String) = Action { implicit request =>
     val publicDocsForAUser = Document.getAllPublicDocumentForAUser(new ObjectId(userId))
     Ok(write(publicDocsForAUser)).as("application/json")
   }
