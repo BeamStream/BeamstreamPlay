@@ -53,8 +53,6 @@ object AmazonUploadUtil {
 
 }
 
-
-
 class AmazonUpload {
 
   var totalByteRead: Double = 0
@@ -109,30 +107,39 @@ class AmazonUpload {
    * }
    */
 
-  //RA
+  /**
+   * Upload File To Amazon
+   * @param profilePicName is the name of file 
+   * @param profilePic is the file to be uploaded
+   */
   def uploadFileToAmazon(profilePicName: String, profilePic: File) {
     val bucketName = "BeamStream"
     val s3Client = fetchS3Client
     s3Client.putObject(bucketName, profilePicName, profilePic)
   }
 }
+
+
 object ProgressBar {
   def setProgressBar(userId: String, progress: Int) {
     ProgressStatusUtil.addProgress(userId, progress)
   }
 }
 
-object DocsUploadOnAmazon {
-  def uploadFileToAmazon(profilePicName: String, profilePic: File) {
-    val bucketName = "BeamStream"
-    val AWS_ACCESS_KEY_RAW = Play.current.configuration.getString("A_A_K").get
-    val AWS_SECRET_KEY_RAW = Play.current.configuration.getString("A_S_K").get
-
-    val AWS_ACCESS_KEY = ConversionUtility.decodeMe(AWS_ACCESS_KEY_RAW)
-    val AWS_SECRET_KEY = ConversionUtility.decodeMe(AWS_SECRET_KEY_RAW)
-    val awsCredentials = new BasicAWSCredentials(AWS_ACCESS_KEY, AWS_SECRET_KEY)
-    val s3Client = new AmazonS3Client(awsCredentials);
-    s3Client.putObject(bucketName, profilePicName, profilePic)
-  }
+///**
+// * Docs Upload to Amazon
+// */
+//object DocsUploadOnAmazon {
+//  def uploadFileToAmazon(profilePicName: String, profilePic: File) {
+//    val bucketName = "BeamStream"
+//    val AWS_ACCESS_KEY_RAW = Play.current.configuration.getString("A_A_K").get
+//    val AWS_SECRET_KEY_RAW = Play.current.configuration.getString("A_S_K").get
+//
+//    val AWS_ACCESS_KEY = ConversionUtility.decodeMe(AWS_ACCESS_KEY_RAW)
+//    val AWS_SECRET_KEY = ConversionUtility.decodeMe(AWS_SECRET_KEY_RAW)
+//    val awsCredentials = new BasicAWSCredentials(AWS_ACCESS_KEY, AWS_SECRET_KEY)
+//    val s3Client = new AmazonS3Client(awsCredentials);
+//    s3Client.putObject(bucketName, profilePicName, profilePic)
+//  }
 
 }

@@ -110,7 +110,7 @@ object SocialController extends Controller {
       val body = res.getBody
       Ok(body).as("application/json")
     }.getOrElse {
-      Unauthorized("You are not an authorized user!");
+      Unauthorized("You are not an authorized user!")
     }
   }
 }

@@ -122,7 +122,7 @@ object MediaController extends Controller {
    * }
    */
 
-  def media = Action(parse.multipartFormData) { implicit request =>
+  def uploadMediaToAmazon = Action(parse.multipartFormData) { implicit request =>
     try {
       var imageNameOnAmazon = ""
       var imageFilename = ""
@@ -159,7 +159,6 @@ object MediaController extends Controller {
     } else {
       Ok(write(new ResulttoSent("Failure", "No picture found for this user")))
     }
-
   }
 */
 
@@ -236,7 +235,6 @@ object MediaController extends Controller {
    */
 
   def getProfilePicForAUser(userId:String) = Action { implicit request =>
-    //val userIdReceived = request.queryString("userId").toList(0)
     val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userId))
     if (!mediaObtained.size.equals(0)) {
       val MediaJson = write(mediaObtained.last)
