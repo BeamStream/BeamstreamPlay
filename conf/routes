@@ -155,7 +155,7 @@ POST 	/media 									controllers.MediaController.media
 GET   	/allMessagesForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo		controllers.MessageController.allMessagesForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
 POST 	/newMessage                              	controllers.MessageController.newMessage
 POST   	/newComment               					controllers.CommentController.newComment
-PUT  	/followMessage  							controllers.MessageController.followTheMessage
+PUT  	/follow/message/:messageId  				controllers.MessageController.followTheMessage(messageId:String)
 PUT     /rockingTheComment/:commentId      		    controllers.CommentController.rockingTheComment(commentId:String)
 
 #Message Rocks & Follows

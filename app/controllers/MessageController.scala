@@ -92,9 +92,7 @@ object MessageController extends Controller {
   /**
    * Rock the message
    */
-  def followTheMessage = Action { implicit request =>
-    val messageIdJsonMap = request.body.asFormUrlEncoded.get
-    val messageId = messageIdJsonMap("messageId").toList(0)
+  def followTheMessage(messageId:String) = Action { implicit request =>
     val totalFollows = Message.followMessage(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
     val totalFollowJson = write(totalFollows.toString)
     Ok(totalFollowJson).as("application/json")
