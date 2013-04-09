@@ -70,10 +70,11 @@ define(['view/formView' ,
 			else{                  //signup  via janRain
 				if (userInfo.stat == "ok") {
 					
-					var firstName , lastName , location , email ;
+					var firstName = '' , lastName ='' , location ='' , email='' ;
 					firstName = userInfo.profile.name.givenName;
 					lastName = userInfo.profile.name.familyName;
-					 
+					
+					this.data.models[0].set({'firstName':firstName , 'lastName': lastName}); 
 					 
 					if (userInfo.profile.providerName == "Twitter"){
 						 
@@ -119,6 +120,8 @@ define(['view/formView' ,
 					}
 						 
 					userInfo = { "status" : "true" , "firstName" : firstName,"lastName": lastName,"location": location, "email": email  };
+					
+					this.data.models[0].set({'firstName':firstName , 'lastName': lastName , 'location': location ,'mailId': email});
 					this.$(".content").html( compiledTemplate(userInfo));
 				}
 			}

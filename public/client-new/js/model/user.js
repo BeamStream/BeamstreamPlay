@@ -57,7 +57,7 @@ define(['baseModel'], function(BaseModel) {
         },
         
 		validation: {
-
+			
             firstName: {
 				required: true
 			},
@@ -93,7 +93,11 @@ define(['baseModel'], function(BaseModel) {
 			},
 			degreeExpected:{
 				required: true
-			}
+			},
+			mailId: {
+				required: true,
+				pattern: 'email'
+			},
         }
   
 
