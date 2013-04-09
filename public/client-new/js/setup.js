@@ -72,7 +72,7 @@ BS.docUpload = BS.URLRequired+"/document";
 //profile images and videos
 BS.profileImage = BS.URLRequired+"/profilePicFor/user";
 // Gel all profile images
-BS.allProfileImages = BS.URLRequired+"/getAllProfilePicForAUser";
+BS.allProfileImages = BS.URLRequired+"/allProfilePicsFor/user";	//GET 	/allProfilePicsFor/user
 //Get all class streams of a user
 BS.classStreamsForUser = BS.URLRequired+"/streams";
 //Get all school for autopopulate
@@ -100,7 +100,7 @@ BS.rockingTheComment = BS.URLRequired+"/rockingTheComment";
 // get comment rockers list
 BS.commentRockers = BS.URLRequired+"/rockersOf/comment";			//GET     /rockersOf/comment/:commentId 
 // get profile videos 
-BS.allProfileVideos = BS.URLRequired+"/getAllProfileVideoForAUser";
+BS.allProfileVideos = BS.URLRequired+"/allProfileVideoFor/user";	//GET 	/allProfileVideoFor/user
 //get no of users attending class
 BS.noOfUsersAttendingAClass = BS.URLRequired+"/noOfUsers/stream";  //GET 	 /noOfUsers/stream/:streamId
 //populate class codes
@@ -130,9 +130,9 @@ BS.getAllPDFFilesForAUser = BS.URLRequired+"/allPDFFilesForAUser";
 // Get All Docs of a user (docs upload from computer)
 BS.getAllDOCSFilesForAUser = BS.URLRequired+"/allDOCSFilesForAUser";
 // Rock Video /image 
-BS.rockTheUsermedia = BS.URLRequired+"/rockTheUsermedia";
+BS.rockTheUsermedia = BS.URLRequired+"/rock/media";		//PUT 	/rock/media/:mediaId
 // Rockers list - image /video
-BS.giveMeRockersOfUserMedia = BS.URLRequired+"/giveMeRockersOfUserMedia";
+BS.giveMeRockersOfUserMedia = BS.URLRequired+"/rockersOf/media";	//GET 	/rockersOf/media/:mediaId
 //Get data progress
 BS.dataProgress = BS.URLRequired+"/returnProgress";
 // delete Message
@@ -142,7 +142,7 @@ BS.deleteTheComment = BS.URLRequired+"/remove/comment";		//PUT   /remove/comment
 // browser close 
 BS.browserClosed =BS.URLRequired+"/browserClosed";  
 //change Title and Description of User Media 
-BS.changeTitleDescriptionUserMedia =BS.URLRequired+"/changeTitleAndDescriptionUserMedia";
+BS.changeTitleDescriptionUserMedia =BS.URLRequired+"/media";	//PUT 	/media/:mediaId/:name/:description
 //get details of a image/video 
 BS.getMedia =BS.URLRequired+"/getMedia";
 //check if the logged user is already rock a particular message

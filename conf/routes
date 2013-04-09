@@ -48,11 +48,11 @@ GET 	/signOut 									controllers.UserController.signOut
 #Media
 #POST 	/getMediafromPost 							controllers.MediaController.getMedia
 GET 	/profilePicFor/user/:userId      			controllers.MediaController.getProfilePicForAUser(userId:String)
-POST 	/changeTitleAndDescriptionUserMedia    		controllers.MediaController.changeTitleAndDescriptionUserMedia
-GET 	/getAllProfilePicForAUser   				controllers.MediaController.getAllProfilePicForAUser
-GET 	/getAllProfileVideoForAUser   				controllers.MediaController.getAllProfileVideoForAUser
-POST 	/rockTheUsermedia            				controllers.MediaController.rockTheUsermedia
-POST 	/giveMeRockersOfUserMedia    				controllers.MediaController.giveMeRockersOfUserMedia
+PUT 	/media/:mediaId/:name/:description    		controllers.MediaController.changeTitleAndDescriptionUserMedia(mediaId:String, name:String, description:String)
+GET 	/allProfilePicsFor/user   					controllers.MediaController.getAllProfilePicForAUser
+GET 	/allProfileVideoFor/user   					controllers.MediaController.getAllProfileVideoForAUser
+PUT 	/rock/media/:mediaId            			controllers.MediaController.rockTheUsermedia(mediaId:String)
+GET 	/rockersOf/media/:mediaId    				controllers.MediaController.giveMeRockersOfUserMedia(mediaId:String)
 
 #Message Rocks & Follows
 GET 	/rockersOf/message/:messageId 				controllers.MessageController.giveMeRockers(messageId:String)
