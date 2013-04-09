@@ -251,6 +251,7 @@ import java.text.DateFormat
 class MessageEntityTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
+  /*
   val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List())
   val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(user.id), true, List())
 
@@ -258,7 +259,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     User.createUser(user)
     Stream.createStream(stream)
   }
-
+	*/
   test("Message Creation") {
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)

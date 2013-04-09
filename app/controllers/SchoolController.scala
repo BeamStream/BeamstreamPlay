@@ -61,9 +61,7 @@ object SchoolController extends Controller {
    * Returns school name by schoolId
    */
 
-  def getSchoolName = Action { implicit request =>
-    val schoolIdJsonMap = request.body.asFormUrlEncoded.get
-    val schoolId = schoolIdJsonMap("schoolId").toList(0)
+  def getSchoolName(schoolId:String) = Action { implicit request =>
     val schoolName = School.findSchoolsById(new ObjectId(schoolId))
     Ok(write(schoolName)).as("application/json")
   }

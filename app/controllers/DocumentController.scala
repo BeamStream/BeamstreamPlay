@@ -93,16 +93,13 @@ object DocumentController extends Controller {
    *  Get details of a document
    */
 
-  def getDocument = Action { implicit request =>
+  def getDocument(documentId:String) = Action { implicit request =>
 
-    val documentIdJsonMap = request.body.asFormUrlEncoded.get
-
-    (documentIdJsonMap.contains(("documentId"))) match {
+    (documentId != null) match {
 
       case false => Ok(write(new ResulttoSent("Failure", "No Document Available Having The Provided DocumentId !!!")))
       case true =>
 
-        val documentId = documentIdJsonMap("documentId").toList(0)
         val docObtained = Document.findDocumentById(new ObjectId(documentId))
         val documentJSON = write(List(docObtained))
         Ok(documentJSON).as("application/json")
@@ -122,9 +119,7 @@ object DocumentController extends Controller {
    * Rock the document (Modified)
    * Rocking any kind of Doc Audio, Video , PPT etc.
    */
-  def rockTheDocument = Action { implicit request =>
-    val documentIdJsonMap = request.body.asFormUrlEncoded.get
-    val documentId = documentIdJsonMap("documentId").toList(0)
+  def rockTheDocument(documentId:String) = Action { implicit request =>
     val totalRocks = Document.rockedIt(new ObjectId(documentId), new ObjectId(request.session.get("userId").get))
     val totalRocksJson = write(totalRocks.toString)
     Ok(totalRocksJson).as("application/json")
@@ -133,13 +128,9 @@ object DocumentController extends Controller {
   /*
       * Change the title and description
       */
-  def changeTitleAndDescriptionForADocument = Action { implicit request =>
-    val documentIdJsonMap = request.body.asFormUrlEncoded.get
-    val id = documentIdJsonMap("documentId").toList(0)
-    val title = documentIdJsonMap("docName").toList(0)
-    val description = documentIdJsonMap("docDescription").toList(0)
-    Document.updateTitleAndDescription(new ObjectId(id), title, description)
-    val docObtained = Document.findDocumentById(new ObjectId(id))
+  def changeTitleAndDescriptionForADocument(documentId:String,name:String,description:String) = Action { implicit request =>
+    Document.updateTitleAndDescription(new ObjectId(documentId), name, description)
+    val docObtained = Document.findDocumentById(new ObjectId(documentId))
     val docJson = write(List(docObtained))
     Ok(docJson).as("application/json")
   }
@@ -147,10 +138,8 @@ object DocumentController extends Controller {
   /*
     * Rockers of a document
     */
-  def giveMeRockersOfDocument = Action { implicit request =>
-    val documentIdJsonMap = request.body.asFormUrlEncoded.get
-    val id = documentIdJsonMap("documentId").toList(0)
-    val rockers = Document.rockersNames(new ObjectId(id))
+  def giveMeRockersOfDocument(documentId:String) = Action { implicit request =>
+    val rockers = Document.rockersNames(new ObjectId(documentId))
     val rockersJson = write(rockers)
     Ok(rockersJson).as("application/json")
   }
@@ -251,9 +240,7 @@ object DocumentController extends Controller {
    * Follow Document
    */
 
-  def followDocument = Action { implicit request =>
-    val docIdToFollowJsonMap = request.body.asFormUrlEncoded.get
-    val documentId = docIdToFollowJsonMap("documentId").toList(0)
+  def followDocument(documentId:String) = Action { implicit request =>
     val followers = Document.followDocument(new ObjectId(request.session.get("userId").get), new ObjectId(documentId))
     Ok(write(followers.toString)).as("application/json")
   }
@@ -311,13 +298,11 @@ object DocumentController extends Controller {
    * Get view count of a document
    */
 
-  def viewCount = Action { implicit request =>
-    val documentDetailsJsonMap = request.body.asFormUrlEncoded.get
-    val docId = documentDetailsJsonMap("docId").toList(0)
-    val mediaFile = UserMedia.findMediaById(new ObjectId(docId))
+  def viewCount(documentId:String) = Action { implicit request =>
+    val mediaFile = UserMedia.findMediaById(new ObjectId(documentId))
     if (mediaFile != None) {
       UserMedia.increaseViewCountOfUsermedia(mediaFile.get.id)
-    } else Document.increaseViewCountOfADocument(new ObjectId(docId))
+    } else Document.increaseViewCountOfADocument(new ObjectId(documentId))
     Ok
   }
 }

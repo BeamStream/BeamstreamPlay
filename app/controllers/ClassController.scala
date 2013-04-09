@@ -67,10 +67,10 @@ object ClassController extends Controller {
    * Edit Class Functionality
    * @Purpose: Getting all classes for a user
    */
-  def getAllClassesForAUser = Action { implicit request =>
+  def getAllClassesForAUser(userId:String) = Action { implicit request =>
     try {
-      val userId = new ObjectId(request.session.get("userId").get)
-      val classIdList = Class.getAllClassesIdsForAUser(userId)
+      val id = new ObjectId(userId)
+      val classIdList = Class.getAllClassesIdsForAUser(id)
       val getAllClassesForAUser = Class.getAllClasses(classIdList)
       val ClassListJson = write(getAllClassesForAUser)
       Ok(ClassListJson).as("application/json")

@@ -41,7 +41,7 @@ BS.saveProfile = BS.URLRequired+"/getMediafromPost";
 // For populate list of class code
 BS.autoPopulateClass = BS.URLRequired+"/autoPopulateClasses";
 // Get School name for a SchoolId
-BS.schoolNamebyId = BS.URLRequired+"/getSchoolNamebyId";
+BS.schoolNamebyId = BS.URLRequired+"/name/school";				//GET 	/name/school/:schoolId
 // Get all schools under a user
 BS.allSchoolForAUser = BS.URLRequired+"/getAllSchoolForAUser";
 // For new class in class stream
@@ -68,9 +68,9 @@ BS.rockedIt = BS.URLRequired+"/rockedIt";
 // Get Rockers list
 BS.rockersList = BS.URLRequired+"/returnRockers";
 // For File Upload
-BS.docUpload = BS.URLRequired+"/newDocument";
+BS.docUpload = BS.URLRequired+"/document";
 //profile images and videos
-BS.profileImage = BS.URLRequired+"/getProfilePicForAUser";
+BS.profileImage = BS.URLRequired+"/profilePicFor/user";
 // Gel all profile images
 BS.allProfileImages = BS.URLRequired+"/getAllProfilePicForAUser";
 //Get all class streams of a user
@@ -82,7 +82,7 @@ BS.bitly = BS.URLRequired+"/bitly";
 //POST comment
 BS.newComment = BS.URLRequired+"/newComment";
 //Get all comments of a message
-BS.allComments = BS.URLRequired+"/allComments";
+//BS.allComments = BS.URLRequired+"/comments"; 	//deprecated:  use /messages or /questions
 //for forgot password
 BS.forgotPassword = BS.URLRequired+"/forgotPassword";
 //sort messages
@@ -93,12 +93,12 @@ BS.forgotPassword = BS.URLRequired+"/forgotPassword";
 BS.followMessage =BS.URLRequired+"/followMessage";
 //check follower
 BS.isAFollower = BS.URLRequired+"/isAFollower";
-// Get All Documebts of a user
-BS.getAllDocs = BS.URLRequired+"/getAllDocumentsForAUser";
+// Get All Documents of a user
+BS.getAllDocs = BS.URLRequired+"/documents";
 // Rocks comments
 BS.rockingTheComment = BS.URLRequired+"/rockingTheComment";
 // get comment rockers list
-BS.commentRockers = BS.URLRequired+"/commentRockers";
+BS.commentRockers = BS.URLRequired+"/rockersOf/comment";			//GET     /rockersOf/comment/:commentId 
 // get profile videos 
 BS.allProfileVideos = BS.URLRequired+"/getAllProfileVideoForAUser";
 //get no of users attending class
@@ -112,13 +112,13 @@ BS.deleteStream = BS.URLRequired+"/remove/stream";	//PUT 	/remove/stream/:stream
 //Add new school name $ website
 BS.addSchool =  BS.URLRequired+"/school";
 //save edit document
-BS.savedocedit = BS.URLRequired+"/changeTitleAndDescriptionForADocument";
+BS.savedocedit = BS.URLRequired+"/document";	//PUT 	/document/:documentId/:name/:description
 //Rocks the Google docs 
-BS.rockDocs = BS.URLRequired+"/rockTheDocument";
+BS.rockDocs = BS.URLRequired+"/rock/document";	//PUT 	/rock/document/:documentId
 //Document rockers list 
-BS.documentRockers =BS.URLRequired+"/getRockers";
+BS.documentRockers =BS.URLRequired+"/rockersOf/document";	//GET 	/rockersOf/document/:documentId
 //get one google doc to edit
-BS.getOneDocs = BS.URLRequired+"/getDocument"; 
+BS.getOneDocs = BS.URLRequired+"/document"; 	//GET 	/document/:documentId
 //Upload Doc from My Computer the Google docs 
 BS.uploaddocFrmComputer = BS.URLRequired+"/getDocumentFromDisk";
 //Get audio Files of a User
@@ -138,7 +138,7 @@ BS.dataProgress = BS.URLRequired+"/returnProgress";
 // delete Message
 BS.deleteMessage = BS.URLRequired+"/remove/message";		//PUT 	/remove/message/:messageId
 // delete Comments
-BS.deleteTheComment = BS.URLRequired+"/deleteTheComment";
+BS.deleteTheComment = BS.URLRequired+"/remove/comment";		//PUT   /remove/comment/:commentId
 // browser close 
 BS.browserClosed =BS.URLRequired+"/browserClosed";  
 //change Title and Description of User Media 
@@ -148,7 +148,7 @@ BS.getMedia =BS.URLRequired+"/getMedia";
 //check if the logged user is already rock a particular message
 BS.isARockerOfMessage =BS.URLRequired+"/isARockerOfMessage";
 //check if the logged user is already rock a particular comment
-BS.isARockerOfComment =BS.URLRequired+"/isARockerOfComment";
+BS.isARockerOfComment =BS.URLRequired+"/isARockerOf/comment";  //GET     /isARockerOf/comment/:commentId 
 // Follow User
 BS.followUser =BS.URLRequired+"/followUser";
 

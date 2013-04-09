@@ -243,9 +243,9 @@ object MediaController extends Controller {
    * @ Purpose: fetches the recent profile picture for a user
    */
 
-  def getProfilePicForAUser = Action { implicit request =>
-    val userIdReceived = request.queryString("userId").toList(0)
-    val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userIdReceived))
+  def getProfilePicForAUser(userId:String) = Action { implicit request =>
+    //val userIdReceived = request.queryString("userId").toList(0)
+    val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userId))
     if (!mediaObtained.size.equals(0)) {
       val MediaJson = write(mediaObtained.last)
       Ok(MediaJson).as("application/json")

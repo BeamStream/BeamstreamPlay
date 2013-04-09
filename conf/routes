@@ -16,26 +16,26 @@ PUT 	/remove/message/:messageId                  controllers.MessageController.d
 
 #Comments
 POST  	/answer                 					controllers.CommentController.newAnswer
-POST    /allComments           						controllers.CommentController.getAllComments
-POST    /commentRockers          					controllers.CommentController.commentRockers
-POST    /deleteTheComment         					controllers.CommentController.deleteTheComment
-POST    /isARockerOfComment       					controllers.CommentController.isARocker
+#GET    /comments           						controllers.CommentController.getAllComments   
+GET     /rockersOf/comment/:commentId          		controllers.CommentController.commentRockers(commentId:String)
+PUT     /remove/comment/:commentId         			controllers.CommentController.deleteTheComment(commentId:String)
+GET     /isARockerOf/comment/:commentId       		controllers.CommentController.isARocker(commentId:String)
 
 #Document
-GET  	/getAllDocumentsForAUser        			controllers.DocumentController.getAllGoogleDocumentsForAUser
-POST 	/changeTitleAndDescriptionForADocument 		controllers.DocumentController.changeTitleAndDescriptionForADocument
-POST 	/newDocument                       			controllers.DocumentController.newDocument
-POST 	/rockTheDocument                   			controllers.DocumentController.rockTheDocument
-POST 	/getRockers                        			controllers.DocumentController.giveMeRockersOfDocument
-POST 	/getDocument                       			controllers.DocumentController.getDocument
-POST 	/followDocument                    			controllers.DocumentController.followDocument
-POST 	/viewCount                         			controllers.DocumentController.viewCount
+GET  	/documents				        						controllers.DocumentController.getAllGoogleDocumentsForAUser
+PUT 	/document/:documentId/:name/:description 				controllers.DocumentController.changeTitleAndDescriptionForADocument(documentId:String,name:String,description:String)
+POST 	/document                       						controllers.DocumentController.newDocument
+PUT 	/rock/document/:documentId                   			controllers.DocumentController.rockTheDocument(documentId:String)
+GET 	/rockersOf/document/:documentId                        	controllers.DocumentController.giveMeRockersOfDocument(documentId:String)
+GET 	/document/:documentId                       			controllers.DocumentController.getDocument(documentId:String)
+PUT 	/follow/document/:documentId		                    controllers.DocumentController.followDocument(documentId:String)
+PUT 	/viewCountOf/document/:documentId                       controllers.DocumentController.viewCount(documentId:String)
 
 #Schools
-POST 	/getSchoolNamebyId 							controllers.SchoolController.getSchoolName
+GET 	/name/school/:schoolId	 					controllers.SchoolController.getSchoolName(schoolId:String)
 
 #Class
-GET  	/getAllClassesForAUser             			controllers.ClassController.getAllClassesForAUser
+GET  	/classesFor/user/:userId             		controllers.ClassController.getAllClassesForAUser(userId:String)
 
 GET 	/loggedInUserJson 							controllers.UserController.returnUserJson
 
@@ -47,7 +47,7 @@ GET 	/signOut 									controllers.UserController.signOut
 
 #Media
 #POST 	/getMediafromPost 							controllers.MediaController.getMedia
-POST 	/getProfilePicForAUser      				controllers.MediaController.getProfilePicForAUser
+GET 	/profilePicFor/user/:userId      			controllers.MediaController.getProfilePicForAUser(userId:String)
 POST 	/changeTitleAndDescriptionUserMedia    		controllers.MediaController.changeTitleAndDescriptionUserMedia
 GET 	/getAllProfilePicForAUser   				controllers.MediaController.getAllProfilePicForAUser
 GET 	/getAllProfileVideoForAUser   				controllers.MediaController.getAllProfileVideoForAUser
@@ -67,8 +67,8 @@ GET 	/allDOCSFilesForAUser  						controllers.DocumentController.getAllDOCSFiles
 
 #Questions
 POST 	/question               					controllers.QuestionController.newQuestion
-PUT  	/rock/question/:questionId                	controllers.QuestionController.rockTheQuestion
-GET 	/questions				            		controllers.QuestionController.getAllQuestionsForAUser(userId:String)
+PUT  	/rock/question/:questionId                	controllers.QuestionController.rockTheQuestion(questionId:String)
+GET 	/questions				            		controllers.QuestionController.getAllQuestionsForAUser
 GET 	/rockersOf/question/:questionId        		controllers.QuestionController.giveMeRockers(questionId:String)
 PUT  	/follow/question/:questionId            	controllers.QuestionController.followQuestion(questionId:String)
 PUT  	/voteAnOptionOf/question/:optionId  		controllers.QuestionController.voteAnOptionOfAQuestion(optionId:String)
