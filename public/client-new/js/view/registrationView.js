@@ -70,7 +70,7 @@ define(['view/formView' ,
 			else{                  //signup  via janRain
 				if (userInfo.stat == "ok") {
 					
-					var firstName = '' , lastName ='' , location ='' , email='' ;
+					var firstName = '', lastName ='', location ='', email='';
 					firstName = userInfo.profile.name.givenName;
 					lastName = userInfo.profile.name.familyName;
 					

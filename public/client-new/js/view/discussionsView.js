@@ -740,7 +740,7 @@ define(['view/formView',
 			
 			// set values to model
 			var Discussion = new DiscussionModel();
-			Discussion.urlRoot = "/followMessage";
+			Discussion.urlRoot = "/follow/message";
 			Discussion.save({id : messageId},{
 		    	success : function(model, response) {
 		    		//set display
