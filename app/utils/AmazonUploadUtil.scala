@@ -142,4 +142,3 @@ object ProgressBar {
 //    s3Client.putObject(bucketName, profilePicName, profilePic)
 //  }
 
-}
