@@ -55,9 +55,9 @@ POST 	/rockTheUsermedia            				controllers.MediaController.rockTheUserme
 POST 	/giveMeRockersOfUserMedia    				controllers.MediaController.giveMeRockersOfUserMedia
 
 #Message Rocks & Follows
-POST 	/returnRockers 								controllers.MessageController.giveMeRockers
-POST 	/isAFollower    							controllers.MessageController.isAFollower
-POST 	/isARockerOfMessage   						controllers.MessageController.isARocker
+GET 	/rockersOf/message/:messageId 				controllers.MessageController.giveMeRockers(messageId:String)
+GET 	/isAFollowerOf/message/:messageId    		controllers.MessageController.isAFollower(messageId:String)
+GET 	/isARockerOf/message/:messageId   			controllers.MessageController.isARocker(messageId:String)
 
 #Files
 GET 	/audioFilesOfAUser  						controllers.DocumentController.getAllAudioFilesForAUser

@@ -92,7 +92,7 @@ BS.forgotPassword = BS.URLRequired+"/forgotPassword";
 //Message Follow
 BS.followMessage =BS.URLRequired+"/followMessage";
 //check follower
-BS.isAFollower = BS.URLRequired+"/isAFollower";
+BS.isAFollower = BS.URLRequired+"/isAFollowerOf/message";		//GET 	/isAFollowerOf/message/:messageId
 // Get All Documents of a user
 BS.getAllDocs = BS.URLRequired+"/documents";
 // Rocks comments
@@ -146,7 +146,7 @@ BS.changeTitleDescriptionUserMedia =BS.URLRequired+"/changeTitleAndDescriptionUs
 //get details of a image/video 
 BS.getMedia =BS.URLRequired+"/getMedia";
 //check if the logged user is already rock a particular message
-BS.isARockerOfMessage =BS.URLRequired+"/isARockerOfMessage";
+BS.isARockerOfMessage =BS.URLRequired+"/isARockerOf/message";	//GET 	/isARockerOf/message/:messageId
 //check if the logged user is already rock a particular comment
 BS.isARockerOfComment =BS.URLRequired+"/isARockerOf/comment";  //GET     /isARockerOf/comment/:commentId 
 // Follow User
