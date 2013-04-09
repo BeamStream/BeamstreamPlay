@@ -98,10 +98,8 @@ object QuestionController extends Controller {
   /**
    * Rock the Question
    */
-  def rockTheQuestion = Action { implicit request =>
-    val questionIdJsonMap = request.body.asFormUrlEncoded.get
-    val id = questionIdJsonMap("questionId").toList(0)
-    val totalRocks = Question.rockTheQuestion(new ObjectId(id), new ObjectId(request.session.get("userId").get))
+  def rockTheQuestion(questionId:String) = Action { implicit request =>
+    val totalRocks = Question.rockTheQuestion(new ObjectId(questionId), new ObjectId(request.session.get("userId").get))
     val totalRocksJson = write(totalRocks.toString)
     Ok(totalRocksJson).as("application/json")
   }
@@ -109,10 +107,8 @@ object QuestionController extends Controller {
   /**
    * Rockers of a Question
    */
-  def giveMeRockers = Action { implicit request =>
-    val questionIdJsonMap = request.body.asFormUrlEncoded.get
-    val id = questionIdJsonMap("questionId").toList(0)
-    val rockers = Question.rockersNameOfAQuestion(new ObjectId(id))
+  def giveMeRockers(questionId:String) = Action { implicit request =>
+    val rockers = Question.rockersNameOfAQuestion(new ObjectId(questionId))
     val rockersJson = write(rockers)
     Ok(rockersJson).as("application/json")
   }
@@ -120,9 +116,7 @@ object QuestionController extends Controller {
    * Follow Question
    */
 
-  def followQuestion = Action { implicit request =>
-    val questionIdJsonMap = request.body.asFormUrlEncoded.get
-    val questionId = questionIdJsonMap("questionId").toList(0)
+  def followQuestion(questionId:String) = Action { implicit request =>
     val followers = Question.followQuestion(new ObjectId(request.session.get("userId").get), new ObjectId(questionId))
     Ok(write(followers.toString)).as("application/json")
   }
@@ -130,21 +124,16 @@ object QuestionController extends Controller {
   /**
    * Vote an option of a question (Polling)
    */
-  def voteAnOptionOfAQuestion = Action { implicit request =>
-    val optionOfAQuestionIdJsonMap = request.body.asFormUrlEncoded.get
-    val optionOfAQuestionId = optionOfAQuestionIdJsonMap("optionOfAQuestionId").toList(0)
-    val votes = QuestionPolling.voteTheOptionOfAQuestion(new ObjectId(optionOfAQuestionId), new ObjectId(request.session.get("userId").get))
-    val optionOfAQuestion = QuestionPolling.findOptionOfAQuestionById(new ObjectId(optionOfAQuestionId))
+  def voteAnOptionOfAQuestion(optionId:String) = Action { implicit request =>
+    val votes = QuestionPolling.voteTheOptionOfAQuestion(new ObjectId(optionId), new ObjectId(request.session.get("userId").get))
+    val optionOfAQuestion = QuestionPolling.findOptionOfAQuestionById(new ObjectId(optionId))
     Ok(write(optionOfAQuestion)).as("application/json")
   }
 
   /**
    * Delete A Question
    */
-
-  def deleteQuestion = Action { implicit request =>
-    val questionIdJsonMap = request.body.asFormUrlEncoded.get
-    val questionId = questionIdJsonMap("questionId").toList(0)
+  def deleteQuestion(questionId:String) = Action { implicit request =>
     val questionDeleted = Question.deleteQuestionPermanently(new ObjectId(questionId), new ObjectId(request.session.get("userId").get))
     if (questionDeleted == true) Ok(write(new ResulttoSent("Success", "Question Has Been Deleted")))
     else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Question")))

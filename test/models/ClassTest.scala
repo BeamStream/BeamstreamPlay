@@ -12,7 +12,7 @@ import com.mongodb.casbah.commons.MongoDBObject
 @RunWith(classOf[JUnitRunner])
 class ClassTest extends FunSuite with BeforeAndAfter {
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
-
+/*
   val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
 
   test("Create class test") {
@@ -70,4 +70,5 @@ class ClassTest extends FunSuite with BeforeAndAfter {
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
     StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
   }
+  */
 }

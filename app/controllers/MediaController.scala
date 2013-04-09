@@ -185,10 +185,8 @@ object MediaController extends Controller {
    * Rock the UserMedia (Modified)
    *
    */
-  def rockTheUsermedia = Action { implicit request =>
-    val userMediaIdJsonMap = request.body.asFormUrlEncoded.get
-    val userMediaId = userMediaIdJsonMap("userMediaId").toList(0)
-    val totalRocks = UserMedia.rockUserMedia(new ObjectId(userMediaId), new ObjectId(request.session.get("userId").get))
+  def rockTheUsermedia(mediaId:String) = Action { implicit request =>
+    val totalRocks = UserMedia.rockUserMedia(new ObjectId(mediaId), new ObjectId(request.session.get("userId").get))
     val totalRocksJson = write(totalRocks.toString)
     Ok(totalRocksJson).as("application/json")
   }
@@ -196,10 +194,8 @@ object MediaController extends Controller {
   /**
    * Rockers of a document
    */
-  def giveMeRockersOfUserMedia = Action { implicit request =>
-    val userMediaIdJsonMap = request.body.asFormUrlEncoded.get
-    val userMediaId = userMediaIdJsonMap("userMediaId").toList(0)
-    val rockers = UserMedia.rockersNamesOfUserMedia(new ObjectId(userMediaId))
+  def giveMeRockersOfUserMedia(mediaId:String) = Action { implicit request =>
+    val rockers = UserMedia.rockersNamesOfUserMedia(new ObjectId(mediaId))
     val rockersJson = write(rockers)
     Ok(rockersJson).as("application/json")
   }
@@ -207,13 +203,9 @@ object MediaController extends Controller {
   /**
    * Change the title and description
    */
-  def changeTitleAndDescriptionUserMedia = Action { implicit request =>
-    val mediaIdJsonMap = request.body.asFormUrlEncoded.get
-    val id = mediaIdJsonMap("userMediaId").toList(0)
-    val title = mediaIdJsonMap("mediaName").toList(0)
-    val description = mediaIdJsonMap("mediaDescription").toList(0)
-    UserMedia.updateTitleAndDescription(new ObjectId(id), title, description)
-    val mediaObtained = UserMedia.findMediaById(new ObjectId(id))
+  def changeTitleAndDescriptionUserMedia(mediaId:String, name:String, description:String) = Action { implicit request =>
+    UserMedia.updateTitleAndDescription(new ObjectId(mediaId), name, description)
+    val mediaObtained = UserMedia.findMediaById(new ObjectId(mediaId))
     val mediaJson = write(List(mediaObtained.get))
     Ok(mediaJson).as("application/json")
   }
@@ -243,9 +235,9 @@ object MediaController extends Controller {
    * @ Purpose: fetches the recent profile picture for a user
    */
 
-  def getProfilePicForAUser = Action { implicit request =>
-    val userIdReceived = request.queryString("userId").toList(0)
-    val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userIdReceived))
+  def getProfilePicForAUser(userId:String) = Action { implicit request =>
+    //val userIdReceived = request.queryString("userId").toList(0)
+    val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userId))
     if (!mediaObtained.size.equals(0)) {
       val MediaJson = write(mediaObtained.last)
       Ok(MediaJson).as("application/json")

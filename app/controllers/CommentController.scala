@@ -138,9 +138,7 @@ object CommentController extends Controller {
    * Return Comment Rockers List
    */
 
-  def commentRockers = Action { implicit request =>
-    val commentDetailsJson = request.body.asFormUrlEncoded.get
-    val commentId = commentDetailsJson("commentId").toList(0)
+  def commentRockers(commentId:String) = Action { implicit request =>
     val rockersNameForAComment = Comment.commentsRockersNames(new ObjectId(commentId))
     Ok(write(rockersNameForAComment)).as("application/json")
 
@@ -150,9 +148,7 @@ object CommentController extends Controller {
    * Delete A Comment
    */
 
-  def deleteTheComment = Action { implicit request =>
-    val commentDetailsJson = request.body.asFormUrlEncoded.get
-    val commentId = commentDetailsJson("commentId").toList(0)
+  def deleteTheComment(commentId:String) = Action { implicit request =>
     val deletedTheCommnet = Comment.deleteCommentPermanently(new ObjectId(commentId), new ObjectId(request.session.get("userId").get))
     if (deletedTheCommnet == true) Ok(write(new ResulttoSent("Success", "Comment Has Been Deleted")))
     else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Comment")))
@@ -162,10 +158,8 @@ object CommentController extends Controller {
    * Is a Rocker
    * @ Purpose: identify if the user has rocked the comment or not
    */
-  def isARocker = Action { implicit request =>
+  def isARocker(commentId:String) = Action { implicit request =>
     {
-      val commentIdJsonMap = request.body.asFormUrlEncoded.get
-      val commentId = commentIdJsonMap("commentId").toList(0)
       val isARockerOfComment = Comment.isARocker(new ObjectId(commentId), new ObjectId(request.session.get("userId").get))
       Ok(write(isARockerOfComment.toString)).as("application/json")
     }

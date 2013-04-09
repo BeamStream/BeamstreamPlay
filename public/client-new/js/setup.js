@@ -41,7 +41,7 @@ BS.saveProfile = BS.URLRequired+"/getMediafromPost";
 // For populate list of class code
 BS.autoPopulateClass = BS.URLRequired+"/autoPopulateClasses";
 // Get School name for a SchoolId
-BS.schoolNamebyId = BS.URLRequired+"/getSchoolNamebyId";
+BS.schoolNamebyId = BS.URLRequired+"/name/school";				//GET 	/name/school/:schoolId
 // Get all schools under a user
 BS.allSchoolForAUser = BS.URLRequired+"/getAllSchoolForAUser";
 // For new class in class stream
@@ -68,13 +68,13 @@ BS.rockedIt = BS.URLRequired+"/rockedIt";
 // Get Rockers list
 BS.rockersList = BS.URLRequired+"/returnRockers";
 // For File Upload
-BS.docUpload = BS.URLRequired+"/newDocument";
+BS.docUpload = BS.URLRequired+"/document";
 //profile images and videos
-BS.profileImage = BS.URLRequired+"/getProfilePicForAUser";
+BS.profileImage = BS.URLRequired+"/profilePicFor/user";
 // Gel all profile images
-BS.allProfileImages = BS.URLRequired+"/getAllProfilePicForAUser";
+BS.allProfileImages = BS.URLRequired+"/allProfilePicsFor/user";	//GET 	/allProfilePicsFor/user
 //Get all class streams of a user
-BS.classStreamsForUser = BS.URLRequired+"/allClassStreamsForAUser";
+BS.classStreamsForUser = BS.URLRequired+"/streams";
 //Get all school for autopopulate
 BS.autoPopulateSchools = BS.URLRequired+"/getAllSchoolsForAutopopulate";
 //POST bitly
@@ -82,73 +82,73 @@ BS.bitly = BS.URLRequired+"/bitly";
 //POST comment
 BS.newComment = BS.URLRequired+"/newComment";
 //Get all comments of a message
-BS.allComments = BS.URLRequired+"/allComments";
+//BS.allComments = BS.URLRequired+"/comments"; 	//deprecated:  use /messages or /questions
 //for forgot password
 BS.forgotPassword = BS.URLRequired+"/forgotPassword";
 //sort messages
-BS.sortByDate = BS.URLRequired+"/getAllMessagesForAStreamSortedbyDate";
-BS.sortByVote =BS.URLRequired+"/getAllMessagesForAStreamSortedbyRocks";
-BS.sortByKey = BS.URLRequired+"/getAllMessagesForAStreambyKeyword";
+//BS.sortByDate = BS.URLRequired+"/getAllMessagesForAStreamSortedbyDate";    // use /allMessagesForAStream
+//BS.sortByVote =BS.URLRequired+"/getAllMessagesForAStreamSortedbyRocks";
+//BS.sortByKey = BS.URLRequired+"/getAllMessagesForAStreambyKeyword";
 //Message Follow
 BS.followMessage =BS.URLRequired+"/followMessage";
 //check follower
-BS.isAFollower = BS.URLRequired+"/isAFollower";
-// Get All Documebts of a user
-BS.getAllDocs = BS.URLRequired+"/getAllDocumentsForAUser";
+BS.isAFollower = BS.URLRequired+"/isAFollowerOf/message";		//GET 	/isAFollowerOf/message/:messageId
+// Get All Documents of a user
+BS.getAllDocs = BS.URLRequired+"/documents";
 // Rocks comments
 BS.rockingTheComment = BS.URLRequired+"/rockingTheComment";
 // get comment rockers list
-BS.commentRockers = BS.URLRequired+"/commentRockers";
+BS.commentRockers = BS.URLRequired+"/rockersOf/comment";			//GET     /rockersOf/comment/:commentId 
 // get profile videos 
-BS.allProfileVideos = BS.URLRequired+"/getAllProfileVideoForAUser";
+BS.allProfileVideos = BS.URLRequired+"/allProfileVideoFor/user";	//GET 	/allProfileVideoFor/user
 //get no of users attending class
-BS.noOfUsersAttendingAClass = BS.URLRequired+"/noOfUsersAttendingAClass";
+BS.noOfUsersAttendingAClass = BS.URLRequired+"/noOfUsers/stream";  //GET 	 /noOfUsers/stream/:streamId
 //populate class codes
 BS.autoPopulateClassesbyCode = BS.URLRequired+"/autoPopulateClassesbyCode";
 //populate class names
 BS.autoPopulateClassesbyName = BS.URLRequired+"/autoPopulateClassesbyName";
 //DeleteStrewams
-BS.deleteStream = BS.URLRequired+"/deleteStream";
+BS.deleteStream = BS.URLRequired+"/remove/stream";	//PUT 	/remove/stream/:streamId/:deleteStream/:removeAccess
 //Add new school name $ website
 BS.addSchool =  BS.URLRequired+"/school";
 //save edit document
-BS.savedocedit = BS.URLRequired+"/changeTitleAndDescriptionForADocument";
+BS.savedocedit = BS.URLRequired+"/document";	//PUT 	/document/:documentId/:name/:description
 //Rocks the Google docs 
-BS.rockDocs = BS.URLRequired+"/rockTheDocument";
+BS.rockDocs = BS.URLRequired+"/rock/document";	//PUT 	/rock/document/:documentId
 //Document rockers list 
-BS.documentRockers =BS.URLRequired+"/getRockers";
+BS.documentRockers =BS.URLRequired+"/rockersOf/document";	//GET 	/rockersOf/document/:documentId
 //get one google doc to edit
-BS.getOneDocs = BS.URLRequired+"/getDocument"; 
+BS.getOneDocs = BS.URLRequired+"/document"; 	//GET 	/document/:documentId
 //Upload Doc from My Computer the Google docs 
 BS.uploaddocFrmComputer = BS.URLRequired+"/getDocumentFromDisk";
 //Get audio Files of a User
 BS.getaudioFilesOfAUser = BS.URLRequired+"/audioFilesOfAUser";
 //get all ppt Files of a user
-BS.getAllPPTFilesForAUser = BS.URLRequired+"/getAllPPTFilesForAUser";
+BS.getAllPPTFilesForAUser = BS.URLRequired+"/allPPTFilesForAUser";
 //get all pdf Files of a user
-BS.getAllPDFFilesForAUser = BS.URLRequired+"/getAllPDFFilesForAUser";
+BS.getAllPDFFilesForAUser = BS.URLRequired+"/allPDFFilesForAUser";
 // Get All Docs of a user (docs upload from computer)
-BS.getAllDOCSFilesForAUser = BS.URLRequired+"/getAllDOCSFilesForAUser";
+BS.getAllDOCSFilesForAUser = BS.URLRequired+"/allDOCSFilesForAUser";
 // Rock Video /image 
-BS.rockTheUsermedia = BS.URLRequired+"/rockTheUsermedia";
+BS.rockTheUsermedia = BS.URLRequired+"/rock/media";		//PUT 	/rock/media/:mediaId
 // Rockers list - image /video
-BS.giveMeRockersOfUserMedia = BS.URLRequired+"/giveMeRockersOfUserMedia";
+BS.giveMeRockersOfUserMedia = BS.URLRequired+"/rockersOf/media";	//GET 	/rockersOf/media/:mediaId
 //Get data progress
 BS.dataProgress = BS.URLRequired+"/returnProgress";
 // delete Message
-BS.deleteMessage = BS.URLRequired+"/deleteMessage";
+BS.deleteMessage = BS.URLRequired+"/remove/message";		//PUT 	/remove/message/:messageId
 // delete Comments
-BS.deleteTheComment = BS.URLRequired+"/deleteTheComment";
+BS.deleteTheComment = BS.URLRequired+"/remove/comment";		//PUT   /remove/comment/:commentId
 // browser close 
 BS.browserClosed =BS.URLRequired+"/browserClosed";  
 //change Title and Description of User Media 
-BS.changeTitleDescriptionUserMedia =BS.URLRequired+"/changeTitleAndDescriptionUserMedia";
+BS.changeTitleDescriptionUserMedia =BS.URLRequired+"/media";	//PUT 	/media/:mediaId/:name/:description
 //get details of a image/video 
 BS.getMedia =BS.URLRequired+"/getMedia";
 //check if the logged user is already rock a particular message
-BS.isARockerOfMessage =BS.URLRequired+"/isARockerOfMessage";
+BS.isARockerOfMessage =BS.URLRequired+"/isARockerOf/message";	//GET 	/isARockerOf/message/:messageId
 //check if the logged user is already rock a particular comment
-BS.isARockerOfComment =BS.URLRequired+"/isARockerOfComment";
+BS.isARockerOfComment =BS.URLRequired+"/isARockerOf/comment";  //GET     /isARockerOf/comment/:commentId 
 // Follow User
 BS.followUser =BS.URLRequired+"/followUser";
 
@@ -158,15 +158,15 @@ BS.followUser =BS.URLRequired+"/followUser";
 BS.onlineUsers = BS.URLRequired+"/onlineUsers"; 
 
 /* for question page */
-BS.newQuestion =BS.URLRequired+"/newQuestion";
-BS.rockQuestion =BS.URLRequired+"/rockQuestion";
-BS.followQuestion =BS.URLRequired+"/followQuestion";
-BS.giveMeRockersOfQuestion =BS.URLRequired+"/giveMeRockersOfQuestion";
-BS.getAllQuestionsOfAStream =BS.URLRequired+"/getAllQuestionForAStream";
-BS.deleteQuestion =BS.URLRequired+"/deleteQuestion";
-BS.votepoll=BS.URLRequired+"/voteAnOptionOfAQuestion";
-BS.sortQuestionsByRock =BS.URLRequired+"/getAllQuestionsForAStreamSortedbyRocks";
-BS.sortQuestionsByKey = BS.URLRequired+"/getAllQuestionsForAStreambyKeyword";
+BS.newQuestion =BS.URLRequired+"/question";
+BS.rockQuestion =BS.URLRequired+"/rock/question";							//PUT  	/rock/question/:questionId
+BS.followQuestion =BS.URLRequired+"/follow/question";						//PUT  	/follow/question/:questionId
+BS.giveMeRockersOfQuestion =BS.URLRequired+"/rockersOf/question";			//GET 	/rockersOf/question/:questionId
+BS.getAllQuestionsOfAStream =BS.URLRequired+"/getAllQuestionForAStream";	
+BS.deleteQuestion =BS.URLRequired+"/remove/question";						//PUT 	/remove/question/:questionId
+BS.votepoll=BS.URLRequired+"/voteAnOptionOf/question";						//PUT  	/voteAnOptionOf/question/:optionId
+//BS.sortQuestionsByRock =BS.URLRequired+"/getAllQuestionsForAStreamSortedbyRocks";  //deprecated use /getAllQuestionsForAStream
+//BS.sortQuestionsByKey = BS.URLRequired+"/getAllQuestionsForAStreambyKeyword";
 
 
  

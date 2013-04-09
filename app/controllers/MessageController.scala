@@ -58,9 +58,7 @@ object MessageController extends Controller {
   /**
    * Rockers of message
    */
-  def giveMeRockers = Action { implicit request =>
-    val messageIdJsonMap = request.body.asFormUrlEncoded.get
-    val messageId = messageIdJsonMap("messageId").toList(0)
+  def giveMeRockers(messageId:String) = Action { implicit request =>
     val weAreRockers = Message.rockersNames(new ObjectId(messageId))
     val WeAreRockersJson = write(weAreRockers)
     Ok(WeAreRockersJson).as("application/json")
@@ -106,10 +104,8 @@ object MessageController extends Controller {
    * Is a follower
    * @ Purpose: identify if the user is following a message or not
    */
-  def isAFollower = Action { implicit request =>
+  def isAFollower(messageId:String) = Action { implicit request =>
     {
-      val messageIdJsonMap = request.body.asFormUrlEncoded.get
-      val messageId = messageIdJsonMap("messageId").toList(0)
       val isAFollowerOfMessage = Message.isAFollower(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
       Ok(write(isAFollowerOfMessage.toString)).as("application/json")
     }
@@ -119,9 +115,7 @@ object MessageController extends Controller {
    * Is a Rocker
    * @ Purpose: identify if the user is following a message or not
    */
-  def isARocker = Action { implicit request =>
-    val messageIdJsonMap = request.body.asFormUrlEncoded.get
-    val messageId = messageIdJsonMap("messageId").toList(0)
+  def isARocker(messageId:String) = Action { implicit request =>
     val isARockerOfMessage = Message.isARocker(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
     Ok(write(isARockerOfMessage.toString)).as("application/json")
   }
@@ -130,9 +124,7 @@ object MessageController extends Controller {
    * Delete A Message
    */
 
-  def deleteTheMessage = Action { implicit request =>
-    val messageIdJsonMap = request.body.asFormUrlEncoded.get
-    val messageId = messageIdJsonMap("messageId").toList(0)
+  def deleteTheMessage(messageId:String) = Action { implicit request =>
     val messsageDeleted = Message.deleteMessagePermanently(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
     if (messsageDeleted == true) Ok(write(new ResulttoSent("Success", "Message Has Been Deleted")))
     else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Message")))

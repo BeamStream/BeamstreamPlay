@@ -67,9 +67,7 @@ object StreamController extends Controller {
    * @Purpose: For Showing no. of classes
    */
 
-  def noOfUsersAttendingAClass = Action { implicit request =>
-    val StreamIdJsonMap = request.body.asFormUrlEncoded.get
-    val streamId = StreamIdJsonMap("streamId").toList(0)
+  def noOfUsersAttendingAClass(streamId: String) = Action { implicit request =>
     val usersAttendingClass = Stream.usersAttendingClass(new ObjectId(streamId))
     val rolesOfUsers = User.countRolesOfAUser(usersAttendingClass)
     Ok(write(rolesOfUsers)).as("application/json")
@@ -91,11 +89,7 @@ object StreamController extends Controller {
   /**
    *  Delete A Stream
    */
-  def deleteTheStream = Action { implicit request =>
-    val DetailsJsonMap = request.body.asFormUrlEncoded.get
-    val streamId = DetailsJsonMap("StreamId").toList(0)
-    val deleteStream = DetailsJsonMap("deleteStream").toList(0).toBoolean
-    val removeAccess = DetailsJsonMap("removeAccess").toList(0).toBoolean
+  def deleteTheStream(streamId:String, deleteStream:Boolean, removeAccess:Boolean) = Action { implicit request =>
     val result = Stream.deleteStreams(new ObjectId(request.session.get("userId").get), new ObjectId(streamId), deleteStream, removeAccess)
     Ok(write(result)).as("application/json")
 

@@ -111,7 +111,7 @@ import java.text.DateFormat
 class UserTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
-
+/*
   val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List())
   val user2 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "NeelS", "Neil", Option("Neel"), "Knoldus", "", "", "", "", None, List(), List(), List(), List(), List())
 
@@ -163,5 +163,5 @@ class UserTest extends FunSuite with BeforeAndAfter {
   after {
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
   }
-
+*/
 }

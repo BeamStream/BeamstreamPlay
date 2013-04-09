@@ -5,37 +5,37 @@
 GET  	/browserClosed          					controllers.UserController.browserClosed
 
 #Streams
-GET 	/allClassStreamsForAUser 					controllers.StreamController.allClassStreamsForAUser
-POST 	/noOfUsersAttendingAClass  					controllers.StreamController.noOfUsersAttendingAClass
-POST 	/deleteStream              					controllers.StreamController.deleteTheStream
+GET 	/streams				 								controllers.StreamController.allClassStreamsForAUser
+GET 	/noOfUsers/stream/:streamId  							controllers.StreamController.noOfUsersAttendingAClass(streamId:String)
+PUT 	/remove/stream/:streamId/:deleteStream/:removeAccess    controllers.StreamController.deleteTheStream(streamId:String, deleteStream:Boolean, removeAccess:Boolean)
 
 #Messages
-POST 	/getAllMessagesForAStreambyKeyword         	controllers.MessageController.getAllMessagesForAStreambyKeyword
+#POST 	/getAllMessagesForAStreambyKeyword         	controllers.MessageController.getAllMessagesForAStreambyKeyword
 #POST 	/allPublicMessagesFromAllStreamsForAUser    controllers.StreamController.allPublicMessagesFromAllStreamsForAUser
-POST 	/deleteMessage                              controllers.MessageController.deleteTheMessage
+PUT 	/remove/message/:messageId                  controllers.MessageController.deleteTheMessage(messageId:String)
 
 #Comments
-POST  	/newAnswer                 					controllers.CommentController.newAnswer
-POST    /allComments           						controllers.CommentController.getAllComments
-POST    /commentRockers          					controllers.CommentController.commentRockers
-POST    /deleteTheComment         					controllers.CommentController.deleteTheComment
-POST    /isARockerOfComment       					controllers.CommentController.isARocker
+POST  	/answer                 					controllers.CommentController.newAnswer
+#GET    /comments           						controllers.CommentController.getAllComments   
+GET     /rockersOf/comment/:commentId          		controllers.CommentController.commentRockers(commentId:String)
+PUT     /remove/comment/:commentId         			controllers.CommentController.deleteTheComment(commentId:String)
+GET     /isARockerOf/comment/:commentId       		controllers.CommentController.isARocker(commentId:String)
 
 #Document
-GET  	/getAllDocumentsForAUser        			controllers.DocumentController.getAllGoogleDocumentsForAUser
-POST 	/changeTitleAndDescriptionForADocument 		controllers.DocumentController.changeTitleAndDescriptionForADocument
-POST 	/newDocument                       			controllers.DocumentController.newDocument
-POST 	/rockTheDocument                   			controllers.DocumentController.rockTheDocument
-POST 	/getRockers                        			controllers.DocumentController.giveMeRockersOfDocument
-POST 	/getDocument                       			controllers.DocumentController.getDocument
-POST 	/followDocument                    			controllers.DocumentController.followDocument
-POST 	/viewCount                         			controllers.DocumentController.viewCount
+GET  	/documents				        						controllers.DocumentController.getAllGoogleDocumentsForAUser
+PUT 	/document/:documentId/:name/:description 				controllers.DocumentController.changeTitleAndDescriptionForADocument(documentId:String,name:String,description:String)
+POST 	/document                       						controllers.DocumentController.newDocument
+PUT 	/rock/document/:documentId                   			controllers.DocumentController.rockTheDocument(documentId:String)
+GET 	/rockersOf/document/:documentId                        	controllers.DocumentController.giveMeRockersOfDocument(documentId:String)
+GET 	/document/:documentId                       			controllers.DocumentController.getDocument(documentId:String)
+PUT 	/follow/document/:documentId		                    controllers.DocumentController.followDocument(documentId:String)
+PUT 	/viewCountOf/document/:documentId                       controllers.DocumentController.viewCount(documentId:String)
 
 #Schools
-POST 	/getSchoolNamebyId 							controllers.SchoolController.getSchoolName
+GET 	/name/school/:schoolId	 					controllers.SchoolController.getSchoolName(schoolId:String)
 
 #Class
-GET  	/getAllClassesForAUser             			controllers.ClassController.getAllClassesForAUser
+GET  	/classesFor/user/:userId             		controllers.ClassController.getAllClassesForAUser(userId:String)
 
 GET 	/loggedInUserJson 							controllers.UserController.returnUserJson
 
@@ -47,41 +47,41 @@ GET 	/signOut 									controllers.UserController.signOut
 
 #Media
 #POST 	/getMediafromPost 							controllers.MediaController.getMedia
-POST 	/getProfilePicForAUser      				controllers.MediaController.getProfilePicForAUser
-POST 	/changeTitleAndDescriptionUserMedia    		controllers.MediaController.changeTitleAndDescriptionUserMedia
-GET 	/getAllProfilePicForAUser   				controllers.MediaController.getAllProfilePicForAUser
-GET 	/getAllProfileVideoForAUser   				controllers.MediaController.getAllProfileVideoForAUser
-POST 	/rockTheUsermedia            				controllers.MediaController.rockTheUsermedia
-POST 	/giveMeRockersOfUserMedia    				controllers.MediaController.giveMeRockersOfUserMedia
+GET 	/profilePicFor/user/:userId      			controllers.MediaController.getProfilePicForAUser(userId:String)
+PUT 	/media/:mediaId/:name/:description    		controllers.MediaController.changeTitleAndDescriptionUserMedia(mediaId:String, name:String, description:String)
+GET 	/allProfilePicsFor/user   					controllers.MediaController.getAllProfilePicForAUser
+GET 	/allProfileVideoFor/user   					controllers.MediaController.getAllProfileVideoForAUser
+PUT 	/rock/media/:mediaId            			controllers.MediaController.rockTheUsermedia(mediaId:String)
+GET 	/rockersOf/media/:mediaId    				controllers.MediaController.giveMeRockersOfUserMedia(mediaId:String)
 
 #Message Rocks & Follows
-POST 	/returnRockers 								controllers.MessageController.giveMeRockers
-POST 	/isAFollower    							controllers.MessageController.isAFollower
-POST 	/isARockerOfMessage   						controllers.MessageController.isARocker
+GET 	/rockersOf/message/:messageId 				controllers.MessageController.giveMeRockers(messageId:String)
+GET 	/isAFollowerOf/message/:messageId    		controllers.MessageController.isAFollower(messageId:String)
+GET 	/isARockerOf/message/:messageId   			controllers.MessageController.isARocker(messageId:String)
 
 #Files
 GET 	/audioFilesOfAUser  						controllers.DocumentController.getAllAudioFilesForAUser
-GET 	/getAllPPTFilesForAUser  					controllers.DocumentController.getAllPPTFilesForAUser
-GET 	/getAllPDFFilesForAUser  					controllers.DocumentController.getAllPDFFilesForAUser
-GET 	/getAllDOCSFilesForAUser  					controllers.DocumentController.getAllDOCSFilesForAUser
+GET 	/allPPTFilesForAUser  						controllers.DocumentController.getAllPPTFilesForAUser
+GET 	/allPDFFilesForAUser  						controllers.DocumentController.getAllPDFFilesForAUser
+GET 	/allDOCSFilesForAUser  						controllers.DocumentController.getAllDOCSFilesForAUser
 
 #Questions
-POST 	/newQuestion               					controllers.QuestionController.newQuestion
-PUT  	/rockQuestion               				controllers.QuestionController.rockTheQuestion
-GET 	/getAllQuestionsForAUser               		controllers.QuestionController.getAllQuestionsForAUser
-POST 	/giveMeRockersOfQuestion            		controllers.QuestionController.giveMeRockers
-PUT  	/followQuestion            					controllers.QuestionController.followQuestion
-POST  	/voteAnOptionOfAQuestion  					controllers.QuestionController.voteAnOptionOfAQuestion
-POST 	/deleteQuestion               				controllers.QuestionController.deleteQuestion              
-POST 	/getAllQuestionsForAStreambyKeyword 		controllers.QuestionController.getAllQuestionsForAStreambyKeyword
+POST 	/question               					controllers.QuestionController.newQuestion
+PUT  	/rock/question/:questionId                	controllers.QuestionController.rockTheQuestion(questionId:String)
+GET 	/questions				            		controllers.QuestionController.getAllQuestionsForAUser
+GET 	/rockersOf/question/:questionId        		controllers.QuestionController.giveMeRockers(questionId:String)
+PUT  	/follow/question/:questionId            	controllers.QuestionController.followQuestion(questionId:String)
+PUT  	/voteAnOptionOf/question/:optionId  		controllers.QuestionController.voteAnOptionOfAQuestion(optionId:String)
+PUT 	/remove/question/:questionId                controllers.QuestionController.deleteQuestion(questionId:String)              
+#POST 	/getAllQuestionsForAStreambyKeyword 		controllers.QuestionController.getAllQuestionsForAStreambyKeyword
 
 #bitly
 POST 	/bitly   									controllers.MessageController.getShortUrlViabitly 
 
 #Public Profile
-POST  	/allPublicMessages          				controllers.PublicProfileController.getAllPublicMessagesForAUser
+GET  	/publicMessages/user/:userId          		controllers.PublicProfileController.getAllPublicMessagesForAUser(userId:String)
 #POST  	/publicProfileInfo          				controllers.PublicProfileController.getPublicProfileOfAUser
-POST  	/allPublicDocuments        					controllers.PublicProfileController.getAllPublicDocumentForAUser
+GET  	/publicDocuments/user/:userId        		controllers.PublicProfileController.getAllPublicDocumentForAUser(userId:String)
 
 
 
