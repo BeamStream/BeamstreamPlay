@@ -3,7 +3,9 @@ package controllers
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
+
 import org.bson.types.ObjectId
+
 import models.DocResulttoSent
 import models.DocType
 import models.Document
@@ -20,11 +22,11 @@ import net.liftweb.json.Serialization.write
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.AmazonUpload
+import utils.AmazonUploadUtil
 import utils.ExtractFrameFromVideoUtil
 import utils.ObjectIdSerializer
 import utils.PreviewOfPDFUtil
 import utils.tokenEmailUtil
-import utils.AmazonUploadUtil
 /**
  * This controller class is used to store and retrieve all the information about documents.
  */
