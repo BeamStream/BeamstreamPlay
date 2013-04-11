@@ -68,7 +68,7 @@
 								
 							      <div class="edit-title-div">
 								
-						     	 <h5 class="editDocTitle"   id="{{data.message.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span>Edit Title & Description</h5>
+						     	 <h5 class="editMediaTitle"   id="{{data.message.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span>Edit Title & Description</h5>
 									
 		                    	  </div>
 								
@@ -250,6 +250,7 @@
             <div class="clear"></div>
 
           </div>
+          
           
           
           

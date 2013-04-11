@@ -50,7 +50,6 @@ define(['view/formView' ,
 			
 			this.data.reset();
 			this.profile = null;
-			console.log("test");
 		},
 		
 		/**
@@ -178,10 +177,8 @@ define(['view/formView' ,
 		 * complete step1 registration process
 		 */
         completeFirstStep: function(e){
-        	
         	e.preventDefault();
             console.log("Complete first step ...");
-            
             /* disable first step and enable step 2 block */
             this.enableStepTwo();
             $("#cellNumber").setMask('(999) 999-9999');

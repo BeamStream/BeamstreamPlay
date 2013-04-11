@@ -3364,7 +3364,8 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eaecee', endCo
 .attach-drop-button {
 		background:none!important;
 		overflow:hidden;
-		left:-26px
+		left:0px;
+		top:-33px;
 }
 
 .attach-caret {

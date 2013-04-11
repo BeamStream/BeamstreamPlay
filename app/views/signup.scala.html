@@ -1,9 +1,13 @@
 @meta = {}
 @CSS = {
+    <link href="/beamstream-new/css/bootstrap_backup.css" rel="stylesheet" type="text/css" /> 
+    <link href="/beamstream-new/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
+    <link href="/beamstream-new/css/global.css" rel="stylesheet" type="text/css" />    
+    <link href="/beamstream-new/css/signup.css" rel="stylesheet" type="text/css" /> 
+     
 	<link href="/beamstream-new/css/style.css" rel="stylesheet" type="text/css" />    
     <link href="/beamstream-new/css/new-style.css" rel="stylesheet" type="text/css" />    
-    <link href="/beamstream-new/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" /> 
-    <link href="/beamstream-new/css/bootstrap_backup.css" rel="stylesheet" type="text/css" /> 
+   
     <link href='http://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'> 
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />  
 }
@@ -19,7 +23,7 @@
     <script type="text/javascript">
        $('div.container-fluid').last().addClass('signup-container');
        //set tokenUrl for sign up
-       showJanrainSigninWidget("http://www.beamstream.com/social/social_authentication");
+       showJanrainSigninWidget("http://localhost:9000/social/social_authentication");
     </script>
 }
 @sideBar = {}

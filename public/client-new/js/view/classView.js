@@ -259,7 +259,7 @@ define(['view/formView',
         		var classTime = $('#classTime').val()+$('#time').val();
         		this.data.models[0].set({'classTime' : classTime});
         	}
-        	
+        	console.log(this.data.models[0]);
         	this.saveForm();
         },
         
