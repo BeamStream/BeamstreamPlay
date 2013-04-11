@@ -3,6 +3,7 @@
 .menu ul li a span,
 .close-btn,
 .straem-block a span,
+.invite-bottom-btn a.invite-orange-btn span,
 .stream-header h2,
 .mebers,
 .claimed,
@@ -570,7 +571,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d3951b', endCo
 		padding:20px 24px
 }
 
-.straem-block a .text {
+.straem-block a span.text {
 		background:url(../images/line-btn.jpg) repeat-y left top;
 		color:#fff;
 		text-shadow:1px 1px 1px #888;
@@ -1604,8 +1605,25 @@ ul.follow-bottom-icons li:hover {
 		background:url(../images/active-art.png) right repeat-y #fff
 }
 
+.sortable li.no-stream{
+	float:left;
+	background:#B93737;
+	height:30px;
+	line-height:30px; 
+	padding:8px 5%;
+	border: none;
+}
+
+.no-stream a{
+	display:block; 
+	color:#fff important;
+	cursor:pointer;
+	text-decoration:none;
+
+}
+
 .sortable li.active a {
-		color:#323e46!important
+		color:#323e46!important;
 }
 
 .sortable li.red-active {
@@ -1614,17 +1632,6 @@ ul.follow-bottom-icons li:hover {
 
 .sortable li a.red-active-icon1 {
 		background:url(../images/spryte.png) -2px -149px
-}
-
-
-.active-curve {
-		float:left;
-		height:58px;
-		width:20px;
-		left:-20px;
-		position:absolute;
-		top:0;
-		background-position:-2px -61px
 }
 
 .handle {
@@ -3849,7 +3856,7 @@ ul.signup-register li fieldset.password {
 ul.signup-register li input {
 		background:0;
 		height:58px;
-		color:#c0c1c2;
+		color:#8d8f90;
 		font-size:18px
 }
 
@@ -4621,6 +4628,7 @@ ul.gallery-pic li img {
 		box-shadow:0 0 0 1px #cdd4db;
 		width:100%!important;
 		background:#fff;
+		font-size:14px;
 		line-height:39px;
 		padding-left:5%;
 		color:#2f4553;
@@ -5041,7 +5049,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#0b9dd0', endCo
 		background:#fff;
 		padding:0 12px;
 		color:#425e71;
-		font-size:15px;
+		font-size:14px;
 		font-weight:400;
 		width:40%
 }
@@ -5666,7 +5674,7 @@ ul.email-social-icons li .other2 {
 
 .invite-calender {
 		position:relative;
-		width:34%;
+		width:31%;
 		float:left
 }
 
@@ -5900,8 +5908,7 @@ padding:20px 0;
 display:inline-block;
 width:100%;
 }
-
- .invite-bottom-btn a {
+.invite-bottom-btn a {
 		-webkit-border-radius:4px;
 		-moz-border-radius:4px;
 		border-radius:4px;
@@ -5911,28 +5918,48 @@ width:100%;
 		text-align:center;
 		float:left;
 		display:block;
-		font-size:12px;
-		width:32%;
 		text-transform:uppercase;
-		font-weight:500;
+			font-size:10px;
+		font-weight:700;
 }
-
  .invite-bottom-btn a.invite-orange-btn{
-  		background:#dbaa22;
-		background:-webkit-gradient(linear, left bottom, left top, color-stop(0, #dbaa22), color-stop(1, #d4991c));
-		background:-ms-linear-gradient(bottom, #dbaa22, #d4991c);
-		background:-moz-linear-gradient(center bottom, #dbaa22 0, #d4991c 100%);
-		background:-o-linear-gradient(#d4991c, #dbaa22);
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d4991c', endColorstr='#dbaa22', GradientType=0);
-		border:1px solid #dbaa22;
-		margin-right:1%;
-		text-decoration: none;
+  		background:#ddae23;
+		background:-webkit-gradient(linear, left bottom, left top, color-stop(0, #ddae23), color-stop(1, #d3951b));
+		background:-ms-linear-gradient(bottom, #ddae23, #d3951b);
+		background:-moz-linear-gradient(center bottom, #ddae23 0, #d3951b 100%);
+		background:-o-linear-gradient(#d3951b, #ddae23);
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d3951b', endColorstr='#ddae23', GradientType=0);
+		-webkit-border-radius:6px;
+		-moz-border-radius:6px;
+		border-radius:6px;
+		background:#d3951b;
+		border-top:1px solid #e9cc91;
+		display:inline-block;
+		overflow:hidden;
+		margin-right: 1%;
+		width:36%;
+		
  }
+ 
+  .invite-bottom-btn a.invite-orange-btn span{
+ 		background-position:-238px -17px;
+		float:left;
+		padding:20px 8%;
+  }
+ .invite-bottom-btn a.invite-orange-btn span.text {
+		background:url(../images/line-btn.jpg) repeat-y left top;
+		color:#fff;
+		text-shadow:1px 1px 1px #888;
+		text-transform:uppercase;
+		padding:0px 2%;
+	
+}
+ 
+ 
   .invite-bottom-btn a.invite-orange-btn:hover{
   		color: #f4e5bc;
  }
- 
-  .invite-bottom-btn a.invite-green-btn{
+ .invite-bottom-btn a.invite-green-btn{
 		background:#438348;
 		background:-webkit-gradient(linear, left bottom, left top, color-stop(0, #438348), color-stop(1, #336437));
 		background:-ms-linear-gradient(bottom, #438348, #336437);
@@ -5940,23 +5967,55 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d4991c', endCo
 		background:-o-linear-gradient(#336437, #438348);
 		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#336437', endColorstr='#438348', GradientType=0);
 		text-decoration: none;
+		width:26%;
   }
   .invite-bottom-btn a.invite-green-btn:hover{
 		color: #d9e6da;
   }
  
+.active-curve, .no-stream-curve {
+	float:left;
+	height:58px;
+	width:20px;
+	left:-20px;
+	position:absolute;
+	top:0;
+}
+.active-curve {
+		background-position:-2px -61px
+}
+.no-stream-curve{
+		background:url(../images/nostream-active-curve.png) repeat; 
+}
 
-ul.no-stream{display:inline-block;list-style:none;width:100%;min-height:200px;}
+.class-modal-header{
+	line-height: 30px;
+    padding:19px 30px;
+    border-bottom:solid 1px #CDD4DB;
+}
 
-ul.no-stream li{float:left;width:90%; background:#B93737;height:30px;line-height:30px; 
-
-padding:8px 5%;}
-
-ul.no-stream li a, ul.no-stream li a:hover{background:url(../images/spryte.png) repeat  -2px -
-
-149px;display:block; padding-left:30px;
-
-color:#fff; cursor:pointer;text-decoration:none;
+.class-modal-close{
+	font-size: 13px !important;
+	top: -18px;
+	position:relative;
+	
+}
+.class-modal-header h3{
+font-weight:700;
+font-size:16px;
+text-align:center;
 
 }
+.class-modal-btn{
+display:inline-block !important;
+float:none !important;
+
+}
+
+.class-modal-bottom{
+text-align:center;;	
+	
+}
+
+
 
