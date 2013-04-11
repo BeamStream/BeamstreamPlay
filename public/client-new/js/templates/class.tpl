@@ -91,7 +91,7 @@
         
          <!---- for  popups after Create stream----->
 			<div id="selectNextStep" style="top: 65% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-header">
+				  <div class="class-modal-header">
 				    <h3>What Next ?</h3><button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
 				  </div>
 				  <div class="modal-body">    
