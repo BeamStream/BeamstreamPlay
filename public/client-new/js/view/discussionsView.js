@@ -114,7 +114,7 @@ define(['view/formView',
  			            $.ajax({
  			            	type: 'POST',
  			                data: data,
- 			                url: "/getDocumentFromDisk",
+ 			                url: "/uploadDocumentFromDisk",
  			                cache: false,
  			                contentType: false,
  			                processData: false,
