@@ -4,17 +4,17 @@
   </div>
 <div class="modal-body"> 
 
-<div id="newSchoolForm" class="share-content">
+<div id="" class="share-content">
 				      
 	<fieldset class="field"  style="position:relative"> 
 	    <h1><label for="docName" name="docName">Title </label></h1>
-	    <input  id="docName" data-name="userMedia.docName" name="docName" type="text" placeholder="Title" >
+	    <input  id="docName" data-name="usermedia.docName" name="docName" type="text" placeholder="Title" >
 	   
 	</fieldset><br><br>
    
     <fieldset class="field"  style="position:relative"> 
-        <label for="website" name="website">Description <span class="star"> </span></label>
-        <input id="schoolWebsite" type="text" data-name="userMedia.docDescription" name="schoolWebsite" placeholder="Description" >
+        <label for="docDescription" name="docDescription">Description <span class="star"> </span></label>
+        <input id="docDescription" type="text" data-name="usermedia.docDescription" name="docDescription" placeholder="Description" >
     </fieldset>
 	                  
 	<br><br>

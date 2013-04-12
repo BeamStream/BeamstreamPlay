@@ -5,8 +5,8 @@
 * Company               : Toobler
 * Email:                : info@toobler.com
 * Web site              : http://www.toobler.com
-* Created               : 28/February/2013
-* Description           : View for Message List on discussion page
+* Created               : 08/April/2013
+* Description           : View for Message item on discussion page
 * ==============================================================================================
 * Change History:
 * ----------------------------------------------------------------------------------------------
@@ -18,6 +18,7 @@
 
 define(['view/formView',
         'view/mediaEditView',
+        'view/documentView',
         'model/comment',
         'model/discussion',
         'model/usermedia',
@@ -25,7 +26,7 @@ define(['view/formView',
         'text!templates/discussionComment.tpl',
         '../../lib/extralib/jquery.embedly.min',
         '../../lib/extralib/jquery.prettyPhoto'
-        ],function(FormView , MediaEditView ,CommentModel,DiscussionModel, UserMediaModel, DiscussionMessage ,DiscussionComment ,JqueryEmbedly, PrettyPhoto){
+        ],function(FormView , MediaEditView ,DocumentView ,CommentModel,DiscussionModel, UserMediaModel, DiscussionMessage ,DiscussionComment ,JqueryEmbedly, PrettyPhoto){
 	
 	var MessageItemView;
 	MessageItemView = FormView.extend({
@@ -41,12 +42,12 @@ define(['view/formView',
 			 'click .follow-message' : 'followMessage',
 			 'click .rock-comments': 'rockComment',
 			 'click .rocks-small a' : 'rockComment',
+			 'click .mediapopup': 'showFilesInAPopup',
 			 
 		},
 		
 		onAfterInit: function(){	
 			this.data.reset();
-			
 			this.urlRegex2 =  /^((http|https|ftp):\/\/)/,
             this.urlRegex1 = /(https?:\/\/[^\s]+)/g,
             this.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\./]*$/i ;
@@ -61,11 +62,13 @@ define(['view/formView',
             var trueurl='';
             var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
             
+            // get the model attributes
         	var model = this.model.attributes;
     		
-			var messageType ='';
+			var contentType ='';
 			var msgBody = model.message.messageBody;
-                                            
+            
+			/* get url from the message text */
             var msgUrl=  msgBody.replace(self.urlRegex1, function(msgUrlw) {
             	trueurl= msgUrlw;    
                 return msgUrlw;
@@ -75,17 +78,18 @@ define(['view/formView',
             if(trueurl)
             	var extension = (trueurl).match(pattern);  
             
+            /* case : normal message without uploaded files */
             if(model.message.messageType.name == "Text")
             {    
                 	 
                  //to check whether the url is a google doc url or not
                  if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) 
                  {
-                	 messageType = "googleDocs";
+                	 contentType = "docs";
                  }
                  else
                  {
-                	 messageType = "messageOnly";
+                	 contentType = "messageOnly";
                      var linkTag =  msgBody.replace(self.urlRegex1, function(url) {
                            return '<a target="_blank" href="' + url + '">' + url + '</a>';
                      });
@@ -102,40 +106,48 @@ define(['view/formView',
             	  }
             }
             
+            // customize the date format
             var datVal =  formatDateVal(model.message.timeCreated);
             
 			var datas = {
 			 	 "data" : model,
 			 	 "datVal":datVal,
+			 	 "contentType" : contentType
+			 	 
 		    }
            
-			if(messageType == "googleDocs")
+			/* generate data depends on its type */
+			if(contentType == "docs")
 			{
 				var datas = {
 				    "data" : model,
                     "datVal" :datVal,
                     "previewImage" : "/beamstream-new/images/google_docs_image.png",
                     "type" : "googleDoc",
+                    "contentType" : contentType
                 	
 				}	
 			}
-			else if(messageType == "messageOnly")
+			else if(contentType == "messageOnly")
 			{
 				var datas = {
 					 	 "data" : model,
 					 	 "datVal":datVal,
+					 	 "contentType" : contentType
 			    }
 			}
 			else
 			{
+				/* for images/videos  */
 				if(model.message.messageType.name == "Image" || model.message.messageType.name == "Video" )
 				{
 					var datas = {
 					 	 "data" : model,
 					 	 "datVal":datVal,
+					 	 "contentType" : "media"
 				    }  						
 				}
-				else
+				else /* for other types of docs , pdf , ppt etc.. */ 
 				{
 					var previewImage = '';
 					var commenImage ="";
@@ -151,11 +163,9 @@ define(['view/formView',
 					{
 						previewImage= "/beamstream-new/images/docs_image.png";
 						type = "doc";
-						 	
 					}
 					else if(extension == 'Pdf')
 					{
-						 
 						previewImage= model.anyPreviewImageUrl;
 						type = "pdf";
 					}
@@ -174,16 +184,18 @@ define(['view/formView',
                             "extension" : extension,
                             "commenImage" : commenImage,
                             "type" : type,
+                            "contentType" : "docs"
                             
 			        }	
 			  }
 					
 			}
 			
-			
+			// render the template
         	compiledTemplate = Handlebars.compile(DiscussionMessage);
         	$(this.el).html(compiledTemplate(datas));
         	
+        	/* set the link style for the lisks in message */
         	if(linkTag)
             	$('p#'+model.message.id.id+'-id').html(linkTag);
     		
@@ -213,29 +225,41 @@ define(['view/formView',
     		return this;
         },
         
+        /**
+         * @TODO  Show the popup for editing title and description of uploaded files
+         */
         editMediaTitle: function(eventName){
         	
+        	/*---------------------------------------------------------------- */
+        	/* @TODO  get user media details and set to usermedia model */ 
+        	 
+        	/*
         	var mediaId = eventName.currentTarget.id; 
-        	/* get user media details and set to usermedia model */ 
+        	
         	userMediaModel = new UserMediaModel();
         	userMediaModel.set({id:this.model.get('message').docIdIfAny.id ,
 				        		docName : this.model.get('docName'),
 				        		docDescription :this.model.get('docDescription')});
 				        		
-        	
-        	var mediaEditView  = new MediaEditView({el: '#editMediaView' , model : userMediaModel});
+        	//render the MediaEditView 
+        	var mediaEditView  = new MediaEditView({el: '#editMedia' , model : userMediaModel});
 			mediaEditView.render();
 			
+			 */
 			$('#editMedia').modal("show");
 			
 			
-//            view = new MediaEditView({el: $('#editMediaView')});
+           /* ----------------------------or -------------------- */			
+//            view = new MediaEditView({el: $('#poupview')});
 //        	if(view){
 //        		view.data.url = "/getMediafromPost/"+mediaId;
 //        		view.fetch();
 //        	}
 //        	$('#editMedia').modal("show");
         },
+        
+        
+        
         
         /**
          *   post new comments on enter key press
@@ -246,7 +270,6 @@ define(['view/formView',
         	var parent =$(element).parents('div.follow-container').attr('id');
         	var totalComments =  $('#'+parent+'-totalComment').text();
         	var commentText = $('#'+parent+'-msgComment').val();
-        	 
         	var self =this;
         
         	/* post comments on enter key press */
@@ -257,6 +280,8 @@ define(['view/formView',
    			 	if(!commentText.match(/^[\s]*$/))
    			 	{
 //   			 		this.data.url = "/newComment";
+   			 		
+   			 		    /* set the Comment model values and posted to server */
    			 			var comment = new CommentModel();
    			 			comment.urlRoot = "/newComment";
    			 			comment.save({comment : commentText, messageId :parent},{
@@ -319,12 +344,13 @@ define(['view/formView',
 			var messageId =$(element).parents('div.follow-container').attr('id');
 			var streamId =  $('.sortable li.active').attr('id');
 			
-			// set values to model
+			// set values to model for rocking the message
 			var Discussion = new DiscussionModel();
 			Discussion.urlRoot = "/rockedIt";
 			Discussion.save({id : messageId},{
 		    	success : function(model, response) {
 		    		
+		    		/* show/hide the rock and unrock symbols */
 		    		if($('#'+messageId+'-msgRockCount').hasClass('downrocks-message'))
 	            	{
 	            		$('#'+messageId+'-msgRockCount').removeClass('downrocks-message');
@@ -351,11 +377,40 @@ define(['view/formView',
 		    	}
 
 		    });
-		    
-			var self = this;
-			
         },
         
+        /**
+         *@TODO : show the uploaded file in a popup
+         */
+        showFilesInAPopup: function(e){
+        	var docId = e.currentTarget.id;
+			var fileType = $(e.currentTarget).attr('name');
+			console.log(fileType);
+			/* show document is a popup */ 
+			
+			if(fileType == "googleDoc")
+            {
+
+            }
+            else
+            {
+            	
+            	var docUrl = "http://docs.google.com/gview?url="+$('input#id-'+docId).val()+"&embedded=true"; 
+            	
+            	userMediaModel = new UserMediaModel();
+            	userMediaModel.set({id:this.model.get('message').docIdIfAny.id ,
+    				        		docName : this.model.get('docName'),
+    				        		docDescription :this.model.get('docDescription'),
+    				        		docUrl: this.model.get('message').messageBody});
+            	
+            	//render the document 
+            	var documentView  = new DocumentView({el: '#poupview' , model : userMediaModel});
+            	documentView.render();
+    			
+    			$('#document').modal("show");
+            }
+			
+        },
         
         /**
          * Show comment text area on click
@@ -513,7 +568,7 @@ define(['view/formView',
 		    });
         },
         
-        
+       
 	})
 	return MessageItemView;
 });

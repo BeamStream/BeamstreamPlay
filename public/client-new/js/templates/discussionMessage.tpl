@@ -39,7 +39,7 @@
                   
                    <!-- start doc section -->
                    
-                   {{#ifequal data.message.messageType.name "Document"}}
+                   {{#ifequal contentType "docs"}}
 		                  <div id="Docs" class="doc">
 		                  
 		                  <div class="item">  
@@ -89,9 +89,9 @@
                    <!-- End doc section -->
                   
                   
-                  <!-- start Image section -->
+                  <!-- start Image / video section -->
                   
-                  {{#ifequal data.message.messageType.name "Image"}}
+                  {{#ifequal contentType "media"}}
 	                  <div id="Docs" class="doc">
 	                  
 	                  <div  class="item">  
@@ -104,13 +104,28 @@
 						      <h4 id="name-{{data.message.docIdIfAny.id}}" >{{#if data.docName}}{{data.docName}}{{else}}No Media Name{{/if}}</h4>                                
 						      <div class="description-info">      
 						         <div class="gallery"></div>
-							 <div class="gallery hrtxt">
-						           <a href="{{data.message.anyPreviewImageUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
-						              <div class="description-left photo-popup">   
-						              <p class="google_doc doc-description" id="description-{{data.message.docIdIfAny.id}}"><input type="hidden" id="id-{{data.message.docIdIfAny.id}}" value="doc.url">{{#if data.docDescription}}{{data.docDescription}}{{else}}No Media Description{{/if}}</p>
-							    </div>
-						           </a>
-							 </div>     
+						         
+						         <!-- image preview -->
+						         {{#ifequal data.message.messageType.name "Image"}}
+								    <div class="gallery">
+							           <a href="{{data.message.anyPreviewImageUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
+							              <div class="description-left photo-popup">   
+							              <p class="google_doc doc-description" id="description-{{data.message.docIdIfAny.id}}"><input type="hidden" id="id-{{data.message.docIdIfAny.id}}" value="doc.url">{{#if data.docDescription}}{{data.docDescription}}{{else}}No Media Description{{/if}}</p>
+								        </div>
+							           </a>
+								   </div>  
+							   {{/ifequal}} 
+							   
+							   <!-- Video preview -->
+					           {{#ifequal data.message.messageType.name "Video"}}  
+			            		 <div class="gallery hrtxt">
+					           		<a href="{{data.message.messageBody}}" style="text-decoration: none" rel="prettyPhoto[gallery1]">
+					              		<div class="description-left photo-popup">   
+					              			<p class="google_doc doc-description" id="description-{{data.message.docIdIfAny.id}}"><input type="hidden" id="id-{{data.message.docIdIfAny.id}}" value="doc.url">{{#if data.docDescription}}{{data.docDescription}}{{else}}No Media Description{{/if}}</p>
+						   				 </div>
+					          		 </a>
+								 </div> 
+						       {{/ifequal}} 
 						    
 						      <div id="{{data.message.docIdIfAny.id}}" class="comment-wrapper2">
 						      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_media"></a>
@@ -134,56 +149,8 @@
 	                  </div>
 	                  
 	               {{/ifequal}}
-                  <!-- End Image section -->
+                  <!-- End Image / video section -->
                   
-                  
-                  
-                  <!-- start Video section -->
-                  
-                  {{#ifequal data.message.messageType.name "Video"}}
-	                  <div id="Docs" class="doc">
-                  
-                  	<div  class="item">  
-					  <div id="{{data.message.docIdIfAny.id}}"   name="single-doc">
-					<div class="image-wrapper hovereffect" >
-					  <div class="hover-div"><img class="filmedia-picture" src="{{data.message.anyPreviewImageUrl}}">
-					    <div class="hover-text">               
-					     <div class="comment-wrapper" id="{{data.message.docIdIfAny.id}}">                                
-					     <div id="media-{{data.message.docIdIfAny.id}}">
-					      <h4 id="name-{{data.message.docIdIfAny.id}}" >{{#if data.docName}}{{data.docName}}{{else}}No Media Name{{/if}}</h4>                                
-					      <div class="description-info">      
-					         <div class="gallery"></div>
-						 <div class="gallery hrtxt">
-					           <a href="{{data.message.anyPreviewImageUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
-					              <div class="description-left photo-popup">   
-					              <p class="google_doc doc-description" id="description-{{data.message.docIdIfAny.id}}"><input type="hidden" id="id-{{data.message.docIdIfAny.id}}" value="doc.url">{{#if data.docDescription}}{{data.docDescription}}{{else}}No Media Description{{/if}}</p>
-						    </div>
-					           </a>
-						 </div>     
-					    
-					      <div id="{{data.message.docIdIfAny.id}}" class="comment-wrapper2">
-					      <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_media"></a>
-					      <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
-					      </div></div></div>
-					      
-					      <div class="edit-title-div">
-							
-					      <h5 class="editMediaTitle" id="{{data.message.docIdIfAny.id}}"><span><img src="beamstream-new/images/title-plus.png"></span>Edit Title & Description</h5>
-					      
-					      </div>        
-					     <div class="dateinfo"><span class="state">{{data.message.messageAccess.name}}</span><span class="date">{{datVal}}</span></div>
-					    </div>
-					   </div>
-					  </div>
-					</div>  
-					
-					</div>
-				</div>
-
-                  </div>
-	                  
-	               {{/ifequal}}
-                  <!-- End Video section -->
                   
                   
                   

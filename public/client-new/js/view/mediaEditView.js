@@ -33,20 +33,20 @@ define(['view/formView',
 		onAfterInit: function(){
             this.data.reset();
         },
-        
-        /**
-         * @TODO render the edit view popup
-         */
-        render: function(){
-        	console.log(this.model);
-        	compiledTemplate = Handlebars.compile(MediaEditTpl);
-        	$(this.el).html(compiledTemplate(JSON.parse(JSON.stringify(this.data))));
-        	
-        },
+//        
+//        /**
+//         * @TODO render the edit view popup
+//         */
+//        render: function(){
+//        	compiledTemplate = Handlebars.compile(MediaEditTpl);
+//        	$(this.el).html(compiledTemplate(JSON.parse(JSON.stringify(this.data))));
+//        	
+//        },
 		
-//		displayPage: function(callback){
-//			console.log("displayPage");
-//		},
+		displayPage: function(callback){
+			compiledTemplate = Handlebars.compile(MediaEditTpl);
+        	$(this.el).html(compiledTemplate(JSON.parse(JSON.stringify(this.data))));
+		},
 		
 		/**
 		 * edit title and description of files
