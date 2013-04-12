@@ -41,7 +41,9 @@ define(['baseModel'], function(BaseModel) {
 				required: true
 			},
 			classTime: {
-				required: true
+				required: true,
+				pattern: 'time',
+
 			},
 			startingDate: {
 				required: true
