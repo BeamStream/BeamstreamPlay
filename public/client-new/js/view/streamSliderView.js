@@ -13,7 +13,7 @@ define(['baseView',
         objName: 'streamSliderView',
         streamId: null,
         events:{
-        	 'click .close-btn' : 'closeStreamTab',
+        	 'click .close-btn' : 'removeStreamTab',
 			 'click .cancel-btn' : 'closeRemoveOption',
 			 'click .sortable li' : 'renderRightContenetsOfSelectedStream',
 		},
@@ -34,24 +34,25 @@ define(['baseView',
          * after render set scrolling effect
          */
         onAfterRender: function(){
+        	
         	this.slider();
+        	
+        	/* added active class and style for first stream in the left side bar*/
         	$('#sortable4 li:first').addClass('active');
         	$('#sortable4 li:first').append(this.activeDiv);
         	
-        	
         	/* render the stream title and description view based on selected stream */
         	$('.stream-header-left').attr('data-value',$('.sortable li.active').attr('id') );
-        	
+        	var compiledTemplate = Handlebars.compile(StreamTitle);
+			$('.stream-header-left').html(compiledTemplate({streamName: streamName ,userCount:userCount }));
+			
+			/* added all streams to privateTo dropdown list */
         	var streamName = $('.sortable li.active').attr('name');
         	var userCount =$('.sortable li.active').attr('data-userCount');
         	$('#select-privateTo').text(streamName);
         	$('#Q-privateTo-select').text(streamName);
-        	
-        	
-        	var compiledTemplate = Handlebars.compile(StreamTitle);
-			$('.stream-header-left').html(compiledTemplate({streamName: streamName ,userCount:userCount }));
 			
-			
+        	//set the streamId value 
 			this.streamId = (this.data.models[0])?this.data.models[0].get('stream').id.id:null;
 			this.myStreams = (this.data)?this.data:null;
 		},
@@ -83,7 +84,7 @@ define(['baseView',
 		},
 		
         /**
-        * slider effect for stream list
+        * slider/scrolling effect for stream list 
         */
         slider: function(){
         	
@@ -98,7 +99,9 @@ define(['baseView',
                     frameRate: 20,
                     speed: 8,
             });		            
-            var activeStream = '';            
+            var activeStream = '';  
+            
+            /* stream side bar EDIT/DONE functionality (stream sorting) */
             $(".done").toggle(function () {         
                     $('a.done').text('DONE');	
                     $('a.done').attr('data-value','inActive');
@@ -171,15 +174,18 @@ define(['baseView',
         },
                 
         /**
-	     * open a close option below the stream name tab (left side container)  to close that stream 
+	     * open a remove option  to remove that stream 
 	     */
-	    closeStreamTab :function(eventName){
+        removeStreamTab :function(eventName){
+        	
 	    	eventName.preventDefault();
 	    	var self = this;
+	    	
+	    	/* get selected stream's id and name */
 	    	var streamId = $(eventName.target).parents('li').attr('id');
 	    	var StreamName = $(eventName.target).parents('li').attr('name');
 	    	
-	    	// set new style for li
+	    	// set new style for streamtab  
             var removeOption = '<a href="#" class="red-active-icon1">'+StreamName+' </a>'
             				   +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"></div>'
             				   +'<span class="remove-btn"><a href="#">Remove</a></span> <span class="remove-btn cancel-btn "><a href="#">Cancel</a></span>';
@@ -197,6 +203,8 @@ define(['baseView',
 	    closeRemoveOption: function(eventName){
 	    	eventName.preventDefault();
 	    	var self = this;
+	    	
+	    	/* get selected stream's id , user count and name */
 	    	var streamId = $(eventName.target).parents('li').attr('id');
 	    	var StreamName = $(eventName.target).parents('li').attr('name');
 	    	var userCount = $(eventName.target).parents('li').attr('data-userCount');
@@ -222,29 +230,29 @@ define(['baseView',
 	    	eventName.preventDefault();
 	    	this.streamId = eventName.target.id;
 	    	
-	    	// disable the content rendering when the stream list is on edit 
+	    	// disable the content rendering when the stream list is on edit stage
 	    	if($('a.done').attr('data-value') == "inActive")
 	    		return;
 	    	
+	    	//if there is no stream in stream list 
 		    if(!eventName.target.id)
 		    	return;
 		      
+		    /*set the privateTo drop down select option as selected stream */
 		    var streamName = $('#'+this.streamId+'').attr('name');
 		    $('#select-privateTo').text(streamName);
 		    $('#Q-privateTo-select').text(streamName);
 		   
-		
-		    // set active style for stream 
+		    // set active stage for stream li
 		    $('.sortable li.active').find('div.active-curve').remove();
 		    $('.sortable li.active').removeClass('active');
-		   
 		    $('.sortable li#'+this.streamId).addClass('active');
 		    $('.sortable li.active').append(this.activeDiv);
 		    var userCount = $('.sortable li.active').attr('data-userCount');
 		    
+		    /* render the stream title and description view based on selected stream */
 		    var compiledTemplate = Handlebars.compile(StreamTitle);
 		    $('.stream-header-left').html(compiledTemplate({streamName: streamName ,userCount:userCount }));
-		    
 		    
 		    //render active tab contents
 		    var activeTab = $('.stream-tab li.active').attr('id');
@@ -265,7 +273,6 @@ define(['baseView',
 	    			view.data.url="/allMessagesForAStream/"+this.streamId+"/date/"+10+"/"+0;
 	    			view.fetch();
 
-//	    			view.data.url="/allMessagesForAStream";
 //	    			view.fetch({'streamId': this.streamId, 'sortBy': 'date', 'messagesPerPage': 12, 'pageNo': 0});
 
 	    		}

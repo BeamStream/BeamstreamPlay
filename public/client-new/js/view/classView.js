@@ -102,6 +102,7 @@ define(['view/formView',
 	   					self.classNames = [];
 	   					_.each(datas, function(data) {
 	   						
+	   						/* for auto populate */
 	   						self.classNames.push({
 	   							label: data.classToReturn.className,
 	   							value: data.classToReturn.className,
@@ -167,6 +168,7 @@ define(['view/formView',
 						var allClassInfo = datas;
 						self.classCodes = []; 
 						_.each(datas, function(data) {
+							/* for auto populate */
 							self.classCodes.push({
 								label:data.classToReturn.classCode ,
 								value:data.classToReturn.classCode ,

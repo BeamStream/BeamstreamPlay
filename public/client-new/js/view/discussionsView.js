@@ -158,45 +158,107 @@ define(['view/formView',
  			        }
  			        else{
  			        	
-		        	 	if(!message)
+		        	 	if(message.match(/^[\s]*$/))
  			        		 return;
 		        	 	
- 			        	this.data.url = "/newMessage";
-		 			    // set values to model
-		 			    this.data.models[0].save({streamId : streamId, message :message, messageAccess:messageAccess},{
-		 			    	success : function(model, response) {
-		 			    		
-		 			    		console.log(self.data.models[0]);  
-		 			    		/* PUBNUB -- AUTO AJAX PUSH */ 
-		 			    		PUBNUB.publish({
-		 			    			channel : "stream",
-		 			    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:self.data.models[0]}
-		 			    		}) 
-		 			    		
-		 			    		// show the posted message on feed
-		 			    		var messageItemView  = new MessageItemView({model : self.data.models[0]});
-		 						$('#messageListView div.content').prepend(messageItemView.render().el);
-		 						
-		 			    		/* delete default embedly preview */
-		 			    		$('div.selector').attr('display','none');
-		 			    		$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
-		 			    		$('div.selector').remove();
-		 			    		$('.preview_input').remove();
-		 			    		$('#msg-area').val("");
-		 			    		
-		 			    	},
-		 			    	error : function(model, response) {
-		 			    		$('#msg-area').val("");
-		 	                    console.log("error");
-		 			    	}
-		
-		 			    });
+		        	 	//find link part from the message
+		  		        var link =  message.match(this.urlRegex); 
+		  		        if(link){
+		  		        	
+		  		        	if(!self.urlRegex2.test(link[0])) {
+		  		        		urlLink = "http://" + link[0];
+		  		  	  	    }
+		  		    	    else
+		  		    	    {
+		  		    	    	urlLink =link[0];
+		  		    	    }
+		  	                 
+		  	                var msgBody = message ,link =  msgBody.match(self.urlRegex);                             
+		  	                var msgUrl=  msgBody.replace(self.urlRegex1, function(msgUrlw) {
+		  	                    trueurl= msgUrlw;                                                                  
+		  	                    return msgUrlw;
+		  	                });
+		  	                
+		  	                //To check whether it is google docs or not
+		  	                if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   
+		  	                {
+		  	                	// check the url is already in bitly state or not 
+		  	                	if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
+		  	                    {                                     
+		  	                		/* post url information */                           
+	  	                            $.ajax({
+	  	                            	type : 'POST',
+		  	                            url : 'bitly',
+		  	                            data : {
+		  	                            	link : urlLink
+		  	                            },
+		  	                            dataType : "json",
+		  	                            success : function(data) {                                      
+	                                         message = message.replace(link[0],data.data.url);
+	                                         self.postMessageToServer(message,streamId,messageAccess);
+		  	                            }
+	  	                             });
+	  	                         }
+	  	                         else
+	  	                         {  
+	  	                        	 self.postMessageToServer(message,streamId,messageAccess);
+	  	                         }
+	                 		 }  //doc
+		  	                 else    //case: for doc upload
+		  	                 {     
+		  	                	 self.postMessageToServer(message,streamId,messageAccess);
+		  	                 }
+	                     }
+		                 //case: link is not present in message
+		                 else
+		                 {                
+		                	 self.postMessageToServer(message,streamId,messageAccess);
+		                 }
+ 			        	
  			        }
 	 			  
  			    }
 // 	        }
 		    
         },
+        
+        /**
+         * set message data to model and posted to server 
+         */
+        postMessageToServer: function(message,streamId,messageAccess){
+        	var self = this;
+        	this.data.url = "/newMessage";
+		    // set values to model
+		    this.data.models[0].save({streamId : streamId, message :message, messageAccess:messageAccess},{
+		    	success : function(model, response) {
+		    		
+		    		console.log(self.data.models[0]);  
+		    		/* PUBNUB -- AUTO AJAX PUSH */ 
+		    		PUBNUB.publish({
+		    			channel : "stream",
+		    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:self.data.models[0]}
+		    		}) 
+		    		
+		    		// show the posted message on feed
+		    		var messageItemView  = new MessageItemView({model : self.data.models[0]});
+					$('#messageListView div.content').prepend(messageItemView.render().el);
+					
+		    		/* delete default embedly preview */
+		    		$('div.selector').attr('display','none');
+		    		$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
+		    		$('div.selector').remove();
+		    		$('.preview_input').remove();
+		    		$('#msg-area').val("");
+		    		
+		    	},
+		    	error : function(model, response) {
+		    		$('#msg-area').val("");
+                    console.log("error");
+		    	}
+
+		    });
+        },
+        
         
         /**
 	     * post message on enter key
