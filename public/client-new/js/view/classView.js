@@ -68,8 +68,7 @@ define(['view/formView',
          * set default time for class time 
          */
         setDefaultTime: function(){
-//        	$("#classTime").setMask({mask : '12:59', maxLength:5, defaultValue: '0000'});
-        	 $("#classTime").setMask('time').val('12:59');
+        	$("#classTime").setMask({mask : '12:59', maxLength:5, defaultValue: '0000'});
        		
         },
         /**

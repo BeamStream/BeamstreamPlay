@@ -23,8 +23,8 @@ Backbone.Validate = (function() {
 		//Allow letters, numbers, special characters, at least lowercase, capital, number
 		password: /(?=.*\d)(?=.*[a-z]).{8,}/,
 		//Added by Aswathy
-		website : /^(([\w]+:)?\/\/)?(([\d\w]|%[a-fA-f\d]{2,2})+(:([\d\w]|%[a-fA-f\d]{2,2})+)?@)?([\d\w][-\d\w]{0,253}[\d\w]\.)+[\w]{2,4}(:[\d]+)?(\/([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)*(\?(&amp;?([-+_~.\d\w]|%[a-fA-f\d]{2,2})=?)*)?(#([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)?$/,
-		time: /^([0]?[1-9]|[1][0-2]):([0-5][0-9]|[1-9])$/
+		website : /^(([\w]+:)?\/\/)?(([\d\w]|%[a-fA-f\d]{2,2})+(:([\d\w]|%[a-fA-f\d]{2,2})+)?@)?([\d\w][-\d\w]{0,253}[\d\w]\.)+[\w]{2,4}(:[\d]+)?(\/([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)*(\?(&amp;?([-+_~.\d\w]|%[a-fA-f\d]{2,2})=?)*)?(#([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)?$/
+//		time: /^([0]?[1-9]|[1][0-2]):([0-5][0-9]|[1-9])$/
 	};
 	var format = function() {
 		var text = arguments[0],
