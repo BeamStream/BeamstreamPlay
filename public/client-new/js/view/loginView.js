@@ -25,6 +25,7 @@ define(['view/formView'], function(FormView ){
 		events:{
 	        'click #login': 'login',
 	        'keyup #password' : 'loginOnEnterKeyPress',
+	        'click .register-cancel' : 'clearAllFields'
 		},
 
 		onAfterInit: function(){	
@@ -73,7 +74,15 @@ define(['view/formView'], function(FormView ){
 				self.login(eventName); 
 			}
 		},
-
+		
+		/**
+	        * clear all fields when we click cancel button
+	        */
+		clearAllFields : function(){
+			$('#mailid').val('');
+			$('#password').val('');
+			$('#confirmPassword').val('');
+		}
  
 	})
 	return LoginView;
