@@ -1,3 +1,4 @@
+@import-once "beamstream-variables.less";
 
 .signup-container {
 		background:url(../images/signup-bg.png) center top no-repeat;
@@ -11,6 +12,7 @@
  font-weight:400;
  font-size:19px;
  line-height: 40px;
+ margin:0;
  a {
  .gradient(#d59b1d, #d59b1d, #dba921);
  .box-shadow( #000 0px 2px 3px);
@@ -92,47 +94,66 @@ ul.signup-register {
 		overflow:hidden;
 		margin:0 auto;
 		float:left;
+ h5 {
+ color:#9cabb5;
+ font-weight:400;
+ font-size:18px;
+ padding-bottom:10px;
+ margin:0;
 }
 
-ul.signup-register h5 {
-		color:#9cabb5;
-		font-weight:400;
-		font-size:18px;
-		padding-bottom:10px;
-}
-
-ul.signup-register li {
+li {
 		float:left;
 		border-right:solid 1px #d9dee1;
 		position:relative;
+ fieldset {
+ .rounded(@radius:5px);
+ .box-shadow( 0 2px 4px 0 #999999 inset);
+ float:left;
+ width:70%;
+ height:58px;
+ margin:20px 0 0 0;
+ background:@white;
+ padding:0px;
+ border-bottom:solid 1px #fff;
+ padding:0 0 0 70px;
+ color: @blue-color;
+ position:relative;
+}
+
+input {
+		background:none;
+		height:58px;
+		color:#8D8F90;
+		font-size:18px;
+		border:none;
+}
+}
 }
 
 ul.signup-register li.lastblock {
 		border-right:0px;
 		float:right;
-}
-
-ul.signup-register li.lastblock a {
+ a {
  .rounded(@radius:5px);
-		height:58px;
-		display:block;
-		line-height:58px;
-		margin:20px 0 0 0;
-		color:#fff;
-		font-size:16px;
-		font-weight:700;
-		text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+ height:58px;
+ display:block;
+ line-height:58px;
+ margin:20px 0 0 0;
+ color:#fff;
+ font-size:16px;
+ font-weight:700;
+ text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+ &:hover {
+ opacity:0.8;
 }
-
-ul.signup-register li a:hover {
-		opacity:0.8;
+ span {
+ float: left;
+ height: 57px;
+ margin: 0 0 0 10px;
+ width: 39px;
 }
-
-ul.signup-register li.lastblock a span {
-		float: left;
-		height: 57px;
-		margin: 0 0 0 10px;
-		width: 39px;
+}
 }
 
 ul.signup-register li.lastblock a span.facebook-icon {
@@ -178,34 +199,12 @@ ul.signup-register li.lastblock a.link-in {
  .gradient(#0988c6, #0988c6, #0b9dd0);
 }
 
-ul.signup-register li fieldset {
- .rounded(@radius:5px);
- .box-shadow( 0 2px 4px 0 #999999 inset);
-		float:left;
-		width:70%;
-		height:58px;
-		margin:20px 0 0 0;
- background:@white;
-		padding:0px;
-		border-bottom:solid 1px #fff;
-		padding:0 0 0 70px;
- color: @blue-color;
-		position:relative;
-}
-
 ul.signup-register li fieldset.message {
 		background:url(../images/spryte.png) -229px -399px;
 }
 
 ul.signup-register li fieldset.password {
 		background:url(../images/spryte.png) -229px -458px;
-}
-
-ul.signup-register li input {
-		background:none;
-		height:58px;
-		color:#c0c1c2;
-		font-size:18px;
 }
 
 .sign-tick,
@@ -224,17 +223,18 @@ ul.signup-register li input {
 		background:url(../images/spryte.png) -177px -424px;
 }
 
-.menu-pic {
- .rounded(@radius:65px);
-		width:115px;
-		height:115px;
-		position:relative;
-}
-
+.menu-pic,
 .sign-up-tick {
  .rounded(@radius:65px);
 		width:115px;
 		height:115px;
+}
+
+.menu-pic {
+		position:relative;
+}
+
+.sign-up-tick {
 		position:absolute;
 		top:0;
 		left:0;
@@ -285,6 +285,7 @@ ul.signup-register li input {
  line-height:142px;
  font-size: 14px;
  text-shadow: 1px 1px 1px #616161;
+ margin:0;
 }
 }
 

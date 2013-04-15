@@ -68,7 +68,8 @@ define(['view/formView',
          * set default time for class time 
          */
         setDefaultTime: function(){
-        	$("#classTime").setMask({mask : '12:59', maxLength:5, defaultValue: '0000'});
+//        	$("#classTime").setMask({mask : '12:59', maxLength:5, defaultValue: '0000'});
+        	 $("#classTime").setMask('time').val('12:59');
        		
         },
         /**
@@ -102,6 +103,7 @@ define(['view/formView',
 	   					self.classNames = [];
 	   					_.each(datas, function(data) {
 	   						
+	   						/* for auto populate */
 	   						self.classNames.push({
 	   							label: data.classToReturn.className,
 	   							value: data.classToReturn.className,
@@ -167,6 +169,7 @@ define(['view/formView',
 						var allClassInfo = datas;
 						self.classCodes = []; 
 						_.each(datas, function(data) {
+							/* for auto populate */
 							self.classCodes.push({
 								label:data.classToReturn.classCode ,
 								value:data.classToReturn.classCode ,
@@ -259,7 +262,7 @@ define(['view/formView',
         		var classTime = $('#classTime').val()+$('#time').val();
         		this.data.models[0].set({'classTime' : classTime});
         	}
-        	
+        	console.log(this.data.models[0]);
         	this.saveForm();
         },
         

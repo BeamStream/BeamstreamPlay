@@ -41,7 +41,7 @@ object UtilityActor {
     authenticatedMessageAndSession._1.setSubject("Beta User Registration On BeamStream");
     authenticatedMessageAndSession._1.setContent(Messages("BetaUserRegistrationMessage"), "text/html");
     val transport = authenticatedMessageAndSession._2.getTransport("smtp");
-    transport.connect("smtp.gmail.com", Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
+    transport.connect(Play.current.configuration.getString("smtp_server_out").get, 80, Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
     transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
   }
 
@@ -69,7 +69,7 @@ object UtilityActor {
         "Cheers," + "<br>" +
         "The Really Nice Beamstream Folks , US" + "<br>", "text/html");
     val transport = authenticatedMessageAndSession._2.getTransport("smtp");
-    transport.connect("smtp.gmail.com", Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
+    transport.connect(Play.current.configuration.getString("smtp_server_out").get, 80, Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
     transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
     val token = new Token((new ObjectId), authToken)
     Token.addToken(token)

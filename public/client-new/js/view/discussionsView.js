@@ -1,13 +1,11 @@
 define(['view/formView',
-        'model/discussion',
-        'model/comment',
         'view/messageListView',
+        'view/messageItemView',
+        'model/discussion',
         '../../lib/jquery.preview.full.min',
         '../../lib/extralib/jquery.embedly.min',
-        'text!templates/discussionMessage.tpl',
         'text!templates/discussionComment.tpl',
-        'text!templates/privateToList.tpl',
-        ], function(FormView, DiscussionModel, CommentModel ,MessageListView, JqueryPreview, JqueryEmbedly , DiscussionMessage ,DiscussionComment,PrivateToList){
+        ], function(FormView, MessageListView, MessageItemView ,DiscussionModel,  JqueryPreview, JqueryEmbedly ,DiscussionComment ){
 	var Discussions;
 	Discussions = FormView.extend({
 		objName: 'Discussion',
@@ -20,17 +18,9 @@ define(['view/formView',
 			 'click #date-sort-list' : 'sortMessagesWithinAPeriod',
 			 'click #discussion-file-upload li' : 'uploadFiles',
 			 'click #private-to-list li' :'selectPrivateToList',
-			 'click .add-comment' : 'showCommentTextArea',
-			 'keypress .add-message-comment' : 'addMessageComments',
 			 'keypress #msg-area' : 'postMessageOnEnterKey',
-			 'click .rocks-message' : 'rockMessage',
-			 'click .show-all-comments' : 'showAllCommentList',
-			 'click .show-all' : 'showAllList',
-			 'click .rock-message' : 'rockMessage',
-			 'click .follow-message' : 'followMessage',
-			 'click .rock-comments': 'rockComment',
-			 'click .rocks-small a' : 'rockComment',
 			 'change #upload-files-area' : 'getUploadedData',
+			 
 		 },
 
 		 messagesPerPage: 10,
@@ -38,17 +28,17 @@ define(['view/formView',
 		 	
 		 init: function(){
 			this.addView(new MessageListView({el: $('#messageListView')}));
+			this.addView(new MessageItemView({el: $('#messageItemView')}));
 		 },
 			
+		 
 		 onAfterInit: function(){	
             this.data.reset();
             
             this.urlRegex2 =  /^((http|https|ftp):\/\/)/,
-            this.urlRegex1 = /(https?:\/\/[^\s]+)/g,
             this.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\./]*$/i ;
-		    
+            this.file = '';
             this.setupPushConnection();
-            this.comment = new CommentModel();
 		 },
 		 
 		
@@ -114,7 +104,7 @@ define(['view/formView',
  			            $.ajax({
  			            	type: 'POST',
  			                data: data,
- 			                url: "/getDocumentFromDisk",
+ 			                url: "/uploadDocumentFromDisk",
  			                cache: false,
  			                contentType: false,
  			                processData: false,
@@ -144,58 +134,131 @@ define(['view/formView',
  			  	                $('.progress-container').hide();
  			  	                $('#uploded-file-area').hide();
  			  	                
+ 			  	                
+ 			  	                // set the response data to model
+ 			  	                self.data.models[0].set({message : data.message,
+ 			  	                	                     docName : data.docName, 
+ 			  	                	                     docDescription: data.docDescription,
+ 			  	                	                     profilePic: data.profilePic })
+
+ 			  	                console.log(self.data.models[0]);
  			  	                /* Pubnub auto push */
  			  	                PUBNUB.publish({
  			  	                	channel : "stream",
- 			  	                		message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:[data]}
+ 			  	                	message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:self.data.models[0]}
  			  	                }) 
  			  	                
- 			                           
- 			  	                self.showPostedMessage([data]);
- 		                      
+	                            // show the uploaded file on message llist
+		 			    		var messageItemView  = new MessageItemView({model : self.data.models[0]});
+		 						$('#messageListView div.content').prepend(messageItemView.render().el);
+		 						
  		                    }
  		                }); 
  			        	
  			        }
  			        else{
  			        	
-		        	 	if(!message)
+		        	 	if(message.match(/^[\s]*$/))
  			        		 return;
 		        	 	
- 			        	this.data.url = "/newMessage";
-		 			    // set values to model
-		 			    this.data.models[0].save({streamId : streamId, message :message, messageAccess:messageAccess},{
-		 			    	success : function(model, response) {
- 			 			    		   
-		 			    		/* PUBNUB -- AUTO AJAX PUSH */ 
-		 			    		PUBNUB.publish({
-		 			    			channel : "stream",
-		 			    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response}
-		 			    		}) 
-		 	                     
-		 			    		// show the posted message on feed
-		 			    		self.showPostedMessage(response);
-		 	               	 
-		 			    		/* delete default embedly preview */
-		 			    		$('div.selector').attr('display','none');
-		 			    		$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
-		 			    		$('div.selector').remove();
-		 			    		$('.preview_input').remove();
-		 			    		$('#msg-area').val("");
-		 			    		
-		 			    	},
-		 			    	error : function(model, response) {
-		 			    		$('#msg-area').val("");
-		 	                    console.log("error");
-		 			    	}
-		
-		 			    });
+		        	 	//find link part from the message
+		  		        var link =  message.match(this.urlRegex); 
+		  		        if(link){
+		  		        	
+		  		        	if(!self.urlRegex2.test(link[0])) {
+		  		        		urlLink = "http://" + link[0];
+		  		  	  	    }
+		  		    	    else
+		  		    	    {
+		  		    	    	urlLink =link[0];
+		  		    	    }
+		  	                 
+		  	                var msgBody = message ,link =  msgBody.match(self.urlRegex);                             
+		  	                var msgUrl=  msgBody.replace(self.urlRegex1, function(msgUrlw) {
+		  	                    trueurl= msgUrlw;                                                                  
+		  	                    return msgUrlw;
+		  	                });
+		  	                
+		  	                //To check whether it is google docs or not
+		  	                if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   
+		  	                {
+		  	                	// check the url is already in bitly state or not 
+		  	                	if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
+		  	                    {                                     
+		  	                		/* post url information */                           
+	  	                            $.ajax({
+	  	                            	type : 'POST',
+		  	                            url : 'bitly',
+		  	                            data : {
+		  	                            	link : urlLink
+		  	                            },
+		  	                            dataType : "json",
+		  	                            success : function(data) {                                      
+	                                         message = message.replace(link[0],data.data.url);
+	                                         self.postMessageToServer(message,streamId,messageAccess);
+		  	                            }
+	  	                             });
+	  	                         }
+	  	                         else
+	  	                         {  
+	  	                        	 self.postMessageToServer(message,streamId,messageAccess);
+	  	                         }
+	                 		 }  //doc
+		  	                 else    //case: for doc upload
+		  	                 {     
+		  	                	 self.postMessageToServer(message,streamId,messageAccess);
+		  	                 }
+	                     }
+		                 //case: link is not present in message
+		                 else
+		                 {                
+		                	 self.postMessageToServer(message,streamId,messageAccess);
+		                 }
+ 			        	
  			        }
 	 			  
  			    }
 // 	        }
 		    
         },
+        
+        /**
+         * set message data to model and posted to server 
+         */
+        postMessageToServer: function(message,streamId,messageAccess){
+        	var self = this;
+        	this.data.url = "/newMessage";
+		    // set values to model
+		    this.data.models[0].save({streamId : streamId, message :message, messageAccess:messageAccess},{
+		    	success : function(model, response) {
+		    		
+		    		console.log(self.data.models[0]);  
+		    		/* PUBNUB -- AUTO AJAX PUSH */ 
+		    		PUBNUB.publish({
+		    			channel : "stream",
+		    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:self.data.models[0]}
+		    		}) 
+		    		
+		    		// show the posted message on feed
+		    		var messageItemView  = new MessageItemView({model : self.data.models[0]});
+					$('#messageListView div.content').prepend(messageItemView.render().el);
+					
+		    		/* delete default embedly preview */
+		    		$('div.selector').attr('display','none');
+		    		$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
+		    		$('div.selector').remove();
+		    		$('.preview_input').remove();
+		    		$('#msg-area').val("");
+		    		
+		    	},
+		    	error : function(model, response) {
+		    		$('#msg-area').val("");
+                    console.log("error");
+		    	}
+
+		    });
+        },
+        
         
         /**
 	     * post message on enter key
@@ -210,13 +273,14 @@ define(['view/formView',
 			if(eventName.which == 32){
 				var text = $('#msg-area').val();
 				var links =  text.match(this.urlRegex); 
+				
 				 /* create bitly for each url in text */
 				self.generateBitly(links);
 			}
     	},
         
         /**
-         * actvate share icon on selection
+         * activate share icon on selection
          */
         actvateShareIcon: function(eventName){
         	
@@ -320,311 +384,7 @@ define(['view/formView',
         		
         },
         
-        /**
-         * Show comment text area on click
-         */
-        showCommentTextArea: function(eventName){
-        	eventName.preventDefault();
-        	var element = eventName.target.parentElement;
-			var messageId =$(element).parents('div.follow-container').attr('id');
-			
-			// show / hide commet text area 
-			if($('#'+messageId+'-addComments').is(":visible"))
-			{
-				$('#'+messageId+'-msgComment').val('');
-				$('#'+messageId+'-addComments').slideToggle(300); 
-			}
-			else
-			{
-				$('#'+messageId+'-msgComment').val('');
-				$('#'+messageId+'-addComments').slideToggle(200); 
-				
-			}
-			
-        },
-        
-        
-        /**
-         *   post new comments on enter key press
-         */
-        addMessageComments: function(eventName){
-        	
-        	var element = eventName.target.parentElement;
-        	var parent =$(element).parents('div.follow-container').attr('id');
-        	var totalComments =  $('#'+parent+'-totalComment').text();
-        	var commentText = $('#'+parent+'-msgComment').val();
-        	 
-        	var self =this;
-        
-        	/* post comments on enter key press */
-        	if(eventName.which == 13) {
-        		
-	    		eventName.preventDefault(); 
-	   			 	
-   			 	if(!commentText.match(/^[\s]*$/))
-   			 	{
-//   			 		this.data.url = "/newComment";
-   			 			var comment = new CommentModel();
-   			 			comment.urlRoot = "/newComment";
-   			 			comment.save({comment : commentText, messageId :parent},{
-	   			    	success : function(model, response) {
-		   			    		
-	   			    		$('#'+parent+'-msgComment').val('');
-	   							
-   			    			// shows the posted comment
-   			    		    self.showPostedComment(response,parent,totalComments);
-   			    		    
-   							/* pubnum auto push */
-   							PUBNUB.publish({
-   			                	channel : "comment",
-		                        message : { pagePushUid: self.pagePushUid ,data:response,parent:parent,cmtCount:totalComments}
-   			                })
-	   			                
-	   			    	},
-	   			    	error : function(model, response) {
-	   			    		
-	   	                    console.log("error");
-	   			    	}
-	
-	   			    });
 
-   			 	}
-   			 	
-	        }
-        },
-        
-        /**
-         * show the posted message 
-         */
-        showPostedMessage : function(response){
-        	
-        	var trueUrl='',messageType , self= this;
-            var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-            
-        	_.each(response, function(data) {
-        		 
-	        	var msgBody = data.message.messageBody;
-	        	
-	    		var msgUrl=  msgBody.replace(self.urlRegex1, function(msgUrlw) {
-	    			trueUrl= msgUrlw;                                                                  
-	    			return msgUrlw;
-	    		});
-	                 
-	    		console.log(trueUrl);
-	    		//to get the extension of the uploaded file
-	    		if(trueUrl)
-	    			var extension = (trueUrl).match(pattern);  
-	    		
-	    		
-	    		//to check whether the url is a google doc url or not
-	            if(data.message.messageType.name == "Text")                          
-	            {	
-	           	 	if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) 
-	                {   
-	           	 		messageType = "googleDocs";
-	                }
-	           	 	else
-	           	 	{    
-		           		 messageType = "messageOnly";
-		           		 var linkTag =  msgBody.replace(self.urlRegex1, function(url) {
-		           			 return '<a target="_blank" href="' + url + '">' + url + '</a>';
-		           		 });
-	                                 
-	           	 	}
-	            }                                                      
-	            else
-	            {         
-	                // url has extension then set first letter of extension in capital letter  
-	            	if(extension){
-	            		extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
-	               		 	return letter.toUpperCase();
-	               	 	});
-	            	}
-	   		 	}
-	            
-	            var datas = {
-	           		 "datas" : data,
-	           		 "datVal" :datVal,
-	            }	
-	             
-	            // set a format style to date
-	            var datVal = formatDateVal(data.message.timeCreated);
-	                   
-	            // if message conatains googledoc url
-	            if(messageType == "googleDocs")
-	            {
-	           	 
-	           	 	var datas = {
-	           			 "data" : data,
-	           			 "datVal" :datVal,
-	           			 "previewImage" : "/beamstream-new/images/google_docs_image.png",
-	           			 "type" : "googleDoc",
-	           	 	}	
-			  						
-	            }
-	            // if message conatains messages only without any uploaded files
-	            else if(messageType == "messageOnly")
-	            {
-	            	var datas = {
-	   	           		 "data" : data,
-	   	           		 "datVal" :datVal,
-	   	            }	
-	            	
-	            }
-	            // if message conatains  uploaded files
-	            else
-	            {
-	            	if(data.message.messageType.name == "Image" || data.message.messageType.name == "Video")
-	            	{
-	            		 
-	            		var datas = {
-	       	           		 "data" : data,
-	       	           		 "datVal" :datVal,
-	       	            }	
-	            	}
-	            	else
-	            	{
-	            		var previewImage = '';
-	            		var commenImage ="";
-	            		var type = "";
-						 
-	            		/* check its extensions and set corresponding preview icon images */
-	            		if(extension == 'Ppt')
-	            		{
-	            			previewImage= "/beamstream-new/images/presentations_image.png";
-	            			type = "ppt";
-	            		}
-	            		else if(extension == 'Doc')
-	            		{
-	            			previewImage= "/beamstream-new/images/docs_image.png";
-	            			type = "doc";
-	            		}
-	            		else if(extension == 'Pdf')
-	            		{
-	            			previewImage= data.anyPreviewImageUrl;
-	            			type = "pdf";
-	            		}
-	            		else
-	            		{
-	            			previewImage= "/beamstream-new/images/textimage.png";
-	            			commenImage = "true";
-	            			type = "doc";
-	            		}
-							
-	            		var datas = {
-	            				"data" : data,
-	            				"datVal" :datVal,
-	            				"previewImage" :previewImage,
-	            				"extension" : extension,
-	            				"commenImage" : commenImage,
-	            				"type" : type,
-	            		}	
-	            		
-	            	}
-									
-	            }
-	    		
-	            var compiledTemplate = Handlebars.compile(DiscussionMessage);
-	            $('#messageListView div.content').prepend(compiledTemplate(datas));
-	            
-	            if(linkTag)
-	            	$('p#'+response[0].message.id.id+'-id').html(linkTag);
-	    		
-	            // embedly
-	    		$('p#'+response[0].message.id.id+'-id').embedly({
-	    		 	maxWidth: 200,
-	    		 	wmode: 'transparent',
-	    		 	method: 'after',
-	    		 	key:'4d205b6a796b11e1871a4040d3dc5c07'
-			 	 });
-    		
-        	});
-        },
-       
-        /**
-         * show posted comment
-         */
-        showPostedComment: function(response,parent,totalComments){
-        	
-	  		$('#'+parent+'-addComments').slideUp(200);
-	  		
-		    /* display the posted comment  */
-    		var compiledTemplate = Handlebars.compile(DiscussionComment);
-    		$('#'+parent+'-allComments').prepend(compiledTemplate(response));
-    		
-    		if(!$('#'+parent+'-allComments').is(':visible'))
-			{  
-				$('#'+parent+'-msgRockers').slideUp(1);
-				$('#'+parent+'-newCommentList').slideDown(1);
-				$('#'+parent+'-newCommentList').prepend(compiledTemplate(response));
-				
-			}
-    		totalComments++; 
-    		$('#'+parent+'-show-hide').text("Hide All");
-			$('#'+parent+'-totalComment').text(totalComments);
-        },
-    	
-    	 
- 		
- 		 /**
-         * Show / hide all comments of a message
-         */
-        showAllCommentList: function(eventName){
-        	eventName.preventDefault();
-        	var element = eventName.target.parentElement;
-        	var parentUl = $(eventName.target).parent('ul');
-        	
-			var messageId =$(element).parents('div.follow-container').attr('id');
-			
-			$(parentUl).find('a.active').removeClass('active');
-			
-			if($('#'+messageId+'-allComments').is(":visible"))
-			{
-				$(eventName.target).removeClass('active');
-				$('#'+messageId+'-msgRockers').slideUp(1);
-				$('#'+messageId+'-newCommentList').html('');
-				$('#'+messageId+'-allComments').slideUp(600); 
-				$('#'+messageId+'-show-hide').text("Show All");
-			}
-			else
-			{
-				$(eventName.target).addClass('active');
-				$('#'+messageId+'-msgRockers').slideUp(1);
-				$('#'+messageId+'-newCommentList').html('');
-				$('#'+messageId+'-allComments').slideDown(600); 
-				$('#'+messageId+'-show-hide').text("Hide All");
-			}
-        },
- 
-        /**
-         * show / hide all comments ..
-         */
-        showAllList: function(eventName){
-        	eventName.preventDefault();
-        	
-        	var element = eventName.target.parentElement;
-        	var parentUl = $(eventName.target).parents('ul');
-        	$(parentUl).find('a.active').removeClass('active');
-			var messageId =$(element).parents('div.follow-container').attr('id');
-			if($('#'+messageId+'-show-hide').text() == "Hide All")
-            {
-				$('#'+messageId+'-msgRockers').slideUp(1);
-				$('#'+messageId+'-newCommentList').html('');
-				$('#'+messageId+'-allComments').slideUp(600); 
-				$(eventName.target).removeClass('active');
-				$(eventName.target).text("Show All");
-            }
-			else
-			{
-				$('#'+messageId+'-msgRockers').slideUp(1);
-				$('#'+messageId+'-newCommentList').html('');
-				$('#'+messageId+'-allComments').slideDown(600);
-				$(eventName.target).addClass('active');
-				$(eventName.target).text("Hide All");
-			}
-			
-        },
-        
         /**
     	 * generate bitly and preview for url
     	 */
@@ -678,127 +438,6 @@ define(['view/formView',
 		    }
     	},
     	
-    	/**
-	     *  Rocking messages
-	     */
-	    rockMessage: function(eventName){
-	    	
-	    	eventName.preventDefault();
-			var element = eventName.target.parentElement;
-			var messageId =$(element).parents('div.follow-container').attr('id');
-			var streamId =  $('.sortable li.active').attr('id');
-			
-			// set values to model
-			var Discussion = new DiscussionModel();
-			Discussion.urlRoot = "/rockedIt";
-			Discussion.save({id : messageId},{
-		    	success : function(model, response) {
-		    		
-		    		if($('#'+messageId+'-msgRockCount').hasClass('downrocks-message'))
-	            	{
-	            		$('#'+messageId+'-msgRockCount').removeClass('downrocks-message');
-	            		$('#'+messageId+'-msgRockCount').addClass('uprocks-message');
-	            	}
-	            	else
-	            	{
-	            		$('#'+messageId+'-msgRockCount').removeClass('uprocks-message');
-	            		$('#'+messageId+'-msgRockCount').addClass('downrocks-message');
-	            	}
-	            	
-	            	// display the count in icon
-	                $('#'+messageId+'-msgRockCount').find('span').html(response);
-	                
-	                /* ajax auto push for message rock */
-	                PUBNUB.publish({
-						channel : "msgRock",
-	                    message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,msgId:messageId}
-	                })
-		    		
-		    	},
-		    	error : function(model, response) {
-                    console.log("error");
-		    	}
-
-		    });
-		    
-			var self = this;
-			
-        },
-        
-        /**
-		  * Follow a message
-		  */
-		followMessage: function(eventName){
-			eventName.preventDefault();
-			 
-			var element = eventName.target.parentElement;
-			var messageId =$(element).parents('div.follow-container').attr('id');
-			
-			var text = $('#'+eventName.target.id).text();
-			
-//			this.data.url = "/followMessage";
-			
-			// set values to model
-			var Discussion = new DiscussionModel();
-			Discussion.urlRoot = "/follow/message";
-			Discussion.save({id : messageId},{
-		    	success : function(model, response) {
-		    		//set display
-		        	if(text == "Unfollow")
-		    		{
-		        		 $('#'+eventName.target.id).text("Follow");
-		    		}
-		        	else
-		        	{
-		        		$('#'+eventName.target.id).text("Unfollow");
-		        	}
-		        	 
-		    		
-		    	},
-		    	error : function(model, response) {
-                    console.log("error");
-		    	}
-
-		    });
-
-	    },
-	    
-	    /**
-         *  Rock comments
-         */
-        rockComment: function(eventName){
-        	
-        	eventName.preventDefault();
-        	var commentId = $(eventName.target).parents('div.answer-description').attr('id');
-        	var messageId = $(eventName.target).parents('div.follow-container').attr('id');
-        	var streamId =  $('.sortable li.active').attr('id');
-        	var self = this;
-        	
-//        	this.data.url = "/rockingTheComment";
-        	var comment = new CommentModel();
-        	comment.urlRoot = "/rockingTheComment";
-			// set values to model
-        	comment.save({id : commentId },{
-		    	success : function(model, response) {
-		    		
-		    		// display the count in icon
-                	$('#'+commentId+'-rockCount').html(response);
-                	$('#'+commentId+'-mrockCount').html(response);
-                	
-                	/* pubnub auto push for rock message */
-                	PUBNUB.publish({
-                        channel : "commentRock",
-                        message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,commentId:commentId }
-                	})
-		        	 
-		    	},
-		    	error : function(model, response) {
-                    console.log("error");
-		    	}
-
-		    });
-        },
-        
         /**
          * get files data to be upload
          */
@@ -847,15 +486,28 @@ define(['view/formView',
 					 { 
 						 if(message.streamId==streamId)
 			       		 	{
+							   console.log("yes");
+							   /* set the values to Discussion model */
+							   discussionModel = new DiscussionModel();
+							   discussionModel.set({
+								   docDescription :message.data.docDescription,
+								   docName : message.data.docName,
+								   message : message.data.message,
+								   messageAccess : message.data.messageAccess,
+								   profilePic : message.data.profilePic,
+								   streamId : message.data.streamId
+							   })
 							    // show the posted message on feed
-							 	self.showPostedMessage(message.data);
+							 	var messageItemView  = new MessageItemView({model :discussionModel});
+		 						$('#messageListView div.content').prepend(messageItemView.render().el);
 			       		 	}
 				 	   }
 			 
 			 	   }
 		 	   })
 		 	   
-		 	   /* auto push functionality for comments */
+		 	   
+		 	  /* auto push functionality for comments */
 		 	   PUBNUB.subscribe({
 	
 		 		   channel : "comment",
@@ -867,8 +519,23 @@ define(['view/formView',
 		 			   {
 		 				   if(!document.getElementById(message.data[0].id.id))
 		 				   {
-		 					  // shows the posted comment
-		 					  self.showPostedComment(message.data,message.parent,message.cmtCount);
+		 					 
+		 					$('#'+message.parent+'-addComments').slideUp(200);
+		 			  		
+		 				    /* display the posted comment  */
+		 		    		var compiledTemplate = Handlebars.compile(DiscussionComment);
+		 		    		$('#'+message.parent+'-allComments').prepend(compiledTemplate(message.data));
+		 		    		
+		 		    		if(!$('#'+message.parent+'-allComments').is(':visible'))
+		 					{  
+		 						$('#'+message.parent+'-msgRockers').slideUp(1);
+		 						$('#'+message.parent+'-newCommentList').slideDown(1);
+		 						$('#'+message.parent+'-newCommentList').prepend(compiledTemplate(message.data));
+		 						
+		 					}
+		 		    		message.cmtCount++; 
+		 		    		$('#'+message.parent+'-show-hide').text("Hide All");
+		 					$('#'+message.parent+'-totalComment').text(message.cmtCount);
 
 	 				   	   }
  			   		   }
@@ -902,7 +569,8 @@ define(['view/formView',
  	   				   }
 		   		   }
 	   		   })
-	    		   		
+	    		 
+		 	   
  		},
         
 	})

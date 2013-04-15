@@ -5,8 +5,8 @@
 * Company               : Toobler
 * Email:                : info@toobler.com
 * Web site              : http://www.toobler.com
-* Created               : 28/February/2013
-* Description           : Backbone model for user's class
+* Created               : 10/April/2013
+* Description           : Backbone model for user media details 
 * ==============================================================================================
 * Change History:
 * ----------------------------------------------------------------------------------------------
@@ -16,42 +16,29 @@
 * 
 */
 
-define(['baseModel'], function(BaseModel) {
-	var Class = BaseModel.extend({ 
-		idAttribute: "_id",
-		objName: 'Class',
-		defaults:{
-			schoolId: '',
-			classCode: '',
-			className: '',
-			classTime: '',
-			startingDate: '',
-			classType:'semester'
-		},
-		
-		
-		validation: {
-			schoolId: {
-				required: true
-			},
-			classCode: {
-				required: true
-			},
-			className: {
-				required: true
-			},
-			classTime: {
-				required: true,
-				pattern: 'time',
 
+define(['baseModel'], function(BaseModel) {
+	var UserMedia = BaseModel.extend({ 
+		objName: 'UserMedia',
+		defaults: {	  
+			docName : '',
+			docDescription: '',
+
+        },
+       
+        
+        validation: {
+
+			docName: {
+				required: true,
+			} ,
+			docDescription: {
+				required: true,
 			},
-			startingDate: {
-				required: true
-			}
-		}
+        }
+		
 
 	});
         
-	
-	return Class;
+	return UserMedia;
 });

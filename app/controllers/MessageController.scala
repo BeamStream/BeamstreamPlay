@@ -41,7 +41,7 @@ object MessageController extends Controller {
     val messageObtained = Message.findMessageById(messageId.get)
     val userMedia = UserMedia.getProfilePicForAUser(messageObtained.get.userId)
     if (!userMedia.isEmpty) profilePicForUser = userMedia(0).mediaUrl
-    val messageJson = write(List(new DocResulttoSent(messageObtained.get, "", "", Option(profilePicForUser), None)))
+    val messageJson = write(new DocResulttoSent(messageObtained.get, "", "", Option(profilePicForUser), None))
     Ok(messageJson).as("application/json")
 
   }

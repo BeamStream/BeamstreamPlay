@@ -167,8 +167,8 @@
 	          
 	          <div id="step_3" style="display:none;" class="step-box">
 	              <h3>Step 3 of 3 </h3>
-	              <h4>Upload Your Main Profile Photo</h4> <span class="profile-loading" style="display:none;;"> <img src ="/beamstream/images/loading.gif"></span>
-	              <a id="skip_step3" href="#">Skip this step</a> <a class="browse" href="#">Continue </a>  
+					<h4>Upload Your Main Profile Photo</h4> <span class="profile-loading" style="display:none;;"> <img src ="/beamstream/images/loading.gif"></span>
+	              <a id="skip_step3" href="#">Skip this step</a> <a class="browse" href="#">Upload photo</a>   
               </div>
 
 
@@ -189,13 +189,13 @@
         
         <!---- for  popups after Upload Photo----->
 			<div id="selectUploadPhoto" style="top: 65% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-header">
-				    <h3>Are you sure you don't want add your stunning profile pic?</h3><button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
+				  <div class="class-modal-header">
+				    <h3>Are you sure you don't want add your stunning profile pic?</h3><button type="button" class="close class-modal-close" data-dismiss="modal" aria-hidden="true">Close</button>
 				  </div>
 				  <div class="modal-body">    
-				  <div class="invite-bottom-btn">
- 		  			<a id="addPhoto" class="invite-green-btn" href="#">Yes upload photo</a>  
- 		  			<a id="continue" class="invite-green-btn" href="#">Don't upload CONTINUE </a>
+				  <div class="invite-bottom-btn class-modal-bottom">
+ 		  			<a id="addPhoto" class="invite-green-btn class-modal-btn" href="#">Yes upload photo</a>  
+ 		  			<a id="continue" class="invite-green-btn class-modal-btn" href="#">Don't upload CONTINUE </a>
  		  			</div>
 			  	</div>
 	 		</div>	

@@ -2,21 +2,24 @@
 @CSS = {
 <!-- embedly preview js -->
 <link rel="stylesheet" href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
+
+<!--  prettyPhoto -->
+<link rel="stylesheet" href="/beamstream-new/css/extracss/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet"
+	charset="utf-8" />
 }
 @JS = {
 <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>
-<!-- <script src="/beamstream-new/lib/jquery.preview.full.min.js" type="text/javascript"></script> -->
+
+<!--  prettyPhoto js -->
+<!-- <script src="/beamstream-new/lib/extralib/jquery.prettyPhoto.js" type="text/javascript" -->
+<!-- 	charset="utf-8"></script> -->
 }
 
 @bodyCls = {}
 @bodyModule = {}
 @bodyJS = {
 <script src="http://cdn.pubnub.com/pubnub-3.4.min.js"></script>
-<!-- <script type="text/JavaScript" src="/beamstream-new/lib/jquery.preview.full.min.js"></script> -->
 
-<script type="text/JavaScript">
-// $('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
-</script>
 }
 @sideBar = {
   @views.html.sidebar.render
@@ -36,20 +39,7 @@
    <div class="right-container">
     <div class="stream-header">
           <div id="myStream" class="stream-header-left" data-value="">
-<!--             <h2><a href="#" id="show-info" >Show Details</a></h2> -->
-<!--             <div class="show-info"> -->
-            
-<!--             <p>This is going to be some basic into text about this specific stream, what the course is about... short and to the point.</p> -->
-            
-<!--             <a href="#">Business</a> -->
-<!--              <a href="#">Florida</a> -->
-<!--               <a href="#">Money</a> -->
-            
-<!--             </div> -->
-<!--             <ul class="strem-header-info"> -->
-<!--               <li class="mebers"> Members</li> -->
-<!--               <li class="claimed">Claimed By: <a href="#"></a> </li> -->
-<!--             </ul> -->
+
           </div>
           <div class="stream-header-right"> 
            	<a href="#" class="green-btn green-btn-new">
@@ -80,6 +70,7 @@
   			<div class="tab-pane active" id="overView"  data-tpl="templates/overview.tpl" >
   			
   			</div>
+  			
   			
   			<!--   to get all messages of a stream - How to make call like  data-url="/allMessagesForAStream/streamId/pageLimit/pageNo" dynamically ?  --> 
 		  	<div class="tab-pane " id="discussionsView" data-model="discussion"  >
@@ -200,9 +191,12 @@
 		          <div id= "messageListView" data-model="discussion" data-module="view/messageListView" data-url="/" data-tpl="templates/discussionMessage.tpl">
 		
 		          </div>
+	
 		        </div>
 	  		</div>
-		  	
+	  		
+		  	 
+					
 		  	<div class="tab-pane "  id="questionsView" data-model="userSchool" data-tpl="templates/questions.tpl"></div>
 		  	<div class="tab-pane " id="deadlinesView" data-url="/deadlines" data-model="userSchool" data-tpl="templates/deadlines.tpl">
 		  		<div class="calender-outer overview-boxes">
@@ -228,6 +222,14 @@
         </div>
     </div>
     
+    
+	<!--  Media edit popup section -->
+	<div  id="mediaEditView"  data-model="usermedia"  data-module="view/mediaEditView" data-url="" data-tpl="templates/editMedia.tpl"> 
+	
+  	</div>
+			
+
+				  
     <!-- FOR PubNub -->
      <div pub-key="pub-a8c5db9f-8482-4092-b9e4-44fda38a9d51"
 		sub-key="sub-315698a6-0b22-11e2-80cd-aba6e1687b8d" ssl="off"
