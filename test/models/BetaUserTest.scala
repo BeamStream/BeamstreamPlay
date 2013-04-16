@@ -1,17 +1,11 @@
 package models
-import org.scalatest.FunSuite
-import org.scalatest.BeforeAndAfter
-import org.junit.runner.RunWith
-import org.scalatest._
-import org.scalatest.junit.JUnitRunner
-import com.mongodb.casbah.commons.MongoDBObject
-import org.joda.time.DateTime
-import com.mongodb.casbah.commons.conversions.scala._
-import org.joda.time.format.DateTimeFormatter
-import org.joda.time.base.BaseDateTime
-import org.joda.time.LocalDateTime
+
 import org.bson.types.ObjectId
-import java.text.DateFormat
+import org.junit.runner.RunWith
+import org.scalatest.BeforeAndAfter
+import org.scalatest.FunSuite
+import com.mongodb.casbah.commons.MongoDBObject
+import org.scalatest.junit.JUnitRunner
 
 /**
  * ********************************Re-architecture ***********************************************
@@ -26,7 +20,8 @@ class BetaUserTest extends FunSuite with BeforeAndAfter {
   test("Add Beta User") {
     val betaUser = BetaUser(new ObjectId, "neelkanth@knoldus.com")
     val betaUserId = BetaUser.addBetaUser(betaUser)
-    assert(betaUserId.get === betaUser.id)
+    assert(betaUserId.get === betaUser.id)	
+    
   }
 
   test("Find Beta User") {
