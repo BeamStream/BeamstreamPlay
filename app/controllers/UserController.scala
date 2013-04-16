@@ -183,8 +183,8 @@ object UserController extends Controller {
    * @purpose : Send a mail to user with password
    */
   def forgotPassword = Action { implicit request =>
-    val emailIdJsonMap = request.body.asFormUrlEncoded.get
-    val emailId = emailIdJsonMap("email").toList(0)
+    val jsonReceived = request.body.asJson.get
+    val emailId = (jsonReceived \ "mailId").as[String]
     val passwordSent = User.forgotPassword(emailId)
     (passwordSent.equals(true)) match {
       case true => Ok(write(new ResulttoSent("Success", "Password Sent")))
@@ -302,4 +302,11 @@ object UserController extends Controller {
     }
   }
 
+  /**
+   * Render Forgot Password View
+   */
+
+  def renderForgotPasswordView = Action { implicit request =>
+    Ok(views.html.recoverPassword("Recover Password Page"))
+  }
 }

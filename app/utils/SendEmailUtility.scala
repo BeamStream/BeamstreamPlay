@@ -29,30 +29,7 @@ object SendEmailUtility {
     (mimeMessage, session)
   }: (MimeMessage, Session)
 
-  //  //TODO : Will be Integrated through Actors
-  //  def sendEmail(emailId: String, iam: String) = {
-  //    val server = Play.current.configuration.getString("server").get // Server address from play configuration
-  //    val authToken = tokenEmail.securityToken
-  //    val authenticatedMessageAndSession = SendEmail.setEmailCredentials
-  //    val recepientAddress = new InternetAddress(emailId)
-  //    authenticatedMessageAndSession._1.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
-  //    authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress);
-  //    authenticatedMessageAndSession._1.setSubject("Registration Process On BeamStream");
-  //    authenticatedMessageAndSession._1.setContent(
-  //
-  //      "Thank you for registering at <b>Beamstream</b>. We're stoked!." +
-  //        " Please validate your identity and complete your registration by clicking on this link " +
-  //        "<a href='" + server + "/beamstream/index.html#basicRegistration" + "/token/" + authToken + "/iam/" + iam + "/emailId/" + emailId + "'> Register On BeamStream</a>"
-  //        + "<br>" + "<br>" + "<br>" +
-  //        "Cheers," + "<br>" +
-  //        "The Really Nice Beamstream Folks , US" + "<br>", "text/html");
-  //    val transport = authenticatedMessageAndSession._2.getTransport("smtp");
-  //    transport.connect(Play.current.configuration.getString("smtp_server_out").get, 80, Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
-  //
-  //    transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
-  //    val token = new Token((new ObjectId), authToken)
-  //    Token.addToken(token)
-  //  }
+ 
 
   /**
    * Forgot Password Functionality
