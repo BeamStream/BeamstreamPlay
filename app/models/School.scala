@@ -15,9 +15,9 @@ object School {
    * Add New School (RA)
    */
 
-  def addNewSchool(school: School): ObjectId = {
-    val schoolId = SchoolDAO.insert(school)
-    schoolId.get
+  def addNewSchool(school: School): Option[ObjectId] = {
+    SchoolDAO.insert(school)
+
   }
 
   /**
