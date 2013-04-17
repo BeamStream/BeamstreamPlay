@@ -26,13 +26,29 @@ define(['view/formView'], function(FormView){
             'click #registeration': 'registration',
             'click .lastblock a' : 'socialMediaSignup',
             'keypress #password' : 'clearConfirmPasswordField',
-            'click .register-cancel' : 'clearAllFields'
+            'click .register-cancel' : 'clearAllFields',
+            'blur .home_reg' : 'validationsymbol'
 		},
 
 		onAfterInit: function(){	
             this.data.reset();
             $('.sign-tick').hide(); 
             $('.sign-close').hide(); 	        
+        },
+        
+        validationsymbol : function(e){
+        	
+        	var target = $(e.currentTarget).parent('fieldset').find('div.field-error');
+        	console.log($(e.currentTarget).val());
+        	console.log(target.length);
+        	if(target.length == 0 && $(e.currentTarget).val()){
+        		$(e.currentTarget).parent('fieldset').find('div.sign-close').hide();
+        		$(e.currentTarget).parent('fieldset').find('div.sign-tick').show();
+        		
+        	}else if($(e.currentTarget).val()){
+        		$(e.currentTarget).parent('fieldset').find('div.sign-tick').hide();
+        		$(e.currentTarget).parent('fieldset').find('div.sign-close').show();
+        	}
         },
                   
         /**
@@ -41,7 +57,8 @@ define(['view/formView'], function(FormView){
         registration:function(e){	
             e.preventDefault();
             this.data.url ="/signup";
-            
+            $('.sign-tick').hide(); 
+            $('.sign-close').hide(); 
             this.data.models[0].set('iam',$("#usertype").val());
             this.saveForm( );
         },
