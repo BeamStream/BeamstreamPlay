@@ -25,7 +25,8 @@ define(['view/formView'], function(FormView){
             'click .menu-pic':'getUserTypeValue',
             'click #registeration': 'registration',
             'click .lastblock a' : 'socialMediaSignup',
-            'keypress #password' : 'clearConfirmPasswordField'
+            'keypress #password' : 'clearConfirmPasswordField',
+            'click .register-cancel' : 'clearAllFields'
 		},
 
 		onAfterInit: function(){	
@@ -96,6 +97,15 @@ define(['view/formView'], function(FormView){
         */
 		clearConfirmPasswordField: function(){
             $('#confirmPassword').val('');
+		},
+		
+		/**
+	        * clear all fields when we click cancel button
+	        */
+		clearAllFields : function(){
+			$('#mailid').val('');
+			$('#password').val('');
+			$('#confirmPassword').val('');
 		}
  
 	})
