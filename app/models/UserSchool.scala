@@ -23,29 +23,18 @@ case class UserSchool(@Key("_id") id: ObjectId,
   graduated: Graduated.Value,
   graduationDate: Option[Date],
   degreeExpected: Option[DegreeExpected.Value],
-  otherDegree: Option[String],
-  classes: List[Class])
+  otherDegree: Option[String])
 
 object UserSchool {
 
   implicit val formats = DefaultFormats
 
-  //  /*
-  //   * Add a class to a school
-  //   */
-  //  def addClasstoSchool(schoolId: ObjectId, classList: List[Class]) {
-  //    val school = UserSchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0)
-  //    UserSchoolDAO.update(MongoDBObject("_id" -> schoolId), school.copy(classes = (school.classes ++ classList)), false, false, new WriteConcern)
-  //  }
-
-  /*
+  /**
    * Get UserSchoolById
    */
 
   def getUserSchoolById(userSchoolId: ObjectId): UserSchool = {
-    val userSchool = UserSchoolDAO.find(MongoDBObject("_id" -> userSchoolId)).toList(0)
-    userSchool
-
+    UserSchoolDAO.find(MongoDBObject("_id" -> userSchoolId)).toList.head
   }
 
   /*
@@ -84,37 +73,38 @@ object UserSchool {
 
   /**
    * Create a new User School (RA)
+   * @param userSchool is the DetailedInfo object to be stored
    */
-  def createSchool(userSchool: UserSchool) {
+  def createSchool(userSchool: UserSchool): Option[ObjectId] = {
     UserSchoolDAO.insert(userSchool)
   }
-  /*
+  /**
    * Removes a school
+   * @param userSchool is the DetailedInfo object to be removed
    */
-  def removeSchool(school: UserSchool) {
-    UserSchoolDAO.remove(school)
+  def removeSchool(userSchool: UserSchool) {
+    UserSchoolDAO.remove(userSchool)
 
   }
 
-  /*
+  /**
    * Get UserSchool
+   * @param userSchoolId is the id of user school to be searched
    */
 
   def userSchoolsForAUser(userSchoolId: ObjectId): List[UserSchool] = {
-    val userSchools = UserSchoolDAO.find(MongoDBObject("_id" -> userSchoolId)).toList
-    userSchools
+    UserSchoolDAO.find(MongoDBObject("_id" -> userSchoolId)).toList
   }
 
-  /*
+  /**
    * Get all school for a user
+   * @param userId is the id of user
    */
   def getAllSchoolforAUser(userId: ObjectId): List[ObjectId] = {
-    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    user.schools
-
+    UserDAO.find(MongoDBObject("_id" -> userId)).toList.head.schools
   }
 
-  /*
+  /**
    * Update User School(For SchoolAutopoulate thing)
    */
   def updateUserSchoolWithOriginalSchoolId(userSchoolToUpdate: ObjectId, originalSchoolId: ObjectId) {
@@ -122,53 +112,13 @@ object UserSchool {
     UserSchoolDAO.update(MongoDBObject("_id" -> userSchoolToUpdate), userSchool.copy(assosiatedSchoolId = originalSchoolId), false, false, new WriteConcern)
   }
 
-  /*
-   * is School already in database
-   */
-
-  def isSchoolinDatabaseAlready(schoolId: ObjectId): List[School] = {
-    val schoolsInDatabase = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList
-    schoolsInDatabase
-  }
-
-  /*
+  /**
    * get all schools List
    */
 
   def getAllSchools(schoolsIdList: List[ObjectId]): List[UserSchool] = {
-    var schoolList: List[UserSchool] = List()
-    for (schoolId <- schoolsIdList) {
-      val schoolObtained = UserSchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList
-      schoolList ++= schoolObtained
-    }
-    schoolList
+    schoolsIdList map { schoolId => UserSchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList.head }
   }
-
-  /*
-   * is Duplicate School Exists In Database
-   */
-  //  def duplicateSchoolExistes(schoolList: List[UserSchool]): Boolean = {
-  //    var schoolFetchCount: Int = 0
-  //    for (eachSchool <- schoolList) {
-  //      val schoolFetched = SchoolDAO.find(MongoDBObject("schoolName" -> eachSchool.schoolName)).toList
-  //      if (!schoolFetched.isEmpty) schoolFetchCount += 1
-  //    }
-  //
-  //    if (schoolFetchCount == 0) false else true
-  //  }
-
-  /*
-   * is Duplicate School Exists In List 
-   */
-  //  def duplicateSchoolExistesInSubmittedList(schoolList: List[UserSchool]): Boolean = {
-  //    var schoolFetchCount: Int = 0
-  //    for (eachSchool <- schoolList) {
-  //      val schoolFetched = schoolList.filter(x => x.schoolName == eachSchool.schoolName)
-  //      if (schoolFetched.size > 1) schoolFetchCount += 1
-  //    }
-  //
-  //    if (schoolFetchCount == 0) false else true
-  //  }
 
   /**
    * Is user contains already the Coming School that he wants to Join
@@ -177,16 +127,17 @@ object UserSchool {
   def isUserAlreadyContainsTheSchoolThatUserWantsToJoin(assosiatedSchoolId: ObjectId, userId: ObjectId): Boolean = {
     var statusToreturn = false
     val userSchoolsIdListOfAUser = UserSchool.getAllSchoolforAUser(userId)
-
-    if (!userSchoolsIdListOfAUser.isEmpty) {
-      val userSchoolsOfAUser = UserSchool.getAllSchools(userSchoolsIdListOfAUser)
-      for (userSchool <- userSchoolsOfAUser) {
-        if (userSchool.assosiatedSchoolId == assosiatedSchoolId) statusToreturn = true
-      }
-      statusToreturn
-    } else {
-      statusToreturn
+   
+    (!userSchoolsIdListOfAUser.isEmpty) match {
+      case true =>
+        val userSchoolsOfAUser = UserSchool.getAllSchools(userSchoolsIdListOfAUser)
+        for (userSchool <- userSchoolsOfAUser) {
+          if (userSchool.assosiatedSchoolId == assosiatedSchoolId) statusToreturn = true
+        }
+        statusToreturn
+      case false => statusToreturn
     }
+
   }
 
 }

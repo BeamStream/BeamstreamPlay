@@ -89,5 +89,14 @@ object UtilityActor {
     implicit val system = Akka.system
     val future = Future { models.Stream.sendMailToUsersOfStream(streamId, userIdWhoHasJoinedTheStream) }
   }
+  
+   /**
+   * Mail For Forgot Password
+   */
+  def forgotPasswordMail(emailId: String , password:String) {
+    implicit val system = Akka.system
+    val future = Future { SendEmailUtility.sendPassword(emailId,password) }
+  }
+  
 
 }
