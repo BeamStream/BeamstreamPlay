@@ -44,10 +44,6 @@ define(['view/formView'], function(FormView){
             
             this.data.models[0].set('iam',$("#usertype").val());
             this.saveForm( );
-
-            $('#mailid').val('');   
-            $('#password').val('');
-            $('#confirmPassword').val('');        
         },
 
           
@@ -57,16 +53,20 @@ define(['view/formView'], function(FormView){
 		success: function(model, data){
     	   
             var self = this;
-            $('#mailId').val('');
-
+           
             if(data.status == 'Success')
             {
-                alert('Signup successfull \n\nPlease check your mail.');
+                alert('Signup successful \n\nPlease check your mail.');
             }
             else
             {
                 alert(data.message);
-            }		
+            }	
+            
+            /* clear the fields and model */
+            $('#signup-form').find("input[type=text], input[type=password]").val("");
+            this.data.models[0].set({mailId:'',password :'' , confirmPassword : ''});
+            $('span.error').remove();
 
 		},
                 
@@ -102,10 +102,10 @@ define(['view/formView'], function(FormView){
 		/**
 	        * clear all fields when we click cancel button
 	        */
-		clearAllFields : function(){
-			$('#mailid').val('');
-			$('#password').val('');
-			$('#confirmPassword').val('');
+		clearAllFields : function(e){
+			e.preventDefault();
+			$('#signup-form').find("input[type=text], input[type=password]").val("");
+			$('span.error').remove();
 		}
  
 	})

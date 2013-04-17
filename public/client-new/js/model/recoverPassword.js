@@ -18,9 +18,6 @@
 define(['model/user'], function(User) {
 	var RecoverPassword = User.extend({
 		
-		defaults: {
-			mailId : ''
-        },
 		validation: {
 
 			mailId: {

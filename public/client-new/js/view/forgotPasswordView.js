@@ -34,17 +34,24 @@ define(['view/formView'], function(FormView){
          * post email address to recover the password
          */
         postEmailId : function(eventName){        	
-        	eventName.preventDefault();  
-        	this.data.url ="/forgotPassword";
-            this.saveForm();
+        	eventName.preventDefault(); 
+
+        	if($('#mailid').val()){
+        		this.data.url ="/forgotPassword";
+                this.saveForm();
+        		
+        	}else{
+        		this.data.models[0].set({'mailId': ''});
+        	}
         },
         
         /**
          * on success
          */
         success: function(model, data){
-        	alert(4545);
         	var self = this;
+        	$('#mailid').val('');
+		    	
         	if(data.status == "Success") 
     		{
     			 $('#forgot-pwd-loader').css("display","none");
@@ -57,6 +64,7 @@ define(['view/formView'], function(FormView){
     			alert("No User Found with this emailId");
     							
     		}
+        	
         },
         
         /**
