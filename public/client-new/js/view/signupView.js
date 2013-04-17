@@ -38,9 +38,7 @@ define(['view/formView'], function(FormView){
         
         validationsymbol : function(e){
         	
-        	var target = $(e.currentTarget).parent('fieldset').find('div.field-error');
-        	console.log($(e.currentTarget).val());
-        	console.log(target.length);
+        	var target = $(e.currentTarget).parent('fieldset').find('div.field-error');        	
         	if(target.length == 0 && $(e.currentTarget).val()){
         		$(e.currentTarget).parent('fieldset').find('div.sign-close').hide();
         		$(e.currentTarget).parent('fieldset').find('div.sign-tick').show();
