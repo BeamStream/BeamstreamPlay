@@ -15,9 +15,9 @@ object School {
    * Add New School (RA)
    */
 
-  def addNewSchool(school: School): ObjectId = {
-    val schoolId = SchoolDAO.insert(school)
-    schoolId.get
+  def addNewSchool(school: School): Option[ObjectId] = {
+    SchoolDAO.insert(school)
+
   }
 
   /**
@@ -38,8 +38,7 @@ object School {
     schoolName
   }
 
-
-  /*
+  /**
    * Update the School
    * @Purpose : For Edit School Functionality
    */
@@ -48,8 +47,8 @@ object School {
     val school = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0)
     SchoolDAO.update(MongoDBObject("_id" -> schoolId), school.copy(schoolName = updatedSchoolname), false, false, new WriteConcern)
   }
-  
-   /**
+
+  /**
    * Find A School By Name
    */
 
@@ -57,7 +56,15 @@ object School {
     val schoolNamePattern = Pattern.compile(schoolName, Pattern.CASE_INSENSITIVE)
     SchoolDAO.find(MongoDBObject("schoolName" -> schoolNamePattern)).toList
   }
+  /**
+   * is School already in database
+   * @param schoolId of the school to be searched
+   */
 
+  def isSchoolinDatabaseAlready(schoolId: ObjectId): List[School] = {
+    val schoolsInDatabase = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList
+    schoolsInDatabase
+  }
 }
 
 object SchoolDAO extends SalatDAO[School, ObjectId](collection = MongoHQConfig.mongoDB("school"))

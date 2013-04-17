@@ -17,6 +17,7 @@ import utils.SendEmailUtility
 import utils.PasswordHashingUtil
 import utils.PasswordHashingUtil
 import play.api.libs.json.JsValue
+import actors.UtilityActor
 
 case class User(@Key("_id") id: ObjectId,
   userType: UserType.Value,
@@ -171,7 +172,7 @@ object User {
       case true => false
       case false =>
         val deryptedPassword = (new PasswordHashingUtil).decryptThePassword(user(0).password.get)
-        SendEmailUtility.sendPassword(emailId, deryptedPassword)
+        UtilityActor.forgotPasswordMail(emailId, deryptedPassword)
         true
     }
   }
