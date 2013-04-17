@@ -72,7 +72,7 @@
               <fieldset class="field">
               <select id="degreeProgram" data-name="user.degreeProgram" name="degreeProgram" class="selectpicker-info " style="display: none;">
                 <option selected="selected" value="" >Degree Program?</option>
-                <option value="Assosiates(AA)">Assosiates(AA)</option>
+                <option value="Associate's(AA)">Associate's(AA)</option>
                 <option value="Bachelor's">Bachelor's</option>
                 <option value="Master's">Master's</option>
                 <option value="Doctorate(Phd)">Doctorate(Phd)</option>
