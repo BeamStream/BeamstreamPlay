@@ -50,7 +50,6 @@ define(['view/formView'], function(FormView ){
 		success: function(model, data){
     	   
             var self = this;
-            $('#mailId').val('');
             
             // On login success redirect to stream page
             if(data.status == 'Success')
@@ -59,9 +58,14 @@ define(['view/formView'], function(FormView ){
             }
             else
             {
-            	$('#password').val('');
                 alert(data.message);
-            }		
+            }	
+            
+            /* clear the fields and model */
+            $('#login-form').find("input[type=text], input[type=password]").val("");
+            this.data.models[0].set({mailId:'',password :''});
+            $('span.error').remove();
+            
 
 		},
 		
@@ -78,10 +82,10 @@ define(['view/formView'], function(FormView ){
 		/**
 	        * clear all fields when we click cancel button
 	        */
-		clearAllFields : function(){
-			$('#mailid').val('');
-			$('#password').val('');
-			$('#confirmPassword').val('');
+		clearAllFields : function(e){
+		    e.preventDefault();
+		    $('#login-form').find("input[type=text], input[type=password]").val("");
+		    $('span.error').remove();
 		}
  
 	})
