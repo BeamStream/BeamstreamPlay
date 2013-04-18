@@ -281,7 +281,15 @@ define(['view/formView' ,
 	            	 self.profile = file;
 	            	 return function(e){
 	            		 $('#profile-error').html('');
-	        		     $('#profile-photo').attr("src",e.target.result);
+	            		 // show the selected photo 
+	            		 if(file.type.match('image.*')){
+	            			 $('#profile-photo').attr("src",e.target.result);
+	            		 }
+	            		 //show a default profile image
+	            		 if(file.type.match('video.*')){
+	            			 $('#profile-photo').attr("src","/beamstream-new/images/no-video.png");
+	            		 }
+	        		     
 	        		     self.name = f.name;
 	        		
 	        		 };

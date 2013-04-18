@@ -47,6 +47,16 @@
 			var curr_year = d.getFullYear();
 			return curr_date + " " + m_names[d.getMonth()] + ", " + curr_year;
 		}
+      
+      
+		/* render addnew school popup */
+		function populateAddNewSchool(parentId,schoolName) {
+	    	
+	    	$('#newSchoolModal').modal("show");
+	    	// shows the entered school name on registration page in a add new school popup
+			$('#new-school').attr('value',schoolName);
+
+		}
 
     </script>
 	   
@@ -66,6 +76,8 @@
 	  })();
 
 	</script>
+	
+
     @JS
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>

@@ -19,7 +19,7 @@
 define(['baseModel'], function(BaseModel) {
 	var School = BaseModel.extend({ 
 		objName: 'School',
-		
+//		idAttribute: "_id",
 		defaults: {	   
 			schoolWebsite:'',
 			schoolName:''
