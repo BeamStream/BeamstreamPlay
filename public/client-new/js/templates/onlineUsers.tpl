@@ -18,9 +18,9 @@
 			        <div id="chat-status" class="chat-open"><span class="online-count">Online(0)</span> <span class="chat-show"></span></div>
 			        <div id="user-online" class="scroll-block chat-view">
 			            <ul id="onlinechatbox">
-			            {{#each .}}
+			             {{#each .}}
 	            		 		<li id="me" > <a href="#"><img src="{{profileImageUrl}}" width="30" height="28"> <span>{{firstName}}</span> <span class="online-chat">Online</span></a> </li>
-		            	{{/each}}
+		            	 {{/each}}
 			            
 			            </ul>
 			    	</div>

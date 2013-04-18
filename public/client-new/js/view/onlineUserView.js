@@ -48,11 +48,16 @@ define(['baseView',
          * if there is no other online users 
          */
 		displayNoResult: function(callback){
-			
+			console.log(this.data.models);
 			var compiledTemplate = Handlebars.compile(OnlineUsers);
 			this.$(".content").html( compiledTemplate(this.data.toJSON()));			
 		},
-
+		displayPage: function(){
+			console.log(45);
+			console.log(this.data.models);
+			var compiledTemplate = Handlebars.compile(OnlineUsers);
+			this.$(".content").html( compiledTemplate(this.data.toJSON()));	
+		},
 		onAfterRender: function(){
 			this.scroll();
 		},
