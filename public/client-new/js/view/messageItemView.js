@@ -543,21 +543,22 @@ define(['view/formView',
         	var streamId =  $('.sortable li.active').attr('id');
         	var self = this;
         	
-//        	this.data.url = "/rockingTheComment";
         	var comment = new CommentModel();
         	comment.urlRoot = "/rockingTheComment";
 			// set values to model
         	comment.save({id : commentId },{
 		    	success : function(model, response) {
+		    		console.log(messageId);
+		    		console.log($('div#'+messageId+'-newCommentList').find('a#'+commentId+'-mrockCount'));
 		    		
 		    		// display the count in icon
-                	$('#'+commentId+'-rockCount').html(response);
-                	$('#'+commentId+'-mrockCount').html(response);
+                	$('div#'+messageId+'-newCommentList').find('a#'+commentId+'-mrockCount').html(response);
+                	$('div#'+messageId+'-allComments').find('a#'+commentId+'-mrockCount').html(response);
                 	
                 	/* pubnub auto push for rock message */
                 	PUBNUB.publish({
                         channel : "commentRock",
-                        message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,commentId:commentId }
+                        message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,messageId:messageId,commentId:commentId  }
                 	})
 		        	 
 		    	},

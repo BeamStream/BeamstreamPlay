@@ -92,6 +92,7 @@ Backbone.Validate = (function() {
 			},
 			pattern: function(field, regex){
 				if ( hasValue(attributes[field]) && !attributes[field].toString().match(patterns[regex] || regex) ) {
+					console.log(regex);
 					addError(field, I18n.t('errors.'+ field + '.pattern' + '.'+regex));
 				}
 			},

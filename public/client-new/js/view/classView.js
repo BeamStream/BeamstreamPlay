@@ -256,12 +256,13 @@ define(['view/formView',
          */
         createOrJoinStream: function(e){
         	e.preventDefault();
+    		this.data.models[0].set({'schoolId' : $('#schoolId').val()});
+
         	this.data.url ="/class";
         	if($('#classTime').val()){
         		var classTime = $('#classTime').val()+$('#time').val();
         		this.data.models[0].set({'classTime' : classTime});
         	}
-        	console.log(this.data.models[0]);
         	this.saveForm();
         },
         
@@ -280,12 +281,14 @@ define(['view/formView',
 			/* clear all form fields */
 			this.data.models[0].removeAttr('message');
 			this.data.models[0].removeAttr('status');
-			$('#className').val('');
-			$('#classCode').val('');
-         	$('#startingDate').val('');
-        	$('#classType').val('');
+			
+			$('#class-form').find("input[type=text], input[type=password]").val("");
         	$('#classTime span.filter-option').text("Class Time");
 			$('#classType span.filter-option').text("Semester");
+			
+			/*  set default model values */
+			this.data.models[0].set({schoolId:'',classCode :'' , className : '',classTime:'',startingDate :'' , classType : 'semester'});
+            $('span.error').remove();
 		},
 		
 		serverError : function(model, data) {

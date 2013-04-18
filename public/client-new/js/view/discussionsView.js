@@ -551,8 +551,8 @@ define(['view/formView',
 	   			   callback : function(message) { 
 	   				   if(message.pagePushUid != self.pagePushUid)
 	   				   {   	  
-	   					   $('#'+message.commentId+'-rockCount').html(message.data);
-	   					   $('#'+message.commentId+'-mrockCount').html(message.data);
+	   					   $('div#'+message.messageId+'-newCommentList').find('a#'+message.commentId+'-mrockCount').html(message.data);
+	   					   $('div#'+message.messageId+'-allComments').find('a#'+message.commentId+'-mrockCount').html(message.data);
 	   				   }
 	   			   }
 	   		   })
