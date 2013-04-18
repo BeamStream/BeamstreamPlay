@@ -18,6 +18,7 @@
     </fieldset>
 	                  
 	<br><br>
+	
 	 <a id="editDoc" class="btn btn-primary pull-left " href="#">Edit</a>
 
 </div>

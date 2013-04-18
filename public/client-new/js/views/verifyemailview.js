@@ -113,7 +113,7 @@
 	    	{
 	    		$('#send-mail-loader').css("display","none");
 	    		$('#display_message').fadeIn("medium").delay(2000).fadeOut('slow');
-	        	$('.error-msg').html("Only use emails that are assosiated with schools and organozations");
+	        	$('.error-msg').html("Only use emails that are associated with schools and organizations");
 	    	}
 	    },
 	    
