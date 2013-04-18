@@ -53,7 +53,11 @@ define(['view/formView'], function(FormView){
 			
 			$('#new-school').val('');
         	$('#schoolWebsite').val('');
-
+        	
+        	 /* clear the fields and model */
+            $('#newSchoolForm').find("input[type=text]").val("");
+            $('span.error').remove();
+            
 
 		},
         

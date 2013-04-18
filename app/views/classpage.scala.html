@@ -29,17 +29,22 @@
 <div  id="classView"    data-model="class"    >
  <div class="right-container">
         <div class="classic-information-block">
-          <div class="classic-information-left">
+          <div id="class-form" class="classic-information-left">
             <h5>Class Information</h5>
               
-	              <div class="profile-select-block invite-select invite-grade-select field" >
+	              <div class="profile-select-block invite-select invite-grade-select field school_field" >
 	                <select id="schoolId" data-name="class.schoolId" name="schoolId"  class="selectpicker-info " style="display: none;">
-	                  <option selected="selected" value="" >School Name</option>
+<!-- 	                  <option selected="selected" value="" >School Name</option> -->
 
 	                </select>
 	                
 	                <div class="invite-school-arrow "><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
 	              </div>
+	              
+<!-- 	              <div id="add-new-school"   style="display:none;">  -->
+<!--               	   <input id="schoolName"   name="schoolName"   type="text" placeholder="Enter new school"  class="small-text "> -->
+<!--               	   <input type="hidden" id="associatedSchoolId" > -->
+<!--                  </div> -->
               
               <div class="field"> 
               	<input id="classCode"  data-name="class.classCode"  name="classCode"  type="text" placeholder="Class Code" name="" class="small-text ">
@@ -237,4 +242,35 @@
 </div>
    
  </div>   
+ 
+ 
+ <!---- for new school popups----->
+	   <div  id="addSchoolView"  data-model="school"  data-module="view/addNewSchoolView"  >
+			<div id="newSchoolModal" style="top: 65% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-header">
+				    <h3>Add my school to Beamstream</h3><button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
+				  </div>
+				  <div class="modal-body">    
+ 		  			<div id="newSchoolForm" class="share-content">
+			      
+						<fieldset class="field"  style="position:relative"> 
+	                        <h1><label for="school-name" name="my-school">Name of your school </label></h1>
+	                        <input  id="new-school" data-name="school.schoolName" name="schoolName" type="text" placeholder="School Name" >
+	                        <input type="hidden" value="school-name" id="parent-Id">
+	                    </fieldset><br><br>
+	               
+	       
+	                    <fieldset class="field"  style="position:relative"> 
+	                        <label for="website" name="website">School website <span class="star"> </span></label>
+	                        <input id="schoolWebsite" type="text" data-name="school.schoolWebsite" name="schoolWebsite" placeholder="School website" >
+	                    </fieldset>
+			                  
+						<br><br>
+						 <a id="addSchool" class="btn btn-primary pull-left " href="#">Add My School</a>
+			      	
+			    	</div>
+			  	</div>
+	 		</div>			
+	</div>
+	
 }
