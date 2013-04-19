@@ -24,7 +24,7 @@ define(['view/formView',
 	MessageListView = FormView.extend({
 		objName: 'MessageListView',
 		messagesPerPage: 10,
-		pageNo: 0,
+		pageNo: 1,
 
 	 
 		onAfterInit: function(){	
