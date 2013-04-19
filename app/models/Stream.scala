@@ -106,8 +106,8 @@ object Stream {
    */
 
   def findStreamById(streamId: ObjectId): Stream = {
-    val streamObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
-    streamObtained
+    StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
+
   }
 
   /*

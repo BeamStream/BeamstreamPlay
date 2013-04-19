@@ -18,6 +18,8 @@ import models.User
 import models.ResulttoSent
 import models.Class
 import models.ResulttoSent
+import models.Stream
+import models.ClassResult
 
 object ClassController extends Controller {
 
@@ -26,7 +28,6 @@ object ClassController extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
     override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
   } + new EnumerationSerializer(EnumList) + new ObjectIdSerializer //+ new CollectionSerializer
-
 
   /**
    *  Return the class JSON for auto populate the classes on class stream
@@ -67,7 +68,7 @@ object ClassController extends Controller {
    * Edit Class Functionality
    * @Purpose: Getting all classes for a user
    */
-  def getAllClassesForAUser(userId:String) = Action { implicit request =>
+  def getAllClassesForAUser(userId: String) = Action { implicit request =>
     try {
       val id = new ObjectId(userId)
       val classIdList = Class.getAllClassesIdsForAUser(id)
@@ -95,14 +96,17 @@ object ClassController extends Controller {
       if (id == None) {
         println("Create Stream Case")
         val classCreated = net.liftweb.json.parse(request.body.asJson.get.toString).extract[Class]
-        Class.createClass(classCreated, new ObjectId(request.session.get("userId").get))
-        Ok(write( ResulttoSent("Success", "Class Created Successfully")))
+        val streamIdReturned = Class.createClass(classCreated, new ObjectId(request.session.get("userId").get))
+        val stream = Stream.findStreamById(streamIdReturned)
+        Ok(write(ClassResult(stream, ResulttoSent("Success", "Class Created Successfully")))).as("application/json")
       } else {
         println("Join Stream Case")
         val classesobtained = Class.findClasssById(new ObjectId(id.get))
         val resultToSend = models.Stream.joinStream(classesobtained.get.streams(0), new ObjectId(request.session.get("userId").get))
         if (resultToSend.status == "Success") User.addClassToUser(new ObjectId(request.session.get("userId").get), List(new ObjectId(id.get)))
-        Ok(write(resultToSend)).as("application/json")
+        //TODO needs to be checked
+        val stream = Stream.findStreamById(classesobtained.get.streams(0))
+        Ok(write(ClassResult(stream, resultToSend))).as("application/json")
       }
     } catch {
       case exception => InternalServerError("Class Creation Failed")
