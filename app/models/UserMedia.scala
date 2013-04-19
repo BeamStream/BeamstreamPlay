@@ -57,9 +57,9 @@ object UserMedia extends RockConsumer {
     val media = UserMediaDAO.findOneByID(mediaId)
     media
   }
-  /*
- * Get profile picture for a user
- */
+  /**
+   * Get profile picture for a user
+   */
   def getProfilePicForAUser(userId: ObjectId): List[UserMedia] = {
     UserMediaDAO.find(MongoDBObject("userId" -> userId, "isPrimary" -> true)).toList
   }

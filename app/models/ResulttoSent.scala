@@ -45,4 +45,4 @@ case class RegistrationResults(user:User, userSchool:UserSchool)
  */
 case class StreamResult(stream:Stream,usersOfStream:Int)
 
-case class LoginResult(result : ResulttoSent , user:Option[User])
+case class LoginResult(result : ResulttoSent , user:Option[User] , profilePicOfUser : Option[String])
