@@ -44,7 +44,7 @@ object CommentController extends Controller {
           Message.addCommentToMessage(commentId, new ObjectId(messageId))
           val message = Message.findMessageById(new ObjectId(messageId)).get
           if (!(message.docIdIfAny == None)) RockDocOrMedia.commentDocOrMedia(message.docIdIfAny.get, commentId)
-          Ok(write(List(comment))).as("application/json")
+          Ok(write(comment)).as("application/json")
 
         case false => ((commentJson \ "docId").asOpt[String] != None) match {
 

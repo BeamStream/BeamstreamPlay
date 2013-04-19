@@ -295,7 +295,7 @@ define(['view/formView',
    							/* pubnum auto push */
    							PUBNUB.publish({
    			                	channel : "comment",
-		                        message : { pagePushUid: self.pagePushUid ,data:response,parent:parent,cmtCount:totalComments}
+		                        message : { pagePushUid: self.pagePushUid ,data:response,parent:parent,cmtCount:totalComments ,profileImage : localStorage["loggedUserProfileUrl"]}
    			                })
 	   			                
 	   			    	},
@@ -315,25 +315,24 @@ define(['view/formView',
          * show posted comment
          */
         showPostedComment: function(response,parent,totalComments){
-        	console.log($('#'+response[0].id.id+'-image'));
-        	console.log(localStorage["loggedUserProfileUrl"]);
+        	
 	  		$('#'+parent+'-addComments').slideUp(200);
 	  		
 		    /* display the posted comment  */
     		var compiledTemplate = Handlebars.compile(DiscussionComment);
-    		$('#'+parent+'-allComments').prepend(compiledTemplate(response));
+    		$('#'+parent+'-allComments').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
     		
     		if(!$('#'+parent+'-allComments').is(':visible'))
 			{  
 				$('#'+parent+'-msgRockers').slideUp(1);
 				$('#'+parent+'-newCommentList').slideDown(1);
-				$('#'+parent+'-newCommentList').prepend(compiledTemplate(response));
+				$('#'+parent+'-newCommentList').prepend(compiledTemplate({data:response,profileImage:localStorage["loggedUserProfileUrl"]}));
 				
 			}
     		totalComments++; 
-    		/* show user profile image */
-    		$('div#'+parent+'-newCommentList').find('#'+response[0].id.id+'-image').attr('src',localStorage["loggedUserProfileUrl"]);
-    		$('div#'+parent+'-allComments').find('#'+response[0].id.id+'-image').attr('src',localStorage["loggedUserProfileUrl"]);
+//    		/* show user profile image */
+//    		$('div#'+parent+'-newCommentList').find('#'+response[0].id.id+'-image').attr('src',localStorage["loggedUserProfileUrl"]);
+//    		$('div#'+parent+'-allComments').find('#'+response[0].id.id+'-image').attr('src',localStorage["loggedUserProfileUrl"]);
     		
     		$('#'+parent+'-show-hide').text("Hide All");
 			$('#'+parent+'-totalComment').text(totalComments);

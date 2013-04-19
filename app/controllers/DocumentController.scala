@@ -3,9 +3,7 @@ package controllers
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
-
 import org.bson.types.ObjectId
-
 import models.DocResulttoSent
 import models.DocType
 import models.Document
@@ -137,14 +135,12 @@ object DocumentController extends Controller {
    */
 
   def uploadDocumentFromDisk = Action(parse.multipartFormData) { request =>
-
-    var resultToSend: Option[DocResulttoSent] = None
     val documentJsonMap = request.body.asFormUrlEncoded.toMap
     val streamId = documentJsonMap("streamId").toList(0)
     val docDescription = documentJsonMap("docDescription").toList(0)
-    (request.body.file("docData").isEmpty) match {
+    val resultToSend = (request.body.file("docData").isEmpty) match {
 
-      case true => // No Docs Found
+      case true => None
       case false =>
         // Fetch the image stream and details
         request.body.file("docData").map { docData =>
@@ -164,18 +160,18 @@ object DocumentController extends Controller {
 
           if (isImage == true) {
             val uploadResults = saveImageFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get)
-            resultToSend = Option(uploadResults)
+            Option(uploadResults)
           } else if (isVideo == true) {
             val uploadResults = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom)
-            resultToSend = Option(uploadResults)
+            Option(uploadResults)
           } else {
             if (isPdf == true) {
               val previewImageUrl = PreviewOfPDFUtil.convertPdfToImage(documentReceived, docNameOnAmazom)
               val uploadResults = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, previewImageUrl)
-              resultToSend = Option(uploadResults)
+              Option(uploadResults)
             } else {
               val uploadResults = saveOtherDOcFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom)
-              resultToSend = Option(uploadResults)
+              Option(uploadResults)
             }
           }
         }.get
@@ -277,7 +273,7 @@ object DocumentController extends Controller {
     val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, userId, DocumentAccess.withName(docAccess),
       streamId, new Date, new Date, 0, Nil, Nil, Nil, previewImageUrl)
     val documentId = Document.addDocument(documentCreated)
-    val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, None, Option(documentId))
+    val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, Option(previewImageUrl), Option(documentId))
     val messageId = Message.createMessage(message)
     val userMedia = UserMedia.getProfilePicForAUser(userId)
 
