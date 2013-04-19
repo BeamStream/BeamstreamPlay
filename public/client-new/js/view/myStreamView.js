@@ -17,7 +17,7 @@ define(['pageView',
 			'click #show-info' :'showDetails'
 		},
 		messagesPerPage: 10,
-		pageNo: 0,
+		pageNo: 1,
 		init: function(){
 			
 			this.addView(new StreamSliderView({el: '#sidebar'}));
