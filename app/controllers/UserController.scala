@@ -25,6 +25,7 @@ import scala.collection.immutable.List
 import models.UserMedia
 import models.OnlineUsers
 import models.ResulttoSent
+import models.LoginResult
 
 object UserController extends Controller {
 
@@ -293,9 +294,10 @@ object UserController extends Controller {
           val authenticatedUserJson = write(user)
           val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
           println("Online Users" + noOfOnLineUsers)
-          Ok(write(new ResulttoSent("Success", "Login Successful"))).as("application/json").withSession(userSession)
+          val loggedInUser = User.getUserProfile(user.id)
+          Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser))).as("application/json").withSession(userSession)
         case None =>
-          Ok(write(new ResulttoSent("Failure", "Login Unsuccessful"))).as("application/json")
+          Ok(write(LoginResult(ResulttoSent("Failure", "Login Unsuccessful"), None))).as("application/json")
       }
     } catch {
       case exception => InternalServerError(write("Oops there were errors during Login")).as("application/json")
