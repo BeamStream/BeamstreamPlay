@@ -49,7 +49,7 @@
           <div class="ask-outer">
             <div class="ask-content">
               <div class="follw-left">
-                  <div class="ask-img"><img id="main-photo" src=""></div>
+                  <div class="ask-img"><img id="Q-main-photo" src=""></div>
               </div>
               <div  class="ask-info">
                 <div class="ask-comment ask-type-area ">

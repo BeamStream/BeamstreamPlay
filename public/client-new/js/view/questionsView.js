@@ -19,8 +19,12 @@ define(['view/formView',
             this.data.reset();
             this.pagenum = 1;
             this.pageLimit = 10;
+            
         },
         
+        onAfterRender:function(){
+            $('#Q-main-photo').attr('src',localStorage["loggedUserProfileUrl"]);
+        },
         
         /**
          *   Sort questions

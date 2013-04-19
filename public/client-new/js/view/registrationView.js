@@ -230,8 +230,13 @@ define(['view/formView' ,
 		success: function(model, data){
 			
             /* enable step 3*/
-			if(data != "Oops there were errors during registration")
+			if(data != "Oops there were errors during registration"){
+				// set the logged users Id
+            	localStorage["loggedUserId"] =  data.user.id.id;
+            	
 				this.enableStepThree();
+
+			}
 		},
 		
 		/**
@@ -353,6 +358,10 @@ define(['view/formView' ,
 		       	    	// @TODO redirect to class page on upload success from UI side 
 		       	    	if(data.status == "Success"){
 		       	    		$('.profile-loading').css("display","block");
+		       	    		
+		       	    		// set the logged users Id
+//		                	localStorage["loggedUserId"] =  data.user.id.id;
+		                	
 		       	    		window.location = "/class";
 		       	    	}
 		       	    	else{

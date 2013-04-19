@@ -30,8 +30,10 @@ define(['view/formView'], function(FormView ){
 
 		onAfterInit: function(){	
             this.data.reset();
+            localStorage["logged"] = '';
             $('.sign-tick').hide(); 
             $('.sign-close').hide(); 
+            
         },
         
         /**
@@ -52,13 +54,17 @@ define(['view/formView'], function(FormView ){
             var self = this;
             
             // On login success redirect to stream page
-            if(data.status == 'Success')
+            if(data.result.status == 'Success')
             {
+            	// set the logged users profile picture and Id
+            	localStorage["loggedUserProfileUrl"] =  data.profilePicOfUser;
+            	localStorage["loggedUserId"] =  data.user.id.id;
+            	
             	window.location = "/stream";
             }
             else
             {
-                alert(data.message);
+                alert(data.result.message);
             }	
             
             /* clear the fields and model */

@@ -1,31 +1,27 @@
 package controllers
+
+import scala.collection.immutable.List
+
 import org.bson.types.ObjectId
 import org.neo4j.graphdb.Node
-import models.ResulttoSent
-import models.User
-import models.User
-import net.liftweb.json.Serialization.read
-import net.liftweb.json.Serialization.write
-import net.liftweb.json.DefaultFormats
-import net.liftweb.json.parse
-import play.api.Play.current
-import play.api.data.Forms._
-import play.api.libs.json.JsValue
-import play.api.libs.json.Json
-import play.api.mvc._
-import play.api.mvc.Controller
-import play.api.mvc.Response
-import play.api._
-import play.libs._
-import play.mvc.Http.Request
-import utils._
-import utils.SocialGraphEmbeddedNeo4j
-import utils.onlineUserCache
-import scala.collection.immutable.List
-import models.UserMedia
+
+import models.LoginResult
 import models.OnlineUsers
 import models.ResulttoSent
-import models.LoginResult
+import models.User
+import models.UserMedia
+import net.liftweb.json.Serialization.write
+import play.api.Play
+import play.api.libs.json.Json
+import play.api.mvc.Action
+import play.api.mvc.Controller
+import play.libs.WS
+import utils.Neo4jFriend
+import utils.ObjectIdSerializer
+import utils.PasswordHashingUtil
+import utils.SendEmailUtility
+import utils.SocialGraphEmbeddedNeo4j
+import utils.onlineUserCache
 
 object UserController extends Controller {
 
@@ -133,7 +129,7 @@ object UserController extends Controller {
 
   def getAllOnlineUsers = Action { implicit request =>
 
-    var onlineUsersAlongWithDetails: List[OnlineUsers] = List()
+    var onlineUsersAlongWithDetails: List[OnlineUsers] = Nil
     (onlineUserCache.returnOnlineUsers.isEmpty == true) match {
       case false =>
         for (userIdList <- onlineUserCache.returnOnlineUsers) {
@@ -141,10 +137,10 @@ object UserController extends Controller {
             val userWithDetailedInfo = User.getUserProfile(new ObjectId(eachUserId))
             val profilePicForUser = UserMedia.getProfilePicForAUser(new ObjectId(eachUserId))
             if (profilePicForUser.isEmpty) {
-              onlineUsersAlongWithDetails ++= List(new OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+              onlineUsersAlongWithDetails ++= List(OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
                 userWithDetailedInfo.get.lastName, ""))
             } else {
-              onlineUsersAlongWithDetails ++= List(new OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+              onlineUsersAlongWithDetails ++= List(OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
                 userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl))
             }
           }

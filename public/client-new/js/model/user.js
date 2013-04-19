@@ -32,29 +32,29 @@ define(['baseModel'], function(BaseModel) {
 			cellNumber: ''
 
         },
-        /**
-         *@TODO  parse the response data because the response json is different
-         */
-        parse:function(response){
-        	
-        	// @TODO some case we don't need to parse the response 
-        	if(response == "Oops there were errors during registration" || response.message)
-        		return;
-        	response.id = response.user.id.id;
-        	response.firstName = response.user.firstName;
-        	response.lastName = response.user.lastName;
-        	response.major = response.userSchool.major;
-        	response.aboutYourself = response.user.about;
-        	response.gradeLevel = response.userSchool.year.name;
-        	response.degreeProgram = response.userSchool.degree.name;
-        	response.graduate = response.userSchool.graduated.name;
-        	response.location = response.user.location;
-        	response.cellNumber = response.user.contact;
-        	
-        	delete response.user;
-        	delete response.userSchool;
-        	return response;
-        },
+//        /**
+//         *@TODO  parse the response data because the response json is different
+//         */
+//        parse:function(response){
+//        	
+//        	// @TODO some case we don't need to parse the response 
+//        	if(response == "Oops there were errors during registration" || response.result.message)
+//        		return;
+//        	response.id = response.user.id.id;
+//        	response.firstName = response.user.firstName;
+//        	response.lastName = response.user.lastName;
+//        	response.major = response.userSchool.major;
+//        	response.aboutYourself = response.user.about;
+//        	response.gradeLevel = response.userSchool.year.name;
+//        	response.degreeProgram = response.userSchool.degree.name;
+//        	response.graduate = response.userSchool.graduated.name;
+//        	response.location = response.user.location;
+//        	response.cellNumber = response.user.contact;
+//        	
+//        	delete response.user;
+//        	delete response.userSchool;
+//        	return response;
+//        },
         
 		validation: {
 			
