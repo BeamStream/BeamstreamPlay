@@ -25,7 +25,9 @@ case class OnlineUsers(@Key("_id") id: ObjectId, firstName: String, lastName: St
 
 object OptionOfQuestionDAO extends SalatDAO[OptionOfQuestion, ObjectId](collection = MongoHQConfig.mongoDB("optionofquestion"))
 
-// Question With Polls
+/**
+ * Question With Polls
+ */
 case class QuestionWithPoll(question : Question, var profilePic:Option[String]=None, var comments:Option[List[Comment]]=None, polls : List[OptionOfQuestion])
 
 /**
@@ -42,3 +44,5 @@ case class RegistrationResults(user:User, userSchool:UserSchool)
  * Stream Result 
  */
 case class StreamResult(stream:Stream,usersOfStream:Int)
+
+case class LoginResult(result : ResulttoSent , user:Option[User])
