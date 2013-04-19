@@ -35,6 +35,7 @@ define(['view/formView',
 		 onAfterInit: function(){	
             this.data.reset();
             
+            $('#main-photo').attr('src',localStorage["loggedUserProfileUrl"]);
             this.urlRegex2 =  /^((http|https|ftp):\/\/)/,
             this.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\./]*$/i ;
             this.file = '';

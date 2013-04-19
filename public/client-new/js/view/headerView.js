@@ -28,6 +28,7 @@ define(['view/formView'], function(FormView){
 
 		onAfterInit: function(){	
             this.data.reset();
+            $('#right-top-photo').attr('src',localStorage["loggedUserProfileUrl"]);
         },
         
         /**
@@ -44,6 +45,9 @@ define(['view/formView'], function(FormView){
 					dataType : "json",
 					success : function(data) {
 						if(data.status == "Success"){
+							
+							localStorage["loggedUserProfileUrl"] =  '';
+			            	localStorage["loggedUserId"] =  '';
 							window.location = "/login";
 						}
 						else

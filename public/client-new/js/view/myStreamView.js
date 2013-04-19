@@ -28,6 +28,7 @@ define(['pageView',
 			this.addView(new CalendarView({el: $('#calendarView')}));
 			
 			this.addView(new MessageListView({el: $('#messageListView')}));
+			
 		},
 		
 		/**
@@ -40,6 +41,7 @@ define(['pageView',
 	    },
 	    tabHandler: function(e){
 	    	var tabId=$(e.target).attr('href').replace('#',''), view;
+	    	
 	    	
 	    	if(tabId=='discussionsView' || tabId=="questionsView"){ 
     		

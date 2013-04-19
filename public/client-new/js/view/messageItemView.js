@@ -315,7 +315,8 @@ define(['view/formView',
          * show posted comment
          */
         showPostedComment: function(response,parent,totalComments){
-        	
+        	console.log($('#'+response[0].id.id+'-image'));
+        	console.log(localStorage["loggedUserProfileUrl"]);
 	  		$('#'+parent+'-addComments').slideUp(200);
 	  		
 		    /* display the posted comment  */
@@ -330,6 +331,10 @@ define(['view/formView',
 				
 			}
     		totalComments++; 
+    		/* show user profile image */
+    		$('div#'+parent+'-newCommentList').find('#'+response[0].id.id+'-image').attr('src',localStorage["loggedUserProfileUrl"]);
+    		$('div#'+parent+'-allComments').find('#'+response[0].id.id+'-image').attr('src',localStorage["loggedUserProfileUrl"]);
+    		
     		$('#'+parent+'-show-hide').text("Hide All");
 			$('#'+parent+'-totalComment').text(totalComments);
         },
