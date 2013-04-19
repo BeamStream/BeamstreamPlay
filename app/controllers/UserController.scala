@@ -295,9 +295,10 @@ object UserController extends Controller {
           val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
           println("Online Users" + noOfOnLineUsers)
           val loggedInUser = User.getUserProfile(user.id)
-          Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser))).as("application/json").withSession(userSession)
+          val profilePic = UserMedia.getProfilePicForAUser(user.id)
+          Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl)))).as("application/json").withSession(userSession)
         case None =>
-          Ok(write(LoginResult(ResulttoSent("Failure", "Login Unsuccessful"), None))).as("application/json")
+          Ok(write(LoginResult(ResulttoSent("Failure", "Login Unsuccessful"), None, None))).as("application/json")
       }
     } catch {
       case exception => InternalServerError(write("Oops there were errors during Login")).as("application/json")
