@@ -518,20 +518,20 @@ define(['view/formView',
 	    	  
 		 			   if(message.pagePushUid != self.pagePushUid)
 		 			   {
-		 				   if(!document.getElementById(message.data[0].id.id))
+		 				   if(!document.getElementById(message.data.id.id))
 		 				   {
 		 					 
 		 					$('#'+message.parent+'-addComments').slideUp(200);
 		 			  		
 		 				    /* display the posted comment  */
 		 		    		var compiledTemplate = Handlebars.compile(DiscussionComment);
-		 		    		$('#'+message.parent+'-allComments').prepend(compiledTemplate(message.data));
+		 		    		$('#'+message.parent+'-allComments').prepend(compiledTemplate({data:message.data, profileImage:message.profileImage}));
 		 		    		
 		 		    		if(!$('#'+message.parent+'-allComments').is(':visible'))
 		 					{  
 		 						$('#'+message.parent+'-msgRockers').slideUp(1);
 		 						$('#'+message.parent+'-newCommentList').slideDown(1);
-		 						$('#'+message.parent+'-newCommentList').prepend(compiledTemplate(message.data));
+		 						$('#'+message.parent+'-newCommentList').prepend(compiledTemplate({data:message.data, profileImage:message.profileImage}));
 		 						
 		 					}
 		 		    		message.cmtCount++; 
