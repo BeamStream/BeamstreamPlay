@@ -271,11 +271,11 @@ define(['view/formView',
 		 * class form success and redirect to stream page
 		 */
 		success: function(model, data){
-			if(data.status == "Success"){
+			if(data.resultToSend.status == "Success"){
 				$("#selectNextStep").modal('show'); 
    	    	}
    	    	else{
-   	    		alert(data.message);
+   	    		alert(data.resultToSend.message);
    	    	}
 
 			/* clear all form fields */
