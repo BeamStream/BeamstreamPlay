@@ -47,10 +47,10 @@
 						 <div class="image-wrapper hovereffect" >
 						  <div class="hover-div">
 						   <div class="doc-image">
-		                  		{{#if commenImage }}
+		                  		{{#if commenImage}}
 		                 			 <img  src="{{previewImage}}" class="cover-picture" /> <h3 class="common-doctext" >{{extension}}</h3>
 		                 		{{else}}
-		                 			<img  src="{{previewImage}}" class="cover-picture" /> 
+		                 			<img  src="{{data.message.anyPreviewImageUrl}}" class="cover-picture" /> 
 		                         {{/if}}
 		                  	</div>
 						    <div class="hover-text">               

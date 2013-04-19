@@ -163,6 +163,7 @@ define(['view/formView',
 					{
 						previewImage= "/beamstream-new/images/docs_image.png";
 						type = "doc";
+						
 					}
 					else if(extension == 'Pdf')
 					{
