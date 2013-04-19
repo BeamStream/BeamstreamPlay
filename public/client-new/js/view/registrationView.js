@@ -165,6 +165,11 @@ define(['view/formView' ,
 			
 			var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo">'
 			    +'<a class="browse" href="#"><img src="/beamstream-new/images/upload-photo.png" width="148" height="37" id="profile-photo"> <div class="upload-box"><div class="upload-plus">Upload</div></div></a>'
+			    +'<div class="progress-container" style="position:relative; top:-20px; left:-190px; width:100%; display:none;">'
+	            +'<div class="progress progress-striped active">'
+	            +'<div class="bar" style="width: 0%;"></div>'
+	            +'</div>' 
+	            +'</div>'
                 +'<div id="profile-error" ></div>'
                 +'</div>';
 			$('#upload-step').html(upload_block);
@@ -308,7 +313,23 @@ define(['view/formView' ,
 			/* post the image / video data as mutiform data */
 			if(this.profile)
 			{				
-				$('.profile-loading').css("display","block");
+				$('.progress-container').show();
+       	    	
+       	    	/* updating progress bar */ 
+		        	this.progress = setInterval(function() {
+                	
+		        		this.bar = $('.bar');
+                    if (this.bar.width()== 200) {
+                        clearInterval(this.progress);
+    		        } 
+                    else 
+                    {
+                    	this.bar.width( this.bar.width()+8);
+                    }
+                    this.bar.text( this.bar.width()/2 + "%"); 
+                    
+                }, 800);
+		        	
 				var data;
 	        	data = new FormData();
 	     	    data.append('profileData', this.profile);
@@ -322,6 +343,13 @@ define(['view/formView' ,
 		       	    processData: false,
 		       	    success: function(data){
 		       	    	
+		       	    	$('.progress-container').show();
+		       	    	// set progress bar as 100 %
+		                	self.bar = $('.bar');        
+		                	self.bar.width(200);
+		                	self.bar.text("100%");
+	                        clearInterval(self.progress);
+	                        
 		       	    	// @TODO redirect to class page on upload success from UI side 
 		       	    	if(data.status == "Success"){
 		       	    		$('.profile-loading').css("display","block");
