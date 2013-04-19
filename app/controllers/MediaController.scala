@@ -1,27 +1,19 @@
 package controllers
+
 import java.io.File
-import java.io.InputStream
+import java.text.SimpleDateFormat
+import java.util.Date
 import org.bson.types.ObjectId
-import models.ProfileImageProviderCache
+import models.DocumentAccess
 import models.ResulttoSent
 import models.UserMedia
 import models.UserMediaType
-import net.liftweb.json.Serialization.read
 import net.liftweb.json.Serialization.write
-import net.liftweb.json.DefaultFormats
-import net.liftweb.json.parse
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.AmazonUpload
-import utils.CompressFileUtil
-import utils.ExtractFrameFromVideoUtil
 import utils.ObjectIdSerializer
 import utils.tokenEmailUtil
-import utils.ProgressStatusUtil
-import java.util.Date
-import java.text.SimpleDateFormat
-import models.Message
-import models.DocumentAccess
 
 object MediaController extends Controller {
 
@@ -144,23 +136,6 @@ object MediaController extends Controller {
     }
   }
 
-  /**
-   * obtaining the profile Picture
-   * @ Purpose: fetches the recent profile picture for a user
-   */
-  /*
-  def getProfilePicForAUser = Action { implicit request =>
-    val userIdJsonMap = request.body.asFormUrlEncoded.get
-    val userIdReceived = userIdJsonMap("userId").toList(0)
-    val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userIdReceived))
-    if (!mediaObtained.size.equals(0)) {
-      val MediaJson = write(mediaObtained.last)
-      Ok(MediaJson).as("application/json")
-    } else {
-      Ok(write(new ResulttoSent("Failure", "No picture found for this user")))
-    }
-  }
-*/
 
   /**
    * Get All Photos for a user
@@ -184,7 +159,7 @@ object MediaController extends Controller {
    * Rock the UserMedia (Modified)
    *
    */
-  def rockTheUsermedia(mediaId:String) = Action { implicit request =>
+  def rockTheUsermedia(mediaId: String) = Action { implicit request =>
     val totalRocks = UserMedia.rockUserMedia(new ObjectId(mediaId), new ObjectId(request.session.get("userId").get))
     val totalRocksJson = write(totalRocks.toString)
     Ok(totalRocksJson).as("application/json")
@@ -193,7 +168,7 @@ object MediaController extends Controller {
   /**
    * Rockers of a document
    */
-  def giveMeRockersOfUserMedia(mediaId:String) = Action { implicit request =>
+  def giveMeRockersOfUserMedia(mediaId: String) = Action { implicit request =>
     val rockers = UserMedia.rockersNamesOfUserMedia(new ObjectId(mediaId))
     val rockersJson = write(rockers)
     Ok(rockersJson).as("application/json")
@@ -202,7 +177,7 @@ object MediaController extends Controller {
   /**
    * Change the title and description
    */
-  def changeTitleAndDescriptionUserMedia(mediaId:String, name:String, description:String) = Action { implicit request =>
+  def changeTitleAndDescriptionUserMedia(mediaId: String, name: String, description: String) = Action { implicit request =>
     UserMedia.updateTitleAndDescription(new ObjectId(mediaId), name, description)
     val mediaObtained = UserMedia.findMediaById(new ObjectId(mediaId))
     val mediaJson = write(List(mediaObtained.get))
@@ -234,7 +209,7 @@ object MediaController extends Controller {
    * @ Purpose: fetches the recent profile picture for a user
    */
 
-  def getProfilePicForAUser(userId:String) = Action { implicit request =>
+  def getProfilePicForAUser(userId: String) = Action { implicit request =>
     val mediaObtained = UserMedia.getProfilePicForAUser(new ObjectId(userId))
     if (!mediaObtained.size.equals(0)) {
       val MediaJson = write(mediaObtained.last)
