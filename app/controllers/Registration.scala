@@ -70,7 +70,7 @@ object Registration extends Controller {
       User.updateUser(new ObjectId(userId), firstName, lastName, location, about, cellNumber)
 
       val userSchool = new UserSchool(new ObjectId, new ObjectId(associatedSchoolId), schoolName, Year.withName(gradeLevel), Degree.withName(degreeProgram), major, Graduated.withName(graduate),
-        graduationDateFound, degreeExpectedSeason, otherDegree)
+        graduationDateFound, degreeExpectedSeason, Some(""))
       UserSchool.createSchool(userSchool)
       User.addInfo(List(userSchool), new ObjectId(userId))
       val userCreated = User.getUserProfile(new ObjectId(userId))
