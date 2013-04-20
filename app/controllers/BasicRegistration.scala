@@ -67,7 +67,7 @@ object BasicRegistration extends Controller {
 
   def signUpUser = Action { implicit request =>
 
-    try {
+    //try {
       val userInfoJsonMap = request.body.asJson.get
       val iam = (userInfoJsonMap \ "iam").as[String]
       val emailId = (userInfoJsonMap \ "mailId").as[String]
@@ -91,8 +91,8 @@ object BasicRegistration extends Controller {
         case false =>
           Ok(write(new ResulttoSent("Failure", "This User Email Is Already Taken"))).as("application/json")
       }
-    } catch {
-      case ex => InternalServerError(write("Oops there was errors during Signup")).as("application/json")
-    }
+    //} catch {
+     // case ex => InternalServerError(write("Oops there was errors during Signup")).as("application/json")
+    //}
   }
 }

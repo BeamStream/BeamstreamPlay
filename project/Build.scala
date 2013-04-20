@@ -36,7 +36,7 @@ object ApplicationBuild extends Build {
 
   val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
     lessEntryPoints <<= baseDirectory(customLessEntryPoints),
-    testOptions in Test := Nil,
+    //testOptions in Test := Nil,
     resolvers += "xuggle repo" at "http://xuggle.googlecode.com/svn/trunk/repo/share/java/").settings(
 
       resolvers += "Sonatype Nexus Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
