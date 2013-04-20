@@ -368,7 +368,6 @@ define(['view/formView' ,
 		       	    		alert(data.message);
 		       	    	}
 		       	    		
-		       	    	
 		       	    }
 	     	    });
 			}
