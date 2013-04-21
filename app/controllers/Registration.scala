@@ -53,6 +53,7 @@ object Registration extends Controller {
       val userId = (jsonReceived \ "userId").as[String]
       val firstName = (jsonReceived \ "firstName").as[String]
       val lastName = (jsonReceived \ "lastName").as[String]
+      println("111111111111111111")
       val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
       val schoolName = (jsonReceived \ "schoolName").as[String]
       val major = (jsonReceived \ "major").as[String]
@@ -66,11 +67,13 @@ object Registration extends Controller {
       if (graduationDate != None) { graduationDateFound = Option(new Date(graduationDate.get)) }
       val location = (jsonReceived \ "location").as[String]
       val about = (jsonReceived \ "aboutYourself").as[String]
+      println("2222222222222222222222")
       val cellNumber = (jsonReceived \ "cellNumber").as[String]
       User.updateUser(new ObjectId(userId), firstName, lastName, location, about, cellNumber)
 
       val userSchool = new UserSchool(new ObjectId, new ObjectId(associatedSchoolId), schoolName, Year.withName(gradeLevel), Degree.withName(degreeProgram), major, Graduated.withName(graduate),
         graduationDateFound, degreeExpectedSeason, Some(""))
+      println("333333333333333333")
       UserSchool.createSchool(userSchool)
       User.addInfo(List(userSchool), new ObjectId(userId))
       val userCreated = User.getUserProfile(new ObjectId(userId))
