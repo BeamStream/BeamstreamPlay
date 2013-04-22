@@ -570,6 +570,19 @@ define(['view/formView',
  	   				   }
 		   		   }
 	   		   })
+
+	   		    /* for updating user count of stream */
+ 	   		   PUBNUB.subscribe({
+		
+ 	   			   channel : "classMembers",
+ 	   			   restore : false,
+ 	   			   callback : function(message) {
+ 	   				   if(message.pagePushUid != self.pagePushUid)
+ 	   				   {   	  
+ 	   					   $('span#'+message.stream.id.id).html(message.usersOfStream);
+ 	   				   }
+		   		   }
+	   		   })
 	    		 
 		 	   
  		},

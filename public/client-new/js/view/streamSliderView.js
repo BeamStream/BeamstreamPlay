@@ -21,6 +21,7 @@ define(['baseView',
 		init: function(){
 			
 			this.addView(new MessageListView({el: $('#messageListView')}));
+			 
 		},
                 
         onAfterInit: function(){
@@ -29,6 +30,7 @@ define(['baseView',
             this.activeDiv = '<div class="active-curve"></div>';
             
         },
+      
         
         /**
          * after render set scrolling effect
@@ -41,16 +43,18 @@ define(['baseView',
         	$('#sortable4 li:first').addClass('active');
         	$('#sortable4 li:first').append(this.activeDiv);
         	
-        	/* render the stream title and description view based on selected stream */
-        	$('.stream-header-left').attr('data-value',$('.sortable li.active').attr('id') );
-        	var compiledTemplate = Handlebars.compile(StreamTitle);
-			$('.stream-header-left').html(compiledTemplate({streamName: streamName ,userCount:userCount }));
-			
+        	
 			/* added all streams to privateTo dropdown list */
         	var streamName = $('.sortable li.active').attr('name');
         	var userCount =$('.sortable li.active').attr('data-userCount');
         	$('#select-privateTo').text(streamName);
         	$('#Q-privateTo-select').text(streamName);
+        	
+        	/* render the stream title and description view based on selected stream */
+        	$('.stream-header-left').attr('data-value',$('.sortable li.active').attr('id') );
+        	var compiledTemplate = Handlebars.compile(StreamTitle);
+			$('.stream-header-left').html(compiledTemplate({streamName: streamName ,userCount:userCount }));
+			
 			
         	//set the streamId value 
 			this.streamId = (this.data.models[0])?this.data.models[0].get('stream').id.id:null;

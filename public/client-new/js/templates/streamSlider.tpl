@@ -41,7 +41,7 @@
                              <li id ="{{stream.id.id}}" name="{{stream.streamName}}" data-userCount = "{{usersOfStream}}">
 								<a  id ="{{stream.id.id}}"  name ="{{stream.streamName}}"  href="#" class="icon1">{{stream.streamName}}</a>
 								<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"></div>
-								<span class="menu-count">{{usersOfStream}}</span>
+								<span id="{{stream.id.id}}-users" class="menu-count">{{usersOfStream}}</span>
 								<span class="close-btn drag-rectangle" data-original-title="Delete"></span>
 								</li>  
 						{{/each}}   
