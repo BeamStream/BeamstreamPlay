@@ -19,11 +19,11 @@ object JoinBeamStream extends Controller {
    */
 
   def betaUserRegistration = Action {
-    try {
+   // try {
       Ok(views.html.betaUser())
-    } catch {
-      case ex => Ok("Oops..There was some errors")
-    }
+   // } catch {
+   //   case ex => Ok("Oops..There was some errors")
+   // }
 
   }
 
@@ -31,7 +31,7 @@ object JoinBeamStream extends Controller {
    *  Beta Users Registration (RA)
    */
   def regsisterToBeamStreamBeta = Action { implicit request =>
-    try {
+  //  try {
       val userInfoJsonMap = request.body.asJson.get
       val emailId = (userInfoJsonMap \ "mailId").as[String]
 
@@ -47,9 +47,9 @@ object JoinBeamStream extends Controller {
           val successJson = write(new ResulttoSent("Success", "Allow To Register"))
           Ok(successJson).as("application/json")
       }
-    } catch {
-      case ex => Ok("Oops..There was some errors")
-    }
+    //} catch {
+    //  case ex => Ok("Oops..There was some errors")
+    //}
   }
 
 }  
