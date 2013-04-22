@@ -118,7 +118,7 @@ object Class {
   /**
    * ********************************************** Re architecture ****************************************
    */
-  def createClass(classCreated: Class, userId: ObjectId) {
+  def createClass(classCreated: Class, userId: ObjectId):ObjectId= {
     val classId = ClassDAO.insert(classCreated)
     User.addClassToUser(userId, List(classId.get))
     // Create the Stream for this class
@@ -127,6 +127,7 @@ object Class {
     Stream.attachStreamtoClass(streamId, classId.get)
     val user = User.getUserProfile(userId)
     UtilityActor.sendEmailAfterStreamCreation(user.get.email, classCreated.className, true)
+    streamId
   }
 
   /**

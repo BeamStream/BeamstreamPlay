@@ -28,19 +28,7 @@ define(['view/formView'], function(FormView){
 
 		onAfterInit: function(){	
             this.data.reset();
-            
-//            /* get logged users details */
-//  			 $.ajax({
-//  				type : 'GET',
-//  				url : "/loggedInUserJson",
-//  				
-//  				dataType : "json",
-//  				success : function(datas) {
-//  					console.log(datas)
-//  				}
-//  			 });
-  			 
-  			 
+              			 
             $('#right-top-photo').attr('src',localStorage["loggedUserProfileUrl"]);
         },
         

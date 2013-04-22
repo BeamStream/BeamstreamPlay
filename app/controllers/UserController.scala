@@ -278,7 +278,7 @@ object UserController extends Controller {
    * Find and Authenticate the user to proceed. (RA)
    */
   def findUser = Action { implicit request =>
-    try {
+    //try {
       val jsonReceived = request.body.asJson.get
       val userEmailorName = (jsonReceived \ "mailId").as[String]
       val userPassword = (jsonReceived \ "password").as[String]
@@ -296,9 +296,9 @@ object UserController extends Controller {
         case None =>
           Ok(write(LoginResult(ResulttoSent("Failure", "Login Unsuccessful"), None, None))).as("application/json")
       }
-    } catch {
-      case exception => InternalServerError(write("Oops there were errors during Login")).as("application/json")
-    }
+    //} catch {
+    //  case exception => InternalServerError(write("Oops there were errors during Login")).as("application/json")
+    //}
   }
 
   /**

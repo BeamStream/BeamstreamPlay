@@ -115,7 +115,7 @@ object MediaController extends Controller {
    */
 
   def uploadMediaToAmazon = Action(parse.multipartFormData) { implicit request =>
-    try {
+    //try {
       var imageNameOnAmazon = ""
       var imageFilename = ""
       request.body.file("profileData").map { profileData =>
@@ -128,14 +128,13 @@ object MediaController extends Controller {
 
       }.get
       val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
-      val media = new UserMedia(new ObjectId, imageFilename, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, DocumentAccess.Public, true, "", 0, List(), List(), 0)
+      val media = UserMedia(new ObjectId, imageFilename, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, DocumentAccess.Public, true, "", 0, List(), List(), 0)
       UserMedia.saveMediaForUser(media)
-      Ok(write(new ResulttoSent("Success", "Profile Photo Uploaded Successfully"))).as("application/json")
-    } catch {
-      case exception => InternalServerError("Oops , Photo Upload Unsuccessful")
-    }
+      Ok(write(ResulttoSent("Success", imageURL))).as("application/json")
+    //} catch {
+    //  case exception => InternalServerError("Oops , Photo Upload Unsuccessful")
+    //}
   }
-
 
   /**
    * Get All Photos for a user

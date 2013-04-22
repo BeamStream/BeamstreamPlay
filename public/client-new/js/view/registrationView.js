@@ -360,7 +360,7 @@ define(['view/formView' ,
 		       	    		$('.profile-loading').css("display","block");
 		       	    		
 		       	    		// set the logged users Id
-//		                	localStorage["loggedUserId"] =  data.user.id.id;
+		       	    		localStorage["loggedUserProfileUrl"] =  data.message;
 		                	
 		       	    		window.location = "/class";
 		       	    	}
@@ -368,7 +368,6 @@ define(['view/formView' ,
 		       	    		alert(data.message);
 		       	    	}
 		       	    		
-		       	    	
 		       	    }
 	     	    });
 			}

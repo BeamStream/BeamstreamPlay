@@ -167,7 +167,7 @@ object DegreeExpected extends Enumeration {
 object Degree extends Enumeration {
   val Bachelors = Value(0, "Bachelor's")
   val Masters = Value(1, "Master's")
-  val Assosiates = Value(2, "Assosiates(AA)")
+  val Assosiates = Value(2, "Associate's(AA)")
   val Doctorate = Value(3, "Doctorate(Phd)")
   val Other = Value(4, "Other")
 

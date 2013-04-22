@@ -63,9 +63,9 @@ object SendEmailUtility {
       authenticatedMessageAndSession._1.setSubject("You've Created " + streamName + " Stream On Beamstream")
       authenticatedMessageAndSession._1.setContent(
 
-        "Hi <b>Beamstream's</b> Rocker." + "<br>" + "<br>" +
+        "Hi <b>Beamstream</b> Rocker." + "<br>" + "<br>" +
           "You've created the " + streamName + " Stream in Your Profile" + "<br>" + "<br>" +
-          "Start sharing now & be a Beamstream's Rocker" + "<br>" + "<br>" ++ "<br>" +
+          "Start sharing now & be a Beamstream Rocker" + "<br>" + "<br>" ++ "<br>" +
           "Cheers," + "<br>" +
           "The Really Nice Beamstream Folks , US" + "<br>", "text/html")
     } else {
@@ -73,9 +73,9 @@ object SendEmailUtility {
       authenticatedMessageAndSession._1.setSubject("You've Joined " + streamName + " Stream On Beamstream")
       authenticatedMessageAndSession._1.setContent(
 
-        "Hi <b>Beamstream's</b> Rocker." + "<br>" + "<br>" +
+        "Hi <b>Beamstream</b> Rocker." + "<br>" + "<br>" +
           "You've Joined the " + streamName + " Stream " + "<br>" + "<br>" +
-          "Start sharing now & be a Beamstream's Rocker" + "<br>" + "<br>" ++ "<br>" +
+          "Start sharing now & be a Beamstream Rocker" + "<br>" + "<br>" ++ "<br>" +
           "Cheers," + "<br>" +
           "The Really Nice Beamstream Folks , US" + "<br>", "text/html")
 
@@ -94,7 +94,7 @@ object SendEmailUtility {
 
     val subject = firstNameOfJoiner + " " + lastNameOfJoiner + " has Joined the " + streamName + " Stream"
     val content =
-      "Hi <b>Beamstream's</b> Rockers." + "<br>" + "<br>" +
+      "Hi <b>Beamstream</b> Rocker." + "<br>" + "<br>" +
         firstNameOfJoiner + " " + lastNameOfJoiner + " has Joined the " + streamName + " Stream" +
         "<br>" + "<br>" +
         "Cheers," + "<br>" +
@@ -111,8 +111,8 @@ object SendEmailUtility {
   def inviteUserToBeamstream(emailId: String) {
 
     val content =
-      "Hello Dear , " + "<br>" + "<br>" +
-        "You've been invited to join Beamstream" + "<br>" +
+      "Hello, " + "<br>" + "<br>" +
+        "You've been invited to join Beamstream." + "<br>" +
         "Join and be ready to rock. " + "<a href ='" + Play.current.configuration.getString("server").get + "/beamstream/index.html#emailVerification'>REGISTER HERE</a>" +
         "<br>" + "<br>" +
         "Cheers," + "<br>" +
@@ -128,8 +128,8 @@ object SendEmailUtility {
   
   def inviteUserToBeamstreamWithReferral(emailId: String, friend: String) {
     val content =
-      "Hello Dear , " + "<br>" + "<br>" +
-        "You've been invited to join Beamstream" + "<br>" +
+      "Hello, " + "<br>" + "<br>" +
+        "You've been invited to join Beamstream." + "<br>" +
         "Join and be ready to rock. " + "<a href ='" + Play.current.configuration.getString("server").get + "/beamstream/index.html#emailVerification?referrer=" + friend + "'>REGISTER HERE</a>" +
         "<br>" + "<br>" +
         "Cheers," + "<br>" +

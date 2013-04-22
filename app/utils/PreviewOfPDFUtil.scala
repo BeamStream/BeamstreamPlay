@@ -14,7 +14,7 @@ object PreviewOfPDFUtil {
    * @param docReceived is the pdf file
    * @param docName is the name of the pdf file
    */
-  def convertPdfToImage(docReceived: File, docName: String) = {
+  def convertPdfToImage(docReceived: File, docName: String): String = {
     val byteArrayOutPutStream: ByteArrayOutputStream = new ByteArrayOutputStream
     val inputStream = new FileInputStream(docReceived)
 
