@@ -20,10 +20,10 @@ define(['view/formView',
         'view/streamSliderView', 
         '../../lib/bootstrap-select',
         '../../lib/bootstrap-datepicker',
-        '../../lib/bootstrap-modal',
+        // '../../lib/bootstrap-modal',
         '../../lib/jquery.meio.mask',
         'model/userSchool'
-        ],function(FormView ,StreamSliderView,BootstrapSelect,Datepicker , BootstrapModal, MaskedInput,userSchool){
+        ],function(FormView ,StreamSliderView,BootstrapSelect,Datepicker ,MaskedInput,userSchool){
 	
 	var classView;
 	classView = FormView.extend({

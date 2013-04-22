@@ -27,8 +27,8 @@ define(['view/formView',
 		 pageNo: 1,
 		 	
 		 init: function(){
-			this.addView(new MessageListView({el: $('#messageListView')}));
-			this.addView(new MessageItemView({el: $('#messageItemView')}));
+			// this.addView(new MessageListView({el: $('#messageListView')}));
+			// this.addView(new MessageItemView({el: $('#messageItemView')}));
 		 },
 			
 		 

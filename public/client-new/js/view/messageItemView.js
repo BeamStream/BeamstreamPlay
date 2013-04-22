@@ -17,7 +17,7 @@
 */
 
 define(['view/formView',
-        'view/mediaEditView',
+        // 'view/mediaEditView',
         'view/documentView',
         'model/comment',
         'model/discussion',
@@ -26,7 +26,7 @@ define(['view/formView',
         'text!templates/discussionComment.tpl',
         '../../lib/extralib/jquery.embedly.min',
         '../../lib/extralib/jquery.prettyPhoto'
-        ],function(FormView , MediaEditView ,DocumentView ,CommentModel,DiscussionModel, UserMediaModel, DiscussionMessage ,DiscussionComment ,JqueryEmbedly, PrettyPhoto){
+        ],function(FormView , DocumentView ,CommentModel,DiscussionModel, UserMediaModel, DiscussionMessage ,DiscussionComment ,JqueryEmbedly, PrettyPhoto){
 	
 	var MessageItemView;
 	MessageItemView = FormView.extend({
