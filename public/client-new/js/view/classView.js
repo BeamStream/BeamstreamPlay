@@ -17,12 +17,13 @@
 */
 
 define(['view/formView',
+        'view/streamSliderView', 
         '../../lib/bootstrap-select',
         '../../lib/bootstrap-datepicker',
         '../../lib/bootstrap-modal',
         '../../lib/jquery.meio.mask',
         'model/userSchool'
-        ],function(FormView ,BootstrapSelect,Datepicker , BootstrapModal, MaskedInput,userSchool){
+        ],function(FormView ,StreamSliderView,BootstrapSelect,Datepicker , BootstrapModal, MaskedInput,userSchool){
 	
 	var classView;
 	classView = FormView.extend({
@@ -40,6 +41,12 @@ define(['view/formView',
 		    'focus #classTime' : 'setDefaultTime'
 		},
 
+		init: function(){
+			this.addView(new StreamSliderView({el: '#sidebar'}));
+			
+		},
+		
+		
 		onAfterInit: function(){	
 			this.data.reset();
 			
@@ -62,6 +69,8 @@ define(['view/formView',
 		       		
 				}
 			});
+
+			this.setupPushConnection();
         },
 
         /**
@@ -271,8 +280,24 @@ define(['view/formView',
 		 * class form success and redirect to stream page
 		 */
 		success: function(model, data){
+			var self = this;
 			if(data.resultToSend.status == "Success"){
 				$("#selectNextStep").modal('show'); 
+
+				/* update stream list when we add/join a stream*/
+				streamView = this.getViewById('sidebar');
+				streamView.add(model, data);
+				streamView.fetch();
+				
+
+				/* PUBNUB auto push for updating the no.of users in the stream */
+				if(data.resultToSend.message == "Joined Stream Successfully"){
+					PUBNUB.publish({
+	                	channel : "classMembers",
+                        message : { pagePushUid: self.pagePushUid ,data:data}
+	                })
+				}
+				
    	    	}
    	    	else{
    	    		alert(data.resultToSend.message);
@@ -316,7 +341,36 @@ define(['view/formView',
         startBeamstream: function(e){
         	e.preventDefault();
         	window.location = "/stream";
-        }
+        },
+
+
+        /**
+	     * PUBNUB real time push
+	     */
+		 setupPushConnection: function() {
+			 var self = this;
+			 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
+			
+
+   		    /* for updating user count of stream */
+   		   	PUBNUB.subscribe({
+	
+			   	channel : "classMembers",
+			   	restore : false,
+			   	callback : function(message) {
+
+				   	if(message.pagePushUid != self.pagePushUid)
+				   	{   	  
+					   	$('span#'+message.data.stream.id.id+'-users').html(message.data.stream.usersOfStream.length);
+
+				   	}
+	   		   	}
+		   })
+	    		 
+		 	   
+ 		}
+        
+	
 	})
 	return classView;
 });
