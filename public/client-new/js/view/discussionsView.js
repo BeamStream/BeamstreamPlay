@@ -27,8 +27,8 @@ define(['view/formView',
 		 pageNo: 1,
 		 	
 		 init: function(){
-			this.addView(new MessageListView({el: $('#messageListView')}));
-			this.addView(new MessageItemView({el: $('#messageItemView')}));
+			// this.addView(new MessageListView({el: $('#messageListView')}));
+			// this.addView(new MessageItemView({el: $('#messageItemView')}));
 		 },
 			
 		 
@@ -567,6 +567,19 @@ define(['view/formView',
  	   				   if(message.pagePushUid != self.pagePushUid)
  	   				   {   	  
  	   					   $('#'+message.msgId+'-msgRockCount').find('span').html(message.data);
+ 	   				   }
+		   		   }
+	   		   })
+
+	   		    /* for updating user count of stream */
+ 	   		   PUBNUB.subscribe({
+		
+ 	   			   channel : "classMembers",
+ 	   			   restore : false,
+ 	   			   callback : function(message) {
+ 	   				   if(message.pagePushUid != self.pagePushUid)
+ 	   				   {   	  
+ 	   					   $('span#'+message.stream.id.id).html(message.usersOfStream);
  	   				   }
 		   		   }
 	   		   })

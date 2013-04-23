@@ -62,10 +62,6 @@ define(['view/formView','../../lib/bootstrap-modal'], function(FormView,Bootstra
 				localStorage["shareWidget"] = 'errorMessage';
 				$("#errorMessage").modal('show'); 
 				
-				// hide error popup after 6 seconds 
-				setTimeout(function() {
-					$("#errorMessage").modal('hide'); 
-				}, 6000);
 			}
 			this.data.reset({mailId : ''});
 		},

@@ -165,7 +165,7 @@ define(['view/formView' ,
 			
 			var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo">'
 			    +'<a class="browse" href="#"><img src="/beamstream-new/images/upload-photo.png" width="148" height="37" id="profile-photo"> <div class="upload-box"><div class="upload-plus">Upload</div></div></a>'
-			    +'<div class="progress-container" style="position:relative; top:-20px; left:-190px; width:100%; display:none;">'
+			    +'<div class="progress-container" style="position:relative; top:-35px; left:240px; padding:5px; display:none;">'
 	            +'<div class="progress progress-striped active">'
 	            +'<div class="bar" style="width: 0%;"></div>'
 	            +'</div>' 
@@ -315,6 +315,7 @@ define(['view/formView' ,
 		continuestep3 : function(e){
 			
 			e.preventDefault();
+			var self = this;
 			/* post the image / video data as mutiform data */
 			if(this.profile)
 			{				
@@ -346,9 +347,8 @@ define(['view/formView' ,
 		       	    cache: false,
 		       	    contentType: false,
 		       	    processData: false,
-		       	    success: function(data){
+		       	    success: function(data){		       	    	
 		       	    	
-		       	    	$('.progress-container').show();
 		       	    	// set progress bar as 100 %
 		                	self.bar = $('.bar');        
 		                	self.bar.width(200);
@@ -358,7 +358,6 @@ define(['view/formView' ,
 		       	    	// @TODO redirect to class page on upload success from UI side 
 		       	    	if(data.status == "Success"){
 		       	    		$('.profile-loading').css("display","block");
-		       	    		
 		       	    		// set the logged users Id
 		       	    		localStorage["loggedUserProfileUrl"] =  data.message;
 		                	
