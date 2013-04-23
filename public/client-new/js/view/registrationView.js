@@ -108,6 +108,7 @@ define(['view/formView' ,
 					else if (userInfo.profile.providerName == "LinkedIn") {
 						
 						console.log("signup via LinkedIn");
+						email = userInfo.profile.email;
 					}
 					else if (userInfo.profile.providerName == "Google") {
 						
