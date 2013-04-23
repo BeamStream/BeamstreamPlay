@@ -264,10 +264,8 @@ object UserController extends Controller {
    * Follow User
    */
 
-  def followUser = Action { implicit request =>
-    val userIdToFollowJsonMap = request.body.asFormUrlEncoded.get
-    val userId = userIdToFollowJsonMap("userId").toList(0)
-    val followers = User.followUser(new ObjectId(request.session.get("userId").get), new ObjectId(userId))
+  def followUser(userIdOfFollower: String) = Action { implicit request =>
+    val followers = User.followUser(new ObjectId(request.session.get("userId").get), new ObjectId(userIdOfFollower))
     Ok(write(followers.toString)).as("application/json")
   }
 
@@ -279,23 +277,23 @@ object UserController extends Controller {
    */
   def findUser = Action { implicit request =>
     //try {
-      val jsonReceived = request.body.asJson.get
-      val userEmailorName = (jsonReceived \ "mailId").as[String]
-      val userPassword = (jsonReceived \ "password").as[String]
-      val encryptedPassword = (new PasswordHashingUtil).encryptThePassword(userPassword)
-      val authenticatedUser = User.findUser(userEmailorName, encryptedPassword)
-      authenticatedUser match {
-        case Some(user) =>
-          val userSession = request.session + ("userId" -> user.id.toString)
-          val authenticatedUserJson = write(user)
-          val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
-          println("Online Users" + noOfOnLineUsers)
-          val loggedInUser = User.getUserProfile(user.id)
-          val profilePic = UserMedia.getProfilePicForAUser(user.id)
-          Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl)))).as("application/json").withSession(userSession)
-        case None =>
-          Ok(write(LoginResult(ResulttoSent("Failure", "Login Unsuccessful"), None, None))).as("application/json")
-      }
+    val jsonReceived = request.body.asJson.get
+    val userEmailorName = (jsonReceived \ "mailId").as[String]
+    val userPassword = (jsonReceived \ "password").as[String]
+    val encryptedPassword = (new PasswordHashingUtil).encryptThePassword(userPassword)
+    val authenticatedUser = User.findUser(userEmailorName, encryptedPassword)
+    authenticatedUser match {
+      case Some(user) =>
+        val userSession = request.session + ("userId" -> user.id.toString)
+        val authenticatedUserJson = write(user)
+        val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
+        println("Online Users" + noOfOnLineUsers)
+        val loggedInUser = User.getUserProfile(user.id)
+        val profilePic = UserMedia.getProfilePicForAUser(user.id)
+        Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl)))).as("application/json").withSession(userSession)
+      case None =>
+        Ok(write(LoginResult(ResulttoSent("Failure", "Login Unsuccessful"), None, None))).as("application/json")
+    }
     //} catch {
     //  case exception => InternalServerError(write("Oops there were errors during Login")).as("application/json")
     //}
