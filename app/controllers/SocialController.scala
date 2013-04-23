@@ -45,17 +45,17 @@ object SocialController extends Controller {
       val res = promise.get
       val body = res.getBody
       val json = Json.parse(body)
-      println(json)
+      println("*******************"+json)
       val providerName = (json \ "profile" \ "providerName").asOpt[String].get
       val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
       val emailFromJson = (json \ "profile" \ "email").asOpt[String]
-      val emailId = (emailFromJson != None) match {
-        case true => emailFromJson.get
-        case false => ""
-      }
+//      val emailId = (emailFromJson != None) match {
+//        case true => emailFromJson.get
+//        case false => ""
+//      }
       val canUserRegister = User.canUserRegister(preferredUsername)
       if (canUserRegister == true) {
-        val userToCreate = new User(new ObjectId, UserType.Professional, emailId, "", "", preferredUsername, "", None, "", "", "", "", "", Option(providerName), Nil, Nil, Nil, Nil, Nil, Option(json.toString))
+        val userToCreate = new User(new ObjectId, UserType.Professional, "" , "", "", preferredUsername, "", None, "", "", "", "", "", Option(providerName), Nil, Nil, Nil, Nil, Nil, Option(json.toString))
         val IdOfUserCreted = User.createUser(userToCreate)
         Ok(views.html.registration(IdOfUserCreted.get.toString, Option(json.toString)))
       } else {

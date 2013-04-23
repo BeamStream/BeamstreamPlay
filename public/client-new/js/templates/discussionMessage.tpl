@@ -22,7 +22,7 @@
 					{{#if owner}}
 						
                     {{else}}
-               		   <a href="#" id="{{data.message.userId.id}}" class="follow-button follow-user">follow</a>
+               		   <a href="#" id="{{data.message.userId.id}}" class="follow-button follow-user" data-value="follow">follow</a>
 					{{/if}}
               
               </div>
@@ -32,7 +32,7 @@
                     <ul class="follow-name-left ">
                       <li><span id="{{data.message.userId.id}}" >@{{data.message.firstNameofMsgPoster}} {{data.message.lastNameofMsgPoster}} </span> -  {{data.message.timeCreated}}  -  {{data.message.messageAccess.name}}</li>
                     </ul>
-                    <div class="follow-right"><a id="{{data.message.id.id}}-follow" href="#" class="follow-button follow-message">follow</a></div>
+                    <div class="follow-right"><a id="{{data.message.id.id}}-follow" href="#" class="follow-button follow-message" data-value="follow">follow</a></div>
                   </div>
                   <p id="{{data.message.id.id}}-id" >{{data.message.messageBody}}</p>
                   
