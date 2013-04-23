@@ -77,13 +77,13 @@
 @main("Registration", "Body",CSS,meta, JS, bodyModule, bodyJS, sideBar, header, footer){
 @println(userId, userInfoJson)
 
-	   <!------ for registration page------->
-	   <div  id="registration" data-value='@userInfoJson'  data-model="user"  data-module="view/registrationView"  data-tpl="templates/registration.tpl">
+	    <!-- for registration page -->
+    <div  id="registration" data-value='@userInfoJson'  data-model="user"  data-module="view/registrationView"  data-tpl="templates/registration.tpl">
                
-        </div>
+    </div>
         
 	 
-	   <!---- for new school popups----->
+	   <!-- for new school popups -->
 	   <div  id="addSchoolView"  data-model="school"  data-module="view/addNewSchoolView"  >
 			<div id="newSchoolModal" style="top: 65% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-header">

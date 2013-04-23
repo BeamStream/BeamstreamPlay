@@ -82,8 +82,11 @@ define(['baseView',
 			$('#Q-privatelist').html(listTemplate( this.data.toJSON()));
 			
 			/* render the left stream list */
-			var compiledTemplate = Handlebars.compile(StreamList);
-			this.$(".content").html( compiledTemplate(this.data.toJSON()));
+			// var compiledTemplate = Handlebars.compile(StreamList);
+			// this.$(".content").html( compiledTemplate(this.data.toJSON()));
+
+
+			
 			
 		},
 		
