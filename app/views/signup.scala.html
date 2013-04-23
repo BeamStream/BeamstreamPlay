@@ -1,3 +1,4 @@
+@import play.api.i18n.Messages
 @meta = {}
 @CSS = {
     
@@ -18,7 +19,7 @@
     <script type="text/javascript">
        $('div.container-fluid').last().addClass('signup-container');
        //set tokenUrl for sign up
-       showJanrainSigninWidget("http://test.beamstream.com/social/social_authentication");
+       showJanrainSigninWidget("@Messages("url_required")"+"/social/social_authentication");
     </script>
 }
 @sideBar = {}
