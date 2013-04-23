@@ -29,11 +29,9 @@ object MessageController extends Controller {
   def newMessage = Action { implicit request =>
     var profilePicForUser = ""
     val messageListJsonMap = request.body.asJson.get
-    println(messageListJsonMap)
     val streamId = (messageListJsonMap \ "streamId").as[String]
     val messageAccess = (messageListJsonMap \ "messageAccess").as[String]
     val messageBody = (messageListJsonMap \ "message").as[String]
-    println(streamId)
     val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val messageToCreate = new Message(new ObjectId, messageBody, Option(MessageType.Text), Option(MessageAccess.withName(messageAccess)), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)),
       messagePoster.get.firstName, messagePoster.get.lastName, 0, Nil, Nil, 0, Nil)
