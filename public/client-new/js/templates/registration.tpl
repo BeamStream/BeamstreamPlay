@@ -71,7 +71,7 @@
             <div class="profile-select-block">
               <fieldset class="field">
               <select id="degreeProgram" data-name="user.degreeProgram" name="degreeProgram" class="selectpicker-info " style="display: none;">
-                <option selected="selected" value="" >Degree Program?</option>
+                <option disabled selected style="display:none;">Degree Program?</option>
                 <option value="Associate's(AA)">Associate's(AA)</option>
                 <option value="Bachelor's">Bachelor's</option>
                 <option value="Master's">Master's</option>
@@ -91,8 +91,8 @@
             <div class="profile-select-block">
           
               <fieldset class="field">   
-              <select id="graduate" data-name="user.graduate" name="graduate" class="selectpicker-info " style="display: none;">
-                <option selected="selected"  value="">Graduated?</option>
+              <select id="graduate" data-name="user.graduate" name="graduate" class="selectpicker-info ">
+                <option value="" disabled selected style="display:none;">Graduated?</option>
                 <option value="attending">Still Attending</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
@@ -168,7 +168,7 @@
 	          <div id="step_3" style="display:none;" class="step-box">
 	              <h3>Step 3 of 3 </h3>
 					<h4>Upload Your Main Profile Photo</h4> <span class="profile-loading" style="display:none;;"> <img src ="/beamstream/images/loading.gif"></span>
-	              <a id="skip_step3" href="#">Skip this step</a> <a class="browse" href="#">Upload photo</a>   
+	              <a id="skip_step3" href="#">Skip this step</a> <a class="browse" href="#">Upload Photo or Video</a>   
               </div>
 
 

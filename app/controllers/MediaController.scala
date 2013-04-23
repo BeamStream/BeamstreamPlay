@@ -115,25 +115,20 @@ object MediaController extends Controller {
    */
 
   def uploadMediaToAmazon = Action(parse.multipartFormData) { implicit request =>
-    //try {
-      var imageNameOnAmazon = ""
-      var imageFilename = ""
-      request.body.file("profileData").map { profileData =>
-        imageFilename = profileData.filename
-        val contentType = profileData.contentType.get
-        val uniqueString = tokenEmailUtil.securityToken
-        val imageFileObtained: File = profileData.ref.file.asInstanceOf[File]
-        imageNameOnAmazon = uniqueString + imageFilename.replaceAll("\\s", "") // Security Over the images files
-        (new AmazonUpload).uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
+    val imageNames = request.body.file("profileData").map { profileData =>
+      val imageFilename = profileData.filename
+      val contentType = profileData.contentType.get
+      val uniqueString = tokenEmailUtil.securityToken
+      val imageFileObtained: File = profileData.ref.file.asInstanceOf[File]
+      val imageNameOnAmazon = uniqueString + imageFilename.replaceAll("\\s", "") // Security Over the images files
+      (new AmazonUpload).uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
+      (imageFilename, imageNameOnAmazon)
+    }.get
+    val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNames._2
+    val media = UserMedia(new ObjectId, imageNames._1, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, DocumentAccess.Public, true, "", 0, List(), List(), 0)
+    UserMedia.saveMediaForUser(media)
+    Ok(write(ResulttoSent("Success", imageURL))).as("application/json")
 
-      }.get
-      val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNameOnAmazon
-      val media = UserMedia(new ObjectId, imageFilename, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, DocumentAccess.Public, true, "", 0, List(), List(), 0)
-      UserMedia.saveMediaForUser(media)
-      Ok(write(ResulttoSent("Success", imageURL))).as("application/json")
-    //} catch {
-    //  case exception => InternalServerError("Oops , Photo Upload Unsuccessful")
-    //}
   }
 
   /**

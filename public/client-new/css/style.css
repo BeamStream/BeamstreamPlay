@@ -53,7 +53,7 @@ ul.icons-ask li,
 .share-icon,
 #dropdownnew a,
 .attach-drop-bg,
-.delete_post {
+.delete_post, .delete_comment {
 		background:url(../images/spryte.png) no-repeat;
 }
 
@@ -959,11 +959,41 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#cd4747', endCo
 		position:absolute;
 		right:30px;
 		background-position:-286px -363px
+
 }
 
 .delete_msg:hover {
 		background-position:-327px -363px
 }
+
+.ask-comment:hover .delete_msg {
+		display:block
+}
+
+
+
+
+.delete_post {
+		background-position:-222px -363px;
+		display:none;
+		height:30px;
+		position:absolute;
+		right:1px;
+		top:11px;
+		width:15px
+}
+
+.delete_post:hover {
+		background:url(../images/spryte.png) -246px -363px
+}
+.ask-comment:hover .delete_post 
+{
+		display:block;
+
+}
+
+
+
 
 .ask-type-area {
 		background:#fff
@@ -1009,6 +1039,11 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#cd4747', endCo
 		width:96%
 }
 
+.ask-comment:hover {
+		background: #fbfbfb;
+}
+
+
 .ask-comment p {
 		color:#3f5a6c;
 		font-size:15px
@@ -1018,9 +1053,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#cd4747', endCo
 		color:#000
 }
 
-.ask-comment:hover.delete_msg {
-		display:block
-}
+
 
 .ask-comment:after,
 .ask-comment:before {
@@ -3552,15 +3585,16 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eaecee', endCo
 .delete_post:hover {
 		background:url(../images/spryte.png) -246px -363px
 }
+.delete_post:hover .delete_post 
+{
+		display:block;
 
-.delete_post:hover .delete_post {
-		display:block
 }
 
 .delete_comment {
-		background-image:url(../images/close1.png);
+		background-position:-222px -363px;
 		display:none;
-		height:15px;
+		height:20px;
 		position:absolute!important;
 		right:40px;
 		top:0;
@@ -3568,14 +3602,10 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eaecee', endCo
 }
 
 .delete_comment:hover {
-		background-image:url(../images/close_hover.png)
+	background:url(../images/spryte.png) -246px -363px
 }
 
-.delete_comment:hover {
-		background-image:url(../images/close_hover.png)
-}
-
-div.answer-description:hover .delete_comment {
+.answer-description:hover .delete_comment {
 		display:block
 }
 
