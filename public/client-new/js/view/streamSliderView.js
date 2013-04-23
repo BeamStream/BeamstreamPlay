@@ -84,6 +84,9 @@ define(['baseView',
 			/* render the left stream list */
 			var compiledTemplate = Handlebars.compile(StreamList);
 			this.$(".content").html( compiledTemplate(this.data.toJSON()));
+
+
+			
 			
 		},
 		

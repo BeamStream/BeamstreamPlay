@@ -51,7 +51,7 @@ object Registration extends Controller {
     var graduationDateFound: Option[Date] = None
     val userId = (jsonReceived \ "userId").as[String]
     val firstName = (jsonReceived \ "firstName").as[String]
-    val email = (jsonReceived \ "mailId").as[String]
+    val email = (jsonReceived \ "mailId").asOpt[String]
     val lastName = (jsonReceived \ "lastName").as[String]
     val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
     val schoolName = (jsonReceived \ "schoolName").as[String]
@@ -67,7 +67,12 @@ object Registration extends Controller {
     val location = (jsonReceived \ "location").as[String]
     val about = (jsonReceived \ "aboutYourself").as[String]
     val cellNumber = (jsonReceived \ "cellNumber").as[String]
-    User.updateUser(new ObjectId(userId), firstName, lastName, email,location, about, cellNumber)
+    //TODO Need to be refined
+    val emailId = (email != None) match {
+      case true => email.get
+      case false => ""
+    }
+    User.updateUser(new ObjectId(userId), firstName, lastName, emailId, location, about, cellNumber)
 
     val userSchool = new UserSchool(new ObjectId, new ObjectId(associatedSchoolId), schoolName, Year.withName(gradeLevel), Degree.withName(degreeProgram), major, Graduated.withName(graduate),
       graduationDateFound, degreeExpectedSeason, Some(""))
