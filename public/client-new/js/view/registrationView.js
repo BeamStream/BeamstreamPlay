@@ -30,14 +30,16 @@ define(['view/formView' ,
         events : {
        	
         	'click #skip_step1' : 'completeFirstStep',
-			'click #done_step1' : 'completeFirstStep',
+			'click #done_step1' : 'completeFirstStep',			
 			'click #done_step2' : 'comepleteSecondStep',
 			'click #step2-reset' : 'resetStep2Form',
+			'click #step2_back' : 'backtostep1',
 			'click .browse' : 'continuestep3',
 			'change #uploadProfilePic' :'changeProfile',
 			'click #skip_step3':'completeRegistration',
 			'click #addPhoto' : 'uploadProfilePic',
 			'click #continue' : 'noprofilepic',
+			'click #step3_back' : 'backtostep2',
 			'click .register-social':'connectMedia',
 			'keyup #schoolName' : 'populateSchools',
 		    'focusin #schoolName' : 'populateSchools',
@@ -133,18 +135,10 @@ define(['view/formView' ,
 			$('.selectpicker-info').selectpicker({
 			    style: 'register-select'
 			});
-		},
-		
-        
-		/**
-		 * activate step 1 registration block
-		 */
-		disableStepOne: function(){
 			
-			$('#step_1').hide();
-            $('#step1_block').removeClass('active-border');
-            $('#step2_block').removeClass('box-active');
-		},
+			this.temp_photo = '/beamstream-new/images/step-one-pic1.png';
+		},		
+      
 		
 		/**
 		 * activate step 2 registration block
@@ -190,6 +184,7 @@ define(['view/formView' ,
             $("#cellNumber").setMask('(999) 999-9999');
         },
                 
+        
         /**
 		 * complete step2 registration process - user details form
 		 */
@@ -234,7 +229,7 @@ define(['view/formView' ,
 			if(data != "Oops there were errors during registration"){
 				// set the logged users Id
             	localStorage["loggedUserId"] =  data.user.id.id;
-            	
+            	this.data.models[0].set({'id':data.user.id.id});
 				this.enableStepThree();
 
 			}
@@ -254,7 +249,20 @@ define(['view/formView' ,
 			$('.error').remove();
 			
 		},
-		
+		/**
+		 * *
+		 * added by Cuckoo
+		 */
+
+        backtostep1 : function(e){
+        	e.preventDefault();        	
+        	$('#step_2').hide(500);
+        	$('#step2_block').removeClass('active-border');
+        	$('#step1_block').removeClass('box-active');
+        	$('#step1_block').addClass('active-border');
+        	$('#step_1').show(500);
+        	
+        },
 		/**
 		 * upload profile picture or profile video
 		 */
@@ -272,7 +280,7 @@ define(['view/formView' ,
 	    	 
 	    	 var self = this;
 	    	 var file = e.target.files[0]; 
-	        
+	         this.temp_photo = '';
 	         var reader = new FileReader();
 	         
 	         /* Only process image files. */
@@ -294,6 +302,7 @@ define(['view/formView' ,
 	            		 $('#profile-error').html('');
 	            		 // show the selected photo 
 	            		 if(file.type.match('image.*')){
+	            			 self.temp_photo = e.target.result;
 	            			 $('#profile-photo').attr("src",e.target.result);
 	            		 }
 	            		 //show a default profile image
@@ -391,6 +400,23 @@ define(['view/formView' ,
 			window.location = "/class";		
 		},
 		
+		/**
+		 * 
+		 * added by Cuckoo
+		 */
+		
+		backtostep2 : function(e){
+			
+			e.preventDefault();
+			$('#step_3').hide(500);        	
+        	var upload_block = '<div id="step3_block" class="round-block upload-photo step-one-photo">' 
+	             +'<a ><img src="'+this.temp_photo+'" width="148" height="37" id="profile-photo">'
+	             +' </a> </div>';
+			$('#upload-step').html(upload_block);        	
+			$('#step2_block').addClass('active-border');			
+			$('#step_2').show(500);
+	
+		},
 		
 		/**
 		 * connect to social medias
