@@ -43,6 +43,7 @@ define(['view/formView',
 			 'click .rock-comments': 'rockComment',
 			 'click .rocks-small a' : 'rockComment',
 			 'click .mediapopup': 'showFilesInAPopup',
+			 'click .delete_post': 'deleteMessage'
 			 
 		},
 		
@@ -382,6 +383,86 @@ define(['view/formView',
 		    	}
 
 		    });
+        },
+        /**
+        * delete message
+        */
+        deleteMessage: function(e){
+        	e.preventDefault();
+		 	var messageId = e.target.id;
+		 	var ownerId = $('div#'+messageId).attr('name');
+		 	 var self = this;			 
+
+		 	if(localStorage["loggedUserId"] == ownerId)
+		 	{
+	 			bootbox.dialog("Are you sure you want to delete this message?", [{
+	
+	 				"label" : "DELETE",
+	 				"class" : "btn-primary",
+	 				"callback": function() {
+	 					
+	 					// var Discussion = new DiscussionModel();
+	 					self.model.urlRoot = '/remove/message/'+messageId;
+
+                        // console.log(self.model.);
+	 					self.model.destroy({id : messageId},{
+	    					success : function(model, response) {
+		    		
+		    					 if(data.status == "Success")
+			                	 {
+			                		 
+			                		 $('div#'+messageId).remove();
+						    		  
+			                	 }
+			                	 else
+			                	 {
+			                		 bootbox.alert("You're Not Authorised To Delete This Message");
+			                	 }
+		    		
+		    				},
+		    				error : function(model, response) {
+                  		  		console.log("error");
+		    				}
+
+		    			});
+
+	 					 // // delete particular message
+			    	// 	 $.ajax({
+			     //             type: 'DELETE',
+			     //             url: '/remove/message/'+messageId,
+			     //             data:{
+			     //            	  messageId :messageId
+			     //             },
+			     //             dataType:"json",
+			     //             success:function(data){
+			     //            	 if(data.status == "Success")
+			     //            	 {
+			                		 
+			     //            		 $('div#'+messageId).remove();
+						    		  
+			     //            	 }
+			     //            	 else
+			     //            	 {
+			     //            		 bootbox.alert("You're Not Authorised To Delete This Message");
+			     //            	 }
+			                	 
+			     //             }
+			     //          });
+	 				}
+	
+	 			 }, 
+	 			 {
+				 	"label" : "CANCEL",
+				 	"class" : "btn-primary",
+	 				"callback": function() {
+	 					console.log("ok");
+	 				}
+	 			 }]);
+ 			 }
+ 			 else
+ 			 {
+ 				bootbox.alert("You're Not Authorised To Delete This Message");
+ 			 }
         },
         
         /**
