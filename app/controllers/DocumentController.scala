@@ -232,7 +232,7 @@ object DocumentController extends Controller {
    * Save Image
    */
   private def saveImageFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User) = {
-    val media = new UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Image, DocumentAccess.withName(docAccess), false, "", 0, Nil, Nil)
+    val media = new UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Image, DocumentAccess.withName(docAccess), false, "", 0, Nil, Nil, 0)
     val mediaId = UserMedia.saveMediaForUser(media)
     //Create A Message As Well To Display The Doc Creation In Stream
     val message = Message(new ObjectId, docURL, Option(MessageType.Image), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, Option(docURL), Option(mediaId.get))
@@ -243,7 +243,7 @@ object DocumentController extends Controller {
       case true => Option(userMedia(0).mediaUrl)
       case false => None
     }
-    new DocResulttoSent(message, documentName, docDescription, profilePic)
+    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic)
   }
 
   /**
@@ -263,7 +263,7 @@ object DocumentController extends Controller {
       case true => Option(userMedia(0).mediaUrl)
       case false => None
     }
-    new DocResulttoSent(message, documentName, docDescription, profilePic)
+    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic)
   }
 
   /**
@@ -281,7 +281,7 @@ object DocumentController extends Controller {
       case true => Option(userMedia(0).mediaUrl)
       case false => None
     }
-    new DocResulttoSent(message, documentName, docDescription, profilePic)
+    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic)
   }
   /**
    * Save other documents
@@ -298,7 +298,7 @@ object DocumentController extends Controller {
       case true => Option(userMedia(0).mediaUrl)
       case false => None
     }
-    new DocResulttoSent(message, documentName, docDescription, profilePic)
+    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic)
   }
 
   /**
