@@ -22,11 +22,12 @@ define(['view/formView',
         'model/comment',
         'model/discussion',
         'model/usermedia',
+        'model/user',
         'text!templates/discussionMessage.tpl',
         'text!templates/discussionComment.tpl',
         '../../lib/extralib/jquery.embedly.min',
         '../../lib/extralib/jquery.prettyPhoto'
-        ],function(FormView , DocumentView ,CommentModel,DiscussionModel, UserMediaModel, DiscussionMessage ,DiscussionComment ,JqueryEmbedly, PrettyPhoto){
+        ],function(FormView , DocumentView ,CommentModel,DiscussionModel, UserMediaModel,UserModel, DiscussionMessage ,DiscussionComment ,JqueryEmbedly, PrettyPhoto){
 	
 	var MessageItemView;
 	MessageItemView = FormView.extend({
@@ -44,6 +45,8 @@ define(['view/formView',
 			 'click .rocks-small a' : 'rockComment',
 			 'click .mediapopup': 'showFilesInAPopup',
 			 'click .delete_post': 'deleteMessage'
+			 'click .follow-user' : 'followUser'
+
 			 
 		},
 		
@@ -465,6 +468,40 @@ define(['view/formView',
  			 }
         },
         
+        
+        
+        
+ //added by cuckoo 
+        
+        followUser : function(e){
+        	e.preventDefault();
+        	var userId = e.currentTarget.id;
+        	var datavalue = $('#'+eventName.target.id).attr('data-value');	
+        	
+        	// set values to model, to follow a user
+			var user = new UserModel();
+			user.urlRoot = "/followUser/"+userId;
+			user.save({id : userId},{
+		    	success : function(model, response) {
+		    		//set display
+ 		        	if(datavalue == "follow")
+ 		    		{
+ 		        		$('#'+eventName.target.id).text("Unfollow");
+ 		        		$('#'+eventName.target.id).attr('data-value','unfollow'); 		        	
+ 		        		
+ 		    		}
+ 		        	else
+ 		        	{
+ 		        		$('#'+eventName.target.id).text("follow");
+ 		        		$('#'+eventName.target.id).attr('data-value','follow');
+ 		        	
+ 		        	}
+		    	},
+		    	error : function(model, response) {
+                    console.log("error");
+		    	}
+			});
+        },
         /**
          *@TODO : show the uploaded file in a popup
          */
@@ -587,9 +624,8 @@ define(['view/formView',
 			eventName.preventDefault();
 			 
 			var element = eventName.target.parentElement;
-			var messageId =$(element).parents('div.follow-container').attr('id');
-			
-			var text = $('#'+eventName.target.id).text();
+			var messageId =$(element).parents('div.follow-container').attr('id');			
+			var datavalue = $('#'+eventName.target.id).attr('data-value');			
 			
 //			this.data.url = "/followMessage";
 			
@@ -599,25 +635,27 @@ define(['view/formView',
 			Discussion.save({id : messageId},{
 		    	success : function(model, response) {
 		    		//set display
-		        	if(text == "Unfollow")
+		        	if(datavalue == "follow")
 		    		{
-		        		 $('#'+eventName.target.id).text("Follow");
+		        		$('#'+eventName.target.id).text("Unfollow");
+		        		$('#'+eventName.target.id).attr('data-value','unfollow');
+		        		 
 		    		}
 		        	else
 		        	{
-		        		$('#'+eventName.target.id).text("Unfollow");
+		        		$('#'+eventName.target.id).text("Follow");
+		        		$('#'+eventName.target.id).attr('data-value','follow');
 		        	}
 		        	 
 		    		
 		    	},
 		    	error : function(model, response) {
-                   console.log("error");
+                  console.log("error");
 		    	}
 
 		    });
 
 	    },
-        
 	    /**
          *  Rock comments
          */

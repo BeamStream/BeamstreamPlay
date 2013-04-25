@@ -418,7 +418,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#478cb4', endCo
 }
 
 .done {
-		background:#5299bd;
+		background:#8B979F;
 		-webkit-border-radius:4px;
 		-moz-border-radius:4px;
 		border-radius:4px;
@@ -1169,7 +1169,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#478cb4', endCo
 		font-size:14px;
 		font-weight:400;
 		line-height:24px;
-		padding:3px 0 0
+		padding:3px 0 0 15px;
 }
 
 .class-dropdown {
@@ -1507,7 +1507,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5299bd', endCo
 ul.icons-ask {
 		float:left;
 		margin-left:7px;
-		padding:3px 0 0
+		padding:0
 }
 
 ul.icons-ask li {
@@ -3376,7 +3376,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eaecee', endCo
 .attach-drop {
 		float:left;
 		width:22px;
-		padding:5px 0 0 0
+		padding:2px 0 0 0
 }
 
 .attach-drop-bg {
@@ -5191,7 +5191,9 @@ ul.access-menu li a.invite-only:hover {
 
 ul.access-menu li a.users-request {
 		background-position:5px -61px;
-		background-repeat:no-repeat
+		background-repeat:no-repeat;
+			background-color:#d8a21f;
+				color:#fff;
 }
 
 ul.access-menu li a.users-request:hover {
