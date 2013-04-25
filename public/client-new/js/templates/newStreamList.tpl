@@ -38,8 +38,10 @@
                     <ul id="sortable1" class="connected sortable list">  
                        
                              <li id ="{{stream.id.id}}" name="{{stream.streamName}}" data-userCount = "{{usersOfStream}}" class="no-stream">
-								<a  id ="{{stream.id.id}}"  name ="{{stream.streamName}}"  href="#">Create Your Stream Here --></a>
-								<div class="no-stream-curve"></div>								
+								<a  id ="{{stream.id.id}}"  name ="{{stream.streamName}}"  href="#">Create Your Stream Here</a>
+								<div class="no-stream-curve"></div>	
+								
+															
 								</li>  
 						
                     </ul>

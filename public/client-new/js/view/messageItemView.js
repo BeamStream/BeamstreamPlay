@@ -44,7 +44,7 @@ define(['view/formView',
 			 'click .rock-comments': 'rockComment',
 			 'click .rocks-small a' : 'rockComment',
 			 'click .mediapopup': 'showFilesInAPopup',
-			 'click .follow-user' : 'followUser'
+			 'click .follow-user' : 'followUser'		 
 			 
 		},
 		
@@ -63,7 +63,7 @@ define(['view/formView',
         	var self = this;
             var trueurl='';
             var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-            
+           
             // get the model attributes
         	var model = this.model.attributes;
     		
@@ -389,12 +389,12 @@ define(['view/formView',
         
         
         
- //added by cuckoo 
+        //added by cuckoo 
         
         followUser : function(e){
         	e.preventDefault();
         	var userId = e.currentTarget.id;
-        	var datavalue = $('#'+eventName.target.id).attr('data-value');	
+        	var datavalue = $('#'+e.currentTarget.id).attr('data-value');	
         	
         	// set values to model, to follow a user
 			var user = new UserModel();
@@ -404,14 +404,14 @@ define(['view/formView',
 		    		//set display
  		        	if(datavalue == "follow")
  		    		{
- 		        		$('#'+eventName.target.id).text("Unfollow");
- 		        		$('#'+eventName.target.id).attr('data-value','unfollow'); 		        	
+ 		        		$('#'+e.target.id).text("Unfollow");
+ 		        		$('#'+e.target.id).attr('data-value','unfollow'); 		        	
  		        		
  		    		}
  		        	else
  		        	{
- 		        		$('#'+eventName.target.id).text("follow");
- 		        		$('#'+eventName.target.id).attr('data-value','follow');
+ 		        		$('#'+e.target.id).text("follow");
+ 		        		$('#'+e.target.id).attr('data-value','follow');
  		        	
  		        	}
 		    	},
@@ -420,6 +420,9 @@ define(['view/formView',
 		    	}
 			});
         },
+        
+     
+        
         /**
          *@TODO : show the uploaded file in a popup
          */
