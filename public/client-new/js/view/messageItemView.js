@@ -44,7 +44,7 @@ define(['view/formView',
 			 'click .rock-comments': 'rockComment',
 			 'click .rocks-small a' : 'rockComment',
 			 'click .mediapopup': 'showFilesInAPopup',
-			 'click .delete_post': 'deleteMessage'
+			 'click .delete_post': 'deleteMessage',
 			 'click .follow-user' : 'followUser'
 
 			 
