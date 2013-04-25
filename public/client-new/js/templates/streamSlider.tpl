@@ -50,9 +50,9 @@
                 <div class="arrow-block arrow-block-down"></div>
             </div>
             <div id="show-stream-types"  class="straem-block"> 
-                <a  id="streams-list-block" href="#">
+                <a  id="streams-list-block" href="/class">
                     <span></span>
-                    <span class="text">New Stream</span>
+                    <span id="create-stream" class="text">New Stream</span>
                 </a>               
                
             </div>

@@ -595,7 +595,7 @@ define(['view/formView',
  	   			   callback : function(message) {
  	   				   if(message.pagePushUid != self.pagePushUid)
  	   				   {   	  
- 	   				   	console.log(7557);
+ 	   				   	
  	   					   $('div#'+message.messageId).remove();
  	   				   }
 		   		   }

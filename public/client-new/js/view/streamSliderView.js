@@ -31,7 +31,8 @@ define(['baseView',
             
         },
       
-        
+       
+
         /**
          * after render set scrolling effect
          */
