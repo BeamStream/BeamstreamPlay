@@ -39,7 +39,7 @@ object MessageController extends Controller {
     val messageObtained = Message.findMessageById(messageId.get)
     val userMedia = UserMedia.getProfilePicForAUser(messageObtained.get.userId)
     if (!userMedia.isEmpty) profilePicForUser = userMedia(0).mediaUrl
-    val messageJson = write(new DocResulttoSent(messageObtained.get, "", "", Option(profilePicForUser), None))
+    val messageJson = write(new DocResulttoSent(messageObtained.get, "", "", false, false, Option(profilePicForUser), None))
     Ok(messageJson).as("application/json")
 
   }
@@ -135,8 +135,6 @@ object MessageController extends Controller {
    */
   def allMessagesForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
 
-    try {
-
       val allMessagesForAStream = (sortBy == "date") match {
         case true => Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
         case false => (sortBy == "rock") match {
@@ -144,12 +142,9 @@ object MessageController extends Controller {
           case false => Nil
         }
       }
-      val messagesWithDescription = Message.messagesAlongWithDocDescription(allMessagesForAStream)
+      val userId = request.session.get("userId").get
+      val messagesWithDescription = Message.messagesAlongWithDocDescription(allMessagesForAStream, new ObjectId(userId))
       Ok(write(messagesWithDescription)).as("application/json")
-
-    } catch {
-      case exception => InternalServerError(write(new ResulttoSent("Failure", "Problem during message retrieval")))
-    }
   }
 
 }

@@ -76,7 +76,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     val messageId = Message.createMessage(message)
     val allMessages = Message.getAllMessagesForAStreamWithPagination(stream.id, 1, 10)
     assert(allMessages.size === 1)
-    assert(Message.messagesAlongWithDocDescription(allMessages)(0).profilePic === Option("http://neel.com/neel.jpg"))
+    assert(Message.messagesAlongWithDocDescription(allMessages, user.id)(0).profilePic === Option("http://neel.com/neel.jpg"))
   }
 
   test("Get All Messages For A Stream Sorted By Date / Pagination") {
