@@ -32,7 +32,15 @@
                     <ul class="follow-name-left ">
                       <li><span id="{{data.message.userId.id}}" >@{{data.message.firstNameofMsgPoster}} {{data.message.lastNameofMsgPoster}} </span> -  {{data.message.timeCreated}}  -  {{data.message.messageAccess.name}}</li>
                     </ul>
-                    <div class="follow-right"><a id="{{data.message.id.id}}-follow" href="#" class="follow-button follow-message" data-value="follow">follow</a></div>
+                    <div class="follow-right">
+                    	{{#ifequal data.followed false}}
+	                    	<a id="{{data.message.id.id}}-follow" href="#" class="follow-button follow-message" data-value="follow">follow
+	                    	</a>
+	                    {{else}}
+	                    	<a id="{{data.message.id.id}}-follow" href="#" class="follow-button follow-message" data-value="unfollow">unfollow
+	                    	</a>
+                     	{{/ifequal}}
+                    </div>
                   </div>
                   <p id="{{data.message.id.id}}-id" >{{data.message.messageBody}}</p>
                   
@@ -173,7 +181,11 @@
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
-                        <li><a href="#" id="{{data.message.id.id}}-msgRockCount" class="rocks-message uprocks-message"><span>{{data.message.rocks}}</span></a></li>
+                        <li>
+                        	<a href="#" id="{{data.message.id.id}}-msgRockCount"  {{#ifequal data.rocked false}} class="rocks-message uprocks-message" {{else}} class="rocks-message downrocks-message" {{/ifequal}} >
+                        		<span>{{data.message.rocks}}</span>
+                        	</a>
+                    	</li>
                         <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{data.message.id.id}}-totalComment" >{{data.comments.length}}</span> Comments</a>
 						<a id="{{data.message.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
                       </ul>
