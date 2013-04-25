@@ -161,14 +161,17 @@
               <div id="step_2" style="display:none;" class="step-box step-box1 step-box2 step-two">
 	              <h3>Step 2 of 3 </h3>
 	              <h4>Basic Profile Section</h4>
-		          <a id="step2-reset" href="#">Reset</a> <a id="done_step2" href="#">Continue</a> 
-		          
+		          <a id="step2-reset" href="#">Reset</a> 
+		          <a id="done_step2" href="#">Continue</a> 
+		           <a href="#" class="register-back">Back</a> 
 	          </div>
 	          
 	          <div id="step_3" style="display:none;" class="step-box">
 	              <h3>Step 3 of 3 </h3>
 					<h4>Upload Your Main Profile Photo</h4> <span class="profile-loading" style="display:none;;"> <img src ="/beamstream/images/loading.gif"></span>
-	              <a id="skip_step3" href="#">Skip this step</a> <a class="browse" href="#">Upload Photo or Video</a>   
+	              <a id="skip_step3" href="#">Skip this step</a> 
+	              <a class="browse" href="#">Upload Photo or Video</a>   
+	               <a href="#" class="register-back">Back</a>
               </div>
 
 

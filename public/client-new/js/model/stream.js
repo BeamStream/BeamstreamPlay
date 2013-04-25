@@ -24,6 +24,6 @@ define(['baseModel'], function(BaseModel) {
 
 
 	});
-        
+       
 	return Stream;
 });

@@ -483,11 +483,13 @@ define(['view/formView',
 				 restore : false,
 				 callback : function(message) {
 					 var streamId = $('.sortable li.active').attr('id');
+
+					 
 					 if (message.pagePushUid != self.pagePushUid)
 					 { 
+					 	
 						 if(message.streamId==streamId)
 			       		 	{
-							   console.log("yes");
 							   /* set the values to Discussion model */
 							   discussionModel = new DiscussionModel();
 							   discussionModel.set({
@@ -518,6 +520,7 @@ define(['view/formView',
 	    	  
 		 			   if(message.pagePushUid != self.pagePushUid)
 		 			   {
+		 			   	
 		 				   if(!document.getElementById(message.data.id.id))
 		 				   {
 		 					 
@@ -580,6 +583,39 @@ define(['view/formView',
  	   				   if(message.pagePushUid != self.pagePushUid)
  	   				   {   	  
  	   					   $('span#'+message.stream.id.id).html(message.usersOfStream);
+ 	   				   }
+		   		   }
+	   		   })
+
+	   		    /* for delete message  case*/
+ 	   		   PUBNUB.subscribe({
+		
+ 	   			   channel : "deleteMessage",
+ 	   			   restore : false,
+ 	   			   callback : function(message) {
+ 	   				   if(message.pagePushUid != self.pagePushUid)
+ 	   				   {   	  
+ 	   				   	console.log(7557);
+ 	   					   $('div#'+message.messageId).remove();
+ 	   				   }
+		   		   }
+	   		   })
+
+	   		    /* for delete comment  case*/
+ 	   		   PUBNUB.subscribe({
+		
+ 	   			   channel : "deleteComment",
+ 	   			   restore : false,
+ 	   			   callback : function(message) {
+
+ 	   				   if(message.pagePushUid != self.pagePushUid)
+ 	   				   {   	  
+ 	   				   	   
+   					  		var commentCount = $('#'+message.messageId+'-totalComment').text()
+
+   					  		$('div#'+message.messageId+'-newCommentList').find('div#'+message.commentId).remove();
+   					  		$('div#'+message.messageId+'-allComments').find('div#'+message.commentId).remove();
+	                		$('#'+message.messageId+'-totalComment').text(commentCount-1);
  	   				   }
 		   		   }
 	   		   })

@@ -193,11 +193,11 @@
                               <li><span>@{{firstNameofCommentPoster}} {{lastNameofCommentPoster}} </span> -  {{timeCreated}}  -  Public</li>
                               <li ><a href="#" class="rock-comments" >Rock</a></li>
                               <li><a class="comment-icon" href="#"></a></li>
-                                 <li class="rocks-small"><a id="{{{id.id}}-mrockCount" href="#">{{{rocks}}</a></li>
+                                 <li class="rocks-small"><a id="{{id.id}}-mrockCount" href="#">{{rocks}}</a></li>
                             </ul>
                           </div>
                           <p>{{commentBody}}</p>
-                          <a id="{{id}}" href="#" data-username={{userId.id}} data-original-title="Delete" class="delete_comment drag-rectangle" ></a>
+                          <a id="{{id.id}}" href="#" data-username={{userId.id}} data-original-title="Delete" class="delete_comment drag-rectangle" ></a>
                         </div>
                         <div class="clear"></div>
                       </div>

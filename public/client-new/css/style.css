@@ -418,11 +418,11 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#478cb4', endCo
 }
 
 .done {
-		background:#8B979F;
+		background:#1D2123;
 		-webkit-border-radius:4px;
 		-moz-border-radius:4px;
 		border-radius:4px;
-		color:#fff;
+		color:#8B979F;
 		float:right;
 		font-weight:700;
 		font-size:13px
@@ -1589,7 +1589,7 @@ ul.follow-bottom-icons li:hover {
 		border-top:1px solid #475259;
 		height:31px;
 		list-style:none;
-		padding:8px 0 8px 15px!important;
+		padding:8px 0 8px 13px!important;
 		position:relative;
 		left:21px;
 		background:url(../images/menu-bg.png) right repeat-y #323e46;
@@ -1608,6 +1608,10 @@ ul.follow-bottom-icons li:hover {
 		padding:10px 30px
 }
 
+ul.sortable li.no-stream span{ 
+	float:right; 
+	position:relative; 
+	top:-39px;}
 .sortable li a {
 		color:#fff;
 		display:block;
@@ -1640,7 +1644,7 @@ ul.follow-bottom-icons li:hover {
 
 .sortable li.no-stream{
 	float:left;
-	background:#B93737;
+	background:url(../images/arrow-menu.png) right repeat-y #B93737;
 	height:30px;
 	line-height:30px; 
 	padding:8px 5%;
@@ -2577,7 +2581,7 @@ ul.profil-pic-outer li .lessborder {
 		width:auto!important;
 		float:right!important
 }
-
+.browse{ line-height:15px !important;}
 .showmessage {
 		float:right
 }
@@ -4684,13 +4688,40 @@ ul.gallery-pic li img {
 		right:-2px;
 		position:relative;
 		display:block;
-		top:-1px
+		top:-1px;
+	
 }
+.register-back{ 
+float:left;
+background:url(../images/back-arrow-a.png) no-repeat !important;
+border:none !important;
+height:15px !important;
+text-align:left !important;
+padding-left:20px;
+line-height: 15px !important;
+margin: 5px 0 0 0;
+}
+
+.register-back:hover{ 
+color:#fff !important;
+background:url(../images/back-arrow-ah.png) no-repeat !important;
+}
+
 
 .alert-register {
 		font-size:11px;
 		color:#9fa6aa;
 		padding-bottom:10px
+}
+
+.new-acaret{
+	
+		border-left:8px solid transparent;
+		border-right:8px solid transparent;
+		border-top:8px solid #8b979f;
+		display:inline-block
+	
+	
 }
 
 .alert-register span {
@@ -4744,7 +4775,7 @@ ul.gallery-pic li img {
 		-webkit-border-radius:8px 8px 0 0;
 		-moz-border-radius:8px 8px 0 0;
 		border-radius:8px 8px 0 0;
-		background:url(../images/spryte.png) -44px 242px #df3d3d;
+		background:url(../images/spryte.png) -44px 275px #df3d3d;
 		position:absolute;
 		z-index:0;
 		height:250px;
@@ -4786,15 +4817,15 @@ ul.gallery-pic li img {
 .step-box h4 {
 		font-size:15px;
 		font-weight:400;
-		padding-bottom:10px
+		padding-bottom:2px
 }
 .step-box a {
 		-webkit-border-radius:3px;
 		-moz-border-radius:3px;
 		border-radius:3px;
 		font-size:12px;
-		line-height:22px;
-		height:22px;
+		line-height:28px;
+		height:30px;
 		display:inline-block;
 		float:left;
 		margin-left:0;

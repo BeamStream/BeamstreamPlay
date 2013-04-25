@@ -45,7 +45,8 @@ define(['view/formView',
 			 'click .rocks-small a' : 'rockComment',
 			 'click .mediapopup': 'showFilesInAPopup',
 			 'click .delete_post': 'deleteMessage',
-			 'click .follow-user' : 'followUser'
+			 'click .follow-user' : 'followUser',
+			 'click .delete_comment' : 'deleteComment'
 
 			 
 		},
@@ -55,6 +56,8 @@ define(['view/formView',
 			this.urlRegex2 =  /^((http|https|ftp):\/\/)/,
             this.urlRegex1 = /(https?:\/\/[^\s]+)/g,
             this.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\./]*$/i ;
+
+
         },
         
         /**
@@ -65,7 +68,7 @@ define(['view/formView',
         	var self = this;
             var trueurl='';
             var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-            
+           
             // get the model attributes
         	var model = this.model.attributes;
     		
@@ -387,6 +390,7 @@ define(['view/formView',
 
 		    });
         },
+
         /**
         * delete message
         */
@@ -394,7 +398,7 @@ define(['view/formView',
         	e.preventDefault();
 		 	var messageId = e.target.id;
 		 	var ownerId = $('div#'+messageId).attr('name');
-		 	 var self = this;			 
+		 	var self = this;			 
 
 		 	if(localStorage["loggedUserId"] == ownerId)
 		 	{
@@ -404,23 +408,31 @@ define(['view/formView',
 	 				"class" : "btn-primary",
 	 				"callback": function() {
 	 					
-	 					// var Discussion = new DiscussionModel();
-	 					self.model.urlRoot = '/remove/message/'+messageId;
 
-                        // console.log(self.model.);
-	 					self.model.destroy({id : messageId},{
+	 					var discussion = new DiscussionModel({id: messageId});
+	 					discussion.urlRoot = '/remove/message/';
+
+						discussion.destroy({
 	    					success : function(model, response) {
 		    		
-		    					 if(data.status == "Success")
-			                	 {
+					 			if(response.status == "Success")
+		                	 	{
 			                		 
-			                		 $('div#'+messageId).remove();
+	                		 		$('div#'+messageId).remove();
+
+
+	                		 		/* pubnum auto push -- delete message*/
+   									PUBNUB.publish({
+   			                			channel : "deleteMessage",
+		                       			 message : { pagePushUid: self.pagePushUid ,messageId : messageId}
+   			               			 })
+
 						    		  
-			                	 }
-			                	 else
-			                	 {
-			                		 bootbox.alert("You're Not Authorised To Delete This Message");
-			                	 }
+		                	 	}
+		                	 	else
+		                	 	{
+		                		 	bootbox.alert("You're Not Authorised To Delete This Message");
+		                	 	}
 		    		
 		    				},
 		    				error : function(model, response) {
@@ -428,29 +440,7 @@ define(['view/formView',
 		    				}
 
 		    			});
-
-	 					 // // delete particular message
-			    	// 	 $.ajax({
-			     //             type: 'DELETE',
-			     //             url: '/remove/message/'+messageId,
-			     //             data:{
-			     //            	  messageId :messageId
-			     //             },
-			     //             dataType:"json",
-			     //             success:function(data){
-			     //            	 if(data.status == "Success")
-			     //            	 {
-			                		 
-			     //            		 $('div#'+messageId).remove();
-						    		  
-			     //            	 }
-			     //            	 else
-			     //            	 {
-			     //            		 bootbox.alert("You're Not Authorised To Delete This Message");
-			     //            	 }
-			                	 
-			     //             }
-			     //          });
+                      
 	 				}
 	
 	 			 }, 
@@ -468,32 +458,104 @@ define(['view/formView',
  			 }
         },
         
+        /**
+        *  Delete comment
+        */
+        deleteComment: function(e){
+
+   			e.preventDefault();
+   			var self = this;
+ 			var commentId = e.target.id;
+ 			var ownerId = $(e.target).attr('data-username');
+ 			var messageId = $(e.target).parents('div.ask-outer').attr('id');
+ 			 
+ 			if(localStorage["loggedUserId"] == ownerId)
+ 			{
+	 			bootbox.dialog("Are you sure you want to delete this comment?", [{
+	
+	 				"label" : "DELETE",
+	 				"class" : "btn-primary",
+	 				"callback": function() {
+
+	 					var comment = new CommentModel();
+	 					var comment = new CommentModel({id: commentId});
+	 					comment.urlRoot = '/remove/comment/';
+
+	 					/* delete the omment from the model */
+	 					comment.destroy({
+	    					success : function(model, response) {
+		    		
+					 			if(response.status == "Success")
+		                	 	{
+			                		 
+
+									var commentCount = $('#'+messageId+'-totalComment').text()
+	                		 		// $('#'+messageId+'-totalComment').text(commentCount-1);
+			                		$('div#'+commentId).remove();
+			                		
+
+	                		 		/* pubnum auto push -- delete message*/
+   									PUBNUB.publish({
+   			                			channel : "deleteComment",
+		                       			 message : { pagePushUid: self.pagePushUid ,messageId : messageId ,commentId : commentId}
+   			               			 })
+
+   									
+						    		  
+		                	 	}
+		                	 	else
+		                	 	{
+		                		 	bootbox.alert("You're Not Authorised To Delete This Comment");
+		                	 	}
+		    		
+		    				},
+		    				error : function(model, response) {
+                  		  		console.log("error");
+		    				}
+
+		    			});
+	 					
+	 				}
+	
+	 			 }, 
+	 			 {
+				 	"label" : "CANCEL",
+				 	"class" : "btn-primary",
+	 				"callback": function() {
+	 					console.log("ok");
+	 				}
+	 			 }]);
+ 			 }
+ 			 else
+ 			 {
+ 				bootbox.alert("You're Not Authorised To Delete This Comment");
+ 			 }
+		},
         
         
-        
- //added by cuckoo 
+        //added by cuckoo 
         
         followUser : function(e){
         	e.preventDefault();
         	var userId = e.currentTarget.id;
-        	var datavalue = $('#'+eventName.target.id).attr('data-value');	
+        	var datavalue = $('#'+e.currentTarget.id).attr('data-value');	
         	
         	// set values to model, to follow a user
 			var user = new UserModel();
-			user.urlRoot = "/followUser/"+userId;
+			user.urlRoot = "/followUser/";
 			user.save({id : userId},{
 		    	success : function(model, response) {
 		    		//set display
  		        	if(datavalue == "follow")
  		    		{
- 		        		$('#'+eventName.target.id).text("Unfollow");
- 		        		$('#'+eventName.target.id).attr('data-value','unfollow'); 		        	
+ 		        		$('#'+e.target.id).text("Unfollow");
+ 		        		$('#'+e.target.id).attr('data-value','unfollow'); 		        	
  		        		
  		    		}
  		        	else
  		        	{
- 		        		$('#'+eventName.target.id).text("follow");
- 		        		$('#'+eventName.target.id).attr('data-value','follow');
+ 		        		$('#'+e.target.id).text("follow");
+ 		        		$('#'+e.target.id).attr('data-value','follow');
  		        	
  		        	}
 		    	},
@@ -502,6 +564,9 @@ define(['view/formView',
 		    	}
 			});
         },
+        
+     
+        
         /**
          *@TODO : show the uploaded file in a popup
          */
