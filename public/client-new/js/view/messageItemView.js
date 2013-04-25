@@ -214,6 +214,8 @@ define(['view/formView',
     		 	method: 'after',
     		 	key:'4d205b6a796b11e1871a4040d3dc5c07'
 		 	 });
+
+    		$('.drag-rectangle').tooltip();
     		
     		/* pretty photo functionality for video /image popups */
             $("area[rel^='prettyPhoto']").prettyPhoto();
