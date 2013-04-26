@@ -36,6 +36,7 @@ define(['view/formView'], function(FormView ){
             
         },
         
+        
         /**
         * @TODO  user registration 
         */
