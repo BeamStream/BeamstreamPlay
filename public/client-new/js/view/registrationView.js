@@ -509,7 +509,7 @@ define(['view/formView' ,
 	    	  }
 	    	  else
 	    	  {
-	    	  		this.data.models[0].removeAttr('otherDegree');
+	    	  	  this.data.models[0].removeAttr('otherDegree');
 	    		  $('#otherDegree').hide();
 	    	  }
 	    	  
@@ -527,7 +527,6 @@ define(['view/formView' ,
 	    	if(value == "attending" || value == "no")
 	    	{
             	this.data.models[0].removeAttr('graduationDate');
-
 				$('#graduationDate-set').hide();
 				$('#degreeExpected-set').show();
 	    	}
