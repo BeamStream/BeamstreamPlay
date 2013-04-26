@@ -509,6 +509,7 @@ define(['view/formView' ,
 	    	  }
 	    	  else
 	    	  {
+	    	  		this.data.models[0].removeAttr('otherDegree');
 	    		  $('#otherDegree').hide();
 	    	  }
 	    	  
@@ -521,14 +522,18 @@ define(['view/formView' ,
 	    showGraduateType:function(eventName){
 	    	var id = eventName.target.id;
 	    	var dat='#'+id;
+	    	// var self =
 	    	var value = $('#graduate').val();
 	    	if(value == "attending" || value == "no")
 	    	{
+            	this.data.models[0].removeAttr('graduationDate');
+
 				$('#graduationDate-set').hide();
 				$('#degreeExpected-set').show();
 	    	}
 	    	else if(value == "yes")
 	    	{
+	    		this.data.models[0].removeAttr('degreeExpected');
 				$('#degreeExpected-set').hide();
 				$('#graduationDate-set').show();
 				$('.datepicker').datepicker();

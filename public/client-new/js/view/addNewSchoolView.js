@@ -58,6 +58,7 @@ define(['view/formView'], function(FormView){
             $('#newSchoolForm').find("input[type=text]").val("");
             $('span.error').remove();
             
+            this.data.models[0].clear();
 
 		},
         
