@@ -12,13 +12,13 @@ PUT    /remove/stream/:streamId/:deleteStream/:removeAccess                   co
 #Messages
 #POST 	/getAllMessagesForAStreambyKeyword         	controllers.MessageController.getAllMessagesForAStreambyKeyword
 #POST 	/allPublicMessagesFromAllStreamsForAUser    controllers.StreamController.allPublicMessagesFromAllStreamsForAUser
-PUT    /remove/message/:messageId                                             controllers.MessageController.deleteTheMessage(messageId:String)
+DELETE    /remove/message/:messageId                                             controllers.MessageController.deleteTheMessage(messageId:String)
 
 #Comments
 POST   /answer                                                                controllers.CommentController.newAnswer
 #GET    /comments           						controllers.CommentController.getAllComments   
 GET    /rockersOf/comment/:commentId                                          controllers.CommentController.commentRockers(commentId:String)
-PUT    /remove/comment/:commentId                                             controllers.CommentController.deleteTheComment(commentId:String)
+DELETE    /remove/comment/:commentId                                             controllers.CommentController.deleteTheComment(commentId:String)
 GET    /isARockerOf/comment/:commentId                                        controllers.CommentController.isARocker(commentId:String)
 
 #Document
