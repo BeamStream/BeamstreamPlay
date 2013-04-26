@@ -15,6 +15,7 @@ import utils.AmazonUpload
 import utils.ObjectIdSerializer
 import utils.tokenEmailUtil
 import utils.ExtractFrameFromVideoUtil
+import models.ResulttoSent
 
 object MediaController extends Controller {
 
@@ -116,6 +117,7 @@ object MediaController extends Controller {
    */
 
   def uploadMediaToAmazon = Action(parse.multipartFormData) { implicit request =>
+    try {
     val fileNames = request.body.file("profileData").map { profileData =>
       val Filename = profileData.filename
       val contentType = profileData.contentType.get
@@ -142,9 +144,11 @@ object MediaController extends Controller {
 
     val media = UserMedia(new ObjectId, fileNames._1, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, DocumentAccess.Public, true, frameURL, 0, List(), List(), 0)
     UserMedia.saveMediaForUser(media)
-    println(">>>>>>>>>>>"+media)
     Ok(write(media)).as("application/json")
-
+    }
+    catch{
+      case exception=> Ok(write(ResulttoSent("Failure","Problem during uploading your media")))
+    }
   }
 
   /**
