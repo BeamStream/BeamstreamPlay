@@ -14,6 +14,7 @@ import play.api.mvc.Controller
 import utils.AmazonUpload
 import utils.ObjectIdSerializer
 import utils.tokenEmailUtil
+import utils.ExtractFrameFromVideoUtil
 
 object MediaController extends Controller {
 
@@ -115,19 +116,34 @@ object MediaController extends Controller {
    */
 
   def uploadMediaToAmazon = Action(parse.multipartFormData) { implicit request =>
-    val imageNames = request.body.file("profileData").map { profileData =>
-      val imageFilename = profileData.filename
+    val fileNames = request.body.file("profileData").map { profileData =>
+      val Filename = profileData.filename
       val contentType = profileData.contentType.get
       val uniqueString = tokenEmailUtil.securityToken
-      val imageFileObtained: File = profileData.ref.file.asInstanceOf[File]
-      val imageNameOnAmazon = uniqueString + imageFilename.replaceAll("\\s", "") // Security Over the images files
-      (new AmazonUpload).uploadFileToAmazon(imageNameOnAmazon, imageFileObtained)
-      (imageFilename, imageNameOnAmazon)
+      val FileObtained: File = profileData.ref.file.asInstanceOf[File]
+      val fileNameOnAmazon = uniqueString + Filename.replaceAll("\\s", "") // Security Over the images files
+      (new AmazonUpload).uploadFileToAmazon(fileNameOnAmazon, FileObtained)
+
+      (contentType.contains("image")) match {
+        case true =>
+          (Filename, fileNameOnAmazon, "")
+
+        case false =>
+          val videoURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon
+          val frameOfVideo = ExtractFrameFromVideoUtil.extractFrameFromVideo(videoURL)
+          (new AmazonUpload).uploadCompressedFileToAmazon(fileNameOnAmazon + "Frame", frameOfVideo)
+
+          (Filename, fileNameOnAmazon, fileNameOnAmazon + "Frame")
+      }
+
     }.get
-    val imageURL = "https://s3.amazonaws.com/BeamStream/" + imageNames._2
-    val media = UserMedia(new ObjectId, imageNames._1, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, DocumentAccess.Public, true, "", 0, List(), List(), 0)
+    val imageURL = "https://s3.amazonaws.com/BeamStream/" + fileNames._2
+    val frameURL = "https://s3.amazonaws.com/BeamStream/" + fileNames._3
+
+    val media = UserMedia(new ObjectId, fileNames._1, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, DocumentAccess.Public, true, frameURL, 0, List(), List(), 0)
     UserMedia.saveMediaForUser(media)
-    Ok(write(ResulttoSent("Success", imageURL))).as("application/json")
+    println(">>>>>>>>>>>"+media)
+    Ok(write(media)).as("application/json")
 
   }
 
