@@ -230,6 +230,9 @@ define(['view/formView' ,
 				// set the logged users Id
             	localStorage["loggedUserId"] =  data.user.id.id;
             	this.data.models[0].set({'id':data.user.id.id});
+            	this.data.models[0].set({'userSchoolId':data.userSchool.id.id});
+            	this.data.models[0].removeAttr('user');
+            	this.data.models[0].removeAttr('userSchool');
 				this.enableStepThree();
 
 			}
