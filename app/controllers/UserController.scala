@@ -28,40 +28,7 @@ object UserController extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
   } + new ObjectIdSerializer
 
-  /*  NOT USED IN NEW ARCHITECTURE
- * Find and Authenticate the user to proceed
- */
-  /*
-  def findUser = Action { implicit request =>
-
-    val userJsonMap = request.body.asFormUrlEncoded.get
-    val user = userJsonMap("data").toList(0)
-    val userJson = net.liftweb.json.parse(user)
-    val userEmailorName = (userJson \ "email").extract[String]
-    val userPassword = (userJson \ "password").extract[String]
-
-    val encryptedPassword = (new PasswordHashing).encryptThePassword(userPassword)
-
-    val authenticatedUser = getAuthenticatedUser(userEmailorName, encryptedPassword)
-
-    authenticatedUser match {
-      case Some(user) =>
-        val jsonStatus = new ResulttoSent("success", "Login Successfull")
-        val statusToSend = write(jsonStatus)
-        val userSession = request.session + ("userId" -> user.id.toString)
-        val authenticatedUserJson = write(user)
-        val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
-        println("Online Users" + noOfOnLineUsers)
-        Ok(statusToSend).withSession(userSession)
-
-      case None =>
-        val jsonStatus = new ResulttoSent("failure", "Login Unsuccessfull")
-        val statusToSend = write(jsonStatus)
-        Ok(statusToSend).as("application/json")
-    }
-
-  }
-  */
+  
 
   /*
    * Register User via social sites

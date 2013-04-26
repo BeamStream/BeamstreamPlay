@@ -33,7 +33,7 @@ case class QuestionWithPoll(question: Question, var profilePic: Option[String] =
 /**
  * Document Results After Uploading From Main Stream
  */
-case class DocResulttoSent(message: Message, docName: String, docDescription: String, rocked: Boolean, followed: Boolean, var profilePic: Option[String] = None, var comments: Option[List[Comment]] = None)
+case class DocResulttoSent(message: Message, docName: String, docDescription: String, rocked: Boolean, followed: Boolean, var profilePic: Option[String] = None, var comments: Option[List[Comment]] = None,followerOfMessagePoster:Boolean)
 
 /**
  * User & User School details after Registration
