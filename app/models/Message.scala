@@ -291,7 +291,6 @@ object Message { //extends CommentConsumer {
       deletedMessageSuccessfully = true
       deletedMessageSuccessfully
     } else {
-      println("You're Not Authorised To Delete M")
       deletedMessageSuccessfully
     }
   }
