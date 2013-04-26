@@ -54,8 +54,7 @@
             </div>
             <div class="profile-select-block">
               <fieldset class="field">  
-              <select id="gradeLevel" data-name="user.gradeLevel" name="gradeLevel" class="selectpicker-info " style="display: none;">
-                <option value="" selected="selected" >Grade Level?</option>
+              <select id="gradeLevel" data-name="user.gradeLevel" name="gradeLevel" class="selectpicker-info " style="display: none;" placeholder="Grade Level?">
                 <option value="Freshman">Freshman</option>
                 <option value="Sophomore">Sophomore</option>
                 <option value="Junior">Junior</option>
@@ -70,8 +69,7 @@
             </div>
             <div class="profile-select-block">
               <fieldset class="field">
-              <select id="degreeProgram" data-name="user.degreeProgram" name="degreeProgram" class="selectpicker-info " style="display: none;">
-                <option disabled selected style="display:none;">Degree Program?</option>
+              <select id="degreeProgram" data-name="user.degreeProgram" name="degreeProgram" class="selectpicker-info " style="display: none;" placeholder="Degree Program?">
                 <option value="Associate's(AA)">Associate's(AA)</option>
                 <option value="Bachelor's">Bachelor's</option>
                 <option value="Master's">Master's</option>
@@ -91,8 +89,7 @@
             <div class="profile-select-block">
           
               <fieldset class="field">   
-              <select id="graduate" data-name="user.graduate" name="graduate" class="selectpicker-info ">
-                <option value="" disabled selected style="display:none;">Graduated?</option>
+              <select id="graduate" data-name="user.graduate" name="graduate" class="selectpicker-info " placeholder="Graduated?">
                 <option value="attending">Still Attending</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
@@ -104,16 +101,15 @@
             
              <div id="degreeExpected-set" class="profile-select-block" style="display: none;">
               <fieldset  class="field" >   
-              <select id="degreeExpected" data-name="user.degreeExpected" name="degreeExpected" class="selectpicker-info ">
-         	 	<option selected="selected" value="">Degree Expected?</option>
+              <select id="degreeExpected" data-name="user.degreeExpected" name="degreeExpected" class="selectpicker-info " placeholder="Degree Expected?">
               	<option value="Winter 2012">Winter 2012</option>
-				<option value="Summer 2013">Summer 2013</option>
-				<option value="Winter 2013">Winter 2013</option>
-				<option value="Summer 2014">Summer 2014</option>
-				<option value="Winter 2014">Winter 2014</option>
-				<option value="Summer 2015">Summer 2015</option>
-				<option value="Winter 2015">Winter 2015</option>
-				<option value="No Degree Expected">No Degree Expected</option>
+        				<option value="Summer 2013">Summer 2013</option>
+        				<option value="Winter 2013">Winter 2013</option>
+        				<option value="Summer 2014">Summer 2014</option>
+        				<option value="Winter 2014">Winter 2014</option>
+        				<option value="Summer 2015">Summer 2015</option>
+        				<option value="Winter 2015">Winter 2015</option>
+        				<option value="No Degree Expected">No Degree Expected</option>
               </select>
                <span class="red-star select-star">*</span>
               </fieldset>

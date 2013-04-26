@@ -71,13 +71,24 @@
             var _liHtml = '';
             var _this = this;
             var _selected_index = this.$element.find('option:selected').index() ? this.$element.find('option:selected').index() : 0;
+            var _PLACEHOLDER = this.$element.attr('placeholder');
 
+           
             this.$element.find('option').each(function(){
                 _li.push($(this).text());
             });
-
+            
             if(_li.length > 0) {
-                template = template.replace('__SELECTED_OPTION', _li[_selected_index]);
+                 // template = template.replace('__SELECTED_OPTION', _li[_selected_index]);
+
+                /*Edited By Aswathy.P.R to implement placeholde feature for dropdowwn */
+                if(_PLACEHOLDER)
+                    template = template.replace('__SELECTED_OPTION', _PLACEHOLDER);
+                else
+                    template = template.replace('__SELECTED_OPTION', _li[_selected_index]);
+
+
+
                 for (var i = 0; i < _li.length; i++) {
                     _liHtml += "<li rel=" + i + "><a tabindex='-1' href='#'>" + _li[i] + "</a></li>";
                 }
