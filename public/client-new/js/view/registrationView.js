@@ -157,9 +157,12 @@ define(['view/formView' ,
 		enableStepThree: function(){
 			$('#step_2').hide(500);
 			$('#step2_block').removeClass('active-border');
+			if (!this.profile){
+				this.temp_photo = '/beamstream-new/images/upload-photo.png';
+			}
 			
 			var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo">'
-			    +'<a class="browse" href="#"><img src="/beamstream-new/images/upload-photo.png" width="148" height="37" id="profile-photo"> <div class="upload-box"><div class="upload-plus">Upload</div></div></a>'
+			    +'<a class="browse" href="#"><img src="'+this.temp_photo+'" width="148" height="37" id="profile-photo"> <div class="upload-box"><div class="upload-plus">Upload</div></div></a>'
 			    +'<div class="progress-container" style="position:relative; top:-35px; left:240px; padding:5px; display:none;">'
 	            +'<div class="progress progress-striped active">'
 	            +'<div class="bar" style="width: 0%;"></div>'
@@ -414,7 +417,7 @@ define(['view/formView' ,
 			$('#step_3').hide(500);        	
         	var upload_block = '<div id="step3_block" class="round-block upload-photo step-one-photo">' 
 	             +'<a ><img src="'+this.temp_photo+'" width="148" height="37" id="profile-photo">'
-	             +' </a> </div>';
+	             +' </a> </div>';        	
 			$('#upload-step').html(upload_block);        	
 			$('#step2_block').addClass('active-border');			
 			$('#step_2').show(500);
