@@ -243,7 +243,7 @@ object DocumentController extends Controller {
       case true => Option(userMedia(0).mediaUrl)
       case false => None
     }
-    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic)
+    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic,None,Option(false))
   }
 
   /**
@@ -263,7 +263,7 @@ object DocumentController extends Controller {
       case true => Option(userMedia(0).mediaUrl)
       case false => None
     }
-    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic)
+    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic,None,Option(false))
   }
 
   /**
@@ -281,7 +281,7 @@ object DocumentController extends Controller {
       case true => Option(userMedia(0).mediaUrl)
       case false => None
     }
-    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic)
+    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic,None,Option(false))
   }
   /**
    * Save other documents
@@ -298,7 +298,7 @@ object DocumentController extends Controller {
       case true => Option(userMedia(0).mediaUrl)
       case false => None
     }
-    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic)
+    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic,None,Option(false))
   }
 
   /**
