@@ -83,7 +83,8 @@ define(['view/formView',
  			        	this.progress = setInterval(function() {
 	                    	
  			        		this.bar = $('.bar');
-	                        if (this.bar.width()== 200) {
+ 			        		console.log(this.bar.width());
+	                        if (this.bar.width()>= 194) {
 	                            clearInterval(this.progress);
 		    		        } 
 	                        else 
@@ -113,7 +114,8 @@ define(['view/formView',
  			                success: function(data){
  			                	
  			    				// set progress bar as 100 %
- 			                	self.bar = $('.bar');        
+ 			                	self.bar = $('.bar');  
+ 			                	
  			                	self.bar.width(200);
  			                	self.bar.text("100%");
  		                        clearInterval(self.progress);
@@ -451,7 +453,6 @@ define(['view/formView',
         	/* capture the file informations */
             reader.onload = (function(f){
             	self.file = file;
-            	
             	self.bar = $('.bar');        //progress bar
                 self.bar.width('');
                 self.bar.text("");
