@@ -316,13 +316,13 @@ object Message { //extends CommentConsumer {
         if (message.docIdIfAny != None) {
           val userMedia = UserMedia.findMediaById(message.docIdIfAny.get)
           if (userMedia != None) {
-            messsageWithDocResults ++= List(DocResulttoSent(message, userMedia.get.name, userMedia.get.description,  isRocked, isFollowed, Option(profilePicForUser), Option(comments),followerOfMessagePoster))
+            messsageWithDocResults ++= List(DocResulttoSent(message, userMedia.get.name, userMedia.get.description,  isRocked, isFollowed, Option(profilePicForUser), Option(comments),Option(followerOfMessagePoster)))
           } else {
             val document = Document.findDocumentById(message.docIdIfAny.get)
-            messsageWithDocResults ++= List( DocResulttoSent(message, document.get.documentName, document.get.documentDescription, isRocked, isFollowed, Option(profilePicForUser), Option(comments),followerOfMessagePoster))
+            messsageWithDocResults ++= List( DocResulttoSent(message, document.get.documentName, document.get.documentDescription, isRocked, isFollowed, Option(profilePicForUser), Option(comments),Option(followerOfMessagePoster)))
           }
         } else {
-          messsageWithDocResults ++= List(DocResulttoSent(message, "", "", isRocked, isFollowed, Option(profilePicForUser), Option(comments),followerOfMessagePoster))
+          messsageWithDocResults ++= List(DocResulttoSent(message, "", "", isRocked, isFollowed, Option(profilePicForUser), Option(comments),Option(followerOfMessagePoster)))
         }
     }
     messsageWithDocResults
