@@ -119,7 +119,7 @@ GET    /                                                                      co
 
 #User
 GET    /onlineUsers                                                           controllers.UserController.getAllOnlineUsers
-PUT    /followUser/:userId                                                            controllers.UserController.followUser(userId:String)
+PUT    /followUser/:userId                                                    controllers.UserController.followUser(userId:String)
 
 #Signup 
 
@@ -129,7 +129,7 @@ POST   /signup                                                                co
 #Registration
 GET    /registration                                                          controllers.Registration.registration
 POST   /registration                                                          controllers.Registration.registerUser
-
+PUT    /registration/:userId                                                  controllers.Registration.editUserInfo(userId:String)    
 
 
 #Add a School

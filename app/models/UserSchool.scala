@@ -37,40 +37,6 @@ object UserSchool {
     UserSchoolDAO.find(MongoDBObject("_id" -> userSchoolId)).toList.head
   }
 
-  /*
-    * Method for creating a school (For SchoolAutopoulate thing)
-    * 
-    * @Purpose : Will Edit The schools as well with Creation
-    */
-
-  //  def createSchool(userSchools: List[UserSchool], userId: ObjectId): ResulttoSent = {
-  //
-  //    var resultToSend = new ResulttoSent("", "")
-  //
-  //    if (UserSchool.duplicateSchoolExistesInSubmittedList(userSchools) == true) {
-  //      resultToSend = ResulttoSent("Failure", "Do Not Enter The Same School Twice")
-  //      resultToSend
-  //    } else {
-  //      for (userSchool <- userSchools) {
-  //        val userSchoolObtained = UserSchool.userSchoolsForAUser(userSchool.id)
-  //        if (userSchoolObtained.size == 1) {
-  //          UserSchoolDAO.update(MongoDBObject("_id" -> userSchool.id), userSchool, false, false, new WriteConcern)
-  //          resultToSend = ResulttoSent("Success", "Schools Updated Successfully")
-  //          println("CheckPoint 1")
-  //        } else if (isUserAlreadyContainsTheSchoolThatUserWantsToJoin(userSchool.assosiatedSchoolId, userId) == true) {
-  //          resultToSend = ResulttoSent("Success", "You've already Joined The  School") //#413
-  //          println("CheckPoint 2")
-  //        } else {
-  //          UserSchoolDAO.insert(userSchool)
-  //          resultToSend = ResulttoSent("Success", "Schools Added Successfully")
-  //          println("CheckPoint 3")
-  //        }
-  //      }
-  //      resultToSend
-  //    }
-  //
-  //  }
-
   /**
    * Create a new User School (RA)
    * @param userSchool is the DetailedInfo object to be stored
@@ -127,7 +93,7 @@ object UserSchool {
   def isUserAlreadyContainsTheSchoolThatUserWantsToJoin(assosiatedSchoolId: ObjectId, userId: ObjectId): Boolean = {
     var statusToreturn = false
     val userSchoolsIdListOfAUser = UserSchool.getAllSchoolforAUser(userId)
-   
+
     (!userSchoolsIdListOfAUser.isEmpty) match {
       case true =>
         val userSchoolsOfAUser = UserSchool.getAllSchools(userSchoolsIdListOfAUser)
@@ -140,6 +106,12 @@ object UserSchool {
 
   }
 
+  /**
+   * Update User School
+   */
+  def updateUserSchool(userSchool: UserSchool) {
+    UserSchoolDAO.update(MongoDBObject("_id" -> userSchool.id), userSchool, false, false, new WriteConcern)
+  }
 }
 
 object Year extends Enumeration {
