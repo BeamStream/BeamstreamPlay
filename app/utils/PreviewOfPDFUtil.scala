@@ -26,7 +26,8 @@ object PreviewOfPDFUtil {
     ImageIO.write(image, "jpg", byteArrayOutPutStream)
     val imageInByte = byteArrayOutPutStream.toByteArray
     val decodedInput: InputStream = new ByteArrayInputStream(imageInByte)
-    (new AmazonUpload).uploadCompressedFileToAmazon("PdfFrame" + docName, decodedInput, 0, true, "")
+//    (new AmazonUpload).uploadCompressedFileToAmazon("PdfFrame" + docName, decodedInput, 0, true, "")
+    (new AmazonUpload).uploadCompressedFileToAmazon("PdfFrame" + docName, decodedInput)
     "https://s3.amazonaws.com/BeamStream/" + "PdfFrame" + docName
   }
 }
