@@ -550,14 +550,35 @@ define(['view/formView',
 		    		//set display
  		        	if(datavalue == "follow")
  		    		{
- 		        		$('#'+e.target.id).text("Unfollow");
- 		        		$('#'+e.target.id).attr('data-value','unfollow'); 		        	
+
+ 		    			$('a.follow-user').each(function() {
+		        			 
+ 		        			if($(this).attr('id') == userId)
+ 		        			{
+ 		        				$('#'+e.target.id).text("Unfollow");
+ 		        				$('#'+e.target.id).attr('data-value','unfollow'); 
+ 		        			}
+ 		        			
+ 		        		});
+
+ 		        		// $('#'+e.target.id).text("Unfollow");
+ 		        		// $('#'+e.target.id).attr('data-value','unfollow'); 		        	
  		        		
  		    		}
  		        	else
  		        	{
- 		        		$('#'+e.target.id).text("follow");
- 		        		$('#'+e.target.id).attr('data-value','follow');
+
+ 		        		$('a.follow-user').each(function() {
+ 		        			 
+ 		        			if($(this).attr('id') == userId)
+ 		        			{
+ 		        				$('#'+e.target.id).text("follow");
+ 		        				$('#'+e.target.id).attr('data-value','follow');
+ 		        			}
+ 		        			
+ 		        		});
+ 		        		// $('#'+e.target.id).text("follow");
+ 		        		// $('#'+e.target.id).attr('data-value','follow');
  		        	
  		        	}
 		    	},
@@ -584,7 +605,7 @@ define(['view/formView',
             }
             else
             {
-            	
+            	console.log('ddd');
             	var docUrl = "http://docs.google.com/gview?url="+$('input#id-'+docId).val()+"&embedded=true"; 
             	
             	userMediaModel = new UserMediaModel();
@@ -593,6 +614,7 @@ define(['view/formView',
     				        		docDescription :this.model.get('docDescription'),
     				        		docUrl: this.model.get('message').messageBody});
             	
+            	console.log(userMediaModel.get('docUrl'));
             	//render the document 
             	var documentView  = new DocumentView({el: '#poupview' , model : userMediaModel});
             	documentView.render();

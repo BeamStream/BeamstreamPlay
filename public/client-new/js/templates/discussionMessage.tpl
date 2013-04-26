@@ -19,11 +19,11 @@
               <div class="follw-left">
                
                   <div  class="ask-img"><img id="{{data.message.id.id}}-img" src="{{data.profilePic}}"></div>
-					{{#if owner}}
-						
-                    {{else}}
+					{{#ifequal data.followerOfMessagePoster false}}
                		   <a href="#" id="{{data.message.userId.id}}" class="follow-button follow-user" data-value="follow">follow</a>
-					{{/if}}
+					{{else}}
+						<a href="#" id="{{data.message.userId.id}}" class="follow-button follow-user" data-value="unfollow">unfollow</a>
+					{{/ifequal}}
               
               </div>
               <div  class="ask-info">

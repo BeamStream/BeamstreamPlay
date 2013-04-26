@@ -196,7 +196,7 @@ define(['baseView',
 	    	// set new style for streamtab  
             var removeOption = '<a href="#" class="red-active-icon1">'+StreamName+' </a>'
             				   +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"></div>'
-            				   +'<span class="remove-btn"><a href="#">Remove</a></span> <span class="remove-btn cancel-btn "><a href="#">Cancel</a></span>';
+            				   +'<span class="remove-btn rr"><a href="#">Remove</a></span> <span class="remove-btn cancel-btn "><a href="#">Cancel</a></span>';
 	    	
 	    	$(eventName.target).parents('li').addClass("icon1 red-active");
 	    	$(eventName.target).parents('li').html(removeOption);

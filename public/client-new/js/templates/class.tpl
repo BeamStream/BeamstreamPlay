@@ -31,6 +31,12 @@
               <div class="field"> 
               	<input id="classCode"  data-name="class.classCode"  name="classCode"  type="text" placeholder="Class Code" name="" class="small-text ">
               </div>
+
+              <div class="field" id ="add-new-school" > 
+                <input id="classCode"  data-name="class.schoolId"  name="schoolId"  type="text" placeholder="Enter New School" name="" class="small-text ">
+              </div>
+
+
 			  <div class="field"> 
               <input id="className" data-name="class.className" name="className" type="text" placeholder="Enter the name of your class"  class="big-text">
  			 </div>
@@ -89,7 +95,7 @@
         </div>
         
         
-         <!---- for  popups after Create stream----->
+         <!-- for  popups after Create stream -->
 			<div id="selectNextStep" style="top: 65% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="class-modal-header">
 				    <h3>What Next ?</h3><button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>

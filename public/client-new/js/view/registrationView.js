@@ -372,10 +372,14 @@ define(['view/formView' ,
 	                        clearInterval(self.progress);
 	                        
 		       	    	// @TODO redirect to class page on upload success from UI side 
-		       	    	if(data.status == "Success"){
+		       	    	if(data.id){
 		       	    		$('.profile-loading').css("display","block");
 		       	    		// set the logged users Id
-		       	    		localStorage["loggedUserProfileUrl"] =  data.message;
+		       	    		
+		       	    		if(data.frameURL)
+		       	    			localStorage["loggedUserProfileUrl"] =  data.frameURL;
+		       	    		else
+		       	    			localStorage["loggedUserProfileUrl"] =  data.mediaUrl;
 		                	
 		       	    		window.location = "/class";
 		       	    	}

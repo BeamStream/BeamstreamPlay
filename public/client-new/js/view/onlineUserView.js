@@ -52,12 +52,15 @@ define(['baseView',
 			var compiledTemplate = Handlebars.compile(OnlineUsers);
 			this.$(".content").html( compiledTemplate(this.data.toJSON()));			
 		},
+
+		/**
+         * if other online users 
+         */
 		displayPage: function(){
-			console.log(45);
-			console.log(this.data.models);
 			var compiledTemplate = Handlebars.compile(OnlineUsers);
 			this.$(".content").html( compiledTemplate(this.data.toJSON()));	
 		},
+
 		onAfterRender: function(){
 			this.scroll();
 		},

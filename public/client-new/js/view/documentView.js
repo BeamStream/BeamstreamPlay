@@ -20,6 +20,7 @@
 define(['view/formView',
         'text!templates/document.tpl',
         ], function(FormView, DocumentTpl){
+
 	var DocumentView;
 	DocumentView = FormView.extend({
 		objName: 'DocumentView',
@@ -33,8 +34,10 @@ define(['view/formView',
          * @TODO render the edit view popup
          */
         render: function(){
+
         	compiledTemplate = Handlebars.compile(DocumentTpl);
-        	$(this.el).html(compiledTemplate(JSON.parse(JSON.stringify(this.data))));
+            console.log(JSON.stringify(this.data));
+        	$(this.el).html(compiledTemplate(JSON.parse(JSON.stringify(this.model))));
 //        	$(this.el).html(compiledTemplate({docName: "Hai" , docUrl : "https://s3.amazonaws.com/BeamStream/1fe37f93-db9e-4a70-bcf5-e92859be2203sample.pdf"}));
         },
 
