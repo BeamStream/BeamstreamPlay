@@ -114,13 +114,10 @@ object UserController extends Controller {
    */
 
   def signOut = Action { implicit request =>
-    try {
-      val noOfOnLineUsers = onlineUserCache.setOffline(request.session.get("userId").get)
-      println("Online Users" + noOfOnLineUsers)
-      Ok(write(new ResulttoSent("Success", "Signed Out"))).withNewSession
-    } catch {
-      case exception => Ok(write(new ResulttoSent("Failure", "Sign Out Failed")))
-    }
+    val noOfOnLineUsers = onlineUserCache.setOffline(request.session.get("userId").get)
+    println("Online Users" + noOfOnLineUsers)
+    Ok(write(new ResulttoSent("Success", "Signed Out"))).withNewSession
+
   }
 
   /**
