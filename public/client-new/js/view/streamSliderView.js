@@ -20,7 +20,7 @@ define(['baseView',
 		
 		init: function(){
 			
-			this.addView(new MessageListView({el: $('#messageListView')}));
+			// this.addView(new MessageListView({el: $('#messageListView')}));
 			 
 		},
                 
@@ -273,18 +273,27 @@ define(['baseView',
 	     */
 	    renderTabContents: function(activeTab){
 	    	
-	    	if(activeTab=='discussion' || activeTab=="question"){ 
+	    	if(activeTab=='discussion'){ 
 	    		/* fetch all messages of a stream for messageListView */
 	    		view = this.getViewById('messageListView');
 	    		if(view){
 	    			
-	    			view.data.url="/allMessagesForAStream/"+this.streamId+"/date/"+10+"/"+0;
+	    			view.data.url="/allMessagesForAStream/"+this.streamId+"/date/"+10+"/"+1;
 	    			view.fetch();
-
-//	    			view.fetch({'streamId': this.streamId, 'sortBy': 'date', 'messagesPerPage': 12, 'pageNo': 0});
 
 	    		}
 	    	}
+	    	if(activeTab=="question"){ 
+	    		/* fetch all questions of a stream  */
+	    		view = this.getViewById('questionsView');
+	    		if(view){
+	    			
+	    			view.data.url="/getAllQuestionsForAStream/"+this.streamId+"/date/"+10+"/"+1;
+	    			view.fetch();
+
+	    		}
+	    	}
+
 	    }
 	  
     })
