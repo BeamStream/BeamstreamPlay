@@ -92,6 +92,27 @@
 		
 		                   
 		                  </div>
+
+
+
+	                 	<!-- shows the documents contents in a frame -->
+						<div id="document-{{data.message.docIdIfAny.id}}" style="top: 50% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-header">
+						  		<a class="close" data-dismiss="modal">×</a>
+							</div>
+							<div class="modal-body" style="max-height:none !important;"> 
+
+							<h4>{{data.docName}}</h4>
+						  		<p>
+								  	<iframe id ="iframe-{{data.message.docIdIfAny.id}}" src="" scrolling="NO"  width="963" height="500" style="border: none">
+										<p>Your browser does not support iframes.</p>
+									</iframe> 
+								</p>	
+							</div>
+						</div>
+
+
+
 		                  
                   {{/ifequal}}
                    <!-- End doc section -->

@@ -27,6 +27,7 @@ define(['view/formView',
         'text!templates/discussionComment.tpl',
         '../../lib/extralib/jquery.embedly.min',
         '../../lib/extralib/jquery.prettyPhoto'
+        
         ],function(FormView , DocumentView ,CommentModel,DiscussionModel, UserMediaModel,UserModel, DiscussionMessage ,DiscussionComment ,JqueryEmbedly, PrettyPhoto){
 	
 	var MessageItemView;
@@ -594,33 +595,35 @@ define(['view/formView',
          *@TODO : show the uploaded file in a popup
          */
         showFilesInAPopup: function(e){
-        	var docId = e.currentTarget.id;
+
+        	var docId = e.currentTarget.id, docUrl='';
 			var fileType = $(e.currentTarget).attr('name');
-			console.log(fileType);
+
 			/* show document is a popup */ 
-			
 			if(fileType == "googleDoc")
             {
-
+            	docUrl = $('input#id-'+docId).val();
+            	
             }
             else
             {
-            	console.log('ddd');
-            	var docUrl = "http://docs.google.com/gview?url="+$('input#id-'+docId).val()+"&embedded=true"; 
+            	docUrl = "http://docs.google.com/gview?url="+$('input#id-'+docId).val()+"&embedded=true"; 
             	
-            	userMediaModel = new UserMediaModel();
-            	userMediaModel.set({id:this.model.get('message').docIdIfAny.id ,
-    				        		docName : this.model.get('docName'),
-    				        		docDescription :this.model.get('docDescription'),
-    				        		docUrl: this.model.get('message').messageBody});
+            	// userMediaModel = new UserMediaModel();
+            	// userMediaModel.set({id:this.model.get('message').docIdIfAny.id ,
+    				     //    		docName : this.model.get('docName'),
+    				     //    		docDescription :this.model.get('docDescription'),
+    				     //    		docUrl: docUrl});
             	
-            	console.log(userMediaModel.get('docUrl'));
-            	//render the document 
-            	var documentView  = new DocumentView({el: '#poupview' , model : userMediaModel});
-            	documentView.render();
-    			
-    			$('#document').modal("show");
+            	// console.log(userMediaModel.get('docUrl'));
+            	// //render the document 
+            	// var documentView  = new DocumentView({el: '#poupview' , model : userMediaModel});
+            	// // documentView.render();
+    			// $('#iframe-'+docId).attr('src',docUrl);
+    			// $('#document-'+docId).modal("show");
             }
+            $('#iframe-'+docId).attr('src',docUrl);
+			$('#document-'+docId).modal("show");
 			
         },
         
