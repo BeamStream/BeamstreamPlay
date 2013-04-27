@@ -32,7 +32,7 @@ define(['view/formView',
 		events:{
 			'keyup #className' :'populateClassNames',
 		    'focusin #className':'populateClassNames',
-		    'click #create-stream' : 'createOrJoinStream',
+		    'click #createOrJoinStream' : 'createOrJoinStream',
 		    'click .access-menu li' : 'activateClassAccess',
 		    'change #schoolId' : 'clearAllClasses',
 		    'keyup #classCode' :'populateClassCodes',
@@ -89,7 +89,7 @@ define(['view/formView',
     		var text = $('#className').val(); 
     		var selectedSchoolId = $('#schoolId').val() ;
     		self.data.models[0].removeAttr('id');
-    		$('#create-stream').text("Create Stream");
+    		$('#createOrJoinStream').text("Create Stream");
     		
     		/* call auto populate  only when class name is there */ 
     		if(text != '' && selectedSchoolId !=''){
@@ -130,10 +130,11 @@ define(['view/formView',
 	   	                 $('#className').autocomplete({
 	   					    source:self.classNames,
 	   					    select: function(event, ui) { 
+
 	   					    	var text = ui.item.value;
 	   					    	var id = ui.item.id
 	   					    	
-	   					    	$('#create-stream').text("Join Stream");
+	   					    	$('#createOrJoinStream').html("Join Stream");
 	   					    	
 	   					    	/* set the school details  to modal */
 					    		self.data.models[0].set({'id' : ui.item.id , 'className' :ui.item.value ,'classTime' :ui.item.data.classToReturn.classTime ,'startingDate' :ui.item.data.classToReturn.startingDate,'classType':ui.item.data.classToReturn.classType ,'classCode': ui.item.data.classToReturn.classCode });
@@ -159,7 +160,7 @@ define(['view/formView',
 			var identity = id.replace(/[^\d.,]+/,'');
 			var selectedSchoolId = $('#schoolId').val() ;
 			self.data.models[0].removeAttr('id');
-			$('#create-stream').text("Create Stream");
+			$('#createOrJoinStream').text("Create Stream");
 			
 			/* post the text that we type to get matched classes */
 			if(text != '' && selectedSchoolId !=''){
@@ -197,7 +198,7 @@ define(['view/formView',
 							    select: function(event, ui) {
 							    	
 							    	var id = ui.item.id; 
-							    	$('#create-stream').text("Joins Stream");
+							    	$('#createOrJoinStream').text("Joins Stream");
 							    	/* set the  details  to modal */
 						    		self.data.models[0].set({'id' : ui.item.id , 'className' :ui.item.value ,'classTime' :ui.item.data.classToReturn.classTime ,'startingDate' :ui.item.data.classToReturn.startingDate,'classType':ui.item.data.classToReturn.classType ,'classCode': ui.item.data.classToReturn.classCode });
 		   					    	
@@ -358,7 +359,7 @@ define(['view/formView',
 			   	channel : "classMembers",
 			   	restore : false,
 			   	callback : function(message) {
-
+			   		
 				   	if(message.pagePushUid != self.pagePushUid)
 				   	{   	  
 					   	$('span#'+message.data.stream.id.id+'-users').html(message.data.stream.usersOfStream.length);

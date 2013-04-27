@@ -584,7 +584,7 @@ define(['view/formView',
  	   			   callback : function(message) {
  	   				   if(message.pagePushUid != self.pagePushUid)
  	   				   {   	  
- 	   					   $('span#'+message.stream.id.id).html(message.usersOfStream);
+ 	   					   $('span#'+message.data.stream.id.id+'-users').html(message.data.stream.usersOfStream.length);
  	   				   }
 		   		   }
 	   		   })
