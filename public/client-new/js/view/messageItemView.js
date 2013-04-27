@@ -551,20 +551,16 @@ define(['view/formView',
 		    		//set display
  		        	if(datavalue == "follow")
  		    		{
-
  		    			$('a.follow-user').each(function() {
 		        			 
  		        			if($(this).attr('id') == userId)
  		        			{
- 		        				$('#'+e.target.id).text("Unfollow");
- 		        				$('#'+e.target.id).attr('data-value','unfollow'); 
+ 		        				$(this).text("Unfollow");
+ 		        				$(this).attr('data-value','unfollow'); 
  		        			}
  		        			
  		        		});
-
- 		        		// $('#'+e.target.id).text("Unfollow");
- 		        		// $('#'+e.target.id).attr('data-value','unfollow'); 		        	
- 		        		
+		        		
  		    		}
  		        	else
  		        	{
@@ -573,14 +569,12 @@ define(['view/formView',
  		        			 
  		        			if($(this).attr('id') == userId)
  		        			{
- 		        				$('#'+e.target.id).text("follow");
- 		        				$('#'+e.target.id).attr('data-value','follow');
+ 		        				$(this).text("follow");
+ 		        				$(this).attr('data-value','follow');
  		        			}
  		        			
  		        		});
- 		        		// $('#'+e.target.id).text("follow");
- 		        		// $('#'+e.target.id).attr('data-value','follow');
- 		        	
+ 		        
  		        	}
 		    	},
 		    	error : function(model, response) {

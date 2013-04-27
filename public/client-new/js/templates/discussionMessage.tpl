@@ -19,6 +19,8 @@
               <div class="follw-left">
                
                   <div  class="ask-img"><img id="{{data.message.id.id}}-img" src="{{data.profilePic}}"></div>
+
+                  
 					{{#ifequal data.followerOfMessagePoster false}}
                		   <a href="#" id="{{data.message.userId.id}}" class="follow-button follow-user" data-value="follow">follow</a>
 					{{else}}

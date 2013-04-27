@@ -499,7 +499,8 @@ define(['view/formView',
 								   message : message.data.message,
 								   messageAccess : message.data.messageAccess,
 								   profilePic : message.data.profilePic,
-								   streamId : message.data.streamId
+								   streamId : message.data.streamId,
+								   followerOfMessagePoster : message.data.followerOfMessagePoster
 							   })
 							    // show the posted message on feed
 							 	var messageItemView  = new MessageItemView({model :discussionModel});
