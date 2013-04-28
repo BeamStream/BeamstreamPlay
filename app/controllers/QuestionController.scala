@@ -49,13 +49,15 @@ object QuestionController extends Controller {
 
   def newQuestion = Action { implicit request =>
 
-    val questionJsonMap = request.body.asFormUrlEncoded.get
-    val streamId = questionJsonMap("streamId").toList(0)
-    val questionBody = questionJsonMap("questionBody").toList(0)
-    val questionAccess = questionJsonMap("questionAccess").toList(0)
-
+    val questionJsonMap = request.body.asJson.get
+    val streamId = (questionJsonMap \ "streamId").as[String]
+    val questionBody = (questionJsonMap \ "questionBody").as[String]
+    val questionAccess = (questionJsonMap \ "questionAccess").as[String]
+    val pollsOptions = (questionJsonMap \ "pollsOptions").as[Option[String]]
+     
     val userId = new ObjectId(request.session.get("userId").get)
     val user = User.getUserProfile(userId)
+    
     val questionToAsk = new Question(new ObjectId, questionBody, userId,
       QuestionAccess.withName(questionAccess), new ObjectId(streamId), user.get.firstName, user.get.lastName, new Date, List(), List(), List(), List())
     val questionId = Question.addQuestion(questionToAsk)
@@ -63,9 +65,9 @@ object QuestionController extends Controller {
     /**
      * Add  Poll To Question
      */
-    if (questionJsonMap.contains(("pollsOptions"))) {
-      val pollsOptions = questionJsonMap("pollsOptions").toList(0)
-      val pollsList = pollsOptions.split(",").toList
+    if (!pollsOptions.getOrElse("empty").equalsIgnoreCase("empty")) {
+      val polls = pollsOptions.get
+      val pollsList = polls.split(",").toList
       for (pollsOption <- pollsList) {
         val optionOfPoll = new OptionOfQuestion(new ObjectId, pollsOption, List())
         val optionOfAPollId = OptionOfQuestionDAO.insert(optionOfPoll)
