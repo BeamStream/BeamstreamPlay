@@ -189,8 +189,6 @@ object QuestionController extends Controller {
  * ***********************************************************REARCHITECTED CODE****************************************************************
  */
   def getAllQuestionForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
-
-    try {
       
       val allQuestionsForAStream = (sortBy == "date") match {
         case true => Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
@@ -202,9 +200,6 @@ object QuestionController extends Controller {
       
       val allQuestionForAStreamJson = write(Question.returnQuestionsWithPolls(allQuestionsForAStream))
       Ok(allQuestionForAStreamJson).as("application/json")
-    } catch {
-      case exception => InternalServerError(write(new ResulttoSent("Failure", "Problem during message retrieval")))
-    }
   }
 
 }
