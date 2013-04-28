@@ -176,7 +176,7 @@ POST   /school                                                                co
 GET    /browsemedia                                                           controllers.MediaController.browseMedia
 
 #Questions
-GET    /getAllQuestionForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo   controllers.QuestionController.getAllQuestionForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
+GET    /getAllQuestionsForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo   controllers.QuestionController.getAllQuestionForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
 
 #Documents
 POST   /uploadDocumentFromDisk                                                controllers.DocumentController.uploadDocumentFromDisk
