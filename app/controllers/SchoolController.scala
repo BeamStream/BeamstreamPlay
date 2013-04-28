@@ -24,7 +24,6 @@ object SchoolController extends Controller {
    * Add a new school (RA)
    */
   def addANewSchool = Action { implicit request =>
-    try {
       val schoolInfojsonMap = request.body.asJson.get
       val schoolName = (schoolInfojsonMap \ "schoolName").as[String]
       val schoolWebsite = (schoolInfojsonMap \ "schoolWebsite").as[String]
@@ -35,9 +34,6 @@ object SchoolController extends Controller {
         val schoolId = School.addNewSchool(schoolToCreate)
         Ok(write(schoolToCreate)).as("application/json")
       }
-    } catch {
-      case ex => InternalServerError(write("There was some errors during add school")).as("application/json")
-    }
   }
 
   /**
