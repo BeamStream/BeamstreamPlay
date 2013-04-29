@@ -82,8 +82,7 @@ define(['view/formView',
  			        	/* updating progress bar */ 
  			        	this.progress = setInterval(function() {
 	                    	
- 			        		this.bar = $('.bar');
- 			        		console.log(this.bar.width());
+ 			        		this.bar = $('.bar'); 			        		
 	                        if (this.bar.width()>= 194) {
 	                            clearInterval(this.progress);
 		    		        } 
