@@ -17,8 +17,8 @@
 */
 
 define(['view/formView',
-        // 'view/mediaEditView',
         'view/documentView',
+        'view/mediaEditView',
         'model/comment',
         'model/discussion',
         'model/usermedia',
@@ -28,7 +28,7 @@ define(['view/formView',
         '../../lib/extralib/jquery.embedly.min',
         '../../lib/extralib/jquery.prettyPhoto'
         
-        ],function(FormView , DocumentView ,CommentModel,DiscussionModel, UserMediaModel,UserModel, DiscussionMessage ,DiscussionComment ,JqueryEmbedly, PrettyPhoto){
+        ],function(FormView , DocumentView ,MediaEditView, CommentModel,DiscussionModel, UserMediaModel,UserModel, DiscussionMessage ,DiscussionComment ,JqueryEmbedly, PrettyPhoto){
 	
 	var MessageItemView;
 	MessageItemView = FormView.extend({
@@ -120,7 +120,8 @@ define(['view/formView',
 			var datas = {
 			 	 "data" : model,
 			 	 "datVal":datVal,
-			 	 "contentType" : contentType
+			 	 "contentType" : contentType,
+			 	 "loggedUserId" :localStorage["loggedUserId"],
 			 	 
 		    }
            
@@ -132,7 +133,8 @@ define(['view/formView',
                     "datVal" :datVal,
                     "previewImage" : "/beamstream-new/images/google_docs_image.png",
                     "type" : "googleDoc",
-                    "contentType" : contentType
+                    "contentType" : contentType,
+                    "loggedUserId" :localStorage["loggedUserId"],
                 	
 				}	
 			}
@@ -141,7 +143,8 @@ define(['view/formView',
 				var datas = {
 					 	 "data" : model,
 					 	 "datVal":datVal,
-					 	 "contentType" : contentType
+					 	 "contentType" : contentType,
+					 	 "loggedUserId" :localStorage["loggedUserId"],
 			    }
 			}
 			else
@@ -152,7 +155,8 @@ define(['view/formView',
 					var datas = {
 					 	 "data" : model,
 					 	 "datVal":datVal,
-					 	 "contentType" : "media"
+					 	 "contentType" : "media",
+					 	 "loggedUserId" :localStorage["loggedUserId"],
 				    }  						
 				}
 				else /* for other types of docs , pdf , ppt etc.. */ 
@@ -193,7 +197,8 @@ define(['view/formView',
                             "extension" : extension,
                             "commenImage" : commenImage,
                             "type" : type,
-                            "contentType" : "docs"
+                            "contentType" : "docs",
+                            "loggedUserId" :localStorage["loggedUserId"],
                             
 			        }	
 			  }
@@ -237,39 +242,20 @@ define(['view/formView',
         },
         
         /**
-         * @TODO  Show the popup for editing title and description of uploaded files
+         *  Show the popup for editing title and description of uploaded files
          */
         editMediaTitle: function(eventName){
         	
-        	/*---------------------------------------------------------------- */
-        	/* @TODO  get user media details and set to usermedia model */ 
-        	 
-        	/*
+        	/* show the doc details in the popupa */
         	var mediaId = eventName.currentTarget.id; 
-        	
-        	userMediaModel = new UserMediaModel();
-        	userMediaModel.set({id:this.model.get('message').docIdIfAny.id ,
-				        		docName : this.model.get('docName'),
-				        		docDescription :this.model.get('docDescription')});
-				        		
-        	//render the MediaEditView 
-        	var mediaEditView  = new MediaEditView({el: '#editMedia' , model : userMediaModel});
-			mediaEditView.render();
-			
-			 */
+        	$('#docId').val(mediaId);
+        	$('#edit-file-name').html('Edit '+this.model.get('docName')) ;  
+        	$('#docName').val(this.model.get('docName')) ;  
+        	$('#docDescription').val(this.model.get('docDescription')) ;   
+
 			$('#editMedia').modal("show");
 			
-			
-           /* ----------------------------or -------------------- */			
-//            view = new MediaEditView({el: $('#poupview')});
-//        	if(view){
-//        		view.data.url = "/getMediafromPost/"+mediaId;
-//        		view.fetch();
-//        	}
-//        	$('#editMedia').modal("show");
         },
-        
-        
         
         
         /**

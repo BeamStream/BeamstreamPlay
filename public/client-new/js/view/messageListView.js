@@ -40,17 +40,13 @@ define(['view/formView',
          * display messages
          */
         displayPage: function(callback){
-            var self = this;
-            var trueurl='';
-            var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-            
-			/* render message list */
+             
+			/* render messages */
         	_.each(this.data.models, function(model) {
 				var messageItemView  = new MessageItemView({model : model});
 				$('#messageListView div.content').append(messageItemView.render().el);
 				
         	});
-//        	$('.commentList').hide();
 		},
 		
 		
