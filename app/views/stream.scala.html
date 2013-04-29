@@ -217,9 +217,9 @@ $('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 			                	<button class="btn normal-dropdown" id="sortQuestionBy-select" >Most Recent</button>
 			               		 <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
 				                <ul class="dropdown-menu display-sub" id="sortQuestionBy-list" >
-				                  	<li><a href="#" name="most-recent" >Most Recent</a></li>
-				                  	<li><a href="#" name="highest-rated" >Highest Rated</a></li>
-				                 	 <li><a href="#" name="most-shared" >Most Shared </a></li>
+		                  			<li><a href="#" name="most-recent" value="date">Most Recent</a></li>
+				                  	<li><a href="#" name="highest-rated" value="rock">Highest Rated</a></li>
+			                 	 	<li><a href="#" name="most-shared" >Most Shared </a></li>
 				                </ul>
 			             	 </div>
 		              
@@ -237,7 +237,7 @@ $('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 			              	<form class="all-search">
 			                	<input type="text" id="sortQ_by_key" class="quest-search" placeholder="Search Questions">
 			             	 </form>
-		              		<input id="upload-files-area" name="upload-files-area" type="file" style="display:none;" >
+		              		<input id="Q-files-area" name="upload-files-area" type="file" style="display:none;" >
 		              		<a href="#" class="unanswerd active-text">20 Unanswered</a> <a href="#" class="unanswerd">12 Answered</a> 
 		              	</div>
 		            	<div class="clear"></div>
@@ -263,9 +263,16 @@ $('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 					                      	</li>
 					                      	<a href="#" class="add-option">Another Poll Option</a>
 					                    </ul>
-		                     			<ul id="uploded-file" class="answer" style="display:none; font-style: italic;">
-		                       
-		                    			</ul>
+		                     			<ul id="Q-file-area"  class="answer" style="display:none;">
+			                        		<li id="Q-file-name" style="font-style: italic; list-style: none" >  </li>
+					                        <li >
+					                          <div class="progress-container"  style="display:none;">
+					                              <div class="progress progress-striped active">
+					                                <div class="bar" style="width: 0%;"></div>
+					                              </div> 
+					                          </div> 
+					                      </li>
+		                     		 	</ul>
 		                  			</div>
 		                  			<a  id="post-question"  class="ask-button">ASK</a> 
 									<div id="file-upload-loader" style="display :none;">  
@@ -323,8 +330,12 @@ $('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 	            		</div>
             			<div class="clear"></div>
       				</div>
-          			<div id= "all-questions" >
-         		 	</div>
+
+      				 <div id= "questionListView" data-model="question" data-module="view/questionListView" data-url="/" data-tpl="templates/questionMessage.tpl">
+		
+		         	 </div>
+	
+
 				</div> 
 		  	</div> 
 

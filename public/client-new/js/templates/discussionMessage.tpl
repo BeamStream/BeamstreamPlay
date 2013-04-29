@@ -26,7 +26,7 @@
 					{{else}}
 						<a href="#" id="{{data.message.userId.id}}" class="follow-button follow-user" data-value="unfollow">unfollow</a>
 					{{/ifequal}}
-              
+                  
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">

@@ -6,9 +6,10 @@ define(['pageView',
         'view/deadlinesView', 
         'view/calendarView',
         'view/messageListView',
+        'view/questionListView',
         'text!templates/privateToList.tpl',
         ], 
-	function(PageView, StreamSliderView, OverView, DiscussionsView, QuestionsView, DeadlinesView, CalendarView ,MessageListView , PrivateToListTpl){
+	function(PageView, StreamSliderView, OverView, DiscussionsView, QuestionsView, DeadlinesView, CalendarView ,MessageListView ,QuestionListView ,PrivateToListTpl){
 	var MyStreamView;
 	MyStreamView = PageView.extend({
 		objName: 'MyStreamView',
@@ -28,6 +29,7 @@ define(['pageView',
 			this.addView(new CalendarView({el: $('#calendarView')}));
 			
 			this.addView(new MessageListView({el: $('#messageListView')}));
+			this.addView(new QuestionListView({el: $('#questionListView')}));
 			
 		},
 		
@@ -58,7 +60,7 @@ define(['pageView',
 	    	if(tabId=="questionsView"){ 
     		
 	    		/* fetch all messages of a stream for messageListView */
-	    		view = this.getViewById('questionsView');
+	    		view = this.getViewById('questionListView');
 	    		if(view){
 	    			view.myStreams = this.getViewById('sidebar').myStreams;
 	    			
