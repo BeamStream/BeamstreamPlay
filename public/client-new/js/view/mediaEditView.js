@@ -19,9 +19,7 @@
 
 define(['view/formView',
         'text!templates/editMedia.tpl',
-        ], function(FormView, 
-        		MediaEditTpl 
-        		){
+        ], function(FormView, MediaEditTpl ){
 	var MediaEditView;
 	MediaEditView = FormView.extend({
 		objName: 'MediaEditView',
@@ -33,28 +31,41 @@ define(['view/formView',
 		onAfterInit: function(){
             this.data.reset();
         },
-//        
-//        /**
-//         * @TODO render the edit view popup
-//         */
-//        render: function(){
-//        	compiledTemplate = Handlebars.compile(MediaEditTpl);
-//        	$(this.el).html(compiledTemplate(JSON.parse(JSON.stringify(this.data))));
-//        	
-//        },
-		
-		displayPage: function(callback){
-			compiledTemplate = Handlebars.compile(MediaEditTpl);
-        	$(this.el).html(compiledTemplate(JSON.parse(JSON.stringify(this.data))));
-		},
-		
+
 		/**
 		 * edit title and description of files
 		 */
 		editDocDetails: function(e){
 			e.preventDefault();
-			this.saveForm();
-		}
+        	// set data url 
+        	this.data.models[0].set({'id':$('#docId').val()});
+        	this.data.models[0].set({'docName':$('#docName').val()});
+        	this.data.models[0].set({'docDescription':$('#docDescription').val()});
+        	
+        	this.data.url="/document";
+        	this.saveForm({});
+		},
+
+		 /**
+         * edit and update document title and description
+         */
+        success: function(model, data){
+        	var self =this;
+			if(data.status == 'Failure')
+            {
+                alert("Failed.Please try again");
+            }
+            else
+            {
+
+                alert("Doc Edit Successfully"); 
+                self.data.models[0].clear();
+              	$('#editMedia').modal("hide");
+
+
+             }
+
+		},
 	})
 	return MediaEditView;
 });

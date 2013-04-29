@@ -26,7 +26,7 @@
 					{{else}}
 						<a href="#" id="{{data.message.userId.id}}" class="follow-button follow-user" data-value="unfollow">unfollow</a>
 					{{/ifequal}}
-              
+                  
               </div>
               <div  class="ask-info">
                 <div class="ask-comment">
@@ -77,9 +77,9 @@
 						      </div></div></div>
 								
 							      <div class="edit-title-div">
-								
-						     	 <h5 class="editMediaTitle"   id="{{data.message.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span>Edit Title & Description</h5>
-									
+								 {{#ifequal loggedUserId data.message.userId.id }}
+						     	 	<h5 class="editMediaTitle"   id="{{data.message.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span>Edit Title & Description</h5>
+								  {{/ifequal}}
 		                    	  </div>
 								
 						     <div class="dateinfo"><span class="state">{{data.message.messageAccess.name}}</span><span class="date">{{datVal}}</span></div>
@@ -164,9 +164,9 @@
 						      </div></div></div>
 						      
 						      <div class="edit-title-div">
-								
-						      <h5 class="editMediaTitle" id="{{data.message.docIdIfAny.id}}"><span><img src="beamstream-new/images/title-plus.png"></span>Edit Title & Description</h5>
-						      
+								{{#ifequal loggedUserId data.message.userId.id }}
+						      		<h5 class="editMediaTitle" id="{{data.message.docIdIfAny.id}}"><span><img src="beamstream-new/images/title-plus.png"></span>Edit Title & Description</h5>
+						        {{/ifequal}}
 						      </div>        
 						     <div class="dateinfo"><span class="state">{{data.message.messageAccess.name}}</span><span class="date">{{datVal}}</span></div>
 						    </div>

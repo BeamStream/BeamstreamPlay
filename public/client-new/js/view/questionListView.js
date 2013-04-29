@@ -5,8 +5,8 @@
 * Company               : Toobler
 * Email:                : info@toobler.com
 * Web site              : http://www.toobler.com
-* Created               : 28/February/2013
-* Description           : View for Message List on discussion page
+* Created               : 28/April/2013
+* Description           : View for Question List on discussion page
 * ==============================================================================================
 * Change History:
 * ----------------------------------------------------------------------------------------------
@@ -17,12 +17,12 @@
 */
 
 define(['view/formView',
-        'view/messageItemView',
-        ],function(FormView ,MessageItemView){
+        'view/questionItemView',
+        ],function(FormView ,QuestionItemView){
 	
-	var MessageListView;
-	MessageListView = FormView.extend({
-		objName: 'MessageListView',
+	var QuestionListView;
+	QuestionListView = FormView.extend({
+		objName: 'QuestionListView',
 		messagesPerPage: 10,
 		pageNo: 1,
 
@@ -43,8 +43,8 @@ define(['view/formView',
              
 			/* render messages */
         	_.each(this.data.models, function(model) {
-				var messageItemView  = new MessageItemView({model : model});
-				$('#messageListView div.content').append(messageItemView.render().el);
+				var questionItemView  = new QuestionItemView({model : model});
+				$('#questionListView div.content').append(questionItemView.render().el);
 				
         	});
 		},
@@ -58,5 +58,5 @@ define(['view/formView',
 		
        
 	})
-	return MessageListView;
+	return QuestionListView;
 });

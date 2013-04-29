@@ -2,10 +2,10 @@ define(['view/formView',
         'view/messageListView',
         'view/messageItemView',
         'model/discussion',
-        '../../lib/jquery.preview.full.min',
+        // '../../lib/jquery.preview.full.min',
         '../../lib/extralib/jquery.embedly.min',
         'text!templates/discussionComment.tpl',
-        ], function(FormView, MessageListView, MessageItemView ,DiscussionModel,  JqueryPreview, JqueryEmbedly ,DiscussionComment ){
+        ], function(FormView, MessageListView, MessageItemView ,DiscussionModel, JqueryEmbedly ,DiscussionComment ){
 	var Discussions;
 	Discussions = FormView.extend({
 		objName: 'Discussion',
@@ -26,11 +26,7 @@ define(['view/formView',
 		 messagesPerPage: 10,
 		 pageNo: 1,
 		 	
-		 init: function(){
-			// this.addView(new MessageListView({el: $('#messageListView')}));
-			// this.addView(new MessageItemView({el: $('#messageItemView')}));
-		 },
-			
+		
 		 
 		 onAfterInit: function(){	
             this.data.reset();
@@ -433,7 +429,7 @@ define(['view/formView',
                             }
                         }
 
-						$('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+						// $('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 					          
 			        }
 	            }

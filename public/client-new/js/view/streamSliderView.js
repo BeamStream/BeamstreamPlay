@@ -1,11 +1,10 @@
 define(['baseView',
-        'view/messageListView',
         'text!templates/newStreamList.tpl',
         'text!templates/streamSlider.tpl',
         'text!templates/streamTitle.tpl',
         'text!templates/privateToList.tpl',
         '../../lib/jquery.simplyscroll'
-        ],function(BaseView,MessageListView, NewStreamTpl,StreamList,StreamTitle, PrivateToList, simplyscroll){
+        ],function(BaseView,NewStreamTpl,StreamList,StreamTitle, PrivateToList, simplyscroll){
 	
     var streamSliderView; 
     streamSliderView = BaseView.extend({
@@ -18,20 +17,14 @@ define(['baseView',
 			 'click .sortable li' : 'renderRightContenetsOfSelectedStream',
 		},
 		
-		init: function(){
-			
-			// this.addView(new MessageListView({el: $('#messageListView')}));
-			 
-		},
-                
+		                
         onAfterInit: function(){
         	
             this.data.reset();
             this.activeDiv = '<div class="active-curve"></div>';
             
         },
-      
-       
+     
 
         /**
          * after render set scrolling effect
@@ -82,11 +75,25 @@ define(['baseView',
 			$('#private-to-list').html( listTemplate(this.data.toJSON()));
 			$('#Q-privatelist').html(listTemplate( this.data.toJSON()));
 			
-			/* render the left stream list */
+			// /* render the left stream list */
 			var compiledTemplate = Handlebars.compile(StreamList);
 			this.$(".content").html( compiledTemplate(this.data.toJSON()));
 
+			// var compiledTemplate = Handlebars.compile(StreamList);
+			// this.$(".content").html(compiledTemplate);
 
+
+			// _.each(this.data.models, function(model) {
+				
+			// 	var streamItemView  = new StreamItemView({model : model});
+			// 	$('#sortable4').append(streamItemView.render().el);
+   //      	});
+
+			// this.slider();
+        	
+   //      	/* added active class and style for first stream in the left side bar*/
+   //      	$('#sortable4 li:first').addClass('active');
+   //      	$('#sortable4 li:first').append(this.activeDiv);
 			
 			
 		},
@@ -185,7 +192,7 @@ define(['baseView',
 	     * open a remove option  to remove that stream 
 	     */
         removeStreamTab :function(eventName){
-        	
+        	console.log(44);
 	    	eventName.preventDefault();
 	    	var self = this;
 	    	

@@ -1,21 +1,24 @@
 define(['view/formView',
+		'view/questionItemView',
         'model/question',
         'text!templates/questionMessage.tpl',
-        ], function(FormView ,QuestionModel, QuestionMessage ){
-	var Questions;
-	Questions = FormView.extend({
-		objName: 'Questions',
+        ], function(FormView ,QuestionItemView,QuestionModel, QuestionMessage ){
+	var QuestionsView;
+	QuestionsView = FormView.extend({
+		objName: 'QuestionsView',
 
 		
 		events:{
 			'click #sortQuestionBy-list' : 'sortQuestions',
 			'click #sortQueByDate-list' : 'sortQuestionsWithinAPeriod',
-			 'click #share-discussions li a' : 'actvateShareIcon',
+			'click #share-discussions li a' : 'actvateShareIcon',
 			'click #Q-privatelist li' :'selectPrivateToList',
 			'click #post-question' : 'postQuestion',
 			'click .add-poll' : 'addPollOptionsArea',
 			'click .add-option' : 'addMorePollOptions',
 			'click #Q-private-to' : 'checkPrivateAccess',
+			'click #question-file-upload li' : 'uploadFiles',
+			'change #Q-files-area' : 'getUploadedData',
 
 			
 		},
@@ -25,8 +28,7 @@ define(['view/formView',
 
 		onAfterInit: function(){	
             this.data.reset();
-            this.pagenum = 1;
-            this.pageLimit = 10;
+            
          	$('#Q-main-photo').attr('src',localStorage["loggedUserProfileUrl"]);
             
         },
@@ -35,10 +37,22 @@ define(['view/formView',
          *   Sort questions
          */
 		sortQuestions: function(eventName){
+        	
         	eventName.preventDefault();
         	var self = this;
         	var streamId = $('.sortable li.active').attr('id');
-        	$('#sortQuestionBy-select').text($(eventName.target).text());
+        	var sortKey = $(eventName.target).attr('value');
+        	
+        	/* render the message list */
+        	view = this.getViewById('questionListView');
+    		if(view){
+    			
+    			view.data.url="/getAllQuestionsForAStream/"+streamId+"/"+sortKey+"/"+view.messagesPerPage+"/"+view.pageNo;
+    			view.fetch();
+
+    		}
+
+			$('#sortQuestionBy-select').text($(eventName.target).text());
 
         },
         
@@ -113,6 +127,42 @@ define(['view/formView',
         },
 
         /**
+   	  	* show  Upload files option when we select category
+   	  	*/
+   	 	uploadFiles: function(eventName){
+   	 		
+   	 		eventName.preventDefault();
+   	 		$('#Q-files-area').click();
+	   		  
+   	 	},
+
+   	 	/**
+         * get files data to be upload
+         */
+        getUploadedData: function(e){
+        	
+        	var self = this;;
+    	    file = e.target.files[0];
+    	    var reader = new FileReader();
+    	      
+        	/* capture the file informations */
+            reader.onload = (function(f){
+            	self.file = file;
+            	self.bar = $('.bar');        //progress bar
+                self.bar.width('');
+                self.bar.text("");
+                clearInterval(self.progress);
+            	$('#Q-file-name').html(f.name);
+            	$('#Q-file-area').show();
+            	
+            })(file);
+ 
+            // read the  file as data URL
+            reader.readAsDataURL(file);
+
+        },
+
+        /**
 		 * function for post questions 
 		 */
 		postQuestion: function(eventName){
@@ -146,12 +196,16 @@ define(['view/formView',
 		    	questionAccess = "Public";
 		    }
 		    
-		    
-		    self.postQuestionToServer(question,streamId,questionAccess);
-		 
-		    
-		    
-			
+		    /* if there is any files for uploading  */ 
+	        if(this.file ){
+	        	
+	        	$('.progress-container').show();
+	        	self.file = "";
+	        }
+	        else{
+	        	self.postQuestionToServer(question,streamId,questionAccess);
+	        }
+
 	         
 		},
 		
@@ -187,48 +241,81 @@ define(['view/formView',
 	   	  * POST question details to server 	
 	   	  */
 		 postQuestionToServer: function(question,streamId,questionAccess){
-	   		 
-			 var self = this; 
-			 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-			 var trueurl='';
-	           console.log(this.options) ;
-			 var pollOptions ='';
-   			 for (var i=1; i<= this.options ; i++)
-   			 {
-   				 pollOptions+= $('#option'+i).val()+',' ;
-   				 $('#option'+i).val('');
-   			 }
-   			 pollOptions = pollOptions.substring(0, pollOptions.length - 1);
-		    
-            
-		     /* set to model */
-   			 // this.question = new QuestionModel();
-   			 this.data.url = "/question";
-   			 this.data.models[0].save({streamId : streamId, question :question, questionAccess:questionAccess ,pollOptions:pollOptions},{
-   				 success : function(model, response) {
-		    		
-   					 $('#Q-area').val("");
-   					 $('#share-discussions li.active').removeClass('active');
-   					 $('.moreOptions').remove();
-	            	 
-   					 $('#pollArea').slideUp(700); 
-	            	 this.options = 0;
-	            	 
-	            	 self.showQuestion(streamId,response);
-//			    		  /* display the posted message on feed */
-//			    		 _.each(response, function(message) {
-//			    			 
-//				    		var compiledTemplate = Handlebars.compile(DiscussionMessage);
-//				    		$('#all-messages').prepend( compiledTemplate({data:message}));
-//				    		
-//			    		 });
-   				 },
-   				 error : function(model, response) {
-		    		
-   					 console.log("error");
-   				 }
 
-   			 });
+		 	var self = this;
+
+		 	var pollOptions ='';
+		 	for (var i=1; i<= this.options ; i++)
+		 	{
+			 	pollOptions+= $('#option'+i).val()+',' ;
+			 	$('#option'+i).val('');
+		 	}
+		 	pollOptions = pollOptions.substring(0, pollOptions.length - 1);
+
+        	this.data.url = "/question";
+		    // set values to model
+		    this.data.models[0].save({streamId : streamId, questionBody :question, questionAccess:questionAccess ,pollOptions:pollOptions},{
+		    	success : function(model, response) {
+		    		
+		    		// show the posted message on feed
+		    		var questionItemView  = new QuestionItemView({model : self.data.models[0]});
+					$('#questionListView div.content').prepend(questionItemView.render().el);
+					
+		    		$('#Q-area').val("");
+		    		$('#pollArea').slideUp(700); 
+		    		
+		    	},
+		    	error : function(model, response) {
+		    		$('#Q-area').val("");
+                    console.log("error");
+                    $('#pollArea').slideUp(700); 
+		    	}
+
+		    });
+
+
+	   		 
+// 			 var self = this; 
+// 			 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+// 			 var trueurl='';
+	          
+// 			 var pollOptions ='';
+//    			 for (var i=1; i<= this.options ; i++)
+//    			 {
+//    				 pollOptions+= $('#option'+i).val()+',' ;
+//    				 $('#option'+i).val('');
+//    			 }
+//    			 pollOptions = pollOptions.substring(0, pollOptions.length - 1);
+		    
+//             console.log(self.data.models[0]);
+// 		     /* set to model */
+//    			 this.question = new QuestionModel();
+//    			 this.question.url = "/question";
+//    			 this.question.save({streamId : streamId, questionBody :question, questionAccess:questionAccess ,pollOptions:pollOptions},{
+//    				 success : function(model, response) {
+		    		
+//    					 $('#Q-area').val("");
+//    					 $('#share-discussions li.active').removeClass('active');
+//    					 $('.moreOptions').remove();
+	            	 
+//    					 $('#pollArea').slideUp(700); 
+// 	            	 this.options = 0;
+	            	 
+// 	            	 self.showQuestion(streamId,response);
+// //			    		  /* display the posted message on feed */
+// //			    		 _.each(response, function(message) {
+// //			    			 
+// //				    		var compiledTemplate = Handlebars.compile(DiscussionMessage);
+// //				    		$('#all-messages').prepend( compiledTemplate({data:message}));
+// //				    		
+// //			    		 });
+//    				 },
+//    				 error : function(model, response) {
+		    		
+//    					 console.log("error");
+//    				 }
+
+//    			 });
 			    
 			   
 		 },
@@ -247,7 +334,7 @@ define(['view/formView',
 			 
         	 var source = $("#tpl-questions_with_polls").html();
         	 var template = Handlebars.compile(source);
-        	 $('#all-questions').prepend(template({data:data,owner: owner ,rocks:data.question.rockers.length}));
+        	 $('#all-questions').prepend(template({data:data,rocks:data.question.rockers.length}));
         	 $('.drag-rectangle').tooltip();	
         	 var pollCount = data.polls.length;
         	 this.color = 0;
@@ -261,5 +348,5 @@ define(['view/formView',
   		},
 		
 	})
-	return Questions;
+	return QuestionsView;
 });

@@ -68,7 +68,7 @@ object CommentController extends Controller {
                 commentPoster.get.firstName, commentPoster.get.lastName, 0, None, List())
               val commentId = Comment.createComment(comment)
               Question.addCommentToQuestion(commentId, new ObjectId(questionId))
-              Ok(write(List(comment))).as("application/json")
+              Ok(write(comment)).as("application/json")
 
             case false => Ok(write(new ResulttoSent("Failure", "IdNotFound")))
           }

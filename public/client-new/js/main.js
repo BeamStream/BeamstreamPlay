@@ -1,5 +1,5 @@
 requirejs.config({
-	waitSeconds: 200,
+	waitSeconds: 500,
 	paths: {
 		console: 'libs/console/ba-debug.min',
 		underscore: 'libs/underscore/underscore.1.4.2',
