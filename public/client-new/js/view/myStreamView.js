@@ -43,7 +43,7 @@ define(['pageView',
 	    	var tabId=$(e.target).attr('href').replace('#',''), view;
 	    	
 	    	
-	    	if(tabId=='discussionsView' || tabId=="questionsView"){ 
+	    	if(tabId=='discussionsView'){ 
     		
 	    		/* fetch all messages of a stream for messageListView */
 	    		view = this.getViewById('messageListView');
@@ -52,12 +52,23 @@ define(['pageView',
 	    			
 	    			view.data.url="/allMessagesForAStream/"+this.getViewById('sidebar').streamId+"/date/"+view.messagesPerPage+"/"+view.pageNo;
 	    			view.fetch();
-	    			
-//	    			view.data.url="/allMessagesForAStream";
-//	    			view.fetch({'streamId': this.getViewById('sidebar').streamId, 'sortBy': 'date', 'messagesPerPage': view.messagesPerPage, 'pageNo': view.pageNo});
-
+	    		
 	    		}
 	    	}
+	    	if(tabId=="questionsView"){ 
+    		
+	    		/* fetch all messages of a stream for messageListView */
+	    		view = this.getViewById('questionsView');
+	    		if(view){
+	    			view.myStreams = this.getViewById('sidebar').myStreams;
+	    			
+	    			view.data.url="/getAllQuestionsForAStream/"+this.getViewById('sidebar').streamId+"/date/"+view.messagesPerPage+"/"+view.pageNo;
+	    			view.fetch();
+	    		
+	    		}
+	    	}
+
+
 	    }
 		
 		

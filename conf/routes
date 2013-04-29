@@ -73,14 +73,14 @@ GET    /rockersOf/question/:questionId                                        co
 PUT    /follow/question/:questionId                                           controllers.QuestionController.followQuestion(questionId:String)
 PUT    /voteAnOptionOf/question/:optionId                                     controllers.QuestionController.voteAnOptionOfAQuestion(optionId:String)
 PUT    /remove/question/:questionId                                           controllers.QuestionController.deleteQuestion(questionId:String)              
-#POST 	/getAllQuestionsForAStreambyKeyword 		controllers.QuestionController.getAllQuestionsForAStreambyKeyword
+#POST 	/getAllQuestionsForAStreambyKeyword 								  controllers.QuestionController.getAllQuestionsForAStreambyKeyword
 
 #bitly
 POST   /bitly                                                                 controllers.MessageController.getShortUrlViabitly 
 
 #Public Profile
 GET    /publicMessages/user/:userId                                           controllers.PublicProfileController.getAllPublicMessagesForAUser(userId:String)
-#POST  	/publicProfileInfo          				controllers.PublicProfileController.getPublicProfileOfAUser
+#POST  	/publicProfileInfo          										  controllers.PublicProfileController.getPublicProfileOfAUser
 GET    /publicDocuments/user/:userId                                          controllers.PublicProfileController.getAllPublicDocumentForAUser(userId:String)
 
 
@@ -176,7 +176,7 @@ POST   /school                                                                co
 GET    /browsemedia                                                           controllers.MediaController.browseMedia
 
 #Questions
-GET    /getAllQuestionForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo   controllers.QuestionController.getAllQuestionForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
+GET    /getAllQuestionsForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo   controllers.QuestionController.getAllQuestionForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
 
 #Documents
 POST   /uploadDocumentFromDisk                                                controllers.DocumentController.uploadDocumentFromDisk

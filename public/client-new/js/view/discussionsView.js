@@ -499,7 +499,8 @@ define(['view/formView',
 								   message : message.data.message,
 								   messageAccess : message.data.messageAccess,
 								   profilePic : message.data.profilePic,
-								   streamId : message.data.streamId
+								   streamId : message.data.streamId,
+								   followerOfMessagePoster : message.data.followerOfMessagePoster
 							   })
 							    // show the posted message on feed
 							 	var messageItemView  = new MessageItemView({model :discussionModel});
@@ -583,7 +584,7 @@ define(['view/formView',
  	   			   callback : function(message) {
  	   				   if(message.pagePushUid != self.pagePushUid)
  	   				   {   	  
- 	   					   $('span#'+message.stream.id.id).html(message.usersOfStream);
+ 	   					   $('span#'+message.data.stream.id.id+'-users').html(message.data.stream.usersOfStream.length);
  	   				   }
 		   		   }
 	   		   })

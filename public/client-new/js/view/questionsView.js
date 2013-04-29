@@ -5,25 +5,30 @@ define(['view/formView',
 	var Questions;
 	Questions = FormView.extend({
 		objName: 'Questions',
+
 		
 		events:{
 			'click #sortQuestionBy-list' : 'sortQuestions',
 			'click #sortQueByDate-list' : 'sortQuestionsWithinAPeriod',
+			 'click #share-discussions li a' : 'actvateShareIcon',
 			'click #Q-privatelist li' :'selectPrivateToList',
 			'click #post-question' : 'postQuestion',
 			'click .add-poll' : 'addPollOptionsArea',
 			'click .add-option' : 'addMorePollOptions',
+			'click #Q-private-to' : 'checkPrivateAccess',
+
+			
 		},
+
+		messagesPerPage: 10,
+	 	pageNo: 1,
 
 		onAfterInit: function(){	
             this.data.reset();
             this.pagenum = 1;
             this.pageLimit = 10;
+         	$('#Q-main-photo').attr('src',localStorage["loggedUserProfileUrl"]);
             
-        },
-        
-        onAfterRender:function(){
-            $('#Q-main-photo').attr('src',localStorage["loggedUserProfileUrl"]);
         },
         
         /**
@@ -56,17 +61,57 @@ define(['view/formView',
         	//uncheck private check box when select Public
         	if($(eventName.target).text() == "Public")
         	{
-        		$('#private-to').attr('checked',false);
+        		$('#Q-private-to').attr('checked',false);
         	}
         	else
         	{
-        		$('#private-to').attr('checked',true);
+        		$('#Q-private-to').attr('checked',true);
         		$('#share-discussions li.active').removeClass('active');
         	}
         		
         },
         
+        /**
+         * activate share icon on selection
+         */
+        actvateShareIcon: function(eventName){
+        	
+        	eventName.preventDefault();
+        	
+        	$('#Q-private-to').attr('checked',false);
+        	$('#Q-privateTo-select').text("Public");
+        	$('#Q-privateTo-select').attr('value', 'public');
+        	
+        	if($(eventName.target).parents('li').hasClass('active'))
+        	{
+        		$(eventName.target).parents('li').removeClass('active');
+        	}
+        	else
+        	{
+        		$(eventName.target).parents('li').addClass('active');
+        	}
+        	
+        },
         
+        /**
+         *select Private / Public ( social share ) options 
+         */
+        checkPrivateAccess: function (eventName) {
+        	var streamName = $('.sortable li.active').attr('name');
+        	
+        	if($('#Q-private-to').attr('checked')!= 'checked')
+        	{
+        		$('#Q-privateTo-select').text("Public");
+        		
+        	}
+        	else
+        	{
+        		$('#Q-privateTo-select').text(streamName);
+        		$('#share-discussions li.active').removeClass('active');
+        	}
+        		
+        },
+
         /**
 		 * function for post questions 
 		 */
@@ -82,8 +127,8 @@ define(['view/formView',
 	      
 	        //get message access private ? / public ?
 	        var questionAccess;
-	        var queAccess =  $('#private-to').attr('checked');
-	        var privateTo = $('#select-privateTo').text();
+	        var queAccess =  $('#Q-private-to').attr('checked');
+	        var privateTo = $('#Q-privateTo-select').text();
 		    if(queAccess == "checked")
 		    {
 		    	if(privateTo == "My School")
@@ -157,8 +202,9 @@ define(['view/formView',
 		    
             
 		     /* set to model */
-   			 this.question = new QuestionModel();
-   			 this.question.save({streamId : streamId, question :question, questionAccess:questionAccess ,pollOptions:pollOptions},{
+   			 // this.question = new QuestionModel();
+   			 this.data.url = "/question";
+   			 this.data.models[0].save({streamId : streamId, question :question, questionAccess:questionAccess ,pollOptions:pollOptions},{
    				 success : function(model, response) {
 		    		
    					 $('#Q-area').val("");
