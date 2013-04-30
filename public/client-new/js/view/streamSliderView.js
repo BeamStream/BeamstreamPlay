@@ -199,8 +199,8 @@ define(['baseView',
              	});
  				/* 	if the deleted stream was active stream then set first stream as an active stream */
 				if($('li[id='+activeStream+']').length == 0){
-					$('#sortable4 li:first').addClass('active');
-        			$('#sortable4 li:first').append(self.activeDiv);
+					
+					self.fetch();
         			self.streamId = $('#sortable4 li:first').attr('id')
         			self.renderTabContents(self.streamId);
         			
