@@ -46,11 +46,7 @@ define(['view/formView',
         */
         confirm: function(e){
             e.preventDefault();
-           
             var streamId =$('#detele-streamId').val();
-                 
-                
-
             var stream = new StreamModel();
             stream.urlRoot = '/remove/stream';
 
@@ -59,7 +55,7 @@ define(['view/formView',
                 
                     if(response.status == "Success")
                     {
-                        alert(response.message);
+                       
                         $('li#'+streamId).remove();
                         $('#deleteStream').modal("hide");
                         
@@ -73,7 +69,6 @@ define(['view/formView',
             });
 
         }
-       
  
 	})
 	return DeleteStreamView;
