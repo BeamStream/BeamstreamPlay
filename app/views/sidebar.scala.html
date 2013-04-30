@@ -10,6 +10,7 @@
 <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.min.js"></script>
 
 
+
 <div class="left-container">
     <aside>
     	 <!--  For left side stream list --> 
@@ -22,6 +23,30 @@
         	
         	       
         </div>
+
+        <div  id="deleteStreamView"   data-module="view/deleteStreamView"  >
+            <div id="deleteStream" style="top: 65% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-header">
+                    <h3 id="stream-action" >Chose Action for </h3><button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <input id="detele-streamId" type = "hidden" value="">
+                  </div>
+                  <div class="modal-body">
+                    <div class="share-content">
+                        <form id="delete-stream-form"> 
+                            <fieldset>
+                                </br></br>
+                                <input id="all" type="radio" name="deleteAction" value="all" > Delete Stream for all users </br></br>
+                                <input id="my" type="radio" name="deleteAction" value="my" >Remove My Access
+                            </fieldset>
+                        </form>  
+                        <br><br>
+                        <a id="Ok" class="btn btn-success pull-left" href="#Ok" style="margin-right:15px;">OK</a>
+                        <a id="cancel" class="btn btn-primary  pull-left" href="#createClass">CANCEL</a>
+                    
+                    </div>
+                </div>
+            </div>          
+    </div>
 
 
      
