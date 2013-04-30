@@ -25,7 +25,8 @@ define(['view/formView'], function(FormView ){
 		events:{
 	        'click #login': 'login',
 	        'keyup #password' : 'loginOnEnterKeyPress',
-	        'click .register-cancel' : 'clearAllFields'
+	        'click .register-cancel' : 'clearAllFields',
+	        'blur .home_reg' : 'validationsymbol'
 		},
 
 		onAfterInit: function(){	
@@ -36,13 +37,29 @@ define(['view/formView'], function(FormView ){
             
         },
         
+        /**         
+         * tick and cross mark handling
+         */
+        validationsymbol : function(e){
+        	
+        	var target = $(e.currentTarget).parent('fieldset').find('div.field-error');        	
+        	if(target.length == 0 && $(e.currentTarget).val()){
+        		$(e.currentTarget).parent('fieldset').find('div.sign-close').hide();
+        		$(e.currentTarget).parent('fieldset').find('div.sign-tick').show();
+        		
+        	}else if($(e.currentTarget).val()){
+        		$(e.currentTarget).parent('fieldset').find('div.sign-tick').hide();
+        		$(e.currentTarget).parent('fieldset').find('div.sign-close').show();
+        	}
+        },
+        
         
         /**
         * @TODO  user registration 
         */
         login:function(e){	
             e.preventDefault();
-            this.data.url = "/login";
+            this.data.url = "/login";            
             this.saveForm();
  
         },
@@ -56,7 +73,9 @@ define(['view/formView'], function(FormView ){
             
             // On login success redirect to stream page
             if(data.result.status == 'Success')
-            {
+            {	
+            	$('.sign-tick').hide();
+            	$('.sign-close').hide();
             	// set the logged users profile picture and Id
             	localStorage["loggedUserProfileUrl"] =  data.profilePicOfUser;
             	localStorage["loggedUserId"] =  data.user.id.id;
@@ -66,12 +85,15 @@ define(['view/formView'], function(FormView ){
             else
             {
                 alert(data.result.message);
+                
             }	
             
             /* clear the fields and model */
             $('#login-form').find("input[type=text], input[type=password]").val("");
             this.data.models[0].set({mailId:'',password :''});
             $('span.error').remove();
+            $('.sign-tick').hide();
+        	$('.sign-close').hide();
             
 
 		},
@@ -93,6 +115,8 @@ define(['view/formView'], function(FormView ){
 		    e.preventDefault();
 		    $('#login-form').find("input[type=text], input[type=password]").val("");
 		    $('span.error').remove();
+		    $('.sign-tick').hide();
+        	$('.sign-close').hide();
 		}
  
 	})

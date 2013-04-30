@@ -55,8 +55,6 @@ define(['view/formView'], function(FormView){
         registration:function(e){	
             e.preventDefault();
             this.data.url ="/signup";
-            $('.sign-tick').hide(); 
-            $('.sign-close').hide(); 
             this.data.models[0].set('iam',$("#usertype").val());
             this.saveForm( );
         },
@@ -71,6 +69,8 @@ define(['view/formView'], function(FormView){
            
             if(data.status == 'Success')
             {
+            	$('.sign-tick').hide();
+            	$('.sign-close').hide();
                 alert('Signup successful \n\nPlease check your mail.');
             }
             else
@@ -82,6 +82,8 @@ define(['view/formView'], function(FormView){
             $('#signup-form').find("input[type=text], input[type=password]").val("");
             this.data.models[0].set({mailId:'',password :'' , confirmPassword : ''});
             $('span.error').remove();
+            $('.sign-tick').hide();
+        	$('.sign-close').hide();
 
 		},
                 
@@ -121,6 +123,9 @@ define(['view/formView'], function(FormView){
 			e.preventDefault();
 			$('#signup-form').find("input[type=text], input[type=password]").val("");
 			$('span.error').remove();
+			$('.sign-tick').hide();
+        	$('.sign-close').hide();
+			
 		}
  
 	})
