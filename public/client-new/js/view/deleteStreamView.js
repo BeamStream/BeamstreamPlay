@@ -59,7 +59,8 @@ define(['view/formView',
                 
                     if(response.status == "Success")
                     {
-                        alert(data.message);
+                        alert(response.message);
+                        $('li#'+streamId).remove();
                         $('#deleteStream').modal("hide");
                         
                     }
