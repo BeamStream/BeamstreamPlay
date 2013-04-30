@@ -1,26 +1,19 @@
 package controllers
 
-import play.api._
-import play.api.mvc._
-import models.Stream
-import play.api.data._
-import play.api.data.Forms._
-import models.UserDAO
-import com.codahale.jerkson.Json
-import org.bson.types.ObjectId
-import net.liftweb.json.DefaultFormats
-import net.liftweb.json.{ parse, DefaultFormats }
-import net.liftweb.json.Serialization.{ read, write }
-import models.Class
 import java.text.SimpleDateFormat
+
+import org.bson.types.ObjectId
+
+import models.Class
+import models.ClassType
+import models.Message
+import models.Stream
+import models.User
+import net.liftweb.json.Serialization.write
+import play.api.mvc.Action
+import play.api.mvc.Controller
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
-import models.ClassType
-import models.User
-import models.StreamType
-import models.Class
-import models.ResulttoSent
-import models.Message
 import utils.onlineUserCache
 
 object StreamController extends Controller {
@@ -89,8 +82,8 @@ object StreamController extends Controller {
   /**
    *  Delete A Stream
    */
-  def deleteTheStream(streamId:String, deleteStream:Boolean, removeAccess:Boolean) = Action { implicit request =>
-    val result = Stream.deleteStreams(new ObjectId(request.session.get("userId").get), new ObjectId(streamId), deleteStream, removeAccess)
+  def deleteTheStream(streamId:String) = Action { implicit request =>
+    val result = Stream.deleteStreams(new ObjectId(request.session.get("userId").get), new ObjectId(streamId))
     Ok(write(result)).as("application/json")
 
   }

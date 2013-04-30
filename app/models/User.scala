@@ -130,6 +130,14 @@ object User {
       UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classes = (user.classes ++ classId)), false, false, new WriteConcern)
     }
   }
+
+  /**
+   * Remove Class From User (RA)
+   */
+  def removeClassFromUser(userId: ObjectId, classId: List[ObjectId]) {
+    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
+    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classes = (user.classes -- classId)), false, false, new WriteConcern)
+  }
   /**
    * Get the Details of a user (RA)
    */
@@ -214,9 +222,9 @@ object User {
   /**
    * Update User Information
    */
-  def updateUser(userId: ObjectId, firstName: String, lastName: String, email:String, location: String, about: String, contact: String) {
+  def updateUser(userId: ObjectId, firstName: String, lastName: String, email: String, location: String, about: String, contact: String) {
     val userToUpdate = User.getUserProfile(userId)
-    UserDAO.update(MongoDBObject("_id" -> userId), userToUpdate.get.copy(firstName = firstName, lastName = lastName, email=email,location = location, about = about, contact = contact), false, false, new WriteConcern)
+    UserDAO.update(MongoDBObject("_id" -> userId), userToUpdate.get.copy(firstName = firstName, lastName = lastName, email = email, location = location, about = about, contact = contact), false, false, new WriteConcern)
   }
 
   /**
