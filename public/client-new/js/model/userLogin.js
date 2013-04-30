@@ -32,6 +32,7 @@ define(['model/user'], function(User) {
 			} ,
 			password: {
 				required: true,
+				minLength : 6
 			}
         }
   

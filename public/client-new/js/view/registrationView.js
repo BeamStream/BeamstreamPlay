@@ -96,6 +96,7 @@ define(['view/formView' ,
 						else{
 							location = userInfo.profile.address.formatted;
 						}
+						
 					}
 					else if(userInfo.profile.providerName == "Facebook"){
 
@@ -121,7 +122,7 @@ define(['view/formView' ,
 						console.log("Not from registraed social site");
 					}
 						 
-					userInfo = { "status" : "true" , "firstName" : firstName,"lastName": lastName,"location": location, "email": email  };
+					userInfo = { "status" : "true" , "firstName" : firstName,"lastName": lastName,"location": location, "email": email};
 					
 					this.data.models[0].set({'firstName':firstName , 'lastName': lastName , 'location': location ,'mailId': email});
 					this.$(".content").html( compiledTemplate(userInfo));
@@ -130,13 +131,15 @@ define(['view/formView' ,
 		},
 		
 		onAfterRender: function(){
-			
+			var self=this;
 			/* set style for select boxes */
 			$('.selectpicker-info').selectpicker({
 			    style: 'register-select'
 			});
 			
 			this.temp_photo = '/beamstream-new/images/step-one-pic1.png';
+			
+
 		},		
       
 		

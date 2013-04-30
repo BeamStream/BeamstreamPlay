@@ -15,6 +15,7 @@ define(['baseView',
         	 'click .close-btn' : 'removeStreamTab',
 			 'click .cancel-btn' : 'closeRemoveOption',
 			 'click .sortable li' : 'renderRightContenetsOfSelectedStream',
+			 'click .remove-stream': 'removeStreamAction'
 		},
 		
 		                
@@ -98,11 +99,21 @@ define(['baseView',
 			
 		},
 		
+		/**
+		* remove a stream access 
+		*/
+		removeStreamAction: function(e){
+			
+			var streamId = $(e.target).parents('li').attr('id');
+	    	var StreamName = $(e.target).parents('li').attr('name');
+	    	$('#detele-streamId').val(streamId);
+			$('#deleteStream').modal("show");
+		},
         /**
         * slider/scrolling effect for stream list 
         */
         slider: function(){
-        	
+        	var self = this;
             var activeDiv = '<div class="active-curve"><img src="/beamstream-new/images/active-curve.png" width="20" height="58"></div>';
             $('span.close-btn').hide();     
             $('div.drag-icon').hide();
@@ -152,6 +163,8 @@ define(['baseView',
                  $('#sortable4, #sortable5').sortable('destroy');
                  $('li').removeAttr('draggable');
                  
+
+                 
                  /* remove if any red actvated stream li */
                  $("#sortable4 li").each(function(n) {
                     var streamId = $(this).attr('id');
@@ -176,14 +189,24 @@ define(['baseView',
  	     	    				       +'</div>';
  	     	    		}
  	     	    		 
- 	     	    		
+
  	     	    		$(this).removeClass("icon1 red-active");
  	     	    		$(this).html(removeOption);
  		     	    	$('.drag-rectangle').tooltip()	
 
  	     	    		 
  	     	    	 }
-                 });
+             	});
+ 				/* 	if the deleted stream was active stream then set first stream as an active stream */
+				if($('li[id='+activeStream+']').length == 0){
+					$('#sortable4 li:first').addClass('active');
+        			$('#sortable4 li:first').append(self.activeDiv);
+        			self.streamId = $('#sortable4 li:first').attr('id')
+        			self.renderTabContents(self.streamId);
+        			
+				}
+				
+				
             });		            
             $('.drag-rectangle').tooltip()		
         },
@@ -192,7 +215,7 @@ define(['baseView',
 	     * open a remove option  to remove that stream 
 	     */
         removeStreamTab :function(eventName){
-        	console.log(44);
+        	
 	    	eventName.preventDefault();
 	    	var self = this;
 	    	
@@ -203,7 +226,7 @@ define(['baseView',
 	    	// set new style for streamtab  
             var removeOption = '<a href="#" class="red-active-icon1">'+StreamName+' </a>'
             				   +'<div class="drag-icon drag-rectangle" data-original-title="Drag To Rearrange"></div>'
-            				   +'<span class="remove-btn rr"><a href="#">Remove</a></span> <span class="remove-btn cancel-btn "><a href="#">Cancel</a></span>';
+            				   +'<span class="remove-btn remove-stream"><a href="#">Remove</a></span> <span class="remove-btn cancel-btn "><a href="#">Cancel</a></span>';
 	    	
 	    	$(eventName.target).parents('li').addClass("icon1 red-active");
 	    	$(eventName.target).parents('li').html(removeOption);
@@ -245,23 +268,59 @@ define(['baseView',
 	    	eventName.preventDefault();
 	    	this.streamId = eventName.target.id;
 	    	
+
+	    	// disable the content rendering when the stream list is on edit stage
+	    	// if($('a.done').attr('data-value') == "inActive")
+	    	// 	return;
+	    	
+	    	// //if there is no stream in stream list 
+		    // if(!eventName.target.id)
+		    // 	return;
+		      
+		    // /*set the privateTo drop down select option as selected stream */
+		    // var streamName = $('#'+this.streamId+'').attr('name');
+		    // $('#select-privateTo').text(streamName);
+		    // $('#Q-privateTo-select').text(streamName);
+		   
+		    // // set active stage for stream li
+		    // $('.sortable li.active').find('div.active-curve').remove();
+		    // $('.sortable li.active').removeClass('active');
+		    // $('.sortable li#'+this.streamId).addClass('active');
+		    // $('.sortable li.active').append(this.activeDiv);
+		    // var userCount = $('.sortable li.active').attr('data-userCount');
+		    
+		    // /* render the stream title and description view based on selected stream */
+		    // var compiledTemplate = Handlebars.compile(StreamTitle);
+		    // $('.stream-header-left').html(compiledTemplate({streamName: streamName ,userCount:userCount }));
+		    
+		    // //render active tab contents
+		    // var activeTab = $('.stream-tab li.active').attr('id');
+	        this.renderTabContents(this.streamId);
+ 
+	    },
+	    
+	    /**
+	     * render tab contents of selected stream
+	     */
+	    renderTabContents: function(streamId){
+	    	
 	    	// disable the content rendering when the stream list is on edit stage
 	    	if($('a.done').attr('data-value') == "inActive")
 	    		return;
 	    	
 	    	//if there is no stream in stream list 
-		    if(!eventName.target.id)
+		    if(!streamId)
 		    	return;
 		      
 		    /*set the privateTo drop down select option as selected stream */
-		    var streamName = $('#'+this.streamId+'').attr('name');
+		    var streamName = $('#'+streamId+'').attr('name');
 		    $('#select-privateTo').text(streamName);
 		    $('#Q-privateTo-select').text(streamName);
 		   
 		    // set active stage for stream li
 		    $('.sortable li.active').find('div.active-curve').remove();
 		    $('.sortable li.active').removeClass('active');
-		    $('.sortable li#'+this.streamId).addClass('active');
+		    $('.sortable li#'+streamId).addClass('active');
 		    $('.sortable li.active').append(this.activeDiv);
 		    var userCount = $('.sortable li.active').attr('data-userCount');
 		    
@@ -271,15 +330,8 @@ define(['baseView',
 		    
 		    //render active tab contents
 		    var activeTab = $('.stream-tab li.active').attr('id');
-	        this.renderTabContents(activeTab);
- 
-	    },
-	    
-	    /**
-	     * render tab contents of selected stream
-	     */
-	    renderTabContents: function(activeTab){
-	    	
+
+
 	    	if(activeTab=='discussion'){ 
 	    		/* fetch all messages of a stream for messageListView */
 	    		view = this.getViewById('messageListView');

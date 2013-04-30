@@ -40,8 +40,12 @@ define(['view/formView'
         	this.data.models[0].set({'id':$('#docId').val()});
         	this.data.models[0].set({'docName':$('#docName').val()});
         	this.data.models[0].set({'docDescription':$('#docDescription').val()});
+
+            if($('#docType').val() == 'Document')
+                this.data.url="/document";
+            else
+                this.data.url="/changeTitleAndDescriptionUserMedia";
         	
-        	this.data.url="/document";
         	this.saveForm({});
 		},
 
@@ -59,6 +63,10 @@ define(['view/formView'
 
                 alert("Doc Edit Successfully"); 
                 self.data.models[0].clear();
+
+                $('#description-'+data[0].id.id).text(data[0].documentDescription);
+                $('#name-'+data[0].id.id+'').text(data[0].documentName);
+
               	$('#editMedia').modal("hide");
 
 

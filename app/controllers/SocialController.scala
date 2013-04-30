@@ -45,7 +45,6 @@ object SocialController extends Controller {
       val res = promise.get
       val body = res.getBody
       val json = Json.parse(body)
-      println("*******************" + json)
       val providerName = (json \ "profile" \ "providerName").asOpt[String].get
       val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
       val emailFromJson = (json \ "profile" \ "email").asOpt[String]
@@ -86,7 +85,8 @@ object SocialController extends Controller {
         val userSession = request.session + ("userId" -> authenticatedUser.get.id.toString)
         val noOfOnLineUsers = onlineUserCache.setOnline(authenticatedUser.get.id.toString)
         println(noOfOnLineUsers)
-        Ok(views.html.discussions.discussions("DISCUSSIONS_DATA")).withSession(userSession)
+        Ok(views.html.stream()).withSession(userSession)
+         
       }
     } catch {
       case ex => InternalServerError(write("Login Failed")).as("application/json")

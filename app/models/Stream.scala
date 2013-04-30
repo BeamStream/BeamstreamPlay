@@ -86,7 +86,6 @@ object Stream {
   /**
    * join stream (RA)
    */
-
   def joinStream(streamId: ObjectId, userId: ObjectId): ResulttoSent = {
 
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
@@ -99,6 +98,15 @@ object Stream {
     } else {
       ResulttoSent("Failure", "You've already joined the stream")
     }
+  }
+
+  /**
+   * join stream (RA)
+   */
+  def removeAccessFromStream(streamId: ObjectId, userId: ObjectId): ResulttoSent = {
+    val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
+    StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream -- List(userId))), false, false, new WriteConcern)
+    ResulttoSent("Success", "Deleted Stream Successfully")
   }
 
   /*
@@ -132,31 +140,29 @@ object Stream {
    *  Delete A Stream
    */
 
-  def deleteStreams(userId: ObjectId, streamId: ObjectId, deleteStatus: Boolean, removeAccess: Boolean): ResulttoSent = {
+  def deleteStreams(userId: ObjectId, streamId: ObjectId) = {
 
-    val streamObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
-
-    val resultToSend = (deleteStatus == true) match {
+    val streamsObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList
+    (streamsObtained.isEmpty == false) match {
       case true =>
-        if (streamObtained.creatorOfStream == userId) {
-          Stream.deleteStream(streamObtained)
-          ResulttoSent("Success", "Stream Removed SuccessFully")
-        } else {
-          ResulttoSent("Failure", "You Do Not Have Rights To Delete This Stream")
+        (streamsObtained.head.creatorOfStream == userId) match {
+          case true =>
+            Stream.deleteStream(streamsObtained.head)
+            val classAssosiatedWithThisStream = ClassDAO.find(MongoDBObject("streams" -> streamId)).toList(0)
+            ClassDAO.remove(classAssosiatedWithThisStream)
+            User.removeClassFromUser(userId, List(classAssosiatedWithThisStream.id))
+          case false => Stream.removeAccessFromStream(streamId, userId)
         }
-      case false => {
-        StreamDAO.update(MongoDBObject("_id" -> streamId), streamObtained.copy(usersOfStream = (streamObtained.usersOfStream filterNot (List(userId) contains))), false, false, new WriteConcern)
-        ResulttoSent("Success", "You've Successfully Removed From This Stream")
-      }
+        ResulttoSent("Success", "Deleted Stream Successfuly")
+      case false => ResulttoSent("Failure", "No Streams found")
     }
-    resultToSend
+
   }
 
   /**
    * Notify Other Users Of A Stream About New User That Has Been Joined In A Stream (RA)
    */
   def sendMailToUsersOfStream(streamId: ObjectId, userIdWhoHasJoinedTheStream: ObjectId) = {
-    println("2 2 future--------")
     val userWhoHasJoinedTheStream = User.getUserProfile(userIdWhoHasJoinedTheStream)
     val stream = Stream.findStreamById(streamId)
     for (user <- stream.usersOfStream) {
@@ -165,7 +171,6 @@ object Stream {
         SendEmailUtility.notifyUsersOfStreamForANewUser(userObtained.get.email, userWhoHasJoinedTheStream.get.firstName, userWhoHasJoinedTheStream.get.lastName, stream.streamName)
       }
     }
-    println("Ok Done Now-----------------")
   }
 
 }

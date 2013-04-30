@@ -151,13 +151,13 @@
          	  <div id="step_1" class="step-box step-box1">
 	              <h3>Step 1 of 3 </h3>
 	              <h4>Make registration a breeze - Connect Your Social Networks</h4>
-	              <a id ="skip_step1" href="#">Skip this step</a> <a id="done_step1" href="#">Continue</a> 
+	              <a id ="skip_step1" class="disable-step" href="#">Skip this step</a> <a id="done_step1" href="#">Continue</a> 
               </div>
               
               <div id="step_2" style="display:none;" class="step-box step-box1 step-box2 step-two">
 	              <h3>Step 2 of 3 </h3>
 	              <h4>Basic Profile Section</h4>
-		          <a id="step2-reset" href="#">Reset</a> 
+		          <a id="step2-reset" class="disable-step" href="#">Reset</a> 
 		          <a id="done_step2" href="#">Continue</a> 
 		           <a href="#" class="register-back" id="step2_back">Back</a> 
 	          </div>
@@ -165,14 +165,14 @@
 	          <div id="step_3" style="display:none;" class="step-box">
 	              <h3>Step 3 of 3 </h3>
 					<h4>Upload Your Main Profile Photo</h4> <span class="profile-loading" style="display:none;;"> </span>
-	              <a id="skip_step3" href="#">Skip this step</a> 
+	              <a id="skip_step3" class="disable-step" href="#">Skip this step</a> 
 	              <a class="browse" href="#">Upload Photo or Video</a>   
 	               <a href="#" class="register-back" id="step3_back">Back</a>
               </div>
 
 
 
- <input type="file" id="uploadProfilePic" name="uploadProfilePic"  style="display:none;"> 
+	 <input type="file" id="uploadProfilePic" name="uploadProfilePic"  style="display:none;"> 
              <div id="upload-step">
 	             <div id="step3_block" class="round-block upload-photo step-one-photo"> 
 	             <a ><img src="/beamstream-new/images/step-one-pic1.png" width="148" height="37" id="profile-photo">

@@ -56,6 +56,7 @@ define(['view/formView'
 		
 		preventDefault : function(eventName){
             eventName.preventDefault();
+    	    $("#uploadmediachild_dr").slideUp(50); 
         },
         
 		 /**        

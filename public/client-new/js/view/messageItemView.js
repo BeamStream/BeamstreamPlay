@@ -249,6 +249,7 @@ define(['view/formView',
         	/* show the doc details in the popupa */
         	var mediaId = eventName.currentTarget.id; 
         	$('#docId').val(mediaId);
+        	$('#docType').val(this.model.get('message').messageType.name);
         	$('#edit-file-name').html('Edit '+this.model.get('docName')) ;  
         	$('#docName').val(this.model.get('docName')) ;  
         	$('#docDescription').val(this.model.get('docDescription')) ;   

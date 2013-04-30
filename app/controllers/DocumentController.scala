@@ -114,11 +114,15 @@ object DocumentController extends Controller {
   /*
       * Change the title and description
       */
-  def changeTitleAndDescriptionForADocument(documentId: String, name: String, description: String) = Action { implicit request =>
-    Document.updateTitleAndDescription(new ObjectId(documentId), name, description)
+  def changeTitleAndDescriptionForADocument(documentId: String) = Action { implicit request =>
+    val jsonReceived = request.body.asJson.get
+    val docDescription = (jsonReceived \ "docDescription").as[String]
+    val docName = (jsonReceived \ "docName").as[String]
+    Document.updateTitleAndDescription(new ObjectId(documentId), docName, docDescription)
     val docObtained = Document.findDocumentById(new ObjectId(documentId))
     val docJson = write(List(docObtained))
     Ok(docJson).as("application/json")
+
   }
 
   /*
@@ -243,7 +247,7 @@ object DocumentController extends Controller {
       case true => Option(userMedia(0).mediaUrl)
       case false => None
     }
-    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic,None,Option(false))
+    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic, None, Option(false))
   }
 
   /**
@@ -251,7 +255,7 @@ object DocumentController extends Controller {
    */
   private def saveVideoFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User, docNameOnAmazon: String) = {
     val frameOfVideo = ExtractFrameFromVideoUtil.extractFrameFromVideo(docURL)
-//    (new AmazonUpload).uploadCompressedFileToAmazon(docNameOnAmazon + "Frame", frameOfVideo, 0, false, userId.toString)
+    //    (new AmazonUpload).uploadCompressedFileToAmazon(docNameOnAmazon + "Frame", frameOfVideo, 0, false, userId.toString)
     (new AmazonUpload).uploadCompressedFileToAmazon(docNameOnAmazon + "Frame", frameOfVideo)
     val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docNameOnAmazon + "Frame"
     val media = new UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Video, DocumentAccess.withName(docAccess), false, videoFrameURL, 0, Nil, Nil)
@@ -264,7 +268,7 @@ object DocumentController extends Controller {
       case true => Option(userMedia(0).mediaUrl)
       case false => None
     }
-    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic,None,Option(false))
+    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic, None, Option(false))
   }
 
   /**
@@ -282,7 +286,7 @@ object DocumentController extends Controller {
       case true => Option(userMedia(0).mediaUrl)
       case false => None
     }
-    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic,None,Option(false))
+    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic, None, Option(false))
   }
   /**
    * Save other documents
@@ -299,7 +303,7 @@ object DocumentController extends Controller {
       case true => Option(userMedia(0).mediaUrl)
       case false => None
     }
-    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic,None,Option(false))
+    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic, None, Option(false))
   }
 
   /**
