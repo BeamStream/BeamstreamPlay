@@ -103,12 +103,10 @@ define(['baseView',
 		* remove a stream access 
 		*/
 		removeStreamAction: function(e){
+			
 			var streamId = $(e.target).parents('li').attr('id');
 	    	var StreamName = $(e.target).parents('li').attr('name');
-
-	    	$('#stream-action').html('Chose Action for '+StreamName)
 	    	$('#detele-streamId').val(streamId);
-	    	
 			$('#deleteStream').modal("show");
 		},
         /**

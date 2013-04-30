@@ -46,51 +46,30 @@ define(['view/formView',
         */
         confirm: function(e){
             e.preventDefault();
-            var deleteStream =false,removeAccess =false;
-            var value = $('input[name=deleteAction]:checked').val();
-            if(value)
-            {
-                if(value == "all")
-                {
-                    deleteStream =true;
-                }
-                if(value == "my")
-                {
-                    removeAccess = true;
-                }
-                var streamId =$('#detele-streamId').val();
+           
+            var streamId =$('#detele-streamId').val();
                  
-                var result=confirm("Are you sure ?");
-                if(result == true)
-                {
+                
 
-                    var stream = new StreamModel();
-                    stream.urlRoot = '/remove/stream';
+            var stream = new StreamModel();
+            stream.urlRoot = '/remove/stream';
 
-                    stream.save({id : streamId ,deleteStream: deleteStream,removeAccess:removeAccess},{
-                        success : function(model, response) {
+            stream.save({id : streamId },{
+                success : function(model, response) {
+                
+                    if(response.status == "Success")
+                    {
+                        alert(data.message);
+                        $('#deleteStream').modal("hide");
                         
-                            if(response.status == "Success")
-                            {
-                                alert(data.message);
-                                $('#deleteStream').modal("hide");
-                                
-                            }
-                        
-                        },
-                        error : function(model, response) {
-                            console.log("error");
-                        }
-
-                    });
-
+                    }
+                
+                },
+                error : function(model, response) {
+                    console.log("error");
                 }
-               
-            }
-            else
-            {
-                alert("please select one option");
-            }
+
+            });
 
         }
        
