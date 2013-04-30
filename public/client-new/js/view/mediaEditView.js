@@ -17,9 +17,8 @@
 */
 
 
-define(['view/formView',
-        'text!templates/editMedia.tpl',
-        ], function(FormView, MediaEditTpl ){
+define(['view/formView'
+        ], function(FormView ){
 	var MediaEditView;
 	MediaEditView = FormView.extend({
 		objName: 'MediaEditView',
