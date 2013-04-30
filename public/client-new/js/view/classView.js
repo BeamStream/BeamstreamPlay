@@ -38,7 +38,12 @@ define(['view/formView',
 		    'keyup #classCode' :'populateClassCodes',
 		    'click #addMoreClass' : 'addMoreClasses',
 		    'click #startBeam' : 'startBeamstream',
-		    'focus #classTime' : 'setDefaultTime'
+		    'focus #classTime' : 'setDefaultTime',
+
+		    'click #add-school': 'addOrEdiSchool',
+		    'click div.school_field ul li' : 'hideAddNewSchoolField',
+		    'keyup #schoolName' : 'populateSchools',
+		    'focusin #schoolName' : 'populateSchools'
 		},
 
 		init: function(){
@@ -58,6 +63,8 @@ define(['view/formView',
 		       		_.each(response, function(school) {
 		       			$('#schoolId').append('<option value="'+school.assosiatedSchoolId.id+'">'+school.schoolName+'</option>');
 		       		});
+
+		       		$('#associatedSchoolId').val($('#schoolId').val());
 		       		
 		       		//set select box style
 			   		$('.selectpicker-info').selectpicker({
@@ -66,6 +73,9 @@ define(['view/formView',
 			  		
 			   		// set date picker style
 			   		$('.datepicker').datepicker();
+
+			   		// add an extra li "Add or Edit School" for school dropdown 
+			   		$('div.school_field div.dropdown-menu ul').append('<li id="add-school"  rel="6"><a href="#" tabindex="-1">--- ADD OR EDIT SCHOOL ---</a></li>');
 		       		
 				}
 			});
@@ -77,9 +87,95 @@ define(['view/formView',
          * set default time for class time 
          */
         setDefaultTime: function(){
-        	
+
         	$("#classTime").setMask('time').val('hh:mm');
         },
+
+        /**
+         * add or edit school
+         */
+        addOrEdiSchool: function(){
+       		// $('#newSchoolModal').modal("show");
+        	$('#add-new-school').show();
+        	$('#associatedSchoolId').val('');
+        	// this.data.models[0].set({'schoolId' : $('#associatedSchoolId').val()});
+        },
+
+        /**
+         * hide add-new-school field when we select a school from the drop down lits
+         */
+        hideAddNewSchoolField: function(e){
+        	
+        	if($(e.target).parent('li').attr('id'))
+        		return;
+        	$('#add-new-school').hide();
+        	$('#associatedSchoolId').val($('#schoolId').val());
+        	this.data.models[0].set({'schoolId' : $('#associatedSchoolId').val()});
+
+        	
+        },
+
+         /**
+	     * auto populate school
+	     */
+	    populateSchools :function(eventName){
+	    	var id = eventName.target.id;
+	    	var text = $('#'+id).val();
+	    	var self =this;
+	    	this.status = false;
+	        if(text)
+	        {
+	        	$('.loading').css("display","block");
+	        	var newSchool = text;
+	        	
+				/* post the text that we type to get matched school */
+				 $.ajax({
+					type : 'POST',
+					url : "/getAllSchoolsForAutopopulate",
+					data : {
+						data : text,
+					},
+					dataType : "json",
+					success : function(datas) {
+		
+						var codes = '';
+						 
+						var allSchoolInfo = datas;
+						var schoolNames = [];
+						_.each(datas, function(data) {
+							
+							schoolNames.push({
+								label: data.schoolName,
+								value: data.schoolName,
+								id : data.id.id
+							});
+							
+				         });
+	   	                	       
+						//set auto populate schools
+						$('#'+id).autocomplete({
+						    source:schoolNames,
+						    select: function(event, ui) { 
+						    	var text = ui.item.value;
+						    	
+						    	/* set the school details  to modal */
+						    	if(ui.item.value){
+						    		
+						    		$('#associatedSchoolId').val(ui.item.id);
+						    		
+						    		self.data.models[0].set({'schoolId' : ui.item.id} );
+						    	}
+						    }
+						});
+						$('.loading').css("display","none");
+		 
+					}
+				});
+	        }
+			
+	    },
+
+
         /**
          * auto populate class names - matching a class name
          */
@@ -130,11 +226,10 @@ define(['view/formView',
 	   	                 $('#className').autocomplete({
 	   					    source:self.classNames,
 	   					    select: function(event, ui) { 
-
 	   					    	var text = ui.item.value;
 	   					    	var id = ui.item.id
 	   					    	
-	   					    	$('#createOrJoinStream').html("Join Stream");
+	   					    	$('#createOrJoinStream').text("Join Stream");
 	   					    	
 	   					    	/* set the school details  to modal */
 					    		self.data.models[0].set({'id' : ui.item.id , 'className' :ui.item.value ,'classTime' :ui.item.data.classToReturn.classTime ,'startingDate' :ui.item.data.classToReturn.startingDate,'classType':ui.item.data.classToReturn.classType ,'classCode': ui.item.data.classToReturn.classCode });
@@ -266,7 +361,9 @@ define(['view/formView',
          */
         createOrJoinStream: function(e){
         	e.preventDefault();
-    		this.data.models[0].set({'schoolId' : $('#schoolId').val()});
+    		// this.data.models[0].set({'schoolId' : $('#schoolId').val()});
+    		this.data.models[0].set({'schoolId' : $('#associatedSchoolId').val()});
+    		
 
         	this.data.url ="/class";
         	if($('#classTime').val()){
@@ -290,6 +387,11 @@ define(['view/formView',
 				streamView.add(model, data);
 				streamView.fetch();
 				
+				
+				$('#add-new-school').hide();
+				this.data.models[0].set({'schoolId' : $('#associatedSchoolId').val()});
+        		this.data.models[0].removeAttr('stream');
+        		this.data.models[0].removeAttr('resultToSend');
 
 				/* PUBNUB auto push for updating the no.of users in the stream */
 				if(data.resultToSend.message == "Joined Stream Successfully"){
@@ -359,7 +461,7 @@ define(['view/formView',
 			   	channel : "classMembers",
 			   	restore : false,
 			   	callback : function(message) {
-			   		
+
 				   	if(message.pagePushUid != self.pagePushUid)
 				   	{   	  
 					   	$('span#'+message.data.stream.id.id+'-users').html(message.data.stream.usersOfStream.length);

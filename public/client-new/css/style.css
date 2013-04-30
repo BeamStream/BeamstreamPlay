@@ -6083,3 +6083,19 @@ text-align:center;;
 
 
 
+
+.school_field{
+	position: relative;
+}
+.new-school-field{
+	
+    left:1px;
+    position: absolute;
+    top: 1px;
+}
+.new-school-field input{
+	height: 38px !important;width:96%
+}
+.newclass{
+	width:90% !mportant;box-shadow: none !important;
+}

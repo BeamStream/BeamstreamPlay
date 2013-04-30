@@ -43,7 +43,7 @@ define(['view/formView'], function(FormView){
         success: function(model, data){
 			if(data != "School Already Exists"){
 				/** @TODO  keep the school details */ 
-				$('#schoolName').val(this.data.models[0].get('schoolName'));
+				$('#schoolName').val(data.schoolName);
 				$('#associatedSchoolId').attr('value',this.data.models[0].get('id'));
 				$('#newSchoolModal').modal("hide");
 			}
