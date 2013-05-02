@@ -1,10 +1,8 @@
 package controllers
 
 import scala.collection.immutable.List
-
 import org.bson.types.ObjectId
 import org.neo4j.graphdb.Node
-
 import models.LoginResult
 import models.OnlineUsers
 import models.ResulttoSent
@@ -22,6 +20,7 @@ import utils.PasswordHashingUtil
 import utils.SendEmailUtility
 import utils.SocialGraphEmbeddedNeo4j
 import utils.onlineUserCache
+import models.OnlineUsersResult
 
 object UserController extends Controller {
 
@@ -109,8 +108,8 @@ object UserController extends Controller {
             }
           }
         }
-        Ok(write(onlineUsersAlongWithDetails)).as("application/json")
-      case true => Ok(write(onlineUsersAlongWithDetails)).as("application/json")
+        Ok(write(OnlineUsersResult(onlineUsersAlongWithDetails))).as("application/json")
+      case true => Ok(write(OnlineUsersResult(onlineUsersAlongWithDetails))).as("application/json")
     }
   }
 
