@@ -2,7 +2,7 @@
 
     <div class="ask-content">
               <div class="follw-left">
-                  <div class="ask-img"><img  id="{{data.question.id.id}}-img" src=""></div>
+                  <div class="ask-img"><img  id="{{data.question.id.id}}-img" src="{{data.profilePic}}"></div>
                     <a href="#"  id="{{data.question.userId.id}}" data-value="" class="follow-button follow-user">follow</a>
               </div>
               <div  class="ask-info">
