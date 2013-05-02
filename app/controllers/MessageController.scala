@@ -27,7 +27,6 @@ object MessageController extends Controller {
   //==========================//
 
   def newMessage = Action { implicit request =>
-    var profilePicForUser = ""
     val messageListJsonMap = request.body.asJson.get
     val streamId = (messageListJsonMap \ "streamId").as[String]
     val messageAccess = (messageListJsonMap \ "messageAccess").as[String]
@@ -38,8 +37,16 @@ object MessageController extends Controller {
     val messageId = Message.createMessage(messageToCreate)
     val messageObtained = Message.findMessageById(messageId.get)
     val userMedia = UserMedia.getProfilePicForAUser(messageObtained.get.userId)
-    if (!userMedia.isEmpty) profilePicForUser = userMedia(0).mediaUrl
-    val messageJson = write(new DocResulttoSent(messageObtained.get, "", "", false, false, Option(profilePicForUser), None,Option(false)))
+    val profilePicForUser = (!userMedia.isEmpty) match {
+      case true => (userMedia.head.frameURL != "") match {
+        case true => userMedia.head.frameURL
+        case false => userMedia.head.mediaUrl
+      }
+
+      case false => ""
+    }
+
+    val messageJson = write(new DocResulttoSent(messageObtained.get, "", "", false, false, Option(profilePicForUser), None, Option(false)))
     Ok(messageJson).as("application/json")
 
   }
@@ -56,7 +63,7 @@ object MessageController extends Controller {
   /**
    * Rockers of message
    */
-  def giveMeRockers(messageId:String) = Action { implicit request =>
+  def giveMeRockers(messageId: String) = Action { implicit request =>
     val weAreRockers = Message.rockersNames(new ObjectId(messageId))
     val WeAreRockersJson = write(weAreRockers)
     Ok(WeAreRockersJson).as("application/json")
@@ -90,7 +97,7 @@ object MessageController extends Controller {
   /**
    * Rock the message
    */
-  def followTheMessage(messageId:String) = Action { implicit request =>
+  def followTheMessage(messageId: String) = Action { implicit request =>
     val totalFollows = Message.followMessage(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
     val totalFollowJson = write(totalFollows.toString)
     Ok(totalFollowJson).as("application/json")
@@ -100,7 +107,7 @@ object MessageController extends Controller {
    * Is a follower
    * @ Purpose: identify if the user is following a message or not
    */
-  def isAFollower(messageId:String) = Action { implicit request =>
+  def isAFollower(messageId: String) = Action { implicit request =>
     {
       val isAFollowerOfMessage = Message.isAFollower(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
       Ok(write(isAFollowerOfMessage.toString)).as("application/json")
@@ -111,7 +118,7 @@ object MessageController extends Controller {
    * Is a Rocker
    * @ Purpose: identify if the user is following a message or not
    */
-  def isARocker(messageId:String) = Action { implicit request =>
+  def isARocker(messageId: String) = Action { implicit request =>
     val isARockerOfMessage = Message.isARocker(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
     Ok(write(isARockerOfMessage.toString)).as("application/json")
   }
@@ -120,7 +127,7 @@ object MessageController extends Controller {
    * Delete A Message
    */
 
-  def deleteTheMessage(messageId:String) = Action { implicit request =>
+  def deleteTheMessage(messageId: String) = Action { implicit request =>
     val messsageDeleted = Message.deleteMessagePermanently(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
     if (messsageDeleted == true) Ok(write(new ResulttoSent("Success", "Message Has Been Deleted")))
     else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Message")))
@@ -135,16 +142,16 @@ object MessageController extends Controller {
    */
   def allMessagesForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
 
-      val allMessagesForAStream = (sortBy == "date") match {
-        case true => Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
-        case false => (sortBy == "rock") match {
-          case true => Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
-          case false => Nil
-        }
+    val allMessagesForAStream = (sortBy == "date") match {
+      case true => Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+      case false => (sortBy == "rock") match {
+        case true => Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
+        case false => Nil
       }
-      val userId = request.session.get("userId").get
-      val messagesWithDescription = Message.messagesAlongWithDocDescription(allMessagesForAStream, new ObjectId(userId))
-      Ok(write(messagesWithDescription)).as("application/json")
+    }
+    val userId = request.session.get("userId").get
+    val messagesWithDescription = Message.messagesAlongWithDocDescription(allMessagesForAStream, new ObjectId(userId))
+    Ok(write(messagesWithDescription)).as("application/json")
   }
 
 }
