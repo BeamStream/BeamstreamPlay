@@ -38,7 +38,9 @@ object StreamController extends Controller {
     }
 
   }
-  
+  /**
+   * On Error Redirect to error page
+   */
   def onError = Action { implicit request =>
     Ok(views.html.error())
   }

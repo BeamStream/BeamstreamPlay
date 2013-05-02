@@ -12,8 +12,8 @@ object Global extends GlobalSettings {
   }
 
   override def onError(request: RequestHeader, ex: Throwable) = {
-//     Redirect("/error")
-     InternalServerError(views.html.error())
+     Redirect("/error")
+
   }
   override def onHandlerNotFound(request: RequestHeader): Result = {
     InternalServerError(views.html.error())
