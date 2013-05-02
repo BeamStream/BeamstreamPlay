@@ -68,7 +68,7 @@ object QuestionController extends Controller {
         pollsOfquestionObtained ++= List(pollObtained.get)
       }
     }
-    Ok(write(new QuestionWithPoll(questionObtained.get, None, None, pollsOfquestionObtained))).as("application/json")
+    Ok(write(QuestionWithPoll(questionObtained.get, None, None, pollsOfquestionObtained))).as("application/json")
   }
 
   /**
