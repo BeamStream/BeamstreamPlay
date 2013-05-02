@@ -38,7 +38,7 @@ object QuestionController extends Controller {
     val streamId = (questionJsonMap \ "streamId").as[String]
     val questionBody = (questionJsonMap \ "questionBody").as[String]
     val questionAccess = (questionJsonMap \ "questionAccess").as[String]
-    val pollsOptions = (questionJsonMap \ "pollsOptions").as[Option[String]]
+    val pollsOptions = (questionJsonMap \ "pollsOptions").asOpt[String]
      
     val userId = new ObjectId(request.session.get("userId").get)
     val user = User.getUserProfile(userId)

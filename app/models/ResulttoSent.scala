@@ -22,6 +22,7 @@ case class OptionOfQuestion(@Key("_id") id: ObjectId,
   voters: List[ObjectId])
 
 case class OnlineUsers(@Key("_id") id: ObjectId, firstName: String, lastName: String, profileImageUrl: String)
+case class OnlineUsersResult(onlineUsers:List[OnlineUsers] )
 
 object OptionOfQuestionDAO extends SalatDAO[OptionOfQuestion, ObjectId](collection = MongoHQConfig.mongoDB("optionofquestion"))
 
@@ -39,7 +40,6 @@ case class DocResulttoSent(message: Message, docName: String, docDescription: St
  * User & User School details after Registration
  */
 case class RegistrationResults(user: User, userSchool: UserSchool)
-
 /**
  * Stream Result
  */
