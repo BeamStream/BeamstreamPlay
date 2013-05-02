@@ -39,35 +39,33 @@ object QuestionController extends Controller {
     val questionBody = (questionJsonMap \ "questionBody").as[String]
     val questionAccess = (questionJsonMap \ "questionAccess").as[String]
     val pollsOptions = (questionJsonMap \ "pollsOptions").asOpt[String]
-     
+
     val userId = new ObjectId(request.session.get("userId").get)
     val user = User.getUserProfile(userId)
-    
+
     val questionToAsk = new Question(new ObjectId, questionBody, userId,
       QuestionAccess.withName(questionAccess), new ObjectId(streamId), user.get.firstName, user.get.lastName, new Date, List(), List(), List(), List())
     val questionId = Question.addQuestion(questionToAsk)
 
-    /**
-     * Add  Poll To Question
-     */
-    if (!pollsOptions.getOrElse("empty").equalsIgnoreCase("empty")) {
-      val polls = pollsOptions.get
-      val pollsList = polls.split(",").toList
-      for (pollsOption <- pollsList) {
-        val optionOfPoll = new OptionOfQuestion(new ObjectId, pollsOption, List())
-        val optionOfAPollId = OptionOfQuestionDAO.insert(optionOfPoll)
-        Question.addPollToQuestion(optionOfAPollId.get, questionId)
-      }
+    (pollsOptions == None) match {
+      case true =>
+        val pollsList = pollsOptions.get.split(",").toList
+        for (pollsOption <- pollsList) {
+          val optionOfPoll = new OptionOfQuestion(new ObjectId, pollsOption, List())
+          val optionOfAPollId = OptionOfQuestionDAO.insert(optionOfPoll)
+          Question.addPollToQuestion(optionOfAPollId.get, questionId)
+        }
     }
 
     val questionObtained = Question.findQuestionById(questionId)
-    var pollsOfquestionObtained: List[OptionOfQuestion] = List()
-    if (questionObtained.get.pollOptions.isEmpty.equals(false)) {
-      for (pollId <- questionObtained.get.pollOptions) {
-        val pollObtained = QuestionPolling.findOptionOfAQuestionById(pollId)
-        pollsOfquestionObtained ++= List(pollObtained.get)
-      }
+    val pollsOfquestionObtained = (questionObtained.get.pollOptions.isEmpty.equals(false)) match {
+      case true =>
+        (questionObtained.get.pollOptions) map {
+          case pollId => QuestionPolling.findOptionOfAQuestionById(pollId).get
+        }
+      case false => Nil
     }
+
     Ok(write(QuestionWithPoll(questionObtained.get, None, None, pollsOfquestionObtained))).as("application/json")
   }
 
@@ -85,7 +83,7 @@ object QuestionController extends Controller {
   /**
    * Rock the Question
    */
-  def rockTheQuestion(questionId:String) = Action { implicit request =>
+  def rockTheQuestion(questionId: String) = Action { implicit request =>
     val totalRocks = Question.rockTheQuestion(new ObjectId(questionId), new ObjectId(request.session.get("userId").get))
     val totalRocksJson = write(totalRocks.toString)
     Ok(totalRocksJson).as("application/json")
@@ -94,7 +92,7 @@ object QuestionController extends Controller {
   /**
    * Rockers of a Question
    */
-  def giveMeRockers(questionId:String) = Action { implicit request =>
+  def giveMeRockers(questionId: String) = Action { implicit request =>
     val rockers = Question.rockersNameOfAQuestion(new ObjectId(questionId))
     val rockersJson = write(rockers)
     Ok(rockersJson).as("application/json")
@@ -103,7 +101,7 @@ object QuestionController extends Controller {
    * Follow Question
    */
 
-  def followQuestion(questionId:String) = Action { implicit request =>
+  def followQuestion(questionId: String) = Action { implicit request =>
     val followers = Question.followQuestion(new ObjectId(request.session.get("userId").get), new ObjectId(questionId))
     Ok(write(followers.toString)).as("application/json")
   }
@@ -111,7 +109,7 @@ object QuestionController extends Controller {
   /**
    * Vote an option of a question (Polling)
    */
-  def voteAnOptionOfAQuestion(optionId:String) = Action { implicit request =>
+  def voteAnOptionOfAQuestion(optionId: String) = Action { implicit request =>
     val votes = QuestionPolling.voteTheOptionOfAQuestion(new ObjectId(optionId), new ObjectId(request.session.get("userId").get))
     val optionOfAQuestion = QuestionPolling.findOptionOfAQuestionById(new ObjectId(optionId))
     Ok(write(optionOfAQuestion)).as("application/json")
@@ -120,7 +118,7 @@ object QuestionController extends Controller {
   /**
    * Delete A Question
    */
-  def deleteQuestion(questionId:String) = Action { implicit request =>
+  def deleteQuestion(questionId: String) = Action { implicit request =>
     val questionDeleted = Question.deleteQuestionPermanently(new ObjectId(questionId), new ObjectId(request.session.get("userId").get))
     if (questionDeleted == true) Ok(write(new ResulttoSent("Success", "Question Has Been Deleted")))
     else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Question")))
@@ -162,29 +160,28 @@ object QuestionController extends Controller {
     val streamId = keywordJsonMap("streamId").toList(0)
     val pageNo = keywordJsonMap("pageNo").toList(0).toInt
     val messagesPerPage = keywordJsonMap("limit").toList(0).toInt
-    val allQuestionsForAStream = Question.getAllQuestionsForAStreambyKeyword(keyword,new ObjectId(streamId), pageNo, messagesPerPage)
+    val allQuestionsForAStream = Question.getAllQuestionsForAStreambyKeyword(keyword, new ObjectId(streamId), pageNo, messagesPerPage)
     val allQuestionsForAStreamJson = write(Question.returnQuestionsWithPolls(allQuestionsForAStream))
     Ok(allQuestionsForAStreamJson).as("application/json")
 
   }
 
-  
-/*
+  /*
  * ***********************************************************REARCHITECTED CODE****************************************************************
  * ***********************************************************REARCHITECTED CODE****************************************************************
  */
   def getAllQuestionForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
-      
-      val allQuestionsForAStream = (sortBy == "date") match {
-        case true => Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
-        case false => (sortBy == "rock") match {
-          case true => Question.getAllQuestionsForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
-          case false => Nil
-        }
+
+    val allQuestionsForAStream = (sortBy == "date") match {
+      case true => Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+      case false => (sortBy == "rock") match {
+        case true => Question.getAllQuestionsForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
+        case false => Nil
       }
-      
-      val allQuestionForAStreamJson = write(Question.returnQuestionsWithPolls(allQuestionsForAStream))
-      Ok(allQuestionForAStreamJson).as("application/json")
+    }
+
+    val allQuestionForAStreamJson = write(Question.returnQuestionsWithPolls(allQuestionsForAStream))
+    Ok(allQuestionForAStreamJson).as("application/json")
   }
 
 }
