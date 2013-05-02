@@ -29,13 +29,18 @@ object StreamController extends Controller {
 
   def index = Action { implicit request =>
     val playCookiee = request.cookies.get("PLAY_SESSION")
-
-    if (playCookiee == None) Redirect("/beamstream/home.html")
-    else {
-      val noOfOnLineUsers = onlineUserCache.setOnline(request.session.get("userId").get)
-      println("Online Users" + noOfOnLineUsers)
-      Redirect("/beamstream/index.html#streams")
+    (playCookiee == None) match {
+      case true => Redirect("/")
+      case false =>
+        val noOfOnLineUsers = onlineUserCache.setOnline(request.session.get("userId").get)
+        println("Online Users" + noOfOnLineUsers)
+        Redirect("/stream")
     }
+
+  }
+  
+  def onError = Action { implicit request =>
+    Ok(views.html.error())
   }
 
   /**
@@ -82,7 +87,7 @@ object StreamController extends Controller {
   /**
    *  Delete A Stream
    */
-  def deleteTheStream(streamId:String) = Action { implicit request =>
+  def deleteTheStream(streamId: String) = Action { implicit request =>
     val result = Stream.deleteStreams(new ObjectId(request.session.get("userId").get), new ObjectId(streamId))
     Ok(write(result)).as("application/json")
 

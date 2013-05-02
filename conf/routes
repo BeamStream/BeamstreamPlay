@@ -3,7 +3,7 @@
 
 #Other
 GET      /browserClosed                                                          controllers.UserController.browserClosed
-
+GET      /error                            controllers.StreamController.onError
 #Streams
 GET      /streams                                                                controllers.StreamController.allClassStreamsForAUser
 GET      /noOfUsers/stream/:streamId                                             controllers.StreamController.noOfUsersAttendingAClass(streamId:String)
