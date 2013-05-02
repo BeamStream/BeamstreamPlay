@@ -1,30 +1,16 @@
 package controllers
+
 import org.bson.types.ObjectId
-import org.neo4j.graphdb.Node
-import models.ProfileImageProviderCache
-import models.ResulttoSent
-import models.UserMedia
-import net.liftweb.json.Serialization.read
-import net.liftweb.json.Serialization.write
-import net.liftweb.json.DefaultFormats
-import net.liftweb.json.parse
-import play.api.data.Forms._
-import play.api.libs.json.JsValue
-import play.api.libs.json.Json
-import play.api.mvc._
-import play.api.mvc.Controller
-import play.api.mvc.Response
-import play.api._
-import play.libs._
-import play.mvc.Http.Request
-import utils._
-import play.api.cache.Cache
-import play.api.Play.current
-import utils.onlineUserCache
-import net.liftweb.json.{ parse, DefaultFormats }
-import net.liftweb.json.Serialization.{ read, write }
-import models.UserType
 import models.User
+import models.UserType
+import net.liftweb.json.DefaultFormats
+import net.liftweb.json.Serialization.write
+import play.api.Play
+import play.api.libs.json.Json
+import play.api.mvc.Action
+import play.api.mvc.Controller
+import play.libs.WS
+import utils.onlineUserCache
 
 object SocialController extends Controller {
   implicit val formats = DefaultFormats
@@ -42,8 +28,7 @@ object SocialController extends Controller {
       val apiKey = Play.current.configuration.getString("janrain_apiKey").get
       val URL = "https://rpxnow.com/api/v2/auth_info"
       val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
-      val res = promise.get
-      val body = res.getBody
+      val body = promise.get.getBody
       val json = Json.parse(body)
       val providerName = (json \ "profile" \ "providerName").asOpt[String].get
       val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
@@ -53,7 +38,9 @@ object SocialController extends Controller {
       if (canUserRegister == true) {
         val userToCreate = new User(new ObjectId, UserType.Professional, "", "", "", preferredUsername, "", None, "", "", "", "", "", Option(providerName), Nil, Nil, Nil, Nil, Nil, Option(json.toString))
         val IdOfUserCreted = User.createUser(userToCreate)
-        Ok(views.html.registration(IdOfUserCreted.get.toString, Option(json.toString)))
+        val userSession = request.session + ("userId" -> IdOfUserCreted.get.toString)
+        val noOfOnLineUsers = onlineUserCache.setOnline(IdOfUserCreted.get.toString)
+        Ok(views.html.registration(IdOfUserCreted.get.toString, Option(json.toString))).withSession(userSession)
       } else {
         Ok(write("User Has been already registered")).as("application/json")
       }
@@ -73,8 +60,7 @@ object SocialController extends Controller {
       val apiKey = Play.current.configuration.getString("janrain_apiKey").get
       val URL = "https://rpxnow.com/api/v2/auth_info"
       val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
-      val res = promise.get
-      val body = res.getBody
+      val body = promise.get.getBody
       val json = Json.parse(body)
       val providerName = (json \ "profile" \ "providerName").asOpt[String].get
       val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
@@ -84,9 +70,8 @@ object SocialController extends Controller {
       } else {
         val userSession = request.session + ("userId" -> authenticatedUser.get.id.toString)
         val noOfOnLineUsers = onlineUserCache.setOnline(authenticatedUser.get.id.toString)
-        println(noOfOnLineUsers)
         Ok(views.html.stream()).withSession(userSession)
-         
+
       }
     } catch {
       case ex => InternalServerError(write("Login Failed")).as("application/json")

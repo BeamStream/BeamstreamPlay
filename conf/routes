@@ -72,7 +72,7 @@ GET      /questions                                                             
 GET      /rockersOf/question/:questionId                                         controllers.QuestionController.giveMeRockers(questionId:String)
 PUT      /follow/question/:questionId                                            controllers.QuestionController.followQuestion(questionId:String)
 PUT      /voteAnOptionOf/question/:optionId                                      controllers.QuestionController.voteAnOptionOfAQuestion(optionId:String)
-PUT      /remove/question/:questionId                                            controllers.QuestionController.deleteQuestion(questionId:String)              
+DELETE      /remove/question/:questionId                                            controllers.QuestionController.deleteQuestion(questionId:String)              
 #POST 	/getAllQuestionsForAStreambyKeyword 								  controllers.QuestionController.getAllQuestionsForAStreambyKeyword
 
 #bitly

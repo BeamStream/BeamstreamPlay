@@ -174,9 +174,14 @@ object Question {
   def deleteQuestionPermanently(questionId: ObjectId, userId: ObjectId) = {
     var deletedQuestionSuccessfully = false
     val questionToRemove = Question.findQuestionById(questionId).get
+    val commentsOfQuestionToBeRemoved = questionToRemove.comments
     val streamObtained = Stream.findStreamById(questionToRemove.streamId)
     if (questionToRemove.userId == userId || streamObtained.creatorOfStream == userId) {
       QuestionDAO.remove(questionToRemove)
+      for (commentId <- commentsOfQuestionToBeRemoved) {
+        val commentToBeremoved = Comment.findCommentById(commentId)
+        if (commentToBeremoved != None) Comment.removeComment(commentToBeremoved.get)
+      }
       deletedQuestionSuccessfully = true
       deletedQuestionSuccessfully
     } else {
@@ -224,20 +229,18 @@ object Question {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(pollOptions = question.pollOptions ++ List(pollId)), false, false, new WriteConcern)
   }
-  
-   /**
+
+  /**
    * get all questions within a stream on the basis of keyword
    */
-  def getAllQuestionsForAStreambyKeyword(keyword: String,streamId:ObjectId, pageNumber: Int, messagesPerPage: Int): List[Question] = {
+  def getAllQuestionsForAStreambyKeyword(keyword: String, streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Question] = {
     val keyWordregExp = (""".*""" + keyword + """.*""").r
-    QuestionDAO.find(MongoDBObject("questionBody" -> keyWordregExp,"streamId"-> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    QuestionDAO.find(MongoDBObject("questionBody" -> keyWordregExp, "streamId" -> streamId)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
-  
-  
-    /**
+
+  /**
    * ****************************************Rearchitecture*****************************************************
    */
-
 
   /**
    * Takes a List of Questions and Return Question with respective polls
@@ -245,13 +248,13 @@ object Question {
   def returnQuestionsWithPolls(allQuestionsForAStream: List[Question]) = {
     var questionsWithPolls: List[QuestionWithPoll] = List()
     var profilePicForUser = ""
-    
+
     for (question <- allQuestionsForAStream) {
       //Get profilePic and Comments
       val userMedia = UserMedia.getProfilePicForAUser(question.userId)
       if (!userMedia.isEmpty) profilePicForUser = userMedia(0).mediaUrl
       val comments = Comment.getAllComments(question.comments)
-      
+
       var pollsOfquestionObtained: List[OptionOfQuestion] = List()
       if (question.pollOptions.size.equals(0) == false) {
         for (pollId <- question.pollOptions) {

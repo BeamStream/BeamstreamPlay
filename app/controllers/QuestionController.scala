@@ -1,35 +1,20 @@
 package controllers
-import play.api.mvc.Controller
-import play.api._
-import play.api.mvc._
-import play.api.mvc.Response
-import models.Stream
-import play.api.data._
-import play.api.data.Forms._
-import play.api.Play.current
-import models.User
-import org.bson.types.ObjectId
-import play.api.cache.Cache
-import models.Media
-import models.UserType
-import java.io.File
-import java.util.Date
-import models.QuestionAccess
-import models.Message
-import models.User
-import models.Question
-import net.liftweb.json.{ parse, DefaultFormats }
-import net.liftweb.json.Serialization.{ read, write }
+
 import java.text.SimpleDateFormat
-import utils.EnumerationSerializer
-import utils.ObjectIdSerializer
-import java.net.URL
-import models.ResulttoSent
-import play.api.libs.json._
+import java.util.Date
+import org.bson.types.ObjectId
 import models.OptionOfQuestion
 import models.OptionOfQuestionDAO
+import models.Question
+import models.QuestionAccess
 import models.QuestionPolling
 import models.QuestionWithPoll
+import models.ResulttoSent
+import models.User
+import net.liftweb.json.Serialization.write
+import play.api.mvc.Action
+import play.api.mvc.Controller
+import utils.ObjectIdSerializer
 
 /**
  * This controller class is used to store and retrieve all the information about Question and Answers.
