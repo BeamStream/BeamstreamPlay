@@ -217,7 +217,6 @@ object UserController extends Controller {
  * Deactivate User On Browser Closed Event
  */
   def browserClosed = Action { implicit request =>
-    println("Got A Hit On Browser Close Event")
     val noOfOnLineUsers = onlineUserCache.setOffline(request.session.get("userId").get)
     println("Online Users" + noOfOnLineUsers)
     Ok
