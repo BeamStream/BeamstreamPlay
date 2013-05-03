@@ -79,7 +79,13 @@ define(['view/formView'], function(FormView ){
             	// set the logged users profile picture and Id
             	localStorage["loggedUserProfileUrl"] =  data.profilePicOfUser;
             	localStorage["loggedUserId"] =  data.user.id.id;
-            	
+//            	if(data.stream.id.id)
+//            	{
+//            		window.location = "/stream";
+//            	}
+//            	else{
+//            		window.location = "/class";
+//            	}
             	window.location = "/stream";
             }
             else
