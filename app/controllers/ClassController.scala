@@ -95,7 +95,7 @@ object ClassController extends Controller {
       val id = (jsonReceived \ "id").asOpt[String]
       if (id == None) {
         println("Create Stream Case")
-        val classCreated = net.liftweb.json.parse(request.body.asJson.get.toString).as[Class]
+        val classCreated = net.liftweb.json.parse(request.body.asJson.get.toString).extract[Class]
         val streamIdReturned = Class.createClass(classCreated, new ObjectId(request.session.get("userId").get))
         val stream = Stream.findStreamById(streamIdReturned)
         Ok(write(ClassResult(stream, ResulttoSent("Success", "Class Created Successfully")))).as("application/json")
