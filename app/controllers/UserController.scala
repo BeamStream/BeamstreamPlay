@@ -1,8 +1,10 @@
 package controllers
 
 import scala.collection.immutable.List
+
 import org.bson.types.ObjectId
 import org.neo4j.graphdb.Node
+
 import models.LoginResult
 import models.OnlineUsers
 import models.OnlineUsersResult
@@ -21,7 +23,6 @@ import utils.PasswordHashingUtil
 import utils.SendEmailUtility
 import utils.SocialGraphEmbeddedNeo4j
 import utils.onlineUserCache
-import models.OnlineUsersResult
 
 object UserController extends Controller {
 
@@ -252,7 +253,11 @@ object UserController extends Controller {
         println("Online Users" + noOfOnLineUsers)
         val loggedInUser = User.getUserProfile(user.id)
         val profilePic = UserMedia.getProfilePicForAUser(user.id)
-        Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl)))).as("application/json").withSession(userSession)
+        (profilePic.isEmpty) match {
+          case false => 
+          Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl)))).as("application/json").withSession(userSession)
+          case true => Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, None))).as("application/json").withSession(userSession)
+        }
       case None =>
         Ok(write(LoginResult(ResulttoSent("Failure", "Login Unsuccessful"), None, None))).as("application/json")
     }
