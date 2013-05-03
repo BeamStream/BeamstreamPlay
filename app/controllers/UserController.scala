@@ -5,6 +5,7 @@ import org.bson.types.ObjectId
 import org.neo4j.graphdb.Node
 import models.LoginResult
 import models.OnlineUsers
+import models.OnlineUsersResult
 import models.ResulttoSent
 import models.User
 import models.UserMedia
@@ -27,9 +28,7 @@ object UserController extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
   } + new ObjectIdSerializer
 
-  
-
-  /*
+  /**
    * Register User via social sites
    * Deprecated in favor of SocialController.authenticateUser
    */
@@ -92,25 +91,27 @@ object UserController extends Controller {
 
   def getAllOnlineUsers = Action { implicit request =>
 
-    var onlineUsersAlongWithDetails: List[OnlineUsers] = Nil
-    (onlineUserCache.returnOnlineUsers.isEmpty == true) match {
+    val onlineUsers = (onlineUserCache.returnOnlineUsers.isEmpty == true) match {
       case false =>
-        for (userIdList <- onlineUserCache.returnOnlineUsers) {
-          for (eachUserId <- userIdList.asInstanceOf[List[String]]) {
-            val userWithDetailedInfo = User.getUserProfile(new ObjectId(eachUserId))
-            val profilePicForUser = UserMedia.getProfilePicForAUser(new ObjectId(eachUserId))
-            if (profilePicForUser.isEmpty) {
-              onlineUsersAlongWithDetails ++= List(OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
-                userWithDetailedInfo.get.lastName, ""))
-            } else {
-              onlineUsersAlongWithDetails ++= List(OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
-                userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl))
-            }
+        val onlineUsersWithDetails = (onlineUserCache.returnOnlineUsers) map {
+          case userIdList => (userIdList.asInstanceOf[List[String]]) map {
+            case eachUserId =>
+              val userWithDetailedInfo = User.getUserProfile(new ObjectId(eachUserId))
+              val profilePicForUser = UserMedia.getProfilePicForAUser(new ObjectId(eachUserId))
+              val onlineUsersAlongWithDetails = (profilePicForUser.isEmpty) match {
+                case true => OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+                  userWithDetailedInfo.get.lastName, "")
+                case false => OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+                  userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl)
+              }
+              onlineUsersAlongWithDetails
           }
         }
-        Ok(write(OnlineUsersResult(onlineUsersAlongWithDetails))).as("application/json")
-      case true => Ok(write(OnlineUsersResult(onlineUsersAlongWithDetails))).as("application/json")
+        onlineUsersWithDetails
+
+      case true => Option(Nil)
     }
+    Ok(write(OnlineUsersResult(onlineUsers.get))).as("application/json")
   }
 
   /**
