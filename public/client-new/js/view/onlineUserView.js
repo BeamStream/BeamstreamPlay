@@ -48,7 +48,7 @@ define(['baseView',
          * if there is no other online users 
          */
 		displayNoResult: function(callback){
-			console.log(this.data.models);
+			
 			var compiledTemplate = Handlebars.compile(OnlineUsers);
 			this.$(".content").html( compiledTemplate(this.data.toJSON()));			
 		},
@@ -57,8 +57,27 @@ define(['baseView',
          * if other online users 
          */
 		displayPage: function(){
-			var compiledTemplate = Handlebars.compile(OnlineUsers);
-			this.$(".content").html( compiledTemplate(this.data.toJSON()));	
+			_.each(this.data.models[0].attributes.onlineUsers, function(model) {
+				
+		        if(model.id.id == localStorage["loggedUserId"])
+		        {
+		        	var template = 	'<a href="#"><img src="'+model.profileImageUrl+'" width="30" height="28"> '
+		        					+'<span>Me</span> <span class="online-chat">Online</span></a>';
+		        			
+		        	$('#me').html(template);		
+		        }
+		        else
+		        {
+		        	
+		        	var template = '<li> <a href="#">'
+						        	+'<img width="30" height="28" src="'+model.profileImageUrl+'">'
+						        	+'<span>'+model.firstName+'</span> <span class="offline-chat">'
+						        	+'<img width="12" height="13" src="img/online-icon.png"></span></a> </li>';
+		        	$('#onlinechatbox').append(template);
+
+		        }
+				
+        	});
 		},
 
 		onAfterRender: function(){
