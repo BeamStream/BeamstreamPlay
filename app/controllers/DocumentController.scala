@@ -42,24 +42,23 @@ object DocumentController extends Controller {
 
   def newDocument = Action { implicit request =>
     val documentJson = request.body.asJson.get
-          val name = (documentJson \ "docName").as[String]
-          val url = (documentJson \ "docURL").as[String]
-          val access = (documentJson \ "docAccess").as[String]
-          val docType = (documentJson \ "docType").as[String]
-          val description = (documentJson \ "docDescription").as[String]
-          val userId = new ObjectId(request.session.get("userId").get)
-          val streamId = (documentJson \ "streamId").as[String]
-          val date = new Date
-          val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId, DocumentAccess.withName(access), new ObjectId(streamId), date, date, 0, Nil, Nil, Nil, "")
-          val docId = Document.addDocument(documentToCreate)
-          val user = User.getUserProfile(userId)
-          //Create A Message As Well To Display The Doc Creation In Stream
-          val message = Message(new ObjectId, url, Option(MessageType.Document), Option(MessageAccess.withName(access)), date, userId, Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil)
-          Message.createMessage(message)
-          val docObtained = Document.findDocumentById(docId)
-          Ok(write(List(docObtained))).as("application/json")
-       
-    }
+    val name = (documentJson \ "docName").as[String]
+    val url = (documentJson \ "docURL").as[String]
+    val access = (documentJson \ "docAccess").as[String]
+    val docType = (documentJson \ "docType").as[String]
+    val description = (documentJson \ "docDescription").as[String]
+    val userId = new ObjectId(request.session.get("userId").get)
+    val streamId = (documentJson \ "streamId").as[String]
+    val date = new Date
+    val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId, DocumentAccess.withName(access), new ObjectId(streamId), date, date, 0, Nil, Nil, Nil, "")
+    val docId = Document.addDocument(documentToCreate)
+    val user = User.getUserProfile(userId)
+    //Create A Message As Well To Display The Doc Creation In Stream
+    val message = Message(new ObjectId, url, Option(MessageType.Document), Option(MessageAccess.withName(access)), date, userId, Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil)
+    Message.createMessage(message)
+    val docObtained = Document.findDocumentById(docId)
+    Ok(write(List(docObtained))).as("application/json")
+
   }
 
   /**
