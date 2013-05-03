@@ -50,7 +50,7 @@ define(['view/formView',
  	        var message = $('#msg-area').val();
 // 	        if(message){
  	        	//get message access private ? / public ?
- 		        var messageAccess;
+ 		        var messageAccess ,googleDoc = false;
  		        var msgAccess =  $('#private-to').attr('checked');
  		        var privateTo = $('#select-privateTo').attr('value');
  			    if(msgAccess == "checked"){
@@ -193,24 +193,28 @@ define(['view/formView',
 		  	                            dataType : "json",
 		  	                            success : function(data) {                                      
 	                                         message = message.replace(link[0],data.data.url);
-	                                         self.postMessageToServer(message,streamId,messageAccess);
+	                                         self.postMessageToServer(message,streamId,messageAccess,googleDoc);
 		  	                            }
 	  	                             });
 	  	                         }
 	  	                         else
 	  	                         {  
-	  	                        	 self.postMessageToServer(message,streamId,messageAccess);
+	  	                        	 self.postMessageToServer(message,streamId,messageAccess,googleDoc);
 	  	                         }
 	                 		 }  //doc
 		  	                 else    //case: for doc upload
 		  	                 {     
-		  	                	 self.postMessageToServer(message,streamId,messageAccess);
+		  	                 	googleDoc = true;
+		  	                 	console.log(66);
+		  	                 	console.log(urlLink);
+	  	                	 	self.postMessageToServer(message,streamId,messageAccess,googleDoc);
 		  	                 }
 	                     }
 		                 //case: link is not present in message
 		                 else
-		                 {                
-		                	 self.postMessageToServer(message,streamId,messageAccess);
+		                 {             
+		                 console.log(33);   
+		                	 self.postMessageToServer(message,streamId,messageAccess,googleDoc);
 		                 }
  			        	
  			        }
@@ -223,38 +227,79 @@ define(['view/formView',
         /**
          * set message data to model and posted to server 
          */
-        postMessageToServer: function(message,streamId,messageAccess){
+        postMessageToServer: function(message,streamId,messageAccess,googleDoc){
         	var self = this;
-        	this.data.url = "/newMessage";
-		    // set values to model
-		    this.data.models[0].save({streamId : streamId, message :message, messageAccess:messageAccess},{
-		    	success : function(model, response) {
-		    		
-		    		console.log(self.data.models[0]);  
-		    		/* PUBNUB -- AUTO AJAX PUSH */ 
-		    		PUBNUB.publish({
-		    			channel : "stream",
-		    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:self.data.models[0]}
-		    		}) 
-		    		
-		    		// show the posted message on feed
-		    		var messageItemView  = new MessageItemView({model : self.data.models[0]});
-					$('#messageListView div.content').prepend(messageItemView.render().el);
-					
-		    		/* delete default embedly preview */
-		    		$('div.selector').attr('display','none');
-		    		$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
-		    		$('div.selector').remove();
-		    		$('.preview_input').remove();
-		    		$('#msg-area').val("");
-		    		
-		    	},
-		    	error : function(model, response) {
-		    		$('#msg-area').val("");
-                    console.log("error");
-		    	}
+        	if(googleDoc == true){
+        		this.data.url = "/newDocument";
 
-		    });
+        		// set values to model
+			    this.data.models[0].save({streamId : streamId, docName :message, docAccess:messageAccess ,docURL:message , docType: 'GoogleDocs', docDescription: ''},{
+			    	success : function(model, response) {
+			    		
+			    		
+			    		/* PUBNUB -- AUTO AJAX PUSH */ 
+			    		PUBNUB.publish({
+			    			channel : "stream",
+			    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:self.data.models[0]}
+			    		}) 
+			    		
+
+			    		// show the uploaded file on message llist
+ 			    		var messageItemView  = new MessageItemView({model : self.data.models[0]});
+ 						$('#messageListView div.content').prepend(messageItemView.render().el);
+
+			    		
+						
+			    		/* delete default embedly preview */
+			    		$('div.selector').attr('display','none');
+			    		$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
+			    		$('div.selector').remove();
+			    		$('.preview_input').remove();
+			    		$('#msg-area').val("");
+			    		
+			    	},
+			    	error : function(model, response) {
+			    		$('#msg-area').val("");
+	                    console.log("error");
+			    	}
+
+			    });
+
+
+        	}else{
+        		this.data.url = "/newMessage";
+			    // set values to model
+			    this.data.models[0].save({streamId : streamId, message :message, messageAccess:messageAccess},{
+			    	success : function(model, response) {
+			    		
+			    		console.log(self.data.models[0]);  
+			    		/* PUBNUB -- AUTO AJAX PUSH */ 
+			    		PUBNUB.publish({
+			    			channel : "stream",
+			    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:self.data.models[0]}
+			    		}) 
+			    		
+			    		// show the posted message on feed
+			    		var messageItemView  = new MessageItemView({model : self.data.models[0]});
+						$('#messageListView div.content').prepend(messageItemView.render().el);
+						
+			    		/* delete default embedly preview */
+			    		$('div.selector').attr('display','none');
+			    		$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
+			    		$('div.selector').remove();
+			    		$('.preview_input').remove();
+			    		$('#msg-area').val("");
+			    		
+			    	},
+			    	error : function(model, response) {
+			    		$('#msg-area').val("");
+	                    console.log("error");
+			    	}
+
+			    });
+        	}
+
+        	
         },
         
         
