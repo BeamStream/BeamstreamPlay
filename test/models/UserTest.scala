@@ -8,7 +8,6 @@ import com.mongodb.casbah.commons.MongoDBObject
 import org.bson.types.ObjectId
 import java.text.DateFormat
 
-
 @RunWith(classOf[JUnitRunner])
 class UserTest extends FunSuite with BeforeAndAfter {
 
@@ -16,9 +15,13 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None)
   val user2 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "NeelS", "Neil", Option("Neel"), "Knoldus", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None)
-  val socialUser = User(new ObjectId, UserType.Professional, "", "", "", "John.Martin", "", Option("Neel"), "", "", "Google", "", "", None, Nil, Nil, Nil, Nil, Nil, None)
+  val myUserSchool1 = UserSchool(new ObjectId, new ObjectId, "MPS", Year.Freshman, Degree.Assosiates,
+    "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), None)
+  val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
   before {
+    ClassDAO.remove(MongoDBObject("className" -> ".*".r))
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+    UserSchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))
   }
 
   test("Create User") {
@@ -43,7 +46,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
     val userId = User.createUser(user1)
     val user = User.getUserProfile(userId.get)
     assert(user.get.firstName === "")
-    User.updateUser(userId.get, "Neelkanth", "Sachdeva","", "Rewari",  "", "")
+    User.updateUser(userId.get, "Neelkanth", "Sachdeva", "", "Rewari", "", "")
     val userObtained = User.getUserProfile(userId.get)
     assert(userObtained.get.firstName === "Neelkanth")
     assert(userObtained.get.location === "Rewari")
@@ -76,9 +79,42 @@ class UserTest extends FunSuite with BeforeAndAfter {
     val user2Id = User.createUser(user2)
     assert(User.countRolesOfAUser(List(user1Id.get, user2Id.get)) === Map("Student" -> 0, "Educator" -> 0, "Professional" -> 2))
   }
+
+  test("Find User By Email Or Name") {
+    val user1Id = User.createUser(user1)
+    val user2Id = User.createUser(user2)
+    val useFound = User.findUser("NeelS", "Neel")
+    assert(useFound != None)
+
+  }
+  test("Add Info To User") {
+    val user1Id = User.createUser(user1)
+    assert(User.getUserProfile(user1Id.get).get.schools.size === 0)
+    val userSchoolId = UserSchool.createSchool(myUserSchool1)
+    User.addInfo(List(myUserSchool1), user1Id.get)
+    assert(User.getUserProfile(user1Id.get).get.schools.size === 1)
+
+  }
+
+  test("Add/remove class to user") {
+    val user1Id = User.createUser(user1)
+    assert(User.getUserProfile(user1Id.get).get.classes.size === 0)
+    User.addClassToUser(user1Id.get, List(classToBeCretaed.id))
+    assert(User.getUserProfile(user1Id.get).get.classes.size === 1)
+    User.removeClassFromUser(user1Id.get, List(classToBeCretaed.id))
+    assert(User.getUserProfile(user1Id.get).get.classes.size === 0)
+  }
   
+  test("Give rockers name"){
+    val user1Id = User.createUser(user1)
+    val rockers=User.giveMeTheRockers(List(user1Id.get))
+    assert(rockers.head==="")
+  }
+
   after {
+    ClassDAO.remove(MongoDBObject("className" -> ".*".r))
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
+    UserSchoolDAO.remove(MongoDBObject("schoolName" -> ".*".r))
   }
 
 }

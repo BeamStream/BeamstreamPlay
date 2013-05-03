@@ -109,7 +109,7 @@ object User {
    */
   def removeClassFromUser(userId: ObjectId, classId: List[ObjectId]) {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classes = (user.classes filterNot (List(classId)contains))), false, false, new WriteConcern)
+    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classes = (user.classes.filterNot (classId contains))), false, false, new WriteConcern)
   }
   /**
    * Get the Details of a user (RA)
