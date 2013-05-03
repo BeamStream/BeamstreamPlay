@@ -52,8 +52,7 @@ object Registration extends Controller {
     val userUpdate = updateUser(jsonReceived)
     (userUpdate == true) match {
       case true =>
-        var degreeExpectedSeason: Option[DegreeExpected.Value] = None
-        var graduationDateFound: Option[Date] = None
+
         val userId = (jsonReceived \ "userId").as[String]
         val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
         val schoolName = (jsonReceived \ "schoolName").as[String]
@@ -63,9 +62,18 @@ object Registration extends Controller {
         val otherDegree = (jsonReceived \ "otherDegree").asOpt[String]
         val graduate = (jsonReceived \ "graduate").as[String]
         val degreeExpected = (jsonReceived \ "degreeExpected").asOpt[String]
-        if (degreeExpected != None) { degreeExpectedSeason = Option(DegreeExpected.withName(degreeExpected.get)) }
+
+        val degreeExpectedSeason = (degreeExpected != None) match {
+          case true => Option(DegreeExpected.withName(degreeExpected.get))
+          case false => None
+        }
+
         val graduationDate = (jsonReceived \ "graduationDate").asOpt[String]
-        if (graduationDate != None) { graduationDateFound = Option(new Date(graduationDate.get)) }
+        val graduationDateFound = (graduationDate != None) match {
+
+          case true => Option(new Date(graduationDate.get))
+          case false => None
+        }
 
         val userSchool = new UserSchool(new ObjectId, new ObjectId(associatedSchoolId), schoolName, Year.withName(gradeLevel), Degree.withName(degreeProgram), major, Graduated.withName(graduate),
           graduationDateFound, degreeExpectedSeason, None)
@@ -89,9 +97,6 @@ object Registration extends Controller {
     val userUpdate = updateUser(jsonReceived)
     (userUpdate == true) match {
       case true =>
-        var degreeExpectedSeason: Option[DegreeExpected.Value] = None
-        var graduationDateFound: Option[Date] = None
-
         val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
         val schoolName = (jsonReceived \ "schoolName").as[String]
         val major = (jsonReceived \ "major").as[String]
@@ -100,9 +105,18 @@ object Registration extends Controller {
         val otherDegree = (jsonReceived \ "otherDegree").asOpt[String]
         val graduate = (jsonReceived \ "graduate").as[String]
         val degreeExpected = (jsonReceived \ "degreeExpected").asOpt[String]
-        if (degreeExpected != None) { degreeExpectedSeason = Option(DegreeExpected.withName(degreeExpected.get)) }
+
+        val degreeExpectedSeason = (degreeExpected != None) match {
+          case true => Option(DegreeExpected.withName(degreeExpected.get))
+          case false => None
+        }
+
         val graduationDate = (jsonReceived \ "graduationDate").asOpt[String]
-        if (graduationDate != None) { graduationDateFound = Option(new Date(graduationDate.get)) }
+        val graduationDateFound = (graduationDate != None) match {
+
+          case true => Option(new Date(graduationDate.get))
+          case false => None
+        }
 
         val userSchoolId = (jsonReceived \ "userSchoolId").as[String]
 

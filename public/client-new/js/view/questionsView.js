@@ -215,6 +215,7 @@ define(['view/formView',
 		 */
 		addPollOptionsArea: function(eventName){
 			eventName.preventDefault();
+			
 			this.options = 2;
 			$('#pollArea').slideToggle(700); 
 		},
@@ -253,25 +254,50 @@ define(['view/formView',
 		 	pollOptions = pollOptions.substring(0, pollOptions.length - 1);
 
         	this.data.url = "/question";
-		    // set values to model
-		    this.data.models[0].save({streamId : streamId, questionBody :question, questionAccess:questionAccess ,pollOptions:pollOptions},{
-		    	success : function(model, response) {
-		    		
-		    		// show the posted message on feed
-		    		var questionItemView  = new QuestionItemView({model : self.data.models[0]});
-					$('#questionListView div.content').prepend(questionItemView.render().el);
-					
-		    		$('#Q-area').val("");
-		    		$('#pollArea').slideUp(700); 
-		    		
-		    	},
-		    	error : function(model, response) {
-		    		$('#Q-area').val("");
-                    console.log("error");
-                    $('#pollArea').slideUp(700); 
-		    	}
+        	if(pollOptions == ''){
 
-		    });
+        		this.data.models[0].save({streamId : streamId, questionBody :question, questionAccess:questionAccess},{
+			    	success : function(model, response) {
+			    		
+			    		// show the posted message on feed
+			    		var questionItemView  = new QuestionItemView({model : self.data.models[0]});
+						$('#questionListView div.content').prepend(questionItemView.render().el);
+						
+			    		$('#Q-area').val("");
+			    		$('#pollArea').slideUp(700); 
+			    		
+			    	},
+			    	error : function(model, response) {
+			    		$('#Q-area').val("");
+	                    console.log("error");
+	                    $('#pollArea').slideUp(700); 
+			    	}
+
+		    	});
+        	}else{
+
+        		// set values to model
+			    this.data.models[0].save({streamId : streamId, questionBody :question, questionAccess:questionAccess ,pollOptions:pollOptions},{
+			    	success : function(model, response) {
+			    		
+			    		// show the posted message on feed
+			    		var questionItemView  = new QuestionItemView({model : self.data.models[0]});
+						$('#questionListView div.content').prepend(questionItemView.render().el);
+						
+			    		$('#Q-area').val("");
+			    		$('#pollArea').slideUp(700); 
+			    		
+			    	},
+			    	error : function(model, response) {
+			    		$('#Q-area').val("");
+	                    console.log("error");
+	                    $('#pollArea').slideUp(700); 
+			    	}
+
+			    });
+        	}
+
+		    
 
 
 	   		 

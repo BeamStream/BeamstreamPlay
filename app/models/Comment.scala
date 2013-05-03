@@ -89,18 +89,20 @@ object Comment {
   }
 
   /**
-   * get All comments 
-   * 
+   * get All comments
+   *
    * @Purpose : getting Comments for any Model(have to pass the List[ObjectId])
    */
 
   def getAllComments(comments: List[ObjectId]): List[Comment] = {
-    var allCommentsForAModel: List[Comment] = List()
-    for (commentId <- comments) {
-      val comment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList
-      if (!comment.isEmpty) allCommentsForAModel ++= comment
+    comments map {
+      case commentId =>
+        val comment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList
+        val commentObtained = (!comment.isEmpty) match {
+          case true => comment.head
+        }
+        commentObtained
     }
-    allCommentsForAModel
   }
 
   /**
@@ -108,19 +110,17 @@ object Comment {
    */
 
   def deleteCommentPermanently(commentId: ObjectId, userId: ObjectId) = {
-    var deletedCommentSuccessfully = false
     val commentToBeremoved = Comment.findCommentById(commentId)
-    if (commentToBeremoved.get.userId == userId) {
-      Comment.removeComment(commentToBeremoved.get)
-      deletedCommentSuccessfully = true
-      deletedCommentSuccessfully
-    } else {
-      deletedCommentSuccessfully
+    (commentToBeremoved.get.userId == userId) match {
+      case true =>
+        Comment.removeComment(commentToBeremoved.get)
+        true
+      case false => false
     }
   }
 
   /**
-   * Is a Rocker 
+   * Is a Rocker
    * @ Purpose: identify if the user has rocked a comment or not
    */
 
@@ -131,31 +131,30 @@ object Comment {
       case false => false
     }
   }
-  
+
   /*
 	 * Return a copy of the Comment with an ProfileImageURL attached
 	 */
-	def getCommentWithProfileImageURL(allMessagesForAStream:List[Comment]):List[Comment] = {
-	  	val commentList = new ListBuffer[Comment]
-    
-	    allMessagesForAStream.foreach(i =>  {
-	      val media = UserMedia.findUserMediaByUserId(i.userId);
-	      if(media.hasNext) {
-	        val media = UserMedia.findUserMediaByUserId(i.userId);
-		      if(media.hasNext) {
-		        val item = media.next()
-		        var newMessage = i.copy(profileImageUrl = 
-		                   Some(item.mediaUrl))
-		        commentList.append(newMessage)
-		      }
-	      } else
-	    	commentList.append(i)
-	    })
-	    
-	    commentList.toList
-	}
+  def getCommentWithProfileImageURL(allMessagesForAStream: List[Comment]): List[Comment] = {
+    val commentList = new ListBuffer[Comment]
+
+    allMessagesForAStream.foreach(i => {
+      val media = UserMedia.findUserMediaByUserId(i.userId);
+      if (media.hasNext) {
+        val media = UserMedia.findUserMediaByUserId(i.userId);
+        if (media.hasNext) {
+          val item = media.next()
+          var newMessage = i.copy(profileImageUrl =
+            Some(item.mediaUrl))
+          commentList.append(newMessage)
+        }
+      } else
+        commentList.append(i)
+    })
+
+    commentList.toList
+  }
 }
-	
 
 object CommentDAO extends SalatDAO[Comment, ObjectId](collection = MongoHQConfig.mongoDB("comment"))
 
