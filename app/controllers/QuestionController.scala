@@ -16,6 +16,8 @@ import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.ObjectIdSerializer
 import models.UserMedia
+import models.Comment
+import models.QuestionWithPoll
 
 /**
  * This controller class is used to store and retrieve all the information about Question and Answers.
@@ -191,7 +193,36 @@ object QuestionController extends Controller {
       }
     }
 
-    val allQuestionForAStreamJson = write(Question.returnQuestionsWithPolls(allQuestionsForAStream))
+    val questionWithOtherInformation = allQuestionsForAStream map {
+      case questionObtained =>
+
+        val pollsOfquestionObtained = (questionObtained.pollOptions.isEmpty.equals(false)) match {
+          case true =>
+            (questionObtained.pollOptions) map {
+              case pollId => QuestionPolling.findOptionOfAQuestionById(pollId).get
+            }
+          case false => Nil
+        }
+
+        val userMedia = UserMedia.getProfilePicForAUser(questionObtained.userId)
+        val profilePicForUser = (!userMedia.isEmpty) match {
+          case true => (userMedia.head.frameURL != "") match {
+            case true => userMedia.head.frameURL
+            case false => userMedia.head.mediaUrl
+          }
+          case false => ""
+        }
+        val comments = (questionObtained.comments.isEmpty) match {
+          case false =>
+            Comment.getAllComments(questionObtained.comments)
+          case true => Nil
+        }
+
+        QuestionWithPoll(questionObtained, Option(profilePicForUser), Option(comments), pollsOfquestionObtained)
+
+    }
+
+    val allQuestionForAStreamJson = write(questionWithOtherInformation)
     Ok(allQuestionForAStreamJson).as("application/json")
   }
 
