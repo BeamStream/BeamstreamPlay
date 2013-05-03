@@ -305,7 +305,11 @@ object Message { //extends CommentConsumer {
         val userMedia = UserMedia.getProfilePicForAUser(message.userId)
 
         val profilePicForUser = (!userMedia.isEmpty) match {
-          case true => userMedia(0).mediaUrl
+          case true => (userMedia.head.frameURL != "") match {
+            case true => userMedia.head.frameURL
+            case false => userMedia.head.mediaUrl
+          }
+
           case false => ""
         }
 
