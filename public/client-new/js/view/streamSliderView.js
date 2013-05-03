@@ -80,22 +80,6 @@ define(['baseView',
 			var compiledTemplate = Handlebars.compile(StreamList);
 			this.$(".content").html( compiledTemplate(this.data.toJSON()));
 
-			// var compiledTemplate = Handlebars.compile(StreamList);
-			// this.$(".content").html(compiledTemplate);
-
-
-			// _.each(this.data.models, function(model) {
-				
-			// 	var streamItemView  = new StreamItemView({model : model});
-			// 	$('#sortable4').append(streamItemView.render().el);
-   //      	});
-
-			// this.slider();
-        	
-   //      	/* added active class and style for first stream in the left side bar*/
-   //      	$('#sortable4 li:first').addClass('active');
-   //      	$('#sortable4 li:first').append(this.activeDiv);
-			
 			
 		},
 		
