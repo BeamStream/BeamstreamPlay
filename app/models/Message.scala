@@ -74,8 +74,7 @@ object Message { //extends CommentConsumer {
     MessageDAO.remove(message)
   }
 
-  
-   /**
+  /**
    * Find Message by Id
    * @param  messageId is the id of the message to be searched
    */
@@ -84,7 +83,7 @@ object Message { //extends CommentConsumer {
     val messageObtained = MessageDAO.findOneByID(messageId)
     messageObtained
   }
- 
+
   /**
    * All Public message for a user
    * @param streamId is the id of the stream for which the messages are required
@@ -178,10 +177,9 @@ object Message { //extends CommentConsumer {
    */
 
   def getAllMessagesForAStreamWithPagination(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int): List[Message] = {
-    MessageDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("timeCreated" -> -1))	.toList
+    MessageDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).toList
   }
 
- 
   /**
    * Follow the message
    * @param  messageId is the id of the message to be searched
@@ -253,12 +251,9 @@ object Message { //extends CommentConsumer {
    */
 
   def getAllPublicMessagesForAUser(classesForAUser: List[Class]): List[Message] = {
-    var publicMessagesForAUser: List[Message] = List()
-    for (classForAUser <- classesForAUser) {
-      val messageObtained = MessageDAO.find(MongoDBObject("streamId" -> classForAUser.streams(0), "messageAccess" -> "Public")).toList
-      publicMessagesForAUser ++= messageObtained
+    classesForAUser map {
+      case classForAUser => MessageDAO.find(MongoDBObject("streamId" -> classForAUser.streams(0), "messageAccess" -> "Public")).toList.head
     }
-    publicMessagesForAUser
   }
 
   /**
@@ -278,21 +273,23 @@ object Message { //extends CommentConsumer {
    */
 
   def deleteMessagePermanently(messageId: ObjectId, userId: ObjectId) = {
-    var deletedMessageSuccessfully = false
+
     val messageToRemove = Message.findMessageById(messageId).get
     val commentsOfMessageToBeRemoved = messageToRemove.comments
     val streamObtained = Stream.findStreamById(messageToRemove.streamId.get)
-    if (messageToRemove.userId == userId || streamObtained.creatorOfStream == userId) {
-      MessageDAO.remove(messageToRemove)
-      for (commentId <- commentsOfMessageToBeRemoved) {
-        val commentToBeremoved = Comment.findCommentById(commentId)
-        if (commentToBeremoved != None) Comment.removeComment(commentToBeremoved.get)
-      }
-      deletedMessageSuccessfully = true
-      deletedMessageSuccessfully
-    } else {
-      deletedMessageSuccessfully
+
+    val deletedMessageSuccessfully = (messageToRemove.userId == userId || streamObtained.creatorOfStream == userId) match {
+      case true =>
+        MessageDAO.remove(messageToRemove)
+        commentsOfMessageToBeRemoved map {
+          case commentId =>
+            val commentToBeremoved = Comment.findCommentById(commentId)
+            if (commentToBeremoved != None) Comment.removeComment(commentToBeremoved.get)
+        }
+        true
+      case false => false
     }
+
   }
   /**
    * ****************************************Rearchitecture*****************************************************
@@ -302,31 +299,34 @@ object Message { //extends CommentConsumer {
    * Fetch messages along with document details if message contains any document
    */
 
-  def messagesAlongWithDocDescription(messages: List[Message], userId:ObjectId):List[DocResulttoSent] = {
-    var messsageWithDocResults: List[DocResulttoSent] = Nil
-    var profilePicForUser = ""
-    messages map {
+  def messagesAlongWithDocDescription(messages: List[Message], userId: ObjectId): List[DocResulttoSent] = {
+    val docResultToSend = messages map {
       case message =>
         val userMedia = UserMedia.getProfilePicForAUser(message.userId)
-        if (!userMedia.isEmpty) profilePicForUser = userMedia(0).mediaUrl
+
+        val profilePicForUser = (!userMedia.isEmpty) match {
+          case true => userMedia(0).mediaUrl
+          case false => ""
+        }
+
         val isRocked = Message.isARocker(message.id, userId)
         val isFollowed = Message.isAFollower(message.id, userId)
         val comments = Comment.getAllComments(message.comments)
-        val followerOfMessagePoster=User.getUserProfile(message.userId).head.followers.contains(userId)
-        if (message.docIdIfAny != None) {
-          val userMedia = UserMedia.findMediaById(message.docIdIfAny.get)
-          if (userMedia != None) {
-            messsageWithDocResults ++= List(DocResulttoSent(message, userMedia.get.name, userMedia.get.description,  isRocked, isFollowed, Option(profilePicForUser), Option(comments),Option(followerOfMessagePoster)))
-          } else {
-            val document = Document.findDocumentById(message.docIdIfAny.get)
-            messsageWithDocResults ++= List( DocResulttoSent(message, document.get.documentName, document.get.documentDescription, isRocked, isFollowed, Option(profilePicForUser), Option(comments),Option(followerOfMessagePoster)))
-          }
-        } else {
-          messsageWithDocResults ++= List(DocResulttoSent(message, "", "", isRocked, isFollowed, Option(profilePicForUser), Option(comments),Option(followerOfMessagePoster)))
+        val followerOfMessagePoster = User.getUserProfile(message.userId).head.followers.contains(userId)
+        (message.docIdIfAny != None) match {
+          case true =>
+            val userMedia = UserMedia.findMediaById(message.docIdIfAny.get)
+            (userMedia != None) match {
+              case true => DocResulttoSent(message, userMedia.get.name, userMedia.get.description, isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster))
+              case false =>
+                val document = Document.findDocumentById(message.docIdIfAny.get)
+                DocResulttoSent(message, document.get.documentName, document.get.documentDescription, isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster))
+            }
+          case false => DocResulttoSent(message, "", "", isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster))
         }
     }
-    messsageWithDocResults
-  }	
+    docResultToSend
+  }
 
 }
 
