@@ -33,7 +33,7 @@ define(['view/formView',
             
             $('#main-photo').attr('src',localStorage["loggedUserProfileUrl"]);
             this.urlRegex2 =  /^((http|https|ftp):\/\/)/,
-            this.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\./]*$/i ;
+            this.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\.\s/]*$/i ;
             this.file = '';
             this.setupPushConnection();
 		 },

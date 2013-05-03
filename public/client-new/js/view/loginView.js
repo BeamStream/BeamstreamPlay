@@ -31,8 +31,6 @@ define(['view/formView'], function(FormView ){
 
 		onAfterInit: function(){	
             this.data.reset();
-            // thpushConnection();
-
             localStorage["logged"] = '';
             $('.sign-tick').hide(); 
             $('.sign-close').hide(); 
@@ -82,11 +80,11 @@ define(['view/formView'], function(FormView ){
             	localStorage["loggedUserProfileUrl"] =  data.profilePicOfUser;
             	localStorage["loggedUserId"] =  data.user.id.id;
             	
-                // /* PUBNUB -- AUTO AJAX PUSH */ 
-                // PUBNUB.publish({
-                //     channel : "onlineUsers",
-                //     message : { pagePushUid: self.pagePushUid ,userInfo:data}
-                // }) 
+                /* PUBNUB -- AUTO AJAX PUSH */ 
+                PUBNUB.publish({
+                    channel : "onlineUsers",
+                    message : { pagePushUid: self.pagePushUid ,userInfo:data}
+                }) 
 
                 /* redirect to class page if the user has no stream */
                 if(data.hasClasses == true )
@@ -132,28 +130,31 @@ define(['view/formView'], function(FormView ){
         	$('.sign-close').hide();
 		},
 
-        // pushConnection: function(){
-        //      var self = this;
-        //      self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
+//         pushConnection: function(){
+//              var self = this;
+//              self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
 
 
-        //       /* for online users */
-        //        PUBNUB.subscribe({
+//               /* for online users */
+//                PUBNUB.subscribe({
     
-        //            channel : "onlineUsers",
-        //            restore : false,
-        //            callback : function(message) { 
-        //                if(message.pagePushUid != self.pagePushUid)
-        //                {      
-        //                    var template = '<li> <a href="#">'
-        //                         +'<img width="30" height="28" src="'+message.userInfo.profileImageUrl+'">'
-        //                         +'<span>'+message.userInfo.user.firstName+'</span> <span class="offline-chat">'
-        //                         +'<img width="12" height="13" src="img/online-icon.png"></span></a> </li>';
-        //                     $('#onlinechatbox').append(template);
-        //                }
-        //            }
-        //        })
-        // }
+//                    channel : "onlineUsers",
+//                    restore : false,
+//                    callback : function(message) { 
+// console.log(1212);  
+//                        if(message.pagePushUid != self.pagePushUid)
+//                        {    
+//                        console.log(45);  
+//                        console.log($('#onlinechatbox'));
+//                            var template = '<li> <a href="#">'
+//                                 +'<img width="30" height="28" src="'+message.userInfo.profileImageUrl+'">'
+//                                 +'<span>'+message.userInfo.user.firstName+'</span> <span class="offline-chat">'
+//                                 +'<img width="12" height="13" src="img/online-icon.png"></span></a> </li>';
+//                             $('#onlinechatbox').append(template);
+//                        }
+//                    }
+//                })
+//         }
  
 	})
 	return LoginView;
