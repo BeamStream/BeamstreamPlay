@@ -43,17 +43,17 @@ case class User(@Key("_id") id: ObjectId,
 object User {
 
   /**
-   * Add info to a user (RA)
+   * Creates a User (RA)
    */
+  def createUser(user: User): Option[ObjectId] = {
+    UserDAO.insert(user)
+  }
 
-  def addInfo(schoolList: List[UserSchool], userId: ObjectId) = {
-    for (school <- schoolList) {
-      val userSchoolIds = User.getUserProfile(userId).get.schools
-      (userSchoolIds.contains(school.id)) match {
-        case true => println("School Id already in user schools")
-        case false => User.addSchoolToUser(userId, school.id)
-      }
-    }
+  /**
+   * removes a User
+   */
+  def removeUser(user: User) {
+    UserDAO.remove(user)
   }
 
   /**
@@ -66,60 +66,33 @@ object User {
   }
 
   /**
+   * Add info to a user (RA)
+   */
+
+  def addInfo(schoolList: List[UserSchool], userId: ObjectId) = {
+    schoolList map {
+      case school =>
+        val userSchoolIds = User.getUserProfile(userId).get.schools
+        (userSchoolIds.contains(school.id)) match {
+          case true => println("School Id already in user schools")
+          case false => User.addSchoolToUser(userId, school.id)
+        }
+    }
+  }
+
+  /**
    * Find user coming from social site with the UserName (RA )
    * @Purpose : Authenticate user via user name only
    */
 
   def findUserComingViaSocailSite(userName: String, socialNetwork: String): Option[User] = {
     val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userName, "socialNetwork" -> Option(socialNetwork)))
-
     (authenticatedUserviaName.isEmpty) match {
       case true => None
       case false => Option(authenticatedUserviaName.toList(0))
     }
 
   }
-
-  /**
-   * Creates a User (RA)
-   */
-  def createUser(user: User): Option[ObjectId] = {
-    UserDAO.insert(user)
-  }
-
-  /*
- * removes a User
- */
-  def removeUser(user: User) {
-    UserDAO.remove(user)
-  }
-
-  /*
-   * Email Validation
-   */
-  def validateEmail(emailId: String): Boolean = {
-    val emailPart: List[String] = List("gmail.com", "yahoo.com", "rediff.com", "hotmail.com", "aol.com")
-    val i: Int = emailId.lastIndexOf("@")
-    val stringToMatch: String = emailId.substring(i + 1)
-    val emailString: String = emailId.toUpperCase
-
-    (emailString.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$") &&
-      !emailPart.contains(stringToMatch)) match {
-        case true => true
-        case false => false
-      }
-  }
-
-  //  // Check if the User already registered
-  //  def isAlreadyRegistered(userEmail: String, userName: String): Boolean = {
-  //    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
-  //    val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userName)).toList
-  //    (userHavingSameMailId.isEmpty && userHavingSameUserName.isEmpty) match {
-  //      case true => true
-  //      case false => false
-  //    }
-  //
-  //  }
 
   /**
    * Add a Class to user (RA)
@@ -136,15 +109,19 @@ object User {
    */
   def removeClassFromUser(userId: ObjectId, classId: List[ObjectId]) {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classes = (user.classes -- classId)), false, false, new WriteConcern)
+    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classes = (user.classes.filterNot (classId contains))), false, false, new WriteConcern)
   }
   /**
    * Get the Details of a user (RA)
    */
 
   def getUserProfile(userId: ObjectId): Option[User] = {
-    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    Option(user)
+    val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList
+    user.isEmpty match {
+      case false => Option(user.head)
+      case true => None
+    }
+
   }
 
   /**
@@ -152,16 +129,15 @@ object User {
    */
   def countRolesOfAUser(usersList: List[ObjectId]): Map[String, Int] = {
     var map: Map[String, Int] = Map()
-    var count: Int = 0
-    for (value <- UserType.values) {
-      val users = UserDAO.find(MongoDBObject("userType" -> value.toString)).toList.filter(user => usersList.contains(user.id))
-      count = users.size
-      map += (value.toString -> count)
+    UserType.values map {
+      case value =>
+        val users = UserDAO.find(MongoDBObject("userType" -> value.toString)).toList.filter(user => usersList.contains(user.id))
+        map += (value.toString -> users.size)
     }
     map
   }
 
-  /*
+  /**
    * Rockers name of a message
    */
 
@@ -169,7 +145,7 @@ object User {
     users map { user => UserDAO.findOne(MongoDBObject("_id" -> user)).get.firstName }
   }
 
-  /*
+  /**
    * Recover forgot password
    * @ password of user will be sent to user's email id
    */
@@ -247,7 +223,7 @@ object User {
 
 }
 
-/*
+/**
  * User Types (RA)
  */
 object UserType extends Enumeration {
