@@ -259,11 +259,11 @@ object UserController extends Controller {
         }
         (profilePic.isEmpty) match {
           case false => 
-          Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl),hasClasses))).as("application/json").withSession(userSession)
-          case true => Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, None,hasClasses))).as("application/json").withSession(userSession)
+          Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl),Option(hasClasses)))).as("application/json").withSession(userSession)
+          case true => Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, None,Option(hasClasses)))).as("application/json").withSession(userSession)
         }
       case None =>
-        Ok(write(LoginResult(ResulttoSent("Failure", "Login Unsuccessful"), None, None))).as("application/json")
+        Ok(write(LoginResult(ResulttoSent("Failure", "Login Unsuccessful"), None, None,None))).as("application/json")
     }
 
   }
