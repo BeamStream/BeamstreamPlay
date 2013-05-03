@@ -41,38 +41,24 @@ object DocumentController extends Controller {
  */
 
   def newDocument = Action { implicit request =>
-    val documentJsonMap = request.body.asFormUrlEncoded.get
-    (documentJsonMap.contains(("data"))) match {
+    val documentJson = request.body.asJson.get
+    val name = (documentJson \ "docName").as[String]
+    val url = (documentJson \ "docURL").as[String]
+    val access = (documentJson \ "docAccess").as[String]
+    val docType = (documentJson \ "docType").as[String]
+    val description = (documentJson \ "docDescription").as[String]
+    val userId = new ObjectId(request.session.get("userId").get)
+    val streamId = (documentJson \ "streamId").as[String]
+    val date = new Date
+    val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId, DocumentAccess.withName(access), new ObjectId(streamId), date, date, 0, Nil, Nil, Nil, "")
+    val docId = Document.addDocument(documentToCreate)
+    val user = User.getUserProfile(userId)
+    //Create A Message As Well To Display The Doc Creation In Stream
+    val message = Message(new ObjectId, url, Option(MessageType.Document), Option(MessageAccess.withName(access)), date, userId, Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil)
+    Message.createMessage(message)
+    val docObtained = Document.findDocumentById(docId)
+    Ok(write(List(docObtained))).as("application/json")
 
-      case false => Ok(write(new ResulttoSent("Failure", "Document data not found !!!")))
-
-      case true =>
-
-        try {
-
-          val document = documentJsonMap("data").toList(0)
-          val documentJson = net.liftweb.json.parse(document)
-          val name = (documentJson \ "docName").extract[String]
-          val url = (documentJson \ "docURL").extract[String]
-          val access = (documentJson \ "docAccess").extract[String]
-          val docType = (documentJson \ "docType").extract[String]
-          val description = (documentJson \ "docDescription").extract[String]
-          val userId = new ObjectId(request.session.get("userId").get)
-          val streamId = (documentJson \ "streamId").extract[String]
-          val date = new Date
-          val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId, DocumentAccess.withName(access), new ObjectId(streamId), date, date, 0, Nil, Nil, Nil, "")
-          val docId = Document.addDocument(documentToCreate)
-          val user = User.getUserProfile(userId)
-          //Create A Message As Well To Display The Doc Creation In Stream
-          val message = Message(new ObjectId, url, Option(MessageType.Document), Option(MessageAccess.withName(access)), date, userId, Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil)
-          Message.createMessage(message)
-          val docObtained = Document.findDocumentById(docId)
-          val docJson = write(List(docObtained))
-          Ok(docJson).as("application/json")
-        } catch {
-          case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem During Uploading Google Docs"))).as("application/json")
-        }
-    }
   }
 
   /**
