@@ -12,13 +12,13 @@ PUT      /remove/stream/:streamId                                               
 #Messages
 #POST 	/getAllMessagesForAStreambyKeyword         	controllers.MessageController.getAllMessagesForAStreambyKeyword
 #POST 	/allPublicMessagesFromAllStreamsForAUser    controllers.StreamController.allPublicMessagesFromAllStreamsForAUser
-DELETE   /remove/message/:messageId                                              controllers.MessageController.deleteTheMessage(messageId:String)
+PUT   /remove/message/:messageId                                              controllers.MessageController.deleteTheMessage(messageId:String)
 
 #Comments
 POST     /answer                                                                 controllers.CommentController.newAnswer
 #GET    /comments           						controllers.CommentController.getAllComments   
 GET      /rockersOf/comment/:commentId                                           controllers.CommentController.commentRockers(commentId:String)
-DELETE   /remove/comment/:commentId                                              controllers.CommentController.deleteTheComment(commentId:String)
+PUT   /remove/comment/:commentId                                              controllers.CommentController.deleteTheComment(commentId:String)
 GET      /isARockerOf/comment/:commentId                                         controllers.CommentController.isARocker(commentId:String)
 
 #Document
@@ -72,7 +72,7 @@ GET      /questions                                                             
 GET      /rockersOf/question/:questionId                                         controllers.QuestionController.giveMeRockers(questionId:String)
 PUT      /follow/question/:questionId                                            controllers.QuestionController.followQuestion(questionId:String)
 PUT      /voteAnOptionOf/question/:optionId                                      controllers.QuestionController.voteAnOptionOfAQuestion(optionId:String)
-DELETE      /remove/question/:questionId                                            controllers.QuestionController.deleteQuestion(questionId:String)              
+PUT      /remove/question/:questionId                                            controllers.QuestionController.deleteQuestion(questionId:String)              
 #POST 	/getAllQuestionsForAStreambyKeyword 								  controllers.QuestionController.getAllQuestionsForAStreambyKeyword
 
 #bitly
@@ -185,11 +185,6 @@ POST     /uploadDocumentFromDisk                                                
 POST     /forgotPassword                                                         controllers.UserController.forgotPassword
 GET      /recover                                                                controllers.UserController.renderForgotPasswordView
 
-#Asynchronous Services
-# To create a resource on the server, use POST.
-# To retrieve a resource, use GET.
-# To change the state of a resource or to update it, use PUT.
-# To remove or delete a resource, use DELETE.
 
 
 
