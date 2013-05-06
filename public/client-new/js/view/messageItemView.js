@@ -399,10 +399,10 @@ define(['view/formView',
 	 				"callback": function() {
 	 					
 
-	 					var discussion = new DiscussionModel({id: messageId});
+	 					var discussion = new DiscussionModel();
 	 					discussion.urlRoot = '/remove/message/';
 
-						discussion.destroy({
+						discussion.save({id: messageId},{
 	    					success : function(model, response) {
 		    		
 					 			if(response.status == "Success")
@@ -468,11 +468,11 @@ define(['view/formView',
 	 				"callback": function() {
 
 	 					var comment = new CommentModel();
-	 					var comment = new CommentModel({id: commentId});
+	 					var comment = new CommentModel();
 	 					comment.urlRoot = '/remove/comment/';
 
 	 					/* delete the omment from the model */
-	 					comment.destroy({
+	 					comment.save({id: commentId},{
 	    					success : function(model, response) {
 		    		
 					 			if(response.status == "Success")
