@@ -15,6 +15,31 @@
                   </div>
                   <p id="{{data.question.id.id}}-id" >{{data.question.questionBody}}</p>
                   <div id="{{data.question.id.id}}-poll-Option-area">
+
+                    {{#ifequal data.polls.length 0}}
+                    
+                    {{else}}
+                        <div class="comment-nofication" >
+                          <div class="comment-nofication-left" id="{{data.question.id.id}}-pollOptions">
+
+                            {{#each data.polls}}
+                              <fieldset>  
+                                 <input type="radio" id="{{id.id}}" value="{{id.id}}" name="{{question}}" class="regular-radio option{{pollIndex}}"  />
+                                 <label for="{{id.id}}" value="{{color}}"></label>
+                                 <label>{{name}}</label>
+                                 <input type="hidden" id="{{id.id}}-voteCount" class="{{question}}-polls" value="{{voteCount}}" >
+                               </fieldset>
+                            {{/each}}
+
+                          </div>
+                        <div class="chart">
+                          <div id="{{data.question.id.id}}-piechart" class="chart-round"> 
+                          </div>
+                       </div>
+                     </div>
+                    {{/ifequal}}
+
+
  
                   </div>
                   <div class="follow-bottom">
@@ -43,17 +68,17 @@
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
                         <li><a href="#" id="{{data.question.id.id}}-qstRockCount" class="uprocks-message rocks-question"><span>{{rocks}}</span></a></li>
-                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons show-all-comments"  href="#"><span id="{{data.question.id.id}}-totalComment" >0</span> Comments</a> <a id="{{data.question.id.id}}-Answerbutton" class="btn grey-buttons " href="#"> <span>0</span> Answers</a>
+                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons show-all-comments"  href="#"><span id="{{data.question.id.id}}-totalComment" >{{data.comments.length}}</span> Comments</a> <a id="{{data.question.id.id}}-Answerbutton" class="btn grey-buttons " href="#"> <span>0</span> Answers</a>
             <a  class="btn grey-buttons  show-all" id="{{data.question.id.id}}-show-hide" href="#">Show All</a>
                       </ul>
                        
                   </div>
                   
-                  <div id="{{data.question.id.id}}-allComments" class="comment-wrapper">
+                  <div id="{{data.question.id.id}}-allComments" class="comment-wrapper commentList">
 
                     {{#each data.comments}}
                       
-                       <div class="answer-description"  id="{{comment.id.id}}">
+                       <div class="answer-description"  id="question-{{comment.id.id}}">
                         <div class="follw-left">          
                             <div class="ask-img"><img id="{{comment.id.id}}-image" src="{{profilePic}}"></div>                      
                         </div>

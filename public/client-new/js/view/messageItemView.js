@@ -482,7 +482,7 @@ define(['view/formView',
 
 									var commentCount = $('#'+messageId+'-totalComment').text()
 	                		 		// $('#'+messageId+'-totalComment').text(commentCount-1);
-			                		$('div#'+commentId).remove();
+			                		$('div#discussion-'+commentId).remove();
 			                		
 
 	                		 		/* pubnum auto push -- delete message*/
