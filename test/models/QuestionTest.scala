@@ -36,18 +36,14 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
     Question.removeQuestion(anotherQuestion)
     assert((Question.findQuestionById(anotherQuestionId.get) === None))
   }
-  //
-  //  test("Get All Questions") {
-  //    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(), List())
-  //    val userId = User.createUser(user)
-  //    var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List("Tag1", "Tag2"))
-  //    val streamId = Stream.createStream(stream)
-  //    val question = new Question(new ObjectId, "How Was the Class ?", userId, QuestionAccess.Public, streamId, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
-  //    val questionId = Question.addQuestion(question)
-  //    val anotherQuestion = new Question(new ObjectId, "How Was the Day ?", userId, QuestionAccess.Public, streamId, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
-  //    val anotherQuestionId = Question.addQuestion(anotherQuestion)
-  //    assert(Question.getAllQuestions(List(anotherQuestionId, questionId)).size === 2)
-  //  }
+
+  test("Get All Questions") {
+    val question = Question(new ObjectId, "How Was the Class ?", user.id, QuestionAccess.Public, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val questionId = Question.addQuestion(question)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.Public, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val anotherQuestionId = Question.addQuestion(anotherQuestion)
+    assert(Question.getAllQuestions(List(anotherQuestionId.get, questionId.get)).size === 2)
+  }
   //
   //  test("Find Question By Id") {
   //    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(), List())
