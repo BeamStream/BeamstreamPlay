@@ -2,6 +2,7 @@
 
 .signup-container {
 		background:url(../images/signup-bg.png) center top no-repeat;
+		padding:0 0 50px 0;
 }
 
 .signup-outer {
@@ -317,11 +318,12 @@ ul.signup-register li fieldset.password {
  height:38px;
  float:left;
 }
- &:hover{
+ &:hover, &:focus{
  background: #4a834e;
  text-decoration:none;
  color:#fff;
 }
+&:focus{opacity:0.5}
 }
 
 .register-cancel {

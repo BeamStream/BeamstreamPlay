@@ -187,7 +187,11 @@
                   
                   <div class="follow-bottom">
                     <ul class="follow-name-left show-all-block">
-                   
+                   	  <li>
+                        	<a href="#" id="{{data.message.id.id}}-msgRockCount"  {{#ifequal data.rocked false}} class="rocks-message uprocks-message" {{else}} class="rocks-message downrocks-message" {{/ifequal}} >
+                        		<span>{{data.message.rocks}}</span>
+                        	</a>
+                    	</li>
                       <li><a class="rock-message" href="#">Rock</a></li>
                       <li ><a class="add-comment" href="#"> Comment</a></li>
                       <li><a class="comment-icon" href="#"></a></li>
@@ -204,11 +208,7 @@
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
-                        <li>
-                        	<a href="#" id="{{data.message.id.id}}-msgRockCount"  {{#ifequal data.rocked false}} class="rocks-message uprocks-message" {{else}} class="rocks-message downrocks-message" {{/ifequal}} >
-                        		<span>{{data.message.rocks}}</span>
-                        	</a>
-                    	</li>
+                        
                         <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a><a class="btn grey-buttons show-all-comments" href="#"> <span id="{{data.message.id.id}}-totalComment" >{{data.comments.length}}</span> Comments</a>
 						<a id="{{data.message.id.id}}-show-hide" class="btn grey-buttons  show-all" href="#">Show All</a>
                       </ul>

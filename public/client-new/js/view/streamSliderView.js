@@ -64,6 +64,7 @@ define(['baseView',
 			var compiledTemplate = Handlebars.compile(NewStreamTpl);
 			this.$(".content").html(compiledTemplate);
 			
+			
 		},
 		
 		/**

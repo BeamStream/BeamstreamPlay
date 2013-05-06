@@ -29,12 +29,18 @@ object OptionOfQuestionDAO extends SalatDAO[OptionOfQuestion, ObjectId](collecti
 /**
  * Question With Polls
  */
-case class QuestionWithPoll(question: Question, var profilePic: Option[String] = None, var comments: Option[List[Comment]] = None, polls: List[OptionOfQuestion])
+case class QuestionWithPoll(question: Question, var profilePic: Option[String] = None, var comments: Option[List[CommentResult]] = None, polls: List[OptionOfQuestion])
+
+/**
+ * Comment With Profile Picture
+ */
+case class CommentResult(comment: Comment, var profilePic: Option[String] = None)
+
 
 /**
  * Document Results After Uploading From Main Stream
  */
-case class DocResulttoSent(message: Message, docName: String, docDescription: String, rocked: Boolean, followed: Boolean, var profilePic: Option[String] = None, var comments: Option[List[Comment]] = None,followerOfMessagePoster:Option[Boolean]=None)
+case class DocResulttoSent(message: Message, docName: String, docDescription: String, rocked: Boolean, followed: Boolean, var profilePic: Option[String] = None, var comments: Option[List[CommentResult]] = None,followerOfMessagePoster:Option[Boolean]=None)
 
 /**
  * User & User School details after Registration

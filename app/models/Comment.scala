@@ -10,6 +10,7 @@ import java.text.DateFormat
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 import scala.collection.mutable.ListBuffer
+import models.CommentResult
 
 case class Comment(@Key("_id") id: ObjectId,
   commentBody: String,
@@ -94,12 +95,24 @@ object Comment {
    * @Purpose : getting Comments for any Model(have to pass the List[ObjectId])
    */
 
-  def getAllComments(comments: List[ObjectId]): List[Comment] = {
+  def getAllComments(comments: List[ObjectId]): List[CommentResult] = {
     comments map {
       case commentId =>
         val comment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList
         val commentObtained = (!comment.isEmpty) match {
-          case true => comment.head
+          case true => {
+            val userMedia = UserMedia.getProfilePicForAUser(comment.head.userId)
+
+	        val profilePicForUser = (!userMedia.isEmpty) match {
+	          case true => (userMedia.head.frameURL != "") match {
+	            case true => userMedia.head.frameURL
+	            case false => userMedia.head.mediaUrl
+	          }
+	
+	          case false => ""
+	        }
+            CommentResult(comment.head, Option(profilePicForUser))
+          }
         }
         commentObtained
     }

@@ -79,6 +79,7 @@ define(['view/formView'], function(FormView ){
             	// set the logged users profile picture and Id
             	localStorage["loggedUserProfileUrl"] =  data.profilePicOfUser;
             	localStorage["loggedUserId"] =  data.user.id.id;
+
             	
                 /* PUBNUB -- AUTO AJAX PUSH */ 
                 PUBNUB.publish({
@@ -91,7 +92,7 @@ define(['view/formView'], function(FormView ){
                     window.location = "/stream";
                 else
                     window.location = "/class";
-            	
+
             }
             else
             {
