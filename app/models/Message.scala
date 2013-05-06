@@ -54,14 +54,16 @@ object Message { //extends CommentConsumer {
   /**
    * Create a new message (RA)
    */
-  def createMessage(message: Message) = {
+  def createMessage(message: Message): Option[ObjectId] = {
     MessageDAO.insert(message)
-  }: Option[ObjectId]
+  }
 
   /**
    *
    */
-
+/**
+ * Validate User : Eligible to post in a stream
+ */
   private def validateUserHasRightToPost(userId: ObjectId, streamId: ObjectId): Boolean = {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     stream.usersOfStream.contains(userId)

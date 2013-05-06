@@ -6,15 +6,15 @@ import org.scalatest.BeforeAndAfter
 import com.mongodb.casbah.commons.MongoDBObject
 import org.bson.types.ObjectId
 import java.text.DateFormat
-
+import java.util.Date
 
 @RunWith(classOf[JUnitRunner])
 class MessageEntityTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
- 
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List(),None)
-  val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(user.id), true, List())
+
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List(), None)
+  val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, user.id, List(user.id), true, List())
 
   before {
     StreamDAO.remove(MongoDBObject("name" -> ".*".r))
@@ -147,6 +147,88 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     assert(messageAfter.follows === 1)
     assert(messageAfter.followers.size === 1)
     assert(messageAfter.followers(0) === user.id)
+  }
+
+  test("Get All Public Messages For A Stream") {
+    val stream = StreamDAO.find(MongoDBObject()).toList(0)
+    val user = UserDAO.find(MongoDBObject()).toList(0)
+    val message5 = Message(new ObjectId, "some message5", Option(MessageType.Audio), Option(MessageAccess.PrivateToClass), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 8, List(), List(), 0, List())
+    val message1 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 6, List(), List(), 0, List())
+    val message2 = Message(new ObjectId, "some message2", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 4, List(), List(), 0, List())
+    val message3 = Message(new ObjectId, "some message3", Option(MessageType.Audio), Option(MessageAccess.PrivateToClass), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 12, List(), List(), 0, List())
+    val message4 = Message(new ObjectId, "some message4", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 7, List(), List(), 0, List())
+    Message.createMessage(message5)
+    Message.createMessage(message1)
+    Message.createMessage(message2)
+    Message.createMessage(message3)
+    Message.createMessage(message4)
+    val allMessages = Message.getAllPublicMessagesForAStream(stream.id)
+    assert(allMessages.size === 3)
+  }
+
+  test("Get All Public Messages For A User") {
+    val stream = StreamDAO.find(MongoDBObject()).toList(0)
+    val user = UserDAO.find(MongoDBObject()).toList(0)
+    val message5 = Message(new ObjectId, "some message5", Option(MessageType.Audio), Option(MessageAccess.PrivateToClass), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 8, List(), List(), 0, List())
+    val message1 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), new ObjectId, Option(stream.id), "", "", 6, List(), List(), 0, List())
+    val message2 = Message(new ObjectId, "some message2", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 4, List(), List(), 0, List())
+    val message3 = Message(new ObjectId, "some message3", Option(MessageType.Audio), Option(MessageAccess.PrivateToClass), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 12, List(), List(), 0, List())
+    val message4 = Message(new ObjectId, "some message4", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 7, List(), List(), 0, List())
+    Message.createMessage(message5)
+    Message.createMessage(message1)
+    Message.createMessage(message2)
+    Message.createMessage(message3)
+    Message.createMessage(message4)
+    val allMessages = Message.getAllPublicMessagesForAUser(user.id)
+    assert(allMessages.size === 2)
+  }
+
+  test("Get All  Messages For A User") {
+    val stream = StreamDAO.find(MongoDBObject()).toList(0)
+    val user = UserDAO.find(MongoDBObject()).toList(0)
+    val message5 = Message(new ObjectId, "some message5", Option(MessageType.Audio), Option(MessageAccess.PrivateToClass), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 8, List(), List(), 0, List())
+    val message1 = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), new ObjectId, Option(stream.id), "", "", 6, List(), List(), 0, List())
+    val message2 = Message(new ObjectId, "some message2", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 4, List(), List(), 0, List())
+    val message3 = Message(new ObjectId, "some message3", Option(MessageType.Audio), Option(MessageAccess.PrivateToClass), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 12, List(), List(), 0, List())
+    val message4 = Message(new ObjectId, "some message4", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 7, List(), List(), 0, List())
+    Message.createMessage(message5)
+    Message.createMessage(message1)
+    Message.createMessage(message2)
+    Message.createMessage(message3)
+    Message.createMessage(message4)
+    val allMessages = Message.getAllMessagesForAUser(user.id)
+    assert(allMessages.size === 4)
+  }
+
+  test("Add Comment to message") {
+    val message = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), new ObjectId, Option(stream.id), "", "", 6, List(), List(), 0, List())
+    val messageId = Message.createMessage(message)
+    assert(Message.findMessageById(messageId.get).head.comments.size === 0)
+    val comment = Comment(new ObjectId, "Comment1", new Date, user.id, user.firstName, user.lastName, 0, List())
+    Comment.createComment(comment)
+    Message.addCommentToMessage(comment.id, message.id)
+    assert(Message.findMessageById(messageId.get).head.comments.size === 1)
+  }
+
+  test("Remove Comment to message") {
+    val message = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), new ObjectId, Option(stream.id), "", "", 6, List(), List(), 0, List())
+    val messageId = Message.createMessage(message)
+    assert(Message.findMessageById(messageId.get).head.comments.size === 0)
+    val comment = Comment(new ObjectId, "Comment1", new Date, user.id, user.firstName, user.lastName, 0, List())
+    Comment.createComment(comment)
+    Message.addCommentToMessage(comment.id, message.id)
+    assert(Message.findMessageById(messageId.get).head.comments.size === 1)
+    Message.removeCommentFromMessage(comment.id, message.id)
+    assert(Message.findMessageById(messageId.get).head.comments.size === 0)
+  }
+
+  test("Delete message") {
+    val message = Message(new ObjectId, "some message1", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("21-04-12"), new ObjectId, Option(stream.id), "", "", 6, List(), List(), 0, List())
+    val messageId = Message.createMessage(message)
+    assert(Message.findMessageById(messageId.get).size === 1)
+    val messageDeleted = Message.deleteMessagePermanently(message.id, user.id)
+    assert(messageDeleted === true)
+    assert(Message.findMessageById(messageId.get).size === 0)
   }
 
   after {

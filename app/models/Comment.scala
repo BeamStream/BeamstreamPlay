@@ -17,7 +17,6 @@ case class Comment(@Key("_id") id: ObjectId,
   firstNameofCommentPoster: String,
   lastNameofCommentPoster: String,
   rocks: Int,
-  profileImageUrl: Option[String] = None,
   rockers: List[ObjectId])
 
 object Comment {
