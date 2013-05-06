@@ -164,6 +164,7 @@ PUT      /rockedIt/:messageId                                                   
 # Social
 POST     /social/social_authentication                                           controllers.SocialController.signUpViaSocialSites
 POST     /social/social_login                                                    controllers.SocialController.logInViaSocialSites
+GET		 /social/contacts														 controllers.SocialController.getContacts
 
 #Stream
 GET      /stream                                                                 controllers.StreamController.renderStreamPage
