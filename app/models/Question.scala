@@ -49,9 +49,8 @@ object Question {
   /*
  * Add a Question (Modified)
  */
-  def addQuestion(question: Question): ObjectId = {
-    val questionId = QuestionDAO.insert(question)
-    questionId.get
+  def addQuestion(question: Question): Option[ObjectId] = {
+    QuestionDAO.insert(question)
   }
 
   /*
@@ -66,8 +65,7 @@ object Question {
  */
 
   def findQuestionById(questionId: ObjectId): Option[Question] = {
-    val question = QuestionDAO.findOneByID(questionId)
-    question
+    QuestionDAO.findOneByID(questionId)
   }
 
   /**
@@ -88,13 +86,12 @@ object Question {
     }
   }
 
-  /*
-  * Names of a rockers for a Question (Modified)
-  */
+  /**
+   * Names of a rockers for a Question (Modified)
+   */
   def rockersNameOfAQuestion(questionId: ObjectId): List[String] = {
     val questionRocked = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-    val rockersOfAQuestion = User.giveMeTheRockers(questionRocked.rockers)
-    rockersOfAQuestion
+    User.giveMeTheRockers(questionRocked.rockers)
   }
 
   /*
@@ -102,12 +99,10 @@ object Question {
    */
 
   def getAllQuestions(questionsIdList: List[ObjectId]): List[Question] = {
-    var questionsList: List[Question] = List()
-    for (questionId <- questionsIdList) {
-      val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList
-      questionsList ++= question
+    questionsIdList map {
+      case questionId => QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     }
-    questionsList
+
   }
 
   /*
@@ -172,21 +167,22 @@ object Question {
    */
 
   def deleteQuestionPermanently(questionId: ObjectId, userId: ObjectId) = {
-    var deletedQuestionSuccessfully = false
     val questionToRemove = Question.findQuestionById(questionId).get
     val commentsOfQuestionToBeRemoved = questionToRemove.comments
     val streamObtained = Stream.findStreamById(questionToRemove.streamId)
-    if (questionToRemove.userId == userId || streamObtained.creatorOfStream == userId) {
-      QuestionDAO.remove(questionToRemove)
-      for (commentId <- commentsOfQuestionToBeRemoved) {
-        val commentToBeremoved = Comment.findCommentById(commentId)
-        if (commentToBeremoved != None) Comment.removeComment(commentToBeremoved.get)
-      }
-      deletedQuestionSuccessfully = true
-      deletedQuestionSuccessfully
-    } else {
-      deletedQuestionSuccessfully
+
+    val deletedQuestionSuccessfully = (questionToRemove.userId == userId || streamObtained.creatorOfStream == userId) match {
+      case true =>
+        QuestionDAO.remove(questionToRemove)
+        commentsOfQuestionToBeRemoved map {
+          case commentId =>
+            val commentToBeremoved = Comment.findCommentById(commentId)
+            if (commentToBeremoved != None) Comment.removeComment(commentToBeremoved.get)
+        }
+        true
+      case false => false
     }
+    deletedQuestionSuccessfully
   }
 
   /**
@@ -221,13 +217,13 @@ object Question {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(comments = (question.comments ++ List(commentId))), false, false, new WriteConcern)
   }
-  
+
   /**
    * Remove Comment from Question
    */
   def removeCommentFromQuestion(commentId: ObjectId, questionId: ObjectId) = {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
-    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(comments = (question.comments filterNot( List(commentId)contains))), false, false, new WriteConcern)
+    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(comments = (question.comments filterNot (List(commentId)contains))), false, false, new WriteConcern)
   }
 
   /**
@@ -253,29 +249,36 @@ object Question {
   /**
    * Takes a List of Questions and Return Question with respective polls
    */
-  def returnQuestionsWithPolls(allQuestionsForAStream: List[Question]) = {
-    var questionsWithPolls: List[QuestionWithPoll] = List()
-    var profilePicForUser = ""
 
-    for (question <- allQuestionsForAStream) {
-      //Get profilePic and Comments
-      val userMedia = UserMedia.getProfilePicForAUser(question.userId)
-      if (!userMedia.isEmpty) profilePicForUser = userMedia(0).mediaUrl
-      val comments = Comment.getAllComments(question.comments)
+  def returnQuestionsWithPolls(allQuestionsForAStream: List[Question]): List[QuestionWithPoll] = {
 
-      var pollsOfquestionObtained: List[OptionOfQuestion] = List()
-      if (question.pollOptions.size.equals(0) == false) {
-        for (pollId <- question.pollOptions) {
-          val pollObtained = QuestionPolling.findOptionOfAQuestionById(pollId)
-          pollsOfquestionObtained ++= List(pollObtained.get)
+    allQuestionsForAStream map {
+      case question =>
+        val userMedia = UserMedia.getProfilePicForAUser(question.userId)
+        val profilePicForUser = (!userMedia.isEmpty) match {
+          case true => (userMedia.head.frameURL != "") match {
+            case true => userMedia.head.frameURL
+            case false => userMedia.head.mediaUrl
+          }
+          case false => ""
         }
-        questionsWithPolls ++= List(new QuestionWithPoll(question, Option(profilePicForUser), Option(comments), pollsOfquestionObtained))
-      } else {
-        questionsWithPolls ++= List(new QuestionWithPoll(question, Option(profilePicForUser), Option(comments), List()))
-      }
+
+        val comments = Comment.getAllComments(question.comments)
+
+        val pollsOfquestionObtained = (question.pollOptions.size.equals(0) == false) match {
+          case true =>
+            question.pollOptions map {
+              case pollId =>
+                val pollObtained = QuestionPolling.findOptionOfAQuestionById(pollId)
+                pollObtained.get
+            }
+          case false => Nil
+        }
+
+        QuestionWithPoll(question, Option(profilePicForUser), Option(comments), pollsOfquestionObtained)
     }
-    questionsWithPolls
-  }: List[QuestionWithPoll]
+
+  }
 }
 
 object QuestionDAO extends SalatDAO[Question, ObjectId](collection = MongoHQConfig.mongoDB("question"))
