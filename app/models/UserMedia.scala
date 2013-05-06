@@ -63,34 +63,31 @@ object UserMedia extends RockConsumer {
   def getProfilePicForAUser(userId: ObjectId): List[UserMedia] = {
     UserMediaDAO.find(MongoDBObject("userId" -> userId, "isPrimary" -> true)).toList
   }
-  
+
   /**
    * Get Picture URL String for a User
    */
   def getProfilePicUrlString(userId: ObjectId): String = {
     val userMedia = UserMedia.getProfilePicForAUser(userId)
 
-        val profilePicForUser = (!userMedia.isEmpty) match {
-          case true => (userMedia.head.frameURL != "") match {
-            case true => userMedia.head.frameURL
-            case false => userMedia.head.mediaUrl
-          }
-          case false => ""
-        }
-    
+    val profilePicForUser = (!userMedia.isEmpty) match {
+      case true => (userMedia.head.frameURL != "") match {
+        case true => userMedia.head.frameURL
+        case false => userMedia.head.mediaUrl
+      }
+      case false => ""
+    }
+
     profilePicForUser
   }
-  
+
   /*
  * Get All picture for a user
  */
   def getAllProfilePicForAUser(userId: ObjectId): List[UserMedia] = {
-    var userPhotos: List[UserMedia] = List()
-    val mediaObtained = UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Image")).toList
-    for (media <- mediaObtained) {
-      userPhotos ++= List(media)
-    }
-    userPhotos
+
+    UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Image")).toList
+
   }
 
   /*
@@ -98,12 +95,7 @@ object UserMedia extends RockConsumer {
  * @Purpose : Show all Videos for a user
  */
   def getAllProfileVideoForAUser(userId: ObjectId): List[UserMedia] = {
-    var userVideos: List[UserMedia] = List()
-    val mediaObtained = UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Video")).toList
-    for (media <- mediaObtained) {
-      userVideos ++= List(media)
-    }
-    userVideos
+    UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Video")).toList
   }
 
   /*
@@ -111,15 +103,15 @@ object UserMedia extends RockConsumer {
  * @Purpose : Show all Media for a user
  */
   def getAllMediaForAUser(userId: ObjectId): List[UserMedia] = {
-    val mediaObtained = UserMediaDAO.find(MongoDBObject("userId" -> userId)).toList
-    mediaObtained
+    UserMediaDAO.find(MongoDBObject("userId" -> userId)).toList
   }
 
   def makePresentOnePrimary(userId: ObjectId) {
     val AlluserMedia = getAllMediaForAUser(userId)
-    for (media <- AlluserMedia) {
-      val updatedMedia = new UserMedia(media.id, media.name, media.description, media.userId, media.dateCreated, media.mediaUrl, media.contentType, media.access, false, media.frameURL, 0, List(), media.comments)
-      UserMediaDAO.update(MongoDBObject("_id" -> media.id), updatedMedia, false, false, new WriteConcern)
+    AlluserMedia map {
+      case media =>
+        val updatedMedia = new UserMedia(media.id, media.name, media.description, media.userId, media.dateCreated, media.mediaUrl, media.contentType, media.access, false, media.frameURL, 0, List(), media.comments)
+        UserMediaDAO.update(MongoDBObject("_id" -> media.id), updatedMedia, false, false, new WriteConcern)
     }
   }
 
@@ -160,8 +152,7 @@ object UserMedia extends RockConsumer {
   */
   def rockersNamesOfUserMedia(userMediaId: ObjectId): List[String] = {
     val userMedia = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
-    val rockersName = User.giveMeTheRockers(userMedia.rockers)
-    rockersName
+    User.giveMeTheRockers(userMedia.rockers)
   }
 
   /**
@@ -182,6 +173,8 @@ object UserMedia extends RockConsumer {
     updatedUserMedia1.views
   }
 
+  
+  
   //TODO : Add Rock to Media If Message Contains docIdIfAny
   def rockTheMediaOrDoc(idToBeRocked: ObjectId, userId: ObjectId) {
     val userMedia = UserMedia.findMediaById(idToBeRocked)
