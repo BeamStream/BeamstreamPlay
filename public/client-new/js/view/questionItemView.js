@@ -517,10 +517,10 @@ define(['view/formView',
 	 				"callback": function() {
 	 					
 
-	 					var question = new QuestionModel({id: questionId});
+	 					var question = new QuestionModel();
 	 					question.urlRoot = '/remove/question';
 
-						question.destroy({
+						question.save({id: questionId},{
 	    					success : function(model, response) {
 		    		
 					 			if(response.status == "Success")
@@ -579,11 +579,11 @@ define(['view/formView',
 	 				"callback": function() {
 
 	 					var comment = new CommentModel();
-	 					var comment = new CommentModel({id: commentId});
+	 					var comment = new CommentModel();
 	 					comment.urlRoot = '/remove/comment/';
 
 	 					/* delete the omment from the model */
-	 					comment.destroy({
+	 					comment.save({id: commentId},{
 	    					success : function(model, response) {
 		    		
 					 			if(response.status == "Success")

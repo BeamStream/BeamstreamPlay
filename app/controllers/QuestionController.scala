@@ -204,14 +204,7 @@ object QuestionController extends Controller {
           case false => Nil
         }
 
-        val userMedia = UserMedia.getProfilePicForAUser(questionObtained.userId)
-        val profilePicForUser = (!userMedia.isEmpty) match {
-          case true => (userMedia.head.frameURL != "") match {
-            case true => userMedia.head.frameURL
-            case false => userMedia.head.mediaUrl
-          }
-          case false => ""
-        }
+        val profilePicForUser = UserMedia.getProfilePicUrlString(questionObtained.userId)     
         val comments = (questionObtained.comments.isEmpty) match {
           case false =>
             Comment.getAllComments(questionObtained.comments)
