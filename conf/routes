@@ -18,7 +18,7 @@ PUT   /remove/message/:messageId                                              co
 POST     /answer                                                                 controllers.CommentController.newAnswer
 #GET    /comments           						controllers.CommentController.getAllComments   
 GET      /rockersOf/comment/:commentId                                           controllers.CommentController.commentRockers(commentId:String)
-PUT   /remove/comment/:commentId                                              controllers.CommentController.deleteTheComment(commentId:String)
+PUT   /remove/comment/:commentId/:messageId                                              controllers.CommentController.deleteTheComment(commentId:String,messageId:String)
 GET      /isARockerOf/comment/:commentId                                         controllers.CommentController.isARocker(commentId:String)
 
 #Document

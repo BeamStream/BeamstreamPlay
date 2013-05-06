@@ -267,6 +267,16 @@ object Message { //extends CommentConsumer {
   }
 
   /**
+   * Remove Comment To Message
+   * @param  commentId is the id of the comment which is created
+   * @param  messageId is the id of message to which this comments belongs
+   */
+  def removeCommentFromMessage(commentId: ObjectId, messageId: ObjectId) = {
+    val message = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
+    MessageDAO.update(MongoDBObject("_id" -> messageId), message.copy(comments = (message.comments filterNot (List(commentId)contains))), false, false, new WriteConcern)
+  }
+
+  /**
    * Delete A Message (Either Stream Admin Or The User Who Has Posted The Message)
    *  @param  messageId is the id of the message to e deleted
    * @param  userId is the id of owner of message
@@ -289,7 +299,7 @@ object Message { //extends CommentConsumer {
         true
       case false => false
     }
-     deletedMessageSuccessfully
+    deletedMessageSuccessfully
   }
   /**
    * ****************************************Rearchitecture*****************************************************
@@ -316,6 +326,7 @@ object Message { //extends CommentConsumer {
         val isFollowed = Message.isAFollower(message.id, userId)
         val comments = Comment.getAllComments(message.comments)
         val followerOfMessagePoster = User.getUserProfile(message.userId).head.followers.contains(userId)
+
         (message.docIdIfAny != None) match {
           case true =>
             val userMedia = UserMedia.findMediaById(message.docIdIfAny.get)

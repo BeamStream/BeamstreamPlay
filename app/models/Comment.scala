@@ -9,8 +9,6 @@ import com.novus.salat.global._
 import java.text.DateFormat
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
-import scala.collection.mutable.ListBuffer
-import models.CommentResult
 
 case class Comment(@Key("_id") id: ObjectId,
   commentBody: String,
@@ -99,7 +97,7 @@ object Comment {
     comments map {
       case commentId =>
         val comment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList
-        val commentObtained = (!comment.isEmpty) match {
+         (comment.isEmpty.equals(false)) match {
           case true => {
             val userMedia = UserMedia.getProfilePicForAUser(comment.head.userId)
 
@@ -114,7 +112,7 @@ object Comment {
             CommentResult(comment.head, Option(profilePicForUser))
           }
         }
-        commentObtained
+        
     }
   }
 
@@ -122,11 +120,12 @@ object Comment {
    * Delete A Comment
    */
 
-  def deleteCommentPermanently(commentId: ObjectId, userId: ObjectId) = {
+  def deleteCommentPermanently(commentId: ObjectId,messageId: ObjectId, userId: ObjectId) = {
     val commentToBeremoved = Comment.findCommentById(commentId)
     (commentToBeremoved.get.userId == userId) match {
       case true =>
         Comment.removeComment(commentToBeremoved.get)
+        Message.removeCommentFromMessage(commentId, messageId)
         true
       case false => false
     }
@@ -145,28 +144,7 @@ object Comment {
     }
   }
 
-  /*
-	 * Return a copy of the Comment with an ProfileImageURL attached
-	 */
-  def getCommentWithProfileImageURL(allMessagesForAStream: List[Comment]): List[Comment] = {
-    val commentList = new ListBuffer[Comment]
-
-    allMessagesForAStream.foreach(i => {
-      val media = UserMedia.findUserMediaByUserId(i.userId);
-      if (media.hasNext) {
-        val media = UserMedia.findUserMediaByUserId(i.userId);
-        if (media.hasNext) {
-          val item = media.next()
-          var newMessage = i.copy(profileImageUrl =
-            Some(item.mediaUrl))
-          commentList.append(newMessage)
-        }
-      } else
-        commentList.append(i)
-    })
-
-    commentList.toList
-  }
+  
 }
 
 object CommentDAO extends SalatDAO[Comment, ObjectId](collection = MongoHQConfig.mongoDB("comment"))
