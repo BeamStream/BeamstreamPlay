@@ -14,7 +14,7 @@
   -->
 
 
-<div class="answer-description"  id="{{data.id.id}}">
+<div class="answer-description"  id="question-{{data.id.id}}">
     <div class="follw-left">          
         <div class="ask-img"><img id="{{data.id.id}}-image" src="{{profileImage}}"></div>                      
     </div>

@@ -2,6 +2,7 @@ define(['view/formView',
 		'view/questionItemView',
         'model/question',
         'text!templates/questionMessage.tpl',
+        
         ], function(FormView ,QuestionItemView,QuestionModel, QuestionMessage ){
 	var QuestionsView;
 	QuestionsView = FormView.extend({
@@ -19,6 +20,8 @@ define(['view/formView',
 			'click #Q-private-to' : 'checkPrivateAccess',
 			'click #question-file-upload li' : 'uploadFiles',
 			'change #Q-files-area' : 'getUploadedData',
+			'keypress #Q-area' : 'postQuestionOnEnterKey',
+			
 
 			
 		},
@@ -31,6 +34,24 @@ define(['view/formView',
             
          	$('#Q-main-photo').attr('src',localStorage["loggedUserProfileUrl"]);
             
+        },
+
+        /**
+        * post question on enter key press
+        */
+        postQuestionOnEnterKey: function(eventName){
+			var self = this;
+	    	
+			if(eventName.which == 13) {
+				self.postQuestion(); 
+			}
+			// if(eventName.which == 32){
+			// 	var text = $('#msg-area').val();
+			// 	var links =  text.match(this.urlRegex); 
+				
+			// 	 /* create bitly for each url in text */
+			// 	self.generateBitly(links);
+			// }
         },
         
         /**
@@ -226,15 +247,14 @@ define(['view/formView',
 		addMorePollOptions : function(eventName){
 			
 			eventName.preventDefault();
+
 			this.options++;
-			 
 			if(this.options == 3)
 				var options ='<li class="moreOptions"><input type="text"   id="option'+this.options+'" placeholder="Add 3rd Poll Option" name="Add Option"> </li>';
 			else
 				var options ='<li class="moreOptions"><input type="text"   id="option'+this.options+'" placeholder="Add '+this.options+'th Poll Option" name="Add Option"> </li>';
 
-			var parent = $('#add_more_options').parents('li');
-			$('.answer li').last().after(options);
+			 $('#pollArea li').last().after(options);
 		 },
 		 
 		 
@@ -244,7 +264,7 @@ define(['view/formView',
 		 postQuestionToServer: function(question,streamId,questionAccess){
 
 		 	var self = this;
-
+		 	self.color= 0;
 		 	var pollOptions ='';
 		 	for (var i=1; i<= this.options ; i++)
 		 	{
@@ -264,7 +284,10 @@ define(['view/formView',
 						$('#questionListView div.content').prepend(questionItemView.render().el);
 						
 			    		$('#Q-area').val("");
+		    		 	$('#share-discussions li.active').removeClass('active');
 			    		$('#pollArea').slideUp(700); 
+			    		$('.drag-rectangle').tooltip();	
+			    		self.options = 0;
 			    		
 			    	},
 			    	error : function(model, response) {
@@ -285,7 +308,31 @@ define(['view/formView',
 						$('#questionListView div.content').prepend(questionItemView.render().el);
 						
 			    		$('#Q-area').val("");
+			    		$('#share-discussions li.active').removeClass('active');
+			    		self.options = 0;
+			    		$('.drag-rectangle').tooltip();	
 			    		$('#pollArea').slideUp(700); 
+
+
+			    		// var values = [],pollIndex = 0,totalVotes = 0;
+            			
+	        // 		 	_.each(response.polls, function(poll) {
+
+	        // 		 		console.log(55);
+		       //  			var radioColor = Raphael.hsb(self.color, 1, 1);
+		       //  			pollIndex++;
+		        			 
+		       //  			values.push(poll.voters.length);
+		       //  			totalVotes += poll.voters.length;
+		        			 
+		       //      	 	var pollTemplate = Handlebars.compile(QuestionPoll);
+    					//  	$('#'+response.question.id.id+'-pollOptions').append(pollTemplate({poll:poll, pollIndex:pollIndex ,question:response.question.id.id, color:radioColor, voteCount :poll.voters.length}));
+
+			      //       	self.color += .1;
+	        // 		 	});
+
+			    		
+
 			    		
 			    	},
 			    	error : function(model, response) {
@@ -372,6 +419,9 @@ define(['view/formView',
         	 }
 	        	 
   		},
+
+
+  		
 		
 	})
 	return QuestionsView;

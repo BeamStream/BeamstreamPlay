@@ -17,17 +17,16 @@
                   <div id="{{data.question.id.id}}-poll-Option-area">
 
                     {{#ifequal data.polls.length 0}}
-                    
                     {{else}}
                         <div class="comment-nofication" >
                           <div class="comment-nofication-left" id="{{data.question.id.id}}-pollOptions">
 
                             {{#each data.polls}}
                               <fieldset>  
-                                 <input type="radio" id="{{id.id}}" value="{{id.id}}" name="{{question}}" class="regular-radio option{{pollIndex}}"  />
-                                 <label for="{{id.id}}" value="{{color}}"></label>
+                                 <input type="radio" id="{{id.id}}" value="{{id.id}}" name="{{../data.question.id.id}}" class="regular-radio option{{@index}}"  />
+                                 <label id="{{id.id}}" for="{{id.id}}" value="{{color}}"></label>
                                  <label>{{name}}</label>
-                                 <input type="hidden" id="{{id.id}}-voteCount" class="{{question}}-polls" value="{{voteCount}}" >
+                                 <input type="hidden" id="{{id.id}}-voteCount" class="{{../data.question.id.id}}-polls" value="{{voters.length}}" >
                                </fieldset>
                             {{/each}}
 

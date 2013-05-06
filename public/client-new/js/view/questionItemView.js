@@ -104,7 +104,8 @@ define(['view/formView',
 				var datas = {
 					 	 "data" : model,
 					 	 "datVal":datVal,
-					 	 "rocks" : model.question.rockers.length
+					 	 "rocks" : model.question.rockers.length,
+
 				    }
                
                 
@@ -190,6 +191,28 @@ define(['view/formView',
 				// render the template
         		compiledTemplate = Handlebars.compile(QuestionMessage);
         		$(this.el).html(compiledTemplate(datas));
+
+        		if(model.polls.length > 0){
+    				var values = [],pollIndex = 0,totalVotes = 0;
+            			
+	    		 	_.each(model.polls, function(poll) {
+
+	        			var radioColor = Raphael.hsb(self.color, 1, 1);
+	        			 
+	        			values.push(poll.voters.length);
+	        			totalVotes += poll.voters.length;
+		            	self.color += .1;
+	    		 	});
+			 	 	if(totalVotes != 0)
+	    		 	{
+	    			 	/* creating pie charts */ 
+	            	 	// donut[model.question.id.id] = new Donut(new Raphael(""+model.question.id.id+"-piechart", 200,200));
+	            	 	// donut[model.question.id.id].create(100, 100, 30, 55,100, values);
+	
+				 	}
+        		}
+	    		
+    		 	
         		$('.commentList').hide();
 			
     		return this;
@@ -645,14 +668,14 @@ define(['view/formView',
 
 			question.save({id: optionId},{
 				success : function(model, response) {
-					var voteCount = data.voters.length;
-                     $('input#'+data.id.id+'-voteCount').val(voteCount);
+					var voteCount = response.voters.length;
+                     $('input#'+response.id.id+'-voteCount').val(voteCount);
                      
                      //get all poll options vote count
                      $('input.'+questionId+'-polls').each(function() {
                      	values.push(parseInt($(this).val()));
                  	 });
-                     
+                    
                      /* updating pie charts */ 
                      $("#"+questionId+"-piechart").find('svg').remove();
                      donut[questionId] = new Donut(new Raphael(""+questionId+"-piechart", 200,200));
@@ -660,10 +683,10 @@ define(['view/formView',
                      
                      var streamId =  $('.sortable li.active').attr('id');
                      //Auto push 
-                     PUBNUB.publish({
-                    	 channel : "voting",
-	                         message : { pagePushUid:self.pagePushUid ,streamId:streamId,data:data,questionId:questionId,userId:BS.loggedUserId}
-                     }) 
+                     // PUBNUB.publish({
+                    	//  channel : "voting",
+	                    //      message : { pagePushUid:self.pagePushUid ,streamId:streamId,data:data,questionId:questionId,userId:BS.loggedUserId}
+                     // }) 
                      
                      $("input[name="+questionId+"]").attr('disabled',true);
 		 			

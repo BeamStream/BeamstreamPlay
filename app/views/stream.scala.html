@@ -16,6 +16,10 @@
 <script src="/beamstream-new/lib/extralib/bootbox.min.js"></script>
 <!-- End -->
 
+<!-- for making pie charts -->
+<script type="text/JavaScript" src="/beamstream-new/lib/extralib/raphael.js"></script>
+<!-- end -->
+
 
 <!--  prettyPhoto js -->
 <!-- <script src="/beamstream-new/lib/extralib/jquery.prettyPhoto.js" type="text/javascript" -->
@@ -28,6 +32,123 @@
 <script type="text/JavaScript" src="/beamstream-new/lib/jquery.preview.full.min.js"></script>
 <script>
 $('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+</script>
+
+<!-- for pie charts  -->
+<script>
+	function Donut(paper) {
+		this.paper = paper, this.rad = Math.PI / 180, this.chart = paper.set();
+
+		this.sector = function(cx, cy, r, r2, startAngle, endAngle, params) {
+			//console.log(params.fill);
+			var x1 = cx + r * Math.cos(-startAngle * this.rad), x2 = cx + r
+					* Math.cos(-endAngle * this.rad), y1 = cy + r
+					* Math.sin(-startAngle * this.rad), y2 = cy + r
+					* Math.sin(-endAngle * this.rad), xx1 = cx + r2
+					* Math.cos(-startAngle * this.rad), xx2 = cx + r2
+					* Math.cos(-endAngle * this.rad), yy1 = cy + r2
+					* Math.sin(-startAngle * this.rad), yy2 = cy + r2
+					* Math.sin(-endAngle * this.rad);
+
+			return paper.path(
+					[ "M", xx1, yy1, "L", x1, y1, "A", r, r, 0,
+							+(endAngle - startAngle > 180), 0, x2, y2, "L",
+							xx2, yy2, "A", this.rin, this.rin, 0,
+							+(endAngle - startAngle > 180), 1, xx1, yy1, "z" ])
+					.attr(params);
+
+		}
+	}
+
+	Donut.prototype = {
+
+		create : function(cx, cy, r, rin, rout, values, labels, stroke) {
+
+			this.cx = cx;
+			this.cy = cy;
+			this.r = r;
+			this.rin = rin;
+			this.rout = rout;
+
+			this.angle = 0;
+			this.start = 0
+
+			this.values = values;
+			this.labels = labels;
+			this.stroke = stroke;
+
+			var len = values.length;
+			var i = 0;
+			this.total = 0;
+
+			for ( var i = 0; i < len; i++) {
+				this.total += this.values[i];
+			}
+
+			i = 0;
+			while (i < len) {
+				this._createSlice(i++);
+			}
+
+		},
+
+		_createSlice : function(j) {
+			var value = this.values[j];
+			var angleplus = 360 * value / this.total, countPer = (100 * value / this.total)
+					.toFixed(0);
+			var popangle = this.angle + (angleplus / 2), color = Raphael.hsb(
+					this.start, .75, 1), ms = 500, delta = 30;
+			var totalangle = this.angle + angleplus;
+
+			var bcolor = Raphael.hsb(this.start, 1, 1);
+			if (totalangle == 360) {
+				var p = this.sector(this.cx, this.cy, this.r, this.rin,
+						this.angle, totalangle - 0.00017453292, {
+							fill : "90-" + bcolor + "-" + color,
+							stroke : this.stroke,
+							"stroke-width" : 1
+						});
+				bigp = this.sector(this.cx, this.cy, this.rout, this.rin,
+						this.angle, totalangle - 0.00017453292, {
+							fill : "90-" + bcolor + "-" + color,
+							stroke : this.stroke,
+							"stroke-width" : 1
+						}).hide();
+
+			} else {
+				var p = this.sector(this.cx, this.cy, this.r, this.rin,
+						this.angle, this.angle + angleplus, {
+							fill : "90-" + bcolor + "-" + color,
+							stroke : this.stroke,
+							"stroke-width" : 1
+						});
+				bigp = this.sector(this.cx, this.cy, this.rout, this.rin,
+						this.angle, this.angle + angleplus, {
+							fill : "90-" + bcolor + "-" + color,
+							stroke : this.stroke,
+							"stroke-width" : 1
+						}).hide();
+
+			}
+			var txt = this.paper.text(
+					this.cx + (this.r + delta + 15)
+							* Math.cos(-popangle * this.rad),
+					this.cy + (this.r + delta + 1)
+							* Math.sin(-popangle * this.rad), countPer + '%')
+					.attr({
+						fill : "#3F5A6C",
+						stroke : "none",
+						opacity : 1,
+						"font-size" : 14,
+						"font-weight" : "bold"
+					});
+			this.angle += angleplus;
+			this.chart.push(p);
+			this.chart.push(txt);
+			this.start += .1;
+		},
+	}
+	var donut = [];
 </script>
   
 }
