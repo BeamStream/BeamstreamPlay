@@ -237,6 +237,7 @@ define(['view/formView',
 				hideflash: true
 			});
 			$('.commentList').hide();
+
 			
     		return this;
         },
@@ -400,7 +401,7 @@ define(['view/formView',
 	 					
 
 	 					var discussion = new DiscussionModel();
-	 					discussion.urlRoot = '/remove/message/';
+	 					discussion.urlRoot = '/remove/message';
 
 						discussion.save({id: messageId},{
 	    					success : function(model, response) {
@@ -469,7 +470,7 @@ define(['view/formView',
 
 	 					var comment = new CommentModel();
 	 					var comment = new CommentModel();
-	 					comment.urlRoot = '/remove/comment/';
+	 					comment.urlRoot = '/remove/comment/'+messageId;
 
 	 					/* delete the omment from the model */
 	 					comment.save({id: commentId},{

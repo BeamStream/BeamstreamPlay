@@ -38,7 +38,8 @@ define(['view/formView',
 		 	'click .show-all-comments' : 'showAllCommentList',
 		 	'click .show-all' : 'showAllList',
 		 	'click .delete_post': 'deleteQuestion',
-		 	'click .delete_comment' : 'deleteComment'
+		 	'click .delete_comment' : 'deleteComment',
+		 	'click .regular-radio': 'polling',
 			 
 		},
 		
@@ -189,7 +190,7 @@ define(['view/formView',
 				// render the template
         		compiledTemplate = Handlebars.compile(QuestionMessage);
         		$(this.el).html(compiledTemplate(datas));
-
+        		$('.commentList').hide();
 			
     		return this;
         },
@@ -580,7 +581,7 @@ define(['view/formView',
 
 	 					var comment = new CommentModel();
 	 					var comment = new CommentModel();
-	 					comment.urlRoot = '/remove/comment/';
+	 					comment.urlRoot = '/remove/comment/'+questionId;
 
 	 					/* delete the omment from the model */
 	 					comment.save({id: commentId},{
@@ -624,6 +625,56 @@ define(['view/formView',
  			 }
 		},
        
+
+ 		/**
+	 	* polling 
+	 	*/
+		polling:function(eventName){
+			
+	        var element = eventName.target.parentElement;
+	        var questionId =$(element).parents('div.follow-container').attr('id');
+	        
+            var optionId = $('input[name='+questionId+']:checked').val();
+            
+            var values = [];
+            
+            var question = new QuestionModel();
+			question.urlRoot = '/voteAnOptionOf/question';
+
+
+			question.save({id: optionId},{
+				success : function(model, response) {
+					var voteCount = data.voters.length;
+                     $('input#'+data.id.id+'-voteCount').val(voteCount);
+                     
+                     //get all poll options vote count
+                     $('input.'+questionId+'-polls').each(function() {
+                     	values.push(parseInt($(this).val()));
+                 	 });
+                     
+                     /* updating pie charts */ 
+                     $("#"+questionId+"-piechart").find('svg').remove();
+                     donut[questionId] = new Donut(new Raphael(""+questionId+"-piechart", 200,200));
+                     donut[questionId].create(100, 100, 30, 55,100, values);
+                     
+                     var streamId =  $('.sortable li.active').attr('id');
+                     //Auto push 
+                     PUBNUB.publish({
+                    	 channel : "voting",
+	                         message : { pagePushUid:self.pagePushUid ,streamId:streamId,data:data,questionId:questionId,userId:BS.loggedUserId}
+                     }) 
+                     
+                     $("input[name="+questionId+"]").attr('disabled',true);
+		 			
+				},
+				error : function(model, response) {
+      		  		console.log("error");
+				}
+
+			});
+
+
+		},
 	})
 	return QuestionItemView;
 });
