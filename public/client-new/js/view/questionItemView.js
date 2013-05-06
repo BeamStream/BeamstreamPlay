@@ -593,7 +593,8 @@ define(['view/formView',
 
 									var commentCount = $('#'+questionId+'-totalComment').text()
 	                		 		// $('#'+messageId+'-totalComment').text(commentCount-1);
-			                		$('div#'+commentId).remove();
+
+			                		$('div#question-'+commentId).remove();
 			                		
 		                	 	}
 		                	 	else
@@ -635,7 +636,7 @@ define(['view/formView',
 	        var questionId =$(element).parents('div.follow-container').attr('id');
 	        
             var optionId = $('input[name='+questionId+']:checked').val();
-            
+            console.log(optionId);
             var values = [];
             
             var question = new QuestionModel();
