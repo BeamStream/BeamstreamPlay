@@ -289,7 +289,7 @@ object Message { //extends CommentConsumer {
         true
       case false => false
     }
-
+     deletedMessageSuccessfully
   }
   /**
    * ****************************************Rearchitecture*****************************************************
@@ -309,7 +309,6 @@ object Message { //extends CommentConsumer {
             case true => userMedia.head.frameURL
             case false => userMedia.head.mediaUrl
           }
-
           case false => ""
         }
 
