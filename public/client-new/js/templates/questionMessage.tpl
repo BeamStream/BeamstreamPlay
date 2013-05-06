@@ -50,6 +50,30 @@
                   </div>
                   
                   <div id="{{data.question.id.id}}-allComments" class="comment-wrapper">
+
+                    {{#each data.comments}}
+                      
+                       <div class="answer-description"  id="{{comment.id.id}}">
+                        <div class="follw-left">          
+                            <div class="ask-img"><img id="{{comment.id.id}}-image" src="{{profilePic}}"></div>                      
+                        </div>
+                        <div class="answer-description-info">
+                          <div class="follow-names">
+                            <ul class="follow-name-left show-all-block">
+                              <li><span>@{{comment.firstNameofCommentPoster}} {{comment.lastNameofCommentPoster}} </span> -  {{comment.timeCreated}}  -  Public</li>
+                              <li ><a href="#" class="rock-comments" >Rock</a></li>
+                              <li><a class="comment-icon" href="#"></a></li>
+                                 <li class="rocks-small"><a id="{{comment.id.id}}-mrockCount" href="#">{{comment.rocks}}</a></li>
+                            </ul>
+                          </div>
+                          <p>{{comment.commentBody}}</p>
+                          <a id="{{comment.id.id}}" href="#" data-username={{comment.userId.id}} data-original-title="Delete" class="delete_comment drag-rectangle" ></a>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                      
+                      
+                      {{/each}}
                   </div>
           <div id="{{data.question.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
                   </div>
