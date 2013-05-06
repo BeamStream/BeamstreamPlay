@@ -221,6 +221,14 @@ object Question {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(comments = (question.comments ++ List(commentId))), false, false, new WriteConcern)
   }
+  
+  /**
+   * Remove Comment from Question
+   */
+  def removeCommentFromQuestion(commentId: ObjectId, questionId: ObjectId) = {
+    val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+    QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(comments = (question.comments filterNot( List(commentId)contains))), false, false, new WriteConcern)
+  }
 
   /**
    *  add Poll to Question

@@ -97,22 +97,22 @@ object Comment {
     comments map {
       case commentId =>
         val comment = CommentDAO.find(MongoDBObject("_id" -> commentId)).toList
-         (comment.isEmpty.equals(false)) match {
+        (comment.isEmpty.equals(false)) match {
           case true => {
             val userMedia = UserMedia.getProfilePicForAUser(comment.head.userId)
 
-	        val profilePicForUser = (!userMedia.isEmpty) match {
-	          case true => (userMedia.head.frameURL != "") match {
-	            case true => userMedia.head.frameURL
-	            case false => userMedia.head.mediaUrl
-	          }
-	
-	          case false => ""
-	        }
+            val profilePicForUser = (!userMedia.isEmpty) match {
+              case true => (userMedia.head.frameURL != "") match {
+                case true => userMedia.head.frameURL
+                case false => userMedia.head.mediaUrl
+              }
+
+              case false => ""
+            }
             CommentResult(comment.head, Option(profilePicForUser))
           }
         }
-        
+
     }
   }
 
@@ -120,12 +120,16 @@ object Comment {
    * Delete A Comment
    */
 
-  def deleteCommentPermanently(commentId: ObjectId,messageId: ObjectId, userId: ObjectId) = {
+  def deleteCommentPermanently(commentId: ObjectId, messageOrQuestionId: ObjectId, userId: ObjectId) = {
     val commentToBeremoved = Comment.findCommentById(commentId)
     (commentToBeremoved.get.userId == userId) match {
       case true =>
         Comment.removeComment(commentToBeremoved.get)
-        Message.removeCommentFromMessage(commentId, messageId)
+        val message = Message.findMessageById(messageOrQuestionId)
+        message match {
+          case Some(message) => Message.removeCommentFromMessage(commentId, messageOrQuestionId)
+          case None => Question.removeCommentFromQuestion(commentId, messageOrQuestionId)
+        }
         true
       case false => false
     }
@@ -144,7 +148,6 @@ object Comment {
     }
   }
 
-  
 }
 
 object CommentDAO extends SalatDAO[Comment, ObjectId](collection = MongoHQConfig.mongoDB("comment"))
