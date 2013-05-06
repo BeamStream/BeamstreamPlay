@@ -105,7 +105,7 @@ object Stream {
    */
   def removeAccessFromStream(streamId: ObjectId, userId: ObjectId): ResulttoSent = {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
-    StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream -- List(userId))), false, false, new WriteConcern)
+    StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream filterNot(List(userId)contains))), false, false, new WriteConcern)
     ResulttoSent("Success", "Deleted Stream Successfully")
   }
 
