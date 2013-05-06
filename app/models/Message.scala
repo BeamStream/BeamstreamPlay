@@ -289,7 +289,7 @@ object Message { //extends CommentConsumer {
         true
       case false => false
     }
-
+     deletedMessageSuccessfully
   }
   /**
    * ****************************************Rearchitecture*****************************************************
