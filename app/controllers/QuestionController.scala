@@ -55,12 +55,12 @@ object QuestionController extends Controller {
         for (pollsOption <- pollsList) {
           val optionOfPoll = new OptionOfQuestion(new ObjectId, pollsOption, List())
           val optionOfAPollId = OptionOfQuestionDAO.insert(optionOfPoll)
-          Question.addPollToQuestion(optionOfAPollId.get, questionId)
+          Question.addPollToQuestion(optionOfAPollId.get, questionId.get)
         }
       case true =>
     }
 
-    val questionObtained = Question.findQuestionById(questionId)
+    val questionObtained = Question.findQuestionById(questionId.get)
     val pollsOfquestionObtained = (questionObtained.get.pollOptions.isEmpty.equals(false)) match {
       case true =>
         (questionObtained.get.pollOptions) map {
