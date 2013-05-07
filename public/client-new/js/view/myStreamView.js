@@ -7,9 +7,8 @@ define(['pageView',
         'view/calendarView',
         'view/messageListView',
         'view/questionListView',
-        'text!templates/privateToList.tpl',
         ], 
-	function(PageView, StreamSliderView, OverView, DiscussionsView, QuestionsView, DeadlinesView, CalendarView ,MessageListView ,QuestionListView ,PrivateToListTpl){
+	function(PageView, StreamSliderView, OverView, DiscussionsView, QuestionsView, DeadlinesView, CalendarView ,MessageListView ,QuestionListView ){
 	var MyStreamView;
 	MyStreamView = PageView.extend({
 		objName: 'MyStreamView',
