@@ -18,7 +18,19 @@
 <script type="text/javascript">
 $(' nav li a.active').removeClass('active');
 $('#menu-browsemedia').addClass('active');
-    </script>
+
+  /**
+  * hide visual drop down list
+  */
+
+  $('body').click(function() {
+   
+    $('#uploadmediachild_dr').find('li').find('ul').hide(200);
+    $('#uploadmediachild_dr').hide(200);
+
+  });
+
+</script>
 }
 @sideBar = {
  	
@@ -33,12 +45,12 @@ $('#menu-browsemedia').addClass('active');
 
 @main("Media", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar,header, footer){
 
-<div  id="browsemedia" data-module="view/browseMediaView">
+<div  id="browsemedia" data-module="view/browseMediaView" >
     <div class="right-container browse-conatiner">
      <div class="stream-header browse-header">
           <ul id="dropdownnew" class="no-image">
               <li class="leftplusicon"><a id="uploadmedia_dr" class="leftplusicon-a" href="#">Upload Media/Docs: </a>
-				<ul id="uploadmediachild_dr" >
+				      <ul id="uploadmediachild_dr" >
                       
                        <li id="childone_dr"><a id ="classdoc_dr" href="#">Class Document</a>
                           <ul id="classdocmenu_dr" class="fixingmenu_dr">
@@ -46,6 +58,27 @@ $('#menu-browsemedia').addClass('active');
                               
                               <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer' >
+                                        <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+                                      <li class="private">
+                                          <label  style="color:black;" for="id-private">
+                                              <input  id="id-private" type="checkbox" checked="checked">Private
+                                          </label>
+                                      </li>
+                                      <li style="margin-right:10px;" >
+                                          <select class="dropdownselect doc-class-list-computer">
+                                              <option>Save to Class</option>              
+                                          </select>
+                                      </li>      
+                                      <span id="loader-message"></span></br>                                       
+                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
+                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                                      <li id="progressbar" style="display:none; list-style: none">
+                                        <div class="progress-container" >
+                                            <div class="progress progress-striped active">
+                                              <div class="bar" style="width: 0%;"></div>
+                                            </div> 
+                                        </div> 
+                                        </li>
                                   </ul>
                               </li>
                               
@@ -63,7 +96,7 @@ $('#menu-browsemedia').addClass('active');
                                       </li>
                                       <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
                                           <select class="dropdownselect" id="link-class-list">
-                                              <option>Save to Class</option>
+                                              
                                               <option>Profile</option>
                                               <option>My Docs</option>
                                           </select>
@@ -92,7 +125,27 @@ $('#menu-browsemedia').addClass('active');
                               
                              
                            <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
-                                  <ul class='classdocchild_dr largeli dropdwnmycomputer' >                             
+                                  <ul class='classdocchild_dr largeli dropdwnmycomputer' >        <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+                                      <li class="private">
+                                          <label  style="color:black;" for="id-private">
+                                              <input  id="id-private" type="checkbox" checked="checked">Private
+                                          </label>
+                                      </li>
+                                      <li style="margin-right:10px;" >
+                                          <select class="dropdownselect doc-class-list-computer">
+                                              <option>Save to Class</option>              
+                                          </select>
+                                      </li>      
+                                      <span id="loader-message"></span></br>                                       
+                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
+                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                                      <li id="progressbar" style="display:none; list-style: none">
+                                        <div class="progress-container" >
+                                            <div class="progress progress-striped active">
+                                              <div class="bar" style="width: 0%;"></div>
+                                            </div> 
+                                        </div> 
+                                        </li>                       
                                   </ul>
                               </li>
                               
@@ -110,7 +163,7 @@ $('#menu-browsemedia').addClass('active');
                                       </li>
                                       <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
                                           <select class="dropdownselect" id="link-class-list">
-                                              <option>Save to Class</option>
+                                             
                                               <option>Profile</option>
                                               <option>My Docs</option>
                                           </select>
@@ -143,7 +196,27 @@ $('#menu-browsemedia').addClass('active');
                        
                          <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer' >
-     
+                                      <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+                                      <li class="private">
+                                          <label  style="color:black;" for="id-private">
+                                              <input  id="id-private" type="checkbox" checked="checked">Private
+                                          </label>
+                                      </li>
+                                      <li style="margin-right:10px;" >
+                                          <select class="dropdownselect doc-class-list-computer">
+                                              <option>Save to Class</option>              
+                                          </select>
+                                      </li>      
+                                      <span id="loader-message"></span></br>                                       
+                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
+                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                                      <li id="progressbar" style="display:none; list-style: none">
+                                        <div class="progress-container" >
+                                            <div class="progress progress-striped active">
+                                              <div class="bar" style="width: 0%;"></div>
+                                            </div> 
+                                        </div> 
+                                        </li>
                                   </ul>
                               </li>
                               
@@ -161,7 +234,7 @@ $('#menu-browsemedia').addClass('active');
                                       </li>
                                       <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
                                           <select class="dropdownselect" id="link-class-list">
-                                              <option>Save to Class</option>
+                                             
                                               <option>Profile</option>
                                               <option>My Docs</option>
                                           </select>
@@ -196,6 +269,27 @@ $('#menu-browsemedia').addClass('active');
                        
                          <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer' >
+                                        <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+                                      <li class="private">
+                                          <label  style="color:black;" for="id-private">
+                                              <input  id="id-private" type="checkbox" checked="checked">Private
+                                          </label>
+                                      </li>
+                                      <li style="margin-right:10px;" >
+                                          <select class="dropdownselect doc-class-list-computer">
+                                              <option>Save to Class</option>              
+                                          </select>
+                                      </li>      
+                                      <span id="loader-message"></span></br>                                       
+                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
+                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                                      <li id="progressbar" style="display:none; list-style: none">
+                                        <div class="progress-container" >
+                                            <div class="progress progress-striped active">
+                                              <div class="bar" style="width: 0%;"></div>
+                                            </div> 
+                                        </div> 
+                                        </li>
                                   </ul>
                               </li>
                               
@@ -213,7 +307,7 @@ $('#menu-browsemedia').addClass('active');
                                       </li>
                                       <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
                                           <select class="dropdownselect" id="link-class-list">
-                                              <option>Save to Class</option>
+                                             
                                               <option>Profile</option>
                                               <option>My Docs</option>
                                           </select>
@@ -247,7 +341,27 @@ $('#menu-browsemedia').addClass('active');
                        
                        <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer' >
-
+                                      <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+                                      <li class="private">
+                                          <label  style="color:black;" for="id-private">
+                                              <input  id="id-private" type="checkbox" checked="checked">Private
+                                          </label>
+                                      </li>
+                                      <li style="margin-right:10px;" >
+                                          <select class="dropdownselect doc-class-list-computer">
+                                              <option>Save to Class</option>              
+                                          </select>
+                                      </li>      
+                                      <span id="loader-message"></span></br>                                       
+                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
+                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                                      <li id="progressbar" style="display:none; list-style: none">
+                                        <div class="progress-container" >
+                                            <div class="progress progress-striped active">
+                                              <div class="bar" style="width: 0%;"></div>
+                                            </div> 
+                                        </div> 
+                                        </li>
                                   </ul>
                               </li>
                               
@@ -300,7 +414,27 @@ $('#menu-browsemedia').addClass('active');
                        
                         <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer' >
-                                      
+                                        <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+                                      <li class="private">
+                                          <label  style="color:black;" for="id-private">
+                                              <input  id="id-private" type="checkbox" checked="checked">Private
+                                          </label>
+                                      </li>
+                                      <li style="margin-right:10px;" >
+                                          <select class="dropdownselect doc-class-list-computer">
+                                              <option>Save to Class</option>              
+                                          </select>
+                                      </li>      
+                                      <span id="loader-message"></span></br>                                       
+                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
+                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                                      <li id="progressbar" style="display:none; list-style: none">
+                                        <div class="progress-container" >
+                                            <div class="progress progress-striped active">
+                                              <div class="bar" style="width: 0%;"></div>
+                                            </div> 
+                                        </div> 
+                                        </li>
                                   </ul>
                               </li>
                               
@@ -317,7 +451,7 @@ $('#menu-browsemedia').addClass('active');
                                       </li>
                                       <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
                                           <select class="dropdownselect" id="link-class-list">
-                                              <option>Save to Class</option>
+                                             
                                               <option>Profile</option>
                                               <option>My Docs</option>
                                           </select>
@@ -352,7 +486,27 @@ $('#menu-browsemedia').addClass('active');
                        
                         <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer' >
-                     
+                                      <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+                                      <li class="private">
+                                          <label  style="color:black;" for="id-private">
+                                              <input  id="id-private" type="checkbox" checked="checked">Private
+                                          </label>
+                                      </li>
+                                      <li style="margin-right:10px;" >
+                                          <select class="dropdownselect doc-class-list-computer">
+                                              <option>Save to Class</option>              
+                                          </select>
+                                      </li>      
+                                      <span id="loader-message"></span></br>                                       
+                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
+                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                                      <li id="progressbar" style="display:none; list-style: none">
+                                        <div class="progress-container" >
+                                            <div class="progress progress-striped active">
+                                              <div class="bar" style="width: 0%;"></div>
+                                            </div> 
+                                        </div> 
+                                        </li>
                                   </ul>
                               </li>
                               
@@ -369,7 +523,7 @@ $('#menu-browsemedia').addClass('active');
                                       </li>
                                       <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
                                           <select class="dropdownselect" id="link-class-list">
-                                              <option>Save to Class</option>
+                                             
                                               <option>Profile</option>
                                               <option>My Docs</option>
                                           </select>
@@ -404,7 +558,27 @@ $('#menu-browsemedia').addClass('active');
                            
                    <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer'>
-        
+                                        <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+                                      <li class="private">
+                                          <label  style="color:black;" for="id-private">
+                                              <input  id="id-private" type="checkbox" checked="checked">Private
+                                          </label>
+                                      </li>
+                                      <li style="margin-right:10px;" >
+                                          <select class="dropdownselect doc-class-list-computer">
+                                              <option>Save to Class</option>              
+                                          </select>
+                                      </li>      
+                                      <span id="loader-message"></span></br>                                       
+                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
+                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                                      <li id="progressbar" style="display:none; list-style: none">
+                                        <div class="progress-container" >
+                                            <div class="progress progress-striped active">
+                                              <div class="bar" style="width: 0%;"></div>
+                                            </div> 
+                                        </div> 
+                                        </li>
                                   </ul>
                               </li>
                               
@@ -422,7 +596,7 @@ $('#menu-browsemedia').addClass('active');
                                       </li>
                                       <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
                                           <select class="dropdownselect" id="link-class-list">
-                                              <option>Save to Class</option>
+                                            
                                               <option>Profile</option>
                                               <option>My Docs</option>
                                           </select>
@@ -458,7 +632,27 @@ $('#menu-browsemedia').addClass('active');
                           
                    <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer' >
-         
+                                      <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+                                      <li class="private">
+                                          <label  style="color:black;" for="id-private">
+                                              <input  id="id-private" type="checkbox" checked="checked">Private
+                                          </label>
+                                      </li>
+                                      <li style="margin-right:10px;" >
+                                          <select class="dropdownselect doc-class-list-computer">
+                                              <option>Save to Class</option>              
+                                          </select>
+                                      </li>      
+                                      <span id="loader-message"></span></br>                                       
+                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
+                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                                      <li id="progressbar" style="display:none; list-style: none">
+                                        <div class="progress-container" >
+                                            <div class="progress progress-striped active">
+                                              <div class="bar" style="width: 0%;"></div>
+                                            </div> 
+                                        </div> 
+                                        </li>
                                   </ul>
                               </li>
                               
@@ -475,7 +669,7 @@ $('#menu-browsemedia').addClass('active');
                                       </li>
                                       <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
                                           <select class="dropdownselect" id="link-class-list">
-                                              <option>Save to Class</option>
+                                             
                                               <option>Profile</option>
                                               <option>My Docs</option>
                                           </select>
@@ -513,7 +707,28 @@ $('#menu-browsemedia').addClass('active');
                           
                     <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer'>
-                                      
+                                      <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+                                      <li class="private">
+                                          <label  style="color:black;" for="id-private">
+                                              <input  id="id-private" type="checkbox" checked="checked">Private
+                                          </label>
+                                      </li>
+                                      <li style="margin-right:10px;" >
+                                          <select class="dropdownselect doc-class-list-computer">
+                                              <option>Save to Class</option>              
+                                          </select>
+                                      </li>      
+                                      <span id="loader-message"></span></br>                                       
+                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
+                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                                      <li id="progressbar" style="display:none; list-style: none">
+                                        <div class="progress-container" >
+                                            <div class="progress progress-striped active">
+                                              <div class="bar" style="width: 0%;"></div>
+                                            </div> 
+                                        </div> 
+                                        </li>
+
                                   </ul>
                               </li>
                               
@@ -531,7 +746,7 @@ $('#menu-browsemedia').addClass('active');
                                       </li>
                                       <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
                                           <select class="dropdownselect" id="link-class-list">
-                                              <option>Save to Class</option>
+                                              
                                               <option>Profile</option>
                                               <option>My Docs</option>
                                           </select>
@@ -560,9 +775,29 @@ $('#menu-browsemedia').addClass('active');
                     <li id="childeleven_dr"><a id="public_dr" href="#">Public</a>
                         <ul id="publicmenu_dr" class="fixingmenu_dr">
                           
-                         <li class="childone_one_dr"><a  class="classdocument_mycomp"  href="#">My Computer</a>
+                         <li class="childone_one_dr"><a  class="classdocument_mycomp DDDD"  href="#">My Computer</a>
                                   <ul class='classdocchild_dr largeli dropdwnmycomputer'>
-  
+                                        <li><input type="file"  name="doc-from-computer" id="doc-from-computer" /> </li>
+                                      <li class="private">
+                                          <label  style="color:black;" for="id-private">
+                                              <input  id="id-private" type="checkbox" checked="checked">Private
+                                          </label>
+                                      </li>
+                                      <li style="margin-right:10px;" >
+                                          <select class="dropdownselect doc-class-list-computer">
+                                              <option>Save to Class</option>              
+                                          </select>
+                                      </li>      
+                                      <span id="loader-message"></span></br>                                       
+                                      <li><input type="button" class="docfrmcomputer_uploadbutton upload_button"></li>
+                                      <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
+                                      <li id="progressbar" style="display:none; list-style: none">
+                                        <div class="progress-container" >
+                                            <div class="progress progress-striped active">
+                                              <div class="bar" style="width: 0%;"></div>
+                                            </div> 
+                                        </div> 
+                                        </li>
                                   </ul>
                               </li>
                               
@@ -579,7 +814,7 @@ $('#menu-browsemedia').addClass('active');
                                       </li>
                                       <li><input type="text" class="dropdowntext" placeholder="TAGS, Seperated by Commas"><i class="icon-middle-tag tag-place-dromenu"></i>
                                           <select class="dropdownselect" id="link-class-list">
-                                              <option>Save to Class</option>
+                                             
                                               <option>Profile</option>
                                               <option>My Docs</option>
                                           </select>
@@ -716,12 +951,16 @@ $('#menu-browsemedia').addClass('active');
           </div>
           <div class="calender-outer overview-boxes browse-outer">
 
-           
-          
-           <ul class="profil-pic-outer files-list" id="grid">         
-           <div class="clear"></div>
-              <div class="clear"></div>
+            <div id= "filesOverView" data-model="usermedia" data-module="view/filesOverView" data-url="/" data-tpl="">
+    
+
+             <ul class="profil-pic-outer files-list" id="grid">         
+       
             </ul>
+              </div>
+
+
+        
            
           </div>
         </div>

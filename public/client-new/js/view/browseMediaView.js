@@ -1,6 +1,8 @@
-define(['view/formView'
-        
-        ],function(FormView ){
+define(['view/formView',
+        'model/stream',
+        'text!templates/linkdropdown.tpl',
+        'text!templates/privateToList.tpl',
+        ],function(FormView,StreamModel, Linkdropdown,PrivateToListTpl){
 	
 	var BrowseMediaView;
 	BrowseMediaView = FormView.extend({
@@ -9,35 +11,60 @@ define(['view/formView'
 			"click '.nav a" : "addActive",
 			"click #uploadmedia_dr":"preventDefault",
 			"mouseenter #uploadmedia_dr":"uploadMediadwn",
-            "mouseleave #dropdownnew":"uploadMediaup",
-            "click #classdoc_dr":"classdocMenuList",
-            "click .classdocument_mycomp":"classdocFileForm",
-            "click .vialink_dr":"vialinkMenu",
-            "click #vialink_uploadbutton":"vialinkUpload",
-            "click .googledocs_dr":"googleDocs",
-            "click #assignment_dr":"assignmentMenuList", 
-            "click .importfrmlink_dr": "importFromLink",
-            "click #homework_dr":"homeMenuList",
-            "click #notes_dr":"notesMenuList",
-            "click #projects_dr":"projectsMenuList",
-            "click #lecture_dr":"lectureMenuList",
-            "click #reference_dr":"referenceMenuList",
-            "click #tutorial_dr":"tutorialMenuList",
-            "click #edtech_dr":"edtechMenuList",
-            "click #amusement_dr":"amusementMenuList",
-            "click #public_dr":"publicMenuList",
-            "click #uploadmediachild_dr li" :"removeOptions",
-            'change .dropdownselect' :'dropdownselect',
-            "click .then-by li a" : "filterDocs",
-            "click #view-by-list" : "selectViewByAll",
-            "click #view-by-date-list" : "selectViewByDate",
-            "click #view-files-byrock-list" : "selectViewByRock",
-            "click #category-list li" :"sortBycategory",
-            "click .browse-right a" :"selectViewStyle"    
+      "mouseleave #dropdownnew":"uploadMediaup",
+      "click #classdoc_dr":"classdocMenuList",
+      "click .classdocument_mycomp":"classdocFileForm",
+      "click .vialink_dr":"vialinkMenu",
+      "click #vialink_uploadbutton":"vialinkUpload",
+      "click .googledocs_dr":"googleDocs",
+      "click #assignment_dr":"assignmentMenuList", 
+      "click .importfrmlink_dr": "importFromLink",
+      "click #homework_dr":"homeMenuList",
+      "click #notes_dr":"notesMenuList",
+      "click #projects_dr":"projectsMenuList",
+      "click #lecture_dr":"lectureMenuList",
+      "click #reference_dr":"referenceMenuList",
+      "click #tutorial_dr":"tutorialMenuList",
+      "click #edtech_dr":"edtechMenuList",
+      "click #amusement_dr":"amusementMenuList",
+      "click #public_dr":"publicMenuList",
+      "click #uploadmediachild_dr li" :"removeOptions",
+      'change .dropdownselect' :'dropdownselect',
+      "click .then-by li a" : "filterDocs",
+      "click #view-by-list" : "selectViewByAll",
+      "click #view-by-date-list" : "selectViewByDate",
+      "click #view-files-byrock-list" : "selectViewByRock",
+      "click #category-list li" :"sortBycategory",
+      "click .browse-right a" :"selectViewStyle"    
 		},
 		
 		onAfterInit: function(){	
 			this.data.reset();
+      var self = this;
+      streams = new StreamModel();
+      streams.fetch({
+        success : function(data, response) {
+
+          var listTemplate = Handlebars.compile(PrivateToListTpl);
+          $('#by-class-list').html(listTemplate(response));
+
+          /* added stream list to dropdown list */
+          self.streams='<option>Save to Class</option>';
+          _.each(response, function(data) {
+            
+             self.streams+='<option>'+data.stream.streamName+'</option>';
+          });
+        
+          $('.doc-class-list-computer').html(self.streams);
+          $('#link-class-list').prepend(self.streams);
+          $('#doc-class-list').prepend(self.streams);
+         
+         
+        }
+      });
+     
+     
+
 		},
 		
 		
@@ -80,8 +107,8 @@ define(['view/formView'
 		classdocMenuList:function(eventName){
             eventName.preventDefault();    
             $('.link-dropdwn').html("");  
-            $('.dropdwnmycomputer').html(""); 
-            $('.dropdwnmycomputer').css("display","none");
+            // $('.dropdwnmycomputer').html(""); 
+            // $('.dropdwnmycomputer').css("display","none");
             $("#childtwo_dr").find('ul').hide(200);
             $("#childthree_dr").find('ul').hide(200);
             $("#childfour_dr").find('ul').hide(200);
@@ -100,13 +127,14 @@ define(['view/formView'
             $(".childone_two_dr").find('ul').hide(200);
             $(".childone_three_dr").find('ul').hide(200);
             $(".classdocchild_dr").animate({width: 'toggle'},130);
+
             
         },
         
         vialinkMenu:function(eventName){
             eventName.preventDefault(); 
-            $('.dropdwnmycomputer').html(""); 
-            $('.dropdwnmycomputer').css("display","none");
+            // $('.dropdwnmycomputer').html(""); 
+            // $('.dropdwnmycomputer').css("display","none");
             $(".childone_one_dr").find('ul').hide(200);
             $(".childone_three_dr").find('ul').hide(200);
             $(eventName.target).next().animate({width: 'toggle'},130);
@@ -145,8 +173,8 @@ define(['view/formView'
               */
           googleDocs:function(eventName){
               eventName.preventDefault();
-              $('.dropdwnmycomputer').html(""); 
-              $('.dropdwnmycomputer').css("display","none");
+              // $('.dropdwnmycomputer').html(""); 
+              // $('.dropdwnmycomputer').css("display","none");
               $(".childone_one_dr").find('ul').hide(200);
               $(".childone_two_dr").find('ul').hide(200);
               $(eventName.target).next().animate({width: 'toggle'},130); 
@@ -159,8 +187,8 @@ define(['view/formView'
 	      assignmentMenuList:function(eventName){
 	          eventName.preventDefault();
 	          $('.link-dropdwn').html(""); 
-	          $('.dropdwnmycomputer').html(""); 
-	          $('.dropdwnmycomputer').css("display","none");
+	          // $('.dropdwnmycomputer').html(""); 
+	          // $('.dropdwnmycomputer').css("display","none");
 	          $("#childone_dr").find('ul').hide(200);
 	          $("#childthree_dr").find('ul').hide(200);
 	          $("#childfour_dr").find('ul').hide(200);
@@ -180,11 +208,14 @@ define(['view/formView'
            * (childmenu from Import from link )
            */
        importFromLink:function(eventName){
-           eventName.preventDefault();
-           $(eventName.target).next().animate({width: 'toggle'},130);
+          eventName.preventDefault();
+
+          var compiledTemplate = Handlebars.compile(Linkdropdown);
+          $(eventName.target).next().html(compiledTemplate);
+          $(eventName.target).next().animate({width: 'toggle'},130);
            var i='';
            var content=''; 
-           $('.link-dropdwn').html("");   
+           // $('.link-dropdwn').html("");   
           /* var source = $("#tpl-lindropdown").html();
            var template = Handlebars.compile(source);				    
            $(eventName.target).next().append(template()); 
@@ -210,8 +241,8 @@ define(['view/formView'
         homeMenuList:function(eventName){
             eventName.preventDefault();
             $('.link-dropdwn').html("");  
-            $('.dropdwnmycomputer').html(""); 
-            $('.dropdwnmycomputer').css("display","none");
+            // $('.dropdwnmycomputer').html(""); 
+            // $('.dropdwnmycomputer').css("display","none");
             $("#childone_dr").find('ul').hide(200);
             $("#childtwo_dr").find('ul').hide(200);
             $("#childfour_dr").find('ul').hide(200);
@@ -234,8 +265,8 @@ define(['view/formView'
 	     notesMenuList:function(eventName){
 	         eventName.preventDefault();
 	         $('.link-dropdwn').html("");
-	         $('.dropdwnmycomputer').html(""); 
-	         $('.dropdwnmycomputer').css("display","none");
+	         // $('.dropdwnmycomputer').html(""); 
+	         // $('.dropdwnmycomputer').css("display","none");
 	         $("#childone_dr").find('ul').hide(200);
 	         $("#childtwo_dr").find('ul').hide(200);
 	         $("#childthree_dr").find('ul').hide(200);
@@ -257,8 +288,8 @@ define(['view/formView'
 	     projectsMenuList:function(eventName){
 	         eventName.preventDefault();
 	         $('.link-dropdwn').html(""); 
-	         $('.dropdwnmycomputer').html(""); 
-	         $('.dropdwnmycomputer').css("display","none");
+	         // $('.dropdwnmycomputer').html(""); 
+	         // $('.dropdwnmycomputer').css("display","none");
 	         $("#childone_dr").find('ul').hide(200);
 	         $("#childtwo_dr").find('ul').hide(200);
 	         $("#childthree_dr").find('ul').hide(200);
@@ -281,8 +312,8 @@ define(['view/formView'
 	     lectureMenuList:function(eventName){
 	         eventName.preventDefault();
 	         $('.link-dropdwn').html(""); 
-	         $('.dropdwnmycomputer').html(""); 
-	         $('.dropdwnmycomputer').css("display","none");
+	         // $('.dropdwnmycomputer').html(""); 
+	         // $('.dropdwnmycomputer').css("display","none");
 	         $("#childone_dr").find('ul').hide(200);
 	         $("#childtwo_dr").find('ul').hide(200);
 	         $("#childthree_dr").find('ul').hide(200);
@@ -305,8 +336,8 @@ define(['view/formView'
 	      referenceMenuList:function(eventName){
 	          eventName.preventDefault();
 	          $('.link-dropdwn').html(""); 
-	          $('.dropdwnmycomputer').html(""); 
-	          $('.dropdwnmycomputer').css("display","none");
+	          // $('.dropdwnmycomputer').html(""); 
+	          // $('.dropdwnmycomputer').css("display","none");
 	          $("#childone_dr").find('ul').hide(200);
 	          $("#childtwo_dr").find('ul').hide(200);
 	          $("#childthree_dr").find('ul').hide(200);
@@ -329,8 +360,8 @@ define(['view/formView'
           tutorialMenuList:function(eventName){
               eventName.preventDefault();
               $('.link-dropdwn').html("");
-              $('.dropdwnmycomputer').html(""); 
-              $('.dropdwnmycomputer').css("display","none");
+              // $('.dropdwnmycomputer').html(""); 
+              // $('.dropdwnmycomputer').css("display","none");
               $("#childone_dr").find('ul').hide(200);
               $("#childtwo_dr").find('ul').hide(200);
               $("#childthree_dr").find('ul').hide(200);
@@ -353,8 +384,8 @@ define(['view/formView'
           edtechMenuList:function(eventName){
         	  eventName.preventDefault();
         	  $('.link-dropdwn').html("");  
-        	  $('.dropdwnmycomputer').html(""); 
-        	  $('.dropdwnmycomputer').css("display","none");
+        	  // $('.dropdwnmycomputer').html(""); 
+        	  // $('.dropdwnmycomputer').css("display","none");
         	  $("#childone_dr").find('ul').hide(200);
         	  $("#childtwo_dr").find('ul').hide(200);
         	  $("#childthree_dr").find('ul').hide(200);
@@ -378,8 +409,8 @@ define(['view/formView'
           amusementMenuList:function(eventName){
         	  eventName.preventDefault();
 	          $('.link-dropdwn').html(""); 
-	          $('.dropdwnmycomputer').html(""); 
-	          $('.dropdwnmycomputer').css("display","none");
+	          // $('.dropdwnmycomputer').html(""); 
+	          // $('.dropdwnmycomputer').css("display","none");
 	          $("#childone_dr").find('ul').hide(200);
 	          $("#childtwo_dr").find('ul').hide(200);
 	          $("#childthree_dr").find('ul').hide(200);
@@ -403,8 +434,8 @@ define(['view/formView'
           publicMenuList:function(eventName){
         	 eventName.preventDefault();
         	 $('.link-dropdwn').html(""); 
-        	 $('.dropdwnmycomputer').html("");
-        	 $('.dropdwnmycomputer').css("display","none");
+        	 // $('.dropdwnmycomputer').html("");
+        	 // $('.dropdwnmycomputer').css("display","none");
              $("#childone_dr").find('ul').hide(200);
              $("#childtwo_dr").find('ul').hide(200);
              $("#childthree_dr").find('ul').hide(200);
