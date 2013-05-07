@@ -70,7 +70,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
     val userMedia = UserMedia(new ObjectId, "Neel", "", user.id, formatter.parse("23-07-12"), "http://neel.com/neel.jpg", UserMediaType.Image, DocumentAccess.Public, true,
-      "", 1, List(), List(), 0)
+      None,"", 1, List(), List(), 0)
     val mediaId = UserMedia.saveMediaForUser(userMedia)
     val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
     val messageId = Message.createMessage(message)

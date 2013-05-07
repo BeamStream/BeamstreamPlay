@@ -18,6 +18,7 @@ case class UserMedia(@Key("_id") id: ObjectId,
   contentType: UserMediaType.Value,
   access: DocumentAccess.Value,
   isPrimary: Boolean,
+  streamId:Option[ObjectId]=None,
   frameURL: String,
   rocks: Int,
   rockers: List[ObjectId],
@@ -110,7 +111,7 @@ object UserMedia extends RockConsumer {
     val AlluserMedia = getAllMediaForAUser(userId)
     AlluserMedia map {
       case media =>
-        val updatedMedia = new UserMedia(media.id, media.name, media.description, media.userId, media.dateCreated, media.mediaUrl, media.contentType, media.access, false, media.frameURL, 0, List(), media.comments)
+        val updatedMedia = new UserMedia(media.id, media.name, media.description, media.userId, media.dateCreated, media.mediaUrl, media.contentType, media.access, false,media.streamId, media.frameURL, 0, List(), media.comments)
         UserMediaDAO.update(MongoDBObject("_id" -> media.id), updatedMedia, false, false, new WriteConcern)
     }
   }
