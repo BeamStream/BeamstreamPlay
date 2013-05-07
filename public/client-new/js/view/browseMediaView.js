@@ -58,7 +58,7 @@ define(['view/formView',
           $('.doc-class-list-computer').html(self.streams);
           $('#link-class-list').prepend(self.streams);
           $('#doc-class-list').prepend(self.streams);
-         
+
          
         }
       });
@@ -213,6 +213,7 @@ define(['view/formView',
           var compiledTemplate = Handlebars.compile(Linkdropdown);
           $(eventName.target).next().html(compiledTemplate);
           $(eventName.target).next().animate({width: 'toggle'},130);
+          $('#doc-class-list').prepend(this.streams);
            var i='';
            var content=''; 
            // $('.link-dropdwn').html("");   
