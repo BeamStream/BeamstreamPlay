@@ -64,9 +64,18 @@ define(['view/formView'
                 alert("Doc Edit Successfully"); 
                 self.data.models[0].clear();
 
-                $('#description-'+data[0].id.id).text(data[0].documentDescription);
-                $('#name-'+data[0].id.id+'').text(data[0].documentName);
+                if($('#docType').val() == 'Document'){
 
+                    $('#description-'+data[0].id.id).text(data[0].documentDescription);
+                    $('#name-'+data[0].id.id+'').text(data[0].documentName);
+
+                }else{
+                    
+                    $('#description-'+data[0].id.id).text(data[0].description);
+                    $('#name-'+data[0].id.id+'').text(data[0].name);
+
+                }
+                   
               	$('#editMedia').modal("hide");
 
 
