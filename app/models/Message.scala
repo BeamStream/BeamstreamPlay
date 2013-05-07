@@ -61,9 +61,9 @@ object Message { //extends CommentConsumer {
   /**
    *
    */
-/**
- * Validate User : Eligible to post in a stream
- */
+  /**
+   * Validate User : Eligible to post in a stream
+   */
   private def validateUserHasRightToPost(userId: ObjectId, streamId: ObjectId): Boolean = {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
     stream.usersOfStream.contains(userId)
