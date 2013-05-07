@@ -44,7 +44,7 @@ define(['view/formView'
             if($('#docType').val() == 'Document')
                 this.data.url="/document";
             else
-                this.data.url="/changeTitleAndDescriptionUserMedia";
+                this.data.url="/media";
         	
         	this.saveForm({});
 		},
