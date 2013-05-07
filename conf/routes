@@ -22,7 +22,7 @@ PUT      /remove/comment/:messageOrQuestionId/:commentId                        
 GET      /isARockerOf/comment/:commentId                                         controllers.CommentController.isARocker(commentId:String)
 
 #Document
-GET      /documents                                                              controllers.DocumentController.getAllGoogleDocumentsForAUser
+GET      /getAllGoogleDocs                                                              controllers.DocumentController.getAllGoogleDocumentsForAUser
 PUT      /document/:documentId                                                   controllers.DocumentController.changeTitleAndDescriptionForADocument(documentId:String)
 POST     /document                                                               controllers.DocumentController.newDocument
 PUT      /rock/document/:documentId                                              controllers.DocumentController.rockTheDocument(documentId:String)
@@ -59,11 +59,6 @@ GET      /rockersOf/message/:messageId                                          
 GET      /isAFollowerOf/message/:messageId                                       controllers.MessageController.isAFollower(messageId:String)
 GET      /isARockerOf/message/:messageId                                         controllers.MessageController.isARocker(messageId:String)
 
-#Files
-GET      /audioFilesOfAUser                                                      controllers.DocumentController.getAllAudioFilesForAUser
-GET      /allPPTFilesForAUser                                                    controllers.DocumentController.getAllPPTFilesForAUser
-GET      /allPDFFilesForAUser                                                    controllers.DocumentController.getAllPDFFilesForAUser
-GET      /allDOCSFilesForAUser                                                   controllers.DocumentController.getAllDOCSFilesForAUser
 
 #Questions
 POST     /question                                                               controllers.QuestionController.newQuestion
@@ -187,7 +182,11 @@ POST     /forgotPassword                                                        
 GET      /recover                                                                controllers.UserController.renderForgotPasswordView
 
 
-
+#Files
+GET      /audioFilesOfAUser                                                      controllers.DocumentController.getAllAudioFilesForAUser
+GET      /allPPTFilesForAUser                                                    controllers.DocumentController.getAllPPTFilesForAUser
+GET      /allPDFFilesForAUser                                                    controllers.DocumentController.getAllPDFFilesForAUser
+GET      /allDOCSFilesForAUser                                                   controllers.DocumentController.getAllDOCSFilesForAUser
 
                                                     
 
