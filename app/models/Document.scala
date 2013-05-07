@@ -176,6 +176,30 @@ object Document extends RockConsumer {
     updatedDocFound.views
   }
 
+  /**
+   * Recent Profile pic of user
+   */
+  def recentDocForAUser(userId: ObjectId): Option[String] = {
+    val document = DocumentDAO.find(MongoDBObject("userId" -> userId, "contentType" -> DocType.Other)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).limit(2).toList
+    document.isEmpty match {
+      case true => None
+      case false => Option(document.head.documentURL)
+    }
+
+  }
+
+  /**
+   * Recent Profile pic of user
+   */
+  def recentGoogleDocsForAUser(userId: ObjectId): Option[String] = {
+    val document = DocumentDAO.find(MongoDBObject("userId" -> userId, "contentType" -> DocType.GoogleDocs)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).limit(2).toList
+    document.isEmpty match {
+      case true => None
+      case false => Option(document.head.documentURL)
+    }
+
+  }
+
   //TODO : To Be Removed if visitors pattern will not be used
   // Add Rock to Doc If Message Contains docIdIfAny
   def rockTheMediaOrDoc(idToBeRocked: ObjectId, userId: ObjectId) {

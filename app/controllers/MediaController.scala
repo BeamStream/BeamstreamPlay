@@ -16,6 +16,9 @@ import utils.ObjectIdSerializer
 import utils.tokenEmailUtil
 import utils.ExtractFrameFromVideoUtil
 import models.ResulttoSent
+import models.UserMediaDAO
+import models.Document
+import models.MediaResults
 
 object MediaController extends Controller {
 
@@ -116,39 +119,6 @@ object MediaController extends Controller {
    * }
    */
 
-  def uploadMediaToAmazon = Action(parse.multipartFormData) { implicit request =>
-    try {
-      val fileNames = request.body.file("profileData").map { profileData =>
-        val Filename = profileData.filename
-        val contentType = profileData.contentType.get
-        val uniqueString = tokenEmailUtil.securityToken
-        val FileObtained: File = profileData.ref.file.asInstanceOf[File]
-        val fileNameOnAmazon = uniqueString + Filename.replaceAll("\\s", "") // Security Over the images files
-        (new AmazonUpload).uploadFileToAmazon(fileNameOnAmazon, FileObtained)
-
-        (contentType.contains("image")) match {
-          case true =>
-            (Filename, fileNameOnAmazon, "")
-
-          case false =>
-            val videoURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon
-            val frameOfVideo = ExtractFrameFromVideoUtil.extractFrameFromVideo(videoURL)
-            (new AmazonUpload).uploadCompressedFileToAmazon(fileNameOnAmazon + "Frame", frameOfVideo)
-            val frameURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon + "Frame"
-            (Filename, fileNameOnAmazon, frameURL)
-        }
-
-      }.get
-      val imageURL = "https://s3.amazonaws.com/BeamStream/" + fileNames._2
-
-      val media = UserMedia(new ObjectId, fileNames._1, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, DocumentAccess.Public, true,None, fileNames._3, 0, List(), List(), 0)
-      UserMedia.saveMediaForUser(media)
-      Ok(write(media)).as("application/json")
-    } catch {
-      case exception => Ok(write(ResulttoSent("Failure", "Problem during uploading your media")))
-    }
-  }
-
   /**
    * Get All Photos for a user
    *
@@ -216,6 +186,41 @@ object MediaController extends Controller {
    * ***********************************************************REARCHITECTED CODE****************************************************************
    */
 
+  def uploadMediaToAmazon = Action(parse.multipartFormData) { implicit request =>
+
+    val media = request.body.file("profileData").map { profileData =>
+      val Filename = profileData.filename
+      val contentType = profileData.contentType.get
+      val uniqueString = tokenEmailUtil.securityToken
+      val FileObtained: File = profileData.ref.file.asInstanceOf[File]
+      val fileNameOnAmazon = uniqueString + Filename.replaceAll("\\s", "") // Security Over the images files
+      (new AmazonUpload).uploadFileToAmazon(fileNameOnAmazon, FileObtained)
+
+      (contentType.contains("image")) match {
+        case true =>
+          val imageURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon
+
+          UserMedia(new ObjectId, Filename, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, DocumentAccess.Public, true, None, "", 0, List(), List(), 0)
+
+        case false =>
+          val videoURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon
+          val frameOfVideo = ExtractFrameFromVideoUtil.extractFrameFromVideo(videoURL)
+          (new AmazonUpload).uploadCompressedFileToAmazon(fileNameOnAmazon + "Frame", frameOfVideo)
+          val frameURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon + "Frame"
+
+          val imageURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon
+
+          UserMedia(new ObjectId, Filename, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, DocumentAccess.Public, true, None, frameURL, 0, List(), List(), 0)
+
+      }
+
+    }.get
+
+    UserMedia.saveMediaForUser(media)
+    Ok(write(media)).as("application/json")
+
+  }
+
   /**
    * obtaining the profile Picture
    * @ Purpose: fetches the recent profile picture for a user
@@ -234,9 +239,19 @@ object MediaController extends Controller {
   /**
    * Render Browse Media Page
    */
-
   def browseMedia = Action { implicit request =>
     Ok(views.html.browsemedia())
+  }
+
+  /**
+   * Get Recent Media
+   */
+  def getRecentMediaAndDocs = Action { implicit request =>
+    val recentImage = UserMedia.recentProfilePicForAUser(new ObjectId(request.session.get("userId").get))
+    val recentVideo = UserMedia.recentProfileVideoForAUser(new ObjectId(request.session.get("userId").get))
+    val recentDoc = Document.recentDocForAUser(new ObjectId(request.session.get("userId").get))
+    val recentGoogleDoc = Document.recentGoogleDocsForAUser(new ObjectId(request.session.get("userId").get))
+    Ok(write(MediaResults(recentImage, recentVideo, recentDoc, recentGoogleDoc))).as("application/json")
   }
 
 }

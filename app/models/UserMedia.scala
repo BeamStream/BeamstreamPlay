@@ -18,7 +18,7 @@ case class UserMedia(@Key("_id") id: ObjectId,
   contentType: UserMediaType.Value,
   access: DocumentAccess.Value,
   isPrimary: Boolean,
-  streamId:Option[ObjectId]=None,
+  streamId: Option[ObjectId] = None,
   frameURL: String,
   rocks: Int,
   rockers: List[ObjectId],
@@ -111,7 +111,7 @@ object UserMedia extends RockConsumer {
     val AlluserMedia = getAllMediaForAUser(userId)
     AlluserMedia map {
       case media =>
-        val updatedMedia = new UserMedia(media.id, media.name, media.description, media.userId, media.dateCreated, media.mediaUrl, media.contentType, media.access, false,media.streamId, media.frameURL, 0, List(), media.comments)
+        val updatedMedia = new UserMedia(media.id, media.name, media.description, media.userId, media.dateCreated, media.mediaUrl, media.contentType, media.access, false, media.streamId, media.frameURL, 0, List(), media.comments)
         UserMediaDAO.update(MongoDBObject("_id" -> media.id), updatedMedia, false, false, new WriteConcern)
     }
   }
@@ -174,8 +174,30 @@ object UserMedia extends RockConsumer {
     updatedUserMedia1.views
   }
 
-  
-  
+  /**
+   * Recent Profile pic of user
+   */
+  def recentProfilePicForAUser(userId: ObjectId): Option[String] = {
+    val profilePic = UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> UserMediaType.Image)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).limit(2).toList
+    profilePic.isEmpty match {
+      case true => None
+      case false => Option(profilePic.head.mediaUrl)
+    }
+
+  }
+
+  /**
+   * Recent Profile video of user
+   */
+  def recentProfileVideoForAUser(userId: ObjectId): Option[String] = {
+    val profilePic = UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> UserMediaType.Video)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).limit(2).toList
+    profilePic.isEmpty match {
+      case true => None
+      case false => Option(profilePic.head.mediaUrl)
+    }
+
+  }
+
   //TODO : Add Rock to Media If Message Contains docIdIfAny
   def rockTheMediaOrDoc(idToBeRocked: ObjectId, userId: ObjectId) {
     val userMedia = UserMedia.findMediaById(idToBeRocked)
