@@ -25,6 +25,8 @@ import utils.ExtractFrameFromVideoUtil
 import utils.ObjectIdSerializer
 import utils.PreviewOfPDFUtil
 import utils.tokenEmailUtil
+import models.UserMedia
+import models.UserMediaDAO
 /**
  * This controller class is used to store and retrieve all the information about documents.
  */
@@ -104,10 +106,19 @@ object DocumentController extends Controller {
     val jsonReceived = request.body.asJson.get
     val docDescription = (jsonReceived \ "docDescription").as[String]
     val docName = (jsonReceived \ "docName").as[String]
-    Document.updateTitleAndDescription(new ObjectId(documentId), docName, docDescription)
-    val docObtained = Document.findDocumentById(new ObjectId(documentId))
-    val docJson = write(List(docObtained))
-    Ok(docJson).as("application/json")
+    val userMediaFound = UserMedia.findMediaById(new ObjectId(documentId))
+    val resultantJson = userMediaFound match {
+      case None =>
+        Document.updateTitleAndDescription(new ObjectId(documentId), docName, docDescription)
+        val docObtained = Document.findDocumentById(new ObjectId(documentId))
+        write(List(docObtained))
+      case Some(media) =>
+        UserMedia.updateTitleAndDescription(new ObjectId(documentId), docName, docDescription)
+        val userMediaObtained = UserMedia.findMediaById(new ObjectId(documentId))
+        write(List(userMediaObtained))
+    }
+
+    Ok(resultantJson).as("application/json")
 
   }
 

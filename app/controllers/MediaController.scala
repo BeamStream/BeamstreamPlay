@@ -118,36 +118,34 @@ object MediaController extends Controller {
 
   def uploadMediaToAmazon = Action(parse.multipartFormData) { implicit request =>
     try {
-    val fileNames = request.body.file("profileData").map { profileData =>
-      val Filename = profileData.filename
-      val contentType = profileData.contentType.get
-      val uniqueString = tokenEmailUtil.securityToken
-      val FileObtained: File = profileData.ref.file.asInstanceOf[File]
-      val fileNameOnAmazon = uniqueString + Filename.replaceAll("\\s", "") // Security Over the images files
-      (new AmazonUpload).uploadFileToAmazon(fileNameOnAmazon, FileObtained)
+      val fileNames = request.body.file("profileData").map { profileData =>
+        val Filename = profileData.filename
+        val contentType = profileData.contentType.get
+        val uniqueString = tokenEmailUtil.securityToken
+        val FileObtained: File = profileData.ref.file.asInstanceOf[File]
+        val fileNameOnAmazon = uniqueString + Filename.replaceAll("\\s", "") // Security Over the images files
+        (new AmazonUpload).uploadFileToAmazon(fileNameOnAmazon, FileObtained)
 
-      (contentType.contains("image")) match {
-        case true =>
-          (Filename, fileNameOnAmazon, "")
+        (contentType.contains("image")) match {
+          case true =>
+            (Filename, fileNameOnAmazon, "")
 
-        case false =>
-          val videoURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon
-          val frameOfVideo = ExtractFrameFromVideoUtil.extractFrameFromVideo(videoURL)
-          (new AmazonUpload).uploadCompressedFileToAmazon(fileNameOnAmazon + "Frame", frameOfVideo)
-         val frameURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon + "Frame"
-          (Filename, fileNameOnAmazon, frameURL)
-      }
+          case false =>
+            val videoURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon
+            val frameOfVideo = ExtractFrameFromVideoUtil.extractFrameFromVideo(videoURL)
+            (new AmazonUpload).uploadCompressedFileToAmazon(fileNameOnAmazon + "Frame", frameOfVideo)
+            val frameURL = "https://s3.amazonaws.com/BeamStream/" + fileNameOnAmazon + "Frame"
+            (Filename, fileNameOnAmazon, frameURL)
+        }
 
-    }.get
-    val imageURL = "https://s3.amazonaws.com/BeamStream/" + fileNames._2
-    
+      }.get
+      val imageURL = "https://s3.amazonaws.com/BeamStream/" + fileNames._2
 
-    val media = UserMedia(new ObjectId, fileNames._1, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, DocumentAccess.Public, true, fileNames._3, 0, List(), List(), 0)
-    UserMedia.saveMediaForUser(media)
-    Ok(write(media)).as("application/json")
-    }
-    catch{
-      case exception=> Ok(write(ResulttoSent("Failure","Problem during uploading your media")))
+      val media = UserMedia(new ObjectId, fileNames._1, "", new ObjectId(request.session.get("userId").get), new Date, imageURL, UserMediaType.Image, DocumentAccess.Public, true, fileNames._3, 0, List(), List(), 0)
+      UserMedia.saveMediaForUser(media)
+      Ok(write(media)).as("application/json")
+    } catch {
+      case exception => Ok(write(ResulttoSent("Failure", "Problem during uploading your media")))
     }
   }
 
@@ -187,7 +185,7 @@ object MediaController extends Controller {
     val rockersJson = write(rockers)
     Ok(rockersJson).as("application/json")
   }
-
+  //TODO : To be removed. In Rearchitecture this functionality has been combined with DocumentController
   /**
    * Change the title and description
    */
