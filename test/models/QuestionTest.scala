@@ -44,107 +44,100 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
     val anotherQuestionId = Question.addQuestion(anotherQuestion)
     assert(Question.getAllQuestions(List(anotherQuestionId.get, questionId.get)).size === 2)
   }
-  //
-  //  test("Find Question By Id") {
-  //    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(), List())
-  //    val userId = User.createUser(user)
-  //    var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List("Tag1", "Tag2"))
-  //    val streamId = Stream.createStream(stream)
-  //    val question = new Question(new ObjectId, "How Was the Class ?", userId, QuestionAccess.Public, streamId, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
-  //    val questionId = Question.addQuestion(question)
-  //    val anotherQuestion = new Question(new ObjectId, "How Was the Day ?", userId, QuestionAccess.Public, streamId, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
-  //    val anotherQuestionId = Question.addQuestion(anotherQuestion)
-  //    assert(Question.findQuestionById(anotherQuestionId).size === 1)
-  //  }
-  //
-  //  test("Rocking The Question And Getting The Rockers") {
-  //    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(), List())
-  //    val userId = User.createUser(user)
-  //    var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List("Tag1", "Tag2"))
-  //    val streamId = Stream.createStream(stream)
-  //    val question = new Question(new ObjectId, "How Was the Class ?", userId, QuestionAccess.Public, streamId, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
-  //    val questionId = Question.addQuestion(question)
-  //    Question.rockTheQuestion(questionId, userId)
-  //    assert(Question.rockersNameOfAQuestion(questionId) === List("Neel"))
-  //    assert(Question.rockersNameOfAQuestion(questionId).size === 1)
-  //  }
-  //
-  //  test("Privacy Of The Question(For A Class , For A School)") {
-  //    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(), List())
-  //    val userId = User.createUser(user)
-  //    var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List("Tag1", "Tag2"))
-  //    val streamId = Stream.createStream(stream)
-  //    val question = new Question(new ObjectId, "How Was the Class ?", userId, QuestionAccess.PrivateToClass, streamId, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
-  //    val questionId = Question.addQuestion(question)
-  //    val anotherQuestion = new Question(new ObjectId, "How Was the Day ?", userId, QuestionAccess.PrivateToSchool, streamId, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
-  //    val anotherQuestionId = Question.addQuestion(anotherQuestion)
-  //    val yetAnotherQuestion = new Question(new ObjectId, "How Was the Day ?", userId, QuestionAccess.PrivateToSchool, streamId, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
-  //    val yetAnotherQuestionId = Question.addQuestion(yetAnotherQuestion)
-  //    assert(Question.getAllPrivateToAClassQuestionForAUser(userId).size == 1)
-  //    assert(Question.getAllPrivateToASchoolQuestionForAUser(userId).size == 2)
-  //  }
-  //
-  //  test("Delete The Question") {
-  //    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(), List())
-  //    val userId = User.createUser(user)
-  //    var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List("Tag1", "Tag2"))
-  //    val streamId = Stream.createStream(stream)
-  //    val question = new Question(new ObjectId, "How Was the Class ?", new ObjectId, QuestionAccess.PrivateToClass, streamId, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
-  //    val questionId = Question.addQuestion(question)
-  //    val anotherQuestion = new Question(new ObjectId, "How Was the Day ?", userId, QuestionAccess.PrivateToSchool, streamId, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
-  //    val anotherQuestionId = Question.addQuestion(anotherQuestion)
-  //    assert(Question.deleteQuestionPermanently(questionId, userId) === false) //User Who Deletes The Question Is Not The Creator Of Question So Not Authorized To delete
-  //    assert(Question.deleteQuestionPermanently(anotherQuestionId, userId) === true) //User Who Deletes The Question Is  The Creator Of Question So  Authorized To delete
-  //  }
-  //
-  //  test("Follow The Question") {
-  //    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(), List())
-  //    val userId = User.createUser(user)
-  //    var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List("Tag1", "Tag2"))
-  //    val streamId = Stream.createStream(stream)
-  //    val question = new Question(new ObjectId, "How Was the Class ?", userId, QuestionAccess.PrivateToClass, streamId, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
-  //    val questionId = Question.addQuestion(question)
-  //    assert(Question.findQuestionById(questionId).head.followers.size === 0)
-  //    Question.followQuestion(userId, questionId)
-  //    assert(Question.findQuestionById(questionId).head.followers.size === 1)
-  //  }
-  //
-  //  test("Add Comment To Question") {
-  //    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(), List())
-  //    val userId = User.createUser(user)
-  //    var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List("Tag1", "Tag2"))
-  //    val streamId = Stream.createStream(stream)
-  //    val question = new Question(new ObjectId, "How Was the Class ?", userId, QuestionAccess.PrivateToClass, streamId, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
-  //    val questionId = Question.addQuestion(question)
-  //    assert(Question.findQuestionById(questionId).head.comments.size === 0)
-  //    val comment = new Comment(new ObjectId, "Comment1", new Date, userId, user.firstName, user.lastName, 0, List(userId))
-  //    val commentId = Comment.createComment(comment)
-  //    Question.addCommentToQuestion(commentId, questionId)
-  //    assert(Question.findQuestionById(questionId).head.comments.size === 1)
-  //  }
-  //  test("Add Poll To Question") {
-  //    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(), List())
-  //    val userId = User.createUser(user)
-  //    var stream = Stream(new ObjectId, "al1pha", StreamType.Class, userId, List(userId), true, List("Tag1", "Tag2"))
-  //    val streamId = Stream.createStream(stream)
-  //    val question = new Question(new ObjectId, "How Was the Class ?", userId, QuestionAccess.PrivateToClass, streamId, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
-  //    val questionId = Question.addQuestion(question)
-  //    assert(Question.findQuestionById(questionId).head.pollOptions === None)
-  //    val option = OptionOfQuestion(new ObjectId, "Poll1", List(userId))
-  //    val pollId = OptionOfQuestionDAO.insert(option)
-  //    Question.addPollToQuestion(pollId.get, questionId)
-  //    assert(Question.findQuestionById(questionId).head.pollOptions.size === 1)
-  //  }
-  //  test("Vote A Option Of A Question") {
-  //    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "", "Neil", "Neel", "Knoldus", "", "", List(), List(), List(), List(), List(), List())
-  //    val userId = User.createUser(user)
-  //    val option = OptionOfQuestion(new ObjectId, "Poll1", List())
-  //    val pollId = OptionOfQuestionDAO.insert(option)
-  //    assert(QuestionPolling.findOptionOfAQuestionById(pollId.get).get.voters.size===0)
-  //    QuestionPolling.voteTheOptionOfAQuestion(pollId.get, userId)
-  //    assert(QuestionPolling.findOptionOfAQuestionById(pollId.get).get.voters.size===1)
-  //  }
-  //
+
+  test("Find Question By Id") {
+    val question = Question(new ObjectId, "How Was the Class ?", user.id, QuestionAccess.Public, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val questionId = Question.addQuestion(question)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.Public, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val anotherQuestionId = Question.addQuestion(anotherQuestion)
+    assert(Question.findQuestionById(questionId.get).get.firstNameofQuestionAsker === "Neel")
+  }
+
+  test("Rocking The Question And Getting The Rockers") {
+    val question = Question(new ObjectId, "How Was the Class ?", user.id, QuestionAccess.Public, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val questionId = Question.addQuestion(question)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.Public, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val anotherQuestionId = Question.addQuestion(anotherQuestion)
+    Question.rockTheQuestion(questionId.get, user.id)
+    assert(Question.rockersNameOfAQuestion(questionId.get) === List("Neel"))
+    assert(Question.rockersNameOfAQuestion(questionId.get).size === 1)
+  }
+
+  test("Privacy Of The Question(For A Class , For A School)") {
+    val question = Question(new ObjectId, "How Was the Class ?", user.id, QuestionAccess.PrivateToClass, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val questionId = Question.addQuestion(question)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.PrivateToSchool, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val anotherQuestionId = Question.addQuestion(anotherQuestion)
+    val yetAnotherQuestion = Question(new ObjectId, "How Was the School ?", user.id, QuestionAccess.PrivateToClass, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val yetAnotherQuestionId = Question.addQuestion(yetAnotherQuestion)
+    assert(Question.getAllPrivateToAClassQuestionForAUser(user.id).size == 2)
+    assert(Question.getAllPrivateToASchoolQuestionForAUser(user.id).size == 1)
+  }
+
+  test("Delete The Question") {
+    val question = Question(new ObjectId, "How Was the Class ?", user.id, QuestionAccess.PrivateToClass, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val questionId = Question.addQuestion(question)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.PrivateToSchool, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val anotherQuestionId = Question.addQuestion(anotherQuestion)
+    assert(Question.deleteQuestionPermanently(questionId.get, user.id) === true) //User Who Deletes The Question Is Not The Creator Of Question So Not Authorized To delete
+    assert(Question.deleteQuestionPermanently(anotherQuestionId.get, user.id) === true) //User Who Deletes The Question Is  The Creator Of Question So  Authorized To delete
+  }
+
+  test("Follow The Question") {
+    val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, QuestionAccess.PrivateToClass, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val questionId = Question.addQuestion(question)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.PrivateToSchool, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val anotherQuestionId = Question.addQuestion(anotherQuestion)
+    assert(Question.findQuestionById(questionId.get).head.followers.size === 0)
+    Question.followQuestion(user.id, questionId.get)
+    assert(Question.findQuestionById(questionId.get).head.followers.size === 1)
+  }
+
+  test("Add Comment To Question") {
+    val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, QuestionAccess.PrivateToClass, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val questionId = Question.addQuestion(question)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.PrivateToSchool, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val anotherQuestionId = Question.addQuestion(anotherQuestion)
+    assert(Question.findQuestionById(questionId.get).head.comments.size === 0)
+    val comment = new Comment(new ObjectId, "Comment1", new Date, user.id, user.firstName, user.lastName, 0, List(user.id))
+    val commentId = Comment.createComment(comment)
+    Question.addCommentToQuestion(commentId, questionId.get)
+    assert(Question.findQuestionById(questionId.get).head.comments.size === 1)
+  }
+
+  test("Remove Comments To Question") {
+    val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, QuestionAccess.PrivateToClass, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val questionId = Question.addQuestion(question)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.PrivateToSchool, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val anotherQuestionId = Question.addQuestion(anotherQuestion)
+    assert(Question.findQuestionById(questionId.get).head.comments.size === 0)
+    val comment = new Comment(new ObjectId, "Comment1", new Date, user.id, user.firstName, user.lastName, 0, List(user.id))
+    val commentId = Comment.createComment(comment)
+    Question.addCommentToQuestion(commentId, questionId.get)
+    assert(Question.findQuestionById(questionId.get).head.comments.size === 1)
+    Question.removeCommentFromQuestion(commentId, questionId.get)
+    assert(Question.findQuestionById(questionId.get).head.comments.size === 0)
+  }
+
+  test("Add Poll To Question") {
+    val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, QuestionAccess.PrivateToClass, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val questionId = Question.addQuestion(question)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.PrivateToSchool, stream.id, "Neel", "Sachdeva", new Date, List(), List(), List(), List())
+    val anotherQuestionId = Question.addQuestion(anotherQuestion)
+    assert(Question.findQuestionById(questionId.get).head.pollOptions.size === 0)
+    val option = OptionOfQuestion(new ObjectId, "Poll1", List(user.id))
+    val pollId = OptionOfQuestionDAO.insert(option)
+    Question.addPollToQuestion(pollId.get, questionId.get)
+    assert(Question.findQuestionById(questionId.get).head.pollOptions.size === 1)
+  }
+  test("Vote A Option Of A Question") {
+    val option = OptionOfQuestion(new ObjectId, "Poll1", List())
+    val pollId = OptionOfQuestionDAO.insert(option)
+    assert(QuestionPolling.findOptionOfAQuestionById(pollId.get).get.voters.size === 0)
+    QuestionPolling.voteTheOptionOfAQuestion(pollId.get, user.id)
+    assert(QuestionPolling.findOptionOfAQuestionById(pollId.get).get.voters.size === 1)
+  }
+
   after {
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
     QuestionDAO.remove(MongoDBObject("questionBody" -> ".*".r))
