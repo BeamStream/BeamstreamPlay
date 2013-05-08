@@ -169,7 +169,7 @@ object Document extends RockConsumer {
   /**
    * Increasing View Count
    */
-  def increaseViewCountOfADocument(docId: ObjectId) {
+  def increaseViewCountOfADocument(docId: ObjectId) ={
     val docFound = DocumentDAO.find(MongoDBObject("_id" -> docId)).toList(0)
     DocumentDAO.update(MongoDBObject("_id" -> docId), docFound.copy(views = (docFound.views + 1)), false, false, new WriteConcern)
     val updatedDocFound = DocumentDAO.find(MongoDBObject("_id" -> docId)).toList(0)
@@ -179,11 +179,11 @@ object Document extends RockConsumer {
   /**
    * Recent Profile pic of user
    */
-  def recentDocForAUser(userId: ObjectId): Option[String] = {
+  def recentDocForAUser(userId: ObjectId): Option[Document] = {
     val document = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).sort(orderBy = MongoDBObject("timeCreated" -> -1)).limit(2).toList
     document.isEmpty match {
       case true => None
-      case false => Option(document.head.documentURL)
+      case false => Option(document.head)
     }
 
   }
@@ -191,11 +191,11 @@ object Document extends RockConsumer {
   /**
    * Recent Profile pic of user
    */
-  def recentGoogleDocsForAUser(userId: ObjectId): Option[String] = {
+  def recentGoogleDocsForAUser(userId: ObjectId): Option[Document] = {
     val document = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "GoogleDocs")).sort(orderBy = MongoDBObject("timeCreated" -> -1)).limit(2).toList
     document.isEmpty match {
       case true => None
-      case false => Option(document.head.documentURL)
+      case false => Option(document.head)
     }
 
   }

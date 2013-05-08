@@ -19,6 +19,7 @@ import models.ResulttoSent
 import models.UserMediaDAO
 import models.Document
 import models.MediaResults
+import models.Files
 
 object MediaController extends Controller {
 
@@ -249,9 +250,29 @@ object MediaController extends Controller {
   def getRecentMediaAndDocs = Action { implicit request =>
     val recentImage = UserMedia.recentProfilePicForAUser(new ObjectId(request.session.get("userId").get))
     val recentVideo = UserMedia.recentProfileVideoForAUser(new ObjectId(request.session.get("userId").get))
+
     val recentDoc = Document.recentDocForAUser(new ObjectId(request.session.get("userId").get))
     val recentGoogleDoc = Document.recentGoogleDocsForAUser(new ObjectId(request.session.get("userId").get))
-    Ok(write(MediaResults(recentImage, recentVideo, recentDoc, recentGoogleDoc))).as("application/json")
+
+    val recentPPTs = Files.getAllPPTFiles(new ObjectId(request.session.get("userId").get))
+    val recentPPT = (recentPPTs.isEmpty == false) match {
+      case true => Option(recentPPTs.head)
+      case false => None
+    }
+
+    val recentPDFs = Files.getAllPDFFiles(new ObjectId(request.session.get("userId").get))
+    val recentPDF = (recentPDFs.isEmpty == false) match {
+      case true => Option(recentPDFs.head)
+      case false => None
+    }
+
+    val recentAudios = Files.getAllAudioFiles(new ObjectId(request.session.get("userId").get))
+    val recentAudio = (recentAudios.isEmpty == false) match {
+      case true => Option(recentAudios.head)
+      case false => None
+    }
+
+    Ok(write(MediaResults(recentImage, recentVideo, recentDoc, recentGoogleDoc, recentAudio, recentPDF, recentPPT))).as("application/json")
   }
 
 }
