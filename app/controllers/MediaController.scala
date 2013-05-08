@@ -256,19 +256,19 @@ object MediaController extends Controller {
 
     val recentPPTs = Files.getAllPPTFiles(new ObjectId(request.session.get("userId").get))
     val recentPPT = (recentPPTs.isEmpty == false) match {
-      case true => Option(recentPPTs.head)
+      case true => Option(recentPPTs.last)
       case false => None
     }
 
     val recentPDFs = Files.getAllPDFFiles(new ObjectId(request.session.get("userId").get))
     val recentPDF = (recentPDFs.isEmpty == false) match {
-      case true => Option(recentPDFs.head)
+      case true => Option(recentPDFs.last)
       case false => None
     }
 
     val recentAudios = Files.getAllAudioFiles(new ObjectId(request.session.get("userId").get))
     val recentAudio = (recentAudios.isEmpty == false) match {
-      case true => Option(recentAudios.head)
+      case true => Option(recentAudios.last)
       case false => None
     }
 
