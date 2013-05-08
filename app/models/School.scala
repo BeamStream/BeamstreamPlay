@@ -33,9 +33,13 @@ object School {
    * Find a school by Id
    */
 
-  def findSchoolsById(schoolId: ObjectId): String = {
-    val schoolName = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList(0).schoolName
-    schoolName
+  def findSchoolsById(schoolId: ObjectId): Option[School] = {
+    val schoolFound = SchoolDAO.find(MongoDBObject("_id" -> schoolId)).toList
+    (schoolFound.isEmpty == true) match {
+      case true => None
+      case false => Option(schoolFound.head)
+    }
+
   }
 
   /**

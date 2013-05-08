@@ -16,6 +16,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
     MessageDAO.remove(MongoDBObject("messageBody" -> ".*".r))
     StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
+    CommentDAO.remove(MongoDBObject("commentBody" -> ".*".r))
   }
   test("Create a Comment and find comment by id") {
     val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None)
@@ -49,7 +50,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(streamId), "", "", 0, List(), List(), 0, List())
     val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, List())
     val commentId = Comment.createComment(comment)
-    val anotherComment =  Comment(new ObjectId, "Comment2", new Date, userId.get, user.firstName, user.lastName, 11, List())
+    val anotherComment = Comment(new ObjectId, "Comment2", new Date, userId.get, user.firstName, user.lastName, 11, List())
     val anotherCommentId = Comment.createComment(anotherComment)
 
     assert(Comment.getAllComments(List(commentId, anotherCommentId)).size === 2)
@@ -57,23 +58,23 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     assert(Comment.getAllComments(List(commentId, anotherCommentId))(1).comment.commentBody === "Comment2")
   }
 
-//  test("Testing the Visitors Pattern") {
-//    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None)
-//    val userId = User.createUser(user)
-//    val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, List())
-//    val streamId = Stream.createStream(stream)
-//    val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(streamId), "", "", 0, List(), List(), 0, List())
-//    val messageId = Message.createMessage(message)
-//    val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, List())
-//    val commentId = Comment.createComment(comment)
-//    Message.addCommentToMessage(commentId, messageId.get)
-//    assert(Message.findMessageById(messageId.get).get.comments.size === 1)
-//    val otherComment = Comment(new ObjectId, "Comment2", new Date, userId.get, user.firstName, user.lastName, 0, List())
-//    val otherCommentId = Comment.createComment(otherComment)
-//    Message.addCommentToMessage(commentId, messageId.get)
-//    assert(Message.findMessageById(messageId.get).get.comments.size === 2)
-//
-//  }
+  //  test("Testing the Visitors Pattern") {
+  //    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None)
+  //    val userId = User.createUser(user)
+  //    val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, List())
+  //    val streamId = Stream.createStream(stream)
+  //    val message = Message(new ObjectId, "some message", Option(MessageType.Audio), Option(MessageAccess.Public), formatter.parse("23-07-12"), user.id, Option(streamId), "", "", 0, List(), List(), 0, List())
+  //    val messageId = Message.createMessage(message)
+  //    val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, List())
+  //    val commentId = Comment.createComment(comment)
+  //    Message.addCommentToMessage(commentId, messageId.get)
+  //    assert(Message.findMessageById(messageId.get).get.comments.size === 1)
+  //    val otherComment = Comment(new ObjectId, "Comment2", new Date, userId.get, user.firstName, user.lastName, 0, List())
+  //    val otherCommentId = Comment.createComment(otherComment)
+  //    Message.addCommentToMessage(commentId, messageId.get)
+  //    assert(Message.findMessageById(messageId.get).get.comments.size === 2)
+  //
+  //  }
 
   test("Delete The Comments") {
     val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None)
@@ -87,9 +88,9 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     Message.addCommentToMessage(commentId, messageId.get)
     assert(Message.findMessageById(messageId.get).get.comments.size === 1)
     Comment.deleteCommentPermanently(commentId, messageId.get, userId.get)
-    
-//    val commentToDelete=Message.findMessageById(messageId.get).get.comments(0)
-//    assert(Comment.findCommentById(commentToDelete).size == 0)
+
+    //    val commentToDelete=Message.findMessageById(messageId.get).get.comments(0)
+    //    assert(Comment.findCommentById(commentToDelete).size == 0)
   }
 
   after {
@@ -97,6 +98,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
     MessageDAO.remove(MongoDBObject("messageBody" -> ".*".r))
     StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
+    CommentDAO.remove(MongoDBObject("commentBody" -> ".*".r))
   }
 
 }
