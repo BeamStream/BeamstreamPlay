@@ -29,7 +29,7 @@ object OptionOfQuestionDAO extends SalatDAO[OptionOfQuestion, ObjectId](collecti
 /**
  * Question With Polls
  */
-case class QuestionWithPoll(question: Question, var profilePic: Option[String] = None, var comments: Option[List[CommentResult]] = None, polls: List[OptionOfQuestion])
+case class QuestionWithPoll(question: Question, rocked: Boolean, followed: Boolean, followerOfQuestionPoster: Boolean, var profilePic: Option[String] = None, var comments: Option[List[CommentResult]] = None, polls: List[OptionOfQuestion])
 
 /**
  * Comment With Profile Picture

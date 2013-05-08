@@ -17,7 +17,6 @@ import play.api.mvc.Controller
 import utils.ObjectIdSerializer
 import models.UserMedia
 import models.Comment
-import models.QuestionWithPoll
 
 /**
  * This controller class is used to store and retrieve all the information about Question and Answers.
@@ -79,7 +78,7 @@ object QuestionController extends Controller {
       case false => ""
     }
 
-    Ok(write(QuestionWithPoll(questionObtained.get, Option(profilePicForUser), None, pollsOfquestionObtained))).as("application/json")
+    Ok(write(QuestionWithPoll(questionObtained.get, false, false, false, Option(profilePicForUser), None, pollsOfquestionObtained))).as("application/json")
   }
 
   /**
@@ -147,7 +146,8 @@ object QuestionController extends Controller {
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
     val messagesPerPage = streamIdJsonMap("limit").toList(0).toInt
     val allQuestionsForAStream = Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
-    val allQuestionForAStreamJson = write(Question.returnQuestionsWithPolls(allQuestionsForAStream))
+    val userId = new ObjectId(request.session.get("userId").get)
+    val allQuestionForAStreamJson = write(Question.returnQuestionsWithPolls(userId, allQuestionsForAStream))
     Ok(allQuestionForAStreamJson).as("application/json")
   }
 
@@ -160,7 +160,8 @@ object QuestionController extends Controller {
     val pageNo = streamIdJsonMap("pageNo").toList(0).toInt
     val questionsPerPage = streamIdJsonMap("limit").toList(0).toInt
     val getAllQuestionsForAStream = Question.getAllQuestionsForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, questionsPerPage)
-    val allQuestionsForAStreamJson = write(Question.returnQuestionsWithPolls(getAllQuestionsForAStream))
+    val userId = new ObjectId(request.session.get("userId").get)
+    val allQuestionsForAStreamJson = write(Question.returnQuestionsWithPolls(userId, getAllQuestionsForAStream))
     Ok(allQuestionsForAStreamJson).as("application/json")
   }
 
@@ -174,7 +175,8 @@ object QuestionController extends Controller {
     val pageNo = keywordJsonMap("pageNo").toList(0).toInt
     val messagesPerPage = keywordJsonMap("limit").toList(0).toInt
     val allQuestionsForAStream = Question.getAllQuestionsForAStreambyKeyword(keyword, new ObjectId(streamId), pageNo, messagesPerPage)
-    val allQuestionsForAStreamJson = write(Question.returnQuestionsWithPolls(allQuestionsForAStream))
+    val userId = new ObjectId(request.session.get("userId").get)
+    val allQuestionsForAStreamJson = write(Question.returnQuestionsWithPolls(userId, allQuestionsForAStream))
     Ok(allQuestionsForAStreamJson).as("application/json")
 
   }
@@ -185,6 +187,8 @@ object QuestionController extends Controller {
  */
   def getAllQuestionForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
 
+    val userId = new ObjectId(request.session.get("userId").get)
+    
     val allQuestionsForAStream = (sortBy == "date") match {
       case true => Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
       case false => (sortBy == "rock") match {
@@ -204,6 +208,9 @@ object QuestionController extends Controller {
           case false => Nil
         }
 
+        val isRocked = Question.isARocker(questionObtained.id, userId)
+        val isFollowed = Question.isAFollower(questionObtained.id, userId)
+        val isFollowerOfQuestionPoster = User.isAFollower(questionObtained.userId, userId)
         val profilePicForUser = UserMedia.getProfilePicUrlString(questionObtained.userId)     
         val comments = (questionObtained.comments.isEmpty) match {
           case false =>
@@ -211,7 +218,7 @@ object QuestionController extends Controller {
           case true => Nil
         }
 
-        QuestionWithPoll(questionObtained, Option(profilePicForUser), Option(comments), pollsOfquestionObtained)
+        QuestionWithPoll(questionObtained, isRocked, isFollowed, isFollowerOfQuestionPoster, Option(profilePicForUser), Option(comments), pollsOfquestionObtained)
 
     }
 
