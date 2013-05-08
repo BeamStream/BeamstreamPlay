@@ -232,7 +232,7 @@ object MediaController extends Controller {
       val MediaJson = write(mediaObtained.last)
       Ok(MediaJson).as("application/json")
     } else {
-      Ok(write(new ResulttoSent("Failure", "No picture found for this user")))
+      Ok(write(ResulttoSent("Failure", "No picture found for this user")))
     }
   }
 
