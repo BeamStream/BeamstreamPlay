@@ -180,7 +180,7 @@ object Document extends RockConsumer {
    * Recent Profile pic of user
    */
   def recentDocForAUser(userId: ObjectId): Option[String] = {
-    val document = DocumentDAO.find(MongoDBObject("userId" -> userId, "contentType" -> DocType.Other)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).limit(2).toList
+    val document = DocumentDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Other")).sort(orderBy = MongoDBObject("timeCreated" -> -1)).limit(2).toList
     document.isEmpty match {
       case true => None
       case false => Option(document.head.documentURL)
@@ -192,7 +192,7 @@ object Document extends RockConsumer {
    * Recent Profile pic of user
    */
   def recentGoogleDocsForAUser(userId: ObjectId): Option[String] = {
-    val document = DocumentDAO.find(MongoDBObject("userId" -> userId, "contentType" -> DocType.GoogleDocs)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).limit(2).toList
+    val document = DocumentDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "GoogleDocs")).sort(orderBy = MongoDBObject("timeCreated" -> -1)).limit(2).toList
     document.isEmpty match {
       case true => None
       case false => Option(document.head.documentURL)
