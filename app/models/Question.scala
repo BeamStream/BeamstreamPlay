@@ -250,7 +250,7 @@ object Question {
    * Takes a List of Questions and Return Question with respective polls
    */
 
-  def returnQuestionsWithPolls(allQuestionsForAStream: List[Question]): List[QuestionWithPoll] = {
+  def returnQuestionsWithPolls(userId: ObjectId, allQuestionsForAStream: List[Question]): List[QuestionWithPoll] = {
 
     allQuestionsForAStream map {
       case question =>
@@ -274,8 +274,47 @@ object Question {
             }
           case false => Nil
         }
+        
+        val isRocked = Question.isARocker(question.id, userId)
+        val isFollowed = Question.isAFollower(question.id, userId)
+        val isFollowerOfQuestionPoster = User.isAFollower(question.userId, userId)
 
-        QuestionWithPoll(question, Option(profilePicForUser), Option(comments), pollsOfquestionObtained)
+        QuestionWithPoll(question, isRocked, isFollowed, isFollowerOfQuestionPoster, Option(profilePicForUser), Option(comments), pollsOfquestionObtained)
+    }
+
+  }
+  
+  
+    /**
+   * Is a follower
+   * @Purpose: identify if the user is following a question or not
+   * @param  questionId is the id of the question to be searched
+   * @param  userId is the id of follower
+   */
+
+  def isAFollower(questionId: ObjectId, userId: Object): Boolean = {
+    val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+
+    (question.followers.contains(userId)) match {
+      case true => true
+      case false => false
+    }
+
+  }
+
+  /**
+   * Is a Rocker
+   * @Purpose: identify if the user has rocked a message or not
+   * @param  questionId is the id of the question to be searched
+   * @param  userId is the id of follower
+   */
+
+  def isARocker(questionId: ObjectId, userId: Object): Boolean = {
+    val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
+
+    (question.rockers.contains(userId)) match {
+      case true => true
+      case false => false
     }
 
   }

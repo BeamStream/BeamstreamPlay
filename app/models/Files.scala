@@ -9,16 +9,21 @@ object Files {
   // Get All Audio Files //
   //--------------------//
   def getAllAudioFiles(userId: ObjectId): List[Document] = {
-    var audioFiles: List[Document] = List()
+    var audioFilesToReturn: List[Document] = Nil
     val audioExtensionsList: List[String] = List(".mp3", ".wav", ".aiff", ".au", ".bwf", ".cda", ".amr", ".ogg", ".MP3", ".WAV", ".AIFF", ".AU", ".BWF", ".CDA", ".AMR", ".OGG")
-    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).toList
-    for (file <- filesFound) {
-      val fileName = file.documentURL
-      val i = fileName.lastIndexOf(".")
-      val extensionToMatch = fileName.substring(i)
-      if (audioExtensionsList.contains(extensionToMatch)) audioFiles ++= List(file)
+    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).sort(orderBy = MongoDBObject("timeCreated" -> -1)).toList
+    filesFound map {
+      case file =>
+        val fileName = file.documentURL
+        val i = fileName.lastIndexOf(".")
+        val extensionToMatch = fileName.substring(i)
+        (audioExtensionsList.contains(extensionToMatch)) match {
+          case true => audioFilesToReturn ++= List(file)
+          case false =>
+        }
     }
-    audioFiles
+    audioFilesToReturn
+
   }
 
   //----------------------------//
@@ -28,44 +33,56 @@ object Files {
     var pptFiles: List[Document] = List()
     val pptExtensionsList: List[String] = List(".odg", ".odp", ".pps", ".ppsx", ".ppt", ".pptm", ".pptx", ".sda", ".sdd", ".sxd", ".sxi", ".uof", ".uop",
       ".ODG", ".ODP", ".PPS", ".PPSX", ".PPT", ".PPTM", ".PPTX", ".SDA", ".SDD", ".SXD", ".SXI", ".UOF", ".UOP")
-    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).toList
-    for (file <- filesFound) {
-      val fileName = file.documentURL
-      val i = fileName.lastIndexOf(".")
-      val extensionToMatch = fileName.substring(i)
-      if (pptExtensionsList.contains(extensionToMatch)) pptFiles ++= List(file)
+    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).sort(orderBy = MongoDBObject("timeCreated" -> -1)).toList
+    filesFound map {
+      case file =>
+        val fileName = file.documentURL
+        val i = fileName.lastIndexOf(".")
+        val extensionToMatch = fileName.substring(i)
+        (pptExtensionsList.contains(extensionToMatch)) match {
+          case true => pptFiles ++= List(file)
+          case false =>
+        }
     }
     pptFiles
   }
-  
+
   //----------------------//
   // Get All PDF Files //
   //--------------------//
   def getAllPDFFiles(userId: ObjectId): List[Document] = {
     var pdfFiles: List[Document] = List()
-    val pdfExtensionsList: List[String] = List(".pdf",".PDF")
-    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).toList
-    for (file <- filesFound) {
-      val fileName = file.documentURL
-      val i = fileName.lastIndexOf(".")
-      val extensionToMatch = fileName.substring(i)
-      if (pdfExtensionsList.contains(extensionToMatch)) pdfFiles ++= List(file)
+    val pdfExtensionsList: List[String] = List(".pdf", ".PDF")
+    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).sort(orderBy = MongoDBObject("timeCreated" -> -1)).toList
+    filesFound map {
+      case file =>
+        val fileName = file.documentURL
+        val i = fileName.lastIndexOf(".")
+        val extensionToMatch = fileName.substring(i)
+        (pdfExtensionsList.contains(extensionToMatch)) match {
+          case true => pdfFiles ++= List(file)
+          case false =>
+        }
     }
     pdfFiles
   }
-  
+
   //----------------------//
   // Get All DOCS Files //
   //--------------------//
   def getAllDOCSFiles(userId: ObjectId): List[Document] = {
     var documentsFiles: List[Document] = List()
-    val documentFilesExtensionsList: List[String] = List(".doc",".docx",".txt",".rtf",".xls",".xlsx",",DOC",".DOCX",".TXT",".RTF",".XLS",".XLSX")
-    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).toList
-    for (file <- filesFound) {
-      val fileName = file.documentURL
-      val i = fileName.lastIndexOf(".")
-      val extensionToMatch = fileName.substring(i)
-      if (documentFilesExtensionsList.contains(extensionToMatch)) documentsFiles ++= List(file)
+    val documentFilesExtensionsList: List[String] = List(".doc", ".docx", ".txt", ".rtf", ".xls", ".xlsx", ",DOC", ".DOCX", ".TXT", ".RTF", ".XLS", ".XLSX")
+    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).sort(orderBy = MongoDBObject("timeCreated" -> -1)).toList
+    filesFound map {
+      case file =>
+        val fileName = file.documentURL
+        val i = fileName.lastIndexOf(".")
+        val extensionToMatch = fileName.substring(i)
+        (documentFilesExtensionsList.contains(extensionToMatch)) match {
+          case true => documentsFiles ++= List(file)
+          case false =>
+        }
     }
     documentsFiles
   }

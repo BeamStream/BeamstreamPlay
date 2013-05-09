@@ -33,8 +33,12 @@ object UserSchool {
    * Get UserSchoolById
    */
 
-  def getUserSchoolById(userSchoolId: ObjectId): UserSchool = {
-    UserSchoolDAO.find(MongoDBObject("_id" -> userSchoolId)).toList.head
+  def getUserSchoolById(userSchoolId: ObjectId): Option[UserSchool] = {
+    val userSchoolsFound = UserSchoolDAO.find(MongoDBObject("_id" -> userSchoolId)).toList
+    (userSchoolsFound.isEmpty == true) match {
+      case true => None
+      case false => Option(userSchoolsFound.head)
+    }
   }
 
   /**
@@ -54,20 +58,16 @@ object UserSchool {
   }
 
   /**
-   * Get UserSchool
-   * @param userSchoolId is the id of user school to be searched
-   */
-
-  def userSchoolsForAUser(userSchoolId: ObjectId): List[UserSchool] = {
-    UserSchoolDAO.find(MongoDBObject("_id" -> userSchoolId)).toList
-  }
-
-  /**
    * Get all school for a user
    * @param userId is the id of user
    */
   def getAllSchoolforAUser(userId: ObjectId): List[ObjectId] = {
-    UserDAO.find(MongoDBObject("_id" -> userId)).toList.head.schools
+    val userSchools = UserDAO.find(MongoDBObject("_id" -> userId)).toList
+    (userSchools.isEmpty) match {
+      case true => Nil
+      case false => userSchools.head.schools
+    }
+
   }
 
   /**
@@ -91,18 +91,22 @@ object UserSchool {
    */
 
   def isUserAlreadyContainsTheSchoolThatUserWantsToJoin(assosiatedSchoolId: ObjectId, userId: ObjectId): Boolean = {
-    var statusToreturn = false
     val userSchoolsIdListOfAUser = UserSchool.getAllSchoolforAUser(userId)
 
-    (!userSchoolsIdListOfAUser.isEmpty) match {
-      case true =>
-        val userSchoolsOfAUser = UserSchool.getAllSchools(userSchoolsIdListOfAUser)
-        for (userSchool <- userSchoolsOfAUser) {
-          if (userSchool.assosiatedSchoolId == assosiatedSchoolId) statusToreturn = true
-        }
-        statusToreturn
-      case false => statusToreturn
+    (userSchoolsIdListOfAUser.contains(assosiatedSchoolId)) match {
+      case true => true
+      case false => false
     }
+    //
+    //    (!userSchoolsIdListOfAUser.isEmpty) match {
+    //      case true =>
+    //        val userSchoolsOfAUser = UserSchool.getAllSchools(userSchoolsIdListOfAUser)
+    //        for (userSchool <- userSchoolsOfAUser) {
+    //          if (userSchool.assosiatedSchoolId == assosiatedSchoolId) statusToreturn = true
+    //        }
+    //        statusToreturn
+    //      case false => statusToreturn
+    //    }
 
   }
 

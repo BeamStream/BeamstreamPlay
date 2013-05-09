@@ -220,6 +220,23 @@ object User {
     }
 
   }
+  
+    /**
+   * Is a follower
+   * @Purpose: identify if the user is following this User or not
+   * @param  followedUserId is the id of the user being followed to be searched
+   * @param  userId is the id of follower
+   */
+
+  def isAFollower(followedUserId: ObjectId, userId: Object): Boolean = {
+    val followedUser = UserDAO.find(MongoDBObject("_id" -> followedUserId)).toList(0)
+
+    (followedUser.followers.contains(userId)) match {
+      case true => true
+      case false => false
+    }
+
+  }
 
 }
 

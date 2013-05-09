@@ -275,7 +275,7 @@ define(['view/formView',
 
         	this.data.url = "/question";
         	if(pollOptions == ''){
-
+        		this.data.models[0].removeAttr('pollOptions');
         		this.data.models[0].save({streamId : streamId, questionBody :question, questionAccess:questionAccess},{
 			    	success : function(model, response) {
 			    		
@@ -287,7 +287,9 @@ define(['view/formView',
 		    		 	$('#share-discussions li.active').removeClass('active');
 			    		$('#pollArea').slideUp(700); 
 			    		$('.drag-rectangle').tooltip();	
+
 			    		self.options = 0;
+
 			    		
 			    	},
 			    	error : function(model, response) {
@@ -298,7 +300,8 @@ define(['view/formView',
 
 		    	});
         	}else{
-
+        		console.log(pollOptions);
+console.log(888);
         		// set values to model
 			    this.data.models[0].save({streamId : streamId, questionBody :question, questionAccess:questionAccess ,pollOptions:pollOptions},{
 			    	success : function(model, response) {

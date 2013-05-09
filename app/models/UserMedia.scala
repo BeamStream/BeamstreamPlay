@@ -177,11 +177,11 @@ object UserMedia extends RockConsumer {
   /**
    * Recent Profile pic of user
    */
-  def recentProfilePicForAUser(userId: ObjectId): Option[String] = {
-    val profilePic = UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> UserMediaType.Image)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).limit(2).toList
+  def recentProfilePicForAUser(userId: ObjectId): Option[UserMedia] = {
+    val profilePic = UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Image")).sort(orderBy = MongoDBObject("dateCreated" -> -1)).limit(2).toList
     profilePic.isEmpty match {
       case true => None
-      case false => Option(profilePic.head.mediaUrl)
+      case false => Option(profilePic.head)
     }
 
   }
@@ -189,11 +189,11 @@ object UserMedia extends RockConsumer {
   /**
    * Recent Profile video of user
    */
-  def recentProfileVideoForAUser(userId: ObjectId): Option[String] = {
-    val profilePic = UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> UserMediaType.Video)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).limit(2).toList
+  def recentProfileVideoForAUser(userId: ObjectId): Option[UserMedia] = {
+    val profilePic = UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" ->"Video")).sort(orderBy = MongoDBObject("dateCreated" -> -1)).limit(2).toList
     profilePic.isEmpty match {
       case true => None
-      case false => Option(profilePic.head.mediaUrl)
+      case false => Option(profilePic.head)
     }
 
   }

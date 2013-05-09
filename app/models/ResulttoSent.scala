@@ -29,7 +29,7 @@ object OptionOfQuestionDAO extends SalatDAO[OptionOfQuestion, ObjectId](collecti
 /**
  * Question With Polls
  */
-case class QuestionWithPoll(question: Question, var profilePic: Option[String] = None, var comments: Option[List[CommentResult]] = None, polls: List[OptionOfQuestion])
+case class QuestionWithPoll(question: Question, rocked: Boolean, followed: Boolean, followerOfQuestionPoster: Boolean, var profilePic: Option[String] = None, var comments: Option[List[CommentResult]] = None, polls: List[OptionOfQuestion])
 
 /**
  * Comment With Profile Picture
@@ -54,4 +54,4 @@ case class StreamResult(stream: Stream, usersOfStream: Int)
 case class ClassResult(stream: Stream, resultToSend: ResulttoSent)
 case class LoginResult(result: ResulttoSent, user: Option[User], profilePicOfUser: Option[String], hasClasses: Option[Boolean])
 
-case class MediaResults(images: Option[String], videos: Option[String], documents: Option[String],googleDocs: Option[String])
+case class MediaResults(images: Option[UserMedia], videos: Option[UserMedia], documents: Option[Document],googleDocs: Option[Document],audioFiles: Option[Document],pdfFiles: Option[Document],pptFiles: Option[Document])
