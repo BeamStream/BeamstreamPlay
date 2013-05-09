@@ -56,3 +56,4 @@ case class LoginResult(result: ResulttoSent, user: Option[User], profilePicOfUse
 case class MediaResults(images: Option[UserMedia], videos: Option[UserMedia], documents: Option[Document], googleDocs: Option[Document], audioFiles: Option[Document], pdfFiles: Option[Document], pptFiles: Option[Document])
 case class Photos(photos: List[UserMedia])
 case class Videos(videos: List[UserMedia])
+case class Documents(documents:List[Document])

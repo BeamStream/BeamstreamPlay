@@ -25,8 +25,7 @@ import utils.ExtractFrameFromVideoUtil
 import utils.ObjectIdSerializer
 import utils.PreviewOfPDFUtil
 import utils.tokenEmailUtil
-import models.UserMedia
-import models.UserMediaDAO
+import models.Documents
 /**
  * This controller class is used to store and retrieve all the information about documents.
  */
@@ -190,7 +189,7 @@ object DocumentController extends Controller {
 
   def getAllAudioFilesForAUser = Action { implicit request =>
     val audioFiles = Files.getAllAudioFiles(new ObjectId(request.session.get("userId").get))
-    Ok(write(audioFiles)).as("application/json")
+    Ok(write(Documents(audioFiles))).as("application/json")
   }
 
   /**
@@ -199,7 +198,7 @@ object DocumentController extends Controller {
 
   def getAllPPTFilesForAUser = Action { implicit request =>
     val PPTFiles = Files.getAllPPTFiles(new ObjectId(request.session.get("userId").get))
-    Ok(write(PPTFiles)).as("application/json")
+    Ok(write(Documents(PPTFiles))).as("application/json")
   }
 
   /**
@@ -208,7 +207,7 @@ object DocumentController extends Controller {
 
   def getAllPDFFilesForAUser = Action { implicit request =>
     val PDFFiles = Files.getAllPDFFiles(new ObjectId(request.session.get("userId").get))
-    Ok(write(PDFFiles)).as("application/json")
+    Ok(write(Documents(PDFFiles))).as("application/json")
   }
 
   /**
@@ -217,7 +216,7 @@ object DocumentController extends Controller {
 
   def getAllDOCSFilesForAUser = Action { implicit request =>
     val DocsFiles = Files.getAllDOCSFiles(new ObjectId(request.session.get("userId").get))
-    Ok(write(DocsFiles)).as("application/json")
+    Ok(write(Documents(DocsFiles))).as("application/json")
   }
 
   /**
@@ -233,7 +232,7 @@ object DocumentController extends Controller {
    * Save Image
    */
   private def saveImageFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User) = {
-    val media = new UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Image, DocumentAccess.withName(docAccess), false,Option(streamId) ,"", 0, Nil, Nil, 0)
+    val media = new UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Image, DocumentAccess.withName(docAccess), false, Option(streamId), "", 0, Nil, Nil, 0)
     val mediaId = UserMedia.saveMediaForUser(media)
     //Create A Message As Well To Display The Doc Creation In Stream
     val message = Message(new ObjectId, docURL, Option(MessageType.Image), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, Option(docURL), Option(mediaId.get))
@@ -255,7 +254,7 @@ object DocumentController extends Controller {
     //    (new AmazonUpload).uploadCompressedFileToAmazon(docNameOnAmazon + "Frame", frameOfVideo, 0, false, userId.toString)
     (new AmazonUpload).uploadCompressedFileToAmazon(docNameOnAmazon + "Frame", frameOfVideo)
     val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docNameOnAmazon + "Frame"
-    val media =  UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Video, DocumentAccess.withName(docAccess), false, Option(streamId) ,videoFrameURL, 0, Nil, Nil)
+    val media = UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Video, DocumentAccess.withName(docAccess), false, Option(streamId), videoFrameURL, 0, Nil, Nil)
     val mediaId = UserMedia.saveMediaForUser(media)
     val message = Message(new ObjectId, docURL, Option(MessageType.Video), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, Option(videoFrameURL), Option(mediaId.get))
     val messageId = Message.createMessage(message)

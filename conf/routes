@@ -48,7 +48,7 @@ GET      /signOut                                                               
 #Media
 #POST 	/getMediafromPost 							                          controllers.MediaController.getMedia
 GET      /profilePicFor/user/:userId                                             controllers.MediaController.getProfilePicForAUser(userId:String)
-PUT      /media/:mediaId                                    controllers.DocumentController.changeTitleAndDescriptionForADocument(mediaId:String)
+PUT      /media/:mediaId                                                     controllers.DocumentController.changeTitleAndDescriptionForADocument(mediaId:String)
 GET      /allPicsForAuser                                                 controllers.MediaController.getAllPicsForAUser
 GET      /allVideosForAuser                                                controllers.MediaController.allVideosForAuser
 PUT      /rock/media/:mediaId                                                    controllers.MediaController.rockTheUsermedia(mediaId:String)
