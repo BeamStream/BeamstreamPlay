@@ -93,6 +93,8 @@ $('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 		},
 
 		_createSlice : function(j) {
+
+
 			var value = this.values[j];
 			var angleplus = 360 * value / this.total, countPer = (100 * value / this.total)
 					.toFixed(0);
@@ -101,6 +103,7 @@ $('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 			var totalangle = this.angle + angleplus;
 
 			var bcolor = Raphael.hsb(this.start, 1, 1);
+			
 			if (totalangle == 360) {
 				var p = this.sector(this.cx, this.cy, this.r, this.rin,
 						this.angle, totalangle - 0.00017453292, {
