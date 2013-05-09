@@ -18,6 +18,7 @@ import utils.ExtractFrameFromVideoUtil
 import models.ResulttoSent
 import models.UserMediaDAO
 import models.Document
+import models.MediaResults
 import models.Files
 
 object MediaController extends Controller {
@@ -271,7 +272,7 @@ object MediaController extends Controller {
       case false => None
     }
 
-    Ok(write(List(recentImage, recentVideo, recentDoc, recentGoogleDoc, recentAudio, recentPDF, recentPPT))).as("application/json")
+    Ok(write(List(MediaResults(recentImage, recentVideo, recentDoc, recentGoogleDoc, recentAudio, recentPDF, recentPPT)))).as("application/json")
   }
 
 }
