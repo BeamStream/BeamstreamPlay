@@ -139,7 +139,7 @@ define(['view/formView',
  			  	                	                     docDescription: data.docDescription,
  			  	                	                     profilePic: data.profilePic })
 
- 			  	                console.log(self.data.models[0]);
+ 			  	               
  			  	                /* Pubnub auto push */
  			  	                PUBNUB.publish({
  			  	                	channel : "stream",

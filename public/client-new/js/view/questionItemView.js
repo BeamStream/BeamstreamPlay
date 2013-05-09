@@ -99,8 +99,6 @@ define(['view/formView',
 //                
                 var datVal =  formatDateVal(model.question.creationDate);
                 
-                
-                
 				var datas = {
 					 	 "data" : model,
 					 	 "datVal":datVal,
@@ -108,111 +106,11 @@ define(['view/formView',
 
 				    }
                
-                
-					
-//				if(questionType == "googleDocs")
-//				{
-//					var datas = {
-//					    "datas" : data,
-//	                    "datVal" :datVal,
-//	                    "previewImage" : "images/google_docs_image.png",
-//	                    "type" : "googleDoc",
-//	                    "owner" :owner
-//					}	
-//					var source = $("#tpl-questions_with_polls").html();
-//						
-//				}
-//				else if(questionType == "messageOnly")
-//				{
-					
-					// var source = $("#tpl-questions_with_polls").html();
-						
-//				}
-//				else
-//				{
-//					if(data.questionType.name == "Image")
-//					{
-//						var source = $("#tpl-questions_with_polls").html();
-//  						
-//					}
-//					else if(data.questionType.name == "Video")
-//					{
-//						var source = $("#tpl-questions_with_polls").html();
-//  						
-//					}
-//					else
-//					{
-//						var previewImage = '';
-//						var commenImage ="";
-//						var type = "";
-//						 
-//						if(extension == 'Ppt')
-//						{
-//                            previewImage= "images/presentations_image.png";
-//                            type = "ppt";
-//                            
-//						}
-//						else if(extension == 'Doc')
-//						{
-//							previewImage= "images/docs_image.png";
-//							type = "doc";
-//							 	
-//						}
-//						else if(extension == 'Pdf')
-//						{
-//							 
-//							previewImage= data.anyPreviewImageUrl;
-//							type = "pdf";
-//						}
-//						else
-//						{
-//							previewImage= "images/textimage.png";
-//							commenImage = "true";
-//							type = "doc";
-//							
-//						}
-//						
-//						var datas = {
-//							    "datas" : data,
-//                                "datVal" :datVal,
-//                                "previewImage" :previewImage,
-//                                "extension" : extension,
-//                                "commenImage" : commenImage,
-//                                "type" : type,
-//                                "owner" :owner
-//				        }	
-//					
-//					    var source = $("#tpl-questions_with_polls").html();
-//						
-//				  }
-//						
-//				}
 				
 				// render the template
         		compiledTemplate = Handlebars.compile(QuestionMessage);
         		$(this.el).html(compiledTemplate(datas));
 
-        		if(model.polls.length > 0){
-    				var values = [],pollIndex = 0,totalVotes = 0;
-            			
-	    		 	_.each(model.polls, function(poll) {
-
-	        			var radioColor = Raphael.hsb(self.color, 1, 1);
-	        			 
-	        			values.push(poll.voters.length);
-	        			totalVotes += poll.voters.length;
-		            	self.color += .1;
-	    		 	});
-			 	 	if(totalVotes != 0)
-	    		 	{
-	    			 	/* creating pie charts */ 
-	            	 	// donut[model.question.id.id] = new Donut(new Raphael(""+model.question.id.id+"-piechart", 200,200));
-	            	 	// donut[model.question.id.id].create(100, 100, 30, 55,100, values);
-	
-				 	}
-        		}
-	    		
-    		 	
         		$('.commentList').hide();
 			
     		return this;
@@ -659,7 +557,6 @@ define(['view/formView',
 	        var questionId =$(element).parents('div.follow-container').attr('id');
 	        
             var optionId = $('input[name='+questionId+']:checked').val();
-            console.log(optionId);
             var values = [];
             
             var question = new QuestionModel();
