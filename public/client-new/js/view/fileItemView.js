@@ -17,13 +17,15 @@
 */
 
 define(['view/formView',
-        ],function(FormView){
+		'text!templates/fileItem.tpl',
+        ],function(FormView,FileItemTpl){
 	
 	var FileItemView;
 	FileItemView = FormView.extend({
 		objName: 'FileItemView',
 		events:{
-			
+			// 'click .imageList': 'showImageList'
+
 		},
 		
 		onAfterInit: function(){	
@@ -32,20 +34,24 @@ define(['view/formView',
         },
         
         /**
-         * render the message item
+         * render the file item
          */
         render: function(){
         	
-			
-			// render the template
-        	// compiledTemplate = Handlebars.compile(DiscussionMessage);
-        	// $(this.el).html(compiledTemplate(datas));
+        	
+        	var datas = {
+			 	 "data" : this.model,
+			 	 "fileType" :this.fileType
+			 	 
+		    }
+        	compiledTemplate = Handlebars.compile(FileItemTpl);
+        	$(this.el).html(compiledTemplate(datas));
         	
     		return this;
         },
         
-        
-        
+       
+         
        
 	})
 	return FileItemView;

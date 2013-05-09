@@ -16,33 +16,95 @@
 * 
 */
 
-define(['view/formView',
-        ],function(FormView ){
+define(['baseView',
+		'view/fileItemView',
+		'view/imageListView',
+		'view/videoListView',
+		'view/documentListView',
+		'view/pdfListView',
+		'view/presentationListView',
+		'text!templates/browseMedia.tpl',
+        ],function(BaseView,FileItemView,ImageListView,VideoListView,DocumentListView,PdfListView,PresentationListView,BrowseMediaTpl){
 	
 	var FilesOverView;
-	FilesOverView = FormView.extend({
+	FilesOverView = BaseView.extend({
 		objName: 'FilesOverView',
-		filesPerPage: 10,
-		pageNo: 1,
 
+		events:{
+			'click .image-list' : 'showImageList',
+			'click .video-list' : 'showVideoList',
+			'click .document-list' : 'showDocumentList',
+			'click .pdf-list' : 'showPdfList',
+			'click .ppt-list' : 'showPresentationList',
+			
+			
+
+			
+		},
 	 
 		onAfterInit: function(){	
 			this.data.reset();
 			
         },
 
-        /**
-         * display file buckets
-         */
-        displayPage: function(callback){
-             
-			/* render messages */
-        	_.each(this.data.models, function(model) {
-				var messageItemView  = new MessageItemView({model : model});
-				$('#messageListView div.content').append(messageItemView.render().el);
-				
-        	});
+
+	 	displayNoResult : function(callback) {
+			this.animate.effect = "fade";
+			this.$(".content").html("");
 		},
+
+		/**
+		* shows image list view
+		*/
+		showImageList: function(){
+
+			imageListView = new ImageListView({el: $('#grid')});
+			imageListView.data.url = '/allPicsForAuser';
+			// imageListView.fetch();
+
+		},
+
+		/**
+		* shows video list view
+		*/
+		showVideoList: function(){
+
+			videoListView = new VideoListView({el: $('#grid')});
+			videoListView.data.url = '/allVideosForAuser';
+
+		},
+
+		/**
+		* shows documents list view
+		*/
+		showDocumentList: function(){
+
+			documentListView = new DocumentListView({el: $('#grid')});
+			documentListView.data.url = '/allDOCSFilesForAUser';
+			
+		},
+
+		/**
+		* shows documents list view
+		*/
+		showPdfList: function(){
+			
+			pdfListView = new PdfListView({el: $('#grid')});
+			pdfListView.data.url = '/allPDFFilesForAUser';
+
+		},
+
+		/**
+		* shows presentation list view
+		*/
+		showPresentationList: function(){
+			console.log(33);
+			presentationListView = new PresentationListView({el: $('#grid')});
+			presentationListView.data.url = '/allPPTFilesForAUser';
+			
+
+		}
+        
         
        
 		

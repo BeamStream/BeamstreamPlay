@@ -1,11 +1,12 @@
-define(['view/formView',
+define(['pageView',
+       // 'view/filesOverView', 
         'model/stream',
         'text!templates/linkdropdown.tpl',
         'text!templates/privateToList.tpl',
-        ],function(FormView,StreamModel, Linkdropdown,PrivateToListTpl){
+        ],function(PageView, StreamModel, Linkdropdown,PrivateToListTpl){
 	
 	var BrowseMediaView;
-	BrowseMediaView = FormView.extend({
+	BrowseMediaView = PageView.extend({
 		objName: 'BrowseMediaView',
 		events:{
 			"click '.nav a" : "addActive",
@@ -37,9 +38,23 @@ define(['view/formView',
       "click #category-list li" :"sortBycategory",
       "click .browse-right a" :"selectViewStyle"    
 		},
+
+    // init: function(){
+      
+    //   this.addView(new FilesOverView({el: $('#filesOverView')}));
+    //   view = this.getViewById('filesOverView');
+    //   if(view){
+            
+    //         view.data.url="/recentMedia";
+    //         view.fetch();
+          
+    //   }
+      
+      
+    // },
 		
 		onAfterInit: function(){	
-			this.data.reset();
+			// this.data.reset();
       var self = this;
       streams = new StreamModel();
       streams.fetch({
@@ -61,9 +76,15 @@ define(['view/formView',
 
          
         }
+
       });
      
-     
+      // view = this.getViewById('filesOverView');
+      //     if(view){
+      //       view.data.url="/recentMedia";
+      //       view.fetch();
+          
+      //     }
 
 		},
 		
