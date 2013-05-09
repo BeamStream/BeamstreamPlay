@@ -75,9 +75,9 @@ POST     /bitly                                                                 
 
 #Public Profile
 GET      /publicMessages/user/:userId                                            controllers.PublicProfileController.getAllPublicMessagesForAUser(userId:String)
-#POST  	/publicProfileInfo          										  controllers.PublicProfileController.getPublicProfileOfAUser
+#POST  	/publicProfileInfo          										     controllers.PublicProfileController.getPublicProfileOfAUser
 GET      /publicDocuments/user/:userId                                           controllers.PublicProfileController.getAllPublicDocumentForAUser(userId:String)
-
+GET      /renderProfilePage                                                      controllers.PublicProfileController.renderProfilePage
 
 
 #NEO4J Baby
