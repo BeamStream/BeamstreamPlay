@@ -85,7 +85,7 @@ object UserMedia extends RockConsumer {
   /*
  * Get All picture for a user
  */
-  def getAllProfilePicForAUser(userId: ObjectId): List[UserMedia] = {
+  def getAllPicsForAUser(userId: ObjectId): List[UserMedia] = {
 
     UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Image")).toList
 
@@ -95,7 +95,7 @@ object UserMedia extends RockConsumer {
  * Get All videos for a user
  * @Purpose : Show all Videos for a user
  */
-  def getAllProfileVideoForAUser(userId: ObjectId): List[UserMedia] = {
+  def allVideosForAuser(userId: ObjectId): List[UserMedia] = {
     UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Video")).toList
   }
 

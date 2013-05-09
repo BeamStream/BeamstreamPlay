@@ -53,5 +53,6 @@ case class RegistrationResults(user: User, userSchool: UserSchool)
 case class StreamResult(stream: Stream, usersOfStream: Int)
 case class ClassResult(stream: Stream, resultToSend: ResulttoSent)
 case class LoginResult(result: ResulttoSent, user: Option[User], profilePicOfUser: Option[String], hasClasses: Option[Boolean])
-
-case class MediaResults(images: Option[UserMedia], videos: Option[UserMedia], documents: Option[Document],googleDocs: Option[Document],audioFiles: Option[Document],pdfFiles: Option[Document],pptFiles: Option[Document])
+case class MediaResults(images: Option[UserMedia], videos: Option[UserMedia], documents: Option[Document], googleDocs: Option[Document], audioFiles: Option[Document], pdfFiles: Option[Document], pptFiles: Option[Document])
+case class Photos(photos: List[UserMedia])
+case class Videos(videos: List[UserMedia])

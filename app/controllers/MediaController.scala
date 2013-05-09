@@ -20,6 +20,8 @@ import models.UserMediaDAO
 import models.Document
 import models.MediaResults
 import models.Files
+import models.Photos
+import models.Videos
 
 object MediaController extends Controller {
 
@@ -125,18 +127,18 @@ object MediaController extends Controller {
    * Get All Photos for a user
    *
    */
-  def getAllProfilePicForAUser = Action { implicit request =>
-    val allProfileMediaForAUser = UserMedia.getAllProfilePicForAUser(new ObjectId(request.session.get("userId").get))
-    Ok(write(allProfileMediaForAUser)).as("application/json")
+  def getAllPicsForAUser = Action { implicit request =>
+    val allProfileMediaForAUser = UserMedia.getAllPicsForAUser(new ObjectId(request.session.get("userId").get))
+    Ok(write(Photos(allProfileMediaForAUser))).as("application/json")
   }
 
   /**
    * Get All Video for a user for a user
    * @Purpose : Show all Video For A User
    */
-  def getAllProfileVideoForAUser = Action { implicit request =>
-    val allProfileMediaForAUser = UserMedia.getAllProfileVideoForAUser(new ObjectId(request.session.get("userId").get))
-    Ok(write(allProfileMediaForAUser)).as("application/json")
+  def allVideosForAuser = Action { implicit request =>
+    val allProfileMediaForAUser = UserMedia.allVideosForAuser(new ObjectId(request.session.get("userId").get))
+    Ok(write(Videos(allProfileMediaForAUser))).as("application/json")
   }
 
   /**
