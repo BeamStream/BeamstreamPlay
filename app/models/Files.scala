@@ -11,7 +11,7 @@ object Files {
   def getAllAudioFiles(userId: ObjectId): List[Document] = {
     var audioFilesToReturn: List[Document] = Nil
     val audioExtensionsList: List[String] = List(".mp3", ".wav", ".aiff", ".au", ".bwf", ".cda", ".amr", ".ogg", ".MP3", ".WAV", ".AIFF", ".AU", ".BWF", ".CDA", ".AMR", ".OGG")
-    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).sort(orderBy = MongoDBObject("timeCreated" -> -1)).toList
+    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).sort(orderBy = MongoDBObject("creationDate" -> -1)).toList
     filesFound map {
       case file =>
         val fileName = file.documentURL
@@ -33,7 +33,7 @@ object Files {
     var pptFiles: List[Document] = List()
     val pptExtensionsList: List[String] = List(".odg", ".odp", ".pps", ".ppsx", ".ppt", ".pptm", ".pptx", ".sda", ".sdd", ".sxd", ".sxi", ".uof", ".uop",
       ".ODG", ".ODP", ".PPS", ".PPSX", ".PPT", ".PPTM", ".PPTX", ".SDA", ".SDD", ".SXD", ".SXI", ".UOF", ".UOP")
-    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).sort(orderBy = MongoDBObject("timeCreated" -> -1)).toList
+    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).sort(orderBy = MongoDBObject("creationDate" -> -1)).toList
     filesFound map {
       case file =>
         val fileName = file.documentURL
@@ -53,7 +53,7 @@ object Files {
   def getAllPDFFiles(userId: ObjectId): List[Document] = {
     var pdfFiles: List[Document] = List()
     val pdfExtensionsList: List[String] = List(".pdf", ".PDF")
-    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).sort(orderBy = MongoDBObject("timeCreated" -> -1)).toList
+    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).sort(orderBy = MongoDBObject("creationDate" -> -1)).toList
     filesFound map {
       case file =>
         val fileName = file.documentURL
@@ -73,7 +73,7 @@ object Files {
   def getAllDOCSFiles(userId: ObjectId): List[Document] = {
     var documentsFiles: List[Document] = List()
     val documentFilesExtensionsList: List[String] = List(".doc", ".docx", ".txt", ".rtf", ".xls", ".xlsx", ",DOC", ".DOCX", ".TXT", ".RTF", ".XLS", ".XLSX")
-    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).sort(orderBy = MongoDBObject("timeCreated" -> -1)).toList
+    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).sort(orderBy = MongoDBObject("creationDate" -> -1)).toList
     filesFound map {
       case file =>
         val fileName = file.documentURL

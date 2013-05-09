@@ -29,7 +29,6 @@ object MediaController extends Controller {
     override def dateFormatter = new SimpleDateFormat("MM/dd/yyyy")
   } + new ObjectIdSerializer
 
-  
   /**
    *  Upload File To Server and Then to Amazon
    *
@@ -254,7 +253,11 @@ object MediaController extends Controller {
     val recentImage = UserMedia.recentProfilePicForAUser(new ObjectId(request.session.get("userId").get))
     val recentVideo = UserMedia.recentProfileVideoForAUser(new ObjectId(request.session.get("userId").get))
 
-    val recentDoc = Document.recentDocForAUser(new ObjectId(request.session.get("userId").get))
+    val recentDocs = Files.getAllDOCSFiles(new ObjectId(request.session.get("userId").get))
+    val recentDoc = (recentDocs.isEmpty == false) match {
+      case true => Option(recentDocs.last)
+      case false => None
+    }
     val recentGoogleDoc = Document.recentGoogleDocsForAUser(new ObjectId(request.session.get("userId").get))
 
     val recentPPTs = Files.getAllPPTFiles(new ObjectId(request.session.get("userId").get))
