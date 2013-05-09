@@ -116,10 +116,10 @@ object Class {
     // Create the Stream for this class
     val streamToCreate = Stream(new ObjectId, classCreated.className, StreamType.Class, userId, List(userId), true, List())
     val streamId = Stream.createStream(streamToCreate)
-    Stream.attachStreamtoClass(streamId, classId.get)
+    Stream.attachStreamtoClass(streamId.get, classId.get)
     val user = User.getUserProfile(userId)
     UtilityActor.sendEmailAfterStreamCreation(user.get.email, classCreated.className, true)
-    streamId
+    streamId.get
   }
 
   /**

@@ -31,9 +31,9 @@ object Stream {
    * Create the New Stream(RA)
    */
 
-  def createStream(stream: Stream): ObjectId = {
-    val streamId = StreamDAO.insert(stream)
-    streamId.get.asInstanceOf[ObjectId]
+  def createStream(stream: Stream): Option[ObjectId] = {
+    StreamDAO.insert(stream)
+
   }
   /*
    * Create the New Stream
@@ -51,53 +51,46 @@ object Stream {
     ClassDAO.update(MongoDBObject("_id" -> classId), expectedClass.copy(streams = List(streamId)), false, false, new WriteConcern)
   }
 
-  /*
+  /**
    * Get all streams for a user
    */
   def getAllStreamforAUser(userId: ObjectId): List[StreamResult] = {
-    var allStreamForAUser: List[StreamResult] = List()
-    val streams = StreamDAO.find(MongoDBObject())
-    for (stream <- streams) {
-      if (stream.usersOfStream.contains(userId)) allStreamForAUser ++= List(new StreamResult(stream, stream.usersOfStream.size))
+    val streams = StreamDAO.find(MongoDBObject("usersOfStream" -> userId)).toList
+    streams map {
+      case stream => StreamResult(stream, stream.usersOfStream.size)
     }
-    allStreamForAUser
   }
 
-  /*
+  /**
    * Get all class streams for a user
    */
   def allClassStreamsForAUser(userId: ObjectId): List[Stream] = {
-    var allClassStreamForAUser: List[Stream] = List()
-    val streams = StreamDAO.find(MongoDBObject("streamType" -> "Class"))
-    for (stream <- streams) {
-      if (stream.usersOfStream.contains(userId)) allClassStreamForAUser ++= List(stream)
-    }
-    allClassStreamForAUser
+    StreamDAO.find(MongoDBObject("streamType" -> "Class", "usersOfStream" -> userId)).toList
   }
 
-  /*
+  /**
    * Get all Project streams for a user
    */
   def allProjectStreamsForAUser(userId: ObjectId): List[Stream] = {
-    val allProjectStreamsForAUser = StreamDAO.find(MongoDBObject("usersOfStream" -> MongoDBObject("$exists" -> userId), "streamType" -> "Projects")).toList
-    allProjectStreamsForAUser
+    StreamDAO.find(MongoDBObject("usersOfStream" -> userId, "streamType" -> "Projects")).toList
+
   }
 
   /**
    * join stream (RA)
    */
   def joinStream(streamId: ObjectId, userId: ObjectId): ResulttoSent = {
-
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
-    if (!stream.usersOfStream.contains(userId)) {
-      StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream ++ List(userId))), false, false, new WriteConcern)
-      val user = User.getUserProfile(userId)
-      UtilityActor.sendEmailAfterStreamCreation(user.get.email, stream.streamName, false)
-      UtilityActor.sendEmailAfterStreamCreationToNotifyOtherUsers(streamId, userId)
-      ResulttoSent("Success", "Joined Stream Successfully")
-    } else {
-      ResulttoSent("Failure", "You've already joined the stream")
+    (!stream.usersOfStream.contains(userId)) match {
+      case true =>
+        StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream ++ List(userId))), false, false, new WriteConcern)
+        val user = User.getUserProfile(userId)
+        UtilityActor.sendEmailAfterStreamCreation(user.get.email, stream.streamName, false)
+        UtilityActor.sendEmailAfterStreamCreationToNotifyOtherUsers(streamId, userId)
+        ResulttoSent("Success", "Joined Stream Successfully")
+      case false => ResulttoSent("Failure", "You've already joined the stream")
     }
+
   }
 
   /**
@@ -105,7 +98,7 @@ object Stream {
    */
   def removeAccessFromStream(streamId: ObjectId, userId: ObjectId): ResulttoSent = {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
-    StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream filterNot(List(userId)contains))), false, false, new WriteConcern)
+    StreamDAO.update(MongoDBObject("_id" -> streamId), stream.copy(usersOfStream = (stream.usersOfStream filterNot (List(userId)contains))), false, false, new WriteConcern)
     ResulttoSent("Success", "Deleted Stream Successfully")
   }
 
@@ -140,9 +133,10 @@ object Stream {
    *  Delete A Stream
    */
 
-  def deleteStreams(userId: ObjectId, streamId: ObjectId) = {
+  def deleteStreams(userId: ObjectId, streamId: ObjectId): ResulttoSent = {
 
     val streamsObtained = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList
+
     (streamsObtained.isEmpty == false) match {
       case true =>
         (streamsObtained.head.creatorOfStream == userId) match {
@@ -151,9 +145,12 @@ object Stream {
             val classAssosiatedWithThisStream = ClassDAO.find(MongoDBObject("streams" -> streamId)).toList(0)
             ClassDAO.remove(classAssosiatedWithThisStream)
             User.removeClassFromUser(userId, List(classAssosiatedWithThisStream.id))
-          case false => Stream.removeAccessFromStream(streamId, userId)
+            ResulttoSent("Success", "Deleted Stream Successfuly")
+          case false =>
+            Stream.removeAccessFromStream(streamId, userId)
+            ResulttoSent("Success", "Removed Access Successfully")
         }
-        ResulttoSent("Success", "Deleted Stream Successfuly")
+
       case false => ResulttoSent("Failure", "No Streams found")
     }
 
@@ -184,5 +181,5 @@ object StreamType extends Enumeration {
   val Projects = Value(4, "Projects")
 }
 
-object StreamDAO extends SalatDAO[Stream, Int](collection = MongoHQConfig.mongoDB("stream"))
+object StreamDAO extends SalatDAO[Stream, ObjectId](collection = MongoHQConfig.mongoDB("stream"))
 
