@@ -67,18 +67,20 @@ define(['view/formView' ,
 			if(userInfo == null){  // signup via email
 				
 				this.$(".content").html( compiledTemplate(this.data));
+				this.temp_photo='/beamstream-new/images/step-one-pic1.png';
 			} 
 			else{                  //signup  via janRain
 				if (userInfo.stat == "ok") {
 					
-					var firstName = '', lastName ='', location ='', email='';
+					var firstName = '', lastName ='', location ='', email='' ;
+					this.temp_photo='/beamstream-new/images/step-one-pic1.png';
 					firstName = userInfo.profile.name.givenName;
 					lastName = userInfo.profile.name.familyName;
 					
 					this.data.models[0].set({'firstName':firstName , 'lastName': lastName}); 
 					 
 					if (userInfo.profile.providerName == "Twitter"){
-						 
+						
 						var formattedName = userInfo.profile.name.formatted;
 						var parts = formattedName.split(' ');
 						if(parts.length > 1 ) {
@@ -96,6 +98,7 @@ define(['view/formView' ,
 						else{
 							location = userInfo.profile.address.formatted;
 						}
+						this.temp_photo = userInfo.profile.photo;
 						
 					}
 					else if(userInfo.profile.providerName == "Facebook"){
@@ -107,22 +110,25 @@ define(['view/formView' ,
 							location = userInfo.profile.address.formatted;
 						}
 						email = userInfo.profile.email;
+						this.temp_photo = userInfo.profile.photo;
 					}
 					else if (userInfo.profile.providerName == "LinkedIn") {
 						
 						console.log("signup via LinkedIn");
 						email = userInfo.profile.email;
+						this.temp_photo = userInfo.profile.photo;
 					}
 					else if (userInfo.profile.providerName == "Google") {
 						
 						console.log("signup via Google");
 						email = userInfo.profile.email;
+						this.temp_photo = userInfo.profile.photo;
 					}
 					else{
 						console.log("Not from registraed social site");
 					}
 						 
-					userInfo = { "status" : "true" , "firstName" : firstName,"lastName": lastName,"location": location, "email": email};
+					userInfo = { "status" : "true" , "firstName" : firstName,"lastName": lastName,"location": location, "email": email ,"photo": this.temp_photo};
 					
 					this.data.models[0].set({'firstName':firstName , 'lastName': lastName , 'location': location ,'mailId': email});
 					this.$(".content").html( compiledTemplate(userInfo));
@@ -130,16 +136,12 @@ define(['view/formView' ,
 			}
 		},
 		
-		onAfterRender: function(){
-			var self=this;
+		onAfterRender: function(){				
+			
 			/* set style for select boxes */
 			$('.selectpicker-info').selectpicker({
 			    style: 'register-select'
-			});
-			
-			this.temp_photo = '/beamstream-new/images/step-one-pic1.png';
-			
-
+			});			
 		},		
       
 		
@@ -157,10 +159,12 @@ define(['view/formView' ,
 		/**
 		 * activate step 3 registration block
 		 */
-		enableStepThree: function(){
+		enableStepThree: function(){				
+			
 			$('#step_2').hide(500);
 			$('#step2_block').removeClass('active-border');
-			if (!this.profile){
+			if (this.temp_photo === "/beamstream-new/images/step-one-pic1.png"){
+				
 				this.temp_photo = '/beamstream-new/images/upload-photo.png';
 			}
 			
@@ -285,8 +289,7 @@ define(['view/formView' ,
 		/**
 		 * Change profile pic or profile video 
 		 */
-		changeProfile: function(e){
-	    	 
+		changeProfile: function(e){	    	 
 	    	 var self = this;
 	    	 var file = e.target.files[0]; 
 	         this.temp_photo = '';
