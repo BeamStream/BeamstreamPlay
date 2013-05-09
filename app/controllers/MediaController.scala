@@ -272,7 +272,7 @@ object MediaController extends Controller {
       case false => None
     }
 
-    Ok(write(MediaResults(List(recentImage), List(recentVideo), List(recentDoc), List(recentGoogleDoc), List(recentAudio), List(recentPDF), List(recentPPT)))).as("application/json")
+    Ok(write(List(recentImage, recentVideo, recentDoc, recentGoogleDoc, recentAudio, recentPDF, recentPPT))).as("application/json")
   }
 
 }
