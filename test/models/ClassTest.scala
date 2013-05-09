@@ -7,62 +7,97 @@ import org.scalatest.junit.JUnitRunner
 import java.text.DateFormat
 import org.bson.types.ObjectId
 import com.mongodb.casbah.commons.MongoDBObject
-
-
+import play.api.test.Helpers.running
+import play.api.test.FakeApplication
 @RunWith(classOf[JUnitRunner])
 class ClassTest extends FunSuite with BeforeAndAfter {
-  val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
-/*
-  val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
 
-  test("Create class test") {
-    val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List())
-    val userId = User.createUser(user1)
-    assert(Class.getAllClassesIdsForAUser(userId).size === 0)
-    Class.createClass(classToBeCretaed, userId)
-    assert(ClassDAO.find(MongoDBObject()).size === 1)
-    assert(ClassDAO.find(MongoDBObject()).toList(0).className === "IT")
-    assert(Class.getAllClassesIdsForAUser(userId).size === 1)
-    assert(StreamDAO.find(MongoDBObject()).toList(0).streamName === "IT")
+  before {
+    StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
+    ClassDAO.remove(MongoDBObject("className" -> ".*".r))
+    UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
   }
 
-  // Comment out the mail sending part in 'createClass' method in order to run this test
+  val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List(), None)
+
+  test("Create class test") {
+    running(FakeApplication()) {
+      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
+      val userId = User.createUser(user)
+      assert(Class.getAllClassesIdsForAUser(userId.get).size === 0)
+      Class.createClass(classToBeCretaed, userId.get)
+      assert(Class.findClasssById(classToBeCretaed.id).size === 1)
+      assert(Class.findClasssById(classToBeCretaed.id).get.className === "IT")
+      assert(Class.getAllClassesIdsForAUser(userId.get).size === 1)
+      assert(Stream.getStreamByName("IT").head.streamName == "IT")
+    }
+  }
+
   test("Find Class By Name") {
-    val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List())
-    val userId = User.createUser(user1)
-    assert(Class.getAllClassesIdsForAUser(userId).size === 0)
-    Class.createClass(classToBeCretaed, userId)
-    assert(ClassDAO.find(MongoDBObject()).size === 1)
-    assert(ClassDAO.find(MongoDBObject()).toList(0).className === "IT")
-    val classesFoundForSachool = Class.findClassByName("I", new ObjectId("47cc67093475061e3d95369d"))
-    assert(classesFoundForSachool.size == 1)
+
+    running(FakeApplication()) {
+      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
+      val userId = User.createUser(user)
+      assert(Class.getAllClassesIdsForAUser(userId.get).size === 0)
+      Class.createClass(classToBeCretaed, userId.get)
+      assert(Class.findClasssById(classToBeCretaed.id).size === 1)
+      assert(Class.findClasssById(classToBeCretaed.id).get.className === "IT")
+      val classesFound = Class.findClassByName("IT", new ObjectId("47cc67093475061e3d95369d"))
+      assert(classesFound.size === 1)
+    }
   }
 
   test("Find Class By Code") {
-    val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List())
-    val userId = User.createUser(user1)
-    assert(Class.getAllClassesIdsForAUser(userId).size === 0)
-    Class.createClass(classToBeCretaed, userId)
-    assert(ClassDAO.find(MongoDBObject()).size === 1)
-    assert(ClassDAO.find(MongoDBObject()).toList(0).classCode === "201")
-    val classesFoundForSachool = Class.findClassByCode("20", new ObjectId("47cc67093475061e3d95369d"))
-    assert(classesFoundForSachool.size == 1)
+    running(FakeApplication()) {
+      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
+      val userId = User.createUser(user)
+      assert(Class.getAllClassesIdsForAUser(userId.get).size === 0)
+      Class.createClass(classToBeCretaed, userId.get)
+      assert(Class.findClasssById(classToBeCretaed.id).size === 1)
+      assert(Class.findClasssById(classToBeCretaed.id).get.className === "IT")
+      val classesFound = Class.findClassByCode("201", new ObjectId("47cc67093475061e3d95369d"))
+      assert(classesFound.size === 1)
+    }
   }
 
   test("find class by time") {
-    val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List())
-    val userId = User.createUser(user1)
-    Class.createClass(classToBeCretaed, userId)
-    val classesFoundByTime = Class.findClassByTime("3:30")
-    assert(classesFoundByTime.size === 1)
+    running(FakeApplication()) {
+      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
+      val userId = User.createUser(user)
+      assert(Class.getAllClassesIdsForAUser(userId.get).size === 0)
+      Class.createClass(classToBeCretaed, userId.get)
+      assert(Class.findClasssById(classToBeCretaed.id).size === 1)
+      assert(Class.findClasssById(classToBeCretaed.id).get.className === "IT")
+      val classesFound = Class.findClassByTime("3:30")
+      assert(classesFound.size === 1)
+    }
   }
 
   test("find class by Id") {
-    val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List())
-    val userId = User.createUser(user1)
-    Class.createClass(classToBeCretaed, userId)
-    val classesFoundById = Class.findClasssById(classToBeCretaed.id)
-    assert(classesFoundById != 1)
+    running(FakeApplication()) {
+      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
+      val userId = User.createUser(user)
+      assert(Class.getAllClassesIdsForAUser(userId.get).size === 0)
+      Class.createClass(classToBeCretaed, userId.get)
+      assert(Class.findClasssById(classToBeCretaed.id).size === 1)
+      assert(Class.findClasssById(classToBeCretaed.id).get.className === "IT")
+      val classesFound = Class.findClasssById(classToBeCretaed.id)
+      assert(classesFound.size === 1)
+    }
+  }
+  test("Remove Class") {
+    running(FakeApplication()) {
+      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
+      val userId = User.createUser(user)
+      assert(Class.getAllClassesIdsForAUser(userId.get).size === 0)
+      Class.createClass(classToBeCretaed, userId.get)
+      assert(Class.findClasssById(classToBeCretaed.id).size === 1)
+      assert(Class.findClasssById(classToBeCretaed.id).get.className === "IT")
+      val classFound = Class.findClasssById(classToBeCretaed.id)
+      Class.deleteClass(classFound.get)
+      assert(Class.findClasssById(classToBeCretaed.id) === None)
+    }
   }
 
   after {
@@ -70,5 +105,5 @@ class ClassTest extends FunSuite with BeforeAndAfter {
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
     StreamDAO.remove(MongoDBObject("streamName" -> ".*".r))
   }
-  */
+
 }

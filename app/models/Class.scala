@@ -37,8 +37,8 @@ object Class {
    * Delete A Class
    * @Purpose Delete A Class
    */
-  def deleteClass(myclass: Class): Unit = {
-    ClassDAO.remove(myclass)
+  def deleteClass(classToBeRemoved: Class): Unit = {
+    ClassDAO.remove(classToBeRemoved)
   }
 
   /**
@@ -95,12 +95,7 @@ object Class {
    */
 
   def getAllClasses(classIdList: List[ObjectId]): List[Class] = {
-    var classList: List[Class] = List()
-    for (classId <- classIdList) {
-      val classObtained = ClassDAO.find(MongoDBObject("_id" -> classId)).toList
-      classList ++= classObtained
-    }
-    classList
+    classIdList map { classId => ClassDAO.find(MongoDBObject("_id" -> classId)).toList(0) }
   }
 
   /**
@@ -109,16 +104,13 @@ object Class {
    */
   def getAllClassesForAUser(userId: ObjectId): List[Class] = {
     val classesIdsOfAUser = Class.getAllClassesIdsForAUser(userId)
-    val classesOfAUser = getAllClasses(classesIdsOfAUser)
-    classesOfAUser
+    getAllClasses(classesIdsOfAUser)
   }
-
- 
 
   /**
    * ********************************************** Re architecture ****************************************
    */
-  def createClass(classCreated: Class, userId: ObjectId):ObjectId= {
+  def createClass(classCreated: Class, userId: ObjectId): ObjectId = {
     val classId = ClassDAO.insert(classCreated)
     User.addClassToUser(userId, List(classId.get))
     // Create the Stream for this class
