@@ -32,8 +32,13 @@ define(['view/formView',
             this.data.reset();
             
             $('#main-photo').attr('src',localStorage["loggedUserProfileUrl"]);
-            this.urlRegex2 =  /^((http|https|ftp):\/\/)/,
-            this.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\.\s/]*$/i ;
+
+            this.urlRegex1 = /(https?:\/\/[^\s]+)/g;
+	     	this.urlRegex = /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
+	     	this.urlRegex2 =  /^((http|https|ftp):\/\/)/;
+
+            // this.urlRegex2 =  /^((http|https|ftp):\/\/)/,
+            // this.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\./]*$/i;
             this.file = '';
             this.setupPushConnection();
 		 },
@@ -160,9 +165,10 @@ define(['view/formView',
  			        		 return;
 		        	 	
 		        	 	//find link part from the message
-		  		        var link =  message.match(this.urlRegex); 
+		        	 	message = $.trim(message);
+		  		        var link =  message.match(self.urlRegex); 
 		  		        if(link){
-		  		        	
+		  		        	console.log("link yes");
 		  		        	if(!self.urlRegex2.test(link[0])) {
 		  		        		urlLink = "http://" + link[0];
 		  		  	  	    }
@@ -205,7 +211,7 @@ define(['view/formView',
 		  	                 else    //case: for doc upload
 		  	                 {     
 		  	                 	googleDoc = true;
-		  	                 	console.log(66);
+		  	                 	console.log("yes Google doc");
 		  	                 	console.log(urlLink);
 	  	                	 	self.postMessageToServer(message,streamId,messageAccess,googleDoc);
 		  	                 }
@@ -213,7 +219,7 @@ define(['view/formView',
 		                 //case: link is not present in message
 		                 else
 		                 {             
-		                 console.log(33);   
+		                 console.log("link no");   
 		                	 self.postMessageToServer(message,streamId,messageAccess,googleDoc);
 		                 }
  			        	
