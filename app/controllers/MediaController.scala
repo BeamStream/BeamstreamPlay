@@ -18,7 +18,6 @@ import utils.ExtractFrameFromVideoUtil
 import models.ResulttoSent
 import models.UserMediaDAO
 import models.Document
-import models.MediaResults
 import models.Files
 
 object MediaController extends Controller {
