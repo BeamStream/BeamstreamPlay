@@ -43,7 +43,6 @@ object DocumentController extends Controller {
 
   def newDocument = Action { implicit request =>
     val documentJson = request.body.asJson.get
-    println(">>>>>>>>>>>>>>>>>"+documentJson)
     val name = (documentJson \ "docName").as[String]
     val url = (documentJson \ "docURL").as[String]
     val access = (documentJson \ "docAccess").as[String]
