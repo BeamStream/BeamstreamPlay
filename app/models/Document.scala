@@ -41,6 +41,23 @@ object DocType extends Enumeration {
   val Other = Value(1, "Other")
 }
 
+/**
+ * Enumeration for the document type
+ */
+object Category extends Enumeration {
+  type DocCategory = Value
+  val ClassDocument = Value(0, "ClassDocument")
+  val Assignment = Value(1, "Assignment")
+  val Homework = Value(2, "Homework")
+  val Notes = Value(3, "Notes")
+  val Project = Value(4, "Project")
+  val Lecture = Value(5, "Lecture")
+  val ReferenceMaterial = Value(6, "ReferenceMaterial")
+  val Tutorial = Value(7, "Tutorial")
+  val EdTechTool = Value(8, "EdTechTool")
+  val Amusement = Value(9, "Amusement")
+}
+
 case class Document(@Key("_id") id: ObjectId,
   documentName: String,
   documentDescription: String,
@@ -169,7 +186,7 @@ object Document extends RockConsumer {
   /**
    * Increasing View Count
    */
-  def increaseViewCountOfADocument(docId: ObjectId) ={
+  def increaseViewCountOfADocument(docId: ObjectId) = {
     val docFound = DocumentDAO.find(MongoDBObject("_id" -> docId)).toList(0)
     DocumentDAO.update(MongoDBObject("_id" -> docId), docFound.copy(views = (docFound.views + 1)), false, false, new WriteConcern)
     val updatedDocFound = DocumentDAO.find(MongoDBObject("_id" -> docId)).toList(0)
