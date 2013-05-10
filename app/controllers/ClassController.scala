@@ -90,7 +90,6 @@ object ClassController extends Controller {
 
   def createClass = Action { implicit request =>
     try {
-      println(request.body.asJson.get)
       val jsonReceived = request.body.asJson.get
       val id = (jsonReceived \ "id").asOpt[String]
       if (id == None) {
