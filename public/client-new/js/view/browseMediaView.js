@@ -1,9 +1,15 @@
 define(['pageView',
-       // 'view/filesOverView', 
+        'view/filesOverView', 
+        'view/imageListView',
+        'view/videoListView',
+        'view/documentListView',
+        'view/pdfListView',
+        'view/presentationListView',
+        'view/googleDocListView',
         'model/stream',
         'text!templates/linkdropdown.tpl',
         'text!templates/privateToList.tpl',
-        ],function(PageView, StreamModel, Linkdropdown,PrivateToListTpl){
+        ],function(PageView,FilesOverView, ImageListView, VideoListView, DocumentListView,pdfListView,PresentationListView, GoogleDocListView,StreamModel, Linkdropdown,PrivateToListTpl){
 	
 	var BrowseMediaView;
 	BrowseMediaView = PageView.extend({
@@ -36,22 +42,13 @@ define(['pageView',
       "click #view-by-date-list" : "selectViewByDate",
       "click #view-files-byrock-list" : "selectViewByRock",
       "click #category-list li" :"sortBycategory",
-      "click .browse-right a" :"selectViewStyle"    
+      "click .browse-right a" :"selectViewStyle",
+
+      'click .upload-from-computer': "uploadFileFromComputer",
+      'change #doc-from-computer' :'fetchDocument', 
 		},
 
-    // init: function(){
-      
-    //   this.addView(new FilesOverView({el: $('#filesOverView')}));
-    //   view = this.getViewById('filesOverView');
-    //   if(view){
-            
-    //         view.data.url="/recentMedia";
-    //         view.fetch();
-          
-    //   }
-      
-      
-    // },
+  
 		
 		onAfterInit: function(){	
 			// this.data.reset();
@@ -64,10 +61,10 @@ define(['pageView',
           $('#by-class-list').html(listTemplate(response));
 
           /* added stream list to dropdown list */
-          self.streams='<option>Save to Class</option>';
+          self.streams='';
           _.each(response, function(data) {
             
-             self.streams+='<option>'+data.stream.streamName+'</option>';
+             self.streams+='<option value="'+data.stream.id.id+'">'+data.stream.streamName+'</option>';
           });
         
           $('.doc-class-list-computer').html(self.streams);
@@ -78,15 +75,25 @@ define(['pageView',
         }
 
       });
-     
-      // view = this.getViewById('filesOverView');
-      //     if(view){
-      //       view.data.url="/recentMedia";
-      //       view.fetch();
-          
-      //     }
-
+    
 		},
+
+
+    /**
+    * fetch uploaded file
+    */ 
+    fetchDocument:function (e) {
+        var self = this;;
+        file = e.target.files[0];
+
+        var reader = new FileReader();      
+        /* capture the file informations */
+        reader.onload = (function(f){            
+          self.file = file;            
+        })(file);          
+        // read the image file as data URL
+        reader.readAsDataURL(file);        
+    },
 		
 		
 		addActive : function(eventName){
@@ -334,8 +341,7 @@ define(['pageView',
 	     lectureMenuList:function(eventName){
 	         eventName.preventDefault();
 	         $('.link-dropdwn').html(""); 
-	         // $('.dropdwnmycomputer').html(""); 
-	         // $('.dropdwnmycomputer').css("display","none");
+
 	         $("#childone_dr").find('ul').hide(200);
 	         $("#childtwo_dr").find('ul').hide(200);
 	         $("#childthree_dr").find('ul').hide(200);
@@ -347,7 +353,6 @@ define(['pageView',
 	         $("#childten_dr").find('ul').hide(200);
 	         $("#childeleven_dr").find('ul').hide(200);
 	         $("#lecturemenu_dr").animate({width: 'toggle'},150);
-//	         this.streamid="";
 	            
 	     },
 	     
@@ -535,6 +540,132 @@ define(['pageView',
         	 eventName.preventDefault();
              $('#view-by-date-select').text($(eventName.target).text());
           }, 
+
+          /**
+          * upload file from computer
+          */
+          uploadFileFromComputer: function(eventName){
+            eventName.preventDefault();
+            var self = this;
+            var status = true;
+            var message ='';
+
+            var streamId =  $('.doc-class-list-computer :selected').val();
+            
+            //get message access private ? / public ?
+            var docAccess;
+            var access =  $('#id-private').attr('checked');
+            if(access == "checked")
+            {
+              docAccess = "PrivateToSchool";
+            }
+            else
+            {
+              docAccess = "PrivateToClass";
+            }
+            
+            if(streamId){
+
+              if(self.file){
+
+                  this.bar = $('.bar');        
+                  this.bar.width('');
+                  this.bar.text("");                 
+                  $('#progressbar').show();        //progress bar 
+                  $('.progress-container').show();    
+                  this.progress = setInterval(function() {
+                      this.bar = $('.bar');                     
+                      if (this.bar.width()>= 194) {
+                          clearInterval(this.progress);
+                      } 
+                      else {
+                          this.bar.width( this.bar.width()+8);
+                      }
+                      this.bar.text( this.bar.width()/2 + "%");                       
+                  }, 800);
+
+                  var data;
+                  data = new FormData();
+                  data.append('docDescription',message);
+                  data.append('docAccess' ,docAccess);
+                  data.append('docData', self.file);  
+                  data.append('streamId', streamId); 
+
+
+                  /* post profile page details */
+                  $.ajax({
+                    type: 'POST',
+                    data: data,
+                    url: '/uploadDocumentFromDisk',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType : "json",
+                    success: function(data){
+
+                        // set progress bar as 100 %
+                        self.bar = $('.bar');  
+                        
+                        self.bar.width(200);
+                        self.bar.text("100%");
+                        clearInterval(self.progress);
+
+                        self.file = "";
+                        $('.progress-container').hide();
+
+                        if($('#grid').attr('name') == 'overPage'){
+                            filesOverView = new FilesOverView({el: $('#grid')});
+                            filesOverView.data.url = '/recentMedia';
+                        }
+                        if($('#grid').attr('name') == 'imageList'){
+
+                            imageListView = new ImageListView({el: $('#grid')});
+                            imageListView.data.url = '/allPicsForAuser';
+                        }
+                        if($('#grid').attr('name') == 'videoList'){
+                          
+                            videoListView = new VideoListView({el: $('#grid')});
+                            videoListView.data.url = '/allVideosForAuser';
+                        }
+                        if($('#grid').attr('name') == 'documentList'){
+                          
+                            documentListView = new DocumentListView({el: $('#grid')});
+                            documentListView.data.url = '/allDOCSFilesForAUser';
+                        }
+
+                        if($('#grid').attr('name') == 'pdfList'){
+                          
+                            pdfListView = new PdfListView({el: $('#grid')});
+                            pdfListView.data.url = '/allPDFFilesForAUser';
+                        }
+
+                        if($('#grid').attr('name') == 'presentationList'){
+                          
+                            presentationListView = new PresentationListView({el: $('#grid')});
+                            presentationListView.data.url = '/allPPTFilesForAUser';
+                        }
+                        if($('#grid').attr('name') == 'googleDocList'){
+                          
+                            googleDocListView = new GoogleDocListView({el: $('#grid')});
+                            googleDocListView.data.url = '/getAllGoogleDocs';
+                        }
+
+                        self.hidePopUpBlock();
+
+                    }
+                  });
+
+
+              }
+            }
+
+   
+          },
+
+          hidePopUpBlock: function(){
+            $('#uploadmediachild_dr').find('li').find('ul').hide(200);
+            $('#uploadmediachild_dr').hide(200);
+          },
            
 	});
 	return BrowseMediaView

@@ -103,7 +103,7 @@
 
                     {{#each data.comments}}
                       
-                       <div class="answer-description"  id="question-{{comment.id.id}}">
+                       <div class="answer-description"  id="{{comment.id.id}}">
                         <div class="follw-left">          
                             <div class="ask-img"><img id="{{comment.id.id}}-image" src="{{profilePic}}"></div>                      
                         </div>

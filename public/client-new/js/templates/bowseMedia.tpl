@@ -18,7 +18,7 @@
 							</a>
 							<div id="{{images.id.id}}" class="comment-wrapper2">
 								<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   
-								<a href="#" class="hand-icon rock-medias"></a>
+								<a href="#" class="hand-icon rock-media"></a>
 								<a href="#" class="message-icon"></a>   
 							 	<a href="#" class="share-icon"></a>
 							</div>
@@ -37,7 +37,7 @@
 			<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>
 				<ul id="{{images.id.id}}-activities" class="comment-list">
 					<li><a class="eye-icon" href="#">0</a></li>
-					<li><a class="hand-icon" href="#">0</a></li>
+					<li><a class="hand-icon" href="#">{{images.rocks}}</a></li>
 					<li><a class="message-icon" href="#">0</a></li>
 				</ul>
 			</div>
@@ -61,7 +61,7 @@
 						</a>
 						<div id="{{videos.id.id}}" class="comment-wrapper2">
 							<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   
-							<a href="#" class="hand-icon rock-medias"></a>
+							<a href="#" class="hand-icon rock-media"></a>
 							<a href="#" class="message-icon"></a>    
 							<a href="#" class="share-icon"></a>
 						</div>
@@ -106,7 +106,7 @@
 							<div id="{{documents.id.id}}" class="comment-wrapper2">
 								<a href="#" class="tag-icon" data-original-title="Search by Users">
 								</a>   	
-								<a href="#" class="hand-icon rock_docs"></a>
+								<a href="#" class="hand-icon rock_doc"></a>
 								<a href="#" class="message-icon"></a>
 								<a href="#" class="share-icon"></a>
 							</div>
@@ -151,7 +151,7 @@
 							<div id="{{pdfFiles.id.id}}" class="comment-wrapper2">
 								<a href="#" class="tag-icon" data-original-title="Search by Users">
 								</a>   	
-								<a href="#" class="hand-icon rock_docs"></a>
+								<a href="#" class="hand-icon rock_doc"></a>
 								<a href="#" class="message-icon"></a>
 								<a href="#" class="share-icon"></a>
 							</div>
@@ -168,7 +168,7 @@
 			</div>
 		</div>
 		<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>
-			<ul id="{{documents.id.id}}-activities" class="comment-list">
+			<ul id="{{pdfFiles.id.id}}-activities" class="comment-list">
 			<li><a class="eye-icon" href="#">0</a></li>
 			<li><a class="hand-icon" href="#">{{pdfFiles.documentRocks}}</a></li>
 			<li><a class="message-icon" href="#">0</a></li>
@@ -196,7 +196,7 @@
 							<div id="{{pptFiles.id.id}}" class="comment-wrapper2">
 								<a href="#" class="tag-icon" data-original-title="Search by Users">
 								</a>   	
-								<a href="#" class="hand-icon rock_docs"></a>
+								<a href="#" class="hand-icon rock_doc"></a>
 								<a href="#" class="message-icon"></a>
 								<a href="#" class="share-icon"></a>
 							</div>
@@ -213,9 +213,55 @@
 			</div>
 		</div>
 		<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>
-			<ul id="{{documents.id.id}}-activities" class="comment-list">
+			<ul id="{{pptFiles.id.id}}-activities" class="comment-list">
 			<li><a class="eye-icon" href="#">0</a></li>
-			<li><a class="hand-icon" href="#">{{pdfFiles.documentRocks}}</a></li>
+			<li><a class="hand-icon" href="#">{{pptFiles.documentRocks}}</a></li>
+			<li><a class="message-icon" href="#">0</a></li>
+			</ul>
+		</div>
+		</li>
+	{{/if}}
+
+	{{#if googleDocs}}
+		
+		<li data-groups="["recent"]" data-date-created="{{googleDocs.creationDate}}" class="item" >
+			<div class="image-wrapper hovereffect" id="{{googleDocs.id.id}}">
+		 		<div class="hover-div">
+			 		<img class="cover-picture" src="/beamstream-new/images/google_docs_image.png">
+			 		<input type="hidden" id="fileType-{{googleDocs.id.id}}" value="{{googleDocs.documentType.name}}">
+					<div class="hover-text">              
+						<div class="comment-wrapper">                               
+							<a href="#googleDocs"  class="googleDocs-list" style="text-decoration: none">
+							 	<div id="media-{{googleDocs.id.id}}" >
+							 	<h4 id="name-{{googleDocs.id.id}}">{{#if googleDocs.documentName}}{{googleDocs.documentName}}{{else}}Document Name{{/if}}</h4>
+								<div class="description-info">
+								<div class="description-left">
+									<p id="description-{{googleDocs.id.id}}" class="doc-description ">{{#if googleDocs.documentDescription}}{{googleDocs.documentDescription}}{{else}}Document Description{{/if}}</p>
+								</div>
+							</a>
+							<div id="{{googleDocs.id.id}}" class="comment-wrapper2">
+								<a href="#" class="tag-icon" data-original-title="Search by Users">
+								</a>   	
+								<a href="#" class="hand-icon rock_doc"></a>
+								<a href="#" class="message-icon"></a>
+								<a href="#" class="share-icon"></a>
+							</div>
+						</div>
+					</div>
+					<h5 class="doctitle" id="{{googleDocs.id.id}}">
+						<span><img src="/beamstream-new/images/title-plus.png"></span> Title & Description
+					</h5>          
+					<div class="dateinfo">
+						<span class="state">{{googleDocs.documentAccess.name}}</span>
+						<span class="date">{{googleDocs.creationDate}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>
+			<ul id="{{googleDocs.id.id}}-activities" class="comment-list">
+			<li><a class="eye-icon" href="#">0</a></li>
+			<li><a class="hand-icon" href="#">{{googleDocs.documentRocks}}</a></li>
 			<li><a class="message-icon" href="#">0</a></li>
 			</ul>
 		</div>

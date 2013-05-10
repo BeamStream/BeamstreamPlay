@@ -23,8 +23,9 @@ define(['baseView',
 		'view/documentListView',
 		'view/pdfListView',
 		'view/presentationListView',
+		'view/googleDocListView',
 		'../../lib/bootstrap-modal',
-        ],function(BaseView,FileItemView,ImageListView,VideoListView,DocumentListView,PdfListView,PresentationListView,BootstrapModal){
+        ],function(BaseView,FileItemView,ImageListView,VideoListView,DocumentListView,PdfListView,PresentationListView,GoogleDocListView,BootstrapModal){
 	
 	var FilesOverView;
 	FilesOverView = BaseView.extend({
@@ -37,7 +38,10 @@ define(['baseView',
 			'click .pdf-list' : 'showPdfList',
 			'click .ppt-list' : 'showPresentationList',
 			'click .doctitle': 'editMediaTitle',
-			
+			'click .googleDocs-list': 'showGoogleDocList',
+			'click .rock_doc' : 'rocksDocument',
+            'click .rock-media': 'rocksMedia',
+
 			
 
 			
@@ -61,7 +65,7 @@ define(['baseView',
 
 			imageListView = new ImageListView({el: $('#grid')});
 			imageListView.data.url = '/allPicsForAuser';
-			// imageListView.fetch();
+			$('#grid').attr('name','imageList');
 
 		},
 
@@ -72,6 +76,7 @@ define(['baseView',
 
 			videoListView = new VideoListView({el: $('#grid')});
 			videoListView.data.url = '/allVideosForAuser';
+			$('#grid').attr('name','videoList');
 
 		},
 
@@ -82,6 +87,7 @@ define(['baseView',
 
 			documentListView = new DocumentListView({el: $('#grid')});
 			documentListView.data.url = '/allDOCSFilesForAUser';
+			$('#grid').attr('name','documentList');
 			
 		},
 
@@ -92,6 +98,7 @@ define(['baseView',
 			
 			pdfListView = new PdfListView({el: $('#grid')});
 			pdfListView.data.url = '/allPDFFilesForAUser';
+			$('#grid').attr('name','pdfList');
 
 		},
 
@@ -102,8 +109,23 @@ define(['baseView',
 
 			presentationListView = new PresentationListView({el: $('#grid')});
 			presentationListView.data.url = '/allPPTFilesForAUser';
+			$('#grid').attr('name','presentationList');
 			
 		},
+
+
+		/**
+		* shows google docs list view
+		*/
+		showGoogleDocList: function(){
+
+			googleDocListView = new GoogleDocListView({el: $('#grid')});
+			googleDocListView.data.url = '/getAllGoogleDocs';
+			$('#grid').attr('name','googleDocList');
+			
+		},
+
+		
 
 		/**
          *  Show the popup for editing title and description of uploaded files
@@ -122,6 +144,51 @@ define(['baseView',
 			
         },
         
+         /**
+        * Rockds Documents 
+        */
+        rocksDocument: function(eventName){
+            eventName.preventDefault();
+            var element = eventName.target.parentElement;
+            var docId =$(element).attr('id');
+           
+            this.data.url = "/rock/document/";
+            // set values to model
+            this.data.models[0].save({id : docId },{
+                success : function(model, response) {
+                  
+                     $('#'+docId+'-activities li a.hand-icon').html(response);
+                },
+                error : function(model, response) {
+                    console.log("error");
+                }
+
+            });
+            
+        },
+
+        /**
+        * Rockds media 
+        */
+        rocksMedia: function(eventName){
+            eventName.preventDefault();
+            var element = eventName.target.parentElement;
+            var docId =$(element).attr('id');
+           
+            this.data.url = "/rock/media";
+            // set values to model
+            this.data.models[0].save({id : docId },{
+                success : function(model, response) {
+                   
+                     $('#'+docId+'-activities li a.hand-icon').html(response);
+                },
+                error : function(model, response) {
+                    console.log("error");
+                }
+
+            });
+            
+        }
         
        
 		

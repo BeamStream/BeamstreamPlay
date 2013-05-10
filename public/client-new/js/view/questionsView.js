@@ -2,8 +2,9 @@ define(['view/formView',
 		'view/questionItemView',
         'model/question',
         'text!templates/questionMessage.tpl',
+        'text!templates/questionComment.tpl'
         
-        ], function(FormView ,QuestionItemView,QuestionModel, QuestionMessage ){
+        ], function(FormView ,QuestionItemView,QuestionModel, QuestionMessage, QuestionComment){
 	var QuestionsView;
 	QuestionsView = FormView.extend({
 		objName: 'QuestionsView',
@@ -33,7 +34,7 @@ define(['view/formView',
             this.data.reset();
             
          	$('#Q-main-photo').attr('src',localStorage["loggedUserProfileUrl"]);
-            
+         	this.setupPushConnection();
         },
 
         /**
@@ -278,7 +279,7 @@ define(['view/formView',
         		this.data.models[0].removeAttr('pollOptions');
         		this.data.models[0].save({streamId : streamId, questionBody :question, questionAccess:questionAccess},{
 			    	success : function(model, response) {
-			    		
+			    		console.log(self.data.models[0]);
 			    		// show the posted message on feed
 			    		var questionItemView  = new QuestionItemView({model : self.data.models[0]});
 						$('#questionListView div.content').prepend(questionItemView.render().el);
@@ -289,7 +290,11 @@ define(['view/formView',
 			    		$('.drag-rectangle').tooltip();	
 
 			    		self.options = 0;
-
+			    		/* PUBNUB -- AUTO AJAX PUSH */ 
+			    		PUBNUB.publish({
+			    			channel : "questions",
+			    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:self.data.models[0]}
+			    		}) 
 			    		
 			    	},
 			    	error : function(model, response) {
@@ -305,7 +310,11 @@ console.log(888);
         		// set values to model
 			    this.data.models[0].save({streamId : streamId, questionBody :question, questionAccess:questionAccess ,pollOptions:pollOptions},{
 			    	success : function(model, response) {
-			    		
+			    		/* PUBNUB -- AUTO AJAX PUSH */ 
+			    		PUBNUB.publish({
+			    			channel : "questions",
+			    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:self.data.models[0]}
+			    		}) 
 			    		// show the posted message on feed
 			    		var questionItemView  = new QuestionItemView({model : self.data.models[0]});
 						$('#questionListView div.content').prepend(questionItemView.render().el);
@@ -422,6 +431,163 @@ console.log(888);
         	 }
 	        	 
   		},
+  		
+  		
+  		/**
+	     * PUBNUB real time push
+	     */
+		 setupPushConnection: function() {
+			 var self = this;
+			 self.pagePushUid = Math.floor(Math.random()*16777215).toString(16);
+			 var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+			 var trueUrl='';
+			
+			 /* for question posting */
+			 PUBNUB.subscribe({
+				 channel : "questions",
+				 restore : false,
+				 callback : function(question) {
+					 var streamId = $('.sortable li.active').attr('id');
+
+					 
+					 if (question.pagePushUid != self.pagePushUid)
+					 { 
+					 	
+						 if(question.streamId==streamId)
+			       		 	{
+							   /* set the values to Question Model */
+							   questionModel = new QuestionModel();
+							   questionModel.set({
+//								   docDescription :question.data.docDescription,
+//								   docName : question.data.docName,
+								   question : question.data.question,
+								   questionAccess : question.data.questionAccess,
+								   profilePic : question.data.profilePic,
+								   streamId : question.data.streamId,
+								   followerOfQuestionPoster : question.data.followerOfQuestionPoster
+							   })
+							    // show the posted message on feed
+							 	var questionItemView  = new QuestionItemView({model :questionModel});
+		 						$('#questionListView div.content').prepend(questionItemView.render().el);
+			       		 	}
+				 	   }
+			 
+			 	   }
+		 	   })
+		 	   
+		 	   
+		 	  /* auto push functionality for comments */
+		 	   PUBNUB.subscribe({
+	
+		 		   channel : "questioncomment",
+		 		   restore : false,
+	
+		 		   callback : function(question) { 
+	    	  
+		 			   if(question.pagePushUid != self.pagePushUid)
+		 			   {
+		 			   	
+		 				   if(!document.getElementById(question.data.id.id))
+		 				   {
+		 					 
+		 					$('#'+question.parent+'-addComments').slideUp(200);
+		 			  		
+		 				    /* display the posted comment  */
+		 		    		var compiledTemplate = Handlebars.compile(QuestionComment);
+		 		    		$('#'+question.parent+'-allComments').prepend(compiledTemplate({data:question.data, profileImage:question.profileImage}));
+		 		    		
+		 		    		if(!$('#'+question.parent+'-allComments').is(':visible'))
+		 					{  
+		 						$('#'+question.parent+'-msgRockers').slideUp(1);
+		 						$('#'+question.parent+'-newCommentList').slideDown(1);
+		 						$('#'+question.parent+'-newCommentList').prepend(compiledTemplate({data:question.data, profileImage:question.profileImage}));
+		 						
+		 					}
+		 		    		question.cmtCount++; 
+		 		    		$('#'+question.parent+'-show-hide').text("Hide All");
+		 					$('#'+question.parent+'-totalComment').text(question.cmtCount);
+
+	 				   	   }
+ 			   		   }
+ 		   		   }
+	
+ 	   		   })
+ 	   		   
+ 	   		   /* for Comment Rocks */
+	   		   PUBNUB.subscribe({
+	
+	   			   channel : "ques_commentRock",
+	   			   restore : false,
+	   			   callback : function(question) { 
+	   				   if(question.pagePushUid != self.pagePushUid)
+	   				   {   	  
+	   					   $('div#'+question.questionId+'-newCommentList').find('a#'+question.commentId+'-mrockCount').html(question.data);
+	   					   $('div#'+question.questionId+'-allComments').find('a#'+question.commentId+'-mrockCount').html(question.data);
+	   				   }
+	   			   }
+	   		   })
+	   		   
+	   		    /* for question Rocks */
+ 	   		   PUBNUB.subscribe({
+		
+ 	   			   channel : "questionRock",
+ 	   			   restore : false,
+ 	   			   callback : function(question) {
+ 	   				   if(question.pagePushUid != self.pagePushUid)
+ 	   				   {   	  
+ 	   					   $('#'+question.quesId+'-qstRockCount').find('span').html(question.data);
+ 	   				   }
+		   		   }
+	   		   })
+
+	   		    /* for updating user count of stream */
+ 	   		   PUBNUB.subscribe({
+		
+ 	   			   channel : "class_Members",
+ 	   			   restore : false,
+ 	   			   callback : function(question) {
+ 	   				   if(question.pagePushUid != self.pagePushUid)
+ 	   				   {   	  
+ 	   					   $('span#'+question.data.stream.id.id+'-users').html(question.data.stream.usersOfStream.length);
+ 	   				   }
+		   		   }
+	   		   })
+
+	   		    /* for delete question  case*/
+ 	   		   PUBNUB.subscribe({
+		
+ 	   			   channel : "deleteQuestion",
+ 	   			   restore : false,
+ 	   			   callback : function(question) {
+ 	   				   if(question.pagePushUid != self.pagePushUid)
+ 	   				   {   	  
+ 	   				   	
+ 	   					   $('div#'+question.questionId).remove();
+ 	   				   }
+		   		   }
+	   		   })
+
+	   		    /* for delete comment  case*/
+ 	   		   PUBNUB.subscribe({
+		
+ 	   			   channel : "delete_ques_Comment",
+ 	   			   restore : false,
+ 	   			   callback : function(question) {
+
+ 	   				   if(question.pagePushUid != self.pagePushUid)
+ 	   				   {   	  
+ 	   				   	   
+   					  		var commentCount = $('#'+question.questionId+'-totalComment').text()
+
+   					  		$('div#'+question.questionId+'-newCommentList').find('div#'+question.commentId).remove();
+   					  		$('div#'+question.questionId+'-allComments').find('div#'+question.commentId).remove();
+	                		$('#'+question.questionId+'-totalComment').text(commentCount-1);
+ 	   				   }
+		   		   }
+	   		   })
+	    		 
+		 	   
+ 		},
 
 
   		
