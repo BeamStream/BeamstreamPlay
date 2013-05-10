@@ -298,6 +298,7 @@ define(['view/formView',
         	
         	var comment = new CommentModel();
         	comment.urlRoot = "/rockingTheComment";
+        	console.log(commentId);
 			// set values to model
         	comment.save({id : commentId },{
 		    	success : function(model, response) {
