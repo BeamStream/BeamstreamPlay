@@ -21,7 +21,7 @@ define(['view/formView',
 		'model/comment',
 		'model/user',
 		'text!templates/questionMessage.tpl',
-		 'text!templates/questionComment.tpl',
+		 'text!templates/questionComment.tpl'
         ],function(FormView,QuestionModel, CommentModel,UserModel, QuestionMessage, QuestionComment ){
 	
 	var QuestionItemView;
@@ -171,6 +171,11 @@ define(['view/formView',
 	   							
    			    			// shows the posted comment
    			    		    self.showPostedComment(response,parent,totalComments);
+   			    		 /* pubnum auto push */
+   							PUBNUB.publish({
+   			                	channel : "questioncomment",
+		                        message : { pagePushUid: self.pagePushUid ,data:response,parent:parent,cmtCount:totalComments ,profileImage : localStorage["loggedUserProfileUrl"]}
+   			                })
    			    		    
 	   			    	},
 	   			    	error : function(model, response) {
@@ -239,6 +244,12 @@ define(['view/formView',
 	            	// display the count in icon
 	                $('#'+questionId+'-qstRockCount').find('span').html(response);
 	                
+	                /* ajax auto push for question rock */
+	                PUBNUB.publish({
+						channel : "questionRock",
+	                    message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,quesId:questionId}
+	                })
+	                
 		    	},
 		    	error : function(model, response) {
                     console.log("error");
@@ -298,7 +309,6 @@ define(['view/formView',
         	
         	var comment = new CommentModel();
         	comment.urlRoot = "/rockingTheComment";
-        	console.log(commentId);
 			// set values to model
         	comment.save({id : commentId },{
 		    	success : function(model, response) {
@@ -307,6 +317,11 @@ define(['view/formView',
                 	$('div#'+questionId+'-newCommentList').find('a#'+commentId+'-mrockCount').html(response);
                 	$('div#'+questionId+'-allComments').find('a#'+commentId+'-mrockCount').html(response);
                 	
+                	/* pubnub auto push for rock comment */
+                	PUBNUB.publish({
+                        channel : "ques_commentRock",
+                        message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,questionId:questionId,commentId:commentId  }
+                	})
 		    	},
 		    	error : function(model, response) {
                     console.log("error");
@@ -450,6 +465,12 @@ define(['view/formView',
 		                	 	{
 			                		 
 	                		 		$('div#'+questionId).remove();
+	                		 		
+	                		 		/* pubnum auto push -- delete question*/
+   									PUBNUB.publish({
+   			                			channel : "deleteQuestion",
+		                       			 message : { pagePushUid: self.pagePushUid ,questionId : questionId}
+   			               			 })
 
 		                	 	}
 		                	 	else
@@ -517,6 +538,13 @@ define(['view/formView',
 	                		 		// $('#'+messageId+'-totalComment').text(commentCount-1);
 
 			                		$('div#question-'+commentId).remove();
+									
+
+	                		 		/* pubnum auto push -- delete comment*/
+   									PUBNUB.publish({
+   			                			channel : "delete_ques_Comment",
+		                       			 message : { pagePushUid: self.pagePushUid ,questionId : questionId ,commentId : commentId}
+   			               			 })
 			                		
 		                	 	}
 		                	 	else
