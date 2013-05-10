@@ -32,16 +32,19 @@ object UserMediaType extends Enumeration {
 
 object UserMedia extends RockConsumer {
 
-  //Find userMedia by userId
+  /**
+   * Find userMedia by userId
+   *
+   */
   def findUserMediaByUserId(userId: ObjectId) = {
-    val userMediaObtained = UserMediaDAO.find(MongoDBObject("userId" -> userId, "isPrimary" -> true))
-    userMediaObtained
+    UserMediaDAO.find(MongoDBObject("userId" -> userId, "isPrimary" -> true)).toList
+
   }
 
   /**
    * Save User Media
    */
-  def saveMediaForUser(media: UserMedia) = {
+  def saveMediaForUser(media: UserMedia): Option[ObjectId] = {
     (media.isPrimary == true) match {
       case true => makePresentOnePrimary(media.userId)
       case false =>
@@ -54,9 +57,9 @@ object UserMedia extends RockConsumer {
    * Find Media by Id
    */
 
-  def findMediaById(mediaId: ObjectId) = {
-    val media = UserMediaDAO.findOneByID(mediaId)
-    media
+  def findMediaById(mediaId: ObjectId): Option[UserMedia] = {
+    UserMediaDAO.findOneByID(mediaId)
+
   }
   /**
    * Get profile picture for a user
@@ -82,9 +85,9 @@ object UserMedia extends RockConsumer {
     profilePicForUser
   }
 
-  /*
- * Get All picture for a user
- */
+  /**
+   * Get All picture for a user
+   */
   def getAllPicsForAUser(userId: ObjectId): List[UserMedia] = {
 
     UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Image")).toList
@@ -167,7 +170,7 @@ object UserMedia extends RockConsumer {
   /**
    * Increasing View Count
    */
-  def increaseViewCountOfUsermedia(userMediaId: ObjectId) {
+  def increaseViewCountOfUsermedia(userMediaId: ObjectId) ={
     val userMediaFound = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
     UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), userMediaFound.copy(views = (userMediaFound.views + 1)), false, false, new WriteConcern)
     val updatedUserMedia1 = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
@@ -190,7 +193,7 @@ object UserMedia extends RockConsumer {
    * Recent Profile video of user
    */
   def recentProfileVideoForAUser(userId: ObjectId): Option[UserMedia] = {
-    val profilePic = UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" ->"Video")).sort(orderBy = MongoDBObject("dateCreated" -> -1)).limit(2).toList
+    val profilePic = UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Video")).sort(orderBy = MongoDBObject("dateCreated" -> -1)).limit(2).toList
     profilePic.isEmpty match {
       case true => None
       case false => Option(profilePic.head)

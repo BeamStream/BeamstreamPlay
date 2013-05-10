@@ -56,8 +56,18 @@ object DocumentController extends Controller {
     val user = User.getUserProfile(userId)
     //Create A Message As Well To Display The Doc Creation In Stream
     val message = Message(new ObjectId, url, Option(MessageType.Document), Option(MessageAccess.withName(access)), date, userId, Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil)
-    val messageId=Message.createMessage(message)
+    val messageId = Message.createMessage(message)
     val messageObtained = Message.findMessageById(messageId.get)
+    val userMedia = UserMedia.getProfilePicForAUser(messageObtained.get.userId)
+    val profilePicForUser = (!userMedia.isEmpty) match {
+      case true => (userMedia.head.frameURL != "") match {
+        case true => userMedia.head.frameURL
+        case false => userMedia.head.mediaUrl
+      }
+
+      case false => ""
+    }
+    DocResulttoSent(messageObtained.get, name, description, false, false, Option(profilePicForUser), None, Option(false))
     Ok(write(List(messageObtained))).as("application/json")
 
   }
@@ -240,10 +250,14 @@ object DocumentController extends Controller {
     val userMedia = UserMedia.getProfilePicForAUser(userId)
 
     val profilePic = (!userMedia.isEmpty) match {
-      case true => Option(userMedia(0).mediaUrl)
-      case false => None
+      case true => (userMedia.head.frameURL != "") match {
+        case true => userMedia.head.frameURL
+        case false => userMedia.head.mediaUrl
+      }
+
+      case false => ""
     }
-    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic, None, Option(false))
+    DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false))
   }
 
   /**
@@ -261,10 +275,14 @@ object DocumentController extends Controller {
     val userMedia = UserMedia.getProfilePicForAUser(userId)
 
     val profilePic = (!userMedia.isEmpty) match {
-      case true => Option(userMedia(0).mediaUrl)
-      case false => None
+      case true => (userMedia.head.frameURL != "") match {
+        case true => userMedia.head.frameURL
+        case false => userMedia.head.mediaUrl
+      }
+
+      case false => ""
     }
-    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic, None, Option(false))
+    new DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false))
   }
 
   /**
@@ -279,10 +297,14 @@ object DocumentController extends Controller {
     val userMedia = UserMedia.getProfilePicForAUser(userId)
 
     val profilePic = (!userMedia.isEmpty) match {
-      case true => Option(userMedia(0).mediaUrl)
-      case false => None
+      case true => (userMedia.head.frameURL != "") match {
+        case true => userMedia.head.frameURL
+        case false => userMedia.head.mediaUrl
+      }
+
+      case false => ""
     }
-    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic, None, Option(false))
+    new DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false))
   }
   /**
    * Save other documents
@@ -296,10 +318,14 @@ object DocumentController extends Controller {
     val userMedia = UserMedia.getProfilePicForAUser(userId)
 
     val profilePic = (!userMedia.isEmpty) match {
-      case true => Option(userMedia(0).mediaUrl)
-      case false => None
+      case true => (userMedia.head.frameURL != "") match {
+        case true => userMedia.head.frameURL
+        case false => userMedia.head.mediaUrl
+      }
+
+      case false => ""
     }
-    new DocResulttoSent(message, documentName, docDescription, false, false, profilePic, None, Option(false))
+    new DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false))
   }
 
   /**
