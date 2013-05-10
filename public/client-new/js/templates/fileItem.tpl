@@ -17,6 +17,7 @@
 												<p class="doc-description " id="description-{{data.id.id}}" >{{#if data.description}}{{data.description}}{{else}}Image Description{{/if}}</p>
 											</div>
 									    </a>
+									  </div>
 							</a>
 							<div id="{{data.id.id}}" class="comment-wrapper2">
 								<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   
@@ -44,6 +45,8 @@
 				</ul>
 			</div>
 		</li>
+
+
 {{/ifequal}}
 {{#ifequal fileType "video"}}
 	<li data-rock="{{data.rocks}}" data-date-created="{{data.dateCreated}}" class="item" >
@@ -64,6 +67,7 @@
 											<p id="description-{{data.id.id}}" class="doc-description ">{{#if data.description}} {{data.description}}{{else}}Video Description{{/if}}</p>
 										</div>
 									</a>
+								</div>
 						</a>
 						<div id="{{data.id.id}}" class="comment-wrapper2">
 							<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   
@@ -276,7 +280,7 @@
 			</div>
 		</div>
 		<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>
-			<ul id="{{documents.id.id}}-activities" class="comment-list">
+			<ul id="{{data.id.id}}-activities" class="comment-list">
 			<li><a class="eye-icon" href="#">0</a></li>
 			<li><a class="hand-icon" href="#">{{pdfFiles.documentRocks}}</a></li>
 			<li><a class="message-icon" href="#">0</a></li>
