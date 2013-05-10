@@ -236,6 +236,16 @@ define(['view/formView',
         postMessageToServer: function(message,streamId,messageAccess,googleDoc){
         	var self = this;
         	if(googleDoc == true){
+
+        		this.data.models[0].removeAttr('message');
+        		this.data.models[0].removeAttr('profilePic');
+        		this.data.models[0].removeAttr('followed');
+        		this.data.models[0].removeAttr('followerOfMessagePoster');
+        		this.data.models[0].removeAttr('rocked');
+
+        		this.data.models[0].removeAttr('messageAccess');
+        		// this.data.models[0].removeAttr('rocked');
+
         		this.data.url = "/newDocument";
 
         		// set values to model
@@ -273,6 +283,18 @@ define(['view/formView',
 
 
         	}else{
+
+        		this.data.models[0].removeAttr('docAccess');
+        		this.data.models[0].removeAttr('docDescription');
+        		this.data.models[0].removeAttr('docName');
+        		this.data.models[0].removeAttr('docType');
+        		this.data.models[0].removeAttr('docURL');
+        		this.data.models[0].removeAttr('followed');
+        		this.data.models[0].removeAttr('followerOfMessagePoster');
+        		this.data.models[0].removeAttr('rocked');
+        		this.data.models[0].removeAttr('profilePic');
+
+
         		this.data.url = "/newMessage";
 			    // set values to model
 			    this.data.models[0].save({streamId : streamId, message :message, messageAccess:messageAccess},{
