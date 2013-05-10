@@ -67,8 +67,8 @@ object DocumentController extends Controller {
 
       case false => ""
     }
-    DocResulttoSent(messageObtained.get, name, description, false, false, Option(profilePicForUser), None, Option(false))
-    Ok(write(List(messageObtained))).as("application/json")
+    val docResults=DocResulttoSent(messageObtained.get, name, description, false, false, Option(profilePicForUser), None, Option(false))
+    Ok(write(docResults)).as("application/json")
 
   }
 
