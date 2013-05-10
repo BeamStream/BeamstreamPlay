@@ -35,9 +35,11 @@ define(['baseView',
          */
         displayPage: function(callback){
             
+           
+
 			/* render file items */
         	_.each(this.data.models[0].attributes.documents, function(model) {
-        		
+
 				var fileItemView  = new FileItemView({model : model,fileType:"documents"});
 				$('#grid div.content').append(fileItemView.render().el);
 				

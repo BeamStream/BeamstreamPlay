@@ -87,6 +87,7 @@
 			<div class="image-wrapper hovereffect" id="{{data.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="/beamstream-new/images/textimage.png ">
+			 		<h3 class="common-doctext" >{{extension}}</h3>
 					<div class="hover-text">              
 						<div class="comment-wrapper">                               
 							<a href="#docs"  class="document-list" style="text-decoration: none">

@@ -23,8 +23,8 @@ define(['baseView',
 		'view/documentListView',
 		'view/pdfListView',
 		'view/presentationListView',
-		'text!templates/browseMedia.tpl',
-        ],function(BaseView,FileItemView,ImageListView,VideoListView,DocumentListView,PdfListView,PresentationListView,BrowseMediaTpl){
+		'../../lib/bootstrap-modal',
+        ],function(BaseView,FileItemView,ImageListView,VideoListView,DocumentListView,PdfListView,PresentationListView,BootstrapModal){
 	
 	var FilesOverView;
 	FilesOverView = BaseView.extend({
@@ -36,6 +36,7 @@ define(['baseView',
 			'click .document-list' : 'showDocumentList',
 			'click .pdf-list' : 'showPdfList',
 			'click .ppt-list' : 'showPresentationList',
+			'click .doctitle': 'editMediaTitle',
 			
 			
 
@@ -98,12 +99,28 @@ define(['baseView',
 		* shows presentation list view
 		*/
 		showPresentationList: function(){
-			console.log(33);
+
 			presentationListView = new PresentationListView({el: $('#grid')});
 			presentationListView.data.url = '/allPPTFilesForAUser';
 			
+		},
 
-		}
+		/**
+         *  Show the popup for editing title and description of uploaded files
+         */
+        editMediaTitle: function(eventName){
+        	
+        	/* show the doc details in the popupa */
+        	var mediaId = eventName.currentTarget.id; 
+        	$('#docId').val(mediaId);
+        	$('#docType').val($('#fileType-'+mediaId).attr('value'));
+        	$('#edit-file-name').html('Edit '+ $('#name-'+mediaId).text()) ;  
+        	$('#docName').val($('#name-'+mediaId).text()) ;  
+        	$('#docDescription').val($('#description-'+mediaId).text()) ;   
+
+			$('#editMedia').modal("show");
+			
+        },
         
         
        

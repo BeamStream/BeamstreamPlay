@@ -37,11 +37,23 @@ define(['view/formView',
          * render the file item
          */
         render: function(){
+    	 	var extensionpattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+            var self = this,extension ='';
         	
+        	if(this.fileType == "documents"){
+    		 	extension= (this.model.documentURL).match(extensionpattern);
+        		if(extension){
+	        		extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+	                    return letter.toUpperCase();
+	            	});
+        		}
+        	}
         	
+    		console.log(extension);
         	var datas = {
 			 	 "data" : this.model,
-			 	 "fileType" :this.fileType
+			 	 "fileType" :this.fileType,
+			 	 "extension":extension
 			 	 
 		    }
         	compiledTemplate = Handlebars.compile(FileItemTpl);

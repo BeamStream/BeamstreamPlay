@@ -5,6 +5,7 @@
 			<div class="image-wrapper hovereffect"  id="{{images.id.id}}">
 				<div class="hover-div">
 					<img class="filmedia-picture" src="{{images.mediaUrl}}">
+					<input type="hidden" id="fileType-{{images.id.id}}" value="{{images.contentType.name}}">
 					<div class="hover-text">
 						<div class="comment-wrapper"> 
 							<a href="#imagelist" class="image-list" style="text-decoration: none">
@@ -23,7 +24,7 @@
 							</div>
 						</div>
 					</div>
-					<h5 class="imgtitle" id="{{images.id.id}}">
+					<h5 class="doctitle" id="{{images.id.id}}">
 						<span><img src="images/title-plus.png"></span> Title & Description
 					</h5>    
 					<div class="dateinfo">
@@ -47,6 +48,7 @@
 			<div class="image-wrapper hovereffect">
 			<div class="hover-div">
 				<img class="filmedia-picture" src="{{videos.frameURL}}">
+				<input type="hidden" id="fileType-{{videos.id.id}}" value="{{videos.contentType.name}}">
 				<div class="hover-text">               
 					<div class="comment-wrapper">                               
 						<a href="#videos" class="video-list" style="text-decoration: none">
@@ -65,7 +67,7 @@
 						</div>
 					</div>
 				</div>
-					<h5 class="videotitle" id="{{videos.id.id}}">
+					<h5 class="doctitle" id="{{videos.id.id}}">
 						<span><img src="images/title-plus.png"></span> Title & Description
 					</h5>          
 					<div class="dateinfo">
@@ -89,7 +91,8 @@
 		<li data-groups="["recent"]" data-date-created="{{documents.creationDate}}" class="item" >
 			<div class="image-wrapper hovereffect" id="{{documents.id.id}}">
 		 		<div class="hover-div">
-			 		<img class="cover-picture" src="/beamstream-new/images/textimage.png ">
+			 		<img class="cover-picture" src="/beamstream-new/images/docs_image.png ">
+			 		<input type="hidden" id="fileType-{{documents.id.id}}" value="{{documents.documentType.name}}">
 					<div class="hover-text">              
 						<div class="comment-wrapper">                               
 							<a href="#docs"  class="document-list" style="text-decoration: none">
@@ -134,6 +137,7 @@
 			<div class="image-wrapper hovereffect" id="{{pdfFiles.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="{{pdfFiles.previewImageUrl}}">
+			 		<input type="hidden" id="fileType-{{pdfFiles.id.id}}" value="{{pdfFiles.documentType.name}}">
 					<div class="hover-text">              
 						<div class="comment-wrapper">                               
 							<a href="#pdfFiles" class="pdf-list" style="text-decoration: none">
@@ -178,6 +182,7 @@
 			<div class="image-wrapper hovereffect" id="{{pptFiles.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="/beamstream-new/images/presentations_image.png">
+			 		<input type="hidden" id="fileType-{{pptFiles.id.id}}" value="{{pptFiles.documentType.name}}">
 					<div class="hover-text">              
 						<div class="comment-wrapper">                               
 							<a href="#presentations" class="ppt-list" style="text-decoration: none">
@@ -185,7 +190,7 @@
 							 	<h4 id="name-{{pptFiles.id.id}}">{{#if pptFiles.documentName}}{{pptFiles.documentName}}{{else}}Doscument Name{{/if}}</h4>
 								<div class="description-info">
 								<div class="description-left">
-									<p id="description-{{pdfFiles.id.id}}" class="doc-description ">{{#if pptFiles.documentDescription}}{{pptFiles.documentDescription}}{{else}} Document Description{{/if}}</p>
+									<p id="description-{{pptFiles.id.id}}" class="doc-description ">{{#if pptFiles.documentDescription}}{{pptFiles.documentDescription}}{{else}} Document Description{{/if}}</p>
 								</div>
 							</a>
 							<div id="{{pptFiles.id.id}}" class="comment-wrapper2">
