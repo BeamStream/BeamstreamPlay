@@ -69,7 +69,7 @@ define(['view/formView',
         	var self = this;
             var trueurl='';
             var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-           
+          
             // get the model attributes
         	var model = this.model.attributes;
     		
@@ -93,7 +93,7 @@ define(['view/formView',
                  //to check whether the url is a google doc url or not
                  if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) 
                  {
-                	 contentType = "docs";
+                	 contentType = "googleDoc";
                  }
                  else
                  {
@@ -104,7 +104,13 @@ define(['view/formView',
                  }
             }
             else
-            {          
+            {         
+
+        		if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) 
+                 {
+                	 contentType = "docs";
+
+                 } 	
                  // set first letter of extension in capital letter  
             	  if(extension)
             	  {
@@ -143,6 +149,7 @@ define(['view/formView',
 				var datas = {
 					 	 "data" : model,
 					 	 "datVal":datVal,
+					 	 "type" : contentType,
 					 	 "contentType" : contentType,
 					 	 "loggedUserId" :localStorage["loggedUserId"],
 			    }
