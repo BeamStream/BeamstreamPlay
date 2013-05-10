@@ -39,6 +39,9 @@ define(['baseView',
 			'click .ppt-list' : 'showPresentationList',
 			'click .doctitle': 'editMediaTitle',
 			'click .googleDocs-list': 'showGoogleDocList',
+			'click .rock_doc' : 'rocksDocument',
+            'click .rock-media': 'rocksMedia',
+
 			
 
 			
@@ -136,6 +139,51 @@ define(['baseView',
 			
         },
         
+         /**
+        * Rockds Documents 
+        */
+        rocksDocument: function(eventName){
+            eventName.preventDefault();
+            var element = eventName.target.parentElement;
+            var docId =$(element).attr('id');
+           
+            this.data.url = "/rock/document/";
+            // set values to model
+            this.data.models[0].save({id : docId },{
+                success : function(model, response) {
+                  
+                     $('#'+docId+'-activities li a.hand-icon').html(response);
+                },
+                error : function(model, response) {
+                    console.log("error");
+                }
+
+            });
+            
+        },
+
+        /**
+        * Rockds media 
+        */
+        rocksMedia: function(eventName){
+            eventName.preventDefault();
+            var element = eventName.target.parentElement;
+            var docId =$(element).attr('id');
+           
+            this.data.url = "/rock/media";
+            // set values to model
+            this.data.models[0].save({id : docId },{
+                success : function(model, response) {
+                   
+                     $('#'+docId+'-activities li a.hand-icon').html(response);
+                },
+                error : function(model, response) {
+                    console.log("error");
+                }
+
+            });
+            
+        }
         
        
 		

@@ -27,7 +27,8 @@ define(['view/formView',
 		events:{
 			'click .ediTitle': 'editTilteDescription',
             'click .documents-popup': 'showFile',
-            'click .rock_docs' : 'rockDocuments'
+            'click .rock_docs' : 'rockDocuments',
+            'click .rock-medias': 'rockMedia',
            
 
 		},
@@ -140,7 +141,30 @@ define(['view/formView',
             this.data.models[0].save({id : docId },{
                 success : function(model, response) {
                    
-                     
+                     $('#'+docId+'-activities li a.hand-icon').html(response);
+                },
+                error : function(model, response) {
+                    console.log("error");
+                }
+
+            });
+            
+        },
+
+        /**
+        * Rockds media 
+        */
+        rockMedia: function(eventName){
+            eventName.preventDefault();
+            var element = eventName.target.parentElement;
+            var docId =$(element).attr('id');
+           
+            this.data.url = "/rock/media";
+            // set values to model
+            this.data.models[0].save({id : docId },{
+                success : function(model, response) {
+                   
+                     $('#'+docId+'-activities li a.hand-icon').html(response);
                 },
                 error : function(model, response) {
                     console.log("error");

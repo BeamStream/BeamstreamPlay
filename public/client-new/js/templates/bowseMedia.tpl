@@ -18,7 +18,7 @@
 							</a>
 							<div id="{{images.id.id}}" class="comment-wrapper2">
 								<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   
-								<a href="#" class="hand-icon rock-medias"></a>
+								<a href="#" class="hand-icon rock-media"></a>
 								<a href="#" class="message-icon"></a>   
 							 	<a href="#" class="share-icon"></a>
 							</div>
@@ -37,7 +37,7 @@
 			<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>
 				<ul id="{{images.id.id}}-activities" class="comment-list">
 					<li><a class="eye-icon" href="#">0</a></li>
-					<li><a class="hand-icon" href="#">0</a></li>
+					<li><a class="hand-icon" href="#">{{images.rocks}}</a></li>
 					<li><a class="message-icon" href="#">0</a></li>
 				</ul>
 			</div>
@@ -61,7 +61,7 @@
 						</a>
 						<div id="{{videos.id.id}}" class="comment-wrapper2">
 							<a href="#" class="tag-icon" data-original-title="Search by Users"></a>   
-							<a href="#" class="hand-icon rock-medias"></a>
+							<a href="#" class="hand-icon rock-media"></a>
 							<a href="#" class="message-icon"></a>    
 							<a href="#" class="share-icon"></a>
 						</div>
@@ -106,7 +106,7 @@
 							<div id="{{documents.id.id}}" class="comment-wrapper2">
 								<a href="#" class="tag-icon" data-original-title="Search by Users">
 								</a>   	
-								<a href="#" class="hand-icon rock_docs"></a>
+								<a href="#" class="hand-icon rock_doc"></a>
 								<a href="#" class="message-icon"></a>
 								<a href="#" class="share-icon"></a>
 							</div>
@@ -151,7 +151,7 @@
 							<div id="{{pdfFiles.id.id}}" class="comment-wrapper2">
 								<a href="#" class="tag-icon" data-original-title="Search by Users">
 								</a>   	
-								<a href="#" class="hand-icon rock_docs"></a>
+								<a href="#" class="hand-icon rock_doc"></a>
 								<a href="#" class="message-icon"></a>
 								<a href="#" class="share-icon"></a>
 							</div>
@@ -168,7 +168,7 @@
 			</div>
 		</div>
 		<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>
-			<ul id="{{documents.id.id}}-activities" class="comment-list">
+			<ul id="{{pdfFiles.id.id}}-activities" class="comment-list">
 			<li><a class="eye-icon" href="#">0</a></li>
 			<li><a class="hand-icon" href="#">{{pdfFiles.documentRocks}}</a></li>
 			<li><a class="message-icon" href="#">0</a></li>
@@ -196,7 +196,7 @@
 							<div id="{{pptFiles.id.id}}" class="comment-wrapper2">
 								<a href="#" class="tag-icon" data-original-title="Search by Users">
 								</a>   	
-								<a href="#" class="hand-icon rock_docs"></a>
+								<a href="#" class="hand-icon rock_doc"></a>
 								<a href="#" class="message-icon"></a>
 								<a href="#" class="share-icon"></a>
 							</div>
@@ -213,9 +213,9 @@
 			</div>
 		</div>
 		<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>
-			<ul id="{{documents.id.id}}-activities" class="comment-list">
+			<ul id="{{pptFiles.id.id}}-activities" class="comment-list">
 			<li><a class="eye-icon" href="#">0</a></li>
-			<li><a class="hand-icon" href="#">{{pdfFiles.documentRocks}}</a></li>
+			<li><a class="hand-icon" href="#">{{pptFiles.documentRocks}}</a></li>
 			<li><a class="message-icon" href="#">0</a></li>
 			</ul>
 		</div>
@@ -242,7 +242,7 @@
 							<div id="{{googleDocs.id.id}}" class="comment-wrapper2">
 								<a href="#" class="tag-icon" data-original-title="Search by Users">
 								</a>   	
-								<a href="#" class="hand-icon rock_docs"></a>
+								<a href="#" class="hand-icon rock_doc"></a>
 								<a href="#" class="message-icon"></a>
 								<a href="#" class="share-icon"></a>
 							</div>
@@ -259,9 +259,9 @@
 			</div>
 		</div>
 		<div class="comment-wrapper1"> <a class="common-icon data" href="#"></a>
-			<ul id="{{documents.id.id}}-activities" class="comment-list">
+			<ul id="{{googleDocs.id.id}}-activities" class="comment-list">
 			<li><a class="eye-icon" href="#">0</a></li>
-			<li><a class="hand-icon" href="#">{{documents.documentRocks}}</a></li>
+			<li><a class="hand-icon" href="#">{{googleDocs.documentRocks}}</a></li>
 			<li><a class="message-icon" href="#">0</a></li>
 			</ul>
 		</div>
