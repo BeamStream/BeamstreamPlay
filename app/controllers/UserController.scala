@@ -29,60 +29,15 @@ object UserController extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
   } + new ObjectIdSerializer
 
-  /**
-   * Register User via social sites
-   * Deprecated in favor of SocialController.authenticateUser
-   */
-
-  def registerUserViaSocialSite = Action { implicit request =>
-    val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
-    val token = tokenList(0)
-    val apiKey = Play.current.configuration.getString("janrain_apiKey").get
-    val URL = "https://rpxnow.com/api/v2/auth_info"
-
-    val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
-    val res = promise.get
-    val body = res.getBody
-
-    Ok(body).as("application/json")
-
-  }
-
-  /*
-   * Get all Contact data via social sites
-   * Deprecated in favor of SocialController.authenticateUser
-   */
-
-  def getContactsViaSocialSite = Action { implicit request =>
-    val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
-    val token = tokenList(0)
-    val apiKey = Play.current.configuration.getString("janrain_apiKey").get
-    val URL = "https://rpxnow.com/api/v2/auth_info"
-
-    val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
-    val res = promise.get
-    val body = res.getBody
-
-    val json = Json.parse(body)
-    val identifier = (json \ "profile" \ "identifier").as[String]
-
-    val URL2 = "https://rpxnow.com/api/v2/get_contacts"
-    val promise2 = WS.url(URL2).setQueryParameter("format", "json").setQueryParameter("identifier", identifier).setQueryParameter("apiKey", apiKey).get
-    val res2 = promise2.get
-    val body2 = res2.getBody
-
-    Ok(body2).as("application/json")
-
-  }
-
-  /*
+  
+  /* *
    * Reducing active user on sign Out
    */
 
   def signOut = Action { implicit request =>
     val noOfOnLineUsers = onlineUserCache.setOffline(request.session.get("userId").get)
     println("Online Users" + noOfOnLineUsers)
-    Ok(write(new ResulttoSent("Success", "Signed Out"))).withNewSession
+    Ok(write(ResulttoSent("Success", "Signed Out"))).withNewSession
 
   }
 
