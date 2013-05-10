@@ -65,7 +65,7 @@ define(['baseView',
 
 			imageListView = new ImageListView({el: $('#grid')});
 			imageListView.data.url = '/allPicsForAuser';
-			// imageListView.fetch();
+			$('#grid').attr('name','imageList');
 
 		},
 
@@ -76,6 +76,7 @@ define(['baseView',
 
 			videoListView = new VideoListView({el: $('#grid')});
 			videoListView.data.url = '/allVideosForAuser';
+			$('#grid').attr('name','videoList');
 
 		},
 
@@ -86,6 +87,7 @@ define(['baseView',
 
 			documentListView = new DocumentListView({el: $('#grid')});
 			documentListView.data.url = '/allDOCSFilesForAUser';
+			$('#grid').attr('name','documentList');
 			
 		},
 
@@ -96,6 +98,7 @@ define(['baseView',
 			
 			pdfListView = new PdfListView({el: $('#grid')});
 			pdfListView.data.url = '/allPDFFilesForAUser';
+			$('#grid').attr('name','pdfList');
 
 		},
 
@@ -106,6 +109,7 @@ define(['baseView',
 
 			presentationListView = new PresentationListView({el: $('#grid')});
 			presentationListView.data.url = '/allPPTFilesForAUser';
+			$('#grid').attr('name','presentationList');
 			
 		},
 
@@ -117,6 +121,7 @@ define(['baseView',
 
 			googleDocListView = new GoogleDocListView({el: $('#grid')});
 			googleDocListView.data.url = '/getAllGoogleDocs';
+			$('#grid').attr('name','googleDocList');
 			
 		},
 
