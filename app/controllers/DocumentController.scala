@@ -55,7 +55,7 @@ object DocumentController extends Controller {
     val docId = Document.addDocument(documentToCreate)
     val user = User.getUserProfile(userId)
     //Create A Message As Well To Display The Doc Creation In Stream
-    val message = Message(new ObjectId, url, Option(MessageType.Document), Option(MessageAccess.withName(access)), date, userId, Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil,None,Option(docId))
+    val message = Message(new ObjectId, url, Option(MessageType.Document), Option(MessageAccess.withName(access)), date, userId, Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil, None, Option(docId))
     val messageId = Message.createMessage(message)
     val messageObtained = Message.findMessageById(messageId.get)
     val userMedia = UserMedia.getProfilePicForAUser(messageObtained.get.userId)
@@ -67,12 +67,11 @@ object DocumentController extends Controller {
 
       case false => ""
     }
-    val docResults=DocResulttoSent(messageObtained.get, name, description, false, false, Option(profilePicForUser), None, Option(false))
+    val docResults = DocResulttoSent(messageObtained.get, name, description, false, false, Option(profilePicForUser), None, Option(false))
     Ok(write(docResults)).as("application/json")
 
   }
 
- 
   /**
    * Get all Documents for a User (Modified)
    */
@@ -87,9 +86,8 @@ object DocumentController extends Controller {
    * Rocking any kind of Doc Audio, Video , PPT etc.
    */
   def rockTheDocument(documentId: String) = Action { implicit request =>
-    val totalRocks = Document.rockedIt(new ObjectId(documentId), new ObjectId(request.session.get("userId").get))
-    val totalRocksJson = write(totalRocks.toString)
-    Ok(totalRocksJson).as("application/json")
+    val totalRocks = Document.rockTheDocument(new ObjectId(documentId), new ObjectId(request.session.get("userId").get))
+    Ok(write(totalRocks.toString)).as("application/json")
   }
 
   /*

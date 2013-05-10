@@ -146,8 +146,7 @@ object MediaController extends Controller {
    */
   def rockTheUsermedia(mediaId: String) = Action { implicit request =>
     val totalRocks = UserMedia.rockUserMedia(new ObjectId(mediaId), new ObjectId(request.session.get("userId").get))
-    val totalRocksJson = write(totalRocks.toString)
-    Ok(totalRocksJson).as("application/json")
+    Ok(write(totalRocks.toString)).as("application/json")
   }
 
   /**
@@ -255,7 +254,7 @@ object MediaController extends Controller {
 
     val recentDocs = Files.getAllDOCSFiles(new ObjectId(request.session.get("userId").get))
     val recentDoc = (recentDocs.isEmpty == false) match {
-      case true => 
+      case true =>
         Option(recentDocs.head)
       case false => None
     }
@@ -263,7 +262,7 @@ object MediaController extends Controller {
 
     val recentPPTs = Files.getAllPPTFiles(new ObjectId(request.session.get("userId").get))
     val recentPPT = (recentPPTs.isEmpty == false) match {
-      case true => 
+      case true =>
         println(recentPPTs)
         Option(recentPPTs.head)
       case false => None

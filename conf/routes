@@ -51,7 +51,7 @@ GET      /profilePicFor/user/:userId                                            
 PUT      /media/:mediaId                                                     controllers.DocumentController.changeTitleAndDescriptionForADocument(mediaId:String)
 GET      /allPicsForAuser                                                 controllers.MediaController.getAllPicsForAUser
 GET      /allVideosForAuser                                                controllers.MediaController.allVideosForAuser
-PUT      /rock/media/:mediaId                                                    controllers.MediaController.rockTheUsermedia(mediaId:String)
+PUT      /rock/media/:mediaId                                                   controllers.MediaController.rockTheUsermedia(mediaId:String)
 GET      /rockersOf/media/:mediaId                                               controllers.MediaController.giveMeRockersOfUserMedia(mediaId:String)
 
 #Message Rocks & Follows

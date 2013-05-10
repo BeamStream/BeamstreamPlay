@@ -129,7 +129,7 @@ object Document extends RockConsumer {
    *  Update the Rockers List and increase the count by one
    */
 
-  def rockedIt(documentId: ObjectId, userId: ObjectId): Int = {
+  def rockTheDocument(documentId: ObjectId, userId: ObjectId): Int = {
 
     val documentToRock = DocumentDAO.find(MongoDBObject("_id" -> documentId)).toList(0)
     documentToRock.documentRockers.contains(userId) match {
