@@ -23,8 +23,9 @@ define(['baseView',
 		'view/documentListView',
 		'view/pdfListView',
 		'view/presentationListView',
+		'view/googleDocListView',
 		'../../lib/bootstrap-modal',
-        ],function(BaseView,FileItemView,ImageListView,VideoListView,DocumentListView,PdfListView,PresentationListView,BootstrapModal){
+        ],function(BaseView,FileItemView,ImageListView,VideoListView,DocumentListView,PdfListView,PresentationListView,GoogleDocListView,BootstrapModal){
 	
 	var FilesOverView;
 	FilesOverView = BaseView.extend({
@@ -37,7 +38,7 @@ define(['baseView',
 			'click .pdf-list' : 'showPdfList',
 			'click .ppt-list' : 'showPresentationList',
 			'click .doctitle': 'editMediaTitle',
-			
+			'click .googleDocs-list': 'showGoogleDocList',
 			
 
 			
@@ -104,6 +105,19 @@ define(['baseView',
 			presentationListView.data.url = '/allPPTFilesForAUser';
 			
 		},
+
+
+		/**
+		* shows google docs list view
+		*/
+		showGoogleDocList: function(){
+
+			googleDocListView = new GoogleDocListView({el: $('#grid')});
+			googleDocListView.data.url = '/getAllGoogleDocs';
+			
+		},
+
+		
 
 		/**
          *  Show the popup for editing title and description of uploaded files

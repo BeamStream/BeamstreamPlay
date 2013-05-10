@@ -18,13 +18,17 @@
 
 define(['view/formView',
 		'text!templates/fileItem.tpl',
-        ],function(FormView,FileItemTpl){
+        '../../lib/extralib/jquery.prettyPhoto'
+        ],function(FormView,FileItemTpl,PrettyPhoto){
 	
 	var FileItemView;
 	FileItemView = FormView.extend({
 		objName: 'FileItemView',
 		events:{
-			'click .ediTitle': 'editTilteDescription'
+			'click .ediTitle': 'editTilteDescription',
+            'click .documents-popup': 'showFile',
+            'click .rock_docs' : 'rockDocuments'
+           
 
 		},
 		
@@ -41,6 +45,13 @@ define(['view/formView',
             var self = this,extension ='';
         	
         	if(this.fileType == "documents"){
+
+                // //to check whether the url is a google doc url or not
+                //  if(msgBody.match(/^(https:\/\/docs.google.com\/)/)) 
+                //  {
+                //      contentType = "googleDoc";
+                //  }
+
     		 	extension= (this.model.documentURL).match(extensionpattern);
         		if(extension){
 	        		extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
@@ -57,6 +68,21 @@ define(['view/formView',
 		    }
         	compiledTemplate = Handlebars.compile(FileItemTpl);
         	$(this.el).html(compiledTemplate(datas));
+
+
+            /* pretty photo functionality for video /image popups */
+            $("area[rel^='prettyPhoto']").prettyPhoto();
+            $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({
+                animation_speed:'normal',
+                theme:'light_square',
+                slideshow:3000, 
+                autoplay_slideshow: true
+            });
+            $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({
+                animation_speed:'fast',
+                slideshow:10000,
+                hideflash: true
+            });
         	
     		return this;
         },
@@ -75,8 +101,55 @@ define(['view/formView',
 
 			$('#editMedia').modal("show");
 
+        },
+
+        /**
+        * show files in a popup
+        */
+        showFile: function(e){
+            var docId = e.currentTarget.id, docUrl='';
+            var fileType = $(e.currentTarget).attr('name');
+
+            // /* show document is a popup */ 
+            if(fileType == "googleDoc")
+            {
+                docUrl = $('input#id-'+docId).val();
+                
+            }
+            else
+            {
+                docUrl = "http://docs.google.com/gview?url="+$('input#id-'+docId).val()+"&embedded=true"; 
+                
+            
+            }
+            $('#doc-title').html();
+            $('#document-url').attr('src',docUrl);
+            $('#doc_popup').modal("show");
+        },
+
+        /**
+        * Rockds Documents 
+        */
+        rockDocuments: function(eventName){
+            eventName.preventDefault();
+            var element = eventName.target.parentElement;
+            var docId =$(element).attr('id');
+           
+            this.data.url = "/rock/document/";
+            // set values to model
+            this.data.models[0].save({id : docId },{
+                success : function(model, response) {
+                   
+                     
+                },
+                error : function(model, response) {
+                    console.log("error");
+                }
+
+            });
+            
         }
-        
+
        
          
        
