@@ -221,7 +221,7 @@ object Document extends RockConsumer {
   // Add Rock to Doc If Message Contains docIdIfAny
   def rockTheMediaOrDoc(idToBeRocked: ObjectId, userId: ObjectId) {
     val docToBeRocked = Document.findDocumentById(idToBeRocked)
-    if (!docToBeRocked.isEmpty) Document.rockedIt(idToBeRocked, userId)
+    if (!docToBeRocked.isEmpty) Document.rockTheDocument(idToBeRocked, userId)
 
   }
 
