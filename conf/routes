@@ -27,7 +27,7 @@ PUT      /document/:documentId                                                  
 POST     /newDocument                                                               controllers.DocumentController.newDocument
 PUT      /rock/document/:documentId                                              controllers.DocumentController.rockTheDocument(documentId:String)
 GET      /rockersOf/document/:documentId                                         controllers.DocumentController.giveMeRockersOfDocument(documentId:String)
-GET      /document/:documentId                                                   controllers.DocumentController.getDocument(documentId:String)
+#GET      /document/:documentId                                                   controllers.DocumentController.getDocument(documentId:String)
 PUT      /follow/document/:documentId                                            controllers.DocumentController.followDocument(documentId:String)
 PUT      /viewCountOf/document/:documentId                                       controllers.DocumentController.viewCount(documentId:String)
 
