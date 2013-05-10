@@ -55,7 +55,7 @@ object DocumentController extends Controller {
     val docId = Document.addDocument(documentToCreate)
     val user = User.getUserProfile(userId)
     //Create A Message As Well To Display The Doc Creation In Stream
-    val message = Message(new ObjectId, url, Option(MessageType.Document), Option(MessageAccess.withName(access)), date, userId, Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil)
+    val message = Message(new ObjectId, url, Option(MessageType.Document), Option(MessageAccess.withName(access)), date, userId, Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil,Option(docId.toString))
     val messageId = Message.createMessage(message)
     val messageObtained = Message.findMessageById(messageId.get)
     val userMedia = UserMedia.getProfilePicForAUser(messageObtained.get.userId)
@@ -72,23 +72,7 @@ object DocumentController extends Controller {
 
   }
 
-  /**
-   *  Get details of a document
-   */
-
-  def getDocument(documentId: String) = Action { implicit request =>
-
-    (documentId != null) match {
-
-      case false => Ok(write(new ResulttoSent("Failure", "No Document Available Having The Provided DocumentId !!!")))
-      case true =>
-
-        val docObtained = Document.findDocumentById(new ObjectId(documentId))
-        val documentJSON = write(List(docObtained))
-        Ok(documentJSON).as("application/json")
-    }
-  }
-
+ 
   /**
    * Get all Documents for a User (Modified)
    */
