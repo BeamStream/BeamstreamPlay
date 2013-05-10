@@ -24,7 +24,7 @@ define(['view/formView',
 	FileItemView = FormView.extend({
 		objName: 'FileItemView',
 		events:{
-			// 'click .imageList': 'showImageList'
+			'click .ediTitle': 'editTilteDescription'
 
 		},
 		
@@ -49,7 +49,6 @@ define(['view/formView',
         		}
         	}
         	
-    		console.log(extension);
         	var datas = {
 			 	 "data" : this.model,
 			 	 "fileType" :this.fileType,
@@ -61,6 +60,22 @@ define(['view/formView',
         	
     		return this;
         },
+
+        /**
+        * Edit title and description
+        */
+        editTilteDescription: function(eventName){
+        	/* show the doc details in the popupa */
+        	var mediaId = eventName.currentTarget.id; 
+        	$('#docId').val(mediaId);
+        	$('#docType').val($('#fileType-'+mediaId).attr('value'));
+        	$('#edit-file-name').html('Edit '+ $('#name-'+mediaId).text()) ;  
+        	$('#docName').val($('#name-'+mediaId).text()) ;  
+        	$('#docDescription').val($('#description-'+mediaId).text()) ;   
+
+			$('#editMedia').modal("show");
+
+        }
         
        
          

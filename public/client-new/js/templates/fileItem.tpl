@@ -3,11 +3,12 @@
 			<div class="image-wrapper hovereffect"  id="{{data.id.id}}">
 				<div class="hover-div">
 					<img class="filmedia-picture" src="{{data.mediaUrl}}">
+					<input type="hidden" id="fileType-{{data.id.id}}" value="{{data.contentType.name}}">
 					<div class="hover-text">
 						<div class="comment-wrapper"> 
 							<a href="#imagelist" class="image-list" style="text-decoration: none">
 								<div id="media-{{id.id}}" >
-								<h4 id="name-{{images.id.id}}">{{#if data.name}}{{data.name}}{{else}}Image Name{{/if}}</h4>
+								<h4 id="name-{{data.id.id}}">{{#if data.name}}{{data.name}}{{else}}Image Name{{/if}}</h4>
 								<div class="description-info">
 								<div class="description-left">
 									<p class="doc-description " id="description-{{data.id.id}}" >{{#if data.description}}{{data.description}}{{else}}Image Description{{/if}}</p>
@@ -21,7 +22,7 @@
 							</div>
 						</div>
 					</div>
-					<h5 class="imgtitle" id="{{data.id.id}}">
+					<h5 class="ediTitle" id="{{data.id.id}}">
 						<span><img src="images/title-plus.png"></span> Title & Description
 					</h5>    
 					<div class="dateinfo">
@@ -45,6 +46,7 @@
 			<div class="image-wrapper hovereffect">
 			<div class="hover-div">
 				<img class="filmedia-picture" src="{{data.frameURL}}">
+				<input type="hidden" id="fileType-{{data.id.id}}" value="{{data.contentType.name}}">
 				<div class="hover-text">               
 					<div class="comment-wrapper">                               
 						<a href="#videos" class="video-list" style="text-decoration: none">
@@ -63,7 +65,7 @@
 						</div>
 					</div>
 				</div>
-					<h5 class="videotitle" id="{{data.id.id}}">
+					<h5 class="ediTitle" id="{{data.id.id}}">
 						<span><img src="images/title-plus.png"></span> Title & Description
 					</h5>          
 					<div class="dateinfo">
@@ -87,6 +89,7 @@
 			<div class="image-wrapper hovereffect" id="{{data.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="/beamstream-new/images/textimage.png ">
+			 		<input type="hidden" id="fileType-{{data.id.id}}" value="{{data.documentType.name}}">
 			 		<h3 class="common-doctext" >{{extension}}</h3>
 					<div class="hover-text">              
 						<div class="comment-wrapper">                               
@@ -107,7 +110,7 @@
 							</div>
 						</div>
 					</div>
-					<h5 class="doctitle" id="{{data.id.id}}">
+					<h5 class="ediTitle" id="{{data.id.id}}">
 						<span><img src="/beamstream-new/images/title-plus.png"></span> Title & Description
 					</h5>          
 					<div class="dateinfo">
@@ -131,6 +134,7 @@
 			<div class="image-wrapper hovereffect" id="{{data.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="{{data.previewImageUrl}}">
+			 		<input type="hidden" id="fileType-{{data.id.id}}" value="{{data.documentType.name}}">
 					<div class="hover-text">              
 						<div class="comment-wrapper">                               
 							<a href="#pdfFiles" class="pdf-list" style="text-decoration: none">
@@ -150,7 +154,7 @@
 							</div>
 						</div>
 					</div>
-					<h5 class="doctitle" id="{{data.id.id}}">
+					<h5 class="ediTitle" id="{{data.id.id}}">
 						<span><img src="/beamstream-new/images/title-plus.png"></span> Title & Description
 					</h5>          
 					<div class="dateinfo">
@@ -174,6 +178,7 @@
 			<div class="image-wrapper hovereffect" id="{{data.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="/beamstream-new/images/presentations_image.png">
+			 		<input type="hidden" id="fileType-{{data.id.id}}" value="{{data.documentType.name}}">
 					<div class="hover-text">              
 						<div class="comment-wrapper">                               
 							<a href="#presentations" class="ppt-list" style="text-decoration: none">
@@ -193,7 +198,7 @@
 							</div>
 						</div>
 					</div>
-					<h5 class="doctitle" id="{{data.id.id}}">
+					<h5 class="ediTitle" id="{{data.id.id}}">
 						<span><img src="/beamstream-new/images/title-plus.png"></span> Title & Description
 					</h5>          
 					<div class="dateinfo">
