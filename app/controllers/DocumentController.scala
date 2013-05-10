@@ -78,7 +78,7 @@ object DocumentController extends Controller {
 
   def getAllGoogleDocumentsForAUser = Action { implicit request =>
     val allDocumentsForAUser = Document.getAllGoogleDocumentsForAUser(new ObjectId(request.session.get("userId").get))
-    Ok(write(allDocumentsForAUser)).as("application/json")
+    Ok(write(Documents(allDocumentsForAUser))).as("application/json")
   }
 
   /**
