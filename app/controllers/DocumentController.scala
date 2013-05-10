@@ -56,9 +56,9 @@ object DocumentController extends Controller {
     val user = User.getUserProfile(userId)
     //Create A Message As Well To Display The Doc Creation In Stream
     val message = Message(new ObjectId, url, Option(MessageType.Document), Option(MessageAccess.withName(access)), date, userId, Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil)
-    Message.createMessage(message)
-    val docObtained = Document.findDocumentById(docId)
-    Ok(write(List(docObtained))).as("application/json")
+    val messageId=Message.createMessage(message)
+    val messageObtained = Message.findMessageById(messageId.get)
+    Ok(write(List(messageObtained))).as("application/json")
 
   }
 
