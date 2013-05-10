@@ -89,9 +89,7 @@ object UserMedia extends RockConsumer {
    * Get All picture for a user
    */
   def getAllPicsForAUser(userId: ObjectId): List[UserMedia] = {
-
     UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Image")).toList
-
   }
 
   /*
