@@ -31,7 +31,18 @@
 @bodyJS = {
 <script type="text/JavaScript" src="/beamstream-new/lib/jquery.preview.full.min.js"></script>
 <script>
-$('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+	$('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
+
+	Array.prototype.remove = function() {
+		var what, a = arguments, L = a.length, ax;
+		while (L && this.length) {
+			what = a[--L];
+			while ((ax = this.indexOf(what)) !== -1) {
+				this.splice(ax, 1);
+			}
+		}
+		return this;
+	};
 </script>
 
 <!-- for pie charts  -->
