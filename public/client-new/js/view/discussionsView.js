@@ -5,7 +5,9 @@ define(['view/formView',
         // '../../lib/jquery.preview.full.min',
         '../../lib/extralib/jquery.embedly.min',
         'text!templates/discussionComment.tpl',
-        ], function(FormView, MessageListView, MessageItemView ,DiscussionModel, JqueryEmbedly ,DiscussionComment ){
+        'BS_social',
+        '../../lib/bootstrap-modal'
+        ], function(FormView, MessageListView, MessageItemView ,DiscussionModel, JqueryEmbedly ,DiscussionComment ,ShareMedia,Bootstrap){
 	var Discussions;
 	Discussions = FormView.extend({
 		objName: 'Discussion',
@@ -21,6 +23,7 @@ define(['view/formView',
 			 'keypress #msg-area' : 'postMessageOnEnterKey',
 			 'change #upload-files-area' : 'getUploadedData',
 			 
+			 
 		 },
 
 		 messagesPerPage: 10,
@@ -29,8 +32,9 @@ define(['view/formView',
 		
 		 
 		 onAfterInit: function(){	
+			var self=this;
             this.data.reset();
-            
+            self.selected_medias = [];
             $('#main-photo').attr('src',localStorage["loggedUserProfileUrl"]);
 
             this.urlRegex1 = /(https?:\/\/[^\s]+)/g;
@@ -155,6 +159,9 @@ define(['view/formView',
 		 			    		var messageItemView  = new MessageItemView({model : self.data.models[0]});
 		 						$('#messageListView div.content').prepend(messageItemView.render().el);
 		 						
+		 						self.selected_medias = [];
+			                    $('#share-discussions li.active').removeClass('active');
+		 						
  		                    }
  		                }); 
  			        	
@@ -251,8 +258,7 @@ define(['view/formView',
         		// set values to model
 			    this.data.models[0].save({streamId : streamId, docName :message, docAccess:messageAccess ,docURL:message , docType: 'GoogleDocs', docDescription: ''},{
 			    	success : function(model, response) {
-			    		
-			    		
+			    					    		
 			    		/* PUBNUB -- AUTO AJAX PUSH */ 
 			    		PUBNUB.publish({
 			    			channel : "stream",
@@ -263,8 +269,14 @@ define(['view/formView',
 			    		// show the uploaded file on message llist
  			    		var messageItemView  = new MessageItemView({model : self.data.models[0]});
  						$('#messageListView div.content').prepend(messageItemView.render().el);
-
-			    		
+ 						
+ 						/* share widget */ 						
+ 						console.log(self.selected_medias);
+  				    	 if(self.selected_medias.length != 0){
+				    	 	 _.each(self.data.models[0], function(data) {
+				    	 		 showJanrainShareWidget(self.data.models[0].attributes.message.messageBody, 'View my Beamstream post', 'http://beamstream.com', self.data.models[0].attributes.message.messageBody ,self.selected_medias);
+				    	 	 });
+  				    	 }
 						
 			    		/* delete default embedly preview */
 			    		$('div.selector').attr('display','none');
@@ -272,15 +284,17 @@ define(['view/formView',
 			    		$('div.selector').remove();
 			    		$('.preview_input').remove();
 			    		$('#msg-area').val("");
+			    		$('#share-discussions li.active').removeClass('active');
+			    		self.selected_medias = [];						
 			    		
 			    	},
 			    	error : function(model, response) {
 			    		$('#msg-area').val("");
 	                    console.log("error");
 			    	}
-
+			    	
 			    });
-
+			    
 
         	}else{
 
@@ -311,12 +325,22 @@ define(['view/formView',
 			    		var messageItemView  = new MessageItemView({model : self.data.models[0]});
 						$('#messageListView div.content').prepend(messageItemView.render().el);
 						
+						/* share widget */ 						
+ 						console.log(self.selected_medias); 						
+  				    	 if(self.selected_medias.length != 0){
+				    	 	 _.each(self.data.models[0], function(data) {				    	 		 
+				    	 		 showJanrainShareWidget(self.data.models[0].attributes.message.messageBody, 'View my Beamstream post', 'http://beamstream.com',self.data.models[0].attributes.message.messageBody ,self.selected_medias);
+				    	 	 });
+  				    	 }
+						
 			    		/* delete default embedly preview */
 			    		$('div.selector').attr('display','none');
 			    		$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
 			    		$('div.selector').remove();
 			    		$('.preview_input').remove();
 			    		$('#msg-area').val("");
+			    		$('#share-discussions li.active').removeClass('active');
+			    		self.selected_medias = [];
 			    		
 			    	},
 			    	error : function(model, response) {
@@ -325,6 +349,7 @@ define(['view/formView',
 			    	}
 
 			    });
+			    
         	}
 
         	
@@ -356,17 +381,19 @@ define(['view/formView',
         actvateShareIcon: function(eventName){
         	
         	eventName.preventDefault();
-        	
+        	var self=this;
         	$('#private-to').attr('checked',false);
         	$('#select-privateTo').text("Public");
         	$('#select-privateTo').attr('value', 'public');
         	
         	if($(eventName.target).parents('li').hasClass('active'))
         	{
+        		self.selected_medias.remove($(eventName.target).parents('li').attr('name'));
         		$(eventName.target).parents('li').removeClass('active');
         	}
         	else
         	{
+        		self.selected_medias.push($(eventName.target).parents('li').attr('name'));
         		$(eventName.target).parents('li').addClass('active');
         	}
         	
