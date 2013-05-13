@@ -18,22 +18,106 @@
 @bodyCls = {}
 @bodyModule = {}
 @bodyJS = {
-<script type="text/javascript">
-$(' nav li a.active').removeClass('active');
-$('#menu-browsemedia').addClass('active');
+  <script type="text/javascript">
+  $(' nav li a.active').removeClass('active');
+  $('#menu-browsemedia').addClass('active');
 
-  /**
-  * hide visual drop down list
-  */
+    /**
+    * hide visual drop down list
+    */
 
-  $('body').click(function() {
-   
-    $('#uploadmediachild_dr').find('li').find('ul').hide(200);
-    $('#uploadmediachild_dr').hide(200);
+    $('body').click(function() {
+     
+      $('#uploadmediachild_dr').find('li').find('ul').hide(200);
+      $('#uploadmediachild_dr').hide(200);
 
-  });
+    });
 
-</script>
+  </script>
+
+ <!--<script type="text/javascript">
+//   /* implemented  the shuffle plugin on sorting */
+//   function shufflingOnSorting() {
+//     // instantiate the shuffle plugin
+//     $('#grid').shuffle({
+//       key : 'all',
+//       speed : 800,
+//       easing : 'ease-out'
+//     });
+
+//     // Set up button clicks
+//     $('#view-by-date-list li').on('click',function() {
+
+//           var $this = $(this), $grid = $('#grid'), sort = $this
+//               .data('sort'), opts = {};
+
+//           $grid.shuffle($this.data('group'));
+
+//           // We're given the element wrapped in jQuery
+//           if (sort === 'date-oldest') {
+//             opts = {
+//               by : function($el) {
+//                 return $el.data('date-created');
+//               }
+//             }
+//           } else if (sort === 'date-recent') {
+
+//             opts = {
+//               by : function($el) {
+//                 return $el.data('date-created');
+//               },
+//               reverse : true
+//             }
+//           } else if (sort === 'title') {
+//             opts = {
+//               by : function($el) {
+//                 return $el.data('title').toLowerCase();
+//               }
+//             }
+//           } else if (sort === 'rocks') {
+
+//             opts = {
+//               by : function($el) {
+//                 return $el.data('rock');
+
+//               },
+//               reverse : true
+//             }
+//           }
+
+//           // Filter elements
+//           $grid.shuffle('sort', opts);
+
+//         });
+
+//     // Set up button clicks
+//     $('#view-files-byrock-list li ').on(
+//         'click',
+//         function() {
+
+//           var $this = $(this), $grid = $('#grid'), sort = $this
+//               .data('sort'), opts = {};
+
+//           // We're given the element wrapped in jQuery
+//           if (sort === 'rocks') {
+
+//             opts = {
+//               by : function($el) {
+//                 return $el.data('rock');
+
+//               },
+//               reverse : true
+//             }
+//           }
+
+//           // Filter elements
+//           $grid.shuffle('sort', opts);
+
+//         });
+
+//   }
+// </script> -->
+
 }
 @sideBar = {
  	
@@ -50,11 +134,13 @@ $('#menu-browsemedia').addClass('active');
 
 <div  id="browsemedia" data-module="view/browseMediaView" >
     <div class="right-container browse-conatiner">
+
+    <div  id="browsemediaHeader" data-model="file" data-module="view/browseMediaHeaderView" >
      <div class="stream-header browse-header">
           <ul id="dropdownnew" class="no-image">
 
               <li class="leftplusicon"><a id="uploadmedia_dr" class="leftplusicon-a" href="#">Upload Media/Docs: </a>
-				      <ul id="uploadmediachild_dr" >
+              <ul id="uploadmediachild_dr" >
                       
                        <li id="childone_dr"><a id ="classdoc_dr" href="#">Class Document</a>
                           <ul id="classdocmenu_dr" class="fixingmenu_dr">
@@ -861,12 +947,12 @@ $('#menu-browsemedia').addClass('active');
             <a href="#" class="green-btn activebtn"><span class="visual visual-dot"></span><span class="texter">Visual Files</span></a> <a href="#" class="green-btn"><span class="visual visual-line"></span><span class="texter">Files Folder</span></a> </div>
           <div class="stream-top-shadow"><img src="images/shadow.png"></div>         
            </div>
-           
-           <div  id="upload_media">
+    </div>
 
-        </div>
+    <div  id="upload_media">
+    </div>
            
-        <div class="bowse-info">
+    <div class="bowse-info">
           <div class="browse-menu">
             <ul class="sort">
               <h6>View</h6>
