@@ -14,7 +14,7 @@ import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
 import java.util.Date
 import java.net.URL
-
+import java.util.regex.Pattern
 /*
  * Enumeration for the document access 
  * 
@@ -214,6 +214,16 @@ object Document extends RockConsumer {
       case true => None
       case false => Option(document.head)
     }
+
+  }
+
+  /**
+   * Search Media For A User By Keyword
+   */
+
+  def searchDocumentForAUserByName(userId: ObjectId, keyword: String): List[Document] = {
+    val keyWordPattern = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE)
+    DocumentDAO.find(MongoDBObject("userId" -> userId, "documentName" -> keyWordPattern)).toList
 
   }
 

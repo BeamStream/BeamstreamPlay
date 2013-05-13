@@ -283,4 +283,14 @@ object MediaController extends Controller {
     Ok(write(List(MediaResults(recentImage, recentVideo, recentDoc, recentGoogleDoc, recentAudio, recentPDF, recentPPT)))).as("application/json")
   }
 
+  /**
+   * Search media and documents
+   */
+  //TODO Change the response format as required by UI team
+  def searchMediaOrDocumentForAUser(keyword: String) = Action { implicit request =>
+    val userMediaForAUserByThisKeyword = UserMedia.searchMediaForAUserByName(new ObjectId(request.session.get("userId").get), keyword)
+    val documentsForAUserByThisKeyword = Document.searchDocumentForAUserByName(new ObjectId(request.session.get("userId").get), keyword)
+    Ok(write(userMediaForAUserByThisKeyword ++ documentsForAUserByThisKeyword)).as("application/json")
+  }
+
 }

@@ -316,10 +316,11 @@ object DocumentController extends Controller {
 
   def viewCount(documentId: String) = Action { implicit request =>
     val mediaFile = UserMedia.findMediaById(new ObjectId(documentId))
-    if (mediaFile != None) {
-      UserMedia.increaseViewCountOfUsermedia(mediaFile.get.id)
-    } else Document.increaseViewCountOfADocument(new ObjectId(documentId))
-    Ok
+    val viewCount = (mediaFile != None) match {
+      case true => UserMedia.increaseViewCountOfUsermedia(mediaFile.get.id)
+      case false => Document.increaseViewCountOfADocument(new ObjectId(documentId))
+    }
+    Ok(write(viewCount.toString)).as("application/json")
   }
 }
 

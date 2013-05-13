@@ -5,9 +5,8 @@ define(['view/formView',
         // '../../lib/jquery.preview.full.min',
         '../../lib/extralib/jquery.embedly.min',
         'text!templates/discussionComment.tpl',
-        'BS_social',
         '../../lib/bootstrap-modal'
-        ], function(FormView, MessageListView, MessageItemView ,DiscussionModel, JqueryEmbedly ,DiscussionComment ,ShareMedia,Bootstrap){
+        ], function(FormView, MessageListView, MessageItemView ,DiscussionModel, JqueryEmbedly ,DiscussionComment ,Bootstrap){
 	var Discussions;
 	Discussions = FormView.extend({
 		objName: 'Discussion',
@@ -34,7 +33,7 @@ define(['view/formView',
 		 onAfterInit: function(){	
 			var self=this;
             this.data.reset();
-            self.selected_medias = [];
+            this.selected_medias = [];
             $('#main-photo').attr('src',localStorage["loggedUserProfileUrl"]);
 
             this.urlRegex1 = /(https?:\/\/[^\s]+)/g;
@@ -314,7 +313,6 @@ define(['view/formView',
 			    this.data.models[0].save({streamId : streamId, message :message, messageAccess:messageAccess},{
 			    	success : function(model, response) {
 			    		
-			    		console.log(self.data.models[0]);  
 			    		/* PUBNUB -- AUTO AJAX PUSH */ 
 			    		PUBNUB.publish({
 			    			channel : "stream",
@@ -326,7 +324,6 @@ define(['view/formView',
 						$('#messageListView div.content').prepend(messageItemView.render().el);
 						
 						/* share widget */ 						
- 						console.log(self.selected_medias); 						
   				    	 if(self.selected_medias.length != 0){
 				    	 	 _.each(self.data.models[0], function(data) {				    	 		 
 				    	 		 showJanrainShareWidget(self.data.models[0].attributes.message.messageBody, 'View my Beamstream post', 'http://beamstream.com',self.data.models[0].attributes.message.messageBody ,self.selected_medias);

@@ -16,7 +16,6 @@ PUT   /remove/message/:messageId                                              co
 
 #Comments
 POST     /answer                                                                 controllers.CommentController.newAnswer
-#GET    /comments           						controllers.CommentController.getAllComments   
 GET      /rockersOf/comment/:commentId                                           controllers.CommentController.commentRockers(commentId:String)
 PUT      /remove/comment/:messageOrQuestionId/:commentId                                            controllers.CommentController.deleteTheComment(commentId:String,messageOrQuestionId:String)
 GET      /isARockerOf/comment/:commentId                                         controllers.CommentController.isARocker(commentId:String)
@@ -24,7 +23,7 @@ GET      /isARockerOf/comment/:commentId                                        
 #Document
 GET      /getAllGoogleDocs                                                              controllers.DocumentController.getAllGoogleDocumentsForAUser
 PUT      /document/:documentId                                                   controllers.DocumentController.changeTitleAndDescriptionForADocument(documentId:String)
-POST     /newDocument                                                               controllers.DocumentController.newDocument
+POST     /newDocument                                                            controllers.DocumentController.newDocument
 PUT      /rock/document/:documentId                                              controllers.DocumentController.rockTheDocument(documentId:String)
 GET      /rockersOf/document/:documentId                                         controllers.DocumentController.giveMeRockersOfDocument(documentId:String)
 #GET      /document/:documentId                                                   controllers.DocumentController.getDocument(documentId:String)
@@ -175,8 +174,7 @@ GET      /browsemedia                                                           
 GET      /getAllQuestionsForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo   controllers.QuestionController.getAllQuestionForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
 
 #Documents
-POST     /uploadDocumentFromDisk                                                 controllers.DocumentController.uploadDocumentFromDisk
-
+POST     /uploadDocumentFromDisk                                             controllers.DocumentController.uploadDocumentFromDisk
 #Password Recovery
 POST     /forgotPassword                                                         controllers.UserController.forgotPassword
 GET      /recover                                                                controllers.UserController.renderForgotPasswordView
@@ -188,7 +186,9 @@ GET      /allPPTFilesForAUser                                                   
 GET      /allPDFFilesForAUser                                                    controllers.DocumentController.getAllPDFFilesForAUser
 GET      /allDOCSFilesForAUser                                                   controllers.DocumentController.getAllDOCSFilesForAUser
 
-                                                    
+ #Search Media Or Documents
+ 
+ GET  search/:keyword                                                            controllers.MediaController.searchMediaOrDocumentForAUser(keyword:String)     
 
 
 	
