@@ -16,5 +16,11 @@ object MongoHQConfig {
   val mongoDB = MongoConnection(mongoServer, mongoPort)(databaseName)
   mongoDB.authenticate(dbUserName, dbUserPassword)
 
+  /**
+   * For Local Testing
+   */
+
+//  val mongoDB = MongoConnection("", 27017)("beamstream")
+//  mongoDB.authenticate("", "")
 
 }
