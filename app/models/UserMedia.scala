@@ -9,6 +9,7 @@ import org.bson.types.ObjectId
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 import java.util.Date
+import java.util.regex.Pattern
 case class UserMedia(@Key("_id") id: ObjectId,
   name: String,
   description: String,
@@ -168,7 +169,7 @@ object UserMedia extends RockConsumer {
   /**
    * Increasing View Count
    */
-  def increaseViewCountOfUsermedia(userMediaId: ObjectId) ={
+  def increaseViewCountOfUsermedia(userMediaId: ObjectId) = {
     val userMediaFound = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
     UserMediaDAO.update(MongoDBObject("_id" -> userMediaId), userMediaFound.copy(views = (userMediaFound.views + 1)), false, false, new WriteConcern)
     val updatedUserMedia1 = UserMediaDAO.find(MongoDBObject("_id" -> userMediaId)).toList(0)
@@ -196,6 +197,16 @@ object UserMedia extends RockConsumer {
       case true => None
       case false => Option(profilePic.head)
     }
+
+  }
+
+  /**
+   * Search Media For A User By Keyword
+   */
+
+  def searchMediaForAUserByName(userId: ObjectId, keyword: String): List[UserMedia] = {
+    val keyWordPattern = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE)
+    UserMediaDAO.find(MongoDBObject("userId" -> userId, "name" -> keyWordPattern)).toList
 
   }
 
