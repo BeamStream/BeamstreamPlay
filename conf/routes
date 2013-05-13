@@ -175,8 +175,7 @@ GET      /browsemedia                                                           
 GET      /getAllQuestionsForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo   controllers.QuestionController.getAllQuestionForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
 
 #Documents
-POST     /uploadDocumentFromDisk                                                 controllers.DocumentController.uploadDocumentFromDisk
-
+POST     /uploadDocumentFromDisk                                             controllers.DocumentController.uploadDocumentFromDisk
 #Password Recovery
 POST     /forgotPassword                                                         controllers.UserController.forgotPassword
 GET      /recover                                                                controllers.UserController.renderForgotPasswordView
