@@ -16,6 +16,8 @@ import models.ResulttoSent
 import models.Question
 import models.RockDocOrMedia
 import java.text.SimpleDateFormat
+import models.ResulttoSent
+import models.UserMedia
 
 object CommentController extends Controller {
 
@@ -27,57 +29,67 @@ object CommentController extends Controller {
 
     val commentJson = request.body.asJson.get
 
-    try {
-      /**
-       * Direct Approach
-       */
+    /**
+     * Direct Approach
+     */
 
-      ((commentJson \ "messageId").asOpt[String] != None) match {
+    ((commentJson \ "messageId").asOpt[String] != None) match {
+
+      case true =>
+        val messageId = (commentJson \ "messageId").as[String]
+        val commentText = (commentJson \ "comment").as[String]
+        val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
+        val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
+          commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
+        val commentId = Comment.createComment(comment)
+        Message.addCommentToMessage(commentId, new ObjectId(messageId))
+//        val message = Message.findMessageById(new ObjectId(messageId)).get
+//        if (!(message.docIdIfAny == None)) RockDocOrMedia.commentDocOrMedia(message.docIdIfAny.get, commentId)
+        Ok(write(comment)).as("application/json")
+
+      case false => ((commentJson \ "docId").asOpt[String] != None) match {
 
         case true =>
-          val messageId = (commentJson \ "messageId").as[String]
+          val docId = (commentJson \ "docId").as[String]
           val commentText = (commentJson \ "comment").as[String]
           val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
           val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
-            commentPoster.get.firstName, commentPoster.get.lastName, 0,  List())
+            commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
           val commentId = Comment.createComment(comment)
-          Message.addCommentToMessage(commentId, new ObjectId(messageId))
-          val message = Message.findMessageById(new ObjectId(messageId)).get
-          if (!(message.docIdIfAny == None)) RockDocOrMedia.commentDocOrMedia(message.docIdIfAny.get, commentId)
-          Ok(write(comment)).as("application/json")
+          Document.addCommentToDocument(commentId, new ObjectId(docId))
+          Ok(write(List(comment))).as("application/json")
 
-        case false => ((commentJson \ "docId").asOpt[String] != None) match {
+        case false => ((commentJson \ "questionId").asOpt[String] != None) match {
 
           case true =>
-            val docId = (commentJson \ "docId").as[String]
+            val questionId = (commentJson \ "questionId").as[String]
             val commentText = (commentJson \ "comment").as[String]
             val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
             val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
-              commentPoster.get.firstName, commentPoster.get.lastName, 0,  List())
+              commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
             val commentId = Comment.createComment(comment)
-            Document.addCommentToDocument(commentId, new ObjectId(docId))
-            Ok(write(List(comment))).as("application/json")
+            Question.addCommentToQuestion(commentId, new ObjectId(questionId))
+            Ok(write(comment)).as("application/json")
 
-          case false => ((commentJson \ "questionId").asOpt[String] != None) match {
+          case false => ((commentJson \ "userMediaId").asOpt[String] != None) match {
 
             case true =>
-              val questionId = (commentJson \ "questionId").as[String]
+              val userMediaId = (commentJson \ "userMediaId").as[String]
               val commentText = (commentJson \ "comment").as[String]
               val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
               val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
-                commentPoster.get.firstName, commentPoster.get.lastName, 0,  List())
+                commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
               val commentId = Comment.createComment(comment)
-              Question.addCommentToQuestion(commentId, new ObjectId(questionId))
+              UserMedia.addCommentToUserMedia(commentId, new ObjectId(userMediaId))
               Ok(write(comment)).as("application/json")
 
-            case false => Ok(write(new ResulttoSent("Failure", "IdNotFound")))
+            case false => Ok(write(ResulttoSent("Failure", "Id Not Found")))
           }
         }
-
       }
-    } catch {
-      case exception => InternalServerError("There Was Some Problem During Posting Comment")
+
     }
+
   }
 
   /**
@@ -138,7 +150,7 @@ object CommentController extends Controller {
    * Return Comment Rockers List
    */
 
-  def commentRockers(commentId:String) = Action { implicit request =>
+  def commentRockers(commentId: String) = Action { implicit request =>
     val rockersNameForAComment = Comment.commentsRockersNames(new ObjectId(commentId))
     Ok(write(rockersNameForAComment)).as("application/json")
 
@@ -148,8 +160,8 @@ object CommentController extends Controller {
    * Delete A Comment
    */
 
-  def deleteTheComment(commentId:String,messageOrQuestionId:String) = Action { implicit request =>
-    val deletedTheCommnet = Comment.deleteCommentPermanently(new ObjectId(commentId),new ObjectId(messageOrQuestionId), new ObjectId(request.session.get("userId").get))
+  def deleteTheComment(commentId: String, messageOrQuestionId: String) = Action { implicit request =>
+    val deletedTheCommnet = Comment.deleteCommentPermanently(new ObjectId(commentId), new ObjectId(messageOrQuestionId), new ObjectId(request.session.get("userId").get))
     if (deletedTheCommnet == true) Ok(write(new ResulttoSent("Success", "Comment Has Been Deleted")))
     else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Comment")))
   }
@@ -158,7 +170,7 @@ object CommentController extends Controller {
    * Is a Rocker
    * @ Purpose: identify if the user has rocked the comment or not
    */
-  def isARocker(commentId:String) = Action { implicit request =>
+  def isARocker(commentId: String) = Action { implicit request =>
     {
       val isARockerOfComment = Comment.isARocker(new ObjectId(commentId), new ObjectId(request.session.get("userId").get))
       Ok(write(isARockerOfComment.toString)).as("application/json")
@@ -174,7 +186,7 @@ object CommentController extends Controller {
     val answerText = commentJson("answer").toList(0)
     val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val comment = new Comment(new ObjectId, answerText, new Date, new ObjectId(request.session.get("userId").get),
-      commentPoster.get.firstName, commentPoster.get.lastName, 0,  List())
+      commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
     val answerId = Comment.createComment(comment)
     Question.addAnswerToQuestion(new ObjectId(questionId), answerId)
     Ok(write(List(comment))).as("application/json")
