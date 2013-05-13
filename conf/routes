@@ -186,9 +186,8 @@ GET      /allPPTFilesForAUser                                                   
 GET      /allPDFFilesForAUser                                                    controllers.DocumentController.getAllPDFFilesForAUser
 GET      /allDOCSFilesForAUser                                                   controllers.DocumentController.getAllDOCSFilesForAUser
 
- #Search Media Or Documents
- 
- GET  search/:keyword                                                            controllers.MediaController.searchMediaOrDocumentForAUser(keyword:String)     
+#Search Media Or Documents
+GET  search/:keyword                                               controllers.MediaController.searchMediaOrDocumentForAUser(keyword:String)     
 
 
 	

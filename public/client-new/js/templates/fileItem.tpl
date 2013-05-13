@@ -1,3 +1,4 @@
+
 {{#ifequal fileType "image"}}
 <li   data-rock="{{data.rocks}}" data-date-created="{{data.dateCreated}}" class="item" >
 			<div class="image-wrapper hovereffect"  id="{{data.id.id}}">

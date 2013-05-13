@@ -88,7 +88,7 @@
 	{{/if}}
 	{{#if documents}}
 		
-		<li data-groups="["recent"]" data-date-created="{{documents.creationDate}}" class="item" >
+		<li data-groups='["recent"]' data-date-created="{{documents.creationDate}}" class="item" >
 			<div class="image-wrapper hovereffect" id="{{documents.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="/beamstream-new/images/docs_image.png ">
@@ -133,7 +133,7 @@
 	{{/if}}
 	{{#if pdfFiles}}
 		
-		<li data-groups="["oldest"]" data-date-created="{{pdfFiles.creationDate}}" class="item" >
+		<li data-groups='["oldest"]' data-date-created="{{pdfFiles.creationDate}}" class="item" >
 			<div class="image-wrapper hovereffect" id="{{pdfFiles.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="{{pdfFiles.previewImageUrl}}">
@@ -178,7 +178,7 @@
 	{{/if}}
 	{{#if pptFiles}}
 		
-		<li data-groups="["oldest"]" data-date-created="{{pptFiles.creationDate}}" class="item" >
+		<li data-groups='["oldest"]' data-date-created="{{pptFiles.creationDate}}" class="item" >
 			<div class="image-wrapper hovereffect" id="{{pptFiles.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="/beamstream-new/images/presentations_image.png">
@@ -224,7 +224,7 @@
 
 	{{#if googleDocs}}
 		
-		<li data-groups="["recent"]" data-date-created="{{googleDocs.creationDate}}" class="item" >
+		<li data-groups='["recent"]' data-date-created="{{googleDocs.creationDate}}" class="item" >
 			<div class="image-wrapper hovereffect" id="{{googleDocs.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="/beamstream-new/images/google_docs_image.png">
