@@ -282,5 +282,5 @@ function janRainLogin(info) {
 
 }
 //showJanrainSigninWidget();
-//loadJanrainShareWidget();
+loadJanrainShareWidget();
 
