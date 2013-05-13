@@ -523,7 +523,7 @@ define(['view/formView',
 	 				"callback": function() {
 
 	 					var comment = new CommentModel();
-	 					var comment = new CommentModel();
+//	 					var comment = new CommentModel();
 	 					comment.urlRoot = '/remove/comment/'+questionId;
 
 	 					/* delete the omment from the model */
@@ -594,6 +594,7 @@ define(['view/formView',
 
 			question.save({id: optionId},{
 				success : function(model, response) {
+					
 					var voteCount = response.voters.length;
                      $('input#'+response.id.id+'-voteCount').val(voteCount);
                      
@@ -609,10 +610,10 @@ define(['view/formView',
                      
                      var streamId =  $('.sortable li.active').attr('id');
                      //Auto push 
-                     // PUBNUB.publish({
-                    	//  channel : "voting",
-	                    //      message : { pagePushUid:self.pagePushUid ,streamId:streamId,data:data,questionId:questionId,userId:BS.loggedUserId}
-                     // }) 
+                      PUBNUB.publish({
+                    	  channel : "voting",
+	                          message : { pagePushUid:self.pagePushUid ,streamId:streamId,data:response,questionId:questionId,userId:localStorage["loggedUserId"]}
+                      }) 
                      
                      $("input[name="+questionId+"]").attr('disabled',true);
 		 			

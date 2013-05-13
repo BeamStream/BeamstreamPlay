@@ -293,7 +293,7 @@ define(['view/formView',
 			    		/* PUBNUB -- AUTO AJAX PUSH */ 
 			    		PUBNUB.publish({
 			    			channel : "questions",
-			    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:self.data.models[0]}
+			    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response}
 			    		}) 
 			    		
 			    	},
@@ -306,14 +306,15 @@ define(['view/formView',
 		    	});
         	}else{
         		console.log(pollOptions);
-console.log(888);
+        		console.log(888);
         		// set values to model
 			    this.data.models[0].save({streamId : streamId, questionBody :question, questionAccess:questionAccess ,pollOptions:pollOptions},{
 			    	success : function(model, response) {
+			    		console.log(self.data.models[0]);
 			    		/* PUBNUB -- AUTO AJAX PUSH */ 
 			    		PUBNUB.publish({
 			    			channel : "questions",
-			    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:self.data.models[0]}
+			    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response}
 			    		}) 
 			    		// show the posted message on feed
 			    		var questionItemView  = new QuestionItemView({model : self.data.models[0]});
@@ -464,7 +465,9 @@ console.log(888);
 								   questionAccess : question.data.questionAccess,
 								   profilePic : question.data.profilePic,
 								   streamId : question.data.streamId,
-								   followerOfQuestionPoster : question.data.followerOfQuestionPoster
+								   followerOfQuestionPoster : question.data.followerOfQuestionPoster,
+								   polls: question.data.polls,
+								   pollOptions:question.data.pollOptions
 							   })
 							    // show the posted message on feed
 							 	var questionItemView  = new QuestionItemView({model :questionModel});
