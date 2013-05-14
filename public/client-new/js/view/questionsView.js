@@ -36,7 +36,133 @@ define(['view/formView',
             this.selected_medias = [];
          	$('#Q-main-photo').attr('src',localStorage["loggedUserProfileUrl"]);
          	this.setupPushConnection();
+
+
+         	/* pagination */
+            $(window).bind('scroll', function (ev) {
+
+            	var activeTab = $('.stream-tab li.active').attr('id');
+            	if(activeTab=='question'){
+				
+					var scrollTop =$(window).scrollTop();
+					var docheight = $(document).height();
+					var widheight = $(window).height();
+					if(scrollTop + 1 == docheight- widheight || scrollTop == docheight- widheight){
+				 	   var t = $('#questionListView').find('div.content');
+					   if(t.length != 0)
+					   {
+					   		
+					   		var msgSortedType = $('#sortQuestionBy-select').attr('value');
+							$('#question-pagination').show();
+							var streamId = $('.sortable li.active').attr('id');
+
+							view = self.getViewById('questionListView');
+						
+							if(msgSortedType == "date")
+							{    
+								self.pageNo++;
+					    		if(view){
+					    			
+					    			self.data.url="/getAllQuestionsForAStream/"+streamId+"/date/"+view.messagesPerPage+"/"+self.pageNo;
+					    			self.appendMessages();
+					    		}
+							}
+							else if(msgSortedType == "rock")
+							{    
+								self.pageNo++;
+					    		if(view){
+					    			
+					    			self.data.url="/getAllQuestionsForAStream/"+streamId+"/rock/"+view.messagesPerPage+"/"+self.pageNo;
+					    			self.appendMessages();
+					    		}
+							}
+
+							
+							
+					   }
+					 }
+					else
+					{
+						  $('.page-loader').hide();
+					}
+				}
+			 });
         },
+
+        /**
+		 * append messages to message list on pagination 
+		 */
+		 appendMessages : function(){
+		 	this.data.models[0].fetch({
+				success : function(data, models) {
+					$('#question-pagination').hide();
+					/* render messages */
+		        	_.each(models, function(model) {
+		        		console.log(model);
+		        		var questionModel = new QuestionModel();
+		        		questionModel.set({question :model.question ,
+	        								comments :model.comments,
+	        								followed : model.followed,
+	        								followerOfQuestionPoster : model.followerOfQuestionPoster,
+	        								profilePic : model.profilePic,
+	        								rocked : model.rocked,
+	        								polls: model.polls
+										 	})
+		        		
+						var questionItemView  = new QuestionItemView({model : questionModel});
+						$('#questionListView div.content').append(questionItemView.render().el);
+
+						
+
+						setTimeout(function() {
+                    
+							if(model.polls.length > 0){
+			    				var values = [],pollIndex = 0,totalVotes = 0,isAlreadyVoted = false ,myAnswer ='';
+			            			
+				    		 	_.each(model.polls, function(poll) {
+
+				        			var radioColor = Raphael.hsb(self.color, 1, 1);
+				        			 
+				        			values.push(poll.voters.length);
+				        			totalVotes += poll.voters.length;
+					            	self.color += .1;
+
+
+					            	 //check whether the user is already voted or not
+			            			 _.each(poll.voters, function(voter) {
+			            				  
+			            				 if(voter.id == localStorage["loggedUserId"])
+			            				 {
+			            					 isAlreadyVoted = true;
+			            					 myAnswer = poll.id.id;
+			            				 }
+			            				
+			            			  });
+				    		 	});
+						 	 	if(totalVotes != 0)
+				    		 	{
+				    		 		
+				    			 	/* creating pie charts */ 
+				            	 	donut[model.question.id.id] = new Donut(new Raphael(""+model.question.id.id+"-piechart", 200,200));
+				            	 	donut[model.question.id.id].create(100, 100, 30, 55,100, values);
+				
+							 	}
+
+							 	//disable the polling option if already polled
+			            		 if(isAlreadyVoted == true)
+			            		 {
+			            			 $("input[id="+myAnswer+"]").attr('checked',true);
+			            			 $("input[name="+model.question.id.id+"]").attr('disabled',true);
+			            		 }
+			        		}           
+		                }, 500);
+						
+		        	});
+					
+
+				}
+			});
+		 },
 
         /**
         * post question on enter key press
@@ -76,6 +202,7 @@ define(['view/formView',
     		}
 
 			$('#sortQuestionBy-select').text($(eventName.target).text());
+			$('#sortQuestionBy-select').attr('value',sortKey);
 
         },
         

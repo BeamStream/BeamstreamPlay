@@ -225,7 +225,7 @@
 		            <div class="question-sort">
 		              <h5>SORT BY</h5>
 		              <div class="btn-group dropdown-outer">
-		                <button class="btn normal-dropdown" id="sortBy-select" >Most Recent</button>
+		                <button class="btn normal-dropdown" id="sortBy-select" value="date" >Most Recent</button>
 		                <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
 		                <ul class="dropdown-menu display-sub" id="sortBy-list" >
 		                  <li><a href="#" name="most-recent" value="date">Most Recent</a></li>
@@ -336,6 +336,8 @@
 		          <div id= "messageListView" data-model="discussion" data-module="view/messageListView" data-url="/" data-tpl="templates/discussionMessage.tpl">
 		
 		          </div>
+
+		          <div id="discussion-pagination" class ="page-loader"><img src ="/beamstream-new/images/loading-bars.gif"></div>
 	
 		        </div>
 	  		</div>
@@ -349,7 +351,7 @@
 		            	<div class="question-sort">
 			              	<h5>SORT BY</h5>
 		              		<div class="btn-group dropdown-outer">
-			                	<button class="btn normal-dropdown" id="sortQuestionBy-select" >Most Recent</button>
+			                	<button class="btn normal-dropdown" id="sortQuestionBy-select" value="date" >Most Recent</button>
 			               		 <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
 				                <ul class="dropdown-menu display-sub" id="sortQuestionBy-list" >
 		                  			<li><a href="#" name="most-recent" value="date">Most Recent</a></li>
@@ -469,6 +471,9 @@
       				 <div id= "questionListView" data-model="question" data-module="view/questionListView" data-url="/" data-tpl="templates/questionMessage.tpl">
 		
 		         	 </div>
+
+		         	 <div id="question-pagination" class ="page-loader"><img src ="/beamstream-new/images/loading-bars.gif"></div>
+
 	
 
 				</div> 
@@ -492,6 +497,8 @@
 		          </span> </a> 
 				</div>
 		  	</div>
+
+
 	 	</div>
   
 

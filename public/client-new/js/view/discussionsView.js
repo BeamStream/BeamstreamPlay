@@ -44,9 +44,91 @@ define(['view/formView',
             // this.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\./]*$/i;
             this.file = '';
             this.setupPushConnection();
+
+            /* pagination */
+            $(window).bind('scroll', function (ev) {
+
+            	var activeTab = $('.stream-tab li.active').attr('id');
+            	if(activeTab=='discussion'){
+				
+					var scrollTop =$(window).scrollTop();
+					var docheight = $(document).height();
+					var widheight = $(window).height();
+					if(scrollTop + 1 == docheight- widheight || scrollTop == docheight- widheight){
+				 	   var t = $('#messageListView').find('div.content');
+					   if(t.length != 0)
+					   {
+					   		
+					   		var msgSortedType = $('#sortBy-select').attr('value');
+							$('#discussion-pagination').show();
+							var streamId = $('.sortable li.active').attr('id');
+
+							view = self.getViewById('messageListView');
+						
+							if(msgSortedType == "date")
+							{    
+								self.pageNo++;
+					    		if(view){
+					    			
+					    			self.data.url="/allMessagesForAStream/"+streamId+"/date/"+view.messagesPerPage+"/"+self.pageNo;
+					    			self.appendMessages();
+					    		}
+							}
+							else if(msgSortedType == "rock")
+							{    
+								self.pageNo++;
+					    		if(view){
+					    			
+					    			self.data.url="/allMessagesForAStream/"+streamId+"/rock/"+view.messagesPerPage+"/"+self.pageNo;
+					    			self.appendMessages();
+					    		}
+							}
+
+							
+							
+					   }
+					 }
+					else
+					{
+						  $('.page-loader').hide();
+					}
+				}
+			 });  
 		 },
 		 
-		
+		 /**
+		 * append messages to message list on pagination 
+		 */
+		 appendMessages : function(){
+		 	this.data.models[0].fetch({
+				success : function(data, models) {
+
+					$('#discussion-pagination').hide();
+					/* render messages */
+		        	_.each(models, function(model) {
+
+
+		        		var discussionModel = new DiscussionModel();
+		        		discussionModel.set({message :model.message ,
+	        								comments :model.comments,
+	        								docDescription : model.docDescription,
+	        								docName : model.docName,
+	        								followed : model.followed,
+	        								followerOfMessagePoster : model.followerOfMessagePoster,
+	        								profilePic : model.profilePic,
+	        								rocked : model.rocked
+										 	})
+		        		
+						var messageItemView  = new MessageItemView({model : discussionModel});
+						$('#messageListView div.content').append(messageItemView.render().el);
+
+
+						
+		        	});
+				}
+			});
+		 },
+
         /**
          * post messages 
          */
@@ -437,6 +519,7 @@ define(['view/formView',
     		}
 
 			$('#sortBy-select').text($(eventName.target).text());
+			$('#sortBy-select').attr('value',sortKey);
         },
         
         /**

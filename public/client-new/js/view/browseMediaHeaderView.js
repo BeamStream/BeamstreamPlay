@@ -139,7 +139,6 @@ define(['view/formView',
          * Function for uploadmedia 
          *  (slide down menu)        
          */
-	 
 		uploadMediadwn: function(eventName){
 			eventName.preventDefault();
 			if(!$('#uploadmediachild_dr').is(":visible") )       
@@ -187,23 +186,7 @@ define(['view/formView',
             $(".childone_one_dr").find('ul').hide(200);
             $(".childone_three_dr").find('ul').hide(200);
             $(eventName.target).next().animate({width: 'toggle'},130);
-          /*  var i='';
-            var content=''; 
-            $.ajax({
-                type : 'GET',
-                url : BS.allStreamsForAUser,
-                dataType : "json",
-            success : function(options) {
-                content+='<option>Save to Class</option>'
-                _.each(options, function(option) {
-                content+= '<option>'+option.streamName+'</option>';
-                i++;
-                });
-                content+='<option>Profile</option>'
-                       +'<option>My Docs</option>';
-                $('#link-class-list').html(content);
-                }		  
-	 });  */
+        
         },
             
             /**
@@ -635,7 +618,6 @@ define(['view/formView',
                   $('.progress-container').show();    
                   this.progress = setInterval(function() {
                       this.bar = $('.bar');  
-                      console.log(this.bar.width());                  
                       if (this.bar.width()>= 192) {
                           clearInterval(this.progress);
                       } 
