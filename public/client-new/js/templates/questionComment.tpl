@@ -16,7 +16,7 @@
 
 <div class="answer-description"  id="{{data.id.id}}">
     <div class="follw-left">          
-        <div class="ask-img"><img id="{{data.id.id}}-image" src="{{profileImage}}"></div>                      
+        <div class="ask-img"><img id="{{data.id.id}}-image" src="{{#if profileImage}}{{profileImage}}{{else}}/beamstream-new/images/unknown.jpeg{{/if}}"></div>                      
     </div>
     <div class="answer-description-info">
       <div class="follow-names">

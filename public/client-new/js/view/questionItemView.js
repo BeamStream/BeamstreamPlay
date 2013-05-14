@@ -111,6 +111,8 @@ define(['view/formView',
         		compiledTemplate = Handlebars.compile(QuestionMessage);
         		$(this.el).html(compiledTemplate(datas));
 
+        		$('.drag-rectangle').tooltip();
+
         		$('.commentList').hide();
 			
     		return this;

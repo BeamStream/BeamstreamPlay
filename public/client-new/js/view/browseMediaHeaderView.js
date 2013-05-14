@@ -66,7 +66,8 @@ define(['view/formView',
 
 	      	'click .upload-from-computer': "uploadFileFromComputer",
 	      	'change #doc-from-computer' :'fetchDocument', 
-	      	'click #gdoc_uploadbutton': 'goolgeDocUpload'
+	      	'click #gdoc_uploadbutton': 'goolgeDocUpload',
+	      	'click #docfrmcomputer_closePopup': 'hidePopUpBlock', 
 			
 		},
 
@@ -156,7 +157,7 @@ define(['view/formView',
             eventName.preventDefault();    
             $('.link-dropdwn').html("");  
             // $('.dropdwnmycomputer').html(""); 
-            // $('.dropdwnmycomputer').css("display","none");
+            $('.dropdwnmycomputer').css("display","none");
             $("#childtwo_dr").find('ul').hide(200);
             $("#childthree_dr").find('ul').hide(200);
             $("#childfour_dr").find('ul').hide(200);
@@ -182,7 +183,7 @@ define(['view/formView',
         vialinkMenu:function(eventName){
             eventName.preventDefault(); 
             // $('.dropdwnmycomputer').html(""); 
-            // $('.dropdwnmycomputer').css("display","none");
+            $('.dropdwnmycomputer').css("display","none");
             $(".childone_one_dr").find('ul').hide(200);
             $(".childone_three_dr").find('ul').hide(200);
             $(eventName.target).next().animate({width: 'toggle'},130);
@@ -222,7 +223,7 @@ define(['view/formView',
           googleDocs:function(eventName){
               eventName.preventDefault();
               // $('.dropdwnmycomputer').html(""); 
-              // $('.dropdwnmycomputer').css("display","none");
+              $('.dropdwnmycomputer').css("display","none");
               $(".childone_one_dr").find('ul').hide(200);
               $(".childone_two_dr").find('ul').hide(200);
               $(eventName.target).next().animate({width: 'toggle'},130); 
@@ -236,7 +237,7 @@ define(['view/formView',
 	          eventName.preventDefault();
 	          $('.link-dropdwn').html(""); 
 	          // $('.dropdwnmycomputer').html(""); 
-	          // $('.dropdwnmycomputer').css("display","none");
+	          $('.dropdwnmycomputer').css("display","none");
 	          $("#childone_dr").find('ul').hide(200);
 	          $("#childthree_dr").find('ul').hide(200);
 	          $("#childfour_dr").find('ul').hide(200);
@@ -276,7 +277,7 @@ define(['view/formView',
             eventName.preventDefault();
             $('.link-dropdwn').html("");  
             // $('.dropdwnmycomputer').html(""); 
-            // $('.dropdwnmycomputer').css("display","none");
+            $('.dropdwnmycomputer').css("display","none");
             $("#childone_dr").find('ul').hide(200);
             $("#childtwo_dr").find('ul').hide(200);
             $("#childfour_dr").find('ul').hide(200);
@@ -300,7 +301,7 @@ define(['view/formView',
 	         eventName.preventDefault();
 	         $('.link-dropdwn').html("");
 	         // $('.dropdwnmycomputer').html(""); 
-	         // $('.dropdwnmycomputer').css("display","none");
+	         $('.dropdwnmycomputer').css("display","none");
 	         $("#childone_dr").find('ul').hide(200);
 	         $("#childtwo_dr").find('ul').hide(200);
 	         $("#childthree_dr").find('ul').hide(200);
@@ -323,7 +324,7 @@ define(['view/formView',
 	         eventName.preventDefault();
 	         $('.link-dropdwn').html(""); 
 	         // $('.dropdwnmycomputer').html(""); 
-	         // $('.dropdwnmycomputer').css("display","none");
+	         $('.dropdwnmycomputer').css("display","none");
 	         $("#childone_dr").find('ul').hide(200);
 	         $("#childtwo_dr").find('ul').hide(200);
 	         $("#childthree_dr").find('ul').hide(200);
@@ -369,7 +370,7 @@ define(['view/formView',
 	          eventName.preventDefault();
 	          $('.link-dropdwn').html(""); 
 	          // $('.dropdwnmycomputer').html(""); 
-	          // $('.dropdwnmycomputer').css("display","none");
+	          $('.dropdwnmycomputer').css("display","none");
 	          $("#childone_dr").find('ul').hide(200);
 	          $("#childtwo_dr").find('ul').hide(200);
 	          $("#childthree_dr").find('ul').hide(200);
@@ -393,7 +394,7 @@ define(['view/formView',
               eventName.preventDefault();
               $('.link-dropdwn').html("");
               // $('.dropdwnmycomputer').html(""); 
-              // $('.dropdwnmycomputer').css("display","none");
+              $('.dropdwnmycomputer').css("display","none");
               $("#childone_dr").find('ul').hide(200);
               $("#childtwo_dr").find('ul').hide(200);
               $("#childthree_dr").find('ul').hide(200);
@@ -417,7 +418,7 @@ define(['view/formView',
         	  eventName.preventDefault();
         	  $('.link-dropdwn').html("");  
         	  // $('.dropdwnmycomputer').html(""); 
-        	  // $('.dropdwnmycomputer').css("display","none");
+        	  $('.dropdwnmycomputer').css("display","none");
         	  $("#childone_dr").find('ul').hide(200);
         	  $("#childtwo_dr").find('ul').hide(200);
         	  $("#childthree_dr").find('ul').hide(200);
@@ -442,7 +443,7 @@ define(['view/formView',
         	  eventName.preventDefault();
 	          $('.link-dropdwn').html(""); 
 	          // $('.dropdwnmycomputer').html(""); 
-	          // $('.dropdwnmycomputer').css("display","none");
+	          $('.dropdwnmycomputer').css("display","none");
 	          $("#childone_dr").find('ul').hide(200);
 	          $("#childtwo_dr").find('ul').hide(200);
 	          $("#childthree_dr").find('ul').hide(200);
@@ -467,7 +468,7 @@ define(['view/formView',
         	 eventName.preventDefault();
         	 $('.link-dropdwn').html(""); 
         	 // $('.dropdwnmycomputer').html("");
-        	 // $('.dropdwnmycomputer').css("display","none");
+        	 $('.dropdwnmycomputer').css("display","none");
              $("#childone_dr").find('ul').hide(200);
              $("#childtwo_dr").find('ul').hide(200);
              $("#childthree_dr").find('ul').hide(200);
@@ -603,6 +604,8 @@ define(['view/formView',
           */
           uploadFileFromComputer: function(eventName){
             eventName.preventDefault();
+
+            $progressbar = $(eventName.target).parents('ul.classdocchild_dr').find('li#progressbar');
             var self = this;
             var status = true;
             var message ='';
@@ -628,11 +631,12 @@ define(['view/formView',
                   this.bar = $('.bar');        
                   this.bar.width('');
                   this.bar.text("");                 
-                  $('#progressbar').show();        //progress bar 
+                  $progressbar.show();        //progress bar 
                   $('.progress-container').show();    
                   this.progress = setInterval(function() {
-                      this.bar = $('.bar');                     
-                      if (this.bar.width()>= 194) {
+                      this.bar = $('.bar');  
+                      console.log(this.bar.width());                  
+                      if (this.bar.width()>= 192) {
                           clearInterval(this.progress);
                       } 
                       else {

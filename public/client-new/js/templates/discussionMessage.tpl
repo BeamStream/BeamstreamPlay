@@ -18,7 +18,7 @@
             <div class="ask-content">
               <div class="follw-left">
                
-                  <div  class="ask-img"><img id="{{data.message.id.id}}-img" src="{{data.profilePic}}"></div>
+                  <div  class="ask-img"><img id="{{data.message.id.id}}-img" src="{{#if data.profilePic}}{{data.profilePic}}{{else}}/beamstream-new/images/unknown.jpeg{{/if}}"></div>
 
                   
 					{{#ifequal data.followerOfMessagePoster false}}
@@ -78,7 +78,7 @@
 								
 							      <div class="edit-title-div">
 								 {{#ifequal loggedUserId data.message.userId.id }}
-						     	 	<h5 class="editMediaTitle"   id="{{data.message.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span>Edit Title & Description</h5>
+						     	 	<h5 class="editMediaTitle"   id="{{data.message.docIdIfAny.id}}"><span><img src="/beamstream-new/images/title-plus.png"></span>Edit Title & Description</h5>
 								  {{/ifequal}}
 		                    	  </div>
 								
@@ -220,7 +220,7 @@
                       
                        <div class="answer-description"  id="{{comment.id.id}}">
                         <div class="follw-left">          
-                            <div class="ask-img"><img id="{{comment.id.id}}-image" src="{{profilePic}}"></div>                      
+                            <div class="ask-img"><img id="{{comment.id.id}}-image" src="{{#if profilePic}}{{profilePic}}{{else}}/beamstream-new/images/unknown.jpeg{{/if}}"></div>                      
                         </div>
                         <div class="answer-description-info">
                           <div class="follow-names">
