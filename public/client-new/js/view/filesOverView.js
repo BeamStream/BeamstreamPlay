@@ -17,7 +17,6 @@
 */
 
 define(['baseView',
-		'view/fileItemView',
 		'view/imageListView',
 		'view/videoListView',
 		'view/documentListView',
@@ -25,7 +24,8 @@ define(['baseView',
 		'view/presentationListView',
 		'view/googleDocListView',
 		'../../lib/bootstrap-modal',
-        ],function(BaseView,FileItemView,ImageListView,VideoListView,DocumentListView,PdfListView,PresentationListView,GoogleDocListView,BootstrapModal){
+		'../../lib/extralib/jquery.shuffle'
+        ],function(BaseView,ImageListView,VideoListView,DocumentListView,PdfListView,PresentationListView,GoogleDocListView,BootstrapModal,Shuffle){
 	
 	var FilesOverView;
 	FilesOverView = BaseView.extend({
@@ -42,13 +42,11 @@ define(['baseView',
 			'click .rock_doc' : 'rocksDocument',
             'click .rock-media': 'rocksMedia',
 
-			
-
-			
 		},
 	 
 		onAfterInit: function(){	
 			this.data.reset();
+			shufflingOnSorting();
 			
         },
 
@@ -57,6 +55,8 @@ define(['baseView',
 			this.animate.effect = "fade";
 			this.$(".content").html("");
 		},
+
+
 
 		/**
 		* shows image list view
@@ -122,6 +122,7 @@ define(['baseView',
 			googleDocListView = new GoogleDocListView({el: $('#grid')});
 			googleDocListView.data.url = '/getAllGoogleDocs';
 			$('#grid').attr('name','googleDocList');
+
 			
 		},
 

@@ -187,9 +187,9 @@ GET      /allPDFFilesForAUser                                                   
 GET      /allDOCSFilesForAUser                                                   controllers.DocumentController.getAllDOCSFilesForAUser
 
 #Search Media Or Documents
- 
-GET      /search/:keyword                                                            controllers.MediaController.searchMediaOrDocumentForAUser(keyword:String)     
- 
+
+GET     /search/:keyword                                               controllers.MediaController.searchMediaOrDocumentForAUser(keyword:String)     
+
 
 	
 

@@ -1,3 +1,4 @@
+
 {{#ifequal fileType "image"}}
 <li   data-rock="{{data.rocks}}" data-date-created="{{data.dateCreated}}" class="item" >
 			<div class="image-wrapper hovereffect"  id="{{data.id.id}}">
@@ -40,7 +41,7 @@
 			<div class="comment-wrapper1"> <a class="common-icon camera" href="#"></a>
 				<ul id="{{data.id.id}}-activities" class="comment-list">
 					<li><a class="eye-icon" href="#">0</a></li>
-					<li><a class="hand-icon" href="#">0</a></li>
+					<li><a class="hand-icon" href="#">{{data.rocks}}</a></li>
 					<li><a class="message-icon" href="#">0</a></li>
 				</ul>
 			</div>
