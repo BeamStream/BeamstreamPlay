@@ -4,7 +4,7 @@ import play.api.cache.Cache
 import play.api.Play.current
 object onlineUserCache {
 
-  var onlineUser: List[String] = List()
+  var onlineUser: List[String] = Nil
 
   /**
    * Activate The User Session

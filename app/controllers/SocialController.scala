@@ -66,12 +66,16 @@ object SocialController extends Controller {
       val providerName = (json \ "profile" \ "providerName").asOpt[String].get
       val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
       val authenticatedUser = User.findUserComingViaSocailSite(preferredUsername, providerName)
-      if (authenticatedUser == None) {
-        Ok("No User Found").as("application/json")
-      } else {
-        val userSession = request.session + ("userId" -> authenticatedUser.get.id.toString)
-        val noOfOnLineUsers = onlineUserCache.setOnline(authenticatedUser.get.id.toString)
-        Ok(views.html.stream()).withSession(userSession)
+      (authenticatedUser == None) match {
+        case true => Ok("No User Found").as("application/json")
+        case false =>
+
+          val userSession = request.session + ("userId" -> authenticatedUser.get.id.toString)
+          val noOfOnLineUsers = onlineUserCache.setOnline(authenticatedUser.get.id.toString)
+          (authenticatedUser.get.classes.size == 0) match {
+            case true => Redirect("/class").withSession(userSession)
+            case false => Ok(views.html.stream()).withSession(userSession)
+          }
 
       }
     } catch {

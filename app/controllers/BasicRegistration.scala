@@ -54,11 +54,7 @@ object BasicRegistration extends Controller {
    * SignUp Page Rendering (RA)
    */
   def signUpPage = Action { implicit request =>
-    //try {
       Ok(views.html.signup())
-    //} catch {
-    //  case ex => InternalServerError(write("Oops there was errors")).as("application/json")
-    //}
   }
 
   /**

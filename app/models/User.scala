@@ -187,7 +187,7 @@ object User {
    * Check if the User has already registered (RA)
    */
   def canUserRegister(userEmailOrName: String) = {
-    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmailOrName))
+    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmailOrName,"socialNetwork" -> None))
     val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userEmailOrName))
     (userHavingSameMailId.isEmpty && userHavingSameUserName.isEmpty) match {
       case true => true
@@ -208,8 +208,8 @@ object User {
    *
    */
   def findUser(userEmailorName: String, password: String): Option[User] = {
-    val authenticatedUserviaEmail = UserDAO.find(MongoDBObject("email" -> userEmailorName, "password" -> password))
-    val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userEmailorName, "password" -> password))
+    val authenticatedUserviaEmail = UserDAO.find(MongoDBObject("email" -> userEmailorName, "password" -> password,"socialNetwork" -> None))
+    val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userEmailorName, "password" -> password,"socialNetwork" -> None))
 
     (authenticatedUserviaEmail.isEmpty && authenticatedUserviaName.isEmpty) match {
       case true => // No user
