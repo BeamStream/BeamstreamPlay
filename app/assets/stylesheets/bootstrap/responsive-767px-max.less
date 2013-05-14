@@ -1,0 +1,413 @@
+//
+// Responsive: Landscape phone to desktop/tablet
+// --------------------------------------------------
+
+
+@media (max-width: 767px) {
+
+  // Padding to set content in a bit
+  body {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  // Negative indent the now static "fixed" navbar
+  .navbar-fixed-top,
+  .navbar-fixed-bottom,
+  .navbar-static-top {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+  // Remove padding on container given explicit padding set on body
+  .container-fluid {
+    padding: 0;
+  }
+
+  // TYPOGRAPHY
+  // ----------
+  // Reset horizontal dl
+  .dl-horizontal {
+    dt {
+      float: none;
+      clear: none;
+      width: auto;
+      text-align: left;
+    }
+    dd {
+      margin-left: 0;
+    }
+  }
+
+  // GRID & CONTAINERS
+  // -----------------
+  // Remove width from containers
+  .container {
+    width: auto;
+  }
+  // Fluid rows
+  .row-fluid {
+    width: 100%;
+  }
+  // Undo negative margin on rows and thumbnails
+  .row,
+  .thumbnails {
+    margin-left: 0;
+  }
+  .thumbnails > li {
+    float: none;
+    margin-left: 0; // Reset the default margin for all li elements when no .span* classes are present
+  }
+  // Make all grid-sized elements block level again
+  [class*="span"],
+  .uneditable-input[class*="span"], // Makes uneditable inputs full-width when using grid sizing
+  .row-fluid [class*="span"] {
+    float: none;
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    .box-sizing(border-box);
+  }
+  .span12,
+  .row-fluid .span12 {
+    width: 100%;
+    .box-sizing(border-box);
+  }
+  .row-fluid [class*="offset"]:first-child {
+    margin-left: 0;
+  }
+
+  // FORM FIELDS
+  // -----------
+  // Make span* classes full width
+  .input-large,
+  .input-xlarge,
+  .input-xxlarge,
+  input[class*="span"],
+  select[class*="span"],
+  textarea[class*="span"],
+  .uneditable-input {
+    .input-block-level();
+  }
+  // But don't let it screw up prepend/append inputs
+  .input-prepend input,
+  .input-append input,
+  .input-prepend input[class*="span"],
+  .input-append input[class*="span"] {
+    display: inline-block; // redeclare so they don't wrap to new lines
+    width: auto;
+  }
+  .controls-row [class*="span"] + [class*="span"] {
+    margin-left: 0;
+  }
+
+  // Modals
+  .modal {
+    position: fixed;
+    top:   20px;
+    left:  20px;
+    right: 20px;
+    width: auto;
+    margin: 0;
+    &.fade  { top: -100px; }
+    &.fade.in { top: 20px; }
+  }
+  
+  
+  
+  
+  
+  
+  
+   .header-wrapper {
+ padding:0 30px;
+}
+ .header-search {
+ width:55%;
+}
+.search-block a {
+ float:right;
+ margin:12px 0 0 0 !important;
+}
+.brand {
+ text-align:center;
+ padding:25px 0 20px 0;
+}
+.header-icon {
+ width:12%;
+ height:40px;
+ padding:4.5% 3.5% 3.5% 4.5%;
+}
+ ul.access-menu li a {
+width:85%;
+}
+ .left-container {
+ width:96%;
+ clear:both;
+ margin:2%;
+}
+.right-container {
+ width:90%;
+ clear:both;
+ margin:2%;
+ padding:3%;
+}
+.stream-header-left {
+ overflow:hidden;
+ padding:0 0 20px 0;
+ float:left;
+margin-left:20%;
+}
+ .stream-header-right {
+ width:100%;
+ clear:both;
+}
+.left-menu {
+ -webkit-border-radius: 12px 12px 0 0;
+ -moz-border-radius: 12px 12px 0 0;
+ border-radius: 12px 12px 0 0;
+ margin:15px 0 0 0;
+}
+ .stream-dropdown {
+ width:70%;
+ float:left;
+ margin:5px 0 15px 5px;
+}
+ .question-info {
+ padding:2% 5% 4% 5%;
+}
+.question-info h2 a {
+ width:50%;
+ display:block;
+ float:left;
+ padding:0;
+}
+.question-info h2 a.unanswerd {
+}
+.all-search {
+ width:40%;
+ clear:both;
+ float:left;
+margin:3% 0 0 0;
+}
+.quest-search {
+ width:93% !important;
+}
+.dropdown-outer {
+ width:25%;
+ margin:0 7% 0 0;
+}
+.ask-outer {
+ padding:4%;
+}
+.ask-left {
+ display:block;
+ overflow:hidden;
+}
+.ask-button {
+ clear:both;
+ overflow:hidden;
+ margin:10px 0 0 0;
+}
+.follw-left {
+ width:15%;
+ margin:25px 0 0 0;
+}
+.blue-buttons {
+ width:88%;
+ text-align:center;
+ display:block;
+ margin:10px 0 0 0;
+ float:left;
+}
+.ask-info {
+ width:83%;
+}
+.ask-iconinfo {
+ margin:10px 0 0 0;
+}
+.ask-comment {
+ padding:2% 3%;
+}
+ul.social-icons {
+/*clear:both;
+	float:left;
+	margin:0;
+	padding:10px 0 0 0;*/
+}
+.answer-conatiner {
+ display:block;
+ overflow:hidden;
+ width:90%;
+ margin:0 0 0 20px;
+ padding:4% 0 4% 4%;
+}
+.menu ul li a:hover, .menu ul li a.active {
+ -webkit-border-radius:15px;
+ -moz-border-radius:15px;
+ border-radius:15px;
+}
+.header-menu {
+ margin:0 0 10px 0 !important;
+}
+ .unanswerd {
+ margin:22px 0 0 20px;
+}
+
+
+
+/*  Overview  */
+
+
+ .rock-btn {
+ margin:0% 7%;
+}
+ .answer-description-info {
+ width: 75%;
+}
+ .green-btn span.visual {
+/*
+ padding:9px 20px;
+ */
+}
+ .green-btn span.visual-new {
+ padding:9px 10px;
+}
+.green-btn span.texter-new {
+padding: 0 10px;
+}
+ .browse-header h6 {
+ padding:0 20px 0 40px;
+}
+ .browse-header h6.small {
+ padding-right:5px
+}
+ .browse-search-block {
+width:60%;
+}
+ .header-wrapper {
+ padding: 10px;
+}
+ .menu {
+background-image: url(../images/bg.jpg);
+width:100%;
+margin:20px 0 0 0;
+ border-radius: 15px 15px 0 0;
+height:80px;
+padding:2% 0%;
+}
+.menu ul li {
+ padding:0 20px;
+}
+ .menu ul li a {
+ color: #2f4553;
+display:block;
+height:70px;
+line-height:80px;
+}
+ .menu ul li a:hover, .menu ul li a.active {
+ border-top:none;
+ background: url(../images/menu-arrow.png) center 50px no-repeat;
+}
+ .menu ul li a:hover span, .menu ul li a.active span {
+ background-position: 0 -21px;
+}
+.menu ul li a span {
+ left: 33px;
+ top: 8px;
+}
+ .profile-button {
+ padding: 5px 100px;
+ margin-top:2px;
+ margin-right:20px;
+}
+  
+  
+  
+
+}
+
+
+
+// UP TO LANDSCAPE PHONE
+// ---------------------
+
+@media (max-width: 480px) {
+
+  // Smooth out the collapsing/expanding nav
+  .nav-collapse {
+    -webkit-transform: translate3d(0, 0, 0); // activate the GPU
+  }
+
+  // Block level the page header small tag for readability
+  .page-header h1 small {
+    display: block;
+    line-height: @baseLineHeight;
+  }
+
+  // Update checkboxes for iOS
+  input[type="checkbox"],
+  input[type="radio"] {
+    border: 1px solid #ccc;
+  }
+
+  // Remove the horizontal form styles
+  .form-horizontal {
+    .control-label {
+      float: none;
+      width: auto;
+      padding-top: 0;
+      text-align: left;
+    }
+    // Move over all input controls and content
+    .controls {
+      margin-left: 0;
+    }
+    // Move the options list down to align with labels
+    .control-list {
+      padding-top: 0; // has to be padding because margin collaspes
+    }
+    // Move over buttons in .form-actions to align with .controls
+    .form-actions {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+
+  // Medias
+  // Reset float and spacing to stack
+  .media .pull-left,
+  .media .pull-right  {
+    float: none;
+    display: block;
+    margin-bottom: 10px;
+  }
+  // Remove side margins since we stack instead of indent
+  .media-object {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  // Modals
+  .modal {
+    top:   10px;
+    left:  10px;
+    right: 10px;
+  }
+  .modal-header .close {
+    padding: 10px;
+    margin: -10px;
+  }
+
+  // Carousel
+  .carousel-caption {
+    position: static;
+  }
+  
+   .header-search {
+ width:50%;
+}
+ .rock-btn {
+ margin:2%;
+}
+  
+}
+
