@@ -30,9 +30,10 @@ define(['view/formView',
 		messagesPerPage: 10,
 	 	pageNo: 1,
 
-		onAfterInit: function(){	
+		onAfterInit: function(){
+			var self=this;
             this.data.reset();
-            
+            this.selected_medias = [];
          	$('#Q-main-photo').attr('src',localStorage["loggedUserProfileUrl"]);
          	this.setupPushConnection();
         },
@@ -113,17 +114,19 @@ define(['view/formView',
         actvateShareIcon: function(eventName){
         	
         	eventName.preventDefault();
-        	
+        	var self=this;
         	$('#Q-private-to').attr('checked',false);
         	$('#Q-privateTo-select').text("Public");
         	$('#Q-privateTo-select').attr('value', 'public');
         	
         	if($(eventName.target).parents('li').hasClass('active'))
         	{
+        		self.selected_medias.remove($(eventName.target).parents('li').attr('name'));
         		$(eventName.target).parents('li').removeClass('active');
         	}
         	else
         	{
+        		self.selected_medias.push($(eventName.target).parents('li').attr('name'));
         		$(eventName.target).parents('li').addClass('active');
         	}
         	
@@ -223,6 +226,8 @@ define(['view/formView',
 	        	
 	        	$('.progress-container').show();
 	        	self.file = "";
+	        	self.selected_medias = [];
+                $('#share-discussions li.active').removeClass('active');
 	        }
 	        else{
 	        	self.postQuestionToServer(question,streamId,questionAccess);
@@ -295,7 +300,14 @@ define(['view/formView',
 			    			channel : "questions",
 			    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response}
 			    		}) 
-			    		
+			    		/* share widget */ 
+			    		console.log(self.selected_medias);
+ 				    	 if(self.selected_medias.length != 0){
+				    	 	 _.each(self.data.models[0], function(data) {
+				    	 		 showJanrainShareWidget(self.data.models[0].attributes.question.questionBody, 'View my Beamstream post', 'http://beamstream.com', self.data.models[0].attributes.question.questionBody ,self.selected_medias);
+				    	 	 });
+ 				    	 }
+ 				    	self.selected_medias = [];	
 			    	},
 			    	error : function(model, response) {
 			    		$('#Q-area').val("");
@@ -320,11 +332,19 @@ define(['view/formView',
 			    		var questionItemView  = new QuestionItemView({model : self.data.models[0]});
 						$('#questionListView div.content').prepend(questionItemView.render().el);
 						
+						/* share widget */ 						
+				    	 if(self.selected_medias.length != 0){
+				    	 	 _.each(self.data.models[0], function(data) {				    	 		 
+				    	 		 showJanrainShareWidget(self.data.models[0].attributes.question.questionBody, 'View my Beamstream post', 'http://beamstream.com',self.data.models[0].attributes.question.questionBody ,self.selected_medias);
+				    	 	 });
+				    	 }
 			    		$('#Q-area').val("");
 			    		$('#share-discussions li.active').removeClass('active');
 			    		self.options = 0;
 			    		$('.drag-rectangle').tooltip();	
 			    		$('#pollArea').slideUp(700); 
+			    		self.selected_medias = [];
+ 				    	 
 
 
 			    		// var values = [],pollIndex = 0,totalVotes = 0;
@@ -478,6 +498,43 @@ define(['view/formView',
 			 	   }
 		 	   })
 		 	   
+		 	    /* for questio voting */
+ 			 PUBNUB.subscribe({
+ 				 channel : "voting",
+ 				 restore : false,
+ 				 callback : function(question) {
+ 					 
+ 					 var streamId = $('.sortable li.active').attr('id');
+ 					 if (question.pagePushUid != self.pagePushUid)
+ 					 {   
+ 						 if(question.streamId==streamId)
+	       		 		 {
+ 							 if(document.getElementById(question.questionId))
+ 							 {
+ 								 var values = [];
+ 								 $('input#'+question.data.id.id+'-voteCount').val(question.data.voters.length);
+ 			                     
+ 			                     //get all poll options vote count
+ 			                     $('input.'+question.questionId+'-polls').each(function() {
+ 			                     	values.push(parseInt($(this).val()));
+ 			                 	 });
+ 			                     
+ 								 /* updating pie charts */ 
+ 			                     $("#"+question.questionId+"-piechart").find('svg').remove();
+ 			                     donut[question.questionId] = new Donut(new Raphael(""+question.questionId+"-piechart", 200,200));
+ 			                     donut[question.questionId].create(100, 100, 30, 55,100, values);
+ 							 }
+ 							 if(question.userId == localStorage["loggedUserId"])
+ 							{
+ 								 $("input[id="+question.data.id.id+"]").attr('checked',true);
+ 								$("input[name="+question.questionId+"]").attr('disabled',true);
+ 								
+ 							}
+	       		 		 }
+ 			 
+ 					 }
+			 	}
+	 	   })
 		 	   
 		 	  /* auto push functionality for comments */
 		 	   PUBNUB.subscribe({
