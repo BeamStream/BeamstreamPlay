@@ -18,7 +18,7 @@
             <div class="ask-content">
               <div class="follw-left">
                
-                  <div  class="ask-img"><img id="{{data.message.id.id}}-img" src="{{data.profilePic}}"></div>
+                  <div  class="ask-img"><img id="{{data.message.id.id}}-img" src="{{#if data.profilePic}}{{data.profilePic}}{{else}}/beamstream-new/images/unknown.jpeg{{/if}}"></div>
 
                   
 					{{#ifequal data.followerOfMessagePoster false}}
@@ -220,7 +220,7 @@
                       
                        <div class="answer-description"  id="{{comment.id.id}}">
                         <div class="follw-left">          
-                            <div class="ask-img"><img id="{{comment.id.id}}-image" src="{{profilePic}}"></div>                      
+                            <div class="ask-img"><img id="{{comment.id.id}}-image" src="{{#if profilePic}}{{profilePic}}{{else}}/beamstream-new/images/unknown.jpeg{{/if}}"></div>                      
                         </div>
                         <div class="answer-description-info">
                           <div class="follow-names">

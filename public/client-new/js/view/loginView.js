@@ -77,7 +77,11 @@ define(['view/formView'], function(FormView ){
             	$('.sign-tick').hide();
             	$('.sign-close').hide();
             	// set the logged users profile picture and Id
-            	localStorage["loggedUserProfileUrl"] =  data.profilePicOfUser;
+                if(data.profilePicOfUser)
+            	   localStorage["loggedUserProfileUrl"] =  data.profilePicOfUser;
+                else
+                    localStorage["loggedUserProfileUrl"] =  '/beamstream-new/images/unknown.jpeg';
+                
             	localStorage["loggedUserId"] =  data.user.id.id;
 
             	
