@@ -3,7 +3,7 @@
 
 #Other
 GET      /browserClosed                                                          controllers.UserController.browserClosed
-GET      /error                            controllers.StreamController.onError
+GET      /error                                                                  controllers.StreamController.onError
 #Streams
 GET      /streams                                                                controllers.StreamController.allClassStreamsForAUser
 GET      /noOfUsers/stream/:streamId                                             controllers.StreamController.noOfUsersAttendingAClass(streamId:String)
@@ -17,11 +17,11 @@ PUT   /remove/message/:messageId                                              co
 #Comments
 POST     /answer                                                                 controllers.CommentController.newAnswer
 GET      /rockersOf/comment/:commentId                                           controllers.CommentController.commentRockers(commentId:String)
-PUT      /remove/comment/:messageOrQuestionId/:commentId                                            controllers.CommentController.deleteTheComment(commentId:String,messageOrQuestionId:String)
+PUT      /remove/comment/:messageOrQuestionId/:commentId                        controllers.CommentController.deleteTheComment(commentId:String,messageOrQuestionId:String)
 GET      /isARockerOf/comment/:commentId                                         controllers.CommentController.isARocker(commentId:String)
 
 #Document
-GET      /getAllGoogleDocs                                                              controllers.DocumentController.getAllGoogleDocumentsForAUser
+GET      /getAllGoogleDocs                                                       controllers.DocumentController.getAllGoogleDocumentsForAUser
 PUT      /document/:documentId                                                   controllers.DocumentController.changeTitleAndDescriptionForADocument(documentId:String)
 POST     /newDocument                                                            controllers.DocumentController.newDocument
 PUT      /rock/document/:documentId                                              controllers.DocumentController.rockTheDocument(documentId:String)
@@ -145,7 +145,7 @@ POST     /login                                                                 
 # Media
 POST     /media                                                                  controllers.MediaController.uploadMediaToAmazon
 GET     /recentMedia                                                              controllers.MediaController.getRecentMediaAndDocs
-# Messages + Comments + ProfilePicUrl
+#Messages + Comments + ProfilePicUrl
 GET      /allMessagesForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo       controllers.MessageController.allMessagesForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
 POST     /newMessage                                                             controllers.MessageController.newMessage
 POST     /newComment                                                             controllers.CommentController.newComment
@@ -187,7 +187,8 @@ GET      /allPDFFilesForAUser                                                   
 GET      /allDOCSFilesForAUser                                                   controllers.DocumentController.getAllDOCSFilesForAUser
 
 #Search Media Or Documents
-GET  search/:keyword                                               controllers.MediaController.searchMediaOrDocumentForAUser(keyword:String)     
+
+GET     /search/:keyword                                               controllers.MediaController.searchMediaOrDocumentForAUser(keyword:String)     
 
 
 	
