@@ -24,8 +24,9 @@ define(['baseView',
 		'view/presentationListView',
 		'view/googleDocListView',
 		'../../lib/bootstrap-modal',
-		'../../lib/extralib/jquery.shuffle'
-        ],function(BaseView,ImageListView,VideoListView,DocumentListView,PdfListView,PresentationListView,GoogleDocListView,BootstrapModal,Shuffle){
+		'../../lib/extralib/jquery.shuffle',
+		'../../lib/bootstrap'
+        ],function(BaseView,ImageListView,VideoListView,DocumentListView,PdfListView,PresentationListView,GoogleDocListView,BootstrapModal,Shuffle,Bootstrap){
 	
 	var FilesOverView;
 	FilesOverView = BaseView.extend({

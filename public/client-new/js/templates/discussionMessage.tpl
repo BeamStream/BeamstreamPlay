@@ -78,7 +78,7 @@
 								
 							      <div class="edit-title-div">
 								 {{#ifequal loggedUserId data.message.userId.id }}
-						     	 	<h5 class="editMediaTitle"   id="{{data.message.docIdIfAny.id}}"><span><img src="images/title-plus.png"></span>Edit Title & Description</h5>
+						     	 	<h5 class="editMediaTitle"   id="{{data.message.docIdIfAny.id}}"><span><img src="/beamstream-new/images/title-plus.png"></span>Edit Title & Description</h5>
 								  {{/ifequal}}
 		                    	  </div>
 								

@@ -29,7 +29,7 @@
 						</div>
 					</div>
 					<h5 class="ediTitle" id="{{data.id.id}}">
-						<span><img src="images/title-plus.png"></span> Title & Description
+						<span><img src="/beamstream-new/images/title-plus.png"></span> Title & Description
 					</h5>    
 					<div class="dateinfo">
 						<span class="state">{{data.access.name}}</span>
@@ -79,7 +79,7 @@
 					</div>
 				</div>
 					<h5 class="ediTitle" id="{{data.id.id}}">
-						<span><img src="images/title-plus.png"></span> Title & Description
+						<span><img src="/beamstream-new/images/title-plus.png"></span> Title & Description
 					</h5>          
 					<div class="dateinfo">
 						<span class="state">{{data.access.name}}</span>
