@@ -3,17 +3,18 @@ package utils
 import play.api.cache.Cache
 import play.api.Play.current
 object onlineUserCache {
-
-  var onlineUser: List[String] = Nil
+  println(">>>>>>>>>>>>>>>>>>>>>>>>>>>."+returnOnlineUsers)
+  var onlineUsers: List[String] = Nil
 
   /**
    * Activate The User Session
    */
 
   def setOffline(userIdkey: String):Int = {
-    onlineUser filterNot (List(userIdkey)contains)
-    Cache.set("Online Users", onlineUser)
-    onlineUser.length
+    onlineUsers filterNot (List(userIdkey)contains)
+    Cache.set("Online Users", onlineUsers)
+     println(">>>>>> Set offlihne >>>>>>"+ returnOnlineUsers)
+    onlineUsers.length
   }
 
   /**
@@ -21,11 +22,12 @@ object onlineUserCache {
    */
 
   def setOnline(userIdkey: String): Int = {
-    if (onlineUser.contains(userIdkey) == false) {
-      onlineUser ::: List(userIdkey)
-      Cache.set("Online Users", onlineUser)
+    if (onlineUsers.contains(userIdkey) == false) {
+      onlineUsers ++= List(userIdkey)
+      Cache.set("Online Users", onlineUsers)
     }
-    onlineUser.length
+    println(">>>>>> Set Online >>>>>>"+ returnOnlineUsers)
+    onlineUsers.length
   }
 
   /**
