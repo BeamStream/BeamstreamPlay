@@ -22,7 +22,6 @@ object SocialController extends Controller {
    * Returns a JSON of user profile information
    */
   def signUpViaSocialSites = Action { implicit request =>
-    try {
       val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
       val token = tokenList(0)
       val apiKey = Play.current.configuration.getString("janrain_apiKey").get
@@ -45,9 +44,7 @@ object SocialController extends Controller {
       } else {
         Ok(write("User Has been already registered")).as("application/json")
       }
-    } catch {
-      case exception => InternalServerError(write("Something wrong happend")).as("application/json")
-    }
+   
   }
 
   /**

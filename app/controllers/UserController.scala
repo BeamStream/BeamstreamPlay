@@ -46,7 +46,7 @@ object UserController extends Controller {
    */
 
   def getAllOnlineUsers = Action { implicit request =>
-
+      
     val onlineUsers = (onlineUserCache.returnOnlineUsers.isEmpty == true) match {
       case false =>
         val onlineUsersWithDetails = (onlineUserCache.returnOnlineUsers) map {
