@@ -98,7 +98,6 @@ define(['view/formView',
 					$('#question-pagination').hide();
 					/* render messages */
 		        	_.each(models, function(model) {
-		        		console.log(model);
 		        		var questionModel = new QuestionModel();
 		        		questionModel.set({question :model.question ,
 	        								comments :model.comments,

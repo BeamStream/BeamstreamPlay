@@ -85,7 +85,6 @@ define(['view/formView',
 							}
 
 							
-							
 					   }
 					 }
 					else
@@ -100,31 +99,36 @@ define(['view/formView',
 		 * append messages to message list on pagination 
 		 */
 		 appendMessages : function(){
-		 	this.data.models[0].fetch({
+		 	var self =this;
+		 	this.data.fetch({
 				success : function(data, models) {
 
-					$('#discussion-pagination').hide();
+					$('.page-loader').hide();
+					
 					/* render messages */
-		        	_.each(models, function(model) {
-
-
-		        		var discussionModel = new DiscussionModel();
-		        		discussionModel.set({message :model.message ,
-	        								comments :model.comments,
-	        								docDescription : model.docDescription,
-	        								docName : model.docName,
-	        								followed : model.followed,
-	        								followerOfMessagePoster : model.followerOfMessagePoster,
-	        								profilePic : model.profilePic,
-	        								rocked : model.rocked
-										 	})
-		        		
-						var messageItemView  = new MessageItemView({model : discussionModel});
-						$('#messageListView div.content').append(messageItemView.render().el);
-
-
+					if(models.length != 0){
 						
-		        	});
+						_.each(models, function(model) {
+
+			        		$('#discussion-pagination').hide();
+			        		var discussionModel = new DiscussionModel();
+			        		discussionModel.set({message :model.message ,
+		        								comments :model.comments,
+		        								docDescription : model.docDescription,
+		        								docName : model.docName,
+		        								followed : model.followed,
+		        								followerOfMessagePoster : model.followerOfMessagePoster,
+		        								profilePic : model.profilePic,
+		        								rocked : model.rocked
+							
+											 	})
+
+							var messageItemView  = new MessageItemView({model : discussionModel});
+							$('#messageListView div.content').append(messageItemView.render().el);
+
+		        		});
+					}
+		        	
 				}
 			});
 		 },
@@ -378,7 +382,7 @@ define(['view/formView',
 			    
 
         	}else{
-
+        		console.log(this.data.models[0]);
         		this.data.models[0].removeAttr('docAccess');
         		this.data.models[0].removeAttr('docDescription');
         		this.data.models[0].removeAttr('docName');
@@ -660,7 +664,7 @@ define(['view/formView',
 				 callback : function(message) {
 					 var streamId = $('.sortable li.active').attr('id');
 
-					 
+					 console.log(34);
 					 if (message.pagePushUid != self.pagePushUid)
 					 { 
 					 	

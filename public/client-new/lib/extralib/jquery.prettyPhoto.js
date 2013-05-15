@@ -699,13 +699,15 @@
 				return 'flv';
 			}else if(itemSrc.indexOf('.AVI') != -1){
 				return 'flv';
+			}else if(itemSrc.indexOf('.avi') != -1){
+				return 'flv';
 			}else if (itemSrc.match(/\bajax=true\b/i)) {
 				return 'ajax';
-			} else if (itemSrc.match(/\bcustom=true\b/i)) {
+			}else if (itemSrc.match(/\bcustom=true\b/i)) {
 				return 'custom';
-			} else if (itemSrc.substr(0, 1) == '#') {
+			}else if (itemSrc.substr(0, 1) == '#') {
 				return 'inline';
-			} else {
+			}else {
 				return 'image';
 			}
 			;
