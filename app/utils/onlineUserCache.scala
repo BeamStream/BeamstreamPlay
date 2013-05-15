@@ -11,7 +11,7 @@ object onlineUserCache {
    */
 
   def setOffline(userIdkey: String) = {
-    onlineUser filterNot(List(userIdkey)contains)
+    onlineUser filterNot (List(userIdkey)contains)
     Cache.set("Online Users", onlineUser)
     onlineUser.length
   }
