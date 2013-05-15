@@ -15,6 +15,7 @@ import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.ObjectIdSerializer
 import utils.bitlyAuthUtil
+import models.ResulttoSent
 
 object MessageController extends Controller {
 
@@ -149,9 +150,14 @@ object MessageController extends Controller {
         case false => Nil
       }
     }
-    val userId = request.session.get("userId").get
-    val messagesWithDescription = Message.messagesAlongWithDocDescription(allMessagesForAStream, new ObjectId(userId))
-    Ok(write(messagesWithDescription)).as("application/json")
+    (allMessagesForAStream.isEmpty) match {
+      case true => Ok(write(ResulttoSent("Failure", "No More Data"))).as("application/json")
+      case false =>
+        val userId = request.session.get("userId").get
+        val messagesWithDescription = Message.messagesAlongWithDocDescription(allMessagesForAStream, new ObjectId(userId))
+        Ok(write(messagesWithDescription)).as("application/json")
+    }
+
   }
 
 }
