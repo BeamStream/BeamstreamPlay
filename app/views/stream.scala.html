@@ -179,97 +179,87 @@
 
 @main("My Stream", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
     
-<div  id="MyStream"  data-module="view/myStreamView"  >
-    
-   <div class="right-container">
-    <div class="stream-header">
-          <div id="myStream" class="stream-header-left" data-value="">
-
-          </div>
-          <div class="stream-header-right"> 
-           	<a href="#" class="green-btn green-btn-new">
-           		<span class="visual visual-new"> 
-           			
-           		</span>
-           		<span class="texter texter-new">
-           			<span>
-           				
-           			</span>to this class
-           		</span>
-           	</a> 
-           </div>
-
-          <div class="stream-top-shadow"><img src="/beamstream-new/images/shadow.png"/></div>
-        </div>
-
-
+<div  id="MyStream"  data-module="view/myStreamView">
+	<div class="right-container">
+ 		<div class="stream-header">
+			<div id="myStream" class="stream-header-left" data-value="">
+			</div>
+			<div class="stream-header-right"> 
+				<a href="#" class="green-btn green-btn-new">
+					<span class="visual visual-new"></span>
+					<span class="texter texter-new">
+						<span></span>
+						to this class
+					</span>
+				</a> 
+			</div>
+ 			<div class="stream-top-shadow"><img src="/beamstream-new/images/shadow.png"/></div>
+		</div>
+		
 		<ul class="nav-tabs stream-tab" id="streamTab">
- 		 	<li id="overview" class="active"><a href="#overView" data-toggle="tab">Overview</a></li>
-			<li id="discussion"><a href="#discussionsView" data-toggle="tab" >Discussions</a></li>
+			<li id="discussion" class="active"><a href="#discussionsView" data-toggle="tab" >Discussions</a></li>
 			<li id="question"><a href="#questionsView"  data-toggle="tab">Questions</a></li>
 			<li id="deadlines"><a href="#deadlinesView"  data-toggle="tab">Deadlines</a></li>
 			<li id="calendar"><a href="#calendarView" data-toggle="tab">Calendar</a></li>
 		</ul>
-
-        <div class="tab-content">
-  			<div class="tab-pane active" id="overView"  data-tpl="templates/overview.tpl" >
-  			
-  			</div>
-  			
-  			
-  			<!--   to get all messages of a stream - How to make call like  data-url="/allMessagesForAStream/streamId/pageLimit/pageNo" dynamically ?  --> 
-		  	<div class="tab-pane " id="discussionsView" data-model="discussion"  >
-		  	
-				  	<div class="stream-wrapper">
-		          	<div class="question-info">
-		            <div class="question-sort">
-		              <h5>SORT BY</h5>
-		              <div class="btn-group dropdown-outer">
-		                <button class="btn normal-dropdown" id="sortBy-select" value="date" >Most Recent</button>
-		                <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-		                <ul class="dropdown-menu display-sub" id="sortBy-list" >
-		                  <li><a href="#" name="most-recent" value="date">Most Recent</a></li>
-		                  <li><a href="#" name="highest-rated" value="rock">Highest Rated</a></li>
-		                  <li><a href="#" name="most-shared" >Most Shared </a></li>
-		                </ul>
+		<div class="tab-content">
+  		<!--   to get all messages of a stream - How to make call like  data-url="/allMessagesForAStream/streamId/pageLimit/pageNo" dynamically ?  --> 
+			<div class="tab-pane active" id="discussionsView" data-model="discussion">
+				<div class="stream-wrapper">
+					<div class="question-info">
+						<div class="question-sort">
+							<h5>SORT BY</h5>
+							<div class="btn-group dropdown-outer">
+								<button class="btn normal-dropdown" id="sortBy-select" value="date" >Most Recent</button>
+								<button class="btn blue-button " data-toggle="dropdown">
+									<span class="caret sort-caret"></span>
+								</button>
+								<ul class="dropdown-menu display-sub" id="sortBy-list">
+									<li><a href="#" name="most-recent" value="date">Most Recent</a></li>
+									<li><a href="#" name="highest-rated" value="rock">Highest Rated</a></li>
+									<li><a href="#" name="most-shared" >Most Shared </a></li>
+								</ul>
 		              </div>
 		              <div class="btn-group dropdown-outer">
 		                <button class="btn normal-dropdown " id="date-sort-select">This Week</button>
-		                <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-		                <ul class="dropdown-menu display-sub" id="date-sort-list">
-		                  <li><a href="#">Today</a></li>
-		                  <li><a href="#">This Week</a></li>
-		                  <li><a href="#">This Month </a></li>
-		 				  <li><a href="#">All Dates </a></li>
-		                </ul>
-		              </div>
-		              <form class="all-search">
-		                <input type="text" id="sort_by_key" class="quest-search" placeholder="Search Discussions">
+		                <button class="btn blue-button " data-toggle="dropdown">
+											<span class="caret sort-caret"></span>
+										</button>
+										<ul class="dropdown-menu display-sub" id="date-sort-list">
+											<li><a href="#">Today</a></li>
+											<li><a href="#">This Week</a></li>
+											<li><a href="#">This Month </a></li>
+											<li><a href="#">All Dates </a></li>
+										</ul>
+									</div>
+									<form class="all-search">
+		                <input type="text" id="sort_by_key" class="quest-search" placeholder="Search Discussions"/>
 		              </form>
 		            </div>
 		            <div class="clear"></div>
 		          </div>
 		          <div class="ask-outer">
 		            <div class="ask-content">
-		              <div class="follw-left">
-		                  <div class="ask-img"><img id="main-photo" src=""></div>
-		              </div>
+									<div class="follw-left">
+										<div class="ask-img"><img id="main-photo" src=""></div>
+									</div>
 		              <div  class="ask-info">
 		                <div class="ask-comment">
-		                  <div class="ask-left">
-		                    <form class="question-ask ask-disccution">
-		                      <textarea id="msg-area" name="" cols="" rows="" class="question-ask-search" placeholder="Speak your mind...."  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Speak your mind....'"></textarea>
-		                    </form>
-		                      <ul id="uploded-file-area"  class="answer" style="display:none;">
-		                        <li id="file-name" style="font-style: italic; list-style: none" >  </li>
-		                        <li >
-		                          <div class="progress-container"  style="display:none;">
-		                              <div class="progress progress-striped active">
-		                                <div class="bar" style="width: 0%;"></div>
-		                              </div> 
-		                          </div> 
-		                      </li>
-		                      </ul>
+											<div class="ask-left">
+												<form class="question-ask ask-disccution">
+													<textarea id="msg-area" name="" cols="" rows="" class="question-ask-search" placeholder="Speak your mind...."  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Speak your mind....'"></textarea>
+												</form>
+												<ul id="uploded-file-area"  class="answer" style="display:none;">
+													<li id="file-name" style="font-style: italic; list-style: none" > 
+												 	</li>
+													<li>
+														<div class="progress-container"  style="display:none;">
+															<div class="progress progress-striped active">
+																<div class="bar" style="width: 0%;"></div>
+															</div> 
+														</div> 
+													</li>
+												</ul>
 		                      
 		                    <div class="embed-info">
 		                      <div class="upload-conatiner">
