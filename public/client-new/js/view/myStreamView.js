@@ -13,7 +13,7 @@ define(['pageView',
 	MyStreamView = PageView.extend({
 		objName: 'MyStreamView',
 		events:{
-			'click .nav-tabs a': 'tabHandler',
+			'click #streamTab a': 'tabHandler',
 			'click #show-info' :'showDetails'
 		},
 		messagesPerPage: 10,
@@ -21,7 +21,7 @@ define(['pageView',
 		init: function(){
 			
 			this.addView(new StreamSliderView({el: '#sidebar'}));
-			this.addView(new OverView({el: $('#overView')}));
+			// this.addView(new OverView({el: $('#overView')}));
 			this.addView(new DiscussionsView({el: $('#discussionsView')}));
 			this.addView(new QuestionsView({el: $('#questionsView')}));
 			this.addView(new DeadlinesView({el: $('#deadlinesView')}));
@@ -29,6 +29,8 @@ define(['pageView',
 			
 			this.addView(new MessageListView({el: $('#messageListView')}));
 			this.addView(new QuestionListView({el: $('#questionListView')}));
+
+			
 			
 		},
 		
@@ -41,9 +43,11 @@ define(['pageView',
 	    	
 	    },
 	    tabHandler: function(e){
+	    	console.log($(e.target).attr('href'));
 	    	var tabId=$(e.target).attr('href').replace('#',''), view;
 	    	
-	    	
+
+	    	console.log(tabId);
 	    	if(tabId=='discussionsView'){ 
     		
 	    		/* fetch all messages of a stream for messageListView */

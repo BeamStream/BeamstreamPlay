@@ -40,6 +40,8 @@ define(['view/formView',
          * display messages
          */
         displayPage: function(callback){
+        	if(this.data.models[0].attributes.status)
+          		return;
              
 			/* render messages */
         	_.each(this.data.models, function(model) {

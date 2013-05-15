@@ -103,11 +103,15 @@ define(['view/formView',
 		 	this.data.fetch({
 				success : function(data, models) {
 
-					$('.page-loader').hide();
 					
-					/* render messages */
-					if(models.length != 0){
-						
+					if(models.status == "Failure"){
+
+						$('.page-loader').hide();
+
+					}else if(models.length != 0){ 
+
+					  	/* render messages */
+						$('.page-loader').hide();
 						_.each(models, function(model) {
 
 			        		$('#discussion-pagination').hide();
