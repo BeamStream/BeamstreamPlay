@@ -8,8 +8,8 @@ BetaUserRegistrationMessage=<html>Thank you for registering at Beamstream. We're
 
 # For Dev  Mode
 
-#url_required=http://test.beamstream.com
+url_required=http://test.beamstream.com
 
 
 # For Local Mode
-url_required=http://localhost:9000
+#url_required=http://localhost:9000
