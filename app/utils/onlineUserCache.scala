@@ -10,7 +10,7 @@ object onlineUserCache {
    * Activate The User Session
    */
 
-  def setOffline(userIdkey: String) = {
+  def setOffline(userIdkey: String):Int = {
     onlineUser filterNot (List(userIdkey)contains)
     Cache.set("Online Users", onlineUser)
     onlineUser.length
@@ -22,7 +22,7 @@ object onlineUserCache {
 
   def setOnline(userIdkey: String): Int = {
     if (onlineUser.contains(userIdkey) == false) {
-      onlineUser ++= List(userIdkey)
+      onlineUser ::: List(userIdkey)
       Cache.set("Online Users", onlineUser)
     }
     onlineUser.length
