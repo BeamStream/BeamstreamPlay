@@ -13,7 +13,7 @@ define(['pageView',
 	MyStreamView = PageView.extend({
 		objName: 'MyStreamView',
 		events:{
-			'click #streamTab a': 'tabHandler',
+			'click .nav-tabs a': 'tabHandler',
 			'click #show-info' :'showDetails'
 		},
 		messagesPerPage: 10,
