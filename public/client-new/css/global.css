@@ -3,9 +3,16 @@ ol,
 li {
   list-style: none;
 }
+#MyStream .nav-tabs a {
+  color: #d8a21f;
+}
+#MyStream .nav-tabs .active a {
+  font-size: 150%;
+  font-weight: bold;
+}
 #streamTab {
   border: none;
-  margin:20px 0;
+  margin: 20px 0;
 }
 #streamTab li {
   margin: 0 2%;
