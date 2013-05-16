@@ -21,18 +21,18 @@ define(['pageView',
          	eventName.preventDefault();
          	$('#view-by-select').text($(eventName.target).text());
 	        $('#view-by-select').attr('value',$(eventName.target).attr('value'));
-	        filesOverView = new FilesOverView({el: $('#grid')});
-	        if($(eventName.target).attr('value') == "docType"){
-	        	$('#grid').attr('name','overPage');
-                filesOverView.data.url = '/recentMedia';
+	        // filesOverView = new FilesOverView({el: $('#grid')});
+	        // if($(eventName.target).attr('value') == "docType"){
+	        // 	$('#grid').attr('name','overPage');
+         //        filesOverView.data.url = '/recentMedia';
                 
-	        }
-	        if($(eventName.target).attr('value') == "all"){
+	        // }
+	        // if($(eventName.target).attr('value') == "all"){
 	        	
-	        	$('#grid').attr('name','allFiles');
-                filesOverView.data.url = '/AllFilesForAUser';
+	        // 	$('#grid').attr('name','allFiles');
+         //        filesOverView.data.url = '/AllFilesForAUser';
                 
-            }
+         //    }
 
 
       	},

@@ -98,7 +98,7 @@
 		</li>
 {{/ifequal}}
 {{#ifequal fileType "documents"}}
-	<li data-groups='["recent"]' data-date-created="{{data.creationDate}}" class="item" >
+	<li data-groups='["recent"]' data-rock="{{data.documentRocks}}" data-date-created="{{data.creationDate}}" class="item" >
 			<div class="image-wrapper hovereffect" id="{{data.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="/beamstream-new/images/textimage.png ">
@@ -148,7 +148,7 @@
 {{/ifequal}}
 
 {{#ifequal fileType "googleDoc"}}
-	<li data-groups='["recent"]' data-date-created="{{data.creationDate}}" class="item" >
+	<li data-groups='["recent"]' data-rock="{{data.documentRocks}}" data-date-created="{{data.creationDate}}" class="item" >
 			<div class="image-wrapper hovereffect" id="{{data.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="/beamstream-new/images/google_docs_image.png">
@@ -199,7 +199,7 @@
 
 
 {{#ifequal fileType "pdf"}}
-	<li data-groups='["oldest"]' data-date-created="{{data.creationDate}}" class="item" >
+	<li data-groups='["oldest"]' data-rock="{{data.documentRocks}}"  data-date-created="{{data.creationDate}}" class="item" >
 			<div class="image-wrapper hovereffect" id="{{data.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="{{data.previewImageUrl}}">
@@ -245,7 +245,7 @@
 		</li>
 {{/ifequal}}
 {{#ifequal fileType "ppt"}}
-	<li data-groups='["oldest"]' data-date-created="{{data.creationDate}}" class="item" >
+	<li data-groups='["oldest"]' data-rock="{{data.documentRocks}}" data-date-created="{{data.creationDate}}" class="item" >
 			<div class="image-wrapper hovereffect" id="{{data.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="/beamstream-new/images/presentations_image.png">
