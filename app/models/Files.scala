@@ -86,5 +86,21 @@ object Files {
     }
     documentsFiles
   }
+  
+  //----------------------//
+  // Get All File Types //
+  //--------------------//
+  def getAllFileTypes(userId: ObjectId): List[Document] = {
+    var documentsFiles: List[Document] = List()
+    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId)).sort(orderBy = MongoDBObject("creationDate" -> -1)).toList
+    filesFound map {
+      case file =>
+        val fileName = file.documentURL
+        val i = fileName.lastIndexOf(".")
+        val extensionToMatch = fileName.substring(i)
+        documentsFiles ++= List(file)
+    }
+    documentsFiles
+  }
 
 }
