@@ -58,11 +58,7 @@ define(['view/formView',
 	      	"click #uploadmediachild_dr li" :"removeOptions",
 	      	'change .dropdownselect' :'dropdownselect',
 	      	"click .then-by li a" : "filterDocs",
-	      	"click #view-by-list" : "selectViewByAll",
-	      	"click #view-by-date-list" : "selectViewByDate",
-	      	"click #view-files-byrock-list" : "selectViewByRock",
-	      	"click #category-list li" :"sortBycategory",
-	      	"click .browse-right a" :"selectViewStyle",
+	   
 
 	      	'click .upload-from-computer': "uploadFileFromComputer",
 	      	'change #doc-from-computer' :'fetchDocument', 
@@ -486,40 +482,7 @@ define(['view/formView',
         	 eventName.preventDefault();
           },
 	          
-          
-          /**
-           * NEW THEME - view files 
-           */
-          selectViewByAll: function(eventName){
-             eventName.preventDefault();
-             $('#view-by-select').text($(eventName.target).text());
-          },
-          
-          
-          /**
-           * NEW THEME - view files 
-           */
-          selectViewByRock: function(eventName){
-             eventName.preventDefault();
-             $('#view-files-byrock-select').text($(eventName.target).text());
-          },
-          
-          /**
-           * NEW THEME - sort files by category
-           */
-          sortBycategory: function(eventName){
-        	 eventName.preventDefault();
-             $('#category-list-select').text($(eventName.target).text());
-          },
-          
-          /**
-           * NEW THEME - select files view style
-           */
-          selectViewStyle: function(eventName){
-             eventName.preventDefault();
-             $('.browse-right a.activebtn').removeClass('activebtn');
-             $(eventName.target).parents('a').addClass('activebtn');
-          },
+        
          
         /**
         * hide drop down list
@@ -537,6 +500,11 @@ define(['view/formView',
 			if($('#grid').attr('name') == 'overPage'){
                 filesOverView = new FilesOverView({el: $('#grid')});
                 filesOverView.data.url = '/recentMedia';
+            }
+
+            if($('#grid').attr('name') == 'allFiles'){
+                filesOverView = new FilesOverView({el: $('#grid')});
+                filesOverView.data.url = '/AllFilesForAUser';
             }
             if($('#grid').attr('name') == 'imageList'){
 
@@ -574,13 +542,13 @@ define(['view/formView',
             this.hidePopUpBlock();
 		},
            
-          /**
-          * NEW THEME - view files by date 
-          */
-          selectViewByDate: function(eventName){
-        	 eventName.preventDefault();
-             $('#view-by-date-select').text($(eventName.target).text());
-          }, 
+          // /**
+          // * NEW THEME - view files by date 
+          // */
+          // selectViewByDate: function(eventName){
+        	 // eventName.preventDefault();
+          //    $('#view-by-date-select').text($(eventName.target).text());
+          // }, 
 
           /**
           * upload file from computer

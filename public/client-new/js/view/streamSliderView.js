@@ -55,8 +55,11 @@ define(['baseView',
 			this.streamId = (this.data.models[0])?this.data.models[0].get('stream').id.id:null;
 			this.myStreams = (this.data)?this.data:null;
 
+
 			/** rendered by defalut : discussion page */
-			var view = this.getViewById('messageListView');
+			if(this.getViewById('sidebar').streamId){
+				
+				var view = this.getViewById('messageListView');
 	    		if(view){
 	    			
 	    			view.data.url="/allMessagesForAStream/"+this.getViewById('sidebar').streamId+"/date/"+view.messagesPerPage+"/"+view.pageNo;
@@ -64,6 +67,8 @@ define(['baseView',
 	    		
 	    		}
 
+			}
+			
 
 		},
 		

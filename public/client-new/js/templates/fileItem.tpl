@@ -7,7 +7,7 @@
 					<input type="hidden" id="fileType-{{data.id.id}}" value="{{data.contentType.name}}">
 					<div class="hover-text">
 						<div class="comment-wrapper"> 
-							<a href="#imagelist" class="image-list" style="text-decoration: none">
+							<a class="" style="text-decoration: none">
 								<div id="media-{{id.id}}" >
 								<h4 id="name-{{data.id.id}}">{{#if data.name}}{{data.name}}{{else}}Image Name{{/if}}</h4>
 								<div class="description-info">
@@ -57,7 +57,7 @@
 				<input type="hidden" id="fileType-{{data.id.id}}" value="{{data.contentType.name}}">
 				<div class="hover-text">               
 					<div class="comment-wrapper">                               
-						<a href="#videos" class="video-list" style="text-decoration: none">
+						<a  class="" style="text-decoration: none">
 							<div id="media-{{data.id.id}}">
 							<h4 id="name-{{data.id.id}}">{{#if data.name}}{{data.name}}{{else}}Video Name {{/if}}</h4>
 							<div class="description-info">
@@ -98,7 +98,7 @@
 		</li>
 {{/ifequal}}
 {{#ifequal fileType "documents"}}
-	<li data-groups="["recent"]" data-date-created="{{data.creationDate}}" class="item" >
+	<li data-groups='["recent"]' data-date-created="{{data.creationDate}}" class="item" >
 			<div class="image-wrapper hovereffect" id="{{data.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="/beamstream-new/images/textimage.png ">
@@ -106,7 +106,7 @@
 			 		<h3 class="common-doctext" >{{extension}}</h3>
 					<div class="hover-text">              
 						<div class="comment-wrapper">                               
-							<a href="#docs"  class="document-list" style="text-decoration: none">
+							<a  class="" style="text-decoration: none">
 							 	<div id="media-{{data.id.id}}" >
 							 	<h4 id="name-{{data.id.id}}">{{#if data.documentName}}{{data.documentName}}{{else}}Document Name{{/if}}</h4>
 								<div class="description-info">
@@ -148,7 +148,7 @@
 {{/ifequal}}
 
 {{#ifequal fileType "googleDoc"}}
-	<li data-groups="["recent"]" data-date-created="{{data.creationDate}}" class="item" >
+	<li data-groups='["recent"]' data-date-created="{{data.creationDate}}" class="item" >
 			<div class="image-wrapper hovereffect" id="{{data.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="/beamstream-new/images/google_docs_image.png">
@@ -156,7 +156,7 @@
 			 		<h3 class="common-doctext" >{{extension}}</h3>
 					<div class="hover-text">              
 						<div class="comment-wrapper">                               
-							<a href="#docs"  class="document-list" style="text-decoration: none">
+							<a  class="" style="text-decoration: none">
 							 	<div id="media-{{data.id.id}}" >
 							 	<h4 id="name-{{data.id.id}}">{{#if data.documentName}}{{data.documentName}}{{else}}Document Name{{/if}}</h4>
 								<div class="description-info">
@@ -199,14 +199,14 @@
 
 
 {{#ifequal fileType "pdf"}}
-	<li data-groups="["oldest"]" data-date-created="{{data.creationDate}}" class="item" >
+	<li data-groups='["oldest"]' data-date-created="{{data.creationDate}}" class="item" >
 			<div class="image-wrapper hovereffect" id="{{data.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="{{data.previewImageUrl}}">
 			 		<input type="hidden" id="fileType-{{data.id.id}}" value="{{data.documentType.name}}">
 					<div class="hover-text">              
 						<div class="comment-wrapper">                               
-							<a href="#pdfFiles" class="pdf-list" style="text-decoration: none">
+							<a  class="" style="text-decoration: none">
 							 	<div id="media-{{data.id.id}}" >
 							 	<h4 id="name-{{data.id.id}}">{{#if data.documentName}}{{data.documentName}}{{else}}Document Name{{/if}}</h4>
 								<div class="description-info">
@@ -245,14 +245,14 @@
 		</li>
 {{/ifequal}}
 {{#ifequal fileType "ppt"}}
-	<li data-groups="["oldest"]" data-date-created="{{data.creationDate}}" class="item" >
+	<li data-groups='["oldest"]' data-date-created="{{data.creationDate}}" class="item" >
 			<div class="image-wrapper hovereffect" id="{{data.id.id}}">
 		 		<div class="hover-div">
 			 		<img class="cover-picture" src="/beamstream-new/images/presentations_image.png">
 			 		<input type="hidden" id="fileType-{{data.id.id}}" value="{{data.documentType.name}}">
 					<div class="hover-text">              
 						<div class="comment-wrapper">                               
-							<a href="#presentations" class="ppt-list" style="text-decoration: none">
+							<a  class="" style="text-decoration: none">
 							 	<div id="media-{{data.id.id}}" >
 							 	<h4 id="name-{{data.id.id}}">{{#if data.documentName}}{{data.documentName}}{{else}}Doscument Name{{/if}}</h4>
 								<div class="description-info">
