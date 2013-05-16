@@ -25,8 +25,10 @@ define(['baseView',
 		'view/googleDocListView',
 		'../../lib/bootstrap-modal',
 		'../../lib/extralib/jquery.shuffle',
-		'../../lib/bootstrap'
-        ],function(BaseView,ImageListView,VideoListView,DocumentListView,PdfListView,PresentationListView,GoogleDocListView,BootstrapModal,Shuffle,Bootstrap){
+		'../../lib/bootstrap',
+		'text!templates/fileItem.tpl',
+		'text!templates/browseMedia.tpl',
+        ],function(BaseView,ImageListView,VideoListView,DocumentListView,PdfListView,PresentationListView,GoogleDocListView,BootstrapModal,Shuffle,Bootstrap,FileItemTpl,BrowseMedia){
 	
 	var FilesOverView;
 	FilesOverView = BaseView.extend({
@@ -43,6 +45,12 @@ define(['baseView',
 			'click .rock_doc' : 'rocksDocument',
             'click .rock-media': 'rocksMedia',
 
+
+            'click .ediTitle': 'editMediaTitle',
+            'click .documents-popup': 'showFile',
+            'click .rock_docs' : 'rockDocuments',
+            'click .rock-medias': 'rockMedia',
+
 		},
 	 
 		onAfterInit: function(){	
@@ -51,6 +59,99 @@ define(['baseView',
 			
         },
 
+        displayPage: function(callback){
+        	if($('#grid').attr('name') == 'allFiles'){
+	        	var extensionpattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+				if(this.data.models[0].attributes.documents){
+					_.each(this.data.models[0].attributes.documents, function(model) {
+
+						var extension ='',fileType='';
+
+		        		extension= (model.documentURL).match(extensionpattern);
+		        		if(extension){
+			        		extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+			                    return letter.toUpperCase();
+			            	});
+		        		}
+
+		        		if(model.documentType.name == 'GoogleDocs'){
+		        			fileType = 'googleDoc';
+		        		}
+		        		else{
+		        			if(extension == 'Pdf'){
+		        				fileType = 'pdf';
+		        			}
+		        			else if(extension == 'Ppt'){
+		        				fileType = 'ppt';
+		        			} 
+		        			else{
+		        				fileType = 'documents';
+		        			}
+
+		        		}
+						var datas = {
+					 	 "data" : model,
+					 	 "extension":extension,
+					 	 "fileType" : fileType,
+				    	}
+
+						var compiledTemplate = Handlebars.compile(FileItemTpl);
+	        			$('#grid div.content').append(compiledTemplate(datas));
+					});
+				}
+
+				if(this.data.models[0].attributes.media){
+
+					_.each(this.data.models[0].attributes.media, function(model) {
+
+						fileType='';
+						if(model.contentType.name == "Image"){
+							fileType = "image";
+						}
+						else{
+							fileType = "video";
+						}
+
+						var datas = {
+					 	 "data" : model,
+					 	 "fileType" :fileType,
+				    	}
+
+						var compiledTemplate = Handlebars.compile(FileItemTpl);
+	        			$('#grid div.content').append(compiledTemplate(datas));
+
+	        			/* pretty photo functionality for video /image popups */
+			            $("area[rel^='prettyPhoto']").prettyPhoto();
+			            $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({
+			                animation_speed:'normal',
+			                theme:'light_square',
+			                slideshow:3000, 
+			                autoplay_slideshow: true
+			            });
+			            $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({
+			                animation_speed:'fast',
+			                slideshow:10000,
+			                hideflash: true
+			            });
+						});
+
+						
+
+				}
+			}
+			else{
+
+				var template = Handlebars.compile(BrowseMedia);
+    			$('#grid div.content').append(template(JSON.parse(JSON.stringify(this.data))));
+
+
+			}
+
+
+
+			
+		},
+
 
 	 	displayNoResult : function(callback) {
 			this.animate.effect = "fade";
@@ -58,6 +159,77 @@ define(['baseView',
 		},
 
 
+		 /**
+        * show files in a popup
+        */
+        showFile: function(e){
+            var docId = e.currentTarget.id, docUrl='';
+            var fileType = $(e.currentTarget).attr('name');
+
+            // /* show document is a popup */ 
+            if(fileType == "googleDoc")
+            {
+                docUrl = $('input#id-'+docId).val();
+                
+            }
+            else
+            {
+                docUrl = "http://docs.google.com/gview?url="+$('input#id-'+docId).val()+"&embedded=true"; 
+                
+            
+            }
+            $('#doc-title').html();
+            $('#document-url').attr('src',docUrl);
+            $('#doc_popup').modal("show");
+        },
+
+
+         /**
+        * Rockds Documents 
+        */
+        rockDocuments: function(eventName){
+            eventName.preventDefault();
+            var element = eventName.target.parentElement;
+            var docId =$(element).attr('id');
+           
+            this.data.url = "/rock/document/";
+            // set values to model
+            this.data.models[0].save({id : docId },{
+                success : function(model, response) {
+                   
+                     $('#'+docId+'-activities li a.hand-icon').html(response);
+                },
+                error : function(model, response) {
+                    console.log("error");
+                }
+
+            });
+            
+        },
+
+
+        /**
+        * Rockds media 
+        */
+        rockMedia: function(eventName){
+            eventName.preventDefault();
+            var element = eventName.target.parentElement;
+            var docId =$(element).attr('id');
+           
+            this.data.url = "/rock/media";
+            // set values to model
+            this.data.models[0].save({id : docId },{
+                success : function(model, response) {
+                   
+                     $('#'+docId+'-activities li a.hand-icon').html(response);
+                },
+                error : function(model, response) {
+                    console.log("error");
+                }
+
+            });
+            
+        },
 
 		/**
 		* shows image list view
@@ -162,7 +334,7 @@ define(['baseView',
                      $('#'+docId+'-activities li a.hand-icon').html(response);
                 },
                 error : function(model, response) {
-                	logerr("error");
+                    console.log("error");
                 }
 
             });
@@ -185,7 +357,7 @@ define(['baseView',
                      $('#'+docId+'-activities li a.hand-icon').html(response);
                 },
                 error : function(model, response) {
-                	logerr("error");
+                    console.log("error");
                 }
 
             });
