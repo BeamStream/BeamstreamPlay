@@ -9,8 +9,6 @@ import com.mongodb.casbah.MongoConnection
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import java.util.Date
-import scala.collection.mutable.ListBuffer
-
 import java.util.Calendar
 import java.text.DateFormat
 

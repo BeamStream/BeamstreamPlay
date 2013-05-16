@@ -157,9 +157,7 @@ object MessageController extends Controller {
         val messagesWithDescription = Message.messagesAlongWithDocDescription(allMessagesForAStream, new ObjectId(userId))
         Ok(write(messagesWithDescription)).as("application/json")
     }
-
   }
-
 }
 
 
