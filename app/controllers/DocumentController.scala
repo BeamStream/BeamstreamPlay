@@ -176,13 +176,12 @@ object DocumentController extends Controller {
   // File Section Starts Here //
   //-------------------------//
   /**
-   * Get All File Types 
+   * Get All File Types
    */
   def getAllFilesForAUser = Action { implicit request =>
     val allfiles = Files.getAllFileTypes(new ObjectId(request.session.get("userId").get))
-    var mediaFiles = UserMedia.getAllMediaForAUser(new ObjectId(request.session.get("userId").get))
-
-    val alluserdocsandfiles = DocumentsAndMedia(allfiles, mediaFiles)
+    val mediaFiles = UserMedia.getAllMediaForAUser(new ObjectId(request.session.get("userId").get))
+    val alluserdocsandfiles = List(DocumentsAndMedia(allfiles, mediaFiles))
     Ok(write(alluserdocsandfiles)).as("application/json")
   }
 

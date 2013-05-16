@@ -72,7 +72,7 @@ object Files {
   //--------------------//
   def getAllDOCSFiles(userId: ObjectId): List[Document] = {
     var documentsFiles: List[Document] = List()
-    val documentFilesExtensionsList: List[String] = List(".doc", ".docx", ".txt", ".rtf", ".xls", ".xlsx", ",DOC", ".DOCX", ".TXT", ".RTF", ".XLS", ".XLSX",".html",".HTML")
+    val documentFilesExtensionsList: List[String] = List(".doc", ".docx", ".txt", ".rtf", ".xls", ".xlsx", ",DOC", ".DOCX", ".TXT", ".RTF", ".XLS", ".XLSX", ".html", ".HTML")
     val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "Other")).sort(orderBy = MongoDBObject("creationDate" -> -1)).toList
     filesFound map {
       case file =>
@@ -86,21 +86,12 @@ object Files {
     }
     documentsFiles
   }
-  
+
   //----------------------//
   // Get All File Types //
   //--------------------//
   def getAllFileTypes(userId: ObjectId): List[Document] = {
-    var documentsFiles: List[Document] = List()
-    val filesFound = DocumentDAO.find(MongoDBObject("userId" -> userId)).sort(orderBy = MongoDBObject("creationDate" -> -1)).toList
-    filesFound map {
-      case file =>
-        val fileName = file.documentURL
-        val i = fileName.lastIndexOf(".")
-        val extensionToMatch = fileName.substring(i)
-        documentsFiles ++= List(file)
-    }
-    documentsFiles
+    DocumentDAO.find(MongoDBObject("userId" -> userId)).sort(orderBy = MongoDBObject("creationDate" -> -1)).toList
   }
 
 }

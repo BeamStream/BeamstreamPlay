@@ -101,10 +101,10 @@ object UserMedia extends RockConsumer {
     UserMediaDAO.find(MongoDBObject("userId" -> userId, "contentType" -> "Video")).toList
   }
 
-  /*
- * Get All Media for a user
- * @Purpose : Show all Media for a user
- */
+  /**
+   * Get All Media for a user
+   * @Purpose : Show all Media for a user
+   */
   def getAllMediaForAUser(userId: ObjectId): List[UserMedia] = {
     UserMediaDAO.find(MongoDBObject("userId" -> userId)).toList
   }
