@@ -58,7 +58,7 @@ define(['view/formView'], function(FormView ){
         * @TODO  user registration 
         */
         login:function(e){	
-            e.preventDefault();
+            e.preventDefault();            
             this.data.url = "/login";            
             this.saveForm();
  
@@ -86,10 +86,10 @@ define(['view/formView'], function(FormView ){
 
             	
                 /* PUBNUB -- AUTO AJAX PUSH */ 
-                PUBNUB.publish({
-                    channel : "onlineUsers",
-                    message : { pagePushUid: self.pagePushUid ,userInfo:data}
-                }) 
+//                PUBNUB.publish({
+//                    channel : "onlineUsers",
+//                    message : { pagePushUid: self.pagePushUid ,userInfo:data}
+//                }) 
 
                 /* redirect to class page if the user has no stream */
                 if(data.hasClasses == true )

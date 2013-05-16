@@ -113,7 +113,7 @@ define(['baseView',
                      $('#'+docId+'-activities li a.hand-icon').html(response);
                 },
                 error : function(model, response) {
-                    console.log("error");
+                	logerr("error");
                 }
 
             });

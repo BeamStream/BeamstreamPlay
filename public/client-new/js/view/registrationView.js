@@ -114,13 +114,11 @@ define(['view/formView' ,
 					}
 					else if (userInfo.profile.providerName == "LinkedIn") {
 						
-						console.log("signup via LinkedIn");
 						email = userInfo.profile.email;
 						this.temp_photo = userInfo.profile.photo;
 					}
 					else if (userInfo.profile.providerName == "Google") {
 						
-						console.log("signup via Google");
 						email = userInfo.profile.email;
 						this.temp_photo = userInfo.profile.photo;
 					}
@@ -498,7 +496,6 @@ define(['view/formView' ,
 						    	
 						    	/* set the school details  to modal */
 						    	if(ui.item.value){
-						    		console.log(ui.item.id);
 						    		$('#associatedSchoolId').attr('value',ui.item.id);
 //						    		self.data.models[0].set({'schoolName' : ui.item.value , 'associatedSchoolId' :ui.item.id} );
 						    	}
@@ -518,7 +515,6 @@ define(['view/formView' ,
 	    addOtherDegree:function(eventName){
 	    	
 	    	  var id = eventName.target.id;
-	    	  console.log($('#'+id).val());
 	    	  if($('#'+id).val()== "Other")
 	    	  {
 	    		  $('#otherDegree').show();

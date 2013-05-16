@@ -64,7 +64,7 @@ define(['view/formView','../../lib/bootstrap-select'], function(FormView , Boots
 //        }
         
         addNewSchool:function(){
-        	alert(43);
+        	
 //			console.log(this.data.models[0].get('schoolName'));
 //			$('#schoolname').append('<option>'+this.data.models[0].get('schoolName')+'</option>');
 //			$('.schoollist').selectpicker({

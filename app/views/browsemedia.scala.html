@@ -958,12 +958,14 @@
               <li>
                 <div class="settings-menu">
                   <div class="btn-group">
-                    <button id="view-by-select" class="btn seetings-toggle sort-toogle sort-toogle-none">All Files </button>
+                    <button id="view-by-select" value="all" class="btn seetings-toggle sort-toogle sort-toogle-none">All Files </button>
                     <button data-toggle="dropdown" class="btn dropdown-toggle seetings-toggle"> <span class="caret settings-caret"></span></button>
                     <ul id="view-by-list" class="dropdown-menu">
-                      <li><a href="#">All Files</a></li>
-                      <li><a href="#">My Profile Media</a></li>
-                      <li><a href="#">My Docs </a></li>
+                      <li><a  value="all"  href="#">All Files</a></li>
+                      <li><a  value="profileMedia"  href="#">My Profile Media</a></li>
+                      <li><a  value="myDoc"  href="#">My Docs </a></li>
+                     <!--  <li><a  value="docType" href="#">Doc Type</a></li> -->
+
                     </ul>
                   </div>
                 </div>
@@ -1040,7 +1042,7 @@
           </div>
           <div class="calender-outer overview-boxes browse-outer">
      
-            <ul class="profil-pic-outer files-list" id="grid"  name="overPage" data-model="file" data-module="view/filesOverView" data-url="/recentMedia" data-tpl="templates/bowseMedia.tpl">         
+            <ul class="profil-pic-outer files-list" id="grid"  name="allFiles" data-model="file" data-module="view/filesOverView" data-url="/AllFilesForAUser" data-tpl="templates/fileItem.tpl">         
        
             </ul>
               

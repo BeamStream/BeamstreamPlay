@@ -359,4 +359,3 @@ define(['baseView',
     return streamSliderView;
     
 });
-

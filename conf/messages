@@ -4,7 +4,7 @@ BetaUserRegistrationMessage=<html>Thank you for registering at Beamstream. We're
 #set url
 
 # For Staging Mode
-#url_required=http://www.beamstream.com
+url_required=http://www.beamstream.com
 
 # For Dev  Mode
 
@@ -12,4 +12,4 @@ BetaUserRegistrationMessage=<html>Thank you for registering at Beamstream. We're
 
 
 # For Local Mode
-url_required=http://localhost:9000
+#url_required=http://localhost:9000
