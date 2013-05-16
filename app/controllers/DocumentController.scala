@@ -174,6 +174,13 @@ object DocumentController extends Controller {
   //---------------------------//
   // File Section Starts Here //
   //-------------------------//
+  /**
+   * Get All File Types 
+   */
+  def getAllFilesForAUser = Action { implicit request =>
+    val allfiles = Files.getAllFileTypes(new ObjectId(request.session.get("userId").get))
+    Ok(write(Documents(allfiles))).as("application/json")
+  }
 
   /**
    * Get All AudioFiles

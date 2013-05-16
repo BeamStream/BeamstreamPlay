@@ -185,6 +185,7 @@ GET      /audioFilesOfAUser                                                     
 GET      /allPPTFilesForAUser                                                    controllers.DocumentController.getAllPPTFilesForAUser
 GET      /allPDFFilesForAUser                                                    controllers.DocumentController.getAllPDFFilesForAUser
 GET      /allDOCSFilesForAUser                                                   controllers.DocumentController.getAllDOCSFilesForAUser
+GET      /AllFilesForAUser                                                   	 controllers.DocumentController.getAllFilesForAUser
 
 #Search Media Or Documents
 
