@@ -2,7 +2,9 @@ package controllers
 
 import java.text.SimpleDateFormat
 import java.util.Date
+
 import org.bson.types.ObjectId
+
 import models.Degree
 import models.DegreeExpected
 import models.Graduated
@@ -12,11 +14,11 @@ import models.User
 import models.UserSchool
 import models.Year
 import net.liftweb.json.Serialization.write
+import play.api.libs.json.JsValue
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.ObjectIdSerializer
 import utils.onlineUserCache
-import play.api.libs.json.JsValue
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {

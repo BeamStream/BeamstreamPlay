@@ -1,10 +1,8 @@
 package controllers
 
 import scala.collection.immutable.List
-
 import org.bson.types.ObjectId
 import org.neo4j.graphdb.Node
-
 import models.LoginResult
 import models.OnlineUsers
 import models.OnlineUsersResult
@@ -23,13 +21,13 @@ import utils.PasswordHashingUtil
 import utils.SendEmailUtility
 import utils.SocialGraphEmbeddedNeo4j
 import utils.onlineUserCache
+import models.OnlineUsersResult
 
 object UserController extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
   } + new ObjectIdSerializer
 
-  
   /* *
    * Reducing active user on sign Out
    */
@@ -46,28 +44,29 @@ object UserController extends Controller {
    */
 
   def getAllOnlineUsers = Action { implicit request =>
-      
+
     val onlineUsers = (onlineUserCache.returnOnlineUsers.isEmpty == true) match {
       case false =>
-        val onlineUsersWithDetails = (onlineUserCache.returnOnlineUsers) map {
-          case userIdList => (userIdList.asInstanceOf[List[String]]) map {
-            case eachUserId =>
-              val userWithDetailedInfo = User.getUserProfile(new ObjectId(eachUserId))
-              val profilePicForUser = UserMedia.getProfilePicForAUser(new ObjectId(eachUserId))
-              val onlineUsersAlongWithDetails = (profilePicForUser.isEmpty) match {
-                case true => OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
-                  userWithDetailedInfo.get.lastName, "")
-                case false => OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
-                  userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl)
-              }
-              onlineUsersAlongWithDetails
-          }
+        val onlineUsersWithDetails = (onlineUserCache.returnOnlineUsers.head.onlineUsers) map {
+          //          case userIdList => (userIdList.asInstanceOf[List[String]]) map {
+          case eachUserId =>
+            val userWithDetailedInfo = User.getUserProfile(eachUserId)
+            val profilePicForUser = UserMedia.getProfilePicForAUser(eachUserId)
+            val onlineUsersAlongWithDetails = (profilePicForUser.isEmpty) match {
+              case true => OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+                userWithDetailedInfo.get.lastName, "")
+              case false => OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+                userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl)
+            }
+            onlineUsersAlongWithDetails
+          //          }
         }
-        onlineUsersWithDetails
+        Option(onlineUsersWithDetails)
 
       case true => Option(Nil)
     }
     Ok(write(OnlineUsersResult(onlineUsers.get))).as("application/json")
+
   }
 
   /**
@@ -208,17 +207,17 @@ object UserController extends Controller {
         println("Online Users" + noOfOnLineUsers)
         val loggedInUser = User.getUserProfile(user.id)
         val profilePic = UserMedia.getProfilePicForAUser(user.id)
-       val hasClasses= loggedInUser.get.classes.isEmpty match {
+        val hasClasses = loggedInUser.get.classes.isEmpty match {
           case true => false
           case false => true
         }
         (profilePic.isEmpty) match {
-          case false => 
-          Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl),Option(hasClasses)))).as("application/json").withSession(userSession)
-          case true => Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, None,Option(hasClasses)))).as("application/json").withSession(userSession)
+          case false =>
+            Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl), Option(hasClasses)))).as("application/json").withSession(userSession)
+          case true => Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, None, Option(hasClasses)))).as("application/json").withSession(userSession)
         }
       case None =>
-        Ok(write(LoginResult(ResulttoSent("Failure", "Login Unsuccessful"), None, None,None))).as("application/json")
+        Ok(write(LoginResult(ResulttoSent("Failure", "Login Unsuccessful"), None, None, None))).as("application/json")
     }
 
   }
