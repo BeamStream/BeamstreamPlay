@@ -57,3 +57,4 @@ case class MediaResults(images: Option[UserMedia], videos: Option[UserMedia], do
 case class Photos(photos: List[UserMedia])
 case class Videos(videos: List[UserMedia])
 case class Documents(documents:List[Document])
+case class DocumentsAndMedia(documents:List[Document], media:List[UserMedia])

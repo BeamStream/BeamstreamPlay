@@ -26,6 +26,7 @@ import utils.ObjectIdSerializer
 import utils.PreviewOfPDFUtil
 import utils.tokenEmailUtil
 import models.Documents
+import models.DocumentsAndMedia
 /**
  * This controller class is used to store and retrieve all the information about documents.
  */
@@ -179,7 +180,10 @@ object DocumentController extends Controller {
    */
   def getAllFilesForAUser = Action { implicit request =>
     val allfiles = Files.getAllFileTypes(new ObjectId(request.session.get("userId").get))
-    Ok(write(Documents(allfiles))).as("application/json")
+    var mediaFiles = UserMedia.getAllMediaForAUser(new ObjectId(request.session.get("userId").get))
+
+    val alluserdocsandfiles = DocumentsAndMedia(allfiles, mediaFiles)
+    Ok(write(alluserdocsandfiles)).as("application/json")
   }
 
   /**
