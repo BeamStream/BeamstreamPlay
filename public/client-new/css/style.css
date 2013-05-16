@@ -597,8 +597,11 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d3951b', endCo
 }
 
 .stream-header {
-		display:block;
-		padding:.5% 1% 0
+	display: block;
+	padding-top: 0.5%;
+	padding-right: 1%;
+	padding-bottom: 5px;
+	padding-left: 1%;
 }
 
 .stream-header h2 {
@@ -711,7 +714,9 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#336336', endCo
 		text-transform:uppercase
 }
 
-
+.tab-content {
+	margin-top: 9px;
+}
 .questions {
 		-webkit-border-radius:3px;
 		-moz-border-radius:3px;
@@ -776,10 +781,10 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#cd4747', endCo
 
 .question-info {
 		-webkit-border-radius:10px 10px 0 0;
-		-moz-border-radius:10px 10px 0 0;
-		border-radius:10px 10px 0 0;
+		-moz-border-radius:10px 10px 0 0; 
+		border-radius:10px 10px 0 0; 
 		background:#e3e5e6;
-		height:10%;
+		height:10%;*/ 
 		float:left;
 		width:96%
 }
@@ -930,8 +935,16 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#cd4747', endCo
 		background:#e3e5e6;
 		clear:both;
 		display:block;
-		margin:10px 0 0 0;
+		margin: 0px 0 0 0;
 		position:relative
+/*		-webkit-border-top-left-radius: 10px;
+		-webkit-border-top-right-radius: 10px;
+		-moz-border-radius-topleft: 10px;
+		-moz-border-radius-topright: 10px;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		/*    background:#e3e5e6; */
+		padding-top: 3px;
 }
 
 .ask-content {
@@ -1080,7 +1093,8 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#cd4747', endCo
 }
 
 .ask-info {
-		float:left
+	float: left;
+	margin-top: 8px;
 }
 
 .ask-iconinfo {
