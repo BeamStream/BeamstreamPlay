@@ -1,0 +1,113 @@
+
+/*Public Profile page*/
+
+.profile-main-photo a{top:100px !important;}
+
+.profile-social-icons a.profile-twitter {
+		background:url(../images/spryte.png) -1px -835px
+}
+
+.profile-social-icons a.profile-facebook {
+		background:url(../images/spryte.png) -28px -835px
+}
+
+.profile-social-icons a.profile-in {
+		background:url(../images/spryte.png) -56px -835px
+}
+
+.profile-social-icons a.profile-rss {
+		background:url(../images/spryte.png) -82px -835px
+}
+
+ul.whitefield li.location {
+		background:url(../images/spryte.png) 3px -885px #f8f9fa
+}
+
+ul.whitefield li.home {
+		background:url(../images/spryte.png) 3px -918px #f8f9fa
+}
+
+ul.whitefield li.science {
+		background:url(../images/spryte.png) 3px -957px #f8f9fa
+}
+
+ul.whitefield li.fisherman {
+		background:url(../images/spryte.png) 3px -994px #f8f9fa
+}
+
+ul.stream-tab {
+    display: block;
+    float: left;
+    list-style: none outside none;
+    margin: 25px 0;
+    padding: 0;
+    width: 100%;
+}
+
+ul.stream-tab li {
+    display: block;
+    float: left;
+    position: relative;
+    margin: 0 2%;
+}
+
+ul.stream-tab li a.active {
+    background: -moz-linear-gradient(#D4991C, #DBAA22) repeat scroll 0 0 transparent;
+    border: 1px solid #DBAA22;
+    color: #FFFFFF;
+    position: relative;
+}
+
+ul.stream-tab li a {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 2px solid #E9EEF2;
+    border-radius: 10px 10px 10px 10px;
+    color: #8B969F;
+    display: block;
+    float: left;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    width: 80%;
+    text-align: center;
+}
+
+.profile-gallery {
+    padding: 0 0 15px;
+    width: 70% !important;
+}
+
+.profile-white {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 5px 5px 5px 5px !important;
+    box-shadow: 0 0 0 1px #CDD4DB;
+    list-style: none outside none;
+    margin: 0 0 60px;
+    padding: 5%;
+}
+
+.follow-david {
+    background: -moz-linear-gradient(#336437, #438348) repeat scroll 0 0 transparent !important;
+    border-radius: 4px 4px 4px 4px;
+    color: #FFFFFF;
+    display: block;
+    font-size: 14px;
+    font-weight: 599;
+    height: 42px;
+    line-height: 42px;
+    margin: 20px 0 0;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+ul.gallery-pic li img{
+	width: 96% !important;
+}
+
+.icons-right {
+	padding: 10px 0 0 10px;
+	height: 0 !important;
+}
