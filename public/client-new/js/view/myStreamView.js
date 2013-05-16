@@ -43,11 +43,8 @@ define(['pageView',
 	    	
 	    },
 	    tabHandler: function(e){
-	    	console.log($(e.target).attr('href'));
-	    	var tabId=$(e.target).attr('href').replace('#',''), view;
-	    	
+	    	var tabId=$(e.target).attr('href').replace('#',''), view;	    	
 
-	    	console.log(tabId);
 	    	if(tabId=='discussionsView'){ 
     		
 	    		/* fetch all messages of a stream for messageListView */
@@ -80,4 +77,3 @@ define(['pageView',
 	})
 	return MyStreamView;
 });
-

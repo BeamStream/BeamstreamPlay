@@ -309,7 +309,7 @@ define(['view/formView',
 	   			    	},
 	   			    	error : function(model, response) {
 	   			    		
-	   	                    console.log("error");
+	   			    		logerr("error");
 	   			    	}
 	
 	   			    });
@@ -385,7 +385,7 @@ define(['view/formView',
 		    		
 		    	},
 		    	error : function(model, response) {
-                    console.log("error");
+		    		logerr("error");
 		    	}
 
 		    });
@@ -436,7 +436,7 @@ define(['view/formView',
 		    		
 		    				},
 		    				error : function(model, response) {
-                  		  		console.log("error");
+		    					logerr("error");
 		    				}
 
 		    			});
@@ -510,7 +510,7 @@ define(['view/formView',
 		    		
 		    				},
 		    				error : function(model, response) {
-                  		  		console.log("error");
+		    					logerr("error");
 		    				}
 
 		    			});
@@ -575,7 +575,7 @@ define(['view/formView',
  		        	}
 		    	},
 		    	error : function(model, response) {
-                    console.log("error");
+		    		logerr("error");
 		    	}
 			});
         },
@@ -733,7 +733,7 @@ define(['view/formView',
 		    		
 		    	},
 		    	error : function(model, response) {
-                  console.log("error");
+		    		logerr("error");
 		    	}
 
 		    });
@@ -755,8 +755,6 @@ define(['view/formView',
 			// set values to model
         	comment.save({id : commentId },{
 		    	success : function(model, response) {
-		    		console.log(messageId);
-		    		console.log($('div#'+messageId+'-newCommentList').find('a#'+commentId+'-mrockCount'));
 		    		
 		    		// display the count in icon
                 	$('div#'+messageId+'-newCommentList').find('a#'+commentId+'-mrockCount').html(response);
@@ -770,7 +768,7 @@ define(['view/formView',
 		        	 
 		    	},
 		    	error : function(model, response) {
-                    console.log("error");
+		    		logerr("error");
 		    	}
 
 		    });

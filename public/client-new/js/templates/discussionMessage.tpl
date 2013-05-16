@@ -227,8 +227,9 @@
                             <ul class="follow-name-left show-all-block">
                               <li><span>@{{comment.firstNameofCommentPoster}} {{comment.lastNameofCommentPoster}} </span> -  {{comment.timeCreated}}  -  Public</li>
                               <li ><a href="#" class="rock-comments" >Rock</a></li>
+                              <li class="rocks-small"><a id="{{comment.id.id}}-mrockCount" href="#">{{comment.rocks}}</a></li>
                               <li><a class="comment-icon" href="#"></a></li>
-                                 <li class="rocks-small"><a id="{{comment.id.id}}-mrockCount" href="#">{{comment.rocks}}</a></li>
+                                 
                             </ul>
                           </div>
                           <p>{{comment.commentBody}}</p>

@@ -410,7 +410,6 @@ define(['view/formView',
         		this.data.models[0].removeAttr('pollOptions');
         		this.data.models[0].save({streamId : streamId, questionBody :question, questionAccess:questionAccess},{
 			    	success : function(model, response) {
-			    		console.log(self.data.models[0]);
 			    		// show the posted message on feed
 			    		var questionItemView  = new QuestionItemView({model : self.data.models[0]});
 						$('#questionListView div.content').prepend(questionItemView.render().el);
@@ -427,7 +426,6 @@ define(['view/formView',
 			    			message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response}
 			    		}) 
 			    		/* share widget */ 
-			    		console.log(self.selected_medias);
  				    	 if(self.selected_medias.length != 0){
 				    	 	 _.each(self.data.models[0], function(data) {
 				    	 		 showJanrainShareWidget(self.data.models[0].attributes.question.questionBody, 'View my Beamstream post', 'http://beamstream.com', self.data.models[0].attributes.question.questionBody ,self.selected_medias);
@@ -437,18 +435,15 @@ define(['view/formView',
 			    	},
 			    	error : function(model, response) {
 			    		$('#Q-area').val("");
-	                    console.log("error");
+			    		logerr("error");
 	                    $('#pollArea').slideUp(700); 
 			    	}
 
 		    	});
         	}else{
-        		console.log(pollOptions);
-        		console.log(888);
         		// set values to model
 			    this.data.models[0].save({streamId : streamId, questionBody :question, questionAccess:questionAccess ,pollOptions:pollOptions},{
 			    	success : function(model, response) {
-			    		console.log(self.data.models[0]);
 			    		/* PUBNUB -- AUTO AJAX PUSH */ 
 			    		PUBNUB.publish({
 			    			channel : "questions",
@@ -496,7 +491,7 @@ define(['view/formView',
 			    	},
 			    	error : function(model, response) {
 			    		$('#Q-area').val("");
-	                    console.log("error");
+			    		logerr("error");
 	                    $('#pollArea').slideUp(700); 
 			    	}
 

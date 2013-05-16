@@ -264,7 +264,6 @@ define(['view/formView',
 		        	 	message = $.trim(message);
 		  		        var link =  message.match(self.urlRegex); 
 		  		        if(link){
-		  		        	console.log("link yes");
 		  		        	if(!self.urlRegex2.test(link[0])) {
 		  		        		urlLink = "http://" + link[0];
 		  		  	  	    }
@@ -307,15 +306,12 @@ define(['view/formView',
 		  	                 else    //case: for doc upload
 		  	                 {     
 		  	                 	googleDoc = true;
-		  	                 	console.log("yes Google doc");
-		  	                 	console.log(urlLink);
 	  	                	 	self.postMessageToServer(message,streamId,messageAccess,googleDoc);
 		  	                 }
 	                     }
 		                 //case: link is not present in message
 		                 else
 		                 {             
-		                 console.log("link no");   
 		                	 self.postMessageToServer(message,streamId,messageAccess,googleDoc);
 		                 }
  			        	
@@ -360,7 +356,6 @@ define(['view/formView',
  						$('#messageListView div.content').prepend(messageItemView.render().el);
  						
  						/* share widget */ 						
- 						console.log(self.selected_medias);
   				    	 if(self.selected_medias.length != 0){
 				    	 	 _.each(self.data.models[0], function(data) {
 				    	 		 showJanrainShareWidget(self.data.models[0].attributes.message.messageBody, 'View my Beamstream post', 'http://beamstream.com', self.data.models[0].attributes.message.messageBody ,self.selected_medias);
@@ -379,14 +374,13 @@ define(['view/formView',
 			    	},
 			    	error : function(model, response) {
 			    		$('#msg-area').val("");
-	                    console.log("error");
+			    		logerr("error");
 			    	}
 			    	
 			    });
 			    
 
         	}else{
-        		console.log(this.data.models[0]);
         		this.data.models[0].removeAttr('docAccess');
         		this.data.models[0].removeAttr('docDescription');
         		this.data.models[0].removeAttr('docName');
@@ -432,7 +426,7 @@ define(['view/formView',
 			    	},
 			    	error : function(model, response) {
 			    		$('#msg-area').val("");
-	                    console.log("error");
+			    		logerr("error");
 			    	}
 
 			    });
@@ -668,7 +662,6 @@ define(['view/formView',
 				 callback : function(message) {
 					 var streamId = $('.sortable li.active').attr('id');
 
-					 console.log(34);
 					 if (message.pagePushUid != self.pagePushUid)
 					 { 
 					 	

@@ -63,7 +63,7 @@ define(['view/formView',
                 
                 },
                 error : function(model, response) {
-                    console.log("error");
+                	logerr("error");
                 }
 
             });

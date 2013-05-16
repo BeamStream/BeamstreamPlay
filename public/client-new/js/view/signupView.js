@@ -97,7 +97,6 @@ define(['view/formView'], function(FormView){
             $(eventName.currentTarget).find('div').addClass('active');
 
             $("#usertype").val(eventName.currentTarget.id);	
-            console.log($(eventName.currentTarget).attr('value'));
 		},
 		
         /**
@@ -105,7 +104,6 @@ define(['view/formView'], function(FormView){
          */
 		socialMediaSignup: function(e){
             e.preventDefault();
-            console.log($(e.target).parents('a').attr('id'));
 		},
 		
 		
