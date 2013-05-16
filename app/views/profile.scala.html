@@ -1,1 +1,407 @@
-<h1>Hello </h1>
+
+@meta = {}
+@CSS = {
+<link href="/beamstream-new/css/profile.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/beamstream-new/css/bootstrap-select.css">
+<!-- <link href="/beamstream-new/css/style.css" rel="stylesheet" type="text/css" />     -->
+<!-- 	<link href="/beamstream-new/css/new-style.css" rel="stylesheet" type="text/css" />     -->
+    <link href="/beamstream-new/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" /> 
+<!--     <link href="/beamstream-new/css/bootstrap.css" rel="stylesheet" type="text/css" />  -->
+    <link href='http://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'> 
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" 	rel="stylesheet" type="text/css" />
+
+}
+@JS = {
+<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.min.js"></script>
+<script type="text/JavaScript" src="/beamstream-new/lib/jquery-1.js"></script>
+<script type="text/JavaScript" src="/beamstream-new/lib/jquery.js"></script>
+<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>
+<script type="text/javascript" src="/beamstream-new/lib/css3-mediaqueries.js"></script>
+<script type="text/javascript" src="/beamstream-new/lib/jquery.simplyscroll.js"></script>
+<script src="/beamstream-new/lib/jquery.mousewheel.min.js"></script>
+<script src="/beamstream-new/lib/jquery.mCustomScrollbar.js"></script>
+<script src="/beamstream-new/lib/bootstrap-select.js"></script>
+}
+@bodyCls = {}
+@bodyModule = {}
+@bodyJS = {
+    
+}
+@sideBar = {}
+@header = {
+	@views.html.header.render
+}
+@footer = {}
+
+
+@main("Profile ", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
+
+	
+
+<!-- <script>!window.jQuery.ui && document.write(unescape('%3Cscript src="jquery/jquery-ui-1.8.21.custom.min.js"%3E%3C/script%3E'))</script> -->
+
+<!-- <script type="text/javascript"> -->
+
+
+
+<!-- (function($) { -->
+	
+	
+<!-- 	$(function() { //on DOM ready -->
+<!-- 		$(".scroller").simplyScroll({ -->
+<!-- 			customClass: 'vert', -->
+<!-- 			orientation: 'vertical', -->
+<!--             auto: false, -->
+<!--             manualMode: 'loop', -->
+<!-- 			frameRate: 20, -->
+<!-- 			speed: 5 -->
+<!-- 		}); -->
+		
+<!-- 		$('#sortable1, #sortable2').sortable(); -->
+<!-- 			$('#sortable3').sortable({ -->
+<!-- 				items: ':not(.disabled)' -->
+<!-- 			}); -->
+<!-- 			$('#sortable-with-handles').sortable({ -->
+<!-- 				handle: '.handle' -->
+<!-- 			}); -->
+<!-- 			$('#sortable4, #sortable5').sortable({ -->
+<!-- 				connectWith: '.connected' -->
+<!-- 			}); -->
+			
+<!-- 	}); -->
+	
+<!-- 	$(window).load(function(){ -->
+		
+<!-- 					$('.register-toolip-outer').tooltip({template:'<div class="tooltip profile-right-toolip"><div class="tooltip-inner"></div></div>'}) -->
+		
+<!-- 		$('.drag-rectangle').tooltip() -->
+		
+<!-- 				$("#user-online").mCustomScrollbar({ -->
+<!-- 					set_width:false, /*optional element width: boolean, pixels, percentage*/ -->
+<!-- 					set_height:false, /*optional element height: boolean, pixels, percentage*/ -->
+<!-- 					horizontalScroll:false, /*scroll horizontally: boolean*/ -->
+<!-- 					scrollInertia:550, /*scrolling inertia: integer (milliseconds)*/ -->
+<!-- 					scrollEasing:"easeOutCirc", /*scrolling easing: string*/ -->
+<!-- 					mouseWheel:"auto", /*mousewheel support and velocity: boolean, "auto", integer*/ -->
+<!-- 					autoDraggerLength:true, /*auto-adjust scrollbar dragger length: boolean*/ -->
+<!-- 					scrollButtons:{ /*scroll buttons*/ -->
+<!-- 						enable:false, /*scroll buttons support: boolean*/ -->
+<!-- 						scrollType:"continuous", /*scroll buttons scrolling type: "continuous", "pixels"*/ -->
+<!-- 						scrollSpeed:20, /*scroll buttons continuous scrolling speed: integer*/ -->
+<!-- 						scrollAmount:40 /*scroll buttons pixels scroll amount: integer (pixels)*/ -->
+<!-- 					}, -->
+<!-- 					advanced:{ -->
+<!-- 						updateOnBrowserResize:true, /*update scrollbars on browser resize (for layouts based on percentages): boolean*/ -->
+<!-- 						updateOnContentResize:false, /*auto-update scrollbars on content resize (for dynamic content): boolean*/ -->
+<!-- 						autoExpandHorizontalScroll:false /*auto expand width for horizontal scrolling: boolean*/ -->
+<!-- 					}, -->
+<!-- 					callbacks:{ -->
+<!-- 						onScroll:function(){}, /*user custom callback function on scroll event*/ -->
+<!-- 						onTotalScroll:function(){}, /*user custom callback function on bottom reached event*/ -->
+<!-- 						onTotalScrollOffset:0 /*bottom reached offset: integer (pixels)*/ -->
+<!-- 					} -->
+<!-- 				}); -->
+<!-- 			}); -->
+			
+			
+<!-- })(jQuery); -->
+<!-- </script> -->
+<!-- <script type="text/javascript"> -->
+<!-- //       window.onload=function(){ -->
+<!-- //         $('.selectpicker').selectpicker(); -->
+
+<!-- //         $('.selectpicker-info').selectpicker({ -->
+<!-- //           style: 'profile-select' -->
+<!-- //         }); -->
+        
+      
+<!-- //       }; -->
+<!--     </script> -->
+<!-- <div  id="profile"  data-model="user"   data-module="view/loginView"  > -->
+<!-- <div class="right-container browse-conatiner"> -->
+
+
+      <div class="profile-wrapper">
+        <div class="profile-left-container">
+          <div class="profile-white">
+            <h2>Joseph Whitefield</h2>
+            <div class="profile-social-icons"> <a href="#" class="profile-twitter">Twitter</a> <a href="#" class="profile-facebook">Facebook</a> <a href="#" class="profile-in">in</a> <a href="#" class="profile-rss">rss</a> </div>
+            <p>I'm a web/graphic designer blah blah. Things I wanna say about myself will go here.</p>
+            <ul class="whitefield">
+              <li class="location"><a href="#">Sarasota, FL</a></li>
+              <li class="home"><a href="#">Uni. of South Florida</a></li>
+              <li class="science"><a href="#">Bachelor's Science</a></li>
+              <li class="fisherman"><a href="#">Freshman <span>/ Class of 2016</span></a></li>
+            </ul>
+            <a href="#" class="follow-david">Follow David</a> </div>
+          <div class="profile-white">
+            <div class="profile-select-block">
+            
+              <select name="select" class="selectpicker-info " style="display: none;">
+                <option selected="selected" >My Feed</option>
+                <option>My Feed 2</option>
+                <option>My Feed 3</option>
+              </select>
+              <div class="select-arrow-white"><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
+            </div>
+            <ul class="feed-info">
+              <li>
+                <p>I was really excited when I heard about the awesome thing i read on... </p>
+                <span><a href="#" class="profile-readmore">Read More </a> 15 min</span> </li>
+              <li>
+                <p>I was really excited when I heard about the awesome thing i read on... </p>
+                <span><a href="#" class="profile-readmore">Read More </a> 15 min</span> </li>
+              <li>
+                <p>I was really excited when I heard about the awesome thing i read on... </p>
+                <span><a href="#" class="profile-readmore">Read More </a> 15 min</span> </li>
+              <li>
+                <p>I was really excited when I heard about the awesome thing i read on... </p>
+                <span><a href="#" class="profile-readmore">Read More </a> 15 min</span> </li>
+              <li>
+                <p>I was really excited when I heard about the awesome thing i read on... </p>
+                <span><a href="#" class="profile-readmore">Read More </a> 15 min</span> </li>
+              <li>
+                <p>I was really excited when I heard about the awesome thing i read on... </p>
+                <span><a href="#" class="profile-readmore">Read More </a> 15 min</span> </li>
+            </ul>
+            <a href="#" class="show-more">Show More</a> </div>
+        </div>
+        <div class="middle-container">
+                  <ul class="profile-top-menu profile-white">
+          
+            <a href="#">
+            <div class="profile-round-btn">10</div>
+            <span>Workers</span> </a>
+             <a href="#">
+            <div class="profile-round-btn">18</div>
+            <span>Bookworm</span> </a> 
+            <a href="#">
+            <div class="profile-round-btn">10</div>
+            <span>Shy</span> </a> 
+            <a href="#">
+            <div class="profile-round-btn">3</div>
+            <span>Funny</span> </a>
+             <a href="#">
+            <div class="profile-round-btn">10</div>
+            <span>Add</span> </a>
+          </ul>
+        <div class="profile-center-container">
+
+          <div class="round-area">
+            <div class="roud-slider">
+                    
+<div id="upload-step">
+	             <div class="round-block upload-photo profile-main-photo"> 
+	             	             
+	             <a> <img width="148" height="37" id="profile-photo" src="/beamstream-new/images/roun-slider.png"></a>
+	             
+	             </div>
+             </div>
+
+            </div>
+          </div>
+       
+        </div>
+        
+        
+                  <div class="profile-top-menu profile-white profile-gallery">
+                    
+                 <ul class="stream-tab ">
+                     <li class="profile-bottom-nav"> <a class="active" href="#">Pics / video</a> </li>
+          <li class="profile-bottom-nav"> <a href="#">Projects</a> </li>
+       
+        </ul>  
+        
+        
+        
+        <ul class="gallery-pic">
+        
+        <li><img src="/beamstream-new/images/gallery1.jpg"></li>
+             <li><img src="/beamstream-new/images/gallery2.jpg" ></li>
+                  <li><img src="/beamstream-new/images/gallery3.jpg" ></li>
+                  <li><img src="/beamstream-new/images/gallery4.jpg" ></li>
+                        <li><img src="/beamstream-new/images/gallery5.jpg" ></li>
+                              <li><img src="/beamstream-new/images/gallery6.jpg" ></li>
+                                    <li><img src="/beamstream-new/images/gallery7.jpg" ></li>
+                                          <li><img src="/beamstream-new/images/gallery8.jpg" ></li>
+                                                <li><img src="/beamstream-new/images/gallery9.jpg" ></li>
+        
+        
+        
+        </ul>
+        
+        
+        
+        <div class="gallery-bottom-btn">
+        
+        
+      <div class="show-more-block"> <a href="#" class="show-more show-right">Show More</a> <a href="#" class="icons-right"><img src="/beamstream-new/images/plus-right.png" width="15" height="15"></a> <a href="#" class="icons-right"><img src="/beamstream-new/images/pencil.png" width="15" height="14"></a> </div>  
+        
+        
+        
+        </div>
+         <div class="clear"></div>
+        </div>  
+        
+        </div>
+        </div>
+        <div class="profile-right-container">
+          <div class="profile-white">
+            <ul class="profile-skills">
+              <div class="skills-tittle"> <span class="skills">Skills</span> <span class="skills-year">12</span> <span class="skills-rocks">Rocks</span> </div>
+              <li>
+                <div class="skills-block"><span class="skills">Photoshop </span> <span class="skills-year">12 </span>
+                  <div class="skill-rock"> <span>12</span> </div>
+                </div>
+                <ul class="skills-grade">
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                </ul>
+              </li>
+              <li>
+                <div class="skills-block"><span class="skills">Web Design </span> <span class="skills-year">4 </span>
+                  <div class="skill-rock"> <span>12</span> </div>
+                </div>
+                <ul class="skills-grade">
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                </ul>
+              </li>
+              <li>
+                <div class="skills-block"><span class="skills">Illustrator </span> <span class="skills-year">5 </span>
+                  <div class="skill-rock"> <span>7</span> </div>
+                </div>
+                <ul class="skills-grade">
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                </ul>
+              </li>
+              <li>
+                <div class="skills-block"><span class="skills register-toolip-outer" >Branding </span> <span class="skills-year">2 </span>
+                  <a class="skill-rock register-toolip-outer" href="#" data-original-title="Sweet, Lookin good!"> <span>5</span> </a>
+                </div>
+                <ul class="skills-grade">
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                </ul>
+              </li>
+              <li>
+                <div class="skills-block"><span class="skills">Drawing </span> <span class="skills-year">12 </span>
+                  <div class="skill-rock"> <span>8</span> </div>
+                </div>
+                <ul class="skills-grade">
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="show-more-block"> <a href="#" class="show-more show-right">Show More</a> <a href="#" class="icons-right"><img src="/beamstream-new/images/plus-right.png" width="15" height="15"></a> <a href="#" class="icons-right"><img src="/beamstream-new/images/pencil.png" width="15" height="14"></a> </div>
+            <div class="clear"></div>
+          </div>
+          <div class="profile-white">
+            <ul class="profile-skills">
+              <div class="skills-tittle">Activities</div>
+              <div class="activities-image">
+                <center>
+                  <img src="/beamstream-new/images/activities-round.jpg" width="180" height="290">
+                </center>
+              </div>
+            </ul>
+            <div class="show-more-block"> <a href="#" class="show-more show-right">Show More</a> <a href="#" class="icons-right"><img src="/beamstream-new/images/plus-right.png" width="15" height="15"></a> <a href="#" class="icons-right"><img src="/beamstream-new/images/pencil.png" width="15" height="14"></a> </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+      </div>
+      
+<!--       for dropdown  -->
+      <script type="text/javascript">
+		$(document).ready(function() {
+        $('.selectpicker-info').selectpicker({
+          style: 'profile-select'
+        }); 
+        $('#profile-photo').attr('src',localStorage["loggedUserProfileUrl"]);
+      });
+    </script>
+    
+    
+<!--       </div> -->
+<!--   </div> -->
+
+<!-- <script> -->
+<!-- //         $(document).ready(function() { -->
+
+<!-- //    // FIXME: this is temporary hack, remove it later. -->
+<!-- //             $('.menu a').click(function() { -->
+<!-- //                 var $this = $(this); -->
+<!-- //                     $this -->
+<!-- //                         .closest('ul') -->
+<!-- //                             .find('li a').removeClass('active').end() -->
+<!-- //                         .end() -->
+<!-- //                         .closest('li a').addClass('active'); -->
+                
+<!-- //             }); -->
+
+<!-- //  $('.stream-tab a').click(function() { -->
+<!-- //                 var $this = $(this); -->
+<!-- //                     $this -->
+<!-- //                         .closest('ul') -->
+<!-- //                             .find('li a').removeClass('active').end() -->
+<!-- //                         .end() -->
+<!-- //                         .closest('li a').addClass('active'); -->
+                
+<!-- //             }); -->
+ 
+
+<!-- // }); -->
+
+<!-- //   // show and hide the comments -->
+<!-- //   $(document).ready(function() {   -->
+<!-- //     $(".showmessage").click(function (eventName) { -->
+<!-- //     eventName.preventDefault(); -->
+<!-- //     $('#comments').slideToggle(600);  -->
+<!-- //     }); -->
+
+<!-- // $(".add-poll").click(function (eventName) { -->
+<!-- //     eventName.preventDefault(); -->
+<!-- //     $('.answer').slideToggle(700);  -->
+<!-- //     }); -->
+
+<!-- //   }); -->
+
+
+
+
+<!--     </script> -->
+<!-- <script> -->
+<!-- // $("#chat-status").click(function() { -->
+<!-- // $('#user-online').toggle('slow'); -->
+<!-- // }); -->
+<!-- </script> -->
+<!-- </html> -->
+
+}
