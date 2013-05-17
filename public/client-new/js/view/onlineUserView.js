@@ -35,6 +35,7 @@ define(['baseView',
 		
         onAfterInit: function(){
         	this.data.reset();
+        	this.scroll();
 		},		
 
 		/**
@@ -57,6 +58,7 @@ define(['baseView',
          * if other online users 
          */
 		displayPage: function(){
+			var self = this;
 			_.each(this.data.models[0].attributes.onlineUsers, function(model) {
 				var profileImageUrl = '';
 				if(model.profileImageUrl){
@@ -70,10 +72,10 @@ define(['baseView',
 				
 		        if(model.id.id == localStorage["loggedUserId"])
 		        {
-		        	var template = 	'<a href="#"><img src="'+profileImageUrl+'" width="30" height="28"> '
-		        					+'<span>Me</span> <span class="online-chat">Online</span></a>';
+		        	var template = 	'<li id="me" class="online"><a href="#"><img src="'+profileImageUrl+'" width="30" height="28"> '
+		        					+'<span>Me</span> <span class="online-chat">Online</span></a></li>';
 		        			
-		        	$('#me').html(template);		
+		        	$('#user-online ul').prepend(template);	
 		        }
 		        else
 		        {
@@ -81,16 +83,18 @@ define(['baseView',
 		        	var template = '<li> <a href="#">'
 						        	+'<img width="30" height="28" src="'+profileImageUrl+'">'
 						        	+'<span>'+model.firstName+'</span> <span class="offline-chat">'
-						        	+'<img width="12" height="13" src="img/online-icon.png"></span></a> </li>';
-		        	$('#onlinechatbox').append(template);
+						        	+'<img width="12" height="13" src="/beamstream-new/images/online-icon.png"></span></a> </li>';
+		        	
+		        	$('#user-online ul').append(template);
 
 		        }
+		        
+		        $('#user-online').mCustomScrollbar("update");
 				
         	});
 		},
 
 		onAfterRender: function(){
-			this.scroll();
 		},
 		
 		/**
@@ -99,31 +103,30 @@ define(['baseView',
 		scroll :function(eventName){
 			
 			$("#user-online").mCustomScrollbar({
-                    
-                    set_width:false, /*optional element width: boolean, pixels, percentage*/
-                    set_height:false, /*optional element height: boolean, pixels, percentage*/
-                    horizontalScroll:false, /*scroll horizontally: boolean*/
-                    scrollInertia:550, /*scrolling inertia: integer (milliseconds)*/
-                    scrollEasing:"easeOutCirc", /*scrolling easing: string*/
-                    mouseWheel:"auto", /*mousewheel support and velocity: boolean, "auto", integer*/
-                    autoDraggerLength:true, /*auto-adjust scrollbar dragger length: boolean*/
-                    scrollButtons:{ /*scroll buttons*/
-                        enable:false, /*scroll buttons support: boolean*/
-                        scrollType:"continuous", /*scroll buttons scrolling type: "continuous", "pixels"*/
-                        scrollSpeed:20, /*scroll buttons continuous scrolling speed: integer*/
-                        scrollAmount:40 /*scroll buttons pixels scroll amount: integer (pixels)*/
-                    },
-                    advanced:{
-                        updateOnBrowserResize:true, /*update scrollbars on browser resize (for layouts based on percentages): boolean*/
-                        updateOnContentResize:false, /*auto-update scrollbars on content resize (for dynamic content): boolean*/
-                        autoExpandHorizontalScroll:false /*auto expand width for horizontal scrolling: boolean*/
-                    },
-                    callbacks:{
-                        onScroll:function(){}, /*user custom callback function on scroll event*/
-                        onTotalScroll:function(){}, /*user custom callback function on bottom reached event*/
-                        onTotalScrollOffset:0 /*bottom reached offset: integer (pixels)*/
-                    }                   
-             }); 
+					set_width:false, /*optional element width: boolean, pixels, percentage*/
+					set_height:false, /*optional element height: boolean, pixels, percentage*/
+					horizontalScroll:false, /*scroll horizontally: boolean*/
+					scrollInertia:550, /*scrolling inertia: integer (milliseconds)*/
+					scrollEasing:"easeOutCirc", /*scrolling easing: string*/
+					mouseWheel:"auto", /*mousewheel support and velocity: boolean, "auto", integer*/
+					autoDraggerLength:true, /*auto-adjust scrollbar dragger length: boolean*/
+					scrollButtons:{ /*scroll buttons*/
+						enable:false, /*scroll buttons support: boolean*/
+						scrollType:"continuous", /*scroll buttons scrolling type: "continuous", "pixels"*/
+						scrollSpeed:20, /*scroll buttons continuous scrolling speed: integer*/
+						scrollAmount:40 /*scroll buttons pixels scroll amount: integer (pixels)*/
+					},
+					advanced:{
+						updateOnBrowserResize:true, /*update scrollbars on browser resize (for layouts based on percentages): boolean*/
+						updateOnContentResize:false, /*auto-update scrollbars on content resize (for dynamic content): boolean*/
+						autoExpandHorizontalScroll:false /*auto expand width for horizontal scrolling: boolean*/
+					},
+					callbacks:{
+						onScroll:function(){}, /*user custom callback function on scroll event*/
+						onTotalScroll:function(){}, /*user custom callback function on bottom reached event*/
+						onTotalScrollOffset:0 /*bottom reached offset: integer (pixels)*/
+					}
+				});
 		},
            
                 
