@@ -309,6 +309,7 @@ define(['view/formView',
 	   			    	},
 	   			    	error : function(model, response) {
 	   			    		
+	   			    		logerr("error");
 	   			    	}
 	
 	   			    });
@@ -384,6 +385,7 @@ define(['view/formView',
 		    		
 		    	},
 		    	error : function(model, response) {
+		    		logerr("error");
 		    	}
 
 		    });
@@ -434,6 +436,7 @@ define(['view/formView',
 		    		
 		    				},
 		    				error : function(model, response) {
+		    					logerr("error");
 		    				}
 
 		    			});
@@ -445,6 +448,7 @@ define(['view/formView',
 				 	"label" : "CANCEL",
 				 	"class" : "btn-primary",
 	 				"callback": function() {
+	 					console.log("ok");
 	 				}
 	 			 }]);
  			 }
@@ -506,6 +510,7 @@ define(['view/formView',
 		    		
 		    				},
 		    				error : function(model, response) {
+		    					logerr("error");
 		    				}
 
 		    			});
@@ -517,6 +522,7 @@ define(['view/formView',
 				 	"label" : "CANCEL",
 				 	"class" : "btn-primary",
 	 				"callback": function() {
+	 					console.log("ok");
 	 				}
 	 			 }]);
  			 }
@@ -569,6 +575,7 @@ define(['view/formView',
  		        	}
 		    	},
 		    	error : function(model, response) {
+		    		logerr("error");
 		    	}
 			});
         },
@@ -726,6 +733,7 @@ define(['view/formView',
 		    		
 		    	},
 		    	error : function(model, response) {
+		    		logerr("error");
 		    	}
 
 		    });
@@ -760,6 +768,7 @@ define(['view/formView',
 		        	 
 		    	},
 		    	error : function(model, response) {
+		    		logerr("error");
 		    	}
 
 		    });
