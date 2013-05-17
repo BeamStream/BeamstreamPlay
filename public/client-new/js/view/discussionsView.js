@@ -374,7 +374,6 @@ define(['view/formView',
 			    	},
 			    	error : function(model, response) {
 			    		$('#msg-area').val("");
-			    		logerr("error");
 			    	}
 			    	
 			    });
@@ -426,7 +425,6 @@ define(['view/formView',
 			    	},
 			    	error : function(model, response) {
 			    		$('#msg-area').val("");
-			    		logerr("error");
 			    	}
 
 			    });

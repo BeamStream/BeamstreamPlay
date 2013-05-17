@@ -195,7 +195,6 @@ define(
 														if (v[j] === "")
 															v.splice(j, 1)
 													}
-													console.log("v", v);
 													model.set(p[0], v)
 												}
 											} else {
@@ -215,7 +214,6 @@ define(
 						serverError : function(model, data) {
 							var that = this;
 							if (_.isObject(data)) {
-								console.log(this.data.models[0]);
 								this.data.models[0].showError()
 							} else {
 								var error_msg = this.$(".error_msg_area")[0];

@@ -93,7 +93,6 @@ define(['view/formView' ,
 						}
 						 
 						if(userInfo.profile.address === undefined){
-							console.log("no location");
 						}
 						else{
 							location = userInfo.profile.address.formatted;
@@ -104,7 +103,6 @@ define(['view/formView' ,
 					else if(userInfo.profile.providerName == "Facebook"){
 
 						if(userInfo.profile.address === undefined){
-							console.log("no location");
 						}
 						else{
 							location = userInfo.profile.address.formatted;
@@ -123,7 +121,6 @@ define(['view/formView' ,
 						this.temp_photo = userInfo.profile.photo;
 					}
 					else{
-						console.log("Not from registraed social site");
 					}
 						 
 					userInfo = { "status" : "true" , "firstName" : firstName,"lastName": lastName,"location": location, "email": email ,"photo": this.temp_photo};
@@ -186,7 +183,6 @@ define(['view/formView' ,
 		 */
         completeFirstStep: function(e){
         	e.preventDefault();
-            console.log("Complete first step ...");
             /* disable first step and enable step 2 block */
             this.enableStepTwo();
             $("#cellNumber").setMask('(999) 999-9999');
@@ -296,7 +292,6 @@ define(['view/formView' ,
 	         /* Only process image files. */
 	         if (!file.type.match('image.*') && !file.type.match('video.*')) {
 	        	 
-	        	 console.log("Error: file type not allowed");
 	        	 $('#profile-photo').attr("src","/beamstream-new/images/upload-photo.png");
 			     $('#profile-error').html('File type not allowed !!');
 			     self.profile = '';

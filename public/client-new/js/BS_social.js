@@ -1,7 +1,6 @@
 function showJanrainSigninWidget(tokenUrl) {
 
 	/* Modified by Aswathy for janRain login*/ 
-	 console.log(tokenUrl);
 	if (typeof window.janrain !== 'object') window.janrain = {};
     window.janrain.settings = {};
     
@@ -40,7 +39,6 @@ function showJanrainSigninWidget(tokenUrl) {
  * Documentation here.
  */
 function loadJanrainShareWidget() {
-  console.log('loadJanrainShareWidget');
 
   if (typeof window.janrain !== 'object') window.janrain = {};
   if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
@@ -118,7 +116,6 @@ function janrainWidgetOnload() {
 	
 	
   janrain.events.onProviderLoginToken.addHandler(function (response) {
-	  console.log(5656);
 //    $.ajax({
 //      type: "POST",
 //      url: 'http://localhost:9000/social/social_authentication',
@@ -260,7 +257,6 @@ function janRainLogin(info) {
 					replace : true
 				});
 			} else {
-				console.log(localStorage["idLogin"]);
 				if (localStorage["idLogin"] == "login") {
 					$('#error').html("Login unsuccessfull");
 					$('.janrainContent div+div').remove();
@@ -276,7 +272,6 @@ function janRainLogin(info) {
 			}
 		},
 		error : function(error) {
-			console.log("Error");
 		}
 	});
 
