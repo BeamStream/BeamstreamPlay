@@ -41,11 +41,9 @@ define(['view/formView'], function(FormView){
 		setSingleField: function(){
 			this.data.models[0].set('firstName', "Viet");
 			this.render();
-			console.log(this.data.models[0])
 		},
 		setCollection: function(){
 			this.set({firstName: 'John', lastName: 'Doe'});
-			console.log(this.data.models[0])
 		}
 	})
 	return PersonView;
