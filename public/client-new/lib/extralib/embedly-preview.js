@@ -1759,7 +1759,6 @@ var Mustache = function() {
 		return g
 	}
 	e.fn.preview = function(f, g) {
-            console.log("in preview");
             
 		 
 		e(this).each(function(h, j) {

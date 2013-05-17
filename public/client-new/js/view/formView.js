@@ -215,7 +215,6 @@ define(
 						serverError : function(model, data) {
 							var that = this;
 							if (_.isObject(data)) {
-								console.log(this.data.models[0]);
 								this.data.models[0].showError()
 							} else {
 								var error_msg = this.$(".error_msg_area")[0];
