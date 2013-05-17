@@ -386,7 +386,7 @@ define(['view/formView' ,
 		       	    			localStorage["loggedUserProfileUrl"] =  data.mediaUrl;
 
 		       	    		if(!data.frameURL && !data.mediaUrl)
-		                		localStorage["loggedUserProfileUrl"] =  '/beamstream-new/images/unknown.jpeg';
+		                		localStorage["loggedUserProfileUrl"] =  '/beamstream-new/images/profile-upload.png';
 		       	    		window.location = "/class";
 		       	    	}
 		       	    	else{
@@ -413,7 +413,7 @@ define(['view/formView' ,
 		noprofilepic: function(e){		
 			e.preventDefault();
 			$("#selectUploadPhoto").modal('hide');
-			localStorage["loggedUserProfileUrl"] =  '/beamstream-new/images/unknown.jpeg';
+			localStorage["loggedUserProfileUrl"] =  '/beamstream-new/images/profile-upload.png';
 			window.location = "/class";		
 		},
 		

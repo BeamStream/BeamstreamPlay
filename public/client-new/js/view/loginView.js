@@ -80,7 +80,7 @@ define(['view/formView'], function(FormView ){
                 if(data.profilePicOfUser)
             	   localStorage["loggedUserProfileUrl"] =  data.profilePicOfUser;
                 else
-                    localStorage["loggedUserProfileUrl"] =  '/beamstream-new/images/unknown.jpeg';
+                    localStorage["loggedUserProfileUrl"] =  '/beamstream-new/images/profile-upload.png';
                 
             	localStorage["loggedUserId"] =  data.user.id.id;
 
