@@ -57,6 +57,7 @@
 						 <div class="image-wrapper hovereffect" >
 						  <div class="hover-div">
 						   <div class="doc-image">
+						   		
 		                  		{{#if commenImage}}
 		                 			 <img  src="{{previewImage}}" class="cover-picture" /> <h3 class="common-doctext" >{{extension}}</h3>
 		                 		{{else}}

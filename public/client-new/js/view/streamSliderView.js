@@ -273,32 +273,6 @@ define(['baseView',
 	    	this.streamId = eventName.target.id;
 	    	
 
-	    	// disable the content rendering when the stream list is on edit stage
-	    	// if($('a.done').attr('data-value') == "inActive")
-	    	// 	return;
-	    	
-	    	// //if there is no stream in stream list 
-		    // if(!eventName.target.id)
-		    // 	return;
-		      
-		    // /*set the privateTo drop down select option as selected stream */
-		    // var streamName = $('#'+this.streamId+'').attr('name');
-		    // $('#select-privateTo').text(streamName);
-		    // $('#Q-privateTo-select').text(streamName);
-		   
-		    // // set active stage for stream li
-		    // $('.sortable li.active').find('div.active-curve').remove();
-		    // $('.sortable li.active').removeClass('active');
-		    // $('.sortable li#'+this.streamId).addClass('active');
-		    // $('.sortable li.active').append(this.activeDiv);
-		    // var userCount = $('.sortable li.active').attr('data-userCount');
-		    
-		    // /* render the stream title and description view based on selected stream */
-		    // var compiledTemplate = Handlebars.compile(StreamTitle);
-		    // $('.stream-header-left').html(compiledTemplate({streamName: streamName ,userCount:userCount }));
-		    
-		    // //render active tab contents
-		    // var activeTab = $('.stream-tab li.active').attr('id');
 	        this.renderTabContents(this.streamId);
  
 	    },
