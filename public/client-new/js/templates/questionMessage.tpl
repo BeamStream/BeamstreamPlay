@@ -2,7 +2,7 @@
 
     <div class="ask-content">
               <div class="follw-left">
-                  <div class="ask-img"><img  id="{{data.question.id.id}}-img" src="{{#if data.profilePic}}{{data.profilePic}}{{else}}/beamstream-new/images/unknown.jpeg{{/if}}"></div>
+                  <div class="ask-img"><img  id="{{data.question.id.id}}-img" src="{{#if data.profilePic}}{{data.profilePic}}{{else}}/beamstream-new/images/profile-upload.png{{/if}}"></div>
 
                   {{#ifequal data.followerOfQuestionPoster false}}
                      <a href="#" id="{{data.question.userId.id}}" class="follow-button follow-user" data-value="follow">follow</a>
@@ -105,7 +105,7 @@
                       
                        <div class="answer-description"  id="{{comment.id.id}}">
                         <div class="follw-left">          
-                            <div class="ask-img"><img id="{{comment.id.id}}-image" src="{{#if profilePic}}{{profilePic}}{{else}}/beamstream-new/images/unknown.jpeg{{/if}}"></div>                      
+                            <div class="ask-img"><img id="{{comment.id.id}}-image" src="{{#if profilePic}}{{profilePic}}{{else}}/beamstream-new/images/profile-upload.png{{/if}}"></div>                      
                         </div>
                         <div class="answer-description-info">
                           <div class="follow-names">

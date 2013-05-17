@@ -58,10 +58,19 @@ define(['baseView',
          */
 		displayPage: function(){
 			_.each(this.data.models[0].attributes.onlineUsers, function(model) {
+				var profileImageUrl = '';
+				if(model.profileImageUrl){
+
+					profileImageUrl = model.profileImageUrl;
+
+				}else{
+
+					profileImageUrl = '/beamstream-new/images/profile-upload.png';
+				}
 				
 		        if(model.id.id == localStorage["loggedUserId"])
 		        {
-		        	var template = 	'<a href="#"><img src="'+model.profileImageUrl+'" width="30" height="28"> '
+		        	var template = 	'<a href="#"><img src="'+profileImageUrl+'" width="30" height="28"> '
 		        					+'<span>Me</span> <span class="online-chat">Online</span></a>';
 		        			
 		        	$('#me').html(template);		
@@ -70,7 +79,7 @@ define(['baseView',
 		        {
 		        	
 		        	var template = '<li> <a href="#">'
-						        	+'<img width="30" height="28" src="'+model.profileImageUrl+'">'
+						        	+'<img width="30" height="28" src="'+profileImageUrl+'">'
 						        	+'<span>'+model.firstName+'</span> <span class="offline-chat">'
 						        	+'<img width="12" height="13" src="img/online-icon.png"></span></a> </li>';
 		        	$('#onlinechatbox').append(template);
