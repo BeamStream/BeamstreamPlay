@@ -63,7 +63,7 @@
 							<div class="description-info">
 								<div class="gallery"></div>
 								<div class="gallery">
-									<a href="{{data.frameURL}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
+									<a href="{{data.mediaUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery3]">
 										<div class="description-left">
 											<p id="description-{{data.id.id}}" class="doc-description ">{{#if data.description}} {{data.description}}{{else}}Video Description{{/if}}</p>
 										</div>

@@ -139,6 +139,7 @@ define(['view/formView',
 				    "data" : model,
                     "datVal" :datVal,
                     "previewImage" : "/beamstream-new/images/google_docs_image.png",
+                    "commenImage" : "true",
                     "type" : "googleDoc",
                     "contentType" : contentType,
                     "loggedUserId" :localStorage["loggedUserId"],
@@ -309,6 +310,7 @@ define(['view/formView',
 	   			    	},
 	   			    	error : function(model, response) {
 	   			    		
+	   			    		logerr("error");
 	   			    	}
 	
 	   			    });
@@ -384,6 +386,7 @@ define(['view/formView',
 		    		
 		    	},
 		    	error : function(model, response) {
+		    		logerr("error");
 		    	}
 
 		    });
@@ -434,6 +437,7 @@ define(['view/formView',
 		    		
 		    				},
 		    				error : function(model, response) {
+		    					logerr("error");
 		    				}
 
 		    			});
@@ -445,6 +449,7 @@ define(['view/formView',
 				 	"label" : "CANCEL",
 				 	"class" : "btn-primary",
 	 				"callback": function() {
+	 					console.log("ok");
 	 				}
 	 			 }]);
  			 }
@@ -506,6 +511,7 @@ define(['view/formView',
 		    		
 		    				},
 		    				error : function(model, response) {
+		    					logerr("error");
 		    				}
 
 		    			});
@@ -517,6 +523,7 @@ define(['view/formView',
 				 	"label" : "CANCEL",
 				 	"class" : "btn-primary",
 	 				"callback": function() {
+	 					console.log("ok");
 	 				}
 	 			 }]);
  			 }
@@ -569,6 +576,7 @@ define(['view/formView',
  		        	}
 		    	},
 		    	error : function(model, response) {
+		    		logerr("error");
 		    	}
 			});
         },
@@ -726,6 +734,7 @@ define(['view/formView',
 		    		
 		    	},
 		    	error : function(model, response) {
+		    		logerr("error");
 		    	}
 
 		    });
@@ -760,6 +769,7 @@ define(['view/formView',
 		        	 
 		    	},
 		    	error : function(model, response) {
+		    		logerr("error");
 		    	}
 
 		    });

@@ -692,15 +692,15 @@
 			} else if (itemSrc.match(/\biframe=true\b/i)) {
 				return 'iframe';
 			}else if(itemSrc.indexOf('.mp4') != -1){
-				return 'flv';
+				return 'quicktime';
 			}else if(itemSrc.indexOf('.3gp') != -1){
-				return 'flv';
+				return 'quicktime';
 			}else if(itemSrc.indexOf('.flv') != -1){
-				return 'flv';
+				return 'quicktime';
 			}else if(itemSrc.indexOf('.AVI') != -1){
-				return 'flv';
+				return 'quicktime';
 			}else if(itemSrc.indexOf('.avi') != -1){
-				return 'flv';
+				return 'quicktime';
 			}else if (itemSrc.match(/\bajax=true\b/i)) {
 				return 'ajax';
 			}else if (itemSrc.match(/\bcustom=true\b/i)) {
