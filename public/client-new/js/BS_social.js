@@ -272,7 +272,6 @@ function janRainLogin(info) {
 			}
 		},
 		error : function(error) {
-			logerr("error");
 		}
 	});
 

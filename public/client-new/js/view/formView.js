@@ -195,7 +195,6 @@ define(
 														if (v[j] === "")
 															v.splice(j, 1)
 													}
-													console.log("v", v);
 													model.set(p[0], v)
 												}
 											} else {

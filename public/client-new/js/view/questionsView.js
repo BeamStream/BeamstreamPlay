@@ -435,7 +435,6 @@ define(['view/formView',
 			    	},
 			    	error : function(model, response) {
 			    		$('#Q-area').val("");
-			    		logerr("error");
 	                    $('#pollArea').slideUp(700); 
 			    	}
 
@@ -491,7 +490,6 @@ define(['view/formView',
 			    	},
 			    	error : function(model, response) {
 			    		$('#Q-area').val("");
-			    		logerr("error");
 	                    $('#pollArea').slideUp(700); 
 			    	}
 

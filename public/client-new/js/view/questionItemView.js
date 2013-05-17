@@ -182,7 +182,6 @@ define(['view/formView',
 	   			    	},
 	   			    	error : function(model, response) {
 	   			    		
-	   			    		logerr("error");
 	   			    	}
 	
 	   			    });
@@ -254,7 +253,6 @@ define(['view/formView',
 	                
 		    	},
 		    	error : function(model, response) {
-		    		logerr("error");
 		    	}
 
 		    });
@@ -291,7 +289,6 @@ define(['view/formView',
 		    		
 		    	},
 		    	error : function(model, response) {
-		    		logerr("error");
 		    	}
 
 		    });
@@ -326,7 +323,6 @@ define(['view/formView',
                 	})
 		    	},
 		    	error : function(model, response) {
-		    		logerr("error");
 		    	}
 
 		    });
@@ -375,7 +371,6 @@ define(['view/formView',
  		        	}
 		    	},
 		    	error : function(model, response) {
-		    		logerr("error");
 		    	}
 			});
         },
@@ -482,7 +477,6 @@ define(['view/formView',
 		    		
 		    				},
 		    				error : function(model, response) {
-		    					logerr("error");
 		    				}
 
 		    			});
@@ -555,7 +549,6 @@ define(['view/formView',
 		    		
 		    				},
 		    				error : function(model, response) {
-		    					logerr("error");
 		    				}
 
 		    			});
@@ -619,7 +612,6 @@ define(['view/formView',
 		 			
 				},
 				error : function(model, response) {
-					logerr("error");
 				}
 
 			});

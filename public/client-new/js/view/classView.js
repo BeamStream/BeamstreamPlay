@@ -421,7 +421,6 @@ define(['view/formView',
 		},
 		
 		serverError : function(model, data) {
-			console.log(data.response);
 		},
 		
         /**
