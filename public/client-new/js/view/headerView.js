@@ -29,7 +29,6 @@ define(['view/formView'], function(FormView){
 		onAfterInit: function(){	
             this.data.reset();
              
-            console.log(localStorage["loggedUserProfileUrl"]);
             $('#right-top-photo').attr('src',localStorage["loggedUserProfileUrl"]);
         },
         
