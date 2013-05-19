@@ -61,13 +61,14 @@ object SocialController extends Controller {
       val body = promise.get.getBody
       val json = Json.parse(body)
       val providerName = (json \ "profile" \ "providerName").asOpt[String].get
+      val identifier = (json \ "profile" \ "identifier").asOpt[String]
       val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
       val authenticatedUser = User.findUserComingViaSocailSite(preferredUsername, providerName)
       (authenticatedUser == None) match {
         case true => Ok("No User Found").as("application/json")
         case false =>
 
-          val userSession = request.session + ("userId" -> authenticatedUser.get.id.toString)
+          val userSession = request.session + ("userId" -> authenticatedUser.get.id.toString) + ("social_identifier" -> identifier.get)
           val noOfOnLineUsers = onlineUserCache.setOnline(authenticatedUser.get.id.toString)
           (authenticatedUser.get.classes.size == 0) match {
             case true => Redirect("/class").withSession(userSession)
@@ -86,6 +87,7 @@ object SocialController extends Controller {
    * Returns a JSON of user contact information
    */
   def getContacts = Action { implicit request =>
+    println("social_identifier: " + session.get("social_identifier"))
     session.get("social_identifier").map { identifier =>
       val apiKey = Play.current.configuration.getString("janrain_apiKey").get
       val URL = "https://rpxnow.com/api/v2/get_contacts"
@@ -93,8 +95,6 @@ object SocialController extends Controller {
       val res = promise.get
       val body = res.getBody
       Ok(body).as("application/json")
-    }.getOrElse {
-      Unauthorized("You are not an authorized user!")
-    }
+    }.get
   }
 }
