@@ -83,9 +83,9 @@ object UtilityActor {
     authenticatedMessageAndSession._1.setContent(
 
       "Thank you for registering at <b>Beamstream</b>. We're stoked!." +
-        " Please validate your identity and complete your registration by clicking on this link " +
-        "<a href='" + server + "/registration?userId=" + userId + "&token=" + authToken + "'> Register On BeamStream</a>"
-        + "<br>" + "<br>" + "<br>" +
+        " Please " + "<a href='" + server + "/registration?userId=" + userId + "&token=" + authToken + "'>click here</a>"+
+        " verify your email address and complete your registration." +
+        "<br>" + "<br>" + "<br>" +
         "Cheers," + "<br>" +
         "The Really Nice Beamstream Folks , US" + "<br>", "text/html");
     val transport = authenticatedMessageAndSession._2.getTransport("smtp");
