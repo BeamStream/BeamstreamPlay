@@ -21,25 +21,45 @@ import utils.SendEmailUtility
  * @params : emailId is the emailId of the user who registers
  */
 object UtilityActor {
+  
+  val BEAMTEAM_EMAIL = "beamteam@beamstream.com"
 
   /**
    * Send Email Clubbed through Future(RA)
    */
   def sendMailWhenBetaUserRegisters(emailId: String) = {
     implicit val system = Akka.system
-    val future = Future { sendMail(emailId) }
+    val future = Future { sendMailToBetaUsers(emailId) }
   }
 
   /**
    * Send Mail to beta user who registers on Beamstream(RA)
    */
-  def sendMail(emailId: String) = {
+  def sendMailToBetaUsers(emailId: String) = {
     val authenticatedMessageAndSession = SendEmailUtility.setEmailCredentials
-    val recepientAddress = new InternetAddress(emailId)
-    authenticatedMessageAndSession._1.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
-    authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress);
+    val recipientAddress = new InternetAddress(emailId)
+    authenticatedMessageAndSession._1.setFrom(new InternetAddress(BEAMTEAM_EMAIL, BEAMTEAM_EMAIL))
+    authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recipientAddress);
     authenticatedMessageAndSession._1.setSubject("Beta User Registration On BeamStream");
     authenticatedMessageAndSession._1.setContent(Messages("BetaUserRegistrationMessage"), "text/html");
+    val transport = authenticatedMessageAndSession._2.getTransport("smtp");
+    transport.connect(Play.current.configuration.getString("smtp_server_out").get, 80, Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
+    transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
+  }
+  
+  /**
+   * Basic Send Mail Feature on Beamstream(RA)
+   */
+  def sendMail(emailId:String, subject:String, content:String, fromAddress:String) = {
+    val authenticatedMessageAndSession = SendEmailUtility.setEmailCredentials
+    val recipientAddress = new InternetAddress(emailId)
+    if(fromAddress!=null)
+    	authenticatedMessageAndSession._1.setFrom(new InternetAddress(fromAddress, fromAddress))
+    else
+    	authenticatedMessageAndSession._1.setFrom(new InternetAddress(BEAMTEAM_EMAIL, BEAMTEAM_EMAIL))
+    authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recipientAddress);
+    authenticatedMessageAndSession._1.setSubject(subject);
+    authenticatedMessageAndSession._1.setContent(content, "text/html");
     val transport = authenticatedMessageAndSession._2.getTransport("smtp");
     transport.connect(Play.current.configuration.getString("smtp_server_out").get, 80, Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
     transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
@@ -57,7 +77,7 @@ object UtilityActor {
     val server = Play.current.configuration.getString("server").get
     val authenticatedMessageAndSession = SendEmailUtility.setEmailCredentials
     val recepientAddress = new InternetAddress(emailId)
-    authenticatedMessageAndSession._1.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
+    authenticatedMessageAndSession._1.setFrom(new InternetAddress(BEAMTEAM_EMAIL, BEAMTEAM_EMAIL))
     authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress);
     authenticatedMessageAndSession._1.setSubject("Registration Process On BeamStream");
     authenticatedMessageAndSession._1.setContent(

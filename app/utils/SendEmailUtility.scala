@@ -11,6 +11,8 @@ import org.bson.types.ObjectId
 import play.api.Play
 
 object SendEmailUtility {
+  
+  val BEAMTEAM_EMAIL = "beamteam@beamstream.com"
 
   /**
    * Send Mail Credentials
@@ -144,7 +146,7 @@ object SendEmailUtility {
   def sendMessage(emailId: String, subject: String, content: String) {
     val authenticatedMessageAndSession = SendEmailUtility.setEmailCredentials
     val recepientAddress = new InternetAddress(emailId)
-    authenticatedMessageAndSession._1.setFrom(new InternetAddress("beamteam@beamstream.com", "beamteam@beamstream.com"))
+    authenticatedMessageAndSession._1.setFrom(new InternetAddress(BEAMTEAM_EMAIL, BEAMTEAM_EMAIL))
     authenticatedMessageAndSession._1.addRecipient(Message.RecipientType.TO, recepientAddress)
     authenticatedMessageAndSession._1.setSubject(subject)
     authenticatedMessageAndSession._1.setContent(content, "text/html")
