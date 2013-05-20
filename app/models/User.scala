@@ -38,7 +38,6 @@ case class User(@Key("_id") id: ObjectId,
   documents: List[ObjectId],
   questions: List[ObjectId],
   followers: List[ObjectId],
-  friends: List[ObjectId],
   socialJson: Option[String])
 
 object User {

@@ -15,7 +15,7 @@ class UserMediaTest extends FunSuite with BeforeAndAfter {
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
   }
 
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, Nil, None)
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None)
 
   test("Create User Media") {
     val userId = User.createUser(user)
