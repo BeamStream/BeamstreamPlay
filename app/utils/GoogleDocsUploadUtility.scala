@@ -24,7 +24,7 @@ object GoogleDocsUploadUtility {
   val CLIENT_ID = "612772830843.apps.googleusercontent.com"
   val CLIENT_SECRET = "7tTkGI2KaDX901Ngwe91Kz_K"
 
-  val REDIRECT_URI = "http://localhost:9000/oauth2callback"
+  val REDIRECT_URI = "http://localhost:9000/driveAuth"
 
   val httpTransport = new NetHttpTransport
   val jsonFactory = new JacksonFactory
@@ -34,41 +34,19 @@ object GoogleDocsUploadUtility {
     .setAccessType("online")
     .setApprovalPrompt("auto").build()
 
-  def UploadToGoogleDrive = {
-
-    val url: String = flow.newAuthorizationUrl().setRedirectUri(REDIRECT_URI).build().toString
-
-    /**
-     *  System generated GET call For Clicking that UI
-     */
-
-    println("  " + url)
-
-//    val a = WS.url("https://accounts.google.com/o/oauth2/auth").setQueryParameter("access_type", "online").setQueryParameter("approval_prompt", "auto")
-//      .setQueryParameter("client_id", CLIENT_ID).setQueryParameter("scope", "https://www.googleapis.com/auth/drive").setQueryParameter("response_type", "code")
-//      .setQueryParameter("redirect_uri", "http://localhost:9000/oauth2callback").get
-//    println(a.get.getBody)
-  }
-
-  def uploadNow(code: String): String = {
-    println(code)
+  def uploadNow(code: String, fileToUpload: java.io.File, fileName: String, contentType: String): String = {
     val response = flow.newTokenRequest(code).setRedirectUri(REDIRECT_URI).execute()
     val credential = new GoogleCredential().setFromTokenResponse(response)
-
     //Create a new authorized API client
     val service: Drive = new Drive.Builder(httpTransport, jsonFactory, credential).build()
-
     //Insert a file  
     val body = new File
-    body.setTitle("maharajji")
-    body.setDescription("A test document")
-    body.setMimeType("image/png")
-
-    val fileContent = new java.io.File("/home/neelkanth/Desktop/Maharajji.jpg")
+    body.setTitle("LalaJi")
+    body.setDescription(fileName)
+    body.setMimeType(contentType)
+    val fileContent: java.io.File = fileToUpload //new java.io.File("/home/neelkanth/Desktop/Maharajji.jpg")
     val mediaContent = new FileContent("image/png", fileContent)
-
     val file = service.files().insert(body, mediaContent).execute()
-    println("File ID: " + file.getId)
     file.getId
   }
 

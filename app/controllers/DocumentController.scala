@@ -334,20 +334,37 @@ object DocumentController extends Controller {
     Ok(write(viewCount.toString)).as("application/json")
   }
 
-  
-  
-  def uploadGoogleDocs = Action { implicit request =>
-    GoogleDocsUploadUtility.UploadToGoogleDrive
-    Ok("Done")
-  }
-
+  //---------------------Google Infrastructure Demo----------------------------------------
+  /**
+   * Google Oauth Setup
+   */
   def oauth = Action { implicit request =>
     val a = request.queryString("code").map {
       case code => code
     }
-    GoogleDocsUploadUtility.uploadNow(a(0).toString)
-    Ok
+    Ok(views.html.gdocs()).withSession(request.session + ("code" -> a(0)))
   }
-  
+
+  /**
+   * Render The View
+   */
+  def renderGDoc = Action { implicit request =>
+    Ok(views.html.gdocs())
+  }
+
+  /**
+   * Uploading File To Google
+   */
+  def uploadGoogleDoc = Action(parse.multipartFormData) { request =>
+    request.body.file("picture").map { file =>
+      val contentType = file.contentType
+      val fileName = file.filename
+      val FileReceived: File = file.ref.file.asInstanceOf[File]
+      val code = request.session.get("code").get
+      val googleFileId = GoogleDocsUploadUtility.uploadNow(code, FileReceived, fileName, contentType.get)
+    }
+    Ok("File Uploaded To Google")
+  }
+
 }
 
