@@ -19,7 +19,7 @@ class ClassTest extends FunSuite with BeforeAndAfter {
   }
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List(), None)
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List(), List(), None)
 
   test("Create class test") {
     running(FakeApplication()) {

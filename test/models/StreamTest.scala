@@ -17,7 +17,7 @@ class StreamTest extends FunSuite with BeforeAndAfter {
 
   val stream1 = Stream(new ObjectId, "al1pha", StreamType.Class, new ObjectId, List(), true, List())
   val stream2 = Stream(new ObjectId, "al1pha", StreamType.Class, new ObjectId, List(), true, List())
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List(), None)
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List(), List(),None)
 
   test("Fetch matching stream names") {
     val streamOneId = Stream.createStream(stream1)

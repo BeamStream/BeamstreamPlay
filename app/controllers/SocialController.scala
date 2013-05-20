@@ -36,7 +36,7 @@ object SocialController extends Controller {
       //TODO : Have to check whether the email has been registered already
       val canUserRegister = User.canUserRegister(preferredUsername)
       if (canUserRegister == true) {
-        val userToCreate = new User(new ObjectId, UserType.Professional, "", "", "", preferredUsername, "", None, "", "", "", "", "", Option(providerName), Nil, Nil, Nil, Nil, Nil, Option(json.toString))
+        val userToCreate = new User(new ObjectId, UserType.Professional, "", "", "", preferredUsername, "", None, "", "", "", "", "", Option(providerName), Nil, Nil, Nil, Nil, Nil, Nil, Option(json.toString))
         val IdOfUserCreted = User.createUser(userToCreate)
         val userSession = request.session + ("userId" -> IdOfUserCreted.get.toString) + ("social_identifier" -> identifier.get)
         val noOfOnLineUsers = onlineUserCache.setOnline(IdOfUserCreted.get.toString)
