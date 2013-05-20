@@ -191,7 +191,6 @@ GET      /AllFilesForAUser                                                   	 c
 
 GET     /search/:keyword                                               controllers.MediaController.searchMediaOrDocumentForAUser(keyword:String)     
 
-
-	
-
+GET     /uploadGoogleDocs                                              controllers.DocumentController.uploadGoogleDocs
+GET     /oauth2callback                                                 controllers.DocumentController.oauth
 

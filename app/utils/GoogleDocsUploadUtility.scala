@@ -15,39 +15,43 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.util.Arrays
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow
-import play.api.libs.ws.WS
+import play.libs.WS
+import play.Logger
+import controllers.DocumentController
 
 object GoogleDocsUploadUtility {
 
-  val CLIENT_ID = "612772830843.apps.googleusercontent.com";
-  val CLIENT_SECRET = "";
+  val CLIENT_ID = "612772830843.apps.googleusercontent.com"
+  val CLIENT_SECRET = "7tTkGI2KaDX901Ngwe91Kz_K"
 
-  val REDIRECT_URI = "http://localhost:9000/oauth2callback";
+  val REDIRECT_URI = "http://localhost:9000/oauth2callback"
 
-  def UploadToGoogleDrive(fileToBeuploaded: File) {
+  val httpTransport = new NetHttpTransport
+  val jsonFactory = new JacksonFactory
 
-    val httpTransport = new NetHttpTransport
-    val jsonFactory = new JacksonFactory
+  val flow = new GoogleAuthorizationCodeFlow.Builder(
+    httpTransport, jsonFactory, CLIENT_ID, CLIENT_SECRET, Arrays.asList(DriveScopes.DRIVE))
+    .setAccessType("online")
+    .setApprovalPrompt("auto").build()
 
-    val flow = new GoogleAuthorizationCodeFlow.Builder(
-      httpTransport, jsonFactory, CLIENT_ID, CLIENT_SECRET, Arrays.asList(DriveScopes.DRIVE))
-      .setAccessType("online")
-      .setApprovalPrompt("auto").build()
+  def UploadToGoogleDrive = {
 
-    val url: String = flow.newAuthorizationUrl().setRedirectUri(REDIRECT_URI).build()
-//------- Neel-------- (WIP)//
+    val url: String = flow.newAuthorizationUrl().setRedirectUri(REDIRECT_URI).build().toString
+
     /**
      *  System generated GET call For Clicking that UI
      */
 
-    val responseObtained = WS.url(url).get
-    println(responseObtained)
-//--------Neel------------
-    System.out.println("Please open the following URL in your browser then type the authorization code:")
-    System.out.println("  " + url)
-    val br = new BufferedReader(new InputStreamReader(System.in))
-    val code: String = br.readLine()
+    println("  " + url)
 
+//    val a = WS.url("https://accounts.google.com/o/oauth2/auth").setQueryParameter("access_type", "online").setQueryParameter("approval_prompt", "auto")
+//      .setQueryParameter("client_id", CLIENT_ID).setQueryParameter("scope", "https://www.googleapis.com/auth/drive").setQueryParameter("response_type", "code")
+//      .setQueryParameter("redirect_uri", "http://localhost:9000/oauth2callback").get
+//    println(a.get.getBody)
+  }
+
+  def uploadNow(code: String): String = {
+    println(code)
     val response = flow.newTokenRequest(code).setRedirectUri(REDIRECT_URI).execute()
     val credential = new GoogleCredential().setFromTokenResponse(response)
 
@@ -56,15 +60,16 @@ object GoogleDocsUploadUtility {
 
     //Insert a file  
     val body = new File
-    body.setTitle("neel")
+    body.setTitle("maharajji")
     body.setDescription("A test document")
     body.setMimeType("image/png")
 
-    val fileContent = new java.io.File("/home/neelkanth/Desktop/Screenshot from 2013-05-17 10:25:28.png")
-    val mediaContent = new FileContent("text/plain", fileContent)
+    val fileContent = new java.io.File("/home/neelkanth/Desktop/Maharajji.jpg")
+    val mediaContent = new FileContent("image/png", fileContent)
 
     val file = service.files().insert(body, mediaContent).execute()
-    System.out.println("File ID: " + file.getId())
+    println("File ID: " + file.getId)
+    file.getId
   }
 
 }

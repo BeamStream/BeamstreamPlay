@@ -27,6 +27,7 @@ import utils.PreviewOfPDFUtil
 import utils.tokenEmailUtil
 import models.Documents
 import models.DocumentsAndMedia
+import utils.GoogleDocsUploadUtility
 /**
  * This controller class is used to store and retrieve all the information about documents.
  */
@@ -332,5 +333,21 @@ object DocumentController extends Controller {
     }
     Ok(write(viewCount.toString)).as("application/json")
   }
+
+  
+  
+  def uploadGoogleDocs = Action { implicit request =>
+    GoogleDocsUploadUtility.UploadToGoogleDrive
+    Ok("Done")
+  }
+
+  def oauth = Action { implicit request =>
+    val a = request.queryString("code").map {
+      case code => code
+    }
+    GoogleDocsUploadUtility.uploadNow(a(0).toString)
+    Ok
+  }
+  
 }
 
