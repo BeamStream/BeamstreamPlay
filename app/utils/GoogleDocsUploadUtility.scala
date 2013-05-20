@@ -22,7 +22,7 @@ import controllers.DocumentController
 object GoogleDocsUploadUtility {
 
   val CLIENT_ID = "612772830843.apps.googleusercontent.com"
-  val CLIENT_SECRET = "7tTkGI2KaDX901Ngwe91Kz_K"
+  val CLIENT_SECRET = ""
 
   val REDIRECT_URI = "http://localhost:9000/driveAuth"
 
@@ -41,12 +41,15 @@ object GoogleDocsUploadUtility {
     val service: Drive = new Drive.Builder(httpTransport, jsonFactory, credential).build()
     //Insert a file  
     val body = new File
-    body.setTitle("LalaJi")
+    body.setTitle("")
     body.setDescription(fileName)
     body.setMimeType(contentType)
-    val fileContent: java.io.File = fileToUpload //new java.io.File("/home/neelkanth/Desktop/Maharajji.jpg")
+    val fileContent: java.io.File = fileToUpload
     val mediaContent = new FileContent("image/png", fileContent)
+    //Inserting the files
     val file = service.files().insert(body, mediaContent).execute()
+    //Listing the Files
+    //val file = service.files().list().execute()
     file.getId
   }
 
