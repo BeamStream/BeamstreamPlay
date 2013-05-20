@@ -14,7 +14,7 @@ import java.util.Date
 class QuestionTest extends FunSuite with BeforeAndAfter {
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List(), List(),None)
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List(), None)
   val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, user.id, List(user.id), true, List())
 
   before {

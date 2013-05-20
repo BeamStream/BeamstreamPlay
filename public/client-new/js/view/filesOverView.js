@@ -200,7 +200,7 @@ define(['baseView',
                      $('#'+docId+'-activities li a.hand-icon').html(response);
                 },
                 error : function(model, response) {
-                	logerr("error");
+                	
                 }
 
             });
@@ -224,7 +224,6 @@ define(['baseView',
                      $('#'+docId+'-activities li a.hand-icon').html(response);
                 },
                 error : function(model, response) {
-                	logerr("error");
                 }
 
             });
@@ -334,7 +333,6 @@ define(['baseView',
                      $('#'+docId+'-activities li a.hand-icon').html(response);
                 },
                 error : function(model, response) {
-                	logerr("error");
                 }
 
             });
@@ -357,7 +355,6 @@ define(['baseView',
                      $('#'+docId+'-activities li a.hand-icon').html(response);
                 },
                 error : function(model, response) {
-                	logerr("error");
                 }
 
             });
