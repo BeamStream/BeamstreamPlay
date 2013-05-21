@@ -22,7 +22,7 @@ import controllers.DocumentController
 object GoogleDocsUploadUtility {
 
   val CLIENT_ID = "612772830843.apps.googleusercontent.com"
-  val CLIENT_SECRET = ""
+  val CLIENT_SECRET = "7tTkGI2KaDX901Ngwe91Kz_K"
 
   val REDIRECT_URI = "http://localhost:9000/driveAuth"
 
