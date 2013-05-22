@@ -89,10 +89,8 @@ class AmazonUpload {
   private def fetchS3Client = {
     val AWS_ACCESS_KEY_RAW = Play.current.configuration.getString("A_A_K").get
     val AWS_SECRET_KEY_RAW = Play.current.configuration.getString("A_S_K").get
-   println(AWS_ACCESS_KEY_RAW,AWS_SECRET_KEY_RAW)
     val AWS_ACCESS_KEY = ConversionUtility.decodeMe(AWS_ACCESS_KEY_RAW)
     val AWS_SECRET_KEY = ConversionUtility.decodeMe(AWS_SECRET_KEY_RAW)
-     println(AWS_ACCESS_KEY,AWS_SECRET_KEY)
     val awsCredentials = new BasicAWSCredentials(AWS_ACCESS_KEY, AWS_SECRET_KEY)
     new AmazonS3Client(awsCredentials)
   }
