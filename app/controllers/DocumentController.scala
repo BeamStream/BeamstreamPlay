@@ -28,6 +28,9 @@ import utils.tokenEmailUtil
 import models.Documents
 import models.DocumentsAndMedia
 import utils.GoogleDocsUploadUtility
+import models.DocumentsAndMedia
+import models.Documents
+import models.DocResulttoSent
 /**
  * This controller class is used to store and retrieve all the information about documents.
  */
@@ -275,7 +278,7 @@ object DocumentController extends Controller {
 
       case false => ""
     }
-    new DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false))
+    DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false))
   }
 
   /**
@@ -297,7 +300,7 @@ object DocumentController extends Controller {
 
       case false => ""
     }
-    new DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false))
+    DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false))
   }
   /**
    * Save other documents
@@ -318,7 +321,7 @@ object DocumentController extends Controller {
 
       case false => ""
     }
-    new DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false))
+    DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false))
   }
 
   /**
@@ -339,6 +342,7 @@ object DocumentController extends Controller {
    * Google Oauth Setup
    */
   def oauth = Action { implicit request =>
+    println("Got Called")
     val a = request.queryString("code").map {
       case code => code
     }

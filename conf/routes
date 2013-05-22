@@ -196,3 +196,4 @@ GET     /search/:keyword                                               controlle
 GET     /driveAuth                                                 controllers.DocumentController.oauth
 GET     /renderGDoc                                                 controllers.DocumentController.renderGDoc
 POST     /uploadGoogleDoc                                               controllers.DocumentController.uploadGoogleDoc
+GET  /uploadNow                                controllers.GoogleDocsUploadUtilityController.uploadNow
