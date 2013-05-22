@@ -147,7 +147,7 @@ object DocumentController extends Controller {
           val documentReceived: File = docData.ref.file.asInstanceOf[File]
           val docUniqueKey = tokenEmailUtil.securityToken
           val docNameOnAmazom = (docUniqueKey + documentName).replaceAll("\\s", "")
-          AmazonUploadUtil.uploadFileToAmazon(docNameOnAmazom, documentReceived)
+          (new AmazonUpload).uploadFileToAmazon(docNameOnAmazom, documentReceived)
           val docURL = "https://s3.amazonaws.com/BeamStream/" + docNameOnAmazom
           val userId = new ObjectId(request.session.get("userId").get)
           val user = User.getUserProfile(userId)

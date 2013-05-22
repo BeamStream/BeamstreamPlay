@@ -11,7 +11,7 @@ import models.UserMediaType
 import net.liftweb.json.Serialization.write
 import play.api.mvc.Action
 import play.api.mvc.Controller
-import utils.AmazonUpload
+import utils.AmazonUploadUtil
 import utils.ObjectIdSerializer
 import utils.tokenEmailUtil
 import utils.ExtractFrameFromVideoUtil
@@ -22,6 +22,7 @@ import models.MediaResults
 import models.Files
 import models.Photos
 import models.Videos
+import utils.AmazonUpload
 
 object MediaController extends Controller {
 
