@@ -193,7 +193,6 @@ GET     /search/:keyword                                               controlle
 
 
 #Google Docs
-GET     /driveAuth                                                 controllers.DocumentController.oauth
-GET     /renderGDoc                                                 controllers.DocumentController.renderGDoc
-POST     /uploadGoogleDoc                                               controllers.DocumentController.uploadGoogleDoc
+GET     /driveAuth                                                 controllers.DocumentController.googleDriveAuthentication
+POST     /uploadToGoogleDrive                                               controllers.DocumentController.uploadToGoogleDrive
 GET  /uploadNow                                controllers.GoogleDocsUploadUtilityController.uploadNow

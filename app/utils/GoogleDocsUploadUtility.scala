@@ -20,28 +20,37 @@ import play.Logger
 import controllers.DocumentController
 
 object GoogleDocsUploadUtility {
+  /**
+   * Set Up Google App Credentials
+   */
+  def returnGoogleCredentailsSettings(code: String): Drive = {
+    val CLIENT_ID = "612772830843.apps.googleusercontent.com"
+    val CLIENT_SECRET = "7tTkGI2KaDX901Ngwe91Kz_K"
 
-  val CLIENT_ID = "612772830843.apps.googleusercontent.com"
-  val CLIENT_SECRET = "7tTkGI2KaDX901Ngwe91Kz_K"
+    val REDIRECT_URI = "http://localhost:9000/driveAuth"
 
-  val REDIRECT_URI = "http://localhost:9000/driveAuth"
+    val httpTransport = new NetHttpTransport
+    val jsonFactory = new JacksonFactory
 
-  val httpTransport = new NetHttpTransport
-  val jsonFactory = new JacksonFactory
+    val flow = new GoogleAuthorizationCodeFlow.Builder(
+      httpTransport, jsonFactory, CLIENT_ID, CLIENT_SECRET, Arrays.asList(DriveScopes.DRIVE))
+      .setAccessType("online")
+      .setApprovalPrompt("auto").build()
 
-  val flow = new GoogleAuthorizationCodeFlow.Builder(
-    httpTransport, jsonFactory, CLIENT_ID, CLIENT_SECRET, Arrays.asList(DriveScopes.DRIVE))
-    .setAccessType("online")
-    .setApprovalPrompt("auto").build()
-
-  def uploadNow(code: String, fileToUpload: java.io.File, fileName: String, contentType: String): String = {
     val response = flow.newTokenRequest(code).setRedirectUri(REDIRECT_URI).execute()
     val credential = new GoogleCredential().setFromTokenResponse(response)
     //Create a new authorized API client
-    val service: Drive = new Drive.Builder(httpTransport, jsonFactory, credential).build()
+    new Drive.Builder(httpTransport, jsonFactory, credential).build()
+  }
+
+  /**
+   * Upload To Google Drive
+   */
+  def uploadToGoogleDrive(code: String, fileToUpload: java.io.File, fileName: String, contentType: String): String = {
+    val service = returnGoogleCredentailsSettings(code)
     //Insert a file  
     val body = new File
-    body.setTitle("")
+    body.setTitle(fileName)
     body.setDescription(fileName)
     body.setMimeType(contentType)
     val fileContent: java.io.File = fileToUpload

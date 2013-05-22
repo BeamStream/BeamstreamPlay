@@ -1,9 +1,7 @@
-@helper.form(action = routes.DocumentController.uploadGoogleDoc, 'enctype -> "multipart/form-data") {
+@helper.form(action = routes.DocumentController.uploadToGoogleDrive, 'enctype -> "multipart/form-data") {
     
     <input type="file" name="picture">
-    
-   <a href="https://accounts.google.com/o/oauth2/auth?access_type=online&approval_prompt=auto&client_id=612772830843.apps.googleusercontent.com&redirect_uri=http://localhost:9000/driveAuth&response_type=code&scope=https://www.googleapis.com/auth/drive">Authorize</a>
-        <input type="submit">
+        <input type="submit" value ="upload">
     
     
 }
