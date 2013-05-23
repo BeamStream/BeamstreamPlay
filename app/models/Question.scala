@@ -29,11 +29,19 @@ object QuestionAccess extends Enumeration {
   val PrivateToSchool = Value(2, "PrivateToSchool")
 
 }
+object QuestionType extends Enumeration {
+  val Text = Value(0, "Text")
+  val Image = Value(1, "Image")
+  val Video = Value(2, "Video")
+  val Audio = Value(3, "Audio")
+  val Document = Value(4, "Document")
+}
 
 case class Question(@Key("_id") id: ObjectId,
   questionBody: String,
   userId: ObjectId,
   questionAccess: QuestionAccess.Value,
+  questionType: QuestionType.Value,
   streamId: ObjectId,
   firstNameofQuestionAsker: String,
   lastNameofQuestionAsker: String,

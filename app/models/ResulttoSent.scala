@@ -39,8 +39,7 @@ case class CommentResult(comment: Comment, var profilePic: Option[String] = None
 /**
  * Document Results After Uploading From Main Stream
  */
-case class DocResulttoSent(message: Message, docName: String, docDescription: String, rocked: Boolean, followed: Boolean, var profilePic: Option[String] = None, var comments: Option[List[CommentResult]] = None, followerOfMessagePoster: Option[Boolean] = None, rockersNames:List[String])
-
+case class DocResulttoSent(message: Option[Message], docName: String, docDescription: String, rocked: Boolean, followed: Boolean, var profilePic: Option[String] = None, var comments: Option[List[CommentResult]] = None, followerOfMessagePoster: Option[Boolean] = None, rockersNames: List[String])
 /**
  * User & User School details after Registration
  */
@@ -56,5 +55,5 @@ case class LoginResult(result: ResulttoSent, user: Option[User], profilePicOfUse
 case class MediaResults(images: Option[UserMedia], videos: Option[UserMedia], documents: Option[Document], googleDocs: Option[Document], audioFiles: Option[Document], pdfFiles: Option[Document], pptFiles: Option[Document])
 case class Photos(photos: List[UserMedia])
 case class Videos(videos: List[UserMedia])
-case class Documents(documents:List[Document])
-case class DocumentsAndMedia(documents:List[Document], media:List[UserMedia])
+case class Documents(documents: List[Document])
+case class DocumentsAndMedia(documents: List[Document], media: List[UserMedia])

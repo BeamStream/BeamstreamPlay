@@ -66,16 +66,8 @@ object DocumentController extends Controller {
     val message = Message(new ObjectId, url, Option(MessageType.Document), Option(MessageAccess.withName(access)), date, userId, Option(new ObjectId(streamId)), user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil, None, Option(docId))
     val messageId = Message.createMessage(message)
     val messageObtained = Message.findMessageById(messageId.get)
-    val userMedia = UserMedia.getProfilePicForAUser(messageObtained.get.userId)
-    val profilePicForUser = (!userMedia.isEmpty) match {
-      case true => (userMedia.head.frameURL != "") match {
-        case true => userMedia.head.frameURL
-        case false => userMedia.head.mediaUrl
-      }
-
-      case false => ""
-    }
-    val docResults = DocResulttoSent(messageObtained.get, name, description, false, false, Option(profilePicForUser), None, Option(false), User.giveMeTheRockers(messageObtained.get.rockers))
+    val profilePicForUser = UserMedia.getProfilePicUrlString(messageObtained.get.userId)
+    val docResults = DocResulttoSent(Option(messageObtained.get), name, description, false, false, Option(profilePicForUser), None, Option(false), User.giveMeTheRockers(messageObtained.get.rockers))
     Ok(write(docResults)).as("application/json")
 
   }
@@ -138,6 +130,7 @@ object DocumentController extends Controller {
     val documentJsonMap = request.body.asFormUrlEncoded.toMap
     val streamId = documentJsonMap("streamId").toList(0)
     val docDescription = documentJsonMap("docDescription").toList(0)
+    val uploadedFrom = documentJsonMap("uploadedFrom").toList(0)
     val resultToSend = (request.body.file("docData").isEmpty) match {
 
       case true => None
@@ -159,18 +152,18 @@ object DocumentController extends Controller {
           val user = User.getUserProfile(userId)
 
           if (isImage == true) {
-            val uploadResults = saveImageFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get)
+            val uploadResults = saveImageFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, uploadedFrom)
             Option(uploadResults)
           } else if (isVideo == true) {
-            val uploadResults = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom)
+            val uploadResults = saveVideoFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
             Option(uploadResults)
           } else {
             if (isPdf == true) {
               val previewImageUrl = PreviewOfPDFUtil.convertPdfToImage(documentReceived, docNameOnAmazom)
-              val uploadResults = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, previewImageUrl)
+              val uploadResults = savePdfFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, previewImageUrl, uploadedFrom)
               Option(uploadResults)
             } else {
-              val uploadResults = saveOtherDOcFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom)
+              val uploadResults = saveOtherDOcFromMainStream(documentName, docDescription, userId, docURL, docAccess, new ObjectId(streamId), user.get, docNameOnAmazom, uploadedFrom)
               Option(uploadResults)
             }
           }
@@ -240,20 +233,20 @@ object DocumentController extends Controller {
   /**
    * Save Image
    */
-  private def saveImageFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User) = {
+  private def saveImageFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User, uploadedFrom: String) = {
     val media = new UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Image, DocumentAccess.withName(docAccess), false, Option(streamId), "", 0, Nil, Nil, 0)
     val mediaId = UserMedia.saveMediaForUser(media)
     //Create A Message As Well To Display The Doc Creation In Stream
     val profilePic = UserMedia.getProfilePicUrlString(userId)
     val message = Message(new ObjectId, docURL, Option(MessageType.Image), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, Option(docURL), Option(mediaId.get))
     val messageId = Message.createMessage(message)
-    DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
+    DocResulttoSent(Option(message), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
   }
 
   /**
    * Save Video
    */
-  private def saveVideoFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User, docNameOnAmazon: String) = {
+  private def saveVideoFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User, docNameOnAmazon: String, uploadedFrom: String) = {
     val frameOfVideo = ExtractFrameFromVideoUtil.extractFrameFromVideo(docURL)
     //    (new AmazonUpload).uploadCompressedFileToAmazon(docNameOnAmazon + "Frame", frameOfVideo, 0, false, userId.toString)
     (new AmazonUpload).uploadCompressedFileToAmazon(docNameOnAmazon + "Frame", frameOfVideo)
@@ -263,32 +256,32 @@ object DocumentController extends Controller {
     val profilePic = UserMedia.getProfilePicUrlString(userId)
     val message = Message(new ObjectId, docURL, Option(MessageType.Video), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, Option(videoFrameURL), Option(mediaId.get))
     val messageId = Message.createMessage(message)
-    DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
+    DocResulttoSent(Option(message), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
   }
 
   /**
    * Save Pdf
    */
-  private def savePdfFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User, docNameOnAmazon: String, previewImageUrl: String) = {
+  private def savePdfFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User, docNameOnAmazon: String, previewImageUrl: String, uploadedFrom: String) = {
     val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, userId, DocumentAccess.withName(docAccess),
       streamId, new Date, new Date, 0, Nil, Nil, Nil, previewImageUrl)
     val documentId = Document.addDocument(documentCreated)
     val profilePic = UserMedia.getProfilePicUrlString(userId)
     val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, Option(previewImageUrl), Option(documentId))
     val messageId = Message.createMessage(message)
-    DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
+    DocResulttoSent(Option(message), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
   }
   /**
    * Save other documents
    */
-  private def saveOtherDOcFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User, docNameOnAmazon: String) = {
+  private def saveOtherDOcFromMainStream(documentName: String, docDescription: String, userId: ObjectId, docURL: String, docAccess: String, streamId: ObjectId, user: User, docNameOnAmazon: String, uploadedFrom: String) = {
     val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, userId, DocumentAccess.withName(docAccess),
       streamId, new Date, new Date, 0, Nil, Nil, Nil, "")
     val documentId = Document.addDocument(documentCreated)
     val profilePic = UserMedia.getProfilePicUrlString(userId)
     val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, None, Option(documentId))
     val messageId = Message.createMessage(message)
-    DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
+    DocResulttoSent(Option(message), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
   }
 
   /**

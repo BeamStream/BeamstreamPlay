@@ -17,6 +17,7 @@ import play.api.mvc.Controller
 import utils.ObjectIdSerializer
 import models.UserMedia
 import models.Comment
+import models.QuestionType
 
 /**
  * This controller class is used to store and retrieve all the information about Question and Answers.
@@ -46,7 +47,7 @@ object QuestionController extends Controller {
     val user = User.getUserProfile(userId)
 
     val questionToAsk = new Question(new ObjectId, questionBody, userId,
-      QuestionAccess.withName(questionAccess), new ObjectId(streamId), user.get.firstName, user.get.lastName, new Date, List(), List(), List(), List())
+      QuestionAccess.withName(questionAccess), QuestionType.Text,new ObjectId(streamId), user.get.firstName, user.get.lastName, new Date, List(), List(), List(), List())
     val questionId = Question.addQuestion(questionToAsk)
     (pollOptions == None) match {
       case false =>
