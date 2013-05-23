@@ -193,7 +193,7 @@ object QuestionController extends Controller {
       case true => Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
       case false => (sortBy == "rock") match {
         case true => Question.getAllQuestionsForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
-        case false => Nil
+        case false => Question.getAllQuestionsForAStreambyKeyword(sortBy, new ObjectId(streamId), pageNo, messagesPerPage)
       }
     }
 

@@ -147,7 +147,7 @@ object MessageController extends Controller {
       case true => Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
       case false => (sortBy == "rock") match {
         case true => Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
-        case false => Nil
+        case false => Message.getAllMessagesForAKeyword(sortBy, new ObjectId(streamId), pageNo, messagesPerPage)
       }
     }
     (allMessagesForAStream.isEmpty) match {
