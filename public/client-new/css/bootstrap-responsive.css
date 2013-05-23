@@ -466,7 +466,7 @@ ul.signup-register li.lastblock {
 
 
   .vert .simply-scroll-clip {
-		width:106% !important;
+		width:107% !important;
 }
 
 .simply-scroll-container { 
@@ -480,6 +480,15 @@ ul.signup-register li.lastblock {
 .simply-scroll-btn-down { 
 width:100% !important;
 }
+
+
+.signup-container{ padding:100px 0 !important;}
+
+.sortable li {
+		width:97% !important;
+}
+
+.sortable li.no-stream li a{ padding-left:0;}
 
 /*
 
@@ -1036,7 +1045,8 @@ ul.signup-register li.lastblock {
 
 }
    
-
+.time_select{ width:20%; float:left; margin-right:5%;}
+.semester-select-block{ margin-right:0 !important; width:29%; float:left;}
 
 .about-block{
 	
@@ -1492,16 +1502,6 @@ left:10px;
  height:40px;
  padding:4.5% 3.5% 3.5% 4.5%;
 }
-
-
-
-
-
-
-
-
-
-
 
 .left-container {
  width:96%;
@@ -2343,3 +2343,13 @@ padding:0 5% 5% 5%;
  .join-freind-btn {
  padding:0 4%;
 }
+
+.semester-select-block{ margin-right:0 !important; width:29%; float:left;}
+
+.time_select{ width:20%; float:left; margin-right:5%;}
+
+.sortable li {
+		width:100%;
+}
+
+ }
