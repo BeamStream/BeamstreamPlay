@@ -239,7 +239,7 @@ object DocumentController extends Controller {
         val messageId = Message.createMessage(message)
         DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
       case false =>
-        val question = Question(new ObjectId, docURL, userId, QuestionAccess.withName(docAccess), QuestionType.Image, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil)
+        val question = Question(new ObjectId, docURL, userId, QuestionAccess.withName(docAccess), QuestionType.Image, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil, false, Option(docURL), Option(mediaId.get))
         Question.addQuestion(question)
         DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(question.rockers))
     }
@@ -263,7 +263,7 @@ object DocumentController extends Controller {
         val messageId = Message.createMessage(message)
         DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
       case false =>
-        val question = Question(new ObjectId, docURL, userId, QuestionAccess.withName(docAccess), QuestionType.Video, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil)
+        val question = Question(new ObjectId, docURL, userId, QuestionAccess.withName(docAccess), QuestionType.Video, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil, false, Option(videoFrameURL), Option(mediaId.get))
         Question.addQuestion(question)
         DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(question.rockers))
     }
@@ -283,7 +283,7 @@ object DocumentController extends Controller {
         val messageId = Message.createMessage(message)
         DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
       case false =>
-        val question = Question(new ObjectId, docURL, userId, QuestionAccess.withName(docAccess), QuestionType.Document, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil)
+        val question = Question(new ObjectId, docURL, userId, QuestionAccess.withName(docAccess), QuestionType.Document, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil, false, Option(previewImageUrl), Option(documentId))
         Question.addQuestion(question)
         DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(question.rockers))
     }
@@ -302,7 +302,7 @@ object DocumentController extends Controller {
         val messageId = Message.createMessage(message)
         DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
       case false =>
-        val question = Question(new ObjectId, docURL, userId, QuestionAccess.withName(docAccess), QuestionType.Document, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil)
+        val question = Question(new ObjectId, docURL, userId, QuestionAccess.withName(docAccess), QuestionType.Document, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil, false, None, Option(documentId))
         Question.addQuestion(question)
         DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(question.rockers))
     }

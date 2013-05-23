@@ -51,7 +51,9 @@ case class Question(@Key("_id") id: ObjectId,
   answers: List[ObjectId],
   followers: List[ObjectId],
   pollOptions: List[ObjectId] = Nil,
-  answered: Boolean = false)
+  answered: Boolean = false,
+  anyPreviewImageUrl: Option[String] = None,
+  docIdIfAny: Option[ObjectId] = None)
 
 object Question {
 
