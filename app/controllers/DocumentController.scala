@@ -233,7 +233,6 @@ object DocumentController extends Controller {
     val mediaId = UserMedia.saveMediaForUser(media)
     //Create A Message As Well To Display The Doc Creation In Stream
     val profilePic = UserMedia.getProfilePicUrlString(userId)
-    println("..............."+uploadedFrom)
     (uploadedFrom == "discussion") match {
       case true =>
         val message = Message(new ObjectId, docURL, Option(MessageType.Image), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, Option(docURL), Option(mediaId.get))
