@@ -72,7 +72,7 @@ object SocialController extends Controller {
           val noOfOnLineUsers = onlineUserCache.setOnline(authenticatedUser.get.id.toString)
           (authenticatedUser.get.classes.size == 0) match {
             case true => Redirect("/class").withSession(userSession)
-            case false => Ok(views.html.stream()).withSession(userSession)
+            case false => Redirect("/stream").withSession(userSession)
           }
 
       }
