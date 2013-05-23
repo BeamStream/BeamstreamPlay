@@ -136,7 +136,9 @@ define(['view/formView' ,
 			/* set style for select boxes */
 			$('.selectpicker-info').selectpicker({
 			    style: 'register-select'
-			});			
+			});		
+
+			$('#datepicker').datepicker();	
 		},		
       
 		

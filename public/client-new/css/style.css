@@ -6094,3 +6094,23 @@ float:none !important;
 text-align:center;;	
 	
 }
+
+
+
+.input-append .add-on, .input-prepend .add-on
+{
+ background-color:none !important;
+
+  -webkit-border-radius:0 4px 4px 0;
+  -moz-border-radius:0 4px 4px 0;
+  border-radius:0 4px 4px 0; border:none;
+  height:32px;
+  background:url(../images/select-arrow.png) no-repeat;
+  width:30px;
+  margin:0;
+  right:0px;
+  position:relative;
+  display:block;
+  top:0; 
+   z-index:9999;
+}
