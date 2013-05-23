@@ -142,7 +142,9 @@ object User {
    */
 
   def giveMeTheRockers(users: List[ObjectId]): List[String] = {
-    users map { user => UserDAO.findOne(MongoDBObject("_id" -> user)).get.firstName }
+    var userentities = users map { user => UserDAO.findOne(MongoDBObject("_id" -> user)).get }
+    
+    userentities map { userentity => userentity.firstName + " " + userentity.lastName}
   }
 
   /**

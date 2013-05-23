@@ -47,7 +47,7 @@ object MessageController extends Controller {
       case false => ""
     }
 
-    val messageJson = write(DocResulttoSent(messageObtained.get, "", "", false, false, Option(profilePicForUser), None, Option(false)))
+    val messageJson = write(DocResulttoSent(messageObtained.get, "", "", false, false, Option(profilePicForUser), None, Option(false), Nil))
     Ok(messageJson).as("application/json")
 
   }

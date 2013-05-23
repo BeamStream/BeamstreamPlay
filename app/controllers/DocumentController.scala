@@ -59,7 +59,7 @@ object DocumentController extends Controller {
     val userId = new ObjectId(request.session.get("userId").get)
     val streamId = (documentJson \ "streamId").as[String]
     val date = new Date
-    val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId, DocumentAccess.withName(access), new ObjectId(streamId), date, date, 0, Nil, Nil, Nil, "")
+    val documentToCreate = new Document(new ObjectId, name, description, url, DocType.withName(docType), userId, DocumentAccess.withName(access), new ObjectId(streamId), date, date, 0, Nil, Nil, Nil, "", 0)
     val docId = Document.addDocument(documentToCreate)
     val user = User.getUserProfile(userId)
     //Create A Message As Well To Display The Doc Creation In Stream
@@ -75,7 +75,7 @@ object DocumentController extends Controller {
 
       case false => ""
     }
-    val docResults = DocResulttoSent(messageObtained.get, name, description, false, false, Option(profilePicForUser), None, Option(false))
+    val docResults = DocResulttoSent(messageObtained.get, name, description, false, false, Option(profilePicForUser), None, Option(false), User.giveMeTheRockers(messageObtained.get.rockers))
     Ok(write(docResults)).as("application/json")
 
   }
@@ -256,7 +256,7 @@ object DocumentController extends Controller {
 
       case false => ""
     }
-    DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false))
+    DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
   }
 
   /**
@@ -281,7 +281,7 @@ object DocumentController extends Controller {
 
       case false => ""
     }
-    DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false))
+    DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
   }
 
   /**
@@ -303,7 +303,7 @@ object DocumentController extends Controller {
 
       case false => ""
     }
-    DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false))
+    DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
   }
   /**
    * Save other documents
@@ -324,7 +324,7 @@ object DocumentController extends Controller {
 
       case false => ""
     }
-    DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false))
+    DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
   }
 
   /**
