@@ -65,10 +65,17 @@ object UserMedia extends RockConsumer {
   /**
    * Get profile picture for a user
    */
-  def getProfilePicForAUser(userId: ObjectId): List[UserMedia] = {
-    UserMediaDAO.find(MongoDBObject("userId" -> userId, "isPrimary" -> true)).toList
-  }
+  def getProfilePicForAUser(userId: ObjectId): String = {
+    val userMedia = UserMediaDAO.find(MongoDBObject("userId" -> userId, "isPrimary" -> true)).toList
+    (!userMedia.isEmpty) match {
+      case true => (userMedia.head.frameURL != "") match {
+        case true => userMedia.head.frameURL
+        case false => userMedia.head.mediaUrl
+      }
 
+      case false => ""
+    }
+  }
   /**
    * Get Picture URL String for a User
    */

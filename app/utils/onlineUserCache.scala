@@ -30,7 +30,6 @@ object onlineUserCache {
         }
     }
 
-    println(">>>>>> Set offlihne >>>>>>" + returnOnlineUsers)
   }
 
   /**
@@ -52,7 +51,6 @@ object onlineUserCache {
         }
     }
 
-    println(">>>>>> Set Online >>>>>>" + returnOnlineUsers)
 
   }
 

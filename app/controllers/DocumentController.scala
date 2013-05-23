@@ -244,18 +244,9 @@ object DocumentController extends Controller {
     val media = new UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Image, DocumentAccess.withName(docAccess), false, Option(streamId), "", 0, Nil, Nil, 0)
     val mediaId = UserMedia.saveMediaForUser(media)
     //Create A Message As Well To Display The Doc Creation In Stream
+    val profilePic = UserMedia.getProfilePicUrlString(userId)
     val message = Message(new ObjectId, docURL, Option(MessageType.Image), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, Option(docURL), Option(mediaId.get))
     val messageId = Message.createMessage(message)
-    val userMedia = UserMedia.getProfilePicForAUser(userId)
-
-    val profilePic = (!userMedia.isEmpty) match {
-      case true => (userMedia.head.frameURL != "") match {
-        case true => userMedia.head.frameURL
-        case false => userMedia.head.mediaUrl
-      }
-
-      case false => ""
-    }
     DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
   }
 
@@ -269,18 +260,9 @@ object DocumentController extends Controller {
     val videoFrameURL = "https://s3.amazonaws.com/BeamStream/" + docNameOnAmazon + "Frame"
     val media = UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Video, DocumentAccess.withName(docAccess), false, Option(streamId), videoFrameURL, 0, Nil, Nil)
     val mediaId = UserMedia.saveMediaForUser(media)
+    val profilePic = UserMedia.getProfilePicUrlString(userId)
     val message = Message(new ObjectId, docURL, Option(MessageType.Video), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, Option(videoFrameURL), Option(mediaId.get))
     val messageId = Message.createMessage(message)
-    val userMedia = UserMedia.getProfilePicForAUser(userId)
-
-    val profilePic = (!userMedia.isEmpty) match {
-      case true => (userMedia.head.frameURL != "") match {
-        case true => userMedia.head.frameURL
-        case false => userMedia.head.mediaUrl
-      }
-
-      case false => ""
-    }
     DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
   }
 
@@ -291,18 +273,9 @@ object DocumentController extends Controller {
     val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, userId, DocumentAccess.withName(docAccess),
       streamId, new Date, new Date, 0, Nil, Nil, Nil, previewImageUrl)
     val documentId = Document.addDocument(documentCreated)
+    val profilePic = UserMedia.getProfilePicUrlString(userId)
     val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, Option(previewImageUrl), Option(documentId))
     val messageId = Message.createMessage(message)
-    val userMedia = UserMedia.getProfilePicForAUser(userId)
-
-    val profilePic = (!userMedia.isEmpty) match {
-      case true => (userMedia.head.frameURL != "") match {
-        case true => userMedia.head.frameURL
-        case false => userMedia.head.mediaUrl
-      }
-
-      case false => ""
-    }
     DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
   }
   /**
@@ -312,18 +285,9 @@ object DocumentController extends Controller {
     val documentCreated = new Document(new ObjectId, documentName, docDescription, docURL, DocType.Other, userId, DocumentAccess.withName(docAccess),
       streamId, new Date, new Date, 0, Nil, Nil, Nil, "")
     val documentId = Document.addDocument(documentCreated)
+    val profilePic = UserMedia.getProfilePicUrlString(userId)
     val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, None, Option(documentId))
     val messageId = Message.createMessage(message)
-    val userMedia = UserMedia.getProfilePicForAUser(userId)
-
-    val profilePic = (!userMedia.isEmpty) match {
-      case true => (userMedia.head.frameURL != "") match {
-        case true => userMedia.head.frameURL
-        case false => userMedia.head.mediaUrl
-      }
-
-      case false => ""
-    }
     DocResulttoSent(message, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
   }
 
@@ -351,7 +315,6 @@ object DocumentController extends Controller {
     Ok(views.html.gdocs()).withSession(request.session + ("code" -> a(0)))
   }
 
-  
   /**
    * Uploading File To Google
    */
