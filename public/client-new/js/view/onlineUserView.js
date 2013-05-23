@@ -59,6 +59,7 @@ define(['baseView',
          */
 		displayPage: function(){
 			var self = this;
+			$('.online-count').html("Online("+this.data.models[0].attributes.onlineUsers.length+")");
 			_.each(this.data.models[0].attributes.onlineUsers, function(model) {
 				var profileImageUrl = '';
 				if(model.profileImageUrl){
