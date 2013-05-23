@@ -601,7 +601,8 @@ define(['view/formView',
                   data.append('docAccess' ,docAccess);
                   data.append('docData', self.file);  
                   data.append('streamId', streamId); 
-
+               	  data.append('uploadedFrom', "discussion"); 
+ 			            
 
                   /* post profile page details */
                   $.ajax({
