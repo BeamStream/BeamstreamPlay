@@ -59,6 +59,143 @@
 
  
                   </div>
+
+                   <!-- start doc section -->
+                   
+                   {{#ifequal contentType "docs"}}
+                      <div id="Docs" class="doc">
+                      
+                      <div class="item">  
+              <div    name="single-doc">
+             <div class="image-wrapper hovereffect" >
+              <div class="hover-div">
+               <div class="doc-image">
+                  
+                          {{#if commenImage}}
+                           <img  src="{{previewImage}}" class="cover-picture" /> <h3 class="common-doctext" >{{extension}}</h3>
+                        {{else}}
+                          <img  src="{{data.question.anyPreviewImageUrl}}" class="cover-picture" /> 
+                             {{/if}}
+                        </div>
+                <div class="hover-text">               
+                 <div class="comment-wrapper" id="{{data.question.docIdIfAny.id}}">                                
+                 <div id="media-{{data.question.docIdIfAny.id}}">
+                  <h4 id="name-{{data.question.docIdIfAny.id}}" >{{#if data.docName}}{{data.docName}}{{else}}No Document Name{{/if}}</h4>                                
+                  <div  class="description-info "><div name={{type}}  class="description-left mediapopup drag-rectangle" id="{{data.question.docIdIfAny.id}}">
+                    <input type="hidden" id="id-{{data.question.docIdIfAny.id}}"  value="{{data.question.messageBody}}">      
+                    <p class="doc-description" id="description-{{data.question.docIdIfAny.id}}" >{{#if data.docDescription}}{{data.docDescription}}{{else}}No Document Description..{{/if}}</p>
+                  </div>
+                  <div id="{{data.question.docIdIfAny.id}}" class="comment-wrapper2">
+                  <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_documents"></a>
+                  <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
+                  </div></div></div>
+                
+                    <div class="edit-title-div">
+                 {{#ifequal loggedUserId data.question.userId.id }}
+                    <h5 class="editMediaTitle"   id="{{data.question.docIdIfAny.id}}"><span><img src="/beamstream-new/images/title-plus.png"></span>Edit Title & Description</h5>
+                  {{/ifequal}}
+                            </div>
+                
+                 <div class="dateinfo"><span class="state">{{data.question.messageAccess.name}}</span><span class="date">{{datVal}}</span></div>
+                </div>
+               </div>
+              </div>
+             </div>
+            
+               <div id="{{data.question.docIdIfAny.id}}-docRockers-list" class="docRockers_popup"></div>
+               </div>  
+            </div> 
+    
+                       
+                      </div>
+
+
+
+                    <!-- shows the documents contents in a frame -->
+            <div id="document-{{data.question.docIdIfAny.id}}" style="top: 50% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-header">
+                  <a class="close" data-dismiss="modal">×</a>
+              </div>
+              <div class="modal-body" style="max-height:none !important;"> 
+
+              <h4>{{data.docName}}</h4>
+                  <p>
+                    <iframe id ="iframe-{{data.question.docIdIfAny.id}}" src="" scrolling="NO"  width="963" height="500" style="border: none">
+                    <p>Your browser does not support iframes.</p>
+                  </iframe> 
+                </p>  
+              </div>
+            </div>
+
+
+
+                      
+                  {{/ifequal}}
+                   <!-- End doc section -->
+                  
+                  
+                  <!-- start Image / video section -->
+                  
+                  {{#ifequal contentType "media"}}
+                    <div id="Docs" class="doc">
+                    
+                    <div  class="item">  
+              <div id="{{data.question.docIdIfAny.id}}"   name="single-doc">
+            <div class="image-wrapper hovereffect" >
+              <div class="hover-div"><img class="filmedia-picture" src="{{data.question.anyPreviewImageUrl}}">
+                <div class="hover-text">               
+                 <div class="comment-wrapper" id="{{data.question.docIdIfAny.id}}">                                
+                 <div id="media-{{data.question.docIdIfAny.id}}">
+                  <h4 id="name-{{data.question.docIdIfAny.id}}" >{{#if data.docName}}{{data.docName}}{{else}}No Media Name{{/if}}</h4>                                
+                  <div class="description-info">      
+                     <div class="gallery"></div>
+                     
+                     <!-- image preview -->
+                     {{#ifequal data.question.messageType.name "Image"}}
+                    <div class="gallery">
+                         <a href="{{data.question.anyPreviewImageUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
+                            <div class="description-left photo-popup">   
+                            <p class="google_doc doc-description" id="description-{{data.question.docIdIfAny.id}}"><input type="hidden" id="id-{{data.question.docIdIfAny.id}}" value="doc.url">{{#if data.docDescription}}{{data.docDescription}}{{else}}No Media Description{{/if}}</p>
+                        </div>
+                         </a>
+                   </div>  
+                 {{/ifequal}} 
+                 
+                 <!-- Video preview -->
+                     {{#ifequal data.question.messageType.name "Video"}}  
+                       <div class="gallery hrtxt">
+                        <a href="{{data.question.messageBody}}" style="text-decoration: none" rel="prettyPhoto[gallery1]">
+                            <div class="description-left photo-popup">   
+                              <p class="google_doc doc-description" id="description-{{data.question.docIdIfAny.id}}"><input type="hidden" id="id-{{data.question.docIdIfAny.id}}" value="doc.url">{{#if data.docDescription}}{{data.docDescription}}{{else}}No Media Description{{/if}}</p>
+                       </div>
+                         </a>
+                 </div> 
+                   {{/ifequal}} 
+                
+                  <div id="{{data.question.docIdIfAny.id}}" class="comment-wrapper2">
+                  <a href="#" class="tag-icon" data-original-title="Search by Users"></a><a href="#" class="hand-icon rock_media"></a>
+                  <a href="#" class="message-icon"></a><a href="#" class="share-icon"></a>
+                  </div></div></div>
+                  
+                  <div class="edit-title-div">
+                {{#ifequal loggedUserId data.question.userId.id }}
+                      <h5 class="editMediaTitle" id="{{data.question.docIdIfAny.id}}"><span><img src="beamstream-new/images/title-plus.png"></span>Edit Title & Description</h5>
+                    {{/ifequal}}
+                  </div>        
+                 <div class="dateinfo"><span class="state">{{data.question.messageAccess.name}}</span><span class="date">{{datVal}}</span></div>
+                </div>
+               </div>
+              </div>
+            </div>  
+            
+            </div>
+          </div>
+  
+                    </div>
+                    
+                 {{/ifequal}}
+                  <!-- End Image / video section -->
+                  
                   <div class="follow-bottom">
                     <ul class="follow-name-left show-all-block">
                       <li>

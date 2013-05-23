@@ -57,66 +57,258 @@ define(['view/formView',
          */
         render: function(){
         	
-         	var model = this.model.attributes;
+        	var self = this;
+            var trueurl='';
+            var pattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+
+            // get the model attributes
+        	var model = this.model.attributes;
+    		
+			var contentType ='';
 			var questionType ='';
 			var questionBody = model.question.questionBody;
-                                            
-			//var links =  msgBody.match(BS.urlRegex); 
-            var qstUrl=  questionBody.replace(this.urlRegex1, function(qstUrlw) {
+            
+			/* get url from the message text */
+            var qstUrl=  questionBody.replace(self.urlRegex1, function(qstUrlw) {
             	trueurl= qstUrlw;    
-                return qstUrl;
+                return qstUrlw;
             });
-                
-                //to get the extension of the uploaded file
-//                var extension = (trueurl).match(pattern);  
-//                
-//               
-//                if(data.questionType.name == "Text")
-//                {    
-//                    	 
-//                     //to check whether the url is a google doc url or not
-//                     if(questionBody.match(/^(https:\/\/docs.google.com\/)/)) 
-//                     {
-//                    	 questionType = "googleDocs";
-//                     }
-//                     else
-//                     {
-//                    	 questionType = "messageOnly";
-                         var linkTag =  questionBody.replace(this.urlRegex1, function(url) {
-                               return '<a target="_blank" href="' + url + '">' + url + '</a>';
-                         });
-//                     }
-//                }
-//                else
-//                {          
-//                     // set first letter of extension in capital letter  
-//                	  if(extension)
-//                	  {
-//                		  extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
-//                			  return letter.toUpperCase();
-//  	                	  }); 
-//                	  }
-//                }
-//                
-                var datVal =  formatDateVal(model.question.creationDate);
-                
+
+            //to get the extension of the uploaded file 
+            if(trueurl)
+            	var extension = (trueurl).match(pattern); 
+
+
+            /* case : normal message without uploaded files */
+            if(model.question.questionType.name == "Text")
+            {    
+                	 
+                 //to check whether the url is a google doc url or not
+                 if(questionBody.match(/^(https:\/\/docs.google.com\/)/)) 
+                 {
+                	 contentType = "googleDoc";
+                 }
+                 else
+                 {
+                	 contentType = "questionOnly";
+                     var linkTag =  questionBody.replace(self.urlRegex1, function(url) {
+                           return '<a target="_blank" href="' + url + '">' + url + '</a>';
+                     });
+                 }
+            }
+            else
+            {         
+
+        		if(questionBody.match(/^(https:\/\/docs.google.com\/)/)) 
+                 {
+                	 contentType = "docs";
+
+                 } 	
+                 // set first letter of extension in capital letter  
+            	  if(extension)
+            	  {
+            		  extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+            			  return letter.toUpperCase();
+                	  }); 
+            	  }
+            }
+            // customize the date format
+            var datVal =  formatDateVal(model.question.creationDate);
+            
+			var datas = {
+			 	 "data" : model,
+			 	 "datVal":datVal,
+			 	 "contentType" : contentType,
+			 	 "loggedUserId" :localStorage["loggedUserId"],
+			 	 
+		    }
+
+		    /* generate data depends on its type */
+			if(contentType == "docs")
+			{
+				var datas = {
+				    "data" : model,
+                    "datVal" :datVal,
+                    "previewImage" : "/beamstream-new/images/google_docs_image.png",
+                    "commenImage" : "true",
+                    "type" : "googleDoc",
+                    "contentType" : contentType,
+                    "loggedUserId" :localStorage["loggedUserId"],
+                	
+				}	
+			}
+			else if(contentType == "messageOnly")
+			{
 				var datas = {
 					 	 "data" : model,
 					 	 "datVal":datVal,
-					 	 "rocks" : model.question.rockers.length,
+					 	 "type" : contentType,
+					 	 "contentType" : contentType,
+					 	 "loggedUserId" :localStorage["loggedUserId"],
+			    }
+			}
+			else
+			{
+				/* for images/videos  */
+				if(model.question.questionType.name == "Image" || model.question.questionType.name == "Video" )
+				{
+					var datas = {
+					 	 "data" : model,
+					 	 "datVal":datVal,
+					 	 "contentType" : "media",
+					 	 "loggedUserId" :localStorage["loggedUserId"],
+				    }  						
+				}
+				else /* for other types of docs , pdf , ppt etc.. */ 
+				{
+					var previewImage = '';
+					var commenImage ="";
+					var type = "";
+					 
+					if(extension == 'Ppt')
+					{
+                        previewImage= "/beamstream-new/images/presentations_image.png";
+                        type = "ppt";
+                        
+					}
+					else if(extension == 'Doc')
+					{
+						previewImage= "/beamstream-new/images/docs_image.png";
+						type = "doc";
+						
+					}
+					else if(extension == 'Pdf')
+					{
+						previewImage= model.anyPreviewImageUrl;
+						type = "pdf";
+					}
+					else
+					{
+						previewImage= "/beamstream-new/images/textimage.png";
+						commenImage = "true";
+						type = "doc";
+						
+					}
+					
+					var datas = {
+						    "data" : model,
+                            "datVal" :datVal,
+                            "previewImage" :previewImage,
+                            "extension" : extension,
+                            "commenImage" : commenImage,
+                            "type" : type,
+                            "contentType" : "docs",
+                            "loggedUserId" :localStorage["loggedUserId"],
+                            
+			        }	
+			  	}
+					
+			}
 
-				    }
-               
-				
-				// render the template
-        		compiledTemplate = Handlebars.compile(QuestionMessage);
-        		$(this.el).html(compiledTemplate(datas));
+			// render the template
+    		compiledTemplate = Handlebars.compile(QuestionMessage);
+    		$(this.el).html(compiledTemplate(datas));
 
-        		$('.drag-rectangle').tooltip();
+    		/* set the link style for the lisks in message */
+        	if(linkTag)
+            	$('p#'+model.question.id.id+'-id').html(linkTag);
 
-        		$('.commentList').hide();
+
+            // embedly
+    		$('p#'+model.question.id.id+'-id').embedly({
+    		 	maxWidth: 200,
+    		 	wmode: 'transparent',
+    		 	method: 'after',
+    		 	key:'4d205b6a796b11e1871a4040d3dc5c07'
+		 	 });
+
+    		$('.drag-rectangle').tooltip();
+    		
+    		/* pretty photo functionality for video /image popups */
+            $("area[rel^='prettyPhoto']").prettyPhoto();
+			$(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({
+				animation_speed:'normal',
+				theme:'light_square',
+				slideshow:3000, 
+				autoplay_slideshow: true
+			});
+			$(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({
+				animation_speed:'fast',
+				slideshow:10000,
+				hideflash: true
+			});
+			$('.commentList').hide();
+
 			
     		return this;
+
+
+
+
+
+
+//          	var model = this.model.attributes;
+// 			var questionType ='';
+// 			var questionBody = model.question.questionBody;
+                                            
+// 			//var links =  msgBody.match(BS.urlRegex); 
+//             var qstUrl=  questionBody.replace(this.urlRegex1, function(qstUrlw) {
+//             	trueurl= qstUrlw;    
+//                 return qstUrl;
+//             });
+
+
+                
+//                 //to get the extension of the uploaded file
+// //                var extension = (trueurl).match(pattern);  
+// //                
+// //               
+// //                if(data.questionType.name == "Text")
+// //                {    
+// //                    	 
+// //                     //to check whether the url is a google doc url or not
+// //                     if(questionBody.match(/^(https:\/\/docs.google.com\/)/)) 
+// //                     {
+// //                    	 questionType = "googleDocs";
+// //                     }
+// //                     else
+// //                     {
+// //                    	 questionType = "messageOnly";
+//                          var linkTag =  questionBody.replace(this.urlRegex1, function(url) {
+//                                return '<a target="_blank" href="' + url + '">' + url + '</a>';
+//                          });
+// //                     }
+// //                }
+// //                else
+// //                {          
+// //                     // set first letter of extension in capital letter  
+// //                	  if(extension)
+// //                	  {
+// //                		  extension = extension[1].toLowerCase().replace(/\b[a-z]/g, function(letter) {
+// //                			  return letter.toUpperCase();
+// //  	                	  }); 
+// //                	  }
+// //                }
+// //                
+//                 var datVal =  formatDateVal(model.question.creationDate);
+                
+// 				var datas = {
+// 					 	 "data" : model,
+// 					 	 "datVal":datVal,
+// 					 	 "rocks" : model.question.rockers.length,
+
+// 				    }
+               
+				
+// 				// render the template
+//         		compiledTemplate = Handlebars.compile(QuestionMessage);
+//         		$(this.el).html(compiledTemplate(datas));
+
+//         		$('.drag-rectangle').tooltip();
+
+//         		$('.commentList').hide();
+			
+//     		return this;
         },
         
 

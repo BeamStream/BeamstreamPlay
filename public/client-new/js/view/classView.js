@@ -72,7 +72,7 @@ define(['view/formView',
 			    	});
 			  		
 			   		// set date picker style
-			   		$('.datepicker').datepicker();
+			   		$('#datepicker').datepicker();
 
 			   		// add an extra li "Add or Edit School" for school dropdown 
 			   		$('div.school_field div.dropdown-menu ul').append('<li id="add-school"  rel="6"><a href="#" tabindex="-1">--- ADD OR EDIT SCHOOL ---</a></li>');
