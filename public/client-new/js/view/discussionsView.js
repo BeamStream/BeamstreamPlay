@@ -208,6 +208,7 @@ define(['view/formView',
  			            data.append('docAccess' ,messageAccess);
  			            data.append('docData', self.file);  
  			            data.append('streamId', streamId); 
+ 			            data.append('uploadedFrom', "discussion"); 
  			            
  			           /* post profile page details */
  			            $.ajax({

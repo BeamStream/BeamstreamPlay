@@ -36,6 +36,7 @@ define(['view/formView',
 			'click .rocks-small a': 'rockComment',
 		 	'click .follow-user' : 'followUser',
 		 	'click .show-all-comments' : 'showAllCommentList',
+		 	'click .who-rocked-it' : 'showRockersList',
 		 	'click .show-all' : 'showAllList',
 		 	'click .delete_post': 'deleteQuestion',
 		 	'click .delete_comment' : 'deleteComment',
@@ -405,6 +406,41 @@ define(['view/formView',
 			}
         },
 
+        /**
+	  	*  show Message rockers list 
+	  	*/
+		showRockersList: function(eventName){
+			 
+			eventName.preventDefault();
+	        	
+	        var element = eventName.target.parentElement;
+        	var parentUl = $(eventName.target).parent('ul');
+        	
+			var questionId =$(element).parents('div.follow-container').attr('id');
+			$(parentUl).find('a.active').removeClass('active');
+
+			if($('#'+questionId+'-questionRockers').is(":visible"))
+			{
+				
+				$(eventName.target).removeClass('active');
+				$('#'+questionId+'-questionRockers').slideUp(600);
+				
+			}
+			else
+			{
+				
+				$(eventName.target).addClass('active');
+				$('#'+questionId+'-allComments').slideUp(1); 
+				$('#'+questionId+'-newCommentList').html('');
+				$('#'+questionId+'-questionRockers').slideDown(600);
+				$('#'+questionId+'-show-hide').text("Show All");
+				
+			}
+        
+			
+				
+		},
+		
         /**
          * show / hide all comments ..
          */
