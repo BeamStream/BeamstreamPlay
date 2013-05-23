@@ -50,7 +50,8 @@ case class Question(@Key("_id") id: ObjectId,
   comments: List[ObjectId],
   answers: List[ObjectId],
   followers: List[ObjectId],
-  pollOptions: List[ObjectId] = Nil)
+  pollOptions: List[ObjectId] = Nil,
+  answered: Boolean = false)
 
 object Question {
 
@@ -282,7 +283,7 @@ object Question {
             }
           case false => Nil
         }
-        
+
         val isRocked = Question.isARocker(question.id, userId)
         val isFollowed = Question.isAFollower(question.id, userId)
         val isFollowerOfQuestionPoster = User.isAFollower(question.userId, userId)
@@ -291,9 +292,8 @@ object Question {
     }
 
   }
-  
-  
-    /**
+
+  /**
    * Is a follower
    * @Purpose: identify if the user is following a question or not
    * @param  questionId is the id of the question to be searched

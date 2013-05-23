@@ -39,7 +39,7 @@ case class CommentResult(comment: Comment, var profilePic: Option[String] = None
 /**
  * Document Results After Uploading From Main Stream
  */
-case class DocResulttoSent(message: Option[Message], docName: String, docDescription: String, rocked: Boolean, followed: Boolean, var profilePic: Option[String] = None, var comments: Option[List[CommentResult]] = None, followerOfMessagePoster: Option[Boolean] = None, rockersNames: List[String])
+case class DocResulttoSent(message: Option[Message], question:Option[Question]=None, docName: String, docDescription: String, rocked: Boolean, followed: Boolean, var profilePic: Option[String] = None, var comments: Option[List[CommentResult]] = None, followerOfMessagePoster: Option[Boolean] = None, rockersNames: List[String])
 /**
  * User & User School details after Registration
  */

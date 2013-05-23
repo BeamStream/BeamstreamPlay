@@ -8,11 +8,15 @@ import models.DocResulttoSent
 import models.DocType
 import models.Document
 import models.DocumentAccess
+import models.Documents
+import models.DocumentsAndMedia
 import models.Files
 import models.Message
 import models.MessageAccess
 import models.MessageType
-import models.ResulttoSent
+import models.Question
+import models.QuestionAccess
+import models.QuestionType
 import models.User
 import models.UserMedia
 import models.UserMediaType
@@ -20,20 +24,11 @@ import net.liftweb.json.Serialization.write
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.AmazonUpload
-import utils.AmazonUploadUtil
 import utils.ExtractFrameFromVideoUtil
+import utils.GoogleDocsUploadUtility
 import utils.ObjectIdSerializer
 import utils.PreviewOfPDFUtil
 import utils.tokenEmailUtil
-import models.Documents
-import models.DocumentsAndMedia
-import utils.GoogleDocsUploadUtility
-import models.DocumentsAndMedia
-import models.Documents
-import models.DocResulttoSent
-import models.DocumentsAndMedia
-import models.Documents
-import models.DocResulttoSent
 /**
  * This controller class is used to store and retrieve all the information about documents.
  */
@@ -67,7 +62,7 @@ object DocumentController extends Controller {
     val messageId = Message.createMessage(message)
     val messageObtained = Message.findMessageById(messageId.get)
     val profilePicForUser = UserMedia.getProfilePicUrlString(messageObtained.get.userId)
-    val docResults = DocResulttoSent(Option(messageObtained.get), name, description, false, false, Option(profilePicForUser), None, Option(false), User.giveMeTheRockers(messageObtained.get.rockers))
+    val docResults = DocResulttoSent(Option(messageObtained.get), None, name, description, false, false, Option(profilePicForUser), None, Option(false), User.giveMeTheRockers(messageObtained.get.rockers))
     Ok(write(docResults)).as("application/json")
 
   }
@@ -238,9 +233,18 @@ object DocumentController extends Controller {
     val mediaId = UserMedia.saveMediaForUser(media)
     //Create A Message As Well To Display The Doc Creation In Stream
     val profilePic = UserMedia.getProfilePicUrlString(userId)
-    val message = Message(new ObjectId, docURL, Option(MessageType.Image), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, Option(docURL), Option(mediaId.get))
-    val messageId = Message.createMessage(message)
-    DocResulttoSent(Option(message), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
+    println("..............."+uploadedFrom)
+    (uploadedFrom == "discussion") match {
+      case true =>
+        val message = Message(new ObjectId, docURL, Option(MessageType.Image), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, Option(docURL), Option(mediaId.get))
+        val messageId = Message.createMessage(message)
+        DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
+      case false =>
+        val question = Question(new ObjectId, docURL, userId, QuestionAccess.withName(docAccess), QuestionType.Image, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil)
+        Question.addQuestion(question)
+        DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(question.rockers))
+    }
+
   }
 
   /**
@@ -254,9 +258,16 @@ object DocumentController extends Controller {
     val media = UserMedia(new ObjectId, documentName, docDescription, userId, new Date, docURL, UserMediaType.Video, DocumentAccess.withName(docAccess), false, Option(streamId), videoFrameURL, 0, Nil, Nil)
     val mediaId = UserMedia.saveMediaForUser(media)
     val profilePic = UserMedia.getProfilePicUrlString(userId)
-    val message = Message(new ObjectId, docURL, Option(MessageType.Video), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, Option(videoFrameURL), Option(mediaId.get))
-    val messageId = Message.createMessage(message)
-    DocResulttoSent(Option(message), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
+    (uploadedFrom == "discussion") match {
+      case true =>
+        val message = Message(new ObjectId, docURL, Option(MessageType.Video), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, Option(videoFrameURL), Option(mediaId.get))
+        val messageId = Message.createMessage(message)
+        DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
+      case false =>
+        val question = Question(new ObjectId, docURL, userId, QuestionAccess.withName(docAccess), QuestionType.Image, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil)
+        Question.addQuestion(question)
+        DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(question.rockers))
+    }
   }
 
   /**
@@ -267,9 +278,16 @@ object DocumentController extends Controller {
       streamId, new Date, new Date, 0, Nil, Nil, Nil, previewImageUrl)
     val documentId = Document.addDocument(documentCreated)
     val profilePic = UserMedia.getProfilePicUrlString(userId)
-    val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, Option(previewImageUrl), Option(documentId))
-    val messageId = Message.createMessage(message)
-    DocResulttoSent(Option(message), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
+    (uploadedFrom == "discussion") match {
+      case true =>
+        val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, Option(previewImageUrl), Option(documentId))
+        val messageId = Message.createMessage(message)
+        DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
+      case false =>
+        val question = Question(new ObjectId, docURL, userId, QuestionAccess.withName(docAccess), QuestionType.Image, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil)
+        Question.addQuestion(question)
+        DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(question.rockers))
+    }
   }
   /**
    * Save other documents
@@ -279,9 +297,16 @@ object DocumentController extends Controller {
       streamId, new Date, new Date, 0, Nil, Nil, Nil, "")
     val documentId = Document.addDocument(documentCreated)
     val profilePic = UserMedia.getProfilePicUrlString(userId)
-    val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, None, Option(documentId))
-    val messageId = Message.createMessage(message)
-    DocResulttoSent(Option(message), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
+    (uploadedFrom == "discussion") match {
+      case true =>
+        val message = Message(new ObjectId, docURL, Option(MessageType.Document), Option(MessageAccess.withName(docAccess)), new Date, userId, Option(streamId), user.firstName, user.lastName, 0, Nil, Nil, 0, Nil, None, Option(documentId))
+        val messageId = Message.createMessage(message)
+        DocResulttoSent(Option(message), None, documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(message.rockers))
+      case false =>
+        val question = Question(new ObjectId, docURL, userId, QuestionAccess.withName(docAccess), QuestionType.Image, streamId, user.firstName, user.lastName, new Date, Nil, Nil, Nil, Nil, Nil)
+        Question.addQuestion(question)
+        DocResulttoSent(None, Option(question), documentName, docDescription, false, false, Option(profilePic), None, Option(false), User.giveMeTheRockers(question.rockers))
+    }
   }
 
   /**
