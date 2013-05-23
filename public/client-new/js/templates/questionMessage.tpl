@@ -129,6 +129,26 @@
           <div id="{{data.question.id.id}}-newCommentList" class="comment-wrapper" style="display: none;">
                   </div>
           <div id="{{data.question.id.id}}-questionRockers" class="comment-wrapper" style="display: none;">
+
+            {{#each data.rockersNames}}
+                      
+                       <div class="answer-description" >
+                        <div class="follw-left">          
+                                     
+                        </div>
+                        <div class="answer-description-info">
+                          <div class="follow-names">
+                            <ul class="follow-name-left show-all-block">
+                              <li><span>@{{.}}  </span> </li>
+                              
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                      
+                      {{/each}}
+                      
                   </div>
                 </div>
               </div>
