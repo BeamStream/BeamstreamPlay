@@ -415,6 +415,7 @@ define(['view/formView',
 		            data.append('docAccess' ,questionAccess);
 		            data.append('docData', self.file);  
 		            data.append('streamId', streamId); 
+		            data.append('uploadedFrom', "question"); 
  			            
 		           /* post profile page details */
 		            $.ajax({
@@ -539,7 +540,7 @@ define(['view/formView',
 		         //         {             
 		         //        	 self.postMessageToServer(message,streamId,messageAccess,googleDoc);
 		         //         }
-		        	
+
 		        	self.postQuestionToServer(question,streamId,questionAccess);
 		        }
 		    }
