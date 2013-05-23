@@ -331,12 +331,12 @@ object Message { //extends CommentConsumer {
           case true =>
             val userMedia = UserMedia.findMediaById(message.docIdIfAny.get)
             (userMedia != None) match {
-              case true => DocResulttoSent(message, userMedia.get.name, userMedia.get.description, isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster))
+              case true => DocResulttoSent(message, userMedia.get.name, userMedia.get.description, isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
               case false =>
                 val document = Document.findDocumentById(message.docIdIfAny.get)
-                DocResulttoSent(message, document.get.documentName, document.get.documentDescription, isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster))
+                DocResulttoSent(message, document.get.documentName, document.get.documentDescription, isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
             }
-          case false => DocResulttoSent(message, "", "", isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster))
+          case false => DocResulttoSent(message, "", "", isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
         }
     }
     docResultToSend
