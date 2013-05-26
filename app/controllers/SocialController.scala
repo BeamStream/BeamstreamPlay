@@ -13,6 +13,7 @@ import play.libs.WS
 import utils.onlineUserCache
 import utils.SendEmailUtility
 import models.ResulttoSent
+import models.ResulttoSent
 
 object SocialController extends Controller {
   implicit val formats = DefaultFormats

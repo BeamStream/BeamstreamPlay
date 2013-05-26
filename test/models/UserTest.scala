@@ -108,7 +108,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
   test("Give rockers name"){
     val user1Id = User.createUser(user1)
     val rockers=User.giveMeTheRockers(List(user1Id.get))
-    assert(rockers.head==="")
+    assert(rockers.head===" ")
   }
 
   after {

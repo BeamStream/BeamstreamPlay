@@ -123,7 +123,7 @@ class UserMediaTest extends FunSuite with BeforeAndAfter {
     val UserMediaObj1 = UserMedia(new ObjectId, "", "", userId.get, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image, DocumentAccess.Public, true, Option(new ObjectId), "", 0, Nil, Nil, 0)
     UserMedia.saveMediaForUser(UserMediaObj1)
     UserMedia.rockUserMedia(UserMediaObj1.id, userId.get)
-    assert(UserMedia.rockersNamesOfUserMedia(UserMediaObj1.id).head === "Neel")
+    assert(UserMedia.rockersNamesOfUserMedia(UserMediaObj1.id).head === "Neel ")
   }
 
   /**

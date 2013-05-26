@@ -59,7 +59,7 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
     val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.Public,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val anotherQuestionId = Question.addQuestion(anotherQuestion)
     Question.rockTheQuestion(questionId.get, user.id)
-    assert(Question.rockersNameOfAQuestion(questionId.get) === List("Neel"))
+    assert(Question.rockersNameOfAQuestion(questionId.get) === List("Neel "))
     assert(Question.rockersNameOfAQuestion(questionId.get).size === 1)
   }
 
