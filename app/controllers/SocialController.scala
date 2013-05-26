@@ -11,6 +11,8 @@ import play.api.mvc.Action
 import play.api.mvc.Controller
 import play.libs.WS
 import utils.onlineUserCache
+import utils.SendEmailUtility
+import models.ResulttoSent
 
 object SocialController extends Controller {
   implicit val formats = DefaultFormats
@@ -36,7 +38,7 @@ object SocialController extends Controller {
       //TODO : Have to check whether the email has been registered already
       val canUserRegister = User.canUserRegister(preferredUsername)
       if (canUserRegister == true) {
-        val userToCreate = new User(new ObjectId, UserType.Professional, "", "", "", preferredUsername, "", None, "", "", "", "", "", Option(providerName), Nil, Nil, Nil, Nil, Nil, Option(json.toString))
+        val userToCreate = new User(new ObjectId, UserType.Professional, "", "", "", preferredUsername, "", None, "", "", "", "", "", Option(providerName), Nil, Nil, Nil, Nil, Nil, Option(json.toString), None)
         val IdOfUserCreted = User.createUser(userToCreate)
         val userSession = request.session + ("userId" -> IdOfUserCreted.get.toString) + ("social_identifier" -> identifier.get)
         val noOfOnLineUsers = onlineUserCache.setOnline(IdOfUserCreted.get.toString)
@@ -44,7 +46,6 @@ object SocialController extends Controller {
       } else {
         Ok(write("User Has been already registered")).as("application/json")
       }
-   
   }
 
   /**
@@ -80,6 +81,7 @@ object SocialController extends Controller {
       case ex => InternalServerError(write("Login Failed")).as("application/json")
     }
   }
+  
   /**
    * Get a list of all the social contacts related to the user.
    * http://developers.janrain.com/documentation/api/get_contacts/
@@ -96,5 +98,26 @@ object SocialController extends Controller {
       val body = res.getBody
       Ok(body).as("application/json")
     }.get
+  }
+  
+  /**
+   * Add a list of friends for the signed in user.
+   * Receives a list of users via JSON string
+   *
+   * Returns a JSON of user contact information
+   */
+  def inviteFriends = Action { implicit request =>
+    val userId = request.session.get("userId")
+    if (userId == None) {
+      Ok(write("Session Has Been Expired")).as("application/json")
+    } else {
+	    val userJsonMap = request.body.asFormUrlEncoded.get
+	    val emailList = userJsonMap("data").toList.head.split(",").toList
+	    for (eachEmail <- emailList) {
+	      val user = User.getUserProfile(new ObjectId(userId.toString()))
+	      SendEmailUtility.inviteUserToBeamstreamWithReferral(eachEmail, user.get.firstName + " " + user.get.lastName, userId.toString())
+	    }
+    }
+    Ok(write(ResulttoSent("Success", "Invitations has been sent"))).as("application/json")
   }
 }

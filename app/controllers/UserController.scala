@@ -1,27 +1,26 @@
 package controllers
 
 import scala.collection.immutable.List
+
 import org.bson.types.ObjectId
 import org.neo4j.graphdb.Node
+
 import models.LoginResult
 import models.OnlineUsers
+import models.OnlineUsersResult
 import models.OnlineUsersResult
 import models.ResulttoSent
 import models.User
 import models.UserMedia
 import net.liftweb.json.Serialization.write
-import play.api.Play
-import play.api.libs.json.Json
 import play.api.mvc.Action
 import play.api.mvc.Controller
-import play.libs.WS
 import utils.Neo4jFriend
 import utils.ObjectIdSerializer
 import utils.PasswordHashingUtil
 import utils.SendEmailUtility
 import utils.SocialGraphEmbeddedNeo4j
 import utils.onlineUserCache
-import models.OnlineUsersResult
 
 object UserController extends Controller {
 
@@ -162,7 +161,8 @@ object UserController extends Controller {
     for (friend <- friends) {
       var node2: Node = SocialGraphEmbeddedNeo4j.createBSNode(friend.userId, friend.firstName, friend.lastName, node)
       //TODO: userId should be an String EmailAddress rather than an Integer.  Must replace this when ready
-      SendEmailUtility.inviteUserToBeamstreamWithReferral(friend.emailaddress, userId.toString())
+      val user = User.getUserProfile(new ObjectId(userId.toString()))
+      SendEmailUtility.inviteUserToBeamstreamWithReferral(friend.emailaddress, user.get.firstName + " " + user.get.lastName, userId.toString())
     }
     SocialGraphEmbeddedNeo4j.shutDown()
     Ok(write(new ResulttoSent("Success", "Users added to Social stack")))
