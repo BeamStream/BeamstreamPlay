@@ -131,7 +131,7 @@ object SendEmailUtility {
   def inviteUserToBeamstreamWithReferral(emailId: String, friendUserString: String, friendNameString: String) {
     val content =
       "Hello, " + "<br>" + "<br>" +
-        friendNameString + "has invited to join Beamstream." + "<br>" +
+        friendNameString + " has invited to join Beamstream." + "<br>" +
         "Join and be ready to rock. " + "<a href ='" + Play.current.configuration.getString("server").get + "/beamstream/index.html#emailVerification?referrer=" + friendUserString + "'>REGISTER HERE</a>" +
         "<br>" + "<br>" +
         "Cheers," + "<br>" +
