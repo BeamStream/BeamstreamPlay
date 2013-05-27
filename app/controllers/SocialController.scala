@@ -112,10 +112,14 @@ object SocialController extends Controller {
     if (userId == None) {
       Ok(write("Session Has Been Expired")).as("application/json")
     } else {
-	    val userJsonMap = request.body.asFormUrlEncoded.get
-	    val emailList = userJsonMap("data").toList.head.split(",").toList
+	    val userJsonMap = request.body.asJson.get
+	    println("USERID: " + userId)
+	    println("DATA: " + userJsonMap)
+	    val emailstring = (userJsonMap \ "data").as[String]
+	    val emailList = emailstring.split(",")
+	    .toList.head.split(",").toList
 	    for (eachEmail <- emailList) {
-	      val user = User.getUserProfile(new ObjectId(userId.toString()))
+	      val user = User.getUserProfile(new ObjectId(userId.get))
 	      SendEmailUtility.inviteUserToBeamstreamWithReferral(eachEmail, user.get.firstName + " " + user.get.lastName, userId.toString())
 	    }
     }
