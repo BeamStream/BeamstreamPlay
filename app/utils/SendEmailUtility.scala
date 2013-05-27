@@ -132,7 +132,7 @@ object SendEmailUtility {
     val content =
       "Hello, " + "<br>" + "<br>" +
         friendNameString + " has invited to join Beamstream." + "<br>" +
-        "Join and be ready to rock. " + "<a href ='" + Play.current.configuration.getString("server").get + "/beamstream/index.html#emailVerification?referrer=" + friendUserString + "'>REGISTER HERE</a>" +
+        "Join and be ready to rock. " + "<a href ='" + Play.current.configuration.getString("server").get + "/signup?email=" + emailId + "&referrer=" + friendUserString + "'>REGISTER HERE</a>" +
         "<br>" + "<br>" +
         "Cheers," + "<br>" +
         "The Really Nice Beamstream Folks , US" + "<br>"
