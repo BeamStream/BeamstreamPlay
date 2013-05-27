@@ -38,9 +38,12 @@ case class User(@Key("_id") id: ObjectId,
   documents: List[ObjectId],
   questions: List[ObjectId],
   followers: List[ObjectId],
-  socialJson: Option[String])
+  socialJson: Option[String],
+  friends: Option[List[ObjectId]])
+  
 
 object User {
+ 
 
   /**
    * Creates a User (RA)

@@ -13,8 +13,8 @@ class UserTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
-  val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None)
-  val user2 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "NeelS", "Neil", Option("Neel"), "Knoldus", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None)
+  val user1 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None, None)
+  val user2 = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "Sachdeva", "NeelS", "Neil", Option("Neel"), "Knoldus", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None, None)
   val myUserSchool1 = UserSchool(new ObjectId, new ObjectId, "MPS", Year.Freshman, Degree.Assosiates,
     "CSE", Graduated.No, Option(formatter.parse("12-07-2011")), Option(DegreeExpected.Summer2013), None)
   val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
@@ -53,7 +53,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Find User Coming via social sites") {
-    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", Option("Google"), Nil, Nil, Nil, Nil, Nil, None)
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", Option("Google"), Nil, Nil, Nil, Nil, Nil, None, None)
     val userId = User.createUser(user1)
     val userCreated = User.getUserProfile(userId.get)
     User.updateUser(userId.get, "Neelkanth", "Sachdeva", "Rewari", "", "", "")
@@ -63,7 +63,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Is the User Already Registered") {
-    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", Option("Google"), Nil, Nil, Nil, Nil, Nil, None)
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", Option("Google"), Nil, Nil, Nil, Nil, Nil, None, None)
     val userId = User.createUser(user1)
     val userCreated = User.getUserProfile(userId.get)
     User.updateUser(userId.get, "Neelkanth", "Sachdeva", "Rewari", "", "", "")
@@ -108,7 +108,7 @@ class UserTest extends FunSuite with BeforeAndAfter {
   test("Give rockers name"){
     val user1Id = User.createUser(user1)
     val rockers=User.giveMeTheRockers(List(user1Id.get))
-    assert(rockers.head==="")
+    assert(rockers.head===" ")
   }
 
   after {

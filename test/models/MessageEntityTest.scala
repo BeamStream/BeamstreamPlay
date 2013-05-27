@@ -13,7 +13,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List(), None)
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List(), None, None)
   val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, user.id, List(user.id), true, List())
 
   before {
@@ -63,7 +63,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     assert(messageAfter.rockers.size === 1)
     assert(messageAfter.rockers(0) === user.id)
     val rockersList = Message.rockersNames(messageAfter.id)
-    assert(rockersList === List("Neel"))
+    assert(rockersList === List("Neel "))
   }
 
   test("Get All Messages For A Stream Along With Description") {

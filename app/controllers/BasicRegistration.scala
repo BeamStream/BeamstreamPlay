@@ -54,6 +54,11 @@ object BasicRegistration extends Controller {
    * SignUp Page Rendering (RA)
    */
   def signUpPage = Action { implicit request =>
+    
+      val email = request.queryString.get("email").get.head
+      val referrer = request.queryString.get("referrer").get.head
+      println("EMAIL: " + email)
+      println("REFERRER: " + referrer)
       Ok(views.html.signup())
   }
 
@@ -77,7 +82,7 @@ object BasicRegistration extends Controller {
         case true =>
           (encryptedPassword == encryptedConfirmPassword) match {
             case true =>
-              val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", "", Option(encryptedPassword), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil,None)
+              val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", "", Option(encryptedPassword), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil,None, None)
               val IdOfUserCreted = User.createUser(userToCreate)
               val createdUser = User.getUserProfile(IdOfUserCreted.get)
               UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.get.toString, tokenEmailUtil.securityToken, emailId)

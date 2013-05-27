@@ -15,7 +15,7 @@ class UserMediaTest extends FunSuite with BeforeAndAfter {
     UserDAO.remove(MongoDBObject("firstName" -> ".*".r))
   }
 
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None)
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None, None)
 
   test("Create User Media") {
     val userId = User.createUser(user)
@@ -123,7 +123,7 @@ class UserMediaTest extends FunSuite with BeforeAndAfter {
     val UserMediaObj1 = UserMedia(new ObjectId, "", "", userId.get, new Date, "http://beamstream.com/NeelK.png", UserMediaType.Image, DocumentAccess.Public, true, Option(new ObjectId), "", 0, Nil, Nil, 0)
     UserMedia.saveMediaForUser(UserMediaObj1)
     UserMedia.rockUserMedia(UserMediaObj1.id, userId.get)
-    assert(UserMedia.rockersNamesOfUserMedia(UserMediaObj1.id).head === "Neel")
+    assert(UserMedia.rockersNamesOfUserMedia(UserMediaObj1.id).head === "Neel ")
   }
 
   /**
