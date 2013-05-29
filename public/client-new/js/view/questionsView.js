@@ -12,7 +12,6 @@ define(['view/formView',
 		
 		events:{
 			'click #sortQuestionBy-list' : 'sortQuestions',
-			'keypress #sortQ_by_key' : 'sortQuestionsByKey',
 			'click #sortQueByDate-list' : 'sortQuestionsWithinAPeriod',
 			'click #share-discussions li a' : 'actvateShareIcon',
 			'click #Q-privatelist li' :'selectPrivateToList',
@@ -37,7 +36,7 @@ define(['view/formView',
             this.selected_medias = [];
          	$('#Q-main-photo').attr('src',localStorage["loggedUserProfileUrl"]);
          	this.setupPushConnection();
-         	this.questionSortedType = '';
+
 
          	/* pagination */
             $(window).bind('scroll', function (ev) {
@@ -53,13 +52,13 @@ define(['view/formView',
 					   if(t.length != 0)
 					   {
 					   		
-					   		// var questionSortedType = $('#sortQuestionBy-select').attr('value');
+					   		var msgSortedType = $('#sortQuestionBy-select').attr('value');
 							$('#question-pagination').show();
 							var streamId = $('.sortable li.active').attr('id');
 
 							view = self.getViewById('questionListView');
 						
-							if(self.questionSortedType == "date")
+							if(msgSortedType == "date")
 							{    
 								self.pageNo++;
 					    		if(view){
@@ -68,22 +67,12 @@ define(['view/formView',
 					    			self.appendMessages();
 					    		}
 							}
-							else if(self.questionSortedType == "rock")
+							else if(msgSortedType == "rock")
 							{    
 								self.pageNo++;
 					    		if(view){
 					    			
 					    			self.data.url="/getAllQuestionsForAStream/"+streamId+"/rock/"+view.messagesPerPage+"/"+self.pageNo;
-					    			self.appendMessages();
-					    		}
-							}
-							else if(self.questionSortedType == "keyword")
-							{    
-								self.pageNo++;
-								var keyword = $('#sortQ_by_key').val();
-					    		if(view){
-					    			
-					    			self.data.url="/getAllQuestionsForAStream/"+streamId+"/"+keyword+"/"+view.messagesPerPage+"/"+self.pageNo;
 					    			self.appendMessages();
 					    		}
 							}
@@ -253,10 +242,9 @@ define(['view/formView',
         	
         	eventName.preventDefault();
         	var self = this;
-        	this.pageNo = 1;
         	var streamId = $('.sortable li.active').attr('id');
         	var sortKey = $(eventName.target).attr('value');
-        	self.questionSortedType = sortKey;
+        	
         	/* render the message list */
         	view = this.getViewById('questionListView');
     		if(view){
@@ -270,34 +258,6 @@ define(['view/formView',
 			$('#sortQuestionBy-select').attr('value',sortKey);
 
         },
-
-        /**
-		 *  sort questions by keyword
-		 */
-	 	sortQuestionsByKey :function(eventName){
-			
-			 var self = this;
-			 this.pageNo = 1;
-			 var streamId = $('.sortable li.active').attr('id');
-			 var keyword = $('#sortQ_by_key').val();
-
-	 		 if(eventName.which == 13) {
-	 		 	self.questionSortedType = "keyword";
-	 			eventName.preventDefault();
-	 			if(keyword){
-	 				/* render the message list */
-		        	view = this.getViewById('questionListView');
-		    		if(view){
-		    			
-		    			view.data.url="/getAllQuestionsForAStream/"+streamId+"/"+keyword+"/"+view.messagesPerPage+"/"+view.pageNo;
-		    			view.fetch();
-		    			
-		    		}
-	 			}
- 			 	
-				
-			 } 
-		 },
         
         /**
          *  sort questions within a period 

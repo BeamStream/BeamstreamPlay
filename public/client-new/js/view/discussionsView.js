@@ -45,7 +45,6 @@ define(['view/formView',
             // this.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\./]*$/i;
             this.file = '';
             this.setupPushConnection();
-            this.msgSortedType ='';
 
             /* pagination */
             $(window).bind('scroll', function (ev) {
@@ -61,13 +60,13 @@ define(['view/formView',
 					   if(t.length != 0)
 					   {
 					   		
-					   		// var msgSortedType = $('#sortBy-select').attr('value');
+					   		var msgSortedType = $('#sortBy-select').attr('value');
 							$('#discussion-pagination').show();
 							var streamId = $('.sortable li.active').attr('id');
 
 							view = self.getViewById('messageListView');
 						
-							if(self.msgSortedType == "date")
+							if(msgSortedType == "date")
 							{    
 								self.pageNo++;
 					    		if(view){
@@ -76,22 +75,12 @@ define(['view/formView',
 					    			self.appendMessages();
 					    		}
 							}
-							else if(self.msgSortedType == "rock")
+							else if(msgSortedType == "rock")
 							{    
 								self.pageNo++;
 					    		if(view){
 					    			
 					    			self.data.url="/allMessagesForAStream/"+streamId+"/rock/"+view.messagesPerPage+"/"+self.pageNo;
-					    			self.appendMessages();
-					    		}
-							}
-							else if(self.msgSortedType == "keyword")
-							{    
-								var keyword = $('#sort_by_key').val();
-								self.pageNo++;
-					    		if(view){
-					    			
-					    			self.data.url="/allMessagesForAStream/"+streamId+"/"+keyword+"/"+view.messagesPerPage+"/"+self.pageNo;
 					    			self.appendMessages();
 					    		}
 							}
@@ -520,13 +509,11 @@ define(['view/formView',
         	var self = this;
         	var streamId = $('.sortable li.active').attr('id');
         	var sortKey = $(eventName.target).attr('value');
-        	this.msgSortedType = sortKey;
-        	this.pageNo = 1;
+        	
         	/* render the message list */
         	view = this.getViewById('messageListView');
     		if(view){
     			
-
     			view.data.url="/allMessagesForAStream/"+streamId+"/"+sortKey+"/"+view.messagesPerPage+"/"+view.pageNo;
     			view.fetch();
     			
@@ -545,11 +532,9 @@ define(['view/formView',
 	 	sortMessagesByKey :function(eventName){
 			
 			 var self = this;
-			 this.pageNo = 1;
 			 var streamId = $('.sortable li.active').attr('id');
 			 var keyword = $('#sort_by_key').val();
 	 		 if(eventName.which == 13) {
-	 		 	self.msgSortedType = "keyword";
 	 			eventName.preventDefault();
 	 			if(keyword){
 	 				/* render the message list */
