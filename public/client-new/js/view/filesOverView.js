@@ -27,7 +27,8 @@ define(['baseView',
 		'../../lib/extralib/jquery.shuffle',
 		'../../lib/bootstrap',
 		'text!templates/fileItem.tpl',
-        ],function(BaseView,ImageListView,VideoListView,DocumentListView,PdfListView,PresentationListView,GoogleDocListView,BootstrapModal,Shuffle,Bootstrap,FileItemTpl){
+		'text!templates/browseMedia.tpl',
+        ],function(BaseView,ImageListView,VideoListView,DocumentListView,PdfListView,PresentationListView,GoogleDocListView,BootstrapModal,Shuffle,Bootstrap,FileItemTpl,BrowseMedia){
 	
 	var FilesOverView;
 	FilesOverView = BaseView.extend({
@@ -138,13 +139,13 @@ define(['baseView',
 
 				}
 			}
-			// else{
+			else{
 
-			// 	var template = Handlebars.compile(BrowseMedia);
-   //  			$('#grid div.content').append(template(JSON.parse(JSON.stringify(this.data))));
+				var template = Handlebars.compile(BrowseMedia);
+    			$('#grid div.content').append(template(JSON.parse(JSON.stringify(this.data))));
 
 
-			// }
+			}
 
 
 

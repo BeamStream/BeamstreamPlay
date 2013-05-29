@@ -17,7 +17,6 @@ define(['view/formView',
 			 'click #private-to' : 'checkPrivateAccess',
 			 'click #sortBy-list' : 'sortMessages',
 			 'click #date-sort-list' : 'sortMessagesWithinAPeriod',
-	  		 'keypress #sort_by_key' : 'sortMessagesByKey',
 			 'click #discussion-file-upload li' : 'uploadFiles',
 			 'click #private-to-list li' :'selectPrivateToList',
 			 'keypress #msg-area' : 'postMessageOnEnterKey',
@@ -95,8 +94,6 @@ define(['view/formView',
 				}
 			 });  
 		 },
-
-	  	
 		 
 		 /**
 		 * append messages to message list on pagination 
@@ -524,33 +521,6 @@ define(['view/formView',
 			$('#sortBy-select').text($(eventName.target).text());
 			$('#sortBy-select').attr('value',sortKey);
         },
-
-
-        /**
-		 *  sort messages by keyword
-		 */
-	 	sortMessagesByKey :function(eventName){
-			
-			 var self = this;
-			 var streamId = $('.sortable li.active').attr('id');
-			 var keyword = $('#sort_by_key').val();
-	 		 if(eventName.which == 13) {
-	 			eventName.preventDefault();
-	 			if(keyword){
-	 				/* render the message list */
-		        	view = this.getViewById('messageListView');
-		    		if(view){
-		    			
-		    			view.data.url="/allMessagesForAStream/"+streamId+"/"+keyword+"/"+view.messagesPerPage+"/"+view.pageNo;
-		    			view.fetch();
-		    			
-		    		}
-	 			}
- 			 	
-				
-			 } 
-		 },
-
         
         /**
          * sort messages within a period 
