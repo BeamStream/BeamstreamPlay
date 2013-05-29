@@ -475,7 +475,6 @@ define(['view/formView',
 		            data.append('docAccess' ,questionAccess);
 		            data.append('docData', self.file);  
 		            data.append('streamId', streamId); 
-		            data.append('uploadedFrom', "question"); 
  			            
 		           /* post profile page details */
 		            $.ajax({
@@ -564,48 +563,44 @@ define(['view/formView',
 		  	                    return questionUrl;
 		  	                });
 		  	                
-		  	                //To check whether it is google docs or not
-		  	                if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   
-		  	                {
-		  	                	// check the url is already in bitly state or not 
-		  	                	if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
-		  	                    {                                     
-		  	                		/* post url information */                           
-	  	                            $.ajax({
-	  	                            	type : 'POST',
-		  	                            url : 'bitly',
-		  	                            data : {
-		  	                            	link : urlLink
-		  	                            },
-		  	                            dataType : "json",
-		  	                            success : function(data) {                                      
-	                                         question = question.replace(link[0],data.data.url);
-	                                         self.postQuestionToServer(question,streamId,questionAccess,googleDoc);
-
-		  	                            }
-	  	                             });
-	  	                         }
-	  	                         else
-	  	                         {  
-	  	                         	self.postQuestionToServer(question,streamId,questionAccess,googleDoc);
-	  	                         }
-	                 		 }  //doc
-		  	                 else    //case: for doc upload
-		  	                 {     
-		  	                 	googleDoc = true;
-		  	                 	self.postQuestionToServer(question,streamId,questionAccess,googleDoc);
-	  	                	 	
-		  	                 }
-	                     }
-		                 //case: link is not present in message
-		                 else
-		                 {    
-		                 	self.postQuestionToServer(question,streamId,questionAccess,googleDoc);         
-		                 }
-
-
-
-		        	// self.postQuestionToServer(question,streamId,questionAccess);
+		  	      //           //To check whether it is google docs or not
+		  	      //           if(!urlLink.match(/^(https:\/\/docs.google.com\/)/))   
+		  	      //           {
+		  	      //           	// check the url is already in bitly state or not 
+		  	      //           	if(!urlLink.match(/^(http:\/\/bstre.am\/)/))
+		  	      //               {                                     
+		  	      //           		/* post url information */                           
+	  	       //                      $.ajax({
+	  	       //                      	type : 'POST',
+		  	      //                       url : 'bitly',
+		  	      //                       data : {
+		  	      //                       	link : urlLink
+		  	      //                       },
+		  	      //                       dataType : "json",
+		  	      //                       success : function(data) {                                      
+	          //                                message = message.replace(link[0],data.data.url);
+	          //                                self.postMessageToServer(message,streamId,messageAccess,googleDoc);
+		  	      //                       }
+	  	       //                       });
+	  	       //                   }
+	  	       //                   else
+	  	       //                   {  
+	  	       //                  	 self.postMessageToServer(message,streamId,messageAccess,googleDoc);
+	  	       //                   }
+	          //        		 }  //doc
+		  	      //            else    //case: for doc upload
+		  	      //            {     
+		  	      //            	googleDoc = true;
+	  	       //          	 	self.postMessageToServer(message,streamId,messageAccess,googleDoc);
+		  	      //            }
+	          //            }
+		         //         //case: link is not present in message
+		         //         else
+		         //         {             
+		         //        	 self.postMessageToServer(message,streamId,messageAccess,googleDoc);
+		         //         }
+		        	
+		        	self.postQuestionToServer(question,streamId,questionAccess);
 		        }
 		    }
 
