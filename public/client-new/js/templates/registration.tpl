@@ -117,12 +117,6 @@
         	 	<input id="graduationDate" data-name="user.graduationDate" value="" name="graduationDate"  class="datepicker calender-box" type="text" placeholder="Date"  />
 				<div class="new-arrow date-arrow"><span><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></span></div>
           	</fieldset>
-
-
-            
-
-
-         
             
             
             
