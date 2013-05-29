@@ -58,7 +58,7 @@ object BasicRegistration extends Controller {
       //val email = request.queryString.get("email").get.head
       //val referrer = request.queryString.get("referrer").get.head
       //println("EMAIL: " + email)
-      //println("REFERRER: " + referrer)
+     // println("REFERRER: " + referrer)
       Ok(views.html.signup())
   }
 
