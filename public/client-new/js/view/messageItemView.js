@@ -40,7 +40,6 @@ define(['view/formView',
 			 'click .rock-message' : 'rockMessage',
 			 'click .add-comment' : 'showCommentTextArea',
 			 'click .show-all-comments' : 'showAllCommentList',
-	  		 'click .who-rocked-it' : 'showRockersList',
 			 'click .show-all' : 'showAllList',
 			 'click .follow-message' : 'followMessage',
 			 'click .rock-comments': 'rockComment',
@@ -668,41 +667,6 @@ define(['view/formView',
 			}
         },
         
-
-     	/**
-	  	*  show Message rockers list 
-	  	*/
-		showRockersList: function(eventName){
-			 
-			eventName.preventDefault();
-	        	
-	        var element = eventName.target.parentElement;
-        	var parentUl = $(eventName.target).parent('ul');
-        	
-			var messageId =$(element).parents('div.follow-container').attr('id');
-			$(parentUl).find('a.active').removeClass('active');
-
-			if($('#'+messageId+'-msgRockers').is(":visible"))
-			{
-				
-				$(eventName.target).removeClass('active');
-				$('#'+messageId+'-msgRockers').slideUp(600);
-				
-			}
-			else
-			{
-				
-				$(eventName.target).addClass('active');
-				$('#'+messageId+'-allComments').slideUp(1); 
-				$('#'+messageId+'-newCommentList').html('');
-				$('#'+messageId+'-msgRockers').slideDown(600);
-				$('#'+messageId+'-show-hide').text("Show All");
-				
-			}
-        
-			
-				
-		},
         /**
          * show / hide all comments ..
          */
