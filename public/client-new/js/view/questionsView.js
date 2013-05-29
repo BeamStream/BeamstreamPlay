@@ -649,7 +649,6 @@ define(['view/formView',
 
 		 	var self = this;
 		 	if(googleDoc == true){
-		 		console.log(44);
 		 		this.data.models[0].removeAttr('question');
         		this.data.models[0].removeAttr('profilePic');
         		this.data.models[0].removeAttr('followed');
@@ -698,7 +697,7 @@ define(['view/formView',
 			    });
 			    
 		 	}else{
-		 		console.log(3434);
+
 		 		self.color= 0;
 			 	var pollOptions ='';
 			 	for (var i=1; i<= this.options ; i++)

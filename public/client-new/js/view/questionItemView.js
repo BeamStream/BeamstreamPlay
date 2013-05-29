@@ -86,7 +86,6 @@ define(['view/formView',
                  //to check whether the url is a google doc url or not
                  if(questionBody.match(/^(https:\/\/docs.google.com\/)/)) 
                  {
-
                 	 contentType = "googleDoc";
                  }
                  else
@@ -138,7 +137,7 @@ define(['view/formView',
                 	
 				}	
 			}
-			else if(contentType == "questionOnly")
+			else if(contentType == "messageOnly")
 			{
 				var datas = {
 					 	 "data" : model,
@@ -205,7 +204,6 @@ define(['view/formView',
 			  	}
 					
 			}
-
 
 			// render the template
     		compiledTemplate = Handlebars.compile(QuestionMessage);
