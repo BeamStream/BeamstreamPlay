@@ -698,6 +698,7 @@ define(['view/formView',
 			    });
 			    
 		 	}else{
+		 		console.log(3434);
 		 		self.color= 0;
 			 	var pollOptions ='';
 			 	for (var i=1; i<= this.options ; i++)
@@ -716,11 +717,6 @@ define(['view/formView',
 				    		var questionItemView  = new QuestionItemView({model : self.data.models[0]});
 							$('#questionListView div.content').prepend(questionItemView.render().el);
 							
-
-							$('div.selector').attr('display','none');
-				    		$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
-				    		$('div.selector').remove();
-				    		$('.preview_input').remove();
 				    		$('#Q-area').val("");
 			    		 	$('#share-discussions li.active').removeClass('active');
 				    		$('#pollArea').slideUp(700); 
@@ -765,11 +761,6 @@ define(['view/formView',
 					    	 		 showJanrainShareWidget(self.data.models[0].attributes.question.questionBody, 'View my Beamstream post', 'http://beamstream.com',self.data.models[0].attributes.question.questionBody ,self.selected_medias);
 					    	 	 });
 					    	 }
-
-					    	$('div.selector').attr('display','none');
-				    		$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
-				    		$('div.selector').remove();
-				    		$('.preview_input').remove();
 				    		$('#Q-area').val("");
 				    		$('#share-discussions li.active').removeClass('active');
 				    		self.options = 0;
