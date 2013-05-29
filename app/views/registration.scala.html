@@ -1,7 +1,7 @@
 @(userId:String , userInfoJson:Option[String])
 @meta = {}
 @CSS = {
-<!-- 	<link href="/beamstream-new/css/style.css" rel="stylesheet" type="text/css" />     -->
+	<link href="/beamstream-new/css/style.css" rel="stylesheet" type="text/css" />    
 	<link href="/beamstream-new/css/new-style.css" rel="stylesheet" type="text/css" />    
     <link href="/beamstream-new/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" /> 
     <link href="/beamstream-new/css/bootstrap.css" rel="stylesheet" type="text/css" /> 
@@ -77,12 +77,12 @@
 	 
 	   <!-- for new school popups -->
 	   <div  id="addSchoolView"  data-model="school"  data-module="view/addNewSchoolView"  >
-			<div id="newSchoolModal"  class="modal hide fade registration-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-header registration-modal-header">
+			<div id="newSchoolModal" style="top: 65% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-header">
 				    <h3>Add my school to Beamstream</h3><button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
 				  </div>
 				  <div class="modal-body">    
- 		  			<div id="newSchoolForm" class="share-content registration-modal-content">
+ 		  			<div id="newSchoolForm" class="share-content">
 			      
 						<fieldset class="field"  style="position:relative"> 
 	                        <h1><label for="school-name" name="my-school">Name of your school </label></h1>

@@ -117,7 +117,18 @@
 }
 
 /***** @TODO ******/
-
+.time-text{
+float: left;
+    margin-right: 10px;
+    width: 15% !important
+	}
+.time_select{
+	width:13% !important;
+	
+}
+.time_select div.dropdown-menu{
+	width:20% !important;
+}
 /* for recover pasword */
 ul.recover li{
 	border-right: none !important;
@@ -125,8 +136,18 @@ ul.recover li{
 #recover{
 	padding: 0px !important;
 }
-
+#forgot-pwd{
+	float:left;
+	margin-top:3%;
+}
 /*********for image upload popup*******/
+#selectUploadPhoto{
+	width: 53%;
+	left: 60%;
+}
+#addPhoto{
+	margin-right: 5%;
+}
 
 
 

@@ -351,6 +351,7 @@ define(['view/formView',
 	     *  Rocking messages
 	     */
 	    rockMessage: function(eventName){
+	    	
 	    	eventName.preventDefault();
 			var element = eventName.target.parentElement;
 			var messageId =$(element).parents('div.follow-container').attr('id');
@@ -773,6 +774,7 @@ define(['view/formView',
          *  Rock comments
          */
         rockComment: function(eventName){
+        	
         	eventName.preventDefault();
         	var commentId = $(eventName.target).parents('div.answer-description').attr('id');
         	var messageId = $(eventName.target).parents('div.follow-container').attr('id');

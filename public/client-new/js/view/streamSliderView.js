@@ -76,10 +76,9 @@ define(['baseView',
          * if there is no streams for a user then show another view
          */
         displayNoResult: function(callback){
-			$('#class-red-border').addClass('class-border');			
+			
 			var compiledTemplate = Handlebars.compile(NewStreamTpl);
 			this.$(".content").html(compiledTemplate);
-			
 			
 			
 		},
@@ -88,7 +87,7 @@ define(['baseView',
          * if there is a streams then add to the stream list
          */
 		displayPage: function(callback){
-			$('#class-red-border').removeClass('class-border');
+			
 			/* for the private to list section on Discussion and Question page */ 
 			var listTemplate = Handlebars.compile(PrivateToList);
 			$('#private-to-list').html( listTemplate(this.data.toJSON()));

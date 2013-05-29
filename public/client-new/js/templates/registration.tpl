@@ -65,6 +65,7 @@
               </select>
                <span class="red-star select-star">*</span>
                </fieldset>
+              <div class="select-arrow-white"><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
             </div>
             <div class="profile-select-block">
               <fieldset class="field">
@@ -77,6 +78,7 @@
               </select>
                <span class="red-star select-star">*</span>
               </fieldset>
+              <div class="select-arrow-white"><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
             </div>
             
             <fieldset class="field">  
@@ -94,6 +96,7 @@
               </select>
                <span class="red-star select-star">*</span>
               </fieldset>
+              <div class="select-arrow-white"><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
             </div>
             
              <div id="degreeExpected-set" class="profile-select-block" style="display: none;">
@@ -110,6 +113,7 @@
               </select>
                <span class="red-star select-star">*</span>
               </fieldset>
+              <div class="select-arrow-white"><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></div>
             </div>
             
             
@@ -184,12 +188,12 @@
         </div>
         
         <!---- for  popups after Upload Photo----->
-			<div id="selectUploadPhoto"  class="modal hide fade registration-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="class-modal-header registration-modal-header">
+			<div id="selectUploadPhoto" style="top: 65% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="class-modal-header">
 				    <h3>Are you sure you don't want add your stunning profile pic?</h3><button type="button" class="close class-modal-close" data-dismiss="modal" aria-hidden="true">Close</button>
 				  </div>
 				  <div class="modal-body">    
-				  <div class="invite-bottom-btn class-modal-bottom registration-modal-content">
+				  <div class="invite-bottom-btn class-modal-bottom">
  		  			<a id="addPhoto" class="invite-green-btn class-modal-btn" href="#">Yes upload photo</a>  
  		  			<a id="continue" class="invite-green-btn class-modal-btn" href="#">Don't upload CONTINUE </a>
  		  			</div>

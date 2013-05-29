@@ -49,6 +49,7 @@ define(['baseView',
          * if there is no other online users 
          */
 		displayNoResult: function(callback){
+			
 			var compiledTemplate = Handlebars.compile(OnlineUsers);
 			this.$(".content").html( compiledTemplate(this.data.toJSON()));			
 		},
@@ -71,7 +72,7 @@ define(['baseView',
 				
 		        if(model.id.id == localStorage["loggedUserId"])
 		        {
-		        	var template = 	'<li id="me" class="online active"><a href="#" class="active"><img src="'+profileImageUrl+'" width="30" height="28"> '
+		        	var template = 	'<li id="me" class="online"><a href="#"><img src="'+profileImageUrl+'" width="30" height="28"> '
 		        					+'<span>Me</span> <span class="online-chat">Online</span></a></li>';
 		        			
 		        	$('#user-online ul').prepend(template);	
