@@ -1,0 +1,31 @@
+ul,
+ol,
+li {
+  list-style: none;
+}
+#MyStream .nav-tabs {
+  border: none;
+}
+#MyStream .nav-tabs a {
+  color: #d8a21f;
+}
+#MyStream .nav-tabs .active a {
+  font-size: 150%;
+  font-weight: bold;
+  border: none;
+}
+/*
+#streamTab{
+	border:none;
+	margin:0;
+	li{
+		a {
+			color: #d8a21f;
+		}
+		.active a{
+			border: none;
+			color: #000000;
+		}
+	}
+}
+*/
