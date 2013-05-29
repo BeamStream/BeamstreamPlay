@@ -55,10 +55,10 @@ object BasicRegistration extends Controller {
    */
   def signUpPage = Action { implicit request =>
     
-      val email = request.queryString.get("email").get.head
-      val referrer = request.queryString.get("referrer").get.head
-      println("EMAIL: " + email)
-      println("REFERRER: " + referrer)
+      //val email = request.queryString.get("email").get.head
+      //val referrer = request.queryString.get("referrer").get.head
+      //println("EMAIL: " + email)
+      //println("REFERRER: " + referrer)
       Ok(views.html.signup())
   }
 
