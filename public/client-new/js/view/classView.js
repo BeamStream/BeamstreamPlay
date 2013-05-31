@@ -43,7 +43,8 @@ define(['view/formView',
 		    'click #add-school': 'addOrEdiSchool',
 		    'click div.school_field ul li' : 'hideAddNewSchoolField',
 		    'keyup #schoolName' : 'populateSchools',
-		    'focusin #schoolName' : 'populateSchools'
+		    'focusin #schoolName' : 'populateSchools',
+		    'click #add_classmates' :'showFriends'
 		},
 
 		init: function(){
@@ -51,6 +52,9 @@ define(['view/formView',
 			
 		},
 		
+		showFriends: function(){
+			$("#friend-list-modal").modal('show'); 
+		},
 		
 		onAfterInit: function(){	
 			this.data.reset();
