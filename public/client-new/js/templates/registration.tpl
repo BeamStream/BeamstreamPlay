@@ -43,7 +43,9 @@
             <input id="schoolName"  data-name="user.schoolName" name="schoolName" value=""  type="text" placeholder="School Name">
             <input type="hidden" id="associatedSchoolId" >
               <span class="red-star">*</span>
-              <span class="loading" style="display:none;"> <img src ="/beamstream/images/loading.gif"></span>
+              <span class="loading" style="display:none;"> 
+                <!-- <img src ="/beamstream/images/loading.gif"> -->
+              </span>
             </fieldset>
             <fieldset class="field">  
             <input id="major"  data-name="user.major" name="major" value=""  type="text" placeholder="Major " >
@@ -189,14 +191,14 @@
  
         </div>
         
-        <!---- for  popups after Upload Photo----->
+        <!-- for  popups after Upload Photo -->
 			<div id="selectUploadPhoto"  class="modal hide fade registration-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="class-modal-header registration-modal-header">
 				    <h3>Are you sure you don't want add your stunning profile pic?</h3><button type="button" class="close class-modal-close" data-dismiss="modal" aria-hidden="true">Close</button>
 				  </div>
 				  <div class="modal-body">    
 				  <div class="invite-bottom-btn class-modal-bottom registration-modal-content">
- 		  			<a id="addPhoto" class="invite-green-btn class-modal-btn" href="#">Yes upload photo</a>  
+ 		  			<a id="addPhoto" class="invite-green-btn class-modal-btn modal-button" href="#">Yes upload photo</a>  
  		  			<a id="continue" class="invite-green-btn class-modal-btn" href="#">Don't upload CONTINUE </a>
  		  			</div>
 			  	</div>

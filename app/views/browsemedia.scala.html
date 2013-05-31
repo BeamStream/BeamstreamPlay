@@ -230,7 +230,7 @@
                                       <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
                                       <li id="progressbar" style="display:none; list-style: none">
                                         <div class="progress-container" >
-                                            <div class="progress progress-striped active">
+                                            <div class="progress progress-striped active file-progress">
                                               <div class="bar" style="width: 0%;"></div>
                                             </div> 
                                         </div> 
@@ -301,7 +301,7 @@
                                       <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
                                       <li id="progressbar" style="display:none; list-style: none">
                                         <div class="progress-container" >
-                                            <div class="progress progress-striped active">
+                                            <div class="progress progress-striped active file-progress">
                                               <div class="bar" style="width: 0%;"></div>
                                             </div> 
                                         </div> 
@@ -374,7 +374,7 @@
                                       <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
                                       <li id="progressbar" style="display:none; list-style: none">
                                         <div class="progress-container" >
-                                            <div class="progress progress-striped active">
+                                            <div class="progress progress-striped active file-progress">
                                               <div class="bar" style="width: 0%;"></div>
                                             </div> 
                                         </div> 
@@ -446,7 +446,7 @@
                                       <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
                                       <li id="progressbar" style="display:none; list-style: none">
                                         <div class="progress-container" >
-                                            <div class="progress progress-striped active">
+                                            <div class="progress progress-striped active file-progress">
                                               <div class="bar" style="width: 0%;"></div>
                                             </div> 
                                         </div> 
@@ -519,7 +519,7 @@
                                       <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
                                       <li id="progressbar" style="display:none; list-style: none">
                                         <div class="progress-container" >
-                                            <div class="progress progress-striped active">
+                                            <div class="progress progress-striped active file-progress">
                                               <div class="bar" style="width: 0%;"></div>
                                             </div> 
                                         </div> 
@@ -591,7 +591,7 @@
                                       <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
                                       <li id="progressbar" style="display:none; list-style: none">
                                         <div class="progress-container" >
-                                            <div class="progress progress-striped active">
+                                            <div class="progress progress-striped active file-progress">
                                               <div class="bar" style="width: 0%;"></div>
                                             </div> 
                                         </div> 
@@ -663,7 +663,7 @@
                                       <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
                                       <li id="progressbar" style="display:none; list-style: none">
                                         <div class="progress-container" >
-                                            <div class="progress progress-striped active">
+                                            <div class="progress progress-striped active file-progress">
                                               <div class="bar" style="width: 0%;"></div>
                                             </div> 
                                         </div> 
@@ -737,7 +737,7 @@
                                       <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
                                       <li id="progressbar" style="display:none; list-style: none">
                                         <div class="progress-container" >
-                                            <div class="progress progress-striped active">
+                                            <div class="progress progress-striped active file-progress ">
                                               <div class="bar" style="width: 0%;"></div>
                                             </div> 
                                         </div> 
@@ -812,7 +812,7 @@
                                       <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
                                       <li id="progressbar" style="display:none; list-style: none">
                                         <div class="progress-container" >
-                                            <div class="progress progress-striped active">
+                                            <div class="progress progress-striped active file-progress">
                                               <div class="bar" style="width: 0%;"></div>
                                             </div> 
                                         </div> 
@@ -882,7 +882,7 @@
                                       <li><a  style="color:black;" href="javascript:void(0)" id="docfrmcomputer_closePopup">Close</a></li>
                                       <li id="progressbar" style="display:none; list-style: none">
                                         <div class="progress-container" >
-                                            <div class="progress progress-striped active">
+                                            <div class="progress progress-striped active file-progress">
                                               <div class="bar" style="width: 0%;"></div>
                                             </div> 
                                         </div> 
@@ -1054,7 +1054,7 @@
       </div>   
       
       <!-- shows the documents contents in a frame -->
-  <div id="doc_popup" class="modal hide fade in" style="display: none; ">
+  <div id="doc_popup" class="modal hide fade in doc_popup" style="display: none; ">
     <div class="modal-header">
       <a class="close" data-dismiss="modal">×</a>
       <input type="button" onclick="download()">
@@ -1076,13 +1076,13 @@
 <!--  Media edit popup section -->
   <div  id="mediaEditView"  data-model="usermedia"  data-module="view/mediaEditView"> 
   
-  <div id="editMedia" style="top: 65% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-    <h3 id="edit-file-name">Edit</h3><button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+  <div id="editMedia" class="modal hide fade registration-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header registration-modal-header">
+    <h3 id="edit-file-name">Edit</h3><button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
       </div>
     <div class="modal-body"> 
     
-    <div  class="share-content">
+    <div  class="share-content edit-popup-block">
       <input type="hidden" id="docId" value="" >  
       <input type="hidden" id="docType" value="" >          
       <fieldset class="field"  style="position:relative"> 

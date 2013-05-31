@@ -29,7 +29,7 @@
 					</h5>    
 					<div class="dateinfo">
 						<span class="state">{{images.access.name}}</span>
-						<span class="date">{{images.dateCreated}}</span>
+						<span class="date date-btn">{{images.dateCreated}}</span>
 					</div>
 				</div>
 			</div>
@@ -72,7 +72,7 @@
 					</h5>          
 					<div class="dateinfo">
 						<span class="state">{{videos.access.name}}</span>
-						<span class="date">{{videos.dateCreated}}</span>
+						<span class="date date-btn">{{videos.dateCreated}}</span>
 					</div>
 				</div>
 			</div>
@@ -117,7 +117,7 @@
 					</h5>          
 					<div class="dateinfo">
 						<span class="state">{{documents.documentAccess.name}}</span>
-						<span class="date">{{documents.creationDate}}</span>
+						<span class="date date-btn">{{documents.creationDate}}</span>
 					</div>
 				</div>
 			</div>
@@ -162,7 +162,7 @@
 					</h5>          
 					<div class="dateinfo">
 						<span class="state">{{pdfFiles.documentAccess.name}}</span>
-						<span class="date">{{pdfFiles.creationDate}}</span>
+						<span class="date date-btn">{{pdfFiles.creationDate}}</span>
 					</div>
 				</div>
 			</div>
@@ -207,7 +207,7 @@
 					</h5>          
 					<div class="dateinfo">
 						<span class="state">{{pptFiles.documentAccess.name}}</span>
-						<span class="date">{{pptFiles.creationDate}}</span>
+						<span class="date date-btn">{{pptFiles.creationDate}}</span>
 					</div>
 				</div>
 			</div>
@@ -253,7 +253,7 @@
 					</h5>          
 					<div class="dateinfo">
 						<span class="state">{{googleDocs.documentAccess.name}}</span>
-						<span class="date">{{googleDocs.creationDate}}</span>
+						<span class="date date-btn">{{googleDocs.creationDate}}</span>
 					</div>
 				</div>
 			</div>

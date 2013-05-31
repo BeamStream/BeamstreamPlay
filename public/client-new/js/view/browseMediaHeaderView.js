@@ -71,6 +71,7 @@ define(['view/formView',
 			// this.data.reset();
 	      var self = this;
 	      streams = new StreamModel();
+	      streams.urlRoot = "/allStreamsForAUser";
 	      streams.fetch({
 	        success : function(data, response) {
 

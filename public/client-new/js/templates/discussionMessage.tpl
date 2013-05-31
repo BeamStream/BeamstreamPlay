@@ -19,7 +19,7 @@
               <div class="follw-left">
                
                   <div  class="ask-img"><img id="{{data.message.id.id}}-img" src="{{#if data.profilePic}}{{data.profilePic}}{{else}}/beamstream-new/images/profile-upload.png{{/if}}"></div>
-
+                  
                   
 					{{#ifequal data.followerOfMessagePoster false}}
                		   <a href="#" id="{{data.message.userId.id}}" class="follow-button follow-user" data-value="follow">follow</a>
@@ -34,7 +34,7 @@
                     <ul class="follow-name-left ">
                       <li><span id="{{data.message.userId.id}}" >@{{data.message.firstNameofMsgPoster}} {{data.message.lastNameofMsgPoster}} </span> -  {{data.message.timeCreated}}  -  {{data.message.messageAccess.name}}</li>
                     </ul>
-                    <div class="follow-right">
+                    <div class="follow-right"> 
                     	{{#ifequal data.followed false}}
 	                    	<a id="{{data.message.id.id}}-follow" href="#" class="follow-button follow-message" data-value="follow">follow
 	                    	</a>
@@ -83,7 +83,7 @@
 								  {{/ifequal}}
 		                    	  </div>
 								
-						     <div class="dateinfo"><span class="state">{{data.message.messageAccess.name}}</span><span class="date">{{datVal}}</span></div>
+						     <div class="dateinfo"><span class="state">{{data.message.messageAccess.name}}</span><span class="date date-btn">{{datVal}}</span></div>
 						    </div>
 						   </div>
 						  </div>
@@ -169,7 +169,7 @@
 						      		<h5 class="editMediaTitle" id="{{data.message.docIdIfAny.id}}"><span><img src="beamstream-new/images/title-plus.png"></span>Edit Title & Description</h5>
 						        {{/ifequal}}
 						      </div>        
-						     <div class="dateinfo"><span class="state">{{data.message.messageAccess.name}}</span><span class="date">{{datVal}}</span></div>
+						     <div class="dateinfo"><span class="state">{{data.message.messageAccess.name}}</span><span class="date date-btn">{{datVal}}</span></div>
 						    </div>
 						   </div>
 						  </div>

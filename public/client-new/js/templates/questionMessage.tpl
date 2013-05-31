@@ -96,7 +96,7 @@
                   {{/ifequal}}
                             </div>
                 
-                 <div class="dateinfo"><span class="state">{{data.question.messageAccess.name}}</span><span class="date">{{datVal}}</span></div>
+                 <div class="dateinfo"><span class="state">{{data.question.messageAccess.name}}</span><span class="date date-btn">{{datVal}}</span></div>
                 </div>
                </div>
               </div>
@@ -151,7 +151,7 @@
                      <div class="gallery"></div>
                      
                      <!-- image preview -->
-                     {{#ifequal data.question.messageType.name "Image"}}
+                     {{#ifequal data.question.questionType.name "Image"}}
                     <div class="gallery">
                          <a href="{{data.question.anyPreviewImageUrl}}" style="text-decoration: none" rel="prettyPhoto[gallery2]">
                             <div class="description-left photo-popup">   
@@ -162,7 +162,7 @@
                  {{/ifequal}} 
                  
                  <!-- Video preview -->
-                     {{#ifequal data.question.messageType.name "Video"}}  
+                     {{#ifequal data.question.questionType.name "Video"}}  
                        <div class="gallery hrtxt">
                         <a href="{{data.question.messageBody}}" style="text-decoration: none" rel="prettyPhoto[gallery1]">
                             <div class="description-left photo-popup">   
@@ -182,7 +182,7 @@
                       <h5 class="editMediaTitle" id="{{data.question.docIdIfAny.id}}"><span><img src="beamstream-new/images/title-plus.png"></span>Edit Title & Description</h5>
                     {{/ifequal}}
                   </div>        
-                 <div class="dateinfo"><span class="state">{{data.question.messageAccess.name}}</span><span class="date">{{datVal}}</span></div>
+                 <div class="dateinfo"><span class="state">{{data.question.questionAccess.name}}</span><span class="date date-btn">{{datVal}}</span></div>
                 </div>
                </div>
               </div>
@@ -198,6 +198,11 @@
                   
                   <div class="follow-bottom">
                     <ul class="follow-name-left show-all-block">
+                      <li>
+
+                          <a href="#" id="{{data.question.id.id}}-qstRockCount" {{#ifequal data.rocked false}} class="rocks-question uprocks-message" {{else}} class="rocks-question downrocks-message" {{/ifequal}}><span>{{rocks}}0</span></a>
+
+                        </li>
                       <li>
                         <a class="rocks-question" href="#">Rock</a>
                       </li>
@@ -225,11 +230,7 @@
                   <div class="answer-conatiner">
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
-                        <li>
-
-                          <a href="#" id="{{data.question.id.id}}-qstRockCount" {{#ifequal data.rocked false}} class="rocks-question uprocks-message" {{else}} class="rocks-question downrocks-message" {{/ifequal}}><span>{{rocks}}</span></a>
-
-                        </li>
+                        
                         <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons show-all-comments"  href="#"><span id="{{data.question.id.id}}-totalComment" >{{data.comments.length}}</span> Comments</a> <a id="{{data.question.id.id}}-Answerbutton" class="btn grey-buttons " href="#"> <span>0</span> Answers</a>
             <a  class="btn grey-buttons  show-all" id="{{data.question.id.id}}-show-hide" href="#">Show All</a>
                       </ul>

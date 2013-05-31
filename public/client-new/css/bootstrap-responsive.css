@@ -403,14 +403,9 @@
  .row-fluid .thumbnails {
  margin-left: 0;
 }
-
-
-
 .sortable.connected {
-
 		width:93% !important;
 }
-
 .straem-block a span.text {
 	    width:62% !important;
 	    font-size:19px !important;
@@ -552,6 +547,13 @@ width:auto !important;
 .header-search {
  width:50%;
 }
+
+
+#step_3{
+		width:42% !important;
+		left:27% !important; 
+}
+
 
 
 }
@@ -2358,5 +2360,7 @@ padding:0 5% 5% 5%;
 .sortable li {
 		width:100%;
 }
+
+
 
  }

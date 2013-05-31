@@ -119,7 +119,7 @@ define(['baseView',
         */
         slider: function(){
         	var self = this;
-            var activeDiv = '<div class="active-curve"><img src="/beamstream-new/images/active-curve.png" width="20" height="58"></div>';
+            var activeDiv = '<div class="active-curve"><img src="" width="20" height="58"></div>';
             $('span.close-btn').hide();     
             $('div.drag-icon').hide();
             $(".scroller").simplyScroll({

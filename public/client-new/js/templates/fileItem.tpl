@@ -33,7 +33,7 @@
 					</h5>    
 					<div class="dateinfo">
 						<span class="state">{{data.access.name}}</span>
-						<span class="date">{{data.dateCreated}}</span>
+						<span class="date date-btn">{{data.dateCreated}}</span>
 					</div>
 				</div>
 			</div>
@@ -83,7 +83,7 @@
 					</h5>          
 					<div class="dateinfo">
 						<span class="state">{{data.access.name}}</span>
-						<span class="date">{{data.dateCreated}}</span>
+						<span class="date date-btn">{{data.dateCreated}}</span>
 					</div>
 				</div>
 			</div>
@@ -129,7 +129,7 @@
 					</h5>          
 					<div class="dateinfo">
 						<span class="state">{{data.documentAccess.name}}</span>
-						<span class="date">{{data.creationDate}}</span>
+						<span class="date date-btn">{{data.creationDate}}</span>
 					</div>
 				</div>
 			</div>
@@ -179,7 +179,7 @@
 					</h5>          
 					<div class="dateinfo">
 						<span class="state">{{data.documentAccess.name}}</span>
-						<span class="date">{{data.creationDate}}</span>
+						<span class="date date-btn">{{data.creationDate}}</span>
 					</div>
 				</div>
 			</div>
@@ -230,7 +230,7 @@
 					</h5>          
 					<div class="dateinfo">
 						<span class="state">{{data.documentAccess.name}}</span>
-						<span class="date">{{data.creationDate}}</span>
+						<span class="date date-btn">{{data.creationDate}}</span>
 					</div>
 				</div>
 			</div>
@@ -275,7 +275,7 @@
 					</h5>          
 					<div class="dateinfo">
 						<span class="state">{{data.documentAccess.name}}</span>
-						<span class="date">{{data.creationDate}}</span>
+						<span class="date date-btn">{{data.creationDate}}</span>
 					</div>
 				</div>
 			</div>

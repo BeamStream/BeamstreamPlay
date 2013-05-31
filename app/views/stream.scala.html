@@ -277,8 +277,11 @@
 		                  
 		                <div class="ask-iconinfo">
 		  	          <div id="upload-files1" class="btn-group attach-drop ">
-		              <button  id="upload-files" data-original-title="Upload Files" class="btn attach-drop-bg drag-rectangle "></button>
-		              <button id="upload-files2" class="btn attach-drop-button drag-rectangle" data-toggle="dropdown" data-original-title="Upload Files"> <span  id="upload-files3" class="caret sort-caret1 attach-caret "></span></button>
+
+		  
+
+		              <button id="upload-files2" class="btn attach-drop-button drag-rectangle attach-drop-bg" data-toggle="dropdown" data-original-title="Upload Files"> </button>
+
 		              <ul id="discussion-file-upload"  class="dropdown-menu  attach-dropdwon">
 		                 <li><a href="#">Class Document</a></li>
 		                      <li><a href="#">Assignment</a></li>
@@ -409,10 +412,9 @@
 		        				</div>
 		                		<div class="ask-iconinfo">
 						   			<div class="btn-group attach-drop">
-		              					<button  id="upload-files" data-original-title="Upload Files" class="btn attach-drop-bg drag-rectangle">
-		              					</button>
-	             					 	<button data-original-title="Upload Files" class="btn attach-drop-button drag-rectangle" data-toggle="dropdown"> 
-	             					 		<span class="caret sort-caret1 attach-caret"></span>
+		              					
+	             					 	<button data-original-title="Upload Files" class="btn attach-drop-button drag-rectangle attach-drop-bg" data-toggle="dropdown"> 
+	             					 		
 	             					 	</button>
 	            		  				<ul id="question-file-upload" class="dropdown-menu">
 		              		   				<li><a href="#">Class Document</a></li>
@@ -500,13 +502,13 @@
 	<!--  Media edit popup section -->
 	<div  id="mediaEditView"  data-model="usermedia"  data-module="view/mediaEditView"> 
 	
-	<div id="editMedia" style="top: 65% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-		<h3 id="edit-file-name">Edit</h3><button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+	<div id="editMedia"  class="modal hide fade registration-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header registration-modal-header">
+		<h3 id="edit-file-name">Edit</h3><button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
 		  </div>
 		<div class="modal-body"> 
 		
-		<div  class="share-content">
+		<div  class="share-content edit-popup-block">
 			<input type="hidden" id="docId" value="" >	
 			<input type="hidden" id="docType" value="" >		      
 			<fieldset class="field"  style="position:relative"> 
