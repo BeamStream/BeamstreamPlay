@@ -168,7 +168,7 @@ define(['view/formView' ,
 			var upload_block = '<div id="step3_block" class="round-block upload-photo step-3-photo">'
 			    +'<a class="browse" href="#"><img src="'+this.temp_photo+'" width="148" height="37" id="profile-photo"> </a>'
 			    +'<div class="progress-container" style="position:relative; top:-35px; left:240px; padding:5px; display:none;">'
-	            +'<div class="progress progress-striped active">'
+	            +'<div class="progress progress-striped active reg-upload">'
 	            +'<div class="bar" style="width: 0%;"></div>'
 	            +'</div>' 
 	            +'</div>'
