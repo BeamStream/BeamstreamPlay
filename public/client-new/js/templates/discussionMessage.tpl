@@ -195,10 +195,9 @@
                     	</li>
                       <li><a class="rock-message" href="#">Rock</a></li>
                       <li ><a class="add-comment" href="#"> Comment</a></li>
-                      <li><a class="comment-icon" href="#"></a></li>
-                      <li><a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a></li>
+                      <li><a class="comment-icon" href="#"></a></li>                      
                     </ul>
-                    
+                    <a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a>
                   </div>
                   <div id="{{data.message.id.id}}-addComments" class="follow-comment">
 					<textarea id="{{data.message.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'" ></textarea>

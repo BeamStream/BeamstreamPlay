@@ -488,8 +488,14 @@ width:100% !important;
 		width:97% !important;
 }
 
-.sortable li.no-stream li a{ padding-left:0;}
+.sortable li.no-stream a{ padding-left:0;}
 
+
+.invite-calender {
+		width:34%;
+}
+
+.time_select{ width:14% !important; float:left; margin-right:2%;}
 /*
 
 1200-view
@@ -1046,6 +1052,7 @@ ul.signup-register li.lastblock {
 }
    
 .time_select{ width:20%; float:left; margin-right:5%;}
+
 .semester-select-block{ margin-right:0 !important; width:29%; float:left;}
 
 .about-block{
@@ -2346,7 +2353,7 @@ padding:0 5% 5% 5%;
 
 .semester-select-block{ margin-right:0 !important; width:29%; float:left;}
 
-.time_select{ width:20%; float:left; margin-right:5%;}
+.time_select{ width:18%; float:left; margin-right:2%;}
 
 .sortable li {
 		width:100%;
