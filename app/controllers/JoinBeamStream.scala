@@ -1,14 +1,14 @@
 package controllers
-import play.api.mvc._
-import models.ResulttoSent
-import net.liftweb.json.{ parse, DefaultFormats }
-import net.liftweb.json.Serialization.{ read, write }
-import models.BetaUser
+
 import org.bson.types.ObjectId
-import models.UserType
+
 import actors.UtilityActor
-import play.api.data._
-import play.api.data.Forms._
+import models.BetaUser
+import models.ResulttoSent
+import net.liftweb.json.DefaultFormats
+import net.liftweb.json.Serialization.write
+import play.api.mvc.Action
+import play.api.mvc.Controller
 
 object JoinBeamStream extends Controller {
 
