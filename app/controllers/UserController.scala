@@ -47,7 +47,6 @@ object UserController extends Controller {
     val onlineUsers = (onlineUserCache.returnOnlineUsers.isEmpty == true) match {
       case false =>
         val onlineUsersWithDetails = (onlineUserCache.returnOnlineUsers.head.onlineUsers) map {
-          //          case userIdList => (userIdList.asInstanceOf[List[String]]) map {
           case eachUserId =>
             val userWithDetailedInfo = User.getUserProfile(eachUserId)
             val profilePicForUser = UserMedia.getProfilePicForAUser(eachUserId)
@@ -58,7 +57,7 @@ object UserController extends Controller {
                 userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl)
             }
             onlineUsersAlongWithDetails
-          //          }
+          
         }
         Option(onlineUsersWithDetails)
 

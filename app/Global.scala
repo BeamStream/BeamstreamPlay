@@ -6,6 +6,7 @@ import play.api.mvc.SimpleResult
 import play.api.mvc.Result
 import play.api.mvc.Results.Redirect
 import utils.GoogleDocsUploadUtility
+
 object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
@@ -13,7 +14,7 @@ object Global extends GlobalSettings {
   }
 
   override def onError(request: RequestHeader, ex: Throwable) = {
-     Redirect("/error")
+    Redirect("/error")
 
   }
   override def onHandlerNotFound(request: RequestHeader): Result = {
