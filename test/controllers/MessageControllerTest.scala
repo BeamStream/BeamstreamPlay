@@ -8,18 +8,18 @@ import play.api.test.FakeApplication
 import play.api.test.Helpers.running
 import play.libs.WS
 import org.scalatest.junit.JUnitRunner
-import models.UserDAO
+import models.MessageDAO
 @RunWith(classOf[JUnitRunner])
 class MessageControllerTest extends FunSuite with BeforeAndAfter {
   before {
     running(FakeApplication()) {
-      UserDAO.remove(MongoDBObject("name" -> ".*".r))
+      MessageDAO.remove(MongoDBObject("messageBody" -> ".*".r))
     }
   }
   
    after {
     running(FakeApplication()) {
-      UserDAO.remove(MongoDBObject("name" -> ".*".r))
+      MessageDAO.remove(MongoDBObject("messageBody" -> ".*".r))
     }
   }
 
