@@ -146,7 +146,7 @@
         
          <!-- for  popups after Create stream -->
 
-			<div id="selectNextStep"  class="modal hide fade registration-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div id="selectNextStep"  class="modal hide fade registration-modal white-modal-block" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="class-modal-header registration-modal-header">
 				    <h3>What Next ?</h3><button type="button" class="close class-modal-close" data-dismiss="modal" aria-hidden="true">Close</button>
 				  </div>
@@ -164,10 +164,11 @@
       
       
         <div id="friend-list-modal" class="modal hide fade invite-pop-up" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
-          <div class=" pop-close">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close 
-              <!-- <img src="/beamstream-new/images/close-pop.png" width="22" height="22"> -->
-            </button>
+          <div class=" pop-close">           
+            <button class="close" aria-hidden="true" data-dismiss="modal" type="button">
+			Close
+			<img width="22" height="22" src="/beamstream-new/images/close-pop.png">
+			</button>
           </div>
           <div class="invite-pop-outer">
             <div class="invite-pop-info">
@@ -236,6 +237,7 @@
                     <div class="pop-up-scroll-block">
                       <div id="user-online1" class="scroll-block scroll-chat-view scroll-block-popup">
                       <a href="#" class="scroll-select-all">Select All</a>
+                      <div class="invite-scroller-block">
                       <div class="pop-up-scroll-container pop-scroll-left">
                    <ul>
                   <li><a href="#" class="social-scroll-icon-message">Message</a><a href="#" class="social-scroll-icon-facebook">Facebook</a> <a href="#"><img width="30" height="28" src="/beamstream-new/images/chat-imge-03.jpg"> <span>Alina Kay </span></a>  <div class="scroll-tick">
@@ -328,6 +330,7 @@
                     <img src="/beamstream-new/images/green-tick.png" width="19" height="15">
                   </div> </li>
                 </ul>
+                      </div> 
                       </div>
                       </div>
                       </div>
@@ -353,11 +356,11 @@
  
  <!---- for new school popups----->
 	   <div  id="addSchoolView"  data-model="school"  data-module="view/addNewSchoolView"  >
-			<div id="newSchoolModal" style="top: 65% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-header">
+			<div id="newSchoolModal" class="modal hide fade registration-modal white-modal-block" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-header registration-modal-header">
 				    <h3>Add my school to Beamstream</h3><button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
 				  </div>
-				  <div class="modal-body">    
+				  <div class="modal-body registration-modal-content">    
  		  			<div id="newSchoolForm" class="share-content">
 			      
 						<fieldset class="field"  style="position:relative"> 

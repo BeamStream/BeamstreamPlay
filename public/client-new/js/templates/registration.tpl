@@ -192,7 +192,7 @@
         </div>
         
         <!-- for  popups after Upload Photo -->
-			<div id="selectUploadPhoto"  class="modal hide fade registration-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div id="selectUploadPhoto"  class="modal hide fade registration-modal white-modal-block" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="class-modal-header registration-modal-header">
 				    <h3>Are you sure you don't want add your stunning profile pic?</h3><button type="button" class="close class-modal-close" data-dismiss="modal" aria-hidden="true">Close</button>
 				  </div>
