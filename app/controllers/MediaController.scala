@@ -4,25 +4,22 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import org.bson.types.ObjectId
+import models.Document
 import models.DocumentAccess
+import models.Files
+import models.MediaResults
+import models.Photos
 import models.ResulttoSent
 import models.UserMedia
 import models.UserMediaType
+import models.Videos
 import net.liftweb.json.Serialization.write
 import play.api.mvc.Action
 import play.api.mvc.Controller
-import utils.AmazonUploadUtil
+import utils.AmazonUpload
+import utils.ExtractFrameFromVideoUtil
 import utils.ObjectIdSerializer
 import utils.tokenEmailUtil
-import utils.ExtractFrameFromVideoUtil
-import models.ResulttoSent
-import models.UserMediaDAO
-import models.Document
-import models.MediaResults
-import models.Files
-import models.Photos
-import models.Videos
-import utils.AmazonUpload
 
 object MediaController extends Controller {
 
@@ -158,7 +155,7 @@ object MediaController extends Controller {
     val rockersJson = write(rockers)
     Ok(rockersJson).as("application/json")
   }
-  //TODO : To be removed. In Rearchitecture this functionality has been combined with DocumentController
+  //TODO : To be removed. In Re-architecture this functionality has been combined with DocumentController
   /**
    * Change the title and description
    */

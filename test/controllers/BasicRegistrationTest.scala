@@ -35,6 +35,7 @@ class BasicRegistrationTest extends FunSuite with BeforeAndAfter {
       val result = routeAndCall(
         FakeRequest(POST, "/betaUser").
           withJsonBody(json))
+          println(result)
       assert(status(result.get) === 200)
     }
   }
