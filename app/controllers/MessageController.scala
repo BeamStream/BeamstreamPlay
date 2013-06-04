@@ -65,9 +65,9 @@ object MessageController extends Controller {
    * Rockers of message
    */
   def giveMeRockers(messageId: String) = Action { implicit request =>
-    val weAreRockers = Message.rockersNames(new ObjectId(messageId))
-    val WeAreRockersJson = write(weAreRockers)
-    Ok(WeAreRockersJson).as("application/json")
+    val rockersOfMessage = Message.rockersNames(new ObjectId(messageId))
+    val rockerJson = write(rockersOfMessage)
+    Ok(rockerJson).as("application/json")
   }
 
   /**
@@ -130,8 +130,8 @@ object MessageController extends Controller {
 
   def deleteTheMessage(messageId: String) = Action { implicit request =>
     val messsageDeleted = Message.deleteMessagePermanently(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
-    if (messsageDeleted == true) Ok(write(new ResulttoSent("Success", "Message Has Been Deleted")))
-    else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Message")))
+    if (messsageDeleted == true) Ok(write(new ResulttoSent("Success", "Message Has Been Deleted"))).as("application/json")
+    else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Message"))).as("application/json")
   }
 
   /**

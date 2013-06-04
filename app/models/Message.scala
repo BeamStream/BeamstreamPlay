@@ -133,7 +133,6 @@ object Message { //extends CommentConsumer {
         val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
         MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(rocks = (updatedMessage.rocks - 1)), false, false, new WriteConcern)
         val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-        //if(! (SelectedmessagetoRock.docIdIfAny.equals(None))){RockDocOrMedia.rockDocOrMedia(SelectedmessagetoRock.docIdIfAny.get,userId)}
         finalMessage.rocks
 
       case false =>
@@ -142,7 +141,6 @@ object Message { //extends CommentConsumer {
         val updatedMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
         MessageDAO.update(MongoDBObject("_id" -> messageId), updatedMessage.copy(rocks = (updatedMessage.rocks + 1)), false, false, new WriteConcern)
         val finalMessage = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
-        //if(! (SelectedmessagetoRock.docIdIfAny==None))RockDocOrMedia.rockDocOrMedia(SelectedmessagetoRock.docIdIfAny.get,userId)
         finalMessage.rocks
     }
 
