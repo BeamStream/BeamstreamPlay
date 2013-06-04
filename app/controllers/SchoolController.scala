@@ -58,13 +58,13 @@ object SchoolController extends Controller {
    */
 
   def getSchoolName(schoolId:String) = Action { implicit request =>
-    val schoolName = School.findSchoolsById(new ObjectId(schoolId))
-    Ok(write(schoolName)).as("application/json")
+    val school = School.findSchoolsById(new ObjectId(schoolId))
+    Ok(write(school)).as("application/json")
   }
 
   /**
    * All Schools From database(RA)
-   * @Purpose: For autopopulate schools on school screen'
+   * @Purpose: For auto populate schools on school screen'
    */
   def getAllSchoolsForAutopopulate = Action { implicit request =>
     try {

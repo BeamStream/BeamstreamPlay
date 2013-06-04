@@ -26,10 +26,10 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Create a Question & remove a Question") {
-    val question = Question(new ObjectId, "How Was the Class ?", user.id, QuestionAccess.Public,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val question = Question(new ObjectId, "How Was the Class ?", user.id, Access.Public,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val questionId = Question.addQuestion(question)
     assert((Question.findQuestionById(questionId.get).get.questionBody) === "How Was the Class ?")
-    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.Public,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, Access.Public,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val anotherQuestionId = Question.addQuestion(anotherQuestion)
     assert((Question.findQuestionById(anotherQuestionId.get).get.questionBody) === "How Was the Day ?")
     // Remove A Question
@@ -38,25 +38,25 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Get All Questions") {
-    val question = Question(new ObjectId, "How Was the Class ?", user.id, QuestionAccess.Public,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val question = Question(new ObjectId, "How Was the Class ?", user.id, Access.Public,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val questionId = Question.addQuestion(question)
-    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.Public,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, Access.Public,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val anotherQuestionId = Question.addQuestion(anotherQuestion)
     assert(Question.getAllQuestions(List(anotherQuestionId.get, questionId.get)).size === 2)
   }
 
   test("Find Question By Id") {
-    val question = Question(new ObjectId, "How Was the Class ?", user.id, QuestionAccess.Public,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val question = Question(new ObjectId, "How Was the Class ?", user.id, Access.Public,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val questionId = Question.addQuestion(question)
-    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.Public,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, Access.Public,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val anotherQuestionId = Question.addQuestion(anotherQuestion)
     assert(Question.findQuestionById(questionId.get).get.firstNameofQuestionAsker === "Neel")
   }
 
   test("Rocking The Question And Getting The Rockers") {
-    val question = Question(new ObjectId, "How Was the Class ?", user.id, QuestionAccess.Public,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val question = Question(new ObjectId, "How Was the Class ?", user.id, Access.Public,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val questionId = Question.addQuestion(question)
-    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.Public,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, Access.Public,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val anotherQuestionId = Question.addQuestion(anotherQuestion)
     Question.rockTheQuestion(questionId.get, user.id)
     assert(Question.rockersNameOfAQuestion(questionId.get) === List("Neel "))
@@ -64,29 +64,29 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Privacy Of The Question(For A Class , For A School)") {
-    val question = Question(new ObjectId, "How Was the Class ?", user.id, QuestionAccess.PrivateToClass,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val question = Question(new ObjectId, "How Was the Class ?", user.id, Access.PrivateToClass,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val questionId = Question.addQuestion(question)
-    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.PrivateToSchool,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, Access.PrivateToSchool,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val anotherQuestionId = Question.addQuestion(anotherQuestion)
-    val yetAnotherQuestion = Question(new ObjectId, "How Was the School ?", user.id, QuestionAccess.PrivateToClass,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val yetAnotherQuestion = Question(new ObjectId, "How Was the School ?", user.id, Access.PrivateToClass,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val yetAnotherQuestionId = Question.addQuestion(yetAnotherQuestion)
     assert(Question.getAllPrivateToAClassQuestionForAUser(user.id).size == 2)
     assert(Question.getAllPrivateToASchoolQuestionForAUser(user.id).size == 1)
   }
 
   test("Delete The Question") {
-    val question = Question(new ObjectId, "How Was the Class ?", user.id, QuestionAccess.PrivateToClass,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val question = Question(new ObjectId, "How Was the Class ?", user.id, Access.PrivateToClass,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val questionId = Question.addQuestion(question)
-    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.PrivateToSchool,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, Access.PrivateToSchool,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val anotherQuestionId = Question.addQuestion(anotherQuestion)
     assert(Question.deleteQuestionPermanently(questionId.get, user.id) === true) //User Who Deletes The Question Is Not The Creator Of Question So Not Authorized To delete
     assert(Question.deleteQuestionPermanently(anotherQuestionId.get, user.id) === true) //User Who Deletes The Question Is  The Creator Of Question So  Authorized To delete
   }
 
   test("Follow The Question") {
-    val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, QuestionAccess.PrivateToClass,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val questionId = Question.addQuestion(question)
-    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.PrivateToSchool,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, Access.PrivateToSchool,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val anotherQuestionId = Question.addQuestion(anotherQuestion)
     assert(Question.findQuestionById(questionId.get).head.followers.size === 0)
     Question.followQuestion(user.id, questionId.get)
@@ -94,9 +94,9 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Add Comment To Question") {
-    val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, QuestionAccess.PrivateToClass,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val questionId = Question.addQuestion(question)
-    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.PrivateToSchool,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, Access.PrivateToSchool,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val anotherQuestionId = Question.addQuestion(anotherQuestion)
     assert(Question.findQuestionById(questionId.get).head.comments.size === 0)
     val comment = new Comment(new ObjectId, "Comment1", new Date, user.id, user.firstName, user.lastName, 0, List(user.id))
@@ -106,9 +106,9 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Remove Comments To Question") {
-    val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, QuestionAccess.PrivateToClass,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val questionId = Question.addQuestion(question)
-    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.PrivateToSchool,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, Access.PrivateToSchool,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val anotherQuestionId = Question.addQuestion(anotherQuestion)
     assert(Question.findQuestionById(questionId.get).head.comments.size === 0)
     val comment = new Comment(new ObjectId, "Comment1", new Date, user.id, user.firstName, user.lastName, 0, List(user.id))
@@ -120,9 +120,9 @@ class QuestionTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Add Poll To Question") {
-    val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, QuestionAccess.PrivateToClass,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val question = Question(new ObjectId, "How Was the Class ?", new ObjectId, Access.PrivateToClass,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val questionId = Question.addQuestion(question)
-    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, QuestionAccess.PrivateToSchool,QuestionType.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
+    val anotherQuestion = Question(new ObjectId, "How Was the Day ?", user.id, Access.PrivateToSchool,Type.Text, stream.id, "Neel", "Sachdeva", new Date, Nil, Nil, Nil, Nil,Nil,false,None,None)
     val anotherQuestionId = Question.addQuestion(anotherQuestion)
     assert(Question.findQuestionById(questionId.get).head.pollOptions.size === 0)
     val option = OptionOfQuestion(new ObjectId, "Poll1", List(user.id))
