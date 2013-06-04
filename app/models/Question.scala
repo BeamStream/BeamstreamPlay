@@ -22,26 +22,14 @@ import java.net.URL
  * Restricted - Available to a restricted list of users
  * Stream - Available to all the Sub-streams and current members of this stream
  */
-object QuestionAccess extends Enumeration {
-  type QuestionAccess = Value
-  val Public = Value(0, "Public")
-  val PrivateToClass = Value(1, "PrivateToClass")
-  val PrivateToSchool = Value(2, "PrivateToSchool")
 
-}
-object QuestionType extends Enumeration {
-  val Text = Value(0, "Text")
-  val Image = Value(1, "Image")
-  val Video = Value(2, "Video")
-  val Audio = Value(3, "Audio")
-  val Document = Value(4, "Document")
-}
+
 
 case class Question(@Key("_id") id: ObjectId,
   questionBody: String,
   userId: ObjectId,
-  questionAccess: QuestionAccess.Value,
-  questionType: QuestionType.Value,
+  questionAccess: Access.Value,
+  questionType: Type.Value,
   streamId: ObjectId,
   firstNameofQuestionAsker: String,
   lastNameofQuestionAsker: String,
@@ -119,7 +107,7 @@ object Question {
   /*
     * Change the access of a Question
     */
-  def changeAccess(questionId: ObjectId, newAccess: QuestionAccess.Value) = {
+  def changeAccess(questionId: ObjectId, newAccess: Access.Value) = {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(questionAccess = newAccess), false, false, new WriteConcern)
   }

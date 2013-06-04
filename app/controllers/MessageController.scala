@@ -5,8 +5,8 @@ import java.util.Date
 import org.bson.types.ObjectId
 import models.DocResulttoSent
 import models.Message
-import models.MessageAccess
-import models.MessageType
+import models.Access
+import models.Type
 import models.ResulttoSent
 import models.User
 import models.UserMedia
@@ -33,7 +33,7 @@ object MessageController extends Controller {
     val messageAccess = (messageListJsonMap \ "messageAccess").as[String]
     val messageBody = (messageListJsonMap \ "message").as[String]
     val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-    val messageToCreate = new Message(new ObjectId, messageBody, Option(MessageType.Text), Option(MessageAccess.withName(messageAccess)), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)),
+    val messageToCreate = new Message(new ObjectId, messageBody, Option(Type.Text), Option(Access.withName(messageAccess)), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)),
       messagePoster.get.firstName, messagePoster.get.lastName, 0, Nil, Nil, 0, Nil)
     val messageId = Message.createMessage(messageToCreate)
     val messageObtained = Message.findMessageById(messageId.get)

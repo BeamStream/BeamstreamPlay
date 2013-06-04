@@ -12,7 +12,7 @@ import java.util.Date
 import java.util.Calendar
 import java.text.DateFormat
 
-object MessageType extends Enumeration {
+object Type extends Enumeration {
 
   val Text = Value(0, "Text")
   val Image = Value(1, "Image")
@@ -21,17 +21,18 @@ object MessageType extends Enumeration {
   val Document = Value(4, "Document")
 }
 
-object MessageAccess extends Enumeration {
+object Access extends Enumeration {
   type MessageAccess = Value
   val Public = Value(0, "Public")
   val PrivateToClass = Value(1, "PrivateToClass")
   val PrivateToSchool = Value(2, "PrivateToSchool")
+  val PrivateToDegree = Value(3, "PrivateToDegree")
 }
 
 case class Message(@Key("_id") id: ObjectId,
   messageBody: String,
-  messageType: Option[MessageType.Value],
-  messageAccess: Option[MessageAccess.Value],
+  messageType: Option[Type.Value],
+  messageAccess: Option[Access.Value],
   timeCreated: Date,
   userId: ObjectId,
   streamId: Option[ObjectId],
@@ -331,12 +332,12 @@ object Message { //extends CommentConsumer {
           case true =>
             val userMedia = UserMedia.findMediaById(message.docIdIfAny.get)
             (userMedia != None) match {
-              case true => DocResulttoSent(Option(message),None, userMedia.get.name, userMedia.get.description, isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
+              case true => DocResulttoSent(Option(message), None, userMedia.get.name, userMedia.get.description, isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
               case false =>
                 val document = Document.findDocumentById(message.docIdIfAny.get)
-                DocResulttoSent(Option(message),None, document.get.documentName, document.get.documentDescription, isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
+                DocResulttoSent(Option(message), None, document.get.documentName, document.get.documentDescription, isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
             }
-          case false => DocResulttoSent(Option(message),None, "", "", isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
+          case false => DocResulttoSent(Option(message), None, "", "", isRocked, isFollowed, Option(profilePicForUser), Option(comments), Option(followerOfMessagePoster), User.giveMeTheRockers(message.rockers))
         }
     }
     docResultToSend

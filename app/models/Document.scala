@@ -24,13 +24,7 @@ import java.util.regex.Pattern
  * Stream - Available to all the Sub-streams and current members of this stream
  */
 
-object DocumentAccess extends Enumeration {
-  type DocumentAccess = Value
-  val Public = Value(0, "Public")
-  val PrivateToClass = Value(1, "PrivateToClass")
-  val PrivateToSchool = Value(2, "PrivateToSchool")
 
-}
 
 /**
  * Enumeration for the document type
@@ -64,7 +58,7 @@ case class Document(@Key("_id") id: ObjectId,
   documentURL: String,
   documentType: DocType.Value,
   userId: ObjectId,
-  documentAccess: DocumentAccess.Value,
+  documentAccess: Access.Value,
   streamId: ObjectId,
   creationDate: Date,
   lastUpdateDate: Date,
