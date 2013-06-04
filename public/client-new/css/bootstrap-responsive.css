@@ -2170,7 +2170,7 @@ width:79%;
  padding:1% 2% 0 2%;
 }
  .all-search {
- float:left;
+ float:left; width:15%;
 }
  .ask-left {
  width:75%;

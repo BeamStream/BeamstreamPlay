@@ -193,8 +193,8 @@
                         		<span>{{data.message.rocks}}</span>
                         	</a>
                     	</li>
-                      <li><a class="rock-message" href="#">Rock</a></li>
-                      <li ><a class="add-comment" href="#"> Comment</a></li>
+                      <li><a class="rock-message clickElement" href="#">Rock</a></li>
+                      <li ><a class="add-comment clickElement" href="#"> Comment</a></li>
                       <li><a class="comment-icon" href="#"></a></li>                      
                     </ul>
                     <a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a>
