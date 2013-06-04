@@ -11,7 +11,7 @@ url_required=http://test.beamstream.com
 
 
 # For Local Mode
-url_required=http://localhost:9000
+#url_required=http://localhost:9000
 
 # For Demo Mode
 #url_required=http://beamstream-demo.herokuapp.com
