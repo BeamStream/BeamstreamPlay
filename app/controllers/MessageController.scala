@@ -5,8 +5,8 @@ import java.util.Date
 import org.bson.types.ObjectId
 import models.DocResulttoSent
 import models.Message
-import models.MessageAccess
-import models.MessageType
+import models.Access
+import models.Type
 import models.ResulttoSent
 import models.User
 import models.UserMedia
@@ -33,7 +33,7 @@ object MessageController extends Controller {
     val messageAccess = (messageListJsonMap \ "messageAccess").as[String]
     val messageBody = (messageListJsonMap \ "message").as[String]
     val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-    val messageToCreate = new Message(new ObjectId, messageBody, Option(MessageType.Text), Option(MessageAccess.withName(messageAccess)), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)),
+    val messageToCreate = new Message(new ObjectId, messageBody, Option(Type.Text), Option(Access.withName(messageAccess)), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)),
       messagePoster.get.firstName, messagePoster.get.lastName, 0, Nil, Nil, 0, Nil)
     val messageId = Message.createMessage(messageToCreate)
     val messageObtained = Message.findMessageById(messageId.get)
@@ -65,9 +65,9 @@ object MessageController extends Controller {
    * Rockers of message
    */
   def giveMeRockers(messageId: String) = Action { implicit request =>
-    val weAreRockers = Message.rockersNames(new ObjectId(messageId))
-    val WeAreRockersJson = write(weAreRockers)
-    Ok(WeAreRockersJson).as("application/json")
+    val rockersOfMessage = Message.rockersNames(new ObjectId(messageId))
+    val rockerJson = write(rockersOfMessage)
+    Ok(rockerJson).as("application/json")
   }
 
   /**
@@ -130,8 +130,8 @@ object MessageController extends Controller {
 
   def deleteTheMessage(messageId: String) = Action { implicit request =>
     val messsageDeleted = Message.deleteMessagePermanently(new ObjectId(messageId), new ObjectId(request.session.get("userId").get))
-    if (messsageDeleted == true) Ok(write(new ResulttoSent("Success", "Message Has Been Deleted")))
-    else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Message")))
+    if (messsageDeleted == true) Ok(write(new ResulttoSent("Success", "Message Has Been Deleted"))).as("application/json")
+    else Ok(write(new ResulttoSent("Failure", "You're Not Authorised To Delete This Message"))).as("application/json")
   }
 
   /**

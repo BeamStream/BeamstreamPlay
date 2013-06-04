@@ -6,7 +6,7 @@ import org.bson.types.ObjectId
 import models.OptionOfQuestion
 import models.OptionOfQuestionDAO
 import models.Question
-import models.QuestionAccess
+import models.Access
 import models.QuestionPolling
 import models.QuestionWithPoll
 import models.ResulttoSent
@@ -17,7 +17,7 @@ import play.api.mvc.Controller
 import utils.ObjectIdSerializer
 import models.UserMedia
 import models.Comment
-import models.QuestionType
+import models.Type
 
 /**
  * This controller class is used to store and retrieve all the information about Question and Answers.
@@ -47,7 +47,7 @@ object QuestionController extends Controller {
     val user = User.getUserProfile(userId)
 
     val questionToAsk = new Question(new ObjectId, questionBody, userId,
-      QuestionAccess.withName(questionAccess), QuestionType.Text,new ObjectId(streamId), user.get.firstName, user.get.lastName, new Date, List(), List(), List(), List())
+      Access.withName(questionAccess), Type.Text, new ObjectId(streamId), user.get.firstName, user.get.lastName, new Date, List(), List(), List(), List())
     val questionId = Question.addQuestion(questionToAsk)
     (pollOptions == None) match {
       case false =>
@@ -182,14 +182,13 @@ object QuestionController extends Controller {
 
   }
 
-  /*
- * ***********************************************************REARCHITECTED CODE****************************************************************
- * ***********************************************************REARCHITECTED CODE****************************************************************
- */
+  /**
+   * ***********************************************************REARCHITECTED CODE****************************************************************
+   */
   def getAllQuestionForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
 
     val userId = new ObjectId(request.session.get("userId").get)
-    
+
     val allQuestionsForAStream = (sortBy == "date") match {
       case true => Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
       case false => (sortBy == "rock") match {
@@ -212,7 +211,7 @@ object QuestionController extends Controller {
         val isRocked = Question.isARocker(questionObtained.id, userId)
         val isFollowed = Question.isAFollower(questionObtained.id, userId)
         val isFollowerOfQuestionPoster = User.isAFollower(questionObtained.userId, userId)
-        val profilePicForUser = UserMedia.getProfilePicUrlString(questionObtained.userId)     
+        val profilePicForUser = UserMedia.getProfilePicUrlString(questionObtained.userId)
         val comments = (questionObtained.comments.isEmpty) match {
           case false =>
             Comment.getAllComments(questionObtained.comments)

@@ -23,6 +23,7 @@ define(['view/formView',
         // '../../lib/bootstrap-modal',
         '../../lib/jquery.meio.mask',
         'model/userSchool'
+        
         ],function(FormView ,StreamSliderView,BootstrapSelect,Datepicker ,MaskedInput,userSchool){
 	
 	var classView;
@@ -54,10 +55,12 @@ define(['view/formView',
 		
 		showFriends: function(){
 			$("#friend-list-modal").modal('show'); 
+			$('#user-online1').mCustomScrollbar("update");
 		},
 		
 		onAfterInit: function(){	
 			this.data.reset();
+			this.scroll();
 			
 			/*fetch userSchool model  to get all schools of a user*/
 			var users = new userSchool();
@@ -86,6 +89,35 @@ define(['view/formView',
 
 			this.setupPushConnection();
         },
+        
+        scroll :function(eventName){
+			
+			$("#user-online1").mCustomScrollbar({
+					set_width:false, /*optional element width: boolean, pixels, percentage*/
+					set_height:false, /*optional element height: boolean, pixels, percentage*/
+					horizontalScroll:false, /*scroll horizontally: boolean*/
+					scrollInertia:550, /*scrolling inertia: integer (milliseconds)*/
+					scrollEasing:"easeOutCirc", /*scrolling easing: string*/
+					mouseWheel:"auto", /*mousewheel support and velocity: boolean, "auto", integer*/
+					autoDraggerLength:true, /*auto-adjust scrollbar dragger length: boolean*/
+					scrollButtons:{ /*scroll buttons*/
+						enable:false, /*scroll buttons support: boolean*/
+						scrollType:"continuous", /*scroll buttons scrolling type: "continuous", "pixels"*/
+						scrollSpeed:20, /*scroll buttons continuous scrolling speed: integer*/
+						scrollAmount:40 /*scroll buttons pixels scroll amount: integer (pixels)*/
+					},
+					advanced:{
+						updateOnBrowserResize:true, /*update scrollbars on browser resize (for layouts based on percentages): boolean*/
+						updateOnContentResize:false, /*auto-update scrollbars on content resize (for dynamic content): boolean*/
+						autoExpandHorizontalScroll:false /*auto expand width for horizontal scrolling: boolean*/
+					},
+					callbacks:{
+						onScroll:function(){}, /*user custom callback function on scroll event*/
+						onTotalScroll:function(){}, /*user custom callback function on bottom reached event*/
+						onTotalScrollOffset:0 /*bottom reached offset: integer (pixels)*/
+					}
+				});
+		},
 
         /**
          * set default time for class time 

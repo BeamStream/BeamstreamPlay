@@ -510,8 +510,6 @@ width:100% !important;
 
 
 
-
-
 /*Sign Up*/
 
 .signup-outer {
@@ -1417,8 +1415,6 @@ left:10px;
  @media (max-width: 767px) {
  body {
  display:none;
-
- 
 }
  .navbar-fixed-top,  .navbar-fixed-bottom,  .navbar-static-top {
  margin-right: -20px;
@@ -1627,6 +1623,11 @@ ul.social-icons {
  .unanswerd {
  margin:22px 0 0 20px;
 }
+
+.sortable.connected {
+		width:97%;
+}
+
 
 
 /*  Overview  */
@@ -2130,6 +2131,13 @@ ul.signup-register li.lastblock {
 width:79%;
 }
 
+.follow-button {
+		font-size:9px;
+		padding:5px;
+}
+
+
+
 
 /*
 
@@ -2162,7 +2170,7 @@ width:79%;
  padding:1% 2% 0 2%;
 }
  .all-search {
- float:left;
+ float:left; width:15%;
 }
  .ask-left {
  width:75%;

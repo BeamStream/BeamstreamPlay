@@ -70,13 +70,12 @@ object ClassController extends Controller {
    */
   def getAllClassesForAUser(userId: String) = Action { implicit request =>
     try {
-      val id = new ObjectId(userId)
-      val classIdList = Class.getAllClassesIdsForAUser(id)
+      val classIdList = Class.getAllClassesIdsForAUser(new ObjectId(userId))
       val getAllClassesForAUser = Class.getAllClasses(classIdList)
       val ClassListJson = write(getAllClassesForAUser)
       Ok(ClassListJson).as("application/json")
     } catch {
-      case ex => Ok(write(new ResulttoSent("Failure", "There Was Some Problem To Get List Of Classes For A User")))
+      case exception => Ok(write(new ResulttoSent("Failure", "There Was Some Problem To Get List Of Classes For A User")))
     }
   }
 
@@ -101,9 +100,8 @@ object ClassController extends Controller {
       } else {
         println("Join Stream Case")
         val classesobtained = Class.findClasssById(new ObjectId(id.get))
-        val resultToSend =Stream.joinStream(classesobtained.get.streams(0), new ObjectId(request.session.get("userId").get))
+        val resultToSend = Stream.joinStream(classesobtained.get.streams(0), new ObjectId(request.session.get("userId").get))
         if (resultToSend.status == "Success") User.addClassToUser(new ObjectId(request.session.get("userId").get), List(new ObjectId(id.get)))
-        //TODO needs to be checked
         val stream = Stream.findStreamById(classesobtained.get.streams(0))
         Ok(write(ClassResult(stream, resultToSend))).as("application/json")
       }

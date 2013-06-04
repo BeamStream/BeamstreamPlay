@@ -99,7 +99,7 @@
 
 
 	                 	<!-- shows the documents contents in a frame -->
-						<div id="document-{{data.message.docIdIfAny.id}}" style="top: 50% !important; Z-index:9999" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div id="document-{{data.message.docIdIfAny.id}}"  class="modal hide fade white-modal-block doc-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-header">
 						  		<a class="close" data-dismiss="modal">×</a>
 							</div>
@@ -193,8 +193,8 @@
                         		<span>{{data.message.rocks}}</span>
                         	</a>
                     	</li>
-                      <li><a class="rock-message" href="#">Rock</a></li>
-                      <li ><a class="add-comment" href="#"> Comment</a></li>
+                      <li><a class="rock-message clickElement" href="#">Rock</a></li>
+                      <li ><a class="add-comment clickElement" href="#"> Comment</a></li>
                       <li><a class="comment-icon" href="#"></a></li>                      
                     </ul>
                     <a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a>

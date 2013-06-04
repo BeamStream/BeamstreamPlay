@@ -19,8 +19,7 @@ object MongoHQConfig {
   /**
    * For Local Testing
    */
-
-  //val mongoDB = MongoConnection("", 27017)("beamstream")
-  //mongoDB.authenticate("", "")
+//  val mongoDB = MongoConnection("", 27017)("beamstream")
+//  mongoDB.authenticate("", "")
 
 }
