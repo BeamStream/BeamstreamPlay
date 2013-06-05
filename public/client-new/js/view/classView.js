@@ -108,7 +108,7 @@ define(['view/formView',
 					},
 					advanced:{
 						updateOnBrowserResize:true, /*update scrollbars on browser resize (for layouts based on percentages): boolean*/
-						updateOnContentResize:false, /*auto-update scrollbars on content resize (for dynamic content): boolean*/
+						updateOnContentResize:true, /*auto-update scrollbars on content resize (for dynamic content): boolean*/
 						autoExpandHorizontalScroll:false /*auto expand width for horizontal scrolling: boolean*/
 					},
 					callbacks:{
