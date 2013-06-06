@@ -498,12 +498,21 @@ width:100% !important;
 */
 
 
+ .invite-bottom-btn a.invite-orange-btn span.text{ line-height:22px !important;}
+
+ .time-text{
+    width: 15% !important
+	}
+
+.green-btn span.texter {
+		padding:0 20px !important;
+}
+
+.browse-header {
+		padding:20px 25px 0 25px !important;
 
 
-
-
-
-
+}
 
 
 
@@ -2170,7 +2179,7 @@ width:79%;
  padding:1% 2% 0 2%;
 }
  .all-search {
- float:left; width:15%;
+ float:left; width:29%; margin-right:2%;
 }
  .ask-left {
  width:75%;
@@ -2375,7 +2384,18 @@ padding:0 5% 5% 5%;
 		left:20%;
 }
 
+ .invite-bottom-btn a.invite-orange-btn span.text { line-height:15px; height:30px;}
 
+ .time-text{
+    width:18%;
+	}
+	
+	.green-btn span.texter {
+		padding:0 4px
+}
+.browse-header {
+		padding-top:20px !important; padding-bottom:0 !important;
 
+}
 
  }
