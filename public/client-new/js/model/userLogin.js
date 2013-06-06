@@ -29,7 +29,7 @@ define(['model/user'], function(User) {
 			mailId: {
 				required: true,
 				pattern: 'email'
-			} ,
+			},
 			password: {
 				required: true,
 				minLength : 6
