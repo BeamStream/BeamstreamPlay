@@ -463,7 +463,6 @@ define(['view/formView',
 			if(eventName.which == 32){
 				var text = $('#msg-area').val();
 				var links =  text.match(this.urlRegex); 
-				
 				 /* create bitly for each url in text */
 				self.generateBitly(links);
 			}

@@ -25,10 +25,11 @@ define(['view/formView',
         'model/user',
         'text!templates/discussionMessage.tpl',
         'text!templates/discussionComment.tpl',
+        'text!templates/messageRocker.tpl',
         '../../lib/extralib/jquery.embedly.min',
         '../../lib/extralib/jquery.prettyPhoto'
         
-        ],function(FormView , DocumentView ,MediaEditView, CommentModel,DiscussionModel, UserMediaModel,UserModel, DiscussionMessage ,DiscussionComment ,JqueryEmbedly, PrettyPhoto){
+        ],function(FormView , DocumentView ,MediaEditView, CommentModel,DiscussionModel, UserMediaModel,UserModel, DiscussionMessage ,DiscussionComment ,MessageRocker ,JqueryEmbedly, PrettyPhoto){
 	
 	var MessageItemView;
 	MessageItemView = FormView.extend({
@@ -352,6 +353,7 @@ define(['view/formView',
 	     */
 	    rockMessage: function(eventName){
 	    	eventName.preventDefault();
+	    	var self = this;
 			var element = eventName.target.parentElement;
 			var messageId =$(element).parents('div.follow-container').attr('id');
 			var streamId =  $('.sortable li.active').attr('id');
@@ -383,6 +385,7 @@ define(['view/formView',
 	                    message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,msgId:messageId}
 	                })
 		    		
+	                self.getRockers(eventName,messageId);
 		    	},
 		    	error : function(model, response) {
 		    	}
@@ -681,6 +684,13 @@ define(['view/formView',
 			var messageId =$(element).parents('div.follow-container').attr('id');
 			$(parentUl).find('a.active').removeClass('active');
 
+			this.getRockers(eventName,messageId);
+			
+				
+		},
+
+		getRockers:function(eventName,messageId){
+
 			if($('#'+messageId+'-msgRockers').is(":visible"))
 			{
 				
@@ -690,18 +700,36 @@ define(['view/formView',
 			}
 			else
 			{
+				var Discussion = new DiscussionModel();
+				Discussion.urlRoot = "/rockersOf/message/"+messageId;
+				Discussion.fetch({
+					success : function(data, models) {
+						$('#'+messageId+'-msgRockers').html('');
+						
+							_.each(data.attributes, function(value) {
+								if(jQuery.type( value ) === "string"){
+									compiledTemplate = Handlebars.compile(MessageRocker);
+	        						$('#'+messageId+'-msgRockers').append(compiledTemplate({rocker:value}));
+								}
+								
+							});
+						
+	        				$(eventName.target).addClass('active');
+							$('#'+messageId+'-allComments').slideUp(1); 
+							$('#'+messageId+'-newCommentList').html('');
+							$('#'+messageId+'-msgRockers').slideDown(600);
+							$('#'+messageId+'-show-hide').text("Show All");
+					
+						
+		        			
+					}
+				});
 				
-				$(eventName.target).addClass('active');
-				$('#'+messageId+'-allComments').slideUp(1); 
-				$('#'+messageId+'-newCommentList').html('');
-				$('#'+messageId+'-msgRockers').slideDown(600);
-				$('#'+messageId+'-show-hide').text("Show All");
 				
 			}
         
-			
-				
 		},
+
         /**
          * show / hide all comments ..
          */

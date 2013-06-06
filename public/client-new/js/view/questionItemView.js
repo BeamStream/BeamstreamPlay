@@ -21,8 +21,9 @@ define(['view/formView',
 		'model/comment',
 		'model/user',
 		'text!templates/questionMessage.tpl',
-		 'text!templates/questionComment.tpl'
-        ],function(FormView,QuestionModel, CommentModel,UserModel, QuestionMessage, QuestionComment ){
+		 'text!templates/questionComment.tpl',
+		 'text!templates/messageRocker.tpl',
+        ],function(FormView,QuestionModel, CommentModel,UserModel, QuestionMessage, QuestionComment,MessageRocker ){
 	
 	var QuestionItemView;
 	QuestionItemView = FormView.extend({
@@ -613,6 +614,13 @@ define(['view/formView',
 			var questionId =$(element).parents('div.follow-container').attr('id');
 			$(parentUl).find('a.active').removeClass('active');
 
+			this.getRockers(eventName,questionId);
+
+				
+		},
+
+		getRockers:function(eventName,questionId){
+			
 			if($('#'+questionId+'-questionRockers').is(":visible"))
 			{
 				
@@ -622,17 +630,35 @@ define(['view/formView',
 			}
 			else
 			{
+			 	var question = new QuestionModel();
+				question.urlRoot = "/rockersOf/question/"+questionId;
 				
-				$(eventName.target).addClass('active');
-				$('#'+questionId+'-allComments').slideUp(1); 
-				$('#'+questionId+'-newCommentList').html('');
-				$('#'+questionId+'-questionRockers').slideDown(600);
-				$('#'+questionId+'-show-hide').text("Show All");
+				question.fetch({
+					success : function(data, models) {
+						$('#'+questionId+'-questionRockers').html('');
+						
+							_.each(data.attributes, function(value) {
+								if(jQuery.type( value ) === "string"){
+									compiledTemplate = Handlebars.compile(MessageRocker);
+	        						$('#'+questionId+'-questionRockers').append(compiledTemplate({rocker:value}));
+								}
+								
+							});
+						
+	        				$(eventName.target).addClass('active');
+							$('#'+questionId+'-allComments').slideUp(1); 
+							$('#'+questionId+'-newCommentList').html('');
+							$('#'+questionId+'-questionRockers').slideDown(600);
+							$('#'+questionId+'-show-hide').text("Show All");
+					
+					}
+				});
+
+				
 				
 			}
+
         
-			
-				
 		},
 		
         /**
