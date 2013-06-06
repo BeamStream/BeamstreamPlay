@@ -416,6 +416,7 @@ define(['view/formView',
 	    rockQuestion: function(eventName){
 	    	
 	    	eventName.preventDefault();
+	    	var self =this;
 			var element = eventName.target.parentElement;
 			var questionId =$(element).parents('div.follow-container').attr('id');
 			var streamId =  $('.sortable li.active').attr('id');
@@ -446,6 +447,10 @@ define(['view/formView',
 						channel : "questionRock",
 	                    message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,quesId:questionId}
 	                })
+
+	                if($('#rockedIt-'+questionId).hasClass('active')){
+		    			self.getRockers(eventName,questionId);
+		    		}
 	                
 		    	},
 		    	error : function(model, response) {

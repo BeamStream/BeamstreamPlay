@@ -385,7 +385,10 @@ define(['view/formView',
 	                    message : { pagePushUid: self.pagePushUid ,streamId:streamId,data:response,msgId:messageId}
 	                })
 		    		
-	                self.getRockers(eventName,messageId);
+		    		if($('#rockedIt-'+messageId).hasClass('active')){
+		    			self.getRockers(eventName,messageId);
+		    		}
+	                
 		    	},
 		    	error : function(model, response) {
 		    	}

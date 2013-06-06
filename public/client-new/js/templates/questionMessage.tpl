@@ -231,7 +231,7 @@
                     <div class="button-block">
                       <ul class="follow-name-left show-all-block">
                         
-                        <a class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons show-all-comments"  href="#"><span id="{{data.question.id.id}}-totalComment" >{{data.comments.length}}</span> Comments</a> <a id="{{data.question.id.id}}-Answerbutton" class="btn grey-buttons " href="#"> <span>0</span> Answers</a>
+                        <a id="rockedIt-{{data.question.id.id}}" class="btn grey-buttons who-rocked-it" href="#">Who Rocked It?</a> <a class="btn grey-buttons show-all-comments"  href="#"><span id="{{data.question.id.id}}-totalComment" >{{data.comments.length}}</span> Comments</a> <a id="{{data.question.id.id}}-Answerbutton" class="btn grey-buttons " href="#"> <span>0</span> Answers</a>
             <a  class="btn grey-buttons  show-all" id="{{data.question.id.id}}-show-hide" href="#">Show All</a>
                       </ul>
                        
