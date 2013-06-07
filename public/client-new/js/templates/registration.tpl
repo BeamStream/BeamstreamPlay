@@ -199,7 +199,7 @@
 				  <div class="modal-body">    
 				  <div class="invite-bottom-btn class-modal-bottom registration-modal-content">
  		  			<a id="addPhoto" class="invite-green-btn class-modal-btn modal-button" href="#">Yes upload photo</a>  
- 		  			<a id="continue" class="invite-green-btn class-modal-btn" href="#">Don't upload CONTINUE </a>
+ 		  			<a id="continue" class="invite-green-btn class-modal-btn startBeam-btn" href="#">Don't upload CONTINUE </a>
  		  			</div>
 			  	</div>
 	 		</div>	
