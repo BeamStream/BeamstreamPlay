@@ -51,10 +51,18 @@ object UserController extends Controller {
             val userWithDetailedInfo = User.getUserProfile(eachUserId)
             val profilePicForUser = UserMedia.getProfilePicForAUser(eachUserId)
             val onlineUsersAlongWithDetails = (profilePicForUser.isEmpty) match {
-              case true => OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
-                userWithDetailedInfo.get.lastName, "")
-              case false => OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
-                userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl)
+              case true => {
+            	if(userWithDetailedInfo != None) {
+	                OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+	                		userWithDetailedInfo.get.lastName, "")
+            	}
+              }
+              case false => {
+            	if(userWithDetailedInfo != None) {
+	                OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+	                userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl)
+            	}
+              }
             }
             onlineUsersAlongWithDetails
           
