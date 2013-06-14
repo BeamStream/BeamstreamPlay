@@ -21,6 +21,7 @@ define(['view/formView',
 			 'click #discussion-file-upload li' : 'uploadFiles',
 			 'click #private-to-list li' :'selectPrivateToList',
 			 'keypress #msg-area' : 'postMessageOnEnterKey',
+			 'keyup #msg-area' : 'removePreview',
 			 'change #upload-files-area' : 'getUploadedData',
 			 
 			 
@@ -101,7 +102,7 @@ define(['view/formView',
 					 }
 					else
 					{
-						  $('.page-loader').hide();
+						  $('#discussion-pagination').hide();
 					}
 				}
 			 });  
@@ -120,12 +121,12 @@ define(['view/formView',
 					
 					if(models.status == "Failure"){
 
-						$('.page-loader').hide();
+						$('#discussion-pagination').hide();
 
 					}else if(models.length != 0){ 
 
 					  	/* render messages */
-						$('.page-loader').hide();
+						$('#discussion-pagination').hide();
 						_.each(models, function(model) {
 
 			        		$('#discussion-pagination').hide();
@@ -462,10 +463,31 @@ define(['view/formView',
 			}
 			if(eventName.which == 32){
 				var text = $('#msg-area').val();
-				var links =  text.match(this.urlRegex); 
+				self.links =  text.match(self.urlRegex); 
 				 /* create bitly for each url in text */
-				self.generateBitly(links);
+				self.generateBitly(self.links);
 			}
+		
+    	},
+
+    	removePreview:function(eventName){
+    		var self =this;
+    		if(eventName.which != 8){
+    			return;
+    		}
+
+    		var text = $('#msg-area').val();
+    		var links =  text.match(self.urlRegex); 
+
+    		if(links){
+    			if(self.links != links[0]){
+					$('div.selector').attr('display','none');
+		    		$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
+		    		$('div.selector').remove();
+		    		$('.preview_input').remove();
+				}
+    		}
+
     	},
         
         /**
@@ -613,6 +635,7 @@ define(['view/formView',
     	 */
     	generateBitly: function(links){
     		var self = this;
+    		self.links = $('#msg-area').val();
     		if(links)
 			{
 				if(!self.urlRegex2.test(links[0])) {
@@ -640,6 +663,7 @@ define(['view/formView',
 			    			success : function(data) {
 			    				 var msg = $('#msg-area').val();
 			    				 message = msg.replace(links[0],data.data.url);
+			    				 self.links = data.data.url;
 			    				 $('#msg-area').val(message);
 					    				
 			    			}
@@ -657,6 +681,7 @@ define(['view/formView',
 						// $('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 					          
 			        }
+
 	            }
 		    }
     	},
