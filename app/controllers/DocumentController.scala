@@ -3,7 +3,9 @@ package controllers
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
+
 import org.bson.types.ObjectId
+
 import models.Access
 import models.DocResulttoSent
 import models.DocType
@@ -74,7 +76,7 @@ object DocumentController extends Controller {
   }
 
   /**
-   * Rock the document (Modified)
+   * Rock the document
    * Rocking any kind of Doc Audio, Video , PPT etc.
    */
   def rockTheDocument(documentId: String) = Action { implicit request =>
@@ -82,9 +84,9 @@ object DocumentController extends Controller {
     Ok(write(totalRocks.toString)).as("application/json")
   }
 
-  /*
-      * Change the title and description
-      */
+  /**
+   * Change the title and description
+   */
   def changeTitleAndDescriptionForADocument(documentId: String) = Action { implicit request =>
     val jsonReceived = request.body.asJson.get
     val docDescription = (jsonReceived \ "docDescription").as[String]
@@ -105,9 +107,9 @@ object DocumentController extends Controller {
 
   }
 
-  /*
-    * Rockers of a document
-    */
+  /**
+   * Rockers of a document
+   */
   def giveMeRockersOfDocument(documentId: String) = Action { implicit request =>
     val rockers = Document.rockersNames(new ObjectId(documentId))
     val rockersJson = write(rockers)
