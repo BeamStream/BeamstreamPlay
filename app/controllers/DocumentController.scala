@@ -3,9 +3,7 @@ package controllers
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
-
 import org.bson.types.ObjectId
-
 import models.Access
 import models.DocResulttoSent
 import models.DocType
@@ -28,6 +26,9 @@ import utils.GoogleDocsUploadUtility
 import utils.ObjectIdSerializer
 import utils.PreviewOfPDFUtil
 import utils.tokenEmailUtil
+import models.DocumentsAndMedia
+import models.Documents
+import models.DocResulttoSent
 /**
  * This controller class is used to store and retrieve all the information about documents.
  */
