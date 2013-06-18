@@ -54,7 +54,7 @@ object GoogleDocsUploadUtility {
     body.setDescription(fileName)
     body.setMimeType(contentType)
     val fileContent: java.io.File = fileToUpload
-    val mediaContent = new FileContent("image/png", fileContent)
+    val mediaContent = new FileContent("", fileContent)
     //Inserting the files
     val file = service.files().insert(body, mediaContent).execute()
     //Listing the Files
