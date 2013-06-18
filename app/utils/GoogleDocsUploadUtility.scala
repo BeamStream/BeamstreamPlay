@@ -67,14 +67,28 @@ object GoogleDocsUploadUtility {
 
   def getAllDocumentsFromGoogleDocs(code: String): List[(String, String)] = {
     val service = returnGoogleCredentailsSettings(code)
-    service.files.list.execute.getItems.isEmpty match {
-      case true => Nil
-      case false =>
-        val tupleList = service.files.list.execute.getItems map {
-          case driveFile => (driveFile.getOriginalFilename, driveFile.getAlternateLink)
-        }
-        tupleList.toList
+    //    service.files.list.execute.getItems.isEmpty match {
+    //      case true => Nil
+    //      case false =>
+    //        val tupleList = service.files.list.execute.getItems map {
+    //          case driveFile => (driveFile.getOriginalFilename, driveFile.getAlternateLink)
+    //        }
+    //        tupleList.toList
+    //    }
+
+    var result: List[File] = List()
+    val request = service.files.list
+
+    do {
+      val files = request.execute
+      result ++= (files.getItems)
+      request.setPageToken(files.getNextPageToken)
+    } while (request.getPageToken() != null && request.getPageToken().length() > 0)
+
+    result map {
+      case a => (a.getOriginalFilename, a.getAlternateLink)
     }
+
   }
 
 }
