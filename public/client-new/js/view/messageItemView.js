@@ -59,7 +59,7 @@ define(['view/formView',
 			this.urlRegex2 =  /^((http|https|ftp):\/\/)/,
             this.urlRegex1 = /(https?:\/\/[^\s]+)/g,
             this.urlRegex = /(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-\./]*$/i ;
-
+            
 
         },
         
