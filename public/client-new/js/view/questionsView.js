@@ -44,6 +44,9 @@ define(['view/formView',
          	this.urlRegex1 = /(https?:\/\/[^\s]+)/g;
 	     	this.urlRegex = /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
 	     	this.urlRegex2 =  /^((http|https|ftp):\/\/)/;
+	     	this.urlReg= /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+	     	this.website = /(([\w]+:)?\/\/)?(([\d\w]|%[a-fA-f\d]{2,2})+(:([\d\w]|%[a-fA-f\d]{2,2})+)?@)?([\d\w][-\d\w]{0,253}[\d\w]\.)+[\w]{2,4}(:[\d]+)?(\/([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)*(\?(&amp;?([-+_~.\d\w]|%[a-fA-f\d]{2,2})=?)*)?(#([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)?$/;
+
 
 
          	/* pagination */
@@ -192,7 +195,10 @@ define(['view/formView',
 			}
 			if(eventName.which == 32){
 				var text = $('#Q-area').val();
-				self.links =  text.match(this.urlRegex); 
+				self.links =  text.match(this.urlReg); 
+
+				if(!self.links)
+					self.links =  text.match(this.website); 
 				
 				 /* create bitly for each url in text */
 				self.generateBitly(self.links);
@@ -200,22 +206,39 @@ define(['view/formView',
         },
 
         removePreview:function(eventName){
+
+
         	var self =this;
-    		if(eventName.which != 8){
-    			return;
-    		}
-
     		var text = $('#Q-area').val();
-    		var links =  text.match(self.urlRegex); 
+    		var link =  text.match(self.urlReg); 
 
-    		if(links){
-    			if(self.links != links[0]){
-					$('div.selector').attr('display','none');
+    		if($('div.selector').is(':visible'))
+			{  
+			   if(!link)     
+		   			$('div.selector').remove();
+			} 
+
+    		if(eventName.which == 8 || eventName.which == 46){
+
+	    		if(link){
+
+	    			if(self.links != link[0]){
+						$('div.selector').attr('display','none');
+			    		$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
+			    		$('div.selector').remove();
+			    		$('.preview_input').remove();
+					}
+	    		}
+	    		else{
+				   	$('div.selector').attr('display','none');
 		    		$('div.selector').parents('form.ask-disccution').find('input[type="hidden"].preview_input').remove();
 		    		$('div.selector').remove();
-		    		$('.preview_input').remove();
-				}
+		    		$('.preview_input').remove(); 
+
+	    		}
+    			
     		}
+
         },
 
         /**
@@ -223,7 +246,15 @@ define(['view/formView',
     	 */
     	generateBitly: function(links){
     		var self = this;
-    		self.links = $('#Q-area').val();
+    		var questionText = $('#Q-area').val();
+
+    		self.links =  questionText.match(self.urlReg);
+
+			if(!self.links)
+				self.links = questionText.match(self.website); 
+			else
+				self.links = self.links[0];
+
     		if(links)
 			{
 				if(!self.urlRegex2.test(links[0])) {
@@ -569,7 +600,11 @@ define(['view/formView',
 		        	 	
 		        	 	//find link part from the message
 		        	 	question = $.trim(question);
-		  		        var link =  question.match(self.urlRegex); 
+		  		        var link =  question.match(self.urlReg); 
+
+		  		        if(!link)
+		  		        	link =  question.match(self.website); 
+
 		  		        if(link){
 		  		        	if(!self.urlRegex2.test(link[0])) {
 		  		        		urlLink = "http://" + link[0];
@@ -579,7 +614,11 @@ define(['view/formView',
 		  		    	    	urlLink =link[0];
 		  		    	    }
 		  	                 
-		  	                var questionBody = question ,link =  questionBody.match(self.urlRegex);                             
+		  	                var questionBody = question ,link =  questionBody.match(self.urlReg); 
+
+		  	                if(!link)                            
+		  	                	link =  questionBody.match(self.website);
+
 		  	                var questionUrl=  questionBody.replace(self.urlRegex1, function(questionUrlw) {
 		  	                    trueurl= questionUrl;                                                                  
 		  	                    return questionUrl;
