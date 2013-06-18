@@ -1,4 +1,6 @@
-@helper.form(action = routes.DocumentController.uploadToGoogleDrive, 'enctype -> "multipart/form-data") {
+@(files : List[(String,String)])
+@println(files)
+@helper.form(action = routes.GoogleDocsUploadUtilityController.uploadToGoogleDrive, 'enctype -> "multipart/form-data") {
     
     <input type="file" name="picture">
         <input type="submit" value ="upload">
@@ -10,6 +12,10 @@ OR
 <br><br><br>
 <input type="button" value ="Create Google Doc" onclick=newPopup('https://drive.google.com')>
 
+
+<br><br><br>
+<input type="button" value ="Show Google Doc" onclick=createPicker()>
+
 <script type="text/javascript">
 // Popup window code
 function newPopup(url) {
@@ -17,3 +23,10 @@ function newPopup(url) {
 		url,'popUpWindow','height=700,width=800,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
 }
 </script>
+
+@if(! files.isEmpty){
+@for(i <- 0 to files.length-1){
+<br><a href="@files(i)._2" target="_blank">@files(i)._1</a>
+}
+}
+
