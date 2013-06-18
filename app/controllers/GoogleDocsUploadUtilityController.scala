@@ -22,6 +22,7 @@ import play.api.mvc.Action
 import java.net.URL
 import play.Logger
 import play.api.templates.Html
+import utils.GoogleDocsUploadUtility
 
 object GoogleDocsUploadUtilityController extends Controller {
 
@@ -35,5 +36,46 @@ object GoogleDocsUploadUtilityController extends Controller {
     Ok(views.html.googleauth(resultObtainedAsGoogleAuthPage.get.getBody))
 
   }
+  
+  
+  //---------------------Google Infrastructure Demo----------------------------------------
+  /**
+   * Google Oauth Setup
+   */
+  def googleDriveAuthentication = Action { implicit request =>
+    val a = request.queryString("code").map {
+      case code => code
+    }
+    Ok(views.html.gdocs(Nil)).withSession(request.session + ("code" -> a(0)))
+  }
+
+  /**
+   * Uploading File To Google
+   */
+  def uploadToGoogleDrive = Action(parse.multipartFormData) { request =>
+    request.body.file("picture").map { file =>
+      val contentType = file.contentType
+      val fileName = file.filename
+      val FileReceived: java.io.File = file.ref.file.asInstanceOf[java.io.File]
+      val code = request.session.get("code").get
+      val googleFileId = GoogleDocsUploadUtility.uploadToGoogleDrive(code, FileReceived, fileName, contentType.get)
+    }
+    Ok(views.html.gdocs(Nil))
+  }
+
+  
+  
+  
+  
+  def getAllGoogleDriveFiles = Action { implicit request =>
+    val code = request.session.get("code").get
+    val files=GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(code)
+    Ok(views.html.gdocs(files))
+  }
+  
+  
+  
+  
+  
 
 }

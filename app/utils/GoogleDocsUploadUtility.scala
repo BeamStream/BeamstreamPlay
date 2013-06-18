@@ -18,6 +18,8 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow
 import play.libs.WS
 import play.Logger
 import controllers.DocumentController
+import play.api.Logger
+import scala.collection.JavaConversions._
 
 object GoogleDocsUploadUtility {
   /**
@@ -57,9 +59,22 @@ object GoogleDocsUploadUtility {
     val mediaContent = new FileContent("", fileContent)
     //Inserting the files
     val file = service.files().insert(body, mediaContent).execute()
-    //Listing the Files
-    //val file = service.files().list().execute()
     file.getId
+  }
+  /**
+   * Get All Files From Google Drive
+   */
+
+  def getAllDocumentsFromGoogleDocs(code: String): List[(String, String)] = {
+    val service = returnGoogleCredentailsSettings(code)
+    service.files.list.execute.getItems.isEmpty match {
+      case true => Nil
+      case false =>
+        val tupleList = service.files.list.execute.getItems map {
+          case driveFile => (driveFile.getOriginalFilename, driveFile.getAlternateLink)
+        }
+        tupleList.toList
+    }
   }
 
 }

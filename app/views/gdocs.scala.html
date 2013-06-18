@@ -1,4 +1,6 @@
-@helper.form(action = routes.DocumentController.uploadToGoogleDrive, 'enctype -> "multipart/form-data") {
+@(files : List[(String,String)])
+@println(files)
+@helper.form(action = routes.GoogleDocsUploadUtilityController.uploadToGoogleDrive, 'enctype -> "multipart/form-data") {
     
     <input type="file" name="picture">
         <input type="submit" value ="upload">
@@ -10,6 +12,10 @@ OR
 <br><br><br>
 <input type="button" value ="Create Google Doc" onclick=newPopup('https://drive.google.com')>
 
+
+<br><br><br>
+<input type="button" value ="Show Google Doc" onclick=createPicker()>
+
 <script type="text/javascript">
 // Popup window code
 function newPopup(url) {
@@ -18,41 +24,3 @@ function newPopup(url) {
 }
 </script>
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title>Google Picker Example</title>
-
-    <!-- The standard Google Loader script. -->
-    <script src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-
-    // Use the Google Loader script to load the google.picker script.
-    google.setOnLoadCallback(createPicker);
-    google.load('picker', '1');
-
-    // Create and render a Picker object for searching images.
-    function createPicker() {
-        var picker = new google.picker.PickerBuilder().
-            setCallback(pickerCallback).
-            build();
-        picker.setVisible(true);
-    }
-
-    // A simple callback implementation.
-    function pickerCallback(data) {
-      var url = 'nothing';
-      if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
-        var doc = data[google.picker.Response.DOCUMENTS][0];
-        url = doc[google.picker.Document.URL];
-      }
-      var message = 'You picked: ' + url;
-      document.getElementById('result').innerHTML = message;
-    }
-    </script>
-  </head>
-  <body>
-    <div id="result"></div>
-  </body>
-</html>

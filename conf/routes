@@ -194,6 +194,7 @@ GET     /search/:keyword                                               controlle
 
 
 #Google Docs
-GET     /driveAuth                                                 controllers.DocumentController.googleDriveAuthentication
-POST     /uploadToGoogleDrive                                               controllers.DocumentController.uploadToGoogleDrive
-GET  /uploadNow                                controllers.GoogleDocsUploadUtilityController.uploadNow
+GET  /uploadNow                                                    controllers.GoogleDocsUploadUtilityController.uploadNow
+GET     /driveAuth                                                 controllers.GoogleDocsUploadUtilityController.googleDriveAuthentication
+POST     /uploadToGoogleDrive                                               controllers.GoogleDocsUploadUtilityController.uploadToGoogleDrive
+GET  /getGoogleDocs                            controllers.GoogleDocsUploadUtilityController.getAllGoogleDriveFiles

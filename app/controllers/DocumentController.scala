@@ -29,6 +29,9 @@ import utils.tokenEmailUtil
 import models.DocumentsAndMedia
 import models.Documents
 import models.DocResulttoSent
+import models.DocumentsAndMedia
+import models.Documents
+import models.DocResulttoSent
 /**
  * This controller class is used to store and retrieve all the information about documents.
  */
@@ -321,30 +324,6 @@ object DocumentController extends Controller {
     Ok(write(viewCount.toString)).as("application/json")
   }
 
-  //---------------------Google Infrastructure Demo----------------------------------------
-  /**
-   * Google Oauth Setup
-   */
-  def googleDriveAuthentication = Action { implicit request =>
-    val a = request.queryString("code").map {
-      case code => code
-    }
-    Ok(views.html.gdocs()).withSession(request.session + ("code" -> a(0)))
-  }
-
-  /**
-   * Uploading File To Google
-   */
-  def uploadToGoogleDrive = Action(parse.multipartFormData) { request =>
-    request.body.file("picture").map { file =>
-      val contentType = file.contentType
-      val fileName = file.filename
-      val FileReceived: File = file.ref.file.asInstanceOf[File]
-      val code = request.session.get("code").get
-      val googleFileId = GoogleDocsUploadUtility.uploadToGoogleDrive(code, FileReceived, fileName, contentType.get)
-    }
-    Ok("File Uploaded To Google")
-  }
-
+  
 }
 
