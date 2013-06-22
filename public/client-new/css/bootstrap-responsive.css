@@ -458,7 +458,7 @@ padding:100px 0 !important;
 padding-left:0;
 }
  .invite-calender {
- width:34%;
+ width:33% !important; margin-right:2% !important;
 }
  .time_select {
 width:14% !important;
@@ -1403,6 +1403,7 @@ margin-left:20%;
  width:100%;
  clear:both;
 }
+
 .left-menu {
  -webkit-border-radius: 12px 12px 0 0;
  -moz-border-radius: 12px 12px 0 0;
@@ -1415,7 +1416,13 @@ margin-left:20%;
  margin:5px 0 15px 5px;
 }
  .question-info {
- padding:2% 5% 4% 5%;
+ padding:2% 5% 4% 5%; width:
+}
+
+.follow-button {
+ font-size:9px;
+		 color:  @white-color;
+		text-shadow: 1px 1px 1px #888888;
 }
 .question-info h2 a {
  width:50%;
@@ -1470,6 +1477,9 @@ margin:3% 0 0 0;
 .ask-comment {
  padding:2% 3%;
 }
+
+.classic-information-left input.small-text{ width:41%;}
+.semester-select-block{ width:26% !important; margin-left:2% !important;}
 ul.social-icons {
 /*clear:both;
 	float:left;
@@ -1498,6 +1508,11 @@ ul.social-icons {
  width:97%;
 }
 
+ .time_select {
+width:15%;
+float:left;
+margin-right:2%;
+}
 
 
 /*  Overview  */
@@ -1943,6 +1958,9 @@ width:79%;
 
 */
 
+ .question-info {
+width:96%;
+}
 .left-container {
  width:25%;
  float:left;
