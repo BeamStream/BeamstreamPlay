@@ -32,7 +32,6 @@ object GoogleDocsUploadUtilityController extends Controller {
   def uploadNow = Action { implicit request =>
     val resultObtainedAsGoogleAuthPage = WS.url("https://accounts.google.com/o/oauth2/auth").setQueryParameter("access_type", "online").setQueryParameter("approval_prompt", "auto").setQueryParameter("client_id", "612772830843.apps.googleusercontent.com")
       .setQueryParameter("redirect_uri", redirectURI).setQueryParameter("response_type", "code").setQueryParameter("scope", "https://www.googleapis.com/auth/drive").get
-    Logger.info(resultObtainedAsGoogleAuthPage.get.getBody)
     Ok(views.html.googleauth(resultObtainedAsGoogleAuthPage.get.getBody))
 
   }

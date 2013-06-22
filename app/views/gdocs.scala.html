@@ -25,8 +25,8 @@ function newPopup(url) {
 </script>
 
 @if(! files.isEmpty){
-@for(i <- 0 to files.length-1){
-<br><a href="@files(i)._2" target="_blank">@files(i)._1</a>
+@for(i <-  files){
+<br><a href="@i._2" target="_blank">@i._1</a>
 }
 }
 
