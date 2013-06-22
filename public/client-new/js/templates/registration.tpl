@@ -115,12 +115,21 @@
             </div>
             
             
-            <fieldset id="graduationDate-set" class="field" style="display:none;"> 
+          <!--   <fieldset id="graduationDate-set" class="field" style="display:none;"> 
         	 	<input id="graduationDate" data-name="user.graduationDate" value="" name="graduationDate"  class="datepicker calender-box" type="text" placeholder="Date"  />
 				<div class="new-arrow date-arrow"><span><img src="/beamstream-new/images/white-arrow.png" width="15" height="8"></span></div>
-          	</fieldset>
-
-
+          	</fieldset> -->
+          
+            <fieldset id="graduationDate-set"  style="display:none;">
+            <div data-date-viewmode="years"   id="datepicker" class="input-append date field">
+                      <input type="text" readonly="" id="graduationDate" data-name="user.graduationDate" value="" name="graduationDate" placeholder="Date"  class="datepicker calender-box">
+                         <div class="new-arrow date-arrow ">
+                          <span class="add-on"></span>
+                        </div>
+                     
+                </div>
+                <span class="red-star select-star">*</span>
+             </fieldset>    
             
 
 

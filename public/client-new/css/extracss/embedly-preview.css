@@ -101,6 +101,11 @@
         right:-15px;
         font-weight: bold;
         top: 5px; }
+.nothumb {
+
+  font-size: 20px;
+}
+
       .selector.rich .thumbnail .controls .left, .selector.small .thumbnail .controls .left {
         left: 2px; }
       .selector.rich .thumbnail .controls .right, .selector.small .thumbnail .controls .right {

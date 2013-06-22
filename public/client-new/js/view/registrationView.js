@@ -542,9 +542,10 @@ define(['view/formView' ,
 	    	else if(value == "yes")
 	    	{
 	    		this.data.models[0].removeAttr('degreeExpected');
+
 				$('#degreeExpected-set').hide();
 				$('#graduationDate-set').show();
-				$('.datepicker').datepicker();
+				$('#datepicker').datepicker();
 	    	}
 	    	else
 	    	{

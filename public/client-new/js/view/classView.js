@@ -78,7 +78,7 @@ define(['view/formView',
 			    		style: 'register-select invite-selecter'
 			    	});
 			  		
-			   		// set date picker style
+			   		// // set date picker style
 			   		$('#datepicker').datepicker();
 
 			   		// add an extra li "Add or Edit School" for school dropdown 

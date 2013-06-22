@@ -88,6 +88,7 @@ define(['baseView',
          * if there is a streams then add to the stream list
          */
 		displayPage: function(callback){
+			console.log(this.data.models);
 			$('#class-red-border').removeClass('class-border');
 			/* for the private to list section on Discussion and Question page */ 
 			var listTemplate = Handlebars.compile(PrivateToList);
