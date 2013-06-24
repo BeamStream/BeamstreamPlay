@@ -197,3 +197,12 @@ GET  /uploadNow                                                    controllers.G
 GET     /driveAuth                                                 controllers.GoogleDocsUploadUtilityController.googleDriveAuthentication
 POST     /uploadToGoogleDrive                                      controllers.GoogleDocsUploadUtilityController.uploadToGoogleDrive
 GET  /getGoogleDocs                                                controllers.GoogleDocsUploadUtilityController.getAllGoogleDriveFiles
+
+
+
+
+#Chat
+
+GET  /chatNow                                                     controllers.ChatController.chatRoom
+GET     /room                                                     controllers.ChatController.chat(username)
+
