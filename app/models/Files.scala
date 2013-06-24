@@ -5,9 +5,9 @@ import scala.collection.immutable.List
 
 object Files {
 
-  //----------------------//
-  // Get All Audio Files //
-  //--------------------//
+  /**
+   * Get All Audio Files
+   */
   def getAllAudioFiles(userId: ObjectId): List[Document] = {
     var audioFilesToReturn: List[Document] = Nil
     val audioExtensionsList: List[String] = List(".mp3", ".wav", ".aiff", ".au", ".bwf", ".cda", ".amr", ".ogg", ".MP3", ".WAV", ".AIFF", ".AU", ".BWF", ".CDA", ".AMR", ".OGG")
@@ -26,9 +26,9 @@ object Files {
 
   }
 
-  //----------------------------//
-  // Get All Presentation Files //
-  //---------------------------//
+  /**
+   * Get All Presentation Files
+   */
   def getAllPPTFiles(userId: ObjectId): List[Document] = {
     var pptFiles: List[Document] = List()
     val pptExtensionsList: List[String] = List(".odg", ".odp", ".pps", ".ppsx", ".ppt", ".pptm", ".pptx", ".sda", ".sdd", ".sxd", ".sxi", ".uof", ".uop",
@@ -47,9 +47,9 @@ object Files {
     pptFiles
   }
 
-  //----------------------//
-  // Get All PDF Files //
-  //--------------------//
+  /**
+   * Get All PDF Files
+   */
   def getAllPDFFiles(userId: ObjectId): List[Document] = {
     var pdfFiles: List[Document] = List()
     val pdfExtensionsList: List[String] = List(".pdf", ".PDF")
@@ -67,9 +67,9 @@ object Files {
     pdfFiles
   }
 
-  //----------------------//
-  // Get All DOCS Files //
-  //--------------------//
+  /**
+   * Get All DOCS Files
+   */
   def getAllDOCSFiles(userId: ObjectId): List[Document] = {
     var documentsFiles: List[Document] = List()
     val documentFilesExtensionsList: List[String] = List(".doc", ".docx", ".txt", ".rtf", ".xls", ".xlsx", ",DOC", ".DOCX", ".TXT", ".RTF", ".XLS", ".XLSX", ".html", ".HTML")
@@ -87,9 +87,9 @@ object Files {
     documentsFiles
   }
 
-  //----------------------//
-  // Get All File Types //
-  //--------------------//
+  /**
+   * Get All File Types
+   */
   def getAllFileTypes(userId: ObjectId): List[Document] = {
     DocumentDAO.find(MongoDBObject("userId" -> userId)).sort(orderBy = MongoDBObject("creationDate" -> -1)).toList
   }
