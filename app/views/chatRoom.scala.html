@@ -11,12 +11,6 @@
 	</h1>
 </div>
 
-<div id="onError" class="alert-message error">
-	<p>
-		<strong>Oops!</strong> <span></span>
-	</p>
-</div>
-
 <div id="onChat" class="row">
 	<div class="span10" id="main">
 		<div id="messages"></div>
@@ -42,15 +36,9 @@
             
             var receiveEvent = function(event) {
                 var data = JSON.parse(event.data)
-                // Handle errors
-                if(data.error) {
-                    chatSocket.close()
-                    $("#onError span").text(data.error)
-                    $("#onError").show()
-                    return
-                } else {
+                
                     $("#onChat").show()
-                }
+                
                 
                 // Create the message element
                 var el = $('<div class="message"><span></span><p></p></div>')
