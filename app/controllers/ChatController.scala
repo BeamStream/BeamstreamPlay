@@ -11,14 +11,14 @@ import play.api.libs.json.JsValue
 object ChatController extends Controller {
   
   
-  def chat(userName:String)= WebSocket.async[JsValue] { request  =>
-    ChatRoom.join(userName)
+  def chat(userName:String,userId:String)= WebSocket.async[JsValue] { request  =>
+    ChatRoom.join(userName,userId)
   }
   
   
   def chatRoom = Action { implicit request =>
     val user = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-    Ok(views.html.chatRoom(user.head.firstName))
+    Ok(views.html.chatRoom(user.head.firstName,user.head.id.toString))
 
   }
 

@@ -204,5 +204,5 @@ GET  /getGoogleDocs                                                controllers.G
 #Chat
 
 GET  /chatNow                                                     controllers.ChatController.chatRoom
-GET     /room                                                     controllers.ChatController.chat(username)
+GET     /room                                                     controllers.ChatController.chat(username,userId)
 
