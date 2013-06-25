@@ -13,70 +13,72 @@ import play.api.Play.current
 object ChatRoom {
 
   def join(username: String, userId: String, chatWith: String): Promise[(Iteratee[JsValue, _], Enumerator[JsValue])] = {
-    if (chatWith != "") {
-      val roomToJoin = Akka.system.actorFor(chatWith)
-      implicit val timeout = Timeout(1 second)
-      (roomToJoin ? Join(username)).asPromise.map {
+    (chatWith != "") match {
 
-        case Connected(enumerator) =>
+      case true =>
+        val roomToJoin = Akka.system.actorFor(chatWith)
+        implicit val timeout = Timeout(1 second)
+        (roomToJoin ? Join(username)).asPromise.map {
 
-          val iteratee = Iteratee.foreach[JsValue] { event =>
-            roomToJoin ! Talk(username, (event \ "text").as[String])
-          }.mapDone { _ =>
-            roomToJoin ! Quit(username)
-          }
+          case Connected(enumerator) =>
 
-          (iteratee, enumerator)
+            val iteratee = Iteratee.foreach[JsValue] { event =>
+              roomToJoin ! Talk(username, (event \ "text").as[String])
+            }.mapDone { _ =>
+              roomToJoin ! Quit(username)
+            }
 
-        case CannotConnect(error) =>
+            (iteratee, enumerator)
 
-          // Connection error
+          case CannotConnect(error) =>
 
-          val iteratee = Done[JsValue, Unit]((), Input.EOF)
+            // Connection error
 
-          // Send an error and close the socket
-          val enumerator = Enumerator[JsValue](JsObject(Seq("error" -> JsString(error)))).andThen(Enumerator.enumInput(Input.EOF))
+            val iteratee = Done[JsValue, Unit]((), Input.EOF)
 
-          (iteratee, enumerator)
+            // Send an error and close the socket
+            val enumerator = Enumerator[JsValue](JsObject(Seq("error" -> JsString(error)))).andThen(Enumerator.enumInput(Input.EOF))
 
-      }
+            (iteratee, enumerator)
 
-    } else {
+        }
 
-      implicit val timeout = Timeout(1 second)
+      case false =>
 
-      lazy val default = {
-        val actorRef = Akka.system.actorOf(Props[ChatRoom], userId)
-        actorRef
-      }
-      println(default)
+        implicit val timeout = Timeout(1 second)
 
-      (default ? Join(username)).asPromise.map {
+        lazy val default = {
+          val actorRef = Akka.system.actorOf(Props[ChatRoom], userId)
+          actorRef
+        }
+        println(default)
 
-        case Connected(enumerator) =>
+        (default ? Join(username)).asPromise.map {
 
-          // Create an Iteratee to consume the feed
-          val iteratee = Iteratee.foreach[JsValue] { event =>
-            default ! Talk(username, (event \ "text").as[String])
-          }.mapDone { _ =>
-            default ! Quit(username)
-          }
+          case Connected(enumerator) =>
 
-          (iteratee, enumerator)
+            // Create an Iteratee to consume the feed
+            val iteratee = Iteratee.foreach[JsValue] { event =>
+              default ! Talk(username, (event \ "text").as[String])
+            }.mapDone { _ =>
+              default ! Quit(username)
+            }
 
-        case CannotConnect(error) =>
+            (iteratee, enumerator)
 
-          // Connection error
+          case CannotConnect(error) =>
 
-          // A finished Iteratee sending EOF
-          val iteratee = Done[JsValue, Unit]((), Input.EOF)
+            // Connection error
 
-          // Send an error and close the socket
-          val enumerator = Enumerator[JsValue](JsObject(Seq("error" -> JsString(error)))).andThen(Enumerator.enumInput(Input.EOF))
+            // A finished Iteratee sending EOF
+            val iteratee = Done[JsValue, Unit]((), Input.EOF)
 
-          (iteratee, enumerator)
+            // Send an error and close the socket
+            val enumerator = Enumerator[JsValue](JsObject(Seq("error" -> JsString(error)))).andThen(Enumerator.enumInput(Input.EOF))
 
-      }
+            (iteratee, enumerator)
+
+        }
 
     }
   }
