@@ -2,36 +2,68 @@ package utils
 
 import akka.actor._
 import akka.util.duration._
-
 import play.api._
 import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.libs.concurrent._
-
 import akka.util.Timeout
 import akka.pattern.ask
-
 import play.api.Play.current
 
 object ChatRoom {
 
-  def join(username: String,userId:String): Promise[(Iteratee[JsValue, _], Enumerator[JsValue])] = {
+  def join(username: String, userId: String, chatWith: String): Promise[(Iteratee[JsValue, _], Enumerator[JsValue])] = {
+        if (chatWith != "") {
+          val roomToJoin=Akka.system.actorFor(chatWith)
+          implicit val timeout = Timeout(1 second)
     
+    
+          (roomToJoin ? Join(username)).asPromise.map {
+    
+            case Connected(enumerator) =>
+    
+              // Create an Iteratee to consume the feed
+              val iteratee = Iteratee.foreach[JsValue] { event =>
+                roomToJoin ! Talk(username, (event \ "text").as[String])
+              }.mapDone { _ =>
+                roomToJoin ! Quit(username)
+              }
+    
+              (iteratee, enumerator)
+    
+            case CannotConnect(error) =>
+    
+              // Connection error
+    
+              // A finished Iteratee sending EOF
+              val iteratee = Done[JsValue, Unit]((), Input.EOF)
+    
+              // Send an error and close the socket
+              val enumerator = Enumerator[JsValue](JsObject(Seq("error" -> JsString(error)))).andThen(Enumerator.enumInput(Input.EOF))
+    
+              (iteratee, enumerator)
+    
+          }
+    
+        } else {
+
     implicit val timeout = Timeout(1 second)
 
-    lazy val userId = {
-      Akka.system.actorOf(Props[ChatRoom])
+    lazy val default = {
+      val actorRef = Akka.system.actorOf(Props[ChatRoom], userId)
+      actorRef
     }
-    
-    (userId ? Join(username)).asPromise.map {
+    println(default)
+
+    (default ? Join(username)).asPromise.map {
 
       case Connected(enumerator) =>
 
         // Create an Iteratee to consume the feed
         val iteratee = Iteratee.foreach[JsValue] { event =>
-          userId ! Talk(username, (event \ "text").as[String])
+          default ! Talk(username, (event \ "text").as[String])
         }.mapDone { _ =>
-          userId ! Quit(username)
+          default ! Quit(username)
         }
 
         (iteratee, enumerator)
@@ -50,6 +82,7 @@ object ChatRoom {
 
     }
 
+        }
   }
 
 }
