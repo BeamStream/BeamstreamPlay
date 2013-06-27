@@ -185,19 +185,9 @@ object QuestionController extends Controller {
   /**
    * ***********************************************************REARCHITECTED CODE****************************************************************
    */
-  def getAllQuestionForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
 
-    val userId = new ObjectId(request.session.get("userId").get)
-
-    val allQuestionsForAStream = (sortBy == "date") match {
-      case true => Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
-      case false => (sortBy == "rock") match {
-        case true => Question.getAllQuestionsForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
-        case false => Question.getAllQuestionsForAStreambyKeyword(sortBy, new ObjectId(streamId), pageNo, messagesPerPage)
-      }
-    }
-
-    val questionWithOtherInformation = allQuestionsForAStream map {
+  private def questionWithOtherInformation(allQuestionsForAStream: List[Question], userId: ObjectId): List[models.QuestionWithPoll] = {
+    allQuestionsForAStream map {
       case questionObtained =>
 
         val pollsOfquestionObtained = (questionObtained.pollOptions.isEmpty.equals(false)) match {
@@ -222,9 +212,35 @@ object QuestionController extends Controller {
 
     }
 
-    val allQuestionForAStreamJson = write(questionWithOtherInformation)
+  }
+
+  /**
+   * Get All Questions For A Stream
+   */
+  def getAllQuestionForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int) = Action { implicit request =>
+    val userId = new ObjectId(request.session.get("userId").get)
+    val allQuestionsForAStream = (sortBy == "date") match {
+      case true => Question.getAllQuestionForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
+      case false => (sortBy == "rock") match {
+        case true => Question.getAllQuestionsForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
+        case false => Question.getAllQuestionsForAStreambyKeyword(sortBy, new ObjectId(streamId), pageNo, messagesPerPage)
+      }
+    }
+    val questionsObtainedWithOtherInformation = questionWithOtherInformation(allQuestionsForAStream, userId)
+    val allQuestionForAStreamJson = write(questionsObtainedWithOtherInformation)
     Ok(allQuestionForAStreamJson).as("application/json")
   }
+
+  /**
+   * Get All Answered Or UnAnswered Question For A Stream
+   */
+  def getAllAnswerdQuestionForAStream(streamId: String, messagesPerPage: Int, pageNo: Int, answerStatus: String) = Action { implicit request =>
+    val userId = new ObjectId(request.session.get("userId").get)
+    val allAnsweredOrUnAnsweredQuestionsForAStream =  Question.getAllAnsweredQuestionsForAStream(new ObjectId(streamId), messagesPerPage, pageNo, answerStatus)
+    val questionsObtainedWithOtherInformation = questionWithOtherInformation(allAnsweredOrUnAnsweredQuestionsForAStream, userId)
+    val allQuestionForAStreamJson = write(questionsObtainedWithOtherInformation)
+    Ok(allQuestionForAStreamJson).as("application/json")
+  }  
 
 }
 

@@ -14,16 +14,14 @@ import net.liftweb.json.Serialization.{ read, write }
 import java.util.Date
 import java.net.URL
 
-/*
- * Enumeration for the Question access 
- * 
+/**
+ * Enumeration for the Question access
+ *
  * Private - Only available for the owner
  * Public - Available to all
  * Restricted - Available to a restricted list of users
  * Stream - Available to all the Sub-streams and current members of this stream
  */
-
-
 
 case class Question(@Key("_id") id: ObjectId,
   questionBody: String,
@@ -45,23 +43,23 @@ case class Question(@Key("_id") id: ObjectId,
 
 object Question {
 
-  /*
- * Add a Question (Modified)
- */
+  /**
+   * Add a Question (Modified)
+   */
   def addQuestion(question: Question): Option[ObjectId] = {
     QuestionDAO.insert(question)
   }
 
-  /*
+  /**
    * Remove Question (Modified)
    */
   def removeQuestion(question: Question) {
     QuestionDAO.remove(question)
   }
 
-  /*
- * Find Question by Id
- */
+  /**
+   * Find Question by Id
+   */
 
   def findQuestionById(questionId: ObjectId): Option[Question] = {
     QuestionDAO.findOneByID(questionId)
@@ -93,7 +91,7 @@ object Question {
     User.giveMeTheRockers(questionRocked.rockers)
   }
 
-  /*
+  /**
    * Get all Questions List  (Modified)
    */
 
@@ -104,26 +102,26 @@ object Question {
 
   }
 
-  /*
-    * Change the access of a Question
-    */
+  /**
+   * Change the access of a Question
+   */
   def changeAccess(questionId: ObjectId, newAccess: Access.Value) = {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(questionAccess = newAccess), false, false, new WriteConcern)
   }
 
-  /*
-    * Total number of rocks for a particular Question
-    */
+  /**
+   * Total number of rocks for a particular Question
+   */
 
   def totalRocks(questionId: ObjectId): Int = {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     question.rockers.size
   }
 
-  /*
-     *     add Comment to message
-     */
+  /**
+   *     add Comment to message
+   */
   def addAnswerToQuestion(questionId: ObjectId, answerId: ObjectId) {
     val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList(0)
     QuestionDAO.update(MongoDBObject("_id" -> questionId), question.copy(answers = (question.answers ++ List(answerId))), false, false, new WriteConcern)
@@ -137,7 +135,7 @@ object Question {
     QuestionDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("creationDate" -> -1)).skip((pageNumber - 1) * questionPerPage).limit(questionPerPage).toList
   }
 
-  /*
+  /**
    * Sort Question within a stream on the basis of total rocks (#403)
    */
 
@@ -145,7 +143,19 @@ object Question {
     QuestionDAO.find(MongoDBObject("streamId" -> streamId)).sort(orderBy = MongoDBObject("rockers" -> -1, "timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
   }
 
-  /*
+  /**
+   *   Get All Answered & UnAnswered Question For A Stream
+   */
+  def getAllAnsweredQuestionsForAStream(streamId: ObjectId, pageNumber: Int, messagesPerPage: Int, answerStatus: String) = {
+    (answerStatus == "answered") match {
+      case true =>
+        QuestionDAO.find(MongoDBObject("streamId" -> streamId, "answered" -> true)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+      case false =>
+        QuestionDAO.find(MongoDBObject("streamId" -> streamId, "answered" -> false)).sort(orderBy = MongoDBObject("timeCreated" -> -1)).skip((pageNumber - 1) * messagesPerPage).limit(messagesPerPage).toList
+    }
+  }
+
+  /**
    * FInd All Private To Class Questions For A User
    */
 
@@ -153,7 +163,7 @@ object Question {
     QuestionDAO.find(MongoDBObject("userId" -> userId, "questionAccess" -> "PrivateToClass")).toList
   }
 
-  /*
+  /**
    * FInd All Private To School Questions For A User
    */
 
@@ -161,7 +171,7 @@ object Question {
     QuestionDAO.find(MongoDBObject("userId" -> userId, "questionAccess" -> "PrivateToSchool")).toList
   }
 
-  /*
+  /**
    * Delete A Question (Either Stream Admin Or The User Who Has Posted The Question)
    */
 

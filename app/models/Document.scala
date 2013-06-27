@@ -24,8 +24,6 @@ import java.util.regex.Pattern
  * Stream - Available to all the Sub-streams and current members of this stream
  */
 
-
-
 /**
  * Enumeration for the document type
  */
@@ -90,9 +88,12 @@ object Document extends RockConsumer {
    * Find Document by Id
    */
 
-  def findDocumentById(docId: ObjectId) = {
+  def findDocumentById(docId: ObjectId): Option[Document] = {
     val document = DocumentDAO.findOneByID(docId)
-    document
+    document match {
+      case Some(doc) => Option(doc)
+      case _ => None
+    }
   }
 
   /*

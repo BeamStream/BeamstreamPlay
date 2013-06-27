@@ -67,7 +67,6 @@ GET      /rockersOf/question/:questionId                                        
 PUT      /follow/question/:questionId                                            controllers.QuestionController.followQuestion(questionId:String)
 PUT      /voteAnOptionOf/question/:optionId                                      controllers.QuestionController.voteAnOptionOfAQuestion(optionId:String)
 PUT      /remove/question/:questionId                                            controllers.QuestionController.deleteQuestion(questionId:String)              
-#POST 	/getAllQuestionsForAStreambyKeyword 								  controllers.QuestionController.getAllQuestionsForAStreambyKeyword
 
 #bitly
 POST     /bitly                                                                  controllers.MessageController.getShortUrlViabitly 
@@ -173,7 +172,7 @@ GET      /browsemedia                                                           
 
 #Questions
 GET      /getAllQuestionsForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo   controllers.QuestionController.getAllQuestionForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
-
+GET      /getAllQuestionsForAStream/:streamId/:messagesPerPage/:pageNo/:answerStatus controllers.QuestionController.getAllAnswerdQuestionForAStream(streamId:String,messagesPerPage:Int,pageNo:Int,answerStatus:String)
 #Documents
 POST     /uploadDocumentFromDisk                                             controllers.DocumentController.uploadDocumentFromDisk
 #Password Recovery
@@ -196,5 +195,14 @@ GET     /search/:keyword                                               controlle
 #Google Docs
 GET  /uploadNow                                                    controllers.GoogleDocsUploadUtilityController.uploadNow
 GET     /driveAuth                                                 controllers.GoogleDocsUploadUtilityController.googleDriveAuthentication
-POST     /uploadToGoogleDrive                                               controllers.GoogleDocsUploadUtilityController.uploadToGoogleDrive
-GET  /getGoogleDocs                            controllers.GoogleDocsUploadUtilityController.getAllGoogleDriveFiles
+POST     /uploadToGoogleDrive                                      controllers.GoogleDocsUploadUtilityController.uploadToGoogleDrive
+GET  /getGoogleDocs                                                controllers.GoogleDocsUploadUtilityController.getAllGoogleDriveFiles
+
+
+
+
+#Chat
+
+GET  /chatNow                                                     controllers.ChatController.chatRoom
+GET  /room                                                     controllers.ChatController.chat(username,userId,chatWith)
+

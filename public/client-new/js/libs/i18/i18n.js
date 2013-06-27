@@ -1,3 +1,5 @@
+//https://github.com/fnando/i18n-js
+
 // Instantiate the object
 var I18n = I18n || {};
 
