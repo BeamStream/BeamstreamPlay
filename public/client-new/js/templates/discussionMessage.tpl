@@ -44,7 +44,10 @@
                      	{{/ifequal}}
                     </div>
                   </div>
-                  <p id="{{data.message.id.id}}-id" >{{data.message.messageBody}}</p>
+
+              	{{#ifequal data.message.messageType.name "Text"}}
+                  	<p id="{{data.message.id.id}}-id" >{{data.message.messageBody}}</p>
+          		{{/ifequal}}
                   
                   
                    <!-- start doc section -->
@@ -58,10 +61,12 @@
 						  <div class="hover-div">
 						   <div class="doc-image">
 						   		
-		                  		{{#if commenImage}}
+		                  	
+		                         {{#if commenImage}}
 		                 			 <img  src="{{previewImage}}" class="cover-picture" /> <h3 class="common-doctext" >{{extension}}</h3>
-		                 		{{else}}
-		                 			<img  src="{{data.message.anyPreviewImageUrl}}" class="cover-picture" /> 
+		                 		 {{else}}
+		                 			<img  src="{{previewImage}}" class="cover-picture" /> 
+
 		                         {{/if}}
 		                  	</div>
 						    <div class="hover-text">               

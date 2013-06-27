@@ -181,7 +181,7 @@ define(['view/formView',
 					}
 					else if(extension == 'Pdf')
 					{
-						previewImage= model.anyPreviewImageUrl;
+						previewImage= model.question.anyPreviewImageUrl;
 						type = "pdf";
 					}
 					else

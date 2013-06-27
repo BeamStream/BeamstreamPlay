@@ -190,7 +190,7 @@ define(['view/formView',
 					}
 					else if(extension == 'Pdf')
 					{
-						previewImage= model.anyPreviewImageUrl;
+						previewImage= model.message.anyPreviewImageUrl;
 						type = "pdf";
 					}
 					else
@@ -215,6 +215,7 @@ define(['view/formView',
 			  }
 					
 			}
+			
 			
 			// render the template
         	compiledTemplate = Handlebars.compile(DiscussionMessage);

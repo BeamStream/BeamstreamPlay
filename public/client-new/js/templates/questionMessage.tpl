@@ -32,7 +32,9 @@
 
                     </div>
                   </div>
-                  <p id="{{data.question.id.id}}-id" >{{data.question.questionBody}}</p>
+                  {{#ifequal data.question.questionType.name "Text"}}
+                    <p id="{{data.question.id.id}}-id" >{{data.question.questionBody}}</p>
+                  {{/ifequal}}
                   <div id="{{data.question.id.id}}-poll-Option-area">
 
                     {{#ifequal data.polls.length 0}}
@@ -74,7 +76,7 @@
                           {{#if commenImage}}
                            <img  src="{{previewImage}}" class="cover-picture" /> <h3 class="common-doctext" >{{extension}}</h3>
                         {{else}}
-                          <img  src="{{data.question.anyPreviewImageUrl}}" class="cover-picture" /> 
+                          <img  src="{{previewImage}}" class="cover-picture" /> 
                              {{/if}}
                         </div>
                 <div class="hover-text">               
