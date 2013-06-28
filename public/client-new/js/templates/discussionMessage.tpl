@@ -107,10 +107,14 @@
 						<div id="document-{{data.message.docIdIfAny.id}}"  class="modal hide fade white-modal-block doc-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-header">
 						  		<a class="close" data-dismiss="modal">×</a>
+						  		<input type="button" onclick="download()">
+      							<div class="downloadbutton"><button class="btn btn-mini download" type="button">Download</button></div>
+     							 <h3></h3>
 							</div>
 							<div class="modal-body" style="max-height:none !important;"> 
 
 							<h4>{{data.docName}}</h4>
+								<input type="hidden" id="dwnload-url" value="" >
 						  		<p>
 								  	<iframe id ="iframe-{{data.message.docIdIfAny.id}}" src="" scrolling="NO"  width="963" height="500" style="border: none">
 										<p>Your browser does not support iframes.</p>

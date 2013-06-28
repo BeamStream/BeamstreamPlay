@@ -47,6 +47,7 @@ define(['view/formView',
 			 'click .rock-comments': 'rockComment',
 			 'click .rocks-small a' : 'rockComment',
 			 'click .mediapopup': 'showFilesInAPopup',
+			 'click .downloadbutton' :'download',
 			 'click .delete_post': 'deleteMessage',
 			 'click .follow-user' : 'followUser',
 			 'click .delete_comment' : 'deleteComment'
@@ -592,7 +593,7 @@ define(['view/formView',
 
         	var docId = e.currentTarget.id, docUrl='';
 			var fileType = $(e.currentTarget).attr('name');
-
+			var download_url = $('input#id-'+docId).val();
 			/* show document is a popup */ 
 			if(fileType == "googleDoc")
             {
@@ -616,10 +617,17 @@ define(['view/formView',
     			// $('#iframe-'+docId).attr('src',docUrl);
     			// $('#document-'+docId).modal("show");
             }
+            $('#dwnload-url').attr('value',download_url);
             $('#iframe-'+docId).attr('src',docUrl);
 			$('#document-'+docId).modal("show");
 			
         },
+
+        download:function(eventName){
+
+            eventName.preventDefault();            
+            window.location = $('#dwnload-url').attr('value');  
+         },
         
         /**
          * Show comment text area on click

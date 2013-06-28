@@ -1,5 +1,6 @@
 define(['pageView',
-		'view/filesOverView', 
+		'view/filesOverView'
+
         ],function(PageView,FilesOverView){
 	
 	var BrowseMediaView;
@@ -11,6 +12,7 @@ define(['pageView',
 	      	'click #view-files-byrock-list' : 'selectViewByRock',
 	      	'click #category-list li' :'sortBycategory',
 	      	'click .browse-right a' :'selectViewStyle',
+          'click .downloadbutton' :'download'
 		},
 
 	  	/**
@@ -69,6 +71,16 @@ define(['pageView',
          	$('.browse-right a.activebtn').removeClass('activebtn');
          	$(eventName.target).parents('a').addClass('activebtn');
       	},
+
+        /**
+         * function to download files
+        */
+         
+         download:function(eventName){
+          
+            eventName.preventDefault();           
+            window.location = $('#dwnload-url').attr('value');  
+         },
 	});
 	return BrowseMediaView
 });

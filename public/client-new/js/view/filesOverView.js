@@ -162,9 +162,10 @@ define(['baseView',
         * show files in a popup
         */
         showFile: function(e){
+        	console.log("filesoverview");
             var docId = e.currentTarget.id, docUrl='';
             var fileType = $(e.currentTarget).attr('name');
-
+            var download_url = $('input#id-'+docId).val();
             // /* show document is a popup */ 
             if(fileType == "googleDoc")
             {
@@ -177,6 +178,7 @@ define(['baseView',
                 
             
             }
+            $('#dwnload-url').attr('value',download_url);
             $('#doc-title').html();
             $('#document-url').attr('src',docUrl);
             $('#doc_popup').modal("show");
