@@ -74,10 +74,9 @@ Backbone.Validate = (function() {
 		var validators = {
 			required: function(field) {
 				if ( !( hasValue(attributes[field]) || isPlaceHolder(field) )) {						 
-					addError(field, I18n.t('errors.'+ field + '.required'));
+					//addError(field, I18n.t('errors.'+ field + '.required'));
 					
-					// Added by Aswathy 
-					// addError(field,"This filed is required");
+					addError(field, field + " is required");
 				}
 			},
 			acceptance: function(field) {
@@ -87,24 +86,27 @@ Backbone.Validate = (function() {
 			},
 			length: function(field, length) {
 				if ( !hasValue(attributes[field]) || trim(attributes[field]).length !== length ) {
-					addError(field, I18n.t('errors.'+ field + '.length'));
+					//addError(field, I18n.t('errors.'+ field + '.length'));
+					addError(field, field + " is not the correct length");
 				}
 			},
 			pattern: function(field, regex){
 				if ( hasValue(attributes[field]) && !attributes[field].toString().match(patterns[regex] || regex) ) {
-					addError(field, I18n.t('errors.'+ field + '.pattern' + '.'+regex));
+					//addError(field, I18n.t('errors.'+ field + '.pattern' + '.'+regex));
+					addError(field, field + " is not valid");
 				}
 			},
 			/*Added by Aswathy */ 
 			equalTo: function(field1,field2){
 				if( hasValue(attributes[field2]) && attributes[field2].toString() !== attributes[field1].toString()){
-					addError(field1, I18n.t("These passwords don't match. Try again"));
+					addError(field1, "Passwords are not identical");
 				}
 
 			},
 			minLength: function(field,minLength) {
 	            if (!hasValue(attributes[field]) || trim(attributes[field]).length < minLength) {
-	            	addError(field, I18n.t('errors.'+ field + '.minLength'));
+	            	//addError(field, I18n.t('errors.'+ field + '.minLength'));
+	            	addError(field, field + " must be longer")
 	            }
 	        }
 			

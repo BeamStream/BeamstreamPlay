@@ -29,7 +29,8 @@ define(['baseModel'], function(BaseModel) {
 			degreeProgram: '',
 			graduate: '',
 			location: '',
-			cellNumber: ''
+			cellNumber: '',
+			aboutYourself: ''
 
         },
 
@@ -76,6 +77,8 @@ define(['baseModel'], function(BaseModel) {
 				required: true,
 				pattern: 'email'
 			},
+			aboutYourself: {
+			}
         }
   
 
