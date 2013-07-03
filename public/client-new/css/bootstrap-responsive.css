@@ -461,7 +461,7 @@ padding-left:0;
  width:33% !important; margin-right:2% !important;
 }
  .time_select {
-width:14% !important;
+width:15% !important;
 float:left;
 margin-right:2%;
 }
@@ -2197,4 +2197,14 @@ height:30px;
  padding-top:20px !important;
 padding-bottom:0 !important;
 }
+
+
+
+.invite-pop-up {
+    left: 8% !important;
+    top: 5% !important;
+    width: 85% !important;
+}
+
+
 }
