@@ -59,16 +59,18 @@
 						  <div    name="single-doc">
 						 <div class="image-wrapper hovereffect" >
 						  <div class="hover-div">
-						   <div class="doc-image">
+						  	{{#if commenImage}}
+						   		<div class="doc-image">
 						   		
 		                  	
-		                         {{#if commenImage}}
+		                         
 		                 			 <img  src="{{previewImage}}" class="cover-picture" /> <h3 class="common-doctext" >{{extension}}</h3>
-		                 		 {{else}}
-		                 			<img  src="{{previewImage}}" class="cover-picture" /> 
+		                 			 </div>
+	                 		 {{else}}
+		                 			<img  src="{{previewImage}}" class="filmedia-picture" /> 
 
-		                         {{/if}}
-		                  	</div>
+	                         {{/if}}
+		                  	
 						    <div class="hover-text">               
 						     <div class="comment-wrapper" id="{{data.message.docIdIfAny.id}}">                                
 						     <div id="media-{{data.message.docIdIfAny.id}}">
@@ -84,7 +86,7 @@
 								
 							      <div class="edit-title-div">
 								 {{#ifequal loggedUserId data.message.userId.id }}
-						     	 	<h5 class="editMediaTitle"   id="{{data.message.docIdIfAny.id}}"><span><img src="/beamstream-new/images/title-plus.png"></span>Edit Title & Description</h5>
+						     	 	<h5 class="editMediaTitle"   id="{{data.message.docIdIfAny.id}}"><span><img src="/beamstream-new/images/title-plus.png"></span>Title & Description</h5>
 								  {{/ifequal}}
 		                    	  </div>
 								
@@ -175,7 +177,7 @@
 						      
 						      <div class="edit-title-div">
 								{{#ifequal loggedUserId data.message.userId.id }}
-						      		<h5 class="editMediaTitle" id="{{data.message.docIdIfAny.id}}"><span><img src="beamstream-new/images/title-plus.png"></span>Edit Title & Description</h5>
+						      		<h5 class="editMediaTitle" id="{{data.message.docIdIfAny.id}}"><span><img src="beamstream-new/images/title-plus.png"></span>Title & Description</h5>
 						        {{/ifequal}}
 						      </div>        
 						     <div class="dateinfo"><span class="state">{{data.message.messageAccess.name}}</span><span class="date date-btn">{{datVal}}</span></div>

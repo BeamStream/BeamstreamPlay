@@ -202,7 +202,7 @@
 	<li data-groups='["oldest"]' data-rock="{{data.documentRocks}}"  data-date-created="{{data.creationDate}}" class="item" >
 			<div class="image-wrapper hovereffect" id="{{data.id.id}}">
 		 		<div class="hover-div">
-			 		<img class="cover-picture" src="{{data.previewImageUrl}}">
+			 		<img class="filmedia-picture" src="{{data.previewImageUrl}}">
 			 		<input type="hidden" id="fileType-{{data.id.id}}" value="{{data.documentType.name}}">
 					<div class="hover-text">              
 						<div class="comment-wrapper">                               

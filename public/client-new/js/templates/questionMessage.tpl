@@ -71,14 +71,17 @@
               <div    name="single-doc">
              <div class="image-wrapper hovereffect" >
               <div class="hover-div">
-               <div class="doc-image">
+              
                   
                           {{#if commenImage}}
-                           <img  src="{{previewImage}}" class="cover-picture" /> <h3 class="common-doctext" >{{extension}}</h3>
+                           <div class="doc-image">
+                           <img  src="{{previewImage}}" class="cover-picture" /> <h3 class="common-doctext" >
+                           </div>
+                           {{extension}}</h3>
                         {{else}}
-                          <img  src="{{previewImage}}" class="cover-picture" /> 
+                          <img  src="{{previewImage}}" class="filmedia-picture" /> 
                              {{/if}}
-                        </div>
+                        
                 <div class="hover-text">               
                  <div class="comment-wrapper" id="{{data.question.docIdIfAny.id}}">                                
                  <div id="media-{{data.question.docIdIfAny.id}}">
@@ -94,7 +97,7 @@
                 
                     <div class="edit-title-div">
                  {{#ifequal loggedUserId data.question.userId.id }}
-                    <h5 class="editMediaTitle"   id="{{data.question.docIdIfAny.id}}"><span><img src="/beamstream-new/images/title-plus.png"></span>Edit Title & Description</h5>
+                    <h5 class="editMediaTitle"   id="{{data.question.docIdIfAny.id}}"><span><img src="/beamstream-new/images/title-plus.png"></span>Title & Description</h5>
                   {{/ifequal}}
                             </div>
                 
@@ -181,7 +184,7 @@
                   
                   <div class="edit-title-div">
                 {{#ifequal loggedUserId data.question.userId.id }}
-                      <h5 class="editMediaTitle" id="{{data.question.docIdIfAny.id}}"><span><img src="beamstream-new/images/title-plus.png"></span>Edit Title & Description</h5>
+                      <h5 class="editMediaTitle" id="{{data.question.docIdIfAny.id}}"><span><img src="beamstream-new/images/title-plus.png"></span>Title & Description</h5>
                     {{/ifequal}}
                   </div>        
                  <div class="dateinfo"><span class="state">{{data.question.questionAccess.name}}</span><span class="date date-btn">{{datVal}}</span></div>
