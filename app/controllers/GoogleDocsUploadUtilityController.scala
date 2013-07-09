@@ -23,17 +23,16 @@ import java.net.URL
 import play.Logger
 import play.api.templates.Html
 import utils.GoogleDocsUploadUtility
+import com.google.api.client.googleapis.auth.oauth2.GoogleBrowserClientRequestUrl
 
 object GoogleDocsUploadUtilityController extends Controller {
 
   val redirectURI = "http://localhost:9000/driveAuth"
 
   def uploadNow = Action { implicit request =>
-    val resultObtainedAsGoogleAuthPage = WS.url("https://accounts.google.com/o/oauth2/auth").setQueryParameter("access_type", "online").setQueryParameter("approval_prompt", "auto").setQueryParameter("client_id", "612772830843.apps.googleusercontent.com")
-      .setQueryParameter("redirect_uri", redirectURI).setQueryParameter("response_type", "code").setQueryParameter("scope", "https://www.googleapis.com/auth/drive").get
-    Logger.info(resultObtainedAsGoogleAuthPage.get.getBody())
-    Ok(views.html.googleauth(resultObtainedAsGoogleAuthPage.get.getBody))
-
+    val url = new GoogleBrowserClientRequestUrl("612772830843.apps.googleusercontent.com",
+      redirectURI, java.util.Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).build()
+    Redirect(url)
   }
 
   //---------------------Google Infrastructure Demo----------------------------------------
@@ -41,11 +40,13 @@ object GoogleDocsUploadUtilityController extends Controller {
    * Google Oauth Setup
    */
   def googleDriveAuthentication = Action { implicit request =>
-    println(request)
-    val a = request.queryString("code").map {
-      case accessToken => accessToken
-    }
-    Ok(views.html.gdocs(Nil)).withSession(request.session + ("accessToken" -> a(0)))
+    println(request.queryString)
+//    println(request.queryString("token_type").)
+//    val accessToken = request.queryString("access_token").map {
+//      case accessToken => accessToken
+//    }
+//    Ok(views.html.gdocs(Nil)).withSession(request.session + ("accessToken" -> accessToken(0)))
+  Ok
   }
 
   /**
@@ -56,16 +57,16 @@ object GoogleDocsUploadUtilityController extends Controller {
       val contentType = file.contentType
       val fileName = file.filename
       val FileReceived: java.io.File = file.ref.file.asInstanceOf[java.io.File]
-      val code = request.session.get("code").get
-//      val googleFileId = GoogleDocsUploadUtility.uploadToGoogleDrive(code, FileReceived, fileName, contentType.get)
+      val code = request.session.get("accessToken").get
+      val googleFileId = GoogleDocsUploadUtility.uploadToGoogleDrive(code, FileReceived, fileName, contentType.get)
     }
     Ok(views.html.gdocs(Nil))
   }
-//
-//  def getAllGoogleDriveFiles = Action { implicit request =>
-//    val code = request.session.get("code").get
-//    val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(code)
-//    Ok(views.html.gdocs(files))
-//  }
-//
+
+  def getAllGoogleDriveFiles = Action { implicit request =>
+    val code = request.session.get("accessToken").get
+    val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(code)
+    Ok(views.html.gdocs(files))
+  }
+
 }
