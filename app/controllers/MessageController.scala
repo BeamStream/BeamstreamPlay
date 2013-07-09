@@ -14,7 +14,7 @@ import net.liftweb.json.Serialization.write
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.ObjectIdSerializer
-import utils.bitlyAuthUtil
+import utils.BitlyAuthUtil
 import models.ResulttoSent
 
 object MessageController extends Controller {
@@ -77,7 +77,7 @@ object MessageController extends Controller {
   def getShortUrlViabitly = Action { implicit request =>
     val longUrlMap = request.body.asFormUrlEncoded.get
     val longUrl = longUrlMap("link").toList(0)
-    val shortUrlJson = bitlyAuthUtil.returnShortUrlViabitly(longUrl)
+    val shortUrlJson = BitlyAuthUtil.returnShortUrlViabitly(longUrl)
     Ok(shortUrlJson).as("application/json")
   }
 

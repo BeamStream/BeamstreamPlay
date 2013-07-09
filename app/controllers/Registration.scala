@@ -18,7 +18,7 @@ import play.api.libs.json.JsValue
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.ObjectIdSerializer
-import utils.onlineUserCache
+import utils.OnlineUserCache
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -82,7 +82,7 @@ object Registration extends Controller {
         UserSchool.createSchool(userSchool)
         User.addInfo(List(userSchool), new ObjectId(userId))
         val userCreated = User.getUserProfile(new ObjectId(userId))
-        onlineUserCache.setOnline(userId)
+        OnlineUserCache.setOnline(userId)
         Ok(write(RegistrationResults(userCreated.get, userSchool))).as("application/json").withSession("userId" -> userId)
 
       case false => Ok(write("Something gone wrong")).as("application/json")
@@ -126,7 +126,7 @@ object Registration extends Controller {
           graduationDateFound, degreeExpectedSeason, None)
         UserSchool.updateUserSchool(userSchool)
         val userCreated = User.getUserProfile(new ObjectId(userId))
-        onlineUserCache.setOnline(userId)
+        OnlineUserCache.setOnline(userId)
         Ok(write(RegistrationResults(userCreated.get, userSchool))).as("application/json").withSession("userId" -> userId)
       case false => Ok(write("Something gone wrong")).as("application/json")
     }

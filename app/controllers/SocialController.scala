@@ -10,7 +10,7 @@ import play.api.libs.json.Json
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import play.libs.WS
-import utils.onlineUserCache
+import utils.OnlineUserCache
 import utils.SendEmailUtility
 import models.ResulttoSent
 
@@ -41,7 +41,7 @@ object SocialController extends Controller {
         val userToCreate = new User(new ObjectId, UserType.Professional, "", "", "", preferredUsername, "", None, "", "", "", "", "", Option(providerName), Nil, Nil, Nil, Nil, Nil, Option(json), None)
         val IdOfUserCreted = User.createUser(userToCreate)
         val userSession = request.session + ("userId" -> IdOfUserCreted.get.toString) + ("social_identifier" -> identifier.get)
-        val noOfOnLineUsers = onlineUserCache.setOnline(IdOfUserCreted.get.toString)
+        val noOfOnLineUsers = OnlineUserCache.setOnline(IdOfUserCreted.get.toString)
         Ok(views.html.registration(IdOfUserCreted.get.toString, Option(json.toString))).withSession(userSession)
       } else {
         Ok(write("User Has been already registered")).as("application/json")
@@ -70,7 +70,7 @@ object SocialController extends Controller {
         case false =>
 
           val userSession = request.session + ("userId" -> authenticatedUser.get.id.toString) + ("social_identifier" -> identifier.get)
-          val noOfOnLineUsers = onlineUserCache.setOnline(authenticatedUser.get.id.toString)
+          val noOfOnLineUsers = OnlineUserCache.setOnline(authenticatedUser.get.id.toString)
           (authenticatedUser.get.classes.size == 0) match {
             case true => Redirect("/class").withSession(userSession)
             case false => Redirect("/stream").withSession(userSession)

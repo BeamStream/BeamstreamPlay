@@ -7,9 +7,6 @@ import com.google.api.client.http.HttpTransport
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.JsonFactory
 import com.google.api.client.json.jackson.JacksonFactory
-import com.google.api.services.drive.Drive
-import com.google.api.services.drive.DriveScopes
-import com.google.api.services.drive.model.File
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -20,6 +17,9 @@ import play.Logger
 import controllers.DocumentController
 import play.api.Logger
 import scala.collection.JavaConversions._
+import com.google.api.services.drive.DriveScopes
+import com.google.api.services.drive.Drive
+import com.google.api.services.drive.model.File
 
 object GoogleDocsUploadUtility {
   /**
@@ -58,7 +58,7 @@ object GoogleDocsUploadUtility {
     val fileContent: java.io.File = fileToUpload
     val mediaContent = new FileContent("", fileContent)
     //Inserting the files
-    val file = service.files().insert(body, mediaContent).execute()
+    val file = service.files.insert(body, mediaContent).execute()
     file.getId
   }
   /**
@@ -88,7 +88,6 @@ object GoogleDocsUploadUtility {
     result map {
       case a => (a.getOriginalFilename, a.getAlternateLink)
     }
-
   }
 
 }

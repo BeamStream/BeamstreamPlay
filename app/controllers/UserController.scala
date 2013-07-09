@@ -20,7 +20,7 @@ import utils.ObjectIdSerializer
 import utils.PasswordHashingUtil
 import utils.SendEmailUtility
 import utils.SocialGraphEmbeddedNeo4j
-import utils.onlineUserCache
+import utils.OnlineUserCache
 
 object UserController extends Controller {
 
@@ -32,7 +32,7 @@ object UserController extends Controller {
    */
 
   def signOut = Action { implicit request =>
-    val noOfOnLineUsers = onlineUserCache.setOffline(request.session.get("userId").get)
+    val noOfOnLineUsers = OnlineUserCache.setOffline(request.session.get("userId").get)
     println("Online Users" + noOfOnLineUsers)
     Ok(write(ResulttoSent("Success", "Signed Out"))).withNewSession
 
@@ -44,9 +44,9 @@ object UserController extends Controller {
 
   def getAllOnlineUsers = Action { implicit request =>
 
-    val onlineUsers = (onlineUserCache.returnOnlineUsers.isEmpty == true) match {
+    val onlineUsers = (OnlineUserCache.returnOnlineUsers.isEmpty == true) match {
       case false =>
-        val onlineUsersWithDetails = (onlineUserCache.returnOnlineUsers.head.onlineUsers) map {
+        val onlineUsersWithDetails = (OnlineUserCache.returnOnlineUsers.head.onlineUsers) map {
           case eachUserId =>
             val userWithDetailedInfo = User.getUserProfile(eachUserId)
             val profilePicForUser = UserMedia.getProfilePicForAUser(eachUserId)
@@ -180,7 +180,7 @@ object UserController extends Controller {
  * Deactivate User On Browser Closed Event
  */
   def browserClosed = Action { implicit request =>
-    val noOfOnLineUsers = onlineUserCache.setOffline(request.session.get("userId").get)
+    val noOfOnLineUsers = OnlineUserCache.setOffline(request.session.get("userId").get)
     println("Online Users" + noOfOnLineUsers)
     Ok
   }
@@ -210,7 +210,7 @@ object UserController extends Controller {
       case Some(user) =>
         val userSession = request.session + ("userId" -> user.id.toString)
         val authenticatedUserJson = write(user)
-        val noOfOnLineUsers = onlineUserCache.setOnline(user.id.toString)
+        val noOfOnLineUsers = OnlineUserCache.setOnline(user.id.toString)
         println("Online Users" + noOfOnLineUsers)
         val loggedInUser = User.getUserProfile(user.id)
         val profilePic = UserMedia.getProfilePicForAUser(user.id)

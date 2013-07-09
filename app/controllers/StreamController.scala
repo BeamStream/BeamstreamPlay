@@ -14,7 +14,7 @@ import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
-import utils.onlineUserCache
+import utils.OnlineUserCache
 
 object StreamController extends Controller {
 
@@ -32,7 +32,7 @@ object StreamController extends Controller {
     (playCookiee == None) match {
       case true => Redirect("/")
       case false =>
-        val noOfOnLineUsers = onlineUserCache.setOnline(request.session.get("userId").get)
+        val noOfOnLineUsers = OnlineUserCache.setOnline(request.session.get("userId").get)
         println("Online Users" + noOfOnLineUsers)
         Redirect("/stream")
     }

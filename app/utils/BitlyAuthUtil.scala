@@ -2,7 +2,7 @@ package utils
 import play.libs.WS
 import play.api.Play
 
-object bitlyAuthUtil {
+object BitlyAuthUtil {
 
   /**
    * bit.ly Authentication and URL return

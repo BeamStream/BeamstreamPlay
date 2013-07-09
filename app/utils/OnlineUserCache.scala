@@ -9,7 +9,7 @@ import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 
 case class OnlineUsers(onlineUsers: List[ObjectId]=Nil)
-object onlineUserCache {
+object OnlineUserCache {
 
   //var onlineUsers: List[String] = Nil
 

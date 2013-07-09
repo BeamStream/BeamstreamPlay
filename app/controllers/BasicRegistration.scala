@@ -19,9 +19,9 @@ import models.UserDAO
 import com.mongodb.WriteConcern
 import play.cache.Cache
 import utils.PasswordHashingUtil
-import utils.onlineUserCache
+import utils.OnlineUserCache
 import actors.UtilityActor
-import utils.tokenEmailUtil
+import utils.TokenEmailUtil
 
 object BasicRegistration extends Controller {
 
@@ -80,7 +80,7 @@ object BasicRegistration extends Controller {
               val userToCreate = new User(new ObjectId, UserType.apply(iam.toInt), emailId, "", "", "", "", Option(encryptedPassword), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil,None, None)
               val IdOfUserCreted = User.createUser(userToCreate)
               val createdUser = User.getUserProfile(IdOfUserCreted.get)
-              UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.get.toString, tokenEmailUtil.securityToken, emailId)
+              UtilityActor.sendMailAfterUserSignsUp(IdOfUserCreted.get.toString, TokenEmailUtil.securityToken, emailId)
               Ok(write(new ResulttoSent("Success", "SignUp Successful"))).as("application/json")
             case false => Ok(write(new ResulttoSent("Failure", "Password Do Not Match"))).as("application/json")
           }

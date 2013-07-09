@@ -22,10 +22,10 @@ import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.AmazonUpload
 import utils.ExtractFrameFromVideoUtil
-import utils.GoogleDocsUploadUtility
+//import utils.GoogleDocsUploadUtility
 import utils.ObjectIdSerializer
 import utils.PreviewOfPDFUtil
-import utils.tokenEmailUtil
+import utils.TokenEmailUtil
 import models.DocumentsAndMedia
 import models.Documents
 import models.DocResulttoSent
@@ -142,7 +142,7 @@ object DocumentController extends Controller {
           val isPdf = contentType.contains("pdf")
           val docAccess = documentJsonMap("docAccess").toList(0)
           val documentReceived: File = docData.ref.file.asInstanceOf[File]
-          val docUniqueKey = tokenEmailUtil.securityToken
+          val docUniqueKey = TokenEmailUtil.securityToken
           val docNameOnAmazom = (docUniqueKey + documentName).replaceAll("\\s", "")
           (new AmazonUpload).uploadFileToAmazon(docNameOnAmazom, documentReceived)
           val docURL = "https://s3.amazonaws.com/BeamStream/" + docNameOnAmazom

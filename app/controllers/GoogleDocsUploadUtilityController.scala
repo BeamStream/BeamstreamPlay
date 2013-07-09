@@ -43,9 +43,9 @@ object GoogleDocsUploadUtilityController extends Controller {
   def googleDriveAuthentication = Action { implicit request =>
     println(request)
     val a = request.queryString("code").map {
-      case code => code
+      case accessToken => accessToken
     }
-    Ok(views.html.gdocs(Nil)).withSession(request.session + ("code" -> a(0)))
+    Ok(views.html.gdocs(Nil)).withSession(request.session + ("accessToken" -> a(0)))
   }
 
   /**
@@ -57,15 +57,15 @@ object GoogleDocsUploadUtilityController extends Controller {
       val fileName = file.filename
       val FileReceived: java.io.File = file.ref.file.asInstanceOf[java.io.File]
       val code = request.session.get("code").get
-      val googleFileId = GoogleDocsUploadUtility.uploadToGoogleDrive(code, FileReceived, fileName, contentType.get)
+//      val googleFileId = GoogleDocsUploadUtility.uploadToGoogleDrive(code, FileReceived, fileName, contentType.get)
     }
     Ok(views.html.gdocs(Nil))
   }
-
-  def getAllGoogleDriveFiles = Action { implicit request =>
-    val code = request.session.get("code").get
-    val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(code)
-    Ok(views.html.gdocs(files))
-  }
-
+//
+//  def getAllGoogleDriveFiles = Action { implicit request =>
+//    val code = request.session.get("code").get
+//    val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(code)
+//    Ok(views.html.gdocs(files))
+//  }
+//
 }

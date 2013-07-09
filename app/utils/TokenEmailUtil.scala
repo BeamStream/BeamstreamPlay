@@ -3,7 +3,7 @@ import java.security.SecureRandom
 import java.security.MessageDigest
 import java.util.UUID
 
-object tokenEmailUtil {
+object TokenEmailUtil {
 
   /**
    * Generate the security token

@@ -19,7 +19,7 @@ import play.api.mvc.Controller
 import utils.AmazonUpload
 import utils.ExtractFrameFromVideoUtil
 import utils.ObjectIdSerializer
-import utils.tokenEmailUtil
+import utils.TokenEmailUtil
 
 object MediaController extends Controller {
 
@@ -191,7 +191,7 @@ object MediaController extends Controller {
     val media = request.body.file("profileData").map { profileData =>
       val Filename = profileData.filename
       val contentType = profileData.contentType.get
-      val uniqueString = tokenEmailUtil.securityToken
+      val uniqueString = TokenEmailUtil.securityToken
       val FileObtained: File = profileData.ref.file.asInstanceOf[File]
       val fileNameOnAmazon = uniqueString + Filename.replaceAll("\\s", "") // Security Over the images files
       (new AmazonUpload).uploadFileToAmazon(fileNameOnAmazon, FileObtained)
