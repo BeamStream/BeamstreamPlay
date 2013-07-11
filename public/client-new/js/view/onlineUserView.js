@@ -74,7 +74,7 @@ define(['baseView',
 		        if(model.id.id == localStorage["loggedUserId"])
 		        {
 		        	var template = 	'<li id="me" class="online active"><a href="#" class="active"><img src="'+profileImageUrl+'" width="30" height="28"> '
-		        					+'<span>Me</span> <span class="online-chat">Online</span></a></li>';
+		        					+'<span>Me</span> <span class="online-chat">Online<img width="12" height="13" src="/beamstream-new/images/online-icon.png"></span></a></li>';
 		        			
 		        	$('#user-online ul').prepend(template);	
 		        }
