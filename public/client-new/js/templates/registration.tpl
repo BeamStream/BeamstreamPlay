@@ -21,6 +21,23 @@
 		</div>
        
           <div id="step2_block" class="profile-white registration-info box-active">
+            <div class="profile-select-block">
+              <fieldset class="field">  
+              <select id="role" data-name="user.role" name="role" class="selectpicker-info " style="display: none;" placeholder="Student">
+                <option value="Student">Student</option>
+                <option value="Educator">Educator</option>
+                <option value="Professional">Professional</option>
+                <option value="Other">Other</option>
+              </select>
+              <span class="red-star select-star">*</span>
+              </fieldset>
+            </div>
+
+            <fieldset class="field">  
+            <input id="username"  data-name="user.username" name="username" value="{{username}}"   type="text" placeholder="User Name">
+            <span class="red-star">*</span>
+            </fieldset>
+
              <fieldset class="field">  
             <input id="firstName"  data-name="user.firstName" name="firstName" value="{{firstName}}"   type="text" placeholder="First Name">
             <span class="red-star">*</span>
