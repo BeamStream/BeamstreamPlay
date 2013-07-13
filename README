@@ -4,27 +4,25 @@ Setup framework for application
 Install Java JDK --  sudo apt-get install openjdk-7-jdk -y 
 Install sbt: http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html
 Download and unzip play framework: http://www.playframework.com/download
-Add play framework to PATH (export PATH:$PATH:/home/user/play-2.1.2)
+Add play framework to PATH (export PATH:$PATH:/home/user/play-2.0.2)
 
 
 	Debian:
 
-	cd ~/
+	mkdir ~/play 
+	cd ~/play
 	sudo apt-get install openjdk-7-jdk -y
-	wget http://scalasbt.artifactoryonline.com/scalasbt/sbt-native-packages/org/scala-sbt/sbt//0.12.4/sbt.deb
-	sudo dpkg -i sbt.deb
-	wget http://downloads.typesafe.com/play/2.1.2/play-2.1.2.zip
-	unzip play-2.1.2.zip
-	echo 'export PATH=$PATH:'$HOME'/play-2.1.2' >> ~/.bashrc
+	wget http://downloads.typesafe.com/play/2.1.2/play-2.0.2.zip
+	unzip play-2.0.2.zip
+	echo 'export PATH=$PATH:'$HOME'/play/play-2.0.2' >> ~/.bashrc
 	source ~/.bashrc
 	#Cleanup
-	rm play-2.1.2.zip
-	rm sbt.deb
+	rm play-2.0.2.zip
 
 
 Running application:
 > cd BeamstreamPlay
-> sbt play run
+> play run
 
 Running application with development.conf:
->  sbt play -Dconfig.file=conf/development.conf run
+>  play -Dconfig.file=conf/development.conf run
