@@ -35,20 +35,23 @@ object GoogleDocsUploadUtilityController extends Controller {
     Redirect(url)
   }
 
-  //---------------------Google Infrastructure Demo----------------------------------------
   /**
-   * Google Oauth Setup
+   * Google Oauth2 Setup
    */
   def googleDriveAuthentication = Action { implicit request =>
-    println(request.queryString)
-//    println(request.queryString("token_type").)
-//    val accessToken = request.queryString("access_token").map {
-//      case accessToken => accessToken
-//    }
-//    Ok(views.html.gdocs(Nil)).withSession(request.session + ("accessToken" -> accessToken(0)))
-  Ok
+    Ok(views.html.fetchtoken())
   }
-
+/**
+   * Google Oauth2 Setup
+   */
+  def uploadPage = Action { implicit request =>
+   Ok(views.html.gdocs(Nil))
+  }
+  def accessToken = Action { implicit request =>
+    val access_Token=request.queryString("access_token").toList(0)
+    request.session + ("access_token"-> access_Token)
+    Ok.withSession(request.session + ("accessToken"-> access_Token))
+  }
   /**
    * Uploading File To Google
    */
@@ -57,15 +60,15 @@ object GoogleDocsUploadUtilityController extends Controller {
       val contentType = file.contentType
       val fileName = file.filename
       val FileReceived: java.io.File = file.ref.file.asInstanceOf[java.io.File]
-      val code = request.session.get("accessToken").get
-      val googleFileId = GoogleDocsUploadUtility.uploadToGoogleDrive(code, FileReceived, fileName, contentType.get)
+      val accessToken = request.session.get("accessToken").get
+      val googleFileId = GoogleDocsUploadUtility.uploadToGoogleDrive(accessToken, FileReceived, fileName, contentType.get)
     }
     Ok(views.html.gdocs(Nil))
   }
 
   def getAllGoogleDriveFiles = Action { implicit request =>
-    val code = request.session.get("accessToken").get
-    val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(code)
+    val accessToken = request.session.get("accessToken").get
+    val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(accessToken)
     Ok(views.html.gdocs(files))
   }
 
