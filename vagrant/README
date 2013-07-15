@@ -1,0 +1,6 @@
+Run BeamStreamPlay under Heroku Cedar stack on port 9000
+=======================================
+
+vagrant up
+
+
