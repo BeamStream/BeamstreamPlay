@@ -199,7 +199,7 @@ GET     /google/callback                                                  contro
 
 POST     /uploadToGoogleDrive                                      controllers.GoogleDocsUploadUtilityController.uploadToGoogleDrive
 GET  /getGoogleDocs                                                controllers.GoogleDocsUploadUtilityController.getAllGoogleDriveFiles
-
+GET   /uploadPage                                                   controllers.GoogleDocsUploadUtilityController.uploadPage
 
 
 

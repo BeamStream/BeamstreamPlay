@@ -20,14 +20,16 @@ import scala.collection.JavaConversions._
 import com.google.api.services.drive.DriveScopes
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.model.File
+import com.google.api.services.oauth2.Oauth2
 
 object GoogleDocsUploadUtility {
+
+  val CLIENT_ID = "612772830843.apps.googleusercontent.com"
+  val CLIENT_SECRET = "7tTkGI2KaDX901Ngwe91Kz_K"
   /**
    * Set Up Google App Credentials
    */
   def returnGoogleCredentailsSettings(code: String): Drive = {
-    val CLIENT_ID = "612772830843.apps.googleusercontent.com"
-    val CLIENT_SECRET = "7tTkGI2KaDX901Ngwe91Kz_K"
 
     val REDIRECT_URI = "http://localhost:9000/driveAuth"
 
@@ -38,7 +40,6 @@ object GoogleDocsUploadUtility {
       httpTransport, jsonFactory, CLIENT_ID, CLIENT_SECRET, Arrays.asList(DriveScopes.DRIVE))
       .setAccessType("online")
       .setApprovalPrompt("auto").build()
-
     val response = flow.newTokenRequest(code).setRedirectUri(REDIRECT_URI).execute()
     val credential = new GoogleCredential().setFromTokenResponse(response)
     //Create a new authorized API client
@@ -48,8 +49,8 @@ object GoogleDocsUploadUtility {
   /**
    * Upload To Google Drive
    */
-  def uploadToGoogleDrive(code: String, fileToUpload: java.io.File, fileName: String, contentType: String): String = {
-    val service = returnGoogleCredentailsSettings(code)
+  def uploadToGoogleDrive(accessToken: String, fileToUpload: java.io.File, fileName: String, contentType: String): String = {
+    val service = returnGoogleCredentailsSettings(accessToken)
     //Insert a file  
     val body = new File
     body.setTitle(fileName)
@@ -89,5 +90,26 @@ object GoogleDocsUploadUtility {
       case a => (a.getOriginalFilename, a.getAlternateLink)
     }
   }
+
+  //  /**
+  //   * Using Google client libraries to fetch the information.
+  //   * @See http://stackoverflow.com/questions/11328832/how-to-validate-google-oauth2-token-from-java-code
+  //   */
+  //  private def validateTokenAndFetchUser(accessToken: String) = {
+  //    val transport = new NetHttpTransport()
+  //    val jsonFactory = new JacksonFactory()
+  //    val accessTokenReceived = accessToken
+  //    val refreshToken = accessToken
+  // 
+  //    // TODO GoogleAccessProtectedResource is marked as deprecated, need to check the alternate
+  //    val requestInitializer = new GoogleAccessProtectedResource(accessToken, transport, jsonFactory,
+  //      CLIENT_ID, CLIENT_SECRET, refreshToken)
+  // 
+  //    // set up global Oauth2 instance
+  //    val oauth2 = new Oauth2.Builder(transport, jsonFactory, requestInitializer).setApplicationName("Knoldus").build()
+  // 
+  //    oauth2.userinfo().get().execute()
+  // 
+  //  }
 
 }
