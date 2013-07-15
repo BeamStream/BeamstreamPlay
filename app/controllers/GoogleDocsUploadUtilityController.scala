@@ -35,20 +35,17 @@ object GoogleDocsUploadUtilityController extends Controller {
     Redirect(url)
   }
 
-  //---------------------Google Infrastructure Demo----------------------------------------
   /**
    * Google Oauth Setup
    */
   def googleDriveAuthentication = Action { implicit request =>
-    println(request.queryString)
-//    println(request.queryString("token_type").)
-//    val accessToken = request.queryString("access_token").map {
-//      case accessToken => accessToken
-//    }
-//    Ok(views.html.gdocs(Nil)).withSession(request.session + ("accessToken" -> accessToken(0)))
-  Ok
+    Ok(views.html.fetchtoken())
   }
 
+  def accessToken = Action { implicit request =>
+    val access_Token=request.queryString("access_token").toList(0)
+    Ok
+  }
   /**
    * Uploading File To Google
    */
