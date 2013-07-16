@@ -7,6 +7,10 @@
 # All rights reserved - Do Not Redistribute
 #
 
+execute "apt-get update" do
+    command "apt-get update"
+    action :run
+end
 
 package "python-git" do
 	action :upgrade
@@ -18,8 +22,8 @@ end
 
 execute "wget_play" do
 	cwd '/tmp'
-	play_release = 'play-2.0.2.zip'
-	play_url = 'http://downloads.typesafe.com/releases/#{play_release}'
+	play_release = "play-2.0.2.zip"
+	play_url = "http://downloads.typesafe.com/releases/#{play_release}"
 	command "wget #{play_url}"
 	action :run
 end
