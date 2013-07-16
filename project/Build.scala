@@ -22,10 +22,11 @@ object ApplicationBuild extends Build {
     "net.sf.opencsv" % "opencsv" % "2.1",
     "xuggle" % "xuggle-xuggler" % "5.4",
     "org.joda" % "joda-convert" % "1.1",
-    "com.google.apis" % "google-api-services-oauth2" % "v1-rev33-1.13.2-beta")
-//    "com.google.apis" % "google-api-services-oauth2" % "v2-rev9-1.7.2-beta",
-//    "com.google.apis" % "google-api-services-drive" % "v2-rev82-1.15.0-rc",
-//    "com.google.api.client" % "google-api-client-http" % "1.2.3-alpha")
+     "com.google.api.client"   % "google-api-client" % "1.4.1-beta",
+    "com.google.apis" % "google-api-services-oauth2" % "v1-rev33-1.13.2-beta" )
+  //    "com.google.apis" % "google-api-services-oauth2" % "v2-rev9-1.7.2-beta",
+  //    "com.google.apis" % "google-api-services-drive" % "v2-rev82-1.15.0-rc",
+  //    "com.google.api.client" % "google-api-client-http" % "1.2.3-alpha")
 
   resolvers += "xuggle repo" at "http://xuggle.googlecode.com/svn/trunk/repo/share/java/"
   resolvers += "repo.novus snaps" at "http://repo.novus.com/snapshots/"

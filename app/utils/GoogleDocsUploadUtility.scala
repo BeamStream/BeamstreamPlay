@@ -1,27 +1,15 @@
 package utils
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
-import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse
-import com.google.api.client.http.FileContent
-import com.google.api.client.http.HttpTransport
-import com.google.api.client.http.javanet.NetHttpTransport
-import com.google.api.client.json.JsonFactory
-import com.google.api.client.json.jackson.JacksonFactory
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStreamReader
-import java.util.Arrays
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow
-import play.libs.WS
-import play.Logger
-import controllers.DocumentController
-import play.api.Logger
-import scala.collection.JavaConversions._
-import com.google.api.services.drive.DriveScopes
 import com.google.api.services.drive.Drive
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow
+import com.google.api.client.json.jackson.JacksonFactory
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
+import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.services.drive.model.File
-import com.google.api.services.oauth2.Oauth2
-
+import com.google.api.client.http.FileContent
+import java.util.Arrays
+import com.google.api.services.drive.DriveScopes
+import scala.collection.JavaConversions._
 object GoogleDocsUploadUtility {
 
   val CLIENT_ID = "612772830843.apps.googleusercontent.com"
@@ -38,7 +26,7 @@ object GoogleDocsUploadUtility {
 
     val flow = new GoogleAuthorizationCodeFlow.Builder(
       httpTransport, jsonFactory, CLIENT_ID, CLIENT_SECRET, Arrays.asList(DriveScopes.DRIVE))
-      .setAccessType("online")
+      .setAccessType("offline")
       .setApprovalPrompt("auto").build()
     val response = flow.newTokenRequest(code).setRedirectUri(REDIRECT_URI).execute()
     val credential = new GoogleCredential().setFromTokenResponse(response)
@@ -57,7 +45,7 @@ object GoogleDocsUploadUtility {
     body.setDescription(fileName)
     body.setMimeType(contentType)
     val fileContent: java.io.File = fileToUpload
-    val mediaContent = new FileContent("", fileContent)
+    val mediaContent = new FileContent(fileContent)
     //Inserting the files
     val file = service.files.insert(body, mediaContent).execute()
     file.getId
@@ -90,26 +78,5 @@ object GoogleDocsUploadUtility {
       case a => (a.getOriginalFilename, a.getAlternateLink)
     }
   }
-
-  //  /**
-  //   * Using Google client libraries to fetch the information.
-  //   * @See http://stackoverflow.com/questions/11328832/how-to-validate-google-oauth2-token-from-java-code
-  //   */
-  //  private def validateTokenAndFetchUser(accessToken: String) = {
-  //    val transport = new NetHttpTransport()
-  //    val jsonFactory = new JacksonFactory()
-  //    val accessTokenReceived = accessToken
-  //    val refreshToken = accessToken
-  // 
-  //    // TODO GoogleAccessProtectedResource is marked as deprecated, need to check the alternate
-  //    val requestInitializer = new GoogleAccessProtectedResource(accessToken, transport, jsonFactory,
-  //      CLIENT_ID, CLIENT_SECRET, refreshToken)
-  // 
-  //    // set up global Oauth2 instance
-  //    val oauth2 = new Oauth2.Builder(transport, jsonFactory, requestInitializer).setApplicationName("Knoldus").build()
-  // 
-  //    oauth2.userinfo().get().execute()
-  // 
-  //  }
 
 }
