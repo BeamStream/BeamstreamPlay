@@ -1,0 +1,10 @@
+#Name: beamstream.conf
+description "An upstart config to run beamstreamplay"
+author "John Curran"
+
+start on runlevel [2534]
+stop on runlevel [!2534]
+
+chdir /BeamStream
+exec sudo -u vagrant /playframework/play-2.0.2/play -Dconfig.file=conf/development.conf run >> /var/log/beamstream.log 2>&1
+respawn

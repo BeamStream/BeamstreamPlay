@@ -5,7 +5,7 @@ Vagrant::Config.run do |config|
   config.vm.box = "heroku"
   config.vm.box_url = "http://dl.dropbox.com/u/1906634/heroku.box"
   config.vm.share_folder "v-data", "/BeamStream", "../"
-  #config.vm.share_folder("app", "/var/play/app", "./app", :extra => 'dmode=777,fmode=777')
+  config.vm.customize ["modifyvm", :id, "--memory", "2048"]
   
   #Network
   config.vm.forward_port 9000, 9000
