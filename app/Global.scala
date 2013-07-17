@@ -8,20 +8,20 @@ import play.api.mvc.Results.Redirect
 
 object Global extends GlobalSettings {
 
-  override def onStart(app: Application) {
-    //    ReadingSpreadsheetUtil.readCSVOfSchools
-  }
-
-  override def onError(request: RequestHeader, ex: Throwable) = {
-    Redirect("/error")
-
-  }
-  override def onHandlerNotFound(request: RequestHeader): Result = {
-    InternalServerError(views.html.error())
-  }
-
-  override def onBadRequest(request: RequestHeader, error: String) = {
-    InternalServerError(views.html.error())
-  }
+//  override def onStart(app: Application) {
+//    //    ReadingSpreadsheetUtil.readCSVOfSchools
+//  }
+//
+//  override def onError(request: RequestHeader, ex: Throwable) = {
+//    Redirect("/error")
+//
+//  }
+//  override def onHandlerNotFound(request: RequestHeader): Result = {
+//    InternalServerError(views.html.error())
+//  }
+//
+//  override def onBadRequest(request: RequestHeader, error: String) = {
+//    InternalServerError(views.html.error())
+//  }
 
 }
