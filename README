@@ -1,3 +1,10 @@
+To run application inside VM with vagrant
+=======================================
+
+cd vagrant/
+#...See vagrant/README
+
+
 Setup framework for application
 =================================
 

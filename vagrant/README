@@ -1,6 +1,27 @@
 Run BeamStreamPlay under Heroku Cedar stack on port 9000
 =======================================
 
-vagrant up
+vagrant up   
+
+
+After chef run is finally complete...it still takes more than a couple minutes to load the app's dependencies....view the log to see why (below)
+
+
+Rebuild vm
+==================
+
+vagrant destroy -f #to kill your vm
+vagrant up #to recreate vm
+
+
+
+See log for BeamStream
+=============================
+
+vagrant ssh -c "tail -f /var/log/beamstream.log" 
+
+
+
+
 
 

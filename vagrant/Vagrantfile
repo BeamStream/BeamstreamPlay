@@ -4,6 +4,8 @@
 Vagrant::Config.run do |config|
   config.vm.box = "heroku"
   config.vm.box_url = "http://dl.dropbox.com/u/1906634/heroku.box"
+
+  config.vm.host_name = "BeamStream"
   config.vm.share_folder "v-data", "/BeamStream", "../"
   config.vm.customize ["modifyvm", :id, "--memory", "2048"]
   
