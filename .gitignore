@@ -10,6 +10,7 @@ tmp
 bin
 .settings
 .sbt
+.DS_Store
 
 *.db
 /nbproject/private/
