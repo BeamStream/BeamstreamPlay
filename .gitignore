@@ -17,3 +17,9 @@ bin
 data/.DS_Store
 
 conf/application.conf
+
+.DS_Store
+
+public/.DS_Store
+
+public/client-new/js/.DS_Store

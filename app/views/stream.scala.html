@@ -10,6 +10,7 @@
 @JS = {
 <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>
 
+
 <script src="/beamstream-new/js/BS_social.js"></script>
 
 <!-- bootstrap dialog popups -->
@@ -200,35 +201,23 @@
   		<!--   to get all messages of a stream - How to make call like  data-url="/allMessagesForAStream/streamId/pageLimit/pageNo" dynamically ?  --> 
 			<div class="tab-pane active" id="discussionsView" data-model="discussion">
 					<div class="question-info">
-						<div class="question-sort">
-							<h5>SORT BY</h5>
-							<div class="btn-group dropdown-outer">
-								<button class="btn normal-dropdown" id="sortBy-select" value="date" >Most Recent</button>
-								<button class="btn blue-button " data-toggle="dropdown">
-									<span class="caret sort-caret"></span>
-								</button>
-								<ul class="dropdown-menu rate-sub" id="sortBy-list">
-									<li><a href="#" name="most-recent" value="date">Most Recent</a></li>
-									<li><a href="#" name="highest-rated" value="rock">Highest Rated</a></li>
-									<li><a href="#" name="most-shared" >Most Shared </a></li>
-								</ul>
-		              </div>
-		              <div class="btn-group dropdown-outer">
-		                <button class="btn normal-dropdown " id="date-sort-select">This Week</button>
-		                <button class="btn blue-button " data-toggle="dropdown">
-											<span class="caret sort-caret"></span>
-										</button>
-										<ul class="dropdown-menu rate-sub" id="date-sort-list">
-											<li><a href="#">Today</a></li>
-											<li><a href="#">This Week</a></li>
-											<li><a href="#">This Month </a></li>
-											<li><a href="#">All Dates </a></li>
-										</ul>
-									</div>
-									<form class="all-search">
-		                <input type="text" id="sort_by_key" class="quest-search" placeholder="Search Discussions"/>
-		              </form>
-		            </div>
+						<div class="new-google">
+							<span>Create A New:</span>
+							<div class="btn-group">
+							  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Google Doc</a>
+							  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+							    <li><a tabindex="-1" href="#">One</a></li>
+							    <li><a tabindex="-1" href="#">Two</a></li>
+							  </ul>
+							</div>
+							<div class="btn-group">
+							  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Question</a>
+							  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+							    <li><a tabindex="-1" href="#">Ask a question</a></li>
+							    <li><a tabindex="-1" href="#">Add a poll</a></li>
+							  </ul>
+							</div>
+						</div>
 		            <div class="clear"></div>
 		          </div>
 		          <div class="ask-outer">
@@ -265,10 +254,7 @@
 		                  <div id="file-upload-loader" style="display :none;">  
 									
 		        		</div>
-		                   </div>
-		                  
-		                <div class="ask-iconinfo">
-		  	          <div id="upload-files1" class="btn-group attach-drop ">
+		        		<div id="upload-files1" class="btn-group attach-drop ">
 
 		  
 
@@ -294,6 +280,10 @@
 		                  
 		                    <li class="tag"><a href="#"></a></li>
 		                  </ul>
+		                   </div>
+		                  
+		                <div class="ask-iconinfo">
+		  	          
 		                  <label class="checkbox private-chaeck">
 		                    <input id="private-to" type="checkbox"  checked="checked">
 		                    Private to:</label>
@@ -308,10 +298,10 @@
 		                   <ul id="share-discussions" class="social-icons">
 		                   <span>Share On:</span>
 		                    <li name="email" class="google-plus"><a href="#">Google plus</a></li>
-		                    <li name="plus" class="plus"><a href="#">p</a></li>
 		                    <li  name="twitter" class="twitter"> <a href="#">Twitter</a></li>
 		                    <li name="facebook" class="facebook"><a href="#"> face book</a></li>
 		                    <li name="linkedin" class="in"><a href="#"> in</a></li>
+		                    <li name="plus" class="plus"><a href="#">p</a></li>
 		                   <!--  <li><img src="/beamstream-new/images/drive.jpg" height="35" width="35"></li>
 		                      <li><img src="/beamstream-new/images/addGoogle.jpg" height="25" width="25"></li>
 		                        <li><a href="/uploadNow"><img src="/beamstream-new/images/uploadGoogle.jpg" height="25" width="25" style="float:left"/></a></li> -->
@@ -322,6 +312,37 @@
 		            
 		            <div class="clear"></div>
 		          </div>
+
+<div class="question-sort">
+							<h5>SORT BY</h5>
+							<div class="btn-group dropdown-outer">
+								<button class="btn normal-dropdown" id="sortBy-select" value="date" >Most Recent</button>
+								<button class="btn blue-button " data-toggle="dropdown">
+									<span class="caret sort-caret"></span>
+								</button>
+								<ul class="dropdown-menu rate-sub" id="sortBy-list">
+									<li><a href="#" name="most-recent" value="date">Most Recent</a></li>
+									<li><a href="#" name="highest-rated" value="rock">Highest Rated</a></li>
+									<li><a href="#" name="most-shared" >Most Shared </a></li>
+								</ul>
+		              </div>
+		              <div class="btn-group dropdown-outer">
+		                <button class="btn normal-dropdown " id="date-sort-select">This Week</button>
+		                <button class="btn blue-button " data-toggle="dropdown">
+											<span class="caret sort-caret"></span>
+										</button>
+										<ul class="dropdown-menu rate-sub" id="date-sort-list">
+											<li><a href="#">Today</a></li>
+											<li><a href="#">This Week</a></li>
+											<li><a href="#">This Month </a></li>
+											<li><a href="#">All Dates </a></li>
+										</ul>
+									</div>
+									<form class="all-search">
+		                <input type="text" id="sort_by_key" class="quest-search" placeholder="Search Discussions"/>
+		              </form>
+		            </div>
+
 		          <div id= "messageListView" data-model="discussion" data-module="view/messageListView" data-url="/" data-tpl="templates/discussionMessage.tpl">
 		
 		          </div>
@@ -333,6 +354,8 @@
 		  	 
 					
 		  	<div class="tab-pane "  id="questionsView" data-model="question" >
+
+		  		</div>
 
 	  			<div class="stream-wrapper">
 		          	<div class="question-info">
