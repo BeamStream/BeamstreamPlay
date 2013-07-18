@@ -6,6 +6,8 @@ vagrant up
 
 After chef run is finally complete...it still takes more than a couple minutes to load the app's dependencies....view the log to see why (below)
 
+After the server is up, port forwarding is set up so that you can see BeamStream at http://localhost:9000
+
 
 Rebuild vm
 ==================
