@@ -30,14 +30,28 @@ object GoogleDocsUploadUtilityController extends Controller {
   val redirectURI = "http://localhost:9000/driveAuth"
 
   def uploadNow = Action { implicit request =>
-    val urlToRedirect = new GoogleBrowserClientRequestUrl("6127728343.apps.googleusercontent.com", redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type","code").build()
+    val urlToRedirect = new GoogleBrowserClientRequestUrl("6127728343.apps.googleusercontent.com", redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
     Redirect(urlToRedirect)
+  }
+  def code = Action { implicit request =>
+    println(request)
+    Ok
   }
 
   /**
    * Google Oauth2 Setup
    */
   def googleDriveAuthentication = Action { implicit request =>
+    //    val code = request.queryString("code").toList(0)
+    //    println(code)
+    //    val a = WS.url("https://accounts.google.com/o/oauth2/token")
+    //      .setQueryParameter("code", code).
+    //      setQueryParameter("client_id", "61277343.apps.googleusercontent.com")
+    //      .setQueryParameter("client_secret", "").
+    //      setQueryParameter("redirect_uri", "http://localhost:9000/code")
+    //      .setQueryParameter("grant_type", "authorization_code").post(code)
+    //    println(a.get().getBody())
+    //    Ok
     Ok(views.html.fetchtoken())
   }
   /**

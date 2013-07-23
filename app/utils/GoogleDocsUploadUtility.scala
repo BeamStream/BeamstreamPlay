@@ -12,8 +12,8 @@ import com.google.api.services.drive.DriveScopes
 import scala.collection.JavaConversions._
 object GoogleDocsUploadUtility {
 
-  val CLIENT_ID = "612772830843.apps.googleusercontent.com"
-  val CLIENT_SECRET = "fFUOLvySzuS5z8zGg_0czi"
+  val CLIENT_ID = "6127728343.apps.googleusercontent.com"
+  val CLIENT_SECRET = ""
   /**
    * Set Up Google App Credentials
    */
