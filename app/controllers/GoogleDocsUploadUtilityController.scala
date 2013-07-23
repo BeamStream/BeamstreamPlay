@@ -30,8 +30,8 @@ object GoogleDocsUploadUtilityController extends Controller {
   val redirectURI = "http://localhost:9000/driveAuth"
 
   def uploadNow = Action { implicit request =>
-    val url = new GoogleBrowserClientRequestUrl("612772830843.apps.googleusercontent.com", redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).build()
-    Redirect(url)
+    val urlToRedirect = new GoogleBrowserClientRequestUrl("6127728343.apps.googleusercontent.com", redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type","code").build()
+    Redirect(urlToRedirect)
   }
 
   /**
@@ -50,7 +50,6 @@ object GoogleDocsUploadUtilityController extends Controller {
     println(request)
     val access_Token = request.queryString("access_token").toList(0)
     request.session + ("access_token" -> access_Token)
-    println("Cool")
     Ok.withSession(request.session + ("accessToken" -> access_Token))
   }
   /**

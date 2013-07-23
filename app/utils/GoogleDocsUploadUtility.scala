@@ -13,7 +13,7 @@ import scala.collection.JavaConversions._
 object GoogleDocsUploadUtility {
 
   val CLIENT_ID = "612772830843.apps.googleusercontent.com"
-  val CLIENT_SECRET = "mOSXP5NfQmoPMjZmrT_zC8AN"
+  val CLIENT_SECRET = "fFUOLvySzuS5z8zGg_0czi"
   /**
    * Set Up Google App Credentials
    */
