@@ -13,23 +13,31 @@ import scala.collection.JavaConversions._
 object GoogleDocsUploadUtility {
 
   val CLIENT_ID = "612772830843.apps.googleusercontent.com"
-  val CLIENT_SECRET = "7tTkGI2KaDX901Ngwe91Kz_K"
+  val CLIENT_SECRET = "mOSXP5NfQmoPMjZmrT_zC8AN"
   /**
    * Set Up Google App Credentials
    */
-  def returnGoogleCredentailsSettings(code: String): Drive = {
+  def returnGoogleCredentailsSettings(accessToken: String): Drive = {
 
-    val REDIRECT_URI = "http://localhost:9000/driveAuth"
-
+//    val REDIRECT_URI = "http://localhost:9000/driveAuth"
+//
     val httpTransport = new NetHttpTransport
     val jsonFactory = new JacksonFactory
-
-    val flow = new GoogleAuthorizationCodeFlow.Builder(
-      httpTransport, jsonFactory, CLIENT_ID, CLIENT_SECRET, Arrays.asList(DriveScopes.DRIVE))
-      .setAccessType("offline")
-      .setApprovalPrompt("auto").build()
-    val response = flow.newTokenRequest(code).setRedirectUri(REDIRECT_URI).execute()
-    val credential = new GoogleCredential().setFromTokenResponse(response)
+    
+    val credential = new GoogleCredential.Builder()
+            .setJsonFactory(jsonFactory)
+            .setTransport(httpTransport)
+            .setClientSecrets(CLIENT_ID, CLIENT_SECRET)
+            .build();
+            credential.setAccessToken(accessToken);
+//
+//    val flow = new GoogleAuthorizationCodeFlow.Builder(
+//      httpTransport, jsonFactory, CLIENT_ID, CLIENT_SECRET, Arrays.asList(DriveScopes.DRIVE))
+//      .setAccessType("offline")
+//      .setApprovalPrompt("auto").build()
+//    val response = flow.newTokenRequest(code).setRedirectUri(REDIRECT_URI).execute()
+//    val credential = new GoogleCredential().setFromTokenResponse(response)
+    
     //Create a new authorized API client
     new Drive.Builder(httpTransport, jsonFactory, credential).build()
   }
@@ -45,10 +53,12 @@ object GoogleDocsUploadUtility {
     body.setDescription(fileName)
     body.setMimeType(contentType)
     val fileContent: java.io.File = fileToUpload
-    val mediaContent = new FileContent(fileContent)
+    val mediaContent = new FileContent(contentType,fileContent)
     //Inserting the files
     val file = service.files.insert(body, mediaContent).execute()
+    println("File Uploaded")
     file.getId
+    
   }
   /**
    * Get All Files From Google Drive
@@ -56,15 +66,6 @@ object GoogleDocsUploadUtility {
 
   def getAllDocumentsFromGoogleDocs(code: String): List[(String, String)] = {
     val service = returnGoogleCredentailsSettings(code)
-    //    service.files.list.execute.getItems.isEmpty match {
-    //      case true => Nil
-    //      case false =>
-    //        val tupleList = service.files.list.execute.getItems map {
-    //          case driveFile => (driveFile.getOriginalFilename, driveFile.getAlternateLink)
-    //        }
-    //        tupleList.toList
-    //    }
-
     var result: List[File] = List()
     val request = service.files.list
 
