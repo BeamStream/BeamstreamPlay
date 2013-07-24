@@ -16,3 +16,5 @@ bin
 data/.DS_Store
 
 conf/application.conf
+beamstream.sublime-project
+beamstream.sublime-workspace
