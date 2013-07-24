@@ -23,3 +23,6 @@ conf/application.conf
 public/.DS_Store
 
 public/client-new/js/.DS_Store
+
+beamstream.sublime-project
+beamstream.sublime-workspace
