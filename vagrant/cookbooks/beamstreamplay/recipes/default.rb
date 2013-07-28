@@ -36,7 +36,9 @@ end
 
 
 execute "wget_play" do
-	cwd '/tmp'
+	not_if {File.exists?('/playframework')} #skip this if it already exists - bypasses overwrite conflict errors
+
+  cwd '/tmp'
 	play_release = "play-2.0.2.zip"
 	play_url = "http://downloads.typesafe.com/releases/#{play_release}"
 	command "wget #{play_url} && unzip #{play_release} -d /playframework/ "
