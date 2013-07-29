@@ -14,9 +14,10 @@ import utils.GoogleDocsUploadUtility
 object GoogleDocsUploadUtilityController extends Controller {
 
   implicit val formats = net.liftweb.json.DefaultFormats
+
   val redirectURI = "http://localhost:9000/driveAuth"
 
-  def uploadNow = Action { implicit request =>
+  def authenticateToGoogle = Action { implicit request =>
     val urlToRedirect = new GoogleBrowserClientRequestUrl("612772830843.apps.googleusercontent.com", redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
     Redirect(urlToRedirect)
   }
@@ -34,7 +35,7 @@ object GoogleDocsUploadUtilityController extends Controller {
     con.setRequestProperty("User-Agent", USER_AGENT);
     con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-    val urlParameters = "code=" + code + "&client_id=612772830843.apps.googleusercontent.com&client_secret=6WW6a0ujHdSHwCOnJMHW&redirect_uri=http://localhost:9000/driveAuth&grant_type=authorization_code&Content-Type=application/x-www-form-urlencoded";
+    val urlParameters = "code=" + code + "&client_id=612772830843.apps.googleusercontent.com&client_secret=6WW6a0DG8fujHdSHwCOnJMHW&redirect_uri=http://localhost:9000/driveAuth&grant_type=authorization_code&Content-Type=application/x-www-form-urlencoded";
     con.setDoOutput(true)
     val wr = new DataOutputStream(con.getOutputStream)
     wr.writeBytes(urlParameters)
@@ -54,11 +55,10 @@ object GoogleDocsUploadUtilityController extends Controller {
     val tokenValues = dataList map {
       case info => net.liftweb.json.parse("{" + info + "}")
     }
-
+    
     val accessToken = (tokenValues(0) \ "access_token").extract[String]
     val refreshToken = (tokenValues(2) \ "refresh_token").extract[String]
-    println(accessToken, refreshToken)
-    Ok(views.html.stream())
+    Ok(views.html.stream()).withSession(request.session + ("accessToken"-> accessToken))
     //        Ok(views.html.fetchtoken())
   }
 
@@ -72,7 +72,6 @@ object GoogleDocsUploadUtilityController extends Controller {
    * @Deprecated
    */
   def accessToken = Action { implicit request =>
-    println(request)
     val access_Token = request.queryString("access_token").toList(0)
     request.session + ("access_token" -> access_Token)
     Ok.withSession(request.session + ("accessToken" -> access_Token))

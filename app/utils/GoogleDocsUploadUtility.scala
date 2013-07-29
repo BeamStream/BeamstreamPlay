@@ -10,17 +10,17 @@ import com.google.api.client.http.FileContent
 import java.util.Arrays
 import com.google.api.services.drive.DriveScopes
 import scala.collection.JavaConversions._
+import java.io.IOException
 object GoogleDocsUploadUtility {
 
-  val CLIENT_ID = "6127728343.apps.googleusercontent.com"
-  val CLIENT_SECRET = ""
+  val CLIENT_ID = "612772830843.apps.googleusercontent.com"
+  val CLIENT_SECRET = "6WW6a0DG8fujHdSHwCOnJMHW"
+  val httpTransport = new NetHttpTransport
+  val jsonFactory = new JacksonFactory
   /**
    * Set Up Google App Credentials
    */
   def returnGoogleCredentailsSettings(accessToken: String): Drive = {
-
-    val httpTransport = new NetHttpTransport
-    val jsonFactory = new JacksonFactory
 
     val credential = new GoogleCredential.Builder()
       .setJsonFactory(jsonFactory)
@@ -68,6 +68,21 @@ object GoogleDocsUploadUtility {
     result map {
       case a => (a.getOriginalFilename, a.getAlternateLink)
     }
+  }
+
+  /**
+   * Get Access token Using refresh Token
+   */
+
+  def getNewAccessToken(refreshToken: String):String = {
+    val credentialBuilder = new GoogleCredential.Builder()
+      .setTransport(httpTransport).setJsonFactory(jsonFactory)
+      .setClientSecrets(CLIENT_ID, CLIENT_SECRET);
+
+    val credential = credentialBuilder.build()
+    credential.setRefreshToken(refreshToken)
+    credential.refreshToken()
+    credential.getAccessToken
   }
 
 }
