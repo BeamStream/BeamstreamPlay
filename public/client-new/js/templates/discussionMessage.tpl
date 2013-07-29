@@ -22,9 +22,9 @@
                   
                   
 					{{#ifequal data.followerOfMessagePoster false}}
-               		   <a href="#" id="{{data.message.userId.id}}" class="follow-button follow-user" data-value="follow">follow</a>
+               		   <a href="#" id="{{data.message.userId.id}}" class="follow-button follow-user" data-value="follow" style="visibility:hidden;">follow</a>
 					{{else}}
-						<a href="#" id="{{data.message.userId.id}}" class="follow-button follow-user" data-value="unfollow">unfollow</a>
+						<a href="#" id="{{data.message.userId.id}}" class="follow-button follow-user" data-value="unfollow" style="visibility:hidden;">unfollow</a>
 					{{/ifequal}}
                   
               </div>
@@ -34,7 +34,7 @@
                     <ul class="follow-name-left ">
                       <li><span id="{{data.message.userId.id}}" >@{{data.message.firstNameofMsgPoster}} {{data.message.lastNameofMsgPoster}} </span> -  {{data.message.timeCreated}}  -  {{data.message.messageAccess.name}}</li>
                     </ul>
-                    <div class="follow-right"> 
+                    <div class="follow-right" style="visibility:hidden;"> 
                     	{{#ifequal data.followed false}}
 	                    	<a id="{{data.message.id.id}}-follow" href="#" class="follow-button follow-message" data-value="follow">follow
 	                    	</a>
@@ -208,7 +208,7 @@
                       <li ><a class="add-comment clickElement" href="#"> Comment</a></li>
                       <li><a class="comment-icon" href="#"></a></li>                      
                     </ul>
-                    <a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a>
+                    <a id="" href="#" class="delete_msg drag-rectangle" data-original-title="Flag this" style="visibility:hidden;"></a>
                   </div>
                   <div id="{{data.message.id.id}}-addComments" class="follow-comment">
 					<textarea id="{{data.message.id.id}}-msgComment" class="add-message-comment" rows="" cols="" placeholder="Add Comments.." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add Comments..'" ></textarea>
