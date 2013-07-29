@@ -5,9 +5,9 @@
                   <div class="ask-img"><img  id="{{data.question.id.id}}-img" src="{{#if data.profilePic}}{{data.profilePic}}{{else}}/beamstream-new/images/profile-upload.png{{/if}}"></div>
 
                   {{#ifequal data.followerOfQuestionPoster false}}
-                     <a href="#" id="{{data.question.userId.id}}" class="follow-button follow-user" data-value="follow">follow</a>
+                     <a href="#" id="{{data.question.userId.id}}" class="follow-button follow-user" data-value="follow" style="visibility:hidden;">follow</a>
                   {{else}}
-                    <a href="#" id="{{data.question.userId.id}}" class="follow-button follow-user" data-value="unfollow">unfollow</a>
+                    <a href="#" id="{{data.question.userId.id}}" class="follow-button follow-user" data-value="unfollow" style="visibility:hidden;">unfollow</a>
                   {{/ifequal}}
 
        
@@ -18,7 +18,7 @@
                     <ul class="follow-name-left">
                       <li><span>@{{data.question.firstNameofQuestionAsker}} {{data.question.lastNameofQuestionAsker}} </span> -  {{data.question.creationDate}}  - {{data.question.questionAccess.name}}</li>
                     </ul>
-                    <div class="follow-right">
+                    <div class="follow-right" style="visibility:hidden;">
 
                       {{#ifequal data.followed false}}
                         <a id="{{data.question.id.id}}-follow" href="#" class="follow-button follow-question" data-value="follow">follow
@@ -216,7 +216,7 @@
                       </li>
                       <li><a href="#" class="add-comment" > Comment</a></li>
                       <li><a class="comment-icon" href="#"></a></li>
-             <a id=" " href="#" class="delete_msg drag-rectangle" data-original-title="Flag this"></a> 
+             <a id=" " href="#" class="delete_msg drag-rectangle" data-original-title="Flag this" style="visibility:hidden;"></a> 
                     </ul>
                    
                     </div>
