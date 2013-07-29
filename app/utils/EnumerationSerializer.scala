@@ -20,7 +20,7 @@ import java.text.DateFormat
 import java.util.Date
 import models.DegreeExpected
 
-/*
+/**
  * Enumeration Serialization
  */
 class EnumerationSerializer(enumList: List[Enumeration]) extends net.liftweb.json.Serializer[Enumeration#Value] {
@@ -47,9 +47,7 @@ class EnumerationSerializer(enumList: List[Enumeration]) extends net.liftweb.jso
       for (enumValue <- enumItem.values) {
         enumValue.toString == value match {
           case true => {
-            println("Enum is [" + enumItem + "] and value is [" + value + "]")
             defaultEnumValue = enumItem.withName(value)
-            println("And it works .......")
           }
           case _ => None
         }
@@ -60,7 +58,7 @@ class EnumerationSerializer(enumList: List[Enumeration]) extends net.liftweb.jso
 
 }
 
-/*
+/**
  * ObjectId Serialization
  */
 
@@ -90,7 +88,6 @@ class ObjectIdSerializer extends Serializer[ObjectId] {
 object DateTimeSerializer extends Serializer[Option[Date]] {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd/MM/yyyy")
-  println("Datetime serializer invoked ....")
 
   private val MyDateClass = classOf[Option[Date]]
 

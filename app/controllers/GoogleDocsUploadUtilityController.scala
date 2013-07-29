@@ -1,65 +1,74 @@
 package controllers
 
-import play.api.mvc.Controller
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
-import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse
-import com.google.api.client.http.FileContent
-import com.google.api.client.http.HttpTransport
-import com.google.api.client.http.javanet.NetHttpTransport
-import com.google.api.client.json.JsonFactory
-import com.google.api.client.json.jackson.JacksonFactory
-import com.google.api.services.drive.Drive
-import com.google.api.services.drive.DriveScopes
-import com.google.api.services.drive.model.File
 import java.io.BufferedReader
-import java.io.IOException
+import java.io.DataOutputStream
 import java.io.InputStreamReader
-import java.util.Arrays
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow
-import play.libs.WS
-import play.Logger
-import play.api.mvc.Action
 import java.net.URL
-import play.Logger
-import play.api.templates.Html
-import utils.GoogleDocsUploadUtility
+import java.util.Arrays
 import com.google.api.client.googleapis.auth.oauth2.GoogleBrowserClientRequestUrl
+import javax.net.ssl.HttpsURLConnection
+import play.api.mvc.Action
+import play.api.mvc.Controller
+import utils.GoogleDocsUploadUtility
+
 
 object GoogleDocsUploadUtilityController extends Controller {
 
   val redirectURI = "http://localhost:9000/driveAuth"
 
   def uploadNow = Action { implicit request =>
-    val urlToRedirect = new GoogleBrowserClientRequestUrl("6127728343.apps.googleusercontent.com", redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
+    val urlToRedirect = new GoogleBrowserClientRequestUrl("612772830843.apps.googleusercontent.com", redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
     Redirect(urlToRedirect)
   }
-  def code = Action { implicit request =>
-    println(request)
-    Ok
-  }
+ 
 
   /**
    * Google Oauth2 Setup
    */
   def googleDriveAuthentication = Action { implicit request =>
-    //    val code = request.queryString("code").toList(0)
-    //    println(code)
-    //    val a = WS.url("https://accounts.google.com/o/oauth2/token")
-    //      .setQueryParameter("code", code).
-    //      setQueryParameter("client_id", "61277343.apps.googleusercontent.com")
-    //      .setQueryParameter("client_secret", "").
-    //      setQueryParameter("redirect_uri", "http://localhost:9000/code")
-    //      .setQueryParameter("grant_type", "authorization_code").post(code)
-    //    println(a.get().getBody())
-    //    Ok
-    Ok(views.html.fetchtoken())
+    val code = request.queryString("code").toList(0)
+    val url = "https://accounts.google.com/o/oauth2/token"
+    val obj = new URL(url)
+    val con = obj.openConnection().asInstanceOf[HttpsURLConnection]
+
+    con.setRequestMethod("POST");
+    con.setRequestProperty("User-Agent", USER_AGENT);
+    con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+
+    val urlParameters = "code=" + code + "&client_id=612772830843.apps.googleusercontent.com&client_secret=aq6Dd97jPdQ_p3oDG5s5IWk2&redirect_uri=http://localhost:9000/driveAuth&grant_type=authorization_code&Content-Type=application/x-www-form-urlencoded";
+    con.setDoOutput(true)
+    val wr = new DataOutputStream(con.getOutputStream)
+    wr.writeBytes(urlParameters)
+    wr.flush
+    wr.close
+    val in = new BufferedReader(
+      new InputStreamReader(con.getInputStream))
+    val inputLine: String = ""
+    val response = new StringBuffer
+
+    while ((in.readLine) != null) {
+      response.append(in.readLine)
+    }
+    in.close
+    val dataList = response.toString.split(",").toList
+    val tokenValues = dataList map {
+      case info => ""
+    }
+//    println(tokenValues)
+   
+    Ok(views.html.stream())
+    //        Ok(views.html.fetchtoken())
   }
+ 
   /**
    * Google Oauth2 Setup
    */
   def uploadPage = Action { implicit request =>
     Ok(views.html.gdocs(Nil))
   }
+  /**
+   * @Deprecated
+   */
   def accessToken = Action { implicit request =>
     println(request)
     val access_Token = request.queryString("access_token").toList(0)
