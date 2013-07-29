@@ -14,7 +14,7 @@
   -->
  
  
- <h2  >{{streamName}}<a href="#" id="show-info" >Show Details</a></h2>
+ <h2  >{{streamName}}<a href="#" id="show-info" style="visibility:hidden;">Show Details</a></h2>
  
 <div class="show-info">
 
