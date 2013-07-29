@@ -1,19 +1,13 @@
 package controllers
-import play.api.mvc._
-import play.api._
-import play.api.data._
-import play.api.data.Forms._
-import models.UserSchool
-import org.bson.types.ObjectId
-import net.liftweb.json.{ parse, DefaultFormats }
-import net.liftweb.json.Serialization.{ read, write }
+
 import java.text.SimpleDateFormat
-import utils.EnumerationSerializer
-import utils.ObjectIdSerializer
+import org.bson.types.ObjectId
 import models.School
-import models.SchoolDAO
-import com.mongodb.casbah.commons.MongoDBObject
-import java.util.regex.Pattern
+import models.UserSchool
+import net.liftweb.json.Serialization.write
+import play.api.mvc.Action
+import play.api.mvc.Controller
+import utils.ObjectIdSerializer
 
 object SchoolController extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {

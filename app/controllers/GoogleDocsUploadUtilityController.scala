@@ -11,16 +11,15 @@ import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.GoogleDocsUploadUtility
 
-
 object GoogleDocsUploadUtilityController extends Controller {
 
+  implicit val formats = net.liftweb.json.DefaultFormats
   val redirectURI = "http://localhost:9000/driveAuth"
 
   def uploadNow = Action { implicit request =>
     val urlToRedirect = new GoogleBrowserClientRequestUrl("612772830843.apps.googleusercontent.com", redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
     Redirect(urlToRedirect)
   }
- 
 
   /**
    * Google Oauth2 Setup
@@ -35,7 +34,7 @@ object GoogleDocsUploadUtilityController extends Controller {
     con.setRequestProperty("User-Agent", USER_AGENT);
     con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-    val urlParameters = "code=" + code + "&client_id=612772830843.apps.googleusercontent.com&client_secret=aq6Dd97jPdQ_p3oDG5s5IWk2&redirect_uri=http://localhost:9000/driveAuth&grant_type=authorization_code&Content-Type=application/x-www-form-urlencoded";
+    val urlParameters = "code=" + code + "&client_id=612772830843.apps.googleusercontent.com&client_secret=6WW6a0DjHdSHwCOnJMHW&redirect_uri=http://localhost:9000/driveAuth&grant_type=authorization_code&Content-Type=application/x-www-form-urlencoded";
     con.setDoOutput(true)
     val wr = new DataOutputStream(con.getOutputStream)
     wr.writeBytes(urlParameters)
@@ -43,23 +42,26 @@ object GoogleDocsUploadUtilityController extends Controller {
     wr.close
     val in = new BufferedReader(
       new InputStreamReader(con.getInputStream))
-    val inputLine: String = ""
     val response = new StringBuffer
 
-    while ((in.readLine) != null) {
+    while (in.readLine != null) {
       response.append(in.readLine)
     }
     in.close
-    val dataList = response.toString.split(",").toList
+    val nullExpr = "null".r
+    val dataString = nullExpr.replaceAllIn(response.toString, "")
+    val dataList = dataString.split(",").toList
     val tokenValues = dataList map {
-      case info => ""
+      case info => net.liftweb.json.parse("{" + info + "}")
     }
-//    println(tokenValues)
-   
+
+    val accessToken = (tokenValues(0) \ "access_token").extract[String]
+    val refreshToken = (tokenValues(2) \ "refresh_token").extract[String]
+    println(accessToken, refreshToken)
     Ok(views.html.stream())
     //        Ok(views.html.fetchtoken())
   }
- 
+
   /**
    * Google Oauth2 Setup
    */
