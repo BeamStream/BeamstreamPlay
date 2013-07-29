@@ -17,7 +17,8 @@
 <div class="left-menu">
 	<div class="display-stream">
 		<div class="btn-group stream-dropdown">
-			<button class="btn display-dropdown">Display All Streams</button>
+			<button class="btn display-dropdown">Class Streams</button>
+			<!--button class="btn display-dropdown">Display All Streams</button>
             <button class="btn display-toggle" data-toggle="dropdown"> <span class="caret display-caret"></span></button>
             <ul class="dropdown-menu display-sub">
                 <li><a href="#">Class Streams</a></li>
@@ -27,7 +28,7 @@
                 <li><a href="#">Peer Streams</a></li>
                 <li><a href="#">Friends Streams</a></li>
                 <li><a href="#">Major Streams</a></li>                     
-            </ul>
+            </ul-->
         </div>
         
         
