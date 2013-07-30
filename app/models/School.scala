@@ -13,6 +13,17 @@ case class School(@Key("_id") id: ObjectId,
 
 object School {
 
+  var allSchoolsInDatabase: List[School] = Nil
+
+  /**
+   * Get all Schools
+   */
+
+  def getAllSchools: List[School] = {
+    SchoolDAO.find(MongoDBObject()).toList
+
+  }
+
   /**
    * Add New School (RA)
    */
