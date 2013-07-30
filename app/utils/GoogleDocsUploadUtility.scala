@@ -13,8 +13,8 @@ import scala.collection.JavaConversions._
 import java.io.IOException
 object GoogleDocsUploadUtility {
 
-  val CLIENT_ID = "612772830843.apps.googleusercontent.com"
-  val CLIENT_SECRET = "6WW6a0DG8fujHdSHwCOnJMHW"
+  val CLIENT_ID = "213363569061.apps.googleusercontent.com"
+  val CLIENT_SECRET = "d3s0YP7_xtCaAtgCiSy_RNdU"
   val httpTransport = new NetHttpTransport
   val jsonFactory = new JacksonFactory
   /**
