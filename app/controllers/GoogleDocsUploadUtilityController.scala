@@ -10,6 +10,8 @@ import javax.net.ssl.HttpsURLConnection
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.GoogleDocsUploadUtility
+import models.SocialToken
+import org.bson.types.ObjectId
 
 object GoogleDocsUploadUtilityController extends Controller {
 
@@ -18,8 +20,17 @@ object GoogleDocsUploadUtilityController extends Controller {
   val redirectURI = "http://localhost:9000/driveAuth"
 
   def authenticateToGoogle = Action { implicit request =>
-    val urlToRedirect = new GoogleBrowserClientRequestUrl("612772830843.apps.googleusercontent.com", redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
-    Redirect(urlToRedirect)
+
+    val refreshTokenFound = SocialToken.findSocialToken(new ObjectId(request.session.get("userId").get))
+    refreshTokenFound match {
+      case None =>
+        val urlToRedirect = new GoogleBrowserClientRequestUrl("213363569061.apps.googleusercontent.com", redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
+        Redirect(urlToRedirect)
+      case Some(refreshToken) =>
+        val newAccessToken=GoogleDocsUploadUtility.getNewAccessToken(refreshToken)
+        Ok(views.html.stream()).withSession(request.session + ("accessToken" -> newAccessToken))
+    }
+
   }
 
   /**
@@ -55,10 +66,11 @@ object GoogleDocsUploadUtilityController extends Controller {
     val tokenValues = dataList map {
       case info => net.liftweb.json.parse("{" + info + "}")
     }
-    
+
     val accessToken = (tokenValues(0) \ "access_token").extract[String]
     val refreshToken = (tokenValues(2) \ "refresh_token").extract[String]
-    Ok(views.html.stream()).withSession(request.session + ("accessToken"-> accessToken))
+    SocialToken.addToken(SocialToken(new ObjectId(request.session.get("userId").get), refreshToken))
+    Ok(views.html.stream()).withSession(request.session + ("accessToken" -> accessToken))
     //        Ok(views.html.fetchtoken())
   }
 
