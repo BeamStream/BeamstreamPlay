@@ -21,7 +21,7 @@ object SocialToken {
    * Find RefreshToken for a User
    */
   def findSocialToken(userId: ObjectId): Option[String] = {
-    val tokenFound = SocialTokenDAO.find(MongoDBObject("userId" -> userId)).toList
+    val tokenFound = SocialTokenDAO.find(MongoDBObject("_id" -> userId)).toList
     tokenFound.isEmpty match {
       case true => None
       case false => Option(tokenFound.head.refreshToken)

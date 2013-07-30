@@ -5,8 +5,13 @@ import java.io.DataOutputStream
 import java.io.InputStreamReader
 import java.net.URL
 import java.util.Arrays
+
+import org.bson.types.ObjectId
+
 import com.google.api.client.googleapis.auth.oauth2.GoogleBrowserClientRequestUrl
+
 import javax.net.ssl.HttpsURLConnection
+import models.SocialToken
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.GoogleDocsUploadUtility
@@ -18,12 +23,21 @@ object GoogleDocsUploadUtilityController extends Controller {
   val redirectURI = "http://localhost:9000/driveAuth"
 
   def authenticateToGoogle = Action { implicit request =>
-    val urlToRedirect = new GoogleBrowserClientRequestUrl("612772830843.apps.googleusercontent.com", redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
-    Redirect(urlToRedirect)
+
+    val refreshTokenFound = SocialToken.findSocialToken(new ObjectId(request.session.get("userId").get))
+    refreshTokenFound match {
+      case None =>
+        val urlToRedirect = new GoogleBrowserClientRequestUrl("213363569061.apps.googleusercontent.com", redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
+        Redirect(urlToRedirect)
+      case Some(refreshToken) =>
+        val newAccessToken=GoogleDocsUploadUtility.getNewAccessToken(refreshToken)
+        Ok(views.html.stream()).withSession(request.session + ("accessToken" -> newAccessToken))
+    }
+
   }
 
   /**
-   * Google Oauth2 Setup
+   * Google Oauth2 accessing code and exchanging it for Access & Refresh Token
    */
   def googleDriveAuthentication = Action { implicit request =>
     val code = request.queryString("code").toList(0)
@@ -35,7 +49,7 @@ object GoogleDocsUploadUtilityController extends Controller {
     con.setRequestProperty("User-Agent", USER_AGENT);
     con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-    val urlParameters = "code=" + code + "&client_id=612772830843.apps.googleusercontent.com&client_secret=6WW6a0DG8fujHdSHwCOnJMHW&redirect_uri=http://localhost:9000/driveAuth&grant_type=authorization_code&Content-Type=application/x-www-form-urlencoded";
+    val urlParameters = "code=" + code + "&client_id=213363569061.apps.googleusercontent.com&client_secret=d3s0YP7_xtCaAtgCiSy_RNdU&redirect_uri=http://localhost:9000/driveAuth&grant_type=authorization_code&Content-Type=application/x-www-form-urlencoded";
     con.setDoOutput(true)
     val wr = new DataOutputStream(con.getOutputStream)
     wr.writeBytes(urlParameters)
@@ -49,16 +63,18 @@ object GoogleDocsUploadUtilityController extends Controller {
       response.append(in.readLine)
     }
     in.close
+    println(response)
     val nullExpr = "null".r
     val dataString = nullExpr.replaceAllIn(response.toString, "")
     val dataList = dataString.split(",").toList
     val tokenValues = dataList map {
       case info => net.liftweb.json.parse("{" + info + "}")
     }
-    
+
     val accessToken = (tokenValues(0) \ "access_token").extract[String]
     val refreshToken = (tokenValues(2) \ "refresh_token").extract[String]
-    Ok(views.html.stream()).withSession(request.session + ("accessToken"-> accessToken))
+    SocialToken.addToken(SocialToken(new ObjectId(request.session.get("userId").get), refreshToken))
+    Ok(views.html.stream()).withSession(request.session + ("accessToken" -> accessToken))
     //        Ok(views.html.fetchtoken())
   }
 
