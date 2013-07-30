@@ -1,3 +1,0 @@
-[submodule "vagrant/cookbooks/build-essential"]
-	path = vagrant/cookbooks/build-essential
-	url = git@github.com:opscode-cookbooks/build-essential.git
