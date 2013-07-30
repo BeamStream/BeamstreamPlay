@@ -5,13 +5,16 @@ import java.io.DataOutputStream
 import java.io.InputStreamReader
 import java.net.URL
 import java.util.Arrays
+
+import org.bson.types.ObjectId
+
 import com.google.api.client.googleapis.auth.oauth2.GoogleBrowserClientRequestUrl
+
 import javax.net.ssl.HttpsURLConnection
+import models.SocialToken
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.GoogleDocsUploadUtility
-import models.SocialToken
-import org.bson.types.ObjectId
 
 object GoogleDocsUploadUtilityController extends Controller {
 
@@ -34,7 +37,7 @@ object GoogleDocsUploadUtilityController extends Controller {
   }
 
   /**
-   * Google Oauth2 Setup
+   * Google Oauth2 accessing code and exchanging it for Access & Refresh Token
    */
   def googleDriveAuthentication = Action { implicit request =>
     val code = request.queryString("code").toList(0)
@@ -60,6 +63,7 @@ object GoogleDocsUploadUtilityController extends Controller {
       response.append(in.readLine)
     }
     in.close
+    println(response)
     val nullExpr = "null".r
     val dataString = nullExpr.replaceAllIn(response.toString, "")
     val dataList = dataString.split(",").toList

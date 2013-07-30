@@ -1,16 +1,12 @@
 package utils
 
-import com.google.api.services.drive.Drive
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow
-import com.google.api.client.json.jackson.JacksonFactory
+import scala.collection.JavaConversions.asScalaBuffer
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
-import com.google.api.client.http.javanet.NetHttpTransport
-import com.google.api.services.drive.model.File
 import com.google.api.client.http.FileContent
-import java.util.Arrays
-import com.google.api.services.drive.DriveScopes
-import scala.collection.JavaConversions._
-import java.io.IOException
+import com.google.api.client.http.javanet.NetHttpTransport
+import com.google.api.client.json.jackson.JacksonFactory
+import com.google.api.services.drive.Drive
+import com.google.api.services.drive.model.File
 object GoogleDocsUploadUtility {
 
   val CLIENT_ID = "213363569061.apps.googleusercontent.com"
@@ -20,8 +16,9 @@ object GoogleDocsUploadUtility {
   /**
    * Set Up Google App Credentials
    */
-  def returnGoogleCredentailsSettings(accessToken: String): Drive = {
+  def prepareGoogleDrive(accessToken: String): Drive = {
 
+    //Build the Google credentials and make the Drive ready to interact
     val credential = new GoogleCredential.Builder()
       .setJsonFactory(jsonFactory)
       .setTransport(httpTransport)
@@ -36,7 +33,7 @@ object GoogleDocsUploadUtility {
    * Upload To Google Drive
    */
   def uploadToGoogleDrive(accessToken: String, fileToUpload: java.io.File, fileName: String, contentType: String): String = {
-    val service = returnGoogleCredentailsSettings(accessToken)
+    val service = prepareGoogleDrive(accessToken)
     //Insert a file  
     val body = new File
     body.setTitle(fileName)
@@ -55,8 +52,8 @@ object GoogleDocsUploadUtility {
    */
 
   def getAllDocumentsFromGoogleDocs(code: String): List[(String, String)] = {
-    val service = returnGoogleCredentailsSettings(code)
-    var result: List[File] = List()
+    val service = prepareGoogleDrive(code)
+    var result: List[File] = Nil
     val request = service.files.list
 
     do {
