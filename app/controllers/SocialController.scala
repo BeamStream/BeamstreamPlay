@@ -24,29 +24,28 @@ object SocialController extends Controller {
    * Returns a JSON of user profile information
    */
   def signUpViaSocialSites = Action { implicit request =>
-      val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
-      val token = tokenList(0)
-      val apiKey = Play.current.configuration.getString("janrain_apiKey").get
-      val URL = "https://rpxnow.com/api/v2/auth_info"
-      val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
-      val body = promise.get.getBody
-      val json = Json.parse(body)
-      val providerName = (json \ "profile" \ "providerName").asOpt[String].get
-      val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
-      val identifier = (json \ "profile" \ "identifier").asOpt[String]
-      val emailFromJson = (json \ "profile" \ "email").asOpt[String]
-      println(json)
-      //TODO : Have to check whether the email has been registered already
-      val canUserRegister = User.canUserRegister(preferredUsername)
-      if (canUserRegister == true) {
-        val userToCreate = new User(new ObjectId, UserType.Professional, "", "", "", preferredUsername, "", None, "", "", "", "", "", Option(providerName), Nil, Nil, Nil, Nil, Nil, Option(json), None)
-        val IdOfUserCreted = User.createUser(userToCreate)
-        val userSession = request.session + ("userId" -> IdOfUserCreted.get.toString) + ("social_identifier" -> identifier.get)
-        val noOfOnLineUsers = OnlineUserCache.setOnline(IdOfUserCreted.get.toString)
-        Ok(views.html.registration(IdOfUserCreted.get.toString, Option(json.toString))).withSession(userSession)
-      } else {
-        Ok(write("User Has been already registered")).as("application/json")
-      }
+    val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
+    val token = tokenList(0)
+    val apiKey = Play.current.configuration.getString("janrain_apiKey").get
+    val URL = "https://rpxnow.com/api/v2/auth_info"
+    val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
+    val body = promise.get.getBody
+    val json = Json.parse(body)
+    val providerName = (json \ "profile" \ "providerName").asOpt[String].get
+    val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
+    val identifier = (json \ "profile" \ "identifier").asOpt[String]
+    val emailFromJson = (json \ "profile" \ "email").asOpt[String]
+    //TODO : Have to check whether the email has been registered already
+    val canUserRegister = User.canUserRegister(preferredUsername)
+    if (canUserRegister == true) {
+      val userToCreate = new User(new ObjectId, UserType.Professional, "", "", "", preferredUsername, "", None, "", "", "", "", "", Option(providerName), Nil, Nil, Nil, Nil, Nil, Option(json), None)
+      val IdOfUserCreted = User.createUser(userToCreate)
+      val userSession = request.session + ("userId" -> IdOfUserCreted.get.toString) + ("social_identifier" -> identifier.get)
+      val noOfOnLineUsers = OnlineUserCache.setOnline(IdOfUserCreted.get.toString)
+      Ok(views.html.registration(IdOfUserCreted.get.toString, Option(json.toString))).withSession(userSession)
+    } else {
+      Ok(write("User Has been already registered")).as("application/json")
+    }
   }
 
   /**
@@ -82,7 +81,7 @@ object SocialController extends Controller {
       case ex => InternalServerError(write("Login Failed")).as("application/json")
     }
   }
-  
+
   /**
    * Get a list of all the social contacts related to the user.
    * http://developers.janrain.com/documentation/api/get_contacts/
@@ -100,7 +99,7 @@ object SocialController extends Controller {
       Ok(body).as("application/json")
     }.get
   }
-  
+
   /**
    * Add a list of friends for the signed in user.
    * Receives a list of users via JSON string
@@ -109,17 +108,17 @@ object SocialController extends Controller {
    */
   def inviteFriends = Action { implicit request =>
     val userId = request.session.get("userId")
-    if (userId == None) {
-      Ok(write("Session Has Been Expired")).as("application/json")
-    } else {
-	    val userJsonMap = request.body.asJson.get
-	    val emailstring = (userJsonMap \ "data").as[String]
-	    val emailList = emailstring.split(",")
-	    .toList.head.split(",").toList
-	    for (eachEmail <- emailList) {
-	      val user = User.getUserProfile(new ObjectId(userId.get))
-	      SendEmailUtility.inviteUserToBeamstreamWithReferral(eachEmail, userId.get, user.get.firstName + " " + user.get.lastName)
-	    }
+    (userId == None) match {
+      case true => Ok(write("Session Has Been Expired")).as("application/json")
+      case false =>
+        val userJsonMap = request.body.asJson.get
+        val emailstring = (userJsonMap \ "data").as[String]
+        val emailList = emailstring.split(",")
+          .toList.head.split(",").toList
+        for (eachEmail <- emailList) {
+          val user = User.getUserProfile(new ObjectId(userId.get))
+          SendEmailUtility.inviteUserToBeamstreamWithReferral(eachEmail, userId.get, user.get.firstName + " " + user.get.lastName)
+        }
     }
     Ok(write(ResulttoSent("Success", "Invitations has been sent"))).as("application/json")
   }

@@ -1,26 +1,18 @@
 package controllers
 
-import models.Stream
-import models.User
-import play.api.mvc._
-import play.api._
-import utils.SendEmailUtility
-import models.TokenDAO
-import com.mongodb.casbah.commons.MongoDBObject
-import net.liftweb.json.{ parse, DefaultFormats }
-import net.liftweb.json.Serialization.{ read, write }
-import models.ResulttoSent
-import models.UserType
-import org.bson.types.ObjectId
 import java.text.SimpleDateFormat
-import utils.EnumerationSerializer
-import utils.ObjectIdSerializer
-import models.UserDAO
-import com.mongodb.WriteConcern
-import play.cache.Cache
-import utils.PasswordHashingUtil
-import utils.OnlineUserCache
+import org.bson.types.ObjectId
+import com.mongodb.casbah.commons.MongoDBObject
 import actors.UtilityActor
+import models.ResulttoSent
+import models.TokenDAO
+import models.User
+import models.UserType
+import net.liftweb.json.Serialization.write
+import play.api.mvc.Action
+import play.api.mvc.Controller
+import utils.ObjectIdSerializer
+import utils.PasswordHashingUtil
 import utils.TokenEmailUtil
 
 object BasicRegistration extends Controller {

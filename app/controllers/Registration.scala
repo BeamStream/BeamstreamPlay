@@ -85,7 +85,7 @@ object Registration extends Controller {
         OnlineUserCache.setOnline(userId)
         Ok(write(RegistrationResults(userCreated.get, userSchool))).as("application/json").withSession("userId" -> userId)
 
-      case false => Ok(write("Something gone wrong")).as("application/json")
+      case false => InternalServerError(write("Something gone wrong")).as("application/json")
     }
   }
 

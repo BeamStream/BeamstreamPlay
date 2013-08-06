@@ -6,12 +6,13 @@ import play.api.mvc.SimpleResult
 import play.api.mvc.Result
 import play.api.mvc.Results.Redirect
 import models.School
+import actors.ChatActor
 
 object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     //    ReadingSpreadsheetUtil.readCSVOfSchools
-//    School.allSchoolsInDatabase = School.getAllSchools
+    //    School.allSchoolsInDatabase = School.getAllSchools
   }
 
   override def onError(request: RequestHeader, ex: Throwable) = {

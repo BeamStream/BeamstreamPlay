@@ -1,23 +1,16 @@
 package models
-import com.novus.salat._
-import com.novus.salat.global._
-import com.novus.salat.annotations._
-import com.novus.salat.dao._
-import com.mongodb.casbah.Imports._
-import com.mongodb.casbah.MongoConnection
-import play.mvc._
-import play.api.mvc.Session
-import utils.MongoHQConfig
+
 import org.bson.types.ObjectId
-import play.cache.Cache
-import net.liftweb.json.{ parse, DefaultFormats }
-import net.liftweb.json.Serialization.{ read, write }
-import com.mongodb.casbah.WriteConcern
-import utils.SendEmailUtility
-import utils.PasswordHashingUtil
-import utils.PasswordHashingUtil
-import play.api.libs.json.JsValue
+
+import com.mongodb.casbah.Imports.MongoDBObject
+import com.mongodb.casbah.Imports.WriteConcern
+import com.novus.salat.dao.SalatDAO
+import com.novus.salat.global.ctx
+import com.novus.salat.annotations._
 import actors.UtilityActor
+import play.api.libs.json.JsValue
+import utils.MongoHQConfig
+import utils.PasswordHashingUtil
 
 case class User(@Key("_id") id: ObjectId,
   userType: UserType.Value,
@@ -40,10 +33,8 @@ case class User(@Key("_id") id: ObjectId,
   followers: List[ObjectId],
   socialJson: Option[JsValue],
   friends: Option[List[ObjectId]])
-  
 
 object User {
- 
 
   /**
    * Creates a User (RA)
@@ -112,7 +103,7 @@ object User {
    */
   def removeClassFromUser(userId: ObjectId, classId: List[ObjectId]) {
     val user = UserDAO.find(MongoDBObject("_id" -> userId)).toList(0)
-    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classes = (user.classes.filterNot (classId contains))), false, false, new WriteConcern)
+    UserDAO.update(MongoDBObject("_id" -> userId), user.copy(classes = (user.classes.filterNot(classId contains))), false, false, new WriteConcern)
   }
   /**
    * Get the Details of a user (RA)
@@ -146,8 +137,8 @@ object User {
 
   def giveMeTheRockers(users: List[ObjectId]): List[String] = {
     var userentities = users map { user => UserDAO.findOne(MongoDBObject("_id" -> user)).get }
-    
-    userentities map { userentity => userentity.firstName + " " + userentity.lastName}
+
+    userentities map { userentity => userentity.firstName + " " + userentity.lastName }
   }
 
   /**
@@ -192,7 +183,7 @@ object User {
    * Check if the User has already registered (RA)
    */
   def canUserRegister(userEmailOrName: String) = {
-    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmailOrName,"socialNetwork" -> None))
+    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmailOrName, "socialNetwork" -> None))
     val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userEmailOrName))
     (userHavingSameMailId.isEmpty && userHavingSameUserName.isEmpty) match {
       case true => true
@@ -213,8 +204,8 @@ object User {
    *
    */
   def findUser(userEmailorName: String, password: String): Option[User] = {
-    val authenticatedUserviaEmail = UserDAO.find(MongoDBObject("email" -> userEmailorName, "password" -> password,"socialNetwork" -> None))
-    val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userEmailorName, "password" -> password,"socialNetwork" -> None))
+    val authenticatedUserviaEmail = UserDAO.find(MongoDBObject("email" -> userEmailorName, "password" -> password, "socialNetwork" -> None))
+    val authenticatedUserviaName = UserDAO.find(MongoDBObject("userName" -> userEmailorName, "password" -> password, "socialNetwork" -> None))
 
     (authenticatedUserviaEmail.isEmpty && authenticatedUserviaName.isEmpty) match {
       case true => // No user
@@ -225,8 +216,8 @@ object User {
     }
 
   }
-  
-    /**
+
+  /**
    * Is a follower
    * @Purpose: identify if the user is following this User or not
    * @param  followedUserId is the id of the user being followed to be searched
