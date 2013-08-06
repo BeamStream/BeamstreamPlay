@@ -6,7 +6,7 @@ import akka.actor.Props
 
 class ChatActor extends Actor {
   def receive = {
-    case (chatWith ,actor) => println(chatWith,actor)
+    case (chatWith, actor) => println(chatWith, actor)
   }
 }
 
