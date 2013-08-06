@@ -21,13 +21,14 @@ object ChatController extends Controller {
    * Enter In To ChatRoom
    */
   def chatRoom = Action { implicit request =>
-    val roomToJoin = request.queryString.get("chatWith")
+    val startChatWith = request.queryString.get("startChatWith")
+    //    val roomToJoin = request.queryString.get("chatWith")
     val user = User.getUserProfile(new ObjectId(request.session.get("userId").get))
-     (roomToJoin == None) match {
-      case true => Ok(views.html.chatRoom(user.head.firstName, user.head.id.toString, ""))
-      case false => Ok(views.html.chatRoom(user.head.firstName, user.head.id.toString,roomToJoin.head.head))
-    }
-      
+    //     (roomToJoin == None) match {
+    //      case true => Ok(views.html.chatRoom(user.head.firstName, user.head.id.toString, ""))
+    //      case false => Ok(views.html.chatRoom(user.head.firstName, user.head.id.toString,roomToJoin.head.head))
+    //    }
+    Ok(views.html.chatRoom(user.head.firstName, user.head.id.toString, startChatWith.head.head))
   }
 
 }

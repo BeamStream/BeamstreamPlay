@@ -9,78 +9,115 @@ import play.api.libs.concurrent._
 import akka.util.Timeout
 import akka.pattern.ask
 import play.api.Play.current
+import actors.ChatActor
 
 object ChatRoom {
-
   def join(username: String, userId: String, chatWith: String): Promise[(Iteratee[JsValue, _], Enumerator[JsValue])] = {
-    (chatWith != "") match {
+    //    (chatWith != "") match {
+    //
+    //      case true =>
+    //        val roomToJoin = Akka.system.actorFor(chatWith)
+    //        implicit val timeout = Timeout(1 second)
+    //        (roomToJoin ? Join(username,  Option(chatWith))).asPromise.map {
+    //
+    //          case Connected(enumerator) =>
+    //
+    //            val iteratee = Iteratee.foreach[JsValue] { event =>
+    //              roomToJoin ! Talk(username, (event \ "text").as[String])
+    //            }.mapDone { _ =>
+    //              roomToJoin ! Quit(username)
+    //            }
+    //
+    //            (iteratee, enumerator)
+    //
+    //          case CannotConnect(error) =>
+    //
+    //            // Connection error
+    //
+    //            val iteratee = Done[JsValue, Unit]((), Input.EOF)
+    //
+    //            // Send an error and close the socket
+    //            val enumerator = Enumerator[JsValue](JsObject(Seq("error" -> JsString(error)))).andThen(Enumerator.enumInput(Input.EOF))
+    //
+    //            (iteratee, enumerator)
+    //
+    //        }
+    //
+    //      case false =>
+    //
+    //        implicit val timeout = Timeout(1 second)
+    //
+    //        lazy val default = {
+    //          val actorRef = Akka.system.actorOf(Props[ChatRoom], userId)
+    //          actorRef
+    //        }
+    //        println(default)
+    //
+    //        (default ? Join(username, None, None)).asPromise.map {
+    //
+    //          case Connected(enumerator) =>
+    //
+    //            // Create an Iteratee to consume the feed
+    //            val iteratee = Iteratee.foreach[JsValue] { event =>
+    //              default ! Talk(username, (event \ "text").as[String])
+    //            }.mapDone { _ =>
+    //              default ! Quit(username)
+    //            }
+    //
+    //            (iteratee, enumerator)
+    //
+    //          case CannotConnect(error) =>
+    //
+    //            // Connection error
+    //
+    //            // A finished Iteratee sending EOF
+    //            val iteratee = Done[JsValue, Unit]((), Input.EOF)
+    //
+    //            // Send an error and close the socket
+    //            val enumerator = Enumerator[JsValue](JsObject(Seq("error" -> JsString(error)))).andThen(Enumerator.enumInput(Input.EOF))
+    //
+    //            (iteratee, enumerator)
+    //
+    //        }
+    //
+    //    }
 
-      case true =>
-        val roomToJoin = Akka.system.actorFor(chatWith)
-        implicit val timeout = Timeout(1 second)
-        (roomToJoin ? Join(username)).asPromise.map {
+    implicit val timeout = Timeout(1 second)
 
-          case Connected(enumerator) =>
+    lazy val default = {
+      val actorRef = Akka.system.actorOf(Props[ChatRoom], userId)
+      actorRef
+    }
+    println(default)
 
-            val iteratee = Iteratee.foreach[JsValue] { event =>
-              roomToJoin ! Talk(username, (event \ "text").as[String])
-            }.mapDone { _ =>
-              roomToJoin ! Quit(username)
-            }
+    (default ? Join(username, userId, chatWith)).asPromise.map {
 
-            (iteratee, enumerator)
+      case Connected(enumerator) =>
 
-          case CannotConnect(error) =>
-
-            // Connection error
-
-            val iteratee = Done[JsValue, Unit]((), Input.EOF)
-
-            // Send an error and close the socket
-            val enumerator = Enumerator[JsValue](JsObject(Seq("error" -> JsString(error)))).andThen(Enumerator.enumInput(Input.EOF))
-
-            (iteratee, enumerator)
-
+        // Create an Iteratee to consume the feed
+        val iteratee = Iteratee.foreach[JsValue] { event =>
+          default ! Talk(username, (event \ "text").as[String])
+        }.mapDone { _ =>
+          default ! Quit(username)
         }
+        ChatActor.chat ! (chatWith, default)
 
-      case false =>
+        (iteratee, enumerator)
 
-        implicit val timeout = Timeout(1 second)
+      case CannotConnect(error) =>
 
-        lazy val default = {
-          val actorRef = Akka.system.actorOf(Props[ChatRoom], userId)
-          actorRef
-        }
-        println(default)
+        // Connection error
 
-        (default ? Join(username)).asPromise.map {
+        // A finished Iteratee sending EOF
+        val iteratee = Done[JsValue, Unit]((), Input.EOF)
 
-          case Connected(enumerator) =>
+        // Send an error and close the socket
+        val enumerator = Enumerator[JsValue](JsObject(Seq("error" -> JsString(error)))).andThen(Enumerator.enumInput(Input.EOF))
 
-            // Create an Iteratee to consume the feed
-            val iteratee = Iteratee.foreach[JsValue] { event =>
-              default ! Talk(username, (event \ "text").as[String])
-            }.mapDone { _ =>
-              default ! Quit(username)
-            }
-
-            (iteratee, enumerator)
-
-          case CannotConnect(error) =>
-
-            // Connection error
-
-            // A finished Iteratee sending EOF
-            val iteratee = Done[JsValue, Unit]((), Input.EOF)
-
-            // Send an error and close the socket
-            val enumerator = Enumerator[JsValue](JsObject(Seq("error" -> JsString(error)))).andThen(Enumerator.enumInput(Input.EOF))
-
-            (iteratee, enumerator)
-
-        }
+        (iteratee, enumerator)
 
     }
+
   }
 
 }
@@ -90,7 +127,7 @@ class ChatRoom extends Actor {
 
   def receive = {
 
-    case Join(username) => {
+    case Join(username, userId, chatWith) => {
       // Create an Enumerator to write to this socket
       val channel = Enumerator.imperative[JsValue](onStart = self ! NotifyJoin(username))
       if (members.contains(username)) {
@@ -99,6 +136,7 @@ class ChatRoom extends Actor {
         members = members + (username -> channel)
 
         sender ! Connected(channel)
+
       }
     }
 
@@ -132,7 +170,7 @@ class ChatRoom extends Actor {
 
 }
 
-case class Join(username: String)
+case class Join(username: String, userId: String, room: String)
 case class Quit(username: String)
 case class Talk(username: String, text: String)
 case class NotifyJoin(username: String)

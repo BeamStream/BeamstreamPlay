@@ -6,15 +6,12 @@ import akka.actor.Props
 
 class ChatActor extends Actor {
   def receive = {
-    case 1 => println("")
+    case (chatWith ,actor) => println(chatWith,actor)
   }
 }
 
 object ChatActor {
 
-  def doChat {
-    val system = ActorSystem("MySystem")
-    val chat = system.actorOf(Props[ChatActor], name = "chat")
-    chat ! 1
-  }
+  val system = ActorSystem("MySystem")
+  val chat = system.actorOf(Props[ChatActor], name = "chat")
 }
