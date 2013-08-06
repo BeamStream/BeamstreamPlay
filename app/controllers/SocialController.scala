@@ -35,6 +35,7 @@ object SocialController extends Controller {
       val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
       val identifier = (json \ "profile" \ "identifier").asOpt[String]
       val emailFromJson = (json \ "profile" \ "email").asOpt[String]
+      println(json)
       //TODO : Have to check whether the email has been registered already
       val canUserRegister = User.canUserRegister(preferredUsername)
       if (canUserRegister == true) {
