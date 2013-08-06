@@ -67,13 +67,13 @@ define(['view/formView' ,
 			if(userInfo == null){  // signup via email
 				
 				this.$(".content").html( compiledTemplate(this.data));
-				this.temp_photo='/beamstream-new/images/step-one-pic1.png';
+				this.temp_photo='/beamstream-new/images/step-one-pic.png';
 			} 
 			else{                  //signup  via janRain
 				if (userInfo.stat == "ok") {
 					
 					var firstName = '', lastName ='', location ='', email='' ;
-					this.temp_photo='/beamstream-new/images/step-one-pic1.png';
+					this.temp_photo='/beamstream-new/images/step-one-pic.png';
 					firstName = userInfo.profile.name.givenName;
 					lastName = userInfo.profile.name.familyName;
 					

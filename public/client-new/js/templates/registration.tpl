@@ -202,18 +202,17 @@
 
 
 
-	 <input type="file" id="uploadProfilePic" name="uploadProfilePic"  style="display:none;"> 
-             <div id="upload-step">
-	             <div id="step3_block" class="round-block upload-photo step-one-photo"> 
-	             {{#if photo}}
-	             <a > <img src="{{photo}}" width="148" height="37" id="profile-photo"></a> 	             
-	             {{else}}	             
-	             <a > <img src="/beamstream-new/images/step-one-pic1.png" width="148" height="37" id="profile-photo"></a>
-	             {{/if}}
-	             </div>
-             </div>
-
-		</div>
+    <input type="file" id="uploadProfilePic" name="uploadProfilePic"  style="display:none;"> 
+      <div id="upload-step">
+        <div id="step3_block" class="round-block upload-photo step-one-photo"> 
+          {{#if photo}}
+          <a > <img src="{{photo}}" width="148" height="37" id="profile-photo"></a> 	             
+          {{else}}	             
+          <a > <img src="/beamstream-new/images/step-one-pic.png" width="148" height="37" id="profile-photo"></a>
+          {{/if}}
+        </div>
+      </div>
+    </div>
  
         </div>
         

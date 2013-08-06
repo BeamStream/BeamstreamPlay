@@ -1,0 +1,30 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant::Config.run do |config|
+  config.vm.box = "heroku"
+  config.vm.box_url = "http://dl.dropbox.com/u/1906634/heroku.box"
+
+  config.vm.host_name = "BeamStream"
+  config.vm.share_folder "v-data", "/BeamStream", "../"
+  config.vm.customize ["modifyvm", :id, "--memory", "2048"]
+  
+  #Network
+  config.vm.forward_port 9000, 9000
+  config.vm.network :hostonly, "192.168.10.10"
+  # config.vm.network :bridged
+
+
+  # Chef Solo Provision
+  config.vm.provision :chef_solo do |chef|
+    chef.cookbooks_path = "cookbooks"
+    chef.add_recipe "beamstreamplay"
+    chef.json.merge!({
+      "play" => {
+        :version => '2.0.2',
+      }
+    })
+  end
+
+
+end

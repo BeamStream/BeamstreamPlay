@@ -1,5 +1,4 @@
 @(files : List[(String,String)])
-@println(files)
 @helper.form(action = routes.GoogleDocsUploadUtilityController.uploadToGoogleDrive, 'enctype -> "multipart/form-data") {
     
     <input type="file" name="picture">
@@ -10,8 +9,10 @@
 
 OR
 <br><br><br>
-<input type="button" value ="Create Google Doc" onclick=newPopup('https://drive.google.com')>
-
+<input type="button" value ="Create Other Document" onclick=newPopup('https://drive.google.com')>
+<br><br><br>
+<input type="button" value ="Create New Google Documnet" onclick=newPopup('http://docs.google.com/document/create?hl=en')>
+<input type="button" value ="Create Other Google Spreadsheet" onclick=newPopup('http://spreadsheets.google.com/ccc?new&hl=en')>
 
 <br><br><br>
 <input type="button" value ="Show Google Doc" onclick=create()>
@@ -36,14 +37,4 @@ window.location.href = 'getGoogleDocs';
 }
 }
 
-
--- 
-Cheers ,
-
-Neelkanth Sachdeva
-Software Consultant 
-
-Office :011-42316525
-
-LinkedIn | Blog | Github | Twitter
 

@@ -188,7 +188,7 @@ ul.menu li a:hover, ul.menu li a.active{
 	
 }
 .join-form input[type="text"]{
-	width:auto;
+	width:260px;
 	height:40px;
 	float:left;
 	background:none;
