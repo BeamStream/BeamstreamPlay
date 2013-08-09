@@ -6,9 +6,13 @@
 <!--  prettyPhoto -->
 <link rel="stylesheet" href="/beamstream-new/css/extracss/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet"
 	charset="utf-8" />
+
+<!-- new google and social links -->
+<LINK REL=StyleSheet HREF="assets/stylesheets/bmstyle.css" TYPE="text/css">
 }
 @JS = {
 <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>
+
 
 <script src="/beamstream-new/js/BS_social.js"></script>
 
@@ -194,49 +198,41 @@
 					</span>
 				</a> 
 			</div>
- 			<div class="stream-top-shadow"><img src="/beamstream-new/images/shadow.png"/></div>
 		</div>
-		
-		<ul class="nav-tabs stream-tab" id="streamTab">
-			<li id="discussion" class="active"><a href="#discussionsView" data-toggle="tab" >Discussions</a></li>
-			<li id="question"><a href="#questionsView"  data-toggle="tab">Questions</a></li>
-			<li id="deadlines"><a href="#deadlinesView"  data-toggle="tab">Deadlines</a></li>
-			<li id="calendar"><a href="#calendarView" data-toggle="tab">Calendar</a></li>
-		</ul>
+	
 		<div class="tab-content">
   		<!--   to get all messages of a stream - How to make call like  data-url="/allMessagesForAStream/streamId/pageLimit/pageNo" dynamically ?  --> 
 			<div class="tab-pane active" id="discussionsView" data-model="discussion">
-				<div class="stream-wrapper">
 					<div class="question-info">
-						<div class="question-sort">
-							<h5>SORT BY</h5>
-							<div class="btn-group dropdown-outer">
-								<button class="btn normal-dropdown" id="sortBy-select" value="date" >Most Recent</button>
-								<button class="btn blue-button " data-toggle="dropdown">
-									<span class="caret sort-caret"></span>
-								</button>
-								<ul class="dropdown-menu rate-sub" id="sortBy-list">
-									<li><a href="#" name="most-recent" value="date">Most Recent</a></li>
-									<li><a href="#" name="highest-rated" value="rock">Highest Rated</a></li>
-									<li><a href="#" name="most-shared" >Most Shared </a></li>
-								</ul>
-		              </div>
-		              <div class="btn-group dropdown-outer">
-		                <button class="btn normal-dropdown " id="date-sort-select">This Week</button>
-		                <button class="btn blue-button " data-toggle="dropdown">
-											<span class="caret sort-caret"></span>
-										</button>
-										<ul class="dropdown-menu rate-sub" id="date-sort-list">
-											<li><a href="#">Today</a></li>
-											<li><a href="#">This Week</a></li>
-											<li><a href="#">This Month </a></li>
-											<li><a href="#">All Dates </a></li>
-										</ul>
-									</div>
-									<form class="all-search">
-		                <input type="text" id="sort_by_key" class="quest-search" placeholder="Search Discussions"/>
-		              </form>
-		            </div>
+
+
+						
+						<div class="new-google">
+							<span>Create A New:</span>
+							<div class="btn-group">
+							  <a class="btn dropdown-toggle new-google-btn" data-toggle="dropdown" href="#">
+							  	<div class="google-doc-icn"></div>
+							  	<span>Google Doc</span>
+							  </a>
+							  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+							    <li><a tabindex="-1" href="#">One</a></li>
+							    <li><a tabindex="-1" href="#">Two</a></li>
+							  </ul>
+							</div>
+							<div class="btn-group" style="float:left; margin-left: 20px">
+							  <a class="btn dropdown-toggle new-google-btn" data-toggle="dropdown" href="#">
+							  	<div class="question-icn"></div>
+							  	<span>Question</span>
+							  </a>
+							  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+							    <li><a tabindex="-1" href="#">Ask a question</a></li>
+							    <li><a tabindex="-1" href="#">Add a poll</a></li>
+							  </ul>
+							</div>
+						</div>
+
+
+
 		            <div class="clear"></div>
 		          </div>
 		          <div class="ask-outer">
@@ -273,35 +269,40 @@
 		                  <div id="file-upload-loader" style="display :none;">  
 									
 		        		</div>
-		                   </div>
+
+
+		        	<div id="upload-files1" class="btn-group attach-drop ">
+						<button id="upload-files2" class="btn attach-drop-button drag-rectangle attach-drop-bg" data-toggle="dropdown" data-original-title="Upload Files"> </button>
+						<ul id="discussion-file-upload"  class="dropdown-menu  attach-dropdwon">
+		                	<li><a href="#">Class Document</a></li>
+		                    <li><a href="#">Assignment</a></li>
+		                    <li><a href="#">Homework </a></li>
+							<li><a href="#">Notes</a></li>
+		                    <li><a href="#">Project</a></li>
+		                    <li><a href="#">Lecture </a></li>
+							<li><a href="#">Reference Material</a></li>
+		                    <li><a href="#">Tutorial</a></li>
+		                    <li><a href="#">EdTech Tool </a></li>
+							<li><a href="#">Amusement</a></li>
+							<input type="text" placeholder="+Add a new category">
+		             	</ul>
+		           	</div>
+		
+		
+		            <div id="upload-files1" class="btn-group attach-drop ">
+						<button id="upload-files2" class="btn attach-drop-button drag-rectangle attach-drop-bg" data-toggle="dropdown" data-original-title="Tag" style="background-position: -1px -390px"> </button>
+						<ul id="discussion-file-upload"  class="dropdown-menu  attach-dropdwon">
+		                	<li><a href="#">#this</a></li>
+		                    <li><a href="#">#that</a></li>
+							<input type="text" placeholder="+Add a new Tag">
+		             	</ul>
+
+		           	</div>
+
+		               </div>
 		                  
 		                <div class="ask-iconinfo">
-		  	          <div id="upload-files1" class="btn-group attach-drop ">
-
-		  
-
-		              <button id="upload-files2" class="btn attach-drop-button drag-rectangle attach-drop-bg" data-toggle="dropdown" data-original-title="Upload Files"> </button>
-
-		              <ul id="discussion-file-upload"  class="dropdown-menu  attach-dropdwon">
-		                 <li><a href="#">Class Document</a></li>
-		                      <li><a href="#">Assignment</a></li>
-		                      <li><a href="#">Homework </a></li>
-								<li><a href="#">Notes</a></li>
-		                      <li><a href="#">Project</a></li>
-		                      <li><a href="#">Lecture </a></li>
-							 <li><a href="#">Reference Material</a></li>
-		                      <li><a href="#">Tutorial</a></li>
-		                      <li><a href="#">EdTech Tool </a></li>
-								<li><a href="#">Amusement</a></li>
-							<input type="text" placeholder="+Add a new category">
-		              </ul>
-		           	 </div>
-		
-		
-		                  <ul class="icons-ask">
-		                  
-		                    <li class="tag"><a href="#"></a></li>
-		                  </ul>
+		  	          
 		                  <label class="checkbox private-chaeck">
 		                    <input id="private-to" type="checkbox"  checked="checked">
 		                    Private to:</label>
@@ -316,10 +317,10 @@
 		                   <ul id="share-discussions" class="social-icons">
 		                   <span>Share On:</span>
 		                    <li name="email" class="google-plus"><a href="#">Google plus</a></li>
+		                    <li name="twitter" class="twitter"> <a href="#">Twitter</a></li>
+		                    <li name="facebook" class="facebook"><a href="#">facebook</a></li>
+		                    <li name="linkedin" class="linkedin"><a href="#">linked in</a></li>
 		                    <li name="plus" class="plus"><a href="#">p</a></li>
-		                    <li  name="twitter" class="twitter"> <a href="#">Twitter</a></li>
-		                    <li name="facebook" class="facebook"><a href="#"> face book</a></li>
-		                    <li name="linkedin" class="in"><a href="https://accounts.google.com/o/oauth2/auth?response_type=code&scope=https://www.googleapis.com/auth/drive&access_type=offline&redirect_uri=http://localhost:9000/driveAuth&state=/profile&client_id=612772830843.apps.googleusercontent.com"> in</a></li>
 		                   <!--  <li><img src="/beamstream-new/images/drive.jpg" height="35" width="35"></li>
 		                      <li><img src="/beamstream-new/images/addGoogle.jpg" height="25" width="25"></li>
 		                        <li><a href="/uploadNow"><img src="/beamstream-new/images/uploadGoogle.jpg" height="25" width="25" style="float:left"/></a></li> -->
@@ -330,18 +331,50 @@
 		            
 		            <div class="clear"></div>
 		          </div>
+
+<div class="question-sort">
+							<h5>SORT BY</h5>
+							<div class="btn-group dropdown-outer">
+								<button class="btn normal-dropdown" id="sortBy-select" value="date" >Most Recent</button>
+								<button class="btn blue-button " data-toggle="dropdown">
+									<span class="caret sort-caret"></span>
+								</button>
+								<ul class="dropdown-menu rate-sub" id="sortBy-list">
+									<li><a href="#" name="most-recent" value="date">Most Recent</a></li>
+									<li><a href="#" name="highest-rated" value="rock">Highest Rated</a></li>
+									<li><a href="#" name="most-shared" >Most Shared </a></li>
+								</ul>
+		              </div>
+		              <div class="btn-group dropdown-outer">
+		                <button class="btn normal-dropdown " id="date-sort-select">This Week</button>
+		                <button class="btn blue-button " data-toggle="dropdown">
+											<span class="caret sort-caret"></span>
+										</button>
+										<ul class="dropdown-menu rate-sub" id="date-sort-list">
+											<li><a href="#">Today</a></li>
+											<li><a href="#">This Week</a></li>
+											<li><a href="#">This Month </a></li>
+											<li><a href="#">All Dates </a></li>
+										</ul>
+									</div>
+									<form class="all-search">
+		                <input type="text" id="sort_by_key" class="quest-search" placeholder="Search Discussions"/>
+		              </form>
+		            </div>
+
 		          <div id= "messageListView" data-model="discussion" data-module="view/messageListView" data-url="/" data-tpl="templates/discussionMessage.tpl">
 		
 		          </div>
 
 		          <div id="discussion-pagination" class ="page-loader" style="display:none;"><img src ="/beamstream-new/images/loading-bars.gif"></div>
 	
-		        </div>
 	  		</div>
 	  		
 		  	 
 					
 		  	<div class="tab-pane "  id="questionsView" data-model="question" >
+
+		  		</div>
 
 	  			<div class="stream-wrapper">
 		          	<div class="question-info">
