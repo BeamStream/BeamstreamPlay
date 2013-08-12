@@ -10,14 +10,21 @@ import com.mongodb.casbah.commons.MongoDBObject
 
 case class Token(@Key("_id") id: ObjectId, tokenString: String)
 object Token {
-  
-  def addToken(token:Token)={
+
+  /**
+   * Add Mail Token
+   */
+  def addToken(token: Token) = {
     TokenDAO.insert(token)
   }
-  
-  def findToken(tokenString:String): List[Token]={
-    TokenDAO.find(MongoDBObject("tokenString"-> tokenString)).toList
+
+  /**
+   * Find Mail TOken
+   */
+
+  def findToken(tokenString: String): List[Token] = {
+    TokenDAO.find(MongoDBObject("tokenString" -> tokenString)).toList
   }
 
 }
-object TokenDAO extends SalatDAO[Token, Int](collection =  MongoHQConfig.mongoDB("token"))
+object TokenDAO extends SalatDAO[Token, Int](collection = MongoHQConfig.mongoDB("token"))

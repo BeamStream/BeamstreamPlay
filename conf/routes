@@ -1,9 +1,6 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-
-
-
 #Other
 GET      /browserClosed                                                          controllers.UserController.browserClosed
 GET      /error                                                                  controllers.StreamController.onError
@@ -13,8 +10,7 @@ GET      /noOfUsers/stream/:streamId                                            
 PUT      /remove/stream/:streamId                                                 controllers.StreamController.deleteTheStream(streamId:String)
 
 #Messages
-#POST 	/getAllMessagesForAStreambyKeyword         	controllers.MessageController.getAllMessagesForAStreambyKeyword
-#POST 	/allPublicMessagesFromAllStreamsForAUser    controllers.StreamController.allPublicMessagesFromAllStreamsForAUser
+
 PUT   /remove/message/:messageId                                              controllers.MessageController.deleteTheMessage(messageId:String)
 
 #Comments
@@ -29,7 +25,7 @@ PUT      /document/:documentId                                                  
 POST     /newDocument                                                            controllers.DocumentController.newDocument
 PUT      /rock/document/:documentId                                              controllers.DocumentController.rockTheDocument(documentId:String)
 GET      /rockersOf/document/:documentId                                         controllers.DocumentController.giveMeRockersOfDocument(documentId:String)
-#GET      /document/:documentId                                                   controllers.DocumentController.getDocument(documentId:String)
+
 PUT      /follow/document/:documentId                                            controllers.DocumentController.followDocument(documentId:String)
 PUT      /viewCountOf/document/:documentId                                       controllers.DocumentController.viewCount(documentId:String)
 
@@ -41,14 +37,12 @@ GET      /classesFor/user/:userId                                               
 
 GET      /loggedInUserJson                                                       controllers.UserController.returnUserJson
 
-#Basic Registration
-POST     /verifyToken                                                            controllers.BasicRegistration.basicRegistration
 
 #Destroy session
 GET      /signOut                                                                controllers.UserController.signOut
 
 #Media
-#POST 	/getMediafromPost 							                          controllers.MediaController.getMedia
+
 GET      /profilePicFor/user/:userId                                             controllers.MediaController.getProfilePicForAUser(userId:String)
 PUT      /media/:mediaId                                                     controllers.DocumentController.changeTitleAndDescriptionForADocument(mediaId:String)
 GET      /allPicsForAuser                                                 controllers.MediaController.getAllPicsForAUser
@@ -112,14 +106,16 @@ GET      /images/*file                                                          
 POST     /betaUser                                                               controllers.JoinBeamStream.regsisterToBeamStreamBeta 
 GET      /                                                                       controllers.JoinBeamStream.betaUserRegistration
 
+#Signup (v)
+GET      /signup                                                                 controllers.BasicRegistration.signUpPage
+POST     /signup                                                                 controllers.BasicRegistration.signUpUser
+
+
 #User
 GET      /onlineUsers                                                            controllers.UserController.getAllOnlineUsers
 PUT      /followUser/:userId                                                     controllers.UserController.followUser(userId:String)
 
-#Signup 
 
-GET      /signup                                                                 controllers.BasicRegistration.signUpPage
-POST     /signup                                                                 controllers.BasicRegistration.signUpUser
 
 #Registration
 GET      /registration                                                           controllers.Registration.registration
@@ -210,3 +206,16 @@ GET   /uploadPage                                                   controllers.
 GET  /chatNow                                                     controllers.ChatController.chatRoom
 GET  /room                                                     controllers.ChatController.chat(username,userId,chatWith)
 
+
+
+#Looks like Unused
+
+#Basic Registration
+#POST     /verifyToken                                                            controllers.BasicRegistration.basicRegistration
+
+#POST 	/getAllMessagesForAStreambyKeyword         	controllers.MessageController.getAllMessagesForAStreambyKeyword
+#POST 	/allPublicMessagesFromAllStreamsForAUser    controllers.StreamController.allPublicMessagesFromAllStreamsForAUser
+
+#GET      /document/:documentId                                                   controllers.DocumentController.getDocument(documentId:String)
+
+#POST 	/getMediafromPost 							                          controllers.MediaController.getMedia
