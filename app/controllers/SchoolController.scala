@@ -15,34 +15,33 @@ object SchoolController extends Controller {
   } + new ObjectIdSerializer
 
   /**
-   * Add a new school (RA)
+   * Add a new school (V)
    */
   def addANewSchool = Action { implicit request =>
-      val schoolInfojsonMap = request.body.asJson.get
-      val schoolName = (schoolInfojsonMap \ "schoolName").as[String]
-      val schoolWebsite = (schoolInfojsonMap \ "schoolWebsite").as[String]
-      val schools = School.findSchoolByName(schoolName)
-      if (!schools.isEmpty) Ok(write("School Already Exists")).as("application/json")
-      else {
-        val schoolToCreate = new School(new ObjectId, schoolName, schoolWebsite)
-        val schoolId = School.addNewSchool(schoolToCreate)
-        Ok(write(schoolToCreate)).as("application/json")
-      }
+    val schoolInfojsonMap = request.body.asJson.get
+    val schoolName = (schoolInfojsonMap \ "schoolName").as[String]
+    val schoolWebsite = (schoolInfojsonMap \ "schoolWebsite").as[String]
+    val schools = School.findSchoolByName(schoolName)
+    if (!schools.isEmpty) Ok(write("School Already Exists")).as("application/json")
+    else {
+      val schoolToCreate = new School(new ObjectId, schoolName, schoolWebsite)
+      val schoolId = School.addNewSchool(schoolToCreate)
+      Ok(write(schoolToCreate)).as("application/json")
+    }
   }
 
   /**
    * Provides All School For a User (RA)
    */
   def getAllSchoolForAUser = Action { implicit request =>
-    try{
-    val userId = new ObjectId(request.session.get("userId").get)
-    val schoolIdList = UserSchool.getAllSchoolforAUser(userId)
-    val getAllSchoolsForAUser = UserSchool.getAllSchools(schoolIdList)
-    val SchoolListJson = write(getAllSchoolsForAUser)
-    Ok(SchoolListJson).as("application/json")
-    }
-    catch{
-      case exception =>  InternalServerError(write("There was some errors during fetching the schools")).as("application/json")
+    try {
+      val userId = new ObjectId(request.session.get("userId").get)
+      val schoolIdList = UserSchool.getAllSchoolforAUser(userId)
+      val getAllSchoolsForAUser = UserSchool.getAllSchools(schoolIdList)
+      val SchoolListJson = write(getAllSchoolsForAUser)
+      Ok(SchoolListJson).as("application/json")
+    } catch {
+      case exception => InternalServerError(write("There was some errors during fetching the schools")).as("application/json")
 
     }
   }
@@ -51,13 +50,13 @@ object SchoolController extends Controller {
    * Returns school name by schoolId
    */
 
-  def getSchoolName(schoolId:String) = Action { implicit request =>
+  def getSchoolName(schoolId: String) = Action { implicit request =>
     val school = School.findSchoolsById(new ObjectId(schoolId))
     Ok(write(school)).as("application/json")
   }
 
   /**
-   * All Schools From database(RA)
+   * All Schools From database(V)
    * @Purpose: For auto populate schools on school screen'
    */
   def getAllSchoolsForAutopopulate = Action { implicit request =>
@@ -67,7 +66,7 @@ object SchoolController extends Controller {
       val allSchools = School.getAllSchoolsFromDB(schoolNamesStartingCharacter)
       Ok(write(allSchools)).as("application/json")
     } catch {
-      case ex => Ok(write("There was some errors while autopopulating schools"))
+      case ex => InternalServerError(write("There was some errors while autopopulating schools")).as("application/json")
     }
 
   }

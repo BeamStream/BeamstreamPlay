@@ -106,7 +106,7 @@ GET      /images/*file                                                          
 POST     /betaUser                                                               controllers.JoinBeamStream.regsisterToBeamStreamBeta 
 GET      /                                                                       controllers.JoinBeamStream.betaUserRegistration
 
-#Signup (v)
+#Signup (V)
 GET      /signup                                                                 controllers.BasicRegistration.signUpPage
 POST     /signup                                                                 controllers.BasicRegistration.signUpUser
 
@@ -117,13 +117,13 @@ PUT      /followUser/:userId                                                    
 
 
 
-#Registration
+#Registration (V)
 GET      /registration                                                           controllers.Registration.registration
 POST     /registration                                                           controllers.Registration.registerUser
 PUT      /registration/:userId                                                   controllers.Registration.editUserInfo(userId:String)    
 
 
-#Add a School
+#Add a School (V)
 POST     /school                                                                 controllers.SchoolController.addANewSchool
 POST     /getAllSchoolsForAutopopulate                                           controllers.SchoolController.getAllSchoolsForAutopopulate
 GET      /getAllSchoolForAUser                                                   controllers.SchoolController.getAllSchoolForAUser
@@ -135,7 +135,7 @@ POST     /class                                                                 
 POST     /autoPopulateClassesbyCode                                              controllers.ClassController.findClasstoAutoPopulatebyCode
 POST     /autoPopulateClassesbyName                                              controllers.ClassController.findClasstoAutoPopulatebyName
 
-#Login/Signin
+#Login
 GET      /login                                                                  controllers.Registration.loginPage
 POST     /login                                                                  controllers.UserController.findUser
 

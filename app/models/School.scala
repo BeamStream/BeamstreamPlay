@@ -34,7 +34,7 @@ object School {
   }
 
   /**
-   * Get All School for autopopulate school screen (RA)
+   * Get All School for autopopulate school screen (V)
    */
 
   def getAllSchoolsFromDB(patternReceived: String): List[School] = {

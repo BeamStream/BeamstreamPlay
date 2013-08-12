@@ -51,7 +51,7 @@ object User {
   }
 
   /**
-   * Adds a school to User (RA)
+   * Adds a school to User (V)
    */
 
   def addSchoolToUser(userId: ObjectId, schoolId: ObjectId) {
@@ -60,7 +60,7 @@ object User {
   }
 
   /**
-   * Add info to a user (RA)
+   * Add info to a user (V)
    */
 
   def addInfo(schoolList: List[UserSchool], userId: ObjectId) = {
@@ -68,7 +68,7 @@ object User {
       case school =>
         val userSchoolIds = User.getUserProfile(userId).get.schools
         (userSchoolIds.contains(school.id)) match {
-          case true => println("School Id already in user schools")
+          case true => 
           case false => User.addSchoolToUser(userId, school.id)
         }
     }
@@ -192,11 +192,11 @@ object User {
   }: Boolean
 
   /**
-   * Update User Information
+   * Update User Information (V)
    */
-  def updateUser(userId: ObjectId, firstName: String, lastName: String, email: String, location: String, about: String, contact: String) {
+  def updateUser(userId: ObjectId, firstName: String, lastName: String,userName:String, email: String, location: String, about: String, contact: String) {
     val userToUpdate = User.getUserProfile(userId)
-    UserDAO.update(MongoDBObject("_id" -> userId), userToUpdate.get.copy(firstName = firstName, lastName = lastName, email = email, location = location, about = about, contact = contact), false, false, new WriteConcern)
+    UserDAO.update(MongoDBObject("_id" -> userId), userToUpdate.get.copy(firstName = firstName, lastName = lastName,userName=userName, email = email, location = location, about = about, contact = contact), false, false, new WriteConcern)
   }
 
   /**

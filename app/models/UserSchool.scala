@@ -42,7 +42,7 @@ object UserSchool {
   }
 
   /**
-   * Create a new User School (RA)
+   * Create a new User School (V)
    * @param userSchool is the DetailedInfo object to be stored
    */
   def createSchool(userSchool: UserSchool): Option[ObjectId] = {
@@ -111,7 +111,7 @@ object UserSchool {
   }
 
   /**
-   * Update User School
+   * Update User School (V)
    */
   def updateUserSchool(userSchool: UserSchool) {
     UserSchoolDAO.update(MongoDBObject("_id" -> userSchool.id), userSchool, false, false, new WriteConcern)

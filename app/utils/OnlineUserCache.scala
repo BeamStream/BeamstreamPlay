@@ -8,13 +8,13 @@ import com.novus.salat.global._
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 
-case class OnlineUsers(onlineUsers: List[ObjectId]=Nil)
+case class OnlineUsers(onlineUsers: List[ObjectId] = Nil)
 object OnlineUserCache {
 
   //var onlineUsers: List[String] = Nil
 
   /**
-   * Activate The User Session
+   * Deactivate The User Session
    */
 
   def setOffline(userIdkey: String) = {
@@ -33,7 +33,7 @@ object OnlineUserCache {
   }
 
   /**
-   * Deactivate The User Session
+   * Activate The User Session (V)
    */
 
   def setOnline(userIdkey: String) = {
@@ -51,11 +51,10 @@ object OnlineUserCache {
         }
     }
 
-
   }
 
   /**
-   * List Of All Online Users
+   * List Of All Online Users (V)
    */
   def returnOnlineUsers = {
     //    Cache.get("Online Users")

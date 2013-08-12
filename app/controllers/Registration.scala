@@ -2,9 +2,7 @@ package controllers
 
 import java.text.SimpleDateFormat
 import java.util.Date
-
 import org.bson.types.ObjectId
-
 import models.Degree
 import models.DegreeExpected
 import models.Graduated
@@ -26,7 +24,7 @@ object Registration extends Controller {
   } + new ObjectIdSerializer
 
   /**
-   * Registration after Mail (RA)
+   * Registration after Mail (V)
    */
   def registration = Action { implicit request =>
     val token = request.queryString("token").toList(0)
@@ -36,6 +34,7 @@ object Registration extends Controller {
       case true => Ok("Token has been expired")
     }
   }
+
   /**
    * renders the login page
    * @return
@@ -45,7 +44,7 @@ object Registration extends Controller {
   }
 
   /**
-   * User Registration In Detail (RA)
+   * User Registration In Detail (V)
    */
   def registerUser = Action { implicit request =>
 
@@ -85,12 +84,12 @@ object Registration extends Controller {
         OnlineUserCache.setOnline(userId)
         Ok(write(RegistrationResults(userCreated.get, userSchool))).as("application/json").withSession("userId" -> userId)
 
-      case false => InternalServerError(write("Something gone wrong")).as("application/json")
+      case false => InternalServerError(write("There was errors while registering you")).as("application/json")
     }
   }
 
   /**
-   * User Registration In Detail (RA)
+   * User Registration In Detail (V)
    */
   def editUserInfo(userId: String) = Action { implicit request =>
 
@@ -133,13 +132,14 @@ object Registration extends Controller {
   }
 
   /**
-   * Update User
+   * Update User (V)
    */
   private def updateUser(jsonReceived: JsValue): Boolean = {
     val userId = (jsonReceived \ "userId").as[String]
     val firstName = (jsonReceived \ "firstName").as[String]
     val email = (jsonReceived \ "mailId").asOpt[String]
     val lastName = (jsonReceived \ "lastName").as[String]
+    val userName = (jsonReceived \ "username").as[String]
     val location = (jsonReceived \ "location").as[String]
     val about = (jsonReceived \ "aboutYourself").as[String]
     val cellNumber = (jsonReceived \ "cellNumber").as[String]
@@ -147,7 +147,7 @@ object Registration extends Controller {
       case true => email.get
       case false => User.getUserProfile(new ObjectId(userId)).get.email
     }
-    User.updateUser(new ObjectId(userId), firstName, lastName, emailId, location, about, cellNumber)
+    User.updateUser(new ObjectId(userId), firstName, lastName, userName, emailId, location, about, cellNumber)
     true
   }
 }
