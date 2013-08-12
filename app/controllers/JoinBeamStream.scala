@@ -15,7 +15,7 @@ object JoinBeamStream extends Controller {
   implicit val formats = DefaultFormats
 
   /**
-   *  Beta User Page Rendering (RA)
+   *  Beta User Page Rendering (V)
    */
 
   def betaUserRegistration = Action {
@@ -23,12 +23,11 @@ object JoinBeamStream extends Controller {
   }
 
   /**
-   *  Beta Users Registration (RA)
+   *  Beta Users Registration (V)
    */
   def regsisterToBeamStreamBeta = Action { implicit request =>
     val userInfoJsonMap = request.body.asJson.get
     val emailId = (userInfoJsonMap \ "mailId").as[String]
-    // Create Beta User
     val userToCreate = new BetaUser(new ObjectId, emailId)
 
     val betaUsersFound = BetaUser.findBetaUserbyEmail(emailId)
@@ -37,8 +36,7 @@ object JoinBeamStream extends Controller {
       case false =>
         BetaUser.addBetaUser(userToCreate)
         UtilityActor.sendMailWhenBetaUserRegisters(userToCreate.emailId)
-        val successJson = write(new ResulttoSent("Success", "Allow To Register"))
-        Ok(successJson).as("application/json")
+        Ok(write(new ResulttoSent("Success", "Allow To Register"))).as("application/json")
     }
   }
 
