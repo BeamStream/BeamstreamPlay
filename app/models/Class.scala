@@ -54,7 +54,7 @@ object Class {
       case false =>
         for (eachClass <- classFound) {
           val stream = Stream.findStreamById(eachClass.streams(0))
-          val mapOfUsersAttendingTheClassSeparatedbyCatagory = User.countRolesOfAUser(stream.usersOfStream)
+          val mapOfUsersAttendingTheClassSeparatedbyCatagory = User.countRolesOfAUser(stream.get.usersOfStream)
           classesWithNoofUsers ++= List(ClassWithNoOfUsers(mapOfUsersAttendingTheClassSeparatedbyCatagory, eachClass))
         }
     }
@@ -110,11 +110,15 @@ object Class {
   /**
    * ********************************************** Re architecture ****************************************
    */
+  
+  /**
+   * Create class (V)
+   */
   def createClass(classCreated: Class, userId: ObjectId): ObjectId = {
     val classId = ClassDAO.insert(classCreated)
     User.addClassToUser(userId, List(classId.get))
     // Create the Stream for this class
-    val streamToCreate = Stream(new ObjectId, classCreated.className, StreamType.Class, userId, List(userId), true, List())
+    val streamToCreate = Stream(new ObjectId, classCreated.className, StreamType.Class, userId, List(userId), true, Nil)
     val streamId = Stream.createStream(streamToCreate)
     Stream.attachStreamtoClass(streamId.get, classId.get)
     val user = User.getUserProfile(userId)
@@ -135,7 +139,7 @@ object Class {
       case false =>
         for (eachClass <- classFound) {
           val stream = Stream.findStreamById(eachClass.streams(0))
-          val mapOfUsersAttendingTheClassSeparatedbyCatagory = User.countRolesOfAUser(stream.usersOfStream)
+          val mapOfUsersAttendingTheClassSeparatedbyCatagory = User.countRolesOfAUser(stream.get.usersOfStream)
           classesWithNoofUsers ++= List(ClassWithNoOfUsers(mapOfUsersAttendingTheClassSeparatedbyCatagory, eachClass))
         }
     }

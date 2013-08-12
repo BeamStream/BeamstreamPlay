@@ -52,7 +52,7 @@ object Stream {
   }
 
   /**
-   * Get all streams for a user
+   * Get all streams for a user (V)
    */
   def getAllStreamforAUser(userId: ObjectId): List[StreamResult] = {
     val streams = StreamDAO.find(MongoDBObject("usersOfStream" -> userId)).toList
@@ -77,7 +77,7 @@ object Stream {
   }
 
   /**
-   * join stream (RA)
+   * join stream (V)
    */
   def joinStream(streamId: ObjectId, userId: ObjectId): ResulttoSent = {
     val stream = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
@@ -102,12 +102,16 @@ object Stream {
     ResulttoSent("Success", "Deleted Stream Successfully")
   }
 
-  /*
-   * Find a class by Id
+  /**
+   * Find a stream by Id
    */
 
-  def findStreamById(streamId: ObjectId): Stream = {
-    StreamDAO.find(MongoDBObject("_id" -> streamId)).toList(0)
+  def findStreamById(streamId: ObjectId): Option[Stream] = {
+    val streamsFound = StreamDAO.find(MongoDBObject("_id" -> streamId)).toList
+    (streamsFound.isEmpty) match {
+      case true => None
+      case false => Some(streamsFound.head)
+    }
 
   }
 
@@ -162,10 +166,10 @@ object Stream {
   def sendMailToUsersOfStream(streamId: ObjectId, userIdWhoHasJoinedTheStream: ObjectId) = {
     val userWhoHasJoinedTheStream = User.getUserProfile(userIdWhoHasJoinedTheStream)
     val stream = Stream.findStreamById(streamId)
-    for (user <- stream.usersOfStream) {
+    for (user <- stream.get.usersOfStream) {
       val userObtained = User.getUserProfile(user)
       if (!userObtained.get.id.equals(userIdWhoHasJoinedTheStream)) {
-        SendEmailUtility.notifyUsersOfStreamForANewUser(userObtained.get.email, userWhoHasJoinedTheStream.get.firstName, userWhoHasJoinedTheStream.get.lastName, stream.streamName)
+        SendEmailUtility.notifyUsersOfStreamForANewUser(userObtained.get.email, userWhoHasJoinedTheStream.get.firstName, userWhoHasJoinedTheStream.get.lastName, stream.get.streamName)
       }
     }
   }

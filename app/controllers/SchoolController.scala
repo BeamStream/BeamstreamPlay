@@ -31,7 +31,7 @@ object SchoolController extends Controller {
   }
 
   /**
-   * Provides All School For a User (RA)
+   * Provides All School For a User (V)
    */
   def getAllSchoolForAUser = Action { implicit request =>
     try {

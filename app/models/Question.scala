@@ -180,7 +180,7 @@ object Question {
     val commentsOfQuestionToBeRemoved = questionToRemove.comments
     val streamObtained = Stream.findStreamById(questionToRemove.streamId)
 
-    val deletedQuestionSuccessfully = (questionToRemove.userId == userId || streamObtained.creatorOfStream == userId) match {
+    val deletedQuestionSuccessfully = (questionToRemove.userId == userId || streamObtained.get.creatorOfStream == userId) match {
       case true =>
         QuestionDAO.remove(questionToRemove)
         commentsOfQuestionToBeRemoved map {

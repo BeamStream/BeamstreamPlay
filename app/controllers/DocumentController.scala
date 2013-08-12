@@ -22,16 +22,9 @@ import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.AmazonUpload
 import utils.ExtractFrameFromVideoUtil
-//import utils.GoogleDocsUploadUtility
 import utils.ObjectIdSerializer
 import utils.PreviewOfPDFUtil
 import utils.TokenEmailUtil
-import models.DocumentsAndMedia
-import models.Documents
-import models.DocResulttoSent
-import models.DocumentsAndMedia
-import models.Documents
-import models.DocResulttoSent
 /**
  * This controller class is used to store and retrieve all the information about documents.
  */
@@ -174,7 +167,7 @@ object DocumentController extends Controller {
   // File Section Starts Here //
   //-------------------------//
   /**
-   * Get All File Types
+   * Get All File Types (V)
    */
   def getAllFilesForAUser = Action { implicit request =>
     val allfiles = Files.getAllFileTypes(new ObjectId(request.session.get("userId").get))

@@ -79,7 +79,7 @@ object UserSchool {
   }
 
   /**
-   * get all schools List
+   * Get all schools List (V)
    */
 
   def getAllSchools(schoolsIdList: List[ObjectId]): List[UserSchool] = {

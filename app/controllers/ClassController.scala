@@ -83,27 +83,30 @@ object ClassController extends Controller {
    * ------------------------- Re architecture  -----------------------------------------------------------------------------------
    */
 
+  /**
+   * Display Class Page (V)
+   */
   def renderClassPage = Action { implicit request =>
     Ok(views.html.classpage())
   }
-
+  /**
+   * Create Class (V)
+   */
   def createClass = Action { implicit request =>
     try {
       val jsonReceived = request.body.asJson.get
       val id = (jsonReceived \ "id").asOpt[String]
       if (id == None) {
-        println("Create Stream Case")
         val classCreated = net.liftweb.json.parse(request.body.asJson.get.toString).extract[Class]
         val streamIdReturned = Class.createClass(classCreated, new ObjectId(request.session.get("userId").get))
         val stream = Stream.findStreamById(streamIdReturned)
-        Ok(write(ClassResult(stream, ResulttoSent("Success", "Class Created Successfully")))).as("application/json")
+        Ok(write(ClassResult(stream.get, ResulttoSent("Success", "Class Created Successfully")))).as("application/json")
       } else {
-        println("Join Stream Case")
         val classesobtained = Class.findClasssById(new ObjectId(id.get))
         val resultToSend = Stream.joinStream(classesobtained.get.streams(0), new ObjectId(request.session.get("userId").get))
         if (resultToSend.status == "Success") User.addClassToUser(new ObjectId(request.session.get("userId").get), List(new ObjectId(id.get)))
         val stream = Stream.findStreamById(classesobtained.get.streams(0))
-        Ok(write(ClassResult(stream, resultToSend))).as("application/json")
+        Ok(write(ClassResult(stream.get, resultToSend))).as("application/json")
       }
     } catch {
       case exception => InternalServerError("Class Creation Failed")

@@ -94,14 +94,14 @@ object UtilityActor {
   }
 
   /**
-   * Mail After Stream Creation
+   * Mail After Stream Creation (V)
    */
   def sendEmailAfterStreamCreation(email: String, streamName: String, newStream: Boolean) {
     implicit val system = Akka.system
     val future = Future { SendEmailUtility.mailAfterStreamCreation(email, streamName, newStream) }
   }
   /**
-   * Mail After Stream Creation
+   * Mail After Stream Creation (V)
    */
   def sendEmailAfterStreamCreationToNotifyOtherUsers(streamId: ObjectId, userIdWhoHasJoinedTheStream: ObjectId) {
     implicit val system = Akka.system

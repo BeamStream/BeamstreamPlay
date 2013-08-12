@@ -287,7 +287,7 @@ object Message { //extends CommentConsumer {
     val commentsOfMessageToBeRemoved = messageToRemove.comments
     val streamObtained = Stream.findStreamById(messageToRemove.streamId.get)
 
-    val deletedMessageSuccessfully = (messageToRemove.userId == userId || streamObtained.creatorOfStream == userId) match {
+    val deletedMessageSuccessfully = (messageToRemove.userId == userId || streamObtained.get.creatorOfStream == userId) match {
       case true =>
         MessageDAO.remove(messageToRemove)
         commentsOfMessageToBeRemoved map {

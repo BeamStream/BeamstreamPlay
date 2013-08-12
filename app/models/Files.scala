@@ -88,7 +88,7 @@ object Files {
   }
 
   /**
-   * Get All File Types
+   * Get All File Types (V)
    */
   def getAllFileTypes(userId: ObjectId): List[Document] = {
     DocumentDAO.find(MongoDBObject("userId" -> userId)).sort(orderBy = MongoDBObject("creationDate" -> -1)).toList

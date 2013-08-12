@@ -46,7 +46,7 @@ object StreamController extends Controller {
   }
 
   /**
-   * Get All Stream for a user
+   * Get All Stream for a user(V)
    */
   def getAllStreamForAUser = Action { implicit request =>
     val allStreamsForAUser = Stream.getAllStreamforAUser(new ObjectId(request.session.get("userId").get))
