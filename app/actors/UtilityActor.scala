@@ -89,7 +89,7 @@ object UtilityActor {
     val transport = authenticatedMessageAndSession._2.getTransport("smtp");
     transport.connect(Play.current.configuration.getString("smtp_server_out").get, 80, Play.current.configuration.getString("email_address").get, Play.current.configuration.getString("email_password").get)
     transport.sendMessage(authenticatedMessageAndSession._1, authenticatedMessageAndSession._1.getAllRecipients)
-    val token = new Token((new ObjectId), authToken)
+    val token = new Token((new ObjectId), authToken,false)
     Token.addToken(token)
   }
 

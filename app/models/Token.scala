@@ -7,8 +7,9 @@ import com.novus.salat.dao._
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import com.mongodb.casbah.commons.MongoDBObject
+import com.mongodb.WriteConcern
 
-case class Token(@Key("_id") id: ObjectId, tokenString: String)
+case class Token(@Key("_id") id: ObjectId, tokenString: String, used: Boolean)
 object Token {
 
   /**
@@ -24,6 +25,16 @@ object Token {
 
   def findToken(tokenString: String): List[Token] = {
     TokenDAO.find(MongoDBObject("tokenString" -> tokenString)).toList
+  }
+
+  /**
+   * Update Mail TOken
+   */
+
+  def updateToken(tokenString: String) = {
+    val tokenRequired = TokenDAO.find(MongoDBObject("tokenString" -> tokenString)).toList
+    TokenDAO.update(MongoDBObject("tokenString" -> tokenString), tokenRequired.head.copy(used = true), false, false, new WriteConcern)
+
   }
 
 }

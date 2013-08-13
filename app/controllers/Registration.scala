@@ -30,8 +30,11 @@ object Registration extends Controller {
   def registration = Action { implicit request =>
     val token = request.queryString("token").toList(0)
     val userId = request.queryString("userId").toList(0)
-    (Token.findToken(token).isEmpty) match {
-      case false => Ok(views.html.registration(userId, None))
+    val tokenReceived = Token.findToken(token)
+    (tokenReceived.isEmpty && tokenReceived.head.used == false) match {
+      case false =>
+        Token.updateToken(token)
+        Ok(views.html.registration(userId, None))
       case true => Ok("Token has been expired")
     }
   }
