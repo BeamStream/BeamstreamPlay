@@ -47,33 +47,30 @@ object SocialController extends Controller {
    */
   def logInViaSocialSites = Action { implicit request =>
 
-    try {
-      val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
-      val token = tokenList(0)
-      val apiKey = Play.current.configuration.getString("janrain_apiKey").get
-      val URL = "https://rpxnow.com/api/v2/auth_info"
-      val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
-      val body = promise.get.getBody
-      val json = Json.parse(body)
-      val providerName = (json \ "profile" \ "providerName").asOpt[String].get
-      val identifier = (json \ "profile" \ "identifier").asOpt[String]
-      val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
-      val authenticatedUser = User.findUserComingViaSocailSite(preferredUsername, providerName)
-      (authenticatedUser == None) match {
-        case true => Ok("No User Found").as("application/json")
-        case false =>
+    val tokenList = request.body.asFormUrlEncoded.get.values.toList(0)
+    val token = tokenList(0)
+    val apiKey = Play.current.configuration.getString("janrain_apiKey").get
+    val URL = "https://rpxnow.com/api/v2/auth_info"
+    val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
+    val body = promise.get.getBody
+    val json = Json.parse(body)
+    val providerName = (json \ "profile" \ "providerName").asOpt[String].get
+    val identifier = (json \ "profile" \ "identifier").asOpt[String]
+    val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
+    val authenticatedUser = User.findUserComingViaSocailSite(preferredUsername, providerName)
+    (authenticatedUser == None) match {
+      case true => Ok("No User Found").as("application/json")
+      case false =>
 
-          val userSession = request.session + ("userId" -> authenticatedUser.get.id.toString) + ("social_identifier" -> identifier.get)
-          val noOfOnLineUsers = OnlineUserCache.setOnline(authenticatedUser.get.id.toString)
-          (authenticatedUser.get.classes.size == 0) match {
-            case true => Redirect("/class").withSession(userSession)
-            case false => Redirect("/stream").withSession(userSession)
-          }
+        val userSession = request.session + ("userId" -> authenticatedUser.get.id.toString) + ("social_identifier" -> identifier.get)
+        val noOfOnLineUsers = OnlineUserCache.setOnline(authenticatedUser.get.id.toString)
+        (authenticatedUser.get.classes.size == 0) match {
+          case true => Redirect("/class").withSession(userSession)
+          case false => Redirect("/stream").withSession(userSession)
+        }
 
-      }
-    } catch {
-      case ex => InternalServerError(write("Login Failed")).as("application/json")
     }
+
   }
 
   /**
