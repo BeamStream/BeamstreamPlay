@@ -17,7 +17,6 @@ import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.ObjectIdSerializer
 import utils.OnlineUserCache
-import models.RegistrationResults
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -51,9 +50,7 @@ object Registration extends Controller {
    * User Registration In Detail (V)
    */
   def registerUser = Action { implicit request =>
-
     val jsonReceived = request.body.asJson.get
-
     val userUpdate = updateUser(jsonReceived)
     (userUpdate._1 == true) match {
       case true =>
@@ -100,7 +97,7 @@ object Registration extends Controller {
     val jsonReceived = request.body.asJson.get
 
     val userUpdate = updateUser(jsonReceived)
-    (userUpdate == true) match {
+    (userUpdate._1 == true) match {
       case true =>
         val associatedSchoolId = (jsonReceived \ "associatedSchoolId").as[String]
         val schoolName = (jsonReceived \ "schoolName").as[String]
@@ -131,7 +128,7 @@ object Registration extends Controller {
         val userCreated = User.getUserProfile(new ObjectId(userId))
         OnlineUserCache.setOnline(userId)
         Ok(write(RegistrationResults(userCreated.get, userSchool))).as("application/json").withSession("userId" -> userId)
-      case false => Ok(write("Something gone wrong")).as("application/json")
+      case false => Ok(write(userUpdate._2)).as("application/json")
     }
   }
 
@@ -141,28 +138,49 @@ object Registration extends Controller {
   private def updateUser(jsonReceived: JsValue): (Boolean, String) = {
     val userId = (jsonReceived \ "userId").as[String]
     val firstName = (jsonReceived \ "firstName").as[String]
-    val email = (jsonReceived \ "mailId").as[String]
+    val email = (jsonReceived \ "mailId").asOpt[String]
     val lastName = (jsonReceived \ "lastName").as[String]
     val userName = (jsonReceived \ "username").as[String]
     val location = (jsonReceived \ "location").as[String]
     val about = (jsonReceived \ "aboutYourself").as[String]
     val cellNumber = (jsonReceived \ "cellNumber").as[String]
 
-    val canUserRegisterWithThisEmail = User.canUserRegisterWithThisEmail(email)
     val canUserRegisterWithThisUsername = User.canUserRegisterWithThisUsername(userName)
-    val canRegister = (canUserRegisterWithThisEmail == false) match {
-      case true => (false, "Email Already Exists")
-      case false =>
+    val canUserRegisterWithThisEmail = User.canUserRegisterWithThisEmail(email.get)
 
-        (canUserRegisterWithThisUsername == false) match {
-          case true => (false, "Username Already Exists")
-          case false => (true, "Register")
+    def canUserRegister = {
+      (canUserRegisterWithThisUsername == false) match {
+        case true =>
+          val currentUser = User.getUserProfile(new ObjectId(userId))
+          val result = (currentUser.get.userName == userName) match {
+            case true => (true, "Register")
+            case false => (false, "Username Already Exists")
+          }
+          result
+        case false => (true, "Register")
+
+      }
+    }
+
+    val canRegister = (email != None) match {
+      case true =>
+        (canUserRegisterWithThisEmail == false) match {
+          case true => (false, "EmailId Already Exists")
+          case false => canUserRegister
+
         }
 
+      case false =>
+        canUserRegister
+    }
+
+    val emailId = (email != None) match {
+      case true => email.get
+      case false => User.getUserProfile(new ObjectId(userId)).get.email
     }
 
     if (canRegister._1 == true) {
-      User.updateUser(new ObjectId(userId), firstName, lastName, userName, email, location, about, cellNumber)
+      User.updateUser(new ObjectId(userId), firstName, lastName, userName, emailId, location, about, cellNumber)
     }
     canRegister
 

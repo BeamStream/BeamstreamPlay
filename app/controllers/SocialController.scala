@@ -31,20 +31,15 @@ object SocialController extends Controller {
     val promise = WS.url(URL).setQueryParameter("format", "json").setQueryParameter("token", token).setQueryParameter("apiKey", apiKey).get
     val body = promise.get.getBody
     val json = Json.parse(body)
-    val providerName = (json \ "profile" \ "providerName").asOpt[String].get
-    val preferredUsername = (json \ "profile" \ "preferredUsername").as[String]
+
     val identifier = (json \ "profile" \ "identifier").asOpt[String]
-    val emailFromJson = (json \ "profile" \ "email").asOpt[String]
-    val canUserRegister = User.canUserRegister(preferredUsername)
-    if (canUserRegister == true) {
-      val userToCreate = new User(new ObjectId, UserType.Student, "", "", "", preferredUsername, "", None, "", "", "", "", "", Option(providerName), Nil, Nil, Nil, Nil, Nil, Option(json), None)
-      val IdOfUserCreted = User.createUser(userToCreate)
-      val userSession = request.session + ("userId" -> IdOfUserCreted.get.toString) + ("social_identifier" -> identifier.get)
-      val noOfOnLineUsers = OnlineUserCache.setOnline(IdOfUserCreted.get.toString)
-      Ok(views.html.registration(IdOfUserCreted.get.toString, Option(json.toString))).withSession(userSession)
-    } else {
-      Ok(write("User Has been already registered")).as("application/json")
-    }
+
+    val userToCreate = new User(new ObjectId, UserType.Student, "", "", "", "", None, "", "", "", "", Nil, Nil, Nil, Nil, Nil, Option(json), None)
+    val IdOfUserCreted = User.createUser(userToCreate)
+    val userSession = request.session + ("userId" -> IdOfUserCreted.get.toString) + ("social_identifier" -> identifier.get)
+    val noOfOnLineUsers = OnlineUserCache.setOnline(IdOfUserCreted.get.toString)
+    Ok(views.html.registration(IdOfUserCreted.get.toString, Option(json.toString))).withSession(userSession)
+
   }
 
   /**
