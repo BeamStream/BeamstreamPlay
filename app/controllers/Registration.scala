@@ -55,7 +55,7 @@ object Registration extends Controller {
     val jsonReceived = request.body.asJson.get
 
     val userUpdate = updateUser(jsonReceived)
-    (userUpdate == true) match {
+    (userUpdate._1 == true) match {
       case true =>
 
         val userId = (jsonReceived \ "userId").as[String]
@@ -88,7 +88,7 @@ object Registration extends Controller {
         OnlineUserCache.setOnline(userId)
         Ok(write(RegistrationResults(userCreated.get, userSchool))).as("application/json").withSession("userId" -> userId)
 
-      case false => InternalServerError(write("There was errors while registering you")).as("application/json")
+      case false => Ok(write(userUpdate._2)).as("application/json")
     }
   }
 
@@ -138,20 +138,33 @@ object Registration extends Controller {
   /**
    * Update User (V)
    */
-  private def updateUser(jsonReceived: JsValue): Boolean = {
+  private def updateUser(jsonReceived: JsValue): (Boolean, String) = {
     val userId = (jsonReceived \ "userId").as[String]
     val firstName = (jsonReceived \ "firstName").as[String]
-    val email = (jsonReceived \ "mailId").asOpt[String]
+    val email = (jsonReceived \ "mailId").as[String]
     val lastName = (jsonReceived \ "lastName").as[String]
     val userName = (jsonReceived \ "username").as[String]
     val location = (jsonReceived \ "location").as[String]
     val about = (jsonReceived \ "aboutYourself").as[String]
     val cellNumber = (jsonReceived \ "cellNumber").as[String]
-    val emailId = (email != None) match {
-      case true => email.get
-      case false => User.getUserProfile(new ObjectId(userId)).get.email
+
+    val canUserRegisterWithThisEmail = User.canUserRegisterWithThisEmail(email)
+    val canUserRegisterWithThisUsername = User.canUserRegisterWithThisUsername(userName)
+    val canRegister = (canUserRegisterWithThisEmail == false) match {
+      case true => (false, "Email Already Exists")
+      case false =>
+
+        (canUserRegisterWithThisUsername == false) match {
+          case true => (false, "Username Already Exists")
+          case false => (true, "Register")
+        }
+
     }
-    User.updateUser(new ObjectId(userId), firstName, lastName, userName, emailId, location, about, cellNumber)
-    true
+
+    if (canRegister._1 == true) {
+      User.updateUser(new ObjectId(userId), firstName, lastName, userName, email, location, about, cellNumber)
+    }
+    canRegister
+
   }
 }
