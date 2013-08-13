@@ -1,6 +1,7 @@
 package controllers
 
 import org.bson.types.ObjectId
+import models.ResulttoSent
 import models.User
 import models.UserType
 import net.liftweb.json.DefaultFormats
@@ -12,7 +13,6 @@ import play.api.mvc.Controller
 import play.libs.WS
 import utils.OnlineUserCache
 import utils.SendEmailUtility
-import models.ResulttoSent
 
 object SocialController extends Controller {
   implicit val formats = DefaultFormats
@@ -32,13 +32,12 @@ object SocialController extends Controller {
     val body = promise.get.getBody
     val json = Json.parse(body)
     val providerName = (json \ "profile" \ "providerName").asOpt[String].get
-    val preferredUsername = (json \ "profile" \ "preferredUsername").asOpt[String].get
+    val preferredUsername = (json \ "profile" \ "preferredUsername").as[String]
     val identifier = (json \ "profile" \ "identifier").asOpt[String]
     val emailFromJson = (json \ "profile" \ "email").asOpt[String]
-    //TODO : Have to check whether the email has been registered already
     val canUserRegister = User.canUserRegister(preferredUsername)
     if (canUserRegister == true) {
-      val userToCreate = new User(new ObjectId, UserType.Professional, "", "", "", preferredUsername, "", None, "", "", "", "", "", Option(providerName), Nil, Nil, Nil, Nil, Nil, Option(json), None)
+      val userToCreate = new User(new ObjectId, UserType.Student, "", "", "", preferredUsername, "", None, "", "", "", "", "", Option(providerName), Nil, Nil, Nil, Nil, Nil, Option(json), None)
       val IdOfUserCreted = User.createUser(userToCreate)
       val userSession = request.session + ("userId" -> IdOfUserCreted.get.toString) + ("social_identifier" -> identifier.get)
       val noOfOnLineUsers = OnlineUserCache.setOnline(IdOfUserCreted.get.toString)

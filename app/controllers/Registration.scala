@@ -17,6 +17,7 @@ import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.ObjectIdSerializer
 import utils.OnlineUserCache
+import models.RegistrationResults
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {

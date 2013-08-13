@@ -18,14 +18,11 @@ case class User(@Key("_id") id: ObjectId,
   firstName: String,
   lastName: String,
   userName: String,
-  alias: String,
   password: Option[String],
   orgName: String,
   location: String,
-  socialProfile: String,
   about: String,
   contact: String,
-  socialNetwork: Option[String],
   schools: List[ObjectId],
   classes: List[ObjectId],
   documents: List[ObjectId],
@@ -68,7 +65,7 @@ object User {
       case school =>
         val userSchoolIds = User.getUserProfile(userId).get.schools
         (userSchoolIds.contains(school.id)) match {
-          case true => 
+          case true =>
           case false => User.addSchoolToUser(userId, school.id)
         }
     }
@@ -180,12 +177,22 @@ object User {
    */
 
   /**
-   * Check if the User has already registered (RA)
+   * Check if the User with this email has already registered (RA)
    */
-  def canUserRegister(userEmailOrName: String) = {
-    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmailOrName, "socialNetwork" -> None))
-    val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> userEmailOrName))
-    (userHavingSameMailId.isEmpty && userHavingSameUserName.isEmpty) match {
+  def canUserRegisterWithThisEmail(userEmail: String) = {
+    val userHavingSameMailId = UserDAO.find(MongoDBObject("email" -> userEmail)).toList
+    (userHavingSameMailId.isEmpty) match {
+      case true => true
+      case false => false
+    }
+  }: Boolean
+
+  /**
+   * Check if the User with this email has already registered (RA)
+   */
+  def canUserRegisterWithThisUsername(username: String) = {
+    val userHavingSameUserName = UserDAO.find(MongoDBObject("userName" -> username)).toList
+    (userHavingSameUserName.isEmpty) match {
       case true => true
       case false => false
     }
@@ -194,9 +201,9 @@ object User {
   /**
    * Update User Information (V)
    */
-  def updateUser(userId: ObjectId, firstName: String, lastName: String,userName:String, email: String, location: String, about: String, contact: String) {
+  def updateUser(userId: ObjectId, firstName: String, lastName: String, userName: String, email: String, location: String, about: String, contact: String) {
     val userToUpdate = User.getUserProfile(userId)
-    UserDAO.update(MongoDBObject("_id" -> userId), userToUpdate.get.copy(firstName = firstName, lastName = lastName,userName=userName, email = email, location = location, about = about, contact = contact), false, false, new WriteConcern)
+    UserDAO.update(MongoDBObject("_id" -> userId), userToUpdate.get.copy(firstName = firstName, lastName = lastName, userName = userName, email = email, location = location, about = about, contact = contact), false, false, new WriteConcern)
   }
 
   /**
