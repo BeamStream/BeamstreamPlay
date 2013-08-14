@@ -219,8 +219,9 @@
 							    <li><a tabindex="-1" href="#">Two</a></li>
 							  </ul>
 							</div>
-							<div class="btn-group" style="float:left; margin-left: 20px">
-							  <a class="btn dropdown-toggle new-google-btn" data-toggle="dropdown" href="#">
+							<div class="btn-group nav-tabs">
+								<!--eleminate the comments in data-toggle on next line to bring drop down back -->
+							  <a class="btn dropdown-toggle new-google-btn" data-toggle="tab" href="#questionsView">
 							  	<div class="question-icn"></div>
 							  	<span>Question</span>
 							  </a>
@@ -230,8 +231,6 @@
 							  </ul>
 							</div>
 						</div>
-
-
 
 		            <div class="clear"></div>
 		          </div>
@@ -246,13 +245,13 @@
 												<form class="question-ask ask-disccution">
 													<textarea id="msg-area" name="" cols="" rows="" class="question-ask-search" placeholder="Speak your mind...."  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Speak your mind....'"></textarea>
 												</form>
-												<ul id="uploded-file-area"  class="answer" style="display:none;">
-													<li id="file-name" style="font-style: italic; list-style: none" > 
+												<ul id="uploded-file-area"  class="answer">
+													<li id="file-name"> 
 												 	</li>
 													<li>
-														<div class="progress-container"  style="display:none;">
+														<div class="progress-container">
 															<div class="progress progress-striped active">
-																<div class="bar" style="width: 0%;"></div>
+																<div class="bar"></div>
 															</div> 
 														</div> 
 													</li>
@@ -266,7 +265,7 @@
 		                    </div>
 		                  </div>
 		                  <a  id="post-button" class="ask-button">POST</a>
-		                  <div id="file-upload-loader" style="display :none;">  
+		                  <div id="file-upload-loader">  
 									
 		        		</div>
 
@@ -290,7 +289,7 @@
 		
 		
 		            <div id="upload-files1" class="btn-group attach-drop ">
-						<button id="upload-files2" class="btn attach-drop-button drag-rectangle attach-drop-bg" data-toggle="dropdown" data-original-title="Tag" style="background-position: -1px -390px"> </button>
+						<button id="upload-files2" class="btn attach-drop-button drag-rectangle attach-drop-bg tag-btn" data-toggle="dropdown" data-original-title="Tag"> </button>
 						<ul id="discussion-file-upload"  class="dropdown-menu  attach-dropdwon">
 		                	<li><a href="#">#this</a></li>
 		                    <li><a href="#">#that</a></li>
@@ -366,19 +365,118 @@
 		
 		          </div>
 
-		          <div id="discussion-pagination" class ="page-loader" style="display:none;"><img src ="/beamstream-new/images/loading-bars.gif"></div>
+		          <div id="discussion-pagination" class ="page-loader"><img src ="/beamstream-new/images/loading-bars.gif"></div>
 	
 	  		</div>
 	  		
-		  	 
-					
-		  	<div class="tab-pane "  id="questionsView" data-model="question" >
-
-		  		</div>
-
-	  			<div class="stream-wrapper">
+		  	 <div class="tab-pane" id="questionsView" data-model="question">
 		          	<div class="question-info">
-		            	<div class="question-sort">
+		          		<div class="new-google">
+		          			<a class="btn dropdown-toggle new-google-btn" data-toggle="tab" href="#discussionsView">
+							  	<span>&lt; Back to Discussions</span>
+							  	<div class="back-icn"></div>
+							</a>
+						</div>
+		            	
+		            	<div class="clear"></div>
+		          	</div>
+ 				 	<div class="ask-outer">
+		            	<div class="ask-content">
+	              			<div class="follw-left">
+			                  	<div class="ask-img"><img id="Q-main-photo" src=""></div>
+			              	</div>
+		              		<div  class="ask-info">
+		                		<div class="ask-comment ask-type-area ">
+	                 			 	<div class="ask-left">
+				                    	<form class="question-ask">
+					                
+					                      <textarea id="Q-area" name="" cols="" rows="" class="question-ask-search" placeholder="Ask your own question here....."  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ask your own question here.....'"></textarea>
+
+					                    </form>
+					                    <ul id="pollArea" class="answer">
+				                      		<li>
+					                        	<input name="Answer Is Yes" type="text" id="option1"  placeholder="Add 1st Poll Option">
+					                      	<li>
+					                        	<input name="Add Option" type="text" id="option2" placeholder="Add 2nd Poll Option">
+					                      	</li>
+					                      	<a href="#" class="add-option">Another Poll Option</a>
+					                    </ul>
+		                     			<ul id="Q-file-area"  class="answer">
+			                        		<li id="Q-file-name">  </li>
+					                        <li >
+					                          <div class="progress-container"  style="display:none;">
+					                              <div class="progress progress-striped active">
+					                                <div class="bar" style="width: 0%;"></div>
+					                              </div> 
+					                          </div> 
+					                      </li>
+		                     		 	</ul>
+		                  			</div>
+		                  			<a  id="post-question"  class="ask-button">ASK</a> 
+									<div id="file-upload-loader" style="display :none;">  
+									<!--<img src ="images/loading.gif"> -->
+		        					</div>
+		        					<div id="upload-files1" class="btn-group attach-drop ">
+						<button id="upload-files2" class="btn attach-drop-button drag-rectangle attach-drop-bg" data-toggle="dropdown" data-original-title="Upload Files"> </button>
+						<ul id="discussion-file-upload"  class="dropdown-menu  attach-dropdwon">
+		                	<li><a href="#">Class Document</a></li>
+		                    <li><a href="#">Assignment</a></li>
+		                    <li><a href="#">Homework </a></li>
+							<li><a href="#">Notes</a></li>
+		                    <li><a href="#">Project</a></li>
+		                    <li><a href="#">Lecture </a></li>
+							<li><a href="#">Reference Material</a></li>
+		                    <li><a href="#">Tutorial</a></li>
+		                    <li><a href="#">EdTech Tool </a></li>
+							<li><a href="#">Amusement</a></li>
+							<input type="text" placeholder="+Add a new category">
+		             	</ul>
+		           	</div>
+		
+		
+		            <div id="upload-files1" class="btn-group attach-drop ">
+						<button id="upload-files2" class="btn attach-drop-button drag-rectangle attach-drop-bg tag-btn" data-toggle="dropdown" data-original-title="Tag"> </button>
+						<ul id="discussion-file-upload"  class="dropdown-menu  attach-dropdwon">
+		                	<li><a href="#">#this</a></li>
+		                    <li><a href="#">#that</a></li>
+							<input type="text" placeholder="+Add a new Tag">
+		             	</ul>
+
+		           	</div>
+		        				</div>
+		                		<div class="ask-iconinfo">
+						   		
+		                  			<label class="checkbox private-chaeck">
+	                    				<input  id="Q-private-to" type="checkbox"  checked="checked">
+	                   				Private to:
+	                				</label>
+				                  	<div class="btn-group class-dropdown ">
+				                    	<button class="btn class-dropdown-bg" id="Q-privateTo-select" >Class</button>
+				                    	<button class="btn class-dropdown-button " data-toggle="dropdown">
+				                    		 <span class="caret sort-caret"></span>
+				                    	</button>
+				                   		 <ul class="dropdown-menu Q-stream-list" id="Q-privatelist">
+				                   		 </ul>
+				                  	</div>
+		                  			<a href="#" class="add-poll ">Add Poll</a>
+		                  			 <ul id="share-discussions" class="social-icons">
+		                   <span>Share On:</span>
+		                    <li name="email" class="google-plus"><a href="#">Google plus</a></li>
+		                    <li name="twitter" class="twitter"> <a href="#">Twitter</a></li>
+		                    <li name="facebook" class="facebook"><a href="#">facebook</a></li>
+		                    <li name="linkedin" class="linkedin"><a href="#">linked in</a></li>
+		                    <li name="plus" class="plus"><a href="#">p</a></li>
+		                   <!--  <li><img src="/beamstream-new/images/drive.jpg" height="35" width="35"></li>
+		                      <li><img src="/beamstream-new/images/addGoogle.jpg" height="25" width="25"></li>
+		                        <li><a href="/uploadNow"><img src="/beamstream-new/images/uploadGoogle.jpg" height="25" width="25" style="float:left"/></a></li> -->
+		                  </ul>
+		                		</div>
+		              		</div>
+	            		</div>
+            			<div class="clear"></div>
+      				</div>
+
+      				<div class="question-sort">
 			              	<h5>SORT BY</h5>
 		              		<div class="btn-group dropdown-outer">
 			                	<button class="btn normal-dropdown" id="sortQuestionBy-select" value="date" >Most Recent</button>
@@ -404,98 +502,9 @@
 			              	<form class="all-search">
 			                	<input type="text" id="sortQ_by_key" class="quest-search" placeholder="Search Questions">
 			             	 </form>
-		              		<input id="Q-files-area" name="upload-files-area" type="file" style="display:none;" >
+		              		<input id="Q-files-area" name="upload-files-area" type="file" >
 		              		<a href="#" class="unanswerd active-text">20 Unanswered</a> <a href="#" class="unanswerd">12 Answered</a> 
 		              	</div>
-		            	<div class="clear"></div>
-		          	</div>
- 				 	<div class="ask-outer">
-		            	<div class="ask-content">
-	              			<div class="follw-left">
-			                  	<div class="ask-img"><img id="Q-main-photo" src=""></div>
-			              	</div>
-		              		<div  class="ask-info">
-		                		<div class="ask-comment ask-type-area ">
-	                 			 	<div class="ask-left">
-				                    	<form class="question-ask">
-					                
-					                      <textarea id="Q-area" name="" cols="" rows="" class="question-ask-search" placeholder="Ask your own question here....."  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ask your own question here.....'"></textarea>
-
-					                    </form>
-					                    <ul id="pollArea" class="answer" style="display:none">
-				                      		<li>
-					                        	<input name="Answer Is Yes" type="text" id="option1"  placeholder="Add 1st Poll Option">
-					                      	<li>
-					                        	<input name="Add Option" type="text" id="option2" placeholder="Add 2nd Poll Option">
-					                      	</li>
-					                      	<a href="#" class="add-option">Another Poll Option</a>
-					                    </ul>
-		                     			<ul id="Q-file-area"  class="answer" style="display:none;">
-			                        		<li id="Q-file-name" style="font-style: italic; list-style: none" >  </li>
-					                        <li >
-					                          <div class="progress-container"  style="display:none;">
-					                              <div class="progress progress-striped active">
-					                                <div class="bar" style="width: 0%;"></div>
-					                              </div> 
-					                          </div> 
-					                      </li>
-		                     		 	</ul>
-		                  			</div>
-		                  			<a  id="post-question"  class="ask-button">ASK</a> 
-									<div id="file-upload-loader" style="display :none;">  
-									<!--<img src ="images/loading.gif"> -->
-		        					</div>
-		        				</div>
-		                		<div class="ask-iconinfo">
-						   			<div class="btn-group attach-drop">
-		              					
-	             					 	<button data-original-title="Upload Files" class="btn attach-drop-button drag-rectangle attach-drop-bg" data-toggle="dropdown"> 
-	             					 		
-	             					 	</button>
-	            		  				<ul id="question-file-upload" class="dropdown-menu">
-		              		   				<li><a href="#">Class Document</a></li>
-				                     		<li><a href="#">Assignment</a></li>
-			                     			<li><a href="#">Homework </a></li>
-											<li><a href="#">Notes</a></li>
-		                      				<li><a href="#">Project</a></li>
-		                     				<li><a href="#">Lecture </a></li>
-							 				<li><a href="#">Reference Material</a></li>
-	                     					<li><a href="#">Tutorial</a></li>
-		                      				<li><a href="#">EdTech Tool </a></li>
-											<li><a href="#">Amusement</a></li>
-											<input type="text" placeholder="+Add a new category">
-		              					</ul>
-		           		 			</div>
-		          		        	<ul class="icons-ask">
-		                    			<li class="tag"></li>
-		                  			</ul>
-		                  			<label class="checkbox private-chaeck">
-	                    				<input  id="Q-private-to" type="checkbox"  checked="checked">
-	                   				Private to:
-	                				</label>
-				                  	<div class="btn-group class-dropdown ">
-				                    	<button class="btn class-dropdown-bg" id="Q-privateTo-select" >Class</button>
-				                    	<button class="btn class-dropdown-button " data-toggle="dropdown">
-				                    		 <span class="caret sort-caret"></span>
-				                    	</button>
-				                   		 <ul class="dropdown-menu Q-stream-list" id="Q-privatelist">
-				                   		 </ul>
-				                  	</div>
-		                  			<a href="#" class="add-poll ">Add Poll</a>
-		                  			<ul  id="share-discussions" class="social-icons">
-										<span>Share On:</span>
-					                    <li name="email" class="google-plus"><a href="#">Google plus</a></li>
-					                    <li name="plus" class="plus"><a href="#">p</a></li>
-					                    <li  name="twitter" class="twitter"> <a href="#">Twitter</a></li>
-					                    <li name="facebook" class="facebook"><a href="#"> face book</a></li>
-					                    <li name="linkedin" class="in"><a href="#"> in</a></li>
-
-		                  			</ul>
-		                		</div>
-		              		</div>
-	            		</div>
-            			<div class="clear"></div>
-      				</div>
 
       				 <div id= "questionListView" data-model="question" data-module="view/questionListView" data-url="/" data-tpl="templates/questionMessage.tpl">
 		
@@ -503,30 +512,9 @@
 
 		         	 <div id="question-pagination" class ="page-loader" style="display:none;"><img src ="/beamstream-new/images/loading-bars.gif"></div>
 
-	
-
 				</div> 
+
 		  	</div> 
-
-		  	<div class="tab-pane " id="deadlinesView" data-url="/deadlines" data-model="userSchool" data-tpl="templates/deadlines.tpl">
-		  		<div class="calender-outer overview-boxes">
-		          <h3>Deadlines Coming <span>Soon!</span></h3>
-		          <a href="#" class="rock-btn"><span>57</span> <span class="rocktext">
-		          <h2>Rock It</h2>
-		          <p> Click to make us work harder.</p>
-		          </span> </a> 
-		    	</div>
-		  	</div>
-		  	<div class="tab-pane " id="calendarView">
-		  		<div class="calender-outer overview-boxes">
-		          <h3>Calendar Coming <span>Soon!</span></h3>
-		          <a href="#" class="rock-btn"><span>57</span> <span class="rocktext">
-		          <h2>Rock It</h2>
-		          <p> Click to make us work harder.</p>
-		          </span> </a> 
-				</div>
-		  	</div>
-
 
 	 	</div>
   
