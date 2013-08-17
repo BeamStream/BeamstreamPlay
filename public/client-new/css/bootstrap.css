@@ -6325,31 +6325,6 @@ visibility:hidden
 position:fixed
 }
 
-.header-wrapper {
-background:#334956;
-background:-webkit-gradient(linear,
-left bottom,
-left top,
-color-stop(0,
-#3f5a6b),
-color-stop(1,
-#334956));
-background:-ms-linear-gradient(bottom,
-#3f5a6b,
-#334956);
-background:-moz-linear-gradient(center bottom,
-#3f5a6b 0,
-#334956 100%);
-background:-o-linear-gradient(#334956,
-#3f5a6b);
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#334956',
-endColorstr='#3f5a6b',
-GradientType=0);
-border-bottom:4px solid #2f4553;
-padding:0 0 0 10px;
-position:relative
-}
-
 .brand {
 display:block
 }
@@ -6575,15 +6550,6 @@ position:relative;
 text-decoration:none
 }
 
-.menu ul a:hover,
-.menu ul a.active {
--webkit-box-shadow:#2f4553 0 -4px 0;
--moz-box-shadow:#2f4553 0 -4px 0;
-box-shadow:#2f4553 0 -4px 0;
-color:#314653;
-background:url(../images/bg.jpg);
-border-top:solid 1px #fff
-}
 
 .menu ul a span {
 height:20px;

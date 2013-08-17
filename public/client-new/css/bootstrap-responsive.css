@@ -448,9 +448,6 @@
 .simply-scroll-btn-down {
 width:100% !important;
 }
- .signup-container {
-padding:100px 0 !important;
-}
  .sortable li {
  width:97% !important;
 }
@@ -2015,11 +2012,6 @@ margin-right:2%;
 .answer-conatiner {
  width:93%;
  padding:1.5%;
-}
- .menu ul li a:hover, .menu ul li a.active {
- -webkit-border-radius:22px 22px 0px 0px;
- -moz-border-radius:22px 22px 0px 0px;
- border-radius:22px 22px 0px 0px;
 }
 
 
