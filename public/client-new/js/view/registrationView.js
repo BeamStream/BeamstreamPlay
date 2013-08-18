@@ -286,46 +286,52 @@ define(['view/formView' ,
 		 * Change profile pic or profile video 
 		 */
 		changeProfile: function(e){	    	 
-	    	 var self = this;
-	    	 var file = e.target.files[0]; 
-	         this.temp_photo = '';
-	         var reader = new FileReader();
-	         
-	         /* Only process image files. */
-	         if (!file.type.match('image.*') && !file.type.match('video.*')) {
-	        	 
-	        	 $('#profile-photo').attr("src","/beamstream-new/images/upload-photo.png");
-			     $('#profile-error').html('File type not allowed !!');
-			     self.profile = '';
-	         }
-	         else
-	         {
-	                    	 
-	        	 /* capture the file informations */
-	             reader.onload = (function(f){
-	            	 
-	            	 self.profile = file;
-	            	 return function(e){
-	            		 $('#profile-error').html('');
-	            		 // show the selected photo 
-	            		 if(file.type.match('image.*')){
-	            			 self.temp_photo = e.target.result;
-	            			 $('#profile-photo').attr("src",e.target.result);
-	            		 }
-	            		 //show a default profile image
-	            		 if(file.type.match('video.*')){
-	            			 $('#profile-photo').attr("src","/beamstream-new/images/no-video.png");
-	            		 }
-	        		     
-	        		     self.name = f.name;
-	        		
-	        		 };
-	            })(file);
-	            
-	            // read the image file as data URL
-	            reader.readAsDataURL(file);   
-	         }
-		},
+			var self = this,
+				file = e.target.files[0];
+			this.temp_photo = '';
+			var reader = new FileReader();
+
+			/* Only process image files. */
+			if (!file.type.match('image.*') && !file.type.match('video.*')) {
+				$('#profile-photo').attr("src","/beamstream-new/images/upload-photo.png");
+				$('#profile-error').html('File type not allowed !!');
+				self.profile = '';
+			} else {
+				/* capture the file informations */
+				reader.onload = (function(f){
+					self.profile = file;
+
+					return function(e){
+						$('#profile-error').html('');
+						// show the selected photo 
+						if(file.type.match('image.*')){
+							self.temp_photo = e.target.result;
+							$('#profile-photo').attr("src",e.target.result);
+						
+						//test the EXIF flip
+						gg = EXIF.readFromBinaryFile(new BinaryFile(reader.readAsDataURL(file)));
+						console.log(EXIF.pretty(file));
+						console.log('====gg.Orientation=======');
+						console.log(gg.Orientation);
+						console.log('====gg.orientaiton from readasdata=======');
+						console.log(EXIF.readFromBinaryFile( reader.readAsDataURL(file) ).Orientation);
+					
+						window.reader = reader;
+						window.file = file;
+					}
+						//show a default profile image
+						if(file.type.match('video.*')){
+							$('#profile-photo').attr("src","/beamstream-new/images/no-video.png");
+						}
+						self.name = f.name;
+					};
+				})(file);
+				// read the image file as data URL
+				reader.readAsDataURL(file);
+
+				
+			}
+		}, //end changeProfile
 		
 		
 		
