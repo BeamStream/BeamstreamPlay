@@ -214,13 +214,13 @@
 							  	<div class="google-doc-icn"></div>
 							  	<span>Google Doc</span>
 							  </a>
-							  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+							  <ul class="dropdown-menu google-doc-dropdown" role="menu" aria-labelledby="dropdownMenu">
 							    <li><a tabindex="-1" href="#">One</a></li>
 							    <li><a tabindex="-1" href="#">Two</a></li>
 							  </ul>
 							</div>
 							<div class="btn-group nav-tabs">
-								<!--eleminate the comments in data-toggle on next line to bring drop down back -->
+								<!--change data-toggle to dropdown to return this to a dropdown menu -->
 							  <a class="btn dropdown-toggle new-google-btn" data-toggle="tab" href="#questionsView">
 							  	<div class="question-icn"></div>
 							  	<span>Question</span>
@@ -288,7 +288,7 @@
 		           	</div>
 		
 		
-		            <div id="upload-files1" class="btn-group attach-drop ">
+		            <div id="upload-files1" class="btn-group attach-drop " style="display: none; /*remove to turn tags on */">
 						<button id="upload-files2" class="btn attach-drop-button drag-rectangle attach-drop-bg tag-btn" data-toggle="dropdown" data-original-title="Tag"> </button>
 						<ul id="discussion-file-upload"  class="dropdown-menu  attach-dropdwon">
 		                	<li><a href="#">#this</a></li>
@@ -313,7 +313,7 @@
 		                      
 		                    </ul>
 		                  </div>
-		                   <ul id="share-discussions" class="social-icons">
+		                   <ul id="share-discussions" class="social-icons" style="display: none; /*remove to turn social icons on */">
 		                   <span>Share On:</span>
 		                    <li name="email" class="google-plus"><a href="#">Google plus</a></li>
 		                    <li name="twitter" class="twitter"> <a href="#">Twitter</a></li>
@@ -434,7 +434,7 @@
 		           	</div>
 		
 		
-		            <div id="upload-files1" class="btn-group attach-drop ">
+		            <div id="upload-files1" class="btn-group attach-drop " style="display: none; /*remove to turn tags on */">
 						<button id="upload-files2" class="btn attach-drop-button drag-rectangle attach-drop-bg tag-btn" data-toggle="dropdown" data-original-title="Tag"> </button>
 						<ul id="discussion-file-upload"  class="dropdown-menu  attach-dropdwon">
 		                	<li><a href="#">#this</a></li>
@@ -459,7 +459,7 @@
 				                   		 </ul>
 				                  	</div>
 		                  			<a href="#" class="add-poll ">Add Poll</a>
-		                  			 <ul id="share-discussions" class="social-icons">
+		                  			 <ul id="share-discussions" class="social-icons" style="display: none; /*remove to turn social icons on */">
 		                   <span>Share On:</span>
 		                    <li name="email" class="google-plus"><a href="#">Google plus</a></li>
 		                    <li name="twitter" class="twitter"> <a href="#">Twitter</a></li>
