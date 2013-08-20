@@ -14,10 +14,13 @@
         float:left;
         margin-left: 20px !important;
     }
-    span {
+    >span {
         float: left;
-        padding-top:4px;
+        margin-top: 2px;
         font-size: 12px;
+        color: #717171;
+        font-size: 14px;
+        font-weight: 400;
     }
 }
 .new-google-btn {
@@ -152,9 +155,9 @@ ul.answer {
 }
 
 .menu ul li a:hover, .menu ul li a.active {
-    -webkit-border-radius: 10px 10px 0px 0px;
-    -moz-border-radius: 10px 10px 0px 0px;
-    border-radius: 10px 10px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    -moz-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
 }
 
 .menu ul a:hover,
@@ -167,9 +170,48 @@ ul.answer {
 .menu ul a {
     font-family: "Open Sans",sans-serif;
     font-size: 17px;
-    line-height: 30px;
+    line-height: 35px;
     color: #e6ebf0;
     margin: 0 3px 0 0;
     position: relative;
     text-decoration: none;
+}
+
+.dropdown-menu {
+    margin-top: 6px;
+}
+
+.google-doc-dropdown {
+    left: -25px !important;
+}
+
+.google-doc-dropdown:after,
+.google-doc-dropdown:before {
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+    top: -10px;
+    content: '';
+    left: 50%;
+    margin-left: -10px;
+    position: absolute;
+}
+
+/* Styling for second triangle (border) */
+
+.google-doc-dropdown:before {
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-bottom: 11px solid #fff;
+    border-bottom-color: inherit; /* Can't be included in the shorthand to work */
+    top: -11px;
+    margin-left: -11px;
+}
+
+.question-sort {
+    margin-top: 15px;
+}
+
+.question-sort h5 {
+    margin-left: 25px;
 }
