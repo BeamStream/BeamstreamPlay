@@ -367,10 +367,11 @@
 
 		          <div id="discussion-pagination" class ="page-loader"><img src ="/beamstream-new/images/loading-bars.gif"></div>
 	
+		        </div>
 	  		</div>
 	  		
-		  	 <div class="tab-pane" id="questionsView" data-model="question">
-		          	<div class="question-info">
+		  	<div class="tab-pane" id="questionsView" data-model="question">
+	  				<div class="question-info">
 		          		<div class="new-google">
 		          			<a class="btn dropdown-toggle new-google-btn" data-toggle="tab" href="#discussionsView">
 							  	<span>&lt; Back to Discussions</span>
@@ -416,7 +417,7 @@
 									<div id="file-upload-loader" style="display :none;">  
 									<!--<img src ="images/loading.gif"> -->
 		        					</div>
-		        					<div id="upload-files1" class="btn-group attach-drop ">
+		        				<div id="upload-files1" class="btn-group attach-drop ">
 						<button id="upload-files2" class="btn attach-drop-button drag-rectangle attach-drop-bg" data-toggle="dropdown" data-original-title="Upload Files"> </button>
 						<ul id="discussion-file-upload"  class="dropdown-menu  attach-dropdwon">
 		                	<li><a href="#">Class Document</a></li>
@@ -445,7 +446,7 @@
 		           	</div>
 		        				</div>
 		                		<div class="ask-iconinfo">
-						   		
+		                		
 		                  			<label class="checkbox private-chaeck">
 	                    				<input  id="Q-private-to" type="checkbox"  checked="checked">
 	                   				Private to:
@@ -459,7 +460,7 @@
 				                   		 </ul>
 				                  	</div>
 		                  			<a href="#" class="add-poll ">Add Poll</a>
-		                  			 <ul id="share-discussions" class="social-icons" style="display: none; /*remove to turn social icons on */">
+		                  			<ul id="share-discussions" class="social-icons" style="display: none; /*remove to turn social icons on */">
 		                   <span>Share On:</span>
 		                    <li name="email" class="google-plus"><a href="#">Google plus</a></li>
 		                    <li name="twitter" class="twitter"> <a href="#">Twitter</a></li>
@@ -476,7 +477,7 @@
             			<div class="clear"></div>
       				</div>
 
-      				<div class="question-sort">
+					<div class="question-sort">
 			              	<h5>SORT BY</h5>
 		              		<div class="btn-group dropdown-outer">
 			                	<button class="btn normal-dropdown" id="sortQuestionBy-select" value="date" >Most Recent</button>
@@ -505,16 +506,37 @@
 		              		<input id="Q-files-area" name="upload-files-area" type="file" >
 		              		<a href="#" class="unanswerd active-text">20 Unanswered</a> <a href="#" class="unanswerd">12 Answered</a> 
 		              	</div>
-
+		              	
       				 <div id= "questionListView" data-model="question" data-module="view/questionListView" data-url="/" data-tpl="templates/questionMessage.tpl">
 		
 		         	 </div>
 
 		         	 <div id="question-pagination" class ="page-loader" style="display:none;"><img src ="/beamstream-new/images/loading-bars.gif"></div>
 
-				</div> 
+	
 
+				</div> 
 		  	</div> 
+
+		  	<div class="tab-pane " id="deadlinesView" data-url="/deadlines" data-model="userSchool" data-tpl="templates/deadlines.tpl">
+		  		<div class="calender-outer overview-boxes">
+		          <h3>Deadlines Coming <span>Soon!</span></h3>
+		          <a href="#" class="rock-btn"><span>57</span> <span class="rocktext">
+		          <h2>Rock It</h2>
+		          <p> Click to make us work harder.</p>
+		          </span> </a> 
+		    	</div>
+		  	</div>
+		  	<div class="tab-pane " id="calendarView">
+		  		<div class="calender-outer overview-boxes">
+		          <h3>Calendar Coming <span>Soon!</span></h3>
+		          <a href="#" class="rock-btn"><span>57</span> <span class="rocktext">
+		          <h2>Rock It</h2>
+		          <p> Click to make us work harder.</p>
+		          </span> </a> 
+				</div>
+		  	</div>
+
 
 	 	</div>
   
