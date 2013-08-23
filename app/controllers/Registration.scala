@@ -152,7 +152,7 @@ object Registration extends Controller {
     val cellNumber = (jsonReceived \ "cellNumber").as[String]
 
     val canUserRegisterWithThisUsername = User.canUserRegisterWithThisUsername(userName)
-    val canUserRegisterWithThisEmail = User.canUserRegisterWithThisEmail(email.get)
+    //    val canUserRegisterWithThisEmail = User.canUserRegisterWithThisEmail(email.get)
 
     def canUserRegister = {
       (canUserRegisterWithThisUsername == false) match {
@@ -170,6 +170,7 @@ object Registration extends Controller {
 
     val canRegister = (email != None) match {
       case true =>
+        val canUserRegisterWithThisEmail = User.canUserRegisterWithThisEmail(email.get)
         (canUserRegisterWithThisEmail == false) match {
           case true => (false, "EmailId Already Exists")
           case false => canUserRegister

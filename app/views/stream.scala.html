@@ -181,6 +181,16 @@
   @views.html.footer.render
 }
 
+<style>
+#innerSubList { 
+    position: absolute;
+    top:10px;
+	list-style: none; 
+    left: 170px;
+    cursor: pointer;
+    display: none; }
+ul li#showSubList:hover ul { display: block; }
+</style>
 
 @main("My Stream", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
     
@@ -215,8 +225,16 @@
 							  	<span>Google Doc</span>
 							  </a>
 							  <ul class="dropdown-menu google-doc-dropdown" role="menu" aria-labelledby="dropdownMenu">
-							    <li><a tabindex="-1" href="#">One</a></li>
-							    <li><a tabindex="-1" href="#">Two</a></li>
+							    <li id="showSubList"><a tabindex="-1" href="#">Create Google Doc > </a>
+							      <ul id="innerSubList">
+        						    <li><a href="#">Document</a></li>
+      							      <li><a href="#">Spreadsheet</a></li>
+         							   <li><a href="#">Presentation</a></li>
+       							 </ul>
+							    
+							    </li>
+							    <li><a tabindex="-1" href="#">Upload Google Doc</a></li>
+							    <li><a tabindex="-1" href="#">Show Google Docs</a></li>
 							  </ul>
 							</div>
 							<div class="btn-group nav-tabs">
