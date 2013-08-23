@@ -30,11 +30,17 @@ object Registration extends Controller {
     val token = request.queryString("token").toList(0)
     val userId = request.queryString("userId").toList(0)
     val tokenReceived = Token.findToken(token)
-    (tokenReceived.isEmpty && tokenReceived.head.used == false) match {
+    (tokenReceived.isEmpty) match {
       case false =>
-        Token.updateToken(token)
-        Ok(views.html.registration(userId, None))
-      case true => Ok("Token has been expired")
+        (tokenReceived.head.used == false) match {
+          case true =>
+            Token.updateToken(token)
+            Ok(views.html.registration(userId, None))
+          case false => Ok("Token has been already used")
+        }
+
+      case true =>
+        Ok("Token not found")
     }
   }
 
