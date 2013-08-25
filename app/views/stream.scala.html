@@ -1,40 +1,40 @@
-@meta = {}
-@CSS = {
+@meta = {} @CSS = {
 <!-- embedly preview js -->
-<link rel="stylesheet" href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
+<link rel="stylesheet"
+	href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
 
 <!--  prettyPhoto -->
-<link rel="stylesheet" href="/beamstream-new/css/extracss/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet"
-	charset="utf-8" />
+<link rel="stylesheet"
+	href="/beamstream-new/css/extracss/prettyPhoto.css" type="text/css"
+	media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
 
 <!-- new google and social links -->
-}
-@JS = {
+} @JS = {
 <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>
-<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap-dropdownhover.js"></script>
+<script type="text/JavaScript"
+	src="/beamstream-new/lib/bootstrap-dropdownhover.js"></script>
 
 
-<script src="/beamstream-new/js/BS_social.js"></script>
+<script src="/beamstream-new/js/BS_social.js" type="text/javascript"></script>
 
 <!-- bootstrap dialog popups -->
-<script src="/beamstream-new/lib/extralib/bootbox.min.js"></script>
+<script src="/beamstream-new/lib/extralib/bootbox.min.js"
+	type="text/javascript"></script>
 <!-- End -->
 
 <!-- for making pie charts -->
-<script type="text/JavaScript" src="/beamstream-new/lib/extralib/raphael.js"></script>
+<script type="text/JavaScript"
+	src="/beamstream-new/lib/extralib/raphael.js"></script>
 <!-- end -->
 
 
 <!--  prettyPhoto js -->
 <!-- <script src="/beamstream-new/lib/extralib/jquery.prettyPhoto.js" type="text/javascript" -->
 <!-- 	charset="utf-8"></script> -->
-}
-
-@bodyCls = {}
-@bodyModule = {}
-@bodyJS = {
-<script type="text/JavaScript" src="/beamstream-new/lib/jquery.preview.full.min.js"></script>
-<script>
+} @bodyCls = {} @bodyModule = {} @bodyJS = {
+<script type="text/JavaScript"
+	src="/beamstream-new/lib/jquery.preview.full.min.js"></script>
+<script type="text/javascript">
 	$('#msg-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 	$('#Q-area').preview({key:'4d205b6a796b11e1871a4040d3dc5c07'});
 
@@ -51,7 +51,7 @@
 </script>
 
 <!-- for pie charts  -->
-<script>
+<script type="text/javascript">
 	function Donut(paper) {
 		this.paper = paper, this.rad = Math.PI / 180, this.chart = paper.set();
 
@@ -169,434 +169,497 @@
 	}
 	var donut = [];
 </script>
-  
-}
-@sideBar = {
-  @views.html.sidebar.render
-}
-@header = {
-  @views.html.header.render
-}
-@footer = {
-  @views.html.footer.render
+
+} @sideBar = { @views.html.sidebar.render } @header = {
+@views.html.header.render } @footer = { @views.html.footer.render }
+
+<style type="text/css">
+#innerSubList {
+	position: absolute;
+	top: 10px;
+	list-style: none;
+	left: 170px;
+	cursor: pointer;
+	display: none;
 }
 
-<style>
-#innerSubList { 
-    position: absolute;
-    top:10px;
-	list-style: none; 
-    left: 170px;
-    cursor: pointer;
-    display: none; }
-ul li#showSubList:hover ul { display: block; }
+ul li#showSubList:hover ul {
+	display: block;
+}
 </style>
 
-@main("My Stream", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar, header, footer){
-    
-<div  id="MyStream"  data-module="view/myStreamView">
+@main("My Stream", "Body", meta, CSS, JS, bodyModule, bodyJS, sideBar,
+header, footer){
+
+<div id="MyStream" data-module="view/myStreamView">
 	<div class="right-container">
- 		<div class="stream-header">
-			<div id="myStream" class="stream-header-left" data-value="">
-			</div>
-			<div class="stream-header-right"> 
-				<a href="#" class="green-btn green-btn-new">
-					<span class="visual visual-new"></span>
-					<span class="texter texter-new">
-						<span></span>
-						to this class
-					</span>
-				</a> 
+		<div class="stream-header">
+			<div id="myStream" class="stream-header-left" data-value=""></div>
+			<div class="stream-header-right">
+				<a href="#" class="green-btn green-btn-new"> <span
+					class="visual visual-new"></span> <span class="texter texter-new">
+						<span></span> to this class </span> </a>
 			</div>
 		</div>
-	
+		<ul class="nav-tabs stream-tab" id="streamTab" style="display:none">
+			<li id="discussion" id="discussionsLink" class="active"><a href="#discussionsView" data-toggle="tab" >Discussions</a></li>
+			<li id="question"><a id="questionsLink" href="#questionsView"  data-toggle="tab">Questions</a></li>
+			<li id="deadlines"><a href="#deadlinesView"  data-toggle="tab">Deadlines</a></li>
+			<li id="calendar"><a href="#calendarView" data-toggle="tab">Calendar</a></li>
+		</ul>
 		<div class="tab-content">
-  		<!--   to get all messages of a stream - How to make call like  data-url="/allMessagesForAStream/streamId/pageLimit/pageNo" dynamically ?  --> 
-			<div class="tab-pane active" id="discussionsView" data-model="discussion">
-					<div class="question-info">
+			<!--   to get all messages of a stream - How to make call like  data-url="/allMessagesForAStream/streamId/pageLimit/pageNo" dynamically ?  -->
+			<div class="tab-pane active" id="discussionsView"
+				data-model="discussion">
+				<div class="question-info">
 
-
-						
-						<div class="new-google">
-							<span>Create a:</span>
-							<div class="btn-group">
-							  <a class="btn dropdown-toggle new-google-btn" data-toggle="dropdown" data-hover="dropdown" href="#">
-							  	<div class="google-doc-icn"></div>
-							  	<span>Google Doc</span>
-							  </a>
-							  <ul class="dropdown-menu google-doc-dropdown" role="menu" aria-labelledby="dropdownMenu">
-							    <li id="showSubList"><a tabindex="-1" href="#">Create Google Doc > </a>
-							      <ul id="innerSubList">
-        						    <li><a href="#">Document</a></li>
-      							      <li><a href="#">Spreadsheet</a></li>
-         							   <li><a href="#">Presentation</a></li>
-       							 </ul>
-							    
-							    </li>
-							    <li><a tabindex="-1" href="#">Upload Google Doc</a></li>
-							    <li><a tabindex="-1" href="#">Show Google Docs</a></li>
-							  </ul>
-							</div>
-							<div class="btn-group nav-tabs">
-								<!--change data-toggle to dropdown to return this to a dropdown menu -->
-							  <a class="btn dropdown-toggle new-google-btn" data-toggle="tab" href="#questionsView">
-							  	<div class="question-icn"></div>
-							  	<span>Question</span>
-							  </a>
-							  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-							    <li><a tabindex="-1" href="#">Ask a question</a></li>
-							    <li><a tabindex="-1" href="#">Add a poll</a></li>
-							  </ul>
-							</div>
+					<div class="new-google">
+						<span>Create a:</span>
+						<div class="btn-group">
+							<a class="btn dropdown-toggle new-google-btn"
+								data-toggle="dropdown" data-hover="dropdown" href="#">
+								<div class="google-doc-icn"></div> <span>Google Doc</span> </a>
+							<ul class="dropdown-menu google-doc-dropdown" role="menu"
+								aria-labelledby="dropdownMenu">
+								<li id="showSubList"><a tabindex="-1" href="#">Create
+										Google Doc > </a>
+									<ul id="innerSubList">
+										<li><a href="#">Document</a></li>
+										<li><a href="#">Spreadsheet</a></li>
+										<li><a href="#">Presentation</a></li>
+									</ul>
+								</li>
+								<li><a tabindex="-1" href="#">Upload Google Doc</a></li>
+								<li><a tabindex="-1" href="#">Show Google Docs</a></li>
+							</ul>
 						</div>
-
-		            <div class="clear"></div>
-		          </div>
-		          <div class="ask-outer">
-		            <div class="ask-content">
-									<div class="follw-left">
-										<div class="ask-img"><img id="main-photo" src=""></div>
-									</div>
-		              <div  class="ask-info">
-		                <div class="ask-comment">
-											<div class="ask-left">
-												<form class="question-ask ask-disccution">
-													<textarea id="msg-area" name="" cols="" rows="" class="question-ask-search" placeholder="Speak your mind...."  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Speak your mind....'"></textarea>
-												</form>
-												<ul id="uploded-file-area"  class="answer">
-													<li id="file-name"> 
-												 	</li>
-													<li>
-														<div class="progress-container">
-															<div class="progress progress-striped active">
-																<div class="bar"></div>
-															</div> 
-														</div> 
-													</li>
-												</ul>
-		                      
-		                    <div class="embed-info">
-		                      <div class="upload-conatiner">
-		                        <h5> Select an image or video file on your computer.</h5>
-		                        <input type="file" id="upload-files-area" name="upload-files-area" >
-		                      </div>
-		                    </div>
-		                  </div>
-		                  <a  id="post-button" class="ask-button">POST</a>
-		                  <div id="file-upload-loader">  
-									
-		        		</div>
-
-
-		        	<div id="upload-files1" class="btn-group attach-drop ">
-						<button id="upload-files2" class="btn attach-drop-button drag-rectangle attach-drop-bg" data-toggle="dropdown" data-original-title="Upload Files"> </button>
-						<ul id="discussion-file-upload"  class="dropdown-menu  attach-dropdwon">
-		                	<li><a href="#">Class Document</a></li>
-		                    <li><a href="#">Assignment</a></li>
-		                    <li><a href="#">Homework </a></li>
-							<li><a href="#">Notes</a></li>
-		                    <li><a href="#">Project</a></li>
-		                    <li><a href="#">Lecture </a></li>
-							<li><a href="#">Reference Material</a></li>
-		                    <li><a href="#">Tutorial</a></li>
-		                    <li><a href="#">EdTech Tool </a></li>
-							<li><a href="#">Amusement</a></li>
-							<input type="text" placeholder="+Add a new category">
-		             	</ul>
-		           	</div>
-		
-		
-		            <div id="upload-files1" class="btn-group attach-drop " style="display: none; /*remove to turn tags on */">
-						<button id="upload-files2" class="btn attach-drop-button drag-rectangle attach-drop-bg tag-btn" data-toggle="dropdown" data-original-title="Tag"> </button>
-						<ul id="discussion-file-upload"  class="dropdown-menu  attach-dropdwon">
-		                	<li><a href="#">#this</a></li>
-		                    <li><a href="#">#that</a></li>
-							<input type="text" placeholder="+Add a new Tag">
-		             	</ul>
-
-		           	</div>
-
-		               </div>
-		                  
-		                <div class="ask-iconinfo">
-		  	          
-		                  	<label class="checkbox private-chaeck">
-		                    	<input id="private-to" type="checkbox"  checked="checked">
-		                    	<span>Private to:</span>
-		                	</label>
-		                  <div class="btn-group class-dropdown "  >
-		                    <button class="btn class-dropdown-bg " id="select-privateTo" ></button>
-		                    <button class="btn class-dropdown-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-		                    <ul class="dropdown-menu stream-list" id="private-to-list" >
-		                    
-		                      
-		                    </ul>
-		                  </div>
-		                   <ul id="share-discussions" class="social-icons" style="display: none; /*remove to turn social icons on */">
-		                   <span>Share On:</span>
-		                    <li name="email" class="google-plus"><a href="#">Google plus</a></li>
-		                    <li name="twitter" class="twitter"> <a href="#">Twitter</a></li>
-		                    <li name="facebook" class="facebook"><a href="#">facebook</a></li>
-		                    <li name="linkedin" class="linkedin"><a href="#">linked in</a></li>
-		                    <li name="plus" class="plus"><a href="#">p</a></li>
-		                   <!--  <li><img src="/beamstream-new/images/drive.jpg" height="35" width="35"></li>
-		                      <li><img src="/beamstream-new/images/addGoogle.jpg" height="25" width="25"></li>
-		                        <li><a href="/uploadNow"><img src="/beamstream-new/images/uploadGoogle.jpg" height="25" width="25" style="float:left"/></a></li> -->
-		                  </ul>
-		                </div>
-		              </div>
-		            </div>
-		            
-		            <div class="clear"></div>
-		          </div>
-
-<div class="question-sort">
-							<h5>SORT BY</h5>
-							<div class="btn-group dropdown-outer">
-								<button class="btn normal-dropdown" id="sortBy-select" value="date" >Most Recent</button>
-								<button class="btn blue-button " data-toggle="dropdown">
-									<span class="caret sort-caret"></span>
-								</button>
-								<ul class="dropdown-menu rate-sub" id="sortBy-list">
-									<li><a href="#" name="most-recent" value="date">Most Recent</a></li>
-									<li><a href="#" name="highest-rated" value="rock">Highest Rated</a></li>
-									<li><a href="#" name="most-shared" >Most Shared </a></li>
-								</ul>
-		              </div>
-		              <div class="btn-group dropdown-outer">
-		                <button class="btn normal-dropdown " id="date-sort-select">This Week</button>
-		                <button class="btn blue-button " data-toggle="dropdown">
-											<span class="caret sort-caret"></span>
-										</button>
-										<ul class="dropdown-menu rate-sub" id="date-sort-list">
-											<li><a href="#">Today</a></li>
-											<li><a href="#">This Week</a></li>
-											<li><a href="#">This Month </a></li>
-											<li><a href="#">All Dates </a></li>
-										</ul>
-									</div>
-									<form class="all-search">
-		                <input type="text" id="sort_by_key" class="quest-search" placeholder="Search Discussions"/>
-		              </form>
-		            </div>
-
-		          <div id= "messageListView" data-model="discussion" data-module="view/messageListView" data-url="/" data-tpl="templates/discussionMessage.tpl">
-		
-		          </div>
-
-		          <div id="discussion-pagination" class ="page-loader"><img src ="/beamstream-new/images/loading-bars.gif"></div>
-	
-		        </div>
-	  		</div>
-	  		
-		  	<div class="tab-pane" id="questionsView" data-model="question">
-	  				<div class="question-info">
-		          		<div class="new-google">
-		          			<a class="btn dropdown-toggle new-google-btn" data-toggle="tab" href="#discussionsView">
-							  	<span>&lt; Back to Discussions</span>
-							  	<div class="back-icn"></div>
-							</a>
+						<div class="btn-group nav-tabs">
+							<!--change data-toggle to dropdown to return this to a dropdown menu -->
+							<a id="streamTab" class="btn dropdown-toggle new-google-btn" 
+								onclick="javascript:document.getElementById('questionsLink').click();">
+								<div class="question-icn"></div> <span>Question</span> </a>
+							<ul class="dropdown-menu" role="menu"
+								aria-labelledby="dropdownMenu">
+								<li><a tabindex="-1" href="#">Ask a question</a></li>
+								<li><a tabindex="-1" href="#">Add a poll</a></li>
+							</ul>
 						</div>
-		            	
-		            	<div class="clear"></div>
-		          	</div>
- 				 	<div class="ask-outer">
-		            	<div class="ask-content">
-	              			<div class="follw-left">
-			                  	<div class="ask-img"><img id="Q-main-photo" src=""></div>
-			              	</div>
-		              		<div  class="ask-info">
-		                		<div class="ask-comment ask-type-area ">
-	                 			 	<div class="ask-left">
-				                    	<form class="question-ask">
-					                
-					                      <textarea id="Q-area" name="" cols="" rows="" class="question-ask-search" placeholder="Ask your own question here....."  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ask your own question here.....'"></textarea>
+					</div>
 
-					                    </form>
-					                    <ul id="pollArea" class="answer">
-				                      		<li>
-					                        	<input name="Answer Is Yes" type="text" id="option1"  placeholder="Add 1st Poll Option">
-					                      	<li>
-					                        	<input name="Add Option" type="text" id="option2" placeholder="Add 2nd Poll Option">
-					                      	</li>
-					                      	<a href="#" class="add-option">Another Poll Option</a>
-					                    </ul>
-		                     			<ul id="Q-file-area"  class="answer">
-			                        		<li id="Q-file-name">  </li>
-					                        <li >
-					                          <div class="progress-container"  style="display:none;">
-					                              <div class="progress progress-striped active">
-					                                <div class="bar" style="width: 0%;"></div>
-					                              </div> 
-					                          </div> 
-					                      </li>
-		                     		 	</ul>
-		                  			</div>
-		                  			<a  id="post-question"  class="ask-button">ASK</a> 
-									<div id="file-upload-loader" style="display :none;">  
-									<!--<img src ="images/loading.gif"> -->
-		        					</div>
-		        				<div id="upload-files1" class="btn-group attach-drop ">
-						<button id="upload-files2" class="btn attach-drop-button drag-rectangle attach-drop-bg" data-toggle="dropdown" data-original-title="Upload Files"> </button>
-						<ul id="discussion-file-upload"  class="dropdown-menu  attach-dropdwon">
-		                	<li><a href="#">Class Document</a></li>
-		                    <li><a href="#">Assignment</a></li>
-		                    <li><a href="#">Homework </a></li>
-							<li><a href="#">Notes</a></li>
-		                    <li><a href="#">Project</a></li>
-		                    <li><a href="#">Lecture </a></li>
-							<li><a href="#">Reference Material</a></li>
-		                    <li><a href="#">Tutorial</a></li>
-		                    <li><a href="#">EdTech Tool </a></li>
-							<li><a href="#">Amusement</a></li>
-							<input type="text" placeholder="+Add a new category">
-		             	</ul>
-		           	</div>
-		
-		
-		            <div id="upload-files1" class="btn-group attach-drop " style="display: none; /*remove to turn tags on */">
-						<button id="upload-files2" class="btn attach-drop-button drag-rectangle attach-drop-bg tag-btn" data-toggle="dropdown" data-original-title="Tag"> </button>
-						<ul id="discussion-file-upload"  class="dropdown-menu  attach-dropdwon">
-		                	<li><a href="#">#this</a></li>
-		                    <li><a href="#">#that</a></li>
-							<input type="text" placeholder="+Add a new Tag">
-		             	</ul>
-
-		           	</div>
-		        				</div>
-		                		<div class="ask-iconinfo">
-		                		
-		                  			<label class="checkbox private-chaeck">
-	                    				<input  id="Q-private-to" type="checkbox"  checked="checked">
-	                   				Private to:
-	                				</label>
-				                  	<div class="btn-group class-dropdown ">
-				                    	<button class="btn class-dropdown-bg" id="Q-privateTo-select" >Class</button>
-				                    	<button class="btn class-dropdown-button " data-toggle="dropdown">
-				                    		 <span class="caret sort-caret"></span>
-				                    	</button>
-				                   		 <ul class="dropdown-menu Q-stream-list" id="Q-privatelist">
-				                   		 </ul>
-				                  	</div>
-		                  			<a href="#" class="add-poll ">Add Poll</a>
-		                  			<ul id="share-discussions" class="social-icons" style="display: none; /*remove to turn social icons on */">
-		                   <span>Share On:</span>
-		                    <li name="email" class="google-plus"><a href="#">Google plus</a></li>
-		                    <li name="twitter" class="twitter"> <a href="#">Twitter</a></li>
-		                    <li name="facebook" class="facebook"><a href="#">facebook</a></li>
-		                    <li name="linkedin" class="linkedin"><a href="#">linked in</a></li>
-		                    <li name="plus" class="plus"><a href="#">p</a></li>
-		                   <!--  <li><img src="/beamstream-new/images/drive.jpg" height="35" width="35"></li>
-		                      <li><img src="/beamstream-new/images/addGoogle.jpg" height="25" width="25"></li>
-		                        <li><a href="/uploadNow"><img src="/beamstream-new/images/uploadGoogle.jpg" height="25" width="25" style="float:left"/></a></li> -->
-		                  </ul>
-		                		</div>
-		              		</div>
-	            		</div>
-            			<div class="clear"></div>
-      				</div>
-
-					<div class="question-sort">
-			              	<h5>SORT BY</h5>
-		              		<div class="btn-group dropdown-outer">
-			                	<button class="btn normal-dropdown" id="sortQuestionBy-select" value="date" >Most Recent</button>
-			               		 <button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-				                <ul class="dropdown-menu rate-sub" id="sortQuestionBy-list" >
-		                  			<li><a href="#" name="most-recent" value="date">Most Recent</a></li>
-				                  	<li><a href="#" name="highest-rated" value="rock">Highest Rated</a></li>
-			                 	 	<li><a href="#" name="most-shared" >Most Shared </a></li>
-				                </ul>
-			             	 </div>
-		              
-			               	<div class="btn-group dropdown-outer">
-			                	<button class="btn normal-dropdown " id="sortQueByDate-select">This Week</button>
-			                	<button class="btn blue-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
-			               		 <ul class="dropdown-menu rate-sub" id="sortQueByDate-list">
-			                  		<li><a href="#">Today</a></li>
-				                  	<li><a href="#">This Week</a></li>
-			                  		<li><a href="#">This Month </a></li>
-				 				 	 <li><a href="#">All Dates </a></li>
-			                	</ul>
-			              	</div>
-		              
-			              	<form class="all-search">
-			                	<input type="text" id="sortQ_by_key" class="quest-search" placeholder="Search Questions">
-			             	 </form>
-		              		<input id="Q-files-area" name="upload-files-area" type="file" >
-		              		<a href="#" class="unanswerd active-text">20 Unanswered</a> <a href="#" class="unanswerd">12 Answered</a> 
-		              	</div>
-		              	
-      				 <div id= "questionListView" data-model="question" data-module="view/questionListView" data-url="/" data-tpl="templates/questionMessage.tpl">
-		
-		         	 </div>
-
-		         	 <div id="question-pagination" class ="page-loader" style="display:none;"><img src ="/beamstream-new/images/loading-bars.gif"></div>
-
-	
-
-				</div> 
-		  	</div> 
-
-		  	<div class="tab-pane " id="deadlinesView" data-url="/deadlines" data-model="userSchool" data-tpl="templates/deadlines.tpl">
-		  		<div class="calender-outer overview-boxes">
-		          <h3>Deadlines Coming <span>Soon!</span></h3>
-		          <a href="#" class="rock-btn"><span>57</span> <span class="rocktext">
-		          <h2>Rock It</h2>
-		          <p> Click to make us work harder.</p>
-		          </span> </a> 
-		    	</div>
-		  	</div>
-		  	<div class="tab-pane " id="calendarView">
-		  		<div class="calender-outer overview-boxes">
-		          <h3>Calendar Coming <span>Soon!</span></h3>
-		          <a href="#" class="rock-btn"><span>57</span> <span class="rocktext">
-		          <h2>Rock It</h2>
-		          <p> Click to make us work harder.</p>
-		          </span> </a> 
+					<div class="clear"></div>
 				</div>
-		  	</div>
+				<div class="ask-outer">
+					<div class="ask-content">
+						<div class="follw-left">
+							<div class="ask-img">
+								<img id="main-photo" src="" alt="">
+							</div>
+						</div>
+						<div class="ask-info">
+							<div class="ask-comment">
+								<div class="ask-left">
+									<form class="question-ask ask-disccution" action="">
+										<textarea id="msg-area" name="" cols="" rows=""
+											class="question-ask-search" placeholder="Speak your mind...."
+											onfocus="this.placeholder = ''"
+											onblur="this.placeholder = 'Speak your mind....'"></textarea>
+									</form>
+									<ul id="uploded-file-area" class="answer">
+										<li id="file-name"></li>
+										<li>
+											<div class="progress-container">
+												<div class="progress progress-striped active">
+													<div class="bar"></div>
+												</div>
+											</div>
+										</li>
+									</ul>
+
+									<div class="embed-info">
+										<div class="upload-conatiner">
+											<h5>Select an image or video file on your computer.</h5>
+											<input type="file" id="upload-files-area"
+												name="upload-files-area">
+										</div>
+									</div>
+								</div>
+								<a id="post-button" class="ask-button">POST</a>
+								<div id="file-upload-loader"></div>
 
 
-	 	</div>
-  
+								<div id="upload-files1" class="btn-group attach-drop ">
+									<button id="upload-files2"
+										class="btn attach-drop-button drag-rectangle attach-drop-bg"
+										data-toggle="dropdown" data-original-title="Upload Files">
+									</button>
+									<ul id="discussion-file-upload"
+										class="dropdown-menu  attach-dropdwon">
+										<li><a href="#">Class Document</a></li>
+										<li><a href="#">Assignment</a></li>
+										<li><a href="#">Homework </a></li>
+										<li><a href="#">Notes</a></li>
+										<li><a href="#">Project</a></li>
+										<li><a href="#">Lecture </a></li>
+										<li><a href="#">Reference Material</a></li>
+										<li><a href="#">Tutorial</a></li>
+										<li><a href="#">EdTech Tool </a></li>
+										<li><a href="#">Amusement</a></li>
+										<input type="text" placeholder="+Add a new category">
+									</ul>
+								</div>
 
-        </div>
-    </div>
-    
-    
-	<!--  Media edit popup section -->
-	<div  id="mediaEditView"  data-model="usermedia"  data-module="view/mediaEditView"> 
-	
-	<div id="editMedia"  class="modal hide fade registration-modal white-modal-block" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+								<div id="upload-files1" class="btn-group attach-drop "
+									style="display: none;">
+									<button id="upload-files2"
+										class="btn attach-drop-button drag-rectangle attach-drop-bg tag-btn"
+										data-toggle="dropdown" data-original-title="Tag"></button>
+									<ul id="discussion-file-upload"
+										class="dropdown-menu  attach-dropdwon">
+										<li><a href="#">#this</a></li>
+										<li><a href="#">#that</a></li>
+										<input type="text" placeholder="+Add a new Tag">
+									</ul>
+
+								</div>
+
+							</div>
+
+							<div class="ask-iconinfo">
+
+								<label class="checkbox private-chaeck"> <input
+									id="private-to" type="checkbox" checked="checked"> <span>Private
+										to:</span> </label>
+								<div class="btn-group class-dropdown ">
+									<button class="btn class-dropdown-bg " id="select-privateTo"></button>
+									<button class="btn class-dropdown-button "
+										data-toggle="dropdown">
+										<span class="caret sort-caret"></span>
+									</button>
+									<ul class="dropdown-menu stream-list" id="private-to-list">
+
+
+									</ul>
+								</div>
+								<ul id="share-discussions" class="social-icons"
+									style="display: none;">
+									<span>Share On:</span>
+									<li name="email" class="google-plus"><a href="#">Google
+											plus</a></li>
+									<li name="twitter" class="twitter"><a href="#">Twitter</a>
+									</li>
+									<li name="facebook" class="facebook"><a href="#">facebook</a>
+									</li>
+									<li name="linkedin" class="linkedin"><a href="#">linked
+											in</a></li>
+									<li name="plus" class="plus"><a href="#">p</a></li>
+									<!--  <li><img src="/beamstream-new/images/drive.jpg" height="35" width="35"></li>
+		                      <li><img src="/beamstream-new/images/addGoogle.jpg" height="25" width="25"></li>
+		                        <li><a href="/uploadNow"><img src="/beamstream-new/images/uploadGoogle.jpg" height="25" width="25" style="float:left"/></a></li> -->
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="clear"></div>
+				</div>
+
+				<div class="question-sort">
+					<h5>SORT BY</h5>
+					<div class="btn-group dropdown-outer">
+						<button class="btn normal-dropdown" id="sortBy-select"
+							value="date">Most Recent</button>
+						<button class="btn blue-button " data-toggle="dropdown">
+							<span class="caret sort-caret"></span>
+						</button>
+						<ul class="dropdown-menu rate-sub" id="sortBy-list">
+							<li><a href="#" name="most-recent" value="date">Most
+									Recent</a></li>
+							<li><a href="#" name="highest-rated" value="rock">Highest
+									Rated</a></li>
+							<li><a href="#" name="most-shared">Most Shared </a></li>
+						</ul>
+					</div>
+					<div class="btn-group dropdown-outer">
+						<button class="btn normal-dropdown " id="date-sort-select">This
+							Week</button>
+						<button class="btn blue-button " data-toggle="dropdown">
+							<span class="caret sort-caret"></span>
+						</button>
+						<ul class="dropdown-menu rate-sub" id="date-sort-list">
+							<li><a href="#">Today</a></li>
+							<li><a href="#">This Week</a></li>
+							<li><a href="#">This Month </a></li>
+							<li><a href="#">All Dates </a></li>
+						</ul>
+					</div>
+					<form class="all-search" action="">
+						<input type="text" id="sort_by_key" class="quest-search"
+							placeholder="Search Discussions" />
+					</form>
+				</div>
+
+				<div id="messageListView" data-model="discussion"
+					data-module="view/messageListView" data-url="/"
+					data-tpl="templates/discussionMessage.tpl"></div>
+
+				<div id="discussion-pagination" class="page-loader">
+					<img src="/beamstream-new/images/loading-bars.gif" alt="">
+				</div>
+
+			</div>
+
+			<div class="tab-pane " id="questionsView" data-model="question">
+				<div class="question-info">
+					<div class="new-google">
+						<a class="btn dropdown-toggle new-google-btn" 
+							href=""javascript:document.getElementById('discussionsLink').click();"> <span>&lt; Back to
+								Discussions</span>
+							<div class="back-icn"></div> </a>
+					</div>
+
+					<div class="clear"></div>
+				</div>
+				<div class="ask-outer">
+					<div class="ask-content">
+						<div class="follw-left">
+							<div class="ask-img">
+								<img id="Q-main-photo" src="" alt="">
+							</div>
+						</div>
+						<div class="ask-info">
+							<div class="ask-comment ask-type-area ">
+								<div class="ask-left">
+									<form class="question-ask" action="">
+
+										<textarea id="Q-area" name="" cols="" rows=""
+											class="question-ask-search"
+											placeholder="Ask your own question here....."
+											onfocus="this.placeholder = ''"
+											onblur="this.placeholder = 'Ask your own question here.....'"></textarea>
+
+									</form>
+									<ul id="pollArea" class="answer">
+										<li><input name="Answer Is Yes" type="text" id="option1"
+											placeholder="Add 1st Poll Option">
+										</li>
+										<li><input name="Add Option" type="text" id="option2"
+											placeholder="Add 2nd Poll Option">
+										</li>
+										<a href="#" class="add-option">Another Poll Option</a>
+									</ul>
+									<ul id="Q-file-area" class="answer">
+										<li id="Q-file-name"></li>
+										<li>
+											<div class="progress-container" style="display: none;">
+												<div class="progress progress-striped active">
+													<div class="bar" style="width: 0%;"></div>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<a id="post-question" class="ask-button">ASK</a>
+								<div id="file-upload-loader" style="display: none;">
+									<!--<img src ="images/loading.gif"> -->
+								</div>
+								<div id="upload-files1" class="btn-group attach-drop ">
+									<button id="upload-files2"
+										class="btn attach-drop-button drag-rectangle attach-drop-bg"
+										data-toggle="dropdown" data-original-title="Upload Files">
+									</button>
+									<ul id="discussion-file-upload"
+										class="dropdown-menu  attach-dropdwon">
+										<li><a href="#">Class Document</a></li>
+										<li><a href="#">Assignment</a></li>
+										<li><a href="#">Homework </a></li>
+										<li><a href="#">Notes</a></li>
+										<li><a href="#">Project</a></li>
+										<li><a href="#">Lecture </a></li>
+										<li><a href="#">Reference Material</a></li>
+										<li><a href="#">Tutorial</a></li>
+										<li><a href="#">EdTech Tool </a></li>
+										<li><a href="#">Amusement</a></li>
+										<input type="text" placeholder="+Add a new category">
+									</ul>
+								</div>
+
+
+								<div id="upload-files1" class="btn-group attach-drop "
+									style="display: none;">
+									<button id="upload-files2"
+										class="btn attach-drop-button drag-rectangle attach-drop-bg tag-btn"
+										data-toggle="dropdown" data-original-title="Tag"></button>
+									<ul id="discussion-file-upload"
+										class="dropdown-menu  attach-dropdwon">
+										<li><a href="#">#this</a></li>
+										<li><a href="#">#that</a></li>
+										<input type="text" placeholder="+Add a new Tag">
+									</ul>
+
+								</div>
+							</div>
+							<div class="ask-iconinfo">
+
+								<label class="checkbox private-chaeck"> <input
+									id="Q-private-to" type="checkbox" checked="checked">
+									Private to: </label>
+								<div class="btn-group class-dropdown ">
+									<button class="btn class-dropdown-bg" id="Q-privateTo-select">Class</button>
+									<button class="btn class-dropdown-button "
+										data-toggle="dropdown">
+										<span class="caret sort-caret"></span>
+									</button>
+									<ul class="dropdown-menu Q-stream-list" id="Q-privatelist">
+									</ul>
+								</div>
+								<a href="#" class="add-poll ">Add Poll</a>
+								<ul id="share-discussions" class="social-icons"
+									style="display: none;">
+									<span>Share On:</span>
+									<li name="email" class="google-plus"><a href="#">Google
+											plus</a></li>
+									<li name="twitter" class="twitter"><a href="#">Twitter</a>
+									</li>
+									<li name="facebook" class="facebook"><a href="#">facebook</a>
+									</li>
+									<li name="linkedin" class="linkedin"><a href="#">linked
+											in</a></li>
+									<li name="plus" class="plus"><a href="#">p</a></li>
+									<!--  <li><img src="/beamstream-new/images/drive.jpg" height="35" width="35"></li>
+			                      <li><img src="/beamstream-new/images/addGoogle.jpg" height="25" width="25"></li>
+			                        <li><a href="/uploadNow"><img src="/beamstream-new/images/uploadGoogle.jpg" height="25" width="25" style="float:left"/></a></li> -->
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+
+				<div class="question-sort">
+					<h5>SORT BY</h5>
+					<div class="btn-group dropdown-outer">
+						<button class="btn normal-dropdown" id="sortQuestionBy-select"
+							value="date">Most Recent</button>
+						<button class="btn blue-button " data-toggle="dropdown">
+							<span class="caret sort-caret"></span>
+						</button>
+						<ul class="dropdown-menu rate-sub" id="sortQuestionBy-list">
+							<li><a href="#" name="most-recent" value="date">Most
+									Recent</a></li>
+							<li><a href="#" name="highest-rated" value="rock">Highest
+									Rated</a></li>
+							<li><a href="#" name="most-shared">Most Shared </a></li>
+						</ul>
+					</div>
+
+					<div class="btn-group dropdown-outer">
+						<button class="btn normal-dropdown " id="sortQueByDate-select">This
+							Week</button>
+						<button class="btn blue-button " data-toggle="dropdown">
+							<span class="caret sort-caret"></span>
+						</button>
+						<ul class="dropdown-menu rate-sub" id="sortQueByDate-list">
+							<li><a href="#">Today</a></li>
+							<li><a href="#">This Week</a></li>
+							<li><a href="#">This Month </a></li>
+							<li><a href="#">All Dates </a></li>
+						</ul>
+					</div>
+
+					<form class="all-search" action="">
+						<input type="text" id="sortQ_by_key" class="quest-search"
+							placeholder="Search Questions">
+					</form>
+					<input id="Q-files-area" name="upload-files-area" type="file">
+					<a href="#" class="unanswerd active-text">20 Unanswered</a> <a
+						href="#" class="unanswerd">12 Answered</a>
+				</div>
+
+				<div id="questionListView" data-model="question"
+					data-module="view/questionListView" data-url="/"
+					data-tpl="templates/questionMessage.tpl"></div>
+
+				<div id="question-pagination" class="page-loader"
+					style="display: none;">
+					<img src="/beamstream-new/images/loading-bars.gif" alt="">
+				</div>
+
+
+
+			</div>
+
+			<div class="tab-pane " id="deadlinesView"
+				data-model="userSchool" data-tpl="templates/deadlines.tpl">
+				<div class="calender-outer overview-boxes">
+					<h3>
+						Deadlines Coming <span>Soon!</span>
+					</h3>
+					<a href="#" class="rock-btn"><span>57</span> <span
+						class="rocktext">
+							<h2>Rock It</h2>
+							<p>Click to make us work harder.</p> </span> </a>
+				</div>
+			</div>
+
+			<div class="tab-pane " id="calendarView">
+				<div class="calender-outer overview-boxes">
+					<h3>
+						Calendar Coming <span>Soon!</span>
+					</h3>
+					<a href="#" class="rock-btn"><span>57</span> <span
+						class="rocktext">
+							<h2>Rock It</h2>
+							<p>Click to make us work harder.</p> </span> </a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!--  Media edit popup section -->
+<div id="mediaEditView" data-model="usermedia"
+	data-module="view/mediaEditView">
+
+	<div id="editMedia"
+		class="modal hide fade registration-modal white-modal-block"
+		tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+		aria-hidden="true">
 		<div class="modal-header registration-modal-header">
-		<h3 id="edit-file-name">Edit</h3><button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
-		  </div>
-		<div class="modal-body"> 
-		
-		<div  class="share-content edit-popup-block">
-			<input type="hidden" id="docId" value="" >	
-			<input type="hidden" id="docType" value="" >		      
-			<fieldset class="field"  style="position:relative"> 
-			    <!-- <h1><label for="docName" name="docName">Title </label></h1> -->
-			    <input  id="docName" data-name="usermedia.docName" name="docName" type="text" placeholder="Title" >
-			   
-			</fieldset><br><br>
-		    
-		    <fieldset class="field"  style="position:relative"> 
-		        <!-- <label for="docDescription" name="docDescription">Description <span class="star"> </span></label> -->
-		        <input id="docDescription" type="text" data-name="usermedia.docDescription" name="docDescription" placeholder="Description" >
-		    </fieldset>
-			                  
-			<br><br>
-			
-			 <a id="editDoc" class="btn btn-primary pull-left " href="#">Save & Update</a>
-		
+			<h3 id="edit-file-name">Edit</h3>
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">Close</button>
 		</div>
-		</div>
-		</div>
-  	</div>
-  	
+		<div class="modal-body">
 
-				  
-  
+			<div class="share-content edit-popup-block">
+				<input type="hidden" id="docId" value=""> <input
+					type="hidden" id="docType" value="">
+				<fieldset class="field" style="position: relative">
+					<!-- <h1><label for="docName" name="docName">Title </label></h1> -->
+					<input id="docName" data-name="usermedia.docName" name="docName"
+						type="text" placeholder="Title">
+
+				</fieldset>
+				<br> <br>
+
+				<fieldset class="field" style="position: relative">
+					<!-- <label for="docDescription" name="docDescription">Description <span class="star"> </span></label> -->
+					<input id="docDescription" type="text"
+						data-name="usermedia.docDescription" name="docDescription"
+						placeholder="Description">
+				</fieldset>
+
+				<br> <br> <a id="editDoc"
+					class="btn btn-primary pull-left " href="#">Save & Update</a>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
 }
