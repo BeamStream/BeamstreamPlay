@@ -36,7 +36,7 @@ object Registration extends Controller {
           case true =>
             Token.updateToken(token)
             Ok(views.html.registration(userId, None))
-          case false => Ok("Token has been already used")
+          case false => Ok("This user has already been registered. Please login with your username and password or register with a new email address.")
         }
 
       case true =>
