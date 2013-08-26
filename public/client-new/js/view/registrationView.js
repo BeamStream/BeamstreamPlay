@@ -63,7 +63,15 @@ define(['view/formView' ,
 			var userInfo = jQuery.parseJSON($('#registration').attr('data-value'));
 			var compiledTemplate = Handlebars.compile(RegistrationTpl);
             
-			
+			// DH Remove commented code when ready //
+			this.$(".content").html( compiledTemplate(this.data));
+			this.temp_photo='/beamstream-new/images/step-one-pic.png';
+			this.enableStepTwo();
+            $("#cellNumber").setMask('(999) 999-9999');
+            // Remove up to here. Uncomment below this line //
+            
+            
+			/*
 			if(userInfo == null){  // signup via email
 				
 				this.$(".content").html( compiledTemplate(this.data));
@@ -129,6 +137,7 @@ define(['view/formView' ,
 					this.$(".content").html( compiledTemplate(userInfo));
 				}
 			}
+			*/
 		},
 		
 		onAfterRender: function(){				
