@@ -24,7 +24,7 @@
           <li><span>@{{data.firstNameofCommentPoster}} {{data.lastNameofCommentPoster}} </span> -  {{data.timeCreated}}  -  Public</li>
           <li ><a href="#" class="rock-comments" >Rock</a></li>
           <li class="rocks-small"><a id="{{{data.id.id}}-mrockCount" href="#">{{{data.rocks}}</a></li>
-          <li><a class="comment-icon" href="#"></a></li>
+          <!--li><a class="comment-icon" href="#"></a></li-->
              
         </ul>
       </div>

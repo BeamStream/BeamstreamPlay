@@ -215,7 +215,7 @@
                         <a href="#" class="add-answer"> Answer</a>
                       </li>
                       <li><a href="#" class="add-comment" > Comment</a></li>
-                      <li><a class="comment-icon" href="#"></a></li>
+                      <!--li><a class="comment-icon" href="#"></a></li-->
              <a id=" " href="#" class="delete_msg drag-rectangle" data-original-title="Flag this" style="visibility:hidden;"></a> 
                     </ul>
                    
@@ -256,7 +256,7 @@
                               <li><span>@{{comment.firstNameofCommentPoster}} {{comment.lastNameofCommentPoster}} </span> -  {{comment.timeCreated}}  -  Public</li>
                               <li ><a href="#" class="rock-comments" >Rock</a></li>
                               <li class="rocks-small"><a id="{{comment.id.id}}-mrockCount" href="#">{{comment.rocks}}</a></li>
-                              <li><a class="comment-icon" href="#"></a></li>
+                              <!--li><a class="comment-icon" href="#"></a></li-->
                                  
                             </ul>
                           </div>
