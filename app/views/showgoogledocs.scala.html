@@ -1,0 +1,7 @@
+@(files : List[(String,String)])
+
+@if(! files.isEmpty){
+@for(i <-  files){
+<br><a href="@i._2" target="_blank">@i._1</a>
+}
+}
