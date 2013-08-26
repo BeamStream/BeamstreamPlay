@@ -17,6 +17,7 @@ import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.ObjectIdSerializer
 import utils.OnlineUserCache
+import models.RegistrationResults
 
 object Registration extends Controller {
   implicit val formats = new net.liftweb.json.DefaultFormats {
@@ -36,7 +37,7 @@ object Registration extends Controller {
           case true =>
             Token.updateToken(token)
             Ok(views.html.registration(userId, None))
-          case false => Ok("This user has already been registered. Please login with your username and password or register with a new email address.")
+          case false => Ok("This user has already been registered. Please login with your username and password or register using a new email address.")
         }
 
       case true =>
