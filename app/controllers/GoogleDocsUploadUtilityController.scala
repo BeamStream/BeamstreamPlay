@@ -22,16 +22,30 @@ object GoogleDocsUploadUtilityController extends Controller {
 
   val redirectURI = "http://localhost:9000/driveAuth"
 
-  def authenticateToGoogle = Action { implicit request =>
+  def authenticateToGoogle(action: String) = Action { implicit request =>
 
     val refreshTokenFound = SocialToken.findSocialToken(new ObjectId(request.session.get("userId").get))
     refreshTokenFound match {
       case None =>
         val urlToRedirect = new GoogleBrowserClientRequestUrl("213363569061.apps.googleusercontent.com", redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
-        Redirect(urlToRedirect)
+        Redirect(urlToRedirect).withSession(request.session + ("action" -> action))
       case Some(refreshToken) =>
-        val newAccessToken=GoogleDocsUploadUtility.getNewAccessToken(refreshToken)
-        Ok(views.html.stream()).withSession(request.session + ("accessToken" -> newAccessToken))
+        val newAccessToken = GoogleDocsUploadUtility.getNewAccessToken(refreshToken)
+        //        Ok(views.html.stream()).withSession(request.session + ("accessToken" -> newAccessToken))
+        if (action == "show") {
+          val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(newAccessToken)
+          Ok(views.html.showgoogledocs(files))
+        } else if (action == "upload") {
+          Ok(views.html.uploadgoogledocs()).withSession(request.session + ("accessToken" -> newAccessToken))
+        } else if (action == "document") {
+          Redirect("http://docs.google.com/document/create?hl=en")
+        } else if (action == "spreadsheet") {
+          Redirect("http://spreadsheets.google.com/ccc?new&hl=en")
+        } else if (action == "presentation") {
+          Redirect(" https://drive.google.com")
+        } else {
+          Ok
+        }
     }
 
   }
@@ -63,7 +77,6 @@ object GoogleDocsUploadUtilityController extends Controller {
       response.append(in.readLine)
     }
     in.close
-    println(response)
     val nullExpr = "null".r
     val dataString = nullExpr.replaceAllIn(response.toString, "")
     val dataList = dataString.split(",").toList
@@ -74,8 +87,19 @@ object GoogleDocsUploadUtilityController extends Controller {
     val accessToken = (tokenValues(0) \ "access_token").extract[String]
     val refreshToken = (tokenValues(2) \ "refresh_token").extract[String]
     SocialToken.addToken(SocialToken(new ObjectId(request.session.get("userId").get), refreshToken))
-    Ok(views.html.stream()).withSession(request.session + ("accessToken" -> accessToken))
-    //        Ok(views.html.fetchtoken())
+    val action = request.session.get("action").get
+    if (action == "show") {
+      val files = GoogleDocsUploadUtility.getAllDocumentsFromGoogleDocs(accessToken)
+      Ok(views.html.showgoogledocs(files))
+    } else if (action == "upload") {
+      Ok(views.html.uploadgoogledocs()).withSession(request.session + ("accessToken" -> accessToken))
+    } else if (action == "document") {
+      Redirect("http://docs.google.com/document/create?hl=en")
+    } else if (action == "spreadsheet") {
+      Redirect("http://spreadsheets.google.com/ccc?new&hl=en")
+    } else if (action == "presentation") {
+      Redirect(" https://drive.google.com")
+    } else Ok
   }
 
   /**
@@ -103,7 +127,7 @@ object GoogleDocsUploadUtilityController extends Controller {
       val accessToken = request.session.get("accessToken").get
       val googleFileId = GoogleDocsUploadUtility.uploadToGoogleDrive(accessToken, FileReceived, fileName, contentType.get)
     }
-    Ok(views.html.gdocs(Nil))
+    Ok(views.html.uploadgoogledocs())
   }
 
   def getAllGoogleDriveFiles = Action { implicit request =>

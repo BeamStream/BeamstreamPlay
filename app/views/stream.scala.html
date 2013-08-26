@@ -50,6 +50,20 @@
 	};
 </script>
 
+
+<!--Google Docs -->
+<script type="text/javascript">
+
+function showGoogleDocs(action){
+newwindow=window.open('uploadNow/'+action,'name','height=800,width=800');
+if (window.focus) {newwindow.focus()}
+}
+
+</script>
+
+
+<!--Google Docs -->
+
 <!-- for pie charts  -->
 <script type="text/javascript">
 	function Donut(paper) {
@@ -178,7 +192,7 @@
 	position: absolute;
 	top: 10px;
 	list-style: none;
-	left: 170px;
+	left: 150px;
 	cursor: pointer;
 	display: none;
 }
@@ -224,13 +238,13 @@ header, footer){
 								<li id="showSubList"><a tabindex="-1" href="#">Create
 										Google Doc > </a>
 									<ul id="innerSubList">
-										<li><a href="#">Document</a></li>
-										<li><a href="#">Spreadsheet</a></li>
-										<li><a href="#">Presentation</a></li>
+										<li><a href="#" onClick=showGoogleDocs('document')>Document</a></li>
+										<li><a href="#" onClick=showGoogleDocs('spreadsheet')>Spreadsheet</a></li>
+										<li><a href="#" onClick=showGoogleDocs('presentation')>Presentation</a></li>
 									</ul>
 								</li>
-								<li><a tabindex="-1" href="#">Upload Google Doc</a></li>
-								<li><a tabindex="-1" href="#">Show Google Docs</a></li>
+								<li><a tabindex="-1" href="#" onClick="showGoogleDocs('upload')">Upload Google Doc</a></li>
+								<li><a tabindex="-1" href="" onClick="showGoogleDocs('show')">Show Google Docs</a></li>
 							</ul>
 						</div>
 						<div class="btn-group nav-tabs">
