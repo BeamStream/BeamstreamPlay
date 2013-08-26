@@ -20,8 +20,7 @@ object ApplicationBuild extends Build {
     "org.apache.poi" % "poi-ooxml" % "3.8",
     "net.sf.opencsv" % "opencsv" % "2.1",
     "xuggle" % "xuggle-xuggler" % "5.4",
-    "org.joda" % "joda-convert" % "1.1",
-    "com.google.apis" % "google-api-services-oauth2" % "v2-rev9-1.7.2-beta")
+    "org.joda" % "joda-convert" % "1.1")
 
   def customLessEntryPoints(base: File): PathFinder = (
     (base / "app" / "assets" / "stylesheets" / "bootstrap" * "bootstrap.less") +++
