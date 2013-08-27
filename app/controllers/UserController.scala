@@ -1,12 +1,10 @@
 package controllers
 
 import scala.collection.immutable.List
-
 import org.bson.types.ObjectId
 import org.neo4j.graphdb.Node
-
 import models.LoginResult
-import models.OnlineUsers
+import models.AvailableUsers
 import models.OnlineUsersResult
 import models.OnlineUsersResult
 import models.ResulttoSent
@@ -21,6 +19,8 @@ import utils.PasswordHashingUtil
 import utils.SendEmailUtility
 import utils.SocialGraphEmbeddedNeo4j
 import utils.OnlineUserCache
+import utils.OnlineUsers
+import models.AvailableUsers
 
 object UserController extends Controller {
 
@@ -46,26 +46,27 @@ object UserController extends Controller {
 
     val onlineUsers = (OnlineUserCache.returnOnlineUsers.isEmpty == true) match {
       case false =>
-        val onlineUsersWithDetails = (OnlineUserCache.returnOnlineUsers.head.onlineUsers) map {
+        val otherUsers = OnlineUserCache.returnOnlineUsers.head.onlineUsers filterNot (List(new ObjectId(request.session.get("userId").get))contains)
+        val onlineUsersWithDetails = (otherUsers) map {
           case eachUserId =>
             val userWithDetailedInfo = User.getUserProfile(eachUserId)
             val profilePicForUser = UserMedia.getProfilePicForAUser(eachUserId)
             val onlineUsersAlongWithDetails = (profilePicForUser.isEmpty) match {
               case true => {
-            	if(userWithDetailedInfo != None) {
-	                OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
-	                		userWithDetailedInfo.get.lastName, "")
-            	}
+                if (userWithDetailedInfo != None) {
+                  AvailableUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+                    userWithDetailedInfo.get.lastName, "")
+                }
               }
               case false => {
-            	if(userWithDetailedInfo != None) {
-	                OnlineUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
-	                userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl)
-            	}
+                if (userWithDetailedInfo != None) {
+                  AvailableUsers(userWithDetailedInfo.get.id, userWithDetailedInfo.get.firstName,
+                    userWithDetailedInfo.get.lastName, profilePicForUser(0).mediaUrl)
+                }
               }
             }
             onlineUsersAlongWithDetails
-          
+
         }
         Option(onlineUsersWithDetails)
 

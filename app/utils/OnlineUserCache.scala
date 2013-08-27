@@ -11,15 +11,15 @@ import com.mongodb.WriteConcern
 case class OnlineUsers(onlineUsers: List[ObjectId] = Nil)
 object OnlineUserCache {
 
-  //var onlineUsers: List[String] = Nil
+  /*var onlineUsers: List[String] = Nil*/
 
   /**
    * Deactivate The User Session
    */
 
   def setOffline(userIdkey: String) = {
-    //    onlineUsers filterNot (List(userIdkey)contains)
-    //    Cache.set("Online Users", onlineUsers)
+    /* onlineUsers filterNot (List(userIdkey)contains)
+        Cache.set("Online Users", onlineUsers)*/
 
     val onlineUsersFound = OnlineUserDAO.find(MongoDBObject()).toList
     (onlineUsersFound.isEmpty) match {
@@ -37,10 +37,10 @@ object OnlineUserCache {
    */
 
   def setOnline(userIdkey: String) = {
-    //    if (onlineUsers.contains(userIdkey) == false) {
-    //      onlineUsers ++= List(userIdkey)
-    //      Cache.set("Online Users", onlineUsers)
-    //    }
+    /*if (onlineUsers.contains(userIdkey) == false) {
+          onlineUsers ++= List(userIdkey)
+          Cache.set("Online Users", onlineUsers)
+        }*/
 
     val onlineUsersFound = OnlineUserDAO.find(MongoDBObject()).toList
     (onlineUsersFound.isEmpty) match {
@@ -57,7 +57,7 @@ object OnlineUserCache {
    * List Of All Online Users (V)
    */
   def returnOnlineUsers = {
-    //    Cache.get("Online Users")
+    /* Cache.get("Online Users")*/
     OnlineUserDAO.find(MongoDBObject()).toList
   }
 
