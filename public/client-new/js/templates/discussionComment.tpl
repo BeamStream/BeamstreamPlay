@@ -1,19 +1,4 @@
-<!-- 	* BeamStream
-		*
-		* Author                : Aswathy P.R (aswathy@toobler.com)
-		* Company               : Toobler
-		* Email:                : info@toobler.com
-		* Web site              : http://www.toobler.com
-		* Created               : 15/March/2013
-		* Description           : Templates for Discussion page Comments
-		* ==============================================================================================
-		* Change History:
-		* ----------------------------------------------------------------------------------------------
-		* Sl.No.  Date   Author   Description
-		* -
-  -->
-
-
+<!-- * Description : Templates for Discussion page Comments-->
 <div class="answer-description"  id="{{data.id.id}}">
     <div class="follw-left">          
         <div class="ask-img"><img id="{{data.id.id}}-image" src="{{#if profileImage}}{{profileImage}}{{else}}/beamstream-new/images/profile-upload.png{{/if}}"></div>                      
