@@ -1,7 +1,21 @@
 @(files : List[(String,String)])
 
+<!--Google Docs -->
+<script type="text/javascript">
+
+function show(action){
+window.open(action,'1377594752662','width=700,height=500');
+return false;
+}
+
+</script>
+
+
+<!--Google Docs -->
+
+
 @if(! files.isEmpty){
 @for(i <-  files){
-<br><a href="@i._2" target="_blank">@i._1</a>
+<br><a href="" onClick=show("@i._2")>@i._1</a>
 }
 }
