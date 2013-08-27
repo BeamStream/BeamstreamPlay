@@ -20,7 +20,7 @@ object GoogleDocsUploadUtilityController extends Controller {
 
   implicit val formats = net.liftweb.json.DefaultFormats
 
-  val redirectURI = "http://test.beamstream.com/driveAuth"
+  val redirectURI = "http://www.beamstream.com/driveAuth"
 
   def authenticateToGoogle(action: String) = Action { implicit request =>
 
@@ -63,7 +63,7 @@ object GoogleDocsUploadUtilityController extends Controller {
     con.setRequestProperty("User-Agent", USER_AGENT);
     con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-    val urlParameters = "code=" + code + "&client_id=213363569061.apps.googleusercontent.com&client_secret=d3s0YP7_xtCaAtgCiSy_RNdU&redirect_uri=http://test.beamstream.com/driveAuth&grant_type=authorization_code&Content-Type=application/x-www-form-urlencoded";
+    val urlParameters = "code=" + code + "&client_id=213363569061.apps.googleusercontent.com&client_secret=d3s0YP7_xtCaAtgCiSy_RNdU&redirect_uri=http://www.beamstream.com/driveAuth&grant_type=authorization_code&Content-Type=application/x-www-form-urlencoded";
     con.setDoOutput(true)
     val wr = new DataOutputStream(con.getOutputStream)
     wr.writeBytes(urlParameters)
