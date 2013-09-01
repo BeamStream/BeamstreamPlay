@@ -35,8 +35,7 @@ object Registration extends Controller {
       case false =>
         (tokenReceived.head.used == false) match {
           case true =>
-            Token.updateToken(token)
-            Ok(views.html.registration(userId, None))
+            Ok(views.html.registration(userId, None)).withSession("token" -> token)
           case false => Ok("This user has already been registered. Please login with your username and password or register using a new email address.")
         }
 
@@ -90,6 +89,11 @@ object Registration extends Controller {
         User.addInfo(List(userSchool), new ObjectId(userId))
         val userCreated = User.getUserProfile(new ObjectId(userId))
         OnlineUserCache.setOnline(userId)
+        
+        //retrieve token in session and invalidate
+        var token = request.session.get("token").get
+        Token.updateToken(token)
+        
         Ok(write(RegistrationResults(userCreated.get, userSchool))).as("application/json").withSession("userId" -> userId)
 
       case false => Ok(write(userUpdate._2)).as("application/json")
