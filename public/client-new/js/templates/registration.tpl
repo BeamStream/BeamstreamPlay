@@ -240,7 +240,7 @@
 
         </div>
         <div class="profile-right-container">
-          <div id="step1_block" class="profile-white active-border">
+          <div id="step1_block" class="profile-white active-border" style="visibility:hidden;"><!--DH MAKE VISIBLE WHEN JANRAIN IS READY-->
             <h5>Connect with:</h5>
             <ul class="register-social">
               <li >

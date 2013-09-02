@@ -328,13 +328,14 @@ define(['view/formView',
 			if($('#'+questionId+'-addComments').is(":visible"))
 			{
 				$('#'+questionId+'-msgComment').val('');
-				$('#'+questionId+'-addComments').slideToggle(300); 
+				$('#'+questionId+'-addComments').slideToggle(300);
+				$('#'+questionId+'-addComments > textarea').focus();
 			}
 			else
 			{
 				$('#'+questionId+'-msgComment').val('');
 				$('#'+questionId+'-addComments').slideToggle(200); 
-				
+				$('#'+questionId+'-addComments > textarea').focus();
 			}
 			
         },

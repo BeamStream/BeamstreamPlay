@@ -641,13 +641,14 @@ define(['view/formView',
 			if($('#'+messageId+'-addComments').is(":visible"))
 			{
 				$('#'+messageId+'-msgComment').val('');
-				$('#'+messageId+'-addComments').slideToggle(300); 
+				$('#'+messageId+'-addComments').slideToggle(300);
+				$('#'+messageId+'-addComments > textarea').focus(); 
 			}
 			else
 			{
 				$('#'+messageId+'-msgComment').val('');
-				$('#'+messageId+'-addComments').slideToggle(200); 
-				
+				$('#'+messageId+'-addComments').slideToggle(200);
+				$('#'+messageId+'-addComments > textarea').focus(); 
 			}
 			
         },
