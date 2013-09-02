@@ -5,29 +5,29 @@ import java.io.DataOutputStream
 import java.io.InputStreamReader
 import java.net.URL
 import java.util.Arrays
-
 import org.bson.types.ObjectId
-
 import com.google.api.client.googleapis.auth.oauth2.GoogleBrowserClientRequestUrl
-
 import javax.net.ssl.HttpsURLConnection
 import models.SocialToken
 import play.api.mvc.Action
 import play.api.mvc.Controller
 import utils.GoogleDocsUploadUtility
+import play.api.i18n.Messages
+import play.api.Play
 
 object GoogleDocsUploadUtilityController extends Controller {
 
   implicit val formats = net.liftweb.json.DefaultFormats
 
-  val redirectURI = "http://www.beamstream.com/driveAuth"
-
+  val redirectURI = Play.current.configuration.getString("GoogleRedirectUI").get
+  val GoogleClientId = Play.current.configuration.getString("GoogleClientId").get
+  val GoogleClientSecret = Play.current.configuration.getString("GoogleClientSecret").get
   def authenticateToGoogle(action: String) = Action { implicit request =>
-
+    println(redirectURI, GoogleClientId, GoogleClientSecret)
     val refreshTokenFound = SocialToken.findSocialToken(new ObjectId(request.session.get("userId").get))
     refreshTokenFound match {
       case None =>
-        val urlToRedirect = new GoogleBrowserClientRequestUrl("213363569061.apps.googleusercontent.com", redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
+        val urlToRedirect = new GoogleBrowserClientRequestUrl(GoogleClientId, redirectURI, Arrays.asList("https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/drive")).set("access_type", "offline").set("response_type", "code").build()
         Redirect(urlToRedirect).withSession(request.session + ("action" -> action))
       case Some(refreshToken) =>
         val newAccessToken = GoogleDocsUploadUtility.getNewAccessToken(refreshToken)
@@ -63,7 +63,7 @@ object GoogleDocsUploadUtilityController extends Controller {
     con.setRequestProperty("User-Agent", USER_AGENT);
     con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-    val urlParameters = "code=" + code + "&client_id=213363569061.apps.googleusercontent.com&client_secret=d3s0YP7_xtCaAtgCiSy_RNdU&redirect_uri=http://www.beamstream.com/driveAuth&grant_type=authorization_code&Content-Type=application/x-www-form-urlencoded";
+    val urlParameters = "code=" + code + "&client_id=" + GoogleClientId + "&client_secret=" + GoogleClientSecret + "&redirect_uri=" + redirectURI + "&grant_type=authorization_code&Content-Type=application/x-www-form-urlencoded";
     con.setDoOutput(true)
     val wr = new DataOutputStream(con.getOutputStream)
     wr.writeBytes(urlParameters)
