@@ -21,6 +21,7 @@ import utils.SocialGraphEmbeddedNeo4j
 import utils.OnlineUserCache
 import utils.OnlineUsers
 import models.AvailableUsers
+import models.School
 
 object UserController extends Controller {
 
@@ -202,6 +203,7 @@ object UserController extends Controller {
    * Find and Authenticate the user to proceed. (RA)
    */
   def findUser = Action { implicit request =>
+    println(School.allSchoolsInDatabase.size)
     val jsonReceived = request.body.asJson.get
     val userEmailorName = (jsonReceived \ "mailId").as[String]
     val userPassword = (jsonReceived \ "password").as[String]

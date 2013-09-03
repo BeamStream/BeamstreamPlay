@@ -12,7 +12,9 @@ object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     //    ReadingSpreadsheetUtil.readCSVOfSchools
-    //    School.allSchoolsInDatabase = School.getAllSchools
+    val listOfAllSchools = School.getAllSchools
+    School.allSchoolsInDatabase ++= listOfAllSchools
+  
   }
 
   override def onError(request: RequestHeader, ex: Throwable) = {
