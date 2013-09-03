@@ -63,21 +63,21 @@ object SchoolController extends Controller {
     try {
       val schoolNameStartingStringJsonMap = request.body.asFormUrlEncoded.get
       val schoolNamesStartingCharacter = schoolNameStartingStringJsonMap("data").toList(0)
-      val allSchools = School.allSchoolsInDatabase map {
-        case school =>
-
-          val schools = (school.schoolName.startsWith(schoolNamesStartingCharacter)) match {
-            case true => Option(school)
-            case _ => None
-          }
-          schools
-
-      }
-
-      val allSchoolsObtained = allSchools map { case a => a.get }
-      //      val allSchools = School.getAllSchoolsFromDB(schoolNamesStartingCharacter)
-      //      Ok(write(allSchools)).as("application/json")
-      Ok(write(allSchoolsObtained)).as("application/json")
+      //      val allSchools = School.allSchoolsInDatabase map {
+      //        case school =>
+      //
+      //          val schools = (school.schoolName.startsWith(schoolNamesStartingCharacter)) match {
+      //            case true => Option(school)
+      //            case _ => None
+      //          }
+      //          schools
+      //
+      //      }
+      //
+      //      val allSchoolsObtained = allSchools map { case a => a.get }
+      val allSchools = School.getAllSchoolsFromDB(schoolNamesStartingCharacter)
+      Ok(write(allSchools)).as("application/json")
+      //      Ok(write(allSchoolsObtained)).as("application/json")
     } catch {
       case ex => InternalServerError(write("There was some errors while autopopulating schools")).as("application/json")
     }
