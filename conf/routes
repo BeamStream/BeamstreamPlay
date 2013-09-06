@@ -143,7 +143,7 @@ POST     /login                                                                 
 POST     /media                                                                  controllers.MediaController.uploadMediaToAmazon
 GET     /recentMedia                                                              controllers.MediaController.getRecentMediaAndDocs
 #Messages + Comments + ProfilePicUrl
-GET      /allMessagesForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo      controllers.MessageController.allMessagesForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
+GET      /allMessagesForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo/:period      controllers.MessageController.allMessagesForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int,period:String)
 POST     /newMessage                                                             controllers.MessageController.newMessage
 POST     /newComment                                                             controllers.CommentController.newComment
 PUT      /follow/message/:messageId                                              controllers.MessageController.followTheMessage(messageId:String)

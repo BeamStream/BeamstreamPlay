@@ -52,7 +52,7 @@ define(['pageView',
 	    		if(view){
 	    			view.myStreams = this.getViewById('sidebar').myStreams;
 	    			
-	    			view.data.url="/allMessagesForAStream/"+this.getViewById('sidebar').streamId+"/date/"+view.messagesPerPage+"/"+view.pageNo;
+	    			view.data.url="/allMessagesForAStream/"+this.getViewById('sidebar').streamId+"/date/"+view.messagesPerPage+"/"+view.pageNo+"/week";
 	    			view.fetch();
 	    		
 	    		}

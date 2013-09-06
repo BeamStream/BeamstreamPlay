@@ -62,7 +62,7 @@ define(['baseView',
 				var view = this.getViewById('messageListView');
 	    		if(view){
 	    			
-	    			view.data.url="/allMessagesForAStream/"+this.getViewById('sidebar').streamId+"/date/"+view.messagesPerPage+"/"+view.pageNo;
+	    			view.data.url="/allMessagesForAStream/"+this.getViewById('sidebar').streamId+"/date/"+view.messagesPerPage+"/"+view.pageNo +"/week";
 	    			view.fetch();
 	    		
 	    		}
@@ -317,7 +317,7 @@ define(['baseView',
 	    		view = this.getViewById('messageListView');
 	    		if(view){
 	    			
-	    			view.data.url="/allMessagesForAStream/"+this.streamId+"/date/"+10+"/"+1;
+	    			view.data.url="/allMessagesForAStream/"+this.streamId+"/date/"+10+"/"+1+"/week";
 	    			view.fetch();
 
 	    		}

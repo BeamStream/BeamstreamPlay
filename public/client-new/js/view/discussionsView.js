@@ -572,6 +572,7 @@ define(['view/formView',
         	var self = this;
         	var streamId = $('.sortable li.active').attr('id');
         	var sortKey = $(eventName.target).attr('value');
+        	var sortPeriod = $('#date-sort-select').attr('value');
         	this.msgSortedType = sortKey;
         	this.pageNo = 1;
         	/* render the message list */
@@ -579,7 +580,7 @@ define(['view/formView',
     		if(view){
     			
 
-    			view.data.url="/allMessagesForAStream/"+streamId+"/"+sortKey+"/"+view.messagesPerPage+"/"+view.pageNo;
+    			view.data.url="/allMessagesForAStream/"+streamId+"/"+sortKey+"/"+view.messagesPerPage+"/"+view.pageNo+"/"+sortPeriod;
     			view.fetch();
     			
 //    			view.fetch({'streamId': streamId, 'sortBy': sortKey, 'messagesPerPage': this.messagesPerPage, 'pageNo': this.pageNo});
@@ -625,7 +626,22 @@ define(['view/formView',
         sortMessagesWithinAPeriod: function(eventName){
         	
         	eventName.preventDefault();
-        	$('#date-sort-select').text($(eventName.target).text());
+        	var self = this;
+        	var streamId = $('.sortable li.active').attr('id');
+        	var sortPeriod = $(eventName.target).attr('value');
+        	var sortKey = $('#sortBy-select').attr('value');
+        	this.msgSortedType = sortKey;
+        	this.pageNo = 1;
+        	/* render the message list */
+        	view = this.getViewById('messageListView');
+        	
+    		if(view){
+    			view.data.url="/allMessagesForAStream/"+streamId+"/"+sortKey+"/"+view.messagesPerPage+"/"+view.pageNo+"/"+sortPeriod;
+    			view.fetch();
+    		}
+
+    		$('#date-sort-select').text($(eventName.target).text());
+			$('#sortBy-select').attr('value',sortKey);
         },
         
         /**
