@@ -9,7 +9,7 @@ import play.api.libs.concurrent._
 import akka.util.Timeout
 import akka.pattern.ask
 import play.api.Play.current
-import actors.ChatActor
+import actors.ChatActorObject
 
 object ChatRoom {
   def join(username: String, userId: String, chatWith: String): Promise[(Iteratee[JsValue, _], Enumerator[JsValue])] = {
@@ -31,7 +31,7 @@ object ChatRoom {
             (iteratee, enumerator)
 
           case CannotConnect(error) =>
-           println("Can not connect")
+            println("Can not connect")
             // Connection error
 
             val iteratee = Done[JsValue, Unit]((), Input.EOF)
@@ -56,7 +56,7 @@ object ChatRoom {
         (default ? Join(username, userId, username)).asPromise.map {
 
           case Connected(enumerator) =>
-
+            //            ChatActorObject.addEntry("522d6e6b44ae35c77c040af8", default.path.toString())
             // Create an Iteratee to consume the feed
             val iteratee = Iteratee.foreach[JsValue] { event =>
               default ! Talk(username, (event \ "text").as[String])
@@ -81,43 +81,6 @@ object ChatRoom {
         }
     }
   }
-  //
-  //    implicit val timeout = Timeout(1 second)
-  //
-  //    lazy val default = {
-  //      val actorRef = Akka.system.actorOf(Props[ChatRoom], userId)
-  //      actorRef
-  //    }
-  //
-  //    (default ? Join(username, userId, chatWith)).asPromise.map {
-  //
-  //      case Connected(enumerator) =>
-  //
-  //        // Create an Iteratee to consume the feed
-  //        val iteratee = Iteratee.foreach[JsValue] { event =>
-  //          default ! Talk(username, (event \ "text").as[String])
-  //        }.mapDone { _ =>
-  //          default ! Quit(username)
-  //        }
-  //        ChatActor.chat ! (chatWith, default)
-  //
-  //        (iteratee, enumerator)
-  //
-  //      case CannotConnect(error) =>
-  //
-  //        // Connection error
-  //
-  //        // A finished Iteratee sending EOF
-  //        val iteratee = Done[JsValue, Unit]((), Input.EOF)
-  //
-  //        // Send an error and close the socket
-  //        val enumerator = Enumerator[JsValue](JsObject(Seq("error" -> JsString(error)))).andThen(Enumerator.enumInput(Input.EOF))
-  //
-  //        (iteratee, enumerator)
-  //
-  //    }
-  //
-  //  }
 
 }
 

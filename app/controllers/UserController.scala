@@ -22,6 +22,7 @@ import utils.OnlineUserCache
 import utils.OnlineUsers
 import models.AvailableUsers
 import models.School
+import actors.ChatActorObject
 
 object UserController extends Controller {
 
@@ -239,4 +240,14 @@ object UserController extends Controller {
   def renderForgotPasswordView = Action { implicit request =>
     Ok(views.html.recoverPassword("Recover Password Page"))
   }
+
+  /**
+   * Chatting Specific
+   */
+  def checkForChat(userId: String) = Action { implicit request =>
+    val a = ChatActorObject.chatUsers.get(userId)
+    if (a != None) Ok(a.get.toString)
+    else Ok("")
+  }
+
 }

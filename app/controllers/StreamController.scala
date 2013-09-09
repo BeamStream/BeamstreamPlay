@@ -1,9 +1,7 @@
 package controllers
 
 import java.text.SimpleDateFormat
-
 import org.bson.types.ObjectId
-
 import models.Class
 import models.ClassType
 import models.Message
@@ -15,6 +13,7 @@ import play.api.mvc.Controller
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
 import utils.OnlineUserCache
+import play.api.Routes
 
 object StreamController extends Controller {
 
@@ -103,6 +102,16 @@ object StreamController extends Controller {
    */
   def renderStreamPage = Action { implicit request =>
     Ok(views.html.stream())
+  }
+
+  /**
+   * Java Script Routes
+   */
+  def javascriptRoutes = Action { implicit request =>
+
+    Ok(
+      Routes.javascriptRouter("jsRoutes")(
+        routes.javascript.UserController.checkForChat)).as("text/javascript")
   }
 
 }

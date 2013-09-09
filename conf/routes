@@ -4,6 +4,7 @@
 #Other
 GET      /browserClosed                                                          controllers.UserController.browserClosed
 GET      /error                                                                  controllers.StreamController.onError
+GET /javascriptRoutes                                                   controllers.StreamController.javascriptRoutes
 #Streams
 GET      /streams                                                                controllers.StreamController.allClassStreamsForAUser
 GET      /noOfUsers/stream/:streamId                                             controllers.StreamController.noOfUsersAttendingAClass(streamId:String)
@@ -205,8 +206,7 @@ GET   /uploadPage                                                   controllers.
 
 GET  /chatNow                                                     controllers.ChatController.chatRoom
 GET  /room                                                     controllers.ChatController.chat(username,userId,chatWith)
-
-
+GET /checkForChat                                               controllers.UserController.checkForChat(userId:String)
 
 #Looks like Unused
 

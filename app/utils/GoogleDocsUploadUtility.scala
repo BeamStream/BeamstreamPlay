@@ -71,7 +71,7 @@ object GoogleDocsUploadUtility {
    * Get Access token Using refresh Token
    */
 
-  def getNewAccessToken(refreshToken: String):String = {
+  def getNewAccessToken(refreshToken: String): String = {
     val credentialBuilder = new GoogleCredential.Builder()
       .setTransport(httpTransport).setJsonFactory(jsonFactory)
       .setClientSecrets(CLIENT_ID, CLIENT_SECRET);

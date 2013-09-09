@@ -6,15 +6,17 @@ import play.api.mvc.SimpleResult
 import play.api.mvc.Result
 import play.api.mvc.Results.Redirect
 import models.School
-import actors.ChatActor
+import akka.actor.ActorSystem
+import akka.actor.Props
+import actors.ChatActorObject
 
 object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     //    ReadingSpreadsheetUtil.readCSVOfSchools
-//    val listOfAllSchools = School.getAllSchools
-//    School.allSchoolsInDatabase ++= listOfAllSchools
-  
+    //    val listOfAllSchools = School.getAllSchools
+    //    School.allSchoolsInDatabase ++= listOfAllSchools
+
   }
 
   override def onError(request: RequestHeader, ex: Throwable) = {
