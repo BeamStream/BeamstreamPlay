@@ -114,4 +114,13 @@ object StreamController extends Controller {
         routes.javascript.UserController.checkForChat)).as("text/javascript")
   }
 
+  /**
+   * TODO Just Putting here for future need  , needs to be removed
+   * <script type="text/javascript">
+   * intervalID = setInterval(function() {
+   * checkForChat();
+   * }, 5000)
+   * </script>
+   */
+
 }
