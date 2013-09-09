@@ -228,7 +228,10 @@
                     <div id="{{data.question.id.id}}-addAnswer" class="follow-comment" style="display:none;">
                         <textarea id="{{data.question.id.id}}-questionsAnswer" class="add-question-comment add-question-comment" placeholder="Add Answers.."  onblur="this.placeholder = 'Add Answers..'" onfocus="this.placeholder = ''" placeholder="" cols="" rows=""></textarea>
                     </div>  
-        <a id="{{data.question.id.id}}" href="#" data-original-title="Delete" class="delete_post drag-rectangle" ></a>
+        			{{#ifequal loggedUserId data.question.userId.id }}
+						<a id="{{data.question.id.id}}" href="#" data-original-title="Delete" class="delete_post drag-rectangle" ></a>
+				 	{{/ifequal}}
+        
                 </div>
 
                 <div class="answer-info">
