@@ -27,6 +27,7 @@ object Access extends Enumeration {
   val PrivateToClass = Value(1, "PrivateToClass")
   val PrivateToSchool = Value(2, "PrivateToSchool")
   val PrivateToDegree = Value(3, "PrivateToDegree")
+  val PrivateToGradYear = Value(4, "PrivateToGradYear")
 }
 
 case class Message(@Key("_id") id: ObjectId,

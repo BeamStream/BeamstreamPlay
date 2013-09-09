@@ -169,14 +169,7 @@ define(['view/formView',
  		        var msgAccess =  $('#private-to').attr('checked');
  		        var privateTo = $('#select-privateTo').attr('value');
  			    if(msgAccess == "checked"){
- 			    	
- 			    	if(privateTo == "privateToSchool"){
- 			    		messageAccess = "PrivateToSchool";
- 			    	}
- 			    	else{
- 			    		messageAccess = "PrivateToClass";
- 			    	}
- 			    	 
+ 			    	messageAccess = privateTo;			    	 
  			    }
  			    else{
  			  	    messageAccess = "Public";
