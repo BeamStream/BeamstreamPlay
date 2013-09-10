@@ -74,7 +74,8 @@ object SchoolController extends Controller {
         schools
     }
 
-    if (! allSchools.isEmpty) {
+    val schoolsToBereturned = allSchools.filter(None => false)
+    if (schoolsToBereturned.isEmpty == false) {
       val allSchoolsObtained = allSchools map {
 
         case school => school.get
