@@ -74,7 +74,7 @@ object SchoolController extends Controller {
         schools
     }
 
-    if (allSchools != None) {
+    if (! allSchools.isEmpty) {
       val allSchoolsObtained = allSchools map {
 
         case school => school.get
