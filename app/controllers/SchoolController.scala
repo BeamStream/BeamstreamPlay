@@ -74,11 +74,18 @@ object SchoolController extends Controller {
         schools
     }
 
-    val allSchoolsObtained = allSchools map { case a => a.get }
+    if (allSchools != None) {
+      val allSchoolsObtained = allSchools map {
+
+        case school => school.get
+      }
+
+      Ok(write(allSchoolsObtained)).as("application/json")
+    } else {
+      Ok(write(Nil)).as("application/json")
+    }
     //      val allSchools = School.getAllSchoolsFromDB(schoolNamesStartingCharacter)
     //      Ok(write(allSchools)).as("application/json")
-    println("####"+allSchoolsObtained)
-    Ok(write(allSchoolsObtained)).as("application/json")
 
   }
 }
