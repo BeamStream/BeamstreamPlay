@@ -95,10 +95,10 @@
                   
                     <li class="tag"></li>
                   </ul>
-                  <label class="checkbox private-chaeck">
+                  <label class="checkbox private-chaeck" style="display:none">
                     <input  id="private-to" type="checkbox"  checked="checked">
-                    Pivate to:</label>
-                  <div class="btn-group class-dropdown ">
+                    Private to:</label>
+                  <div class="btn-group class-dropdown " style="display:none">
                     <button class="btn class-dropdown-bg" id="Q-privateTo-select" >Class</button>
                     <button class="btn class-dropdown-button " data-toggle="dropdown"> <span class="caret sort-caret"></span></button>
                     <ul class="dropdown-menu Q-stream-list" id="Q-privatelist">

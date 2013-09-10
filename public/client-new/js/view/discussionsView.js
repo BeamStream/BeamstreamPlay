@@ -1,3 +1,16 @@
+
+/*
+ * 
+ * THIS FILE IS CURRENTLY NOT BEING USED.  TESTING HAS SHOWN THAT THIS PAGE IS SHOWING IN THE STREAM.SCALA.HTML PAGE.  
+ * 
+ * -DH
+ * 
+ * 
+ * 
+ * 
+ */
+
+
 define(['view/formView',
         'view/messageListView',
         'view/messageItemView',
