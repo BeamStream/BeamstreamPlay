@@ -73,8 +73,7 @@ object SchoolController extends Controller {
         }
         schools
     }
-
-    val schoolsToBereturned = allSchools.filter(None => false)
+    val schoolsToBereturned = allSchools.filter(a => a != None)
     if (schoolsToBereturned.isEmpty == false) {
       val allSchoolsObtained = schoolsToBereturned map {
 
