@@ -71,7 +71,6 @@ object User {
     }
   }
 
-  
   //TODO : FLow has changed. Check whether it is to be used or not
   /**
    * Find user coming from social site with the UserName (RA )
@@ -252,6 +251,7 @@ object UserType extends Enumeration {
   val Student = Value(0, "Student")
   val Educator = Value(1, "Educator")
   val Professional = Value(2, "Professional")
+  val TeachersAssistant = Value(3, "TeachersAssistant")
 }
 
 object UserDAO extends SalatDAO[User, ObjectId](collection = MongoHQConfig.mongoDB("user"))
