@@ -7,8 +7,9 @@ define(['pageView',
         'view/calendarView',
         'view/messageListView',
         'view/questionListView',
+        'view/questionStreamView'
         ], 
-	function(PageView, StreamSliderView, OverView, DiscussionsView, QuestionsView, DeadlinesView, CalendarView ,MessageListView ,QuestionListView ){
+	function(PageView, StreamSliderView, OverView, DiscussionsView, QuestionsView, DeadlinesView, CalendarView ,MessageListView ,QuestionListView ,QuestionStreamView ){
 	var MyStreamView;
 	MyStreamView = PageView.extend({
 		objName: 'MyStreamView',
@@ -29,6 +30,7 @@ define(['pageView',
 			
 			this.addView(new MessageListView({el: $('#messageListView')}));
 			this.addView(new QuestionListView({el: $('#questionListView')}));
+			this.addView(new QuestionStreamView({el: $('#questionStreamView')}));
 
 			
 			
