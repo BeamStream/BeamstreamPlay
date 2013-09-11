@@ -1,7 +1,8 @@
 define(['baseView', 
-	      'text!templates/questionStream.tpl'
+	      'text!templates/questionStream.tpl', 
+	      '../model/questionStream'
         ], 
-	function(BaseView, questionStreamTPL){
+	function(BaseView, questionStreamTPL, QuestionStream){
 	var QuestionStreamView;
 	QuestionStreamView = BaseView.extend({
 		objName: 'QuestionStreamView',
@@ -12,13 +13,16 @@ define(['baseView',
 
 		initialize: function() {
 			BaseView.prototype.initialize.apply(this, arguments);
+			this.model = new QuestionStream;
+			console.log(this);
 			
 			this.render();
 		},
 
 		render: function(){
-			var compiledTemplate = Handlebars.compile(questionStreamTPL);
-			this.$el.html(compiledTemplate);
+			// var compiledTemplate = Handlebars.compile(questionStreamTPL);
+			// this.$el.html(compiledTemplate);
+			this.$el.text('Question Stream');
 		}
 		
 		
