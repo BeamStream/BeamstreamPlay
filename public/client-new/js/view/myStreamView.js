@@ -21,8 +21,9 @@ define(['pageView',
 		pageNo: 1,
 		init: function(){
 			
-			this.addView(new StreamSliderView({el: '#sidebar'}));
-			// this.addView(new OverView({el: $('#overView')}));
+			var currentStreamView = new StreamSliderView({el: '#sidebar'})
+			this.addView(currentStreamView);
+
 			this.addView(new DiscussionsView({el: $('#discussionsView')}));
 			this.addView(new QuestionsView({el: $('#questionsView')}));
 			this.addView(new DeadlinesView({el: $('#deadlinesView')}));
@@ -30,9 +31,15 @@ define(['pageView',
 			
 			this.addView(new MessageListView({el: $('#messageListView')}));
 			this.addView(new QuestionListView({el: $('#questionListView')}));
-			this.addView(new QuestionStreamView({el: $('#questionStreamView')}));
 
-			
+			var currentQuestionStream = new QuestionStreamView({el: $('#questionStreamView')});
+      this.addView(currentQuestionStream);
+      
+      // on streamId change, notify the questionStream
+			currentStreamView.on('change:streamId', function(evt){
+				currentQuestionStream.model.setQuestionStreamId(evt.streamId);
+				console.log('Stream Id changed: ', evt.streamId);
+			});
 			
 		},
 		
