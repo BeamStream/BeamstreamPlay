@@ -20,7 +20,6 @@ define(['baseView',
 		
 		                
         onAfterInit: function(){
-        	
             this.data.reset();
             this.activeDiv = '<div class="active-curve"></div>';
             
@@ -52,12 +51,16 @@ define(['baseView',
 			
 			
         	//set the streamId value 
-			this.streamId = (this.data.models[0])?this.data.models[0].get('stream').id.id:null;
+	    	this.setStreamId((this.data.models[0])?this.data.models[0].get('stream').id.id:null);
+
 			this.myStreams = (this.data)?this.data:null;
 
 
-			/** rendered by defalut : discussion page */
-			if(this.getViewById('sidebar').streamId){
+
+			/** rendered by default : discussion page */
+			var sidebarView = this.getViewById('sidebar');
+
+			if(sidebarView.streamId){
 				
 				var view = this.getViewById('messageListView');
 	    		if(view){
@@ -79,16 +82,12 @@ define(['baseView',
 			$('#class-red-border').addClass('class-border');			
 			var compiledTemplate = Handlebars.compile(NewStreamTpl);
 			this.$(".content").html(compiledTemplate);
-			
-			
-			
 		},
 		
 		/**
          * if there is a streams then add to the stream list
          */
 		displayPage: function(callback){
-			console.log(this.data.models);
 			$('#class-red-border').removeClass('class-border');
 			/* for the private to list section on Discussion and Question page */ 
 			var listTemplate = Handlebars.compile(PrivateToList);
@@ -98,11 +97,6 @@ define(['baseView',
 			// /* render the left stream list */
 			var compiledTemplate = Handlebars.compile(StreamList);
 			this.$(".content").html( compiledTemplate(this.data.toJSON()));
-
-			
-
-
-			
 		},
 		
 		/**
@@ -265,6 +259,16 @@ define(['baseView',
 	        
 	    	
 	    },
+
+        // turn active stream assignment into a function so we can trigger an event
+	    setStreamId: function(streamId) {
+	    	this.streamId = streamId;
+
+	    	// Trigger the change streamId event
+	    	this.trigger('change:streamId', {
+	    		streamId: streamId
+	    	});
+	    },
     	    
 	    /**
 	     * render right block contents  of a selected stream
@@ -272,9 +276,9 @@ define(['baseView',
 	    renderRightContenetsOfSelectedStream: function(eventName){
 	    	
 	    	eventName.preventDefault();
-	    	this.streamId = eventName.target.id;
-	    	
 
+	    	this.setStreamId(eventName.target.id);
+	    	
 	        this.renderTabContents(this.streamId);
  
 	    },
@@ -316,7 +320,7 @@ define(['baseView',
 	    		/* fetch all messages of a stream for messageListView */
 	    		view = this.getViewById('messageListView');
 	    		if(view){
-	    			
+
 	    			view.data.url="/allMessagesForAStream/"+this.streamId+"/date/"+10+"/"+1+"/week";
 	    			view.fetch();
 
