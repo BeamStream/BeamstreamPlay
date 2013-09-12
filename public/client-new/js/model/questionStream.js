@@ -21,21 +21,22 @@ define(['baseModel',
 
 			var requestURL = 'http://localhost:9000/getAllQuestionsForAStream/' + this.get('streamId') + '/rock/20/1';
 
-      // TODO put this in an if statement so that when streamId is 
-      // undefined it doesn't try to request the data
-			$.get(requestURL, function(data){
-        var results = [];
-        for(var i = 0; i < data.length; i++){
-        	console.log(data[i].question);
-        	results.push(data[i].question);
-        }
-        // that.set('sampleQuestion', results[0].questionBody);
-        // //console.log(that.get('sampleQuestion'));
-        // that.set('unansweredQuestions', new UnansweredQuestions());
-        // console.log(that.get('unansweredQuestions'));
-        // that.get('unansweredQuestions').add(results);
-        //console.log(that.get('unansweredQuestions'));
-			});
+      // if statement prevents unecessary requests when streamId is undefined on page load
+      if(this.get('streamId')){
+				$.get(requestURL, function(data){
+	        var results = [];
+	        for(var i = 0; i < data.length; i++){
+	        	console.log(data[i].question);
+	        	results.push(data[i].question);
+	        }
+	        // that.set('sampleQuestion', results[0].questionBody);
+	        // //console.log(that.get('sampleQuestion'));
+	        // that.set('unansweredQuestions', new UnansweredQuestions());
+	        // console.log(that.get('unansweredQuestions'));
+	        // that.get('unansweredQuestions').add(results);
+	        // console.log(that.get('unansweredQuestions'));
+				});
+			}
 		}
 		// unansweredQuestions: new UnansweredQuestions,
 		// answeredQuestions: new AnsweredQuestions,
