@@ -1,10 +1,10 @@
-define(['baseView', 
-	      'text!templates/questionStream.tpl', 
-	      '../model/questionStream'
-        ], 
-	function(BaseView, questionStreamTPL, QuestionStream){
-	var QuestionStreamView;
-	QuestionStreamView = BaseView.extend({
+define([
+	'baseView', 
+	'text!templates/questionStream.tpl', 
+	'../model/questionStream'
+], 
+function(BaseView, questionStreamTPL, QuestionStream){
+	var QuestionStreamView = BaseView.extend({
 		objName: 'QuestionStreamView',
 		events:{
 			// 'click #streamTab a': 'tabHandler',
@@ -13,8 +13,14 @@ define(['baseView',
 
 		initialize: function() {
 			BaseView.prototype.initialize.apply(this, arguments);
-			this.model = new QuestionStream;
-			console.log(this);
+
+			this.model = new QuestionStream({
+				streamId: undefined//streamId
+			});
+
+			this.model.on('change', function(){
+				console.log('questionStream was changed')
+			});
 			
 			this.render();
 		},
@@ -27,6 +33,7 @@ define(['baseView',
 		
 		
 		
-	})
+	});
+
 	return QuestionStreamView;
 });
