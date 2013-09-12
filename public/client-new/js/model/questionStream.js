@@ -5,19 +5,36 @@ define(['baseModel',
 	      ], function(BaseModel, UnansweredQuestions, AnsweredQuestions, MyQuestions) {
 	var QuestionStream = BaseModel.extend({ 
 		objName: 'questionStream',
+
 		init: function() {
-			console.log(this);
-			this.unansweredQuestions = new UnansweredQuestions;
-			console.log(this.unansweredQuestions);
-			// this.answeredQuestions = new AnsweredQuestions;
-			// this.myQuestions = new MyQuestions;
-			this.getQuestions();
+			this.on('change:streamId', this.getQuestions);
 		},
 
-    // right now stream id is hard coded -- need to figure out most reliable way of getting this
+		setQuestionStreamId: function(streamId){
+			this.set('streamId', streamId);
+		},
+
 		getQuestions: function(){
-			$.get('http://localhost:9000/getAllQuestionsForAStream/522e81f20364200d65a1b0d6/rock/20/1', function(data){
-        console.log(data);
+			console.log('from get questions', this.get('streamId'));
+			//var streamId = this.get('streamId');
+			var that = this;
+
+			var requestURL = 'http://localhost:9000/getAllQuestionsForAStream/' + this.get('streamId') + '/rock/20/1';
+
+      // TODO put this in an if statement so that when streamId is 
+      // undefined it doesn't try to request the data
+			$.get(requestURL, function(data){
+        var results = [];
+        for(var i = 0; i < data.length; i++){
+        	console.log(data[i].question);
+        	results.push(data[i].question);
+        }
+        // that.set('sampleQuestion', results[0].questionBody);
+        // //console.log(that.get('sampleQuestion'));
+        // that.set('unansweredQuestions', new UnansweredQuestions());
+        // console.log(that.get('unansweredQuestions'));
+        // that.get('unansweredQuestions').add(results);
+        //console.log(that.get('unansweredQuestions'));
 			});
 		}
 		// unansweredQuestions: new UnansweredQuestions,
