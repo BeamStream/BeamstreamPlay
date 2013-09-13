@@ -5,7 +5,9 @@ define([
 	'view/questionStreamListView'
 ], 
 function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
+
 	var QuestionStreamView = BaseView.extend({
+		//var QuestionStreamView = Backbone.View.extend({
 		objName: 'questionStreamView',
 
 		events:{
@@ -16,31 +18,52 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 		initialize: function() {
 			BaseView.prototype.initialize.apply(this, arguments);
 
+			// Create a new model
 			this.model = new QuestionStream({
 				streamId: undefined, 
 			});
 
-			// view creation causing an error -- only when el is provided
-			//this.addView(new QuestionStreamListView({collection: this.model.get('questionStreams'), el: $('#questionStreamListView')}));
-
+			// Re-render when model changes
+			// Probably don't have to do this???
 			this.model.on('change', function(){
-				console.log('questionStream was changed')
+				// this.render(); // Maybe? If necessary?
 			});
-			
-			// this.model.get('questionStreams').on('change', function(){
-			// 	console.log('questionStreams collection was changed')
-			// });
 
 			this.render();
 		},
 
+		addChildViews: function() {
+			// Create sub view, but don't yet tell it where to render itself
+			this.streamListView = new QuestionStreamListView({
+				collection: this.model.get('questionStreams'),
+				el: this.$el.find('.streamList')
+			});
+		},
+
+		setup: function() {
+			if (!this.isSetup) {
+				// Compile the template our template
+				this.compiledTemplate = Handlebars.compile(questionStreamTPL);
+
+				// Add child views
+				this.addChildViews();
+
+				this.isSetup = true;
+			}
+		},
+
 		render: function(){
-			// var compiledTemplate = Handlebars.compile(questionStreamTPL);
-			// this.$el.html(compiledTemplate);
-			this.$el.text('Question Stream');
+			this.setup();
+
+			// Render the template
+			this.$el.html(this.compiledTemplate);
+			
+			// Tell child views to setElement and render itself
+			this.streamListView.setElement(this.$el.find('.streamList'));
+			this.streamListView.render();
+
+			return this;
 		}
-		
-		
 		
 	});
 
