@@ -6,6 +6,7 @@ define(['baseModel',
 
 		init: function() {
 			this.on('change:streamId', this.createQuestionList);
+			this.set('questionStreams', new QuestionStreams());
 		},
 
 		setQuestionStreamId: function(streamId){
@@ -14,7 +15,6 @@ define(['baseModel',
 
 		createQuestionList: function(){
 			var requestURL = 'http://localhost:9000/getAllQuestionsForAStream/' + this.get('streamId') + '/rock/20/1';
-			this.set('questionStreams', new QuestionStreams());
 			var that = this;
       this.get('questionStreams')
           .fetch({url: requestURL, 
