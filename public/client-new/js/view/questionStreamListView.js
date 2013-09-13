@@ -1,8 +1,9 @@
 define([
 	'baseView', 
-	'../collection/questionStreams'
+	'text!templates/questionStreamList.tpl'
 ], 
-function(BaseView, QuestionStreams){
+function(BaseView, questionStreamListTPL){
+	//var QuestionStreamListView = Backbone.View.extend({
 	var QuestionStreamListView = BaseView.extend({
 		objName: 'questionStreamListView',
 
@@ -22,17 +23,14 @@ function(BaseView, QuestionStreams){
 			// 	console.log('questionStreams collection was changed')
 			// });
 
-			this.render();
 		},
 
 		render: function(){
-			//this.$el.attr('id', 'questionStreamListView');
-			console.log(this.collection);
+			console.log('question stream list collection', this.collection);
 			console.log(this.el);
-			this.$el.text('Question Stream list view');
-			// var compiledTemplate = Handlebars.compile(questionStreamTPL);
-			// this.$el.html(compiledTemplate);
-			//this.$el.text('Question Stream');
+			var compiledTemplate = Handlebars.compile(questionStreamListTPL);
+			this.$el.html(compiledTemplate);
+			return this;
 		}
 		
 		
