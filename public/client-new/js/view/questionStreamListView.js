@@ -19,21 +19,18 @@ function(BaseView, questionStreamListTPL){
 			// 	console.log('questionStream was changed')
 			// });
 			
-			// this.collection.on('change', function(){
-			// 	console.log('questionStreams collection was changed')
-			// });
+			this.collection.on('reset', function(){
+				console.log('currentQuestionStream collection was changed')
+			});
 
 		},
 
 		render: function(){
-			console.log('question stream list collection', this.collection);
-			console.log(this.el);
 			var compiledTemplate = Handlebars.compile(questionStreamListTPL);
 			this.$el.html(compiledTemplate);
+			console.log('question stream list collection', this.collection);
 			return this;
 		}
-		
-		
 		
 	});
 

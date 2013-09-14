@@ -10,9 +10,10 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 		//var QuestionStreamView = Backbone.View.extend({
 		objName: 'questionStreamView',
 
-		events:{
-			// 'click #streamTab a': 'tabHandler',
-			// 'click #show-info' :'showDetails'
+		events: {
+			// 'click .filter-unanswered': 'unansweredClick', 
+			// 'click .filter-answered': 'answeredClick', 
+			// 'click .filter-myquestions': 'myQuestionsClick'
 		},
 
 		initialize: function() {
@@ -36,7 +37,7 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 		addChildViews: function() {
 			// Create sub view, but don't yet tell it where to render itself
 			this.streamListView = new QuestionStreamListView({
-				collection: this.model.get('questionStreams'),
+				collection: this.model.get('currentQuestionStream'),
 				el: this.$el.find('.streamList')
 			});
 		},
