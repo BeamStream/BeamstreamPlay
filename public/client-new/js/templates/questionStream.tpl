@@ -10,11 +10,11 @@
     </div>
 
     <div class="filters">
-        <li><a href="#">Unanswered</a></li>
+        <li class="filter-unanswered"><a href="#">Unanswered</a></li>
         <div class="unanswered-arrow"></div>
-        <li><a href="#">Answered</a></li>
+        <li class="filter-answered"><a href="#">Answered</a></li>
         <div class="answered-arrow"></div>
-        <li><a href="#">My Questions</a></li>
+        <li class="filter-myquestions"><a href="#">My Questions</a></li>
         <div class="my-questions-arrow"></div>
     </div>
 
