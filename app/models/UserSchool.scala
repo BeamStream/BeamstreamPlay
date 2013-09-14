@@ -130,14 +130,20 @@ object Year extends Enumeration {
 }
 
 object DegreeExpected extends Enumeration {
-  val Winter2012 = Value(0, "Winter 2012")
-  val Summer2013 = Value(1, "Summer 2013")
   val Winter2013 = Value(2, "Winter 2013")
   val Summer2014 = Value(3, "Summer 2014")
   val Winter2014 = Value(4, "Winter 2014")
   val Summer2015 = Value(5, "Summer 2015")
   val Winter2015 = Value(6, "Winter 2015")
+  val Summer2016 = Value(7, "Summer 2016")
+  val Winter2016 = Value(8, "Winter 2016")
+  val Summer2017 = Value(9, "Summer 2017")
+  val Winter2017 = Value(10, "Winter 2017")
+  val Summer2018 = Value(11, "Summer 2018")
+  val Winter2018 = Value(12, "Winter 2018")
+
   val NoDegreeExpected = Value(7, "No Degree Expected")
+  
 }
 
 object Degree extends Enumeration {
