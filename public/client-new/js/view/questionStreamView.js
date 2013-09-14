@@ -43,7 +43,7 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 
 		setup: function() {
 			if (!this.isSetup) {
-				// Compile the template our template
+				// Compile the template
 				this.compiledTemplate = Handlebars.compile(questionStreamTPL);
 
 				// Add child views
