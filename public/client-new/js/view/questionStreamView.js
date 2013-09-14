@@ -7,13 +7,12 @@ define([
 function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 
 	var QuestionStreamView = BaseView.extend({
-		//var QuestionStreamView = Backbone.View.extend({
 		objName: 'questionStreamView',
 
 		events: {
-			// 'click .filter-unanswered': 'unansweredClick', 
-			// 'click .filter-answered': 'answeredClick', 
-			// 'click .filter-myquestions': 'myQuestionsClick'
+			'click #filter-unanswered': 'filterHandler', 
+			'click #filter-answered': 'filterHandler', 
+			'click #filter-myquestions': 'filterHandler'
 		},
 
 		initialize: function() {
@@ -65,6 +64,20 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 			this.streamListView.render();
 
 			return this;
+		}, 
+
+		filterHandler: function(e){
+			console.log(e.currentTarget.id);
+			if (e.currentTarget.id === 'filter-unanswered') {
+				this.model.setCurrentFilter('unanswered');
+			}
+			if (e.currentTarget.id === 'filter-answered') {
+				this.model.setCurrentFilter('answered');
+			}
+			if (e.currentTarget.id === 'filter-myquestions') {
+				this.model.setCurrentFilter('myQuestions');
+			}
+
 		}
 		
 	});

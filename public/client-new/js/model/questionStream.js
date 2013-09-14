@@ -8,12 +8,16 @@ define(['baseModel',
 			this.on('change:streamId', this.createQuestionList);
 			this.set('questionStreams', new QuestionStreams());
 			this.set('currentQuestionStream', new QuestionStreams());
-			//this.on('change:questionStreams', this.updateCurrentStream());
+			//this.on('change:currentFilter', this.updateCurrentStream());
 			console.log(this);
 		},
 
 		setQuestionStreamId: function(streamId){
 			this.set('streamId', streamId);
+		},
+
+		setCurrentFilter: function(newFilter){
+			this.set('currentFilter', newFilter);
 		},
 
 		updateCurrentStream: function(){
