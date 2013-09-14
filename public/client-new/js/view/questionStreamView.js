@@ -21,6 +21,7 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 			// Create a new model
 			this.model = new QuestionStream({
 				streamId: undefined, 
+				currentFilter: 'unanswered'
 			});
 
 			// Re-render when model changes
