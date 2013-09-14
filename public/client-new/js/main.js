@@ -4,7 +4,7 @@ requirejs.config({
 		console: 'libs/console/ba-debug.min',
 		underscore: 'libs/underscore/underscore.1.4.2',
 		handlebars: 'libs/handlebars/handlebars',
-		jquery: 'libs/jquery/jquery-1.7.1.min',
+		//jquery: 'libs/jquery/jquery-1.7.1.min',
 		jqueryUI: 'libs/jquery/jquery-ui-1.8.18.custom.min',
 		backbone: 'libs/backbone/backbone',
 		i18n: 'libs/i18/i18n',
