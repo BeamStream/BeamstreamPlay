@@ -9,7 +9,7 @@
 
     <div class="post-info">
         <div class="post-date">{{question.creationDate}}</div>
-        <div class="post-type">Public</div>
+        <div class="post-type">{{question.questionAccess.name}}</div>
     </div>
 
     <div class="question-txt">
