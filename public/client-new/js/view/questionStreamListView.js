@@ -28,8 +28,9 @@ function(BaseView, questionStreamListTPL, QuestionStreamItemView){
 			var that = this;
 			this.collection.map(function(question){
 				var itemView = new QuestionStreamItemView({model: question});
-				itemView.setElement(that.$el.find('.questionStreamItems'));
+				//itemView.setElement(that.$el.find('.questionStreamItems'));
 				itemView.render();
+				that.$el.find('.questionStreamItems').append(itemView.el);
 				console.log('question model', question);
 			});
 		},
