@@ -218,15 +218,23 @@ object UserController extends Controller {
         println("Online Users" + noOfOnLineUsers)
         val loggedInUser = User.getUserProfile(user.id)
         val profilePic = UserMedia.getProfilePicForAUser(user.id)
+
         val hasClasses = loggedInUser.get.classes.isEmpty match {
           case true => false
           case false => true
         }
-        (profilePic.isEmpty) match {
+
+        val result = loggedInUser.get.schools.isEmpty match {
+          case true => Ok("Oops... Looks like you had some problem during registration, follow the link on your emailid to register or signup again")
           case false =>
-            Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl), Option(hasClasses)))).as("application/json").withSession(userSession)
-          case true => Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, None, Option(hasClasses)))).as("application/json").withSession(userSession)
+            (profilePic.isEmpty) match {
+              case false =>
+                Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, Option(profilePic.head.mediaUrl), Option(hasClasses)))).as("application/json").withSession(userSession)
+              case true => Ok(write(LoginResult(ResulttoSent("Success", "Login Successful"), loggedInUser, None, Option(hasClasses)))).as("application/json").withSession(userSession)
+            }
+
         }
+        result
       case None =>
         Ok(write(LoginResult(ResulttoSent("Failure", "Login Unsuccessful"), None, None, None))).as("application/json")
     }
