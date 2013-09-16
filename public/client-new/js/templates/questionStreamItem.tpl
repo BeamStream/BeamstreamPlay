@@ -20,5 +20,7 @@
         <div class="rock-ammount">{{question.rockers.length}} Rocks</div>
         <div class="comment">Comment</div>
         <div class="answer">Answer</div>
+        <div class="comment-amount">{{question.comments.length}} Comments</div>
+        <div class="answer-amount">{{question.answers.length}} Answers</div>
     </div>
 </div>
