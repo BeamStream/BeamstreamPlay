@@ -41,8 +41,7 @@ define(['baseModel',
 					return model.get('question').answered === true;
 				}
 				if(that.get('currentFilter') === 'myQuestions'){
-					// TODO: figure out logged in user
-					return false;
+					return model.get('question').userId.id === that.get('onlineUser').id.id;
 				}
 			});
 			this.get('currentQuestionStream').reset(updatedStream);
