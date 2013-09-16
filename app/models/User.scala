@@ -48,7 +48,7 @@ object User {
   }
 
   /**
-   * Adds a school to User (V)
+   * Adds a school to User 
    */
 
   def addSchoolToUser(userId: ObjectId, schoolId: ObjectId) {

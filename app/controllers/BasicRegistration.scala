@@ -22,23 +22,6 @@ object BasicRegistration extends Controller {
   } + new ObjectIdSerializer
 
   /**
-   * Basic Registration Permissions for a User  via Token authentication
-   */
-
-  //  def basicRegistration = Action { implicit request =>
-  //    val tokenJSON = request.body.asFormUrlEncoded.get
-  //    val tokenString = tokenJSON("token").toList(0)
-  //    val findToken = TokenDAO.find(MongoDBObject("tokenString" -> tokenString)).toList
-  //    val successJson = write(new ResulttoSent("Success", "Allow To SignUp"))
-  //    val failureJson = write(new ResulttoSent("Failure", "Do Not Allow To SignUp"))
-  //
-  //    (findToken.size == 0) match {
-  //      case false => Ok(successJson).as("application/json")
-  //      case true => Ok(failureJson).as("application/json")
-  //    }
-  //  }
-
-  /**
    * ***************************************************** Re architecture ******************************
    */
 
@@ -50,7 +33,7 @@ object BasicRegistration extends Controller {
   }
 
   /**
-   * Registering a new User to Beamstream (V)
+   * Registering a new User to Beamstream 
    */
 
   def signUpUser = Action { implicit request =>
