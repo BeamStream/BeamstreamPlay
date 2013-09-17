@@ -7,7 +7,7 @@ function(BaseView, questionStreamItemTPL){
 		objName: 'questionStreamItem', 
 
 		events: {
-
+			'click .rock-icon': 'rockQuestion'
 		}, 
 
 		initialize: function(){
@@ -19,7 +19,12 @@ function(BaseView, questionStreamItemTPL){
 			var compiledTemplate = Handlebars.compile(questionStreamItemTPL);
 			this.$el.html(compiledTemplate(this.model.attributes));
 			return this;
+		}, 
+
+		rockQuestion: function(){
+			this.model.rockQuestion();
 		}
+
 	});
 
 	return QuestionStreamItem;

@@ -24,10 +24,29 @@ define(['baseModel'], function(BaseModel) {
 		
 		validation: {
 			
+		}, 
+
+		rockQuestion: function(){
+			this.urlRoot = 'rock/question';
+			this.save({id: this.get('question').id.id});
 		}
 
+		// this was the attempted implementation with pubnub
+		// rockQuestion: function(){
+	 //    this.urlRoot = 'rock/question';
+	 //    var that = this;
+	 //    this.save({id: this.get('question').id.id}, {success: function(model, response){
+	 //    	console.log('question save to db', model);
+	 //    	// PUBNUB.publish({
+	 //    	// 	channel: 'questionRock', 
+	 //    	// 	message: {pagePushUid: that.pagePushUid, streamId: that.get('question').streamId.id, data: response, quesId: that.get('question').id.id}
+	 //    	// })
+	 //    }
+	 //    })
+		// }
+
 	});
-        
+				
 	
 	return Question;
 });
