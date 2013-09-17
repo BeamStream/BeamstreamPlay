@@ -23,6 +23,7 @@ import utils.OnlineUsers
 import models.AvailableUsers
 import models.School
 import actors.ChatActorObject
+import models.Stream
 
 object UserController extends Controller {
 
@@ -45,11 +46,22 @@ object UserController extends Controller {
    */
 
   def getAllOnlineUsers = Action { implicit request =>
-
+    var usersToShow: List[ObjectId] = Nil
     val onlineUsers = (OnlineUserCache.returnOnlineUsers.isEmpty == true) match {
       case false =>
         val otherUsers = OnlineUserCache.returnOnlineUsers.head.onlineUsers filterNot (List(new ObjectId(request.session.get("userId").get))contains)
-        val onlineUsersWithDetails = (otherUsers) map {
+
+        val currentUsersClasses = User.getUserProfile(new ObjectId(request.session.get("userId").get)).get.classes
+
+        currentUsersClasses map {
+          case eachClassOfUser =>
+
+            val streams = models.Class.findClasssById(eachClassOfUser).get.streams
+            val streamUsers = Stream.findStreamById(streams.head).get.usersOfStream
+            usersToShow ++= otherUsers.intersect(streamUsers)
+        }
+
+        val onlineUsersWithDetails = (usersToShow.removeDuplicates) map {
           case eachUserId =>
             val userWithDetailedInfo = User.getUserProfile(eachUserId)
             val profilePicForUser = UserMedia.getProfilePicForAUser(eachUserId)

@@ -14,10 +14,8 @@ object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     //    ReadingSpreadsheetUtil.readCSVOfSchools
-    println("***Before" + School.allSchoolsInDatabase.size)
     val listOfAllSchools = School.getAllSchools
-    School.allSchoolsInDatabase ++= listOfAllSchools
-    println("***After" + School.allSchoolsInDatabase.size)
+//    School.allSchoolsInDatabase ++= listOfAllSchools
 
   }
 
