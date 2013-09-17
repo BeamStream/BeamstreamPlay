@@ -44,11 +44,11 @@ define(['pageView',
 				console.log('Stream Id changed: ', evt.streamId);
 			});
 
-			// on pagePushUid change, notify the questionStream
-			currentMainQuestionStream.on('change:pagePushUid', function(evt){
-				currentQuestionStream.model.setPagePushUid(evt.pagePushUid);
-				console.log('pagePushUid changed', evt.pagePushUid);
-			})
+			// // on pagePushUid change, notify the questionStream
+			// currentMainQuestionStream.on('change:pagePushUid', function(evt){
+			// 	currentQuestionStream.model.setPagePushUid(evt.pagePushUid);
+			// 	console.log('pagePushUid changed', evt.pagePushUid);
+			// })
 			
 		},
 		

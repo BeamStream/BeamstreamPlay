@@ -12,6 +12,7 @@ define(['baseModel',
 			//this.on('change:currentFilter', this.updateCurrentStream());
 			this.setLoggedInUser();
 			console.log(this);
+			this.on('change:pagePushUid', this.getQuestionsFromPubNub);
 		},
 
 		setLoggedInUser: function(){
@@ -30,9 +31,10 @@ define(['baseModel',
 			this.set('currentFilter', newFilter);
 		},
 
-		setPagePushUid: function(pagePushUid){
-			this.set('pagePushUid', pagePushUid);
-		},
+		// this is getting the id for the pubnub stream
+		// setPagePushUid: function(pagePushUid){
+		// 	this.set('pagePushUid', pagePushUid);
+		// },
 
 		updateCurrentStream: function(){
 			var that = this;
@@ -62,7 +64,22 @@ define(['baseModel',
 										console.log('coll fetch', that.get('questionStreams')); 
 									}
 								});
-		}
+		}, 
+
+		// // this is not working -- it's unclear if pubnub is actually functioning for questions
+		// getQuestionsFromPubNub: function(){
+		// 	console.log('getQuestionsFromPubNub is being called');
+		// 	PUBNUB.subscribe({
+		// 		channel: 'questions', 
+		// 		restore: true, 
+		// 		callback: function(question){
+		// 			console.log('getQuestionsFromPubNub', question);
+		// 		},
+		// 		error: function(data){
+		// 			console.log('getQuestionsFromPubNub', data);
+		// 		}
+		// 	})
+		// }
 
 	});
 			 
