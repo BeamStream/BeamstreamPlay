@@ -63,29 +63,30 @@ object SchoolController extends Controller {
 
     val schoolNameStartingStringJsonMap = request.body.asFormUrlEncoded.get
     val schoolNamesStartingCharacter = schoolNameStartingStringJsonMap("data").toList(0)
-    //    println("***Call time" + School.allSchoolsInDatabase.size)
-    //    val allSchools = School.allSchoolsInDatabase map {
-    //      case school =>
-    //
-    //        val schools = (school.schoolName.startsWith(schoolNamesStartingCharacter)) match {
-    //          case true => Option(school)
-    //          case _ => None
-    //        }
-    //        schools
-    //    }
-    //    val schoolsToBereturned = allSchools.filter(a => a != None)
-    //    if (schoolsToBereturned.isEmpty == false) {
-    //      val allSchoolsObtained = schoolsToBereturned map {
-    //
-    //        case school => school.get
-    //      }
-    //
-    //      Ok(write(allSchoolsObtained)).as("application/json")
-    //    } else {
-    //      Ok(write(Nil)).as("application/json")
-    //    }
-    val allSchools = School.getAllSchoolsFromDB(schoolNamesStartingCharacter)
-    Ok(write(allSchools)).as("application/json")
+    println("***Call time" + School.allSchoolsInDatabase.size)
+    val allSchools = School.allSchoolsInDatabase map {
+      case school =>
+
+        val schools = (school.schoolName.toLowerCase().startsWith(schoolNamesStartingCharacter.toLowerCase())) match {
+          case true => Option(school)
+          case _ => None
+        }
+        schools
+    }
+    val schoolsToBereturned = allSchools.filter(a => a != None)
+    if (schoolsToBereturned.isEmpty == false) {
+      val allSchoolsObtained = schoolsToBereturned map {
+
+        case school => school.get
+      }
+
+      Ok(write(allSchoolsObtained)).as("application/json")
+    } else {
+      Ok(write(Nil)).as("application/json")
+    }
+    //    val allSchools = School.getAllSchoolsFromDB(schoolNamesStartingCharacter)
+    //    Ok(write(allSchools)).as("application/json")
+    //    Ok
 
   }
 }
