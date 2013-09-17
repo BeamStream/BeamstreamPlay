@@ -30,6 +30,10 @@ define(['baseModel',
 			this.set('currentFilter', newFilter);
 		},
 
+		setPagePushUid: function(pagePushUid){
+			this.set('pagePushUid', pagePushUid);
+		},
+
 		updateCurrentStream: function(){
 			var that = this;
 

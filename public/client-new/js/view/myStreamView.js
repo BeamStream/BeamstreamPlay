@@ -25,7 +25,10 @@ define(['pageView',
 			this.addView(currentStreamView);
 
 			this.addView(new DiscussionsView({el: $('#discussionsView')}));
-			this.addView(new QuestionsView({el: $('#questionsView')}));
+
+			var currentMainQuestionStream = new QuestionsView({el: $('#questionsView')});
+			this.addView(currentMainQuestionStream);
+
 			this.addView(new DeadlinesView({el: $('#deadlinesView')}));
 			this.addView(new CalendarView({el: $('#calendarView')}));
 			
@@ -40,6 +43,12 @@ define(['pageView',
 				currentQuestionStream.model.setQuestionStreamId(evt.streamId);
 				console.log('Stream Id changed: ', evt.streamId);
 			});
+
+			// on pagePushUid change, notify the questionStream
+			currentMainQuestionStream.on('change:pagePushUid', function(evt){
+				currentQuestionStream.model.setPagePushUid(evt.pagePushUid);
+				console.log('pagePushUid changed', evt.pagePushUid);
+			})
 			
 		},
 		
