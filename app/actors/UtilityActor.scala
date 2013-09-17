@@ -28,7 +28,7 @@ object UtilityActor {
    * Send Email Clubbed through Future(RA)
    */
   def sendMailWhenBetaUserRegisters(emailId: String) = {
-    implicit val system = Akka.system
+    implicit val system = Akka.system 
     val future = Future { sendMailToBetaUsers(emailId) }
   }
 
