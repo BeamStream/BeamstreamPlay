@@ -1,7 +1,6 @@
 package controllers
 
 import org.bson.types.ObjectId
-
 import actors.UtilityActor
 import models.BetaUser
 import models.ResulttoSent
@@ -9,17 +8,35 @@ import net.liftweb.json.DefaultFormats
 import net.liftweb.json.Serialization.write
 import play.api.mvc.Action
 import play.api.mvc.Controller
+import models.User
 
 object JoinBeamStream extends Controller {
 
   implicit val formats = DefaultFormats
 
   /**
-   *  Beta User Page Rendering (V)
+   *  Beta User Page Rendering (V) & if session exists take the user directs to application
    */
 
-  def betaUserRegistration = Action {
-    Ok(views.html.betaUser())
+  def betaUserRegistration = Action { implicit request =>
+    request.cookies.get("PLAY_SESSION") match {
+      case Some(cookie) =>
+        val userId = request.session.get("userId").get
+        val loggedInUser = User.getUserProfile(new ObjectId(userId))
+
+        loggedInUser.get.schools.isEmpty match {
+          case true => Ok(views.html.betaUser())
+          case false =>
+
+            loggedInUser.get.classes.isEmpty match {
+              case true => Redirect("/class")
+              case false => Redirect("/stream")
+            }
+        }
+
+      case None => Ok(views.html.betaUser())
+    }
+
   }
 
   /**
