@@ -42,7 +42,7 @@ object UserController extends Controller {
   }
 
   /**
-   * Get All Online Users
+   * Get All Online Users (Only Those Who Are The Member Of User's Class)
    */
 
   def getAllOnlineUsers = Action { implicit request =>
