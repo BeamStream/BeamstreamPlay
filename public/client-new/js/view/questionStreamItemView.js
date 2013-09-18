@@ -9,7 +9,9 @@ function(BaseView, questionStreamItemTPL){
 		events: {
 			'click .rock-icon': 'rockQuestion', 
 			'click .comment': 'toggleCommentText',
-			'click .answer': 'toggleQuestionText'
+			'click .answer': 'toggleQuestionText', 
+			'keypress .question-stream-answer': 'submitAnswer', 
+			'keypress .question-stream-comment': 'submitComment'
 		}, 
 
 		initialize: function(){
@@ -28,15 +30,27 @@ function(BaseView, questionStreamItemTPL){
 		}, 
 
 		toggleCommentText: function(){
-			// if (e.keyCode === '13') {
-			// 	debugger;
-			// 	console.log(e);
-			// }
 			this.$el.find('.question-stream-comment').toggleClass('question-stream-hide', 'question-stream-show');
 		}, 
 
 		toggleQuestionText: function(){
 			this.$el.find('.question-stream-answer').toggleClass('question-stream-hide', 'question-stream-show');
+		}, 
+
+		submitAnswer: function(e){
+			if (e.keyCode === 13) {
+				var answerSubmission = this.$el.find('.question-stream-answer').val();
+				console.log(answerSubmission);
+				this.$el.find('.question-stream-answer').val('');
+			}
+		}, 
+
+		submitComment: function(e){
+			if (e.keyCode === 13) {
+				var commentSubmission = this.$el.find('.question-stream-comment').val();
+				console.log(commentSubmission);
+				this.$el.find('.question-stream-comment').val('');
+			}
 		}
 
 	});
