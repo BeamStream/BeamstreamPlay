@@ -26,6 +26,7 @@ define(['baseModel'], function(BaseModel) {
 			
 		}, 
 
+		// this rocks or unrocks it
 		rockQuestion: function(){
 			this.urlRoot = 'rock/question';
 			this.save({id: this.get('question').id.id});
