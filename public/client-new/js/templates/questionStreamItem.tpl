@@ -22,5 +22,9 @@
         <div class="answer">Answer</div>
         <div class="comment-amount">{{question.comments.length}} Comments</div>
         <div class="answer-amount">{{question.answers.length}} Answers</div>
+        <textarea class="question-stream-answer question-stream-hide">
+        </textarea>
+        <textarea class="question-stream-comment question-stream-hide">
+        </textarea>
     </div>
 </div>
