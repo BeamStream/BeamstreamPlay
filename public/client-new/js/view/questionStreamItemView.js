@@ -8,10 +8,10 @@ function(BaseView, questionStreamItemTPL){
 
 		events: {
 			'click .rock-icon': 'rockQuestion', 
-			'click .comment': 'toggleCommentText',
-			'click .answer': 'toggleQuestionText', 
-			'keypress .question-stream-answer': 'submitAnswer', 
-			'keypress .question-stream-comment': 'submitComment'
+			'click .qs-comment-link': 'toggleCommentText',
+			'click .qs-answer-link': 'toggleQuestionText', 
+			'keypress .qs-answer': 'submitAnswer', 
+			'keypress .qs-comment': 'submitComment'
 		}, 
 
 		initialize: function(){
@@ -30,26 +30,26 @@ function(BaseView, questionStreamItemTPL){
 		}, 
 
 		toggleCommentText: function(){
-			this.$el.find('.question-stream-comment').toggleClass('question-stream-hide', 'question-stream-show');
+			this.$el.find('.qs-comment').toggleClass('question-stream-hide', 'question-stream-show');
 		}, 
 
 		toggleQuestionText: function(){
-			this.$el.find('.question-stream-answer').toggleClass('question-stream-hide', 'question-stream-show');
+			this.$el.find('.qs-answer').toggleClass('question-stream-hide', 'question-stream-show');
 		}, 
 
 		submitAnswer: function(e){
 			if (e.keyCode === 13) {
-				var answerSubmission = this.$el.find('.question-stream-answer').val();
+				var answerSubmission = this.$el.find('.qs-answer').val();
 				console.log(answerSubmission);
-				this.$el.find('.question-stream-answer').val('');
+				this.$el.find('.qs-answer').val('');
 			}
 		}, 
 
 		submitComment: function(e){
 			if (e.keyCode === 13) {
-				var commentSubmission = this.$el.find('.question-stream-comment').val();
-				console.log(commentSubmission);
-				this.$el.find('.question-stream-comment').val('');
+				var commentSubmission = this.$el.find('.qs-comment').val();
+				this.model.postComment(commentSubmission);
+				this.$el.find('.qs-comment').val('');
 			}
 		}
 

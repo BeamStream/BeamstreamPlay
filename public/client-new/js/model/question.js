@@ -16,7 +16,7 @@
 * 
 */
 
-define(['baseModel'], function(BaseModel) {
+define(['baseModel', 'model/comment'], function(BaseModel, Comment) {
 	var Question = BaseModel.extend({ 
 		objName: 'Question',
 		defaults:{
@@ -30,6 +30,12 @@ define(['baseModel'], function(BaseModel) {
 		rockQuestion: function(){
 			this.urlRoot = 'rock/question';
 			this.save({id: this.get('question').id.id});
+		}, 
+
+		postComment: function(commentText){
+			var comment = new Comment();
+			comment.urlRoot = '/newComment';
+			comment.save({comment: commentText, questionId: this.get('question').id.id});
 		}
 
 		// this was the attempted implementation with pubnub
