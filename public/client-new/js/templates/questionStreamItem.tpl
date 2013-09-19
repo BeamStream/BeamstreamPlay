@@ -18,14 +18,16 @@
     <div class="post-interact">
         <div class="rock-icon"></div>
         <div class="rock-ammount">{{question.rockers.length}} Rocks</div>
-        <div class="comment">Comment</div>
-        <div class="answer">Answer</div>
+        <div class="qs-comment-link">Comment</div>
+        <div class="qs-answer-link">Answer</div>
+        <div class="question-stats">
         <div class="comment-amount">{{question.comments.length}} Comments</div>
         <div class="answer-amount">{{question.answers.length}} Answers</div>
+        </div>
         <form>
-        <input class="question-stream-answer question-stream-hide">
+        <input class="qs-answer question-stream-hide">
         </input>
-        <input class="question-stream-comment question-stream-hide">
+        <input class="qs-comment question-stream-hide">
         </input>
         </form>
     </div>
