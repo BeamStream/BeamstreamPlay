@@ -40,7 +40,7 @@ function(BaseView, questionStreamItemTPL){
 		submitAnswer: function(e){
 			if (e.keyCode === 13) {
 				var answerSubmission = this.$el.find('.qs-answer').val();
-				console.log(answerSubmission);
+				this.model.postAnswer(answerSubmission);
 				this.$el.find('.qs-answer').val('');
 			}
 		}, 

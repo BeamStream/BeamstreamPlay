@@ -16,7 +16,10 @@
 * 
 */
 
-define(['baseModel', 'model/comment'], function(BaseModel, Comment) {
+define(['baseModel',
+				'model/comment',
+				'model/answer'
+				], function(BaseModel, Comment, Answer) {
 	var Question = BaseModel.extend({ 
 		objName: 'Question',
 		defaults:{
@@ -36,6 +39,12 @@ define(['baseModel', 'model/comment'], function(BaseModel, Comment) {
 			var comment = new Comment();
 			comment.urlRoot = '/newComment';
 			comment.save({comment: commentText, questionId: this.get('question').id.id});
+		}, 
+
+		postAnswer: function(answerText){
+			var answer = new Answer();
+			answer.urlRoot = '/answer';
+			answer.save({answer: answerText, questionId: this.get('question').id.id});
 		}
 
 		// this was the attempted implementation with pubnub
