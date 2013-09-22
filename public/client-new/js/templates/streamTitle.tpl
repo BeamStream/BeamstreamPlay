@@ -1,19 +1,3 @@
- <!-- 	* BeamStream
-		*
-		* Author                : Aswathy P.R (aswathy@toobler.com)
-		* Company               : Toobler
-		* Email:                : info@toobler.com
-		* Web site              : http://www.toobler.com
-		* Created               : 15/March/2013
-		* Description           : For rendering the Main stream page Stream Title SEction with descriptions
-		* ==============================================================================================
-		* Change History:
-		* ----------------------------------------------------------------------------------------------
-		* Sl.No.  Date   Author   Description
-		* -
-  -->
- 
- 
  <h2  >{{streamName}}<a href="#" id="show-info" style="visibility:hidden;">Show Details</a></h2>
  
 <div class="show-info">
