@@ -27,5 +27,5 @@
 
 <ul class="strem-header-info">
   <li class="mebers">{{userCount}} Members</li>
-  <li class="claimed">Claimed By: <a href="#">Professor Smith</a> </li>
+  <li class="claimed" style="display: none">Claimed By: <a href="#">Professor Smith</a> </li>
 </ul>
