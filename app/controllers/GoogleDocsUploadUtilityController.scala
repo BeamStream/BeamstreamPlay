@@ -132,14 +132,12 @@ object GoogleDocsUploadUtilityController extends Controller {
       val FileReceived: java.io.File = file.ref.file.asInstanceOf[java.io.File]
       val accessToken = request.session.get("accessToken").get
       val googleFileUrl = GoogleDocsUploadUtility.uploadToGoogleDrive(accessToken, FileReceived, fileName, contentType.get)
-
       val userId = new ObjectId(request.session.get("userId").get)
       val user = User.getUserProfile(userId)
       //TODO : Stream Id Required 
       val message = Message(new ObjectId, googleFileUrl, Option(Type.Document), Option(Access.Public), new Date, userId, None, user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil, None, None)
       val messageId = Message.createMessage(message)
-      /*Question(new ObjectId, "TODO:questionBody", userId, Access.Public, Type.Document, new ObjectId /*StreamIdRequired*/ , user.firstName,
-        user.lastName, new Date, Nil, Nil, Nil, List(userId))*/
+      
     }
     Ok(views.html.uploadgoogledocs())
   }
