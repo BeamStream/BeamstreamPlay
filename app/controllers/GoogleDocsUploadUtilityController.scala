@@ -137,7 +137,7 @@ object GoogleDocsUploadUtilityController extends Controller {
       //TODO : Stream Id Required 
       val message = Message(new ObjectId, googleFileUrl, Option(Type.Document), Option(Access.Public), new Date, userId, None, user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil, None, None)
       val messageId = Message.createMessage(message)
-      
+
     }
     Ok(views.html.uploadgoogledocs())
   }
