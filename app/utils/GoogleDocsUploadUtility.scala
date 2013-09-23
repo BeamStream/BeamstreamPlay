@@ -43,8 +43,7 @@ object GoogleDocsUploadUtility {
     val mediaContent = new FileContent(contentType, fileContent)
     //Inserting the files
     val file = service.files.insert(body, mediaContent).execute()
-    println("File Uploaded")
-    file.getId
+    file.getAlternateLink()
 
   }
   /**

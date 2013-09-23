@@ -44,7 +44,7 @@ object DocumentController extends Controller {
     val documentJson = request.body.asJson.get
     val name = (documentJson \ "docName").as[String]
     val url = (documentJson \ "docURL").as[String]
-//    val access = (documentJson \ "docAccess").as[String]
+    //    val access = (documentJson \ "docAccess").as[String]
     val docType = (documentJson \ "docType").as[String]
     val description = (documentJson \ "docDescription").as[String]
     val userId = new ObjectId(request.session.get("userId").get)
@@ -317,6 +317,5 @@ object DocumentController extends Controller {
     Ok(write(viewCount.toString)).as("application/json")
   }
 
-  
 }
 

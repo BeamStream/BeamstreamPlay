@@ -48,7 +48,7 @@ object User {
   }
 
   /**
-   * Adds a school to User 
+   * Adds a school to User
    */
 
   def addSchoolToUser(userId: ObjectId, schoolId: ObjectId) {
@@ -234,7 +234,6 @@ object User {
 
   def isAFollower(followedUserId: ObjectId, userId: Object): Boolean = {
     val followedUser = UserDAO.find(MongoDBObject("_id" -> followedUserId)).toList(0)
-
     (followedUser.followers.contains(userId)) match {
       case true => true
       case false => false
