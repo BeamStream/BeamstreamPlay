@@ -171,7 +171,13 @@ GET      /browsemedia                                                           
 
 #Questions
 GET      /getAllQuestionsForAStream/:streamId/:sortBy/:messagesPerPage/:pageNo   controllers.QuestionController.getAllQuestionForAStream(streamId:String,sortBy:String,messagesPerPage:Int,pageNo:Int)
-GET      /getAllQuestionsForAStream/:streamId/:messagesPerPage/:pageNo/:answerStatus controllers.QuestionController.getAllAnswerdQuestionForAStream(streamId:String,messagesPerPage:Int,pageNo:Int,answerStatus:String)
+GET      /getAllAnswerdQuestionForAStream/:streamId/:messagesPerPage/:pageNo/:answerStatus controllers.QuestionController.getAllAnswerdQuestionForAStream(streamId:String,messagesPerPage:Int,pageNo:Int,answerStatus:String)
+
+
+#Answer
+GET /answers/:questionId/:messagesPerPage/:pageNo                                                controllers.QuestionController.answers(questionId:String)   
+
+
 #Documents
 POST     /uploadDocumentFromDisk                                             controllers.DocumentController.uploadDocumentFromDisk
 #Password Recovery

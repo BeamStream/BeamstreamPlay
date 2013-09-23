@@ -42,7 +42,7 @@ object CommentController extends Controller {
         val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
           commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
         val commentId = Comment.createComment(comment)
-        Message.addCommentToMessage(commentId, new ObjectId(messageId))
+        Message.addCommentToMessage(commentId.get, new ObjectId(messageId))
         //        val message = Message.findMessageById(new ObjectId(messageId)).get
         //        if (!(message.docIdIfAny == None)) RockDocOrMedia.commentDocOrMedia(message.docIdIfAny.get, commentId)
         Ok(write(comment)).as("application/json")
@@ -56,7 +56,7 @@ object CommentController extends Controller {
           val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
             commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
           val commentId = Comment.createComment(comment)
-          Document.addCommentToDocument(commentId, new ObjectId(docId))
+          Document.addCommentToDocument(commentId.get, new ObjectId(docId))
           Ok(write(List(comment))).as("application/json")
 
         case false => ((commentJson \ "questionId").asOpt[String] != None) match {
@@ -68,7 +68,7 @@ object CommentController extends Controller {
             val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
               commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
             val commentId = Comment.createComment(comment)
-            Question.addCommentToQuestion(commentId, new ObjectId(questionId))
+            Question.addCommentToQuestion(commentId.get, new ObjectId(questionId))
             Ok(write(comment)).as("application/json")
 
           case false => ((commentJson \ "userMediaId").asOpt[String] != None) match {
@@ -80,7 +80,7 @@ object CommentController extends Controller {
               val comment = new Comment(new ObjectId, commentText, new Date, new ObjectId(request.session.get("userId").get),
                 commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
               val commentId = Comment.createComment(comment)
-              UserMedia.addCommentToUserMedia(commentId, new ObjectId(userMediaId))
+              UserMedia.addCommentToUserMedia(commentId.get, new ObjectId(userMediaId))
               Ok(write(comment)).as("application/json")
 
             case false => Ok(write(ResulttoSent("Failure", "Id Not Found")))
@@ -181,15 +181,17 @@ object CommentController extends Controller {
    * Answer of a question
    */
   def newAnswer = Action { implicit request =>
-    val commentJson = request.body.asFormUrlEncoded.get
-    val questionId = commentJson("questionId").toList(0)
-    val answerText = commentJson("answer").toList(0)
+    val answerJson = request.body.asJson.get
+    val questionId = (answerJson \ "questionId").as[String]
+    val answerText = (answerJson \ "answerText").as[String]
     val commentPoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val comment = new Comment(new ObjectId, answerText, new Date, new ObjectId(request.session.get("userId").get),
       commentPoster.get.firstName, commentPoster.get.lastName, 0, List())
     val answerId = Comment.createComment(comment)
-    Question.addAnswerToQuestion(new ObjectId(questionId), answerId)
+    Question.addAnswerToQuestion(new ObjectId(questionId), answerId.get)
     Ok(write(List(comment))).as("application/json")
   }
+
+ 
 
 }

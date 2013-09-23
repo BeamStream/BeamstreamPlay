@@ -236,11 +236,27 @@ object QuestionController extends Controller {
    */
   def getAllAnswerdQuestionForAStream(streamId: String, messagesPerPage: Int, pageNo: Int, answerStatus: String) = Action { implicit request =>
     val userId = new ObjectId(request.session.get("userId").get)
-    val allAnsweredOrUnAnsweredQuestionsForAStream =  Question.getAllAnsweredQuestionsForAStream(new ObjectId(streamId), messagesPerPage, pageNo, answerStatus)
+    val allAnsweredOrUnAnsweredQuestionsForAStream = Question.getAllAnsweredQuestionsForAStream(new ObjectId(streamId), messagesPerPage, pageNo, answerStatus)
     val questionsObtainedWithOtherInformation = questionWithOtherInformation(allAnsweredOrUnAnsweredQuestionsForAStream, userId)
     val allQuestionForAStreamJson = write(questionsObtainedWithOtherInformation)
     Ok(allQuestionForAStreamJson).as("application/json")
-  }  
+  }
+
+  /**
+   * All Answer of a Question
+   */
+
+  def answers(questionId: String) = Action { implicit request =>
+    val questionJson = request.body.asJson.get
+    val questionId = (questionJson \ "questionId").as[String]
+    val answers = Question.answers(new ObjectId(questionId))
+    val answersOfThisQuestion = answers.map {
+      case answer =>
+        val answerObtained = Comment.findCommentById(answer)
+        answerObtained.get
+    }
+    Ok(write(answersOfThisQuestion)).as("application/json")
+  }
 
 }
 

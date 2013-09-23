@@ -326,6 +326,19 @@ object Question {
     }
 
   }
+
+  /**
+   * Get Answer of a question
+   */
+
+  def answers(questionId: ObjectId) = {
+    val question = QuestionDAO.find(MongoDBObject("_id" -> questionId)).toList
+    question.isEmpty match {
+      case true => Nil
+      case false => question.head.answers
+    }
+  }
+
 }
 
 object QuestionDAO extends SalatDAO[Question, ObjectId](collection = MongoHQConfig.mongoDB("question"))

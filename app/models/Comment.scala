@@ -27,10 +27,8 @@ object Comment {
    * Create a new Comment
    */
 
-  def createComment(comment: Comment): ObjectId = {
-    val commentId = CommentDAO.insert(comment)
-    commentId.get
-
+  def createComment(comment: Comment): Option[ObjectId] = {
+    CommentDAO.insert(comment)
   }
 
   /**
@@ -38,7 +36,7 @@ object Comment {
    */
 
   def removeComment(comment: Comment) {
-    val commentId = CommentDAO.remove(comment)
+    CommentDAO.remove(comment)
   }
 
   /**
@@ -46,8 +44,7 @@ object Comment {
    */
 
   def findCommentById(commentId: ObjectId): Option[Comment] = {
-    val commentObtained = CommentDAO.findOneByID(commentId)
-    commentObtained
+    CommentDAO.findOneByID(commentId)
   }
 
   /**
@@ -82,8 +79,7 @@ object Comment {
    */
   def commentsRockersNames(commentId: ObjectId): List[String] = {
     val commentRocked = findCommentById(commentId)
-    val rockersName = User.giveMeTheRockers(commentRocked.get.rockers)
-    rockersName
+    User.giveMeTheRockers(commentRocked.get.rockers)
   }
 
   /**
