@@ -70,12 +70,24 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 			console.log(e.currentTarget.id);
 			if (e.currentTarget.id === 'filter-unanswered') {
 				this.model.setCurrentFilter('unanswered');
+				this.$el.find('.selected-arrow').toggleClass('selected-arrow');
+				this.$el.find('.selected-filter').toggleClass('selected-filter');
+				this.$el.find('#filter-unanswered').toggleClass('selected-filter');
+				this.$el.find('.unanswered-arrow').toggleClass('selected-arrow');
 			}
 			if (e.currentTarget.id === 'filter-answered') {
 				this.model.setCurrentFilter('answered');
+				this.$el.find('.selected-arrow').toggleClass('selected-arrow');
+				this.$el.find('.selected-filter').toggleClass('selected-filter');
+				this.$el.find('#filter-answered').toggleClass('selected-filter');
+				this.$el.find('.answered-arrow').toggleClass('selected-arrow');
 			}
 			if (e.currentTarget.id === 'filter-myquestions') {
 				this.model.setCurrentFilter('myQuestions');
+				this.$el.find('.selected-arrow').toggleClass('selected-arrow');
+				this.$el.find('.selected-filter').toggleClass('selected-filter');
+				this.$el.find('#filter-myquestions').toggleClass('selected-filter');
+				this.$el.find('.my-questions-arrow').toggleClass('selected-arrow');
 			}
 
 		}

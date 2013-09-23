@@ -9,7 +9,7 @@ body {
     display: inline;
     margin-left: 8px;
 }
-.unanswered-arrow {
+.selected-arrow {
     position: absolute;
     width: 0px;
     height: 0px;
@@ -233,10 +233,7 @@ body {
         border-right: 1px solid #305f77;
         border-left: 1px solid #305f77;
     }
-    li:nth-child(1) {
-        border-top: 1px solid #305f77;
-        background-color: #3a7592;
-    }
+/*    li:nth-child(1) */
     li {
         display: inline-block;
         float: left;
@@ -254,6 +251,10 @@ body {
             line-height: 20px;
         }
     }
+}
+.selected-filter {
+    border-top: 1px solid #305f77;
+    background-color: #3a7592;
 }
 .popout:hover {
     width: 18px;
