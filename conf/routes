@@ -175,7 +175,7 @@ GET      /getAllAnswerdQuestionForAStream/:streamId/:messagesPerPage/:pageNo/:an
 
 
 #Answer
-GET /answers/:questionId/:messagesPerPage/:pageNo                                                controllers.QuestionController.answers(questionId:String)   
+GET /answers/:questionId                                            controllers.QuestionController.answers(questionId:String)   
 
 
 #Documents
