@@ -72,22 +72,19 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 				this.model.setCurrentFilter('unanswered');
 				this.$el.find('.selected-arrow').toggleClass('selected-arrow');
 				this.$el.find('.selected-filter').toggleClass('selected-filter');
-				this.$el.find('#filter-unanswered').toggleClass('selected-filter');
-				this.$el.find('.unanswered-arrow').toggleClass('selected-arrow');
+				this.$el.find('#filter-unanswered').toggleClass('selected-filter selected-arrow');
 			}
 			if (e.currentTarget.id === 'filter-answered') {
 				this.model.setCurrentFilter('answered');
 				this.$el.find('.selected-arrow').toggleClass('selected-arrow');
 				this.$el.find('.selected-filter').toggleClass('selected-filter');
-				this.$el.find('#filter-answered').toggleClass('selected-filter');
-				this.$el.find('.answered-arrow').toggleClass('selected-arrow');
+				this.$el.find('#filter-answered').toggleClass('selected-filter selected-arrow');
 			}
 			if (e.currentTarget.id === 'filter-myquestions') {
 				this.model.setCurrentFilter('myQuestions');
 				this.$el.find('.selected-arrow').toggleClass('selected-arrow');
 				this.$el.find('.selected-filter').toggleClass('selected-filter');
-				this.$el.find('#filter-myquestions').toggleClass('selected-filter');
-				this.$el.find('.my-questions-arrow').toggleClass('selected-arrow');
+				this.$el.find('#filter-myquestions').toggleClass('selected-filter selected-arrow');
 			}
 
 		}

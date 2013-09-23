@@ -11,11 +11,8 @@
 
     <div class="filters">
         <li id="filter-unanswered"><a href="#">Unanswered</a></li>
-        <div class="unanswered-arrow"></div>
         <li id="filter-answered"><a href="#">Answered</a></li>
-        <div class="answered-arrow"></div>
         <li id="filter-myquestions"><a href="#">My Questions</a></li>
-        <div class="my-questions-arrow"></div>
     </div>
 
     <!-- streamListView will go here -->
