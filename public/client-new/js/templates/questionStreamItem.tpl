@@ -1,5 +1,5 @@
 <div class="question-post">
-    <img src="img/alina.jpg" class="profile-picture"></img>
+    <img src="{{profilePic}}" class="profile-picture"></img>
     <div class="username-info">
         <a class="username" href="#">{{question.firstNameofQuestionAsker}} {{question.lastNameofQuestionAsker}}</a>
         <div class="follow-user">FOLLOW</div>
