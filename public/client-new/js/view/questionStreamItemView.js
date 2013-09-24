@@ -31,10 +31,12 @@ function(BaseView, questionStreamItemTPL){
 
 		toggleCommentText: function(){
 			this.$el.find('.qs-comment').toggleClass('question-stream-hide', 'question-stream-show');
+			this.model.updateEditStatus();
 		}, 
 
 		toggleQuestionText: function(){
 			this.$el.find('.qs-answer').toggleClass('question-stream-hide', 'question-stream-show');
+			this.model.updateEditStatus();
 		}, 
 
 		submitAnswer: function(e){
