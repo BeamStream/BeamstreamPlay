@@ -16,7 +16,11 @@
         <p>{{question.questionBody}}</p>
     </div>
     <div class="post-interact">
+        {{#if onlineUserRocked}}
+        <div class="already-rocked"></div>
+        {{else}}
         <div class="rock-icon"></div>
+        {{/if}}
         <div class="rock-ammount">{{question.rockers.length}} Rocks</div>
         <div class="qs-comment-link">Comment</div>
         <div class="qs-answer-link">Answer</div>

@@ -31,6 +31,25 @@ define([
 					}
 				})
 			})
+		}, 
+
+		addRockedByUser: function(onlineUserId){
+			var checkForId = function(array, id){
+				for (var i = 0; i < array.length; i++){
+					if(array[i].id === id) {
+						return true;
+					}
+				}
+				return false;
+			}
+			this.each(function(question){
+				console.log('onlineUserId', onlineUserId);
+				if (checkForId(question.get('question').rockers, onlineUserId)){
+					question.set('onlineUserRocked', true);
+				} else {
+					question.set('onlineUserRocked', false);
+				}
+			});
 		}
 
 	});

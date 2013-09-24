@@ -8,6 +8,7 @@ function(BaseView, questionStreamItemTPL){
 
 		events: {
 			'click .rock-icon': 'rockQuestion', 
+			'click .already-rocked': 'rockQuestion',
 			'click .qs-comment-link': 'toggleCommentText',
 			'click .qs-answer-link': 'toggleQuestionText', 
 			'keypress .qs-answer': 'submitAnswer', 
@@ -26,8 +27,15 @@ function(BaseView, questionStreamItemTPL){
 			return this;
 		}, 
 
-		rockQuestion: function(){
+		rockQuestion: function(e){
 			this.model.rockQuestion();
+			// the code below is only toggling for unrocking a q, but probably need to rerender view anyway
+			// if (e.currentTarget.className === 'rock-icon') {
+			// 	this.$el.find('.rock-icon').toggleClass('rock-icon already-rocked');
+			// }
+			// if (e.currentTarget.className === 'already-rocked') {
+			// 	this.$el.find('.already-rocked').toggleClass('already-rocked rock-icon');
+			// }
 		}, 
 
 		toggleCommentText: function(){
