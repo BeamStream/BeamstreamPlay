@@ -26,6 +26,7 @@ object SchoolController extends Controller {
     else {
       val schoolToCreate = new School(new ObjectId, schoolName, schoolWebsite)
       val schoolId = School.addNewSchool(schoolToCreate)
+      School.allSchoolsInDatabase ++= List(schoolToCreate)
       Ok(write(schoolToCreate)).as("application/json")
     }
   }

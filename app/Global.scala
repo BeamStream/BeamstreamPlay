@@ -16,7 +16,7 @@ object Global extends GlobalSettings {
     //    ReadingSpreadsheetUtil.readCSVOfSchools
     val listOfAllSchools = School.getAllSchools
     School.allSchoolsInDatabase ++= listOfAllSchools
-
+    println( School.allSchoolsInDatabase.size)
   }
 
   override def onError(request: RequestHeader, ex: Throwable) = {
