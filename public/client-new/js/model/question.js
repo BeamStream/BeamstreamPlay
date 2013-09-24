@@ -52,10 +52,8 @@ define(['baseModel',
 		}, 
 
 		updateEditStatus: function(){
-			var editStatus = this.get('editStatus');
-			this.set('editStatus', !editStatus);
-			console.log(this.get('editStatus'));
-			console.log(this.collection);
+			this.set('editStatus', !this.get('editStatus'), {silent: true});
+			this.trigger('change:editStatus', {editStatus: this.get('editStatus')});
 		}, 
 
 		followQuestion: function(){

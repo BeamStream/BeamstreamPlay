@@ -6,9 +6,8 @@ define([
 		objName: 'questionStreams',
 
 		initialize: function(){
-			this.on('change:editStatus', function(question){
-				this.trigger('statusChange', {editStatus: question.get('editStatus')});
-			}, this);
+			this.on('change:editStatus', this.updateEditStatus, this);
+			this.counter = 0;
 		},
 
 		comparator: function(question){
@@ -50,6 +49,17 @@ define([
 					question.set('onlineUserRocked', false);
 				}
 			});
+		}, 
+
+		updateEditStatus: function(event){
+			console.log('collection edit status', event);
+			if (event.editStatus === true) {
+				this.counter++;
+			}
+			if (event.editStatus === false) {
+				this.counter--;
+			}
+			this.trigger('statusChange', {editCounter: this.counter});
 		}
 
 	});

@@ -11,12 +11,11 @@ define(['baseModel',
 			this.set('questionStreams', new QuestionStreams());
 			this.set('currentQuestionStream', new QuestionStreams());
 			this.set('editStatus', false);
-			//this.get('currentQuestionStream').on('statusChange', this.updateEditStatus, this);
-			//this.on('change:currentFilter', this.updateCurrentStream());
+			this.get('currentQuestionStream').on('statusChange', this.updateEditStatus, this);
 			this.setLoggedInUser();
 			console.log(this);
-			// this.on('change:pagePushUid', this.getQuestionsFromPubNub);
 			this.set('intervalId', setInterval(this.createQuestionList.bind(this), 10000));
+			// this.on('change:pagePushUid', this.getQuestionsFromPubNub);
 		},
 
 		setLoggedInUser: function(){
@@ -36,9 +35,11 @@ define(['baseModel',
 		},
 
 		updateEditStatus: function(event){
-			console.log(this);
-			this.set('editStatus', event.editStatus);
-			console.log('edit status from main stream');
+			if (event.editCounter > 0) {
+				clearInterval(this.get('intervalId'));
+			} else {
+				this.restartInterval();
+			}
 		},
 
 		// this is getting the id for the pubnub stream
@@ -61,6 +62,7 @@ define(['baseModel',
 				}
 			});
 			this.get('currentQuestionStream').reset(updatedStream);
+			this.get('currentQuestionStream').counter = 0;
 			//this.get('currentQuestionStream').set(updatedStream);
 			console.log('this is the current stream', this.get('currentQuestionStream'));
 		},
@@ -71,6 +73,7 @@ define(['baseModel',
 			this.get('questionStreams')
 					.fetch({url: requestURL,
 									success: function(){ 
+										that.get('questionStreams').addRockedByUser(that.get('onlineUser').get('id').id);
 										that.updateCurrentStream();
 										console.log('coll fetch', that.get('questionStreams')); 
 									}
@@ -78,7 +81,7 @@ define(['baseModel',
 		}, 
 
 		restartInterval: function(){
-			this.set('intervalId', setInterval(this.createQuestionList.bind(this), 10000));
+			this.set('intervalId', setInterval(this.createQuestionList.bind(this), 10000), {silent: true});
 		}
 
 		// // this is not working -- it's unclear if pubnub is actually functioning for questions
