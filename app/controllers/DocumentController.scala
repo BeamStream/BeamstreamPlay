@@ -65,7 +65,7 @@ object DocumentController extends Controller {
   }
 
   /**
-   * Get all Documents for a User 
+   * Get all Documents for a User
    */
 
   def getAllGoogleDocumentsForAUser = Action { implicit request =>
