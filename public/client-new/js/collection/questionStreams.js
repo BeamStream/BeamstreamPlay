@@ -52,7 +52,6 @@ define([
 		}, 
 
 		updateEditStatus: function(event){
-			console.log('collection edit status', event);
 			if (event.editStatus === true) {
 				this.counter++;
 			}
