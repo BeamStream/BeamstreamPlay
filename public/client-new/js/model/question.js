@@ -56,6 +56,11 @@ define(['baseModel',
 			this.set('editStatus', !editStatus);
 			console.log(this.get('editStatus'));
 			console.log(this.collection);
+		}, 
+
+		followQuestion: function(){
+			this.urlRoot = '/follow/question';
+			this.save({id: this.get('question').id.id});
 		}
 
 		// this was the attempted implementation with pubnub

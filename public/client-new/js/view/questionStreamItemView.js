@@ -11,7 +11,8 @@ function(BaseView, questionStreamItemTPL){
 			'click .qs-comment-link': 'toggleCommentText',
 			'click .qs-answer-link': 'toggleQuestionText', 
 			'keypress .qs-answer': 'submitAnswer', 
-			'keypress .qs-comment': 'submitComment'
+			'keypress .qs-comment': 'submitComment',
+			'click .follow-question': 'followQuestion'
 		}, 
 
 		initialize: function(){
@@ -53,6 +54,10 @@ function(BaseView, questionStreamItemTPL){
 				this.model.postComment(commentSubmission);
 				this.$el.find('.qs-comment').val('');
 			}
+		},
+
+		followQuestion: function(){
+			this.model.followQuestion();
 		}
 
 	});
