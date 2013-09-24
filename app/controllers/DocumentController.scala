@@ -25,6 +25,7 @@ import utils.ExtractFrameFromVideoUtil
 import utils.ObjectIdSerializer
 import utils.PreviewOfPDFUtil
 import utils.TokenEmailUtil
+
 /**
  * This controller class is used to store and retrieve all the information about documents.
  */
@@ -64,7 +65,7 @@ object DocumentController extends Controller {
   }
 
   /**
-   * Get all Documents for a User (Modified)
+   * Get all Documents for a User 
    */
 
   def getAllGoogleDocumentsForAUser = Action { implicit request =>

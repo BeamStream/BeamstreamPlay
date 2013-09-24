@@ -77,7 +77,7 @@ object Document extends RockConsumer {
     documentId.get
   }
 
-  /*
+  /**
    * Remove document
    */
   def removeDocument(document: Document) {
@@ -101,16 +101,14 @@ object Document extends RockConsumer {
   */
   def rockersNames(docId: ObjectId): List[String] = {
     val docRocked = DocumentDAO.find(MongoDBObject("_id" -> docId)).toList(0)
-    val rockersName = User.giveMeTheRockers(docRocked.documentRockers)
-    rockersName
+    User.giveMeTheRockers(docRocked.documentRockers)
   }
 
   /**
-   * Get all documents for a user (Modified)
+   * Get all documents for a user
    */
   def getAllGoogleDocumentsForAUser(userId: ObjectId): List[Document] = {
-    val docsObtained = DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "GoogleDocs")).toList
-    docsObtained
+    DocumentDAO.find(MongoDBObject("userId" -> userId, "documentType" -> "GoogleDocs")).toList
   }
 
   /**

@@ -23,11 +23,10 @@ object BetaUser {
    * Find User By Id
    */
 
-  def findBetaUserbyEmail(email: String) = {
+  def findBetaUserbyEmail(email: String): List[BetaUser] = {
     BetaUserDAO.find(MongoDBObject("emailId" -> email)).toList
-  }: List[BetaUser]
+  }
 
 }
-
 
 object BetaUserDAO extends SalatDAO[BetaUser, ObjectId](collection = MongoHQConfig.mongoDB("betausers"))
