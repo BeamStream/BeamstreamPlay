@@ -29,6 +29,10 @@ define(['baseModel',
 			
 		}, 
 
+		init: function(){
+			this.set('editStatus', false);
+		},
+
 		// this rocks or unrocks it
 		rockQuestion: function(){
 			this.urlRoot = 'rock/question';
@@ -45,6 +49,13 @@ define(['baseModel',
 			var answer = new Answer();
 			answer.urlRoot = '/answer';
 			answer.save({answer: answerText, questionId: this.get('question').id.id});
+		}, 
+
+		updateEditStatus: function(){
+			var editStatus = this.get('editStatus');
+			this.set('editStatus', !editStatus);
+			console.log(this.get('editStatus'));
+			console.log(this.collection);
 		}
 
 		// this was the attempted implementation with pubnub
