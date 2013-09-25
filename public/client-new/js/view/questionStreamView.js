@@ -93,11 +93,10 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 		searchQuestions: function(event){
 			event.preventDefault();
 			var searchQuery = this.$el.find('.question-txt-input').val();
-			console.log(searchQuery);
-			this.model.searchQuestions(searchQuery);
+			this.model.updateCurrentStream(searchQuery);
 			this.$el.find('.question-txt-input').val('');
 		}
-		
+
 	});
 
 	return QuestionStreamView;

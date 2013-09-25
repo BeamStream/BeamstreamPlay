@@ -48,17 +48,20 @@ define(['baseModel',
 		// 	this.set('pagePushUid', pagePushUid);
 		// },
 
-		updateCurrentStream: function(){
+		updateCurrentStream: function(searchQuery){
 			var that = this;
 
 			var updatedStream = that.get('questionStreams').filter(function(model){
-				if(that.get('currentFilter') === 'unanswered'){
+				if(searchQuery){
+					return model.get('question').questionBody.indexOf(searchQuery) !== -1;
+				}
+				else if(that.get('currentFilter') === 'unanswered'){
 					return model.get('question').answered === false;
 				}
-				if(that.get('currentFilter') === 'answered'){
+				else if(that.get('currentFilter') === 'answered'){
 					return model.get('question').answered === true;
 				}
-				if(that.get('currentFilter') === 'myQuestions'){
+				else if(that.get('currentFilter') === 'myQuestions'){
 					return model.get('question').userId.id === that.get('onlineUser').id.id;
 				}
 			});
@@ -83,18 +86,6 @@ define(['baseModel',
 
 		restartInterval: function(){
 			this.set('intervalId', setInterval(this.createQuestionList.bind(this), 10000), {silent: true});
-		}, 
-
-		searchQuestions: function(searchQuery){
-			var updatedStream = this.get('questionStreams').filter(function(model){
-				console.log(searchQuery);
-				if(model.get('question').questionBody.indexOf(searchQuery) !== -1){
-					return true;
-				} else {
-					return false;
-				}
-			})
-			console.log(updatedStream);
 		}
 
 		// // this is not working -- it's unclear if pubnub is actually functioning for questions
