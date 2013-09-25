@@ -48,7 +48,7 @@ define(['baseModel',
 		postAnswer: function(answerText){
 			var answer = new Answer();
 			answer.urlRoot = '/answer';
-			answer.save({answer: answerText, questionId: this.get('question').id.id});
+			answer.save({answerText: answerText, questionId: this.get('question').id.id});
 		}, 
 
 		updateEditStatus: function(){
