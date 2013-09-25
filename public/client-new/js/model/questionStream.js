@@ -12,8 +12,9 @@ define(['baseModel',
 			this.set('currentQuestionStream', new QuestionStreams());
 			this.set('editStatus', false);
 			this.get('currentQuestionStream').on('statusChange', this.updateEditStatus, this);
+			//the below is making things blinky
+			//this.get('currentQuestionStream').on('save', this.createQuestionList, this);
 			this.setLoggedInUser();
-			console.log(this);
 			this.set('intervalId', setInterval(this.createQuestionList.bind(this), 10000));
 			// this.on('change:pagePushUid', this.getQuestionsFromPubNub);
 		},
@@ -82,6 +83,18 @@ define(['baseModel',
 
 		restartInterval: function(){
 			this.set('intervalId', setInterval(this.createQuestionList.bind(this), 10000), {silent: true});
+		}, 
+
+		searchQuestions: function(searchQuery){
+			var updatedStream = this.get('questionStreams').filter(function(model){
+				console.log(searchQuery);
+				if(model.get('question').questionBody.indexOf(searchQuery) !== -1){
+					return true;
+				} else {
+					return false;
+				}
+			})
+			console.log(updatedStream);
 		}
 
 		// // this is not working -- it's unclear if pubnub is actually functioning for questions

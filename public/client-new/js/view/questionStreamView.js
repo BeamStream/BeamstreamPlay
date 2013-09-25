@@ -12,7 +12,8 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 		events: {
 			'click #filter-unanswered': 'filterHandler', 
 			'click #filter-answered': 'filterHandler', 
-			'click #filter-myquestions': 'filterHandler'
+			'click #filter-myquestions': 'filterHandler', 
+			'submit .question-form': 'searchQuestions'
 		},
 
 		initialize: function() {
@@ -87,6 +88,14 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 				this.$el.find('#filter-myquestions').toggleClass('selected-filter selected-arrow');
 			}
 
+		}, 
+
+		searchQuestions: function(event){
+			event.preventDefault();
+			var searchQuery = this.$el.find('.question-txt-input').val();
+			console.log(searchQuery);
+			this.model.searchQuestions(searchQuery);
+			this.$el.find('.question-txt-input').val('');
 		}
 		
 	});
