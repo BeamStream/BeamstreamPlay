@@ -53,6 +53,7 @@ function(BaseView, questionStreamItemTPL){
 				var answerSubmission = this.$el.find('.qs-answer').val();
 				this.model.postAnswer(answerSubmission);
 				this.$el.find('.qs-answer').val('');
+				this.toggleQuestionText();
 			}
 		}, 
 
@@ -61,6 +62,7 @@ function(BaseView, questionStreamItemTPL){
 				var commentSubmission = this.$el.find('.qs-comment').val();
 				this.model.postComment(commentSubmission);
 				this.$el.find('.qs-comment').val('');
+				this.toggleCommentText();
 			}
 		},
 
