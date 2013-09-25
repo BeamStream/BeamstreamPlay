@@ -20,6 +20,8 @@ import models.Access
 import models.User
 import java.util.Date
 import models.Question
+import models.Document
+import models.DocType
 
 object GoogleDocsUploadUtilityController extends Controller {
 
@@ -29,7 +31,6 @@ object GoogleDocsUploadUtilityController extends Controller {
   val GoogleClientId = Play.current.configuration.getString("GoogleClientId").get
   val GoogleClientSecret = Play.current.configuration.getString("GoogleClientSecret").get
   def authenticateToGoogle(action: String) = Action { implicit request =>
-    println(redirectURI, GoogleClientId, GoogleClientSecret)
     val refreshTokenFound = SocialToken.findSocialToken(new ObjectId(request.session.get("userId").get))
     refreshTokenFound match {
       case None =>
@@ -135,6 +136,9 @@ object GoogleDocsUploadUtilityController extends Controller {
       val userId = new ObjectId(request.session.get("userId").get)
       val user = User.getUserProfile(userId)
       //TODO : Stream Id Required 
+
+      val documentToCreate = new Document(new ObjectId, fileName, "", googleFileUrl, DocType.GoogleDocs, userId, Access.Public, new ObjectId, new Date, new Date, 0, Nil, Nil, Nil, "", 0)
+      val docId = Document.addDocument(documentToCreate)
       val message = Message(new ObjectId, googleFileUrl, Option(Type.Document), Option(Access.Public), new Date, userId, None, user.get.firstName, user.get.lastName, 0, Nil, Nil, 0, Nil, None, None)
       val messageId = Message.createMessage(message)
 
