@@ -95,6 +95,8 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 			var searchQuery = this.$el.find('.question-txt-input').val();
 			this.model.updateCurrentStream(searchQuery);
 			this.$el.find('.question-txt-input').val('');
+			this.$el.find('.selected-arrow').toggleClass('selected-arrow');
+			this.$el.find('.selected-filter').toggleClass('selected-filter');
 		}
 
 	});
