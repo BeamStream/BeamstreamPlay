@@ -11,6 +11,7 @@ define(['baseModel',
 			this.set('questionStreams', new QuestionStreams());
 			this.set('currentQuestionStream', new QuestionStreams());
 			this.set('editStatus', false);
+			this.set('searchStatus', false);
 			this.get('currentQuestionStream').on('statusChange', this.updateEditStatus, this);
 			//the below is making things blinky
 			//this.get('currentQuestionStream').on('save', this.createQuestionList, this);
@@ -33,6 +34,10 @@ define(['baseModel',
 
 		setCurrentFilter: function(newFilter){
 			this.set('currentFilter', newFilter);
+			if (this.get('searchStatus')){
+				this.set({searchStatus: false}, {silent: true});
+				this.restartInterval();
+			}
 		},
 
 		updateEditStatus: function(event){
@@ -65,10 +70,18 @@ define(['baseModel',
 					return model.get('question').userId.id === that.get('onlineUser').id.id;
 				}
 			});
+			if (searchQuery){
+				this.setSearchStatus();
+			}
 			this.get('currentQuestionStream').reset(updatedStream);
 			this.get('currentQuestionStream').counter = 0;
 			//this.get('currentQuestionStream').set(updatedStream);
 			console.log('this is the current stream', this.get('currentQuestionStream'));
+		},
+
+		setSearchStatus: function(){
+					this.set({searchStatus: true}, {silent: true});
+					clearInterval(this.get('intervalId'));
 		},
 
 		createQuestionList: function(){
