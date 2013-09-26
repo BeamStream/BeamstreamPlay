@@ -16,7 +16,7 @@ define(['baseModel',
 			//the below is making things blinky
 			//this.get('currentQuestionStream').on('save', this.createQuestionList, this);
 			this.setLoggedInUser();
-			this.set('intervalId', setInterval(this.createQuestionList.bind(this), 10000));
+			this.set({'intervalId': setInterval(this.createQuestionList.bind(this), 10000)}, {silent: true});
 			// this.on('change:pagePushUid', this.getQuestionsFromPubNub);
 		},
 
@@ -98,7 +98,7 @@ define(['baseModel',
 		}, 
 
 		restartInterval: function(){
-			this.set('intervalId', setInterval(this.createQuestionList.bind(this), 10000), {silent: true});
+			this.set({'intervalId': setInterval(this.createQuestionList.bind(this), 10000)}, {silent: true});
 		}
 
 		// // this is not working -- it's unclear if pubnub is actually functioning for questions
