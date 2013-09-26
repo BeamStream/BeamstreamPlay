@@ -43,6 +43,7 @@ define([
 			}
 			this.each(function(question){
 				console.log('onlineUserId', onlineUserId);
+				question.set({'onlineUser': onlineUserId}, {silent: true});
 				if (checkForId(question.get('question').rockers, onlineUserId)){
 					question.set('onlineUserRocked', true);
 				} else {
