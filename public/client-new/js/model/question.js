@@ -40,7 +40,6 @@ define(['baseModel',
 				for (var i = 0; i < this.get('question').rockers.length; i++){
 					if (this.get('question').rockers[i].id === this.get('onlineUser')){
 						this.get('question').rockers.splice(i, 1);
-						console.log(this.get('question').rockers);
 					}
 				}
 			} else {
