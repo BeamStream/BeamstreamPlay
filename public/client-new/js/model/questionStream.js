@@ -92,13 +92,14 @@ define(['baseModel',
 									success: function(){ 
 										that.get('questionStreams').addRockedByUser(that.get('onlineUser').get('id').id);
 										that.updateCurrentStream();
-										console.log('coll fetch', that.get('questionStreams')); 
 									}
 								});
 		}, 
 
 		restartInterval: function(){
-			this.set({'intervalId': setInterval(this.createQuestionList.bind(this), 10000)}, {silent: true});
+			if (!this.get('searchStatus')){
+				this.set({'intervalId': setInterval(this.createQuestionList.bind(this), 10000)}, {silent: true});
+			}
 		}
 
 		// // this is not working -- it's unclear if pubnub is actually functioning for questions
