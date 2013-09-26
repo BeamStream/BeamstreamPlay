@@ -1,5 +1,1 @@
-<div class="questions-thin-feed">
-    <div class="questions-scrollbar">
-    <div class="questionStreamItems"></div>
-    </div>
-</div>
+<div class="questionStreamItems questions-thin-feed"></div>

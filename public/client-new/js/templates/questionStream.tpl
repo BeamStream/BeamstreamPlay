@@ -16,6 +16,6 @@
     </div>
 
     <!-- streamListView will go here -->
-    <div class="streamList"></div>
+    <div class="streamList questions-scrollbar"></div>
 
 </div>

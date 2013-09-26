@@ -203,6 +203,7 @@ body {
     right: 0;
     z-index: 100;
     width: 319px;
+    height: 100%;
 }
 .post-info {
     width: 190px;
@@ -218,7 +219,7 @@ body {
 }
 .questions-scrollbar {
     overflow-y: scroll;
-    height: 1110px;
+    height: 100%;
     scrollbar-base-color: #6a7176;
     scrollbar-3dlight-color: transparent;
     scrollbar-highlight-color: transparent;
@@ -232,6 +233,8 @@ body {
     display: inline-block;
     background-color: #4d94b9;
     border-bottom: 1px solid #2f6a88;
+    position: relative;
+    z-index: 1;
     li:hover {
         background-color: #3a7592;
         border-top: 1px solid #305f77;
@@ -560,4 +563,13 @@ body {
     float: left;
     height: 29px;
     width: 23px;
+}
+.streamList {
+    position: absolute;
+    top: 84px;
+    bottom: 0;
+    height: auto;
+}
+.questions-thin-feed {
+    height: 100%;
 }

@@ -40,6 +40,11 @@ function(BaseView, questionStreamListTPL, QuestionStreamItemView){
 
 			console.log('question stream list collection', this.collection);
 			this.addChildViews();
+
+			// Set height to prevent scrolling
+			// this might be necessary in older browsers
+			//this.$el.css({ height: this.$el.height()+'px' });
+
 			return this;
 		}
 		
