@@ -6,7 +6,8 @@ define([
 		objName: 'questionStreams',
 
 		initialize: function(){
-			this.on('change:editStatus', this.updateEditStatus, this);
+			this.on('statusChangeModel', this.updateEditStatus, this);
+			this.on('change:questionRock', this.sort, this);
 			this.counter = 0;
 		},
 

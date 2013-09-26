@@ -35,8 +35,21 @@ define(['baseModel',
 
 		// this rocks or unrocks it
 		rockQuestion: function(){
+			if (this.get('onlineUserRocked')){
+				this.set({'onlineUserRocked': false}, {silent: true});
+				for (var i = 0; i < this.get('question').rockers.length; i++){
+					if (this.get('question').rockers[i].id === this.get('onlineUser')){
+						this.get('question').rockers.splice(i, 1);
+						console.log(this.get('question').rockers);
+					}
+				}
+			} else {
+				this.set({'onlineUserRocked': true}, {silent: true})
+				this.get('question').rockers.push({id: this.get('onlineUser')});
+			}
 			this.urlRoot = 'rock/question';
-			this.save({id: this.get('question').id.id});
+			this.save({id: this.get('question').id.id}, {silent: true});
+			this.trigger('change:questionRock');
 		}, 
 
 		postComment: function(commentText){
@@ -53,7 +66,7 @@ define(['baseModel',
 
 		updateEditStatus: function(){
 			this.set('editStatus', !this.get('editStatus'), {silent: true});
-			this.trigger('change:editStatus', {editStatus: this.get('editStatus')});
+			this.trigger('statusChangeModel', {editStatus: this.get('editStatus')});
 		}, 
 
 		followQuestion: function(){

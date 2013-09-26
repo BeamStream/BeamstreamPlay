@@ -16,6 +16,7 @@ define(['baseModel',
 			//the below is making things blinky
 			//this.get('currentQuestionStream').on('save', this.createQuestionList, this);
 			this.setLoggedInUser();
+			console.log('set interval');
 			this.set({'intervalId': setInterval(this.createQuestionList.bind(this), 10000)}, {silent: true});
 			// this.on('change:pagePushUid', this.getQuestionsFromPubNub);
 		},
@@ -42,6 +43,7 @@ define(['baseModel',
 
 		updateEditStatus: function(event){
 			if (event.editCounter > 0) {
+				console.log('clear interval');
 				clearInterval(this.get('intervalId'));
 			} else {
 				this.restartInterval();
@@ -80,8 +82,9 @@ define(['baseModel',
 		},
 
 		setSearchStatus: function(){
-					this.set({searchStatus: true}, {silent: true});
-					clearInterval(this.get('intervalId'));
+			console.log('clear interval');
+			this.set({searchStatus: true}, {silent: true});
+			clearInterval(this.get('intervalId'));
 		},
 
 		createQuestionList: function(){
@@ -98,6 +101,7 @@ define(['baseModel',
 
 		restartInterval: function(){
 			if (!this.get('searchStatus')){
+				console.log('set interval');
 				this.set({'intervalId': setInterval(this.createQuestionList.bind(this), 10000)}, {silent: true});
 			}
 		}
