@@ -18,7 +18,8 @@ function(BaseView, questionStreamItemTPL){
 
 		initialize: function(){
 			BaseView.prototype.initialize.apply(this, arguments);
-
+			this.model.on('answerPost', this.render, this);
+			this.model.on('commentPost', this.render, this);
 		},
 
 		render: function(){
@@ -53,7 +54,7 @@ function(BaseView, questionStreamItemTPL){
 				var answerSubmission = this.$el.find('.qs-answer').val();
 				this.model.postAnswer(answerSubmission);
 				this.$el.find('.qs-answer').val('');
-				this.toggleQuestionText();
+				this.model.updateEditStatus();
 			}
 		}, 
 
@@ -62,7 +63,7 @@ function(BaseView, questionStreamItemTPL){
 				var commentSubmission = this.$el.find('.qs-comment').val();
 				this.model.postComment(commentSubmission);
 				this.$el.find('.qs-comment').val('');
-				this.toggleCommentText();
+				this.model.updateEditStatus();
 			}
 		},
 

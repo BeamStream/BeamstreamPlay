@@ -53,14 +53,19 @@ define(['baseModel',
 
 		postComment: function(commentText){
 			var comment = new Comment();
+			this.get('comments').push(comment);
+			this.get('question').comments.push(comment);
 			comment.urlRoot = '/newComment';
 			comment.save({comment: commentText, questionId: this.get('question').id.id});
+			this.trigger('commentPost');
 		}, 
 
 		postAnswer: function(answerText){
 			var answer = new Answer();
+			this.get('question').answers.push(answer);
 			answer.urlRoot = '/answer';
 			answer.save({answerText: answerText, questionId: this.get('question').id.id});
+			this.trigger('answerPost');
 		}, 
 
 		updateEditStatus: function(){
