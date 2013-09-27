@@ -21,12 +21,12 @@
         {{else}}
         <div class="rock-icon"></div>
         {{/if}}
-        <div class="rock-ammount">{{question.rockers.length}} Rocks</div>
+        <div class="rock-ammount">{{pluralize question.rockers.length 'Rock'}}</div>
         <div class="qs-comment-link">Comment</div>
         <div class="qs-answer-link">Answer</div>
         <div class="question-stats">
-        <div class="comment-amount">{{question.comments.length}} Comments</div>
-        <div class="answer-amount">{{question.answers.length}} Answers</div>
+        <div class="comment-amount">{{pluralize question.comments.length 'Comment'}}</div>
+        <div class="answer-amount">{{pluralize question.answers.length 'Answer'}}</div>
         </div>
         <form>
         <input class="qs-answer question-stream-hide">

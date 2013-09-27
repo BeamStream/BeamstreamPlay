@@ -1,8 +1,9 @@
 define([
 	'baseView', 
+	'../handlebar_helpers/pluralize_helper',
 	'text!templates/questionStreamItem.tpl'
 ], 
-function(BaseView, questionStreamItemTPL){
+function(BaseView, Pluralize, questionStreamItemTPL){
 	var QuestionStreamItem = BaseView.extend({
 		objName: 'questionStreamItem', 
 
