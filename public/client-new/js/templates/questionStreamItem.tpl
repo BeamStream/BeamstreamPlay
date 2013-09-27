@@ -5,8 +5,15 @@
         <div class="follow-question">FOLLOW</div>
     </div>
 
-    <div class="delete-post"></div>
-
+<!--     <div class="delete-post"></div> -->
+    <div class="btn-group stream-dropdown">
+           <!--  <button class="btn display-dropdown">Class Streams</button> -->
+        <button class="btn display-toggle" data-toggle="dropdown"> <span class="caret display-caret"></span></button>
+        <ul class="dropdown-menu display-sub pull-right">
+            <li class="mark-answered"><a href="#">Mark As Answered</a></li>
+            <li class="delete-question"><a href="#">Delete Question</a></li>
+        </ul>
+    </div>
     <div class="post-info">
         <div class="post-date">{{question.creationDate}}</div>
         <div class="post-type">{{question.questionAccess.name}}</div>
