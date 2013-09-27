@@ -13,6 +13,7 @@ define(['baseModel',
 			this.set('editStatus', false);
 			this.set('searchStatus', false);
 			this.get('currentQuestionStream').on('statusChange', this.updateEditStatus, this);
+			this.get('currentQuestionStream').on('questionAnsweredCol', this.updateCurrentStream, this);
 			//the below is making things blinky
 			//this.get('currentQuestionStream').on('save', this.createQuestionList, this);
 			this.setLoggedInUser();

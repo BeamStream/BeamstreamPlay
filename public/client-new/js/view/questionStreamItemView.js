@@ -14,7 +14,8 @@ function(BaseView, Pluralize, questionStreamItemTPL){
 			'click .qs-answer-link': 'toggleQuestionText', 
 			'keypress .qs-answer': 'submitAnswer', 
 			'keypress .qs-comment': 'submitComment',
-			'click .follow-question': 'followQuestion'
+			'click .follow-question': 'followQuestion', 
+			'click .mark-answered': 'markAnswered'
 		}, 
 
 		initialize: function(){
@@ -70,6 +71,10 @@ function(BaseView, Pluralize, questionStreamItemTPL){
 
 		followQuestion: function(){
 			this.model.followQuestion();
+		}, 
+
+		markAnswered: function(){
+			this.model.markAnswered();
 		}
 
 	});

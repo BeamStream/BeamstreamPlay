@@ -7,6 +7,7 @@ define([
 
 		initialize: function(){
 			this.on('statusChangeModel', this.updateEditStatus, this);
+			this.on('questionAnsweredModel', this.questionAnswered, this);
 			this.on('change:questionRock', this.sort, this);
 			this.counter = 0;
 		},
@@ -61,6 +62,10 @@ define([
 				this.counter--;
 			}
 			this.trigger('statusChange', {editCounter: this.counter});
+		}, 
+
+		questionAnswered: function(){
+			this.trigger('questionAnsweredCol');
 		}
 
 	});

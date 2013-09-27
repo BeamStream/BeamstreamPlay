@@ -76,6 +76,13 @@ define(['baseModel',
 		followQuestion: function(){
 			this.urlRoot = '/follow/question';
 			this.save({id: this.get('question').id.id});
+		}, 
+
+		markAnswered: function(){
+			this.get('question').answered = true;
+			this.urlRoot = '/markAsAnswered/true';
+			this.save({id: this.get('question').id.id}, {silent: true});
+			this.trigger('questionAnsweredModel');
 		}
 
 		// this was the attempted implementation with pubnub
