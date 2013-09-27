@@ -31,6 +31,7 @@ define(['baseModel',
 
 		init: function(){
 			this.set('editStatus', false);
+			this.set('deleted', false);
 		},
 
 		// this rocks or unrocks it
@@ -83,6 +84,14 @@ define(['baseModel',
 			this.urlRoot = '/markAsAnswered/true';
 			this.save({id: this.get('question').id.id}, {silent: true});
 			this.trigger('questionAnsweredModel');
+		}, 
+
+		deleteQuestion: function(){
+			this.urlRoot = '/remove/question/';
+			this.save({id: this.get('question').id.id}, {silent: true});
+			this.clear({silent: true});
+			this.set({'deleted': true}, {silent: true});
+			this.trigger('questionModelDelete');
 		}
 
 		// this was the attempted implementation with pubnub

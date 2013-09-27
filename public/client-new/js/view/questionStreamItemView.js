@@ -15,7 +15,8 @@ function(BaseView, Pluralize, questionStreamItemTPL){
 			'keypress .qs-answer': 'submitAnswer', 
 			'keypress .qs-comment': 'submitComment',
 			'click .follow-question': 'followQuestion', 
-			'click .mark-answered': 'markAnswered'
+			'click .mark-answered': 'markAnswered', 
+			'click .delete-question': 'deleteQuestion'
 		}, 
 
 		initialize: function(){
@@ -32,13 +33,6 @@ function(BaseView, Pluralize, questionStreamItemTPL){
 
 		rockQuestion: function(e){
 			this.model.rockQuestion();
-			// the code below is only toggling for unrocking a q, but probably need to rerender view anyway
-			// if (e.currentTarget.className === 'rock-icon') {
-			// 	this.$el.find('.rock-icon').toggleClass('rock-icon already-rocked');
-			// }
-			// if (e.currentTarget.className === 'already-rocked') {
-			// 	this.$el.find('.already-rocked').toggleClass('already-rocked rock-icon');
-			// }
 		}, 
 
 		toggleCommentText: function(){
@@ -75,7 +69,12 @@ function(BaseView, Pluralize, questionStreamItemTPL){
 
 		markAnswered: function(){
 			this.model.markAnswered();
+		},
+
+		deleteQuestion: function(){
+			this.model.deleteQuestion();
 		}
+
 
 	});
 

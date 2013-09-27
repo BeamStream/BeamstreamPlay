@@ -14,6 +14,7 @@ define(['baseModel',
 			this.set('searchStatus', false);
 			this.get('currentQuestionStream').on('statusChange', this.updateEditStatus, this);
 			this.get('currentQuestionStream').on('questionAnsweredCol', this.updateCurrentStream, this);
+			this.get('currentQuestionStream').on('questionDeletedCol', this.updateCurrentStream, this);
 			//the below is making things blinky
 			//this.get('currentQuestionStream').on('save', this.createQuestionList, this);
 			this.setLoggedInUser();
@@ -62,6 +63,9 @@ define(['baseModel',
 			var updatedStream = that.get('questionStreams').filter(function(model){
 				if(searchQuery){
 					return model.get('question').questionBody.indexOf(searchQuery) !== -1;
+				}
+				else if(model.get('deleted')){
+					return false;
 				}
 				else if(that.get('currentFilter') === 'unanswered'){
 					return model.get('question').answered === false;
