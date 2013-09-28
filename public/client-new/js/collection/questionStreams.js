@@ -35,6 +35,9 @@ define([
 			})
 		}, 
 
+		// adds the current onlineUser id and whether a question was asked
+		// by that user and whether it was rocked by that user
+		// this is used in the template to know what to render
 		addRockedByUser: function(onlineUserId){
 			var checkForId = function(array, id){
 				for (var i = 0; i < array.length; i++){
@@ -47,6 +50,8 @@ define([
 			this.each(function(question){
 				console.log('onlineUserId', onlineUserId);
 				question.set({'onlineUser': onlineUserId}, {silent: true});
+				var onlineUserAsked = question.get('question').userId.id === onlineUserId ? true : false;
+				question.set({'onlineUserAsked': onlineUserAsked}, {silent: true});
 				if (checkForId(question.get('question').rockers, onlineUserId)){
 					question.set('onlineUserRocked', true);
 				} else {

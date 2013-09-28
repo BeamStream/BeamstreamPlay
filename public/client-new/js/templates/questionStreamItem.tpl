@@ -8,7 +8,7 @@
         <a class="username" href="#">{{question.firstNameofQuestionAsker}} {{question.lastNameofQuestionAsker}}</a>
         <div class="follow-question">FOLLOW</div>
     </div>
-
+    {{#if onlineUserAsked}}
     <div class="btn-group stream-dropdown">
         <button class="btn question-dropdown" data-toggle="dropdown"> <span class="caret display-caret"></span></button>
             <ul class="dropdown-menu pull-right">
@@ -16,6 +16,7 @@
             <li class="delete-question"><a href="#">Delete Question</a></li>
         </ul>
     </div>
+    {{/if}}
     <div class="post-info">
         <div class="post-date">{{question.creationDate}}</div>
         <div class="post-type">{{question.questionAccess.name}}</div>
