@@ -1,5 +1,9 @@
 <div class="question-post">
+    {{#if profilePic.length}}
     <img src="{{profilePic}}" class="profile-picture"></img>
+    {{else}}
+    <img src="/beamstream-new/images/profile-upload.png" class="profile-picture"></img>
+    {{/if}}
     <div class="username-info">
         <a class="username" href="#">{{question.firstNameofQuestionAsker}} {{question.lastNameofQuestionAsker}}</a>
         <div class="follow-question">FOLLOW</div>
