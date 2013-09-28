@@ -15,8 +15,8 @@ define(['baseModel',
 			this.get('currentQuestionStream').on('statusChange', this.updateEditStatus, this);
 			this.get('currentQuestionStream').on('questionAnsweredCol', this.updateCurrentStream, this);
 			this.get('currentQuestionStream').on('questionDeletedCol', this.updateCurrentStream, this);
-			//the below is making things blinky
-			//this.get('currentQuestionStream').on('save', this.createQuestionList, this);
+			this.get('currentQuestionStream').on('questionAnsweredCol', this.restartInterval, this);
+			this.get('currentQuestionStream').on('questionDeletedCol', this.restartInterval, this);
 			this.setLoggedInUser();
 			console.log('set interval');
 			this.set({'intervalId': setInterval(this.createQuestionList.bind(this), 10000)}, {silent: true});

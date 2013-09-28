@@ -6,7 +6,7 @@
     </div>
 
     <div class="btn-group stream-dropdown">
-        <button class="btn" data-toggle="dropdown"> <span class="caret display-caret"></span></button>
+        <button class="btn question-dropdown" data-toggle="dropdown"> <span class="caret display-caret"></span></button>
             <ul class="dropdown-menu pull-right">
             <li class="mark-answered"><a href="#">Mark As Answered</a></li>
             <li class="delete-question"><a href="#">Delete Question</a></li>

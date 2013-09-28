@@ -16,7 +16,8 @@ function(BaseView, Pluralize, questionStreamItemTPL){
 			'keypress .qs-comment': 'submitComment',
 			'click .follow-question': 'followQuestion', 
 			'click .mark-answered': 'markAnswered', 
-			'click .delete-question': 'deleteQuestion'
+			'click .delete-question': 'deleteQuestion',
+			'click .question-dropdown': 'toggleDropdown'
 		}, 
 
 		initialize: function(){
@@ -73,6 +74,10 @@ function(BaseView, Pluralize, questionStreamItemTPL){
 
 		deleteQuestion: function(){
 			this.model.deleteQuestion();
+		},
+
+		toggleDropdown: function(){
+			this.model.updateEditStatus();
 		}
 
 
