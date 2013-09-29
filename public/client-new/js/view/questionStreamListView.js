@@ -16,7 +16,6 @@ function(BaseView, questionStreamListTPL, QuestionStreamItemView){
 			
 			var that = this;
 			this.collection.on('reset', function(){
-				console.log('currentQuestionStream collection was changed')
 				that.render();
 			});
 
@@ -28,17 +27,14 @@ function(BaseView, questionStreamListTPL, QuestionStreamItemView){
 			var that = this;
 			this.collection.map(function(question){
 				var itemView = new QuestionStreamItemView({model: question});
-				//itemView.setElement(that.$el.find('.questionStreamItems'));
 				itemView.render();
 				that.$el.find('.questionStreamItems').append(itemView.el);
-				console.log('question model', question);
 			});
 		},
 
 		render: function(){
 			this.$el.html(this.compiledTemplate);
 
-			console.log('question stream list collection', this.collection);
 			this.addChildViews();
 
 			// Set height to prevent scrolling

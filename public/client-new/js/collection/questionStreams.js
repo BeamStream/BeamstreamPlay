@@ -48,7 +48,6 @@ define([
 				return false;
 			}
 			this.each(function(question){
-				console.log('onlineUserId', onlineUserId);
 				question.set({'onlineUser': onlineUserId}, {silent: true});
 				var onlineUserAsked = question.get('question').userId.id === onlineUserId ? true : false;
 				question.set({'onlineUserAsked': onlineUserAsked}, {silent: true});

@@ -68,7 +68,6 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 		}, 
 
 		filterHandler: function(e){
-			console.log(e.currentTarget.id);
 			if (e.currentTarget.id === 'filter-unanswered') {
 				this.model.setCurrentFilter('unanswered');
 				this.$el.find('.selected-arrow').toggleClass('selected-arrow');

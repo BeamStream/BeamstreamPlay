@@ -18,8 +18,8 @@ define(['baseModel',
 			this.get('currentQuestionStream').on('questionAnsweredCol', this.restartInterval, this);
 			this.get('currentQuestionStream').on('questionDeletedCol', this.restartInterval, this);
 			this.setLoggedInUser();
-			console.log('set interval');
 			this.set({'intervalId': setInterval(this.createQuestionList.bind(this), 10000)}, {silent: true});
+			// this is unused code from an attempt to use pubnub
 			// this.on('change:pagePushUid', this.getQuestionsFromPubNub);
 		},
 
@@ -45,7 +45,6 @@ define(['baseModel',
 
 		updateEditStatus: function(event){
 			if (event.editCounter > 0) {
-				console.log('clear interval');
 				clearInterval(this.get('intervalId'));
 			} else {
 				this.restartInterval();
@@ -82,12 +81,9 @@ define(['baseModel',
 			}
 			this.get('currentQuestionStream').reset(updatedStream);
 			this.get('currentQuestionStream').counter = 0;
-			//this.get('currentQuestionStream').set(updatedStream);
-			console.log('this is the current stream', this.get('currentQuestionStream'));
 		},
 
 		setSearchStatus: function(){
-			console.log('clear interval');
 			this.set({searchStatus: true}, {silent: true});
 			clearInterval(this.get('intervalId'));
 		},
@@ -106,7 +102,6 @@ define(['baseModel',
 
 		restartInterval: function(){
 			if (!this.get('searchStatus')){
-				console.log('set interval');
 				this.set({'intervalId': setInterval(this.createQuestionList.bind(this), 10000)}, {silent: true});
 			}
 		}

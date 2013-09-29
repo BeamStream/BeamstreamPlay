@@ -41,7 +41,6 @@ define(['pageView',
       // on streamId change, notify the questionStream
 			currentStreamView.on('change:streamId', function(evt){
 				currentQuestionStream.model.setQuestionStreamId(evt.streamId);
-				console.log('Stream Id changed: ', evt.streamId);
 			});
 
 			// // on pagePushUid change, notify the questionStream
