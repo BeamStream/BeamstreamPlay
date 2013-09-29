@@ -25,12 +25,6 @@ function(BaseView, questionStreamTPL, QuestionStream, QuestionStreamListView){
 				currentFilter: 'unanswered'
 			});
 
-			// Re-render when model changes
-			// Probably don't have to do this???
-			this.model.on('change', function(){
-				// this.render(); // Maybe? If necessary?
-			});
-
 			this.render();
 		},
 
