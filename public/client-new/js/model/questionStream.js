@@ -43,6 +43,7 @@ define(['baseModel',
 			}
 		},
 
+		// controls pausing of server updates while text boxes are open
 		updateEditStatus: function(event){
 			if (event.editCounter > 0) {
 				clearInterval(this.get('intervalId'));
@@ -83,11 +84,13 @@ define(['baseModel',
 			this.get('currentQuestionStream').counter = 0;
 		},
 
+		// controls pausing of server updates while searching
 		setSearchStatus: function(){
 			this.set({searchStatus: true}, {silent: true});
 			clearInterval(this.get('intervalId'));
 		},
 
+		// handles the server request for all question data
 		createQuestionList: function(){
 			var requestURL = 'http://localhost:9000/getAllQuestionsForAStream/' + this.get('streamId') + '/date/50/1';
 			var that = this;
