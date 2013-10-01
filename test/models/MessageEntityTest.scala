@@ -13,8 +13,8 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
 
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List(), None, None)
-  val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, user.id, List(user.id), true, List())
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, Nil, Nil, None, None)
+  val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, user.id, List(user.id), true, Nil)
 
   before {
     StreamDAO.remove(MongoDBObject("name" -> ".*".r))
@@ -27,7 +27,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
   test("Message Creation") {
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
-    val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, Nil, Nil, 0, Nil)
     val messagesBefore = MessageDAO.find(MongoDBObject())
     assert(messagesBefore.size === 0)
     val messageId = Message.createMessage(message)
@@ -38,7 +38,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
   test("Find Message By Id & Remove Message") {
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
-    val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, Nil, Nil, 0, Nil)
     val messagesBefore = MessageDAO.find(MongoDBObject())
     assert(messagesBefore.size === 0)
     val messageId = Message.createMessage(message)
@@ -51,7 +51,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
 
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
-    val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, Nil, Nil, 0, Nil)
     val messageId = Message.createMessage(message)
     val messageBefore = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
     //Rocks Before
@@ -70,9 +70,9 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
     val userMedia = UserMedia(new ObjectId, "Neel", "", user.id, formatter.parse("23-07-12"), "http://neel.com/neel.jpg", UserMediaType.Image, Access.Public, true,
-      None,"", 1, List(), List(), 0)
+      None, "", 1, Nil, Nil, 0)
     val mediaId = UserMedia.saveMediaForUser(userMedia)
-    val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, Nil, Nil, 0, Nil)
     val messageId = Message.createMessage(message)
     val allMessages = Message.getAllMessagesForAStreamWithPagination(stream.id, 1, 10)
     assert(allMessages.size === 1)
@@ -82,11 +82,11 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
   test("Get All Messages For A Stream Sorted By Date / Pagination") {
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
-    val message5 = Message(new ObjectId, "some message5", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
-    val message1 = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
-    val message2 = Message(new ObjectId, "some message2", Option(Type.Audio), Option(Access.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
-    val message3 = Message(new ObjectId, "some message3", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
-    val message4 = Message(new ObjectId, "some message4", Option(Type.Audio), Option(Access.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message5 = Message(new ObjectId, "some message5", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 0, Nil, Nil, 0, Nil)
+    val message1 = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 0, Nil, Nil, 0, Nil)
+    val message2 = Message(new ObjectId, "some message2", Option(Type.Audio), Option(Access.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 0, Nil, Nil, 0, Nil)
+    val message3 = Message(new ObjectId, "some message3", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 0, Nil, Nil, 0, Nil)
+    val message4 = Message(new ObjectId, "some message4", Option(Type.Audio), Option(Access.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 0, Nil, Nil, 0, Nil)
     Message.createMessage(message5)
     Message.createMessage(message1)
     Message.createMessage(message2)
@@ -99,11 +99,11 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
   test("Get All Messages For A Stream Sorted By Rock") {
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
-    val message5 = Message(new ObjectId, "some message5", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 8, List(), List(), 0, List())
-    val message1 = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 6, List(), List(), 0, List())
-    val message2 = Message(new ObjectId, "some message2", Option(Type.Audio), Option(Access.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 4, List(), List(), 0, List())
-    val message3 = Message(new ObjectId, "some message3", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 12, List(), List(), 0, List())
-    val message4 = Message(new ObjectId, "some message4", Option(Type.Audio), Option(Access.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 7, List(), List(), 0, List())
+    val message5 = Message(new ObjectId, "some message5", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 8, Nil, Nil, 0, Nil)
+    val message1 = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 6, Nil, Nil, 0, Nil)
+    val message2 = Message(new ObjectId, "some message2", Option(Type.Audio), Option(Access.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 4, Nil, Nil, 0, Nil)
+    val message3 = Message(new ObjectId, "some message3", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 12, Nil, Nil, 0, Nil)
+    val message4 = Message(new ObjectId, "some message4", Option(Type.Audio), Option(Access.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 7, Nil, Nil, 0, Nil)
     Message.createMessage(message5)
     Message.createMessage(message1)
     Message.createMessage(message2)
@@ -117,11 +117,11 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
   test("Get All Messages For A KeyWord") {
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
-    val message5 = Message(new ObjectId, "some message5", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 8, List(), List(), 0, List())
-    val message1 = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 6, List(), List(), 0, List())
-    val message2 = Message(new ObjectId, "some message2", Option(Type.Audio), Option(Access.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 4, List(), List(), 0, List())
-    val message3 = Message(new ObjectId, "some message3", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 12, List(), List(), 0, List())
-    val message4 = Message(new ObjectId, "some message4", Option(Type.Audio), Option(Access.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 7, List(), List(), 0, List())
+    val message5 = Message(new ObjectId, "some message5", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 8, Nil, Nil, 0, Nil)
+    val message1 = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 6, Nil, Nil, 0, Nil)
+    val message2 = Message(new ObjectId, "some message2", Option(Type.Audio), Option(Access.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 4, Nil, Nil, 0, Nil)
+    val message3 = Message(new ObjectId, "some message3", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 12, Nil, Nil, 0, Nil)
+    val message4 = Message(new ObjectId, "some message4", Option(Type.Audio), Option(Access.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 7, Nil, Nil, 0, Nil)
     Message.createMessage(message5)
     Message.createMessage(message1)
     Message.createMessage(message2)
@@ -136,7 +136,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
   test("Follow the message") {
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
-    val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, List(), List(), 0, List())
+    val message = Message(new ObjectId, "some message", Option(Type.Audio), Option(Access.Public), formatter.parse("23-07-12"), user.id, Option(stream.id), "", "", 0, Nil, Nil, 0, Nil)
     val messageId = Message.createMessage(message)
     val messageBefore = MessageDAO.find(MongoDBObject("_id" -> messageId)).toList(0)
     //Rocks Before
@@ -152,11 +152,11 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
   test("Get All Public Messages For A Stream") {
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
-    val message5 = Message(new ObjectId, "some message5", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 8, List(), List(), 0, List())
-    val message1 = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 6, List(), List(), 0, List())
-    val message2 = Message(new ObjectId, "some message2", Option(Type.Audio), Option(Access.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 4, List(), List(), 0, List())
-    val message3 = Message(new ObjectId, "some message3", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 12, List(), List(), 0, List())
-    val message4 = Message(new ObjectId, "some message4", Option(Type.Audio), Option(Access.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 7, List(), List(), 0, List())
+    val message5 = Message(new ObjectId, "some message5", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 8, Nil, Nil, 0, Nil)
+    val message1 = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), user.id, Option(stream.id), "", "", 6, Nil, Nil, 0, Nil)
+    val message2 = Message(new ObjectId, "some message2", Option(Type.Audio), Option(Access.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 4, Nil, Nil, 0, Nil)
+    val message3 = Message(new ObjectId, "some message3", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 12, Nil, Nil, 0, Nil)
+    val message4 = Message(new ObjectId, "some message4", Option(Type.Audio), Option(Access.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 7, Nil, Nil, 0, Nil)
     Message.createMessage(message5)
     Message.createMessage(message1)
     Message.createMessage(message2)
@@ -169,11 +169,11 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
   test("Get All Public Messages For A User") {
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
-    val message5 = Message(new ObjectId, "some message5", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 8, List(), List(), 0, List())
-    val message1 = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), new ObjectId, Option(stream.id), "", "", 6, List(), List(), 0, List())
-    val message2 = Message(new ObjectId, "some message2", Option(Type.Audio), Option(Access.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 4, List(), List(), 0, List())
-    val message3 = Message(new ObjectId, "some message3", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 12, List(), List(), 0, List())
-    val message4 = Message(new ObjectId, "some message4", Option(Type.Audio), Option(Access.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 7, List(), List(), 0, List())
+    val message5 = Message(new ObjectId, "some message5", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 8, Nil, Nil, 0, Nil)
+    val message1 = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), new ObjectId, Option(stream.id), "", "", 6, Nil, Nil, 0, Nil)
+    val message2 = Message(new ObjectId, "some message2", Option(Type.Audio), Option(Access.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 4, Nil, Nil, 0, Nil)
+    val message3 = Message(new ObjectId, "some message3", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 12, Nil, Nil, 0, Nil)
+    val message4 = Message(new ObjectId, "some message4", Option(Type.Audio), Option(Access.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 7, Nil, Nil, 0, Nil)
     Message.createMessage(message5)
     Message.createMessage(message1)
     Message.createMessage(message2)
@@ -186,11 +186,11 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
   test("Get All  Messages For A User") {
     val stream = StreamDAO.find(MongoDBObject()).toList(0)
     val user = UserDAO.find(MongoDBObject()).toList(0)
-    val message5 = Message(new ObjectId, "some message5", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 8, List(), List(), 0, List())
-    val message1 = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), new ObjectId, Option(stream.id), "", "", 6, List(), List(), 0, List())
-    val message2 = Message(new ObjectId, "some message2", Option(Type.Audio), Option(Access.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 4, List(), List(), 0, List())
-    val message3 = Message(new ObjectId, "some message3", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 12, List(), List(), 0, List())
-    val message4 = Message(new ObjectId, "some message4", Option(Type.Audio), Option(Access.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 7, List(), List(), 0, List())
+    val message5 = Message(new ObjectId, "some message5", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-12-12"), user.id, Option(stream.id), "", "", 8, Nil, Nil, 0, Nil)
+    val message1 = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), new ObjectId, Option(stream.id), "", "", 6, Nil, Nil, 0, Nil)
+    val message2 = Message(new ObjectId, "some message2", Option(Type.Audio), Option(Access.Public), formatter.parse("21-03-12"), user.id, Option(stream.id), "", "", 4, Nil, Nil, 0, Nil)
+    val message3 = Message(new ObjectId, "some message3", Option(Type.Audio), Option(Access.PrivateToClass), formatter.parse("21-01-12"), user.id, Option(stream.id), "", "", 12, Nil, Nil, 0, Nil)
+    val message4 = Message(new ObjectId, "some message4", Option(Type.Audio), Option(Access.Public), formatter.parse("21-07-12"), user.id, Option(stream.id), "", "", 7, Nil, Nil, 0, Nil)
     Message.createMessage(message5)
     Message.createMessage(message1)
     Message.createMessage(message2)
@@ -201,20 +201,20 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Add Comment to message") {
-    val message = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), new ObjectId, Option(stream.id), "", "", 6, List(), List(), 0, List())
+    val message = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), new ObjectId, Option(stream.id), "", "", 6, Nil, Nil, 0, Nil)
     val messageId = Message.createMessage(message)
     assert(Message.findMessageById(messageId.get).head.comments.size === 0)
-    val comment = Comment(new ObjectId, "Comment1", new Date, user.id, user.firstName, user.lastName, 0, List())
+    val comment = Comment(new ObjectId, "Comment1", new Date, user.id, user.firstName, user.lastName, 0, Nil)
     Comment.createComment(comment)
     Message.addCommentToMessage(comment.id, message.id)
     assert(Message.findMessageById(messageId.get).head.comments.size === 1)
   }
 
   test("Remove Comment to message") {
-    val message = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), new ObjectId, Option(stream.id), "", "", 6, List(), List(), 0, List())
+    val message = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), new ObjectId, Option(stream.id), "", "", 6, Nil, Nil, 0, Nil)
     val messageId = Message.createMessage(message)
     assert(Message.findMessageById(messageId.get).head.comments.size === 0)
-    val comment = Comment(new ObjectId, "Comment1", new Date, user.id, user.firstName, user.lastName, 0, List())
+    val comment = Comment(new ObjectId, "Comment1", new Date, user.id, user.firstName, user.lastName, 0, Nil)
     Comment.createComment(comment)
     Message.addCommentToMessage(comment.id, message.id)
     assert(Message.findMessageById(messageId.get).head.comments.size === 1)
@@ -223,7 +223,7 @@ class MessageEntityTest extends FunSuite with BeforeAndAfter {
   }
 
   test("Delete message") {
-    val message = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), new ObjectId, Option(stream.id), "", "", 6, List(), List(), 0, List())
+    val message = Message(new ObjectId, "some message1", Option(Type.Audio), Option(Access.Public), formatter.parse("21-04-12"), new ObjectId, Option(stream.id), "", "", 6, Nil, Nil, 0, Nil)
     val messageId = Message.createMessage(message)
     assert(Message.findMessageById(messageId.get).size === 1)
     val messageDeleted = Message.deleteMessagePermanently(message.id, user.id)

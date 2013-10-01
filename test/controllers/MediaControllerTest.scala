@@ -26,12 +26,12 @@ class MediaControllerTest extends FunSuite with BeforeAndAfter {
     }
   }
 
-  test("Render beta user registration page") {
-    running(FakeApplication()) {
-      val status = WS.url("http://localhost:9000/betaUser")
-      assert(status.get.get.getStatus === 200)
-    }
-  }
+//  test("Render beta user registration page") {
+//    running(FakeApplication()) {
+//      val status = WS.url("http://localhost:9000/betaUser")
+//      assert(status.get.get.getStatus === 200)
+//    }
+//  }
 
   after {
     running(FakeApplication()) {
