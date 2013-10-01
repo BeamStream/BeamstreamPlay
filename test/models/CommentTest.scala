@@ -19,7 +19,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     CommentDAO.remove(MongoDBObject("commentBody" -> ".*".r))
   }
   test("Create a Comment and find comment by id") {
-    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None, None)
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, Nil, Nil, None, None)
     val userId = User.createUser(user)
     val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, List())
     val streamId = Stream.createStream(stream)
@@ -27,11 +27,11 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     val messageId = Message.createMessage(message)
     val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, List(userId.get))
     val commentId = Comment.createComment(comment)
-    assert(Comment.findCommentById(commentId).get.commentBody === "Comment1")
+    assert(Comment.findCommentById(commentId.get).get.commentBody === "Comment1")
   }
 
   test("Rocking the comment & Rockers List") {
-    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None, None)
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, Nil, Nil, None, None)
     val userId = User.createUser(user)
     val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, List())
     val streamId = Stream.createStream(stream)
@@ -39,11 +39,11 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     val messageId = Message.createMessage(message)
     val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, List())
     val commentId = Comment.createComment(comment)
-    assert(Comment.rockTheComment(commentId, userId.get) === 1)
+    assert(Comment.rockTheComment(commentId.get, userId.get) === 1)
   }
 
   test("Get All Comments For A Model") {
-    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None, None)
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, Nil, Nil, None, None)
     val userId = User.createUser(user)
     val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, List())
     val streamId = Stream.createStream(stream)
@@ -53,9 +53,9 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     val anotherComment = Comment(new ObjectId, "Comment2", new Date, userId.get, user.firstName, user.lastName, 11, List())
     val anotherCommentId = Comment.createComment(anotherComment)
 
-    assert(Comment.getAllComments(List(commentId, anotherCommentId)).size === 2)
-    assert(Comment.getAllComments(List(commentId, anotherCommentId))(0).comment.commentBody === "Comment1")
-    assert(Comment.getAllComments(List(commentId, anotherCommentId))(1).comment.commentBody === "Comment2")
+    assert(Comment.getAllComments(List(commentId.get, anotherCommentId.get)).size === 2)
+    assert(Comment.getAllComments(List(commentId.get, anotherCommentId.get))(0).comment.commentBody === "Comment1")
+    assert(Comment.getAllComments(List(commentId.get, anotherCommentId.get))(1).comment.commentBody === "Comment2")
   }
 
   //  test("Testing the Visitors Pattern") {
@@ -77,7 +77,7 @@ class CommentTest extends FunSuite with BeforeAndAfter {
   //  }
 
   test("Delete The Comments") {
-    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None, None)
+    val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "", "NeelS", "", Option("Neel"), "", "", "", "", Nil, Nil, Nil, Nil, Nil, None, None)
     val userId = User.createUser(user)
     val stream = Stream(new ObjectId, "Beamstream stream", StreamType.Class, new ObjectId, List(userId.get), true, List())
     val streamId = Stream.createStream(stream)
@@ -85,9 +85,9 @@ class CommentTest extends FunSuite with BeforeAndAfter {
     val messageId = Message.createMessage(message)
     val comment = Comment(new ObjectId, "Comment1", new Date, userId.get, user.firstName, user.lastName, 0, List())
     val commentId = Comment.createComment(comment)
-    Message.addCommentToMessage(commentId, messageId.get)
+    Message.addCommentToMessage(commentId.get, messageId.get)
     assert(Message.findMessageById(messageId.get).get.comments.size === 1)
-    Comment.deleteCommentPermanently(commentId, messageId.get, userId.get)
+    Comment.deleteCommentPermanently(commentId.get, messageId.get, userId.get)
 
     //    val commentToDelete=Message.findMessageById(messageId.get).get.comments(0)
     //    assert(Comment.findCommentById(commentToDelete).size == 0)

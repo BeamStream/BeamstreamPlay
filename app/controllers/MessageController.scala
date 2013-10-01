@@ -30,7 +30,7 @@ object MessageController extends Controller {
   def newMessage = Action { implicit request =>
     val messageListJsonMap = request.body.asJson.get
     val streamId = (messageListJsonMap \ "streamId").as[String]
-//    val messageAccess = (messageListJsonMap \ "messageAccess").as[String]
+    //    val messageAccess = (messageListJsonMap \ "messageAccess").as[String]
     val messageBody = (messageListJsonMap \ "message").as[String]
     val messagePoster = User.getUserProfile(new ObjectId(request.session.get("userId").get))
     val messageToCreate = new Message(new ObjectId, messageBody, Option(Type.Text), Option(Access.Public), new Date, new ObjectId(request.session.get("userId").get), Option(new ObjectId(streamId)),
@@ -47,7 +47,7 @@ object MessageController extends Controller {
       case false => ""
     }
 
-    val messageJson = write(DocResulttoSent(Option(messageObtained.get), None,"", "", false, false, Option(profilePicForUser), None, Option(false), Nil))
+    val messageJson = write(DocResulttoSent(Option(messageObtained.get), None, "", "", false, false, Option(profilePicForUser), None, Option(false), Nil))
     Ok(messageJson).as("application/json")
 
   }
@@ -141,8 +141,9 @@ object MessageController extends Controller {
   /**
    * All messages for a stream sorted by date & rock along with the limits
    */
+  //TODO : (Needs somewhat modification , String for sortBy not a good way)
   def allMessagesForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int, period: String) = Action { implicit request =>
-    
+
     val allMessagesForAStream = (sortBy == "date") match {
       case true => Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
       case false => (sortBy == "rock") match {

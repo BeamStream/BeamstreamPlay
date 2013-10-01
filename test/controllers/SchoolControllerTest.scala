@@ -24,7 +24,6 @@ class SchoolControllerTest extends FunSuite with BeforeAndAfter {
     }
   }
 
-
   test("Add School") {
     val jsonString = """{"schoolName": "Cambridge","schoolWebsite": "www.cambridge.com"}"""
     val json: JsValue = play.api.libs.json.Json.parse(jsonString)

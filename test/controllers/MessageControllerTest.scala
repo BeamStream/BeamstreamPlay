@@ -25,7 +25,7 @@ import models.StreamType
 class MessageControllerTest extends FunSuite with BeforeAndAfter {
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
   private def userToBeCreated = {
-    User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, Nil, Nil, Nil, Nil, Nil, None, None)
+    User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, Nil, Nil, None, None)
   }
 
   before {
@@ -84,7 +84,7 @@ class MessageControllerTest extends FunSuite with BeforeAndAfter {
     val messageId = Message.createMessage(message)
     running(FakeApplication()) {
       val result = routeAndCall(
-        FakeRequest(GET, "/allMessagesForAStream/51ac27f044ae723fa2ad1c47/date/10/1").
+        FakeRequest(GET, "/allMessagesForAStream/51ac27f044ae723fa2ad1c47/date/10/1/period").
           withSession("userId" -> userId.get.toString))
       assert(status(result.get) === 200)
       assert(contentType(result.get) === Some("application/json"))

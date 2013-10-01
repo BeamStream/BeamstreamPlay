@@ -19,11 +19,11 @@ class ClassTest extends FunSuite with BeforeAndAfter {
   }
 
   val formatter: DateFormat = new java.text.SimpleDateFormat("dd-MM-yyyy")
-  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", "", Option("Neel"), "", "", "", "", "", None, List(), List(), List(), List(), List(), None, None)
+  val user = User(new ObjectId, UserType.Professional, "neel@knoldus.com", "Neel", "", "NeelS", Option("Neel"), "", "", "", "", Nil, Nil, Nil, Nil, Nil, None, None)
 
   test("Create class test") {
     running(FakeApplication()) {
-      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
+      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), Nil)
       val userId = User.createUser(user)
       assert(Class.getAllClassesIdsForAUser(userId.get).size === 0)
       Class.createClass(classToBeCretaed, userId.get)
@@ -37,7 +37,7 @@ class ClassTest extends FunSuite with BeforeAndAfter {
   test("Find Class By Name") {
 
     running(FakeApplication()) {
-      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
+      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), Nil)
       val userId = User.createUser(user)
       assert(Class.getAllClassesIdsForAUser(userId.get).size === 0)
       Class.createClass(classToBeCretaed, userId.get)
@@ -50,7 +50,7 @@ class ClassTest extends FunSuite with BeforeAndAfter {
 
   test("Find Class By Code") {
     running(FakeApplication()) {
-      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
+      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), Nil)
       val userId = User.createUser(user)
       assert(Class.getAllClassesIdsForAUser(userId.get).size === 0)
       Class.createClass(classToBeCretaed, userId.get)
@@ -63,7 +63,7 @@ class ClassTest extends FunSuite with BeforeAndAfter {
 
   test("find class by time") {
     running(FakeApplication()) {
-      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
+      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), Nil)
       val userId = User.createUser(user)
       assert(Class.getAllClassesIdsForAUser(userId.get).size === 0)
       Class.createClass(classToBeCretaed, userId.get)
@@ -76,7 +76,7 @@ class ClassTest extends FunSuite with BeforeAndAfter {
 
   test("find class by Id") {
     running(FakeApplication()) {
-      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
+      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), Nil)
       val userId = User.createUser(user)
       assert(Class.getAllClassesIdsForAUser(userId.get).size === 0)
       Class.createClass(classToBeCretaed, userId.get)
@@ -88,7 +88,7 @@ class ClassTest extends FunSuite with BeforeAndAfter {
   }
   test("Remove Class") {
     running(FakeApplication()) {
-      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), List())
+      val classToBeCretaed = Class(new ObjectId, "201", "IT", ClassType.Quarter, "3:30", formatter.parse("31-01-2010"), new ObjectId("47cc67093475061e3d95369d"), Nil)
       val userId = User.createUser(user)
       assert(Class.getAllClassesIdsForAUser(userId.get).size === 0)
       Class.createClass(classToBeCretaed, userId.get)
