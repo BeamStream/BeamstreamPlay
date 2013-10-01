@@ -1,19 +1,18 @@
 @()(implicit session: play.api.mvc.Session, flash:play.api.mvc.Flash)
-@meta = {} @CSS = {
+@meta = {} 
+@CSS = {
 <!-- embedly preview js -->
-<link rel="stylesheet"
-	href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
+<link rel="stylesheet" 	href="/beamstream-new/css/extracss/embedly-preview.css" type="text/css" />
 
 <!--  prettyPhoto -->
-<link rel="stylesheet"
-	href="/beamstream-new/css/extracss/prettyPhoto.css" type="text/css"
+<link rel="stylesheet" 	href="/beamstream-new/css/extracss/prettyPhoto.css" type="text/css"
 	media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
 
 <!-- new google and social links -->
-} @JS = {
+}
+ @JS = {
 <script type="text/JavaScript" src="/beamstream-new/lib/bootstrap.js"></script>
-<script type="text/JavaScript"
-	src="/beamstream-new/lib/bootstrap-dropdownhover.js"></script>
+<script type="text/JavaScript" src="/beamstream-new/lib/bootstrap-dropdownhover.js"></script>
 	
 	
 	
@@ -204,8 +203,9 @@ if (window.focus) {newwindow.focus()}
 	var donut = [];
 </script>
 
-} @sideBar = { @views.html.sidebar.render } @header = {
-@views.html.header.render } @footer = { @views.html.footer.render }
+} @sideBar = { @views.html.sidebar.render } 
+@header = { @views.html.header.render } 
+@footer = { @views.html.footer.render }
 
 <style type="text/css">
 #innerSubList {
