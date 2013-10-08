@@ -11,6 +11,8 @@ import actors.UtilityActor
 import play.api.libs.json.JsValue
 import utils.MongoHQConfig
 import utils.PasswordHashingUtil
+import com.novus.salat.global.ctx
+import models.mongoContext._
 
 case class User(@Key("_id") id: ObjectId,
   userType: UserType.Value,

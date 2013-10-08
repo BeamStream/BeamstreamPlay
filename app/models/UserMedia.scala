@@ -10,6 +10,8 @@ import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 import java.util.Date
 import java.util.regex.Pattern
+import models.mongoContext._
+
 case class UserMedia(@Key("_id") id: ObjectId,
   name: String,
   description: String,

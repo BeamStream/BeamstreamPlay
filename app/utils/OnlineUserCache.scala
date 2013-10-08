@@ -7,6 +7,7 @@ import org.bson.types.ObjectId
 import com.novus.salat.global._
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
+import models.mongoContext._
 
 case class OnlineUsers(onlineUsers: List[ObjectId] = Nil)
 object OnlineUserCache {

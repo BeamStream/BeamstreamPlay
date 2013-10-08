@@ -4,6 +4,7 @@ import org.bson.types.ObjectId
 import com.novus.salat.global._
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.MongoConnection
+import models.mongoContext._
 
 case class AmazonProgress(userId: String, percentage: Int)
 

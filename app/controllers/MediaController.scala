@@ -284,7 +284,7 @@ object MediaController extends Controller {
   /**
    * Search media and documents
    */
-  //TODO Change the response format as required by UI team
+  // TODO Change the response format as required by UI team
   def searchMediaOrDocumentForAUser(keyword: String) = Action { implicit request =>
     val userMediaForAUserByThisKeyword = UserMedia.searchMediaForAUserByName(new ObjectId(request.session.get("userId").get), keyword)
     val documentsForAUserByThisKeyword = Document.searchDocumentForAUserByName(new ObjectId(request.session.get("userId").get), keyword)

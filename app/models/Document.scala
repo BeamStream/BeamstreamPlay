@@ -15,6 +15,7 @@ import net.liftweb.json.Serialization.{ read, write }
 import java.util.Date
 import java.net.URL
 import java.util.regex.Pattern
+import models.mongoContext._
 /*
  * Enumeration for the document access 
  * 

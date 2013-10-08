@@ -7,6 +7,8 @@ import com.novus.salat.dao._
 import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import com.mongodb.casbah.commons.MongoDBObject
+import models.mongoContext._
+
 
 case class SocialToken(@Key("_id") id: ObjectId, refreshToken: String)
 object SocialToken {

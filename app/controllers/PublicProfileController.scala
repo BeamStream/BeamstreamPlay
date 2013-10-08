@@ -26,18 +26,6 @@ object PublicProfileController extends Controller {
   }
 
   /**
-   * Get User Profile
-   */
-  //  def getPublicProfileOfAUser = Action { implicit request =>
-  //    val userIdJsonMap = request.body.asFormUrlEncoded.get
-  //    val userIdJson = userIdJsonMap("data").toList(0)
-  //    val parsedUserIdjson = net.liftweb.json.parse(userIdJson)
-  //    val userId = (parsedUserIdjson \ "userId").extract[String]
-  //    val user = User.getUserProfile(new ObjectId(userId))
-  //    Ok(write(User(user.id, user.userType, user.email, user.firstName, user.lastName.charAt(0).toString, user.userName, user.alias, "", user.orgName, user.location, user.socialProfile, List(), List(), List(), List(), List(), user.followers)))
-  //  }
-
-  /**
    * Get All Public Documents For A User
    */
   def getAllPublicDocumentForAUser(userId: String) = Action { implicit request =>

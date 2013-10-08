@@ -4,6 +4,7 @@ import org.bson.types.ObjectId
 
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
+import models.mongoContext._
 
 object QuestionPolling {
 

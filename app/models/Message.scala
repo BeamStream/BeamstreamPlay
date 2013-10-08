@@ -11,6 +11,9 @@ import utils.MongoHQConfig
 import java.util.Date
 import java.util.Calendar
 import java.text.DateFormat
+import com.novus.salat.global._
+import models.mongoContext._
+
 
 object Type extends Enumeration {
 

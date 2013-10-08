@@ -7,6 +7,8 @@ import utils.MongoHQConfig
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
 import java.util.regex.Pattern
+import models.mongoContext._
+
 case class School(@Key("_id") id: ObjectId,
   schoolName: String,
   schoolWebsite: String)

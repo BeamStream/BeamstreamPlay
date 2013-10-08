@@ -1,34 +1,34 @@
-import play.api._
-import play.api.mvc.Results.InternalServerError
-import play.api.Logger
-import play.api.mvc.RequestHeader
-import play.api.mvc.SimpleResult
-import play.api.mvc.Result
-import play.api.mvc.Results.Redirect
+import scala.concurrent.Future
+
 import models.School
-import akka.actor.ActorSystem
-import akka.actor.Props
-import actors.ChatActorObject
+import play.api.Application
+import play.api.GlobalSettings
+import play.api.mvc.RequestHeader
+import play.api.mvc.Results.InternalServerError
+import play.api.mvc.Results.NotFound
+import play.api.mvc.Results.Redirect
 
 object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
-    //    ReadingSpreadsheetUtil.readCSVOfSchools
+    //    ReadingSpreadsheetUtil.readCSVOfSchools      //for Reading CSV of schools
     val listOfAllSchools = School.getAllSchools
     School.allSchoolsInDatabase ++= listOfAllSchools
-    println( School.allSchoolsInDatabase.size)
+
   }
 
   override def onError(request: RequestHeader, ex: Throwable) = {
-    Redirect("/error")
+    Future.successful(Redirect("/error"))
 
   }
-  override def onHandlerNotFound(request: RequestHeader): Result = {
-    InternalServerError(views.html.error())
+
+  override def onHandlerNotFound(request: RequestHeader) = {
+    Future.successful(NotFound(
+      views.html.error()))
   }
 
   override def onBadRequest(request: RequestHeader, error: String) = {
-    InternalServerError(views.html.error())
+    Future.successful(InternalServerError(views.html.error()))
   }
 
 }

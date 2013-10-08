@@ -13,6 +13,7 @@ import java.util.Date
 import java.text.DateFormat
 import net.liftweb.json.{ parse, DefaultFormats }
 import net.liftweb.json.Serialization.{ read, write }
+import models.mongoContext._
 
 case class UserSchool(@Key("_id") id: ObjectId,
   assosiatedSchoolId: ObjectId,
@@ -97,16 +98,6 @@ object UserSchool {
       case true => true
       case false => false
     }
-    //
-    //    (!userSchoolsIdListOfAUser.isEmpty) match {
-    //      case true =>
-    //        val userSchoolsOfAUser = UserSchool.getAllSchools(userSchoolsIdListOfAUser)
-    //        for (userSchool <- userSchoolsOfAUser) {
-    //          if (userSchool.assosiatedSchoolId == assosiatedSchoolId) statusToreturn = true
-    //        }
-    //        statusToreturn
-    //      case false => statusToreturn
-    //    }
 
   }
 

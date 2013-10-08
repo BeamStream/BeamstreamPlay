@@ -13,7 +13,6 @@ import play.api.mvc.Controller
 import utils.EnumerationSerializer
 import utils.ObjectIdSerializer
 import utils.OnlineUserCache
-import play.api.Routes
 
 object StreamController extends Controller {
 
@@ -107,12 +106,12 @@ object StreamController extends Controller {
   /**
    * Java Script Routes
    */
-  def javascriptRoutes = Action { implicit request =>
-
-    Ok(
-      Routes.javascriptRouter("jsRoutes")(
-        routes.javascript.UserController.checkForChat)).as("text/javascript")
-  }
+//  def javascriptRoutes = Action { implicit request =>
+//
+//    Ok(
+//      Routes.javascriptRouter("jsRoutes")(
+//        routes.javascript.UserController.checkForChat)).as("text/javascript")
+//  }
 
   /**
    * TODO Just Putting here for future need  , needs to be removed

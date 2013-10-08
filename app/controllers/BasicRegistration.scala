@@ -1,11 +1,11 @@
 package controllers
 
 import java.text.SimpleDateFormat
+
 import org.bson.types.ObjectId
-import com.mongodb.casbah.commons.MongoDBObject
+
 import actors.UtilityActor
 import models.ResulttoSent
-import models.TokenDAO
 import models.User
 import models.UserType
 import net.liftweb.json.Serialization.write
@@ -14,6 +14,7 @@ import play.api.mvc.Controller
 import utils.ObjectIdSerializer
 import utils.PasswordHashingUtil
 import utils.TokenEmailUtil
+
 
 object BasicRegistration extends Controller {
 

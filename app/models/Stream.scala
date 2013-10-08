@@ -10,6 +10,8 @@ import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import utils.SendEmailUtility
 import actors.UtilityActor
+import models.mongoContext._
+
 
 case class Stream(@Key("_id") id: ObjectId,
   streamName: String,

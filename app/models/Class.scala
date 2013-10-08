@@ -18,6 +18,7 @@ import net.liftweb.json.Serialization.{ read, write }
 import utils.ObjectIdSerializer
 import utils.SendEmailUtility
 import actors.UtilityActor
+import models.mongoContext._
 
 case class Class(@Key("_id") id: ObjectId,
   classCode: String,

@@ -8,6 +8,7 @@ import org.bson.types.ObjectId
 import utils.MongoHQConfig
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
+import models.mongoContext._
 
 case class Token(@Key("_id") id: ObjectId, tokenString: String, used: Boolean)
 object Token {

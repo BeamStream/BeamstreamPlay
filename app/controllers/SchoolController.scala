@@ -64,7 +64,6 @@ object SchoolController extends Controller {
 
     val schoolNameStartingStringJsonMap = request.body.asFormUrlEncoded.get
     val schoolNamesStartingCharacter = schoolNameStartingStringJsonMap("data").toList(0)
-    println("***Call time" + School.allSchoolsInDatabase.size)
     val allSchools = School.allSchoolsInDatabase map {
       case school =>
 
@@ -85,9 +84,10 @@ object SchoolController extends Controller {
     } else {
       Ok(write(Nil)).as("application/json")
     }
+
+    //TODO  School will be coming from DB by following lines of code
     //    val allSchools = School.getAllSchoolsFromDB(schoolNamesStartingCharacter)
     //    Ok(write(allSchools)).as("application/json")
-    //    Ok
 
   }
 }

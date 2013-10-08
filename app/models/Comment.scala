@@ -9,6 +9,7 @@ import com.novus.salat.global._
 import java.text.DateFormat
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.WriteConcern
+import models.mongoContext._
 
 case class Comment(@Key("_id") id: ObjectId,
   commentBody: String,

@@ -1,7 +1,10 @@
 package utils
-import play.libs.WS
+//import play.libs.WS
 import play.api.Play
-
+import play.api.libs.ws.WS
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Await
+import scala.concurrent.duration._
 object BitlyAuthUtil {
 
   /**
@@ -10,9 +13,14 @@ object BitlyAuthUtil {
    */
 
   def returnShortUrlViabitly(longUrl: String): String = {
+    var result: Option[String] = None
     val apiKey = ConversionUtility.decodeMe(Play.current.configuration.getString("bitly_apiKey").get) // Encrypted Key
     val URL = "https://api-ssl.bitly.com/v3/shorten"
-    val promise = WS.url(URL).setQueryParameter("apiKey", apiKey).setQueryParameter("login", "beamstream").setQueryParameter("longUrl", longUrl).get
-    promise.get.asJson.toString
+    val promise = WS.url(URL).withQueryString("apiKey" -> apiKey).withQueryString("login" -> "beamstream").withQueryString("longUrl" -> longUrl).get
+    val a = promise.map { response =>
+      response.json.toString
+    }
+    Await.result(a, 10 seconds)
+
   }
 }

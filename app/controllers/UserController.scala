@@ -4,8 +4,6 @@ import scala.collection.immutable.List
 import org.bson.types.ObjectId
 import org.neo4j.graphdb.Node
 import models.LoginResult
-import models.AvailableUsers
-import models.OnlineUsersResult
 import models.OnlineUsersResult
 import models.ResulttoSent
 import models.User
@@ -20,17 +18,16 @@ import utils.SendEmailUtility
 import utils.SocialGraphEmbeddedNeo4j
 import utils.OnlineUserCache
 import utils.OnlineUsers
-import models.AvailableUsers
 import models.School
-import actors.ChatActorObject
 import models.Stream
+import models.AvailableUsers
 
 object UserController extends Controller {
 
   implicit val formats = new net.liftweb.json.DefaultFormats {
   } + new ObjectIdSerializer
 
-  /* *
+  /**
    * Reducing active user on sign Out
    */
 
@@ -115,7 +112,7 @@ object UserController extends Controller {
     }
   }
 
-  /*
+  /**
    * Password Recovery
    * @purpose : Send a mail to user with password
    */
@@ -130,6 +127,9 @@ object UserController extends Controller {
 
   }
 
+  
+  // Code by Dan Starts here
+  
   def testNeo4j = Action { implicit request =>
     var node: Node = SocialGraphEmbeddedNeo4j.findOrCreateBSNode(24, "Joe", "Shmoe")
     var node2: Node = SocialGraphEmbeddedNeo4j.createBSNode(72, "Michael", "Vick", node)
@@ -191,7 +191,9 @@ object UserController extends Controller {
     return true
   }
 
-  /*
+  
+   // Code by Dan Ends here
+  /**
  * Deactivate User On Browser Closed Event
  */
   def browserClosed = Action { implicit request =>
@@ -264,10 +266,10 @@ object UserController extends Controller {
   /**
    * Chatting Specific
    */
-  def checkForChat(userId: String) = Action { implicit request =>
-    val a = ChatActorObject.chatUsers.get(userId)
-    if (a != None) Ok(a.get.toString)
-    else Ok("")
-  }
+//  def checkForChat(userId: String) = Action { implicit request =>
+//    val a = ChatActorObject.chatUsers.get(userId)
+//    if (a != None) Ok(a.get.toString)
+//    else Ok("")
+//  }
 
 }

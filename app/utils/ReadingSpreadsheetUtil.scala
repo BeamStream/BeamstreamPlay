@@ -1,17 +1,16 @@
 package utils
 
-import au.com.bytecode.opencsv.CSVReader
-import java.io.FileReader
-import scala.collection.JavaConversions._
-
-import java.io.FileInputStream
-import java.util.Iterator
-import org.apache.poi.ss.usermodel.Sheet
-import org.apache.poi.ss.usermodel.WorkbookFactory
 import java.io.File
-import java.io.InputStream
-import models.School
+import java.io.FileInputStream
+import java.io.FileReader
+
+import scala.collection.JavaConversions.asScalaBuffer
+
+import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.bson.types.ObjectId
+
+import au.com.bytecode.opencsv.CSVReader
+import models.School
 
 object ReadingSpreadsheetUtil extends App {
 

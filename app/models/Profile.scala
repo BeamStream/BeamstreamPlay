@@ -13,10 +13,11 @@ import com.mongodb.gridfs.GridFSInputFile
 import org.bson.types.ObjectId
 import com.mongodb.Mongo
 import java.io.InputStream
-import play.api.mvc.Response
 import utils.MongoHQConfig
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.gridfs.Imports._
+import models.mongoContext._
+
 
 
 /**

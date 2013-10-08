@@ -1,14 +1,16 @@
 package controllers
 
 import org.bson.types.ObjectId
+
 import actors.UtilityActor
 import models.BetaUser
 import models.ResulttoSent
+import models.User
 import net.liftweb.json.DefaultFormats
 import net.liftweb.json.Serialization.write
 import play.api.mvc.Action
 import play.api.mvc.Controller
-import models.User
+
 
 object JoinBeamStream extends Controller {
 
