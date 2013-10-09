@@ -83,6 +83,7 @@ object UserController extends Controller {
 
       case true => Option(Nil)
     }
+
     Ok(write(OnlineUsersResult(onlineUsers.get))).as("application/json")
 
   }
@@ -127,9 +128,8 @@ object UserController extends Controller {
 
   }
 
-  
   // Code by Dan Starts here
-  
+
   def testNeo4j = Action { implicit request =>
     var node: Node = SocialGraphEmbeddedNeo4j.findOrCreateBSNode(24, "Joe", "Shmoe")
     var node2: Node = SocialGraphEmbeddedNeo4j.createBSNode(72, "Michael", "Vick", node)
@@ -191,11 +191,10 @@ object UserController extends Controller {
     return true
   }
 
-  
-   // Code by Dan Ends here
+  // Code by Dan Ends here
   /**
- * Deactivate User On Browser Closed Event
- */
+   * Deactivate User On Browser Closed Event
+   */
   def browserClosed = Action { implicit request =>
     val noOfOnLineUsers = OnlineUserCache.setOffline(request.session.get("userId").get)
     println("Online Users" + noOfOnLineUsers)
@@ -266,10 +265,10 @@ object UserController extends Controller {
   /**
    * Chatting Specific
    */
-//  def checkForChat(userId: String) = Action { implicit request =>
-//    val a = ChatActorObject.chatUsers.get(userId)
-//    if (a != None) Ok(a.get.toString)
-//    else Ok("")
-//  }
+  //  def checkForChat(userId: String) = Action { implicit request =>
+  //    val a = ChatActorObject.chatUsers.get(userId)
+  //    if (a != None) Ok(a.get.toString)
+  //    else Ok("")
+  //  }
 
 }
