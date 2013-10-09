@@ -139,7 +139,6 @@ object User {
 
     var userentities = users map { user => UserDAO.findOne(MongoDBObject("_id" -> user)) }
     var rockers = userentities.filterNot(user => user == None)
-    println("||||||||||"+rockers)
     rockers map { userentity => userentity.get.firstName + " " + userentity.get.lastName }
 
   }
