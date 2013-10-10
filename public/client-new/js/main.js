@@ -1,5 +1,5 @@
 requirejs.config({
-	waitSeconds: 500,
+	waitSeconds: 0,
 	paths: {
 		moduleActivator: 'apps/common/module-activator',
 		jquery: '/beamstream-new/lib/jquery-1.7.1.min',

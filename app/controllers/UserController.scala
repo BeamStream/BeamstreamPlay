@@ -217,6 +217,7 @@ object UserController extends Controller {
    * Find and Authenticate the user to proceed. (RA)
    */
   def findUser = Action { implicit request =>
+    println(">>>>>>>>"+request.body)
     println(School.allSchoolsInDatabase.size)
     val jsonReceived = request.body.asJson.get
     val userEmailorName = (jsonReceived \ "mailId").as[String]

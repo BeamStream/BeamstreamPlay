@@ -19,7 +19,11 @@
 define(['model/user'], function(User) {
 	var UserLogin = User.extend({ 
 		
-		
+		defaults: {	   
+        	mailId: '',
+			password: '',
+
+        },
 		validation: {
 
 			mailId: {
