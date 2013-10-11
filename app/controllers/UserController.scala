@@ -33,7 +33,6 @@ object UserController extends Controller {
 
   def signOut = Action { implicit request =>
     val noOfOnLineUsers = OnlineUserCache.setOffline(request.session.get("userId").get)
-    println("Online Users" + noOfOnLineUsers)
     Ok(write(ResulttoSent("Success", "Signed Out"))).withNewSession
 
   }
@@ -217,8 +216,6 @@ object UserController extends Controller {
    * Find and Authenticate the user to proceed. (RA)
    */
   def findUser = Action { implicit request =>
-    println(">>>>>>>>"+request.body)
-    println(School.allSchoolsInDatabase.size)
     val jsonReceived = request.body.asJson.get
     val userEmailorName = (jsonReceived \ "mailId").as[String]
     val userPassword = (jsonReceived \ "password").as[String]
