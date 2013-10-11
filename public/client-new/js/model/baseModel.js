@@ -1,4 +1,4 @@
-define(['libs/backbone/backbone-validator'], function() {	
+define(['libs/backbone/backbone-validator'], function() {
 	var BaseModel = Backbone.Model.extend({ 
 		objName: 'BaseModel',
 		_valid: true,

@@ -23,6 +23,7 @@ define(['view/formView'], function(FormView ){
 		objName: 'LoginView',
 		
 		events:{
+			'click .menu-pic':'getUserTypeValue',
 	        'click #login': 'login',
 	        'keyup #password' : 'loginOnEnterKeyPress',
 	        'click .register-cancel' : 'clearAllFields',
@@ -34,6 +35,8 @@ define(['view/formView'], function(FormView ){
             localStorage["logged"] = '';
             $('.sign-tick').hide(); 
             $('.sign-close').hide(); 
+            $('#mailid').prop('disabled',false);
+            $('#password').prop('disabled',false);
             
         },
         
@@ -123,6 +126,19 @@ define(['view/formView'], function(FormView ){
 				self.login(eventName); 
 			}
 		},
+		
+		  /**
+	        * Method to set the value of "iam"
+	        */
+	        getUserTypeValue:function(eventName){
+	            eventName.preventDefault();
+
+	            $('.menu-pic div.active').removeClass('active');
+	            $(eventName.currentTarget).find('div').addClass('active');
+
+	            $("#usertype").val(eventName.currentTarget.id);	
+			},
+			
 		
 		/**
 	        * clear all fields when we click cancel button

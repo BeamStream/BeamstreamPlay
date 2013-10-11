@@ -33,7 +33,12 @@ define(['view/formView'], function(FormView){
 		onAfterInit: function(){	
             this.data.reset();
             $('.sign-tick').hide(); 
-            $('.sign-close').hide(); 	        
+            $('.sign-close').hide(); 
+            $('#mailid').prop('disabled',false);
+            $('#password').prop('disabled',false);
+            $('#confirmPassword').prop('disabled',false);
+            
+            
         },
         
         validationsymbol : function(e){

@@ -22,6 +22,7 @@ define(['view/formView'], function(FormView){
 		objName: 'RecoverPassword',
 		
 		events:{
+			'click .menu-pic':'getUserTypeValue',
 			'click #recover' : "postEmailId",
 			'click .register-cancel' : "cancel"
 		},
@@ -66,6 +67,18 @@ define(['view/formView'], function(FormView){
     		}
         	
         },
+        
+        /**
+	        * Method to set the value of "iam"
+	        */
+	        getUserTypeValue:function(eventName){
+	            eventName.preventDefault();
+
+	            $('.menu-pic div.active').removeClass('active');
+	            $(eventName.currentTarget).find('div').addClass('active');
+
+	            $("#usertype").val(eventName.currentTarget.id);	
+			},
         
         /**
          * redirected to login page on cancel button click

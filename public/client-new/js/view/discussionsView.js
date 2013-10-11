@@ -602,7 +602,7 @@ define(['view/formView',
 		        	view = this.getViewById('messageListView');
 		    		if(view){
 		    			
-		    			view.data.url="/allMessagesForAStream/"+streamId+"/"+keyword+"/"+view.messagesPerPage+"/"+view.pageNo;
+		    			view.data.url="/allMessagesForAStream/"+streamId+"/"+keyword+"/"+view.messagesPerPage+"/"+view.pageNo+"/trash";
 		    			view.fetch();
 		    			
 		    		}

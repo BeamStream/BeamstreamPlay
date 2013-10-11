@@ -1,5 +1,4 @@
 Backbone.Validate = (function() {
-
 	var patterns = {
 		string: /^([a-z])$/,
 		digits: /^\d+$/,

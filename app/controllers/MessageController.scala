@@ -143,12 +143,12 @@ object MessageController extends Controller {
    */
   //TODO : (Needs somewhat modification , String for sortBy not a good way)
   def allMessagesForAStream(streamId: String, sortBy: String, messagesPerPage: Int, pageNo: Int, period: String) = Action { implicit request =>
-
     val allMessagesForAStream = (sortBy == "date") match {
       case true => Message.getAllMessagesForAStreamWithPagination(new ObjectId(streamId), pageNo, messagesPerPage)
       case false => (sortBy == "rock") match {
         case true => Message.getAllMessagesForAStreamSortedbyRocks(new ObjectId(streamId), pageNo, messagesPerPage)
-        case false => Message.getAllMessagesForAKeyword(sortBy, new ObjectId(streamId), pageNo, messagesPerPage)
+        case false => 
+          Message.getAllMessagesForAKeyword(sortBy, new ObjectId(streamId), pageNo, messagesPerPage)
       }
     }
     (allMessagesForAStream.isEmpty) match {
